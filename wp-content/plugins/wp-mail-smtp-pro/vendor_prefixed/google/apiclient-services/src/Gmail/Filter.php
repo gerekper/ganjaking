@@ -23,6 +23,9 @@ class Filter extends \WPMailSMTP\Vendor\Google\Model
     protected $actionDataType = '';
     protected $criteriaType = \WPMailSMTP\Vendor\Google\Service\Gmail\FilterCriteria::class;
     protected $criteriaDataType = '';
+    /**
+     * @var string
+     */
     public $id;
     /**
      * @param FilterAction
@@ -52,10 +55,16 @@ class Filter extends \WPMailSMTP\Vendor\Google\Model
     {
         return $this->criteria;
     }
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

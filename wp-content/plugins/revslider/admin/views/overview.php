@@ -185,11 +185,11 @@ $rs_languages	= $rsaf->get_available_languages();
 				</div><!--				
 				--><div class="featurebox">
 					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
-					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/object_library.php'); ?>
+					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/add_ons.php'); ?>					
 				</div><!--				
 				--><div class="featurebox">
 					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
-					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/add_ons.php'); ?>
+					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/object_library.php'); ?>
 				</div><!--							
 				--><div class="featurebox">
 					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>

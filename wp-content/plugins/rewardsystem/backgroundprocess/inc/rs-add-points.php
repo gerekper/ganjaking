@@ -101,11 +101,15 @@ if ( ! class_exists( 'RS_Add_Points_For_User' ) ) {
 					}
 
 					if ( ( 'true' == $selected_options[ 'enablemail' ] ) && ( '' != $selected_options[ 'points' ] ) ) {
-						$Expiry            = ''!=$selected_options[ 'expdate' ] ? $selected_options[ 'expdate' ] : 'All Time Usage' ;
+						$Expiry            = ''!=$selected_options[ 'expdate' ] ?  date_display_format(strtotime($selected_options[ 'expdate' ])) : __('All Time Usage', 'rewardsystem') ;
 						$shortcode_message = str_replace( '[rs_earned_points]' , $selected_options[ 'points' ] , str_replace( '[rs_expiry]' , $Expiry , $selected_options[ 'message' ] ) ) ;
 						$replaced_message  = str_replace( '[balance_points]' , $PointsData->total_available_points() , $shortcode_message ) ;
-						$finalmsg          = str_replace( '[site_name]' , get_option( 'blogname' ) , $replaced_message ) ;
-
+						$replaced_message  = str_replace( '[site_name]' , get_option( 'blogname' ) , $replaced_message ) ;
+											  $user_login        = is_object( get_userdata( $UserId ) ) ? get_userdata( $UserId )->user_login : '' ;
+											  $replaced_message  = str_replace( '[username]' , $user_login , $replaced_message ) ;
+											  $my_acccount_url   = sprintf('<a href="%s">%s</a>', esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))), __('My Account', 'rewardsystem'));
+											  $finalmsg          = str_replace( '[my_account_page]' , $my_acccount_url , $replaced_message ) ;
+												
 						$headers = "MIME-Version: 1.0\r\n" ;
 						$headers .= "Content-Type: text/html; charset=UTF-8\r\n" ;
 						$headers .= 'From: ' . get_option( 'woocommerce_email_from_name' ) . ' <' . get_option( 'woocommerce_email_from_address' ) . ">\r\n" ;

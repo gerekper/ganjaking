@@ -45,7 +45,7 @@ if ( ! class_exists( 'RS_Apply_Points_For_Previous_Order' ) ) {
 			parent::complete() ;
 			$offset                   = get_option( 'rs_applied_previous_order_background_updater_offset' ) ;
 			$OrderStatusList          = array( 'wc-completed' ) ;
-			$OrderStatusToApplyPoints = get_option( 'rs_order_status_control' ) ;
+			$OrderStatusToApplyPoints = get_option( 'rs_order_status_control' , array('processing','completed')) ;
 			foreach ( $OrderStatusToApplyPoints as $OrderStatus ) {
 				$OrderStatusList[] = 'wc-' . $OrderStatus ;
 			}

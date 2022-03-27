@@ -80,6 +80,11 @@ if ( ! class_exists( 'RSModulesTab' ) ) {
 						$enable      = get_option( 'rs_reward_action_activated' );
 						$ARClassName = self::box_and_hyperlink_class_name( $enable ) ;
 						self::html_element_for_module( $ARClassName[ 'classname1' ] , $ARClassName[ 'classname2' ] , 'Action Reward Points' , 'fpactionreward' , get_option( 'rs_reward_action_activated' ) , 'rs_reward_action_activated') ;
+												
+												//Birthday Reward Points						//Birthday Reward Point Module
+						$enable      = get_option( 'rs_bday_points_activated' );
+						$PUClassName = self::box_and_hyperlink_class_name( $enable ) ;
+						self::html_element_for_module( $PUClassName[ 'classname1' ] , $PUClassName[ 'classname2' ] , 'Birthday Reward Points' , 'fpbirthday' , get_option( 'rs_bday_points_activated' ) , 'rs_bday_points_activated' ) ;
 
 						//Points Expiry Module
 						$enable      = get_option( 'rs_point_expiry_activated' );

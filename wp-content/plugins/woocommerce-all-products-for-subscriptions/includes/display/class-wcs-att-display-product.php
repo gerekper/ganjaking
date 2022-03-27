@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.1.18
+ * @version  3.2.1
  */
 class WCS_ATT_Display_Product {
 
@@ -547,7 +547,7 @@ class WCS_ATT_Display_Product {
 			$subscription_schemes                 = WCS_ATT_Product_Schemes::get_subscription_schemes( $variation_product );
 			$force_subscription                   = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $variation_product );
 			$price_filter_exists                  = WCS_ATT_Product_Schemes::price_filter_exists( $subscription_schemes );
-			$is_single_scheme_forced_subscription = $force_subscription && sizeof( $subscription_schemes ) === 1;
+			$is_single_scheme_forced_subscription = $force_subscription && count( $subscription_schemes ) === 1;
 			$has_equal_variation_prices           = '' === $variation_data[ 'price_html' ];
 
 			/*

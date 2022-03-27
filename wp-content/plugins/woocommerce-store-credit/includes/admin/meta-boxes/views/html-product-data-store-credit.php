@@ -9,9 +9,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Variables.
+ * Template variables.
  *
- * @var array $fields
+ * @var array $fields An array with the fields' data.
  */
 ?>
 <div id="store_credit_product_data" class="panel woocommerce_options_panel">

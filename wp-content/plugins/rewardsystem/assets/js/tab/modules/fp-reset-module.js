@@ -31,6 +31,7 @@ jQuery( function ( $ ) {
                 } ) ;
                 $.post( fp_reset_module_params.ajaxurl , dataparam , function ( response ) {
                     if ( true === response.success ) {
+                        window.alert('Settings Resetted Successfully');
                         jQuery( '.gif_rs_reset_tab_settings' ).css( 'display' , 'none' ) ;
                         jQuery( '.rs_reset_tab_setting_success' ).fadeIn() ;
                         jQuery( '.rs_reset_tab_setting_success' ).html( "Settings Resetted Successfully" ) ;

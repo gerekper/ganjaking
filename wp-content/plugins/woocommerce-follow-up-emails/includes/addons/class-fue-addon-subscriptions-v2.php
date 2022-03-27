@@ -1159,8 +1159,9 @@ class FUE_Addon_Subscriptions_V2 {
 	 */
 	public static function set_subscription_data_update_flag() {
 		$updated = get_option( 'fue_subscription_2.0_updated', false );
+		$version = self::get_subscriptions_version();
 
-		if ( !$updated && version_compare( WC_Subscriptions::$version, '2.0', '>=' ) ) {
+		if ( !$updated && version_compare( $version, '2.0', '>=' ) ) {
 			if ( !self::queue_items_need_updating() ) {
 				update_option( 'fue_subscription_2.0_updated', true );
 				return;
@@ -1818,7 +1819,7 @@ class FUE_Addon_Subscriptions_V2 {
 	 * @return bool
 	 */
 	public static function subs_v_gte( $version ){
-		return version_compare( WC_Subscriptions::$version, $version , '>=' );
+		return version_compare( self::get_subscriptions_version(), $version , '>=' );
 	}
 
 	/**
@@ -1961,6 +1962,26 @@ class FUE_Addon_Subscriptions_V2 {
 		foreach ( $items as $item ) {
 			Follow_Up_Emails::instance()->scheduler->delete_item( $item->id );
 		}
+	}
+
+	/**
+	 * Helper function to get the version of Subscriptions running on the store.
+	 *
+	 * This works for stores that have the WC Subscriptions extension activated or
+	 * the subscriptions-core version that is bundled in WooCommerce Payments.
+	 *
+	 * @return null|string
+	 */
+	public static function get_subscriptions_version() {
+		$version = null;
+
+		if ( class_exists( 'WC_Subscriptions' ) ) {
+			$version = WC_Subscriptions::$version;
+		} elseif ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+			$version = WC_Subscriptions_Core_Plugin::instance()->get_plugin_version();
+		}
+
+		return $version;
 	}
 
 }

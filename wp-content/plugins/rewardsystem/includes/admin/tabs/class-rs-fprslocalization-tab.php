@@ -456,6 +456,26 @@ if ( ! class_exists( 'RSLocalization' ) ) {
 				array(
 					'type' => 'rs_wrapper_end' ,
 				) ,
+								array(
+					'type' => 'rs_wrapper_start' ,
+				) ,
+				array(
+					'name' => __( 'Birthday Reward Points Log Settings' , 'rewardsystem' ) ,
+					'type' => 'title' ,
+					'id'   => 'rs_log_for_bday' ,
+				) ,
+				array(
+					'name'    => __( 'Birthday Reward Points Log' , 'rewardsystem' ) ,
+					'id'      => '_rs_localize_log_for_bday' ,
+					'type'    => 'textarea' ,
+					'std'     => __( 'You have received points for your birthday' , 'rewardsystem' ) ,
+					'default' => __( 'You have received points for your birthday' , 'rewardsystem' ) ,
+					'newids'  => '_rs_localize_log_for_bday' ,
+				) ,
+				array( 'type' => 'sectionend' , 'id' => 'rs_log_for_bday' ) ,
+				array(
+					'type' => 'rs_wrapper_end' ,
+				) ,
 				array(
 					'type' => 'rs_wrapper_start' ,
 				) ,

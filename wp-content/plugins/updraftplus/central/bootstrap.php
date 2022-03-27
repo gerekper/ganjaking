@@ -62,7 +62,7 @@ class UpdraftCentral_Main {
 	}
 	
 	/**
-	 * Retrieves current clean url for anchor link where href attribute value is not url (for ex. #div) or empty
+	 * Retrieves current clean url for anchor link where href attribute value is not url (for ex. #div) or empty. Output is not escaped (caller should escape).
 	 *
 	 * @return String - current clean url
 	 */
@@ -165,7 +165,7 @@ class UpdraftCentral_Main {
 			}
 		}
 		
-		echo '</p><p><a href="'.$this->get_current_clean_url().'" onclick="window.close();">'.$updraftcentral_host_plugin->retrieve_show_message('close').'</a></p>';
+		echo '</p><p><a href="'.esc_url($this->get_current_clean_url()).'" onclick="window.close();">'.$updraftcentral_host_plugin->retrieve_show_message('close').'</a></p>';
 		die;
 	}
 	
@@ -568,7 +568,7 @@ class UpdraftCentral_Main {
 				$ret .= '<br>';
 			}
 			
-			$ret .= '<a href="'.$this->get_current_clean_url().'" data-key_id="'.esc_attr($i).'" class="updraftcentral_key_delete">'.$updraftcentral_host_plugin->retrieve_show_message('delete').'</a></td></tr>';
+			$ret .= '<a href="'.esc_url($this->get_current_clean_url()).'" data-key_id="'.esc_attr($i).'" class="updraftcentral_key_delete">'.$updraftcentral_host_plugin->retrieve_show_message('delete').'</a></td></tr>';
 		}
 		
 		
@@ -576,7 +576,7 @@ class UpdraftCentral_Main {
 		?>
 		<div id="updraftcentral_keys_content" style="margin: 10px 0;">
 			<?php if (!empty($our_keys)) { ?>
-				<a href="<?php echo $this->get_current_clean_url(); ?>" class="updraftcentral_keys_show hidden-in-updraftcentral"><?php printf($updraftcentral_host_plugin->retrieve_show_message('manage_keys'), count($our_keys)); ?></a>
+				<a href="<?php echo esc_url($this->get_current_clean_url()); ?>" class="updraftcentral_keys_show hidden-in-updraftcentral"><?php printf($updraftcentral_host_plugin->retrieve_show_message('manage_keys'), count($our_keys)); ?></a>
 			<?php } ?>
 			<table id="updraftcentral_keys_table">
 				<thead>
@@ -661,7 +661,7 @@ class UpdraftCentral_Main {
 								<label>
 									<input id="updraftcentral_keycreate_mothership_firewalled" type="checkbox">
 									<?php $updraftcentral_host_plugin->retrieve_show_message('use_alternative_method', true); ?>
-									<a href="<?php echo $this->get_current_clean_url(); ?>" id="updraftcentral_keycreate_altmethod_moreinfo_get"><?php $updraftcentral_host_plugin->retrieve_show_message('more_information', true); ?></a>
+									<a href="<?php echo esc_url($this->get_current_clean_url()); ?>" id="updraftcentral_keycreate_altmethod_moreinfo_get"><?php $updraftcentral_host_plugin->retrieve_show_message('more_information', true); ?></a>
 									<p id="updraftcentral_keycreate_altmethod_moreinfo" style="display:none; border: 1px dotted; padding: 3px; margin: 2px 10px 2px 24px;">
 										<em><?php $updraftcentral_host_plugin->retrieve_show_message('this_is_useful', true);?></em>
 									</p>
@@ -698,7 +698,7 @@ class UpdraftCentral_Main {
 		ob_start();
 		?>
 			<div id="updraftcentral_view_log_container" style="margin: 10px 0;">
-				<a href="<?php echo $this->get_current_clean_url(); ?>" id="updraftcentral_view_log"><?php $updraftcentral_host_plugin->retrieve_show_message('view_log_events', true); ?>...</a><br>
+				<a href="<?php echo esc_url($this->get_current_clean_url()); ?>" id="updraftcentral_view_log"><?php $updraftcentral_host_plugin->retrieve_show_message('view_log_events', true); ?>...</a><br>
 				<pre id="updraftcentral_view_log_contents" style="min-height: 110px; padding: 0 4px;">
 				</pre>
 			</div>

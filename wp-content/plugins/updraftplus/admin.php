@@ -17,7 +17,7 @@ class UpdraftPlus_Admin {
 
 	private $auth_instance_ids = array('dropbox' => array(), 'onedrive' => array(), 'googledrive' => array(), 'googlecloud' => array());
 
-	private $php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0');
+	private $clone_php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1');
 
 	private $storage_service_without_settings;
 
@@ -150,12 +150,19 @@ class UpdraftPlus_Admin {
 				$updraftplus->log_wp_error($settings, true, true);
 			} elseif (!empty($settings['settings'])) {
 				foreach ($settings['settings'] as $instance_id => $storage_options) {
-					$clientid = $storage_options['clientid'];
-					$token = (empty($storage_options['token'])) ? '' : $storage_options['token'];
-					
-					if (!empty($clientid) && empty($token)) {
-						if (!in_array($instance_id, $this->auth_instance_ids['googlecloud'])) $this->auth_instance_ids['googlecloud'][] = $instance_id;
-						if (false === has_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'))) add_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'));
+					if ((defined('UPDRAFTPLUS_CUSTOM_GOOGLECLOUD_APP') && UPDRAFTPLUS_CUSTOM_GOOGLECLOUD_APP) || !empty($storage_options['clientid'])) {
+						$clientid = $storage_options['clientid'];
+						$token = (empty($storage_options['token'])) ? '' : $storage_options['token'];
+
+						if (!empty($clientid) && empty($token)) {
+							if (!in_array($instance_id, $this->auth_instance_ids['googlecloud'])) $this->auth_instance_ids['googlecloud'][] = $instance_id;
+							if (false === has_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'))) add_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'));
+						}
+					} else {
+						if (empty($storage_options['user_id'])) {
+							if (!in_array($instance_id, $this->auth_instance_ids['googlecloud'])) $this->auth_instance_ids['googlecloud'][] = $instance_id;
+							if (false === has_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'))) add_action('all_admin_notices', array($this, 'show_admin_warning_googlecloud'));
+						}
 					}
 				}
 			}
@@ -1293,7 +1300,7 @@ class UpdraftPlus_Admin {
 	}
 	
 	public function show_admin_nosettings_warning() {
-		$this->show_admin_warning('<strong>'.__('Welcome to UpdraftPlus!', 'updraftplus').'</strong> '.str_ireplace('Back Up', 'Backup', __('To make a backup, just press the Backup Now button.', 'updraftplus')).' <a href="'.UpdraftPlus::get_current_clean_url().'" id="updraft-navtab-settings2">'.__('To change any of the default settings of what is backed up, to configure scheduled backups, to send your backups to remote storage (recommended), and more, go to the settings tab.', 'updraftplus').'</a>', 'updated notice is-dismissible');
+		$this->show_admin_warning('<strong>'.__('Welcome to UpdraftPlus!', 'updraftplus').'</strong> '.str_ireplace('Back Up', 'Backup', __('To make a backup, just press the Backup Now button.', 'updraftplus')).' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft-navtab-settings2">'.__('To change any of the default settings of what is backed up, to configure scheduled backups, to send your backups to remote storage (recommended), and more, go to the settings tab.', 'updraftplus').'</a>', 'updated notice is-dismissible');
 	}
 
 	public function show_admin_warning_execution_time() {
@@ -1601,10 +1608,11 @@ class UpdraftPlus_Admin {
 					$updraftplus->close_browser_connection(json_encode($msg));
 				}
 				UpdraftPlus_Storage_Methods_Interface::get_remote_file($services, $file, $timestamp);
+				$needs_downloading = false;
 			}
 
 			// Now, be ready to spool the thing to the browser
-			if (is_file($fullpath) && is_readable($fullpath) && $needs_downloading) {
+			if (is_file($fullpath) && is_readable($fullpath) && !$needs_downloading) {
 
 				// That message is then picked up by the AJAX listener
 				$updraftplus->jobdata_set('dlfile_'.$timestamp.'_'.$type.'_'.$findex, 'downloaded:'.filesize($fullpath).":$fullpath");
@@ -3621,7 +3629,7 @@ class UpdraftPlus_Admin {
 				$p = min($jobdata['uploading_substatus']['p'], 1);
 				$pd = $i + $p/$t;
 				$stage = 4 + $pd;
-				$curstage .= ' '.sprintf(__('(%s%%, file %s of %s)', 'updraftplus'), floor(100*$pd), $jobdata['uploading_substatus']['i']+1, $t);
+				$curstage .= ' ('.floor(100*$pd).'%, '.sprintf(__('file %d of %d', 'updraftplus'), (int)$jobdata['uploading_substatus']['i']+1, $t).')';
 			}
 				break;
 			case 'pruning':
@@ -4098,7 +4106,7 @@ class UpdraftPlus_Admin {
 			} else {
 				$dir_info .= __('Backup directory specified exists, but is <b>not</b> writable.', 'updraftplus');
 			}
-			$dir_info .= '<span class="updraft-directory-not-writable-blurb"><span class="directory-permissions"><a class="updraft_create_backup_dir" href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraft_create_backup_dir&nonce='.wp_create_nonce('create_backup_dir').'">'.__('Follow this link to attempt to create the directory and set the permissions', 'updraftplus').'</a></span>, '.__('or, to reset this option', 'updraftplus').' <a href="'.UpdraftPlus::get_current_clean_url().'" class="updraft_backup_dir_reset">'.__('press here', 'updraftplus').'</a>. '.__('If that is unsuccessful check the permissions on your server or change it to another directory that is writable by your web server process.', 'updraftplus').'</span>';
+			$dir_info .= '<span class="updraft-directory-not-writable-blurb"><span class="directory-permissions"><a class="updraft_create_backup_dir" href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraft_create_backup_dir&nonce='.wp_create_nonce('create_backup_dir').'">'.__('Follow this link to attempt to create the directory and set the permissions', 'updraftplus').'</a></span>, '.__('or, to reset this option', 'updraftplus').' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="updraft_backup_dir_reset">'.__('press here', 'updraftplus').'</a>. '.__('If that is unsuccessful check the permissions on your server or change it to another directory that is writable by your web server process.', 'updraftplus').'</span>';
 		}
 		return $dir_info;
 	}
@@ -4597,7 +4605,7 @@ class UpdraftPlus_Admin {
 	public function delete_button($backup_time, $nonce, $backup) {
 		$sval = (!empty($backup['service']) && 'email' != $backup['service'] && 'none' != $backup['service'] && array('email') !== $backup['service'] && array('none') !== $backup['service'] && array('remotesend') !== $backup['service']) ? '1' : '0';
 		return '<div class="updraftplus-remove" data-hasremote="'.$sval.'">
-			<a data-hasremote="'.$sval.'" data-nonce="'.$nonce.'" data-key="'.$backup_time.'" class="button button-remove no-decoration updraft-delete-link" href="'.UpdraftPlus::get_current_clean_url().'" title="'.esc_attr(__('Delete this backup set', 'updraftplus')).'">'.__('Delete', 'updraftplus').'</a>
+			<a data-hasremote="'.$sval.'" data-nonce="'.$nonce.'" data-key="'.$backup_time.'" class="button button-remove no-decoration updraft-delete-link" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" title="'.esc_attr(__('Delete this backup set', 'updraftplus')).'">'.__('Delete', 'updraftplus').'</a>
 		</div>';
 	}
 
@@ -5371,7 +5379,7 @@ ENDHERE;
 			$active_remote_storage_list = '<p>'.__('No remote storage locations with valid options found.', 'updraftplus').'</p>';
 		}
 
-		return '<input type="checkbox" id="backupnow_includecloud" checked="checked"> <label for="backupnow_includecloud">'.__("Send this backup to remote storage", 'updraftplus').'</label> (<a href="'.$updraftplus->get_current_clean_url().'" id="backupnow_includecloud_showmoreoptions">...</a>)<br><div id="backupnow_includecloud_moreoptions" class="updraft-hidden" style="display:none;"><em>'. __('The following remote storage options are configured.', 'updraftplus').'</em><br>'.$active_remote_storage_list.'</div>';
+		return '<input type="checkbox" id="backupnow_includecloud" checked="checked"> <label for="backupnow_includecloud">'.__("Send this backup to remote storage", 'updraftplus').'</label> (<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="backupnow_includecloud_showmoreoptions">...</a>)<br><div id="backupnow_includecloud_moreoptions" class="updraft-hidden" style="display:none;"><em>'. __('The following remote storage options are configured.', 'updraftplus').'</em><br>'.$active_remote_storage_list.'</div>';
 	}
 	
 	/**
@@ -5618,6 +5626,7 @@ ENDHERE;
 
 		foreach ($settings as $s) UpdraftPlus_Options::delete_updraft_option($s);
 
+		if (is_multisite()) $updraftplus->wipe_state_data(true, 'sitemeta');
 		$updraftplus->wipe_state_data(true);
 
 		$site_options = array('updraft_oneshotnonce');
@@ -5944,7 +5953,7 @@ ENDHERE;
 
 		$output = '<p class="updraftplus-option updraftplus-option-inline php-version">';
 		$output .= '<span class="updraftplus-option-label">'.sprintf(__('%s version:', 'updraftplus'), 'PHP').'</span> ';
-		$output .= $this->output_select_data($this->php_versions, 'php');
+		$output .= $this->output_select_data($this->clone_php_versions, 'php');
 		$output .= '</p>';
 		$output .= '<p class="updraftplus-option updraftplus-option-inline wp-version">';
 		$output .= ' <span class="updraftplus-option-label">'.sprintf(__('%s version:', 'updraftplus'), 'WordPress').'</span> ';
@@ -6147,7 +6156,9 @@ ENDHERE;
 	 * @param array $data     - Data received from the front end (unslashed).
 	 */
 	public function process_status_in_heartbeat($response, $data) {
-		if (!is_array($response) || empty($data['updraftplus'])) return $response;
+		
+		if (!UpdraftPlus_Options::user_can_manage() || !is_array($response) || empty($data['updraftplus'])) return $response;
+		
 		try {
 			$response['updraftplus'] = $this->get_activejobs_list(UpdraftPlus_Manipulation_Functions::wp_unslash($data['updraftplus']));
 		} catch (Exception $e) {
@@ -6167,7 +6178,7 @@ ENDHERE;
 			);
 		}
 
-		if (UpdraftPlus_Options::user_can_manage() && isset($data['updraftplus']['updraft_credentialtest_nonce'])) {
+		if (isset($data['updraftplus']['updraft_credentialtest_nonce'])) {
 			if (!wp_verify_nonce($data['updraftplus']['updraft_credentialtest_nonce'], 'updraftplus-credentialtest-nonce')) {
 				$response['updraftplus']['updraft_credentialtest_nonce'] = wp_create_nonce('updraftplus-credentialtest-nonce');
 			}
@@ -6199,7 +6210,7 @@ ENDHERE;
 	 */
 	public function maybe_download_backup_from_email() {
 		global $pagenow;
-		if ((!defined('DOING_AJAX') || !DOING_AJAX) && UpdraftPlus_Options::admin_page() === $pagenow && isset($_REQUEST['page']) && 'updraftplus' === $_REQUEST['page'] && isset($_REQUEST['action']) && 'updraft_download_backup' === $_REQUEST['action']) {
+		if (UpdraftPlus_Options::user_can_manage() && (!defined('DOING_AJAX') || !DOING_AJAX) && UpdraftPlus_Options::admin_page() === $pagenow && isset($_REQUEST['page']) && 'updraftplus' === $_REQUEST['page'] && isset($_REQUEST['action']) && 'updraft_download_backup' === $_REQUEST['action']) {
 			$findexes = empty($_REQUEST['findex']) ? array(0) : $_REQUEST['findex'];
 			$timestamp = empty($_REQUEST['timestamp']) ? '' : $_REQUEST['timestamp'];
 			$nonce = empty($_REQUEST['nonce']) ? '' : $_REQUEST['nonce'];

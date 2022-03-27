@@ -1,5 +1,25 @@
 *** WooCommerce Product Search ***
 
+2022.03.21 - version 4.5.0
+* WordPress 6.0 compatible.
+* WooCommerce 6.3 compatible.
+* Revised restrictive term processing limits, potentially yielding incomplete results.
+* Improved tag filter consistency avoiding the inclusion of tags which are not related to products within the current context.
+* Improved filter query performance slightly with added restrictions that exclude marker entries (related to count and term queries).
+* Corrected tag product counts for those with no related products within current context, to show zero when applicable.
+* Avoid confusion over notice related to reports provided, removing it on the extension's reports.
+* Fixed Request-URI Too Long errors caused by input field generation bug on Queries report.
+* Added the CSV export feature to the report on Queries.
+
+2022.02.09 - version 4.4.0
+* WordPress 6.0 compatible.
+* WooCommerce 6.2 compatible.
+* Requires at least WordPress 5.6.
+* Requires at least WooCommerce 5.8.
+* Updated documentation links.
+* Updated the Product Search Field block to include the WPML Language Filter option.
+* Reverted block registration to desired order as the block registry does not offer them in reverse order anymore (tested with WP 5.9 & WP 6.0).
+
 2022.01.23 - version 4.3.0
 * WordPress 5.9 compatible.
 * WooCommerce 6.1 compatible.

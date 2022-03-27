@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2022-03-04 - version 1.6.28
+* Fix - incompatibility with WC Blocks 7.0.0.
+
 2022-02-03 - version 1.6.27
 * Fix - Update schema.org Brand markup.
 

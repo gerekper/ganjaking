@@ -203,7 +203,13 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			$funds = WC_Account_Funds::get_account_funds( $user_id, false );
 
 			if ( $order_total > $funds ) {
-				throw new Exception( sprintf( __( 'Insufficient funds (amount to pay = %s; available funds = %s).', 'woocommerce-account-funds' ), wc_price( $order_total ), wc_price( $funds ) ) );
+				throw new Exception(
+					sprintf(
+						__( 'Insufficient funds (amount to pay = %s; available funds = %s).', 'woocommerce-account-funds' ),
+						wc_account_funds_format_order_price( $order, $order_total ),
+						wc_account_funds_format_order_price( $order, $funds )
+					)
+				);
 			}
 
 			WC_Account_Funds::remove_funds( $user_id, $order_total );
@@ -214,7 +220,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			$order->save_meta_data();
 
 			/* translators: %s: funds used */
-			$order->add_order_note( sprintf( __( 'Account funds payment applied: %s', 'woocommerce-account-funds' ), wc_price( $order_total ) ) );
+			$order->add_order_note( sprintf( __( 'Account funds payment applied: %s', 'woocommerce-account-funds' ), wc_account_funds_format_order_price( $order, $order_total ) ) );
 			$order->payment_complete();
 		} catch ( Exception $e ) {
 			$order->add_order_note( $e->getMessage() );
@@ -250,7 +256,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			sprintf(
 				/* translators: 1: Refund amount, 2: Payment gateway title */
 				__( 'Refunded %1$s via %2$s.', 'woocommerce-account-funds' ),
-				wc_price( $amount ),
+				wc_account_funds_format_order_price( $order, $amount ),
 				$this->method_title
 			)
 		);

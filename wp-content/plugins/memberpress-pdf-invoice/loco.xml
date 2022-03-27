@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="MemberPress PDF Invoice">
+  <domain name="memberpress-pdf-invoice">
+    <project name="MemberPress PDF Invoice" slug="memberpress-pdf-invoice">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory base="WP_PLUGIN_DIR">mepr-i18n</directory>
+        <directory>i18n</directory>
+      </target>
+      <template locked="true">
+        <file>i18n/memberpress-pdf-invoices.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>vendor</directory>
+    <directory>tests</directory>
+    <directory>script</directory>
+    <directory>node_modules</directory>
+  </exclude>
+</bundle>

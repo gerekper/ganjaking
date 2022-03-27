@@ -17,6 +17,8 @@ class Role implements Editing\Service {
 			}
 		}
 
+		asort( $options );
+
 		$view = ( new Editing\View\AdvancedSelect( $options ) )
 			->set_clear_button( false )
 			->set_multiple( true );

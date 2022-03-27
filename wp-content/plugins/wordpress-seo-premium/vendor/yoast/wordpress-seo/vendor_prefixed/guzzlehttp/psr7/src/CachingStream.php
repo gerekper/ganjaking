@@ -6,6 +6,8 @@ use YoastSEO_Vendor\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that can cache previously read bytes from a sequentially
  * read stream.
+ *
+ * @final
  */
 class CachingStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
 {
@@ -17,17 +19,21 @@ class CachingStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
     /**
      * We will treat the buffer object as the body of the stream
      *
-     * @param StreamInterface $stream Stream to cache
+     * @param StreamInterface $stream Stream to cache. The cursor is assumed to be at the beginning of the stream.
      * @param StreamInterface $target Optionally specify where data is cached
      */
     public function __construct(\YoastSEO_Vendor\Psr\Http\Message\StreamInterface $stream, \YoastSEO_Vendor\Psr\Http\Message\StreamInterface $target = null)
     {
         $this->remoteStream = $stream;
-        $this->stream = $target ?: new \YoastSEO_Vendor\GuzzleHttp\Psr7\Stream(\fopen('php://temp', 'r+'));
+        $this->stream = $target ?: new \YoastSEO_Vendor\GuzzleHttp\Psr7\Stream(\YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::tryFopen('php://temp', 'r+'));
     }
     public function getSize()
     {
-        return \max($this->stream->getSize(), $this->remoteStream->getSize());
+        $remoteSize = $this->remoteStream->getSize();
+        if (null === $remoteSize) {
+            return null;
+        }
+        return \max($this->stream->getSize(), $remoteSize);
     }
     public function rewind()
     {
@@ -109,7 +115,7 @@ class CachingStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
     private function cacheEntireStream()
     {
         $target = new \YoastSEO_Vendor\GuzzleHttp\Psr7\FnStream(['write' => 'strlen']);
-        copy_to_stream($this, $target);
+        \YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::copyToStream($this, $target);
         return $this->tell();
     }
 }

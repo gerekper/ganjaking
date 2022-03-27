@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the MemberPress MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress MailPoet 1.2.3\n"
+"Project-Id-Version: MemberPress MailPoet 1.2.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-mailpoet\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-04T18:03:32+00:00\n"
+"POT-Creation-Date: 2022-03-17T21:28:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: memberpress-mailpoet\n"
 
 #. Plugin Name of the plugin

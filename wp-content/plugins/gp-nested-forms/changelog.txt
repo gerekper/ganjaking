@@ -1,6 +1,167 @@
 
 # Changelog
 
+## 1.0.10
+
+	- Added [gpnf_export_parent_entry_row](https://gravitywiz.com/documentation/gpnf_export_parent_entry_row/) filter to allow disabling the output of parent entry rows alongside their child entry rows.
+	- Added [gpnf_export_parent_entry_data_on_child_entry_rows](https://gravitywiz.com/documentation/gpnf_export_parent_entry_data_on_child_entry_rows/) to allow exporting parent entry data on child entry rows.
+
+## 1.0.9
+
+	- Fixed inconsistent behavior of :total, :sum, and :count modifiers between the frontend and the backend if the Nested Form field is hidden. The correct behavior is to return `0` if the Nested Form field is hidden.
+
+## 1.0.8
+
+	- Added new `.destroy()` method to `window.GPNestedForms` to allow for more integrations.
+	- Fixed issue where the {Parent} merge tag wouldn't work with wpDataTables.
+	- Added new [`gpnf_submitted_entry_ids`](https://gravitywiz.com/documentation/gpnf_submitted_entry_ids) filter.
+	- Improved compatibility with Gravity Flow Discussion fields when editing child entries.
+	- Improved how Nested Forms populates File Upload fields when editing child entries to improve compatibility with File Upload Pro's sorting and cropping functionality.
+
+## 1.0.7
+
+	- Improved Nested Form exporting by running field values through `gform_export_field_value`.
+
+## 1.0.6
+
+	- Added support for populating Paragraph fields with the Rich Text Editor enabled using `{Parent}` merge tags.
+	- Improved compatibility with Gravity Flow User Input Step. The min/max number of child entries is now validated.
+	- Improved compatibility with GP Read Only when using `{Parent}` merge tags.
+
+## 1.0.5
+
+	- Fixed issues where Product fields' display values did not correctly account for their quantity.
+	- Improved experience for child forms where a datepicker is the first field. It no longer opens the datepicker when the child form is displayed. Instead, it focuses the field but does not immediately show the datepicker. This maintains accessibility while improving overall user experience.
+
+## 1.0.4
+
+	- Fixed regression with multiple datepickers not behaving correctly in Nested Forms if focus trap is enabled.
+
+## 1.0.3
+
+	- Fixed regression where datepicker selects could not be interacted with in Firefox due to Focus Trap.
+
+## 1.0.2
+
+	- Fixed PHP notice on parent form submission.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.0.1
+
+	- Fixed issue where unnecessary whitespace could cause formatting issues when displaying the Add Entry button.
+
+## 1.0
+
+	- Added new icon for the Nested Form field type.
+	- Improved the Nested Form field styling in the editor.
+	- Fixed a notice when GPNF cookie exists but "request" property has not been set.
+	- Fixed issue where {Parent} merge tags would not be replaced in a child form if a validation error occurred in the child form and the value that the parent merge tag was pulling was empty.
+
+## 1.0-rc-1.10
+
+	- Added [gpnf_should_delete](https://gravitywiz.com/documentation/gpnf_should_delete) JavaScript filter.
+
+## 1.0-rc-1.9
+
+	- Fixed the "Delete" button in the child entry edit modal. It wasn't doing anything when clicked. Now it is!
+	- Fixed styling issue where the "There are no entries." text was right-aligned rather than center-aligned on mobile.
+
+## 1.0-rc-1.8
+
+	- Fixed an issue where entries that have been attached to a parent via filter still expire and are cleaned up by the CRON.
+
+## 1.0-rc-1.7
+
+	- Added support for editing child entries populated via an Easy Passthrough token.
+
+## 1.0-rc-1.6
+
+	- Fixed issue where values of fields hidden via conditional logic were not deleted after editing a child entry.
+	- Updated Knockout to be a separate JavaScript file like it was prior to 1.0-rc-1 so it's immediately accessible to custom GPNF templates.
+	- Updated scripts on the frontend to export Knockout to `window.ko`.
+
+## 1.0-rc-1.5
+
+	- Added [gpnf_child_entries_separator](https://gravitywiz.com/documentation/gpnf_child_entries_separator/) filter to allow modifying the separator between child entries in the All Entries view.
+
+## 1.0-rc-1.4
+
+	- Added support for attaching child entries to a parent entry via the GF REST API's /`forms/[FORM_ID]/submissions` endpoint.
+
+## 1.0-rc-1.3
+
+	- Fixed potential JavaScript errors when submitting/editing entries for some use-cases.
+	- Added `enableFocusTrap` to [`gpnf_init_script_args`](https://gravitywiz.com/documentation/gpnf_init_script_args).
+
+## 1.0-rc-1.2
+
+	- Fixed issue where jQuery UI modal was not updated to work with our new build flow.
+
+## 1.0-rc-1.1
+
+	- Fixed issue where datepicker widget was not focusable due to focus being trapped in the Nested Form modal.
+	- Fixed issue where 3rd-party usage of GPNestedForms.loadEntry() would result in an error if the modal had not yet been activated.
+
+## 1.0-rc-1.0
+
+	- Fixed conflict where GPFUP's editor actions (cancel/crop) were not interactable when opened from a Nested Form modal due to GPNF's new focus trap.
+	- Improved loading experience for Nested Forms by preventing the max entries message and row actions from showing on initial load.
+	- Added support for screen readers on child entry edit actions.
+	- Added `gpnf_enable_duplication` filter to enable "Duplicate" action for child entries.
+	- Added `gpnf_duplicate_entry` filter to allow modifying the entry that will be duplicated.
+	- Updated Nested Entries template to display "Duplicate" action when enabled via filter.
+	- Improved default styles for Nested Form fields.
+	- Improved screen reader support for modal interactions.
+	- Fixed issue where button submit animation was not triggered when submit was triggered by "Enter" keypress.
+	- Improved accessibility of keyboard navigation. Tabbing is now restricted to focusable elements in the Nested Form modal when opened.
+	- Added [gpnf_populated_entry](https://gravitywiz.com/documentation/gpnf_populated_entry/) filter to allow filtering the entry that is about to be populated into the child form for editing.
+	- Fixed issue where calculations of multiple parent forms on the same page could conflict causing modifiers such as :total to not work as expected.
+
+## 1.0-beta-10.10
+
+	- Fixed issue where {Parent} merge tags would not be parsed if used in fields conditionally shown by a Section Field.
+
+## 1.0-beta-10.9
+
+	- Added a CSS class to the Nested Entries Detail Simple template to support targeting specific tables when multiple tables are displayed.
+	- Updated `gpnf_init_nested_forms` filter to pass the current instance of GPNestedForms as the second parameter.
+
+## 1.0-beta-10.8
+
+	- Fixed issue where Summary Fields setting did not always initialize correctly.
+
+## 1.0-beta-10.7
+
+	- Fixed an issue where Drop Downs were not correctly repopulated after being revealed by conditional logic if their default value included a `{Parent}` merge tag.
+
+## 1.0-beta-10.6
+
+	- Added a link in the Nested Form field setting to allow you to open the child form in the form editor in a new tab.
+
+## 1.0-beta-10.5
+
+	- Fixed a potential issue where the `{parent}` merge tag may remain visible when editing entries while the source field is empty.
+
+## 1.0-beta-10.4
+
+	- Improved support for checkboxes pulled into child forms using the {Parent} merge tag. When more than one checkbox is selected, the values/labels will be comma delimited.
+	- Added `:label` modifier to `{parent}` GPNF merge tags.
+
+## 1.0-beta-10.3
+
+	- Updated `gpnf_modal_button_css_classes` to use `cancel-mobile` for the `type` parameter when filtering the mobile cancel button.
+
+## 1.0-beta-10.2
+
+	- Added `GP_Nested_Forms->get_query_arg()` to enable additional customization/parsing of URL parameters in a nested form.
+	- Fixed a potential future incompatibility issue with GF API.
+
+## 1.0-beta-10.1
+
+	- Added [gpnf_modal_button_css_classes](https://gravitywiz.com/documentation/gpnf_modal_button_css_classes) JavaScript filter.
+	- Added [gpnf_should_trash_entries_on_delete](https://gravitywiz.com/documentation/gpnf_should_trash_entries_on_delete) filter.
+	- Fixed issue where child entry notifications would not be sent when using a Nested Form field with the WooCommerce GF Product Add-ons extension.
+
 ## 1.0-beta-10
 
 	- Improved user experience of how Summary Fields are managed. They're now listed out vertically and sortable.

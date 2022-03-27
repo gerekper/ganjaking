@@ -9,7 +9,9 @@ final class FilterButtonFactory {
 	const SCREEN_USERS = 'users';
 	const SCREEN_TAXONOMY = 'taxonomy';
 
-	/** @var FilterButton[] */
+	/**
+	 * @var FilterButton[]
+	 */
 	private static $instances = [];
 
 	/**
@@ -18,14 +20,14 @@ final class FilterButtonFactory {
 	 * @return FilterButton
 	 */
 	public static function create( $screen ) {
-		if ( ! isset( static::$instances[ $screen ] ) ) {
+		if ( ! isset( self::$instances[ $screen ] ) ) {
 			switch ( $screen ) {
 				case self::SCREEN_USERS:
-					static::$instances[ $screen ] = new FilterButton\Users( $screen );
+					self::$instances[ $screen ] = new FilterButton\Users( $screen );
 
 					break;
 				case self::SCREEN_TAXONOMY:
-					static::$instances[ $screen ] = new FilterButton\Taxonomy( $screen );
+					self::$instances[ $screen ] = new FilterButton\Taxonomy( $screen );
 
 					break;
 				default:
@@ -33,7 +35,7 @@ final class FilterButtonFactory {
 			}
 		}
 
-		return static::$instances[ $screen ];
+		return self::$instances[ $screen ];
 	}
 
 }

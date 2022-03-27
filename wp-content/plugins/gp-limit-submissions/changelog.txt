@@ -1,6 +1,65 @@
 
 # Changelog
 
+## 1.1
+
+	- Added conditional logic for Limit Submissions feeds so feeds can be validated conditionally upon submission. Note, conditional logic is only available in the feed if using “Field Value” rules.
+
+## 1.0.9
+
+	- Improved compatibility with Gravity Flow's User Input step.
+	- Added new `gpls_limit_field_value` PHP filter.
+
+## 1.0.8
+
+	- Added [gpls_rule_type_choices](https://gravitywiz.com/documentation/gpls_rule_type_choices/) filter to allow filtering available rule types.
+	- Fixed fatal error that could occur if using Limit Submissions with Nested Forms and a parent form has a submission limit that's met and a child form that has not yet met its submission limit.
+	- Added "Update URI" to plugin header to improve security.
+	- Fixed issue where Limit Submission rules were not bypassed when editing existing entries with Gravity Flow User Input steps.
+	- Fixed issue where field values that are left blank in a group would cause the submissions to not be limited.
+
+## 1.0.7
+
+	- Added support for duplicating Limit Submissions feeds.
+
+## 1.0.6
+
+	- Updated form settings icon to be a lock rather than the default cog.
+	- Fixed fatal error that could occur if a field attached to a "Field Value" Rule Group was deleted.
+
+## 1.0.5
+
+	- Added support for using merge tags in the Limit Message.
+
+## 1.0.4
+
+	- Fixed a compatibility issue when working with a User Edit step in Gravity Flow.
+
+## 1.0.3
+
+	- Fixed validation compatibility with Gravity Flow.
+
+## 1.0.2
+
+	- Added the ability to use HTML in the Limit Message settings.
+	- Fixed an issue where GPLS displayed field types that cannot have value in Rule Groups.
+
+## 1.0.1
+
+	- Fixed an issue where limit error messages didn't show when a form is displayed via AJAX.
+
+## 1.0
+
+	- Updated version to 1.0. Limit Submissions is officially out of beta!
+
+## 1.0-beta-2.8
+
+	- Fixed a potential PHP error with gpls shortcode used in dashboard widgets.
+
+## 1.0-beta-2.7
+
+	- Added [`gpls_limit_message`](https://gravitywiz.com/documentation/gpls_limit_message) filter.
+
 ## 1.0-beta-2.6
 
 	- Updated minimum Gravity Perks version to 2.2.3.

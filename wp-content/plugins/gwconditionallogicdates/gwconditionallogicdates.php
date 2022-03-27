@@ -3,14 +3,15 @@
 * Plugin Name: GP Conditional Logic Dates
 * Description: Allows Date fields to be used in Gravity Forms conditional logic.
 * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-conditional-logic-dates/
-* Version: 1.1
+* Version: 1.2.2
 * Author: Gravity Wiz
 * Author URI: http://gravitywiz.com/
 * License: GPL2
 * Perk: True
+* Update URI: https://gravitywiz.com/updates/gwconditionallogicdates
 */
 
-define( 'GP_CONDITIONAL_LOGIC_DATES_VERSION', '1.1' );
+define( 'GP_CONDITIONAL_LOGIC_DATES_VERSION', '1.2.2' );
 
 require 'includes/class-gp-bootstrap.php';
 

@@ -127,7 +127,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
         $filename = $filename ?: self::getDefaultConfigFilename();
         $profile = $profile ?: (\getenv(self::ENV_PROFILE) ?: 'default');
         return function () use($profile, $filename) {
-            if (!\is_readable($filename)) {
+            if (!@\is_readable($filename)) {
                 return self::reject("Cannot read configuration from {$filename}");
             }
             $data = \WPMailSMTP\Vendor\Aws\parse_ini_file($filename, \true);

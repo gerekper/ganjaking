@@ -84,6 +84,12 @@
 	<key name="rs_show_hide_generate_referral_message_text" />
 	<!-- Referrer Label Settings-->
 
+	<!-- Birthday Reward Points Label Settings-->
+	<key name="_rs_localize_log_for_bday" />
+	<key name="rs_bday_field_label" />
+	<key name="rs_bday_field_reason_label" />
+	<!-- Birthday Reward Points Label Settings-->
+
 	<!-- My Referral Table Label Settings-->
 	<key name="rs_referal_table_title" />
 	<key name="rs_my_referal_sno_label" />

@@ -553,7 +553,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 				'per_page'           => $per_page
 					) ;
 
-			rs_get_template( 'points-earned-in-specific-duration.php' , $template_args ) ;
+			srp_get_template( 'points-earned-in-specific-duration.php' , $template_args ) ;
 		}
 
 		/*
@@ -992,7 +992,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 							'ReplacedErrMsg'           => $ReplacedErrMsg,
 							'AllowToSavePaymentMethod' => $AllowToSavePaymentMethod,
 						);
-						rs_get_template( 'cashback-form.php' , $template_args ) ;
+						srp_get_template( 'cashback-form.php' , $template_args ) ;
 					} else {
 						echo wp_kses_post(get_option( 'rs_message_for_banned_users_encashing' )) ;
 					}
@@ -1303,7 +1303,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
 		public static function shortcode_rs_order_status() {
 
-			$earning_order_statuses = get_option( 'rs_order_status_control' ) ;
+			$earning_order_statuses = get_option( 'rs_order_status_control', array('processing','completed') ) ;
 			if ( ! srp_check_is_array( $earning_order_statuses ) ) {
 				return '' ;
 			}
@@ -1565,7 +1565,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 					<?php
 					$WCOrderStatus   = array_keys( wc_get_order_statuses() ) ;
 					$i               = 1 ;
-					$SUMOOrderStatus = get_option( 'rs_order_status_control' ) ;
+					$SUMOOrderStatus = get_option( 'rs_order_status_control', array('processing','completed') ) ;
 					$SUMOOrderStatus = ( srp_check_is_array( $SUMOOrderStatus ) ) ? $SUMOOrderStatus : array() ;
 					$Status          = array() ;
 					foreach ( $WCOrderStatus as $WCStatus ) {
@@ -1926,7 +1926,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 				return;
 			}
 			 
-			rs_get_template( 'total-nominated-points.php' , array('nominee_points_data' => $nominee_points_data) ) ;
+			srp_get_template( 'total-nominated-points.php' , array('nominee_points_data' => $nominee_points_data) ) ;
 		}
 
 	}

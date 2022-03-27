@@ -64,21 +64,35 @@ class Identity {
 	protected $txt_token = null;
 
 	/**
+	 * The DNS DKIM tokens.
+	 *
+	 * Used by a domain type identity only.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @var string[]|null
+	 */
+	protected $dkim_tokens = null;
+
+	/**
 	 * Create an object.
 	 *
 	 * @since 2.4.0
+	 * @since 3.3.0 Added `$dkim_tokens` param.
 	 *
-	 * @param string      $value     The identity value (email address or domain name).
-	 * @param string      $type      The identity type ("email" or "domain").
-	 * @param string      $status    The identity status.
-	 * @param string|null $txt_token The domain DNS TXT record token.
+	 * @param string        $value       The identity value (email address or domain name).
+	 * @param string        $type        The identity type ("email" or "domain").
+	 * @param string        $status      The identity status.
+	 * @param string|null   $txt_token   The domain DNS TXT record token.
+	 * @param string[]|null $dkim_tokens The domain DNS DKIM tokens.
 	 */
-	public function __construct( $value, $type, $status, $txt_token = null ) {
+	public function __construct( $value, $type, $status, $txt_token = null, $dkim_tokens = null ) {
 
-		$this->value     = $value;
-		$this->type      = $type;
-		$this->status    = $status;
-		$this->txt_token = $txt_token;
+		$this->value       = $value;
+		$this->type        = $type;
+		$this->status      = $status;
+		$this->txt_token   = $txt_token;
+		$this->dkim_tokens = $dkim_tokens;
 	}
 
 	/**
@@ -134,6 +148,22 @@ class Identity {
 	}
 
 	/**
+	 * Get the domain identity DNS DKIM tokens.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return array|null
+	 */
+	public function get_dkim_tokens() {
+
+		if ( $this->type !== self::DOMAIN_TYPE ) {
+			return null;
+		}
+
+		return $this->dkim_tokens;
+	}
+
+	/**
 	 * Check if this identity is a domain.
 	 *
 	 * @since 2.4.0
@@ -177,8 +207,8 @@ class Identity {
 
 		<?php if ( $this->is_domain() && $this->get_status() === 'Pending' ) : ?>
 			<a href="#" title="<?php esc_attr_e( 'View DNS', 'wp-mail-smtp-pro' ); ?>"
-			   data-txt-record="<?php echo esc_attr( $this->get_txt_token() ); ?>"
 			   data-domain="<?php echo esc_attr( $this->get_value() ); ?>"
+			   data-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_mail_smtp_pro_' . Options::SLUG . '_load_dns_records' ) ); ?>"
 			   class="js-wp-mail-smtp-providers-<?php echo esc_attr( Options::SLUG ); ?>-domain-dns-record">
 				<?php esc_html_e( 'View DNS', 'wp-mail-smtp-pro' ); ?>
 			</a> |
@@ -204,7 +234,7 @@ class Identity {
 	}
 
 	/**
-	 * Get all Indetity data.
+	 * Get all Identity data.
 	 *
 	 * @since 2.6.0
 	 *
@@ -213,11 +243,12 @@ class Identity {
 	public function get_all() {
 
 		return [
-			'value'     => $this->get_value(),
-			'type'      => $this->get_type(),
-			'status'    => $this->get_status(),
-			'txt_token' => $this->get_txt_token(),
-			'actions'   => [
+			'value'       => $this->get_value(),
+			'type'        => $this->get_type(),
+			'status'      => $this->get_status(),
+			'txt_token'   => $this->get_txt_token(),
+			'dkim_tokens' => $this->get_dkim_tokens(),
+			'actions'     => [
 				'view_dns' => $this->is_domain() && $this->get_status() === 'Pending',
 				'resend'   => $this->is_email() && $this->get_status() === 'Pending',
 				'delete'   => true,

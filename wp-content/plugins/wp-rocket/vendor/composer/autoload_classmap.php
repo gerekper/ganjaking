@@ -55,7 +55,6 @@ return array(
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Images\\Webp\\Webp_Interface' => $baseDir . '/inc/classes/subscriber/third-party/plugins/Images/Webp/webp-interface.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Mobile_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/class-mobile-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\NGG_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/class-ngg-subscriber.php',
-    'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Security\\Sucuri_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/security/class-sucuri-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\SyntaxHighlighter_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/class-syntaxhighlighter-subscriber.php',
     'WP_Rocket\\Subscriber\\Tools\\Detect_Missing_Tags_Subscriber' => $baseDir . '/inc/classes/subscriber/Tools/class-detect-missing-tags-subscriber.php',
     'WP_Rocket\\Traits\\Config_Updater' => $baseDir . '/inc/classes/traits/trait-config-updater.php',

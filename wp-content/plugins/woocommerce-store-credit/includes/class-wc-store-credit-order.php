@@ -104,8 +104,7 @@ class WC_Store_Credit_Order {
 
 				if (
 					! in_array( $callback, $exclude_from, true ) && // Exclude from item rows.
-					false === strpos( $callback, 'views/html-' ) && // Exclude from any views.
-					( false === strpos( $callback, 'WC_Gateway_Paypal_Request' ) || version_compare( WC()->version, '3.6', '>=' ) ) // Force one line item in PayPal payments for WC 3.5 and lower.
+					false === strpos( $callback, 'views/html-' ) // Exclude from any views.
 				) {
 					$total_discount += $credit;
 				}

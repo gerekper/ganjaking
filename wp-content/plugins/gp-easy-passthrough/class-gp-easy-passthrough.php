@@ -4,10 +4,6 @@ if ( ! class_exists( 'GP_Feed_Plugin' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 	/**
@@ -201,6 +197,7 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 		add_filter( 'gform_entry_post_save', array( $this, 'filter_gform_entry_post_save' ), 9, 1 );
 
 		add_action( 'gform_after_submission', array( $this, 'store_entry_id' ), 10, 2 );
+
 		add_filter( 'gform_pre_render', array( $this, 'populate_fields' ), 5 );
 
 		add_filter( 'gform_admin_pre_render', array( $this, 'add_merge_tags' ) );
@@ -208,10 +205,22 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 		add_filter( 'gform_' . $this->_slug . '_field_value', array( $this, 'override_field_value' ), 10, 4 );
 
-		add_filter( 'gform_gp-easy-passthrough_field_map_choices', array( $this, 'filter_gform_addon_field_map_choices' ), 10, 5 );
-
 		// Add support for populating child entries when EP token is provided.
 		add_filter( 'gpnf_can_user_edit_entry', array( $this, 'can_user_edit_gpnf_entries' ), 10, 2 );
+
+		add_filter( 'gform_field_map_choices', array( $this, 'append_checkbox_name' ), 10, 4 );
+
+		/**
+		 * Delete GPEP cookie when users log out.
+		 *
+		 * @since 1.9.4
+		 *
+		 * @param bool $delete_gpep_cookie  Delete GPEP cookie once users logout (default: false)
+		 */
+		if ( apply_filters( 'gpep_delete_cookie_on_logout', false ) ) {
+			// Handle logging out and clearing session cookie if specified
+			add_action( 'wp_logout', array( $this, 'clear_session' ) );
+		}
 
 	}
 
@@ -237,6 +246,15 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 			add_action( 'admin_notices', array( $this, 'maybe_show_fg_easy_passthrough_upgrade_notice' ) );
 		}
 
+	}
+
+	/**
+	 * Add a menu icon to override the default cog/gear.
+	 */
+	public function get_menu_icon() {
+		return '<svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+ <path d="m70.844 16.73c-1.6953 0.003906-3.2188 1.0312-3.8516 2.6016-0.63672 1.5703-0.26172 3.3711 0.95312 4.5508l9.4336 9.4219h-31.535v0.003906c-1.1172-0.015625-2.1914 0.41797-2.9844 1.2031-0.79297 0.78125-1.2383 1.8516-1.2383 2.9688 0 1.1133 0.44922 2.1836 1.2461 2.9648 0.79297 0.78125 1.8711 1.2109 2.9844 1.1953h31.617l-9.5234 9.5117v0.003906c-0.80859 0.77344-1.2695 1.8438-1.2812 2.9609-0.011718 1.1211 0.42969 2.1992 1.2227 2.9883 0.78906 0.79297 1.8672 1.2344 2.9883 1.2227s2.1875-0.47266 2.9648-1.2812l16.594-16.578c0.78125-0.78125 1.2227-1.8438 1.2227-2.9492s-0.44141-2.168-1.2227-2.9492l-16.594-16.578c-0.78906-0.80859-1.8672-1.2656-2.9961-1.2617zm-41.789 24.871c-1.082 0.03125-2.1094 0.48828-2.8633 1.2695l-16.625 16.641h-0.003906c-1.625 1.6289-1.625 4.2656 0 5.8906l16.625 16.641 0.003906 0.003906c1.625 1.6289 4.2656 1.6289 5.8945 0.003906 1.6289-1.6289 1.6328-4.2656 0.003906-5.8945l-9.5039-9.5117h31.602l-0.003906-0.003906c1.1172 0.015625 2.1914-0.41406 2.9844-1.1992 0.79688-0.78125 1.2422-1.8516 1.2422-2.9688 0-1.1133-0.44531-2.1836-1.2422-2.9648-0.79297-0.78516-1.8672-1.2148-2.9844-1.1992h-31.641l9.5469-9.5547c1.2344-1.1992 1.6055-3.0312 0.93359-4.6172-0.67188-1.582-2.25-2.5898-3.9688-2.5352z" fill-rule="evenodd"/>
+</svg>';
 	}
 
 	/**
@@ -327,6 +345,10 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 	// # FEED SETTINGS -------------------------------------------------------------------------------------------------
 
+	public function can_duplicate_feed( $feed_id ) {
+		return true;
+	}
+
 	/**
 	* Setup fields for feed settings.
 	*
@@ -367,12 +389,18 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 				'description' => $this->is_gf_version_gte( '2.5-beta-1' ) ? esc_html__( 'Select which fields on this form should be populated from fields on the source form.', 'gp-easy-passthrough' ) : '',
 				'fields'      => array(
 					array(
-						'name'       => 'fieldMap',
-						'label'      => esc_html__( 'Map Fields', 'gp-easy-passthrough' ),
-						'type'       => 'field_map',
-						'field_map'  => $this->get_field_map(),
-						'dependency' => 'sourceForm',
-						'tooltip'    => $this->is_gf_version_gte( '2.5-beta-1' ) ? '' : sprintf(
+						'name'        => 'fieldMap',
+						'label'       => esc_html__( 'Map Fields', 'gp-easy-passthrough' ),
+						'type'        => 'field_map',
+						'key_field'   => array(
+							'title' => 'Source Form Field',
+						),
+						'value_field' => array(
+							'title' => 'Target Form Field',
+						),
+						'field_map'   => $this->get_field_map(),
+						'dependency'  => 'sourceForm',
+						'tooltip'     => $this->is_gf_version_gte( '2.5-beta-1' ) ? '' : sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Map Fields', 'gp-easy-passthrough' ),
 							esc_html__( 'Select which fields on this form should be populated from fields on the source form.', 'gp-easy-passthrough' )
@@ -433,7 +461,7 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 						),
 					),
 				),
-			)
+			),
 		);
 
 	}
@@ -477,7 +505,7 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 		$current_form = $this->get_current_form();
 
 		// Get all forms.
-		$forms = GFAPI::get_forms();
+		$forms = GFAPI::get_forms( true, false, 'title' );
 
 		// Loop through forms.
 		foreach ( $forms as $form ) {
@@ -529,13 +557,13 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 		// Get source form ID.
 		$source_form = $this->get_setting( 'sourceForm' );
 
+		// Get source form.
+		$source_form = GFAPI::get_form( $source_form );
+
 		// If source form is not set, return field map.
 		if ( ! $source_form ) {
 			return $field_map;
 		}
-
-		// Get source form.
-		$source_form = GFAPI::get_form( $source_form );
 
 		/**
 		* Loop through source form fields.
@@ -543,6 +571,10 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 		* @var GF_Field $field
 		*/
 		foreach ( $source_form['fields'] as $field ) {
+
+			if ( $field->displayOnly ) {
+				continue;
+			}
 
 			// Set admin label property.
 			$field->set_context_property( 'use_admin_label', true );
@@ -556,8 +588,32 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 			// If field has inputs, add each input to field map.
 			if ( $inputs ) {
 
+				// Add checkboxes to the field map.
+				if ( ! empty( $field->choices ) && $field->get_input_type() === 'checkbox' ) {
+					$field_map[] = array(
+						'name'          => esc_attr( $field['id'] ),
+						'label'         => esc_html( $field['label'] ),
+						'default_value' => array(
+							'aliases' => array( esc_html( $field->adminLabel ) ),
+						),
+					);
+				}
+
+				$input_suffix = '';
+
+				if ( $field->get_input_type() === 'checkbox' ) {
+					$input_suffix = ' (' . esc_html( $field['label'] ) . ')';
+				}
+
 				// Loop through inputs.
 				foreach ( $inputs as $input ) {
+
+					$gppa_missing_filter_text = apply_filters( 'gppa_missing_filter_text', '&ndash; ' . esc_html__( 'Fill Out Other Fields', 'gp-populate-anything' ) . ' &ndash;', $field['id'] );
+					$input_label              = GFCommon::get_label( $field, $input['id'] );
+
+					if ( $gppa_missing_filter_text === $input_label ) {
+						continue;
+					}
 
 					// Replace period in input ID.
 					$name = str_replace( '.', '_', $input['id'] );
@@ -565,7 +621,7 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 					// Add input to field map.
 					$field_map[] = array(
 						'name'  => esc_attr( $name ),
-						'label' => GFCommon::get_label( $field, $input['id'] ),
+						'label' => $input_label . $input_suffix,
 					);
 
 				}
@@ -712,59 +768,6 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 						<th>' . esc_html__( 'Target Form Field', 'gp-easy-passthrough' ) . '</th>
 					</tr>
 				</thead>';
-
-	}
-
-	/**
-	* Remove Selected Checkbox option from field map.
-	*
-	* @since  1.4.1
-	* @access public
-	*
-	* @param array             $choices             The value and label properties for each choice.
-	* @param int               $form_id             The ID of the form currently being configured.
-	* @param null|array        $field_type          Null or the field types to be included in the drop down.
-	* @param null|array|string $exclude_field_types Null or the field type(s) to be excluded from the drop down.
-	*
-	* @uses   GFAPI::get_field()
-	* @uses   GFAPI::get_form()
-	*
-	* @return array
-	*/
-	public function filter_gform_addon_field_map_choices( $choices, $form_id, $field_type, $exclude_field_types ) {
-
-		// Get form.
-		$form = GFAPI::get_form( $form_id );
-
-		// Loop through choices.
-		foreach ( $choices as $i => $choice ) {
-
-			// Get field for choice.
-			$field = GFAPI::get_field( $form, $choice['value'] );
-
-			// If field was not found, continue.
-			if ( ! $field ) {
-				continue;
-			}
-
-			// If field is not a checkbox field, skip.
-			if ( 'checkbox' !== $field->type || (int) $choice['value'] !== $choice['value'] ) {
-				continue;
-			}
-
-			// Get (Selected) string.
-			$selected = '(' . __( 'Selected', 'gravityforms' ) . ')';
-
-			// If this is not the (Selected) label, skip.
-			if ( substr_compare( $choice['label'], $selected, strlen( $choice['label'] ) - strlen( $selected ), strlen( $selected ) ) !== 0 ) {
-				continue;
-			}
-
-			unset( $choices[ $i ] );
-
-		}
-
-		return $choices;
 
 	}
 
@@ -979,6 +982,9 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 		// Get entry for token.
 		$parent_entry = $this->get_entry_for_token( sanitize_text_field( rgget( 'ep_token' ) ) );
+		if ( ! $parent_entry ) {
+			return $can_edit;
+		}
 
 		// Check if child entry's parent is the entry passed by the token.
 		return gform_get_meta( $entry['id'], GPNF_Entry::ENTRY_PARENT_KEY ) == $parent_entry['id'];
@@ -1083,6 +1089,22 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 			// Set passthrough value.
 			$value = false;
 
+			/**
+			 * Modify whether to prefer existing dynamic population over values that are populated using
+			 * Easy Passthrough.
+			 *
+			 * @since 1.9.6
+			 *
+			 * @param boolean   $prefer_dynamic_population  Whether to prefer existing dynamic population if value is present.
+			 * @param GF_Field  $field                      The current field.
+			 * @param array     $form                       The current form.
+			 */
+			$prefer_dynamic_population = gf_apply_filters( array(
+				'gpep_prefer_dynamic_population',
+				$form['id'],
+				$field->id,
+			), true, $field, $form );
+
 			// Prepare passthrough value based on input type.
 			switch ( $field->get_input_type() ) {
 
@@ -1096,20 +1118,17 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 						// Reset passthrough value as an empty array.
 						$value = array();
 
-						// Loop through checkboxes.
-						foreach ( $field->inputs as $input ) {
-
-							// Attempt to find value for checkbox.
-							$val = rgar( $field_values, (string) $input['id'] );
-
-							// If found value is an array, convert to string.
-							if ( is_array( $val ) ) {
-								$val = GFCommon::implode_non_blank( ',', $val );
+						foreach ( $field_values as $input_id => $input_value ) {
+							if ( absint( $input_id ) != $field->id ) {
+								continue;
 							}
 
-							// Add value to passthrough value.
-							$value[] = $val;
+							if ( is_array( $input_value ) ) {
+								$value[] = GFCommon::implode_non_blank( ',', $input_value );
+								continue;
+							}
 
+							$value[] = $input_value;
 						}
 					}
 
@@ -1166,8 +1185,51 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 					break;
 
 				case 'date':
-					// Prepare passed-through value as formatted date.
-					$value = GFCommon::date_display( rgar( $field_values, $field->id ), $field->dateFormat, false );
+					$date_array = rgar( $field_values, $field->id );
+
+					$day   = rgar( $date_array, 'day' );
+					$month = rgar( $date_array, 'month' );
+					$year  = rgar( $date_array, 'year' );
+
+					if ( $day && $month && $year ) {
+						switch ( $field->dateFormat ) {
+							case 'dmy':
+							case 'dmy_dash':
+							case 'dmy_dot':
+								$value = array(
+									$day,
+									$month,
+									$year,
+								);
+								break;
+
+							case 'ymd':
+							case 'ymd_slash':
+							case 'ymd_dash':
+							case 'ymd_dot':
+								$value = array(
+									$year,
+									$month,
+									$day,
+								);
+								break;
+
+							default:
+								$value = array(
+									$month,
+									$day,
+									$year,
+								);
+								break;
+
+						}
+
+						if ( ! in_array( rgar( $field, 'dateType' ), array( 'datedropdown', 'datefield' ), true ) ) {
+							$value = GFCommon::date_display( $value, $field->dateFormat, false );
+						}
+					} else {
+						$value = null;
+					}
 
 					break;
 
@@ -1190,8 +1252,17 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 						// Populate each input individually.
 						foreach ( $inputs as &$input ) {
 
-							$field->allowsPrepopulate = true;
-							$input['name']            = $this->passthrough_value( $form['id'], $input['id'], rgar( $field_values, (string) $input['id'] ) );
+							$parameter_value = null;
+
+							// If the field already allows dynamic population and the input has a value, use it.
+							if ( $field->allowsPrepopulate ) {
+								$parameter_value = GFFormsModel::get_parameter_value( $input['name'], array(), $field );
+							}
+
+							if ( ! $parameter_value || ! $prefer_dynamic_population ) {
+								$field->allowsPrepopulate = true;
+								$input['name'] = $this->passthrough_value( $form['id'], $input['id'], rgar( $field_values, (string) $input['id'] ) );
+							}
 
 							// Unset reference to prevent unexpected changes where $input is referenced elsewhere in this function.
 							unset( $input );
@@ -1228,11 +1299,17 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 				$field->defaultValue = $value;
 
 			} else {
+				$parameter_value = null;
 
-				// Get filter name, assign to field object.
-				$field->allowsPrepopulate = true;
-				$field->inputName         = $this->passthrough_value( $form['id'], $field->id, $value );
+				// If the field already allows dynamic population and has a value, use it.
+				if ( $field->allowsPrepopulate ) {
+					$parameter_value = GFFormsModel::get_parameter_value( $field->inputName, array(), $field );
+				}
 
+				if ( ! $parameter_value || ! $prefer_dynamic_population ) {
+					$field->allowsPrepopulate = true;
+					$field->inputName         = $this->passthrough_value( $form['id'], $field->id, $value );
+				}
 			}
 		}
 
@@ -1378,8 +1455,16 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 					$this->store_entry_id( $last_submitted_entry[0], $source_form );
 				}
 			} else {
-				// If the source form is the same as the target and ep_token is not set, skip the feed
-				if ( $source_form['id'] === $target_form['id'] && ! rgget( 'ep_token' ) ) {
+
+				/**
+				 * Filter whether GPEP should disable passing through an entry if the source and target forms are the same.
+				 *
+				 * @since 1.9.6
+				 *
+				 * @param bool  $disable_same_form_passthrough  Do not pass through entries on the same form (Default: false)
+				 * @param array $form                           The current GF form array
+				 */
+				if ( $source_form['id'] === $target_form['id'] && gf_apply_filters( array( 'gpep_disable_same_form_passthrough', $target_form['id'] ), false, $target_form ) ) {
 					continue;
 				}
 
@@ -1396,6 +1481,9 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 			// Get source entry.
 			$source_entry = GFAPI::get_entry( $source_entry_id );
+			if ( is_wp_error( $source_entry ) || $source_entry['status'] !== 'active' ) {
+				continue;
+			}
 
 			// If feed condition is not met, skip feed.
 			if ( ! $this->is_feed_condition_met( $feed, $source_form, $source_entry ) ) {
@@ -1438,12 +1526,21 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 			// Loop through mapping.
 			foreach ( $mapping as $source_field_id => $target_field_id ) {
 
+				// Ensure $target_field_id is valid if target form has changed
+				if ( ! is_numeric( $target_field_id ) ) {
+					continue;
+				}
 				// Get source field.
 				$source_field      = GFFormsModel::get_field( $source_form, $source_field_id );
-				$source_field_type = GFFormsModel::get_input_type( $source_field );
+				$source_field_type = $source_field ? $source_field->get_input_type() : null;
 
 				// Get target field.
 				$target_field = GFFormsModel::get_field( $target_form, $target_field_id );
+
+				// Ensure that the target field is valid
+				if ( ! $target_field ) {
+					continue;
+				}
 
 				// Get list field value.
 				if ( 'list' === $source_field_type && $source_field->enableColumns ) {
@@ -1491,9 +1588,33 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 
 				} else {
 
+					if ( $source_field ) {
+						$is_signature            = $source_field->type === 'signature';
+						$is_product_to_product   = GFCommon::is_product_field( $source_field->type ) && GFCommon::is_product_field( $target_field->type );
+						$is_quiz_to_quiz         = $source_field->type === 'quiz' && $target_field->type === 'quiz';
+						$is_survey_to_survey     = $source_field->type === 'survey' && $target_field->type === 'survey';
+						$is_date_to_date         = $source_field->type === 'date' && $target_field->type === 'date';
+						$is_checkbox_to_checkbox = $source_field->get_input_type() === 'checkbox'
+												   && $target_field->get_input_type() === 'checkbox'
+												   && absint( $source_field_id ) === $source_field_id
+												   && absint( $target_field_id ) === $target_field_id;
+					}
+
 					// Get field value.
-					if ( $source_field && ( 'signature' === $source_field_type || ( GFCommon::is_product_field( $source_field->type ) && GFCommon::is_product_field( $target_field->type ) ) ) ) {
+					if ( $source_field && ( $is_signature || $is_product_to_product || $is_quiz_to_quiz || $is_survey_to_survey ) ) {
 						$field_value = rgar( $source_entry, $source_field_id );
+					} elseif ( $source_field && $is_checkbox_to_checkbox ) {
+						$field_value = array();
+
+						foreach ( $source_entry as $input_key => $value ) {
+							if ( absint( $input_key ) !== $source_field_id ) {
+								continue;
+							}
+
+							$field_value[] = $value;
+						}
+					} elseif ( $source_field && $is_date_to_date ) {
+						$field_value = GFCommon::parse_date( rgar( $source_entry, $source_field_id ), $source_field->dateFormat );
 					} else {
 						$field_value = $this->get_field_value( $source_form, $source_entry, $source_field_id );
 					}
@@ -1818,152 +1939,51 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 			return null;
 		}
 
-		return GFAPI::get_entry( $entry_id );
+		$entry = GFAPI::get_entry( $entry_id );
+		// Do not load trashed entries
+		if ( $entry['status'] !== 'active' ) {
+			return null;
+		}
+
+		return $entry;
 
 	}
 
 	/**
-	* Get field map choices for specific form.
-	* (Forked to remove meta fields.)
-	*
-	* @since  1.1.2
-	* @access public
-	*
-	* @uses   GFCommon::get_label()
-	* @uses   GFFormsModel::get_form_meta()
-	* @uses   GF_Field::get_entry_inputs()
-	* @uses   GF_Field::get_form_editor_field_title()
-	* @uses   GF_Field::get_input_type()
-	*
-	* @param int          $form_id             Form ID to display fields for.
-	* @param array|string $field_type          Field types to only include as choices. Defaults to null.
-	* @param array|string $exclude_field_types Field types to exclude from choices. Defaults to null.
-	*
-	* @return array
-	*/
-	public static function get_field_map_choices( $form_id, $field_type = null, $exclude_field_types = null ) {
-
-		$form = GFFormsModel::get_form_meta( $form_id );
-
-		$fields = array();
-
-		// Setup first choice
-		if ( rgblank( $field_type ) || ( is_array( $field_type ) && count( $field_type ) > 1 ) ) {
-
-			$first_choice_label = __( 'Select a Field', 'gravityforms' );
-
-		} else {
-
-			$type = is_array( $field_type ) ? $field_type[0] : $field_type;
-			$type = ucfirst( GF_Fields::get( $type )->get_form_editor_field_title() );
-
-			$first_choice_label = sprintf( __( 'Select a %s Field', 'gravityforms' ), $type );
-
+	 * Suffix individual checkbox inputs with the checkbox name to make target form field dropdown consistent with the
+	 * source form field column
+	 *
+	 * @param array $choices
+	 * @param int $form_id
+	 * @param string $field_type
+	 * @param array $exclude_field_types
+	 *
+	 * @return array
+	 */
+	public function append_checkbox_name( $choices, $form_id, $field_type, $exclude_field_types ) {
+		/*
+		 * This filter is hooked to gform_field_map_choices as gform_{$slug}_field_map_choices is no longer in use.
+		 */
+		if ( rgget( 'subview' ) !== 'gp-easy-passthrough' ) {
+			return $choices;
 		}
 
-		$fields[] = array(
-			'value' => '',
-			'label' => $first_choice_label,
-		);
+		if ( empty( $choices['fields'] ) || empty( $choices['fields']['choices'] ) ) {
+			return $choices;
+		}
 
-		// Populate form fields
-		if ( is_array( $form['fields'] ) ) {
-			foreach ( $form['fields'] as $field ) {
-				$input_type          = $field->get_input_type();
-				$inputs              = $field->get_entry_inputs();
-				$field_is_valid_type = ( empty( $field_type ) || ( is_array( $field_type ) && in_array( $input_type, $field_type ) ) || ( ! empty( $field_type ) && $input_type == $field_type ) );
+		foreach ( $choices['fields']['choices'] as &$choice ) {
+			$field_id = absint( $choice['value'] );
 
-				if ( is_null( $exclude_field_types ) ) {
-					$exclude_field = false;
-				} elseif ( is_array( $exclude_field_types ) ) {
-					if ( in_array( $input_type, $exclude_field_types ) ) {
-						$exclude_field = true;
-					} else {
-						$exclude_field = false;
-					}
-				} else {
-					//not array, so should be single string
-					if ( $input_type == $exclude_field_types ) {
-						$exclude_field = true;
-					} else {
-						$exclude_field = false;
-					}
-				}
-
-				if ( is_array( $inputs ) && $field_is_valid_type && ! $exclude_field ) {
-					//If this is an address field, add full name to the list
-					if ( $input_type == 'address' ) {
-						$fields[] = array(
-							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
-						);
-					}
-					//If this is a name field, add full name to the list
-					if ( $input_type == 'name' ) {
-						$fields[] = array(
-							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
-						);
-					}
-					//If this is a checkbox field, add to the list
-					if ( $input_type == 'checkbox' ) {
-						$fields[] = array(
-							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Selected', 'gravityforms' ) . ')',
-						);
-					}
-
-					foreach ( $inputs as $input ) {
-						$fields[] = array(
-							'value' => $input['id'],
-							'label' => GFCommon::get_label( $field, $input['id'] ),
-						);
-					}
-				} elseif ( $input_type == 'list' && $field->enableColumns && $field_is_valid_type && ! $exclude_field ) {
-					$fields[]  = array(
-						'value' => $field->id,
-						'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
-					);
-					$col_index = 0;
-					foreach ( $field->choices as $column ) {
-						$fields[] = array(
-							'value' => $field->id . '.' . $col_index,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html( rgar( $column, 'text' ) ) . ')',
-						);
-						$col_index++;
-					}
-				} elseif ( ! $field->displayOnly && $field_is_valid_type && ! $exclude_field ) {
-					$fields[] = array(
-						'value' => $field->id,
-						'label' => GFCommon::get_label( $field ),
-					);
-				}
+			if ( rgar( $choice, 'type' ) !== 'checkbox' || $field_id == $choice['value'] ) {
+				continue;
 			}
+
+			$field           = GFAPI::get_field( $form_id, $field_id );
+			$choice['label'] = $choice['label'] . ' (' . esc_html( $field['label'] ) . ')';
 		}
 
-		/**
-		* Filter the choices available in the field map drop down.
-		*
-		* @since 2.0.7.11
-		*
-		* @param array             $fields              The value and label properties for each choice.
-		* @param int               $form_id             The ID of the form currently being configured.
-		* @param null|array        $field_type          Null or the field types to be included in the drop down.
-		* @param null|array|string $exclude_field_types Null or the field type(s) to be excluded from the drop down.
-		*/
-		$fields = apply_filters( 'gform_addon_field_map_choices', $fields, $form_id, $field_type, $exclude_field_types );
-
-		if ( function_exists( 'get_called_class' ) ) {
-			$callable = array( get_called_class(), 'get_instance' );
-			if ( is_callable( $callable ) ) {
-				$add_on = call_user_func( $callable );
-				$slug   = $add_on->get_slug();
-
-				$fields = apply_filters( "gform_{$slug}_field_map_choices", $fields, $form_id, $field_type, $exclude_field_types );
-			}
-		}
-
-		return $fields;
+		return $choices;
 	}
 
 	/**
@@ -2226,6 +2246,17 @@ class GP_Easy_Passthrough extends GP_Feed_Plugin {
 	 */
 	public function is_gf_version_gte( $version ) {
 		return class_exists( 'GFForms' ) && version_compare( GFForms::$version, $version, '>=' );
+	}
+
+	/**
+	 * Clear session cookie when users logout.
+	 *
+	 * @param int $user_id Current user being logged out
+	 *
+	 * @return void
+	 */
+	public function clear_session() {
+		setcookie( 'gp_easy_passthrough_session', '', time() - 3600 );
 	}
 
 }

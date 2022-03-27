@@ -1,5 +1,13 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2022.03.11 - version 2.9.12
+ * Fix - Fix a bug where the appointment calendar icon would render an additional non-breaking space HTML entity
+ * Dev - Add filters to adjust the front end scripts' and styles' dependencies
+
+2022.02.07 - version 2.9.11
+ * Fix - Replace deprecated `is_ajax()` functions with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or higher
+
 2021.10.22 - version 2.9.10
  * Fix - Fix an error preventing pickup location addresses from being saved
 

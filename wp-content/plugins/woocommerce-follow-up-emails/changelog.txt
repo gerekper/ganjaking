@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-03-16 - version 4.9.19
+* Fix - New - Adds support for Subscriptions with WooCommerce Payments.
+
 2022-02-02 - version 4.9.18
 * Fix - Include POT file in the release.
 

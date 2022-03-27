@@ -1,5 +1,14 @@
 <?php
 
+if (!function_exists('supplier_admins_mobile_menu')) {
+
+function supplier_admins_mobile_menu() {
+  wp_enqueue_style('admin-styles', plugins_url( '/assets/css/supplier_mobile_menu.css', __FILE__ ));
+}
+add_action('admin_enqueue_scripts', 'supplier_admins_mobile_menu');
+	
+}
+
 if (!function_exists('generate_aliexpress_key')) {
 
     function generate_aliexpress_key($domain) {

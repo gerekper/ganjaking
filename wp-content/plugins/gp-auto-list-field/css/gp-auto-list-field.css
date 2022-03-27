@@ -1,0 +1,29 @@
+/**
+ * GP Page Transitions - Frontend Styles
+ */
+
+/*.gform_wrapper .gform_page_footer .gppt-hide .button.gform_previous_button, .gform_wrapper .gform_page_footer .gppt-hide .button.gform_next_button {*/
+/*display: none !important;*/
+/*}*/
+
+.gppt-hide {
+	display: none;
+}
+
+.gppt-no-buttons .gform_page_footer {
+	visibility: hidden;
+	position: absolute;
+}
+
+.gppt-no-buttons .gform_page:last-child .gform_page_footer {
+	visibility: visible;
+	position: static;
+}
+
+.gf_progressbar_percentage {
+	transition: all 1.0s ease;
+}
+
+.gf_step {
+	transition: all 1.0s ease;
+}

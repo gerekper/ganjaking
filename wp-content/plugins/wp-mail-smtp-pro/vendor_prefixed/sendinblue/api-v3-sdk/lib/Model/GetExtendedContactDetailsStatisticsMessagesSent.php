@@ -51,13 +51,13 @@ class GetExtendedContactDetailsStatisticsMessagesSent implements \WPMailSMTP\Ven
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['campaignId' => 'int', 'eventTime' => '\\DateTime'];
+    protected static $swaggerTypes = ['campaignId' => 'int', 'eventTime' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['campaignId' => 'int64', 'eventTime' => 'date-time'];
+    protected static $swaggerFormats = ['campaignId' => 'int64', 'eventTime' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -199,7 +199,7 @@ class GetExtendedContactDetailsStatisticsMessagesSent implements \WPMailSMTP\Ven
     /**
      * Gets eventTime
      *
-     * @return \DateTime
+     * @return string
      */
     public function getEventTime()
     {
@@ -208,7 +208,7 @@ class GetExtendedContactDetailsStatisticsMessagesSent implements \WPMailSMTP\Ven
     /**
      * Sets eventTime
      *
-     * @param \DateTime $eventTime UTC date-time of the event
+     * @param string $eventTime UTC date-time of the event
      *
      * @return $this
      */

@@ -78,7 +78,6 @@ class WAPL_Global_Labels {
 
 				$label['custom_bg_color']   = isset( $label['label_custom_background_color'] ) ? $label['label_custom_background_color'] : '#D9534F';
 				$label['custom_text_color'] = isset( $label['label_custom_text_color'] ) ? $label['label_custom_text_color'] : '#fff';
-				$label['style_attr']        = ( isset( $label['style'] ) && 'custom' == $label['style'] ) ? "style='background-color: {$label['custom_bg_color']}; color: {$label['custom_text_color']};'" : '';
 				$label['id']                = $global_label->ID;
 
 				echo wapl_get_label_html( $label );

@@ -37,12 +37,12 @@ abstract class Base64 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
      *
      * Base64 character set "[A-Z][a-z][0-9]+/"
      *
-     * @param string $src
+     * @param string $bin_string
      * @return string
      */
-    public static function encode($src)
+    public static function encode($bin_string)
     {
-        return static::doEncode($src, \true);
+        return static::doEncode($bin_string, \true);
     }
     /**
      * Encode into Base64, no = padding
@@ -97,23 +97,23 @@ abstract class Base64 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
      *
      * Base64 character set "./[A-Z][a-z][0-9]"
      *
-     * @param string $src
+     * @param string $encoded_string
      * @param bool $strictPadding
      * @return string
      * @throws \RangeException
      */
-    public static function decode($src, $strictPadding = \false)
+    public static function decode($encoded_string, $strictPadding = \false)
     {
         // Remove padding
-        $srcLen = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($src);
+        $srcLen = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($encoded_string);
         if ($srcLen === 0) {
             return '';
         }
         if ($strictPadding) {
             if (($srcLen & 3) === 0) {
-                if ($src[$srcLen - 1] === '=') {
+                if ($encoded_string[$srcLen - 1] === '=') {
                     $srcLen--;
-                    if ($src[$srcLen - 1] === '=') {
+                    if ($encoded_string[$srcLen - 1] === '=') {
                         $srcLen--;
                     }
                 }
@@ -122,14 +122,14 @@ abstract class Base64 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
                 throw new \RangeException('Incorrect padding');
             }
         } else {
-            $src = \rtrim($src, '=');
-            $srcLen = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($src);
+            $encoded_string = \rtrim($encoded_string, '=');
+            $srcLen = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($encoded_string);
         }
         $err = 0;
         $dest = '';
         // Main loop (no padding):
         for ($i = 0; $i + 4 <= $srcLen; $i += 4) {
-            $chunk = \unpack('C*', \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeSubstr($src, $i, 4));
+            $chunk = \unpack('C*', \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeSubstr($encoded_string, $i, 4));
             $c0 = static::decode6Bits($chunk[1]);
             $c1 = static::decode6Bits($chunk[2]);
             $c2 = static::decode6Bits($chunk[3]);
@@ -139,7 +139,7 @@ abstract class Base64 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
         }
         // The last chunk, which may have padding:
         if ($i < $srcLen) {
-            $chunk = \unpack('C*', \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeSubstr($src, $i, $srcLen - $i));
+            $chunk = \unpack('C*', \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeSubstr($encoded_string, $i, $srcLen - $i));
             $c0 = static::decode6Bits($chunk[1]);
             if ($i + 2 < $srcLen) {
                 $c1 = static::decode6Bits($chunk[2]);

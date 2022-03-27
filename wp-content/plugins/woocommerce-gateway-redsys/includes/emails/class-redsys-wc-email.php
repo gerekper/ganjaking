@@ -3,14 +3,14 @@
  * Class Custom_WC_Email
  */
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 class Redsys_WC_Email {
 	/**
 	 * Custom_WC_Email constructor.
 	 */
 	/*
-	* Copyright: (C) 2013 - 2021 José Conti
+	* Copyright: (C) 2013 - 2022 José Conti
 	*/
 	public function __construct() {
 		// Filtering the emails and adding our own email.
@@ -22,7 +22,7 @@ class Redsys_WC_Email {
 	 * @return array
 	 */
 	/*
-	* Copyright: (C) 2013 - 2021 José Conti
+	* Copyright: (C) 2013 - 2022 José Conti
 	*/
 	public function register_email( $emails ) {
 		require_once REDSYS_PLUGIN_PATH_P . 'includes/emails/templates/class-redsys-custom-email.php';

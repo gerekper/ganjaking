@@ -740,7 +740,7 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
 				?>
 				<td>
 					<div class="rstwitterfollow-button-msg">
-						<a href='https://twitter.com/<?php echo esc_url(get_option( 'rs_global_social_twitter_profile_name' ) ); ?>' 
+						<a href='https://twitter.com/<?php echo wp_kses_post(get_option( 'rs_global_social_twitter_profile_name' ) ); ?>' 
 						 class="twitter-follow-button" data-show-count="false"><?php esc_html_e( 'Follow @twitter' , 'rewardsystem' ) ; ?>
 						</a>
 					</div>
@@ -750,7 +750,7 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
 				?>
 				<td>
 					<a class="rs_custom_social_icon_a" 
-						href='https://twitter.com/<?php echo esc_url(get_option( 'rs_global_social_twitter_profile_name' ) ); ?>'
+						href='https://twitter.com/<?php echo wp_kses_post(get_option( 'rs_global_social_twitter_profile_name' ) ); ?>'
 						target="_blank" 
 						onClick = "javascript:window.open( this.href , '' , 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600' ) ;return false ;">
 						<input type="button" 

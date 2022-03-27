@@ -30,7 +30,7 @@ class FullName extends View {
 	 * @return $this
 	 */
 	public function set_placeholder_last_name( $placeholder_last_name ) {
-		$this->set( 'placeholder_first_name', (string) $placeholder_last_name );
+		$this->set( 'placeholder_last_name', (string) $placeholder_last_name );
 
 		return $this;
 	}

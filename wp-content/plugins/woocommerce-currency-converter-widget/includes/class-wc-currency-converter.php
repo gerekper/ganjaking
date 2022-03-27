@@ -45,6 +45,13 @@ class WC_Currency_Converter {
 	 */
 	private $widget;
 
+	/**
+	 * Currencies needed in the current page.
+	 *
+	 * @var array
+	 */
+	private $currencies_in_page = array();
+
 
 	/**
 	 * Constructor
@@ -236,6 +243,8 @@ class WC_Currency_Converter {
 		}
 
 		if ( $currencies ) {
+			// Mark currencies in instance as required for this page.
+			$this->currencies_in_page = array_merge( $this->currencies_in_page, $currencies );
 
 			if ( ! empty( $instance['currency_display'] ) && 'select' === $instance['currency_display'] ) {
 				$html .= '<label for="currency_switcher" class="currency_switcher_label">Choose a Currency</label>';
@@ -358,7 +367,7 @@ class WC_Currency_Converter {
 		wp_register_script( 'moneyjs', plugins_url( '/assets/js/money' . $suffix . '.js', __DIR__ ), array( 'jquery' ), '0.1.3', true );
 		wp_register_script( 'accountingjs', plugins_url( '/assets/js/accounting' . $suffix . '.js', __DIR__ ), array( 'jquery' ), '0.3.2', true );
 		wp_enqueue_script( 'jquery-cookie' );
-		wp_register_script( 'wc_currency_converter_inline', plugins_url( '/assets/js/conversion_inline' . $suffix . '.js', __DIR__ ), array( 'jquery' ), WC_CURRENCY_CONVERTER_VERSION, false );
+		wp_register_script( 'wc_currency_converter_inline', plugins_url( '/assets/js/conversion_inline' . $suffix . '.js', __DIR__ ), array( 'jquery' ), WC_CURRENCY_CONVERTER_VERSION, true );
 
 		wp_register_script(
 			'wc_currency_converter',
@@ -374,7 +383,23 @@ class WC_Currency_Converter {
 			true
 		);
 
-		$currencies = $this->get_currencies_being_used();
+		if ( ! has_action( 'wp_print_footer_scripts', array( $this, 'localize_script' ) ) ) {
+			add_action( 'wp_print_footer_scripts', array( $this, 'localize_script' ), 5 );
+		}
+	}
+
+	/**
+	 * Creates the `wc_currency_converter_params` object on the JS side for the converter forms to work.
+	 *
+	 * @since 1.6.27
+	 */
+	public function localize_script() {
+		$currencies = array_unique(
+			array_merge(
+				$this->get_currencies_in_widget(),
+				$this->currencies_in_page
+			)
+		);
 
 		$wc_currency_converter_params = array(
 			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
@@ -417,12 +442,14 @@ class WC_Currency_Converter {
 	 * Returns an array of currencies that are being used by the widget
 	 * @return array of currencies being used by the widget
 	 */
-	private function get_currencies_being_used() {
+	private function get_currencies_in_widget() {
 		$instances = $this->widget->get_settings();
 
 		$currencies = array();
 		foreach ( $instances as $instance ) {
-			$currencies = array_merge( $currencies, $this->get_currencies_from_instance( $instance ) );
+			foreach ( $this->get_currencies_from_instance( $instance ) as $currency ) {
+				$currencies[] = trim( str_replace( '*', '', $currency ) ); // Remove possible symbol placement indicator.
+			}
 		}
 
 		return array_unique( $currencies );

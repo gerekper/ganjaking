@@ -2,8 +2,8 @@
 
 namespace YoastSEO_Vendor\GuzzleHttp\Handler;
 
-use YoastSEO_Vendor\GuzzleHttp\Exception\RequestException;
 use YoastSEO_Vendor\GuzzleHttp\Exception\ConnectException;
+use YoastSEO_Vendor\GuzzleHttp\Exception\RequestException;
 use YoastSEO_Vendor\GuzzleHttp\Promise\FulfilledPromise;
 use YoastSEO_Vendor\GuzzleHttp\Promise\PromiseInterface;
 use YoastSEO_Vendor\GuzzleHttp\Psr7;
@@ -31,14 +31,14 @@ class StreamHandler
         if (isset($options['delay'])) {
             \usleep($options['delay'] * 1000);
         }
-        $startTime = isset($options['on_stats']) ? \microtime(\true) : null;
+        $startTime = isset($options['on_stats']) ? \YoastSEO_Vendor\GuzzleHttp\_current_time() : null;
         try {
             // Does not support the expect header.
             $request = $request->withoutHeader('Expect');
             // Append a content-length header if body size is zero to match
             // cURL's behavior.
             if (0 === $request->getBody()->getSize()) {
-                $request = $request->withHeader('Content-Length', 0);
+                $request = $request->withHeader('Content-Length', '0');
             }
             return $this->createResponse($request, $options, $this->createStream($request, $options), $startTime);
         } catch (\InvalidArgumentException $e) {
@@ -58,7 +58,7 @@ class StreamHandler
     private function invokeStats(array $options, \YoastSEO_Vendor\Psr\Http\Message\RequestInterface $request, $startTime, \YoastSEO_Vendor\Psr\Http\Message\ResponseInterface $response = null, $error = null)
     {
         if (isset($options['on_stats'])) {
-            $stats = new \YoastSEO_Vendor\GuzzleHttp\TransferStats($request, $response, \microtime(\true) - $startTime, $error, []);
+            $stats = new \YoastSEO_Vendor\GuzzleHttp\TransferStats($request, $response, \YoastSEO_Vendor\GuzzleHttp\_current_time() - $startTime, $error, []);
             \call_user_func($options['on_stats'], $stats);
         }
     }

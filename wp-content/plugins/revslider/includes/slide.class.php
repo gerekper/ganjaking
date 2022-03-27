@@ -633,7 +633,8 @@ class RevSliderSlide extends RevSliderFunctions {
 	 */
 	private function set_layers_by_post($post, $slider_id){
 		$post = apply_filters('revslider_slide_setLayersByPostData_pre', $post, $slider_id, $this);
-		
+		$ignore_taxonomies = apply_filters('revslider_slide_ignore_taxonomies', array('post_tag', 'translation_priority', 'language', 'post_translations'), $this);
+
 		//check if we are woocommerce or not
 		$post_id		= $this->get_val($post, 'ID');
 		$slider_source	= $this->get_slider_param($slider_id, 'source', array());
@@ -665,10 +666,10 @@ class RevSliderSlide extends RevSliderFunctions {
 			$cats = array();
 			$post_type =  $this->get_val($post, 'post_type');
 			$taxonomies = get_object_taxonomies($post_type);
-
+			
 			if(!empty($taxonomies)){
 				foreach($taxonomies as $ptt){
-					if($ptt === 'post_tag' || $ptt === 'translation_priority') continue;
+					if(in_array($ptt, $ignore_taxonomies, true)) continue;
 					$temp_cats = get_the_terms($post_id, $ptt);
 					if(!empty($temp_cats)){
 						$cats = array_merge($cats, $temp_cats);

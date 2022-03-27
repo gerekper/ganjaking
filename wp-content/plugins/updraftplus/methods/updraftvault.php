@@ -402,7 +402,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 						<em>'.__("UpdraftPlus Vault is built on top of Amazon's world-leading data-centres, with redundant data storage to achieve 99.999999999% reliability.", 'updraftplus').' <a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_landing')).'">'.sprintf(__('Read more about %s here.', 'updraftplus'), 'UpdraftPlus Vault').'</a> <a target="_blank" href="'.esc_attr($this->get_url('more_vault_info_faqs')).'">'.sprintf(__('Read the %s FAQs here.', 'updraftplus'), 'Vault').'</a></em>
 					</p>
 					<p>
-						<a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.UpdraftPlus::get_current_clean_url().'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a>
+						<a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a>
 					</p>
 				</div>
 				<div id="updraftvault_settings_connect" data-instance_id="{{instance_id}}" style="display:none;" class="updraft-hidden">
@@ -416,7 +416,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 						<em>'.__("Don't know your email address, or forgotten your password?", 'updraftplus').' <a aria-label="'.__("Don't know your email address, or forgotten your password?", 'updraftplus').__('Follow this link for help', 'updraftplus').'" href="'.esc_attr($this->get_url('vault_forgotten_credentials_links')).'">'.__('Go here for help', 'updraftplus').'</a></em>
 					</p>
 					<p class="padding-top-14px">
-						<em><a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.UpdraftPlus::get_current_clean_url().'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a></em>
+						<em><a aria-label="'.sprintf(__('Back to other %s options'), 'Vault').'" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="updraftvault_backtostart">'.__('Back...', 'updraftplus').'</a></em>
 					</p>
 				</div>
 				<div id="updraftvault_settings_connected"{{#unless is_connected}} style="display:none;" class="updraft-hidden"{{/unless}}>
@@ -593,7 +593,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 				if (is_string($quota_via_transient) && $quota_via_transient) return $quota_via_transient;
 			} elseif ('numeric' == $format) {
 				$quota_via_transient = get_transient('updraftvault_quota_numeric');
-				if (is_numeric($quota_via_transient) && $quota_via_transient && round($quota - $quota_via_transient, 1048576, 1) >= 1024) {
+				if (is_numeric($quota_via_transient) && $quota_via_transient && round($quota - $quota_via_transient, 1048576) >= 1024) {
 					$this->quota_transient_used = true;
 					if (!defined('UPDRAFTVAULT_COUNT_QUOTA_ANYWAY') || !UPDRAFTVAULT_COUNT_QUOTA_ANYWAY) {
 						return $quota_via_transient;
@@ -655,7 +655,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	 * @return String
 	 */
 	private function get_quota_recount_links() {
-		return ' - <a href="'.esc_attr($this->get_url('get_more_quota')).'">'.__('Get more quota', 'updraftplus').'</a> - <a href="'.UpdraftPlus::get_current_clean_url().'" id="updraftvault_recountquota">'.__('Refresh current status', 'updraftplus').'</a>';
+		return ' - <a href="'.esc_attr($this->get_url('get_more_quota')).'">'.__('Get more quota', 'updraftplus').'</a> - <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraftvault_recountquota">'.__('Refresh current status', 'updraftplus').'</a>';
 	}
 
 	public function ajax_vault_recountquota($echo_results = true) {

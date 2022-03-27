@@ -33,10 +33,18 @@ class Cached implements RequestDispatcher {
 	/**
 	 * @param Transient $cache
 	 *
-	 * @return Response
+	 * @return Response|null
 	 */
 	protected function get_cached_response( Transient $cache ) {
-		return unserialize( $cache->get() );
+		$value = $cache->get();
+
+		$response = is_string( $value )
+			? unserialize( $value )
+			: null;
+
+		return $response instanceof Response
+			? $response
+			: null;
 	}
 
 	public function dispatch( Request $request, array $args = [] ) {
@@ -48,7 +56,7 @@ class Cached implements RequestDispatcher {
 		$cache = $this->get_cache( $request );
 		$response = $this->get_cached_response( $cache );
 
-		if ( $args[ self::FORCE_UPDATE ] || $cache->is_expired() ) {
+		if ( $args[ self::FORCE_UPDATE ] || $cache->is_expired() || null === $response ) {
 			$response = $this->api->dispatch( $request );
 
 			$cache->save( serialize( $response ), (int) $args[ self::EXPIRATION ] );

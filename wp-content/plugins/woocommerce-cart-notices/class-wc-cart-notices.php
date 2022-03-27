@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-cart-notices/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Cart Notices main class.
@@ -33,7 +33,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '1.13.2';
+	const VERSION = '1.13.3';
 
 	/** @var WC_Cart_Notices single instance of this plugin */
 	protected static $instance;
@@ -107,7 +107,7 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	 */
 	private function includes() {
 
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			$this->admin_includes();
 		}
 	}
@@ -121,7 +121,7 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	private function admin_includes() {
 
 		// load admin
-		$this->admin = $this->load_class( '/includes/admin/class-wc-cart-notices-admin.php', 'WC_Cart_Notices_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-cart-notices-admin.php', 'WC_Cart_Notices_Admin' );
 
 		// add message handler
 		$this->admin->message_handler = $this->get_message_handler();
@@ -135,7 +135,7 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Cart_Notices\Lifecycle( $this );
 	}

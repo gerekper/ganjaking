@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads restriction classes via hooks and prepares them for use.
  *
  * @class    WC_CSP_Restrictions
- * @version  1.9.0
+ * @version  1.12.1
   */
 class WC_CSP_Restrictions {
 
@@ -350,7 +350,7 @@ class WC_CSP_Restrictions {
 
 								$new_val = $upgraded_method_id . ':' . $instance_id;
 
-								if ( sizeof( $suffix_explode ) === 2 ) {
+								if ( count( $suffix_explode ) === 2 ) {
 									$new_val .= ':' . $suffix_explode[ 1 ];
 									if ( ! isset( $restriction_data[ 'custom_rates' ] ) ) {
 										$restriction_data[ 'custom_rates' ] = array();
@@ -409,7 +409,7 @@ class WC_CSP_Restrictions {
 										$new_val = $upgraded_method_id . ':' . $instance_id;
 
 										// Manual rate ID exclusions not supported in "Shipping Method" condition.
-										if ( sizeof( $suffix_explode ) === 1 ) {
+										if ( count( $suffix_explode ) === 1 ) {
 											$restriction_data[ 'conditions' ][ $condition_key ][ 'value' ][ $key ] = $new_val;
 										}
 

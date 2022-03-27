@@ -2,23 +2,25 @@
 
 namespace ACP;
 
+use AC\Storage\KeyValueFactory;
 use AC\Storage\KeyValuePair;
-use AC\Storage\OptionFactory;
-use ACP\Type\License\Key;
+use ACP\Type\Activation\Key;
+use ACP\Type\LicenseKey;
 
 class LicenseKeyRepository {
-
-	const OPTION_KEY = 'acp_subscription_key';
 
 	/**
 	 * @var KeyValuePair
 	 */
 	private $storage;
 
-	public function __construct( $network_active = false ) {
-		$this->storage = ( new OptionFactory() )->create( self::OPTION_KEY, (bool) $network_active );
+	public function __construct( KeyValueFactory $storage_factory ) {
+		$this->storage = $storage_factory->create( 'acp_subscription_key' );
 	}
 
+	/**
+	 * @return LicenseKey|null
+	 */
 	public function find() {
 		$key = defined( 'ACP_LICENCE' ) && ACP_LICENCE
 			? ACP_LICENCE
@@ -28,15 +30,19 @@ class LicenseKeyRepository {
 			return null;
 		}
 
-		return new Key( $key );
+		$source = $this->is_defined()
+			? LicenseKey::SOURCE_CODE
+			: LicenseKey::SOURCE_DATABASE;
+
+		return new LicenseKey( $key, $source );
+	}
+
+	private function is_defined() {
+		return defined( 'ACP_LICENCE' ) && ACP_LICENCE;
 	}
 
 	private function get() {
 		return $this->storage->get();
-	}
-
-	public function save( Key $license_key ) {
-		return $this->storage->save( $license_key->get_value() );
 	}
 
 	public function delete() {

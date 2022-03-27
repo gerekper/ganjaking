@@ -41,6 +41,38 @@ class WC_Bookings_REST_Products_Categories_Controller extends WC_REST_Product_Ca
 	}
 
 	/**
+	 * Get a single term from a taxonomy.
+	 *
+	 * Return category data only if it is
+	 * assigned to at least 1 booking product.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Request|WP_Error|array
+	 */
+	public function get_item( $request ) {
+		$booking_term = get_term_by( 'id', (int) $request['id'], 'product_cat' );
+
+		$count = 0;
+		if ( $booking_term ) {
+			$args     = array(
+				'type'     => 'booking',
+				'category' => array( $booking_term->slug ),
+				'return'   => 'ids',
+				'limit'    => 1,
+			);
+			$products = wc_get_products( $args );
+			$count    = count( $products );
+		}
+
+		// If no booking products are using the term, do not return its data.
+		if ( 0 === $count ) {
+			return array();
+		}
+
+		return parent::get_item( $request );
+	}
+
+	/**
 	 * Filters the terms query SQL clauses so only categories with bookable products are returned.
 	 * Product type is also a term so we have to do many joins.
 	 *

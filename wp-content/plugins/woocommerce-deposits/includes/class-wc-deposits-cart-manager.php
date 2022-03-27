@@ -32,10 +32,22 @@ class WC_Deposits_Cart_Manager {
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'add_cart_item' ), 99, 1 );
 
-		// Apply discounts after the cart is completely loaded.
-		// Dynamic Pricing applies discounts after the cart is completely loaded
-		// to account for category quantity discounts.
-		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'get_cart_from_session' ), 99, 1 );
+		// Apply deposit information on cart delayed in case of membership plugin is installed (need to apply on front-end only).
+		// Memberships plugins adds filters on price on `wp_loaded` with 15 priority.
+		// So, apply deposit info to cart at `wp_loaded` with 20 priority.
+		// see issue https://github.com/woocommerce/woocommerce-deposits/issues/381.
+		if ( function_exists( 'wc_memberships' ) &&
+			( ! is_admin() || defined( 'DOING_AJAX' ) ) &&
+			! defined( 'DOING_CRON' ) &&
+			! WC()->is_rest_api_request()
+		) {
+			add_action( 'wp_loaded', array( $this, 'apply_deposit_info_to_cart' ), 20 );
+		} else {
+			// Apply discounts after the cart is completely loaded.
+			// Dynamic Pricing applies discounts after the cart is completely loaded
+			// to account for category quantity discounts.
+			add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'get_cart_from_session' ), 99, 1 );
+		}
 
 		// Control how coupons apply to products including a deposit or payment plan
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'clear_deferred_discounts' ) );
@@ -365,6 +377,18 @@ class WC_Deposits_Cart_Manager {
 		return $cart_item_meta;
 	}
 
+	/**
+	 * Apply deposit information in the cart (if any deposit item)
+	 * This function is used only when wocommerce-memberships plugin is active.
+	 *
+	 * @return void
+	 */
+	public function apply_deposit_info_to_cart() {
+		$cart = WC()->cart;
+		if ( ! is_null( $cart ) ) {
+			$this->get_cart_from_session( $cart );
+		}
+	}
 
 	/**
 	 * Runs though all items in the cart applying any deposit information.
@@ -416,7 +440,7 @@ class WC_Deposits_Cart_Manager {
 					$plan                     = WC_Deposits_Plans_Manager::get_plan( $cart_item['payment_plan'] );
 					$total_percent            = $plan->get_total_percent();
 					$cart_item['full_amount'] = ( $cart_item['data']->get_price() / 100 ) * $total_percent;
-					$cart_item['data']->set_price( $cart_item['full_amount'] );
+					$cart_item['data']->set_price( ( $cart_item['data']->get_price( 'edit' ) / 100 ) * $total_percent );
 				} else {
 					$cart_item['full_amount'] = $cart_item['data']->get_price();
 				}

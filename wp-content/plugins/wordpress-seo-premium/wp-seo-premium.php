@@ -5,12 +5,12 @@
  * WPSEO Premium plugin file.
  *
  * @package   WPSEO\Main
- * @copyright Copyright (C) 2008-2019, Yoast BV - support@yoast.com
+ * @copyright Copyright (C) 2008-2022, Yoast BV - support@yoast.com
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO Premium
- * Version:     17.9
+ * Version:     18.1
  * Plugin URI:  https://yoa.st/2jc
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
@@ -22,7 +22,7 @@
  * Requires PHP: 5.6.20
  *
  * WC requires at least: 3.0
- * WC tested up to: 6.0
+ * WC tested up to: 6.2
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,49 @@
 
 use Yoast\WP\SEO\Premium\Addon_Installer;
 
+$site_information = get_transient( 'wpseo_site_information' );
+if ( isset( $site_information->subscriptions ) && ( count( $site_information->subscriptions ) == 0 ) ) {
+    delete_transient( 'wpseo_site_information' );
+    delete_transient( 'wpseo_site_information_quick' );
+}
+
+add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ){
+    $site_information = (object) [
+        'subscriptions' => [
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-wordpress-premium' ],
+                'expiryDate' => '+5 years'
+            ],
+
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-news' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-woocommerce' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-video' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-local' ],
+                'expiryDate' => '+5 years'
+            ]
+        ],
+    ];
+
+    if ( strpos( $url, 'https://my.yoast.com/api/sites/current' ) !== false ) {
+        return [
+            'response' => [ 'code' => 200, 'message' => 'OK' ],
+            'body'     => json_encode( $site_information )
+        ];
+    } else {
+        return $pre;
+    }
+}, 10, 3 );
+
 if ( ! defined( 'WPSEO_PREMIUM_FILE' ) ) {
 	define( 'WPSEO_PREMIUM_FILE', __FILE__ );
 }
@@ -56,7 +99,7 @@ if ( ! defined( 'WPSEO_PREMIUM_BASENAME' ) ) {
  * {@internal Nobody should be able to overrule the real version number as this can cause
  *            serious issues with the options, so no if ( ! defined() ).}}
  */
-define( 'WPSEO_PREMIUM_VERSION', '17.9' );
+define( 'WPSEO_PREMIUM_VERSION', '18.1' );
 
 // Initialize Premium autoloader.
 $wpseo_premium_dir               = WPSEO_PREMIUM_PATH;
@@ -77,75 +120,3 @@ if ( ! wp_installing() ) {
 }
 
 \register_activation_hook( \WPSEO_PREMIUM_FILE, [ 'WPSEO_Premium', 'install' ] );
-
-/** NOTE: This Is Function Replace  SAME IN  = \wordpress-seo\inc\class-my-yoast-api-request.php  **/
-class WPSEO_MyYoast_Api_Request {
-	protected $url;
-	protected $args = [
-		'method'    => 'GET',
-		'timeout'   => 5,
-		'headers'   => [
-			'Accept-Encoding' => '*',
-			'Expect'          => '',
-		],
-	];
-	protected $response;
-	protected $error_message = '';
-	public function __construct( $url, array $args = [] ) {
-		$this->url  = 'https://api-yoast.txt?';
-		$this->args = wp_parse_args( $args, $this->args );
-	}
-	public function fire() {
-		try {
-			$response       = $this->do_request( $this->url, $this->args );
-			$this->response = $this->decode_response( $response );
-			return true;
-		}
-		catch ( WPSEO_MyYoast_Bad_Request_Exception $bad_request_exception ) {
-			$this->error_message = $bad_request_exception->getMessage();
-			return false;
-		}
-	}
-	public function get_response() {
-		return $this->response;
-	}
-	protected function do_request( $url, $request_arguments ) {
-		$request_arguments = $this->enrich_request_arguments( $request_arguments );
-		$response          = wp_remote_request( $url, $request_arguments );
-		$response_code    = wp_remote_retrieve_response_code( $response );
-		$response_message = wp_remote_retrieve_response_message( $response );
-		if ( $response_code === 200 || strpos( $response_code, '200' ) !== false ) {
-			return wp_remote_retrieve_body( $response );
-		}
-		throw new WPSEO_MyYoast_Bad_Request_Exception( esc_html( $response_message ), (int) $response_code );
-	}
-	protected function decode_response( $response ) {
-		$response = json_decode( $response );
-		if ( ! is_object( $response ) ) {
-			throw new WPSEO_MyYoast_Invalid_JSON_Exception(
-				esc_html__( 'No JSON object was returned.', 'wordpress-seo' )
-			);
-		}
-		return $response;
-	}
-	protected function enrich_request_arguments( array $request_arguments ) {
-		$request_arguments     = wp_parse_args( $request_arguments, [ 'headers' => [] ] );
-		$addon_version_headers = $this->get_installed_addon_versions();
-		foreach ( $addon_version_headers as $addon => $version ) {
-			$request_arguments['headers'][ $addon . '-version' ] = $version;
-		}
-		$request_body = $this->get_request_body();
-		if ( $request_body !== [] ) {
-			$request_arguments['body'] = $request_body;
-		}
-		return $request_arguments;
-	}
-	public function get_request_body() {
-		return [ 'url' => WPSEO_Utils::get_home_url() ];
-	}
-	protected function get_installed_addon_versions() {
-		$addon_manager = new WPSEO_Addon_Manager();
-		return $addon_manager->get_installed_addons_versions();
-	}
-}
-/** ENG API **/

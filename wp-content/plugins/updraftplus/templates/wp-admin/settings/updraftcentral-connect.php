@@ -17,7 +17,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 				<button id="btn_cloud_connect" class="btn btn-primary button-primary"><?php _e('Connect this site to UpdraftCentral Cloud', 'updraftplus');?></button>
 			</p>
 			<p>
-				<a href="https://wordpress.org/plugins/updraftcentral/" target="_blank"><?php _e('Or if you prefer to self-host, then you can get the self-hosted version here.', 'updraftplus');?></a> <a id="self_hosted_connect" href="<?php echo UpdraftPlus::get_current_clean_url();?>"><?php _e('Go here to connect it.', 'updraftplus');?></a>
+				<a href="https://wordpress.org/plugins/updraftcentral/" target="_blank"><?php _e('Or if you prefer to self-host, then you can get the self-hosted version here.', 'updraftplus');?></a> <a id="self_hosted_connect" href="<?php echo esc_url(UpdraftPlus::get_current_clean_url()); ?>"><?php _e('Go here to connect it.', 'updraftplus');?></a>
 			</p>
 		</div>
 		<div class="updraftcentral_cloud_clear"></div>

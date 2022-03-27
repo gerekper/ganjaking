@@ -694,7 +694,7 @@ function seedprod_pro_save_lpage() {
 				
 
 				// remove action so they don't conflict with the save. Yoast SEO was trying to analytize this content.
-				remove_all_actions('wp_insert_post');
+				remove_all_actions( 'wp_insert_post' );
 				wp_update_post( $update );
 				$status = 'updated';
 
@@ -722,12 +722,12 @@ function seedprod_pro_save_lpage() {
 				$css = $check_post_type->document->settings->globalHeadCss . $check_post_type->document->settings->customCss;
 				seedprod_pro_generate_css_file( $lpage_id, $css );
 			} else {
-				if(!empty($html)){
-                    $code = seedprod_pro_extract_page_css($html, $lpage_id);
-                    update_post_meta($lpage_id, '_seedprod_css', $code['css']);
-                    update_post_meta($lpage_id, '_seedprod_html', $code['html']);
-                    seedprod_pro_generate_css_file($lpage_id, $code['css']);
-                }
+				if ( ! empty( $html ) ) {
+					$code = seedprod_pro_extract_page_css( $html, $lpage_id );
+					update_post_meta( $lpage_id, '_seedprod_css', $code['css'] );
+					update_post_meta( $lpage_id, '_seedprod_html', $code['html'] );
+					seedprod_pro_generate_css_file( $lpage_id, $code['css'] );
+				}
 			}
 		}
 		
@@ -978,7 +978,9 @@ function seedprod_pro_save_template() {
 			if ( 99999 != $template_id ) {
 				unset( $settings['document'] );
 				$template_code_merge = json_decode( $template_code, true );
-				$settings            = $settings + $template_code_merge;
+				if ( is_array( $template_code_merge ) ) {
+					$settings = $settings + $template_code_merge;
+				}
 			}
 			// TODO pull in current pages content if any exists, make sure sections is empty before adding
 			if ( ! empty( $_POST['lpage_type'] ) && 'post' == $_POST['lpage_type'] ) {

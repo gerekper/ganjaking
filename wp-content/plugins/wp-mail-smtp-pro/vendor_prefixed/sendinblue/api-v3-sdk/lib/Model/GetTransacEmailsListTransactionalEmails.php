@@ -51,13 +51,13 @@ class GetTransacEmailsListTransactionalEmails implements \WPMailSMTP\Vendor\Send
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'subject' => 'string', 'templateId' => 'int', 'messageId' => 'string', 'uuid' => 'string', 'date' => '\\DateTime', 'from' => 'string', 'tags' => 'string[]'];
+    protected static $swaggerTypes = ['email' => 'string', 'subject' => 'string', 'templateId' => 'int', 'messageId' => 'string', 'uuid' => 'string', 'date' => 'string', 'from' => 'string', 'tags' => 'string[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'subject' => null, 'templateId' => 'int64', 'messageId' => null, 'uuid' => null, 'date' => 'date-time', 'from' => 'email', 'tags' => null];
+    protected static $swaggerFormats = ['email' => 'email', 'subject' => null, 'templateId' => 'int64', 'messageId' => null, 'uuid' => null, 'date' => null, 'from' => 'email', 'tags' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -298,7 +298,7 @@ class GetTransacEmailsListTransactionalEmails implements \WPMailSMTP\Vendor\Send
     /**
      * Gets date
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDate()
     {
@@ -307,7 +307,7 @@ class GetTransacEmailsListTransactionalEmails implements \WPMailSMTP\Vendor\Send
     /**
      * Sets date
      *
-     * @param \DateTime $date Date on which transactional email was sent
+     * @param string $date Date on which transactional email was sent
      *
      * @return $this
      */

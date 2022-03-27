@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.12.0
+ * @version  6.14.0
  */
 class WC_PB_Cart {
 
@@ -853,6 +853,15 @@ class WC_PB_Cart {
 			return $cart_item;
 		}
 
+		/**
+		 * 'woocommerce_bundles_before_set_bundled_cart_item' filter.
+		 *
+		 * @since  6.14.0
+		 *
+		 * @param  array  $cart_item
+		 */
+		do_action( 'woocommerce_bundles_before_set_bundled_cart_item', $cart_item );
+
 		if ( isset( $cart_item[ 'subscription_renewal' ] ) ) {
 			$bundled_item->is_subscription_renewal = true;
 		}
@@ -941,7 +950,18 @@ class WC_PB_Cart {
 		 * @param  array              $cart_item
 		 * @param  WC_Product_Bundle  $bundle
 		 */
-		return apply_filters( 'woocommerce_bundled_cart_item', $cart_item, $bundle );
+		$cart_item = apply_filters( 'woocommerce_bundled_cart_item', $cart_item, $bundle );
+
+		/**
+		 * 'woocommerce_bundles_after_set_bundled_cart_item' filter.
+		 *
+		 * @since  6.14.0
+		 *
+		 * @param  array  $cart_item
+		 */
+		do_action( 'woocommerce_bundles_after_set_bundled_cart_item', $cart_item );
+
+		return $cart_item;
 	}
 
 	/**
@@ -1651,7 +1671,7 @@ class WC_PB_Cart {
 	}
 
 	/**
-	 * Validate cart item removal.
+	 * Handle bundled cart item removals.
 	 *
 	 * @return void
 	 */
@@ -1662,6 +1682,7 @@ class WC_PB_Cart {
 
 		$cart_item_key = sanitize_text_field( wp_unslash( $_GET[ 'remove_item' ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$cart_item     = WC()->cart->get_cart_item( $cart_item_key );
+
 		if ( ! $cart_item ) {
 			return;
 		}
@@ -1688,6 +1709,7 @@ class WC_PB_Cart {
 			}
 
 			if ( 0 !== $bundled_item->get_quantity( 'min', array( 'check_optional' => true ) ) ) {
+
 				$product = isset( $cart_item[ 'data' ] ) && is_a( $cart_item[ 'data' ], 'WC_Product' ) ? $cart_item[ 'data' ] : wc_get_product( $cart_item[ 'product_id' ] );
 
 				/* translators: %s: Item name. */
@@ -1695,10 +1717,11 @@ class WC_PB_Cart {
 				/* translators: %s: Bundle name. */
 				$bundled_container_title = sprintf( _x( '&ldquo;%s&rdquo;', 'Bundle name in quotes', 'woocommerce-product-bundles' ), $bundle->get_title() );
 				/* translators: %1$s: Item name, %2$s: Bundle name. */
-				$removed_notice     = __( sprintf( '%1$s cannot be removed. The item is a mandatory part of %2$s.', $item_removed_title, $bundled_container_title ), 'woocommerce-product-bundles' );
+				$removed_notice = __( sprintf( '%1$s cannot be removed. The item is a mandatory part of %2$s.', $item_removed_title, $bundled_container_title ), 'woocommerce-product-bundles' );
 
 				wc_add_notice( $removed_notice, 'error' );
 
+			// Undoing is not supported!
 			} else {
 
 				WC()->cart->remove_cart_item( $cart_item_key );

@@ -114,17 +114,25 @@ class Rev_addon_gal_Public {
 		
 			$f = new RevSliderFunctions();
 			$blockName = $f->get_val($block, 'blockName', '');
-			
-			
+
 			if($blockName === 'core/gallery') {
-			
+				
 				$ids = $f->get_val($block, array('attrs', 'ids'), array());
 				$class = $f->get_val($block, array('attrs', 'className'), '');
-				
+
+				//new block setup since WP 5.9
+				if(empty($ids)){
+					$ids = array();	
+					foreach($block['innerBlocks'] as $image){	
+						$ids[] = $image["attrs"]["id"];
+					}
+				}
+
 				if(is_array($ids) && !empty($ids) && is_string($class) && strpos($class, 'revslider-gallery-') !== false) {
 				
 					$alias = str_replace('revslider-gallery-', '', $class);
 					$ids = implode($ids, ',');
+					
 					return '[gallery rev_addon_gal_slider="' . $alias . '" ids="' . $ids . '"]';
 				
 				}

@@ -51,13 +51,13 @@ class CreateEmailCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['tag' => 'string', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\CreateEmailCampaignSender', 'name' => 'string', 'htmlContent' => 'string', 'htmlUrl' => 'string', 'templateId' => 'int', 'scheduledAt' => '\\DateTime', 'subject' => 'string', 'replyTo' => 'string', 'toField' => 'string', 'recipients' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\CreateEmailCampaignRecipients', 'attachmentUrl' => 'string', 'inlineImageActivation' => 'bool', 'mirrorActive' => 'bool', 'footer' => 'string', 'header' => 'string', 'utmCampaign' => 'string', 'params' => 'object', 'sendAtBestTime' => 'bool', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'ipWarmupEnable' => 'bool', 'initialQuota' => 'int', 'increaseRate' => 'int'];
+    protected static $swaggerTypes = ['tag' => 'string', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\CreateEmailCampaignSender', 'name' => 'string', 'htmlContent' => 'string', 'htmlUrl' => 'string', 'templateId' => 'int', 'scheduledAt' => 'string', 'subject' => 'string', 'replyTo' => 'string', 'toField' => 'string', 'recipients' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\CreateEmailCampaignRecipients', 'attachmentUrl' => 'string', 'inlineImageActivation' => 'bool', 'mirrorActive' => 'bool', 'footer' => 'string', 'header' => 'string', 'utmCampaign' => 'string', 'params' => 'object', 'sendAtBestTime' => 'bool', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'ipWarmupEnable' => 'bool', 'initialQuota' => 'int', 'increaseRate' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['tag' => null, 'sender' => null, 'name' => null, 'htmlContent' => null, 'htmlUrl' => 'url', 'templateId' => 'int64', 'scheduledAt' => 'date-time', 'subject' => null, 'replyTo' => 'email', 'toField' => null, 'recipients' => null, 'attachmentUrl' => 'url', 'inlineImageActivation' => null, 'mirrorActive' => null, 'footer' => null, 'header' => null, 'utmCampaign' => null, 'params' => null, 'sendAtBestTime' => null, 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => 'int64', 'winnerCriteria' => null, 'winnerDelay' => 'int64', 'ipWarmupEnable' => null, 'initialQuota' => 'int64', 'increaseRate' => 'int64'];
+    protected static $swaggerFormats = ['tag' => null, 'sender' => null, 'name' => null, 'htmlContent' => null, 'htmlUrl' => 'url', 'templateId' => 'int64', 'scheduledAt' => null, 'subject' => null, 'replyTo' => 'email', 'toField' => null, 'recipients' => null, 'attachmentUrl' => 'url', 'inlineImageActivation' => null, 'mirrorActive' => null, 'footer' => null, 'header' => null, 'utmCampaign' => null, 'params' => null, 'sendAtBestTime' => null, 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => 'int64', 'winnerCriteria' => null, 'winnerDelay' => 'int64', 'ipWarmupEnable' => null, 'initialQuota' => 'int64', 'increaseRate' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -363,7 +363,7 @@ class CreateEmailCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Gets scheduledAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getScheduledAt()
     {
@@ -372,7 +372,7 @@ class CreateEmailCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Sets scheduledAt
      *
-     * @param \DateTime $scheduledAt Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part).
+     * @param string $scheduledAt Sending UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. If sendAtBestTime is set to true, your campaign will be sent according to the date passed (ignoring the time part).
      *
      * @return $this
      */

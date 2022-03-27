@@ -1,11 +1,11 @@
 === Coupon Referral Program ===
-Contributors: MakeWebBetter
+Contributors: WP Swings
 Tags: coupon, coupon referral program, loyalty Program, loyalty, referral program, customer rewards, referral marketing
 Requires at least: 4.6
-Tested up to: 5.8.2
+Tested up to: 5.9
 WC requires at least: 3.0 
-WC tested up to: 5.9.0
-Stable tag: 1.6.2
+WC tested up to: 6.1.1
+Stable tag: 1.6.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ WooCommerce Coupon Referral extension is mainly to install a referral program on
 
 WooCommerce Coupon Referral Program Plugin enables your customers to earn coupon rewards for various activities they perform on your website like sharing the referral link on social networking sites and through emails. The admin can customize the referral button using the predefined options or by applying custom CSS.
 
-== WHY SHOULD YOU USE COUPON REFERRAL PROGRAM PLUGIN? ==
+== WHY SHOULD YOU USE THIS PLUGIN? ==
 Referral marketing is one of the best marketing methods for online stores as marketers can use their existing customers’ recommendations and word of mouth for product promotion. Referral systems work so well because people trust the product recommendations and suggestions of their friends or family over any form of advertising. Also, it helps online stores to earn loyal customers, improve customer engagement and increase sales.
 
 So, if you are looking for a Referral system for your WooCommerce and aiming to utilize your customer base to increase engagement and boost conversation rate, then we have the Coupon Referral Program for WooCommerce. The coupon referral program set up by our plugin rewards the referrer and referred customers with discount coupons when they complete the required actions. I.e. Discount coupons are offered on sharing the referral links, signup, and sales through referrals.
@@ -25,10 +25,10 @@ So, if you are looking for a Referral system for your WooCommerce and aiming to 
 
 == BENEFITS ==
 * **Builds Strong Customer Base:** The referral coupons offer lucrative deals to attract more and more customers.
-* **Improves Interaction & Engagement Rate:** using coupons and referral marketing together elevates engagement and interaction rate between your business and customers.  
-* **Strong Customer Loyalty:** This plugin helps you create loyal customers as the referral coupon offers keeps your customers close and connected.
+* **Improves Interaction & Engagement Rate:**Using coupons and referral marketing together elevates engagement and interaction rate between your business and customers.
+* **Strong Customer Loyalty:** This plugin helps you create loyal customers as the referral coupon offers to keep your customers close and connected.
 * **Enhances Brand Awareness:** The referral marketing approach with coupons helps you to increase your brand awareness among the potential audience.
-* **Improves Customer Lifetime Value:** The coupon deals keeps your customers satisfied and promote their shopping interests. Thus, it helps in improving your customer lifetime value score. 
+* **Improves Customer Lifetime Value:** The coupon deals keep your customers satisfied and promote their shopping interests. Thus, it helps in improving your customer lifetime value score. 
 * **Leverages Referral Marketing:** It provides the option to share the referral link on Facebook, Twitter, and email. This plugin promotes referral marketing tactics by collaborating with coupons marketing.
 
 
@@ -96,8 +96,14 @@ The manual installation method involves downloading our Coupon Referral Program 
 
 == Changelog ==
 
-**2021-12-14 - Version 1.6.2**
+New Version release 
 
+**2022-02-04 - Version 1.6.3**
+* New: Notice display of current version for **WP Swings**
+* New: Minor Bug fixes
+* New: Compatible with latest WP and WC
+
+**2021-12-14 - Version 1.6.2**
 * New: Compatibility with WooCommerce 5.9.0
 * New: Compatibility with WordPress 5.8.2
 * New: Give special  first purchase discount
@@ -110,7 +116,6 @@ The manual installation method involves downloading our Coupon Referral Program 
 * Fix: Other minor fixes
 
 **2021-09-16 - Version 1.6.1**
-
 * New: Compatibility with latest WP and WC
 * New: Hide Coupon Referral Woo PAR is enabled
 * New: Display Coupon usage count
@@ -118,48 +123,38 @@ The manual installation method involves downloading our Coupon Referral Program 
 * Fix: Typo Error
 
 **2020-04-10 - Version 1.5.0**
-
 * New: Compatibility with WooCommerce 4.0 and WordPress 5.4
 * New: Discount Coupon on referral signup
 
 **2020-02-03 - Version 1.4.2**
-
 * New: Compatibility with WooCommerce 3.9.0
   
 **2019-11-01 - Version 1.4.1**
-
 * New: Added settings different coupon type
 * Fix: Popup display issue
 
 **2019-10-15 - Version 1.4.0**
-
 * New: Compatibility with WooCommerce Subscription
 
 **2019-08-13 - Version 1.3.3**
-
 * Tweak: Change Pop-up text
 
 **2019-07-05 - Version 1.3.2**
-
 * Fix: Minor CSS issue
 
 **2019-06-18 - Version 1.3.1**
-
 * Fix: PHP version conflicts
 
 **2019-05-15 - Version 1.3.0**
-
 * New: Reporting for Customers
 * New: Reporting for Admin
 
 **2019-04-04 - Version 1.2.0**
-
 * New: Days to remember referrals
 * New: Referral percentage discount up to
 * Tweak: Fixed amount for Referral coupon
 
 **2019-02-20 - Version 1.1.0**
-
 * New: Shortcode For Referral Link.
 * New: Shortcode For Referral Button.
 * New: Position  For Referral Button.
@@ -167,9 +162,7 @@ The manual installation method involves downloading our Coupon Referral Program 
 * Tweak: Improved CSS
 
 **2019-02-12 - Version 1.0.1**
-
 * Fix: Save Referral discount
 
 **2019-02-05 - Version 1.0.0**
-
 * First Release

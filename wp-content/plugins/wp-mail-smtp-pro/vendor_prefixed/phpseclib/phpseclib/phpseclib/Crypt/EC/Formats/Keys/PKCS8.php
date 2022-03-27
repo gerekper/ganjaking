@@ -31,7 +31,6 @@ use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed448;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
@@ -109,9 +108,9 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         if (isset($key['parameters']) && $params != $key['parameters']) {
             throw new \RuntimeException('The PKCS8 parameter field does not match the private key parameter field');
         }
-        $temp = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key['privateKey'], 256);
-        $components['dA'] = $components['curve']->convertInteger($temp);
-        $components['QA'] = self::extractPoint($key['publicKey'], $components['curve']);
+        $components['dA'] = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key['privateKey'], 256);
+        $components['curve']->rangeCheck($components['dA']);
+        $components['QA'] = isset($key['publicKey']) ? self::extractPoint($key['publicKey'], $components['curve']) : $components['curve']->multiplyPoint($components['curve']->getBasePoint(), $components['dA']);
         return $components;
     }
     /**
@@ -168,14 +167,14 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      * Convert a private key to the appropriate format.
      *
      * @access public
-     * @param \phpseclib3\Math\Common\FiniteField\Integer $privateKey
+     * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
      * @param string $password optional
      * @param array $options optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
     {
         self::initialize_static_variables();
         if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery) {

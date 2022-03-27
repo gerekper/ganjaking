@@ -103,6 +103,9 @@ jQuery(function ($) {
 
 		init: function (cart) {
 			var cartFormForValidity = document.querySelector('form.cart');
+			var showIncompleteSubTotal =
+			document.querySelector('[data-show-incomplete-sub-total]')
+				.dataset.showIncompleteSubTotal === '1';
 			var show_subtotal_panel = false;
 			var $cart = cart,
 				$variation_input = $cart.hasClass('variations_form')
@@ -228,7 +231,7 @@ jQuery(function ($) {
 
 					// The product_id will be 0, empty or undefined if an invalid set of variations has been chosen.
 					var parsedProductId = parseInt( product_id );
-					show_subtotal_panel = !! (formValid && parsedProductId);
+					show_subtotal_panel = !! (formValid && parsedProductId) || showIncompleteSubTotal;
 
 					// Compatibility with Smart Coupons self declared gift amount purchase.
 					if (

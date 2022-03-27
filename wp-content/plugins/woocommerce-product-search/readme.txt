@@ -1,10 +1,10 @@
 === WooCommerce Product Search ===
 Contributors: itthinx
 Tags: search, search engine, product search, woocommerce, ajax, ajax search, display, info, instant, instant search, information, marketing, product, products, product search, promotion, quick, quick search, relevance, search, search relevance, weight, weights
-Requires at least: 5.5
+Requires at least: 5.6
 Requires PHP: 7.0
-Tested up to: 5.9
-Stable tag: 4.3.0
+Tested up to: 6.0
+Stable tag: 4.5.0
 
 The best Search Engine and Search Experience for WooCommerce.
 
@@ -22,7 +22,7 @@ The perfect Search Engine for your [WooCommerce](https://wordpress.org/plugins/w
 
 = Where is the documentation? =
 
-Please go to the [Documentation](https://docs.woocommerce.com/document/woocommerce-product-search/) page.
+Please go to the [Documentation](https://woocommerce.com/document/woocommerce-product-search/) page.
 
 = I have a question, where do I ask? =
 
@@ -32,7 +32,7 @@ You can also leave a comment at the author's [WooCommerce Product Search](http:/
 
 == Screenshots ==
 
-Please visit the [documentation](https://docs.woocommerce.com/document/woocommerce-product-search/) page.
+Please visit the [documentation](https://woocommerce.com/document/woocommerce-product-search/) page.
 
 == Changelog ==
 

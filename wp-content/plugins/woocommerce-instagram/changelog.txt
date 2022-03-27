@@ -1,5 +1,13 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-02-28 - version 4.1.1
+* Tweak - Unregister scheduled actions on plugin deactivation.
+* Tweak - Unregister custom post types on plugin deactivation.
+* Tweak - Tested compatibility with WC 6.3.
+
+2022-02-07 - version 4.1.0
+* Feature - Include the stock quantity in the product catalogs.
+
 2022-01-27 - version 4.0.1
 * Tweak - Refresh the XML file when the catalog settings change.
 * Tweak - Tested compatibility with WC 6.2.

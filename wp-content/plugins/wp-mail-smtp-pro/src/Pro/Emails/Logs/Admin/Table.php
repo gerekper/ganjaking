@@ -8,6 +8,7 @@ use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\WP;
 
 if ( ! class_exists( 'WP_List_Table', false ) ) {
@@ -56,7 +57,7 @@ class Table extends \WP_List_Table {
 	 */
 	public function __construct() {
 
-		$this->options = new Options();
+		$this->options = Options::init();
 
 		// Set parent defaults.
 		parent::__construct(
@@ -78,8 +79,6 @@ class Table extends \WP_List_Table {
 	 */
 	public function get_statuses() {
 
-		$mailer = $this->options->get( 'mail', 'mailer' );
-
 		// In this order statuses will appear in filters bar.
 		$statuses = [
 			Email::STATUS_DELIVERED => __( 'Delivered', 'wp-mail-smtp-pro' ),
@@ -89,7 +88,7 @@ class Table extends \WP_List_Table {
 		];
 
 		// Exclude Delivered and Pending statuses for mailers without verification API.
-		if ( ! in_array( $mailer, [ 'mailgun', 'sendinblue', 'smtpcom' ], true ) ) {
+		if ( Helpers::mailer_without_send_confirmation() ) {
 			unset( $statuses[ Email::STATUS_DELIVERED ] );
 			unset( $statuses[ Email::STATUS_WAITING ] );
 		}
@@ -548,7 +547,7 @@ class Table extends \WP_List_Table {
 
 		try {
 			$date = $item->get_date_sent();
-		} catch ( \Exception $e ) {
+		} catch ( \Exception $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 			// We don't handle this exception as we define a default value above.
 		}
 
@@ -652,11 +651,12 @@ class Table extends \WP_List_Table {
 	 */
 	public function get_filtered_search_parts() {
 
-		if ( empty( $_REQUEST['search']['place'] ) || empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_REQUEST['search']['place'] ) || empty( $_REQUEST['search']['term'] ) ) {
 			return false;
 		}
 
-		return array_map( 'sanitize_text_field', $_REQUEST['search'] ); // phpcs:ignore
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		return array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_REQUEST['search'] ) );
 	}
 
 	/**
@@ -766,12 +766,12 @@ class Table extends \WP_List_Table {
 		// Total amount for pagination with WHERE clause - super quick count DB request.
 		$total_items = ( new EmailsCollection( $params ) )->get_count();
 
-		if ( ! empty( $_REQUEST['orderby'] ) ) { // phpcs:ignore
-			$params['orderby'] = $_REQUEST['orderby']; // phpcs:ignore
+		if ( ! empty( $_REQUEST['orderby'] ) && in_array( $_REQUEST['orderby'], [ 'subject', 'date_sent' ], true ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$params['orderby'] = sanitize_key( $_REQUEST['orderby'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
-		if ( ! empty( $_REQUEST['order'] ) ) { // phpcs:ignore
-			$params['order'] = $_REQUEST['order']; // phpcs:ignore
+		if ( ! empty( $_REQUEST['order'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$params['order'] = sanitize_key( $_REQUEST['order'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		$params['offset'] = ( $this->get_pagenum() - 1 ) * EmailsCollection::$per_page;
@@ -805,16 +805,21 @@ class Table extends \WP_List_Table {
 			return;
 		}
 
-		$search_place = ! empty( $_REQUEST['search']['place'] ) ? sanitize_key( $_REQUEST['search']['place'] ) : 'people'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$search_term  = ! empty( $_REQUEST['search']['term'] ) ? wp_unslash( $_REQUEST['search']['term'] ) : ''; // phpcs:ignore WordPress.Security
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$search_place = ! empty( $_REQUEST['search']['place'] ) ? sanitize_key( $_REQUEST['search']['place'] ) : 'people';
+		$search_term  = ! empty( $_REQUEST['search']['term'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['search']['term'] ) ) : '';
 
-		if ( ! empty( $_REQUEST['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />'; // phpcs:ignore WordPress.Security
+		if ( ! empty( $_REQUEST['orderby'] ) && in_array( $_REQUEST['orderby'], [ 'subject', 'date_sent' ], true ) ) {
+			echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_key( $_REQUEST['orderby'] ) ) . '" />';
 		}
 
-		if ( ! empty( $_REQUEST['order'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />'; // phpcs:ignore WordPress.Security
+		if ( ! empty( $_REQUEST['order'] ) ) {
+			$order = strtoupper( sanitize_key( $_REQUEST['order'] ) );
+			$order = $order === 'ASC' ? 'ASC' : 'DESC';
+			echo '<input type="hidden" name="order" value="' . esc_attr( $order ) . '" />';
 		}
+
+		// phpcs:enable
 		?>
 
 		<p class="search-box">

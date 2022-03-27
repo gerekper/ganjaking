@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				<tbody>
 					<tr>
 						<th>
-							<label for="toekens"><?php _e( '1click Tokens', 'woocommerce-redsys' ); ?></label>
+							<label for="toekens"><?php esc_html_e( '1click Tokens', 'woocommerce-redsys' ); ?></label>
 						</th>
 						<td>
 							<textarea name="toekens" id="toekens" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'C' ); ?></textarea>
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 					</tr>
 					<tr>
 						<th>
-							<label for="toekenr"><?php _e( 'Subscriptions Tokens', 'woocommerce-redsys' ); ?></label>
+							<label for="toekenr"><?php esc_html_e( 'Subscriptions Tokens', 'woocommerce-redsys' ); ?></label>
 						</th>
 						<td>
 							<textarea name="toekenr" id="toekenr" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'R' ); ?></textarea>

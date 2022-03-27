@@ -1,5 +1,9 @@
 *** WooCommerce Cart Notices Changelog ***
 
+2022.02.07 - version 1.13.3
+ * Fix - Replace deprecated `is_ajax()` calls with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.04.07 - version 1.13.2
  * Tweak - Update the Target Amount field description
 

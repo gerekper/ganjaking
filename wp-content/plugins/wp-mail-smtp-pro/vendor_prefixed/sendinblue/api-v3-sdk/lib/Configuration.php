@@ -35,7 +35,7 @@ namespace WPMailSMTP\Vendor\SendinBlue\Client;
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-$GLOBALS['version'] = '7.4.0';
+$GLOBALS['version'] = '7.4.3';
 class Configuration
 {
     private static $defaultConfiguration;

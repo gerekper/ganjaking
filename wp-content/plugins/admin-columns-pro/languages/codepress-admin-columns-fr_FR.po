@@ -1442,7 +1442,7 @@ msgstr ""
 #: ac-addon-types/classes/Settings/IntermediaryRelationship.php29,
 #: ac-addon-types/classes/Settings/Relationship.php:33
 msgid "Relationship"
-msgstr "Relation"
+msgstr "RelationLegacy"
 
 #: ac-addon-types/classes/Settings/ParentPostType.php:27
 msgid "No parent post types available."

@@ -14,9 +14,9 @@ class LastModifiedAuthor extends Comparison\Meta
 	public function __construct() {
 		$operators = new Operators( [
 			Operators::EQ,
-			Operators::GT,
-			Operators::LT,
-			Operators::BETWEEN,
+			Operators::NEQ,
+			Operators::IS_EMPTY,
+			Operators::NOT_IS_EMPTY,
 		] );
 
 		parent::__construct( $operators, '_edit_last', MetaType::POST );

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Extend REST API to support bundle-sells.
  *
  * @class    WC_PB_BS_REST_API
- * @version  6.13.0
+ * @version  6.14.0
  */
 class WC_PB_BS_REST_API {
 
@@ -180,7 +180,7 @@ class WC_PB_BS_REST_API {
 							),
 							400
 						);
-					} elseif ( $bundle_sell_product instanceof WC_Product && $bundle_sell_product->is_type( array( 'simple', 'subscription' ) ) ) {
+					} elseif ( $bundle_sell_product instanceof WC_Product && ! $bundle_sell_product->is_type( array( 'simple', 'subscription' ) ) ) {
 						throw new WC_REST_Exception(
 							'woocommerce_rest_invalid_bundle_sell_product_type',
 							sprintf(

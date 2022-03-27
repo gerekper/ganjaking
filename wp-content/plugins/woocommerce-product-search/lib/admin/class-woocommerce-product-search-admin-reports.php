@@ -57,6 +57,12 @@ class WooCommerce_Product_Search_Admin_Reports {
 	}
 
 	public static function get_report( $name ) {
+
+		wp_enqueue_script( 'wps-reports' );
+		echo '<style type="text/css">';
+		echo 'div.wrap.woocommerce > .error.inline { display: none !important; }';
+		echo '</style>';
+
 		if ( !WooCommerce_Product_Search_Hit::get_status() ) {
 			echo '<p class="notice woocommerce-message" style="padding: 1em;">';
 			esc_html_e( 'The recording of live search data is currently deactivated and the search statistics presented here are not updated.', 'woocommerce-product-search' );

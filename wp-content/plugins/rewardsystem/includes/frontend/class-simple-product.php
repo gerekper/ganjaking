@@ -64,6 +64,15 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
 			if ( '2' == get_option( 'rs_enable_cart_total_reward_points' )  ) {
 				return ;
 			}
+						
+						// Membership compatibility. 
+						$restrict_membership = 'no';
+			if ('yes' == get_option('rs_enable_restrict_reward_points') && function_exists('check_plan_exists') && get_current_user_id()) {
+				$restrict_membership = check_plan_exists(get_current_user_id()) ? 'yes' : 'no';
+				if ('yes' != $restrict_membership) {
+					return ;
+				}
+			}
 
 			if ( '1' == get_option( 'rs_reward_type_for_cart_total' )) {
 				if ( '2' == get_option( 'rs_enable_msg_for_fixed_cart_total_based_product_purchase_in_shop' )) {
@@ -251,7 +260,7 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
 						}
 					}
 				}
-				if ( is_shop() || is_product_category() || is_product_tag() ) {                                                                        //Shop and Category Page Message for Variable Product                            
+				if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'dc_vendor_shop' ) ) {                                                                        //Shop and Category Page Message for Variable Product                            
 					if ( 'yes' == get_option( 'rs_enable_display_earn_message_for_variation' ) && true == $bool ) {
 						if (  is_user_logged_in() ) {                                                    
 							if ( '' != $varpointss ) {
@@ -333,7 +342,8 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
 					$point_price_info = $price ;
 				}
 				if ( $getshortcodevalues > 0 ) {
-					if ( is_shop() || is_product_category() || is_product_tag() ) {//Shop and Category Page Message for Simple Product
+										// is_tax( 'dc_vendor_shop' ) for wc-multivendor-marketplace compatibility
+					if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'dc_vendor_shop' ) ) {//Shop and Category Page Message for Simple Product
 						global $post ;
 						$sumo_bookings_check = is_sumo_booking_active( $post->ID ) ;
 						if ( ! $sumo_bookings_check ) {
@@ -718,6 +728,15 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
 
 			if ( '2' == get_option( 'rs_enable_cart_total_reward_points' ) ) {
 				return ;
+			}
+						
+						// Membership compatibility. 
+						$restrict_membership = 'no';
+			if ('yes' == get_option('rs_enable_restrict_reward_points') && function_exists('check_plan_exists') && get_current_user_id() ) {
+				$restrict_membership = check_plan_exists(get_current_user_id()) ? 'yes' : 'no';
+				if ('yes' != $restrict_membership) {
+					return ;
+				}
 			}
 
 			if ( '1' == get_option( 'rs_reward_type_for_cart_total' ) ) {

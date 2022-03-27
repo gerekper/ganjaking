@@ -1,5 +1,15 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-02-28 - version 1.5.9
+* Feature - Introduce a new action hook that fires immediately after the props for new scheduled order are set.
+* Fix - Remove "Add Plan" button.
+* Enhancement - New filter introduced to determine if email notification should be sent for Invoice Remaining Balance.
+* Fix - Prevent duplicated stock reduce during follow up orders for products with Managed Stock enabled.
+* Tweak - WooCommerce 3.8 minimum compatibility.
+* Fix - Update composer.json to include the /languages folder in the release.
+* Fix - Compatibility issues with membership discounts.
+* Fix - Import/Export support for _wc_deposit_payment_plans.
+
 2022-01-18 - version 1.5.8
 * Feature - Add a convenient way for customers to navigate between original orders and its related scheduled orders. PR#388
 * Fix - Fix issues with cart totals when the cart contains a subscription and a deposit product. PR#374

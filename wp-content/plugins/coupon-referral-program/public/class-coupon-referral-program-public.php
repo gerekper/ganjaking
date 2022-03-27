@@ -136,9 +136,9 @@ class Coupon_Referral_Program_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		if ( $this->is_selected_page() || $this->check_shortcode_is_enable() ) {
-			wp_enqueue_style( $this->plugin_name, COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/css/coupon-referral-program-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/css/coupon-referral-program-public.css', array(), $this->version, 'all' );
 
+		if ( $this->is_selected_page() || $this->check_shortcode_is_enable() ) {
 			wp_enqueue_style( 'material_modal', COUPON_REFERRAL_PROGRAM_DIR_URL . 'modal/css/material-modal.css', array(), $this->version, 'all' );
 
 			wp_enqueue_style( 'modal_style', COUPON_REFERRAL_PROGRAM_DIR_URL . 'modal/css/style.css', array(), $this->version, 'all' );
@@ -1804,7 +1804,7 @@ class Coupon_Referral_Program_Public {
 	  				<div class="mwb-coupon-value">' . $mwb_coupon_amount . '</div>
 	  				<div class="mwb-coupon-ex-date">' . $expiry_date . '</div>
 	  			</div>
-	  			<div class="mwb-coupon-scissor"><img src="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/scissors.png alt="">';
+	  			<div class="mwb-coupon-scissor"><img src="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/scissors.png" alt="">';
 		if ( empty( $assinged_coupon ) ) {
 			$mwb_crp_html .= '</div>
 	  		<div class="mwb-coupon-apply-btn"><a class="mwb_crp_apply_button" id="' . $coupon->get_id() . '"data-subscription = "' . $subscription_id . '"data-id="' . $coupon->get_id() . '" href="#">' . __( 'Apply', 'coupon-referral-program' ) . '</a></div>

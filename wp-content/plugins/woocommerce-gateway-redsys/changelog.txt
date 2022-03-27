@@ -1,5 +1,32 @@
 *** Redsys Gateway Change Log ***
 
+2022.02.19 - version 17.1.1
+
+* IMPROVED: More information about token are shown in user edit.
+* FIXED: Two notices ($debug & $testmode).
+* FIXED: fallback compatibility with tokens.
+* FIXED: Add Payment Method from My Account.
+
+2022.02.15 - version 17.1.0
+
+* NEW: Now, you can send a Pay Gold link to all your users through the Bulk Actions of the user list to request a token for Subscriptions or payment with one click. Merchant Group is recommended.
+* NEW: Added new Live Banner for notices.
+* NEW: Added SOLES Peruanos currency.
+* NEW: Addded compatibility with "All Products for WooCommerce Subscriptions".
+* IMPROVED: Removed WC_Loggger() from Global Class.
+* IMPROVED: In some installations, all products Subscriptions are not correctly detected. Now it is recognized.
+* IMPROVED: Now, you can send a payment link from WooCommerce to your customer, and your user is allowed to pay.
+* IMPROVED: Now, the plugin Check if the Order is already marked as paid before mark it as paid (again).
+* FIXED: Fixed an issue where an error was displayed if the user had a subscription token and tried to purchase a subscription of cost 0. 
+* FIXED: Some HTML tweaks in checkout.
+* FIXED: Now only show test gateway to selected users works again.
+* FIXED: Fixed some translations.
+* FIXED: Fixed a screen message in the InSite endpoint.
+* FIXED: removed a deprecated log that was causing a notice.
+* FIXED: removed deprecated fields from Sequential Invoice Number.
+* FIXED: fixed an InSite settings description field. It had the wrong description.
+* FIXED: Updated a Redsys field. Now the Credit Card Number is again saved.
+
 2021.12.04 - version 17.0.3
 
 * NEW: New option for move Terms checkout check above Gateways. Set in Redsys in the Checkout settings.
@@ -98,7 +125,7 @@
 * IMPROVED: Now Checkout is only reloaded when there is an error when InSite is active.
 * IMPROVED: All JS plugin files minified.
 * IMPROVED: Now a finger pointer is show when cursor is over InSite Pay button.
-* UPDATED: Updated the email send to admin when Ds_Card_Number is not send by Redsys.
+* UPDATED: Updated the email send to admin when Ds_CardNumber is not send by Redsys.
 * FIXED: TRA and LWV in standard payment.
 * FIXED: Fixed a Bizum payment problem over some servers configuration.
 * FIXED: Fixed a problem with flush rules (Thanks to @frantorres)

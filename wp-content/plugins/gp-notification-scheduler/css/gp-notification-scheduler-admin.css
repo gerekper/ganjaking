@@ -1,0 +1,94 @@
+#gpns-schedule-types {
+	margin: 0 0 20px;
+}
+
+#gpns-schedule-types label {
+	margin-right: 20px;
+}
+
+.gpns-type-settings {
+	border-left: 2px solid #ececf2;
+	margin: 0.75rem 0 0 0.5rem;
+	padding: 0 0 0 0.8125rem;
+}
+
+.gpns-type-settings input,
+.gpns-type-settings select {
+	vertical-align: middle;
+}
+
+/* Type: Delay */
+#gpns-delay-settings input {
+	width: 5rem;
+	margin-left: .5rem;
+}
+
+#gpns-delay-settings select {
+	width: 10rem;
+	margin-right: .5rem;
+}
+
+/* Type: Date */
+#gpns-schedule-date-icon {
+	position: relative;
+	top: 1px;
+	margin: 0 20px 0 -35px;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+#gpns-date-settings input {
+	width: 8rem;
+	margin: 0 .5rem;
+}
+
+#gpns-date-settings select {
+	width: 4.5rem;
+}
+
+#gpns-date-settings select:first-of-type {
+	margin-left: 0.5rem;
+}
+
+/* Type: Date Field */
+#gpns-field-settings input,
+#gpns-field-settings select {
+	width: 8rem;
+}
+
+#gpns-field-settings input {
+	margin-left: 0.5rem;
+}
+
+/* Recurring Settings */
+#gpns-recurring {
+	margin-top: 1em;
+	padding-top: 1em;
+}
+
+#gpns-recurring input,
+#gpns-recurring select {
+	vertical-align: middle;
+}
+
+.gpns-recurring-setting {
+	display: inline-block;
+}
+
+#gpns-recurring-ending-value {
+	width: 85px;
+}
+
+#gpns-recurring-interval {
+	width: 7rem;
+	margin: 0 0.5rem;
+}
+
+#gpns-recurring-ending {
+	width: 6rem;
+	margin: 0 0 0 0.5rem;
+}
+
+#gpns-recurring-ending-unit {
+	width: 7rem;
+}

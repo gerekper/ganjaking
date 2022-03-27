@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2022-02-08 - version 4.6.0
+* Fix - Add option to show incomplete subtotal.
+* Fix - Fix CI build errors.
+
 2022-01-12 - version 4.5.0
 * Fix - Fixed an issue where the subtotal price for a variable product was shown incorrectly on a product page.
 * Fix - Fixes an issue in the admin panel when adding add ons.

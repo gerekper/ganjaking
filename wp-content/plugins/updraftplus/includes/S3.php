@@ -3,7 +3,7 @@
  * $Id$
  *
  * Copyright (c) 2011, Donovan Schönknecht.  All rights reserved.
- * Portions copyright (c) 2012-2021, David Anderson (https://david.dw-perspective.org.uk).  All rights reserved.
+ * Portions copyright (c) 2012-2022, David Anderson (https://david.dw-perspective.org.uk).  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,6 @@
  *
  * Forked originally from:
  * @link http://undesigned.org.za/2007/10/22/amazon-s3-php-class
- * @version 0.5.0-dev
  */
 class UpdraftPlus_S3 {
 	// ACL flags
@@ -83,9 +82,9 @@ class UpdraftPlus_S3 {
 	 * @param boolean $useSSL Enable SSL
 	 * @param boolean $sslCACert SSL Certificate
 	 * @param string|null $endpoint Endpoint
-	 * @param string $session_token The session token returned by AWS for temporary credentials access
+	 * @param string|null $session_token The session token returned by AWS for temporary credentials access
 	 * @param string $region Region
-
+	 *
 	 * @throws Exception If cURL extension is not present
 	 *
 	 * @return self
@@ -187,6 +186,14 @@ class UpdraftPlus_S3 {
 		return (null !== $this->__accessKey && null !== $this->__secretKey);
 	}
 
+	/**
+	 * Return session token, if any
+	 *
+	 * @return Null|String
+	 */
+	public function getSessionToken() {
+		return $this->__session_token;
+	}
 
 	/**
 	 * Set SSL on or off
@@ -210,6 +217,15 @@ class UpdraftPlus_S3 {
 		return $this->useSSL;
 	}
 
+	/**
+	 * Get SSL validation value.
+	 *
+	 * @return bool
+	 */
+	public function getUseSSLValidation() {
+		return $this->useSSLValidation;
+	}
+	
 	/**
 	 * Set SSL client certificates (experimental)
 	 *
@@ -305,7 +321,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return void
 	 */
-	private function __triggerError($message, $file, $line, $code = 0) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function __triggerError($message, $file, $line, $code = 0) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		if ($this->useExceptions) {
 			throw new UpdraftPlus_S3Exception($message, $file, $line, $code);
 		} else {
@@ -613,7 +629,7 @@ class UpdraftPlus_S3 {
 	 * @param integer $partSize number of bytes in each part (though final part may have fewer) - pass the same value each time (for this particular upload) - default 5Mb (which is Amazon's minimum)
 	 * @return string (ETag) | false
 	 */
-	public function uploadPart ($bucket, $uri, $uploadId, $filePath, $partNumber, $partSize = 5242880) {
+	public function uploadPart($bucket, $uri, $uploadId, $filePath, $partNumber, $partSize = 5242880) {
 
 		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, $this->endpoint, $this->use_dns_bucket_name, $this);
 		$rest->setParameter('partNumber', $partNumber);
@@ -1048,7 +1064,6 @@ class UpdraftPlus_S3 {
 		);
 	}
 
-
 	/**
 	 * Disable bucket logging
 	 *
@@ -1071,6 +1086,14 @@ class UpdraftPlus_S3 {
 		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', $this->endpoint, $this->use_dns_bucket_name, $this);
 		$rest->setParameter('location', null);
 		$rest = $rest->getResponse();
+		
+		global $updraftplus;
+
+		if (false !== $rest->error && 'AuthorizationHeaderMalformed' == $rest->error['code'] && !empty($rest->error['region'])) {
+			// The location request was sent to the wrong region... but the response tells us the correct region, which is all we wanted.
+			return $rest->error['region'];
+		}
+		
 		if (false === $rest->error && 200 !== $rest->code) {
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
 		}
@@ -1319,7 +1342,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return string
 	 */
-	public function __getMimeType(&$file) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	public function __getMimeType(&$file) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		$type = false;
 		// Fileinfo documentation says fileinfo_open() will use the
 		// MAGIC env var for the magic file
@@ -1370,7 +1393,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return string
 	 */
-	public function __getSignature($string) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	public function __getSignature($string) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		return 'AWS '.$this->__accessKey.':'.$this->__getHash($string);
 	}
 
@@ -1386,7 +1409,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return string
 	 */
-	private function __getHash($string) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function __getHash($string) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		return base64_encode(extension_loaded('hash') ?
 		hash_hmac('sha1', $string, $this->__secretKey, true) : pack('H*', sha1(
 		(str_pad($this->__secretKey, 64, chr(0x00)) ^ (str_repeat(chr(0x5c), 64))) .
@@ -1406,7 +1429,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return array $headers
 	 */
-	public function __getSignatureV4($aHeaders, $headers, $method = 'GET', $uri = '', $data = '') {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	public function __getSignatureV4($aHeaders, $headers, $method = 'GET', $uri = '', $data = '') {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		$service = 's3';
 		$region = $this->getRegion();
 
@@ -1438,9 +1461,13 @@ class UpdraftPlus_S3 {
 		if (strpos($uri, '?')) {
 			list($uri, $query_str) = @explode('?', $uri);
 			parse_str($query_str, $parameters);
+			// "Sort the parameter names by character code point in ascending order. Parameters with duplicate names should be sorted by value. For example, a parameter name that begins with the uppercase letter F precedes a parameter name that begins with a lowercase letter b."
+			// N.B. Here we've not looked at the values as we don't expect duplicates
+			uksort($parameters, 'strcmp');
 		}
 
 		// Canonical Requests
+		// "Start with the HTTP request method (GET, PUT, POST, etc.)"
 		$amzRequests[] = $method;
 		$uriQmPos = strpos($uri, '?');
 		$amzRequests[] = (false === $uriQmPos ? $uri : substr($uri, 0, $uriQmPos));
@@ -1525,12 +1552,12 @@ final class UpdraftPlus_S3Request {
 	 * @param string  $bucket Bucket name
 	 * @param string  $uri Object URI
 	 * @param string  $endpoint Endpoint of storage
-	 * @param boolean $use_dns_bucket_name
+	 * @param boolean $use_dns_bucket_name - if set, then constructs an endpoint based upon the bucket name as well as $endpoint (otherwise, uses $endpoint only)
 	 * @param object  $s3 S3 Object that calls these requests
 	 *
 	 * @return mixed
 	 */
-	function __construct($verb, $bucket = '', $uri = '', $endpoint = 's3.amazonaws.com', $use_dns_bucket_name = false, $s3 = null) {
+	public function __construct($verb, $bucket = '', $uri = '', $endpoint = 's3.amazonaws.com', $use_dns_bucket_name = false, $s3 = null) {
 		$this->endpoint = $endpoint;
 		$this->verb = $verb;
 		$this->bucket = $bucket;
@@ -1543,7 +1570,8 @@ final class UpdraftPlus_S3Request {
 		//	$this->resource = $this->uri;
 
 		if ('' !== $this->bucket) {
-			if ($this->__dnsBucketName($this->bucket) || $use_dns_bucket_name) {
+			// Use host-style access if the consumer requested it and we don't see a problem.
+			if ($use_dns_bucket_name && $this->_dnsBucketName($this->bucket)) {
 				$this->headers['Host'] = $this->bucket.'.'.$this->endpoint;
 				$this->resource = '/'.$this->bucket.$this->uri;
 			} else {
@@ -1631,7 +1659,9 @@ final class UpdraftPlus_S3Request {
 		//var_dump('bucket: ' . $this->bucket, 'uri: ' . $this->uri, 'resource: ' . $this->resource, 'url: ' . $url);
 
 		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/php');
+		
+		global $updraftplus;
+		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/UpdraftPlus-'.$updraftplus->version);
 
 		if ($this->s3->useSSL) {
 			// SSL Validation can now be optional for those with broken OpenSSL installations
@@ -1658,6 +1688,13 @@ final class UpdraftPlus_S3Request {
 		}
 
 		// Headers
+		
+		if ($this->s3->hasAuth()) {
+			$session_token = $this->s3->getSessionToken();
+			// https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html#RequestWithSTS
+			if ('' != $session_token) $this->setAmzHeader('X-Amz-Security-Token', $session_token);
+		}
+		
 		$headers = array(); $amz = array();
 		foreach ($this->amzHeaders as $header => $value)
 			if (strlen($value) > 0) $headers[] = $header.': '.$value;
@@ -1671,7 +1708,7 @@ final class UpdraftPlus_S3Request {
 		// AMZ headers must be sorted
 		if (sizeof($amz) > 0) {
 			//sort($amz);
-			usort($amz, array(&$this, '__sortMetaHeadersCmp'));
+			usort($amz, array($this, '__sortMetaHeadersCmp'));
 			$amz = "\n".implode("\n", $amz);
 		} else {
 			$amz = '';
@@ -1691,6 +1728,7 @@ final class UpdraftPlus_S3Request {
 							$this->resource
 						);
 				} else {
+					// Use V4
 					$amzHeaders = $this->s3->__getSignatureV4(
 						$this->amzHeaders,
 						$this->headers,
@@ -1709,8 +1747,8 @@ final class UpdraftPlus_S3Request {
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
-		curl_setopt($curl, CURLOPT_WRITEFUNCTION, array(&$this, '__responseWriteCallback'));
-		curl_setopt($curl, CURLOPT_HEADERFUNCTION, array(&$this, '__responseHeaderCallback'));
+		curl_setopt($curl, CURLOPT_WRITEFUNCTION, array($this, '_responseWriteCallback'));
+		curl_setopt($curl, CURLOPT_HEADERFUNCTION, array($this, '_responseHeaderCallback'));
 		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 		// Request types
@@ -1742,14 +1780,15 @@ final class UpdraftPlus_S3Request {
 		}
 
 		// Execute, grab errors
-		if (curl_exec($curl))
+		if (curl_exec($curl)) {
 			$this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		else
+		} else {
 			$this->response->error = array(
 				'code' => curl_errno($curl),
 				'message' => curl_error($curl),
 				'resource' => $this->resource
 			);
+		}
 
 		@curl_close($curl);
 
@@ -1764,6 +1803,11 @@ final class UpdraftPlus_S3Request {
 				$this->response->error = array(
 					'code' => (string)$this->response->body->Code,
 				);
+				
+				// Useful for debugging
+				// $this->response->error['body_xml'] = $this->response->body->asXML();
+				
+				if (isset($this->response->body->Region)) $this->response->error['region'] = $this->response->body->Region;
 				$this->response->error['message'] = isset($this->response->body->Message) ? $this->response->body->Message : '';
 				if (isset($this->response->body->Resource))
 					$this->response->error['resource'] = (string)$this->response->body->Resource;
@@ -1787,7 +1831,7 @@ final class UpdraftPlus_S3Request {
 	 *
 	 * @return integer
 	 */
-	private function __sortMetaHeadersCmp($a, $b) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function __sortMetaHeadersCmp($a, $b) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		$lenA = strpos($a, ':');
 		$lenB = strpos($b, ':');
 		$minLen = min($lenA, $lenB);
@@ -1805,7 +1849,7 @@ final class UpdraftPlus_S3Request {
 	 *
 	 * @return integer
 	 */
-	private function __responseWriteCallback($curl, $data) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function _responseWriteCallback($curl, $data) {
 		if (in_array($this->response->code, array(200, 206)) && false !== $this->fp)
 			return fwrite($this->fp, $data);
 		else
@@ -1815,25 +1859,30 @@ final class UpdraftPlus_S3Request {
 
 
 	/**
-	 * Check DNS conformity
+	 * Check DNS conformity (suitability for Host: header addressing).
+	 * Many of the rules below apply to all new buckets; but some don't apply to legacy buckets created before certain dates.
+	 * 
+	 * This is used to rule out invalid names
+	 *
+	 * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
 	 *
 	 * @param  string $bucket Bucket name
 	 *
 	 * @return boolean
 	 */
-	private function __dnsBucketName($bucket) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
-		# A DNS bucket name cannot have len>63
-		# A DNS bucket name must have a character in other than a-z, 0-9, . -
-		# The purpose of this second check is not clear - is it that there's some limitation somewhere on bucket names that match that pattern that means that the bucket must be accessed by hostname?
-		if (strlen($bucket) > 63 || !preg_match("/[^a-z0-9\.-]/", $bucket)) return false;
-		# A DNS bucket name cannot contain -.
+	private function _dnsBucketName($bucket) {
+		// A DNS bucket name cannot have len>63
+		if (strlen($bucket) > 63) return false;
+		// A DNS bucket name must not have a character in other than a-z, 0-9, . -
+		if (preg_match("/[^a-z0-9\.-]/", $bucket)) return false;
+		// A DNS bucket name cannot contain -.
 		if (false !== strstr($bucket, '-.')) return false;
-		# A DNS bucket name cannot contain ..
+		// A DNS bucket name cannot contain ..
 		if (false !== strstr($bucket, '..')) return false;
-		# A DNS bucket name must begin with 0-9a-z
+		// A DNS bucket name must begin with 0-9a-z
 		if (!preg_match("/^[0-9a-z]/", $bucket)) return false;
 		# A DNS bucket name must end with 0-9 a-z
-		if (!preg_match("/[0-9a-z]$/", $bucket)) return false;
+		// (!preg_match("/[0-9a-z]$/", $bucket)) return false;
 		return true;
 	}
 
@@ -1842,9 +1891,10 @@ final class UpdraftPlus_S3Request {
 	 *
 	 * @param resource $curl CURL resource
 	 * @param string $data Data
+	 *
 	 * @return integer
 	 */
-	private function __responseHeaderCallback($curl, $data) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function _responseHeaderCallback($curl, $data) {
 		if (($strlen = strlen($data)) <= 2) return $strlen;
 		if ('HTTP' == substr($data, 0, 4)) {
 			$this->response->code = (int)substr($data, 9, 3);

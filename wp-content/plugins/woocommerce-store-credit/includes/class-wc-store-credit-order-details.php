@@ -23,6 +23,7 @@ class WC_Store_Credit_Order_Details {
 		add_action( 'woocommerce_before_save_order_item', array( $this, 'before_save_order_item' ) );
 		add_filter( 'woocommerce_order_item_display_meta_key', array( $this, 'display_item_meta_key' ), 10, 2 );
 		add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'display_item_meta_value' ), 10, 3 );
+		add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_order_item_metas' ) );
 		add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'get_formatted_item_meta_data' ), 10, 2 );
 
 		// Order totals.
@@ -98,6 +99,20 @@ class WC_Store_Credit_Order_Details {
 	}
 
 	/**
+	 * Hides custom order item metadata.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $metas An array with the meta keys.
+	 * @return array
+	 */
+	public function hide_order_item_metas( $metas ) {
+		$metas[] = '_store_credit_custom_amount';
+
+		return $metas;
+	}
+
+	/**
 	 * Gets the formatted order item metadata.
 	 *
 	 * @since 3.2.0
@@ -107,13 +122,7 @@ class WC_Store_Credit_Order_Details {
 	 * @return array
 	 */
 	public function get_formatted_item_meta_data( $metadata, $order_item ) {
-		/*
-		 * The hook 'woocommerce_before_save_order_item' was added on WC 3.5.
-		 * So, in older WC versions, we cannot cast this meta to an array when saving it.
-		 */
-		if ( version_compare( WC_VERSION, '3.5', '<' )
-			|| ! $order_item instanceof WC_Order_Item_Product || ! $order_item->meta_exists( '_store_credit_coupons' )
-		) {
+		if ( ! $order_item instanceof WC_Order_Item_Product || ! $order_item->meta_exists( '_store_credit_coupons' ) ) {
 			return $metadata;
 		}
 

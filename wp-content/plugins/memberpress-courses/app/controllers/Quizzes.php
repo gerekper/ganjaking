@@ -44,11 +44,9 @@ class Quizzes extends lib\BaseCtrl {
         ];
 
         if(is_user_logged_in()) {
-          $user_id = get_current_user_id();
-          $is_quiz_available = $quiz->is_available($user_id);
-          $has_completed_quiz = models\UserProgress::has_completed_lesson($user_id, $quiz->ID);
+          $is_quiz_available = $quiz->is_available();
 
-          if($is_quiz_available || $has_completed_quiz) {
+          if($is_quiz_available) {
             $attempt = models\Attempt::get_one(['quiz_id' => $quiz->ID, 'user_id' => get_current_user_id()]);
 
             if(!$attempt instanceof models\Attempt) {
@@ -372,13 +370,13 @@ class Quizzes extends lib\BaseCtrl {
   public function append_quiz_navigation($content) {
     global $post;
 
-    if($post instanceof \WP_Post && $post->post_type == models\Quiz::$cpt && is_single()) {
+    if($post instanceof \WP_Post && $post->post_type == models\Quiz::$cpt && is_single() && is_user_logged_in()) {
       $current_user = lib\Utils::get_currentuserinfo();
       $current_lesson = new models\Lesson($post->ID);
       $lesson_nav_ids = $current_lesson->nav_ids();
       $current_lesson_index = array_search($current_lesson->ID, $lesson_nav_ids);
       $current_section = $current_lesson->section();
-      $lesson_available = is_user_logged_in() && $current_lesson->is_available($current_user->ID);
+      $lesson_available = $current_lesson->is_available();
 
       if($current_section !== false && $lesson_available) {
         if(!helpers\Lessons::has_next_lesson($current_lesson_index, $lesson_nav_ids)) {
@@ -391,7 +389,7 @@ class Quizzes extends lib\BaseCtrl {
         }
 
         $options = get_option('mpcs-options');
-        $attempt = is_user_logged_in() ? models\Attempt::get_one(['quiz_id' => $post->ID, 'user_id' => get_current_user_id()]) : null;
+        $attempt = models\Attempt::get_one(['quiz_id' => $post->ID, 'user_id' => get_current_user_id()]);
 
         ob_start();
         require(\MeprView::file('/quizzes/courses_navigation'));

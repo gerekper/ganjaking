@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -49,7 +49,7 @@ class WC_Memberships_Shipping {
 		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'modify_free_shipping_availability' ), 10, 3 );
 
 		// adjust free shipping settings styles / display
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			add_action( 'admin_print_scripts', array( $this, 'add_admin_scripts' ) );
 			add_action( 'admin_print_styles', array( $this, 'add_admin_styles' ) );
 		}

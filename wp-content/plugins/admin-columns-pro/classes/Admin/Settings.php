@@ -56,7 +56,6 @@ class Settings implements Registrable {
 		add_action( 'ac/admin_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'ac/settings/after_title', [ $this, 'render_submenu_view' ] );
 		add_action( 'ac/settings/after_columns', [ $this, 'render_settings' ] );
-		add_filter( 'ac/read_only_message', [ $this, 'read_only_message' ], 10, 2 );
 	}
 
 	public function render_submenu_view( ListScreen $current_list_screen ) {
@@ -184,14 +183,12 @@ class Settings implements Registrable {
 
 		$content->set_template( 'admin/tooltip/preferred-segment' );
 
-		$tooltip = new AC\Admin\Tooltip( 'preferred_segment', [
+		return new AC\Admin\Tooltip( 'preferred_segment', [
 			'content'    => $content,
 			'link_label' => '<img src="' . AC()->get_url() . 'assets/images/question.svg" alt="?" class="ac-setbox__row__th__info">',
 			'title'      => __( 'Filters', 'codepress-admin-columns' ),
 			'position'   => 'right_bottom',
 		] );
-
-		return $tooltip;
 	}
 
 	/**
@@ -216,7 +213,7 @@ class Settings implements Registrable {
 			$users = [];
 		}
 
-		$view = new AC\View( [
+		$view = new View( [
 			'list_screen'           => $list_screen,
 			'preferences'           => $list_screen->get_preferences(),
 			'hide_on_screen'        => $this->get_checkboxes( $list_screen ),
@@ -268,7 +265,8 @@ class Settings implements Registrable {
 
 		$collection->add( new HideOnScreen\Filters(), 30 )
 		           ->add( new HideOnScreen\Search(), 90 )
-		           ->add( new HideOnScreen\BulkActions(), 100 );
+		           ->add( new HideOnScreen\BulkActions(), 100 )
+		           ->add( new HideOnScreen\ColumnResize(), 110 );
 
 		if ( $list_screen instanceof ListScreenPost ) {
 			$collection->add( new HideOnScreen\FilterPostDate(), 32 );

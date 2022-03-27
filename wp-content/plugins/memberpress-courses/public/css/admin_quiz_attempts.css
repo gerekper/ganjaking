@@ -166,3 +166,13 @@
 .mpcs-quiz-question-feedback {
   display: none;
 }
+.mpcs-quiz-question-correct-answer-box {
+  background-color: #F5F5F5;
+  padding: 24px;
+  margin-top: 20px;
+}
+.mpcs-quiz-question-correct-answer-box-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

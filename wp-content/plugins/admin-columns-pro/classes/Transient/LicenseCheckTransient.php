@@ -14,9 +14,13 @@ class LicenseCheckTransient implements Expirable {
 	 */
 	protected $timestamp;
 
-	public function __construct( $network_only = false ) {
+	public function __construct( $network_only ) {
+		$factory = $network_only
+			? new Storage\NetworkOptionFactory()
+			: new Storage\OptionFactory();
+
 		$this->timestamp = new Storage\Timestamp(
-			( new Storage\OptionFactory() )->create( self::CACHE_KEY, $network_only )
+			$factory->create( self::CACHE_KEY )
 		);
 	}
 

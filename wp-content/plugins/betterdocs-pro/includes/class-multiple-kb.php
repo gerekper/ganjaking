@@ -430,11 +430,11 @@ class BetterDocs_Multiple_Kb
 		if(!isset($wp->query_vars['docs']) && !isset($wp->query_vars['pagename']) && !isset($wp->query_vars['name'])){
 			$is_done = false;
 
-			if(isset($wp->query_vars['knowledge_base']) && $wp->query_vars['knowledge_base'] !== 'non-knowledgebase' && !term_exists($wp->query_vars['knowledge_base'])){
+			if(isset($wp->query_vars['knowledge_base']) && $wp->query_vars['knowledge_base'] !== 'non-knowledgebase' && !term_exists($wp->query_vars['knowledge_base'], 'knowledge_base')){
 				$is_done = self::fix_query_vars($wp->query_vars['knowledge_base'], $wp);
 				unset($wp->query_vars['knowledge_base']);
 			}
-			if(!$is_done && isset($wp->query_vars['doc_category']) && !term_exists($wp->query_vars['doc_category'])){
+			if(!$is_done && isset($wp->query_vars['doc_category']) && !term_exists($wp->query_vars['doc_category'], 'doc_category')){
 				$is_done = self::fix_query_vars($wp->query_vars['doc_category'], $wp);
 				unset($wp->query_vars['doc_category']);
 			}
@@ -449,7 +449,10 @@ class BetterDocs_Multiple_Kb
 
 	public static function docs_rewrite()
 	{
-		$permalink =  BetterDocs_DB::get_settings( 'permalink_structure' );
+        $permalink =  BetterDocs_DB::get_settings('permalink_structure');
+        if ( method_exists('BetterDocs_Helper','permalink_stracture') ) {
+            $permalink = BetterDocs_Helper::permalink_stracture(BetterDocs_Docs_Post_Type::$docs_slug, $permalink);
+        }
 		if(empty($permalink)){
 			$permalink = trim(BetterDocs_Docs_Post_Type::$docs_slug, '/') . '/%knowledge_base%/%doc_category%';
 		}
@@ -1054,13 +1057,11 @@ class BetterDocs_Multiple_Kb
     static function live_search_tax_query($tax_query, $post) {
         if (empty($post['kb_slug'])) return;
         return array(
-            array(
-                'taxonomy' => 'knowledge_base',
-                'field'     => 'slug',
-                'terms'    => $post['kb_slug'],
-                'operator' => 'AND',
-                'include_children' => false
-            ),
+            'taxonomy' => 'knowledge_base',
+            'field'     => 'slug',
+            'terms'    => $post['kb_slug'],
+            'operator' => 'AND',
+            'include_children' => false
         );
     }
 }

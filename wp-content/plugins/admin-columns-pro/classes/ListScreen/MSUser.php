@@ -2,6 +2,7 @@
 
 namespace ACP\ListScreen;
 
+use AC\Type\Url;
 use AC\WpListTableFactory;
 use ACP\ListScreen;
 use WP_MS_Users_List_Table;
@@ -32,14 +33,17 @@ class MSUser extends ListScreen\User {
 	}
 
 	public function get_edit_link() {
-		return add_query_arg( [
+		$url = new Url\EditorNetwork( 'columns' );
+		$url->add( [
 			'list_screen' => $this->get_key(),
 			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_network_url( 'columns' ) );
+		] );
+
+		return $url->get_url();
 	}
 
 	/**
-	 * @param $id
+	 * @param int $id
 	 *
 	 * @return string HTML
 	 * @since 4.0

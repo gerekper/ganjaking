@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPPA_Object_Type_Database extends GPPA_Object_Type {
 
 	protected $_restricted = true;
@@ -11,6 +7,8 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 	protected $_primary_key_cache = array();
 
 	private static $blacklisted_columns = array( 'password', 'user_pass', 'user_activation_key' );
+
+	public $supports_null_filter_value = true;
 
 	public function __construct( $id ) {
 		parent::__construct( $id );
@@ -153,6 +151,7 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $primary_property_value, $property_id, $filter['operator'], $filter_value );
@@ -172,6 +171,7 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 		 * @var $field array
 		 * @var $unique boolean
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$orderby = rgar( $ordering, 'orderby' );
@@ -205,7 +205,7 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 
 	public function get_object_prop_value( $object, $prop ) {
 
-		if ( in_array( $prop, self::$blacklisted_columns ) ) {
+		if ( in_array( $prop, self::$blacklisted_columns, true ) ) {
 			return null;
 		}
 

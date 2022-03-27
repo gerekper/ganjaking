@@ -1,14 +1,12 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Word_Count extends GWPerk {
 
 	public $version = GP_WORD_COUNT_VERSION;
 
-	private static $supported_field_types = array( 'text', 'textarea', 'post_content', 'post_title' );
+	protected $min_gravity_perks_version = '2.2.4';
+
+	private static $supported_field_types = array( 'text', 'textarea', 'post_excerpt', 'post_content', 'post_title' );
 
 	function init() {
 
@@ -16,8 +14,7 @@ class GP_Word_Count extends GWPerk {
 
 		$this->enqueue_field_settings();
 
-		$this->add_tooltip( "{$this->slug}_min_word_count", '<h6>' . __( 'Minimum Word Count', 'gp-word-count' ) . '</h6>' . __( 'The minimum number of words that must be entered in this field. Leave empty if there is no minimum.', 'gp-word-count' ) );
-		$this->add_tooltip( "{$this->slug}_max_word_count", '<h6>' . __( 'Maximum Word Count', 'gp-word-count' ) . '</h6>' . __( 'The maximum number of words that must be entered in this field. Leave empty if there is no maximum.', 'gp-word-count' ) );
+		$this->add_tooltip( "{$this->slug}_word_counts", '<h6>' . __( 'Word Counts', 'gp-word-count' ) . '</h6>' . __( 'Specify the minimum and maximum number of words that can be entered in this field. Leave either setting empty to ignore that limit.', 'gp-word-count' ) );
 
 		add_action( 'gform_enqueue_scripts', array( &$this, 'enqueue_form_scripts' ) );
 		add_action( 'gform_register_init_scripts', array( &$this, 'register_init_scripts' ) );
@@ -29,27 +26,30 @@ class GP_Word_Count extends GWPerk {
 		?>
 
 		<li class="<?php echo $this->slug; ?>_setting gwp_field_setting field_setting" style="display:none;">
+			<label class="section_label">
+				<?php _e( 'Word Counts', 'gravityperks' ); ?>
+				<?php gform_tooltip( "{$this->slug}_word_counts" ); ?>
+			</label>
 
-			<div class="gwp-option half">
-				<label for="<?php echo $this->slug; ?>_min_word_count">
-					<?php _e( 'Min Word Count', 'gp-word-count' ); ?>
-					<?php gform_tooltip( "{$this->slug}_min_word_count" ); ?>
-				</label>
-				<input type="text" id="<?php echo $this->slug; ?>_min_word_count"
-					   onblur="SetFieldProperty('<?php echo $this->slug; ?>_min_word_count', this.value);"/>
+			<div class="gp-row">
+				<div class="gp-group">
+					<label for="<?php echo $this->slug; ?>_min_word_count">
+						<?php _e( 'Minimum', 'gp-word-count' ); ?>
+					</label>
+					<input type="text" id="<?php echo $this->slug; ?>_min_word_count"
+						   placeholder="e.g. 2"
+						   onblur="SetFieldProperty('<?php echo $this->slug; ?>_min_word_count', this.value);"/>
+				</div>
+
+				<div class="gp-group">
+					<label for="<?php echo $this->slug; ?>_max_word_count">
+						<?php _e( 'Maximum', 'gp-word-count' ); ?>
+					</label>
+					<input type="text" id="<?php echo $this->slug; ?>_max_word_count"
+						   placeholder="e.g. 5"
+						   onblur="SetFieldProperty('<?php echo $this->slug; ?>_max_word_count', this.value);"/>
+				</div>
 			</div>
-
-			<div class="gwp-option half">
-				<label for="<?php echo $this->slug; ?>_max_word_count">
-					<?php _e( 'Max Word Count', 'gp-word-count' ); ?>
-					<?php gform_tooltip( "{$this->slug}_max_word_count" ); ?>
-				</label>
-				<input type="text" id="<?php echo $this->slug; ?>_max_word_count"
-					   onblur="SetFieldProperty('<?php echo $this->slug; ?>_max_word_count', this.value);"/>
-			</div>
-
-			<div class="clear"></div>
-
 		</li>
 
 		<?php

@@ -87,6 +87,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			app.amazonses.bindActions();
 			app.amazonses.loadIdentities();
 			app.multisite.bindActions();
+			app.webhooks.bindActions();
 		},
 
 		/**
@@ -301,29 +302,14 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			 * Display the modal with provided text and icon.
 			 *
 			 * @since 2.1.0
+			 * @since 3.3.0 Moved to app level.
 			 *
 			 * @param {string} message The message to be displayed in the modal.
 			 * @param {string} icon    The icon name from /assets/images/font-awesome/ to be used in modal.
 			 * @param {string} type    The type of the message (red, green, orange, blue, purple, dark).
 			 */
 			displayModal: function( message, icon, type ) {
-
-				$.alert( {
-					backgroundDismiss: true,
-					escapeKey: true,
-					animationBounce: 1,
-					type: type,
-					title: false,
-					icon: '"></i><img src="' + wp_mail_smtp_pro.plugin_url + '/assets/images/font-awesome/' + icon + '.svg" style="width: 40px; height: 40px;" alt=""><i class="',
-					content: message,
-					buttons: {
-						confirm: {
-							text: wp_mail_smtp_pro.ok,
-							btnClass: 'btn-confirm',
-							keys: [ 'enter' ]
-						}
-					}
-				} );
+				app.displayModal( message, icon, type );
 			}
 		},
 
@@ -345,7 +331,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 
 				$( document ).on( 'click', '.js-wp-mail-smtp-providers-amazonses-register-identity', this.processIdentityRegistration );
 				$( document ).on( 'change', '.js-wp-mail-smtp-providers-amazonses-register-identity-radio-button', this.processIdentityTypeToggling );
-				$( document ).on( 'click', '.js-wp-mail-smtp-providers-amazonses-txt-record button', this.processTxtCodeCopy );
+				$( document ).on( 'click', '.js-wp-mail-smtp-ses-dkim-records-copy-btn', this.processTxtCodeCopy );
 				$( document ).on( 'blur', '#wp-mail-smtp-providers-amazonses-domain-input', function() {
 					var $this = $( this );
 
@@ -365,7 +351,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 				app.pageHolder.on( 'click', '.js-wp-mail-smtp-providers-amazonses-domain-dns-record', this.displayDnsRecord );
 				$( 'form', app.pageHolder ).on( 'submit', this.maybePreventSettingsSave );
 
-				$( document ).on( 'focus', '.js-wp-mail-smtp-providers-amazonses-txt-record input', function() {
+				$( document ).on( 'focus', '.js-wp-mail-smtp-ses-dkim-records-input', function() {
 					$( this ).trigger( 'select' );
 				} );
 			},
@@ -573,7 +559,6 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						}
 					},
 					onOpenBefore: function() {
-						this.$body.addClass( 'wp-mail-smtp-providers-amazonses-identity-modal' );
 						this.$body.addClass( 'wp-mail-smtp-providers-amazonses-register-identity-modal' );
 					}
 				} );
@@ -752,9 +737,10 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			},
 
 			/**
-			 * Open a modal window and display DNS TXT record info.
+			 * Open a modal window and display DKIM DNS records info.
 			 *
 			 * @since 2.4.0
+			 * @since 3.3.0 Switched to popup content loading via AJAX.
 			 *
 			 * @param {object} event jQuery event.
 			 */
@@ -762,30 +748,83 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 
 				event.preventDefault();
 
-				var $link   = $( event.target ).closest( 'a' ),
-					domain    = '_amazonses.' + $link.data( 'domain' ),
-					txtRecord = $link.data( 'txt-record' );
+				var $link = $( event.target ).closest( 'a' ),
+					domain = $link.data( 'domain' ),
+					nonce = $link.data( 'nonce' );
 
 				$.alert( {
 					backgroundDismiss: true,
 					escapeKey: true,
 					animationBounce: 1,
-					type: 'blue',
 					boxWidth: '550px',
-					title: wp_mail_smtp_pro.ses_text_dns_txt_title,
-					content: wp_mail_smtp_pro.ses_text_dns_txt_content.replace( /%name%/g, domain ).replace( /%value%/g, txtRecord ),
+					content: function() {
+						return app.amazonses.loadDnsRecords( domain, nonce, this );
+					},
 					buttons: {
 						confirm: {
-							text: wp_mail_smtp_pro.ses_text_done,
+							text: wp_mail_smtp_pro.ses_text_close,
 							btnClass: 'btn-confirm',
 							keys: [ 'enter' ]
 						},
 					},
-					onOpenBefore: function() {
-						this.$body.addClass( 'wp-mail-smtp-providers-amazonses-identity-modal' );
-						this.$body.addClass( 'wp-mail-smtp-providers-amazonses-dns-records-modal' );
-					},
 				} );
+			},
+
+			/**
+			 * Load a DKIM DNS records info to modal window.
+			 *
+			 * @since 3.3.0
+			 *
+			 * @param {string} domain The domain.
+			 * @param {string} nonce  The WP nonce for security.
+			 * @param {object} modal  jquery-confirm object.
+			 *
+			 * @returns {jqXHR} xhr object for this request.
+			 */
+			loadDnsRecords: function( domain, nonce, modal ) {
+
+				return $.ajax( {
+					url: ajaxurl,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'wp_mail_smtp_pro_providers_ajax',
+						task: 'load_dns_records',
+						domain: domain,
+						mailer: 'amazonses',
+						nonce: nonce
+					},
+					beforeSend: function() {
+						app.doingAjax = true;
+						modal.setTitle( wp_mail_smtp_pro.ses_text_loading );
+					}
+				} ).done( function( response ) {
+					if ( response.hasOwnProperty( 'success' ) && response.success ) {
+						modal.setTitle( wp_mail_smtp_pro.ses_text_dns_dkim_title );
+						modal.setType( 'blue' );
+						modal.setIcon( app.getModalIcon( 'info-circle-blue' ) );
+					} else {
+						modal.setTitle( '' );
+						modal.setType( 'red' );
+						modal.setIcon( app.getModalIcon( 'exclamation-circle-regular-red' ) );
+					}
+
+					modal.setContent( response.data );
+				} )
+					.fail( function() {
+						modal.setTitle( '' );
+						modal.setType( 'red' );
+						modal.setIcon( app.getModalIcon( 'exclamation-circle-regular-red' ) );
+						modal.setContent( wp_mail_smtp_pro.ses_text_smth_wrong );
+					} )
+					.always( function() {
+						app.doingAjax = false;
+
+						// If modal was closed by click to background, open it after getting response.
+						if ( ! modal.isOpen() ) {
+							modal.open();
+						}
+					} );
 			},
 
 			/**
@@ -803,7 +842,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			},
 
 			/**
-			 * Process the TXT record code copy.
+			 * Process the record code copy.
 			 *
 			 * @param {object} event jQuery event.
 			 */
@@ -826,6 +865,131 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 							.removeClass( 'wp-mail-smtp-dashicons-yes-alt-green' )
 							.addClass( 'dashicons-admin-page' )
 							.fadeIn( 200 );
+					} );
+			}
+		},
+
+		/**
+		 * Webhooks specific methods.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @type {object}
+		 */
+		webhooks: {
+
+			/**
+			 * Register all webhooks events.
+			 *
+			 * @since 3.3.0
+			 */
+			bindActions: function() {
+
+				$( document ).on( 'click', '.js-wp-mail-smtp-webhooks-subscribe', this.subscribe );
+				$( document ).on( 'click', '.js-wp-mail-smtp-webhooks-unsubscribe', this.unsubscribe );
+			},
+
+			/**
+			 * Create subscription.
+			 *
+			 * @since 3.3.0
+			 *
+			 * @param {object} event jQuery event.
+			 */
+			subscribe: function( event ) {
+
+				event.preventDefault();
+
+				var $self = $( this );
+
+				$self.addClass( 'wp-mail-smtp-loading-spin' );
+
+				$.ajax( {
+					url: ajaxurl,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'wp_mail_smtp_pro_webhooks_subscribe',
+						nonce: wp_mail_smtp_pro.nonce,
+					},
+					beforeSend: function() {
+						app.doingAjax = true;
+					}
+				} )
+					.done( function( response ) {
+						var message = response.data,
+							icon = 'check-circle-solid-green',
+							type = 'green',
+							callback = function() {
+								location.reload();
+								return false;
+							};
+
+						if ( ! response.success ) {
+							icon = 'exclamation-circle-regular-red';
+							type = 'red';
+						}
+
+						app.displayModal( message, icon, type, callback );
+					} )
+					.fail( function() {
+						app.displayModal( wp_mail_smtp_pro.error_occurred, 'exclamation-circle-regular-red', 'red' );
+					} )
+					.always( function() {
+						app.doingAjax = false;
+						$self.removeClass( 'wp-mail-smtp-loading-spin' );
+					} );
+			},
+
+			/**
+			 * Remove subscription.
+			 *
+			 * @since 3.3.0
+			 *
+			 * @param {object} event jQuery event.
+			 */
+			unsubscribe: function( event ) {
+
+				event.preventDefault();
+
+				var $self = $( this );
+
+				$self.addClass( 'wp-mail-smtp-loading-spin' );
+
+				$.ajax( {
+					url: ajaxurl,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'wp_mail_smtp_pro_webhooks_unsubscribe',
+						nonce: wp_mail_smtp_pro.nonce,
+					},
+					beforeSend: function() {
+						app.doingAjax = true;
+					}
+				} )
+					.done( function( response ) {
+						var message = response.data,
+							icon = 'check-circle-solid-green',
+							type = 'green',
+							callback = function() {
+								location.reload();
+								return false;
+							};
+
+						if ( ! response.success ) {
+							icon = 'exclamation-circle-regular-red';
+							type = 'red';
+						}
+
+						app.displayModal( message, icon, type, callback );
+					} )
+					.fail( function() {
+						app.displayModal( wp_mail_smtp_pro.error_occurred, 'exclamation-circle-regular-red', 'red' );
+					} )
+					.always( function() {
+						app.doingAjax = false;
+						$self.removeClass( 'wp-mail-smtp-loading-spin' );
 					} );
 			}
 		},
@@ -886,7 +1050,56 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						app.doingAjax = false;
 					} );
 			}
-		}
+		},
+
+		/**
+		 * Display the modal with provided text and icon.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param {string} message The message to be displayed in the modal.
+		 * @param {string} icon    The icon name from /assets/images/font-awesome/ to be used in modal.
+		 * @param {string} type    The type of the message (red, green, orange, blue, purple, dark).
+		 * @param {Function} actionCallback The action callback function.
+		 */
+		displayModal: function( message, icon, type, actionCallback ) {
+
+			type = type || 'default';
+			actionCallback = actionCallback || function() {};
+
+			$.alert( {
+				backgroundDismiss: true,
+				escapeKey: true,
+				animationBounce: 1,
+				type: type,
+				title: false,
+				icon: icon ? app.getModalIcon( icon ) : '',
+				content: message,
+				buttons: {
+					confirm: {
+						text: wp_mail_smtp_pro.ok,
+						btnClass: 'btn-confirm',
+						keys: [ 'enter' ],
+						action: actionCallback
+					}
+				},
+				onClose: actionCallback
+			} );
+		},
+
+		/**
+		 * Returns prepared modal icon.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param {string} icon The icon name from /assets/images/font-awesome/ to be used in modal.
+		 *
+		 * @returns {string} Modal icon HTML.
+		 */
+		getModalIcon: function( icon ) {
+
+			return '"></i><img src="' + wp_mail_smtp_pro.plugin_url + '/assets/images/font-awesome/' + icon + '.svg" style="width: 40px; height: 40px;" alt="' + wp_mail_smtp_pro.icon + '"><i class="';
+		},
 	};
 
 	// Provide access to public functions/properties.

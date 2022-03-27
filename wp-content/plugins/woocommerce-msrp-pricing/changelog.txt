@@ -1,5 +1,11 @@
 *** WooCommerce MSRP Pricing ***
 
+2022.01.03 - version 3.4.4
+* Change: WooCommerce compatibility up to 6.3
+
+2021.12.06 - version 3.4.3
+* Fix: Fix issue where settings wouldn't show on some multi-site setups
+
 2021.12.06 - version 3.4.2
 * Change: WooCommerce compatibility up to WooCommerce 6.0
 

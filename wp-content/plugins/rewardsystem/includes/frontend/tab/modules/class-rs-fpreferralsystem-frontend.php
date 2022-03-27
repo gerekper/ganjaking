@@ -228,7 +228,7 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 				return ;
 			}
 
-			echo wp_kses_post(self::static_referral_link()) ;
+						self::static_referral_link() ;
 		}
 
 		/* Display the Static Referral link in both Menu and My Account */
@@ -258,8 +258,7 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 				ob_start() ;
 				self::static_url() ;
 				$content = ob_get_contents() ;
-				ob_end_clean() ;
-				return $content ;
+				ob_end_flush() ;
 			}
 		}
 
@@ -749,13 +748,21 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 			
 			$referred_points = 0 ;
 			foreach ( WC()->cart->cart_contents as $value ) {
+								$product_id = isset( $value[ 'product_id' ] ) ? $value[ 'product_id' ] : 0;
+								$variation_id = isset( $value[ 'variation_id' ] ) ? $value[ 'variation_id' ] : 0;
 				$args            = array(
-					'productid'        => isset( $value[ 'product_id' ] ) ? $value[ 'product_id' ] : 0,
-					'variationid'      => isset( $value[ 'variation_id' ] ) ? $value[ 'variation_id' ] : 0,
+					'productid'        => $product_id,
+					'variationid'      => $variation_id,
 					'item'             => $value,
 					'getting_referrer' => 'yes',
 					'referred_user'    => get_current_user_id(),
 						) ;
+								
+								// Block Points for Sale Priced Product in Referral System
+				if ( rs_block_points_for_salepriced_product_in_referral_system( $product_id, $variation_id ) ) {
+						continue ;
+				}
+								
 				$referred_points = check_level_of_enable_reward_point( $args ) ;
 			}
 			
@@ -938,20 +945,27 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 
 			global $referral_pointsnew ;
 			foreach ( WC()->cart->cart_contents as $value ) {
-				$CheckIfSalePrice = block_points_for_salepriced_product( $value[ 'product_id' ] , $value[ 'variation_id' ] ) ;
+								$product_id = isset( $value[ 'product_id' ] ) ? $value[ 'product_id' ] : 0;
+								$variation_id = isset( $value[ 'variation_id' ] ) ? $value[ 'variation_id' ] : 0;
+				$CheckIfSalePrice = block_points_for_salepriced_product( $product_id , $variation_id ) ;
 				if ( 'yes' == $CheckIfSalePrice ) {
 					continue ;
 				}
+								
+							// Block Points for Sale Priced Product in Referral System
+				if ( rs_block_points_for_salepriced_product_in_referral_system( $product_id, $variation_id ) ) {
+						continue ;
+				}
 
 				$args      = array(
-					'productid'     => $value[ 'product_id' ] ,
-					'variationid'   => $value[ 'variation_id' ] ,
+					'productid'     => $product_id ,
+					'variationid'   => $variation_id ,
 					'item'          => $value ,
 					'referred_user' => $UserId ,
 						) ;
 				$Points    = check_level_of_enable_reward_point( $args ) ;
 				$Points    = $member_level ? RSMemberFunction::earn_points_percentage( $UserId , ( float ) $Points ) : ( float ) $Points ;
-				$ProductId = ! empty( $value[ 'variation_id' ] ) ? $value[ 'variation_id' ] : $value[ 'product_id' ] ;
+				$ProductId = ! empty( $variation_id ) ? $variation_id : $product_id ;
 
 				$referral_pointsnew[ $ProductId ] = $Points ;
 			}

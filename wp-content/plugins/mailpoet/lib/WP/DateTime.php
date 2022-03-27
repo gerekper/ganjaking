@@ -37,12 +37,24 @@ class DateTime {
     return $dateFormat;
   }
 
-  public function getCurrentTime($format = false) {
+  /**
+   * @param string $format Type of time to retrieve. Accepts 'mysql', 'timestamp', 'U',
+   * or PHP date format string (e.g. 'Y-m-d').
+   *
+   * @return int|string Integer if `$format` is 'timestamp' or 'U'
+   */
+  public function getCurrentTime(string $format = '') {
     if (empty($format)) $format = $this->getTimeFormat();
     return $this->wp->currentTime($format);
   }
 
-  public function getCurrentDate($format = false) {
+  /**
+   * @param string $format Type of time to retrieve. Accepts 'mysql', 'timestamp', 'U',
+   * or PHP date format string (e.g. 'Y-m-d').
+
+   * @return int|string Integer if `$format` is 'timestamp' or 'U'
+   */
+  public function getCurrentDate(string $format = '') {
     if (empty($format)) $format = $this->getDateFormat();
     return $this->getCurrentTime($format);
   }
@@ -82,5 +94,9 @@ class DateTime {
     }
 
     return $steps;
+  }
+
+  public function getCurrentDateTime(): \DateTime {
+    return new \DateTime("now", wp_timezone());
   }
 }

@@ -189,7 +189,6 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 
 							$input.attr('placeholder', gf_vars.enterValue);
 
-
 							if (value == '_gpcld_current_time') {
 								$input.attr('placeholder', '<?php _e( 'e.g. 12:30am' ); ?>').mask('99:99?pm');
 								needsSaveEvent = true;
@@ -240,12 +239,47 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 
 						}
 
+						/**
+						 * Get the current conditional logic instance. GF_CONDITIONAL_INSTANCE isn't always reliable as it'll be the
+						 * last generated conditional logic instance rather than the one that's open.
+						 *
+						 * @return {GFConditionalLogic}
+						 */
+						function getConditionalInstance() {
+							var $flyout = $('.conditional_logic_flyout_container:visible:not(:empty)');
+
+							if ($flyout.length) {
+								var conditionalLogicObjectTypeMatch = $flyout.prop('id').match(/conditional_logic_(.*?)_flyout_container/);
+
+								if (conditionalLogicObjectTypeMatch) {
+									var conditionalLogicObjectType = conditionalLogicObjectTypeMatch[1];
+									var conditionalInstance = null;
+
+									window.GF_CONDITIONAL_INSTANCES_COLLECTION.forEach( function( instance, instanceIndex ) {
+										if (instance.objectType === conditionalLogicObjectType) {
+											conditionalInstance = instance;
+											return false; // break
+										}
+									});
+
+									if (conditionalInstance) {
+										return conditionalInstance;
+									}
+								}
+							}
+
+							return window.GF_CONDITIONAL_INSTANCE;
+						}
+
 						function saveConditionalLogicValue( e ) {
-							if ( window.GF_CONDITIONAL_INSTANCE ) {
+							var instance = getConditionalInstance();
+
+							if ( instance ) {
 								var parent = e.target.parentNode;
 								var key    = e.target.dataset.jsRuleInput;
 								var val    = e.target.value;
-								window.GF_CONDITIONAL_INSTANCE.updateRule( key, val, parent.dataset.jsRuleIdx )
+
+								instance.updateRule( key, val, parent.dataset.jsRuleIdx );
 							}
 						}
 
@@ -279,7 +313,7 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 				return $form;
 			}
 
-			$applicable_fields = self::get_applicable_date_fields( $form );
+			 $applicable_fields = array_filter( self::get_applicable_date_fields( $form ) );
 			if ( empty( $applicable_fields ) ) {
 				return $form;
 			}
@@ -333,6 +367,10 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 			if ( self::has_applicable_date_fields( $form ) ) {
 				$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
 				wp_enqueue_script( 'gp-conditional-logic-dates', $this->perk->get_base_url() . "/js/gp-conditional-logic-dates{$min}.js", array( 'gform_gravityforms', 'gform_conditional_logic' ) );
+
+				wp_localize_script( 'gp-conditional-logic-dates', 'GPConditionalLogicDates', array(
+					'serverTzOffsetHours' => wp_timezone()->getOffset( new DateTime ) / HOUR_IN_SECONDS,
+				) );
 			}
 		}
 
@@ -389,7 +427,7 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 						break;
 					case 'time':
 						$field_value  = ! is_array( $field_value ) && $field_value ? preg_split( '/[: ]/', $field_value ) : $field_value; // will either be an array or string (i.e. 04:00 am)
-						$time_string  = sprintf( '%s:%s%s', rgar( $field_value, 0 ), rgar( $field_value, 1 ), rgar( $field_value, 2 ) );
+						$time_string  = sprintf( '%02d:%02d%s', rgar( $field_value, 0 ), rgar( $field_value, 1 ), rgar( $field_value, 2 ) );
 						$value        = strtotime( $time_string );
 						$target_value = strtotime( $rule['value'], $value );
 						break;
@@ -599,7 +637,8 @@ if ( ! class_exists( 'GWConditionalLogicDateFields' ) ) {
 				$rule_field = GFFormsModel::get_field( $form, $rule['fieldId'] );
 
 				// if this rule is not based on a date field - or - if value is already a valid timestamp, don't convert
-				if ( GFFormsModel::get_input_type( $rule_field ) !== 'date'
+				if ( ! $rule_field
+					|| GFFormsModel::get_input_type( $rule_field ) !== 'date'
 					|| self::is_valid_timestamp( $rule['value'] )
 					|| strpos( $rule['value'], '*' ) !== false
 				) {

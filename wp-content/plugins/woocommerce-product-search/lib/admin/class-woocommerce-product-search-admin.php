@@ -62,6 +62,7 @@ class WooCommerce_Product_Search_Admin {
 	public static function admin_enqueue_scripts() {
 		wp_register_script( 'wps-indexer', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/indexer.js' : '/js/indexer.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
 		wp_register_style( 'wps-admin', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/admin.css' : '/css/admin.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
+		wp_register_script( 'wps-reports', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/reports.js' : '/js/reports.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
 	}
 
 	/**
@@ -246,7 +247,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= wp_kses(
 				sprintf(
 					__( 'Please refer to the <a href="%s">WooCommerce Product Search</a> documentation pages for detailed information.', 'woocommerce-product-search' ),
-					esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/' )
+					esc_url( 'https://woocommerce.com/document/woocommerce-product-search/' )
 				),
 				array( 'a' => array( 'href' => array() ) )
 			);
@@ -423,7 +424,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= wp_kses(
 				sprintf(
 					__( 'Please refer to the <a href="%s">WooCommerce Product Search</a> documentation pages for detailed information.', 'woocommerce-product-search' ),
-					esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/' )
+					esc_url( 'https://woocommerce.com/document/woocommerce-product-search/' )
 				),
 				array( 'a' => array( 'href' => array() ) )
 			);
@@ -2412,7 +2413,7 @@ class WooCommerce_Product_Search_Admin {
 	 */
 	public static function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
 		if ( $plugin_file == plugin_basename( WOO_PS_FILE ) ) {
-			$plugin_meta[] = '<a style="font-weight:bold" href="https://docs.woocommerce.com/document/woocommerce-product-search/">' . esc_html__( 'Documentation', 'woocommerce-product-search' ) . '</a>';
+			$plugin_meta[] = '<a style="font-weight:bold" href="https://woocommerce.com/document/woocommerce-product-search/">' . esc_html__( 'Documentation', 'woocommerce-product-search' ) . '</a>';
 			$plugin_meta[] = '<a style="font-weight:bold" href="https://woocommerce.com/my-account/create-a-ticket/">' . esc_html__( 'Support', 'woocommerce-product-search' ) . '</a>';
 		}
 		return $plugin_meta;

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPLS_Rule_Field extends GPLS_Rule {
 
 	private $field;
@@ -77,9 +73,11 @@ class GPLS_Rule_Field extends GPLS_Rule {
 				if ( empty( $value ) ) {
 					continue;
 				}
-				// add join/where to array
-				$joins[]  = "INNER JOIN {$wpdb->prefix}gf_entry_meta {$table_slug} ON {$table_slug}.entry_id = e.id";
-				$wheres[] = $wpdb->prepare( "\n( {$table_slug}.meta_key = %s AND {$table_slug}.meta_value = %s )", $subfield['id'], $value );
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$joins[] = $wpdb->prepare( "INNER JOIN {$wpdb->prefix}gf_entry_meta {$table_slug} ON ({$table_slug}.entry_id = e.id AND {$table_slug}.meta_key = %s)", $subfield['id'] );
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$wheres[] = $wpdb->prepare( "\n( {$table_slug}.meta_value = %s )", $value );
 			}
 
 			if ( ! empty( $joins ) ) {
@@ -93,12 +91,16 @@ class GPLS_Rule_Field extends GPLS_Rule {
 		}
 		// singular field
 		else {
-
 			$value      = $this->get_limit_field_value( $this->get_field() );
 			$table_slug = sprintf( 'em%s', str_replace( '.', '_', $this->get_field() ) );
 
-			$joins[]  = "INNER JOIN {$wpdb->prefix}gf_entry_meta {$table_slug} ON {$table_slug}.entry_id = e.id";
-			$wheres[] = $wpdb->prepare( "\n( {$table_slug}.meta_key = %s AND {$table_slug}.meta_value = %s )", $this->get_field(), $value );
+			if ( ! rgblank( $value ) ) {
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$joins[] = $wpdb->prepare( "INNER JOIN {$wpdb->prefix}gf_entry_meta {$table_slug} ON ({$table_slug}.entry_id = e.id AND {$table_slug}.meta_key = %s)", $this->get_field() );
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$wheres[] = $wpdb->prepare( "\n( {$table_slug}.meta_value = %s )", $value );
+			}
 
 			return array(
 				'join'  => $joins,
@@ -117,13 +119,27 @@ class GPLS_Rule_Field extends GPLS_Rule {
 		}
 		$input_name = 'input_' . str_replace( '.', '_', $field_id );
 
+		// When a [gpls] shortcode is added to the admin dashboard GFFormDisplay
+		// seems to not be loaded at this point. Check if it hasn't and force load it. HS#24109
+		if ( ! class_exists( 'GFFormDisplay' ) ) {
+			require_once( GFCommon::get_base_path() . '/form_display.php' );
+		}
 		if ( GFFormDisplay::is_submit_form_id_valid() ) {
 			$value = GFFormsModel::prepare_value( $form, $field, rgpost( $input_name ), $input_name, null );
 		} else {
 			$value = GFFormsModel::get_field_value( $field, $this->field_values );
 		}
 
-		return $value;
+		/**
+		 * Filter the value used by Limit Submissions when comparing the value to already submitted values.
+		 *
+		 * @param mixed    $value The field value.
+		 * @param GF_Field $field The field associated with the rule.
+		 * @param array    $form  The current form.
+		 *
+		 * @since 1.0.9
+		 */
+		return gf_apply_filters( array( 'gpls_limit_field_value', $form['id'], $field_id ), $value, $field, $form );
 	}
 
 	public function render_option_fields( $gfaddon ) {
@@ -142,10 +158,13 @@ class GPLS_Rule_Field extends GPLS_Rule {
 	}
 
 	public function get_field_list() {
-		$choices = array();
-		$form    = GFAPI::get_form( $this->get_form_id() );
+		$choices             = array();
+		$form                = GFAPI::get_form( $this->get_form_id() );
+		$invalid_field_types = array( 'section', 'html', 'page' );
 		foreach ( $form['fields'] as $field ) {
-
+			if ( in_array( $field['type'], $invalid_field_types, true ) ) {
+				continue;
+			}
 			// main field
 			$choice    = array(
 				'label' => $field['label'],

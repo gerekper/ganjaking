@@ -51,13 +51,13 @@ class GetWebhook implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInte
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['url' => 'string', 'id' => 'int', 'description' => 'string', 'events' => 'string[]', 'type' => 'string', 'createdAt' => '\\DateTime', 'modifiedAt' => '\\DateTime'];
+    protected static $swaggerTypes = ['url' => 'string', 'id' => 'int', 'description' => 'string', 'events' => 'string[]', 'type' => 'string', 'createdAt' => 'string', 'modifiedAt' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['url' => 'url', 'id' => 'int64', 'description' => null, 'events' => null, 'type' => null, 'createdAt' => 'date-time', 'modifiedAt' => 'date-time'];
+    protected static $swaggerFormats = ['url' => 'url', 'id' => 'int64', 'description' => null, 'events' => null, 'type' => null, 'createdAt' => null, 'modifiedAt' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -322,7 +322,7 @@ class GetWebhook implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInte
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -331,7 +331,7 @@ class GetWebhook implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInte
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -343,7 +343,7 @@ class GetWebhook implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInte
     /**
      * Gets modifiedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getModifiedAt()
     {
@@ -352,7 +352,7 @@ class GetWebhook implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInte
     /**
      * Sets modifiedAt
      *
-     * @param \DateTime $modifiedAt Last modification UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $modifiedAt Last modification UTC date-time of the webhook (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

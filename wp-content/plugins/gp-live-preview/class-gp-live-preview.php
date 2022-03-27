@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Live_Preview extends GWPerk {
 
 	public $version                   = GP_LIVE_PREVIEW_VERSION;
@@ -373,6 +369,10 @@ class GP_Live_Preview extends GWPerk {
 				'label'   => __( 'Disable Notifications', 'gp-live-preview' ),
 				'tooltip' => __( 'Prevent notifications from being sent when the form is submitted.', 'gp-live-preview' ),
 			),
+			'ignore_restrictions'             => array(
+				'label'   => __( 'Ignore Form Restrictions', 'gp-live-preview' ),
+				'tooltip' => __( 'The form will ignore any restrictions defined in the restrictions section.', 'gp-live-preview' ),
+			),
 		);
 	}
 
@@ -532,6 +532,28 @@ class GP_Live_Preview extends GWPerk {
 			add_filter( 'gform_pre_render', array( $this, 'remove_page_fields' ) );
 		}
 
+		if ( rgget( 'ignore_restrictions' ) ) {
+			add_filter( 'gform_form_args', array( $this, 'ignore_schedule_display' ) );
+			add_filter( 'gform_pre_render', array( $this, 'ignore_form_schedule' ) );
+			add_filter( 'gform_pre_validation', array( $this, 'ignore_form_schedule' ) );
+			add_filter( 'gform_pre_validation', array( $this, 'ignore_entry_limit' ) );
+			add_filter( 'gform_require_login', '__return_false' );
+		}
+	}
+
+	public function ignore_schedule_display( $args ) {
+		$args['force_display'] = true;
+		return $args;
+	}
+
+	public function ignore_form_schedule( $form ) {
+		$form['scheduleForm'] = null;
+		return $form;
+	}
+
+	public function ignore_entry_limit( $form ) {
+		$form['limitEntries'] = null;
+		return $form;
 	}
 
 	public function enable_ajax( $args ) {

@@ -186,7 +186,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'next_page_count' => ( ( $current_page + 1 ) <= ( $page_count ) ) ? ( $current_page + 1 ) : ( $current_page )
 							) ;
 
-					rs_get_template( 'pagination.php' , $pagination ) ;
+					srp_get_template( 'pagination.php' , $pagination ) ;
 					?>
 				</td>
 			</tr>

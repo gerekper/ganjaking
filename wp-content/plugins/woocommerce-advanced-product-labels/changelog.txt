@@ -1,5 +1,9 @@
 *** WooCommerce Advanced Product Labels Changelog ***
 
+2022.02.14 - version 1.2.1
+* [Fix] - JS console error on some WAPL related pages
+* [Fix] - Label colors not always applied
+
 2022.02.02 - version 1.2.0
 * [Add] - Allow custom labels - Upload your custom images to use as product labels!
 * [Add] - 'Custom' alignment - drag&drop the labels at any position!

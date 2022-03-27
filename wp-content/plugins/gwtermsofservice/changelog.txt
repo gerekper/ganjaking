@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 1.4.1
+
+	- Fixed issue where pre-populated Terms of Service fields would become unchecked when navigating multi-page forms.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.4
+
+	- Improved compatibility with Gravity Forms 2.5. (#4)
+
+## 1.3.14
+
+	- Fixed null array access notice in PHP >= 7.4 (#1)
+
 ## 1.3.13
 
 	- Added tabindex to terms container to allow keyboard navigation and scrolling of terms.

@@ -311,7 +311,13 @@ function init_reward_gateway_class() {
 		$AppliedCoupons = $order->get_items( array( 'coupon' ) ) ;
 		if ( $coupon_display && srp_check_is_array( $AppliedCoupons ) ) {
 			foreach ( $AppliedCoupons as $Coupon ) {
-				$CouponAmnt[] = $Coupon[ 'discount_amount' ] ;
+								$discount = isset($Coupon['discount']) ? $Coupon['discount'] : 0;
+				if ('yes' == get_option('woocommerce_prices_include_tax')) {
+					$discount_tax = isset($Coupon['discount_tax']) ? $Coupon['discount_tax'] : 0;
+					$CouponAmnt[] = $discount + $discount_tax;
+				} else {
+					$CouponAmnt[] = $discount;
+				}
 			}
 		}
 		$redeemedpoints  = ( array_sum( $PointPriceValue ) + redeem_point_conversion( $Points , $UserId ) ) - array_sum( $CouponAmnt ) ;

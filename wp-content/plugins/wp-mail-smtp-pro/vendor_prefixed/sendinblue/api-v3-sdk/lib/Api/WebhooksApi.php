@@ -247,7 +247,7 @@ class WebhooksApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -265,7 +265,7 @@ class WebhooksApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -419,7 +419,7 @@ class WebhooksApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -437,7 +437,7 @@ class WebhooksApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -616,7 +616,7 @@ class WebhooksApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -634,7 +634,7 @@ class WebhooksApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -643,14 +643,15 @@ class WebhooksApi
      * Get all webhooks
      *
      * @param  string $type Filter on webhook type (optional, default to transactional)
+     * @param  string $sort Sort the results in the ascending/descending order of webhook creation (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetWebhooks
      */
-    public function getWebhooks($type = 'transactional')
+    public function getWebhooks($type = 'transactional', $sort = 'desc')
     {
-        list($response) = $this->getWebhooksWithHttpInfo($type);
+        list($response) = $this->getWebhooksWithHttpInfo($type, $sort);
         return $response;
     }
     /**
@@ -659,15 +660,16 @@ class WebhooksApi
      * Get all webhooks
      *
      * @param  string $type Filter on webhook type (optional, default to transactional)
+     * @param  string $sort Sort the results in the ascending/descending order of webhook creation (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetWebhooks, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWebhooksWithHttpInfo($type = 'transactional')
+    public function getWebhooksWithHttpInfo($type = 'transactional', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetWebhooks';
-        $request = $this->getWebhooksRequest($type);
+        $request = $this->getWebhooksRequest($type, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -710,13 +712,14 @@ class WebhooksApi
      * Get all webhooks
      *
      * @param  string $type Filter on webhook type (optional, default to transactional)
+     * @param  string $sort Sort the results in the ascending/descending order of webhook creation (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhooksAsync($type = 'transactional')
+    public function getWebhooksAsync($type = 'transactional', $sort = 'desc')
     {
-        return $this->getWebhooksAsyncWithHttpInfo($type)->then(function ($response) {
+        return $this->getWebhooksAsyncWithHttpInfo($type, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -726,14 +729,15 @@ class WebhooksApi
      * Get all webhooks
      *
      * @param  string $type Filter on webhook type (optional, default to transactional)
+     * @param  string $sort Sort the results in the ascending/descending order of webhook creation (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhooksAsyncWithHttpInfo($type = 'transactional')
+    public function getWebhooksAsyncWithHttpInfo($type = 'transactional', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetWebhooks';
-        $request = $this->getWebhooksRequest($type);
+        $request = $this->getWebhooksRequest($type, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -756,11 +760,12 @@ class WebhooksApi
      * Create request for operation 'getWebhooks'
      *
      * @param  string $type Filter on webhook type (optional, default to transactional)
+     * @param  string $sort Sort the results in the ascending/descending order of webhook creation (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getWebhooksRequest($type = 'transactional')
+    protected function getWebhooksRequest($type = 'transactional', $sort = 'desc')
     {
         $resourcePath = '/webhooks';
         $formParams = [];
@@ -771,6 +776,10 @@ class WebhooksApi
         // query params
         if ($type !== null) {
             $queryParams['type'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($type);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -805,7 +814,7 @@ class WebhooksApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -823,7 +832,7 @@ class WebhooksApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -989,7 +998,7 @@ class WebhooksApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1007,7 +1016,7 @@ class WebhooksApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**

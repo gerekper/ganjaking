@@ -19,7 +19,7 @@ class UploadSpace extends AC\Column {
 
 		restore_current_blog();
 
-		$display_used = '&dash;';
+		$display_used = '&ndash;';
 		$display_quota = '';
 
 		if ( $used ) {

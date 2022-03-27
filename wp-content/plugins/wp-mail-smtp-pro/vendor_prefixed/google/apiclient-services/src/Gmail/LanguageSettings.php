@@ -19,11 +19,20 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class LanguageSettings extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $displayLanguage;
+    /**
+     * @param string
+     */
     public function setDisplayLanguage($displayLanguage)
     {
         $this->displayLanguage = $displayLanguage;
     }
+    /**
+     * @return string
+     */
     public function getDisplayLanguage()
     {
         return $this->displayLanguage;

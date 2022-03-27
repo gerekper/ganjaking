@@ -273,10 +273,11 @@ class Updater {
 		$query_params = wp_parse_args(
 			$body,
 			[
-				'tgm-updater-action'     => $action,
-				'tgm-updater-key'        => $this->key,
-				'tgm-updater-wp-version' => get_bloginfo( 'version' ),
-				'tgm-updater-referer'    => site_url(),
+				'tgm-updater-action'      => $action,
+				'tgm-updater-key'         => $this->key,
+				'tgm-updater-wp-version'  => get_bloginfo( 'version' ),
+				'tgm-updater-php-version' => phpversion(),
+				'tgm-updater-referer'     => site_url(),
 			]
 		);
 

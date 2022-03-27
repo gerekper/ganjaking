@@ -64,7 +64,7 @@ class Attachments {
 			),
 			ARRAY_A
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:enable
 
 		if ( empty( $attachments_data ) ) {
 			return [];
@@ -109,7 +109,7 @@ class Attachments {
 				$log_ids_array
 			)
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:enable
 
 		if ( ! empty( $number_deleted_rows ) ) {
 			$this->delete_unconnected_attachments();
@@ -286,7 +286,7 @@ class Attachments {
 				$wpdb->query(
 					$wpdb->prepare( "DELETE FROM {$attachment_files_db_table} WHERE id = %d", $attachment->get_id() )
 				);
-				// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+				// phpcs:enable
 			}
 		}
 	}

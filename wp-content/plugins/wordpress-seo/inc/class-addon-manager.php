@@ -97,7 +97,15 @@ class WPSEO_Addon_Manager {
 		add_action( 'admin_init', [ $this, 'validate_addons' ], 15 );
 		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_for_updates' ] );
 		add_filter( 'plugins_api', [ $this, 'get_plugin_information' ], 10, 3 );
+		add_action( 'plugins_loaded', [ $this, 'register_expired_messages' ], 10 );
+	}
 
+	/**
+	 * Registers "expired subscription" warnings to the update messages of our addons.
+	 *
+	 * @return void
+	 */
+	public function register_expired_messages() {
 		foreach ( array_keys( $this->get_installed_addons() ) as $plugin_file ) {
 			add_action( 'in_plugin_update_message-' . $plugin_file, [ $this, 'expired_subscription_warning' ], 10, 2 );
 		}
@@ -259,6 +267,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
+		return true;
 		$subscription = $this->get_subscription( $slug );
 
 		// An non-existing subscription is never valid.
@@ -294,7 +303,7 @@ class WPSEO_Addon_Manager {
 				continue;
 			}
 
-			$plugin_data = $this->convert_subscription_to_plugin( $subscription, $yoast_free_data );
+			$plugin_data = $this->convert_subscription_to_plugin( $subscription, $yoast_free_data, false, $plugin_file );
 
 			// Let's assume for now that it will get added in the 'no_update' key that we'll return to the WP API.
 			$is_no_update = true;
@@ -483,10 +492,11 @@ class WPSEO_Addon_Manager {
 	 * @param stdClass $subscription    The subscription to convert.
 	 * @param stdClass $yoast_free_data The Yoast Free's data.
 	 * @param bool     $plugin_info     Whether we're in the plugin information modal.
+	 * @param string   $plugin_file     The plugin filename.
 	 *
 	 * @return stdClass The converted subscription.
 	 */
-	protected function convert_subscription_to_plugin( $subscription, $yoast_free_data = null, $plugin_info = false ) {
+	protected function convert_subscription_to_plugin( $subscription, $yoast_free_data = null, $plugin_info = false, $plugin_file = '' ) {
 		// We need to replace h2's and h3's with h4's because the styling expects that.
 		$changelog = str_replace( '</h2', '</h4', str_replace( '<h2', '<h4', $subscription->product->changelog ) );
 		$changelog = str_replace( '</h3', '</h4', str_replace( '<h3', '<h4', $changelog ) );
@@ -501,6 +511,7 @@ class WPSEO_Addon_Manager {
 			'new_version'      => $subscription->product->version,
 			'name'             => $subscription->product->name,
 			'slug'             => $subscription->product->slug,
+			'plugin'           => $plugin_file,
 			'url'              => $subscription->product->store_url,
 			'last_update'      => $subscription->product->last_updated,
 			'homepage'         => $subscription->product->store_url,

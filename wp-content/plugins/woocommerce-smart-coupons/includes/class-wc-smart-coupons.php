@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.1.0
+ * @version     3.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -530,6 +530,39 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$is_gift = get_post_meta( $order_id, 'is_gift', true );
 				}
 
+				if ( count( $receiver_details ) === 1 ) {
+					$coupon_code         = ( ! empty( $receiver_details[0]['code'] ) ) ? $receiver_details[0]['code'] : '';
+					$message_from_sender = ( ! empty( $receiver_details[0]['message'] ) ) ? $receiver_details[0]['message'] : '';
+
+					$coupon        = new WC_Coupon( $coupon_code );
+					$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+					$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+					$coupon_data   = $this->get_coupon_meta_data( $coupon );
+
+					$coupon_detail = array(
+						'amount' => $coupon_amount,
+						'code'   => $coupon_code,
+					);
+
+					$action_args = apply_filters(
+						'wc_sc_email_coupon_notification_args',
+						array(
+							'order_id'                     => $order_id,
+							'email'                        => $receiver_email,
+							'coupon'                       => $coupon_detail,
+							'discount_type'                => $discount_type,
+							'receiver_name'                => '',
+							'message_from_sender'          => $message_from_sender,
+							'gift_certificate_sender_name' => $gift_certificate_sender_name,
+							'gift_certificate_sender_email' => $gift_certificate_sender_email,
+							'is_gift'                      => $is_gift,
+						)
+					);
+					// Trigger single email notification.
+					do_action( 'wc_sc_email_coupon_notification', $action_args );
+					return;
+				}
+
 				$action_args = apply_filters(
 					'wc_sc_email_coupon_notification_args',
 					array(
@@ -542,7 +575,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					)
 				);
 
-				// Trigger email notification.
+				// Trigger combined email notification.
 				do_action( 'wc_sc_combined_email_coupon_notification', $action_args );
 			}
 		}
@@ -1815,7 +1848,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 						}
 					}
-					if ( 'woocommerce_add_coupon_discount' === $post_action && $order->has_status( array( 'on-hold', 'auto-draft', 'pending' ) ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) {
+					$pending_statuses = $this->get_pending_statuses();
+					if ( 'woocommerce_add_coupon_discount' === $post_action && $order->has_status( $pending_statuses ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) {
 						do_action( 'sc_after_order_calculate_discount_amount', $order_id );
 					}
 				}
@@ -4768,6 +4802,15 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 			$coupon = new WC_Coupon( $coupon_code );
 			return (bool) $coupon->get_id() || $coupon->get_virtual();
+		}
+
+		/**
+		 * Function to get pending order statuses
+		 *
+		 * @return array
+		 */
+		public function get_pending_statuses() {
+			return apply_filters( 'wc_sc_pending_order_statuses', array( 'on-hold', 'auto-draft', 'pending' ), array( 'source' => $this ) );
 		}
 
 	}//end class

@@ -316,7 +316,6 @@ class BetterDocs_Licensing {
 			return;
 		}
 
-		
 		$license_data = new \stdClass();
 				$license_data->license = 'valid';
 				$license_data->success = true;
@@ -324,7 +323,6 @@ class BetterDocs_Licensing {
 				$license_data->license_limit = 0;
 				$license_data->site_count = 0;
 				$license_data->activations_left = 0;
-
 		if ( isset( $license_data->success ) && false === boolval( $license_data->success ) ) {
 
 			switch( $license_data->error ) {
@@ -439,7 +437,7 @@ class BetterDocs_Licensing {
 			}
 		}
 
-	$license_data = new \stdClass();
+		$license_data = new \stdClass();
 				$license_data->license = 'deactivated';
 
 		if( is_wp_error( $license_data ) ) {

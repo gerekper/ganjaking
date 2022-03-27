@@ -1,15 +1,11 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Conditional_Pricing extends GWPerk {
 
 	public $version                      = GP_CONDITIONAL_PRICING_VERSION;
-	protected $min_gravity_forms_version = '1.8.8';
+	protected $min_gravity_forms_version = '2.3';
 	protected $min_wp_version            = '3.5.1';
-	protected $min_perks_version         = '1.0.1';
+	protected $min_perks_version         = '2.2.5';
 
 	private $_import_pricing_logic = array();
 
@@ -38,7 +34,7 @@ class GP_Conditional_Pricing extends GWPerk {
 		add_filter( 'gform_form_update_meta', array( $this, 'modify_imported_form' ), 10, 3 );
 		add_filter( 'gform_import_form_xml_options', array( $this, 'modify_import_form_xml_options' ) );
 
-		wp_register_script( "{$this->slug}-frontend", $this->get_base_url() . '/scripts/gwconditionalpricing.js', array( 'jquery', 'gwp-common', 'gform_gravityforms' ) );
+		wp_register_script( "{$this->slug}-frontend", $this->get_base_url() . '/scripts/gwconditionalpricing.js', array( 'jquery', 'gwp-common', 'gform_gravityforms' ), $this->version );
 
 	}
 
@@ -53,6 +49,7 @@ class GP_Conditional_Pricing extends GWPerk {
 		$menu_items[] = array(
 			'name'  => 'conditional_pricing_page',
 			'label' => __( 'Conditional Pricing', 'gp-conditional-pricing' ),
+			'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M278.53 235.01c37.887 13.312 53.246 30.719 53.246 59.391 0 28.16-19.969 52.734-56.832 58.879v17.406c-.512 8.191-7.168 14.848-15.359 14.848-8.703 0-15.359-7.168-15.359-15.359v-14.848c-21.504-1.023-41.984-6.656-54.273-13.824-6.145-3.586-10.238-9.726-10.238-17.406 0-9.726 6.656-17.406 15.359-19.457h2.047c1.535 0 3.07.512 4.61 1.024 13.311 6.656 30.718 12.8 50.175 12.8 18.434 0 30.72-7.167 30.72-19.456 0-12.29-10.239-19.457-33.794-27.648-34.305-11.266-57.344-27.648-57.344-58.367 0-28.16 19.457-50.176 53.762-56.832v-14.848c0-8.703 7.168-15.36 15.36-15.36 8.702 0 15.358 7.169 15.358 15.36v12.289c21.504 1.023 35.84 5.632 46.078 10.754 5.633 3.07 9.727 9.726 9.727 16.895 0 9.214-6.656 16.895-15.36 18.945h-2.046c-1.535 0-2.559-.512-3.586-1.024-8.703-3.586-22.527-9.726-43.52-9.726-20.48 0-27.648 8.703-27.648 17.922 1.031 10.75 12.293 17.406 38.918 27.645z"/><path d="M256 512c-68.609 0-132.61-26.625-181.25-74.754C26.621 388.609-.004 324.606-.004 255.996s26.625-132.61 74.754-181.25C122.875 26.105 187.39-.008 256-.008s132.61 26.625 181.25 74.754c48.641 48.125 74.754 112.64 74.754 181.25s-26.625 132.61-74.754 181.25C388.613 485.375 324.61 512 256 512zm0-472.06c-57.855 0-112.13 22.527-152.57 63.488-40.449 40.957-63.488 94.719-63.488 152.57s22.527 112.13 63.488 152.57c40.957 40.449 94.719 63.488 152.57 63.488s112.13-22.527 152.57-63.488c40.449-40.957 63.488-94.719 63.488-152.57s-22.527-112.13-62.977-152.57c-40.445-40.449-95.23-63.488-153.09-63.488z"/></svg>',
 		);
 
 		return $menu_items;
@@ -60,7 +57,7 @@ class GP_Conditional_Pricing extends GWPerk {
 
 	function enqueue_admin_scripts() {
 
-		if ( rgget( 'page' ) != 'gf_edit_forms' || rgget( 'view' ) != 'settings' || rgget( 'subview' ) != 'conditional_pricing_page' ) {
+		if ( rgget( 'page' ) !== 'gf_edit_forms' || rgget( 'view' ) !== 'settings' || rgget( 'subview' ) !== 'conditional_pricing_page' ) {
 			return;
 		}
 
@@ -70,6 +67,8 @@ class GP_Conditional_Pricing extends GWPerk {
 			wp_enqueue_script( 'jquery-ui-core' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
+
+		wp_enqueue_style( 'gp-conditional-pricing-admin', $this->get_base_url() . '/css/gp-conditional-pricing-admin.css', array(), $this->version );
 
 	}
 
@@ -198,65 +197,6 @@ class GP_Conditional_Pricing extends GWPerk {
 
 		?>
 
-		<style type="text/css">
-
-			.gw-conditional-pricing-product-select { max-width: 350px; }
-			.gw-conditional-pricing-buttons { border-bottom: 1px solid #eee; padding-bottom: 20px; }
-			.gwcp-pricing-level { background-color: #fff; border-bottom: 2px solid #eee;
-				padding: 10px; border-radius: 4px; margin: 0 0 10px; }
-
-			.gwcp-pricing-level p { margin: 0 0 5px; padding: 0 0 5px; border-bottom: 1px dotted #e7e7e7; }
-			.gwcp-pricing-level li:last-child { margin: 0; }
-
-			.gwcp-edit-pricing-level { float: right; cursor: pointer; }
-
-			#pricing_level_action_type { display: none; }
-
-			.gwcp-no-pricing-levels { text-align: center; margin-top: 7em; }
-			.gwcp-no-pricing-levels h4 { font-size: 16px; margin: 1.33em 0 0; }
-			.gwcp-no-pricing-levels p { color: #999; font-size: 14px; }
-
-			#gwcp-pricing-level-editor { background-color: #fff; border-bottom: 2px solid #eee;
-				padding: 10px; border-radius: 4px; margin: 0 0 10px; }
-
-			#gwcp-pricing-level-price {
-				text-align: right;
-				width: 70px;
-				font-size: 14px;
-				vertical-align: middle;
-				margin: 0 0 0 .1125rem;
-				line-height: 1.0625rem;
-				padding: .5rem 0.8125rem;
-			}
-
-			#gwcp-pricing-level-editor #pricing_level_logic_type {
-				margin: 0 0 0 .1125rem;
-			}
-
-			#pricing_level_conditional_logic_container { margin: 0 0 10px; padding: 0 0 10px; border-bottom: 1px dotted #e7e7e7; }
-			#gwcp-pricing-level-editor-close { margin-right: 10px; }
-
-			.gwcp-product { border-bottom: 1px solid #f7f7f7; overflow: hidden; }
-			.gwcp-product h4 { float: left; cursor: pointer; }
-			.gwcp-product .dropdown-arrow { float: left; margin: 17px 5px; cursor: pointer; }
-			.gwcp-product .gwcp-pricing-levels { display: none; }
-			.gwcp-product .gwcp-add-new-product-level { display: none; }
-
-			.gwcp-product.open {}
-			.gwcp-product.open .gwcp-pricing-level { cursor:move; cursor:-moz-move; cursor:-webkit-move; }
-			.gwcp-product.open .dropdown-arrow { -webkit-transform:rotate(-180deg); -moz-transform:rotate(-180deg); -ms-transform:rotate(-180deg); -o-transform:rotate(180deg); transform:rotate(-180deg); }
-			.gwcp-product.open .gwcp-pricing-levels { display: block; }
-			.gwcp-product.open .gwcp-add-new-product-level { display: inline-block; margin: 0 0 1.33em; }
-
-			.gwcp-pricing-levels { clear: left; }
-
-			#gw-save-conditional-pricing { float: right; margin-top: 0; }
-			#gpcp-import { float: right; margin-top: 0; margin-right: 10px; }
-
-			.gwcp-pricing-level-editor-actions { display: flex; align-items: center; }
-			#gwcp-pricing-level-editor-delete { margin: -1px 0 0 5px; }
-		</style>
-
 		<script>
 
 			<?php GFCommon::gf_global(); ?>
@@ -298,9 +238,11 @@ class GP_Conditional_Pricing extends GWPerk {
 							}
 
 							for( var i = 0; i < this.pricingLogic[ productId ].length; i++ ) {
-								for( var j = this.pricingLogic[ productId ][ i ].conditionalLogic.rules.length - 1; j > 0; j-- ) {
-									if( ! this.isValidPricingSource( this.pricingLogic[ productId ][ i ].conditionalLogic.rules[ j ].fieldId ) ) {
-										this.pricingLogic[ productId ][ i ].conditionalLogic.rules.splice( j, 1 );
+								if ( this.pricingLogic[ productId ][ i ] ) {
+									for (var j = this.pricingLogic[productId][i].conditionalLogic.rules.length - 1; j > 0; j--) {
+										if (!this.isValidPricingSource(this.pricingLogic[productId][i].conditionalLogic.rules[j].fieldId)) {
+											this.pricingLogic[productId][i].conditionalLogic.rules.splice(j, 1);
+										}
 									}
 								}
 							}
@@ -492,7 +434,7 @@ class GP_Conditional_Pricing extends GWPerk {
 
 						var pricingLevelIndex = this.pricingLogic[productId].length - 1;
 						var pricingLevelsContainer = $('.gwcp-pricing-levels[data-productid="' + productId + '"]');
-						var newPricingLevel = $('<div class="gwcp-pricing-level" data-index="' + pricingLevelIndex + '"></div>');
+						var newPricingLevel = $('<div class="gwcp-pricing-level gform-settings-panel" data-index="' + pricingLevelIndex + '"></div>');
 
 						pricingLevelsContainer.append( newPricingLevel );
 
@@ -578,7 +520,7 @@ class GP_Conditional_Pricing extends GWPerk {
 
 						for( i in pricingLevels ) {
 
-							pricingLevelsHtml += '<div class="gwcp-pricing-level" data-index="' + i + '"> \
+							pricingLevelsHtml += '<div class="gwcp-pricing-level gform-settings-panel" data-index="' + i + '"> \
 							' + this.getPricingLevelHtml( pricingLevels[i], productId ) + ' \
 							</div>';
 
@@ -1023,18 +965,18 @@ class GP_Conditional_Pricing extends GWPerk {
 			</div>
 		<?php endif; ?>
 
-		<form name="gw-conditional-pricing" action="" method="post">
+		<form name="gw-conditional-pricing" action="" method="post" class="gpcp-form">
 
 			<?php wp_nonce_field( 'gw_conditional_pricing_save', 'gw_conditional_pricing_save', true ); ?>
 			<input type="hidden" name="gw_pricing_logic" id="gw_pricing_logic" value="" />
 
-			<div class='gw-conditional-pricing-buttons'>
+			<div class="gw-conditional-pricing-buttons gform-settings-panel__content">
 
 				<select class="gw-conditional-pricing-product-select">
 					<!-- Dynamically populated via gwcp.updateProductSelect method -->
 				</select>
 
-				<input type="submit" id="gw-save-conditional-pricing" class="gw-save-conditional-pricing button button-primary" value="<?php _e( 'Save Conditional Pricing', 'gp-conditional-pricing' ); ?>">
+				<input type="submit" id="gw-save-conditional-pricing" class="gw-save-conditional-pricing button button-primary primary large" value="<?php _e( 'Save Conditional Pricing', 'gp-conditional-pricing' ); ?>">
 				<?php if ( apply_filters( 'gpcp_enable_importer', false ) ) : ?>
 					<a href="<?php echo add_query_arg( 'tab', 'import' ); ?>" id="gpcp-import" class="button button-secondary"><?php esc_html_e( 'Import Pricing Levels', 'gp-conditional-pricing' ); ?></a>
 				<?php endif; ?>
@@ -1063,7 +1005,7 @@ class GP_Conditional_Pricing extends GWPerk {
 							$connector = $pricing_level['conditionalLogic']['logicType'] == 'all' ? __( 'and', 'gp-conditional-pricing' ) : __( 'or', 'gp-conditional-pricing' );
 							?>
 
-							<div class="gwcp-pricing-level" data-index="<?php echo $index; ?>">
+							<div class="gwcp-pricing-level gform-settings-panel" data-index="<?php echo $index; ?>">
 								<p>
 									This product costs <strong><?php echo GFCommon::to_money( $pricing_level['price'] ); ?></strong> if <strong><?php echo $pricing_level['conditionalLogic']['logicType']; ?></strong> of the following match:
 									<a class="gwcp-edit-pricing-level">Edit</a>
@@ -1086,7 +1028,7 @@ class GP_Conditional_Pricing extends GWPerk {
 				<p><?php _e( 'Select a product from the drop down above to add a pricing level for that product.', 'gp-conditional-pricing' ); ?></p>
 			</div>
 
-			<div id="gwcp-pricing-level-editor" style="display:none;">
+			<div id="gwcp-pricing-level-editor" class="panel-block-tabs__body--settings gform-settings-panel" style="display:none;">
 				<input type="checkbox" id="pricing_level_conditional_logic" value="1" checked="checked" style="visibility:hidden;position:absolute;left:-999em;" />
 				<div id="pricing_level_conditional_logic_container">
 					<!-- dynamically populated -->
@@ -1913,8 +1855,8 @@ class GP_Conditional_Pricing extends GWPerk {
 	}
 
 	function modify_imported_form( $meta, $form_id, $meta_name ) {
-
-		$is_import_page           = GFForms::get_page() == 'import_form';
+		// GF 2.5 get_page() returns 'export_entry', let's check ?subview=import_form too
+		$is_import_page           = GFForms::get_page() == 'import_form' || rgget( 'subview' ) === 'import_form';
 		$is_updating_display_meta = $meta_name == 'display_meta';
 		$has_pricing_logic        = isset( $meta['gwcpProducts'] );
 
@@ -2056,7 +1998,7 @@ class GP_Conditional_Pricing extends GWPerk {
 				$field_label .= ' (' . __( 'Quantity', 'gp-conditional-pricing' ) . ')';
 			}
 
-			$strings[] = sprintf( '%s <em>%s</em> "%s"', $field_label, $operator_labels[ $rule['operator'] ], strip_tags( $rule['value'] ) );
+			$strings[] = sprintf( '%s <em>%s</em> "%s"', $field_label, $operator_labels[ $rule['operator'] ], esc_html( $rule['value'] ) );
 
 		}
 
@@ -2081,7 +2023,7 @@ class GP_Conditional_Pricing extends GWPerk {
 		self::$current_form = $form;
 
 		add_filter( 'gform_is_value_match', array( __class__, 'is_custom_quantity_value_match' ), 10, 6 );
-		$is_match = self::get_field_display( $form, $pricing_level, array(), $lead ) == 'show';
+		$is_match = GFCommon::evaluate_conditional_logic( $pricing_level['conditionalLogic'], $form, $lead );
 		remove_filter( 'gform_is_value_match', array( __class__, 'is_custom_quantity_value_match' ) );
 
 		self::$current_form = false;
@@ -2116,6 +2058,8 @@ class GP_Conditional_Pricing extends GWPerk {
 
 	/**
 	 * Port of private method from GFFormsModel
+	 *
+	 * @deprecated 1.2.6
 	 */
 	public static function get_field_display( $form, $field, $field_values, $lead = null ) {
 
@@ -2150,6 +2094,8 @@ class GP_Conditional_Pricing extends GWPerk {
 
 	/**
 	 * Port of private method from GFFormsModel (1.9 version)
+	 *
+	 * @deprecated 1.2.6
 	 */
 	public static function get_field_display_1_9( $form, $field, $field_values, $lead = null ) {
 

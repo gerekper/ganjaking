@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Methods.
  *
  * @class    WC_CSP_Restrict_Shipping_Methods
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -261,7 +261,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			$this_option = array_map( 'trim', explode( WC_DELIMITER, $option ) );
 
-			if ( sizeof( $this_option ) !== 3 ) {
+			if ( count( $this_option ) !== 3 ) {
 				continue;
 			}
 
@@ -286,7 +286,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			$this_option = array_map( 'trim', explode( WC_DELIMITER, $option ) );
 
-			if ( sizeof( $this_option ) !== 3 ) {
+			if ( count( $this_option ) !== 3 ) {
 				continue;
 			}
 
@@ -456,7 +456,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 				</label>
 				<div class="sw-form-content">
 					<input type="checkbox" class="checkbox show_excluded_notices_in_checkout" name="restriction[<?php echo $index; ?>][show_excluded_notices]" <?php echo $show_excluded_notices ? 'checked="checked"' : ''; ?>>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted shipping method. Select this option if you also want to display a static notice under each restricted shipping method.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'By default, when <strong>Show Excluded</strong> is enabled, a notice is displayed when customers attempt to place an order using a restricted shipping method. Select this option if you also want to display a static notice under each restricted shipping method in the <strong>Checkout</strong> page.', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
 				</div>
 			</div>
 		</div>
@@ -504,7 +504,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 					$this_option = array_map( 'trim', explode( WC_DELIMITER, $option ) );
 
-					if ( sizeof( $this_option ) !== 3 ) {
+					if ( count( $this_option ) !== 3 ) {
 						continue;
 					}
 
@@ -856,7 +856,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 			unset( $args[ 'include_data' ] );
 		}
 
-		$args[ 'package_count' ] = sizeof( $shipping_packages );
+		$args[ 'package_count' ] = count( $shipping_packages );
 
 		if ( ! empty( $shipping_packages ) ) {
 			foreach ( $shipping_packages as $i => $package ) {

@@ -1,15 +1,11 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPPA_Compatibility_GravityView {
 
 	private static $instance = null;
 
 	public static function get_instance() {
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
@@ -150,6 +146,10 @@ class GPPA_Compatibility_GravityView {
 	public function localize_for_search( $search_fields, $self, $widget_args, $context ) {
 		$form = $this->get_widget_form( $widget_args, $context );
 
+		if ( is_callable( array( 'GFCommon', 'output_hooks_javascript' ) ) ) {
+			GFCommon::output_hooks_javascript();
+		}
+
 		gp_populate_anything()->field_value_js( $form );
 		gp_populate_anything()->field_value_object_js( $form );
 
@@ -235,11 +235,15 @@ class GPPA_Compatibility_GravityView {
 			'choices' => array(),
 		);
 
-		if ( $choices = rgars( $hydrated_field, 'field/choices' ) ) {
+		$choices = rgars( $hydrated_field, 'field/choices' );
+
+		if ( $choices ) {
 			$search_field['choices'] = $choices;
 		}
 
-		if ( $value = rgar( $hydrated_field, 'field_value' ) ) {
+		$value = rgar( $hydrated_field, 'field_value' );
+
+		if ( $value ) {
 			$search_field['value'] = $value;
 		}
 

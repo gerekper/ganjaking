@@ -31,7 +31,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * This is construct of class where all users coupons listed.
  *
  * @package User_Reports_Log_List_Table
- * @link https://www.makewebbetter.com/
+ * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
  */
 class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	/**
@@ -45,7 +45,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 * This construct colomns in users logs table.
 	 *
 	 * @name get_columns.
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	public function get_columns() {
 		$columns = array(
@@ -89,7 +89,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 *
 	 * @name get_sortable_columns.
 	 * @return array
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	public function get_sortable_columns() {
 		$sortable_columns = array(
@@ -107,7 +107,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 *
 	 * @name get_user_report_data.
 	 * @return array
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 * @param int $user_id .
 	 */
 	public function get_user_report_data( $user_id ) {
@@ -132,7 +132,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 *
 	 * @name mwb_get_report_data.
 	 * @return array
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	public function mwb_get_report_data() {
 		$users              = get_users( array( 'fields' => array( 'ID' ) ) );
@@ -171,7 +171,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 * Prepare items for sorting.
 	 *
 	 * @name prepare_items.
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	public function prepare_items() {
 		$per_page              = 10;
@@ -204,7 +204,7 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 	 * Return sorted associative array.
 	 *
 	 * @name mwb_wpr_usort_reorder.
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 * @param array $cloumna .
 	 * @param array $cloumnb .
 	 */

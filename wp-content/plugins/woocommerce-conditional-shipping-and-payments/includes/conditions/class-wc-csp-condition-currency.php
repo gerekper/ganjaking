@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Currency Condition.
  *
  * @class    WC_CSP_Condition_Currency
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Condition_Currency extends WC_CSP_Condition {
 
@@ -57,7 +57,7 @@ class WC_CSP_Condition_Currency extends WC_CSP_Condition {
 
 			$currencies_titles = $this->merge_titles( $currencies );
 
-			if ( sizeof( $currencies ) < 4 ) {
+			if ( count( $currencies ) < 4 ) {
 				$message = sprintf( __( 'choose a currency other than %s', 'woocommerce-conditional-shipping-and-payments' ), $currencies_titles );
 			} else {
 				$message = sprintf( __( 'choose a different currency', 'woocommerce-conditional-shipping-and-payments' ) );
@@ -67,7 +67,7 @@ class WC_CSP_Condition_Currency extends WC_CSP_Condition {
 
 			$currencies_titles = $this->merge_titles( $currencies, array( 'rel' => 'or' ) );
 
-			if ( sizeof( $currencies ) < 4 ) {
+			if ( count( $currencies ) < 4 ) {
 				$message = sprintf( __( 'checkout using %s', 'woocommerce-conditional-shipping-and-payments' ), $currencies_titles );
 			} else {
 				$message = sprintf( __( 'choose a different currency', 'woocommerce-conditional-shipping-and-payments' ) );

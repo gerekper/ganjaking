@@ -49,6 +49,9 @@ class WC_Instagram_Data_Store_Product_Catalog_CPT extends WC_Instagram_Data_Stor
 		'variation_description_field' => 'variation_description_field',
 		'include_tax'                 => 'include_tax',
 		'tax_location'                => 'tax_location',
+		'include_stock'               => 'include_stock',
+		'stock_quantity'              => 'stock_quantity',
+		'backorder_stock_quantity'    => 'backorder_stock_quantity',
 	);
 
 	/**
@@ -62,6 +65,7 @@ class WC_Instagram_Data_Store_Product_Catalog_CPT extends WC_Instagram_Data_Stor
 		'include_variations' => 'bool',
 		'include_currency'   => 'bool',
 		'include_tax'        => 'bool',
+		'include_stock'      => 'bool',
 	);
 
 	/**

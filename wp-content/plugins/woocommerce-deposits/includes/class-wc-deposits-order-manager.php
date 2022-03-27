@@ -52,6 +52,7 @@ class WC_Deposits_Order_Manager {
 		// Stock management
 		add_filter( 'woocommerce_payment_complete_reduce_order_stock', array( $this, 'allow_reduce_order_stock' ), 10, 2 );
 		add_filter( 'woocommerce_can_reduce_order_stock', array( $this, 'allow_reduce_order_stock' ), 10, 2 );
+		add_filter( 'woocommerce_prevent_adjust_line_item_product_stock', array( $this, 'prevent_adjust_line_item_product_stock' ), 10, 2 );
 
 		// Downloads manager
 		add_filter( 'woocommerce_order_is_download_permitted', array( $this, 'maybe_alter_if_download_permitted' ), 20, 2 );
@@ -356,6 +357,14 @@ class WC_Deposits_Order_Manager {
 			if ( ! empty( $original_order->get_meta( '_vat_number' ) ) ) {
 				$new_order->update_meta_data( '_vat_number', $original_order->get_meta( '_vat_number' ) );
 			}
+
+			/**
+			 * Action hook to fire immediately after the new order props are set.
+			 *
+			 * @param WC_Order $new_order      The scheduled order object.
+			 * @param WC_Order $original_order The original order object.
+			 */
+			do_action( 'woocommerce_deposits_after_scheduled_order_props_set', $new_order, $original_order );
 		} catch ( Exception $e ) {
 			$original_order->add_order_note( sprintf( __( 'Error: Unable to create follow up payment (%s)', 'woocommerce-deposits' ), $e->getMessage() ) );
 			return;
@@ -673,9 +682,19 @@ class WC_Deposits_Order_Manager {
 
 				wc_add_order_item_meta( $item_id, '_remaining_balance_order_id', $new_order_id );
 
-				// Email invoice
-				$emails = WC_Emails::instance();
-				$emails->customer_invoice( wc_get_order( $new_order_id ) );
+				/**
+				 * Determine if we should send an email for Invoice Remaining Balance.
+				 *
+				 * @param int $new_order_id - Id of newly created order.
+				 *
+				 * @since 1.5.9
+				 */
+				$send_invoice_email = apply_filters( 'woocommerce_deposits_should_send_invoice_remaining_balance_email', true, $new_order_id );
+				if ( true === $send_invoice_email ) {
+					// Email invoice.
+					$emails = WC_Emails::instance();
+					$emails->customer_invoice( wc_get_order( $new_order_id ) );
+				}
 
 				wp_redirect( admin_url( 'post.php?post=' . absint( $new_order_id ) . '&action=edit' ) );
 				exit;
@@ -951,6 +970,30 @@ class WC_Deposits_Order_Manager {
 		}
 
 		return $allowed;
+	}
+
+	/**
+	 * Prevent stock level adjustment for Deposit payment order line items
+	 *
+	 * @param bool          $prevent If should prevent.
+	 * @param WC_Order_Item $item Item object.
+	 * @return bool
+	 */
+	public function prevent_adjust_line_item_product_stock( $prevent, $item ) {
+		$order_id = $item->get_order_id();
+		$order    = wc_get_order( $order_id );
+
+		if ( false === $order ) {
+			return $prevent;
+		}
+
+		// Prevent stock adjustments on follow up orders.
+		$created_via = is_callable( array( $order, 'get_created_via' ) ) ? $order->get_created_via() : $order->created_via;
+		if ( 'wc_deposits' === $created_via ) {
+			$prevent = true;
+		}
+
+		return $prevent;
 	}
 
 	/**

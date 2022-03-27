@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
 Tested up to:5.9
-Version:2.27
-Stable tag:2.27
+Version:2.29
+Stable tag:2.29
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,17 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.29 =
+
+* Fixes for order tracking causing problem for contact form 7 reCaptcha.
+* Fixes for order tracking captcha turn off ignored.
+
+
+= 2.28 =
+
+* Fixes for WooCommerce signup/login captcha did not work for some themes to due to custom forms.
+
 
 = 2.27 =
 

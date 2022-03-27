@@ -66,6 +66,10 @@ class TableScreenOptions {
 	public function register_screen_option( $table ) {
 		$list_screen = $table->get_list_screen();
 
+		if ( ! $list_screen->has_id() ) {
+			return;
+		}
+
 		if ( $this->hide_filters->is_hidden( $list_screen ) || $this->hide_smart_filters->is_hidden( $list_screen ) ) {
 			return;
 		}

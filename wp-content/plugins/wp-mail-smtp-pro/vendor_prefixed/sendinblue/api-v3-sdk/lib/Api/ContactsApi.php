@@ -264,7 +264,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -282,7 +282,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -457,7 +457,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -475,7 +475,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -653,7 +653,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -671,7 +671,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -820,7 +820,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -838,7 +838,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1012,7 +1012,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1030,7 +1030,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1204,7 +1204,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1222,7 +1222,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1389,7 +1389,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1407,7 +1407,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1565,7 +1565,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1583,7 +1583,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1737,7 +1737,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1755,7 +1755,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -1909,7 +1909,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -1927,7 +1927,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -2085,7 +2085,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -2103,7 +2103,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -2282,7 +2282,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -2300,7 +2300,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -2309,8 +2309,8 @@ class ContactsApi
      * Get email campaigns' statistics for a contact
      *
      * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
-     * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
-     * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
+     * @param  string $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
+     * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate. Maximum difference between startDate and endDate should not be greater than 90 days (optional)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -2327,8 +2327,8 @@ class ContactsApi
      * Get email campaigns' statistics for a contact
      *
      * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
-     * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
-     * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
+     * @param  string $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
+     * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate. Maximum difference between startDate and endDate should not be greater than 90 days (optional)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -2384,8 +2384,8 @@ class ContactsApi
      * Get email campaigns' statistics for a contact
      *
      * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
-     * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
-     * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
+     * @param  string $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
+     * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate. Maximum difference between startDate and endDate should not be greater than 90 days (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -2402,8 +2402,8 @@ class ContactsApi
      * Get email campaigns' statistics for a contact
      *
      * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
-     * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
-     * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
+     * @param  string $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
+     * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate. Maximum difference between startDate and endDate should not be greater than 90 days (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -2434,8 +2434,8 @@ class ContactsApi
      * Create request for operation 'getContactStats'
      *
      * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
-     * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
-     * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
+     * @param  string $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
+     * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate. Maximum difference between startDate and endDate should not be greater than 90 days (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -2497,7 +2497,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -2515,7 +2515,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -2525,7 +2525,7 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
@@ -2544,7 +2544,7 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
@@ -2598,7 +2598,7 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
@@ -2617,7 +2617,7 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
@@ -2650,7 +2650,7 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
@@ -2716,7 +2716,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -2734,7 +2734,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -2743,7 +2743,7 @@ class ContactsApi
      * Get contacts in a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
@@ -2763,7 +2763,7 @@ class ContactsApi
      * Get contacts in a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
@@ -2822,7 +2822,7 @@ class ContactsApi
      * Get contacts in a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
@@ -2842,7 +2842,7 @@ class ContactsApi
      * Get contacts in a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
@@ -2876,7 +2876,7 @@ class ContactsApi
      * Create request for operation 'getContactsFromList'
      *
      * @param  int $listId Id of the list (required)
-     * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
@@ -2952,7 +2952,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -2970,7 +2970,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -3149,7 +3149,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -3167,7 +3167,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -3376,7 +3376,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -3394,7 +3394,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -3594,7 +3594,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -3612,7 +3612,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -3791,7 +3791,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -3809,7 +3809,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4001,7 +4001,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4019,7 +4019,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4193,7 +4193,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4211,7 +4211,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4402,7 +4402,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4420,7 +4420,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4594,7 +4594,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4612,7 +4612,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4791,7 +4791,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4809,7 +4809,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -4975,7 +4975,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -4993,7 +4993,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -5159,7 +5159,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -5177,7 +5177,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -5343,7 +5343,7 @@ class ContactsApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -5361,7 +5361,7 @@ class ContactsApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**

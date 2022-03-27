@@ -37,6 +37,10 @@ class Post implements Strategy {
 			return false;
 		}
 
+		if ( wp_check_post_lock( $post->ID ) ) {
+			return false;
+		}
+
 		return true;
 	}
 

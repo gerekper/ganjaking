@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/cost-of-goods/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Cost of Goods Admin Products Class
@@ -125,7 +125,7 @@ class WC_COG_Admin_Products {
 
 		return __( 'Enter the amount it costs you to make and sell this product. The amount will be deducted from sales for profit reporting.', 'woocommerce-cost-of-goods' );
 	}
-	
+
 
 	/**
 	 * Add cost field to simple products under the 'General' tab
@@ -720,7 +720,10 @@ class WC_COG_Admin_Products {
 	/**
 	 * Add the "Cost" column to the list of sortable columns
 	 *
+	 * @internal
+	 *
 	 * @since 1.1
+	 *
 	 * @param array $columns associative array of sortable columns, id to id
 	 * @return array sortable columns
 	 */
@@ -735,7 +738,10 @@ class WC_COG_Admin_Products {
 	/**
 	 * Add the "Cost" column to the orderby clause if sorting by cost
 	 *
+	 * @internal
+	 *
 	 * @since 1.1
+	 *
 	 * @param array $vars query vars
 	 * @return array query vars
 	 */
@@ -743,10 +749,37 @@ class WC_COG_Admin_Products {
 
 		if ( isset( $vars['orderby'] ) && 'cost' === $vars['orderby'] ) {
 
-			$vars = array_merge( $vars, array(
-				'meta_key' => '_wc_cog_cost',
-				'orderby'  => 'meta_value_num',
-			) );
+			$order = strtoupper( $vars['order'] ?? 'DESC' );
+
+			// place the products with no cost at the top or the bottom of the list, depending on chosen sort order
+			if ( 'ASC' === $order ) {
+				$orderby = [
+					'cost_of_goods_not_set' => 'ASC',
+					'cost_of_goods'         => 'ASC',
+				];
+			} else {
+				$orderby = [
+					'cost_of_goods_not_set' => 'DESC',
+					'cost_of_goods'         => 'DESC',
+				];
+			}
+
+			$vars = array_merge( $vars, [
+				'orderby'    => $orderby,
+				'meta_query' => [
+					'relation'              => 'OR',
+					'cost_of_goods'         => [
+						'key'     => '_wc_cog_cost',
+						'compare' => 'EXISTS',
+						'type'    => 'NUMERIC',
+					],
+					'cost_of_goods_not_set' => [
+						'key'     => '_wc_cog_cost',
+						'compare' => 'NOT EXISTS',
+						'type'    => 'NUMERIC',
+					],
+				]
+			] );
 		}
 
 		return $vars;

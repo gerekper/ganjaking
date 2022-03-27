@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.9.0
+ * @version  1.12.1
  */
 class WC_CSP_Admin {
 
@@ -179,7 +179,7 @@ class WC_CSP_Admin {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			// Register own select2 initialization library.
-			wp_register_script( 'sw-admin-select-init', WC_CSP()->plugin_url() . '/assets/js/select2-init' . $suffix . '.js', array( 'jquery', 'sw-admin-select' ), self::$bundled_selectsw_version );
+			wp_register_script( 'sw-admin-select-init', WC_CSP()->plugin_url() . '/assets/js/admin/select2-init' . $suffix . '.js', array( 'jquery', 'sw-admin-select' ), self::$bundled_selectsw_version );
 		}
 	}
 
@@ -196,10 +196,10 @@ class WC_CSP_Admin {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			// Register selectSW library.
-			wp_register_script( 'sw-admin-select', WC_CSP()->plugin_url() . '/assets/js/select2' . $suffix . '.js', array( 'jquery' ), self::$bundled_selectsw_version );
+			wp_register_script( 'sw-admin-select', WC_CSP()->plugin_url() . '/assets/js/admin/select2' . $suffix . '.js', array( 'jquery' ), self::$bundled_selectsw_version );
 
 			// Register selectSW styles.
-			wp_register_style( 'sw-admin-css-select', WC_CSP()->plugin_url() . '/assets/css/select2.css', array(), self::$bundled_selectsw_version );
+			wp_register_style( 'sw-admin-css-select', WC_CSP()->plugin_url() . '/assets/css/admin/select2.css', array(), self::$bundled_selectsw_version );
 			wp_style_add_data( 'sw-admin-css-select', 'rtl', 'replace' );
 		}
 	}
@@ -262,18 +262,18 @@ class WC_CSP_Admin {
 		// Product metaboxes.
 		if ( $is_product_page || $is_edit_product_page ) {
 
-			wp_register_script( 'wc-restrictions-writepanel', WC_CSP()->plugin_url() . '/assets/js/meta-boxes' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-util', 'wc-admin-meta-boxes', 'sw-admin-select-init' ), WC_Conditional_Shipping_Payments::VERSION );
-			wp_register_style( 'wc-restrictions-css', WC_CSP()->plugin_url() . '/assets/css/meta-boxes.css', array( 'woocommerce_admin_styles', 'sw-admin-css-select' ), WC_Conditional_Shipping_Payments::VERSION );
+			wp_register_script( 'wc-restrictions-writepanel', WC_CSP()->plugin_url() . '/assets/js/admin/meta-boxes' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-util', 'wc-admin-meta-boxes', 'sw-admin-select-init' ), WC_Conditional_Shipping_Payments::VERSION );
+			wp_register_style( 'wc-restrictions-css', WC_CSP()->plugin_url() . '/assets/css/admin/meta-boxes.css', array( 'woocommerce_admin_styles', 'sw-admin-css-select' ), WC_Conditional_Shipping_Payments::VERSION );
 			wp_style_add_data( 'wc-restrictions-css', 'rtl', 'replace' );
 
 		} elseif ( $is_restrictions_settings_tab ) {
 
-			wp_register_script( 'wc-global-restrictions-writepanel', WC_CSP()->plugin_url() . '/assets/js/meta-boxes' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-util', 'sw-admin-select-init' ), WC_Conditional_Shipping_Payments::VERSION );
-			wp_register_style( 'wc-restrictions-css', WC_CSP()->plugin_url() . '/assets/css/meta-boxes.css', array( 'woocommerce_admin_styles', 'sw-admin-css-select' ), WC_Conditional_Shipping_Payments::VERSION );
+			wp_register_script( 'wc-global-restrictions-writepanel', WC_CSP()->plugin_url() . '/assets/js/admin/meta-boxes' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-util', 'sw-admin-select-init' ), WC_Conditional_Shipping_Payments::VERSION );
+			wp_register_style( 'wc-restrictions-css', WC_CSP()->plugin_url() . '/assets/css/admin/meta-boxes.css', array( 'woocommerce_admin_styles', 'sw-admin-css-select' ), WC_Conditional_Shipping_Payments::VERSION );
 			wp_style_add_data( 'wc-restrictions-css', 'rtl', 'replace' );
 		}
 
-		wp_register_style( 'wc-restrictions-admin-css', WC_CSP()->plugin_url() . '/assets/css/admin.css', array(), WC_Conditional_Shipping_Payments::VERSION );
+		wp_register_style( 'wc-restrictions-admin-css', WC_CSP()->plugin_url() . '/assets/css/admin/admin.css', array(), WC_Conditional_Shipping_Payments::VERSION );
 		wp_style_add_data( 'wc-restrictions-admin-css', 'rtl', 'replace' );
 		wp_enqueue_style( 'wc-restrictions-admin-css' );
 

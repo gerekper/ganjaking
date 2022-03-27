@@ -1,4 +1,4 @@
-# Copyright (C) 2021 GP Limit Dates
+# Copyright (C) 2022 GP Limit Dates
 # This file is distributed under the same license as the GP Limit Dates package.
 msgid ""
 msgstr ""

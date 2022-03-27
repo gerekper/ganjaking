@@ -82,7 +82,7 @@ class UpdraftPlus_Addon_MoreStorage {
 							<input type="checkbox" class="updraft_instance_toggle" id="<?php echo 'updraft_' . $storage . '_instance_enabled' . '_{{instance_id}}';?>" name="<?php echo 'updraft_' . $storage . '[settings][{{instance_id}}][instance_enabled]';?>" value="1" {{#ifeq "1" instance_enabled}} checked="checked"{{/ifeq}}>
 							<label for="<?php echo 'updraft_' . $storage . '_instance_enabled' . '_{{instance_id}}';?>" class="updraft_toggle_instance_label">{{#ifeq "1" instance_enabled}}<?php echo __('Currently enabled', 'updraftplus'); ?>{{else}} <?php echo __('Currently disabled', 'updraftplus'); ?>{{/ifeq}}</label>
 						</div>
-						<a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_multi_storage_options updraft_delete_instance" data-instance_id="{{instance_id}}" data-method="<?php echo $storage; ?>"><?php echo __('Delete these settings', 'updraftplus'); ?></a>
+						<a href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>" class="updraft_multi_storage_options updraft_delete_instance" data-instance_id="{{instance_id}}" data-method="<?php echo $storage; ?>"><?php echo __('Delete these settings', 'updraftplus'); ?></a>
 						<?php
 					}
 				?>
@@ -194,7 +194,7 @@ class UpdraftPlus_Addon_MoreStorage {
 		?><tr class="<?php echo is_object($storage_object) ? $storage_object->get_css_classes(false) . " " . "$storage" . "_add_instance_container" : "updraftplusmethod $storage";?>">
 			
 			<td colspan="2">
-				<a href="<?php echo UpdraftPlus::get_current_clean_url(); ?>" class="updraft_add_instance" data-method="<?php echo $storage; ?>"><?php echo sprintf(__('Add another %s account...', 'updraftplus'), $updraftplus->backup_methods[$storage]); ?></a>
+				<a href="<?php echo esc_url(UpdraftPlus::get_current_clean_url()); ?>" class="updraft_add_instance" data-method="<?php echo $storage; ?>"><?php echo sprintf(__('Add another %s account...', 'updraftplus'), $updraftplus->backup_methods[$storage]); ?></a>
 			</td>
 		</tr>
 		<?php

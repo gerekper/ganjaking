@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -140,11 +140,11 @@ If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCo
 function redsys_test_url_soap_test() {
 
 	try {
-		$soapClient = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
+		$soap_client = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
 	} catch ( Exception $e ) {
-		$exceptionMessage = $e->getMessage();
+		$exception_message = $e->getMessage();
 	}
-	if ( ! $exceptionMessage ) {
+	if ( ! $exception_message ) {
 		$result = array(
 			'label'       => __( 'SOAP URL Test is Working, OK', 'woocommerce-redsys' ),
 			'status'      => 'good',
@@ -182,11 +182,11 @@ function redsys_test_url_soap_test() {
 function redsys_real_url_soap_test() {
 
 	try {
-		$soapClient = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
+		$soap_client = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
 	} catch ( Exception $e ) {
-		$exceptionMessage = $e->getMessage();
+		$exception_message = $e->getMessage();
 	}
-	if ( ! $exceptionMessage ) {
+	if ( ! $exception_message ) {
 		$result = array(
 			'label'       => __( 'SOAP URL Real is Working, ok', 'woocommerce-redsys' ),
 			'status'      => 'good',

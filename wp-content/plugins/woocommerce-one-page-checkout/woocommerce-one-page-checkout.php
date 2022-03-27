@@ -7,7 +7,7 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.1
+ * Version: 1.9.3
  * Tested up to: 5.8.2
  * WC requires at least: 2.5
  * WC tested up to: 6.0.0
@@ -56,7 +56,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.1' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.3' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -321,7 +321,9 @@ class PP_One_Page_Checkout {
 	 * @return boolean
 	 */
 	public static function is_wcopc_checkout( $post_id = null ) {
-		if ( is_admin() ) {
+
+		// Do not define checkout context in admin pages, CRON, REST and AJAX requests.
+		if ( is_admin() || defined( 'DOING_CRON' ) || WC()->is_rest_api_request() || wp_doing_ajax() || is_favicon() || is_404() ) {
 			return false;
 		}
 

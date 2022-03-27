@@ -75,11 +75,21 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 * @uses apply_filters Calls `wp_session_expiration` to determine how long until sessions expire.
 	 */
 	protected function __construct() {
+		/**
+		 * This filter disables GPEP session manager which makes GPEP usable
+		 * only with <a href="https://gravitywiz.com/documentation/gravity-forms-easy-passthrough/#easy-passthrough-token">tokens</a>.
+		 *
+		 * @param boolean $disable_session_manager  Disables all GPEP session cookies
+		 * @since 1.9.3
+		 */
+		if ( apply_filters( 'gpep_disable_session_manager', false ) ) {
+			return;
+		}
 		if ( isset( $_COOKIE[ GPEP_SESSION_COOKIE ] ) ) {
 			$cookie        = stripslashes( $_COOKIE[ GPEP_SESSION_COOKIE ] );
 			$cookie_crumbs = explode( '||', $cookie );
 
-			$this->session_id  = preg_replace( "/[^A-Za-z0-9_]/", '', $cookie_crumbs[0] );
+			$this->session_id  = preg_replace( '/[^A-Za-z0-9_]/', '', $cookie_crumbs[0] );
 			$this->expires     = absint( $cookie_crumbs[1] );
 			$this->exp_variant = absint( $cookie_crumbs[2] );
 
@@ -168,7 +178,7 @@ final class WP_Session extends Recursive_ArrayAccess {
 		$expires = 'new Date( new Date().getTime() + ' . $expires . ' )';
 
 		// Prepare cookie attributes.
-		$atts = '{';
+		$atts  = '{';
 		$atts .= '"expires": ' . $expires . ',';
 		$atts .= '"path": "' . $path . '",';
 		$atts .= '"domain": "' . COOKIE_DOMAIN . '",';
@@ -177,8 +187,8 @@ final class WP_Session extends Recursive_ArrayAccess {
 		$atts .= '}';
 
 		// Prepare script output.
-		$script = '<script type="text/javascript">' . PHP_EOL;
-		$script .= 'jQuery( document ).on( "ready", function() {' . PHP_EOL;
+		$script  = '<script type="text/javascript">' . PHP_EOL;
+		$script .= 'jQuery( function() {' . PHP_EOL;
 		$script .= 'if ( window.Cookies ) {' . PHP_EOL;
 		$script .= 'Cookies.set( "' . GPEP_SESSION_COOKIE . '", "' . $value . '", ' . $atts . ' );' . PHP_EOL;
 		$script .= '}' . PHP_EOL;

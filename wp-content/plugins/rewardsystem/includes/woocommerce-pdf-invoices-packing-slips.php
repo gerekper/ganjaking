@@ -17,10 +17,14 @@ if ( ! class_exists( 'RSWCPdfPackingslips' ) ) {
 			}
 
 			//Getting Order details
-			$order_object = srp_order_obj( $order ) ;
+			$order_object = srp_order_obj( $order ) ;                        
 			$order_id     = isset($order_object[ 'order_id' ]) ?$order_object[ 'order_id' ]:0 ;
-
+						
 			$earned_and_redeemed_point = get_earned_redeemed_points_message( $order_id , true ) ;
+			if (!srp_check_is_array($earned_and_redeemed_point)) {
+				return;
+			}
+						
 			$earned_point              = implode( ',' , array_keys( $earned_and_redeemed_point ) ) ;
 			$redeemed_point            = implode( ',' , array_values( $earned_and_redeemed_point ) ) ;
 

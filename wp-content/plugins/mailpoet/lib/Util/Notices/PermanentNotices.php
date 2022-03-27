@@ -36,9 +36,6 @@ class PermanentNotices {
   /** @var HeadersAlreadySentNotice */
   private $headersAlreadySentNotice;
 
-  /** @var DeprecatedShortcodeNotice */
-  private $deprecatedShortcodeNotice;
-
   /** @var EmailWithInvalidSegmentNotice */
   private $emailWithInvalidListNotice;
 
@@ -58,7 +55,6 @@ class PermanentNotices {
     $this->inactiveSubscribersNotice = new InactiveSubscribersNotice($settings, $wp);
     $this->blackFridayNotice = new BlackFridayNotice();
     $this->headersAlreadySentNotice = new HeadersAlreadySentNotice($settings, $trackingConfig, $wp);
-    $this->deprecatedShortcodeNotice = new DeprecatedShortcodeNotice($wp);
     $this->emailWithInvalidListNotice = new EmailWithInvalidSegmentNotice($wp);
     $this->changedTrackingNotice = new ChangedTrackingNotice($wp);
   }
@@ -95,9 +91,6 @@ class PermanentNotices {
     $this->headersAlreadySentNotice->init(
       Menu::isOnMailPoetAdminPage($excludeWizard)
     );
-    $this->deprecatedShortcodeNotice->init(
-      Menu::isOnMailPoetAdminPage($excludeWizard)
-    );
     $this->emailWithInvalidListNotice->init(
       Menu::isOnMailPoetAdminPage($exclude = null, $pageId = 'mailpoet-newsletters')
     );
@@ -123,9 +116,6 @@ class PermanentNotices {
         break;
       case (InactiveSubscribersNotice::OPTION_NAME):
         $this->inactiveSubscribersNotice->disable();
-        break;
-      case (DeprecatedShortcodeNotice::OPTION_NAME):
-        $this->deprecatedShortcodeNotice->disable();
         break;
       case (EmailWithInvalidSegmentNotice::OPTION_NAME):
         $this->emailWithInvalidListNotice->disable();

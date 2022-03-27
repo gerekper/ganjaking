@@ -853,7 +853,7 @@ class WPSEO_Upgrade {
 		$enabled_auto_updates = \get_site_option( 'auto_update_plugins' );
 		$addon_update_watcher = YoastSEO()->classes->get( \Yoast\WP\SEO\Integrations\Watchers\Addon_Update_Watcher::class );
 		$addon_update_watcher->toggle_auto_updates_for_add_ons( 'auto_update_plugins', $enabled_auto_updates, [] );
-		}
+	}
 
 	/**
 	 * Performs the 17.9 upgrade routine.

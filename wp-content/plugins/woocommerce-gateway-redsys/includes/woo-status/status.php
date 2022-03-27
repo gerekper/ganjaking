@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */	
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly}
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * Register new status with ID "wc-redsys-pre" and label "Awaiting shipment"
 */
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_register_preauthorized_status() {
 
@@ -29,7 +29,7 @@ function redsys_register_preauthorized_status() {
 add_action( 'init', 'redsys_register_preauthorized_status' );
 
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_register_resident_payment_status() {
 
@@ -48,7 +48,7 @@ function redsys_register_resident_payment_status() {
 add_action( 'init', 'redsys_register_resident_payment_status' );
 
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_register_pending_bank_transfer_payment_status() {
 
@@ -71,7 +71,7 @@ add_action( 'init', 'redsys_register_pending_bank_transfer_payment_status' );
 * @param array $wc_statuses_arr Array of all order statuses on the website
 */
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_add_preauthorized_status( $wc_statuses_arr ) {
 
@@ -90,7 +90,7 @@ function redsys_add_preauthorized_status( $wc_statuses_arr ) {
 add_filter( 'wc_order_statuses', 'redsys_add_preauthorized_status' );
 
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_add_resident_payment_status( $wc_statuses_arr ) {
 
@@ -109,7 +109,7 @@ function redsys_add_resident_payment_status( $wc_statuses_arr ) {
 add_filter( 'wc_order_statuses', 'redsys_add_resident_payment_status' );
 
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 function redsys_add_pending_bank_transfer_payment_status( $wc_statuses_arr ) {
 

@@ -2,9 +2,10 @@
 
 namespace ACP\Filtering;
 
+use AC;
 use ACP;
 
-abstract class Strategy extends ACP\Strategy {
+abstract class Strategy {
 
 	/**
 	 * @var Model
@@ -37,5 +38,12 @@ abstract class Strategy extends ACP\Strategy {
 	 * @return void
 	 */
 	abstract public function handle_request();
+
+	/**
+	 * @return AC\Column
+	 */
+	public function get_column() {
+		return $this->get_model()->get_column();
+	}
 
 }

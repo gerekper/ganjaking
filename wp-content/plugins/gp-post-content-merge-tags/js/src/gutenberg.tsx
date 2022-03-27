@@ -24,6 +24,8 @@ const insertMergeTag = (mergeTag, props) => {
     }
 
     range.insertNode(document.createTextNode(mergeTag));
+
+    document.getSelection().focusNode.dispatchEvent( new Event( 'input' ) );
 };
 
 const gppcmtToolbar = createHigherOrderComponent((BlockEdit) => {

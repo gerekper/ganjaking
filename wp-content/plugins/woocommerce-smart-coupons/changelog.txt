@@ -1,5 +1,19 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.03.04 - version 4.38.0
+* Developer: New filter hook 'wc_sc_pending_order_statuses' 
+* Developer: Removed filter hook 'wc_sc_order_statuses_to_restore_smart_coupon_amount', should use 'wc_sc_pending_order_statuses' instead
+* Update: Links to documentation, screenshots & reviews
+* Update: Data type for $no_of_coupons_to_generate
+* Update: POT file
+
+2022.02.28 - version 4.37.0
+* New: Tested up to WooCommerce 6.2.1 & WordPress 5.9.1
+* Fix: Coupon not applying to cart via URL coupon if the URL contains 'add-to-cart' and the setting 'Redirect to the cart ...' is enabled [Thanks to: Bernd VanSkiver]
+* Fix: Using the email template created for multiple coupons even if it's about to send just one coupon
+* Developer: Hook 'wc_sc_order_statuses_to_restore_smart_coupon_amount' for modifying list of order statuses needed to restore smart coupon amount
+* Update: POT file
+
 2022.02.04 - version 4.36.0
 * New: Tested up to WordPress 5.9.0
 * Update: Action Scheduler to version 3.4.0

@@ -29,7 +29,7 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 	 *
 	 * @param int $meta_id The Meta ID with the stored task parameters.
 	 */
-	public function process( $meta_id ) {
+	public function process( $meta_id ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$meta = $this->get_meta_data( $meta_id );
 
@@ -76,7 +76,7 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 			),
 			[
 				'headers' => [
-					'Authorization' => 'Basic ' . base64_encode( 'api:' . $mailer_options['api_key'] ), // phpcs:ignore
+					'Authorization' => 'Basic ' . base64_encode( 'api:' . $mailer_options['api_key'] ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 				],
 			]
 		);
@@ -101,7 +101,7 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 				continue;
 			}
 
-			if ( $item['event'] === 'failed' ) {
+			if ( $item['event'] === 'failed' && $item['severity'] === 'permanent' ) { // Hard bounce.
 				$error_text = ! empty( $item['delivery-status']['description'] ) ?
 					$item['delivery-status']['description'] :
 					esc_html__( 'The email failed to be delivered. No specific reason was provided by the API.', 'wp-mail-smtp-pro' );

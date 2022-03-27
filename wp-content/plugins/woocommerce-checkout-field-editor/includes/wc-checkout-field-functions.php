@@ -365,7 +365,7 @@ function wc_checkout_fields_scripts() {
  * @param mixed  $args  List of arguments to manipulate how it's displayed.
  * @param mixed  $value Field value.
  */
-function wc_checkout_fields_date_picker_field( $field = '', $key, $args, $value ) {
+function wc_checkout_fields_date_picker_field( $field = '', $key = '', $args = array(), $value = '' ) {
 
 	if ( ! empty( $args['clear'] ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 		$after = '<div class="clear"></div>';
@@ -380,7 +380,7 @@ function wc_checkout_fields_date_picker_field( $field = '', $key, $args, $value 
 		$required = '';
 	}
 
-	$args['maxlength'] = ( $args['maxlength'] ) ? 'maxlength="' . absint( $args['maxlength'] ) . '"' : '';
+	$args['maxlength'] = ( $args['maxlength'] ) ? 'maxlength="' . absint( esc_attr( $args['maxlength'] ) ) . '"' : '';
 
 	if ( ! empty( $args['validate'] ) ) {
 		foreach ( $args['validate'] as $validate ) {
@@ -394,7 +394,7 @@ function wc_checkout_fields_date_picker_field( $field = '', $key, $args, $value 
 		$field .= '<label for="' . esc_attr( $key ) . '" class="' . implode( ' ', $args['label_class'] ) . '">' . $args['label'] . $required . '</label>';
 	}
 
-	$field .= '<input readonly type="text" class="checkout-date-picker input-text" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" placeholder="' . $args['placeholder'] . '" ' . $args['maxlength'] . ' value="' . esc_attr( $value ) . '" />
+	$field .= '<input readonly type="text" class="checkout-date-picker input-text" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" placeholder="' . esc_attr( $args['placeholder'] ) . '" ' . $args['maxlength'] . ' value="' . esc_attr( $value ) . '" />
 		</p>' . $after;
 
 	return $field;
@@ -408,7 +408,7 @@ function wc_checkout_fields_date_picker_field( $field = '', $key, $args, $value 
  * @param mixed  $args  List of arguments to manipulate how it's displayed.
  * @param mixed  $value Field value.
  */
-function wc_checkout_fields_radio_field( $field = '', $key, $args, $value ) {
+function wc_checkout_fields_radio_field( $field = '', $key = '', $args = array(), $value = '' ) {
 
 	if ( ! empty( $args['clear'] ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 		$after = '<div class="clear"></div>';
@@ -448,7 +448,7 @@ function wc_checkout_fields_radio_field( $field = '', $key, $args, $value ) {
  * @param mixed  $args  List of arguments to manipulate how it's displayed.
  * @param mixed  $value Field value.
  */
-function wc_checkout_fields_multiselect_field( $field = '', $key, $args, $value ) {
+function wc_checkout_fields_multiselect_field( $field = '', $key = '', $args = array(), $value = '' ) {
 
 	if ( ! empty( $args['clear'] ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 		$after = '<div class="clear"></div>';
@@ -498,7 +498,7 @@ function wc_checkout_fields_multiselect_field( $field = '', $key, $args, $value 
  * @param mixed  $args  List of arguments to manipulate how it's displayed.
  * @param mixed  $value Field value.
  */
-function wc_checkout_fields_heading_field( $field = '', $key, $args, $value ) {
+function wc_checkout_fields_heading_field( $field = '', $key = '', $args = array(), $value = '' ) {
 	$field = '<h3 data-priority="' . esc_attr( $args['priority'] ) . '" class="form-row ' . esc_attr( implode( ' ', $args['class'] ) ) . '" id="' . esc_attr( $key ) . '_field">' . $args['label'] . '</h3>';
 
 	return $field;

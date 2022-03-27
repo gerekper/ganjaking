@@ -11,9 +11,9 @@ use ACP\Export\Model;
 class Value extends Model {
 
 	public function get_value( $id ) {
-		$value = $this->get_column()->get_value( $id );
+		$value = $this->column->get_value( $id );
 
-		if ( $value === $this->get_column()->get_empty_char() ) {
+		if ( $value === $this->column->get_empty_char() ) {
 			$value = $this->get_empty_char();
 		}
 

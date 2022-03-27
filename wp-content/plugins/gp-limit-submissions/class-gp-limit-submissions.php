@@ -4,10 +4,6 @@ if ( ! class_exists( 'GP_Feed_Plugin' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Limit_Submissions extends GP_Feed_Plugin {
 
 	/**
@@ -92,6 +88,11 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 	public $enforce;
 
 	/**
+	 * @var GPLS_Compatibility_Gravity_Flow
+	 */
+	public $compatibility_gravity_flow;
+
+	/**
 	 * Returns an instance of this class, and stores it in the $_instance property.
 	 *
 	 * @since 0.9
@@ -112,6 +113,7 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 
 	public static function includes() {
 
+		require_once( plugin_dir_path( __FILE__ ) . '/includes/GPLS_Compatibility_Gravity_Flow.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/GPLS_Interface.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/GPLS_RuleGroup.php' );
 		require_once( plugin_dir_path( __FILE__ ) . '/includes/GPLS_Rule.php' );
@@ -126,6 +128,15 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 
 	}
 
+	/**
+	 * Return the plugin's icon for the plugin/form settings menu.
+	 *
+	 * @return string
+	 */
+	public function get_menu_icon() {
+		return 'dashicons-lock';
+	}
+
 	private function __clone() {
 		/* do nothing */
 	}
@@ -133,6 +144,9 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 	public function init() {
 
 		parent::init();
+
+		// Load compatibility layers
+		$this->compatibility_gravity_flow = new GPLS_Compatibility_Gravity_Flow();
 
 		// Enforce limits
 		$this->enforce = new GPLS_Enforce();
@@ -188,10 +202,109 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 						'type'    => 'rule_time_period_field',
 						'name'    => 'rule_limit_time_period',
 						'tooltip' => $this->get_time_period_setting_description(),
+						'options' => array(
+							'rule_time_period_type' => array(
+								'label'   => __( 'Time Period Type', 'gp-limit-submissions' ),
+								'name'    => 'rule_time_period_type',
+								'class'   => '',
+								'tooltip' => __( 'Choose time period settings', 'gp-limit-submissions' ),
+								'choices' => array(
+									array(
+										'label' => __( 'Forever', 'gp-limit-submissions' ),
+										'value' => 'forever',
+									),
+									array(
+										'label' => __( 'Time Period', 'gp-limit-submissions' ),
+										'value' => 'time_period',
+									),
+									array(
+										'label' => __( 'Calendar Period', 'gp-limit-submissions' ),
+										'value' => 'calendar_period',
+									),
+									array(
+										'label' => __( 'Form Schedule', 'gp-limit-submissions' ),
+										'value' => 'form_schedule',
+									),
+								),
+							),
+							'rule_calendar_period' => array(
+								'label'   => __( 'Calendar Period', 'gp-limit-submissions' ),
+								'name'    => 'rule_calendar_period',
+								'tooltip' => __( 'Enter the value for the time period', 'gp-limit-submissions' ),
+								'class'   => '',
+								'choices' => array(
+									array(
+										'label' => __( 'Per Day', 'gp-limit-submissions' ),
+										'value' => 'day',
+									),
+									array(
+										'label' => __( 'Per Week', 'gp-limit-submissions' ),
+										'value' => 'week',
+									),
+									array(
+										'label' => __( 'Per Month', 'gp-limit-submissions' ),
+										'value' => 'month',
+									),
+									array(
+										'label' => __( 'Per Quarter', 'gp-limit-submissions' ),
+										'value' => 'quarter'
+									),
+									array(
+										'label' => __( 'Per Year', 'gp-limit-submissions' ),
+										'value' => 'year',
+									),
+								),
+							),
+							'rule_time_period_value' => array(
+								'label'       => __( 'Time Period Value', 'gp-limit-submissions' ),
+								'name'        => 'rule_time_period_value',
+								'tooltip'     => __( 'Enter the type of calendar time period', 'gp-limit-submissions' ),
+								'class'       => '',
+								'placeholder' => __( 'Enter a number (i.e. 3)', 'gp-limit-submissions' ),
+							),
+							'rule_time_period_unit' => array(
+								'label'         => __( 'Time Period Unit', 'gp-limit-submissions' ),
+								'name'          => 'rule_time_period_unit',
+								'class'         => '',
+								'tooltip'       => __( 'Choose time period', 'gp-limit-submissions' ),
+								'default_value' => 'days',
+								'choices'       => array(
+									array(
+										'label' => __( 'second(s)', 'gp-limit-submissions' ),
+										'value' => 'seconds',
+									),
+									array(
+										'label' => __( 'minute(s)', 'gp-limit-submissions' ),
+										'value' => 'minutes',
+									),
+									array(
+										'label' => __( 'hour(s)', 'gp-limit-submissions' ),
+										'value' => 'hours',
+									),
+									array(
+										'label' => __( 'day(s)', 'gp-limit-submissions' ),
+										'value' => 'days',
+									),
+									array(
+										'label' => __( 'week(s)', 'gp-limit-submissions' ),
+										'value' => 'weeks',
+									),
+									array(
+										'label' => __( 'month(s)', 'gp-limit-submissions' ),
+										'value' => 'months',
+									),
+									array(
+										'label' => __( 'year(s)', 'gp-limit-submissions' ),
+										'value' => 'years',
+									),
+								),
+							),
+						),
 					),
 					array(
 						'label'         => __( 'Limit Message', 'gp-limit-submissions' ),
 						'type'          => 'textarea',
+						'use_editor'    => true,
 						'name'          => 'rule_limit_message',
 						'tooltip'       => __( 'Specify a message that will be displayed to users if their submission is limited or if the form\'s submission limit is reached.', 'gp-limit-submissions' ),
 						'class'         => 'large merge-tag-support mt-prepopulate mt-position-right',
@@ -210,8 +323,24 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 					),
 				),
 			),
-
+			array(
+				'title'  => __( 'Additional Options', 'gp-limit-submissions' ),
+				'fields' => array(
+					array(
+						'name'           => 'condition',
+						'type'           => 'feed_condition',
+						'label'          => esc_html__( 'Conditional Logic', 'gp-limit-submissions' ),
+						'checkbox_label' => esc_html__( 'Enable', 'gp-limit-submissions' ),
+						'instructions'   => esc_html__( 'Limit form submission if', 'gp-limit-submissions' ),
+						'tooltip'        => esc_html__( 'Use conditional logic to determine if this feed should limit the entry being submitted. Note: Conditional logic is only evaluated when the form is submitted. It is not evaluated when the form is displayed.', 'gp-limit-submissions' ),
+					),
+				),
+			),
 		);
+	}
+
+	public function can_duplicate_feed( $feed_id ) {
+		return true;
 	}
 
 	public function get_time_period_setting_description() {
@@ -228,115 +357,17 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 		return sprintf( '%s<br><ul><li>%s</li></ul>', $generic, implode( '</li><li>', $specifics ) );
 	}
 
-	public function settings_rule_time_period_field() {
+	public function settings_rule_time_period_field( $setting ) {
 
-		$this->settings_select(
-			array(
-				'label'   => __( 'Time Period Type', 'gp-limit-submissions' ),
-				'name'    => 'rule_time_period_type',
-				'class'   => '',
-				'tooltip' => __( 'Choose time period settings', 'gp-limit-submissions' ),
-				'choices' => array(
-					array(
-						'label' => __( 'Forever', 'gp-limit-submissions' ),
-						'value' => 'forever',
-					),
-					array(
-						'label' => __( 'Time Period', 'gp-limit-submissions' ),
-						'value' => 'time_period',
-					),
-					array(
-						'label' => __( 'Calendar Period', 'gp-limit-submissions' ),
-						'value' => 'calendar_period',
-					),
-					array(
-						'label' => __( 'Form Schedule', 'gp-limit-submissions' ),
-						'value' => 'form_schedule',
-					),
-				),
-			)
-		);
+		$options = $setting['options'];
 
-		$this->settings_select(
-			array(
-				'label'   => __( 'Calendar Period', 'gp-limit-submissions' ),
-				'name'    => 'rule_calendar_period',
-				'tooltip' => __( 'Enter the value for the time period', 'gp-limit-submissions' ),
-				'class'   => '',
-				'choices' => array(
-					array(
-						'label' => __( 'Per Day', 'gp-limit-submissions' ),
-						'value' => 'day',
-					),
-					array(
-						'label' => __( 'Per Week', 'gp-limit-submissions' ),
-						'value' => 'week',
-					),
-					array(
-						'label' => __( 'Per Month', 'gp-limit-submissions' ),
-						'value' => 'month',
-					),
-					array(
-						'label' => __( 'Per Quarter', 'gp-limit-submissions' ),
-						'value' => 'quarter'
-					),
-					array(
-						'label' => __( 'Per Year', 'gp-limit-submissions' ),
-						'value' => 'year',
-					),
-				),
-			)
-		);
+		$this->settings_select( $options['rule_time_period_type'] );
 
-		$this->settings_text(
-			array(
-				'label'       => __( 'Time Period Value', 'gp-limit-submissions' ),
-				'name'        => 'rule_time_period_value',
-				'tooltip'     => __( 'Enter the type of calendar time period', 'gp-limit-submissions' ),
-				'class'       => '',
-				'placeholder' => __( 'Enter a number (i.e. 3)', 'gp-limit-submissions' ),
-			)
-		);
+		$this->settings_select( $options['rule_calendar_period'] );
 
-		$this->settings_select(
-			array(
-				'label'         => __( 'Time Period Unit', 'gp-limit-submissions' ),
-				'name'          => 'rule_time_period_unit',
-				'class'         => '',
-				'tooltip'       => __( 'Choose time period', 'gp-limit-submissions' ),
-				'default_value' => 'days',
-				'choices'       => array(
-					array(
-						'label' => __( 'second(s)', 'gp-limit-submissions' ),
-						'value' => 'seconds',
-					),
-					array(
-						'label' => __( 'minute(s)', 'gp-limit-submissions' ),
-						'value' => 'minutes',
-					),
-					array(
-						'label' => __( 'hour(s)', 'gp-limit-submissions' ),
-						'value' => 'hours',
-					),
-					array(
-						'label' => __( 'day(s)', 'gp-limit-submissions' ),
-						'value' => 'days',
-					),
-					array(
-						'label' => __( 'week(s)', 'gp-limit-submissions' ),
-						'value' => 'weeks',
-					),
-					array(
-						'label' => __( 'month(s)', 'gp-limit-submissions' ),
-						'value' => 'months',
-					),
-					array(
-						'label' => __( 'year(s)', 'gp-limit-submissions' ),
-						'value' => 'years',
-					),
-				),
-			)
-		);
+		$this->settings_text( $options['rule_time_period_value'] );
+
+		$this->settings_select( $options['rule_time_period_unit'] );
 
 	}
 

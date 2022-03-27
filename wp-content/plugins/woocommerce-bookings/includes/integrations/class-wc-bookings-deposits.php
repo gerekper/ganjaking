@@ -14,14 +14,40 @@ class WC_Bookings_Deposits {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_order_status_on-hold_to_partial-payment', array( $this, 'handle_on_hold_to_partial_payment' ), 20, 2 );
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'handle_partial_payment' ), 20, 2 );
+		$this->init();
+	}
+
+	/**
+	 * Initialize the instance.
+	 *
+	 * @since 1.15.31
+	 */
+	protected function init() {
+		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'handle_partial_payment' ), 10, 2 );
 		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'handle_completed_payment' ), 40, 2 );
+		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_order_status_changed' ), 20, 3 );
 		add_action( 'init', array( $this, 'register_custom_post_status' ) );
 		add_filter( 'woocommerce_bookings_get_wc_booking_statuses', array( $this, 'add_custom_status' ) );
 		add_filter( 'woocommerce_bookings_get_status_label', array( $this, 'add_custom_status' ) );
 		add_filter( 'woocommerce_booking_is_paid_statuses', array( $this, 'add_custom_paid_status' ) );
 		add_action( 'woocommerce_payment_complete', array( $this, 'save_order_status' ) );
+	}
+
+	/**
+	 * Handle changes in the order status.
+	 *
+	 * @since 1.15.31
+	 *
+	 * @param integer $order_id Id of de order whose status is changing.
+	 * @param string $from Previous order status.
+	 * @param string $to New order status.
+	 */
+	public function handle_order_status_changed( $order_id, $from, $to ) {
+		if ( 'partial-payment' === $to ) {
+			$this->set_status_for_bookings_in_order( $order_id, 'wc-' . $to );
+		} elseif ( 'failed' === $to ) {
+			$this->set_status_for_bookings_in_order( $order_id, 'unpaid' );
+		}
 	}
 
 	/**

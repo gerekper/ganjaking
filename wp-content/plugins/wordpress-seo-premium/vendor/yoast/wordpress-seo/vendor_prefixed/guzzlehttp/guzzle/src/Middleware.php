@@ -8,7 +8,6 @@ use YoastSEO_Vendor\GuzzleHttp\Promise\RejectedPromise;
 use YoastSEO_Vendor\GuzzleHttp\Psr7;
 use YoastSEO_Vendor\Psr\Http\Message\ResponseInterface;
 use YoastSEO_Vendor\Psr\Log\LoggerInterface;
-use YoastSEO_Vendor\Psr\Log\LogLevel;
 /**
  * Functions used to create and wrap handlers with handler middleware.
  */
@@ -53,7 +52,7 @@ final class Middleware
                 if (empty($options['http_errors'])) {
                     return $handler($request, $options);
                 }
-                return $handler($request, $options)->then(function (\YoastSEO_Vendor\Psr\Http\Message\ResponseInterface $response) use($request, $handler) {
+                return $handler($request, $options)->then(function (\YoastSEO_Vendor\Psr\Http\Message\ResponseInterface $response) use($request) {
                     $code = $response->getStatusCode();
                     if ($code < 400) {
                         return $response;
@@ -158,7 +157,7 @@ final class Middleware
      *
      * @return callable Returns a function that accepts the next handler.
      */
-    public static function log(\YoastSEO_Vendor\Psr\Log\LoggerInterface $logger, \YoastSEO_Vendor\GuzzleHttp\MessageFormatter $formatter, $logLevel = \YoastSEO_Vendor\Psr\Log\LogLevel::INFO)
+    public static function log(\YoastSEO_Vendor\Psr\Log\LoggerInterface $logger, \YoastSEO_Vendor\GuzzleHttp\MessageFormatter $formatter, $logLevel = 'info')
     {
         return function (callable $handler) use($logger, $formatter, $logLevel) {
             return function ($request, array $options) use($handler, $logger, $formatter, $logLevel) {

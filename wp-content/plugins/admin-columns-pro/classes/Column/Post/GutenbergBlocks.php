@@ -40,17 +40,23 @@ class GutenbergBlocks extends AC\Column
 	 * @return string
 	 */
 	private function get_structure_value( $blocks ) {
-		$values = [];
+		$setting_limit = $this->get_setting( 'number_of_items' );
 
+		return ac_helper()->html->more( $this->get_block_structure( $blocks ), $setting_limit ? $setting_limit->get_value() : false, '<br>' );
+	}
+
+	private function get_block_structure( $blocks, $values = [], $prefix = '' ) {
 		foreach ( $blocks as $block ) {
 			if ( isset( $block['blockName'] ) && $block['blockName'] ) {
-				$values[] = sprintf( '[%s]', $block['blockName'] );
+				$values[] = sprintf( '%s[%s]', $prefix, $block['blockName'] );
+			}
+
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$values = $this->get_block_structure( $block['innerBlocks'], $values, $prefix . '&nbsp;&nbsp;&nbsp;' );
 			}
 		}
 
-		$setting_limit = $this->get_setting( 'number_of_items' );
-
-		return ac_helper()->html->more( $values, $setting_limit ? $setting_limit->get_value() : false, '<br>' );
+		return $values;
 	}
 
 	/**
@@ -59,8 +65,16 @@ class GutenbergBlocks extends AC\Column
 	 * @return string
 	 */
 	private function get_count_value( $blocks ) {
-		$grouped_count = [];
+		$values = [];
 
+		foreach ( $this->count_blocks( $blocks, [] ) as $name => $block_count ) {
+			$values[] = sprintf( '%s <span class="ac-rounded">%s</span>', $name, $block_count );
+		}
+
+		return implode( '<br>', $values );
+	}
+
+	private function count_blocks( $blocks, $grouped_count = [] ) {
 		foreach ( $blocks as $block ) {
 			if ( empty( $block['blockName'] ) ) {
 				continue;
@@ -70,19 +84,16 @@ class GutenbergBlocks extends AC\Column
 
 			if ( ! isset( $grouped_count[ $name ] ) ) {
 				$grouped_count[ $name ] = 1;
-				continue;
+			} else {
+				$grouped_count[ $name ]++;
 			}
 
-			$grouped_count[ $name ]++;
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$grouped_count = $this->count_blocks( $block['innerBlocks'], $grouped_count );
+			}
 		}
 
-		$values = [];
-
-		foreach ( $grouped_count as $name => $block_count ) {
-			$values[] = sprintf( '%s <span class="ac-rounded">%s</span>', $name, $block_count );
-		}
-
-		return implode( '<br>', $values );
+		return $grouped_count;
 	}
 
 	public function register_settings() {

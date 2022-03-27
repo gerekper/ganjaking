@@ -32,7 +32,7 @@ Customer Note : <?php if(!empty($order_info['ordernote'])) { echo $order_info['o
 
 Chosen Shipping Method: <?php echo $order_info['shipping_info']['shipping_method']; ?><br>
            
-
+<?php 	$options = get_option( 'wc_dropship_manager' );?>
 <?php 
 	$rows = '';
 	foreach($order_info[$supplier_info['slug']] as $prod_info)
@@ -58,7 +58,9 @@ Chosen Shipping Method: <?php echo $order_info['shipping_info']['shipping_method
 			}
 	} 
 ?>
-<br>
+  <?php if ($options['order_button_email'] == '1') { ?>
+                 <a href="<?php echo get_site_url();?>/wp-admin/admin.php?page=dropshipper-order-list" style="display: inline-block; font-weight: bold; color: green; text-decoration: none;">View order in dashboard</a><br>
+  <?php  }  ?> 
 <b>To mark this order as shipped please visit the following link on your browser:</b><br> 
 	<a><?php echo bloginfo('url') ?>/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid=<?php echo $order_info['id']; ?>&supplierid=<?php echo $supplier_info['id'];?></a><br><br>
 packingslip_text.html

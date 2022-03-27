@@ -1,4 +1,4 @@
-# Copyright (C) 2018 GP Blacklist
+# Copyright (C) 2020 GP Blacklist
 # This file is distributed under the same license as the GP Blacklist package.
 msgid ""
 msgstr ""
@@ -13,26 +13,45 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-blacklist.php:47, ../class-gp-blacklist.php:48
+#: ../class-gp-blacklist.php:62, ../class-gp-blacklist.php:63
 msgid "Validate against WP Comment Blacklist"
 msgstr ""
 
-#: ../class-gp-blacklist.php:47
-msgid "Enable this option to run all supported form fields through the WordPress Comment Blacklist validation."
-msgstr ""
-
-#: ../class-gp-blacklist.php:48
-msgid "Enable this option to run this field through the WordPress Comment Blacklist validation."
+#: ../class-gp-blacklist.php:62
+msgid "Enable this option to run all supported form fields through the <strong>WordPress Comment Blacklist</strong> validation."
 msgstr ""
 
 #: ../class-gp-blacklist.php:63
+msgid "Enable this option to run this field through the WordPress Comment Blacklist validation."
+msgstr ""
+
+#: ../class-gp-blacklist.php:79
+msgid "Blacklist validation"
+msgstr ""
+
+#: ../class-gp-blacklist.php:83
+msgid "Validate against WordPress Comment Blacklist"
+msgstr ""
+
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#: ../class-gp-blacklist.php:86
+msgid "Enable this option to run all supported form fields through the WordPress %1$sComment Blacklist%2$s validation."
+msgstr ""
+
+#: ../class-gp-blacklist.php:94
+msgid "Validate against the WordPress Comment Blacklist"
+msgstr ""
+
+#: ../class-gp-blacklist.php:118
 msgid "Blacklist Validation"
 msgstr ""
 
-#: ../class-gp-blacklist.php:67, ../class-gp-blacklist.php:157
-msgid "Validate against WordPress %s\"Comment Blacklist\"%s"
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#: ../class-gp-blacklist.php:123, ../class-gp-blacklist.php:225
+msgid "Validate against WordPress %1$sComment Blacklist%2$s"
 msgstr ""
 
-#: ../class-gp-blacklist.php:134
+#: ../class-gp-blacklist.php:201
 msgid "We're sorry, the text you entered for this field contains blacklisted words."
 msgstr ""

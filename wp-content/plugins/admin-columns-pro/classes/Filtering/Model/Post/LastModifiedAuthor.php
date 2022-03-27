@@ -15,6 +15,8 @@ class LastModifiedAuthor extends Model\Meta {
 			}
 		}
 
+		$data['empty_option'] = $this->get_empty_labels();
+
 		return $data;
 	}
 

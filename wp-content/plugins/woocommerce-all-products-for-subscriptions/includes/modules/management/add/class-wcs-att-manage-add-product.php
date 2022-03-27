@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Product
- * @version  3.2.0
+ * @version  3.2.1
  */
 class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
@@ -112,7 +112,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
 			$subscription_schemes                 = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 			$force_subscription                   = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
-			$is_single_scheme_forced_subscription = $force_subscription && sizeof( $subscription_schemes ) === 1;
+			$is_single_scheme_forced_subscription = $force_subscription && count( $subscription_schemes ) === 1;
 			$default_subscription_scheme_key      = apply_filters( 'wcsatt_get_default_subscription_scheme_id', WCS_ATT_Product_Schemes::get_default_subscription_scheme( $product, 'key' ), $subscription_schemes, false === $force_subscription, $product ); // Why 'false === $force_subscription'? The answer is back-compat.
 
 			if ( isset( $_REQUEST[ 'add-to-cart' ] ) ) {

@@ -19,7 +19,6 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PuTTY as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 /**
  * PuTTY Formatted EC Key Handler
@@ -68,8 +67,8 @@ abstract class PuTTY extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             }
             $components['dA'] = $components['curve']->extractSecret($private);
         } else {
-            list($temp) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('i', $private);
-            $components['dA'] = $components['curve']->convertInteger($temp);
+            list($components['dA']) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('i', $private);
+            $components['curve']->rangeCheck($components['dA']);
         }
         return $components;
     }
@@ -77,14 +76,14 @@ abstract class PuTTY extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      * Convert a private key to the appropriate format.
      *
      * @access public
-     * @param \phpseclib3\Math\Common\FiniteField\Integer $privateKey
+     * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
      * @param string $password optional
      * @param array $options optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = \false, array $options = [])
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = \false, array $options = [])
     {
         self::initialize_static_variables();
         $public = \explode(' ', \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys\OpenSSH::savePublicKey($curve, $publicKey));

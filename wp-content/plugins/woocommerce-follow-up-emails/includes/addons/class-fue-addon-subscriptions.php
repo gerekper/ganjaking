@@ -168,7 +168,7 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 	 * @return bool
 	 */
 	public static function is_installed() {
-		return ( class_exists( 'WC_Subscriptions' ) );
+		return ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 
 		foreach ( $posts as $post ) {
 			$product = WC_FUE_Compatibility::wc_get_product( $post->ID );
-			if ( $product->is_type( array( WC_Subscriptions::$name, 'subscription_variation', 'variable-subscription' ) ) ) {
+			if ( $product->is_type( array( 'subscription', 'subscription_variation', 'variable-subscription' ) ) ) {
 				$subscriptions[] = $product;
 			}
 		}

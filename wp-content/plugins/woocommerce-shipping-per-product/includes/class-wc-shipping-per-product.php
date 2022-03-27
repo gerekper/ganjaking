@@ -152,11 +152,18 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 		}
 
 		if ( $rule ) {
-			$item_shipping_cost += (float) $rule->rule_item_cost * (int) $product_data['quantity'];
-			$item_shipping_cost += (float) $rule->rule_cost;
+			if ( ! empty( trim( $rule->rule_item_cost ) ) ) {
+				$item_shipping_cost += (float) wc_format_decimal( $rule->rule_item_cost ) * (int) $product_data['quantity'];
+			}
+
+			if ( ! empty( trim( $rule->rule_cost ) ) ) {
+				$item_shipping_cost += (float) wc_format_decimal( $rule->rule_cost );
+			}
 		} elseif ( '0' === $this->cost || $this->cost > 0 ) {
 			// Use default shipping cost.
-			$item_shipping_cost += (float) $this->cost * (int) $product_data['quantity'];
+			if ( ! empty( trim( $this->cost ) ) ) {
+				$item_shipping_cost += (float) wc_format_decimal( $this->cost ) * (int) $product_data['quantity'];
+			}
 		} else {
 			// NO default and nothing found - abort.
 			return false;

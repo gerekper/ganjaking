@@ -6,9 +6,11 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\FormEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\FormsRepository;
 use MailPoet\Form\Util\FieldNameObfuscator;
 use MailPoet\NotFoundException;
+use MailPoet\Segments\SubscribersFinder;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\StatisticsFormsRepository;
 use MailPoet\Subscription\Captcha;
@@ -52,10 +54,14 @@ class SubscriberSubscribeController {
   /** @var StatisticsFormsRepository */
   private $statisticsFormsRepository;
 
+  /** @var SubscribersFinder */
+  private $subscribersFinder;
+
   public function __construct(
     Captcha $subscriptionCaptcha,
     CaptchaSession $captchaSession,
     SubscriberActions $subscriberActions,
+    SubscribersFinder $subscribersFinder,
     SubscriptionUrlFactory $subscriptionUrlFactory,
     SubscriptionThrottling $throttling,
     FieldNameObfuscator $fieldNameObfuscator,
@@ -73,6 +79,7 @@ class SubscriberSubscribeController {
     $this->fieldNameObfuscator = $fieldNameObfuscator;
     $this->settings = $settings;
     $this->subscriberActions = $subscriberActions;
+    $this->subscribersFinder = $subscribersFinder;
     $this->wp = $wp;
     $this->throttling = $throttling;
     $this->statisticsFormsRepository = $statisticsFormsRepository;
@@ -122,6 +129,17 @@ class SubscriberSubscribeController {
       return $meta;
     }
 
+    /**
+     * Fires before a subscription gets created.
+     * To interrupt the subscription process, you can throw an MailPoet\Exception.
+     * The error message will then be displayed to the user.
+     *
+     * @param array      $data       The subscription data.
+     * @param array      $segmentIds The segment IDs the user gets subscribed to.
+     * @param FormEntity $form       The form the user used to subscribe.
+     */
+    $this->wp->doAction('mailpoet_subscription_before_subscribe', $data, $segmentIds, $form);
+
     $subscriber = $this->subscriberActions->subscribe($data, $segmentIds);
 
     if (!empty($captchaSettings['type']) && $captchaSettings['type'] === Captcha::TYPE_BUILTIN) {
@@ -143,6 +161,22 @@ class SubscriberSubscribeController {
     }
 
     return $meta;
+  }
+
+  /**
+   * Checks if the subscriber is subscribed to any segments in the form
+   *
+   * @param  FormEntity       $form       The form entity
+   * @param  SubscriberEntity $subscriber The subscriber entity
+   * @return bool True if the subscriber is subscribed to any of the segments in the form
+   */
+  public function isSubscribedToAnyFormSegments(FormEntity $form, SubscriberEntity $subscriber): bool {
+    $formSegments = array_merge( $form->getSegmentBlocksSegmentIds(), $form->getSettingsSegmentIds());
+
+    $subscribersFound = $this->subscribersFinder->findSubscribersInSegments([$subscriber->getId()], $formSegments);
+    if (!empty($subscribersFound)) return true;
+
+    return false;
   }
 
   private function deobfuscateFormPayload($data): array {

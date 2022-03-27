@@ -1,15 +1,15 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2022 José Conti
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2022 José Conti
+ */
 
 class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	var $notify_url;
@@ -21,7 +21,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function __construct() {
 		global $woocommerce, $checkfor254;
@@ -67,11 +67,13 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->butontextcolor   = WCRed()->get_redsys_option( 'butontextcolor', 'redsysbank' );
 		$this->descripredsys    = WCRed()->get_redsys_option( 'descripredsys', 'redsysbank' );
 		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'redsysbank' );
+		$this->testmode         = 'no';
 		$this->log              = new WC_Logger();
 		// Actions.
 		add_action( 'valid_redsysbank_standard_ipn_request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_redsysbank', array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_redsysbank', array( $this, 'check_ipn_response' ) );
 		if ( ! $this->is_valid_for_use() ) {
@@ -88,7 +90,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function is_valid_for_use() {
 
@@ -106,7 +108,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -127,17 +129,22 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$this->generate_settings_html();
 			?>
 			</table><!--/.form-table-->
-		<?php else :
-			
-			$currencies = WCRed()->allowed_currencies();
+			<?php
+		else :
+
+			$currencies          = WCRed()->allowed_currencies();
 			$formated_currencies = '';
 
 			foreach ( $currencies as $currency ) {
 				$formated_currencies .= $currency . ', ';
 			}
-		?>
-	<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-		echo esc_html( $formated_currencies ); ?></p></div>
+			?>
+	<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
+														   <?php
+															esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+															echo esc_html( $formated_currencies );
+															?>
+		</p></div>
 			<?php
 		endif;
 	}
@@ -150,18 +157,18 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function init_form_fields() {
-		
+
 		$this->form_fields = array(
-			'enabled'        => array(
+			'enabled'          => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Redsys Bank Transfer', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings'   => array(
+			'multisitesttings' => array(
 				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Use this setting arround all Network', 'woocommerce-redsys' ),
@@ -175,68 +182,68 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'description' => '',
 				'default'     => 'no',
 			),
-			'ownsetting'         => array(
+			'ownsetting'       => array(
 				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
 				'description' => '',
 				'default'     => 'no',
 			),
-			'title'          => array(
+			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Example: If you use CaixaBank, you can use this Bank Transfer, you will be redirected to Redys and from there you will be able to log in to CaixaBank and make the bank transfer automatically.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'description'    => array(
+			'description'      => array(
 				'title'       => __( 'Description', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via RedSys Bank Transfer', 'woocommerce-redsys' ),
 			),
-			'logo'           => array(
+			'logo'             => array(
 				'title'       => __( 'Logo', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'buttoncheckout'      => array(
+			'buttoncheckout'   => array(
 				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
 			),
-			'butonbgcolor'          => array(
+			'butonbgcolor'     => array(
 				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
 				'class'       => 'colorpick',
 			),
-			'butontextcolor'          => array(
+			'butontextcolor'   => array(
 				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
 				'class'       => 'colorpick',
 			),
-			'customer'       => array(
+			'customer'         => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'commercename'   => array(
+			'commercename'     => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'terminal'       => array(
+			'terminal'         => array(
 				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'descripredsys'        => array(
+			'descripredsys'    => array(
 				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
@@ -248,14 +255,14 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
 				),
 			),
-			'not_use_https'  => array(
+			'not_use_https'    => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Activate SNI Compatibility.', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'If you are using HTTPS and Redsys don\'t support your certificate, example Lets Encrypt, you can deactivate HTTPS notifications. WARNING: If you are forcing redirection to HTTPS with htaccess, you need to add an exception for notification URL', 'woocommerce-redsys' ) ),
 			),
-			'orderdo'     => array(
+			'orderdo'          => array(
 				'title'       => __( 'What to do after payment?', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Chose what to do after the customer pay the order.', 'woocommerce-redsys' ),
@@ -265,38 +272,38 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 					'completed'  => __( 'Mark as Complete', 'woocommerce-redsys' ),
 				),
 			),
-			'secretsha256'   => array(
+			'secretsha256'     => array(
 				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'redsyslanguage' => array(
+			'redsyslanguage'   => array(
 				'title'       => __( 'Language Gateway', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Choose the language for the Gateway. Not all Banks accept all languages', 'woocommerce-redsys' ),
 				'default'     => '001',
 				'options'     => array(),
 			),
-			'codigoswift'   => array(
+			'codigoswift'      => array(
 				'title'       => __( 'SWIFT Code', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add SWIFT Code', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'iban'   => array(
+			'iban'             => array(
 				'title'       => __( 'IBAN', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add IBAN Code', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'beneficiario'   => array(
+			'beneficiario'     => array(
 				'title'       => __( 'Transferee', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Transferee', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'debug'          => array(
+			'debug'            => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
@@ -304,11 +311,11 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'description' => __( 'Log Servired/RedSys events, such as notifications requests, inside <code>WooCommerce > Status > Logs > redsysbanktransfer-{date}-{number}.log</code>', 'woocommerce-redsys' ),
 			),
 		);
-		
+
 		$redsyslanguages = WCRed()->get_redsys_languages();
-		
-		foreach( $redsyslanguages as $redsyslanguage => $valor ) {
-			$this->form_fields['redsyslanguage']['options'][$redsyslanguage] = $valor;
+
+		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
+			$this->form_fields['redsyslanguage']['options'][ $redsyslanguage ] = $valor;
 		}
 		if ( ! is_multisite() ) {
 			unset( $this->form_fields['multisitesttings'] );
@@ -331,12 +338,12 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_redsys_args( $order ) {
 		global $woocommerce;
-		$order_id         = $order->get_id();
-		$currency_codes   = WCRed()->get_currencies();
+		$order_id       = $order->get_id();
+		$currency_codes = WCRed()->get_currencies();
 		$order->update_status( 'redsys-pbankt', __( 'Pending Redsys Bank Transfer', 'woocommerce-redsys' ) );
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id );
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -411,21 +418,22 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
 
 		$usesecretsha256 = $this->secretsha256;
 		if ( ! $usesecretsha256 ) {
-			$order = new WC_Order( $order_id );
-			$redsys_adr = $this->liveurl . '?';
+			$order       = new WC_Order( $order_id );
+			$redsys_adr  = $this->liveurl . '?';
 			$redsys_args = $this->get_redsys_args( $order );
 			$form_inputs = '';
 			foreach ( $redsys_args as $key => $value ) {
 				$form_inputs .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 			}
-			wc_enqueue_js( '
+			wc_enqueue_js(
+				'
 			$("body").block({
 				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Servired/RedSys to make the payment.', 'woocommerce-redsys' ) . '",
 				overlayCSS:
@@ -444,20 +452,22 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				}
 			});
 		jQuery("#submit_redsys_payment_form").click();
-		' );
+		'
+			);
 			return '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
 			' . $form_inputs . '
 			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 		</form>';
 		} else {
-			$order = new WC_Order( $order_id );
-			$redsys_adr = $this->liveurl . '?';
+			$order       = new WC_Order( $order_id );
+			$redsys_adr  = $this->liveurl . '?';
 			$redsys_args = $this->get_redsys_args( $order );
 			$form_inputs = array();
 			foreach ( $redsys_args as $key => $value ) {
 				$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 			}
-			wc_enqueue_js( '
+			wc_enqueue_js(
+				'
 			$("body").block({
 				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Servired/RedSys to make the payment.', 'woocommerce-redsys' ) . '",
 				overlayCSS:
@@ -476,7 +486,8 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				}
 			});
 		jQuery("#submit_redsys_payment_form").click();
-		' );
+		'
+			);
 			return '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
 			' . implode( '', $form_inputs ) . '
 			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
@@ -493,7 +504,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function process_payment( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -511,7 +522,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay by Bank Transfer.', 'woocommerce-redsys' ) . '</p>';
@@ -523,7 +534,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -577,7 +588,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_response() {
 		@ob_clean();
@@ -599,7 +610,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -700,16 +711,156 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_redsys_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2022 José Conti
+	 */
+	function check_user_show_payment_method( $userid = false ) {
+
+		$test_mode  = $this->testmode;
+		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'redsysbank' );
+
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'redsysbank', '$test_mode: ' . $test_mode );
+			$this->log->add( 'redsysbank', '/****************************/' );
+			$this->log->add( 'redsysbank', '$selections ' . print_r( $selections, true ) );
+			$this->log->add( 'redsysbank', '/****************************/' );
+			$this->log->add( 'redsysbank', ' ' );
+		}
+
+		if ( 'yes' !== $test_mode ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsysbank', ' ' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', '$test_mode different to yes showing Gateway' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', ' ' );
+			}
+			return true;
+		}
+		if ( $selections[0] !== '' || empty( $selections ) ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsysbank', ' ' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', '$selections NOT empty' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', ' ' );
+			}
+			if ( ! $userid ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsysbank', ' ' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', 'Not loged In hiding gateway' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', ' ' );
+				}
+				return false;
+			}
+			foreach ( $selections as $user_id ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsysbank', '$user_id: ' . $user_id );
+					$this->log->add( 'redsysbank', '$userid: ' . $userid );
+					$this->log->add( 'redsysbank', ' ' );
+				}
+				if ( (int) $user_id === (int) $userid ) {
+
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', ' $user_id === $userid, Showing gateway' );
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', ' ' );
+					}
+					return true;
+				}
+				continue;
+			}
+			return false;
+		} else {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsysbank', ' ' );
+				$this->log->add( 'redsysbank', '/*********************************/' );
+				$this->log->add( 'redsysbank', '$selections Empty, showing gateway' );
+				$this->log->add( 'redsysbank', '/*********************************/' );
+				$this->log->add( 'redsysbank', ' ' );
+			}
+			return true;
+		}
+	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2022 José Conti
+	 */
+	function show_payment_method( $available_gateways ) {
+
+		if ( ! is_admin() ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsysbank', ' ' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', '   Is NOT admin ' );
+				$this->log->add( 'redsysbank', '/****************************/' );
+				$this->log->add( 'redsysbank', ' ' );
+			}
+			if ( is_user_logged_in() ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsysbank', ' ' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', '   Is user logget in ' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', ' ' );
+				}
+				$user_id = get_current_user_id();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsysbank', ' ' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', '   $user_id: ' . $user_id );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', ' ' );
+				}
+				$show = $this->check_user_show_payment_method( $user_id );
+				if ( 'yes' === $this->debug ) {
+					if ( $show ) {
+						$this->log->add( 'redsysbank', ' ' );
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', '   SHOW Gateway' );
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', ' ' );
+					} else {
+						$this->log->add( 'redsysbank', ' ' );
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', '   DONT SHOW Gateway' );
+						$this->log->add( 'redsysbank', '/****************************/' );
+						$this->log->add( 'redsysbank', ' ' );
+					}
+					$this->log->add( 'redsysbank', ' ' );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', '   $user_id: ' . $user_id );
+					$this->log->add( 'redsysbank', '/****************************/' );
+					$this->log->add( 'redsysbank', ' ' );
+				}
+				if ( ! $show ) {
+					unset( $available_gateways[ $this->id ] );
+				}
+			} else {
+				$show = $this->check_user_show_payment_method();
+				if ( ! $show ) {
+					unset( $available_gateways[ $this->id ] );
+				}
+			}
+		}
+		return $available_gateways;
+	}
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2022 José Conti
+ */
 function woocommerce_add_gateway_bank_transfer_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_Redsys_Bank_Transfer';
 	return $methods;

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Limit_Dates extends GWPerk {
 
 	public $version                   = GP_LIMIT_DATES_VERSION;
@@ -533,13 +529,13 @@ class GP_Limit_Dates extends GWPerk {
 		if ( $this->is_excepted( $date, $field ) ) {
 			switch ( $this->get_exception_mode( $field ) ) {
 				case 'enable':
-					$is_valid = true;
+					$is_valid = $is_date_in_range;
 					break;
 				case 'disable':
 					$is_valid = false;
 					break;
 				default:
-					$is_valid = ! $is_valid;
+					$is_valid = ! $is_valid && $is_date_in_range;
 					break;
 			}
 		}
@@ -700,11 +696,11 @@ class GP_Limit_Dates extends GWPerk {
 		$replace = sprintf( '<div style="display:none;">%s</div>', $input );
 
 		// remove 'datepicker' class
-		$replace = str_replace( 'datepicker', 'has-inline-datepicker', $replace );
+		$replace = preg_replace( '/(?<!gpro-disabled-)datepicker/', 'has-inline-datepicker', $replace );
 
 		// add <div> for inline datepicker
 		$date_format = $field->dateFormat ? $field->dateFormat : 'mdy';
-		$replace    .= sprintf( '<div id="datepicker_%d_%d" class="datepicker %s"></div>', $field->formId, $field->id, $date_format );
+		$replace    .= sprintf( '<div id="datepicker_%d_%d" class="datepicker gpld-inline-datepicker %s"></div>', $field->formId, $field->id, $date_format );
 
 		// add style block to assiet with styling inline datepicker; when we add more styles for datepicker move this to external file
 		$replace .= sprintf( '<style type="text/css">#datepicker_%d_%d .ui-datepicker-inline { margin: 0 0 20px; }</style>', $field->formId, $field->id );

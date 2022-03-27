@@ -445,7 +445,7 @@ abstract class UpdraftPlus_BackupModule {
 				}
 				
 				// UpdraftPlus_BackupModule::get_options() is for getting the current instance's options. So, this branch (going via the job option) is a legacy route, and hence we just give back the first one. The non-legacy route is to call the set_options() method externally.
-				$options = reset($options_full['settings']);
+				$options = (isset($options_full['settings']) && is_array($options_full['settings'])) ? reset($options_full['settings']) : false;
 
 				if (false === $options) {
 					$updraftplus->log("Options retrieval failure (no options set)");
@@ -556,7 +556,6 @@ abstract class UpdraftPlus_BackupModule {
 		}
 
 		$account_warning = '';
-		$id = $this->get_id();
 		$description = $this->get_description();
 
 		if ($this->output_account_warning()) {
@@ -571,11 +570,26 @@ abstract class UpdraftPlus_BackupModule {
 			$text = sprintf(__('Follow this link to authorize access to your %s account (you will not be able to backup to %s without it).', 'updraftplus'), $description, $description);
 		}
 
-		echo $account_warning . ' <a class="updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&updraftplus_instance='.$instance_id.'" data-instance_id="'.$instance_id.'" data-remote_method="'.$id.'">'.$text.'</a>';
+		echo $account_warning . ' ' . $this->build_authentication_link($instance_id, $text);
 
 		if (!$echo_instead_of_return) {
 			return ob_get_clean();
 		}
+	}
+
+	/**
+	 * This function will build and return the authentication link
+	 *
+	 * @param String $instance_id     - the instance id
+	 * @param String $text            - the link text
+	 *
+	 * @return String - the authentication link
+	 */
+	public function build_authentication_link($instance_id, $text) {
+		
+		$id = $this->get_id();
+		
+		return '<a class="updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&updraftplus_instance='.$instance_id.'" data-instance_id="'.$instance_id.'" data-remote_method="'.$id.'">'.$text.'</a>';
 	}
 	
 	/**

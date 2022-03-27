@@ -1513,9 +1513,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 						?>
 					{{/if}}
 					<?php
-						echo '<p>';
 						$this->get_authentication_link();
-						echo '</p>';
 					?>
 				</td>
 			</tr>
@@ -1556,5 +1554,20 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			'token',
 			'user_id',
 		);
+	}
+
+	/**
+	 * This function will build and return the authentication link
+	 *
+	 * @param String $instance_id     - the instance id
+	 * @param String $text            - the link text
+	 *
+	 * @return String - the authentication link
+	 */
+	public function build_authentication_link($instance_id, $text) {
+		
+		$id = $this->get_id();
+
+		return '<p>'. $text .'</p><br><a data-pretext="'.$text.'" class="button-ud-google updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&updraftplus_instance='.$instance_id.'" data-instance_id="'.$instance_id.'" data-remote_method="'.$id.'">'.sprintf(__('Sign in with %s', 'updraftplus'), 'Google').'</a>';
 	}
 }

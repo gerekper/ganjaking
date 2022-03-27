@@ -2,11 +2,13 @@
 
 namespace ACP\RequestHandler\Ajax;
 
-use AC\Ajax;
+use AC\Capabilities;
+use AC\Nonce;
 use AC\Plugin\Version;
-use AC\Registrable;
+use AC\Request;
+use ACP\RequestAjaxHandler;
 
-class Feedback implements Registrable {
+class Feedback implements RequestAjaxHandler {
 
 	/**
 	 * @var Version
@@ -17,31 +19,24 @@ class Feedback implements Registrable {
 		$this->version = $version;
 	}
 
-	public function register() {
-		$this->get_ajax_handler()->register();
-	}
+	public function handle() {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
 
-	/**
-	 * @return Ajax\Handler
-	 */
-	protected function get_ajax_handler() {
-		$handler = new Ajax\Handler();
-		$handler->set_action( 'acp-send-feedback' )
-		        ->set_callback( [ $this, 'ajax_send_feedback' ] );
+		$request = new Request();
 
-		return $handler;
-	}
+		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
+			wp_send_json_error( __( 'Invalid request', 'codepress-admin-columns' ) );
+		}
 
-	public function ajax_send_feedback() {
-		$this->get_ajax_handler()->verify_request();
-
-		$email = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
+		$email = $request->filter( 'email', null, FILTER_SANITIZE_EMAIL );
 
 		if ( ! is_email( $email ) ) {
 			wp_send_json_error( __( 'Please insert a valid email so we can reply to your feedback.', 'codepress-admin-columns' ) );
 		}
 
-		$feedback = filter_input( INPUT_POST, 'feedback', FILTER_SANITIZE_STRING );
+		$feedback = $request->filter( 'feedback', null, FILTER_SANITIZE_STRING );
 
 		if ( empty( $feedback ) ) {
 			wp_send_json_error( __( 'Your feedback form is empty.', 'codepress-admin-columns' ) );

@@ -1,18 +1,18 @@
-# Copyright (C) 2021 Automattic
+# Copyright (C) 2022 Automattic
 # This file is distributed under the same license as the WooCommerce One Page Checkout package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce One Page Checkout 1.9.1\n"
+"Project-Id-Version: WooCommerce One Page Checkout 1.9.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-one-page-checkout\n"
-"POT-Creation-Date: 2021-12-17 11:27:02+00:00\n"
+"POT-Creation-Date: 2022-03-08 15:56:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"X-Generator: node-wp-i18n 1.2.6\n"
 
 #: classes/class-wcopc-admin-editor.php:216
 msgid "Products:"
@@ -62,7 +62,7 @@ msgid "No pricing tables available."
 msgstr ""
 
 #: classes/class-wcopc-settings.php:41 js/admin/editor_plugin_lang.php:5
-#: woocommerce-one-page-checkout.php:1785
+#: woocommerce-one-page-checkout.php:1787
 msgid "One Page Checkout"
 msgstr ""
 
@@ -90,12 +90,12 @@ msgid "Remove"
 msgstr ""
 
 #: templates/checkout/add-to-cart/button.php:16
-#: woocommerce-one-page-checkout.php:627
+#: woocommerce-one-page-checkout.php:629
 msgid "Add to order"
 msgstr ""
 
 #: templates/checkout/add-to-cart/button.php:18
-#: woocommerce-one-page-checkout.php:1329
+#: woocommerce-one-page-checkout.php:1331
 msgid "Modify &amp; complete order below"
 msgstr ""
 
@@ -214,58 +214,58 @@ msgid ""
 "products, e.g. membership subscriptions."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:597
+#: woocommerce-one-page-checkout.php:599
 msgid "View Cart"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:617
+#: woocommerce-one-page-checkout.php:619
 msgid "%s&quot; added to your order. Complete your order below."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:990
+#: woocommerce-one-page-checkout.php:992
 msgid "&quot;%s&quot; was successfully removed from your order."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:997
+#: woocommerce-one-page-checkout.php:999
 msgid "&quot;%s&quot; could not be removed from your order."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1106
-#: woocommerce-one-page-checkout.php:1165
+#: woocommerce-one-page-checkout.php:1108
+#: woocommerce-one-page-checkout.php:1167
 msgid "Please choose product options&hellip;"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1330
+#: woocommerce-one-page-checkout.php:1332
 msgid ""
 "Error processing your request. Please try refreshing the page. Contact us "
 "if you continue to have issues."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1603
+#: woocommerce-one-page-checkout.php:1605
 msgid ""
 "Sorry, your session has expired. <a href=\"%s\">Return to homepage "
 "&rarr;</a>"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1604
+#: woocommerce-one-page-checkout.php:1606
 msgid "You must select a product."
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1674
+#: woocommerce-one-page-checkout.php:1676
 msgid ""
 "%1$sWooCommerce One Page Checkout is inactive.%2$s The %3$sWooCommerce "
 "plugin%4$s must be active for WooCommerce One Page Checkout to work. Please "
 "%5$sinstall & activate WooCommerce%6$s"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1678
+#: woocommerce-one-page-checkout.php:1680
 msgid ""
 "%1$sWooCommerce One Page Checkout is inactive.%2$s This plugin requires "
 "WooCommerce 2.5 or newer. Please %3$supdate WooCommerce to version 2.5 or "
 "newer%4$s"
 msgstr ""
 
-#: woocommerce-one-page-checkout.php:1786
+#: woocommerce-one-page-checkout.php:1788
 msgid "Add checkout to product page."
 msgstr ""
 

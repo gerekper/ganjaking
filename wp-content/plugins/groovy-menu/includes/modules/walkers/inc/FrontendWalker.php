@@ -53,15 +53,16 @@ class FrontendWalker extends WalkerNavMenu {
 		}
 
 		if ( ! $this->isMegaMenu || ( $this->isMegaMenu && 2 !== $this->currentLvl ) ) {
-
 			if ( $this->isMegaMenu && $depth >= 2 ) {
-				$classes       = "gm-plain-list-menu gm-plain-list-menu--lvl-{$this->currentLvl}";
+				$classes      .= "gm-plain-list-menu gm-plain-list-menu--lvl-{$this->currentLvl}";
 				$wrapper_class = 'gm-plain-list-menu-wrapper';
 			} else {
-				$classes = "gm-dropdown-menu gm-dropdown-menu--lvl-{$this->currentLvl}";
+				$classes .= "gm-dropdown-menu gm-dropdown-menu--lvl-{$this->currentLvl}";
 			}
+		}
 
-			if ( $this->isMegaMenu && $this->getBackgroundId( $this->currentItem ) ) {
+		if ( ! empty( $this->getBackgroundId( $this->currentItem ) ) || ! empty( $this->megaMenuCustomWidth ) ) {
+			if ( $this->getBackgroundId( $this->currentItem ) && $this->currentLvl > 0 && ! $show_in_mobile ) {
 				$size    = $this->getBackgroundSize( $this->currentItem );
 				$styles .= 'background-image: url(' . $this->getBackgroundUrl( $this->currentItem, $size ) . ');';
 				$styles .= 'background-repeat: ' . $this->getBackgroundRepeat( $this->currentItem ) . ';';

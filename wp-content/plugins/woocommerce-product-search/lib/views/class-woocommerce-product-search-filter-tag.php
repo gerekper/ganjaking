@@ -575,7 +575,6 @@ class WooCommerce_Product_Search_Filter_Tag {
 		unset( $args['number'] );
 
 		$tags = get_terms( $args['taxonomy'], array_merge( $args, array( 'orderby' => 'count', 'order' => 'DESC' ) ) );
-
 		$union = array();
 		if ( !empty( $args['union'] ) ) {
 			$union = $args['union'];
@@ -630,7 +629,10 @@ class WooCommerce_Product_Search_Filter_Tag {
 					$tags[ $key ]->id = $tag->term_id;
 
 					if ( isset( $term_counts[$tag->term_id] ) ) {
-						$tags[ $key ]->count = $term_counts[$tag->term_id];
+						$tags[$key]->count = $term_counts[$tag->term_id];
+					} else {
+
+						$tags[$key]->count = 0;
 					}
 				}
 			}

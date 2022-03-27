@@ -20,7 +20,7 @@ class SettingsTab extends ControlTab {
 	 */
 	public function display() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
-		$options  = new Options();
+		$options  = Options::init();
 		$controls = wp_mail_smtp()->pro->get_control()->get_controls();
 		?>
 
@@ -100,7 +100,7 @@ class SettingsTab extends ControlTab {
 
 		$this->check_admin_referer();
 
-		$options      = new Options();
+		$options      = Options::init();
 		$is_multisite = is_multisite();
 
 		$controls = wp_mail_smtp()->pro->get_control()->get_controls( true );

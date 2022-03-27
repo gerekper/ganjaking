@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Copy_Cat extends GWPerk {
 
 	public $version                      = GP_COPY_CAT_VERSION;
@@ -136,6 +132,7 @@ class GP_Copy_Cat extends GWPerk {
 					'target'       => $target_field_id,
 					'sourceFormId' => $source_form_id,
 					'targetFormId' => $target_form_id,
+					'trigger'      => $field['id'],
 				);
 
 			}

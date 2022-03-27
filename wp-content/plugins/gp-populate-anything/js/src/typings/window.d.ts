@@ -51,5 +51,6 @@ declare global {
 		GPLimitDates: {
 			initDisabledDatepicker: ( $input: JQuery ) => void
 		}
+		[key: string]: any
 	}
 }

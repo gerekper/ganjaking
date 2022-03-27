@@ -291,6 +291,40 @@ if ( ! function_exists( 'block_points_for_salepriced_product' ) ) {
 
 }
 
+if ( ! function_exists( 'rs_block_points_for_salepriced_product_in_referral_system' ) ) {
+
+	/**
+	 * Block Points for Sale Priced Product in Referral System
+	 *
+	 * @return bool
+	 */
+	function rs_block_points_for_salepriced_product_in_referral_system( $product_id, $variation_id ) {
+		
+		if ( 'yes' != get_option( 'rs_restrict_sale_price_product_points_referral_system' ) ) {
+			return false ;
+		}
+
+		$product = wc_get_product( $product_id ) ;
+		if (!is_object($product)) {
+			return false;	
+		}
+
+		if ( 'simple' == $product->get_type() ) {
+			$sale_price = $product->get_sale_price();
+		} else if ( 'variable' == $product->get_type() ) {
+			$variation_obj = wc_get_product( $variation_id ) ;
+			$sale_price    = is_object( $variation_obj ) ? $variation_obj->get_sale_price() : '' ;
+		}
+
+		if ( ! empty( $sale_price ) ) {
+			return true ;
+		}
+
+		return false ;
+	}
+
+}
+
 if ( ! function_exists( 'srp_product_object' ) ) {
 
 	function srp_product_object( $ProductId ) {

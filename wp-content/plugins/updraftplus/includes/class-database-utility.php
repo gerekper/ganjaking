@@ -664,6 +664,17 @@ class UpdraftPlus_Database_Utility {
 
 		return $stored_routines;
 	}
+
+	/**
+	 * First half of escaping for LIKE special characters % and _ before preparing for MySQL.
+	 * Use this only before wpdb::prepare() or esc_sql(). Reversing the order is very bad for security. This is a shim function for WP versions before 4.0.
+	 *
+	 * @param String $text The raw text to be escaped. The input typed by the user should have no extra or deleted slashes.
+	 * @return String Text in the form of a LIKE phrase. The output is not SQL safe. Call wpdb::prepare() or wpdb::_real_escape() next.
+	 */
+	public static function esc_like($text) {
+		return function_exists('esc_like') ? esc_like($text) : addcslashes($text, '_%\\');
+	}
 }
 
 class UpdraftPlus_WPDB_OtherDB_Utility extends wpdb {

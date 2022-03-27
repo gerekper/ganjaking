@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPLS_RuleTest {
 	public $form_id;
 	public $rule_group;
@@ -71,12 +67,12 @@ class GPLS_RuleTest {
 			return; // do not run tests because at least 1 rule is out of context
 		}
 		// setup and run query
-		$this->query_setup();
 		foreach ( $this->rules as $rule ) {
 			$this->query_rules( $rule );
 		}
-		$this->query_time_period();
+
 		$this->query_run();
+
 		// compare count to limit
 		if ( $this->count >= $this->limit ) {
 			$this->fail = true;
@@ -99,6 +95,14 @@ class GPLS_RuleTest {
 			}
 		}
 
+		// Add an exception for current entry when in a Gravity Flow workflow
+		$lid = rgget( 'lid' );
+
+		// page is fetched from $_REQUEST since Gravity Flow unsets it on $_GET.
+		if ( $lid && rgget( 'view' ) === 'entry' && rgar( $_REQUEST, 'page' ) === 'gravityflow-inbox' ) {
+			$this->where[] = $this->wpdb->prepare( "e.id != %d", $lid );
+		}
+
 	}
 
 	public function query_run() {
@@ -111,6 +115,15 @@ class GPLS_RuleTest {
 		 * @param GPLS_RuleTest $gpls_rule_test The current instance of the GPLS_RuleTest object.
 		 */
 		do_action( 'gpls_before_query', $this );
+
+		if ( empty( $this->where ) ) {
+			$this->count = 0;
+
+			return;
+		}
+
+		$this->query_setup();
+		$this->query_time_period();
 
 		$where = implode( ' AND ', $this->where );
 		$join  = implode( "\n", $this->join );

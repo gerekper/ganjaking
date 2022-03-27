@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart support.
  *
  * @class    WCS_ATT_Cart
- * @version  3.1.28
+ * @version  3.2.1
  */
 class WCS_ATT_Cart {
 
@@ -643,7 +643,7 @@ class WCS_ATT_Cart {
 
 				$available_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $cart_item[ 'data' ] );
 				$has_forced_schemes = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $cart_item[ 'data' ] );
-				$has_scheme_options = sizeof( $available_schemes ) > 1 || ( 1 === sizeof( $available_schemes ) && false === $has_forced_schemes );
+				$has_scheme_options = count( $available_schemes ) > 1 || ( 1 === count( $available_schemes ) && false === $has_forced_schemes );
 
 				// The product was purchased as a subscription...
 				if ( $scheme_to_apply ) {

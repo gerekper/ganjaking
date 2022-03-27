@@ -1,0 +1,18 @@
+  @media (max-width: 680px){
+#adminmenuwrap {
+    display: block!important;
+    max-width: 56px!important;
+    width: 100%!important;
+}
+.auto-fold #adminmenu {
+    top: 46px!important;
+    max-width: 60px!important;
+}
+.auto-fold #adminmenu .wp-menu-name {
+    position: static!important;
+    display: none!important;
+}
+#collapse-menu {
+    display: block !important;
+}
+}

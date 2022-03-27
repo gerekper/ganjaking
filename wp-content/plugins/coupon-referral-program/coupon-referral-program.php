@@ -7,27 +7,27 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://makewebbetter.com/
+ * @link              https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
  * @since             1.0.0
  * @package           coupon-referral-program
  *
  * Plugin Name:       Coupon Referral Program
  * Plugin URI:        https://woocommerce.com/products/coupon-referral-program/
  * Description:       This extension is mainly to install a referral program on your site and share the discount coupons in return.
- * Version:           1.6.2
- * Author:            MakeWebBetter
- * Author URI:        https://makewebbetter.com/
- * Developer:         makewebbetter
- * Developer URI:     https://makewebbetter.com/
+ * Version:           1.6.3
+ * Author:            WP Swings
+ * Author URI:        https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
+ * Developer:         WP Swings
+ * Developer URI:     https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
  * Text Domain:       coupon-referral-program
  * Domain Path:       /languages
  * Woo: 3820066:337863f09a287f1aaa7ad10d885a170e
  * Requires at least:        4.6
- * Tested up to:             5.8.2
+ * Tested up to:             5.9
  * WC requires at least:     3.0
- * WC tested up to:          5.9.0
+ * WC tested up to:          6.1.1
  *
- * Copyright:         © 2009-2021 WooCommerce.
+ * Copyright:         © 2009-2022 WooCommerce.
  * License:           GNU General Public License v3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -247,13 +247,13 @@ if ( $activated ) {
 	 * @name mwb_crp_plugin_row_meta
 	 * @param mixed $links Contains links.
 	 * @param mixed $file Contains main file.
-	 * @link http://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	function mwb_crp_plugin_row_meta( $links, $file ) {
 		if ( strpos( $file, 'coupon-referral-program/coupon-referral-program.php' ) !== false ) {
 			$new_links = array(
-				'doc'     => '<a href="https://docs.woocommerce.com/document/coupon-referral-program" target="_blank"><i class="far fa-file-alt" ></i>Documentation</a>',
-				'support' => '<a href="https://makewebbetter.freshdesk.com/a/tickets/new" target="_blank"><i class="fas fa-user-ninja" ></i>Support</a>',
+				'doc'     => '<a href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><i class="far fa-file-alt" ></i>Documentation</a>',
+				'support' => '<a href="https://wpswings.com/submit-query/?utm_source=wpswings-coupon-woo&utm_medium=woo-backend&utm_campaign=submit-query" target="_blank"><i class="fas fa-user-ninja" ></i>Support</a>',
 			);
 
 			$links = array_merge( $links, $new_links );
@@ -269,12 +269,74 @@ if ( $activated ) {
 	 *
 	 * @name mwb_crp_flush_rewrite_rules
 	 * @since 1.0.12.
-	 * @link https://www.makewebbetter.com/
+	 * @link https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
 	 */
 	function mwb_crp_flush_rewrite_rules() {
 		add_rewrite_endpoint( 'referral_coupons', EP_PAGES );
 		flush_rewrite_rules();
 	}
+
+	/**
+	 * Migration to new domain notice.
+	 *
+	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param array  $plugin_data An array of plugin data.
+	 * @param string $status Status filter currently applied to the plugin list.
+	 */
+	function crp_upgrade_notice( $plugin_file, $plugin_data, $status ) {
+
+		?>
+		<tr class="plugin-update-tr active notice-warning notice-alt">
+			<td colspan="4" class="plugin-update colspanchange">
+				<div class="notice notice-success inline update-message notice-alt">
+					<div class='wps-notice-title wps-notice-section'>
+						<p><strong>IMPORTANT NOTICE:</strong></p>
+					</div>
+					<div class='wps-notice-content wps-notice-section'>
+						<p>From this update <strong>Version 1.6.3</strong> onwards, the plugin and its support will be handled by <strong>WP Swings</strong>.</p><p><strong>WP Swings</strong> is just our improvised and rebranded version with all quality solutions and help being the same, so no worries at your end.
+						Please connect with us for all setup, support, and update related queries without hesitation.</p>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<style>
+			.wps-notice-section > p:before {
+				content: none;
+			}
+		</style>
+		<?php
+
+	}
+	// Upgrade notice.
+	add_action( 'after_plugin_row_' . plugin_basename( __FILE__ ), 'crp_upgrade_notice', 0, 3 );
+
+	/**
+	 * Migration to new domain notice on Referral settings page.
+	 */
+	function crp_admin_notice_on_settings_page() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
+
+		if ( 'crp-referral_setting' === $tab ) {
+			?>
+			<div class="notice notice-success notice-alt">
+				<div class='wps-notice-title wps-notice-section'>
+					<p><strong>IMPORTANT NOTICE:</strong></p>
+				</div>
+				<div class='wps-notice-content wps-notice-section'>
+					<p>From this update <strong>Version 1.6.3</strong> onwards, the plugin and its support will be handled by <strong>WP Swings</strong>.</p><p><strong>WP Swings</strong> is just our improvised and rebranded version with all quality solutions and help being the same, so no worries at your end.
+					Please connect with us for all setup, support, and update related queries without hesitation.</p>
+				</div>
+			</div>
+			<style>
+				.wps-notice-section > p:before {
+					content: none;
+				}
+			</style>
+			<?php
+		}
+	}
+	add_action( 'admin_notices', 'crp_admin_notice_on_settings_page' );
 } else {
 
 	// WooCommerce is not active so deactivate this plugin.
@@ -302,3 +364,4 @@ if ( $activated ) {
 		<?php
 	}
 }
+

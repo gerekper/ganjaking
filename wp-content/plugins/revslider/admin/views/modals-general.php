@@ -83,26 +83,33 @@ if(!defined('ABSPATH')) exit();
 					<div class="mcg_page mcg_selected">
 						<div class="dcenter">							
 							<div class="bigredwarning"><i class="material-icons">error_outline</i></div>
-							<div class="mcg_page_title"><?php _e('Your Slider Revolution license<br>has been deactivated', 'revslider');?></div>
-							<div><a class="simpletext smalllink" target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/why-was-my-slider-revolution-license-deactivated/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=deactivatedfaq"><?php _e('Why did this happen?', 'revslider');?></a></div>
-							<div class="div45"></div>
+							<div class="mcg_page_title warningtext"><?php _e('URGENT', 'revslider');?></div>
+							<div class="mcg_page_title"><?php _e('Your Slider Revolution License Has Been Deactivated!', 'revslider');?></div>
+							<div><a class="simpletext smalllink" target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/why-was-my-slider-revolution-license-deactivated/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=deactivatedfaq"><?php _e('Wondering why this happened? Click here!', 'revslider');?></a></div>
+							<div class="div35"></div>
 							<div class="dr_warningbox">
-								<div class="mcg_page_subtitle"><i class="material-icons warningicon">block</i> <?php _e('You no longer have access to Premium features', 'revslider');?></div>
-								<div class="div5"></div>
-								<div class="mcg_page_content"><?php _e('Template & Object Library, Add-Ons, Updates, Ticket Support', 'revslider');?></div>
+								<div class="mcg_page_subtitle"><i class="material-icons warningicon">block</i></div>
+								<div class="div15"></div>
+								<div class="mcg_page_subtitle"><?php _e('All of the premium features including templates, media assets,<br>and add-ons have been removed from your website.', 'revslider');?></div>
+								<div class="div15"></div>
+								<div class="mcg_page_content"><?php _e('We can help you restore everything right now, all you have to do is choose one of<br>the options below:', 'revslider');?></div>
+								<div class="div25"></div>
+								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>							
+								<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
+								<div class="div10"></div>
 							</div>
 							<div class="div10"></div>
 							<div class="dr_warningbox">
-								<div class="mcg_page_subtitle"><i class="material-icons warningicon">visibility_off</i> <?php _e('Your installed Premium templates and addons stopped working', 'revslider');?></div>
-								<div class="div5"></div>
-								<div class="mcg_page_content"><?php _e('Premium templates and addons will no longer display on your website', 'revslider');?></div>
-							</div>
-							<div class="div55"></div>
-							<div class="simpletext"><?php _e('You can restore all Premium features by <a target="_blank" rel="noopener" href="https://www.sliderrevolution.com/manual/quick-setup-register-your-plugin/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=registermanual">registering a license key</a><br>on this Slider Revolution installation.','revslider'); ?></div>
-							<div class="div40"></div>
-							<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>							
-							<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
-							<div class="div40"></div>
+								<div class="mcg_page_subtitle"><i class="material-icons warningicon">do_not_touch</i></div>
+								<div class="div15"></div>
+								<div class="mcg_page_subtitle"><?php _e('Please note you don’t have access to Premium 1-on-1 support<br>right now ...', 'revslider');?></div>
+								<div class="div15"></div>
+								<div class="mcg_page_content"><?php _e('.. however, as soon as you reactivate your license, our top-rated support team will<br>ensure that your website is fully functional.', 'revslider');?></div>
+								<div class="div25"></div>
+								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>							
+								<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
+								<div class="div10"></div>
+							</div>													
 						</div>						
 					</div>										
 				</div>

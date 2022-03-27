@@ -2,11 +2,20 @@
 
 namespace ACP\Plugin\Update;
 
-use AC\Plugin\Update\V3201;
+use AC\Plugin\Update;
+use AC\Plugin\Version;
 use AC\Storage;
+use DirectoryIterator;
 use Exception;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
-class V4301 extends V3201 {
+class V4301 extends Update {
+
+	public function __construct() {
+		parent::__construct( new Version( '4.3.1' ) );
+	}
 
 	/**
 	 * @throws Exception
@@ -16,8 +25,47 @@ class V4301 extends V3201 {
 		$this->update_notice_preference_renewal();
 	}
 
-	protected function set_version() {
-		$this->version = '4.3.1';
+	/**
+	 * Set all files to the proper case
+	 *
+	 * @param string Directory
+	 */
+	protected function uppercase_class_files( $directory ) {
+		$iterator = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator( $directory, FilesystemIterator::SKIP_DOTS )
+		);
+
+		/** @var DirectoryIterator $leaf */
+		foreach ( $iterator as $leaf ) {
+			$file = $leaf->getFilename();
+
+			if ( $leaf->isFile() && 'php' === $leaf->getExtension() && $file == strtolower( $file ) ) {
+				@rename( $leaf->getPathname(), trailingslashit( $leaf->getPath() ) . ucfirst( $file ) );
+			}
+		}
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return array ID's
+	 */
+	protected function get_users_by_meta_key( $key ) {
+		$user_ids = get_users( [
+			'fields'     => 'ids',
+			'meta_query' => [
+				[
+					'key'     => $key,
+					'compare' => 'EXISTS',
+				],
+			],
+		] );
+
+		if ( ! $user_ids ) {
+			return [];
+		}
+
+		return $user_ids;
 	}
 
 	/**

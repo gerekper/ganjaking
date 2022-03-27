@@ -4,6 +4,7 @@ namespace WPMailSMTP\Pro\Providers\Zoho;
 
 use WPMailSMTP\Debug;
 use WPMailSMTP\Providers\OptionsAbstract;
+use WPMailSMTP\Options as PluginOptions;
 
 /**
  * Zoho mailer Options.
@@ -260,12 +261,12 @@ class Options extends OptionsAbstract {
 
 		if (
 			! isset( $_GET['zoho_remove_nonce'] ) ||
-			! wp_verify_nonce( $_GET['zoho_remove_nonce'], 'zoho_remove' ) // phpcs:ignore
+			! wp_verify_nonce( sanitize_key( $_GET['zoho_remove_nonce'] ), 'zoho_remove' )
 		) {
 			return;
 		}
 
-		$options = new \WPMailSMTP\Options();
+		$options = PluginOptions::init();
 
 		if ( $options->get( 'mail', 'mailer' ) !== $this->get_slug() ) {
 			return;

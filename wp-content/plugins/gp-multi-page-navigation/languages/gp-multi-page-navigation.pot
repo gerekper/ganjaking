@@ -29,39 +29,43 @@ msgstr ""
 msgid "Specify when the user should be able to navigate between pages and to which pages the user should be able to navigate."
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:108
+#: ../class-gp-multi-page-navigation.php:110
 msgid "User can navigate to any form page"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:110
+#: ../class-gp-multi-page-navigation.php:112
+msgid "User can navigate to any form page..."
+msgstr ""
+
+#: ../class-gp-multi-page-navigation.php:116
 msgid "they have completed"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:111
+#: ../class-gp-multi-page-navigation.php:117
 msgid "from the start"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:112
+#: ../class-gp-multi-page-navigation.php:118
 msgid "after reaching the last page"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:333
+#: ../class-gp-multi-page-navigation.php:365
 msgid "Back to Last Page"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:334
+#: ../class-gp-multi-page-navigation.php:366
 msgctxt "Option to submit multi-page form after validation error"
 msgid "Submit"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:335
+#: ../class-gp-multi-page-navigation.php:367
 msgid "Next Page with Errors"
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:400
+#: ../class-gp-multi-page-navigation.php:432
 msgid "There are multiple pages with errors."
 msgstr ""
 
-#: ../class-gp-multi-page-navigation.php:401
+#: ../class-gp-multi-page-navigation.php:433
 msgid "You have been redirected to the first page with errors."
 msgstr ""

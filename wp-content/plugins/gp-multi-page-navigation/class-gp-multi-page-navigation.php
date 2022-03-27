@@ -1,13 +1,9 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Multi_Page_Navigation extends GWPerk {
 
 	public $version                      = GP_MULTI_PAGE_NAVIGATION_VERSION;
-	protected $min_gravity_perks_version = '1.2.7';
+	protected $min_gravity_perks_version = '2.2.5';
 	protected $min_gravity_forms_version = '1.9.1.12';
 
 	public $_args = array();
@@ -99,18 +95,24 @@ class GP_Multi_Page_Navigation extends GWPerk {
 
 			<div class="gpmpn-setting-row">
 
-				<div style="margin:12px 0;">
+				<div class="gp-row">
 					<input type="checkbox" name="<?php echo $this->key( 'enable' ); ?>" id="<?php echo $this->key( 'enable' ); ?>" value="1" onclick="gpmpn.toggleSettings( this.checked, true );" />
 					<label for="<?php echo $this->key( 'enable' ); ?>"><?php _e( 'Enable Page Navigation', 'gp-multi-page-navigation' ); ?> <?php gform_tooltip( $this->key( 'enable' ) ); ?></label>
 				</div>
 
-				<div class="gws-child-settings" style="display:none;">
+				<div class="gp-child-settings gws-child-settings" style="display:none;">
 
 					<div id="gpmpn-activation-type-setting" class="gws-setting-row">
-						<label for="<?php echo $this->key( 'activation_type' ); ?>"><?php _e( 'Activation Type', 'gp-multi-page-navigation' ); ?> <?php gform_tooltip( $this->key( 'activation_type' ) ); ?></label><br />
-						<div style="margin-top:8px;">
-							<label for="<?php echo $this->key( 'activation_type' ); ?>"><?php _e( 'User can navigate to any form page', 'gp-multi-page-navigation' ); ?></label>
-							<select style="width:170px;" id="<?php echo $this->key( 'activation_type' ); ?>" name="<?php echo $this->key( 'activation_type' ); ?>" onchange="gpmpn.setPaginationProp( '<?php echo $this->key( 'activation_type' ); ?>', this.value );">
+						<label for="<?php echo $this->key( 'activation_type' ); ?>" class="section_label"><?php _e( 'Activation Type', 'gp-multi-page-navigation' ); ?> <?php gform_tooltip( $this->key( 'activation_type' ) ); ?></label>
+						<div>
+							<label for="<?php echo $this->key( 'activation_type' ); ?>">
+								<?php if ( GravityPerks::is_gf_version_lte( '2.5' ) ) : ?>
+									<?php _e( 'User can navigate to any form page', 'gp-multi-page-navigation' ); ?>
+								<?php else : ?>
+									<?php _e( 'User can navigate to any form page...', 'gp-multi-page-navigation' ); ?>
+								<?php endif; ?>
+							</label>
+							<select id="<?php echo $this->key( 'activation_type' ); ?>" name="<?php echo $this->key( 'activation_type' ); ?>" onchange="gpmpn.setPaginationProp( '<?php echo $this->key( 'activation_type' ); ?>', this.value );">
 								<option value="progression"><?php _e( 'they have completed', 'gp-multi-page-navigation' ); ?></option>
 								<option value="first_page"><?php _e( 'from the start', 'gp-multi-page-navigation' ); ?></option>
 								<option value="last_page"><?php _e( 'after reaching the last page', 'gp-multi-page-navigation' ); ?></option>
@@ -121,7 +123,7 @@ class GP_Multi_Page_Navigation extends GWPerk {
 					<div id="<?php echo $this->key( 'indicator_message' ); ?>" class="gws-setting-row">
 						<div class="gws-setting-message">
 							Page navigation will automatically work with the "Steps" progress indicator. When enabled with the "Progress Bar" or no progress indicator,
-								you must create custom page links to navigate between pages. <a href="http://gravitywiz.com/gravity-forms-multi-page-form-navigation/#options">Learn More</a>
+								you must create custom page links to navigate between pages. <a href="http://gravitywiz.com/gravity-forms-multi-page-form-navigation/#custom-page-links">Learn More</a>
 						</div>
 					</div>
 
@@ -133,9 +135,31 @@ class GP_Multi_Page_Navigation extends GWPerk {
 
 		<style type="text/css">
 
-			.gws-setting-row { margin: 0 0 14px; }
-			.gws-child-settings { border-left: 2px solid #eee; padding: 15px 15px 1px; margin-left: 5px; }
-			.gws-setting-message { background-color: #FFFFE0; border: 1px solid #F4EFB8; padding: 10px; }
+			.gws-setting-message {
+				border: 1.5px solid #ffbe03;
+				border-radius: 3px
+				line-height: 1em;
+				padding: 0.875rem;
+			}
+
+			.gf-legacy-ui .gws-setting-message {
+				background-color: #FFFFE0;
+				border: 1px solid #F4EFB8;
+				padding: 10px;
+			}
+
+			.gf-legacy-ui #gp-multi-page-navigation_activation_type {
+				width: 170px;
+			}
+
+			label[for="gp-multi-page-navigation_activation_type"] {
+				display: block;
+				margin-bottom: 0.5rem;
+			}
+
+			.gf-legacy-ui label[for="gp-multi-page-navigation_activation_type"] {
+				display: inline;
+			}
 
 		</style>
 
@@ -267,9 +291,13 @@ class GP_Multi_Page_Navigation extends GWPerk {
 
 		if ( $this->is_navigation_enabled( $form ) ) {
 
-			wp_enqueue_script( 'gp-multi-page-navigation', $this->get_base_url() . '/js/gp-multi-page-navigation.js', array( 'jquery' ) );
+			wp_enqueue_script( 'gp-multi-page-navigation', $this->get_base_url() . '/js/gp-multi-page-navigation.js', array( 'jquery' ), $this->version );
+			wp_enqueue_style( 'gp-multi-page-navigation', $this->get_base_url() . '/css/gp-multi-page-navigation.css', array(), $this->version );
 
 			$this->register_noconflict_script( 'gp-multi-page-navigation' );
+
+			$this->register_noconflict_styles( 'gp-multi-page-navigation' );
+			$this->register_preview_style( 'gp-multi-page-navigation' );
 
 		}
 
@@ -405,9 +433,20 @@ class GP_Multi_Page_Navigation extends GWPerk {
 			$message[] = __( 'You have been redirected to the first page with errors.', 'gp-multi-page-navigation' );
 		}
 
-		$message[] = __( 'Errors have been highlighted below.', 'gravityforms' );
+		if ( GravityPerks::is_gf_version_lte( '2.5-beta-1' ) ) {
+			$message[] = __( 'Errors have been highlighted below.', 'gravityforms' );
+		} else {
+			$message[] = __( 'Please review the fields below.', 'gravityforms' );
+		}
 
-		return sprintf( '<div class="validation_error">%s</div>', implode( ' ', $message ) );
+		// Apply GF 2.4 error markup if needed
+		if ( GravityPerks::is_gf_version_lte( '2.5' ) ) {
+			return sprintf( '<div class="validation_error">%s</div>', implode( ' ', $message ) );
+		}
+
+		return sprintf( '<h2 class="gform_submission_error"><span class="gform-icon gform-icon--close"></span>%s</h2>',
+			implode( ' ', $message )
+		);
 	}
 
 	public function get_first_page_with_validation_error( $form ) {

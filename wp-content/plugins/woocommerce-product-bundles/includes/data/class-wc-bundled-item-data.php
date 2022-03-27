@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  6.4.0
+ * @version  6.14.0
  */
 
 class WC_Bundled_Item_Data {
@@ -542,14 +542,27 @@ class WC_Bundled_Item_Data {
 		// Update or delete meta from the db.
 		if ( ! empty( $raw_meta_data ) ) {
 
-			// Min quantity changed? Invalidate stock status.
+			$invalidate_stock_status = false;
+
+			// Invalidate stock status if the min quantity, override variations, allowed variations or optional setting change.
 			foreach ( $raw_meta_data as $meta ) {
 				if ( 'quantity_min' === $meta->meta_key ) {
 					if ( isset( $this->meta_data[ 'quantity_min' ] ) && absint( $meta->meta_value ) !== absint( $this->meta_data[ 'quantity_min' ] ) ) {
-						unset( $this->meta_data[ 'stock_status' ] );
-						unset( $this->meta_data[ 'max_stock' ] );
+						$invalidate_stock_status = true;
+					}
+				} elseif ( in_array( $meta->meta_key, array( 'override_variations', 'optional' ), true ) ) {
+					if ( isset( $this->meta_data[ $meta->meta_key ] ) && $meta->meta_value !== $this->meta_data[ $meta->meta_key ] ) {
+						$invalidate_stock_status = true;
+					}
+				} elseif ( 'allowed_variations' === $meta->meta_key ) {
+					if ( isset( $this->meta_data[ 'allowed_variations' ] ) && maybe_unserialize( $meta->meta_value ) !== $this->meta_data[ 'allowed_variations' ] ) {
+						$invalidate_stock_status = true;
 					}
 				}
+			}
+
+			if ( $invalidate_stock_status ) {
+				unset( $this->meta_data[ 'stock_status' ], $this->meta_data[ 'max_stock' ] );
 			}
 
 			// Update or delete meta from the db depending on their presence.

@@ -10,8 +10,7 @@ while ( have_posts() ) :
   the_post();
 
   $lesson = new models\Lesson($post->ID);
-  $lesson_available = is_user_logged_in() && $lesson->is_available(get_current_user_id());
-  $has_completed_lesson = models\UserProgress::has_completed_lesson(get_current_user_id(), $lesson->ID);
+  $lesson_available = $lesson->is_available();
   ?>
     <div class="entry entry-content">
       <div class="columns col-gapless" style="flex-grow: 1;">
@@ -35,7 +34,7 @@ while ( have_posts() ) :
           <h1 class="entry-title"> <i class="mpcs-quiz-icon"></i> <?php the_title() ?></h1>
 
           <?php
-            if($lesson_available || $has_completed_lesson) {
+            if($lesson_available) {
               the_content();
             } else {
               $button_class = 'btn btn-green is-purple';

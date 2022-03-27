@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 1.3.5
+
+	- Fixed issue where added merge tags would immediately be removed when moving focus from the inserted merge tag.
+
+## 1.3.4
+
+	- Fixed regression where the Pretty ID was not registered as an entry meta key which prevented it from showing up in options such as Field Maps.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.3.3
+
+	- Fixed an issue where entry IDs were not decrypted correctly when using the OpenSSL implementation.
+
 ## 1.3.2
 
 	- Fixed issue where merge tag selector was not available in Gutenberg if using Gravity Forms 2.5.2.1 or newer.

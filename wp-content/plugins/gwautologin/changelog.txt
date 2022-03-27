@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 2.2.2
+
+	- Fixed issue where Auto Login would be processed when approving/rejecting entries when using the Gravity Flow Inbox.
+	- Added "Update URI" to plugin header to improve security.
+
+## 2.2.1
+
+	- Added [gpal_should_remember](https://gravitywiz.com/documentation/gpal_should_remember/) filter to allow filtering whether the auto-login will be remembered.
+
+## 2.2
+
+	- Improved compatibility with Gravity Forms 2.5.
+
 ## 2.1
 
 	- Added support for GF User Registration 4.6.

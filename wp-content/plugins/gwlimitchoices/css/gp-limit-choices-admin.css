@@ -5,7 +5,7 @@
 	display: none;
 }
 
-.gw-limit-choice.limits-enabled .field-choice-limit {
+.gw-limit-choice.limits-enabled:not( .inventory-limits-enabled ) .field-choice-limit {
 	display: block;
 	text-align: center;
 	/* Would love to have some padding but we need all the space we can get in GF 2.5. */
@@ -30,7 +30,7 @@
 	display: none;
 }
 
-.gw-limit-choice.limits-enabled .gfield_choice_header_limit {
+.gw-limit-choice.limits-enabled:not( .inventory-limits-enabled ) .gfield_choice_header_limit {
 	display: inline-block;
 }
 

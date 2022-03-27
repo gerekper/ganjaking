@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 1.2
+
+	- Improved compatibility with Gravity Forms 2.5.
+	- Added inline docs for "gpppw_word_count" filters.
+
 ## 1.1.6
 
 	- Fixed an issue where prices in Euro would be displayed incorrectly. (#1)

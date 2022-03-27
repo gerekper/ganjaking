@@ -226,10 +226,10 @@ jQuery(document).ready(function() {
 	 */
 	jQuery('#permalink-manager').on('change', 'select[name="auto_update_uri"]', function() {
 		var selected = jQuery(this).find('option:selected');
-		var auto_update_status = jQuery(selected).data('auto-update');
+		var auto_update_status = jQuery(selected).data('readonly');
 		var container = jQuery(this).parents('#permalink-manager');
 
-		if(auto_update_status == 1) {
+		if(auto_update_status == 1 || auto_update_status == 2) {
 			jQuery(container).find('input[name="custom_uri"]').attr("readonly", true);
 			jQuery(container).find('.uri_locked').removeClass("hidden");
 		} else {
@@ -597,7 +597,7 @@ jQuery(document).ready(function() {
 				custom_uri_field.val(custom_uri);
 
 				// Get auto-update settings
-				auto_update = jQuery("#post-" + post_id).find(".permalink-manager-col-uri").attr('data-auto_update');
+				auto_update = jQuery("#post-" + post_id).find(".permalink-manager-col-uri").attr('data-readonly');
 				if(typeof auto_update !== "undefined" && auto_update == 1) {
 					custom_uri_field.attr('readonly', 'readonly');
 				}

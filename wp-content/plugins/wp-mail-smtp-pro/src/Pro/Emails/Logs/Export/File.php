@@ -5,7 +5,6 @@ namespace WPMailSMTP\Pro\Emails\Logs\Export;
 use WP_Error;
 use WPMailSMTP\Uploads;
 use WPMailSMTP\Helpers\Helpers;
-use WPMailSMTP\Vendor\Goodby\CSV\Export\Standard\CsvFileObject;
 use WPMailSMTP\Vendor\XLSXWriter;
 
 /**
@@ -60,21 +59,33 @@ class File {
 			return $export_file;
 		}
 
-		$csv       = new CsvFileObject( $export_file, 'a' );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
+		$f         = fopen( 'php://temp', 'wb+' );
 		$separator = Export::get_config( 'export', 'csv_export_separator' );
 		$enclosure = '"';
 
 		$data = new TableData( $request );
 
 		if ( $request->get_arg( 'step' ) === 1 ) {
-			$csv->fputcsv( $data->get_columns(), $separator, $enclosure );
+			fputcsv( $f, $data->get_columns(), $separator, $enclosure );
 		}
 
 		foreach ( $data->get_row() as $row ) {
-			$csv->fputcsv( $row, $separator, $enclosure );
+			fputcsv( $f, $row, $separator, $enclosure );
 		}
 
-		$csv->fflush();
+		rewind( $f );
+
+		$file_contents = stream_get_contents( $f );
+
+		$result = $this->put_contents( $export_file, $file_contents );
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
+		fclose( $f );
+
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
 
 		return true;
 	}
@@ -149,7 +160,13 @@ class File {
 			}
 		} else {
 			$zip      = new \ZipArchive();
-			$zip_open = $zip->open( $export_file, \ZipArchive::CREATE );
+
+			/*
+			 * Use `\ZipArchive::OVERWRITE` instead of `\ZipArchive::CREATE` for compatibility with PHP 8.1.
+			 * In PHP 8.1 with `\ZipArchive::CREATE` mode using empty file as ZipArchive is deprecated.
+			 * Since we create file in `File::get_tmp_filename` method, we need to use `\ZipArchive::OVERWRITE` mode.
+			 */
+			$zip_open = $zip->open( $export_file, \ZipArchive::OVERWRITE );
 
 			if ( $zip_open !== true ) {
 				return new WP_Error(
@@ -299,7 +316,8 @@ class File {
 			return $export_dir;
 		}
 
-		$export_file = $export_dir . '/' . sanitize_key( $request_id );
+		$export_file = $export_dir . '/' . sanitize_key( $request_id ) . '.tmp';
+
 		touch( $export_file );
 
 		return $export_file;
@@ -320,5 +338,44 @@ class File {
 		header( 'Content-Type: text/' . $type );
 		header( 'Content-Disposition: attachment; filename=' . $file_name );
 		header( 'Content-Transfer-Encoding: binary' );
+	}
+
+	/**
+	 * Put file contents using WP Filesystem.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $export_file   Export filename.
+	 * @param string $file_contents File contents.
+	 *
+	 * @return true|WP_Error
+	 */
+	private function put_contents( $export_file, $file_contents ) {
+
+		global $wp_filesystem;
+
+		if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+		}
+
+		if ( ! $wp_filesystem instanceof \WP_Filesystem_Direct ) {
+			if ( get_filesystem_method() !== 'direct' ) {
+				return new WP_Error(
+					'wrong-wp-filesystem-access',
+					esc_html__( 'Your WP site is not using the direct file system method, which is needed for this export.', 'wp-mail-smtp-pro' )
+				);
+			}
+
+			// Instantiate $wp_filesystem global with direct access method.
+			WP_Filesystem( request_filesystem_credentials( site_url() ) );
+		}
+
+		$wp_filesystem->put_contents(
+			$export_file,
+			$file_contents
+		);
+
+		return true;
 	}
 }

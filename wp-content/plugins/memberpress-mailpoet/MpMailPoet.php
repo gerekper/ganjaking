@@ -174,7 +174,7 @@ class MpMailPoet  {
       //If status is -1 (unsubscribed), then the user has explicitly asked for no more contact so don't re-add them
       $exists = $this->email_exists($user->user_email, true);
 
-      if(!$exists || ($exists && $exists['status'] >= 0 && !$this->exists_in_list($exists['user_id'], $list_id))) {
+      if(!$exists || ($exists && $exists['status'] >= 0 && !$this->exists_in_list($exists['user_id'], $list_id, $user->user_email))) {
         return $this->add_subscriber($user, $list_id);
       }
     }
@@ -292,7 +292,7 @@ class MpMailPoet  {
     if($subscriber_data) {
       if($add_status) {
         $mapped_status = ($subscriber_data['status'] == 'unsubscribed') ? -1 : 1;
-        return array('status' => $status, 'user_id' => $subscriber_data['id']);
+        return array('status' => $subscriber_data['status'], 'user_id' => $subscriber_data['id']);
       }
       else {
         return $subscriber_data['id'];
@@ -303,9 +303,9 @@ class MpMailPoet  {
   }
 
   //user_id is NOT a WP_User ID, it's MailPoet user id
-  public function exists_in_list($user_id, $list_id) {
+  public function exists_in_list($user_id, $list_id, $email) {
     if($this->is_version_three()) {
-      return $this->exists_in_list_version_three($user_id, $list_id);
+      return $this->exists_in_list_version_three($user_id, $list_id, $email);
     }
 
     global $wpdb;
@@ -315,7 +315,7 @@ class MpMailPoet  {
     return ($exists_in_list > 0);
   }
 
-  public function exists_in_list_version_three($user_id, $list_id) {
+  public function exists_in_list_version_three($user_id, $list_id, $email) {
     try {
       $subscriber_data = \MailPoet\API\API::MP('v1')->getSubscriber($email);
     }

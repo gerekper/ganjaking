@@ -1,105 +1,145 @@
 <?php
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 class GPBUA_Merge_Tags {
 
-  public function __construct() {
+	public function __construct() {
 
-    add_filter( 'the_content', array( $this, 'replace_merge_tags' ), 15 );
+		add_filter( 'the_content', array( $this, 'replace_merge_tags' ), 15 );
 
-  }
+	}
 
-  public function replace_merge_tags( $content ) {
+	public function replace_merge_tags( $content ) {
 
-    if ( $GLOBALS['post']->ID != gpbua_get_activation_page_id() ) {
-      return $content;
-    }
+		if ( ! isset( $GLOBALS['post']->ID ) || $GLOBALS['post']->ID != gpbua_get_activation_page_id() ) {
+			return $content;
+		}
 
-    // get the gf activation signup
-    $activate = GPBUA_Activate::get_instance();
-    $signup = $activate->get_signup();
+		// get the gf activation signup
+		$activate = GPBUA_Activate::get_instance();
+		$signup   = $activate->get_signup();
 
-    $aux_data = array( 'gpbua' => $this->get_merge_tags_data() );
+		$aux_data = array( 'gpbua' => $this->get_merge_tags_data() );
 
-    // set form and lead if possible to support entry tags
-    $form = array();
-    $entry = array();
+		// set form and lead if possible to support entry tags
+		$form  = array();
+		$entry = array();
 
-    if ($signup instanceof GFSignup) {
+		if ( $signup instanceof GFSignup ) {
 
-      // we have signup
-      $form = $signup->form;
-      $entry = $signup->lead;
+			// we have signup
+			$form  = $signup->form;
+			$entry = $signup->lead;
 
-    } elseif( is_wp_error( $signup ) && $signup->get_error_code() == 'already_active' ) {
+		} elseif ( is_wp_error( $signup ) && $signup->get_error_code() == 'already_active' ) {
 
-      // no signup object but we can load from error object if the error is "already_active"
-      $error_data = $signup->get_error_data( $signup->get_error_code() );
-      $signup = unserialize( $error_data->meta );
-      $entry = GFAPI::get_entry( $signup['lead_id'] );
-      $form = GFAPI::get_form( $entry['form_id'] );
+			// no signup object but we can load from error object if the error is "already_active"
+			$error_data = $signup->get_error_data( $signup->get_error_code() );
+			$signup     = unserialize( $error_data->meta );
+			$entry      = GFAPI::get_entry( rgar( $signup, 'lead_id' ) );
+			$form       = GFAPI::get_form( rgar( $signup, 'form_id' ) );
 
-    }
+		}
 
-    return GFCommon::replace_variables( $content, $form, $entry, false, false, false, 'html', $aux_data );
+		return GFCommon::replace_variables( $content, $form, $entry, false, false, false, 'html', $aux_data );
 
-  }
+	}
 
 	private function define_merge_tags() {
 		return array(
-			'login'              => array( 'label' => __( 'Login', 'gp-better-user-activation' ),              'value' => $this->tag_login(),              'tag' => '{gpbua:login}' ),
-			'login_url'          => array( 'label' => __( 'Login URL', 'gp-better-user-activation' ),          'value' => $this->tag_login_url(),          'tag' => '{gpbua:login_url}' ),
-			'home'               => array( 'label' => __( 'Home', 'gp-better-user-activation' ),               'value' => $this->tag_home(),               'tag' => '{gpbua:home}' ),
-			'home_url'           => array( 'label' => __( 'Home URL', 'gp-better-user-activation' ),           'value' => $this->tag_home_url(),           'tag' => '{gpbua:home_url}' ),
-			'reset_password'     => array( 'label' => __( 'Reset Password', 'gp-better-user-activation' ),     'value' => $this->tag_reset_password(),     'tag' => '{gpbua:reset_password}' ),
-			'reset_password_url' => array( 'label' => __( 'Reset Password URL', 'gp-better-user-activation' ), 'value' => $this->tag_reset_password_url(), 'tag' => '{gpbua:reset_password_url}' ),
-			'username'           => array( 'label' => __( 'Username', 'gp-better-user-activation' ),           'value' => $this->tag_username(),           'tag' => '{gpbua:username}' ),
-			'password'           => array( 'label' => __( 'Password', 'gp-better-user-activation' ),           'value' => $this->tag_password(),           'tag' => '{gpbua:password}' ),
-			'email'              => array( 'label' => __( 'Email', 'gp-better-user-activation' ),              'value' => $this->tag_email(),              'tag' => '{gpbua:email}' ),
-			'activation_form'    => array( 'label' => __( 'Activation Form', 'gp-better-user-activation' ),    'value' => $this->tag_activation_form(),    'tag' => '{gpbua:activation_form}' ),
-			'error_message'      => array( 'label' => __( 'Error Message', 'gp-better-user-activation' ),      'value' => $this->tag_error_message(),      'tag' => '{gpbua:error_message}' ),
+			'login'              => array(
+				'label' => __( 'Login', 'gp-better-user-activation' ),
+				'value' => $this->tag_login(),
+				'tag'   => '{gpbua:login}',
+			),
+			'login_url'          => array(
+				'label' => __( 'Login URL', 'gp-better-user-activation' ),
+				'value' => $this->tag_login_url(),
+				'tag'   => '{gpbua:login_url}',
+			),
+			'home'               => array(
+				'label' => __( 'Home', 'gp-better-user-activation' ),
+				'value' => $this->tag_home(),
+				'tag'   => '{gpbua:home}',
+			),
+			'home_url'           => array(
+				'label' => __( 'Home URL', 'gp-better-user-activation' ),
+				'value' => $this->tag_home_url(),
+				'tag'   => '{gpbua:home_url}',
+			),
+			'reset_password'     => array(
+				'label' => __( 'Reset Password', 'gp-better-user-activation' ),
+				'value' => $this->tag_reset_password(),
+				'tag'   => '{gpbua:reset_password}',
+			),
+			'reset_password_url' => array(
+				'label' => __( 'Reset Password URL', 'gp-better-user-activation' ),
+				'value' => $this->tag_reset_password_url(),
+				'tag'   => '{gpbua:reset_password_url}',
+			),
+			'username'           => array(
+				'label' => __( 'Username', 'gp-better-user-activation' ),
+				'value' => $this->tag_username(),
+				'tag'   => '{gpbua:username}',
+			),
+			'password'           => array(
+				'label' => __( 'Password', 'gp-better-user-activation' ),
+				'value' => $this->tag_password(),
+				'tag'   => '{gpbua:password}',
+			),
+			'email'              => array(
+				'label' => __( 'Email', 'gp-better-user-activation' ),
+				'value' => $this->tag_email(),
+				'tag'   => '{gpbua:email}',
+			),
+			'activation_form'    => array(
+				'label' => __( 'Activation Form', 'gp-better-user-activation' ),
+				'value' => $this->tag_activation_form(),
+				'tag'   => '{gpbua:activation_form}',
+			),
+			'error_message'      => array(
+				'label' => __( 'Error Message', 'gp-better-user-activation' ),
+				'value' => $this->tag_error_message(),
+				'tag'   => '{gpbua:error_message}',
+			),
 		);
 	}
 
 	public function get_merge_tags_data() {
-  	    $data = array();
-  	    foreach( $this->define_merge_tags() as $key => $tag ) {
-  	    	$data[ $key ] = $tag['value'];
-        }
-        return $data;
+		$data = array();
+		foreach ( $this->define_merge_tags() as $key => $tag ) {
+			$data[ $key ] = $tag['value'];
+		}
+		return $data;
 	}
 
-  public function tag_login() {
-    return '<a class="gpbua-login-link" href="' . wp_login_url() . '">' . __( 'Login', 'gp-better-user-activation' ) . '</a>';
-  }
+	public function tag_login() {
+		return '<a class="gpbua-login-link" href="' . wp_login_url() . '">' . __( 'Login', 'gp-better-user-activation' ) . '</a>';
+	}
 
-  public function tag_login_url() {
-    return wp_login_url();
-  }
+	public function tag_login_url() {
+		return wp_login_url();
+	}
 
-  public function tag_home() {
-    return '<a class="gpbua-home-link" href="' . get_home_url() . '">' . __( 'Home', 'gp-better-user-activation' ) . '</a>';
-  }
+	public function tag_home() {
+		return '<a class="gpbua-home-link" href="' . get_home_url() . '">' . __( 'Home', 'gp-better-user-activation' ) . '</a>';
+	}
 
-  public function tag_home_url() {
-    return get_home_url();
-  }
+	public function tag_home_url() {
+		return get_home_url();
+	}
 
-  public function tag_reset_password() {
-    return '<a class="gpbua-reset-password-link" href="' . wp_lostpassword_url() . '">' . __( 'Reset your password', 'gp-better-user-activation' ) . '</a>';
-  }
+	public function tag_reset_password() {
+		return '<a class="gpbua-reset-password-link" href="' . wp_lostpassword_url() . '">' . __( 'Reset your password', 'gp-better-user-activation' ) . '</a>';
+	}
 
-  public function tag_reset_password_url() {
-    return wp_lostpassword_url();
-  }
+	public function tag_reset_password_url() {
+		return wp_lostpassword_url();
+	}
 
 	public function tag_username() {
 
 		$user = $this->get_user_from_activation_result();
-		if( $user ) {
+		if ( $user ) {
 			return $user->user_login;
 		}
 
@@ -108,7 +148,7 @@ class GPBUA_Merge_Tags {
 
 	public function tag_email() {
 		$user = $this->get_user_from_activation_result();
-		if( $user ) {
+		if ( $user ) {
 			return $user->user_email;
 		}
 	}
@@ -122,10 +162,34 @@ class GPBUA_Merge_Tags {
 	private function tag_password() {
 
 		// get the gf activation result
-		$activate = GPBUA_Activate::get_instance();
+		$activate          = GPBUA_Activate::get_instance();
 		$activation_result = $activate->get_result();
 
-		if( ! is_wp_error( $activation_result ) ) {
+		$signup = $activate->get_signup();
+
+		// Signup will return error if user is already registered.
+		if ( is_wp_error( $signup ) ) {
+			return '';
+		}
+
+		if ( $signup && $signup->config ) {
+			$password_setup = rgars( $signup->config, 'meta/password' );
+
+			if ( $password_setup === 'email_link' ) {
+				$user = new WP_User( (int) $activation_result['user_id'] );
+				if ( ! empty( $user->user_activation_key ) ) {
+					return esc_html__( 'Check your email for the set password link.', 'gp-better-user-activation' );
+				} else {
+					return '<a href="' . $this->tag_reset_password_url() . '">' . esc_html__( 'Set your password.', 'gp-better-user-activation' ) . '</a>';
+				}
+			}
+
+			if ( is_numeric( $password_setup ) ) {
+				return esc_html__( 'Set at registration.', 'gp-better-user-activation' );
+			}
+		}
+
+		if ( ! is_wp_error( $activation_result ) ) {
 			return rgar( $activation_result, 'password' );
 		}
 
@@ -134,10 +198,10 @@ class GPBUA_Merge_Tags {
 
 	public function tag_error_message() {
 
-	    $activate = GPBUA_Activate::get_instance();
-		$result = $activate->get_result();
+		$activate = GPBUA_Activate::get_instance();
+		$result   = $activate->get_result();
 
-		if( is_wp_error( $result ) ) {
+		if ( is_wp_error( $result ) ) {
 			return $result->get_error_message();
 		}
 
@@ -162,8 +226,8 @@ class GPBUA_Merge_Tags {
 
 		$defined = $mt->define_merge_tags();
 
-		foreach( $defined as $key => $tag ) {
-			if( in_array( $key, $view_tags ) ) {
+		foreach ( $defined as $key => $tag ) {
+			if ( in_array( $key, $view_tags ) ) {
 				$tags[ $key ] = $tag;
 			}
 		}
@@ -176,12 +240,14 @@ class GPBUA_Merge_Tags {
 		$activate = GPBUA_Activate::get_instance();
 		$result   = $activate->get_result();
 
-		if( is_wp_error( $result ) ) {
-			if( $result->get_error_code() == 'already_active' ) {
+		if ( is_wp_error( $result ) ) {
+			if ( $result->get_error_code() == 'already_active' ) {
 				return new WP_User( 0, $result->get_error_data( 'already_active' )->user_login );
 			} else {
 				return false;
 			}
+		} elseif ( ! $result ) {
+			return false;
 		}
 
 		return new WP_User( $result['user_id'] );

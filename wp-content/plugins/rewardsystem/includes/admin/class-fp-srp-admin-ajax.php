@@ -293,7 +293,7 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 					'from_name'     => wc_clean(wp_unslash( $_POST[ 'fromname' ] ) ),
 					'from_email'    => wc_clean(wp_unslash( $_POST[ 'fromemail' ] ) ),
 					'subject'       => wc_clean(wp_unslash( $_POST[ 'subject' ] ) ),
-					'message'       => wc_clean(wp_unslash( $_POST[ 'message' ] ) ),
+					'message'       => wp_kses_post(wp_unslash( $_POST[ 'message' ] ) ),
 					'noofdays'      => wc_clean(wp_unslash( $_POST[ 'noofdays' ] ) ),
 					'rs_status'     => wc_clean(wp_unslash( $_POST[ 'templatestatus' ] )) ,
 				) ) ;
@@ -324,7 +324,7 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 					'from_name'     => wc_clean(wp_unslash( $_POST[ 'fromname' ] ) ),
 					'from_email'    => wc_clean(wp_unslash( $_POST[ 'fromemail' ] ) ),
 					'subject'       => wc_clean(wp_unslash( $_POST[ 'subject' ] ) ),
-					'message'       => wc_clean(wp_unslash( $_POST[ 'message' ] ) ),
+					'message'       => wp_kses_post(wp_unslash( $_POST[ 'message' ] ) ),
 					'noofdays'      => wc_clean(wp_unslash( $_POST[ 'noofdays' ] ) ),
 					'rs_status'     => wc_clean(wp_unslash( $_POST[ 'templatestatus' ] ) ),
 						) , array( 'id' => wc_clean(wp_unslash($_POST[ 'templateid' ])) ) ) ;
@@ -554,165 +554,232 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
 			}
 
 			try {
-				foreach ( RSGeneralTabSetting::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
-						update_option( 'rs_earn_point' , '1' ) ;
-						update_option( 'rs_earn_point_value' , '1' ) ;
-						update_option( 'rs_redeem_point' , '1' ) ;
-						update_option( 'rs_redeem_point_value' , '1' ) ;
-						update_option( 'rs_redeem_point_for_cash_back' , '1' ) ;
-						update_option( 'rs_redeem_point_value_for_cash_back' , '1' ) ;
+								$tabs = array( 'fprsgeneral' , 'fprsmodules' , 'fprsaddremovepoints' , 'fprsmessage' , 'fprslocalization' , 'fprsadvanced' ) ;
+				foreach ($tabs as $tab) {
+					require_once SRP_PLUGIN_PATH . '/includes/admin/tabs/class-rs-' . $tab . '-tab.php' ;
+				}
+																
+								$sections   = get_list_of_modules() ;
+				foreach ($sections as $section_key => $section_value) {
+					if ('yes' != $section_value || 'fpreset' == $section_key) {
+						continue;
+					}
+									
+					require_once SRP_PLUGIN_PATH . '/includes/admin/tabs/modules/class-rs-' . $section_key . '-module-tab.php' ;
+				}
+								
+				if (class_exists('RSGeneralTabSetting')) {
+					foreach ( RSGeneralTabSetting::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+							update_option( 'rs_earn_point' , '1' ) ;
+							update_option( 'rs_earn_point_value' , '1' ) ;
+							update_option( 'rs_redeem_point' , '1' ) ;
+							update_option( 'rs_redeem_point_value' , '1' ) ;
+							update_option( 'rs_redeem_point_for_cash_back' , '1' ) ;
+							update_option( 'rs_redeem_point_value_for_cash_back' , '1' ) ;
+						}
+					}
+				}
+								
+				if (class_exists('RSAddorRemovePoints')) {
+					foreach ( RSAddorRemovePoints::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
+					}
+				}
+								
+				if (class_exists('RSProductPurchaseModule')) {
+					foreach ( RSProductPurchaseModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSAddorRemovePoints::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSReferralSystemModule')) {
+					foreach ( RSReferralSystemModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
+					}
+				}
+								
+				if (class_exists('RSRewardPointsForAction')) {
+					foreach ( RSRewardPointsForAction::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSProductPurchaseModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSPointExpiryModule')) {
+					foreach ( RSPointExpiryModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSReferralSystemModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSRedeemingModule')) {
+					foreach ( RSRedeemingModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSRewardPointsForAction::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSPointPriceModule')) {
+					foreach ( RSPointPriceModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSPointExpiryModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSEmailModule')) {
+					foreach ( RSEmailModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSRedeemingModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSGiftVoucher')) {
+					foreach ( RSGiftVoucher::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSPointPriceModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSBuyingPoints')) {
+					foreach ( RSBuyingPoints::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSEmailModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSSocialReward')) {
+					foreach ( RSSocialReward::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSGiftVoucher::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSSms')) {
+					foreach ( RSSms::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSMessage::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSCashbackModule')) {
+					foreach ( RSCashbackModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSSocialReward::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSPointURL')) {
+					foreach ( RSPointURL::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSSms::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSGatewayModule')) {
+					foreach ( RSGatewayModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSCashbackModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSSendPointsModule')) {
+					foreach ( RSSendPointsModule::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
+					}
+				}
+								
+				if (class_exists('RSMessage')) {
+					foreach ( RSMessage::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSPointURL::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSLocalization')) {
+					foreach ( RSLocalization::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSGatewayModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSAdvancedSetting')) {
+					foreach ( RSAdvancedSetting::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSSendPointsModule::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSDiscountsCompatability')) {
+					foreach ( RSDiscountsCompatability::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
-				foreach ( RSLocalization::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
-					}
-				}
-
-				foreach ( RSAdvancedSetting::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
-					}
-				}
-
-				foreach ( RSDiscountsCompatability::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
-					}
-				}
-
-				foreach ( RSCouponCompatability::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSCouponCompatability')) {
+					foreach ( RSCouponCompatability::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 
 				delete_option( 'rewards_dynamic_rule_couponpoints' ) ;
 
-				foreach ( RSNominee::reward_system_admin_fields() as $setting ) {
-					if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
-						delete_option( $setting[ 'newids' ] ) ;
-						add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+				if (class_exists('RSNominee')) {
+					foreach ( RSNominee::reward_system_admin_fields() as $setting ) {
+						if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+							delete_option( $setting[ 'newids' ] ) ;
+							add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
+						}
 					}
 				}
 

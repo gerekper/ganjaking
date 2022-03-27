@@ -25,7 +25,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
@@ -196,7 +195,7 @@ class Montgomery extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base
      *
      * @return array
      */
-    public function multiplyPoint(array $p, \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $d)
+    public function multiplyPoint(array $p, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $d)
     {
         $p1 = [$this->one, $this->zero];
         $alreadyInternal = isset($x[1]);

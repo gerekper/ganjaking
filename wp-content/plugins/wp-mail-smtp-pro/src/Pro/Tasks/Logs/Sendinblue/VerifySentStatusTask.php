@@ -73,13 +73,9 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 
 		// Sendinblue failed event types.
 		$failed_event_types = [
-			GetEmailEventReportEvents::EVENT_BLOCKED,
-			GetEmailEventReportEvents::EVENT_BOUNCES,
-			GetEmailEventReportEvents::EVENT_DEFERRED,
 			GetEmailEventReportEvents::EVENT_HARD_BOUNCES,
+			GetEmailEventReportEvents::EVENT_BLOCKED,
 			GetEmailEventReportEvents::EVENT_INVALID,
-			GetEmailEventReportEvents::EVENT_SOFT_BOUNCES,
-			GetEmailEventReportEvents::EVENT_SPAM,
 		];
 
 		// Process the event items and check event types.

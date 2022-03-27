@@ -9,9 +9,7 @@ use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
 use MailPoet\Config\AccessControl;
 use MailPoet\Config\ServicesChecker;
-use MailPoet\Cron\Workers\InactiveSubscribers;
 use MailPoet\Cron\Workers\SubscribersEngagementScore;
-use MailPoet\Cron\Workers\WooCommerceSync;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Form\FormMessageController;
@@ -21,6 +19,7 @@ use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Services\Bridge;
+use MailPoet\Settings\SettingsChangeHandler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\StatisticsOpensRepository;
@@ -77,6 +76,9 @@ class Settings extends APIEndpoint {
   /** @var TrackingConfig */
   private $trackingConfig;
 
+  /** @var SettingsChangeHandler */
+  private $settingsChangeHandler;
+
   public function __construct(
     SettingsController $settings,
     Bridge $bridge,
@@ -90,6 +92,7 @@ class Settings extends APIEndpoint {
     FormMessageController $messageController,
     ServicesChecker $servicesChecker,
     SegmentsRepository $segmentsRepository,
+    SettingsChangeHandler $settingsChangeHandler,
     SubscribersCountsController $subscribersCountsController,
     TrackingConfig $trackingConfig
   ) {
@@ -105,6 +108,7 @@ class Settings extends APIEndpoint {
     $this->scheduledTasksRepository = $scheduledTasksRepository;
     $this->messageController = $messageController;
     $this->segmentsRepository = $segmentsRepository;
+    $this->settingsChangeHandler = $settingsChangeHandler;
     $this->subscribersCountsController = $subscribersCountsController;
     $this->trackingConfig = $trackingConfig;
   }
@@ -201,13 +205,13 @@ class Settings extends APIEndpoint {
     $oldInactivationInterval = $oldSettings['deactivate_subscriber_after_inactive_days'];
     $newInactivationInterval = $newSettings['deactivate_subscriber_after_inactive_days'];
     if ($oldInactivationInterval !== $newInactivationInterval) {
-      $this->onInactiveSubscribersIntervalChange();
+      $this->settingsChangeHandler->onInactiveSubscribersIntervalChange();
     }
 
     $oldSendingMethod = $oldSettings['mta_group'];
     $newSendingMethod = $newSettings['mta_group'];
     if (($oldSendingMethod !== $newSendingMethod) && ($newSendingMethod === 'mailpoet')) {
-      $this->onMSSActivate($newSettings);
+      $this->settingsChangeHandler->onMSSActivate($newSettings);
     }
 
     // Sync WooCommerce Customers list
@@ -218,64 +222,12 @@ class Settings extends APIEndpoint {
       ? $newSettings['mailpoet_subscribe_old_woocommerce_customers']['enabled']
       : '0';
     if ($oldSubscribeOldWoocommerceCustomers !== $newSubscribeOldWoocommerceCustomers) {
-      $this->onSubscribeOldWoocommerceCustomersChange();
+      $this->settingsChangeHandler->onSubscribeOldWoocommerceCustomersChange();
     }
 
     if (!empty($newSettings['woocommerce']['use_mailpoet_editor'])) {
       $this->wcTransactionalEmails->init();
     }
-  }
-
-  private function onMSSActivate($newSettings) {
-    // see mailpoet/assets/js/src/wizard/create_sender_settings.jsx:freeAddress
-    $domain = str_replace('www.', '', $_SERVER['HTTP_HOST']);
-    if (
-      isset($newSettings['sender']['address'])
-      && !empty($newSettings['reply_to']['address'])
-      && ($newSettings['sender']['address'] === ('wordpress@' . $domain))
-    ) {
-      $sender = [
-        'name' => $newSettings['reply_to']['name'] ?? '',
-        'address' => $newSettings['reply_to']['address'],
-      ];
-      $this->settings->set('sender', $sender);
-      $this->settings->set('reply_to', null);
-    }
-  }
-
-  public function onSubscribeOldWoocommerceCustomersChange(): void {
-    $task = $this->scheduledTasksRepository->findOneBy([
-      'type' => WooCommerceSync::TASK_TYPE,
-      'status' => ScheduledTaskEntity::STATUS_SCHEDULED,
-    ]);
-    if (!($task instanceof ScheduledTaskEntity)) {
-      $task = $this->createScheduledTask(WooCommerceSync::TASK_TYPE);
-    }
-    $datetime = Carbon::createFromTimestamp((int)WPFunctions::get()->currentTime('timestamp'));
-    $task->setScheduledAt($datetime->subMinute());
-    $this->scheduledTasksRepository->persist($task);
-    $this->scheduledTasksRepository->flush();
-  }
-
-  public function onInactiveSubscribersIntervalChange(): void {
-    $task = $this->scheduledTasksRepository->findOneBy([
-      'type' => InactiveSubscribers::TASK_TYPE,
-      'status' => ScheduledTaskEntity::STATUS_SCHEDULED,
-    ]);
-    if (!($task instanceof ScheduledTaskEntity)) {
-      $task = $this->createScheduledTask(InactiveSubscribers::TASK_TYPE);
-    }
-    $datetime = Carbon::createFromTimestamp((int)WPFunctions::get()->currentTime('timestamp'));
-    $task->setScheduledAt($datetime->subMinute());
-    $this->scheduledTasksRepository->persist($task);
-    $this->scheduledTasksRepository->flush();
-  }
-
-  private function createScheduledTask(string $type): ScheduledTaskEntity {
-    $task = new ScheduledTaskEntity();
-    $task->setType($type);
-    $task->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
-    return $task;
   }
 
   public function recalculateSubscribersCountsCache() {

@@ -460,6 +460,7 @@ class WooCommerce_Product_Search {
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-notice.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-reports.php';
 			}
+			require_once WOO_PS_ADMIN_LIB . '/reports/class-woocommerce-product-search-queries-export.php';
 			require_once WOO_PS_EXT_LIB . '/class-wps-wc-product-data-store-cpt.php';
 			require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat.php';
 		}

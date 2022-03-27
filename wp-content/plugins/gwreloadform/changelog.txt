@@ -1,6 +1,78 @@
 
 # Changelog
 
+## 2.0.7
+
+	- Added support for reloading forms loaded with [Gravity Forms Cache Buster](https://gravitywiz.com/cache-busting-with-gravity-forms/).
+	- Added "Update URI" to plugin header to improve security.
+	- Fixed a potential issue where page redirect confirmations break when GPRF is enabled on a form.
+
+## 2.0.6
+
+	- Updated behavior of Reload Form to retain submitted fields values by default. If you wish to reset values to the default after reloading, please use the [gprf_disable_dynamic_reload](https://gravitywiz.com/documentation/gprf_disable_dynamic_reload/) filter.
+
+## 2.0.5
+
+	- Fixed incompatibility with Populate Anything which would cause dynamic population requests via AJAX to fail.
+
+## 2.0.4
+
+	- Fixed an issue where AJAX spinner didn't show in GF 2.5.
+
+## 2.0.3
+
+	- Fixed issue where reloading a form would keep the submitted values from the previous submission.
+	- Fixed a potential issue with forms using non-ASCII based languages.
+
+## 2.0.2
+
+	- Updated priority of init script registration to allow other plugins to modify the form before Reload Form registers its scripts.
+	- Added [gprf_replacing_elem](https://gravitywiz.com/documentation/gprf_replacing_elem/) filter to allow modifying which element is replaced with the original form markup when the form is reloaded.
+
+## 2.0-beta-1.2
+
+	- Fixed an issue where a page with multiple forms that use GPRF may not function correctly.
+
+## 2.0-beta-1.1
+
+	- Fixed incorrect $_path which causes a myriad of issues with perk-specific functionality.
+
+## 2.0-beta-1.0
+
+	- Updated Perk to use GP_Plugin class provided by Gravity Perks 2.0.
+	- Added 'gprf_disable_dynamic_reload' filter to disable dynamic reload of form markup and rely on the form markup on the initial page load.
+	- Improved confirmation message to include new form markup which should improve compatibility with Perks such as GP Easy Passthrough.
+
+## 2.0.1
+
+	- Added [gprf_replacing_elem](https://gravitywiz.com/documentation/gprf_replacing_elem/) filter to allow modifying which element is replaced with the original form markup when the form is reloaded.
+
+## 2.0
+
+	- Added support for Gravity Forms 2.5 (#6)
+	- Improved compatibility with dynamic forms by returning freshly generated form markup when the form is submitted.
+	- Added 'gprf_disable_dynamic_reload' filter to disable dynamic reload of form markup and rely on the form markup on the initial page load.
+	- Updated Perk to use GP_Plugin class provided by Gravity Perks 2.0.
+	- Fixed an issue where a page with multiple forms that use GPRF may not function correctly.
+	- Fixed incorrect $_path which causes a myriad of issues with perk-specific functionality.
+
+## 1.1.18
+
+	- Fixed issue where {reload_form} merge tag was not visible in the Confirmation Message merge tag selector in Gravity Forms 2.5. (#2)
+	- Updated plugin author.
+
+## 1.1.17
+
+	- Improved consistency of gform_post_render with Gravity Forms core usage.
+
+## 1.1.16
+
+	- Added support for queueing merge tag script in the footer.
+
+## 1.1.15
+
+	- Removed extraneous tooltip link
+
 ## 1.1.14
 
 	- Added support for multiple {reload_form} merge tags in the confirmation.

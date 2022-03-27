@@ -98,9 +98,9 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			$action_links = array(
 				'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=wc-smart-coupons' ) ) . '">' . esc_html__( 'Settings', 'woocommerce-smart-coupons' ) . '</a>',
 				'faqs'     => '<a href="' . esc_url( admin_url( 'admin.php?page=sc-faqs' ) ) . '">' . esc_html__( 'FAQ\'s', 'woocommerce-smart-coupons' ) . '</a>',
-				'docs'     => '<a target="_blank" href="' . esc_url( 'http://docs.woocommerce.com/document/smart-coupons/' ) . '">' . __( 'Docs', 'woocommerce-smart-coupons' ) . '</a>',
+				'docs'     => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/document/smart-coupons/' ) . '">' . __( 'Docs', 'woocommerce-smart-coupons' ) . '</a>',
 				'support'  => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/my-account/create-a-ticket/' ) . '">' . __( 'Support', 'woocommerce-smart-coupons' ) . '</a>',
-				'review'   => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#comments' ) . '">' . __( 'Review', 'woocommerce-smart-coupons' ) . '</a>',
+				'review'   => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/?review' ) . '">' . __( 'Review', 'woocommerce-smart-coupons' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -240,7 +240,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 						<a href="javascript:void(0)" class="wc_sc_review_notice_remove"><?php echo esc_html__( 'Never show again', 'woocommerce-smart-coupons' ); ?></a>
 					</div>
 					<p>
-						<?php echo esc_html__( 'Awesome, you successfully auto-generated a coupon! Are you having a great experience with', 'woocommerce-smart-coupons' ) . ' <strong>' . esc_html__( 'WooCommerce Smart Coupons', 'woocommerce-smart-coupons' ) . '</strong> ' . esc_html__( 'so far?', 'woocommerce-smart-coupons' ) . '<br>' . esc_html__( 'Please consider', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#reviews-start' ) . '">' . esc_html__( 'leaving a review', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( '! If things aren\'t going quite as expected, we\'re happy to help -- please reach out to', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/my-account/create-a-ticket/' ) . '">' . esc_html__( 'our support team', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
+						<?php echo esc_html__( 'Awesome, you successfully auto-generated a coupon! Are you having a great experience with', 'woocommerce-smart-coupons' ) . ' <strong>' . esc_html__( 'WooCommerce Smart Coupons', 'woocommerce-smart-coupons' ) . '</strong> ' . esc_html__( 'so far?', 'woocommerce-smart-coupons' ) . '<br>' . esc_html__( 'Please consider', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#reviews' ) . '">' . esc_html__( 'leaving a review', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( '! If things aren\'t going quite as expected, we\'re happy to help -- please reach out to', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/my-account/create-a-ticket/' ) . '">' . esc_html__( 'our support team', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
 					</p>
 				</div>
 				<?php
@@ -301,7 +301,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 					</style>
 					<?php
 					/* translators: %s: link to review WooCommerce Smart Coupons */
-					$sc_rating_text = wp_kses_post( sprintf( __( 'Liked WooCommerce Smart Coupons? Leave us a %s. A huge thank you from WooCommerce & StoreApps in advance!', 'woocommerce-smart-coupons' ), '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#comments' ) . '" style="color: #5850EC;">5-star rating here</a>' ) );
+					$sc_rating_text = wp_kses_post( sprintf( __( 'Liked WooCommerce Smart Coupons? Leave us a %s. A huge thank you from WooCommerce & StoreApps in advance!', 'woocommerce-smart-coupons' ), '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/?review' ) . '" style="color: #5850EC;">5-star rating here</a>' ) );
 				}
 			}
 

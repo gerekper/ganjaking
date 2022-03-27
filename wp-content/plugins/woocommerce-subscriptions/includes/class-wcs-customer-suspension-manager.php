@@ -73,10 +73,10 @@ class WCS_Customer_Suspension_Manager {
 		$allowed_suspensions = self::get_allowed_customer_suspensions();
 
 		if ( 'unlimited' === $allowed_suspensions || $allowed_suspensions > $suspension_count ) { // 0 not > anything so prevents a customer ever being able to suspend
-			$user_can_suspend = true;
+			$can_user_suspend = true;
 		}
 
-		return $user_can_suspend;
+		return $can_user_suspend;
 	}
 
 	/**

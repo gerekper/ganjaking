@@ -1,0 +1,269 @@
+# Copyright (C) 2022 GP Notification Scheduler
+# This file is distributed under the same license as the GP Notification Scheduler package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Notification Scheduler\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-notification-scheduler.php:404
+msgid "via Notification Scheduler"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:416
+msgid "Notification Schedule"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:416
+msgid "Schedule this notification to be sent before, after or on a specific date."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:417
+msgid "Repeat Notification"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:417
+msgid "Resend this notification at a set interval. Interval will always begin from the scheduled notification date and time."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:436
+msgid "Schedule"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:449
+msgid "Send Immediately"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:450
+msgid "Delay"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:451
+msgid "Date"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:455
+msgid "Date Field"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:478
+msgid "minute(s)"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:479
+msgid "hour(s)"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:480
+msgid "day(s)"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:481
+msgid "week(s)"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:482
+msgid "month(s)"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:483
+msgid "year(s)"
+msgstr ""
+
+#. translators: Placeholder is the email address that the notification was sent to.
+#: ../class-gp-notification-scheduler.php:571
+msgid "Notification not scheduled due to email (%s) being unsubscribed."
+msgstr ""
+
+#. translators: Notification name followed by its ID. e.g. Admin Notification (ID: 5d4c0a2a37204).
+#: ../class-gp-notification-scheduler.php:584
+msgid "%1$s (ID: %2$s) via Notification Scheduler"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:624
+msgid "Notification not sent due to email (%s) being unsubscribed."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:716
+msgid "Unsubscribe"
+msgstr ""
+
+#. translators: placeholder is the site name
+#: ../class-gp-notification-scheduler.php:804
+msgid "Unsubscribe Successful &ndash; %s"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:805
+msgid "You have been successfully unsubscribed."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:841, ../class-gp-notification-scheduler.php:1528
+msgid "Notification Scheduler"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:845
+msgid "Unsubscribe Link"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:849
+msgid "Unsubscribe URL"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1319
+msgid "Scheduled Notifications"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1516
+msgid "Notif Scheduler"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1532
+msgid "Manage emails for Notification Scheduler."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1536
+msgid "Enter an email address to either unsubscribe or subscribe."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1537
+msgid "Email Address"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1548
+msgid "Please enter a valid email."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1553
+msgid "Please select an action for the email."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1560
+msgid "The email address was not found in the unsubscribe list."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1566
+msgid "Action"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1571
+msgid "Unsubscribe email"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1573
+msgid "When unsubscribed, the email will no longer receive any scheduled notifications."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1576
+msgid "Resubscribe email"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1578
+msgid "When resubscribed, the email will be able to receive scheduled notifications again. Previously scheduled notifications will not be automatically rescheduled."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1585
+msgid "Update Email Preferences"
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1587
+msgid "Email unsubscribed successfully."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1587
+msgid "Email resubscribed successfully."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1588
+msgid "There was an error unsubscribing the email."
+msgstr ""
+
+#: ../class-gp-notification-scheduler.php:1588
+msgid "There was an error resubscribing the email."
+msgstr ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:86
+msgid "Are you sure you wish to remove this scheduled notification?"
+msgstr ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:113
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:117
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:121
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:125
+msgid "%d seconds"
+msgid_plural "%d seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:144
+msgid "Now"
+msgstr ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:148
+msgid "ago"
+msgstr ""
+
+#: ../includes/class-gp-scheduled-notifications-list-table.php:155
+msgid "There are no notifications scheduled for this entry."
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:51
+msgid "Send this notification"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:105
+msgid "before"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:106, ../includes/class-gpns-settings-field-schedule.php:169
+msgid "after"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:115
+msgid "Fields"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:127
+msgid "Groups"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:152
+msgid "yearly"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:153
+msgid "monthly"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:154
+msgid "weekly"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:155
+msgid "daily"
+msgstr ""
+
+#: ../includes/class-gpns-settings-field-schedule.php:168
+msgid "never"
+msgstr ""

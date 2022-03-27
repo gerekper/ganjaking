@@ -109,6 +109,66 @@ jQuery( function( $ ) {
                     $( this ).selectWoo( select2_args ).addClass( 'enhanced' ) ;
                 } ) ;
             }
+            
+            if ( $( 'select.srp_select2_search' ).length ) {
+                //Multiple select with ajax search
+                $( 'select.srp_select2_search' ).each( function () {
+                    var select2_args = {
+                        allowClear : $( this ).data( 'allow_clear' ) ? true : false ,
+                        placeholder : $( this ).data( 'placeholder' ) ,
+                        minimumInputLength : $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : 3 ,
+                        escapeMarkup : function ( m ) {
+                            return m ;
+                        } ,
+                        ajax : {
+                            url : srp_enhanced_params.ajaxurl ,
+                            dataType : 'json' ,
+                            delay : 250 ,
+                            data : function ( params ) {
+                                return {
+                                    term : params.term ,
+                                    action : $( this ).data( 'action' ) ? $( this ).data( 'action' ) : '' ,
+                                    srp_security : $( this ).data( 'nonce' ) ? $( this ).data( 'nonce' ) : srp_enhanced_params.search_nonce ,
+                                } ;
+                            } ,
+                            processResults : function ( data ) {
+                                var terms = [ ] ;
+                                if ( data ) {
+                                    $.each( data , function ( id , term ) {
+                                        terms.push( {
+                                            id : id ,
+                                            text : term
+                                        } ) ;
+                                    } ) ;
+                                }
+                                return {
+                                    results : terms
+                                } ;
+                            } ,
+                            cache : true
+                        }
+                    } ;
+
+                    $( this ).select2( select2_args ) ;
+                } ) ;
+            }
+            
+            if ( $( '.srp_datepicker' ).length ) {
+                $( '.srp_datepicker' ).on( 'change' , function ( ) {
+                    if ( $( this ).val() === '' ) {
+                        $( this ).next( ".srp_alter_datepicker_value" ).val( '' ) ;
+                    }
+                } ) ;
+
+                $( '.srp_datepicker' ).each( function ( ) {
+                    $( this ).datepicker( {
+                        altField : $( this ).next( ".srp_alter_datepicker_value" ) ,
+                        altFormat : 'yy-mm-dd' ,
+                        changeMonth : true ,
+                        changeYear : true
+                    } ) ;
+                } ) ;
+            }
         } ) ;
         $( document.body ).trigger( 'srp-enhanced-init' ) ;
 

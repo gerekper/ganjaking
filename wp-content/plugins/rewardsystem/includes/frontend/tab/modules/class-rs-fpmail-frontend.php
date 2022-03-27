@@ -56,10 +56,8 @@ if ( ! class_exists( 'RSFunctionForEmailTemplate' ) ) {
 
 		public static function redirect_after_unsubscribe() {
 			if ( isset( $_GET[ 'userid' ] ) && isset( $_REQUEST[ 'nonce' ] ) ) {
-				if ( isset($_GET[ 'unsub' ]) && ( 'yes' == $_GET[ 'unsub' ] ) ) {
+				if ( isset($_GET[ 'unsub' ]) && ( 'yes' == $_GET[ 'unsub' ] ) && absint($_GET[ 'userid' ]) == get_current_user_id() ) {
 					update_user_meta( absint($_GET[ 'userid' ]) , 'unsub_value' , sanitize_title($_GET[ 'unsub' ]) ) ;
-					wp_safe_redirect( site_url() ) ;
-					exit() ;
 				}
 			}
 		}

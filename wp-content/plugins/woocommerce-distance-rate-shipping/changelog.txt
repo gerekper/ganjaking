@@ -1,5 +1,11 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-03-03 - version 1.0.33
+* Fix - Returns functionality to rule cost calculation hooks.
+
+2022-02-08 - version 1.0.32
+* Fix - Notice error : "undefined offset: 0" after saving the rule.
+
 2022-01-25 - version 1.0.31
 * Add - Advanced mode that allowing user to have AND/OR condition for each row.
 

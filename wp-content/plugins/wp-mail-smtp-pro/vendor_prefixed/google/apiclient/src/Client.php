@@ -48,7 +48,7 @@ use LogicException;
  */
 class Client
 {
-    const LIBVER = "2.10.1";
+    const LIBVER = "2.12.1";
     const USER_AGENT_SUFFIX = "google-api-php-client/";
     const OAUTH2_REVOKE_URI = 'https://oauth2.googleapis.com/revoke';
     const OAUTH2_TOKEN_URI = 'https://oauth2.googleapis.com/token';
@@ -79,6 +79,10 @@ class Client
      */
     private $logger;
     /**
+     * @var CredentialsLoader $credentials
+     */
+    private $credentials;
+    /**
      * @var boolean $deferExecution
      */
     private $deferExecution = \false;
@@ -100,8 +104,9 @@ class Client
             // https://developers.google.com/console
             'client_id' => '',
             'client_secret' => '',
-            // Path to JSON credentials or an array representing those credentials
-            // @see Google\Client::setAuthConfig
+            // Can be a path to JSON credentials or an array representing those
+            // credentials (@see Google\Client::setAuthConfig), or an instance of
+            // Google\Auth\CredentialsLoader.
             'credentials' => null,
             // @see Google\Client::setScopes
             'scopes' => null,
@@ -149,7 +154,11 @@ class Client
             'api_format_v2' => \false,
         ], $config);
         if (!\is_null($this->config['credentials'])) {
-            $this->setAuthConfig($this->config['credentials']);
+            if ($this->config['credentials'] instanceof \WPMailSMTP\Vendor\Google\Auth\CredentialsLoader) {
+                $this->credentials = $this->config['credentials'];
+            } else {
+                $this->setAuthConfig($this->config['credentials']);
+            }
             unset($this->config['credentials']);
         }
         if (!\is_null($this->config['scopes'])) {
@@ -323,30 +332,32 @@ class Client
      */
     public function authorize(\WPMailSMTP\Vendor\GuzzleHttp\ClientInterface $http = null)
     {
-        $credentials = null;
-        $token = null;
-        $scopes = null;
         $http = $http ?: $this->getHttpClient();
         $authHandler = $this->getAuthHandler();
         // These conditionals represent the decision tree for authentication
-        //   1.  Check for Application Default Credentials
-        //   2.  Check for API Key
+        //   1.  Check if a Google\Auth\CredentialsLoader instance has been supplied via the "credentials" option
+        //   2.  Check for Application Default Credentials
         //   3a. Check for an Access Token
         //   3b. If access token exists but is expired, try to refresh it
+        //   4.  Check for API Key
+        if ($this->credentials) {
+            return $authHandler->attachCredentials($http, $this->credentials, $this->config['token_callback']);
+        }
         if ($this->isUsingApplicationDefaultCredentials()) {
             $credentials = $this->createApplicationDefaultCredentials();
-            $http = $authHandler->attachCredentialsCache($http, $credentials, $this->config['token_callback']);
-        } elseif ($token = $this->getAccessToken()) {
+            return $authHandler->attachCredentialsCache($http, $credentials, $this->config['token_callback']);
+        }
+        if ($token = $this->getAccessToken()) {
             $scopes = $this->prepareScopes();
             // add refresh subscriber to request a new token
             if (isset($token['refresh_token']) && $this->isAccessTokenExpired()) {
                 $credentials = $this->createUserRefreshCredentials($scopes, $token['refresh_token']);
-                $http = $authHandler->attachCredentials($http, $credentials, $this->config['token_callback']);
-            } else {
-                $http = $authHandler->attachToken($http, $token, (array) $scopes);
+                return $authHandler->attachCredentials($http, $credentials, $this->config['token_callback']);
             }
-        } elseif ($key = $this->config['developer_key']) {
-            $http = $authHandler->attachKey($http, $key);
+            return $authHandler->attachToken($http, $token, (array) $scopes);
+        }
+        if ($key = $this->config['developer_key']) {
+            return $authHandler->attachKey($http, $key);
         }
         return $http;
     }
@@ -708,7 +719,7 @@ class Client
      * @param $request RequestInterface|\Google\Http\Batch
      * @param string $expectedClass
      * @throws \Google\Exception
-     * @return object of the type of the expected class or Psr\Http\Message\ResponseInterface.
+     * @return mixed|$expectedClass|ResponseInterface
      */
     public function execute(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, $expectedClass = null)
     {

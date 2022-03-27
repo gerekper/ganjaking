@@ -44,6 +44,36 @@ class AccessToken implements \YoastSEO_Vendor\League\OAuth2\Client\Token\AccessT
      */
     protected $values = [];
     /**
+     * @var int
+     */
+    private static $timeNow;
+    /**
+     * Set the time now. This should only be used for testing purposes.
+     *
+     * @param int $timeNow the time in seconds since epoch
+     * @return void
+     */
+    public static function setTimeNow($timeNow)
+    {
+        self::$timeNow = $timeNow;
+    }
+    /**
+     * Reset the time now if it was set for test purposes.
+     *
+     * @return void
+     */
+    public static function resetTimeNow()
+    {
+        self::$timeNow = null;
+    }
+    /**
+     * @return int
+     */
+    public function getTimeNow()
+    {
+        return self::$timeNow ? self::$timeNow : \time();
+    }
+    /**
      * Constructs an access token.
      *
      * @param array $options An array of options returned by the service provider
@@ -69,13 +99,13 @@ class AccessToken implements \YoastSEO_Vendor\League\OAuth2\Client\Token\AccessT
             if (!\is_numeric($options['expires_in'])) {
                 throw new \InvalidArgumentException('expires_in value must be an integer');
             }
-            $this->expires = $options['expires_in'] != 0 ? \time() + $options['expires_in'] : 0;
+            $this->expires = $options['expires_in'] != 0 ? $this->getTimeNow() + $options['expires_in'] : 0;
         } elseif (!empty($options['expires'])) {
             // Some providers supply the seconds until expiration rather than
             // the exact timestamp. Take a best guess at which we received.
             $expires = $options['expires'];
             if (!$this->isExpirationTimestamp($expires)) {
-                $expires += \time();
+                $expires += $this->getTimeNow();
             }
             $this->expires = $expires;
         }

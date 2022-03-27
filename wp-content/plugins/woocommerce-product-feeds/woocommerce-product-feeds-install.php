@@ -106,5 +106,26 @@ function woocommerce_gpf_install() {
 
 	// Flag that rewrite rules will need flushing.
 	set_site_transient( 'woocommerce_gpf_rewrite_flush_required', '1' );
+
+	// Schedule a taxonomy refresh
+	$pending = as_get_scheduled_actions(
+		[
+			'hook'     => 'woocommerce_product_feeds_maybe_refresh_google_taxonomies',
+			'args'     => [],
+			'status'   => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
+			'per_page' => 1,
+			'orderby'  => 'none',
+		],
+		'ids'
+	);
+	// Do not trigger if we already have a queued action.
+	if ( empty( $pending ) ) {
+		as_schedule_single_action(
+			null,
+			'woocommerce_product_feeds_maybe_refresh_google_taxonomies',
+			[],
+			'woocommerce-product-feeds'
+		);
+	}
 }
 

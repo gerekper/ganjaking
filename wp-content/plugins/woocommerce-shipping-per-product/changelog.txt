@@ -1,5 +1,9 @@
 *** Shipping Per Product Changelog ***
 
+2022-03-17 - version 2.3.18
+* Fix - Format product shipping cost decimals properly.
+* Fix - Removed irrelevant settings link from plugin's action links.
+
 2022-01-05 - version 2.3.17
 * Fix - Missing Languages folder and .pot file in release-ready zip file.
 

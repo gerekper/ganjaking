@@ -1,5 +1,13 @@
 *** WooCommerce Drip Changelog ***
 
+2022-02-08 - version 1.2.28
+* Fix - Include languages folder and POT file in the release.
+* Tweak - WC 6.2 compatibility.
+
+2022-01-14 - version 1.2.27
+* Fix - Unify `.github/**.md` files with other repos.
+* Tweak - WC 6.1 compatibility.
+
 2021-12-15 - version 1.2.26
 * Tweak - WC 6.0 compatibility. #84
 * Tweak - WP 5.9 compatibility. #84

@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.2.0
+* Version: 3.2.1
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -15,10 +15,10 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.8
+* Tested up to: 5.9
 *
 * WC requires at least: 3.3
-* WC tested up to: 6.0
+* WC tested up to: 6.3
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,12 +42,12 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.2.0
+ * @version  3.2.1
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.2.0';
+	const VERSION = '3.2.1';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.3.0';
@@ -59,7 +59,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	const REQ_WCPAY_VERSION = '3.2.0';
 
 	/* Docs URL. */
-	const DOCS_URL = 'https://docs.woocommerce.com/document/all-products-for-woocommerce-subscriptions/';
+	const DOCS_URL = 'https://woocommerce.com/document/all-products-for-woocommerce-subscriptions/';
 
 	/* Support URL. */
 	const SUPPORT_URL = 'https://woocommerce.com/my-account/marketplace-ticket-form/';
@@ -155,7 +155,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 		if ( $base ) {
 			$version_parts = explode( '-', $version );
-			$version       = sizeof( $version_parts ) > 1 ? $version_parts[ 0 ] : $version;
+			$version       = count( $version_parts ) > 1 ? $version_parts[ 0 ] : $version;
 		}
 
 		return $version;
@@ -235,7 +235,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
-			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-all-products-for-subscriptions' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
+			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-all-products-for-subscriptions' ), '5.6.20', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
 			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;

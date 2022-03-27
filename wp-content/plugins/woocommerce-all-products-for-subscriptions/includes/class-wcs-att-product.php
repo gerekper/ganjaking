@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product
- * @version  3.1.22
+ * @version  3.2.1
  */
 class WCS_ATT_Product {
 
@@ -147,7 +147,7 @@ class WCS_ATT_Product {
 				if ( 'no' !== $option_value ) {
 
 					$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-					$is_feature_supported = sizeof( $subscription_schemes ) > 1;
+					$is_feature_supported = count( $subscription_schemes ) > 1;
 				}
 
 			break;
@@ -163,7 +163,7 @@ class WCS_ATT_Product {
 
 					if ( false !== strpos( $option_value, 'variable' ) ) {
 						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-						$is_feature_supported = sizeof( $subscription_schemes );
+						$is_feature_supported = count( $subscription_schemes );
 					}
 				}
 

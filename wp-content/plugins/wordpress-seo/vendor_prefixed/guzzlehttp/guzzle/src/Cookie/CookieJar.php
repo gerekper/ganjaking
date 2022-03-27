@@ -78,8 +78,8 @@ class CookieJar implements \YoastSEO_Vendor\GuzzleHttp\Cookie\CookieJarInterface
      */
     public function getCookieByName($name)
     {
-        // don't allow a null name
-        if ($name === null) {
+        // don't allow a non string name
+        if ($name === null || !\is_scalar($name)) {
             return null;
         }
         foreach ($this->cookies as $cookie) {
@@ -87,6 +87,7 @@ class CookieJar implements \YoastSEO_Vendor\GuzzleHttp\Cookie\CookieJarInterface
                 return $cookie;
             }
         }
+        return null;
     }
     public function toArray()
     {
@@ -100,7 +101,7 @@ class CookieJar implements \YoastSEO_Vendor\GuzzleHttp\Cookie\CookieJarInterface
             $this->cookies = [];
             return;
         } elseif (!$path) {
-            $this->cookies = \array_filter($this->cookies, function (\YoastSEO_Vendor\GuzzleHttp\Cookie\SetCookie $cookie) use($path, $domain) {
+            $this->cookies = \array_filter($this->cookies, function (\YoastSEO_Vendor\GuzzleHttp\Cookie\SetCookie $cookie) use($domain) {
                 return !$cookie->matchesDomain($domain);
             });
         } elseif (!$name) {

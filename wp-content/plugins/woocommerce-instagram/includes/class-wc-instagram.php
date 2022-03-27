@@ -29,7 +29,7 @@ final class WC_Instagram {
 	 *
 	 * @var string
 	 */
-	public $version = '4.0.1';
+	public $version = '4.1.1';
 
 	/**
 	 * Constructor.
@@ -119,6 +119,7 @@ final class WC_Instagram {
 	 */
 	private function init_hooks() {
 		register_activation_hook( WC_INSTAGRAM_FILE, array( 'WC_Instagram_Install', 'install' ) );
+		register_deactivation_hook( WC_INSTAGRAM_FILE, array( 'WC_Instagram_Uninstall', 'deactivate' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 15 );

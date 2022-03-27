@@ -1,6 +1,58 @@
 
 # Changelog
 
+## 1.3.9
+
+	- Added plugin version to the enqueued script on the frontend to help bust cache when updating GP Conditional Pricing.
+	- Improved compatibility with calculated products depending on conditional pricing.
+
+## 1.3.8
+
+	- Fixed issue where rules configured using decimal comma number formats (e.g. €5,00) was not working as expected.
+
+## 1.3.7
+
+	- Added icon for form settings.
+	- Improved performance of Conditional Pricing on complex forms.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.3.6
+
+	- Updated conditional logic evaluation to use Gravity Forms helper function rather than our own.
+
+## 1.3.5
+
+	- Fixed an issue where fields of type hidden were omitted from pricing rules.
+
+## 1.3.4
+
+	- Fixed a potential performance issue when processing conditional logic.
+
+## 1.3.3
+
+	- Fixed an issue where prices would not update correctly when rules are based on a conditionally hidden field.
+
+## 1.3.2
+
+	- Fixed a potential issue where deleted products with pricing logic may cause GPCP editor to fail.
+
+## 1.3.1
+
+	- Fixed a compatibility issue with GF 2.5 where imported forms lost pricing rules.
+
+## 1.3
+
+	- Improved support for Gravity Forms 2.5.
+
+## 1.2.48
+
+	- Fixed a potential issue where values containing `<` are not displayed.
+
+## 1.2.47
+
+	- Fixed issue where prices for Radio Button Products were not set correctly in Gravity Forms 2.5.
+	- Fixed recursion caused by new markup in GF 2.5.
+
 ## 1.2.46
 
 	- Fixed a UI issue where prices with decimals could not be stored.

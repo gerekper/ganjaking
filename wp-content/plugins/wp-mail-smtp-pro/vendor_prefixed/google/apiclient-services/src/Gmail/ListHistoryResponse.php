@@ -22,7 +22,13 @@ class ListHistoryResponse extends \WPMailSMTP\Vendor\Google\Collection
     protected $collection_key = 'history';
     protected $historyType = \WPMailSMTP\Vendor\Google\Service\Gmail\History::class;
     protected $historyDataType = 'array';
+    /**
+     * @var string
+     */
     public $historyId;
+    /**
+     * @var string
+     */
     public $nextPageToken;
     /**
      * @param History[]
@@ -38,18 +44,30 @@ class ListHistoryResponse extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->history;
     }
+    /**
+     * @param string
+     */
     public function setHistoryId($historyId)
     {
         $this->historyId = $historyId;
     }
+    /**
+     * @return string
+     */
     public function getHistoryId()
     {
         return $this->historyId;
     }
+    /**
+     * @param string
+     */
     public function setNextPageToken($nextPageToken)
     {
         $this->nextPageToken = $nextPageToken;
     }
+    /**
+     * @return string
+     */
     public function getNextPageToken()
     {
         return $this->nextPageToken;

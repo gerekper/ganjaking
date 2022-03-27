@@ -3,10 +3,9 @@
 /*
 UpdraftPlus Addon: s3-enhanced:Amazon S3, enhanced
 Description: Adds enhanced capabilities for Amazon S3 users
-Version: 1.7
+Version: 1.8
 Shop: /shop/s3-enhanced/
 RequiresPHP: 5.5
-Latest Change: 1.14.2
 */
 // @codingStandardsIgnoreEnd
 
@@ -84,12 +83,15 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		return $opts;
 	}
 	
+	/**
+	 * Runs upon the WP action updraftplus_settings_page_init
+	 */
 	public function updraftplus_settings_page_init() {
 		add_action('admin_footer', array($this, 'admin_footer'));
 	}
 
 	public function apikeysettings($msg) {
-		$msg = '<a href="'.UpdraftPlus::get_current_clean_url().'" id="updraft_s3_newapiuser">'.__('If you have an AWS admin user, then you can use this wizard to quickly create a new AWS (IAM) user with access to only this bucket (rather than your whole account)', 'updraftplus').'</a>';
+		$msg = '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft_s3_newapiuser_{{instance_id}}" class="updraft_s3_newapiuser" data-instance_id="{{instance_id}}"">'.__('If you have an AWS admin user, then you can use this wizard to quickly create a new AWS (IAM) user with access to only this bucket (rather than your whole account)', 'updraftplus').'</a>';
 		return $msg;
 	}
 
@@ -152,21 +154,29 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		$adminsecret = $settings_values['adminsecret'];
 		$region = $settings_values['region'];
 		
+		add_filter('updraftplus_indicate_s3_class_prefer_aws_sdk', '__return_true');
+		
+		$return_error = false;
+		
 		try {
 			$storage = $method->getS3($adminaccesskey, $adminsecret, $useservercerts, $disableverify, $nossl);
 			if (!is_a($storage, 'UpdraftPlus_S3_Compat')) {
 				$msg = __('Cannot create new AWS user, since the old AWS toolkit is being used.', 'updraftplus');
 				$updraftplus->log('Cannot create new AWS user, since the old AWS toolkit is being used.');
 				$updraftplus->log($msg, 'error');
-				return array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$msg);
+				$return_error = array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$msg);
 			}
 		} catch (AuthenticationError $e) {
 			$updraftplus->log('AWS authentication failed ('.$e->getMessage().')');
 			$updraftplus->log(__('AWS authentication failed', 'updraftplus').' ('.$e->getMessage().')', 'error');
-			return array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage());
+			$return_error = array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage());
 		} catch (Exception $e) {
-			return array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage());
+			$return_error = array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage());
 		}
+		
+		remove_filter('updraftplus_indicate_s3_class_prefer_aws_sdk', '__return_true');
+		
+		if (is_array($return_error)) return $return_error;
 		
 		// Get the bucket
 		$path = $settings_values['bucket'];
@@ -210,16 +220,25 @@ class UpdraftPlus_Addon_S3_Enhanced {
 				return array('e' => 1, 'm' => $msg);
 			}
 		}
-		
+
 		// Create the new IAM user
-		include_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
-		
-		$credentials = array(
-			'key' => $adminaccesskey,
-			'secret' => $adminsecret,
+		global $updraftplus;
+		$updraftplus->potentially_remove_composer_autoloaders(array('GuzzleHttp\\', 'Aws\\'));
+		include(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
+		$updraftplus->mitigate_guzzle_autoloader_conflicts();
+
+		// AWS SDK V3 requires we specify a version. String 'latest' can be used but not recommended, a full list of versions for each API found here: https://docs.aws.amazon.com/aws-sdk-php/v3/api/index.html
+		// latest IamClient version as of 17/01/22 is version 2010-05-08
+		$opts = array(
+			'credentials' => array(
+				'key' => $adminaccesskey,
+				'secret'  => $adminsecret
+			),
+			'version' => '2010-05-08',
+			'region' => $region
 		);
-		$iam = IamClient::factory($credentials);
-		
+		$iam = new IamClient($opts);
+
 		// Try create a new Iam user
 		try {
 			$response = $iam->createUser(array(
@@ -330,7 +349,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		);
 	
 	}
-
+	
 	/**
 	 * This is called both directly, and made available as an action
 	 *
@@ -404,6 +423,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('updraftplus-credentialtest-nonce');?>">
 				<input type="hidden" name="action" value="updraft_ajax">
 				<input type="hidden" name="subaction" value="s3_newuser">
+				<input type="hidden" id="updraft_s3newapiuser_instance_id" name="updraft_s3newapiuser_instance_id" value="" />
 			</fieldset>
 			<?php } ?>
 		</div>
@@ -431,8 +451,9 @@ class UpdraftPlus_Addon_S3_Enhanced {
 
 		<script>
 		jQuery(function($) {
-			$('#updraft_s3_newapiuser').on('click', function(e) {
+			$('#updraft-navtab-settings-content').on('click', '.updraft_s3_newapiuser', function(e) {
 				e.preventDefault();
+				jQuery('#updraft_s3newapiuser_instance_id').val(jQuery(this).data('instance_id'));
 				$('#updraft-s3newapiuser-modal').dialog('open');
 			});
 
@@ -460,11 +481,12 @@ class UpdraftPlus_Addon_S3_Enhanced {
 					if (resp.e == 1) {
 						$('#updraft-s3newapiuser-results').html('<p style="color:red;">'+resp.m+'</p>');
 					} else if (resp.e == 0) {
+						var instance_id = jQuery('#updraft_s3newapiuser_instance_id').val();
 						$('#updraft-s3newapiuser-results').html('<p style="color:green;">'+resp.m+'</p>');
-						$('#updraft_s3_apikey').val(resp.k);
-						$('#updraft_s3_apisecret').val(resp.s);
-						$('#updraft_s3_rrs').attr('checked', resp.r);
-						$('#updraft_s3_path').val(resp.c);
+						$('#updraft_s3_accesskey_'+instance_id).val(resp.k);
+						$('#updraft_s3_secretkey_'+instance_id).val(resp.s);
+						$('#updraft_s3_server_side_encryption_'+instance_id).attr('checked', resp.r);
+						$('#updraft_s3_path_'+instance_id).val(resp.c);
 						
 						//Clear Admin credentials
 						$('#updraft_s3newapiuser_adminaccesskey').val("");
@@ -473,7 +495,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 						$('#updraft_s3newapiuser_bucket').val("");
 						
 						//Change link to open dialog to reflect that using IAM user
-						$('#updraft_s3_newapiuser').html('<?php echo esc_js(__('You are now using a IAM user account to access your bucket.', 'updraftplus')).' <strong>'.esc_js(__('Do remember to save your settings.', 'updraftplus')).'</strong>';?>');
+						$('#updraft_s3_newapiuser_'+instance_id).html('<?php echo esc_js(__('You are now using a IAM user account to access your bucket.', 'updraftplus')).' <strong>'.esc_js(__('Do remember to save your settings.', 'updraftplus')).'</strong>';?>');
 						
 						$('#updraft-s3newapiuser-modal').dialog('close');
 					}

@@ -1,5 +1,10 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2022-02-15 - version 1.7.0
+* Add - Blocks integration.
+* Tweak - Bump supported WC Version.
+* Tweak - Bump tested up to WP Version.  
+
 2022-01-10 - version 1.6.0
 * Fix - Jquery deprecated code.
 * Tweak - Jquery 3.0 compatibility. 
@@ -8,7 +13,7 @@
 * Fix - "Your previous cart was emptied" message does not show when using ajax cart.
 * Fix - Error message on Pre-Orders list when a product pre-order is disabled.
 * Fix - Broken email links when sending links via WooCommerce > Pre-Orders > Actions.
-* Tweak - Pre-Orders table under My Account > Pre Orders responsiveness
+* Tweak - Pre-Orders table under My Account > Pre Orders responsiveness.
 * Fix - Stock inventory is not replenished when a pre-order that's set to charge "Upon Release" is canceled.
 * Tweak - Pre-load product when clicking on "Use the actions menu" to change the release date.  
 * Add - Allow to search for Pre orders only and Regular orders only on WooCommerce > Orders.
@@ -23,7 +28,7 @@
 * Fix - Email message when order is on-hold.
 * Tweak - Prevent multiple pre-order products to be added on order created via admin.
 * Fix - "Release Date Changed" email mentions it changed to a future date when it's set to the past.
-* Tweak - Pre-Orders status counter performance improvement
+* Tweak - Pre-Orders status counter performance improvement.
 
 
 2021-02-15 - version 1.5.30

@@ -1,5 +1,30 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-03-17 - version 1.15.53
+* Fix - Booking Time Not Available After Booking Released from Cart.
+* Fix - Booking changed to "Partially Paid" even when deposit payment failed.
+* Fix - Compatibility issue with WooCommerce Multi-Currency.
+* Fix - Inconsistency manual created bookings vs. frontend.
+* Fix - Min Block Bookable Setting "x" hours into the future does not work with day range bookings.
+* Fix - Overbooking with "Customer defined blocks of".
+* Fix - Partially booked slots not considered for new bookings.
+* Fix - Show category in API only if it has a bookable product.
+* Fix - Undefined array key "resource_id" when using 'Customer defined blocks of'.
+
+2022-02-08 - version 1.15.52
+* Fix - Fixes an issue with the previous build size.
+
+2022-02-08 - version 1.15.51
+* Fix - Adds overflow-x scroll to allow the availability tab to be viewable on smaller resolutions.
+* Fix - Calculated price appending text "From:".
+* Fix - Prices not updating based on Time Range set in Costs settings.
+* Fix - The Booking cost is not showing any price when block and base cost is empty.
+* Fix - The order details page shows duplicate product info when booking multiple slots of the same product.
+* Fix - Try clearing out cached directory to fix tests.
+* Fix - fix/1495 - Resets start date selection in calendar ranger when clicking an earli….
+* Tweak - WC 6.2 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2022-01-26 - version 1.15.50
 * Fix - Add duration limit unit with max/min duration notice.
 * Fix - Add product information in the cancel email.

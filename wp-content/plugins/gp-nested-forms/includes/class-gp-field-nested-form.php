@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Field_Nested_Form extends GF_Field {
 
 	public $type = 'form';
@@ -17,6 +13,10 @@ class GP_Field_Nested_Form extends GF_Field {
 			'group' => 'advanced_fields',
 			'text'  => $this->get_form_editor_field_title(),
 		);
+	}
+
+	public function get_form_editor_field_icon() {
+		return gp_nested_forms()->get_base_url() . '/field-icon.svg';
 	}
 
 	public function get_form_editor_field_settings() {
@@ -83,13 +83,14 @@ class GP_Field_Nested_Form extends GF_Field {
 
 		$tabindex         = GFCommon::get_tabindex();
 		$add_button_label = sprintf( __( 'Add %s', 'gp-nested-forms' ), $this->get_item_label() );
+		$nested_fields    = ! empty( $nested_form ) ? gp_nested_forms()->get_fields_by_ids( $nested_field_ids, $nested_form ) : array();
 
 		// return parsed template content
 		$args = array(
 			'template'           => 'nested-entries',
 			'field'              => $this,
 			'nested_form'        => $nested_form,
-			'nested_fields'      => ! empty( $nested_form ) ? gp_nested_forms()->get_fields_by_ids( $nested_field_ids, $nested_form ) : array(),
+			'nested_fields'      => $nested_fields,
 			'nested_field_ids'   => $nested_field_ids,
 			'column_count'       => $column_count,
 			'value'              => $value,
@@ -97,12 +98,31 @@ class GP_Field_Nested_Form extends GF_Field {
 			'add_button'         => $this->get_add_button( $form['id'], rgar( $nested_form, 'id' ), $tabindex, $add_button_label ),
 			'add_button_message' => $this->get_add_button_max_message( $form['id'], rgar( $nested_form, 'id' ) ),
 			'tabindex'           => $tabindex,
+			/**
+			 * Enable the "Duplicate" action for child entries.
+			 *
+			 * @since 1.0
+			 *
+			 * @param bool                  $enable_duplication Is duplication enabled? Defaults to `false`.
+			 * @param array                 $form               The current parent form.
+			 * @param \GP_Field_Nested_Form $field              The current Nested Form field.
+			 */
+			'enable_duplication' => gf_apply_filters( array( 'gpnf_enable_duplication', $form['id'], $this->id ), false, $form, $this ),
 			'labels'             => array(
+				/* Translators: %1$s is replaced with a <span>. %2$s is replaced with the plural label for child entries. %3$s is replaced with a closing </span>. */
 				'no_entries'      => sprintf( __( 'There are no %1$s%2$s.%3$s', 'gp-nested-forms' ), '<span>', $this->get_items_label(), '</span>' ),
 				'add_entry'       => $add_button_label,
 				'edit_entry'      => __( 'Edit', 'gp-nested-forms' ),
 				'duplicate_entry' => __( 'Duplicate', 'gp-nested-forms' ),
 				'delete_entry'    => __( 'Delete', 'gp-nested-forms' ),
+			),
+			'aria_labels'        => array(
+				/* Translators: %1$s is replaced with the singular label for a child entry. %2$s is replaced with the field label for the first column. */
+				'edit_entry'      => ! empty( $nested_fields ) ? sprintf( __( 'Edit %1$s {0} where %2$s is {1}.', 'gp-nested-forms' ), $this->get_item_label(), GFCommon::get_label( $nested_fields[0] ) ) : '',
+				/* Translators: %1$s is replaced with the singular label for a child entry. %2$s is replaced with the field label for the first column. */
+				'duplicate_entry' => ! empty( $nested_fields ) ? sprintf( __( 'Duplicate %1$s {0} where %2$s is {1}.', 'gp-nested-forms' ), $this->get_item_label(), GFCommon::get_label( $nested_fields[0] ) ) : '',
+				/* Translators: %1$s is replaced with the singular label for a child entry. %2$s is replaced with the field label for the first column. */
+				'delete_entry'    => ! empty( $nested_fields ) ? sprintf( __( 'Delete %1$s {0} where %2$s is {1}.', 'gp-nested-forms' ), $this->get_item_label(), GFCommon::get_label( $nested_fields[0] ) ) : '',
 			),
 		);
 
@@ -167,8 +187,7 @@ class GP_Field_Nested_Form extends GF_Field {
 
 	public function get_add_button( $form_id, $nested_form_id, $tabindex, $label ) {
 		return sprintf(
-			'
-			<button type="button" class="gpnf-add-entry"
+			'<button type="button" class="gpnf-add-entry"
 		        data-formid="%s"
 		        data-nestedformid="%s"
 				data-bind="attr: { disabled: isMaxed }, css: { \'gf-default-disabled\': isMaxed }"
@@ -191,7 +210,7 @@ class GP_Field_Nested_Form extends GF_Field {
 
 		return sprintf(
 			'
-			<p class="gpnf-add-entry-max" data-bind="if: isMaxed">
+			<p class="gpnf-add-entry-max" data-bind="visible: isMaxed" style="display: none;">
 				%s
 			</p>',
 			gf_apply_filters( array( 'gpnf_add_button_max_message', $form_id, $nested_form_id ), $message )
@@ -404,6 +423,17 @@ class GP_Field_Nested_Form extends GF_Field {
 
 	public function get_items_label() {
 		return rgar( $this->get_item_labels(), 'plural' );
+	}
+
+	public function is_value_submission_empty( $form_id ) {
+		/**
+		 * Gravity Flow runs fields through is_value_submission_empty() and expects a falsey value before it'll run validate() on the field.
+		 */
+		if ( function_exists( 'gravity_flow' ) && gravity_flow()->is_workflow_detail_page() ) {
+			return false;
+		}
+
+		return parent::is_value_submission_empty( $form_id );
 	}
 
 	public function validate( $value, $form ) {

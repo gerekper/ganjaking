@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-nested-category-layout/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Nested category layout main class.
@@ -34,7 +34,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.17.2';
+	const VERSION = '1.17.3';
 
 	/** @var WC_Nested_Category_Layout single instance of this plugin */
 	protected static $instance;
@@ -81,7 +81,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 			// no pagination: return all products when displaying nested categories/products
 			add_action( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
-
+			add_action( 'pre_get_posts', [ $this, 'handle_third_party_plugins_compatibility' ], 1 );
 		} else {
 
 			// inject our admin options
@@ -149,7 +149,6 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 			// remove template actions which are unnecessary with nested categories
 			add_action( 'woocommerce_before_shop_loop', [ $this, 'remove_category_template_unnecessary_actions' ], 1 );
 		}
-
 	}
 
 
@@ -183,7 +182,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 			require_once( $this->get_plugin_path() . '/src/Walker/Walker_Category_Depth.php' );
 		}
 
-		if ( ! is_admin() || is_ajax() ) {
+		if ( ! is_admin() || wp_doing_ajax() ) {
 
 			require_once( $this->get_plugin_path() . '/src/Walker/Category_Products.php' );
 
@@ -648,5 +647,49 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		return self::$instance;
 	}
 
+	/**
+	 * Handle third party plugins compatibility.
+	 *
+	 * @internal
+	 *
+	 * @since 1.17.3
+	 */
+	public function handle_third_party_plugins_compatibility() {
+
+		// YITH WooCommerce Ajax Product Filter
+		if ( isset( $_REQUEST['yith_wcan'] ) ) {
+			$this->disable_nested_categories();
+		}
+
+		// WOOF - WooCommerce Products Filters
+		if ( isset( $_REQUEST['swoof'] ) ) {
+			$this->disable_nested_categories();
+		}
+
+		// Advanced AJAX Product Filters
+		if ( class_exists('BeRocket_url_parse_page') && ! isset( $_REQUEST['filters'] ) ) {
+			remove_action( 'woocommerce_product_query', [ new BeRocket_url_parse_page(), 'woocommerce_product_query'], 99999999, 1 );
+		}
+
+		// Advanced AJAX Product Filters
+		if ( class_exists('BeRocket_url_parse_page') && isset( $_REQUEST['filters'] ) ) {
+			$this->disable_nested_categories();
+		}
+
+		// WooCommerce product filter widget
+		if ( WC_Query::get_layered_nav_chosen_attributes() ) {
+			$this->disable_nested_categories();
+		}
+	}
+
+	/**
+	 * Remove product query hook to disable NCL.
+	 *
+	 * @since 1.17.3
+	 */
+	private function disable_nested_categories() {
+		remove_action( 'wp', [ $this, 'wp_init' ] );
+		remove_action( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
+	}
 
 }

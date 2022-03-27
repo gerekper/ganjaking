@@ -4,17 +4,6 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
-/**
- * Enqueue the styles and scripts required for the tooltips.
- */
-function enqueue_tooltip_scripts() {
-	wp_enqueue_style( 'gform_font_awesome' );
-
-	wp_enqueue_script( 'gform_tooltip_init' );
-
-}
-add_action( 'admin_enqueue_scripts', 'enqueue_tooltip_scripts' );
-
 global $__gf_tooltips;
 $__gf_tooltips = array(
 	'notification_send_to_email'                  => '<strong>' . __( 'Send To Email Address', 'gravityforms' ) . '</strong>' . __( 'Enter the email address you would like the notification email sent to.', 'gravityforms' ),

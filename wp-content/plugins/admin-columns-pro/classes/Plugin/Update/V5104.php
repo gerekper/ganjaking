@@ -5,15 +5,16 @@ namespace ACP\Plugin\Update;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenTypes;
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 
 class V5104 extends Update {
 
-	public function apply_update() {
-		$this->set_default_export_option();
+	public function __construct() {
+		parent::__construct( new Version( '5.1.4' ) );
 	}
 
-	protected function set_version() {
-		$this->version = '5.1.4';
+	public function apply_update() {
+		$this->set_default_export_option();
 	}
 
 	private function set_default_export_option() {

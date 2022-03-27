@@ -8,11 +8,6 @@ use LogicException;
 abstract class Comparison {
 
 	/**
-	 * @var Labels
-	 */
-	protected $labels;
-
-	/**
 	 * @var Operators
 	 */
 	protected $operators;
@@ -23,9 +18,14 @@ abstract class Comparison {
 	protected $value_type;
 
 	/**
-	 * @param Operators   $operators
-	 * @param string      $value_type
-	 * @param Labels|null $labels
+	 * @var Labels
+	 */
+	protected $labels;
+
+	/**
+	 * @param Operators $operators
+	 * @param string    $value_type
+	 * @param Labels    $labels
 	 */
 	public function __construct( Operators $operators, $value_type = null, Labels $labels = null ) {
 		if ( null === $labels ) {

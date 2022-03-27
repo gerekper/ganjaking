@@ -22,7 +22,7 @@ class Auth extends AuthAbstract {
 	 */
 	public function __construct() {
 
-		$options           = new PluginOptions();
+		$options           = PluginOptions::init();
 		$this->mailer_slug = $options->get( 'mail', 'mailer' );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
@@ -168,7 +168,7 @@ class Auth extends AuthAbstract {
 			'account_id'   => '',
 		];
 
-		$options    = new PluginOptions();
+		$options    = PluginOptions::init();
 		$from_email = $options->get( 'mail', 'from_email' );
 
 		try {
@@ -217,7 +217,7 @@ class Auth extends AuthAbstract {
 		}
 
 		// Verify the nonce that should be returned in the state parameter.
-		if ( isset( $_GET['state'] ) && ! wp_verify_nonce( $_GET['state'], $this->state_key ) ) { //phpcs:ignore
+		if ( isset( $_GET['state'] ) && ! wp_verify_nonce( sanitize_key( $_GET['state'] ), $this->state_key ) ) {
 			wp_safe_redirect(
 				add_query_arg(
 					'error',
@@ -261,7 +261,8 @@ class Auth extends AuthAbstract {
 			exit;
 		}
 
-		$code = isset( $_GET['code'] ) ? $_GET['code'] : ''; // phpcs:ignore
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$code = isset( $_GET['code'] ) ? $_GET['code'] : '';
 
 		// Try to save the auth code.
 		if ( ! empty( $code ) ) {

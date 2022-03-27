@@ -689,7 +689,7 @@ abstract class UpdraftPlus_RemoteSend {
 				$ret .= '<p><strong>'.__('Existing keys', 'updraftplus').'</strong><br>';
 			}
 			$ret .= htmlspecialchars($key['name']);
-			$ret .= ' - <a href="'.UpdraftPlus::get_current_clean_url().'" onclick="updraft_migrate_local_key_delete(\''.esc_attr($k).'\'); return false;" class="updraft_migrate_local_key_delete" data-keyid="'.esc_attr($k).'">'.__('Delete', 'updraftplus').'</a>';
+			$ret .= ' - <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" onclick="updraft_migrate_local_key_delete(\''.esc_attr($k).'\'); return false;" class="updraft_migrate_local_key_delete" data-keyid="'.esc_attr($k).'">'.__('Delete', 'updraftplus').'</a>';
 			$ret .= '<br>';
 		}
 

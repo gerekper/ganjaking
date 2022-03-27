@@ -51,13 +51,13 @@ class GetTransacEmailContent implements \WPMailSMTP\Vendor\SendinBlue\Client\Mod
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'subject' => 'string', 'templateId' => 'int', 'date' => '\\DateTime', 'events' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacEmailContentEvents[]', 'body' => 'string', 'attachmentCount' => 'int'];
+    protected static $swaggerTypes = ['email' => 'string', 'subject' => 'string', 'templateId' => 'int', 'date' => 'string', 'events' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacEmailContentEvents[]', 'body' => 'string', 'attachmentCount' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'subject' => null, 'templateId' => 'int64', 'date' => 'date-time', 'events' => null, 'body' => null, 'attachmentCount' => 'int64'];
+    protected static $swaggerFormats = ['email' => 'email', 'subject' => null, 'templateId' => 'int64', 'date' => null, 'events' => null, 'body' => null, 'attachmentCount' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -258,7 +258,7 @@ class GetTransacEmailContent implements \WPMailSMTP\Vendor\SendinBlue\Client\Mod
     /**
      * Gets date
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDate()
     {
@@ -267,7 +267,7 @@ class GetTransacEmailContent implements \WPMailSMTP\Vendor\SendinBlue\Client\Mod
     /**
      * Sets date
      *
-     * @param \DateTime $date Date on which transactional email was sent
+     * @param string $date Date on which transactional email was sent
      *
      * @return $this
      */

@@ -14,7 +14,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 class Curve25519 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery
@@ -44,7 +43,7 @@ class Curve25519 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montg
      *
      * @return array
      */
-    public function multiplyPoint(array $p, \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $d)
+    public function multiplyPoint(array $p, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $d)
     {
         //$r = strrev(sodium_crypto_scalarmult($d->toBytes(), strrev($p[0]->toBytes())));
         //return [$this->factory->newInteger(new BigInteger($r, 256))];
@@ -52,7 +51,25 @@ class Curve25519 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montg
         $d &= "ø" . \str_repeat("ÿ", 30) . "";
         $d = \strrev($d);
         $d |= "@";
-        $d = $this->factory->newInteger(new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($d, -256));
+        $d = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($d, -256);
         return parent::multiplyPoint($p, $d);
+    }
+    /**
+     * Creates a random scalar multiplier
+     *
+     * @return BigInteger
+     */
+    public function createRandomMultiplier()
+    {
+        return \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger::random(256);
+    }
+    /**
+     * Performs range check
+     */
+    public function rangeCheck(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $x)
+    {
+        if ($x->getLength() > 256 || $x->isNegative()) {
+            throw new \RangeException('x must be a positive integer less than 256 bytes in length');
+        }
     }
 }

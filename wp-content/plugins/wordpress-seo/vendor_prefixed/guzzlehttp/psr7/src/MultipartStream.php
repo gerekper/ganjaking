@@ -6,6 +6,8 @@ use YoastSEO_Vendor\Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
+ *
+ * @final
  */
 class MultipartStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
 {
@@ -62,7 +64,7 @@ class MultipartStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterfa
             $this->addElement($stream, $element);
         }
         // Add the trailing boundary with CRLF
-        $stream->addStream(stream_for("--{$this->boundary}--\r\n"));
+        $stream->addStream(\YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::streamFor("--{$this->boundary}--\r\n"));
         return $stream;
     }
     private function addElement(\YoastSEO_Vendor\GuzzleHttp\Psr7\AppendStream $stream, array $element)
@@ -72,7 +74,7 @@ class MultipartStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterfa
                 throw new \InvalidArgumentException("A '{$key}' key is required");
             }
         }
-        $element['contents'] = stream_for($element['contents']);
+        $element['contents'] = \YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::streamFor($element['contents']);
         if (empty($element['filename'])) {
             $uri = $element['contents']->getMetadata('uri');
             if (\substr($uri, 0, 6) !== 'php://') {
@@ -80,9 +82,9 @@ class MultipartStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterfa
             }
         }
         list($body, $headers) = $this->createElement($element['name'], $element['contents'], isset($element['filename']) ? $element['filename'] : null, isset($element['headers']) ? $element['headers'] : []);
-        $stream->addStream(stream_for($this->getHeaders($headers)));
+        $stream->addStream(\YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::streamFor($this->getHeaders($headers)));
         $stream->addStream($body);
-        $stream->addStream(stream_for("\r\n"));
+        $stream->addStream(\YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::streamFor("\r\n"));
     }
     /**
      * @return array
@@ -104,7 +106,7 @@ class MultipartStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterfa
         // Set a default Content-Type if one was not supplied
         $type = $this->getHeader($headers, 'content-type');
         if (!$type && ($filename === '0' || $filename)) {
-            if ($type = mimetype_from_filename($filename)) {
+            if ($type = \YoastSEO_Vendor\GuzzleHttp\Psr7\MimeType::fromFilename($filename)) {
                 $headers['Content-Type'] = $type;
             }
         }

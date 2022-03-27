@@ -55,7 +55,7 @@ class InlineSave implements RequestHandler {
 		}
 
 		if ( ! $strategy->user_has_write_permission( $id ) ) {
-			$response->error();
+			$response->set_message( __( "You don't have permissions to edit this item", 'codepress-admin-columns' ) )->error();
 		}
 
 		$column = $list_screen->get_column_by_name( $request->get( 'column' ) );

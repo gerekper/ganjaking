@@ -115,8 +115,8 @@ class WC_PB_Admin_Analytics {
 		}
 
 		$suffix            = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$script_path       = '/assets/js/admin/analytics' . $suffix . '.js';
-		$script_asset_path = WC_PB_ABSPATH . 'assets/js/admin/analytics.asset.php';
+		$script_path       = '/assets/dist/admin/analytics' . $suffix . '.js';
+		$script_asset_path = WC_PB_ABSPATH . 'assets/dist/admin/analytics.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 			? require( $script_asset_path )
 			: array(

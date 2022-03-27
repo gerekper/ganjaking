@@ -60,7 +60,7 @@ class Events {
 				$log_ids_array
 			)
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		// phpcs:enable
 
 		// Delete the DB rows of links connected to the provided email log ids list.
 		$links_db_table = Tracking::get_links_table_name();
@@ -72,7 +72,7 @@ class Events {
 				$log_ids_array
 			)
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		// phpcs:enable
 	}
 
 	/**

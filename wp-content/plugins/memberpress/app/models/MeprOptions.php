@@ -13,6 +13,12 @@ class MeprOptions {
     $this->wpml_custom_fields(); //Need to store as an array for WPML - this converts back to objects :)
   }
 
+  /**
+   * Fetch the MeprOptions instance
+   *
+   * @param bool $force Force a fresh instance
+   * @return self
+   */
   public static function fetch($force = false) {
     static $mepr_options;
 
@@ -637,11 +643,11 @@ class MeprOptions {
     //Signup fields stuff
     $this->username_is_email                  = isset($params[$this->username_is_email_str]);
     $this->require_fname_lname                = isset($params[$this->require_fname_lname_str]);
-    $this->show_fname_lname                   = isset($params[$this->show_fname_lname_str]);
+    $this->show_fname_lname                   = (isset($params[$this->show_fname_lname_str]) || isset($params[$this->require_fname_lname_str]));
     $this->show_fields_logged_in_purchases    = isset($params[$this->show_fields_logged_in_purchases_str]);
 
     // Always show and require address fields when tax calculations are enabled
-    $this->show_address_fields                = (isset($params[$this->show_address_fields_str]) || isset($params['mepr_calculate_taxes']));
+    $this->show_address_fields                = (isset($params[$this->show_address_fields_str]) || isset($params[$this->require_address_fields_str]) || isset($params['mepr_calculate_taxes']));
     $this->require_address_fields             = (isset($params[$this->require_address_fields_str]) || isset($params['mepr_calculate_taxes']));
 
     //We now support address being required -- handle that here
@@ -722,8 +728,8 @@ class MeprOptions {
 
         $type = $params[$this->custom_fields_str][$i]['type'];
         $default = isset($params[$this->custom_fields_str][$i]['default'])?$params[$this->custom_fields_str][$i]['default']:'';
-        $signup = isset($params[$this->custom_fields_str][$i]['signup']);
-        $show_in_account = isset($params[$this->custom_fields_str][$i]['show_in_account']);
+        $signup = (isset($params[$this->custom_fields_str][$i]['signup']) || isset($params[$this->custom_fields_str][$i]['required']));
+        $show_in_account = (isset($params[$this->custom_fields_str][$i]['show_in_account']) || isset($params[$this->custom_fields_str][$i]['required']));
         $required = isset($params[$this->custom_fields_str][$i]['required']);
         $dropdown_ops = array();
 
@@ -809,18 +815,6 @@ class MeprOptions {
     $postcode = $this->attr('biz_postcode');
 
     return (!empty($country) && !empty($postcode) && !empty($state) && !empty($city) && !empty($one));
-  }
-
-  public function deactivate_license() {
-    $this->mothership_license = '';
-    $this->store(false);
-
-    // Don't need to check the mothership for this one ... we just deactivated
-    update_option('mepr_activated', false);
-
-    // Clear the cache of add-ons
-    delete_site_transient('mepr_addons');
-    delete_site_transient('mepr_all_addons');
   }
 
   public function payment_method($id = 'default') {

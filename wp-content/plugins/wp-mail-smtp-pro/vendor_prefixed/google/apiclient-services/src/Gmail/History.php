@@ -20,6 +20,9 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class History extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'messagesDeleted';
+    /**
+     * @var string
+     */
     public $id;
     protected $labelsAddedType = \WPMailSMTP\Vendor\Google\Service\Gmail\HistoryLabelAdded::class;
     protected $labelsAddedDataType = 'array';
@@ -31,10 +34,16 @@ class History extends \WPMailSMTP\Vendor\Google\Collection
     protected $messagesAddedDataType = 'array';
     protected $messagesDeletedType = \WPMailSMTP\Vendor\Google\Service\Gmail\HistoryMessageDeleted::class;
     protected $messagesDeletedDataType = 'array';
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

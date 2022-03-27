@@ -1,5 +1,14 @@
 *** Changelog ***
 
+2022-02-27 version 2.29
+
+* Fixes for order tracking causing problem for contact form 7 reCaptcha.
+* Fixes for order tracking captcha turn off ignored.
+
+2022-02-23 version 2.28
+
+* Fixes for WooCommerce signup/login captcha did not work for some themes to due to custom forms.
+
 2022-01-23 version 2.27
 
 * Added support for buddy press signup. See reCaptcha for WooCommerce Signup Settings.

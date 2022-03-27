@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles scheme switching for SATT items.
  *
  * @class    WCS_ATT_Manage_Switch
- * @version  3.2.0
+ * @version  3.2.1
  */
 class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 
@@ -235,7 +235,11 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 		}
 		unset( $product->wcsatt_bypass_switch_filter );
 
-		$subscription = wcs_get_subscription( $_GET[ 'switch-subscription' ] );
+		if ( ! isset( $_GET[ 'switch-subscription' ] ) ) {
+			return $schemes;
+		}
+
+		$subscription = wcs_get_subscription( absint( $_GET[ 'switch-subscription' ] ) );
 
 		if ( ! $subscription ) {
 			return $schemes;

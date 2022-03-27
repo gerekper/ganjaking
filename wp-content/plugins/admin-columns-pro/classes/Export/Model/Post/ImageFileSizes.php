@@ -10,7 +10,7 @@ use ACP\Export\Model;
 class ImageFileSizes extends Model {
 
 	public function get_value( $id ) {
-		return ac_helper()->file->get_readable_filesize( array_sum( $this->get_column()->get_raw_value( $id ) ) );
+		return ac_helper()->file->get_readable_filesize( array_sum( $this->column->get_raw_value( $id ) ) );
 	}
 
 }

@@ -234,7 +234,7 @@ class UpdraftPlus_Addons_Migrator {
 		$ret .= '<h3><span class="dashicons dashicons-migrate"></span>'.__('Restore an existing backup set onto this site', 'updraftplus').'</h3>';
 		$ret .= '</header>';
 
-		$ret .= '<a href="'.UpdraftPlus::get_current_clean_url().'" onclick="jQuery(\'#updraft-navtab-backups\').trigger(\'click\'); return false;">'.__('To import a backup set, go to the "Existing backups" section in the "Backup/Restore" tab', 'updraftplus')."</a>";
+		$ret .= '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" onclick="jQuery(\'#updraft-navtab-backups\').trigger(\'click\'); return false;">'.__('To import a backup set, go to the "Existing backups" section in the "Backup/Restore" tab', 'updraftplus')."</a>";
 		
 		if (empty($backup_history)) {
 			$ret .= '<p><em>'.__('This site has no backups to restore from yet.', 'updraftplus').'</em></p>';
@@ -1395,7 +1395,7 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 				<div class="updraft_migrate_add_site" style="display: none;">
 					<p>
 						<?php
-						echo __("To add a site as a destination for sending to, enter that site's key below.", 'updraftplus').' <a href="'.UpdraftPlus::get_current_clean_url().'" onclick="alert(\''.esc_js(__('Keys for a site are created in the section "receive a backup from a remote site".', 'updraftplus').' '.__("So, to get the key for the remote site, open the 'Migrate Site' window on that site, and go to that section.", 'updraftplus')).'\'); return false;">'.__("How do I get a site's key?", 'updraftplus').'</a>';
+						echo __("To add a site as a destination for sending to, enter that site's key below.", 'updraftplus').' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" onclick="alert(\''.esc_js(__('Keys for a site are created in the section "receive a backup from a remote site".', 'updraftplus').' '.__("So, to get the key for the remote site, open the 'Migrate Site' window on that site, and go to that section.", 'updraftplus')).'\'); return false;">'.__("How do I get a site's key?", 'updraftplus').'</a>';
 						?>
 					</p>
 					<div class="input-field">

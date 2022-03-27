@@ -51,13 +51,13 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'date' => '\\DateTime', 'subject' => 'string', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'tag' => 'string', 'ip' => 'string', 'link' => 'string', 'from' => 'string', 'templateId' => 'int'];
+    protected static $swaggerTypes = ['email' => 'string', 'date' => 'string', 'subject' => 'string', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'tag' => 'string', 'ip' => 'string', 'link' => 'string', 'from' => 'string', 'templateId' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'date' => 'date-time', 'subject' => null, 'messageId' => null, 'event' => null, 'reason' => null, 'tag' => null, 'ip' => null, 'link' => null, 'from' => 'email', 'templateId' => 'int64'];
+    protected static $swaggerFormats = ['email' => 'email', 'date' => null, 'subject' => null, 'messageId' => null, 'event' => null, 'reason' => null, 'tag' => null, 'ip' => null, 'link' => null, 'from' => 'email', 'templateId' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -240,7 +240,7 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Gets date
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDate()
     {
@@ -249,7 +249,7 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Sets date
      *
-     * @param \DateTime $date UTC date-time on which the event has been generated
+     * @param string $date UTC date-time on which the event has been generated
      *
      * @return $this
      */

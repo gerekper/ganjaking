@@ -1,45 +1,48 @@
 /* Input Styles - Form Editor */
 
-.gfield .gpnf-nested-entries {
-	border-top: 1px solid rgba( 0, 0, 0, 0.1 );
-	min-width: 50%;
+.gpnf-nested-entries {
+	border: 1px solid rgba( 0, 0, 0, 0.1 );
+	border-radius: 3px;
+	min-width: min( 100%, 800px );
 	border-spacing: 0;
 	border-collapse: separate;
 }
 
-.gfield .gpnf-nested-entries th,
-.gfield .gpnf-nested-entries td {
+.gpnf-nested-entries th,
+.gpnf-nested-entries td {
 	border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
-	padding: 4px 8px;
+	padding: 1rem;
 }
 
-.gfield .gpnf-nested-entries th {
-	background-color: rgba( 0, 0, 0, 0.1 );
+.gpnf-nested-entries tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.gpnf-nested-entries th {
+	background-color: rgba( 0, 0, 0, 0.03 );
 	border-color: rgba( 0, 0, 0, 0.1 );
+	font-size: 0.9em;
+	text-align: left;
 }
 
-.gfield .gpnf-no-entries td {
-	text-align: center;
-	padding: 10px 0;
+.gpnf-no-entries {
+	display: table-row !important;
 }
 
-.gfield .gpnf-row-actions ul {}
-
-.gfield .gpnf-row-actions li {
-	display: inline;
-}
-
-.gfield .gpnf-row-actions .delete a {
-	color: #c00;
-}
-
-.gfield .gpnf-add-entry {
+.gpnf-add-entry {
 	margin-top: 10px;
 	pointer-events: none;
 }
 
+.gpnf-no-entries td {
+	text-align: center;
+	padding: 1rem;
+	border-bottom: 0;
+}
+
 .gpnf-no-entries td span {
 	text-transform: lowercase;
+	margin: 0 !important;
 }
 
 /* Entry View - Field Value Styles */
@@ -241,4 +244,8 @@
 	height: calc( 2.25rem - 2px );
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+#gpnf-edit-child-form {
+	float: right;
 }

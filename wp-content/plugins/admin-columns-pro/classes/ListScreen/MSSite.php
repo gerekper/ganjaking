@@ -3,6 +3,7 @@
 namespace ACP\ListScreen;
 
 use AC;
+use AC\Type\Url;
 use AC\WpListTableFactory;
 use ACP\Column;
 use ACP\Editing;
@@ -54,10 +55,13 @@ class MSSite extends AC\ListScreenWP
 	}
 
 	public function get_edit_link() {
-		return add_query_arg( [
+		$url = new Url\EditorNetwork( 'columns' );
+		$url->add( [
 			'list_screen' => $this->get_key(),
 			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_network_url( 'columns' ) );
+		] );
+
+		return $url->get_url();
 	}
 
 	/**

@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 1.6.3
+
+	- Added new "Ignore Form Restrictions" option.
+
 ## 1.6.2
 
 	- Fixed positional issues introduced by GF in [PR#1183](https://github.com/gravityforms/gravityforms/pull/1883/files).

@@ -885,13 +885,15 @@ class WoocommerceGpfCommon {
 	 */
 	private function get_prepopulate_fields() {
 		$fields = [
-			'field:sku'             => __( 'SKU', 'woo_gpf' ),
-			'field:product_title'   => __( 'Product title', 'woo_gpf' ),
-			'field:variation_title' => __( 'Variation title', 'woo_gpf' ),
-			'field:stock_qty'       => __( 'Stock Qty', 'woo_gpf' ),
-			'field:stock_status'    => __( 'Stock Status', 'woo_gpf' ),
-			'field:backorders'      => __( '"Allow backorders" setting', 'woo_gpf' ),
-			'field:tax_class'       => __( 'Tax class', 'woo_gpf' ),
+			'field:backorders'       => __( '"Allow backorders" setting', 'woocommerce_gpf' ),
+			'field:product_title'    => __( 'Product title', 'woocommerce_gpf' ),
+			'field:sku'              => __( 'SKU', 'woocommerce_gpf' ),
+			'field:stock_qty'        => __( 'Stock Qty', 'woocommerce_gpf' ),
+			'field:stock_status'     => __( 'Stock Status', 'woocommerce_gpf' ),
+			'field:tax_class'        => __( 'Tax class', 'woocommerce_gpf' ),
+			'field:weight'           => __( 'Weight (raw value, no units)', 'woocommerce_gpf' ),
+			'field:weight_with_unit' => __( 'Weight (with units)', 'woocommerce_gpf' ),
+			'field:variation_title'  => __( 'Variation title', 'woocommerce_gpf' ),
 		];
 		asort( $fields );
 
@@ -1041,5 +1043,86 @@ class WoocommerceGpfCommon {
 	 */
 	public function get_term_depth_repository() {
 		return $this->term_depth_repository;
+	}
+
+	/**
+	 * Get the list of taxonomy locales for the store's base location.
+	 *
+	 * @return array
+	 */
+	public function get_google_taxonomy_locales() {
+		$country_locales = array(
+			// Argentina is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'AR' => [], // Argentina
+			'AU' => [ 'en-AU' ], // Australia
+			'AT' => [ 'de-DE' ], // Austria
+			'BH' => [], // Bahrain - no specific mapping clear
+			'BY' => [ 'ru-RU' ], // Belarus
+			'BE' => [ 'fr-FR', 'de-DE', 'nl-NL' ], // Belgium
+			'BR' => [ 'pt-BR' ], // Brazil
+			'CA' => [ 'fr-FR' ], // Canada
+			// Chile is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'CL' => [], // Chile
+			'CN' => [ 'zh-CN' ], // China
+			// Colombia is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'CO' => [], // Colombia
+			'CZ' => [ 'cs-CZ' ], // Czech Republic
+			'DK' => [ 'da-DK' ], // Denmark
+			// Ecuador is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'EC' => [], // Ecuador
+			'EG' => [ 'ar-SA' ], // Egypt
+			'FI' => [ 'fi-FI', 'sv-SE' ], // Finland
+			'FR' => [ 'fr-FR' ], // France
+			'GE' => [], // Georgian not currently supported language
+			'DE' => [ 'de-DE' ], // Germany
+			'GR' => [], // Greek not currently supported
+			'HK' => [ 'zh-CN' ], // Hong-Kong
+			'HU' => [], // Hungarian not currently supported
+			'IN' => [], // India
+			'ID' => [], // Indonesia
+			'IE' => [ 'en-GB' ], // Ireland
+			'IL' => [], // Israel
+			'IT' => [ 'it-IT' ], // Italy
+			'JP' => [ 'ja-JP' ], // Japan
+			'JO' => [ 'ar-SA' ], // Jordan
+			'KZ' => [ 'ru-RU' ], // Kazakhstan
+			'KW' => [ 'ar-SA' ], // Kuwait
+			'LB' => [ 'ar-SA' ], // Lebanon
+			'MY' => [], // Malaysia
+			'MX' => [], // Mexico
+			'NL' => [ 'nl-NL' ], // Netherlands
+			'NZ' => [], // New Zealand
+			'NO' => [ 'no-NO' ], // Norway
+			'OM' => [ 'ar-SA' ], // Oman
+			'PY' => [], // Paraguay
+			'PE' => [], // Peru
+			'PH' => [], // Philippines
+			'PL' => [ 'pl-PL' ], // Poland
+			'PT' => [ 'pt-BR' ], // Portugal
+			'RO' => [ '' ], // Romania
+			'RU' => [ 'ru-RU' ], // Russia
+			'SG' => [], // Singapore
+			'SK' => [], // Slovakia
+			'ZA' => [], // South Africa
+			'ES' => [ 'es-ES' ], // Spain
+			'SE' => [ 'sv-SE' ], // Sweden
+			'CH' => [ 'de-DE', 'fr-FR', 'it-IT' ], // Switzerland
+			'TW' => [], // Taiwan
+			'TR' => [ 'tr-TR' ], // Turkey
+			'AE' => [ 'ar-SA' ], // United Arab Emirates
+			'GB' => [ 'en-GB' ], // United Kingdom
+			'US' => [], // United States of America
+			'UY' => [], // Uruguay
+			'UZ' => [], // Uzbekistan
+			'VN' => [ 'vi-VN' ], // Vietnam
+		);
+
+		$base_country = WC()->countries->get_base_country();
+		$locales      = $country_locales[ $base_country ] ?? [];
+		if ( ! in_array( 'en-US', $locales, true ) && ! in_array( 'en-GB', $locales, true ) ) {
+			$locales[] = 'en-US';
+		}
+
+		return apply_filters( 'woocommerce_gpf_google_taxonomy_locales', $locales );
 	}
 }

@@ -106,7 +106,10 @@ if ( ! class_exists( 'RS_Remove_Points_For_User' ) ) {
 
 						if ( ( 'true' == $selected_options[ 'enablemail' ] ) ) {
 							$PointsData->reset( $UserId ) ;
-							$finalmsg = str_replace( array( '[rs_deleted_points]' , '[balance_points]' , '[site_name]' ) , array( $selected_options[ 'points' ] , $PointsData->total_available_points() , get_option( 'blogname' ) ) , $selected_options[ 'message' ] ) ;
+							$finalmsg          = str_replace( array( '[rs_deleted_points]' , '[balance_points]' , '[site_name]' ) , array( $selected_options[ 'points' ] , $PointsData->total_available_points() , get_option( 'blogname' ) ) , $selected_options[ 'message' ] ) ;
+													  $my_acccount_url   = sprintf('<a href="%s">%s</a>', esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))), __('My Account', 'rewardsystem'));
+													  $user_login        = is_object( get_userdata( $UserId ) ) ? get_userdata( $UserId )->user_login : '' ;
+													  $finalmsg          = str_replace( array('[username]','[my_account_page]') , array($user_login,$my_acccount_url) , $finalmsg ) ;
 
 							$headers = "MIME-Version: 1.0\r\n" ;
 							$headers .= "Content-Type: text/html; charset=UTF-8\r\n" ;

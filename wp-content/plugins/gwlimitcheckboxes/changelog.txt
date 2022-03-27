@@ -1,6 +1,50 @@
 
 # Changelog
 
+## 1.3.4
+
+	- Improved compatibility with GP Populate Anything.
+
+## 1.3.3
+
+	- Fixed issue where non-editable fields were being validated on Gravity Flow User Input steps.
+
+## 1.3.2
+
+	- Added [`gplcb_should_validate_minimum`](https://gravitywiz.com/documentation/gplcb_should_validate_minimum/) filter to allow filtering whether a field's minimum limit should be validated.
+	- Added helper function `gp_limit_checkboxes()` which returns an instance of the `GP_Limit_Checkboxes` class to provide a reliable way to access its public methods.
+
+## 1.3.1
+
+	- Added [gplcb_checkbox_count](https://gravitywiz.com/documentation/gplcb_checkbox_count-js) filter.
+
+## 1.2.16
+
+	- Improved compatibility with Gravity Forms 2.5.
+	- Updated minimum Gravity Perks version to 2.2.5.
+	- Improved compatibility with Gravity Forms 2.5.
+
+## 1.3
+
+	- Improved compatibility with Gravity Forms 2.5.
+	- Updated minimum Gravity Perks version to 2.2.5.
+
+## 1.2.15
+
+	- Added support for Gravity Flow's User Input steps.
+
+## 1.2.14
+
+	- Fixed an issue where administrative fields may produce a cryptic error message when GPLCB is enabled for them.
+
+## 1.2.13
+
+	- Fixed dependency on jQuery.migrate that has been removed as of WordPress 5.5.
+
+## 1.2.12
+
+	- Fixed issue where checkbox limits were not correctly applied on AJAX-enabled forms when a Checkbox field was hidden by conditional logic by default.
+
 ## 1.2.11
 
 	- Fixed issue where gplc_validation_message filter was not working when field/group was under minimum.

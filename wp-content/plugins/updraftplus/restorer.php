@@ -3954,7 +3954,10 @@ class Updraft_Restorer {
 			$this->restore_configuration_bundle($table);
 		}
 
-		if (preg_match('/^([\d+]_)?options$/', substr($table, strlen($import_table_prefix)), $matches)) {
+		if ($this->is_multisite && $import_table_prefix.'sitemeta' === $table) {
+			// the reason why this if statement is needed is that when *_options table is not included in the backup, then updraft_jobdata will never be wiped out from the *_sitemeta table as the below elseif statement will call wipe_state_data() only if *_options table is included
+			$updraftplus->wipe_state_data(false, 'sitemeta');
+		} elseif (preg_match('/^([\d+]_)?options$/', substr($table, strlen($import_table_prefix)), $matches)) {
 			// The second prefix here used to have a '!$this->is_multisite' on it (i.e. 'options' table on non-multisite). However, the user_roles entry exists in the main options table on multisite too.
 			if (($this->is_multisite && !empty($matches[1])) || $table == $import_table_prefix.'options') {
 			

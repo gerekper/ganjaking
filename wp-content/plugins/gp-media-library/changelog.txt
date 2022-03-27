@@ -1,6 +1,32 @@
 
 # Changelog
 
+## 1.2.23
+
+	- Added [gpml_image_sizes](https://gravitywiz.com/documentation/gpml_image_sizes) to allow filtering image sizes on upload.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.2.22
+
+	- Improved reliabiltiy of deleting files when integrated with other plugins.
+
+## 1.2.21
+
+	- Added [gpml_supported_acf_field_types](https://gravitywiz.com/documentation/gpml_supported_acf_field_types/) filter to allow enabling support for other ACF field types.
+	- Added support for Image Aspect Ratio Crop ACF field type.
+
+## 1.2.20
+
+	- Added support for setting File Upload Custom Fields as featured images. (#8)
+
+## 1.2.19
+
+	- Added support for automatically saving to a `file` or `image` ACF field.
+
+## 1.2.18
+
+	- Fixed issue where GF Media Library would interfere with file ordering specified by File Upload Pro's sorting.
+
 ## 1.2.17
 
 	- Added properly registered entry meta for Media Library attachment IDs. (#5)

@@ -204,6 +204,10 @@ if ( ! class_exists( 'SRP_Admin_Enqueue' ) ) {
 					'callable' => array( 'SRP_Admin_Enqueue' , 'enqueue_for_impexp_modules_tab' ) ,
 					'restrict' => 'fpimportexport' == $section ,
 				) ,
+								'srp-bday-modules-tab'                 => array(
+					'callable' => array( 'SRP_Admin_Enqueue' , 'enqueue_for_bday_modules_tab' ) ,
+					'restrict' => 'fpbirthday' == $section ,
+				) ,
 				'srp-cashback-modules-tab'               => array(
 					'callable' => array( 'SRP_Admin_Enqueue' , 'enqueue_for_cashback_modules_tab' ) ,
 					'restrict' => 'fpcashback' == $section ,
@@ -337,6 +341,7 @@ if ( ! class_exists( 'SRP_Admin_Enqueue' ) ) {
 				'srp_wc_version'                  => WC_VERSION ,
 				'ajax_url'                        => SRP_ADMIN_AJAX_URL ,
 				'fp_pages_and_posts_search_nonce' => wp_create_nonce( 'fp-pages-and-posts-search-nonce' ) ,
+								'search_nonce'                    => wp_create_nonce( 'search-nonce' ) ,
 				'search_customers'                => wp_create_nonce( 'search-customers' ) ,
 				'search_products'                 => wp_create_nonce( 'search-products' ) ,
 				'i18n_no_matches'                 => esc_html_x( 'No matches found' , 'enhanced select' , 'rewardsystem' ) ,
@@ -602,6 +607,10 @@ if ( ! class_exists( 'SRP_Admin_Enqueue' ) ) {
 				'fp_wc_version'     => WC_VERSION ,
 				'redirect'          => $redirect_url
 			) ) ;
+		}
+				
+		public static function enqueue_for_bday_modules_tab() {
+			wp_enqueue_script( 'fp_birthday_module' , SRP_PLUGIN_DIR_URL . 'assets/js/tab/modules/fp-bday-module.js' , array( 'jquery' ) , SRP_VERSION ) ;
 		}
 
 		public static function enqueue_for_cashback_modules_tab() {

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Category in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Category
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
@@ -79,9 +79,9 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 			$product_names = $this->get_condition_violation_subjects( $data, $args );
 			$products      = $this->merge_titles( $product_names );
 
-			if ( sizeof( $product_names ) > 4 ) {
+			if ( count( $product_names ) > 4 ) {
 
-				if ( sizeof( $category_names ) > 1 ) {
+				if ( count( $category_names ) > 1 ) {
 					$message = sprintf( __( 'remove all products from the %2$s categories from your cart', 'woocommerce-conditional-shipping-and-payments' ), $products, $categories );
 				} else {
 					$message = sprintf( __( 'remove all products from the %2$s category from your cart', 'woocommerce-conditional-shipping-and-payments' ), $products, $categories );
@@ -89,7 +89,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 			} else {
 
-				if ( sizeof( $category_names ) > 1 ) {
+				if ( count( $category_names ) > 1 ) {
 					$message = sprintf( _x( 'remove %1$s from your cart', 'products in categories', 'woocommerce-conditional-shipping-and-payments' ), $products, $categories );
 				} else {
 					$message = sprintf( _x( 'remove %1$s from your cart', 'products in category', 'woocommerce-conditional-shipping-and-payments' ), $products, $categories );
@@ -98,7 +98,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) ) {
 
-			if ( sizeof( $category_names ) > 1 ) {
+			if ( count( $category_names ) > 1 ) {
 				$message = sprintf( __( 'add some products from the %s categories to your cart', 'woocommerce-conditional-shipping-and-payments' ), $categories );
 			} else {
 				$message = sprintf( __( 'add some products from the %s category to your cart', 'woocommerce-conditional-shipping-and-payments' ), $categories );
@@ -106,7 +106,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) ) {
 
-			if ( sizeof( $category_names ) > 1 ) {
+			if ( count( $category_names ) > 1 ) {
 				$message = sprintf( __( 'make sure that your cart doesn\'t only contain products from the %s categories', 'woocommerce-conditional-shipping-and-payments' ), $categories );
 			} else {
 				$message = sprintf( __( 'make sure that your cart doesn\'t only contain products from the %s category', 'woocommerce-conditional-shipping-and-payments' ), $categories );
@@ -114,7 +114,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-all-in' ) ) ) {
 
-			if ( sizeof( $category_names ) > 1 ) {
+			if ( count( $category_names ) > 1 ) {
 				$message = sprintf( __( 'make sure that your cart contains only products from the %s categories', 'woocommerce-conditional-shipping-and-payments' ), $categories );
 			} else {
 				$message = sprintf( __( 'make sure that your cart contains only products from the %s category', 'woocommerce-conditional-shipping-and-payments' ), $categories );
@@ -166,7 +166,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 				if ( 'or' === $term_relationship && ! empty( $matching_category_ids ) ) {
 					$found_item = true;
-				} elseif ( 'and' === $term_relationship && sizeof( $matching_category_ids ) === sizeof( $data[ 'value' ] ) ) {
+				} elseif ( 'and' === $term_relationship && count( $matching_category_ids ) === count( $data[ 'value' ] ) ) {
 					$found_item = true;
 				}
 
@@ -249,7 +249,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 					if ( 'or' === $term_relationship && $categories_matching ) {
 						$found_items = true;
-					} elseif ( 'and' === $term_relationship && $categories_matching === sizeof( $category_ids ) ) {
+					} elseif ( 'and' === $term_relationship && $categories_matching === count( $category_ids ) ) {
 						$found_items = true;
 					}
 
@@ -261,7 +261,7 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
 					if ( 'or' === $term_relationship && ! $categories_matching ) {
 						$found_items = false;
-					} elseif ( 'and' === $term_relationship && $categories_matching !== sizeof( $category_ids ) ) {
+					} elseif ( 'and' === $term_relationship && $categories_matching !== count( $category_ids ) ) {
 						$found_items = false;
 					}
 

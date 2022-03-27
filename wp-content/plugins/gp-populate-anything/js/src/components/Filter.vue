@@ -5,11 +5,11 @@
 			<option value="" disabled selected="selected">{{ i18nStrings.loadingEllipsis }}</option>
 		</select>
 		<select v-else class="gppa-filter-property" v-model="filter.property" @change="resetFilter">
-			<option v-for="option in ungroupedProperties" v-bind:value="option.value">
+			<option v-for="option in filterPropertiesUngrouped" v-bind:value="option.value">
 				{{ truncateStringMiddle(option.label) }}
 			</option>
 
-			<optgroup v-for="(options, groupID) in groupedProperties"
+			<optgroup v-for="(options, groupID) in filterPropertiesGrouped"
 					  v-bind:label="groupID in objectTypeInstance.groups && objectTypeInstance.groups[groupID].label">
 				<option v-for="option in options" v-bind:value="option.value">
 					{{ truncateStringMiddle(option.label) }}
@@ -104,7 +104,7 @@
 				return this.getPropertyValues(this.filter.property);
 			}
 
-			this.filter.property = Object.values(this.flattenedProperties)[0].value;
+			this.filter.property = (Object.values(this.flattenedProperties) as any)[0].value;
 		},
 		data: function () {
 			return {
@@ -130,8 +130,7 @@
 		},
 		computed: {
 			specialValues: function () {
-
-				return [
+				const specialValues = [
 					{
 						label: 'Current User ID',
 						value: 'special_value:current_user:ID',
@@ -140,8 +139,16 @@
 						label: 'Current Post ID',
 						value: 'special_value:current_post:ID',
 					}
-				]
+				];
 
+				if (this.objectTypeInstance?.supportsNullFilterValue) {
+					specialValues.push({
+						label: 'NULL',
+						value: 'special_value:null',
+					});
+				}
+
+				return specialValues;
 			},
 			formFieldValues: function () {
 
@@ -149,30 +156,30 @@
 
 				const excludedFormFieldValueInputTypes = ['chainedselect'];
 
-				for (var i = 0; i < form.fields.length; i++) {
+				for (var i = 0; i < window.form.fields.length; i++) {
 
-					const field = form.fields[i];
-					const inputType = GetInputType(field);
+					const field = window.form.fields[i];
+					const inputType = window.GetInputType(field);
 
 					if (excludedFormFieldValueInputTypes.includes(inputType)) {
 						continue;
 					}
 
-					if (IsConditionalLogicField(field) || ['date'].includes(inputType)) {
+					if (window.IsConditionalLogicField(field) || ['date'].includes(inputType)) {
 
 						if (field.inputs && !['checkbox', 'email'].includes(inputType)) {
 							for (var j = 0; j < field.inputs.length; j++) {
 								var input = field.inputs[j];
 								if (!input.isHidden) {
 									formFieldValues.push({
-										label: GetLabel(field, input.id),
+										label: window.GetLabel(field, input.id),
 										value: 'gf_field:' + input.id,
 									});
 								}
 							}
 						} else {
 							formFieldValues.push({
-								label: GetLabel(field),
+								label: window.GetLabel(field),
 								value: 'gf_field:' + field.id,
 							});
 						}
@@ -205,7 +212,23 @@
 
 				return window.GPPA_ADMIN.defaultOperators;
 
-			}
+			},
+			filterPropertiesGrouped: function () {
+				const groupedProperties: { [groupId: string]: any[] } = {...this.groupedProperties};
+
+				for ( const [groupId, properties] of Object.entries(groupedProperties) ) {
+					groupedProperties[groupId] = properties.filter(property => property?.['supports_filters'] !== false);
+
+					if (groupedProperties[groupId].length === 0) {
+						delete groupedProperties[groupId];
+					}
+				}
+
+				return groupedProperties;
+			},
+			filterPropertiesUngrouped: function () {
+				return this.ungroupedProperties?.filter((property: any) => property?.['supports_filters'] !== false);
+			},
 		},
 	});
 </script>

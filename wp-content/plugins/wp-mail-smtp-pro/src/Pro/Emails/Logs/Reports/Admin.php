@@ -83,7 +83,7 @@ class Admin extends EmailReportsTab {
 				( new \DateTime( 'now', WP::wp_timezone() ) )->modify( '- 1 day' )->format( 'Y-m-d' ),
 			];
 		}
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		// phpcs:enable
 
 		return $params;
 	}

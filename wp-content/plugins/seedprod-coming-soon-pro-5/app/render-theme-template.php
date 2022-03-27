@@ -43,6 +43,23 @@ if ( defined( 'DOING_AJAX' ) ) {
 }
 
 /**
+ * Override Theme Name so WooCommerce does not load default theme assets.
+ */
+// $seedprod_theme_enabled = get_option( 'seedprod_theme_enabled');
+//     if (!is_admin()) {
+//         if (!empty($seedprod_theme_enabled)) {
+// 			if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+//             //add_filter('template', 'seedprod_pro_override_template');
+//             function seedprod_pro_override_template($template)
+//             {
+//                 return 'seedprod';
+//             }
+//         }
+//     }
+// }
+
+
+/**
  * Show cleaned content (inline styles removed from code) if edited with SeedProd.
  */
 function seedprod_pro_edited_with_seedprod_the_content( $content ) {
@@ -157,7 +174,18 @@ function seedprod_pro_sidebar_hook( $name ) {
 /**
  * Override comments_template()
  */
-function seedprod_pro_comments_hook( $name ) {
+function seedprod_pro_comments_hook($name)
+{
+	global $post;
+
+	// Check if woocommerce is installed and active.
+	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		if ( 'product' === $post->post_type ) {
+			// wc_get_template('single-product-reviews.php); - doesn't work???
+			return SEEDPROD_PRO_PLUGIN_PATH . 'resources/theme-template-views/single-product-reviews.php';
+		}
+	}
+
 	return SEEDPROD_PRO_PLUGIN_PATH . 'resources/theme-template-views/comments.php';
 }
 
@@ -239,6 +267,21 @@ function seedprod_pro_deregister_theme_styles() {
 	$child_theme_name = $theme->stylesheet;
 
 	global $wp_styles;
+
+	$default_themes = array(
+		'twentyten',
+		'twentyeleven',
+		'twentytwelve',
+		'twentythirteen',
+		'twentyfourteen',
+		'twentyfifteen',
+		'twentysixteen',
+		'twentyseventeen',
+		'twentynineteen',
+		'twentytwenty',
+		'twentytwentyone',
+		'twentytwentytwo',
+	);
 	// deregister theme's styles
 	foreach ( $wp_styles->queue as $handle ) {
 		if ( strpos( $wp_styles->registered[ $handle ]->src, 'wp-content/themes' ) !== false ) {
@@ -246,7 +289,14 @@ function seedprod_pro_deregister_theme_styles() {
 			wp_dequeue_style( $handle );
 			wp_deregister_style( $handle );
 		}
+		if ( $wp_styles->registered[ $handle ]->handle == 'woocommerce-general' ) {
+			//var_dump($wp_styles->registered[$handle]->src);
+			wp_dequeue_style( $handle );
+			wp_deregister_style( $handle );
+		}
 	}
+
+
 
 	// deregister theme's styles
 	foreach ( $wp_styles->registered as $registered ) {
@@ -587,6 +637,7 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 					}
 				} else {
 					// get template code
+
 					if ( have_posts() ) {
 						while ( have_posts() ) {
 							the_post();
@@ -641,6 +692,33 @@ function seedprod_pro_theme_template_enqueue_styles() {
 	global $seedprod_theme_requirements;
 	if ( ! empty( $seedprod_theme_requirements ) ) {
 
+
+		//woocommerce
+		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			wp_enqueue_style(
+				'seedprod-woocommerce-layout',
+				str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/css/woocommerce-layout.css',
+				'',
+				defined( 'WC_VERSION' ) ? WC_VERSION : null,
+				'all'
+			);
+			wp_enqueue_style(
+				'seedprod-woocommerce-smallscreen',
+				str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/css/woocommerce-smallscreen.css',
+				'',
+				defined( 'WC_VERSION' ) ? WC_VERSION : null,
+				'only screen and (max-width: 1088px)' // 768px default break + 320px for sidebar
+			);
+			wp_enqueue_style(
+				'seedprod-woocommerce-general',
+				str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/css/woocommerce.css',
+				'',
+				defined( 'WC_VERSION' ) ? WC_VERSION : null,
+				'all'
+			);
+		}
+
+
 		// theme base styles
 		wp_enqueue_style(
 			'seedprod-style',
@@ -656,6 +734,8 @@ function seedprod_pro_theme_template_enqueue_styles() {
 			false,
 			SEEDPROD_PRO_VERSION
 		);
+
+
 
 		// theme global & parts css
 		// get the global css last modified date

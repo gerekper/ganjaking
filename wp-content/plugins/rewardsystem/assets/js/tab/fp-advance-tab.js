@@ -13,6 +13,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_enable_msg_to_participate_in_reward_prgm() ;
             this.show_or_hide_for_coupon_restriction() ;
             this.toggle_points_earned_in_specific_duration() ;
+            this.show_or_hide_for_my_account_menu_page();
             jQuery( ".sortable_menu" ).sortable( { items : 'tr' , handle : '.myrewards_sortable_menu_data' } ) ;
             jQuery( ".sortable_menu" ).disableSelection() ;
             $( document ).on( 'change' , '#rs_reward_content_menu_page' , this.my_account_menu_page ) ;
@@ -74,8 +75,7 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_show_hide_your_subscribe_link_menu_page' ).parent().parent().show() ;
                 jQuery( '#rs_my_reward_content_title' ).parent().parent().show() ;
                 jQuery( '#rs_my_reward_url_title' ).parent().parent().show() ;
-                jQuery( '.rs_myrewards_menu_sorting' ).show() ;
-                jQuery( '.rs_myrewards_menu_heading' ).show() ;
+                jQuery( '.rs-my-reward-menu-sorting-content' ).show() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().show() ;
                 jQuery( '#rs_my_cashback_form_menu_page' ).parent().parent().show() ;
             } else {
@@ -88,8 +88,7 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_show_hide_your_subscribe_link_menu_page' ).parent().parent().hide() ;
                 jQuery( '#rs_my_reward_content_title' ).parent().parent().hide() ;
                 jQuery( '#rs_my_reward_url_title' ).parent().parent().hide() ;
-                jQuery( '.rs_myrewards_menu_sorting' ).hide() ;
-                jQuery( '.rs_myrewards_menu_heading' ).hide() ;
+                jQuery( '.rs-my-reward-menu-sorting-content' ).hide() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().hide() ;
                 jQuery( '#rs_my_cashback_form_menu_page' ).parent().parent().hide() ;
             }

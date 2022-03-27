@@ -1,6 +1,35 @@
 
 # Changelog
 
+## 1.1.9
+
+	- Fixed issue with GP Read Only where the Datepicker would be initialized more than once causing a flash of unstyled content when using Legacy Markup.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.1.8
+
+	- Fixed regression where having an empty minimum date could cause the form to lock up.
+
+## 1.1.7
+
+	- Improved minimum date to be the first selectable date in the range.
+
+## 1.1.6
+
+	- Fixed an issue where back-end validation did not match the front-end when excepted dates fall outside of minimum or maximum dates defined.
+
+## 1.1.5
+
+	- Added support for responsively downsizing the datepicker.
+
+## 1.1.4
+
+	- Added [gpld_after_set_max_date](https://gravitywiz.com/documentation/gpld_after_set_max_date/)
+
+## 1.1.3
+
+	- Fixed an issue where GPPA and GPCC would not copy values from inline date pickers on page load.
+
 ## 1.0.26
 
 	- Added gp-limit-dates.css for GF 2.5.. Updated inline datepicker style in GF 2.5 to remove drop shadow.
@@ -10,11 +39,21 @@
 	- Updated field setting styles in GF 2.4 to work with the new markup.
 	- Fixed issue where Inline Datepicker did not have the new GF datepicker theme applied automatically.
 
+## 1.1.2
+
+	- Fixed an issue where second and subsequent inline date pickers may not render on a form.
+
+## 1.1.1
+
+	- Fixed an issue where Inline Datepickers were not always populated with the correct default value.
+
 ## 1.1
 
 	- Added support for Gravity Forms 2.5.
 	- Updated admin scripts/styles to be enqueued as separate files rather than output inline.
+	- Updated field setting markup, styles, and JS to work better in GF 2.5.
 	- Updated field setting styles in GF 2.4 to work with the new markup.
+	- Updated inline datepicker style in GF 2.5 to remove drop shadow.
 	- Fixed issue where Inline Datepicker did not have the new GF datepicker theme applied automatically.
 
 ## 1.0.25

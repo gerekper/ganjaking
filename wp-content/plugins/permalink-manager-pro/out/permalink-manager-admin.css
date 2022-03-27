@@ -108,21 +108,22 @@
 /**
  * Edit URI & Duplicate box
  */
-#permalink-manager.permalink-manager-edit-uri-box{margin:10px -10px}
-#permalink-manager.permalink-manager-edit-uri-box h2{border-bottom:1px solid #eee}
-#permalink-manager.permalink-manager-edit-uri-box .inside{padding:0 10px 10px 10px;margin-bottom:0}
-#permalink-manager.permalink-manager-edit-uri-box .inside > div{font-size:13px;line-height:1.5;margin:1em 0}
-#permalink-manager.permalink-manager-edit-uri-box .inside > div:last-child,#permalink-manager.permalink-manager-edit-uri-box .inside p:last-child{margin-bottom:0}
-#permalink-manager.permalink-manager-edit-uri-box .strong{display:block;font-weight:bold;margin-bottom:5px}
-#permalink-manager.permalink-manager-edit-uri-box .toggle-indicator:before{content:"\f142";display:inline-block;font:400 20px/1 dashicons}
-#permalink-manager.permalink-manager-edit-uri-box .columns-container{margin-left:-10px!important;margin-right:-10px!important}
-#permalink-manager.permalink-manager-edit-uri-box .columns-container > *{padding-left:10px;padding-right:10px}
-#permalink-manager.permalink-manager-edit-uri-box .close-button{float:right;width:36px;height:36px;padding:0;cursor:pointer;display:block}
-#permalink-manager.permalink-manager-edit-uri-box .close-icon{margin-top:4px;-webkit-border-radius:50%;border-radius:50%;text-indent:-1px;color:#72777c;line-height:36px;display:block;text-align:center}
-#permalink-manager.permalink-manager-edit-uri-box .close-icon:before{content:"\f158";display:inline-block;font:400 20px/1 dashicons;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-decoration:none!important}
-#permalink-manager.permalink-manager-edit-uri-box .uri_locked{color:#aaa;font-size:13px}
-#permalink-manager .default-permalink-row,#permalink-manager .redirects-row{border-top:1px solid #eee;padding-top:15px}
-#permalink-manager .default-permalink-row,#permalink-manager .default-permastruct-row,#permalink-manager .redirects-row{color:#aaa;font-size:90%}
+.permalink-manager-edit-uri-box{margin:10px -10px}
+.permalink-manager-edit-uri-box h2{border-bottom:1px solid #eee}
+.permalink-manager-edit-uri-box .inside{padding:0 10px 10px 10px;margin-bottom:0}
+.permalink-manager-edit-uri-box .inside > div{font-size:13px;line-height:1.5;margin:1em 0}
+.permalink-manager-edit-uri-box .inside > div:last-child,.permalink-manager-edit-uri-box .inside p:last-child{margin-bottom:0}
+.permalink-manager-edit-uri-box .strong{display:block;font-weight:bold;margin-bottom:5px}
+.permalink-manager-edit-uri-box .toggle-indicator:before{content:"\f142";display:inline-block;font:400 20px/1 dashicons}
+.permalink-manager-edit-uri-box .columns-container{margin-left:-10px!important;margin-right:-10px!important}
+.permalink-manager-edit-uri-box .columns-container > *{padding-left:10px;padding-right:10px}
+.permalink-manager-edit-uri-box .close-button{float:right;width:36px;height:36px;padding:0;cursor:pointer;display:block}
+.permalink-manager-edit-uri-box .close-icon{margin-top:4px;-webkit-border-radius:50%;border-radius:50%;text-indent:-1px;color:#72777c;line-height:36px;display:block;text-align:center}
+.permalink-manager-edit-uri-box .close-icon:before{content:"\f158";display:inline-block;font:400 20px/1 dashicons;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-decoration:none!important}
+.permalink-manager-edit-uri-box .uri_locked{color:#aaa;font-size:13px;margin-top:8px;font-size:90%}
+.permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .redirects-row{border-top:1px solid #eee;padding-top:15px}
+.permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .default-permastruct-row,.permalink-manager-edit-uri-box .redirects-row{color:#aaa;font-size:90%}
+
 #permalink-manager .restore-default,#permalink-manager .permastruct-toggle-button a{display:inline-block;width:100%;border-radius:0;color:#959595;text-decoration:none}
 #permalink-manager .restore-default{text-align:right}
 #permalink-manager .widefat,#permalink-manager #redirect-panel-inside,#permalink-manager #redirect-panel-inside table{width:100%!important;max-width:none;min-height:0!important;box-sizing:border-box;height:32px}
@@ -131,6 +132,7 @@
 #permalink-manager.permalink-manager-edit-term .permalink-manager-edit-uri-box{display:block!important;margin:0}
 #permalink-manager.permalink-manager-edit-term .permalink-manager-edit-uri-box h2,.permalink-manager.postbox .heading{font-size:14px!important;padding:8px 12px;margin:0;line-height:1.4}
 #permalink-manager.permalink-manager-edit-term .permalink-manager-edit-uri-box .close-button,#permalink-manager.permalink-manager-edit-term #permalink-manager-toggle{display:none}
+
 #permalink-manager .permalink-manager-duplicate-box table{width:100%;color:#aaa}
 #permalink-manager .permalink-manager-duplicate-box table tr td{border-top:1px solid #eee}
 #permalink-manager .permalink-manager-duplicate-box table tr:first-child td{border-top:0}
@@ -139,6 +141,7 @@
 #permalink-manager .permalink-manager-duplicate-box table tr td:last-child{text-align:right}
 #permalink-manager .permalink-manager-duplicate-box .actions a{text-decoration:none}
 #permalink-manager .permalink-manager-duplicate-box .remove-duplicate-link{color:#a00}
+
 .permalink-manager.postbox .heading{border-bottom:3px double #eee}
 .permalink-manager.postbox a{color:#444;text-decoration:none;white-space:nowrap}
 

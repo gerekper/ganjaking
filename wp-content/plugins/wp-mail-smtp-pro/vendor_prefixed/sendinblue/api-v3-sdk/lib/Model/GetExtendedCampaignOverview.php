@@ -51,13 +51,13 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'type' => 'string', 'status' => 'string', 'scheduledAt' => '\\DateTime', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'sendAtBestTime' => 'bool', 'testSent' => 'bool', 'header' => 'string', 'footer' => 'string', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedCampaignOverviewSender', 'replyTo' => 'string', 'toField' => 'string', 'htmlContent' => 'string', 'shareLink' => 'string', 'tag' => 'string', 'createdAt' => '\\DateTime', 'modifiedAt' => '\\DateTime', 'inlineImageActivation' => 'bool', 'mirrorActive' => 'bool', 'recurring' => 'bool', 'sentDate' => '\\DateTime', 'returnBounce' => 'int'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'type' => 'string', 'status' => 'string', 'scheduledAt' => 'string', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'sendAtBestTime' => 'bool', 'testSent' => 'bool', 'header' => 'string', 'footer' => 'string', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedCampaignOverviewSender', 'replyTo' => 'string', 'toField' => 'string', 'htmlContent' => 'string', 'shareLink' => 'string', 'tag' => 'string', 'createdAt' => 'string', 'modifiedAt' => 'string', 'inlineImageActivation' => 'bool', 'mirrorActive' => 'bool', 'recurring' => 'bool', 'sentDate' => 'string', 'returnBounce' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'type' => null, 'status' => null, 'scheduledAt' => 'date-time', 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => null, 'winnerCriteria' => null, 'winnerDelay' => null, 'sendAtBestTime' => null, 'testSent' => null, 'header' => null, 'footer' => null, 'sender' => null, 'replyTo' => 'email', 'toField' => null, 'htmlContent' => null, 'shareLink' => 'url', 'tag' => null, 'createdAt' => 'date-time', 'modifiedAt' => 'date-time', 'inlineImageActivation' => null, 'mirrorActive' => null, 'recurring' => null, 'sentDate' => 'date-time', 'returnBounce' => 'int64'];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'type' => null, 'status' => null, 'scheduledAt' => null, 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => null, 'winnerCriteria' => null, 'winnerDelay' => null, 'sendAtBestTime' => null, 'testSent' => null, 'header' => null, 'footer' => null, 'sender' => null, 'replyTo' => 'email', 'toField' => null, 'htmlContent' => null, 'shareLink' => 'url', 'tag' => null, 'createdAt' => null, 'modifiedAt' => null, 'inlineImageActivation' => null, 'mirrorActive' => null, 'recurring' => null, 'sentDate' => null, 'returnBounce' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -382,7 +382,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Gets scheduledAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getScheduledAt()
     {
@@ -391,7 +391,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Sets scheduledAt
      *
-     * @param \DateTime $scheduledAt UTC date-time on which campaign is scheduled (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $scheduledAt UTC date-time on which campaign is scheduled (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -739,7 +739,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -748,7 +748,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -760,7 +760,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Gets modifiedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getModifiedAt()
     {
@@ -769,7 +769,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Sets modifiedAt
      *
-     * @param \DateTime $modifiedAt UTC date-time of last modification of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $modifiedAt UTC date-time of last modification of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -844,7 +844,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Gets sentDate
      *
-     * @return \DateTime
+     * @return string
      */
     public function getSentDate()
     {
@@ -853,7 +853,7 @@ class GetExtendedCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Clien
     /**
      * Sets sentDate
      *
-     * @param \DateTime $sentDate Sent UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ). Only available if 'status' of the campaign is 'sent'
+     * @param string $sentDate Sent UTC date-time of the campaign (YYYY-MM-DDTHH:mm:ss.SSSZ). Only available if 'status' of the campaign is 'sent'
      *
      * @return $this
      */

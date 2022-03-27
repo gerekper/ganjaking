@@ -1006,7 +1006,7 @@ class WoocommerceGpfFeedItem {
 
 		// Exclude any excluded images based on ID.
 		$excluded_ids = $this->general_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
-		if ( empty( $excluded_ids ) && ! is_array( $excluded_ids ) ) {
+		if ( empty( $excluded_ids ) || ! is_array( $excluded_ids ) ) {
 			$excluded_ids = [];
 		}
 
@@ -1338,6 +1338,14 @@ class WoocommerceGpfFeedItem {
 			$tax_class = $product->get_tax_class();
 
 			return array( ! empty( $tax_class ) ? $tax_class : 'standard' );
+		}
+		if ( 'weight_with_unit' === $field ) {
+			$return = $product->get_weight();
+			if ( ! empty( $return ) ) {
+				$return .= ' ' . get_option( 'woocommerce_weight_unit' );
+				return [ $return ];
+			}
+			return [];
 		}
 		if ( is_callable( [ $product, 'get_' . $field ] ) ) {
 			$getter = 'get_' . $field;

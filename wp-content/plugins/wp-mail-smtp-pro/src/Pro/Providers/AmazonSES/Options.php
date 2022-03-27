@@ -5,6 +5,7 @@ namespace WPMailSMTP\Pro\Providers\AmazonSES;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Geo;
 use WPMailSMTP\Providers\OptionsAbstract;
+use WPMailSMTP\Options as PluginOptions;
 
 /**
  * Class Options
@@ -192,7 +193,7 @@ class Options extends OptionsAbstract {
 						) {
 							echo '<p class="inline-notice inline-error">' . esc_html( $this->get_connection_not_ready_error_text() ) . '</p>';
 						} else {
-							echo wp_mail_smtp()->prepare_loader(); // phpcs:ignore
+							echo wp_mail_smtp()->prepare_loader(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 					?>
 				</div>
@@ -289,7 +290,7 @@ class Options extends OptionsAbstract {
 			<div id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity">
 				<?php wp_nonce_field( 'wp_mail_smtp_pro_amazonses_register_identity', 'wp_mail_smtp_pro_amazonses_register_identity' ); ?>
 				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-desc">
-					<?php esc_html_e( 'Enter the domain name to verify it on Amazon SES and generate the required DNS TXT record.' , 'wp-mail-smtp-pro' ); ?>
+					<?php esc_html_e( 'Enter the domain name to verify it on Amazon SES and generate the required DNS CNAME records.' , 'wp-mail-smtp-pro' ); ?>
 				</p>
 				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-email-desc" style="display: none;">
 					<?php esc_html_e( 'Enter a valid email address. A verification email will be sent to the email address you entered.' , 'wp-mail-smtp-pro' ); ?>
@@ -368,7 +369,120 @@ class Options extends OptionsAbstract {
 	}
 
 	/**
+	 * Get domain DKIM DNS records.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $domain      Domain.
+	 * @param array  $dkim_tokens DKIM tokens.
+	 *
+	 * @return array
+	 */
+	public static function prepare_dkim_dns_records( $domain, $dkim_tokens ) {
+
+		$result = [];
+
+		$region = PluginOptions::init()->get( self::SLUG, 'region' );
+
+		if ( ! empty( $region ) ) {
+			$region = Auth::prepare_region( $region );
+		} else {
+			$region = Auth::AWS_US_EAST_1;
+		}
+
+		foreach ( $dkim_tokens as $token ) {
+			$region_part = '';
+
+			// Include region to record value for particular regions.
+			// Domains list in "DKIM Domains" section: https://docs.aws.amazon.com/general/latest/gr/ses.html.
+			if ( in_array( $region, [ 'af-south-1', 'ap-northeast-3', 'eu-south-1' ], true ) ) {
+				$region_part = '.' . $region;
+			}
+
+			$result[] = [
+				'name'  => $token . '._domainkey.' . $domain,
+				'value' => $token . '.dkim' . $region_part . '.amazonses.com',
+			];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Prepare the HTML output for domain DKIM DNS records notice.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $domain      Domain.
+	 * @param array  $dkim_tokens DKIM tokens.
+	 *
+	 * @return string
+	 */
+	public static function prepare_domain_dkim_records_notice( $domain, $dkim_tokens ) {
+
+		ob_start();
+		?>
+		<div class="wp-mail-smtp-ses-dkim-records">
+
+			<p class="wp-mail-smtp-ses-dkim-records__notice">
+				<?php esc_html_e( 'Add the following CNAME records to your domain\'s DNS settings:', 'wp-mail-smtp-pro' ); ?>
+			</p>
+
+			<div class="wp-mail-smtp-ses-dkim-records__table">
+				<div class="wp-mail-smtp-ses-dkim-records__row wp-mail-smtp-ses-dkim-records__row--heading">
+					<div class="wp-mail-smtp-ses-dkim-records__col wp-mail-smtp-ses-dkim-records__col--heading">
+						<?php esc_html_e( 'Name', 'wp-mail-smtp-pro' ); ?>
+					</div>
+					<div class="wp-mail-smtp-ses-dkim-records__col wp-mail-smtp-ses-dkim-records__col--heading">
+						<?php esc_html_e( 'Value', 'wp-mail-smtp-pro' ); ?>
+					</div>
+				</div>
+
+				<?php foreach ( self::prepare_dkim_dns_records( $domain, $dkim_tokens ) as $record ) : ?>
+					<div class="wp-mail-smtp-ses-dkim-records__row wp-mail-smtp-ses-dkim-records__row--record">
+						<div class="wp-mail-smtp-ses-dkim-records__col wp-mail-smtp-ses-dkim-records__col--record">
+							<input type="text" class="js-wp-mail-smtp-ses-dkim-records-input" value="<?php echo esc_attr( $record['name'] ); ?>" readonly="readonly"/>
+							<button class="js-wp-mail-smtp-ses-dkim-records-copy-btn">
+								<span class="dashicons dashicons-admin-page"></span>
+							</button>
+						</div>
+						<div class="wp-mail-smtp-ses-dkim-records__col wp-mail-smtp-ses-dkim-records__col--record">
+							<input type="text" class="js-wp-mail-smtp-ses-dkim-records-input" value="<?php echo esc_attr( $record['value'] ); ?>" readonly="readonly"/>
+							<button class="js-wp-mail-smtp-ses-dkim-records-copy-btn">
+								<span class="dashicons dashicons-admin-page"></span>
+							</button>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+
+			<p class="wp-mail-smtp-ses-dkim-records__notice">
+				<?php
+				printf(
+					wp_kses( /* translators: %s - URL to Amazon SES documentation. */
+						__( 'For information on how to add CNAME DNS records, <br><a href="%s" target="_blank" rel="noopener noreferrer">please refer to the Amazon SES documentation</a>.', 'wp-mail-smtp-pro' ),
+						[
+							'br' => true,
+							'a'  => [
+								'href'   => true,
+								'target' => true,
+								'rel'    => true,
+							],
+						]
+					),
+					'https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#verify-domain-procedure'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
 	 * Prepare the HTML output for domain DNS TXT record notice.
+	 *
+	 * @deprecated 3.3.0 Switched to DKIM verification.
 	 *
 	 * @since 2.4.0
 	 *
@@ -378,6 +492,8 @@ class Options extends OptionsAbstract {
 	 * @return string
 	 */
 	public static function prepare_domain_txt_record_notice( $name = '', $value = '' ) {
+
+		_deprecated_function( __METHOD__, '3.3.0', self::class . '::prepare_domain_dkim_records_notice' );
 
 		$name   = empty( $name ) ? '%name%' : '_amazonses.' . $name;
 		$value  = empty( $value ) ? '%value%' : $value;
@@ -395,21 +511,21 @@ class Options extends OptionsAbstract {
 			<button><span class="dashicons dashicons-admin-page"></span></button>
 		</p>';
 		$notice .= '<p>' .
-		           sprintf(
-			           wp_kses( /* translators: %s - URL to Amazon SES documentation. */
-				           __( 'For information on how to add TXT DNS records, please <br><a href="%s" target="_blank" rel="noopener noreferrer">refer to the Amazon SES documentation</a>.', 'wp-mail-smtp-pro' ),
-				           [
-					           'br' => true,
-					           'a'  => [
-						           'href'   => true,
-						           'target' => true,
-						           'rel'    => true,
-					           ],
-				           ]
-			           ),
-			           'https://docs.aws.amazon.com/ses/latest/DeveloperGuide/dns-txt-records.html'
-		           ) .
-		           '</p>';
+			sprintf(
+				wp_kses( /* translators: %s - URL to Amazon SES documentation. */
+					__( 'For information on how to add TXT DNS records, please <br><a href="%s" target="_blank" rel="noopener noreferrer">refer to the Amazon SES documentation</a>.', 'wp-mail-smtp-pro' ),
+					[
+						'br' => true,
+						'a'  => [
+							'href'   => true,
+							'target' => true,
+							'rel'    => true,
+						],
+					]
+				),
+				'https://docs.aws.amazon.com/ses/latest/DeveloperGuide/dns-txt-records.html'
+			) .
+			'</p>';
 
 		return $notice;
 	}

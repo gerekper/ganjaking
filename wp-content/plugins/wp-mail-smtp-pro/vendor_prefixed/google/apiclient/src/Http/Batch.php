@@ -119,7 +119,7 @@ EOF;
                     $status = \explode(" ", $status);
                     $status = $status[1];
                     list($partHeaders, $partBody) = $this->parseHttpResponse($part, \false);
-                    $response = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Response($status, $partHeaders, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($partBody));
+                    $response = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Response($status, $partHeaders, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($partBody));
                     // Need content id.
                     $key = $headers['content-id'];
                     try {

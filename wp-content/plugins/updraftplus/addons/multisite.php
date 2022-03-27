@@ -77,9 +77,13 @@ if (is_multisite()) {
 		 * @return Boolean - as from update_site_option()
 		 */
 		public static function update_updraft_option($option, $value, $use_cache = true) {
+			$value = apply_filters('updraftplus_update_option', $value, $option, $use_cache);
+			if ('updraft_lastmessage' == $option) {
+				return update_site_option('updraft_lastmessage', $value);
+			}
 			$tmp = get_site_option('updraftplus_options', array(), $use_cache);
 			if (!is_array($tmp)) $tmp = array();
-			$tmp[$option] = apply_filters('updraftplus_update_option', $value, $option, $use_cache);
+			$tmp[$option] = $value;
 			return update_site_option('updraftplus_options', $tmp);
 		}
 

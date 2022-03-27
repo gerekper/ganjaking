@@ -8,7 +8,7 @@ class ShowButton extends Checkbox {
 
 	public function __construct( $value ) {
 		parent::__construct( 'acp_new_inline_show_button', [
-			1 => __( 'Quick Add', 'codepress-admin-columns' ),
+			1 => __( 'Add Row', 'codepress-admin-columns' ),
 		] );
 
 		$this->set_id( 'acp_new_inline_show_button' );

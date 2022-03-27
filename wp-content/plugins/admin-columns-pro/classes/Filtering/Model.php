@@ -2,6 +2,7 @@
 
 namespace ACP\Filtering;
 
+use AC;
 use AC\Request;
 use AC\Table\TableFormView;
 use ACP;
@@ -9,10 +10,20 @@ use ACP\Bookmark\SegmentRepository;
 use ACP\Filtering\Bookmark\PreferredFilter;
 use ACP\Filtering\Markup\Dropdown;
 
-abstract class Model extends ACP\Model {
+abstract class Model {
 
 	/**
-	 * @var Strategy\Comment | Strategy\Post | Strategy\User;
+	 * @var AC\Column
+	 */
+	protected $column;
+
+	/**
+	 * @var string
+	 */
+	private $data_type = 'string';
+
+	/**
+	 * @var Strategy
 	 */
 	protected $strategy;
 
@@ -35,6 +46,39 @@ abstract class Model extends ACP\Model {
 	 * @return array
 	 */
 	abstract public function get_filtering_data();
+
+	public function __construct( AC\Column $column ) {
+		$this->column = $column;
+	}
+
+	/**
+	 * @return AC\Column
+	 */
+	public function get_column() {
+		return $this->column;
+	}
+
+	/**
+	 * @param string $data_type
+	 *
+	 * @return $this
+	 */
+	public function set_data_type( $data_type ) {
+		$data_type = strtolower( $data_type );
+
+		if ( in_array( $data_type, [ 'string', 'numeric', 'date' ] ) ) {
+			$this->data_type = $data_type;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_data_type() {
+		return $this->data_type;
+	}
 
 	/**
 	 * @param Strategy $strategy

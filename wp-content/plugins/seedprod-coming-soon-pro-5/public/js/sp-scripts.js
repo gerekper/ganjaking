@@ -222,6 +222,12 @@ function countdown(type, ts, id, action, redirect) {
       if (action == "2") {
         jQuery("#sp-countdown-" + id + " .sp-countdown-group").hide();
         window.location.href = redirect;
+      } // restart
+
+
+      if (action == "3") {
+        console.log('remove' + id);
+        seedprodCookies.remove('seedprod_enddate_' + id);
       }
     }
   }, 1000);
@@ -680,9 +686,39 @@ function PureDropdown(dropdownParent) {
   }); // Toggle on click
 
   this._link.addEventListener('click', function (e) {
+    // e.stopPropagation();
+    // e.preventDefault();
+    // ddm.toggle();
+    if (ddm._state !== MENU_OPEN) {
+      e.stopPropagation();
+      e.preventDefault();
+      ddm.show();
+    }
+  }); // Toggle on hover
+
+
+  this._link.addEventListener('mouseover', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    ddm.toggle();
+    var isDesktop = window.matchMedia('only screen and (min-width: 768px)').matches;
+
+    if (isDesktop) {
+      // Only run this for desktop only. Submenu is shown on hover using CSS but we have no way to track it in JS. This does that.
+      ddm.toggle();
+    }
+  }); // Close menu when hovered out of - Desktop.
+
+
+  this._link.addEventListener('mouseout', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var isDesktop = window.matchMedia('only screen and (min-width: 768px)').matches;
+
+    if (isDesktop) {
+      ddm.hide();
+
+      ddm._link.blur();
+    }
   }); // Keyboard navigation
 
 

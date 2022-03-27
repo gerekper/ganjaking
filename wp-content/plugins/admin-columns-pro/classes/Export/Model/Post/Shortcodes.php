@@ -11,7 +11,7 @@ use ACP\Export\Model;
 class Shortcodes extends Model {
 
 	public function get_value( $id ) {
-		$raw_value = $this->get_column()->get_raw_value( $id );
+		$raw_value = $this->column->get_raw_value( $id );
 
 		return $raw_value ? implode( ', ', array_keys( $raw_value ) ) : '';
 	}

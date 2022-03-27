@@ -40,6 +40,8 @@ class Betterdocs_Pro_Public
 	 */
 	private $version;
 
+    public $internal_kb;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,6 +53,7 @@ class Betterdocs_Pro_Public
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+        $this->internal_kb = $this->content_restriction();
 		add_filter('betterdocs_docs_layout_select_choices', array($this, 'customizer_docs_page_layout_choices'));
 		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
@@ -65,7 +68,13 @@ class Betterdocs_Pro_Public
         add_action('betterdocs_after_live_search_form', array($this, 'popular_srarch'), 10, 1);
         add_action('betterdocs_advance_search_settings', array($this, 'advance_search_settings'));
         add_action('betterdocs_popular_keyword_limit_settings', array($this, 'popular_keyword_limit'));
-        add_filter('betterdocs_search_button_text', array($this, 'search_button_text'), 10, 1 );
+        add_filter('betterdocs_search_button_text', array($this, 'search_button_text'), 10, 1);
+        if ($this->internal_kb == 1) {
+            add_filter('betterdocs_category_terms_object', array($this, 'restrict_doc_category'), 10, 1);
+            add_filter('betterdocs_kb_terms_object', array($this, 'restrict_kb'), 10, 1);
+            add_filter('betterdocs_tag_tax_query', array($this, 'restrict_tax_query'), 10, 1);
+            add_filter('betterdocs_live_search_tax_query', array($this, 'articles_args'), 10, 1);
+        }
         $live_search = BetterDocs_DB::get_settings('advance_search');
         if ($live_search == 1) {
             add_action('betterdocs_search_section', array($this, 'advance_search'), 10, 1);
@@ -172,6 +181,11 @@ class Betterdocs_Pro_Public
         return false;
     }
 
+    public function content_restriction()
+    {
+        return BetterDocs_DB::get_settings('enable_content_restriction');
+    }
+
     public function get_404_template()
     {
         global $wp_query;
@@ -221,7 +235,7 @@ class Betterdocs_Pro_Public
         $cat_terms = get_the_terms(get_the_ID(), 'doc_category');
         $kb_terms = get_the_terms(get_the_ID(), 'knowledge_base');
 
-        if ($this->is_betterdocs() && $content_restriction == 1 && $this->content_visibility_by_role() == false
+        if ($this->is_betterdocs() && $this->internal_kb == 1 && $this->content_visibility_by_role() == false
             && (is_array($restrict_template) && in_array('all', $restrict_template)
                 || (is_array($restrict_template) && in_array('docs', $restrict_template))
                 || ($tax === 'knowledge_base'
@@ -239,6 +253,117 @@ class Betterdocs_Pro_Public
             )
         ) {
             $this->restricted_redirect_url();
+        }
+    }
+
+    public function restrict_doc_category($terms_object)
+    {
+        if ($this->content_visibility_by_role() == false ) {
+            $restrict_category = BetterDocs_DB::get_settings('restrict_category');
+            $restrict_category = !empty($restrict_category) ? $restrict_category : array();
+            if (in_array('all', $restrict_category)) {
+                $cat_ids = get_terms([
+                    'taxonomy' => 'doc_category',
+                    'fields' => 'ids',
+                ]);
+                $terms_object['exclude'] = $cat_ids;
+            } else {
+                $cat_ids = array();
+                foreach ($restrict_category as $category) {
+                    $term = get_term_by( 'slug', $category, 'doc_category' );
+                    $cat_ids[] = $term->term_id;
+                }
+                $terms_object['exclude'] = $cat_ids;
+            }
+        }
+        return $terms_object;
+    }
+
+    public function restrict_kb($terms_object)
+    {
+        if ($this->content_visibility_by_role() == false) {
+            $restrict_kb = BetterDocs_DB::get_settings('restrict_kb');
+            $restrict_kb = !empty($restrict_kb) ? $restrict_kb : array();
+
+            if (in_array('all', $restrict_kb)) {
+                $kb_ids = get_terms([
+                    'taxonomy' => 'knowledge_base',
+                    'fields' => 'ids',
+                ]);
+                $terms_object['exclude'] = $kb_ids;
+            } else {
+                $kb_ids = array();
+                foreach ($restrict_kb as $kb) {
+                    $term = get_term_by( 'slug', $kb, 'knowledge_base' );
+                    $kb_ids[] = $term->term_id;
+                }
+                $terms_object['exclude'] = $kb_ids;
+            }
+        }
+        return $terms_object;
+    }
+
+    public function articles_args($terms_object)
+    {
+        if ($this->content_visibility_by_role() == false) {
+            $restrict_category = BetterDocs_DB::get_settings('restrict_category');
+            $restrict_category = !empty($restrict_category) ? $restrict_category : array();
+            $restrict_kb = BetterDocs_DB::get_settings('restrict_kb');
+            $restrict_kb = !empty($restrict_kb) ? $restrict_kb : array();
+
+            $terms_object = array(
+                'relation' => 'AND',
+                array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => 'doc_category',
+                        'field' => 'slug',
+                        'operator' => 'NOT IN',
+                        'terms' => $restrict_category,
+                        'include_children'  => false,
+                    ),
+                    array(
+                        'taxonomy' => 'knowledge_base',
+                        'field' => 'slug',
+                        'terms' => $restrict_kb,
+                        'operator' => 'NOT IN',
+                        'include_children'  => false,
+                    )
+                )
+            );
+        }
+        return $terms_object;
+    }
+
+    public function restrict_tax_query($tax_query)
+    {
+        if ($this->content_visibility_by_role() == false) {
+            $restrict_category = BetterDocs_DB::get_settings('restrict_category');
+            $restrict_category = !empty($restrict_category) ? $restrict_category : array();
+            $restrict_kb = BetterDocs_DB::get_settings('restrict_kb');
+            $restrict_kb = !empty($restrict_kb) ? $restrict_kb : array();
+
+            return array(
+                $tax_query,
+                'relation' => 'AND',
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'taxonomy' => 'doc_category',
+                        'field' => 'slug',
+                        'operator' => 'NOT IN',
+                        'terms' => $restrict_category,
+                        'include_children'  => false,
+                    ),
+                    array(
+                        'taxonomy' => 'knowledge_base',
+                        'field' => 'slug',
+                        'terms' => $restrict_kb,
+                        'operator' => 'NOT IN',
+                        'include_children'  => false,
+                    )
+                )
+            );
         }
     }
 

@@ -51,13 +51,13 @@ class GetList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterfa
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'totalBlacklisted' => 'int', 'totalSubscribers' => 'int'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'totalBlacklisted' => 'int', 'totalSubscribers' => 'int', 'uniqueSubscribers' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'totalBlacklisted' => 'int64', 'totalSubscribers' => 'int64'];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'totalBlacklisted' => 'int64', 'totalSubscribers' => 'int64', 'uniqueSubscribers' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class GetList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterfa
      *
      * @var string[]
      */
-    protected static $attributeMap = ['id' => 'id', 'name' => 'name', 'totalBlacklisted' => 'totalBlacklisted', 'totalSubscribers' => 'totalSubscribers'];
+    protected static $attributeMap = ['id' => 'id', 'name' => 'name', 'totalBlacklisted' => 'totalBlacklisted', 'totalSubscribers' => 'totalSubscribers', 'uniqueSubscribers' => 'uniqueSubscribers'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['id' => 'setId', 'name' => 'setName', 'totalBlacklisted' => 'setTotalBlacklisted', 'totalSubscribers' => 'setTotalSubscribers'];
+    protected static $setters = ['id' => 'setId', 'name' => 'setName', 'totalBlacklisted' => 'setTotalBlacklisted', 'totalSubscribers' => 'setTotalSubscribers', 'uniqueSubscribers' => 'setUniqueSubscribers'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['id' => 'getId', 'name' => 'getName', 'totalBlacklisted' => 'getTotalBlacklisted', 'totalSubscribers' => 'getTotalSubscribers'];
+    protected static $getters = ['id' => 'getId', 'name' => 'getName', 'totalBlacklisted' => 'getTotalBlacklisted', 'totalSubscribers' => 'getTotalSubscribers', 'uniqueSubscribers' => 'getUniqueSubscribers'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -150,6 +150,7 @@ class GetList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterfa
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['totalBlacklisted'] = isset($data['totalBlacklisted']) ? $data['totalBlacklisted'] : null;
         $this->container['totalSubscribers'] = isset($data['totalSubscribers']) ? $data['totalSubscribers'] : null;
+        $this->container['uniqueSubscribers'] = isset($data['uniqueSubscribers']) ? $data['uniqueSubscribers'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -170,6 +171,9 @@ class GetList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterfa
         }
         if ($this->container['totalSubscribers'] === null) {
             $invalidProperties[] = "'totalSubscribers' can't be null";
+        }
+        if ($this->container['uniqueSubscribers'] === null) {
+            $invalidProperties[] = "'uniqueSubscribers' can't be null";
         }
         return $invalidProperties;
     }
@@ -265,6 +269,27 @@ class GetList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterfa
     public function setTotalSubscribers($totalSubscribers)
     {
         $this->container['totalSubscribers'] = $totalSubscribers;
+        return $this;
+    }
+    /**
+     * Gets uniqueSubscribers
+     *
+     * @return int
+     */
+    public function getUniqueSubscribers()
+    {
+        return $this->container['uniqueSubscribers'];
+    }
+    /**
+     * Sets uniqueSubscribers
+     *
+     * @param int $uniqueSubscribers Number of unique contacts in the list
+     *
+     * @return $this
+     */
+    public function setUniqueSubscribers($uniqueSubscribers)
+    {
+        $this->container['uniqueSubscribers'] = $uniqueSubscribers;
         return $this;
     }
     /**

@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<tr valign="top">
 					<th scope="row">&nbsp;</th>
 					<td>
-						<input type="submit" name="create_booking_2" class="button-primary" value="<?php esc_attr_e( 'Add Booking', 'woocommerce-bookings' ); ?>" />
+						<input type="submit" name="create_booking_2" class="button-primary add_custom_booking" value="<?php esc_attr_e( 'Add Booking', 'woocommerce-bookings' ); ?>" />
 						<input type="hidden" name="customer_id" value="<?php echo esc_attr( $customer_id ); ?>" />
 						<input type="hidden" name="bookable_product_id" value="<?php echo esc_attr( $bookable_product_id ); ?>" />
 						<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $bookable_product_id ); ?>" />

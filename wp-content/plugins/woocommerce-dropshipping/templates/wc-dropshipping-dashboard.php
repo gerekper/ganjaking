@@ -108,7 +108,7 @@
   </div>
   <div class="dash-row">
      <div class="dash-slider">
-        <h2 class="white font-28">Best Selling Products</h2>
+        <h2 class="white font-28"><?php _e( 'Best Selling Products', 'woocommerce-dropshipping'); ?></h2>
         <div class="gap"></div>
         <?php foreach ( $wcd_get_best_selling_prod as $key => $value ) { ?>
         <div class="product-slide">

@@ -13,6 +13,10 @@ jQuery( function( $ ) {
 		topField = document.querySelector('#wapl-custom-position-top'),
 		metaBox = document.querySelector('.wapl-meta-box, #woocommerce_advanced_product_labels')
 
+	if (!label) {
+		return;
+	}
+
 	// On type update
 	function onTypeUpdate() {
 		var types = wapl.types.map(i => 'type-' + i);

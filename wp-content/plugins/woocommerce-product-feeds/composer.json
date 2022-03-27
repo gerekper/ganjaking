@@ -69,6 +69,7 @@
             "./src/jobs/woocommerce-product-feeds-job-manager.php",
 
             "./src/jobs/woocommerce-product-feeds-clear-google-taxonomy-job.php",
+            "./src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php",
             "./src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php",
 
             "./src/prf/woocommerce-prf-admin.php",

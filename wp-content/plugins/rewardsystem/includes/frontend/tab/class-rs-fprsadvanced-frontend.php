@@ -57,6 +57,10 @@ if ( ! class_exists( 'RSFunctionForAdvanced' ) ) {
 
 			foreach ( $sortedcolumn as $column_key => $column_value ) {
 				$function_name = str_replace('rs_', '', $column_key);
+				if (!method_exists('RSFunctionForAdvanced', $function_name)) {
+					continue;
+				}
+								
 				self::$function_name();
 			}
 		}

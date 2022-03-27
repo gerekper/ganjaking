@@ -64,7 +64,7 @@ abstract class TableScreen implements Registrable {
 	public function hide_segments() {
 		if ( $this->is_segment_hidden() ) {
 			?>
-			<style type="text/css">
+			<style>
 				.ac-button__segments {
 					display: none !important;
 				}

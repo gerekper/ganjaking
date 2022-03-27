@@ -4,8 +4,8 @@ if(!defined('ABSPATH')) exit();
 	<rs-module-wrap id="rev_slider_1029_1_wrapper" data-alias="benefit-library" data-source="gallery" style="background:transparent;padding:0;margin:0px auto;margin-top:0;margin-bottom:0;">
 				<rs-module id="rev_slider_1029_1" class="feature_slider" style="" data-version="6.2.50">
 					<rs-slides>
-						<rs-slide data-key="rs-2090" data-title="Slide" data-anim="ei:d;eo:d;s:1000;r:0;t:fade;sl:0;">
-							<img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/transparent.png" alt="Slide" class="rev-slidebg" data-no-retina>
+						<rs-slide style="position: absolute;" data-key="rs-2090" data-title="Slide" data-in="o:0;" data-out="a:false;">
+							<img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/transparent.png" alt="Slide" class="rev-slidebg tp-rs-img" data-no-retina>
 <!--
 							--><rs-group
 								id="slider-1029-slide-2090-layer-6" 
@@ -13,22 +13,22 @@ if(!defined('ABSPATH')) exit();
 								data-rsp_ch="on"
 								data-xy="x:c;"
 								data-text="w:normal;"
-								data-dim="w:380px;h:330px;"
+								data-dim="w:380px;h:430px;"
 								data-clip="u:true;t:circle;o:clr;"
 								data-frame_0="o:1;cp:0%;"
 								data-frame_1="sp:1000;cp:75%;"
 								data-frame_999="o:0;st:w;sA:9000;"
-								style="z-index:14;"
+								style="z-index:15;"
 							><!--
 								--><rs-layer
 									id="slider-1029-slide-2090-layer-0" 
 									class="rs-noevents rs-nolc rs-layer-video intrinsic-ignore"
 									data-type="video"
 									data-rsp_ch="on"
-									data-xy="x:c;y:-1px;"
+									data-xy="x:c;"
 									data-text="w:normal;"
-									data-dim="w:380px;h:215px;"
-									data-video="ap:false;vd:100;noint:t;l:true;ptimer:false;nse:f;sav:f;"
+									data-dim="w:380px;h:214px;"
+									data-video="vfc:true;ap:false;vd:100;noint:t;l:true;ptimer:false;nse:f;sav:f;"
 									data-mp4="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/library_video.mp4"
 									data-frame_1="st:800;sR:800;"
 									data-frame_999="o:0;st:w;sR:7900;"
@@ -65,8 +65,8 @@ if(!defined('ABSPATH')) exit();
 									data-padding="r:20;l:20;"
 									data-frame_1="sp:600;"
 									data-frame_999="o:0;st:w;sR:8400;"
-									style="z-index:10;font-family:Roboto;"
-								>Huge Media Asset Library 
+									style="z-index:10;font-family:'Roboto';"
+								>Eye-Popping Media Assets To Bring Your Creative Vision To Life 
 								</rs-layer><!--
 
 								--><rs-layer
@@ -75,7 +75,7 @@ if(!defined('ABSPATH')) exit();
 									data-type="button"
 									data-color="#b7bbc0"
 									data-rsp_ch="on"
-									data-xy="x:c;y:270px;"
+									data-xy="x:c;y:360px;"
 									data-text="w:normal;s:15;l:32;fw:500;"
 									data-dim="minh:0px;"
 									data-padding="r:35;l:35;"
@@ -85,8 +85,8 @@ if(!defined('ABSPATH')) exit();
 									data-frame_999="o:0;st:w;sR:7300;"
 									data-frame_2="oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:400;c:#ffffff;bgc:#005db3;"
 									data-frame_3="oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:300;"
-									style="z-index:11;background-color:#3a3e44;font-family:Roboto;"
-								>Learn More 
+									style="z-index:12;background-color:#3a3e44;font-family:'Roboto';"
+								>Explore Beautiful Media Assets! 
 								</rs-layer><!--
 
 								--><rs-layer
@@ -94,15 +94,15 @@ if(!defined('ABSPATH')) exit();
 									class="rs-noevents"
 									data-type="shape"
 									data-rsp_ch="on"
-									data-xy="x:c;y:1px;"
+									data-xy="x:c;y:2px;"
 									data-text="w:normal;"
-									data-dim="w:380px;h:215px;"
+									data-dim="w:380px;h:214px;"
 									data-ford="frame_0;frame_1;frame_2;frame_3;frame_999;"
 									data-frame_1="sp:600;"
 									data-frame_999="o:0;st:w;sR:7300;"
 									data-frame_2="o:0;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:400;"
 									data-frame_3="o:1;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:300;"
-									style="z-index:13;background:linear-gradient(rgba(32,34,36,0) 0%, rgba(32,34,36,0.01) 6.67%, rgba(32,34,36,0.04) 13.34%, rgba(32,34,36,0.1) 20.01%, rgba(32,34,36,0.17) 26.68%, rgba(32,34,36,0.25) 33.35%, rgba(32,34,36,0.35) 40.02%, rgba(32,34,36,0.45) 46.69%, rgba(32,34,36,0.55) 53.36%, rgba(32,34,36,0.65) 60.03%, rgba(32,34,36,0.75) 66.70%, rgba(32,34,36,0.83) 73.37%, rgba(32,34,36,0.9) 80.04%, rgba(32,34,36,0.96) 86.71%, rgba(32,34,36,0.99) 93.38%, rgba(32,34,36,1) 100%);"
+									style="z-index:14;background:linear-gradient(rgba(32,34,36,0) 0%, rgba(32,34,36,0.01) 6.67%, rgba(32,34,36,0.04) 13.34%, rgba(32,34,36,0.1) 20.01%, rgba(32,34,36,0.17) 26.68%, rgba(32,34,36,0.25) 33.35%, rgba(32,34,36,0.35) 40.02%, rgba(32,34,36,0.45) 46.69%, rgba(32,34,36,0.55) 53.36%, rgba(32,34,36,0.65) 60.03%, rgba(32,34,36,0.75) 66.70%, rgba(32,34,36,0.83) 73.37%, rgba(32,34,36,0.9) 80.04%, rgba(32,34,36,0.96) 86.71%, rgba(32,34,36,0.99) 93.38%, rgba(32,34,36,1) 100%);"
 								> 
 								</rs-layer><!--
 
@@ -113,7 +113,7 @@ if(!defined('ABSPATH')) exit();
 									data-rsp_ch="on"
 									data-xy="x:c;"
 									data-text="w:normal;"
-									data-dim="w:380px;h:215px;"
+									data-dim="w:380px;h:214px;"
 									data-ford="frame_0;frame_1;frame_2;frame_3;frame_999;"
 									data-frame_0="sX:0.6;sY:0.6;"
 									data-frame_0_mask="u:t;"
@@ -121,8 +121,24 @@ if(!defined('ABSPATH')) exit();
 									data-frame_999="o:0;st:w;sR:7100;"
 									data-frame_2="y:top;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:400;sR:200;"
 									data-frame_3="y:0px;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:400;sR:100;"
-									style="z-index:12;"
-								><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/coverlibrary.jpg" width="760" height="428" data-no-retina> 
+									style="z-index:13;"
+								><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/coverlibrary.jpg" alt="" class="tp-rs-img" width="760" height="428" data-no-retina> 
+								</rs-layer><!--
+
+								--><rs-layer
+									id="slider-1029-slide-2090-layer-7" 
+									class="rs-noevents"
+									data-type="text"
+									data-color="rgba(255, 255, 255, 0.5)"
+									data-rsp_ch="on"
+									data-xy="x:c;y:300px;"
+									data-text="w:normal;s:15;l:20;a:center;"
+									data-dim="w:100%;"
+									data-padding="r:20;l:20;"
+									data-frame_1="sp:600;"
+									data-frame_999="o:0;st:w;sR:8400;"
+									style="z-index:11;font-family:'Roboto';"
+								>Utilize 2000+ media assets to convert boring elements into impressive visuals 
 								</rs-layer><!--
 							--></rs-group><!--
 -->						</rs-slide>

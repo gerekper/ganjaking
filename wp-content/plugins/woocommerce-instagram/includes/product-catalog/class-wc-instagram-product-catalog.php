@@ -65,6 +65,9 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		'variation_description_field' => 'description',
 		'include_tax'                 => false,
 		'tax_location'                => array(),
+		'include_stock'               => false,
+		'stock_quantity'              => 10,
+		'backorder_stock_quantity'    => 0,
 	);
 
 	/**
@@ -383,7 +386,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	}
 
 	/**
-	 * Gets stock status.
+	 * Gets the stock status.
 	 *
 	 * @since 3.6.0
 	 * @since 4.0.0 Added parameter `$context`.
@@ -393,6 +396,42 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 */
 	public function get_stock_status( $context = 'view' ) {
 		return $this->get_prop( 'stock_status', $context );
+	}
+
+	/**
+	 * Gets whether to include the product stock.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return bool
+	 */
+	public function get_include_stock( $context = 'view' ) {
+		return $this->get_prop( 'include_stock', $context );
+	}
+
+	/**
+	 * Gets the stock quantity for products without a defined quantity.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return int
+	 */
+	public function get_stock_quantity( $context = 'view' ) {
+		return $this->get_prop( 'stock_quantity', $context );
+	}
+
+	/**
+	 * Gets the backorder stock quantity.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return int
+	 */
+	public function get_backorder_stock_quantity( $context = 'view' ) {
+		return $this->get_prop( 'backorder_stock_quantity', $context );
 	}
 
 	/*
@@ -481,6 +520,39 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		$this->set_bool_prop( 'include_tax', $include_tax );
 	}
 
+	/**
+	 * Sets whether to include the product stock.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param mixed $include_stock Whether to include the product stock.
+	 */
+	public function set_include_stock( $include_stock ) {
+		$this->set_bool_prop( 'include_stock', $include_stock );
+	}
+
+	/**
+	 * Sets the stock quantity for products without a defined quantity.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int $quantity The stock quantity.
+	 */
+	public function set_stock_quantity( $quantity ) {
+		$this->set_prop( 'stock_quantity', absint( $quantity ) );
+	}
+
+	/**
+	 * Sets the backorder stock quantity.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int $quantity The stock quantity.
+	 */
+	public function set_backorder_stock_quantity( $quantity ) {
+		$this->set_prop( 'backorder_stock_quantity', absint( $quantity ) );
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Queries
@@ -543,7 +615,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 * @return WC_Instagram_Product_Catalog_Query
 	 */
 	protected function get_query( $args = array() ) {
-		$data = $this->get_data_without( array( 'id', 'title', 'slug', 'meta_data' ) );
+		$data = $this->get_data_without( array( 'id', 'title', 'slug', 'stock_quantity', 'meta_data' ) );
 
 		/**
 		 * Filters the catalog data used for querying its products.

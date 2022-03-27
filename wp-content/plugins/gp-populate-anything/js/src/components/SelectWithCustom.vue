@@ -49,7 +49,11 @@
 			this.hasMergeTagSelector = true;
 		},
 		beforeDestroy: function () {
-			this.mergeTagsObj.destroy();
+			try {
+				this.mergeTagsObj.destroy();
+			} catch (e) {
+				console.debug('Unable to destroy merge tag object.', this.mergeTagsObj);
+			}
 		},
 		watch: {
 			operator: function () {

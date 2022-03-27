@@ -54,6 +54,7 @@ class WoocommerceGpfStatusReport {
 		$this->settings = get_option( 'woocommerce_gpf_config', array() );
 		$this->render_options();
 		$this->render_field_config();
+		$this->render_db_status();
 	}
 
 	private function render_field_config() {
@@ -127,6 +128,9 @@ class WoocommerceGpfStatusReport {
 		}
 		$debug_key = get_option( 'woocommerce_gpf_debug_key', __( 'Not set', 'woocommerce_gpf' ) );
 
+		/**
+		 * Configured feeds.
+		 */
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf-status-report',
 			'header',
@@ -142,6 +146,9 @@ class WoocommerceGpfStatusReport {
 			array()
 		);
 
+		/**
+		 * Extension options.
+		 */
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf-status-report',
 			'header',
@@ -150,7 +157,6 @@ class WoocommerceGpfStatusReport {
 				'title'      => esc_html( __( 'WooCommerce Google Product Feed options', 'woocommerce_gpf' ) ),
 			)
 		);
-
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf-status-report',
 			'item',
@@ -193,6 +199,144 @@ class WoocommerceGpfStatusReport {
 			'footer',
 			array()
 		);
+	}
+
+	private function render_db_status() {
+
+		global $wpdb;
+
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'header',
+			array(
+				'attr_title' => esc_attr( __( 'WooCommerce Google Product Feed DB status', 'woocommerce_gpf' ) ),
+				'title'      => esc_html( __( 'WooCommerce Google Product Feed DB status', 'woocommerce_gpf' ) ),
+			)
+		);
+
+		/**
+		 * Database versions.
+		 */
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'item',
+			[
+				'name'      => __( 'Database version', 'woocommerce_gpf' ),
+				'attr_name' => esc_attr( __( 'Database version', 'woocommerce_gpf' ) ),
+				'status'    => WOOCOMMERCE_GPF_DB_VERSION,
+			]
+		);
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'item',
+			[
+				'name'      => __( 'Active database version', 'woocommerce_gpf' ),
+				'attr_name' => esc_attr( __( 'Active database version', 'woocommerce_gpf' ) ),
+				'status'    => get_option( 'woocommerce_gpf_db_version', __( 'Unknown', 'woocommerce_gpf' ) ),
+			]
+		);
+
+		/**
+		 * wc_gpf_render_cache table status.
+		 */
+		$table_name = $wpdb->prefix . 'wc_gpf_render_cache';
+		$exists     = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name;
+		if ( $exists ) {
+			$sql                   = "SELECT name, COUNT(post_id) AS cnt FROM {$table_name} GROUP BY name";
+			$render_cache_statuses = $wpdb->get_results( $sql, ARRAY_A );
+			foreach ( $render_cache_statuses as $render_cache_status ) {
+				$item_name = 'wc_gpf_render_cache_status (' . $render_cache_status['name'] . ')';
+				$status    = sprintf(
+				// Translators: %d is the number of items.
+					_n( '%d item', '%d items', $render_cache_status['cnt'], 'woocommerce_gpf' ),
+					$render_cache_status['cnt']
+				);
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf-status-report',
+					'item',
+					[
+						'name'      => $item_name,
+						'attr_name' => esc_attr( $item_name ),
+						'status'    => $status,
+					]
+				);
+			}
+			if ( empty( $render_cache_statuses ) ) {
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf-status-report',
+					'item',
+					[
+						'name'      => 'wc_gpf_render_cache',
+						'attr_name' => esc_attr( 'wc_gpf_render_cache' ),
+						'status'    => __( 'Empty', 'woocommerce_gpf' ),
+					]
+				);
+			}
+		} else {
+			$this->template_loader->output_template_with_variables(
+				'woo-gpf-status-report',
+				'item',
+				[
+					'name'      => 'wc_gpf_render_cache_status',
+					'attr_name' => esc_attr( 'wc_gpf_render_cache_status' ),
+					'status'    => '<mark class="error">' . __( 'MISSING', 'woocommerce_gpf' ) . '</mark>',
+				]
+			);
+		}
+
+		/**
+		 * woocommerce_gpf_google_taxonomy table status.
+		 */
+		$table_name = $wpdb->prefix . 'woocommerce_gpf_google_taxonomy';
+		$exists     = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name;
+		if ( $exists ) {
+			$sql                     = "SELECT locale, COUNT(*) AS cnt FROM {$table_name} GROUP BY locale";
+			$taxonomy_cache_statuses = $wpdb->get_results( $sql, ARRAY_A );
+			foreach ( $taxonomy_cache_statuses as $taxonomy_cache_status ) {
+				$item_name = 'woocommerce_gpf_google_taxonomy (' . $taxonomy_cache_status['locale'] . ')';
+				$status    = sprintf(
+				// Translators: %d is the number of items
+					_n( '%d item', '%d items', $taxonomy_cache_status['cnt'], 'woocommerce_gpf' ),
+					$taxonomy_cache_status['cnt']
+				);
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf-status-report',
+					'item',
+					[
+						'name'      => $item_name,
+						'attr_name' => esc_attr( $item_name ),
+						'status'    => $status,
+					]
+				);
+			}
+			if ( empty( $taxonomy_cache_statuses ) ) {
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf-status-report',
+					'item',
+					[
+						'name'      => 'woocommerce_gpf_google_taxonomy',
+						'attr_name' => esc_attr( 'woocommerce_gpf_google_taxonomy' ),
+						'status'    => __( 'Empty', 'woocommerce_gpf' ),
+					]
+				);
+			}
+		} else {
+			$this->template_loader->output_template_with_variables(
+				'woo-gpf-status-report',
+				'item',
+				[
+					'name'   => 'woocommerce_gpf_google_taxonomy',
+					'status' => '<mark class="error">' . __( 'MISSING', 'woocommerce_gpf' ) . '</mark>',
+				]
+			);
+		}
+
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'footer',
+			[]
+		);
+
 	}
 
 	/**

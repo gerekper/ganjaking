@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPLS_RuleGroup {
 	public $feed_id;
 	public $form_id;
@@ -24,8 +20,11 @@ class GPLS_RuleGroup {
 		}
 		// turn feed array data into gpls rule objects
 		foreach ( $feeds as $feed ) {
-			// load GPLS Rules by Feed and store in $rules property
-			$rule_groups[] = self::load_by_feed( $feed );
+			$feed_rules = self::load_by_feed( $feed );
+
+			if ( $feed_rules ) {
+				$rule_groups[] = $feed_rules;
+			}
 		}
 
 		return $rule_groups;
@@ -39,6 +38,13 @@ class GPLS_RuleGroup {
 	}
 
 	public static function load_by_feed( $feed ) {
+
+		$form  = GFAPI::get_form( $feed['form_id'] );
+		$entry = GFFormsModel::create_lead( $form );
+
+		if ( ! empty( $_POST[ 'is_submit_' . $form['id'] ] ) && ! gp_limit_submissions()->is_feed_condition_met( $feed, GFAPI::get_form( $feed['form_id'] ), $entry ) ) {
+			return null;
+		}
 
 		$rule_group          = new GPLS_RuleGroup();
 		$rule_group->feed_id = $feed['id'];

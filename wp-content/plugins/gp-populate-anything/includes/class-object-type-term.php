@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPPA_Object_Type_Term extends GPPA_Object_Type {
 
 	private $meta_query_counter = 0;
@@ -12,6 +8,10 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		parent::__construct( $id );
 
 		add_action( 'gppa_pre_object_type_query_term', array( $this, 'add_filter_hooks' ) );
+	}
+
+	public function supported_operators() {
+		return array_merge( gp_populate_anything()->get_default_operators(), array( 'is_in', 'is_not_in' ) );
 	}
 
 	/**
@@ -63,44 +63,50 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		return array_merge(
 			array(
 				'taxonomy'  => array(
-					'label'    => esc_html__( 'Taxonomy', 'gp-populate-anything' ),
-					'value'    => 'taxonomy',
-					'callable' => array( $this, 'get_taxonomies' ),
-					'orderby'  => true,
+					'label'     => esc_html__( 'Taxonomy', 'gp-populate-anything' ),
+					'value'     => 'taxonomy',
+					'callable'  => array( $this, 'get_taxonomies' ),
+					'orderby'   => true,
+					'operators' => $this->supported_operators(),
 				),
 				'name'      => array(
-					'label'    => esc_html__( 'Name', 'gp-populate-anything' ),
-					'value'    => 'name',
-					'callable' => array( $this, 'get_col_rows' ),
-					'args'     => array( $wpdb->terms, 'name' ),
-					'orderby'  => true,
+					'label'     => esc_html__( 'Name', 'gp-populate-anything' ),
+					'value'     => 'name',
+					'callable'  => array( $this, 'get_col_rows' ),
+					'args'      => array( $wpdb->terms, 'name' ),
+					'orderby'   => true,
+					'operators' => $this->supported_operators(),
 				),
 				'slug'      => array(
-					'label'    => esc_html__( 'Slug', 'gp-populate-anything' ),
-					'value'    => 'slug',
-					'callable' => array( $this, 'get_col_rows' ),
-					'args'     => array( $wpdb->terms, 'slug' ),
-					'orderby'  => true,
+					'label'     => esc_html__( 'Slug', 'gp-populate-anything' ),
+					'value'     => 'slug',
+					'callable'  => array( $this, 'get_col_rows' ),
+					'args'      => array( $wpdb->terms, 'slug' ),
+					'orderby'   => true,
+					'operators' => $this->supported_operators(),
 				),
 				'object_id' => array(
-					'label'    => esc_html__( 'Object ID', 'gp-populate-anything' ),
-					'value'    => 'object_id',
-					'callable' => array( $this, 'get_col_rows' ),
-					'args'     => array( $wpdb->term_relationships, 'object_id' ),
-					'orderby'  => false,
+					'label'     => esc_html__( 'Object ID', 'gp-populate-anything' ),
+					'value'     => 'object_id',
+					'callable'  => array( $this, 'get_col_rows' ),
+					'args'      => array( $wpdb->term_relationships, 'object_id' ),
+					'orderby'   => false,
+					'operators' => $this->supported_operators(),
 				),
 				'term_id'   => array(
-					'label'    => esc_html__( 'Term ID', 'gp-populate-anything' ),
-					'value'    => 'term_id',
-					'callable' => array( $this, 'get_col_rows' ),
-					'args'     => array( $wpdb->terms, 'term_id' ),
-					'orderby'  => true,
+					'label'     => esc_html__( 'Term ID', 'gp-populate-anything' ),
+					'value'     => 'term_id',
+					'callable'  => array( $this, 'get_col_rows' ),
+					'args'      => array( $wpdb->terms, 'term_id' ),
+					'orderby'   => true,
+					'operators' => $this->supported_operators(),
 				),
 				'parent'    => array(
-					'label'    => esc_html__( 'Parent Term', 'gp-populate-anything' ),
-					'value'    => 'parent',
-					'callable' => array( $this, 'get_terms' ),
-					'orderby'  => true,
+					'label'     => esc_html__( 'Parent Term', 'gp-populate-anything' ),
+					'value'     => 'parent',
+					'callable'  => array( $this, 'get_terms' ),
+					'orderby'   => true,
+					'operators' => $this->supported_operators(),
 				),
 			),
 			$this->get_term_meta_properties()
@@ -121,20 +127,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 				'callable'  => array( $this, 'get_meta_values' ),
 				'args'      => array( $term_meta_key, $wpdb->termmeta ),
 				'group'     => 'meta',
-				'operators' => array(
-					'is',
-					'isnot',
-					'>',
-					'>=',
-					'<',
-					'<=',
-					'contains',
-					'starts_with',
-					'ends_with',
-					'like',
-					'is_in',
-					'is_not_in',
-				),
+				'operators' => $this->supported_operators(),
 			);
 		}
 
@@ -162,6 +155,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->terms, rgar( $property, 'value' ), $filter['operator'], $filter_value );
@@ -182,6 +176,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$meta_operator      = $this->get_sql_operator( $filter['operator'] );
@@ -197,7 +192,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 *
 		 * Note: unless there's an array of arrays, meta_key needs to be scalar.
 		 */
-		if ( is_array( $filter_value ) && in_array( $filter['operator'], array( 'is_in', 'is_not_in' ) ) ) {
+		if ( is_array( $filter_value ) && in_array( $filter['operator'], array( 'is_in', 'is_not_in' ), true ) ) {
 
 			$escaped_filter_value = array_map(
 				function ( $v ) {
@@ -215,12 +210,14 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 						AND {$wpdb->termmeta}.meta_key = %s
 				)";
 
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			$query_builder_args['where'][ $filter_group_index ][] = $wpdb->prepare( $where, rgar( $property, 'value' ) );
 
 			/**
 			 * Traditional meta where
 			 */
 		} else {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 			$query_builder_args['where'][ $filter_group_index ][] = $wpdb->prepare( "( {$as_table}.meta_key = %s AND {$as_table}.meta_value {$meta_operator} {$meta_specification} )", rgar( $property, 'value' ), $meta_value );
 			$query_builder_args['joins'][ $as_table ]             = "LEFT JOIN {$wpdb->termmeta} AS {$as_table} ON ( {$wpdb->terms}.term_id = {$as_table}.term_id )";
 		}
@@ -241,6 +238,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->term_taxonomy, rgar( $property, 'value' ), $filter['operator'], $filter_value );
@@ -261,6 +259,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->term_relationships, 'object_id', $filter['operator'], $filter_value );
@@ -303,6 +302,7 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		 * @var $ordering array
 		 * @var $field array
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		$orderby = rgar( $ordering, 'orderby' );
@@ -344,6 +344,8 @@ class GPPA_Object_Type_Term extends GPPA_Object_Type {
 		$query_args = $this->process_filter_groups( $args, $this->default_query_args( $args ) );
 
 		$query = $this->build_mysql_query( $query_args, rgar( $args, 'field' ) );
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$terms = $wpdb->get_results( $query );
 
 		foreach ( $terms as $key => $term ) {

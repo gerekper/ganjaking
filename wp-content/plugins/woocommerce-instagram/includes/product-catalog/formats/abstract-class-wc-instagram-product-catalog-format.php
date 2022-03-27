@@ -220,6 +220,10 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			unset( $props['item_group_id'] );
 		}
 
+		if ( $this->product_catalog->get_include_stock() ) {
+			$props['quantity_to_sell_on_facebook'] = 'esc_attr';
+		}
+
 		$relationships = WC_Instagram_Attribute_Relationships::get_relationships();
 
 		foreach ( $relationships as $google_pa ) {
@@ -378,6 +382,20 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			case 'additional_image_link':
 				$option = ( $product_item->get_images_option() ? $product_item->get_images_option() : $product_catalog->get_images_option() );
 				$value  = ( 'all' === $option ? $product_item->get_additional_image_links() : array() );
+				break;
+			case 'quantity_to_sell_on_facebook':
+				if ( ! $product->is_in_stock() ) {
+					$value = 0;
+					break;
+				}
+
+				$stock_quantity = $product->get_stock_quantity();
+
+				if ( $product->managing_stock() && $stock_quantity > 0 ) {
+					$value = $stock_quantity;
+				} else {
+					$value = ( $product->is_on_backorder() ? $this->product_catalog->get_backorder_stock_quantity() : $this->product_catalog->get_stock_quantity() );
+				}
 				break;
 			default:
 				$value = $product_item->get_google_attribute( $prop );

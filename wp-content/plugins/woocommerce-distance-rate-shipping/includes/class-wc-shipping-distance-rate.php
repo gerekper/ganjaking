@@ -808,7 +808,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						}
 					}
 
-					if ( 'total' === $rule_condition[ $i ] ) {
+					if ( isset( $rule_condition[ $i ] ) && 'total' === $rule_condition[ $i ] ) {
 						$rule_min[ $i ] = wc_format_decimal( $rule_min[ $i ] );
 						$rule_max[ $i ] = wc_format_decimal( $rule_max[ $i ] );
 					}
@@ -860,6 +860,18 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						} else {
 							$rule_max[ $i ] = wc_format_decimal( $rule_max[ $i ] );
 						}
+					}
+
+					if ( empty( $rule_condition[ $i ] ) ) {
+						$rule_condition[ $i ] = '';
+					}
+
+					if ( empty( $rule_max[ $i ] ) ) {
+						$rule_max[ $i ] = '';
+					}
+
+					if ( empty( $rule_min[ $i ] ) ) {
+						$rule_min[ $i ] = '';
 					}
 
 					// Add to rules array.
@@ -1153,352 +1165,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			return true;
 		}
 
-		/**
-		 * Calculate shipping based on distance.
-		 *
-		 * @since 1.0.0
-		 * @version 1.0.8
-		 *
-		 * @param  array  $rule     Rule.
-		 * @param  int    $distance Distance.
-		 * @param  object $package  Package to ship.
-		 * @return int
-		 */
-		public function distance_shipping( $rule, $distance, $package ) {
-			$min_match = false;
-			$max_match = false;
-			$rule_cost = null;
-
-			if ( empty( $rule['min'] ) || $distance >= $rule['min'] ) {
-				$min_match = true;
-			}
-
-			if ( empty( $rule['max'] ) || $distance <= $rule['max'] ) {
-				$max_match = true;
-			}
-
-			$content_count = WC()->cart->get_cart_contents_count();
-
-			if ( $min_match && $max_match ) {
-				$rule_cost       = 0;
-				$multiply_by_qty = false;
-
-				if ( isset( $rule['per_qty'] ) && 'yes' === $rule['per_qty'] ) {
-					$multiply_by_qty = true;
-				}
-
-				if ( ! empty( $rule['cost_unit'] ) ) {
-					$rule_cost = ( $multiply_by_qty ) ? $rule['cost_unit'] * $distance * $content_count : $rule['cost_unit'] * $distance;
-				}
-
-				if ( ! empty( $rule['cost'] ) ) {
-					$rule_cost += ( $multiply_by_qty ) ? $rule['cost'] * $content_count : $rule['cost'];
-				}
-
-				if ( ! empty( $rule['fee'] ) ) {
-					$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
-				}
-			}
-
-			/**
-			 * Filter the rule cost for distance shipping.
-			 *
-			 * @since 1.0.8
-			 * @version 1.0.8
-			 *
-			 * @param float $rule_cost Calculated cost.
-			 * @param array $rule      Rule in DRS' row.
-			 * @param float $distance  Distance.
-			 * @param array $package   Package to ship.
-			 */
-			return apply_filters(
-				'woocommerce_distance_rate_shipping_rule_cost_distance_shipping',
-				$rule_cost,
-				$rule,
-				$distance,
-				$package
-			);
-		}
-
-		/**
-		 * Calculate shipping based on total travel time.
-		 *
-		 * @since 1.0.0
-		 * @version 1.0.8
-		 *
-		 * @param  array  $rule                Rule.
-		 * @param  int    $travel_time_minutes Travel time in minutes.
-		 * @param  object $package             Package to ship.
-		 * @return int
-		 */
-		public function time_shipping( $rule, $travel_time_minutes, $package ) {
-			$min_match = false;
-			$max_match = false;
-			$rule_cost = null;
-
-			if ( empty( $rule['min'] ) || $travel_time_minutes >= $rule['min'] ) {
-				$min_match = true;
-			}
-
-			if ( empty( $rule['max'] ) || $travel_time_minutes <= $rule['max'] ) {
-				$max_match = true;
-			}
-
-			$content_count = WC()->cart->get_cart_contents_count();
-
-			if ( $min_match && $max_match ) {
-				$rule_cost       = 0;
-				$multiply_by_qty = false;
-
-				if ( isset( $rule['per_qty'] ) && 'yes' === $rule['per_qty'] ) {
-					$multiply_by_qty = true;
-				}
-
-				if ( ! empty( $rule['cost_unit'] ) ) {
-					$rule_cost = ( $multiply_by_qty ) ? $rule['cost_unit'] * $travel_time_minutes * $content_count : $rule['cost_unit'] * $travel_time_minutes;
-				}
-
-				if ( ! empty( $rule['cost'] ) ) {
-					$rule_cost += ( $multiply_by_qty ) ? $rule['cost'] * $content_count : $rule['cost'];
-				}
-
-				if ( ! empty( $rule['fee'] ) ) {
-					$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
-				}
-			}
-
-			/**
-			 * Filter the rule cost for time shipping.
-			 *
-			 * @since 1.0.8
-			 * @version 1.0.8
-			 *
-			 * @param float $rule_cost         Calculated cost.
-			 * @param array $rule              Rule in DRS' row.
-			 * @param int $travel_time_minutes Travel time in minutes.
-			 * @param array $package           Package to ship.
-			 */
-			return apply_filters(
-				'woocommerce_distance_rate_shipping_rule_cost_time_shipping',
-				$rule_cost,
-				$rule,
-				$travel_time_minutes,
-				$package
-			);
-		}
-
-		/**
-		 * Calculate shipping based on weight.
-		 *
-		 * @since 1.0.0
-		 * @version 1.0.8
-		 *
-		 * @param  array  $rule     Rule.
-		 * @param  int    $distance Distance.
-		 * @param  object $package  Package to ship.
-		 * @return int
-		 */
-		public function weight_shipping( $rule, $distance, $package ) {
-			$min_match = false;
-			$max_match = false;
-			$rule_cost = null;
-
-			$total_weight  = WC()->cart->cart_contents_weight;
-			$content_count = WC()->cart->get_cart_contents_count();
-
-			if ( isset( $total_weight ) && $total_weight > 0 ) {
-
-				if ( empty( $rule['min'] ) || $total_weight >= $rule['min'] ) {
-					$min_match = true;
-				}
-
-				if ( empty( $rule['max'] ) || $total_weight <= $rule['max'] ) {
-					$max_match = true;
-				}
-
-				if ( $min_match && $max_match ) {
-					$rule_cost       = 0;
-					$multiply_by_qty = false;
-
-					if ( isset( $rule['per_qty'] ) && 'yes' === $rule['per_qty'] ) {
-						$multiply_by_qty = true;
-					}
-
-					if ( ! empty( $rule['cost_unit'] ) ) {
-						$rule_cost = ( $multiply_by_qty ) ? $rule['cost_unit'] * $distance * $content_count : $rule['cost_unit'] * $distance;
-					}
-
-					if ( ! empty( $rule['cost'] ) ) {
-						$rule_cost += ( $multiply_by_qty ) ? $rule['cost'] * $content_count : $rule['cost'];
-					}
-
-					if ( ! empty( $rule['fee'] ) ) {
-						$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
-					}
-				}
-			}
-
-			/**
-			 * Filter the rule cost for distance shipping.
-			 *
-			 * @since 1.0.8
-			 * @version 1.0.8
-			 *
-			 * @param float $rule_cost Calculated cost.
-			 * @param array $rule      Rule in DRS' row.
-			 * @param float $distance  Distance.
-			 * @param array $package   Package to ship.
-			 */
-			return apply_filters(
-				'woocommerce_distance_rate_shipping_rule_cost_weight_shipping',
-				$rule_cost,
-				$rule,
-				$distance,
-				$package
-			);
-		}
-
-		/**
-		 * Calculate shipping based on order total.
-		 *
-		 * @since 1.0.0
-		 * @version 1.0.8
-		 *
-		 * @param  array  $rule     Rule.
-		 * @param  int    $distance Distance.
-		 * @param  object $package  Package to ship.
-		 * @return int
-		 */
-		public function order_total_shipping( $rule, $distance, $package ) {
-			$min_match = false;
-			$max_match = false;
-			$rule_cost = null;
-
-			$order_total   = $package['contents_cost'];
-			$content_count = WC()->cart->get_cart_contents_count();
-
-			if ( isset( $order_total ) && $order_total > 0 ) {
-
-				if ( empty( $rule['min'] ) || $order_total >= $rule['min'] ) {
-					$min_match = true;
-				}
-
-				if ( empty( $rule['max'] ) || $order_total <= $rule['max'] ) {
-					$max_match = true;
-				}
-
-				if ( $min_match && $max_match ) {
-					$rule_cost       = 0;
-					$multiply_by_qty = false;
-
-					if ( isset( $rule['per_qty'] ) && 'yes' === $rule['per_qty'] ) {
-						$multiply_by_qty = true;
-					}
-
-					if ( ! empty( $rule['cost_unit'] ) ) {
-						$rule_cost = ( $multiply_by_qty ) ? $rule['cost_unit'] * $distance * $content_count : $rule['cost_unit'] * $distance;
-					}
-
-					if ( ! empty( $rule['cost'] ) ) {
-						$rule_cost += ( $multiply_by_qty ) ? $rule['cost'] * $content_count : $rule['cost'];
-					}
-
-					if ( ! empty( $rule['fee'] ) ) {
-						$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
-					}
-				}
-			}
-
-			/**
-			 * Filter the rule cost for distance shipping.
-			 *
-			 * @since 1.0.8
-			 * @version 1.0.8
-			 *
-			 * @param float $rule_cost Calculated cost.
-			 * @param array $rule      Rule in DRS' row.
-			 * @param float $distance  Distance.
-			 * @param array $package   Package to ship.
-			 */
-			return apply_filters(
-				'woocommerce_distance_rate_shipping_rule_cost_order_total_shipping',
-				$rule_cost,
-				$rule,
-				$distance,
-				$package
-			);
-		}
-
-		/**
-		 * Calculate shipping based on quantity.
-		 *
-		 * @since 1.0.0
-		 * @version 1.0.8
-		 *
-		 * @param  array  $rule     Rule.
-		 * @param  int    $distance Distance.
-		 * @param  object $package  Package to ship.
-		 * @return int
-		 */
-		public function quantity_shipping( $rule, $distance, $package ) {
-			$min_match = false;
-			$max_match = false;
-			$rule_cost = null;
-
-			$content_count = WC()->cart->get_cart_contents_count();
-
-			if ( isset( $content_count ) && $content_count > 0 ) {
-
-				if ( empty( $rule['min'] ) || $content_count >= $rule['min'] ) {
-					$min_match = true;
-				}
-
-				if ( empty( $rule['max'] ) || $content_count <= $rule['max'] ) {
-					$max_match = true;
-				}
-
-				if ( $min_match && $max_match ) {
-					$rule_cost       = 0;
-					$multiply_by_qty = false;
-
-					if ( isset( $rule['per_qty'] ) && 'yes' === $rule['per_qty'] ) {
-						$multiply_by_qty = true;
-					}
-
-					if ( ! empty( $rule['cost_unit'] ) ) {
-						$rule_cost = ( $multiply_by_qty ) ? $rule['cost_unit'] * $distance * $content_count : $rule['cost_unit'] * $distance;
-					}
-
-					if ( ! empty( $rule['cost'] ) ) {
-						$rule_cost += ( $multiply_by_qty ) ? $rule['cost'] * $content_count : $rule['cost'];
-					}
-
-					if ( ! empty( $rule['fee'] ) ) {
-						$rule_cost += $this->get_fee( $rule['fee'], $package['contents_cost'] );
-					}
-				}
-			}
-
-			/**
-			 * Filter the rule cost for distance shipping.
-			 *
-			 * @since 1.0.8
-			 * @version 1.0.8
-			 *
-			 * @param float $rule_cost Calculated cost.
-			 * @param array $rule      Rule in DRS' row.
-			 * @param float $distance  Distance.
-			 * @param array $package   Package to ship.
-			 */
-			return apply_filters(
-				'woocommerce_distance_rate_shipping_rule_cost_quantity_shipping',
-				$rule_cost,
-				$rule,
-				$distance,
-				$package
-			);
-		}
-
 		public function create_table_conditions( $rule_row, $conditions = array() ) {
 			$table_conditions = '';
 
@@ -1632,7 +1298,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			 * @param float $total_unit    Total unit value either distance or time.
 			 * @param array $package       Package to ship.
 			 */
-			$condition = isset( $rule['condition'] ) ? $rule['condition'] : $rule['conditions'][0][0]['condition'];
+			$condition = empty( $rule['condition'] ) ? $rule['conditions'][0][0]['condition'] : $rule['condition'];
+			$condition = 'total' === $condition ? 'order_total' : $condition;// Rename `total` condition to match legacy filter name.
 			$rule_cost = apply_filters( 
 				'woocommerce_distance_rate_shipping_rule_cost_'. $condition .'_shipping', 
 				$rule_cost,

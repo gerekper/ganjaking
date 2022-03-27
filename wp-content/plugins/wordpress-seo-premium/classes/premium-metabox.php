@@ -102,9 +102,6 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		wp_enqueue_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox' );
 		wp_enqueue_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox' );
 
-		$localization = new WPSEO_Admin_Asset_Yoast_Components_L10n();
-		$localization->localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox' );
-
 		$premium_localization = new WPSEO_Premium_Asset_JS_L10n();
 		$premium_localization->localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox' );
 

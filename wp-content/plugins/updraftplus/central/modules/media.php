@@ -506,7 +506,7 @@ class UpdraftCentral_Media_Commands extends UpdraftCentral_Commands {
 	 */
 	private function get_type_ids($type) {
 		global $wpdb;
-		return $wpdb->get_col($wpdb->prepare("SELECT `ID` FROM {$wpdb->posts} WHERE `post_type` = 'attachment' AND `post_status` = 'inherit' AND `post_mime_type` LIKE '%s/%%'", $type));
+		return $wpdb->get_col($wpdb->prepare("SELECT `ID` FROM {$wpdb->posts} WHERE `post_type` = 'attachment' AND `post_status` = 'inherit' AND `post_mime_type` LIKE %s", $type.'/%'));
 	}
 
 	/**

@@ -72,21 +72,21 @@ abstract class Hex implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\EncoderI
      * Convert a hexadecimal string into a binary string without cache-timing
      * leaks
      *
-     * @param string $hex_string
+     * @param string $encoded_string
      * @return string (raw binary)
      * @throws \RangeException
      */
-    public static function decode($hex_string)
+    public static function decode($encoded_string)
     {
         $hex_pos = 0;
         $bin = '';
         $c_acc = 0;
-        $hex_len = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($hex_string);
+        $hex_len = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Binary::safeStrlen($encoded_string);
         $state = 0;
         if (($hex_len & 1) !== 0) {
             throw new \RangeException('Expected an even number of hexadecimal characters');
         }
-        $chunk = \unpack('C*', $hex_string);
+        $chunk = \unpack('C*', $encoded_string);
         while ($hex_pos < $hex_len) {
             ++$hex_pos;
             $c = $chunk[$hex_pos];

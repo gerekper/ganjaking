@@ -1,6 +1,65 @@
 
 # Changelog
 
+## 1.4.53
+
+	- Fixed issue where GPCC's conditioanl logic handling would overwrite edited values when the form was reloaded.
+
+## 1.4.52
+
+	- Fixed issue where multiple values copied into a single input would not be cleared if unchecking a checkbox.
+	- Fixed issue where using the `gpcc_copied_value` filter would prevent filtered values from being cleared if the checkbox controlling the copying is unchecked.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.4.51
+
+	- Added `getSourceField` method to `gwCopyObj` to open up more possibilities with snippets such as automatic copying depending on checkbox value.
+
+## 1.4.50
+
+	- Improved conditional logic handling for accuracy and efficiency. (#40)
+
+## 1.4.49
+
+	- Improved performance by only triggering change events when value has actually changed.
+
+## 1.4.48
+
+	- Fixed issue where copying from one List field to another did not work in Gravity Forms 2.5.
+
+## 1.4.47
+
+	- Fixed issue where only the first Copy Cat class was respected when clearing values after a checkbox click.
+
+## 1.4.46
+
+	- Fixed a potential issue where conditionally hidden target fields may not be copied to if manual copy is used to also show the target fields.
+	- Fixed an issue where multiple conditionally hidden inline date pickers would not trigger copy on page load.
+
+## 1.4.45
+
+	- Fixed a regression where GPCC would not copy values to hidden fields.
+
+## 1.4.44
+
+	- Fixed a potential issue where copied prices to radio fields may not update the form's total amount.
+	- Fixed an issue where GPCC would not copy values to quantity fields correctly.
+
+## 1.4.43
+
+	- Fixed an issue where the [gpcc_copied_value](https://gravitywiz.com/documentation/gpcc_copied_value-js/) filter did not fire when copying checkbox or radio fields.
+
+## 1.4.42
+
+	- Fixed an issue where conditional logic may clear copied fields after hiding them multiple times.
+	- Improved consistency of how Total field values are handled by always removing the currency symbol and thousand separators.
+
+## 1.4.41
+
+	- Fixed an issue where GPCC would apply custom CSS even when no value was copied.
+	- Fixed potential recursion issue when pricing and conditional logic are used together.
+	- Improved performance on larger forms.
+
 ## 1.4.40
 
 	- Fixed a potential issue where manual copying may be triggered by conditional logic.

@@ -82,7 +82,7 @@ class Providers {
 		$auth         = new MSAuth();
 		$redirect_url = wp_mail_smtp()->get_admin()->get_admin_page_url();
 
-		$plugin_options       = new Options();
+		$plugin_options       = Options::init();
 		$outlook_options      = $plugin_options->get_group( 'outlook' );
 		$is_setup_wizard_auth = ! empty( $outlook_options['is_setup_wizard_auth'] );
 
@@ -139,8 +139,7 @@ class Providers {
 	 */
 	private function allow_auth_request() {
 
-		// Only super admins can do that.
-		if ( ! is_super_admin() ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
@@ -204,6 +203,7 @@ class Providers {
 			'wp_mail_smtp_pro',
 			array(
 				'ses_text_sending'               => esc_html__( 'Sending...', 'wp-mail-smtp-pro' ),
+				'ses_text_loading'               => esc_html__( 'Loading...', 'wp-mail-smtp-pro' ),
 				'ses_text_sent'                  => esc_html__( 'Sent', 'wp-mail-smtp-pro' ),
 				'ses_text_resend'                => esc_html__( 'Resend', 'wp-mail-smtp-pro' ),
 				'ses_text_email_delete'          => esc_html__( 'Are you sure you want to delete this email address? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
@@ -212,15 +212,15 @@ class Providers {
 				'ok'                             => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
 				'plugin_url'                     => esc_url( wp_mail_smtp()->plugin_url ),
 				'icon'                           => esc_html__( 'Icon', 'wp-mail-smtp-pro' ),
+				'error_occurred'                 => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
 				'ses_text_resend_failed'         => esc_html__( 'Resend failed!', 'wp-mail-smtp-pro' ),
 				'ses_text_cancel'                => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
 				'ses_text_close'                 => esc_html__( 'Close', 'wp-mail-smtp-pro' ),
 				'ses_text_yes'                   => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
 				'ses_text_done'                  => esc_html__( 'Done', 'wp-mail-smtp-pro' ),
 				'ses_text_domain_delete'         => esc_html__( 'Are you sure you want to delete this domain? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
-				'ses_text_dns_txt_title'         => esc_html__( 'Add verified domain', 'wp-mail-smtp-pro' ),
+				'ses_text_dns_dkim_title'        => esc_html__( 'Add verified domain', 'wp-mail-smtp-pro' ),
 				'ses_text_no_identities'         => esc_html__( 'The AWS SES identities could not load because of an error.', 'wp-mail-smtp-pro' ),
-				'ses_text_dns_txt_content'       => SESOptions::prepare_domain_txt_record_notice(),
 				'ses_add_identity_modal_content' => SESOptions::prepare_add_new_identity_content(),
 				'ses_add_identity_modal_title'   => SESOptions::prepare_add_new_identity_title(),
 				'loader_white_small'             => wp_mail_smtp()->prepare_loader( 'white', 'sm' ),
@@ -241,7 +241,7 @@ class Providers {
 
 		$generic_error = esc_html__( 'Something went wrong. Please try again later.', 'wp-mail-smtp-pro' );
 
-		// Verify nonce existence.
+		// Verify nonce existence. Actual nonce verification happens below.
 		if ( ! isset( $_POST['nonce'] ) ) {
 			wp_send_json_error( $generic_error );
 		}
@@ -256,7 +256,7 @@ class Providers {
 
 		switch ( $task ) {
 			case 'load_ses_identities':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_amazonses_load_ses_identities' ) ) { // phpcs:ignore
+				if ( ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_amazonses_load_ses_identities' ) ) {
 					wp_send_json_error( $generic_error );
 				}
 
@@ -267,7 +267,7 @@ class Providers {
 				break;
 
 			case 'identity_registration':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_amazonses_register_identity' ) ) { // phpcs:ignore
+				if ( ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_amazonses_register_identity' ) ) {
 					wp_send_json_error( $generic_error );
 				}
 
@@ -283,7 +283,7 @@ class Providers {
 				$ses = new SESAuth();
 
 				// Verify domain for easier conditional checking below.
-				$domain_txt = ( $type === 'domain' ) ? $ses->do_verify_domain( $value ) : '';
+				$domain_dkim_tokens = ( $type === 'domain' ) ? $ses->do_verify_domain_dkim( $value ) : '';
 
 				if ( $type === 'email' && $ses->do_verify_email( $value ) === true ) {
 					wp_send_json_success(
@@ -295,9 +295,9 @@ class Providers {
 							esc_html( $value )
 						)
 					);
-				} elseif ( $type === 'domain' && ! empty( $domain_txt ) ) {
+				} elseif ( $type === 'domain' && ! empty( $domain_dkim_tokens ) ) {
 					wp_send_json_success(
-						SESOptions::prepare_domain_txt_record_notice( $value, $domain_txt )
+						SESOptions::prepare_domain_dkim_records_notice( $value, $domain_dkim_tokens )
 					);
 				} else {
 					$error = Debug::get_last();
@@ -311,7 +311,7 @@ class Providers {
 				break;
 
 			case 'identity_delete':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_amazonses_identity_delete' ) ) { // phpcs:ignore
+				if ( ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_amazonses_identity_delete' ) ) {
 					wp_send_json_error( $generic_error );
 				}
 
@@ -345,6 +345,29 @@ class Providers {
 						esc_html( $error )
 					);
 				}
+
+				break;
+
+			case 'load_dns_records':
+				if ( ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_amazonses_load_dns_records' ) ) {
+					wp_send_json_error( $generic_error );
+				}
+
+				$domain = isset( $_POST['domain'] ) ? sanitize_text_field( wp_unslash( $_POST['domain'] ) ) : '';
+
+				if ( empty( $domain ) ) {
+					wp_send_json_error( esc_html__( 'Please provide a domain name.', 'wp-mail-smtp-pro' ) );
+				}
+
+				$ses = new SESAuth();
+
+				$dkim_tokens = $ses->get_dkim_tokens( $domain );
+
+				if ( is_wp_error( $dkim_tokens ) ) {
+					wp_send_json_error( esc_html( $dkim_tokens->get_error_message() ) );
+				}
+
+				wp_send_json_success( SESOptions::prepare_domain_dkim_records_notice( $domain, $dkim_tokens ) );
 
 				break;
 		}

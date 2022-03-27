@@ -1,5 +1,5 @@
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 jQuery(document).ready( function() {
 	if ( token.value ) {

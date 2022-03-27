@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * The class that implements the singleton pattern.
  *
  * @since 3.0.0
+ * @deprecated 4.0.0 Use the WC_Store_Credit_Singleton_Trait instead.
  */
 abstract class WC_Store_Credit_Singleton {
 
@@ -37,7 +38,9 @@ abstract class WC_Store_Credit_Singleton {
 	 *
 	 * @since 3.0.0
 	 */
-	protected function __construct() {}
+	protected function __construct() {
+		wc_deprecated_function( 'WC_Store_Credit_Singleton::__construct', '4.0.0', 'WC_Store_Credit_Singleton_Trait' );
+	}
 
 	/**
 	 * Prevents cloning.
@@ -45,7 +48,7 @@ abstract class WC_Store_Credit_Singleton {
 	 * @since 3.0.0
 	 */
 	private function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce-store-credit' ), '3.0.0' );
+		wc_doing_it_wrong( __FUNCTION__, 'Cloning is forbidden.', '3.0.0' );
 	}
 
 	/**
@@ -54,6 +57,6 @@ abstract class WC_Store_Credit_Singleton {
 	 * @since 3.0.0
 	 */
 	final public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-store-credit' ), '3.0.0' );
+		wc_doing_it_wrong( __FUNCTION__, 'Unserializing instances of this class is forbidden.', '3.0.0' );
 	}
 }

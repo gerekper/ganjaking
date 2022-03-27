@@ -99,7 +99,7 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 		$settings = $this->product_catalog->get_data_without( array( 'id', 'meta_data' ) );
 
 		// Boolean properties.
-		foreach ( array( 'include_variations', 'include_currency', 'include_tax' ) as $key ) {
+		foreach ( array( 'include_variations', 'include_currency', 'include_tax', 'include_stock' ) as $key ) {
 			$settings[ $key ] = wc_bool_to_string( $settings[ $key ] );
 		}
 
@@ -462,6 +462,39 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 					'desc_tip'    => _x( 'Default Google Product Category.', 'setting desc', 'woocommerce-instagram' ),
 					'description' => _x( 'This option can be set per product and product category.', 'setting desc', 'woocommerce-instagram' ),
 					'type'        => 'google_product_category',
+				),
+				'include_stock'               => array(
+					'title'       => _x( 'Include stock', 'setting title', 'woocommerce-instagram' ),
+					'label'       => _x( 'Include the stock quantity.', 'setting desc', 'woocommerce-instagram' ),
+					'type'        => 'checkbox',
+					'description' => sprintf(
+						/* translators: 1: Instagram Checkout link, 2: arial-label */
+						_x( 'This option is required for <a href="%1$s" aria-label="%2$s" target="_blank">Instagram Checkout</a>.', 'setting desc', 'woocommerce-instagram' ),
+						esc_url( 'https://business.instagram.com/shopping/checkout' ),
+						esc_attr_x( 'View Instagram Checkout documentation', 'aria-label: documentation link', 'woocommerce-instagram' )
+					),
+				),
+				'stock_quantity'              => array(
+					'type'              => 'number',
+					'title'             => _x( 'Stock quantity', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'          => _x( 'Set the stock quantity for in-stock products without a defined quantity.', 'setting desc', 'woocommerce-instagram' ),
+					'css'               => 'width:50px;',
+					'default'           => 10,
+					'custom_attributes' => array(
+						'min'  => 1,
+						'step' => 1,
+					),
+				),
+				'backorder_stock_quantity'    => array(
+					'title'             => _x( 'Backorder stock quantity', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'          => _x( 'Set the stock quantity for on-backorder products.', 'setting desc', 'woocommerce-instagram' ),
+					'type'              => 'number',
+					'css'               => 'width:50px;',
+					'default'           => 0,
+					'custom_attributes' => array(
+						'min'  => 0,
+						'step' => 1,
+					),
 				),
 			)
 		);

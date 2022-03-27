@@ -51,13 +51,13 @@ class GetSmtpTemplateOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'isActive' => 'bool', 'testSent' => 'bool', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetSmtpTemplateOverviewSender', 'replyTo' => 'string', 'toField' => 'string', 'tag' => 'string', 'htmlContent' => 'string', 'createdAt' => '\\DateTime', 'modifiedAt' => '\\DateTime', 'doiTemplate' => 'bool'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'isActive' => 'bool', 'testSent' => 'bool', 'sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetSmtpTemplateOverviewSender', 'replyTo' => 'string', 'toField' => 'string', 'tag' => 'string', 'htmlContent' => 'string', 'createdAt' => 'string', 'modifiedAt' => 'string', 'doiTemplate' => 'bool'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'isActive' => null, 'testSent' => null, 'sender' => null, 'replyTo' => 'email', 'toField' => null, 'tag' => null, 'htmlContent' => null, 'createdAt' => 'date-time', 'modifiedAt' => 'date-time', 'doiTemplate' => null];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'isActive' => null, 'testSent' => null, 'sender' => null, 'replyTo' => 'email', 'toField' => null, 'tag' => null, 'htmlContent' => null, 'createdAt' => null, 'modifiedAt' => null, 'doiTemplate' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -429,7 +429,7 @@ class GetSmtpTemplateOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -438,7 +438,7 @@ class GetSmtpTemplateOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the template (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the template (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -450,7 +450,7 @@ class GetSmtpTemplateOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Gets modifiedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getModifiedAt()
     {
@@ -459,7 +459,7 @@ class GetSmtpTemplateOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Sets modifiedAt
      *
-     * @param \DateTime $modifiedAt Last modification UTC date-time of the template (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $modifiedAt Last modification UTC date-time of the template (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

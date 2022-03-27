@@ -7,11 +7,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-30T21:58:42+00:00\n"
-"PO-Revision-Date: 2021-10-13 15:54:04+0000\n"
+"POT-Creation-Date: 2022-03-17T18:05:52+00:00\n"
+"PO-Revision-Date: 2022-02-15 18:54:03+0000\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: templates/emails/plain/admin-new-booking.php:52
+#: templates/emails/plain/customer-booking-pending-confirmation.php:34
+msgid "Booked: "
+msgstr "Gebucht: "
+
+#. translators: 1: minimum duration 2: duration unit
+#: includes/data-objects/class-wc-product-booking.php:2316
+msgid "The minimum duration is %1$d %2$s"
+msgstr "Die Mindestdauer beträgt %1$d %2$s."
+
+#. translators: 1: maximum duration 2: duration unit
+#: includes/data-objects/class-wc-product-booking.php:2301
+msgid "The maximum duration is %1$d %2$s"
+msgstr "Die maximale Dauer beträgt %1$d %2$s. "
 
 #: includes/class-wc-bookings-google-calendar-connection.php:907
 msgid "Check this to delete an event from Google Calendar when the corresponding store availability is deleted."
@@ -29,16 +44,16 @@ msgstr "Löscheinstellung"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Das Datum sollte das Format jjjj-mm-tt haben und darf nicht leer sein."
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/class-wc-bookings-admin.php:672
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "Das Startdatum kann nicht hinter dem Enddatum liegen."
 
-#: includes/admin/class-wc-bookings-admin.php:672
+#: includes/admin/class-wc-bookings-admin.php:671
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "„Start- und Enddatum“ sollte das Format jjjj-mm-tt haben und darf nicht leer sein."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1317
+#: includes/class-wc-bookings-google-calendar-connection.php:1321
 msgid "Invalid request!"
 msgstr "Ungültige Anfrage!"
 
@@ -129,11 +144,13 @@ msgid "Your browser must support JavaScript in order to make a booking."
 msgstr "Ihr Browser muss Javascript unterstützen um die Buchung auszuführen."
 
 #. translators: 1: person count
+#: templates/emails/plain/booking-summary-list.php:50
 #: templates/order/booking-summary-list.php:84
 msgid "%d Persons"
 msgstr "%d Personen"
 
 #. translators: 1: label 2: resource name
+#: templates/emails/plain/booking-summary-list.php:30
 #: templates/order/booking-summary-list.php:56
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
@@ -143,17 +160,17 @@ msgstr "%1$s: %2$s"
 msgid "in timezone: %s"
 msgstr "in Zeitzone: %s"
 
-#: templates/order/booking-display.php:44
+#: templates/order/booking-display.php:76
 msgid "View my bookings &rarr;"
 msgstr "Meine Buchungen anzeigen &rarr;"
 
-#: templates/order/admin/booking-display.php:46
+#: templates/order/admin/booking-display.php:78
 msgid "View booking &rarr;"
 msgstr "Buchung ansehen"
 
 #. translators: 1: booking id
-#: templates/order/admin/booking-display.php:33
-#: templates/order/booking-display.php:35
+#: templates/order/admin/booking-display.php:60
+#: templates/order/booking-display.php:62
 msgid "Booking #%s"
 msgstr "Buchung #%s"
 
@@ -199,67 +216,65 @@ msgid "Order number: %s"
 msgstr "Bestell-Nummer: %s"
 
 #. translators: 1: time zone
-#: templates/emails/plain/admin-booking-cancelled.php:48
-#: templates/emails/plain/admin-new-booking.php:71
-#: templates/emails/plain/customer-booking-cancelled.php:53
+#: templates/emails/plain/admin-booking-cancelled.php:51
+#: templates/emails/plain/admin-new-booking.php:73
+#: templates/emails/plain/customer-booking-cancelled.php:56
 #: templates/emails/plain/customer-booking-confirmed.php:53
 #: templates/emails/plain/customer-booking-notification.php:50
-#: templates/emails/plain/customer-booking-pending-confirmation.php:53
+#: templates/emails/plain/customer-booking-pending-confirmation.php:55
 #: templates/emails/plain/customer-booking-reminder.php:54
 msgid "Time Zone: %s"
 msgstr "Zeitzone: %s"
 
 #. translators: 1: booking end date
-#: templates/emails/plain/admin-booking-cancelled.php:44
-#: templates/emails/plain/admin-new-booking.php:67
-#: templates/emails/plain/customer-booking-cancelled.php:49
+#: templates/emails/plain/admin-booking-cancelled.php:47
+#: templates/emails/plain/admin-new-booking.php:69
+#: templates/emails/plain/customer-booking-cancelled.php:52
 #: templates/emails/plain/customer-booking-confirmed.php:49
 #: templates/emails/plain/customer-booking-notification.php:46
-#: templates/emails/plain/customer-booking-pending-confirmation.php:49
+#: templates/emails/plain/customer-booking-pending-confirmation.php:51
 #: templates/emails/plain/customer-booking-reminder.php:50
 msgid "Booking End Date: %s"
 msgstr "Buchungs-Abreisedautm: %s"
 
 #. translators: 1: booking start date
-#: templates/emails/plain/admin-booking-cancelled.php:42
-#: templates/emails/plain/admin-new-booking.php:65
-#: templates/emails/plain/customer-booking-cancelled.php:47
+#: templates/emails/plain/admin-booking-cancelled.php:45
+#: templates/emails/plain/admin-new-booking.php:67
+#: templates/emails/plain/customer-booking-cancelled.php:50
 #: templates/emails/plain/customer-booking-confirmed.php:47
 #: templates/emails/plain/customer-booking-notification.php:44
-#: templates/emails/plain/customer-booking-pending-confirmation.php:47
+#: templates/emails/plain/customer-booking-pending-confirmation.php:49
 #: templates/emails/plain/customer-booking-reminder.php:48
 msgid "Booking Start Date: %s"
 msgstr "Buchungs-Anreisedatum: %s"
 
 #. translators: 1: booking title
-#: templates/emails/plain/admin-booking-cancelled.php:38
-#: templates/emails/plain/admin-new-booking.php:61
-#: templates/emails/plain/customer-booking-cancelled.php:43
+#: templates/emails/plain/admin-booking-cancelled.php:41
+#: templates/emails/plain/admin-new-booking.php:63
+#: templates/emails/plain/customer-booking-cancelled.php:46
 #: templates/emails/plain/customer-booking-confirmed.php:43
 #: templates/emails/plain/customer-booking-notification.php:40
-#: templates/emails/plain/customer-booking-pending-confirmation.php:43
+#: templates/emails/plain/customer-booking-pending-confirmation.php:45
 #: templates/emails/plain/customer-booking-reminder.php:44
 msgid "Booking Type: %s"
 msgstr "Buchungstyp: %s"
 
 #. translators: 1: booking id
-#: templates/emails/plain/admin-booking-cancelled.php:32
-#: templates/emails/plain/admin-new-booking.php:55
-#: templates/emails/plain/customer-booking-cancelled.php:37
+#: templates/emails/plain/admin-booking-cancelled.php:35
+#: templates/emails/plain/admin-new-booking.php:57
+#: templates/emails/plain/customer-booking-cancelled.php:40
 #: templates/emails/plain/customer-booking-confirmed.php:37
 #: templates/emails/plain/customer-booking-notification.php:34
-#: templates/emails/plain/customer-booking-pending-confirmation.php:37
+#: templates/emails/plain/customer-booking-pending-confirmation.php:39
 #: templates/emails/plain/customer-booking-reminder.php:38
 msgid "Booking ID: %s"
 msgstr "Buchungs ID: %s"
 
 #. translators: 1: booking product title
 #: templates/emails/plain/admin-booking-cancelled.php:30
-#: templates/emails/plain/admin-new-booking.php:53
 #: templates/emails/plain/customer-booking-cancelled.php:35
 #: templates/emails/plain/customer-booking-confirmed.php:35
 #: templates/emails/plain/customer-booking-notification.php:32
-#: templates/emails/plain/customer-booking-pending-confirmation.php:35
 #: templates/emails/plain/customer-booking-reminder.php:36
 msgid "Booked: %s"
 msgstr "Gebucht: %s"
@@ -303,7 +318,7 @@ msgid "Your booking has been confirmed. The details of your booking are shown be
 msgstr "Ihre Buchung wurde bestätigt. Die Details können Sie unten einsehen"
 
 #: templates/emails/customer-booking-cancelled.php:90
-#: templates/emails/plain/customer-booking-cancelled.php:70
+#: templates/emails/plain/customer-booking-cancelled.php:73
 msgid "Please contact us if you have any questions or concerns."
 msgstr "Bitte kontaktieren Sie uns, wenn Sie Fragen oder Probleme haben."
 
@@ -325,7 +340,7 @@ msgid "Hello %s"
 msgstr "Hallo %s"
 
 #: templates/emails/admin-new-booking.php:107
-#: templates/emails/plain/admin-new-booking.php:89
+#: templates/emails/plain/admin-new-booking.php:91
 msgid "This booking is awaiting your approval. Please check it and inform the customer if the date is available or not."
 msgstr "Diese Buchung benötigt Ihre Freigabe. Bitte prüfen Sie sie und informieren Sie den Kunden ob das Datum verfügbar ist oder nicht."
 
@@ -344,7 +359,7 @@ msgstr "Es wurde eine Buchung von %s erstellt. Bitte überprüfen Sie sie. Die D
 #. translators: 1: a href to booking
 #: templates/emails/admin-booking-cancelled.php:86
 #: templates/emails/admin-new-booking.php:113
-#: templates/emails/plain/admin-booking-cancelled.php:66
+#: templates/emails/plain/admin-booking-cancelled.php:69
 msgid "You can view and edit this booking in the dashboard here: %s"
 msgstr "SIe können diese Buchung im Dashboard ansehen und bearbeiten: %s"
 
@@ -430,12 +445,18 @@ msgid_plural "nights"
 msgstr[0] "Nacht"
 msgstr[1] "Nächte"
 
+#: includes/booking-form/class-wc-booking-form.php:291
+#: includes/data-objects/class-wc-product-booking.php:2290
+#: includes/data-objects/class-wc-product-booking.php:2305
 #: includes/wc-bookings-functions.php:1157
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "Minute"
 msgstr[1] "Minuten"
 
+#: includes/booking-form/class-wc-booking-form.php:293
+#: includes/data-objects/class-wc-product-booking.php:2292
+#: includes/data-objects/class-wc-product-booking.php:2307
 #: includes/wc-bookings-functions.php:1154
 msgid "hour"
 msgid_plural "hours"
@@ -448,6 +469,9 @@ msgid_plural "weeks"
 msgstr[0] "Woche"
 msgstr[1] "Wochen"
 
+#: includes/booking-form/class-wc-booking-form.php:297
+#: includes/data-objects/class-wc-product-booking.php:2296
+#: includes/data-objects/class-wc-product-booking.php:2311
 #: includes/wc-bookings-functions.php:1143
 msgid "month"
 msgid_plural "months"
@@ -612,7 +636,7 @@ msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {or
 msgstr "[{blogname}] neue Buchung für {product_title} (Bestellung {order_number}) - {order_date}"
 
 #: includes/emails/class-wc-email-new-booking.php:29
-#: templates/order/admin/booking-display.php:42
+#: templates/order/admin/booking-display.php:74
 msgid "Confirm booking"
 msgstr "Buchung bestätigen"
 
@@ -829,66 +853,56 @@ msgstr "%d.%m.%Y um %H:%M"
 msgid "Booking &ndash; %s"
 msgstr "Buchung &ndash; %s"
 
-#: includes/data-objects/class-wc-product-booking.php:2392
+#: includes/data-objects/class-wc-product-booking.php:2417
 msgid "Sorry, the selected block is not available"
 msgstr "Entschuldigung, die gewählte Einheit ist nicht verfügbar."
 
 #. translators: 1: person name 2: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2373
+#: includes/data-objects/class-wc-product-booking.php:2398
 msgid "The minimum %1$s per group is %2$d"
 msgstr "Das Minimum %1$s pro Gruppe ist %2$d"
 
 #. translators: 1: person name 2: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2367
+#: includes/data-objects/class-wc-product-booking.php:2392
 msgid "The maximum %1$s per group is %2$d"
 msgstr "Das Maximum %1$s pro Gruppe ist %2$d"
 
 #. translators: 1: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2358
+#: includes/data-objects/class-wc-product-booking.php:2381
 msgid "The minimum persons per group is %d"
 msgstr "Die minimale Anzahl an Personen beträgt %d"
 
 #. translators: 1: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2354
+#: includes/data-objects/class-wc-product-booking.php:2377
 msgid "The maximum persons per group is %d"
 msgstr "Die maximale Anzahl an Personen beträgt %d"
 
-#: includes/data-objects/class-wc-product-booking.php:2344
+#: includes/data-objects/class-wc-product-booking.php:2367
 msgid "Sorry, bookings cannot start on this day."
 msgstr "Entschuldige, Buchungen können nicht an diesem Tag beginnen."
 
 #. translators: 1: maximum date
-#: includes/data-objects/class-wc-product-booking.php:2335
+#: includes/data-objects/class-wc-product-booking.php:2358
 msgid "The latest booking possible is currently %s."
 msgstr "Die späteste Buchung ist möglich am %s."
 
 #. translators: 1: minimum date
-#: includes/data-objects/class-wc-product-booking.php:2326
+#: includes/data-objects/class-wc-product-booking.php:2349
 msgid "The earliest booking possible is currently %s."
 msgstr "Früheste Buchung mögliche ab %s."
 
-#: includes/data-objects/class-wc-product-booking.php:2305
-#: includes/data-objects/class-wc-product-booking.php:2308
+#: includes/data-objects/class-wc-product-booking.php:2328
+#: includes/data-objects/class-wc-product-booking.php:2331
 msgid "You must choose a future date and time."
 msgstr "Sie müssen ein Datum in der Zukunft wählen."
 
-#: includes/data-objects/class-wc-product-booking.php:2302
+#: includes/data-objects/class-wc-product-booking.php:2325
 msgid "Time is required - please choose one above"
 msgstr "Zeit wird benötigt - bitte wählen"
 
-#: includes/data-objects/class-wc-product-booking.php:2299
+#: includes/data-objects/class-wc-product-booking.php:2322
 msgid "Date is required - please choose one above"
 msgstr "Datum wird benötigt - bitte wählen"
-
-#. translators: 1: minimum duration
-#: includes/data-objects/class-wc-product-booking.php:2293
-msgid "The minimum duration is %d"
-msgstr "Die minimale Dauer beträgt %d"
-
-#. translators: 1: maximum duration
-#: includes/data-objects/class-wc-product-booking.php:2289
-msgid "The maximum duration is %d"
-msgstr "Die maximale Dauer beträgt %d"
 
 #: includes/data-objects/class-wc-product-booking.php:2285
 msgid "Duration is required - please enter a duration greater than zero"
@@ -935,7 +949,7 @@ msgid "Check Availability"
 msgstr "Verfügbarkeit prüfen"
 
 #. translators: 1: guest name
-#: includes/data-objects/class-wc-booking.php:908
+#: includes/data-objects/class-wc-booking.php:909
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
 msgstr "%s (Gast)"
@@ -946,7 +960,7 @@ msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
 msgstr "Der Status der Buchung #%1$d wurde von „%2$s“ auf „%3$s“ geändert."
 
 #: includes/data-objects/class-wc-booking.php:230
-#: includes/data-objects/class-wc-booking.php:1073
+#: includes/data-objects/class-wc-booking.php:1074
 msgid "Was In Cart"
 msgstr "War im Warenkorb"
 
@@ -1223,18 +1237,18 @@ msgstr "Buchungsbeschreibung:"
 msgid "Bookings from %s"
 msgstr "Buchung vom %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1444
+#: includes/class-wc-bookings-google-calendar-connection.php:1450
 #: includes/class-wc-bookings-init.php:88
 #: includes/class-wc-bookings-init.php:91
 msgid "Booking"
 msgstr "Buchung"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1414
+#: includes/class-wc-bookings-google-calendar-connection.php:1420
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr "HINWEIS: Dieses Ereignis kann nicht im Google-Kalender bearbeitet werden. Wenn du etwas ändern möchtest, <a href=\"%s\" target=\"_blank\">bearbeite bitte diese Buchung in WooCommerce</a>."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1398
+#: includes/class-wc-bookings-google-calendar-connection.php:1404
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:70
@@ -1246,7 +1260,7 @@ msgstr "HINWEIS: Dieses Ereignis kann nicht im Google-Kalender bearbeitet werden
 msgid "Booking Type"
 msgstr "Buchungstyp"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1397
+#: includes/class-wc-bookings-google-calendar-connection.php:1403
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:60
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1257,28 +1271,28 @@ msgstr "Buchungstyp"
 msgid "Booking ID"
 msgstr "Buchungs ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1231
+#: includes/class-wc-bookings-google-calendar-connection.php:1235
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "Fehler beim Verbinden Ihres Kontos. Bitte erneut probieren. Wenn das Problem bestehen bleibt, aktivieren Sie das Fehlerprotoll."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1211
+#: includes/class-wc-bookings-google-calendar-connection.php:1215
 msgid "Account connected successfully!"
 msgstr "Konto erfolgreich verknüpft!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1166
-#: includes/class-wc-bookings-google-calendar-connection.php:1269
+#: includes/class-wc-bookings-google-calendar-connection.php:1170
+#: includes/class-wc-bookings-google-calendar-connection.php:1273
 msgid "Permission denied!"
 msgstr "Zugriff verweigert!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1134
+#: includes/class-wc-bookings-google-calendar-connection.php:1138
 msgid "Account not properly connected, reset successfully!"
 msgstr "Konto nicht korrekt verbunden und erfolgreich zurückgesetzt!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1131
+#: includes/class-wc-bookings-google-calendar-connection.php:1135
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "Fehler beim Trennen Ihres Kontos. Bitte erneut probieren. Wenn das Problem bestehen bleibt, aktivieren Sie das Fehlerprotoll."
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1129
+#: includes/class-wc-bookings-google-calendar-connection.php:1133
 msgid "Account disconnected successfully!"
 msgstr "Konto erfolgreich getrennt!"
 
@@ -1334,12 +1348,12 @@ msgstr "Synchronisierungseinstellungen"
 msgid "Authorization"
 msgstr "Autorisation"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1129
-#: includes/class-wc-bookings-google-calendar-connection.php:1131
-#: includes/class-wc-bookings-google-calendar-connection.php:1134
-#: includes/class-wc-bookings-google-calendar-connection.php:1200
-#: includes/class-wc-bookings-google-calendar-connection.php:1211
-#: includes/class-wc-bookings-google-calendar-connection.php:1231
+#: includes/class-wc-bookings-google-calendar-connection.php:1133
+#: includes/class-wc-bookings-google-calendar-connection.php:1135
+#: includes/class-wc-bookings-google-calendar-connection.php:1138
+#: includes/class-wc-bookings-google-calendar-connection.php:1204
+#: includes/class-wc-bookings-google-calendar-connection.php:1215
+#: includes/class-wc-bookings-google-calendar-connection.php:1235
 msgid "Google Calendar"
 msgstr "Google Kalender"
 
@@ -1426,73 +1440,77 @@ msgstr "Ihre Buchung wurde storniert."
 msgid "Booking Person Discount (Amount Off Per Person)"
 msgstr "Rabatt für gebuchte Personen (Rabatt pro Person)"
 
-#: includes/class-wc-booking-cart-manager.php:479
+#: includes/class-wc-booking-cart-manager.php:460
 msgid "A booking that requires confirmation has been removed from your cart. It is not possible to complete the purchased along with a booking that doesn't require confirmation."
 msgstr "Eine Buchung, die eine Bestätigung erfordert, wurde von Ihrem Warenkorb entfernt. Denn es ist nicht möglich, diese Buchung mit einer anderen zusammen zu bestellen."
 
 #. translators: Admin notice with list of titles and links to bookable products
 #. removed from cart.
-#: includes/class-wc-booking-cart-manager.php:255
+#: includes/class-wc-booking-cart-manager.php:236
 msgid "Bookings for %s have been removed from your cart due to inactivity."
 msgstr "Buchungen von %s wurden aufgrund von Inaktivität aus deinem Warenkorb entfernt."
 
 #. translators: Admin notice with title and link to bookable product removed
 #. from cart.
-#: includes/class-wc-booking-cart-manager.php:251
+#: includes/class-wc-booking-cart-manager.php:232
 msgid "A booking for %s has been removed from your cart due to inactivity."
 msgstr "Die Buchung %s wurde auf Grund von Inaktivität aus dem Warenkorb entfernt."
 
-#: includes/booking-form/class-wc-booking-form.php:623
+#: includes/booking-form/class-wc-booking-form.php:648
 msgid "End time"
 msgstr "Endzeit"
 
-#: includes/booking-form/class-wc-booking-form.php:621
+#: includes/booking-form/class-wc-booking-form.php:646
 msgid "Ends"
 msgstr "Endet"
 
 #. translators: %d: booking duration in hours
-#: includes/booking-form/class-wc-booking-form.php:592
+#: includes/booking-form/class-wc-booking-form.php:617
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
 #. translators: %d: booking duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:588
+#: includes/booking-form/class-wc-booking-form.php:613
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] "%d Minute"
 msgstr[1] "%d Minuten"
 
 #. translators: 1: quantity available
-#: includes/booking-form/class-wc-booking-form.php:507
-#: includes/booking-form/class-wc-booking-form.php:665
+#: includes/booking-form/class-wc-booking-form.php:513
+#: includes/booking-form/class-wc-booking-form.php:690
 msgid "%d left"
 msgid_plural "%d left"
 msgstr[0] "%d verbleiben"
 msgstr[1] "%d verbleiben"
 
-#: includes/booking-form/class-wc-booking-form.php:477
+#: includes/booking-form/class-wc-booking-form.php:483
 msgid "Start time"
 msgstr "Startzeit:"
 
-#: includes/booking-form/class-wc-booking-form.php:475
+#: includes/booking-form/class-wc-booking-form.php:481
 msgid "Starts"
 msgstr "Beginnt"
 
 #. translators: 1: block cost 2: duration unit
-#: includes/booking-form/class-wc-booking-form.php:307
+#: includes/booking-form/class-wc-booking-form.php:313
 msgid "+%1$1s per %2$2s"
 msgstr "+%1$1s pro %2$2s"
 
-#: includes/booking-form/class-wc-booking-form.php:293
+#: includes/booking-form/class-wc-booking-form.php:295
+#: includes/data-objects/class-wc-product-booking.php:2294
+#: includes/data-objects/class-wc-product-booking.php:2309
 #: includes/wc-bookings-functions.php:1147
 msgid "day"
 msgid_plural "days"
 msgstr[0] "Tag"
 msgstr[1] "Tage"
 
-#: includes/booking-form/class-wc-booking-form.php:291
+#: includes/booking-form/class-wc-booking-form.php:299
+#: includes/data-objects/class-wc-product-booking.php:2298
+#: includes/data-objects/class-wc-product-booking.php:2313
 msgid "block"
 msgid_plural "blocks"
 msgstr[0] "blockieren"
@@ -2078,8 +2096,10 @@ msgid "Label"
 msgstr "Beschriftung"
 
 #: includes/admin/views/html-booking-resources.php:8
-#: includes/booking-form/class-wc-booking-form.php:319
+#: includes/booking-form/class-wc-booking-form.php:325
 #: includes/wc-bookings-functions.php:858
+#: templates/emails/plain/admin-booking-display.php:51
+#: templates/emails/plain/customer-booking-display.php:50
 msgid "Type"
 msgstr "Art"
 
@@ -2866,31 +2886,31 @@ msgstr "Block_cost"
 msgid "Apply_adjacent_buffer"
 msgstr "Apply_adjacent_buffer"
 
-#: includes/admin/class-wc-bookings-menus.php:231
+#: includes/admin/class-wc-bookings-menus.php:227
 msgid "Calendar Connection"
 msgstr "Kalenderverbindung"
 
-#: includes/admin/class-wc-bookings-menus.php:225
+#: includes/admin/class-wc-bookings-menus.php:221
 msgid "Timezones"
 msgstr "Zeitzonen"
 
-#: includes/admin/class-wc-bookings-menus.php:201
+#: includes/admin/class-wc-bookings-menus.php:197
 msgid "Store Availability"
 msgstr "Shop-Verfügbarkeit"
 
-#: includes/admin/class-wc-bookings-menus.php:167
+#: includes/admin/class-wc-bookings-menus.php:163
 msgid "Notification sent successfully"
 msgstr "Benachrichtigung wurde versandt"
 
-#: includes/admin/class-wc-bookings-menus.php:145
+#: includes/admin/class-wc-bookings-menus.php:141
 msgid "Please enter a subject"
 msgstr "Bitte geben Sie ein Betreff ein"
 
-#: includes/admin/class-wc-bookings-menus.php:141
+#: includes/admin/class-wc-bookings-menus.php:137
 msgid "Please enter a message"
 msgstr "Bitte geben Sie eine Nachricht ein"
 
-#: includes/admin/class-wc-bookings-menus.php:137
+#: includes/admin/class-wc-bookings-menus.php:133
 msgid "Please choose a product"
 msgstr "Bitte wählen Sie ein Produkt"
 
@@ -3115,21 +3135,21 @@ msgstr "Bitte wählen Sie ein buchbares Produkt"
 msgid "Error - please try again"
 msgstr "Fehler – bitte erneut probieren"
 
-#: includes/admin/class-wc-bookings-cpt.php:373
+#: includes/admin/class-wc-bookings-cpt.php:374
 msgid "All Bookable Products"
 msgstr "alle buchbaren Produkte"
 
-#: includes/admin/class-wc-bookings-cpt.php:282
+#: includes/admin/class-wc-bookings-cpt.php:283
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: includes/admin/class-wc-bookings-cpt.php:274
+#: includes/admin/class-wc-bookings-cpt.php:275
 #: includes/admin/views/html-availability-views-nav.php:6
 msgid "View"
 msgstr "Ansicht"
 
 #. translators: 1: a href to booking id
-#: includes/admin/class-wc-bookings-cpt.php:223
+#: includes/admin/class-wc-bookings-cpt.php:224
 msgid "Booking #%d"
 msgstr "Buchung #%d"
 
@@ -3215,33 +3235,33 @@ msgid "Confirm bookings"
 msgstr "Buchungen bestätigen"
 
 #. translators: 1: person id 2: person name 3: person count
-#: includes/admin/class-wc-bookings-calendar.php:721
+#: includes/admin/class-wc-bookings-calendar.php:749
 msgid "Person #%1$s - %2$s (%3$s)"
 msgstr "Person #%1$s - %2$s (%3$s)"
 
-#: includes/admin/class-wc-bookings-calendar.php:712
+#: includes/admin/class-wc-bookings-calendar.php:740
 #: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr "Leistung #"
 
-#: includes/admin/class-wc-bookings-calendar.php:706
+#: includes/admin/class-wc-bookings-calendar.php:734
 msgid "Booked by"
 msgstr "gebucht von"
 
 #. translators: 1: person type 2: quantity
-#: includes/admin/class-wc-bookings-calendar.php:585
+#: includes/admin/class-wc-bookings-calendar.php:613
 #: includes/class-wc-bookings-ics-exporter.php:187
-#: templates/emails/plain/admin-booking-cancelled.php:59
-#: templates/emails/plain/admin-new-booking.php:82
-#: templates/emails/plain/customer-booking-cancelled.php:64
+#: templates/emails/plain/admin-booking-cancelled.php:62
+#: templates/emails/plain/admin-new-booking.php:84
+#: templates/emails/plain/customer-booking-cancelled.php:67
 #: templates/emails/plain/customer-booking-confirmed.php:64
 #: templates/emails/plain/customer-booking-notification.php:61
-#: templates/emails/plain/customer-booking-pending-confirmation.php:64
+#: templates/emails/plain/customer-booking-pending-confirmation.php:66
 #: templates/emails/plain/customer-booking-reminder.php:65
 msgid "%1$s: %2$d"
 msgstr "%1$s: %2$d"
 
-#: includes/admin/class-wc-bookings-calendar.php:583
+#: includes/admin/class-wc-bookings-calendar.php:611
 #: includes/admin/class-wc-bookings-details-meta-box.php:263
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
@@ -3252,58 +3272,58 @@ msgstr "%1$s: %2$d"
 #: templates/emails/customer-booking-notification.php:70
 #: templates/emails/customer-booking-pending-confirmation.php:79
 #: templates/emails/customer-booking-reminder.php:84
-#: templates/emails/plain/admin-booking-cancelled.php:57
-#: templates/emails/plain/admin-new-booking.php:80
-#: templates/emails/plain/customer-booking-cancelled.php:62
+#: templates/emails/plain/admin-booking-cancelled.php:60
+#: templates/emails/plain/admin-new-booking.php:82
+#: templates/emails/plain/customer-booking-cancelled.php:65
 #: templates/emails/plain/customer-booking-confirmed.php:62
 #: templates/emails/plain/customer-booking-notification.php:59
-#: templates/emails/plain/customer-booking-pending-confirmation.php:62
+#: templates/emails/plain/customer-booking-pending-confirmation.php:64
 #: templates/emails/plain/customer-booking-reminder.php:63
 msgid "Person(s)"
 msgstr "Person(en)"
 
 #. translators: 1: number of bookings that are not displayed on calendar day
-#: includes/admin/class-wc-bookings-calendar.php:317
+#: includes/admin/class-wc-bookings-calendar.php:325
 msgid "%d more"
 msgstr "%d mehr"
 
-#: includes/admin/class-wc-bookings-calendar.php:205
-#: includes/admin/class-wc-bookings-calendar.php:278
-#: includes/admin/class-wc-bookings-calendar.php:623
+#: includes/admin/class-wc-bookings-calendar.php:212
+#: includes/admin/class-wc-bookings-calendar.php:286
+#: includes/admin/class-wc-bookings-calendar.php:651
 msgid "(From Google Calendar)"
 msgstr "(Von Google-Kalender)"
 
 #. translators: 1: start time 2: end time
-#: includes/admin/class-wc-bookings-calendar.php:203
-#: includes/admin/class-wc-bookings-calendar.php:593
-#: includes/admin/class-wc-bookings-calendar.php:615
+#: includes/admin/class-wc-bookings-calendar.php:210
+#: includes/admin/class-wc-bookings-calendar.php:621
+#: includes/admin/class-wc-bookings-calendar.php:643
 msgid "%1$s — %2$s"
 msgstr "%1$s — %2$s"
 
-#: includes/admin/class-wc-bookings-calendar.php:203
-#: includes/admin/class-wc-bookings-calendar.php:593
-#: includes/admin/class-wc-bookings-calendar.php:601
-#: includes/admin/class-wc-bookings-calendar.php:619
+#: includes/admin/class-wc-bookings-calendar.php:210
+#: includes/admin/class-wc-bookings-calendar.php:621
+#: includes/admin/class-wc-bookings-calendar.php:629
+#: includes/admin/class-wc-bookings-calendar.php:647
 msgid "All Day"
 msgstr "ganztägig"
 
-#: includes/admin/class-wc-bookings-ajax.php:303
+#: includes/admin/class-wc-bookings-ajax.php:304
 msgid "Cheatin&#8217; huh?"
 msgstr "Du schummelst&#8217; hm?"
 
-#: includes/admin/class-wc-bookings-ajax.php:286
+#: includes/admin/class-wc-bookings-ajax.php:287
 msgid "No blocks available."
 msgstr "Keine Einheiten verfügbar."
 
-#: includes/admin/class-wc-bookings-ajax.php:237
+#: includes/admin/class-wc-bookings-ajax.php:238
 msgid "Please enter a valid date."
 msgstr "Gib ein gültiges Datum ein."
 
-#: includes/admin/class-wc-bookings-ajax.php:201
+#: includes/admin/class-wc-bookings-ajax.php:202
 msgid "Booking cost"
 msgstr "Gesamtpreis"
 
-#: includes/admin/class-wc-bookings-ajax.php:164
+#: includes/admin/class-wc-bookings-ajax.php:165
 msgid "This booking is unavailable."
 msgstr "Diese Buchung ist nicht verfügbar."
 
@@ -3323,56 +3343,56 @@ msgstr "Verknüpfen dieser Leistung nicht möglich."
 msgid "The resource has already been linked to this product"
 msgstr "Die Leistung wurde schon mit diesem Produkt verknüpft."
 
-#: includes/admin/class-wc-bookings-admin.php:697
+#: includes/admin/class-wc-bookings-admin.php:696
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "Aktivieren, wenn das Produkt verschiedene Leistungen hat (z.B. Einzelzimmer, Doppelzimmer)"
 
-#: includes/admin/class-wc-bookings-admin.php:696
+#: includes/admin/class-wc-bookings-admin.php:695
 msgid "Has resources"
 msgstr "hat Leistungen"
 
-#: includes/admin/class-wc-bookings-admin.php:690
+#: includes/admin/class-wc-bookings-admin.php:689
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "Aktivieren, wenn der Kunde die Anzahl der Personen bestimmen darf."
 
-#: includes/admin/class-wc-bookings-admin.php:689
+#: includes/admin/class-wc-bookings-admin.php:688
 msgid "Has persons"
 msgstr "hat Personen"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:651
 msgid "Resource"
 msgstr "Ressource"
 
-#: includes/admin/class-wc-bookings-admin.php:652
+#: includes/admin/class-wc-bookings-admin.php:650
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "Kunde"
 
-#: includes/admin/class-wc-bookings-admin.php:651
+#: includes/admin/class-wc-bookings-admin.php:649
 msgid "View details"
 msgstr "Details anzeigen"
 
-#: includes/admin/class-wc-bookings-admin.php:646
+#: includes/admin/class-wc-bookings-admin.php:644
 msgid "Enter a name for the new resource"
 msgstr "Bitte geben Sie einen Namen für die neue Leistung an"
 
-#: includes/admin/class-wc-bookings-admin.php:645
+#: includes/admin/class-wc-bookings-admin.php:643
 msgid "days"
 msgstr "Tage"
 
-#: includes/admin/class-wc-bookings-admin.php:644
+#: includes/admin/class-wc-bookings-admin.php:642
 msgid "hours"
 msgstr "Stunden"
 
-#: includes/admin/class-wc-bookings-admin.php:643
+#: includes/admin/class-wc-bookings-admin.php:641
 msgid "minutes"
 msgstr "Minuten"
 
-#: includes/admin/class-wc-bookings-admin.php:640
+#: includes/admin/class-wc-bookings-admin.php:638
 msgid "Are you sure you want to remove this resource?"
 msgstr "Sind Sie sicher, dass Sie diese Leistung löschen wollen?"
 
-#: includes/admin/class-wc-bookings-admin.php:637
+#: includes/admin/class-wc-bookings-admin.php:635
 msgid "Are you sure you want to remove this person type?"
 msgstr "Sind Sie sicher, dass Sie diese Personenart löschen wollen?"
 
@@ -3404,10 +3424,10 @@ msgid "Booking updated."
 msgstr "Buchung aktualisiert."
 
 #: includes/admin/class-wc-bookings-admin.php:374
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:652
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:255
-#: includes/class-wc-bookings-google-calendar-connection.php:1399
+#: includes/class-wc-bookings-google-calendar-connection.php:1405
 #: includes/wc-bookings-functions.php:1120
 msgid "Persons"
 msgstr "Anzahl Personen"
@@ -3522,7 +3542,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:91
-#: includes/admin/class-wc-bookings-cpt.php:227
+#: includes/admin/class-wc-bookings-cpt.php:228
 #: includes/admin/class-wc-bookings-customer-meta-box.php:115
 #: includes/admin/class-wc-bookings-details-meta-box.php:113
 #: includes/admin/class-wc-bookings-details-meta-box.php:159

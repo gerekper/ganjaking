@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 1.2.9
+
+	- Fixed an issue where GPBL caused a fatal error when Gravity Forms is deactivated first.
+	- Added support for Gravity Forms 2.5.
+
+## 1.2.8
+
+	- Fixed an issue where specific blacklisted words may fail form submission due to being in the user-agent.
+	- Added `gpcb_validate_user_agent` filter.
+	- Fixed issue where the "Blacklist Validation" setting would not show under the "Legacy" section in Gravity Forms 2.5 and newer.
+
+## 1.2.7
+
+	- Added localization support.
+	- Updated plugin author.
+
 ## 1.2.6
 
 	- Fixed issue where field setting was not appearing.

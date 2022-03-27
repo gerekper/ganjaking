@@ -28,6 +28,10 @@ class ServicesChecker {
     $this->subscribersFeature = ContainerWrapper::getInstance()->get(SubscribersFeature::class);
   }
 
+  public function isPremiumPluginActive() {
+    return true;
+  }
+
   public function isMailPoetAPIKeyValid($displayErrorNotice = true, $forceCheck = false) {
     if (!$forceCheck && !Bridge::isMPSendingServiceEnabled()) {
       return null;
@@ -101,7 +105,7 @@ class ServicesChecker {
         );
         $error = Helpers::replaceLinkTags(
           $error,
-          'admin.php?page=mailpoet-premium',
+          'admin.php?page=mailpoet-upgrade',
           [],
           'link2'
         );
@@ -163,5 +167,15 @@ class ServicesChecker {
       return $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
     }
     return null;
+  }
+
+  public function generatePartialApiKey(): string {
+    $key = (string)($this->getAnyValidKey());
+    if ($key) {
+      $halfKeyLength = (int)(strlen($key) / 2);
+
+      return substr($key, 0, $halfKeyLength);
+    }
+    return '';
   }
 }

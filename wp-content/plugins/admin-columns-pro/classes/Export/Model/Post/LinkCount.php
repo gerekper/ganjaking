@@ -11,7 +11,7 @@ use ACP\Export\Model;
 class LinkCount extends Model {
 
 	public function get_value( $id ) {
-		$links = $this->get_column()->get_raw_value( $id );
+		$links = $this->column->get_raw_value( $id );
 
 		if ( ! $links ) {
 			return false;

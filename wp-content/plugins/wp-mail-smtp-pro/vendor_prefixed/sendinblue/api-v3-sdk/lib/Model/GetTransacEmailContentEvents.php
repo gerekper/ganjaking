@@ -51,13 +51,13 @@ class GetTransacEmailContentEvents implements \WPMailSMTP\Vendor\SendinBlue\Clie
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['name' => 'string', 'time' => '\\DateTime'];
+    protected static $swaggerTypes = ['name' => 'string', 'time' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['name' => null, 'time' => 'date-time'];
+    protected static $swaggerFormats = ['name' => null, 'time' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -199,7 +199,7 @@ class GetTransacEmailContentEvents implements \WPMailSMTP\Vendor\SendinBlue\Clie
     /**
      * Gets time
      *
-     * @return \DateTime
+     * @return string
      */
     public function getTime()
     {
@@ -208,7 +208,7 @@ class GetTransacEmailContentEvents implements \WPMailSMTP\Vendor\SendinBlue\Clie
     /**
      * Sets time
      *
-     * @param \DateTime $time Time at which the event occurred
+     * @param string $time Time at which the event occurred
      *
      * @return $this
      */

@@ -244,7 +244,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= wp_kses(
 			sprintf(
 				__( 'Please refer to the <a href="%s">WooCommerce Product Search</a> documentation pages for detailed information.', 'woocommerce-product-search' ),
-				esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/' )
+				esc_url( 'https://woocommerce.com/document/woocommerce-product-search/' )
 			),
 			array( 'a' => array( 'href' => array() ) )
 		);
@@ -347,11 +347,11 @@ class WooCommerce_Product_Search_Admin_Notice {
 					'Add live search and filters to your shop, using the %sblocks%s, %swidgets%s and %sshortcodes%s that come exclusively with the search engine.',
 					'woocommerce-product-search'
 				),
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
 				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/widgets/ ' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/widgets/ ' ) ),
 				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
 				'</a>'
 		);
 		$output .= '</p>';

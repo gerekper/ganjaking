@@ -279,7 +279,9 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				$total_credit_used = array_sum( $order->sc_total_credit_used );
 				$this->update_discount_total( $order, $total_credit_used );
 
-				if ( ! empty( $_POST['action'] ) && 'woocommerce_add_coupon_discount' === wp_unslash( $_POST['action'] ) && $order->has_status( array( 'on-hold', 'auto-draft', 'pending' ) ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) { // phpcs:ignore
+				$pending_statuses = $this->get_pending_statuses();
+
+				if ( ! empty( $_POST['action'] ) && 'woocommerce_add_coupon_discount' === wp_unslash( $_POST['action'] ) && $order->has_status( $pending_statuses ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) { // phpcs:ignore
 					do_action( 'sc_after_order_calculate_discount_amount', $order->get_id() );
 				}
 			}

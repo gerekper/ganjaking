@@ -1,6 +1,15 @@
 
 # Changelog
 
+## 1.1
+
+	- Improved compatibility with Gravity Forms 2.5.
+	- Updated plugin author.
+
+## 1.0.5
+
+    - Renamed class-gp-expand-text-areas.php to class-gp-expand-editor-textareas.php
+
 ## 1.0.4
 
 	- Fixed conflict with Magic Tooltips plugin.

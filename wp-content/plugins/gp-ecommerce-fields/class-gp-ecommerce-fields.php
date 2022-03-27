@@ -4,10 +4,6 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Ecommerce_Fields extends GP_Plugin {
 
 	public $merge_tags = array();
@@ -77,7 +73,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 
 	public static function get_instance() {
 
-		if ( self::$_instance == null ) {
+		if ( self::$_instance === null ) {
 			self::includes();
 			self::$_instance = isset( self::$perk_class ) ? new self( new self::$perk_class ) : new self();
 		}
@@ -129,7 +125,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		add_action( 'gform_field_standard_settings_20', array( $this, 'field_settings_ui' ) );
 		add_action( 'gform_editor_js', array( $this, 'field_settings_js' ) );
 
-		add_filter( 'gform_pre_replace_merge_tags', array( $this, 'replace_merge_tags' ), 10, 7 );
+		add_filter( 'gform_replace_merge_tags', array( $this, 'replace_merge_tags' ), 10, 7 );
 		add_filter( 'gform_calculation_formula', array( $this, 'replace_formula_merge_tags' ), 10, 4 );
 
 		add_action( 'gform_product_info', array( $this, 'add_ecommerce_fields_to_order' ), 9, 3 );
@@ -143,7 +139,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		add_filter( 'gform_product_field_types', array( $this, 'add_product_field_types' ) );
 		add_filter( 'gform_save_field_value', array( $this, 'prevent_negative_totals' ), 10, 4 );
 
-		// Note, GF 2.5+ moves the Add-on init to a priority of 15
+		// GF 2.5 calls add-on inits at 15 now.
 		add_action( 'init', array( $this, 'post_init_cleanup' ), 16 );
 
 		// # 3rd Party
@@ -172,7 +168,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 			'plugins'      => array(
 				'gravityperks/gravityperks.php' => array(
 					'name'    => 'Gravity Perks',
-					'version' => '1.2.18',
+					'version' => '2.2.5',
 				),
 			),
 		);
@@ -197,16 +193,48 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		?>
 
 		<style type="text/css">
-			.gpst-child-setting { margin-top: 0; }
-			.asmList { margin: 1px 0 0; }
-			.asmListItem { margin: 0 0 -1px; padding: 5px 10px !important; border: 1px solid #eee !important; border-radius: 5px; }
-			a.asmListItemRemove { display: none; float: right; text-decoration: none; visibility: hidden; }
-			a.asmListItemRemove:after { content: '\f057'; font-family: 'FontAwesome'; visibility: visible; }
-			.asmListItem:hover a.asmListItemRemove { display: inline-block; }
-			.inline-select-label { vertical-align: middle; }
+
+			.gpecf-child-setting {
+				margin-top: 0;
+			}
+
+			.gpecf-products-type-setting {
+				display: flex;
+			}
+
+			.gf-legacy-ui .gpecf-products-type-setting {
+				display: block;
+			}
+
+			.discount-label.inline-label {
+				display: block;
+				margin-top: 0.5625rem;
+				color: #666;
+			}
+
+			.gf-legacy-ui .discount-label.inline-label {
+				display: block;
+				margin-top: 6px;
+			}
+
+			.gf-legacy-ui .discount-label.inline-label {
+				display: inline;
+				margin-top: 0;
+			}
+
+			.gpecf-products-type-setting .inline-select-label {
+				line-height: 30px;
+				margin-right: 0.5rem;
+				vertical-align: middle;
+			}
+
+			.gpecf-products-type-setting select {
+				flex: 1;
+			}
+
 		</style>
 
-		<li class="ecommerce-amount-setting field_setting" >
+		<li class="ecommerce-amount-setting field_setting gp-field-setting" >
 
 			<label for="ecommerce-amount" class="section_label">
 				<span class="tax-label ecommerce-label">
@@ -219,7 +247,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 				</span>
 			</label>
 			<input type="text" id="ecommerce-amount" size="10" onblur="GPSFormEditor.parseAmount( this.value, this );" />
-			<span class="inline-label discount-label ecommerce-label" style="opacity:0.5;">
+			<span class="inline-label discount-label ecommerce-label">
 				<?php
 				// Translators: The %s is replaced with "$10" customized to the user's configured currency.
 				printf( __( 'Supports 10&#37; or %s', 'gp-ecommerce-fields' ), GFCommon::to_money( '10' ) );
@@ -228,29 +256,31 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 
 		</li>
 
-		<li class="ecommerce-products-setting field_setting" >
+		<li class="ecommerce-products-setting field_setting gp-field-setting" >
 
 			<label for="ecommerce-products-type" class="section_label">
 				<?php _e( 'Applicable Products', 'gp-ecommerce-fields' ); ?>
 				<?php gform_tooltip( 'ecommerce_products' ); ?>
 			</label>
 
-			<span class="subtotal-label ecommerce-label inline-select-label">
-				<?php _e( 'Include', 'gp-ecommerce-fields' ); ?>
-			</span>
-			<span class="tax-label ecommerce-label inline-select-label">
-				<?php _e( 'Apply tax to', 'gp-ecommerce-fields' ); ?>
-			</span>
-			<span class="discount-label ecommerce-label inline-select-label">
-				<?php _e( 'Apply discount to', 'gp-ecommerce-fields' ); ?>
-			</span>
-			<select id="ecommerce-products-type" onchange="GPSFormEditor.toggleProductsType( this.value, this );">
-				<option value="all"><?php _e( 'all products', 'gp-ecommerce-fields' ); ?></option>
-				<option value="include"><?php _e( 'specific products', 'gp-ecommerce-fields' ); ?></option>
-				<option value="exclude"><?php _e( 'all products with exceptions' ); ?></option>
-			</select>
+			<div class="gpecf-products-type-setting gp-group">
+				<span class="subtotal-label ecommerce-label inline-select-label">
+					<?php _e( 'Include', 'gp-ecommerce-fields' ); ?>
+				</span>
+				<span class="tax-label ecommerce-label inline-select-label">
+					<?php _e( 'Apply tax to', 'gp-ecommerce-fields' ); ?>
+				</span>
+				<span class="discount-label ecommerce-label inline-select-label">
+					<?php _e( 'Apply discount to', 'gp-ecommerce-fields' ); ?>
+				</span>
+				<select id="ecommerce-products-type" onchange="GPSFormEditor.toggleProductsType( this.value, this );">
+					<option value="all"><?php _e( 'all products', 'gp-ecommerce-fields' ); ?></option>
+					<option value="include"><?php _e( 'specific products', 'gp-ecommerce-fields' ); ?></option>
+					<option value="exclude"><?php _e( 'all products with exceptions' ); ?></option>
+				</select>
+			</div>
 
-			<div id="ecommerce-products-settings" class="perk-settings-container gpst-child-setting" style="display:none;">
+			<div id="ecommerce-products-settings" class="perk-settings-container gpecf-child-setting" style="display:none;">
 				<select id="ecommerce-products" multiple="multiple" title="<?php _e( 'Select Products', 'gp-ecommerce-fields' ); ?>">
 					<option value=""><?php _e( 'Select Products', 'gp-ecommerce-fields' ); ?></option>
 				</select>
@@ -315,9 +345,9 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 						}
 
 						if( isApplicableType ) {
-							$childSettings.slideDown();
+							$childSettings.show();
 						} else {
-							$childSettings.slideUp();
+							$childSettings.hide();
 						}
 
 					},
@@ -339,7 +369,6 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 						if( ! $products.data( 'asmApplied' ) ) {
 							$products.asmSelect().data( 'asmApplied', true );
 						}
-
 
 					},
 
@@ -422,20 +451,18 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		}
 
 		$scripts[] = array(
-			'handle'  => 'gp-ecommerce-fields',
-			'src'     => $this->get_base_url() . "/js/gp-ecommerce-fields{$min}.js",
-			'version' => $this->_version,
-			'deps'    => $deps,
-			'enqueue' => array(
+			'handle'   => 'gp-ecommerce-fields',
+			'src'      => $this->get_base_url() . "/js/gp-ecommerce-fields{$min}.js",
+			'version'  => $this->_version,
+			'deps'     => $deps,
+			'callback' => array( $this, 'localize_frontend_script' ),
+			'enqueue'  => array(
 				array( $this, 'should_enqueue_frontend_script' ),
 			),
 		);
 
 		$scripts[] = array(
-			'handle'  => 'asm-select',
-			'src'     => $this->get_base_url() . "/js/jquery.asmselect{$min}.js",
-			'version' => $this->_version,
-			'deps'    => array( 'jquery' ),
+			'handle'  => 'gwp-asmselect',
 			'enqueue' => array(
 				array( 'admin_page' => array( 'form_editor' ) ),
 			),
@@ -444,8 +471,39 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		return array_merge( parent::scripts(), $scripts );
 	}
 
+	public function localize_frontend_script() {
+		wp_localize_script( 'gp-ecommerce-fields', 'GPECF', array(
+			// See https://github.com/gravitywiz/gp-ecommerce-fields/pull/34
+			'ppcpRequiresDiscountFilter' => defined( 'GF_PPCP_VERSION' ) && version_compare( GF_PPCP_VERSION, '2.2.1' ) === - 1 ? 'true' : 'false',
+		) );
+	}
+
+	/**
+	 * Determine whether or not the GPECF assets should be enqueued.
+	 *
+	 * Note, even if GPECF fields aren't in the form, GPECF implicitly adds various improvements such as excluding
+	 * shipping from coupons/discounts.
+	 *
+	 * @param $form
+	 *
+	 * @return bool
+	 */
 	public function should_enqueue_frontend_script( $form ) {
 		return ! GFForms::get_page() && ( $this->has_ecommerce_field( $form ) || $this->has_ecommerce_merge_tag( $form ) );
+	}
+
+	public function styles() {
+
+		$styles = array();
+
+		$styles[] = array(
+			'handle'  => 'gwp-asmselect',
+			'enqueue' => array(
+				array( 'admin_page' => array( 'form_editor' ) ),
+			),
+		);
+
+		return array_merge( parent::styles(), $styles );
 	}
 
 
@@ -741,7 +799,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		if ( $this->_styles === null ) {
 
 			$this->_styles = array(
-				'.order-summary'         => array(
+				'.order-summary' => array(
 					'margin'           => 0,
 					'border'           => '1px solid #dfdfdf',
 					'border-right'     => 'none',
@@ -833,7 +891,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 						),
 					),
 				),
-				'tr.order-label'         => array(
+				'tr.order-label' => array(
 					'font-family'      => 'sans-serif',
 					'font-size'        => '12px',
 					'background-color' => '#EAF2FA',
@@ -991,7 +1049,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 		}
 
 		foreach ( $order['products'] as $key => $product ) {
-			if ( $this->is_valid_coupon( $key, $form, $entry ) ) {
+			if ( $this->is_valid_coupon( $key, $form, $entry ) && rgar( $product, 'isCoupon' ) ) {
 				$items['coupons'][] = array(
 					'name'      => sprintf(
 						'
@@ -1117,7 +1175,7 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 				continue;
 			}
 
-			if ( $entry['id'] ) {
+			if ( $entry && rgar( $entry, 'id' ) ) {
 
 				if ( empty( $current_fields ) ) {
 					if ( version_compare( $this->get_gravityforms_db_version(), '2.3-dev-1', '<' ) ) {
@@ -1414,7 +1472,9 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 	}
 
 	/**
-	 * Remove coupons and then re-add to the $order object.
+	 * Coupons should be calculated *after* discounts. We prevent GFCoupons from adding coupons automatically by removing
+	 * its filter in our GP_Ecommerce_Fields::post_init_cleanup() method. Then, we call this method at the appropriate
+	 * time to add the coupons ourselves.
 	 *
 	 * @param $order
 	 * @param $form
@@ -1646,7 +1706,10 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 	}
 
 	public function has_ecommerce_field( $form ) {
-		return $this->has_field_types( $form, $this->get_ecommerce_field_types() );
+		return $this->has_field_types( $form, array_merge( $this->get_ecommerce_field_types(), array(
+			'shipping',
+			'coupon',
+		) ) );
 	}
 
 	public function is_ecommerce_field( $field ) {
@@ -1664,7 +1727,6 @@ class GP_Ecommerce_Fields extends GP_Plugin {
 	public function get_order( $form, $entry, $use_choice_text = true ) {
 		return GFCommon::get_product_fields( $form, $entry, $use_choice_text );
 	}
-
 
 	# REVIEW
 

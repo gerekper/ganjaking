@@ -118,7 +118,7 @@ if ( ! class_exists( 'SRP_Privacy' ) ) :
 			$total_earned_points   = $PointsData->total_earned_points() ;
 			$total_redeemed_points = $PointsData->total_redeemed_points() ;
 			$total_expired_points  = $PointsData->total_expired_points() ;
-			$payment_detail        = RSPointExpiry::get_paypal_id_form_cashback_form( $user_id ) ;
+			$payment_detail        = get_paypal_id_form_cashback_form( $user_id ) ;
 			return array(
 				array(
 					'name'  => __( 'User ID' , 'rewardsystem' ) ,

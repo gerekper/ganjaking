@@ -64,7 +64,6 @@ class Betterdocs_Pro_Admin
 		$alphabetically_order_post = BetterDocs_DB::get_settings('alphabetically_order_post');
 		if ($alphabetically_order_post != 1) {
 			add_filter('betterdocs_articles_args', array($this, 'docs_args'), 11, 2);
-			add_filter('betterdocs_sub_cat_articles_args', array($this, 'docs_args'), 11, 2);
 		}
 		add_action('new_to_auto-draft', array($this, 'auto_add_category'));
 	}

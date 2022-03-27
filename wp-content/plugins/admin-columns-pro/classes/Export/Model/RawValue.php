@@ -11,7 +11,7 @@ use ACP\Export\Model;
 class RawValue extends Model {
 
 	public function get_value( $id ) {
-		$raw_value = $this->get_column()->get_raw_value( $id );
+		$raw_value = $this->column->get_raw_value( $id );
 
 		if ( ! is_scalar( $raw_value ) ) {
 			return null;

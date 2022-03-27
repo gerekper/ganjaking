@@ -1,8 +1,5 @@
 <?php
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-
-
 /**
  * Utils for compatibility with WooCommerce Full Site Editor Blocks
  *
@@ -74,15 +71,29 @@ class WC_Brands_Block_Templates {
 		$template_db = $this->get_product_brand_template_db();
 
 		if ( $template_db ) {
-			return BlockTemplateUtils::gutenberg_build_template_result_from_post( $template_db );
+			return BlockTemplateUtilsDuplicated::gutenberg_build_template_result_from_post( $template_db );
 		}
 
 		$template_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/taxonomy-product_brand.html';
-		$template_file = BlockTemplateUtils::create_new_block_template_object( $template_path, $template_type, 'taxonomy-product_brand', false );
+		$template_file = BlockTemplateUtilsDuplicated::create_new_block_template_object( $template_path, $template_type, 'taxonomy-product_brand', false );
 
-		return BlockTemplateUtils::gutenberg_build_template_result_from_file( $template_file, $template_type );
+		return BlockTemplateUtilsDuplicated::gutenberg_build_template_result_from_file( $template_file, $template_type );
 	}
 
+    /**
+     * Function to check if a template name is woocommerce/taxonomy-product_brand
+     *
+     * Notice depending on the version of WooCommerce this could be:
+     *
+     * woocommerce//taxonomy-product_brand
+     * woocommerce/woocommerce//taxonomy-product_brand
+     *
+     * @param $id String The string to check if contains the template name
+     * @return bool True if the template is woocommerce/taxonomy-product_brand
+     */
+    private function is_taxonomy_product_brand_template( $id ) {
+        return strpos( $id, 'woocommerce//taxonomy-product_brand' ) !== false;
+    }
 
 	/**
 	 * Get the block template for Taxonomy Product Brand if requested.
@@ -95,7 +106,8 @@ class WC_Brands_Block_Templates {
 	 * @return WP_Block_Template|null The taxonomy-product_brand template.
 	 */
 	public function get_block_file_template( $block_template, $id, $template_type ) {
-		if ( 'woocommerce//taxonomy-product_brand' === $id && is_null( $block_template ) ) {
+
+		if ( $this->is_taxonomy_product_brand_template( $id ) && is_null( $block_template ) ) {
 			$block_template = $this->get_product_brands_template( $template_type );
 		}
 
@@ -125,7 +137,7 @@ class WC_Brands_Block_Templates {
 		// Only add the template if  asking for Product Brands
 		if (
 			in_array( 'taxonomy-product_brand', $slugs, true ) ||
-			'woocommerce//taxonomy-product_brand' ===  $post_id  ||
+			$this->is_taxonomy_product_brand_template( $post_id )  ||
 			( ! $post_id && ! count( $slugs ) )
 		) {
 			$query_result[] = $this->get_product_brands_template( $template_type );

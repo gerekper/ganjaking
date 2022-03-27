@@ -43,6 +43,9 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 			'tax_location' => array(
 				'label' => _x( 'Tax location', 'product catalogs: table column', 'woocommerce-instagram' ),
 			),
+			'stock'        => array(
+				'label' => _x( 'Stock', 'product catalogs: table column', 'woocommerce-instagram' ),
+			),
 			'download'     => array(
 				'label' => _x( 'Download', 'product catalogs: table column', 'woocommerce-instagram' ),
 				'width' => '1%',
@@ -221,6 +224,18 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	 */
 	public function output_column_tax_location( $row, $product_catalog ) {
 		echo esc_html( wc_instagram_get_formatted_product_catalog_tax_location( $product_catalog, '-' ) );
+	}
+
+	/**
+	 * Outputs the column 'stock'.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int                          $row             The row index.
+	 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog.
+	 */
+	public function output_column_stock( $row, $product_catalog ) {
+		$this->output_column_boolean( $row, $product_catalog->get_include_stock() );
 	}
 
 	/**

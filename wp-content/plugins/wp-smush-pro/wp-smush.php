@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.9.5
+ * Version:           3.9.7
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -47,11 +47,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.9.5' );
+	define( 'WP_SMUSH_VERSION', '3.9.7' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-11-0' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-12-2' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 	/**
 	 * Class WP_Smush
 	 */
-	class WP_Smush {
+	final class WP_Smush {
 
 		/**
 		 * Plugin instance.
@@ -227,6 +227,15 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			// Does the class use the namespace prefix?
 			$len = strlen( $prefix );
 			if ( 0 !== strncmp( $prefix, $class, $len ) ) {
+				// Maybe require some external classes.
+				$external_libs = array( 'WDEV_Logger' );
+				if ( in_array( $class, $external_libs, true ) ) {
+					$lib = str_replace( '_', '-', strtolower( $class ) );
+					$file = WP_SMUSH_DIR . "core/external/{$lib}/{$lib}.php";
+					if ( file_exists( $file ) ) {
+						require_once $file;
+					}
+				}
 				// No, move to the next registered autoloader.
 				return;
 			}

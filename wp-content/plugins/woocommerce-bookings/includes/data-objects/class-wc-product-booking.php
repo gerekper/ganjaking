@@ -1480,6 +1480,37 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	*/
 
 	/**
+	 * Get the duration time interval in minutes.
+	 *
+	 * @return int duration in minutes.
+	 */
+	public function get_time_interval_in_minutes() {
+		$duration      = $this->get_duration();
+		$duration_unit = $this->get_duration_unit();
+
+		switch ( $duration_unit ) {
+			case 'month':
+				$interval = ( $duration * MONTH_IN_SECONDS ) + DAY_IN_SECONDS;
+				break;
+			case 'week':
+				$interval = $duration * WEEK_IN_SECONDS;
+				break;
+			case 'day':
+				$interval = $duration * DAY_IN_SECONDS;
+				break;
+			case 'hour':
+				$interval = $duration * HOUR_IN_SECONDS;
+				break;
+			default:
+				$interval = $duration * MINUTE_IN_SECONDS;
+				break;
+		}
+
+		// Convert seconds to minute.
+		return $interval / MINUTE_IN_SECONDS;
+	}
+
+	/**
 	 * Check the resources availability against all the blocks.
 	 *
 	 * @param  string $start_date
@@ -1492,7 +1523,9 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	public function get_blocks_availability( $start_date, $end_date, $qty, $booking_resource = null, $intervals = array() ) {
 
 		$resource_id = isset( $booking_resource ) ? $booking_resource->get_id() : 0;
-		$interval    = 'hour' === $this->get_duration_unit() ? $this->get_duration() * 60 : $this->get_duration();
+
+		// Get duration interval in minutes.
+		$interval = $this->get_time_interval_in_minutes();
 
 		$bookings_end_date = $end_date - 1;
 
@@ -1523,7 +1556,8 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 			foreach ( $existing_bookings as $existing_booking ) {
 
-				if ( ! $existing_booking->is_within_block( $block, strtotime( "+{$interval} minutes", $block ) ) ) {
+				// Skip the block if it's not intersected by a booking.
+				if ( ! $existing_booking->is_intersecting_block( $block, strtotime( "+{$interval} minutes", $block ) ) ) {
 					continue;
 				}
 				$existing_booking_product    = $existing_booking->get_product();

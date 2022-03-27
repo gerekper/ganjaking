@@ -894,7 +894,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				return;
 			}
 
-			$no_of_coupons_to_generate = $posted_data['no_of_coupons_to_generate'];
+			$no_of_coupons_to_generate = absint( $posted_data['no_of_coupons_to_generate'] );
 
 			$woocommerce_smart_coupon = WC_Smart_Coupons::get_instance();
 

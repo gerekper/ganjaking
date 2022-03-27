@@ -1,0 +1,101 @@
+# Changelog
+
+## 1.0-beta-2.7
+
+	- Improved compatibility Gravity Forms 2.6's new AJAX saving.
+
+## 1.0-beta-2.6
+
+	- Fixed issue where dates would not be disabled if using GP Limit Dates and all of a choice-based product's choices were exhausted for the specified date.
+
+## 1.0-beta-2.5
+
+	- Added support for using {claimed} merge tag in Available Inventory message to show the amount of inventory that has been claimed.
+	- Improved performance with MySQL queries when there is a very large number of entries on a site.
+
+## 1.0-beta-2.4
+
+	- Fixed issue where quantities of products hidden with conditional logic were included if the field was reloaded with a scope.
+	- Fixed issue with the Advanced Inventory Type causing fields to be placed into the runtime cache which could cause downstream effects with other perks such as GP Populate Anything and its Live Merge Tags.
+
+## 1.0-beta-2.3
+
+	- Added support for populating inventory limits of single Product fields using GP Populate Anything.
+
+## 1.0-beta-2.2
+
+	- Improved compatibility layer with GP Limit Dates to not hide a date until all products on the form using the Date field as a scope have their inventory exhausted for that day.
+
+## 1.0-beta-2.1
+
+	- Added support for using multiple quantity fields on the same product field in a form.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.0-beta-2
+
+	- Improved handling of property map values to negate the need of refreshing fields on initial load while also improving compatibility with Populate Anything.
+	- Fixed issue with quantity fields attached to products sharing the same resource on the same form not triggering validation errors if the requested quantity exceeds the resource limit.
+
+## 1.0-beta-1.12
+
+	- Added {limit} merge tag to display total inventory
+
+## 1.0-beta-1.11
+
+	- Fixed issue where Number fields did not return requested inventory.
+
+## 1.0-beta-1.10
+
+	- Fixed trailing commas, causing a fatal error in PHP 5.6 (#23)
+
+## 1.0-beta-1.9
+
+	- Improved query performance for all inventory types when there are a large amount of entries in the Gravity Forms entries table.
+	- Improved caching of `GP_Inventory_Type_Choices::get_choice_counts()` to improve performance on fields using Advanced inventory with Resources.
+	- Improved query performance for Advanced inventory type with shared resources.
+
+## 1.0-beta-1.8
+
+	- Added new [gpi_property_map_values](https://gravitywiz.com/documentation/gpi_property_map_values) PHP filter.
+
+## 1.0-beta-1.7
+
+	- Fixed issue where Number fields with inventory enabled were not validated on submission.
+	- Added support for using `gpi_requested_count` and `gpi_requested_quantity` with all Inventory Types.
+
+## 1.0-beta-1.6
+
+	- Fixed PHP notice that could show if a property map pointed to a field that no longer existed.
+	- Fixed issue where a newly added resource would not be automatically selected.
+	- Improved GP Limit Dates compatibility layer to better work with multiple choice-based fields scoped to the same Date field.
+
+## 1.0-beta-1.5
+
+	- Fixed fatal error if a resource property was mapped to a field that did not exist.
+	- Added [gpi_choice_inventory_limit](https://gravitywiz.com/documentation/gpi_choice_inventory_limit) PHP filter.
+	- Improved support for using multiple checkbox fields on the same form using the same resource.
+
+## 1.0-beta-1.4
+
+	- Fixed issue where the "Inv." column would show NaN for choices that were added after entries had been created for the form.
+
+## 1.0-beta-1.3
+
+	- Added new [gpi_field_refreshed](https://gravitywiz.com/documentation/gpi_field_refreshed) JavaScript action.
+	- Added support for cross-field (and form) scopes.
+
+## 1.0-beta-1.2
+
+	- Updated [gpi_is_edit_view](https://gravitywiz.com/documentation/gpi_is_edit_view) to allow scoping by form ID. (#11)
+
+## 1.0-beta-1.1
+
+	- Added filters to support weighted inventory.
+	- Fixed issue where inventory was not correctly calculated when sharing a choice-based resource with multiple quantity fields in the same form.
+	- Improved compatibility with GravityView Edit views.
+	- Fixed issue where Inventory Limits on fields using Scoped Inventory would be disabled in the Form Editor.
+	- Fixed possible PHP warning when using the Advanced Inventory Type with multiple fields using the same Resource.
+
+## 1.0-beta-1.0
+
+	- Initial release!

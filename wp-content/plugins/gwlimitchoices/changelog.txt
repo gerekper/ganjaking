@@ -1,6 +1,28 @@
 
 # Changelog
 
+## 1.7.5
+
+	- Fixed issue where remaining count conditional logic would not work with delayed payment feeds.
+
+## 1.7.4
+
+	- Fixed conflict with GP Inventory which also uses the "limits-enabled" class to style it's custom input column.
+
+## 1.7.3
+
+	- Updated how choice limits are fetched to use a standardized method.
+	- Added [gplc_choice_limit](https://gravitywiz.com/documentation/gplc_choice_limit/) filter to allow filtering choice limits when fetched.
+
+## 1.7.2
+
+	- Fixed issue with Limit Choices not working with Conditional Logic as expected.
+
+## 1.7.1
+
+	- Updated filter used to disable choices from `gform_field_content` to `gform_field_input` so choices were correctly disabled when hydrated by Populate Anything.
+	- Fixed issue where conditional logic for remaining choices would not be processed when using the PayPal Checkout Add-On causing checkout to fail.
+
 ## 1.6.34
 
 	- Improved support for Gravity Forms 2.5.

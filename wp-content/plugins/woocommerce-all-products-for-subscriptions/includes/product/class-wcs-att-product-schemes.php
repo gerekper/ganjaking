@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with the subscription schemes of subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product_Schemes
- * @version  3.1.2
+ * @version  3.2.1
  */
 class WCS_ATT_Product_Schemes {
 
@@ -32,7 +32,7 @@ class WCS_ATT_Product_Schemes {
 	 * @return boolean               Result of check.
 	 */
 	public static function has_subscription_schemes( $product ) {
-		return sizeof( self::get_subscription_schemes( $product ) ) > 0;
+		return count( self::get_subscription_schemes( $product ) ) > 0;
 	}
 
 	/**
@@ -86,7 +86,7 @@ class WCS_ATT_Product_Schemes {
 	 * @return boolean               Result of check.
 	 */
 	public static function has_single_forced_subscription_scheme( $product ) {
-		return self::has_forced_subscription_scheme( $product ) && ( 1 === sizeof( self::get_subscription_schemes( $product ) ) );
+		return self::has_forced_subscription_scheme( $product ) && ( 1 === count( self::get_subscription_schemes( $product ) ) );
 	}
 
 	/**

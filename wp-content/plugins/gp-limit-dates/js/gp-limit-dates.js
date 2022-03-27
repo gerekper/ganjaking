@@ -405,6 +405,13 @@
 				date = GPLimitDates.getModifiedDate( modifier, date, data, fieldId );
 			}
 
+			// Make sure we're setting the minimum date to a valid one
+			if ( !isNaN( date ) ) {
+				while ( GPLimitDates.isDateShown( date, data, fieldId )[0] === false ) {
+					date.setDate( date.getDate() + 1 );
+				}
+			}
+
 			$input.datepicker( 'option', 'minDate', date );
 			$input.datepicker( 'refresh' );
 
@@ -450,6 +457,20 @@
 			if ( isInline ) {
 				$( $input.datepicker( 'option', 'altField' ) ).change();
 			}
+
+			/**
+			 * Do something after the maximum date has been set for a Date field.
+			 *
+			 * @since 1.1.4
+			 *
+			 * @param {jQuery} $input       The current Date input.
+			 * @param {Date}   date         The maximum date that was set.
+			 * @param {Date}   selectedDate The date selected in another Date field on which the current Date field's maximum date is dependent.
+			 * @param {int}    fieldId      The ID of the current Date field.
+			 * @param {int}    formId       The ID of the current form.
+			 * @param {object} data         All Limit Dates data for the current form.
+			 */
+			gform.doAction( 'gpld_after_set_max_date', $input, date, selectedDate, fieldId, formId, data );
 
 			return date;
 		},
@@ -631,10 +652,9 @@
 
 		},
 
-		// Handle disabled Datepicker fields
-		initDisabledDatepicker : function( $input ) {
-			gformInitSingleDatepicker( $input );
-			$input.datepicker( 'option', 'disabled', true ).prop( 'disabled', false );
+		// Deprecated in favor of the overridden _attachDatepicker method on the datepicker below.
+		initDisabledDatepicker : function( _deprecated ) {
+			// deprecated - noop. Kept as some other Perks such as Populate Anything call this method.
 		}
 
 	};
@@ -651,9 +671,10 @@
 			return optionsObj;
 		}
 
-		var onClose   = optionsObj.onClose,
-			onSelects = [], // Build an array of onSelect functions; combine them into a single function before returning.
-			$dp       = $( '#ui-datepicker-div' );
+		var onClose    = optionsObj.onClose,
+			beforeShow = optionsObj.beforeShow,
+			onSelects  = [], // Build an array of onSelect functions; combine them into a single function before returning.
+			$dp        = $( '#ui-datepicker-div' );
 
 		/**
 		 * Regular Datepickers generate a #ui-datepicker-div which hosts the actual calendar. It is hidden by default.
@@ -684,12 +705,20 @@
 				case 'inlineDatepicker':
 					var $input             = $( '#input_{0}_{1}'.format( formId, fieldId ) ),
 						currentDate        = new Date(),
-						defaultDate        = $input.val() ? $input.val() : GPLimitDates.formatDate( currentDate, fieldId, data );
+						defaultValue       = $input.val(),
+						defaultDate        = defaultValue ? defaultValue : GPLimitDates.formatDate( currentDate, fieldId, data );
 					optionsObj.altField    = '#' + $input.attr( 'id' );
 					optionsObj.defaultDate = defaultDate;
-					// Default date is always selected; if not default date is specified, current date is used. Update
+					// Default date is always selected; if no default date is specified, current date is used. Update
 					// the $input value so conditional logic and Copy Cat will work.
-					$input.val( defaultDate ).change();
+					optionsObj.beforeShow = function( input, inst ) {
+						beforeShow( input, inst );
+						var $inline    = $( '#datepicker_{0}_{1}'.format( formId, fieldId ) );
+						var dateString = GPLimitDates.formatDate( $inline.datepicker( 'getDate' ), fieldId, data );
+						if ( ! defaultValue || $input.val() !== dateString ) {
+							$input.val( dateString ).change();
+						}
+					}
 					// Inline datepicker fails to show selected date when rendered while hidden via conditional logic;
 					// force datepicker to reset the selected date after conditional logic is evaluated.
 					$( document ).on( 'gform_post_conditional_logic', function() {
@@ -699,6 +728,12 @@
 					break;
 				case 'minDate':
 					optionsObj.minDate = GPLimitDates.getDateValue( value, key, fieldId, formId, data );
+					// Make sure the minimum date is selectable
+					if ( !isNaN( optionsObj.minDate ) ) {
+						while ( GPLimitDates.isDateShown( optionsObj.minDate, data, fieldId )[0] === false ) {
+							optionsObj.minDate.setDate( optionsObj.minDate.getDate() + 1 );
+						}
+					}
 					break;
 				case 'maxDate':
 					optionsObj.maxDate = GPLimitDates.getDateValue( value, key, fieldId, formId, data );
@@ -743,7 +778,6 @@
 					};
 					break;
 			}
-
 		} );
 
 		// Build our custom onSelect function which calls each onSelect function specified above and any default onSelect
@@ -780,6 +814,7 @@
 
 		// Reference the original function so we can override it and call it later.
 		_origInlineDatepicker: $.datepicker._inlineDatepicker,
+		_origAttachDatepicker: $.datepicker._attachDatepicker,
 
 		// Override the _inlineDatepicker method.
 		_inlineDatepicker: function (target, inst) {
@@ -788,12 +823,22 @@
 			if ( beforeShow ) {
 				beforeShow.apply( target, [ target, inst ] );
 			}
+		},
+
+		/// Override the _attachDatepicker method so we can disable the Datepicker using the class.
+		_attachDatepicker: function ( target, settings ) {
+			var $input = $(target);
+
+			if ($input.hasClass('gpro-disabled-datepicker')) {
+				settings.disabled = true;
+			}
+
+			$.datepicker._origAttachDatepicker( target, settings );
+
+			// If the datepicker is disabled, jQuery UI will also disable the input. We don't want that as we already
+			// have the readonly attribute set on it.
+			$input.prop('disabled', false);
 		}
-
-	} );
-
-	$( '.gpro-disabled-datepicker' ).each( function() {
-		GPLimitDates.initDisabledDatepicker($(this));
 	} );
 
 } )( jQuery );

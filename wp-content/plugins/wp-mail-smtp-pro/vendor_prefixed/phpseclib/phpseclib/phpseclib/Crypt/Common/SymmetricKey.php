@@ -99,7 +99,15 @@ abstract class SymmetricKey
      * @see \phpseclib3\Crypt\Common\SymmetricKey::encrypt()
      * @see \phpseclib3\Crypt\Common\SymmetricKey::decrypt()
      */
-    const MODE_CFB8 = 38;
+    const MODE_CFB8 = 7;
+    /**
+     * Encrypt / decrypt using the Output Feedback mode (8bit)
+     *
+     * @access public
+     * @see \phpseclib3\Crypt\Common\SymmetricKey::encrypt()
+     * @see \phpseclib3\Crypt\Common\SymmetricKey::decrypt()
+     */
+    const MODE_OFB8 = 8;
     /**
      * Encrypt / decrypt using the Output Feedback mode.
      *
@@ -132,7 +140,7 @@ abstract class SymmetricKey
      * @access private
      * @see \phpseclib3\Crypt\Common\SymmetricKey::__construct()
      */
-    const MODE_MAP = ['ctr' => self::MODE_CTR, 'ecb' => self::MODE_ECB, 'cbc' => self::MODE_CBC, 'cfb' => self::MODE_CFB, 'cfb8' => self::MODE_CFB8, 'ofb' => self::MODE_OFB, 'gcm' => self::MODE_GCM, 'stream' => self::MODE_STREAM];
+    const MODE_MAP = ['ctr' => self::MODE_CTR, 'ecb' => self::MODE_ECB, 'cbc' => self::MODE_CBC, 'cfb' => self::MODE_CFB, 'cfb8' => self::MODE_CFB8, 'ofb' => self::MODE_OFB, 'ofb8' => self::MODE_OFB8, 'gcm' => self::MODE_GCM, 'stream' => self::MODE_STREAM];
     /**
      * Base value for the internal implementation $engine switch
      *
@@ -581,6 +589,8 @@ abstract class SymmetricKey
      *
      * - ofb
      *
+     * - ofb8
+     *
      * - gcm
      *
      * @param string $mode
@@ -606,6 +616,7 @@ abstract class SymmetricKey
             case self::MODE_CFB:
             case self::MODE_CFB8:
             case self::MODE_OFB:
+            case self::MODE_OFB8:
             case self::MODE_STREAM:
                 $this->paddable = \false;
                 break;
@@ -1116,6 +1127,19 @@ abstract class SymmetricKey
                         }
                     }
                     return $ciphertext;
+                case self::MODE_OFB8:
+                    $ciphertext = '';
+                    $len = \strlen($plaintext);
+                    $iv = $this->encryptIV;
+                    for ($i = 0; $i < $len; ++$i) {
+                        $xor = \openssl_encrypt($iv, $this->cipher_name_openssl_ecb, $this->key, $this->openssl_options, $this->decryptIV);
+                        $ciphertext .= $plaintext[$i] ^ $xor;
+                        $iv = \substr($iv, 1) . $xor[0];
+                    }
+                    if ($this->continuousBuffer) {
+                        $this->encryptIV = $iv;
+                    }
+                    break;
                 case self::MODE_OFB:
                     return $this->openssl_ofb_process($plaintext, $this->encryptIV, $this->enbuffer);
             }
@@ -1298,6 +1322,19 @@ abstract class SymmetricKey
                     }
                 }
                 break;
+            case self::MODE_OFB8:
+                $ciphertext = '';
+                $len = \strlen($plaintext);
+                $iv = $this->encryptIV;
+                for ($i = 0; $i < $len; ++$i) {
+                    $xor = $this->encryptBlock($iv);
+                    $ciphertext .= $plaintext[$i] ^ $xor;
+                    $iv = \substr($iv, 1) . $xor[0];
+                }
+                if ($this->continuousBuffer) {
+                    $this->encryptIV = $iv;
+                }
+                break;
             case self::MODE_OFB:
                 $xor = $this->encryptIV;
                 if (\strlen($buffer['xor'])) {
@@ -1449,6 +1486,19 @@ abstract class SymmetricKey
                         } else {
                             $this->decryptIV = \substr($this->decryptIV, $len - $this->block_size) . \substr($ciphertext, -$len);
                         }
+                    }
+                    break;
+                case self::MODE_OFB8:
+                    $plaintext = '';
+                    $len = \strlen($ciphertext);
+                    $iv = $this->decryptIV;
+                    for ($i = 0; $i < $len; ++$i) {
+                        $xor = \openssl_encrypt($iv, $this->cipher_name_openssl_ecb, $this->key, $this->openssl_options, $this->decryptIV);
+                        $plaintext .= $ciphertext[$i] ^ $xor;
+                        $iv = \substr($iv, 1) . $xor[0];
+                    }
+                    if ($this->continuousBuffer) {
+                        $this->decryptIV = $iv;
                     }
                     break;
                 case self::MODE_OFB:
@@ -1614,6 +1664,19 @@ abstract class SymmetricKey
                     } else {
                         $this->decryptIV = \substr($this->decryptIV, $len - $block_size) . \substr($ciphertext, -$len);
                     }
+                }
+                break;
+            case self::MODE_OFB8:
+                $plaintext = '';
+                $len = \strlen($ciphertext);
+                $iv = $this->decryptIV;
+                for ($i = 0; $i < $len; ++$i) {
+                    $xor = $this->encryptBlock($iv);
+                    $plaintext .= $ciphertext[$i] ^ $xor;
+                    $iv = \substr($iv, 1) . $xor[0];
+                }
+                if ($this->continuousBuffer) {
+                    $this->decryptIV = $iv;
                 }
                 break;
             case self::MODE_OFB:
@@ -2214,7 +2277,7 @@ abstract class SymmetricKey
                 \set_error_handler(function () {
                 });
                 if (!isset($this->enmcrypt)) {
-                    static $mcrypt_modes = [self::MODE_CTR => 'ctr', self::MODE_ECB => \MCRYPT_MODE_ECB, self::MODE_CBC => \MCRYPT_MODE_CBC, self::MODE_CFB => 'ncfb', self::MODE_CFB8 => \MCRYPT_MODE_CFB, self::MODE_OFB => \MCRYPT_MODE_NOFB, self::MODE_STREAM => \MCRYPT_MODE_STREAM];
+                    static $mcrypt_modes = [self::MODE_CTR => 'ctr', self::MODE_ECB => \MCRYPT_MODE_ECB, self::MODE_CBC => \MCRYPT_MODE_CBC, self::MODE_CFB => 'ncfb', self::MODE_CFB8 => \MCRYPT_MODE_CFB, self::MODE_OFB => \MCRYPT_MODE_NOFB, self::MODE_OFB8 => \MCRYPT_MODE_OFB, self::MODE_STREAM => \MCRYPT_MODE_STREAM];
                     $this->demcrypt = \mcrypt_module_open($this->cipher_name_mcrypt, '', $mcrypt_modes[$this->mode], '');
                     $this->enmcrypt = \mcrypt_module_open($this->cipher_name_mcrypt, '', $mcrypt_modes[$this->mode], '');
                     // we need the $ecb mcrypt resource (only) in MODE_CFB with enableContinuousBuffer()
@@ -2723,6 +2786,44 @@ abstract class SymmetricKey
                     return $_plaintext;
                     ';
                 break;
+            case self::MODE_OFB8:
+                $encrypt = $init_encrypt . '
+                    $_ciphertext = "";
+                    $_len = strlen($_text);
+                    $_iv = $this->encryptIV;
+
+                    for ($_i = 0; $_i < $_len; ++$_i) {
+                        $in = $_iv;
+                        ' . $encrypt_block . '
+                        $_ciphertext.= $_text[$_i] ^ $in;
+                        $_iv = substr($_iv, 1) . $in[0];
+                    }
+
+                    if ($this->continuousBuffer) {
+                        $this->encryptIV = $_iv;
+                    }
+
+                    return $_ciphertext;
+                    ';
+                $decrypt = $init_encrypt . '
+                    $_plaintext = "";
+                    $_len = strlen($_text);
+                    $_iv = $this->decryptIV;
+
+                    for ($_i = 0; $_i < $_len; ++$_i) {
+                        $in = $_iv;
+                        ' . $encrypt_block . '
+                        $_plaintext.= $_text[$_i] ^ $in;
+                        $_iv = substr($_iv, 1) . $in[0];
+                    }
+
+                    if ($this->continuousBuffer) {
+                        $this->decryptIV = $_iv;
+                    }
+
+                    return $_plaintext;
+                    ';
+                break;
             case self::MODE_OFB:
                 $encrypt = $init_encrypt . '
                     $_ciphertext = "";
@@ -3013,5 +3114,17 @@ abstract class SymmetricKey
         $r = $a->toBigInteger()->add($s->toBigInteger());
         $mask = "ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ";
         return \strrev($r->toBytes()) & $mask;
+    }
+    /**
+     * Return the mode
+     *
+     * You can do $obj instanceof AES or whatever to get the cipher but you can't do that to get the mode
+     *
+     * @access public
+     * @return string
+     */
+    public function getMode()
+    {
+        return \array_flip(self::MODE_MAP)[$this->mode];
     }
 }

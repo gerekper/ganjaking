@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPLS_Interface {
 
 	/**
@@ -61,30 +57,46 @@ class GPLS_Interface {
 				'label'   => 'Rule Type',
 				'name'    => 'rule_type_{i}',
 				'class'   => 'rule_type_selector rule_type_{i}',
-				'choices' => array(
-					array(
-						'label' => __( 'IP', 'gp-limit-submissions' ),
-						'value' => 'ip',
-					),
-					array(
-						'label' => __( 'User', 'gp-limit-submissions' ),
-						'value' => 'user',
-					),
-					array(
-						'label' => __( 'Embed URL', 'gp-limit-submissions' ),
-						'value' => 'embed_url',
-					),
-					array(
-						'label' => __( 'Role', 'gp-limit-submissions' ),
-						'value' => 'role',
-					),
-					array(
-						'label' => __( 'Field Value', 'gp-limit-submissions' ),
-						'value' => 'field',
-					),
-				),
+				'choices' => $this->get_rule_type_choices(),
 			)
 		);
+	}
+
+	public function get_rule_type_choices() {
+
+		$choices = array(
+			array(
+				'label' => __( 'IP', 'gp-limit-submissions' ),
+				'value' => 'ip',
+			),
+			array(
+				'label' => __( 'User', 'gp-limit-submissions' ),
+				'value' => 'user',
+			),
+			array(
+				'label' => __( 'Embed URL', 'gp-limit-submissions' ),
+				'value' => 'embed_url',
+			),
+			array(
+				'label' => __( 'Role', 'gp-limit-submissions' ),
+				'value' => 'role',
+			),
+			array(
+				'label' => __( 'Field Value', 'gp-limit-submissions' ),
+				'value' => 'field',
+			),
+		);
+
+		/**
+		 * Filter the types of rules available for selection when configuring Limit Submission feeds.
+		 *
+		 * @since 1.0.8
+		 *
+		 * @param array $choices An array of rule types (e.g. IP, User, Embed URL, Role, Field Value).
+		 */
+		$choices = apply_filters( 'gpls_rule_type_choices', $choices );
+
+		return $choices;
 	}
 
 	/*

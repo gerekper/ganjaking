@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Klarna Checkout Compatibility.
  *
- * @since  1.4.0
+ * @since  1.12.1
  */
 class WC_CSP_KLC_Compatibility {
 
@@ -94,9 +94,9 @@ class WC_CSP_KLC_Compatibility {
 			}
 		}
 
-		if ( sizeof( $error_rules ) > 0 ) {
+		if ( count( $error_rules ) > 0 ) {
 
-			if ( sizeof( $error_rules ) === 1 ) {
+			if ( count( $error_rules ) === 1 ) {
 
 				WC_Admin_Settings::add_error( sprintf( __( 'Failed to save Billing Country condition in rule %s. The Billing Country condition is not supported by Klarna Checkout.', 'woocommerce-conditional-shipping-and-payments' ), $error_rules[ 0 ] ) );
 

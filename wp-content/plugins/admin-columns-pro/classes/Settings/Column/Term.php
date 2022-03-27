@@ -10,7 +10,7 @@ class Term extends AC\Settings\Column {
 	const NAME = 'term_id';
 
 	/**
-	 * @var string
+	 * @var int
 	 */
 	private $term_id;
 
@@ -51,14 +51,14 @@ class Term extends AC\Settings\Column {
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
 	public function get_term_id() {
 		return $this->term_id;
 	}
 
 	/**
-	 * @param string $term
+	 * @param int $term_id
 	 *
 	 * @return bool
 	 */

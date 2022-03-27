@@ -171,9 +171,6 @@ if ( ! class_exists( 'FPRewardSystem_Free_Product' ) ) {
 					}
 				}
 				WC()->session->set( 'freeproductcartitemkeys' , $CartItemKeyForFreeProduct ) ;
-				if ( '2' == get_option( 'rs_free_product_add_by_user_or_admin' ) ) {
-					self::create_order_for_free_product( $ProductId , $UserId , $TotalEarnedPoints ) ;
-				}
 			}
 		}
 
@@ -381,7 +378,7 @@ if ( ! class_exists( 'FPRewardSystem_Free_Product' ) ) {
 					}
 
 					if ( ( array_search( $ProductId , $ProductIdinOrder[ $RuleId ] )  == $key ) ) {
-						unset( $ProductIdinOrder[ $RuleId ][ $key ] ) ;
+						unset( $ProductIdinOrder[ $RuleId ] ) ;
 						update_user_meta( $UserId , 'product_id_for_free_product' , $ProductIdinOrder ) ;
 					}
 				}
@@ -432,62 +429,6 @@ if ( ! class_exists( 'FPRewardSystem_Free_Product' ) ) {
 			}
 
 			return false ; //Not Found
-		}
-
-		public static function create_order_for_free_product( $ProductId, $UserId, $Points ) {
-			$MetaKey = 'userid_' . $UserId . $ProductId ;
-			if ( 'yes' == get_user_meta( $UserId , $MetaKey , true ) ) {
-				return ;
-			}
-
-			$customer         = new WC_Customer( $UserId ) ;
-			$billing_country  = $customer->get_billing_country() ;
-			$billing_state    = $customer->get_billing_state() ;
-			$billing_postcode = $customer->get_billing_postcode() ;
-			$billing_city     = $customer->get_billing_city() ;
-			$billing_address  = $customer->get_billing_address() ;
-
-			// Check for Billing details on creating manual order.
-			if ( ! $billing_country || ! $billing_state || ! $billing_postcode || ! $billing_city || ! $billing_address ) {
-				return ;
-			}
-
-			$Order     = wc_create_order( array( 'customer_id' => $UserId ) ) ;
-			$Order->add_product( srp_product_object( $ProductId ) , 1 ) ;
-			$Order->update_status( get_option( 'rs_order_status_control_to_automatic_order' ) , 'Imported order' , true ) ;
-			$OrderId   = $Order->get_order_number() ;
-			$Order->set_address( $Order->get_address() ) ;
-			update_post_meta( $OrderId , '_customer_user' , $UserId ) ;
-			$Address   = array(
-				'first_name' => get_user_meta( $UserId , 'shipping_first_name' , true ) ,
-				'last_name'  => get_user_meta( $UserId , 'shipping_last_name' , true ) ,
-				'company'    => get_user_meta( $UserId , 'shipping_company' , true ) ,
-				'address_1'  => get_user_meta( $UserId , 'shipping_address_1' , true ) ,
-				'address_2'  => get_user_meta( $UserId , 'shipping_address_2' , true ) ,
-				'city'       => get_user_meta( $UserId , 'shipping_city' , true ) ,
-				'state'      => get_user_meta( $UserId , 'shipping_state' , true ) ,
-				'postcode'   => get_user_meta( $UserId , 'shipping_postcode' , true ) ,
-				'country'    => get_user_meta( $UserId , 'shipping_country' , true ) ,
-					) ;
-			$BillEmail = get_user_meta( $UserId , 'billing_email' , true ) ;
-			update_post_meta( $OrderId , '_billing_email' , $BillEmail ) ;
-			$Order->set_address( $Address , 'shipping' ) ;
-			$Order->set_address( $Address ) ;
-			$Subject   = str_replace( '[sitename]' , get_option( 'blogname' ) , get_option( 'rs_subject_for_free_product_mail' ) ) ;
-			$Message   = str_replace( '[current_level_points]' , $Points , get_option( 'rs_content_for_free_product_mail' ) ) ;
-			$MyAcclink = get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ;
-			$OrderLink = esc_url_raw( add_query_arg( 'view-order' , $OrderId , $MyAcclink ) ) ;
-			$OrderLink = '<a target="_blank" href="' . $OrderLink . '">#' . $OrderId . '</a>' ;
-			$Message   = str_replace( '[rsorderlink]' , $OrderLink , $Message ) ;
-			$UserInfo  = get_userdata( $UserId ) ;
-			$user_mail = $UserInfo->user_mail ;
-			//User Email.
-			send_mail( $user_mail , $Subject , $Message ) ;
-
-			//Admin Email.
-			self::send_mail_for_admin( $Points ) ;
-
-			update_user_meta( $UserId , $MetaKey , 'yes' ) ;
 		}
 
 		public static function send_mail_for_admin( $Points ) {

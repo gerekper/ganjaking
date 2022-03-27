@@ -22,7 +22,13 @@ class ListDraftsResponse extends \WPMailSMTP\Vendor\Google\Collection
     protected $collection_key = 'drafts';
     protected $draftsType = \WPMailSMTP\Vendor\Google\Service\Gmail\Draft::class;
     protected $draftsDataType = 'array';
+    /**
+     * @var string
+     */
     public $nextPageToken;
+    /**
+     * @var string
+     */
     public $resultSizeEstimate;
     /**
      * @param Draft[]
@@ -38,18 +44,30 @@ class ListDraftsResponse extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->drafts;
     }
+    /**
+     * @param string
+     */
     public function setNextPageToken($nextPageToken)
     {
         $this->nextPageToken = $nextPageToken;
     }
+    /**
+     * @return string
+     */
     public function getNextPageToken()
     {
         return $this->nextPageToken;
     }
+    /**
+     * @param string
+     */
     public function setResultSizeEstimate($resultSizeEstimate)
     {
         $this->resultSizeEstimate = $resultSizeEstimate;
     }
+    /**
+     * @return string
+     */
     public function getResultSizeEstimate()
     {
         return $this->resultSizeEstimate;

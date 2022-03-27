@@ -24,7 +24,7 @@
 						$inputs = $inputs.add( $( '#field_' + formId + '_' + dateField.id ).find( 'input, select' ) );
 					});
 
-					self.bindEvents( $inputs, toBind.calcField, toBind.calcObj );
+					self.bindEvents( $inputs, toBind.calcField, toBind.calcObj, true );
 				});
 			});
 		};
@@ -93,7 +93,8 @@
 						return; // continue
 					}
 
-					var $inputs = $( '#field_' + formId + '_' + dateField.id ).find( 'input, select' ),
+					// Get all inputs sans GP Read Only's hidden capture inputs.
+					var $inputs = $( '#field_' + formId + '_' + dateField.id ).find( 'input, select' ).not( '[id*="gwro_hidden_capture"]' ),
 						value   = self.getDateFieldValue( dateField, formId, $inputs );
 
 					if ( modifier ) {
@@ -111,11 +112,15 @@
 						self.elementsToBind[formId] = {};
 					}
 
-					self.bindEvents( $inputs, calcField, calcObj );
+					// Do not process date fields already bound to events
+					if ( self.elementsToBind[formId][calcFieldId] && self.elementsToBind[formId][calcFieldId].dateFields.indexOf( dateField ) > -1 ) {
+						return;
+					}
+
+					self.bindEvents( $inputs, calcField, calcObj, false );
 
 					if ( self.elementsToBind[formId][calcFieldId] ) {
 						self.elementsToBind[formId][calcFieldId].dateFields.push( dateField );
-
 						return;
 					}
 
@@ -205,17 +210,16 @@
 			};
 		};
 
-		self.bindEvents = function( $inputs, calcField, calcObj ) {
+		self.bindEvents = function( $inputs, calcField, calcObj, rebind ) {
+			// Only disable event listeners when re-binding. Current behavior causes multiple fields
+			// using the same calculation to only output to the last field. See HS#27257
+			if ( rebind ) {
+				$inputs.off( 'change.gpdtc' );
+				$inputs.not( 'select' ).off( 'keyup.gpdtc' );
+			}
 
-			$inputs
-				.off( 'change.gpdtc' )
-				.on( 'change.gpdtc', self.onChangeFactory( calcField, calcObj ) );
-
-			$inputs
-				.not( 'select' )
-				.off( 'keyup.gpdtc' )
-				.on( 'keyup.gpdtc', self.onChangeFactory( calcField, calcObj ) );
-
+			$inputs.on( 'change.gpdtc', self.onChangeFactory( calcField, calcObj ) );
+			$inputs.not( 'select' ).on( 'keyup.gpdtc', self.onChangeFactory( calcField, calcObj ) );
 		};
 
 		self.getCalcFieldData = function( fieldId ) {

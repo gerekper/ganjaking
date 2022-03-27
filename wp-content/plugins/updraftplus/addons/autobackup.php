@@ -570,9 +570,9 @@ ENDHERE;
 		echo "<script>var h = document.getElementById('updraftplus-autobackup-log'); h.style.display='none';</script>";
 
 		if ($jquery) {
-			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="<?php echo UpdraftPlus::get_current_clean_url();?>#updraftplus-autobackup-log" onclick="jQuery(\'#updraftplus-autobackup-log\').slideToggle();">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
+			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'#updraftplus-autobackup-log" onclick="jQuery(\'#updraftplus-autobackup-log\').slideToggle();">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
 		} else {
-			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="<?php echo UpdraftPlus::get_current_clean_url();?>#updraftplus-autobackup-log" onclick="var s = document.getElementById(\'updraftplus-autobackup-log\'); s.style.display = \'block\';">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
+			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'#updraftplus-autobackup-log" onclick="var s = document.getElementById(\'updraftplus-autobackup-log\'); s.style.display = \'block\';">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
 		}
 
 	}
@@ -1111,7 +1111,11 @@ ENDHERE;
 			</script>
 			
 			<?php
-				$updraftplus_admin->add_backup_scaffolding(__('Automatic backup before update', 'updraftplus'), array($this, 'backupnow_modal_contents'));
+				if (is_object($updraftplus_admin)) {
+					$updraftplus_admin->add_backup_scaffolding(__('Automatic backup before update', 'updraftplus'), array($this, 'backupnow_modal_contents'));
+				} else {
+					error_log("UpdraftPlus_Addon_Autobackup::admin_footer_inpage_backup() - unexpected failure for accessing UpdraftPlus_Admin object");
+				}
 			?>
 			
 		<?php

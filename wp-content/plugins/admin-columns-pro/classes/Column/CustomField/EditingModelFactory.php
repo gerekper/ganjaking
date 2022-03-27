@@ -64,7 +64,7 @@ class EditingModelFactory {
 				return new Service\Basic( ( new View\Media() )->set_multiple( true )->set_clear_button( true ), $storage );
 
 			case CustomFieldType::TYPE_URL :
-				return new Service\Basic( ( new View\Url() )->set_clear_button( true ), $storage );
+				return new Service\Basic( ( new View\InternalLink() )->set_clear_button( true )->set_placeholder( __( 'Paste URL or type to search' ) ), $storage );
 
 			case CustomFieldType::TYPE_NUMERIC :
 				return new Service\ComputedNumber( $storage );

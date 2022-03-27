@@ -717,6 +717,33 @@ class WC_Booking extends WC_Bookings_Data {
 	}
 
 	/**
+	 * See if the booking intersects a block.
+	 *
+	 * @param int $block_start Block start timestamp.
+	 * @param int $block_end Block end timestamp.
+	 *
+	 * @return bool
+	 */
+	public function is_intersecting_block( $block_start, $block_end ) {
+		// Cache start/end to speed up repeated calls.
+		if ( null === $this->start_cached ) {
+			$this->start_cached = $this->get_start();
+		}
+		if ( null === $this->end_cached ) {
+			$this->end_cached = $this->get_end();
+		}
+		$start = $this->start_cached;
+		$end   = $this->end_cached;
+
+		// Condition: Already Booked range must intersect the block range.
+		if ( ! $start || ! $end || $end <= $block_start || $block_end <= $start ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * See if this booking is booked on a date.
 	 *
 	 * @return boolean

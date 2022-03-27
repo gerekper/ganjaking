@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.2
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -293,7 +293,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				$order        = wc_get_order( $post_order_id );
 				$order_status = $order->get_status();
 
-				if ( $order->has_status( array( 'on-hold', 'auto-draft', 'pending' ) ) ) {
+				$pending_statuses = $this->get_pending_statuses();
+
+				if ( $order->has_status( $pending_statuses ) ) {
 					$this->sa_restore_smart_coupon_amount( $post_order_id );
 				}
 			}

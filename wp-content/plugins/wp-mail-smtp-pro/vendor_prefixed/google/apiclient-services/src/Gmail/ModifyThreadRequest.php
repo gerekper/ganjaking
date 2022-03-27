@@ -20,20 +20,38 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class ModifyThreadRequest extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'removeLabelIds';
+    /**
+     * @var string[]
+     */
     public $addLabelIds;
+    /**
+     * @var string[]
+     */
     public $removeLabelIds;
+    /**
+     * @param string[]
+     */
     public function setAddLabelIds($addLabelIds)
     {
         $this->addLabelIds = $addLabelIds;
     }
+    /**
+     * @return string[]
+     */
     public function getAddLabelIds()
     {
         return $this->addLabelIds;
     }
+    /**
+     * @param string[]
+     */
     public function setRemoveLabelIds($removeLabelIds)
     {
         $this->removeLabelIds = $removeLabelIds;
     }
+    /**
+     * @return string[]
+     */
     public function getRemoveLabelIds()
     {
         return $this->removeLabelIds;

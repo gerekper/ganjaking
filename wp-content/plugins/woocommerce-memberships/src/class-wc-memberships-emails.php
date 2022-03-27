@@ -17,11 +17,11 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -55,70 +55,6 @@ class WC_Memberships_Emails {
 		foreach ( $this->get_email_class_names() as $email ) {
 			add_action( $email, array( 'WC_Emails', 'send_transactional_email' ), 10, 10 );
 		}
-	}
-
-
-	/**
-	 * Adds the Memberships emails to the list of emails that should display the Jilt prompt.
-	 *
-	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
-	 *
-	 * @internal
-	 *
-	 * @since 1.17.3
-	 * @deprecated since 1.20.0
-	 *
-	 * @param array $email_ids existing email IDs
-	 * @return array
-	 */
-	public function add_jilt_prompt_email_ids( $email_ids ) {
-
-		wc_deprecated_function( __METHOD__, '1.20.0' );
-
-		return $email_ids;
-	}
-
-
-	/**
-	 * Adjusts the Jilt install prompt wording for Memberships emails.
-	 *
-	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
-	 *
-	 * @internal
-	 *
-	 * @since 1.17.3
-	 * @deprecated since 1.20.0
-	 *
-	 * @param string $description existing description
-	 * @param string $email_id targeted email ID
-	 * @return string
-	 */
-	public function adjust_jilt_prompt_membership_email_description( $description, $email_id ) {
-
-		wc_deprecated_function( __METHOD__, '1.20.0' );
-
-		return $description;
-	}
-
-
-	/**
-	 * Adjusts the Jilt install prompt wording for the general Emails screen.
-	 *
-	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
-	 *
-	 * @internal
-	 *
-	 * @since 1.17.3
-	 * @deprecated since 1.20.0
-	 *
-	 * @param string $description existing description
-	 * @return string
-	 */
-	public function adjust_jilt_prompt_general_description( $description ) {
-
-		wc_deprecated_function( __METHOD__, '1.20.0' );
-
-		return $description;
 	}
 
 

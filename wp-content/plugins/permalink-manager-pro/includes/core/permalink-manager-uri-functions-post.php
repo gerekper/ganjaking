@@ -385,7 +385,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 	 * Bulk tools
 	 */
 	public static function get_items() {
-		global $wpdb;
+		global $wpdb, $permalink_manager_options;
 
 		// Check if post types & statuses are not empty
 		if(empty($_POST['post_types']) || empty($_POST['post_statuses'])) { return false; }
@@ -420,10 +420,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		}
 
 		// Get excluded items
-		$excluded_posts_ui = $wpdb->get_col("SELECT post_ID FROM {$wpdb->postmeta} AS pm LEFT JOIN {$wpdb->posts} AS p ON (pm.post_ID = p.ID) WHERE pm.meta_key = 'auto_update_uri' AND pm.meta_value = '-2' AND post_type IN ('{$post_types}')");
-		$excluded_posts_hook = (array) apply_filters('permalink_manager_excluded_post_ids', array());
-		$excluded_posts = array_merge($excluded_posts_ui, $excluded_posts_hook);
-
+		$excluded_posts = (array) apply_filters('permalink_manager_excluded_post_ids', array());
 		if(!empty($excluded_posts)) {
 			$where .= sprintf(" AND ID NOT IN ('%s') ", implode("', '", $excluded_posts));
 		}
@@ -431,8 +428,21 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Support for attachments
 		$attachment_support = (in_array('attachment', $post_types_array)) ? " OR (post_type = 'attachment')" : "";
 
+		// Check the auto-update mode
+		// A. Allow only user-approved posts
+		if(!empty($permalink_manager_options["general"]["auto_update_uris"]) && $permalink_manager_options["general"]["auto_update_uris"] == 2) {
+			$where .= " AND meta_value IN (1, -1) ";
+		}
+		// B. Allow all posts not disabled by the user
+		else {
+			$where .= " AND (meta_value IS NULL OR meta_value IN (1, -1)) ";
+		}
+
 		// Get the rows before they are altered
-		return $wpdb->get_results("SELECT post_type, post_title, post_name, ID FROM {$wpdb->posts} WHERE ((post_status IN ('{$post_statuses}') AND post_type IN ('{$post_types}')){$attachment_support}) {$where}", ARRAY_A);
+		return $wpdb->get_results(
+			"SELECT post_type, post_title, post_name, ID FROM {$wpdb->posts} AS p LEFT JOIN {$wpdb->postmeta} AS pm ON pm.post_ID = p.ID AND pm.meta_key = 'auto_update_uri' WHERE ((post_status IN ('{$post_statuses}') AND post_type IN ('{$post_types}')){$attachment_support}) {$where}",
+			ARRAY_A
+		);
 	}
 
 	/**
@@ -709,7 +719,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			$auto_update_uri = (!empty($auto_update_val)) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
 
 			$uri = (!empty($permalink_manager_uris[$post_id])) ? rawurldecode($permalink_manager_uris[$post_id]) : self::get_post_uri($post_id, true);
-			printf('<span class="permalink-manager-col-uri" data-auto_update="%s">%s</span>', intval($auto_update_uri), $uri);
+			printf('<span class="permalink-manager-col-uri" data-readonly="%s">%s</span>', intval($auto_update_uri), $uri);
 		}
 	}
 
@@ -751,25 +761,31 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Exclude drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post_object->post_status) && $post_object->post_status == 'draft') { return $post_id; }
 
-		// Stop the hook (if needed)
-		$allow_new_uri = apply_filters("permalink_manager_allow_new_post_uri", true, $post_object);
-		if(!$allow_new_uri) { return $post_id; }
-
 		// Ignore menu items
 		if($post_object->post_type == 'nav_menu_item') { return $post_id; }
 
 		// Ignore auto-drafts, revisions, removed posts and posts without title
 		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || (strpos($post_object->post_name, 'revision-v1') !== false) || empty($post_object->post_title) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
 
+		// Check if the new URIs should be disabled
+		$auto_update_uri = (!empty($permalink_manager_options["general"]["auto_update_uris"])) ? $permalink_manager_options["general"]["auto_update_uris"] : 0;
+
 		$native_uri = self::get_default_post_uri($post_id, true);
 		$new_uri = self::get_default_post_uri($post_id);
-		$permalink_manager_uris[$post_object->ID] = $new_uri;
 
-		if(is_array($permalink_manager_uris)) {
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+		// Stop the hook (if needed)
+		$allow_new_uri = apply_filters("permalink_manager_allow_new_post_uri", true, $post_object);
+
+		if(!$allow_new_uri || (!empty($auto_update_uri) && $auto_update_uri == 2)) {
+			$uri_saved = false;
+		} else if(is_array($permalink_manager_uris) && !empty($new_uri)) {
+			$permalink_manager_uris[$post_object->ID] = $new_uri;
+			$uri_saved = update_option('permalink-manager-uris', $permalink_manager_uris);
+		} else {
+			$uri_saved = false;
 		}
 
-		do_action('permalink_manager_new_post_uri', $post_id, $new_uri, $native_uri);
+		do_action('permalink_manager_new_post_uri', $post_id, $new_uri, $native_uri, $uri_saved);
 	}
 
 	/**
@@ -803,10 +819,6 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 		// Exclude drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $post_id; }
-
-		// Stop the hook (if needed)
-		$allow_update_uri = apply_filters("permalink_manager_allow_update_post_uri", true, $post);
-		if(!$allow_update_uri) { return $post_id; }
 
 		// Ignore auto-drafts, removed posts and posts without title
 		if(in_array($post->post_status, array('auto-draft', 'trash')) || empty($post->post_title)) { return $post_id; }
@@ -851,13 +863,19 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			delete_post_meta($post_id, "auto_update_uri");
 		}
 
-		// Save only changed URIs
-		if(is_array($permalink_manager_uris)) {
+		// Stop the hook (if needed)
+		$allow_update_uri = apply_filters("permalink_manager_allow_update_post_uri", true, $post);
+
+		if(!$allow_update_uri || (!empty($auto_update_uri) && $auto_update_uri == 2)) {
+			$uri_saved = false;
+		} else if(is_array($permalink_manager_uris) && !empty($new_uri)) {
 			$permalink_manager_uris[$post_id] = $new_uri;
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			$uri_saved = update_option('permalink-manager-uris', $permalink_manager_uris);
+		} else {
+			$uri_saved = false;
 		}
 
-		do_action('permalink_manager_updated_post_uri', $post_id, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true);
+		do_action('permalink_manager_updated_post_uri', $post_id, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true, $uri_saved);
 	}
 
 	/**

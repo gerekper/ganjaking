@@ -1,0 +1,406 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-03-04 16:16+0400\n"
+"PO-Revision-Date: 2020-03-04 16:32+0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html_e;esc_html_x;"
+"esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: app/controllers/MePdfInvoicesCtrl.php:69
+msgid "Download"
+msgstr "Descargue"
+
+#: app/controllers/MePdfInvoicesCtrl.php:81
+msgid "PDF"
+msgstr "PDF"
+
+#: app/controllers/MePdfInvoicesCtrl.php:120
+msgid ""
+"Business Logo must have a valid image extension. Valid extensions are JPG, "
+"PNG, and GIF"
+msgstr ""
+"El logo de la empresa debe tener una extensión de imagen válida. Las "
+"extensiones válidas son JPG, PNG y GIF"
+
+#: app/controllers/MePdfInvoicesCtrl.php:126
+msgid "Invalid Business Email Format"
+msgstr "Formato de correo electrónico comercial no válido"
+
+#: app/controllers/MePdfInvoicesCtrl.php:206
+msgid "Forbidden"
+msgstr "Prohibido"
+
+#: app/controllers/MePdfInvoicesCtrl.php:212
+msgid "No transaction specified"
+msgstr "Ninguna transacción fue especificada"
+
+#: app/controllers/MePdfInvoicesCtrl.php:221
+msgid "Invalid Transaction"
+msgstr "Transacción Inválida"
+
+#: app/controllers/MePdfInvoicesCtrl.php:225
+msgid "Forbidden Transaction"
+msgstr "Transacción Prohibido"
+
+#: app/controllers/MePdfInvoicesCtrl.php:261
+#: app/controllers/MePdfInvoicesCtrl.php:272
+msgid "Initial Payment"
+msgstr "Pago inicial"
+
+#: app/controllers/MePdfInvoicesCtrl.php:270
+msgid "Subscription Payment"
+msgstr "Pago de la suscripción"
+
+#: app/controllers/MePdfInvoicesCtrl.php:275
+msgid "Payment"
+msgstr "Pago"
+
+#: app/controllers/MePdfInvoicesCtrl.php:281
+#, php-format
+msgid "Coupon Code '%s'"
+msgstr "Código del cupón ‘%s’"
+
+#: app/helpers/MePdfInvoicesHelper.php:130
+msgid "A0 (841 x 1189mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:131
+msgid "A1 (594 x 841mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:132
+msgid "A2 (420 x 594mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:133
+msgid "A3 (297 x 420mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:134
+msgid "A4 (210 x 297mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:135
+msgid "A5 (148 x 210mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:136
+msgid "A6 (105 x 148mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:137
+msgid "A7 (74 x 105mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:138
+msgid "A8 (52 x 74mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:139
+msgid "A9 (37 x 52mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:140
+msgid "A10 (26 x 37mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:141
+msgid "B0 (1414 x 1000mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:142
+msgid "B1 (1000 x 707mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:143
+msgid "B2 (707 x 500mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:144
+msgid "B3 (500 x 353mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:145
+msgid "B4 (353 x 250mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:146
+msgid "B5 (250 x 176mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:147
+msgid "B6 (176 x 125mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:148
+msgid "B7 (125 x 88mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:149
+msgid "B8 (88 x 62mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:150
+msgid "B9 (62 x 44mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:151
+msgid "B10 (44 x 31mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:152
+msgid "C0 (1297 x 917mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:153
+msgid "C1 (917 x 648mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:154
+msgid "C2 (648 x 458mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:155
+msgid "C3 (458 x 324mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:156
+msgid "C4 (324 x 229mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:157
+msgid "C5 (229 x 162mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:158
+msgid "C6 (162 x 114mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:159
+msgid "C7 (114 x 81mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:160
+msgid "C8 (81 x 57mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:161
+msgid "C9 (57 x 40mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:162
+msgid "C10 (40 x 28mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:163
+msgid "RA0 (860 x 1220mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:164
+msgid "RA1 (610 x 860mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:165
+msgid "RA2 (430 x 610mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:166
+msgid "RA3 (305 x 430mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:167
+msgid "RA4 (215 x 305mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:168
+msgid "SRA0 (900 x 1280mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:169
+msgid "SRA1 (640 x 900mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:170
+msgid "SRA2 (450 x 640mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:171
+msgid "SRA3 (320 x 450mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:172
+msgid "SRA4 (225 x 320mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:173
+msgid "Letter (216 x 279mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:174
+msgid "Legal (216 x 356mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:175
+msgid "Executive (184 x 267mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:176
+msgid "Folio (210 x 330mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:177
+msgid "Ledger (279 x 432mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:178
+msgid "Tabloid (279 x 432mm)"
+msgstr ""
+
+#: app/helpers/MePdfInvoicesHelper.php:203
+msgid "System Fonts"
+msgstr "Fuentes del sistema"
+
+#: app/views/account/invoice/modern.php:140
+msgid "Invoice NO"
+msgstr "Factura NO"
+
+#: app/views/account/invoice/modern.php:151
+#: app/views/account/invoice/simple.php:40
+msgid "DESCRIPTION"
+msgstr "DESCRIPCIÓN"
+
+#: app/views/account/invoice/modern.php:158
+#: app/views/account/invoice/simple.php:47
+msgid "AMOUNT"
+msgstr "CANTIDAD"
+
+#: app/views/account/invoice/modern.php:191
+#: app/views/account/invoice/simple.php:81
+msgid "SUBTOTAL"
+msgstr "SUBTOTAL"
+
+#: app/views/account/invoice/modern.php:206
+#: app/views/account/invoice/simple.php:96
+msgid "GRAND TOTAL"
+msgstr "TOTAL GENERAL"
+
+#: app/views/account/invoice/simple.php:16
+msgid "INVOICE NO"
+msgstr "FACTURA NO"
+
+#: app/views/admin/options/invoice.php:8 app/views/admin/options/invoice.php:12
+msgid "PDF Invoice Settings"
+msgstr "Configuración de la Factura en PDF"
+
+#: app/views/admin/options/invoice.php:13
+msgid ""
+"Enter more of your business's details and invoice preferences. Used to "
+"generate PDF invoices."
+msgstr ""
+"Introduzca más detalles de su negocio y preferencias de facturación. Se "
+"utiliza para generar facturas en PDF."
+
+#: app/views/admin/options/invoice.php:22
+msgid "Template"
+msgstr "Plantilla"
+
+#: app/views/admin/options/invoice.php:34
+msgid "Paper"
+msgstr "Papel"
+
+#: app/views/admin/options/invoice.php:53
+msgid "Font"
+msgstr "Fuente"
+
+#: app/views/admin/options/invoice.php:57
+msgid "PDF Fonts"
+msgstr "Fuentes PDF"
+
+#: app/views/admin/options/invoice.php:58
+msgid ""
+"System Fonts will use PDF standard fonts (Helvetica, Times and Courier) "
+"depending on your OS."
+msgstr ""
+"Las fuentes del sistema utilizarán fuentes estándar de PDF (Helvetica, Times "
+"y Courier) dependiendo de su sistema operativo."
+
+#: app/views/admin/options/invoice.php:58
+msgid ""
+"DejaVu Sans is a unicode font that supports most Western/European languages."
+msgstr ""
+"DejaVu Sans es una fuente unicode que soporta la mayoría de los idiomas "
+"occidentales/europeos."
+
+#: app/views/admin/options/invoice.php:58
+msgid ""
+"If you want support for other languages like CJK, you can add custom fonts "
+"here."
+msgstr ""
+"Si quieres soporte para otros idiomas como CJK, puedes añadir fuentes "
+"personalizadas aquí."
+
+#: app/views/admin/options/invoice.php:73
+msgid "Phone"
+msgstr "Teléfono"
+
+#: app/views/admin/options/invoice.php:81
+msgid "Email"
+msgstr "Email"
+
+#: app/views/admin/options/invoice.php:89
+msgid "Logo"
+msgstr "Logotipo"
+
+#: app/views/admin/options/invoice.php:97
+msgid "Remove Logo"
+msgstr "Quitar el logotipo"
+
+#: app/views/admin/options/invoice.php:97
+msgid "&times; Remove"
+msgstr "&times; Retire"
+
+#: app/views/admin/options/invoice.php:106
+msgid "Invoice Number"
+msgstr "Número de factura"
+
+#: app/views/admin/options/invoice.php:118
+#: app/views/admin/options/invoice.php:137
+#: app/views/admin/options/invoice.php:155
+#: app/views/admin/options/invoice.php:174
+#: app/views/admin/options/invoice.php:192
+msgid "Insert &uarr;"
+msgstr "Insertar &uarr;"
+
+#: app/views/admin/options/invoice.php:124
+msgid "Business Address Format"
+msgstr "Formato de la dirección de la empresa"
+
+#: app/views/admin/options/invoice.php:143
+msgid "Customer Address Format"
+msgstr "Formato de la dirección del cliente"
+
+#: app/views/admin/options/invoice.php:162
+msgid "Notes"
+msgstr "Notas"
+
+#: app/views/admin/options/invoice.php:180
+msgid "Footnotes"
+msgstr "Notas a pie de página"
+
+#: memberpress-pdf-invoice.php:48
+msgid "MemberPress PDF Invoice"
+msgstr "MemberPress PDF Invoice"
+
+#: memberpress-pdf-invoice.php:49
+msgid "PDF Invoice Integration for MemberPress"
+msgstr "Integración de la factura en PDF para MemberPress"

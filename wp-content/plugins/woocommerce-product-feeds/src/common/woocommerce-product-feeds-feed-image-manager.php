@@ -64,9 +64,10 @@ class WoocommerceProductFeedsFeedImageManager {
 		}
 
 		$excluded_images = $wc_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
-		if ( '' === $excluded_images ) {
+		if ( empty( $excluded_images ) || ! is_array( $excluded_images ) ) {
 			$excluded_images = [];
 		}
+
 		$primary_media_id = $wc_product->get_meta( 'woocommerce_gpf_primary_media_id', true );
 
 		$feed_item          = $this->feed_item_factory->create( 'google', $wc_product, $wc_product, false );
@@ -207,7 +208,7 @@ class WoocommerceProductFeedsFeedImageManager {
 
 		// Retrieve list of excluded IDs for this post
 		$excluded_media_ids = get_post_meta( $product_id, 'woocommerce_gpf_excluded_media_ids', true );
-		if ( empty( $excluded_media_ids ) ) {
+		if ( empty( $excluded_media_ids ) || ! is_array( $excluded_media_ids ) ) {
 			$excluded_media_ids = [];
 		}
 		// Add ID to list & save.
@@ -246,7 +247,7 @@ class WoocommerceProductFeedsFeedImageManager {
 
 		// Retrieve list of excluded IDs for this post
 		$excluded_media_ids = get_post_meta( $product_id, 'woocommerce_gpf_excluded_media_ids', true );
-		if ( empty( $excluded_media_ids ) ) {
+		if ( empty( $excluded_media_ids ) || ! is_array( $excluded_media_ids ) ) {
 			$excluded_media_ids = [];
 		}
 		// Remove ID from the list.
@@ -296,7 +297,7 @@ class WoocommerceProductFeedsFeedImageManager {
 			'woocommerce_gpf_excluded_media_ids',
 			true
 		);
-		if ( empty( $excluded_media_ids ) ) {
+		if ( empty( $excluded_media_ids ) || ! is_array( $excluded_media_ids ) ) {
 			$excluded_media_ids = [];
 		}
 		echo wp_json_encode(

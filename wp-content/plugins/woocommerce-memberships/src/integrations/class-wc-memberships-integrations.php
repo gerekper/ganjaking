@@ -17,13 +17,13 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\LearnDash;
 use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\Sensei;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -335,24 +335,6 @@ class WC_Memberships_Integrations {
 	 */
 	public function is_groups_active() {
 		return wc_memberships()->is_plugin_active( 'groups.php' );
-	}
-
-
-	/**
-	 * Checks if Jilt for WooCommerce is active.
-	 *
-	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
-	 *
-	 * @since 1.14.0
-	 * @deprecated since 1.20.0
-	 *
-	 * @return bool
-	 */
-	public function is_jilt_active() {
-
-		wc_deprecated_function( __METHOD__, '1.20.0', 'wc_memberships()->is_plugin_active( \'jilt-for-woocommerce.php\' )' );
-
-		return wc_memberships()->is_plugin_active( 'jilt-for-woocommerce.php' );
 	}
 
 

@@ -43,8 +43,20 @@ var GWPayPerWord = function(formId, ppwFields) {
         var priceField     = jQuery('#ginput_base_price_' + formId + '_' + ppwField.price_field),
             priceFieldSpan = jQuery('#input_' + formId + '_' + ppwField.price_field);
 
-        var words      = text.match( /\S+/g ),
-            wordCount  = gform.applyFilters( 'gpppw_word_count', words == null ? 0 : words.length, text, gwppw, ppwField, formId );
+        var words = text.match( /\S+/g );
+
+        /**
+         * Filter the calculated word count for the current field on the frontend.
+         *
+         * @param int          wordCount  The calculated word count.
+         * @param string       text       The string of words to be counted.
+         * @param GWPayPerWord gwppw      The current instance of the GWPayPerWord object.
+         * @param object       ppwField   An array of options used to handle the Pay Per Word functionality.
+         * @param int          formId     The current form object.
+         *
+         * @since 1.0.6
+         */
+        var wordCount  = gform.applyFilters( 'gpppw_word_count', words == null ? 0 : words.length, text, gwppw, ppwField, formId );
 
         var price = 0;
         var pricePerWord = parseFloat( ppwField.price_per_word );

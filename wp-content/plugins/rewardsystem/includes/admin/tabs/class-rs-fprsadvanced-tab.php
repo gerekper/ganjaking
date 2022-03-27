@@ -217,7 +217,7 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
 					'type' => 'rs_wrapper_start' ,
 				) ,
 				array(
-					'name' => __( 'My Account Menu Page Show/Hide Settings' , 'rewardsystem' ) ,
+					'name' => __( 'My Rewards Menu Settings' , 'rewardsystem' ) ,
 					'type' => 'title' ,
 					'id'   => '_rs_my_acccount_menu_page_show_hide_settings' ,
 				) ,
@@ -263,7 +263,7 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
 					) ,
 				) ,
 				array(
-					'name'    => __( 'Generate Referral Link' , 'rewardsystem' ) ,
+					'name'    => __( 'Referral Link' , 'rewardsystem' ) ,
 					'id'      => 'rs_show_hide_generate_referral_menu_page' ,
 					'std'     => '1' ,
 					'default' => '1' ,

@@ -300,7 +300,7 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 			}
 
 			$MemRestrict = 'no' ;
-			if ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) ) {
+			if ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) && get_current_user_id() ) {
 				$MemRestrict = check_plan_exists( get_current_user_id() ) ? 'no' : 'yes' ;
 			}
 
@@ -366,7 +366,7 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 			}
 
 			$MemRestrict = 'no' ;
-			if ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) ) {
+			if ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) && get_current_user_id() ) {
 				$MemRestrict = check_plan_exists( get_current_user_id() ) ? 'no' : 'yes' ;
 			}
 
@@ -744,14 +744,16 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 		public static function update_coupon_amount( $BoolVal ) {
 			if ( ! is_user_logged_in() ) {
 				return $BoolVal ;
-			}
-
-			if ( '1' == get_option( 'rs_max_redeem_discount' ) ) {
-				return $BoolVal ;
-			}
+			}			
 
 			$AppliedCoupons = WC()->cart->get_applied_coupons() ;
 			if ( ! srp_check_is_array( $AppliedCoupons ) ) {
+				return $BoolVal ;
+			}
+						
+						$points_data = new RS_Points_Data(get_current_user_id());
+						$available_points = $points_data->total_available_points();
+			if (!$available_points) {
 				return $BoolVal ;
 			}
 			
@@ -775,6 +777,10 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 				if ( ( $Code != $Redeem ) && ( $Code != $AutoRedeem ) ) {
 					continue ;
 				}
+								
+				if ($Code == $Redeem && '1' == get_option( 'rs_max_redeem_discount' ) ) {
+						continue ;
+				}
 
 				if ( ! empty( $MinCartTotal ) && ! empty( $MaxCartTotal ) ) {
 					if ( $CartTotal < $MinCartTotal || $CartTotal > $MaxCartTotal ) {
@@ -796,13 +802,21 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 					}
 				}
 
-				$MaxDiscountAmntForDefault = ! empty( get_option( 'rs_percent_max_redeem_discount' ) ) ? ( get_option( 'rs_percent_max_redeem_discount' ) / 100 ) * $RedeemValue : 0 ;
-				$MaxDiscountAmntForButton  = ! empty( get_option( 'rs_percentage_cart_total_redeem' ) ) ? ( get_option( 'rs_percentage_cart_total_redeem' ) / 100 ) * $RedeemValue : 0 ;
-				$Discount                  = ( 2 == get_option( 'rs_redeem_field_type_option' ) ) ? $MaxDiscountAmntForButton : $MaxDiscountAmntForDefault ;
-				if ( $CouponAmnt <= $Discount ) {
-					continue ;
+				$MaxDiscountAmntForDefault = ! empty( get_option( 'rs_percent_max_redeem_discount' ) ) ? ( get_option( 'rs_percent_max_redeem_discount' ) / 100 ) * $RedeemValue : $RedeemValue; 
+				$MaxDiscountAmntForButton  = ! empty( get_option( 'rs_percentage_cart_total_redeem' ) ) ? ( get_option( 'rs_percentage_cart_total_redeem' ) / 100 ) * $RedeemValue : $RedeemValue ;
+				$MaxDiscountAmntForButton  = !empty($MaxDiscountAmntForDefault) ? $MaxDiscountAmntForDefault:$MaxDiscountAmntForButton;
+				if ($AutoRedeem == $Code) {
+					$Discount                  = !empty(get_option( 'rs_percentage_cart_total_auto_redeem' ) ) ? get_option( 'rs_percentage_cart_total_auto_redeem' ) / 100 * $RedeemValue : $RedeemValue ;
+				} else {
+					$Discount                  = ( 2 == get_option( 'rs_redeem_field_type_option' ) ) ? $MaxDiscountAmntForButton : $MaxDiscountAmntForDefault ;
 				}
-
+								
+					$available_points_on_conversion = redeem_point_conversion($available_points, get_current_user_id(), 'price');
+					$Discount = $Discount > $available_points_on_conversion ? $available_points_on_conversion:$Discount;
+				if (!$Discount || $Discount>$available_points) {
+					continue;
+				}
+								
 				update_post_meta( $CouponId , 'coupon_amount' , $Discount ) ;
 			}
 			return $BoolVal ;
@@ -1403,7 +1417,7 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
 				return ;
 			}
 
-			$MemeberShipRestriction = ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) ) ? ( check_plan_exists( get_current_user_id() ) ? 'yes' : 'no' ) : 'no' ;
+			$MemeberShipRestriction = ( 'yes' == get_option( 'rs_restrict_redeem_when_no_membership_plan' ) && function_exists( 'check_plan_exists' ) ) && get_current_user_id() ? ( check_plan_exists( get_current_user_id() ) ? 'yes' : 'no' ) : 'no' ;
 			if ( 'yes' ==  $MemeberShipRestriction ) {
 				return ;
 			}

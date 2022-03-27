@@ -14,10 +14,14 @@ use WP_Term;
 class Post extends Meta
 	implements SearchableValues {
 
-	/** @var string|array */
+	/**
+	 * @var string|array
+	 */
 	private $post_type = 'any';
 
-	/** @var WP_Term[] */
+	/**
+	 * @var WP_Term[]
+	 */
 	private $terms = [];
 
 	public function __construct( $meta_key, $meta_type, $post_type = false, array $terms = [], $labels = null ) {
@@ -54,7 +58,7 @@ class Post extends Meta
 	}
 
 	/**
-	 * @param string $post_type
+	 * @param string|array $post_type
 	 */
 	private function set_post_type( $post_type ) {
 		if ( $post_type ) {

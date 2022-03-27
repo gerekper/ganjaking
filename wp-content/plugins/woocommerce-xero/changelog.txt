@@ -1,5 +1,11 @@
 *** Xero Integration ***
 
+2022-02-17 - version 1.7.41
+* Fix - Enable translations for Xero.
+* Fix - Typo on Xero settings page. .
+* Tweak - WC 6.2 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-10-20 - version 1.7.40
 * Tweak - WC 5.8 compatibility.
 * Tweak - WP 5.8 compatibility.

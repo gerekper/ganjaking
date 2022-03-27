@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Shipping Per Product v2
  * Plugin URI: https://woocommerce.com/products/per-product-shipping/
  * Description: Per product shipping allows you to define different shipping costs for products, based on customer location. These costs can be added to other shipping methods, or used as a standalone shipping method.
- * Version: 2.3.17
+ * Version: 2.3.18
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.3
- * Tested up to: 5.8
+ * Tested up to: 5.9
  * WC requires at least: 2.6
- * WC tested up to: 5.9
+ * WC tested up to: 6.2
  *
  * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
@@ -44,7 +44,7 @@ function woocommerce_shipping_per_product_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
-	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.3.17' ); // WRCS: DEFINED_VERSION.
+	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.3.18' ); // WRCS: DEFINED_VERSION.
 	define( 'PER_PRODUCT_SHIPPING_FILE', __FILE__ );
 
 	/**
@@ -131,10 +131,10 @@ if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
 		 */
 		public function plugin_action_links( $links ) {
 			$plugin_links = array(
-				'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping&section=per_product' ) . '">' . __( 'Settings', 'woocommerce-shipping-per-product' ) . '</a>',
 				'<a href="https://woocommerce.com/my-account/create-a-ticket/?form=18590">' . __( 'Support', 'woocommerce-shipping-per-product' ) . '</a>',
 				'<a href="https://docs.woocommerce.com/document/per-product-shipping/">' . __( 'Docs', 'woocommerce-shipping-per-product' ) . '</a>',
 			);
+
 			return array_merge( $plugin_links, $links );
 		}
 

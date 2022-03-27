@@ -39,7 +39,7 @@
 	<input type="checkbox" class="new-backups-only" id="backupnow_includefiles" checked="checked">
 	<label id="backupnow_includefiles_label" for="backupnow_includefiles"><?php _e("Include your files in the backup", 'updraftplus'); ?></label>
 	
-	(<a href="<?php echo $updraftplus->get_current_clean_url(); ?>" id="backupnow_includefiles_showmoreoptions">...</a>)<br>
+	(<a href="<?php echo esc_url($updraftplus->get_current_clean_url()); ?>" id="backupnow_includefiles_showmoreoptions">...</a>)<br>
 
 	<div id="backupnow_includefiles_moreoptions" class="updraft-hidden" style="display:none;">
 		<em><?php _e('Your saved settings also affect what is backed up - e.g. files excluded.', 'updraftplus'); ?></em><br>

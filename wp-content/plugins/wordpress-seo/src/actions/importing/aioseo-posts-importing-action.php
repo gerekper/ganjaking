@@ -3,11 +3,16 @@
 namespace Yoast\WP\SEO\Actions\Importing;
 
 use wpdb;
-use Yoast\WP\SEO\Models\Indexable;
-use Yoast\WP\SEO\Repositories\Indexable_Repository;
+use Yoast\WP\SEO\Conditionals\AIOSEO_V4_Importer_Conditional;
 use Yoast\WP\SEO\Helpers\Indexable_To_Postmeta_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Helpers\Sanitization_Helper;
 use Yoast\WP\SEO\Helpers\Wpdb_Helper;
+use Yoast\WP\SEO\Models\Indexable;
+use Yoast\WP\SEO\Repositories\Indexable_Repository;
+use Yoast\WP\SEO\Services\Importing\Aioseo_Replacevar_Handler;
+use Yoast\WP\SEO\Services\Importing\Aioseo_Robots_Provider_Service;
+use Yoast\WP\SEO\Services\Importing\Aioseo_Robots_Transformer_Service;
 
 /**
  * Importing action for AIOSEO post data.
@@ -27,6 +32,75 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	 * The type of the action.
 	 */
 	const TYPE = 'posts';
+
+	/**
+	 * The map of aioseo to yoast meta.
+	 *
+	 * @var array
+	 */
+	protected $aioseo_to_yoast_map = [
+		'title'               => [
+			'yoast_name'       => 'title',
+			'transform_method' => 'simple_import',
+		],
+		'description'         => [
+			'yoast_name'       => 'description',
+			'transform_method' => 'simple_import',
+		],
+		'og_title'            => [
+			'yoast_name'       => 'open_graph_title',
+			'transform_method' => 'simple_import',
+		],
+		'og_description'      => [
+			'yoast_name'       => 'open_graph_description',
+			'transform_method' => 'simple_import',
+		],
+		'twitter_title'       => [
+			'yoast_name'       => 'twitter_title',
+			'transform_method' => 'simple_import',
+		],
+		'twitter_description' => [
+			'yoast_name'       => 'twitter_description',
+			'transform_method' => 'simple_import',
+		],
+		'canonical_url'       => [
+			'yoast_name'       => 'canonical',
+			'transform_method' => 'url_import',
+		],
+		'keyphrases'          => [
+			'yoast_name'       => 'primary_focus_keyword',
+			'transform_method' => 'keyphrase_import',
+		],
+		'robots_noindex'      => [
+			'yoast_name'       => 'is_robots_noindex',
+			'transform_method' => 'post_robots_noindex_import',
+			'robots_import'    => true,
+		],
+		'robots_nofollow'     => [
+			'yoast_name'       => 'is_robots_nofollow',
+			'transform_method' => 'post_general_robots_import',
+			'robots_import'    => true,
+			'robot_type'       => 'nofollow',
+		],
+		'robots_noarchive'    => [
+			'yoast_name'       => 'is_robots_noarchive',
+			'transform_method' => 'post_general_robots_import',
+			'robots_import'    => true,
+			'robot_type'       => 'noarchive',
+		],
+		'robots_nosnippet'    => [
+			'yoast_name'       => 'is_robots_nosnippet',
+			'transform_method' => 'post_general_robots_import',
+			'robots_import'    => true,
+			'robot_type'       => 'nosnippet',
+		],
+		'robots_noimageindex' => [
+			'yoast_name'       => 'is_robots_noimageindex',
+			'transform_method' => 'post_general_robots_import',
+			'robots_import'    => true,
+			'robot_type'       => 'noimageindex',
+		],
+	];
 
 	/**
 	 * Represents the indexables repository.
@@ -50,13 +124,6 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	protected $indexable_to_postmeta;
 
 	/**
-	 * The options helper.
-	 *
-	 * @var Options_Helper
-	 */
-	protected $options;
-
-	/**
 	 * The wpdb helper.
 	 *
 	 * @var Wpdb_Helper
@@ -64,38 +131,33 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	protected $wpdb_helper;
 
 	/**
-	 * The map of aioseo to yoast meta.
+	 * Class constructor.
 	 *
-	 * @var array
-	 */
-	protected $aioseo_to_yoast_map = [
-		'title'               => 'title',
-		'description'         => 'description',
-		'og_title'            => 'open_graph_title',
-		'og_description'      => 'open_graph_description',
-		'twitter_title'       => 'twitter_title',
-		'twitter_description' => 'twitter_description',
-	];
-
-	/**
-	 * Aioseo_Posts_Import_Action constructor.
-	 *
-	 * @param Indexable_Repository         $indexable_repository  The indexables repository.
-	 * @param wpdb                         $wpdb                  The WordPress database instance.
-	 * @param Indexable_To_Postmeta_Helper $indexable_to_postmeta The indexable_to_postmeta helper.
-	 * @param Options_Helper               $options               The options helper.
-	 * @param Wpdb_Helper                  $wpdb_helper           The wpdb_helper helper.
+	 * @param Indexable_Repository              $indexable_repository  The indexables repository.
+	 * @param wpdb                              $wpdb                  The WordPress database instance.
+	 * @param Indexable_To_Postmeta_Helper      $indexable_to_postmeta The indexable_to_postmeta helper.
+	 * @param Options_Helper                    $options               The options helper.
+	 * @param Sanitization_Helper               $sanitization          The sanitization helper.
+	 * @param Wpdb_Helper                       $wpdb_helper           The wpdb_helper helper.
+	 * @param Aioseo_Replacevar_Handler         $replacevar_handler    The replacevar handler.
+	 * @param Aioseo_Robots_Provider_Service    $robots_provider       The robots provider service.
+	 * @param Aioseo_Robots_Transformer_Service $robots_transformer    The robots transfomer service.
 	 */
 	public function __construct(
 		Indexable_Repository $indexable_repository,
 		wpdb $wpdb,
 		Indexable_To_Postmeta_Helper $indexable_to_postmeta,
 		Options_Helper $options,
-		Wpdb_Helper $wpdb_helper ) {
+		Sanitization_Helper $sanitization,
+		Wpdb_Helper $wpdb_helper,
+		Aioseo_Replacevar_Handler $replacevar_handler,
+		Aioseo_Robots_Provider_Service $robots_provider,
+		Aioseo_Robots_Transformer_Service $robots_transformer ) {
+		parent::__construct( $options, $sanitization, $replacevar_handler, $robots_provider, $robots_transformer );
+
 		$this->indexable_repository  = $indexable_repository;
 		$this->wpdb                  = $wpdb;
 		$this->indexable_to_postmeta = $indexable_to_postmeta;
-		$this->options               = $options;
 		$this->wpdb_helper           = $wpdb_helper;
 	}
 
@@ -108,6 +170,26 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 		return $this->wpdb->prefix . 'aioseo_posts';
 	}
 
+	/**
+	 * Determines if the AIOSEO database table exists.
+	 *
+	 * @return bool True if the table is found.
+	 */
+	protected function aioseo_exists() {
+		return $this->wpdb_helper->table_exists( $this->get_table() ) === true;
+	}
+
+	/**
+	 * Returns whether the AISOEO post importing action is enabled.
+	 *
+	 * @return bool True if the AISOEO post importing action is enabled.
+	 */
+	public function is_enabled() {
+		$aioseo_importer_conditional = \YoastSEO()->classes->get( AIOSEO_V4_Importer_Conditional::class );
+
+		return $aioseo_importer_conditional->is_met();
+	}
+
 	// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- Reason: They are already prepared.
 
 	/**
@@ -116,7 +198,7 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	 * @return int The total number of unimported objects.
 	 */
 	public function get_total_unindexed() {
-		if ( ! $this->wpdb_helper->table_exists( $this->get_table() ) ) {
+		if ( ! $this->aioseo_exists() ) {
 			return 0;
 		}
 
@@ -124,7 +206,11 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 		$just_detect          = true;
 		$indexables_to_create = $this->wpdb->get_col( $this->query( $limit, $just_detect ) );
 
-		return \count( $indexables_to_create );
+		$number_of_indexables_to_create = \count( $indexables_to_create );
+		$completed                      = $number_of_indexables_to_create === 0;
+		$this->set_completed( $completed );
+
+		return $number_of_indexables_to_create;
 	}
 
 	/**
@@ -135,31 +221,43 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	 * @return int|false The limited number of unindexed posts. False if the query fails.
 	 */
 	public function get_limited_unindexed_count( $limit ) {
-		if ( ! $this->wpdb_helper->table_exists( $this->get_table() ) ) {
+		if ( ! $this->aioseo_exists() ) {
 			return 0;
 		}
 
 		$just_detect          = true;
 		$indexables_to_create = $this->wpdb->get_col( $this->query( $limit, $just_detect ) );
 
-		return \count( $indexables_to_create );
+		$number_of_indexables_to_create = \count( $indexables_to_create );
+		$completed                      = $number_of_indexables_to_create === 0;
+		$this->set_completed( $completed );
+
+		return $number_of_indexables_to_create;
 	}
 
 	/**
 	 * Imports AIOSEO meta data and creates the respective Yoast indexables and postmeta.
 	 *
-	 * @return void
+	 * @todo: Replace the replace vars with Yoast ones.
+	 *
+	 * @return Indexable[]|false An array of created indexables or false if aioseo data was not found.
 	 */
 	public function index() {
-		if ( ! $this->wpdb_helper->table_exists( $this->get_table() ) ) {
-			return;
+		if ( ! $this->aioseo_exists() ) {
+			return false;
 		}
 
-		$limit             = $this->get_limit();
-		$aioseo_indexables = $this->wpdb->get_results( $this->query( $limit ), ARRAY_A );
+		$limit              = $this->get_limit();
+		$aioseo_indexables  = $this->wpdb->get_results( $this->query( $limit ), ARRAY_A );
+		$created_indexables = [];
+
+		$completed = \count( $aioseo_indexables ) === 0;
+		$this->set_completed( $completed );
 
 		$last_indexed_aioseo_id = 0;
 		foreach ( $aioseo_indexables as $aioseo_indexable ) {
+			$last_indexed_aioseo_id = $aioseo_indexable['id'];
+
 			$indexable = $this->indexable_repository->find_by_id_and_type( $aioseo_indexable['post_id'], 'post' );
 
 			// Let's ensure that the current post id represents something that we want to index (eg. *not* shop_order).
@@ -174,10 +272,14 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 			$this->indexable_to_postmeta->map_to_postmeta( $indexable );
 
 			$last_indexed_aioseo_id = $aioseo_indexable['id'];
+
+			$created_indexables[] = $indexable;
 		}
 
 		$cursor_id = $this->get_cursor_id();
 		$this->set_cursor( $this->options, $cursor_id, $last_indexed_aioseo_id );
+
+		return $created_indexables;
 	}
 
 	// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
@@ -191,14 +293,23 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 	 * @return Indexable The created indexables.
 	 */
 	public function map( $indexable, $aioseo_indexable ) {
-		// Do not overwrite any existing values.
-		foreach ( $this->aioseo_to_yoast_map as $aioseo_key => $yoast_key ) {
-			if ( ! empty( $indexable->{$yoast_key} ) ) {
+		foreach ( $this->aioseo_to_yoast_map as $aioseo_key => $yoast_mapping ) {
+			// For robots import.
+			if ( isset( $yoast_mapping['robots_import'] ) && $yoast_mapping['robots_import'] ) {
+				$yoast_mapping['subtype']                  = $indexable->object_sub_type;
+				$indexable->{$yoast_mapping['yoast_name']} = \call_user_func( [ $this, $yoast_mapping['transform_method'] ], $aioseo_indexable, $yoast_mapping, $aioseo_key );
+
+				continue;
+			}
+
+			// For import of everything else.
+			// Do not overwrite any existing values.
+			if ( ! empty( $indexable->{$yoast_mapping['yoast_name']} ) ) {
 				continue;
 			}
 
 			if ( ! empty( $aioseo_indexable[ $aioseo_key ] ) ) {
-				$indexable->{$yoast_key} = $aioseo_indexable[ $aioseo_key ];
+				$indexable->{$yoast_mapping['yoast_name']} = \call_user_func( [ $this, $yoast_mapping['transform_method'] ], $aioseo_indexable[ $aioseo_key ], $yoast_mapping );
 			}
 		}
 
@@ -240,7 +351,7 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 		if ( ! $just_detect ) {
 			// If we want to import too, we need the actual needed data from AIOSEO indexables.
 			$needed_data = \array_keys( $this->aioseo_to_yoast_map );
-			\array_push( $needed_data, 'id', 'post_id' );
+			\array_push( $needed_data, 'id', 'post_id', 'robots_default' );
 
 			$select_statement = \implode( ', ', $needed_data );
 		}
@@ -269,5 +380,59 @@ class Aioseo_Posts_Importing_Action extends Abstract_Importing_Action {
 			$replacements
 		);
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	}
+
+	/**
+	 * Plucks the keyphrase to be imported from the AIOSEO array of keyphrase meta data.
+	 *
+	 * @param array $meta_data The keyphrase meta data to be imported.
+	 *
+	 * @return string|null The plucked keyphrase.
+	 */
+	public function keyphrase_import( $meta_data ) {
+		$meta_data = \json_decode( $meta_data, true );
+		if ( ! isset( $meta_data['focus']['keyphrase'] ) ) {
+			return null;
+		}
+
+		return $this->sanitization->sanitize_text_field( $meta_data['focus']['keyphrase'] );
+	}
+
+	/**
+	 * Imports the post's noindex setting.
+	 *
+	 * @param bool $aioseo_robots_settings AIOSEO's set of robot settings for the post.
+	 *
+	 * @return bool|null The value of Yoast's noindex setting for the post.
+	 */
+	public function post_robots_noindex_import( $aioseo_robots_settings ) {
+		// If robot settings defer to default settings, we have null in the is_robots_noindex field.
+		if ( isset( $aioseo_robots_settings['robots_default'] ) && $aioseo_robots_settings['robots_default'] ) {
+			return null;
+		}
+
+		return $aioseo_robots_settings['robots_noindex'];
+	}
+
+	/**
+	 * Imports the post's robots setting.
+	 *
+	 * @param bool   $aioseo_robots_settings AIOSEO's set of robot settings for the post.
+	 * @param array  $mapping The mapping of the setting we're working with.
+	 * @param string $aioseo_key The AIOSEO key that contains the robot setting we're working with.
+	 *
+	 * @return bool|null The value of Yoast's noindex setting for the post.
+	 */
+	public function post_general_robots_import( $aioseo_robots_settings, $mapping, $aioseo_key ) {
+		$mapping['type']        = 'postTypes';
+		$mapping['option_name'] = 'aioseo_options_dynamic';
+
+		if ( isset( $aioseo_robots_settings['robots_default'] ) && $aioseo_robots_settings['robots_default'] ) {
+			// Let's first get the subtype's setting value and then transform it taking into consideration whether it defers to global defaults.
+			$subtype_setting = $this->robots_provider->get_subtype_robot_setting( $mapping );
+			return $this->robots_transformer->transform_robot_setting( $mapping['robot_type'], $subtype_setting, $mapping );
+		}
+
+		return $aioseo_robots_settings[ $aioseo_key ];
 	}
 }

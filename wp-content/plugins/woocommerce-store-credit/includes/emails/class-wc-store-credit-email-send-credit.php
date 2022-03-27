@@ -49,8 +49,6 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 			$this->template_html  = 'emails/customer-store-credit.php';
 			$this->template_plain = 'emails/plain/customer-store-credit.php';
 			$this->placeholders   = array(
-				'{site_title}'    => $this->get_blogname(),
-				'{site_address}'  => wp_parse_url( home_url(), PHP_URL_HOST ),
 				'{coupon_code}'   => '',
 				'{coupon_amount}' => '',
 			);
@@ -107,35 +105,6 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 		}
 
 		/**
-		 * Default content to show below main email content.
-		 *
-		 * Fallback for the method `get_default_additional_content` method introduced in WC 3.7.
-		 *
-		 * @since 3.0.0
-		 *
-		 * @return string
-		 */
-		public function get_default_additional_content() {
-			return '';
-		}
-
-		/**
-		 * Return content from the additional_content field.
-		 *
-		 * Fallback for the method `get_additional_content` method introduced in WC 3.7.
-		 *
-		 * @since 3.0.0
-		 *
-		 * @return string
-		 */
-		public function get_additional_content() {
-			$content = $this->get_option( 'additional_content', '' );
-
-			/** This filter is documented in woocommerce/includes/emails/class-wc-email.php */
-			return apply_filters( 'woocommerce_email_additional_content_' . $this->id, $this->format_string( $content ), $this->object );
-		}
-
-		/**
 		 * Triggers the sending of this email.
 		 *
 		 * @since 3.0.0
@@ -170,10 +139,9 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 		/**
 		 * Gets the content arguments.
 		 *
-		 * @param string $type Optional. The content type [html, plain].
-		 *
 		 * @since 3.0.0
 		 *
+		 * @param string $type Optional. The content type [html, plain].
 		 * @return array
 		 */
 		public function get_content_args( $type = 'html' ) {
@@ -225,34 +193,15 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 		public function init_form_fields() {
 			parent::init_form_fields();
 
-			$additional_fields = array();
-
-			// Fallback for the 'additional_content' field introduced in WC 3.7.
-			if ( ! isset( $this->form_fields['additional_content'] ) ) {
-				$placeholder_text = sprintf(
-					/* translators: %s: list of placeholders */
-					__( 'Available placeholders: %s', 'woocommerce-store-credit' ),
-					'<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>'
-				);
-
-				$additional_fields['additional_content'] = array(
-					'title'       => _x( 'Additional content', 'email field label', 'woocommerce-store-credit' ),
-					'description' => _x( 'Text to appear below the main email content.', 'email field desc', 'woocommerce-store-credit' ) . ' ' . $placeholder_text,
-					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce-store-credit' ),
-					'type'        => 'textarea',
-					'default'     => $this->get_default_additional_content(),
+			$additional_fields = array(
+				'button_text' => array(
+					'title'       => __( 'Button text', 'woocommerce-store-credit' ),
+					'type'        => 'text',
 					'desc_tip'    => true,
-				);
-			}
-
-			$additional_fields['button_text'] = array(
-				'title'       => __( 'Button text', 'woocommerce-store-credit' ),
-				'type'        => 'text',
-				'desc_tip'    => true,
-				'description' => _x( 'Text for the email CTA button.', 'email field desc', 'woocommerce-store-credit' ),
-				'placeholder' => $this->get_default_button_text(),
-				'default'     => '',
+					'description' => _x( 'Text for the email CTA button.', 'email field desc', 'woocommerce-store-credit' ),
+					'placeholder' => $this->get_default_button_text(),
+					'default'     => '',
+				),
 			);
 
 			$offset            = count( $this->form_fields ) - 1;

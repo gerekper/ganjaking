@@ -308,7 +308,9 @@ class UpdraftPlus_Backup_History {
 		foreach ($backup_history as $btime => $bdata) {
 			$found_file = false;
 			foreach ($bdata as $key => $values) {
-				if ('db' != $key && !isset($backupable_entities[$key])) continue;
+				// make sure we also handle multiple databases, which has a different array structure compared to other entities (e.g. plugins, themes, etc.)
+				// we don't do strict comparison using identical operator (===) here because we want to catch boolean false or a non-boolean value which evaluates to false, hence we use equal operator (==)
+				if (false == preg_match('/^db[0-9]*$/i', $key) && !isset($backupable_entities[$key])) continue;
 				// Record which set this file is found in
 				if (!is_array($values)) $values = array($values);
 				foreach ($values as $filename) {
@@ -562,6 +564,7 @@ class UpdraftPlus_Backup_History {
 					if (isset($only_add_this_file['label'])) $backup_history[$btime]['label'] = $only_add_this_file['label'];
 					$backup_history[$btime]['native'] = false;
 				} elseif ('db' == $type && !$accepted_foreign) {
+					// we now that multiple databases will add its index number after the 'db' (e.g. 'db1'), however, the $type == 'db' here has nothing to do with our multiple databases addon because this block of code inside the 'if (!isset($backup_nonces_by_filename[$entry]))' will never be executed if multiple databases is found to be in the backup history and that our backup file pattern matches with them, so this is not the place where we should check for our multiple databases backup file, this is instead the place for handling foreign databases (e.g. Backup Buddy and our other competitors). The $type were previously set to 'db' when its file was found to be a foreign database
 					list ($mess, $warn, $err, $info) = $updraftplus->analyse_db_file(false, array(), $updraft_dir.'/'.$entry, true);// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 					if (!empty($info['label'])) {
 						$backup_history[$btime]['label'] = $info['label'];
@@ -614,7 +617,11 @@ class UpdraftPlus_Backup_History {
 				}
 			}
 
-			$backup_history[$btime][$type][$index] = $entry;
+			if (preg_match('/^db[0-9]*$/i', $type)) { // make sure we also handle multiple databases, which has a bit different array structure
+				$backup_history[$btime][$type] = $entry; // $backup_history[$btime][$type] is in string type not array
+			} else {
+				$backup_history[$btime][$type][$index] = $entry;
+			}
 			
 			if (!empty($backup_history[$btime][$type.$itext.'-size']) && $backup_history[$btime][$type.$itext.'-size'] < $file_size) {
 				$backup_history[$btime][$type.$itext.'-size'] = $file_size;
@@ -670,16 +677,24 @@ class UpdraftPlus_Backup_History {
 					$backup_history[$btime]['nonce'] = $nonce;
 				}
 				
-				if (!isset($backup_history[$btime][$type][$index])) {
+				if (!isset($backup_history[$btime][$type]) || (!preg_match('/^db[0-9]*$/i', $type) && !isset($backup_history[$btime][$type][$index]))) {
 					$changes = true;
-					$backup_history[$btime][$type][$index] = $file;
+					if (preg_match('/^db[0-9]*$/i', $type)) {
+						$backup_history[$btime][$type] = $file;
+					} else {
+						$backup_history[$btime][$type][$index] = $file;
+					}
 					$backup_history[$btime]['nonce'] = $nonce;
 					if (!empty($remote_sizes[$file])) $backup_history[$btime][$type.$itext.'-size'] = $remote_sizes[$file];
 				}
 			} else {
 				$changes = true;
 				$backup_history[$btime]['service'] = $services;
-				$backup_history[$btime][$type][$index] = $file;
+				if (preg_match('/^db[0-9]*$/i', $type)) {
+					$backup_history[$btime][$type] = $file;
+				} else {
+					$backup_history[$btime][$type][$index] = $file;
+				}
 				$backup_history[$btime]['nonce'] = $nonce;
 				if (!empty($remote_sizes[$file])) $backup_history[$btime][$type.$itext.'-size'] = $remote_sizes[$file];
 				$backup_history[$btime]['native'] = false;

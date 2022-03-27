@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 1.0-beta-4.10
+
+	- Fixed issue where Date Time Calculator failed to generate timestamps for Read-Only-enabled Date & Time fields.
+
+## 1.0-beta-4.9
+
+	- Fixed issue where notice was generated if field used in formula did not exist.
+
+## 1.0-beta-4.8
+
+	- Fixed a performance issue with GPDTC and large forms with multiple calculations.
+
+## 1.0-beta-4.7
+
+	- Fixed a potential issue where calculations on multiple fields using the same inputs may only trigger on the last field.
+
 ## 1.0-beta-4.6
 
 	- Fixed an issue where conditional logic was evaluated before GPDTC could modify the formula.

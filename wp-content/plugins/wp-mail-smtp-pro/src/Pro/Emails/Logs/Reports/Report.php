@@ -268,7 +268,7 @@ class Report {
 			"SELECT {$select} FROM {$logs_table} as logs {$join} WHERE {$where}",
 			\ARRAY_A
 		);
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:enable
 
 		return $this->stats_totals;
 	}
@@ -298,7 +298,7 @@ class Report {
 			"SELECT {$select} FROM {$logs_table} as logs {$join} WHERE {$where} GROUP BY day",
 			\ARRAY_A
 		);
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:enable
 
 		return $this->stats_by_date;
 	}
@@ -329,7 +329,7 @@ class Report {
 			"SELECT {$select} FROM {$logs_table} as logs {$join} WHERE {$where} GROUP BY subject {$order}",
 			\ARRAY_A
 		);
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:enable
 
 		return $this->stats_by_subject;
 	}

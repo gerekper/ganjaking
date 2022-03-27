@@ -36,6 +36,7 @@ class WC_Pre_Orders_Checkout {
 
 		// add order meta
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'add_order_meta' ) );
+		add_action( 'woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_order_meta_by_order' ) );
 
 		// change status to pre-ordered when payment is completed for a pre-order charged upfront
 		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'update_payment_complete_order_status' ), 10, 2 );
@@ -158,6 +159,19 @@ class WC_Pre_Orders_Checkout {
 		}
 	}
 
+	/**
+	 * Adds order meta needed for pre-order functionality,
+	 * when coming from an order using WooCommerce Blocks.
+	 *
+	 * @param WC_Order $order
+	 */
+	public function add_order_meta_by_order( $order ) {
+
+		if ( is_a( $order, 'WC_Order' ) ) {
+			$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+			$this->add_order_meta( $order_id );
+		}
+	}
 
 	/**
 	 * Add order meta needed for pre-order functionality
@@ -182,8 +196,6 @@ class WC_Pre_Orders_Checkout {
 		// save when the pre-order amount was charged (either upfront or upon release)
 		update_post_meta( $order_id, '_wc_pre_orders_when_charged', get_post_meta( $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
 	}
-
-
 
 	/**
 	 * Update payment complete order status to pre-ordered for orders that are charged upfront. This handles gateways

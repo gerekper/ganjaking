@@ -22,6 +22,7 @@
 		setupSubmitHandler();
 		setupTimePeriod();
 		setupDebug();
+		toggleConditionalLogic();
 
 		jQuery.validator.addMethod( 'numberOrMergeTag', function( value, element ) {
 			return this.optional( element ) || ! isNaN( parseInt( value ) ) || /^{.+}$/.test( value.trim() );
@@ -419,6 +420,7 @@
 					saveLimitRules( obj, data );
 					attachTypeChangeHandler();
 					attachAddRuleGroupButtonHandler();
+					toggleConditionalLogic();
 
 				},
 
@@ -516,6 +518,34 @@
 
 	function isLegacyUI() {
 		return $( 'body' ).hasClass( 'gf-legacy-ui' );
+	}
+
+	/**
+	 * Conditional Logic only supports Field Value rules so we need to handle showing/hiding it depending on if there are
+	 * Field Value rules in the ruleset.
+	 */
+	function toggleConditionalLogic() {
+		var rules = getLimitRuleData();
+		var hasFieldRuleType = false;
+
+		$.each(rules, function(group, ruleGroupRules) {
+			$.each(ruleGroupRules, function(index, rule) {
+				if (rule.rule_type === 'field') {
+					hasFieldRuleType = true;
+				}
+			});
+		});
+
+		if (hasFieldRuleType) {
+			$('#gform-settings-section-additional-options').show();
+		} else {
+			// Disable conditional logic if removing the Field Value
+			$('#feed_condition_conditional_logic')
+				.prop( 'checked', false )
+				.trigger('change');
+
+			$('#gform-settings-section-additional-options').hide();
+		}
 	}
 
 } )( jQuery );

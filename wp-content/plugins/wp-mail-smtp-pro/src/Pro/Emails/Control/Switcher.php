@@ -14,7 +14,7 @@ class Switcher {
 	/**
 	 * @since
 	 *
-	 * @var \WPMailSMTP\Options
+	 * @var Options
 	 */
 	private $options;
 

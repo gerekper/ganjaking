@@ -19,14 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @hooked WC_Emails::email_header() Output the email header
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
-
-$template  = '<p>' . esc_html( 'Congratulation! You have received referral link, Below is the Referral link. ', 'coupon-referral-program' ) . '</p>
-<p>' . esc_html( 'Referred By :- ', 'coupon-referral-program' ) . esc_html( $user_name ) . '</p>';
-$template .= '<style>@media screen and (max-width: 600px) {
-		.mwb_wuc_price_code_wrapper {
-			width: 100% !important;
-			display: block;
-			padding: 15px 10px !important;}}</style>
+?>
+<p><?php esc_html_e( 'Congratulations! You have received referral link, Below is the Referral link. ', 'coupon-referral-program' ); ?></p>
+<p><?php esc_html_e( 'Referred By :- ', 'coupon-referral-program' ) . esc_html( $user_name ); ?></p>
+<?php
+if ( isset( $additional_content ) && '' !== $additional_content ) {
+		echo wp_kses_post( $additional_content );
+} else {
+	?>
+<style>
+@media screen and (max-width: 600px) {
+	.mwb_wuc_price_code_wrapper {
+		width: 100% !important;
+		display: block;
+		padding: 15px 10px !important;
+	}
+}
+</style>
 <table class="mwb_wuc_email_template" style="width: 100%!important; max-width: 600px; text-align: center; font-size: 20px;" role="presentation" border="0" width="600" cellspacing="0" cellpadding="0" align="center">
 	<tbody>
 		<tr>
@@ -35,7 +44,7 @@ $template .= '<style>@media screen and (max-width: 600px) {
 					<tbody>
 						<tr>
 							<td colspan="2">
-								<div style="text-align: center;"><span style="display: inline-block;padding: 5px 15px; border: 1px dashed #6d5050; margin-bottom: 10px; background-color: rgba(241, 225, 225, 0.12); font-weight: bold;">' . $refferal_link . '</span></div>
+								<div style="text-align: center;"><span style="display: inline-block;padding: 5px 15px; border: 1px dashed #6d5050; margin-bottom: 10px; background-color: rgba(241, 225, 225, 0.12); font-weight: bold;"><?php echo esc_html( $refferal_link ); ?></span></div>
 							</td>
 						</tr>
 					</tbody>
@@ -43,11 +52,8 @@ $template .= '<style>@media screen and (max-width: 600px) {
 			</td>
 		</tr>
 	</tbody>
-</table>';
-if ( isset( $additional_content ) && '' !== $additional_content ) {
-	echo $additional_content;
-} else {
-	echo $template;
+</table>
+	<?php
 }
 
 /**

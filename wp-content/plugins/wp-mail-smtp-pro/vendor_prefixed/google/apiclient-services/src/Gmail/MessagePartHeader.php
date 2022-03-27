@@ -19,20 +19,38 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class MessagePartHeader extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $name;
+    /**
+     * @var string
+     */
     public $value;
+    /**
+     * @param string
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
+    /**
+     * @param string
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
+    /**
+     * @return string
+     */
     public function getValue()
     {
         return $this->value;

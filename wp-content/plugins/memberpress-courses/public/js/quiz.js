@@ -17,7 +17,7 @@ var MpcsQuiz = (function ($) {
       else {
         $submit_button = $('#mpcs-quiz-submit').on('click', quiz.submitQuiz);
         $submit_button_bottom = $('#mpcs-quiz-submit-bottom').on('click', quiz.submitQuiz);
-        next_page_url = $submit_button.data('next-page-url');
+        next_page_url = $submit_button.length ? $submit_button.data('next-page-url') : $submit_button_bottom.data('next-page-url');
         quiz.setupAutoSave();
       }
 

@@ -93,6 +93,9 @@
 				timestamp   = datetime.getTime() / 1000,
 				compareDate = getDateFromTimeString( rule.value );
 
+			var utcTzOffset    = datetime.getTimezoneOffset() * 60, // convert to seconds
+				utcTzTimestamp = ( datetime.getTime() / 1000 ) + utcTzOffset; // .getTimezoneOffset() returns a POSITIVE number if behind UTC and negative if ahead.
+
 			/**
 			 * Convert user's local time to UTC.
 			 *
@@ -103,14 +106,11 @@
 			 * @param int    formId  The current form ID.
 			 */
 			if ( gform.applyFilters( 'gpcld_enable_utc_timezone', false, rule, formId ) ) {
-
-				var tzOffset    = datetime.getTimezoneOffset() * 60, // convert to seconds
-					tzTimestamp = ( datetime.getTime() / 1000 ) - tzOffset,
-					tzDatetime  = new Date( tzTimestamp * 1000 );
-
-				timestamp = tzTimestamp;
-
+				timestamp = utcTzTimestamp;
 			}
+
+			// @todo Look into allow the timestamp to be converted back to the user timezone. This will require a PHP filter as the validation will also need to be adjusted.
+			timestamp = utcTzTimestamp + (window.GPConditionalLogicDates.serverTzOffsetHours * 3600);
 
 			ruleValue = ( compareDate.getTime() / 1000 );
 

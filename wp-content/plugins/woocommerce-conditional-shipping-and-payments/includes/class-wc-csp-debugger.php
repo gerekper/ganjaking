@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * CSP Debugger
  *
  * @class    WC_CSP_Debugger
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Debugger {
 
@@ -521,6 +521,11 @@ class WC_CSP_Debugger {
 		if ( 'product' === $level ) {
 			$product    = $message[ 'debug_info' ][ 'product' ];
 			$product_id = $product->get_parent_id() ? absint( $product->get_parent_id() ) : absint( $product->get_id() );
+		}
+
+		if ( ! isset( $message[ 'debug_info' ][ 'description' ] ) ) {
+			$restriction                              = WC_CSP()->restrictions->get_restriction( $message[ 'debug_info' ][ 'restriction_id' ] );
+			$message[ 'debug_info' ][ 'description' ] = $restriction->get_options_description( $message[ 'debug_info' ] );
 		}
 
 		$message_markup = sprintf(

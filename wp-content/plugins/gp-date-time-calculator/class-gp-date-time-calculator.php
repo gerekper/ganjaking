@@ -4,10 +4,6 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Date_Time_Calculator extends GP_Plugin {
 
 	/**
@@ -414,7 +410,11 @@ class GP_Date_Time_Calculator extends GP_Plugin {
 
 			list( $full_match, $tag_field_id ) = $match;
 
-			$tag_field  = GFFormsModel::get_field( $form, $tag_field_id );
+			$tag_field = GFFormsModel::get_field( $form, $tag_field_id );
+			if ( ! $tag_field ) {
+				continue;
+			}
+
 			$input_type = GFFormsModel::get_input_type( $tag_field );
 
 			if ( $input_type == 'time' ) {

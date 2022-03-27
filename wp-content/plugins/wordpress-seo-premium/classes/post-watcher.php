@@ -128,7 +128,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		}
 
 		// If the post URL wasn't public before, or isn't public now, don't even check if we have to redirect.
-		if ( ! $this->check_public_post_status( $post_before->ID ) || ! $this->check_public_post_status( $post->ID ) ) {
+		if ( ! $this->check_public_post_status( $post_before ) || ! $this->check_public_post_status( $post ) ) {
 			return false;
 		}
 
@@ -215,16 +215,23 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	/**
 	 * Checks whether the given post is public or not.
 	 *
-	 * @param int $post_id The current post ID.
+	 * @param int|WP_Post $post Post ID or post object.
 	 *
 	 * @return bool
 	 */
-	private function check_public_post_status( $post_id ) {
+	private function check_public_post_status( $post ) {
 		$public_post_statuses = [
 			'publish',
 			'static',
 			'private',
 		];
+
+		// Need to set $post_id for backward compatibility with the filter, as $post can also be an object now.
+		if ( is_int( $post ) ) {
+			$post_id = $post;
+		} else {
+			$post_id = $post->ID;
+		}
 
 		/**
 		 * Filter: 'Yoast\WP\SEO\public_post_statuses' - Allow changing the statuses that are expected
@@ -239,7 +246,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		 */
 		$public_post_statuses = apply_filters( 'Yoast\WP\SEO\public_post_statuses', $public_post_statuses, $post_id );
 
-		return ( in_array( get_post_status( $post_id ), $public_post_statuses, true ) );
+		return ( in_array( get_post_status( $post ), $public_post_statuses, true ) );
 	}
 
 	/**

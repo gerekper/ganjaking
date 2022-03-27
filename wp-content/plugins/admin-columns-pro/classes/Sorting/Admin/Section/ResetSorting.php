@@ -20,7 +20,7 @@ class ResetSorting extends Section {
 			'title'       => __( 'Sorting Preferences', 'codepress-admin-columns' ),
 			'description' => __( 'Reset the sorting preference for all users.', 'codepress-admin-columns' ),
 			'content'     => $form->render(),
-			'class'       => 'general',
+			'class'       => '-general',
 		] );
 
 		$view->set_template( 'admin/page/settings-section' );

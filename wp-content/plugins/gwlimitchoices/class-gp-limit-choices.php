@@ -6,10 +6,6 @@
 *       add UI option that only appears when "enable limits" is checked
 */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Limit_Choices extends GWPerk {
 
 	protected $min_gravity_perks_version = '2.2.3';
@@ -22,6 +18,12 @@ class GP_Limit_Choices extends GWPerk {
 	public static $allowed_field_types = array( 'radio', 'select', 'checkbox', 'multiselect' );
 	public static $disabled_choices    = array(); // array( ['form_id'] => array( ['field_id'] => array( choice id, choice id ) ) )
 	public static $current_form        = null;
+
+	/**
+	 * @var null | array Current submitted entry to pull selected choices when evaluating conditional logic in some
+	 *   scenarios where the data is not posted.
+	 */
+	public static $current_entry = null;
 
 	private static $instance = null;
 
@@ -56,6 +58,11 @@ class GP_Limit_Choices extends GWPerk {
 		add_filter( 'gform_pre_submission_filter', array( $this, 'add_conditional_logic_support_rules' ) );
 		add_action( 'gform_entry_created', array( $this, 'flush_choice_count_cache_post_entry_creation' ), 10, 2 );
 		add_filter( 'gform_after_submission', array( $this, 'unset_current_form' ), 20 );
+
+		add_action( 'wp_ajax_nopriv_gfppcp_get_order_data', array( $this, 'set_current_form_gfppcp' ), 1 );
+		add_action( 'wp_ajax_gfppcp_get_order_data', array( $this, 'set_current_form_gfppcp' ), 1 );
+
+		add_action( 'gform_post_payment_action', array( $this, 'set_current_form_and_entry_post_payment_action' ), 1 );
 
 		// # Admin
 
@@ -191,6 +198,7 @@ class GP_Limit_Choices extends GWPerk {
 
 		if ( $this->has_disabled_choice( $form ) ) {
 			add_filter( 'gform_field_content', array( $this, 'disable_choice' ), 10, 2 );
+			add_filter( 'gppa_hydrate_input_html', array( $this, 'disable_choice' ), 10, 2 );
 		}
 
 		return $form;
@@ -215,7 +223,7 @@ class GP_Limit_Choices extends GWPerk {
 
 		foreach ( $choices as $choice ) {
 
-			$limit    = rgar( $choice, 'limit' );
+			$limit    = $this->get_choice_limit( $choice, $field->formId, $field->id );
 			$no_limit = rgblank( $limit );
 
 			if ( $no_limit ) {
@@ -361,7 +369,7 @@ class GP_Limit_Choices extends GWPerk {
 			return $is_match;
 		}
 
-		$selected_choices = $this->get_selected_choices( $target_field );
+		$selected_choices = $this->get_selected_choices( $target_field, rgar( self::$current_entry, $target_field->id ) );
 		$choice           = array_pop( $selected_choices );
 
 		// Account for no choice being selected (including drop down placeholder option); only applies when comparing to
@@ -373,7 +381,7 @@ class GP_Limit_Choices extends GWPerk {
 
 		} else {
 
-			$limit     = intval( rgar( $choice, 'limit' ) );
+			$limit     = intval( $this->get_choice_limit( $choice, $target_field->formId, $target_field->id ) );
 			$count     = self::get_choice_count( $choice['value'], $target_field, $target_field['formId'] );
 			$remaining = max( $limit - $count, 0 );
 
@@ -387,6 +395,26 @@ class GP_Limit_Choices extends GWPerk {
 	public function set_current_form( $form ) {
 		self::$current_form = $form;
 		return $form;
+	}
+
+	/**
+	 * Set current form when entry is being created for Gravity Forms PayPal Commerce Platform.
+	 *
+	 * Without this, the remaining count conditional logic in Limit Choices will not be processed and can cause the
+	 * PayPal pop-up to not open.
+	 */
+	public function set_current_form_gfppcp() {
+		$this->set_current_form( GFAPI::get_form( absint( rgpost( 'form_id' ) ) ) );
+	}
+
+	/**
+	 * Set current form for delayed payment feeds like Stripe.
+	 *
+	 * Without this, the remaining count conditional logic in Limit Choices will not be processed.
+	 */
+	public function set_current_form_and_entry_post_payment_action( $entry ) {
+		self::$current_entry = $entry;
+		$this->set_current_form( GFAPI::get_form( $entry['form_id'] ) );
 	}
 
 	public function unset_current_form( $return ) {
@@ -434,7 +462,7 @@ class GP_Limit_Choices extends GWPerk {
 
 			foreach ( $choices as $choice ) {
 
-				$limit = rgar( $choice, 'limit' );
+				$limit = $this->get_choice_limit( $choice, $field->formId, $field->id );
 				if ( rgblank( $limit ) ) {
 					continue;
 				}
@@ -515,6 +543,20 @@ class GP_Limit_Choices extends GWPerk {
 		$validation_result['is_valid'] = $validation_result['is_valid'] && ! $has_validation_error;
 
 		return $validation_result;
+	}
+
+	public function get_choice_limit( $choice, $form_id, $field_id ) {
+		/**
+		 * Filter the choice limit for a given choice.
+		 *
+		 * @since 1.1.2
+		 *
+		 * @param int   $limit    The current choice's limit.
+		 * @param array $choice   The current choice array.
+		 * @param int   $form_id  The current form ID to which the choice belongs.
+		 * @param int   $field_id The current field ID to which the choice belongs.
+		 */
+		return gf_apply_filters( array( 'gplc_choice_limit', $form_id, $field_id ), rgar( $choice, 'limit' ), $choice, $form_id, $field_id );
 	}
 
 	public function disable_choice( $content, $field ) {
@@ -988,7 +1030,7 @@ class GP_Limit_Choices extends GWPerk {
 		$field   = GFFormsModel::get_field( $form, $field_id );
 		$choices = gp_limit_choices()->get_selected_choices( $field, $value );
 		$choice  = reset( $choices );
-		$limit   = rgar( (array) $choice, 'limit' );
+		$limit   = gp_limit_choices()->get_choice_limit( (array) $choice, $field->formId, $field->id );
 
 		if ( ! $choice || ! $limit ) {
 			return __( 'unlimited', 'gp-limit-choices' );

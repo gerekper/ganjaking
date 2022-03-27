@@ -85,8 +85,9 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 		<?php
 		if(RevSliderWooCommerce::woo_exists()){
 			$wc = new WC_Product(0);
-		?>wc_full_price:		'<?php echo wc_price('99') . $wc->get_price_suffix(); ?>',
-		wc_price:			'<?php echo strip_tags(wc_price('99') . $wc->get_price_suffix()); ?>',
+			$wc_price_suffix = str_replace(array("\n", "\r"), '', $wc->get_price_suffix());
+		?>wc_full_price:		'<?php echo wc_price('99') . $wc_price_suffix; ?>',
+		wc_price:			'<?php echo strip_tags(wc_price('99') . $wc_price_suffix); ?>',
 		wc_price_no_cur:	'<?php echo strip_tags(wc_price('99')); ?>',
 		wc_categories:		'shoes, socks',
 		wc_tags:			'comfort, health',

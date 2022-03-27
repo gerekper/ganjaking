@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2020, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Sequential Order Numbers Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.18.0';
+	const VERSION = '1.18.1';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -627,12 +627,12 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 					'id'    => 'sample_order_number',
 					'css'   => 'font-size: 1.3em;',
 					'name'  => $this->format_order_number( $this->get_order_number_start(), $this->get_order_number_prefix(), $this->get_order_number_suffix(), $this->get_order_number_length() ),
-					/* translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a> link tag */
-					'desc'  => sprintf( __( 'See the %1$splugin documentation%2$s for the full set of available patterns.', 'woocommerce-sequential-order-numbers-pro' ), '<a target="_blank" href="https://docs.woocommerce.com/document/sequential-order-numbers/#prefix-suffix">', '</a>' ),
 				];
 
 				$updated_settings[] = [
 					'name'     => __( 'Order Number Format', 'woocommerce-sequential-order-numbers-pro' ),
+					/* translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a> link tag */
+					'desc'  => sprintf( __( 'See the %1$splugin documentation%2$s for the full set of available patterns.', 'woocommerce-sequential-order-numbers-pro' ), '<a target="_blank" href="' . wc_seq_order_number_pro()->get_documentation_url() . '#prefix-suffix">', '</a>' ),
 					'desc_tip' => __( 'Enter prefixes, suffixes, or patterns for order numbers. You can use leading 0s to control order number length.', 'woocommerce-sequential-order-numbers-pro' ),
 					'id'       => 'woocommerce_order_number_format',
 					'type'     => 'order_number_format',
@@ -763,6 +763,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 						       placeholder="<?php esc_attr_e( '{yyyy}', 'woocommerce-sequential-order-numbers-pro' ); ?>">
 						<span class="description"><?php esc_html_e( 'Suffix', 'woocommerce-sequential-order-numbers-pro' ); ?></span>
 					</label>
+					<p class="description"  style="flex-basis: 100%;"><?php echo wp_kses_post( $data['desc'] ); ?></p>
 				</fieldset>
 			</td>
 		</tr>

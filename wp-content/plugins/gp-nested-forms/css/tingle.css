@@ -186,7 +186,7 @@
 /* responsive
 -------------------------------------------------------------- */
 
-@media (max-width : 712px), (any-hover:none) {
+@media (max-width : 712px)/*, (any-hover:none)*/ {
   .tingle-modal {
 	top: 0px;
 	display: block;

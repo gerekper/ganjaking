@@ -343,8 +343,8 @@ if ( ! class_exists( 'RSGeneralTabSetting' ) ) {
 <b>Example:</b><br>
 Selected only "Processing" status in this field so that points will award once the order status reached to processing. The given points will be revised from the account when changed to any other status(ex. Completed/Canceled).' , 'rewardsystem' ) ,
 					'id'       => 'rs_order_status_control' ,
-					'std'      => array( 'completed' ) ,
-					'default'  => array( 'completed' ) ,
+					'std'      => array( 'processing','completed' ) ,
+					'default'  => array( 'processing','completed' ) ,
 					'type'     => 'multiselect' ,
 					'options'  => $newcombinedarray ,
 					'newids'   => 'rs_order_status_control' ,

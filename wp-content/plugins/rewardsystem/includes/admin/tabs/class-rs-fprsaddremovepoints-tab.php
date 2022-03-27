@@ -160,8 +160,8 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
 					'id'      => 'rs_email_message' ,
 					'newids'  => 'rs_email_message' ,
 					'class'   => 'rs_email_message' ,
-					'std'     => '[rs_earned_points] Points have been added to your account.<br><br> Expiry Date : [rs_expiry]<br><br>Available points on the [site_name] are [balance_points]<br><br>' ,
-					'default' => '[rs_earned_points] Points have been added to your account.<br><br> Expiry Date : [rs_expiry]<br><br>Available points on the [site_name] are [balance_points]<br><br>' ,
+					'std'     => 'Hi [username],<br/><br/><b>[rs_earned_points]</b> Points have been added to your account by the site admin.<br/><b>Expiry Date:</b> [rs_expiry]<br/> Total Points available in your account is [balance_points]. Please check the dashboard [my_account_page] to see more details about your reward points.<br/><br/>Thanks' ,
+					'default' => 'Hi [username],<br/><br/><b>[rs_earned_points]</b> Points have been added to your account by the site admin.<br/><b>Expiry Date:</b> [rs_expiry]<br/> Total Points available in your account is [balance_points]. Please check the dashboard [my_account_page] to see more details about your reward points.<br/><br/>Thanks' ,
 				) ,
 				array(
 					'name'    => __( 'Enable to send Email Notification for manually removing points' , 'rewardsystem' ) ,
@@ -200,12 +200,32 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
 					'id'      => 'rs_email_message_for_remove' ,
 					'newids'  => 'rs_email_message_for_remove' ,
 					'class'   => 'rs_email_message_for_remove' ,
-					'std'     => '[rs_deleted_points] Points have been removed from your account. The Available points on the [site_name] are [balance_points]' ,
-					'default' => '[rs_deleted_points] Points have been removed from your account. The Available points on the [site_name] are [balance_points]' ,
+					'std'     => 'Hi [username],<br/></br/><b>[rs_deleted_points]</b> Points have been removed from your account by the site admin.<br/> Total Points available in your account is [balance_points]. Please check the dashboard [my_account_page] to see more details about your reward points.<br/><br/>Thanks' ,
+					'default' => 'Hi [username],<br/></br/><b>[rs_deleted_points]</b> Points have been removed from your account by the site admin.<br/> Total Points available in your account is [balance_points]. Please check the dashboard [my_account_page] to see more details about your reward points.<br/><br/>Thanks' ,
 				) ,
 				array(
 					'type' => 'rs_add_remove_remove_reward_points' ,
 				) ,
+				array( 
+					'type' => 'sectionend' , 
+					'id' => 'rs_add_remove_points_setting' 
+				) ,
+								array(
+					'name' => __( 'Shortcodes used in the Email' , 'rewardsystem' ) ,
+					'type' => 'title' ,
+					'id'   => 'rs_email_shortcodes' ,
+				) ,
+				array(
+					'type' => 'title' ,
+					'desc' =>__('<b>[username]</b> - To display the username<br><br>'
+					. '<b>[rs_earned_points]</b> - To display the added points<br><br>'
+					. '<b>[balance_points]</b> - To display the available balance points<br><br>'
+										. '<b>[site_name]</b> - To display the site name<br><br>'
+										. '<b>[rs_expiry]</b> - To display the expiry date when adding the points<br><br>'
+										. '<b>[rs_deleted_points]</b> - To display the removed points<br><br>'
+					. '<b>[my_account_page]</b> - To display my account page URL<br><br>', 'rewardsystem')
+				) ,
+				array( 'type' => 'sectionend' , 'id' => 'rs_email_shortcodes' ) ,
 				array(
 					'type' => 'rs_modulecheck_end' ,
 				) ,

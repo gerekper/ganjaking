@@ -2,13 +2,13 @@
 /**
  * Plugin Name: WooCommerce Product Finder
  * Description: An advanced search for WooCommerce that helps your customers find your products more easily.
- * Version: 1.2.20
+ * Version: 1.2.21
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.3
  * Tested up to: 5.9
  * WC requires at least: 2.6
- * WC tested up to: 6.1
+ * WC tested up to: 6.2
  * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -31,7 +31,7 @@ function woocommerce_product_finder_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Product_Finder' ) ) :
-	define( 'WC_PRODUCT_FINDER_VERSION', '1.2.20' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCT_FINDER_VERSION', '1.2.21' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main extension class.

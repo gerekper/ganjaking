@@ -1,0 +1,46 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2022 ThemePunch
+*/
+
+#particlewave_svg,
+#particlewavebg_svg {
+    position: absolute;
+    background: url(../../../public/lib/par1.png);
+    background-size: contain;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tp-shapewrapper.tp-particlewave{
+    overflow: hidden;
+}
+
+.form_inside_title {
+    margin-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 25px;
+}
+
+.wpar_longlabel { overflow:visible}
+
+#wavep_particles .miniprevimage_wrap > .material-icons{
+    opacity: 0;
+}
+
+.settingsmenu_wrapbtn.disabled { 
+    background:#35383d;
+    color: rgba(183,187,192,0.4);
+    pointer-events: none;
+
+}
+
+#wpsaddon_bgPosDDM{
+    display: none !important;
+}

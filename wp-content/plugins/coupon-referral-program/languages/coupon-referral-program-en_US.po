@@ -1,21 +1,20 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Coupon Referral Program 1.6.2\n"
-"POT-Creation-Date: 2021-12-10 19:34+0530\n"
-"PO-Revision-Date: 2021-12-10 19:34+0530\n"
+"Project-Id-Version: Coupon Referral Program 1.6.3\n"
+"POT-Creation-Date: 2022-02-02 19:09+0530\n"
+"PO-Revision-Date: 2022-02-02 19:09+0530\n"
 "Last-Translator: \n"
-"Language-Team: MakeWebBetter\n"
+"Language-Team: WP Swings\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: CRP/coupon-referral-program\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n;_x;_ex;_nx;esc_attr__;esc_attr_e;esc_attr_x;"
-"esc_html;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop;"
-"translate_nooped_plural\n"
+"esc_html;esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/class-coupon-referral-program-admin.php:105
@@ -957,7 +956,7 @@ msgstr ""
 msgid "Signup Yourself and Get Discount Coupon of "
 msgstr ""
 
-#: coupon-referral-program.php:299
+#: coupon-referral-program.php:361
 msgid ""
 "WooCommerce is not activated, Please activate WooCommerce first to activate "
 "Coupon Referral Program."
@@ -1098,16 +1097,16 @@ msgstr ""
 #: emails/templates/crp-email-refree-template.php:24
 #: emails/templates/plain/crp-email-refree-template.php:17
 msgid ""
-"Congratulation! You have received discount coupon, Below is your Coupon "
+"Congratulations! You have received discount coupon, Below is your Coupon "
 "Details. "
 msgstr ""
 
-#: emails/templates/crp-email-refree-template.php:61
-#: emails/templates/crp-email-template.php:61
-#: emails/templates/crp-order-email-template.php:62
-#: emails/templates/plain/crp-email-refree-template.php:54
-#: emails/templates/plain/crp-email-template.php:54
-#: emails/templates/plain/crp-order-email-template.php:54
+#: emails/templates/crp-email-refree-template.php:65
+#: emails/templates/crp-email-template.php:65
+#: emails/templates/crp-order-email-template.php:65
+#: emails/templates/plain/crp-email-refree-template.php:57
+#: emails/templates/plain/crp-email-template.php:57
+#: emails/templates/plain/crp-order-email-template.php:58
 msgid "Exp Date:"
 msgstr ""
 
@@ -1116,19 +1115,20 @@ msgstr ""
 msgid "Thanks for creating an account, Below is your Coupon Details. "
 msgstr ""
 
-#: emails/templates/crp-order-email-template.php:25
+#: emails/templates/crp-order-email-template.php:24
 #: emails/templates/plain/crp-order-email-template.php:17
-msgid "Congratulation! You have unlocked a discount."
+msgid "Congratulations! You have unlocked a discount."
 msgstr ""
 
 #: emails/templates/crp-share-via-email-template.php:23
-#: emails/templates/plain/crp-share-via-email-template.php:18
+#: emails/templates/plain/crp-share-via-email-template.php:19
 msgid ""
-"Congratulation! You have received referral link, Below is the Referral link. "
+"Congratulations! You have received referral link, Below is the Referral "
+"link. "
 msgstr ""
 
 #: emails/templates/crp-share-via-email-template.php:24
-#: emails/templates/plain/crp-share-via-email-template.php:19
+#: emails/templates/plain/crp-share-via-email-template.php:20
 msgid "Referred By :- "
 msgstr ""
 

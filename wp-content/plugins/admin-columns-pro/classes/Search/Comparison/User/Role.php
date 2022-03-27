@@ -38,6 +38,8 @@ class Role extends Meta
 			$options[ $key ] = translate_user_role( $role['name'] );
 		}
 
+		asort( $options );
+
 		return AC\Helper\Select\Options::create_from_array( $options );
 	}
 

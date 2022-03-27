@@ -239,7 +239,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	 * Bulk tools
 	 */
 	public static function get_items() {
-		global $wpdb;
+		global $wpdb, $permalink_manager_options;
 
 		// Check if taxonomies are not empty
 		if(empty($_POST['taxonomies'])) { return false; }
@@ -272,16 +272,26 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		}
 
 		// Get excluded items
-		$excluded_terms_ui = $wpdb->get_col("SELECT t.term_id FROM {$wpdb->termmeta} AS tm LEFT JOIN {$wpdb->terms} AS t ON (tm.term_id = t.term_id) WHERE tm.meta_key = 'auto_update_uri' AND tm.meta_value = '-2'");
-		$excluded_terms_hook = (array) apply_filters('permalink_manager_excluded_term_ids', array());
-		$excluded_terms = array_merge($excluded_terms_ui, $excluded_terms_hook);
-
+		$excluded_terms = (array) apply_filters('permalink_manager_excluded_term_ids', array());
 		if(!empty($excluded_terms)) {
 			$where .= sprintf(" AND t.term_id NOT IN ('%s') ", implode("', '", $excluded_terms));
 		}
 
+		// Check the auto-update mode
+		// A. Allow only user-approved posts
+		if(!empty($permalink_manager_options["general"]["auto_update_uris"]) && $permalink_manager_options["general"]["auto_update_uris"] == 2) {
+			$where .= " AND meta_value IN (1, -1) ";
+		}
+		// B. Allow all posts not disabled by the user
+		else {
+			$where .= " AND (meta_value IS NULL OR meta_value IN (1, -1)) ";
+		}
+
 		// Get the rows before they are altered
-		return $wpdb->get_results("SELECT t.slug, t.name, t.term_id, tt.taxonomy FROM {$wpdb->terms} as t INNER JOIN {$wpdb->term_taxonomy} as tt ON tt.term_id = t.term_id WHERE tt.taxonomy IN ('{$taxonomy_names}') {$where}", ARRAY_A);
+		return $wpdb->get_results(
+			"SELECT t.slug, t.name, t.term_id, tt.taxonomy FROM {$wpdb->terms} AS t INNER JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_id = t.term_id LEFT JOIN {$wpdb->termmeta} AS tm ON (tm.term_id = t.term_id AND tm.meta_key = 'auto_update_uri') WHERE tt.taxonomy IN ('{$taxonomy_names}') {$where}",
+			ARRAY_A
+		);
 	}
 
 	/**
@@ -569,10 +579,6 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		// Check if the term is allowed
 		if(empty($this_term->taxonomy) || Permalink_Manager_Helper_Functions::is_term_excluded($this_term)) { return; }
 
-		// Stop the hook (if needed)
-		$allow_update_term = apply_filters("permalink_manager_update_term_uri_{$this_term->taxonomy}", true, $this_term);
-		if(!$allow_update_term) { return; }
-
 		// Get auto-update URI setting (if empty use global setting)
 		if(!empty($_POST["auto_update_uri"])) {
 			$auto_update_uri_current = intval($_POST["auto_update_uri"]);
@@ -586,11 +592,16 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		$default_uri = self::get_default_term_uri($this_term);
 		$old_uri = (isset($permalink_manager_uris[$term_permalink_id])) ? $permalink_manager_uris[$term_permalink_id] : "";
 
-		// A little hack (if user removes whole URI from input) +
-		// The terms added via "Edit Post" page should have default URI
+		// A. Check if the URI is provided in the input field
 		if(!empty($_POST['custom_uri']) && empty($force_default_uri) && empty($_POST['post_ID']) && $auto_update_uri != 1) {
 			$new_uri = Permalink_Manager_Helper_Functions::sanitize_title($_POST['custom_uri']);
-		} else {
+		}
+		// B. Do not overwrite a previously stored URI
+		else if(!isset($_POST['custom_uri']) && !empty($old_uri) && $auto_update_uri != 1) {
+			$new_uri = '';
+		}
+		// C. If the user removes the whole URI or adds a new term through "Edit Post", the default URI should be used.
+		else {
 			$new_uri = $default_uri;
 		}
 
@@ -601,16 +612,24 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			delete_term_meta($term_id, "auto_update_uri");
 		}
 
-		// Save only changed URIs
-		if($new_uri != $old_uri) {
+		// Check if the URI should be updated
+		$allow_update_uri = apply_filters("permalink_manager_update_term_uri_{$this_term->taxonomy}", true, $this_term);
+
+		// A. The update URI process is stopped by the hook above or disabled in "Auto-update" settings
+		if(!$allow_update_uri || (!empty($auto_update_uri) && $auto_update_uri == 2)) {
+			$uri_saved = false;
+		}
+		// B. Save the URI only if $new_uri variable is set
+		else if(is_array($permalink_manager_uris) && !empty($new_uri)) {
 			$permalink_manager_uris[$term_permalink_id] = $new_uri;
+			$uri_saved = update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
+		// C. The $new_uri variable is empty
+		else {
+			$uri_saved = false;
 		}
 
-		do_action('permalink_manager_updated_term_uri', $term_id, $new_uri, $old_uri, $native_uri, $default_uri);
-
-		if(is_array($permalink_manager_uris)) {
-			update_option('permalink-manager-uris', $permalink_manager_uris);
-		}
+		do_action('permalink_manager_updated_term_uri', $term_id, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true, $uri_saved);
 	}
 
 	/**

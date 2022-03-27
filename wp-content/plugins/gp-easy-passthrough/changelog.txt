@@ -1,6 +1,63 @@
 
 # Changelog
 
+## 1.9.11
+
+	- Improved behavior of the Field Map setting to exclude display-only fields such as HTML, Section, etc.
+	- Added a new menu icon to help differentiate Easy Passthrough in the Form Settings panel.
+
+## 1.9.10
+
+	- Fixed issue where fatal error was generated when source entry did not exist.
+	- Fixed notice when fetching parent entry from token to check for edit permission.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.9.9
+
+	- Fixed date field sometimes returning wrong format.
+
+## 1.9.8
+
+	- Added support for duplicating feeds on feed list and also when duplicating a form.
+
+## 1.9.7
+
+	- Fixed issue where trashed entries could still be passed through. (#24)
+	- Updated field map column headers for clarity. Removed field map top-level header for fun.
+	- Added support for checkbox-to-checkbox passthrough.
+	- Added support for using dynamically populated values in place of values passed through using Easy Passthrough if a dynamic value is present. This behavior can be changed using the following PHP filter: [gpeb_prefer_dynamic_population](https://gravitywiz.com/documentation/gpeb_prefer_dynamic_population).
+
+## 1.9.6
+
+	- Added [gpep_disable_same_form_passthrough](https://gravitywiz.com/documentation/gpep_disable_same_form_passthrough/) filter.
+
+## 1.9.5
+
+	- Improved support for passing dates between date fields with different input types.
+
+## 1.9.4
+
+	- Added [gpep_delete_cookie_on_logout](https://gravitywiz.com/documentation/gpep_delete_cookie_on_logout/) to enable deleting GPEP cookie when users logout.
+	- Fixed a potential issue where trashed entries' token can be used.
+	- Updated source form order to use title instead of ID.
+
+## 1.9.3
+
+	- Added [gpep_disable_session_manager](https://gravitywiz.com/documentation/gpep_disable_session_cookies/) filter.
+	- Fixed PHP warning if a source form for an Easy Passthrough feed was deleted.
+
+## 1.9.2
+
+	- Fixed an issue where GPEP wouldn't work when using a redirect confirmation without jQuery migrate.
+
+## 1.9.1
+
+	- Added support for mapping Quiz and Survey fields to fields of their own type.
+
+## 1.9
+
+	- Fixed a potential issue where GPEPT may generate PHP notices.
+
 ## 1.8
 
 	- Added `SameSite` to GPEPT session cookies.

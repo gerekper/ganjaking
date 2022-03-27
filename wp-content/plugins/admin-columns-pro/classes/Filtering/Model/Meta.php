@@ -15,18 +15,14 @@ class Meta extends Model {
 	 */
 	private $serialized;
 
-	/**
-	 * @param AC\Column\Meta $column
-	 */
 	public function __construct( AC\Column\Meta $column, $serialized = null ) {
 		parent::__construct( $column );
 
-		$this->serialized = $serialized;
-
-		if ( null === $this->serialized ) {
-			$this->serialized = $column->is_serialized();
+		if ( null === $serialized ) {
+			$serialized = $column->is_serialized();
 		}
 
+		$this->serialized = (bool) $serialized;
 	}
 
 	/**

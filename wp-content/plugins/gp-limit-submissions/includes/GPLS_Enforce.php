@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPLS_Enforce {
 	private $form_id     = 0;
 	private $rule_groups = array(); // array of GPLS_RuleGroup objects
@@ -25,6 +21,8 @@ class GPLS_Enforce {
 		// enforce limits
 		add_filter( 'gform_pre_render', array( $this, 'pre_render' ), 10, 3 );
 		add_filter( 'gform_validation', array( $this, 'validate' ) );
+		// Gravity Flow validation
+		add_filter( 'gravityflow_validation_user_input', array( $this, 'validate' ) );
 		// notification handling
 		add_action( 'gform_entry_created', array( $this, 'maybe_send_notification' ), 10, 2 );
 		add_filter( 'gform_notification_events', array( $this, 'notification_events' ) );
@@ -73,12 +71,12 @@ class GPLS_Enforce {
 	public function test() {
 
 		// default test result properties
-		$this->test_result                    = new stdClass;
-		$this->test_result->fail              = false;
-		$this->test_result->failed_rule_group = false;
-		$this->test_result->tests             = array();
+		$this->test_result[ $this->form_id ]                    = new stdClass;
+		$this->test_result[ $this->form_id ]->fail              = false;
+		$this->test_result[ $this->form_id ]->failed_rule_group = false;
+		$this->test_result[ $this->form_id ]->tests             = array();
 		/** @var GPLS_RuleGroup $rule_group */
-		foreach ( $this->rule_groups as $rule_group ) {
+		foreach ( $this->rule_groups[ $this->form_id ] as $rule_group ) {
 			foreach ( $rule_group->get_rulesets() as $ruleset ) {
 
 				$test                   = new GPLS_RuleTest;
@@ -91,21 +89,21 @@ class GPLS_Enforce {
 				$test->limit_per_form   = $rule_group->is_limit_per_form();
 				$test->run();
 				// store test results
-				$this->test_result->tests[] = $test;
+				$this->test_result[ $this->form_id ]->tests[] = $test;
 				// store failure
 				if ( $test->failed() ) {
 
-					$this->test_result->fail              = true;
-					$this->test_result->failed_rule_group = $rule_group;
+					$this->test_result[ $this->form_id ]->fail              = true;
+					$this->test_result[ $this->form_id ]->failed_rule_group = $rule_group;
 
-					return $this->test_result;
+					return $this->test_result[ $this->form_id ];
 				}
 			}
 		}
 
-		gp_limit_submissions()->log( sprintf( '%s: %s', __METHOD__, print_r( $this->test_result, true ) ) );
+		gp_limit_submissions()->log( sprintf( '%s: %s', __METHOD__, print_r( $this->test_result[ $this->form_id ], true ) ) );
 
-		return $this->test_result;
+		return $this->test_result[ $this->form_id ];
 	}
 
 	public function set_form_id( $form_id ) {
@@ -113,7 +111,7 @@ class GPLS_Enforce {
 	}
 
 	public function get_test_result() {
-		return $this->test_result;
+		return $this->test_result[ $this->form_id ];
 	}
 
 	public function set_rule_groups( $rule_groups ) {
@@ -126,27 +124,27 @@ class GPLS_Enforce {
 		 * @param array $rule_groups An array of GPLS_RuleGroup objects.
 		 * @param int   $form_id     The current form ID for which rules are being enforced.
 		 */
-		$this->rule_groups = gf_apply_filters( array( 'gpls_rule_groups', $this->form_id ), $rule_groups, $this->form_id );
+		$this->rule_groups[ $this->form_id ] = gf_apply_filters( array( 'gpls_rule_groups', $this->form_id ), $rule_groups, $this->form_id );
 
-		foreach ( $this->rule_groups as &$rule_group ) {
+		foreach ( $this->rule_groups[ $this->form_id ] as &$rule_group ) {
 			$rule_group->populate_applicable_forms( $this->form_id );
 		}
 
 	}
 
 	public function get_rule_groups() {
-		return $this->rule_groups;
+		return $this->rule_groups[ $this->form_id ];
 	}
 
 	public function is_limit_reached( $field_values = array() ) {
 
 		$this->set_rule_groups( GPLS_RuleGroup::load_by_form( $this->form_id, $field_values ) );
-		if ( empty( $this->rule_groups ) ) {
+		if ( empty( $this->rule_groups[ $this->form_id ] ) ) {
 			return false;
 		}
 		// test rules
 		$this->test();
-		if ( $this->test_result->fail == true ) {
+		if ( $this->test_result[ $this->form_id ]->fail == true ) {
 			return true;
 		}
 
@@ -157,21 +155,41 @@ class GPLS_Enforce {
 
 		$submission_info = rgar( GFFormDisplay::$submission, $this->form_id );
 		if ( ! $submission_info || ! rgar( $submission_info, 'is_valid' ) ) {
-			add_filter( 'gform_get_form_filter_' . $this->form_id, array( $this, 'get_limit_message' ), 10, 2 );
+			// Overwriting the form's markup breaks AJAX, use `gform_validation_message` instead
+			$filter_name = ( rgpost( 'gform_ajax' ) ) ? 'gform_validation_message_' : 'gform_get_form_filter_';
+			add_filter( $filter_name . $this->form_id, array( $this, 'get_limit_message' ), 10, 2 );
 		}
 	}
 
 	public function get_limit_message( $form_string = '', $form = null ) {
 
-		$message = $this->test_result->failed_rule_group->get_message();
-		if ( empty( $message ) ) {
-			$message = __( 'The submission limit has been reached for this form.', 'gp-limit-submissions' );
-		}
 		// replace merge tags
 		if ( ! $form ) {
 			$form = GFAPI::get_form( $this->form_id );
 		}
-		$message = GFCommon::replace_variables( $message, $form, false, false, false, false, 'html' );
+
+		$message = $this->test_result[ $form['id'] ]->failed_rule_group->get_message();
+		if ( empty( $message ) ) {
+			$message = __( 'The submission limit has been reached for this form.', 'gp-limit-submissions' );
+		}
+
+		/**
+		 * Filter the message that shows if the submission limit for a form has been reached.
+		 *
+		 * @since 1.0-beta-2.7
+		 *
+		 * @param string $message  The "submission limit has been reached" error message
+		 * @param array  $form     The current GF form array
+		 * @param GPLS_Enforce $gpls_enforce_instance  The GPLS_Enforce instance.
+		 */
+		$message = gf_apply_filters( array( 'gpls_limit_message', $form['id'] ), $message, $form, $this );
+
+		$entry = false;
+		if ( rgpost( 'gform_submit' ) ) {
+			$entry = GFFormsModel::get_current_lead();
+		}
+
+		$message = GFCommon::replace_variables( $message, $form, $entry, false, false, false, 'html' );
 		ob_start();
 		?>
 		<div id="gpls-limit-message-container-<?php echo $this->form_id; ?>" class="gpls-limit-message-container">
@@ -229,7 +247,7 @@ class GPLS_Enforce {
 
 	public function is_limited_by_field_value() {
 
-		$failed_rule_group = $this->test_result->failed_rule_group;
+		$failed_rule_group = $this->test_result[ $this->form_id ]->failed_rule_group;
 		$rulesets          = $failed_rule_group->get_rulesets();
 		if ( empty( $rulesets ) ) {
 			return false;
@@ -248,7 +266,7 @@ class GPLS_Enforce {
 	public function has_render_enforceable_field_value_limit() {
 
 
-		$failed_rule_group = $this->test_result->failed_rule_group;
+		$failed_rule_group = $this->test_result[ $this->form_id ]->failed_rule_group;
 		$rulesets          = $failed_rule_group->get_rulesets();
 		if ( empty( $rulesets ) ) {
 			return false;
@@ -257,7 +275,8 @@ class GPLS_Enforce {
 			foreach ( $ruleset as $rule ) {
 				if ( $rule->get_type() == 'field' ) {
 					$field = GFAPI::get_field( $failed_rule_group->form_id, $rule->get_field() );
-					if ( $field->visibility === 'hidden' || $field->get_input_type() === 'hidden' ) {
+
+					if ( $field && ( $field->visibility === 'hidden' || $field->get_input_type() === 'hidden' ) ) {
 						return true;
 					}
 				}
@@ -270,7 +289,7 @@ class GPLS_Enforce {
 	public function get_limit_field_ids() {
 
 		$field_ids         = array();
-		$failed_rule_group = $this->test_result->failed_rule_group;
+		$failed_rule_group = $this->test_result[ $this->form_id ]->failed_rule_group;
 		foreach ( $failed_rule_group->get_rulesets() as $ruleset ) {
 			foreach ( $ruleset as $rule ) {
 				if ( $rule->get_type() == 'field' ) {
@@ -297,7 +316,7 @@ class GPLS_Enforce {
 		if ( ! empty( $feed_notifications ) ) {
 
 			// get the failed feed id, check if it has any notification events setup
-			$failed_feed_id = $this->test_result->failed_rule_group->get_feed_id();
+			$failed_feed_id = $this->test_result[ $this->form_id ]->failed_rule_group->get_feed_id();
 			if ( array_key_exists( $failed_feed_id, $feed_notifications ) && is_array( $feed_notifications[ $failed_feed_id ] ) ) {
 
 				// found notification events for the failing feed id

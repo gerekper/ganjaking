@@ -1,5 +1,9 @@
 *** WooCommerce Sequential Order Numbers Pro Changelog ***
 
+2022.02.07 - version 1.18.1
+ * Fix - Replace deprecated `is_ajax()` usages with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or higher
+
 2021.07.29 - version 1.18.0
  * Tweak - Optimize plugin's settings layout 
 

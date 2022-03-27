@@ -6,6 +6,26 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.9.7 ( 2022-03-01 ) =
+
+- Fix: Local WebP is not activated on applying config after reset settings
+- Fix: Missing webp file for WP scaled images
+- Fix: Fatal error on PHP 5.6
+- Fix: Compatibility issue with WP Offload Media
+
+= 3.9.6 ( 2022-02-09 ) =
+
+- Enhance: Do not close the Directory Smush modal in case of error
+- Enhance: Tooltips in CDN module
+- Fix: Compatibility issue with PHP 8.1
+- Fix: "Choose Directory" button loading state in case of error
+- Fix: PNG to JPG conversion leaves behind some thumbnails after deleting the image
+- Fix: PNG images that need resizing don't get converted to JPG
+- Fix: Issue creating the WebP test files
+- Fix: Incorrect unique file names during PNG to JPG conversion
+- Fix: Duplicate thumbnails while converting PNG to JPG
+- Fix: Auto refresh API status when updating to Pro version
+
 = 3.9.5 ( 2022-01-25 ) =
 
 - Fix: Translation strings
@@ -146,4 +166,4 @@ Change Log:
 
 
 
-941105-1643108147-au
+941105-1646130833-au

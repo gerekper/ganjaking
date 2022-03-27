@@ -4,7 +4,9 @@ namespace YoastSEO_Vendor\GuzzleHttp\Psr7;
 
 use YoastSEO_Vendor\Psr\Http\Message\StreamInterface;
 /**
- * Decorator used to return only a subset of a stream
+ * Decorator used to return only a subset of a stream.
+ *
+ * @final
  */
 class LimitStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
 {
@@ -59,7 +61,7 @@ class LimitStream implements \YoastSEO_Vendor\Psr\Http\Message\StreamInterface
     public function seek($offset, $whence = \SEEK_SET)
     {
         if ($whence !== \SEEK_SET || $offset < 0) {
-            throw new \RuntimeException(\sprintf('Cannot seek to offset % with whence %s', $offset, $whence));
+            throw new \RuntimeException(\sprintf('Cannot seek to offset %s with whence %s', $offset, $whence));
         }
         $offset += $this->offset;
         if ($this->limit !== -1) {

@@ -34,7 +34,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		// Redirect from old URIs to new URIs  + adjust canonical redirect settings
 		add_action( 'template_redirect', array($this, 'new_uri_redirect_and_404'), 1);
-		add_action( 'wp', array($this, 'adjust_canonical_redirect'), 0, 1);
+		add_action( 'wp', array($this, 'adjust_canonical_redirect'), 1);
 
 		// Case insensitive permalinks
 		if(!empty($permalink_manager_options['general']['case_insensitive_permalinks'])) {
@@ -74,7 +74,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		if(filter_var($request_url, FILTER_VALIDATE_URL)) {
 			// Check if "Deep Detect" is enabled
-			$deep_detect_enabled = apply_filters('permalink_manager_deep_uri_detect', $permalink_manager_options['general']['deep_detect']);
+			$deep_detect_enabled = apply_filters('permalink_manager_deep_uri_detect', true);
 
 			// Sanitize the URL
 			// $request_url = filter_var($request_url, FILTER_SANITIZE_URL);
@@ -499,13 +499,14 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 	 * Display 404 if requested page does not exist in pagination
 	 */
 	function fix_pagination_pages() {
-		global $wp_query, $pm_query;
+		global $wp_query, $wp, $pm_query;
 
 		// 1. Get the queried object
 		$post = get_queried_object();
+		$post = (empty($post) && !empty($wp_query->post)) ? $wp_query->post : $post;
 
 		// 2. Check if post object is defined
-		if((!empty($post->post_type) && !empty($post->post_content)) || (!empty($wp_query->max_num_pages))) {
+		if((!empty($post->post_type) && isset($post->post_content)) || (!empty($wp_query->max_num_pages))) {
 			// 2A. Check if pagination is detected
 			$current_page = (!empty($wp_query->query_vars['page'])) ? $wp_query->query_vars['page'] : 1;
 			$current_page = (empty($wp_query->query_vars['page']) && !empty($wp_query->query_vars['paged'])) ? $wp_query->query_vars['paged'] : $current_page;
@@ -514,7 +515,14 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$post_content = (!empty($post->post_content)) ? $post->post_content : '';
 			$num_pages = (is_home() || is_archive() || is_search()) ? $wp_query->max_num_pages : substr_count(strtolower($post_content), '<!--nextpage-->') + 1;
 
-			$is_404 = ($current_page > 1 && ($current_page > $num_pages)) ? true : false;
+			// 2C. Remove 'do_not_redirect' parameter if the first page of content is requested to force canonical redirect
+			if(!empty($pm_query['id']) && is_numeric($pm_query['id']) && !empty($wp->query_vars['do_not_redirect']) && empty($pm_query['endpoint']) && $pm_query['endpoint_value'] == 1) {
+				$is_404 = true;
+				$wp->query_vars['do_not_redirect'] = 0;
+				set_query_var('p', $pm_query['id']);
+			} else {
+				$is_404 = ($current_page > 1 && ($current_page > $num_pages)) ? true : false;
+			}
 		}
 		// 3. Force 404 if no posts are loaded
 		else if(!empty($wp_query->query['paged']) && $wp_query->post_count == 0) {
@@ -776,7 +784,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			if(($home_url_has_www !== $requested_url_has_www) || ($home_url_has_ssl !== $requested_url_has_ssl)) {
 				$new_uri = ltrim($old_uri, '/');
 				$correct_permalink = sprintf("%s/%s", $home_url, $new_uri);
-				
+
 				$redirect_type = 'www_redirect';
 			}
 		}

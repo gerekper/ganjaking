@@ -20,7 +20,7 @@ class Migration extends MigrationAbstract {
 	 *
 	 * @since 1.5.0
 	 */
-	const DB_VERSION = 8;
+	const DB_VERSION = 9;
 
 	/**
 	 * Option key where we save the current DB version for Logs functionality.
@@ -87,7 +87,7 @@ class Migration extends MigrationAbstract {
 		ENGINE='InnoDB'
 		{$collate};";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		if ( ! empty( $wpdb->last_error ) ) {
 			update_option( self::ERROR_OPTION_NAME, $wpdb->last_error, false );
@@ -116,7 +116,7 @@ class Migration extends MigrationAbstract {
 
 		$sql = "ALTER TABLE `$table` CHANGE COLUMN `date_sent` `date_sent` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `status`;";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Save the current version to DB.
 		if ( $result !== false ) {
@@ -139,7 +139,7 @@ class Migration extends MigrationAbstract {
 
 		$sql = "ALTER TABLE `$table` ENGINE=InnoDB;";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Save the current version to DB.
 		if ( $result !== false ) {
@@ -175,7 +175,7 @@ class Migration extends MigrationAbstract {
 		$is_subject_varchar = false;
 
 		// Check if subject column type is already set to varchar(255).
-		$table_info = $wpdb->get_results( "DESCRIBE `$table`;", ARRAY_A ); // phpcs:ignore
+		$table_info = $wpdb->get_results( "DESCRIBE `$table`;", ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		foreach ( $table_info as $row ) {
 			if (
@@ -230,7 +230,7 @@ class Migration extends MigrationAbstract {
 
 		$sql = "ALTER TABLE `$table` ADD `error_text` TEXT NULL AFTER `headers`;";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Save the current version to DB.
 		if ( $result !== false ) {
@@ -253,7 +253,7 @@ class Migration extends MigrationAbstract {
 
 		$sql = "ALTER TABLE `$table` ADD `initiator_name` VARCHAR(255) NULL AFTER `attachments`, ADD `initiator_file` TEXT NULL;";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Save the current version to DB.
 		if ( $result !== false ) {
@@ -291,5 +291,28 @@ class Migration extends MigrationAbstract {
 
 		// Save the current version to DB.
 		$this->update_db_ver( 8 );
+	}
+
+	/**
+	 * Add the `message_id` column to the DB table.
+	 *
+	 * @since 3.3.0
+	 */
+	protected function migrate_to_9() {
+
+		$this->maybe_required_older_migrations( 9 );
+
+		global $wpdb;
+
+		$table = Logs::get_table_name();
+
+		$sql = "ALTER TABLE `$table` ADD `message_id` VARCHAR(255) NULL AFTER `id`;";
+
+		$result = $wpdb->query( $sql ); // phpcs:ignore
+
+		// Save the current version to DB.
+		if ( $result !== false ) {
+			$this->update_db_ver( 9 );
+		}
 	}
 }

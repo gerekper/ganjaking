@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.13.1
+ * @version  6.14.0
  */
 class WC_PB_Compatibility {
 
@@ -109,7 +109,7 @@ class WC_PB_Compatibility {
 		// Load modules.
 		add_action( 'plugins_loaded', array( $this, 'module_includes' ), 100 );
 
-		// Prevent initialization of deprecated mini-extensions.
+		// Prevent initialization of deprecated mini-extensions and modules.
 		$this->unload_modules();
 	}
 
@@ -123,7 +123,7 @@ class WC_PB_Compatibility {
 	}
 
 	/**
-	 * Prevent deprecated mini-extensions from initializing.
+	 * Prevent deprecated mini-extensions and modules from initializing.
 	 *
 	 * @since  5.0.0
 	 *
@@ -145,6 +145,9 @@ class WC_PB_Compatibility {
 		if ( class_exists( 'WC_PB_Min_Max_Items' ) ) {
 			remove_action( 'plugins_loaded', array( 'WC_PB_Min_Max_Items', 'load_plugin' ), 10 );
 		}
+
+		// Product Bundles integration code is no longer loaded in Composite Products.
+		add_filter( 'woocommerce_composites_compatibility_modules', array( $this, 'unload_cp_module' ), 10 );
 	}
 
 	/**
@@ -295,6 +298,19 @@ class WC_PB_Compatibility {
 		foreach ( $module_paths as $name => $path ) {
 			require_once( $path );
 		}
+	}
+
+	/**
+	 * Unlock CP integration module, if it exists.
+	 *
+	 * @since  6.14.0
+	 * @return bool
+	 */
+	public function unload_cp_module( $modules ) {
+		if ( isset( $modules[ 'product_bundles' ] ) ) {
+			unset( $modules[ 'product_bundles' ] );
+		}
+		return $modules;
 	}
 
 	/**

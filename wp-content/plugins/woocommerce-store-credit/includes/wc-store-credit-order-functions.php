@@ -492,8 +492,12 @@ function wc_store_credit_create_coupon_from_order_item( $order_item ) {
 	}
 
 	$order    = $order_item->get_order();
-	$amount   = ( ! empty( $data['amount'] ) ? $data['amount'] : $product->get_regular_price() );
+	$amount   = $order_item->get_meta( '_store_credit_custom_amount' );
 	$receiver = $order_item->get_meta( '_store_credit_receiver' );
+
+	if ( ! $amount ) {
+		$amount = ( ! empty( $data['amount'] ) ? $data['amount'] : $product->get_regular_price() );
+	}
 
 	if ( ! $receiver ) {
 		$receiver = array();

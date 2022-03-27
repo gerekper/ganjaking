@@ -36,6 +36,7 @@ class WC_Product_Addons_Admin {
 
 		add_action( 'wp_ajax_wc_pao_get_addon_options', array( $this, 'ajax_get_addon_options' ) );
 		add_action( 'wp_ajax_wc_pao_get_addon_field', array( $this, 'ajax_get_addon_field' ) );
+		add_action( 'admin_init', array( $this, 'add_settings' ) );
 	}
 
 	/**
@@ -62,6 +63,26 @@ class WC_Product_Addons_Admin {
 				'capability' => 'manage_woocommerce',
 			)
 		);
+	}
+
+	/**
+	 * Configure Settings
+	 */
+	public function add_settings() {
+		register_setting( 'product_addons_options', 'product_addons_options' );
+		add_settings_section( 'show_incomplete_subtotal', 'Settings', 0, 'show_incomplete_subtotal' );
+		add_settings_field( 'show_incomplete_subtotal_option', __( 'Show Incomplete subtotal', 'woocommerce-product-addons' ), array( $this, 'show_incomplete_subtotal_option' ), 'show_incomplete_subtotal', 'show_incomplete_subtotal' );
+	}
+
+	/**
+	 * Add checkbox to settings section
+	 */
+	public function show_incomplete_subtotal_option() {
+		$show_incomplete_subtotal = isset( get_option( 'product_addons_options' )['show-incomplete-subtotal'] ) ? get_option( 'product_addons_options' )['show-incomplete-subtotal'] : '';
+		$html                     = '<input type="checkbox" id="show-incomplete-subtotal" name="product_addons_options[show-incomplete-subtotal]" value="1"' . checked( 1, $show_incomplete_subtotal, false ) . '/>';
+		$html                    .= '<label for="show-incomplete-subtotal-label">' . esc_html( __( 'Show running subtotal, even if not all required add-on choices have been made.', 'woocommerce-product-addons' ) ) . '</label>';
+
+		echo $html;
 	}
 
 	/**

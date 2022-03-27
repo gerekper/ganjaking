@@ -11,23 +11,23 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Singleton pattern.
  */
-if ( ! class_exists( 'WC_Store_Credit_Singleton' ) ) {
-	require_once dirname( WC_STORE_CREDIT_FILE ) . '/includes/abstracts/abstract-wc-store-credit-singleton.php';
+if ( ! trait_exists( 'WC_Store_Credit_Singleton_Trait' ) ) {
+	require_once dirname( WC_STORE_CREDIT_FILE ) . '/includes/traits/trait-wc-store-credit-singleton.php';
 }
 
 /**
  * WooCommerce Store Credit Class.
- *
- * @class WC_Store_Credit
  */
-final class WC_Store_Credit extends WC_Store_Credit_Singleton {
+final class WC_Store_Credit {
+
+	use WC_Store_Credit_Singleton_Trait;
 
 	/**
 	 * The plugin version.
 	 *
 	 * @var string
 	 */
-	public $version = '3.9.4';
+	public $version = '4.0.0';
 
 	/**
 	 * Constructor.
@@ -35,8 +35,6 @@ final class WC_Store_Credit extends WC_Store_Credit_Singleton {
 	 * @since 3.0.0
 	 */
 	protected function __construct() {
-		parent::__construct();
-
 		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
@@ -52,11 +50,6 @@ final class WC_Store_Credit extends WC_Store_Credit_Singleton {
 		$this->define( 'WC_STORE_CREDIT_PATH', plugin_dir_path( WC_STORE_CREDIT_FILE ) );
 		$this->define( 'WC_STORE_CREDIT_URL', plugin_dir_url( WC_STORE_CREDIT_FILE ) );
 		$this->define( 'WC_STORE_CREDIT_BASENAME', plugin_basename( WC_STORE_CREDIT_FILE ) );
-
-		// Backward compatibility.
-		$this->define( 'WC_STORE_CREDIT_PLUS_VERSION', $this->version );
-		$this->define( 'WC_STORE_CREDIT_PLUGIN_DIR', untrailingslashit( WC_STORE_CREDIT_PATH ) );
-		$this->define( 'WC_STORE_CREDIT_PLUGIN_URL', untrailingslashit( WC_STORE_CREDIT_URL ) );
 	}
 
 	/**

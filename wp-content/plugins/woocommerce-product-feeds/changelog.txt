@@ -1,5 +1,16 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.02.22 - version 10.5.3
+* New: Support unit pricing fields from Germanized for WooCommerce
+* Change: Protect against invalid metadata breaking image management
+* Fix: Correctly populate table names in status report
+
+2022.02.08 - version 10.5.2
+* New: Support for product weight with & without units as pre-population options
+* New: Include overview of database in status report for improved debugging
+* Change: Internal changes to taxonomy freshness checking
+* Change: Responsiveness improvements to taxonomy autocomplete performance
+
 2022.01.29 - version 10.5.1
 * Fix: Resolve issue where taxonomy cache table could grow beyond expected size and cause performance issues
 

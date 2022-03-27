@@ -285,7 +285,7 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
         $terms_object['orderby'] = 'include';
     }
 
-    $taxonomy_objects = get_terms($terms_object);
+    $taxonomy_objects = get_terms(apply_filters('betterdocs_kb_terms_object', $terms_object));
 
     if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
         $class = ['betterdocs-categories-wrap betterdocs-tab-grid ash-bg'];
@@ -432,6 +432,7 @@ function betterdocs_popular_articles($atts, $content = null)
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
         );
+        $args = apply_filters('betterdocs_articles_args', $args);
         $post_query = new WP_Query($args);
         if ($post_query->have_posts()) :
             echo '<ul>';
@@ -500,7 +501,7 @@ function betterdocs_multiple_kb($atts, $content = null)
 		$terms_object['orderby'] = 'include';
 	}
 
-	$taxonomy_objects = get_terms($terms_object);
+	$taxonomy_objects = get_terms(apply_filters('betterdocs_kb_terms_object', $terms_object));
 	
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box layout-2 ash-bg'];
@@ -598,7 +599,7 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 		$terms_object['orderby'] = 'include';
 	}
 
-	$taxonomy_objects = get_terms($terms_object);
+    $taxonomy_objects = get_terms(apply_filters('betterdocs_kb_terms_object', $terms_object));
 
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 ash-bg layout-flex'];
@@ -684,7 +685,7 @@ function betterdocs_multiple_kb_list($atts, $content = null)
         $terms_object['orderby'] = 'include';
     }
 
-    $taxonomy_objects = get_terms($terms_object);
+    $taxonomy_objects = get_terms(apply_filters('betterdocs_kb_terms_object', $terms_object));
 
     if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
         $class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 layout-flex betterdocs-list-view ash-bg'];

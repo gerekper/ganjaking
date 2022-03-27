@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.12.0
+ * @version  1.12.1
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -705,7 +705,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	 * @return bool
 	 */
 	protected function show_excluded_notices( $restriction_data ) {
-		return $this->show_excluded( $restriction_data ) && ! empty( $restriction_data[ 'show_excluded_notices' ] ) && 'yes' === $restriction_data[ 'show_excluded_notices' ];
+		return $this->show_excluded( $restriction_data ) && ! empty( $restriction_data[ 'show_excluded_notices' ] ) && 'yes' === $restriction_data[ 'show_excluded_notices' ] && ! is_cart();
 	}
 
 	/**

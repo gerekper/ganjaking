@@ -19,13 +19,22 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class Draft extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $id;
     protected $messageType = \WPMailSMTP\Vendor\Google\Service\Gmail\Message::class;
     protected $messageDataType = '';
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

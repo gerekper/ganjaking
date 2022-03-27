@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  3.2.0
+ * @version  3.2.1
  */
 class WCS_ATT_Admin {
 
@@ -344,7 +344,7 @@ class WCS_ATT_Admin {
 	public static function save_cart_level_settings() {
 
 		if ( isset( $_POST[ 'wcsatt_schemes' ] ) ) {
-			$posted_schemes = $_POST[ 'wcsatt_schemes' ];
+			$posted_schemes = wc_clean( $_POST[ 'wcsatt_schemes' ] );
 		} else {
 			$posted_schemes = array();
 		}

@@ -4,7 +4,7 @@ namespace ACP\ThirdParty\Polylang;
 
 use AC;
 use AC\Registrable;
-use ACP\ListScreen\Post;
+use ACP\ListScreen;
 use ACP\ThirdParty\Polylang;
 
 class Addon implements Registrable {
@@ -41,7 +41,7 @@ class Addon implements Registrable {
 	}
 
 	public function add_columns( AC\ListScreen $list_screen ) {
-		if ( $this->is_active() && $list_screen instanceof Post ) {
+		if ( $this->is_active() && ( $list_screen instanceof ListScreen\Post || $list_screen instanceof ListScreen\Taxonomy || $list_screen instanceof ListScreen\Media ) ) {
 			$list_screen->register_column_type( new Polylang\Column\Language() );
 		}
 	}

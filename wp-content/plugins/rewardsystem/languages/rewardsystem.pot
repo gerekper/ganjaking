@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rewardsystem\n"
-"POT-Creation-Date: 2021-11-10 17:05+0530\n"
+"POT-Creation-Date: 2022-02-26 17:29+0530\n"
 "PO-Revision-Date: 2018-05-11 17:48+0530\n"
 "Last-Translator: Arulprakasam <arulprakasam.t@asenton.com>\n"
 "Language-Team: Fantastic Plugins <contact@fantasticplugins.com>\n"
@@ -10,9 +10,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;__(;_e;_x;esc_html__;esc_html_e;esc_attr_x;"
 "esc_attr__;esc_html_x\n"
 "X-Poedit-SearchPath-0: includes\n"
@@ -49,24 +49,24 @@ msgstr ""
 #: includes/admin/class-fp-srp-admin-ajax.php:519
 #: includes/admin/class-fp-srp-admin-ajax.php:536
 #: includes/admin/class-fp-srp-admin-ajax.php:553
-#: includes/admin/class-fp-srp-admin-ajax.php:733
-#: includes/admin/class-fp-srp-admin-ajax.php:815
-#: includes/admin/class-fp-srp-admin-ajax.php:837
-#: includes/admin/class-fp-srp-admin-ajax.php:890
-#: includes/admin/class-fp-srp-admin-ajax.php:894
-#: includes/admin/class-fp-srp-admin-ajax.php:1054
-#: includes/admin/class-fp-srp-admin-ajax.php:1072
-#: includes/admin/class-fp-srp-admin-ajax.php:1095
-#: includes/admin/class-fp-srp-admin-ajax.php:1111
-#: includes/admin/class-fp-srp-admin-ajax.php:1173
-#: includes/admin/class-fp-srp-admin-ajax.php:1196
-#: includes/admin/class-fp-srp-admin-ajax.php:1214
-#: includes/admin/class-fp-srp-admin-ajax.php:1254
-#: includes/admin/class-fp-srp-admin-ajax.php:1283
-#: includes/admin/class-fp-srp-admin-ajax.php:1309
-#: includes/admin/class-fp-srp-admin-ajax.php:1335
-#: includes/admin/class-fp-srp-admin-ajax.php:1361
-#: includes/admin/class-fp-srp-admin-ajax.php:1387
+#: includes/admin/class-fp-srp-admin-ajax.php:800
+#: includes/admin/class-fp-srp-admin-ajax.php:882
+#: includes/admin/class-fp-srp-admin-ajax.php:904
+#: includes/admin/class-fp-srp-admin-ajax.php:957
+#: includes/admin/class-fp-srp-admin-ajax.php:961
+#: includes/admin/class-fp-srp-admin-ajax.php:1121
+#: includes/admin/class-fp-srp-admin-ajax.php:1139
+#: includes/admin/class-fp-srp-admin-ajax.php:1162
+#: includes/admin/class-fp-srp-admin-ajax.php:1178
+#: includes/admin/class-fp-srp-admin-ajax.php:1240
+#: includes/admin/class-fp-srp-admin-ajax.php:1263
+#: includes/admin/class-fp-srp-admin-ajax.php:1281
+#: includes/admin/class-fp-srp-admin-ajax.php:1321
+#: includes/admin/class-fp-srp-admin-ajax.php:1350
+#: includes/admin/class-fp-srp-admin-ajax.php:1376
+#: includes/admin/class-fp-srp-admin-ajax.php:1402
+#: includes/admin/class-fp-srp-admin-ajax.php:1428
+#: includes/admin/class-fp-srp-admin-ajax.php:1454
 #: includes/frontend/class-fp-rewardsystem-frontend-ajax.php:239
 #: includes/frontend/class-fp-rewardsystem-frontend-ajax.php:297
 #: includes/frontend/class-fp-rewardsystem-frontend-ajax.php:352
@@ -218,6 +218,15 @@ msgstr ""
 msgid " % Completed"
 msgstr ""
 
+#: backgroundprocess/inc/rs-add-points.php:104
+msgid "All Time Usage"
+msgstr ""
+
+#: backgroundprocess/inc/rs-add-points.php:110
+#: backgroundprocess/inc/rs-remove-points.php:110
+msgid "My Account"
+msgstr ""
+
 #: backgroundprocess/rs-main-file-for-background-process.php:1306
 #, php-format
 msgid ""
@@ -241,91 +250,101 @@ msgstr ""
 msgid "Upgrade to v%1$s has failed. Please contact our %2$s"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:268
+#: includes/admin/class-admin-enqueues.php:272
 msgid "Are you sure want to Reset?"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:342
+#: includes/admin/class-admin-enqueues.php:347
+#: includes/frontend/class-frontend-enqueues.php:120
 msgid "No matches found"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:343
+#: includes/admin/class-admin-enqueues.php:348
+#: includes/frontend/class-frontend-enqueues.php:121
 msgid "Loading failed"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:344
+#: includes/admin/class-admin-enqueues.php:349
+#: includes/frontend/class-frontend-enqueues.php:122
 msgid "Please enter 1 or more characters"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:345
+#: includes/admin/class-admin-enqueues.php:350
+#: includes/frontend/class-frontend-enqueues.php:123
 msgid "Please enter %qty% or more characters"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:346
+#: includes/admin/class-admin-enqueues.php:351
+#: includes/frontend/class-frontend-enqueues.php:124
 msgid "Please delete 1 character"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:347
+#: includes/admin/class-admin-enqueues.php:352
+#: includes/frontend/class-frontend-enqueues.php:125
 msgid "Please delete %qty% characters"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:348
+#: includes/admin/class-admin-enqueues.php:353
+#: includes/frontend/class-frontend-enqueues.php:126
 msgid "You can only select 1 item"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:349
+#: includes/admin/class-admin-enqueues.php:354
+#: includes/frontend/class-frontend-enqueues.php:127
 msgid "You can only select %qty% items"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:350
+#: includes/admin/class-admin-enqueues.php:355
+#: includes/frontend/class-frontend-enqueues.php:128
 msgid "Loading more results&hellip;"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:351
+#: includes/admin/class-admin-enqueues.php:356
+#: includes/frontend/class-frontend-enqueues.php:129
 msgid "Searching&hellip;"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:391
+#: includes/admin/class-admin-enqueues.php:396
 msgid "Please Enter Points"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:392
+#: includes/admin/class-admin-enqueues.php:397
 msgid "Please Enter Reason"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:393
+#: includes/admin/class-admin-enqueues.php:398
 msgid "Please enter the valid expiry date"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:423
+#: includes/admin/class-admin-enqueues.php:428
 msgid ""
 "As of now, this user is not involved in the reward program. Hence, you "
 "cannot add points to this user account."
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:424
+#: includes/admin/class-admin-enqueues.php:429
 msgid ""
 "As of now, this user is not involved in the reward program. Hence, you "
 "cannot remove points from this user account."
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:572
+#: includes/admin/class-admin-enqueues.php:577
 msgid "Prefix value Should not be Empty"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:573
+#: includes/admin/class-admin-enqueues.php:578
 msgid "Suffix value Should not be Empty"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:574
+#: includes/admin/class-admin-enqueues.php:579
 msgid "Number of Characters for Voucher Code Should not be Empty"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:575
+#: includes/admin/class-admin-enqueues.php:580
 msgid "Reward Points Value per Voucher Code Generated Should not be Empty"
 msgstr ""
 
-#: includes/admin/class-admin-enqueues.php:576
+#: includes/admin/class-admin-enqueues.php:581
 msgid "Number of Voucher Codes to be Generated Should not be Empty"
 msgstr ""
 
@@ -343,15 +362,15 @@ msgstr ""
 msgid "Referrer Name"
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:919
+#: includes/admin/class-fp-srp-admin-ajax.php:986
 msgid "Invalid User"
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:1158
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1277
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1313
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1349
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1436
+#: includes/admin/class-fp-srp-admin-ajax.php:1225
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1278
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1314
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1350
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1437
 #: includes/admin/views/add-coupon-usage-reward-rule.php:31
 #: includes/admin/views/add-redeeming-percentage-rule.php:35
 #: includes/admin/views/add-redeeming-percentage-rule.php:70
@@ -362,23 +381,23 @@ msgstr ""
 msgid "Remove Rule"
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:1225
+#: includes/admin/class-fp-srp-admin-ajax.php:1292
 msgid "Since there is no coupon created in WooCommerce, you cannot add a rule."
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:1288
-#: includes/admin/class-fp-srp-admin-ajax.php:1314
-#: includes/admin/class-fp-srp-admin-ajax.php:1340
-#: includes/admin/class-fp-srp-admin-ajax.php:1366
-#: includes/admin/class-fp-srp-admin-ajax.php:1392
+#: includes/admin/class-fp-srp-admin-ajax.php:1355
+#: includes/admin/class-fp-srp-admin-ajax.php:1381
+#: includes/admin/class-fp-srp-admin-ajax.php:1407
+#: includes/admin/class-fp-srp-admin-ajax.php:1433
+#: includes/admin/class-fp-srp-admin-ajax.php:1459
 msgid "Invalid Rule"
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:1417
+#: includes/admin/class-fp-srp-admin-ajax.php:1484
 msgid "No Page/Post found"
 msgstr ""
 
-#: includes/admin/class-fp-srp-admin-ajax.php:1456
+#: includes/admin/class-fp-srp-admin-ajax.php:1523
 msgid "User is invalid"
 msgstr ""
 
@@ -442,7 +461,7 @@ msgid "Number Of Items Per Page"
 msgstr ""
 
 #: includes/admin/class-reward-system-tab-management.php:411
-#: includes/admin/tabs/class-rs-fprsmodules-tab.php:203
+#: includes/admin/tabs/class-rs-fprsmodules-tab.php:208
 msgid "Settings"
 msgstr ""
 
@@ -458,7 +477,7 @@ msgstr ""
 #: includes/admin/class-reward-system-tab-management.php:451
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:1080
 #: includes/admin/tabs/modules/class-rs-fpreset-module-tab.php:211
-#: includes/class-fp-common-functions.php:1552
+#: includes/srp-common-functions.php:1119
 msgid "Reset"
 msgstr ""
 
@@ -473,7 +492,7 @@ msgid "Pay with your SUMO Reward Points"
 msgstr ""
 
 #: includes/admin/class_rewardgateway.php:31
-#: includes/admin/tabs/class-rs-fprsmodules-tab.php:215
+#: includes/admin/tabs/class-rs-fprsmodules-tab.php:220
 msgid "Enable/Disable"
 msgstr ""
 
@@ -490,6 +509,7 @@ msgid "This Controls the Title which the user sees during checkout"
 msgstr ""
 
 #: includes/admin/class_rewardgateway.php:44
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:100
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1225
 #: includes/frontend/class-rs-rewardsystem-shortcodes.php:1561
 msgid "Description"
@@ -551,11 +571,11 @@ msgstr ""
 msgid "Payment error:"
 msgstr ""
 
-#: includes/admin/class_rewardgateway.php:474
+#: includes/admin/class_rewardgateway.php:480
 msgid "Enable Automatic Preapproval Payments"
 msgstr ""
 
-#: includes/admin/class_rewardgateway.php:576
+#: includes/admin/class_rewardgateway.php:582
 msgid "Force Automatic Payment"
 msgstr ""
 
@@ -822,12 +842,12 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:136
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:241
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:425
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:196
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:209
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:202
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:215
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:318
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:600
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:822
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1643
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1652
 #: includes/admin/tabs/modules/class-rs-fpsendpoints-module-tab.php:76
 #: includes/admin/tabs/modules/class-rs-fpsendpoints-module-tab.php:236
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:150
@@ -866,12 +886,12 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:137
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:242
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:426
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:197
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:210
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:203
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:216
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:319
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:601
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:823
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1644
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1653
 #: includes/admin/tabs/modules/class-rs-fpsendpoints-module-tab.php:77
 #: includes/admin/tabs/modules/class-rs-fpsendpoints-module-tab.php:237
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:151
@@ -1060,8 +1080,8 @@ msgstr ""
 #: includes/admin/settings/class-variable-product-settings.php:128
 #: includes/admin/settings/class-variable-product-settings.php:221
 #: includes/admin/settings/class-variable-product-settings.php:259
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1126
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1196
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1127
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1197
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:149
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:254
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:438
@@ -1155,9 +1175,9 @@ msgstr ""
 #: includes/admin/settings/class-category-product-settings.php:540
 #: includes/admin/settings/class-simple-product-settings.php:66
 #: includes/admin/settings/class-variable-product-settings.php:138
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1276
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1330
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1346
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1277
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1331
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1347
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:154
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:259
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:443
@@ -1769,13 +1789,13 @@ msgid "Selection Type"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:117
-#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:272
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:292
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:184
 msgid "Add Points"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:118
-#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:268
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:288
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:188
 msgid "Remove Points"
 msgstr ""
@@ -1830,6 +1850,7 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:125
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:178
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:220
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:137
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:88
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:106
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:704
@@ -1840,15 +1861,30 @@ msgstr ""
 msgid "Enable to send Email Notification for manually removing points"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:239
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:214
+msgid "Shortcodes used in the Email"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:220
+msgid ""
+"<b>[username]</b> - To display the username<br><br><b>[rs_earned_points]</b> "
+"- To display the added points<br><br><b>[balance_points]</b> - To display "
+"the available balance points<br><br><b>[site_name]</b> - To display the site "
+"name<br><br><b>[rs_expiry]</b> - To display the expiry date when adding the "
+"points<br><br><b>[rs_deleted_points]</b> - To display the removed "
+"points<br><br><b>[my_account_page]</b> - To display my account page "
+"URL<br><br>"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:259
 msgid "Select User(s) to Include"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:246
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:266
 msgid "Select User(s) to Exclude"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:255
+#: includes/admin/tabs/class-rs-fprsaddremovepoints-tab.php:275
 msgid "Expires On"
 msgstr ""
 
@@ -2080,18 +2116,18 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:884
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:904
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:916
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:432
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:469
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:505
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:540
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:562
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:657
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:822
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:852
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:899
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:929
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1162
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1184
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:438
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:475
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:511
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:546
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:568
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:663
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:828
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:858
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:905
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:935
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1168
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1190
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:891
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:952
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1173
@@ -2100,10 +2136,10 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1241
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1254
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1279
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1435
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1480
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1556
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1800
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1444
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1489
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1565
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1809
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1019
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1171
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1333
@@ -2257,18 +2293,18 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:885
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:905
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:917
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:433
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:470
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:506
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:541
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:563
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:658
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:823
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:853
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:900
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:930
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1163
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1185
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:439
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:476
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:512
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:547
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:569
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:664
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:829
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:859
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:906
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:936
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1169
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1191
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:892
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:953
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1174
@@ -2277,10 +2313,10 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1242
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1255
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1280
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1436
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1481
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1557
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1799
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1445
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1490
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1566
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1808
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1020
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1172
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1334
@@ -2353,7 +2389,7 @@ msgid "Enable this option to show the Reward Points Fields in Shortcode"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:220
-msgid "My Account Menu Page Show/Hide Settings"
+msgid "My Rewards Menu Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:225
@@ -2381,18 +2417,16 @@ msgid "Enter the URL for Reward Points Fields in My Account Menu Page"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:254
-#: includes/admin/views/myreward-page-menu-sorting.php:14
+#: includes/admin/views/myreward-page-menu-sorting.php:21
 msgid "My Rewards Table"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:266
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:884
-#: includes/admin/views/myreward-page-menu-sorting.php:18
-msgid "Generate Referral Link"
+msgid "Referral Link"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:278
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1472
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1481
 msgid "Referral Table "
 msgstr ""
 
@@ -2406,26 +2440,26 @@ msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:315
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:607
-#: includes/admin/views/myreward-page-menu-sorting.php:21
+#: includes/admin/views/myreward-page-menu-sorting.php:28
 msgid "My Cashback Table"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:328
 #: includes/admin/tabs/modules/class-rs-fpnominee-module-tab.php:75
 #: includes/admin/tabs/modules/class-rs-fpnominee-module-tab.php:159
-#: includes/admin/views/myreward-page-menu-sorting.php:15
+#: includes/admin/views/myreward-page-menu-sorting.php:22
 msgid "Nominee Field"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:340
 #: includes/admin/tabs/modules/class-rs-fpgiftvoucher-module-tab.php:88
-#: includes/admin/views/myreward-page-menu-sorting.php:16
+#: includes/admin/views/myreward-page-menu-sorting.php:23
 msgid "Gift Voucher Field"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsadvanced-tab.php:352
-#: includes/admin/views/myreward-page-menu-sorting.php:22
-#: includes/frontend/tab/class-rs-fprsadvanced-frontend.php:142
+#: includes/admin/views/myreward-page-menu-sorting.php:29
+#: includes/frontend/tab/class-rs-fprsadvanced-frontend.php:146
 msgid "Email - Subscribe Link"
 msgstr ""
 
@@ -3026,8 +3060,8 @@ msgstr ""
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:525
 #: includes/admin/tabs/modules/class-rs-fpemailexpiredpoints-module-tab.php:210
 #: includes/admin/tabs/modules/class-rs-fpmail-module-tab.php:405
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:387
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:444
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:393
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:450
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1114
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1058
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:1184
@@ -3128,8 +3162,8 @@ msgid "Maximum Threshold value in Points"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:376
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:786
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:796
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:792
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:802
 msgid "Enter a Fixed or Decimal Number greater than 0"
 msgstr ""
 
@@ -3160,24 +3194,24 @@ msgid ""
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:432
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:252
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:258
 msgid "Priority Level Selection"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:433
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:253
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:259
 msgid ""
 "If more than one type(level) is enabled then use the highest/lowest "
 "percentage"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:441
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:261
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:267
 msgid "Use the level that gives highest percentage"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:442
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:262
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:268
 msgid "Use the level that gives lowest percentage"
 msgstr ""
 
@@ -3208,17 +3242,17 @@ msgid "Enable this option to modify earning points based on earned points"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:489
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:311
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:317
 msgid "Earned Points is decided"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:495
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:318
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:324
 msgid "Based on Total Earned Points"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:496
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:319
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:325
 msgid "Based on Current Points"
 msgstr ""
 
@@ -3285,6 +3319,7 @@ msgstr ""
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:581
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:608
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:635
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:129
 msgid "Subject"
 msgstr ""
 
@@ -3406,7 +3441,7 @@ msgid "Select the User Role(s)"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsgeneral-tab.php:826
-#: includes/class-fp-common-functions.php:1537
+#: includes/srp-common-functions.php:1104
 msgid "Redeeming Points"
 msgstr ""
 
@@ -3484,7 +3519,7 @@ msgid "Custom Registration Fields Log[Reaching the corresponding date]"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:140
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1251
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1271
 msgid "SUMO Affiliates Pro Log Settings"
 msgstr ""
 
@@ -3641,7 +3676,7 @@ msgid "Referral Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:403
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:425
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:445
 msgid "Referral Product Purchase Log - Earned"
 msgstr ""
 
@@ -3653,7 +3688,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:411
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:433
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:453
 msgid "Getting Referred Log for Product Purchase - Earned"
 msgstr ""
 
@@ -3663,622 +3698,635 @@ msgid "Getting Referred Reward Points earned for Purchase {itemproductid}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:428
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:429
-msgid ""
-"Referrer Reward Points earned for this order {orderid} by {purchasedusername}"
+msgid "Birthday Reward Points Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:433
+msgid "Birthday Reward Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:436
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:437
+msgid "You have received points for your birthday"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:448
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:449
+msgid ""
+"Referrer Reward Points earned for this order {orderid} by {purchasedusername}"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:456
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:457
 msgid "Getting Referred Reward Points earned for this order {orderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:447
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:467
 msgid "Getting Referred Log for Registration"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:450
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:451
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:470
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:471
 msgid "Points for Getting Referred"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:463
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:483
 msgid "Reward Points Redeemed Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:468
-msgid "Points Redeemed Log - Deducted from Account"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:471
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:472
-msgid "Points Redeemed Towards Purchase for Order {currentorderid}"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:483
-msgid "Reward Points for Payment Gateway Usage Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:488
-msgid "Payment Gateway Reward Points Log - Earned"
+msgid "Points Redeemed Log - Deducted from Account"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:491
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:492
-msgid "Reward Points for Using Payment Gateway {payment_title}"
+msgid "Points Redeemed Towards Purchase for Order {currentorderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:496
-msgid "Payment Gateway Reward Points Log - Revoked"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:503
+msgid "Reward Points for Payment Gateway Usage Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:499
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:500
-msgid "Revised Reward Points for Using Payment Gateway {payment_title}"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:508
+msgid "Payment Gateway Reward Points Log - Earned"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:511
-msgid "SUMO Reward Points Payment Gateway Log Settings"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:512
+msgid "Reward Points for Using Payment Gateway {payment_title}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:516
-msgid "SUMO Reward Points Payment Gateway Redeemed Log"
+msgid "Payment Gateway Reward Points Log - Revoked"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:519
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:520
-msgid "Points Redeemed for using Reward Points Gateway {currentorderid}"
+msgid "Revised Reward Points for Using Payment Gateway {payment_title}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:524
-msgid "Subscription Product Auto Renewal Log"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:531
+msgid "SUMO Reward Points Payment Gateway Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:527
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:528
-msgid "Points Redeemed For Renewal Of Subscription {subscription_id}"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:536
+msgid "SUMO Reward Points Payment Gateway Redeemed Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:539
-msgid "Social Reward Points Log Settings"
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:540
+msgid "Points Redeemed for using Reward Points Gateway {currentorderid}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:544
-msgid "Facebook Like Reward Points Log - Earned"
+msgid "Subscription Product Auto Renewal Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:547
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:548
+msgid "Points Redeemed For Renewal Of Subscription {subscription_id}"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:559
+msgid "Social Reward Points Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:564
+msgid "Facebook Like Reward Points Log - Earned"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:567
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:568
 msgid "Reward for Social Facebook Like"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:552
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:572
 msgid "Facebook Share Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:555
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:556
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:575
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:576
 msgid "Reward for Social Facebook Share"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:560
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:580
 msgid "Twitter Tweet Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:563
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:564
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:583
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:584
 msgid "Reward for Social Twitter Tweet"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:568
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:588
 msgid "Twitter Follow Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:571
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:572
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:591
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:592
 msgid "Reward for Social Twitter Follow"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:576
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:596
 msgid "Google Plus Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:579
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:580
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:599
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:600
 msgid "Reward for Social Google Plus"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:584
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:604
 msgid "VK.Com Like Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:587
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:588
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:607
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:608
 msgid "Reward for Social VK.Com Like"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:592
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:612
 msgid "Instagram Follow Reward Points Log - Earned"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:595
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:596
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:615
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:616
 msgid "Reward for Social Instagram Follow"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:600
-msgid "OK.ru Share Reward Points Log - Earned"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:603
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:604
-msgid "Reward for Social OK.ru Share"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:615
-msgid "Product Review Reward Points Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:620
-msgid "Product Review Reward Points Log"
+msgid "OK.ru Share Reward Points Log - Earned"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:623
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:624
-msgid "Reward for Reviewing a Product {reviewproductid}"
+msgid "Reward for Social OK.ru Share"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:635
-msgid "Blog Post Creation Reward Points Log Settings"
+msgid "Product Review Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:640
-msgid "Blog Post Creation Reward Points Log"
+msgid "Product Review Reward Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:643
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:644
-msgid "Reward for Posting {postid}"
+msgid "Reward for Reviewing a Product {reviewproductid}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:655
+msgid "Blog Post Creation Reward Points Log Settings"
+msgstr ""
+
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:660
-msgid "Blog Post Comment Reward Points Log Settings"
+msgid "Blog Post Creation Reward Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:663
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:664
-msgid "Reward for Commenting a Post {postid}"
+msgid "Reward for Posting {postid}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:675
-msgid "Product Creation Reward Points Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:680
-msgid "Product Creation Reward Points Log"
+msgid "Blog Post Comment Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:683
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:684
-msgid "Reward Points for Creating a Product {ProductName}"
+msgid "Reward for Commenting a Post {postid}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:695
-msgid "Page Comment Reward Points Log Settings"
+msgid "Product Creation Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:700
-msgid "Page Comment Reward Points Log"
+msgid "Product Creation Reward Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:703
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:704
-msgid "Reward for Commenting a Page {pagename}"
+msgid "Reward Points for Creating a Product {ProductName}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:715
-msgid "Daily Login Reward Points Log Settings"
+msgid "Page Comment Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:720
-msgid "Daily Login Reward Points Log"
+msgid "Page Comment Reward Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:723
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:724
-msgid "Points Earned for today login"
+msgid "Reward for Commenting a Page {pagename}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:735
+msgid "Daily Login Reward Points Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:740
+msgid "Daily Login Reward Points Log"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:743
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:744
+msgid "Points Earned for today login"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:755
 msgid ""
 "Reward Points for Subscribing Out of Stock/In-Stock Products Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:747
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:767
 msgid "Buying Reward Points Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:752
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:772
 msgid "Buying Reward Points Log"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:755
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:756
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:775
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:776
 msgid "Bought Reward Points  {currentorderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:767
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:787
 msgid "Social Account Linking Reward Points Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:779
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:799
 msgid "Custom Registration Field Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:791
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:811
 msgid "Product Purchase Reward Points Revised Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:797
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:817
 msgid "<h3>Product Total based Reward Points Log</h3><br><br>"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:801
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:821
 msgid "Product Purchase Log displayed in MasterLog - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:804
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:805
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:824
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:825
 msgid "Revised Product Purchase {productid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:809
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:829
 msgid "Product Purchase Log displayed in My Reward Table - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:812
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:813
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:832
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:833
 msgid "Revised Product Purchase {currentorderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:817
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:837
 msgid "Buy Points Log displayed in My Reward Table - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:820
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:821
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:840
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:841
 msgid "Revised Buying Reward Points {currentorderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:827
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:847
 msgid "<h3>Cart Total based Reward Points Log</h3><br><br>"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:831
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:851
 msgid "Cart Total based Reward Points Log displayed in Master Log - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:834
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:835
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:842
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:843
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:854
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:855
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:862
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:863
 msgid "Revised Points for this {orderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:839
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:859
 msgid ""
 "Cart Total based Reward Points Log displayed in My Reward Table - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:855
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:875
 msgid "Referral Product Purchase Reward Points Revised Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:865
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:885
 msgid "Referral Product Purchase Log - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:868
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:869
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:888
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:889
 msgid "Revised Referral Product Purchase {productid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:879
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:899
 msgid "Referral Order Log - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:882
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:883
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:902
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:903
 msgid "Revised Referrer Product Purchase Points for this order {orderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:895
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:915
 msgid "Redeemed Reward Points Revised Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:900
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:920
 msgid "Points Redeemed Log - Added to Account"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:903
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:904
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:923
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:924
 msgid "Revise Points Redeemed Towards Purchase {currentorderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:915
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:935
 msgid ""
 "Getting Referred Reward Points for Product Purchase Revised Log settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:925
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:945
 msgid "Getting Referred Log for Product Purchase - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:928
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:929
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:948
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:949
 msgid "Revised Getting Referred Product Purchase {productid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:939
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:959
 msgid "Getting Referred Log for Order - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:942
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:943
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:962
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:963
 msgid ""
 "Revised Getting Referred Product Purchase Points for this order {orderid}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:955
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:975
 msgid "Referral Registration Points Revised upon Account Deletion Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:960
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:980
 msgid "Referral Account Sign up Log - Revoked on User Deletion"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:963
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:964
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:983
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:984
 msgid ""
 "Referral Account Sign up Points Revised with Referred User Deleted "
 "{usernickname}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:973
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:995
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:993
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1015
 msgid "Referral Product Purchase Log - Revoked on User Deletion"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:976
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:977
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:996
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:997
 msgid ""
 "Revised Referral Reward Points earned for Purchase {productid} by deleted "
 "user {usernickname}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:981
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1003
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1001
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1023
 msgid "Getting Referred Log for Product Purchase - Revoked on User Deletion"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:984
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:985
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1004
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1005
 msgid ""
 "Revised Getting Referred Reward Points earned for Purchase {productid} by "
 "deleted user {usernickname}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:998
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:999
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1018
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1019
 msgid ""
 "Revised Referrer Reward Points earned for Purchase {orderid} by deleted user "
 "{usernickname}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1006
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1007
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1026
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1027
 msgid ""
 "Revised Getting Referred Reward Points earned for Purchase {orderid} by "
 "deleted user {usernickname}"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1019
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1039
 msgid "Social Reward Points Revised Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1024
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1044
 msgid "Facebook Like Reward Points Log - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1027
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1028
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1047
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1048
 msgid "Reward for Social Facebook Like is Revised"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1032
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1052
 msgid "Google Plus Reward Points Log - Revoked"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1035
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1036
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1055
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1056
 msgid "Reward for Social Google Plus is Revised"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1040
-msgid "VK.Com Like Reward Points Log - Revoked"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1043
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1044
-msgid "Reward for Social VK.Com Like is Revised"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1055
-msgid "Send Points Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1060
-msgid "Points Received through Send Points Log - Receiver"
+msgid "VK.Com Like Reward Points Log - Revoked"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1063
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1064
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1203
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1204
+msgid "Reward for Social VK.Com Like is Revised"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1075
+msgid "Send Points Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1080
+msgid "Points Received through Send Points Log - Receiver"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1083
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1084
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1223
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1224
 msgid "[name] Received [points] Points from [user]"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1068
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1088
 msgid "Send Points Request Approved Log - Sender"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1071
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1072
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1091
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1092
 msgid ""
 "[name] [points] Points has been Approved by Admin Successfully and Sent to "
 "[user]"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1076
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1096
 msgid "Send Points Request Submitted Log - Sender"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1079
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1080
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1099
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1100
 msgid ""
 "Your request to Send Points is Submitted Successfully and waiting for Admin "
 "Approval."
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1084
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1104
 msgid "Send Points Request Rejected Log"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1087
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1088
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1107
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1108
 msgid ""
 "Admin has been Rejected Your Request to Send Points.So Your Requested Points "
 "to Send were revised to your account"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1099
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1119
 msgid "Voucher Code Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1104
-msgid "Voucher Code Redeemed Log"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1107
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1108
-msgid "Redeem Voucher Code {rsusedvouchercode}"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1119
-msgid "Coupon Reward Points Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1124
-msgid "Reward Points for Coupon Usage Log"
+msgid "Voucher Code Redeemed Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1127
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1128
-msgid "Points Earned for using Coupons"
+msgid "Redeem Voucher Code {rsusedvouchercode}"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1139
-msgid "Reward Points Earning Threshold Log Settings"
+msgid "Coupon Reward Points Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1144
-msgid "Maximum Threshold for Total Points Log"
+msgid "Reward Points for Coupon Usage Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1147
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1148
-msgid "You Cannot Earn More than [rsmaxpoints]"
+msgid "Points Earned for using Coupons"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1159
-msgid "Cashback Log Settings"
+msgid "Reward Points Earning Threshold Log Settings"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1164
-msgid "Cashback Request Log displayed in My Reward Table - Submitted"
+msgid "Maximum Threshold for Total Points Log"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1167
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1168
+msgid "You Cannot Earn More than [rsmaxpoints]"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1179
+msgid "Cashback Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1184
+msgid "Cashback Request Log displayed in My Reward Table - Submitted"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1187
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1188
 msgid "Points Requested For Cashback"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1172
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1192
 msgid "Cashback Request Log displayed in My Reward Table - Cancelled"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1175
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1176
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1195
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1196
 msgid ""
 "Admin has been Cancelled your Request For Cashback.So Your Requested "
 "Cashback Points were revised to your account"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1180
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1200
 msgid "Cashback Request Log displayed in My Cashback Table - Submitted"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1183
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1184
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1203
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1204
 msgid ""
 "You have Requested [pointstocashback] points for Cashback ([cashbackamount])"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1195
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1215
 msgid "Nominee Log Settings"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1200
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1220
 msgid "Nominated Product Purchase Reward Points Log - Receiver"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1208
-msgid "Nominated Product Purchase Reward Points Log - Sender"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1211
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1212
-msgid "[name] [points] Points has been nominated to [user]"
-msgstr ""
-
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1223
-msgid "Import/Export Log Settings"
-msgstr ""
-
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1228
-msgid "Points Imported Log - Added to Existing Points"
+msgid "Nominated Product Purchase Reward Points Log - Sender"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1231
 #: includes/admin/tabs/class-rs-fprslocalization-tab.php:1232
+msgid "[name] [points] Points has been nominated to [user]"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1243
+msgid "Import/Export Log Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1248
+msgid "Points Imported Log - Added to Existing Points"
+msgstr ""
+
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1251
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1252
 msgid "[points] Points were added with existing points by importing"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1236
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1256
 msgid "Points Imported Log - Override Existing Points"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1239
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1240
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1259
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1260
 msgid "[points] Points were overrided by importing"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1263
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1283
 msgid "Shortcode used in Localization"
 msgstr ""
 
-#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1269
+#: includes/admin/tabs/class-rs-fprslocalization-tab.php:1289
 msgid ""
 "<b>{productname},{ProductName}</b> - To display product name in "
 "log<br><br><b>{itemproductid}, {productid}, {reviewproductid}, {postid}, "
@@ -5275,8 +5323,8 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:630
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:703
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1029
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1495
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1571
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1504
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1580
 msgid "S.No Label"
 msgstr ""
 
@@ -5602,7 +5650,7 @@ msgid "Upload your own Gift Icon"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsmessage-tab.php:3421
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2155
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2164
 msgid "Upload Image"
 msgstr ""
 
@@ -5715,18 +5763,19 @@ msgid "User(s)"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:47
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:962
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:968
 msgid "User Role(s)"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:96
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:111
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2138
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2147
 msgid "Search"
 msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:106
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2133
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:199
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2142
 #: includes/admin/views/manual-referral-link-rules.php:65
 #: includes/admin/views/manual-referral-link-rules.php:102
 #: includes/frontend/rs_jquery.php:45 includes/frontend/rs_jquery.php:77
@@ -5735,7 +5784,7 @@ msgstr ""
 
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:114
 #: includes/admin/tabs/class-rs-fprsuserrewardpoints-tab.php:192
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2141
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2150
 #: includes/admin/views/manual-referral-link-rules.php:153
 #: includes/frontend/views/class-rs-frontend-my-reward-table.php:89
 msgid "Go Back"
@@ -5788,7 +5837,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:144
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:530
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:531
 msgid "Reward Points for Subscribing Out of Stock Products"
 msgstr ""
 
@@ -5933,78 +5982,86 @@ msgid "Email Message For Account Signup Points"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:481
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:486
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:487
 msgid "Custom Registration Fields Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:487
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:484
+msgid ""
+"<br><b>Warning:</b> We have added the <b>Birthday Reward Points</b> feature "
+"as a separate Module in the standalone plugin. Hence, we suggest you use "
+"either the <b>Birthday Reward Points Module</b> [or] Compatibility is given "
+"with <b>SUMO WooCommerce Custom Registration Fields Plugin</b>."
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:488
 msgid ""
 "By enabling this option, users can earn points for entering the details in "
 "custom fields during registration"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:495
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:496
 msgid "Email Notification for Custom Registration Fields Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:496
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:497
 msgid ""
 "By enabling this option, users can receive email notification for entering "
 "the details in custom fields during registration"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:504
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:505
 msgid "Email Subject For Custom Field Registration Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:512
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:513
 msgid "Email Message For Custom Field Registration Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:542
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:543
 msgid "Reward Points for Social Account Linking"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:554
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:559
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:578
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:555
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:560
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:579
 msgid "Product Review Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:560
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:561
 msgid "By enabling this option you can award reward points for product review"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:568
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:569
 msgid "Status on which Product Review Reward Points should be awarded"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:586
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:587
 msgid ""
 "Restrict Product Review Reward Points to One Review per Product per User"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:587
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:588
 msgid ""
 "Enabling this option will restrict product review reward points will be "
 "awarded only for one product per user"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:595
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:596
 msgid "Product Review Reward Points should be awarded only for Purchased User"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:596
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:597
 msgid ""
 "Enabling this option will award product review reward points only for "
 "reviews made by purchased user"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:604
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:605
 msgid "Enter the number of days"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:612
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:613
 msgid ""
 "Product review points will be awarded to users only when they post the "
 "review within the specified days configured in this field. The days will "
@@ -6012,267 +6069,267 @@ msgid ""
 "Processing/Completed."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:615
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:616
 msgid "Enable To Send Mail For Product Review Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:616
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:617
 msgid "Enabling this option will send Product Review Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:624
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:625
 msgid "Email Subject For Product Review Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:632
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:633
 msgid "Email Message For Product Review Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:647
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:648
 msgid "Blog Post Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:652
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:673
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:653
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:674
 msgid "Blog Post Creation Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:653
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:654
 msgid ""
 "By enabling this option you can award reward points for blog post creation"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:661
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:662
 msgid "Blog Post Creation Reward Points Visibility Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:667
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:668
 msgid "Public"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:668
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:669
 msgid "Private"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:681
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:682
 msgid "Enable To Send Mail For Blog Post Creation Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:682
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:743
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:683
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:744
 msgid "Enabling this option will send Blog Post Creation Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:690
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:691
 msgid "Email Subject For Blog Post Creation Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:698
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:699
 msgid "Email Message For Blog Post Creation Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:706
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:725
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:707
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:726
 msgid "Blog Post Comment Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:707
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:708
 msgid ""
 "By Enabling this option you can award reward points for blog post comment"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:715
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:716
 msgid "Status on which Post Comment Reward Points should be awarded"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:721
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:722
 msgid "Approve"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:721
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:722
 msgid "Unapprove"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:733
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:734
 msgid "Restrict Post Comment Reward Points to One Comment per Post per User"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:734
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:735
 msgid ""
 "Enabling this option will restrict post comment reward points will be "
 "awarded only for one post per user"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:742
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:743
 msgid "Enable To Send Mail For Blog Post Comment Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:751
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:752
 msgid "Email Subject For Blog Post Comment Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:759
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:760
 msgid "Email Message For Blog Post Comment Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:774
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:779
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:788
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:775
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:780
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:789
 msgid "Product Creation Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:780
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:781
 msgid ""
 "By Enabling this option, you can award reward points for creating products"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:799
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:800
 msgid "Enable To Send Mail For Product Creation Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:800
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:801
 msgid "Enabling this option will send Product Creation Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:808
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:809
 msgid "Email Subject For Product Creation Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:816
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:817
 msgid "Email Message For Product Creation Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:831
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:836
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:855
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:832
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:837
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:856
 msgid "Page Comment Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:837
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:838
 msgid ""
 "By Enabling this option, you can award reward points for commenting on pages"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:845
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:846
 msgid "Status on which Page Comment Reward Points should be awarded"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:863
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:864
 msgid "Restrict Page Comment Reward Points to One Comment per Page per User"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:864
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:865
 msgid ""
 "Enabling this option will restrict page comment reward points will be "
 "awarded only for one page per user"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:872
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:873
 msgid "Enable To Send Mail For Page Comment Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:873
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:874
 msgid "Enabling this option will send Page Comment Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:881
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:882
 msgid "Email Subject For Page Comment Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:889
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:890
 msgid "Email Message For Page Comment Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:904
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:905
 msgid "Daily Login Reward Points Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:909
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:918
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:910
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:919
 msgid "Daily Login Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:910
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:911
 msgid "By Enabling this option, you can award reward points for daily login"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:926
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:927
 msgid "Enable To Send Mail For Daily Login Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:927
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:928
 msgid "Enabling this option will send Daily Login Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:935
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:936
 msgid "Email Subject For Login Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:943
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:944
 msgid "Email Message For Login Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:958
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:959
 msgid "Payment Gateway Reward Points Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:961
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:962
 msgid "You can reward points for using specific payment gateway in order"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:971
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:972
 msgid "WooCommerce Coupon Usage Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:976
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:977
 msgid "When different Points is associated with the same Coupon Code then"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:977
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:978
 msgid ""
 "This option controls what points should be awarded to user when different "
 "points are associated with the same coupon code"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:985
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:986
 msgid "Rule with the highest number of points will be awarded"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:986
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:987
 msgid "Rule with the lowest number of points will be awarded"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:991
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:992
 msgid "Enable To Send Mail For Coupon Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:992
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:993
 msgid "Enabling this option will send Coupon Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1000
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1001
 msgid "Email Subject For Coupon Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1008
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1009
 msgid "Email Message For Coupon Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1016
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1017
 msgid ""
 "Enable to Display Message displayed on cart page when Coupon Reward Points "
 "is Earned"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1024
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1025
 msgid "Message displayed on cart page when Coupon Reward Points is Earned"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1042
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1043
 msgid "Shortcode used in Coupon Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1048
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1049
 msgid ""
 "<b>[coupon_rewardpoints]</b> - To display points earned for using coupon "
 "code<br><br><b>[coupon_name]</b> - To display coupon "
@@ -6283,96 +6340,153 @@ msgid ""
 "area</b><br><br>"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1117
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1187
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1118
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1188
 msgid " Reward Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1118
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1188
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1119
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1189
 msgid "Please Select Reward Type for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1127
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1197
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1128
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1198
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:150
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:781
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:787
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:375
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:484
 msgid "By Percentage of Cart Total"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1131
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1201
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1132
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1202
 msgid " Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1132
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1145
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1202
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1215
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1133
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1146
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1203
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1216
 msgid "Please Enter Reward Points for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1144
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1214
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1145
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1215
 msgid " Reward Points in Percent %"
-msgstr ""
-
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1158
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1228
-msgid "Enable To Send Mail For Payment Gateway Reward Points"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1159
 #: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1229
+msgid "Enable To Send Mail For Payment Gateway Reward Points"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1160
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1230
 msgid "Enabling this option will send Payment Gateway Points through Mail"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1167
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1237
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1168
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1238
 msgid "Email Subject For Payment Gateway Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1175
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1245
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1176
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1246
 msgid "Email Message For Payment Gateway Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1275
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1329
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1276
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1330
 msgid "Coupon Codes"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1326
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1331
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1360
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1327
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1332
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1361
 #: includes/admin/views/range-based-points-rule.php:89
 msgid "Add Rule"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1344
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1345
 msgid "Custom Field Name"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1345
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1346
 msgid "Field Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1347
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1348
 msgid "Repeat Rule"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1348
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1349
 msgid "Award Points for Filling"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1406
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1407
 msgid "No"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1411
+#: includes/admin/tabs/modules/class-rs-fpactionreward-module-tab.php:1412
 msgid "Yes"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:39
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:59
+#: includes/srp-common-functions.php:1102
+msgid "Birthday Reward Points"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:54
+msgid "Birthday Reward Points Settings"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:60
+msgid ""
+"By enabling this checkbox, you can award points to your users every year "
+"when they reaching the given birthday date."
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:68
+msgid "Enter the Points"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:87
+msgid "Birthday Field Settings"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:92
+msgid "Birthday Field Name"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:115
+#: includes/admin/tabs/modules/class-rs-fpgiftvoucher-module-tab.php:158
+#: includes/admin/tabs/modules/class-rs-fpmail-module-tab.php:59
+#: includes/admin/tabs/modules/class-rs-fppointurl-module-tab.php:142
+msgid "Email Settings"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:120
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2207
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2235
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2263
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2291
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2319
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2347
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2375
+#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2403
+msgid "Notification"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:121
+msgid ""
+"By enabling this checkbox, you can notify your users by email when they "
+"receive the Birthday Reward Points."
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpbirthday-module-tab.php:152
+msgid "Birthday Details"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpbuyingpoints-module-tab.php:42
@@ -6414,7 +6528,7 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpbuyingpoints-module-tab.php:167
 #: includes/admin/tabs/modules/class-rs-fppointprice-module-tab.php:439
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:1038
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2054
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2063
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2639
 msgid "Save and Update"
 msgstr ""
@@ -6471,7 +6585,7 @@ msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:194
 #: includes/admin/tabs/modules/class-rs-fppointprice-module-tab.php:69
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:961
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:967
 msgid "All User(s)"
 msgstr ""
 
@@ -6492,14 +6606,14 @@ msgid "Allow User to Request Cashback"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:240
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1735
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1768
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1744
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1777
 msgid "Editable"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:241
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1736
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1769
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1745
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1778
 msgid "Non-Editable"
 msgstr ""
 
@@ -6755,8 +6869,8 @@ msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:631
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:704
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1496
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1572
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1505
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1581
 msgid "Enter the Serial Number Label"
 msgstr ""
 
@@ -6966,16 +7080,16 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpcashback-module-tab.php:949
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:649
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:684
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:673
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:827
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:857
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:904
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:934
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:976
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1009
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1167
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1189
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1199
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:679
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:833
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:863
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:910
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:940
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:982
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1015
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1173
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1195
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1205
 msgid "Error Message"
 msgstr ""
 
@@ -7119,18 +7233,18 @@ msgid "Don't allow Earn Points when SUMO Discount is applied"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:76
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1318
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1324
 msgid "Show Redeeming Field"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:83
 #: includes/admin/tabs/modules/class-rs-fpmail-module-tab.php:455
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1325
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1331
 msgid "Always"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:84
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1326
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1332
 msgid "When Price is not altered through SUMO Discounts Plugin"
 msgstr ""
 
@@ -7140,7 +7254,7 @@ msgid "Since you got the discount, you can't redeem the points in this order"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpdiscounts-module-tab.php:96
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:462
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:468
 msgid "Show/Hide WooCommerce Coupon Field"
 msgstr ""
 
@@ -7156,7 +7270,7 @@ msgid "Since you got the discount, you can't use the WooCommerce Coupon"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpemailexpiredpoints-module-tab.php:48
-#: includes/class-fp-common-functions.php:1540
+#: includes/srp-common-functions.php:1107
 msgid "Email Template for Expire"
 msgstr ""
 
@@ -7176,7 +7290,7 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpemailexpiredpoints-module-tab.php:124
 #: includes/admin/tabs/modules/class-rs-fpmail-module-tab.php:319
 #: includes/admin/tabs/modules/class-rs-fppointurl-module-tab.php:296
-#: includes/frontend/tab/class-rs-fprsmessage-frontend.php:194
+#: includes/frontend/tab/class-rs-fprsmessage-frontend.php:195
 msgid "Search:"
 msgstr ""
 
@@ -7185,7 +7299,7 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fppointurl-module-tab.php:298
 #: includes/frontend/class-rs-rewardsystem-shortcodes.php:587
 #: includes/frontend/class-rs-rewardsystem-shortcodes.php:1547
-#: includes/frontend/tab/class-rs-fprsmessage-frontend.php:202
+#: includes/frontend/tab/class-rs-fprsmessage-frontend.php:203
 msgid "Page Size:"
 msgstr ""
 
@@ -7200,7 +7314,7 @@ msgstr ""
 #: includes/admin/wpliststable/class_wp_list_table_view_gift_voucher.php:68
 #: includes/admin/wpliststable/class_wp_list_table_view_log_user.php:73
 #: includes/admin/wpliststable/class_wp_list_table_view_referral_table.php:68
-#: includes/class-rs-install.php:221
+#: includes/class-srp-cron-handler.php:236
 #: includes/frontend/class-rs-rewardsystem-shortcodes.php:1558
 msgid "S.No"
 msgstr ""
@@ -7384,12 +7498,6 @@ msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpgiftvoucher-module-tab.php:143
 msgid "Gift Voucher List"
-msgstr ""
-
-#: includes/admin/tabs/modules/class-rs-fpgiftvoucher-module-tab.php:158
-#: includes/admin/tabs/modules/class-rs-fpmail-module-tab.php:59
-#: includes/admin/tabs/modules/class-rs-fppointurl-module-tab.php:142
-msgid "Email Settings"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpgiftvoucher-module-tab.php:163
@@ -7691,9 +7799,10 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpnominee-module-tab.php:215
 #: includes/admin/tabs/modules/class-rs-fpnominee-module-tab.php:276
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1092
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1511
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1587
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1520
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1596
 #: includes/admin/wc_class_encashing_wplist.php:81
+#: includes/admin/wpliststable/class_rs_birthday_reward_table.php:126
 #: includes/admin/wpliststable/class_wp_list_table_for_users.php:119
 #: includes/admin/wpliststable/class_wp_list_table_master_log.php:98
 #: includes/admin/wpliststable/class_wp_list_table_view_log_user.php:74
@@ -7764,7 +7873,7 @@ msgstr ""
 #: includes/admin/tabs/modules/class-rs-fpimportexport-module-tab.php:212
 #: includes/admin/wpliststable/class_wp_list_table_master_log.php:102
 #: includes/admin/wpliststable/class_wp_list_table_view_log_user.php:80
-#: includes/class-rs-install.php:223
+#: includes/class-srp-cron-handler.php:238
 msgid "Expiry Date"
 msgstr ""
 
@@ -8245,7 +8354,7 @@ msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fppointprice-module-tab.php:429
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:1046
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2084
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2093
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2616
 msgid "Select Particular Products"
 msgstr ""
@@ -8274,7 +8383,7 @@ msgstr ""
 #: includes/admin/wc_class_send_point_wplist.php:74
 #: includes/admin/wpliststable/class_wp_list_table_for_newgift_voucher.php:54
 #: includes/admin/wpliststable/class_wp_list_table_master_log.php:99
-#: includes/class-rs-install.php:222
+#: includes/class-srp-cron-handler.php:237
 msgid "Points"
 msgstr ""
 
@@ -8383,7 +8492,7 @@ msgid "Current Usage Count"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:48
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:168
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:174
 msgid "Message Settings in Edit Order Page and Invoices"
 msgstr ""
 
@@ -8392,7 +8501,7 @@ msgid "Display Points from Order on Order Details Page and Invoices"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:51
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:170
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:176
 msgid "Message Settings in Edit Order Page"
 msgstr ""
 
@@ -8430,7 +8539,7 @@ msgid "Earning Points Type"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpproductpurchase-module-tab.php:106
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:645
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:651
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:258
 msgid "Product Total"
 msgstr ""
@@ -8887,66 +8996,66 @@ msgstr ""
 msgid "Message to display Earned Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:71
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:77
 msgid "Reward Points Redeem Percentage based on Membership Plan"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:76
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:77
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:82
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:83
 msgid ""
 "Don't allow Redeeming when the user hasn't purchased any membership plan "
 "through SUMO Memberships"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:84
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:90
 msgid "Membership Plan based Redeem Level"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:85
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:91
 msgid "Enable this option to modify Redeem points based on membership plan"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:95
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:101
 msgid "Reward Points Redeem Percentage for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:96
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:102
 msgid "Please Enter Percentage of Redeem for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:137
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:143
 msgid "Reward Points Redeeming Percentage for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:138
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:144
 msgid "Please Enter Percentage of Redeeming Reward Points for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:180
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:186
 msgid "Redeeming Module"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:188
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:194
 msgid "Apply Redeeming Before Tax"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:189
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:195
 msgid "Works with WooCommerce Versions 2.2 or older"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:202
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:208
 msgid "Free Shipping when Reward Points is Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:222
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:228
 msgid "Reward Points Redeeming Order Status Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:227
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:233
 msgid "Redeemed Points will be deducted when the Order Status reaches"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:228
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:234
 msgid ""
 "Points will deduct from the account only when the order status matches with "
 "any one of the statuses selected in this field & the deducted points for the "
@@ -8960,703 +9069,703 @@ msgid ""
 "Canceled/Refunded/Failed)."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:247
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:253
 msgid "Member Level Settings for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:274
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:280
 msgid "Reward Points Redeeming Percentage based on User Role"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:279
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:285
 msgid "User Role based Redeeming Level"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:280
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:286
 msgid "Enable this option to modify Redeeming points based on user role"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:296
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:302
 msgid "Reward Points Redeeming Percentage based on Earned Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:301
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:307
 msgid "Points to Redeem based on Earned Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:302
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:308
 msgid ""
 "Enable this option to modify Redeeming Points percentage based on earned "
 "points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:332
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:338
 msgid "Reward Points Redeeming Percentage based on Purchase History"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:337
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:343
 msgid "Purchase History based on Redeeming Level"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:338
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:344
 msgid "Enable this option to modify Redeeming points based on Purchase history"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:357
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:363
 msgid "Redeeming Settings for Cart Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:362
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:368
 msgid "Enable Automatic Points Redeeming in Cart Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:363
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:369
 msgid ""
 "When enabled, available reward points will be automatically applied on cart "
 "to get a discount"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:371
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:377
 msgid "Enable Automatic Points Redeeming in Checkout Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:372
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:378
 msgid ""
 "When enabled, available reward points will be automatically applied on "
 "checkout to get a discount when the page is redirected to checkout directly "
 "from shop page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:380
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:437
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:386
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:443
 msgid "Manual Redeeming Field Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:388
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:445
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:394
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:451
 msgid "Button"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:392
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:449
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:398
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:455
 msgid "Percentage of Cart Total to be Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:393
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:450
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:399
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:456
 msgid "Enter the Percentage of the cart total that has to be Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:405
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:411
 msgid "Redeeming Button Notice"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:407
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:408
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:514
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:515
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:413
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:414
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:520
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:521
 msgid ""
 "[cartredeempoints] points worth of [currencysymbol] [pointsvalue] will be "
 "Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:420
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:426
 msgid "Redeeming Settings for Checkout Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:425
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:431
 msgid "Show/hide Redeeming Field in Checkout Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:475
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:481
 msgid "Redeeming Field label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:476
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:482
 msgid "This Text will be displayed as redeeming field label in checkout page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:478
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:479
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:484
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:485
 msgid "Have Reward Points ?"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:486
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:492
 msgid "Redeeming Field Link label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:487
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:493
 msgid ""
 "This Text will be displayed as redeeming field link label in checkout page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:489
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:490
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:495
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:496
 msgid "Redeem it"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:497
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:503
 msgid "Redeeming Link Call to Action"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:498
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:504
 msgid "Show/Hide Redeem It Link Call To Action in WooCommerce"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:511
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:517
 msgid "Redeeming Button Message "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:512
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:518
 msgid "Enter the Message for the Redeeming Button"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:528
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:534
 msgid "Redeeming Settings for Cart and Checkout Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:533
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:545
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:539
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:551
 msgid "Redeeming Field Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:546
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:552
 msgid "Enter the Label which will be displayed in Redeem Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:548
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:549
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:554
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:555
 msgid "Redeem your Reward Points:"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:555
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:561
 msgid "Show/Hide Redeeming Field Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:567
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:573
 #: includes/admin/tabs/modules/class-rs-fpsendpoints-module-tab.php:141
 msgid "Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:568
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:574
 msgid "Enter the Placeholder which will be displayed in Redeem Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:570
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:571
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:576
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:577
 msgid "Reward Points to Enter"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:577
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:583
 msgid "Redeeming Field Submit Button Caption"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:578
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:584
 msgid "Enter the Label which will be displayed in Submit Button"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:580
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:581
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:586
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:587
 msgid "Apply Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:587
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:593
 msgid "Coupon Label Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:588
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:594
 msgid "Enter the Message which will be displayed in Cart Subtotal"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:590
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:591
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:596
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:597
 msgid "Redeemed Points Value"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:597
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:603
 msgid "Extra Class Name for Redeeming Field Submit Button"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:598
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:604
 msgid ""
 "Add Extra Class Name to the Cart Apply Reward Points Button, Don't Enter "
 "dot(.) before Class Name"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:614
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:620
 msgid "Redeeming Restriction"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:619
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:625
 msgid "Redeeming/WooCommerce Coupon Field display on cart & checkout"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:627
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:633
 msgid "Display Both"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:628
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:634
 msgid "Hide WooCommerce Coupon Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:629
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:635
 msgid "Hide Redeeming Points Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:630
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:636
 msgid "Hide Both"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:631
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:637
 msgid "Hide one when coupon/point is used"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:636
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:642
 msgid "Redeemed Points is applied on"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:644
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:650
 msgid "Cart Subtotal"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:649
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:655
 msgid "Redeeming Field Selection"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:661
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:667
 msgid ""
 "This option can be used to controls the redeeming field display when "
 "redeeming is restricted to specific products/categories."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:664
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:670
 msgid "Enable to Restrict Redeeming for Sale Price Product(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:675
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:676
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:681
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:682
 msgid "Sorry, redeeming is not applicable for sale price product(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:681
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:687
 msgid "Enable Redeeming for Selected Products"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:690
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:696
 msgid "Products excluded from Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:702
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:708
 msgid "Enable Redeeming for Selected Category"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:711
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:717
 msgid "Categories allowed for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:712
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:733
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:718
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:739
 msgid "Select Category to enable redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:724
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:730
 msgid "Exclude Category for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:732
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:738
 msgid "Categories excluded from Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:745
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:751
 msgid "Hide Available Balance Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:746
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:752
 msgid ""
 "By enabling this checkbox, available reward points message will be hidden in "
 "the cart and checkout page when points redeemed on any one of the pages"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:754
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:760
 msgid "Restrict redeeming points applying on Tax Cost"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:755
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:761
 msgid ""
 "By enabling this checkbox, points redeeming in cart & checkout will not "
 "apply on tax cost."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:763
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:769
 msgid "Maximum Redeeming Threshold Percentage for Auto Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:764
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:770
 msgid "Enter the Percentage of the cart total that has to be Auto Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:773
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:779
 msgid "Maximum Redeeming Threshold Value (Discount) Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:780
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:786
 msgid "By Fixed Value"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:785
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:791
 msgid "Maximum Redeeming Threshold Value (Discount) for Order in "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:795
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:801
 msgid "Maximum Redeeming Threshold Value (Discount) for Order in Percentage %"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:805
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:811
 msgid "Minimum Points required for Redeeming for the First Time"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:806
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:812
 msgid ""
 "Enter Minimum Points to be Earned for Redeeming First Time in Cart/Checkout"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:815
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:821
 msgid "Show/Hide First Time Redeeming Minimum Points Required Warning Message"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:828
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:834
 msgid ""
 "Enter the Message which will be displayed when the user doesn't have enough "
 "points for first time redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:830
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:831
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:836
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:837
 msgid ""
 "You need Minimum of [firstredeempoints] Points when redeeming for the First "
 "time"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:837
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:843
 msgid "Minimum Points required for Redeeming after First Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:845
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:851
 msgid "Show/Hide Minimum Points required for Redeeming after First Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:858
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:864
 msgid ""
 "Enter the Message which will be displayed when the Current User doesn't have "
 "minimum points for Redeeming "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:860
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:861
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:866
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:867
 msgid "You need minimum of [points_after_first_redeem] Points for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:867
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:873
 msgid "Minimum Points to be entered for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:875
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:881
 msgid "Maximum Points above which points cannot be Redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:883
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:889
 msgid "Minimum Cart Total to Redeem Point(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:891
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:897
 msgid "Show/Hide Minimum Cart Total to Redeem Point(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:905
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:911
 msgid ""
 "Enter the Message which will be displayed when current Cart total is less "
 "than minimum Cart Total for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:907
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:908
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:913
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:914
 msgid ""
 "You need minimum cart Total of [currencysymbol][carttotal] in order to Redeem"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:914
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:920
 msgid "Maximum Cart Total to Redeem Point(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:922
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:928
 msgid "Show/Hide Maximum Cart Total to Redeem Point(s)"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:935
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:941
 msgid ""
 "Enter the Message which will be displayed when current Cart total is less "
 "than Maximum Cart Total for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:937
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:938
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:943
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:944
 msgid ""
 "You Cannot Redeem Points Because you Reach the Maximum Cart total "
 "[currencysymbol][carttotal]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:944
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:950
 msgid "Redeeming Restriction based on Available Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:953
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:959
 msgid "Minimum Available Points required for"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:966
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:972
 msgid "Minimum Available Points required to Redeem"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:977
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:983
 msgid ""
 "Enter the message which will be displayed when a user enters the points "
 "value less than the value configured in this field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:980
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:981
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:986
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:987
 msgid ""
 "You are eligible to redeem your points only when you have [available_points] "
 "Points in your account"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:987
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:993
 msgid "Restrict Redeem Points when Selected Payment Gateway is used"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:988
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:994
 msgid ""
 "Enabling this option will restrict redeem points when Selected Payment "
 "gateway is used on order"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:999
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1005
 msgid "Prevent Coupon Usage when points are redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1006
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1012
 msgid "Enable this option to prevent coupon usage when points are redeemed"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1010
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1016
 msgid ""
 "Text for Error Message for redeeming Coupon When applied with other coupon"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1034
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1040
 msgid "Display Redeemed Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1035
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1041
 msgid "Enable Message for Redeem Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1042
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1043
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1048
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1049
 msgid "Message to Redeemed Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1047
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1048
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1053
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1054
 msgid "Points Redeemed in this Order [redeempoints]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1060
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1066
 msgid "Error Message Settings for Redeeming Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1065
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1071
 msgid ""
 "Error Message to display when User enters less than Minimum Points[Default "
 "Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1066
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1096
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1072
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1102
 msgid ""
 "Enter the Message which will be displayed when Entered Points is less than "
 "Minimum Redeeming Points which is set in this Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1068
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1069
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1074
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1075
 msgid "Please Enter Points more than [rsminimumpoints]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1075
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1081
 msgid ""
 "Error Message to display when User enters more than Maximum Points[Default "
 "Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1076
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1106
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1082
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1112
 msgid ""
 "Enter the Message which will be displayed when Entered Points is more than "
 "Maximum Redeeming Points which is set in this Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1078
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1079
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1084
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1085
 msgid "Please Enter Points less than [rsmaximumpoints]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1085
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1091
 msgid ""
 "Error Message to display when User enters less than the Minimum Points  or "
 "more than Maximum Points[Default Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1086
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1116
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1092
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1122
 msgid ""
 "Enter the Message which will be displayed when Maximum and Minimum Redeeming "
 "Points are Equal which is set in this Page"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1088
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1089
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1094
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1095
 msgid "Please Enter [rsequalpoints] Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1095
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1101
 msgid ""
 "Error Message to display when User enters less than Minimum Points[Button "
 "Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1098
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1099
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1104
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1105
 msgid ""
 "You cannot redeem because the current points to be redeemed is less than "
 "[rsminimumpoints] Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1105
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1111
 msgid ""
 "Error Message to display when User enters more than Maximum Points[Button "
 "Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1108
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1109
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1114
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1115
 msgid ""
 "You cannot redeem because the current points to be redeemed is more than "
 "[rsmaximumpoints] points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1115
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1121
 msgid ""
 "Error Message to display when User enters less than the Minimum Points  or "
 "more than Maximum Points[Button Type]"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1118
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1119
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1124
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1125
 msgid ""
 "You cannot redeem because the points to be redeemed is not equal to "
 "[rsequalpoints] Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1125
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1131
 msgid "Redeeming Field Empty Error Message"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1126
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1132
 msgid ""
 "Enter the Message which will be displayed when Redeem Field has Empty Value"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1128
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1129
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1134
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1135
 msgid "No Reward Points Entered"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1135
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1141
 msgid "Unwanted Characters in Redeeming Field Error Message"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1136
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1142
 msgid ""
 "Enter the Message which will be displayed when redeeming field value contain "
 "characters"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1138
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1139
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1144
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1145
 msgid "Please Enter Only Numbers"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1145
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1151
 msgid "Insufficient Points for Redeeming Error Message"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1146
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1152
 msgid ""
 "Enter the Message which will be displayed when Entered Reward Points is more "
 "than Earned Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1148
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1149
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1154
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1155
 msgid "Reward Points you entered is more than Your Earned Reward Points"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1155
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1161
 msgid "Current User Points is Empty Error Message"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1168
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1174
 msgid ""
 "Enter the Message which will be displayed when the Current User Points is "
 "Empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1170
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1171
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1176
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1177
 msgid "You don't have Points for Redeeming"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1177
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1183
 msgid ""
 "Error Message to display when Auto Redeeming/WooCommerce Coupon is not "
 "applicable to use in the cart"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1190
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1200
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1196
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1206
 msgid ""
 "Enter the Message which will be displayed when Auto Redeeming/WooCommerce "
 "Coupon is not applicable to use in the cart"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1192
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1193
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1198
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1199
 msgid "Auto Redeem is not applicable to your cart contents."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1202
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1203
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1208
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1209
 msgid ""
 "Redeeming is not applicable to the payment gateway you have selected. Hence, "
 "the discount applied through points has been removed."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1216
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1222
 msgid "Shortcodes used in Redeeming Module"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1222
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1228
 msgid ""
 "<b>[cartredeempoints]</b> - To display points can redeem based on cart total "
 "amount<br><br><b>[currencysymbol]</b> - To display currency "
@@ -9671,7 +9780,7 @@ msgid ""
 "cart total value<br><br>"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1376
+#: includes/admin/tabs/modules/class-rs-fpredeeming-module-tab.php:1382
 msgid "Minimum Available Points required to redeem for "
 msgstr ""
 
@@ -9975,6 +10084,11 @@ msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:879
 msgid "Generate Referral Link Settings"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:884
+#: includes/admin/views/myreward-page-menu-sorting.php:25
+msgid "Generate Referral Link"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:896
@@ -10288,329 +10402,341 @@ msgid ""
 "purchase points when a referred person already exists on the site"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1423
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1416
+msgid "Restrict Referral Product Purchase Points based on Sale Price Products"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1421
+msgid ""
+"By enabling this checkbox, you can restrict awarding referral product "
+"purchase points to the referrer when a referred person purchases products "
+"that have a sale price in the order."
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1432
 msgid "Referrer Label Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1428
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1437
 msgid "To display the Message to Referral Person"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1440
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1449
 msgid "Select to Send Message by "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1446
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1455
 msgid "Referrer User Name"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1447
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1456
 msgid "Referrer First Name"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1452
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1461
 msgid "Message to display the Referral Person"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1467
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1476
 msgid "My Referral Table Label Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1485
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1561
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1494
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1570
 msgid "Referral Table Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1486
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1562
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1495
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1571
 msgid "Enter the Referral Table Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1505
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1581
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1514
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1590
 msgid "Select Referral Option for "
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1512
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1588
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1521
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1597
+#: includes/admin/wpliststable/class_rs_birthday_reward_table.php:127
 msgid "Email ID"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1518
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1594
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1527
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1603
 msgid "Referral Username Label"
-msgstr ""
-
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1519
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1595
-msgid "Enter the Referral Username Label"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1528
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1604
-msgid "Referral Email Label"
+msgid "Enter the Referral Username Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1529
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1605
-msgid "Enter the Referral Email label"
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1537
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1613
+msgid "Referral Email Label"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1538
 #: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1614
+msgid "Enter the Referral Email label"
+msgstr ""
+
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1547
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1623
 msgid "Total Referral Points Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1539
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1615
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1548
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1624
 msgid "Enter the Total Referral Points Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1548
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1557
 msgid "Referral Table - Shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1631
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1640
 msgid "Refer a Friend Form Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1636
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1645
 msgid "Enable Friend Form Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1648
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1657
 msgid "Friend Name Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1649
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1658
 msgid ""
 "Enter Friend Name Label which will be available in Frontend when you use "
 "shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1658
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1667
 msgid "Friend Name Field Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1659
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1668
 msgid ""
 "Enter Friend Name Field Placeholder which will be appear in frontend when "
 "you use shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1668
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1677
 msgid "Friend Email Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1669
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1678
 msgid ""
 "Enter Friend Email Label which will be available in Frontend when you use "
 "shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1678
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1687
 msgid "Friend Email Field Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1679
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1688
 msgid ""
 "Enter Friend Email Field Placeholder which will be appear in frontend when "
 "you use shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1688
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1697
 msgid "Friend Email Subject Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1689
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1698
 msgid ""
 "Enter Friend Subject which will be appear in Frontend when you use shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1698
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1707
 msgid "Friend Email Subject Field Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1699
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1708
 msgid ""
 "Enter Friend Email Subject Field Placeholder which will be appear in "
 "frontend when you use shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1708
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1717
 msgid "Friend Email Message Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1709
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1718
 msgid ""
 "Enter Friend Email Message which will be appear in frontend when you use "
 "shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1718
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1727
 msgid "Friend Email Message Field Placeholder"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1719
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1728
 msgid ""
 "Enter Friend Email Message Field Placeholder which will be appear in "
 "frontend when you use shortcode"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1728
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1737
 msgid " Email Subject Type"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1741
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1750
 msgid "Prefilled Subject Text"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1742
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1751
 msgid "This Message will be displayed in the Subject field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1751
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1760
 msgid "Prefilled Heading Text"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1752
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1761
 msgid "This Message will be displayed in the Heading field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1761
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1770
 msgid "Allow User to Enter the Prefilled Message for Refer a Friend"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1774
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1783
 msgid "Enter Referral Link for Refer a Friend Form"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1782
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1791
 msgid "Prefilled Message for Refer a Friend"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1783
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1792
 msgid ""
 "This Message will be displayed in the Message field along with the Referral "
 "link"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1792
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1801
 msgid "Show/Hide I agree to the Terms and Condition Field"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1804
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1813
 msgid "I Agree Field Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1805
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1814
 msgid ""
 "This Caption will be displayed for the I agree field in Refer a Friend Form"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1814
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1823
 msgid "Terms and Conditions Label"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1815
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1824
 msgid "This Caption will be displayed for terms and condition"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1824
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1833
 msgid "Terms and Conditions URL"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1825
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1834
 msgid "Enter the URL for Terms and Conditions"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1841
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1850
 msgid "Error Message Settings for Refer a Friend Form"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1846
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1855
 msgid "Error Message to display when Friend Name Field is left empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1847
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1856
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Friend Name "
 "is Empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1856
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1865
 msgid "Error Message to display when Friend Email Field is left empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1857
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1866
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Friend "
 "Email is Empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1866
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1875
 msgid "Error Message to display when Email format is not valid"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1867
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1876
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Friend "
 "Email is not Valid"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1876
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1885
 msgid "Error Message to display when Friend Email Field is already used"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1877
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1886
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Friend "
 "Email is already used"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1886
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1895
 msgid "Error Message to display when Email Subject is left empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1887
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1896
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Email "
 "Subject is Empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1896
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1905
 msgid "Error Message to display when Email Message is left empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1897
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1906
 msgid ""
 "Enter your Error Message which will be appear in frontend if the Email "
 "Message is Empty"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1906
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1915
 msgid "Error Message to display when I agree checkbox is unchecked"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1907
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1916
 msgid ""
 "Enter your Error Message which will be appear in frontend if i agree is "
 "unchecked"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1923
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1932
 msgid "Manual Referral Link Settings"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1938
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1947
 msgid "Referral Reward Table"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1953
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1962
 msgid "Shortcodes used in Refer a Friend"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1959
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:1968
 msgid ""
 "<b>[site_referral_url]</b> - To display referrer "
 "url<br><br><b>[rs_user_name]</b> - To display current user "
@@ -10622,15 +10748,15 @@ msgid ""
 "conditions"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2091
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2100
 msgid "Select the Users for Preventing access to Referral System"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2098
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2107
 msgid "Select the Users for Providing access to Referral System"
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2151
+#: includes/admin/tabs/modules/class-rs-fpreferralsystem-module-tab.php:2160
 msgid "Image used for Facebook Share"
 msgstr ""
 
@@ -10716,7 +10842,7 @@ msgid "Reset recorded entries in 'rsrecordstable' at DB"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreset-module-tab.php:145
-msgid "Setting to Reset Plugin Settings"
+msgid "Reset Plugin Settings"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpreset-module-tab.php:185
@@ -11212,7 +11338,7 @@ msgid "Social Reward Points Global Settings"
 msgstr ""
 
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:81
-#: includes/class-fp-common-functions.php:1534
+#: includes/srp-common-functions.php:1100
 msgid "Social Reward Points"
 msgstr ""
 
@@ -12105,17 +12231,6 @@ msgid ""
 "liking the product(s) per day."
 msgstr ""
 
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2207
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2235
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2263
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2291
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2319
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2347
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2375
-#: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2403
-msgid "Notification"
-msgstr ""
-
 #: includes/admin/tabs/modules/class-rs-fpsocialreward-module-tab.php:2215
 msgid "Facebook Share"
 msgstr ""
@@ -12357,6 +12472,11 @@ msgstr ""
 msgid "Total Amount Spent in Site"
 msgstr ""
 
+#: includes/admin/views/birthday-field.php:11
+#: includes/class-srp-register-post-type.php:67
+msgid "Birthday"
+msgstr ""
+
 #: includes/admin/views/earning-percentage-rule.php:12
 #: includes/admin/views/earning-percentage-rule.php:195
 #: includes/admin/views/redeeming-percentage-rule.php:13
@@ -12428,21 +12548,21 @@ msgstr ""
 msgid "Add Linking"
 msgstr ""
 
-#: includes/admin/views/myreward-page-menu-sorting.php:10
+#: includes/admin/views/myreward-page-menu-sorting.php:13
 msgid "My Reward Points Menu Sorting"
 msgstr ""
 
-#: includes/admin/views/myreward-page-menu-sorting.php:17
+#: includes/admin/views/myreward-page-menu-sorting.php:24
 msgid "Referral Table"
 msgstr ""
 
-#: includes/admin/views/myreward-page-menu-sorting.php:19
-#: includes/frontend/tab/class-rs-fprsadvanced-frontend.php:132
+#: includes/admin/views/myreward-page-menu-sorting.php:26
+#: includes/frontend/tab/class-rs-fprsadvanced-frontend.php:136
 msgid "Refer a Friend Form"
 msgstr ""
 
-#: includes/admin/views/myreward-page-menu-sorting.php:20
-#: includes/admin/views/myreward-page-menu-sorting.php:28
+#: includes/admin/views/myreward-page-menu-sorting.php:27
+#: includes/admin/views/myreward-page-menu-sorting.php:35
 msgid "Cashback Form"
 msgstr ""
 
@@ -12553,6 +12673,10 @@ msgstr ""
 msgid " Status Changed to Rejected"
 msgstr ""
 
+#: includes/admin/wpliststable/class_rs_birthday_reward_table.php:128
+msgid "Birthday Date"
+msgstr ""
+
 #: includes/admin/wpliststable/class_wp_list_table_for_newgift_voucher.php:53
 #: includes/admin/wpliststable/class_wp_list_table_view_gift_voucher.php:69
 msgid "Voucher Code"
@@ -12580,7 +12704,7 @@ msgid "Buyer"
 msgstr ""
 
 #: includes/admin/wpliststable/class_wp_list_table_for_nominee_user_list.php:49
-#: includes/class-fp-common-functions.php:1544
+#: includes/srp-common-functions.php:1111
 msgid "Nominee"
 msgstr ""
 
@@ -12662,90 +12786,9 @@ msgstr ""
 msgid "Referral Email"
 msgstr ""
 
-#: includes/class-fp-award-points-for-purchase-and-actions.php:1975
-#: includes/class-fp-award-points-for-purchase-and-actions.php:1980
+#: includes/class-fp-award-points-for-purchase-and-actions.php:2009
+#: includes/class-fp-award-points-for-purchase-and-actions.php:2014
 msgid "Guest"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1531
-msgid "Product Purchase"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1532
-msgid "Buying Points"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1533
-msgid "Referral System"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1535
-msgid "Action Reward Points"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1536
-msgid "Points Expiry"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1538
-msgid "Points Price"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1539
-msgid "Email"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1541
-msgid "Gift Voucher"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1542
-msgid "SMS"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1543
-msgid "Cashback"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1545
-msgid "Point URL"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1546
-msgid "Reward Points Payment Gateway"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1547
-msgid "Send Points"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1548
-msgid "Import/Export Points"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1549
-msgid "Reports"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1550
-msgid "SUMO Discounts Compatibility"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:1551
-msgid "SUMO Coupon Compatibility"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:2829
-#: includes/class-fp-common-functions.php:2838
-msgid "-"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:2837
-msgid "Discount Value:"
-msgstr ""
-
-#: includes/class-fp-common-functions.php:3805
-msgid "WooCommerce"
 msgstr ""
 
 #: includes/frontend/class-fp-rewardsystem-frontend-ajax.php:708
@@ -12773,23 +12816,31 @@ msgstr ""
 msgid "Nominee Saved"
 msgstr ""
 
-#: includes/frontend/class-fp-rewardsystem-frontend-assets.php:191
+#: includes/frontend/class-fp-rewardsystem-frontend-assets.php:207
 msgid "Create account password"
 msgstr ""
 
-#: includes/frontend/class-fp-rewardsystem-frontend-assets.php:194
+#: includes/frontend/class-fp-rewardsystem-frontend-assets.php:210
 msgid "Password"
 msgstr ""
 
-#: includes/frontend/class-frontend-enqueues.php:101
+#: includes/frontend/class-frontend-enqueues.php:102
 msgid "From Date and To Date is mandatory"
 msgstr ""
 
-#: includes/frontend/class-frontend-enqueues.php:102
+#: includes/frontend/class-frontend-enqueues.php:103
 msgid "Please select any option"
 msgstr ""
 
-#: includes/frontend/class-rs-fpfreeproduct-frontend.php:211
+#: includes/frontend/class-frontend-enqueues.php:106
+msgid "Unsubscribe link is invalid"
+msgstr ""
+
+#: includes/frontend/class-frontend-enqueues.php:107
+msgid "Successfully Unsubscribed"
+msgstr ""
+
+#: includes/frontend/class-rs-fpfreeproduct-frontend.php:208
 msgid "This product already is in the cart."
 msgstr ""
 
@@ -12894,7 +12945,7 @@ msgstr ""
 msgid "Please select Nominee"
 msgstr ""
 
-#: includes/frontend/tab/modules/class-rs-fpredeeming-frontend.php:1773
+#: includes/frontend/tab/modules/class-rs-fpredeeming-frontend.php:1787
 msgid "Coupon has been removed."
 msgstr ""
 
@@ -12909,30 +12960,30 @@ msgstr ""
 msgid "Please Login to View the Content of  this Page <a href="
 msgstr ""
 
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:328
 #: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:329
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:330
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:456
 #: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:457
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:458
 msgid "Click to copy the link"
 msgstr ""
 
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:336
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:465
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:335
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:464
 msgid "Referral Link Copied"
 msgstr ""
 
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:363
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:488
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:362
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:487
 #: includes/frontend/tab/modules/class-rs-fpsocialreward-frontend.php:727
 msgid "Tweet"
 msgstr ""
 
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:386
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:502
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:385
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:501
 msgid "Share"
 msgstr ""
 
-#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:608
+#: includes/frontend/tab/modules/class-rs-fpreferralsystem-frontend.php:607
 msgid "You cannot use this referral link."
 msgstr ""
 
@@ -13093,6 +13144,87 @@ msgstr ""
 msgid ""
 "We use the WooCommere billing phone number to send SMS notifications about "
 "the Reward Points Earned/Redeemed."
+msgstr ""
+
+#: includes/srp-admin-functions.php:185
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/srp-common-functions.php:1097
+msgid "Product Purchase"
+msgstr ""
+
+#: includes/srp-common-functions.php:1098
+msgid "Buying Points"
+msgstr ""
+
+#: includes/srp-common-functions.php:1099
+msgid "Referral System"
+msgstr ""
+
+#: includes/srp-common-functions.php:1101
+msgid "Action Reward Points"
+msgstr ""
+
+#: includes/srp-common-functions.php:1103
+msgid "Points Expiry"
+msgstr ""
+
+#: includes/srp-common-functions.php:1105
+msgid "Points Price"
+msgstr ""
+
+#: includes/srp-common-functions.php:1106
+msgid "Email"
+msgstr ""
+
+#: includes/srp-common-functions.php:1108
+msgid "Gift Voucher"
+msgstr ""
+
+#: includes/srp-common-functions.php:1109
+msgid "SMS"
+msgstr ""
+
+#: includes/srp-common-functions.php:1110
+msgid "Cashback"
+msgstr ""
+
+#: includes/srp-common-functions.php:1112
+msgid "Point URL"
+msgstr ""
+
+#: includes/srp-common-functions.php:1113
+msgid "Reward Points Payment Gateway"
+msgstr ""
+
+#: includes/srp-common-functions.php:1114
+msgid "Send Points"
+msgstr ""
+
+#: includes/srp-common-functions.php:1115
+msgid "Import/Export Points"
+msgstr ""
+
+#: includes/srp-common-functions.php:1116
+msgid "Reports"
+msgstr ""
+
+#: includes/srp-common-functions.php:1117
+msgid "SUMO Discounts Compatibility"
+msgstr ""
+
+#: includes/srp-common-functions.php:1118
+msgid "SUMO Coupon Compatibility"
+msgstr ""
+
+#: includes/srp-common-functions.php:2293
+#: includes/srp-common-functions.php:2302
+msgid "-"
+msgstr ""
+
+#: includes/srp-common-functions.php:2301
+msgid "Discount Value:"
 msgstr ""
 
 #: rewardsystem.php:60 rewardsystem.php:68

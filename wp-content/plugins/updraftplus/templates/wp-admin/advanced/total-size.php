@@ -16,7 +16,7 @@ $backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
 			$sdescrip = preg_replace('/ \(.*\)$/', '', $info['description']);
 			if (strlen($sdescrip) > 20 && isset($info['shortdescription'])) $sdescrip = $info['shortdescription'];
 			
-			$updraftplus_admin->settings_debugrow(ucfirst($sdescrip).':', '<span id="updraft_diskspaceused_'.$key.'"><em></em></span> <a href="'.UpdraftPlus::get_current_clean_url().'" class="count" data-type="' . $key . '" onclick="updraftplus_diskspace_entity(\''.$key.'\'); return false;">'.__('count', 'updraftplus').'</a>');
+			$updraftplus_admin->settings_debugrow(ucfirst($sdescrip).':', '<span id="updraft_diskspaceused_'.$key.'"><em></em></span> <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="count" data-type="' . $key . '" onclick="updraftplus_diskspace_entity(\''.$key.'\'); return false;">'.__('count', 'updraftplus').'</a>');
 		}
 		?>
 	</table>

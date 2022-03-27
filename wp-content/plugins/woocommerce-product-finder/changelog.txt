@@ -1,5 +1,9 @@
 *** Product Finder Changelog ***
 
+2022-02-08 - version 1.2.21
+* Fix - Include languages folder and POT file in the release.
+* Tweak - WC 6.2 compatibility.
+
 2022-01-17 - version 1.2.20
 * Fix - Unify `.github/**.md` files with other repos.
 * Tweak - WC 6.1 compatibility.

@@ -17,6 +17,7 @@ class WoocommerceProductFeedsJobManager {
 	 * Job types to be managed.
 	 */
 	private $job_types = [
+		'WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob',
 		'WoocommerceProductFeedsRefreshGoogleTaxonomyJob',
 		'WoocommerceProductFeedsClearGoogleTaxonomyJob',
 	];

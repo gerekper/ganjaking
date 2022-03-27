@@ -1,9 +1,5 @@
 <?php 
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Terms_Of_Service extends GWPerk {
 
     public $version = GP_TERMS_OF_SERVICE_VERSION;
@@ -34,13 +30,6 @@ class GP_Terms_Of_Service extends GWPerk {
 
 	    require_once( 'includes/class-gf-field-terms-of-service.php' );
         
-    }
-
-    public function documentation() {
-        return array(
-            'type'  => 'url',
-            'value' => 'https://gravitywiz.com/documentation/gravity-forms-terms-of-service/'
-        );
     }
     
 }

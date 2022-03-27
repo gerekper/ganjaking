@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2021, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointments;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Frontend;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Local Pickup Plus main class.
@@ -37,7 +37,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '2.9.10';
+	const VERSION = '2.9.12';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';
@@ -173,7 +173,7 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 		}
 
 		// load ajax methods
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			$this->ajax = $this->load_class( '/src/class-wc-local-pickup-plus-ajax.php', 'WC_Local_Pickup_Plus_Ajax' );
 		}
 

@@ -6,6 +6,7 @@ use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Email;
+use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
 use WPMailSMTP\Providers\MailerAbstract;
 
 /**
@@ -121,13 +122,6 @@ class Common {
 		$headers     = explode( $this->mailcatcher->get_line_ending(), $this->mailcatcher->createHeader() );
 		$attachments = count( $this->mailcatcher->getAttachments() );
 		$people      = $this->get_people();
-		$mailer      = Options::init()->get( 'mail', 'mailer' );
-
-		if ( ! $this->mailer->is_email_sent() ) {
-			$is_sent = Email::STATUS_UNSENT;
-		} else {
-			$is_sent = $this->mailer->should_verify_sent_status() ? Email::STATUS_WAITING : Email::STATUS_SENT;
-		}
 
 		try {
 			$email = new Email( $email_id );
@@ -136,8 +130,9 @@ class Common {
 				->set_people( $people )
 				->set_headers( array_filter( $headers ) )
 				->set_attachments( $attachments )
-				->set_mailer( $mailer )
-				->set_status( $is_sent );
+				->set_mailer( $this->mailer->get_mailer_name() )
+				->set_status( $this->get_email_status() )
+				->set_message_id( $this->get_message_id() );
 
 			// Set the email error if the email was not sent.
 			if ( $email->has_failed() ) {
@@ -153,6 +148,24 @@ class Common {
 		}
 
 		return $email_id;
+	}
+
+	/**
+	 * Get email status after email send.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return int Email status.
+	 */
+	public function get_email_status() {
+
+		$status = Email::STATUS_UNSENT;
+
+		if ( $this->mailer->is_email_sent() ) {
+			$status = $this->mailer->should_verify_sent_status() ? Email::STATUS_WAITING : Email::STATUS_SENT;
+		}
+
+		return $status;
 	}
 
 	/**
@@ -179,5 +192,34 @@ class Common {
 		$people['from'] = $this->mailcatcher->From;
 
 		return $people;
+	}
+
+	/**
+	 * Get message ID based on mailer.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return string
+	 */
+	private function get_message_id() {
+
+		$message_id = '';
+
+		$custom_id_mailers = [ 'smtpcom', 'postmark', 'sparkpost', 'sendgrid' ];
+
+		if ( in_array( $this->mailer->get_mailer_name(), $custom_id_mailers, true ) ) {
+			foreach ( $this->mailcatcher->getCustomHeaders() as $header ) {
+				if ( $header[0] === 'X-Msg-ID' ) {
+					$message_id = $header[1];
+					break;
+				}
+			}
+		}
+
+		if ( empty( $message_id ) ) {
+			$message_id = trim( $this->mailcatcher->getLastMessageID(), '<>' );
+		}
+
+		return $message_id;
 	}
 }

@@ -14,11 +14,7 @@
  * * Getting Announcements
  *
  * @version 2.0
- */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
+ */
 class GWAPI {
 
 	private $license_key;

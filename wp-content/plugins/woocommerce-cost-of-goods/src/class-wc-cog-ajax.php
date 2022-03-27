@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/cost-of-goods/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\COG;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\COG\Utilities\Previous_Orders_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * AJAX handler.

@@ -1,6 +1,31 @@
 
 # Changelog
 
+## 1.3.10
+
+	- Fixed PHP notice that could show if there are submitted File Upload fields without values.
+
+## 1.3.9
+
+	- Fixed conflict where Preview Submission was preventing merge tag drop downs for other plugins/perks such as GP Unique ID from showing fields on the current page.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.3.8
+
+	- Fixed issue where File Upload fields in Nested Forms would not show their values in merge tags parsed by GP Preview Submission.
+
+## 1.3.7
+
+	- Fixed issue where Section fields with only File Upload fields would not show when previewing the `{all_fields}` merge tag.
+
+## 1.3.6
+
+	- Removed `create_function()` reference to avoid Security Ninja false positive warning.
+
+## 1.3.5
+
+	- Fixed issue where Preview Submission would conflict with Populate Anything's Live Merge Tags and prevent input value replacement.
+
 ## 1.3.4
 
 	- Fixed issue where download links for files uploaded with single file upload fields could be incorrect.

@@ -1,6 +1,47 @@
 
 # Changelog
 
+## 1.2.7
+
+	- Improved internationalization by adding "Activation Key Required" as a translatable string.
+
+## 1.2.6
+
+	- Added filter, [gpbua_activation_page_id](https://gravitywiz.com/documentation/gpbua_activation_page_id/#change-activation-page-id-depending-on-language-with-polylang), to allow filtering the activation page ID.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.2.5
+
+	- Fixed issue where {gpbua} merge tags would not be replaced if no activation key is provided
+
+## 1.2.4
+
+	- Improved compatibility between GP Better User Activation with GP Disable Entry Creation.
+
+## 1.2.3
+
+	- Fixed PHP 8 warnings.
+
+## 1.2.2
+
+	- Fixed a compatibility issue with GFUR 4.6+.
+
+## 1.2.1
+
+	- Added support for disabling the Block Editor for the selected activation page.
+
+## 1.2
+
+	- Added support for GF User Registration 4.6.
+
+## 1.1.11
+
+	- Updated {gpbua:password} merge tag to work better with the security enhancements in GF User Registration 4.5 and newer. It will now show a link with "Set your password." as the text if the password is e-mailed. Otherwise, it will show "Set at registration." if the password is mapped to a field.
+
+## 1.1.10
+
+	- Updated custom activation page redirect to preserve query parameters.
+
 ## 1.1.9
 
 	- Fixed issue where activation key parameter did not account for other parameters already existing on the activation URL.

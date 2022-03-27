@@ -1,0 +1,19 @@
+# Changelog
+
+## 1.0.2
+
+	- Added support to randomize choices on WooCommerce product page
+
+## 1.0.1
+
+	- Added support for randomizing choices in Survey Add-On Rank fields.
+
+## 1.0-beta-1.0
+
+	- Improved compatibility with checkboxes in Gravity Forms 2.5.
+	- Added support for randomizing choice order for AJAX-populated choices from Populate Anything.
+	- Added seeding to maintain random order if validation is failed.
+
+## 1.0
+
+	- Public release!

@@ -156,6 +156,8 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
         if (isset($additional['timeout'])) {
             $options[CURLOPT_TIMEOUT] = $additional['timeout'];
         }
+        
+        if (function_exists('apply_filters')) $options = apply_filters('updraftplus_dropbox_fetch_curl_options', $options, $method, $url, $call, $additional);
 
         // Set the cURL options at once
         curl_setopt_array($handle, $options);

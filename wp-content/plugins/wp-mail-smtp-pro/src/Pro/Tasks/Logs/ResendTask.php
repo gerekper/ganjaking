@@ -61,7 +61,7 @@ class ResendTask extends Task {
 	public function schedule( $email_ids ) {
 
 		// Exit if AS function does not exist.
-		if ( ! function_exists( 'as_next_scheduled_action' ) ) {
+		if ( ! function_exists( 'as_has_scheduled_action' ) ) {
 			return;
 		}
 

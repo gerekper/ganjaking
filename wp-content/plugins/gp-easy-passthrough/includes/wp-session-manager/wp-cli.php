@@ -6,10 +6,6 @@
  * @package    WP_Session
  * @subpackage Commands
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WP_Session_Command extends \WP_CLI_Command {
 
 	/**

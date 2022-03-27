@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 4.0.1\n"
+"Project-Id-Version: WooCommerce Instagram 4.1.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-27T15:33:55+00:00\n"
+"POT-Creation-Date: 2022-02-28T15:17:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-instagram\n"
@@ -185,12 +185,12 @@ msgid "An unexpected error occurred."
 msgstr ""
 
 #: includes/admin/class-wc-instagram-admin.php:169
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:146
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:149
 msgid "Copied!"
 msgstr ""
 
 #: includes/admin/class-wc-instagram-admin.php:171
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:130
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:133
 msgid "Edit"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgid "Cancel"
 msgstr ""
 
 #: includes/admin/class-wc-instagram-admin.php:174
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:143
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:146
 msgid "Copy link"
 msgstr ""
 
@@ -297,42 +297,48 @@ msgid "Tax location"
 msgstr ""
 
 #: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:47
+#: includes/admin/views/html-admin-status-report-catalogs.php:30
+msgctxt "product catalogs: table column"
+msgid "Stock"
+msgstr ""
+
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:50
 msgctxt "product catalogs: table column"
 msgid "Download"
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:80
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:83
 #: includes/admin/notices/product-catalog-files.php:29
 #: includes/admin/notices/shopping.php:27
 msgid "Add catalog"
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:104
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:107
 msgid "Some considerations before creating a catalog:"
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:107
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:110
 msgid "Each catalog will add a data feed URL in your store to import the products to a Facebook Catalog."
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:108
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:111
 msgid "The feeds will be updated periodically with the latest product data."
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:109
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:112
 msgid "To keep your catalog synchronized, set an <strong>Automatic File Upload Schedule</strong> in the Facebook Catalog."
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:134
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:137
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:138
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:141
 msgid "View"
 msgstr ""
 
 #. translators: %s: file format
-#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:249
+#: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:264
 msgctxt "product catalogs: catalog download aria-label"
 msgid "Download the product catalog in %s format"
 msgstr ""
@@ -1185,18 +1191,59 @@ msgctxt "setting desc"
 msgid "This option can be set per product and product category."
 msgstr ""
 
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:467
+msgctxt "setting title"
+msgid "Include stock"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:468
+msgctxt "setting desc"
+msgid "Include the stock quantity."
+msgstr ""
+
+#. translators: 1: Instagram Checkout link, 2: arial-label
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:472
+msgctxt "setting desc"
+msgid "This option is required for <a href=\"%1$s\" aria-label=\"%2$s\" target=\"_blank\">Instagram Checkout</a>."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:474
+msgctxt "aria-label: documentation link"
+msgid "View Instagram Checkout documentation"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:479
+msgctxt "setting title"
+msgid "Stock quantity"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:480
+msgctxt "setting desc"
+msgid "Set the stock quantity for in-stock products without a defined quantity."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:489
+msgctxt "setting title"
+msgid "Backorder stock quantity"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:490
+msgctxt "setting desc"
+msgid "Set the stock quantity for on-backorder products."
+msgstr ""
+
 #. translators: %s: list of placeholders
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:483
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:516
 msgctxt "setting desc"
 msgid "Available placeholders: %s"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:506
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:539
 msgctxt "setting placeholder"
 msgid "Select product categories"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:544
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:577
 msgctxt "setting placeholder"
 msgid "Search for a product&hellip;"
 msgstr ""
@@ -1210,7 +1257,7 @@ msgstr ""
 msgid "This section shows the product catalogs created with WooCommerce Instagram."
 msgstr ""
 
-#: includes/admin/views/html-admin-status-report-catalogs.php:46
+#: includes/admin/views/html-admin-status-report-catalogs.php:54
 msgid "View product catalog feed"
 msgstr ""
 

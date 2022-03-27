@@ -22,6 +22,7 @@ if ( ! class_exists( 'RSFrontendEnqueues' ) ) {
 			wp_enqueue_script( 'jquery' ) ;
 			wp_enqueue_script( 'jquery-ui-datepicker' ) ;
 						
+						wp_enqueue_style( 'jquery-ui-style' , WC()->plugin_url() . '/assets/css/jquery-ui/jquery-ui.min.css' , array() , WC_VERSION ) ;
 						wp_enqueue_style( 'fp-srp-style' , SRP_PLUGIN_DIR_URL . 'assets/css/style.css' , array() , SRP_VERSION , self::$in_footer) ;
 			wp_enqueue_style( 'wp_reward_footable_css' , SRP_PLUGIN_DIR_URL . 'assets/css/footable.core.css' , array() , SRP_VERSION , self::$in_footer) ;
 
@@ -100,6 +101,32 @@ if ( ! class_exists( 'RSFrontendEnqueues' ) ) {
 				'is_date_filter_enabled'              => get_option( 'rs_show_or_hide_date_filter' ) ,
 				'custom_date_error_message'           => esc_html__( 'From Date and To Date is mandatory' , 'rewardsystem' ) ,
 				'default_selection_error_message'     => esc_html__( 'Please select any option' , 'rewardsystem' ) ,
+								'is_user_logged_in'                   => is_user_logged_in(),
+								'user_id'                             => get_current_user_id(),
+								'unsub_link_error'                    => esc_html__( 'Unsubscribe link is invalid' , 'rewardsystem' ), 
+								'unsub_link_success'                  => esc_html__( 'Successfully Unsubscribed' , 'rewardsystem' ),
+								'site_url'                            => site_url(),
+			) ) ;
+						
+						/* Enhanced JS */
+			wp_enqueue_script( 'srp_enhanced' , SRP_PLUGIN_URL . '/assets/js/srp-enhanced.js' , array( 'jquery' , 'select2' ) , SRP_VERSION ) ;
+			wp_localize_script( 'srp_enhanced' , 'srp_enhanced_params' , array(
+				'srp_wc_version'                  => WC_VERSION ,
+				'ajax_url'                        => SRP_ADMIN_AJAX_URL ,
+				'fp_pages_and_posts_search_nonce' => wp_create_nonce( 'fp-pages-and-posts-search-nonce' ) ,
+								'search_nonce'                    => wp_create_nonce( 'search-nonce' ) ,
+				'search_customers'                => wp_create_nonce( 'search-customers' ) ,
+				'search_products'                 => wp_create_nonce( 'search-products' ) ,
+				'i18n_no_matches'                 => esc_html_x( 'No matches found' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_ajax_error'                 => esc_html_x( 'Loading failed' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_input_too_short_1'          => esc_html_x( 'Please enter 1 or more characters' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_input_too_short_n'          => esc_html_x( 'Please enter %qty% or more characters' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_input_too_long_1'           => esc_html_x( 'Please delete 1 character' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_input_too_long_n'           => esc_html_x( 'Please delete %qty% characters' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_selection_too_long_1'       => esc_html_x( 'You can only select 1 item' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_selection_too_long_n'       => esc_html_x( 'You can only select %qty% items' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_load_more'                  => esc_html_x( 'Loading more results&hellip;' , 'enhanced select' , 'rewardsystem' ) ,
+				'i18n_searching'                  => esc_html_x( 'Searching&hellip;' , 'enhanced select' , 'rewardsystem' ) ,
 			) ) ;
 						
 			wp_register_style( 'fp-srp-inline-style' , false , array() , SRP_VERSION ) ; // phpcs:ignore

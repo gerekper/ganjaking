@@ -22,7 +22,7 @@ class RevSliderUpdate {
 	public function __construct($version){
 		$this->option = $this->plugin_slug . '_update_info';
 		$this->_retrieve_version_info();
-		$this->version = $version;
+		$this->version = (empty($version)) ? RS_REVISION : $version;
 	}
 	
 	
@@ -48,10 +48,14 @@ class RevSliderUpdate {
 		if(isset($transient) && !isset($transient->response)){
 			$transient->response = array();
 		}
-
+		
 		if(!empty($this->data->basic) && is_object($this->data->basic)){
-			if(version_compare($this->version, $this->data->basic->version, '<')){
-				$this->data->basic->new_version = $this->data->basic->version;
+			$version = (isset($this->data->basic->version)) ? $this->data->basic->version : $this->data->basic->new_version;
+			if(version_compare($this->version, $version, '<')){
+				$this->data->basic->new_version = $version;
+				if(isset($this->data->basic->version)){
+					unset($this->data->basic->version);
+				}
 				$transient->response[RS_PLUGIN_SLUG_PATH] = $this->data->basic;
 			}
 		}
@@ -92,8 +96,8 @@ class RevSliderUpdate {
 		if(time() - $last_check > 172800 || $this->force == true){
 			$data = $this->_retrieve_update_info();
 			
+			update_option('revslider-update-check', time());
 			if(isset($data->basic)) {
-				update_option('revslider-update-check', time());
 				
 				$this->data->checked = time();
 				$this->data->basic	 = $data->basic;

@@ -6,10 +6,6 @@
  * Primary purpose: Handle exporting child entries alongside their corresponding parent entry.
  * Secondary purpose: Handle remapping child forms on Nested Form fields when exporting/importing a parent form.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPNF_Export {
 
 	private static $instance = null;
@@ -111,6 +107,17 @@ class GPNF_Export {
 		$nested_form_fields = GFCommon::get_fields_by_type( $form, array( 'form' ) );
 		$lines              = array();
 
+		/**
+		 * Enable the output of parent entry data on child entry rows.
+		 *
+		 * @since x.x.x
+		 *
+		 * @param bool  $export_parent Should parent entry data be exported on child entry rows?
+		 * @param array $form          The parent form.
+		 * @param array $entry         The parent entry.
+		 */
+		$export_parent = gf_apply_filters( array( 'gpnf_export_parent_entry_data_on_child_entry_rows', $form['id'] ), false, $form, $entry );
+
 		foreach ( $nested_form_fields as $nested_form_field ) {
 			foreach ( $parent_entry->get_child_entries( $nested_form_field->id ) as $child_entry ) {
 
@@ -128,10 +135,15 @@ class GPNF_Export {
 						$field   = GFAPI::get_field( $form, $column );
 						$_line[] = self::escape_value( $field->get_value_export( $child_entry, $column, false, true ) );
 					} else {
-						$counter = rgar( $field_rows, $column, 1 );
-						while ( $counter > 0 ) {
-							$_line[] = '""';
-							$counter--;
+						if ( $export_parent ) {
+							$field   = GFAPI::get_field( $form, $column );
+							$_line[] = self::escape_value( $field->get_value_export( $entry, $column, false, true ) );
+						} else {
+							$counter = rgar( $field_rows, $column, 1 );
+							while ( $counter > 0 ) {
+								$_line[] = '""';
+								$counter--;
+							}
 						}
 					}
 				}
@@ -142,7 +154,24 @@ class GPNF_Export {
 			}
 		}
 
-		return empty( $lines ) ? $line : sprintf( "%s\n%s", $line, implode( "\n", $lines ) );
+		if ( empty ( $lines ) ) {
+			return $line;
+		}
+
+		/**
+		 * Disable the output of parent entry rows so that only child entry rows are exported.
+		 *
+		 * @since x.x.x
+		 *
+		 * @param bool  $export_parent Should parent entry rows be exported?
+		 * @param array $form          The parent form.
+		 * @param array $entry         The parent entry.
+		 */
+		if ( gf_apply_filters( array( 'gpnf_export_parent_entry_row', $form['id'] ), true, $form, $entry ) ) {
+			array_unshift( $lines, $line );
+		}
+
+		return implode( "\n", $lines );
 	}
 
 	public function are_export_fields_disabled() {
@@ -187,7 +216,9 @@ class GPNF_Export {
 			}
 		}
 
-		return gp_nested_forms()->get_field_value( GFAPI::get_form( $nested_form_id ), $nested_form_entry, $nested_field_id );
+		$field_value = gp_nested_forms()->get_field_value( GFAPI::get_form( $nested_form_id ), $nested_form_entry, $nested_field_id );
+
+		return apply_filters( 'gform_export_field_value', $field_value, $nested_form_id, $nested_field_id, $nested_form_entry );
 	}
 
 	public function escape_value( $value ) {

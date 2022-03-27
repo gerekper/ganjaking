@@ -1,0 +1,61 @@
+# Changelog
+
+## 1.1.11
+
+	- Improved detection of scroll parent of the autocomplete field to help prevent issue where scrolling the page brings the autocomplete dropdown with it.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.1.10
+
+	- Updated usage of `GFCommon::maybe_decode_json()` to use `GFAddOn::maybe_decode_json()` instead to support Gravity Forms versions prior to 2.5.
+
+## 1.1.9
+
+	- Improved compatibility with forms that are in modals that can scroll including Nested Forms.
+	- Added ability to specify which input (via filters) is used as the autocomplete input rather than always using Address Line 1.
+
+## 1.1.8
+
+	- Fixed issue where address coordinates where not saved when navigating paginated forms.
+
+## 1.1.7
+
+	- Added support for using Populate Anything on an Address field with Address Autocomplete enabled.
+
+## 1.1.6
+
+	- Fixed issue where Québec addresses would not select "Quebec" if using the Canadian address format.
+
+## 1.1.5
+
+	- Fixed issue where the latitude and longitude meta was not available for use by feed Add-Ons during submission.
+
+## 1.1.4
+
+	- Fixed issue where the Country select would not populate for certain site setups.
+	- Fixed issue where encoded HTML entities would be populated into inputs rather than the character.
+
+## 1.1.3
+
+	- Improved compatibility with earlier versions of Gravity Forms 2.4.
+
+## 1.1.2
+
+	- Updated the API key input to be a password input to prevent API key from being visible while viewing the settings.
+	- Fixed issue where the country would not be selected if the user's browser language did not match the website's language.
+
+## 1.1.1
+
+	- Fixed issue with the City input not being filled in for city-states such as Singapore.
+	- Fixed issue where Address inputs such as City could be filled with "undefined" rather than an empty string if the result does not return a value for that particular input.
+
+## 1.1
+
+	- Improved formatting of addresses where the street number follows the street/route.
+	- Added new capabilities to grant/deny access to Address Autocomplete settings and to uninstall it.
+	- Added support for saving the coordinates of autocompleted addresses in entry meta. This improves compatibility with plugins such as GravityView Maps!
+	- Improved handling of populating City inputs for countries including Brazil.
+
+## 1.0
+
+	- Initial release!

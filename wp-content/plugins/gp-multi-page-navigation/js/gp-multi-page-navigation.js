@@ -173,7 +173,23 @@
 			 * If attempting to submit the form (page = 0, happens w/ "Next Page with Errors" button), move the Submit
 			 * button to the current page so Gravity Forms will not abort the submission.
 			 */
-			$( '#gform_submit_button_' + formId ).appendTo( '.gform_page_footer:visible' ).css( { display: 'block', visibility: 'hidden', position: 'absolute' } );
+			if ( parseInt( page ) === 0 ) {
+				$( '#gform_submit_button_' + formId ).appendTo( '.gform_page_footer:visible' ).css( { display: 'block', visibility: 'hidden', position: 'absolute' } );
+				/**
+				 * GF adds spinners to all Submit and Next buttons when the form is submitted as only one of these button
+				 * types is visible for each page. GPMPN moves the submit button to the current page when submitting the
+				 * form early (i.e. Next Page with Errors button). This results in multiple spinners showing as the
+				 * Submit and Next buttons are on the same page. To resolve this, we set our custom buttons as the spinner
+				 * target so only a single spinner is displayed.
+				 */
+				gform.addFilter( 'gform_spinner_target_elem', function( $target ) {
+					// GF doesn't provide a way to check if a function is already bound to a filter so let's remove it
+					// as part of the function and it will be rebound when it is applicable again.
+					gform.removeFilter( 'gform_spinner_target_elem', 10, 'gpmpn_set_spinner_target' );
+					var $nextPage = $( '.gform_next_page_errors_button:visible, .gform_resubmit_button:visible' );
+					return $nextPage.length ? $nextPage : $target;
+				}, 10, 'gpmpn_set_spinner_target' );
+			}
 
 			$form.submit();
 

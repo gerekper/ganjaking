@@ -222,7 +222,7 @@ class Request {
 				$args['search']['place'] = sanitize_key( $req['search']['place'] );
 			}
 			if ( ! empty( $req['search']['term'] ) ) {
-				$args['search']['term'] = sanitize_text_field( $req['search']['term'] );
+				$args['search']['term'] = sanitize_text_field( wp_unslash( $req['search']['term'] ) );
 			}
 		}
 

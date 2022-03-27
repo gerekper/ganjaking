@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version  6.12.0
+ * @version  6.14.0
  */
 class WC_PB_CP_Compatibility {
 
@@ -75,6 +75,16 @@ class WC_PB_CP_Compatibility {
 		/*
 		 * Cart and Orders.
 		 */
+
+		// Extend PB group modes to support group modes of composited bundles.
+		add_filter( 'woocommerce_bundles_group_mode_options_data', array( __CLASS__, 'composited_group_mode_options_data' ) );
+		add_filter( 'woocommerce_bundle_container_cart_item', array( __CLASS__, 'composited_bundle_group_mode' ), 0, 3 );
+
+		// Inherit component discounts - 'props' method implementation.
+		if ( 'props' === WC_PB_Product_Prices::get_bundled_cart_item_discount_method() ) {
+			add_action( 'woocommerce_bundles_before_set_bundled_cart_item', array( __CLASS__, 'bundled_cart_item_before_price_modification' ) );
+			add_action( 'woocommerce_bundles_after_set_bundled_cart_item', array( __CLASS__, 'bundled_cart_item_after_price_modification' ) );
+		}
 
 		// Validate bundle type component selections.
 		add_action( 'woocommerce_composite_component_validation_add_to_cart', array( __CLASS__, 'validate_component_configuration' ), 10, 8 );
@@ -578,6 +588,109 @@ class WC_PB_CP_Compatibility {
 	| Cart and Orders.
 	|--------------------------------------------------------------------------
 	*/
+
+	/**
+	 * Modify group mode of composited bundles.
+	 *
+	 * @since  6.14.0
+	 *
+	 * @param  array  $cart_item
+	 * @return array
+	 */
+	public static function composited_bundle_group_mode( $cart_item ) {
+
+		if ( $cart_item[ 'data' ]->is_type( 'bundle' ) && wc_cp_is_composited_cart_item( $cart_item ) ) {
+
+			if ( 'none' === $cart_item[ 'data' ]->get_group_mode() ) {
+				$cart_item[ 'data' ]->set_group_mode( 'none_composited' );
+			} elseif ( 'noindent' === $cart_item[ 'data' ]->get_group_mode() ) {
+				$cart_item[ 'data' ]->set_group_mode( 'flat_composited' );
+			} else {
+				$cart_item[ 'data' ]->set_group_mode( 'composited' );
+			}
+		}
+
+		return $cart_item;
+	}
+
+	/**
+	 * Add hidden Group Modes for composited bundles.
+	 *
+	 * @param  array  $group_mode_data
+	 * @return array
+	 */
+	public static function composited_group_mode_options_data( $group_mode_data ) {
+
+		$group_mode_data[ 'none_composited' ] = array(
+			'title'      => __( 'Composited None', 'woocommerce-composite-products' ),
+			'features'   => array( 'parent_item', 'child_item_indent', 'aggregated_subtotals', 'component_multiselect' ),
+			'is_visible' => false
+		);
+
+		$group_mode_data[ 'flat_composited' ] = array(
+			'title'      => __( 'Composited Flat', 'woocommerce-composite-products' ),
+			'features'   => array( 'parent_item', 'child_item_indent', 'child_item_meta' ),
+			'is_visible' => false
+		);
+
+		$group_mode_data[ 'composited' ] = array(
+			'title'      => __( 'Composited Grouped', 'woocommerce-composite-products' ),
+			'features'   => array( 'parent_item', 'child_item_indent', 'aggregated_subtotals', 'parent_cart_widget_item_meta' ),
+			'is_visible' => false
+		);
+
+		return $group_mode_data;
+	}
+
+	/**
+	 * Add filters to modify bundled product prices when parent product is composited and has a discount.
+	 *
+	 * @param  array   $cart_item
+	 * @return void
+	 */
+	public static function bundled_cart_item_before_price_modification( $cart_item ) {
+
+		if ( $bundle_container_item = wc_pb_get_bundled_cart_item_container( $cart_item ) ) {
+			if ( $composite_container_item = wc_cp_get_composited_cart_item_container( $bundle_container_item ) ) {
+
+				$bundle           = $bundle_container_item[ 'data' ];
+				$composite        = $composite_container_item[ 'data' ];
+				$component_id     = $bundle_container_item[ 'composite_item' ];
+				$component_option = $composite->get_component_option( $component_id, $bundle->get_id() );
+
+				if ( $component_option ) {
+					$component_option->add_filters();
+				}
+			}
+		}
+
+		return $cart_item;
+	}
+
+	/**
+	 * Remove filters that modify bundled product prices when the parent product is composited and has a discount.
+	 *
+	 * @param  string  $cart_item
+	 * @return void
+	 */
+	public static function bundled_cart_item_after_price_modification( $cart_item ) {
+
+		if ( $bundle_container_item = wc_pb_get_bundled_cart_item_container( $cart_item ) ) {
+			if ( $composite_container_item = wc_cp_get_composited_cart_item_container( $bundle_container_item ) ) {
+
+				$bundle           = $bundle_container_item[ 'data' ];
+				$composite        = $composite_container_item[ 'data' ];
+				$component_id     = $bundle_container_item[ 'composite_item' ];
+				$component_option = $composite->get_component_option( $component_id, $bundle->get_id() );
+
+				if ( $component_option ) {
+					$component_option->remove_filters();
+				}
+			}
+		}
+
+		return $cart_item;
+	}
 
 	/**
 	 * Hook into 'woocommerce_composite_component_add_to_cart_validation' to validate composited bundles.

@@ -60,7 +60,7 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
 					}
 				} else if ( '2' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
 					$Order           = new WC_Order( $order_id ) ;
-					$CartTotalPoints = get_reward_points_based_on_cart_total( $Order->get_total() ) ;
+					$CartTotalPoints = get_reward_points_based_on_cart_total( $Order->get_total() , false , get_current_user_id() ) ;
 					$CartTotalPoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) $CartTotalPoints ) ;
 					$CartTotalPoints = 'yes'  == get_option( 'rs_enable_round_off_type_for_calculation' ) ? round_off_type( $CartTotalPoints , array() , false ) : ( float ) $CartTotalPoints ;             
 					if ( ! empty( $CartTotalPoints ) ) {
@@ -333,7 +333,7 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
 				return ;
 			}
 
-			$PointForCartTotal = get_reward_points_based_on_cart_total( WC()->cart->total ) ;
+			$PointForCartTotal = get_reward_points_based_on_cart_total( WC()->cart->total , false , get_current_user_id() ) ;
 			$PointToReturn = round_off_type( $PointForCartTotal , array() , false ) ;
 			$PointToReturn = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) $PointToReturn ) ;
 
@@ -515,6 +515,16 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
 
 			$total   = 0 ;
 			$user_id = get_current_user_id() ;
+						
+						// Membership compatibility. 
+						$restrict_membership = 'no';
+			if ('yes' == get_option('rs_enable_restrict_reward_points') && function_exists('check_plan_exists') && $user_id ) {
+				$restrict_membership = check_plan_exists($user_id) ? 'yes' : 'no';
+				if ('yes' != $restrict_membership) {
+					return 0;
+				}
+			}
+						
 			if ( $order_id ) {
 				$order = new WC_Order( $order_id ) ;
 				if ( ! is_object( $order ) ) {

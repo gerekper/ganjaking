@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.12.6
+ * @version  6.14.0
  */
 class WC_PB_Display {
 
@@ -98,6 +98,9 @@ class WC_PB_Display {
 		/*
 		 * Single-product.
 		 */
+
+		// Display "Additional Information" tab for unassembled Bundles with physical bundled items.
+		add_filter( 'wc_product_enable_dimensions_display', array( $this, 'display_additional_information' ) );
 
 		// Display info notice when editing a bundle from the cart. Notices are rendered at priority 10.
 		add_action( 'woocommerce_before_single_product', array( $this, 'add_edit_in_cart_notice' ), 0 );
@@ -389,6 +392,34 @@ class WC_PB_Display {
 	}
 
 	/**
+	 * Display "Additional Information" tab for unassembled Bundles with physical bundled items.
+	 *
+	 * @since  6.13.4
+	 *
+	 * @param  bool $display
+	 * @return bool
+	 */
+	public function display_additional_information( $display ) {
+
+		global $product;
+
+		// If a Product Bundle is unassembled, then display the weight and dimensions of shipped individually, physical bundled items.
+		if ( $product->is_type( 'bundle' ) && $product->is_virtual() ) {
+
+			$bundled_items = $product->get_bundled_items();
+
+			foreach ( $bundled_items as $bundled_item ) {
+				if ( $bundled_item->is_shipped_individually() && $bundled_item->product->has_dimensions() ) {
+					$display = true;
+					break;
+				}
+			}
+		}
+
+		return $display;
+	}
+
+	/**
 	 * Display info notice when editing a bundle from the cart.
 	 */
 	public function add_edit_in_cart_notice() {
@@ -641,6 +672,11 @@ class WC_PB_Display {
 				}
 
 				$price = wc_price( (double) $bundle_price + $bundled_items_price );
+
+			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
+
+				$hide_container_zero_price = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' );
+				$price                     = $hide_container_zero_price ? '' : $price;
 			}
 		}
 
@@ -762,6 +798,10 @@ class WC_PB_Display {
 
 				$subtotal = $this->format_subtotal( $cart_item[ 'data' ], (double) $bundle_price + $bundled_items_price );
 
+			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
+
+				$hide_container_zero_subtotal = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' );
+				$subtotal                     = $hide_container_zero_subtotal ? '' : $subtotal;
 			}
 		}
 
@@ -852,16 +892,16 @@ class WC_PB_Display {
 			$bundle_container_item = WC()->cart->cart_contents[ $bundle_container_item_key ];
 			$bundle                = $bundle_container_item[ 'data' ];
 			$bundled_item          = $bundle->get_bundled_item( $cart_item[ 'bundled_item_id' ] );
+
 			if ( ! is_a( $bundled_item, 'WC_Bundled_Item' ) ) {
 				return '';
 			}
 
 			if ( false === WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'parent_item' ) ) {
 
-				// Remove the entire bundle if this is the last visible item, or if the bundle contains mandatory items.
-
+				// Remove the entire bundle if this is the last visible item, or if it's a mandatory item.
 				$bundled_cart_items = wc_pb_get_bundled_cart_items( $bundle_container_item );
-				$has_mandatory      = $bundle->contains( 'mandatory' );
+				$is_mandatory       = $bundled_item->get_quantity( 'min', array( 'check_optional' => true ) ) > 0;
 				$visible_items      = 0;
 
 				if ( ! empty( $bundled_cart_items ) ) {
@@ -878,7 +918,7 @@ class WC_PB_Display {
 						}
 					}
 
-					if ( $has_mandatory || $visible_items === 1 ) {
+					if ( $is_mandatory || $visible_items === 1 ) {
 
 						$remove_text = __( 'Remove this bundle', 'woocommerce-product-bundles' );
 						$link        = sprintf(
@@ -1035,7 +1075,10 @@ class WC_PB_Display {
 	}
 
 	/**
-	 * Filters the reported number of cart items.
+	 * Filters the reported number of cart items. Omit:
+	 *
+	 * - Hidden parent items.
+	 * - Hidden or indented child items.
 	 *
 	 * @param  int  $count
 	 * @return int
@@ -1058,9 +1101,10 @@ class WC_PB_Display {
 
 				foreach ( $bundled_cart_items as $bundled_item_key => $bundled_cart_item ) {
 
-					$subtract_bundled_item_qty = $parent_item_visible || false === $this->cart_item_visible( true, $bundled_cart_item, $bundled_item_key );
+					$is_bundled_item_indented = $cart_item[ 'data' ]->is_type( 'bundle' ) && WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'child_item_indent' );
+					$is_bundled_item_visible  = false === $this->cart_item_visible( true, $bundled_cart_item, $bundled_item_key );
 
-					if ( $subtract_bundled_item_qty ) {
+					if ( $is_bundled_item_indented || $is_bundled_item_visible ) {
 						$subtract += $bundled_cart_item[ 'quantity' ];
 					}
 				}
@@ -1193,7 +1237,7 @@ class WC_PB_Display {
 
 
 	/**
-	 * Only show bundled items in the mini cart if their parent line item is hidden.
+	 * Conditionally hide bundled items in the mini cart.
 	 *
 	 * @param  boolean  $show
 	 * @param  array    $cart_item

@@ -81,14 +81,14 @@ class EditableDataFactory {
 	 * @return array|null
 	 */
 	private function create_data_by_service( Service $service, Column $column, $context ) {
-		$view = $service->get_view( $context );
+		$view = ( new ApplyFilter\View( $column, $context, $service ) )->apply_filters( $service->get_view( $context ) );;
 
 		if ( ! $view ) {
 			return null;
 		}
-
-		$data = apply_filters( 'acp/editing/view_settings', $view->get_args(), $column );
-		$data = apply_filters( 'acp/editing/view_settings/' . $column->get_type(), $data, $column );
+		
+		$data = apply_filters_deprecated( 'acp/editing/view_settings', [ $view->get_args(), $column ], '5.7', "acp/editing/view" );
+		$data = apply_filters_deprecated( 'acp/editing/view_settings/' . $column->get_type(), [ $data, $column ], '5.7', "acp/editing/view" );
 
 		if ( ! is_array( $data ) ) {
 			return null;
@@ -111,7 +111,12 @@ class EditableDataFactory {
 
 		$is_active = $setting instanceof Settings\BulkEditing && $setting->is_active();
 
-		return (bool) apply_filters( 'acp/editing/bulk-edit-active', $is_active, $column );
+		/**
+		 * @deprecated 5.7
+		 */
+		$is_active = apply_filters( 'acp/editing/bulk-edit-active', $is_active, $column );
+
+		return apply_filters( 'acp/editing/bulk/is_active', $is_active, $column );
 	}
 
 	/**

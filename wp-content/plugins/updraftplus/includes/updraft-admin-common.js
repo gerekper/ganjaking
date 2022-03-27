@@ -5371,7 +5371,9 @@ jQuery(function($) {
 		jQuery('#updraft-authenticate-modal-innards').html('');
 		
 		jQuery("div[class*=updraft_authenticate_] a.updraft_authlink").each(function () {
-			jQuery("#updraft-authenticate-modal-innards").append('<p><a href="'+jQuery(this).attr('href')+'">'+jQuery(this).html()+'</a></p>');
+			var pretext = jQuery(this).data('pretext');
+			if ('undefined' === typeof pretext) pretext = '';
+			jQuery("#updraft-authenticate-modal-innards").append(pretext+'<p><a class="'+jQuery(this).attr('class')+'" href="'+jQuery(this).attr('href')+'">'+jQuery(this).html()+'</a></p>');
 			show_auth_modal = true;
 		  });
 			

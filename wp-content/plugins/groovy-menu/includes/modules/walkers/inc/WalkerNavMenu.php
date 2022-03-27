@@ -213,35 +213,32 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				],
 				'megamenu-bg'                      => [
 					'id'          => 'megamenu-bg',
-					'label'       => esc_attr__( 'Mega menu background image', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Background image for next level dropdown', 'groovy-menu' ),
 					'description' => '',
 					'type'        => 'media',
 					'default'     => '',
 					'save_id'     => self::MEGAMENU_BACKGROUND,
 					'depth'       => 0,
-					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-position'             => [
 					'id'          => 'megamenu-bg-position',
-					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Background image position', 'groovy-menu' ),
 					'choices'     => self::$backgroundPositions,
 					'description' => '',
 					'type'        => 'select',
 					'default'     => 'top center',
 					'save_id'     => self::MEGAMENU_BACKGROUND_POSITION,
 					'depth'       => 0,
-					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-repeat'               => [
 					'id'          => 'megamenu-bg-repeat',
-					'label'       => esc_attr__( 'Background repeat', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Background image repeat', 'groovy-menu' ),
 					'choices'     => self::$backgroundRepeats,
 					'description' => '',
 					'type'        => 'select',
 					'default'     => 'repeat',
 					'save_id'     => self::MEGAMENU_BACKGROUND_REPEAT,
 					'depth'       => 0,
-					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-size'                 => [
 					'id'          => 'megamenu-bg-size',
@@ -252,7 +249,6 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'default'     => 'full',
 					'save_id'     => self::MEGAMENU_BACKGROUND_SIZE,
 					'depth'       => 0,
-					'field_class' => 'megamenu-options-depend',
 				],
 				// ------------------------------------------------------------------------------- Thumbnail settings
 				'thumb-enable'                     => [
@@ -1095,7 +1091,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				$mm_content = ob_get_clean();
 
 
-			// All other cases.
+				// All other cases.
 			} else {
 
 				// Check Bricks builder content.

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.2.0
+ * @version  3.2.1
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -889,8 +889,8 @@ class WCS_ATT_Integration_PB_CP {
 			}
 
 			$data[ 'option_details_html' ] = WCS_ATT_Product_Prices::get_price_html( $product, $subscription_scheme->get_key(), array(
-				'context'         => 1 === sizeof( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
-				'append_discount' => 1 < sizeof( $subscription_schemes ) || ! $force_subscription,
+				'context'         => 1 === count( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
+				'append_discount' => 1 < count( $subscription_schemes ) || ! $force_subscription,
 				'price'           => '%p'
 			) );
 
@@ -1080,7 +1080,7 @@ class WCS_ATT_Integration_PB_CP {
 		if ( $can ) {
 
 			$items    = $subscription->get_items();
-			$count    = sizeof( $items );
+			$count    = count( $items );
 			$subtract = 0;
 
 			foreach ( $items as $item ) {
@@ -1335,7 +1335,7 @@ class WCS_ATT_Integration_PB_CP {
 
 						if ( 'no' !== $option_value ) {
 							$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-							$is_feature_supported = sizeof( $subscription_schemes ) && ( $product->contains( 'options' ) || $product->contains( 'priced_indefinitely' ) );
+							$is_feature_supported = count( $subscription_schemes ) && ( $product->contains( 'options' ) || $product->contains( 'priced_indefinitely' ) );
 						}
 
 					} elseif ( $product->is_type( 'composite' ) ) {
@@ -1344,7 +1344,7 @@ class WCS_ATT_Integration_PB_CP {
 
 						if ( 'no' !== $option_value ) {
 							$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-							$is_feature_supported = sizeof( $subscription_schemes );
+							$is_feature_supported = count( $subscription_schemes );
 						}
 					}
 				}
@@ -1619,7 +1619,11 @@ class WCS_ATT_Integration_PB_CP {
 		if ( self::is_bundle_type_product( $product ) ) {
 			if ( WCS_ATT_Manage_Switch::is_switch_request_for_product( $product ) ) {
 
-				$subscription = wcs_get_subscription( $_GET[ 'switch-subscription' ] );
+				if ( ! isset( $_GET[ 'switch-subscription' ] ) ) {
+					return $schemes;
+				}
+
+				$subscription = wcs_get_subscription( absint( $_GET[ 'switch-subscription' ] ) );
 
 				if ( ! $subscription ) {
 					return $schemes;

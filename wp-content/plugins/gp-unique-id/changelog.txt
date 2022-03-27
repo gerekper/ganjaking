@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 1.4.4
+
+	- Fixed issue where sequential IDs were limited to `4294967295`. They can now go up to `18446744073709551615` (MySQL BIGINT maximum).
+
+## 1.4.3
+
+	- Fixed issue where minimum requirements were being bypassed due to a dependency conflict.
+
+## 1.4.2
+
+	- Fixed a potential SQL issue during DB setup/upgrade.
+
+## 1.4.1
+
+	- Updated perk SQL table unique key to primary.
+
 ## 1.4
 
 	- Improved support for Gravity Forms 2.5.

@@ -1,0 +1,21 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2022 ThemePunch
+*/
+
+.tp-particlewave svg a,
+.tp-particlewave svg d,
+.tp-particlewave svg g,
+.tp-particlewave svg polygon,
+.tp-particlewave svg rect,
+.tp-particlewave svg line
+.tp-particlewave svg text,
+.tp-particlewave svg circle,
+.tp-particlewave svg path
+{		
+		transition: none;
+
+}
+
+#tp_svg_gradients {   visibility: hidden; position: absolute; z-index: 0; top:0px; left:0px; pointer-events: none}

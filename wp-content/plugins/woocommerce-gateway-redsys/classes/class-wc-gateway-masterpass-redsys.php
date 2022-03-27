@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Gateway class
  */
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -25,7 +25,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function __construct() {
 		global $woocommerce;
@@ -79,6 +79,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		// Payment listener/API hook!
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_masterpass' ) );
+		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
 		}
@@ -92,7 +93,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function is_valid_for_use() {
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
@@ -111,7 +112,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -160,7 +161,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function init_form_fields() {
 
@@ -310,7 +311,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_error_by_code( $error_code ) {
 
@@ -356,7 +357,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_currencies() {
 
@@ -400,7 +401,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_masterpass_args( $order ) {
 		global $woocommerce;
@@ -428,28 +429,28 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		} else {
 			$$returnfrommasterpass = $order->get_cancel_order_url();
 		}
-		$DSMerchantTerminal = $this->terminal;
+		$ds_merchant_terminal = $this->terminal;
 
 		// redsys Args
-		$miObj = new RedsysAPI();
-		$miObj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miObj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$miObj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
-		$miObj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $DSMerchantTerminal );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $this->notify_url );
-		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$miObj->setParameter( 'DS_MERCHANT_URLKO', $returnfrommasterpass );
-		$miObj->setParameter( 'DS_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
-		$miObj->setParameter( 'Ds_Merchant_PayMethods', 'N' );
+		$mi_obj = new RedsysAPI();
+		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
+		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $ds_merchant_terminal );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $this->notify_url );
+		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $returnfrommasterpass );
+		$mi_obj->setParameter( 'DS_CONSUMERLANGUAGE', $gatewaylanguage );
+		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->setParameter( 'Ds_Merchant_PayMethods', 'N' );
 
 		$version         = 'HMAC_SHA256_V1';
 		$request         = '';
-		$params          = $miObj->createMerchantParameters();
-		$signature       = $miObj->createMerchantSignature( $secretsha256 );
+		$params          = $mi_obj->createMerchantParameters();
+		$signature       = $mi_obj->createMerchantSignature( $secretsha256 );
 		$masterpass_args = array(
 			'Ds_SignatureVersion'   => $version,
 			'Ds_MerchantParameters' => $params,
@@ -471,7 +472,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function generate_masterpass_form( $order_id ) {
 		global $woocommerce;
@@ -521,7 +522,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function process_payment( $order_id ) {
 
@@ -541,7 +542,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function receipt_page( $order ) {
 		echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MasterPass.', 'woocommerce-redsys' ) . '</p>';
@@ -554,7 +555,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -567,8 +568,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			$version     = $_POST['Ds_SignatureVersion'];
 			$data        = $_POST['Ds_MerchantParameters'];
 			$remote_sign = $_POST['Ds_Signature'];
-			$miObj       = new RedsysAPI();
-			$localsecret = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$mi_obj       = new RedsysAPI();
+			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
 
 			if ( $localsecret == $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
@@ -609,7 +610,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_response() {
 
@@ -633,7 +634,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -641,24 +642,24 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$version     = $_POST['Ds_SignatureVersion'];
 		$data        = $_POST['Ds_MerchantParameters'];
 		$remote_sign = $_POST['Ds_Signature'];
-		$miObj       = new RedsysAPI();
+		$mi_obj       = new RedsysAPI();
 
-		$decodedata        = $miObj->decodeMerchantParameters( $data );
-		$localsecret       = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $miObj->getParameter( 'Ds_Amount' );
-		$ordermi           = $miObj->getParameter( 'Ds_Order' );
-		$dscode            = $miObj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $miObj->getParameter( 'Ds_Currency' );
-		$response          = $miObj->getParameter( 'Ds_Response' );
-		$id_trans          = $miObj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = $miObj->getParameter( 'Ds_Date' );
-		$dshour            = $miObj->getParameter( 'Ds_Hour' );
-		$dstermnal         = $miObj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $miObj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $miObj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $miObj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $miObj->getParameter( 'Ds_ConsumerLanguage' );
-		$dscargtype        = $miObj->getParameter( 'Ds_Card_Type' );
+		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
+		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+		$total             = $mi_obj->getParameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
+		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
+		$response          = $mi_obj->getParameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
+		$dsdate            = $mi_obj->getParameter( 'Ds_Date' );
+		$dshour            = $mi_obj->getParameter( 'Ds_Hour' );
+		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
+		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
 		$order1            = $ordermi;
 		$order2            = WCRed()->clean_order_number( $order1 );
 		$order             = WCRed()->get_order( (int) $order2 );
@@ -763,7 +764,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_masterpass_order( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -772,7 +773,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function warning_checkout_test_mode_masterpass() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
@@ -790,9 +791,149 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			echo '</div>';
 		}
 	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2022 José Conti
+	 */
+	function check_user_show_payment_method( $userid = false ) {
+
+		$test_mode  = $this->testmode;
+		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'masterpass' );
+
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'masterpass', '$test_mode: ' . $test_mode );
+			$this->log->add( 'masterpass', '/****************************/' );
+			$this->log->add( 'masterpass', '$selections ' . print_r( $selections, true ) );
+			$this->log->add( 'masterpass', '/****************************/' );
+			$this->log->add( 'masterpass', ' ' );
+		}
+
+		if ( 'yes' !== $test_mode ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'masterpass', ' ' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', '$test_mode different to yes showing Gateway' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', ' ' );
+			}
+			return true;
+		}
+		if ( $selections[0] !== '' || empty( $selections ) ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'masterpass', ' ' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', '$selections NOT empty' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', ' ' );
+			}
+			if ( ! $userid ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'masterpass', ' ' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', 'Not loged In hiding gateway' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', ' ' );
+				}
+				return false;
+			}
+			foreach ( $selections as $user_id ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'masterpass', '$user_id: ' . $user_id );
+					$this->log->add( 'masterpass', '$userid: ' . $userid );
+					$this->log->add( 'masterpass', ' ' );
+				}
+				if ( (int) $user_id === (int) $userid ) {
+
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', ' $user_id === $userid, Showing gateway' );
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', ' ' );
+					}
+					return true;
+				}
+				continue;
+			}
+			return false;
+		} else {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'masterpass', ' ' );
+				$this->log->add( 'masterpass', '/*********************************/' );
+				$this->log->add( 'masterpass', '$selections Empty, showing gateway' );
+				$this->log->add( 'masterpass', '/*********************************/' );
+				$this->log->add( 'masterpass', ' ' );
+			}
+			return true;
+		}
+	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2022 José Conti
+	 */
+	function show_payment_method( $available_gateways ) {
+
+		if ( ! is_admin() ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'masterpass', ' ' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', '   Is NOT admin ' );
+				$this->log->add( 'masterpass', '/****************************/' );
+				$this->log->add( 'masterpass', ' ' );
+			}
+			if ( is_user_logged_in() ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'masterpass', ' ' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', '   Is user logget in ' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', ' ' );
+				}
+				$user_id = get_current_user_id();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'masterpass', ' ' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', '   $user_id: ' . $user_id );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', ' ' );
+				}
+				$show = $this->check_user_show_payment_method( $user_id );
+				if ( 'yes' === $this->debug ) {
+					if ( $show ) {
+						$this->log->add( 'masterpass', ' ' );
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', '   SHOW Gateway' );
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', ' ' );
+					} else {
+						$this->log->add( 'masterpass', ' ' );
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', '   DONT SHOW Gateway' );
+						$this->log->add( 'masterpass', '/****************************/' );
+						$this->log->add( 'masterpass', ' ' );
+					}
+					$this->log->add( 'masterpass', ' ' );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', '   $user_id: ' . $user_id );
+					$this->log->add( 'masterpass', '/****************************/' );
+					$this->log->add( 'masterpass', ' ' );
+				}
+				if ( ! $show ) {
+					unset( $available_gateways[ $this->id ] );
+				}
+			} else {
+				$show = $this->check_user_show_payment_method();
+				if ( ! $show ) {
+					unset( $available_gateways[ $this->id ] );
+				}
+			}
+		}
+		return $available_gateways;
+	}
 }
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function woocommerce_add_gateway_masterpass_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_MasterPass_Redsys';

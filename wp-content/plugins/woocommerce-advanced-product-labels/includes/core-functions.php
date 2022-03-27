@@ -127,6 +127,7 @@ function wapl_get_label_html( $args ) {
 
 	ob_start();
 
+		// For :after element
 		if ( ! empty( $label['custom_bg_color'] ) && $label['style'] == 'custom' ) :
 			?><style><?php
 				echo ".wapl-label-id-" . esc_attr( $label['id'] ) . " .product-label:after { border-color: {$label['custom_bg_color']}; }";

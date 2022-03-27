@@ -37,7 +37,7 @@ class IdentitiesTable extends \WP_List_Table {
 			set_current_screen( 'toplevel_page_wp-mail-smtp' );
 		}
 
-		$this->options = new PluginOptions();
+		$this->options = PluginOptions::init();
 		$this->screen  = get_current_screen();
 
 		// Set parent defaults.
@@ -162,11 +162,26 @@ class IdentitiesTable extends \WP_List_Table {
 		$emails  = $auth->get_registered_emails();
 		$data    = [];
 
-		foreach ( array_merge( $domains, $emails ) as $identity_value => $identity_data ) {
-			$type      = empty( $identity_data['VerificationToken'] ) ? Identity::EMAIL_TYPE : Identity::DOMAIN_TYPE;
-			$txt_token = empty( $identity_data['VerificationToken'] ) ? null : $identity_data['VerificationToken'];
+		foreach ( $domains as $identity_value => $identity_data ) {
+			$verification_status = $identity_data['VerificationStatus'];
 
-			$data[] = new Identity( $identity_value, $type, $identity_data['VerificationStatus'], $txt_token );
+			$txt_token   = empty( $identity_data['VerificationToken'] ) ? null : $identity_data['VerificationToken'];
+			$dkim_tokens = empty( $identity_data['DkimTokens'] ) ? null : $identity_data['DkimTokens'];
+
+			// Preferred DKIM verification, but we need to keep old one via TXT records if it was verified.
+			if (
+				$verification_status !== 'Success' &&
+				! empty( $identity_data['DkimEnabled'] ) &&
+				! empty( $identity_data['DkimVerificationStatus'] )
+			) {
+				$verification_status = $identity_data['DkimVerificationStatus'];
+			}
+
+			$data[] = new Identity( $identity_value, Identity::DOMAIN_TYPE, $verification_status, $txt_token, $dkim_tokens );
+		}
+
+		foreach ( $emails as $identity_value => $identity_data ) {
+			$data[] = new Identity( $identity_value, Identity::EMAIL_TYPE, $identity_data['VerificationStatus'] );
 		}
 
 		return $data;

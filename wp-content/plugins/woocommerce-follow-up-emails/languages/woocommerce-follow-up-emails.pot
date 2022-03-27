@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Follow-Up Emails 4.9.18\n"
+"Project-Id-Version: Follow-Up Emails 4.9.19\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-follow-up-emails\n"
-"POT-Creation-Date: 2022-02-02 11:06:35+00:00\n"
+"POT-Creation-Date: 2022-03-16 18:21:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -390,27 +390,27 @@ msgstr ""
 msgid "View the lesson quiz"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions-v2.php:1562
+#: includes/addons/class-fue-addon-subscriptions-v2.php:1563
 msgid "Subscription payment failed for #%s"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions-v2.php:1563
+#: includes/addons/class-fue-addon-subscriptions-v2.php:1564
 msgid ""
 "<p>A subscription payment has failed. The subscription has now been "
 "automatically put on hold.</p><p><a href=\"%s\">View Subscription</a></p>"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions-v2.php:1766
+#: includes/addons/class-fue-addon-subscriptions-v2.php:1767
 #: includes/addons/class-fue-addon-subscriptions.php:1935
 msgid "Until cancelled"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions-v2.php:1787
+#: includes/addons/class-fue-addon-subscriptions-v2.php:1788
 #: includes/addons/class-fue-addon-subscriptions.php:1915
 msgid "1 %s"
 msgstr ""
 
-#: includes/addons/class-fue-addon-subscriptions-v2.php:1860
+#: includes/addons/class-fue-addon-subscriptions-v2.php:1861
 msgid ""
 "The email &quot;%s&quot; has been removed due to the order status changing "
 "to active."

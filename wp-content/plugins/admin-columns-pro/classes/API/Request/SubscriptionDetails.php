@@ -3,7 +3,8 @@
 namespace ACP\API\Request;
 
 use ACP\API\Request;
-use ACP\Type\License\Key;
+use ACP\Plugins;
+use ACP\Type\ActivationToken;
 use ACP\Type\SiteUrl;
 
 /**
@@ -11,13 +12,20 @@ use ACP\Type\SiteUrl;
  */
 class SubscriptionDetails extends Request {
 
-	public function __construct( Key $license_key, SiteUrl $site_url ) {
-		parent::__construct( [
-			'command'          => 'subscription_details',
-			'subscription_key' => $license_key->get_value(),
-			'site_url'         => $site_url->get_url(),
-			'network_active'   => $site_url->is_network(),
-		] );
+	public function __construct( SiteUrl $site_url, Plugins $plugins, ActivationToken $activation_token ) {
+		$args = [
+			'command'        => 'subscription_details',
+			'activation_url' => $site_url->get_url(),
+		];
+
+		$args[ $activation_token->get_type() ] = $activation_token->get_token();
+
+		// @since 5.7
+		foreach ( $plugins->all() as $plugin ) {
+			$args['meta'][ $plugin->get_dirname() ] = $plugin->get_version()->get_value();
+		}
+
+		parent::__construct( $args );
 	}
 
 }

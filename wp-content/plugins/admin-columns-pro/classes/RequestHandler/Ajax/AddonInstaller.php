@@ -2,100 +2,111 @@
 
 namespace ACP\RequestHandler\Ajax;
 
-use AC\Ajax;
+use AC\Capabilities;
 use AC\IntegrationRepository;
+use AC\Nonce;
 use AC\PluginInformation;
-use AC\Registrable;
+use AC\Request;
+use AC\Type\Url;
+use ACP\Access\ActivationStorage;
+use ACP\ActivationTokenFactory;
 use ACP\API;
-use ACP\LicenseKeyRepository;
-use ACP\LicenseRepository;
+use ACP\RequestAjaxHandler;
 use ACP\RequestDispatcher;
 use ACP\Type\SiteUrl;
 use Plugin_Upgrader;
 use WP_Ajax_Upgrader_Skin;
 use WP_Error;
 
-class AddonInstaller implements Registrable {
+class AddonInstaller implements RequestAjaxHandler {
 
 	/**
 	 * @var RequestDispatcher
 	 */
 	private $api;
 
-	/** @var LicenseRepository */
-	private $license_repository;
-
-	/**
-	 * @var LicenseKeyRepository
-	 */
-	private $license_key_repository;
-
 	/**
 	 * @var SiteUrl
 	 */
 	private $site_url;
 
-	public function __construct( RequestDispatcher $api, LicenseRepository $license_repository, LicenseKeyRepository $license_key_repository, SiteUrl $site_url ) {
-		$this->api = $api;
-		$this->license_repository = $license_repository;
-		$this->license_key_repository = $license_key_repository;
-		$this->site_url = $site_url;
-	}
-
-	public function register() {
-		$this->get_ajax_handler()->register();
-	}
+	/**
+	 * @var ActivationStorage
+	 */
+	private $activation_storage;
 
 	/**
-	 * @return Ajax\Handler
+	 * @var ActivationTokenFactory
 	 */
-	protected function get_ajax_handler() {
-		$handler = new Ajax\Handler();
-		$handler->set_action( 'acp-install-addon' )
-		        ->set_callback( [ $this, 'handle' ] );
+	private $activation_token_factory;
 
-		return $handler;
-	}
+	/**
+	 * @var IntegrationRepository
+	 */
+	private $integrations;
 
-	private function get_license() {
-		$license_key = $this->license_key_repository->find();
+	/**
+	 * @var bool
+	 */
+	private $is_network_active;
 
-		return $license_key
-			? $this->license_repository->find( $license_key )
-			: null;
+	public function __construct( RequestDispatcher $api, SiteUrl $site_url, ActivationStorage $activation_storage, ActivationTokenFactory $activation_token_factory, IntegrationRepository $integrations, $is_network_active ) {
+		$this->api = $api;
+		$this->site_url = $site_url;
+		$this->activation_storage = $activation_storage;
+		$this->activation_token_factory = $activation_token_factory;
+		$this->integrations = $integrations;
+		$this->is_network_active = (bool) $is_network_active;
 	}
 
 	public function handle() {
-		$this->get_ajax_handler()->verify_request();
+		$request = new Request();
 
-		$plugin_slug = filter_input( INPUT_POST, 'plugin_name' );
-		$network_wide = '1' === filter_input( INPUT_POST, 'network_wide' );
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
 
-		$integration = ( new IntegrationRepository() )->find_by_slug( $plugin_slug );
+		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
+			wp_send_json_error();
+		}
+
+		$plugin_slug = $request->get( 'plugin_name' );
+		$network_wide = '1' === $request->get( 'network_wide' );
+
+		$integration = $this->integrations->find_by_slug( $plugin_slug );
 
 		if ( ! $integration ) {
 			wp_send_json_error( 'Invalid plugin.' );
 		}
+
+		$token = $this->activation_token_factory->create();
+		$activation = $token
+			? $this->activation_storage->find( $token )
+			: null;
 
 		$plugin = new PluginInformation( $integration->get_basename() );
 
 		// Install
 		if ( ! $plugin->is_installed() ) {
 			if ( ! current_user_can( 'install_plugins' ) ) {
-				wp_send_json_error( 'No user permission.' );
+				wp_send_json_error( 'User does not have the permission to install plugin.' );
 			}
 
-			$license = $this->get_license();
-
-			if ( ! $license || ! $license->is_active() ) {
-				$message = __( 'License is not active.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Enter your license key on <a href="%s">the settings page</a>.', 'codepress-admin-columns' ), acp_get_license_page_url() );
+			if ( ! $activation || ! $activation->is_active() ) {
+				$message = sprintf(
+					'%s %s',
+					__( 'License is not active.', 'codepress-admin-columns' ),
+					sprintf(
+						__( 'Enter your license key on <a href="%s">the settings page</a>.', 'codepress-admin-columns' ),
+						esc_url( $this->get_license_page_url()->get_url() )
+					)
+				);
 
 				wp_send_json_error( $message );
 			}
 
-			$response = $this->api->dispatch( new API\Request\DownloadInformation( $plugin_slug, $license->get_key(), $this->site_url ) );
+			$response = $this->api->dispatch( new API\Request\DownloadInformation( $plugin_slug, $token, $this->site_url ) );
 
-			// Check download permission by requesting download information.
 			if ( $response->has_error() ) {
 				wp_send_json_error( $response->get_error()->get_error_message() );
 			}
@@ -112,7 +123,7 @@ class AddonInstaller implements Registrable {
 		}
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			wp_send_json_error( 'No user permission.' );
+			wp_send_json_error( 'User does not have permission to activate plugin.' );
 		}
 
 		// Activate
@@ -130,6 +141,15 @@ class AddonInstaller implements Registrable {
 			'activated' => $is_active,
 			'status'    => $status,
 		] );
+	}
+
+	/**
+	 * @return Url
+	 */
+	private function get_license_page_url() {
+		return $this->is_network_active
+			? new Url\EditorNetwork( 'license' )
+			: new Url\Editor( 'license' );
 	}
 
 	/**

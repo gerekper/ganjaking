@@ -4,6 +4,59 @@
 
 (function($){
 
+	function gpcpDebounce(func, wait, immediate){
+		var timeout, args, context, timestamp, result;
+		if (null == wait) wait = 100;
+
+		function later() {
+			var last = Date.now() - timestamp;
+
+			if (last < wait && last >= 0) {
+				timeout = setTimeout(later, wait - last);
+			} else {
+				timeout = null;
+				if (!immediate) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+			}
+		}
+
+		var debounced = function(){
+			context = this;
+			args = arguments;
+			timestamp = Date.now();
+			var callNow = immediate && !timeout;
+			if (!timeout) timeout = setTimeout(later, wait);
+			if (callNow) {
+				result = func.apply(context, args);
+				context = args = null;
+			}
+
+			return result;
+		}
+
+		debounced.clear = function() {
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null;
+			}
+		}
+
+		debounced.flush = function() {
+			if (timeout) {
+				result = func.apply(context, args);
+				context = args = null;
+
+				clearTimeout(timeout);
+				timeout = null;
+			}
+		}
+
+		return debounced;
+	}
+
+
 	window.GWConditionalPricing = function( formId, pricingLogic, basePrices ) {
 
 		var self = this;
@@ -11,7 +64,6 @@
 		self._formId       = formId;
 		self._pricingLogic = pricingLogic;
 		self._basePrices   = basePrices;
-		self._triggerTimer = {};
 
 		this.pricingIteration = 0;
 
@@ -19,29 +71,23 @@
 
 			var gwcp         = this,
 			formElem         = GWConditionalPricing.getFormElement( this._formId ),
-			onChangeSelector = [ 'select', 'input:not( .ginput_total + input )', 'textarea' ].join( ', ' ),
+			onChangeSelector = [ 'select', 'input:not( .ginput_total + input ):not( .ginput_total )', 'textarea' ].join( ', ' ),
 			onClickSelector  = [ 'input[type="checkbox"]', 'input[type="radio"]', 'input[type="number"]' ].join( ', ' ),
-			onKeyUpSelector  = [ 'input[type="text"]', 'input[type="hidden"]', 'input[type="number"]', 'textarea' ].join( ', ' ),
-			keyupTimeout;
+			onKeyUpSelector  = [ 'input[type="text"]', 'input[type="hidden"]', 'input[type="number"]', 'textarea' ].join( ', ' );
 
 			formElem
-			.on( 'click', onClickSelector, function( event ){
-				var delay = gform.applyFilters( 'gpcp_update_pricing_delay', 100, gwcp, $( this ) );
-				self.debouncedUpdatePricing( gwcp.getFieldIdFromHtmlId( $( this ).attr( 'id' ) ), delay );
-				//self.updatePricing( gwcp.getFieldIdFromHtmlId( $( this ).attr( 'id' ) ) );
-			})
-			.on( 'change', onChangeSelector, function( event ) {
-				self.debouncedUpdatePricing( gwcp.getFieldIdFromHtmlId( $( this ).attr( 'id' ) ), 100 );
-				//self.updatePricing( gwcp.getFieldIdFromHtmlId( $( this ).attr( 'id' ) ) );
-			})
-			.on( 'keyup', onKeyUpSelector, function( event ){
-				clearTimeout( keyupTimeout );
-				keyupTimeout = setTimeout( function(){
-					self.updatePricing( gwcp.getFieldIdFromHtmlId( $( this ).attr( 'id' ) ) );
-				}, 300 );
-			});
+			.on( 'click', onClickSelector, self.debouncedUpdatePricing)
+			.on( 'change', onChangeSelector, self.debouncedUpdatePricing)
+			.on( 'keyup', onKeyUpSelector, self.debouncedUpdatePricing);
 
 			gform.addFilter( 'gform_is_value_match', 'gwcpIsCustomQtyFieldMatch' );
+
+			// Trigger price update after conditional logic is processed
+			$( document ).on( 'gform_post_conditional_logic', function( e, formId ) {
+				if ( parseInt( formId ) === self._formId) {
+					self.debouncedUpdatePricing();
+				}
+			});
 
 			// add to form for use with customizations
 			formElem.data( 'gwcp', gwcp );
@@ -61,15 +107,9 @@
 			return formElem;
 		};
 
-		self.debouncedUpdatePricing = function( triggerFieldId, delay ) {
-
-			clearTimeout( self._triggerTimer[ triggerFieldId ] );
-
-			self._triggerTimer[ triggerFieldId ] = setTimeout( function () {
-				self.updatePricing( triggerFieldId );
-			}, delay );
-
-		};
+		self.debouncedUpdatePricing = gpcpDebounce( function() {
+			self.updatePricing();
+		}, 50);
 
 		this.updatePricing = function( triggerFieldId ) {
 
@@ -126,6 +166,17 @@
 			}
 
 			/**
+			 * Trigger calculated product recalculation.
+			 */
+			if ( window.gf_global.gfcalc ) {
+				var calcObject = window.gf_global.gfcalc[ formId ];
+
+				if ( calcObject ) {
+					calcObject.runCalcs( formId, calcObject.formulaFields );
+				}
+			}
+
+			/**
 			 * Do something after product prices have been updated.
 			 *
 			 * @since 1.2.13
@@ -161,9 +212,29 @@
 			}
 
 			var matches = 0;
-			for (var i = 0; i < conditionalLogic["rules"].length; i++) {
-				var rule            = conditionalLogic["rules"][i];
+			for ( var i = 0; i < conditionalLogic["rules"].length; i ++ ) {
+				var rule = $.extend({}, conditionalLogic["rules"][i]);
+
+				/* Format the rule value to the proper number depending on currency. */
+				var fieldNumberFormat = gf_get_field_number_format( rule.fieldId, formId, 'value' );
+
+				if( fieldNumberFormat ) {
+					rule.value = gf_format_number( rule.value, fieldNumberFormat );
+				}
+
 				var ruleStringified = JSON.stringify( rule );
+				var inputSelector = '#input_{0}_{1}'.format( formId, rule['fieldId'] );
+				var isHiddenCacheKey = 'is_hidden:' + inputSelector;
+				var $field = $( inputSelector );
+
+				if ( !( isHiddenCacheKey in this.ruleCache[formId] ) ) {
+					this.ruleCache[formId][isHiddenCacheKey] = gformIsHidden( $field ) && $field.prop( 'type' ) !== 'hidden';
+				}
+
+				// Check if the field is hidden and skip processing altogether if it is
+				if ( this.ruleCache[formId][isHiddenCacheKey] ) {
+					continue;
+				}
 
 				if ( ! (ruleStringified in this.ruleCache[formId])) {
 					this.ruleCache[formId][ruleStringified] = gf_is_match( formId, rule );
@@ -172,6 +243,7 @@
 				if (this.ruleCache[formId][ruleStringified]) {
 					matches++;
 				}
+
 			}
 
 			var action;
@@ -326,8 +398,8 @@
 
 				input = $( '#input' + suffix );
 
-				// if the input is a UL tag, the product is a radio button
-				if ( input.is( 'ul' ) ) {
+				// If the input is a <ul> (<2.5) or <div> (2.5+), the product is a radio button.
+				if ( input.is( 'ul' ) || input.is( 'div' ) ) {
 					if ( isMultiProductParent ) {
 						input = input.find( 'input[type="radio"]' );
 					} else {

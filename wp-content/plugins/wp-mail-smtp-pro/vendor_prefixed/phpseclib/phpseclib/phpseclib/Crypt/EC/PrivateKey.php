@@ -88,7 +88,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
         if ($this->curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery) {
             throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedOperationException('Montgomery Curves cannot be used to create signatures');
         }
-        $dA = $this->dA->toBigInteger();
+        $dA = $this->dA;
         $order = $this->curve->getOrder();
         $shortFormat = $this->shortFormat;
         $format = $this->sigFormat;
@@ -118,7 +118,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
             $r = \strrev($r);
             $r = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($r, 256);
             list(, $r) = $r->divide($order);
-            $R = $curve->multiplyPoint($curve->getBasePoint(), $curve->convertInteger($r));
+            $R = $curve->multiplyPoint($curve->getBasePoint(), $r);
             $R = $curve->encodePoint($R);
             $k = $hash->hash($dom . $R . $A . $message);
             $k = \strrev($k);
@@ -151,7 +151,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
         $z = $Ln > 0 ? $e->bitwise_rightShift($Ln) : $e;
         while (\true) {
             $k = \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger::randomRange(self::$one, $order->subtract(self::$one));
-            list($x, $y) = $this->curve->multiplyPoint($this->curve->getBasePoint(), $this->curve->convertInteger($k));
+            list($x, $y) = $this->curve->multiplyPoint($this->curve->getBasePoint(), $k);
             $x = $x->toBigInteger();
             list(, $r) = $x->divide($order);
             if ($r->equals(self::$zero)) {
@@ -177,7 +177,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
         
         $h1 = $this->hash->hash($message);
         $k = $this->computek($h1);
-        list($x, $y) = $this->curve->multiplyPoint($this->curve->getBasePoint(), $this->curve->convertInteger($k));
+        list($x, $y) = $this->curve->multiplyPoint($this->curve->getBasePoint(), $k);
         $x = $x->toBigInteger();
         list(, $r) = $x->divide($this->q);
         $kinv = $k->modInverse($this->q);

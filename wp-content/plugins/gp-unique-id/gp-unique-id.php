@@ -3,7 +3,7 @@
  * Plugin Name: GP Unique ID
  * Description: Generate unique IDs (i.e. reference numbers, codes, invoice numbers, etc.) on submission for your Gravity Form entries.
  * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-unique-id/
- * Version: 1.4
+ * Version: 1.4.4
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  */
 
-define( 'GP_UNIQUE_ID_VERSION', '1.4' );
+define( 'GP_UNIQUE_ID_VERSION', '1.4.4' );
 
 require 'includes/class-gp-bootstrap.php';
 

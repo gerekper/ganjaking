@@ -8,10 +8,6 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
  * TODO:
  * - Provide settings UI for where to redirect after registration.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Auto_Login extends GP_Plugin {
 
 	private static $_instance = null;
@@ -72,7 +68,7 @@ class GP_Auto_Login extends GP_Plugin {
 		add_action( 'gform_user_registered', array( $this, 'maybe_auto_login' ), 10, 4 );
 
 		// Support for User Activation + Better User Activation.
-		add_action( 'init', array( $this, 'auto_login_on_redirect' ), 11 );
+		add_action( 'init', array( $this, 'auto_login_on_redirect' ), 16 );
 
 		/*
 		 * @deprecated 1.3
@@ -138,6 +134,11 @@ class GP_Auto_Login extends GP_Plugin {
 	public function maybe_auto_login( $user_id, $feed, $entry, $password ) {
 
 		if ( ! apply_filters( 'gpal_auto_login', $this->is_auto_login_enabled( $feed ), $user_id, $feed, $entry, $password ) ) {
+			return;
+		}
+
+		/* Do not auto-login if on a Gravity Flow inbox page. */
+		if ( function_exists( 'gravity_flow' ) && gravity_flow()->is_workflow_detail_page() ) {
 			return;
 		}
 
@@ -270,7 +271,15 @@ class GP_Auto_Login extends GP_Plugin {
 
 		wp_clear_auth_cookie();
 		wp_set_current_user( $user_id );
-		wp_set_auth_cookie( $user_id, false, is_ssl() );
+		/**
+		 * Filter whether the auto-login should be remembered. A remembered login will keep the user logged in longer.
+		 *
+		 * @since 2.2.1
+		 *
+		 * @param bool $should_remember Whether the login should be remembered. Defaults to `false`.
+		 */
+		$should_remember = apply_filters( 'gpal_should_remember', false );
+		wp_set_auth_cookie( $user_id, $should_remember, is_ssl() );
 
 		/**
 		 * Do something after the user is automatically logged in.

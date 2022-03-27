@@ -1,5 +1,9 @@
 *** WooCommerce Memberships Changelog ***
 
+2022.02.08 - version 1.22.10
+ * Fix - Remove deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
+ * Misc - Require WooCommerce v3.9.4 or later
+
 2021.11.22 - version 1.22.9
  * Fix - Show profile fields for product variations when the parent product has associated profile fields
 

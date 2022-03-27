@@ -15,25 +15,25 @@ class Updates implements Registrable {
 	private $api;
 
 	/**
-	 * @var LicenseKeyRepository
-	 */
-	private $license_key_repository;
-
-	/**
 	 * @var SiteUrl
 	 */
 	private $site_url;
 
 	/**
-	 * @var Plugins
+	 * @var PluginRepository
 	 */
-	private $plugins;
+	private $plugin_repository;
 
-	public function __construct( API $api, LicenseKeyRepository $license_key_repository, SiteUrl $site_url, Plugins $plugins ) {
+	/**
+	 * @var ActivationTokenFactory
+	 */
+	private $activation_token_factory;
+
+	public function __construct( API $api, SiteUrl $site_url, PluginRepository $plugin_repository, ActivationTokenFactory $activation_token_factory ) {
 		$this->api = $api;
-		$this->license_key_repository = $license_key_repository;
 		$this->site_url = $site_url;
-		$this->plugins = $plugins;
+		$this->plugin_repository = $plugin_repository;
+		$this->activation_token_factory = $activation_token_factory;
 	}
 
 	public function register() {
@@ -42,11 +42,9 @@ class Updates implements Registrable {
 	}
 
 	public function register_updater() {
-		$key = $this->license_key_repository->find();
-
-		foreach ( $this->plugins->all() as $plugin ) {
+		foreach ( $this->plugin_repository->find_all()->all() as $plugin ) {
 			// Add plugins to update process
-			$updater = new Updates\Updater( $plugin, new API\Cached( $this->api ), $this->site_url, $this->plugins, $key );
+			$updater = new Updates\Updater( $plugin, new API\Cached( $this->api ), $this->site_url, $this->activation_token_factory );
 			$updater->register();
 
 			// Click "view details" on plugin page
@@ -66,7 +64,7 @@ class Updates implements Registrable {
 
 		$api = new API\Cached( $this->api );
 		$api->dispatch(
-			new API\Request\ProductsUpdate( $this->site_url, $this->plugins, $this->license_key_repository->find() ), [
+			new API\Request\ProductsUpdate( $this->site_url, $this->activation_token_factory->create() ), [
 				Cached::FORCE_UPDATE => true,
 			]
 		);

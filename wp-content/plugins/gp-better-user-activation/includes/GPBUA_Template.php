@@ -1,8 +1,4 @@
 <?php
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 class GPBUA_Template {
 
@@ -10,29 +6,29 @@ class GPBUA_Template {
 	private $activation;
 
 	public function __construct( $view, $activation ) {
-		$this->view = $view;
+		$this->view       = $view;
 		$this->activation = $activation;
 	}
 
-  public function get_view() {
-    return $this->view;
-  }
+	public function get_view() {
+		return $this->view;
+	}
 
-  public function render_view() {
+	public function render_view() {
 
-    $meta_key = '_gpbua_activation_' . $this->view;
-    $content = get_post_meta( gpbua_get_activation_page_id(), $meta_key, true );
+		$meta_key = '_gpbua_activation_' . $this->view;
+		$content  = get_post_meta( gpbua_get_activation_page_id(), $meta_key, true );
 
-    if( ! $content ) {
-	    $content = gpbua()->get_default_content( $this->view );
-    }
+		if ( ! $content ) {
+			$content = gpbua()->get_default_content( $this->view );
+		}
 
-    return $content;
+		return $content;
 
-  }
+	}
 
-  public function get_template_path() {
-    return gpbua()->get_base_path() . '/templates/';
-  }
+	public function get_template_path() {
+		return gpbua()->get_base_path() . '/templates/';
+	}
 
 }

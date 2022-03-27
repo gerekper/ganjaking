@@ -23,16 +23,20 @@
 
 }
 
+#gform_setting_fieldMap .gform-settings-field__header {
+	display: none;
+}
+
 /**
  * The below styles only apply in GF 2.5+.
  */
 
 #tab_gp-easy-passthrough .gform-settings-description {
-	border: 1px solid #d5d8e9;
-	padding: 0.75rem;
+	border-bottom: 1px solid #e3e6ef;
+	padding: 0.75rem 1rem;
 	background-color: #f6f9fc;
-	margin: 0 0 1.25rem;
-	border-radius: 5px;
+	margin: -1rem -1rem 1.25rem -1rem;
+	border-radius: 0;
 }
 
 #gform_setting_sourceForm > label,

@@ -146,12 +146,13 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 			}
 
 			global $wpdb ;
+						$db = &$wpdb;
 
 			$where   = apply_filters( 'rs_my_reward_date_filter' , '' ) ;
 			if ($where) {
-				$UserLog = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d AND showuserlog = false %s" , $UserId, $where ) , ARRAY_A ) ;
+				$UserLog = $db->get_results( $db->prepare( "SELECT * FROM {$db->prefix}rsrecordpoints WHERE userid = %d AND showuserlog = false $where" , $UserId ) , ARRAY_A ) ;
 			} else {
-				$UserLog = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d AND showuserlog = false" , $UserId ) , ARRAY_A ) ;
+				$UserLog = $db->get_results( $db->prepare( "SELECT * FROM {$db->prefix}rsrecordpoints WHERE userid = %d AND showuserlog = false" , $UserId ) , ARRAY_A ) ;
 			}
 			$UserLog = $UserLog + ( array ) get_user_meta( $UserId , '_my_points_log' , true ) ;
 			if ( ! srp_check_is_array( $UserLog ) ) {

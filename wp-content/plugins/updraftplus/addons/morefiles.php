@@ -82,7 +82,7 @@ class UpdraftPlus_Addons_MoreFiles {
 	}
 	
 	public function updraftplus_browse_download_link() {
-		return '<a href="'.UpdraftPlus::get_current_clean_url().'" id="updraft_zip_download_item">'._x('Download', '(verb)', 'updraftplus').'</a>';
+		return '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft_zip_download_item">'._x('Download', '(verb)', 'updraftplus').'</a>';
 	}
 	
 	public function updraftplus_command_get_zipfile_download($result, $params) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found

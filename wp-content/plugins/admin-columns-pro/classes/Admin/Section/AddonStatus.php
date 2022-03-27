@@ -5,7 +5,8 @@ namespace ACP\Admin\Section;
 use AC\PluginInformation;
 use AC\Renderable;
 use AC\View;
-use ACP\Entity\License;
+use ACP\Access\Permissions;
+use ACP\Access\PermissionsStorage;
 
 class AddonStatus implements Renderable {
 
@@ -25,15 +26,15 @@ class AddonStatus implements Renderable {
 	private $is_network_admin;
 
 	/**
-	 * @var License|null
+	 * @var PermissionsStorage
 	 */
-	private $license;
+	private $permission_repository;
 
-	public function __construct( PluginInformation $addon, $is_multisite, $is_network_admin, License $license = null ) {
+	public function __construct( PluginInformation $addon, $is_multisite, $is_network_admin, PermissionsStorage $permission_repository ) {
 		$this->addon = $addon;
 		$this->is_multisite = (bool) $is_multisite;
 		$this->is_network_admin = (bool) $is_network_admin;
-		$this->license = $license;
+		$this->permission_repository = $permission_repository;
 	}
 
 	private function render_active_label() {
@@ -77,7 +78,14 @@ class AddonStatus implements Renderable {
 	}
 
 	private function render_missing_license() {
-		return ( new View() )->set_template( 'admin/page/component/addon/missing-license' );
+		$view = new View( [
+			'label' => __( 'Enable', 'codepress-admin-columns' ),
+		] );
+		return $view->set_template( 'admin/page/component/addon/missing-license' );
+	}
+
+	private function can_update() {
+		return $this->permission_repository->retrieve()->has_permission( Permissions::UPDATE );
 	}
 
 	public function render() {
@@ -96,7 +104,7 @@ class AddonStatus implements Renderable {
 					: $this->render_network_activate_disabled();
 			}
 
-			if ( $this->license && $this->license->is_active() ) {
+			if ( $this->can_update() ) {
 				return current_user_can( 'install_plugins' )
 					? $this->render_network_install()
 					: $this->render_network_activate_disabled();
@@ -116,7 +124,7 @@ class AddonStatus implements Renderable {
 				: $this->render_activate_disabled();
 		}
 
-		if ( $this->license && $this->license->is_active() ) {
+		if ( $this->can_update() ) {
 			return current_user_can( 'install_plugins' )
 				? $this->render_install()
 				: $this->render_activate_disabled();

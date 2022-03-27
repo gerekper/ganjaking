@@ -51,13 +51,13 @@ class GetExtendedContactDetails implements \WPMailSMTP\Vendor\SendinBlue\Client\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'id' => 'int', 'emailBlacklisted' => 'bool', 'smsBlacklisted' => 'bool', 'createdAt' => '\\DateTime', 'modifiedAt' => '\\DateTime', 'listIds' => 'int[]', 'listUnsubscribed' => 'int[]', 'attributes' => 'object', 'statistics' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedContactDetailsStatistics'];
+    protected static $swaggerTypes = ['email' => 'string', 'id' => 'int', 'emailBlacklisted' => 'bool', 'smsBlacklisted' => 'bool', 'createdAt' => 'string', 'modifiedAt' => 'string', 'listIds' => 'int[]', 'listUnsubscribed' => 'int[]', 'attributes' => 'object', 'statistics' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedContactDetailsStatistics'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'id' => 'int64', 'emailBlacklisted' => null, 'smsBlacklisted' => null, 'createdAt' => 'date-time', 'modifiedAt' => 'date-time', 'listIds' => 'int64', 'listUnsubscribed' => 'int64', 'attributes' => null, 'statistics' => null];
+    protected static $swaggerFormats = ['email' => 'email', 'id' => 'int64', 'emailBlacklisted' => null, 'smsBlacklisted' => null, 'createdAt' => null, 'modifiedAt' => null, 'listIds' => 'int64', 'listUnsubscribed' => 'int64', 'attributes' => null, 'statistics' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -291,7 +291,7 @@ class GetExtendedContactDetails implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -300,7 +300,7 @@ class GetExtendedContactDetails implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the contact (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the contact (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -312,7 +312,7 @@ class GetExtendedContactDetails implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Gets modifiedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getModifiedAt()
     {
@@ -321,7 +321,7 @@ class GetExtendedContactDetails implements \WPMailSMTP\Vendor\SendinBlue\Client\
     /**
      * Sets modifiedAt
      *
-     * @param \DateTime $modifiedAt Last modification UTC date-time of the contact (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $modifiedAt Last modification UTC date-time of the contact (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

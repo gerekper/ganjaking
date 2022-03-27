@@ -36,6 +36,9 @@ if ( $booking_ids ) {
 		<div class="wc-booking-summary">
 			<?php
 			foreach ( $order->get_items() as $item_id => $item ) {
+				if ( $item_id !== $booking->get_order_item_id() ) {
+					continue;
+				}
 				// Product name.
 				echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
 

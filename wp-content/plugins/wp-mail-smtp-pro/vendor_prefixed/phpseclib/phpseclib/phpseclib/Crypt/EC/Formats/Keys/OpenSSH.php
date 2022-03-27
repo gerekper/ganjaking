@@ -23,7 +23,6 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\OpenSSH as Progenitor
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 /**
  * OpenSSH Formatted EC Key Handler
  *
@@ -65,7 +64,8 @@ abstract class OpenSSH extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Format
             }
             list($curveName, $publicKey, $privateKey, $comment) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('ssis', $paddedKey);
             $curve = self::loadCurveByParam(['namedCurve' => $curveName]);
-            return ['curve' => $curve, 'dA' => $curve->convertInteger($privateKey), 'QA' => self::extractPoint("\0{$publicKey}", $curve), 'comment' => $comment];
+            $curve->rangeCheck($privateKey);
+            return ['curve' => $curve, 'dA' => $privateKey, 'QA' => self::extractPoint("\0{$publicKey}", $curve), 'comment' => $comment];
         }
         if ($parsed['type'] == 'ssh-ed25519') {
             if (\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::shift($parsed['publicKey'], 4) != "\0\0\0 ") {
@@ -140,14 +140,14 @@ abstract class OpenSSH extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Format
      * Convert a private key to the appropriate format.
      *
      * @access public
-     * @param \phpseclib3\Math\Common\FiniteField\Integer $privateKey
+     * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\Curves\Ed25519 $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
      * @param string $password optional
      * @param array $options optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
     {
         if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519) {
             if (!isset($privateKey->secret)) {

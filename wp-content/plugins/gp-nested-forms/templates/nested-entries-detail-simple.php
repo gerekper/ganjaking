@@ -1,12 +1,13 @@
 <?php
 /**
- * @var array  $nested_fields    An array of GF_Field objects.
- * @var array  $nested_form      The form object of the nested form.
- * @var array  $nested_field_ids An array of nested field IDs.
- * @var string $actions          Generated HTML for displaying related entries link.
+ * @var \GF_Field $field            The current Nested Form field.
+ * @var array     $nested_fields    An array of GF_Field objects.
+ * @var array     $nested_form      The form object of the nested form.
+ * @var array     $nested_field_ids An array of nested field IDs.
+ * @var string    $actions          Generated HTML for displaying related entries link.
  */
 ?>
-<div class="gpnf-nested-entries-container gpnf-entry-view ginput_container">
+<div class="gpnf-nested-entries-container-<?php echo $field->formId; ?>-<?php echo $field->id; ?> gpnf-nested-entries-container gpnf-entry-view ginput_container">
 
 	<table class="gpnf-nested-entries">
 

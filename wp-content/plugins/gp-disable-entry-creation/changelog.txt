@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.0
+
+	- Improved support for Gravity Forms 2.5.
+	- Updated to use GP_Plugin framework.
+
 ## 1.0.9
 
 	- Fixed conflict with Nested Forms where attempting to delete the same entry twice created fatal error.

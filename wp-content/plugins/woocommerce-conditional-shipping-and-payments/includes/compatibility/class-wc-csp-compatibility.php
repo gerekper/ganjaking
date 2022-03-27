@@ -108,7 +108,7 @@ class WC_CSP_Compatibility {
 		}
 
 		// Woocommerce Subscriptions support.
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 			$module_paths[ 'subscriptions' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-wcs-compatibility.php';
 		}
 

@@ -15,7 +15,7 @@ class RsChartsBase extends RsAddOnChartsBase {
 					 $_PluginUrl     = RS_CHARTS_PLUGIN_URL,
 					 $_PluginTitle   = 'charts',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.2';
+				     $_Version       = '3.0.4';
 	
 	public function __construct() {
 		

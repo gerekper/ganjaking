@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WP_CLI_Command', false ) ) {
 }
 
 // WooCommerce v3.0 CLI implementation is different
-if ( SkyVerge\WooCommerce\PluginFramework\v5_10_6\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.0' ) && ! class_exists( 'WC_CLI_Command', false ) ) {
+if ( SkyVerge\WooCommerce\PluginFramework\v5_10_12\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.0' ) && ! class_exists( 'WC_CLI_Command', false ) ) {
 
 	/**
 	 * Re-introduce WooCommerce WC_CLI_Command for compatibility.

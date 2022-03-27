@@ -19,6 +19,7 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-rafflepress.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-lp.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-theme-template.php';
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-woocommerce-template-tags.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-csp-mm.php';
 

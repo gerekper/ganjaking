@@ -1,5 +1,10 @@
 *** WooCommerce Account Funds ***
 
+2022-02-23 - version 2.6.3
+* Tweak - Use the order's currency symbol to format order prices.
+* Tweak - Tested compatibility with WC 6.3.
+* Fix - Fixed warning when displaying the funds used in the edit order screen and the plugin WooCommerce Payments is active.
+
 2022-01-26 - version 2.6.2
 * Tweak - Don't restore the funds automatically when an order is marked as 'Refunded' (Use partial refunds instead).
 * Tweak - Tested compatibility up to WC 6.2.
@@ -223,7 +228,7 @@
 * Fix - Update for WC 3.0 compatibility.
 
 2016-12-28 - version 2.1.1
-* Fix - Use subtotal for adding the funds from topup amount. Otherwise it'd incorrect when coupons are applied in the order.
+* Fix - Use subtotal for adding the funds from topup amount. Otherwise, it'd incorrect when coupons are applied in the order.
 
 2016-11-10 - version 2.1.0
 * New - Change with how the checkout flow logic works. User may apply account funds if less than order total and if more user must use it like a normal gateway.
@@ -250,10 +255,10 @@
 * Fix - Issue where topup funds were not getting added into user funds
 
 2016-03-07 - version 2.0.11
-* Fix - Account funds not applied to Paypal Standard items.
+* Fix - Account funds not applied to PayPal Standard items.
 
 2016-02-05 - version 2.0.10
-* Fix - Deprecated notices that causes header already sent errors.
+* Fix - Deprecated notices that cause header already sent errors.
 * Fix - Partial funds was not working correctly.
 
 2016-01-21 - version 2.0.9

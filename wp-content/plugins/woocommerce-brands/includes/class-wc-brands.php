@@ -29,6 +29,7 @@ class WC_Brands {
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 
 		if ( version_compare( WC_VERSION, '6.1', '>=' ) && $this->is_fse_theme() ) {
+			require_once 'class-wc-brands-block-template-utils-duplicated.php';
 			require_once 'class-wc-brands-block-templates.php';
 		} else {
 			if ( $this->is_fse_theme() ) {

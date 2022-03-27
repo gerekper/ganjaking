@@ -130,14 +130,19 @@ class EmailsCollection implements \Countable, \Iterator {
 	public function process_params( $params ) {
 
 		$params    = (array) $params;
-		$processed = array();
+		$processed = [];
 
 		/*
 		 * WHERE.
 		 */
 		// Single ID.
 		if ( ! empty( $params['id'] ) ) {
-			$processed['id'] = (int) $params['id'];
+			$processed['id'] = intval( $params['id'] );
+		}
+
+		// Single message ID.
+		if ( ! empty( $params['message_id'] ) ) {
+			$processed['message_id'] = sanitize_text_field( $params['message_id'] );
 		}
 
 		// Multiple IDs.
@@ -153,7 +158,7 @@ class EmailsCollection implements \Countable, \Iterator {
 			isset( $params['status'] ) &&
 			in_array( $params['status'], self::STATUSES, true )
 		) {
-			$processed['status'] = (int) $params['status'];
+			$processed['status'] = intval( $params['status'] );
 		}
 
 		// Search.
@@ -166,18 +171,18 @@ class EmailsCollection implements \Countable, \Iterator {
 		}
 
 		if ( ! empty( $params['search']['term'] ) ) {
-			$processed['search']['term'] = sanitize_text_field( $params['search']['term'] );
+			$processed['search']['term'] = sanitize_text_field( wp_unslash( $params['search']['term'] ) );
 		}
 
 		/*
 		 * LIMIT.
 		 */
 		if ( ! empty( $params['offset'] ) ) {
-			$processed['offset'] = (int) $params['offset'];
+			$processed['offset'] = intval( $params['offset'] );
 		}
 
 		if ( ! empty( $params['per_page'] ) ) {
-			$processed['per_page'] = (int) $params['per_page'];
+			$processed['per_page'] = intval( $params['per_page'] );
 		}
 
 		/*
@@ -186,9 +191,9 @@ class EmailsCollection implements \Countable, \Iterator {
 		if (
 			! empty( $params['order'] ) &&
 			is_string( $params['order'] ) &&
-			in_array( strtoupper( $params['order'] ), array( 'ASC', 'DESC' ), true )
+			in_array( strtoupper( $params['order'] ), [ 'ASC', 'DESC' ], true )
 		) {
-			$processed['order'] = strtoupper( $params['order'] );
+			$processed['order'] = strtoupper( sanitize_key( $params['order'] ) );
 		}
 
 		if (
@@ -258,18 +263,24 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @return string
 	 */
-	private function build_where() {
+	private function build_where() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		global $wpdb;
 
-		$where = array( '1=1' );
+		$where = [ '1=1' ];
 
 		/*
 		 * Shortcut single ID or multiple IDs.
 		 */
-		if ( ! empty( $this->params['id'] ) || ! empty( $this->params['ids'] ) ) {
+		if (
+			! empty( $this->params['id'] ) ||
+			! empty( $this->params['message_id'] ) ||
+			! empty( $this->params['ids'] )
+		) {
 			if ( ! empty( $this->params['id'] ) ) {
 				$where[] = $wpdb->prepare( 'id = %d', $this->params['id'] );
+			} elseif ( ! empty( $this->params['message_id'] ) ) {
+				$where[] = $wpdb->prepare( 'message_id = %s', $this->params['message_id'] );
 			} elseif ( ! empty( $this->params['ids'] ) ) {
 				$where[] = 'id IN (' . implode( ',', $this->params['ids'] ) . ')';
 			}
@@ -442,7 +453,8 @@ class EmailsCollection implements \Countable, \Iterator {
 		if ( ! empty( $ids ) ) {
 			$table = Logs::get_table_name();
 
-			$result = (int) WP::wpdb()->query( "DELETE FROM $table WHERE id IN ( $ids )" ); // phpcs:ignore
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$result = (int) WP::wpdb()->query( "DELETE FROM $table WHERE id IN ( $ids )" );
 
 			// Delete attachments.
 			( new Attachments() )->delete_attachments( $ids );
@@ -467,6 +479,7 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @return int
 	 */
+	#[\ReturnTypeWillChange]
 	public function count() {
 
 		return count( $this->list );
@@ -481,6 +494,7 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @since 1.5.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 
 		$this->iterator_position = 0;
@@ -493,6 +507,7 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @return \WPMailSMTP\Pro\Emails\Logs\Email|null Return null when no items in collection.
 	 */
+	#[\ReturnTypeWillChange]
 	public function current() {
 
 		return $this->valid() ? $this->list[ $this->iterator_position ] : null;
@@ -505,6 +520,7 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @return int
 	 */
+	#[\ReturnTypeWillChange]
 	public function key() {
 
 		return $this->iterator_position;
@@ -515,6 +531,7 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @since 1.5.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function next() {
 
 		++ $this->iterator_position;
@@ -527,9 +544,9 @@ class EmailsCollection implements \Countable, \Iterator {
 	 *
 	 * @return bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid() {
 
 		return isset( $this->list[ $this->iterator_position ] );
 	}
-
 }

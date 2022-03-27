@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.9
-Stable tag: 2.2.16
+Tested up to: 5.9.2
+Stable tag: 2.2.17
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -95,16 +95,24 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
-= 2.2.16 (January 23, 2021) =
+= 2.2.17 (March 22, 2022) =
+* Fix - Permalink Manager supports WPML's "Post Types & Taxonomy Translation" settings and returns the permalink of the fallback post/term with the correct language code
+* Fix - When the auto-update mode for categories is disabled, the manually adjusted permalinks are no longer overwritten by the default ones
+* Enhancement - Permalink Manager now allows you to rewrite just chosen articles and terms while leaving the rest untouched (See '"Auto-update" permalinks' settings field)
+* Enhancement - Improved support for SEOPress breadcrumbs
+* Enhancement - "Auto-update permalinks" setting is now replaced with "URI update mode" to give users better control on how Permalink Manager generates and saves the custom permalinks.
+* Dev - Additional minor improvements in code
+
+= 2.2.16 (January 23, 2022) =
 * Enhancement - Improved support for "Primary category" feature included in Yoast SEO
 * Enhancement - Added support for Avia/Enfold breadcrumbs filter
 * Enhancement - Further optimisation and improvements for Permalink_Manager_Core_Functions->new_uri_redirect_and_404() function
 * Fix - Permalink Manager now recognises the "Explore" listing page in MyListing theme properly
 
-= 2.2.15.1 (January 14, 2021) =
+= 2.2.15.1 (January 14, 2022) =
 * Fix - "Regenerate/reset" tool works correctly again in Permalink Manager Lite
 
-= 2.2.15 (January 12, 2021) =
+= 2.2.15 (January 12, 2022) =
 * Enhancement - UI Improvements for Regenerate/reset tool
 * Dev - WPML_URL_Filters->permalink_filter() hook is also used by Permalink Manager to filter custom permalinks
 * Enhancement - wp_make_link_relative() function is used to prevent redirect loops in new_uri_redirect_and_404() (suggested by mgussekloo)

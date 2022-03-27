@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright: (C) 2013 - 2021 José Conti
+* Copyright: (C) 2013 - 2022 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! class_exists( 'WC_Email' ) ) {
  */
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 class Redsys_Customer_Email_Order extends WC_Email {
 	/**
@@ -23,7 +23,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function __construct() {
 		// Email slug we can use to filter other data.
@@ -54,7 +54,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function trigger( $order_id ) {
 
@@ -86,7 +86,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function get_content_html() {
 		return wc_get_template_html(
@@ -110,7 +110,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 */
 
 	/**
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function get_content_plain() {
 		return wc_get_template_html(

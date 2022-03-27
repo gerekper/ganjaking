@@ -93,6 +93,7 @@ class Zapier implements Integration_Interface {
 		if ( $this->zapier_helper->is_connected() ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is already escaped in function.
 			echo $this->get_connected_content();
+			return;
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is already escaped in function.

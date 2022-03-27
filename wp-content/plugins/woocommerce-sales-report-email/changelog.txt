@@ -1,5 +1,9 @@
 *** WooCommerce Sales Report Email ***
 
+2022-02-08 - version 1.1.23
+* Fix - Include languages folder and POT file in the release.
+* Tweak - WC 6.2 compatibility.
+
 2022-01-18 - version 1.1.22
 * Fix - Unify `.github/**.md` files with other repos.
 * Tweak - WC 6.1 compatibility.

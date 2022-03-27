@@ -83,8 +83,7 @@
 			this.getFormField( 'include_variations' ).on( 'change', function () {
 				var checked = $( this ).prop( 'checked' );
 
-				that.toggleFormFields( 'product_group_id', checked );
-				that.toggleFormFields( 'variation_description_field', checked );
+				that.toggleFormFields( ['product_group_id', 'variation_description_field'], checked );
 			}).trigger( 'change' );
 
 			// Handle the visibility of the 'custom_mpn' field.
@@ -95,6 +94,13 @@
 			// Handle the visibility of the 'tax_country' field.
 			this.getFormField( 'include_tax' ).on( 'change', function () {
 				that.toggleFormFields('tax_country', 'base' !== wc_instagram_product_catalog_params.tax_based_on && $( this ).prop( 'checked' ) );
+			}).trigger( 'change' );
+
+			// Handle the visibility of the fields related to product stock info.
+			this.getFormField( 'include_stock' ).on( 'change', function () {
+				var checked = $( this ).prop( 'checked' );
+
+				that.toggleFormFields( ['stock_quantity', 'backorder_stock_quantity'], checked );
 			}).trigger( 'change' );
 
 			if ( this.$deleteLink ) {

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPNF_Feed_Processing {
 
 	private static $instance = null;
@@ -20,29 +16,12 @@ class GPNF_Feed_Processing {
 		// Only pre-process feeds when feeds are about to be processed; all originally applicable feeds should still be validated, etc.
 		add_filter( 'gform_entry_post_save', array( $this, 'pre_process_feed_listener' ), 9 );
 
-		// Check if `woocommerce-process-checkout-none` is present. This ensures that we process feeds
-		// only once, either after parent feeds are processed or in the WooCommerce special case.
-		// The reason for this and the custom `woocommerce_process_feeds` is that WC manipulates the parent
-		// entry and changes its IDs causing feed processing to fail. See `class-gpnf-wc-product-addons.php`.
-		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) ) {
-			// Process feeds after WooCommerce entries are created
-			add_action( 'woocommerce_gravityforms_entry_created', array( $this, 'woocommerce_process_feeds' ), 10, 5 );
-		} else {
-			// Child feeds should be processed *after* parent feeds.
-			add_filter( 'gform_entry_post_save', array( $this, 'process_feeds' ), 11, 2 );
-		}
+		// Child feeds should be processed *after* parent feeds.
+		add_filter( 'gform_entry_post_save', array( $this, 'process_feeds' ), 11, 2 );
 
 		add_filter( 'gform_trigger_payment_delayed_feeds', array( $this, 'process_delayed_feeds' ), 10, 3 );
 		add_filter( 'gform_paypal_fulfillment', array( $this, 'process_delayed_feeds_for_paypal' ), 10, 3 );
 
-	}
-
-	public function woocommerce_process_feeds( $entry_id, $order_id, $order_item, $form_data, $lead_data ) {
-		$form = GFAPI::get_form( rgar( $lead_data, 'form_id' ) );
-		if ( ! $form ) {
-			return;
-		}
-		$this->process_feeds( $lead_data, $form );
 	}
 
 	public function pre_process_feed_listener( $return ) {

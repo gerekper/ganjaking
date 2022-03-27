@@ -72,8 +72,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * enqueue all admin styles
 	 **/
 	public function enqueue_admin_styles(){
-		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page()) return;
-
+		global $pagenow;
+		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page() && (!isset($pagenow) || $pagenow !== 'plugins.php')) return;
+		
 		wp_enqueue_style('rs-open-sans', '//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600,800');
 		wp_enqueue_style('rs-roboto', '//fonts.googleapis.com/css?family=Roboto');
 		wp_enqueue_style('tp-material-icons', '//fonts.googleapis.com/icon?family=Material+Icons');
@@ -97,7 +98,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * enqueue all admin scripts
 	 **/
 	public function enqueue_admin_scripts(){
-		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page()) return;
+		global $pagenow;
+		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page() && (!isset($pagenow) || $pagenow !== 'plugins.php')) return;
 
 		wp_enqueue_script(array('jquery', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-accordion', 'jquery-ui-datepicker', 'jquery-ui-dialog', 'jquery-ui-slider', 'jquery-ui-autocomplete', 'jquery-ui-sortable', 'jquery-ui-droppable', 'jquery-ui-tabs', 'jquery-ui-widget', 'wp-color-picker', 'wpdialogs', 'updates'));
 		wp_enqueue_script(array('wp-color-picker'));
@@ -254,19 +256,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$this->screens[] = add_submenu_page('revslider', '', __('<div id="revslider_helpcenter_link">Help Center</div>', 'revslider'), $this->user_role, 'revslider-help-center', array($this, 'display_external_redirects'));
 		$this->screens[] = add_submenu_page('revslider', '', __('<div id="revslider_templates_link">Templates</div>', 'revslider'), $this->user_role, 'revslider-templates', array($this, 'display_external_redirects'));
 		$this->screens[] = add_submenu_page('revslider', '', __('<div id="revslider_ticket_link"'. $tp_ticket .'>Premium Support</div>', 'revslider'), $this->user_role, 'revslider-ticket', array($this, 'display_external_redirects'));
-		$this->screens[] = add_dashboard_page('Slider Revolution - Welcome', 'Slider Revolution - Welcome', $this->user_role, 'revslider-welcome-screen', array($this, 'display_welcome_page'));
-
+		
 		if($tp_premium !== 'true'){
 			$this->screens[] = add_submenu_page('revslider', '', '<div id="revslider_premium_link"><span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> '.__('Go Premium', 'revslider')."</div>", $this->user_role, 'revslider-buy-license', array($this, 'display_external_redirects'));
 		}
-	}
-
-	/**
-	 * removes admin pages that should now be shown
-	 * @since 6.5.10
-	 */
-	public function remove_admin_pages(){
-		remove_submenu_page('index.php', 'revslider-welcome-screen');
 	}
 
 	/**
@@ -463,9 +456,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$upgrade->force = in_array($this->get_val($_REQUEST, 'checkforupdates', 'false'), array('true', true), true);
 		$upgrade->_retrieve_version_info();
 		
-		if($validated === 'true' || version_compare(RS_REVISION, $stablev, '<')){
-			$upgrade->add_update_checks();
-		}
+		$upgrade->add_update_checks();
 	}
 
 	/**
@@ -495,7 +486,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('admin_menu', array($this, 'add_admin_pages'));
 		add_action('admin_init', array($this, 'display_external_redirects'));
 		add_action('admin_head', array($this, 'add_js_menu_open_blank'));
-		add_action('admin_head', array($this, 'remove_admin_pages'));
 		add_action('add_meta_boxes', array($this, 'add_slider_meta_box'));
 		add_action('save_post', array($this, 'on_save_post'));
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
@@ -509,12 +499,16 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('publish_post', array($cache, 'check_for_post_transient_deletion'));
 		add_action('publish_future_post', array($cache, 'check_for_post_transient_deletion'));
 		
-		if(isset($pagenow) && $pagenow == 'plugins.php' && get_option('revslider-valid', 'false') == 'false'){
-			add_filter('plugin_action_links_' . RS_PLUGIN_SLUG_PATH, array($this, 'add_plugin_action_links'));
+		if(isset($pagenow) && $pagenow == 'plugins.php'){
+			add_action('admin_notices', array($this, 'add_plugins_page_notices'));
+			if(get_option('revslider-valid', 'false') == 'false'){
+				add_filter('plugin_action_links_' . RS_PLUGIN_SLUG_PATH, array($this, 'add_plugin_action_links'));
+			}
 		}
 		
 		add_action('admin_init', array($this, 'merge_addon_notices'), 99);
 		add_action('admin_init', array($this, 'add_suggested_privacy_content'), 15);
+		add_action('admin_init', array($this, 'open_welcome_page'));
 		
 		$instagram = RevSliderGlobals::instance()->get('RevSliderInstagram');
 		$instagram->add_actions();
@@ -532,7 +526,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	}
 	
 	/**
-	 * Change the language of the Sldier Backend even if WordPress is set to be a different language
+	 * Change the language of the Slider Backend even if WordPress is set to be a different language
 	 * @since: 6.1.6
 	 **/
 	public function change_lang($locale, $domain = ''){
@@ -593,6 +587,44 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		</div>
 		<?php
 	}
+
+	/**
+	 * add plugin notices to the Slider Revolution Plugin at the overview page of plugins
+	 **/
+	public static function add_plugins_page_notices(){
+		$plugins = get_plugins();
+
+		foreach($plugins as $plugin_id => $plugin){
+			$slug = dirname($plugin_id);
+			if(empty($slug) || $slug !== 'revslider') continue;
+			
+			if(get_option('revslider-valid', 'false') == 'false' && version_compare(get_option('revslider-latest-version', RS_REVISION), $plugin['Version'], '>')){
+				add_action('after_plugin_row_' . $plugin_id, array('RevSliderAdmin', 'show_purchase_notice'), 10, 3);
+				add_action('admin_footer', array('RevSliderAdmin', 'add_ajax_footer_functionality'));
+			}
+
+			break;
+		}
+	}
+
+	/**
+	 * Show message for activation benefits
+	 **/
+	public static function show_purchase_notice($plugin_file, $plugin_data, $plugin_status){
+		$wp_list_table		= _get_list_table( 'WP_Plugins_List_Table' );
+		$rs_latest_version	= get_option('revslider-latest-version', RS_REVISION);
+		$revision			= str_replace('.', '-', $rs_latest_version);
+		?>
+		<tr class="plugin-update-tr active">
+            <td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="plugin-update colspanchange">
+                <div class="update-message notice inline notice-warning notice-alt">
+				<p><?php _e('There is a new version (<a href="https://www.sliderrevolution.com/documentation/changelog/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo#'.$revision.'" target="_blank">'.$rs_latest_version.'</a>) of Slider Revolution available. To update directly <a href="javascript:;" onclick="RVS.F.showRegisterSliderInfo();">register your license key now</a> or <a href="https://account.sliderrevolution.com/portal/pricing/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo" target="_blank">purchase a new license key</a> to access <a href="https://www.sliderrevolution.com/premium-slider-revolution/?utm_source=admin&utm_medium=wpplugins&utm_campaign=srusers&utm_content=updateinfo" target="_blank">all premium features</a>.', 'revslider'); ?></p>
+                </div>
+			</td>
+        </tr>
+		<style>tr[data-slug="slider-revolution"] td, tr[data-slug="slider-revolution"] th { box-shadow: none!important} #revslider-update{display: none;}</style>
+		<?php
+	}
 	
 	/**
 	 * add a go premium button to the plugins page for Slider Revolution
@@ -625,6 +657,24 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		<h3>Google Web Fonts</h3> <p>For uniform representation of fonts, this page uses web fonts provided by Google. When you open a page, your browser loads the required web fonts into your browser cache to display texts and fonts correctly.</p> <p>For this purpose your browser has to establish a direct connection to Google servers. Google thus becomes aware that our web page was accessed via your IP address. The use of Google Web fonts is done in the interest of a uniform and attractive presentation of our plugin. This constitutes a justified interest pursuant to Art. 6 (1) (f) DSGVO.</p> <p>If your browser does not support web fonts, a standard font is used by your computer.</p> <p>Further information about handling user data, can be found at <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noopener">https://developers.google.com/fonts/faq</a> and in Google\'s privacy policy at <a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener">https://www.google.com/policies/privacy/</a>.</p>
 		<h3>SoundCloud</h3><p>On our pages, plugins of the SoundCloud social network (SoundCloud Limited, Berners House, 47-48 Berners Street, London W1T 3NF, UK) may be integrated. The SoundCloud plugins can be recognized by the SoundCloud logo on our site.</p>
 			<p>When you visit our site, a direct connection between your browser and the SoundCloud server is established via the plugin. This enables SoundCloud to receive information that you have visited our site from your IP address. If you click on the “Like” or “Share” buttons while you are logged into your SoundCloud account, you can link the content of our pages to your SoundCloud profile. This means that SoundCloud can associate visits to our pages with your user account. We would like to point out that, as the provider of these pages, we have no knowledge of the content of the data transmitted or how it will be used by SoundCloud. For more information on SoundCloud’s privacy policy, please go to https://soundcloud.com/pages/privacy.</p><p>If you do not want SoundCloud to associate your visit to our site with your SoundCloud account, please log out of your SoundCloud account.</p>', 'revslider');
+	}
+
+	/**
+	 * Add functionality to the footer to do ajax requests outside of revslider pages
+	 **/
+	public static function add_ajax_footer_functionality(){
+		?>
+		<script>
+			window.RVS = window.RVS === undefined ? {F:{}, C:{}, ENV:{}, LIB:{}, V:{}, S:{}, DOC:jQuery(document), WIN:jQuery(window)} : window.RVS;
+			RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
+			RVS.ENV.slug			= '<?php echo RS_PLUGIN_SLUG; ?>';
+			RVS.ENV.plugin_dir		= 'revslider';
+		</script>
+		<!-- WAIT A MINUTE OVERLAY CONTAINER -->
+		<div id="waitaminute" class="_TPRB_">
+			<div class="waitaminute-message"><i class="eg-icon-emo-coffee"></i><br><?php _e('Please Wait...', 'revslider'); ?></div>
+		</div>
+		<?php
 	}
 
 	/**
@@ -2446,7 +2496,20 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		}
 	}
 
-	
+	public static function welcome_screen_activate(){
+		set_transient('_revslider_welcome_screen_activation_redirect', true, 60);
+	}
+
+	public function open_welcome_page(){
+		if(!get_transient('_revslider_welcome_screen_activation_redirect')) return;
+		if(is_network_admin() || isset($_GET['activate-multi'])) return;
+		
+		delete_transient('_revslider_welcome_screen_activation_redirect');
+
+		update_option('rs_cache_overlay', '1.0.0');
+		wp_safe_redirect(add_query_arg(array('page' => 'revslider'), admin_url('index.php')));
+	}
+
 	/**
 	 * show an nice designed error
 	 **/

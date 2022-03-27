@@ -89,7 +89,7 @@ class EMLData extends AbstractData {
 		$phpmailer->CharSet     = $email->get_charset();
 		$phpmailer->Subject     = $this->get_field_value( 'subject', $email );
 		$phpmailer->Body        = $this->get_field_value( 'content', $email );
-		// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// phpcs:enable
 
 		$this->set_addresses( $email, $phpmailer );
 		$this->set_other_addresses( $email, $phpmailer );

@@ -3,7 +3,6 @@
 namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
 use WP_Post;
-use WPSEO_Admin_Asset_Yoast_Components_L10n;
 use WPSEO_Capability_Utils;
 use WPSEO_Custom_Fields_Plugin;
 use WPSEO_Language_Utils;
@@ -126,9 +125,6 @@ class Elementor_Premium implements Integration_Interface {
 	public function enqueue_assets() {
 		\wp_enqueue_script( static::SCRIPT_HANDLE );
 		\wp_enqueue_style( static::SCRIPT_HANDLE );
-
-		$localization = new WPSEO_Admin_Asset_Yoast_Components_L10n();
-		$localization->localize_script( static::SCRIPT_HANDLE );
 
 		$premium_localization = new WPSEO_Premium_Asset_JS_L10n();
 		$premium_localization->localize_script( static::SCRIPT_HANDLE );

@@ -199,7 +199,7 @@ class WC_Bookings_Ajax {
 		}
 
 		// Build the output
-		$output = apply_filters( 'woocommerce_bookings_booking_cost_string', __( 'Booking cost', 'woocommerce-bookings' ), $product ) . ': <strong>' . $booking->get_price_html( $display_price ) . $price_suffix . '</strong>';
+		$output = apply_filters( 'woocommerce_bookings_booking_cost_string', __( 'Booking cost', 'woocommerce-bookings' ), $product ) . ': <strong>' . wc_price( $display_price ) . $price_suffix . '</strong>';
 
 		// Send the output
 		wp_send_json( array(
@@ -304,12 +304,12 @@ class WC_Bookings_Ajax {
 			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-bookings' ) );
 		}
 
-		$start_date_time      = wc_clean( $_POST['start_date_time'] );
-		$product_id           = intval( $_POST['product_id'] );
-		$blocks               = wc_clean( $_POST['blocks'] );
+		$start_date_time      = isset( $_POST['start_date_time'] ) ? wc_clean( $_POST['start_date_time'] ) : '';
+		$product_id           = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : false;
+		$blocks               = isset( $_POST['blocks'] ) ? wc_clean( $_POST['blocks'] ) : array();
 		$bookable_product     = wc_get_product( $product_id );
 		$booking_form         = new WC_Booking_Form( $bookable_product );
-		$resource_id_to_check = absint( wc_clean( $_POST['resource_id'] ) );
+		$resource_id_to_check = isset( $_POST['resource_id'] ) ? absint( wc_clean( $_POST['resource_id'] ) ) : 0;
 		$html                 = $booking_form->get_end_time_html( $blocks, $start_date_time, array(), $resource_id_to_check );
 
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput

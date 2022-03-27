@@ -295,8 +295,9 @@ class PrintPreview {
 					)
 				);
 				?>
-				<iframe src="<?php echo esc_url( $preview_url ); ?>" frameborder="0" class="email-preview"
-								onload="resizeIframe(this)"></iframe>
+				<iframe src="<?php echo esc_url( $preview_url ); ?>"
+						title="<?php esc_attr_e( 'Print preview email content', 'wp-mail-smtp-pro' ); ?>"
+						frameborder="0" class="email-preview" onload="resizeIframe(this)"></iframe>
 			<?php endif; ?>
 
 			<?php

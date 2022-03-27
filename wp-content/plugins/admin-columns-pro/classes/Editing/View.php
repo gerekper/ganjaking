@@ -60,7 +60,7 @@ class View {
 	}
 
 	/**
-	 * @param bool $disable
+	 * @param bool $enable
 	 *
 	 * @return $this
 	 */

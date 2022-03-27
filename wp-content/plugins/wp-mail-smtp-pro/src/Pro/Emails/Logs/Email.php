@@ -47,6 +47,15 @@ class Email {
 	protected $id = 0;
 
 	/**
+	 * Message ID (mainly external ID from email provider).
+	 *
+	 * @since 3.3.0
+	 *
+	 * @var string
+	 */
+	protected $message_id = '';
+
+	/**
 	 * @since 1.5.0
 	 *
 	 * @var string
@@ -161,7 +170,7 @@ class Email {
 
 		if ( is_numeric( $id_or_row ) && $id_or_row > 0 ) {
 			// Get by ID.
-			$collection = new EmailsCollection( array( 'id' => (int) $id_or_row ) );
+			$collection = new EmailsCollection( [ 'id' => (int) $id_or_row ] );
 			$emails     = $collection->get();
 
 			if ( $emails->valid() ) {
@@ -193,6 +202,24 @@ class Email {
 	}
 
 	/**
+	 * Get email by message ID.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $message_id Message ID.
+	 *
+	 * @return Email|null
+	 */
+	public static function get_by_message_id( $message_id ) {
+
+		// Get by message ID.
+		$collection = new EmailsCollection( [ 'message_id' => $message_id ] );
+		$emails     = $collection->get();
+
+		return $emails->current();
+	}
+
+	/**
 	 * Email ID as per our DB table.
 	 *
 	 * @since 1.5.0
@@ -202,6 +229,18 @@ class Email {
 	public function get_id() {
 
 		return (int) $this->id;
+	}
+
+	/**
+	 * Message ID (mainly external ID from email provider).
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return string
+	 */
+	public function get_message_id() {
+
+		return $this->message_id;
 	}
 
 	/**
@@ -275,7 +314,7 @@ class Email {
 	 */
 	public function get_headers() {
 
-		return WP::is_json( $this->headers ) ? $this->headers : '{}';
+		return WP::is_json( $this->headers ) ? $this->headers : '[]';
 	}
 
 
@@ -403,7 +442,11 @@ class Email {
 	public function get_date_sent() {
 
 		$timezone = new \DateTimeZone( 'UTC' );
-		$date     = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_sent, $timezone );
+		$date     = false;
+
+		if ( ! empty( $this->date_sent ) ) {
+			$date = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_sent, $timezone );
+		}
 
 		if ( $date === false ) {
 			$date = new \DateTime( 'now', $timezone );
@@ -521,6 +564,22 @@ class Email {
 	}
 
 	/**
+	 * Set message ID (mainly external ID from email provider).
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $message_id Message ID.
+	 *
+	 * @return Email
+	 */
+	public function set_message_id( $message_id ) {
+
+		$this->message_id = $message_id;
+
+		return $this;
+	}
+
+	/**
 	 * Set the email subject.
 	 *
 	 * @since 1.5.0
@@ -528,7 +587,7 @@ class Email {
 	 *
 	 * @param string $subject
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_subject( $subject ) {
 
@@ -545,7 +604,7 @@ class Email {
 	 *
 	 * @param array $people
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_people( $people ) {
 
@@ -566,15 +625,22 @@ class Email {
 	 *
 	 * @param array $headers
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_headers( $headers ) {
 
 		if ( ! is_array( $headers ) ) {
-			$headers = array();
+			$headers = [];
 		}
 
-		$this->headers = wp_json_encode( $headers );
+		$filtered_headers = array_filter(
+			$headers,
+			function ( $header ) {
+				return strpos( $header, ':' ) !== false;
+			}
+		);
+
+		$this->headers = wp_json_encode( array_values( $filtered_headers ) );
 
 		return $this;
 	}
@@ -586,7 +652,7 @@ class Email {
 	 *
 	 * @param string $error_text The email error text to be set.
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_error_text( $error_text ) {
 
@@ -600,14 +666,14 @@ class Email {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $content
+	 * @param string $content The email content.
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_content( $content ) {
 
 		// TODO: this check is NOT reliable.
-		if ( $content === strip_tags( $content ) ) { // phpcs:ignore
+		if ( $content === wp_strip_all_tags( $content ) ) {
 			$this->set_content_plain( wp_strip_all_tags( $content ) );
 		} else {
 			$this->set_content_html( $content );
@@ -623,7 +689,7 @@ class Email {
 	 *
 	 * @param string $plain
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_content_plain( $plain ) {
 
@@ -639,7 +705,7 @@ class Email {
 	 *
 	 * @param string $html
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_content_html( $html ) {
 
@@ -659,7 +725,7 @@ class Email {
 	 *
 	 * @param string $date_sent
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 *
 	 * @throws \Exception When date is incorrectly generated on PHP side.
 	 */
@@ -691,7 +757,7 @@ class Email {
 	 *
 	 * @param int $attachments
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_attachments( $attachments ) {
 
@@ -707,7 +773,7 @@ class Email {
 	 *
 	 * @param string $mailer
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_mailer( $mailer ) {
 
@@ -725,7 +791,7 @@ class Email {
 	 *
 	 * @param int $status
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email
+	 * @return Email
 	 */
 	public function set_status( $status ) {
 
@@ -765,7 +831,7 @@ class Email {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @return \WPMailSMTP\Pro\Emails\Logs\Email New or updated email class instance.
+	 * @return Email New or updated email class instance.
 	 * @throws \Exception When email init fails.
 	 */
 	public function save() {
@@ -779,6 +845,7 @@ class Email {
 			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 				$table,
 				[
+					'message_id'     => $this->message_id,
 					'subject'        => $this->subject,
 					'people'         => $this->people,
 					'headers'        => $this->headers,
@@ -796,6 +863,7 @@ class Email {
 					'id' => $this->get_id(),
 				],
 				[
+					'%s', // message ID.
 					'%s', // subject.
 					'%s', // people.
 					'%s', // headers.
@@ -820,6 +888,7 @@ class Email {
 			$wpdb->insert(
 				$table,
 				[
+					'message_id'     => $this->message_id,
 					'subject'        => $this->subject,
 					'people'         => $this->people,
 					'headers'        => $this->headers,
@@ -834,6 +903,7 @@ class Email {
 					'initiator_file' => $this->initiator_file,
 				],
 				[
+					'%s', // message ID.
 					'%s', // subject.
 					'%s', // people.
 					'%s', // headers.

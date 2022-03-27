@@ -15,7 +15,7 @@ class CommentCount extends Model {
 		$setting = $this->column->get_setting( 'comment_count' );
 		$value = false;
 
-		if ( $setting && $setting instanceof AC\Settings\Column\CommentCount ) {
+		if ( $setting instanceof AC\Settings\Column\CommentCount ) {
 			$value = $setting->get_comment_count( $id );
 		}
 

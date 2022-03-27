@@ -12,7 +12,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 		protected static $available_points ;
 
 		public static function init() {
-			$orderstatuslist = get_option( 'rs_order_status_control' ) ;
+			$orderstatuslist = get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ;
 			if ( is_array( $orderstatuslist ) && ! empty( $orderstatuslist ) ) {
 				foreach ( $orderstatuslist as $value ) {
 					add_action( 'woocommerce_order_status_' . $value , array( __CLASS__ , 'update_earning_points_for_user' ) , 1 ) ;
@@ -33,7 +33,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$order_status_control = get_option( 'rs_list_other_status' ) ;
 			if ( is_array( $order_status_control ) && ! empty( $order_status_control ) ) {
-				$orderstatuslist = get_option( 'rs_order_status_control' ) ;
+				$orderstatuslist = get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ;
 				foreach ( $order_status_control as $order_status ) {
 					if ( is_array( $orderstatuslist ) && ! empty( $orderstatuslist ) ) {
 						foreach ( $orderstatuslist as $value ) {
@@ -87,6 +87,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			add_action( 'delete_user' , array( __CLASS__ , 'delete_referral_points_if_user_deleted' ) ) ;
 
+			//Delete all birthday related data
+			add_action( 'delete_user' , array( __CLASS__ , 'delete_birthday_data_if_user_deleted' ) ) ;
+
 			add_action( 'woocommerce_checkout_update_order_meta' , array( __CLASS__ , 'check_redeeming_in_order' ) , 10 , 2 ) ;
 
 			add_action( 'rs_perform_action_for_order' , array( __CLASS__ , 'insert_buying_points_for_user' ) ) ;
@@ -117,6 +120,13 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			add_action( 'woocommerce_before_checkout_form' , array( __CLASS__ , 'available_points_for_user' ) , 11 ) ;
 
 			add_action( 'save_post' , array( __CLASS__ , 'award_points_for_product_creation' ) , 1 , 2 ) ;
+
+			//Award Coupon for User.
+			add_action( 'srp_birthday_cron' , array( __CLASS__ , 'award_bday_points' ) ) ;
+			//Save Birthday Date in Registration Form.
+			add_action( 'user_register' , array( __CLASS__ , 'update_birthday_date' ) , 10 , 1 ) ;
+			//Save Birthday Date in Account Details.
+			add_action( 'woocommerce_save_account_details' , array( __CLASS__ , 'update_birthday_date' ) , 10 , 1 ) ;
 		}
 
 		/* Award Points for Product Creation */
@@ -182,8 +192,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$Msg = is_cart() ? get_option( 'rs_message_user_points_in_cart' ) : get_option( 'rs_message_user_points_in_checkout' ) ;
 			?>
-			<div class="woocommerce-info <?php echo esc_attr(implode( ' ' , $class_names ) ); ?>">
-				<?php echo wp_kses_post(do_shortcode( $Msg )) ; ?>
+			<div class="woocommerce-info <?php echo esc_attr( implode( ' ' , $class_names ) ) ; ?>">
+				<?php echo wp_kses_post( do_shortcode( $Msg ) ) ; ?>
 			</div>
 			<?php
 		}
@@ -221,7 +231,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( 'yes' != get_option( 'rs_enable_reward_program' ) ) {
 				return ;
 			}
-			
+
 			$banning_type = check_banning_type( get_current_user_id() ) ;
 			if ( 'earningonly' == $banning_type || 'both' == $banning_type ) {
 				return ;
@@ -235,11 +245,11 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			<div class="enable_reward_points">
 				<p>
 					<input type="checkbox" name="rs_enable_earn_points_for_user" id="rs_enable_earn_points_for_user" class="rs_enable_earn_points_for_user" 
-					<?php 
+					<?php
 					if ( 'yes' == $checkbox_value ) {
 						?>
-						checked="checked"<?php } ?>/> 
-					<?php echo wp_kses_post( 'yes'  == $checkbox_value ? get_option( 'rs_msg_in_acc_page_when_checked' ) : get_option( 'rs_msg_in_acc_page_when_unchecked' ) ); ?>
+							   checked="checked"<?php } ?>/> 
+						   <?php echo wp_kses_post( 'yes' == $checkbox_value ? get_option( 'rs_msg_in_acc_page_when_checked' ) : get_option( 'rs_msg_in_acc_page_when_unchecked' )  ) ; ?>
 				</p>
 			</div>
 			<?php
@@ -251,16 +261,15 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( 'yes' != get_option( 'rs_enable_reward_program' ) ) {
 				return ;
 			}
-			
+
 			$banning_type = check_banning_type( get_current_user_id() ) ;
 			if ( 'earningonly' == $banning_type || 'both' == $banning_type ) {
 				return ;
 			}
-			
 			?>
 			<div class="enable_reward_points">
 				<p>
-					<input type="checkbox" name="rs_enable_earn_points_for_user_in_reg_form" id="rs_enable_earn_points_for_user_in_reg_form" class="rs_enable_earn_points_for_user_in_reg_form"/> <?php echo wp_kses_post(get_option( 'rs_msg_in_reg_page' )) ; ?>
+					<input type="checkbox" name="rs_enable_earn_points_for_user_in_reg_form" id="rs_enable_earn_points_for_user_in_reg_form" class="rs_enable_earn_points_for_user_in_reg_form"/> <?php echo wp_kses_post( get_option( 'rs_msg_in_reg_page' ) ) ; ?>
 				</p>
 			</div>
 			<?php
@@ -323,7 +332,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 		public static function award_points_for_page_comment( $CommentObj, $CommentType, $UserId, $PostId, $PostStatus ) {
 			//RPCPAR Checkpoints is changed to RPFPAC(Reward Points For Page Comment)
-			if ( 'yes' != get_option( 'rs_reward_for_comment_Page' )) {
+			if ( 'yes' != get_option( 'rs_reward_for_comment_Page' ) ) {
 				return ;
 			}
 
@@ -381,7 +390,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$StatusToAwardPoints       = get_option( 'rs_review_reward_status' ) ;
 			$RestrictPointsOncePerUser = get_option( 'rs_restrict_reward_product_review' ) ;
-			$UserInfo                  = get_user_by( 'id', $UserId ) ;
+			$UserInfo                  = get_user_by( 'id' , $UserId ) ;
 			if ( ! is_object( $UserInfo ) ) {
 				return ;
 			}
@@ -389,16 +398,16 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			$EmailId = $UserInfo->user_email ;
 
 			if ( 'yes' == get_option( 'rs_reward_for_comment_product_review' ) ) {
-				$CheckIfUserPurchasedThisProduct = self::check_if_customer_purchased( $UserId, $EmailId, $PostId, '' ) ;
+				$CheckIfUserPurchasedThisProduct = self::check_if_customer_purchased( $UserId , $EmailId , $PostId , '' ) ;
 				if ( $CheckIfUserPurchasedThisProduct <= 0 ) {
 					return ;
 				}
 
-				if ( ! self::validate_product_review_based_on_specific_days_limit( $UserId, $EmailId, $PostId ) ) {
+				if ( ! self::validate_product_review_based_on_specific_days_limit( $UserId , $EmailId , $PostId ) ) {
 					return ;
 				}
 
-				self::check_whether_award_points_once_or_more( $RestrictPointsOncePerUser, $UserId, $PostId, 'userreviewed', 'RPPR', $PointsToInsert, $PostStatus, $StatusToAwardPoints ) ;
+				self::check_whether_award_points_once_or_more( $RestrictPointsOncePerUser , $UserId , $PostId , 'userreviewed' , 'RPPR' , $PointsToInsert , $PostStatus , $StatusToAwardPoints ) ;
 			} else {
 				self::check_whether_award_points_once_or_more( $RestrictPointsOncePerUser , $UserId , $PostId , 'userreviewed' , 'RPPR' , $PointsToInsert , $PostStatus , $StatusToAwardPoints ) ;
 			}
@@ -418,7 +427,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				return true ;
 			}
 
-			$order_date = self::get_order_date_based_on_purchased_user( $user_id, $email_id, $post_id, '' ) ;
+			$order_date = self::get_order_date_based_on_purchased_user( $user_id , $email_id , $post_id , '' ) ;
 			if ( empty( $order_date ) ) {
 				return true ;
 			}
@@ -435,7 +444,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 		public static function get_order_date_based_on_purchased_user( $user_id, $emails, $product_id, $variation_id ) {
 			global $wpdb ;
-						$db = &$wpdb;
+			$db         = &$wpdb ;
 			$order_date = $db->get_var(
 					$db->prepare( "
 			SELECT DISTINCT posts.post_date_gmt
@@ -449,12 +458,12 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				itemmeta.meta_key    IN ( '_variation_id', '_product_id' ) AND
 				postmeta.meta_key    IN ( '_billing_email', '_customer_user' ) AND
 				(
-					postmeta.meta_value  IN ( '" . implode( "','", array_map( 'esc_sql', array_unique( ( array ) $emails ) ) ) . "' ) OR
+					postmeta.meta_value  IN ( '" . implode( "','" , array_map( 'esc_sql' , array_unique( ( array ) $emails ) ) ) . "' ) OR
 					(
 						postmeta.meta_value = %s
 					) 
 				) ORDER BY posts.post_date_gmt DESC
-			", empty( $variation_id ) ? $product_id : $variation_id, $user_id
+			" , empty( $variation_id ) ? $product_id : $variation_id , $user_id
 					)
 					) ;
 			return $order_date ;
@@ -513,11 +522,11 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				return ;
 			}
 
-			if (  '1' == get_post_meta( $order_id , 'refund_gateway' , true ) ) {
+			if ( '1' == get_post_meta( $order_id , 'refund_gateway' , true ) ) {
 				return ;
 			}
 
-			if ( 'reward_gateway' != get_post_meta( $order_id , '_payment_method' , true )  ) {
+			if ( 'reward_gateway' != get_post_meta( $order_id , '_payment_method' , true ) ) {
 				return ;
 			}
 
@@ -589,7 +598,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$ReplacedMessage = str_replace( '[rspagecommentpoints]' , $PageCommentPoints , get_option( 'rs_message_user_points_for_page_comment' ) ) ;
 			?>
-			<div class="woocommerce-info"><?php echo wp_kses_post($ReplacedMessage) ; ?></div>
+			<div class="woocommerce-info"><?php echo wp_kses_post( $ReplacedMessage ) ; ?></div>
 			<?php
 		}
 
@@ -625,7 +634,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$ReplacedMessage = str_replace( '[rspostcreationpoints]' , $PostCreationBased , get_option( 'rs_message_user_points_for_blog_creation' ) ) ;
 			?>
-			<div class="woocommerce-info"><?php echo wp_kses_post($ReplacedMessage) ; ?></div>
+			<div class="woocommerce-info"><?php echo wp_kses_post( $ReplacedMessage ) ; ?></div>
 			<?php
 		}
 
@@ -635,7 +644,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( ! is_home() && ! is_cart() && ! is_checkout() && ! is_product() && ! is_account_page() ) {
 				if ( ! is_page() ) {
 					$CheckIfPost = is_single() ? 'post' : '' ;
-					if (  'post' != $CheckIfPost ) {
+					if ( 'post' != $CheckIfPost ) {
 						return $content ;
 					}
 
@@ -643,7 +652,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 						return $content ;
 					}
 
-					if ( !get_option( 'rs_reward_post_review' )  ) {
+					if ( ! get_option( 'rs_reward_post_review' ) ) {
 						return $content ;
 					}
 
@@ -659,7 +668,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 					$ReplacedMessage = str_replace( '[rspostpoints]' , $PostCommentPoints , get_option( 'rs_message_user_points_for_blog_comment' ) ) ;
 					?>
-					<div class="woocommerce-info"><?php echo wp_kses_post($ReplacedMessage) ; ?></div>
+					<div class="woocommerce-info"><?php echo wp_kses_post( $ReplacedMessage ) ; ?></div>
 					<?php
 				}
 			}
@@ -675,7 +684,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			$LineTotal       = array() ;
 			$order           = new WC_Order( $order_id ) ;
 			$OrderObj        = srp_order_obj( $order ) ;
-			$UserId          = isset($OrderObj[ 'order_userid' ] ) ? $OrderObj[ 'order_userid' ]:'';
+			$UserId          = isset( $OrderObj[ 'order_userid' ] ) ? $OrderObj[ 'order_userid' ] : '' ;
 
 			if ( ! $UserId ) {
 				return ;
@@ -814,7 +823,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				$BuyingPoints = ( float ) $BuyingPoints * $item[ 'qty' ] ;
 				$orderobj     = srp_order_obj( $order ) ;
 				$new_obj      = new RewardPointsOrder( $order_id , 'no' ) ;
-				if ( 'yes'  == get_option( 'rs_enable_disable_max_earning_points_for_user' ) ) {
+				if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) ) {
 					$new_obj->check_point_restriction( $BuyingPoints , 0 , 'RPBSRP' , $orderobj[ 'order_userid' ] , '' , '' , $item[ 'product_id' ] , $item[ 'variation_id' ] , '' ) ;
 				} else {
 					$valuestoinsert = array( 'pointstoinsert' => $BuyingPoints , 'event_slug' => 'RPBSRP' , 'user_id' => $orderobj[ 'order_userid' ] , 'product_id' => $item[ 'product_id' ] , 'variation_id' => $item[ 'variation_id' ] , 'totalearnedpoints' => $BuyingPoints ) ;
@@ -877,7 +886,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 							do_action( 'fp_redeem_reward_points_manually' , $order_id , $pointsredeemed ) ;
 
 							if ( 'yes' == get_option( 'rs_email_activated' ) ) {
-								send_mail_for_product_purchase( $UserId , $order_id , 'redeeming') ;
+								send_mail_for_product_purchase( $UserId , $order_id , 'redeeming' ) ;
 							}
 						}
 
@@ -904,7 +913,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				return ;
 			}
 
-			if ( 1 == get_post_meta( $order_id , 'redeem_point_once' , true )) {
+			if ( 1 == get_post_meta( $order_id , 'redeem_point_once' , true ) ) {
 				return ;
 			}
 
@@ -945,12 +954,12 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			$AutoRedeem = 'auto_redeem_' . strtolower( $UserName ) ;
 			foreach ( $AppliedCoupons as $coupon ) {
 
-				if ( !is_object( $coupon )) {
-					continue;
+				if ( ! is_object( $coupon ) ) {
+					continue ;
 				}
-								
-				$coupon_name = $coupon->get_name();
-								
+
+				$coupon_name = $coupon->get_name() ;
+
 				if ( $coupon_name == $Redeem || $coupon_name == $AutoRedeem ) {
 					if ( '1' == get_option( 'rewardsystem_looped_over_coupon' . $OrderId ) ) {
 						continue ;
@@ -977,9 +986,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 							}
 						}
 					}
-										
-					update_option( 'rs_revise_redeem_points_occur_once' . $OrderId , '' );
-										
+
+					update_option( 'rs_revise_redeem_points_occur_once' . $OrderId , '' ) ;
+
 					update_option( 'rewardsystem_looped_over_coupon' . $OrderId , '1' ) ;
 					return $RedeemedPoints ;
 				}
@@ -1010,9 +1019,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					) ;
 			self::insert_earning_points( $table_args ) ;
 			self::record_the_points( $table_args ) ;
-						
-			update_option('rewardsystem_looped_over_coupon' . $order_id, '');
-						
+
+			update_option( 'rewardsystem_looped_over_coupon' . $order_id , '' ) ;
+
 			update_post_meta( $order_id , 'redeem_point_once' , 2 ) ;
 		}
 
@@ -1022,7 +1031,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			$UserId   = $OrderObj[ 'order_userid' ] ;
 			if ( ! empty( $UserId ) ) {
 				global $wpdb ;
-								$db = &$wpdb;
+				$db          = &$wpdb ;
 				$order_ids   = $db->get_results( $db->prepare( "SELECT posts.ID
 			FROM $db->posts as posts
 			LEFT JOIN {$db->postmeta} AS meta ON posts.ID = meta.post_id
@@ -1032,7 +1041,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			AND     meta_value          = %d
 		" , $UserId ) , ARRAY_A ) ;
 				$order_count = count( $order_ids ) ;
-				if ( '1'  == get_option( 'rs_select_referral_points_award' ) ) {
+				if ( '1' == get_option( 'rs_select_referral_points_award' ) ) {
 					if ( 'yes' == get_option( 'rs_referral_reward_signup_after_first_purchase' ) || 'yes' == get_option( 'rs_reward_signup_after_first_purchase' ) ) {
 						self::reward_points_after_first_purchase( $order_id ) ;
 					}
@@ -1178,7 +1187,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 		public static function check_if_expiry() {
 			global $wpdb ;
-			$Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE expirydate < %d and expirydate NOT IN(999999999999) and expiredpoints IN(0) and userid = %d" , time() , get_current_user_id() ) , ARRAY_A ) ;
+			$Data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE expirydate < %d and expirydate NOT IN(999999999999) and expiredpoints IN(0) and userid = %d" , time() , get_current_user_id() ) , ARRAY_A ) ;
 			if ( ! srp_check_is_array( $Data ) ) {
 				return ;
 			}
@@ -1209,12 +1218,12 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 		public static function delete_if_used() {
 			global $wpdb ;
-			$userid     = get_current_user_id() ;
-			$Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d", $userid ) , ARRAY_A ) ;
+			$userid = get_current_user_id() ;
+			$Data   = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
 
 			if ( srp_check_is_array( $Data ) ) {
 
-				$totalearnedpoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d", $userid ) ) ;
+				$totalearnedpoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) ) ;
 				$totalusedpoints   = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(usedpoints) FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) ) ;
 
 				$earned_points_before_delete = array_sum( $totalearnedpoints ) + ( float ) get_user_meta( $userid , 'rs_earned_points_before_delete' , true ) ;
@@ -1231,8 +1240,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 		public static function delete_if_expired() {
 			global $wpdb ;
-			$userid     = get_current_user_id() ;
-			$Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
+			$userid = get_current_user_id() ;
+			$Data   = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
 
 			if ( srp_check_is_array( $Data ) ) {
 
@@ -1262,7 +1271,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 
 			global $wpdb ;
-			$table_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}sumo_reward_encashing_submitted_data WHERE userid=%d", $userid ) , ARRAY_A ) ;
+			$table_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}sumo_reward_encashing_submitted_data WHERE userid=%d" , $userid ) , ARRAY_A ) ;
 			foreach ( $table_data as $data ) {
 				$data_to_return = ( 'encash_through_paypal_method' == $data[ 'encashpaymentmethod' ] ) ? $data[ 'paypalemailid' ] : $data[ 'otherpaymentdetails' ] ;
 			}
@@ -1288,10 +1297,10 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 
 			global $wpdb ;
-			$earned_points = 'yes'  == get_option( 'rs_enable_round_off_type_for_calculation' ) ? round_off_type( $pointstoinsert , array() , false ) : ( float ) $pointstoinsert ;
+			$earned_points = 'yes' == get_option( 'rs_enable_round_off_type_for_calculation' ) ? round_off_type( $pointstoinsert , array() , false ) : ( float ) $pointstoinsert ;
 			$noofday       = 'yes' == get_option( 'rs_point_expiry_activated' ) ? get_option( 'rs_point_to_be_expire' ) : 0 ;
 			if ( empty( $noofday ) ) {
-				$query = $wpdb->get_row( $wpdb->prepare("SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE userid = %d and expirydate = '999999999999'", $user_id) , ARRAY_A ) ;
+				$query = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE userid = %d and expirydate = '999999999999'" , $user_id ) , ARRAY_A ) ;
 				if ( ! empty( $query ) && 999999999999 == $date ) {
 					$oldearnedpoints = $query[ 'earnedpoints' ] + $earned_points ;
 					$usedpoints      = $usedpoints + $query[ 'usedpoints' ] ;
@@ -1393,7 +1402,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 
 			global $wpdb ;
-			$Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints-usedpoints NOT IN(0) and  expiredpoints IN(0) and userid=%d ORDER BY expirydate ASC" , $UserId ) , ARRAY_A ) ;
+			$Data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}rspointexpiry WHERE earnedpoints-usedpoints NOT IN(0) and  expiredpoints IN(0) and userid=%d ORDER BY expirydate ASC" , $UserId ) , ARRAY_A ) ;
 			if ( ! srp_check_is_array( $Data ) ) {
 				return $redeempoints ;
 			}
@@ -1405,14 +1414,14 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					$id           = $eachrow[ 'id' ] ;
 					$redeempoints = $redeempoints - $BalancePoints ;
 
-					$wpdb->query($wpdb->prepare( "UPDATE {$wpdb->prefix}rspointexpiry SET usedpoints = %s WHERE id = %d", $usedpoints, $id) ) ;
+					$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}rspointexpiry SET usedpoints = %s WHERE id = %d" , $usedpoints , $id ) ) ;
 					if ( empty( $redeempoints ) ) {
 						break ;
 					}
 				} else {
 					$usedpoints = $eachrow[ 'usedpoints' ] + $redeempoints ;
 					$id         = $eachrow[ 'id' ] ;
-					$wpdb->query( $wpdb->prepare("UPDATE {$wpdb->prefix}rspointexpiry SET usedpoints = %s  WHERE id = %d" , $usedpoints, $id)) ;
+					$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}rspointexpiry SET usedpoints = %s  WHERE id = %d" , $usedpoints , $id ) ) ;
 					break ;
 				}
 			}
@@ -1434,7 +1443,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			$orderuserid           = $OrderObj[ 'order_userid' ] ;
 			$Orderstatus           = $OrderObj[ 'order_status' ] ;
 			$Orderstatus           = str_replace( 'wc-' , '' , $Orderstatus ) ;
-			$selected_order_status = get_option( 'rs_order_status_control' ) ;
+			$selected_order_status = get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ;
 			if ( in_array( $Orderstatus , $selected_order_status ) ) {
 				return ;
 			}
@@ -1448,11 +1457,11 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				}
 			}
 			if ( '1' != get_post_meta( $order_id , 'rs_revised_points_once' , true ) ) {
-				if ('yes' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) ) {
+				if ( 'yes' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) ) {
 					$product_ids = get_post_meta( $order_id , 'points_for_current_order' , true ) ;
 					self::insert_revised_points( $orderuserid , $order_id , $product_ids ) ;
 				} else {
-					if ('1' ==  get_option( 'rs_award_points_for_cart_or_product_total' )  ) {
+					if ( '1' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
 						$product_ids = get_post_meta( $order_id , 'points_for_current_order' , true ) ;
 						self::insert_revised_points( $orderuserid , $order_id , $product_ids ) ;
 					} else if ( '2' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
@@ -1462,9 +1471,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					}
 				}
 				$referreduser = get_post_meta( $order_id , '_referrer_name' , true ) ;
-				if ( ''!=$referreduser ) {
+				if ( '' != $referreduser ) {
 					if ( '1' == get_option( 'rs_award_points_for_cart_or_product_total_for_refferal_system' , 1 ) ) {
-						$product_ids  = get_post_meta( $order_id , 'rsgetreferalpoints' , true ) ;
+						$product_ids = get_post_meta( $order_id , 'rsgetreferalpoints' , true ) ;
 						self::insert_revised_get_refer_points( 0 , $orderuserid , $order_id , $product_ids ) ;
 						self::insert_revised_referral_points( 0 , $referreduser , $orderuserid , $order_id , $new_obj , $Order ) ;
 					} else {
@@ -1483,7 +1492,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( ! is_object( $order ) ) {
 				return ;
 			}
-			
+
 			$referrer    = is_object( get_user_by( 'ID' , $referrer_user_id ) ) ? get_user_by( 'ID' , $referrer_user_id ) : get_user_by( 'login' , $referrer_user_id ) ;
 			$referrer_id = is_object( $referrer ) ? $referrer->ID : '' ;
 
@@ -1538,7 +1547,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( ! is_object( $Order ) ) {
 				return 0 ;
 			}
-			
+
 			$AppliedCoupons = $Order->get_items( array( 'coupon' ) ) ;
 			if ( ! srp_check_is_array( $AppliedCoupons ) ) {
 				return 0 ;
@@ -1597,7 +1606,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			global $wpdb ;
 
 			if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) && ! empty( get_option( 'rs_max_earning_points_for_user' ) ) ) {
-				$points_to_revise = $wpdb->get_results($wpdb->prepare( "SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')" , $orderuserid, $order_id), ARRAY_A ) ;
+				$points_to_revise = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')" , $orderuserid , $order_id ) , ARRAY_A ) ;
 				if ( ! empty( $points_to_revise[ 0 ][ 'earnedpoints' ] ) ) {
 					self::revise_product_purchase_points( $points_data , $orderuserid , $order_id , $points_to_revise[ 0 ][ 'earnedpoints' ] ) ;
 				}
@@ -1623,8 +1632,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				self::record_the_points( $table_args ) ;
 			} else {
 				foreach ( $points_data as $product_id => $value ) {
-					$usedpoints                  = RSMemberFunction::earn_points_percentage( $orderuserid, ( float ) $value ) ;
-					$table_args[ 'usedpoints' ]  = 'yes'  == get_option( 'rs_enable_round_off_type_for_calculation' ) ? round_off_type( $usedpoints , array() , false ) : ( float ) $usedpoints ;
+					$usedpoints                  = RSMemberFunction::earn_points_percentage( $orderuserid , ( float ) $value ) ;
+					$table_args[ 'usedpoints' ]  = 'yes' == get_option( 'rs_enable_round_off_type_for_calculation' ) ? round_off_type( $usedpoints , array() , false ) : ( float ) $usedpoints ;
 					$table_args[ 'productid' ]   = $product_id ;
 					$table_args[ 'variationid' ] = $product_id ;
 
@@ -1641,8 +1650,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			global $wpdb ;
 
 			$PointsToRevise = array() ;
-			if ('yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) && ! empty( get_option( 'rs_max_earning_points_for_user' ) )) {
-				$PointsToRevise = $wpdb->get_results( $wpdb->prepare("SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')", $orderuserid, $OrderId) , ARRAY_A ) ;
+			if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) && ! empty( get_option( 'rs_max_earning_points_for_user' ) ) ) {
+				$PointsToRevise = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')" , $orderuserid , $OrderId ) , ARRAY_A ) ;
 				$PointsToRevise = ! empty( $PointsToRevise[ 0 ][ 'earnedpoints' ] ) ? $PointsToRevise[ 0 ][ 'earnedpoints' ] : 0 ;
 			} else {
 				$PointsToRevise = get_post_meta( $OrderId , 'points_for_current_order_based_on_cart_total' , true ) ;
@@ -1671,7 +1680,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 			$PointsToRevise = array() ;
 			if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) && ! empty( get_option( 'rs_max_earning_points_for_user' ) ) ) {
-				$PointsToRevise = $wpdb->get_results( $wpdb->prepare("SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')" , $orderuserid, $OrderId), ARRAY_A ) ;
+				$PointsToRevise = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(earnedpoints) as earnedpoints FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d and orderid = %d and expirydate NOT IN(0) and checkpoints IN('MREPFU','PPRP')" , $orderuserid , $OrderId ) , ARRAY_A ) ;
 				$PointsToRevise = ! empty( $PointsToRevise[ 0 ][ 'earnedpoints' ] ) ? $PointsToRevise[ 0 ][ 'earnedpoints' ] : 0 ;
 			} else {
 				$PointsToRevise = get_post_meta( $OrderId , 'rs_points_for_current_order_based_on_range' , true ) ;
@@ -1734,7 +1743,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					'variationid'   => empty( $item[ 'variation_id' ] ) ? 0 : $item[ 'variation_id' ] ,
 					'item'          => $item ,
 					'referred_user' => $myid ,
-					'order'         => $order 
+					'order'         => $order
 						) ;
 				if ( 'yes' === get_option( 'rs_referral_points_after_discounts' ) ) {
 					$item_product_id        = 'variable' == wc_get_product( $item[ 'product_id' ] )->get_type() ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
@@ -1763,7 +1772,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			} else {
 				update_post_meta( $order_id , 'rs_order_status_reached' , 'yes' ) ;
 				$interval = get_option( 'rs_restrict_product_purchase_time' ) ;
-				if ( 'minutes'  == get_option( 'rs_restrict_product_purchase_cron_type' )) {
+				if ( 'minutes' == get_option( 'rs_restrict_product_purchase_cron_type' ) ) {
 					$interval = $interval * 60 ;
 				} else if ( 'hours' == get_option( 'rs_restrict_product_purchase_cron_type' ) ) {
 					$interval = $interval * 3600 ;
@@ -1773,7 +1782,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				$timestamp = time() + ( int ) $interval ;
 				$date      = gmdate( 'Y-m-d h:i:sa' , $timestamp ) ;
 				update_post_meta( $order_id , 'rs_date_time_for_awarding_points' , $date ) ;
-				if ( false == wp_next_scheduled( 'rs_restrict_product_purchase_for_time' , array( $order_id ) )  ) {
+				if ( false == wp_next_scheduled( 'rs_restrict_product_purchase_for_time' , array( $order_id ) ) ) {
 					wp_schedule_single_event( $timestamp , 'rs_restrict_product_purchase_for_time' , array( $order_id ) ) ;
 				}
 			}
@@ -1800,7 +1809,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 
 			global $wpdb ;
-			$refuserid  = get_user_meta( $user_id , '_rs_i_referred_by' , true ) ;
+			$refuserid = get_user_meta( $user_id , '_rs_i_referred_by' , true ) ;
 			if ( ! empty( $refuserid ) ) {
 				$RefRegPoints = $wpdb->get_results( $wpdb->prepare( "SELECT (earnedpoints) FROM {$wpdb->prefix}rsrecordpoints WHERE userid = %d AND checkpoints = %s AND refuserid = %d" , $refuserid , 'RRRP' , $user_id ) , ARRAY_A ) ;
 				if ( srp_check_is_array( $RefRegPoints ) ) {
@@ -1850,9 +1859,34 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 		}
 
+		/**
+		 * Delete Birthday Date if user deleted.
+		 */
+		public static function delete_birthday_data_if_user_deleted( $user_id ) {
+			$user_data  = get_userdata( $user_id ) ;
+			$user_email = $user_data->user_email ;
+
+			$args = array(
+				'meta_query' => array(
+					array(
+						'key'     => 'srp_user_email' ,
+						'value'   => $user_email ,
+						'compare' => '==' ,
+					) ,
+				) ,
+					) ;
+
+			$birthday = srp_get_birthday_ids( $args ) ;
+
+			if ( srp_check_is_array( $birthday ) ) {
+				$birthday_id = reset( $birthday ) ;
+				srp_delete_birthday( $birthday_id ) ;
+			}
+		}
+
 		public static function check_if_customer_purchased( $user_id, $emails, $product_id, $variation_id ) {
 			global $wpdb ;
-						$db = &$wpdb;
+			$db      = &$wpdb ;
 			$results = $db->get_results(
 					$db->prepare( "
 			SELECT DISTINCT order_items.order_item_id
@@ -1893,8 +1927,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( is_admin() ) {
 				$vieworderlink = esc_url( get_edit_post_link( $orderid ) ) ;
 			}
-						
-			$display_order_id       = apply_filters('rs_display_reward_log_order_id', $orderid); 
+
+			$display_order_id       = apply_filters( 'rs_display_reward_log_order_id' , $orderid ) ;
 			$vieworderlinkforfront  = '<a href="' . $vieworderlink . '">#' . $display_order_id . '</a>' ;
 			$view_product           = '<a target="_blank" href="' . get_permalink( $productid ) . '">' . get_the_title( $productid ) . '</a>' ;
 			$vieworderlink1         = esc_url_raw( add_query_arg( 'view-subscription' , $orderid , $myaccountlink ) ) ;
@@ -1927,20 +1961,20 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 							$Msg = get_option( '_rs_localize_points_earned_for_purchase_based_on_cart_total' ) ;
 						}
 					}
-					$OrderLink = ( false == $csvmasterlog ) ? $vieworderlinkforfront : '#' . $display_order_id ;
-					$Msg       = str_replace( '{currentorderid}' , $OrderLink , $Msg ) ;
+					$OrderLink   = ( false == $csvmasterlog ) ? $vieworderlinkforfront : '#' . $display_order_id ;
+					$Msg         = str_replace( '{currentorderid}' , $OrderLink , $Msg ) ;
 					return $Msg ;
 					break ;
 				case 'MLBP': /* Member Level Bonus Points */
-					$rules                  = get_option( 'rewards_dynamic_rule' ) ;
-					$PointsData             = new RS_Points_Data( $userid ) ;
-					$TotalPoints            = '1' == get_option( 'rs_select_earn_points_based_on' )? $PointsData->total_earned_points() : $PointsData->total_available_points() ;
-					$rule_id                = rs_get_earning_and_redeeming_level_id( $TotalPoints, 'earning' ) ;
-					$levelname              = isset( $rules[ $rule_id ][ 'name' ] ) ? $rules[ $rule_id ][ 'name' ] : '' ;
-					return str_replace( '{level_name}', $levelname, get_option( 'rs_log_for_bonus_points', 'Bonus Points earned for reaching the <b>“{level_name}”</b> level' ) ) ;
+					$rules       = get_option( 'rewards_dynamic_rule' ) ;
+					$PointsData  = new RS_Points_Data( $userid ) ;
+					$TotalPoints = '1' == get_option( 'rs_select_earn_points_based_on' ) ? $PointsData->total_earned_points() : $PointsData->total_available_points() ;
+					$rule_id     = rs_get_earning_and_redeeming_level_id( $TotalPoints , 'earning' ) ;
+					$levelname   = isset( $rules[ $rule_id ][ 'name' ] ) ? $rules[ $rule_id ][ 'name' ] : '' ;
+					return str_replace( '{level_name}' , $levelname , get_option( 'rs_log_for_bonus_points' , 'Bonus Points earned for reaching the <b>“{level_name}”</b> level' ) ) ;
 					break ;
 				case 'PFFP':
-					return str_replace( '{currentorderid}' , $vieworderlinkforfront , get_option( 'rs_log_for_first_purchase_points') ) ;
+					return str_replace( '{currentorderid}' , $vieworderlinkforfront , get_option( 'rs_log_for_first_purchase_points' ) ) ;
 					break ;
 				case 'RPFFP':
 					return str_replace( '{currentorderid}' , $vieworderlinkforfront , get_option( 'rs_log_for_revised_first_purchase_points' , 'Revised Points for First Purchase {currentorderid}' ) ) ;
@@ -2057,6 +2091,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				case 'RPVL':
 				case 'RPVLP':
 					return get_option( '_rs_localize_reward_for_vk' ) ;
+					break ;
+				case 'BRP':
+					return get_option( '_rs_localize_log_for_bday' ) ;
 					break ;
 				case 'RPPR':
 					$Msg       = str_replace( '{reviewproductid}' , $productid , get_option( '_rs_localize_points_earned_for_product_review' ) ) ;
@@ -2243,7 +2280,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					return $Msg ;
 					break ;
 				case 'SPB':
-					if ( false == $masterlog  ) {
+					if ( false == $masterlog ) {
 						return get_option( '_rs_localize_log_for_sender_after_submit' ) ;
 					}
 					break ;
@@ -2259,7 +2296,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					return get_option( '_rs_localize_points_to_send_log_revised' ) ;
 					break ;
 				case 'RPFURL':
-					$replacepoints = str_replace( '[points]' , $earnpoints , get_option( 'rs_message_for_pointurl', '[points] Points added, from Visited Point URL' ) ) ;
+					$replacepoints = str_replace( '[points]' , $earnpoints , get_option( 'rs_message_for_pointurl' , '[points] Points added, from Visited Point URL' ) ) ;
 					return $replacepoints ;
 					break ;
 			}
@@ -2272,8 +2309,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( function_exists( 'wc_get_order_statuses' ) ) {
 				$Orderslugs = str_replace( 'wc-' , '' , array_keys( wc_get_order_statuses() ) ) ;
 				foreach ( $Orderslugs as $value ) {
-					if ( srp_check_is_array( get_option( 'rs_order_status_control' ) ) ) {
-						if ( ! in_array( $value , get_option( 'rs_order_status_control' ) ) ) {
+					if ( srp_check_is_array( get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ) ) {
+						if ( ! in_array( $value , get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ) ) {
 							$EarnStatus[] = $value ;
 						}
 					}
@@ -2298,8 +2335,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				$tax_terms = get_terms( 'shop_order_status' , $term_args ) ;
 				foreach ( $tax_terms as $getterms ) {
 					if ( is_object( $getterms ) ) {
-						if ( is_array( get_option( 'rs_order_status_control' ) ) ) {
-							if ( ! in_array( $getterms->slug , get_option( 'rs_order_status_control' ) ) ) {
+						if ( is_array( get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ) ) {
+							if ( ! in_array( $getterms->slug , get_option( 'rs_order_status_control' , array( 'processing' , 'completed' ) ) ) ) {
 								$EarnStatus[] = $getterms->slug ;
 							}
 						}
@@ -2326,18 +2363,18 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 		public static function checkout_cookies_referral_meta( $order_id, $order_posted ) {
 			$UserId = get_current_user_id() ;
 			if ( isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
-				$cookie_name = wc_clean(wp_unslash($_COOKIE[ 'rsreferredusername' ]));
-				$refuser = ( 1 == get_option( 'rs_generate_referral_link_based_on_user' ) ) ? get_user_by( 'login' , $cookie_name ) : get_user_by( 'id' , $cookie_name ) ;
-				if ( ! $refuser || !is_object($refuser) ) {
+				$cookie_name = wc_clean( wp_unslash( $_COOKIE[ 'rsreferredusername' ] ) ) ;
+				$refuser     = ( 1 == get_option( 'rs_generate_referral_link_based_on_user' ) ) ? get_user_by( 'login' , $cookie_name ) : get_user_by( 'id' , $cookie_name ) ;
+				if ( ! $refuser || ! is_object( $refuser ) ) {
 					return ;
 				}
 
 				$myid = $refuser->ID ;
 			} else {
 				$myid    = check_if_referrer_has_manual_link( $UserId ) ;
-				$refuser = $myid ? get_user_by('ID', $myid):'';
-				if ( !is_object( $refuser)) {
-					return;
+				$refuser = $myid ? get_user_by( 'ID' , $myid ) : '' ;
+				if ( ! is_object( $refuser ) ) {
+					return ;
 				}
 			}
 
@@ -2350,8 +2387,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			}
 
 			if ( isset( $refuser->ID ) ) {
-				$billing_email        = isset($_REQUEST[ 'billing_email' ]) ? sanitize_email($_REQUEST[ 'billing_email' ]):'';
-				$OrderCount           = self::get_order_count( sanitize_email($billing_email ), $UserId , array_keys( wc_get_order_statuses() ) , $refuser->ID ) ;
+				$billing_email        = isset( $_REQUEST[ 'billing_email' ] ) ? sanitize_email( $_REQUEST[ 'billing_email' ] ) : '' ;
+				$OrderCount           = self::get_order_count( sanitize_email( $billing_email ) , $UserId , array_keys( wc_get_order_statuses() ) , $refuser->ID ) ;
 				$CheckOrderCountLimit = self::check_order_count_limit( $OrderCount , 'yes' ) ;
 				if ( $CheckOrderCountLimit ) {
 					return ;
@@ -2359,14 +2396,14 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
 				// Validate old user not in referral system.
 				if ( ! self::validate_old_user_not_in_referral_system( $order_id ) ) {
-						return ;
+					return ;
 				}
-								
-				if ( ! rs_restrict_referral_system_purchase_point_for_free_shipping($order_id) ) {
+
+				if ( ! rs_restrict_referral_system_purchase_point_for_free_shipping( $order_id ) ) {
 					return ;
 				}
 			}
-			
+
 			// Save cart total meta in order.
 			self::save_cart_total_referral_system_meta_in_order( $order_id ) ;
 
@@ -2405,14 +2442,14 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				return ;
 			}
 
-			$shipping_cost   = $order->get_shipping_total() + $order->get_shipping_tax(); 
-			$shipping_cost   = !empty($shipping_cost) ? $shipping_cost : 0 ;
-			$referrer_points = rs_get_reward_points_based_on_cart_total_for_referrer( $order, $shipping_cost ) ;
+			$shipping_cost   = $order->get_shipping_total() + $order->get_shipping_tax() ;
+			$shipping_cost   = ! empty( $shipping_cost ) ? $shipping_cost : 0 ;
+			$referrer_points = rs_get_reward_points_based_on_cart_total_for_referrer( $order , $shipping_cost ) ;
 			if ( ! empty( $referrer_points ) ) {
 				update_post_meta( $order_id , 'rs_referrer_points_based_on_cart_total' , $referrer_points ) ;
 			}
 
-			$referred_points = rs_get_reward_points_based_on_cart_total_for_referred( $order, $shipping_cost ) ;
+			$referred_points = rs_get_reward_points_based_on_cart_total_for_referred( $order , $shipping_cost ) ;
 			if ( ! empty( $referred_points ) ) {
 				update_post_meta( $order_id , 'rs_referred_points_based_on_cart_total' , $referred_points ) ;
 			}
@@ -2422,21 +2459,21 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 			if ( ! isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
 				return ;
 			}
-						
-						$cookie_name = wc_clean(wp_unslash($_COOKIE[ 'rsreferredusername' ]));
-			$referrer = ( 1 == get_option( 'rs_generate_referral_link_based_on_user' ) ) ? get_user_by( 'login' , $cookie_name ) : get_user_by( 'id' , $cookie_name) ;
+
+			$cookie_name = wc_clean( wp_unslash( $_COOKIE[ 'rsreferredusername' ] ) ) ;
+			$referrer    = ( 1 == get_option( 'rs_generate_referral_link_based_on_user' ) ) ? get_user_by( 'login' , $cookie_name ) : get_user_by( 'id' , $cookie_name ) ;
 
 			if ( ! is_object( $referrer ) ) {
 				return ;
 			}
-						
-						$billing_email        = isset($_REQUEST[ 'billing_email' ]) ? sanitize_email($_REQUEST[ 'billing_email' ]):'';
+
+			$billing_email        = isset( $_REQUEST[ 'billing_email' ] ) ? sanitize_email( $_REQUEST[ 'billing_email' ] ) : '' ;
 			$OrderCount           = self::get_order_count( $billing_email , get_current_user_id() , array_keys( wc_get_order_statuses() ) , $referrer->ID ) ;
 			$CheckOrderCountLimit = self::check_order_count_limit( $OrderCount , 'yes' ) ;
 			if ( $CheckOrderCountLimit ) {
 				setcookie( 'rsreferredusername' , $cookie_name , time() - 3600 , COOKIEPATH ? COOKIEPATH : '/' , COOKIE_DOMAIN , is_ssl() , true ) ;
-				$referrer_ip = isset($_COOKIE[ 'referrerip' ]) ? wc_clean(wp_unslash($_COOKIE[ 'referrerip' ] )):'';
-								setcookie( 'referrerip' , $referrer_ip, time() - 3600 , COOKIEPATH ? COOKIEPATH : '/' , COOKIE_DOMAIN , is_ssl() , true ) ;
+				$referrer_ip = isset( $_COOKIE[ 'referrerip' ] ) ? wc_clean( wp_unslash( $_COOKIE[ 'referrerip' ] ) ) : '' ;
+				setcookie( 'referrerip' , $referrer_ip , time() - 3600 , COOKIEPATH ? COOKIEPATH : '/' , COOKIE_DOMAIN , is_ssl() , true ) ;
 			}
 		}
 
@@ -2490,16 +2527,16 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 		}
 
 		public static function check_if_user_has_multiple_referrer( $BillingEmail, $order ) {
-			
+
 			if ( 'yes' != get_option( 'rs_restrict_referral_points_for_multiple_referrer' ) ) {
 				return true ;
 			}
-			
-			if (!is_object($order)) {
-				return true;
+
+			if ( ! is_object( $order ) ) {
+				return true ;
 			}
-			
-			$order_user_id = $order->get_user_id();
+
+			$order_user_id = $order->get_user_id() ;
 
 			$args = array(
 				'post_type'      => 'shop_order' ,
@@ -2526,7 +2563,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				return true ;
 			}
 
-			if ( 1 == count( $OrderIds )  ) {
+			if ( 1 == count( $OrderIds ) ) {
 				return true ;
 			}
 
@@ -2566,7 +2603,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 				'fields'         => 'ids' ,
 				'order'          => 'ASC' ,
 				'post__not_in'   => array( $order_id ) ,
-			) ) ;
+					) ) ;
 
 			if ( ! srp_check_is_array( $order_ids ) ) {
 				return true ;
@@ -2588,19 +2625,19 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 		}
 
 		public static function check_if_referrer_and_referral_from_same_ip( $order ) {
-			if ( 'yes' != get_option( 'rs_restrict_referral_points_for_same_ip' )  ) {
+			if ( 'yes' != get_option( 'rs_restrict_referral_points_for_same_ip' ) ) {
 				return true ;
 			}
 
 			if ( ! isset( $_COOKIE[ 'referrerip' ] ) ) {
 				return true ;
 			}
-			
-			if (!is_object($order)) {
-				return true;
+
+			if ( ! is_object( $order ) ) {
+				return true ;
 			}
 
-			$RefIPAddrs = base64_decode( wc_clean(wp_unslash($_COOKIE[ 'referrerip' ])) ) ;
+			$RefIPAddrs = base64_decode( wc_clean( wp_unslash( $_COOKIE[ 'referrerip' ] ) ) ) ;
 			$IPAddrs    = $order->get_customer_ip_address() ;
 			if ( $RefIPAddrs == $IPAddrs ) {
 				return false ;
@@ -2700,6 +2737,257 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 					) ;
 			self::insert_earning_points( $table_args ) ;
 			self::record_the_points( $table_args ) ;
+		}
+
+		/**
+		 * Award Points for User.
+		 */
+		public static function award_bday_points() {
+			$args = array(
+				'meta_query' => array(
+					'relation' => 'AND' ,
+					array(
+						'key'     => 'srp_birthday_month' ,
+						'value'   => gmdate( 'm-d' ) ,
+						'compare' => '==' ,
+					) ,
+					array(
+						'relation' => 'OR' ,
+						array(
+							'key'     => 'srp_last_issued_year' ,
+							'value'   => gmdate( 'Y' ) ,
+							'compare' => '>=' ,
+						) ,
+						array(
+							'key'     => 'srp_last_issued_year' ,
+							'compare' => 'NOT EXISTS' ,
+						) ,
+					) ,
+				) ,
+					) ;
+
+			$birthday_ids = srp_get_birthday_ids( $args ) ;
+
+			if ( ! srp_check_is_array( $birthday_ids ) ) {
+				return ;
+			}
+
+			foreach ( $birthday_ids as $birthday_id ) {
+
+				if ( ! self::check_if_already_awarded( $birthday_id ) ) {
+					continue ;
+				}
+
+				$birthday_obj = srp_get_birthday( $birthday_id ) ;
+
+				if ( ! self::birthday_date( $birthday_obj ) ) {
+					continue ;
+				}
+
+				$user_id = $birthday_obj->get_user_id() ;
+
+				self::insert_bday_points( $user_id , $birthday_obj ) ;
+			}
+		}
+
+		/**
+		 * Save Birthday Date in Account Details
+		 */
+		public static function update_birthday_date( $user_id ) {
+			if ( isset( $_REQUEST[ 'srp_birthday_date' ] ) && ! empty( $_REQUEST[ 'srp_birthday_date' ] ) ) {
+				$user_data     = get_userdata( $user_id ) ;
+				$user_name     = $user_data->display_name ;
+				$user_email    = $user_data->user_email ;
+				$birthday_date = wc_clean( wp_unslash( $_REQUEST[ 'srp_birthday_date' ] ) ) ;
+				update_user_meta( $user_id , 'srp_birthday_date' , $birthday_date ) ;
+
+				self::create_birthday( $user_id , $user_name , $user_email , $birthday_date ) ;
+
+				if ( self::birthday_date( $birthday_date ) ) {
+					self::insert_bday_points_if_update( $user_id , $birthday_date ) ;
+				}
+			}
+		}
+
+		/**
+		 * Insert Points for User
+		 */
+		public static function insert_bday_points( $userid, $birthday_obj ) {
+			if ( ! $userid || 'yes' != get_option( 'rs_enable_bday_points' ) ) {
+				return ;
+			}
+
+			$bdaypoints = get_option( 'rs_bday_points' ) ;
+			if ( empty( $bdaypoints ) ) {
+				return ;
+			}
+
+			$BanType = check_banning_type( $userid ) ;
+			if ( 'earningonly' == $BanType || 'both' == $BanType ) {
+				return ;
+			}
+
+			if ( ! allow_reward_points_for_user( $userid ) ) {
+				return ;
+			}
+
+			$new_obj = new RewardPointsOrder( 0 , 'no' ) ;
+			if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) ) {
+				$new_obj->check_point_restriction( $bdaypoints , $pointsredeemed = 0 , 'BRP' , $userid , $nomineeid      = '' , $referrer_id    = '' , $productid      = '' , $variationid    = '' , '' ) ;
+			} else {
+				$valuestoinsert = array( 'pointstoinsert' => $bdaypoints , 'event_slug' => 'BRP' , 'user_id' => $userid , 'reasonindetail' => '' , 'totalearnedpoints' => $bdaypoints ) ;
+				$new_obj->total_points_management( $valuestoinsert ) ;
+			}
+
+			$prev_data = $birthday_obj->get_issued_year() ;
+
+			if ( srp_check_is_array( $prev_data ) ) {
+				$merged_data = array_merge( $prev_data , array( gmdate( 'Y' ) ) ) ;
+			} else {
+				$merged_data = array( gmdate( 'Y' ) ) ;
+			}
+
+			$birthday_args = array(
+				'srp_issued_year'      => $merged_data ,
+				'srp_issued_date'      => gmdate( 'Y-m-d' ) ,
+				'srp_last_issued_year' => gmdate( 'Y' )
+					) ;
+
+			srp_update_birthday( $birthday_obj->get_id() , $birthday_args ) ;
+
+			do_action( 'fp_reward_point_for_birthday' ) ;
+		}
+
+		/**
+		 * Insert Points for User
+		 */
+		public static function insert_bday_points_if_update( $userid, $birthday_date ) {
+
+			$bdate_obj = SRP_Date_Time::get_date_time_object( $birthday_date ) ;
+
+			$args = array(
+				'meta_query' => array(
+					'relation' => 'AND' ,
+					array(
+						'key'     => 'srp_user_id' ,
+						'value'   => $userid ,
+						'compare' => '==' ,
+					) ,
+					array(
+						'key'     => 'srp_birthday_month' ,
+						'value'   => $bdate_obj->format( 'm-d' ) ,
+						'compare' => '==' ,
+					) ,
+					array(
+						'relation' => 'OR' ,
+						array(
+							'key'     => 'srp_last_issued_year' ,
+							'value'   => gmdate( 'Y' ) ,
+							'compare' => '>=' ,
+						) ,
+						array(
+							'key'     => 'srp_last_issued_year' ,
+							'compare' => 'NOT EXISTS' ,
+						) ,
+					) ,
+				) ,
+					) ;
+
+			$birthday_ids = srp_get_birthday_ids( $args ) ;
+
+			if ( ! srp_check_is_array( $birthday_ids ) ) {
+				return ;
+			}
+
+			foreach ( $birthday_ids as $birthday_id ) {
+
+				if ( ! self::check_if_already_awarded( $birthday_id ) ) {
+					continue ;
+				}
+
+				$birthday_obj = srp_get_birthday( $birthday_id ) ;
+
+				if ( ! self::birthday_date( $birthday_obj ) ) {
+					continue ;
+				}
+
+				$user_id = $birthday_obj->get_user_id() ;
+
+				self::insert_bday_points( $user_id , $birthday_obj ) ;
+			}
+		}
+
+		/**
+		 * Create Birthday Post
+		 */
+		public static function create_birthday( $user_id, $user_name, $user_email, $birthday_date ) {
+			$args = array(
+				'meta_query' => array(
+					array(
+						'key'     => 'srp_user_email' ,
+						'value'   => $user_email ,
+						'compare' => '==' ,
+					) ,
+				) ,
+					) ;
+
+			$birthday = srp_get_birthday_ids( $args ) ;
+
+			$bdate_obj = SRP_Date_Time::get_date_time_object( $birthday_date ) ;
+
+			if ( ! srp_check_is_array( $birthday ) ) {
+				$birthday_args = array(
+					'srp_user_id'             => $user_id ,
+					'srp_user_email'          => $user_email ,
+					'srp_user_name'           => $user_name ,
+					'srp_birthday_date'       => $birthday_date ,
+					'srp_birthday_updated_on' => gmdate( 'Y-m-d' ) ,
+					'srp_birthday_month'      => $bdate_obj->format( 'm-d' ) ,
+						) ;
+
+				$birthday_id = srp_create_new_birthday( $birthday_args ) ;
+			} else {
+				$birthday_id = reset( $birthday ) ;
+
+				$birthday_args = array(
+					'srp_birthday_date'       => $birthday_date ,
+					'srp_birthday_updated_on' => gmdate( 'Y-m-d' ) ,
+					'srp_birthday_month'      => $bdate_obj->format( 'm-d' ) ,
+						) ;
+
+				srp_update_birthday( $birthday_id , $birthday_args ) ;
+			}
+		}
+
+		/**
+		 * Check User's Birthday Date.
+		 */
+		public static function birthday_date( $birthday_obj ) {
+
+			$birthday_date = is_object( $birthday_obj ) ? $birthday_obj->get_birthday_date() : $birthday_obj ;
+
+			$bdate_obj = SRP_Date_Time::get_date_time_object( $birthday_date ) ;
+
+			$date = gmdate( 'm-d' ) ;
+
+			if ( $bdate_obj->format( 'm-d' ) == $date ) {
+				return true ;
+			}
+
+			return false ;
+		}
+
+		/**
+		 * Check If Already awarded.
+		 */
+		public static function check_if_already_awarded( $birthday_id ) {
+			$current_year = gmdate( 'Y' ) ;
+			$awarded_year = ( array ) get_post_meta( $birthday_id , 'srp_issued_year' , true ) ;
+			if ( in_array( $current_year , $awarded_year ) ) {
+				return false ;
+			}
+
+			return true ;
 		}
 
 	}

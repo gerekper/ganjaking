@@ -770,6 +770,13 @@ class WC_Booking_Order_Manager {
 			return;
 		}
 
+		// Do not change a failed order to "pending" when the booking goes to "unpaid".
+		if ( 'pending' === $status && 'failed' === $order->get_status() && 'unpaid' === get_wc_booking( $booking_id )->get_status() ) {
+			self::syncing_stop( $booking_id );
+
+			return;
+		}
+
 		// Only update status if the order has 1 booking
 		if ( 1 === count( $order->get_items() ) ) {
 			$order->update_status( $status );

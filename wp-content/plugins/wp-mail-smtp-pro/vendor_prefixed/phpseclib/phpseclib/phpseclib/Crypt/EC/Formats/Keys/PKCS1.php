@@ -26,7 +26,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
@@ -95,8 +94,8 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             if (!isset($components['curve'])) {
                 $components['curve'] = $ecParams;
             }
-            $temp = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($ecPrivate['privateKey'], 256);
-            $components['dA'] = $components['curve']->convertInteger($temp);
+            $components['dA'] = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($ecPrivate['privateKey'], 256);
+            $components['curve']->rangeCheck($components['dA']);
             $components['QA'] = isset($ecPrivate['publicKey']) ? self::extractPoint($ecPrivate['publicKey'], $components['curve']) : $components['curve']->multiplyPoint($components['curve']->getBasePoint(), $components['dA']);
             return $components;
         }
@@ -118,8 +117,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $components = [];
         $components['curve'] = self::loadCurveByParam($key['parameters']);
-        $temp = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key['privateKey'], 256);
-        $components['dA'] = $components['curve']->convertInteger($temp);
+        $components['dA'] = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key['privateKey'], 256);
         $components['QA'] = isset($ecPrivate['publicKey']) ? self::extractPoint($ecPrivate['publicKey'], $components['curve']) : $components['curve']->multiplyPoint($components['curve']->getBasePoint(), $components['dA']);
         return $components;
     }
@@ -142,14 +140,14 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      * Convert a private key to the appropriate format.
      *
      * @access public
-     * @param \phpseclib3\Math\Common\FiniteField\Integer $privateKey
+     * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
      * @param string $password optional
      * @param array $options optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
     {
         self::initialize_static_variables();
         if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards || $curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery) {

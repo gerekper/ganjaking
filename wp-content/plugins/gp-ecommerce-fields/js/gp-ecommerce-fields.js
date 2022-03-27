@@ -1,6 +1,178 @@
 ( function( $ ) {
 
 	/**
+	 * GetDiscount is not called using the form ID which means it's not available to the gform_coupons_discount_amount
+	 * filter.
+	 *
+	 * This is a workaround to crawl up the stack trace when GetDiscount is called to get the form ID so we can use it
+	 * when filtering gform_coupons_discount_amount to exclude shipping and discounts from the coupon amount.
+	 *
+	 * Ideally, Gravity Forms passes the form ID to GetDiscount and subsequently the gform_coupons_discount_amount JS
+	 * filter.
+	 */
+	var GetDiscountOriginal = window.GetDiscount;
+	var getDiscountCurrentFormId;
+
+	window.GetDiscount = function () {
+		var caller = arguments.callee.caller;
+
+		while (caller.name !== 'PopulateDiscountInfo') {
+			if (typeof caller.caller !== 'function') {
+				break;
+			}
+
+			caller = caller.caller;
+		}
+
+		if (caller.name === 'PopulateDiscountInfo') {
+			getDiscountCurrentFormId = caller.arguments[1];
+		}
+
+		var result = GetDiscountOriginal.apply(this, arguments);
+
+		getDiscountCurrentFormId = undefined;
+
+		return result;
+	}
+
+	/*
+	 * Memoization based on fast-memoize: https://github.com/caiogondim/fast-memoize.js/blob/master/src/index.js
+	 */
+	function memoize (fn, options) {
+		var cache = options && options.cache
+			? options.cache
+			: cacheDefault
+
+		var serializer = options && options.serializer
+			? options.serializer
+			: serializerDefault
+
+		var strategy = options && options.strategy
+			? options.strategy
+			: strategyDefault
+
+		return strategy(fn, {
+			cache: cache,
+			serializer: serializer
+		})
+	}
+
+	//
+	// Strategy
+	//
+
+	function isPrimitive (value) {
+		return value == null || typeof value === 'number' || typeof value === 'boolean' // || typeof value === "string" 'unsafe' primitive for our needs
+	}
+
+	function monadic (fn, cache, serializer, arg) {
+		var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
+
+		var computedValue = cache.get(cacheKey)
+		if (typeof computedValue === 'undefined') {
+			computedValue = fn.call(this, arg)
+			cache.set(cacheKey, computedValue)
+		}
+
+		return computedValue
+	}
+
+	function variadic (fn, cache, serializer) {
+		var args = Array.prototype.slice.call(arguments, 3)
+		var cacheKey = serializer(args)
+
+		var computedValue = cache.get(cacheKey)
+		if (typeof computedValue === 'undefined') {
+			computedValue = fn.apply(this, args)
+			cache.set(cacheKey, computedValue)
+		}
+
+		return computedValue
+	}
+
+	function assemble (fn, context, strategy, cache, serialize) {
+		return strategy.bind(
+			context,
+			fn,
+			cache,
+			serialize
+		)
+	}
+
+	function strategyDefault (fn, options) {
+		var strategy = fn.length === 1 ? monadic : variadic
+
+		return assemble(
+			fn,
+			this,
+			strategy,
+			options.cache.create(),
+			options.serializer
+		)
+	}
+
+	function strategyVariadic (fn, options) {
+		var strategy = variadic
+
+		return assemble(
+			fn,
+			this,
+			strategy,
+			options.cache.create(),
+			options.serializer
+		)
+	}
+
+	function strategyMonadic (fn, options) {
+		var strategy = monadic
+
+		return assemble(
+			fn,
+			this,
+			strategy,
+			options.cache.create(),
+			options.serializer
+		)
+	}
+
+	//
+	// Serializer
+	//
+
+	function serializerDefault () {
+		return JSON.stringify(arguments)
+	}
+
+	//
+	// Memoize Cache
+	//
+
+	function ObjectWithoutPrototypeCache () {
+		this.cache = Object.create(null)
+	}
+
+	ObjectWithoutPrototypeCache.prototype.has = function (key) {
+		return (key in this.cache)
+	}
+
+	ObjectWithoutPrototypeCache.prototype.get = function (key) {
+		return this.cache[key]
+	}
+
+	ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
+		this.cache[key] = value
+	}
+
+	var cacheDefault = {
+		create: function create () {
+			return new ObjectWithoutPrototypeCache()
+		}
+	}
+	/**
+	 * End fast-memoize functions/methods
+	 */
+
+	/**
 	 * Replace {coupons}, {discounts}, and {subtotal} merge tags in calculation formulas.
 	 */
 	gform.addFilter(
@@ -43,18 +215,22 @@
 
 	/**
 	 * Exclude Shipping & Discounts from Coupons by default.
+	 *
+	 * @todo Gravity Forms added `formId` as a 6th parameter so we can get rid of our `getDiscountCurrentFormId` hack
+	 *       whenever we're ready. See: https://github.com/gravityforms/gravityformscoupons/pull/29
 	 */
 	gform.addFilter(
 		'gform_coupons_discount_amount',
 		function( discount, couponType, couponAmount, price, totalDiscount ) {
-
-			// super hacky... work our way up the chain to see if the 4th func up is the expected func; need to get the formId
-			var caller = arguments.callee.caller.caller.caller.caller;
-			if ( caller.name != 'PopulateDiscountInfo' ) {
+			/**
+			 * This variable is set above in our override of GetDiscount. The Form ID isn't passed to this filter
+			 * by default and this is our workaround to get it.
+			 */
+			if (!getDiscountCurrentFormId) {
 				return discount;
 			}
 
-			var formId    = caller.arguments[1],
+			var formId    = getDiscountCurrentFormId,
 			shippingTotal = gformGetShippingPrice( formId ),
 			total         = price + totalDiscount - shippingTotal,
 			//discountTotal = getDiscountsTotal( formId, total ) * -1, // make it positive
@@ -134,6 +310,19 @@
 		},
 		49
 	);
+
+	/**
+	 * PayPal Checkout flow requires that the discount amount be specifically sent otherwise it will error during
+	 * validation.
+	 */
+	if (window.GPECF.ppcpRequiresDiscountFilter === 'true') {
+		gform.addFilter(
+			'gform_ppcp_discount_total',
+			function( discountTotal, formId ) {
+				return discountTotal + (getDiscountsTotal( formId, getSubtotal( formId ) ) * -1);
+			}
+		);
+	}
 
 	/**
 	 * Process Tax Fields
@@ -257,6 +446,8 @@
 				}
 			);
 
+			var inputChangeTimeout;
+
 			// Calculated Number fields with only GPECF merge tags (e.g. {subtotal}) will not get recalculated when a
 			// Calculated Product field's value changes. Listen for these changes and force calculations to run again.
 			gform.addAction(
@@ -280,10 +471,22 @@
 
 					if ( isProduct && isCalculation ) {
 						$( elem ).data('gpecfIsCalculating', true);
-						runCalculations( formId );
-						$( elem ).data('gpecfIsCalculating', false);
-					}
 
+						/**
+						 * gpecfIsCalculating along with the setTimeout is here to prevent an N+1-esq issue where every
+						 * calculated product results in runCalculations firing
+						 */
+						if (inputChangeTimeout) {
+							clearTimeout(inputChangeTimeout);
+							inputChangeTimeout = undefined;
+						}
+
+						inputChangeTimeout = setTimeout(function() {
+							runCalculations( formId );
+
+							$( elem ).data('gpecfIsCalculating', false);
+						}, 5);
+					}
 				}
 			);
 
@@ -369,7 +572,14 @@
 		return fieldTotal;
 	}
 
-	function getProductsTotal( formId, productIds, includeDiscounts ) {
+	var getProductsTotal = function(formId, productIds, includeDiscounts) {
+		if ( ! window['_gformPriceFields'] || ! window['_gformPriceFields'][ formId ] ) {
+			return 0;
+		}
+		return getProductsTotalMemoized(parseInt(formId), productIds, includeDiscounts, jQuery('form#gform_' + formId).serializeArray())
+	}
+
+	var getProductsTotalMemoized = memoize(function( formId, productIds, includeDiscounts, fieldValues ) {
 
 		if ( typeof productIds == 'undefined' && window[ '_gformPriceFields' ] ) {
 			productIds = _gformPriceFields[ formId ];
@@ -395,7 +605,7 @@
 		}
 
 		return total;
-	}
+	});
 
 	function getSubtotal( formId, excludeProductIds ) {
 
@@ -509,7 +719,7 @@
 		return totalDiscount;
 	}
 
-	function runCalculations( formId ) {
+	var runCalculations = function( formId ) {
 
 		var _GFCalc = rgars( window, 'gf_global/gfcalc/{0}'.format( formId ) );
 		if ( ! _GFCalc ) {
@@ -529,7 +739,7 @@
 			_GFCalc.runCalcs( formId, formulaFields );
 		}
 
-	}
+	};
 
 	function hasOurMergeTags( formula ) {
 

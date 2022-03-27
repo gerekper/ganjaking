@@ -333,6 +333,10 @@ $woocommerce_gpf_di['WoocommerceProductFeedsJobManager'] = function ( $c ) {
 	return new WoocommerceProductFeedsJobManager( $c );
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob'] = function ( $c ) {
+	return new WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob( $c['WoocommerceGpfCommon'] );
+};
+
 $woocommerce_gpf_di['WoocommerceProductFeedsRefreshGoogleTaxonomyJob'] = function ( $c ) {
 	return new WoocommerceProductFeedsRefreshGoogleTaxonomyJob();
 };

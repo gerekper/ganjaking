@@ -1,4 +1,4 @@
-# Copyright (C) 2021 GP Conditional Pricing
+# Copyright (C) 2022 GP Conditional Pricing
 # This file is distributed under the same license as the GP Conditional Pricing package.
 msgid ""
 msgstr ""
@@ -13,119 +13,119 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-conditional-pricing.php:51, ../class-gp-conditional-pricing.php:91
+#: ../class-gp-conditional-pricing.php:51, ../class-gp-conditional-pricing.php:94
 msgid "Conditional Pricing"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:276
+#: ../class-gp-conditional-pricing.php:220
 msgid "This product costs <strong>{0}</strong> if <strong>{1}</strong> of the following match:"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:277
+#: ../class-gp-conditional-pricing.php:221
 msgid "This product costs %s if "
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:278, ../class-gp-conditional-pricing.php:1075
+#: ../class-gp-conditional-pricing.php:222, ../class-gp-conditional-pricing.php:1021
 msgid "Add New Pricing Level"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:279
+#: ../class-gp-conditional-pricing.php:223
 msgid "Select a Product"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:280, ../class-gp-conditional-pricing.php:2052
+#: ../class-gp-conditional-pricing.php:224, ../class-gp-conditional-pricing.php:1998
 msgid "Quantity"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:281
+#: ../class-gp-conditional-pricing.php:225
 msgid "Enter Quantity"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:282, ../class-gp-conditional-pricing.php:1059
+#: ../class-gp-conditional-pricing.php:226, ../class-gp-conditional-pricing.php:1005
 msgid "or"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:283, ../class-gp-conditional-pricing.php:1059
+#: ../class-gp-conditional-pricing.php:227, ../class-gp-conditional-pricing.php:1005
 msgid "and"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1033
+#: ../class-gp-conditional-pricing.php:979
 msgid "Save Conditional Pricing"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1035
+#: ../class-gp-conditional-pricing.php:981
 msgid "Import Pricing Levels"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1081
+#: ../class-gp-conditional-pricing.php:1027
 msgid "You have not added any pricing levels."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1082
+#: ../class-gp-conditional-pricing.php:1028
 msgid "Select a product from the drop down above to add a pricing level for that product."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1091
+#: ../class-gp-conditional-pricing.php:1037
 msgid "Done"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1092
+#: ../class-gp-conditional-pricing.php:1038
 msgid "Delete"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1111
+#: ../class-gp-conditional-pricing.php:1057
 msgid "Pricing Rules Importer"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1137, ../class-gp-conditional-pricing.php:1142
+#: ../class-gp-conditional-pricing.php:1083, ../class-gp-conditional-pricing.php:1088
 msgid "Import File"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1139
+#: ../class-gp-conditional-pricing.php:1085
 msgid "Select a CSV file to import. Use this %1$ssample.csv%2$s file as an starting point for configuring your own import files."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1184
+#: ../class-gp-conditional-pricing.php:1130
 msgid "Import File: Field Mappings"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1186
+#: ../class-gp-conditional-pricing.php:1132
 msgid "Specify which form fields map to your import products, columns, and rows."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1262
+#: ../class-gp-conditional-pricing.php:1208
 msgid "Merge"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1263
+#: ../class-gp-conditional-pricing.php:1209
 msgid "Merge imported pricing rules with existing pricing rules."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1269
+#: ../class-gp-conditional-pricing.php:1215
 msgid "Replace All"
 msgstr ""
 
 #. translators: %1$s is replaced with '<strong>', %2$s is replaced with '</strong>'.
-#: ../class-gp-conditional-pricing.php:1272
+#: ../class-gp-conditional-pricing.php:1218
 msgid "Replace %1$sALL%2$s existing pricing rules with imported pricing rules."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1279
+#: ../class-gp-conditional-pricing.php:1225
 msgid "Replace Matching"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1280
+#: ../class-gp-conditional-pricing.php:1226
 msgid "Replace existing pricing rules only for matching products with pricing rules in this import."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1570
+#: ../class-gp-conditional-pricing.php:1516
 msgid "Conditional pricing saved successfully!"
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1572
+#: ../class-gp-conditional-pricing.php:1518
 msgid "There was an error saving your conditional pricing."
 msgstr ""
 
-#: ../class-gp-conditional-pricing.php:1743
+#: ../class-gp-conditional-pricing.php:1689
 msgid "There was an error calculating the price for this field."
 msgstr ""

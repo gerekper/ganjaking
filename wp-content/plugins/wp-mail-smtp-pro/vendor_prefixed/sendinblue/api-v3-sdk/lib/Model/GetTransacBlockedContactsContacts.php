@@ -51,13 +51,13 @@ class GetTransacBlockedContactsContacts implements \WPMailSMTP\Vendor\SendinBlue
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'senderEmail' => 'string', 'reason' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacBlockedContactsReason', 'blockedAt' => '\\DateTime'];
+    protected static $swaggerTypes = ['email' => 'string', 'senderEmail' => 'string', 'reason' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacBlockedContactsReason', 'blockedAt' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'senderEmail' => 'email', 'reason' => null, 'blockedAt' => 'date-time'];
+    protected static $swaggerFormats = ['email' => 'email', 'senderEmail' => 'email', 'reason' => null, 'blockedAt' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -249,7 +249,7 @@ class GetTransacBlockedContactsContacts implements \WPMailSMTP\Vendor\SendinBlue
     /**
      * Gets blockedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getBlockedAt()
     {
@@ -258,7 +258,7 @@ class GetTransacBlockedContactsContacts implements \WPMailSMTP\Vendor\SendinBlue
     /**
      * Sets blockedAt
      *
-     * @param \DateTime $blockedAt Date when the contact was blocked or unsubscribed on
+     * @param string $blockedAt Date when the contact was blocked or unsubscribed on
      *
      * @return $this
      */

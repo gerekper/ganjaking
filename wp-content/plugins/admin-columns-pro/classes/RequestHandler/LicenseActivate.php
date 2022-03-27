@@ -2,27 +2,30 @@
 
 namespace ACP\RequestHandler;
 
+use AC\Capabilities;
+use AC\Message;
 use AC\Message\Notice;
 use AC\Request;
+use ACP\Access\ActivationKeyStorage;
+use ACP\Access\ActivationUpdater;
+use ACP\Access\PermissionChecker;
+use ACP\Access\Rule\ApiActivateResponse;
 use ACP\API;
-use ACP\LicenseKeyRepository;
-use ACP\LicenseRepository;
-use ACP\Plugins;
+use ACP\Nonce;
 use ACP\RequestDispatcher;
-use ACP\Type\License\Key;
+use ACP\RequestHandler;
+use ACP\Type\Activation\Key;
+use ACP\Type\LicenseKey;
 use ACP\Type\SiteUrl;
+use ACP\Updates\ProductsUpdater;
+use InvalidArgumentException;
 
-class LicenseActivate {
-
-	/**
-	 * @var LicenseKeyRepository
-	 */
-	private $license_key_repository;
+class LicenseActivate implements RequestHandler {
 
 	/**
-	 * @var LicenseRepository
+	 * @var ActivationKeyStorage
 	 */
-	private $license_repository;
+	private $activation_key_storage;
 
 	/**
 	 * @var RequestDispatcher
@@ -35,16 +38,27 @@ class LicenseActivate {
 	private $site_url;
 
 	/**
-	 * @var Plugins
+	 * @var ProductsUpdater
 	 */
-	private $plugins;
+	private $products_updater;
 
-	public function __construct( LicenseKeyRepository $license_key_repository, LicenseRepository $license_repository, RequestDispatcher $api, SiteUrl $site_url, Plugins $plugins ) {
-		$this->license_key_repository = $license_key_repository;
-		$this->license_repository = $license_repository;
+	/**
+	 * @var ActivationUpdater
+	 */
+	private $activation_updater;
+
+	/**
+	 * @var PermissionChecker
+	 */
+	private $permission_checker;
+
+	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, ProductsUpdater $products_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
+		$this->activation_key_storage = $activation_key_storage;
 		$this->api = $api;
 		$this->site_url = $site_url;
-		$this->plugins = $plugins;
+		$this->products_updater = $products_updater;
+		$this->activation_updater = $activation_updater;
+		$this->permission_checker = $permission_checker;
 	}
 
 	/**
@@ -53,35 +67,37 @@ class LicenseActivate {
 	 * @return void
 	 */
 	public function handle( Request $request ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
+
+		if ( ! ( new Nonce\LicenseNonce() )->verify( $request ) ) {
+			return;
+		}
+
 		$key = sanitize_text_field( $request->get( 'license' ) );
 
 		if ( ! $key ) {
-			$this->license_key_repository->delete();
-
-			$this->error_notice( __( 'Empty license.', 'codepress-admin-columns' ) );
+			$this->error_notice( __( 'Empty license key.', 'codepress-admin-columns' ) );
 
 			return;
 		}
 
-		if ( ! Key::is_valid( $key ) ) {
-			$this->license_key_repository->delete();
-
+		if ( ! LicenseKey::is_valid( $key ) ) {
 			$this->error_notice( __( 'Invalid license key.', 'codepress-admin-columns' ) );
 
 			return;
 		}
 
-		$license_key = new Key( $key );
-
-		$this->license_key_repository->save( $license_key );
-
-		( new SubscriptionDetails( $this->license_repository, $this->api ) )->handle(
-			new API\Request\SubscriptionDetails( $license_key, $this->site_url )
-		);
+		$license_key = new LicenseKey( $key );
 
 		$response = $this->api->dispatch(
-			new API\Request\Activation( $license_key, $this->site_url )
+			new API\Request\Activate( $license_key, $this->site_url )
 		);
+
+		$this->permission_checker
+			->add_rule( new ApiActivateResponse( $response ) )
+			->apply();
 
 		if ( $response->has_error() ) {
 			$this->error_notice( $response->get_error()->get_error_message() );
@@ -89,28 +105,23 @@ class LicenseActivate {
 			return;
 		}
 
-		( new ProductsUpdate( $this->api ) )->handle(
-			new API\Request\ProductsUpdate( $this->site_url, $this->plugins, $license_key )
-		);
+		try {
+			$activation_key = new Key( $response->get( 'activation_key' ) );
+		} catch ( InvalidArgumentException $e ) {
+			$this->error_notice( $e->getMessage() );
 
-		( new SubscriptionDetails( $this->license_repository, $this->api ) )->handle(
-			new API\Request\SubscriptionDetails( $license_key, $this->site_url )
-		);
-
-		$this->success_notice( $response->get( 'message' ) );
-
-		if ( $request->get( 'redirect' ) ) {
-			wp_safe_redirect( $request->get( 'redirect' ) );
-			exit;
+			return;
 		}
+
+		$this->activation_key_storage->save( $activation_key );
+		$this->activation_updater->update( $activation_key );
+		$this->products_updater->update( $activation_key );
+
+		( new Notice( $response->get( 'message' ) ) )->register();
 	}
 
 	private function error_notice( $message ) {
-		( new Notice( $message ) )->set_type( Notice::ERROR )->register();
-	}
-
-	private function success_notice( $message ) {
-		( new Notice( $message ) )->register();
+		( new Notice( $message ) )->set_type( Message::ERROR )->register();
 	}
 
 }

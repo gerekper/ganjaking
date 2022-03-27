@@ -20,7 +20,17 @@ function ACP() {
  * @since 5.1
  */
 function acp_sorting_show_all_results() {
-	return ( new Sorting\Settings\AllResults() )->is_enabled();
+	$is_enabled = wp_cache_get( 'ac_show_all_results_sorting' );
+
+	if ( false === $is_enabled ) {
+		$is_enabled = ( new Sorting\Settings\AllResults() )->is_enabled()
+			? '1'
+			: '0';
+
+		wp_cache_add( 'ac_show_all_results_sorting', $is_enabled );
+	}
+
+	return '1' === $is_enabled;
 }
 
 /**
@@ -61,14 +71,10 @@ function acp_is_addon_compatible( $namespace, $version ) {
 }
 
 /**
- * @return string
+ * @deprecated 5.7
  */
 function acp_get_license_page_url() {
-	if ( is_multisite() && ACP()->is_network_active() ) {
-		return ac_get_admin_network_url( 'settings' );
-	}
-
-	return ac_get_admin_url( 'settings' );
+	_deprecated_function( __FUNCTION__, '5.7' );
 }
 
 /**
@@ -119,8 +125,6 @@ function acp_sorting() {
 	return new Sorting\Addon(
 		AC()->get_storage(),
 		ACP()->get_location(),
-		new Sorting\NativeSortableFactory(),
-		new Sorting\ModelFactory(),
 		new SegmentRepository()
 	);
 }
@@ -131,7 +135,7 @@ function acp_sorting() {
 function ac_addon_export() {
 	_deprecated_function( __FUNCTION__, '5.1' );
 
-	return new Export\Addon( ACP()->get_location() );
+	return new Export\Addon( ACP()->get_location(), AC()->get_storage() );
 }
 
 /**

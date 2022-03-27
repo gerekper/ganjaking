@@ -1,8 +1,8 @@
 === Groovy Menu ===
 Contributors: Grooni
 Requires at least: 4.9.7
-Tested up to: 5.8
-Stable tag: 2.6.1.1
+Tested up to: 5.9
+Stable tag: 2.6.2
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,13 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.6.2 =
+* Fix: Show desktop version of $gm_main_menu_actions_button_first & $gm_main_menu_actions_button_last even if there are no action buttons.
+* Fix: Fixed fadeout animation for close dropdown event that before missed in 2.x version.
+* Fix: Fixed bug when background for dropdowns couldn't be set under "Appearance > Menus > Groovy menu item options > Background image for next level dropdown".
+* Fix: Fixed a look of popup of featured image beside dropdowns.
+* Fix: Broken view of menu in preset preview has been fixed.
 
 = 2.6.1.1 =
 * HotFix: Additional menu Dropdown appearance style.

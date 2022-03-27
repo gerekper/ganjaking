@@ -1,7 +1,18 @@
 *** Checkout Field Editor Changelog ***
 
+2022-03-08 - version 1.7.2
+* Fix - Ensure strings are sanitised before being output.
+* Fix - Fix composer.json excludes for composer v2.2.0 update.
+* Fix - Ignore node modules composer.
+
+2022-02-10 - version 1.7.1
+* Fix - Fixes a deprecation notice under PHP8.
+* Fix - Ignore node modules composer.
+* Tweak - WC 6.1 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-09-27 - version 1.7.0
-* Fix - Enter a summary of all changes on this Pull Request. This will appear in the changelog if accepted.
+* Fix - Ensure that options can be translated.
 * Tweak - WC 5.7 compatibility.
 * Tweak - WP 5.8 compatibility.
 

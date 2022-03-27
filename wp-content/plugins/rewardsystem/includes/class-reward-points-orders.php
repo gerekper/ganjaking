@@ -355,7 +355,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 			$EnableNomineeinMyaccount  = ( 'yes' == get_option( 'rs_nominee_activated' ) ) ? get_user_meta( $orderuserid , 'rs_enable_nominee' , true ) : 'no' ;
 			$NomineeIdsinCheckout      = ( 'yes' == get_option( 'rs_nominee_activated' ) ) ? get_post_meta( $order_id , 'rs_selected_nominee_in_checkout' , true ) : '' ;
 			$shipping_cost             = $this->order->shipping_total + $this->order->shipping_tax ;
-			$productlevelrewardpointss = get_reward_points_based_on_cart_total( $this->order->get_total() , $shipping_cost ) ;
+			$productlevelrewardpointss = get_reward_points_based_on_cart_total( $this->order->get_total() , $shipping_cost , $this->order->get_user_id() ) ;
 
 			if ( 0!=$productlevelrewardpointss ) {
 				include ('frontend/rs_insert_points_for_product_purchase.php') ;
@@ -398,6 +398,11 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 				if ( srp_check_is_array( $UsedCoupons ) ) {
 					$productidss               = empty( $variationid ) ? $productid : $variationid ;
 					$modified_point_list       = get_post_meta( $order_id , 'points_for_current_order' , true ) ;
+					if (!srp_check_is_array($modified_point_list) && class_exists('RSPointExpiry')) {
+						RSPointExpiry::point_info_for_manual_order($order_id, false);
+						$modified_point_list = get_post_meta($order_id, 'points_for_current_order', true);
+					}   
+										
 					$productlevelrewardpointss = ( 0 == $payment_price ) ? ( ! empty( $modified_point_list[ $productidss ] ) ? $modified_point_list[ $productidss ] : 0 ) : $payment_price ;
 					if ( '' != $minimum_cart_total && 0 != $minimum_cart_total ) {
 						if ( $order_total < $minimum_cart_total ) {
@@ -493,6 +498,11 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
 			// $args include product_id,variation_id,quantity,product,item,payment_price.
 			extract( wp_parse_args( $args ) ) ;
+						
+						// Block Points for Sale Priced Product in Referral System.
+			if ( rs_block_points_for_salepriced_product_in_referral_system( $product_id, $variation_id ) ) {
+				return 0 ;
+			}
 
 			$referrer_name              = get_post_meta( $this->order_id , '_referrer_name' , true ) ;
 			$referrer_email             = get_post_meta( $this->order_id , '_referrer_email' , true ) ;
@@ -948,6 +958,11 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 			RSPointExpiry::record_the_points( $table_args ) ;
 			$to         = get_user_by( 'id' , $user_id )->user_email ;
 			rs_send_mail_for_actions( $to , $valuestoinsert[ 'event_slug' ] , $pointstoinsert , $user_name , $this->order_id ) ;
+						
+						// Create order automatically as free product on reaching the earning member level.
+			if ( 'yes' == get_option('rs_enable_earned_level_based_reward_points') && '2' == get_option( 'rs_free_product_add_by_user_or_admin' ) ) {
+				rs_create_free_product_order_automatically($user_id);
+			}
 		}
 
 		public function points_management( $earned_points, $redeemed_points, $event_slug, $user_id ) {

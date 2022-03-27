@@ -1,5 +1,28 @@
 == Changelog ==
 
+= 5.7 =
+Release Date: March 22nd, 2022
+
+* [Added] New hook `acp/editing/view` in favor of the old deprecated 'acp/editing/view_settings' hook
+* [Added] New hook `acp/export/file_name` to alter the exported filename
+* [Fixed] Adding non-existing terms with editing did not work properly
+* [Fixed] Clicking the mobile caret to open the row now works in combination with Inline Editing enabled
+* [Fixed] Pagination for taxonomy entities now load more than just one extra page in the smart drop-downs.
+* [Fixed] Removed the Ninja Forms integration from the add-on page
+* [Fixed] The placeholders for the full name editable were incorrect
+* [Fixed] Unexpected focus scroll behavior in Inline Editing
+* [Improved] Check if a post is locked in order to be able to edit the post
+* [Improved] It is now possible to search for specific icons for the label icon picker
+* [Improved] Javascript is now compiled with the target set to ES6
+* [Improved] Made the Polylang Language column available for all related List screens
+* [Improved] Smarter Link editing for the Custom Field URL type
+* [Updated] Admin Columns Core changes ( 4.5 )
+* [Added] New Image column for the Media list table
+* [Added] The Slug column is now also available for the Media list table
+* [Improved] More thorough logic for the 'Restore Settings' option.
+* [Improved] Refactor of the Setup Script that runs when the plugin is installed and activated for the first time
+* [Improved] The Permalink column now also shows the (upcoming) permalinks for future and draft posts
+
 = 5.6.4 =
 Release Date: December 6th, 2021
 

@@ -249,7 +249,7 @@ class CredentialProvider
     {
         $filename = $filename ?: self::getHomeDir() . '/.aws/config';
         return function () use($ssoProfileName, $filename, $config) {
-            if (!\is_readable($filename)) {
+            if (!@\is_readable($filename)) {
                 return self::reject("Cannot read credentials from {$filename}");
             }
             $profiles = self::loadProfiles($filename);
@@ -261,7 +261,7 @@ class CredentialProvider
                 return self::reject("Profile {$ssoProfileName} in {$filename} must contain the following keys: " . "sso_start_url, sso_region, sso_account_id, and sso_role_name.");
             }
             $tokenLocation = self::getHomeDir() . '/.aws/sso/cache/' . \utf8_encode(\sha1($ssoProfile['sso_start_url'])) . ".json";
-            if (!\is_readable($tokenLocation)) {
+            if (!@\is_readable($tokenLocation)) {
                 return self::reject("Unable to read token file at {$tokenLocation}");
             }
             $tokenData = \json_decode(\file_get_contents($tokenLocation), \true);
@@ -383,7 +383,7 @@ class CredentialProvider
             $preferStaticCredentials = isset($config['preferStaticCredentials']) ? $config['preferStaticCredentials'] : \false;
             $disableAssumeRole = isset($config['disableAssumeRole']) ? $config['disableAssumeRole'] : \false;
             $stsClient = isset($config['stsClient']) ? $config['stsClient'] : null;
-            if (!\is_readable($filename)) {
+            if (!@\is_readable($filename)) {
                 return self::reject("Cannot read credentials from {$filename}");
             }
             $data = self::loadProfiles($filename);
@@ -435,7 +435,7 @@ class CredentialProvider
         $filename = self::getFileName($filename);
         $profile = $profile ?: (\getenv(self::ENV_PROFILE) ?: 'default');
         return function () use($profile, $filename) {
-            if (!\is_readable($filename)) {
+            if (!@\is_readable($filename)) {
                 return self::reject("Cannot read process credentials from {$filename}");
             }
             $data = \WPMailSMTP\Vendor\Aws\parse_ini_file($filename, \true, \INI_SCANNER_RAW);

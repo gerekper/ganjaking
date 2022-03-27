@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.22.9\n"
+"Project-Id-Version: WooCommerce Memberships 1.22.10\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-11-22 08:56:47+00:00\n"
+"POT-Creation-Date: 2022-02-08 10:39:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -3841,7 +3841,7 @@ msgstr ""
 msgid "An error occurred while starting the import process. %s"
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:424
+#: src/class-wc-memberships-emails.php:360
 #: src/emails/class-wc-memberships-user-membership-activated-email.php:123
 #: src/emails/class-wc-memberships-user-membership-ended-email.php:128
 #: src/emails/class-wc-memberships-user-membership-ending-soon-email.php:150
@@ -3851,27 +3851,27 @@ msgstr ""
 msgid "%s inserts your site name."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:427
+#: src/class-wc-memberships-emails.php:363
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts the member display name."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:430
+#: src/class-wc-memberships-emails.php:366
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts the member first name."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:433
+#: src/class-wc-memberships-emails.php:369
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts the member last name."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:436
+#: src/class-wc-memberships-emails.php:372
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts the member full name (or display name, if full name is not set)."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:439
+#: src/class-wc-memberships-emails.php:375
 #: src/emails/class-wc-memberships-user-membership-activated-email.php:131
 #: src/emails/class-wc-memberships-user-membership-ended-email.php:136
 #: src/emails/class-wc-memberships-user-membership-ending-soon-email.php:158
@@ -3881,24 +3881,24 @@ msgstr ""
 msgid "%s inserts the membership plan name."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:442
+#: src/class-wc-memberships-emails.php:378
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts the expiration date of the membership."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:445
+#: src/class-wc-memberships-emails.php:381
 #. translators: Placeholder: %s - merge tag
 msgid ""
 "%s inserts the time difference between now and the date when the membership "
 "expires or has expired (e.g. \"2 days\", or \"1 week\", etc.)."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:448
+#: src/class-wc-memberships-emails.php:384
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts a plain URL to the members area to view the membership."
 msgstr ""
 
-#: src/class-wc-memberships-emails.php:451
+#: src/class-wc-memberships-emails.php:387
 #. translators: Placeholder: %s - merge tag
 msgid "%s inserts a plain membership renewal URL."
 msgstr ""

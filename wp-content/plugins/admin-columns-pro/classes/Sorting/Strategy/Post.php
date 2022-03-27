@@ -61,7 +61,7 @@ class Post extends Strategy {
 	protected function get_posts( array $args = [] ) {
 		$query_vars = $this->wp_query ? $this->wp_query->query_vars : [];
 
-		if ( ! isset( $query_vars['post_status'] ) || empty( $query_vars['post_status'] ) ) {
+		if ( empty( $query_vars['post_status'] ) ) {
 			$query_vars['post_status'] = [ 'any' ];
 		}
 

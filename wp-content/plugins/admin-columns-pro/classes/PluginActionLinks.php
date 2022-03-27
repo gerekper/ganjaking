@@ -3,6 +3,8 @@
 namespace ACP;
 
 use AC\Registrable;
+use AC\Type\Url;
+use ACP\Access\PermissionsStorage;
 
 class PluginActionLinks implements Registrable {
 
@@ -11,8 +13,14 @@ class PluginActionLinks implements Registrable {
 	 */
 	private $basename;
 
-	public function __construct( $basename ) {
-		$this->basename = $basename;
+	/**
+	 * @var PermissionsStorage
+	 */
+	private $permission_storage;
+
+	public function __construct( $basename, PermissionsStorage $permission_storage ) {
+		$this->basename = (string) $basename;
+		$this->permission_storage = $permission_storage;
 	}
 
 	public function register() {
@@ -20,9 +28,13 @@ class PluginActionLinks implements Registrable {
 		add_filter( 'network_admin_plugin_action_links', [ $this, 'add_network_settings_link' ], 1, 2 );
 	}
 
+	private function has_usage_permission() {
+		return $this->permission_storage->retrieve()->has_usage_permission();
+	}
+
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->basename ) {
-			array_unshift( $links, $this->settings_link( ac_get_admin_url( 'settings' ) ) );
+			array_unshift( $links, $this->create_link_element( new Url\Editor( $this->has_usage_permission() ? 'settings' : 'license' ) ) );
 		}
 
 		return $links;
@@ -30,19 +42,23 @@ class PluginActionLinks implements Registrable {
 
 	public function add_network_settings_link( $links, $file ) {
 		if ( $file === $this->basename ) {
-			array_unshift( $links, $this->settings_link( ac_get_admin_network_url( 'settings' ) ) );
+			array_unshift( $links, $this->create_link_element( new Url\EditorNetwork( $this->has_usage_permission() ? 'columns' : 'license' ) ) );
 		}
 
 		return $links;
 	}
 
 	/**
-	 * @param string $url
+	 * @param Url $url
 	 *
 	 * @return string
 	 */
-	private function settings_link( $url ) {
-		return sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Settings', 'codepress-admin-columns' ) );
+	private function create_link_element( Url $url ) {
+		return sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $url->get_url() ),
+			__( 'Settings', 'codepress-admin-columns' )
+		);
 	}
 
 }

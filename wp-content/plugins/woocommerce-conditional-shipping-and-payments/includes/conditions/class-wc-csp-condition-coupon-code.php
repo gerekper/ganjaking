@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -56,7 +56,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 				$coupons        = $this->get_condition_violation_subjects( $data, $args );
 				$merged_coupons = $this->merge_titles( $coupons );
 
-				if ( sizeof( $coupons ) > 1 ) {
+				if ( count( $coupons ) > 1 ) {
 					$message = sprintf( __( 'remove coupons %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
 				} else {
 					$message = sprintf( __( 'remove coupon %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );

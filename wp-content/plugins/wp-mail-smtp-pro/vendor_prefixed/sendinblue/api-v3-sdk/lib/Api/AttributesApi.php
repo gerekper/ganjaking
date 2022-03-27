@@ -248,7 +248,7 @@ class AttributesApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -266,7 +266,7 @@ class AttributesApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -433,7 +433,7 @@ class AttributesApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -451,7 +451,7 @@ class AttributesApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('DELETE', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -609,7 +609,7 @@ class AttributesApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -627,7 +627,7 @@ class AttributesApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**
@@ -806,7 +806,7 @@ class AttributesApi
                 $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\json_encode($formParams);
             } else {
                 // for HTTP post (form)
-                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($formParams);
             }
         }
         // this endpoint requires API key authentication
@@ -824,7 +824,7 @@ class AttributesApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
         $headers = \array_merge($defaultHeaders, $headerParams, $headers);
-        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($queryParams);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('PUT', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
     /**

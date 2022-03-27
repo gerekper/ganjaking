@@ -1,0 +1,57 @@
+# Copyright (C) 2021 GP Blocklist
+# This file is distributed under the same license as the GP Blocklist package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Blocklist\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-blocklist.php:109, ../class-gp-blocklist.php:110
+msgid "Validate against WP Disallowed Comment Keys"
+msgstr ""
+
+#: ../class-gp-blocklist.php:109
+msgid "Enable this option to run all supported form fields through <strong>WordPress Disallowed Comment Keys</strong> validation."
+msgstr ""
+
+#: ../class-gp-blocklist.php:110
+msgid "Enable this option to run this field through WordPress Disallowed Comment Keys validation."
+msgstr ""
+
+#: ../class-gp-blocklist.php:126, ../class-gp-blocklist.php:165
+msgid "Blocklist"
+msgstr ""
+
+#: ../class-gp-blocklist.php:130
+msgid "Validate against WordPress Disallowed Comment Keys"
+msgstr ""
+
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#: ../class-gp-blocklist.php:133
+msgid "Enable this option to run all supported form fields through WordPress %1$sDisallowed Comment Keys%2$s validation."
+msgstr ""
+
+#: ../class-gp-blocklist.php:141
+msgid "Validate against the WordPress Disallowed Comment Keys"
+msgstr ""
+
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#: ../class-gp-blocklist.php:170
+msgid "Validate against WordPress %1$sDisallowed Comment Keys%2$s"
+msgstr ""
+
+#: ../class-gp-blocklist.php:248
+msgid "We're sorry, the text you entered for this field contains blocked words."
+msgstr ""
+
+#. translators: %1$s is replaced with an opening anchor and %2$s is replaced with a closing anchor.
+#: ../class-gp-blocklist.php:272
+msgid "Validate against %1$sDisallowed Comment Keys%2$s"
+msgstr ""

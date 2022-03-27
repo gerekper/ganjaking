@@ -237,8 +237,8 @@ class WC_Store_Credit_Cart {
 		$cart_discounts->calculate_totals();
 
 		/*
-		 * The cart session is updated with priority 10 (Before applying these changes),
-		 * so we update the cart session manually.
+		 * The cart session is updated with priority 100, and priority 10 before WC 6.3.
+		 * In both cases, it happens before applying these changes, so we update the cart session manually.
 		 */
 		WC()->session->set( 'cart_totals', WC()->cart->get_totals() );
 	}

@@ -109,7 +109,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
         $filename = $filename ?: self::getDefaultConfigFilename();
         $profile = $profile ?: (\getenv(self::ENV_PROFILE) ?: 'default');
         return function () use($profile, $filename) {
-            if (!\is_readable($filename)) {
+            if (!@\is_readable($filename)) {
                 return self::reject("Cannot read configuration from {$filename}");
             }
             // Use INI_SCANNER_NORMAL instead of INI_SCANNER_TYPED for PHP 5.5 compatibility
@@ -138,7 +138,8 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
     public static function fallback($region)
     {
         return function () use($region) {
-            if (\WPMailSMTP\Vendor\Aws\is_fips_pseudo_region($region)) {
+            $isFipsPseudoRegion = \strpos($region, 'fips-') !== \false || \strpos($region, '-fips') !== \false;
+            if ($isFipsPseudoRegion) {
                 $configuration = new \WPMailSMTP\Vendor\Aws\Endpoint\UseFipsEndpoint\Configuration(\true);
             } else {
                 $configuration = new \WPMailSMTP\Vendor\Aws\Endpoint\UseFipsEndpoint\Configuration(\false);

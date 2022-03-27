@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Subscriptions Compatibility.
  *
- * @version 1.8.3
+ * @version 1.12.1
  */
 class WC_CSP_WCS_Compatibility {
 
@@ -115,7 +115,11 @@ class WC_CSP_WCS_Compatibility {
 
 				$package = WC_Subscriptions_Cart::get_calculated_shipping_for_package( $base_package );
 
-				$recurring_shipping_package_key = WC_Subscriptions_Cart::get_recurring_shipping_package_key( $recurring_cart_key, $package_index );
+				if ( isset( $package[ 'recurring_cart_key' ] ) ) {
+					$recurring_shipping_package_key = $package_index;
+				} else {
+					$recurring_shipping_package_key = WC_Subscriptions_Cart::get_recurring_shipping_package_key( $recurring_cart_key, $package_index );
+				}
 
 				// Manually include the recurring package period.
 				WC_CSP_Restriction::add_extra_package_variable( $package, 'billing_period', wcs_cart_pluck( $recurring_cart, 'subscription_period' ) );

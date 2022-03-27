@@ -5,10 +5,6 @@
  *
  * Provides an interface for interacting with GPNF functions relating to Gravity Forms entries.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPNF_Entry {
 
 	const ENTRY_PARENT_KEY            = 'gpnf_entry_parent';
@@ -67,7 +63,7 @@ class GPNF_Entry {
 		if ( ! $entry_id ) {
 			$entry_id = $this->_entry_id;
 		}
-		GFFormsModel::update_lead_property( $entry_id, 'status', $status );
+		GFAPI::update_entry_property( $entry_id, 'status', $status );
 	}
 
 	public function has_children() {
@@ -128,7 +124,17 @@ class GPNF_Entry {
 		return $this->_entry;
 	}
 
-	public function set_parent_form( $parent_form_id, $parent_entry_id = false ) {
+	/**
+	 * @deprecated 1.0.2
+	 *
+	 * @return int
+	 */
+	public function set_parent_form( $parent_form_id, &$parent_entry_id = false ) {
+		_deprecated_function( 'GPNF_Entry::set_parent_form', '1.0.1', 'GPNF_Entry::set_parent_meta' );
+		return $this->set_parent_meta( $parent_form_id, $parent_entry_id );
+	}
+
+	public function set_parent_meta( $parent_form_id, $parent_entry_id = false ) {
 		/**
 		 * Filter parent entry ID
 		 *
@@ -158,6 +164,7 @@ class GPNF_Entry {
 		gform_update_meta( $this->_entry_id, self::ENTRY_PARENT_FORM_KEY, $parent_form_id );
 		$this->_entry[ self::ENTRY_PARENT_FORM_KEY ] = $parent_form_id;
 
+		return $parent_entry_id;
 	}
 
 	public function set_nested_form_field( $nested_form_field_id ) {

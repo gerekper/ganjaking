@@ -392,15 +392,17 @@ class WC_CP_Admin_Notices {
 		ob_start();
 
 		?>
-		<div class="sw-welcome-icon"></div>
-		<h2 class="sw-welcome-title"><?php esc_attr_e( 'Ready to create your first product kit?', 'woocommerce-composite-products' ); ?></h2>
-		<p class="sw-welcome-text"><?php esc_attr_e( 'Thank you for installing WooCommerce Composite Products.', 'woocommerce-composite-products' ); ?><br/><?php esc_attr_e( 'Let\'s get started by creating your first composite product!', 'woocommerce-composite-products' ); ?></p>
-		<a href="<?php echo admin_url( 'post-new.php?post_type=product&wc_cp_first_composite=1' ); ?>" class="sw-welcome-button button-primary"><?php esc_attr_e( 'Let\'s go!', 'woocommerce-composite-products' ); ?></a>
+		<p class="sw-welcome-text">
+			<?php
+				/* translators: onboarding url */
+				echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>WooCommerce Composite Products</strong>. Ready to get started? <a href="%s">Click here to create your first composite product</a>.', 'woocommerce-composite-products' ), admin_url( 'post-new.php?post_type=product&wc_cp_first_composite=1' ) ) );
+			?>
+		</p>
 		<?php
 
 		$notice = ob_get_clean();
 
-		self::add_dismissible_notice( $notice, array( 'type' => 'native', 'dismiss_class' => 'welcome' ) );
+		self::add_dismissible_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'welcome' ) );
 	}
 
 	/**

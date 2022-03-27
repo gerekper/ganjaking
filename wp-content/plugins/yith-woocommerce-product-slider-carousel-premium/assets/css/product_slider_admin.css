@@ -1,0 +1,31 @@
+/****************************
+* METABOXES
+****************************/
+ div#_ywcps_products_chosen {
+    width: 338px  !important;
+     position: relative;
+     display: inline-block;
+     vertical-align: middle;
+     font-size: 13px;
+     zoom: 1;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     user-select: none;
+}
+
+
+#_ywcps_products_chosen ul.chosen-choices li.search-field input[type="text"] {
+    margin: 1px 0;
+    padding: 5px;
+    height: 15px;
+    outline: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+    color: #666;
+    font-size: 100%;
+    font-family: sans-serif;
+    line-height: normal;
+    border-radius: 0;
+    height: 27px!important
+}

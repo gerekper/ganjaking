@@ -3,16 +3,30 @@
 namespace ACP\RequestHandler\Ajax;
 
 use AC;
-use AC\Registrable;
-use ACP\API;
+use AC\Capabilities;
+use AC\Nonce;
+use ACP\Access\ActivationKeyStorage;
+use ACP\Access\ActivationStorage;
+use ACP\Access\ActivationUpdater;
+use ACP\Access\PermissionChecker;
+use ACP\ActivationTokenFactory;
 use ACP\LicenseKeyRepository;
-use ACP\LicenseRepository;
+use ACP\PluginRepository;
+use ACP\RequestAjaxHandler;
 use ACP\RequestDispatcher;
-use ACP\RequestHandler\SubscriptionDetails;
-use ACP\Transient\LicenseCheckTransient;
 use ACP\Type\SiteUrl;
 
-class SubscriptionUpdate implements Registrable {
+class SubscriptionUpdate implements RequestAjaxHandler {
+
+	/**
+	 * @var ActivationStorage
+	 */
+	private $activation_storage;
+
+	/**
+	 * @var ActivationKeyStorage
+	 */
+	private $activation_key_storage;
 
 	/**
 	 * @var LicenseKeyRepository
@@ -20,9 +34,9 @@ class SubscriptionUpdate implements Registrable {
 	private $license_key_repository;
 
 	/**
-	 * @var LicenseRepository
+	 * @var PermissionChecker
 	 */
-	private $license_repository;
+	private $permission_checker;
 
 	/**
 	 * @var RequestDispatcher
@@ -32,69 +46,60 @@ class SubscriptionUpdate implements Registrable {
 	/**
 	 * @var SiteUrl
 	 */
-	private $site_url;
+	private $activation_url;
 
 	/**
-	 * @var AC\Asset\Location
+	 * @var ActivationTokenFactory
 	 */
-	private $location;
+	private $token_factory;
 
 	/**
-	 * @var bool
+	 * @var PluginRepository
 	 */
-	private $network_active;
+	private $plugin_repository;
 
-	public function __construct( LicenseKeyRepository $license_key_repository, LicenseRepository $license_repository, RequestDispatcher $api, SiteUrl $site_url, AC\Asset\Location $location, $network_active ) {
+	public function __construct( ActivationStorage $activation_storage, ActivationKeyStorage $activation_key_storage, LicenseKeyRepository $license_key_repository, PermissionChecker $permission_checker, RequestDispatcher $api, SiteUrl $activation_url, ActivationTokenFactory $token_factory, PluginRepository $plugin_repository ) {
+		$this->activation_storage = $activation_storage;
+		$this->activation_key_storage = $activation_key_storage;
 		$this->license_key_repository = $license_key_repository;
-		$this->license_repository = $license_repository;
+		$this->permission_checker = $permission_checker;
 		$this->api = $api;
-		$this->site_url = $site_url;
-		$this->location = $location;
-		$this->network_active = (bool) $network_active;
-	}
-
-	private function transient() {
-		return new LicenseCheckTransient( $this->network_active );
-	}
-
-	public function register() {
-		add_action( 'admin_enqueue_scripts', [ $this, 'load_script' ] );
-
-		$this->get_ajax_handler()->register();
-	}
-
-	public function load_script() {
-		if ( ! $this->transient()->is_expired() ) {
-			return;
-		}
-
-		$asset = new AC\Asset\Script( 'acp-license-check', $this->location->with_suffix( 'assets/core/js/license-check.js' ) );
-		$asset->enqueue();
-	}
-
-	private function get_ajax_handler() {
-		$handler = new AC\Ajax\Handler();
-		$handler->set_action( 'acp_daily_subscription_update' )
-		        ->set_callback( [ $this, 'handle' ] );
-
-		return $handler;
+		$this->activation_url = $activation_url;
+		$this->token_factory = $token_factory;
+		$this->plugin_repository = $plugin_repository;
 	}
 
 	public function handle() {
-		$this->transient()->save( DAY_IN_SECONDS );
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
 
-		$key = $this->license_key_repository->find();
+		$request = new AC\Request();
 
-		if ( ! $key ) {
+		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
 			wp_send_json_error();
 		}
 
-		$request_handler = new SubscriptionDetails( $this->license_repository, $this->api );
+		$activation_token = $this->token_factory->create();
 
-		$response = $request_handler->handle( new API\Request\SubscriptionDetails( $key, $this->site_url ) );
+		if ( ! $activation_token ) {
+			wp_send_json_error();
+		}
 
-		if ( $response->has_error() ) {
-			wp_send_json_error( $response->get_error()->get_error_message() );
+		$updater = new ActivationUpdater(
+			$this->activation_key_storage,
+			$this->activation_storage,
+			$this->license_key_repository,
+			$this->api,
+			$this->activation_url,
+			$this->plugin_repository,
+			$this->permission_checker
+		);
+
+		$api_response = $updater->update( $activation_token );
+
+		if ( $api_response->has_error() ) {
+			wp_send_json_error( $api_response->get_error()->get_error_message() );
 		}
 
 		wp_send_json_success();

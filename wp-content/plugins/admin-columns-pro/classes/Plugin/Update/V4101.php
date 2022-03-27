@@ -4,17 +4,18 @@ namespace ACP\Plugin\Update;
 
 use AC;
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 
 class V4101 extends Update {
+
+	public function __construct() {
+		parent::__construct( new Version( '4.1.1' ) );
+	}
 
 	public function apply_update() {
 		$this->migrate_site_and_user_specific_settings();
 		$this->rename_user_specific_settings();
 		$this->delete_deprecated_settings();
-	}
-
-	protected function set_version() {
-		$this->version = '4.1.1';
 	}
 
 	/**

@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\CronWorkerScheduler;
+use MailPoet\InvalidStateException;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Services\Bridge;
@@ -49,6 +50,11 @@ class SendingServiceKeyCheck extends KeyCheckWorker {
   }
 
   public function checkKey() {
+    // for phpstan because we set bridge property in the init function
+    if (!$this->bridge) {
+      throw new InvalidStateException('The class was not initialized properly. Please call the Init method before.');
+    };
+
     $wasPendingApproval = $this->servicesChecker->isMailPoetAPIKeyPendingApproval();
 
     $mssKey = $this->settings->get(Mailer::MAILER_CONFIG_SETTING_NAME)['mailpoet_api_key'];

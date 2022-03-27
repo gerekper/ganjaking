@@ -23,7 +23,7 @@ class GF_License_Statuses {
 	const NO_DATA               = 'rest_no_route';
 
 	const USABILITY_VALID       = 'success';
-	const USABILITY_ALLOWED     = 'warning';
+	const USABILITY_ALLOWED     = 'success';
 	const USABILITY_NOT_ALLOWED = 'error';
 
 	/**
@@ -39,7 +39,8 @@ class GF_License_Statuses {
 
 		$general_invalid_message = sprintf(
 		/* translators: %1s and %2s are link tag markup */
-			__( 'Your license key has been successfully validated.', 'gravityforms' ),
+			__( 'Your license key has been successfully validated.' ),
+			'<a href="https://www.gravityforms.com/my-account/licenses/?utm_source=gf-admin&utm_medium=purchase-link&utm_campaign=license-enforcement" target="_blank">',
 			'</a>'
 		);
 

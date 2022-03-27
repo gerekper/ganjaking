@@ -1,4 +1,9 @@
 *** Currency Converter Changelog ***
+2022-02-09 - version 1.6.27
+* Tweak - WC tested up to 6.1.
+* Tweak - WP tested up to 5.9.
+* Fix - Sanitize currency codes before including in JS on the frontend.
+* Fix - Fix issues with conversion functionality in shortcodes.
 
 2021-12-21 - version 1.6.26
 * Tweak - Reduce the size of wc_currency_converter_params.

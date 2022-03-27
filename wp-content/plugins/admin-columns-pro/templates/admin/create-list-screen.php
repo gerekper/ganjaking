@@ -1,6 +1,7 @@
 <?php
 
 use AC\Form\Element;
+use ACP\Nonce\LayoutNonce;
 use ACP\RequestHandler\ListScreenCreate;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="item new">
 	<form method="post">
 
-		<input type="hidden" name="_ac_nonce" value="<?= esc_attr( $this->nonce ); ?>"/>
+		<?= ( new LayoutNonce() )->create_field() ?>
 		<input type="hidden" name="<?= ListScreenCreate::PARAM_ACTION; ?>" value="<?= ListScreenCreate::PARAM_CREATE_LIST; ?>">
 		<input type="hidden" name="list_key" value="<?= esc_attr( $this->list_screen->get_key() ); ?>">
 		<input type="hidden" name="list_id" value="<?= esc_attr( $this->list_screen->get_layout_id() ); ?>">

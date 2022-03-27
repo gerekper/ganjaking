@@ -22,7 +22,7 @@ if ( ! function_exists( 'wp_new_user_notification' ) ) {
 			return;
 		}
 
-		$options = new Options();
+		$options = Options::init();
 
 		$is_admin_disabled = $options->get( 'control', 'dis_new_user_created_to_admin' );
 		$is_user_disabled  = $options->get( 'control', 'dis_new_user_created_to_user' );

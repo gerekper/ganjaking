@@ -51,13 +51,13 @@ class GetCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'type' => 'string', 'status' => 'string', 'scheduledAt' => '\\DateTime', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'sendAtBestTime' => 'bool'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'subject' => 'string', 'type' => 'string', 'status' => 'string', 'scheduledAt' => 'string', 'abTesting' => 'bool', 'subjectA' => 'string', 'subjectB' => 'string', 'splitRule' => 'int', 'winnerCriteria' => 'string', 'winnerDelay' => 'int', 'sendAtBestTime' => 'bool'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'type' => null, 'status' => null, 'scheduledAt' => 'date-time', 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => null, 'winnerCriteria' => null, 'winnerDelay' => null, 'sendAtBestTime' => null];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'subject' => null, 'type' => null, 'status' => null, 'scheduledAt' => null, 'abTesting' => null, 'subjectA' => null, 'subjectB' => null, 'splitRule' => null, 'winnerCriteria' => null, 'winnerDelay' => null, 'sendAtBestTime' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -342,7 +342,7 @@ class GetCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Gets scheduledAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getScheduledAt()
     {
@@ -351,7 +351,7 @@ class GetCampaignOverview implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Sets scheduledAt
      *
-     * @param \DateTime $scheduledAt UTC date-time on which campaign is scheduled (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $scheduledAt UTC date-time on which campaign is scheduled (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

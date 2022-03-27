@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.18.0\n"
+"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.18.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-07-29 19:25:47+00:00\n"
+"POT-Creation-Date: 2022-02-07 15:06:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -44,14 +44,14 @@ msgstr ""
 msgid "Sample order number"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:631
-#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
-#. link tag
-msgid "See the %1$splugin documentation%2$s for the full set of available patterns."
+#: class-wc-seq-order-number-pro.php:633
+msgid "Order Number Format"
 msgstr ""
 
 #: class-wc-seq-order-number-pro.php:635
-msgid "Order Number Format"
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+msgid "See the %1$splugin documentation%2$s for the full set of available patterns."
 msgstr ""
 
 #: class-wc-seq-order-number-pro.php:636
@@ -88,7 +88,7 @@ msgid ""
 "customer, in emails, and in the admin."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:660 class-wc-seq-order-number-pro.php:1331
+#: class-wc-seq-order-number-pro.php:660 class-wc-seq-order-number-pro.php:1332
 #. translators: FREE- as in free purchase order
 msgid "FREE-"
 msgstr ""

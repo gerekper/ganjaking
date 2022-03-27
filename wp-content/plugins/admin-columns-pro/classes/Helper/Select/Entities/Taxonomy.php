@@ -42,7 +42,12 @@ class Taxonomy extends AC\Helper\Select\Entities
 	public function get_total_pages() {
 		$taxonomy = $this->query->query_vars['taxonomy'][0];
 
-		return absint( ceil( wp_count_terms( $taxonomy, $this->query->query_vars ) / $this->query->query_vars['number'] ) );
+		// Unset pagination in order to count the results
+		$vars = $this->query->query_vars;
+		$vars['page'] = 1;
+		$vars['offset'] = 0;
+
+		return absint( ceil( wp_count_terms( $taxonomy, $vars ) / $this->query->query_vars['number'] ) );
 	}
 
 	public function get_page() {

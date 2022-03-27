@@ -5,7 +5,7 @@ jQuery(document).ready(function($){
 
 	var response_messages = '';
 	var timeout;
-	var delay = 500;
+	var delay = 700;
 
 	var $checkout = $( '.checkout' );
 	var $body = $( 'body' );
@@ -14,17 +14,23 @@ jQuery(document).ready(function($){
 	 */
 
 	// Quantity buttons
-	$checkout.on( 'change input', '#order_review .opc_cart_item div.quantity input.qty', function(e) {
+	$checkout.on( 'input', '#order_review .opc_cart_item div.quantity input.qty', function(e) {
 
 		var input = $(this),
 			selectors = '.checkout #order_review .opc_cart_item div.quantity input.qty';
 
-		clearTimeout(timeout);
+		const quantity = input.val();
+
+		clearTimeout( timeout );
+
+		if ( quantity === '' ) {
+			return;
+		}
 
 		timeout = setTimeout(function() {
 
 			var data = {
-				quantity:    input.val(),
+				quantity,
 				add_to_cart: parseInt( input.closest( '.opc_cart_item' ).data( 'add_to_cart' ) ),
 				update_key:  input.closest( '.opc_cart_item' ).data( 'update_key' ),
 				nonce:       wcopc.wcopc_nonce,
@@ -43,6 +49,20 @@ jQuery(document).ready(function($){
 		e.preventDefault();
 
 	} );
+
+	// handle blur with empty value
+	$checkout.on(
+		'blur',
+		'#order_review .opc_cart_item div.quantity input.qty',
+		function () {
+			const input = $( this );
+			const quantity = input.val();
+			// the previous value is still stored in value attribute on input
+			if ( quantity === '' ) {
+				input.val( input.attr( 'value' ) );
+			}
+		}
+	);
 
 	// Remove buttons
 	$checkout.on( 'click', '#order_review .opc_cart_item a.remove', function(e) {
@@ -129,16 +149,22 @@ jQuery(document).ready(function($){
 	 */
 
 	/* Add/remove products with number input type */
-	$( '#opc-product-selection input[type="number"][data-add_to_cart]' ).on( 'change input', function(e) {
+	$( '#opc-product-selection input[type="number"][data-add_to_cart]' ).on( 'input', function(e) {
 		var input = $(this),
 			selectors = '#opc-product-selection input[type="number"][data-add_to_cart]';
 
-		clearTimeout(timeout);
+		const quantity = input.val();
+
+		clearTimeout( timeout );
+
+		if ( quantity === '' ) {
+			return;
+		}
 
 		timeout = setTimeout(function() {
 
 			var data = {
-				quantity:    input.val(),
+				quantity,
 				add_to_cart: parseInt( input.data( 'add_to_cart' ) ),
 				input_data:  input.closest( '.product-quantity' ).find( 'input[name!="product_id"], select, textarea' ).serialize(),
 				nonce:       wcopc.wcopc_nonce,
@@ -157,6 +183,20 @@ jQuery(document).ready(function($){
 		e.preventDefault();
 
 	} );
+
+	// handle blur with empty value for the input above
+	$( '#opc-product-selection input[type="number"][data-add_to_cart]' ).on(
+		'blur',
+		function () {
+			const input = $( this );
+			const quantity = input.val();
+			// the previous value is still stored in value attribute on input
+			if ( quantity === '' ) {
+				input.val( input.attr( 'value' ) );
+			}
+		}
+	);
+
 
 	/* Add/remove products with radio or checkbox inputs */
 	$( '#opc-product-selection input[type="radio"][data-add_to_cart], #opc-product-selection input[type="checkbox"][data-add_to_cart]' ).on( 'change', function(e) {

@@ -1,14 +1,6 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
-
-	private static $excluded_fields = array(
-		'list',
-	);
 
 	public function __construct( $id ) {
 		parent::__construct( $id );
@@ -42,10 +34,12 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 	public function get_groups() {
 		return array(
 			'fields' => array(
-				'label' => esc_html__( 'Fields', 'gp-populate-anything' ),
+				'label'     => esc_html__( 'Fields', 'gp-populate-anything' ),
+				'operators' => $this->supported_operators(),
 			),
 			'meta'   => array(
-				'label' => esc_html__( 'Entry Meta', 'gp-populate-anything' ),
+				'label'     => esc_html__( 'Entry Meta', 'gp-populate-anything' ),
+				'operators' => $this->supported_operators(),
 			),
 		);
 	}
@@ -58,6 +52,10 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 		);
 	}
 
+	public function supported_operators() {
+		return array_merge( gp_populate_anything()->get_default_operators(), array( 'is_in', 'is_not_in' ) );
+	}
+
 	public function get_properties( $form_id = null ) {
 
 		if ( ! $form_id ) {
@@ -66,36 +64,45 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 
 		$properties = array(
 			'id'           => array(
-				'label'    => 'Entry ID',
-				'value'    => 'id',
-				'callable' => array( $this, 'get_col_rows' ),
-				'args'     => array( GFFormsModel::get_entry_table_name(), 'id' ),
-				'orderby'  => true,
+				'label'     => 'Entry ID',
+				'value'     => 'id',
+				'callable'  => array( $this, 'get_col_rows' ),
+				'args'      => array( GFFormsModel::get_entry_table_name(), 'id' ),
+				'orderby'   => true,
+				'operators' => $this->supported_operators(),
 			),
 			'created_by'   => array(
-				'label'    => 'Created by (User ID)',
-				'value'    => 'created_by',
-				'callable' => '__return_empty_array',
-				'orderby'  => true,
+				'label'     => 'Created by (User ID)',
+				'value'     => 'created_by',
+				'callable'  => '__return_empty_array',
+				'orderby'   => true,
+				'operators' => $this->supported_operators(),
+
 			),
 			'date_created' => array(
-				'label'    => 'Date Created',
-				'value'    => 'date_created',
-				'callable' => '__return_empty_array',
-				'orderby'  => true,
+				'label'     => 'Date Created',
+				'value'     => 'date_created',
+				'callable'  => '__return_empty_array',
+				'orderby'   => true,
+				'operators' => $this->supported_operators(),
+
 			),
 			'date_updated' => array(
-				'label'    => 'Date Updated',
-				'value'    => 'date_updated',
-				'callable' => '__return_empty_array',
-				'orderby'  => true,
+				'label'     => 'Date Updated',
+				'value'     => 'date_updated',
+				'callable'  => '__return_empty_array',
+				'orderby'   => true,
+				'operators' => $this->supported_operators(),
+
 			),
 			'status'       => array(
-				'label'    => 'Status',
-				'value'    => 'status',
-				'callable' => array( $this, 'get_col_rows' ),
-				'args'     => array( GFFormsModel::get_entry_table_name(), 'status' ),
-				'orderby'  => true,
+				'label'     => 'Status',
+				'value'     => 'status',
+				'callable'  => array( $this, 'get_col_rows' ),
+				'args'      => array( GFFormsModel::get_entry_table_name(), 'status' ),
+				'orderby'   => true,
+				'operators' => $this->supported_operators(),
+
 			),
 		);
 
@@ -133,6 +140,27 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			return null;
 		}
 
+		/**
+		 * Filter if GPPA should re-format entries' date fields to the format specified in the form they belong to.
+		 * Up until 1.0.14 GPPA returned date fields' values in MySQL format (YYYY-MM-DD).
+		 *
+		 * Starting from 1.1.3, date fields' values will be returned in the form's format (e.g. mm/dd/yyyy).
+		 * This filter allows users to revert to the old behavior.
+		 *
+		 * @since 1.1.3
+		 *
+		 * @param bool    $reformat_date_fields  Whether or not date fields' values should be reformatted (default: true)
+		 * @param object  $entry                 Current entry being accessed
+		 */
+		$reformat_date_fields = gf_apply_filters( array( 'gppa_gf_entry_reformat_date_fields', $object->form_id, $prop ), true, $object );
+
+		if ( $reformat_date_fields ) {
+			$field = GFAPI::get_field( $object->form_id, $prop );
+			if ( $field && $field['type'] === 'date' && ! rgblank( $field['dateFormat'] ) ) {
+				return GFCommon::date_display( $object->{$prop}, 'ymd', $field['dateFormat'] );
+			}
+		}
+
 		return $object->{$prop};
 
 	}
@@ -154,7 +182,12 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			return null;
 		}
 
-		if ( strpos( $format, 'ymd' ) === 0 ) {
+		/**
+		 * If the date is in YYYY-MM-DD (likely coming straight from the DB), ignore the passed format
+		 */
+		if ( preg_match( '/\d{4}-\d{2}-\d{2}/', $date ) ) {
+			list( $year, $month, $day ) = explode( '-', $date );
+		} elseif ( strpos( $format, 'ymd' ) === 0 ) {
 			list( $year, $month, $day ) = explode( $delimiter, $date );
 		} elseif ( strpos( $format, 'dmy' ) === 0 ) {
 			list( $day, $month, $year ) = explode( $delimiter, $date );
@@ -167,7 +200,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 		$day   = intval( $day );
 		$year  = intval( $year );
 
-		// Esnure m/d/y are available
+		// Ensure m/d/y are available
 		if ( ! $month || ! $day || ! $year ) {
 			return null;
 		}
@@ -187,6 +220,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 		 * @var $property
 		 * @var $property_id
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		if ( ! isset( $gf_query_where[ $filter_group_index ] ) ) {
@@ -218,10 +252,10 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			case 'LIKE':
 				$operator = GF_Query_Condition::LIKE;
 				break;
-			case 'NOT IN':
+			case 'IS_NOT_IN':
 				$operator = GF_Query_Condition::NIN;
 				break;
-			case 'IN':
+			case 'IS_IN':
 				$operator = GF_Query_Condition::IN;
 				break;
 			case '>=':
@@ -248,7 +282,11 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 				return $gf_query_where;
 		}
 
-		if ( is_array( $filter_value ) ) {
+		if ( is_array( $filter_value ) || in_array( $operator, array( GF_Query_Condition::IN, GF_Query_Condition::NIN ), true ) ) {
+			if ( ! is_array( $filter_value ) ) {
+				$filter_value = array_map( 'trim', explode( ',', $filter_value ) );
+			}
+
 			foreach ( $filter_value as &$_filter_value ) {
 				$_filter_value = new GF_Query_Literal( $_filter_value );
 			}
@@ -263,6 +301,8 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			$source_field = GFAPI::get_field( $form_id, absint( $field_id ) );
 			$is_field     = is_a( $source_field, 'GF_Field' );
 
+			// Parse date_created and date_updated as a date value in filters
+			$source_is_date = ! $is_field && in_array( $field_id, array( 'date_created', 'date_updated' ), true );
 			if ( $is_field && $source_field->type === 'number' ) {
 				$filter_value = floatval( $filter_value );
 			}
@@ -277,8 +317,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			 * @param boolean $value Whether or not to parse the value as a date.
 			 * @param \GF_Field $field The field that is having its value parsed.
 			 */
-			$gppa_process_value_as_date = gf_apply_filters( array_filter( array( 'gppa_process_value_as_date', $form_id, $is_field ? $source_field->id : null ) ), $is_field && $source_field->type === 'date', $source_field );
-
+			$gppa_process_value_as_date = gf_apply_filters( array_filter( array( 'gppa_process_value_as_date', $form_id, $is_field ? $source_field->id : null ) ), $source_is_date || ( $is_field && $source_field->type === 'date' ), $source_field );
 			/**
 			 * Convert date string to ISO 8601 for MySQL date comparisons
 			 *
@@ -286,7 +325,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			 * ourselves into a time based on the format from the actual date field saved in the form that we're
 			 * pulling entries from.
 			 */
-			if ( $gppa_process_value_as_date && strlen( $filter_value ) > 1 && $source_field ) {
+			if ( $gppa_process_value_as_date && strlen( $filter_value ) > 1 && ( $source_field || $source_is_date ) ) {
 				$date_format = rgar( (array) $source_field, 'dateFormat' );
 				$time        = false;
 				if ( $date_format ) {
@@ -301,7 +340,14 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 						$time = strtotime( $filter_value );
 					}
 
-					$filter_value = date( 'Y-m-d', $time );
+					$filter_value = gmdate( 'Y-m-d', $time );
+				}
+
+				// If we're querying `date_created` or `date_updated` we need a new WHERE clause that uses a date
+				// range of `Y-m-d 00:00:00` and `Y-m-d 23:59:59` as an upper/lower bounds.
+				if ( $source_is_date && ( $operator === GF_Query_Condition::EQ || $operator === GF_Query_Condition::NEQ ) ) {
+					$gf_query_where[ $filter_group_index ][] = $this->sql_date_range( $gf_query_where, $filter_value, $operator, $property, $primary_property_value );
+					return $gf_query_where;
 				}
 			}
 
@@ -316,6 +362,39 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 
 		return $gf_query_where;
 
+	}
+
+	public function sql_date_range( $gf_query_where, $filter_value, $operator, $property, $primary_property_value ) {
+		switch ( $operator ) {
+			case GF_Query_Condition::EQ:
+				return call_user_func_array( array( 'GF_Query_Condition', '_and' ), array(
+					new GF_Query_Condition(
+						new GF_Query_Column( rgar( $property, 'value' ), (int) $primary_property_value ),
+						GF_Query_Condition::GTE,
+						new GF_Query_Literal( $filter_value . ' 00:00:00' )
+					),
+					new GF_Query_Condition(
+						new GF_Query_Column( rgar( $property, 'value' ), (int) $primary_property_value ),
+						GF_Query_Condition::LTE,
+						new GF_Query_Literal( $filter_value . ' 23:59:59' )
+					),
+				) );
+			case GF_Query_Condition::NEQ:
+				return call_user_func_array( array( 'GF_Query_Condition', '_or' ), array(
+					new GF_Query_Condition(
+						new GF_Query_Column( rgar( $property, 'value' ), (int) $primary_property_value ),
+						GF_Query_Condition::LTE,
+						new GF_Query_Literal( $filter_value . ' 00:00:00' )
+					),
+					new GF_Query_Condition(
+						new GF_Query_Column( rgar( $property, 'value' ), (int) $primary_property_value ),
+						GF_Query_Condition::GTE,
+						new GF_Query_Literal( $filter_value . ' 23:59:59' )
+					),
+				) );
+		}
+
+		return new WP_Error( 'Unsupported operator for sql_date_range.' );
 	}
 
 	public function include_active_entries( $where_filter_groups ) {
@@ -339,6 +418,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 		 * @var $ordering array
 		 * @var $field GF_Field
 		 */
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 
 		if ( ! $primary_property_value ) {
@@ -420,13 +500,29 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 	 * @return string   SHA1 representation of the requested query
 	 */
 	public function query_cache_hash( $args ) {
-		return sha1( sprintf( '%s-%s-%s-%s-%s',
-			$args['field']->formId,
+		return sha1( sprintf( '%s-%s-%s-%s-%s-%s',
+			rgars( $args, 'field/formId' ),
 			json_encode( $args['filter_groups'] ),
 			json_encode( $args['ordering'] ),
 			json_encode( $args['primary_property_value'] ),
-			json_encode( $args['unique'] )
+			json_encode( $args['unique'] ),
+			json_encode( ! empty( $args['field_values'] ) ? array_filter( $args['field_values'], array( $this, 'filter_null_field_values' ) ) : null )
 		) );
+	}
+
+	/**
+	 * Filter null values from the field values for query cache hash. This is needed as once fields are hydrated by
+	 * Populate Anything, field_values will have a null value for any field without a value.
+	 *
+	 * As such, this makes the field_values unique for every single field during hydration which was not the original
+	 * intent.
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	public function filter_null_field_values( $value ) {
+		return $value !== null;
 	}
 
 	public function get_forms() {
@@ -448,17 +544,13 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 		$output = array();
 
 		foreach ( $form['fields'] as $field ) {
-			if ( array_search( $field['type'], self::$excluded_fields ) !== false ) {
-				continue;
-			}
-
 			/**
 			 * Use admin label when listing out fields
 			 */
 			$use_admin_label_prev = $field->get_context_property( 'use_admin_label' );
 			$field->set_context_property( 'use_admin_label', true );
 
-			if ( empty( $field['inputs'] ) || in_array( $field['type'], GP_Populate_Anything::get_interpreted_multi_input_field_types() ) ) {
+			if ( empty( $field['inputs'] ) || in_array( $field['type'], GP_Populate_Anything::get_interpreted_multi_input_field_types(), true ) ) {
 				$output[] = array(
 					'value' => $field['id'],
 					'label' => GFCommon::get_label( $field ),
@@ -490,9 +582,8 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 
 		$entry_meta_table = GFFormsModel::get_entry_meta_table_name();
 
-		$sql = "SELECT meta_value from $entry_meta_table WHERE form_id = %d AND meta_key = %s";
-
-		return $wpdb->get_col( $wpdb->prepare( $sql, $form_id, $input_id ) );
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->get_col( $wpdb->prepare( "SELECT meta_value from $entry_meta_table WHERE form_id = %d AND meta_key = %s", $form_id, $input_id ) );
 
 	}
 
@@ -548,7 +639,7 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			}
 		}
 
-		$output = array_unique( array_filter( $output ) );
+		$output = array_filter( $output );
 
 		return json_encode( $output );
 
@@ -560,6 +651,11 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			return $template_value;
 		}
 
+		/* Replacing merge tags on a PHP serialized array will corrupt it. */
+		if ( is_serialized( $template_value ) ) {
+			return $template_value;
+		}
+
 		/**
 		 * Check for existence of merge tags prior to trying to parse as looking up the form and replace_variables()
 		 * itself can be expensive when there are a lot of entries.
@@ -568,7 +664,9 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			return $template_value;
 		}
 
-		if ( empty( $object->form_id ) || ! $form = GFAPI::get_form( $object->form_id ) ) {
+		$form = GFAPI::get_form( $object->form_id );
+
+		if ( empty( $object->form_id ) || ! $form ) {
 			return $template_value;
 		}
 

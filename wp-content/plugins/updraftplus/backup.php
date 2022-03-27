@@ -204,7 +204,7 @@ class UpdraftPlus_Backup {
 	 * @param Integer		  $index                Index of zip in the sequence
 	 * @param Integer|Boolean $first_linked_index   First linked index in the sequence, or false
 	 *
-	 * @return Boolean
+	 * @return Boolean|Array - list of files, or false for failure
 	 */
 	public function create_zip($create_from_dir, $whichone, $backup_file_basename, $index, $first_linked_index = false) {
 		// Note: $create_from_dir can be an array or a string
@@ -2018,9 +2018,11 @@ class UpdraftPlus_Backup {
 	 */
 	public function backup_exclude_jobdata($where, $table) {
 		// Don't include the job data for any backups - so that when the database is restored, it doesn't continue an apparently incomplete backup
-		if ('wp' == $this->whichdb && (!empty($this->table_prefix) && strtolower($this->table_prefix.'sitemeta') == strtolower($table))) {
+		global $updraftplus;
+		$table_prefix = $updraftplus->get_table_prefix(false); // or we can just use $this->table_prefix_raw ??
+		if ('wp' == $this->whichdb && (!empty($table_prefix) && strtolower($table_prefix.'sitemeta') == strtolower($table))) {
 			$where[] = 'meta_key NOT LIKE "updraft_jobdata_%"';
-		} elseif ('wp' == $this->whichdb && (!empty($this->table_prefix) && strtolower($this->table_prefix.'options') == strtolower($table))) {
+		} elseif ('wp' == $this->whichdb && (!empty($table_prefix) && strtolower($table_prefix.'options') == strtolower($table))) {
 			// These might look similar, but the quotes are different
 			if ('win' == strtolower(substr(PHP_OS, 0, 3))) {
 				$updraft_jobdata = "'updraft_jobdata_%'";
@@ -2058,6 +2060,10 @@ class UpdraftPlus_Backup {
 		file_put_contents($this->updraft_dir.'/'.$pfile, "[mysqldump]\npassword=\"".addslashes($this->dbinfo['pass'])."\"\n");
 
 		$where_array = apply_filters('updraftplus_backup_table_sql_where', array(), $table_name, $this);
+		if ('win' === strtolower(substr(PHP_OS, 0, 3))) {
+			// On Windows, the PHP escapeshellarg() replaces % char with white space, so we change the % char to [percent_sign] but change it back later after escapeshellarg finish processsing it
+			$where_array = str_replace('%', '[percent_sign]', $where_array);
+		}
 		$where = '';
 		
 		if (!empty($where_array) && is_array($where_array)) {
@@ -2072,6 +2078,10 @@ class UpdraftPlus_Backup {
 
 		// Note: escapeshellarg() adds quotes around the string
 		if ($where) $where = "--where=".escapeshellarg($where);
+		if ('' !== $where && 'win' === strtolower(substr(PHP_OS, 0, 3))) {
+			// change the [percent_sign] back to % char
+			$where = str_replace('[percent_sign]', '%', $where);
+		}
 
 		if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
 			$exec = "cd ".escapeshellarg(str_replace('/', '\\', $this->updraft_dir))." & ";
@@ -3793,13 +3803,23 @@ class UpdraftPlus_Backup {
 
 		$zip = new $this->use_zip_object;
 		if (file_exists($zipfile)) {
-			$opencode = $zip->open($zipfile);
 			$original_size = filesize($zipfile);
-			clearstatcache();
+			// PHP 8.1 throws a deprecation notice if opening a zero-size file with ZipArchive, so in that situation, we remove and re-create it
+			if ($original_size > 0) {
+				$opencode = $zip->open($zipfile);
+				clearstatcache();
+			} elseif (0 === $original_size) {
+				unlink($zipfile);
+			} else {
+				$opencode = false;
+			}
 		} else {
+			$original_size = 0;
+		}
+		
+		if (0 === $original_size) {
 			$create_code = (version_compare(PHP_VERSION, '5.2.12', '>') && defined('ZIPARCHIVE::CREATE')) ? ZIPARCHIVE::CREATE : 1;
 			$opencode = $zip->open($zipfile, $create_code);
-			$original_size = 0;
 		}
 
 		if (true !== $opencode) return new WP_Error('no_open', sprintf(__('Failed to open the zip file (%s) - %s', 'updraftplus'), $zipfile, $zip->last_error));

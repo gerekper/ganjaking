@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP Terms of Service
+# Copyright (C) 2022 GP Terms of Service
 # This file is distributed under the same license as the GP Terms of Service package.
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 msgid "<h6>Require Full Scroll</h6>Checking this option will disable the acceptance checkbox until the user has scrolled through the full Terms of Service."
 msgstr ""
 
-#: ../includes/class-gf-field-terms-of-service.php:15, ../includes/class-gf-field-terms-of-service.php:57
+#: ../includes/class-gf-field-terms-of-service.php:15, ../includes/class-gf-field-terms-of-service.php:66
 msgid "Terms of Service"
 msgstr ""
 
@@ -25,14 +25,18 @@ msgstr ""
 msgid "I agree to the Terms of Service"
 msgstr ""
 
-#: ../includes/class-gf-field-terms-of-service.php:152
+#: ../includes/class-gf-field-terms-of-service.php:55
+msgid "Require users to scroll through terms and check a checkbox."
+msgstr ""
+
+#: ../includes/class-gf-field-terms-of-service.php:168
 msgid "The Terms"
 msgstr ""
 
-#: ../includes/class-gf-field-terms-of-service.php:164
+#: ../includes/class-gf-field-terms-of-service.php:180
 msgid "Require Full Scroll"
 msgstr ""
 
-#: ../includes/class-gf-field-terms-of-service.php:279
+#: ../includes/class-gf-field-terms-of-service.php:313
 msgid "Terms will appear here when you preview the form."
 msgstr ""

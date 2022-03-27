@@ -1,0 +1,52 @@
+# Copyright (C) 2022 GP Address Autocomplete
+# This file is distributed under the same license as the GP Address Autocomplete package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Address Autocomplete\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. translators: placeholder is the label of the field with Address Autocomplete enabled.
+#: ../class-gp-address-autocomplete.php:229
+msgid "%s: Latitude"
+msgstr ""
+
+#. translators: placeholder is the label of the field with Address Autocomplete enabled.
+#: ../class-gp-address-autocomplete.php:240
+msgid "%s: Longitude"
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:366
+msgid "GP Address Autocomplete"
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:367
+msgid "Enable autocompletion of address inputs using the Google Places API."
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:418
+msgid "<strong>Google API Key</strong>Enter your Google API key. This key must have access to the Places API and Maps JavaScript API."
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:419
+msgid "Google API Key"
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:420
+msgid "For autocomplete to function, you must have a Google API key set up in the Google Cloud Platform."
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:432
+msgid "<strong>Countries</strong>Select the countries you wish to restrict the autocomplete results to. If no countries are selected, results will not be restricted."
+msgstr ""
+
+#: ../class-gp-address-autocomplete.php:433
+msgid "Countries"
+msgstr ""

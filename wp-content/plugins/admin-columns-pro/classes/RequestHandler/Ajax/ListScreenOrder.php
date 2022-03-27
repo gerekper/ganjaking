@@ -3,9 +3,11 @@
 namespace ACP\RequestHandler\Ajax;
 
 use AC;
-use AC\Registrable;
+use AC\Capabilities;
+use AC\Request;
+use ACP\RequestAjaxHandler;
 
-class ListScreenOrder implements Registrable {
+class ListScreenOrder implements RequestAjaxHandler {
 
 	/**
 	 * @var AC\Storage\ListScreenOrder
@@ -16,25 +18,21 @@ class ListScreenOrder implements Registrable {
 		$this->list_screen_order = $order;
 	}
 
-	public function register() {
-		$this->get_ajax_handler()->register();
-	}
+	public function handle() {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
 
-	private function get_ajax_handler() {
-		$handler = new AC\Ajax\Handler();
-		$handler->set_action( 'acp_update_layout_order' )
-		        ->set_callback( [ $this, 'ajax_update_list_screen_order' ] );
+		$request = new Request();
 
-		return $handler;
-	}
+		if ( ! ( new AC\Nonce\Ajax() )->verify( $request ) ) {
+			wp_send_json_error();
+		}
 
-	public function ajax_update_list_screen_order() {
-		$this->get_ajax_handler()->verify_request();
+		$list_screen_key = $request->get( 'list_screen' );
+		$order = $request->filter( 'order', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
-		$list_screen_key = filter_input( INPUT_POST, 'list_screen' );
-		$order = filter_input( INPUT_POST, 'order', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-		if ( ! $order ) {
+		if ( ! $order || ! $list_screen_key ) {
 			wp_send_json_error();
 		}
 

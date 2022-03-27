@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2021, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment as Appointment;
 
 /**
@@ -403,7 +403,7 @@ class WC_Local_Pickup_Plus_Orders_Admin {
 
 		$order = wc_get_order( $post );
 
-		if ( empty( $order ) && ! empty( $_POST['order_id'] ) && is_ajax() ) {
+		if ( empty( $order ) && ! empty( $_POST['order_id'] ) && wp_doing_ajax() ) {
 			$order = wc_get_order( $_POST['order_id'] );
 		}
 

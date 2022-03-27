@@ -1,9 +1,17 @@
 *** WooCommerce One Page Checkout Changelog ***
 
-2021-12-17 - version 1.9.1
-* Fix - Enable indexing of pages containing the OPC shortcode.
+2022-03-08 - version 1.9.3
+* Fix - Compatibility fix for composer v2.2.0.
+* Fix - Fix issues with editing product quantity in numeric text input.
+
+2022-02-15 - version 1.9.2
+* Fix - Avoid setting checkout context in admin pages and CRON/REST/AJAX requests. .
+* Fix - Compatibility fix for composer v2.2.0.
 * Tweak - WC 6.0.0 compatibility.
 * Tweak - WP 5.8.2 compatibility.
+
+2021-12-17 - version 1.9.1
+* Fix - Enable indexing of pages containing the OPC shortcode.
 
 2021-11-23 - version 1.9.0
 * Fix - Fix post content notice.

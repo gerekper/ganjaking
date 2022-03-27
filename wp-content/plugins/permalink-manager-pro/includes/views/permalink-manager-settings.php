@@ -35,12 +35,14 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 				'name' => 'general',
 				'fields' => array(
 					'auto_update_uris' => array(
-						'type' => 'single_checkbox',
-						'label' => __('Auto-update permalinks', 'permalink-manager'),
+						'type' => 'select',
+						'label' => __('URI update mode', 'permalink-manager'),
 						'input_class' => '',
-						'description' => sprintf('%s<br />%s',
+						'choices' => array(0 => __('Don\'t auto-update permalinks (default mode)', 'permalink-manager'), 1 => __('Auto-update permalinks', 'permalink-manager'), 2 => __('Disable URI Editor to disallow permalink changes', 'permalink-manager')),
+						'description' => sprintf('%s<br />%s<br />%s',
 						__('<strong>Permalink Manager can automatically update the custom permalink after post or term is saved/updated.</strong>', 'permalink-manager'),
-						__('If enabled, Permalink Manager will always force the default custom permalink format (based on current <strong>Permastructure</strong> settings).', 'permalink-manager')
+						__('If enabled, Permalink Manager will always force the default custom permalink format (based on current <strong>Permastructure</strong> settings).', 'permalink-manager'),
+						__('Use the last option if you want to to customize only specific permalinks and keep the rest of URLs in their original format.', 'permalink-manager')
 						)
 					),
 					'force_custom_slugs' => array(
@@ -182,6 +184,13 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'class_exists' => array('SitePress', 'Polylang'),
 						'description' => __('If enabled, the plugin will load the adjacent translation of post when the custom permalink is detected, but the language code in the URL does not match the language code assigned to the post/term.', 'permalink-manager')
 					),
+					'wpml_support' => array(
+						'type' => 'single_checkbox',
+						'label' => __('WPML compatibility functions', 'permalink-manager'),
+						'input_class' => '',
+						'class_exists' => array('SitePress'),
+						'description' => __('Please disable this feature if the language code in the custom permalinks is incorrect.', 'permalink-manager')
+					),
 					'pmxi_support' => array(
 						'type' => 'single_checkbox',
 						'label' => __('WP All Import support', 'permalink-manager'),
@@ -248,7 +257,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'type' => 'select',
 						'label' => __('Automatically fix broken URIs', 'permalink-manager'),
 						'input_class' => 'settings-select',
-						'choices' => array(0 => __('Disable', 'permalink-manager'), 1 => __('Fix URIs individually (during page load)', 'permalink-manager'), 2 => __('Bulk fix all URIs (once a day, in the background)', 'permalink-manager')),
+						'choices' => array(0 => __('No', 'permalink-manager'), 1 => __('Fix URIs individually (during page load)', 'permalink-manager'), 2 => __('Bulk fix all URIs (once a day, in the background)', 'permalink-manager')),
 						'description' => sprintf('%s',
 							__('Enable this option if you would like to automatically remove redundant permalinks & duplicated redirects.', 'permalink-manager')
 						)

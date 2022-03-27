@@ -64,7 +64,7 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 	 * @return string anchor link html for creating new API user
 	 */
 	public function apikeysettings($msg) {
-		$msg = '<a href="'.UpdraftPlus::get_current_clean_url().'" id="updraft_cloudfiles_newapiuser_{{instance_id}}" class="updraft_cloudfiles_newapiuser" data-instance_id="{{instance_id}}">'.__('Create a new API user with access to only this container (rather than your whole account)', 'updraftplus').'</a>';
+		$msg = '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft_cloudfiles_newapiuser_{{instance_id}}" class="updraft_cloudfiles_newapiuser" data-instance_id="{{instance_id}}">'.__('Create a new API user with access to only this container (rather than your whole account)', 'updraftplus').'</a>';
 		return $msg;
 	}
 	

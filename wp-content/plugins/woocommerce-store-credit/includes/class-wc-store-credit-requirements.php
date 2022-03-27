@@ -14,17 +14,17 @@ class WC_Store_Credit_Requirements {
 	/**
 	 * Minimum PHP version required.
 	 */
-	const MINIMUM_PHP_VERSION = '5.3';
+	const MINIMUM_PHP_VERSION = '5.6';
 
 	/**
 	 * Minimum WordPress version required.
 	 */
-	const MINIMUM_WP_VERSION = '4.7';
+	const MINIMUM_WP_VERSION = '4.9';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 */
-	const MINIMUM_WC_VERSION = '3.4';
+	const MINIMUM_WC_VERSION = '3.7';
 
 	/**
 	 * Requirements errors.

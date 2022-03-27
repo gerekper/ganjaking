@@ -143,7 +143,7 @@ final class CoreExtension extends AbstractExtension
  // array helpers
  new TwigFilter('join', '\\MailPoetVendor\\twig_join_filter'),
  new TwigFilter('split', '\\MailPoetVendor\\twig_split_filter', ['needs_environment' => \true]),
- new TwigFilter('sort', '\\MailPoetVendor\\twig_sort_filter'),
+ new TwigFilter('sort', '\\MailPoetVendor\\twig_sort_filter', ['needs_environment' => \true]),
  new TwigFilter('merge', '\\MailPoetVendor\\twig_array_merge'),
  new TwigFilter('batch', '\\MailPoetVendor\\twig_array_batch'),
  new TwigFilter('column', '\\MailPoetVendor\\twig_array_column'),
@@ -309,13 +309,13 @@ function twig_replace_filter($str, $from)
 }
 function twig_round($value, $precision = 0, $method = 'common')
 {
+ $value = (float) $value;
  if ('common' === $method) {
  return \round($value, $precision);
  }
  if ('ceil' !== $method && 'floor' !== $method) {
  throw new RuntimeError('The round filter only supports the "common", "ceil", and "floor" methods.');
  }
- $value = (float) $value;
  return $method($value * 10 ** $precision) / 10 ** $precision;
 }
 function twig_number_format_filter(Environment $env, $number, $decimal = null, $decimalPoint = null, $thousandSep = null)
@@ -471,7 +471,7 @@ function twig_reverse_filter(Environment $env, $item, $preserveKeys = \false)
  }
  return $string;
 }
-function twig_sort_filter($array, $arrow = null)
+function twig_sort_filter(Environment $env, $array, $arrow = null)
 {
  if ($array instanceof \Traversable) {
  $array = \iterator_to_array($array);
@@ -479,6 +479,7 @@ function twig_sort_filter($array, $arrow = null)
  throw new RuntimeError(\sprintf('The sort filter only works with arrays or "Traversable", got "%s".', \gettype($array)));
  }
  if (null !== $arrow) {
+ twig_check_arrow_in_sandbox($env, $arrow, 'sort', 'filter');
  \uasort($array, $arrow);
  } else {
  \asort($array);
@@ -876,9 +877,7 @@ function twig_array_filter(Environment $env, $array, $arrow)
  if (!twig_test_iterable($array)) {
  throw new RuntimeError(\sprintf('The "filter" filter expects an array or "Traversable", got "%s".', \is_object($array) ? \get_class($array) : \gettype($array)));
  }
- if (!$arrow instanceof \Closure && $env->hasExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension') && $env->getExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension')->isSandboxed()) {
- throw new RuntimeError('The callable passed to "filter" filter must be a Closure in sandbox mode.');
- }
+ twig_check_arrow_in_sandbox($env, $arrow, 'filter', 'filter');
  if (\is_array($array)) {
  return \array_filter($array, $arrow, \ARRAY_FILTER_USE_BOTH);
  }
@@ -887,9 +886,7 @@ function twig_array_filter(Environment $env, $array, $arrow)
 }
 function twig_array_map(Environment $env, $array, $arrow)
 {
- if (!$arrow instanceof \Closure && $env->hasExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension') && $env->getExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension')->isSandboxed()) {
- throw new RuntimeError('The callable passed to the "map" filter must be a Closure in sandbox mode.');
- }
+ twig_check_arrow_in_sandbox($env, $arrow, 'map', 'filter');
  $r = [];
  foreach ($array as $k => $v) {
  $r[$k] = $arrow($v, $k);
@@ -898,9 +895,7 @@ function twig_array_map(Environment $env, $array, $arrow)
 }
 function twig_array_reduce(Environment $env, $array, $arrow, $initial = null)
 {
- if (!$arrow instanceof \Closure && $env->hasExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension') && $env->getExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension')->isSandboxed()) {
- throw new RuntimeError('The callable passed to the "reduce" filter must be a Closure in sandbox mode.');
- }
+ twig_check_arrow_in_sandbox($env, $arrow, 'reduce', 'filter');
  if (!\is_array($array)) {
  if (!$array instanceof \Traversable) {
  throw new RuntimeError(\sprintf('The "reduce" filter only works with arrays or "Traversable", got "%s" as first argument.', \gettype($array)));
@@ -908,4 +903,10 @@ function twig_array_reduce(Environment $env, $array, $arrow, $initial = null)
  $array = \iterator_to_array($array);
  }
  return \array_reduce($array, $arrow, $initial);
+}
+function twig_check_arrow_in_sandbox(Environment $env, $arrow, $thing, $type)
+{
+ if (!$arrow instanceof \Closure && $env->hasExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension') && $env->getExtension('MailPoetVendor\\Twig\\Extension\\SandboxExtension')->isSandboxed()) {
+ throw new RuntimeError(\sprintf('The callable passed to the "%s" %s must be a Closure in sandbox mode.', $thing, $type));
+ }
 }

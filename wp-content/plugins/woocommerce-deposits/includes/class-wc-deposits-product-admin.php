@@ -26,6 +26,10 @@ class WC_Deposits_Plans_Product_Admin {
 		add_action( 'woocommerce_process_product_meta', array( $this,'save_product_data' ), 20 );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_tab' ), 5 );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'deposit_panels' ) );
+
+		// Import/Export support for _wc_deposit_payment_plans meta field.
+		add_filter( 'woocommerce_product_export_meta_value', array( $this, 'format_deposit_payment_plans_export' ), 10, 4 );
+		add_filter( 'woocommerce_product_import_process_item_data', array( $this, 'format_deposit_payment_plans_import' ) );
 	}
 
 	/**
@@ -86,6 +90,47 @@ class WC_Deposits_Plans_Product_Admin {
 			}
 			WC_Deposits_Product_Meta::update_meta( $post_id, $meta_key, $value );
 		}
+	}
+
+	/**
+	 * Unserialize _wc_deposit_payment_plans value for export
+	 *
+	 * @since 1.5.9
+	 * @param string     $value   Meta Value.
+	 * @param mixed      $meta    Meta Object.
+	 * @param WC_Product $product Product being exported.
+	 * @param array      $row     Row data.
+	 * @return string $value
+	 */
+	public function format_deposit_payment_plans_export( $value, $meta, $product, $row ) {
+		if ( '_wc_deposit_payment_plans' === $meta->key ) {
+			$plans = maybe_unserialize( $value );
+			if ( is_array( $plans ) ) {
+				return implode( ',', $plans );
+			}
+		}
+		return $value;
+	}
+
+	/**
+	 * Serialize _wc_deposit_payment_plans value for import
+	 *
+	 * @since 1.5.9
+	 * @param  array $data Raw CSV data.
+	 * @return array $data
+	 */
+	public function format_deposit_payment_plans_import( $data ) {
+		if ( ! empty( $data['meta_data'] ) ) {
+			foreach ( $data['meta_data'] as $index => $meta ) {
+				if ( '_wc_deposit_payment_plans' === $meta['key'] && ! empty( $meta['value'] ) ) {
+					$value = explode( ',', $meta['value'] );
+					if ( ! empty( $value ) ) {
+						$data['meta_data'][ $index ]['value'] = array_map( 'absint', $value );
+					}
+				}
+			}
+		}
+		return $data;
 	}
 }
 

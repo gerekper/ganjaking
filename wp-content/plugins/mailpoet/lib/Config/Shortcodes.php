@@ -11,11 +11,17 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Widget;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Newsletter\Shortcodes\Categories\Date;
+use MailPoet\Newsletter\Shortcodes\Categories\Link;
+use MailPoet\Newsletter\Shortcodes\Categories\Newsletter;
+use MailPoet\Newsletter\Shortcodes\Categories\Subscriber as SubscriberCategory;
+use MailPoet\Newsletter\Shortcodes\Shortcodes as NewsletterShortcodes;
 use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscription\Pages;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class Shortcodes {
   /** @var Pages */
@@ -36,13 +42,33 @@ class Shortcodes {
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
+  /** @var EntityManager */
+  private $entityManager;
+
+  /** @var Date */
+  private $dateCategory;
+
+  /** @var Link */
+  private $linkCategory;
+
+  /** @var Newsletter */
+  private $newsletterCategory;
+
+  /** @var SubscriberCategory */
+  private $subscriberCategory;
+
   public function __construct(
     Pages $subscriptionPages,
     WPFunctions $wp,
     SegmentSubscribersRepository $segmentSubscribersRepository,
     SubscribersRepository $subscribersRepository,
     NewsletterUrl $newsletterUrl,
-    NewslettersRepository $newslettersRepository
+    NewslettersRepository $newslettersRepository,
+    EntityManager $entityManager,
+    Date $dateCategory,
+    Link $linkCategory,
+    Newsletter $newsletterCategory,
+    SubscriberCategory $subscriberCategory
   ) {
     $this->subscriptionPages = $subscriptionPages;
     $this->wp = $wp;
@@ -50,6 +76,11 @@ class Shortcodes {
     $this->subscribersRepository = $subscribersRepository;
     $this->newsletterUrl = $newsletterUrl;
     $this->newslettersRepository = $newslettersRepository;
+    $this->entityManager = $entityManager;
+    $this->dateCategory = $dateCategory;
+    $this->linkCategory = $linkCategory;
+    $this->newsletterCategory = $newsletterCategory;
+    $this->subscriberCategory = $subscriberCategory;
   }
 
   public function init() {
@@ -190,9 +221,31 @@ class Shortcodes {
 
   public function renderArchiveSubject(NewsletterEntity $newsletter, $subscriber, SendingQueueEntity $queue) {
     $previewUrl = $this->newsletterUrl->getViewInBrowserUrl($newsletter, $subscriber, $queue);
+    /**
+     * An ugly workaround to make sure state is not shared via NewsletterShortcodes service
+     * This should be replaced with injected service when state is removed from this service
+     * (i.e. after https://mailpoet.atlassian.net/browse/MAILPOET-4087 is done and merged to master)
+     */
+    $shortcodeProcessor = new NewsletterShortcodes(
+      $this->dateCategory,
+      $this->linkCategory,
+      $this->newsletterCategory,
+      $this->subscriberCategory,
+      $this->wp
+    );
+    $shortcodeProcessor->setNewsletter($newsletter);
+
+    if (is_object($subscriber) && !is_a($subscriber, SubscriberEntity::class) && !empty($subscriber->id)) {
+      $subscriberEntity = $this->entityManager->find(SubscriberEntity::class, $subscriber->id);
+    } else {
+      $subscriberEntity = new SubscriberEntity();
+    }
+
+    $shortcodeProcessor->setSubscriber($subscriberEntity);
+    $shortcodeProcessor->setQueue($queue);
     return '<a href="' . esc_attr($previewUrl) . '" target="_blank" title="'
       . esc_attr(__('Preview in a new tab', 'mailpoet')) . '">'
-      . esc_attr((string)$queue->getNewsletterRenderedSubject()) .
-    '</a>';
+      . esc_attr((string)$shortcodeProcessor->replace($queue->getNewsletterRenderedSubject())) .
+      '</a>';
   }
 }

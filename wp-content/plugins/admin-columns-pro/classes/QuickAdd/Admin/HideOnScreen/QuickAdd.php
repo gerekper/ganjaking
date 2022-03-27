@@ -8,7 +8,14 @@ use ACP;
 class QuickAdd extends ACP\Settings\ListScreen\HideOnScreen {
 
 	public function __construct() {
-		parent::__construct( 'hide_new_inline', __( 'Quick Add', 'codepress-admin-columns' ) );
+		parent::__construct(
+			'hide_new_inline',
+			sprintf(
+				'%s (%s)',
+				__( 'Quick Add', 'codepress-admin-columns' ),
+				__( 'Add Row', 'codepress-admin-columns' )
+			)
+		);
 	}
 
 	public function is_hidden( ListScreen $list_screen ) {

@@ -79,7 +79,7 @@ class WC_Store_Credit_Install {
 	 * @since 2.4.0
 	 */
 	public static function init_background_updater() {
-		include_once dirname( __FILE__ ) . '/class-wc-store-credit-background-updater.php';
+		include_once WC_STORE_CREDIT_PATH . 'includes/backgrounds/class-wc-store-credit-background-updater.php';
 		self::$background_updater = new WC_Store_Credit_Background_Updater();
 	}
 
@@ -93,6 +93,12 @@ class WC_Store_Credit_Install {
 	public static function check_version() {
 		if ( ! defined( 'IFRAME_REQUEST' ) && version_compare( get_option( 'wc_store_credit_version' ), WC_STORE_CREDIT_VERSION, '<' ) ) {
 			self::install();
+
+			/**
+			 * Fires when the plugin update finished.
+			 *
+			 * @since 2.4.0
+			 */
 			do_action( 'wc_store_credit_updated' );
 		}
 	}
@@ -110,8 +116,7 @@ class WC_Store_Credit_Install {
 
 		if ( ! empty( $_GET['force_update_wc_store_credit'] ) ) {
 			check_admin_referer( 'wc_store_credit_force_db_update', 'wc_store_credit_force_db_update_nonce' );
-			$blog_id = get_current_blog_id();
-			do_action( 'wp_' . $blog_id . '_wc_store_credit_updater_cron' );
+			self::$background_updater->force_process();
 			wp_safe_redirect( wc_store_credit_get_settings_url() );
 			exit;
 		}

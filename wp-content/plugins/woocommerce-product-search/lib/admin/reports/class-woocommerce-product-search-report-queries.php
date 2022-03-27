@@ -68,6 +68,32 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 		$this->base_url = WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'queries' );
 	}
 
+	/**
+	 * Override, avoid bug with _wp_http_referer input field's value building up towards infinity causing "Request-URI Too Long".
+	 *
+	 * {@inheritDoc}
+	 * @see WP_List_Table::display_tablenav()
+	 */
+	protected function display_tablenav( $which ) {
+
+		if ( 'top' === $which ) {
+			wp_nonce_field( 'bulk-' . $this->_args['plural'], '_wpnonce', false );
+		}
+
+		printf( '<div class="tablenav %s">', esc_attr( $which ) );
+		if ( $this->has_items() ) {
+			echo '<div class="alignleft actions bulkactions">';
+			$this->bulk_actions( $which );
+			echo '</div>';
+		}
+
+		$this->extra_tablenav( $which );
+		$this->pagination( $which );
+
+		echo '<br class="clear" />';
+		echo '</div>';
+	}
+
 	public function no_items() {
 		esc_html_e( 'There are no queries to show.', 'woocommerce-product-search' );
 	}
@@ -367,6 +393,14 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 					$search_query_mode = 'startswith';
 			}
 			$query_results = isset( $_REQUEST['query_results'] ) ? $_REQUEST['query_results'] : self::QUERY_RESULTS_DEFAULT;
+			switch ( $query_results ) {
+				case self::QUERY_RESULTS_ALL :
+				case self::QUERY_RESULTS_ONLY :
+				case self::QUERY_RESULTS_NONE :
+					break;
+				default :
+					$query_results = self::QUERY_RESULTS_DEFAULT;
+			}
 
 			echo '<div style="display:inline-block;white-space:nowrap">';
 			echo '<label>';
@@ -463,14 +497,40 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 			printf( '<input type="hidden" name="page" value="%s"/>', !empty( $_REQUEST['page'] ) ? esc_attr( $_REQUEST['page'] ) : '' );
 			printf( '<input type="hidden" name="tab" value="%s"/>', !empty( $_REQUEST['tab'] ) ? esc_attr( $_REQUEST['tab'] ) : '' );
 			printf( '<input type="hidden" name="report" value="%s"/>', !empty( $_REQUEST['report'] ) ? esc_attr( $_REQUEST['report'] ) : '' );
-			submit_button( esc_html__( 'Filter', 'woocommerce-product-search' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
+			submit_button( esc_html__( 'Filter', 'woocommerce-product-search' ), 'primary', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 
 			echo '&ensp;';
 
 			printf(
-				'<a style="display:inline-block;vertical-align:middle" href="%s">%s</a>',
+				'<a class="button" href="%s">%s</a>',
 				esc_url( wp_nonce_url( add_query_arg( array( 'per_page' => self::PER_PAGE_DEFAULT ), $this->base_url ), 'bulk-queries' ) ),
 				esc_html__( 'Clear', 'woocommerce-product-search' )
+			);
+
+			echo '&ensp;';
+
+			printf(
+				'<a class="button" href="%s">%s</a>',
+				esc_url(
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'action'            => 'export',
+								'search_query'      => $search_query,
+								'search_query_mode' => $search_query_mode,
+								'query_results'     => $query_results,
+								'start_date'        => ! empty( $_REQUEST['start_date'] ) ? $_REQUEST['start_date'] : '',
+								'end_date'          => ! empty( $_REQUEST['end_date'] ) ? $_REQUEST['end_date'] : '',
+								'order'             => ! empty( $_REQUEST['order'] ) ? $_REQUEST['order'] : '',
+								'orderby'           => ! empty( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : '',
+							),
+							$this->base_url
+						),
+						'export',
+						'wps-queries-export'
+					)
+				),
+				esc_html__( 'Export', 'woocommerce-product-search' )
 			);
 		}
 		echo '</div>';

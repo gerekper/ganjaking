@@ -17,12 +17,12 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -117,7 +117,7 @@ class WC_Memberships_Member_Discounts {
 		add_action( 'wp_login', array( $this, 'refresh_cart_upon_member_login' ), 10, 2 );
 
 		// class methods are available on both frontend and backend, but hooks below should run in frontend only
-		if ( ! ( is_admin() && ! is_ajax() ) ) {
+		if ( ! ( is_admin() && ! wp_doing_ajax() ) ) {
 
 			// initialize discount actions that will be called in this class methods
 			add_action( 'wc_memberships_discounts_enable_price_adjustments',       array( $this, 'enable_price_adjustments' ) );

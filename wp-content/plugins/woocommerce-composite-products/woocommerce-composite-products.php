@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.3.7
+* Version: 8.3.8
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.3.7
+ * @version  8.3.8
  */
 class WC_Composite_Products {
 
-	public $version  = '8.3.7';
+	public $version  = '8.3.8';
 	public $required = '3.6.0';
 
 	/**
@@ -387,23 +387,23 @@ class WC_Composite_Products {
 		$resource = false;
 
 		if ( 'pricing-options' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-configuration/#pricing';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#pricing';
 		} elseif ( 'shipping-options' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-configuration/#shipping';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#shipping';
 		} elseif ( 'catalog-price-option' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-configuration/#catalog-price';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/#catalog-price';
 		} elseif ( 'update-php' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/how-to-update-your-php-version/';
+			$resource = 'https://woocommerce.com/document/how-to-update-your-php-version/';
 		} elseif ( 'docs-contents' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/';
+			$resource = 'https://woocommerce.com/document/composite-products/';
 		} elseif ( 'guide' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-configuration/';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-configuration/';
 		} elseif ( 'advanced-guide' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-advanced-configuration/';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-advanced-configuration/';
 		} elseif ( 'max-input-vars' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/composite-products/composite-products-faq/#faq_items_dont_save';
+			$resource = 'https://woocommerce.com/document/composite-products/composite-products-faq/#faq_items_dont_save';
 		} elseif ( 'updating' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/how-to-update-woocommerce/';
+			$resource = 'https://woocommerce.com/document/how-to-update-woocommerce/';
 		} elseif ( 'ticket-form' === $handle ) {
 			$resource = WC_CP_SUPPORT_URL;
 		}

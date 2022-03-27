@@ -274,7 +274,6 @@ class WCS_ATT_Admin_Notices {
 		ob_start();
 
 		?>
-		<div class="sw-welcome-icon"></div>
 		<h2 class="sw-welcome-title"><?php esc_attr_e( 'Ready to make your products available on subscription?', 'woocommerce-all-products-for-subscriptions' ); ?></h2>
 		<p class="sw-welcome-text"></span><?php esc_attr_e( 'Thank you for installing All Products for WooCommerce Subscriptions.', 'woocommerce-all-products-for-subscriptions' ); ?><br/><?php esc_attr_e( 'Let\'s start by adding some subscription plans to an existing product.', 'woocommerce-all-products-for-subscriptions' ); ?></p>
 		<div class="sw-expanding-button-container">
@@ -288,7 +287,7 @@ class WCS_ATT_Admin_Notices {
 
 		$notice = ob_get_clean();
 
-		self::add_dismissible_notice( $notice, array( 'type' => 'native', 'dismiss_class' => 'welcome' ) );
+		self::add_dismissible_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'welcome' ) );
 
 		wp_enqueue_style( 'woocommerce_admin_styles' );
 		wp_enqueue_script( 'wc-enhanced-select' );

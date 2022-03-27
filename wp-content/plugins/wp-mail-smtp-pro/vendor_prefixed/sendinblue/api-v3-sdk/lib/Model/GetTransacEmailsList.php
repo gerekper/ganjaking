@@ -51,13 +51,13 @@ class GetTransacEmailsList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['transactionalEmails' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacEmailsListTransactionalEmails[]'];
+    protected static $swaggerTypes = ['count' => 'int', 'transactionalEmails' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacEmailsListTransactionalEmails[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['transactionalEmails' => null];
+    protected static $swaggerFormats = ['count' => 'int64', 'transactionalEmails' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class GetTransacEmailsList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
      *
      * @var string[]
      */
-    protected static $attributeMap = ['transactionalEmails' => 'transactionalEmails'];
+    protected static $attributeMap = ['count' => 'count', 'transactionalEmails' => 'transactionalEmails'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['transactionalEmails' => 'setTransactionalEmails'];
+    protected static $setters = ['count' => 'setCount', 'transactionalEmails' => 'setTransactionalEmails'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['transactionalEmails' => 'getTransactionalEmails'];
+    protected static $getters = ['count' => 'getCount', 'transactionalEmails' => 'getTransactionalEmails'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -146,6 +146,7 @@ class GetTransacEmailsList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
      */
     public function __construct(array $data = null)
     {
+        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
         $this->container['transactionalEmails'] = isset($data['transactionalEmails']) ? $data['transactionalEmails'] : null;
     }
     /**
@@ -167,6 +168,27 @@ class GetTransacEmailsList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
     public function valid()
     {
         return \count($this->listInvalidProperties()) === 0;
+    }
+    /**
+     * Gets count
+     *
+     * @return int
+     */
+    public function getCount()
+    {
+        return $this->container['count'];
+    }
+    /**
+     * Sets count
+     *
+     * @param int $count Total number of transactional emails available on your account according to the passed filter
+     *
+     * @return $this
+     */
+    public function setCount($count)
+    {
+        $this->container['count'] = $count;
+        return $this;
     }
     /**
      * Gets transactionalEmails

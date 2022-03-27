@@ -2,9 +2,9 @@
 /**
  * Plugin Name: GP Blacklist
  * Description: Validate your form against your WordPress comment blacklist.
- * Plugin URI: http://gravitywiz.com/
- * Version: 1.2.6
- * Author: David Smith
+ * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-blacklist/
+ * Version: 1.2.9
+ * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
  * Text Domain: gp-blacklist
@@ -12,7 +12,7 @@
  * Perk: True
  */
 
-define( 'GP_BLACKLIST_VERSION', '1.2.6' );
+define( 'GP_BLACKLIST_VERSION', '1.2.9' );
 
 require 'includes/class-gp-bootstrap.php';
 

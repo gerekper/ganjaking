@@ -1,0 +1,2 @@
+(()=>{"use strict";jQuery((function(e){for(var n in window.fieldSettings)"address"===n&&window.fieldSettings.hasOwnProperty(n)&&(window.fieldSettings[n]+=", .gpaa-field-setting");e(document).on("gform_load_field_settings",(function(n,i,t){e("#gpaa-enable").prop("checked",1==i.gpaaEnable)}))}))})();
+//# sourceMappingURL=gp-address-autocomplete-form-editor.js.map

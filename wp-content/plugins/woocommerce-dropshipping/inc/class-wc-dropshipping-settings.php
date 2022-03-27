@@ -382,6 +382,22 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                         $options['ali_cbe_price_rate_value_name'] = 0;
                     }
+			
+			  if (isset($_POST['renewal_email'])) {
+
+                        $options['renewal_email'] = $_POST['renewal_email'];
+                    } else {
+
+                        $options['renewal_email'] = '0';
+                    }
+			
+			if (isset($_POST['order_button_email'])) {
+
+                        $options['order_button_email'] = $_POST['order_button_email'];
+                    } else {
+
+                        $options['order_button_email'] = '0';
+                    }
 
                     update_option('wc_dropship_manager', $options);
                 }
@@ -1018,14 +1034,24 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     $renewal_email = '';
                 }
 
-                if ($renewal_email == '1') {
+                
+                if ($options['renewal_email'] == '1') {
 
                     $renewal_email = ' checked="checked" ';
                 } else {
 
-                    $renewal_email = ' ';
+                    $renewal_email = '';
                 }
-
+				
+			
+                
+                if ($options['order_button_email'] == '1') {
+                    $order_button_email = ' checked="checked" ';
+                } else {
+                    $order_button_email = ' ';
+                }
+		    
+              
                 $woocommerce_url = plugins_url() . '/woocommerce/';
 
                 //echo '<form method="post" id="mainform" action="" enctype="multipart/form-data">'; 
@@ -1152,7 +1178,11 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				echo '<p></p>
 
                     <table>
-
+		        <tr>
+                            <td><input name="order_button_email" id="order_button_email" type="checkbox" ' . $order_button_email . ' value="1"/></td>
+                            <td><label for="order_button_email">Include \'View order\' link in suppliers email:</label></td>
+                            <td><img class="help_tip" data-tip="If checked this option will Include \'View order\' link in suppliers email" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                        </tr>
                         <tr>
                             <td><input name="renewal_email" id="renewal_email" type="checkbox" ' . $renewal_email . ' /></td>
                             <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td>
@@ -1562,8 +1592,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 							    $additionalCommentDefault = ''; 
 								
                             } else {
-								$additionalCommentDefault = '';
-								//$additionalCommentDefault = @$options['dropship_additional_comment'];
+								//$additionalCommentDefault = '';
+								$additionalCommentDefault =  @$options['dropship_additional_comment'];
 							}
 
 							echo '<br/><br/>
@@ -1812,32 +1842,53 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 						echo '<h3>Customised Supplier Emails</h3> 
 
-                        <p></p> 
-
+                       <p></p> 
+                        <div style="';
+                         if ( class_exists( 'WC_DS_Settings_Pro' ) ) { echo 'width:50%;';} else { echo 'width:100%;';} 
+                         echo 'display:inline-block; float:left;">
                         <table> 
 
                             <p></p> 
 
                             <tr> 
+                             <td>
+                             <div class="packing-slip-sections"> 
 
-                                <td><label for="supplier_email_packing_slip_title_color" >Packing Slip Title Color:</label></td> 
+        					<h4>Packing Slip : </h4> 
+    							<table> 
+    							<tr>
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_packing_slip_title_color" >Title Color:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_packing_slip_title_color" class="drop_color" type="text" value="' . @$options['supplier_email_packing_slip_title_color'] . '" size="30" /></td>
-                            </tr> 
+                                </td>
+                                </tr>
+                                  
+                            
 
                             <tr> 
-                                <td><label for="supplier_email_packing_slip_title_font_size" >Packing Slip Title Font Size:</label></td> 
+                                <td><label for="supplier_email_packing_slip_title_font_size" >Title Font Size:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 24px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_packing_slip_title_font_size" type="text" value="' . @$options['supplier_email_packing_slip_title_font_size'] . '" size="30" /></td> 
                             </tr> 
+                           
+ </table>
+                            </div> 
+                            </td>
+                             </tr>
+                              <tr><td colspan="3" height="40"></td></tr>
+                        <tr> 
+                             <td>
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
 
+        					<h4>Email : </h4> 
+    							<table>       
 					        <tr> 
 
-                                <td><label for="supplier_email_background_color" >Email Background Color:</label></td> 
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_background_color" >Background Color:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1845,14 +1896,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_order_note_font_size">Email Order Note Font Size :</label></td> 
+                                <td><label for="supplier_email_order_note_font_size"> Order Note Font Size :</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_order_note_font_size" type="text" value="' . @$options['supplier_email_order_note_font_size'] . '" size="30" /></td> 
                             </tr> 
                             <tr> 
-                                <td><label for="supplier_email_order_note_font_color">Email Order Note Font Color :</label></td> 
+                                <td><label for="supplier_email_order_note_font_color">Order Note Font Color :</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1861,7 +1912,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                             <tr> 
 
-                                <td><label for="supplier_email_footer_message_font_size">Email Footer Message Font Size :</label></td> 
+                                <td><label for="supplier_email_footer_message_font_size">Footer Message Font Size :</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1869,15 +1920,25 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_footer_message_font_color">Email Footer Message Font Color :</label></td> 
+                                <td><label for="supplier_email_footer_message_font_color">Footer Message Font Color :</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_footer_message_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_footer_message_font_color'] . '" size="30" /></td>
                             </tr> 
+                        </table>
+                        </div>
+                        </td>
+                        </tr>
+                       
+                       <tr> 
+                             <td>
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
 
+        					<h4>Email Body : </h4> 
+    							<table>       
                             <tr> 
-                                <td><label for="supplier_email_body_font_size" >Body Font Size:</label></td> 
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_body_font_size" >Font Size:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 18px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1885,15 +1946,24 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_body_font_color" >Body Font Color:</label></td> 
+                                <td><label for="supplier_email_body_font_color" >Font Color:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_body_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_body_font_color'] . '" size="30" /></td>
                             </tr> 
+                         </table>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr> 
+                             <td>
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
 
+        					<h4>Email Bottom : </h4> 
+    							<table> 
                             <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_font_size" >Bottom Sub Heading Font Size:</label></td> 
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_bottom_sub_heading_font_size" >Sub Heading Font Size:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1901,7 +1971,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_font_color" >Bottom Sub Heading Font Color:</label></td> 
+                                <td><label for="supplier_email_bottom_sub_heading_font_color" >Sub Heading Font Color:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1909,7 +1979,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_content_font_size" >Bottom Sub Heading Content Font Size:</label></td> 
+                                <td><label for="supplier_email_bottom_sub_heading_content_font_size" >Sub Heading Content Font Size:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
@@ -1917,14 +1987,24 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             </tr> 
 
                             <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_content_color" >Bottom Sub Heading Content Color:</label></td> 
+                                <td><label for="supplier_email_bottom_sub_heading_content_color" >Sub Heading Content Color:</label></td> 
 
                                 <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
                                 <td><input name="supplier_email_bottom_sub_heading_content_color" class="drop_color" type="text" value="' . @$options['supplier_email_bottom_sub_heading_content_color'] . '" size="30" /></td>
                             </tr>
+                            
+                            </table>
+                        </div>
+                        </td>
+                        </tr>
                         </table>
-                    </div>';
+                        </div>';
+                         if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+                             $data ="";
+                             apply_filters("add_extra_supplier_email_dropshipping_pro_settings",$data);
+                         }
+                     echo '</div>';
 
                     echo '<div class="drop-setting-section" id="smtp_options">';
 

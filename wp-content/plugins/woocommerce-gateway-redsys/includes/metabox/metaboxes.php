@@ -3,7 +3,7 @@
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function add_redsys_meta_box() {
 	if ( WCRed()->is_redsys_order( get_the_ID() ) ) {
@@ -49,7 +49,7 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'add_redsys_me
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_tab( $tabs ) {
 	$tabs['redsys'] = array(
@@ -64,7 +64,7 @@ add_filter( 'woocommerce_product_data_tabs', 'redsys_tab' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 // Adding content to custom panel
 function redsys_tab_panel() {
@@ -89,7 +89,7 @@ add_action( 'woocommerce_product_data_panels', 'redsys_tab_panel' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function save_redsys_product( $post_id ) {
 
@@ -104,7 +104,7 @@ add_action( 'woocommerce_process_product_meta', 'save_redsys_product' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function paygold_metabox() {
 	global $post, $typenow;
@@ -127,7 +127,7 @@ add_action( 'add_meta_boxes', 'paygold_metabox' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function paygold_meta_box_content( $post ) {
 
@@ -177,7 +177,7 @@ function paygold_meta_box_content( $post ) {
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function paygold_metabox_save( $post_id ) {
 

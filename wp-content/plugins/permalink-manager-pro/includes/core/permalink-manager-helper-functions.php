@@ -629,7 +629,14 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		if($force_custom_slugs) {
 			// A. Custom slug (title)
 			if($force_custom_slugs == 1) {
-				$title = (!empty($object->name)) ? $object->name : $object->post_title;
+				if(!empty($object->name) && !empty($object->taxonomy)) {
+					$title = $object->name;
+				} else if(!empty($object->post_title) && !empty($object->post_type)) {
+					$title = $object->post_title;
+				} else {
+					return $slug;
+				}
+
 				$title = strip_tags($title);
 				$title = self::remove_slashes($title);
 

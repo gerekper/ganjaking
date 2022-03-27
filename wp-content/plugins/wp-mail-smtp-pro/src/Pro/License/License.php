@@ -122,19 +122,22 @@ class License {
 
 		$generic_error = esc_html__( 'Something went wrong. Please try again later.', 'wp-mail-smtp-pro' );
 
-		// Verify nonce existence.
-		if ( ! isset( $_POST['nonce'] ) ) {
-			wp_send_json_error( $generic_error . 1 );
+		// Verify nonce.
+		if (
+			! isset( $_POST['nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_license_nonce' )
+		) {
+			wp_send_json_error( $generic_error );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( $generic_error );
 		}
 
 		$task = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
 
 		switch ( $task ) {
 			case 'license_verify':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_license_nonce' ) ) { // phpcs:ignore
-					wp_send_json_error( $generic_error );
-				}
-
 				$license = isset( $_POST['license'] ) ? sanitize_key( $_POST['license'] ) : '';
 
 				if ( empty( $license ) ) {
@@ -145,18 +148,10 @@ class License {
 				break;
 
 			case 'license_deactivate':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_license_nonce' ) ) { // phpcs:ignore
-					wp_send_json_error( $generic_error );
-				}
-
 				$this->deactivate_key( true );
 				break;
 
 			case 'license_refresh':
-				if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_license_nonce' ) ) { // phpcs:ignore
-					wp_send_json_error( $generic_error );
-				}
-
 				$this->validate_key( wp_mail_smtp()->get_license_key(), true, true );
 				break;
 		}
@@ -170,11 +165,11 @@ class License {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Options $options The plugin options.
+	 * @param Options $options The plugin options.
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-		$key  = 'E7B0U5F7CC8189E6ACL19DD6F6E1B662';
+		$key  = '1415b451be1a13c283ba771ea52d38bb';
 		$type = 'Pro';
 		$license  = $options->get_group( 'license' );
 		$is_valid = ! empty( $key ) &&
@@ -189,7 +184,7 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-			
+		
 
 			<?php
 			// Offer option to deactivate the key.
@@ -590,6 +585,7 @@ class License {
 	public function notices( $below_h2 = false ) {
 		return;
 
+
 		// Grab the option and output any nag dealing with license keys.
 		$options  = new Options();
 		$all_opt  = $options->get_all();
@@ -665,7 +661,7 @@ class License {
 		if ( ! empty( $this->errors ) ) :
 			?>
 			<div class="notice notice-error <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
-				<p><?php echo implode( '<br>', $this->errors ); ?></p>
+				<p><?php echo implode( '<br>', array_map( 'esc_html', $this->errors ) ); ?></p>
 			</div>
 			<?php
 		endif;
@@ -674,7 +670,7 @@ class License {
 		if ( ! empty( $this->success ) ) :
 			?>
 			<div class="notice notice-success <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
-				<p><?php echo implode( '<br>', $this->success ); ?></p>
+				<p><?php echo implode( '<br>', array_map( 'esc_html', $this->success ) ); ?></p>
 			</div>
 			<?php
 		endif;
@@ -699,10 +695,11 @@ class License {
 		$query_params = wp_parse_args(
 			$body,
 			[
-				'tgm-updater-action'     => $action,
-				'tgm-updater-key'        => $body['tgm-updater-key'],
-				'tgm-updater-wp-version' => get_bloginfo( 'version' ),
-				'tgm-updater-referer'    => site_url(),
+				'tgm-updater-action'      => $action,
+				'tgm-updater-key'         => $body['tgm-updater-key'],
+				'tgm-updater-wp-version'  => get_bloginfo( 'version' ),
+				'tgm-updater-php-version' => phpversion(),
+				'tgm-updater-referer'     => site_url(),
 			]
 		);
 

@@ -19,7 +19,7 @@ $google_fonts_str = seedprod_pro_construct_font_str( $settings );
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<?php if ( ! current_theme_supports( 'title-tag' ) ) : ?>
 		<title>
 			<?php echo wp_get_document_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -32,6 +32,7 @@ $google_fonts_str = seedprod_pro_construct_font_str( $settings );
 	<?php endif; ?>
 
 	<?php wp_head(); ?>
+	<meta name="viewport" content="<?php echo apply_filters( 'seedprod_meta_content_viewport','width=device-width, initial-scale=1.0'); ?>">
 
 </head>
 <body <?php body_class( 'sp-antialiased' ); ?>>

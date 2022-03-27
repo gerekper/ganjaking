@@ -51,13 +51,13 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'status' => 'string', 'content' => 'string', 'scheduledAt' => '\\DateTime', 'sender' => 'string', 'createdAt' => '\\DateTime', 'modifiedAt' => '\\DateTime', 'recipients' => 'object', 'statistics' => 'object'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'status' => 'string', 'content' => 'string', 'scheduledAt' => 'string', 'sender' => 'string', 'createdAt' => 'string', 'modifiedAt' => 'string', 'recipients' => 'object', 'statistics' => 'object'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'status' => null, 'content' => null, 'scheduledAt' => 'date-time', 'sender' => null, 'createdAt' => 'date-time', 'modifiedAt' => 'date-time', 'recipients' => null, 'statistics' => null];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'status' => null, 'content' => null, 'scheduledAt' => null, 'sender' => null, 'createdAt' => null, 'modifiedAt' => null, 'recipients' => null, 'statistics' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -314,7 +314,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Gets scheduledAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getScheduledAt()
     {
@@ -323,7 +323,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Sets scheduledAt
      *
-     * @param \DateTime $scheduledAt UTC date-time on which SMS campaign is scheduled. Should be in YYYY-MM-DDTHH:mm:ss.SSSZ format
+     * @param string $scheduledAt UTC date-time on which SMS campaign is scheduled. Should be in YYYY-MM-DDTHH:mm:ss.SSSZ format
      *
      * @return $this
      */
@@ -356,7 +356,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -365,7 +365,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */
@@ -377,7 +377,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Gets modifiedAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getModifiedAt()
     {
@@ -386,7 +386,7 @@ class GetSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Sets modifiedAt
      *
-     * @param \DateTime $modifiedAt UTC date-time of last modification of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $modifiedAt UTC date-time of last modification of the SMS campaign (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

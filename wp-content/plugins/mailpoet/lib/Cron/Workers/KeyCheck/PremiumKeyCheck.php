@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Cron\CronWorkerScheduler;
+use MailPoet\InvalidStateException;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 
@@ -28,6 +29,11 @@ class PremiumKeyCheck extends KeyCheckWorker {
   }
 
   public function checkKey() {
+    // for phpstan because we set bridge property in the init function
+    if (!$this->bridge) {
+      throw new InvalidStateException('The class was not initialized properly. Please call the Init method before.');
+    };
+
     $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
     $result = $this->bridge->checkPremiumKey($premiumKey);
     $this->bridge->storePremiumKeyAndState($premiumKey, $result);

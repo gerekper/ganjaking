@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '10.5.1',
-        'version' => '10.5.1.0',
+        'pretty_version' => '10.5.3',
+        'version' => '10.5.3.0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bc67ffd461f817e8471731a414e51cfe8be8106a',
+        'reference' => 'e9a6f902cbb112e4bcbf53a7fb81a1d66f8703eb',
         'name' => '__root__',
         'dev' => false,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '10.5.1',
-            'version' => '10.5.1.0',
+            'pretty_version' => '10.5.3',
+            'version' => '10.5.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bc67ffd461f817e8471731a414e51cfe8be8106a',
+            'reference' => 'e9a6f902cbb112e4bcbf53a7fb81a1d66f8703eb',
             'dev_requirement' => false,
         ),
         'leewillis77/dismissible-wp-notices' => array(

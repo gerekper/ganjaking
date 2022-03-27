@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-live-preview.php:187, ../class-gp-live-preview.php:349, ../class-gp-live-preview.php:454
+#: ../class-gp-live-preview.php:187, ../class-gp-live-preview.php:349, ../class-gp-live-preview.php:458
 msgid "Live Preview"
 msgstr ""
 
@@ -57,18 +57,26 @@ msgstr ""
 msgid "Prevent notifications from being sent when the form is submitted."
 msgstr ""
 
-#: ../class-gp-live-preview.php:470
+#: ../class-gp-live-preview.php:373
+msgid "Ignore Form Restrictions"
+msgstr ""
+
+#: ../class-gp-live-preview.php:374
+msgid "The form will ignore any restrictions defined in the restrictions section."
+msgstr ""
+
+#: ../class-gp-live-preview.php:474
 msgid "Form Preview"
 msgstr ""
 
-#: ../class-gp-live-preview.php:471
+#: ../class-gp-live-preview.php:475
 msgid "A post type created for previewing Gravity Forms forms on the frontend."
 msgstr ""
 
-#: ../class-gp-live-preview.php:777
+#: ../class-gp-live-preview.php:803
 msgid "Oops! It doesn't look like you have the necessary permission to preview this form."
 msgstr ""
 
-#: ../class-gp-live-preview.php:878
+#: ../class-gp-live-preview.php:904
 msgid "Live %s"
 msgstr ""

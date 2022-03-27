@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Subscription scheme object. May extend the WC_Data class or handle CRUD in the future, if schemes are moved out of meta.
  *
  * @class    WCS_ATT_Scheme
- * @version  3.1.30
+ * @version  3.2.1
  */
 class WCS_ATT_Scheme implements ArrayAccess {
 
@@ -439,15 +439,15 @@ class WCS_ATT_Scheme implements ArrayAccess {
 			$scheme_sync_day           = $this->get_sync_date();
 			$subscription_next_payment = $subscription->get_time( 'next_payment', '' );
 
-			if ( 'week' === $period && $scheme_sync_day !== intval( date( 'N', $subscription_next_payment ) ) ) {
+			if ( 'week' === $period && $scheme_sync_day !== intval( gmdate( 'N', $subscription_next_payment ) ) ) {
 				return false;
 			}
 
-			if ( 'month' === $period && $scheme_sync_day !== intval( date( 'j', $subscription_next_payment ) ) ) {
+			if ( 'month' === $period && $scheme_sync_day !== intval( gmdate( 'j', $subscription_next_payment ) ) ) {
 				return false;
 			}
 
-			if ( 'year' === $period && ( $scheme_sync_day[ 'day' ] !== date( 'd', $subscription_next_payment ) || $scheme_sync_day[ 'month' ] !== date( 'm', $subscription_next_payment ) ) ) {
+			if ( 'year' === $period && ( $scheme_sync_day[ 'day' ] !== gmdate( 'd', $subscription_next_payment ) || $scheme_sync_day[ 'month' ] !== gmdate( 'm', $subscription_next_payment ) ) ) {
 				return false;
 			}
 		}

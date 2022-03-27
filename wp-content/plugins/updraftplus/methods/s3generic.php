@@ -25,7 +25,7 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 	protected function set_region($obj, $region = '', $bucket_name = '') {
 		$config = $this->get_config();
 		$endpoint = ('' != $region && 'n/a' != $region) ? $region : $config['endpoint'];
-		$log_message = "Set endpoint: $endpoint";
+		$log_message = "Set endpoint (".get_class($obj)."): $endpoint";
 		$log_message_append = '';
 		if (is_string($endpoint) && preg_match('/^(.*):(\d+)$/', $endpoint, $matches)) {
 			$endpoint = $matches[1];

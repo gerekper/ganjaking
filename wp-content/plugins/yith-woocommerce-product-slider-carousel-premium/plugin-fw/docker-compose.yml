@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+
+  mysql:
+    image: "mariadb:latest"
+    environment:
+      MYSQL_DATABASE: "yith_plugin_fw_tests"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3306"
+    networks:
+      - yithdevnet
+    volumes:
+      - ./tools/local-env/mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+      - mysql:/var/lib/mysql
+
+  ##
+  # The WP CLI container.
+  ##
+  cli:
+    image: wordpress:cli-php7.4
+    environment:
+      APACHE_RUN_USER: "www-data"
+      APACHE_RUN_GROUP: "www-data"
+    depends_on:
+      - mysql
+
+    networks:
+      - yithdevnet
+
+    volumes:
+      - html:/var/www/html
+      - ./tools/local-env/install-wp-tests.sh:/var/www/html/install-wp-tests.sh
+
+    # The init directive ensures the command runs with a PID > 1, so Ctrl+C works correctly.
+    init: true
+
+  ##
+  # The PHPUnit container.
+  ##
+  phpunit:
+    build:
+      context: ./tools/local-env/docker/phpunit
+
+    networks:
+      - yithdevnet
+
+    volumes:
+      - ./tools/local-env/phpunit-config.ini:/usr/local/etc/php/conf.d/phpunit-config.ini
+      - ./tools/local-env/install-wp-tests.sh:/var/www/html/install-wp-tests.sh
+      - ./tools/local-env/yith-plugin-fw-loader.php:/var/www/html/wp-content/plugins/yith-plugin-fw-loader/yith-plugin-fw-loader.php
+      - .:/var/www/html/wp-content/plugins/yith-plugin-fw-loader/plugin-fw
+      - ../../woocommerce:/var/www/html/wp-content/plugins/woocommerce
+      - html:/var/www/html
+      - phpunit-uploads:/var/www/html/wp-content/uploads
+      - testsuite:/tmp
+
+    # The init directive ensures the command runs with a PID > 1, so Ctrl+C works correctly.
+    init: true
+
+    depends_on:
+      - mysql
+
+volumes:
+  # So that sites aren't wiped every time containers are restarted, MySQL uses a persistent volume.
+  mysql: {}
+  # Using a volume for the uploads directory improves PHPUnit performance.
+  phpunit-uploads: {}
+  html: {}
+  testsuite: {}
+
+networks:
+  # Creating our own network allows us to connect between containers using their service name.
+  yithdevnet:
+    driver: bridge

@@ -19,7 +19,7 @@
 <table class="wc_status_table widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="5" data-export-label="Product Catalogs"><h2><?php echo esc_html_x( 'Product catalogs', 'product catalogs: table column', 'woocommerce-instagram' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the product catalogs created with WooCommerce Instagram.', 'woocommerce-instagram' ) ); ?></h2></th>
+			<th colspan="6" data-export-label="Product Catalogs"><h2><?php echo esc_html_x( 'Product catalogs', 'product catalogs: table column', 'woocommerce-instagram' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the product catalogs created with WooCommerce Instagram.', 'woocommerce-instagram' ) ); ?></h2></th>
 		</tr>
 		<tr>
 			<td><strong><?php echo esc_html_x( 'Title', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
@@ -27,17 +27,25 @@
 			<td><strong><?php echo esc_html_x( 'Products', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 			<td><strong><?php echo esc_html_x( 'Variations', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 			<td><strong><?php echo esc_html_x( 'Tax location', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
+			<td><strong><?php echo esc_html_x( 'Stock', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 		</tr>
 	</thead>
 	<tbody>
 		<?php
 		foreach ( $data['catalogs'] as $catalog ) :
-			$tax_location = wc_instagram_get_formatted_product_catalog_tax_location( $catalog, '-' );
-			$extra_info   = array(
+			$tax_location  = wc_instagram_get_formatted_product_catalog_tax_location( $catalog, '-' );
+			$include_stock = $catalog->get_include_stock();
+			$extra_info    = array(
 				'Slug: ' . $catalog->get_slug(),
 				'Variations: ' . wc_bool_to_string( $catalog->get_include_variations() ),
 				'Tax location: ' . $tax_location,
+				'Stock: ' . wc_bool_to_string( $include_stock ),
 			);
+
+			if ( $include_stock ) :
+				$extra_info[] = 'Default stock quantity: ' . $catalog->get_stock_quantity();
+				$extra_info[] = 'Backorder stock quantity: ' . $catalog->get_backorder_stock_quantity();
+			endif;
 
 			echo '<tr>';
 			printf(
@@ -50,6 +58,7 @@
 			echo '<td>' . count( $catalog->get_product_ids() ) . '<span style="display: none;"> product(s), ' . esc_html( join( ', ', $extra_info ) ) . '</span></td>';
 			echo '<td>' . esc_html( wc_instagram_bool_to_string( $catalog->get_include_variations() ) ) . '</td>';
 			echo '<td>' . esc_html( $tax_location ) . '</td>';
+			echo '<td>' . esc_html( wc_instagram_bool_to_string( $include_stock ) ) . '</td>';
 			echo '</tr>';
 		endforeach;
 		?>

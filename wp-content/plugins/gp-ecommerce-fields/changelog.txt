@@ -1,6 +1,59 @@
 
 # Changelog
 
+## 1.2.9
+
+	- Removed unneeded filter on `gform_ppcp_discount_total` for the PayPal Checkout add-on if using PayPal Checkout 2.2.1 or newer.
+
+## 1.2.8
+
+	- Fixed issue where get calculations were not updated when navigating to previous pages.
+	- Added "Update URI" to plugin header to improve security.
+
+## 1.2.7
+
+	- Fixed issue where GP eCommerce Fields would not always exclude shipping from discounts/coupons when viewing the form.
+
+## 1.2.6
+
+	- Fixed JavaScript error when using GP eCommerce Fields with Gravity Forms 2.5.14.1 or newer and the Coupons Add-On.
+
+## 1.2.5
+
+	- Improved performance of formula calculations.
+
+## 1.2.4
+
+	- Fixed a potential issue where GPECF may replace GPPA's LMTs before they are parsed, leaving their `@` in the output.
+
+## 1.2.3
+
+	- Fixed a potential PHP warning if an entry wasn't available while reprocessing calculations.
+
+## 1.2.2
+
+	- Improved performance on complex forms with a large amount of calculations and/or conditional logic.
+
+## 1.2.1
+
+	- Improved compatibility with PayPal Checkout Add-on when using the Discount field.
+	- Improved support for Gravity Forms 2.5. (#21)
+	- Updated minimum required version of Gravity Perks to 2.2.3.
+	- Fixed issue where if a Product field ID and coupon code were the same (i.e. 50), GPECF would display the product as a coupon.
+	- Fixed possible order-of-events issue where GPECF would cause percentage-based discounts to be applied based on an already adjusted total.
+
+## 1.2
+
+	- Improved support for Gravity Forms 2.5.
+
+## 1.1
+
+	- Added full support for Gravity Forms 2.5!
+	- Improved field settings UI for GF 2.5.
+	- Updated minimum requirements to Gravity Perks 2.2.
+	- Fixed order-of-events issue which caused percentage based coupons to include themselves in the calculated discount in GF 2.5.
+	- Fixed issue where numeric coupon codes could be confused with products resulting in products being listed as coupons in the order summary in GF 2.5.
+
 ## 1.0.47
 
 	- Fixed potential scenario where GP eCommerce Fields could get stuck in an infinite loop when calculations and GP Conditional Pricing are used together.
@@ -32,8 +85,6 @@
 	- Fixed issue with Gravity Forms 2.5 where markup was being rendered in the field label.
 	- Added $modifiers as an 8th parameter to the [gpecf_order_sumary_markup](https://gravitywiz.com/documentation/gpecf_order_sumary_markup/) filter.
 	- Added acceptance tests. (#5)
-	- Added 14 new acceptance tests.
-	- Added new tests and edited exsisting tests.
 
 ## 1.0.40
 
@@ -279,7 +330,7 @@
     - Fixed issue where {order_summary} merge tag was not replaced.
 
 ## 1.0.alpha1.1
-	
+
 	- Fixed issue where Subtotal field did not correctly filter products.
 
 ## 1.0.alpha1.0

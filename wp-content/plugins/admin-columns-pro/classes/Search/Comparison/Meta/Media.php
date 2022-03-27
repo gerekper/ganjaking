@@ -11,10 +11,12 @@ use ACP\Search\Operators;
 class Media extends Meta
 	implements Comparison\SearchableValues {
 
-	/** @var string */
+	/**
+	 * @var string|null
+	 */
 	protected $post_type;
 
-	public function __construct( $meta_key, $meta_type, $post_type = false ) {
+	public function __construct( $meta_key, $meta_type, $post_type = null ) {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::IS_EMPTY,

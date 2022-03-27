@@ -2,21 +2,17 @@
 
 namespace ACP\Type;
 
-class SiteUrl {
+use AC\Type\Url;
+
+class SiteUrl implements Url {
 
 	/**
 	 * @var string
 	 */
 	private $url;
 
-	/**
-	 * @var bool
-	 */
-	private $is_network;
-
-	public function __construct( $url, $is_network ) {
+	public function __construct( $url ) {
 		$this->url = (string) $url;
-		$this->is_network = (bool) $is_network;
 	}
 
 	/**
@@ -24,13 +20,6 @@ class SiteUrl {
 	 */
 	public function get_url() {
 		return $this->url;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_network() {
-		return $this->is_network;
 	}
 
 }

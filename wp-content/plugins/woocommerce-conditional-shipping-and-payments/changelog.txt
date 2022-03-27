@@ -1,5 +1,13 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2022.03.16 - version 1.12.1
+* Tweak - Removed static Shipping Method restriction notices in the cart. Due to a core limitation, it has not been possible to make them work reliably.
+* Tweak - Updated the 'Show Excluded' tooltip in Payment Gateway Restrictions.
+* Tweak - Use new WooCommerce and WordPress brand colors.
+* Tweak - Added compatibility for Woocommerce Payments Subscriptions functionality.
+* Fix - Fixed an issue that made static notices incorrectly show up for Shipping Methods in recurring packages.
+* Fix - Fixed an issue that was throwing a PHP Notice when the restriction description was empty and the debugger enabled.
+
 2022.01.17 - version 1.12.0
 * Fix - 'Product on Subscription' condition won't remove a payment gateway from the 'Pay order' page.
 * Fix - Fixed an issue with Category in cart condition, throwing a fatal error in admin.

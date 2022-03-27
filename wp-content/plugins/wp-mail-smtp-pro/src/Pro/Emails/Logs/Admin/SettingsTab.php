@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Admin;
 
+use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
 use WPMailSMTP\WP;
 use WPMailSMTP\Options;
 use WPMailSMTP\Admin\PageAbstract;
@@ -40,7 +41,7 @@ class SettingsTab extends PageAbstract {
 
 		parent::__construct();
 
-		$this->options = new Options();
+		$this->options = Options::init();
 	}
 
 	/**
@@ -215,6 +216,9 @@ class SettingsTab extends PageAbstract {
 				</div>
 			</div>
 
+			<!-- Webhooks Status -->
+			<?php $this->webhooks_status(); ?>
+
 			<!-- Log Retention Period -->
 			<div id="wp-mail-smtp-setting-row-log_retention_period" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-text wp-mail-smtp-clear">
 				<div class="wp-mail-smtp-setting-label">
@@ -271,6 +275,103 @@ class SettingsTab extends PageAbstract {
 
 		</form>
 
+		<?php
+	}
+
+	/**
+	 * Webhooks status row.
+	 *
+	 * @since 3.3.0
+	 */
+	private function webhooks_status() {
+
+		if ( ! wp_mail_smtp()->get_pro()->get_logs()->is_enabled() || ! Webhooks::is_allowed() ) {
+			return;
+		}
+
+		$provider = wp_mail_smtp()->get_pro()->get_logs()->get_webhooks()->get_active_provider();
+
+		if ( $provider === false ) {
+			return;
+		}
+
+		// Verify subscription before display status.
+		$provider->verify_subscription();
+
+		?>
+		<div id="wp-mail-smtp-setting-row-webhooks_status" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-text wp-mail-smtp-clear">
+			<div class="wp-mail-smtp-setting-label">
+				<label>
+					<?php esc_html_e( 'Webhooks Status', 'wp-mail-smtp-pro' ); ?>
+				</label>
+			</div>
+			<div class="wp-mail-smtp-setting-field">
+				<?php if ( $provider->get_setup_status() === Webhooks::SUCCESS_SETUP ) : ?>
+					<?php esc_html_e( 'Subscribed.', 'wp-mail-smtp-pro' ); ?>
+
+					<p class="desc">
+						<?php esc_html_e( 'Webhooks subscription was created.', 'wp-mail-smtp-pro' ); ?>
+						<?php if ( $this->options->is_const_enabled() ) : ?>
+							<br><br>
+							<span style="color: red;">
+								<?php
+								esc_html_e( 'If you will need to change your constant\'s values, please perform "Unsubscribe" before doing that. After finishing your changes perform "Subscribe".', 'wp-mail-smtp-pro' );
+								?>
+							</span>
+						<?php endif; ?>
+					</p>
+					<br>
+					<button class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-blueish js-wp-mail-smtp-webhooks-unsubscribe">
+						<?php esc_html_e( 'Unsubscribe', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php elseif ( $provider->get_setup_status() === Webhooks::BROKEN_SETUP ) : ?>
+					<strong><?php esc_html_e( 'Subscription is broken.', 'wp-mail-smtp-pro' ); ?></strong>
+					<br><br>
+					<?php esc_html_e( 'Potential reasons:', 'wp-mail-smtp-pro' ); ?>
+					<ol>
+						<li><?php esc_html_e( 'Website domain was changed.', 'wp-mail-smtp-pro' ); ?></li>
+						<li>
+							<?php
+							printf( /* translators: %s - mailer title. */
+								esc_html__( 'Subscription was removed or modified manually in %s account.', 'wp-mail-smtp-pro' ),
+								esc_html( wp_mail_smtp()->get_providers()->get_options( $provider->get_mailer_name() )->get_title() )
+							);
+							?>
+						</li>
+					</ol>
+					<br>
+					<button class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-blueish js-wp-mail-smtp-webhooks-subscribe">
+						<?php esc_html_e( 'Resubscribe', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php elseif ( $provider->get_setup_status() === Webhooks::FAILED_SETUP ) : ?>
+					<strong><?php esc_html_e( 'Failed.', 'wp-mail-smtp-pro' ); ?></strong>
+					<p class="desc">
+						<?php
+						esc_html_e( 'Automatic creation of webhooks subscription for email deliverability status verification has failed.', 'wp-mail-smtp-pro' );
+						?>
+					</p>
+					<br>
+					<?php esc_html_e( 'Please fix the errors below and try to subscribe again.', 'wp-mail-smtp-pro' ); ?>
+					<br><br>
+					<?php echo esc_html( get_option( Webhooks::SUBSCRIPTION_ERROR_OPTION_NAME ) ); ?>
+					<br><br>
+					<button class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-blueish js-wp-mail-smtp-webhooks-subscribe">
+						<?php esc_html_e( 'Subscribe', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php elseif ( $provider->get_setup_status() === Webhooks::MANUAL_SETUP ) : ?>
+					<?php esc_html_e( 'Unsubscribed.', 'wp-mail-smtp-pro' ); ?>
+					<p class="desc">
+						<?php
+						esc_html_e( 'The subscription was manually removed. If you want to use webhooks for email deliverability status verification, please perform the "Subscribe" action.', 'wp-mail-smtp-pro' );
+						?>
+					</p>
+					<br>
+					<button class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-blueish js-wp-mail-smtp-webhooks-subscribe">
+						<?php esc_html_e( 'Subscribe', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php endif; ?>
+			</div>
+		</div>
 		<?php
 	}
 

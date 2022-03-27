@@ -8,6 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Include core functions.
+require 'wc-account-funds-order-functions.php';
+
 /**
  * Gets the suffix for the script filenames.
  *

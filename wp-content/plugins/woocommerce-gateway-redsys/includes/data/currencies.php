@@ -1,15 +1,19 @@
 <?php
+/**
+ * Copyright: (C) 2013 - 2022 José Conti
+ *
+ * @package WooCommerce Redsys Gateway.
+ */
 
-/*
-* Copyright: (C) 2013 - 2021 José Conti
-*/
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
-/*
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+/**
+ * Copyright: (C) 2013 - 2022 José Conti
+ */
 function redsys_return_currencies() {
-	
+
 	return array(
 		'ALL' => 8,
 		'DZD' => 12,
@@ -133,8 +137,7 @@ function redsys_return_currencies() {
 		'PAB' => 590,
 		'PGK' => 598,
 		'PYG' => 600,
-		'PEI' => 604,
-		'PEI' => 604,
+		'PEN' => 604,
 		'PHP' => 608,
 		'PLZ' => 616,
 		'TPE' => 626,

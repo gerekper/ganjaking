@@ -38,12 +38,12 @@ class Addon implements Registrable {
 	 */
 	private $segment_repository;
 
-	public function __construct( Storage $storage, Location\Absolute $location, NativeSortableFactory $native_sortable_factory, ModelFactory $model_factory, Bookmark\SegmentRepository $segment_repository ) {
+	public function __construct( Storage $storage, Location\Absolute $location, Bookmark\SegmentRepository $segment_repository ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->native_sortable_factory = $native_sortable_factory;
-		$this->model_factory = $model_factory;
 		$this->segment_repository = $segment_repository;
+		$this->native_sortable_factory = new NativeSortableFactory();
+		$this->model_factory = new ModelFactory();
 	}
 
 	public function register() {

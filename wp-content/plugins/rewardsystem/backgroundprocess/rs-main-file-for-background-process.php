@@ -193,7 +193,7 @@ if ( ! class_exists( 'SRP_Background_Process' ) ) {
 
 		public static function callback_to_apply_points_for_previous_order( $offset = 0, $limit = 1000 ) {
 			$OrderStatusList          = array( 'wc-completed' ) ;
-			$OrderStatusToApplyPoints = get_option( 'rs_order_status_control' ) ;
+			$OrderStatusToApplyPoints = get_option( 'rs_order_status_control', array('processing','completed') ) ;
 			foreach ( $OrderStatusToApplyPoints as $OrderStatus ) {
 				$OrderStatusList[] = 'wc-' . $OrderStatus ;
 			}
@@ -236,8 +236,8 @@ if ( ! class_exists( 'SRP_Background_Process' ) ) {
 					'incuserrole' => isset( $_POST[ 'includeuserrole' ] ) ? wc_clean(wp_unslash($_POST[ 'includeuserrole' ])) : '' ,
 					'excuserrole' => isset( $_POST[ 'excludeuserrole' ] ) ? wc_clean(wp_unslash($_POST[ 'excludeuserrole' ] )): '' ,
 					'enablemail'  => isset( $_POST[ 'sendmail_to_add_points' ] ) ? wc_clean(wp_unslash($_POST[ 'sendmail_to_add_points' ])) : 'no' ,
-					'subject'     => isset( $_POST[ 'email_subject_to_add_points' ] ) ? wc_clean(wp_unslash($_POST[ 'email_subject_to_add_points' ])) : '' ,
-					'message'     => isset( $_POST[ 'email_message_to_add_points' ] ) ? wc_clean(wp_unslash($_POST[ 'email_message_to_add_points' ])) : '' ,
+					'subject'     => isset( $_POST[ 'email_subject_to_add_points' ] ) ? wp_kses_post(wp_unslash($_POST[ 'email_subject_to_add_points' ])) : '' ,
+					'message'     => isset( $_POST[ 'email_message_to_add_points' ] ) ? wp_kses_post(wp_unslash($_POST[ 'email_message_to_add_points' ])) : '' ,
 					'email_type'  => isset( $_POST[ 'add_points_email_type' ] ) ? absint( $_POST[ 'add_points_email_type' ] ) : 1 ,
 					'points'      => isset( $_POST[ 'points' ] ) ? wc_clean(wp_unslash($_POST[ 'points' ] )): 0 ,
 					'reason'      => isset( $_POST[ 'reason' ] ) ? wc_clean(wp_unslash($_POST[ 'reason' ] )): '' ,
@@ -341,8 +341,8 @@ if ( ! class_exists( 'SRP_Background_Process' ) ) {
 					'incuserrole' => isset( $_POST[ 'includeuserrole' ] ) ? wc_clean(wp_unslash($_POST[ 'includeuserrole' ])) : '' ,
 					'excuserrole' => isset( $_POST[ 'excludeuserrole' ] ) ? wc_clean(wp_unslash($_POST[ 'excludeuserrole' ] )): '' ,
 					'enablemail'  => isset( $_POST[ 'sendmail_to_remove_points' ] ) ? wc_clean(wp_unslash($_POST[ 'sendmail_to_remove_points' ])) : 'no' ,
-					'subject'     => isset( $_POST[ 'email_subject_to_remove_points' ] ) ? wc_clean(wp_unslash($_POST[ 'email_subject_to_remove_points' ] )): '' ,
-					'message'     => isset( $_POST[ 'email_message_to_remove_points' ] ) ? wc_clean(wp_unslash($_POST[ 'email_message_to_remove_points' ] )): '' ,
+					'subject'     => isset( $_POST[ 'email_subject_to_remove_points' ] ) ? wp_kses_post(wp_unslash($_POST[ 'email_subject_to_remove_points' ] )): '' ,
+					'message'     => isset( $_POST[ 'email_message_to_remove_points' ] ) ? wp_kses_post(wp_unslash($_POST[ 'email_message_to_remove_points' ] )): '' ,
 					'email_type'  => isset( $_POST[ 'remove_points_email_type' ] ) ? absint($_POST[ 'remove_points_email_type' ]) : 1 ,
 					'points'      => isset( $_POST[ 'points' ] ) ? wc_clean(wp_unslash($_POST[ 'points' ] )): 0 ,
 					'reason'      => isset( $_POST[ 'reason' ] ) ? wc_clean(wp_unslash($_POST[ 'reason' ])) : '' ,

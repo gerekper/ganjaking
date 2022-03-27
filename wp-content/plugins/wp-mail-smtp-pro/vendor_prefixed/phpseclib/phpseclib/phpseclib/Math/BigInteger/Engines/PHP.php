@@ -466,6 +466,11 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
             $lhs = new static();
             $rhs = new static();
         }
+        if (static::class != \get_class($temp)) {
+            $temp = new static();
+            $lhs = new static();
+            $rhs = new static();
+        }
         $temp_value =& $temp->value;
         $rhs_value =& $rhs->value;
         // $temp = $y << ($x_max - $y_max-1) in base 2**26

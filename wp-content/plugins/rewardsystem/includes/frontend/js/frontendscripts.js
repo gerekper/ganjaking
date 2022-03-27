@@ -43,6 +43,8 @@ jQuery( function ( $ ) {
             }
             
             $( '.displaymessage' ).parent().hide() ;
+            
+            FPFrontendScripts.unsubscribe_email_link_alert();
         } ,
         table_as_footable : function ( ) {
             jQuery( '.my_reward_table' ).footable( ).bind( 'footable_filtering' , function ( e ) {
@@ -425,6 +427,37 @@ jQuery( function ( $ ) {
                 return false ;
             }
         } ,
+        unsubscribe_email_link_alert:function(){
+            
+            if(!frontendscripts_params.is_user_logged_in){
+                return false;
+            }
+                        
+            $.urlParam = function( name ) {
+				var results = new RegExp( '[\?&]' + name + '=([^&#]*)' ).exec( window.location.href ) ;
+				if ( results ) {
+					return results[1] ;
+				} else {
+					return 0 ;
+				}
+			}
+                        
+            var $email_user_id = $.urlParam( 'userid' ),
+                    $email_unsub_link = $.urlParam( 'unsub' ),
+                    $unsub_link_nonce = $.urlParam( 'nonce' );    
+            
+            if(!$email_user_id || !$email_unsub_link || !$unsub_link_nonce){
+		 return false;
+            }
+            
+            if( $email_user_id != frontendscripts_params.user_id || 'yes' != $email_unsub_link){
+                alert(frontendscripts_params.unsub_link_error);
+		return false;
+            }
+            
+            alert(frontendscripts_params.unsub_link_success);
+            window.location.href = frontendscripts_params.site_url ;
+        },
         block : function ( id ) {
             $( id ).block( {
                 message : null ,

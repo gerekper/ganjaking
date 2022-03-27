@@ -67,7 +67,7 @@ class Loader implements Registrable {
 
 		$table_screen->register_screen_option( new ShowButton( $this->preference->is_active( $list_screen->get_key() ) ? 1 : 0 ) );
 
-		$script = new Script\AddNewInline( __( 'Quick Add', 'codepress-admin-columns' ), 'aca-add-new-inline', $this->location->with_suffix( 'assets/add-new-inline/js/table.js' ) );
+		$script = new Script\AddNewInline( __( 'Add Row', 'codepress-admin-columns' ), 'aca-add-new-inline', $this->location->with_suffix( 'assets/add-new-inline/js/table.js' ) );
 		$script->enqueue();
 	}
 

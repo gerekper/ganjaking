@@ -35,7 +35,7 @@ class ZohoUser implements ResourceOwnerInterface {
 	 *
 	 * @var array
 	 */
-	protected $availableSendEmailDetails = []; // phpcs:ignore
+	protected $availableSendEmailDetails = []; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
 
 	/**
 	 * ZohoUser constructor.
@@ -104,7 +104,7 @@ class ZohoUser implements ResourceOwnerInterface {
 	 */
 	public function getAvailableSendEmailDetails() {
 
-		return $this->availableSendEmailDetails; // phpcs:ignore
+		return $this->availableSendEmailDetails; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 	}
 
 	/**
@@ -118,8 +118,8 @@ class ZohoUser implements ResourceOwnerInterface {
 	 */
 	public function getAvailableSendEmailDetailsByEmail( $email ) {
 
-		if ( ! empty( $this->availableSendEmailDetails[ $email ] ) ) { // phpcs:ignore
-			return $this->availableSendEmailDetails[ $email ]; // phpcs:ignore
+		if ( ! empty( $this->availableSendEmailDetails[ $email ] ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			return $this->availableSendEmailDetails[ $email ]; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 
 		return [];
@@ -134,7 +134,7 @@ class ZohoUser implements ResourceOwnerInterface {
 
 		foreach ( $this->response['data'] as $data ) {
 			foreach ( $data['sendMailDetails'] as $details ) {
-				$this->availableSendEmailDetails[ $details['fromAddress'] ] = [ // phpcs:ignore
+				$this->availableSendEmailDetails[ $details['fromAddress'] ] = [ // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					'email'        => $details['fromAddress'],
 					'display_name' => $details['displayName'],
 					'account_id'   => $data['accountId'],

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Countries.
  *
  * @class    WC_CSP_Restrict_Shipping_Countries
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction, WC_CSP_Cart_Restriction {
 
@@ -381,7 +381,7 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 
 		// Initialize args.
 		$args                    = array();
-		$args[ 'package_count' ] = sizeof( $shipping_packages );
+		$args[ 'package_count' ] = count( $shipping_packages );
 
 		/* ----------------------------------------------------------------- */
 		/* Product Restrictions

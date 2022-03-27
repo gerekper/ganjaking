@@ -21,7 +21,7 @@ abstract class Mapping {
 	 * @param string|null $direction
 	 */
 	public function __construct( $direction = null ) {
-		if ( null === $direction || $direction !== self::REQUEST ) {
+		if ( $direction !== self::REQUEST ) {
 			$direction = self::RESPONSE;
 		}
 

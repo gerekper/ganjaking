@@ -259,8 +259,8 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 					if(empty($choice['label']) && is_array($choice)) {
 						if(in_array($choice_value, array('post_types', 'taxonomies'))) {
-							$group_labela = array('post_types' => __('Post types', 'permalink-manager'), 'taxonomies' => __('Taxonomies', 'permalink-manager'));
-							$fields .= sprintf('<p>%s</p>', $group_labela[$choice_value]);
+							$group_labels = array('post_types' => __('Post types', 'permalink-manager'), 'taxonomies' => __('Taxonomies', 'permalink-manager'));
+							$fields .= sprintf('<p>%s</p>', $group_labels[$choice_value]);
 						}
 
 						foreach($choice as $sub_choice_value => $sub_choice) {
@@ -327,7 +327,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 					$atts = ($choice_value == $value) ? "selected='selected'" : "";
 					$atts .= (!empty($choice['atts'])) ? " {$choice['atts']}" : "";
 
-					$fields .= "<option value='{$choice_value}' {$atts}>{$label}</option>";
+					if($choice == '---') {
+						$fields .= "<option disabled=\"disabled\">------------------</option>";
+					} else {
+						$fields .= "<option value='{$choice_value}' {$atts}>{$label}</option>";
+					}
 				}
 				$fields .= '</select>';
 				$fields .= '</span>';
@@ -404,10 +408,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 					foreach($languages as $lang => $name) {
 						$current_lang_permastruct = isset($permastructures["{$type_name}_{$lang}"]) ? $permastructures["{$type_name}_{$lang}"] : '';
+						$lang_siteurl = Permalink_Manager_Language_Plugins::prepend_lang_prefix($siteurl, null, $lang);
 
 						$fields .= "<label>{$name}</label>";
 						$fields .= "<div class=\"permastruct-container\">";
-						$fields .= "<span><code>{$siteurl}/</code></span>";
+						$fields .= "<span><code>{$lang_siteurl}/</code></span>";
 						$fields .= sprintf("<span><input type='text' %s value='%s' name='%s'/></span>", $input_atts, $current_lang_permastruct, str_replace("]", "_{$lang}]", $input_name));
 						$fields .= "</div>";
 					}
@@ -850,12 +855,23 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 		// Auto-update settings
 		$auto_update_def_val = $permalink_manager_options["general"]["auto_update_uris"];
-		$auto_update_def_label = ($auto_update_def_val) ? __("Yes", "permalink-manager") : __("No", "permalink-manager");
+
+		if($auto_update_def_val == 1) {
+			$auto_update_def_label = __("Auto-update \"Current URI\"", "permalink-manager");
+		} else if($auto_update_def_val == 2) {
+			$auto_update_def_label = __("Disable URI Editor", "permalink-manager");
+		} else {
+			$auto_update_def_label = __("Don't auto-update \"Current URI\"", "permalink-manager");
+		}
+
 		$auto_update_choices = array(
-			0 => array("label" => sprintf(__("Use global settings [%s]", "permalink-manager"), $auto_update_def_label), "atts" => "data-auto-update=\"{$auto_update_def_val}\""),
-			1 => array("label" => __("Yes", "permalink-manager"), "atts" => "data-auto-update=\"1\""),
-			-1 => array("label" => __("No", "permalink-manager"), "atts" => "data-auto-update=\"0\""),
-			-2 => array("label" => __("No (ignore this URI in bulk tools)", "permalink-manager"), "atts" => "data-auto-update=\"2\"")
+			0		=> array("label" => sprintf(__("Use global settings [%s]", "permalink-manager"), $auto_update_def_label), "atts" => "data-readonly=\"{$auto_update_def_val}\""),
+			10	=> '---',
+			-1	=> array("label" => __("Don't auto-update \"Current URI\"", "permalink-manager"), "atts" => "data-readonly=\"0\""),
+			-2	=> array("label" => __("Don't auto-update \"Current URI\" and exclude from the \"Regenerate/reset\" tool", "permalink-manager"), "atts" => "data-readonly=\"0\""),
+			1		=> array("label" => __("Auto-update \"Current URI\"", "permalink-manager"), "atts" => "data-readonly=\"1\""),
+			11	=> '---',
+			2		=> array("label" => __("Disable URI Editor to disallow permalink changes", "permalink-manager"), "atts" => "data-readonly=\"2\""),
 		);
 
 		// Decode default URI
@@ -884,12 +900,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			$custom_uri_field .= __("The custom URI cannot be edited on frontpage.", "permalink-manager");
 		} else {
 			$custom_uri_field = self::generate_option_field("custom_uri", array("extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
-			$custom_uri_field .= sprintf('<p class="uri_locked hidden">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __('The above permalink will be automatically updated to "Default URI" and is locked for editing.', 'permalink-manager'));
+			$custom_uri_field .= sprintf('<p class="uri_locked hidden">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __('The URL above is displayed in read-only mode. To enable editing, change the "<strong>URI update mode</strong>" to <em>Don\'t auto-update "Current URI"</em>.', 'permalink-manager'));
 		}
 
-		$html .= sprintf("<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s %s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>",
+		$html .= sprintf("<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>",
 			__("Current URI", "permalink-manager"),
-			($element->ID) ? self::help_tooltip(__("If custom URI is not defined, a default URI will be set (see below). The custom URI can be edited only if 'Auto-update the URI' feature is not enabled.", "permalink-manager")) : "",
 			$custom_uri_field
 		);
 
@@ -897,8 +912,8 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		if(empty($is_front_page)) {
 			if(!empty($auto_update_choices)) {
 				$html .= sprintf("<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>",
-					__("Auto-update \"Current URI\"", "permalink-manager"),
-					self::help_tooltip(__("If enabled, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
+					__("URI update mode", "permalink-manager"),
+					self::help_tooltip(__("If 'auto-update mode' is turned on, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
 					self::generate_option_field("auto_update_uri", array("type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices))
 				);
 			}

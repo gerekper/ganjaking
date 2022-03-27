@@ -3,31 +3,23 @@
 namespace ACP\RequestHandler\Ajax;
 
 use AC;
-use AC\Registrable;
+use AC\Nonce;
+use AC\Request;
 use ACP\Helper\Select;
+use ACP\RequestAjaxHandler;
 
-class ListScreenUsers implements Registrable {
+class ListScreenUsers implements RequestAjaxHandler {
 
-	public function register() {
-		$this->get_ajax_handler()->register();
-	}
+	public function handle() {
+		$request = new Request();
 
-	private function get_ajax_handler() {
-		$handler = new AC\Ajax\Handler();
-		$handler->set_action( 'acp_layout_get_users' )
-		        ->set_callback( [ $this, 'ajax_get_users' ] );
-
-		return $handler;
-	}
-
-	public function ajax_get_users() {
-		$this->get_ajax_handler()->verify_request();
-
-		$paged = filter_input( INPUT_POST, 'page' );
+		if ( ! ( new Nonce\Ajax() )->verify( $request ) ) {
+			wp_send_json_error();
+		}
 
 		$entities = new Select\Entities\User( [
-			'search' => filter_input( INPUT_POST, 'search' ),
-			'paged'  => $paged ?: 1,
+			'search' => $request->get( 'search' ),
+			'paged'  => $request->get( 'page', 1 ),
 			'number' => 10,
 		] );
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerde Redsys Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-23 21:47+0100\n"
-"PO-Revision-Date: 2021-11-23 21:57+0100\n"
+"PO-Revision-Date: 2021-12-21 09:50+0100\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: José Conti https://www.joseconti.com\n"
 "Language: es_ES\n"
@@ -265,7 +265,7 @@ msgstr "Bizum"
 
 #: ../classes/class-wc-gateway-bizum-redsys.php:111
 msgid "Bizum works by sending the user to Bizum Gateway"
-msgstr "Bizum funcinona embonado al usuario a la plataforma de Bizum"
+msgstr "Bizum funciona enviando al usuario a la plataforma de Bizum"
 
 #: ../classes/class-wc-gateway-bizum-redsys.php:116
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:113
@@ -2581,8 +2581,8 @@ msgstr "Activar enviar emails cuando un pago falla"
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:355
 #: ../classes/class-wc-gateway-redsys.php:416
-msgid "Send emails Ds_Card_Number problem"
-msgstr "Problema de envío de correos electrónicos  Ds_Card_Number"
+msgid "Send emails Ds_CardNumber problem"
+msgstr "Problema de envío de correos electrónicos  Ds_CardNumber"
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:357
 #: ../classes/class-wc-gateway-redsys.php:418
@@ -2591,7 +2591,7 @@ msgid ""
 "information. If Redsys isn't sending this field and this options is active, "
 "and email will be sent to the website administrator."
 msgstr ""
-"Si se usa la tokenización, el Ds_Card_Number archivado puede ser una "
+"Si se usa la tokenización, el Ds_CardNumber archivado puede ser una "
 "información interesante. Si Redsys no está enviando este campo y esta opción "
 "está activa, se enviará un correo electrónico al administrador de la web."
 

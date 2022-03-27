@@ -83,6 +83,12 @@ class HorizontalScrolling implements AC\Registrable {
 	 * @param AC\Table\Screen $table
 	 */
 	public function register_screen_option( $table ) {
+		$list_screen = $table->get_list_screen();
+
+		if ( ! $list_screen->get_settings() ) {
+			return;
+		}
+
 		$check_box = new AC\Form\Element\Checkbox( 'acp_overflow_list_screen_table' );
 
 		$label = __( 'Horizontal Scrolling', 'codepress-admin-columns' );

@@ -160,6 +160,18 @@ class WC_Pre_Orders {
 	}
 
 	/**
+	 * Loads the classes for the integration with WooCommerce Blocks.
+	 */
+	public static function load_block_classes() {
+
+		if ( WC_PRE_ORDERS_GUTENBERG_EXISTS ) {
+			require_once __DIR__ . '/blocks/class-wc-pre-orders-blocks-integration.php';
+			require_once __DIR__ . '/blocks/class-wc-pre-orders-extend-store-api.php';
+			new WooCommerce\Pre_Orders\Blocks\WC_Pre_Orders_Blocks_Integration();
+		}
+	}
+
+	/**
 	 * Load actions and filters that require WC to be loaded
 	 *
 	 * @since 1.0

@@ -1,5 +1,16 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-02-25 - version 3.9
+* PLUGINS-1394 - Add Compatibility for upcoming Dropshipping Pro.
+
+2022-01-07 - version 3.8
+* PLUGINS-1206 - Fix GST tax split for order containing produts from multiple supplier.
+* PLUGINS-1230 - Fix plugin returns an error when activated without 'WooCommerce plugin' activated supplier itself.
+* PLUGINS-1234 - Fix deleted supplier attached to a product still showing in orders and emails.
+* PLUGINS-1254 - Fix packing slip 'Comments' field under footer value not saving.
+* PLUGINS-1277 - Fix menu for the Dropshippers dashboard isn't visible in mobile.
+
+
 2021-10-21 - version 3.7
 * PLUGINS-1200 - Fix Suppliers order page filter issue
 * PLUGINS-1204 - Fix Remove product name that is not belong to supplier itself

@@ -19,20 +19,38 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class Delegate extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $delegateEmail;
+    /**
+     * @var string
+     */
     public $verificationStatus;
+    /**
+     * @param string
+     */
     public function setDelegateEmail($delegateEmail)
     {
         $this->delegateEmail = $delegateEmail;
     }
+    /**
+     * @return string
+     */
     public function getDelegateEmail()
     {
         return $this->delegateEmail;
     }
+    /**
+     * @param string
+     */
     public function setVerificationStatus($verificationStatus)
     {
         $this->verificationStatus = $verificationStatus;
     }
+    /**
+     * @return string
+     */
     public function getVerificationStatus()
     {
         return $this->verificationStatus;

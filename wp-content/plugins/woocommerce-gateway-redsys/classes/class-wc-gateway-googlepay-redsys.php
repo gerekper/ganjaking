@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Gateway class
  */
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -24,7 +24,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function __construct() {
 		global $woocommerce;
@@ -72,7 +72,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function is_valid_for_use() {
 
@@ -93,7 +93,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -142,7 +142,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function init_form_fields() {
 		$this->form_fields = array(
@@ -224,7 +224,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_error_by_code( $error_code ) {
 
@@ -271,7 +271,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_currencies() {
 
@@ -315,7 +315,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_googlepay_args( $order ) {
 		global $woocommerce;
@@ -343,28 +343,28 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		} else {
 			$$returnfromgooglepay = $order->get_cancel_order_url();
 		}
-		$DSMerchantTerminal = $this->terminal;
+		$ds_merchant_terminal = $this->terminal;
 
 		// redsys Args
-		$miObj = new RedsysAPI();
-		$miObj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miObj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$miObj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
-		$miObj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $DSMerchantTerminal );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $this->notify_url );
-		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$miObj->setParameter( 'DS_MERCHANT_URLKO', $returnfromgooglepay );
-		$miObj->setParameter( 'DS_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
-		$miObj->setParameter( 'Ds_Merchant_PayMethods', 'N' );
+		$mi_obj = new RedsysAPI();
+		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
+		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $ds_merchant_terminal );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $this->notify_url );
+		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $returnfromgooglepay );
+		$mi_obj->setParameter( 'DS_CONSUMERLANGUAGE', $gatewaylanguage );
+		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->setParameter( 'Ds_Merchant_PayMethods', 'N' );
 
 		$version        = 'HMAC_SHA256_V1';
 		$request        = '';
-		$params         = $miObj->createMerchantParameters();
-		$signature      = $miObj->createMerchantSignature( $secretsha256 );
+		$params         = $mi_obj->createMerchantParameters();
+		$signature      = $mi_obj->createMerchantSignature( $secretsha256 );
 		$googlepay_args = array(
 			'Ds_SignatureVersion'   => $version,
 			'Ds_MerchantParameters' => $params,
@@ -386,7 +386,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function generate_googlepay_form( $order_id ) {
 		global $woocommerce;
@@ -436,7 +436,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function process_payment( $order_id ) {
 
@@ -456,7 +456,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function receipt_page( $order ) {
 		echo '<p>' . __( 'Thank you for your order, please click the button below to pay with GooglePay.', 'woocommerce-redsys' ) . '</p>';
@@ -469,7 +469,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -482,8 +482,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 			$version     = $_POST['Ds_SignatureVersion'];
 			$data        = $_POST['Ds_MerchantParameters'];
 			$remote_sign = $_POST['Ds_Signature'];
-			$miObj       = new RedsysAPI();
-			$localsecret = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$mi_obj       = new RedsysAPI();
+			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
 
 			if ( $localsecret == $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
@@ -524,7 +524,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function check_ipn_response() {
 
@@ -548,7 +548,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -556,24 +556,24 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		$version     = $_POST['Ds_SignatureVersion'];
 		$data        = $_POST['Ds_MerchantParameters'];
 		$remote_sign = $_POST['Ds_Signature'];
-		$miObj       = new RedsysAPI();
+		$mi_obj       = new RedsysAPI();
 
-		$decodedata        = $miObj->decodeMerchantParameters( $data );
-		$localsecret       = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $miObj->getParameter( 'Ds_Amount' );
-		$ordermi           = $miObj->getParameter( 'Ds_Order' );
-		$dscode            = $miObj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $miObj->getParameter( 'Ds_Currency' );
-		$response          = $miObj->getParameter( 'Ds_Response' );
-		$id_trans          = $miObj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = $miObj->getParameter( 'Ds_Date' );
-		$dshour            = $miObj->getParameter( 'Ds_Hour' );
-		$dstermnal         = $miObj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $miObj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $miObj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $miObj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $miObj->getParameter( 'Ds_ConsumerLanguage' );
-		$dscargtype        = $miObj->getParameter( 'Ds_Card_Type' );
+		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
+		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+		$total             = $mi_obj->getParameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
+		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
+		$response          = $mi_obj->getParameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
+		$dsdate            = $mi_obj->getParameter( 'Ds_Date' );
+		$dshour            = $mi_obj->getParameter( 'Ds_Hour' );
+		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
+		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
 		$order1            = $ordermi;
 		$order2            = WCRed()->clean_order_number( $order1 );
 		$order             = WCRed()->get_order( (int) $order2 );
@@ -678,7 +678,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function get_googlepay_order( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -688,7 +688,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public function warning_checkout_test_mode_googlepay() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
@@ -708,7 +708,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function woocommerce_add_gateway_googlepay_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_GooglePay_Redsys';

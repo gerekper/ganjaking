@@ -3,7 +3,7 @@
 * Plugin Name: GP Limit Checkboxes
 * Description: Limit how many checkboxes can be checked.
 * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-limit-checkboxes/
-* Version: 1.2.11
+* Version: 1.3.4
 * Author: Gravity Wiz
 * Author URI: http://gravitywiz.com/
 * License: GPL2
@@ -12,7 +12,7 @@
 * Domain Path: /languages
 */
 
-define( 'GP_LIMIT_CHECKBOXES_VERSION', '1.2.11' );
+define( 'GP_LIMIT_CHECKBOXES_VERSION', '1.3.4' );
 
 require 'includes/class-gp-bootstrap.php';
 

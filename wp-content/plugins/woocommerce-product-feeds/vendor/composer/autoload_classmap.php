@@ -74,6 +74,7 @@ return array(
     'WoocommerceProductFeedsIntegrationManager' => $baseDir . '/src/common/woocommerce-product-feeds-integration-manager.php',
     'WoocommerceProductFeedsJobManager' => $baseDir . '/src/jobs/woocommerce-product-feeds-job-manager.php',
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
+    'WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php',
     'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
     'WoocommerceProductFeedsWoocommerceAdminIntegration' => $baseDir . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',

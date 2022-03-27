@@ -116,7 +116,7 @@ class WC_Account_Funds_Order_Manager {
 			sprintf(
 				/* translators: 1: Funds amount, 2: Customer ID */
 				__( 'Removed %1$s funds from user %2$s', 'woocommerce-account-funds' ),
-				wc_price( $funds ),
+				wc_account_funds_format_order_price( $order, $funds ),
 				$customer_id
 			)
 		);
@@ -148,7 +148,7 @@ class WC_Account_Funds_Order_Manager {
 					sprintf(
 						/* translators: 1: Funds amount, 2: Customer ID */
 						__( 'Removed %1$s funds from user #%2$s', 'woocommerce-account-funds' ),
-						wc_price( $funds_used ),
+						wc_account_funds_format_order_price( $order, $funds_used ),
 						$customer_id
 					)
 				);
@@ -233,7 +233,7 @@ class WC_Account_Funds_Order_Manager {
 					sprintf(
 						/* translators: 1: Funds amount, 2: Customer ID */
 						__( 'Restored %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
-						wc_price( $funds ),
+						wc_account_funds_format_order_price( $order, $funds ),
 						$customer_id
 					)
 				);
@@ -297,7 +297,7 @@ class WC_Account_Funds_Order_Manager {
 				sprintf(
 					/* translators: 1: Funds amount, 2: Customer ID */
 					__( 'Added %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
-					wc_price( $funds ),
+					wc_account_funds_format_order_price( $order, $funds ),
 					$customer_id
 				)
 			);
@@ -327,7 +327,7 @@ class WC_Account_Funds_Order_Manager {
 				array(
 					'funds_used' => array(
 						'label' => __( 'Funds Used:', 'woocommerce-account-funds' ),
-						'value' => '-' . wc_price( $funds_used ),
+						'value' => '-' . wc_account_funds_format_order_price( $order, $funds_used ),
 					),
 				),
 				array_slice( $rows, $index )
@@ -432,7 +432,7 @@ class WC_Account_Funds_Order_Manager {
 		<tr>
 			<td class="label"><?php _e( 'Funds Used', 'woocommerce-account-funds' ); ?>:</td>
 			<td width="1%"></td>
-			<td class="total"><?php echo '-' . wc_price( $funds_used ); ?></td>
+			<td class="total"><?php echo '-' . wc_account_funds_format_order_price( $order, $funds_used ); ?></td>
 		</tr>
 		<?php
 	}

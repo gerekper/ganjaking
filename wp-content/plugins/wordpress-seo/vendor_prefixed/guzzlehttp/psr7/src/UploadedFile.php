@@ -25,7 +25,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
      */
     private $error;
     /**
-     * @var null|string
+     * @var string|null
      */
     private $file;
     /**
@@ -42,10 +42,10 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     private $stream;
     /**
      * @param StreamInterface|string|resource $streamOrFile
-     * @param int $size
-     * @param int $errorStatus
-     * @param string|null $clientFilename
-     * @param string|null $clientMediaType
+     * @param int                             $size
+     * @param int                             $errorStatus
+     * @param string|null                     $clientFilename
+     * @param string|null                     $clientMediaType
      */
     public function __construct($streamOrFile, $size, $errorStatus, $clientFilename = null, $clientMediaType = null)
     {
@@ -61,6 +61,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
      * Depending on the value set file or stream variable
      *
      * @param mixed $streamOrFile
+     *
      * @throws InvalidArgumentException
      */
     private function setStreamOrFile($streamOrFile)
@@ -77,6 +78,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param int $error
+     *
      * @throws InvalidArgumentException
      */
     private function setError($error)
@@ -91,6 +93,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param int $size
+     *
      * @throws InvalidArgumentException
      */
     private function setSize($size)
@@ -102,7 +105,8 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param mixed $param
-     * @return boolean
+     *
+     * @return bool
      */
     private function isStringOrNull($param)
     {
@@ -110,7 +114,8 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param mixed $param
-     * @return boolean
+     *
+     * @return bool
      */
     private function isStringNotEmpty($param)
     {
@@ -118,6 +123,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param string|null $clientFilename
+     *
      * @throws InvalidArgumentException
      */
     private function setClientFilename($clientFilename)
@@ -129,6 +135,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * @param string|null $clientMediaType
+     *
      * @throws InvalidArgumentException
      */
     private function setClientMediaType($clientMediaType)
@@ -141,14 +148,14 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     /**
      * Return true if there is no upload error
      *
-     * @return boolean
+     * @return bool
      */
     private function isOk()
     {
         return $this->error === \UPLOAD_ERR_OK;
     }
     /**
-     * @return boolean
+     * @return bool
      */
     public function isMoved()
     {
@@ -168,6 +175,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
     }
     /**
      * {@inheritdoc}
+     *
      * @throws RuntimeException if the upload was not successful.
      */
     public function getStream()
@@ -183,11 +191,13 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
      *
      * @see http://php.net/is_uploaded_file
      * @see http://php.net/move_uploaded_file
+     *
      * @param string $targetPath Path to which to move the uploaded file.
-     * @throws RuntimeException if the upload was not successful.
+     *
+     * @throws RuntimeException         if the upload was not successful.
      * @throws InvalidArgumentException if the $path specified is invalid.
-     * @throws RuntimeException on any error during the move operation, or on
-     *     the second or subsequent call to the method.
+     * @throws RuntimeException         on any error during the move operation, or on
+     *                                  the second or subsequent call to the method.
      */
     public function moveTo($targetPath)
     {
@@ -198,7 +208,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
         if ($this->file) {
             $this->moved = \php_sapi_name() == 'cli' ? \rename($this->file, $targetPath) : \move_uploaded_file($this->file, $targetPath);
         } else {
-            copy_to_stream($this->getStream(), new \YoastSEO_Vendor\GuzzleHttp\Psr7\LazyOpenStream($targetPath, 'w'));
+            \YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::copyToStream($this->getStream(), new \YoastSEO_Vendor\GuzzleHttp\Psr7\LazyOpenStream($targetPath, 'w'));
             $this->moved = \true;
         }
         if (\false === $this->moved) {
@@ -218,6 +228,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
      * {@inheritdoc}
      *
      * @see http://php.net/manual/en/features.file-upload.errors.php
+     *
      * @return int One of PHP's UPLOAD_ERR_XXX constants.
      */
     public function getError()
@@ -228,7 +239,7 @@ class UploadedFile implements \YoastSEO_Vendor\Psr\Http\Message\UploadedFileInte
      * {@inheritdoc}
      *
      * @return string|null The filename sent by the client or null if none
-     *     was provided.
+     *                     was provided.
      */
     public function getClientFilename()
     {

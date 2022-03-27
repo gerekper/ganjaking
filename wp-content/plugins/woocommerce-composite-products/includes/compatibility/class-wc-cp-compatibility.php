@@ -72,7 +72,7 @@ class WC_CP_Compatibility {
 	public function __construct() {
 
 		$this->required = array(
-			'pb'  => '6.12.0',
+			'pb'  => '6.14.0',
 			'ci'  => '1.2.4',
 			'pao' => '3.0.14'
 		);
@@ -159,11 +159,6 @@ class WC_CP_Compatibility {
 			$module_paths[ 'pre_orders' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-po-compatibility.php';
 		}
 
-		// Product Bundles support.
-		if ( class_exists( 'WC_Bundles' ) && function_exists( 'WC_PB' ) && version_compare( WC_CP()->plugin_version( true, WC_PB()->version ), $this->required[ 'pb' ] ) >= 0 ) {
-			$module_paths[ 'product_bundles' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-pb-compatibility.php';
-		}
-
 		// One Page Checkout support.
 		if ( function_exists( 'is_wcopc_checkout' ) ) {
 			$module_paths[ 'one_page_checkout' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-opc-compatibility.php';
@@ -198,7 +193,7 @@ class WC_CP_Compatibility {
 		}
 
 		// Subscriptions fixes.
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 			$module_paths[ 'subscriptions' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-subscriptions-compatibility.php';
 		}
 

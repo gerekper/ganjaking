@@ -115,6 +115,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                'orderby'        => 'meta_value_num',
                'order'          => $settings['articles_sort'],
            );
+           $args = apply_filters('betterdocs_articles_args', $args);
            $post_query = new WP_Query($args);
            if ($post_query->have_posts()) :
                echo '<ul>';

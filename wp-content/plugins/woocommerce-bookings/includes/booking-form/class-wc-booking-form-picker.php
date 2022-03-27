@@ -29,25 +29,25 @@ abstract class WC_Booking_Form_Picker {
 	 * @return string
 	 */
 	protected function get_min_date() {
-		$js_string = '';
-		$min_date  = $this->booking_form->product->get_min_date();
+		$js_string     = '';
+		$min_date      = $this->booking_form->product->get_min_date();
+		$duration_unit = $this->booking_form->product->get_duration_unit();
 		if ( $min_date['value'] ) {
 			$unit = strtolower( substr( $min_date['unit'], 0, 1 ) );
 
 			if ( in_array( $unit, array( 'd', 'w', 'y', 'm' ) ) ) {
 				$js_string = "+{$min_date['value']}{$unit}";
 			} elseif ( 'h' === $unit ) {
-
-				// if less than 24 hours are entered, we determine if the time falls in today or tomorrow.
-				// if more than 24 hours are entered, we determine how many days should be marked off
-				if ( 24 > $min_date['value'] ) {
-					$current_d = date( 'd', current_time( 'timestamp' ) );
-					$min_d     = date( 'd', strtotime( "+{$min_date['value']} hour", current_time( 'timestamp' ) ) );
-					$js_string = '+' . ( $current_d == $min_d ? 0 : 1 ) . 'd';
-				} else {
-					$min_d = (int) ( $min_date['value'] / 24 );
-					$js_string = '+' . $min_d . 'd';
-				}
+				/**
+				 * Get 1. the current day & 2. the day after minimum bookable time,
+				 * The day difference between them, should be blocked from now!
+				 * Fix for https://github.com/woocommerce/woocommerce-bookings/issues/2770
+				 */
+				$current_day    = (int) date( 'd', current_time( 'timestamp' ) );
+				$min_timestamp  = strtotime( "+{$min_date['value']} hour", current_time( 'timestamp' ) );
+				$min_day        = (int) date( 'd', strtotime( "+1 {$duration_unit}", $min_timestamp ) );
+				$days_in_future = $min_day - $current_day;
+				$js_string      = '+' . $days_in_future . 'd';
 			}
 		}
 		return $js_string;

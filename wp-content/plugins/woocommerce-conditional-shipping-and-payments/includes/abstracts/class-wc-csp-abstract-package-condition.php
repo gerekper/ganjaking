@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Condition class.
  *
  * @class    WC_CSP_Condition
- * @version  1.8.6
+ * @version  1.12.1
  */
 class WC_CSP_Package_Condition extends WC_CSP_Condition {
 
@@ -27,7 +27,7 @@ class WC_CSP_Package_Condition extends WC_CSP_Condition {
 	 * @return int
 	 */
 	protected function get_package_count( $args ) {
-		return isset( $args[ 'package_count' ] ) ? absint( $args[ 'package_count' ] ) : sizeof( $this->get_packages() );
+		return isset( $args[ 'package_count' ] ) ? absint( $args[ 'package_count' ] ) : count( $this->get_packages() );
 	}
 
 	/**

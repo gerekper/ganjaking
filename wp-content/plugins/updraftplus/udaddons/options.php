@@ -244,7 +244,7 @@ class UpdraftPlusAddOns_Options2 {
 			// Not translated; it's only seen in development
 			if (false === strpos($this->mother, '//updraftplus.com')) echo ' <strong>(Updates URL: '.$this->mother.')</strong>.';
 			
-			echo ' <a href="'.UpdraftPlus::get_current_clean_url().'" onclick="jQuery(\'#updraft-navtab-addons-content .ud_connectsubmit\').click(); return false;">'.__('If you bought new add-ons, then follow this link to refresh your connection', 'updraftplus').'</a>.';
+			echo ' <a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" onclick="jQuery(\'#updraft-navtab-addons-content .ud_connectsubmit\').click(); return false;">'.__('If you bought new add-ons, then follow this link to refresh your connection', 'updraftplus').'</a>.';
 			if (!empty($options['password'])) echo ' '.__("Note that after you have claimed your add-ons, you can remove your password (but not the email address) from the settings below, without affecting this site's access to updates.", 'updraftplus');
 
 			echo '</p>';

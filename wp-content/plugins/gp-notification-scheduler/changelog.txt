@@ -1,0 +1,91 @@
+
+# Changelog
+
+## 1.1.2
+
+	- Added support for scheduling notifications even when the entry does not have its `date_created` or `date_modified` property set (as is the case with Partial Entries).
+
+## 1.1.1
+
+	- Updated the GP Notification Scheduler Rebuild Batcher to be form-specific.
+
+## 1.1
+
+ 	- Added new functionality for handling unsubscribing. See the [Notification Scheduler documentation](https://gravitywiz.com/documentation/gravity-forms-notification-scheduler/#unsubscribe) for usage details.
+ 	- Updated how notification notes were added to better attribute them to Notification Scheduler.
+	- Fixed issue where scheduling based off of date fields would use UTC rather than the timezone set in Settings » General.
+	- Fixed issue where notifications scheduled using Date fields and attached to events such as Payment Failed would be scheduled even if the payment didn't fail.
+	- Fixed issue where notifications for events such as Payment Completed would be immediately sent as well as scheduled.
+
+## 1.0.3
+
+	- Fixed issue where notifications without an explicit "isActive" property were ignored when rebuilding the notification queue.
+
+## 1.0.2
+
+	- Added [`gpns_schedule_timestamp`](https://gravitywiz.com/documentation/gpns_schedule_timestamp) and [`gpns_evaluate_conditional_logic_on_send`](https://gravitywiz.com/documentation/gpns_evaluate_conditional_logic_on_send) PHP filters.
+
+## 1.0.1
+
+	- Added inline documentation to filters and simplified get_schedule_offset_units/get_schedule_recurring_units to simply get_units.
+
+## 1.0
+
+	- Public release!
+
+## 0.10.2
+
+	- Fixed issue where scheduling notifications on a specific date would always use UTC rather than the site's timezone.
+
+## 0.10.1
+
+	- Fixed issue where notifications weren't rescheduled on entry update due to strict comparison.
+	- Added `Perk: True` to plugin header
+	- Removed placeholders from inputs as I've been confused by them more than once.
+	- Added ability to delete scheduled notifications on the Entry Details screen.
+
+## 0.10.0
+
+	- Removed "Scheduled" event type in favor of the "Schedule" setting.
+	- Updated minimum Gravity Forms version to 2.5.
+	- Updated settings UI to work in Gravity Forms 2.5.
+
+## 0.9.15
+
+	- Fixed an issue where GPSN sent notifications for trashed entries.
+
+## 0.9.14
+
+	- Added logging to notifications cron.
+
+## 0.9.13
+
+	- Fixed potential error under "Scheduled Notifications" in the entry view if using the GMT +0 timezone.
+	- Fixed issue where a MySQL error would sometimes be seen in the error logs after the cron event to send notifications ran.
+
+## 0.9.11
+
+	- Added GF_Notification_Scheduler::rebuild_notification_queue() method
+
+## 0.9.10
+
+	- Fixed issue where conditional logic was not evaluated before adding notification to the queue.
+
+## 0.9.9
+
+	- Added support for style/script minification.
+
+## 0.9.8
+
+	- Added GF 2.3 support.
+	- Fixed conflict with 2.3 where date-based notifications were queued twice on submission.
+
+## 0.9.7
+
+	- Fixed notice appearing in notifications list on the entry detail view when no timezone was configured.
+	- Added support for catching scheduled notifications that no longer exist.
+	- Added support for recurring notifications on dates that originate before the current time.
+
+## 0.9
+
+	- Hello World!

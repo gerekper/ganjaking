@@ -17,6 +17,8 @@ use WPMailSMTP\WP;
 class SinglePage extends PageAbstract {
 
 	/**
+	 * The Email object for displaying on the single log page.
+	 *
 	 * @since 1.5.0
 	 *
 	 * @var Email
@@ -89,7 +91,9 @@ class SinglePage extends PageAbstract {
 				if ( ! wp_mail_smtp()->pro->get_logs()->is_valid_db() ) {
 					$this->display_logging_not_installed();
 				} else {
-					$this->email = new Email( (int) $_GET['email_id'] ); // phpcs:ignore
+
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+					$this->email = new Email( intval( $_GET['email_id'] ) );
 
 					if ( $this->email->is_valid() ) {
 						?>
@@ -310,7 +314,7 @@ class SinglePage extends PageAbstract {
 	 *
 	 * @param Email $email Email instance.
 	 */
-	public function email_meta( $email ) {
+	public function email_meta( $email ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 		?>
 		<div id="wp-mail-smtp-email-meta" class="postbox">
 

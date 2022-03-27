@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with the prices of subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product_Prices
- * @version  3.1.0
+ * @version  3.2.1
  */
 class WCS_ATT_Product_Prices {
 
@@ -264,7 +264,7 @@ class WCS_ATT_Product_Prices {
 					}
 
 					// Add "from" string.
-					if ( $has_variable_price || sizeof( $schemes ) > 1 ) {
+					if ( $has_variable_price || count( $schemes ) > 1 ) {
 
 						if ( 'prompt' === $context ) {
 
@@ -274,7 +274,7 @@ class WCS_ATT_Product_Prices {
 
 							$add_html_from_text = true;
 
-							if ( $product->is_type( 'variable' ) && sizeof( $schemes ) === 1 ) {
+							if ( $product->is_type( 'variable' ) && count( $schemes ) === 1 ) {
 								$add_html_from_text = false;
 							}
 
@@ -296,38 +296,44 @@ class WCS_ATT_Product_Prices {
 						$price_html = empty( $args[ 'price' ] ) ? self::get_price_html_unfiltered( $product ) : $args[ 'price' ];
 					}
 
-					$discount                   = '';
-					$suffix_price_html          = '';
-					$allow_discount_html_format = true;
-					$has_variable_discount      = false;
-					$price_filter_exists        = WCS_ATT_Product_Schemes::price_filter_exists( $schemes );
-					$switched_scheme            = WCS_ATT_Product_Schemes::set_subscription_scheme( $product, $base_scheme_key );
+					$suffix_price_html                = '';
+					$allow_discount_price_html_suffix = true;
+					$apply_discount_price_html_suffix = false;
+					$has_variable_discount            = false;
+					$price_filter_exists              = WCS_ATT_Product_Schemes::price_filter_exists( $schemes );
+					$switched_scheme                  = WCS_ATT_Product_Schemes::set_subscription_scheme( $product, $base_scheme_key );
+					$base_scheme_discount             = $base_scheme->get_discount();
 
 					if ( ! $price_filter_exists ) {
-						$allow_discount_html_format = false;
+						$allow_discount_price_html_suffix = false;
+					} elseif ( ! $base_scheme_discount ) {
+						$allow_discount_price_html_suffix = false;
 					} elseif ( in_array( $context, array( 'catalog', 'prompt' ) ) ) {
-						if ( sizeof( $schemes ) === 1 ) {
-							$allow_discount_html_format = false;
+						if ( count( $schemes ) === 1 ) {
+							$allow_discount_price_html_suffix = false;
 						} elseif ( isset( $args[ 'allow_discount' ] ) && false === $args[ 'allow_discount' ] ) {
-							$allow_discount_html_format = false;
+							$allow_discount_price_html_suffix = false;
 						}
 					}
 
 					// Show discount format if all schemes are of the 'inherit' pricing mode type.
-					if ( $allow_discount_html_format ) {
+					if ( $allow_discount_price_html_suffix ) {
+
+						$apply_discount_price_html_suffix = true;
+						$found_discount                   = '';
 
 						foreach ( $schemes as $scheme ) {
 							if ( $scheme->has_price_filter() ) {
 
 								if ( 'inherit' !== $scheme->get_pricing_mode() ) {
 
-									$allow_discount_html_format = false;
+									$apply_discount_price_html_suffix = false;
 									break;
 
-								} elseif ( $discount !== $scheme->get_discount() ) {
+								} elseif ( $found_discount !== $scheme->get_discount() ) {
 
-									if ( '' === $discount ) {
-										$discount = $scheme->get_discount();
+									if ( '' === $found_discount ) {
+										$found_discount = $scheme->get_discount();
 									} else {
 										$has_variable_discount = true;
 									}
@@ -337,23 +343,23 @@ class WCS_ATT_Product_Prices {
 								$has_variable_discount = true;
 							}
 						}
+
+						$apply_discount_price_html_suffix = apply_filters( 'wcsatt_price_html_discount_format', true, $product, $args );
 					}
 
-					$allow_discount_html_format = apply_filters( 'wcsatt_price_html_discount_format', $allow_discount_html_format, $product, $args );
-
 					// Using discount format?
-					if ( $allow_discount_html_format ) {
+					if ( $apply_discount_price_html_suffix ) {
 
 						// Merge into "subscribe" string when applicable.
 
 						if ( 'prompt' === $context ) {
 
-							$discount_html = ' <span class="wcsatt-sub-discount">' . sprintf( _x( '%s&#37;', 'subscribe and save discount', 'woocommerce-all-products-for-subscriptions' ), round( $base_scheme->get_discount(), self::get_formatted_discount_precision() ) ) . '</span>';
+							$discount_html = ' <span class="wcsatt-sub-discount">' . sprintf( _x( '%s&#37;', 'subscribe and save discount', 'woocommerce-all-products-for-subscriptions' ), round( $base_scheme_discount, self::get_formatted_discount_precision() ) ) . '</span>';
 							$price_html    = sprintf( $subscribe_discounted_html, $has_variable_discount ? __( 'up to', 'woocommerce-all-products-for-subscriptions' ) : '', $discount_html );
 
 						} else {
 
-							$discount_html     = '</small> <span class="wcsatt-sub-discount">' . sprintf( _x( '%s&#37;', 'subscribe and save discount', 'woocommerce-all-products-for-subscriptions' ), round( $base_scheme->get_discount(), self::get_formatted_discount_precision() ) ) . '</span><small>';
+							$discount_html     = '</small> <span class="wcsatt-sub-discount">' . sprintf( _x( '%s&#37;', 'subscribe and save discount', 'woocommerce-all-products-for-subscriptions' ), round( $base_scheme_discount, self::get_formatted_discount_precision() ) ) . '</span><small>';
 							$suffix_price_html = sprintf( __( 'subscribe and save %1$s%2$s', 'woocommerce-all-products-for-subscriptions' ), $has_variable_discount ? __( 'up to', 'woocommerce-all-products-for-subscriptions' ) : '', $discount_html );
 							$suffix            = '<small class="wcsatt-sub-options">' . sprintf( _x( ' <span class="wcsatt-dash">&mdash;</span> or %s', 'subscribe and save suffix format', 'woocommerce-all-products-for-subscriptions' ), $suffix_price_html ) . '</small>';
 						}
@@ -370,7 +376,7 @@ class WCS_ATT_Product_Prices {
 
 							if ( $price_filter_exists ) {
 
-								if ( sizeof( $schemes ) > 1 ) {
+								if ( count( $schemes ) > 1 ) {
 									$price_html = sprintf( $subscribe_from_html, '<span class="price subscription-price">' . $base_scheme_price_html . '</span>' );
 								} else {
 									$price_html = sprintf( $subscribe_for_html, '<span class="price subscription-price">' . $base_scheme_price_html . '</span>' );
@@ -378,7 +384,7 @@ class WCS_ATT_Product_Prices {
 
 							} else {
 
-								if ( sizeof( $schemes ) > 1 ) {
+								if ( count( $schemes ) > 1 ) {
 									$price_html = sprintf( $subscribe_options_html, '<span class="no-price subscription-price">' . $base_scheme_price_html . '</span>' );
 								} else {
 									$price_html = sprintf( $subscribe_for_html, '<span class="price subscription-price">' . $base_scheme_price_html . '</span>' );
@@ -387,7 +393,7 @@ class WCS_ATT_Product_Prices {
 
 						} else {
 
-							if ( sizeof( $schemes ) > 1 ) {
+							if ( count( $schemes ) > 1 ) {
 								$suffix_price_html = sprintf( _x( '%1$s%2$s', 'Price range: starting at', 'woocommerce-all-products-for-subscriptions' ), _x( '<span class="from">from</span> ', 'subscriptions "starting at" price string', 'woocommerce-all-products-for-subscriptions' ), str_replace( $html_from_text_native, '', $base_scheme_price_html ) );
 							} elseif ( $has_variable_price ) {
 								$suffix_price_html = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-all-products-for-subscriptions' ), _x( '<span class="from">from</span> ', 'subscription "from" price string', 'woocommerce-all-products-for-subscriptions' ), str_replace( $html_from_text_native, '', $base_scheme_price_html ) );
@@ -396,9 +402,9 @@ class WCS_ATT_Product_Prices {
 							}
 
 							if ( $price_filter_exists ) {
-								$suffix = '<small class="wcsatt-sub-options">' . sprintf( _n( ' <span class="wcsatt-dash">&mdash;</span> or %s', ' <span class="wcsatt-dash">&mdash;</span> available on subscription %s', sizeof( $schemes ), 'woocommerce-all-products-for-subscriptions' ), $suffix_price_html ) . '</small>';
+								$suffix = '<small class="wcsatt-sub-options">' . sprintf( _n( ' <span class="wcsatt-dash">&mdash;</span> or %s', ' <span class="wcsatt-dash">&mdash;</span> available on subscription %s', count( $schemes ), 'woocommerce-all-products-for-subscriptions' ), $suffix_price_html ) . '</small>';
 							} else {
-								$suffix = '<small class="wcsatt-sub-options">' . sprintf( _n( ' <span class="wcsatt-dash">&mdash;</span> available on subscription', ' <span class="wcsatt-dash">&mdash;</span> available on subscription', sizeof( $schemes ), 'woocommerce-all-products-for-subscriptions' ), $suffix_price_html ) . '</small>';
+								$suffix = '<small class="wcsatt-sub-options">' . sprintf( _n( ' <span class="wcsatt-dash">&mdash;</span> available on subscription', ' <span class="wcsatt-dash">&mdash;</span> available on subscription', count( $schemes ), 'woocommerce-all-products-for-subscriptions' ), $suffix_price_html ) . '</small>';
 							}
 						}
 					}

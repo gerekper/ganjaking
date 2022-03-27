@@ -172,10 +172,10 @@ class Zoho extends AbstractProvider {
 
 		// Business code layer might set a different redirect_uri parameter depending on the context, leave it as-is.
 		if ( ! isset( $options['redirect_uri'] ) ) {
-			$options['redirect_uri'] = $this->redirectUri; // phpcs:ignore
+			$options['redirect_uri'] = $this->redirectUri; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 
-		$options['client_id'] = $this->clientId; // phpcs:ignore
+		$options['client_id'] = $this->clientId; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		if (
 			isset( $this->access_type ) &&
@@ -216,9 +216,9 @@ class Zoho extends AbstractProvider {
 	 */
 	protected function checkResponse( ResponseInterface $response, $data ) {
 
-		$responseData = $this->parseResponse( $response ); // phpcs:ignore
-		if ( array_key_exists( 'error', $responseData ) ) { // phpcs:ignore
-			throw new IdentityProviderException( $responseData['error'], $response->getStatusCode(), $response ); // phpcs:ignore
+		$responseData = $this->parseResponse( $response ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		if ( array_key_exists( 'error', $responseData ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			throw new IdentityProviderException( $responseData['error'], $response->getStatusCode(), $response ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		}
 	}
 

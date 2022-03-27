@@ -666,6 +666,7 @@ gform.options = {
      */
 
     jqEditorAccordions: {
+    	header: 'button:not(.choices-ui__trigger):not(.conditional_logic_wrapper)',
         heightStyle: 'content',
         collapsible: true,
         animate: false,
@@ -675,7 +676,19 @@ gform.options = {
         activate: function( event ) {
             gform.tools.setAttr( '.ui-accordion-header', 'tabindex', '0', event.target, 100 );
         },
-    }
+    },
+
+	jqAddFieldAccordions: {
+		heightStyle: 'content',
+		collapsible: true,
+		animate: false,
+		create: function( event ) {
+			gform.tools.setAttr( '.ui-accordion-header', 'tabindex', '0', event.target, 100 );
+		},
+		activate: function( event ) {
+			gform.tools.setAttr( '.ui-accordion-header', 'tabindex', '0', event.target, 100 );
+		},
+	},
 };
 
 //------------------------------------------------
@@ -1184,7 +1197,6 @@ function gformCalculateProductPrice(form_id, productFieldId){
 
 
 function gformGetProductQuantity(formId, productFieldId) {
-
     //If product is not selected
     if (!gformIsProductSelected(formId, productFieldId)) {
         return 0;

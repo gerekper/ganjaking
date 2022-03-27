@@ -213,7 +213,7 @@ class WC_Deposits_Product_Manager {
 		}
 
 		if ( $percentage ) {
-			$product_price = is_null( $product_price ) ? $product->get_price( 'edit' ) : $product_price;
+			$product_price = is_null( $product_price ) ? $product->get_price() : $product_price;
 			$amount        = ( $product_price / 100 ) * $amount;
 		}
 

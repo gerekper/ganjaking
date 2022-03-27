@@ -411,7 +411,7 @@ if ( ! function_exists( 'points_for_simple_product' ) ) {
 			return ;
 		}
 
-		if ( is_shop() || is_product() || is_page() || is_product_category() || is_tax( 'pwb-brand' ) || is_product_tag() ) {
+		if ( is_shop() || is_product() || is_page() || is_product_category() || is_tax( 'pwb-brand' ) || is_product_tag() || is_tax( 'dc_vendor_shop' ) ) {
 			if ( ( srp_product_type( $product_id ) == 'simple' || ( srp_product_type( $product_id ) == 'subscription' ) || srp_product_type( $product_id ) == 'bundle' ) || srp_product_type( $product_id ) == 'woosb' ) {
 				$args   = array(
 					'productid' => $product_id ,
@@ -1436,9 +1436,18 @@ if ( ! function_exists( 'allow_points_for_social_action' ) ) {
 
 if ( ! function_exists( 'get_reward_points_based_on_cart_total' ) ) {
 
-	function get_reward_points_based_on_cart_total( $OrderTotal, $order_shipping_cost = false ) {
+	function get_reward_points_based_on_cart_total( $OrderTotal, $order_shipping_cost = false, $user_id = false ) {
 		if ( '2' == get_option( 'rs_enable_cart_total_reward_points' ) ) {
 			return 0 ;
+		}
+				
+				// Membership compatibility. 
+				$restrict_membership = 'no';
+		if ('yes' == get_option('rs_enable_restrict_reward_points') && function_exists('check_plan_exists') && $user_id ) {
+			$restrict_membership = check_plan_exists($user_id) ? 'yes' : 'no';
+			if ('yes' != $restrict_membership) {
+				return 0;
+			}
 		}
 
 		$shipping_cost = is_object( WC()->cart ) ? WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax() : 0 ;
@@ -1508,8 +1517,8 @@ if ( ! function_exists( 'rs_get_reward_points_based_on_cart_total_for_referred' 
 			return 0 ;
 		}
 				
-				//Cart shipping cost
-				  $shipping_cost = is_object( WC()->cart ) ? WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax() : 0 ;
+		//Cart shipping cost
+		$shipping_cost = is_object( WC()->cart ) ? WC()->cart->get_shipping_total() + WC()->cart->get_shipping_tax() : 0 ;
 		if ( $order_shipping_cost ) {
 			// Order shipping cost
 			$shipping_cost = $order_shipping_cost ;
@@ -2163,7 +2172,7 @@ function check_level_of_enable_reward_point( $args = array() ) {
 
 	$user_id             = wc_get_order( $order ) ? $order->get_user_id() : get_current_user_id() ;
 	$memebershiprestrict = 'no' ;
-	if ( 'yes' == get_option( 'rs_enable_restrict_reward_points' ) && function_exists( 'check_plan_exists' ) ) {
+	if ( 'yes' == get_option( 'rs_enable_restrict_reward_points' ) && function_exists( 'check_plan_exists' ) && $user_id) {
 		$memebershiprestrict = check_plan_exists( $user_id ) ? 'no' : 'yes' ;
 	}
 
@@ -2354,10 +2363,10 @@ function is_global_level( $productid, $variationid, $item, $checklevel, $referre
 		$regularprice         = get_regular_price( $productid , $variationid , $item , $itemquantity , $payment_price ) ;
 		$convertedpoints      = convert_percent_value_as_points( $global_rewardpercent , $regularprice ) ;
 	} else {
-		$global_enable        = get_option( 'rs_global_enable_disable_sumo_reward' ) ;
-		$global_reward_type   = get_option( 'rs_global_reward_type' ) ;
+		$global_enable        = get_option( 'rs_global_enable_disable_sumo_reward' , '1') ;
+		$global_reward_type   = get_option( 'rs_global_reward_type' , '2') ;
 		$global_rewardpoints  = get_option( 'rs_global_reward_points' ) ;
-		$global_rewardpercent = get_option( 'rs_global_reward_percent' ) ;
+		$global_rewardpercent = get_option( 'rs_global_reward_percent' , 100) ;
 		$regularprice         = get_regular_price( $productid , $variationid , $item , $itemquantity , $payment_price ) ;
 		$convertedpoints      = convert_percent_value_as_points( $global_rewardpercent , $regularprice ) ;
 		if ( 'yes' == get_option( 'rs_restrict_reward' ) ) {
@@ -2701,7 +2710,7 @@ function award_points_for_product_purchase_based_on_cron( $order_id ) {
 	$orderid       = srp_order_obj( $order ) ;
 	$orderstatus   = $orderid[ 'order_status' ] ;
 	$replacestatus = str_replace( 'wc-' , '' , $orderstatus ) ;
-	$status        = get_option( 'rs_order_status_control' ) ;
+	$status        = get_option( 'rs_order_status_control' , array('processing','completed')) ;
 	if ( in_array( $replacestatus , $status ) ) {
 		$new_obj                     = new RewardPointsOrder( $order_id , $apply_previous_order_points = 'no' ) ;
 		$new_obj->update_earning_points_for_user() ;
@@ -2761,7 +2770,9 @@ if ( ! function_exists( 'order_total_in_order_detail' ) ) {
 		$CouponData = $order->get_items( array( 'coupon' ) ) ;
 		if ( $coupon_display ) {
 			foreach ( $CouponData as $Coupon ) {
-				$DiscountAmnt[] = $Coupon[ 'discount_amount' ] ;
+							$discount_amount     = isset($Coupon[ 'discount_amount' ]) ? $Coupon[ 'discount_amount' ]:0;
+							$discount_amount_tax = isset($Coupon[ 'discount_amount_tax' ]) ? $Coupon[ 'discount_amount_tax' ]:0;
+							$DiscountAmnt[]      = 'incl' == $tax_display ? $discount_amount+ $discount_amount_tax: $discount_amount;
 			}
 		}
 
@@ -2865,6 +2876,10 @@ if ( ! function_exists( 'get_earned_redeemed_points_message' ) ) {
 
 	function get_earned_redeemed_points_message( $orderid, $earned_and_redeemed_point = false ) {
 		$OrderObj = wc_get_order( $orderid ) ;
+		if (!is_object($OrderObj)) {
+			return;
+		}
+				
 		$OrderObj = srp_order_obj( $OrderObj ) ;
 		$UserId   = $OrderObj[ 'order_userid' ] ;
 		if ( empty( $UserId ) ) {
@@ -2921,7 +2936,7 @@ if ( ! function_exists( 'total_points_for_current_purchase' ) ) {
 
 	function total_points_for_current_purchase( $Total, $UserId ) {
 		if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '2' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
-			$CartTotalPoints = get_reward_points_based_on_cart_total( $Total ) ;
+			$CartTotalPoints = get_reward_points_based_on_cart_total( $Total , false , $UserId ) ;
 			$CartTotalPoints = RSMemberFunction::earn_points_percentage( $UserId , ( float ) $CartTotalPoints ) ;
 			$Points          = $CartTotalPoints + apply_filters( 'srp_buying_points_in_cart' , 0 ) ;
 		} else if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '3' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
@@ -3647,7 +3662,7 @@ if ( ! function_exists( 'rs_validate_referral_system_restrictions' ) ) {
 		}
 
 		$order_statuses       = array() ;
-		$general_order_status = get_option( 'rs_order_status_control' , array() ) ;
+		$general_order_status = get_option( 'rs_order_status_control' , array('processing','completed') ) ;
 		if ( srp_check_is_array( $general_order_status ) ) {
 			foreach ( $general_order_status as $status ) {
 				$order_statuses[] = 'wc-' . $status ;
@@ -3811,4 +3826,143 @@ if ( ! function_exists( 'fp_srp_page_screen_ids' ) ) {
 				) ;
 	}
 
+}
+
+if ( ! function_exists( 'rs_create_free_product_order_automatically' ) ) {
+	/**
+	 * Create free product order automatically.
+	 *
+	 * @return void
+	 */
+	function rs_create_free_product_order_automatically( $user_id) {
+		
+		if (!$user_id) {
+			return;
+		}
+		
+		$banning_type = check_banning_type($user_id) ;
+		if ( 'earningonly' == $banning_type || 'both' == $banning_type ) {
+			return ;
+		}
+		
+		$rules              = get_option( 'rewards_dynamic_rule' ) ;
+		if (!srp_check_is_array($rules)) {
+			return;
+		}
+		
+		$points_data        = new RS_Points_Data( $user_id ) ;
+		$points            = '1' == get_option( 'rs_select_earn_points_based_on' ) ? $points_data->total_earned_points() : $points_data->total_available_points() ;
+		if ( !$points ) {
+			return ;
+		}
+		
+		$level_id           = rs_get_earning_and_redeeming_level_id( $points, 'earning' ) ;
+		if (!$level_id) {
+			return;
+		}
+		
+		$levelname          = isset( $rules[ $level_id ][ 'name' ] ) ? $rules[ $level_id ][ 'name' ] : '' ;
+		$free_product_type  = isset( $rules[ $level_id ][ 'type' ] ) ? $rules[ $level_id ][ 'type' ] : 1 ;
+		if ( '2' == $free_product_type ) {
+			return ;
+		}
+		
+		$free_product_list = isset( $rules[ $level_id ][ 'product_list' ] ) ? $rules[ $level_id ][ 'product_list' ] : array() ;
+		if (!srp_check_is_array($free_product_list)) {
+			return;
+		}
+		
+		foreach ( $free_product_list as $product_id ) {
+			
+			if (!$product_id) {
+				continue; 
+			}
+			
+			$meta_key = 'userid_' . $user_id . $product_id;
+			if ('yes' == get_user_meta($user_id, $meta_key, true)) {
+				continue;
+			}
+			
+			$stored_level_ids  = !empty(get_user_meta($user_id, 'rs_free_product_added_level_id', true)) ? get_user_meta($user_id, 'rs_free_product_added_level_id', true):array();
+			if (in_array($level_id, $stored_level_ids)) {
+				continue;
+			}
+			
+			$customer = new WC_Customer($user_id);
+			if (!is_object($customer)) {
+				continue;
+			}
+		
+			$billing_country = $customer->get_billing_country();
+			$billing_state = $customer->get_billing_state();
+			$billing_postcode = $customer->get_billing_postcode();
+			$billing_city = $customer->get_billing_city();
+			$billing_address = $customer->get_billing_address();
+
+			// Check for Billing details on creating manual order.
+			if (!$billing_country || !$billing_state || !$billing_postcode || !$billing_city || !$billing_address) {
+				continue;
+			}
+
+			// Create order.
+			$order = wc_create_order(array('status' => 'wc-pending','customer_id' => $user_id,'customer_note' => 'Imported order'));
+			// Add product to order.
+			$order->add_product(srp_product_object($product_id), 1);
+			
+			$order_id = $order->get_order_number();
+			// Update user id.
+			update_post_meta($order_id, '_customer_user', $user_id);
+			
+			$order->set_address($order->get_address());
+			$address = array(
+				'first_name' => get_user_meta($user_id, 'shipping_first_name', true),
+				'last_name' => get_user_meta($user_id, 'shipping_last_name', true),
+				'company' => get_user_meta($user_id, 'shipping_company', true),
+				'address_1' => get_user_meta($user_id, 'shipping_address_1', true),
+				'address_2' => get_user_meta($user_id, 'shipping_address_2', true),
+				'city' => get_user_meta($user_id, 'shipping_city', true),
+				'state' => get_user_meta($user_id, 'shipping_state', true),
+				'postcode' => get_user_meta($user_id, 'shipping_postcode', true),
+				'country' => get_user_meta($user_id, 'shipping_country', true),
+			);
+			
+			// Billing email.
+			$billing_email = get_user_meta($user_id, 'billing_email', true);            
+			// Update billing email.
+			update_post_meta($order_id, '_billing_email', $billing_email);
+			// Set address.
+			$order->set_address($address, 'shipping');
+			$order->set_address($address);
+			
+			// Update free product added level id.
+			update_user_meta($user_id, 'rs_free_product_added_level_id', array($level_id));
+			// Set Order status.
+			$order->set_status( 'wc-' . get_option('rs_order_status_control_to_automatic_order') );
+			$order->save();
+									
+			//User Email.
+			$user_email_subject = str_replace('[sitename]', get_option('blogname'), get_option('rs_subject_for_free_product_mail'));
+			$user_email_message = str_replace('[current_level_points]', $points, get_option('rs_content_for_free_product_mail'));
+
+			$order_link = esc_url_raw(add_query_arg('view-order', $order_id, get_permalink(get_option('woocommerce_myaccount_page_id'))));
+			$order_link = '<a target="_blank" href="' . $order_link . '">#' . $order_id . '</a>';
+			$user_email_message = str_replace('[rsorderlink]', $order_link, $user_email_message);
+			
+			$user = get_userdata($user_id);
+			$user_mail = is_object($user) ? $user->user_mail:'';
+		
+			send_mail($user_mail, $user_email_subject, $user_email_message);
+			
+			// Admin email.
+			if ( 'yes' == get_option( 'rs_enable_admin_email_for_free_product' ) ) {
+				$subject = get_option( 'rs_subject_for_free_product_mail_send_admin', 'Free Product - Notification' ) ;
+				$msg     = get_option( 'rs_content_for_free_product_mail_send_admin', 'Hi,<br/> Your user has got the product as free for reaching the configured level. Please check the below details,<br/> Username: [username]<br/>Product Name: [product_id]<br/>Level Name: [current_level_name].<br/>Thanks' ) ;
+				$message = str_replace( array( '[username] , [current_level_name]', '[product_id]' ), array( get_option( 'woocommerce_email_from_name' ), $levelname, implode(',', $free_product_list) ), $msg ) ;
+
+				send_mail( get_option( 'woocommerce_email_from_address' ), $subject, $message ) ;
+			}
+
+			update_user_meta($user_id, $meta_key, 'yes');            
+		}
+	}
 }

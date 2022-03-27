@@ -11,6 +11,7 @@ use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
 use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Reports\Reports;
+use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
 
 /**
  * Class Pro handles all Pro plugin code and functionality registration.
@@ -446,6 +447,8 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask::class,
+				\WPMailSMTP\Pro\Tasks\Logs\Postmark\VerifySentStatusTask::class,
+				\WPMailSMTP\Pro\Tasks\Logs\SparkPost\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ResendTask::class,
 			]
@@ -478,10 +481,10 @@ class Pro {
 	 *
 	 * @since 2.3.0
 	 */
-	public function display_custom_auth_notices() {
+	public function display_custom_auth_notices() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$error   = isset( $_GET['error'] ) ? sanitize_key( $_GET['error'] ) : ''; // phpcs:ignore
-		$success = isset( $_GET['success'] ) ? sanitize_key( $_GET['success'] ) : '';  // phpcs:ignore
+		$error   = isset( $_GET['error'] ) ? sanitize_key( $_GET['error'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$success = isset( $_GET['success'] ) ? sanitize_key( $_GET['success'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if ( empty( $error ) && empty( $success ) ) {
 			return;
@@ -741,8 +744,10 @@ class Pro {
 			wp_send_json_error();
 		}
 
-		$options      = new Options();
-		$ses_settings = isset( $_POST['value'] ) ? wp_slash( json_decode( wp_unslash( $_POST['value'] ), true ) ) : []; // phpcs:ignore
+		$options = Options::init();
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$ses_settings = isset( $_POST['value'] ) ? wp_slash( json_decode( wp_unslash( $_POST['value'] ), true ) ) : [];
 
 		if ( empty( $ses_settings ) ) {
 			wp_send_json_error();
@@ -783,7 +788,7 @@ class Pro {
 			wp_send_json_error();
 		}
 
-		$type  = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
+		$type  = isset( $_POST['type'] ) ? sanitize_key( $_POST['type'] ) : '';
 		$value = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : '';
 
 		if ( $type === 'email' && ! is_email( $value ) ) {
@@ -795,7 +800,7 @@ class Pro {
 		$ses = new \WPMailSMTP\Pro\Providers\AmazonSES\Auth();
 
 		// Verify domain for easier conditional checking below.
-		$domain_txt = ( $type === 'domain' ) ? $ses->do_verify_domain( $value ) : '';
+		$domain_dkim_tokens = ( $type === 'domain' ) ? $ses->do_verify_domain_dkim( $value ) : '';
 
 		if ( $type === 'email' && $ses->do_verify_email( $value ) === true ) {
 			wp_send_json_success(
@@ -804,12 +809,12 @@ class Pro {
 					'value' => esc_html( $value ),
 				]
 			);
-		} elseif ( $type === 'domain' && ! empty( $domain_txt ) ) {
+		} elseif ( $type === 'domain' && ! empty( $domain_dkim_tokens ) ) {
 			wp_send_json_success(
 				[
-					'type'       => $type,
-					'value'      => esc_html( $value ),
-					'domain_txt' => $domain_txt,
+					'type'                    => $type,
+					'value'                   => esc_html( $value ),
+					'domain_dkim_dns_records' => SESOptions::prepare_dkim_dns_records( $value, $domain_dkim_tokens ),
 				]
 			);
 		} else {

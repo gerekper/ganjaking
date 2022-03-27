@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP Limit Checkboxes
+# Copyright (C) 2021 GP Limit Checkboxes
 # This file is distributed under the same license as the GP Limit Checkboxes package.
 msgid ""
 msgstr ""
@@ -29,34 +29,34 @@ msgstr ""
 msgid "Apply this limit as an accumlative limit across multiple fields. For example, spanning a limit of \"2\" across two fields would allow you to select two checkboxes in either field or one checkbox in each field."
 msgstr ""
 
-#: ../class-gp-limit-checkboxes.php:225
+#: ../class-gp-limit-checkboxes.php:227
 msgid "You may only select %s item."
 msgid_plural "You may only select %s items."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-checkboxes.php:229, ../class-gp-limit-checkboxes.php:250
+#: ../class-gp-limit-checkboxes.php:231, ../class-gp-limit-checkboxes.php:251
 msgid "This field is part of a group."
 msgstr ""
 
-#: ../class-gp-limit-checkboxes.php:246
+#: ../class-gp-limit-checkboxes.php:247
 msgid "You must select at least %s item."
 msgid_plural "You must select at least %s items."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-checkboxes.php:415
-msgid "Limit how many checkboxes can be checked"
+#: ../class-gp-limit-checkboxes.php:460
+msgid "Limit number of checked checkboxes."
 msgstr ""
 
-#: ../class-gp-limit-checkboxes.php:423
-msgid "Minimum Limit: "
+#: ../class-gp-limit-checkboxes.php:468
+msgid "Minimum Limit"
 msgstr ""
 
-#: ../class-gp-limit-checkboxes.php:429
-msgid "Maximum Limit: "
+#: ../class-gp-limit-checkboxes.php:475
+msgid "Maximum Limit"
 msgstr ""
 
-#: ../class-gp-limit-checkboxes.php:443
-msgid "Span Limit Across Multiple Checkbox Fields"
+#: ../class-gp-limit-checkboxes.php:488
+msgid "Span limit across multiple fields."
 msgstr ""

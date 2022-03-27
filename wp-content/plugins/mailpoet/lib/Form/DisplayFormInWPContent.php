@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\API\JSON\API;
 use MailPoet\Config\Renderer as TemplateRenderer;
 use MailPoet\Entities\FormEntity;
+use MailPoet\Subscribers\SubscribersRepository;
+use MailPoet\Subscribers\SubscriberSubscribeController;
 use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -17,6 +19,12 @@ class DisplayFormInWPContent {
 
   const TYPES = [
     FormEntity::DISPLAY_TYPE_BELOW_POST,
+    FormEntity::DISPLAY_TYPE_POPUP,
+    FormEntity::DISPLAY_TYPE_FIXED_BAR,
+    FormEntity::DISPLAY_TYPE_SLIDE_IN,
+  ];
+
+  const WITH_COOKIE_TYPES = [
     FormEntity::DISPLAY_TYPE_POPUP,
     FormEntity::DISPLAY_TYPE_FIXED_BAR,
     FormEntity::DISPLAY_TYPE_SLIDE_IN,
@@ -43,18 +51,28 @@ class DisplayFormInWPContent {
   /** @var TemplateRenderer */
   private $templateRenderer;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
+  /** @var SubscriberSubscribeController */
+  private $subscriberSubscribeController;
+
   public function __construct(
     WPFunctions $wp,
     FormsRepository $formsRepository,
     Renderer $formRenderer,
     AssetsController $assetsController,
-    TemplateRenderer $templateRenderer
+    TemplateRenderer $templateRenderer,
+    SubscriberSubscribeController $subscriberSubscribeController,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->wp = $wp;
     $this->formsRepository = $formsRepository;
     $this->formRenderer = $formRenderer;
     $this->assetsController = $assetsController;
     $this->templateRenderer = $templateRenderer;
+    $this->subscriberSubscribeController = $subscriberSubscribeController;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   /**
@@ -163,6 +181,8 @@ class DisplayFormInWPContent {
     $templateData['animation'] = $formSettings['form_placement'][$displayType]['animation'] ?? '';
     $templateData['fontFamily'] = $formSettings['font_family'] ?? '';
     $templateData['enableExitIntent'] = false;
+    // Set default value for cookie expiration for backward compatibility with forms without this value
+    $templateData['cookieFormExpirationTime'] = $formSettings['form_placement'][$displayType]['cookieExpiration'] ?? 7;
     if (
       isset($formSettings['form_placement'][$displayType]['exit_intent_enabled'])
       && ($formSettings['form_placement'][$displayType]['exit_intent_enabled'] === '1')
@@ -176,6 +196,25 @@ class DisplayFormInWPContent {
     // add API version
     $templateData['api_version'] = API::CURRENT_VERSION;
     return $this->templateRenderer->render('form/front_end_form.html', $templateData);
+  }
+
+  /**
+   * Checks if the form should be displayed for current WordPress user
+   *
+   * @param FormEntity $form The form to check
+   * @param string $formType Display type of the current form, from self::TYPES
+   * @return bool False if form can be dismissed and user is subscribed to any of the form's lists
+   */
+  private function shouldDisplayFormForWPUser(FormEntity $form, string $formType): bool {
+    if (!in_array($formType, self::WITH_COOKIE_TYPES, true)) return true;
+
+    $subscriber = $this->subscribersRepository->getCurrentWPUser();
+    if (!$subscriber) return true;
+
+    if ($this->subscriberSubscribeController->isSubscribedToAnyFormSegments($form, $subscriber)) {
+      return false;
+    }
+    return true;
   }
 
   private function shouldDisplayFormType(FormEntity $form, string $formType): bool {
@@ -192,6 +231,8 @@ class DisplayFormInWPContent {
     if ($setup['enabled'] !== '1') {
       return false;
     }
+
+    if (!$this->shouldDisplayFormForWPUser($form, $formType)) return false;
 
     if ($this->wp->isSingular($this->wp->applyFilters('mailpoet_display_form_supported_post_types', self::SUPPORTED_POST_TYPES))) {
       if ($this->shouldDisplayFormOnPost($setup, 'posts')) return true;

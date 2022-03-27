@@ -281,7 +281,8 @@ jQuery( function ( $ ) {
                         ReferralModuleScripts.referred_reward_type_for_product_total() ;
                         $( '.show_referral_based_on_cart_total' ).closest( 'tr' ).hide() ;
                     }
-
+                    
+                    $( '#rs_restrict_sale_price_product_points_referral_system' ).closest( 'tr' ).show() ;
                     $( '#rs_restrict_referral_reward' ).closest( 'tr' ).show() ;
                     $( '#rs_referral_points_after_discounts' ).closest( 'tr' ).show() ;
                     $( '#rs_exclude_shipping_cost_based_on_cart_total_for_referral_module' ).closest( 'tr' ).hide() ;
@@ -306,6 +307,7 @@ jQuery( function ( $ ) {
 
                     }
 
+                    $( '#rs_restrict_sale_price_product_points_referral_system' ).closest( 'tr' ).hide() ;
                     $( '#rs_restrict_referral_reward' ).closest( 'tr' ).hide() ;
                     $( '#rs_referral_points_after_discounts' ).closest( 'tr' ).hide() ;
                     $( '#rs_exclude_shipping_cost_based_on_cart_total_for_referral_module' ).closest( 'tr' ).show() ;
@@ -332,6 +334,7 @@ jQuery( function ( $ ) {
                     ReferralModuleScripts.send_mail_pdt_purchase_referred() ;
                 }
 
+                $( '#rs_restrict_sale_price_product_points_referral_system' ).closest( 'tr' ).show() ;
                 $( '#rs_restrict_referral_reward' ).closest( 'tr' ).show() ;
                 $( '#rs_referral_points_after_discounts' ).closest( 'tr' ).show() ;
                 $( '#rs_exclude_shipping_cost_based_on_cart_total_for_referral_module' ).closest( 'tr' ).hide() ;

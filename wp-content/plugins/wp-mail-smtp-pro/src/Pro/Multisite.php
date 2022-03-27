@@ -260,7 +260,7 @@ class Multisite {
 		}
 
 		// Fetch fresh plugin options with updated general->network_wide setting.
-		$global_settings_enabled = (bool) ( new Options() )->get( 'general', 'network_wide' );
+		$global_settings_enabled = (bool) Options::init()->get( 'general', 'network_wide' );
 
 		ob_start();
 		?>
@@ -360,7 +360,7 @@ class Multisite {
 
 		// Maybe revert the default checkbox values of plugin settings when network_wide is switched to enabled state.
 		if ( $data === $network_wide_enabled_first_time_settings ) {
-			$options = new Options();
+			$options = Options::init();
 			$old_opt = $options->get_all();
 
 			// Set the old plugin values for the checkboxes that were set to false because they didn't exist in the POST request.
@@ -395,6 +395,7 @@ class Multisite {
 
 					if ( ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 						remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
+						remove_submenu_page( Area::SLUG, Area::SLUG . '-reports' );
 					}
 
 					/*
@@ -404,7 +405,8 @@ class Multisite {
 					add_action(
 						'load-' . wp_mail_smtp()->get_admin()->hook,
 						function () {
-							wp_die( esc_html__( 'Sorry, you are not allowed to access the WP Mail SMTP settings for individual network subsite. The network-wide setting is enabled, so the plugin settings are only accessible in the network admin dashboard.', 'wp-mail-smtp-pro' ), 403 );
+							/* Translators: %s - Network admin email address. */
+							wp_die( sprintf( esc_html__( 'Sorry, you are not allowed to access the WP Mail SMTP settings for individual network subsite. The network-wide setting is enabled, so the plugin settings are only accessible in the network admin dashboard. Please contact your network admin: %s.', 'wp-mail-smtp-pro' ), esc_html( get_site_option( 'admin_email' ) ) ), 403 );
 						}
 					);
 				},

@@ -35,13 +35,13 @@ abstract class Base32 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
     /**
      * Decode a Base32-encoded string into raw binary
      *
-     * @param string $src
+     * @param string $encoded_string
      * @param bool $strictPadding
      * @return string
      */
-    public static function decode($src, $strictPadding = \false)
+    public static function decode($encoded_string, $strictPadding = \false)
     {
-        return static::doDecode($src, \false, $strictPadding);
+        return static::doDecode($encoded_string, \false, $strictPadding);
     }
     /**
      * Decode an uppercase Base32-encoded string into raw binary
@@ -57,12 +57,12 @@ abstract class Base32 implements \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Encod
     /**
      * Encode into Base32 (RFC 4648)
      *
-     * @param string $src
+     * @param string $bin_string
      * @return string
      */
-    public static function encode($src)
+    public static function encode($bin_string)
     {
-        return static::doEncode($src, \false);
+        return static::doEncode($bin_string, \false);
     }
     /**
      * Encode into Base32 (RFC 4648)

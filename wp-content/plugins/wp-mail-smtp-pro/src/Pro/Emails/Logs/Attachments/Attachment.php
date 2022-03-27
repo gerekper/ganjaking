@@ -311,7 +311,7 @@ class Attachment {
 			),
 			ARRAY_A
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:enable
 
 		if ( empty( $result ) ) {
 			return false;

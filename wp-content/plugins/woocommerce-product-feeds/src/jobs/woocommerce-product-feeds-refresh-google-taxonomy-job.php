@@ -10,7 +10,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 	 * @return void
 	 */
 	public function task( $locale ) {
-		global $wpdb, $table_prefix;
+		global $wpdb;
 
 		$request = wp_remote_get( 'http://www.google.com/basepages/producttype/taxonomy.' . $locale . '.txt' );
 		if ( is_wp_error( $request ) ||
@@ -20,6 +20,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 			return false;
 		}
 
+		$table_name    = $wpdb->prefix . 'woocommerce_gpf_google_taxonomy';
 		$taxonomy_data = explode( "\n", $request['body'] );
 		// Strip the comment at the top
 		array_shift( $taxonomy_data );
@@ -27,7 +28,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		array_pop( $taxonomy_data );
 
 		// Remove the old entries for this locale.
-		$sql = "DELETE FROM ${table_prefix}woocommerce_gpf_google_taxonomy WHERE locale = %s";
+		$sql = "DELETE FROM ${table_name} WHERE locale = %s";
 		$wpdb->query( $wpdb->prepare( $sql, [ $locale ] ) );
 
 		// Read in the replacements.
@@ -40,7 +41,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 			$cnt++;
 			if ( 150 === $cnt ) {
 				// Bulk insert them all.
-				$sql  = "INSERT INTO ${table_prefix}woocommerce_gpf_google_taxonomy";
+				$sql  = "INSERT INTO ${table_name}";
 				$sql .= '(locale, taxonomy_term, search_term) VALUES ';
 				$sql .= str_repeat( '(%s,%s,%s),', $cnt - 1 ) . '(%s,%s,%s)';
 				$wpdb->query( $wpdb->prepare( $sql, $values ) );
@@ -51,7 +52,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		}
 		// Insert the last chunk.
 		if ( $cnt ) {
-			$sql  = "INSERT INTO ${table_prefix}woocommerce_gpf_google_taxonomy";
+			$sql  = "INSERT INTO ${table_name}";
 			$sql .= '(locale, taxonomy_term, search_term) VALUES ';
 			$sql .= str_repeat( '(%s,%s,%s),', $cnt - 1 ) . '(%s,%s,%s)';
 			$wpdb->query( $wpdb->prepare( $sql, $values ) );

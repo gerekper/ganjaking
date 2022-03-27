@@ -481,6 +481,7 @@ if ( ! class_exists( 'RSRewardPointsForAction' ) ) {
 					'name' => __( 'Custom Registration Fields Reward Points' , 'rewardsystem' ) ,
 					'type' => 'title' ,
 					'id'   => '_rs_fpwcrs_custom_reg_field_title' ,
+										'desc' => __( '<br><b>Warning:</b> We have added the <b>Birthday Reward Points</b> feature as a separate Module in the standalone plugin. Hence, we suggest you use either the <b>Birthday Reward Points Module</b> [or] Compatibility is given with <b>SUMO WooCommerce Custom Registration Fields Plugin</b>.' , 'rewardsystem' )
 				) ,
 				array(
 					'name'    => __( 'Custom Registration Fields Reward Points' , 'rewardsystem' ) ,

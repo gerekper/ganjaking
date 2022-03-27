@@ -6,16 +6,17 @@ use AC\Capabilities;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Message\Notice;
-use AC\Registrable;
 use AC\Request;
 use AC\Storage\ListScreenOrder;
 use AC\Type\ListScreenId;
+use ACP\Nonce;
+use ACP\RequestHandler;
 
-class ListScreenCreate implements Registrable {
+class ListScreenCreate implements RequestHandler {
 
-	const PARAM_ACTION = 'acp_action';
-	const PARAM_CREATE_LIST = 'create_layout';
-	const PARAM_DELETE_LIST = 'delete_layout';
+	const PARAM_ACTION = 'action';
+	const PARAM_CREATE_LIST = 'create-layout';
+	const PARAM_DELETE_LIST = 'delete-layout';
 
 	/**
 	 * @var Storage
@@ -23,110 +24,73 @@ class ListScreenCreate implements Registrable {
 	private $storage;
 
 	/**
-	 * @var Request
-	 */
-	private $request;
-
-	/**
 	 * @var ListScreenOrder
 	 */
 	private $order;
 
-	public function __construct( Storage $storage, Request $request, ListScreenOrder $order ) {
+	public function __construct( Storage $storage, ListScreenOrder $order ) {
 		$this->storage = $storage;
-		$this->request = $request;
 		$this->order = $order;
 	}
 
-	private function verify_nonce( $action ) {
-		return wp_verify_nonce( filter_input( INPUT_POST, '_ac_nonce' ), $action );
-	}
-
-	public function register() {
-		add_action( 'admin_init', [ $this, 'handle_request' ] );
-	}
-
-	public function handle_request() {
+	public function handle( Request $request ) {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, self::PARAM_ACTION ) ) {
-
-			case self::PARAM_CREATE_LIST :
-				if ( ! $this->verify_nonce( 'create-layout' ) ) {
-					return;
-				}
-
-				$list_id = ListScreenId::is_valid_id( $this->request->get( 'list_id' ) )
-					? new ListScreenId( $this->request->get( 'list_id' ) )
-					: null;
-
-				$current_list_screen = false;
-
-				if ( $list_id && $this->storage->exists( $list_id ) ) {
-					$current_list_screen = $this->storage->find( $list_id );
-				}
-
-				if ( ! $current_list_screen ) {
-					$current_list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( 'list_key' ) );
-				}
-
-				$title = trim( $this->request->get( 'title' ) );
-
-				if ( empty( $title ) ) {
-					$notice = new Notice( __( 'Name can not be empty.', 'codepress-admin-columns' ) );
-					$notice->set_type( Notice::ERROR )->register();
-
-					return;
-				}
-
-				$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( 'list_key' ) );
-
-				if ( null === $list_screen ) {
-					return;
-				}
-
-				$settings = [];
-				$preferences = [];
-
-				if ( $this->request->get( 'clone_current' ) === '1' ) {
-					$settings = $current_list_screen->get_settings();
-					$preferences = $current_list_screen->get_preferences();
-				}
-
-				$list_screen->set_layout_id( ListScreenId::generate()->get_id() )
-				            ->set_title( $title )
-				            ->set_settings( $settings )
-				            ->set_preferences( $preferences );
-
-				$this->storage->save( $list_screen );
-
-				$this->order->add( $list_screen->get_key(), $list_screen->get_layout_id() );
-
-				wp_redirect( $list_screen->get_edit_link() );
-				exit;
-
-			case self::PARAM_DELETE_LIST :
-				if ( ! $this->verify_nonce( 'delete-layout' ) ) {
-					return;
-				}
-
-				$list_screen = $this->storage->find( new ListScreenId( $this->request->get( 'layout_id' ) ) );
-
-				if ( ! $list_screen ) {
-					return;
-				}
-
-				$this->storage->delete( $list_screen );
-
-				$notice = new Notice( sprintf( __( 'Column set %s successfully deleted.', 'codepress-admin-columns' ), sprintf( '<strong>"%s"</strong>', esc_html( $list_screen->get_title() ) ) ) );
-				$notice->register();
-
-				do_action( 'acp/list_screen/deleted', $list_screen );
-
-				break;
+		if ( ! ( new Nonce\LayoutNonce() )->verify( $request ) ) {
+			return;
 		}
+
+		$list_id = ListScreenId::is_valid_id( $request->get( 'list_id' ) )
+			? new ListScreenId( $request->get( 'list_id' ) )
+			: null;
+
+		$current_list_screen = false;
+
+		if ( $list_id && $this->storage->exists( $list_id ) ) {
+			$current_list_screen = $this->storage->find( $list_id );
+		}
+
+		if ( ! $current_list_screen ) {
+			$current_list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_key' ) );
+		}
+
+		$title = trim( $request->get( 'title' ) );
+
+		if ( empty( $title ) ) {
+			$notice = new Notice( __( 'Name can not be empty.', 'codepress-admin-columns' ) );
+			$notice->set_type( Notice::ERROR )->register();
+
+			return;
+		}
+
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_key' ) );
+
+		if ( null === $list_screen ) {
+			return;
+		}
+
+		$settings = [];
+		$preferences = [];
+
+		if ( $request->get( 'clone_current' ) === '1' ) {
+			$settings = $current_list_screen->get_settings();
+			$preferences = $current_list_screen->get_preferences();
+		}
+
+		$list_screen->set_layout_id( ListScreenId::generate()->get_id() )
+		            ->set_title( $title )
+		            ->set_settings( $settings )
+		            ->set_preferences( $preferences );
+
+		$this->storage->save( $list_screen );
+
+		$this->order->add( $list_screen->get_key(), $list_screen->get_layout_id() );
+
+		wp_redirect( $list_screen->get_edit_link() );
+		exit;
+
 	}
 
 }

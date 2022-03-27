@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 	$class   = 'error';
@@ -16,7 +16,7 @@ function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_admin_notice_lite_version() {
 	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' ) || is_plugin_active( 'redsys/wc-redsys.php' ) || is_plugin_active( 'redsysoficial/wc-redsys.php' ) || is_plugin_active( 'bizum/class-wc-bizum.php' ) ) {
@@ -26,7 +26,7 @@ function redsys_admin_notice_lite_version() {
 add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_notice_intalled_new() {
 
@@ -78,7 +78,7 @@ function redsys_add_notice_intalled_new() {
 add_action( 'admin_notices', 'redsys_add_notice_intalled_new' );
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_notice_new_version() {
 
@@ -121,7 +121,7 @@ function redsys_add_notice_new_version() {
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_installation_notice() {
 
@@ -164,7 +164,7 @@ function redsys_installation_notice() {
 // add_action( 'admin_notices', 'redsys_installation_notice' );.
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_deprecated_authorization() {
 
@@ -179,7 +179,7 @@ function redsys_deprecated_authorization() {
 add_action( 'admin_notices', 'redsys_deprecated_authorization' );
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_notice_style() {
 	wp_register_style( 'redsys_notice_css', REDSYS_PLUGIN_URL_P . 'assets/css/redsys-notice.css', false, REDSYS_VERSION );
@@ -188,7 +188,7 @@ function redsys_notice_style() {
 add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function check_redsys_connected() {
 

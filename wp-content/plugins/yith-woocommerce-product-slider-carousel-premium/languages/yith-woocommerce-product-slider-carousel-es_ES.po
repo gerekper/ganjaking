@@ -1,0 +1,765 @@
+# Translation of YITH WooCommerce Product Slider Carousel in Spanish (Spain)
+# This file is distributed under the same license as the YITH WooCommerce Product Slider Carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Product Slider Carousel\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"product-slider-carousel.premium\n"
+"POT-Creation-Date: 2021-11-02 16:05:23+00:00\n"
+"PO-Revision-Date: 2020-12-14 00:16:29+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/class.yith-product-slider-type-premium.php:82
+msgid "Title"
+msgstr "Título"
+
+#: includes/class.yith-product-slider-type-premium.php:83
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: includes/class.yith-product-slider-type-premium.php:84
+#: includes/metaboxes/product_slider-metabox.php:249
+msgid "Date"
+msgstr "Fecha"
+
+#. translators: % is the singular name
+#: includes/class.yith-product-slider-type-premium.php:151
+#: includes/class.yith-product-slider-type-premium.php:155
+msgid "%s updated"
+msgstr "%s actualizado"
+
+#: includes/class.yith-product-slider-type-premium.php:152
+msgid "Custom field updated"
+msgstr "Campo personalizado actualizado"
+
+#: includes/class.yith-product-slider-type-premium.php:153
+msgid "Custom field deleted"
+msgstr "Campo personalizado eliminado"
+
+#. translators: % is the version restored of Product Slider Carousel name
+#: includes/class.yith-product-slider-type-premium.php:157
+msgid "Product Slider Carousel restored to version %s"
+msgstr "Product Slider Carousel restaurado a versión %s"
+
+#. translators: % is the singular name
+#: includes/class.yith-product-slider-type-premium.php:159
+msgid "%s published"
+msgstr "%s publicado"
+
+#. translators: % is the singular name
+#: includes/class.yith-product-slider-type-premium.php:161
+msgid "%s saved"
+msgstr "%s guardado"
+
+#. translators: % is the singular name
+#: includes/class.yith-product-slider-type-premium.php:163
+msgid "%s submitted"
+msgstr "%s enviado"
+
+#: includes/class.yith-product-slider-type-premium.php:165
+msgid "%s"
+msgstr "%s"
+
+#. translators: % is the singular name
+#: includes/class.yith-product-slider-type-premium.php:167
+msgid "%s draft updated"
+msgstr "%s borrador actualizado"
+
+#: includes/class.yith-product-slider-type.php:70
+msgid "Yith WooCommerce Product Slider Carousel"
+msgstr "Yith WooCommerce Product Slider Carousel"
+
+#: includes/class.yith-product-slider-type.php:137
+#: includes/class.yith-woocommerce-product-slider.php:210
+#: includes/class.yith-woocommerce-product-slider.php:220
+#: includes/class.yith-woocommerce-product-slider.php:407
+#: includes/functions.yith-product-slider.php:145
+msgid "Product Slider Carousel"
+msgstr "Carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:138
+msgid "Parent Item:"
+msgstr "Artículo superior:"
+
+#: includes/class.yith-product-slider-type.php:139
+msgid "All Product Slider Carousels"
+msgstr "Todos los carruseles de producto"
+
+#: includes/class.yith-product-slider-type.php:140
+msgid "View Product Slider Carousel"
+msgstr "Ver carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:141
+#: includes/class.yith-product-slider-type.php:142
+msgid "Add New Product Slider Carousel"
+msgstr "Añadir nuevo carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:143
+msgid "Edit Product Slider Carousel"
+msgstr "Editar carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:144
+msgid "Update Product Slider Carousel"
+msgstr "Actualizar carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:145
+msgid "Search Product Slider Carousel"
+msgstr "Buscar carrusel de producto"
+
+#: includes/class.yith-product-slider-type.php:146
+msgid "Not found"
+msgstr "No se ha encontrado"
+
+#: includes/class.yith-product-slider-type.php:147
+msgid "Not found in Trash"
+msgstr "No se ha encontrado en la papelera"
+
+#: includes/class.yith-product-slider-widget.php:28
+#: includes/class.yith-woocommerce-product-slider.php:404
+msgid "YITH WooCommerce Product Slider Carousel"
+msgstr "YITH WooCommerce Product Slider Carousel"
+
+#: includes/class.yith-product-slider-widget.php:29
+#: includes/functions.yith-product-slider.php:142
+msgid "Show your Product Slider in sidebar!"
+msgstr "¡Muestra tu carrusel de producto en la barra lateral!"
+
+#: includes/class.yith-product-slider-widget.php:73
+#: includes/class.yith-product-slider-widget.php:77
+msgid "Select a slider"
+msgstr "Seleccionar un carrusel"
+
+#: includes/class.yith-product-slider-widget.php:86
+#: includes/metaboxes/product_slider-metabox.php:234
+msgid "Images for row"
+msgstr "Imagenes por fila"
+
+#: includes/class.yith-product-slider-widget.php:92
+msgid "Items in Desktop"
+msgstr "Artículos en el Escritorio"
+
+#: includes/class.yith-product-slider-widget.php:98
+msgid "Items in tablet"
+msgstr "Artículos en tablet"
+
+#: includes/class.yith-product-slider-widget.php:104
+msgid "Items in mobile"
+msgstr "Artículos en dispositivo móvil"
+
+#: includes/class.yith-product-slider-widget.php:110
+msgid "Animation In"
+msgstr "Animación en"
+
+#: includes/class.yith-product-slider-widget.php:114
+#: includes/class.yith-product-slider-widget.php:131
+msgid "Select an animation"
+msgstr "Seleccionar una animación"
+
+#: includes/class.yith-product-slider-widget.php:127
+msgid "Animation Out"
+msgstr "Animación fuera"
+
+#: includes/class.yith-product-slider-widget.php:144
+#: includes/metaboxes/product_slider-metabox.php:190
+msgid "Hide \"Add to cart\""
+msgstr "Ocultar ‘’Añadir al carrito’’"
+
+#: includes/class.yith-product-slider-widget.php:151
+msgid "Hide product price"
+msgstr "Ocultar precio de producto"
+
+#: includes/class.yith-woocommerce-product-slider.php:204
+#: includes/metaboxes/product_slider-metabox.php:28
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-woocommerce-product-slider.php:208
+msgid "Premium Version"
+msgstr "Versión premium"
+
+#: includes/class.yith-woocommerce-product-slider.php:211
+#: plugin-options/layout1-options.php:21
+msgid "Layout 1"
+msgstr "Diseño 1"
+
+#: includes/class.yith-woocommerce-product-slider.php:212
+#: plugin-options/layout2-options.php:19
+msgid "Layout 2"
+msgstr "Diseño 2"
+
+#: includes/class.yith-woocommerce-product-slider.php:213
+#: plugin-options/layout3-options.php:15
+msgid "Layout 3"
+msgstr "Diseño 3"
+
+#: includes/class.yith-woocommerce-product-slider.php:343
+msgid "Add YITH WooCommerce Product Slider Carousel shortcode"
+msgstr "Añadir shortcode de YITH WooCommerce Product Slider Carousel"
+
+#: includes/class.yith-woocommerce-product-slider.php:406
+msgid "Add Product Slider"
+msgstr "Añadir carrusel"
+
+#: includes/class.yith-woocommerce-product-slider.php:412
+msgid "Choose a Product Slider"
+msgstr "Elegir un carrusel"
+
+#: includes/class.yith-woocommerce-product-slider.php:415
+msgid "Choose to show empty terms or not"
+msgstr "Elige si mostrar términos vacíos o no"
+
+#: includes/class.yith-woocommerce-product-slider.php:421
+msgid "Z-Index"
+msgstr "Z-Index"
+
+#: includes/functions.yith-product-slider.php:149
+msgid "Slider"
+msgstr "Deslizante"
+
+#: includes/metaboxes/product_slider-metabox.php:19
+msgid "Product Slider"
+msgstr "Carrusel de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:32
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:33
+msgid "Select products category: All or select them manually"
+msgstr ""
+"Selecciona una categoría de productos: Todas o selecciónalas manualmente"
+
+#: includes/metaboxes/product_slider-metabox.php:36
+msgid "All Categories"
+msgstr "Todas las categorías"
+
+#: includes/metaboxes/product_slider-metabox.php:37
+msgid "Select your category"
+msgstr "Selecciona tu categoría"
+
+#: includes/metaboxes/product_slider-metabox.php:38
+msgid "Exclude categories from slider"
+msgstr "Excluir categorías del carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:43
+msgid "Choose Product Category"
+msgstr "Elegir categoría de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:44
+msgid ""
+"Choose product categories. Leave this field empty if you want all categories "
+"to be shown in the slider"
+msgstr ""
+"Elige las categorías de producto. Deja este campo vacío si quieres que se "
+"muestren todas las categorías en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:54
+msgid "Choose product categories"
+msgstr "Elegir las categorías de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:61
+msgid "Exclude Product Category"
+msgstr "Excluir categoría de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:62
+msgid ""
+"Exclude product categories. Leave this field empty if you want all "
+"categories to be excluded in the slider"
+msgstr ""
+"Excluir categorías de producto. Deha este campo vacío si quieres que todas "
+"las categorías estén excluidas del carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:71
+msgid "Exclude product categories"
+msgstr "Excluir categorías de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:80
+msgid "Product Brand"
+msgstr "Marca de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:81
+msgid "Select products brand: All or select them manually"
+msgstr "Seleccionar marca de producto: Todas o selecciónalas manualmente"
+
+#: includes/metaboxes/product_slider-metabox.php:84
+msgid "All brands"
+msgstr "Todas las marcas"
+
+#: includes/metaboxes/product_slider-metabox.php:85
+msgid "Select your brand"
+msgstr "Selecciona tu marca"
+
+#: includes/metaboxes/product_slider-metabox.php:90
+msgid "Choose Product Brand"
+msgstr "Elegir marca de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:91
+msgid ""
+"Choose product brands. Leave this field empty if you want all brands to be "
+"shown in the slider"
+msgstr ""
+"Elegir marcas de producto. Deja este campo vacío si quieres que todas las "
+"marcas se muestren en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:101
+msgid "Choose product brands"
+msgstr "Elegir marcas de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:111
+msgid "Products to show"
+msgstr "Productos a mostrar"
+
+#: includes/metaboxes/product_slider-metabox.php:112
+msgid ""
+"Select products to show in the slider: \"On Sale\", \"Best Sellers\" etc. or "
+"select them manually."
+msgstr ""
+"Selecciona los productos a mostrar en el carrusel: “Rebajados”, ‘’Más "
+"vendidos’’ etc. o selecciónalos manualmente."
+
+#: includes/metaboxes/product_slider-metabox.php:115
+msgid "All Products"
+msgstr "Todos los productos"
+
+#: includes/metaboxes/product_slider-metabox.php:116
+msgid "On Sale"
+msgstr "Rebajados"
+
+#: includes/metaboxes/product_slider-metabox.php:117
+msgid "Best Sellers"
+msgstr "Más vendidos"
+
+#: includes/metaboxes/product_slider-metabox.php:118
+msgid "Free"
+msgstr "Gratis"
+
+#: includes/metaboxes/product_slider-metabox.php:119
+msgid "Last Added"
+msgstr "Último añadido"
+
+#: includes/metaboxes/product_slider-metabox.php:120
+msgid "Featured"
+msgstr "Destacado"
+
+#: includes/metaboxes/product_slider-metabox.php:121
+msgid "Top Rated"
+msgstr "Mejor valorado"
+
+#: includes/metaboxes/product_slider-metabox.php:122
+msgid "Select your product by Name"
+msgstr "Selecciona tu producto por nombre"
+
+#: includes/metaboxes/product_slider-metabox.php:123
+msgid "Select your product by Tag"
+msgstr "Selecciona tu producto por etiqueta"
+
+#: includes/metaboxes/product_slider-metabox.php:129
+msgid "Choose Product"
+msgstr "Elegir producto"
+
+#: includes/metaboxes/product_slider-metabox.php:130
+msgid ""
+"Choose the Products that you want to show in the slider. Leave this field "
+"empty if you want all categories to be shown in the slider"
+msgstr ""
+"Elige los productos que quieres mostrar en el carrusel. Deja este campo "
+"vacío si quieres que todas las categorías se muestren en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:138
+msgid "Search for a product"
+msgstr "Buscar producto"
+
+#: includes/metaboxes/product_slider-metabox.php:143
+msgid "Choose Tag"
+msgstr "Elige etiqueta"
+
+#: includes/metaboxes/product_slider-metabox.php:144
+msgid ""
+"Choose the Product Tags that you want to show in the slider. Leave this "
+"field empty if you want all tags to be shown in the slider"
+msgstr ""
+"Elige las etiquetas de producto que quieres mostrar en el carrusel. Deja en "
+"vacío este campo si quieres que todas las etiquetas se muestren en el "
+"carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:153
+msgid "Search for a tag"
+msgstr "Buscar etiqueta"
+
+#: includes/metaboxes/product_slider-metabox.php:165
+msgid "Content Settings"
+msgstr "Ajustes de contenido"
+
+#: includes/metaboxes/product_slider-metabox.php:169
+msgid "Slider Template"
+msgstr "Plantilla de carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:170
+msgid "Choose a template for your Product Slider"
+msgstr "Elige una plantilla para tu carrusel de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:182
+msgid "Show Title"
+msgstr "Mostrar títutulo"
+
+#: includes/metaboxes/product_slider-metabox.php:183
+msgid "Show or Hide Product Slider title"
+msgstr "Mostrar u ocultar título de carrusel de producto"
+
+#: includes/metaboxes/product_slider-metabox.php:191
+msgid "Hide \"Add to cart\" in slider"
+msgstr "Ocultar ‘’Añadir al carrito’’ en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:199
+msgid "Show Wishlist button"
+msgstr "Mostrar botón de Lista de deseos"
+
+#: includes/metaboxes/product_slider-metabox.php:200
+msgid "Show the wishlist button in the slider"
+msgstr "Mostrar el botón de la lista de deseos en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:211
+msgid "Hide price"
+msgstr "Ocultar producto"
+
+#: includes/metaboxes/product_slider-metabox.php:212
+msgid "Hide product price in slider"
+msgstr "Ocultar precio de producto en el carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:218
+msgid "Hide On Sale product"
+msgstr "Ocultar producto rebajado"
+
+#: includes/metaboxes/product_slider-metabox.php:219
+msgid "Exclude \"on sale\" product in slider"
+msgstr "Excluir producto “rebajado” del carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:228
+msgid "Hide Out of stock product"
+msgstr "Ocultar producto agotado"
+
+#: includes/metaboxes/product_slider-metabox.php:229
+msgid "Exclude product \"out of stock\" in slider"
+msgstr "Excluir productos ‘’agotados’’ del carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:243
+msgid "Order By"
+msgstr "Pedido por"
+
+#: includes/metaboxes/product_slider-metabox.php:247
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/metaboxes/product_slider-metabox.php:248
+msgid "Price"
+msgstr "Precio"
+
+#: includes/metaboxes/product_slider-metabox.php:250
+msgid "Random"
+msgstr "Aleatorio"
+
+#: includes/metaboxes/product_slider-metabox.php:259
+msgid "Order Type"
+msgstr "Tipo de pedido"
+
+#: includes/metaboxes/product_slider-metabox.php:275
+msgid "Slider Settings"
+msgstr "Ajustes del carrusel"
+
+#: includes/metaboxes/product_slider-metabox.php:280
+msgid "Loop slider"
+msgstr "Carrusel en bucle"
+
+#: includes/metaboxes/product_slider-metabox.php:281
+msgid "Choose if you want your slider to scroll products continuously"
+msgstr "Elige si deseas que el carrusel desplace los productos continuamente"
+
+#: includes/metaboxes/product_slider-metabox.php:288
+msgid "Pagination Speed"
+msgstr "Velocidad de paginación"
+
+#: includes/metaboxes/product_slider-metabox.php:289
+msgid "Pagination speed in milliseconds"
+msgstr "Velocidad de la paginación en milisegundos"
+
+#: includes/metaboxes/product_slider-metabox.php:297
+msgid "AutoPlay"
+msgstr "Reproducción automática"
+
+#: includes/metaboxes/product_slider-metabox.php:298
+msgid "Insert the autoplay value in milliseconds, enter 0 to disable it"
+msgstr ""
+"Inserta el valor de reproducción automática en milisegundos, introduce 0 "
+"para desactivarlo"
+
+#: includes/metaboxes/product_slider-metabox.php:305
+msgid "Stop on Hover"
+msgstr "Detener en al pasar el cursor por encima"
+
+#: includes/metaboxes/product_slider-metabox.php:306
+msgid "Stop autoplay on mouse hover"
+msgstr "Detener la reproducción automática al pasar el ratón por encima"
+
+#: includes/metaboxes/product_slider-metabox.php:313
+msgid "Show Navigation"
+msgstr "Mostrar navegación"
+
+#: includes/metaboxes/product_slider-metabox.php:314
+msgid "Display \"prev\" and \"next\" button"
+msgstr "Mostrar botón ‘’anterior’’ y ‘’siguiente’’"
+
+#: includes/metaboxes/product_slider-metabox.php:321
+msgid "Show Dots Navigation"
+msgstr "Mostrar puntos de navegación"
+
+#: includes/metaboxes/product_slider-metabox.php:322
+msgid "Show or Hide dots navigation"
+msgstr "Mostrar y ocultar puntos de navegación"
+
+#: includes/metaboxes/product_slider-metabox.php:329
+msgid "Animation IN"
+msgstr "Animación DENTRO "
+
+#: includes/metaboxes/product_slider-metabox.php:330
+msgid ""
+"Choose entrance animation for a new slide.<br>*Animation functions work only "
+"if there is just one item in the slider and only in browsers that support "
+"perspective property"
+msgstr ""
+"Elige entrada de animación para un nuevo carrusel. <br>* Las funciones de la "
+"animación funcionan solo si hay un solo artículo en el carrusel y solo en "
+"navegadores que soporten propiedad de perspectiva"
+
+#: includes/metaboxes/product_slider-metabox.php:335
+msgid "Animation OUT"
+msgstr "Animación FUERA"
+
+#: includes/metaboxes/product_slider-metabox.php:336
+msgid ""
+"Choose exit animation for a slide.<br>*Animation functions work only if "
+"there is just one item in the slider and only in browsers that support "
+"perspective property"
+msgstr ""
+"Elige animación de salida para un carrusel. <br>* Las funciones de la "
+"animación funcionan solo si solo hay un artículo en el carrusel y solo en "
+"navegadores que soporten propiedad de perspectiva"
+
+#: includes/metaboxes/product_slider-metabox.php:342
+msgid "Animation Speed"
+msgstr "Velocidad de animación"
+
+#: includes/metaboxes/product_slider-metabox.php:343
+msgid "Enter animation duration in milliseconds"
+msgstr "Introduce la duración de la animación en milisegundos"
+
+#: init.php:99
+msgid ""
+"YITH WooCommerce Product Slider Carousel Premium is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Product Slider Carousel Premium está activado pero no es "
+"efectivo. Necesita WooCommerce para funcionar."
+
+#: plugin-options/layout1-options.php:27 plugin-options/layout2-options.php:25
+#: plugin-options/layout3-options.php:21
+msgid "Box background color"
+msgstr "Color de fondo de caja"
+
+#: plugin-options/layout1-options.php:35 plugin-options/layout2-options.php:33
+#: plugin-options/layout3-options.php:29
+msgid "Box border color"
+msgstr "Color de borde de caja"
+
+#: plugin-options/layout1-options.php:43 plugin-options/layout2-options.php:41
+#: plugin-options/layout3-options.php:37
+msgid "Text color"
+msgstr "Color de texto"
+
+#: plugin-options/layout1-options.php:51 plugin-options/layout2-options.php:49
+msgid "Background color of navigation arrow"
+msgstr "Color de fondo de la flecha de navegación"
+
+#: plugin-options/layout1-options.php:59 plugin-options/layout2-options.php:57
+msgid "Border color of navigation arrow"
+msgstr "Color de borde de la flecha de navegación"
+
+#: plugin-options/layout1-options.php:66 plugin-options/layout2-options.php:64
+msgid "Text color of navigation arrow"
+msgstr "Color de texto de la flecha de navegación"
+
+#: plugin-options/layout1-options.php:74 plugin-options/layout2-options.php:72
+#: plugin-options/layout3-options.php:68
+msgid "Button background color"
+msgstr "Color de fondo del botón"
+
+#: plugin-options/layout1-options.php:82 plugin-options/layout2-options.php:80
+#: plugin-options/layout3-options.php:76
+msgid "Button background color on hover "
+msgstr "Color de fondo del botón al pasar el cursor por encima"
+
+#: plugin-options/layout1-options.php:90 plugin-options/layout2-options.php:88
+#: plugin-options/layout3-options.php:84
+msgid "Button text color"
+msgstr "Color de texto del botón"
+
+#: plugin-options/layout1-options.php:97 plugin-options/layout2-options.php:95
+#: plugin-options/layout3-options.php:91
+msgid "Button text color on hover"
+msgstr "Color de texto del botón al pasar el cursor por encima"
+
+#: plugin-options/layout1-options.php:105
+#: plugin-options/layout2-options.php:102 plugin-options/layout3-options.php:98
+msgid "Button border color"
+msgstr "Color de borde del botón"
+
+#: plugin-options/layout1-options.php:112
+#: plugin-options/layout2-options.php:109
+#: plugin-options/layout3-options.php:105
+msgid "Button border color on hover"
+msgstr "Color de borde del botón al pasar el cursor por encima"
+
+#: plugin-options/layout3-options.php:45
+msgid "Background color navigation arrow"
+msgstr "Color de fondo de flecha de navegación"
+
+#: plugin-options/layout3-options.php:53
+msgid "Border color navigation arrow"
+msgstr "Color de borde de flecha de navegación"
+
+#: plugin-options/layout3-options.php:60
+msgid "Text color navigation arrow"
+msgstr "Color de texto de flecha de navegación"
+
+#: plugin-options/settings-options.php:19
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/settings-options.php:25
+msgid "Enable Responsive"
+msgstr "Activar sensibilidad"
+
+#: plugin-options/settings-options.php:33
+msgid "Items in Standard Desktop"
+msgstr "Artículos en estándar de escritorio"
+
+#: plugin-options/settings-options.php:35
+msgid ""
+"This allows you to preset the number of slides visible with a specific "
+"browser width. For browser width between 767 and 991, this option works only "
+"if responsive slider is enabled"
+msgstr ""
+"Esto te permite preestablecer el número de carruseles visibles con un ancho "
+"de navegador específico. Para ancho de navegador entre 767 y 991, esta "
+"opción funciona solo si el carrusel sensible está activado"
+
+#: plugin-options/settings-options.php:44
+msgid "Items in Tablet"
+msgstr "Artículos en tableta"
+
+#: plugin-options/settings-options.php:47
+msgid ""
+"This allows you to preset the number of slides visible with a particular "
+"browser width. For browser width between 479 and 766, this option works only "
+"if responsive slider is enabled"
+msgstr ""
+"Esto te permite preestablecer el número de carruseles visibles con un ancho "
+"de navegador particular. Para ancho de navegador entre 479 y 766, esta "
+"opción funciona solo si el carrusel sensible está activado"
+
+#: plugin-options/settings-options.php:55
+msgid "Items in Mobile"
+msgstr "Artículos en el móvil"
+
+#: plugin-options/settings-options.php:58
+msgid ""
+"This allows you to preset the number of slides visible with a particular "
+"browser width. For browser width between 0 and 478, this option works only "
+"if responsive slider option is enabled"
+msgstr ""
+"Esto te permite preestablecer el número de carruseles visibles con un ancho "
+"de navegador particular. Para ancho de navegador entre 0 y 478, esta opción "
+"funciona si la opción de carrusel sensible está activada"
+
+#: plugin-options/settings-options.php:67
+msgid "Product to show"
+msgstr "Producto a mostrar"
+
+#: plugin-options/settings-options.php:70
+msgid ""
+"This option lets you choose the number of products you want to show. -1 for "
+"all"
+msgstr ""
+"Esta opción te permite elegir el número de productos que quieres mostrar. -1 "
+"para todos"
+
+#: plugin-options/settings-options.php:79
+msgid "Enable Rtl support"
+msgstr "Activar soporte RTL"
+
+#: plugin-options/settings-options.php:87
+msgid "Enable mousewhell event"
+msgstr "Activar evento de rueda de ratón"
+
+#: plugin-options/settings-options.php:91
+msgid "If enabled, the slider will scroll by using the mouse middle button"
+msgstr ""
+"Si está activado, el carrusel se deslizará utilizando la rueda del ratón"
+
+#: templates/admin/lightbox.php:44
+msgid "Add shortcode"
+msgstr "Añadir shortcode"
+
+#: templates/admin/lightbox.php:120 templates/admin/lightbox.php:122
+msgid "Select a Slider"
+msgstr "Seleccionar un carrusel"
+
+#: templates/admin/lightbox.php:132
+msgid "z-index"
+msgstr "z-index"
+
+#: templates/admin/lightbox.php:138
+msgid "Insert"
+msgstr "Insertar"
+
+#: templates/metaboxes/types/select-group.php:47
+msgid "None"
+msgstr "Ninguno"
+
+#: templates/product_slider_view_custom_template.php:166
+#: templates/product_slider_view_default.php:111
+msgid "There is no product to show"
+msgstr "No hay ningún producto a mostrar"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Product Slider Carousel Premium</strong></"
+"code> allows you to create more responsive product sliders! You can create a "
+"slider by product category or tags, a bestseller slider and much more! <a "
+"href =\"https://yithemes.com\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>"
+msgstr ""
+"¡<code><strong>YITH WooCommerce Product Slider Carousel Premium</strong></"
+"code> te permite crear más carruseles adaptables! ¡Puedes crear un "
+"deslizante por categoría de producto o etiqueta, un deslizante de ‘’más "
+"vendidos’’<a href =\"https://yithemes.com\">Obtén más plugins para tu "
+"comercio electrónico en <strong>YITH</strong></a>"
+
+#: includes/class.yith-product-slider-type.php:135
+msgctxt "Post Type General Name"
+msgid "YITH WooCommerce Product Slider Carousel"
+msgstr "YITH WooCommerce Product Slider Carousel"
+
+#: includes/class.yith-product-slider-type.php:136
+msgctxt "Post Type Singular Name"
+msgid "Product Slider Carousel"
+msgstr "Carrusel de producto"
+
+#: includes/functions.yith-product-slider.php:141
+msgctxt "[gutenberg]: product slider carousel"
+msgid "Product Slider Carousel"
+msgstr "Carrusel deslizante de producto"

@@ -61,5 +61,8 @@ class WC_Booking_Cron_Manager {
 		if ( $booking_id && $booking && $booking->has_status( array( 'in-cart', 'was-in-cart' ) ) ) {
 			wp_delete_post( $booking_id );
 		}
+
+		// Delete transient of this booking product to free up the slots.
+		WC_Bookings_Cache::delete_booking_slots_transient( $booking->get_product_id() );
 	}
 }

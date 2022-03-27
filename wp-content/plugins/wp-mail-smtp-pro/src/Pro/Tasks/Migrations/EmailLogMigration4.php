@@ -73,7 +73,7 @@ class EmailLogMigration4 extends Task {
 		$queries[] = "ALTER TABLE `$table` ENGINE=InnoDB;";
 
 		foreach ( $queries as $query ) {
-			$wpdb->query( $query ); // phpcs:ignore
+			$wpdb->query( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 		}
 	}
 }

@@ -1,5 +1,9 @@
 *** WooCommerce Give Products Changelog ***
 
+2022-02-08 - version 1.1.16
+* Fix - Include languages folder and POT file in the release.
+* Tweak - WC 6.2 compatibility.
+
 2022-01-17 - version 1.1.15
 * Fix - Unify `.github/**.md` files with other repos.
 * Tweak - WC 6.1 compatibility.

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Better_User_Activation extends GP_Perk {
 
 	public $version                   = GP_BETTER_USER_ACTIVATION_VERSION;
@@ -16,7 +12,7 @@ class GP_Better_User_Activation extends GP_Perk {
 	private static $instance = null;
 
 	public static function get_instance( $perk_file ) {
-		if( self::$instance == null ) {
+		if ( self::$instance == null ) {
 			self::$instance = new self( $perk_file );
 		}
 		return self::$instance;
@@ -35,7 +31,7 @@ class GP_Better_User_Activation extends GP_Perk {
 
 		$this->enqueue_field_settings();
 
-		add_action('admin_init', array( $this, 'register_scripts'));
+		add_action( 'admin_init', array( $this, 'register_scripts' ) );
 
 		// activation page filters
 		add_filter( 'the_title', array( $this, 'hide_title' ), 2, 2 );
@@ -48,11 +44,15 @@ class GP_Better_User_Activation extends GP_Perk {
 		new GPBUA_Meta_Box();
 
 		// activate user hooks
+		add_filter( 'gform_user_registration_signup_meta', array( $this, 'add_form_id_to_signup_meta' ), 10, 4 );
 		add_action( 'wp', array( $this, 'maybe_redirect_activation' ), 5 );
 		add_action( 'wp', array( $this, 'maybe_activate_user' ), 5 );
 
 		// support redirect on success
 		add_action( 'gpbua_activation_success', array( $this, 'maybe_redirect_on_success' ), 10 );
+
+		// Force Classic editor for our activation page. Priority 101 to fire *after* the Classic Editor plugin.
+		add_filter( 'use_block_editor_for_post', array( $this, 'disable_block_editor_for_activation_page' ), 101, 2 );
 
 		// add shortcodes
 		new GPBUA_Shortcode_GPBUA();
@@ -65,15 +65,19 @@ class GP_Better_User_Activation extends GP_Perk {
 	public function requirements() {
 		return array(
 			array(
-				'class' => 'GFUser',
-				'message' => 'GP Better User Activation requires the Gravity Forms User Registration add-on.'
-			)
+				'class'   => 'GFUser',
+				'message' => 'GP Better User Activation requires the Gravity Forms User Registration add-on.',
+			),
 		);
+	}
+
+	public function disable_block_editor_for_activation_page( $use_block_editor, $post ) {
+		return gpbua_is_activation_page( $post->ID ) ? false : $use_block_editor;
 	}
 
 	public function remove_default_content_editor() {
 
-		if( ! gpbua_is_activation_page() ) {
+		if ( ! gpbua_is_activation_page() ) {
 			return;
 		}
 
@@ -86,7 +90,7 @@ class GP_Better_User_Activation extends GP_Perk {
 		$redirect_url = '';
 
 		$redirect_on_success_id = $this->get_activation_success_redirect_id();
-		if( $redirect_on_success_id ) {
+		if ( $redirect_on_success_id ) {
 			$redirect_url = get_permalink( $redirect_on_success_id );
 		}
 
@@ -99,7 +103,7 @@ class GP_Better_User_Activation extends GP_Perk {
 		 * @param $activation   object An instance of the GPBUA_Activate object used to activate the user.
 		 */
 		$redirect_url = apply_filters( 'gpbua_activation_redirect_url', $redirect_url, $activation );
-		if( $redirect_url ) {
+		if ( $redirect_url ) {
 			wp_redirect( $redirect_url );
 		}
 
@@ -108,7 +112,7 @@ class GP_Better_User_Activation extends GP_Perk {
 	public function hide_title( $title, $post_id = false ) {
 
 		// Some 3rd party plugins apply the the_title filter without passing a $post_id.
-		if( ! $post_id ) {
+		if ( ! $post_id ) {
 			return $title;
 		}
 
@@ -121,7 +125,7 @@ class GP_Better_User_Activation extends GP_Perk {
 		 */
 		$hide_title = apply_filters( 'gpbua_hide_title', true );
 
-		if( ! gpbua_is_activation_page( $post_id ) || ! $hide_title ) {
+		if ( ! gpbua_is_activation_page( $post_id ) || ! $hide_title ) {
 			return $title;
 		}
 
@@ -130,7 +134,7 @@ class GP_Better_User_Activation extends GP_Perk {
 
 	public function show_content( $content ) {
 
-		if ( $GLOBALS['post']->ID != gpbua_get_activation_page_id() ) {
+		if ( ! isset( $GLOBALS['post']->ID ) || $GLOBALS['post']->ID != gpbua_get_activation_page_id() ) {
 			return $content;
 		}
 
@@ -141,7 +145,7 @@ class GP_Better_User_Activation extends GP_Perk {
 		$template = new GPBUA_Template( $activate->get_view(), $activate->get_result() );
 
 		// check if content has the gpbua shortcode
-		if( ! has_shortcode( $content, 'gpbua' ) ) {
+		if ( ! has_shortcode( $content, 'gpbua' ) ) {
 
 			// shortcode not used so we append the view content
 			$content .= $template->render_view();
@@ -153,22 +157,40 @@ class GP_Better_User_Activation extends GP_Perk {
 
 	public function maybe_redirect_activation() {
 
-		if ( rgget( 'page' ) != 'gf_activation' ) {
+		if ( ! $this->is_gf_activation_page() ) {
 			return;
 		}
 
 		// replace with check has_custom_activation_page to support no page set
 		$activation_page_id = $this->get_activation_page_id();
-
-		if( ! $activation_page_id ) {
+		if ( ! $activation_page_id ) {
 			return;
 		}
 
+		parse_str( $_SERVER['QUERY_STRING'], $query_args );
+
+		// Before GFUR 4.6, the activation key was passed via the "key" parameter. Post GFUR 4.6, it is passed via the
+		// "gfur_activation" parameter.
+		$key = rgar( $query_args, 'key', rgar( $query_args, 'gfur_activation' ) );
+
+		// For GFUR < 4.6
+		unset( $query_args['page'] );
+		unset( $query_args['gfur_activation'] );
+
+		$query_args['key'] = $key;
+
 		// redirect user to custom activation page
-		$activation_url = add_query_arg( 'key', $_GET['key'], get_permalink( $activation_page_id ) );
+		$activation_url = add_query_arg( $query_args, get_permalink( $activation_page_id ) );
 		wp_redirect( $activation_url );
 		exit;
 
+	}
+
+	public function is_gf_activation_page() {
+		$is_activation_page = isset( $_GET['page'] ) && $_GET['page'] === 'gf_activation';
+		// Parameter changed in GFUR 4.6 due to issues introduced by WP 5.5.
+		$is_activation_page = $is_activation_page || isset( $_GET['gfur_activation'] );
+		return $is_activation_page;
 	}
 
 	public function maybe_activate_user() {
@@ -192,21 +214,21 @@ class GP_Better_User_Activation extends GP_Perk {
 
 	public function register_scripts() {
 
-		if( ! $this->is_activation_page( rgget( 'post' ) ) ) {
+		if ( ! $this->is_activation_page( rgget( 'post' ) ) ) {
 			return;
 		}
 
-		wp_register_script('gpbua_script', plugins_url( 'js/gpbua.js', __FILE__ ), array( 'jquery', 'gform_form_admin' ), $this->version, true );
-		wp_enqueue_script('gpbua_script');
+		wp_register_script( 'gpbua_script', plugins_url( 'js/gpbua.js', __FILE__ ), array( 'jquery', 'gform_form_admin' ), $this->version, true );
+		wp_enqueue_script( 'gpbua_script' );
 
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 
-		wp_register_style('gpbua_jquery_ui_styles', plugins_url('css/gpbua-jquery-ui.css', __FILE__), array(), $this->version );
-		wp_enqueue_style('gpbua_jquery_ui_styles');
+		wp_register_style( 'gpbua_jquery_ui_styles', plugins_url( 'css/gpbua-jquery-ui.css', __FILE__ ), array(), $this->version );
+		wp_enqueue_style( 'gpbua_jquery_ui_styles' );
 
-		wp_register_style('gpbua_styles', plugins_url('css/gpbua.css', __FILE__), array('gpbua_jquery_ui_styles'), $this->version );
-		wp_enqueue_style('gpbua_styles');
+		wp_register_style( 'gpbua_styles', plugins_url( 'css/gpbua.css', __FILE__ ), array( 'gpbua_jquery_ui_styles' ), $this->version );
+		wp_enqueue_style( 'gpbua_styles' );
 
 	}
 
@@ -219,21 +241,21 @@ class GP_Better_User_Activation extends GP_Perk {
 			'post_status' => array( 'publish', 'draft', 'private' ),
 		) );
 
-		if( empty( $pageList ) ) {
+		if ( empty( $pageList ) ) {
 			return $pages;
 		}
 
 		$current_parent = 0;
-		$indent = '&mdash;&nbsp;';
-		foreach( $pageList as $pageObj ) {
+		$indent         = '&mdash;&nbsp;';
+		foreach ( $pageList as $pageObj ) {
 
 			$parent = $pageObj->post_parent;
 
-			if( $parent ) {
+			if ( $parent ) {
 
-				if( $current_parent != $parent ) {
+				if ( $current_parent != $parent ) {
 					// new level
-					$indent = '&mdash;' . $indent;
+					$indent         = '&mdash;' . $indent;
 					$current_parent = $parent;
 				}
 
@@ -242,12 +264,11 @@ class GP_Better_User_Activation extends GP_Perk {
 			} else {
 
 				// no parent
-				$current_parent = $pageObj->ID;
-				$indent = '&mdash;&nbsp;'; // reset indent
+				$current_parent        = $pageObj->ID;
+				$indent                = '&mdash;&nbsp;'; // reset indent
 				$pages[ $pageObj->ID ] = $pageObj->post_title;
 
 			}
-
 		}
 
 		return $pages;
@@ -255,8 +276,8 @@ class GP_Better_User_Activation extends GP_Perk {
 	}
 
 	public function get_activation_success_redirect_id() {
-		$settings = self::get_perk_settings($this->slug);
-		return $this->get_setting( $this->get_option_id( 'activation_success_redirect' ), $settings);
+		$settings = self::get_perk_settings( $this->slug );
+		return $this->get_setting( $this->get_option_id( 'activation_success_redirect' ), $settings );
 	}
 
 	public function get_activation_success_redirect_page() {
@@ -265,9 +286,18 @@ class GP_Better_User_Activation extends GP_Perk {
 
 	public function get_activation_page_id() {
 
-		if( $this->_activation_page_id === null ) {
+		if ( $this->_activation_page_id === null ) {
 			$this->_activation_page_id = $this->get_setting( $this->get_option_id( 'activation_page' ) );
 		}
+
+		/**
+		 * Filter the ID that will be used to identify and fetch the activation page.
+		 *
+		 * @since 1.2.6
+		 *
+		 * @param int|null $activation_page_id The ID of the activation page.
+		 */
+		$this->_activation_page_id = apply_filters( 'gpbua_activation_page_id', $this->_activation_page_id );
 
 		return $this->_activation_page_id;
 	}
@@ -285,23 +315,23 @@ class GP_Better_User_Activation extends GP_Perk {
 			'id'          => $this->get_option_id( 'activation_page' ),
 			'label'       => __( 'User Activation Page', 'gp-better-user-activation' ),
 			'values'      => $pages,
-			'description' => __( 'Select a page to which the user will be directed to activate their account.', 'gp-better-user-activation' )
+			'description' => __( 'Select a page to which the user will be directed to activate their account.', 'gp-better-user-activation' ),
 		) );
 
 		echo self::generate_select( $this, array(
 			'id'          => $this->get_option_id( 'activation_success_redirect' ),
 			'label'       => __( 'Redirect Page', 'gp-better-user-activation' ),
 			'values'      => $pages,
-			'description' => __( 'Select a page to which the user will be redirected after a successful activation.', 'gp-better-user-activation' )
+			'description' => __( 'Select a page to which the user will be redirected after a successful activation.', 'gp-better-user-activation' ),
 		) );
 
 	}
 
 	public function get_option_id( $id ) {
 		global $sitepress;
-		if( ! empty( $sitepress ) ) {
+		if ( ! empty( $sitepress ) ) {
 			$lang = $sitepress->get_current_language();
-			if( $lang && $lang != 'all' ) {
+			if ( $lang && $lang != 'all' ) {
 				$id = sprintf( '%s_%s', $id, $lang );
 			}
 		}
@@ -315,7 +345,7 @@ class GP_Better_User_Activation extends GP_Perk {
 	public function is_activation_page( $post_id = false ) {
 		global $post;
 
-		if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && /*! $post_id &&*/ is_admin() && is_callable( 'get_current_screen' ) ) {
+		if ( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && /*! $post_id &&*/ is_admin() && is_callable( 'get_current_screen' ) ) {
 			$screen = get_current_screen();
 			if ( $screen && $screen->id != 'page' ) {
 				return false;
@@ -326,7 +356,7 @@ class GP_Better_User_Activation extends GP_Perk {
 			$post_id = $post->ID;
 		}
 
-		if( $post_id && $this->get_activation_page_id() == $post_id ) {
+		if ( $post_id && $this->get_activation_page_id() == $post_id ) {
 			return true;
 		}
 
@@ -335,7 +365,7 @@ class GP_Better_User_Activation extends GP_Perk {
 
 	public function get_default_content( $view ) {
 		ob_start();
-		if( ! $view ) {
+		if ( ! $view ) {
 			$view = 'success';
 		}
 		require_once( GPBUA_TEMPLATE_DIR . '/' . $this->template_name_by_key( $view ) );
@@ -345,14 +375,24 @@ class GP_Better_User_Activation extends GP_Perk {
 	}
 
 	public function template_name_by_key( $key ) {
-		return 'activate-' . str_replace('_', '-', $key)  . '.php';
+		return 'activate-' . str_replace( '_', '-', $key ) . '.php';
 	}
 
-	public function documentation() {
-		return array(
-			'type'  => 'url',
-			'value' => 'http://gravitywiz.com/documentation/gravity-forms-better-user-activation/'
-		);
+	/**
+	 * Add the form id to signup meta that way if the entry goes missing is deleted (GP Disable Entry Creation),
+	 * errors aren't encountered when trying to figure out which form is associated with the signup.
+	 *
+	 * @param array $meta All the metadata in an array (user login, email, password, etc)
+	 * @param array $form The current Form object
+	 * @param array $entry The Entry object (To pull the meta from the entry array)
+	 * @param array $feed The Feed object
+	 *
+	 * @return array
+	 */
+	public function add_form_id_to_signup_meta( $meta, $form, $entry, $feed ) {
+		$meta['form_id'] = $form['id'];
+
+		return $meta;
 	}
 
 }

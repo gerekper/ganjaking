@@ -825,7 +825,7 @@ class WC_XR_Settings {
 				echo '<div>Cannot request the access token, please connect your application again!</div>';
 				echo '<div>For more information check the documentation page : <a href="https://docs.woocommerce.com/document/xero/#section-3">WooCommerce and Xero setup</a></div>';
 			} elseif ( $status['errorMessage'] === 'no_connection' ) {
-				echo '<div>Application not authorized with Xero! Pleas click Sign in with Xero button.</div>';
+				echo '<div>Application not authorized with Xero! Please click Sign in with Xero button.</div>';
 			} else {
 				echo $status['errorMessage'] . '</span>';
 			}

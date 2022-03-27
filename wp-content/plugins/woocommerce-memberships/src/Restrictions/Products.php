@@ -17,13 +17,13 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Memberships\Restrictions;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -748,7 +748,7 @@ class Products {
 		if (    ! is_user_logged_in()
 		     &&   is_cart()
 		     &&   in_array( get_option( 'wc_memberships_display_member_login_notice' ), array( 'cart', 'both' ), true )
-		     &&   ( $this->cart_has_items_with_member_discounts() && ! is_ajax() ) ) {
+		     &&   ( $this->cart_has_items_with_member_discounts() && ! wp_doing_ajax() ) ) {
 
 			wc_add_notice( $this->get_member_login_message(), 'notice' );
 		}

@@ -1,0 +1,330 @@
+# Copyright (C) 2022 Gravity Wiz
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Inventory 1.0-beta-2.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cloned-perk-r4RPKunz3\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-03-22T20:37:08+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: gp-inventory\n"
+
+#. Plugin Name of the plugin
+#: class-gp-inventory.php:436
+#: class-gp-inventory.php:442
+msgid "GP Inventory"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gravitywiz.com/documentation/gravity-forms-inventory/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Easy, flexible inventory management for Gravity Forms."
+msgstr ""
+
+#. Author of the plugin
+msgid "Gravity Wiz"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://gravitywiz.com/"
+msgstr ""
+
+#: class-gp-inventory.php:197
+msgid "Add"
+msgstr ""
+
+#: class-gp-inventory.php:198
+msgid "Adding..."
+msgstr ""
+
+#: class-gp-inventory.php:199
+msgid "Edit"
+msgstr ""
+
+#: class-gp-inventory.php:200
+msgid "Editing..."
+msgstr ""
+
+#: class-gp-inventory.php:201
+msgid "Close"
+msgstr ""
+
+#: class-gp-inventory.php:202
+msgid "Delete"
+msgstr ""
+
+#: class-gp-inventory.php:203
+#: class-gp-inventory.php:239
+msgid "Inventory Type"
+msgstr ""
+
+#: class-gp-inventory.php:204
+msgid "Untracked"
+msgstr ""
+
+#: class-gp-inventory.php:205
+msgid "Simple"
+msgstr ""
+
+#: class-gp-inventory.php:206
+msgid "Advanced"
+msgstr ""
+
+#: class-gp-inventory.php:207
+#: class-gp-inventory.php:244
+msgid "Inventory"
+msgstr ""
+
+#: class-gp-inventory.php:208
+msgid "Inventory Per Combination"
+msgstr ""
+
+#: class-gp-inventory.php:209
+#: class-gp-inventory.php:276
+msgid "Resource"
+msgstr ""
+
+#: class-gp-inventory.php:210
+#: class-gp-inventory.php:281
+msgid "Resource Name"
+msgstr ""
+
+#: class-gp-inventory.php:211
+#: class-gp-inventory.php:286
+msgid "Scopes"
+msgstr ""
+
+#: class-gp-inventory.php:212
+msgid "Add Scope"
+msgstr ""
+
+#: class-gp-inventory.php:213
+msgid "Remove Scope"
+msgstr ""
+
+#: class-gp-inventory.php:214
+msgid "Changes will affect any field that is mapped to this resource."
+msgstr ""
+
+#: class-gp-inventory.php:215
+msgid "This resource is mapped to a choice-based field. Inventory must be set on each choice in the field settings."
+msgstr ""
+
+#: class-gp-inventory.php:216
+msgid "Inventory must be set per choice in the <a href=\"#\" class=\"gpi-go-to-choices\">Choices setting</a>."
+msgstr ""
+
+#: class-gp-inventory.php:222
+msgid "Select a Resource"
+msgstr ""
+
+#: class-gp-inventory.php:223
+msgid "Select a Field"
+msgstr ""
+
+#: class-gp-inventory.php:224
+msgid "Add Resource"
+msgstr ""
+
+#. translators: placeholder is for resource name
+#: class-gp-inventory.php:226
+msgid "Edit Resource: %s"
+msgstr ""
+
+#. translators: placeholder is for resource name
+#: class-gp-inventory.php:227
+#: class-gp-inventory.php:296
+msgid "Show available inventory"
+msgstr ""
+
+#: class-gp-inventory.php:228
+#: class-gp-inventory.php:301
+msgid "Hide form when inventory exhausted"
+msgstr ""
+
+#: class-gp-inventory.php:229
+#: class-gp-inventory.php:306
+msgid "Hide choice when inventory exhausted"
+msgstr ""
+
+#: class-gp-inventory.php:230
+#: class-gp-inventory.php:249
+msgid "Inventory Insufficient Message"
+msgstr ""
+
+#: class-gp-inventory.php:231
+#: class-gp-inventory.php:258
+msgid "Inventory Exhausted Message"
+msgstr ""
+
+#: class-gp-inventory.php:232
+#: class-gp-inventory.php:267
+msgid "Inventory Available Message"
+msgstr ""
+
+#: class-gp-inventory.php:240
+msgid "Specify how inventory should be tracked for this field.<br><br><b>Untracked:</b> Inventory will not be tracked for this field.<br><br><b>Simple:</b> Inventory will be tracked specifically for this field.<br><br><b>Advanced:</b> Inventory will be tracked by a resource. A resource can be shared by multiple fields or scoped by a group of fields."
+msgstr ""
+
+#: class-gp-inventory.php:245
+msgid "Specify the amount of this resource that is available."
+msgstr ""
+
+#. translators: %s: The default message specified in GP_Inventory::inventory_insufficient_default_message() message.
+#: class-gp-inventory.php:252
+msgid "Specify a message that will be shown when the quantity requested is greater than the amount of inventory available.<br><br>Default message:<br>%s"
+msgstr ""
+
+#. translators: %s: The default message specified in GP_Inventory::inventory_exhausted_default_message() message.
+#: class-gp-inventory.php:261
+msgid "Specify a message that will be shown when the inventory is exhausted.<br><br>Default message:<br>%s"
+msgstr ""
+
+#. translators: %s: The default message specified in GP_Inventory::inventory_available_default_message() message.
+#: class-gp-inventory.php:270
+msgid "Specify a message that displays the amount of inventory available.<br><br>Default message:<br>%s"
+msgstr ""
+
+#: class-gp-inventory.php:277
+msgid "Select or create a Resource. A Resource allows you to share inventory across multiple fields and forms - or - group multiple fields together to scope inventory by a unique combination of field values. <a href=\"https://gravitywiz.com/documentation/gravity-forms-inventory/#resources\">Learn more.</a>"
+msgstr ""
+
+#: class-gp-inventory.php:282
+msgid "Give your Resource a name. This is only used to identify the Resource in the Form Editor and in other Admin screens."
+msgstr ""
+
+#: class-gp-inventory.php:287
+msgid "Specify scopes that apply to this Resource. Common scopes include Date, Time, and Location. Resource scopes can be mapped to corresponding fields in the inventory-enabled field's settings. <a href=\"https://gravitywiz.com/documentation/gravity-forms-inventory/#scopes\">Learn more.</a>"
+msgstr ""
+
+#: class-gp-inventory.php:291
+msgid "Scopes Map"
+msgstr ""
+
+#: class-gp-inventory.php:292
+msgid "Map each of the selected Resources's scopes to a corresponding field."
+msgstr ""
+
+#: class-gp-inventory.php:297
+msgid "Enable this option to display a message indicating how much inventory is available for this field.<br><br>For choice-based fields, this message will be appended to the choice label. For all other fields, this message will be displayed in the field description."
+msgstr ""
+
+#: class-gp-inventory.php:302
+msgid "Enable this option to hide the form when this field's inventory is exhausted. For choice-based fields, each choice's inventory must be exhausted before the form will be hidden."
+msgstr ""
+
+#: class-gp-inventory.php:307
+msgid "By default, choices are disabled when their inventory is exhausted. Enable this option to remove the choice instead."
+msgstr ""
+
+#: class-gp-inventory.php:309
+msgid "Error: Could not add resource. Please try again."
+msgstr ""
+
+#: class-gp-inventory.php:310
+msgid "Error: Could not edit resource. Please try again."
+msgstr ""
+
+#: class-gp-inventory.php:311
+msgid "Error: Could not delete resource. Please try again."
+msgstr ""
+
+#. translators: placeholder is for resource name
+#: class-gp-inventory.php:313
+msgid "Are you sure you wish to delete the \"%s\" resource?"
+msgstr ""
+
+#. translators: placeholder is for resource name
+#: class-gp-inventory.php:314
+msgid "Deleting scopes on resources with existing entries is not recommend. Are you sure you wish to delete this scope?"
+msgstr ""
+
+#: class-gp-inventory.php:340
+msgid "Sorry, there are no more of this item."
+msgstr ""
+
+#: class-gp-inventory.php:347
+msgid "{available} {item|items} available."
+msgstr ""
+
+#: class-gp-inventory.php:354
+msgid "({available} {item|items} remaining)"
+msgstr ""
+
+#: class-gp-inventory.php:361
+msgid "You requested {requested} of this item but there are only {available} of this item left."
+msgstr ""
+
+#: class-gp-inventory.php:437
+#: class-gp-inventory.php:443
+msgid "Example tooltip."
+msgstr ""
+
+#: includes/class-resources.php:184
+msgctxt "Post Type General Name"
+msgid "Resources"
+msgstr ""
+
+#: includes/class-resources.php:185
+msgctxt "Post Type Singular Name"
+msgid "Resource"
+msgstr ""
+
+#: includes/class-resources.php:186
+msgid "Add New Resource"
+msgstr ""
+
+#: includes/class-resources.php:187
+msgid "Add New"
+msgstr ""
+
+#: includes/class-resources.php:188
+msgid "New Resource"
+msgstr ""
+
+#: includes/class-resources.php:189
+msgid "Edit Resource"
+msgstr ""
+
+#: includes/class-resources.php:190
+msgid "Update Resource"
+msgstr ""
+
+#: includes/class-resources.php:191
+msgid "View Resource"
+msgstr ""
+
+#: includes/class-resources.php:192
+msgid "View Resources"
+msgstr ""
+
+#: includes/class-resources.php:193
+msgid "Search Resources"
+msgstr ""
+
+#: includes/class-resources.php:194
+msgid "Not found"
+msgstr ""
+
+#: includes/class-resources.php:195
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/class-resources.php:196
+msgid "Resources list"
+msgstr ""
+
+#: includes/class-resources.php:197
+msgid "Resources list navigation"
+msgstr ""
+
+#: includes/class-resources.php:198
+msgid "Filter resources list"
+msgstr ""

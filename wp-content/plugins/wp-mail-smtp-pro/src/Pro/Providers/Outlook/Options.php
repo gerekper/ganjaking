@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Providers\Outlook;
 
 use WPMailSMTP\Providers\OptionsAbstract;
+use WPMailSMTP\Options as PluginOptions;
 
 /**
  * Class Options
@@ -231,12 +232,12 @@ class Options extends OptionsAbstract {
 
 		if (
 			! isset( $_GET['outlook_remove_nonce'] ) ||
-			! wp_verify_nonce( $_GET['outlook_remove_nonce'], 'outlook_remove' ) // phpcs:ignore
+			! wp_verify_nonce( sanitize_key( $_GET['outlook_remove_nonce'] ), 'outlook_remove' )
 		) {
 			return;
 		}
 
-		$options = new \WPMailSMTP\Options();
+		$options = PluginOptions::init();
 
 		if ( $options->get( 'mail', 'mailer' ) !== $this->get_slug() ) {
 			return;

@@ -56,7 +56,7 @@ class Revoke
                 $token = $token['access_token'];
             }
         }
-        $body = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\http_build_query(array('token' => $token)));
+        $body = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\http_build_query(array('token' => $token)));
         $request = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', \WPMailSMTP\Vendor\Google\Client::OAUTH2_REVOKE_URI, ['Cache-Control' => 'no-store', 'Content-Type' => 'application/x-www-form-urlencoded'], $body);
         $httpHandler = \WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory::build($this->http);
         $response = $httpHandler($request);

@@ -1,4 +1,4 @@
-# Copyright (C) 2021 GP Limit Submissions
+# Copyright (C) 2022 GP Limit Submissions
 # This file is distributed under the same license as the GP Limit Submissions package.
 msgid ""
 msgstr ""
@@ -13,167 +13,187 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-limit-submissions.php:166
+#: ../class-gp-limit-submissions.php:184
 msgid "Limit Feed Name"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:170
+#: ../class-gp-limit-submissions.php:188
 msgid "Enter a name for this limit feed."
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:174, ../class-gp-limit-submissions.php:342
+#: ../class-gp-limit-submissions.php:192, ../class-gp-limit-submissions.php:377
 msgid "Submission Limit"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:178
+#: ../class-gp-limit-submissions.php:196
 msgid "Specify the number of entries that may be submitted if this limit feed applies."
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:183, ../class-gp-limit-submissions.php:241
+#: ../class-gp-limit-submissions.php:201, ../class-gp-limit-submissions.php:217
 msgid "Time Period"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:189
-msgid "Limit Message"
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:192
-msgid "Specify a message that will be displayed to users if their submission is limited or if the form's submission limit is reached."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:194, ../includes/GPLS_Enforce.php:164
-msgid "The submission limit has been reached for this form."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:202
-msgid "Rule Groups"
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:205
-msgid "Create groups of rules that determine whether this limit feed applies. Add a rule to your group with the (+)/(-) icons to the right. All rules in a group must be true for the group to match. Add another group by clicking the \"Add Rule Group\" button below. If any group matches, this limit feed will apply."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:214
-msgid "Specify a time period for which the this limit feed applies. Only entries submitted during this time period will count towards the submission limit."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:216
-msgid "All existing entries that match the rules for this limit feed will count towards the submission limit."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:217
-msgid "Only entries that fall within the specified time period (counting back from the current time) will count towards the submission limit."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:218
-msgid "Only entries that fall with the specified calendar period will count towards the submission limit."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:219
-msgid "Only entires that fall within the specified form schedule will count towards the submission limit. You can configure your form schedule on the Form Settings page via the \"Schedule form\" setting."
-msgstr ""
-
-#: ../class-gp-limit-submissions.php:231
+#: ../class-gp-limit-submissions.php:207
 msgid "Time Period Type"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:234
+#: ../class-gp-limit-submissions.php:210
 msgid "Choose time period settings"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:237
+#: ../class-gp-limit-submissions.php:213
 msgid "Forever"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:245, ../class-gp-limit-submissions.php:258
+#: ../class-gp-limit-submissions.php:221, ../class-gp-limit-submissions.php:231
 msgid "Calendar Period"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:249
+#: ../class-gp-limit-submissions.php:225
 msgid "Form Schedule"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:260
+#: ../class-gp-limit-submissions.php:233
 msgid "Enter the value for the time period"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:264
+#: ../class-gp-limit-submissions.php:237
 msgid "Per Day"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:268
+#: ../class-gp-limit-submissions.php:241
 msgid "Per Week"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:272
+#: ../class-gp-limit-submissions.php:245
 msgid "Per Month"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:276
+#: ../class-gp-limit-submissions.php:249
 msgid "Per Quarter"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:280
+#: ../class-gp-limit-submissions.php:253
 msgid "Per Year"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:289
+#: ../class-gp-limit-submissions.php:259
 msgid "Time Period Value"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:291
+#: ../class-gp-limit-submissions.php:261
 msgid "Enter the type of calendar time period"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:293
+#: ../class-gp-limit-submissions.php:263
 msgid "Enter a number (i.e. 3)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:299
+#: ../class-gp-limit-submissions.php:266
 msgid "Time Period Unit"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:302
+#: ../class-gp-limit-submissions.php:269
 msgid "Choose time period"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:306
+#: ../class-gp-limit-submissions.php:273
 msgid "second(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:310
+#: ../class-gp-limit-submissions.php:277
 msgid "minute(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:314
+#: ../class-gp-limit-submissions.php:281
 msgid "hour(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:318
+#: ../class-gp-limit-submissions.php:285
 msgid "day(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:322
+#: ../class-gp-limit-submissions.php:289
 msgid "week(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:326
+#: ../class-gp-limit-submissions.php:293
 msgid "month(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:330
+#: ../class-gp-limit-submissions.php:297
 msgid "year(s)"
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:341
+#: ../class-gp-limit-submissions.php:305
+msgid "Limit Message"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:309
+msgid "Specify a message that will be displayed to users if their submission is limited or if the form's submission limit is reached."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:311, ../includes/GPLS_Enforce.php:173
+msgid "The submission limit has been reached for this form."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:319
+msgid "Rule Groups"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:322
+msgid "Create groups of rules that determine whether this limit feed applies. Add a rule to your group with the (+)/(-) icons to the right. All rules in a group must be true for the group to match. Add another group by clicking the \"Add Rule Group\" button below. If any group matches, this limit feed will apply."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:327
+msgid "Additional Options"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:332
+msgid "Conditional Logic"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:333
+msgid "Enable"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:334
+msgid "Limit form submission if"
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:335
+msgid "Use conditional logic to determine if this feed should limit the entry being submitted. Note: Conditional logic is only evaluated when the form is submitted. It is not evaluated when the form is displayed."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:347
+msgid "Specify a time period for which the this limit feed applies. Only entries submitted during this time period will count towards the submission limit."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:349
+msgid "All existing entries that match the rules for this limit feed will count towards the submission limit."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:350
+msgid "Only entries that fall within the specified time period (counting back from the current time) will count towards the submission limit."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:351
+msgid "Only entries that fall with the specified calendar period will count towards the submission limit."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:352
+msgid "Only entires that fall within the specified form schedule will count towards the submission limit. You can configure your form schedule on the Form Settings page via the \"Schedule form\" setting."
+msgstr ""
+
+#: ../class-gp-limit-submissions.php:376
 msgid "Limit Feed"
 msgstr ""
 
-#: ../includes/GPLS_Enforce.php:45
+#: ../includes/GPLS_Enforce.php:47
 msgid "Submission limit reached"
 msgstr ""
 
-#: ../includes/GPLS_Enforce.php:55
+#: ../includes/GPLS_Enforce.php:57
 msgid "Submission limit reached (%s)"
 msgstr ""
 
@@ -181,27 +201,27 @@ msgstr ""
 msgid "Rule Set"
 msgstr ""
 
-#: ../includes/GPLS_Interface.php:62
+#: ../includes/GPLS_Interface.php:69
 msgid "IP"
 msgstr ""
 
-#: ../includes/GPLS_Interface.php:66, ../includes/GPLS_Rule_User.php:48
+#: ../includes/GPLS_Interface.php:73, ../includes/GPLS_Rule_User.php:48
 msgid "User"
 msgstr ""
 
-#: ../includes/GPLS_Interface.php:70, ../includes/GPLS_Rule_Embed_Url.php:135, ../includes/GPLS_Rule_Embed_Url.php:167
+#: ../includes/GPLS_Interface.php:77, ../includes/GPLS_Rule_Embed_Url.php:135, ../includes/GPLS_Rule_Embed_Url.php:167
 msgid "Embed URL"
 msgstr ""
 
-#: ../includes/GPLS_Interface.php:74, ../includes/GPLS_Rule_Role.php:80
+#: ../includes/GPLS_Interface.php:81, ../includes/GPLS_Rule_Role.php:80
 msgid "Role"
 msgstr ""
 
-#: ../includes/GPLS_Interface.php:78
+#: ../includes/GPLS_Interface.php:85
 msgid "Field Value"
 msgstr ""
 
-#: ../includes/GPLS_Rule_Embed_Url.php:114, ../includes/GPLS_Rule_Field.php:128
+#: ../includes/GPLS_Rule_Embed_Url.php:114, ../includes/GPLS_Rule_Field.php:148
 msgid "User ID"
 msgstr ""
 

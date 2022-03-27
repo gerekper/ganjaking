@@ -1,0 +1,24 @@
+<% extends 'layout.html' %>
+
+<% block content %>
+
+<div class="wrap">
+  <h1 class="mailpoet-h1">Automation</h1>
+
+  <div class="mailpoet_notice notice notice-error">
+    <p>
+      <strong>This is a testing page for MailPoet automation.</strong>
+    </p>
+  </div>
+</div>
+
+<div id="mailpoet_automation"></div>
+
+<% endblock %>
+
+<% block after_javascript %>
+  <script type="text/javascript">
+    var mailpoet_automation_api = <%= json_encode(api) %>;
+  </script>
+  <%= javascript('automation.js')%>
+<% endblock %>

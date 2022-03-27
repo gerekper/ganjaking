@@ -59,7 +59,7 @@ class ExportCleanupTask extends Task {
 	public function schedule( $request_id, $request_data_ttl ) {
 
 		// Exit if AS function does not exist.
-		if ( ! function_exists( 'as_next_scheduled_action' ) ) {
+		if ( ! function_exists( 'as_has_scheduled_action' ) ) {
 			return;
 		}
 

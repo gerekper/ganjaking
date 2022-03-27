@@ -4,8 +4,6 @@ namespace Yoast\WP\SEO\Actions\Importing;
 
 use Exception;
 use Yoast\WP\SEO\Conditionals\AIOSEO_V4_Importer_Conditional;
-use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Services\Importing\Aioseo_Replacevar_Handler;
 
 /**
  * Abstract class for importing AIOSEO settings.
@@ -50,13 +48,6 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 	protected $settings_tab = '';
 
 	/**
-	 * The replacevar handler.
-	 *
-	 * @var Aioseo_Replacevar_Handler
-	 */
-	protected $replacevar_handler;
-
-	/**
 	 * Additional mapping between AiOSEO replace vars and Yoast replace vars.
 	 *
 	 * @var array
@@ -64,21 +55,6 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 	 * @see https://yoast.com/help/list-available-snippet-variables-yoast-seo/
 	 */
 	protected $replace_vars_edited_map = [];
-
-	/**
-	 * Class constructor.
-	 *
-	 * @param Options_Helper            $options            The options helper.
-	 * @param Aioseo_Replacevar_Handler $replacevar_handler The replacevar handler.
-	 */
-	public function __construct(
-		Options_Helper $options,
-		Aioseo_Replacevar_Handler $replacevar_handler
-	) {
-		parent::__construct( $options );
-
-		$this->replacevar_handler = $replacevar_handler;
-	}
 
 	/**
 	 * Builds the mapping that ties AOISEO option keys with Yoast ones and their data transformation method.
@@ -169,8 +145,6 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 		$completed = \count( $aioseo_settings ) === 0;
 		$this->set_completed( $completed );
 
-		$last_imported_setting = '';
-
 		// Prepare the setting keys mapping.
 		$this->build_mapping();
 
@@ -179,6 +153,7 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 			$this->replacevar_handler->compose_map( $aioseo_var, $yoast_var );
 		}
 
+		$last_imported_setting = '';
 		try {
 			foreach ( $aioseo_settings as $setting => $setting_value ) {
 				// Map and import the values of the setting we're working with (eg. post, book-category, etc.) to the respective Yoast option.
@@ -206,7 +181,7 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 	 * @return array The (maybe chunked) unimported AiOSEO settings to import.
 	 */
 	protected function query( $limit = null ) {
-		$aioseo_settings = \json_decode( \get_option( $this->get_source_option_name(), [] ), true );
+		$aioseo_settings = \json_decode( \get_option( $this->get_source_option_name(), '' ), true );
 
 		if ( empty( $aioseo_settings ) || ! isset( $aioseo_settings['searchAppearance'][ $this->settings_tab ] ) ) {
 			return [];
@@ -330,21 +305,10 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 		// Check if we're supposed to save the setting.
 		if ( $this->options->get_default( 'wpseo_titles', $yoast_key ) !== null ) {
 			// Then, do any needed data transfomation before actually saving the incoming data.
-			$transformed_data = \call_user_func( [ $this, $setting_mapping['transform_method'] ], $setting_value );
+			$transformed_data = \call_user_func( [ $this, $setting_mapping['transform_method'] ], $setting_value, $setting_mapping );
 
 			$this->options->set( $yoast_key, $transformed_data );
 		}
-	}
-
-	/**
-	 * Minimally transforms data to be imported.
-	 *
-	 * @param string $meta_data The meta data to be imported.
-	 *
-	 * @return string The transformed meta data.
-	 */
-	public function simple_import( $meta_data ) {
-		return $this->replacevar_handler->transform( $meta_data );
 	}
 
 	/**
@@ -356,5 +320,17 @@ abstract class Abstract_Aioseo_Settings_Importing_Action extends Abstract_Import
 	 */
 	public function simple_boolean_import( $meta_data ) {
 		return $meta_data;
+	}
+
+	/**
+	 * Imports the noindex setting, taking into consideration whether they defer to global defaults.
+	 *
+	 * @param bool  $noindex The noindex of the type, without taking into consideration whether the type defers to global defaults.
+	 * @param array $mapping The mapping of the setting we're working with.
+	 *
+	 * @return bool The noindex setting.
+	 */
+	public function import_noindex( $noindex, $mapping ) {
+		return $this->robots_transformer->transform_robot_setting( 'noindex', $noindex, $mapping );
 	}
 }

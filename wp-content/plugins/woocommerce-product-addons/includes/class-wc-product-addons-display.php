@@ -241,7 +241,9 @@ class WC_Product_Addons_Display {
 			$raw_price = wc_get_price_including_tax( $the_product );
 		}
 
-		echo '<div id="product-addons-total" data-show-sub-total="' . ( apply_filters( 'woocommerce_product_addons_show_grand_total', true, $the_product ) ? 1 : 0 ) . '" data-type="' . esc_attr( $the_product->get_type() ) . '" data-tax-mode="' . esc_attr( $tax_mode ) . '" data-tax-display-mode="' . esc_attr( $tax_display_mode ) . '" data-price="' . esc_attr( $display_price ) . '" data-raw-price="' . esc_attr( $raw_price ) . '" data-product-id="' . esc_attr( $post_id ) . '"></div>';
+		$show_incomplete_subtotal = isset(get_option('product_addons_options')['show-incomplete-subtotal']) ? get_option('product_addons_options')['show-incomplete-subtotal'] : '';
+
+		echo '<div id="product-addons-total" data-show-incomplete-sub-total="' . $show_incomplete_subtotal . '" data-show-sub-total="' . ( apply_filters( 'woocommerce_product_addons_show_grand_total', true, $the_product ) ? 1 : 0 ) . '" data-type="' . esc_attr( $the_product->get_type() ) . '" data-tax-mode="' . esc_attr( $tax_mode ) . '" data-tax-display-mode="' . esc_attr( $tax_display_mode ) . '" data-price="' . esc_attr( $display_price ) . '" data-raw-price="' . esc_attr( $raw_price ) . '" data-product-id="' . esc_attr( $post_id ) . '"></div>';
 	}
 
 	/**

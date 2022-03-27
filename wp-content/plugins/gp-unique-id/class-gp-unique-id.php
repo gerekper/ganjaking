@@ -4,10 +4,6 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Unique_ID extends GP_Plugin {
 
 	/**
@@ -69,8 +65,6 @@ class GP_Unique_ID extends GP_Plugin {
 
 	private static $_instance = null;
 
-	public $min_gravity_perks_version = '2.2.1';
-	public $min_gravity_forms_version = '2.0';
 	public $field_obj;
 
 	public static function get_instance() {
@@ -84,11 +78,29 @@ class GP_Unique_ID extends GP_Plugin {
 
 	}
 
+	public function minimum_requirements() {
+		return array(
+			'gravityforms' => array(
+				'version' => '2.0',
+			),
+			'plugins'      => array(
+				'gravityperks/gravityperks.php' => array(
+					'name'    => 'Gravity Perks',
+					'version' => '2.2.3',
+				),
+			),
+		);
+	}
+
 	public function pre_init() {
 
 		parent::pre_init();
 
-		require_once( $this->get_base_path() . '/includes/class-gf-field-unique-id.php' );
+		// We must manually check for requirements here since this perk requires Gravity Perks 2.2.1 but GP 2.2.3 fixes
+		// an issue where pre_init() was still called even if minimum requirements were not met.
+		if ( $this->check_requirements() ) {
+			require_once( $this->get_base_path() . '/includes/class-gf-field-unique-id.php' );
+		}
 
 	}
 
@@ -125,12 +137,28 @@ class GP_Unique_ID extends GP_Plugin {
 			$charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 
+		// Clear non-PRIMARY Indexes when upgrading GPUID
+		$table_name = "{$wpdb->prefix}gpui_sequence";
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) === $table_name ) {
+			$sql     = "SHOW INDEX FROM `{$table_name}`;";
+			$indexes = $wpdb->get_col( $sql, 2 ); // Key_name is the third column
+			if ( $indexes ) {
+				$indexes = array_unique( $indexes );
+				foreach ( $indexes as $index ) {
+					if ( $index !== 'PRIMARY' ) {
+						$sql = "DROP INDEX `{$index}` ON {$table_name};";
+						$wpdb->query( $sql );
+					}
+				}
+			}
+		}
+
 		$sql = "
 			CREATE TABLE {$wpdb->prefix}gpui_sequence (
                 form_id mediumint(8) unsigned not null,
                 field_id smallint(5) unsigned not null,
-                current int(10) unsigned not null,
-                UNIQUE KEY form_field (form_id,field_id)
+                current bigint(20) unsigned not null,
+                PRIMARY KEY  (form_id,field_id)
             ) $charset_collate;";
 
 		if ( function_exists( 'gf_upgrade' ) ) {

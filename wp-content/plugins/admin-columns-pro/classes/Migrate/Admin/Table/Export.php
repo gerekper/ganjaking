@@ -88,10 +88,9 @@ class Export extends AC\Admin\Table {
 			$label = $this->get_repository_label( $name );
 
 			if ( $repo->has_source( $list_screen->get_id() ) ) {
-				return $this->get_mini_tooltip( $label,
-					sprintf( '<small>%s</small>',
-						sprintf( '%s: %s', __( 'Path', 'codepress-admin-columns' ), $repo->get_source( $list_screen->get_id() ) )
-					)
+				return sprintf( '<span data-ac-tip="%s">%s</span>',
+					sprintf( '%s: %s', __( 'Path', 'codepress-admin-columns' ), $repo->get_source( $list_screen->get_id() ) ),
+					$label
 				);
 			}
 
@@ -99,17 +98,6 @@ class Export extends AC\Admin\Table {
 		}
 
 		return null;
-	}
-
-	private function get_mini_tooltip( $label, $content ) {
-		$view = new AC\View( [
-			'label'   => $label,
-			'content' => $content,
-		] );
-
-		$view->set_template( 'admin/mini-tooltip' );
-
-		return $view->render();
 	}
 
 	public function get_headings() {

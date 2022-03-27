@@ -170,7 +170,6 @@ class Ed25519 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedE
         // 3.  Interpret the buffer as the little-endian integer, forming a
         //     secret scalar s.
         $dA = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger($h, 256);
-        $dA = $this->factory->newInteger($dA);
         $dA->secret = $str;
         return $dA;
     }

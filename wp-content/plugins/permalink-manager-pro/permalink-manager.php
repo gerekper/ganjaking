@@ -4,7 +4,7 @@
 * Plugin Name:       Permalink Manager Pro
 * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
 * Description:       Advanced plugin that allows to set-up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
-* Version:           2.2.16
+* Version:           2.2.17
 * Author:            Maciej Bis
 * Author URI:        http://maciejbis.net/
 * License:           GPL-2.0+
@@ -12,7 +12,7 @@
 * Text Domain:       permalink-manager
 * Domain Path:       /languages
 * WC requires at least: 3.0.0
-* WC tested up to:      6.1.1
+* WC tested up to:      6.3.1
 */
 
 // If this file is called directly or plugin is already defined, abort.
@@ -25,7 +25,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.2.16' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.2.17' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit(dirname(__FILE__)) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename(__FILE__));
@@ -173,6 +173,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 					'trailing_slash_redirect' => 0,
 					'auto_fix_duplicates' => 0,
 					'fix_language_mismatch' => 1,
+					'wpml_support' => 1,
 					'pmxi_support' => 1,
 					'um_support' => 1,
 					'yoast_breadcrumbs' => 0,
@@ -183,17 +184,19 @@ if(!class_exists('Permalink_Manager_Class')) {
 					'partial_disable' => array(
 						'post_types' => array('attachment', 'tribe_events')
 					),
-					'deep_detect' => 1,
 					'ignore_drafts' => 1,
 					'edit_uris_cap' => 'publish_posts',
 				),
 				'licence' => array()
 			));
 
+			// Check if settings array is empty
+			$settings_empty = empty($settings);
+
 			// Apply the default settings (if empty values) in all settings sections
 			foreach($default_settings as $group_name => $fields) {
 				foreach($fields as $field_name => $field) {
-					if(!isset($settings[$group_name][$field_name]) && $field_name !== 'partial_disable') {
+					if($settings_empty || (!isset($settings[$group_name][$field_name]) && $field_name !== 'partial_disable')) {
 						$settings[$group_name][$field_name] = $field;
 					}
 				}

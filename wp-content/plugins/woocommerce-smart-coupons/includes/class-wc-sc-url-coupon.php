@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -39,7 +39,7 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 		 */
 		private function __construct() {
 
-			add_action( 'wp_loaded', array( $this, 'apply_coupon_from_url' ), 100 );
+			add_action( 'wp_loaded', array( $this, 'apply_coupon_from_url' ), 19 );
 			add_action( 'wp_loaded', array( $this, 'apply_coupon_from_session' ), 20 );
 			add_action( 'wp_loaded', array( $this, 'move_applied_coupon_from_cookies_to_account' ) );
 			add_action( 'wp_head', array( $this, 'convert_sc_coupon_notices_to_wc_notices' ) );

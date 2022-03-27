@@ -139,16 +139,18 @@ class Worker {
     $statistics = $this->newsletterStatisticsRepository->getStatistics($newsletter);
     $clicked = ($statistics->getClickCount() * 100) / $statistics->getTotalSentCount();
     $opened = ($statistics->getOpenCount() * 100) / $statistics->getTotalSentCount();
+    $machineOpened = ($statistics->getMachineOpenCount() * 100) / $statistics->getTotalSentCount();
     $unsubscribed = ($statistics->getUnsubscribeCount() * 100) / $statistics->getTotalSentCount();
+    $bounced = ($statistics->getBounceCount() * 100) / $statistics->getTotalSentCount();
     $subject = $sendingQueue->getNewsletterRenderedSubject();
     $subscribersCount = $this->subscribersRepository->getTotalSubscribers();
     $hasValidApiKey = $this->subscribersFeature->hasValidApiKey();
     $context = [
       'subject' => $subject,
       'preheader' => sprintf(_x(
-        '%1$s%% opens, %2$s%% clicks, %3$s%% unsubscribes in a nutshell.', 'newsletter open rate, click rate and unsubscribe rate', 'mailpoet'),
-        number_format($opened, 2),
+        '%1$s%% clicks, %2$s%% opens, %3$s%% unsubscribes in a nutshell.', 'newsletter open rate, click rate and unsubscribe rate', 'mailpoet'),
         number_format($clicked, 2),
+        number_format($opened, 2),
         number_format($unsubscribed, 2)
       ),
       'topLinkClicks' => 0,
@@ -156,6 +158,9 @@ class Worker {
       'linkStats' => WPFunctions::get()->getSiteUrl(null, '/wp-admin/admin.php?page=mailpoet-newsletters&stats=' . $newsletter->getId()),
       'clicked' => $clicked,
       'opened' => $opened,
+      'machineOpened' => $machineOpened,
+      'unsubscribed' => $unsubscribed,
+      'bounced' => $bounced,
       'subscribersLimitReached' => $this->subscribersFeature->check(),
       'hasValidApiKey' => $hasValidApiKey,
       'subscribersLimit' => $this->subscribersFeature->getSubscribersLimit(),

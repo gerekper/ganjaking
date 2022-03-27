@@ -70,6 +70,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</tbody>
 	</table>
+	<div>
+    <form action="options.php" method="post">
+        <?php
+        settings_fields( 'product_addons_options' );
+        do_settings_sections( 'show_incomplete_subtotal' );
+		submit_button();
+		?>
+    </form>
+	</div>
+
 	<p class="wc-pao-doc-link"><span class="dashicons dashicons-editor-help"></span>
 		<?php
 			/* translators: %1$s is the HTML for the opening tag of the link element. 'Documentation' will be an <a> element linking to the WooCommerce.com docs %2$s is the closing tag. */

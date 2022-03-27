@@ -142,7 +142,7 @@ if ( ! class_exists( 'RSReset' ) ) {
 					'type' => 'rs_wrapper_start' ,
 				) ,
 				array(
-					'name' => __( 'Setting to Reset Plugin Settings' , 'rewardsystem' ) ,
+					'name' => __( 'Reset Plugin Settings' , 'rewardsystem' ) ,
 					'type' => 'title' ,
 					'id'   => '_rs_reset_tab_setting'
 				) ,
@@ -208,7 +208,7 @@ if ( ! class_exists( 'RSReset' ) ) {
 					<label for="rs_reset_tab_label"><?php esc_html_e( 'Click the Button to Reset the Entire Plugin settings (Excluding Plugin Data)' , 'rewardsystem' ) ; ?></label>
 				</th>
 				<td>
-					<input type="submit" class="button-primary" name="rs_reset_tab" id="rs_reset_tab" value="<?php esc_html_e('Reset', 'rewardsystem'); ?>" />
+					<input type="button" class="button-primary" name="rs_reset_tab" id="rs_reset_tab" value="<?php esc_html_e('Reset', 'rewardsystem'); ?>" />
 					<img class="gif_rs_reset_tab_settings" src="<?php echo esc_url(SRP_PLUGIN_URL) ; ?>/assets/images/update.gif"/><br>
 					<div class="rs_reset_tab_setting_success">
 					</div>

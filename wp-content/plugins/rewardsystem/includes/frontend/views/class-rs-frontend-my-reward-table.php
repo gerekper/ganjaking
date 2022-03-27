@@ -188,7 +188,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( $page_count > 1 ) : ?>
 						<td colspan="<?php echo esc_attr( '8' ) ; ?>" class="footable-visible">
 							<?php
-							rs_get_template( 'pagination.php' , $pagination ) ;
+							srp_get_template( 'pagination.php' , $pagination ) ;
 							?>
 						</td>
 					<?php endif ; ?>

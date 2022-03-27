@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.3.7\n"
+"Project-Id-Version: WooCommerce Composite Products 8.3.8\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-19T11:08:08+00:00\n"
+"POT-Creation-Date: 2022-03-16T20:57:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-composite-products\n"
 
@@ -159,7 +159,7 @@ msgid "Product Title"
 msgstr ""
 
 #: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:327
-#: assets/js/admin/analytics.js:43
+#: resources/js/admin/analytics/report/revenue/index.js:43
 msgid "SKU"
 msgstr ""
 
@@ -178,8 +178,8 @@ msgid "N. Revenue"
 msgstr ""
 
 #: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:331
-#: assets/js/admin/analytics.js:55
-#: assets/js/admin/analytics.js:73
+#: resources/js/admin/analytics/report/revenue/config.js:55
+#: resources/js/admin/analytics/report/revenue/index.js:73
 msgid "Orders"
 msgstr ""
 
@@ -322,57 +322,46 @@ msgstr ""
 msgid "<strong>WooCommerce Composite Products</strong> database update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:396
-msgid "Ready to create your first product kit?"
-msgstr ""
-
-#: includes/admin/class-wc-cp-admin-notices.php:397
-msgid "Thank you for installing WooCommerce Composite Products."
-msgstr ""
-
-#: includes/admin/class-wc-cp-admin-notices.php:397
-msgid "Let's get started by creating your first composite product!"
-msgstr ""
-
+#. translators: onboarding url
 #: includes/admin/class-wc-cp-admin-notices.php:398
-msgid "Let's go!"
-msgstr ""
-
-#: includes/admin/class-wc-cp-admin-notices.php:465
-msgid "Loopback test passed!"
+msgid "Thank you for installing <strong>WooCommerce Composite Products</strong>. Ready to get started? <a href=\"%s\">Click here to create your first composite product</a>."
 msgstr ""
 
 #: includes/admin/class-wc-cp-admin-notices.php:467
+msgid "Loopback test passed!"
+msgstr ""
+
+#: includes/admin/class-wc-cp-admin-notices.php:469
 msgid "Loopback test failed!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:492
+#: includes/admin/class-wc-cp-admin-notices.php:494
 msgid "Composite Products ran a quick check-up on your site, and found that loopback requests might be failing to complete. Loopback requests are used by WooCommerce to run scheduled events, such as database upgrades. To keep your site in top shape, please ask the host or administrator of your server to look into this for you."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:493
+#: includes/admin/class-wc-cp-admin-notices.php:495
 msgid "Repeat test"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:510
+#: includes/admin/class-wc-cp-admin-notices.php:512
 msgid "Update database"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:530
+#: includes/admin/class-wc-cp-admin-notices.php:532
 msgid "run it manually"
 msgstr ""
 
 #. translators: fallback action link.
-#: includes/admin/class-wc-cp-admin-notices.php:532
+#: includes/admin/class-wc-cp-admin-notices.php:534
 msgid " The process seems to be taking a little longer than usual, so let's try to %s."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:548
+#: includes/admin/class-wc-cp-admin-notices.php:550
 msgid "get in touch with us"
 msgstr ""
 
 #. translators: link to support.
-#: includes/admin/class-wc-cp-admin-notices.php:550
+#: includes/admin/class-wc-cp-admin-notices.php:552
 msgid " If this message persists, please restore your database from a backup, or %s."
 msgstr ""
 
@@ -1127,7 +1116,7 @@ msgid "State Configuration"
 msgstr ""
 
 #: includes/admin/views/html-admin-page-status-report.php:17
-#: assets/js/admin/analytics.js:245
+#: resources/js/admin/analytics/report/revenue/index.js:245
 msgid "Composite Products"
 msgstr ""
 
@@ -2256,35 +2245,35 @@ msgstr ""
 msgid "A variation of the Stepped layout that starts with a configuration Summary. Components can be configured in any sequence."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:306
+#: includes/compatibility/class-wc-cp-compatibility.php:301
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:307
+#: includes/compatibility/class-wc-cp-compatibility.php:302
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-cp-compatibility.php:310
-#: includes/compatibility/class-wc-cp-compatibility.php:321
-#: includes/compatibility/class-wc-cp-compatibility.php:342
+#: includes/compatibility/class-wc-cp-compatibility.php:305
+#: includes/compatibility/class-wc-cp-compatibility.php:316
+#: includes/compatibility/class-wc-cp-compatibility.php:337
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:319
+#: includes/compatibility/class-wc-cp-compatibility.php:314
 msgid "Composite Products - Conditional Images"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:328
+#: includes/compatibility/class-wc-cp-compatibility.php:323
 msgid "The <strong>Conditional Components</strong> mini-extension is now part of <strong>Composite Products</strong>. Please deactivate and remove the <strong>Composite Products - Conditional Components</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:339
+#: includes/compatibility/class-wc-cp-compatibility.php:334
 #: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:158
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:340
+#: includes/compatibility/class-wc-cp-compatibility.php:335
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
@@ -2300,18 +2289,6 @@ msgstr ""
 
 #: includes/compatibility/modules/class-wc-cp-et-compatibility.php:96
 msgid "Unavailable when using the Divi builder."
-msgstr ""
-
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:43
-msgid "Composited None"
-msgstr ""
-
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:49
-msgid "Composited Flat"
-msgstr ""
-
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:55
-msgid "Composited Grouped"
 msgstr ""
 
 #: includes/compatibility/modules/class-wc-cp-pip-compatibility.php:347
@@ -2479,79 +2456,79 @@ msgstr ""
 msgid "WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
-#: assets/js/admin/analytics.js:21
+#: resources/js/admin/analytics/index.js:21
 msgctxt "analytics report table"
 msgid "Composite Products"
 msgstr ""
 
 #. translators: Number of Composites
-#: assets/js/admin/analytics.js:32
+#: resources/js/admin/analytics/report/index.js:32
 msgid "%d composite products"
 msgstr ""
 
-#: assets/js/admin/analytics.js:34
-#: assets/js/admin/analytics.js:49
+#: resources/js/admin/analytics/report/revenue/config.js:34
+#: resources/js/admin/analytics/report/revenue/index.js:49
 msgid "Composite Products Sold"
 msgstr ""
 
-#: assets/js/admin/analytics.js:41
-#: assets/js/admin/analytics.js:57
+#: resources/js/admin/analytics/report/revenue/config.js:41
+#: resources/js/admin/analytics/report/revenue/index.js:57
 msgid "Products Sold in Components"
 msgstr ""
 
-#: assets/js/admin/analytics.js:48
-#: assets/js/admin/analytics.js:65
-#: assets/js/admin/analytics.js:66
+#: resources/js/admin/analytics/report/revenue/config.js:48
+#: resources/js/admin/analytics/report/revenue/index.js:65
+#: resources/js/admin/analytics/report/revenue/index.js:66
 msgid "Net Sales"
 msgstr ""
 
-#: assets/js/admin/analytics.js:65
+#: resources/js/admin/analytics/report/revenue/config.js:65
 msgid "Show"
 msgstr ""
 
-#: assets/js/admin/analytics.js:71
+#: resources/js/admin/analytics/report/revenue/config.js:71
 msgid "All Composite Products"
 msgstr ""
 
-#: assets/js/admin/analytics.js:75
+#: resources/js/admin/analytics/report/revenue/config.js:75
 msgid "Single Composite Product"
 msgstr ""
 
-#: assets/js/admin/analytics.js:87
+#: resources/js/admin/analytics/report/revenue/config.js:87
 msgid "Type to search for a composite"
 msgstr ""
 
-#: assets/js/admin/analytics.js:91
+#: resources/js/admin/analytics/report/revenue/config.js:91
 msgid "Single Composite"
 msgstr ""
 
-#: assets/js/admin/analytics.js:36
+#: resources/js/admin/analytics/report/revenue/index.js:36
 msgid "Composite Title"
 msgstr ""
 
-#: assets/js/admin/analytics.js:172
+#: resources/js/admin/analytics/report/revenue/index.js:172
 msgid "composite"
 msgid_plural "composites"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin/analytics.js:181
+#: resources/js/admin/analytics/report/revenue/index.js:181
 msgid "sale"
 msgid_plural "sales"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin/analytics.js:190
+#: resources/js/admin/analytics/report/revenue/index.js:190
 msgid "product sold in components"
 msgid_plural "products sold in components"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/js/admin/analytics.js:199
+#: resources/js/admin/analytics/report/revenue/index.js:199
 msgid "net sales"
 msgstr ""
 
-#: assets/js/admin/analytics.js:203
+#: resources/js/admin/analytics/report/revenue/index.js:203
 msgid "order"
 msgid_plural "orders"
 msgstr[0] ""

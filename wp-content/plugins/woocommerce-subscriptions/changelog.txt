@@ -1,5 +1,19 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2022-03-22 - version 4.1.0
+* Fix: Undefined variable `user_can_suspend` when a customer suspension limit is defined and the max number of suspensions has been reached. PR#4318
+* Fix: Sets up subscriptions integration with the Mini Cart Block and adds new hook to filter compatible blocks. subscriptions-core#103
+* Fix: When using a WooCommerce Blocks powered checkout, fix an issue that led to limited products being removed from the cart when completing a switch or renewal order. subscriptions-core#119
+* Fix: When there is only one Shipping Method available in the recurring shipping package, make sure that this method is treated as selected in the current session and the `woocommerce_after_shipping_rate` action runs. subscriptions-core#115
+* Fix: Don't anonymize new subscriptions related to old subscriptions via a resubscribe relationship. subscriptions-core#121
+* Fix: Content that appears on the My account > Payment methods page should be translatable. subscriptions-core#125
+* Dev: Update subscriptions-core to 1.7.0. PR#4319
+
+2022-02-07 - version 4.0.2
+* Dev: Update subscriptions-core to 1.6.3. PR#4307
+* Fix: Replace uses of is_ajax() with wp_doing_ajax(). wcs#4296 PR#4307
+* Improve handling of session data.
+
 2022-01-19 - version 4.0.1
 * Fix: Prevent fatal error when too few arguments passed to widget_title filter. PR#4302
 * Dev: Update subscriptions-core to 1.6.2. PR#4302

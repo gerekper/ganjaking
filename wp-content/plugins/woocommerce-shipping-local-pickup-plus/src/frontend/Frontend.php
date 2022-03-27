@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/local-pickup-plus/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2021, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Frontend methods.
@@ -147,13 +147,20 @@ class Frontend {
 	 */
 	private function load_styles() {
 
-		$dependencies = [
+		/**
+		 * Filters the dependencies for the plugin's front end styles.
+		 *
+		 * @since 2.9.12
+		 *
+		 * @param string[] $dependencies
+		 */
+		$dependencies = (array) apply_filters( 'wc_local_pickup_plus_load_frontend_styles_dependencies', [
 			'dashicons',
 			'select2',
-		];
+		] );
 
 		// by default WooCommerce doesn't load Select2 library in cart page
-		if ( ! wp_style_is( 'select2', 'enqueued' ) ) {
+		if ( in_array( 'select2', $dependencies, true ) && ! wp_style_is( 'select2', 'enqueued' ) ) {
 
 			$style_file = 'assets/css/select2.css';
 			$style_path = str_replace( [ 'http:', 'https:' ], '', plugins_url($style_file, WC_PLUGIN_FILE ) );
@@ -188,16 +195,23 @@ class Frontend {
 
 		wp_register_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', [ 'jquery' ], WC_VERSION, true );
 
-		$dependencies = [
+		/**
+		 * Filters the dependencies for the plugin's front end scripts.
+		 *
+		 * @since 2.9.12
+		 *
+		 * @param string[] $dependencies
+		 */
+		$dependencies = (array) apply_filters( 'wc_local_pickup_plus_load_frontend_scripts_dependencies', [
 			'jquery',
 			'jquery-blockui',
 			'jquery-tiptip',
 			'jquery-ui-datepicker',
 			'select2',
-		];
+		] );
 
 		// WooCommerce may not have loaded Select2 library in cart page
-		if ( defined( 'WC_PLUGIN_FILE' ) && ! wp_script_is( 'select2', 'enqueued' ) ) {
+		if ( in_array( 'select2', $dependencies, true ) && defined( 'WC_PLUGIN_FILE' ) && ! wp_script_is( 'select2', 'enqueued' ) ) {
 
 			$script_file = 'assets/js/select2/select2.full.js';
 			$script_path = str_replace( [ 'http:', 'https:' ], '', plugins_url( $script_file, WC_PLUGIN_FILE ) );

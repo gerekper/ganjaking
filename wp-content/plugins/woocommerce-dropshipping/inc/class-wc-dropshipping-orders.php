@@ -536,7 +536,13 @@ class WC_Dropshipping_Orders {
 		}
 		else
 		{
-			$templatepath = wc_dropshipping_get_base_path() . $filename;
+			if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+			    $data ="";
+			    $templatepath = apply_filters("add_packingslip_file_dropshipping_pro",$data);
+			}
+		    else{
+			    $templatepath = wc_dropshipping_get_base_path() . $filename;
+		        }
 		}
 		return $this->get_template_html($templatepath,$order_info,$supplier_info);
 	}
@@ -581,7 +587,13 @@ class WC_Dropshipping_Orders {
 		}
 		else
 		{
-			$templatepath = wc_dropshipping_get_base_path() . $filename;
+			if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+			  $data ="";
+			  $templatepath = apply_filters("add_packingslip_file_dropshipping_pro",$data);
+			}
+		    else{
+			  $templatepath = wc_dropshipping_get_base_path() . $filename;
+		        }
 		}
 		return $this->get_template_html($templatepath,$order_info,$supplier_info);
 	}

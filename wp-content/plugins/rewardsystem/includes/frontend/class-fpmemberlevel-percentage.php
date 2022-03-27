@@ -22,7 +22,7 @@ if ( ! class_exists( 'RSMemberFunction' ) ) {
 			$RedeemLevelBasedonUserRole   = get_option( 'rs_enable_user_role_based_reward_points_for_redeem' ) ;
 			$RedeemLevelBasedonPoints     = get_option( 'rs_enable_redeem_level_based_reward_points' ) ;
 			$RedeemLevelBasedonHistory    = get_option( 'rs_enable_user_purchase_history_based_reward_points_redeem' ) ;
-			$RedeemLevelBasedonMembership = class_exists( 'SUMOMemberships' ) ? get_option( 'rs_enable_membership_plan_based_reward_points' ) : 'no' ;
+			$RedeemLevelBasedonMembership = class_exists( 'SUMOMemberships' ) ? get_option( 'rs_enable_membership_plan_based_redeem' ) : 'no' ;
 			/* UserRole Level Enabled */
 			if ( ( 'yes' == $RedeemLevelBasedonUserRole ) && ( 'yes' != $RedeemLevelBasedonPoints ) && ( 'yes' != $RedeemLevelBasedonMembership ) ) {
 				$RolePercentage = '' != get_option( 'rs_reward_user_role_for_redeem_' . $RoleofUser ) ? get_option( 'rs_reward_user_role_for_redeem_' . $RoleofUser ) : 100 ;

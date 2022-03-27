@@ -9,9 +9,20 @@ class MpDivi {
       add_filter( 'et_builder_main_tabs', array( $this, 'tab' ) );
       add_filter( 'et_builder_get_parent_modules', array( $this, 'toggle' ) );
       add_filter( 'et_pb_module_content', array( $this, 'shortcode' ), 10, 4 );
-      add_filter( 'et_pb_all_fields_unprocessed_et_pb_row', array( $this, 'row_settings' ) );
+
+      foreach ( self::get_supported_modules() as $mod ) {
+        add_filter( "et_pb_all_fields_unprocessed_{$mod}", array( $this, 'row_settings' ) );
+      }
     }
   }
+
+  public static function get_supported_modules() {
+      return array(
+        'et_pb_section',
+        'et_pb_row',
+        'et_pb_row_inner'
+      );
+    }
 
   /**
    * Adds the MemberPress tab to Divi Builder
@@ -35,15 +46,19 @@ class MpDivi {
   public function toggle( $modules ) {
 
     // Add toggle to Rows
-    if ( ! empty( $modules ) && is_object( $modules['et_pb_row'] ) ) {
-      $modules['et_pb_row']->settings_modal_toggles['memberpress'] = array(
-        'toggles' => array(
-          'mp_protect_content' => array(
-            'title' => __( 'Protect Content', 'memberpress-divi' ),
-            'priority' => 100
-          )
-        )
-      );
+    if ( ! empty( $modules ) ) {
+      foreach ( self::get_supported_modules() as $mod ) {
+        if ( isset( $modules[$mod] ) && is_object( $modules[$mod] ) ) {
+          $modules[$mod]->settings_modal_toggles['memberpress'] = array(
+            'toggles' => array(
+              'mp_protect_content' => array(
+                'title' => __( 'Protect Content', 'memberpress-divi' ),
+                'priority' => 100
+              )
+            )
+          );
+        }
+      }
     }
 
     return $modules;
@@ -65,7 +80,7 @@ class MpDivi {
       return $output;
     }
 
-    if ( 'et_pb_row' !== $slug ) {
+    if ( ! in_array( $slug, self::get_supported_modules() ) ) {
       return $output;
     }
 
@@ -76,7 +91,9 @@ class MpDivi {
       return $output;
     }
 
-    if ( current_user_can( 'mepr-active', "rule: {$rule}" ) ) { // Has access
+    $mepr_rule = new MeprRule( $rule );
+
+    if ( empty( $mepr_rule->ID ) || current_user_can( 'mepr-active', "rule: {$rule}" ) ) { // Has access
       return $output;
     }
 

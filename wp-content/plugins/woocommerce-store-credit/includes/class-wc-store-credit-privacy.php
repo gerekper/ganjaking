@@ -102,9 +102,9 @@ class WC_Store_Credit_Privacy extends WC_Abstract_Privacy {
 	 * @return array An array of personal data in name value pairs
 	 */
 	public function coupon_data_eraser( $email_address, $page ) {
-		$coupons         = $this->get_coupons( $email_address, (int) $page );
-		$erasure_enabled = wc_string_to_bool( get_option( 'woocommerce_erasure_request_removes_order_data', 'no' ) );
-		$response        = array(
+		$coupons    = $this->get_coupons( $email_address, (int) $page );
+		$erase_data = wc_string_to_bool( get_option( 'woocommerce_erasure_request_removes_order_data', 'no' ) );
+		$response   = array(
 			'items_removed'  => false,
 			'items_retained' => false,
 			'messages'       => array(),
@@ -113,7 +113,17 @@ class WC_Store_Credit_Privacy extends WC_Abstract_Privacy {
 
 		if ( ! empty( $coupons ) ) {
 			foreach ( $coupons as $coupon ) {
-				if ( apply_filters( 'wc_store_credit_privacy_erase_coupon_personal_data', $erasure_enabled, $coupon ) ) {
+				/**
+				 * Filters if the personal data of the specified Store Credit coupon should be removed.
+				 *
+				 * @since 3.0.0
+				 *
+				 * @param bool      $erase_data Whether to remove the personal data.
+				 * @param WC_Coupon $coupon     Coupon object.
+				 */
+				$erase_coupon_data = apply_filters( 'wc_store_credit_privacy_erase_coupon_personal_data', $erase_data, $coupon );
+
+				if ( $erase_coupon_data ) {
 					$this->remove_coupon_personal_data( $coupon, $email_address );
 
 					/* Translators: %s Coupon code. */

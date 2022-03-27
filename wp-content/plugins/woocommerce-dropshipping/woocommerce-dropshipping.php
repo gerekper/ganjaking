@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 3.7
+ * Version: 3.9
 
  * Author: OPMC Australia Pty Ltd
 
@@ -20,7 +20,7 @@
 
  * Requires at least: 4.5
 
- * Tested up to: 5.8
+ * Tested up to: 5.9
 
  * Copyright: © 2009-2018 WooThemes.
 
@@ -183,6 +183,11 @@ final class WC_Dropshipping {
 		add_filter( 'plugin_action_links', array( $this, 'wc_dropshipping_plugin_links' ), 10, 4 );
 
 		add_filter( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_filter("aliexpress_product_discount_pro",array($this,'aliexpress_product_discount'),10,3);
+		add_filter("aliexpress_product_price_calculator_pro",array($this,'aliexpress_product_price_calculator'),10,3);
+		add_filter("cdiscount_product_add_pro",array($this,'cdiscount_product_add'),10,3);
+		add_filter("banggood_product_add_pro",array($this,'banggood_product_add'),10,3);
+		add_filter("update_aliexpress_tracking_number_pro",array($this,'update_aliexpress_tracking_number'),10,3);
 
 	}
 
@@ -198,9 +203,20 @@ final class WC_Dropshipping {
 
             require_once('inc/class-wc-dropshipping-settings.php');
 			
-			include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');			
+			//include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');			
 
-			require_once('inc/class-wc-report-sales-by-supplier.php');
+			//require_once('inc/class-wc-report-sales-by-supplier.php');
+			
+			$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+
+			foreach ( $active_plugins as $plugin ) {
+				
+				if ( strpos( $plugin, 'woocommerce.php' ) ) {
+				
+					include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');		
+					require_once('inc/class-wc-report-sales-by-supplier.php');
+				}
+			}
 
 			$this->admin = new WC_Dropshipping_Admin();
 
@@ -251,7 +267,26 @@ final class WC_Dropshipping {
 		}
 
 	}
-
+	
+        public function aliexpress_product_discount(){
+            echo "Aliexpress Product Discount<br/>";
+         } 
+        
+        public function aliexpress_product_price_calculator(){
+            echo "Aliexpress Product Price Calculator<br/>";
+          }      
+        
+        public function cdiscount_product_add(){
+            echo "Cdiscount Product Add<br/>";
+          }
+         
+        public function banggood_product_add(){
+            echo "Banggood Product Add<br/>";
+          }  
+        public function update_aliexpress_tracking_number(){
+            echo "Update Aliexpress Tracking Number<br/>";
+          } 
+	
 	public function activate() {
 
 		$options = get_option( 'wc_dropship_manager' );

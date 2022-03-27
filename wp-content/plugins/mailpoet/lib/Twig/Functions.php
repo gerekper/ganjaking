@@ -138,23 +138,18 @@ class Functions extends AbstractExtension {
         ['is_safe' => ['all']]
       ),
       new TwigFunction(
-        'opened_stats_color',
-        [$this, 'openedStatsColor'],
-        ['is_safe' => ['all']]
-      ),
-      new TwigFunction(
-        'clicked_stats_color',
-        [$this, 'clickedStatsColor'],
-        ['is_safe' => ['all']]
-      ),
-      new TwigFunction(
-        'opened_stats_text',
-        [$this, 'openedStatsText'],
+        'stats_color',
+        [$this, 'statsColor'],
         ['is_safe' => ['all']]
       ),
       new TwigFunction(
         'clicked_stats_text',
         [$this, 'clickedStatsText'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
+        'stats_number_format_i18n',
+        [$this, 'statsNumberFormatI18n'],
         ['is_safe' => ['all']]
       ),
       new TwigFunction(
@@ -263,44 +258,43 @@ class Functions extends AbstractExtension {
     return $this->woocommerceHelper->isWooCommerceActive();
   }
 
-  public function openedStatsColor($opened) {
-    if ($opened > 30) {
-      return '#2993ab';
-    } elseif ($opened > 10) {
-      return '#f0b849';
+  public function statsColor($percentage) {
+    if ($percentage > 3) {
+      return '#7ed321';
+    } elseif ($percentage > 1) {
+      return '#ff9f00';
     } else {
-      return '#d54e21';
-    }
-  }
-
-  public function clickedStatsColor($clicked) {
-    if ($clicked > 3) {
-      return '#2993ab';
-    } elseif ($clicked > 1) {
-      return '#f0b849';
-    } else {
-      return '#d54e21';
-    }
-  }
-
-  public function openedStatsText($opened) {
-    if ($opened > 30) {
-      return __('EXCELLENT', 'mailpoet');
-    } elseif ($opened > 10) {
-      return __('GOOD', 'mailpoet');
-    } else {
-      return __('BAD', 'mailpoet');
+      return '#f559c3';
     }
   }
 
   public function clickedStatsText($clicked) {
     if ($clicked > 3) {
-      return __('EXCELLENT', 'mailpoet');
+      return __('Excellent', 'mailpoet');
     } elseif ($clicked > 1) {
-      return __('GOOD', 'mailpoet');
+      return __('Good', 'mailpoet');
     } else {
-      return __('BAD', 'mailpoet');
+      return __('Average', 'mailpoet');
     }
+  }
+
+  /**
+   * Wrapper around number_format_i18n() to return two decimals digits if the number
+   * is smaller than 0.1 and one decimal digit if the number is equal or greater
+   * than 0.1.
+   *
+   * @param int|float $number
+   *
+   * @return string
+   */
+  public function statsNumberFormatI18n($number) {
+    if ($number < 0.1) {
+      $decimals = 2;
+    } else {
+      $decimals = 1;
+    }
+
+    return number_format_i18n($number, $decimals);
   }
 
   public function addReferralId($url) {

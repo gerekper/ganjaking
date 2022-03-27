@@ -489,7 +489,7 @@ class UpdraftPlus_Addon_Reporting {
 
 		if (0 === $ind) $out .= $this->report_box_generator('', 0, false, false, false);
 
-		$out .= '<p class="updraft_report_another_p"><a class="updraft_report_another updraft_icon_link" href="'.UpdraftPlus::get_current_clean_url().'#updraft_report_row"><span class="dashicons dashicons-plus"></span>'.__('Add another address...', 'updraftplus').'</a></p>';
+		$out .= '<p class="updraft_report_another_p"><a class="updraft_report_another updraft_icon_link" href="'.esc_url(UpdraftPlus::get_current_clean_url()).'#updraft_report_row"><span class="dashicons dashicons-plus"></span>'.__('Add another address...', 'updraftplus').'</a></p>';
 
 		$out .= '</td>
 			</tr>';

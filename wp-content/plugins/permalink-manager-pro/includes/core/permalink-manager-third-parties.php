@@ -689,10 +689,17 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				$term_id = apply_filters('wpml_object_id', $element->term_id, $element->taxonomy, true);
 				$term = ($element->term_id !== $term_id) ? get_term($term_id) : $element;
 
- 				$title = (!empty($yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'])) ? $yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'] : $term->name;
+				// Alternative title
+				if($current_filter == 'wpseo_breadcrumb_links') {
+					$alt_title = (!empty($yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'])) ? $yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'] : '';
+				} else if($current_filter == 'seopress_pro_breadcrumbs_crumbs') {
+					$alt_title = get_term_meta($term->term_id, '_seopress_robots_breadcrumbs', true);
+				}
+
+ 				$title = (!empty($alt_title)) ? $alt_title : $term->name;
 
  				$breadcrumbs[] = array(
- 					'text' => $title,
+ 					'text' => wp_strip_all_tags($title),
  					'url' => get_term_link((int) $term->term_id, $term->taxonomy),
  				);
  			}
@@ -701,11 +708,17 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				$page_id = apply_filters('wpml_object_id', $element->ID, $element->post_type, true);
 				$page = ($element->ID !== $page_id) ? get_post($page_id) : $element;
 
- 				$title = get_post_meta($page->ID, '_yoast_wpseo_bctitle', true);
- 				$title = (!empty($title)) ? $title : $page->post_title;
+				// Alternative title
+				if($current_filter == 'wpseo_breadcrumb_links') {
+					$alt_title = get_post_meta($page->ID, '_yoast_wpseo_bctitle', true);
+				} else if($current_filter == 'seopress_pro_breadcrumbs_crumbs') {
+					$alt_title = get_post_meta($page->ID, '_seopress_robots_breadcrumbs', true);
+				}
+
+ 				$title = (!empty($alt_title)) ? $alt_title : $page->post_title;
 
  				$breadcrumbs[] = array(
- 					'text' => $title,
+ 					'text' => wp_strip_all_tags($title),
  					'url' => get_permalink($page->ID),
  				);
  			}

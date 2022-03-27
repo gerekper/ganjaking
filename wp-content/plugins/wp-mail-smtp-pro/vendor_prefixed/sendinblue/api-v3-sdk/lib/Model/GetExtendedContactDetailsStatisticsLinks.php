@@ -51,13 +51,13 @@ class GetExtendedContactDetailsStatisticsLinks implements \WPMailSMTP\Vendor\Sen
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['count' => 'int', 'eventTime' => '\\DateTime', 'ip' => 'string', 'url' => 'string'];
+    protected static $swaggerTypes = ['count' => 'int', 'eventTime' => 'string', 'ip' => 'string', 'url' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['count' => 'int64', 'eventTime' => 'date-time', 'ip' => null, 'url' => null];
+    protected static $swaggerFormats = ['count' => 'int64', 'eventTime' => null, 'ip' => null, 'url' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -207,7 +207,7 @@ class GetExtendedContactDetailsStatisticsLinks implements \WPMailSMTP\Vendor\Sen
     /**
      * Gets eventTime
      *
-     * @return \DateTime
+     * @return string
      */
     public function getEventTime()
     {
@@ -216,7 +216,7 @@ class GetExtendedContactDetailsStatisticsLinks implements \WPMailSMTP\Vendor\Sen
     /**
      * Sets eventTime
      *
-     * @param \DateTime $eventTime UTC date-time of the event
+     * @param string $eventTime UTC date-time of the event
      *
      * @return $this
      */

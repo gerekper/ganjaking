@@ -70,6 +70,19 @@ class WC_Instagram_Post_Types {
 
 		return $stores;
 	}
+
+	/**
+	 * Unregister post types.
+	 *
+	 * @since 4.1.1
+	 */
+	public static function unregister_post_types() {
+		if ( ! is_blog_installed() || ! post_type_exists( 'wc_instagram_catalog' ) ) {
+			return;
+		}
+
+		unregister_post_type( 'wc_instagram_catalog' );
+	}
 }
 
 WC_Instagram_Post_Types::init();

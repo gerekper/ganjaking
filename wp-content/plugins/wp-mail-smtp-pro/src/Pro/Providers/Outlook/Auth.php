@@ -37,7 +37,7 @@ class Auth extends AuthAbstract {
 	 */
 	public function __construct() {
 
-		$options           = new PluginOptions();
+		$options           = PluginOptions::init();
 		$this->mailer_slug = $options->get( 'mail', 'mailer' );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
@@ -337,7 +337,7 @@ class Auth extends AuthAbstract {
 			);
 		}
 
-		$options = new PluginOptions();
+		$options = PluginOptions::init();
 		$all     = $options->get_all();
 
 		// To save in DB.

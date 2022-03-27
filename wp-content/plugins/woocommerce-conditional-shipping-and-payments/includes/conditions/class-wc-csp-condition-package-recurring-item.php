@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product on Subscription in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Recurring_Item
- * @version  1.11.0
+ * @version  1.12.1
  */
 class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 
@@ -44,7 +44,7 @@ class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 
 		$message                    = false;
 		$package_count              = $this->get_package_count( $args );
-		$chosen_periods_placeholder = sizeof( $data[ 'value' ] ) === 4 ? __( 'recurring', 'woocommerce-conditional-shipping-and-payments' ) : $this->merge_titles( $this->get_billing_period_adverb( $data[ 'value' ] ), array( 'rel' => 'or', 'quotes' => false ) );
+		$chosen_periods_placeholder = count( $data[ 'value' ] ) === 4 ? __( 'recurring', 'woocommerce-conditional-shipping-and-payments' ) : $this->merge_titles( $this->get_billing_period_adverb( $data[ 'value' ] ), array( 'rel' => 'or', 'quotes' => false ) );
 
 		// Get the billing period if it's a recurring package.
 		$billing_period = WC_CSP_Restriction::get_extra_package_variable( $args[ 'package' ], 'billing_period' );

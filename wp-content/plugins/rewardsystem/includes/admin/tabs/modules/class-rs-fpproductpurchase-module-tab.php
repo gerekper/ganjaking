@@ -222,8 +222,8 @@ if ( ! class_exists( 'RSProductPurchaseModule' ) ) {
 				array(
 					'name'        => __( 'Global Level Reward Points' , 'rewardsystem' ) ,
 					'id'          => 'rs_global_enable_disable_sumo_reward' ,
-					'std'         => '2' ,
-					'default'     => '2' ,
+					'std'         => '1' ,
+					'default'     => '1' ,
 					'placeholder' => '' ,
 					'desc_tip'    => false ,
 					'desc'        => __( '<b>Quick Setup</b><br> - To assign points to your products, you should enable the "Global Level Reward Points" option, select the reward type & set the points value based on your needs.
@@ -246,8 +246,8 @@ Earning Points Conversion Settings given in the General Settings will consider o
 					'name'    => __( 'Reward Type' , 'rewardsystem' ) ,
 					'id'      => 'rs_global_reward_type' ,
 					'class'   => 'show_if_enable_in_general' ,
-					'std'     => '1' ,
-					'default' => '1' ,
+					'std'     => '2' ,
+					'default' => '2' ,
 					'newids'  => 'rs_global_reward_type' ,
 					'type'    => 'select' ,
 					'options' => array(
@@ -272,8 +272,8 @@ Earning Points Conversion Settings given in the General Settings will consider o
 					'name'        => __( 'Reward Points in Percent %' , 'rewardsystem' ) ,
 					'id'          => 'rs_global_reward_percent' ,
 					'class'       => 'show_if_enable_in_general' ,
-					'std'         => '' ,
-					'default'     => '' ,
+					'std'         => 100 ,
+					'default'     => 100 ,
 					'type'        => 'text' ,
 					'newids'      => 'rs_global_reward_percent' ,
 					'placeholder' => '' ,

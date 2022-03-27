@@ -43,3 +43,23 @@
 	text-decoration: none;
 }
 .sw-pagination .current{padding: 8px 10px;background: #ccc;color: #fff;}
+
+/*************************  CSS for ADMIN Menu in mobile view *******************/
+@media (max-width: 680px){
+#adminmenuwrap {
+    display: block!important;
+    max-width: 56px!important;
+    width: 100%!important;
+}
+
+
+.auto-fold #adminmenu {
+    top: 46px!important;
+    max-width: 60px!important;
+}
+
+.auto-fold #adminmenu .wp-menu-name {
+    position: static!important;
+    display: none!important;
+}
+}

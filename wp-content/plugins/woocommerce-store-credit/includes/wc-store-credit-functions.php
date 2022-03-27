@@ -14,7 +14,6 @@ require 'wc-store-credit-product-functions.php';
 require 'wc-store-credit-product-category-functions.php';
 require 'wc-store-credit-coupon-functions.php';
 require 'wc-store-credit-order-functions.php';
-require 'wc-store-credit-deprecated-functions.php';
 
 /**
  * Gets if it's allowed to create coupons with tax included.
@@ -51,12 +50,7 @@ function wc_store_credit_coupons_can_inc_tax() {
  * @param mixed $the_order Order object or ID.
  * @return bool
  */
-function wc_store_credit_apply_before_tax( $the_order = null ) {
-	if ( is_null( $the_order ) ) {
-		wc_doing_it_wrong( __FUNCTION__, esc_html_x( 'You must provide an order as first argument.', 'exception message', 'woocommerce-store-credit' ), '3.0' );
-		return true;
-	}
-
+function wc_store_credit_apply_before_tax( $the_order ) {
 	$order = wc_store_credit_get_order( $the_order );
 
 	if ( ! $order ) {
@@ -140,19 +134,16 @@ function wc_store_credit_is_request( $type ) {
 			$is_request = is_admin();
 			break;
 		case 'ajax':
-			$is_request = defined( 'DOING_AJAX' );
+			$is_request = wp_doing_ajax();
 			break;
 		case 'cron':
-			$is_request = defined( 'DOING_CRON' );
+			$is_request = wp_doing_cron();
 			break;
 		case 'frontend':
-			$is_request = ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! wc_store_credit_is_request( 'rest_api' );
+			$is_request = ( ! is_admin() || wp_doing_ajax() ) && ! wp_doing_cron() && ! wc_store_credit_is_request( 'rest_api' );
 			break;
 		case 'rest_api':
-			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$rest_prefix = trailingslashit( rest_get_url_prefix() );
-				$is_request  = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix ) ); // phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			}
+			$is_request = ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 			break;
 	}
 
@@ -400,7 +391,7 @@ function wc_store_credit_get_datetime( $value ) {
 	}
 
 	if ( $value instanceof DateTime ) {
-		$value = ( method_exists( 'DateTime', 'getTimestamp' ) ? $value->getTimestamp() : $value->format( 'U' ) );
+		$value = $value->getTimestamp();
 	}
 
 	if ( is_numeric( $value ) ) {

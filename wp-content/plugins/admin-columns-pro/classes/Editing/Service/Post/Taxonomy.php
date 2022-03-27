@@ -79,14 +79,14 @@ class Taxonomy implements Service, PaginatedOptions {
 			];
 		}
 
-		$term_ids = array_map( 'absint', array_unique( array_filter( (array) $params['value'] ) ) );
+		$term_ids = array_unique( array_filter( (array) $params['value'] ) );
 
 		switch ( $params['method'] ) {
 			case 'add':
 				$result = $this->set_terms( $post, $term_ids, true );
 				break;
 			case 'remove':
-				$result = wp_remove_object_terms( $id, $term_ids, $this->taxonomy );
+				$result = wp_remove_object_terms( $id, array_map( 'absint', $term_ids ), $this->taxonomy );
 				break;
 			case 'replace':
 			default:

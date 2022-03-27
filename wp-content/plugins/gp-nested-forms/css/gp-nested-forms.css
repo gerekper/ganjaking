@@ -7,8 +7,9 @@
 }
 
 .gpnf-nested-entries {
-	border-top: 1px solid rgba( 0, 0, 0, 0.1 );
-	min-width: 50%;
+	border: 1px solid rgba( 0, 0, 0, 0.1 );
+	border-radius: 3px;
+	min-width: min( 100%, 800px );
 	border-spacing: 0;
 	border-collapse: separate;
 }
@@ -16,17 +17,24 @@
 .gpnf-nested-entries th,
 .gpnf-nested-entries td {
 	border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
-	padding: 4px 8px;
+	padding: 1rem;
+}
+
+.gpnf-nested-entries tbody tr:last-child td {
+	border-bottom: 0;
 }
 
 .gpnf-nested-entries th {
-	background-color: rgba( 0, 0, 0, 0.1 );
+	background-color: rgba( 0, 0, 0, 0.03 );
 	border-color: rgba( 0, 0, 0, 0.1 );
+	font-size: 0.9em;
+	text-align: left;
 }
 
 .gpnf-no-entries td {
 	text-align: center;
-	padding: 10px 0;
+	padding: 1rem;
+	border-bottom: 0;
 }
 
 .gpnf-no-entries td span {
@@ -34,11 +42,19 @@
 	margin: 0 !important;
 }
 
-.gpnf-row-actions ul {}
+.gpnf-row-actions ul {
+	margin: 0;
+	padding: 0;
+}
 
 .gpnf-row-actions li {
 	display: inline;
 	position: relative;
+}
+
+.gpnf-row-actions {
+	text-align: right;
+	white-space: nowrap;
 }
 
 .gpnf-row-actions .gfspinner {
@@ -48,7 +64,19 @@
 	margin-left: -8px; /* based on 16px width */
 }
 
-.gpnf-row-actions .delete a {
+.gpnf-row-actions button {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	font-weight: normal;
+}
+
+.gpnf-row-actions .delete a,
+.gpnf-row-actions .delete-button {
 	color: #c00;
 }
 
@@ -71,15 +99,21 @@
 	font-weight: bold;
 }
 
-@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px), (any-hover:none) {
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)/*, (any-hover:none)*/ {
 
 	/* Force table to not be like tables anymore */
-	table.gpnf-nested-entries, .gpnf-nested-entries thead, .gpnf-nested-entries tbody, .gpnf-nested-entries th, .gpnf-nested-entries td, .gpnf-nested-entries tr {
+	table.gpnf-nested-entries,
+	.gpnf-nested-entries thead,
+	.gpnf-nested-entries tbody,
+	.gpnf-nested-entries th,
+	.gpnf-nested-entries td,
+	.gpnf-nested-entries tr {
 		display: block;
 	}
 
 	table.gpnf-nested-entries {
 		width: 100%;
+		border: 0;
 	}
 
 	/* Hide table headers (but not display: none;, for accessibility) */
@@ -90,24 +124,32 @@
 	}
 
 	.gpnf-nested-entries tr {
-		border: 1px solid #ccc;
-		border-bottom-width: 4px;
-		margin-bottom: 10px;
+		border: 1px solid rgba( 0, 0, 0, 0.1 );
+		margin-bottom: 1rem;
+		border-radius: 3px;
 	}
 
-	.gpnf-nested-entries td {
+	.gpnf-nested-entries tbody tr:not(.gpnf-no-entries) td {
 		border: none;
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
 		position: relative;
-		padding: 8px 8px 8px 50%;
+		padding: 1rem 1rem 1rem 50%;
+	}
+
+	.gpnf-nested-entries tbody tr:last-child td {
+		border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
+	}
+
+    .gpnf-nested-entries tbody tr td:last-child,
+	.gpnf-nested-entries tbody tr:last-child td:last-child {
+		border: 0;
 	}
 
 	.gpnf-nested-entries td:before {
 		content: attr(data-heading);
 		position: absolute;
-		width: 45%;
-		left: 10px;
-		padding-right: 10px;
+		width: calc( 50% - 2rem );
+		left: 1rem;
 		white-space: nowrap;
 		font-weight: bold;
 		text-overflow: ellipsis;
@@ -115,8 +157,7 @@
 	}
 
 	.gpnf-nested-entries td:last-child {
-		background-color: #eee;
-		padding-left: 10px;
+		background-color: rgba( 0, 0, 0, 0.03 );
 	}
 
 	.gpnf-nested-entries td[data-value=""] {
@@ -296,6 +337,10 @@ body .gpnf-dialog .gform_wrapper ul li.gfield:first-child {
 
 .gpnf-modal { }
 
+.gpnf-modal .tingle-modal-box {
+	width: clamp( 800px, 60%, 1000px );
+}
+
 .gpnf-modal .gform_title {
 	display: none;
 }
@@ -392,7 +437,21 @@ body .gpnf-dialog .gform_wrapper ul li.gfield:first-child {
 	display: inline-block !important;
 }
 
-@media (max-width : 712px), (any-hover:none) {
+
+@media only screen and (max-width: 1024px) {
+
+	.gpnf-modal .tingle-modal-box {
+		max-width: none;
+		width: clamp( 0px, 90%, 800px );
+	}
+
+}
+
+@media (max-width : 712px)/*, (any-hover:none)*/ {
+
+	.gpnf-modal .tingle-modal-box {
+		width: 100%;
+	}
 
 	.gpnf-modal.tingle-modal--noOverlayClose { }
 

@@ -1,118 +1,157 @@
-# Copyright (C) 2019 GP Better User Activation
-# This file is distributed under the same license as the GP Better User Activation package.
+# Copyright (C) 2022 Gravity Wiz
+# This file is distributed under the same license as the GP Better User Activation plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: GP Better User Activation\n"
+"Project-Id-Version: GP Better User Activation 1.2.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cloned-perk-4iGsAvrAC\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: 2022-03-22T20:33:24+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: gp-better-user-activation\n"
 
-#: ../class-gp-better-user-activation.php:212
+#. Plugin Name of the plugin
+msgid "GP Better User Activation"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gravitywiz.com/documentation/gravity-forms-better-user-activation/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Take control of your Gravity Forms User Activation page."
+msgstr ""
+
+#. Author of the plugin
+msgid "Gravity Wiz"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://gravitywiz.com/"
+msgstr ""
+
+#: class-gp-better-user-activation.php:238
 msgid "None"
 msgstr ""
 
-#: ../class-gp-better-user-activation.php:282
+#: class-gp-better-user-activation.php:316
 msgid "User Activation Page"
 msgstr ""
 
-#: ../class-gp-better-user-activation.php:284
+#: class-gp-better-user-activation.php:318
 msgid "Select a page to which the user will be directed to activate their account."
 msgstr ""
 
-#: ../class-gp-better-user-activation.php:289
+#: class-gp-better-user-activation.php:323
 msgid "Redirect Page"
 msgstr ""
 
-#: ../class-gp-better-user-activation.php:291
+#: class-gp-better-user-activation.php:325
 msgid "Select a page to which the user will be redirected after a successful activation."
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:49, ../includes/GPBUA_Merge_Tags.php:72
+#: includes/GPBUA_Merge_Tags.php:50
+#: includes/GPBUA_Merge_Tags.php:116
 msgid "Login"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:50
+#: includes/GPBUA_Merge_Tags.php:55
 msgid "Login URL"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:51, ../includes/GPBUA_Merge_Tags.php:80
+#: includes/GPBUA_Merge_Tags.php:60
+#: includes/GPBUA_Merge_Tags.php:124
 msgid "Home"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:52
+#: includes/GPBUA_Merge_Tags.php:65
 msgid "Home URL"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:53
+#: includes/GPBUA_Merge_Tags.php:70
 msgid "Reset Password"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:54
+#: includes/GPBUA_Merge_Tags.php:75
 msgid "Reset Password URL"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:55
+#: includes/GPBUA_Merge_Tags.php:80
 msgid "Username"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:56
+#: includes/GPBUA_Merge_Tags.php:85
 msgid "Password"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:57
+#: includes/GPBUA_Merge_Tags.php:90
 msgid "Email"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:58
+#: includes/GPBUA_Merge_Tags.php:95
 msgid "Activation Form"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:59
+#: includes/GPBUA_Merge_Tags.php:100
 msgid "Error Message"
 msgstr ""
 
-#: ../includes/GPBUA_Merge_Tags.php:88
+#: includes/GPBUA_Merge_Tags.php:132
 msgid "Reset your password"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:24
+#: includes/GPBUA_Merge_Tags.php:181
+msgid "Check your email for the set password link."
+msgstr ""
+
+#: includes/GPBUA_Merge_Tags.php:183
+msgid "Set your password."
+msgstr ""
+
+#: includes/GPBUA_Merge_Tags.php:188
+msgid "Set at registration."
+msgstr ""
+
+#: includes/GPBUA_Meta_Box.php:24
 msgid "Activation View Content"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:117
+#: includes/GPBUA_Meta_Box.php:116
 msgid "Reset Default Content"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:124
+#: includes/GPBUA_Meta_Box.php:123
 msgid "Insert Merge Tag"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:147
+#: includes/GPBUA_Meta_Box.php:144
 msgid "Supported merge tags"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:152
+#: includes/GPBUA_Meta_Box.php:149
 msgid " Note that the use of entry-based merge tags are not supported here because the activation page will not have access to an entry."
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:165
+#: includes/GPBUA_Meta_Box.php:162
 msgid "Activation Success"
 msgstr ""
 
-#: ../includes/GPBUA_Meta_Box.php:173
+#: includes/GPBUA_Meta_Box.php:170
 msgid "Already Active"
 msgstr ""
 
-#: ../templates/activate-form.php:3
+#: templates/activate-error-no-key.php:1
+msgid "Activation Key Required"
+msgstr ""
+
+#: templates/activate-form.php:3
 msgid "Activation Key:"
 msgstr ""
 
-#: ../templates/activate-form.php:7
+#: templates/activate-form.php:7
 msgid "Activate"
 msgstr ""

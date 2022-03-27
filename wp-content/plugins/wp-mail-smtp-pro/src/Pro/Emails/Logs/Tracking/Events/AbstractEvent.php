@@ -98,7 +98,11 @@ abstract class AbstractEvent implements EventInterface {
 		}
 
 		$timezone = new \DateTimeZone( 'UTC' );
-		$date     = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_created, $timezone );
+		$date     = false;
+
+		if( ! empty( $this->date_created ) ) {
+			$date = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_created, $timezone );
+		}
 
 		if ( $date === false ) {
 			$date = new \DateTime( 'now', $timezone );

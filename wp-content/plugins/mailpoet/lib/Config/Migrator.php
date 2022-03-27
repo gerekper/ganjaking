@@ -14,6 +14,7 @@ use MailPoet\Segments\DynamicSegments\Filters\UserRole;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription;
+use MailPoet\Settings\SettingsChangeHandler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
 
@@ -25,10 +26,19 @@ class Migrator {
   public $prefix;
   private $charsetCollate;
   private $models;
+
+  /** @var SettingsController */
   private $settings;
 
-  public function __construct() {
-    $this->settings = SettingsController::getInstance();
+  /** @var SettingsChangeHandler */
+  private $settingsChangeHandler;
+
+  public function __construct(
+    SettingsController $settings,
+    SettingsChangeHandler $settingsChangeHandler
+  ) {
+    $this->settings = $settings;
+    $this->settingsChangeHandler = $settingsChangeHandler;
     $this->prefix = Env::$dbPrefix;
     $this->charsetCollate = Env::$dbCharsetCollate;
     $this->models = [
@@ -84,6 +94,7 @@ class Migrator {
     $this->migrateWooSubscriptionsDynamicFilters();
     $this->migratePurchasedInCategoryDynamicFilters();
     $this->migrateEmailActionsFilters();
+    $this->updateDefaultInactiveSubscriberTimeRange();
     return $output;
   }
 
@@ -933,6 +944,22 @@ class Migrator {
         'action' => $action,
       ], ['id' => $dynamicSegmentFilter['id']]);
     }
+    return true;
+  }
+
+  private function updateDefaultInactiveSubscriberTimeRange(): bool {
+    // Skip if the installed version is newer than the release that preceded this migration, or if it's a fresh install
+    $currentlyInstalledVersion = (string)$this->settings->get('db_version', '3.78.1');
+    if (version_compare($currentlyInstalledVersion, '3.78.0', '>')) {
+      return false;
+    }
+
+    $currentValue = (int)$this->settings->get('deactivate_subscriber_after_inactive_days');
+    if ($currentValue === 180) {
+      $this->settings->set('deactivate_subscriber_after_inactive_days', 365);
+      $this->settingsChangeHandler->onInactiveSubscribersIntervalChange();
+    }
+
     return true;
   }
 }

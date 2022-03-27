@@ -3,10 +3,6 @@
 /**
  * Class GP_Populate_Anything_Live_Merge_Tags
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GP_Populate_Anything_Live_Merge_Tags {
 
 	private static $instance = null;
@@ -16,17 +12,17 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	private $_current_live_merge_tag_values = array();
 	private $_lmt_whitelist                 = array();
 
-	public $live_merge_tag_regex_option_placeholder = '/(<option.*?class=\'gf_placeholder\'>)(.*?@({.*?:?.+?}).*?)<\/option>/';
+	public $live_merge_tag_regex_option_placeholder = '/(<option.*?class=\'gf_placeholder\'>)(.*?)<\/option>/';
 	public $live_merge_tag_regex_option_choice      = '/(<option.*>)(.*?@({.*?:?.+?}).*?)<\/option>/';
 	public $live_merge_tag_regex_textarea           = '/(<textarea.*>)([\S\s]*?@({.*?:?.+?})[\S\s]*?)<\/textarea>/';
 	public $live_merge_tag_regex                    = '/@({((.*?):?(.+?))})/';
-	public $merge_tag_regex                         = '/{((.*?):?([0-9]+?\.?[0-9]*?)?(:(.+?))?)}/';
+	public $merge_tag_regex                         = '/{((.*?)(?::([0-9]+?\.?[0-9]*?))?(:(.+?))?)}/';
 	public $live_merge_tag_regex_attr               = '/([a-zA-Z-]+)=([\'"]([^\'"]*@{.*?:?.+?}[^\'"]*)(?<!\\\)[\'"])/';
 	public $value_attr                              = '/value=\'/';
 	public $script_regex                            = '/<script[\s\S]*?<\/script>/';
 
 	public static function get_instance() {
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
@@ -36,6 +32,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	public function __construct() {
 		add_filter( 'gform_admin_pre_render', array( $this, 'populate_lmt_whitelist' ), 5 );
 		add_filter( 'gform_pre_render', array( $this, 'populate_lmt_whitelist' ), 5 );
+		add_filter( 'gform_pre_render', array( $this, 'reset_gf_cache' ), 15 );
 		add_filter( 'gform_before_resend_notifications', array( $this, 'populate_lmt_whitelist' ), 5 );
 		add_filter( 'gform_pre_submission_filter', array( $this, 'populate_lmt_whitelist' ), 5 );
 
@@ -74,6 +71,8 @@ class GP_Populate_Anything_Live_Merge_Tags {
 		add_filter( 'gform_admin_pre_render', array( $this, 'replace_field_label_live_merge_tags_static' ) );
 
 		add_filter( 'gform_order_summary', array( $this, 'replace_live_merge_tags_static' ), 10, 3 );
+
+		add_filter( 'gform_merge_tag_filter', array( $this, 'prevent_missing_filter_text_from_being_tag_value' ), 10, 5 );
 
 		/**
 		 * Prevent replacement of Live Merge Tags in Preview Submission.
@@ -137,7 +136,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	 */
 	public function populate_lmt_whitelist( $form ) {
 
-		if ( ! is_array( $form ) ) {
+		if ( ! is_array( $form ) || empty( $form['id'] ) ) {
 			return $form;
 		}
 
@@ -161,7 +160,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			);
 
 			foreach ( $merge_tag_matches as $match ) {
-				$merge_tag = preg_replace( '/^@/', '', $match[0] );
+				$merge_tag = html_entity_decode( preg_replace( '/^@/', '', $match[0] ), ENT_QUOTES );
 
 				if ( isset( $this->_lmt_whitelist[ $form['id'] ][ $merge_tag ] ) ) {
 					continue;
@@ -171,6 +170,20 @@ class GP_Populate_Anything_Live_Merge_Tags {
 				$this->_lmt_whitelist[ $form['id'] ][ $merge_tag ] = wp_create_nonce( $nonce_action );
 			}
 		}
+
+		return $form;
+	}
+
+	/**
+	 * Resets the GF cache after the form is mostly processed (priority 15). The reason for this is to ensure GFFormsModel::is_field_hidden() returns
+	 * the most accurate value possible when getting Live Merge Tag values.
+	 *
+	 * @param $form
+	 *
+	 * @return array
+	 */
+	public function reset_gf_cache( $form ) {
+		GFCache::flush();
 
 		return $form;
 	}
@@ -308,6 +321,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 	public function replace_live_merge_tag_select_placeholder( $content, $field ) {
 
+		// First check if the select contains a placeholder option at all.
 		preg_match_all( $this->live_merge_tag_regex_option_placeholder, $content, $matches, PREG_SET_ORDER );
 
 		if ( ! $matches ) {
@@ -320,22 +334,27 @@ class GP_Populate_Anything_Live_Merge_Tags {
 		 * $match[0] = Entire <option>...</option> string
 		 * $match[1] = Starting tag and attributes
 		 * $match[2] = Inner HTML of option
-		 * $match[3] = First live merge tag that's seen
 		 */
 		foreach ( $matches as $match ) {
 
-			$full_match = $match[0];
+			list( $full_match, $option_tag, $text ) = $match;
 
-			$output    = $this->get_live_merge_tag_value( $match[2], $form );
-			$data_attr = 'data-gppa-live-merge-tag-innerHtml="' . esc_attr( $this->escape_live_merge_tags( $match[2] ) ) . '"';
+			// Ensure that our text has a live merge tag before proceeding.
+			preg_match_all( $this->live_merge_tag_regex, $text, $live_merge_tags, PREG_SET_ORDER );
+			if ( empty( $live_merge_tags ) ) {
+				continue;
+			}
+
+			$output    = $this->get_live_merge_tag_value( $text, $form );
+			$data_attr = 'data-gppa-live-merge-tag-innerHtml="' . esc_attr( $this->escape_live_merge_tags( $text ) ) . '"';
 
 			$class_string = "class='gf_placeholder'";
 
-			$full_match_replacement = str_replace( $match[2], $output, $full_match );
+			$full_match_replacement = str_replace( $text, $output, $full_match );
 			$full_match_replacement = str_replace( $class_string, $class_string . ' ' . $data_attr, $full_match_replacement );
 
 			$this->register_lmt_on_page( $form['id'], 'data-gppa-live-merge-tag-innerHtml' );
-			$this->add_current_lmt_value( $form['id'], $match[2], $output );
+			$this->add_current_lmt_value( $form['id'], $text, $output );
 
 			$content = str_replace( $full_match, $full_match_replacement, $content );
 		}
@@ -639,7 +658,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			$output    = $this->get_live_merge_tag_value( $match[2], $form );
 			$data_attr = 'data-gppa-live-merge-tag-innerHtml="' . esc_attr( $this->escape_live_merge_tags( $match[2] ) ) . '"';
 
-			$full_match_replacement = str_replace( $match[2], $output, $full_match );
+			$full_match_replacement = str_replace( '>' . $match[2] . '</option>', '>' . $output . '</option>', $full_match );
 			$full_match_replacement = str_replace( '<option ', '<option ' . $data_attr . ' ', $full_match_replacement );
 
 			$this->register_lmt_on_page( $form['id'], 'data-gppa-live-merge-tag-innerHtml' );
@@ -788,25 +807,68 @@ class GP_Populate_Anything_Live_Merge_Tags {
 		/**
 		 * Use get_value_save_entry() to get a more accurate entry value for field types such as Date and Time.
 		 */
-		foreach ( $entry_values as $field_id => $entry_value ) {
-			$field = GFAPI::get_field( $form, $field_id );
+		foreach ( $entry_values as $input_id => $entry_value ) {
+			$field_id = (int) $input_id;
+			$field = GFAPI::get_field( $form, (int) $field_id );
 
 			if ( ! $field || ! in_array( $field['type'], GP_Populate_Anything::get_interpreted_multi_input_field_types(), true ) ) {
 				continue;
 			}
 
-			if ( $this->is_value_submission_empty( $entry_value, $field, $form ) ) {
-				$entry_values[ $field_id ] = null;
+			/**
+			 * The datepicker date type is not a multi-input field. Do not do
+			 * anything with its value.
+			 */
+			if ( rgar( $field, 'dateType' ) === 'datepicker' ) {
 				continue;
 			}
 
-			$save_value = $field->get_value_save_entry( $entry_value, $form, $field_id, null, null );
+			/**
+			 * Sometimes a field (time, date dropdown) will come in with 3.1, 3.2, etc.
+			 * We need to pass all of the input values in an array to get_value_save_entry() otherwise
+			 * the correct value won't be returned.
+			 */
+			if (
+				( $field->type === 'time' || ( $field->type == 'date' && rgar( $field, 'dateType' ) === 'datedropdown' ) )
+			) {
+				/* Our goal is to get the entry value into a scalar (string, specifically) format. If it's already converted, skip it. */
+				if ( isset( $entry_values[ $field_id ] ) && is_scalar( $entry_values[ $field_id ] ) ) {
+					continue;
+				}
+
+				/*
+				 * When refreshing LMTs using AJAX, the entry values are already sent as an array so use the array if it's present, otherwise construct it
+				 * from the inputs.
+				 */
+				if ( ! isset( $entry_values[ $field_id ] ) || ! is_array( $entry_values[ $field_id ] ) ) {
+					$input_values = array();
+
+					foreach ( $entry_values as $input_id_search => $input_value_search ) {
+						if ( (int) $input_id_search === $field_id ) {
+							$input_values[] = $input_value_search;
+						}
+					}
+				} else {
+					$input_values = $entry_values[ $field_id ];
+				}
+
+				$entry_values[ $field_id ] = $field->get_value_save_entry( $input_values, $form, $field_id, null, null );
+
+				continue;
+			}
+
+			if ( $this->is_value_submission_empty( $entry_value, $field, $form ) ) {
+				$entry_values[ $input_id ] = null;
+				continue;
+			}
+
+			$save_value = $field->get_value_save_entry( $entry_value, $form, $input_id, null, null );
 
 			if ( ! $save_value ) {
 				continue;
 			}
 
-			$entry_values[ $field_id ] = $save_value;
+			$entry_values[ $input_id ] = $save_value;
 		}
 
 		/**
@@ -835,23 +897,24 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			 * @param array    $form  The current form.
 			 */
 			if ( ! gf_apply_filters( array( 'gppa_allow_all_lmts', $form['id'] ), false, $form ) ) {
+				$_merge_tag = html_entity_decode( $merge_tag_match[0], ENT_QUOTES );
 				/**
 				 * Verify that LMT was supplied by trusted source and not injected.
 				 */
-				$nonce_action = 'gppa-lmt-' . $form['id'] . '-' . $merge_tag;
+				$nonce_action = 'gppa-lmt-' . $form['id'] . '-' . $_merge_tag;
 
 				$lmt_whitelist = $this->get_lmt_whitelist( $form );
 
 				if ( $lmt_nonces ) {
-					if ( ! wp_verify_nonce( rgar( $lmt_nonces, $merge_tag ), $nonce_action ) ) {
-						gp_populate_anything()->log_debug( 'Live Merge Tag is not valid for merge tag: ' . $merge_tag );
-						$output = str_replace( $merge_tag, '', $output );
+					if ( ! wp_verify_nonce( rgar( $lmt_nonces, $_merge_tag ), $nonce_action ) ) {
+						gp_populate_anything()->log_debug( 'Live Merge Tag is not valid for merge tag: ' . $_merge_tag );
+						$output = str_replace( $_merge_tag, '', $output );
 
 						continue;
 					}
-				} elseif ( ! isset( $lmt_whitelist[ $merge_tag ] ) ) {
-					gp_populate_anything()->log_debug( 'Live Merge Tag nonce not found for merge tag: ' . $merge_tag );
-					$output = str_replace( $merge_tag, '', $output );
+				} elseif ( ! isset( $lmt_whitelist[ $_merge_tag ] ) ) {
+					gp_populate_anything()->log_debug( 'Live Merge Tag nonce not found for merge tag: ' . $_merge_tag );
+					$output = str_replace( $_merge_tag, '', $output );
 
 					continue;
 				}
@@ -883,6 +946,10 @@ class GP_Populate_Anything_Live_Merge_Tags {
 				$merge_tag_match_value = GFCommon::replace_variables( $merge_tag, $form, $entry_values, false, false, false, 'text' );
 			}
 
+			// The Euro symbol breaks coupling and is not being parsed correctly when applied to submit buttons.
+			// Decoding HTML entities here resolves the issue. HS#27761
+			$merge_tag_match_value = html_entity_decode( $merge_tag_match_value );
+
 			$merge_tag_modifiers = $this->extract_merge_tag_modifiers( $merge_tag );
 
 			// Do not merge the value of conditionally hidden fields
@@ -893,7 +960,9 @@ class GP_Populate_Anything_Live_Merge_Tags {
 				}
 			}
 
-			if ( ( $fallback = rgar( $merge_tag_modifiers, 'fallback' ) ) && ! $merge_tag_match_value ) {
+			$fallback = rgar( $merge_tag_modifiers, 'fallback' );
+
+			if ( $fallback && ! $merge_tag_match_value ) {
 				$merge_tag_match_value = $fallback;
 			}
 
@@ -966,10 +1035,32 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 	}
 
-	public function replace_field_label_live_merge_tags_static( $form ) {
+	/**
+	 * If using a Live Merge Tag pointing to a choice-based field that's reliant on field filters, by default it will
+	 * try to use the "Fill Out Other Fields" text as the merge tag value as that is the choice text for the value
+	 * of an empty string. This isn't ideal as it can cause uncoupling, and it's not the expected behavior especially
+	 * if using Conditional Logic.
+	 *
+	 * @param string $value
+	 * @param $input_id
+	 * @param $modifier
+	 * @param GF_Field $field
+	 * @param string $raw_value
+	 *
+	 * @return string
+	 */
+	public function prevent_missing_filter_text_from_being_tag_value( $value, $input_id, $modifier, $field, $raw_value ) {
+		if ( $value === apply_filters( 'gppa_missing_filter_text', '&ndash; ' . esc_html__( 'Fill Out Other Fields', 'gp-populate-anything' ) . ' &ndash;', $field ) ) {
+			return $raw_value;
+		}
 
+		return $value;
+	}
+
+	public function replace_field_label_live_merge_tags_static( $form ) {
 		$entry = false;
-		if ( in_array( GFForms::get_page(), array( 'entry_detail', 'entry_detail_edit' ) ) ) {
+
+		if ( in_array( GFForms::get_page(), array( 'entry_detail', 'entry_detail_edit' ), true ) ) {
 			$entry = GFAPI::get_entry( rgget( 'lid' ) );
 		}
 
@@ -1030,7 +1121,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 		$disabled_text = $is_form_editor ? 'disabled="disabled"' : '';
 
-		$choice_id_pattern = '/\'gchoice_[0-9_]*?_(\d+)\'/';
+		$choice_id_pattern = '/\'(?:gchoice )?gchoice_[0-9_]*?_(\d+)\'/';
 
 		preg_match( $choice_id_pattern, $choice_markup, $choice_id_match );
 

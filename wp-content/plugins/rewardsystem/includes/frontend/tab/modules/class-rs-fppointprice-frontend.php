@@ -104,11 +104,11 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 		public static function point_price_value( $product_price, $item, $PointPriceType, $IndividualPointsForProduct ) {
 			$PointsAfterRoundOff = round_off_type( $IndividualPointsForProduct ) ;
 			if ( '1' == $PointPriceType ) { //Currency & Point Pricing
-				$ProductPriceToDisplay = display_point_price_value( $IndividualPointsForProduct , true ) ;
+				$ProductPriceToDisplay = display_point_price_value( $PointsAfterRoundOff , true ) ;
 				$product_price         = $product_price . $ProductPriceToDisplay ;
 				return $product_price ;
 			} else {  //Only Point Price
-				$product_price = display_point_price_value( $IndividualPointsForProduct ) ;
+				$product_price = display_point_price_value( $PointsAfterRoundOff ) ;
 				return $product_price ;
 			}
 		}
@@ -133,6 +133,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 
 			$Points     = array() ;
 			$OtherValue = array() ;
+						$tax_display    = get_option( 'woocommerce_tax_display_cart' ) ;
 			foreach ( $order->get_items()as $item ) {
 				$ProductId            = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
 				$PointPriceData       = calculate_point_price_for_products( $ProductId ) ;
@@ -140,7 +141,10 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 				if ( ! empty( $PointPriceData[ $ProductId ] ) && null == $CheckIfBundleProduct  ) {
 					$Points[] = $PointPriceData[ $ProductId ] * $item[ 'qty' ] ;
 				} else {
-					$Points[] = redeem_point_conversion( $item[ 'line_subtotal' ] , $OrderObj[ 'order_userid' ] ) ;
+										$line_subtotal = isset($item[ 'line_subtotal' ]) ? $item[ 'line_subtotal' ]:0;
+										$line_subtotal_tax = isset($item[ 'line_subtotal_tax' ]) ? $item[ 'line_subtotal_tax' ]:0;
+										$subtotal = 'incl' == $tax_display ? $line_subtotal + $line_subtotal_tax : $line_subtotal;
+					$Points[] = redeem_point_conversion( $subtotal , $OrderObj[ 'order_userid' ] ) ;
 				}
 			}
 			$TotalPoints   = round_off_type( array_sum( $Points ) ) ;
@@ -168,12 +172,16 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 
 			$ProductId      = ! empty( $id[ 'variation_id' ] ) ? $id[ 'variation_id' ] : $id[ 'product_id' ] ;
 			$PointPriceData = calculate_point_price_for_products( $ProductId ) ;
+						$tax_display    = get_option( 'woocommerce_tax_display_cart' ) ;
 			if ( ! empty( $PointPriceData[ $ProductId ] ) ) {
 				$Points        = $PointPriceData[ $ProductId ] * $id[ 'qty' ] ;
 				$product_price = display_point_price_value( $Points ) ;
 			} else {
 				$PointPriceLabel = str_replace( '/' , '' , get_option( 'rs_label_for_point_value' ) ) ;
-				$Points          = redeem_point_conversion( $id[ 'line_subtotal' ] , $OrderObj[ 'order_userid' ] ) ;
+								$line_subtotal = isset($id[ 'line_subtotal' ]) ? $id[ 'line_subtotal' ]:0;
+								$line_subtotal_tax = isset($id[ 'line_subtotal_tax' ]) ? $id[ 'line_subtotal_tax' ]:0;
+								$subtotal = 'incl' == $tax_display ? $line_subtotal + $line_subtotal_tax : $line_subtotal;
+				$Points          = redeem_point_conversion( $subtotal , $OrderObj[ 'order_userid' ] ) ;
 				if ( '1' == get_option( 'rs_sufix_prefix_point_price_label' ) ) {
 					$product_price = '<span class="fp-srp-point-price-label">' . $PointPriceLabel . '</span>' . $Points ;
 				} else {
@@ -287,7 +295,8 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 			$CurrencyPointPriceAmnt = array_sum( $CurrencyPointPriceValue ) ;
 			if ( ! empty( $CurrencyPointPriceAmnt ) ) {
 				$CurrencyPointPriceAmnt = $CurrencyPointPriceAmnt + self::get_point_price_value_for_normal_product( $CartObj ) ;
-				$PointPrice = display_point_price_value( $CurrencyPointPriceAmnt ) ;
+				$CurrencyPointPriceAmnt = round_off_type($CurrencyPointPriceAmnt);
+								$PointPrice = display_point_price_value( $CurrencyPointPriceAmnt ) ;
 				return $CartSubTotal . "/$PointPrice" ;
 			}
 			$OnlyPointPriceAmnt = array_sum( $OnlyPointPriceValue ) ;
@@ -429,6 +438,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
 			$TotalPoint                = ( array_sum( $ItemPointsTotal ) + redeem_point_conversion( $TotalPointConversionValue , get_current_user_id() ) ) - $CouponAmount ;
 			$TotalPointsWithTax        = $TotalPoint + $ShippingConversionValue + $FeeAmnt ;
 			$TotalPointAfterRoundOff   = round_off_type( $TotalPointsWithTax ) ;
+						$TotalPointAfterRoundOff   = apply_filters('rs_point_price_total', $TotalPointAfterRoundOff);
 			$CartTotalToDisplay        = display_point_price_value( $TotalPointAfterRoundOff, true ) ;
 
 			if ( in_array( 'yes' , $EnablePointPriceforSimple ) || in_array( '1' , $EnablePointPriceForVariable ) || in_array( '1' , $EnablePointPriceValue ) ) {

@@ -65,48 +65,54 @@ if ( ! class_exists( 'RSRedeemingModule' ) ) {
 			$membership_level = sumo_get_membership_levels() ;
 			foreach ( $settings as $section ) {
 				$updated_settings[] = $section ;
-				if ( isset( $section[ 'id' ] ) && '_rs_user_role_reward_points_for_redeem' == $section[ 'id' ] &&
+				if ( isset( $section[ 'id' ] ) && '_rs_member_level_redeem_points_purchase_history' == $section[ 'id' ] &&
 						isset( $section[ 'type' ] ) && 'sectionend' == $section[ 'type' ] ) {
-					$updated_settings[] = array(
-						'name' => __( 'Reward Points Redeem Percentage based on Membership Plan' , 'rewardsystem' ) ,
-						'type' => 'title' ,
-						'id'   => '_rs_membership_plan_for_redeem' ,
-							) ;
-					$updated_settings[] = array(
-						'name'   => __( 'Don\'t allow Redeeming when the user hasn\'t purchased any membership plan through SUMO Memberships' , 'rewardsystem' ) ,
-						'desc'   => __( 'Don\'t allow Redeeming when the user hasn\'t purchased any membership plan through SUMO Memberships' , 'rewardsystem' ) ,
-						'id'     => 'rs_restrict_redeem_when_no_membership_plan' ,
-						'css'    => 'min-width:150px;' ,
-						'type'   => 'checkbox' ,
-						'newids' => 'rs_restrict_redeem_when_no_membership_plan' ,
-							) ;
-					$updated_settings[] = array(
-						'name'    => __( 'Membership Plan based Redeem Level' , 'rewardsystem' ) ,
-						'desc'    => __( 'Enable this option to modify Redeem points based on membership plan' , 'rewardsystem' ) ,
-						'id'      => 'rs_enable_membership_plan_based_redeem' ,
-						'css'     => 'min-width:150px;' ,
-						'std'     => 'yes' ,
-						'default' => 'yes' ,
-						'type'    => 'checkbox' ,
-						'newids'  => 'rs_enable_membership_plan_based_redeem' ,
-							) ;
-					foreach ( $membership_level as $key => $value ) {
-						$updated_settings[] = array(
-							'name'     => __( 'Reward Points Redeem Percentage for ' . $value , 'rewardsystem' ) ,
-							'desc'     => __( 'Please Enter Percentage of Redeem for ' . $value , 'rewardsystem' ) ,
-							'class'    => 'rewardpoints_membership_plan_for_redeem' ,
-							'id'       => 'rs_reward_membership_plan_for_redeem' . $key ,
-							'css'      => 'min-width:150px;' ,
-							'std'      => '100' ,
-							'type'     => 'text' ,
-							'newids'   => 'rs_reward_membership_plan_for_redeem' . $key ,
-							'desc_tip' => true ,
-								) ;
-					}
-					$updated_settings[] = array(
-						'type' => 'sectionend' ,
-						'id'   => '_rs_membership_plan_for_redeem'
-							) ;
+										$updated_settings[] = array(
+												'type' => 'rs_modulecheck_end' ,
+										) ;
+										$updated_settings[] = array(
+										'type' => 'rs_wrapper_start' ,
+										) ;                
+										$updated_settings[] = array(
+										'name' => __( 'Reward Points Redeem Percentage based on Membership Plan' , 'rewardsystem' ) ,
+										'type' => 'title' ,
+										'id'   => '_rs_membership_plan_for_redeem' ,
+										) ;
+										$updated_settings[] = array(
+										'name'   => __( 'Don\'t allow Redeeming when the user hasn\'t purchased any membership plan through SUMO Memberships' , 'rewardsystem' ) ,
+										'desc'   => __( 'Don\'t allow Redeeming when the user hasn\'t purchased any membership plan through SUMO Memberships' , 'rewardsystem' ) ,
+										'id'     => 'rs_restrict_redeem_when_no_membership_plan' ,
+										'css'    => 'min-width:150px;' ,
+										'type'   => 'checkbox' ,
+										'newids' => 'rs_restrict_redeem_when_no_membership_plan' ,
+										) ;
+										$updated_settings[] = array(
+										'name'    => __( 'Membership Plan based Redeem Level' , 'rewardsystem' ) ,
+										'desc'    => __( 'Enable this option to modify Redeem points based on membership plan' , 'rewardsystem' ) ,
+										'id'      => 'rs_enable_membership_plan_based_redeem' ,
+										'css'     => 'min-width:150px;' ,
+										'std'     => 'yes' ,
+										'default' => 'yes' ,
+										'type'    => 'checkbox' ,
+										'newids'  => 'rs_enable_membership_plan_based_redeem' ,
+										) ;
+										foreach ( $membership_level as $key => $value ) {
+											$updated_settings[] = array(
+												'name'     => __( 'Reward Points Redeem Percentage for ' . $value , 'rewardsystem' ) ,
+												'desc'     => __( 'Please Enter Percentage of Redeem for ' . $value , 'rewardsystem' ) ,
+												'class'    => 'rewardpoints_membership_plan_for_redeem' ,
+												'id'       => 'rs_reward_membership_plan_for_redeem' . $key ,
+												'css'      => 'min-width:150px;' ,
+												'std'      => '100' ,
+												'type'     => 'text' ,
+												'newids'   => 'rs_reward_membership_plan_for_redeem' . $key ,
+												'desc_tip' => true ,
+													) ;
+										}
+										$updated_settings[] = array(
+										'type' => 'sectionend' ,
+										'id'   => '_rs_membership_plan_for_redeem'
+										) ;
 				}
 			}
 			return $updated_settings ;
@@ -263,7 +269,7 @@ Selected only "Pending Payment, On-Hold, Processing & Completed" statuses in thi
 					) ,
 					'desc_tip' => true ,
 				) ,
-				array( 'type' => 'sectionend' , 'id' => 'rs_member_level_setting_for_redeem' , 'class' => 'rs_member_level_setting_for_redeem' ) ,
+				array( 'type' => 'sectionend' , 'id' => 'rs_member_level_setting_for_redeem') ,
 				array(
 					'type' => 'rs_wrapper_end' ,
 				) ,
@@ -346,7 +352,7 @@ Selected only "Pending Payment, On-Hold, Processing & Completed" statuses in thi
 				array(
 					'type' => 'rs_user_purchase_history_redeem' ,
 				) ,
-				array( 'type' => 'sectionend' , 'id' => '_rs_member_level_earning_points_purchase_history' ) ,
+				array( 'type' => 'sectionend' , 'id' => '_rs_member_level_redeem_points_purchase_history' ) ,
 				array(
 					'type' => 'rs_wrapper_end' ,
 				) ,

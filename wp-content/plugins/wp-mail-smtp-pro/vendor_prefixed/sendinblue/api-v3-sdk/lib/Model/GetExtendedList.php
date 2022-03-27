@@ -51,13 +51,13 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'totalBlacklisted' => 'int', 'totalSubscribers' => 'int', 'folderId' => 'int', 'createdAt' => '\\DateTime', 'campaignStats' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedListCampaignStats[]', 'dynamicList' => 'bool'];
+    protected static $swaggerTypes = ['id' => 'int', 'name' => 'string', 'totalBlacklisted' => 'int', 'totalSubscribers' => 'int', 'uniqueSubscribers' => 'int', 'folderId' => 'int', 'createdAt' => 'string', 'campaignStats' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedListCampaignStats[]', 'dynamicList' => 'bool'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'totalBlacklisted' => 'int64', 'totalSubscribers' => 'int64', 'folderId' => 'int64', 'createdAt' => 'date-time', 'campaignStats' => null, 'dynamicList' => null];
+    protected static $swaggerFormats = ['id' => 'int64', 'name' => null, 'totalBlacklisted' => 'int64', 'totalSubscribers' => 'int64', 'uniqueSubscribers' => 'int64', 'folderId' => 'int64', 'createdAt' => null, 'campaignStats' => null, 'dynamicList' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
      *
      * @var string[]
      */
-    protected static $attributeMap = ['id' => 'id', 'name' => 'name', 'totalBlacklisted' => 'totalBlacklisted', 'totalSubscribers' => 'totalSubscribers', 'folderId' => 'folderId', 'createdAt' => 'createdAt', 'campaignStats' => 'campaignStats', 'dynamicList' => 'dynamicList'];
+    protected static $attributeMap = ['id' => 'id', 'name' => 'name', 'totalBlacklisted' => 'totalBlacklisted', 'totalSubscribers' => 'totalSubscribers', 'uniqueSubscribers' => 'uniqueSubscribers', 'folderId' => 'folderId', 'createdAt' => 'createdAt', 'campaignStats' => 'campaignStats', 'dynamicList' => 'dynamicList'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['id' => 'setId', 'name' => 'setName', 'totalBlacklisted' => 'setTotalBlacklisted', 'totalSubscribers' => 'setTotalSubscribers', 'folderId' => 'setFolderId', 'createdAt' => 'setCreatedAt', 'campaignStats' => 'setCampaignStats', 'dynamicList' => 'setDynamicList'];
+    protected static $setters = ['id' => 'setId', 'name' => 'setName', 'totalBlacklisted' => 'setTotalBlacklisted', 'totalSubscribers' => 'setTotalSubscribers', 'uniqueSubscribers' => 'setUniqueSubscribers', 'folderId' => 'setFolderId', 'createdAt' => 'setCreatedAt', 'campaignStats' => 'setCampaignStats', 'dynamicList' => 'setDynamicList'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['id' => 'getId', 'name' => 'getName', 'totalBlacklisted' => 'getTotalBlacklisted', 'totalSubscribers' => 'getTotalSubscribers', 'folderId' => 'getFolderId', 'createdAt' => 'getCreatedAt', 'campaignStats' => 'getCampaignStats', 'dynamicList' => 'getDynamicList'];
+    protected static $getters = ['id' => 'getId', 'name' => 'getName', 'totalBlacklisted' => 'getTotalBlacklisted', 'totalSubscribers' => 'getTotalSubscribers', 'uniqueSubscribers' => 'getUniqueSubscribers', 'folderId' => 'getFolderId', 'createdAt' => 'getCreatedAt', 'campaignStats' => 'getCampaignStats', 'dynamicList' => 'getDynamicList'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -150,6 +150,7 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['totalBlacklisted'] = isset($data['totalBlacklisted']) ? $data['totalBlacklisted'] : null;
         $this->container['totalSubscribers'] = isset($data['totalSubscribers']) ? $data['totalSubscribers'] : null;
+        $this->container['uniqueSubscribers'] = isset($data['uniqueSubscribers']) ? $data['uniqueSubscribers'] : null;
         $this->container['folderId'] = isset($data['folderId']) ? $data['folderId'] : null;
         $this->container['createdAt'] = isset($data['createdAt']) ? $data['createdAt'] : null;
         $this->container['campaignStats'] = isset($data['campaignStats']) ? $data['campaignStats'] : null;
@@ -174,6 +175,9 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
         }
         if ($this->container['totalSubscribers'] === null) {
             $invalidProperties[] = "'totalSubscribers' can't be null";
+        }
+        if ($this->container['uniqueSubscribers'] === null) {
+            $invalidProperties[] = "'uniqueSubscribers' can't be null";
         }
         if ($this->container['folderId'] === null) {
             $invalidProperties[] = "'folderId' can't be null";
@@ -278,6 +282,27 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
         return $this;
     }
     /**
+     * Gets uniqueSubscribers
+     *
+     * @return int
+     */
+    public function getUniqueSubscribers()
+    {
+        return $this->container['uniqueSubscribers'];
+    }
+    /**
+     * Sets uniqueSubscribers
+     *
+     * @param int $uniqueSubscribers Number of unique contacts in the list
+     *
+     * @return $this
+     */
+    public function setUniqueSubscribers($uniqueSubscribers)
+    {
+        $this->container['uniqueSubscribers'] = $uniqueSubscribers;
+        return $this;
+    }
+    /**
      * Gets folderId
      *
      * @return int
@@ -301,7 +326,7 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     /**
      * Gets createdAt
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -310,7 +335,7 @@ class GetExtendedList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     /**
      * Sets createdAt
      *
-     * @param \DateTime $createdAt Creation UTC date-time of the list (YYYY-MM-DDTHH:mm:ss.SSSZ)
+     * @param string $createdAt Creation UTC date-time of the list (YYYY-MM-DDTHH:mm:ss.SSSZ)
      *
      * @return $this
      */

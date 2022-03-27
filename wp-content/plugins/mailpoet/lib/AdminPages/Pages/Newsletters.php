@@ -111,6 +111,8 @@ class Newsletters {
 
   public function render() {
     global $wp_roles; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $installer = new Installer(Installer::PREMIUM_PLUGIN_SLUG);
+    $pluginInformation = $installer->retrievePluginInformation();
 
     $data = [];
 
@@ -122,6 +124,7 @@ class Newsletters {
     $data['has_mss_key_specified'] = Bridge::isMSSKeySpecified();
     $data['mss_key_pending_approval'] = $this->servicesChecker->isMailPoetAPIKeyPendingApproval();
     $data['current_wp_user'] = $this->wp->wpGetCurrentUser()->to_array();
+    $data['current_wp_user_email'] = $this->wp->wpGetCurrentUser()->user_email;
     $data['current_wp_user_firstname'] = $this->wp->wpGetCurrentUser()->user_firstname;
     $data['site_url'] = $this->wp->siteUrl();
     $data['roles'] = $wp_roles->get_names(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
@@ -136,6 +139,8 @@ class Newsletters {
 
     $dateTime = new DateTime();
     $data['current_date'] = $dateTime->getCurrentDate(DateTime::DEFAULT_DATE_FORMAT);
+    $data['tomorrow_date'] = $dateTime->getCurrentDateTime()->modify( "+1 day" )
+      ->format( DateTime::DEFAULT_DATE_FORMAT );
     $data['current_time'] = $dateTime->getCurrentTime();
     $data['schedule_time_of_day'] = $dateTime->getTimeInterval(
       '00:00:00',
@@ -153,6 +158,13 @@ class Newsletters {
     $data['newsletters_count'] = Newsletter::count();
     $data['mailpoet_feature_flags'] = $this->featuresController->getAllFlags();
     $data['transactional_emails_opt_in_notice_dismissed'] = $this->userFlags->get('transactional_emails_opt_in_notice_dismissed');
+    $data['has_premium_support'] = $this->subscribersFeature->hasPremiumSupport();
+    $data['premium_plugin_installed'] = $data['premium_plugin_active'] || Installer::isPluginInstalled(Installer::PREMIUM_PLUGIN_SLUG);
+    $data['premium_plugin_download_url'] = $pluginInformation->download_link ?? null; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $data['premium_plugin_activation_url'] = $installer->generatePluginActivationUrl(Installer::PREMIUM_PLUGIN_PATH);
+    $data['plugin_partial_key'] = $this->servicesChecker->generatePartialApiKey();
+    $data['email_volume_limit_reached'] = $this->subscribersFeature->checkEmailVolumeLimitIsReached();
+    $data['email_volume_limit'] = $this->subscribersFeature->getEmailVolumeLimit();
 
     if (!$data['premium_plugin_active']) {
       $data['free_premium_subscribers_limit'] = License::FREE_PREMIUM_SUBSCRIBERS_LIMIT;

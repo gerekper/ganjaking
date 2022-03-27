@@ -1,0 +1,16 @@
+/**
+ * Frontend Styles for GP Multi-page Navigation
+ */
+
+.gravity-theme .gpmpn-page-link {
+	display: table-cell;
+	text-decoration: none;
+}
+
+.gravity-theme .gpmpn-page-link:hover .gf_step_number {
+	background-color: #cfd3d9;
+}
+
+.gravity-theme .gpmpn-page-link .gf_step_label {
+	text-decoration: underline;
+}

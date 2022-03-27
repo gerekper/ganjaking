@@ -16,7 +16,7 @@ class FullName extends AC\Column\User\FullName
 	}
 
 	public function editing() {
-		return new Editing\Service\User\FullName( $this );
+		return new Editing\Service\User\FullName();
 	}
 
 	public function export() {

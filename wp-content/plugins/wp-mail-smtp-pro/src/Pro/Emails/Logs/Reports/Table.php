@@ -345,7 +345,7 @@ class Table extends \WP_List_Table {
 		if ( ! empty( $_REQUEST['date'] ) ) {
 			$date = sanitize_text_field( wp_unslash( $_REQUEST['date'] ) );
 		}
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		// phpcs:enable
 
 		$timespans = [
 			'7'      => esc_html__( 'Last 7 days', 'wp-mail-smtp-pro' ),

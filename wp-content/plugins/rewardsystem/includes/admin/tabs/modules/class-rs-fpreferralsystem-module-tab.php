@@ -1412,6 +1412,15 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
 					'default' => 'no' ,
 					'newids'  => 'rs_restrict_referral_points_old_user_not_in_referral_system' ,
 				) ,
+								array(
+										'name'    => __( 'Restrict Referral Product Purchase Points based on Sale Price Products', 'rewardsystem' ),
+										'id'      => 'rs_restrict_sale_price_product_points_referral_system',
+										'type'    => 'checkbox',
+										'std'     => 'no',
+										'default' => 'no',
+										'desc'    => __('By enabling this checkbox, you can restrict awarding referral product purchase points to the referrer when a referred person purchases products that have a sale price in the order.', 'rewardsystem'),
+										'newids'  => 'rs_restrict_sale_price_product_points_referral_system',
+								),
 				array( 'type' => 'sectionend' , 'id' => '_rs_ban_referee_points_time' ) ,
 				array(
 					'type' => 'rs_wrapper_end' ,

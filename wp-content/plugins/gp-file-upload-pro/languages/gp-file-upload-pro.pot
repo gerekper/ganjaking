@@ -1,69 +1,185 @@
-# Copyright (C) 2021 GP File Upload Pro
-# This file is distributed under the same license as the GP File Upload Pro package.
+# Copyright (C) 2022 Gravity Wiz
+# This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: GP File Upload Pro\n"
+"Project-Id-Version: GP File Upload Pro 1.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cloned-perk-WBmRQD4RD\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: 2022-03-22T20:35:52+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: gp-file-upload-pro\n"
 
-#: ../class-gp-file-upload-pro.php:154
+#. Plugin Name of the plugin
+msgid "GP File Upload Pro"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gravitywiz.com/documentation/gravity-forms-file-upload-pro/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A professional file and image uploader that feels like magic."
+msgstr ""
+
+#. Author of the plugin
+msgid "Gravity Wiz"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://gravitywiz.com/"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:369
 msgid "select files"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:155
+#: class-gp-file-upload-pro.php:370
 msgid "Drop files here"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:156
+#: class-gp-file-upload-pro.php:371
 msgid "or"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:157
+#: class-gp-file-upload-pro.php:372
 msgid "Cancel"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:158
+#: class-gp-file-upload-pro.php:373
 msgid "Crop"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:192
-msgid "Enable File Upload Pro"
+#: class-gp-file-upload-pro.php:374
+msgid "Cropping"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:197
+#: class-gp-file-upload-pro.php:375
+msgid "of"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:204, ../class-gp-file-upload-pro.php:274
+#: class-gp-file-upload-pro.php:376
+msgid "This image does not meet the minimum dimensions: {minWidth}x{minHeight}px."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:377
+msgid "This image does not meet the minimum width: {minWidth}px."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:378
+msgid "This image does not meet the minimum height: {minHeight}px."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:389
+#: class-gp-file-upload-pro.php:413
 msgid "Enable Cropping"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:212
+#: class-gp-file-upload-pro.php:390
+#: class-gp-file-upload-pro.php:418
+msgid "Enable Sorting"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:391
+msgid "Enable File Upload Pro"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:392
+msgid ""
+"You are about to enable File Upload Pro on a Single File Upload field.\n"
+"\n"
+"Completing this action will convert this field to a Multi-file Upload field. Entry data associated with this field will be converted into the multi-file upload format when the form is saved. This conversion cannot be undone.\n"
+"\n"
+"Would you like to enable File Upload Pro on this field?"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:393
 msgid "Require Crop"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:268
+#: class-gp-file-upload-pro.php:394
+msgid "Constraints"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:395
+#: class-gp-file-upload-pro.php:443
+msgid "Aspect Ratio"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:396
+msgid "Max Dimensions"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:397
+msgid "Min Dimensions"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:398
+#: class-gp-file-upload-pro.php:428
+msgid "Exact Dimensions"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:399
+msgid "Width"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:400
+msgid "Height"
+msgstr ""
+
+#. translators: placeholder is URL to File Upload Pro FAQ
+#: class-gp-file-upload-pro.php:403
+msgid "This setting is required when File Upload Pro is enabled. <a href=\"%s\" target=\"_blank\">Learn more.</a>"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:408
 msgid "File Upload Pro"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:269
+#: class-gp-file-upload-pro.php:409
 msgid "Greatly improve the uploading experience for your Gravity Forms File Upload fields."
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:275
-msgid "Allow users to crop their uploaded images by clicking on the image thumbnail."
+#: class-gp-file-upload-pro.php:414
+msgid "Automatically crop images according to the specified constraints. Users may re-crop the image by clicking on the image thumbnail. Use the Require Crop setting to require the user to manually crop the image."
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:280
+#: class-gp-file-upload-pro.php:419
+msgid "Allow the order of files to be modified using drag-and-drop sorting in the uploader area."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:423
 msgid "Require Crop on Upload"
 msgstr ""
 
-#: ../class-gp-file-upload-pro.php:281
+#: class-gp-file-upload-pro.php:424
 msgid "Require that images be cropped on upload by automatically opening the cropper. If the crop is canceled, the files are not uploaded."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:429
+msgid "Require file to be upload with exact dimensions. These dimensions will be used as the minimum dimensions in the cropper and an aspect ratio will be derived from the dimensions. If an image exceeds the exact dimensions after cropping, it will be downscaled."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:433
+msgid "Minimum Dimensions"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:434
+msgid "Require cropper to meet the minimum dimensions. If cropper is not used, file dimensions will be validated prior to upload."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:438
+msgid "Maximum Dimensions"
+msgstr ""
+
+#: class-gp-file-upload-pro.php:439
+msgid "Images will be downscaled to the maximum dimensions set below."
+msgstr ""
+
+#: class-gp-file-upload-pro.php:444
+msgid "Restrict cropper to aspect ratio."
 msgstr ""

@@ -385,7 +385,6 @@ abstract class RSA extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Asymmetric
         $privatekey->k = $bits >> 3;
         $privatekey->publicExponent = $e;
         $privatekey->exponent = $d;
-        $privatekey->privateExponent = $e;
         $privatekey->primes = $primes;
         $privatekey->exponents = $exponents;
         $privatekey->coefficients = $coefficients;

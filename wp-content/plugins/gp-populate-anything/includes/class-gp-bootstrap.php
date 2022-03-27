@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.2
+ * @version 1.2.1
  */
 if ( ! class_exists( 'GP_Bootstrap' ) ) {
 
@@ -43,6 +43,7 @@ if ( ! class_exists( 'GP_Bootstrap' ) ) {
 
 				<tr class="plugin-update-tr active gwp-plugin-notice">
 					<td colspan="3" class="colspanchange">
+						<?php // translators: Placeholders are opening and closing anchor tags to link to the Gravity Wiz website. ?>
 						<div class="update-message notice inline notice-error notice-alt"><p><?php printf( __( 'This plugin requires Gravity Perks. Activate it now or %1$spurchase it today!%2$s', 'gravityperks' ), '<a href="https://gravityperks.com">', '</a>' ); ?></p></div>
 					</td>
 				</tr>

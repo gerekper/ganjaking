@@ -7,7 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <table class="form-table rs_myrewards_menu_sorting">
-	<h3 class="rs_myrewards_menu_heading"><?php esc_html_e( 'My Reward Points Menu Sorting' , 'rewardsystem' ) ; ?></h3>    
+		<thead>
+			<tr class="rs-my-reward-menu-sorting-content">
+				<th style="width:auto;font-size:18px;">
+					<b><?php esc_html_e( 'My Reward Points Menu Sorting' , 'rewardsystem' ) ; ?></b>
+				</th>
+				<td></td>
+			</tr>
+		</thead>
 	<tbody class="sortable_menu">
 		<?php
 		$defaultcolumn = array(
@@ -31,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 		foreach ( $sortedcolumn as $column_key => $column_value ) {
 			?>
-			<tr>
+			<tr class="rs-my-reward-menu-sorting-content">
 				<th class="myrewards_sortable_menu_header"><?php echo esc_attr( $defaultcolumn[ $column_key ] ) ; ?></th>                 
 				<td class="myrewards_sortable_menu_data">
 					<input type="hidden" name="rs_sorted_reward_menu_list[<?php echo esc_attr( $column_key ) ; ?>]" value="<?php echo esc_attr( $column_value ); ?>">

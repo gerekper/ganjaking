@@ -401,6 +401,59 @@ function seedprod_pro_render_templatetag() {
 	exit;
 }
 
+/**
+ * Preview WC Template Tags.
+ */
+function seedprod_pro_render_wc_template_tags() {
+	if ( check_ajax_referer( 'seedprod_nonce' ) ) {
+		if ( ! current_user_can( apply_filters( 'seedprod_builder_preview_render_capability', 'edit_others_posts' ) ) ) {
+			wp_send_json_error();
+		}
+
+		$content = '';
+		if ( ! empty( $_POST['wc_template_tag'] ) ) {
+			$wc_template_tag = sanitize_text_field( wp_unslash( $_POST['wc_template_tag'] ) );
+
+			$args = array(
+				'posts_per_page' => 1,
+				'post_type'      => 'product',
+			);
+
+			// Updating current query.
+			$the_query = new WP_Query( $args );
+
+			// The Loop
+			if ( $the_query->have_posts() ) {
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+
+					$id      = get_the_ID();
+					$product = wc_get_product( $id );
+
+					if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
+						return '';
+					}
+
+					$content = do_shortcode( $wc_template_tag );
+				}
+			}
+
+			/* Restore original Post Data */
+			wp_reset_postdata();
+
+			if ( ! empty( $content ) ) {
+				do_action( 'wp_print_footer_scripts' );
+				do_action( 'wp_footer' );
+			}
+		}
+
+		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		exit();
+	}
+	exit;
+}
+
 
 if ( defined( 'DOING_AJAX' ) ) {
 	
@@ -409,6 +462,7 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_seedprod_pro_render_shortcode_wc_checkout', 'seedprod_pro_render_shortcode_wc_checkout' );
 	add_action( 'wp_ajax_seedprod_pro_render_shortcode', 'seedprod_pro_render_shortcode' );
 	add_action( 'wp_ajax_seedprod_pro_render_templatetag', 'seedprod_pro_render_templatetag' );
+	add_action( 'wp_ajax_seedprod_pro_render_wc_template_tags', 'seedprod_pro_render_wc_template_tags' );
 	
 
 	add_action( 'wp_ajax_seedprod_pro_dismiss_settings_lite_cta', 'seedprod_pro_dismiss_settings_lite_cta' );

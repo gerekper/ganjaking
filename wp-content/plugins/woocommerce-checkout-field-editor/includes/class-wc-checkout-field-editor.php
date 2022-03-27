@@ -76,7 +76,7 @@ class WC_Checkout_Field_Editor {
 	 * @return void
 	 */
 	public function menu() {
-		$this->screen_id = add_submenu_page( 'woocommerce', __( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ), __( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
+		$this->screen_id = add_submenu_page( 'woocommerce', esc_html__( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ), esc_html__( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
 
 		add_action( 'admin_print_scripts-' . $this->screen_id, array( $this, 'scripts' ) );
 
@@ -448,7 +448,7 @@ class WC_Checkout_Field_Editor {
 									<input type="text" class="input-text" name="new_field_name[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $name ); ?>" />
 									<input type="hidden" name="field_name[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $name ); ?>" />
 								<?php else : ?>
-									<strong class="core-field"><?php echo $name; ?></strong>
+									<strong class="core-field"><?php esc_html_e( $name ); ?></strong>
 									<input type="hidden" name="field_name[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $name ); ?>" />
 								<?php endif; ?>
 

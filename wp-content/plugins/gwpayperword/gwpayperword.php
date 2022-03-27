@@ -3,14 +3,14 @@
 * Plugin Name: GP Pay Per Word
 * Description: Create products which calculate a total based on the number of words in a Paragraph or Post Body field.
 * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-pay-per-word/
-* Version: 1.1.6
+* Version: 1.2
 * Author: Gravity Wiz
 * Author URI: http://gravitywiz.com/
 * License: GPL2
 * Perk: True
 */
 
-define( 'GP_PAY_PER_WORD_VERSION', '1.1.6' );
+define( 'GP_PAY_PER_WORD_VERSION', '1.2' );
 
 require 'includes/class-gp-bootstrap.php';
 

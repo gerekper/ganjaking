@@ -19,29 +19,56 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class AutoForwarding extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $disposition;
+    /**
+     * @var string
+     */
     public $emailAddress;
+    /**
+     * @var bool
+     */
     public $enabled;
+    /**
+     * @param string
+     */
     public function setDisposition($disposition)
     {
         $this->disposition = $disposition;
     }
+    /**
+     * @return string
+     */
     public function getDisposition()
     {
         return $this->disposition;
     }
+    /**
+     * @param string
+     */
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
     }
+    /**
+     * @return string
+     */
     public function getEmailAddress()
     {
         return $this->emailAddress;
     }
+    /**
+     * @param bool
+     */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
     }
+    /**
+     * @return bool
+     */
     public function getEnabled()
     {
         return $this->enabled;

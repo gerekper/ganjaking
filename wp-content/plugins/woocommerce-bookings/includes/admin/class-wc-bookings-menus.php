@@ -14,7 +14,6 @@ class WC_Bookings_Menus {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 49 );
 		add_filter( 'menu_order', array( $this, 'menu_order' ), 20 );
 		add_filter( 'admin_url', array( $this, 'add_new_booking_url' ), 10, 2 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'booking_form_styles' ) );
 	}
 
 	/**

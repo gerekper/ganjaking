@@ -135,6 +135,10 @@ class Blocks {
 			)
 		);
 
+		$constants['comp'] = array(
+			'ICL_LANGUAGE_CODE' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : ''
+		);
+
 		wp_localize_script(
 			'woocommerce-product-search-blocks',
 			'woocommerce_product_search_blocks',

@@ -10,7 +10,10 @@
 	'use strict';
 
 	$(function() {
+
 		var wc_store_credit_meta_boxes_product = {
+
+			fields: {},
 
 			/**
 			 * Initialize actions.
@@ -21,9 +24,22 @@
 				// Trigger the initial change event.
 				$( 'select#product-type' ).trigger( 'change' );
 
-				$( '#_store_credit_allow_different_receiver' )
-					.on( 'change', this.toggleReceiverFields )
-					.trigger( 'change' );
+				this.bindEvents();
+			},
+
+			/**
+			 * Bind events.
+			 */
+			bindEvents: function() {
+				var that = this;
+
+				this.getField( 'allow_different_receiver' ).on( 'change', function() {
+					that.toggleFields( ['display_receiver_fields', 'receiver_fields_title'], $( this ).prop( 'checked' ) )
+				}).trigger( 'change' );
+
+				this.getField( 'allow_custom_amount' ).on( 'change', function() {
+					that.toggleFields( ['min_custom_amount', 'max_custom_amount', 'custom_amount_step'], $( this ).prop( 'checked' ) )
+				}).trigger( 'change' );
 			},
 
 			/**
@@ -41,12 +57,30 @@
 			},
 
 			/**
-			 * Toggle between showing or hiding display receiver fields options.
+			 * Gets the jQuery object which represents the form field.
 			 */
-			toggleReceiverFields: function () {
-				$( '#_store_credit_display_receiver_fields, #_store_credit_receiver_fields_title' )
-					.closest( '.form-field' )
-					.toggle( $( this ).prop( 'checked' ) );
+			getField: function( key ) {
+				// Load field on demand.
+				if ( ! this.fields[ key ] ) {
+					this.fields[ key ] = $( '#_store_credit_' + key );
+				}
+
+				return this.fields[ key ];
+			},
+
+			/**
+			 * Handles the visibility of the form fields.
+			 */
+			toggleFields: function( keys, visible ) {
+				var that = this;
+
+				if ( ! Array.isArray( keys ) ) {
+					keys = [ keys ];
+				}
+
+				$.each( keys, function( index, key ) {
+					that.getField( key ).closest( '.form-field' ).toggle( visible );
+				});
 			}
 		};
 

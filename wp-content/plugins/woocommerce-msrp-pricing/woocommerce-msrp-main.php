@@ -8,12 +8,12 @@ class woocommerce_msrp_main {
 			   $woocommerce_msrp_frontend,
 			   $woocommerce_msrp_admin;
 
+		$active_plugins = array_merge(
+			apply_filters( 'active_plugins', get_option( 'active_plugins', [] ) ),
+			array_keys( get_site_option( 'active_sitewide_plugins', [] ) )
+		);
 		// Bail if WooCommerce is not active.
-		if ( ! in_array(
-			'woocommerce/woocommerce.php',
-			apply_filters( 'active_plugins', get_option( 'active_plugins' ) ),
-			true
-		) ) {
+		if ( ! in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) ) {
 			return;
 		}
 

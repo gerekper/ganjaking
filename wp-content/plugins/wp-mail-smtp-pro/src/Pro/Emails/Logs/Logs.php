@@ -8,10 +8,13 @@ use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Providers\Common;
 use WPMailSMTP\Pro\Emails\Logs\Providers\SMTP;
+use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
 use WPMailSMTP\Pro\Tasks\EmailLogCleanupTask;
 use WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask as MailgunVerifySentStatusTask;
 use WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask as SendinblueVerifySentStatusTask;
 use WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask as SMTPcomVerifySentStatusTask;
+use WPMailSMTP\Pro\Tasks\Logs\Postmark\VerifySentStatusTask as PostmarkVerifySentStatusTask;
+use WPMailSMTP\Pro\Tasks\Logs\SparkPost\VerifySentStatusTask as SparkPostVerifySentStatusTask;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Admin\PrintPreview;
@@ -121,6 +124,9 @@ class Logs {
 			// Initialize emails resend.
 			( new Resend() )->hooks();
 		}
+
+		// Initialize webhooks.
+		$this->get_webhooks();
 
 		// Initialize email tracking.
 		( new Tracking( $this->is_enabled_tracking() ) )->hooks();
@@ -599,7 +605,7 @@ class Logs {
 		// Nonce verification.
 		if (
 			! isset( $_GET['_wpnonce'] ) ||
-			! wp_verify_nonce( $_GET['_wpnonce'], 'wp_mail_smtp_pro_logs_log_preview' ) // phpcs:ignore
+			! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'wp_mail_smtp_pro_logs_log_preview' )
 		) {
 			return false;
 		}
@@ -625,8 +631,8 @@ class Logs {
 		if (
 			isset( $_REQUEST['_wpnonce'] ) &&
 			(
-				wp_verify_nonce( $_REQUEST['_wpnonce'], 'wp_mail_smtp_pro_logs_log_delete' ) || // phpcs:ignore
-				wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-emails' ) // phpcs:ignore
+				wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wp_mail_smtp_pro_logs_log_delete' ) ||
+				wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'bulk-emails' )
 			)
 		) {
 			$is_nonce_good = true;
@@ -660,7 +666,7 @@ class Logs {
 			return;
 		}
 
-		$email = new Email( (int) $_GET['email_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$email = new Email( intval( $_GET['email_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 
 		// It's a raw HTML (with html/body tags), so print as is.
 		echo $email->is_html() ?
@@ -715,13 +721,20 @@ class Logs {
 			wp_die( esc_html__( 'You don\'t have the capability to perform this action.', 'wp-mail-smtp-pro' ) );
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_REQUEST['email_id'] ) ) {
+			wp_die( esc_html__( 'Required parameters are missing.', 'wp-mail-smtp-pro' ) );
+		}
+
 		$emails = null;
 
-		if ( is_array( $_REQUEST['email_id'] ) ) { // phpcs:ignore
-			$emails = new EmailsCollection( [ 'ids' => $_REQUEST['email_id'] ] ); // phpcs:ignore
-		} elseif ( is_numeric( $_REQUEST['email_id'] ) ) { // phpcs:ignore
-			$emails = new EmailsCollection( [ 'id' => $_REQUEST['email_id'] ] ); // phpcs:ignore
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( is_array( $_REQUEST['email_id'] ) ) {
+			$emails = new EmailsCollection( [ 'ids' => array_map( 'intval', array_values( $_REQUEST['email_id'] ) ) ] );
+		} elseif ( is_numeric( $_REQUEST['email_id'] ) ) {
+			$emails = new EmailsCollection( [ 'id' => intval( $_REQUEST['email_id'] ) ] );
 		}
+		// phpcs:enable
 
 		$deleted = 0;
 
@@ -748,7 +761,8 @@ class Logs {
 	 */
 	public function display_notices() {
 
-		$message = isset( $_GET['message'] ) ? sanitize_key( $_GET['message'] ) : ''; // phpcs:ignore
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$message = isset( $_GET['message'] ) ? sanitize_key( $_GET['message'] ) : '';
 
 		if (
 			empty( $message ) ||
@@ -947,7 +961,10 @@ class Logs {
 	 */
 	public function process_ajax_delete_all_log_entries() {
 
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'wp_mail_smtp_pro_delete_log_entries' ) ) { // phpcs:ignore
+		if (
+			empty( $_POST['nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wp_mail_smtp_pro_delete_log_entries' )
+		) {
 			wp_send_json_error( esc_html__( 'Access rejected.', 'wp-mail-smtp-pro' ) );
 		}
 
@@ -961,7 +978,7 @@ class Logs {
 
 		$sql = "TRUNCATE TABLE `$table`;";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore
+		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		if ( $result !== false ) {
 
@@ -994,6 +1011,15 @@ class Logs {
 
 		$mailer_name = $mailer->get_mailer_name();
 
+		if ( Webhooks::is_allowed() ) {
+			$webhooks_provider = $this->get_webhooks()->get_provider( $mailer_name );
+
+			// Skip AS task verification if webhooks are set up.
+			if ( $webhooks_provider !== false && $webhooks_provider->get_setup_status() === Webhooks::SUCCESS_SETUP ) {
+				return;
+			}
+		}
+
 		if ( 'mailgun' === $mailer_name ) {
 			( new MailgunVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
@@ -1009,6 +1035,35 @@ class Logs {
 				->params( $email_log_id, 1 )
 				->once( time() + SMTPcomVerifySentStatusTask::SCHEDULE_TASK_IN )
 				->register();
+		} elseif ( 'postmark' === $mailer_name ) {
+			( new PostmarkVerifySentStatusTask() )
+				->params( $email_log_id, 1 )
+				->once( time() + PostmarkVerifySentStatusTask::SCHEDULE_TASK_IN )
+				->register();
+		} elseif ( 'sparkpost' === $mailer_name ) {
+			( new SparkPostVerifySentStatusTask() )
+				->params( $email_log_id, 1 )
+				->once( time() + SparkPostVerifySentStatusTask::SCHEDULE_TASK_IN )
+				->register();
 		}
+	}
+
+	/**
+	 * Initialize the Webhooks functionality.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return Webhooks
+	 */
+	public function get_webhooks() {
+
+		static $webhooks;
+
+		if ( ! isset( $webhooks ) ) {
+			$webhooks = new Webhooks();
+			$webhooks->hooks();
+		}
+
+		return $webhooks;
 	}
 }

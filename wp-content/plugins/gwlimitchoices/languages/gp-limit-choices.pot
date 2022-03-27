@@ -13,30 +13,30 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-limit-choices.php:79
+#: ../class-gp-limit-choices.php:90
 msgid "enable limits"
 msgstr ""
 
-#: ../class-gp-limit-choices.php:459
+#: ../class-gp-limit-choices.php:491
 msgid "The choice, \"%s\", which you have selected is no longer available."
 msgstr ""
 
-#: ../class-gp-limit-choices.php:478
+#: ../class-gp-limit-choices.php:510
 msgid "You selected this option for %1$d items but only %2$d of this option is available."
 msgid_plural "You selected this option for %1$d items but only %2$d of this option are available."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-choices.php:480
+#: ../class-gp-limit-choices.php:512
 msgid "You selected %1$d of this item but only %2$d is available."
 msgid_plural "You selected %1$d of this item but only %2$d are available."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-choices.php:589
+#: ../class-gp-limit-choices.php:635
 msgid "There are no options available for this field."
 msgstr ""
 
-#: ../class-gp-limit-choices.php:990
+#: ../class-gp-limit-choices.php:1036
 msgid "unlimited"
 msgstr ""

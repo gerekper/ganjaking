@@ -11,7 +11,7 @@ use ACP\Export\Model;
 class AttachmentURLFromAttachmentId extends Model {
 
 	public function get_value( $id ) {
-		return wp_get_attachment_url( $this->get_column()->get_raw_value( $id ) );
+		return wp_get_attachment_url( $this->column->get_raw_value( $id ) );
 	}
 
 }

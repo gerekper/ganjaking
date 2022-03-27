@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin_Ajax
- * @version  2.2.0
+ * @version  3.2.1
  */
 class WCS_ATT_Admin_Ajax {
 
@@ -112,8 +112,8 @@ class WCS_ATT_Admin_Ajax {
 
 		check_ajax_referer( 'wcsatt_add_subscription_scheme', 'security' );
 
-		$index   = intval( $_POST[ 'index' ] );
-		$post_id = intval( $_POST[ 'post_id' ] );
+		$index   = isset( $_POST[ 'index' ] ) ? intval( $_POST[ 'index' ] ) : -1;
+		$post_id = isset( $_POST[ 'post_id' ] ) ? intval( $_POST[ 'post_id' ] ) : '';
 
 		ob_start();
 

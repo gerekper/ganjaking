@@ -188,7 +188,7 @@ class SendingQueue {
       if (!empty($newsletterSegmentsIds[0])) {
         // Check that subscribers are in segments
         $foundSubscribersIds = $this->subscribersFinder->findSubscribersInSegments($subscribersToProcessIds, $newsletterSegmentsIds);
-        $foundSubscribers = SubscriberModel::whereIn('id', $subscribersToProcessIds)
+        $foundSubscribers = empty($foundSubscribersIds) ? [] : SubscriberModel::whereIn('id', $foundSubscribersIds)
           ->whereNull('deleted_at')
           ->findMany();
       } else {
@@ -298,6 +298,7 @@ class SendingQueue {
         $preparedSubscribersIds = [];
         $unsubscribeUrls = [];
         $statistics = [];
+        $metas = [];
       }
     }
     if ($processingMethod === 'bulk') {

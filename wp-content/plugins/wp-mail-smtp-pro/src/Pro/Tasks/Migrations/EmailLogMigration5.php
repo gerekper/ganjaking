@@ -57,6 +57,7 @@ class EmailLogMigration5 extends Task {
 
 		$table = Logs::get_table_name();
 
-		$wpdb->query( "ALTER TABLE `$table` CHANGE COLUMN `subject` `subject` VARCHAR(191) NOT NULL AFTER `id`;" ); // phpcs:ignore
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query( "ALTER TABLE `$table` CHANGE COLUMN `subject` `subject` VARCHAR(191) NOT NULL AFTER `id`;" );
 	}
 }

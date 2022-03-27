@@ -19,10 +19,16 @@ class WC_Store_Credit_Product_Addons {
 	 * @since 3.2.0
 	 */
 	public static function init() {
+		// Template hooks.
 		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'product_content' ) );
+		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'custom_amount_content' ) );
+		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'different_receiver_content' ), 20 );
+
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'validate_add_cart_item' ), 20, 2 );
 		add_filter( 'woocommerce_add_cart_item_data', array( __CLASS__, 'add_cart_item_data' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'cart_item_price' ), 10, 2 );
 		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'get_item_data' ), 10, 2 );
+		add_action( 'woocommerce_before_calculate_totals', array( __CLASS__, 'before_calculate_totals' ) );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( __CLASS__, 'order_line_item' ), 10, 3 );
 	}
 
@@ -30,20 +36,86 @@ class WC_Store_Credit_Product_Addons {
 	 * Gets if the specified Store Credit product allows sending the credit to a different person.
 	 *
 	 * @since 3.2.0
+	 * @deprecated 4.0.0
 	 *
 	 * @param mixed $the_product Post object or post ID of the product.
 	 * @return bool
 	 */
 	public static function allow_different_receiver( $the_product ) {
+		wc_deprecated_function( __FUNCTION__, '4.0.0', 'WC_Store_Credit_Product->allow_different_receiver()' );
+
 		$product = wc_store_credit_get_product( $the_product );
 
-		if ( ! $product || ! $product->is_type( 'store_credit' ) ) {
-			return false;
+		return ( $product instanceof WC_Store_Credit_Product && $product->allow_different_receiver() );
+	}
+
+	/**
+	 * Gets the Store Credit product.
+	 *
+	 * If the parameter isn't provided, it uses the current product.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @global WC_Product $product Product object.
+	 *
+	 * @param mixed $the_product Optional. Post object or post ID of the product. Default false.
+	 * @return WC_Store_Credit_Product|false
+	 */
+	protected static function get_store_credit_product( $the_product = false ) {
+		global $product;
+
+		if ( $the_product ) {
+			$product = wc_store_credit_get_product( $the_product );
 		}
 
-		$data = $product->get_meta( '_store_credit_data' );
+		return ( $product instanceof WC_Store_Credit_Product ? $product : false );
+	}
 
-		return ( is_array( $data ) && ( empty( $data['allow_different_receiver'] ) || wc_string_to_bool( $data['allow_different_receiver'] ) ) );
+	/**
+	 * Outputs the product content.
+	 *
+	 * @since 3.2.0
+	 */
+	public static function product_content() {
+		if ( ! self::get_store_credit_product() ) {
+			return;
+		}
+
+		wc_store_credit_get_template( 'single-product/store-credit.php' );
+	}
+
+	/**
+	 * Outputs the custom amount content.
+	 *
+	 * @since 4.0.0
+	 */
+	public static function custom_amount_content() {
+		$product = self::get_store_credit_product();
+
+		if ( ! $product || ! $product->allow_custom_amount() ) {
+			return;
+		}
+
+		$description = '';
+		$min_amount  = $product->get_min_custom_amount();
+
+		if ( $min_amount > 0 ) {
+			/* translators: %s: minimum amount */
+			$description = sprintf( __( 'Minimum amount: %s', 'woocommerce-store-credit' ), wc_price( $min_amount ) );
+		}
+
+		$data = array(
+			'fields' => array(
+				'store_credit_custom_amount' => array(
+					/* translators: %s: Currency symbol */
+					'label'       => sprintf( _x( 'Credit amount (%s)', 'product field label', 'woocommerce-store-credit' ), get_woocommerce_currency_symbol() ),
+					'type'        => 'text',
+					'description' => $description,
+				),
+			),
+		);
+
+		wc_store_credit_get_template( 'single-product/store-credit/custom-amount.php', $data );
 	}
 
 	/**
@@ -77,16 +149,14 @@ class WC_Store_Credit_Product_Addons {
 	}
 
 	/**
-	 * Outputs the product content.
+	 * Outputs different receiver content.
 	 *
-	 * @since 3.2.0
-	 *
-	 * @global WC_Product $product Product object.
+	 * @since 4.0.0
 	 */
-	public static function product_content() {
-		global $product;
+	public static function different_receiver_content() {
+		$product = self::get_store_credit_product();
 
-		if ( ! self::allow_different_receiver( $product ) ) {
+		if ( ! $product || ! $product->allow_different_receiver() ) {
 			return;
 		}
 
@@ -102,7 +172,7 @@ class WC_Store_Credit_Product_Addons {
 			'fields' => self::get_receiver_fields(),
 		);
 
-		wc_store_credit_get_template( 'single-product/store-credit.php', $args );
+		wc_store_credit_get_template( 'single-product/store-credit/custom-receiver.php', $args );
 	}
 
 	/**
@@ -115,24 +185,62 @@ class WC_Store_Credit_Product_Addons {
 	 * @return bool
 	 */
 	public static function validate_add_cart_item( $passed, $product_id ) {
-		// phpcs:disable WordPress.Security.NonceVerification
-		if ( empty( $_POST['send-to-different-customer'] ) || ! self::allow_different_receiver( $product_id ) ) {
+		$product = self::get_store_credit_product( $product_id );
+
+		if ( ! $passed || ! $product ) {
 			return $passed;
 		}
 
-		$fields = self::get_receiver_fields();
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! empty( $_POST['send-to-different-customer'] ) && $product->allow_different_receiver() ) {
+			$fields = self::get_receiver_fields();
 
-		foreach ( $fields as $id => $field ) {
-			$value = ( isset( $_POST[ $id ] ) ? wc_clean( wp_unslash( $_POST[ $id ] ) ) : '' );
+			foreach ( $fields as $id => $field ) {
+				$value = ( isset( $_POST[ $id ] ) ? wc_clean( wp_unslash( $_POST[ $id ] ) ) : '' );
 
-			if ( ! empty( $field['required'] ) && ! $value ) {
-				/* translators: %s: field label */
-				wc_add_notice( sprintf( __( '"%s" is a required field.', 'woocommerce-store-credit' ), $field['label'] ), 'error' );
+				if ( ! empty( $field['required'] ) && ! $value ) {
+					/* translators: %s: field label */
+					wc_add_notice( sprintf( __( '"%s" is a required field.', 'woocommerce-store-credit' ), $field['label'] ), 'error' );
+					return false;
+				}
+			}
+		}
+
+		if ( ! empty( $_POST['store_credit_custom_amount'] ) && $product->allow_custom_amount() ) {
+			$amount = (float) wc_format_decimal( wp_unslash( $_POST['store_credit_custom_amount'] ) );
+
+			if ( $amount <= 0 ) {
+				wc_add_notice( __( 'The credit amount is not valid.', 'woocommerce-store-credit' ), 'error' );
+				return false;
+			}
+
+			$min_amount = (float) $product->get_min_custom_amount();
+
+			if ( $min_amount > 0 && $min_amount > $amount ) {
+				/* translators: %s: minimum amount */
+				wc_add_notice( sprintf( __( 'The minimum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $min_amount ) ), 'error' );
+				return false;
+			}
+
+			$max_amount = (float) $product->get_max_custom_amount();
+
+			if ( $max_amount > 0 && $max_amount < $amount ) {
+				/* translators: %s: maximum amount */
+				wc_add_notice( sprintf( __( 'The maximum credit amount is %s.', 'woocommerce-store-credit' ), wc_price( $max_amount ) ), 'error' );
+				return false;
+			}
+
+			$amount_step = (float) $product->get_custom_amount_step();
+
+			// Add number precision to avoid a 'division by zero' error.
+			if ( $amount_step > 0 && 0 !== ( wc_add_number_precision( $amount ) % wc_add_number_precision( $amount_step ) ) ) {
+				/* translators: %s: amount step */
+				wc_add_notice( sprintf( __( 'The credit amount has an interval of %s.', 'woocommerce-store-credit' ), wc_price( $amount_step ) ), 'error' );
 				return false;
 			}
 		}
 
-		return $passed;
+		return true;
 		// phpcs:enable WordPress.Security.NonceVerification
 	}
 
@@ -141,43 +249,91 @@ class WC_Store_Credit_Product_Addons {
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array $cart_item_data An array with the cart item data.
-	 * @param int   $product_id     Product ID.
+	 * @param array $cart_item  An array with the cart item data.
+	 * @param int   $product_id Product ID.
+	 *
 	 * @return array
 	 */
-	public static function add_cart_item_data( $cart_item_data, $product_id ) {
-		// phpcs:disable WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		if ( empty( $_POST['send-to-different-customer'] ) || ! self::allow_different_receiver( $product_id ) ) {
-			return $cart_item_data;
+	public static function add_cart_item_data( $cart_item, $product_id ) {
+		$product = self::get_store_credit_product( $product_id );
+
+		if ( ! $product ) {
+			return $cart_item;
 		}
 
-		$fields = self::get_receiver_fields();
-		$values = array();
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! empty( $_POST['store_credit_custom_amount'] ) && $product->allow_custom_amount() ) {
+			// The custom amount has been validated into the method validate_add_cart_item().
+			$amount = wc_format_decimal( wp_unslash( $_POST['store_credit_custom_amount'] ) );
 
-		foreach ( $fields as $id => $field ) {
-			$key   = str_replace( 'store_credit_receiver_', '', $id );
-			$value = ( isset( $_POST[ $id ] ) ? wp_unslash( $_POST[ $id ] ) : '' );
+			if ( $amount > 0 ) {
+				$cart_item['store_credit_custom_amount'] = (float) $amount;
+			}
+		}
 
-			switch ( $field['type'] ) {
-				case 'textarea':
-					$value = sanitize_textarea_field( $value );
-					break;
-				default:
-					$value = sanitize_text_field( $value );
-					break;
+		if ( ! empty( $_POST['send-to-different-customer'] ) && $product->allow_different_receiver() ) {
+			$fields = self::get_receiver_fields();
+			$values = array();
+
+			foreach ( $fields as $id => $field ) {
+				$key   = str_replace( 'store_credit_receiver_', '', $id );
+				$value = ( isset( $_POST[ $id ] ) ? wp_unslash( $_POST[ $id ] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+				switch ( $field['type'] ) {
+					case 'textarea':
+						$value = sanitize_textarea_field( $value );
+						break;
+					default:
+						$value = sanitize_text_field( $value );
+						break;
+				}
+
+				$values[ $key ] = $value;
 			}
 
-			$values[ $key ] = $value;
+			$values = array_filter( $values );
+
+			if ( ! empty( $values ) ) {
+				$cart_item['store_credit_receiver'] = $values;
+			}
 		}
 
-		$values = array_filter( $values );
+		return $cart_item;
+		// phpcs:enable WordPress.Security.NonceVerification
+	}
 
-		if ( ! empty( $values ) ) {
-			$cart_item_data['store_credit_receiver'] = $values;
+	/**
+	 * Set store credit custom amount.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param WC_Cart $cart Cart object.
+	 */
+	public static function before_calculate_totals( $cart ) {
+		foreach ( $cart->cart_contents as $cart_item ) {
+			if ( isset( $cart_item['store_credit_custom_amount'] ) && isset( $cart_item['data'] ) && $cart_item['data'] instanceof WC_Store_Credit_Product ) {
+				$cart_item['data']->set_price( $cart_item['store_credit_custom_amount'] );
+				$cart_item['data']->set_sale_price( $cart_item['store_credit_custom_amount'] );
+				$cart_item['data']->set_regular_price( $cart_item['store_credit_custom_amount'] );
+			}
+		}
+	}
+
+	/**
+	 * Gets the custom cart item price.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $price_html Formatted price.
+	 * @param mixed  $cart_item  Cart item.
+	 * @return string
+	 */
+	public static function cart_item_price( $price_html, $cart_item ) {
+		if ( empty( $cart_item['store_credit_custom_amount'] ) ) {
+			return $price_html;
 		}
 
-		return $cart_item_data;
-		// phpcs:enable WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		return wc_price( $cart_item['store_credit_custom_amount'] );
 	}
 
 	/**
@@ -190,19 +346,30 @@ class WC_Store_Credit_Product_Addons {
 	 * @return array
 	 */
 	public static function get_item_data( $item_data, $cart_item ) {
-		if ( empty( $cart_item['store_credit_receiver'] ) ) {
+		$product = self::get_store_credit_product( $cart_item['data'] );
+
+		if ( ! $product ) {
 			return $item_data;
 		}
 
-		$fields = self::get_receiver_fields();
+		$amount = ( ! empty( $cart_item['store_credit_custom_amount'] ) ? $cart_item['store_credit_custom_amount'] : $product->get_credit_amount() );
 
-		foreach ( $cart_item['store_credit_receiver'] as $key => $value ) {
-			$id = "store_credit_receiver_{$key}";
+		$item_data['store_credit_amount'] = array(
+			'name'  => __( 'Credit amount', 'woocommerce-store-credit' ),
+			'value' => wc_price( $amount ),
+		);
 
-			$item_data[ $id ] = array(
-				'name'  => ( isset( $fields[ $id ]['label'] ) ? $fields[ $id ]['label'] : $id ),
-				'value' => $value,
-			);
+		if ( ! empty( $cart_item['store_credit_receiver'] ) ) {
+			$fields = self::get_receiver_fields();
+
+			foreach ( $cart_item['store_credit_receiver'] as $key => $value ) {
+				$id = "store_credit_receiver_{$key}";
+
+				$item_data[ $id ] = array(
+					'name'  => ( isset( $fields[ $id ]['label'] ) ? $fields[ $id ]['label'] : $id ),
+					'value' => $value,
+				);
+			}
 		}
 
 		return $item_data;
@@ -218,19 +385,13 @@ class WC_Store_Credit_Product_Addons {
 	 * @param array                 $values        An array with the cart item values.
 	 */
 	public static function order_line_item( $item, $cart_item_key, $values ) {
+		if ( ! empty( $values['store_credit_custom_amount'] ) ) {
+			$item->add_meta_data( '_store_credit_custom_amount', $values['store_credit_custom_amount'] );
+		}
+
 		if ( ! empty( $values['store_credit_receiver'] ) ) {
 			$item->add_meta_data( '_store_credit_receiver', $values['store_credit_receiver'] );
 		}
-	}
-
-	/**
-	 * Enqueue scripts.
-	 *
-	 * @since 3.2.0
-	 * @deprecated 3.7.0
-	 */
-	public static function enqueue_scripts() {
-		wc_deprecated_function( __FUNCTION__, '3.7.0' );
 	}
 }
 

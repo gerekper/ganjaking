@@ -6,6 +6,7 @@ use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Tasks\Meta;
 use WPMailSMTP\Tasks\Task;
+use WPMailSMTP\Tasks\Tasks;
 use WPMailSMTP\WP;
 
 /**
@@ -42,16 +43,11 @@ class EmailLogCleanupTask extends Task {
 		// Register the action handler.
 		add_action( self::ACTION, array( $this, 'process' ) );
 
-		// Exit if AS function does not exist.
-		if ( ! function_exists( 'as_next_scheduled_action' ) ) {
-			return;
-		}
-
 		// Get the retention period value from the Log settings.
 		$retention_period = Options::init()->get( 'logs', 'log_retention_period' );
 
 		// Exit if the retention period is not defined (set to "forever") or this task is already scheduled.
-		if ( empty( $retention_period ) || as_next_scheduled_action( self::ACTION ) !== false ) {
+		if ( empty( $retention_period ) || Tasks::is_scheduled( self::ACTION ) !== false ) {
 			return;
 		}
 

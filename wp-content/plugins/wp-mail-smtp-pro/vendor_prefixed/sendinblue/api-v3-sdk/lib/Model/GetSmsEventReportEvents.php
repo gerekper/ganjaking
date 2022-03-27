@@ -51,13 +51,13 @@ class GetSmsEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['phoneNumber' => 'string', 'date' => '\\DateTime', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'reply' => 'string', 'tag' => 'string'];
+    protected static $swaggerTypes = ['phoneNumber' => 'string', 'date' => 'string', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'reply' => 'string', 'tag' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['phoneNumber' => null, 'date' => 'date-time', 'messageId' => null, 'event' => null, 'reason' => null, 'reply' => null, 'tag' => null];
+    protected static $swaggerFormats = ['phoneNumber' => null, 'date' => null, 'messageId' => null, 'event' => null, 'reason' => null, 'reply' => null, 'tag' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -220,7 +220,7 @@ class GetSmsEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Gets date
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDate()
     {
@@ -229,7 +229,7 @@ class GetSmsEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\Mo
     /**
      * Sets date
      *
-     * @param \DateTime $date UTC date-time on which the event has been generated
+     * @param string $date UTC date-time on which the event has been generated
      *
      * @return $this
      */

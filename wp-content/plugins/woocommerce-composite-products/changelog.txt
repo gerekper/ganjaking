@@ -1,5 +1,10 @@
 *** WooCommerce Composite Products ***
 
+2022.03.16 - version 8.3.8
+* Tweak - Bump the required Product Bundles version to 6.14.0.
+* Tweak - Use new WooCommerce brand colors.
+* Tweak - Add compatibility for Woocommerce Payments Subscriptions functionality.
+
 2022.01.19 - version 8.3.7
 * Fix - Fixed warnings triggered by using deprecated `is_ajax`. Replaced with `wp_doing_ajax` for WooCommerce v6.1+.
 * Fix - Fixed issue that prevented component variations from being updated when Scenarios were used.

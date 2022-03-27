@@ -57,16 +57,12 @@ class WC_Store_Credit_Emails {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @param string        $css   The email styles.
-	 * @param WC_Email|null $email Optional. Email object. Default: null.
+	 * @param string   $css   The email styles.
+	 * @param WC_Email $email Email object.
 	 * @return string
 	 */
-	public function email_styles( $css, $email = null ) {
-		// The parameter $email was added in WC 3.6.
-		if (
-			( $email && 'wc_store_credit_send_credit' === $email->id ) ||
-			version_compare( WC_VERSION, '3.6', '<' )
-		) {
+	public function email_styles( $css, $email ) {
+		if ( 'wc_store_credit_send_credit' === $email->id ) {
 			ob_start();
 			wc_store_credit_get_template( 'emails/store-credit-styles.php' );
 			$styles = ob_get_clean();
@@ -76,8 +72,8 @@ class WC_Store_Credit_Emails {
 			 *
 			 * @since 3.7.0
 			 *
-			 * @param string        $styles The email styles.
-			 * @param WC_Email|null $email  Email object. null on WC < 3.6.
+			 * @param string   $styles The email styles.
+			 * @param WC_Email $email  Email object.
 			 */
 			$css .= apply_filters( 'wc_store_credit_email_styles', $styles, $email );
 		}

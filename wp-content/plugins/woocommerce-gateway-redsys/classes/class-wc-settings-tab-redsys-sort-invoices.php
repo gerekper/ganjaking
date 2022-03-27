@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 class WC_Settings_Tab_Redsys_Sort_Invoices {
 
@@ -16,7 +16,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public static function init() {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
@@ -34,7 +34,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_invoices'] = __( 'Sequential Invoice Numbers', 'woocommerce-redsys' );
@@ -51,7 +51,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public static function settings_tab() {
 		woocommerce_admin_fields( self::get_settings() );
@@ -66,7 +66,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public static function update_settings() {
 		woocommerce_update_options( self::get_settings() );
@@ -80,67 +80,55 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2021 José Conti
+	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	public static function get_settings() {
 
 		$settings = array(
 			'title'                  => array(
-				'name' => __( 'Sequential Invoice Numbers', 'woocommerce-redsys' ),
+				'name' => esc_html__( 'Sequential Invoice Numbers', 'woocommerce-redsys' ),
 				'type' => 'title',
 				'desc' => '',
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_title',
 			),
 			'invoices_is_active'     => array(
-				'title'   => __( 'Activate Sequential Invoice numbers', 'woocommerce-redsys' ),
+				'title'   => esc_html__( 'Activate Sequential Invoice numbers', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Activate Sequential Invoice numbers.', 'woocommerce-redsys' ),
+				'label'   => esc_html__( 'Activate Sequential Invoice numbers.', 'woocommerce-redsys' ),
 				'default' => 'no',
-				'desc'    => sprintf( __( 'Activate Sequential Invoice numbers', 'woocommerce-redsys' ) ),
+				'desc'    => sprintf( esc_html__( 'Activate Sequential Invoice numbers', 'woocommerce-redsys' ) ),
 				'id'      => 'wc_settings_tab_redsys_sort_invoices_is_active',
 			),
 			'first_invoice_number'   => array(
-				'name' => __( 'First Invoice Number', 'woocommerce-redsys' ),
+				'name' => esc_html__( 'First Invoice Number', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => __( 'Add here the first invoice number. By Default is number 1. Save this number before activate it. Example 345 ', 'woocommerce-redsys' ),
+				'desc' => esc_html__( 'Add here the first invoice number. By Default is number 1. Save this number before activate it. Example 345 ', 'woocommerce-redsys' ),
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_first_invoice_number',
 			),
 			'length_invoice_number'  => array(
-				'name' => __( 'Invoice Number Length', 'woocommerce-redsys' ),
+				'name' => esc_html__( 'Invoice Number Length', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => __( 'The Invoice number length, this is not required. Example 10, the result will be 0000000345', 'woocommerce-redsys' ),
+				'desc' => esc_html__( 'The Invoice number length, this is not required. Example 10, the result will be 0000000345', 'woocommerce-redsys' ),
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_length_invoice_number',
 			),
 			'prefix_invoice_number'  => array(
-				'name' => __( 'Prefix Invoice Number', 'woocommerce-redsys' ),
+				'name' => esc_html__( 'Prefix Invoice Number', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => sprintf( __( 'Add here a prefix invoice number, this is not required. Example WC-, the result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
+				'desc' => sprintf( esc_html__( 'Add here a prefix invoice number, this is not required. Example WC-, the result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_prefix_invoice_number',
 			),
 			'postfix_invoice_number' => array(
 				'name' => __( 'Postfix Invoice Number', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => sprintf( __( 'Add here a postfix invoice number, this is not required. Example -2015 the result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
+				'desc' => sprintf( esc_html__( 'Add here a postfix invoice number, this is not required. Example -2015 the result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_postfix_invoice_number',
 			),
-			'prefix_order_number'    => array(
-				'name' => __( 'Pretfix Invoice Number', 'woocommerce-redsys' ),
-				'type' => 'text',
-				'desc' => sprintf( __( 'Add here a prefix order number, this is not required. Example 2015/ the result will be 2105/34345. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
-				'id'   => 'wc_settings_tab_redsys_sort_invoices_prefix_order_number',
-			),
-			'postfix_order_number'   => array(
-				'name' => __( 'Postfix Order Number', 'woocommerce-redsys' ),
-				'type' => 'text',
-				'desc' => sprintf( __( 'Add here a postfix order number, this is not required. If you don\'t add a postfix, a postfix will be automatically added for security reason. Example /2015 the result will be 34345/2015. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
-				'id'   => 'wc_settings_tab_redsys_sort_invoices_postfix_order_number',
-			),
 			'reset_invoice_number'   => array(
-				'title'   => __( 'Reset Invoice Number', 'woocommerce-redsys' ),
+				'title'   => esc_html__( 'Reset Invoice Number', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Reset Invoice Number.', 'woocommerce-redsys' ),
+				'label'   => esc_html__( 'Reset Invoice Number.', 'woocommerce-redsys' ),
 				'default' => 'no',
-				'desc'    => __( 'If you enable Reset Invoice Number, every January 1st the invoice number will be reset and will start again with number 1. Is very important that if you enable this option, you use a prefix or postfix year pattern {Y}.', 'woocommerce-redsys' ),
+				'desc'    => esc_html__( 'If you enable Reset Invoice Number, every January 1st the invoice number will be reset and will start again with number 1. Is very important that if you enable this option, you use a prefix or postfix year pattern {Y}.', 'woocommerce-redsys' ),
 				'id'      => 'wc_settings_tab_redsys_sort_invoices_reset_invoice_number',
 			),
 			'redsys_section_end'     => array(
@@ -163,11 +151,11 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	add_action( 'woocommerce_order_status_processing', 'redsys_sort_invoice_orders_admin' );
 	add_action( 'woocommerce_order_status_completed', 'redsys_sort_invoice_orders_admin' );
 	if ( ! is_admin() ) {
-		add_filter( 'woocommerce_order_number', 'redsys_show_invoice_number', 10, 2 );
+		// add_filter( 'woocommerce_order_number', 'redsys_show_invoice_number', 10, 2 );
 	}
 }
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_invoice_number( $columns ) {
 
@@ -185,7 +173,7 @@ function redsys_add_invoice_number( $columns ) {
 
 // render the values.
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_invoice_number_value( $column ) {
 	global $post;
@@ -199,7 +187,7 @@ function redsys_add_invoice_number_value( $column ) {
 
 // sort invoice order colum.
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_invoice_number_sortable_colum( $columns ) {
 
@@ -210,7 +198,7 @@ function redsys_add_invoice_number_sortable_colum( $columns ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_sort_invoice_orders( $order_id ) {
 
@@ -257,7 +245,7 @@ function redsys_sort_invoice_orders( $order_id ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_sort_invoice_orders_admin( $order_id ) {
 
@@ -304,7 +292,7 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 }
 // We hook to WooCommerce payment function.
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_add_invoice_number_to_customer_email( $order ) {
 
@@ -319,7 +307,7 @@ function redsys_add_invoice_number_to_customer_email( $order ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_check_add_invoice_number( $order ) {
 	global $woocommerce, $post;
@@ -363,7 +351,7 @@ function redsys_check_add_invoice_number( $order ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_show_invoice_number( $oldnumber, $order ) {
 	$preorderprefix = get_option( 'wc_settings_tab_redsys_sort_invoices_prefix_order_number' );
@@ -386,7 +374,7 @@ function redsys_show_invoice_number( $oldnumber, $order ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_use_patterns( $string ) {
 	$Numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
@@ -413,7 +401,7 @@ function redsys_use_patterns( $string ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2021 José Conti
+ * Copyright: (C) 2013 - 2022 José Conti
  */
 function redsys_check_current_year() {
 		$current_year = date_i18n( 'Y' );

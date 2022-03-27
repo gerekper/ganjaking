@@ -100,7 +100,7 @@ class Coupon_Referral_Program_Admin {
 			wp_localize_script( $this->plugin_name . 'admin-js', 'woocommerce_img', $translation );
 
 		}
-		if( 'woocommerce_page_wc-reports' === $hook ) {
+		if ( 'woocommerce_page_wc-reports' === $hook ) {
 			$mwb_crp_arr = array(
 				'Showing_page'   => __( 'Showing page _PAGE_ of _PAGES_', 'coupon-referral-program' ),
 				'no_record'      => __( 'No records available', 'coupon-referral-program' ),
@@ -761,8 +761,8 @@ class Coupon_Referral_Program_Admin {
 				<div class="mwb_crp_overview_content">
 					<h3 class="mwb_crp_overview_heading"><?php esc_html_e( 'Connect with us and explore more about coupon referral program', 'coupon-referral-program' ); ?></h3>
 					<p>
-						<a class="mwb_crp_help_link" href="https://docs.woocommerce.com/document/coupon-referral-program" target="_blank"><?php esc_html_e( 'Documentation', 'coupon-referral-program' ); ?></a>
-						<a class="mwb_crp_help_link" href="https://makewebbetter.com/contact-us/" target="_blank"><?php esc_html_e( 'Contact us', 'coupon-referral-program' ); ?></a>
+						<a class="mwb_crp_help_link" href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><?php esc_html_e( 'Documentation', 'coupon-referral-program' ); ?></a>
+						<a class="mwb_crp_help_link" href="https://wpswings.com/contact-us/" target="_blank"><?php esc_html_e( 'Contact us', 'coupon-referral-program' ); ?></a>
 					</p>
 				</div>
 				<div class="mwb_crp_video_wrapper">
@@ -1093,7 +1093,7 @@ class Coupon_Referral_Program_Admin {
 	public function mwb_crp_woocommerce_after_order_itemmeta( $order ) {
 		$refree_id = get_post_meta( $order->get_id(), 'referral_has_rewarded', true );
 		$user      = get_user_by( 'ID', $refree_id );
-		$prof_url  = get_edit_profile_url($refree_id);
+		$prof_url  = get_edit_profile_url( $refree_id );
 		if ( ! empty( $refree_id ) && ! empty( $user ) ) :
 			?>
 		<div class="form-field form-field-wide">

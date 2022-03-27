@@ -78,26 +78,42 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
 			if ( ! srp_check_is_array( $cart_contents ) ) {
 				return  ;
 			}
+						
+						$is_reward_point_awarded = false;
+			if ('no' == get_option('rs_enable_product_category_level_for_product_purchase') && '1' != get_option('rs_award_points_for_cart_or_product_total')) {
+				if ('2' == get_option('rs_award_points_for_cart_or_product_total')) {
+					$cart_total_points = get_reward_points_based_on_cart_total( WC()->cart->total , false) ;
+					if ($cart_total_points) {
+						$is_reward_point_awarded = true;
+					}
+				}
 							
-			$is_reward_point_awarded = false;
-			foreach ( $cart_contents as $cart ) {
+				if ('3' == get_option('rs_award_points_for_cart_or_product_total')) {
+					$range_total_points = RSProductPurchaseFrontend::get_reward_point_for_range_based_type() ;
+					if ($range_total_points) {
+						$is_reward_point_awarded = true;
+					}
+				}
+			} else {
+				foreach ( $cart_contents as $cart ) {
 				
-				$variation_id = isset($cart['variation_id'])?$cart['variation_id']:'';
-				$product_id   = isset($cart['product_id'])?$cart['product_id']: '';
+							$variation_id = isset($cart['variation_id'])?$cart['variation_id']:'';
+							$product_id   = isset($cart['product_id'])?$cart['product_id']: '';
 								 
-				 $args = array(
+							$args = array(
 					'productid'   => $product_id ,
 					'variationid' => $variation_id ,
 					'item'        => $cart ,
-						) ;
+							) ;
 
-				 $reward_point     = check_level_of_enable_reward_point( $args ) ;
-				 if ($reward_point) {
-					 $is_reward_point_awarded = true;
-					 continue;
-				 }
+							$reward_point     = check_level_of_enable_reward_point( $args ) ;
+							if ($reward_point) {
+								$is_reward_point_awarded = true;
+								continue;
+							}
+				}
 			}
-			
+									
 			if (!$is_reward_point_awarded) {
 				return;
 			}
@@ -224,7 +240,7 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
 			$PaymentPlanPoints = 0 ;
 			if ( 'yes' == get_option( 'rs_product_purchase_activated' ) ) {
 				if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '2' == get_option( 'rs_award_points_for_cart_or_product_total' )) {
-					$CartTotalPoints = get_reward_points_based_on_cart_total( WC()->cart->total ) ;
+					$CartTotalPoints = get_reward_points_based_on_cart_total( WC()->cart->total , false, get_current_user_id()) ;
 					$CartTotalPoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) $CartTotalPoints ) ;
 					$Points          = apply_filters( 'srp_buying_points_in_cart' , 0 ) + $CartTotalPoints ;
 				} else if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '3' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
@@ -355,7 +371,7 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
 
 			if ( 'yes' == get_option( 'rs_product_purchase_activated' )) {
 				if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '2' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
-					$Points = get_reward_points_based_on_cart_total( WC()->cart->total ) ;
+					$Points = get_reward_points_based_on_cart_total( WC()->cart->total , false , get_current_user_id()) ;
 					$Points = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) $Points ) + apply_filters( 'srp_buying_points_in_cart' , 0 ) ;
 				} else if ( 'no' == get_option( 'rs_enable_product_category_level_for_product_purchase' ) && '3' == get_option( 'rs_award_points_for_cart_or_product_total' ) ) {
 					$Points = RSProductPurchaseFrontend::get_reward_point_for_range_based_type() ;

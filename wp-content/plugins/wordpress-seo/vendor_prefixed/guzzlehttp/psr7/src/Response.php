@@ -19,18 +19,18 @@ class Response implements \YoastSEO_Vendor\Psr\Http\Message\ResponseInterface
     /**
      * @param int                                  $status  Status code
      * @param array                                $headers Response headers
-     * @param string|null|resource|StreamInterface $body    Response body
+     * @param string|resource|StreamInterface|null $body    Response body
      * @param string                               $version Protocol version
      * @param string|null                          $reason  Reason phrase (when empty a default will be used based on the status code)
      */
     public function __construct($status = 200, array $headers = [], $body = null, $version = '1.1', $reason = null)
     {
-        if (\filter_var($status, \FILTER_VALIDATE_INT) === \false) {
-            throw new \InvalidArgumentException('Status code must be an integer value.');
-        }
-        $this->statusCode = (int) $status;
+        $this->assertStatusCodeIsInteger($status);
+        $status = (int) $status;
+        $this->assertStatusCodeRange($status);
+        $this->statusCode = $status;
         if ($body !== '' && $body !== null) {
-            $this->stream = stream_for($body);
+            $this->stream = \YoastSEO_Vendor\GuzzleHttp\Psr7\Utils::streamFor($body);
         }
         $this->setHeaders($headers);
         if ($reason == '' && isset(self::$phrases[$this->statusCode])) {
@@ -50,12 +50,27 @@ class Response implements \YoastSEO_Vendor\Psr\Http\Message\ResponseInterface
     }
     public function withStatus($code, $reasonPhrase = '')
     {
+        $this->assertStatusCodeIsInteger($code);
+        $code = (int) $code;
+        $this->assertStatusCodeRange($code);
         $new = clone $this;
-        $new->statusCode = (int) $code;
+        $new->statusCode = $code;
         if ($reasonPhrase == '' && isset(self::$phrases[$new->statusCode])) {
             $reasonPhrase = self::$phrases[$new->statusCode];
         }
-        $new->reasonPhrase = $reasonPhrase;
+        $new->reasonPhrase = (string) $reasonPhrase;
         return $new;
+    }
+    private function assertStatusCodeIsInteger($statusCode)
+    {
+        if (\filter_var($statusCode, \FILTER_VALIDATE_INT) === \false) {
+            throw new \InvalidArgumentException('Status code must be an integer value.');
+        }
+    }
+    private function assertStatusCodeRange($statusCode)
+    {
+        if ($statusCode < 100 || $statusCode >= 600) {
+            throw new \InvalidArgumentException('Status code must be an integer value between 1xx and 5xx.');
+        }
     }
 }

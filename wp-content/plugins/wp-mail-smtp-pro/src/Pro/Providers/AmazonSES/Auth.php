@@ -19,31 +19,34 @@ class Auth extends AuthAbstract {
 	 *
 	 * @link http://docs.aws.amazon.com/ses/latest/DeveloperGuide/regions.html
 	 */
-	const AWS_US_EAST_1      = 'us-east-1'; // phpcs:ignore
-	const AWS_US_EAST_2      = 'us-east-2'; // phpcs:ignore
-	const AWS_US_WEST_1      = 'us-west-1'; // phpcs:ignore
-	const AWS_US_WEST_2      = 'us-west-2'; // phpcs:ignore
-	const AWS_EU_WEST_1      = 'eu-west-1'; // phpcs:ignore
-	const AWS_EU_WEST_2      = 'eu-west-2'; // phpcs:ignore
-	const AWS_EU_WEST_3      = 'eu-west-3'; // phpcs:ignore
-	const AWS_EU_CENTRAL_1   = 'eu-central-1'; // phpcs:ignore
-	const AWS_EU_NORTH_1     = 'eu-north-1'; // phpcs:ignore
-	const AWS_EU_SOUTH_1     = 'eu-south-1'; // phpcs:ignore
-	const AWS_AP_SOUTH_1     = 'ap-south-1'; // phpcs:ignore
-	const AWS_AP_NORTHEAST_1 = 'ap-northeast-1'; // phpcs:ignore
-	const AWS_AP_NORTHEAST_2 = 'ap-northeast-2'; // phpcs:ignore
-	const AWS_AP_SOUTHEAST_1 = 'ap-southeast-1'; // phpcs:ignore
-	const AWS_AP_SOUTHEAST_2 = 'ap-southeast-2'; // phpcs:ignore
-	const AWS_AF_SOUTH_1     = 'af-south-1'; // phpcs:ignore
-	const AWS_CA_CENTRAL_1   = 'ca-central-1'; // phpcs:ignore
-	const AWS_ME_SOUTH_1     = 'me-south-1'; // phpcs:ignore
-	const AWS_SA_EAST_1      = 'sa-east-1'; // phpcs:ignore
-	const AWS_US_GOV_WEST_1  = 'us-gov-west-1'; // phpcs:ignore
+	// phpcs:disable WPForms.Comments.Since.MissingPhpDoc
+	const AWS_US_EAST_1      = 'us-east-1';
+	const AWS_US_EAST_2      = 'us-east-2';
+	const AWS_US_WEST_1      = 'us-west-1';
+	const AWS_US_WEST_2      = 'us-west-2';
+	const AWS_EU_WEST_1      = 'eu-west-1';
+	const AWS_EU_WEST_2      = 'eu-west-2';
+	const AWS_EU_WEST_3      = 'eu-west-3';
+	const AWS_EU_CENTRAL_1   = 'eu-central-1';
+	const AWS_EU_NORTH_1     = 'eu-north-1';
+	const AWS_EU_SOUTH_1     = 'eu-south-1';
+	const AWS_AP_SOUTH_1     = 'ap-south-1';
+	const AWS_AP_NORTHEAST_1 = 'ap-northeast-1';
+	const AWS_AP_NORTHEAST_2 = 'ap-northeast-2';
+	const AWS_AP_NORTHEAST_3 = 'ap-northeast-3';
+	const AWS_AP_SOUTHEAST_1 = 'ap-southeast-1';
+	const AWS_AP_SOUTHEAST_2 = 'ap-southeast-2';
+	const AWS_AF_SOUTH_1     = 'af-south-1';
+	const AWS_CA_CENTRAL_1   = 'ca-central-1';
+	const AWS_ME_SOUTH_1     = 'me-south-1';
+	const AWS_SA_EAST_1      = 'sa-east-1';
+	const AWS_US_GOV_WEST_1  = 'us-gov-west-1';
+	// phpcs:enable
 
 	/**
 	 * Array of domains and their data.
 	 * keys: domain name
-	 * values: array with status and TXT DNS value.
+	 * values: array with status and verification values.
 	 *
 	 * @since 2.4.0
 	 *
@@ -69,7 +72,7 @@ class Auth extends AuthAbstract {
 	 */
 	public function __construct() {
 
-		$options           = new PluginOptions();
+		$options           = PluginOptions::init();
 		$this->mailer_slug = $options->get( 'mail', 'mailer' );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
@@ -120,6 +123,7 @@ class Auth extends AuthAbstract {
 	 * @since 1.5.0
 	 * @since 2.4.0 Added Ohio, Canada, Mumbai, Tokyo, Seoul, Singapore, Sydney, London, Frankfurt and São Paulo.
 	 * @since 3.0.0 Added Cape Town, Milan, Bahrain and GovCloud (US-West).
+	 * @since 3.3.0 Added Osaka.
 	 *
 	 * @return array
 	 */
@@ -139,6 +143,7 @@ class Auth extends AuthAbstract {
 			self::AWS_AP_SOUTH_1     => esc_html__( 'Asia Pacific (Mumbai)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_1 => esc_html__( 'Asia Pacific (Tokyo)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_2 => esc_html__( 'Asia Pacific (Seoul)', 'wp-mail-smtp-pro' ),
+			self::AWS_AP_NORTHEAST_3 => esc_html__( 'Asia Pacific (Osaka)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTHEAST_1 => esc_html__( 'Asia Pacific (Singapore)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTHEAST_2 => esc_html__( 'Asia Pacific (Sydney)', 'wp-mail-smtp-pro' ),
 			self::AWS_AF_SOUTH_1     => esc_html__( 'Africa (Cape Town)', 'wp-mail-smtp-pro' ),
@@ -155,6 +160,7 @@ class Auth extends AuthAbstract {
 	 * @since 1.5.0
 	 * @since 2.4.0 Added Ohio, Canada, London, São Paulo, Tokyo, Seoul and Singapore.
 	 * @since 3.0.0 Added Cape Town, Milan and Bahrain.
+	 * @since 3.3.0 Added Osaka.
 	 *
 	 * @return array
 	 */
@@ -212,6 +218,10 @@ class Auth extends AuthAbstract {
 			self::AWS_AP_NORTHEAST_2 => [
 				'lat' => 37.566536,
 				'lon' => 126.977966,
+			],
+			self::AWS_AP_NORTHEAST_3 => [
+				'lat' => 34.693737,
+				'lon' => 135.502167,
 			],
 			self::AWS_AP_SOUTHEAST_1 => [
 				'lat' => 1.352083,
@@ -328,28 +338,32 @@ class Auth extends AuthAbstract {
 	 * Array example:
 	 *      key: domain name of email address
 	 *      value: - VerificationStatus
-	 *             - VerificationToken (the TXT record value for the DNS setup ) - only present for domains!
+	 *             - VerificationToken (the TXT record value for the DNS setup) - only present for domains!
+	 *             - DkimEnabled
+	 *             - DkimVerificationStatus
+	 *             - DkimTokens (the tokens for generate CNAME record values for the DKIM DNS setup)
 	 *
 	 * @since 2.4.0
+	 * @since 3.3.0 Added DKIM verification attributes.
 	 *
 	 * @return array
 	 */
 	private function fetch_identities() {
 
-		$identities = [];
-
 		try {
-			$identities_response = $this->get_client()->listIdentities();
-			$response            = $this->get_client()->getIdentityVerificationAttributes( [ 'Identities' => $identities_response->get( 'Identities' ) ] );
+			$identities_response          = $this->get_client()->listIdentities();
+			$verification_attributes      = $this->get_verification_attributes( $identities_response->get( 'Identities' ) );
+			$dkim_verification_attributes = $this->get_dkim_verification_attributes( $identities_response->get( 'Identities' ) );
+
+			$identities = array_merge_recursive( $verification_attributes, $dkim_verification_attributes );
+
 		} catch ( \Exception $e ) {
 			Debug::set( $e->getMessage() );
 
 			return [];
 		}
 
-		if ( ! empty( $response->get( 'VerificationAttributes' ) ) ) {
-			$identities = $response->get( 'VerificationAttributes' );
-
+		if ( ! empty( $identities ) ) {
 			Debug::clear();
 		}
 
@@ -357,41 +371,83 @@ class Auth extends AuthAbstract {
 	}
 
 	/**
-	 * Send a request to get the list of verified emails.
+	 * Send a request to get the identities verification attributes.
 	 *
-	 * Not used anymore.
+	 * @since 3.3.0
 	 *
-	 * @since 1.5.0
-	 * @since 2.4.0 Switch to official AWS SDK.
-	 *
-	 * @deprecated 2.4.0
+	 * @param array|string $identities Identities array.
 	 *
 	 * @return array
 	 */
-	public function get_verified_emails() {
+	private function get_verification_attributes( $identities ) {
 
-		_deprecated_function(
-			__METHOD__,
-			'2.4.0',
-			'WPMailSMTP\Pro\Providers\AmazonSES\Auth::get_registered_emails()'
-		);
+		$response = $this->get_client()->getIdentityVerificationAttributes( [ 'Identities' => (array) $identities ] );
 
-		return array_keys( $this->get_registered_emails() );
+		return ! empty( $response->get( 'VerificationAttributes' ) ) ? $response->get( 'VerificationAttributes' ) : [];
 	}
 
 	/**
-	 * Send a request to verify a domain.
+	 * Send a request to get the identities DKIM verification attributes.
 	 *
-	 * @since 2.4.0
+	 * @since 3.3.0
+	 *
+	 * @param array|string $identities Identities array.
+	 *
+	 * @return array
+	 */
+	private function get_dkim_verification_attributes( $identities ) {
+
+		$response = $this->get_client()->getIdentityDkimAttributes( [ 'Identities' => (array) $identities ] );
+
+		return ! empty( $response->get( 'DkimAttributes' ) ) ? $response->get( 'DkimAttributes' ) : [];
+	}
+
+	/**
+	 * Send a request to get the identities DKIM verification tokens.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param string $domain Domain name.
+	 *
+	 * @return array|\WP_Error
+	 */
+	public function get_dkim_tokens( $domain ) {
+
+		try {
+			$attributes = $this->get_dkim_verification_attributes( $domain );
+		} catch ( \Exception $e ) {
+			return new \WP_Error( $e->getCode(), $e->getMessage() );
+		}
+
+		if ( empty( $attributes ) || empty( current( $attributes )['DkimTokens'] ) ) {
+			return new \WP_Error(
+				'disabled_dkim',
+				sprintf(
+					esc_html__( /* translators: %s - domain name. */
+						'It looks like DKIM is not enabled for this domain. Please visit AWS SES console and enable DKIM for %s.',
+						'wp-mail-smtp-pro'
+					),
+					esc_html( $domain )
+				)
+			);
+		}
+
+		return current( $attributes )['DkimTokens'];
+	}
+
+	/**
+	 * Send a request to verify a domain DKIM.
+	 *
+	 * @since 3.3.0
 	 *
 	 * @param string $domain Domain to verify.
 	 *
-	 * @return bool|string False on error or the string TXT record value for the DNS setting.
+	 * @return bool|array False on error or the array of the tokens for generate CNAME record values for the DKIM DNS setup.
 	 */
-	public function do_verify_domain( $domain ) {
+	public function do_verify_domain_dkim( $domain ) {
 
 		try {
-			$response = $this->get_client()->verifyDomainIdentity( [ 'Domain' => $domain ] );
+			$response = $this->get_client()->verifyDomainDkim( [ 'Domain' => $domain ] );
 		} catch ( \Exception $e ) {
 			Debug::set( $e->getMessage() );
 
@@ -400,11 +456,11 @@ class Auth extends AuthAbstract {
 
 		if (
 			is_object( $response ) &&
-			! empty( $response->get( 'VerificationToken' ) )
+			! empty( $response->get( 'DkimTokens' ) )
 		) {
 			Debug::clear();
 
-			return $response->get( 'VerificationToken' );
+			return $response->get( 'DkimTokens' );
 		}
 
 		return false;
@@ -474,31 +530,6 @@ class Auth extends AuthAbstract {
 	}
 
 	/**
-	 * Send a request to delete a verified email address.
-	 *
-	 * Not used anymore.
-	 *
-	 * @since 1.5.0
-	 * @since 2.4.0 Switch to official AWS SDK.
-	 *
-	 * @deprecated 2.4.0
-	 *
-	 * @param string $email Email address to remove.
-	 *
-	 * @return bool
-	 */
-	public function do_delete_verified_email( $email ) {
-
-		_deprecated_function(
-			__METHOD__,
-			'2.4.0',
-			'WPMailSMTP\Pro\Providers\AmazonSES\Auth::do_delete_identity()'
-		);
-
-		return $this->do_delete_identity( $email );
-	}
-
-	/**
 	 * AmazonSES requires a selected region AND both keys.
 	 *
 	 * @since 1.5.0
@@ -518,6 +549,89 @@ class Auth extends AuthAbstract {
 	 * @return bool
 	 */
 	public function is_auth_required() {
+
+		return false;
+	}
+
+	/**
+	 * Send a request to delete a verified email address.
+	 *
+	 * Not used anymore.
+	 *
+	 * @deprecated 2.4.0
+	 *
+	 * @since 1.5.0
+	 * @since 2.4.0 Switch to official AWS SDK.
+	 *
+	 * @param string $email Email address to remove.
+	 *
+	 * @return bool
+	 */
+	public function do_delete_verified_email( $email ) {
+
+		_deprecated_function(
+			__METHOD__,
+			'2.4.0',
+			'WPMailSMTP\Pro\Providers\AmazonSES\Auth::do_delete_identity()'
+		);
+
+		return $this->do_delete_identity( $email );
+	}
+
+	/**
+	 * Send a request to get the list of verified emails.
+	 *
+	 * Not used anymore.
+	 *
+	 * @deprecated 2.4.0
+	 *
+	 * @since 1.5.0
+	 * @since 2.4.0 Switch to official AWS SDK.
+	 *
+	 * @return array
+	 */
+	public function get_verified_emails() {
+
+		_deprecated_function(
+			__METHOD__,
+			'2.4.0',
+			'WPMailSMTP\Pro\Providers\AmazonSES\Auth::get_registered_emails()'
+		);
+
+		return array_keys( $this->get_registered_emails() );
+	}
+
+	/**
+	 * Send a request to verify a domain.
+	 *
+	 * @deprecated 3.3.0 Switched to DKIM verification.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $domain Domain to verify.
+	 *
+	 * @return bool|string False on error or the string TXT record value for the DNS setting.
+	 */
+	public function do_verify_domain( $domain ) {
+
+		_deprecated_function( __METHOD__, '3.3.0', self::class . '::do_verify_domain_dkim' );
+
+		try {
+			$response = $this->get_client()->verifyDomainIdentity( [ 'Domain' => $domain ] );
+		} catch ( \Exception $e ) {
+			Debug::set( $e->getMessage() );
+
+			return false;
+		}
+
+		if (
+			is_object( $response ) &&
+			! empty( $response->get( 'VerificationToken' ) )
+		) {
+			Debug::clear();
+
+			return $response->get( 'VerificationToken' );
+		}
 
 		return false;
 	}
