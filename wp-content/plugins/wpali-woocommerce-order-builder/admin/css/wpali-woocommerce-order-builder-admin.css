@@ -1,0 +1,301 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+#wwob_group_repeat .wwob-sub-products .cmb-th {
+    padding: 0px;
+    width: 15%;
+}
+div#wwob_group_repeat .wwob-sub-products .cmb-td {
+    width: 82%;
+}
+
+.cmb-row.cmb-type-title.cmb2-id-wwob-logic-tab-end, .cmb-row.cmb-type-title.cmb2-id-wwob-logic-tab-start, .cmb-row.cmb-remove-field-row  {
+    display: none!important;
+}
+.cmb-tabs {
+    display: none;
+}
+.cmb-repeatable-group .cmb-group-title{
+	background-color: #f9f9f9!important;
+}
+div#wwob_metabox {
+    overflow: hidden;
+}
+div#wwob_metabox .inside {
+    margin: 0;
+    padding: 0;
+}
+.cmb-repeat-table .cmb-remove-row>.cmb-remove-row-button:before {
+    content: "\f335"!important;
+}
+.cmb-type-group .cmb-row, .cmb2-postbox .cmb-row .cmb-repeat-group-field.table-layout {
+    border-bottom: 0px;
+}
+div#wwob_metabox .inside .cmb-tabs {
+    border: 0px;
+}
+div#wwob_metabox .cmb2-wrap.form-table.cmb-tabs-panel {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.cmb-row.cmb-repeat-group-wrap.cmb-type-group.cmb2-id-wwob-group.cmb-repeat {
+    display: none;
+}
+.cmb-tabs input {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+div#wwob_group_repeat .inside.cmb-td.cmb-nested.cmb-field-list {
+    padding-top: 20px;
+}
+div#wwob_group_repeat .cmb-row.cmb-remove-field-row button{
+    display: none!important;
+}
+div#wwob_group_repeat .cmb-repeat-group-field {
+    border-bottom: none!important;
+}
+div#wwob_group_repeat h3.cmb-group-title {
+    background: #eeeeee;
+    border-bottom: 1px solid #f1f1f1;
+}
+div#wwob_group_repeat button.cmb-add-group-row.button-secondary, div#wwob_group_repeat button.cmb-add-row-button, div#wwob_extra_custom_option_repeat  button.cmb-add-group-row.button-secondary, div#wwob_logic_group_repeat  button.cmb-add-group-row.button-secondary , div#wwob_group_repeat .cmb-row.cmb-remove-field-row a{
+    background: #0085ba;
+    border-color: #0073aa #006799 #006799;
+    -webkit-box-shadow: 0 1px 0 #006799;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+}
+
+div#wwob_group_repeat button.cmb-add-row-button:hover, div#wwob_group_repeat button.cmb-add-group-row.button-secondary:hover, div#wwob_extra_custom_option_repeat  button.cmb-add-group-row.button-secondary:hover, div#wwob_logic_group_repeat  button.cmb-add-group-row.button-secondary:hover, div#wwob_group_repeat .cmb-row.cmb-remove-field-row a:hover {
+    background: #008ec2;
+    border-color: #006799;
+    color: #fff;
+}
+div#wwob_group_repeat .cmb-repeat-table {
+    background-color: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+}
+div#wwob_group_repeat .wwob-sub-products {
+    clear: both;
+}
+div#wwob_group_repeat .wwob-parameters .cmb-th {
+    float: left;
+    width: 40%;
+}
+div#wwob_group_repeat .wwob-parameters .cmb-td {
+    width: 60%;
+    float: left;
+}
+div#wwob_group_repeat .wwob-parameters .cmb-th label {
+    line-height: 20px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+div#wwob_group_repeat .cmb-repeat-group-field:nth-child(3), div#wwob_group_repeat .cmb-repeat-group-field:nth-child(6) {
+    margin-right: 0px;
+	clear:right;
+}
+div#wwob_group_repeat .wwob-parameters {
+    max-width: 33%;
+    min-width: 33%;
+    margin-right: 0.5%;
+    display: block;
+    float: left;
+    padding: 5px 10px;
+    border: 1px solid #eaeaea!important;
+    box-sizing: border-box;
+    min-height: 48px;
+}
+.cmb2-wrap #wwob_group_repeat input, .cmb2-wrap #wwob_group_repeat textarea {
+    font-size: 12px;
+}
+
+div#wwob_group_repeat .wwob-parameters .cmb-td input[type=checkbox] {
+    margin-top: 8px;
+}
+div#wwob_group_repeat .wwob-sub-products .cmb-row.cmb-repeat-row .cmb-td {
+    width: calc(100% - 20px);
+}
+div#wwob_group_repeat .wwob-sub-products .cmb-row.cmb-repeat-row .cmb-td.cmb-remove-row {
+    width: 25px;
+}
+#wwob_group_repeat .wwob-sub-products .cmb-row.cmb-repeat-row .cmb-td.cmb-remove-row button {
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    outline: 0px;
+    box-shadow: none;
+}
+.wwob-product-field {
+    margin-left: 1%;
+    max-width: 90px;
+    min-width: 90px;
+}
+.wwob-product-image.wwob-product-field {
+    max-width: 160px;
+    min-width: 160px;
+}
+.wwob-product-price.wwob-product-field {
+    max-width: 70px;
+    min-width: 70px;
+    position: relative;
+    top: -2px;
+}
+
+.wwob-product-price-symbol {
+    display: inline-block;
+    float: left;
+    width: 15px;
+    line-height: 36px;
+    text-align: center;
+}
+.wwob-product-price-field {
+    max-width: calc(100% - 15px);
+    position: relative;
+    top: 2px;
+    display: inline-block;
+}
+.wwob-product-field input.cmb2-upload-button.button-secondary {
+    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.wwob-product-field .img-status.cmb2-media-item {
+    margin-right: 5px;
+}
+.wwob-product-image .img-status img {
+    margin-top: 0px!important;
+}
+ul.woob_item_details_display {
+    margin-top: -5px!important;
+}
+.cmb2-id-wwob-available-sizes-options, .cmb2-id-wwob-available-colors-options {
+    border-bottom: 0px!important;
+}
+#wwob_metabox .cmb2-id-wwob-enable-disable .cmb-th, #wwob_metabox .cmb2-id-wwob-extra-options .cmb-th, #wwob_metabox  .cmb2-id-wwob-additional-options  .cmb-th, #wwob_metabox .cmb2-id-wwob-available-colors-options .cmb-th, #wwob_metabox .cmb2-id-wwob-available-sizes-options .cmb-th, #wwob_metabox .cmb2-id-wwob-product-instructions .cmb-th, #wwob_metabox .conditional-hidden .cmb-th, #wwob_metabox .cmb2-id-wwob-disable-images .cmb-th, #wwob_metabox .cmb2-id-wwob-preview-image .cmb-th  {
+    width: 30%;
+	float:left;
+}
+#wwob_metabox .cmb2-id-wwob-enable-disable .cmb-td, #wwob_metabox .cmb2-id-wwob-extra-options .cmb-td, #wwob_metabox  .cmb2-id-wwob-additional-options  .cmb-td, #wwob_metabox .cmb2-id-wwob-available-colors-options .cmb-td, #wwob_metabox .cmb2-id-wwob-available-sizes-options .cmb-td, #wwob_metabox .cmb2-id-wwob-product-instructions .cmb-td, #wwob_metabox .conditional-hidden .cmb-td, #wwob_metabox .cmb2-id-wwob-disable-images .cmb-td, #wwob_metabox .cmb2-id-wwob-preview-image .cmb-td {
+    width: 68%;
+}
+.cmb2-postbox .cmb2-wrap .cmb-row.conditional-hidden.child {
+    background: #efefef;
+}
+#wwob_metabox .cmb2-wrap .cmb-row.conditional-hidden-group .cmb-td {
+    width: 100%;
+}
+.cmb2-postbox .cmb2-wrap .cmb-row.conditional-hidden, .cmb2-postbox .cmb2-wrap .cmb-row.conditional-hidden-group {
+    display: none;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 0px;
+    background: #fafafa;
+}
+.cmb-row.cmb-type-checkbox.conditional-hidden .cmb-td label {
+    display: inline-block;
+}
+.cmb-row.cmb-type-checkbox.cmb2-id-wwob-extra-options {
+    margin-bottom: 0px;
+}
+.cmb-row.cmb-type-checkbox.cmb2-id-wwob-product-instructions, .cmb-row.cmb-type-checkbox.cmb2-id-wwob-disable-images {
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+div#wwob_metabox .cmb-type-multicheck-inline p {
+    display: none;
+}
+div#wwob_extra_custom_option_repeat h3.cmb-group-title.cmbhandle-title {
+    background: #eeeeee;
+    border-bottom: 1px solid #f1f1f1;
+}
+div#wwob_extra_custom_option_repeat .cmb-row.cmb-remove-field-row, div#wwob_logic_group_repeat .cmb-row.cmb-remove-field-row {
+    display: none;
+}
+div#wwob_extra_custom_option_repeat .wwob-options {
+    float: left;
+    width: 32.33%;
+    margin-right: 1%;
+    padding: 1%;
+    box-sizing: border-box;
+    border: 0px;
+}
+div#wwob_extra_custom_option_repeat .wwob-options .cmb-th {
+    width: 30%;
+    line-height: 22px;
+}
+div#wwob_extra_custom_option_repeat .wwob-options .cmb-td {
+    width: 69%;
+    line-height: 29px;
+}
+div#wwob_extra_custom_option_repeat .wwob-options select {
+    width: 100%;
+}
+button.button-secondary.cmb-remove-row-button {
+    background: #ff584c;
+    color: #fff;
+    border: 1px solid #ff584c;
+    box-shadow: none;
+    border-radius: 2px;
+}
+button.button-secondary.cmb-remove-row-button:hover {
+	color: #fff;
+    background: #db4141;
+}
+
+
+@media (max-width: 785px) {
+div#wwob_group_repeat .wwob-parameters {
+    max-width: 49%;
+    min-width: 49%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    min-height: 30px;
+    box-sizing: border-box;
+}
+.wwob-product-field:first-child {
+    max-width: 90%;
+    min-width: 90%;
+}
+.wwob-product-field {
+    max-width: 45%;
+    min-width: 45%;
+}
+.wwob-product-price-field input {
+    max-height: 31px;
+}
+}
+
+@media (max-width: 500px) {
+div#wwob_group_repeat .wwob-parameters {
+    max-width: 99%;
+    min-width: 99%;
+    border: 1px solid #d8d8d8!important;
+    min-height: 30px;
+    box-sizing: border-box;
+}
+.wwob-product-field {
+    max-width: 90%;
+    box-sizing: border-box;
+    min-width: 90%;
+    margin-left: 0;
+}
+.wwob-product-price-field {
+    max-width: 100%;
+    width: 92%;
+}
+.wwob-product-price-symbol {
+    width: 5%;
+    margin-right: 1.5%;
+    margin-left: 1.5%;
+}
+}
