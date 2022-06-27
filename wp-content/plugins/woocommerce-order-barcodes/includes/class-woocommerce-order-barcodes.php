@@ -821,28 +821,29 @@ class WooCommerce_Order_Barcodes {
 
 		$barcode = wc_clean( wp_unslash( $_GET['wc_barcode'] ) );
 
-		// Get order ID
-		if ( is_numeric( $barcode ) ) {
-			// This is the deprecated url format which used order id. Capability check is added because it's easy to guess.
-			$order_id = intval( $barcode );
+		// New url format uses generated uniq_id which is not easy to guess.
+		$order_id = $this->get_barcode_order( $barcode );
+
+		if ( ! $order_id ) {
+			// Either wrong order or this may be a Box Office Ticket.
+			if ( class_exists( 'WC_Box_Office' ) ) {
+				$order_id = WCBO()->components->ticket_barcode->get_ticket_id_from_barcode_text( $barcode );
+			}
+		}
+
+		// Check if barcode is an order id
+		$order = wc_get_order( $barcode );
+
+		if ( ! $order_id && is_a( $order, 'WC_Order' ) ) {
+			$order_id = $barcode;
 
 			if ( ! ( current_user_can( 'manage_woocommerce' ) || current_user_can( 'view_order', $order_id ) ) ) {
 				return;
 			}
-		} else {
-			// New url format uses generated uniq_id which is not easy to guess.
-			$order_id = $this->get_barcode_order( $barcode );
+		}
 
-			if ( ! $order_id ) {
-				// Either wrong order or this may be a Box Office Ticket.
-				if ( class_exists( 'WC_Box_Office' ) ) {
-					$order_id = WCBO()->components->ticket_barcode->get_ticket_id_from_barcode_text( $barcode );
-				}
-			}
-
-			if ( ! $order_id ) {
-				return;
-			}
+		if ( ! $order_id ) {
+			return;
 		}
 
 		$foreground  = $this->hex_to_rgb( $this->barcode_colours['foreground'] );

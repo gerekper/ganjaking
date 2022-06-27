@@ -59,6 +59,9 @@ class Activator {
 
     $caps = new Capabilities();
     $caps->setupWPCapabilities();
+
+    $localizer = new Localizer();
+    $localizer->forceInstallLanguagePacks($this->wp);
   }
 
   public function deactivate() {

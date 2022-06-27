@@ -11,16 +11,14 @@ class Definition
  private $file;
  private $factory;
  private $shared = \true;
- private $deprecated = \false;
- private $deprecationTemplate;
+ private $deprecation = [];
  private $properties = [];
  private $calls = [];
  private $instanceof = [];
  private $autoconfigured = \false;
  private $configurator;
  private $tags = [];
- private $public = \true;
- private $private = \true;
+ private $public = \false;
  private $synthetic = \false;
  private $abstract = \false;
  private $lazy = \false;
@@ -32,7 +30,7 @@ class Definition
  protected $arguments = [];
  public $innerServiceId;
  public $decorationOnInvalid;
- public function __construct($class = null, array $arguments = [])
+ public function __construct(string $class = null, array $arguments = [])
  {
  if (null !== $class) {
  $this->setClass($class);
@@ -63,17 +61,16 @@ class Definition
  {
  return $this->factory;
  }
- public function setDecoratedService($id, $renamedId = null, $priority = 0)
+ public function setDecoratedService(?string $id, string $renamedId = null, int $priority = 0, int $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
  {
  if ($renamedId && $id === $renamedId) {
  throw new InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
  }
- $invalidBehavior = 3 < \func_num_args() ? (int) \func_get_arg(3) : ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
  $this->changes['decorated_service'] = \true;
  if (null === $id) {
  $this->decoratedService = null;
  } else {
- $this->decoratedService = [$id, $renamedId, (int) $priority];
+ $this->decoratedService = [$id, $renamedId, $priority];
  if (ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
  $this->decoratedService[] = $invalidBehavior;
  }
@@ -84,14 +81,8 @@ class Definition
  {
  return $this->decoratedService;
  }
- public function setClass($class)
+ public function setClass(?string $class)
  {
- if ($class instanceof Parameter) {
- @\trigger_error(\sprintf('Passing an instance of %s as class name to %s in deprecated in Symfony 4.4 and will result in a TypeError in 5.0. Please pass the string "%%%s%%" instead.', Parameter::class, __CLASS__, (string) $class), \E_USER_DEPRECATED);
- }
- if (null !== $class && !\is_string($class)) {
- @\trigger_error(\sprintf('The class name passed to %s is expected to be a string. Passing a %s is deprecated in Symfony 4.4 and will result in a TypeError in 5.0.', __CLASS__, \is_object($class) ? \get_class($class) : \gettype($class)), \E_USER_DEPRECATED);
- }
  $this->changes['class'] = \true;
  $this->class = $class;
  return $this;
@@ -114,7 +105,7 @@ class Definition
  {
  return $this->properties;
  }
- public function setProperty($name, $value)
+ public function setProperty(string $name, $value)
  {
  $this->properties[$name] = $value;
  return $this;
@@ -127,13 +118,13 @@ class Definition
  public function replaceArgument($index, $argument)
  {
  if (0 === \count($this->arguments)) {
- throw new OutOfBoundsException('Cannot replace arguments if none have been configured yet.');
+ throw new OutOfBoundsException(\sprintf('Cannot replace arguments for class "%s" if none have been configured yet.', $this->class));
  }
  if (\is_int($index) && ($index < 0 || $index > \count($this->arguments) - 1)) {
- throw new OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d].', $index, \count($this->arguments) - 1));
+ throw new OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d] of the arguments of class "%s".', $index, \count($this->arguments) - 1, $this->class));
  }
  if (!\array_key_exists($index, $this->arguments)) {
- throw new OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+ throw new OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist in class "%s".', $index, $this->class));
  }
  $this->arguments[$index] = $argument;
  return $this;
@@ -150,7 +141,7 @@ class Definition
  public function getArgument($index)
  {
  if (!\array_key_exists($index, $this->arguments)) {
- throw new OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+ throw new OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist in class "%s".', $index, $this->class));
  }
  return $this->arguments[$index];
  }
@@ -162,15 +153,15 @@ class Definition
  }
  return $this;
  }
- public function addMethodCall($method, array $arguments = [])
+ public function addMethodCall(string $method, array $arguments = [], bool $returnsClone = \false)
  {
  if (empty($method)) {
  throw new InvalidArgumentException('Method name cannot be empty.');
  }
- $this->calls[] = 2 < \func_num_args() && \func_get_arg(2) ? [$method, $arguments, \true] : [$method, $arguments];
+ $this->calls[] = $returnsClone ? [$method, $arguments, \true] : [$method, $arguments];
  return $this;
  }
- public function removeMethodCall($method)
+ public function removeMethodCall(string $method)
  {
  foreach ($this->calls as $i => $call) {
  if ($call[0] === $method) {
@@ -179,7 +170,7 @@ class Definition
  }
  return $this;
  }
- public function hasMethodCall($method)
+ public function hasMethodCall(string $method)
  {
  foreach ($this->calls as $call) {
  if ($call[0] === $method) {
@@ -201,7 +192,7 @@ class Definition
  {
  return $this->instanceof;
  }
- public function setAutoconfigured($autoconfigured)
+ public function setAutoconfigured(bool $autoconfigured)
  {
  $this->changes['autoconfigured'] = \true;
  $this->autoconfigured = $autoconfigured;
@@ -220,20 +211,20 @@ class Definition
  {
  return $this->tags;
  }
- public function getTag($name)
+ public function getTag(string $name)
  {
  return $this->tags[$name] ?? [];
  }
- public function addTag($name, array $attributes = [])
+ public function addTag(string $name, array $attributes = [])
  {
  $this->tags[$name][] = $attributes;
  return $this;
  }
- public function hasTag($name)
+ public function hasTag(string $name)
  {
  return isset($this->tags[$name]);
  }
- public function clearTag($name)
+ public function clearTag(string $name)
  {
  unset($this->tags[$name]);
  return $this;
@@ -243,7 +234,7 @@ class Definition
  $this->tags = [];
  return $this;
  }
- public function setFile($file)
+ public function setFile(?string $file)
  {
  $this->changes['file'] = \true;
  $this->file = $file;
@@ -253,86 +244,107 @@ class Definition
  {
  return $this->file;
  }
- public function setShared($shared)
+ public function setShared(bool $shared)
  {
  $this->changes['shared'] = \true;
- $this->shared = (bool) $shared;
+ $this->shared = $shared;
  return $this;
  }
  public function isShared()
  {
  return $this->shared;
  }
- public function setPublic($boolean)
+ public function setPublic(bool $boolean)
  {
  $this->changes['public'] = \true;
- $this->public = (bool) $boolean;
- $this->private = \false;
+ $this->public = $boolean;
  return $this;
  }
  public function isPublic()
  {
  return $this->public;
  }
- public function setPrivate($boolean)
+ public function setPrivate(bool $boolean)
  {
- $this->private = (bool) $boolean;
- return $this;
+ trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
+ return $this->setPublic(!$boolean);
  }
  public function isPrivate()
  {
- return $this->private;
+ return !$this->public;
  }
- public function setLazy($lazy)
+ public function setLazy(bool $lazy)
  {
  $this->changes['lazy'] = \true;
- $this->lazy = (bool) $lazy;
+ $this->lazy = $lazy;
  return $this;
  }
  public function isLazy()
  {
  return $this->lazy;
  }
- public function setSynthetic($boolean)
+ public function setSynthetic(bool $boolean)
  {
- $this->synthetic = (bool) $boolean;
+ $this->synthetic = $boolean;
+ if (!isset($this->changes['public'])) {
+ $this->setPublic(\true);
+ }
  return $this;
  }
  public function isSynthetic()
  {
  return $this->synthetic;
  }
- public function setAbstract($boolean)
+ public function setAbstract(bool $boolean)
  {
- $this->abstract = (bool) $boolean;
+ $this->abstract = $boolean;
  return $this;
  }
  public function isAbstract()
  {
  return $this->abstract;
  }
- public function setDeprecated($status = \true, $template = null)
+ public function setDeprecated()
  {
- if (null !== $template) {
- if (\preg_match('#[\\r\\n]|\\*/#', $template)) {
+ $args = \func_get_args();
+ if (\func_num_args() < 3) {
+ trigger_deprecation('symfony/dependency-injection', '5.1', 'The signature of method "%s()" requires 3 arguments: "string $package, string $version, string $message", not defining them is deprecated.', __METHOD__);
+ $status = $args[0] ?? \true;
+ if (!$status) {
+ trigger_deprecation('symfony/dependency-injection', '5.1', 'Passing a null message to un-deprecate a node is deprecated.');
+ }
+ $message = (string) ($args[1] ?? null);
+ $package = $version = '';
+ } else {
+ $status = \true;
+ $package = (string) $args[0];
+ $version = (string) $args[1];
+ $message = (string) $args[2];
+ }
+ if ('' !== $message) {
+ if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
  throw new InvalidArgumentException('Invalid characters found in deprecation template.');
  }
- if (!\str_contains($template, '%service_id%')) {
+ if (!\str_contains($message, '%service_id%')) {
  throw new InvalidArgumentException('The deprecation template must contain the "%service_id%" placeholder.');
  }
- $this->deprecationTemplate = $template;
  }
  $this->changes['deprecated'] = \true;
- $this->deprecated = (bool) $status;
+ $this->deprecation = $status ? ['package' => $package, 'version' => $version, 'message' => $message ?: self::DEFAULT_DEPRECATION_TEMPLATE] : [];
  return $this;
  }
  public function isDeprecated()
  {
- return $this->deprecated;
+ return (bool) $this->deprecation;
  }
- public function getDeprecationMessage($id)
+ public function getDeprecationMessage(string $id)
  {
- return \str_replace('%service_id%', $id, $this->deprecationTemplate ?: self::DEFAULT_DEPRECATION_TEMPLATE);
+ trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
+ return $this->getDeprecation($id)['message'];
+ }
+ public function getDeprecation(string $id) : array
+ {
+ return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%service_id%', $id, $this->deprecation['message'])];
  }
  public function setConfigurator($configurator)
  {
@@ -353,10 +365,10 @@ class Definition
  {
  return $this->autowired;
  }
- public function setAutowired($autowired)
+ public function setAutowired(bool $autowired)
  {
  $this->changes['autowired'] = \true;
- $this->autowired = (bool) $autowired;
+ $this->autowired = $autowired;
  return $this;
  }
  public function getBindings()

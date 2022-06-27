@@ -132,7 +132,7 @@ class Statement implements IteratorAggregate, DriverStatement, Result
  }
  return $this->stmt->setFetchMode($fetchMode, $arg2, $arg3);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  Deprecation::trigger('doctrine/dbal', 'https://github.com/doctrine/dbal/pull/4019', 'Statement::getIterator() is deprecated, use Result::iterateNumeric(), iterateAssociative() ' . 'or iterateColumn() instead.');

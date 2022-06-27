@@ -37,7 +37,7 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'fue_%'" );
 
 	// Delete posts + data
-	$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'follow_up_emails'" );
+	$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'follow_up_email'" );
 
 	// Delete email_history entries (comments)
 	$wpdb->query( "DELETE FROM {$wpdb->comments} WHERE comment_type = 'email_history'" );

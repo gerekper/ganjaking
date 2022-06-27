@@ -5,54 +5,72 @@
  * @since 3.8.3
  * @package WP_Smush
  *
- * @var string $cdn_status       CDN status.
- * @var bool   $is_cdn           CDN module status.
- * @var bool   $is_lazy_load     Lazy load status.
- * @var bool   $is_local_webp    Local WebP status.
- * @var int    $remaining        Remaining images.
- * @var int    $resize_count     Number of resizes images.
- * @var string $upsell_url_cdn   CDN upsell URL.
- * @var string $upsell_url_webp  Local WebP upsell URL.
- * @var bool   $webp_configured  WebP set up configured.
- *
- * @var Abstract_Page $this
+ * @var string    $cdn_status         CDN status.
+ * @var string    $human_format       Format of savings (kb, mb, etc..).
+ * @var string    $human_size         Converted size from bytes.
+ * @var bool      $is_cdn             CDN module status.
+ * @var bool      $is_lazy_load       Lazy load status.
+ * @var bool      $is_local_webp      Local WebP status.
+ * @var int       $resize_count       Number of resizes images.
+ * @var string    $upsell_url_cdn     CDN upsell URL.
+ * @var string    $upsell_url_webp    Local WebP upsell URL.
+ * @var bool      $webp_configured    WebP set up configured.
+ * @var string    $percent_grade      Circle grade class.
+ * @var int|float $percent_metric     Metric to calculate circle score.
+ * @var int       $percent_optimized  Percent optimized.
+ * @var int       $total_optimized    Total nubmer of images optimized.
  */
-
-use Smush\App\Abstract_Page;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$branded_image = apply_filters( 'wpmudev_branding_hero_image', '' );
 ?>
 
-<?php if ( $branded_image ) : ?>
-	<div class="sui-summary-image-space" aria-hidden="true" style="background-image: url('<?php echo esc_url( $branded_image ); ?>')"></div>
-<?php else : ?>
-	<div class="sui-summary-image-space" aria-hidden="true"></div>
-<?php endif; ?>
+<div class="sui-summary-image-space" aria-hidden="true">
+	<div class="sui-circle-score <?php echo esc_attr( $percent_grade ); ?> loaded" data-score="<?php echo absint( $percent_optimized ); ?>">
+		<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+			<circle stroke-width="16" cx="50" cy="50" r="42"></circle>
+			<circle stroke-width="16" cx="50" cy="50" r="42" style="--metric-array: <?php echo 2.63893782902 * absint( $percent_metric ); ?> <?php echo 263.893782902 - absint( $percent_metric ); ?>"></circle>
+		</svg>
+		<span class="sui-circle-score-label"><?php echo absint( $percent_optimized ); ?></span>
+	</div>
+	<small><?php esc_html_e( 'Images optimized in the media library', 'wp-smushit' ); ?></small>
+</div>
 <div class="sui-summary-segment">
 	<div class="sui-summary-details">
 		<span class="sui-summary-large wp-smush-stats-human">
-			<?php echo esc_html( $remaining ); ?>
+			<?php echo esc_html( $human_size ); ?>
+		</span>
+		<span class="sui-summary-detail wp-smush-savings">
+			<span class="wp-smush-stats-human"><?php echo esc_html( $human_format ); ?></span> /
+			<span class="wp-smush-stats-percent"><?php echo esc_html( $percent_optimized ); ?></span>%
 		</span>
 		<span class="sui-summary-sub">
-			<?php esc_html_e( 'Images to Smush', 'wp-smushit' ); ?>
+			<?php esc_html_e( 'Total Savings', 'wp-smushit' ); ?>
 		</span>
 		<span class="smushed-items-count">
-			<span class="wp-smush-count-resize-total">
+			<span class="wp-smush-count-total">
 				<span class="sui-summary-detail wp-smush-total-optimised">
-					<?php echo esc_html( $resize_count ); ?>
+					<?php echo esc_html( $total_optimized ); ?>
 				</span>
 				<span class="sui-summary-sub">
-					<?php esc_html_e( 'Images Resized', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Images Smushed', 'wp-smushit' ); ?>
 				</span>
 			</span>
+			<?php if ( $resize_count > 0 ) : ?>
+				<span class="wp-smush-count-resize-total">
+					<span class="sui-summary-detail wp-smush-total-optimised">
+						<?php echo esc_html( $resize_count ); ?>
+					</span>
+					<span class="sui-summary-sub">
+						<?php esc_html_e( 'Images Resized', 'wp-smushit' ); ?>
+					</span>
+				</span>
+			<?php endif; ?>
 		</span>
 	</div>
 </div>
-
 <div class="sui-summary-segment" style="overflow: visible">
 	<ul class="sui-list">
 		<li>

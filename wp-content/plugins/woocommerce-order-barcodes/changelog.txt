@@ -1,5 +1,11 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2022-06-09 - version 1.3.26
+* Fix   - Plugin cannot read numerical barcode.
+
+2022-01-05 - version 1.3.25
+* Fix   - Missing Languages folder and .pot file in release-ready zip file.
+
 2021-07-27 - version 1.3.24
 * Tweak - Remove barcode field in checkout flow, instead create barcode once order created.
 * Tweak - Add barcode URL in REST API order creation response.

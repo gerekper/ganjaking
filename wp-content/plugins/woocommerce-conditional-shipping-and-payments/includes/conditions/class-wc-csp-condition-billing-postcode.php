@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Billing_Postcode class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.9.0
  */
@@ -15,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Billing Postcode Condition.
  *
  * @class    WC_CSP_Condition_Billing_Postcode
- * @version  1.9.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Billing_Postcode extends WC_CSP_Package_Condition {
 
@@ -25,6 +24,7 @@ class WC_CSP_Condition_Billing_Postcode extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                             = 'billing_postcode';
 		$this->title                          = __( 'Billing Postcode', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 30;
 		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
 		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways' );
 	}

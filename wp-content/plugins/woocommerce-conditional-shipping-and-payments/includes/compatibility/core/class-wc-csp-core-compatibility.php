@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Core_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions related to core back-compatibility.
  *
  * @class    WC_CSP_Core_Compatibility
- * @version  1.5.9
+ * @version  1.13.0
  */
 class WC_CSP_Core_Compatibility {
 
@@ -66,15 +65,56 @@ class WC_CSP_Core_Compatibility {
 	private static $is_wp_version_gte = array();
 
 	/**
+	 * Cache block based checkout detection result.
+	 *
+	 * @since  1.13.0
+	 * @var    array
+	 */
+	private static $is_block_based_checkout = null;
+
+	/**
+	 * Current REST request.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @var WP_REST_Request
+	 */
+	private static $request;
+
+	/**
 	 * Initialization and hooks.
 	 */
 	public static function init() {
+
+		// Save current rest request. Is there a better way to get it?
+		add_filter( 'rest_pre_dispatch', array( __CLASS__, 'save_rest_request' ), 10, 3 );
 
 		self::$updated_shipping_method_instance_ids = get_option( 'woocommerce_updated_instance_ids', array() );
 
 		if ( is_admin() ) {
 			add_filter( 'woocommerce_enable_deprecated_additional_flat_rates', array( __CLASS__, 'enable_deprecated_addon_flat_rates' ) );
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Callbacks.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Saves the current rest request.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @param  mixed            $result
+	 * @param  WP_REST_Server   $server
+	 * @param  WP_REST_Request  $request
+	 * @return mixed
+	 */
+	public static function save_rest_request( $result, $server, $request ) {
+		self::$request = $request;
+		return $result;
 	}
 
 	/*
@@ -507,6 +547,108 @@ class WC_CSP_Core_Compatibility {
 		return new DateTimeZone($tz_offset);
 	}
 
+	/**
+	 * Back-compat wrapper for 'is_rest_api_request'.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @return boolean
+	 */
+	public static function is_rest_api_request() {
+
+		if ( false !== self::get_api_request() ) {
+			return true;
+		}
+
+		return method_exists( WC(), 'is_rest_api_request' ) ? WC()->is_rest_api_request() : defined( 'REST_REQUEST' );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Utilities.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Whether this is a Store/REST API request.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @return boolean
+	 */
+	public static function is_api_request() {
+		return self::is_store_api_request() || self::is_rest_api_request();
+	}
+
+	/**
+	 * Returns the current Store/REST API request or false.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @return WP_REST_Request|false
+	 */
+	public static function get_api_request() {
+		return self::$request instanceof WP_REST_Request ? self::$request : false;
+	}
+
+	/**
+	 * Whether this is a Store API request.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @param  string  $route
+	 * @return boolean
+	 */
+	public static function is_store_api_request( $route = '', $method = '' ) {
+
+		$request = self::get_api_request();
+
+		if ( false !== $request && strpos( $request->get_route(), 'wc/store' ) !== false ) {
+
+			$check_route  = ! empty( $route );
+			$check_method = ! empty( $method );
+
+			if ( ! $check_route && ! $check_method ) {
+				// Generic store api question.
+				return true;
+			}
+
+			$route_result  = ! $check_route || strpos( $request->get_route(), $route ) !== false;
+			$method_result = ! $check_method || strtolower( $request->get_method() ) === strtolower( $method );
+
+			return $route_result && $method_result;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Whether the checkout page contains the checkout block.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @param  string  $route
+	 * @return boolean
+	 */
+	public static function is_block_based_checkout() {
+
+		if ( ! WC_CSP_Compatibility::is_module_loaded( 'blocks' ) ) {
+			return false;
+		}
+
+		if ( is_null( self::$is_block_based_checkout ) ) {
+
+			self::$is_block_based_checkout = false;
+
+			$checkout_block_data = class_exists( 'WC_Blocks_Utils' ) ? WC_Blocks_Utils::get_blocks_from_page( 'woocommerce/checkout', 'checkout' ) : false;
+
+			if ( ! empty( $checkout_block_data ) ) {
+				self::$is_block_based_checkout = true;
+			}
+		}
+
+		return self::$is_block_based_checkout;
+	}
 }
 
 WC_CSP_Core_Compatibility::init();

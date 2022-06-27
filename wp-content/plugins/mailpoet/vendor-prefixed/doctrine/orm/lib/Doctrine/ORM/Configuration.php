@@ -23,6 +23,7 @@ use MailPoetVendor\Doctrine\ORM\Exception\NamedNativeQueryNotFound;
 use MailPoetVendor\Doctrine\ORM\Exception\NamedQueryNotFound;
 use MailPoetVendor\Doctrine\ORM\Exception\ProxyClassesAlwaysRegenerating;
 use MailPoetVendor\Doctrine\ORM\Exception\UnknownEntityNamespace;
+use MailPoetVendor\Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadataFactory;
 use MailPoetVendor\Doctrine\ORM\Mapping\DefaultEntityListenerResolver;
 use MailPoetVendor\Doctrine\ORM\Mapping\DefaultNamingStrategy;
@@ -36,10 +37,12 @@ use MailPoetVendor\Doctrine\ORM\Repository\DefaultRepositoryFactory;
 use MailPoetVendor\Doctrine\ORM\Repository\RepositoryFactory;
 use MailPoetVendor\Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use MailPoetVendor\Doctrine\Persistence\ObjectRepository;
+use LogicException;
 use MailPoetVendor\Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
 use function class_exists;
 use function method_exists;
+use function sprintf;
 use function strtolower;
 use function trim;
 class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
@@ -75,6 +78,9 @@ class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
  }
  public function newDefaultAnnotationDriver($paths = [], $useSimpleAnnotationReader = \true)
  {
+ if (!class_exists(AnnotationReader::class)) {
+ throw new LogicException(sprintf('The annotation metadata driver cannot be enabled because the "doctrine/annotations" library' . ' is not installed. Please run "composer require doctrine/annotations" or choose a different' . ' metadata driver.'));
+ }
  AnnotationRegistry::registerFile(__DIR__ . '/Mapping/Driver/DoctrineAnnotations.php');
  if ($useSimpleAnnotationReader) {
  // Register the ORM Annotations in the AnnotationRegistry
@@ -114,7 +120,7 @@ class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
  }
  public function getResultCache() : ?CacheItemPoolInterface
  {
- // Compatibility with DBAL < 3.2
+ // Compatibility with DBAL 2
  if (!method_exists(parent::class, 'getResultCache')) {
  $cacheImpl = $this->getResultCacheImpl();
  return $cacheImpl ? CacheAdapter::wrap($cacheImpl) : null;
@@ -123,7 +129,7 @@ class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
  }
  public function setResultCache(CacheItemPoolInterface $cache) : void
  {
- // Compatibility with DBAL < 3.2
+ // Compatibility with DBAL 2
  if (!method_exists(parent::class, 'setResultCache')) {
  $this->setResultCacheImpl(DoctrineProvider::wrap($cache));
  return;
@@ -217,6 +223,7 @@ class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
  }
  public function ensureProductionSettings()
  {
+ Deprecation::triggerIfCalledFromOutside('doctrine/orm', 'https://github.com/doctrine/orm/pull/9074', '%s is deprecated', __METHOD__);
  $queryCacheImpl = $this->getQueryCacheImpl();
  if (!$queryCacheImpl) {
  throw QueryCacheNotConfigured::create();
@@ -401,5 +408,13 @@ class Configuration extends \MailPoetVendor\Doctrine\DBAL\Configuration
  public function setDefaultQueryHint($name, $value)
  {
  $this->_attributes['defaultQueryHints'][$name] = $value;
+ }
+ public function getSchemaIgnoreClasses() : array
+ {
+ return $this->_attributes['schemaIgnoreClasses'] ?? [];
+ }
+ public function setSchemaIgnoreClasses(array $schemaIgnoreClasses) : void
+ {
+ $this->_attributes['schemaIgnoreClasses'] = $schemaIgnoreClasses;
  }
 }

@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Query;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Configuration;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Query\Filter\SQLFilter;
 use InvalidArgumentException;
@@ -38,8 +37,7 @@ class FilterCollection
  $this->enabledFilters[$name] = new $filterClass($this->em);
  // Keep the enabled filters sorted for the hash
  ksort($this->enabledFilters);
- // Now the filter collection is dirty
- $this->filtersState = self::FILTERS_STATE_DIRTY;
+ $this->setFiltersStateDirty();
  }
  return $this->enabledFilters[$name];
  }
@@ -48,8 +46,7 @@ class FilterCollection
  // Get the filter to return it
  $filter = $this->getFilter($name);
  unset($this->enabledFilters[$name]);
- // Now the filter collection is dirty
- $this->filtersState = self::FILTERS_STATE_DIRTY;
+ $this->setFiltersStateDirty();
  return $filter;
  }
  public function getFilter($name)
@@ -81,6 +78,8 @@ class FilterCollection
  foreach ($this->enabledFilters as $name => $filter) {
  $filterHash .= $name . $filter;
  }
+ $this->filterHash = $filterHash;
+ $this->filtersState = self::FILTERS_STATE_CLEAN;
  return $filterHash;
  }
  public function setFiltersStateDirty()

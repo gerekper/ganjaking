@@ -9,6 +9,7 @@ use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadataInfo;
 use MailPoetVendor\Doctrine\ORM\Mapping\MappingException;
 use MailPoetVendor\Doctrine\Persistence\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\Persistence\Mapping\Driver\AnnotationDriver;
+use LogicException;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -17,12 +18,17 @@ use function class_exists;
 use function constant;
 use function defined;
 use function get_class;
+use function sprintf;
+use const PHP_VERSION_ID;
 class AttributeDriver extends AnnotationDriver
 {
  // @phpcs:ignore
  protected $entityAnnotationClasses = [Mapping\Entity::class => 1, Mapping\MappedSuperclass::class => 2];
  public function __construct(array $paths)
  {
+ if (PHP_VERSION_ID < 80000) {
+ throw new LogicException(sprintf('The attribute metadata driver cannot be enabled on PHP 7. Please upgrade to PHP 8 or choose a different' . ' metadata driver.'));
+ }
  parent::__construct(new AttributeReader(), $paths);
  }
  public function isTransient($className)
@@ -260,11 +266,51 @@ class AttributeDriver extends AnnotationDriver
  $metadata->mapEmbedded($mapping);
  }
  }
+ // Evaluate AssociationOverrides attribute
+ if (isset($classAttributes[Mapping\AssociationOverrides::class])) {
+ $associationOverride = $classAttributes[Mapping\AssociationOverrides::class];
+ foreach ($associationOverride->overrides as $associationOverride) {
+ $override = [];
+ $fieldName = $associationOverride->name;
+ // Check for JoinColumn/JoinColumns attributes
+ if ($associationOverride->joinColumns) {
+ $joinColumns = [];
+ foreach ($associationOverride->joinColumns as $joinColumn) {
+ $joinColumns[] = $this->joinColumnToArray($joinColumn);
+ }
+ $override['joinColumns'] = $joinColumns;
+ }
+ if ($associationOverride->inverseJoinColumns) {
+ $joinColumns = [];
+ foreach ($associationOverride->inverseJoinColumns as $joinColumn) {
+ $joinColumns[] = $this->joinColumnToArray($joinColumn);
+ }
+ $override['inverseJoinColumns'] = $joinColumns;
+ }
+ // Check for JoinTable attributes
+ if ($associationOverride->joinTable) {
+ $joinTableAnnot = $associationOverride->joinTable;
+ $joinTable = ['name' => $joinTableAnnot->name, 'schema' => $joinTableAnnot->schema, 'joinColumns' => $override['joinColumns'] ?? [], 'inverseJoinColumns' => $override['inverseJoinColumns'] ?? []];
+ unset($override['joinColumns'], $override['inverseJoinColumns']);
+ $override['joinTable'] = $joinTable;
+ }
+ // Check for inversedBy
+ if ($associationOverride->inversedBy) {
+ $override['inversedBy'] = $associationOverride->inversedBy;
+ }
+ // Check for `fetch`
+ if ($associationOverride->fetch) {
+ $override['fetch'] = constant(Mapping\ClassMetadata::class . '::FETCH_' . $associationOverride->fetch);
+ }
+ $metadata->setAssociationOverride($fieldName, $override);
+ }
+ }
  // Evaluate AttributeOverrides annotation
- if (isset($classAttributes[Mapping\AttributeOverride::class])) {
- foreach ($classAttributes[Mapping\AttributeOverride::class] as $attributeOverrideAttribute) {
- $attributeOverride = $this->columnToArray($attributeOverrideAttribute->name, $attributeOverrideAttribute->column);
- $metadata->setAttributeOverride($attributeOverrideAttribute->name, $attributeOverride);
+ if (isset($classAttributes[Mapping\AttributeOverrides::class])) {
+ $attributeOverridesAnnot = $classAttributes[Mapping\AttributeOverrides::class];
+ foreach ($attributeOverridesAnnot->overrides as $attributeOverride) {
+ $mapping = $this->columnToArray($attributeOverride->name, $attributeOverride->column);
+ $metadata->setAttributeOverride($attributeOverride->name, $mapping);
  }
  }
  // Evaluate EntityListeners annotation
@@ -308,6 +354,13 @@ class AttributeDriver extends AnnotationDriver
  throw MappingException::invalidFetchMode($className, $fetchMode);
  }
  return constant('MailPoetVendor\\Doctrine\\ORM\\Mapping\\ClassMetadata::FETCH_' . $fetchMode);
+ }
+ private function getGeneratedMode(string $generatedMode) : int
+ {
+ if (!defined('MailPoetVendor\\Doctrine\\ORM\\Mapping\\ClassMetadata::GENERATED_' . $generatedMode)) {
+ throw MappingException::invalidGeneratedMode($generatedMode);
+ }
+ return constant('MailPoetVendor\\Doctrine\\ORM\\Mapping\\ClassMetadata::GENERATED_' . $generatedMode);
  }
  private function getMethodCallbacks(ReflectionMethod $method) : array
  {
@@ -356,6 +409,18 @@ class AttributeDriver extends AnnotationDriver
  }
  if (isset($column->columnDefinition)) {
  $mapping['columnDefinition'] = $column->columnDefinition;
+ }
+ if ($column->updatable === \false) {
+ $mapping['notUpdatable'] = \true;
+ }
+ if ($column->insertable === \false) {
+ $mapping['notInsertable'] = \true;
+ }
+ if ($column->generated !== null) {
+ $mapping['generated'] = $this->getGeneratedMode($column->generated);
+ }
+ if ($column->enumType) {
+ $mapping['enumType'] = $column->enumType;
  }
  return $mapping;
  }

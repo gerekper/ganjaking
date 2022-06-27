@@ -202,8 +202,13 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 
 	$render = '';
 
+	$post_per_page = get_option( 'posts_per_page' );
+	if ( empty( $post_per_page ) ) {
+		$post_per_page = 10;
+	}
+
 	// Updating current query.
-	query_posts( $query_string . '&posts_per_page=' . $shortcode_args['posts_per_page'] ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
+	query_posts( $query_string . '&posts_per_page=' . $post_per_page ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
 
 	if ( have_posts() ) {
 		$posts_render = '';
@@ -223,9 +228,7 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 			$comments_number = (int) get_comments_number();
 
 			// Render post.
-			//if ( current_user_can( 'read_post', $id ) ) {
-				$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
-			//}
+			$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
 		}
 
 		$render .= $posts_render;
@@ -282,7 +285,7 @@ add_shortcode( 'customposts', 'seedprod_pro_posts_block_custom_shortcode' );
  */
 function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 	// WP Query wrapper.
-	global $post;
+	global $wp_query;
 
 	$shortcode_args = shortcode_atts(
 		array(
@@ -374,9 +377,20 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 		}
 	}
 
+	// Current pagination page.
+	$paged = 1;
+
 	if ( 'true' === $shortcode_args['pagination'] ) {
-		$paged         = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-		$args['paged'] = $paged;
+		// Update pagination current page. get_query_var( 'paged' ) doesn't return correct value. The $query_string does.
+		if ( isset( $wp_query->query['paged'] ) ) {
+			$paged = $wp_query->query['paged'];
+		} else {
+			if ( isset( $wp_query->query['page'] ) ) {
+				$paged = $wp_query->query['page'];
+			}
+		}
+
+		$args['paged'] = str_replace( '/', '', $paged );
 	}
 
 	// Only fetch published posts.
@@ -426,7 +440,7 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 				array(
 					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 					'total'     => $query->max_num_pages,
-					'current'   => max( 1, get_query_var( 'paged' ) ),
+					'current'   => max( 1, $paged ),
 					'format'    => $format,
 					'type'      => 'plain', // Default
 					'end_size'  => 2, // Default
@@ -461,7 +475,7 @@ add_shortcode( 'manualposts', 'seedprod_pro_posts_block_manual_shortcode' );
  */
 function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 	// WP Query wrapper.
-	global $post;
+	global $wp_query;
 
 	$shortcode_args = shortcode_atts(
 		array(
@@ -536,9 +550,20 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 		}
 	}
 
+	// Current pagination page.
+	$paged = 1;
+
 	if ( 'true' === $shortcode_args['pagination'] ) {
-		$paged         = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		$args['paged'] = $paged;
+		// Update pagination current page. get_query_var( 'paged' ) doesn't return correct value. The $query_string does.
+		if ( isset( $wp_query->query['paged'] ) ) {
+			$paged = $wp_query->query['paged'];
+		} else {
+			if ( isset( $wp_query->query['page'] ) ) {
+				$paged = $wp_query->query['page'];
+			}
+		}
+
+		$args['paged'] = str_replace( '/', '', $paged );
 	}
 
 	if ( ! isset( $args['posts_per_page'] ) ) {
@@ -589,7 +614,7 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 				array(
 					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 					'total'     => $query->max_num_pages,
-					'current'   => max( 1, get_query_var( 'paged' ) ),
+					'current'   => max( 1, $paged ),
 					'format'    => $format,
 					'type'      => 'plain', // Default
 					'end_size'  => 2, // Default

@@ -223,7 +223,7 @@ class WooCommerce_Widget_Recommended_Products extends WP_Widget {
         <p>
             <label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'Show recommendations based on:', 'woocommerce' ); ?></label>
 			<?php
-			$activities = array( 'viewed' => 'View History', 'completed' => 'Purchase History' );
+			$activities = array( 'viewed' => 'View History', 'pending' => 'Purchased - Pending', 'completed' => 'Purchased - Completed' );
 			echo '<select id="' . $this->get_field_id( 'activity' ) . '" name="' . $this->get_field_name( 'activity' ) . '">';
 			?>
 			<?php foreach ( $activities as $activity => $label ): ?>

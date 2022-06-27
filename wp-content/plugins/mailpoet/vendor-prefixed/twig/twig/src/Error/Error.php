@@ -10,14 +10,11 @@ class Error extends \Exception
  private $rawMessage;
  private $sourcePath;
  private $sourceCode;
- public function __construct(string $message, int $lineno = -1, $source = null, \Exception $previous = null)
+ public function __construct(string $message, int $lineno = -1, Source $source = null, \Exception $previous = null)
  {
  parent::__construct('', 0, $previous);
  if (null === $source) {
  $name = null;
- } elseif (!$source instanceof Source && !$source instanceof \MailPoetVendor\Twig_Source) {
- @\trigger_error(\sprintf('Passing a string as a source to %s is deprecated since Twig 2.6.1; pass a Twig\\Source instance instead.', __CLASS__), \E_USER_DEPRECATED);
- $name = $source;
  } else {
  $name = $source->getName();
  $this->sourceCode = $source->getCode();
@@ -28,24 +25,24 @@ class Error extends \Exception
  $this->rawMessage = $message;
  $this->updateRepr();
  }
- public function getRawMessage()
+ public function getRawMessage() : string
  {
  return $this->rawMessage;
  }
- public function getTemplateLine()
+ public function getTemplateLine() : int
  {
  return $this->lineno;
  }
- public function setTemplateLine($lineno)
+ public function setTemplateLine(int $lineno) : void
  {
  $this->lineno = $lineno;
  $this->updateRepr();
  }
- public function getSourceContext()
+ public function getSourceContext() : ?Source
  {
  return $this->name ? new Source($this->sourceCode, $this->name, $this->sourcePath) : null;
  }
- public function setSourceContext(Source $source = null)
+ public function setSourceContext(Source $source = null) : void
  {
  if (null === $source) {
  $this->sourceCode = $this->name = $this->sourcePath = null;
@@ -56,17 +53,17 @@ class Error extends \Exception
  }
  $this->updateRepr();
  }
- public function guess()
+ public function guess() : void
  {
  $this->guessTemplateInfo();
  $this->updateRepr();
  }
- public function appendMessage($rawMessage)
+ public function appendMessage($rawMessage) : void
  {
  $this->rawMessage .= $rawMessage;
  $this->updateRepr();
  }
- private function updateRepr()
+ private function updateRepr() : void
  {
  $this->message = $this->rawMessage;
  if ($this->sourcePath && $this->lineno > 0) {
@@ -102,13 +99,13 @@ class Error extends \Exception
  $this->message .= '?';
  }
  }
- private function guessTemplateInfo()
+ private function guessTemplateInfo() : void
  {
  $template = null;
  $templateClass = null;
  $backtrace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS | \DEBUG_BACKTRACE_PROVIDE_OBJECT);
  foreach ($backtrace as $trace) {
- if (isset($trace['object']) && $trace['object'] instanceof Template && 'Twig\\Template' !== \get_class($trace['object'])) {
+ if (isset($trace['object']) && $trace['object'] instanceof Template) {
  $currentClass = \get_class($trace['object']);
  $isEmbedContainer = null === $templateClass ? \false : 0 === \strpos($templateClass, $currentClass);
  if (null === $this->name || $this->name == $trace['object']->getTemplateName() && !$isEmbedContainer) {
@@ -154,4 +151,3 @@ class Error extends \Exception
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Error\\Error', 'MailPoetVendor\\Twig_Error');

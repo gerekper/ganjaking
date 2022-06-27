@@ -1,10 +1,6 @@
 <?php
 $loginpress_pro_array = (array) get_option( 'loginpress_customization' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function loginpress_pro_get_option_key( $loginpress_key, $loginpress_pro_array ) {
 
 	if ( array_key_exists( $loginpress_key, $loginpress_pro_array ) ) :

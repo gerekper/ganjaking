@@ -1,10 +1,10 @@
 <?php
 class wfConfig {
 	const TABLE_EXISTS_OPTION = 'wordfence_installed';
-
+	
 	const AUTOLOAD = 'yes';
 	const DONT_AUTOLOAD = 'no';
-
+	
 	const TYPE_BOOL = 'boolean';
 	const TYPE_INT = 'integer';
 	const TYPE_FLOAT = 'double';
@@ -12,7 +12,7 @@ class wfConfig {
 	const TYPE_STRING = 'string';
 	const TYPE_ARRAY = 'array';
 	const TYPE_JSON = 'json';
-
+	
 	const OPTIONS_TYPE_GLOBAL = 'global';
 	const OPTIONS_TYPE_FIREWALL = 'firewall';
 	const OPTIONS_TYPE_BLOCKING = 'blocking';
@@ -21,7 +21,7 @@ class wfConfig {
 	const OPTIONS_TYPE_LIVE_TRAFFIC = 'livetraffic';
 	const OPTIONS_TYPE_DIAGNOSTICS = 'diagnostics';
 	const OPTIONS_TYPE_ALL = 'all';
-
+	
 	public static $diskCache = array();
 	private static $diskCacheDisabled = false; //enables if we detect a write fail so we don't keep calling stat()
 	private static $cacheDisableCheckDone = false;
@@ -190,8 +190,9 @@ class wfConfig {
 		//Set as default only, not included automatically in the settings import/export or options page saving
 		'defaultsOnly' => array(
 			"apiKey" => array('value' => "", 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
-			'keyType' => array('value' => wfAPI::KEY_TYPE_PAID_CURRENT, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
-			'isPaid' => array('value' => true, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
+			'keyType' => array('value' => wfLicense::KEY_TYPE_PAID_CURRENT, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
+			'isPaid' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
+			'keyExpDays' => array('value' => 365, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'hasKeyConflict' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'betaThreatDefenseFeed' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'timeoffset_wf_updated' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
@@ -310,7 +311,7 @@ class wfConfig {
 		
 		return $options;
 	}
-
+	
 	/**
 	 * Bases the table's existence on the option specified by wfConfig::TABLE_EXISTS_OPTION for performance. We only
 	 * set that option just prior to deletion in the uninstall handler and after table creation in the install handler.
@@ -333,11 +334,11 @@ class wfConfig {
 			self::$tableExists = false;
 		}
 	}
-
+	
 	public static function tableExists() {
 		return self::$tableExists;
 	}
-
+	
 	private static function updateCachedOption($name, $val) {
 		$options = self::loadAllOptions();
 		$options[$name] = $val;
@@ -368,7 +369,7 @@ class wfConfig {
 		$options = self::loadAllOptions();
 		return isset($options[$name]);
 	}
-
+	
 	/**
 	 * Returns an array of all option keys that are eligible for export with the exception of serialized options.
 	 * 
@@ -514,6 +515,14 @@ class wfConfig {
 	public static function setJSON($key, $val, $autoload = self::AUTOLOAD) {
 		self::set($key, @json_encode($val), $autoload);
 	}
+	public static function setOrRemove($key, $value, $autoload = self::AUTOLOAD) {
+		if ($value === null) {
+			self::remove($key);
+		}
+		else {
+			self::set($key, $value, $autoload);
+		}
+	}
 	public static function get($key, $default = false, $allowCached = true, &$isDefault = false) {
 		global $wpdb;
 		
@@ -537,11 +546,11 @@ class wfConfig {
 		}
 		return $option->val;
 	}
-
+	
 	public static function getInt($key, $default = 0, $allowCached = true) {
 		return (int) self::get($key, $default, $allowCached);
 	}
-
+	
 	public static function getJSON($key, $default = false, $allowCached = true) {
 		$json = self::get($key, $default, $allowCached, $isDefault);
 		if ($isDefault)
@@ -552,7 +561,7 @@ class wfConfig {
 		}
 		return $decoded;
 	}
-
+	
 	/**
 	 * Runs a test against the database to verify set_ser is working via MySQLi.
 	 * 
@@ -575,7 +584,7 @@ class wfConfig {
 		wfConfig::delete_ser_chunked('dbTest');
 		return $result;
 	}
-
+	
 	private static function canCompressValue() {
 		if (!function_exists('gzencode') || !function_exists('gzdecode')) {
 			return false;
@@ -586,7 +595,7 @@ class wfConfig {
 		}
 		return true;
 	}
-
+	
 	private static function isCompressedValue($data) {
 		//Based on http://www.ietf.org/rfc/rfc1952.txt
 		if (strlen($data) < 2) {
@@ -601,11 +610,11 @@ class wfConfig {
 		//Small chance of false positives here -- can check the header CRC if it turns out it's needed
 		return true;
 	}
-
+	
 	private static function ser_chunked_key($key) {
 		return 'wordfence_chunked_' . $key . '_';
 	}
-
+	
 	public static function get_ser($key, $default = false, $cache = true) {
 		if (self::hasCachedOption($key)) {
 			return self::getCachedOption($key);
@@ -679,7 +688,7 @@ class wfConfig {
 		
 		return $default;
 	}
-
+	
 	public static function set_ser($key, $val, $allowCompression = false, $autoload = self::AUTOLOAD) {
 		/*
 		 * Because of the small default value for `max_allowed_packet` and `max_long_data_size`, we're stuck splitting
@@ -828,7 +837,7 @@ class wfConfig {
 		}
 		return true;
 	}
-
+	
 	private static function delete_ser_chunked($key) {
 		if (!self::$tableExists) {
 			return;
@@ -1056,7 +1065,7 @@ class wfConfig {
 		
 		self::releaseLock('wfAutoUpdate');
 	}
-
+	
 	/**
 	 * .htaccess file contents to disable all script execution in a given directory.
 	 */
@@ -1076,7 +1085,7 @@ Options -ExecCGI
 # END Wordfence code execution protection
 ';
 	private static $_disable_scripts_regex = '/# BEGIN Wordfence code execution protection.+?# END Wordfence code execution protection/s';
-
+	
 	private static function _uploadsHtaccessFilePath() {
 		$upload_dir = wp_upload_dir();
 		return $upload_dir['basedir'] . '/.htaccess';
@@ -1106,7 +1115,7 @@ Options -ExecCGI
 		self::set('disableCodeExecutionUploadsPHP7Migrated', true);
 		return true;
 	}
-
+	
 	public static function migrateCodeExecutionForUploadsPHP7() {
 		if (self::get('disableCodeExecutionUploads')) {
 			if (!self::get('disableCodeExecutionUploadsPHP7Migrated')) {
@@ -1152,7 +1161,7 @@ Options -ExecCGI
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Validates the array of configuration changes without applying any. All bounds checks must be performed here.
 	 *
@@ -1327,7 +1336,7 @@ Options -ExecCGI
 		}
 		return $errors;
 	}
-
+	
 	public static function clean($changes) {
 		$cleaned = array();
 		foreach ($changes as $key => $value) {
@@ -1344,7 +1353,7 @@ Options -ExecCGI
 		}
 		return $cleaned;
 	}
-
+	
 	/**
 	 * Saves the array of configuration changes in the correct place. This may currently be the wfConfig table, the WAF's config file, or both. The
 	 * validation function will handle all bounds checks and this will be limited to normalizing the values as needed.
@@ -1763,7 +1772,7 @@ Options -ExecCGI
 				}
 			}
 		}
-
+	
 		if ($apiKey !== false) {
 			$existingAPIKey = wfConfig::get('apiKey', '');
 			$apiKey = strtolower(trim($apiKey)); //Already validated above
@@ -1775,7 +1784,7 @@ Options -ExecCGI
 					if ($keyData['ok'] && $keyData['apiKey']) {
 						wfConfig::set('apiKey', $keyData['apiKey']);
 						wfConfig::set('isPaid', false);
-						wfConfig::set('keyType', wfAPI::KEY_TYPE_FREE);
+						wfConfig::set('keyType', wfLicense::KEY_TYPE_FREE);
 						wordfence::licenseStatusChanged();
 						wfConfig::set('touppPromptNeeded', true);
 					}
@@ -1797,7 +1806,7 @@ Options -ExecCGI
 						wfConfig::set('isPaid', $isPaid); //res['isPaid'] is boolean coming back as JSON and turned back into PHP struct. Assuming JSON to PHP handles bools.
 						wordfence::licenseStatusChanged();
 						if (!$isPaid) {
-							wfConfig::set('keyType', wfAPI::KEY_TYPE_FREE);
+							wfConfig::set('keyType', wfLicense::KEY_TYPE_FREE);
 						}
 						$ping = true;
 					}
@@ -1816,7 +1825,7 @@ Options -ExecCGI
 			if ($ping) {
 				$api = new wfAPI($apiKey, wfUtils::getWPVersion());
 				try {
-					$keyType = wfAPI::KEY_TYPE_FREE;
+					$keyType = wfLicense::KEY_TYPE_FREE;
 					$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', '')));
 					if (isset($keyData['_isPaidKey'])) {
 						$keyType = wfConfig::get('keyType');
@@ -1858,7 +1867,7 @@ Options -ExecCGI
 		wfNotification::reconcileNotificationsWithOptions();
 		wfCentral::requestConfigurationSync();
 	}
-
+	
 	public static function restoreDefaults($section) {
 		switch ($section) {
 			case self::OPTIONS_TYPE_GLOBAL:

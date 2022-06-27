@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class LoginPress_Pro {
 
   /**
@@ -440,10 +436,10 @@ class LoginPress_Pro {
   *
   * @since	1.0.0
   * * * * * * * * * * * */
-  public function add_pro_theme( $selected_preset ) {
+	public function add_pro_theme( $selected_preset ) {
 
-    include_once LOGINPRESS_PRO_THEME . $selected_preset . '.php';
-  }
+		include_once apply_filters( 'loginpress_premium_theme', LOGINPRESS_PRO_THEME . $selected_preset . '.php' );
+	}
 
 
   /**
@@ -771,6 +767,8 @@ class LoginPress_Pro {
       if ($data['license_data']['price_id'] == 2) return 'Small Business';
       if ($data['license_data']['price_id'] == 3) return 'Agency';
       if ($data['license_data']['price_id'] == 4) return 'Ultimate';
+      if ($data['license_data']['price_id'] == 5) return 'Business';
+      if ($data['license_data']['price_id'] == 6) return 'Agency';
       if ($data['license_data']['price_id'] == 7) return 'Startup';
     }
 

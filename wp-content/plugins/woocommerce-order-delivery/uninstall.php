@@ -28,6 +28,10 @@ function wc_od_uninstall() {
 	if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 		// Deletes the plugin options.
 		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'wc_od_%';" );
+
+		// Drop database tables.
+		include_once dirname( __FILE__ ) . '/includes/class-wc-od-db-tables.php';
+		WC_OD_DB_Tables::drop_tables();
 	}
 }
 wc_od_uninstall();

@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterOptionEntity;
 use MailPoet\Entities\NewsletterOptionFieldEntity;
+use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Logging\LoggerFactory;
-use MailPoet\Models\SendingQueue;
 use MailPoet\Newsletter\NewsletterPostsRepository;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Options\NewsletterOptionFieldsRepository;
@@ -43,21 +43,26 @@ class PostNotificationScheduler {
   /** @var NewsletterPostsRepository */
   private $newsletterPostsRepository;
 
+  /** @var Scheduler */
+  private $scheduler;
+
   public function __construct(
     NewslettersRepository $newslettersRepository,
     NewsletterOptionsRepository $newsletterOptionsRepository,
     NewsletterOptionFieldsRepository $newsletterOptionFieldsRepository,
-    NewsletterPostsRepository $newsletterPostsRepository
+    NewsletterPostsRepository $newsletterPostsRepository,
+    Scheduler $scheduler
   ) {
     $this->loggerFactory = LoggerFactory::getInstance();
     $this->newslettersRepository = $newslettersRepository;
     $this->newsletterOptionsRepository = $newsletterOptionsRepository;
     $this->newsletterOptionFieldsRepository = $newsletterOptionFieldsRepository;
     $this->newsletterPostsRepository = $newsletterPostsRepository;
+    $this->scheduler = $scheduler;
   }
 
   public function transitionHook($newStatus, $oldStatus, $post) {
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->addInfo(
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
       'transition post notification hook initiated',
       [
         'post_id' => $post->ID,
@@ -73,7 +78,7 @@ class PostNotificationScheduler {
   }
 
   public function schedulePostNotification($postId) {
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->addInfo(
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
       'schedule post notification hook',
       ['post_id' => $postId]
     );
@@ -103,7 +108,7 @@ class PostNotificationScheduler {
     if (!$scheduleOption) {
       return null;
     }
-    $nextRunDate = Scheduler::getNextRunDate($scheduleOption->getValue());
+    $nextRunDate = $this->scheduler->getNextRunDate($scheduleOption->getValue());
     if (!$nextRunDate) {
       return null;
     }
@@ -118,10 +123,10 @@ class PostNotificationScheduler {
 
     $sendingTask = SendingTask::create();
     $sendingTask->newsletterId = $newsletter->getId();
-    $sendingTask->status = SendingQueue::STATUS_SCHEDULED;
+    $sendingTask->status = SendingQueueEntity::STATUS_SCHEDULED;
     $sendingTask->scheduledAt = $nextRunDate;
     $sendingTask->save();
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->addInfo(
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->info(
       'schedule post notification',
       ['sending_task' => $sendingTask->id(), 'scheduled_at' => $nextRunDate]
     );

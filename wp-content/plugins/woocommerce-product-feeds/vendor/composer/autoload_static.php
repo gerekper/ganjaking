@@ -110,6 +110,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php',
         'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
+        'WoocommerceProductFeedsWoocommerceAdditionalVariationImages' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-woocommerce-additional-variation-images.php',
         'WoocommerceProductFeedsWoocommerceAdminIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
         'WoocommerceProductFeedsWoocommerceGermanized' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-woocommerce-germanized.php',
         'WoocommerceProductVendors' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-vendors.php',

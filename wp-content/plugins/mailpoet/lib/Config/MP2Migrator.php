@@ -137,7 +137,7 @@ class MP2Migrator {
     global $wpdb;
 
     try {
-      $sql = "SHOW TABLES LIKE '{$table}'";
+      $sql = $wpdb->prepare("SHOW TABLES LIKE %s", $table);
       $result = $wpdb->query($sql);
       return !empty($result);
     } catch (\Exception $e) {
@@ -372,14 +372,14 @@ class MP2Migrator {
     global $wpdb;
 
     $lastId = intval($this->settings->get('last_imported_list_id', 0));
-    $table = $this->mp2ListTable;
-    $sql = "
+    $table = esc_sql($this->mp2ListTable);
+    $sql = $wpdb->prepare("
       SELECT l.list_id, l.name, l.description, l.is_enabled, l.created_at
       FROM `$table` l
-      WHERE l.list_id > '$lastId'
+      WHERE l.list_id > %s
       ORDER BY l.list_id
-      LIMIT $limit
-      ";
+      LIMIT %d
+      ", $lastId, $limit);
     $lists = $wpdb->get_results($sql, ARRAY_A);
 
     return $lists;
@@ -449,7 +449,7 @@ class MP2Migrator {
     global $wpdb;
     $customFields = [];
 
-    $table = $this->mp2CustomFieldTable;
+    $table = esc_sql($this->mp2CustomFieldTable);
     $sql = "
       SELECT cf.id, cf.name, cf.type, cf.required, cf.settings
       FROM `$table` cf
@@ -609,14 +609,14 @@ class MP2Migrator {
   private function getUsers($limit) {
     global $wpdb;
     $lastId = intval($this->settings->get('last_imported_user_id', 0));
-    $table = $this->mp2UserTable;
-    $sql = "
+    $table = esc_sql($this->mp2UserTable);
+    $sql = $wpdb->prepare("
       SELECT u.*
       FROM `$table` u
-      WHERE u.user_id > '$lastId'
+      WHERE u.user_id > %s
       ORDER BY u.user_id
-      LIMIT $limit
-      ";
+      LIMIT %d
+      ", $lastId, $limit);
     $users = $wpdb->get_results($sql, ARRAY_A);
 
     return $users;
@@ -706,12 +706,12 @@ class MP2Migrator {
   private function getUserLists($userId) {
     global $wpdb;
 
-    $table = $this->mp2UserListTable;
-    $sql = "
+    $table = esc_sql($this->mp2UserListTable);
+    $sql = $wpdb->prepare("
       SELECT ul.list_id, ul.sub_date, ul.unsub_date
       FROM `$table` ul
-      WHERE ul.user_id = '$userId'
-      ";
+      WHERE ul.user_id = %s
+      ", $userId);
     $userLists = $wpdb->get_results($sql, ARRAY_A);
 
     return $userLists;
@@ -856,14 +856,14 @@ class MP2Migrator {
     global $wpdb;
 
     $lastId = intval($this->settings->get('last_imported_form_id', 0));
-    $table = $this->mp2FormTable;
-    $sql = "
+    $table = esc_sql($this->mp2FormTable);
+    $sql = $wpdb->prepare("
       SELECT f.*
       FROM `$table` f
-      WHERE f.form_id > '$lastId'
+      WHERE f.form_id > %s
       ORDER BY f.form_id
-      LIMIT $limit
-      ";
+      LIMIT %d
+      ", $lastId, $limit);
     $forms = $wpdb->get_results($sql, ARRAY_A);
 
     return $forms;
@@ -1120,12 +1120,12 @@ class MP2Migrator {
     global $wpdb;
     $email = [];
 
-    $table = $this->mp2EmailTable;
-    $sql = "
+    $table = esc_sql($this->mp2EmailTable);
+    $sql = $wpdb->prepare("
       SELECT e.*
       FROM `$table` e
-      WHERE e.email_id = '$emailId'
-      ";
+      WHERE e.email_id = %s
+      ", $emailId);
     $email = $wpdb->get_row($sql, ARRAY_A);
 
     return $email;

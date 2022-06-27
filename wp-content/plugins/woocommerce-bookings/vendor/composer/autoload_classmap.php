@@ -556,6 +556,8 @@ return array(
     'WC_Product_Booking_Rule_Manager' => $baseDir . '/includes/class-wc-product-booking-rule-manager.php',
     'WC_Product_Data_Store_CPT' => $baseDir . '/includes/compatibility/class-wc-product-data-store-cpt.php',
     'WC_Product_Skeleton_Booking' => $baseDir . '/includes/class-wc-product-skeleton-booking.php',
+    'WooCommerce\\Bookings\\Blocks\\Bookings_Gateway' => $baseDir . '/includes/blocks/class-wc-bookings-gateway.php',
+    'WooCommerce\\Bookings\\Blocks\\WC_Bookings_Blocks_Integration' => $baseDir . '/includes/blocks/class-wc-bookings-blocks.php',
     'phpseclib3\\Common\\Functions\\Strings' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Common/Functions/Strings.php',
     'phpseclib3\\Crypt\\AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
     'phpseclib3\\Crypt\\Blowfish' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Blowfish.php',

@@ -429,8 +429,18 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	$server_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	$actual_link        = rawurlencode( ( isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' ) . "://$server_http_host$server_request_uri" );
 	$content            = str_replace( 'the_link', $actual_link, $content );
+	
 	$content = do_shortcode( $content );
 	echo apply_filters( 'seedprod_lpage_content', $content );
+
+	// TODO: Add a way to run content in the loop
+	// if ( have_posts() ) {
+	// 	while ( have_posts() ) {
+	// 		the_post(); 
+	// 		$content = do_shortcode( $content );
+	// 		echo apply_filters( 'seedprod_lpage_content', $content );
+	// 	} // end while
+	// } // end if
 	?>
 
 

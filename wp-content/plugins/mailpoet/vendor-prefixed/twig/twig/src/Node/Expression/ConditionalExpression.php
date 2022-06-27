@@ -8,9 +8,8 @@ class ConditionalExpression extends AbstractExpression
  {
  parent::__construct(['expr1' => $expr1, 'expr2' => $expr2, 'expr3' => $expr3], [], $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->raw('((')->subcompile($this->getNode('expr1'))->raw(') ? (')->subcompile($this->getNode('expr2'))->raw(') : (')->subcompile($this->getNode('expr3'))->raw('))');
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\ConditionalExpression', 'MailPoetVendor\\Twig_Node_Expression_Conditional');

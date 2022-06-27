@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for SATT-enabled product types.
  *
  * @class    WCS_ATT_Meta_Box_Product_Data
- * @version  3.2.1
+ * @version  3.2.2
  */
 class WCS_ATT_Meta_Box_Product_Data {
 
@@ -507,16 +507,16 @@ class WCS_ATT_Meta_Box_Product_Data {
 			$one_time_shipping = isset( $_POST[ '_subscription_one_time_shipping' ] ) ? 'yes' : 'no';
 
 			// Process default status option.
-			$default_status = ! empty( $schemes ) && isset( $_POST[ '_wcsatt_default_status' ] ) ? stripslashes( wc_clean( $_POST[ '_wcsatt_default_status' ] ) ) : 'one-time';
+			$default_status = ! empty( $schemes ) && isset( $_POST[ '_wcsatt_default_status' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_default_status' ] ) ) : 'one-time';
 
 			// Process force-sub status.
 			$force_subscription = ! empty( $schemes ) && ! isset( $_POST[ '_wcsatt_allow_one_off' ] ) ? 'yes' : 'no';
 
 			// Process prompt text.
-			$prompt = ! empty( $schemes ) && ! empty( $_POST[ '_wcsatt_subscription_prompt' ] ) ? wp_kses_post( stripslashes( wc_clean( $_POST[ '_wcsatt_subscription_prompt' ] ) ) ) : false;
+			$prompt = ! empty( $schemes ) && ! empty( $_POST[ '_wcsatt_subscription_prompt' ] ) ? wp_kses_post( wp_unslash(  $_POST[ '_wcsatt_subscription_prompt' ] ) ) : false;
 
 			// Process layout.
-			$layout = isset( $_POST[ '_wcsatt_layout' ] ) ? stripslashes( wc_clean( $_POST[ '_wcsatt_layout' ] ) ) : 'flat';
+			$layout = isset( $_POST[ '_wcsatt_layout' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_layout' ] ) ) : 'flat';
 
 			/*
 			 * Add/update meta.

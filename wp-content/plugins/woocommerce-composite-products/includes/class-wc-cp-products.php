@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API functions to support product modifications when contained in Composites.
  *
  * @class    WC_CP_Products
- * @version  8.3.6
+ * @version  8.4.2
  */
 class WC_CP_Products {
 
@@ -682,6 +682,16 @@ class WC_CP_Products {
 					$price += $offset_price;
 				}
 			}
+
+			/**
+			 * 'woocommerce_composited_item_price' raw price filter.
+			 *
+			 * @param  mixed          $price
+			 * @param  WC_Product     $product
+			 * @param  mixed          $discount
+			 * @param  WC_CP_Product  $this
+			 */
+			$price = apply_filters( 'woocommerce_composited_item_price', $price, $product, $discount, $component_option );
 		}
 
 		return $price;

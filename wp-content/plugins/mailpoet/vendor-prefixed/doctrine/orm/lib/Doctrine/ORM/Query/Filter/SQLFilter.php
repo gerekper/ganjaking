@@ -3,16 +3,13 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Query\Filter;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Connection;
-use MailPoetVendor\Doctrine\DBAL\Types\Type;
 use MailPoetVendor\Doctrine\DBAL\Types\Types;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\ORM\Query\ParameterTypeInferer;
 use InvalidArgumentException;
-use RuntimeException;
 use function array_map;
 use function implode;
-use function is_array;
 use function ksort;
 use function serialize;
 abstract class SQLFilter

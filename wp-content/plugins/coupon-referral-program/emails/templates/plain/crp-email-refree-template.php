@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<tbody>
 									<tr>
 										<td>
-											<div style="text-align: center;"><?php esc_html( $coupon_amount ); ?></div>
+											<div style="text-align: center;"><?php wp_kses_post( $coupon_amount ); ?></div>
 										</td>
 									</tr>
 								</tbody>
@@ -72,4 +72,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</tbody>
 </table>
 <?php
+/**
+ * Filter woocommerce email.
+ *
+ * @since 1.6.4
+ * @param string $email_footer
+ */
 echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

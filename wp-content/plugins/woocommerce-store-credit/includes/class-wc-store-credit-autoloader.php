@@ -40,7 +40,7 @@ class WC_Store_Credit_Autoloader {
 	}
 
 	/**
-	 * Auto-load classes on demand to reduce memory consumption.
+	 * Autoload classes on demand to reduce memory consumption.
 	 *
 	 * @since 2.4.0
 	 *
@@ -56,7 +56,7 @@ class WC_Store_Credit_Autoloader {
 		$file = $this->get_file_name_from_class( $class );
 
 		/**
-		 * Filters the autoload classes.
+		 * Filters autoload classes.
 		 *
 		 * @since 2.4.0
 		 *
@@ -65,6 +65,7 @@ class WC_Store_Credit_Autoloader {
 		$autoload = apply_filters(
 			'wc_store_credit_autoload',
 			array(
+				'wc_store_credit_integration_'    => $this->include_path . 'integrations/',
 				'wc_store_credit_coupon_discount' => $this->include_path . 'coupon-discounts/',
 				'wc_store_credit_item_discount'   => $this->include_path . 'item-discounts/',
 				'wc_store_credit_discounts'       => $this->include_path . 'discounts/',
@@ -98,7 +99,7 @@ class WC_Store_Credit_Autoloader {
 	 *
 	 * @since 2.4.0
 	 *
-	 * @param  string $path The file path.
+	 * @param string $path The file path.
 	 * @return bool successful or not
 	 */
 	private function load_file( $path ) {

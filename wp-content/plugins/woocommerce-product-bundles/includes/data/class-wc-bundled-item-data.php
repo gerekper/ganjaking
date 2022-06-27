@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  6.14.0
+ * @version  6.15.4
  */
 
 class WC_Bundled_Item_Data {
@@ -364,11 +364,11 @@ class WC_Bundled_Item_Data {
 		$quantity_max     = $this->get_meta( 'quantity_max' );
 		$quantity_default = $this->get_meta( 'quantity_default' );
 
-		if ( $quantity_min > $quantity_max && '' !== $quantity_max ) {
+		if ( $quantity_min > $quantity_max && '' !== $quantity_max && ! is_null( $quantity_max ) ) {
 			$this->update_meta( 'quantity_max', $quantity_min );
 		}
 
-		if ( $quantity_default < $quantity_min || ( '' !== $quantity_max && $quantity_default > $quantity_max ) ) {
+		if ( $quantity_default < $quantity_min || ( '' !== $quantity_max && ! is_null( $quantity_max ) && $quantity_default > $quantity_max ) ) {
 			$this->update_meta( 'quantity_default', $quantity_min );
 		}
 	}

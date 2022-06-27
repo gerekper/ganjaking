@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -143,7 +143,23 @@ $api = 'revapi'; // . $slider_id;
 			<div id="form_slidergeneral_general_as_modal" class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">picture_in_picture</i><?php _e('Slider as Modal', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
+					<longoption>
+						<label_a><?php _e('Page Scroll', 'revslider');?></label_a>
+						<input type="checkbox"  id="sr_allowpagescroll" class="sliderinput easyinit"  data-r="modal.allowPageScroll" />						
+					</longoption>
+					<longoption>
+							<label_a><?php _e('Use Cover', 'revslider');?></label_a><input type="checkbox"  id="sr_usemodalcover" class="sliderinput easyinit"  data-r="modal.cover" data-showhide=".slider_modal_coversettings" data-showhidedep="true"/>
+							
+						</longoption>					
+
+					<div class="slider_modal_coversettings">
+						<div class="div5"></div>
+						<label_a><?php _e('Cover Color', 'revslider');?></label_a><input type="text" data-editing="Modal Background Color" name="slidermodalcolor" id="slidermodalcolor" class="my-color-field sliderinput easyinit" data-visible="true" data-mode="single" data-r="modal.coverColor" value="rgba(0,0,0,0.5)">						
+					</div>
+					<div class="div10"></div>
 					<div class="modalaligns">
+						
+						<div class="div10"></div>
 						<!-- LAYER ALIGN ICON BASED SETTINGS-->
 						<select style="display:none !important" id="modal_pos_halign" data-unselect=".modal_hor_selector" data-select="#modal_hor_*val*" class="sliderinput easyinit" data-responsive="true" data-r="modal.horizontal" data-triggerinp="#modal_pos_x" data-triggerinpval="0"><option value="left"><?php _e('Left', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select>
 						<select style="display:none !important" id="modal_pos_valign" data-unselect=".modal_ver_selector" data-select="#modal_ver_*val*" class="sliderinput easyinit" data-responsive="true" data-r="modal.vertical" data-triggerinp="#modal_pos_y" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="middle"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
@@ -153,16 +169,8 @@ $api = 'revapi'; // . $slider_id;
 							<oneshort class="lp10"><label_icon class="triggerselect ui_topalign modal_ver_selector" data-select="#modal_pos_valign" data-val="top" id="modal_ver_top"></label_icon><label_icon class="triggerselect ui_middlealign modal_ver_selector" data-select="#modal_pos_valign" data-val="middle" id="modal_ver_middle"></label_icon><label_icon class="triggerselect ui_bottomalign modal_ver_selector" data-select="#modal_pos_valign" data-val="bottom" id="modal_ver_bottom"></label_icon></oneshort>
 						</row>
 					</div>
-					<row class="direktrow">
-						<onelong><label_a><?php _e('Use Cover', 'revslider');?></label_a><input type="checkbox"  id="sr_usemodalcover" class="sliderinput easyinit"  data-r="modal.cover" data-showhide=".slider_modal_coversettings" data-showhidedep="true"/></onelong>
-						<oneshort></oneshort>
-					</row>
-
-					<div class="slider_modal_coversettings">
-						<div class="div5"></div>
-						<label_a><?php _e('Cover Color', 'revslider');?></label_a><input type="text" data-editing="Modal Background Color" name="slidermodalcolor" id="slidermodalcolor" class="my-color-field sliderinput easyinit" data-visible="true" data-mode="single" data-r="modal.coverColor" value="rgba(0,0,0,0.5)">						
-					</div>
 					<div class="div10"></div>
+					
 					<label_a><?php _e('General Speed', 'revslider');?></label_a><input type="text" id="sr_modal_fadespeed" class="sliderinput easyinit" data-numeric="true" data-allowed="ms" data-min="300" data-max="3000" data-r="modal.coverSpeed"/><span class="linebreak"></span>
 					<div class="div10"></div>
 					<label_a><?php _e('Body Class', 'revslider');?></label_a><input type="text" id="sr_modalbodyclass" class="sliderinput easyinit" data-r="modal.bodyclass"/><span class="linebreak"></span>
@@ -437,6 +445,7 @@ $api = 'revapi'; // . $slider_id;
 					<div class="justifywall"><longoption><label_a><?php _e('Max Width 100%', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_justi_maxwidth" class="sliderinput easyinit"  data-r="carousel.justifyMaxWidth"/></longoption></div>
 					<longoption><label_a><?php _e('Snap to X Alignment', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_snap" class="sliderinput easyinit"  data-r="carousel.snap"/></longoption>
 					<longoption><label_a><?php _e('Infinity Scroll', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_inf" class="sliderinput easyinit" data-evt="" data-r="carousel.infinity"/></longoption>
+					<longoption><label_a><?php _e('Stop on click', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_socl" class="sliderinput easyinit" data-evt="" data-r="carousel.stopOnClick"/></longoption>
 					<div class="div20"></div>
 					<label_a><?php _e('Visible Layers', 'revslider');?></label_a><select id="sr_ca_showAllLayers" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.showAllLayers" data-show="._lavoc_*val*" data-hide="._lavoc_" data-showprio="show"><option value="false"><?php _e('If Slide in Focus', 'revslider');?></option><option value="all"><?php _e('Always on all Slide', 'revslider');?></option><option value="individual"><?php _e('Set by Layer Visibility', 'revslider');?></option></select>
 					<div class="div20"></div>					

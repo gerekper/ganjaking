@@ -85,7 +85,7 @@ abstract class Abstract_Module {
 	 *
 	 * @return string.
 	 */
-	public function get_slug(){
+	public function get_slug() {
 		return $this->slug;
 	}
 

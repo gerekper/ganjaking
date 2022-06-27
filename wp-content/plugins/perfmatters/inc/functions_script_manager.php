@@ -232,7 +232,7 @@ function perfmatters_script_manager_load_master_array() {
 
 			    //file size
 			    if(!empty($src)) {
-			    	$file_path = ABSPATH . strtok(ltrim(str_replace(get_home_url(), '', $src), '/'), '?');
+			    	$file_path = str_replace('/wp-content', '', WP_CONTENT_DIR) . '/' . strtok(ltrim(str_replace(get_home_url(), '', $src), '/'), '?');
 				    $size = file_exists($file_path) ? filesize($file_path) : 0;
 				    $master_reference['size'] = (isset($master_reference['size']) ? $master_reference['size'] : 0) + $size;
 			    }

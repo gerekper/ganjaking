@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.2.1
+ * @version  3.2.2
  */
 class WCS_ATT_Display_Product {
 
@@ -459,7 +459,7 @@ class WCS_ATT_Display_Product {
 			}
 		}
 
-		return $text;
+		return wptexturize( $text );
 	}
 
 	/**

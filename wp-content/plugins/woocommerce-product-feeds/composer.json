@@ -96,6 +96,7 @@
             "./src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php",
             "./src/integrations/woocommerce-product-feeds-woocommerce-germanized.php",
             "./src/integrations/woocommerce-product-vendors.php",
+            "./src/integrations/woocommerce-product-feeds-woocommerce-additional-variation-images.php",
             "./src/integrations/yoast-woocommerce-seo.php"
         ]
     },

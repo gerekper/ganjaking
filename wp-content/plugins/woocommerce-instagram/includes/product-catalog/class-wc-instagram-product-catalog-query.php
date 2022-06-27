@@ -59,6 +59,8 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	/**
 	 * Valid query vars for products.
 	 *
+	 * These variables are directly passed to the query without modifying their values.
+	 *
 	 * @since 3.0.0
 	 *
 	 * @return array
@@ -68,7 +70,6 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 			parent::get_default_query_vars(),
 			array(
 				'status'  => array( 'publish' ),
-				'limit'   => - 1,
 				'order'   => 'ASC',
 				'orderby' => 'ID',
 			)
@@ -85,7 +86,11 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	}
 
 	/**
-	 * Gets the default allowed catalog query vars.
+	 * Gets the default catalog query vars.
+	 *
+	 * These variables are related to the catalog and don't necessarily match any query variable.
+	 * Some native query variables like `return`, `limit`, and `offset` are defined here to keep track of
+	 * their original values, but they may be modified when generating the query in the method `process_catalog_query_vars()`.
 	 *
 	 * @since 3.5.0
 	 *
@@ -114,6 +119,8 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 				'include_product_ids'   => array(),
 				'exclude_product_ids'   => array(),
 				'return'                => 'objects',
+				'limit'                 => - 1,
+				'offset'                => '',
 			)
 		);
 	}
@@ -128,6 +135,42 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	protected function process_catalog_query_vars() {
 		$catalog_query_vars = $this->get_catalog_query_vars();
 		$query_vars         = array();
+
+		/*
+		 * Exclude products from the catalog.
+		 * We also exclude the product IDs that must be present in the catalog because they are prepended in the list.
+		 * This way we avoid duplicated products when paginating the catalog.
+		 */
+		$exclude_product_ids = $this->get_products_to_exclude();
+		$include_product_ids = $this->get_products_to_include();
+
+		if ( ! empty( $exclude_product_ids ) || ! empty( $include_product_ids ) ) {
+			$query_vars['exclude'] = array_merge( $exclude_product_ids, $include_product_ids );
+		}
+
+		// Query offset.
+		$query_vars['offset'] = $catalog_query_vars['offset'];
+
+		// Fix the offset to include the specified product IDs at the beginning of the catalog.
+		if ( '' !== $query_vars['offset'] && ! empty( $include_product_ids ) ) {
+			$query_vars['offset'] = max( 0, $query_vars['offset'] - count( $include_product_ids ) );
+		}
+
+		// Query limit.
+		$query_vars['limit'] = $catalog_query_vars['limit'];
+
+		// Fix the limit to include the specified product IDs at the beginning of the catalog.
+		if ( 0 < $query_vars['limit'] && 0 === $query_vars['offset'] && ! empty( $include_product_ids ) ) {
+			$pending_process = ( count( $include_product_ids ) - $catalog_query_vars['offset'] );
+
+			// Fetch included products only.
+			if ( $pending_process >= $query_vars['limit'] ) {
+				$query_vars['limit'] = 0;
+			} else {
+				// Fetch products from db until reaching the limit.
+				$query_vars['limit'] -= $pending_process;
+			}
+		}
 
 		if ( 'products' !== $catalog_query_vars['filter_by'] ) {
 			// Clear empty taxonomy queries.
@@ -169,31 +212,28 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @return array An array of WC_Product objects or product IDs.
 	 */
 	public function get_products() {
-		$query_vars = $this->get_catalog_query_vars();
-		$return_ids = ( isset( $query_vars['return'] ) && 'ids' === $query_vars['return'] );
-		$filter_by  = $query_vars['filter_by'];
+		$query_vars          = $this->get_query_vars();
+		$catalog_query_vars  = $this->get_catalog_query_vars();
+		$include_product_ids = $this->get_products_to_include();
+		$product_ids         = array();
 
-		// Only specific products, there is no need to execute the query.
-		if ( 'products' === $filter_by && 'specific' === $query_vars['products_option'] ) {
-			$product_ids = $query_vars['include_product_ids'];
-		} else {
-			$product_ids = parent::get_products();
+		// Include products.
+		if ( ! empty( $include_product_ids ) ) {
+			if ( -1 === $catalog_query_vars['limit'] ) {
+				$product_ids = $include_product_ids;
+			} elseif ( $catalog_query_vars['offset'] < count( $include_product_ids ) ) {
+				$length = $catalog_query_vars['limit'] - $query_vars['limit'];
 
-			// Include products.
-			if ( ! empty( $query_vars['include_product_ids'] ) && 'custom' === $filter_by ) {
-				$product_ids = array_unique( array_merge( $product_ids, $query_vars['include_product_ids'] ) );
-			}
-
-			// Exclude products.
-			if ( ! empty( $query_vars['exclude_product_ids'] ) && (
-				'custom' === $filter_by ||
-				( 'products' === $filter_by && 'all_except' === $query_vars['products_option'] )
-			) ) {
-				$product_ids = array_diff( $product_ids, $query_vars['exclude_product_ids'] );
+				$product_ids = array_slice( $include_product_ids, $catalog_query_vars['offset'], $length );
 			}
 		}
 
-		return array_values( $return_ids ? $product_ids : array_filter( array_map( 'wc_get_product', $product_ids ) ) );
+		// Query the products only if needed.
+		if ( 0 !== $query_vars['limit'] && ( 'products' !== $catalog_query_vars['filter_by'] || 'specific' !== $catalog_query_vars['products_option'] ) ) {
+			$product_ids = array_merge( $product_ids, parent::get_products() );
+		}
+
+		return array_values( 'ids' === $catalog_query_vars['return'] ? $product_ids : array_filter( array_map( 'wc_get_product', $product_ids ) ) );
 	}
 
 	/**
@@ -273,5 +313,45 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 			'include_children' => true,
 			'operator'         => ( 'specific' === $query_vars['product_cats_option'] ? 'IN' : 'NOT IN' ),
 		);
+	}
+
+	/**
+	 * Gets the product IDs to exclude.
+	 *
+	 * @since 4.1.7
+	 *
+	 * @return array
+	 */
+	protected function get_products_to_exclude() {
+		$query_vars = $this->get_catalog_query_vars();
+
+		if ( ! empty( $query_vars['exclude_product_ids'] ) && (
+			'custom' === $query_vars['filter_by'] ||
+			( 'products' === $query_vars['filter_by'] && 'all_except' === $query_vars['products_option'] )
+		) ) {
+			return $query_vars['exclude_product_ids'];
+		}
+
+		return array();
+	}
+
+	/**
+	 * Gets the product IDs to include.
+	 *
+	 * @since 4.1.8
+	 *
+	 * @return array
+	 */
+	protected function get_products_to_include() {
+		$query_vars = $this->get_catalog_query_vars();
+
+		if ( ! empty( $query_vars['include_product_ids'] ) && (
+			'custom' === $query_vars['filter_by'] ||
+			( 'products' === $query_vars['filter_by'] && 'specific' === $query_vars['products_option'] )
+		) ) {
+			return $query_vars['include_product_ids'];
+		}
+
+		return array();
 	}
 }

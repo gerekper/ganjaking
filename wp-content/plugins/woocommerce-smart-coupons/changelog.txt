@@ -1,5 +1,57 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.06.16 - version 5.6.0
+* Update: Stop or ignore scanning expired coupons to improve performance
+* Update: POT file
+
+2022.06.02 - version 5.5.0
+* New: Tested up to WordPress 6.0
+* New: Add Smart Coupons related details in WooCommerce > Status report
+* Fix: Broken UI on the order page where store credit is used but tax is not enabled
+* Fix: Store credit usage information is not shown if those store credits are trashed
+* Update: Added minified css file for smart-coupon.css
+* Update: The coupons that can be expanded to see sender & receiver details, remove arrows that are visible around those coupons
+* Update: POT file
+
+2022.05.16 - version 5.4.0
+* New: Tested up to WooCommerce 6.5.1
+* New: Set id of the template coupon as post_parent of the auto-generated coupon
+* New: A button just below the coupon code to copy it [admin]
+* Fix: Re-validating quantity of products added from the Actions tab of coupons which is not correct
+* Fix: Applying store credit multiple times when the order contains only virtual & downloadable products
+* Fix: When number of coupons to generate & number of email address supplied is different, then incorrectly setting Allowed emails & also sending emails during Bulk generate & Import of coupons
+* Update: Do not copy post_parent while duplicating a coupon
+* Update: Added minified version of a CSS file 'smart-coupons-admin' [admin]
+* Update: Corrected a few letter case, default data based on data type
+* Update: POT file
+
+2022.04.29 - version 5.3.0
+* New: Tested up to WooCommerce 6.4.1
+* New: Filter coupon's list by coupon category under 'Marketing > Coupons'
+* Fix: Store Credit is applying discount before tax, like a coupon, even when the setting 'Apply before tax' is disabled
+* Fix: Preview in admin not showing coupon amount & expiry date under 'Marketing > Coupons > Send Store Credit' tab
+* Fix: Unable to partially refund an order that is paid with store credit
+* Update: POT file
+
+2022.04.15 - version 5.2.0
+* New: Tested up to WooCommerce 6.4.0 & WordPress 5.9.3
+* Fix: Use 'fwrite' instead of 'file_put_contents' [WP VIP team]
+* Fix: Subscription renewals not issuing full priced store credit if other coupon is applied to subscription during purchase [WooCommerce Subscriptions]
+* Update: POT file
+
+2022.04.01 - version 5.1.0
+* Fix: Email showing incorrect remaining balance if store credit is applied to a virtual-downloadable order
+* Fix: PayPal Payments plugin sometimes rejecting applied store credit amount
+* Developer: Filter Hook 'wc_sc_check_parent_attributes' for deciding whether to check attributes mentioned under 'Product data > Attributes (tab)' or not
+* Update: Store credit not applying discount when applied via REST API during order creation
+* Update: Product's attributes mentioned under 'Product data > Attributes (tab)' are not considered by coupon's Product attributes restrictions for validation of the coupon
+* Update: POT file
+
+2022.03.21 - version 5.0.0
+* New: Tested up to WooCommerce 6.3.1 & WordPress 5.9.2
+* New: Feature 'Usage restriction based on product quantity'
+* Update: POT file
+
 2022.03.04 - version 4.38.0
 * Developer: New filter hook 'wc_sc_pending_order_statuses' 
 * Developer: Removed filter hook 'wc_sc_order_statuses_to_restore_smart_coupon_amount', should use 'wc_sc_pending_order_statuses' instead

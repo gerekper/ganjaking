@@ -2,6 +2,7 @@
 namespace MailPoetVendor\Symfony\Component\Validator\Mapping\Loader;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Config\Util\XmlUtils;
+use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\MappingException;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\ClassMetadata;
 class XmlFileLoader extends FileLoader
@@ -94,7 +95,7 @@ class XmlFileLoader extends FileLoader
  }
  return $options;
  }
- protected function parseFile($path)
+ protected function parseFile(string $path)
  {
  try {
  $dom = XmlUtils::loadFile($path, __DIR__ . '/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd');

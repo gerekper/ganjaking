@@ -57,14 +57,6 @@ class Redsys_Customer_Email_Order extends WC_Email {
 	 * Copyright: (C) 2013 - 2022 José Conti
 	 */
 	function trigger( $order_id ) {
-
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/********************************/' );
-			$this->log->add( 'redsys', '    Sending email to customer     ' );
-			$this->log->add( 'redsys', '/********************************/' );
-			$this->log->add( 'redsys', ' ' );
-		}
 		$this->setup_locale();
 
 		$this->object    = wc_get_order( $order_id );

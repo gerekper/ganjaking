@@ -13,11 +13,11 @@ class ContainerBag extends FrozenParameterBag implements ContainerBagInterface
  {
  return $this->container->getParameterBag()->all();
  }
- public function get($name)
+ public function get(string $name)
  {
  return $this->container->getParameter($name);
  }
- public function has($name)
+ public function has(string $name)
  {
  return $this->container->hasParameter($name);
  }

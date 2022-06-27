@@ -206,7 +206,7 @@ $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtra
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 if ( in_array( $source, array( 'media_library', 'featured_image' ), true ) && 'yes' === $add_caption ) {
-	$img_id = apply_filters( 'wpml_object_id', $img_id, 'attachment' );
+	$img_id = apply_filters( 'wpml_object_id', $img_id, 'attachment', true );
 	$post = get_post( $img_id );
 	$caption = $post->post_excerpt;
 } else {

@@ -2,6 +2,7 @@
 namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Issn extends Constraint
 {
  public const TOO_SHORT_ERROR = '6a20dd3d-f463-4460-8e7b-18a1b98abbfb';
@@ -14,4 +15,11 @@ class Issn extends Constraint
  public $message = 'This value is not a valid ISSN.';
  public $caseSensitive = \false;
  public $requireHyphen = \false;
+ public function __construct(array $options = null, string $message = null, bool $caseSensitive = null, bool $requireHyphen = null, array $groups = null, $payload = null)
+ {
+ parent::__construct($options, $groups, $payload);
+ $this->message = $message ?? $this->message;
+ $this->caseSensitive = $caseSensitive ?? $this->caseSensitive;
+ $this->requireHyphen = $requireHyphen ?? $this->requireHyphen;
+ }
 }

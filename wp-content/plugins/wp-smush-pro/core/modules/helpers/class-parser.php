@@ -265,7 +265,10 @@ class Parser {
 			$content = $body[0];
 		}
 
-		if ( preg_match_all( '/<(?P<type>img|source|iframe)\b(?>\s+(?:src=[\'"](?P<src>[^\'"]*)[\'"]|srcset=[\'"](?P<srcset>[^\'"]*)[\'"])|[^\s>]+|\s+)*>/is', $content, $images ) ) {
+		$pattern = '/<(?P<type>img|source|iframe)\b(?>\s+(?:src=[\'"](?P<src>[^\'"]*)[\'"]|srcset=[\'"](?P<srcset>[^\'"]*)[\'"])|[^\s>]+|\s+)*>/is';
+		$pattern = apply_filters( 'smush_images_from_content_regex', $pattern );
+
+		if ( preg_match_all( $pattern, $content, $images ) ) {
 			foreach ( $images as $key => $unused ) {
 				// Simplify the output as much as possible, mostly for confirming test results.
 				if ( is_numeric( $key ) && $key > 0 ) {
@@ -293,7 +296,10 @@ class Parser {
 	private static function get_background_images( $content ) {
 		$images = array();
 
-		if ( preg_match_all( '/(?:background-image:\s*?url\(\s*[\'"]?(?P<img_url>.*?[^)\'"]+)[\'"]?\s*\))/i', $content, $images ) ) {
+		$pattern = '/(?:background-image:\s*?url\(\s*[\'"]?(?P<img_url>.*?[^)\'"]+)[\'"]?\s*\))/i';
+		$pattern = apply_filters( 'smush_background_images_regex', $pattern );
+
+		if ( preg_match_all( $pattern, $content, $images ) ) {
 			foreach ( $images as $key => $unused ) {
 				// Simplify the output as much as possible, mostly for confirming test results.
 				if ( is_numeric( $key ) && $key > 0 ) {

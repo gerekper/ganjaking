@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.2
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -41,6 +41,8 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 			add_filter( 'woocommerce_cart_totals_order_total_html', array( $this, 'cart_totals_order_total_html' ), 99 );
 			add_filter( 'woocommerce_get_formatted_order_total', array( $this, 'get_formatted_order_total' ), 99, 2 );
 			add_action( 'woocommerce_email_after_order_table', array( $this, 'show_store_credit_balance' ), 10, 3 );
+
+			add_filter( 'woocommerce_get_coupon_id_from_code', array( $this, 'get_coupon_id_from_code' ), 1000, 3 );
 
 		}
 
@@ -463,6 +465,45 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 					echo '<ul>' . wp_kses_post( $store_credit_balance ) . '</ul><br />'; // phpcs:ignore
 				}
 			}
+		}
+
+		/**
+		 * Force try to find the coupon's id by code
+		 * in some cases like when coupon is trashed
+		 *
+		 * @param integer $id The coupon's id.
+		 * @param string  $code The coupon code.
+		 * @param integer $exclude_id Exclude coupon's id.
+		 * @return integer
+		 */
+		public function get_coupon_id_from_code( $id = 0, $code = '', $exclude_id = 0 ) {
+			if ( empty( $id ) ) {
+				$backtrace           = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );  // phpcs:ignore
+				$backtrace_functions = wp_list_pluck( $backtrace, 'function' );
+				if ( in_array( 'get_total_credit_used_in_order', $backtrace_functions, true ) ) {
+					$index  = array_search( 'get_total_credit_used_in_order', $backtrace_functions, true );
+					$traced = ( ! empty( $backtrace[ $index ] ) && 'WC_SC_Order_Fields' === $backtrace[ $index ]['class'] && 'get_total_credit_used_in_order' === $backtrace[ $index ]['function'] );
+					if ( true === $traced ) {
+						global $wpdb;
+						$post_id = $wpdb->get_var( // phpcs:ignore
+							$wpdb->prepare(
+								"
+									SELECT ID
+									FROM $wpdb->posts
+									WHERE post_title = %s
+									AND post_type = 'shop_coupon'
+									ORDER BY ID DESC
+								",
+								$code
+							)
+						);
+						if ( ! empty( $post_id ) ) {
+							return absint( $post_id );
+						}
+					}
+				}
+			}
+			return $id;
 		}
 
 	}

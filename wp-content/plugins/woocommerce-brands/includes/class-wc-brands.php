@@ -67,30 +67,9 @@ class WC_Brands {
 		add_filter( 'rest_product_collection_params', array( $this, 'rest_api_product_collection_params' ), 10, 2 );
 
 
-		if ( version_compare( WC_VERSION, '3.2', '>=' ) ) {
-			require_once( 'class-wc-brands-coupons.php' );
-		} else {
-			require_once( 'class-wc-brands-coupons-legacy.php' );
-		}
+		require_once( 'class-wc-brands-coupons.php' );
 		// Layered nav widget compatibility.
 		add_filter( 'woocommerce_layered_nav_term_html', array( $this, 'woocommerce_brands_update_layered_nav_link' ), 10, 4 );
-	}
-
-	/**
-	 * Gets a term meta. Compatibility function for WC 3.6.
-	 *
-	 * @since 1.6.8
-	 * @param int    $term_id Term ID.
-	 * @param string $key     Meta key.
-	 * @param bool   $single  Whether to return a single value. (default: true).
-	 * @return mixed
-	 */
-	public static function get_term_meta( $term_id, $key, $single = true ) {
-		if ( version_compare( WC_VERSION, '3.6', 'ge' ) ) {
-			return get_term_meta( $term_id, $key, $single );
-		} else {
-			return get_woocommerce_term_meta( $term_id, $key, $single );
-		}
 	}
 
 	/**
@@ -111,25 +90,7 @@ class WC_Brands {
 	 */
 	public function minimum_version_blocks() {
 		/* translators: %s: WooCommerce link */
-		echo '<div class="error"><p>' . sprintf( esc_html__( 'Full Site Editor themes require %s >= 6.1 for full compatibility with WooCommerce Brands.', 'wc_brands' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
-	}
-
-	/**
-	 *
-	 * Updates a term meta. Compatibility function for WC 3.6.
-	 *
-	 * @since 1.6.8
-	 * @param int    $term_id    Term ID.
-	 * @param string $meta_key   Meta key.
-	 * @param mixed  $meta_value Meta value.
-	 * @return bool
-	 */
-	public static function update_term_meta( $term_id, $meta_key, $meta_value ) {
-		if ( version_compare( WC_VERSION, '3.6', 'ge' ) ) {
-			return update_term_meta( $term_id, $meta_key, $meta_value );
-		} else {
-			return update_woocommerce_term_meta( $term_id, $meta_key, $meta_value );
-		}
+		echo '<div class="error"><p>' . sprintf( esc_html__( 'Full Site Editor themes require %s >= 6.1 for full compatibility with WooCommerce Brands.', 'woocommerce-brands' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -178,7 +139,7 @@ class WC_Brands {
 
 		if ( empty( $terms ) ) {
 			// If no terms are assigned to this post, use a string instead (can't leave the placeholder there)
-			$product_brand = _x( 'uncategorized', 'slug', 'wc_brands' );
+			$product_brand = _x( 'uncategorized', 'slug', 'woocommerce-brands' );
 		} else {
 			// Replace the placeholder rewrite tag with the first term's slug
 			$first_term = array_shift( $terms );
@@ -229,14 +190,14 @@ class WC_Brands {
 		$base_slug     = $shop_page_id > 0 && get_page( $shop_page_id ) ? get_page_uri( $shop_page_id ) : 'shop';
 		$category_base = get_option('woocommerce_prepend_shop_page_to_urls') == "yes" ? trailingslashit( $base_slug ) : '';
 
-		$slug = $category_base . __( 'brand', 'wc_brands' );
+		$slug = $category_base . __( 'brand', 'woocommerce-brands' );
 		if ( '' === $category_base ) {
 			$slug = get_option( 'woocommerce_brand_permalink', '' );
 		}
 
 		// Can't provide transatable string as get_option default.
 		if ( '' === $slug ) {
-			$slug = __( 'brand', 'wc_brands' );
+			$slug = __( 'brand', 'woocommerce-brands' );
 		}
 
 		register_taxonomy( 'product_brand',
@@ -244,24 +205,25 @@ class WC_Brands {
 			apply_filters( 'register_taxonomy_product_brand', array(
 				'hierarchical'          => true,
 				'update_count_callback' => '_update_post_term_count',
-				'label'                 => __( 'Brands', 'wc_brands'),
+				'label'                 => __( 'Brands', 'woocommerce-brands'),
 				'labels'                => array(
-						'name'              => __( 'Brands', 'wc_brands' ),
-						'singular_name'     => __( 'Brand', 'wc_brands' ),
-						'search_items'      => __( 'Search Brands', 'wc_brands' ),
-						'all_items'         => __( 'All Brands', 'wc_brands' ),
-						'parent_item'       => __( 'Parent Brand', 'wc_brands' ),
-						'parent_item_colon' => __( 'Parent Brand:', 'wc_brands' ),
-						'edit_item'         => __( 'Edit Brand', 'wc_brands' ),
-						'update_item'       => __( 'Update Brand', 'wc_brands' ),
-						'add_new_item'      => __( 'Add New Brand', 'wc_brands' ),
-						'new_item_name'     => __( 'New Brand Name', 'wc_brands' ),
-						'not_found'         => __( 'No Brands Found', 'wc_brands' ),
+						'name'              => __( 'Brands', 'woocommerce-brands' ),
+						'singular_name'     => __( 'Brand', 'woocommerce-brands' ),
+						'search_items'      => __( 'Search Brands', 'woocommerce-brands' ),
+						'all_items'         => __( 'All Brands', 'woocommerce-brands' ),
+						'parent_item'       => __( 'Parent Brand', 'woocommerce-brands' ),
+						'parent_item_colon' => __( 'Parent Brand:', 'woocommerce-brands' ),
+						'edit_item'         => __( 'Edit Brand', 'woocommerce-brands' ),
+						'update_item'       => __( 'Update Brand', 'woocommerce-brands' ),
+						'add_new_item'      => __( 'Add New Brand', 'woocommerce-brands' ),
+						'new_item_name'     => __( 'New Brand Name', 'woocommerce-brands' ),
+						'not_found'         => __( 'No Brands Found', 'woocommerce-brands' ),
 				),
 
 				'show_ui'           => true,
 				'show_admin_column' => true,
 				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
 				'capabilities'      => array(
 					'manage_terms' => 'manage_product_terms',
 					'edit_terms'   => 'edit_product_terms',
@@ -725,17 +687,14 @@ class WC_Brands {
 			return;
 		}
 
+		// WooCommerce 3.5 has moved v2 endpoints to legacy classes
 		require_once( $this->plugin_path() . '/includes/class-wc-brands-rest-api-controller.php' );
+		require_once( $this->plugin_path() . '/includes/class-wc-brands-rest-api-v2-controller.php' );
 
 		$controllers = array(
 			'WC_Brands_REST_API_Controller',
+			'WC_Brands_REST_API_V2_Controller',
 		);
-
-		// WooCommerce 3.5 has moved v2 endpoints to legacy classes
-		if ( version_compare( WC_VERSION, '3.5', '>=' ) ) {
-			require_once( $this->plugin_path() . '/includes/class-wc-brands-rest-api-v2-controller.php' );
-			$controllers[] = 'WC_Brands_REST_API_V2_Controller';
-		}
 
 		foreach ( $controllers as $controller ) {
 			WC()->api->$controller = new $controller();

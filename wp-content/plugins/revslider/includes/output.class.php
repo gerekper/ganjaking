@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/ 
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -2296,6 +2296,16 @@ class RevSliderOutput extends RevSliderFunctions {
 		
 		if($add_intrinsic) $class[] = 'intrinsic-ignore';
 		
+		$actions	= $this->get_val($layer, array('actions', 'action'), array());
+		if(!empty($actions)){
+			foreach($actions as $action){
+				if($this->get_val($action, 'action') !== 'getAccelerationPermission') continue;
+				
+				$class[] = 'iospermaccwait';
+				break;
+			}
+		}
+
 		return implode(' ', $class);
 	}
 	
@@ -2657,12 +2667,14 @@ rs-module .material-icons {
 		$rx = intval($this->get_val($layer, array('idle', 'rotationX'), 0));
 		$ry = intval($this->get_val($layer, array('idle', 'rotationY'), 0));
 		$rz = intval($this->get_val($layer, array('idle', 'rotationZ'), 0));
+		$iosfx = $this->get_val($layer, array('idle', 'filtersIOSFix'), 'd');
 		$op = $this->get_val($layer, array('idle', 'opacity'), 1);
 		
 		if($rx !== 0) $html .='rX:'.$rx.';';
 		if($ry !== 0) $html .='rY:'.$ry.';';
 		if($rz !== 0) $html .='rZ:'.$rz.';';
 		if($op !== 1) $html .='o:'.$op.';';
+		if($iosfx !== 'd') $html .='iosfx:'.$iosfx.';';
 		
 		return ($html !== '') ? 'data-btrans="'.$html.'"' : $html;
 	}
@@ -2969,10 +2981,10 @@ rs-module .material-icons {
 		$text = 'data-bsh="';
 		
 		if($this->get_val($layer, array('idle', 'boxShadow', 'inuse'), false) === true){
-			$color = str_replace(' ', '', $this->get_val($layer, array('idle', 'boxShadow', 'color'), 'rgba(0,0,0,0)'));
+			$color = str_replace(' ', '', $this->get_val($layer, array('idle', 'boxShadow', 'color'), 'rgba(0,0,0,0.25)'));
 			
 			if($this->get_val($layer, array('idle', 'boxShadow', 'container'), 'content') !== 'content') $text.= 'e:w'; //w for wrapper
-			if(!in_array($color, array('rgba(0,0,0,0)', '#000000'))) $text.= 'c:'.$color.';';
+			if(!in_array($color, array('rgba(0,0,0,0.25)'))) $text.= 'c:'.$color.';';
 			
 			$data = array();
 			if($this->adv_resp_sizes == true){
@@ -3364,7 +3376,9 @@ rs-module .material-icons {
 								$_event['sp'] = $this->modal_sliders[$_modal]->get_param(array('modal', 'coverSpeed'), 1);
 								$rs_do_init_action = true;
 							}
-							
+							if($this->modal_sliders[$_modal]->get_param(array('modal', 'allowPageScroll'), false) === true){
+								$_event['allowPageScroll'] = true;
+							}
 							if($this->modal_sliders[$_modal]->get_param(array('modal', 'cover'), true) === true){
 								$_event['bg'] = $this->modal_sliders[$_modal]->get_param(array('modal', 'coverColor'), 'rgba(0,0,0,0.5)');
 							}
@@ -3429,6 +3443,15 @@ rs-module .material-icons {
 							'layer'	=> $layer_attribute_id,
 							'd'		=> $this->get_val($action, 'action_delay', ''),
 							'ch'	=> $this->get_val($action, 'updateChildren', ''),
+							'rd'	 => $this->get_val($action, 'action_repeats', '')
+						);
+					break;					
+					case 'getAccelerationPermission':
+						$events[] = array(
+							'o'		=> $this->get_val($action, 'tooltip_event', ''),
+							'a'		=> 'getAccelerationPermission',
+							'layer'	=> $layer_attribute_id,
+							'd'		=> $this->get_val($action, 'action_delay', ''),							
 							'rd'	 => $this->get_val($action, 'action_repeats', '')
 						);
 					break;
@@ -4717,6 +4740,7 @@ rs-module .material-icons {
 		$poster	 = $this->remove_http($this->get_val($layer, array('media', 'posterUrl'), ''));
 		$poster_change = $this->get_val($layer, array('behavior', 'imageSourceType'), 'full');
 		$poster_id	= $this->remove_http($this->get_val($layer, array('media', 'posterId')));
+		if($mute !== true) $data['video']['twa'] = $mute; // Set twa before checking autoplay
 		$mute	 = (!in_array($autoplay, array('false', false), true)) ? true : $mute;
 		
 		if(!in_array($autoplay, array('true', true), true)) $data['video']['ap'] = $autoplay;
@@ -5369,14 +5393,14 @@ rs-module .material-icons {
 					if($img_data !== false && !empty($img_data)){
 						if($img_size !== 'full'){
 							if(isset($img_data['sizes']) && isset($img_data['sizes'][$img_size])){
-								$img_w = $img_data['sizes'][$img_size]['width'];
-								$img_h = $img_data['sizes'][$img_size]['height'];
+								$img_w = $this->get_val($img_data, array('sizes', $img_size, 'width'));
+								$img_h = $this->get_val($img_data, array('sizes', $img_size, 'height'));
 							}
 						}
 						
 						if($img_w == '' || $img_h == ''){
-							$img_w = $img_data['width'];
-							$img_h = $img_data['height'];
+							$img_w =  $this->get_val($img_data, 'width');
+							$img_h =  $this->get_val($img_data, 'height');
 						}
 						$additional.= ' width="'.$img_w.'" height="'.$img_h.'"';
 					}
@@ -7893,7 +7917,8 @@ rs-module .material-icons {
 		if($this->usage !== 'modal') return $html;
 		
 		$cover = $s->get_param(array('modal', 'cover'), true);
-		$bodyclass = $s->get_param(array('modal', 'bodyclass'), '');
+		$pagescroll = $s->get_param(array('modal', 'allowPageScroll'), true);
+		$bodyclass = $s->get_param(array('modal', 'bodyclass'), '');		
 		$speed = $s->get_param(array('modal', 'coverSpeed'), 1);
 		$color = $s->get_param(array('modal', 'coverColor'), 'rgba(0,0,0,0.5)');
 		$h = $s->get_param(array('modal', 'horizontal'), 'center');
@@ -7903,6 +7928,7 @@ rs-module .material-icons {
 		$c['alias'] = esc_attr($this->slider->get_alias());
 		if($bodyclass !== '') $c['bodyclass'] = $bodyclass;
 		if($cover !== true) $c['cover'] = $cover;
+		if($pagescroll === true) $c['allowPageScroll'] = true;
 		if($color !== 'rgba(0,0,0,0.5)') $c['coverColor'] = $color;
 		if($speed !== 1) $c['coverSpeed'] = $speed;
 		if($h !== 'center') $c['horizontal'] = $h;
@@ -7941,6 +7967,7 @@ rs-module .material-icons {
 		$va = $s->get_param(array('carousel', 'vertical'), 'center');
 		$in = $s->get_param(array('carousel', 'infinity'), false);
 		$jus = $s->get_param(array('carousel', 'justify'), false);
+		$socl = $s->get_param(array('carousel', 'stopOnClick'), true);
 		$jusmw = $s->get_param(array('carousel', 'justifyMaxWidth'), false);
 		
 		$snap = $s->get_param(array('carousel', 'snap'), true);
@@ -7965,6 +7992,7 @@ rs-module .material-icons {
 		if($jus !== false) $c['justify'] = $jus;
 		if($jusmw !== false) $c['justifyMaxWidth'] = $jusmw;
 		if($snap !== true) $c['snap'] = $snap;
+		if($socl !== true) $c['stopOnClick'] = $socl;
 		if(!in_array($sp, array(0, '0', '0px'), true)) $c['space'] = $sp;
 		if(!in_array($mvi, array(3, '3'), true)) $c['maxVisibleItems'] = $mvi;
 		if($st !== false) $c['stretch'] = $st;

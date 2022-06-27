@@ -75,7 +75,9 @@ abstract class Block {
 
 		$block_args = [
 			'editor_script' => 'wc-memberships-blocks',
-			'editor_style'  => 'wc-memberships-blocks',
+			'editor_style'  => 'wc-memberships-blocks-editor',
+			'style'  => 'wc-memberships-blocks',
+			'script'  => 'wc-memberships-blocks-common',
 		];
 
 		if ( $this instanceof Dynamic_Content_Block ) {

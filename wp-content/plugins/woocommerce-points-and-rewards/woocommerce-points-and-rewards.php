@@ -5,12 +5,12 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.6
+ * Version: 1.7.9
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
- * Tested up to: 5.9
- * WC tested up to: 6.1
- * WC requires at least: 2.6
+ * Tested up to: 6.0
+ * WC tested up to: 6.6
+ * WC requires at least: 4.5
  *
  * Copyright: © 2022 WooCommerce
  *
@@ -143,7 +143,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.6' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.9' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -344,11 +344,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			$this->order = new WC_Points_Rewards_Order();
 
 			// discount class
-			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-				require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-legacy-discount.php';
-			} else {
-				require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-discount.php';
-			}
+			require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-discount.php';
 			$this->discount = new WC_Points_Rewards_Discount();
 
 			// actions class
@@ -655,6 +651,16 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 				       $block_names,
 				       true
 			       );
+		}
+
+		/**
+		 * Checks if WooCommerce Subscriptions functionality is available via the WC Subscriptions plugin or via the WC Payments built in subscriptions feature.
+		 *
+		 * @since x.x.x
+		 * @return boolean Whether WC Subscriptions is active.
+		 */
+		public static function is_wc_subscriptions_present() {
+			return class_exists( 'WC_Subscriptions_Core_Plugin' ) || class_exists( 'WC_Subscriptions' );
 		}
 
 		/**

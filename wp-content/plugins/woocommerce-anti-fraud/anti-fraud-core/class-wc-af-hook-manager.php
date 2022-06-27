@@ -56,7 +56,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 
 			// For check Enable_whitelist_payment_method
 			$enable_settings = get_option( 'wc_af_enable_whitelist_payment_method' );
-			if ( $enable_settings == 'yes' ) {
+			if ( 'yes' == $enable_settings ) {
 
 				add_filter('manage_edit-shop_order_columns', array( $this, 'af_payment_method_list_columns_function')); // Extra column title
 				add_action('manage_shop_order_posts_custom_column', array( $this,'af_payment_method_value_list'), 2); // Extra column value
@@ -75,7 +75,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 *
 		 * @static
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public static function setup() {
 			if ( null === self::$instance ) {
@@ -87,7 +86,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * Add the meta boxes
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public function add_meta_boxes() {
 			new WC_AF_Meta_Box();
@@ -97,7 +95,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * Enqueue post admin scripts
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public function post_admin_scripts() {
 			global $post_type;
@@ -118,7 +115,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				// CSS
 				wp_enqueue_style(
 					'wc_af_post_shop_order_css',
-					plugins_url( '/assets/css/post-shop-order.css', WooCommerce_Anti_Fraud::get_plugin_file() )
+					plugins_url( '/assets/css/post-shop-order.css', WooCommerce_Anti_Fraud::get_plugin_file()),
+					array(),
+					WOOCOMMERCE_ANTI_FRAUD_VERSION
 				);
 
 			}
@@ -129,14 +128,15 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * Enqueue edit admin scripts
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public function edit_admin_scripts() {
 			global $post_type;
 			if ( 'shop_order' == $post_type ) {
 				wp_enqueue_style(
 					'wc_af_edit_shop_order_css',
-					plugins_url( '/assets/css/edit-shop-order.css', WooCommerce_Anti_Fraud::get_plugin_file() )
+					plugins_url( '/assets/css/edit-shop-order.css', WooCommerce_Anti_Fraud::get_plugin_file()),
+					array(),
+					WOOCOMMERCE_ANTI_FRAUD_VERSION
 				);
 			}
 		}
@@ -149,7 +149,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * @param $new_status
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function change_order_status( $id, $old_status, $new_status ) {
@@ -201,7 +200,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * @param $order_id
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function process_queue( $order_id = null ) {
@@ -222,7 +220,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		 * @param $columns
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return mixed
 		 */
@@ -242,8 +239,10 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				// Get meta
 				$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $post->ID );
 
+				// Af_Logger::debug('order Meta : ' . print_r($meta, true));
+
 				// Display span
-				echo "<span class='wc-af-score tips' style='color:" . $meta['color'] . "' data-tip='" . $meta['label'] . "'>&nbsp;</span>";
+				echo "<span class='wc-af-score tips' style='color:" . esc_attr($meta['color']) . "' data-tip='" . esc_attr($meta['label']) . "'>&nbsp;</span>";
 
 			}
 
@@ -277,7 +276,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		* cron_schedules
 		* check and execute cron job
 		*/
-		function cron_schedule_paypal_email() {
+		public function cron_schedule_paypal_email() {
 			if ( !wp_next_scheduled( 'wp_af_paypal_verification' ) ) {
 				wp_schedule_event(time(), 'wc_af_further_attempt', 'wp_af_paypal_verification');
 			}
@@ -287,7 +286,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		* cron_schedules
 		* set interval for function to execute as cron job
 		*/
-		function cron_schedule_paypal_email_schedule( $schedules ) {
+		public function cron_schedule_paypal_email_schedule( $schedules ) {
 
 			$schedules['wc_af_further_attempt'] = array(
 					'interval'  => 86400*get_option('wc_settings_anti_fraud_time_paypal_attempts'),
@@ -366,9 +365,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				'date_query'  => array(
 						array(
 							'after' => array(
-								'year'  => date('Y', $date_range ),
-								'month' => date('m', $date_range ),
-								'day'   => date('d', $date_range ),
+								'year'  => gmdate('Y', $date_range ),
+								'month' => gmdate('m', $date_range ),
+								'day'   => gmdate('d', $date_range ),
 							),
 						)
 					),
@@ -433,7 +432,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			}
 		}
 
-		function af_payment_method_list_columns_function( $columns ) {
+		public function af_payment_method_list_columns_function( $columns ) {
 
 			$new_columns = ( is_array( $columns ) ) ? $columns : array();
 			unset( $new_columns[ 'order_total' ] );
@@ -447,14 +446,14 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 
 		// Change order of columns (working)
 
-		function af_payment_method_value_list( $column ) {
+		public function af_payment_method_value_list( $column ) {
 
 			global $post;
 			if ( 'wc_af_payment_method_list' === $column ) {
 				$order = wc_get_order( $post->ID );
 				$order_id = $order->get_id();
 				$payment_method = get_post_meta( $order_id, '_payment_method', true );
-				echo '<span class="wc_af_payment_method">' . $payment_method . ' </span><br>';
+				echo '<span class="wc_af_payment_method">' . esc_attr($payment_method) . ' </span><br>';
 			}
 		}
 

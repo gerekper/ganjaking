@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
- * @version  1.10.7
+ * @version  2.0.0
  */
 
 // Exit if accessed directly.
@@ -30,16 +30,19 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		'_mnm_base_price',
 		'_mnm_base_regular_price',
 		'_mnm_base_sale_price',
+		'_mnm_layout_override',
 		'_mnm_layout_style',
 		'_mnm_add_to_cart_form_location',
 		'_mnm_min_container_size',
 		'_mnm_max_container_size',
-		'_mnm_data',
 		'_mnm_per_product_pricing',
 		'_mnm_per_product_discount',
-		'_mnm_per_product_shipping',
+		'_mnm_packing_mode',
 		'_mnm_max_price',
-		'_mnm_max_regular_price'
+		'_mnm_max_regular_price',
+		'_mnm_weight_cumulative',
+		'_mnm_content_source',
+		'_mnm_child_category_ids',
 	);
 
 	/**
@@ -48,21 +51,34 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @var array
 	 */
 	protected $props_to_meta_keys = array(
-		'min_raw_price'         => '_price',
-		'min_raw_regular_price' => '_regular_price',
-		'max_raw_price'         => '_mnm_max_price',
-		'max_raw_regular_price' => '_mnm_max_regular_price',
-		'price'                 => '_mnm_base_price',
-		'regular_price'         => '_mnm_base_regular_price',
-		'sale_price'            => '_mnm_base_sale_price',
-		'layout'                     => '_mnm_layout_style',
-		'add_to_cart_form_location'  => '_mnm_add_to_cart_form_location',
-		'min_container_size'    => '_mnm_min_container_size',
-		'max_container_size'    => '_mnm_max_container_size',
-		'contents'              => '_mnm_data',
-		'priced_per_product'    => '_mnm_per_product_pricing',
-		'discount'              => '_mnm_per_product_discount',
-		'shipped_per_product'   => '_mnm_per_product_shipping'
+		'min_raw_price'             => '_price',
+		'min_raw_regular_price'     => '_regular_price',
+		'max_raw_price'             => '_mnm_max_price',
+		'max_raw_regular_price'     => '_mnm_max_regular_price',
+		'price'                     => '_mnm_base_price',
+		'regular_price'             => '_mnm_base_regular_price',
+		'sale_price'                => '_mnm_base_sale_price',
+		'layout_override'           => '_mnm_layout_override',
+		'layout'                    => '_mnm_layout_style',
+		'add_to_cart_form_location' => '_mnm_add_to_cart_form_location',
+		'min_container_size'        => '_mnm_min_container_size',
+		'max_container_size'        => '_mnm_max_container_size',
+		'priced_per_product'        => '_mnm_per_product_pricing',
+		'discount'                  => '_mnm_per_product_discount',
+		'packing_mode'              => '_mnm_packing_mode',
+		'weight_cumulative'         => '_mnm_weight_cumulative',
+		'content_source'            => '_mnm_content_source',
+		'child_category_ids'        => '_mnm_child_category_ids',
+	);
+
+	/**
+	 * Maps global properties to options.
+	 *
+	 * @var array
+	 */
+	protected $global_props = array(
+		'layout'                     => 'wc_mnm_layout',
+		'add_to_cart_form_location'  => 'wc_mnm_add_to_cart_form_location',
 	);
 
 	/**
@@ -86,8 +102,17 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 			// Get meta value.
 			$function = 'set_' . $property;
+
 			if ( is_callable( array( $product, $function ) ) ) {
-				$product->{$function}( get_post_meta( $product->get_id(), $meta_key, true ) );
+
+				// Get a global value for layout/location props (always use global options in customizer).
+				if ( array_key_exists( $property, $this->global_props ) && ( is_customize_preview() || ! $product->has_layout_override() ) ) {
+					$value = get_option( $this->global_props[$property] );
+				} else {
+					$value = get_post_meta( $product->get_id(), $meta_key, true );
+				}
+
+				$product->{$function}( $value );
 			}
 		}
 
@@ -118,7 +143,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		$props_to_update    = $force ? $meta_keys_to_props : $this->get_props_to_update( $product, $meta_keys_to_props );
 
 		foreach ( $props_to_update as $meta_key => $property ) {
-
+		
 			$property_get_fn = 'get_' . $property;
 
 			// Get meta value.
@@ -296,4 +321,186 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	public function get_props_to_meta_keys() {
 		return $this->props_to_meta_keys;
 	}
+
+	/**
+	 * Reads the child contents from the DB.
+	 * 
+	 * @since 2.0.0
+	 *
+	 * @param  int|WC_Product_Mix_and_Match  $product
+	 * @return WC_MNM_Child_Item[]
+	 */
+	public function read_child_items( $product ) {
+
+		$child_items = array();
+
+		if ( 'categories' === $product->get_content_source() ) {
+
+			$child_items_data = $this->query_child_items_by_category( $product );
+		
+			if ( ! empty( $child_items_data ) && function_exists( '_prime_post_caches' ) ) {
+				_prime_post_caches( $child_items_data );
+			}
+
+			foreach( $child_items_data as $product_id ) {
+
+				/**
+				 * Products without a DB entry, are keyed by their product ID.
+				 * @ See WC_MNM_Child_Item::get_child_item_id()
+				 */
+				if ( ! in_array( 'product-' . $product_id, $child_items ) ) {
+					$child_items[ 'product-' . $product_id ] = new WC_MNM_Child_Item( array( 
+						'product_id'   => $product_id,
+						'variation_id' => 0, // Querying by category currently does not support variations.
+						'container_id' => $product->get_id(),
+					),
+					$product );
+				}
+			}
+
+	   } else {
+
+			$child_items_data = $this->query_child_items_by_container( $product );
+
+			if ( ! empty( $child_items_data ) && function_exists( '_prime_post_caches' ) ) {
+				_prime_post_caches( $child_items_data );
+			}
+	
+			foreach( $child_items_data as $item_key => $item_data ) {
+				$child_items[$item_key] = new WC_MNM_Child_Item( $item_key, $product );
+			}
+	   }
+
+		
+		return $child_items;
+	}
+
+	/**
+	 * Reads the allowed contents from the DB.
+	 * 
+	 * @since 2.0.0
+	 *
+	 * @param  int|WC_Product_Mix_and_Match  $product
+	 * @return array() - map of child item ids => child product ids
+	 */
+	public function query_child_items_by_container( $product ) {
+
+		$product_id = $product instanceof WC_Product ? $product->get_id() : absint( $product );
+
+		global $wpdb;
+
+		// Get from cache if available.
+		$child_items = 0 < $product_id ? wp_cache_get( 'wc-mnm-child-items-' . $product_id, 'products' ) : false;
+
+		if ( false === $child_items ) {
+
+			$child_items = $wpdb->get_results( $wpdb->prepare( "
+				SELECT items.child_item_id, items.product_id, items.container_id, items.menu_order, p.post_parent as product_parent_id
+				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
+				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
+				WHERE items.container_id = %d
+				ORDER BY items.menu_order ASC",
+				$product_id
+			) );
+
+			foreach ( $child_items as $child_item ) {
+				wp_cache_set( 'wc-mnm-child-item-' . $child_item->child_item_id, $child_item, 'wc-mnm-child-items' );
+			}
+
+			if ( 0 < $product_id ) {
+				wp_cache_set( 'wc-mnm-child-items-' . $product_id, $child_items, 'products' );
+			}
+		
+		}
+
+		return ! empty( $child_items ) ? array_unique( wp_list_pluck( $child_items, 'product_id', 'child_item_id' ) ) : array();
+
+	}
+
+	/**
+	 * Reads the allowed contents from the DB.
+	 * 
+	 * @since 2.0.0
+	 *
+	 * @param  WC_Product_Mix_and_Match  $product
+	 * @return int[] child product ids
+	 */
+	public function query_child_items_by_category( $product ) {
+
+		$child_items_data = array();
+
+		$cat_ids = $product->get_child_category_ids();
+
+		if ( ! empty( $cat_ids ) ) {
+
+			$args = apply_filters( 'wc_mnm_query_products_by_categories_args',
+				array( 
+					'type'                 => WC_Mix_and_Match_Helpers::get_supported_product_types(),
+					'category_id'          => (array) $cat_ids,
+					'orderby'              => 'title',
+					'order'                => 'ASC',
+					'return'               => 'ids',
+					'limit'                => -1,
+					'order_by_category_id' => (array) $cat_ids,
+				)
+			);
+
+			$child_items_data = wc_get_products( $args );
+
+		}
+
+		return $child_items_data;
+
+	}
+
+
+	/**
+	 * Find the MNM products a product belongs to.
+	 * 
+	 * @since 2.0.0
+	 *
+	 * @param  int|WC_Product  $product
+	 * @return array() - map of child item ids / Mix and Match product ids
+	 */
+	public function query_containers_by_product( $product ) {
+		
+		$product_id = $product instanceof WC_Product ? $product->get_id : absint( $product );
+
+		global $wpdb;
+
+		// Get from cache if available.
+		$container_ids = 0 < $product_id ? wp_cache_get( 'wc-mnm-container-products-' . $product_id, 'products' ) : false;
+
+		if ( false === $container_ids ) {
+
+			$container_ids = $wpdb->get_results( $wpdb->prepare( "
+				SELECT items.child_item_id, items.container_id
+				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
+				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
+				WHERE items.product_id = %d OR p.post_parent = %d
+				ORDER BY items.menu_order ASC",
+				$product_id
+			) );
+
+			if ( 0 < $product_id ) {
+				wp_cache_set( 'wc-mnm-container-products-' . $product_id, $container_ids, 'products' );
+			}
+		
+		}
+
+		return ! empty( $container_ids ) ? array_unique( wp_list_pluck( $container_ids, 'container_id', 'child_item_id' ) ) : array();
+
+	}
+
+	/**
+	 * Clear any caches.
+	 *
+	 * @param WC_Product $product Product object.
+	 * @since 3.0.0
+	 */
+	protected function clear_caches( &$product ) {
+		parent::clear_caches( $product );
+		wp_cache_delete( 'wc-mnm-child-items-' . $product->get_id(), 'products' );
+	}
+
 }

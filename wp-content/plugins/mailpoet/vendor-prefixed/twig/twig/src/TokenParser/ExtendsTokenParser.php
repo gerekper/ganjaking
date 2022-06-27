@@ -6,7 +6,7 @@ use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class ExtendsTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $stream = $this->parser->getStream();
  if ($this->parser->peekBlockStack()) {
@@ -18,12 +18,13 @@ final class ExtendsTokenParser extends AbstractTokenParser
  throw new SyntaxError('Multiple extends tags are forbidden.', $token->getLine(), $stream->getSourceContext());
  }
  $this->parser->setParent($this->parser->getExpressionParser()->parseExpression());
- $stream->expect(Token::BLOCK_END_TYPE);
+ $stream->expect(
+ 3
+ );
  return new Node();
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'extends';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\ExtendsTokenParser', 'MailPoetVendor\\Twig_TokenParser_Extends');

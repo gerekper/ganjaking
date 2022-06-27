@@ -6,11 +6,11 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\Table\Type;
+namespace WooCommercePDFInvoiceFontLib\Table\Type;
 
-use FontLib\Table\Table;
-use FontLib\Glyph\Outline;
-use FontLib\Glyph\OutlineSimple;
+use WooCommercePDFInvoiceFontLib\Table\Table;
+use WooCommercePDFInvoiceFontLib\Glyph\Outline;
+use WooCommercePDFInvoiceFontLib\Glyph\OutlineSimple;
 
 /**
  * `glyf` font table.

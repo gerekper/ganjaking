@@ -9,6 +9,7 @@ use MailPoet\AdminPages\PageRenderer;
 use MailPoet\Config\Menu;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Newsletter\Shortcodes\ShortcodesHelper;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
@@ -52,6 +53,9 @@ class NewsletterEditor {
   /** @var TransactionalEmailHooks */
   private $wooEmailHooks;
 
+  /** @var CustomFonts  */
+  private $customFonts;
+
   public function __construct(
     PageRenderer $pageRenderer,
     SettingsController $settings,
@@ -62,7 +66,8 @@ class NewsletterEditor {
     ShortcodesHelper $shortcodesHelper,
     ServicesChecker $servicesChecker,
     SubscribersRepository $subscribersRepository,
-    TransactionalEmailHooks $wooEmailHooks
+    TransactionalEmailHooks $wooEmailHooks,
+    CustomFonts $customFonts
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->settings = $settings;
@@ -74,6 +79,7 @@ class NewsletterEditor {
     $this->shortcodesHelper = $shortcodesHelper;
     $this->subscribersRepository = $subscribersRepository;
     $this->wooEmailHooks = $wooEmailHooks;
+    $this->customFonts = $customFonts;
   }
 
   public function render() {
@@ -86,7 +92,7 @@ class NewsletterEditor {
     ) {
       $location = 'admin.php?page=mailpoet-settings&enable-customizer-notice#woocommerce';
       if (headers_sent()) {
-        echo '<script>window.location = "' . $location . '";</script>';
+        echo '<script>window.location = "' . esc_js($location) . '";</script>';
       } else {
         header('Location: ' . $location, true, 302);
       }
@@ -110,6 +116,7 @@ class NewsletterEditor {
     }
 
     $data = [
+      'customFontsEnabled' => $this->customFonts->displayCustomFonts(),
       'shortcodes' => $this->shortcodesHelper->getShortcodes(),
       'settings' => $this->settings->getAll(),
       'editor_tutorial_seen' => $this->userFlags->get('editor_tutorial_seen'),

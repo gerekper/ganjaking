@@ -141,6 +141,18 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		$worldpay_args['tel'] 		= $billing_phone;
 		$worldpay_args['email'] 	= strtr( $billing_email, self::unwanted_array() );
 
+		if( isset( $settings['withDelivery'] ) && $settings['withDelivery'] == 'yes' && $order->needs_shipping_address() ) {
+			$worldpay_args['withDelivery'] 	= '1';
+			$worldpay_args['delvName'] 		= strtr( $shipping_first_name. ' ' .$shipping_last_name, self::unwanted_array() );
+			$worldpay_args['delvAddress1'] 	= strtr( $shipping_address_1, self::unwanted_array() );
+			$worldpay_args['delvAddress2'] 	= strtr( $shipping_address_2, self::unwanted_array() );
+			$worldpay_args['delvAddress3'] 	= '';
+			$worldpay_args['delvTown'] 		= strtr( $shipping_city, self::unwanted_array() );
+			$worldpay_args['delvRegion'] 	= strtr( $shipping_state, self::unwanted_array() );
+			$worldpay_args['delvPostcode'] 	= strtr( $shipping_postcode, self::unwanted_array() );
+			$worldpay_args['delvCountry'] 	= strtr( $shipping_country, self::unwanted_array() );
+		}
+
 		if ( $settings['fixContact'] == 'yes' ) {
 			$worldpay_args['fixContact'] = '';
 		}

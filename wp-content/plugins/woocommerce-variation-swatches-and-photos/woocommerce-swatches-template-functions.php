@@ -3,7 +3,7 @@
 //Override the WooCommerce wc_dropdown_variation_attribute_options function. 
 //To do this this file MUST be loaded before WooCommerce core. 
 function wc_dropdown_variation_attribute_options( $args = array() ) {
-	if ( is_admin() ) {
+	if ( is_admin() && ! wp_doing_ajax() ) {
 		wc_core_dropdown_variation_attribute_options( $args );
 	} else {
 		wc_swatches_variation_attribute_options( $args );

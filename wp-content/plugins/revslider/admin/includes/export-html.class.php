@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -457,7 +457,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
 			<!-- LOAD JQUERY LIBRARY -->
-			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 			
 			<!-- LOADING FONTS AND ICONS -->
 			<?php echo $this->export_font; ?>
@@ -488,7 +488,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 				<link rel="stylesheet" type="text/css" href="<?php echo $this->path_css; ?>navigation.css">
 				
 				<!-- FONT AND STYLE FOR BASIC DOCUMENTS, NO NEED FOR FURTHER USAGE IN YOUR PROJECTS-->
-				<link href="http://fonts.googleapis.com/css?family=Roboto%3A700%2C300" rel="stylesheet" property="stylesheet" type="text/css" media="all" />
+				<link href="https://fonts.googleapis.com/css?family=Roboto%3A700%2C300" rel="stylesheet" property="stylesheet" type="text/css" media="all" />
 				<link rel="stylesheet" type="text/css" href="../../assets/css/noneed.css">
 				<?php
 			}
@@ -579,7 +579,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			<article class="small-history bottom-history">
 				<i class="fa-icon-question tp-headicon"></i>
 				<h2 class="textaligncenter" style="margin-bottom:25px;">Find the Documentation ?</h2>
-				<p>We would always recommend to use our<a target="_blank" rel="noopener" href="https://www.themepunch.com/revsliderjquery-doc/slider-revolution-jquery-5-x-documentation/"> online documentation</a> however you can find also our embeded local documentation zipped in the Documentation folder. Online Documentation and FAQ Page is regulary updated. You will find More examples, Visit us also at <a href="http://themepunch.com">http://themepunch.com</a> ! </p>
+				<p>We would always recommend to use our<a target="_blank" rel="noopener" href="https://www.themepunch.com/revsliderjquery-doc/slider-revolution-jquery-5-x-documentation/"> online documentation</a> however you can find also our embeded local documentation zipped in the Documentation folder. Online Documentation and FAQ Page is regulary updated. You will find More examples, Visit us also at <a href="https://themepunch.com">https://themepunch.com</a> ! </p>
 				<div class="tp-smallinfo">Learn how to build your Slider!</div>
 			</article>
 

@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function wc_od_get_delivery_days( $delivery_days = null ) {
 	if ( empty( $delivery_days ) ) {
-		$delivery_days = WC_OD()->settings()->get_setting( 'delivery_days' );
+		$delivery_days = array_map( 'wc_od_get_delivery_day', range( 0, 6 ) );
 	}
 
 	if ( ! $delivery_days instanceof WC_OD_Collection_Delivery_Days ) {
@@ -34,18 +34,19 @@ function wc_od_get_delivery_days( $delivery_days = null ) {
  * @since 1.5.0
  * @since 1.6.0 Accepts a WC_OD_Delivery_Day object as the parameter. Returns a WC_OD_Delivery_Day object.
  *
- * @param mixed $delivery_day WC_OD_Delivery_Day object, an array with the delivery day data or the weekday number.
+ * @param mixed $delivery_day Delivery day object, ID, or an array with data.
  * @return WC_OD_Delivery_Day|null The delivery date object. Null on failure.
  */
 function wc_od_get_delivery_day( $delivery_day ) {
-	if ( is_numeric( $delivery_day ) ) {
-		$delivery_days = wc_od_get_delivery_days();
-		$delivery_day  = $delivery_days->get( intval( $delivery_day ) );
-	} elseif ( is_array( $delivery_day ) ) {
-		$delivery_day = new WC_OD_Delivery_Day( $delivery_day );
+	if ( $delivery_day instanceof WC_OD_Delivery_Day ) {
+		return $delivery_day;
 	}
 
-	return $delivery_day;
+	try {
+		return new WC_OD_Delivery_Day( $delivery_day );
+	} catch ( Exception $e ) {
+		return null;
+	}
 }
 
 /**
@@ -54,7 +55,7 @@ function wc_od_get_delivery_day( $delivery_day ) {
  * @since 1.5.0
  * @since 1.6.0 Accepts a WC_OD_Delivery_Day object as the parameter.
  *
- * @param mixed  $delivery_day WC_OD_Delivery_Day object, an array with the delivery day data or the weekday number.
+ * @param mixed  $delivery_day Delivery day object, ID, or an array with data.
  * @param array  $args         Optional. The arguments.
  * @param string $context      Optional. The context.
  * @return mixed The delivery day status ('yes' or 'no'). Null on failure.

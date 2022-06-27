@@ -25,6 +25,8 @@ class ContainerConfigurator implements IContainerConfigurator {
       ->setPublic(true);
 
     // Free plugin dependencies
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStorage::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class);
     $this->registerFreeService($container, \MailPoet\Config\AccessControl::class);
     $this->registerFreeService($container, \MailPoet\Config\Renderer::class);
     $this->registerFreeService($container, \MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository::class);
@@ -34,7 +36,11 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Newsletter\NewslettersRepository::class);
     $this->registerFreeService($container, \MailPoet\Newsletter\Url::class);
     $this->registerFreeService($container, \MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository::class);
+    $this->registerFreeService($container, \MailPoet\Settings\TrackingConfig::class);
     $this->registerFreeService($container, \MailPoet\Statistics\StatisticsWooCommercePurchasesRepository::class);
+    $this->registerFreeService($container, \MailPoet\Statistics\Track\Unsubscribes::class);
+    $this->registerFreeService($container, \MailPoet\Subscribers\SubscriberSegmentRepository::class);
+    $this->registerFreeService($container, \MailPoet\Subscribers\SubscribersRepository::class);
     $this->registerFreeService($container, \MailPoet\WooCommerce\Helper::class);
     $this->registerFreeService($container, \MailPoet\WP\Functions::class);
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
@@ -47,7 +53,17 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder::class);
 
+    // Automation
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Builder\CreateWorkflowController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Control\Steps\ConditionalStepRunner::class)->setPublic(true);
+    // Automation - API endpoints
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPostEndpoint::class)->setPublic(true);
+    // Automation - MailPoet Premium integration
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\UserRegistrationTrigger::class)->setPublic(true);
     // Config
+    $container->autowire(\MailPoet\Premium\Config\Automation::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);
     $container->register(\MailPoet\Premium\Config\Renderer::class)
@@ -78,8 +94,9 @@ class ContainerConfigurator implements IContainerConfigurator {
   }
 
   public static function createRenderer() {
-    $caching = !WP_DEBUG;
-    $debugging = WP_DEBUG;
-    return new \MailPoet\Premium\Config\Renderer($caching, $debugging);
+    $debugging = defined('WP_DEBUG') && WP_DEBUG;
+    $caching = !$debugging;
+    $autoReload = defined('MAILPOET_DEVELOPMENT') && MAILPOET_DEVELOPMENT;
+    return new \MailPoet\Premium\Config\Renderer($caching, $debugging, $autoReload);
   }
 }

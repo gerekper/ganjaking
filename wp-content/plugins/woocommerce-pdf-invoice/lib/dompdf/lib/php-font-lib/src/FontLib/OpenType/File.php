@@ -6,13 +6,13 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\OpenType;
+namespace WooCommercePDFInvoiceFontLib\OpenType;
 
 /**
  * Open Type font, the same as a TrueType one.
  *
  * @package php-font-lib
  */
-class File extends \FontLib\TrueType\File {
+class File extends \WooCommercePDFInvoiceFontLib\TrueType\File {
   //
 }

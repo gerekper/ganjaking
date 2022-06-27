@@ -4,10 +4,11 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Error\SyntaxError;
 use MailPoetVendor\Twig\Node\AutoEscapeNode;
 use MailPoetVendor\Twig\Node\Expression\ConstantExpression;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class AutoEscapeTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $lineno = $token->getLine();
  $stream = $this->parser->getStream();
@@ -31,13 +32,12 @@ final class AutoEscapeTokenParser extends AbstractTokenParser
  );
  return new AutoEscapeNode($value, $body, $lineno, $this->getTag());
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endautoescape');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'autoescape';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\AutoEscapeTokenParser', 'MailPoetVendor\\Twig_TokenParser_AutoEscape');

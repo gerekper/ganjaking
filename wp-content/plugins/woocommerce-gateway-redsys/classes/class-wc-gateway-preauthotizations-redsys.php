@@ -91,6 +91,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$this->butontextcolor       = WCRed()->get_redsys_option( 'butontextcolor', 'preauthorizationsredsys' );
 		$this->descripredsys        = WCRed()->get_redsys_option( 'descripredsys', 'preauthorizationsredsys' );
 		$this->testshowgateway      = WCRed()->get_redsys_option( 'testshowgateway', 'preauthorizationsredsys' );
+		$this->notiemail            = WCRed()->get_redsys_option( 'notiemail', 'preauthorizationsredsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -315,13 +316,19 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			'traactive'              => array(
 				'title'   => __( 'Enable TRA', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable TRA for Pay with 1click. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
+				'label'   => __( 'Enable TRA. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
 			'traamount'             => array(
 				'title'       => __( 'Limit import for TRA', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'TRA will be sent when the amount is inferior to what you specify here. Write the amount without the currency sign, i.e. if it is 250€, ONLY write 250', 'woocommerce-redsys' ),
+				'desc_tip'    => true,
+			),
+			'notiemail'            => array(
+				'title'       => __( 'Notification email', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Email errors will arrive to this email', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
 			'usetokensdirect'      => array(
@@ -353,7 +360,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				'default'     => 'no',
 			),
 			'sendemailsdscard'     => array(
-				'title'       => __( 'Send emails Ds_CardNumber problem', 'woocommerce-redsys' ),
+				'title'       => __( 'Send emails Ds_Card_Number problem', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'description' => __( 'If tokenization is used, the filed Ds_Card_number can be a very interesting information. If Redsys isn\'t sending this field and this options is active, and email will be sent to the website administrator.', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable Send emails Ds_Card_number problem', 'woocommerce-redsys' ),
@@ -2272,6 +2279,20 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				$customer_token = WCRed()->get_users_token_bulk( $user_id );
 			}
 
+			if ( ! $customer_token || empty( $customer_token ) || '' === trim( $customer_token ) ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'preauthorizationsredsys', ' ' );
+					$this->log->add( 'preauthorizationsredsys', '$customer_token: NO Token or expired Credit Card' );
+					$this->log->add( 'preauthorizationsredsys', ' ' );
+				}
+				$url = 'URL: ' . WCRed()->get_post_edit_url( $order_id );
+				$order->add_order_note( esc_html__( 'No credit card or expired', 'woocommerce-redsys' ) );
+				$message = __( '⚠️ No credit card or expired', 'woocommerce-redsys' );
+				WCRed()->add_subscription_note( $message, $order_id );
+				WCRed()->push( $message . ' ' . $url );
+				$renewal_order->update_status( 'failed' );
+			}
+
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'preauthorizationsredsys', ' ' );
 				$this->log->add( 'preauthorizationsredsys', '$customer_token: ' . $customer_token );
@@ -2822,13 +2843,15 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 							if ( $error_code ) {
 								// Enviamos email al adminsitrador avisando de este problema
 								$order->add_order_note( __( 'There was a Problem. The problem was: ', 'woocommerce-redsys' ) . (string) $xml_retorno->CODIGO . ': ' . $error_code );
-								$to      = get_bloginfo( 'admin_email' );
-								$subject = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
-								$body    = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
-								$body    = __( 'The error was: ', 'woocommerce-redsys' );
-								$body   .= $error_code;
-								$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-								wp_mail( $to, $subject, $body, $headers );
+								if ( $this->notiemail ) {
+									$to      = $his->notiemail;
+									$subject = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
+									$body    = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
+									$body    = __( 'The error was: ', 'woocommerce-redsys' );
+									$body   .= $error_code;
+									$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+									wp_mail( $to, $subject, $body, $headers );
+								}
 
 							}
 							$renewal_order->update_status( 'failed' );
@@ -4185,35 +4208,35 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$redsys_done      = get_post_meta( $order_id, '_redsys_done', true );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', '       Once upon a time       ' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/***************************************/' );
-			$this->log->add( 'redsys', '  Doing scheduled_subscription_payment   ' );
-			$this->log->add( 'redsys', '/***************************************/' );
-			$this->log->add( 'redsys', ' ' );
+			$this->log->add( 'preauthorizationsredsys', ' ' );
+			$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+			$this->log->add( 'preauthorizationsredsys', '       Once upon a time       ' );
+			$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+			$this->log->add( 'preauthorizationsredsys', ' ' );
+			$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+			$this->log->add( 'preauthorizationsredsys', '  Doing scheduled_subscription_payment   ' );
+			$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+			$this->log->add( 'preauthorizationsredsys', ' ' );
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/***************************************/' );
-			$this->log->add( 'redsys', '      $order_id = ' . $order_id . '      ' );
-			$this->log->add( 'redsys', '/***************************************/' );
-			$this->log->add( 'redsys', ' ' );
+			$this->log->add( 'preauthorizationsredsys', ' ' );
+			$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+			$this->log->add( 'preauthorizationsredsys', '      $order_id = ' . $order_id . '      ' );
+			$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+			$this->log->add( 'preauthorizationsredsys', ' ' );
 		}
 
 		if ( 'yes' === $redsys_done ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/***************************************/' );
-				$this->log->add( 'redsys', '       Payment is complete EXIT          ' );
-				$this->log->add( 'redsys', '/***************************************/' );
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/******************************************/' );
-				$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'redsys', '/******************************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+				$this->log->add( 'preauthorizationsredsys', '       Payment is complete EXIT          ' );
+				$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+				$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+				$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
 			}
 			return;
 		} else {
@@ -4222,19 +4245,19 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$amount = $amount_to_charge;
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/**********************************************/' );
-				$this->log->add( 'redsys', '  Function  doing_scheduled_subscription_payment' );
-				$this->log->add( 'redsys', '/**********************************************/' );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/**********************************************/' );
+				$this->log->add( 'preauthorizationsredsys', '  Function  doing_scheduled_subscription_payment' );
+				$this->log->add( 'preauthorizationsredsys', '/**********************************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/***************************************/' );
-				$this->log->add( 'redsys', '   scheduled charge Amount: ' . $amount    );
-				$this->log->add( 'redsys', '/***************************************/' );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+				$this->log->add( 'preauthorizationsredsys', '   scheduled charge Amount: ' . $amount    );
+				$this->log->add( 'preauthorizationsredsys', '/***************************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$order_total_sign    = '';
@@ -4255,14 +4278,14 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$user_id  = $order->get_user_id();
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', '  Generating Tokenized call   ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$order_id: ' . $order_id );
-				$this->log->add( 'redsys', '$user_id: ' . $user_id );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', '  Generating Tokenized call   ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$order_id: ' . $order_id );
+				$this->log->add( 'preauthorizationsredsys', '$user_id: ' . $user_id );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$type       = 'ws';
@@ -4270,8 +4293,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$redsys_adr = $this->get_redsys_url_gateway( $user_id, $type );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', 'Using WS URL: ' . $redsys_adr );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			// $order_id = $order->get_id();.
@@ -4281,9 +4304,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$order_total_sign: ' . $order_total_sign );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$transaction_type = '1';
@@ -4291,10 +4314,10 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$gatewaylanguage = $this->redsyslanguage;
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$gatewaylanguage: ' . $order_total_sign );
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$transaction_type: ' . $transaction_type );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$gatewaylanguage: ' . $order_total_sign );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$transaction_type: ' . $transaction_type );
 			}
 
 			if ( $this->wooredsysurlko ) {
@@ -4333,17 +4356,17 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$customer_token: ' . $customer_token );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$customer_token: ' . $customer_token );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$redsys_data_send = array();
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', 'Order Currency: ' . get_woocommerce_currency() );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', 'Order Currency: ' . get_woocommerce_currency() );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$currency            = $currency_codes[ get_woocommerce_currency() ];
@@ -4374,9 +4397,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				$redsys_data_send = apply_filters( 'redsys_modify_data_to_send', $redsys_data_send );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', 'Using filter redsys_modify_data_to_send' );
-					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'preauthorizationsredsys', ' ' );
+					$this->log->add( 'preauthorizationsredsys', 'Using filter redsys_modify_data_to_send' );
+					$this->log->add( 'preauthorizationsredsys', ' ' );
 				}
 			}
 
@@ -4395,17 +4418,17 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$merchant_lastnme = get_post_meta( $order_id, '_billing_last_name', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
-				$this->log->add( 'redsys', '$order: ' . $orderid2 );
-				$this->log->add( 'redsys', '$customer: ' . $customer );
-				$this->log->add( 'redsys', '$currency: ' . $currency );
-				$this->log->add( 'redsys', '$transaction_type: 0' );
-				$this->log->add( 'redsys', '$terminal: ' . $terminal );
-				$this->log->add( 'redsys', '$url_ok: ' . $url_ok );
-				$this->log->add( 'redsys', '$gatewaylanguage: ' . $gatewaylanguage );
-				$this->log->add( 'redsys', '$final_notify_url: ' . $final_notify_url );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '$order_total_sign: ' . $order_total_sign );
+				$this->log->add( 'preauthorizationsredsys', '$order: ' . $orderid2 );
+				$this->log->add( 'preauthorizationsredsys', '$customer: ' . $customer );
+				$this->log->add( 'preauthorizationsredsys', '$currency: ' . $currency );
+				$this->log->add( 'preauthorizationsredsys', '$transaction_type: 0' );
+				$this->log->add( 'preauthorizationsredsys', '$terminal: ' . $terminal );
+				$this->log->add( 'preauthorizationsredsys', '$url_ok: ' . $url_ok );
+				$this->log->add( 'preauthorizationsredsys', '$gatewaylanguage: ' . $gatewaylanguage );
+				$this->log->add( 'preauthorizationsredsys', '$final_notify_url: ' . $final_notify_url );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$mi_obj = new RedsysAPIWs();
@@ -4463,13 +4486,13 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', '          The call            ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', $DATOS_ENTRADA );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', '          The call            ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', $DATOS_ENTRADA );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 
 			$XML = "<REQUEST>";
@@ -4479,13 +4502,13 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$XML .= "</REQUEST>";
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', '          The XML             ' );
-				$this->log->add( 'redsys', '/****************************/' );
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', $XML );
-				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', '          The XML             ' );
+				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
+				$this->log->add( 'preauthorizationsredsys', $XML );
+				$this->log->add( 'preauthorizationsredsys', ' ' );
 			}
 			
 			if ( 'yes' === $this->psd2 ) {
@@ -4499,9 +4522,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				}
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					//$this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$this->log->add( 'preauthorizationsredsys', ' ' );
+					//$this->log->add( 'preauthorizationsredsys', '$acctinfo: ' . $acctinfo );
+					$this->log->add( 'preauthorizationsredsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
 				}
 				
 				$ds_emv3ds_json       = $xml_retorno->INFOTARJETA->Ds_EMV3DS;
@@ -4511,11 +4534,11 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				$three_ds_info          = $ds_emv3ds->threeDSInfo;
 				
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-					$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
-					$this->log->add( 'redsys', '$threeDSServerTransID: ' . $threeDSServerTransID );
-					$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
+					$this->log->add( 'preauthorizationsredsys', ' ' );
+					$this->log->add( 'preauthorizationsredsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
+					$this->log->add( 'preauthorizationsredsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
+					$this->log->add( 'preauthorizationsredsys', '$threeDSServerTransID: ' . $threeDSServerTransID );
+					$this->log->add( 'preauthorizationsredsys', '$three_ds_info: ' . $three_ds_info );
 				}
 				
 				if ( '2.1.0' === $protocolVersion || '2.2.0' === $protocolVersion ) {
@@ -4538,9 +4561,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 						'threeDSCompInd'           => 'N',
 					);
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', 'threeDSInfo: AuthenticationData' );
-						$this->log->add( 'redsys', 'protocolVersion: ' . $protocolVersion );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', 'threeDSInfo: AuthenticationData' );
+						$this->log->add( 'preauthorizationsredsys', 'protocolVersion: ' . $protocolVersion );
 					}
 					$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
 					$DATOS_ENTRADA  = '<DATOSENTRADA>';
@@ -4565,13 +4588,13 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 					$XML           .= "</REQUEST>";
 					
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', '          The XML             ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', $XML );
-						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+						$this->log->add( 'preauthorizationsredsys', '          The XML             ' );
+						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', $XML );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
 					}
 					$CLIENTE  = new SoapClient( $redsys_adr );
 					$responsews = $CLIENTE->trataPeticion( array( "datoEntrada" => $XML ) );
@@ -4586,85 +4609,85 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 					}
 	
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
-						$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' .$authorisationcode );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+						$this->log->add( 'preauthorizationsredsys', 'Ds_AuthorisationCode: ' .$authorisationcode );
 					}
 					if ( $authorisationcode ) {
 						update_post_meta( $order->get_id(), '_redsys_done', 'yes' );
 						$order->payment_complete();
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', ' ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', '      Saving Order Meta       ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+							$this->log->add( 'preauthorizationsredsys', '      Saving Order Meta       ' );
+							$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
 						}
 
 						if ( ! empty( $redsys_order ) ) {
 							update_post_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
+								$this->log->add( 'preauthorizationsredsys', '_payment_order_number_redsys saved: ' . $redsys_order );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_payment_order_number_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $terminal ) ) {
 							update_post_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
+								$this->log->add( 'preauthorizationsredsys', '_payment_terminal_redsys saved: ' . $terminal );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_payment_terminal_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $authorisationcode ) ) {
 							update_post_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
+								$this->log->add( 'preauthorizationsredsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_authorisation_code_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $currency_code ) ) {
 							update_post_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
+								$this->log->add( 'preauthorizationsredsys', '_corruncy_code_redsys saved: ' . $currency_code );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_corruncy_code_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $secretsha256 ) ) {
 							update_post_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+								$this->log->add( 'preauthorizationsredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_redsys_secretsha256 NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-							$this->log->add( 'redsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
 						}
 						return true;
 					} else {
@@ -4722,13 +4745,13 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 					$XML           .= "</REQUEST>";
 					
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', '          The XML             ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', $XML );
-						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+						$this->log->add( 'preauthorizationsredsys', '          The XML             ' );
+						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', $XML );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
 					}
 					$CLIENTE  = new SoapClient( $redsys_adr );
 					$responsews = $CLIENTE->trataPeticion( array( "datoEntrada" => $XML ) );
@@ -4739,9 +4762,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 					}
 					
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
-						$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', '$responsews: ' . print_r( $responsews, true ) );
+						$this->log->add( 'preauthorizationsredsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
 					}
 					$authorisationcode = json_decode( $xml_retorno->OPERACION->Ds_AuthorisationCode );
 					$codigo            = json_decode( $xml_retorno->CODIGO );
@@ -4753,77 +4776,77 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 						update_post_meta( $order_id, '_redsys_done', 'yes' );
 						$order->payment_complete();
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', ' ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', '      Saving Order Meta       ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+							$this->log->add( 'preauthorizationsredsys', '      Saving Order Meta       ' );
+							$this->log->add( 'preauthorizationsredsys', '/****************************/' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
 						}
 
 						if ( ! empty( $redsys_order ) ) {
 							update_post_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
+								$this->log->add( 'preauthorizationsredsys', '_payment_order_number_redsys saved: ' . $redsys_order );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_payment_order_number_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $terminal ) ) {
 							update_post_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
+								$this->log->add( 'preauthorizationsredsys', '_payment_terminal_redsys saved: ' . $terminal );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_payment_terminal_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $authorisationcode ) ) {
 							update_post_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
+								$this->log->add( 'preauthorizationsredsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_authorisation_code_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $currency_code ) ) {
 							update_post_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
+								$this->log->add( 'preauthorizationsredsys', '_corruncy_code_redsys saved: ' . $currency_code );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_corruncy_code_redsys NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( ! empty( $secretsha256 ) ) {
 							update_post_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+								$this->log->add( 'preauthorizationsredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 							}
 						} else {
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '_redsys_secretsha256 NOT SAVED!!!' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-							$this->log->add( 'redsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
 						}
 						return true;
 					} else {
@@ -4847,17 +4870,17 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 								$RESPUESTA = (int) $xml_retorno->OPERACION->Ds_Response;
 								if ( ( $RESPUESTA >= 0 ) && ( $RESPUESTA <= 99 ) ) {
 									if ( 'yes' === $this->debug ) {
-										$this->log->add( 'redsys', ' ' );
-										$this->log->add( 'redsys', 'Response: Ok > ' . $RESPUESTA );
-										$this->log->add( 'redsys', ' ' );
+										$this->log->add( 'preauthorizationsredsys', ' ' );
+										$this->log->add( 'preauthorizationsredsys', 'Response: Ok > ' . $RESPUESTA );
+										$this->log->add( 'preauthorizationsredsys', ' ' );
 									}
 									update_post_meta( $order_id, '_redsys_done', 'yes' );
 								} else {
 									// Ha habido un problema en el cobro
 									if ( 'yes' === $this->debug ) {
-										$this->log->add( 'redsys', ' ' );
-										$this->log->add( 'redsys', 'Response: Error > ' . $RESPUESTA );
-										$this->log->add( 'redsys', ' ' );
+										$this->log->add( 'preauthorizationsredsys', ' ' );
+										$this->log->add( 'preauthorizationsredsys', 'Response: Error > ' . $RESPUESTA );
+										$this->log->add( 'preauthorizationsredsys', ' ' );
 									}
 									$order->add_order_note( __( 'There was a Problem. The problem was: ', 'woocommerce-redsys' ) . $RESPUESTA );
 									$renewal_order->update_status( 'failed' );
@@ -4865,9 +4888,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 							} else {
 								// No hay $xml_retorno->OPERACION->Ds_Response
 								if ( 'yes' === $this->debug ) {
-									$this->log->add( 'redsys', ' ' );
-									$this->log->add( 'redsys', 'Error > No hay $xml_retorno->OPERACION->Ds_Response' );
-									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'preauthorizationsredsys', ' ' );
+									$this->log->add( 'preauthorizationsredsys', 'Error > No hay $xml_retorno->OPERACION->Ds_Response' );
+									$this->log->add( 'preauthorizationsredsys', ' ' );
 								}
 								$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
 								$renewal_order->update_status( 'failed' );
@@ -4876,14 +4899,14 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 							// $xml_retorno->CODIGO es diferente a 0
 							$error_code = WCRed()->get_error_by_code( (string)$xml_retorno->CODIGO );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', 'Error > $xml_retorno->CODIGO es diferente a 0. Error: ' .  (string)$xml_retorno->CODIGO . '->' . $error_code);
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', 'Error > $xml_retorno->CODIGO es diferente a 0. Error: ' .  (string)$xml_retorno->CODIGO . '->' . $error_code);
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
-							if ( $error_code ) {
+							if ( $error_code && $this->notiemail ) {
 								// Enviamos email al adminsitrador avisando de este problema
 								$order->add_order_note( __( 'There was a Problem. The problem was: ', 'woocommerce-redsys' ) . (string)$xml_retorno->CODIGO . ': ' . $error_code  );
-								$to      = get_bloginfo( 'admin_email' );
+								$to      = $this->notiemail;
 								$subject = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
 								$body    = __( 'There was a problem with a scheduled subscription.', 'woocommerce-redsys' );
 								$body    = __( 'The error was: ', 'woocommerce-redsys' );
@@ -4894,45 +4917,45 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 							}
 							$renewal_order->update_status( 'failed' );
 							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '/******************************************/' );
-								$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-								$this->log->add( 'redsys', '/******************************************/' );
-								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
+								$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+								$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+								$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+								$this->log->add( 'preauthorizationsredsys', ' ' );
 							}
 						}
 					} else {
 						// No hay $xml_retorno->CODIGO
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', ' ' );
-							$this->log->add( 'redsys', 'Error > No hay $xml_retorno->CODIGO' );
-							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', 'Error > No hay $xml_retorno->CODIGO' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
 						}
 						$order->add_order_note( __( 'Redsys connection failed', 'woocommerce-redsys' ) );
 						$renewal_order->update_status( 'failed' );
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', ' ' );
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+							$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+							$this->log->add( 'preauthorizationsredsys', ' ' );
 						}
 					}
 				} else {
 					// No hay $responsews->trataPeticionReturn
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', 'Error > No hay $responsews->trataPeticionReturn' );
-						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', 'Error > No hay $responsews->trataPeticionReturn' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
 					}
 					$order->add_order_note( __( 'Redsys connection failed', 'woocommerce-redsys' ) );
 					$renewal_order->update_status( 'failed' );
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '/******************************************/' );
-						$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-						$this->log->add( 'redsys', '/******************************************/' );
-						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
+						$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+						$this->log->add( 'preauthorizationsredsys', '  The final has come, this story has ended  ' );
+						$this->log->add( 'preauthorizationsredsys', '/******************************************/' );
+						$this->log->add( 'preauthorizationsredsys', ' ' );
 					}
 				}
 			}
@@ -5545,35 +5568,20 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( $this->order_contains_subscription( $order->get_id() ) && 'yes' !== $this->subsusetokensdisable && (int)$response <= 99 || ( ( 'yes' === $this->usetokens ) && ( ! empty( $dsmerchantidenti ) ) && ( '3' !== $dstransactiontype ) && ( '2' !== $dstransactiontype ) && ( 'yes' !== $this->redsysdirectdeb ) && $response  <= 99 ) ) {
-			$dscardnumbercompl  = $mi_obj->getParameter( 'Ds_CardNumber' );
-			if ( '1' === $dscardbrand ) {
-				$dscardbrand = 'Visa';
-			} elseif ( '2' === $dscardbrand ) {
-				$dscardbrand = 'MasterCard';
-			} elseif ( '8' === $dscardbrand ) {
-				$dscardbrand = 'Amex';
-			} elseif ( '9' === $dscardbrand ) {
-				$dscardbrand = 'JCB';
-			} elseif ( '6' === $dscardbrand ) {
-				$dscardbrand = 'Diners';
-			} elseif ( '22' === $dscardbrand ) {
-				$dscardbrand = 'UPI';
-			} elseif ( '7' === $dscardbrand ) {
-				$dscardbrand = 'Privada';
-			} else {
-				$dscardbrand = __( 'Unknown', 'woocommerce-redsys' );
-			}
+			$number           = $mi_obj->getParameter( 'Ds_Card_Number' );
+			$number2          = $mi_obj->getParameter( 'Ds_CardNumber' );
 			$dsexpiration     = $mi_obj->getParameter( 'Ds_ExpiryDate' );
 			$dsmerchantidenti = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
 			$dscardbrand2     = $mi_obj->getParameter( 'Ds_Card_Brand' );
+			$dscardbrand      = WCRed()->get_card_brand( $dscardbrand2 );
 
-			if ( empty( $dsexpiration ) || empty( $dscardbrand2 ) || empty( $dscardnumbercompl ) ) {
-				$to      = get_bloginfo( 'admin_email' );
+			if ( empty( $dsexpiration ) || empty( $dscardbrand2 ) || ( empty( $number ) && empty( $number2 ) && $this->notiemail ) ) {
+				$to      = $this->notiemail;
 				$subject = __( 'Your order will not be marked as paid, missing Redsys fields.', 'woocommerce-redsys' );
 				$body    = __( 'You need to ask to Redsys to sent some fields for tokenization (Pay with one Click). Please ask to Redsys to sent with the callback the following fields. WooCommerce cannot work without these fields', 'woocommerce-redsys' );
 				$body   .= '<p>Ds_Card_Brand</p>';
 				$body   .= '<p>Ds_ExpiryDate</p>';
-				$body   .= '<p>Ds_CardNumber</p>';
+				$body   .= '<p>Ds_Card_Number</p>';
 				$body   .= '<p>Once Redsys start to sent this fields, Pay with one clic will start to work</p>';
 				$body   .= '<p>Some times you need to ask to your Bank and not to Redsys</p>';
 				$headers = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -5581,7 +5589,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 					wp_mail( $to, $subject, $body, $headers );
 				}
 			}
-			$dscardnumber4 = substr( $dscardnumbercompl, -4 );
+			$dscardnumber4 = WCRed()->get_last_four( $number, $number2 );
 			$dsexpiryyear  = '20' . substr( $dsexpiration, 0, 2 );
 			$dsexpirymonth = substr( $dsexpiration, -2 );
 			if ( 'yes' === WCRed()->get_redsys_option( 'psd2', 'redsys' ) ) {
@@ -5711,7 +5719,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'preauthorizationsredsys', 'Ds_AuthorisationCode: ' . $id_trans );
 			$this->log->add( 'preauthorizationsredsys', '$order2: ' . $order2 );
 			$this->log->add( 'preauthorizationsredsys', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'preauthorizationsredsys', 'Ds_CardNumber: ' . $dscardnumbercomp );
+			$this->log->add( 'preauthorizationsredsys', 'Ds_Card_Number: ' . $dscardnumbercomp );
 			$this->log->add( 'preauthorizationsredsys', 'Ds_ExpiryDate: ' . $dsexpiration );
 			$this->log->add( 'preauthorizationsredsys', 'Ds_Merchant_Identifier: ' . $dsmerchantidenti );
 			$this->log->add( 'preauthorizationsredsys', '$dscardnumber4: ' . $dscardnumber4 );
@@ -6065,8 +6073,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				}
 			}
 
-			if ( 'yes' === $this->sendemails ) {
-				$to      = get_bloginfo( 'admin_email' );
+			if ( 'yes' === $this->sendemails && $this->notiemail ) {
+				$to      = $this->notiemail;
 				$subject = __( 'A customer has had payment errors', 'woocommerce-redsys' );
 				$body    = __( 'A customer has had payment errors:', 'woocommerce-redsys' );
 				$body   .= '<p>' . $ds_response_value . '</p>';
@@ -7146,69 +7154,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'preauthorizationsredsys' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'preauthorizationsredsys', '$test_mode: ' . $test_mode );
-			$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-			$this->log->add( 'preauthorizationsredsys', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-			$this->log->add( 'preauthorizationsredsys', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', '$selections NOT empty' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', 'Not loged In hiding gateway' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'preauthorizationsredsys', '$user_id: ' . $user_id );
-					$this->log->add( 'preauthorizationsredsys', '$userid: ' . $userid );
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-				$this->log->add( 'preauthorizationsredsys', '/*********************************/' );
-				$this->log->add( 'preauthorizationsredsys', '$selections Empty, showing gateway' );
-				$this->log->add( 'preauthorizationsredsys', '/*********************************/' );
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-			}
 			return true;
 		}
 	}
@@ -7220,50 +7180,9 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', '   Is NOT admin ' );
-				$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-				$this->log->add( 'preauthorizationsredsys', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', '   Is user logget in ' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-				}
 				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'preauthorizationsredsys', ' ' );
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', '   SHOW Gateway' );
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', ' ' );
-					} else {
-						$this->log->add( 'preauthorizationsredsys', ' ' );
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', '   DONT SHOW Gateway' );
-						$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-						$this->log->add( 'preauthorizationsredsys', ' ' );
-					}
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'preauthorizationsredsys', '/****************************/' );
-					$this->log->add( 'preauthorizationsredsys', ' ' );
-				}
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

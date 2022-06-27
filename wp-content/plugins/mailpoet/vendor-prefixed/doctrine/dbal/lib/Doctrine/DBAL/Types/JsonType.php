@@ -21,7 +21,7 @@ class JsonType extends Type
  return null;
  }
  $encoded = json_encode($value);
- if (json_last_error() !== \JSON_ERROR_NONE) {
+ if (json_last_error() !== JSON_ERROR_NONE) {
  throw ConversionException::conversionFailedSerialization($value, 'json', json_last_error_msg());
  }
  return $encoded;
@@ -35,7 +35,7 @@ class JsonType extends Type
  $value = stream_get_contents($value);
  }
  $val = json_decode($value, \true);
- if (json_last_error() !== \JSON_ERROR_NONE) {
+ if (json_last_error() !== JSON_ERROR_NONE) {
  throw ConversionException::conversionFailed($value, $this->getName());
  }
  return $val;

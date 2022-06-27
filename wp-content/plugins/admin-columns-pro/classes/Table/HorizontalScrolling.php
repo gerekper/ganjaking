@@ -8,15 +8,16 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
-/**
- * @since 4.0
- */
 class HorizontalScrolling implements AC\Registrable {
 
-	/** @var Storage */
+	/**
+	 * @var Storage
+	 */
 	private $storage;
 
-	/** @var Asset\Location\Absolute */
+	/**
+	 * @var Asset\Location\Absolute
+	 */
 	private $location;
 
 	public function __construct( Storage $storage, Asset\Location\Absolute $location ) {

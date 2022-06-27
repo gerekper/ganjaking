@@ -1,5 +1,12 @@
 *** WooCommerce Force Sells ***
 
+2022-04-05 - version 1.1.30
+* Fix - Compatibility fix for composer v2.2.0.
+* Fix - Fixes an issue with sync force sells where product quantities were not being updated properly when quantity multipliers are present.
+* Fix - Update package-lock.json to v2.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-08-03 - version 1.1.29
 * Fix - Correctly escape strings in admin settings screens.
 * Fix - Fix qty syncing for forced variable products.

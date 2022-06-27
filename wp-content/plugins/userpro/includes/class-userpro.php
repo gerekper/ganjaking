@@ -16,7 +16,7 @@ final class UserPro
 
     public $up_admin = null;
 
-    public static $version = '4.9.39';
+    public static $version = '4.10.1';
 
     /**
      * Social addon object

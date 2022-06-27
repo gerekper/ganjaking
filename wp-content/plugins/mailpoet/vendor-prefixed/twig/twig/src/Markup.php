@@ -25,4 +25,3 @@ class Markup implements \Countable, \JsonSerializable
  return $this->content;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Markup', 'MailPoetVendor\\Twig_Markup');

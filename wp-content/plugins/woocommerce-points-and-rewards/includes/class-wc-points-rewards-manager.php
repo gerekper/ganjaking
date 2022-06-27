@@ -510,7 +510,7 @@ class WC_Points_Rewards_Manager {
 			foreach ( $coupons as $coupon_code ) {
 
 				$coupon             = new WC_Coupon( $coupon_code );
-				$coupon_id          = version_compare( WC_VERSION, '3.0', '<' ) ? $coupon->id : $coupon->get_id();
+				$coupon_id          = $coupon->get_id();
 				$wc_points_modifier = get_post_meta( $coupon_id, '_wc_points_modifier' );
 
 				if ( ! empty( $wc_points_modifier[0] ) ) {

@@ -330,7 +330,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			'hide_help_button'   => array(
 				'title'       => '',
 				'type'        => 'checkbox',
-				'label'       => 'Hide Help Button From Order Details Page',
+				'label'       => __( 'Hide Help Button From Order Details Page', 'woocommerce-help-scout' ),
 				'default'     => 'no',
 				'description' => '',
 			),
@@ -338,7 +338,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			'access_url' => array(
 				'title'       => '',
 				'type'        => 'title',
-				'description' => '<a href="#" id="allow_access_url">Allow Access</a>',
+				'description' => __( '<a href="#" id="allow_access_url">Allow Access</a>', 'woocommerce-help-scout' ),
 			),
 		);
 	}

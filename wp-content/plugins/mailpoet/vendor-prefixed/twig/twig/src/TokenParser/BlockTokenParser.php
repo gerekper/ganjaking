@@ -9,7 +9,7 @@ use MailPoetVendor\Twig\Node\PrintNode;
 use MailPoetVendor\Twig\Token;
 final class BlockTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $lineno = $token->getLine();
  $stream = $this->parser->getStream();
@@ -45,13 +45,12 @@ final class BlockTokenParser extends AbstractTokenParser
  $this->parser->popLocalScope();
  return new BlockReferenceNode($name, $lineno, $this->getTag());
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endblock');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'block';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\BlockTokenParser', 'MailPoetVendor\\Twig_TokenParser_Block');

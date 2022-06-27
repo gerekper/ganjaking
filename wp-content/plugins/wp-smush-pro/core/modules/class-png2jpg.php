@@ -405,7 +405,7 @@ class Png2jpg extends Abstract_Module {
 		// If there aren't any savings return.
 		if ( $n_file_size >= $o_file_size ) {
 			// Delete the JPG image and return.
-			@unlink( $n_file );
+			unlink( $n_file );
 			Helper::logger()->png2jpg()->notice( sprintf( 'The new file [%s](%s) is larger than the original file [%s](%s).', Helper::clean_file_path( $n_file ), size_format( $n_file_size ), Helper::clean_file_path( $file ), size_format( $o_file_size ) ) );
 
 			return $result;
@@ -468,7 +468,8 @@ class Png2jpg extends Abstract_Module {
 
 		if ( ! empty( $n_file['filename'] ) && $n_file['dirname'] ) {
 			// Get a unique File name.
-			if ( $file_detail = Helper::cache_get( $id, 'convert_to_jpg' ) ) {// phpcs:ignore
+			$file_detail = Helper::cache_get( $id, 'convert_to_jpg' );
+			if ( $file_detail ) {
 				list( $old_main_filename, $new_main_filename ) = $file_detail;
 				/**
 				 * Thumbnail name.
@@ -700,6 +701,7 @@ class Png2jpg extends Abstract_Module {
 		}
 
 		$savings = get_post_meta( $id, 'wp-smush-pngjpg_savings', true );
+
 		$is_converted = 0;
 		if ( ! empty( $savings ) ) {
 			$is_converted = -1;// The image was tried to convert to JPG but it failed or larger than the original file.

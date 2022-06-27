@@ -65,8 +65,8 @@ final class ReflectionPropertiesGetter
  return $propertyName;
  }
  if ($property->isProtected()) {
- return "\0*\0" . $propertyName;
+ return "\x00*\x00" . $propertyName;
  }
- return "\0" . $property->getDeclaringClass()->getName() . "\0" . $propertyName;
+ return "\x00" . $property->getDeclaringClass()->getName() . "\x00" . $propertyName;
  }
 }

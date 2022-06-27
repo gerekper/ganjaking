@@ -11,12 +11,12 @@ final class DeprecationCollector
  {
  $this->twig = $twig;
  }
- public function collectDir($dir, $ext = '.twig')
+ public function collectDir(string $dir, string $ext = '.twig') : array
  {
  $iterator = new \RegexIterator(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY), '{' . \preg_quote($ext) . '$}');
  return $this->collect(new TemplateDirIterator($iterator));
  }
- public function collect(\Traversable $iterator)
+ public function collect(\Traversable $iterator) : array
  {
  $deprecations = [];
  \set_error_handler(function ($type, $msg) use(&$deprecations) {
@@ -35,4 +35,3 @@ final class DeprecationCollector
  return $deprecations;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Util\\DeprecationCollector', 'MailPoetVendor\\Twig_Util_DeprecationCollector');

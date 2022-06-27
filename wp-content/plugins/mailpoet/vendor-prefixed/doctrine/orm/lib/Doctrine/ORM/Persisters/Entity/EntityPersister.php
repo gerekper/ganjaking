@@ -3,6 +3,7 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Persisters\Entity;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
+use MailPoetVendor\Doctrine\DBAL\LockMode;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\ORM\Mapping\MappingException;
 use MailPoetVendor\Doctrine\ORM\PersistentCollection;

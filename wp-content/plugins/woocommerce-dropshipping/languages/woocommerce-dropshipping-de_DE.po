@@ -1,0 +1,854 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-23 00:37+0000\n"
+"PO-Revision-Date: 2022-03-29 16:38+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: .\n"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1704
+msgid "\""
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:116
+#: /woocommerce-dropshipping/packingslip.php:116
+#, php-format
+msgid "<strong>Supplier Account #</strong> %s"
+msgstr "<strong>Lieferantenkonto #</strong> %s"
+
+#: /woocommerce-dropshipping/packingslip.php:84
+#, php-format
+msgid "[ %s Order # %s  ]"
+msgstr "[ %s Bestellnummer %s ]"
+
+#: /woocommerce-dropshipping/complete.php:84
+#, php-format
+msgid "[ %s Order # %s is completed ]"
+msgstr "[ %s Auftrag # %s ist abgeschlossen ]"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:56
+msgid "Account Information"
+msgstr "Kontoinformationen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:103
+msgid "Active Affiliate Products"
+msgstr "Aktive Partnerprodukte"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:242
+msgid "Add New Dropshipping Supplier"
+msgstr "Neuen Dropshipping-Anbieter hinzufügen"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:246
+msgid "Add or remove Dropshipping Suppliers"
+msgstr "Dropshipping-Anbieter hinzufügen oder entfernen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:151
+msgid "Adjust Plugin Settings"
+msgstr "Plugin-Einstellungen anpassen"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1609
+msgid "AliExpress Action"
+msgstr "AliExpress Aktion"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:145
+msgid "Aliexpress Import"
+msgstr "Aliexpress-Import"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:338
+msgid "AliExpress Orders"
+msgstr "AliExpress-Bestellungen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:61
+msgid "Aliexpress Orders"
+msgstr "Aliexpress-Bestellungen"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:339
+msgid "AliExpress Orders placed."
+msgstr "AliExpress Bestellungen aufgegeben."
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Aliexpress Product"
+msgstr "Aliexpress-Produkt"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:358
+msgid "AliExpress Supplier"
+msgstr "AliExpress Lieferant"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:392
+msgid "AliExpress Supplier Store Name"
+msgstr "AliExpress Lieferanten-Shop-Name"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:411
+msgid "AliExpress Supplier Store Price Range"
+msgstr "AliExpress Supplier Store Preisspanne"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:402
+msgid "AliExpress Supplier Store URL"
+msgstr "AliExpress Lieferanten-Shop-URL"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:239
+msgid "All Dropshipping Suppliers"
+msgstr "Alle Dropshipping-Anbieter"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1816
+msgid "All Orders"
+msgstr "Alle Bestellungen"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:256
+msgid "Amazon Affiliate ID"
+msgstr "Amazon-Partner-ID"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:199
+msgid "Amazon Product ID"
+msgstr "Amazon-Produkt-ID"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:198
+msgid "and hit the \"Save Changes\" button"
+msgstr "und klicke auf die Schaltfläche \"Änderungen speichern\""
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1156
+msgid "API Key Mismatch!!"
+msgstr "Nichtübereinstimmung des API-Schlüssels!!"
+
+#: /woocommerce-dropshipping/complete.php:1035
+#: /woocommerce-dropshipping/packingslip.php:1035
+msgid "Billing Address"
+msgstr "Rechnungsadresse"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:247
+msgid "Choose from the most used Dropshipping Suppliers"
+msgstr "Wählen Sie aus den am häufigsten verwendeten Dropshipping-Anbietern"
+
+#: /woocommerce-dropshipping/complete.php:171
+#: /woocommerce-dropshipping/packingslip.php:171
+msgid "Chosen Shipping Method:"
+msgstr "Gewählte Versandart:"
+
+#: /woocommerce-dropshipping/complete.php:994
+#: /woocommerce-dropshipping/complete.php:1141
+#: /woocommerce-dropshipping/packingslip.php:994
+#: /woocommerce-dropshipping/packingslip.php:1141
+msgid "Company Address"
+msgstr "Firmenanschrift"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:96
+msgid "Completed Dropshipping Orders"
+msgstr "Abgeschlossene Dropshipping-Bestellungen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:152
+msgid "Configure packing slips, emails and more."
+msgstr "Packzettel, E-Mails und mehr konfigurieren."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:286
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:311
+msgid "Cost of goods"
+msgstr "Warenkosten"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:313
+msgid "Cost of goods value included in the supplier email"
+msgstr "Warenwert in der Lieferanten-E-Mail enthalten"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:419
+msgid "Currency"
+msgstr "Währung"
+
+#: /woocommerce-dropshipping/complete.php:246
+#: /woocommerce-dropshipping/packingslip.php:246
+#, php-format
+msgid "Customer Order Note : %s"
+msgstr "Kundenbestellnotiz: %s"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:313
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:314
+msgid "Dashboard"
+msgstr "Armaturenbrett"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:70
+msgid "Date"
+msgstr "Datum"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:468
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:514
+msgid "Description - Type of Package"
+msgstr "Beschreibung - Art des Pakets"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:518
+msgid "Description - Type of Package value included in the supplier email"
+msgstr ""
+"Beschreibung - Art des Paketwerts, der in der Lieferanten-E-Mail enthalten "
+"ist"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Docs"
+msgstr "Dokumente"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:305
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:306
+msgid "Dropshipping"
+msgstr "Dropshipping"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:548
+msgid "Dropshipping Notifications"
+msgstr "Dropshipping-Benachrichtigungen"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:236
+msgid "Dropshipping Supplier"
+msgstr "Dropshipping-Anbieter"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:240
+msgid "Edit Dropshipping Supplier"
+msgstr "Dropshipping-Anbieter bearbeiten"
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Enable this option if this product is from Aliexpress"
+msgstr "Aktivieren Sie diese Option, wenn dieses Produkt von Aliexpress ist"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:385
+msgid "Enter URL to AliExpress Product"
+msgstr "URL zum AliExpress-Produkt eingeben"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1441
+msgid "Error. Product does not exist in woocommerce store."
+msgstr "Fehler. Das Produkt existiert nicht im Woocommerce-Shop."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:938
+msgid "Given parent categories id does not exist in product categories list."
+msgstr ""
+"Die angegebene übergeordnete Kategorie-ID ist in der Produktkategorienliste "
+"nicht vorhanden."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:153
+msgid "Go to Settings"
+msgstr "Gehe zu den Einstellungen"
+
+#. Description of the plugin
+msgid ""
+"Handle dropshipping from your WooCommerce. Create a packing slip, and notify "
+"the vendor when an order is paid. Import inventory updates via CSV from your "
+"vendors."
+msgstr ""
+"Behandeln Sie Dropshipping von Ihrem WooCommerce. Erstellen Sie einen "
+"Lieferschein und benachrichtigen Sie den Verkäufer, wenn eine Bestellung "
+"bezahlt wurde. Importieren Sie Bestandsaktualisierungen per CSV von Ihren "
+"Lieferanten."
+
+#. URI of the plugin
+msgid "http://woocommerce.com/products/woocommerce-dropshipping/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://opmc.com.au/"
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:436
+#: /woocommerce-dropshipping/packingslip.php:436
+msgid "Image"
+msgstr "Bild"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:652
+msgid "Image data is empty!"
+msgstr "Bilddaten sind leer!"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:147
+msgid "Install Now"
+msgstr "Jetzt installieren"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:146
+msgid "Install the extension to get started"
+msgstr "Installieren Sie die Erweiterung, um loszulegen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:126
+msgid "Low on Stock"
+msgstr "Wenig auf Lager"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:159
+msgid "Manage Suppliers"
+msgstr "Lieferanten verwalten"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1589
+msgid "Merchant store currency code not found!"
+msgstr "Währungscode des Händlergeschäfts nicht gefunden!"
+
+#: /woocommerce-dropshipping/complete.php:829
+#: /woocommerce-dropshipping/packingslip.php:829
+msgid "Miscellaneous"
+msgstr "Sonstig"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:921
+msgid "Name parameter required."
+msgstr "Name-Parameter erforderlich."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:243
+msgid "New Dropshipping Supplier Name"
+msgstr "Neuer Dropshipping-Lieferantenname"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:850
+msgid "No categories found!"
+msgstr "Keine Kategorien gefunden!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:248
+msgid "No Dropshipping Suppliers found"
+msgstr "Keine Dropshipping-Anbieter gefunden"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:73
+msgid "Notes"
+msgstr "Anmerkungen"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:634
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1165
+msgid "Oops! Something went wrong. Please try again!"
+msgstr "Hoppla! Etwas ist schief gelaufen. Bitte versuche es erneut!"
+
+#. Author of the plugin
+msgid "OPMC Australia Pty Ltd"
+msgstr "OPMC Australia Pty Ltd"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:49
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:65
+msgid "Order Number"
+msgstr "Bestellnummer"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:166
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:175
+msgid "Order number"
+msgstr "Bestellnummer"
+
+#: /woocommerce-dropshipping/complete.php:234
+#: /woocommerce-dropshipping/packingslip.php:234
+msgid "Order Number :"
+msgstr "Bestellnummer :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:40
+msgid "Orders"
+msgstr "Aufträge"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:75
+msgid "Orders Completed"
+msgstr "Bestellungen abgeschlossen"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:68
+msgid "Orders in Progress"
+msgstr "Bestellungen in Bearbeitung"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:158
+msgid "Organise your store's products by their supplier."
+msgstr "Organisieren Sie die Produkte Ihres Shops nach ihrem Lieferanten."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:35
+msgid "Out of Stock"
+msgstr "Ausverkauft"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:82
+msgid "Out of Stock Listings"
+msgstr "Ausverkaufte Listen"
+
+#: /woocommerce-dropshipping/complete.php:196
+#: /woocommerce-dropshipping/complete.php:218
+#: /woocommerce-dropshipping/packingslip.php:196
+#: /woocommerce-dropshipping/packingslip.php:218
+msgid "Payment Type :"
+msgstr "Zahlungsart :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:89
+msgid "Pending Orders"
+msgstr "Ausstehende Bestellungen"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1639
+msgid "Place Order"
+msgstr "Bestellung aufgeben"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:253
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1202
+msgid "Please enter a valid Type (simple or variable)!"
+msgstr "Bitte geben Sie einen gültigen Typ (einfach oder variabel) ein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:444
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1393
+msgid "Please enter a valid URL for this AliExpress Product!"
+msgstr "Bitte geben Sie eine gültige URL für dieses AliExpress-Produkt ein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:448
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1397
+msgid "Please enter a valid URL for this AliExpress Store!"
+msgstr "Bitte geben Sie eine gültige URL für diesen AliExpress Store ein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1389
+msgid "Please enter AliExpress Store Name for this product!"
+msgstr "Bitte geben Sie den AliExpress Store-Namen für dieses Produkt ein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:452
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1401
+msgid "Please enter AliExpress Store Price Range for this product!"
+msgstr ""
+"Bitte geben Sie die AliExpress Store-Preisspanne für dieses Produkt ein!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:155
+#, php-format
+msgid "Please see the attached PDF. Thank you! - %s"
+msgstr "Bitte beachten Sie das angehängte PDF. Danke schön! - %s"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1232
+msgid "Please specify a list of valid categories in array format!"
+msgstr "Bitte geben Sie eine Liste gültiger Kategorien im Array-Format an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1246
+msgid ""
+"Please specify a list of valid categories in array format. Categories array "
+"must contain a valid numeric id parameter!"
+msgstr ""
+"Geben Sie eine Liste gültiger Kategorien im Array-Format an. Das Kategorien-"
+"Array muss einen gültigen numerischen ID-Parameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1293
+msgid ""
+"Please specify a list of valid image URLs in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Geben Sie eine Liste gültiger Bild-URLs im Array-Format an. Das Bilder-Array "
+"muss eine gültige Bild-URL in src enthalten. Der Bildtyp kann einer der "
+"folgenden sein: (jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1254
+msgid "Please specify a list of valid images URLs in array format!"
+msgstr "Bitte geben Sie eine Liste gültiger Bild-URLs im Array-Format an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:283
+msgid "Please specify a valid category array format!"
+msgstr "Bitte geben Sie ein gültiges Kategorie-Array-Format an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:297
+msgid ""
+"Please specify a valid category array format. Categories array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Geben Sie ein gültiges Kategorie-Array-Format an. Das Kategorien-Array muss "
+"einen gültigen numerischen ID-Parameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:365
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1314
+msgid ""
+"Please specify a valid list of Dimensions in array format. Dimensions array "
+"must contain a valid numeric length, width, and height parameters!"
+msgstr ""
+"Geben Sie eine gültige Liste von Dimensionen im Array-Format an. Das "
+"Dimensionsarray muss einen gültigen numerischen Längen-, Breiten- und "
+"Höhenparameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1357
+msgid ""
+"Please specify a valid list of Tags array format. Tags array must contain a "
+"valid numeric id parameter!"
+msgstr ""
+"Geben Sie eine gültige Liste mit Tags-Array-Formaten an. Das Tags-Array muss "
+"einen gültigen numerischen ID-Parameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:394
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1343
+msgid ""
+"Please specify a valid list of Tags in array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Geben Sie eine gültige Liste von Tags im Array-Format an. Das Tags-Array "
+"muss einen gültigen numerischen ID-Parameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:408
+msgid ""
+"Please specify a valid list of Tagsin array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Bitte geben Sie eine gültige Liste von Tags im Array-Format an. Das Tags-"
+"Array muss einen gültigen numerischen ID-Parameter enthalten!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:386
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1335
+msgid ""
+"Please specify a valid non-negative numeric height parameter within "
+"Dimensions array!"
+msgstr ""
+"Bitte geben Sie einen gültigen nicht-negativen numerischen Höhenparameter im "
+"Dimensions-Array an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:373
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1322
+msgid ""
+"Please specify a valid non-negative numeric length parameter within "
+"Dimensions array!"
+msgstr ""
+"Bitte geben Sie einen gültigen nicht-negativen numerischen Längenparameter "
+"im Dimensions-Array an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:379
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1328
+msgid ""
+"Please specify a valid non-negative numeric width parameter within "
+"Dimensions array!"
+msgstr ""
+"Bitte geben Sie einen gültigen nicht-negativen numerischen Breitenparameter "
+"im Dimensions-Array an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:305
+msgid "Please specify valid URLs to images in array format!"
+msgstr "Bitte geben Sie gültige URLs zu Bildern im Array-Format an!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:344
+msgid ""
+"Please specify valid URLs to images in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Geben Sie gültige URLs für Bilder im Array-Format an. Das Bilder-Array muss "
+"eine gültige Bild-URL in src enthalten. Der Bildtyp kann einer der folgenden "
+"sein: (jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:140
+msgid "Plugin Setup"
+msgstr "Plugin-Setup"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:128
+msgid "POD"
+msgstr "POD"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:244
+msgid "Popular Dropshipping Suppliers"
+msgstr "Beliebte Dropshipping-Anbieter"
+
+#: /woocommerce-dropshipping/complete.php:614
+#: /woocommerce-dropshipping/complete.php:646
+#: /woocommerce-dropshipping/packingslip.php:614
+#: /woocommerce-dropshipping/packingslip.php:646
+msgid "Price"
+msgstr "Preis"
+
+#: /woocommerce-dropshipping/complete.php:488
+#: /woocommerce-dropshipping/packingslip.php:488
+msgid "Product"
+msgstr "Produkt"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:500
+msgid "Product already exists. Please select another product."
+msgstr "Produkt existiert bereits. Bitte wählen Sie ein anderes Produkt."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:384
+msgid "Product URL"
+msgstr "Produkt-URL"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:45
+msgid "Projected Profit"
+msgstr "Prognostizierter Gewinn"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:30
+msgid "Published Listings"
+msgstr "Veröffentlichte Einträge"
+
+#: /woocommerce-dropshipping/complete.php:512
+#: /woocommerce-dropshipping/packingslip.php:512
+msgid "Quantity"
+msgstr "Menge"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:50
+msgid "Recent Order Data"
+msgstr "Aktuelle Bestelldaten"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:238
+msgid "Search Dropshipping Suppliers"
+msgstr "Dropshipping-Anbieter suchen"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:245
+msgid "Separate Dropshipping Suppliers with commas"
+msgstr "Trennen Sie Dropshipping-Lieferanten durch Kommas"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:221
+msgid "Setting for price rate is not set"
+msgstr "Einstellung für Preissatz ist nicht eingestellt"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: /woocommerce-dropshipping/complete.php:1080
+#: /woocommerce-dropshipping/complete.php:1241
+#: /woocommerce-dropshipping/packingslip.php:1080
+#: /woocommerce-dropshipping/packingslip.php:1241
+msgid "Shipping Address"
+msgstr "Lieferanschrift"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:72
+msgid "Shipping Company"
+msgstr "Versandunternehmen"
+
+#: /woocommerce-dropshipping/complete.php:838
+#: /woocommerce-dropshipping/complete.php:848
+#: /woocommerce-dropshipping/packingslip.php:838
+#: /woocommerce-dropshipping/packingslip.php:848
+msgid "Shipping Cost"
+msgstr "Versandkosten"
+
+#: /woocommerce-dropshipping/complete.php:464
+#: /woocommerce-dropshipping/packingslip.php:464
+msgid "SKU"
+msgstr "Artikelnummer"
+
+#: /woocommerce-dropshipping/complete.php:314
+#: /woocommerce-dropshipping/packingslip.php:314
+msgid "Kunden-eMail : %s"
+msgstr "Kliënt-e-pos : %s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:732
+msgid "New Order #%1$s From %2$s"
+msgstr "Neue Ordnung #%1$s Von %2$s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "To mark this order as shipped please click the following link:"
+msgstr "Um diese Bestellung als versandt zu markieren, klicken Sie bitte auf den folgenden Link:"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "Mark as shipped"
+msgstr "Als verschickt markieren"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:773
+msgid "View order in dashboard"
+msgstr "Bestellung im Dashboard anzeigen"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1559
+msgid "Something went wrong. Please try again!"
+msgstr "Etwas ist schief gelaufen. Bitte versuche es erneut!"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:391
+msgid "Store Name"
+msgstr "Name des Geschäfts"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:401
+msgid "Store URL"
+msgstr "URL speichern"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:235
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:237
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:157
+msgid "Suppliers"
+msgstr "Lieferanten"
+
+#: /woocommerce-dropshipping/complete.php:868
+#: /woocommerce-dropshipping/packingslip.php:868
+msgid "taxes"
+msgstr "Steuern"
+
+#: /woocommerce-dropshipping/complete.php:1298
+msgid "Thank you!"
+msgstr "Danke schön!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:415
+msgid "The Attributes parameter must be in a valid array format!"
+msgstr "Der Parameter Attributes muss ein gültiges Array-Format haben!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1364
+msgid "The Attributess parameter must be in a valid array format!"
+msgstr "Der Parameter Attributess muss ein gültiges Array-Format haben!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:879
+msgid "The Category Parent parameter is required and must be numeric value!"
+msgstr ""
+"Der Parameter Category Parent ist erforderlich und muss ein numerischer Wert "
+"sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:419
+msgid "The Default Attributes parameter must be in a valid array format!"
+msgstr ""
+"Der Parameter Default Attributes muss ein gültiges Array-Format aufweisen!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1368
+msgid "The Default Attributess parameter must be in a valid array format!"
+msgstr ""
+"Der Parameter Default Attributess muss ein gültiges Array-Format aufweisen!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:273
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:875
+msgid "The Description parameter is required!"
+msgstr "Der Parameter Beschreibung ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:957
+msgid "The Id parameter is required and must be a number!"
+msgstr "Der Parameter Id ist erforderlich und muss eine Zahl sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:350
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1299
+msgid ""
+"The Manage Stock parameter is required and must be a boolean (true/false) "
+"value!"
+msgstr ""
+"Der Parameter Bestand verwalten ist erforderlich und muss ein boolescher "
+"Wert (wahr/falsch) sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:871
+msgid "The Name parameter is required!"
+msgstr "Der Parameter Name ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:428
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1377
+msgid ""
+"The Number Of Orders parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Der Parameter Number Of Orders muss ein gültiger nicht negativer numerischer "
+"Wert sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2002
+msgid "The Order Id does not exist!"
+msgstr "Die Bestell-ID existiert nicht!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:977
+msgid "The order id does not exist."
+msgstr "Die Bestell-ID existiert nicht."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2007
+msgid "The Order Id parameter is required!"
+msgstr "Der Parameter Bestell-ID ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2012
+msgid "The Order Status parameter is required!"
+msgstr "Der Parameter Auftragsstatus ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:261
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1210
+msgid ""
+"The Price parameter is required and must be a valid non-negative numeric "
+"value!"
+msgstr ""
+"Der Parameter Price ist erforderlich und muss ein gültiger nicht negativer "
+"numerischer Wert sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:265
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1214
+msgid ""
+"The Regular Price parameter is required and must be a valid non-negative "
+"numeric value!"
+msgstr ""
+"Der Parameter Regulärer Preis ist erforderlich und muss ein gültiger nicht "
+"negativer numerischer Wert sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:269
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1218
+msgid "The Sale Price parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Der Parameter Verkaufspreis muss ein gültiger nicht negativer numerischer "
+"Wert sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:277
+msgid "The Short Description parameter is required!"
+msgstr "Der Parameter Kurzbeschreibung ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:257
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1206
+msgid "The SKU parameter is required!"
+msgstr "Der SKU-Parameter ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:354
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1303
+msgid ""
+"The Stock Quantity parameter is required and must be a valid non-negative "
+"number!"
+msgstr ""
+"Der Parameter Lagermenge ist erforderlich und muss eine gültige nicht "
+"negative Zahl sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:249
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1198
+msgid "The Title parameter is required!"
+msgstr "Der Parameter Title ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:423
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1372
+msgid "The Variations parameter must be in a valid array format!"
+msgstr "Der Parameter Variations muss ein gültiges Array-Format haben!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:358
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1307
+msgid "The Weight parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Der Parameter Gewicht muss ein gültiger nicht negativer numerischer Wert "
+"sein!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1090
+msgid "The woo API key  parameter is required!"
+msgstr "Der woo API-Schlüsselparameter ist erforderlich!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1086
+msgid "The woo url parameter is required!"
+msgstr "Der woo-URL-Parameter ist erforderlich!"
+
+#: /woocommerce-dropshipping/complete.php:915
+#: /woocommerce-dropshipping/complete.php:932
+#: /woocommerce-dropshipping/packingslip.php:915
+#: /woocommerce-dropshipping/packingslip.php:932
+msgid "Total"
+msgstr "Gesamt"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:87
+msgid "Tracking Number"
+msgstr "Auftragsnummer, Frachtnummer, Sendungscode"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:71
+msgid "Tracking Number(s)"
+msgstr "Verfolgungsnummer)"
+
+#: /woocommerce-dropshipping/complete.php:346
+#: /woocommerce-dropshipping/packingslip.php:346
+msgid "Tracking Number:"
+msgstr "Auftragsnummer, Frachtnummer, Sendungscode:"
+
+#: /woocommerce-dropshipping/complete.php:543
+#: /woocommerce-dropshipping/complete.php:575
+#: /woocommerce-dropshipping/packingslip.php:543
+#: /woocommerce-dropshipping/packingslip.php:575
+msgid "Type Of Package"
+msgstr "Art des Pakets"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:241
+msgid "Update Dropshipping Supplier"
+msgstr "Dropshipping-Anbieter aktualisieren"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1160
+msgid "URL mismatch."
+msgstr "URL-Nichtübereinstimmung."
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:500
+msgid "User already exists.  Password inherited."
+msgstr "Benutzer existiert bereits. Passwort geerbt."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:159
+#, php-format
+msgid "We hope you enjoy your order. Thank you for shopping with %s"
+msgstr ""
+"Wir hoffen, Sie genießen Ihre Bestellung. Vielen Dank für Ihren Einkauf bei "
+"%s"
+
+#. Name of the plugin
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:95
+msgid "WooCommerce Dropshipping"
+msgstr "WooCommerce-Dropshipping"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:197
+msgid ""
+"Woocommerce Dropshipping activated successfully! In order for the plugin to "
+"work correctly. Visit"
+msgstr ""
+"Woocommerce Dropshipping erfolgreich aktiviert! Damit das Plugin richtig "
+"funktioniert. Besuch"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:24
+msgid "WooCommerce Dropshipping Dashboard"
+msgstr "WooCommerce Dropshipping-Dashboard"
+
+#. 1: href link to Fileinfo extension php doc
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:55
+#, php-format
+msgid "WooCommerce Dropshipping requires %s to be installed on your server."
+msgstr ""
+"WooCommerce Dropshipping erfordert, dass %s auf Ihrem Server installiert ist."

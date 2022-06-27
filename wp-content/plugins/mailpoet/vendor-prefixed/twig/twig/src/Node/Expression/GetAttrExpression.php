@@ -14,7 +14,7 @@ class GetAttrExpression extends AbstractExpression
  }
  parent::__construct($nodes, ['type' => $type, 'is_defined_test' => \false, 'ignore_strict_check' => \false, 'optimizable' => \true], $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $env = $compiler->getEnvironment();
  // optimize array calls
@@ -36,4 +36,3 @@ class GetAttrExpression extends AbstractExpression
  $compiler->raw(', ')->repr($this->getAttribute('type'))->raw(', ')->repr($this->getAttribute('is_defined_test'))->raw(', ')->repr($this->getAttribute('ignore_strict_check'))->raw(', ')->repr($env->hasExtension(SandboxExtension::class))->raw(', ')->repr($this->getNode('node')->getTemplateLine())->raw(')');
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\GetAttrExpression', 'MailPoetVendor\\Twig_Node_Expression_GetAttr');

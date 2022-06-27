@@ -26,7 +26,7 @@ require 'wc-od-deprecated-functions.php';
  */
 function wc_od_get_query_arg( $arg ) {
 	$value = '';
-	$arg = sanitize_key( $arg );
+	$arg   = sanitize_key( $arg );
 	if ( ! empty( $_POST ) && isset( $_POST['_wp_http_referer'] ) ) {
 		$query_string = parse_url( $_POST['_wp_http_referer'], PHP_URL_QUERY );
 		if ( $query_string ) {
@@ -60,7 +60,7 @@ function wc_od_get_settings_url( $section = 'options', $extra_params = array() )
 	}
 
 	if ( ! empty( $extra_params ) ) {
-		foreach( $extra_params as $param => $value ) {
+		foreach ( $extra_params as $param => $value ) {
 			$url .= '&' . esc_attr( $param ) . '=' . urlencode( $value );
 		}
 	}
@@ -80,15 +80,17 @@ function wc_od_get_settings_url( $section = 'options', $extra_params = array() )
 function wc_od_get_posted_data( $key, $default = null ) {
 	$value = $default;
 
-	if ( isset( $_POST[ $key ] ) ) { // WPCS: input var ok, CSRF OK.
-		$value = wc_clean( wp_unslash( $_POST[ $key ] ) ); // WPCS: CSRF ok, sanitization ok.
-	} elseif ( isset( $_POST['post_data'] ) ) { // Posted by AJAX on refresh the content. WPCS: CSRF ok.
-		parse_str( $_POST['post_data'], $post_data ); // WPCS: CSRF ok, sanitization ok.
+	// phpcs:disable WordPress.Security.NonceVerification
+	if ( isset( $_POST[ $key ] ) ) {
+		$value = wc_clean( wp_unslash( $_POST[ $key ] ) );
+	} elseif ( isset( $_POST['post_data'] ) ) { // Posted by AJAX on refresh the content.
+		parse_str( $_POST['post_data'], $post_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( isset( $post_data[ $key ] ) ) {
 			$value = wc_clean( wp_unslash( $post_data[ $key ] ) );
 		}
 	}
+	// phpcs:enable WordPress.Security.NonceVerification
 
 	return $value;
 }
@@ -535,10 +537,9 @@ function wc_od_get_date_format( $context = 'php' ) {
 		$date_format = str_replace( array_keys( $format_conversion ), array_values( $format_conversion ), $date_format );
 	} elseif ( 'admin' === $context ) {
 		// Use the same format as the 'date' column.
-		$format = ( version_compare( WC()->version, '3.3', '<' ) ? get_option( 'date_format' ) : __( 'M j, Y', 'woocommerce-order-delivery' ) );
+		$format = __( 'M j, Y', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 
-		/** This filter is documented in woocommerce/includes/admin/class-wc-admin-post-types.php up to WC 3.2 */
-		/** This filter is documented in woocommerce/includes/admin/list-tables/class-wc-admin-list-table-orders.php for WC 3.3+ */
+		/** This filter is documented in woocommerce/includes/admin/list-tables/class-wc-admin-list-table-orders.php */
 		$date_format = apply_filters( 'woocommerce_admin_order_date_format', $format );
 	}
 
@@ -590,11 +591,14 @@ function wc_od_get_country_states() {
  */
 function wc_od_get_country_states_for_select2() {
 	$formatted_country_states = array();
-	$country_states = wc_od_get_country_states();
+	$country_states           = wc_od_get_country_states();
 	foreach ( $country_states as $country => $states ) {
 		$formatted_country_states[ $country ] = array();
 		foreach ( $states as $key => $state ) {
-			$formatted_country_states[ $country ][] = array( 'id' => $key, 'text' => $state );
+			$formatted_country_states[ $country ][] = array(
+				'id'   => $key,
+				'text' => $state,
+			);
 		}
 	}
 
@@ -759,7 +763,7 @@ function wc_od_get_datepicker_locale_url() {
 
 	$paths = array(
 		"bootstrap-datepicker.{$locale}.min.js",
-		sprintf('bootstrap-datepicker.%s.min.js', substr( $locale, 0, 2 ) ),
+		sprintf( 'bootstrap-datepicker.%s.min.js', substr( $locale, 0, 2 ) ),
 	);
 
 	$url = null;

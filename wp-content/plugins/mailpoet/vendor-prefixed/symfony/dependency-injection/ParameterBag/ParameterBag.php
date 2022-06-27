@@ -26,9 +26,8 @@ class ParameterBag implements ParameterBagInterface
  {
  return $this->parameters;
  }
- public function get($name)
+ public function get(string $name)
  {
- $name = (string) $name;
  if (!\array_key_exists($name, $this->parameters)) {
  if (!$name) {
  throw new ParameterNotFoundException($name);
@@ -58,17 +57,17 @@ class ParameterBag implements ParameterBagInterface
  }
  return $this->parameters[$name];
  }
- public function set($name, $value)
+ public function set(string $name, $value)
  {
- $this->parameters[(string) $name] = $value;
+ $this->parameters[$name] = $value;
  }
- public function has($name)
+ public function has(string $name)
  {
- return \array_key_exists((string) $name, $this->parameters);
+ return \array_key_exists($name, $this->parameters);
  }
- public function remove($name)
+ public function remove(string $name)
  {
- unset($this->parameters[(string) $name]);
+ unset($this->parameters[$name]);
  }
  public function resolve()
  {
@@ -102,7 +101,7 @@ class ParameterBag implements ParameterBagInterface
  }
  return $this->resolveString($value, $resolving);
  }
- public function resolveString($value, array $resolving = [])
+ public function resolveString(string $value, array $resolving = [])
  {
  // we do this to deal with non string values (Boolean, integer, ...)
  // as the preg_replace_callback throw an exception when trying
@@ -126,7 +125,7 @@ class ParameterBag implements ParameterBagInterface
  }
  $resolved = $this->get($key);
  if (!\is_string($resolved) && !\is_numeric($resolved)) {
- throw new RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \gettype($resolved), $value));
+ throw new RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \get_debug_type($resolved), $value));
  }
  $resolved = (string) $resolved;
  $resolving[$key] = \true;

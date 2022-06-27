@@ -4,8 +4,8 @@ Donate link: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
 Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, wp table, datatables plugin, csv data, TablePress Migration, Footable Plugin, Tablular Data, stackable table, spreadsheet data, Woo Commerce Product Table, Amazon Affiliate Table, bootstrap table
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
-Tested up to: 5.9
-Stable tag: 4.1.10
+Tested up to: 6.0
+Stable tag: 4.2.0
 
 == Description ==
 
@@ -28,6 +28,10 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.2.0 (Date: June 22, 2022) =
+- Adds drag and drop table builder icon
+
 =4.1.10 (Date: February 01, 2022) =
 - Adds global font style
 - Fixes number range filter reset issue

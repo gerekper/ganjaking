@@ -4,6 +4,7 @@ namespace MailPoetVendor\Doctrine\ORM\Persisters\Entity;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 use MailPoetVendor\Doctrine\DBAL\LockMode;
+use MailPoetVendor\Doctrine\DBAL\Types\Type;
 use MailPoetVendor\Doctrine\DBAL\Types\Types;
 use MailPoetVendor\Doctrine\ORM\Internal\SQLResultCasing;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
@@ -88,14 +89,14 @@ class JoinedSubclassPersister extends AbstractEntityInheritancePersister
  }
  $rootTableStmt->executeStatement();
  if ($isPostInsertId) {
- $generatedId = $idGenerator->generate($this->em, $entity);
+ $generatedId = $idGenerator->generateId($this->em, $entity);
  $id = [$this->class->identifier[0] => $generatedId];
  $postInsertIds[] = ['generatedId' => $generatedId, 'entity' => $entity];
  } else {
  $id = $this->em->getUnitOfWork()->getEntityIdentifier($entity);
  }
- if ($this->class->isVersioned) {
- $this->assignDefaultVersionValue($entity, $id);
+ if ($this->class->requiresFetchAfterChange) {
+ $this->assignDefaultVersionAndUpsertableValues($entity, $id);
  }
  // Execute inserts on subtables.
  // The order doesn't matter because all child tables link to the root table via FK.
@@ -124,9 +125,6 @@ class JoinedSubclassPersister extends AbstractEntityInheritancePersister
  return;
  }
  $isVersioned = $this->class->isVersioned;
- if ($isVersioned === \false) {
- return;
- }
  $versionedClass = $this->getVersionedClassMetadata();
  $versionedTable = $versionedClass->getTableName();
  foreach ($updateData as $tableName => $data) {
@@ -134,15 +132,15 @@ class JoinedSubclassPersister extends AbstractEntityInheritancePersister
  $versioned = $isVersioned && $versionedTable === $tableName;
  $this->updateTable($entity, $tableName, $data, $versioned);
  }
+ if ($this->class->requiresFetchAfterChange) {
  // Make sure the table with the version column is updated even if no columns on that
  // table were affected.
- if ($isVersioned) {
- if (!isset($updateData[$versionedTable])) {
+ if ($isVersioned && !isset($updateData[$versionedTable])) {
  $tableName = $this->quoteStrategy->getTableName($versionedClass, $this->platform);
  $this->updateTable($entity, $tableName, [], \true);
  }
  $identifiers = $this->em->getUnitOfWork()->getEntityIdentifier($entity);
- $this->assignDefaultVersionValue($entity, $identifiers);
+ $this->assignDefaultVersionAndUpsertableValues($entity, $identifiers);
  }
  }
  public function delete($entity)
@@ -324,10 +322,13 @@ class JoinedSubclassPersister extends AbstractEntityInheritancePersister
  }
  return $columns;
  }
- protected function assignDefaultVersionValue($entity, array $id)
+ protected function assignDefaultVersionAndUpsertableValues($entity, array $id)
  {
- $value = $this->fetchVersionValue($this->getVersionedClassMetadata(), $id);
- $this->class->setFieldValue($entity, $this->class->versionField, $value);
+ $values = $this->fetchVersionAndNotUpsertableValues($this->getVersionedClassMetadata(), $id);
+ foreach ($values as $field => $value) {
+ $value = Type::getType($this->class->fieldMappings[$field]['type'])->convertToPHPValue($value, $this->platform);
+ $this->class->setFieldValue($entity, $field, $value);
+ }
  }
  private function getJoinSql(string $baseTableAlias) : string
  {

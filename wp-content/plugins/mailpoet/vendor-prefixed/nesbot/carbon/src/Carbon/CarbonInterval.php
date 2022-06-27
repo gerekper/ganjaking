@@ -314,7 +314,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  if ($years instanceof DateInterval) {
  parent::__construct(static::getDateIntervalSpec($years));
  $this->f = $years->f;
- static::copyNegativeUnits($years, $this);
+ self::copyNegativeUnits($years, $this);
  return;
  }
  $spec = $years;
@@ -354,7 +354,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  {
  $source = self::standardizeUnit($source);
  $target = self::standardizeUnit($target);
- $factors = static::getFlipCascadeFactors();
+ $factors = self::getFlipCascadeFactors();
  if (isset($factors[$source])) {
  [$to, $factor] = $factors[$source];
  if ($to === $target) {
@@ -373,7 +373,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  *
  * @return int|null
  */
- public function getFactorWithDefault($source, $target)
+ public static function getFactorWithDefault($source, $target)
  {
  $factor = self::getFactor($source, $target);
  if ($factor) {
@@ -733,9 +733,9 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  $instance->f = $microseconds;
  }
  if ($interval instanceof self && \is_a($className, self::class, \true)) {
- static::copyStep($interval, $instance);
+ self::copyStep($interval, $instance);
  }
- static::copyNegativeUnits($interval, $instance);
+ self::copyNegativeUnits($interval, $instance);
  return $instance;
  }
  private static function copyNegativeUnits(DateInterval $from, DateInterval $to) : void
@@ -831,7 +831,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  *
  * @link https://php.net/manual/en/dateinterval.createfromdatestring.php
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function createFromDateString($time)
  {
  $interval = @parent::createFromDateString(\strtr($time, [',' => ' ', ' and ' => ' ']));
@@ -1332,7 +1332,11 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  if ($method) {
  $previousCount = \INF;
  while (\count($intervalValues->getNonZeroValues()) > $parts && ($count = \count($keys = \array_keys($intervalValues->getValuesSequence()))) > 1) {
- $intervalValues = $this->copy()->roundUnit($keys[\min($count, $previousCount - 1) - 2], 1, $method);
+ $index = \min($count, $previousCount - 1) - 2;
+ if ($index < 0) {
+ break;
+ }
+ $intervalValues = $this->copy()->roundUnit($keys[$index], 1, $method);
  $previousCount = $count;
  }
  }
@@ -1772,7 +1776,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  $originalData['daysExcludeWeeks'] = $originalData['days'];
  unset($originalData['days']);
  $newData = $originalData;
- foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+ foreach (self::getFlipCascadeFactors() as $source => [$target, $factor]) {
  foreach (['source', 'target'] as $key) {
  if (${$key} === 'dayz') {
  ${$key} = 'daysExcludeWeeks';
@@ -1846,7 +1850,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
  $result = 0;
  $cumulativeFactor = 0;
  $unitFound = \false;
- $factors = static::getFlipCascadeFactors();
+ $factors = self::getFlipCascadeFactors();
  $daysPerWeek = static::getDaysPerWeek();
  $values = ['years' => $this->years, 'months' => $this->months, 'weeks' => (int) ($this->d / $daysPerWeek), 'dayz' => $this->d % $daysPerWeek, 'hours' => $this->hours, 'minutes' => $this->minutes, 'seconds' => $this->seconds, 'milliseconds' => (int) ($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND), 'microseconds' => $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND];
  if (isset($factors['dayz']) && $factors['dayz'][0] !== 'weeks') {

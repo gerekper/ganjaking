@@ -2,7 +2,7 @@
 /**
 * @author    ThemePunch <info@themepunch.com>
 * @link      https://www.themepunch.com/
-* @copyright 2019 ThemePunch
+* @copyright 2022 ThemePunch
 */
 if(!defined('ABSPATH')) exit();
 
@@ -2089,6 +2089,19 @@ class RevSliderHelp {
 									$m => "#module_settings_trigger, #gst_sl_3", 
 									$st => '#form_slidergeneral_caroussel', 
 									$f => "#sr_ca_inf"
+								)
+							),
+							'stopOnClick' => array(
+								$t => __("Stop Progress On Click", 'revsliderhelp'),
+								$h => "carousel.stopOnClick",
+								$k => array("carousel", "stop", "scroll", "stop on click"),
+								$d => __("Autorotate progress will get stopped if user clicks on slider", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.type', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_socl"
 								)
 							),
 							'layers_visible' => array(

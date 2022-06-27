@@ -8,18 +8,25 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( 'WC_OD_Settings_Delivery_Days_Time_Frame', false ) ) {
+	return;
+}
+
 if ( ! class_exists( 'WC_OD_Settings_Time_Frame', false ) ) {
 	include_once 'class-wc-od-settings-time-frame.php';
 }
 
-if ( class_exists( 'WC_OD_Settings_Delivery_Days_Time_Frame', false ) ) {
-	return;
+if ( ! trait_exists( 'WC_OD_Settings_Fee' ) ) {
+	require_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-fee.php';
 }
+
 
 /**
  * WC_OD_Settings_Delivery_Days_Time_Frame class.
  */
 class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame {
+
+	use WC_OD_Settings_Fee;
 
 	/**
 	 * Constructor.
@@ -39,6 +46,11 @@ class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame 
 	 */
 	public function init_form_fields() {
 		parent::init_form_fields();
+
+		$this->form_fields = array_merge(
+			$this->form_fields,
+			$this->get_fee_fields()
+		);
 
 		$delivery_days = wc_od_get_delivery_days();
 		$default       = array_map( 'strval', $delivery_days->where( 'enabled', 'yes' )->keys() );
@@ -118,6 +130,8 @@ class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame 
 	 *
 	 * @since 1.6.0
 	 *
+	 * @throws Exception When the field value is invalid.
+	 *
 	 * @param string $key   Field key.
 	 * @param mixed  $value Posted Value.
 	 * @return array An array with the delivery days.
@@ -125,7 +139,25 @@ class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame 
 	public function validate_delivery_days_field( $key, $value ) {
 		$delivery_days = $this->validate_array_field( $key, $value );
 
+		if ( empty( $delivery_days ) ) {
+			throw new Exception( __( 'Select a least one delivery day.', 'woocommerce-order-delivery' ) );
+		}
+
 		return array_map( 'intval', $delivery_days );
+	}
+
+	/**
+	 * Sanitizes the settings.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param array $settings The settings to sanitize.
+	 * @return array
+	 */
+	public function sanitized_fields( $settings ) {
+		$settings = $this->sanitize_fee_fields( $settings );
+
+		return parent::sanitized_fields( $settings );
 	}
 
 	/**
@@ -136,21 +168,24 @@ class WC_OD_Settings_Delivery_Days_Time_Frame extends WC_OD_Settings_Time_Frame 
 	 * @return bool was anything saved?
 	 */
 	public function save() {
-		$settings = $this->sanitized_fields( $this->settings );
+		if ( $this->has_errors() ) {
+			return false;
+		}
 
-		// Add the time frame to all the days included in the 'delivery_days' setting.
-		$delivery_days = wc_od_get_delivery_days();
-		$chosen_days   = $settings['delivery_days'];
+		$settings = $this->sanitized_fields( $this->settings );
+		$day_ids  = $settings['delivery_days'];
 
 		unset( $settings['delivery_days'] );
 
-		foreach ( $chosen_days as $weekday ) {
-			$delivery_day = $delivery_days->get( $weekday );
-			$time_frames  = $delivery_day->get_time_frames();
+		foreach ( $day_ids as $day_id ) {
+			$delivery_day = wc_od_get_delivery_day( $day_id );
 
-			$time_frames->add( $settings );
+			if ( $delivery_day ) {
+				$delivery_day->add_time_frame( $settings );
+				$delivery_day->save();
+			}
 		}
 
-		return update_option( $this->get_option_key(), $delivery_days->to_array() );
+		return true;
 	}
 }

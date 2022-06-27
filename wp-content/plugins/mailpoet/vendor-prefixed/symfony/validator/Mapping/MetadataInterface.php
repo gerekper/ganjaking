@@ -7,5 +7,5 @@ interface MetadataInterface
  public function getCascadingStrategy();
  public function getTraversalStrategy();
  public function getConstraints();
- public function findConstraints($group);
+ public function findConstraints(string $group);
 }

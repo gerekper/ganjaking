@@ -19,8 +19,8 @@ class WC_OD_Delivery_Dates {
 	 * @since 1.8.0
 	 * @since 1.8.5 Added `$format` parameter.
 	 *
-	 * @param array $args {
-	 *      Associative array with arguments.
+	 * @param array  $args {
+	 *       Associative array with arguments.
 	 *
 	 *      @type string $start_date
 	 *      @type string $end_date
@@ -36,22 +36,20 @@ class WC_OD_Delivery_Dates {
 			$args,
 			array(
 				'start_date'      => strtotime( wc_od_get_first_shipping_date( array() ) ),
-				'end_date'        => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ),
-				// The maximum date (Non-inclusive) to look for a valid date.
+				'end_date'        => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
 				'disabled_dates'  => array(),
-				'delivery_days'   => WC_OD()->settings()->get_setting( 'delivery_days' ),
 				'shipping_method' => '',
 			)
 		);
 
+		$delivery_days  = ( ! empty( $args['delivery_days'] ) ? $args['delivery_days'] : wc_od_get_delivery_days() );
 		$disabled_dates = array();
 		$index          = 0;
 
 		do {
 			$timestamp     = strtotime( "+{$index} days", $args['start_date'] );
 			$weekday       = date( 'w', $timestamp );
-			$delivery_day  = new WC_OD_Delivery_Day( $args['delivery_days'][ $weekday ], $weekday );
-			$delivery_date = new WC_OD_Delivery_Date( $timestamp, $delivery_day );
+			$delivery_date = new WC_OD_Delivery_Date( $timestamp, $delivery_days[ $weekday ] );
 
 			if (
 				in_array( date( 'Y-m-d', $timestamp ), $args['disabled_dates'], true ) ||

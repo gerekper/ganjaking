@@ -9,7 +9,6 @@ use AC\Admin\PageNetworkRequestHandler;
 use AC\Admin\PageNetworkRequestHandlers;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
-use AC\Admin\WpMenuFactory;
 use AC\ColumnSize;
 use AC\DefaultColumnsRepository;
 use AC\IntegrationRepository;
@@ -40,14 +39,15 @@ use ACP\Plugin\SetupFactory;
 use ACP\Search;
 use ACP\Service;
 use ACP\Settings;
-use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Storage\ListScreen\DecoderFactory;
 use ACP\Storage\ListScreen\Encoder;
 use ACP\Storage\ListScreen\LegacyCollectionDecoder;
 use ACP\Storage\ListScreen\LegacyCollectionDecoderAggregate;
 use ACP\Table\Scripts;
 use ACP\ThirdParty;
-use ACP\Updates\ProductsUpdater;
+use ACP\Transient\UpdateCheckTransient;
+use ACP\Updates\PeriodicUpdateCheck;
+use ACP\Updates\PluginDataUpdater;
 
 final class AdminColumnsPro extends AC\Plugin {
 
@@ -113,11 +113,12 @@ final class AdminColumnsPro extends AC\Plugin {
 		$integration_repository = new IntegrationRepository();
 		$plugin_repository = new PluginRepository( $basename, $integration_repository );
 		$permission_storage = new PermissionsStorage( $option_factory );
+		$default_column_repository = new DefaultColumnsRepository();
 
-		$menu_factory = new MenuFactory( admin_url( 'options-general.php' ), $location_core, $activation_token_factory );
+		$menu_factory = new MenuFactory( admin_url( 'options-general.php' ), $location_core, $activation_token_factory, $integration_repository );
 
 		$page_handler = new PageRequestHandler();
-		$page_handler->add( 'columns', new PageFactory\Columns( $location_core, $storage, new DefaultColumnsRepository(), $menu_factory ) )
+		$page_handler->add( 'columns', new PageFactory\Columns( $location_core, $storage, $default_column_repository, $menu_factory ) )
 		             ->add( 'settings', new PageFactory\Settings( $location_core, $menu_factory ) )
 		             ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $permission_storage, $menu_factory ) )
 		             ->add( 'import-export', new PageFactory\Tools( $location, $storage, $menu_factory ) )
@@ -126,10 +127,10 @@ final class AdminColumnsPro extends AC\Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		$network_menu_factory = new Admin\MenuNetworkFactory( network_admin_url( 'settings.php' ), $location_core, $activation_token_factory );
+		$network_menu_factory = new Admin\MenuNetworkFactory( network_admin_url( 'settings.php' ), $location_core, $activation_token_factory, $integration_repository );
 
 		$page_network_handler = new PageNetworkRequestHandler();
-		$page_network_handler->add( 'columns', new Admin\NetworkPageFactory\Columns( $location_core, new DefaultColumnsRepository(), $storage, $network_menu_factory ) )
+		$page_network_handler->add( 'columns', new Admin\NetworkPageFactory\Columns( $location_core, $default_column_repository, $storage, $network_menu_factory ) )
 		                     ->add( 'import-export', new Admin\NetworkPageFactory\Tools( $location, $storage, $network_menu_factory ) )
 		                     ->add( 'addons', new PageFactory\Addons( $location_core, $integration_repository, $permission_storage, $network_menu_factory ) )
 		                     ->add( 'license', new PageFactory\License( $location, $network_menu_factory, $site_url, $activation_token_factory, $activation_storage, $permission_storage, $license_key_storage, $plugin_repository, $is_network_active ) );
@@ -142,7 +143,8 @@ final class AdminColumnsPro extends AC\Plugin {
 		$permission_checker = new PermissionChecker( $permission_storage );
 		$permission_checker->add_rule( new LocalServer() );
 
-		$products_updater = new ProductsUpdater( $this->api, $site_url );
+		$plugin_data_storage = new Storage\PluginsData();
+		$plugin_data_updater = new PluginDataUpdater( $this->api, $site_url, $plugin_data_storage );
 		$activation_updater = new ActivationUpdater( $activation_key_storage, $activation_storage, $license_key_storage, $this->api, $site_url, $plugin_repository, $permission_checker );
 
 		$column_size_user_storage = new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) );
@@ -150,8 +152,9 @@ final class AdminColumnsPro extends AC\Plugin {
 
 		$request_ajax_handlers = new RequestAjaxHandlers();
 		$request_ajax_handlers->add( 'acp-ajax-install-addon', new RequestHandler\Ajax\AddonInstaller( $this->api, $site_url, $activation_storage, $activation_token_factory, $integration_repository, $is_network_active ) )
-		                      ->add( 'acp-ajax-activate', new RequestHandler\Ajax\LicenseActivate( $activation_key_storage, $this->api, $site_url, $products_updater, $activation_updater, $permission_checker ) )
+		                      ->add( 'acp-ajax-activate', new RequestHandler\Ajax\LicenseActivate( $activation_key_storage, $this->api, $site_url, $plugin_data_updater, $activation_updater, $permission_checker ) )
 		                      ->add( 'acp-daily-subscription-update', new RequestHandler\Ajax\SubscriptionUpdate( $activation_storage, $activation_key_storage, $license_key_storage, $permission_checker, $this->api, $site_url, $activation_token_factory, $plugin_repository ) )
+		                      ->add( 'acp-update-plugins-check', new RequestHandler\Ajax\UpdatePlugins( $activation_token_factory, $plugin_data_updater, new UpdateCheckTransient() ) )
 		                      ->add( 'acp-layout-get-users', new RequestHandler\Ajax\ListScreenUsers() )
 		                      ->add( 'acp-update-layout-order', new RequestHandler\Ajax\ListScreenOrder( new ListScreenOrder() ) )
 		                      ->add( 'acp-send-feedback', new RequestHandler\Ajax\Feedback( $version ) )
@@ -162,10 +165,10 @@ final class AdminColumnsPro extends AC\Plugin {
 		                      ->add( 'acp-list-column-width', new RequestHandler\Ajax\ColumnWidthList( $column_size_list_storage, $column_size_user_storage ) );
 
 		$request_handler_factory = new RequestHandlerFactory( new Request() );
-		$request_handler_factory->add( 'acp-license-activate', new RequestHandler\LicenseActivate( $activation_key_storage, $this->api, $site_url, $products_updater, $activation_updater, $permission_checker ) )
-		                        ->add( 'acp-license-deactivate', new RequestHandler\LicenseDeactivate( $license_key_storage, $activation_key_storage, $activation_storage, $this->api, $site_url, $activation_token_factory, $products_updater, $permission_checker ) )
+		$request_handler_factory->add( 'acp-license-activate', new RequestHandler\LicenseActivate( $activation_key_storage, $this->api, $site_url, $plugin_data_updater, $activation_updater, $permission_checker ) )
+		                        ->add( 'acp-license-deactivate', new RequestHandler\LicenseDeactivate( $license_key_storage, $activation_key_storage, $activation_storage, $this->api, $site_url, $activation_token_factory, $plugin_data_updater, $permission_checker ) )
 		                        ->add( 'acp-license-update', new RequestHandler\LicenseUpdate( $activation_token_factory, $activation_updater ) )
-		                        ->add( 'acp-force-plugin-updates', new RequestHandler\ForcePluginUpdates( $products_updater, $activation_token_factory ) )
+		                        ->add( 'acp-force-plugin-updates', new RequestHandler\ForcePluginUpdates( $plugin_data_updater, $activation_token_factory ) )
 		                        ->add( 'create-layout', new RequestHandler\ListScreenCreate( $storage, new ListScreenOrder() ) )
 		                        ->add( 'delete-layout', new RequestHandler\ListScreenDelete( $storage ) );
 
@@ -186,12 +189,7 @@ final class AdminColumnsPro extends AC\Plugin {
 			new Table\Switcher( $storage ),
 			new Table\HorizontalScrolling( $storage, $location ),
 			new Table\StickyTableRow( $storage ),
-			new Table\HideSearch(),
-			new Table\HideSubMenu( new HideOnScreen\SubMenu\CommentStatus() ),
-			new Table\HideSubMenu( new HideOnScreen\SubMenu\PostStatus() ),
-			new Table\HideSubMenu( new HideOnScreen\SubMenu\Roles() ),
-			new Table\HideBulkActions(),
-			new Table\HideFilters(),
+			new Table\HideElements(),
 			new ListScreens(),
 			new Scripts( $location, $column_size_user_storage, $column_size_list_storage ),
 			new Localize( $this->get_dir() ),
@@ -202,7 +200,9 @@ final class AdminColumnsPro extends AC\Plugin {
 			new Migrate\Import\Request( $storage, $list_screen_decoder_factory, $legacy_collection_decoder ),
 			new RequestParser( $request_handler_factory ),
 			new RequestAjaxParser( $request_ajax_handlers ),
-			new Updates( $this->api, $site_url, $plugin_repository, $activation_token_factory ),
+			new Service\ForcePluginUpdate( $activation_token_factory, $plugin_data_updater ),
+			new Service\PluginUpdater( $this->api, $plugin_repository, $plugin_data_storage ),
+			new PeriodicUpdateCheck( $location, new UpdateCheckTransient() ),
 			new PluginActionLinks( $basename, $permission_storage ),
 			new Check\Activation( $basename, $activation_token_factory, $activation_storage, $permission_storage, $is_network_active ),
 			new Check\Expired( $basename, $activation_token_factory, $activation_storage, $site_url ),
@@ -216,7 +216,7 @@ final class AdminColumnsPro extends AC\Plugin {
 		];
 
 		if ( $is_network_active ) {
-			$services[] = new AdminNetwork( new PageNetworkRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location_core ) );
+			$services[] = new AdminNetwork( new PageNetworkRequestHandlers(), $location_core, new AdminScripts( $location_core ) );
 		}
 
 		$setup_factory = new SetupFactory( 'acp_version', $this->get_version() );

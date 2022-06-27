@@ -3,9 +3,64 @@
  * Role Management Class for BetterDocs
  */
 class BetterDocs_Role_Management {
+
     private static $instance = null;
+    protected $default_capabilities = [
+        'administrator' => [
+            'edit_docs',
+            'edit_others_docs',
+            'delete_docs',
+            'publish_docs',
+            'read_private_docs',
+            'delete_private_docs',
+            'delete_published_docs',
+            'delete_others_docs',
+            'edit_private_docs',
+            'edit_published_docs',
+            'manage_doc_terms',
+            'edit_doc_terms',
+            'delete_doc_terms',
+            'manage_knowledge_base_terms',
+            'edit_knowledge_base_terms',
+            'delete_knowledge_base_terms'
+        ],
+        'editor' => [
+            'edit_docs',
+            'edit_others_docs',
+            'publish_docs',
+            'edit_published_docs',
+            'edit_private_docs',
+            'read_private_docs',
+            'delete_published_docs',
+            'delete_private_docs',
+            'delete_docs',
+            'delete_others_docs',
+            'manage_doc_terms',
+            'edit_doc_terms',
+            'delete_doc_terms',
+            'manage_knowledge_base_terms',
+            'edit_knowledge_base_terms',
+            'delete_knowledge_base_terms'
+        ],
+        'author' => [
+            'edit_docs',
+            'edit_published_docs',
+            'publish_docs',
+            'delete_docs',
+            'delete_published_docs'
+        ],
+        'contributor' => [
+            'edit_docs',
+            'delete_docs'
+        ],
+        'other_roles' => [
+            'edit_docs',
+            'delete_docs',
+        ]
+    ];
+
     /**
-     * Get Single Instance for 
+     * Get Single Instance for
      * BetterDocs_Role_Management
      * @return BetterDocs_Role_Management
      */
@@ -15,23 +70,23 @@ class BetterDocs_Role_Management {
         }
         return self::$instance;
     }
+
     /**
      * Initial Invoked
      */
     public function __construct(){
-        add_filter( 'betterdocs_advanced_settings_sections', array( $this, 'settings' ) );
-        add_filter( 'betterdocs_articles_caps', array( $this, 'caps_check' ), 10, 2 );
-        add_filter( 'betterdocs_terms_caps', array( $this, 'caps_check' ), 10, 2 );
-        add_filter( 'betterdocs_settings_caps', array( $this, 'settings_caps_check' ), 10, 2 );
-        add_filter( 'betterdocs_analytics_caps', array( $this, 'settings_caps_check' ), 10, 2 );
+        add_action( 'betterdocs_assign_default_caps', array( $this ,'default_capabilities_for_others' ), 10 );
+        add_filter( 'betterdocs_advanced_settings_sections', array( $this, 'settings' ), 10, 1 );
+        add_action( 'bdocs_settings_saved', array( $this, 'selected_roles_callback' ), 10, 1 );
     }
+
     /**
      * Settings in Settings Menu
      *
      * @param array $settings
      * @return array
      */
-    public function settings($settings) {
+    public function settings( $settings ) {
         $settings['role_management_section'] = array(
             'title' => __('Role Management', 'betterdocs-pro'),
             'priority'    => 0,
@@ -128,93 +183,74 @@ class BetterDocs_Role_Management {
         return $settings;
     }
 
-    /**
-     * Check Settings for Roles
-     *
-     * @param string $for
-     * @param boolean $giveRole
-     * @return void
-     */
-    public function check( $for = 'article_roles', $giveRole = false ){
-        global $current_user;
-        $user_roles = $current_user->roles;
-        if( empty( $user_roles ) ) {
-            return;
-        }
-        
-        $roles = $user_roles;
-        $saved_settings = BetterDocs_DB::get_settings();
-       
-        $current_check_against = null;
-        if( isset( $saved_settings[ $for ] ) ) {
-            $current_check_against = $saved_settings[ $for ];
-        }
-      
-        if( is_null( $current_check_against ) || ! is_array( $current_check_against ) || $current_check_against == 'off' ) {
-            return 'administrator';
-        }
-	    
-        //if more than once roles are assigned to a user, run the if portion or if the role is single run the else portion
-        if( count( $roles ) > 1 ) {
-        	foreach ( $roles as $role ) {
-		        if ( in_array( $role, $current_check_against ) && $role != 'subscriber' ) {
-			        if ( $giveRole ) {
-				        return $role;
-			        }
-			        return $current_user->allcaps;
-		        }
-	        }
-        } else {
-        	$role = isset( $roles[0] ) ? $roles[0] : '';
-	        if ( in_array( $role, $current_check_against ) ) {
-		        if ( $giveRole ) {
-			        return $role;
-		        }
-		        return $current_user->allcaps;
-	        }
-        }
-        
-        return false;
+    public function selected_roles_callback( $settings ) {
+        do_action( 'betterdocs_add_capabilities', BetterDocs_Settings::get_role_cap_mapper( $settings ) );
     }
-    /**
-     * Capabilities Check for Write and Read Docs and Category, Tags.
-     *
-     * @param string $default_caps
-     * @param string $roles_for
-     * @return void
-     */
-    public function caps_check( $default_caps, $roles_for ){
-        $caps = $this->check( $roles_for );
-        if( is_string( $caps ) && $caps === 'administrator' ) {
-            return $caps;
-        }
-	    
-        if( $caps !== false && is_array( $caps ) ) {
-            if( array_key_exists( $default_caps, $caps ) ) {
-                if( $caps[ $default_caps ] ) {
-                    return $default_caps;
+
+    public function default_capabilities_for_others() {
+        $default_roles            =  array('subscriber', 'editor', 'author', 'contributor');
+        $existing_article_roles   =  ( BetterDocs_DB::get_settings('article_roles') == 'off' || BetterDocs_DB::get_settings('article_roles') == 'administrator'  ) ? array('administrator') : BetterDocs_DB::get_settings('article_roles');
+        $existing_settings_roles  =  ( BetterDocs_DB::get_settings('settings_roles') == 'off' || BetterDocs_DB::get_settings('settings_roles') == 'administrator' ) ? array('administrator') : BetterDocs_DB::get_settings('settings_roles');
+        $existing_analytics_roles =  ( BetterDocs_DB::get_settings('analytics_roles') == 'off' || BetterDocs_DB::get_settings('analytics_roles') == 'administrator' ) ? array('administrator') : BetterDocs_DB::get_settings('analytics_roles');
+
+        $non_selected_roles = array(
+            'article_roles'   => array_values( array_diff( $default_roles, $existing_article_roles ) ),
+            'settings_roles'  => array_values( array_diff( $default_roles, $existing_settings_roles ) ),
+            'analytics_roles' => array_values( array_diff( $default_roles, $existing_analytics_roles ) )
+        );
+
+        $selected_roles = array(
+            'article_roles'   => $existing_article_roles,
+            'settings_roles'  => $existing_settings_roles,
+            'analytics_roles' => $existing_analytics_roles
+        );
+
+        $map_non_selected_roles = BetterDocs_Settings::get_role_cap_mapper( $non_selected_roles );
+        $map_selected_roles     = BetterDocs_Settings::get_role_cap_mapper( $selected_roles );
+
+        foreach( $map_non_selected_roles as $key => $values ) {
+            $roles = ! empty( $values['roles'] ) ? $values['roles'] : '' ;
+            if( ! empty( $roles ) ) {
+                foreach( $roles as $role ) {
+                    $role_object = get_role( $role );
+                    if( is_null( $role_object ) || ! $role_object instanceof \WP_Role ) {
+                        continue;
+                    }
+                    if( $key == 'write_docs' ) {
+                        $role_default_caps = ! empty( $this->default_capabilities[$role] ) ? $this->default_capabilities[$role] : $this->default_capabilities['other_roles'];
+                        foreach( $role_default_caps as $cap ) {
+                            $role_object->remove_cap( $cap );
+                        }
+                    } else {
+                        $role_object->remove_cap( $key );
+                    }
                 }
-            } else {
-            	$current_user_role = wp_get_current_user();
-            	$current_user_role->add_cap( $default_caps );
-            	return $default_caps;
             }
         }
-        return false;
-    }
-    /**
-     * Capabilities Check for Settings and Getting Started And Analytics Menus
-     *
-     * @param string $default_caps
-     * @param string $roles_for
-     * @return void
-     */
-    public function settings_caps_check( $default_caps, $roles_for ){
-        $role = $this->check( $roles_for, true );
-        if( $role !== false ) {
-            return $role;
+
+        foreach( $map_selected_roles as $key => $values ) {
+            $roles = ! empty( $values['roles'] ) ? $values['roles'] : '' ;
+            if( ! empty( $roles ) ) {
+                foreach( $roles as $role ) {
+                    $role_object = get_role( $role );
+                    if( is_null( $role_object ) || ! $role_object instanceof \WP_Role ) {
+                        continue;
+                    }
+                    if( $key == 'write_docs' ) {
+                        $role_default_caps = ! empty( $this->default_capabilities[$role] ) ? $this->default_capabilities[$role] : $this->default_capabilities['other_roles'];
+                        foreach( $role_default_caps as $cap ) {
+                            if( ! $role_object->has_cap( $cap ) ) {
+                                $role_object->add_cap( $cap );
+                            }
+                        }
+                    } else {
+                        if( ! $role_object->has_cap( $key ) ) {
+                            $role_object->add_cap( $key );
+                        }
+                    }
+                }
+            }
         }
-        return $default_caps;
     }
 }
 /**

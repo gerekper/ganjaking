@@ -27,10 +27,15 @@
  * 16. Theme fixes
  *
  * @package Extra Product Options/CSS
- * @version 5.0
+ * @version 6.0
  */
 
 /* 1. Grid system */
+
+:root {
+	--tcgap: 15px;
+	--tcinlinesize: 3em;
+}
 
 .tm-extra-product-options .tc-container,
 .tc-container {
@@ -1233,477 +1238,477 @@
 
 @media (max-width: 768px) {
 
-	.tm-extra-product-options .tc-col-1,
-	.tm-extra-product-options .tc-cell.tc-col-1,
-	.tm-extra-product-options .tc-col-2,
-	.tm-extra-product-options .tc-cell.tc-col-2,
-	.tm-extra-product-options .tc-col-3,
-	.tm-extra-product-options .tc-cell.tc-col-3,
-	.tm-extra-product-options .tc-col-4,
-	.tm-extra-product-options .tc-cell.tc-col-4,
-	.tm-extra-product-options .tc-col-5,
-	.tm-extra-product-options .tc-cell.tc-col-5,
-	.tm-extra-product-options .tc-col-6,
-	.tm-extra-product-options .tc-cell.tc-col-6,
-	.tm-extra-product-options .tc-col-7,
-	.tm-extra-product-options .tc-cell.tc-col-7,
-	.tm-extra-product-options .tc-col-8,
-	.tm-extra-product-options .tc-cell.tc-col-8,
-	.tm-extra-product-options .tc-col-9,
-	.tm-extra-product-options .tc-cell.tc-col-9,
-	.tm-extra-product-options .tc-col-10,
-	.tm-extra-product-options .tc-cell.tc-col-10,
-	.tm-extra-product-options .tc-col-11,
-	.tm-extra-product-options .tc-cell.tc-col-11,
-	.tm-extra-product-options .tc-col-12 .tm-extra-product-options .tc-cell.tc-col-12,
-	.tc-cell.tc-col-0,
-	.tc-col-0,
-	.tc-cell.tc-col-1,
-	.tc-col-1,
-	.tc-cell.tc-col-2,
-	.tc-col-2,
-	.tc-cell.tc-col-3,
-	.tc-col-3,
-	.tc-cell.tc-col-4,
-	.tc-col-4,
-	.tc-cell.tc-col-5,
-	.tc-col-5,
-	.tc-cell.tc-col-6,
-	.tc-col-6,
-	.tc-cell.tc-col-7,
-	.tc-col-7,
-	.tc-cell.tc-col-8,
-	.tc-col-8,
-	.tc-cell.tc-col-9,
-	.tc-col-9,
-	.tc-cell.tc-col-10,
-	.tc-col-10,
-	.tc-cell.tc-col-11,
-	.tc-col-11,
-	.tc-cell.tc-col-12,
-	.tc-col-12,
-	.tm-extra-product-options .tcwidth-1,
-	.tm-extra-product-options .tc-cell.tcwidth-1,
-	.tc-cell.tcwidth-1,
-	.tcwidth-1,
-	.tm-extra-product-options .tcwidth-2,
-	.tm-extra-product-options .tc-cell.tcwidth-2,
-	.tc-cell.tcwidth-2,
-	.tcwidth-2,
-	.tm-extra-product-options .tcwidth-3,
-	.tm-extra-product-options .tc-cell.tcwidth-3,
-	.tc-cell.tcwidth-3,
-	.tcwidth-3,
-	.tm-extra-product-options .tcwidth-4,
-	.tm-extra-product-options .tc-cell.tcwidth-4,
-	.tc-cell.tcwidth-4,
-	.tcwidth-4,
-	.tm-extra-product-options .tcwidth-5,
-	.tm-extra-product-options .tc-cell.tcwidth-5,
-	.tc-cell.tcwidth-5,
-	.tcwidth-5,
-	.tm-extra-product-options .tcwidth-6,
-	.tm-extra-product-options .tc-cell.tcwidth-6,
-	.tc-cell.tcwidth-6,
-	.tcwidth-6,
-	.tm-extra-product-options .tcwidth-7,
-	.tm-extra-product-options .tc-cell.tcwidth-7,
-	.tc-cell.tcwidth-7,
-	.tcwidth-7,
-	.tm-extra-product-options .tcwidth-8,
-	.tm-extra-product-options .tc-cell.tcwidth-8,
-	.tc-cell.tcwidth-8,
-	.tcwidth-8,
-	.tm-extra-product-options .tcwidth-9,
-	.tm-extra-product-options .tc-cell.tcwidth-9,
-	.tc-cell.tcwidth-9,
-	.tcwidth-9,
-	.tm-extra-product-options .tcwidth-10,
-	.tm-extra-product-options .tc-cell.tcwidth-10,
-	.tc-cell.tcwidth-10,
-	.tcwidth-10,
-	.tm-extra-product-options .tcwidth-11,
-	.tm-extra-product-options .tc-cell.tcwidth-11,
-	.tc-cell.tcwidth-11,
-	.tcwidth-11,
-	.tm-extra-product-options .tcwidth-12,
-	.tm-extra-product-options .tc-cell.tcwidth-12,
-	.tc-cell.tcwidth-12,
-	.tcwidth-12,
-	.tm-extra-product-options .tcwidth-12-5,
-	.tm-extra-product-options .tc-cell.tcwidth-12-5,
-	.tc-cell.tcwidth-12-5,
-	.tcwidth-12-5,
-	.tm-extra-product-options .tcwidth-13,
-	.tm-extra-product-options .tc-cell.tcwidth-13,
-	.tc-cell.tcwidth-13,
-	.tcwidth-13,
-	.tm-extra-product-options .tcwidth-14,
-	.tm-extra-product-options .tc-cell.tcwidth-14,
-	.tc-cell.tcwidth-14,
-	.tcwidth-14,
-	.tm-extra-product-options .tcwidth-15,
-	.tm-extra-product-options .tc-cell.tcwidth-15,
-	.tc-cell.tcwidth-15,
-	.tcwidth-15,
-	.tm-extra-product-options .tcwidth-16,
-	.tm-extra-product-options .tc-cell.tcwidth-16,
-	.tc-cell.tcwidth-16,
-	.tcwidth-16,
-	.tm-extra-product-options .tcwidth-17,
-	.tm-extra-product-options .tc-cell.tcwidth-17,
-	.tc-cell.tcwidth-17,
-	.tcwidth-17,
-	.tm-extra-product-options .tcwidth-18,
-	.tm-extra-product-options .tc-cell.tcwidth-18,
-	.tc-cell.tcwidth-18,
-	.tcwidth-18,
-	.tm-extra-product-options .tcwidth-19,
-	.tm-extra-product-options .tc-cell.tcwidth-19,
-	.tc-cell.tcwidth-19,
-	.tcwidth-19,
-	.tm-extra-product-options .tcwidth-20,
-	.tm-extra-product-options .tc-cell.tcwidth-20,
-	.tc-cell.tcwidth-20,
-	.tcwidth-20,
-	.tm-extra-product-options .tcwidth-21,
-	.tm-extra-product-options .tc-cell.tcwidth-21,
-	.tc-cell.tcwidth-21,
-	.tcwidth-21,
-	.tm-extra-product-options .tcwidth-22,
-	.tm-extra-product-options .tc-cell.tcwidth-22,
-	.tc-cell.tcwidth-22,
-	.tcwidth-22,
-	.tm-extra-product-options .tcwidth-23,
-	.tm-extra-product-options .tc-cell.tcwidth-23,
-	.tc-cell.tcwidth-23,
-	.tcwidth-23,
-	.tm-extra-product-options .tcwidth-24,
-	.tm-extra-product-options .tc-cell.tcwidth-24,
-	.tc-cell.tcwidth-24,
-	.tcwidth-24,
-	.tm-extra-product-options .tcwidth-25,
-	.tm-extra-product-options .tc-cell.tcwidth-25,
-	.tc-cell.tcwidth-25,
-	.tcwidth-25,
-	.tm-extra-product-options .tcwidth-26,
-	.tm-extra-product-options .tc-cell.tcwidth-26,
-	.tc-cell.tcwidth-26,
-	.tcwidth-26,
-	.tm-extra-product-options .tcwidth-27,
-	.tm-extra-product-options .tc-cell.tcwidth-27,
-	.tc-cell.tcwidth-27,
-	.tcwidth-27,
-	.tm-extra-product-options .tcwidth-28,
-	.tm-extra-product-options .tc-cell.tcwidth-28,
-	.tc-cell.tcwidth-28,
-	.tcwidth-28,
-	.tm-extra-product-options .tcwidth-29,
-	.tm-extra-product-options .tc-cell.tcwidth-29,
-	.tc-cell.tcwidth-29,
-	.tcwidth-29,
-	.tm-extra-product-options .tcwidth-30,
-	.tm-extra-product-options .tc-cell.tcwidth-30,
-	.tc-cell.tcwidth-30,
-	.tcwidth-30,
-	.tm-extra-product-options .tcwidth-31,
-	.tm-extra-product-options .tc-cell.tcwidth-31,
-	.tc-cell.tcwidth-31,
-	.tcwidth-31,
-	.tm-extra-product-options .tcwidth-32,
-	.tm-extra-product-options .tc-cell.tcwidth-32,
-	.tc-cell.tcwidth-32,
-	.tcwidth-32,
-	.tm-extra-product-options .tcwidth-33,
-	.tm-extra-product-options .tc-cell.tcwidth-33,
-	.tc-cell.tcwidth-33,
-	.tcwidth-33,
-	.tm-extra-product-options .tcwidth-34,
-	.tm-extra-product-options .tc-cell.tcwidth-34,
-	.tc-cell.tcwidth-34,
-	.tcwidth-34,
-	.tm-extra-product-options .tcwidth-35,
-	.tm-extra-product-options .tc-cell.tcwidth-35,
-	.tc-cell.tcwidth-35,
-	.tcwidth-35,
-	.tm-extra-product-options .tcwidth-36,
-	.tm-extra-product-options .tc-cell.tcwidth-36,
-	.tc-cell.tcwidth-36,
-	.tcwidth-36,
-	.tm-extra-product-options .tcwidth-37,
-	.tm-extra-product-options .tc-cell.tcwidth-37,
-	.tc-cell.tcwidth-37,
-	.tcwidth-37,
-	.tm-extra-product-options .tcwidth-37-5,
-	.tm-extra-product-options .tc-cell.tcwidth-37-5,
-	.tc-cell.tcwidth-37-5,
-	.tcwidth-37-5,
-	.tm-extra-product-options .tcwidth-38,
-	.tm-extra-product-options .tc-cell.tcwidth-38,
-	.tc-cell.tcwidth-38,
-	.tcwidth-38,
-	.tm-extra-product-options .tcwidth-39,
-	.tm-extra-product-options .tc-cell.tcwidth-39,
-	.tc-cell.tcwidth-39,
-	.tcwidth-39,
-	.tm-extra-product-options .tcwidth-40,
-	.tm-extra-product-options .tc-cell.tcwidth-40,
-	.tc-cell.tcwidth-40,
-	.tcwidth-40,
-	.tm-extra-product-options .tcwidth-41,
-	.tm-extra-product-options .tc-cell.tcwidth-41,
-	.tc-cell.tcwidth-41,
-	.tcwidth-41,
-	.tm-extra-product-options .tcwidth-42,
-	.tm-extra-product-options .tc-cell.tcwidth-42,
-	.tc-cell.tcwidth-42,
-	.tcwidth-42,
-	.tm-extra-product-options .tcwidth-43,
-	.tm-extra-product-options .tc-cell.tcwidth-43,
-	.tc-cell.tcwidth-43,
-	.tcwidth-43,
-	.tm-extra-product-options .tcwidth-44,
-	.tm-extra-product-options .tc-cell.tcwidth-44,
-	.tc-cell.tcwidth-44,
-	.tcwidth-44,
-	.tm-extra-product-options .tcwidth-45,
-	.tm-extra-product-options .tc-cell.tcwidth-45,
-	.tc-cell.tcwidth-45,
-	.tcwidth-45,
-	.tm-extra-product-options .tcwidth-46,
-	.tm-extra-product-options .tc-cell.tcwidth-46,
-	.tc-cell.tcwidth-46,
-	.tcwidth-46,
-	.tm-extra-product-options .tcwidth-47,
-	.tm-extra-product-options .tc-cell.tcwidth-47,
-	.tc-cell.tcwidth-47,
-	.tcwidth-47,
-	.tm-extra-product-options .tcwidth-48,
-	.tm-extra-product-options .tc-cell.tcwidth-48,
-	.tc-cell.tcwidth-48,
-	.tcwidth-48,
-	.tm-extra-product-options .tcwidth-49,
-	.tm-extra-product-options .tc-cell.tcwidth-49,
-	.tc-cell.tcwidth-49,
-	.tcwidth-49,
-	.tm-extra-product-options .tcwidth-50,
-	.tm-extra-product-options .tc-cell.tcwidth-50,
-	.tc-cell.tcwidth-50,
-	.tcwidth-50,
-	.tm-extra-product-options .tcwidth-51,
-	.tm-extra-product-options .tc-cell.tcwidth-51,
-	.tc-cell.tcwidth-51,
-	.tcwidth-51,
-	.tm-extra-product-options .tcwidth-52,
-	.tm-extra-product-options .tc-cell.tcwidth-52,
-	.tc-cell.tcwidth-52,
-	.tcwidth-52,
-	.tm-extra-product-options .tcwidth-53,
-	.tm-extra-product-options .tc-cell.tcwidth-53,
-	.tc-cell.tcwidth-53,
-	.tcwidth-53,
-	.tm-extra-product-options .tcwidth-54,
-	.tm-extra-product-options .tc-cell.tcwidth-54,
-	.tc-cell.tcwidth-54,
-	.tcwidth-54,
-	.tm-extra-product-options .tcwidth-55,
-	.tm-extra-product-options .tc-cell.tcwidth-55,
-	.tc-cell.tcwidth-55,
-	.tcwidth-55,
-	.tm-extra-product-options .tcwidth-56,
-	.tm-extra-product-options .tc-cell.tcwidth-56,
-	.tc-cell.tcwidth-56,
-	.tcwidth-56,
-	.tm-extra-product-options .tcwidth-57,
-	.tm-extra-product-options .tc-cell.tcwidth-57,
-	.tc-cell.tcwidth-57,
-	.tcwidth-57,
-	.tm-extra-product-options .tcwidth-58,
-	.tm-extra-product-options .tc-cell.tcwidth-58,
-	.tc-cell.tcwidth-58,
-	.tcwidth-58,
-	.tm-extra-product-options .tcwidth-59,
-	.tm-extra-product-options .tc-cell.tcwidth-59,
-	.tc-cell.tcwidth-59,
-	.tcwidth-59,
-	.tm-extra-product-options .tcwidth-60,
-	.tm-extra-product-options .tc-cell.tcwidth-60,
-	.tc-cell.tcwidth-60,
-	.tcwidth-60,
-	.tm-extra-product-options .tcwidth-61,
-	.tm-extra-product-options .tc-cell.tcwidth-61,
-	.tc-cell.tcwidth-61,
-	.tcwidth-61,
-	.tm-extra-product-options .tcwidth-62,
-	.tm-extra-product-options .tc-cell.tcwidth-62,
-	.tc-cell.tcwidth-62,
-	.tcwidth-62,
-	.tm-extra-product-options .tcwidth-62-5,
-	.tm-extra-product-options .tc-cell.tcwidth-62-5,
-	.tc-cell.tcwidth-62-5,
-	.tcwidth-62-5,
-	.tm-extra-product-options .tcwidth-63,
-	.tm-extra-product-options .tc-cell.tcwidth-63,
-	.tc-cell.tcwidth-63,
-	.tcwidth-63,
-	.tm-extra-product-options .tcwidth-64,
-	.tm-extra-product-options .tc-cell.tcwidth-64,
-	.tc-cell.tcwidth-64,
-	.tcwidth-64,
-	.tm-extra-product-options .tcwidth-65,
-	.tm-extra-product-options .tc-cell.tcwidth-65,
-	.tc-cell.tcwidth-65,
-	.tcwidth-65,
-	.tm-extra-product-options .tcwidth-66,
-	.tm-extra-product-options .tc-cell.tcwidth-66,
-	.tc-cell.tcwidth-66,
-	.tcwidth-66,
-	.tm-extra-product-options .tcwidth-67,
-	.tm-extra-product-options .tc-cell.tcwidth-67,
-	.tc-cell.tcwidth-67,
-	.tcwidth-67,
-	.tm-extra-product-options .tcwidth-68,
-	.tm-extra-product-options .tc-cell.tcwidth-68,
-	.tc-cell.tcwidth-68,
-	.tcwidth-68,
-	.tm-extra-product-options .tcwidth-69,
-	.tm-extra-product-options .tc-cell.tcwidth-69,
-	.tc-cell.tcwidth-69,
-	.tcwidth-69,
-	.tm-extra-product-options .tcwidth-70,
-	.tm-extra-product-options .tc-cell.tcwidth-70,
-	.tc-cell.tcwidth-70,
-	.tcwidth-70,
-	.tm-extra-product-options .tcwidth-71,
-	.tm-extra-product-options .tc-cell.tcwidth-71,
-	.tc-cell.tcwidth-71,
-	.tcwidth-71,
-	.tm-extra-product-options .tcwidth-72,
-	.tm-extra-product-options .tc-cell.tcwidth-72,
-	.tc-cell.tcwidth-72,
-	.tcwidth-72,
-	.tm-extra-product-options .tcwidth-73,
-	.tm-extra-product-options .tc-cell.tcwidth-73,
-	.tc-cell.tcwidth-73,
-	.tcwidth-73,
-	.tm-extra-product-options .tcwidth-74,
-	.tm-extra-product-options .tc-cell.tcwidth-74,
-	.tc-cell.tcwidth-74,
-	.tcwidth-74,
-	.tm-extra-product-options .tcwidth-75,
-	.tm-extra-product-options .tc-cell.tcwidth-75,
-	.tc-cell.tcwidth-75,
-	.tcwidth-75,
-	.tm-extra-product-options .tcwidth-76,
-	.tm-extra-product-options .tc-cell.tcwidth-76,
-	.tc-cell.tcwidth-76,
-	.tcwidth-76,
-	.tm-extra-product-options .tcwidth-77,
-	.tm-extra-product-options .tc-cell.tcwidth-77,
-	.tc-cell.tcwidth-77,
-	.tcwidth-77,
-	.tm-extra-product-options .tcwidth-78,
-	.tm-extra-product-options .tc-cell.tcwidth-78,
-	.tc-cell.tcwidth-78,
-	.tcwidth-78,
-	.tm-extra-product-options .tcwidth-79,
-	.tm-extra-product-options .tc-cell.tcwidth-79,
-	.tc-cell.tcwidth-79,
-	.tcwidth-79,
-	.tm-extra-product-options .tcwidth-80,
-	.tm-extra-product-options .tc-cell.tcwidth-80,
-	.tc-cell.tcwidth-80,
-	.tcwidth-80,
-	.tm-extra-product-options .tcwidth-81,
-	.tm-extra-product-options .tc-cell.tcwidth-81,
-	.tc-cell.tcwidth-81,
-	.tcwidth-81,
-	.tm-extra-product-options .tcwidth-82,
-	.tm-extra-product-options .tc-cell.tcwidth-82,
-	.tc-cell.tcwidth-82,
-	.tcwidth-82,
-	.tm-extra-product-options .tcwidth-83,
-	.tm-extra-product-options .tc-cell.tcwidth-83,
-	.tc-cell.tcwidth-83,
-	.tcwidth-83,
-	.tm-extra-product-options .tcwidth-84,
-	.tm-extra-product-options .tc-cell.tcwidth-84,
-	.tc-cell.tcwidth-84,
-	.tcwidth-84,
-	.tm-extra-product-options .tcwidth-85,
-	.tm-extra-product-options .tc-cell.tcwidth-85,
-	.tc-cell.tcwidth-85,
-	.tcwidth-85,
-	.tm-extra-product-options .tcwidth-86,
-	.tm-extra-product-options .tc-cell.tcwidth-86,
-	.tc-cell.tcwidth-86,
-	.tcwidth-86,
-	.tm-extra-product-options .tcwidth-87,
-	.tm-extra-product-options .tc-cell.tcwidth-87,
-	.tc-cell.tcwidth-87,
-	.tcwidth-87,
-	.tm-extra-product-options .tcwidth-87-5,
-	.tm-extra-product-options .tc-cell.tcwidth-87-5,
-	.tc-cell.tcwidth-87-5,
-	.tcwidth-87-5,
-	.tm-extra-product-options .tcwidth-88,
-	.tm-extra-product-options .tc-cell.tcwidth-88,
-	.tc-cell.tcwidth-88,
-	.tcwidth-88,
-	.tm-extra-product-options .tcwidth-89,
-	.tm-extra-product-options .tc-cell.tcwidth-89,
-	.tc-cell.tcwidth-89,
-	.tcwidth-89,
-	.tm-extra-product-options .tcwidth-90,
-	.tm-extra-product-options .tc-cell.tcwidth-90,
-	.tc-cell.tcwidth-90,
-	.tcwidth-90,
-	.tm-extra-product-options .tcwidth-91,
-	.tm-extra-product-options .tc-cell.tcwidth-91,
-	.tc-cell.tcwidth-91,
-	.tcwidth-91,
-	.tm-extra-product-options .tcwidth-92,
-	.tm-extra-product-options .tc-cell.tcwidth-92,
-	.tc-cell.tcwidth-92,
-	.tcwidth-92,
-	.tm-extra-product-options .tcwidth-93,
-	.tm-extra-product-options .tc-cell.tcwidth-93,
-	.tc-cell.tcwidth-93,
-	.tcwidth-93,
-	.tm-extra-product-options .tcwidth-94,
-	.tm-extra-product-options .tc-cell.tcwidth-94,
-	.tc-cell.tcwidth-94,
-	.tcwidth-94,
-	.tm-extra-product-options .tcwidth-95,
-	.tm-extra-product-options .tc-cell.tcwidth-95,
-	.tc-cell.tcwidth-95,
-	.tcwidth-95,
-	.tm-extra-product-options .tcwidth-96,
-	.tm-extra-product-options .tc-cell.tcwidth-96,
-	.tc-cell.tcwidth-96,
-	.tcwidth-96,
-	.tm-extra-product-options .tcwidth-97,
-	.tm-extra-product-options .tc-cell.tcwidth-97,
-	.tc-cell.tcwidth-97,
-	.tcwidth-97,
-	.tm-extra-product-options .tcwidth-98,
-	.tm-extra-product-options .tc-cell.tcwidth-98,
-	.tc-cell.tcwidth-98,
-	.tcwidth-98,
-	.tm-extra-product-options .tcwidth-99,
-	.tm-extra-product-options .tc-cell.tcwidth-99,
-	.tc-cell.tcwidth-99,
-	.tcwidth-99,
-	.tm-extra-product-options .tcwidth-100,
-	.tm-extra-product-options .tc-cell.tcwidth-100,
-	.tc-cell.tcwidth-100,
-	.tcwidth-100 {
+	.tm-responsive .tm-extra-product-options .tc-col-1,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-1,
+	.tm-responsive .tm-extra-product-options .tc-col-2,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-2,
+	.tm-responsive .tm-extra-product-options .tc-col-3,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-3,
+	.tm-responsive .tm-extra-product-options .tc-col-4,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-4,
+	.tm-responsive .tm-extra-product-options .tc-col-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-5,
+	.tm-responsive .tm-extra-product-options .tc-col-6,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-6,
+	.tm-responsive .tm-extra-product-options .tc-col-7,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-7,
+	.tm-responsive .tm-extra-product-options .tc-col-8,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-8,
+	.tm-responsive .tm-extra-product-options .tc-col-9,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-9,
+	.tm-responsive .tm-extra-product-options .tc-col-10,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-10,
+	.tm-responsive .tm-extra-product-options .tc-col-11,
+	.tm-responsive .tm-extra-product-options .tc-cell.tc-col-11,
+	.tm-responsive .tm-extra-product-options .tc-col-12 .tm-extra-product-options .tc-cell.tc-col-12,
+	.tm-responsive .tc-cell.tc-col-0,
+	.tm-responsive .tc-col-0,
+	.tm-responsive .tc-cell.tc-col-1,
+	.tm-responsive .tc-col-1,
+	.tm-responsive .tc-cell.tc-col-2,
+	.tm-responsive .tc-col-2,
+	.tm-responsive .tc-cell.tc-col-3,
+	.tm-responsive .tc-col-3,
+	.tm-responsive .tc-cell.tc-col-4,
+	.tm-responsive .tc-col-4,
+	.tm-responsive .tc-cell.tc-col-5,
+	.tm-responsive .tc-col-5,
+	.tm-responsive .tc-cell.tc-col-6,
+	.tm-responsive .tc-col-6,
+	.tm-responsive .tc-cell.tc-col-7,
+	.tm-responsive .tc-col-7,
+	.tm-responsive .tc-cell.tc-col-8,
+	.tm-responsive .tc-col-8,
+	.tm-responsive .tc-cell.tc-col-9,
+	.tm-responsive .tc-col-9,
+	.tm-responsive .tc-cell.tc-col-10,
+	.tm-responsive .tc-col-10,
+	.tm-responsive .tc-cell.tc-col-11,
+	.tm-responsive .tc-col-11,
+	.tm-responsive .tc-cell.tc-col-12,
+	.tm-responsive .tc-col-12,
+	.tm-responsive .tm-extra-product-options .tcwidth-1,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-1,
+	.tm-responsive .tc-cell.tcwidth-1,
+	.tm-responsive .tcwidth-1,
+	.tm-responsive .tm-extra-product-options .tcwidth-2,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-2,
+	.tm-responsive .tc-cell.tcwidth-2,
+	.tm-responsive .tcwidth-2,
+	.tm-responsive .tm-extra-product-options .tcwidth-3,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-3,
+	.tm-responsive .tc-cell.tcwidth-3,
+	.tm-responsive .tcwidth-3,
+	.tm-responsive .tm-extra-product-options .tcwidth-4,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-4,
+	.tm-responsive .tc-cell.tcwidth-4,
+	.tm-responsive .tcwidth-4,
+	.tm-responsive .tm-extra-product-options .tcwidth-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-5,
+	.tm-responsive .tc-cell.tcwidth-5,
+	.tm-responsive .tcwidth-5,
+	.tm-responsive .tm-extra-product-options .tcwidth-6,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-6,
+	.tm-responsive .tc-cell.tcwidth-6,
+	.tm-responsive .tcwidth-6,
+	.tm-responsive .tm-extra-product-options .tcwidth-7,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-7,
+	.tm-responsive .tc-cell.tcwidth-7,
+	.tm-responsive .tcwidth-7,
+	.tm-responsive .tm-extra-product-options .tcwidth-8,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-8,
+	.tm-responsive .tc-cell.tcwidth-8,
+	.tm-responsive .tcwidth-8,
+	.tm-responsive .tm-extra-product-options .tcwidth-9,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-9,
+	.tm-responsive .tc-cell.tcwidth-9,
+	.tm-responsive .tcwidth-9,
+	.tm-responsive .tm-extra-product-options .tcwidth-10,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-10,
+	.tm-responsive .tc-cell.tcwidth-10,
+	.tm-responsive .tcwidth-10,
+	.tm-responsive .tm-extra-product-options .tcwidth-11,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-11,
+	.tm-responsive .tc-cell.tcwidth-11,
+	.tm-responsive .tcwidth-11,
+	.tm-responsive .tm-extra-product-options .tcwidth-12,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-12,
+	.tm-responsive .tc-cell.tcwidth-12,
+	.tm-responsive .tcwidth-12,
+	.tm-responsive .tm-extra-product-options .tcwidth-12-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-12-5,
+	.tm-responsive .tc-cell.tcwidth-12-5,
+	.tm-responsive .tcwidth-12-5,
+	.tm-responsive .tm-extra-product-options .tcwidth-13,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-13,
+	.tm-responsive .tc-cell.tcwidth-13,
+	.tm-responsive .tcwidth-13,
+	.tm-responsive .tm-extra-product-options .tcwidth-14,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-14,
+	.tm-responsive .tc-cell.tcwidth-14,
+	.tm-responsive .tcwidth-14,
+	.tm-responsive .tm-extra-product-options .tcwidth-15,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-15,
+	.tm-responsive .tc-cell.tcwidth-15,
+	.tm-responsive .tcwidth-15,
+	.tm-responsive .tm-extra-product-options .tcwidth-16,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-16,
+	.tm-responsive .tc-cell.tcwidth-16,
+	.tm-responsive .tcwidth-16,
+	.tm-responsive .tm-extra-product-options .tcwidth-17,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-17,
+	.tm-responsive .tc-cell.tcwidth-17,
+	.tm-responsive .tcwidth-17,
+	.tm-responsive .tm-extra-product-options .tcwidth-18,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-18,
+	.tm-responsive .tc-cell.tcwidth-18,
+	.tm-responsive .tcwidth-18,
+	.tm-responsive .tm-extra-product-options .tcwidth-19,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-19,
+	.tm-responsive .tc-cell.tcwidth-19,
+	.tm-responsive .tcwidth-19,
+	.tm-responsive .tm-extra-product-options .tcwidth-20,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-20,
+	.tm-responsive .tc-cell.tcwidth-20,
+	.tm-responsive .tcwidth-20,
+	.tm-responsive .tm-extra-product-options .tcwidth-21,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-21,
+	.tm-responsive .tc-cell.tcwidth-21,
+	.tm-responsive .tcwidth-21,
+	.tm-responsive .tm-extra-product-options .tcwidth-22,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-22,
+	.tm-responsive .tc-cell.tcwidth-22,
+	.tm-responsive .tcwidth-22,
+	.tm-responsive .tm-extra-product-options .tcwidth-23,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-23,
+	.tm-responsive .tc-cell.tcwidth-23,
+	.tm-responsive .tcwidth-23,
+	.tm-responsive .tm-extra-product-options .tcwidth-24,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-24,
+	.tm-responsive .tc-cell.tcwidth-24,
+	.tm-responsive .tcwidth-24,
+	.tm-responsive .tm-extra-product-options .tcwidth-25,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-25,
+	.tm-responsive .tc-cell.tcwidth-25,
+	.tm-responsive .tcwidth-25,
+	.tm-responsive .tm-extra-product-options .tcwidth-26,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-26,
+	.tm-responsive .tc-cell.tcwidth-26,
+	.tm-responsive .tcwidth-26,
+	.tm-responsive .tm-extra-product-options .tcwidth-27,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-27,
+	.tm-responsive .tc-cell.tcwidth-27,
+	.tm-responsive .tcwidth-27,
+	.tm-responsive .tm-extra-product-options .tcwidth-28,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-28,
+	.tm-responsive .tc-cell.tcwidth-28,
+	.tm-responsive .tcwidth-28,
+	.tm-responsive .tm-extra-product-options .tcwidth-29,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-29,
+	.tm-responsive .tc-cell.tcwidth-29,
+	.tm-responsive .tcwidth-29,
+	.tm-responsive .tm-extra-product-options .tcwidth-30,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-30,
+	.tm-responsive .tc-cell.tcwidth-30,
+	.tm-responsive .tcwidth-30,
+	.tm-responsive .tm-extra-product-options .tcwidth-31,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-31,
+	.tm-responsive .tc-cell.tcwidth-31,
+	.tm-responsive .tcwidth-31,
+	.tm-responsive .tm-extra-product-options .tcwidth-32,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-32,
+	.tm-responsive .tc-cell.tcwidth-32,
+	.tm-responsive .tcwidth-32,
+	.tm-responsive .tm-extra-product-options .tcwidth-33,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-33,
+	.tm-responsive .tc-cell.tcwidth-33,
+	.tm-responsive .tcwidth-33,
+	.tm-responsive .tm-extra-product-options .tcwidth-34,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-34,
+	.tm-responsive .tc-cell.tcwidth-34,
+	.tm-responsive .tcwidth-34,
+	.tm-responsive .tm-extra-product-options .tcwidth-35,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-35,
+	.tm-responsive .tc-cell.tcwidth-35,
+	.tm-responsive .tcwidth-35,
+	.tm-responsive .tm-extra-product-options .tcwidth-36,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-36,
+	.tm-responsive .tc-cell.tcwidth-36,
+	.tm-responsive .tcwidth-36,
+	.tm-responsive .tm-extra-product-options .tcwidth-37,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-37,
+	.tm-responsive .tc-cell.tcwidth-37,
+	.tm-responsive .tcwidth-37,
+	.tm-responsive .tm-extra-product-options .tcwidth-37-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-37-5,
+	.tm-responsive .tc-cell.tcwidth-37-5,
+	.tm-responsive .tcwidth-37-5,
+	.tm-responsive .tm-extra-product-options .tcwidth-38,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-38,
+	.tm-responsive .tc-cell.tcwidth-38,
+	.tm-responsive .tcwidth-38,
+	.tm-responsive .tm-extra-product-options .tcwidth-39,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-39,
+	.tm-responsive .tc-cell.tcwidth-39,
+	.tm-responsive .tcwidth-39,
+	.tm-responsive .tm-extra-product-options .tcwidth-40,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-40,
+	.tm-responsive .tc-cell.tcwidth-40,
+	.tm-responsive .tcwidth-40,
+	.tm-responsive .tm-extra-product-options .tcwidth-41,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-41,
+	.tm-responsive .tc-cell.tcwidth-41,
+	.tm-responsive .tcwidth-41,
+	.tm-responsive .tm-extra-product-options .tcwidth-42,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-42,
+	.tm-responsive .tc-cell.tcwidth-42,
+	.tm-responsive .tcwidth-42,
+	.tm-responsive .tm-extra-product-options .tcwidth-43,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-43,
+	.tm-responsive .tc-cell.tcwidth-43,
+	.tm-responsive .tcwidth-43,
+	.tm-responsive .tm-extra-product-options .tcwidth-44,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-44,
+	.tm-responsive .tc-cell.tcwidth-44,
+	.tm-responsive .tcwidth-44,
+	.tm-responsive .tm-extra-product-options .tcwidth-45,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-45,
+	.tm-responsive .tc-cell.tcwidth-45,
+	.tm-responsive .tcwidth-45,
+	.tm-responsive .tm-extra-product-options .tcwidth-46,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-46,
+	.tm-responsive .tc-cell.tcwidth-46,
+	.tm-responsive .tcwidth-46,
+	.tm-responsive .tm-extra-product-options .tcwidth-47,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-47,
+	.tm-responsive .tc-cell.tcwidth-47,
+	.tm-responsive .tcwidth-47,
+	.tm-responsive .tm-extra-product-options .tcwidth-48,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-48,
+	.tm-responsive .tc-cell.tcwidth-48,
+	.tm-responsive .tcwidth-48,
+	.tm-responsive .tm-extra-product-options .tcwidth-49,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-49,
+	.tm-responsive .tc-cell.tcwidth-49,
+	.tm-responsive .tcwidth-49,
+	.tm-responsive .tm-extra-product-options .tcwidth-50,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-50,
+	.tm-responsive .tc-cell.tcwidth-50,
+	.tm-responsive .tcwidth-50,
+	.tm-responsive .tm-extra-product-options .tcwidth-51,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-51,
+	.tm-responsive .tc-cell.tcwidth-51,
+	.tm-responsive .tcwidth-51,
+	.tm-responsive .tm-extra-product-options .tcwidth-52,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-52,
+	.tm-responsive .tc-cell.tcwidth-52,
+	.tm-responsive .tcwidth-52,
+	.tm-responsive .tm-extra-product-options .tcwidth-53,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-53,
+	.tm-responsive .tc-cell.tcwidth-53,
+	.tm-responsive .tcwidth-53,
+	.tm-responsive .tm-extra-product-options .tcwidth-54,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-54,
+	.tm-responsive .tc-cell.tcwidth-54,
+	.tm-responsive .tcwidth-54,
+	.tm-responsive .tm-extra-product-options .tcwidth-55,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-55,
+	.tm-responsive .tc-cell.tcwidth-55,
+	.tm-responsive .tcwidth-55,
+	.tm-responsive .tm-extra-product-options .tcwidth-56,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-56,
+	.tm-responsive .tc-cell.tcwidth-56,
+	.tm-responsive .tcwidth-56,
+	.tm-responsive .tm-extra-product-options .tcwidth-57,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-57,
+	.tm-responsive .tc-cell.tcwidth-57,
+	.tm-responsive .tcwidth-57,
+	.tm-responsive .tm-extra-product-options .tcwidth-58,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-58,
+	.tm-responsive .tc-cell.tcwidth-58,
+	.tm-responsive .tcwidth-58,
+	.tm-responsive .tm-extra-product-options .tcwidth-59,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-59,
+	.tm-responsive .tc-cell.tcwidth-59,
+	.tm-responsive .tcwidth-59,
+	.tm-responsive .tm-extra-product-options .tcwidth-60,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-60,
+	.tm-responsive .tc-cell.tcwidth-60,
+	.tm-responsive .tcwidth-60,
+	.tm-responsive .tm-extra-product-options .tcwidth-61,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-61,
+	.tm-responsive .tc-cell.tcwidth-61,
+	.tm-responsive .tcwidth-61,
+	.tm-responsive .tm-extra-product-options .tcwidth-62,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-62,
+	.tm-responsive .tc-cell.tcwidth-62,
+	.tm-responsive .tcwidth-62,
+	.tm-responsive .tm-extra-product-options .tcwidth-62-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-62-5,
+	.tm-responsive .tc-cell.tcwidth-62-5,
+	.tm-responsive .tcwidth-62-5,
+	.tm-responsive .tm-extra-product-options .tcwidth-63,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-63,
+	.tm-responsive .tc-cell.tcwidth-63,
+	.tm-responsive .tcwidth-63,
+	.tm-responsive .tm-extra-product-options .tcwidth-64,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-64,
+	.tm-responsive .tc-cell.tcwidth-64,
+	.tm-responsive .tcwidth-64,
+	.tm-responsive .tm-extra-product-options .tcwidth-65,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-65,
+	.tm-responsive .tc-cell.tcwidth-65,
+	.tm-responsive .tcwidth-65,
+	.tm-responsive .tm-extra-product-options .tcwidth-66,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-66,
+	.tm-responsive .tc-cell.tcwidth-66,
+	.tm-responsive .tcwidth-66,
+	.tm-responsive .tm-extra-product-options .tcwidth-67,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-67,
+	.tm-responsive .tc-cell.tcwidth-67,
+	.tm-responsive .tcwidth-67,
+	.tm-responsive .tm-extra-product-options .tcwidth-68,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-68,
+	.tm-responsive .tc-cell.tcwidth-68,
+	.tm-responsive .tcwidth-68,
+	.tm-responsive .tm-extra-product-options .tcwidth-69,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-69,
+	.tm-responsive .tc-cell.tcwidth-69,
+	.tm-responsive .tcwidth-69,
+	.tm-responsive .tm-extra-product-options .tcwidth-70,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-70,
+	.tm-responsive .tc-cell.tcwidth-70,
+	.tm-responsive .tcwidth-70,
+	.tm-responsive .tm-extra-product-options .tcwidth-71,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-71,
+	.tm-responsive .tc-cell.tcwidth-71,
+	.tm-responsive .tcwidth-71,
+	.tm-responsive .tm-extra-product-options .tcwidth-72,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-72,
+	.tm-responsive .tc-cell.tcwidth-72,
+	.tm-responsive .tcwidth-72,
+	.tm-responsive .tm-extra-product-options .tcwidth-73,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-73,
+	.tm-responsive .tc-cell.tcwidth-73,
+	.tm-responsive .tcwidth-73,
+	.tm-responsive .tm-extra-product-options .tcwidth-74,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-74,
+	.tm-responsive .tc-cell.tcwidth-74,
+	.tm-responsive .tcwidth-74,
+	.tm-responsive .tm-extra-product-options .tcwidth-75,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-75,
+	.tm-responsive .tc-cell.tcwidth-75,
+	.tm-responsive .tcwidth-75,
+	.tm-responsive .tm-extra-product-options .tcwidth-76,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-76,
+	.tm-responsive .tc-cell.tcwidth-76,
+	.tm-responsive .tcwidth-76,
+	.tm-responsive .tm-extra-product-options .tcwidth-77,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-77,
+	.tm-responsive .tc-cell.tcwidth-77,
+	.tm-responsive .tcwidth-77,
+	.tm-responsive .tm-extra-product-options .tcwidth-78,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-78,
+	.tm-responsive .tc-cell.tcwidth-78,
+	.tm-responsive .tcwidth-78,
+	.tm-responsive .tm-extra-product-options .tcwidth-79,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-79,
+	.tm-responsive .tc-cell.tcwidth-79,
+	.tm-responsive .tcwidth-79,
+	.tm-responsive .tm-extra-product-options .tcwidth-80,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-80,
+	.tm-responsive .tc-cell.tcwidth-80,
+	.tm-responsive .tcwidth-80,
+	.tm-responsive .tm-extra-product-options .tcwidth-81,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-81,
+	.tm-responsive .tc-cell.tcwidth-81,
+	.tm-responsive .tcwidth-81,
+	.tm-responsive .tm-extra-product-options .tcwidth-82,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-82,
+	.tm-responsive .tc-cell.tcwidth-82,
+	.tm-responsive .tcwidth-82,
+	.tm-responsive .tm-extra-product-options .tcwidth-83,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-83,
+	.tm-responsive .tc-cell.tcwidth-83,
+	.tm-responsive .tcwidth-83,
+	.tm-responsive .tm-extra-product-options .tcwidth-84,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-84,
+	.tm-responsive .tc-cell.tcwidth-84,
+	.tm-responsive .tcwidth-84,
+	.tm-responsive .tm-extra-product-options .tcwidth-85,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-85,
+	.tm-responsive .tc-cell.tcwidth-85,
+	.tm-responsive .tcwidth-85,
+	.tm-responsive .tm-extra-product-options .tcwidth-86,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-86,
+	.tm-responsive .tc-cell.tcwidth-86,
+	.tm-responsive .tcwidth-86,
+	.tm-responsive .tm-extra-product-options .tcwidth-87,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-87,
+	.tm-responsive .tc-cell.tcwidth-87,
+	.tm-responsive .tcwidth-87,
+	.tm-responsive .tm-extra-product-options .tcwidth-87-5,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-87-5,
+	.tm-responsive .tc-cell.tcwidth-87-5,
+	.tm-responsive .tcwidth-87-5,
+	.tm-responsive .tm-extra-product-options .tcwidth-88,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-88,
+	.tm-responsive .tc-cell.tcwidth-88,
+	.tm-responsive .tcwidth-88,
+	.tm-responsive .tm-extra-product-options .tcwidth-89,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-89,
+	.tm-responsive .tc-cell.tcwidth-89,
+	.tm-responsive .tcwidth-89,
+	.tm-responsive .tm-extra-product-options .tcwidth-90,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-90,
+	.tm-responsive .tc-cell.tcwidth-90,
+	.tm-responsive .tcwidth-90,
+	.tm-responsive .tm-extra-product-options .tcwidth-91,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-91,
+	.tm-responsive .tc-cell.tcwidth-91,
+	.tm-responsive .tcwidth-91,
+	.tm-responsive .tm-extra-product-options .tcwidth-92,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-92,
+	.tm-responsive .tc-cell.tcwidth-92,
+	.tm-responsive .tcwidth-92,
+	.tm-responsive .tm-extra-product-options .tcwidth-93,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-93,
+	.tm-responsive .tc-cell.tcwidth-93,
+	.tm-responsive .tcwidth-93,
+	.tm-responsive .tm-extra-product-options .tcwidth-94,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-94,
+	.tm-responsive .tc-cell.tcwidth-94,
+	.tm-responsive .tcwidth-94,
+	.tm-responsive .tm-extra-product-options .tcwidth-95,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-95,
+	.tm-responsive .tc-cell.tcwidth-95,
+	.tm-responsive .tcwidth-95,
+	.tm-responsive .tm-extra-product-options .tcwidth-96,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-96,
+	.tm-responsive .tc-cell.tcwidth-96,
+	.tm-responsive .tcwidth-96,
+	.tm-responsive .tm-extra-product-options .tcwidth-97,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-97,
+	.tm-responsive .tc-cell.tcwidth-97,
+	.tm-responsive .tcwidth-97,
+	.tm-responsive .tm-extra-product-options .tcwidth-98,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-98,
+	.tm-responsive .tc-cell.tcwidth-98,
+	.tm-responsive .tcwidth-98,
+	.tm-responsive .tm-extra-product-options .tcwidth-99,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-99,
+	.tm-responsive .tc-cell.tcwidth-99,
+	.tm-responsive .tcwidth-99,
+	.tm-responsive .tm-extra-product-options .tcwidth-100,
+	.tm-responsive .tm-extra-product-options .tc-cell.tcwidth-100,
+	.tm-responsive .tc-cell.tcwidth-100,
+	.tm-responsive .tcwidth-100 {
 		-ms-flex: 0 0 100%;
 		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
-	.tm-extra-product-options ul.tmcp-elements:not(.tm-extra-product-options-variations) li.tmcp-field-wrap:not(.tm-per-row) {
+	.tm-responsive .tm-extra-product-options ul.tmcp-elements:not(.tm-extra-product-options-variations) li.tmcp-field-wrap:not(.tm-per-row) {
 		float: none !important;
 		width: 100% !important;
 	}
@@ -1744,9 +1749,8 @@
 }
 
 .tm-extra-product-options,
-.tm-extra-product-options .tm-extra-product-options-inner,
 .tm-extra-product-options .tm-extra-product-options-fields,
-.tm-extra-product-options .tm-extra-product-options-container,
+.tm-extra-product-options .tc-element-container,
 .tm-extra-product-options .tmcp-ul-wrap,
 .tm-extra-product-options .tmcp-field,
 .tm-extra-product-options .tm-epo-field,
@@ -1755,7 +1759,7 @@
 .tm-extra-product-options .tc-row,
 .tm-collapse,
 .tm-collapse-wrap,
-.tm-epo-element-label,
+.tc-epo-label,
 .tm-show-picker-value,
 .tm-bsbb,
 .tm-bsbb-all,
@@ -1769,8 +1773,8 @@
 .tm-button,
 .tm-epo-style,
 .tc-lightbox img,
-.tm-extra-product-options .radio_image,
-.tm-extra-product-options .checkbox_image {
+.tm-extra-product-options .radio-image,
+.tm-extra-product-options .checkbox-image {
 	box-sizing: border-box;
 }
 
@@ -1779,7 +1783,7 @@
 	width: 100%;
 }
 
-.tm-extra-product-options .tm-extra-product-options-container,
+.tm-extra-product-options .tc-element-container,
 .tm-extra-product-options .tmcp-ul-wrap {
 	overflow: visible;
 	float: left;
@@ -1796,35 +1800,153 @@
 	padding: 0;
 }
 
-.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap {
-	width: auto;
-	padding: 0;
-	margin: 0;
-	list-style: none outside none !important;
+.tm-extra-product-options .tc-repeater-element,
+.tc-repeater-delete,
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap,
+.tc-field-display {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
 }
 
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap {
-	padding: 0;
-	margin: 0 0 0.5em 0;
+.tm-extra-product-options .tc-repeater-element,
+.tc-repeater-delete {
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.tm-extra-product-options .tc-repeater-element {
+	margin-bottom: 0.5em;
+	align-items: flex-start;
+}
+
+.tm-extra-product-options .tc-repeater-element .tmcp-ul-wrap {
+	flex-grow: 1;
+	flex-basis: 0;
+	width: auto;
+}
+
+.tc-repeater-delete {
+	flex-grow: 0;
+	flex-basis: 0;
+	width: auto;
+	padding: 0 4px;
+}
+
+.tc-price-wrap {
+	padding: 0 0.5em;
+	align-self: center;
+}
+
+.tm-extra-product-options .tmcp-ul-wrap + .tmcp-ul-wrap {
+	margin: 0.5em 0 0 0;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap .tc-field-display {
 	width: 100%;
-	float: left;
 	list-style: none outside none !important;
 	position: relative;
+	-ms-flex-pack: flex-start;
+	justify-content: flex-start;
+	-webkit-box-align: start;
+	-moz-box-align: start;
+	-ms-flex-align: start;
+	-webkit-align-items: flex-start;
+	align-items: flex-start;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap:last-child {
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap {
+	padding: 0;
+	margin: 0 0 0.5em 0;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap > label,
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap > .tc-price-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap .tc-inline-description,
+.tm-extra-product-options ul.tmcp-ul-wrap .tc-field-display > label,
+.tm-extra-product-options ul.tmcp-ul-wrap .tc-field-display > .tc-price-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap .tc-field-display .tc-inline-description {
+	flex-grow: 0;
+}
+
+.tc-extra-product-options .cpf-type-time .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-date .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-textfield .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-textarea .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-product .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-select .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-selectmultiple .tmcp-field-wrap label.fullwidth,
+.tc-extra-product-options .cpf-type-time .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-date .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-textfield .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-textarea .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-product .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-select .tc-field-display label.fullwidth,
+.tc-extra-product-options .cpf-type-selectmultiple .tc-field-display label.fullwidth {
+	flex-grow: 1;
+}
+
+.tc-epo-element-product-li-container,
+.tc-inline-description {
+	width: 100%;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap:last-child {
 	margin: 0;
 }
 
-.tm-extra-product-options ul.tmcp-elements.use-images-container li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-elements.tc-text-container li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-text,
+.tm-extra-product-options ul.tmcp-elements.tc-color-container li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-color,
+.tm-extra-product-options ul.tmcp-elements.tc-images-container li.tmcp-field-wrap,
 .tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-images {
 	padding: 1em 0.25em 0;
 	text-align: center;
 }
 
-.tm-extra-product-options ul.tmcp-elements.use-images-container li.tmcp-field-wrap.tc-mode-startimages,
-.tm-extra-product-options ul.tmcp-elements.use-images-container li.tmcp-field-wrap.tc-mode-endimages {
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages {
 	text-align: initial;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .radio-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .radio-image {
+	width: var(--tcinlinesize) !important;
+	padding-top: var(--tcinlinesize) !important;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .radio-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .radio-image {
+	max-height: var(--tcinlinesize) !important;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tm-epo-field-label {
+	width: auto;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tc-field-display {
+	justify-content: flex-start;
 }
 
 .tc-totals-form {
@@ -1856,12 +1978,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	display: none !important;
 }
 
-.tm-box {
+.tm-box,
+.tm-collapse {
 	border: 1px solid rgba(0, 0, 0, 0.035);
 	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.01) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.01) 100%);
 	margin: 0 15px 1em 15px;
 	width: 100%;
-	padding: 15px;
 }
 
 .tm-extra-product-options .cpf-section.tc-cell .tm-box > .tc-cell {
@@ -1880,7 +2002,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	line-height: 1.5 !important;
 	margin-top: -0.75em;
 	position: absolute;
-	right: 1px;
+	right: 15px;
 	text-align: center;
 	top: 50%;
 	width: 1.5em;
@@ -1897,12 +2019,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-collapse {
-	border: 1px solid rgba(0, 0, 0, 0.035);
-	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.01) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.01) 100%);
-	margin: 0 15px 1em 15px;
 	float: left;
-	width: 100%;
-	padding: 15px;
 }
 
 .tm-collapse > .tc-cell {
@@ -1921,6 +2038,22 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin-right: 0;
 }
 
+.tm-extra-product-options .tm-box .tm-section-label,
+.tm-extra-product-options .tm-collapse .tm-section-label,
+.tm-extra-product-options .tm-box .tc-epo-label.tm-section-label,
+.tm-extra-product-options .tm-collapse .tc-epo-label.tm-section-label {
+	margin: 0;
+	position: relative;
+	width: 100%;
+	padding: 15px;
+	border: 0;
+	outline: 0;
+}
+
+.tc-repeater-wrap {
+	margin-top: 1em;
+}
+
 /* 3. Elements */
 
 /* Required indicator */
@@ -1937,11 +2070,22 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 /* Element containers and labels */
 
-.tm-epo-element-label.tm-left {
+label.tm-epo-field-label {
+	align-self: center;
+}
+
+.tc-epo-element-product-thumbnailmultiple label.tm-epo-field-label,
+.tc-epo-element-product-thumbnail label.tm-epo-field-label,
+.tc-mode-images label.tm-epo-field-label,
+.tc-mode-color label.tm-epo-field-label {
+	align-self: flex-start;
+}
+
+.tc-epo-label.tm-left {
 	order: 0;
 }
 
-.tm-epo-element-label.tm-right {
+.tc-epo-label.tm-right {
 	order: 99;
 }
 
@@ -1960,7 +2104,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-checkbox li.tmcp-field-wrap .tm-label,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-radio li.tmcp-field-wrap .tm-label,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-variations li.tmcp-field-wrap .tm-label,
-.tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-product li.tmcp-field-wrap.tc-epo-element-product-radio .tm-label {
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-product li.tmcp-field-wrap.tc-epo-element-product-radio .tm-label,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-product li.tmcp-field-wrap.tc-epo-element-product-checkbox .tm-label {
 	padding: 0 0 0 0.5em !important;
 	margin: 0 !important;
 	line-height: 1 !important;
@@ -2002,26 +2147,25 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-epo-variation-section .tmhexcolorimage-li-nowh label,
 .tm-epo-variation-section .tmhexcolorimage-li label {
 	padding: 0;
-	display: inline-block !important;
+	display: inline-block;
 	float: none;
 	max-width: 100%;
 	width: auto;
 	overflow-wrap: break-word;
 }
 
-.tc-extra-product-options .cpf-type-product .tmcp-field-wrap label.fullwidth,
 .tc-extra-product-options .cpf-type-product .tmcp-field-wrap label.fullwidth select,
-.tc-extra-product-options .cpf-type-select .tmcp-field-wrap label.fullwidth,
 .tc-extra-product-options .cpf-type-select .tmcp-field-wrap label.fullwidth select,
-.tc-extra-product-options .cpf-type-textarea .tmcp-field-wrap label,
-.tc-extra-product-options .cpf-type-textarea .tmcp-field-wrap label .tm-epo-field,
-.tc-extra-product-options .cpf-type-textfield .tmcp-field-wrap label,
-.tc-extra-product-options .cpf-type-textfield .tmcp-field-wrap label .tm-epo-field {
+.tc-extra-product-options .cpf-type-selectmultiple .tmcp-field-wrap label.fullwidth select,
+.tc-extra-product-options .cpf-type-time .tmcp-field-wrap label.fullwidth .tm-epo-field,
+.tc-extra-product-options .cpf-type-date .tmcp-field-wrap label.fullwidth .tm-epo-field,
+.tc-extra-product-options .cpf-type-textarea .tmcp-field-wrap label.fullwidth .tm-epo-field,
+.tc-extra-product-options .cpf-type-textfield .tmcp-field-wrap label.fullwidth .tm-epo-field {
 	width: 100%;
 }
 
-.tm-extra-product-options .use-images-container .tmcp-field-wrap label,
-.tm-extra-product-options .use_colors_container .tmcp-field-wrap label,
+.tm-extra-product-options .tc-images-container .tmcp-field-wrap label,
+.tm-extra-product-options .tc-colors-container .tmcp-field-wrap label,
 .tm-epo-variation-section .tmhexcolorimage-li-nowh label,
 .tm-epo-variation-section .tmhexcolorimage-li label {
 	cursor: pointer;
@@ -2033,13 +2177,24 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	width: 100%;
 }
 
+.tm-extra-product-options ul.tmcp-ul-wrap.tc-colors-container li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap.tc-images-container li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap.tc-colors-container .tc-field-display,
+.tm-extra-product-options ul.tmcp-ul-wrap.tc-images-container .tc-field-display {
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
 /* Divider element */
 
 .tm-extra-product-options .tc-cell hr {
 	margin: 1em 0;
 }
 
-.tm-extra-product-options .cpf_hide_element hr.tc-cell {
+.tm-extra-product-options .cpf-element hr.tc-cell {
 	margin: 1em 15px;
 }
 
@@ -2050,7 +2205,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	clear: both;
 }
 
-.tm-extra-product-options .cpf_hide_element .tm_divider.tc-cell {
+.tm-extra-product-options .cpf-element .tm_divider.tc-cell {
 	margin: 1em 15px;
 }
 
@@ -2058,7 +2213,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	padding: 1em 0;
 }
 
-.tm-extra-product-options .cpf_hide_element .tm_padding.tc-cell {
+.tm-extra-product-options .cpf-element .tm_padding.tc-cell {
 	margin-left: 15px;
 	margin-right: 15px;
 }
@@ -2088,7 +2243,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	width: auto;
 }
 
-.tm-extra-product-options .tm-epo-element-label {
+.tm-extra-product-options .tc-epo-label {
 	display: block;
 	position: relative;
 	float: none;
@@ -2096,7 +2251,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin-bottom: 0;
 }
 
-.tm-extra-product-options .tm-epo-element-label.tm-section-label {
+.tm-extra-product-options .tc-epo-label.tm-section-label {
 	margin: 0.5em 0;
 }
 
@@ -2121,9 +2276,17 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin: 1em 0;
 }
 
-.tc-extra-product-options .tmcp-field-wrap label.cpf-upload-container {
+.tc-extra-product-options .tmcp-field-wrap label.cpf-upload-container-basic .cpf-upload-wrap {
+	display: block !important;
+	padding: 1em 0;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.tc-extra-product-options .tmcp-field-wrap label.cpf-upload-container .cpf-upload-wrap {
 	border: 1px solid;
-	display: inline-block !important;
+	display: block !important;
 	font-size: 1em;
 	height: auto;
 	overflow: hidden;
@@ -2132,6 +2295,18 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	vertical-align: middle;
 	margin: 0 0.5em 0 0;
 	cursor: pointer;
+}
+
+.cpf-upload-container-basic [type="file"] {
+	cursor: pointer;
+	display: block;
+	min-height: 100%;
+	min-width: 100%;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	top: 0;
+	height: 3em;
 }
 
 .cpf-upload-container [type="file"] {
@@ -2168,14 +2343,14 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 /* Range picker element */
 
-.cpf-type-range .tm-epo-element-label.tm-left + .tm-extra-product-options-container,
-.cpf-type-range .tm-epo-element-label.tm-right + .tm-extra-product-options-container {
+.cpf-type-range .tc-epo-label.tm-left + .tc-element-container,
+.cpf-type-range .tc-epo-label.tm-right + .tc-element-container {
 	width: 66% !important;
 	padding-top: 5px;
 }
 
-.cpf-type-range .tm-epo-element-label.tm-left,
-.cpf-type-range .tm-epo-element-label.tm-right {
+.cpf-type-range .tc-epo-label.tm-left,
+.cpf-type-range .tc-epo-label.tm-right {
 	margin-top: 5px;
 }
 
@@ -2187,12 +2362,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-range-picker {
 	margin: 2em 10px;
 	max-width: 100%;
+	width: auto;
+	flex: 1 1 auto;
 }
 
 .tm-range-picker.pips {
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-bottom: 50px;
+	margin: 50px 15px;
 }
 
 .tc-extra-product-options .tm-show-picker-left,
@@ -2225,8 +2400,6 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tc-extra-product-options .tm-show-picker-tleft .tm-range-picker,
 .tc-extra-product-options .tm-show-picker-right .tm-range-picker,
 .tc-extra-product-options .tm-show-picker-tright .tm-range-picker {
-	max-width: calc(80% - 30px);
-	flex: 0 0 calc(80% - 30px);
 	order: 1;
 }
 
@@ -2234,14 +2407,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tc-extra-product-options .tm-show-picker-tleft .tm-show-picker-value,
 .tc-extra-product-options .tm-show-picker-right .tm-show-picker-value,
 .tc-extra-product-options .tm-show-picker-tright .tm-show-picker-value {
-	max-width: 20%;
-	flex: 0 0 20%;
-
+	flex: 0 1 auto;
 	position: relative;
 	text-align: center;
-	top: 2em;
 	font-size: 0.8em;
 	order: 2;
+	min-width: 2em;
 }
 
 .tc-extra-product-options .tm-show-picker-left .tm-show-picker-value,
@@ -2274,9 +2445,42 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	padding: 6px 0 0;
 }
 
+input.tm-show-picker-value-edit {
+	max-width: 100%;
+	width: 98%;
+	text-align: center;
+	padding: 0;
+	border: 1px solid;
+	margin: 0;
+}
+
+.tm-show-picker-value-edit-wrap {
+	box-sizing: border-box;
+}
+
+.tc-extra-product-options .tm-show-picker-left .tm-show-picker-value-edit-wrap,
+.tc-extra-product-options .tm-show-picker-tleft .tm-show-picker-value-edit-wrap,
+.tc-extra-product-options .tm-show-picker-right .tm-show-picker-value-edit-wrap,
+.tc-extra-product-options .tm-show-picker-tright .tm-show-picker-value-edit-wrap {
+	max-width: 20%;
+	flex: 0 0 20%;
+
+	position: relative;
+	text-align: center;
+	top: 2em;
+	font-size: 0.8em;
+	order: 2;
+}
+
+.tc-extra-product-options .tm-show-picker-left .tm-show-picker-value-edit-wrap,
+.tc-extra-product-options .tm-show-picker-tleft .tm-show-picker-value-edit-wrap {
+	order: 0;
+}
+
+
 /* Variation element */
 
-.tm-extra-product-options .tm-epo-element-label.tm-has-undo-button {
+.tm-extra-product-options .tc-epo-label.tm-has-undo-button {
 	padding-right: 2em;
 }
 
@@ -2343,13 +2547,14 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin-left: 0;
 }
 
-.tm-extra-product-options .use-images-container .tmcp-field-wrap .amount {
+.tm-extra-product-options .tc-images-container .tmcp-field-wrap .amount {
 	margin-left: 0;
 }
 
 .tm-extra-product-options .amount.hidden,
 .tm-extra-product-options .tmcp-field-wrap .price.amount.hidden,
 .tm-extra-product-options .tmcp-field-wrap .tc-price.hidden,
+.tm-extra-product-options .before-amount.hidden,
 .tm-extra-product-options .after-amount.hidden,
 .tm-extra-product-options .tmperiod.hidden {
 	display: none !important;
@@ -2383,7 +2588,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	font-weight: 700;
 }
 
-.tm-extra-product-options-totals .price.amount.final {
+.tm-extra-product-options-totals .price.amount {
 	display: inline-block !important;
 	width: auto;
 }
@@ -2409,6 +2614,11 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 /* Quantity selector */
+.tc-quantity-right .tm-quantity,
+.tc-quantity-left .tm-quantity {
+	align-self: center;
+}
+
 .tc-row.tc-quantity-right,
 .tc-row.tc-quantity-left {
 	-ms-flex-wrap: nowrap;
@@ -2475,6 +2685,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	float: none;
 }
 
+.tc-row.tc-quantity-right .tc-cell,
+.tc-row.tc-quantity-left .tc-cell,
+.tm-quantity.tm-bottom {
+	margin-bottom: 0;
+}
+
 /* Description */
 
 .tm-description p:last-child {
@@ -2483,6 +2699,11 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .tm-description {
 	clear: both;
+}
+
+.tm-section-description {
+	padding: 15px;
+	margin: 0 -15px;
 }
 
 /* 4. Floatbox */
@@ -2574,7 +2795,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .flasho {
 	font: 13px/1.5em HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background: url(../images/linefix5.png) repeat scroll 0 0 #ccc;
+	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid transparent;
 	left: 0;
 	position: absolute;
@@ -2618,7 +2839,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .flasho .footer {
 	bottom: 0;
-	height: 55px;
+	height: 56px;
 	left: 0;
 	margin: 0;
 	padding: 0;
@@ -2626,6 +2847,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	text-align: right;
 	width: 100%;
 	z-index: 2;
+	display: block;
 }
 
 .flasho .footer .inner {
@@ -2647,7 +2869,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	width: 80%;
 }
 
-#tm-section-pop-up > .tm-epo-element-label.tm-section-label {
+#tm-section-pop-up > .tc-epo-label.tm-section-label {
 	display: none;
 }
 
@@ -2688,7 +2910,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	top: 0;
 	bottom: 0;
 	left: 0;
-	background: url(../images/p5.png) repeat scroll 0 0 transparent;
+	background: rgba(255, 255, 255, 0.5);
 	z-index: 9999;
 	max-height: 100%;
 	overflow: hidden;
@@ -2787,7 +3009,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap label.tm-error,
 .tm-extra-product-options ul.tmcp-ul-wrap + .tm-error,
-.tm-extra-product-options .tm-extra-product-options-container > .tm-error {
+.tm-extra-product-options .tc-element-container > .tm-error {
 	color: #f00;
 	display: block !important;
 	font-size: 80%;
@@ -2796,9 +3018,19 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin: 1em 0 !important;
 }
 
-.tm-epo-field.tmcp-textfield.tm-error {
+.tm-extra-product-options .tc-cell.tm-error {
+	color: #f00;
+	display: block;
+	font-size: 80%;
+	font-weight: 700;
+	margin: 1em 0 !important;
+}
+
+.tm-epo-field.tmcp-textfield.tm-error,
+.tm-epo-field.tmcp-textarea.tm-error {
 	border: 1px solid #c0392b;
 	color: #e74c3c;
+	outline: 0;
 }
 
 /* 7. Lightbox */
@@ -2835,8 +3067,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	overflow: hidden;
 }
 
-.tm-extra-product-options .tc-lightbox-image-wrap .radio_image,
-.tm-extra-product-options .tc-lightbox-image-wrap .checkbox_image {
+.tm-extra-product-options .tc-lightbox-image-wrap .radio-image,
+.tm-extra-product-options .tc-lightbox-image-wrap .checkbox-image {
 	float: left;
 	padding: 0;
 }
@@ -2994,8 +3226,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-epo-field.tmcp-date {
 	min-height: 2.5em !important;
 	height: auto;
+}
+
+.tc-extra-product-options .cpf-type-date .tmcp-field-wrap label:not(.fullwidth) .tm-epo-field.tmcp-date {
 	width: auto !important;
 }
+
 
 .tm-epo-datepicker-label-container,
 .tm-epo-timepicker-label-container {
@@ -3016,8 +3252,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	box-shadow: none;
 }
 
-.tm-epo-element-label.tm-left + .tm-extra-product-options-container .tm-epo-datepicker-label-container,
-.tm-epo-element-label.tm-right + .tm-extra-product-options-container .tm-epo-datepicker-label-container {
+.tc-epo-label.tm-left + .tc-element-container .tm-epo-datepicker-label-container,
+.tc-epo-label.tm-right + .tc-element-container .tm-epo-datepicker-label-container {
 	margin-top: 0;
 }
 
@@ -3028,7 +3264,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	font-family: tc-fontawesome, sans-serif;
 	box-shadow: none;
 	border-radius: 0;
-	background: transparent none repeat scroll 0 0;
+	background: transparent none repeat scroll 0 0 !important;
 	border-width: 0 0 0 1px;
 	color: inherit !important;
 	cursor: pointer;
@@ -3731,6 +3967,35 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 /* 9. Checkbox and Radio button */
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-color,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-image,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-checkbox,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-radio {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: stretch !important;
+	align-items: stretch;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-pack: flex-start !important;
+	justify-content: flex-start !important;
+	float: none;
+	max-width: none;
+	width: auto;
+	box-sizing: border-box;
+	margin: 0 calc(-0.5 * var(--tcgap));
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-checkbox li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-radio li.tmcp-field-wrap {
+	padding: calc(0.5 * var(--tcgap));
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+	margin: 0;
+}
 
 .tc-label-wrap {
 	display: inline;
@@ -3738,21 +4003,42 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .tc-mode-images .tc-label-wrap,
 .tc-mode-color .tc-label-wrap {
-	display: block;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio_image,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox_image,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio_image,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox_image {
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-epo-text-wrapper,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio-image,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox-image,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio-image,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox-image {
 	border-color: inherit;
 	border-width: 1px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-.tm-extra-product-options .radio_image,
-.tm-extra-product-options .checkbox_image {
-	border: 1px solid transparent;
+.tm-extra-product-options .radio-image,
+.tm-extra-product-options .checkbox-image {
+	border: 2px solid transparent;
 	display: inline-block !important;
 	height: auto;
 	width: auto;
@@ -3769,6 +4055,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	text-align: center;
 	padding: 1em 0;
 	line-height: 1.5;
+	width: 100%;
 }
 
 .tc-label.tm-label .radio-image-label,
@@ -3784,24 +4071,25 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 /* 10. Checkbox and Radio button custom styles */
 
-.tm-epo-style-wrapper + .tmhexcolorimage,
-.tm-epo-style-wrapper + .tc-label-wrap .tmhexcolorimage:first-child {
+.tc-epo-style-wrapper + .tmhexcolorimage,
+.tc-epo-style-wrapper + .tc-label-wrap .tmhexcolorimage:first-child {
 	margin: 0 0.5em;
 	vertical-align: middle;
 }
 
-.tm-epo-style-wrapper input[type="checkbox"],
-.tm-epo-style-wrapper input[type="radio"] {
+
+.tc-epo-style-wrapper input[type="checkbox"],
+.tc-epo-style-wrapper input[type="radio"] {
 	visibility: hidden;
 	display: inline !important;
 }
 
-.tm-epo-style-wrapper input[type="checkbox"]:checked + .tm-epo-style::after,
-.tm-epo-style-wrapper input[type="radio"]:checked + .tm-epo-style::after {
+.tc-epo-style-wrapper input[type="checkbox"]:checked + .tm-epo-style::after,
+.tc-epo-style-wrapper input[type="radio"]:checked + .tm-epo-style::after {
 	opacity: 1;
 }
 
-.tm-epo-style-wrapper {
+.tc-epo-style-wrapper {
 	height: 2em;
 	width: 2em;
 	position: relative;
@@ -3830,7 +4118,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	line-height: 1 !important;
 }
 
-.tm-epo-style-wrapper input[type="radio"] + .tm-epo-style::after {
+.tc-epo-style-wrapper input[type="radio"] + .tm-epo-style::after {
 	content: "\f111";
 }
 
@@ -3845,8 +4133,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	}
 }
 
-.tm-epo-style-wrapper.round2,
-.tm-epo-style-wrapper.square2 {
+.tc-epo-style-wrapper.round2,
+.tc-epo-style-wrapper.square2 {
 	height: 1em;
 	width: 1em;
 	padding: 5px;
@@ -3868,8 +4156,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	top: 0;
 }
 
-.tm-epo-style-wrapper.round2 .tm-epo-style::after,
-.tm-epo-style-wrapper.square2 .tm-epo-style::after {
+.tc-epo-style-wrapper.round2 .tm-epo-style::after,
+.tc-epo-style-wrapper.square2 .tm-epo-style::after {
 	font-size: 0.7em !important;
 	margin-top: -0.4em;
 }
@@ -3896,6 +4184,28 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 /* 11. Checkbox and Radio button swatches */
 
+.tc-epo-text-wrapper {
+	border-style: solid;
+	border-width: 1px;
+	cursor: pointer;
+	padding: 0.5em 1em;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap.tc-mode-text label.tm-epo-field-label {
+	margin: 0 0 1em 0;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap .tc-epo-text-wrapper .tm-label {
+	padding: 0 !important;
+}
+
+.tc-epo-text-wrapper input[type="checkbox"].tm-epo-field,
+.tc-epo-text-wrapper input[type="radio"].tm-epo-field {
+	visibility: hidden;
+	position: absolute;
+	display: inline !important;
+}
+
 .tmhexcolorimage {
 	display: block !important;
 	height: 100% !important;
@@ -3914,13 +4224,20 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	text-align: initial;
 }
 
-.use_colors_container .tmhexcolorimage {
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-color .tmhexcolorimage,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-image .tmhexcolorimage,
+.tc-images-container .tmhexcolorimage,
+.tc-colors-container .tmhexcolorimage {
+	width: 100% !important;
 	height: auto !important;
+	padding-top: 100% !important;
 	vertical-align: middle;
 }
 
-.tm-transparent-swatch {
-	border: 1px dotted !important;
+.tm-transparent-swatch,
+.tm-extra-product-options .radio-image.tm-transparent-swatch,
+.tm-extra-product-options .checkbox-image.tm-transparent-swatch {
+	border: 1px dotted;
 }
 
 .tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap input.use_images + label {
@@ -3935,36 +4252,45 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	background: none !important;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio_image.round,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox_image.round,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio_image.round,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox_image.round {
+.tm-extra-product-options .tmcp-field-wrap .tc-epo-text-wrapper.round {
+	border-radius: 5px;
+	border-width: 1px;
+	box-shadow: none;
+}
+
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio-image.round,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox-image.round,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio-image.round,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox-image.round {
 	border-radius: 100%;
 	border-width: 1px;
 	box-shadow: none;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio_image.square,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox_image.square,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio_image.square,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox_image.square {
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-epo-text-wrapper.square,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio-image.square,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox-image.square,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio-image.square,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox-image.square {
 	border-radius: 0;
 	box-shadow: none;
-	border-width: 1px;
+	border-width: 2px;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio_image.shadow,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox_image.shadow,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio_image.shadow,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox_image.shadow {
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-epo-text-wrapper.shadow,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio-image.shadow,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox-image.shadow,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio-image.shadow,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox-image.shadow {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
 	border-width: 1px;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio_image.thinline,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox_image.thinline,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio_image.thinline,
-.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox_image.thinline {
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-epo-text-wrapper.thinline,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.radio-image.thinline,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap img.checkbox-image.thinline,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.radio-image.thinline,
+.tm-extra-product-options .tmcp-field-wrap.tc-active .tc-label-wrap .tmhexcolorimage.checkbox-image.thinline {
 	border-width: 1px;
 	border-radius: 0;
 	box-shadow: none;
@@ -3987,17 +4313,23 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-hide-label + .radio-image-label,
-.tm-hide-label + .checkbox-image-label {
+.tm-hide-label + * + .radio-image-label,
+.tm-hide-label + .checkbox-image-label,
+.tm-hide-label + * + .checkbox-image-label {
 	display: none !important;
 }
 
 .tm-bottom-label + .radio-image-label,
-.tm-bottom-label + .checkbox-image-label {
+.tm-bottom-label + * + .radio-image-label,
+.tm-bottom-label + .checkbox-image-label,
+.tm-bottom-label + * + .checkbox-image-label {
 	padding: 0.5em 0;
 }
 
 .tm-inside-label + .radio-image-label,
-.tm-inside-label + .checkbox-image-label {
+.tm-inside-label + * + .radio-image-label,
+.tm-inside-label + .checkbox-image-label,
+.tm-inside-label + * + .checkbox-image-label {
 	left: 0;
 	padding: 0;
 	position: absolute;
@@ -4015,6 +4347,10 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	border: 0;
 	margin: 1em 0;
 	padding: 0;
+}
+
+li.tc-epo-element-product-holder {
+	flex-wrap: wrap;
 }
 
 .tc-epo-element-product-container-wrap {
@@ -4117,9 +4453,9 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap .tm-epo-field.tmcp-radio,
-.tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap .tm-epo-style-wrapper,
+.tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap .tc-epo-style-wrapper,
 .tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap > label .tm-epo-field.tmcp-checkbox,
-.tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap > label .tm-epo-style-wrapper {
+.tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap > label .tc-epo-style-wrapper {
 	display: none;
 }
 
@@ -4132,32 +4468,25 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	-ms-flex-align: stretch !important;
 	align-items: stretch;
 	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
 	flex-wrap: wrap;
 	-ms-flex-pack: flex-start !important;
 	justify-content: flex-start !important;
-	margin: 0 -15px;
+	margin: 0 calc(-0.5 * var(--tcgap));
 	float: none;
 	max-width: none;
 	width: auto;
 	box-sizing: border-box;
 }
 
-.tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap {
-	max-width: 100%;
-	-ms-flex: 0 0 100%;
-	flex: 0 0 100%;
-	margin: 0;
-	padding: 1em 15px;
-	text-align: center;
-	box-sizing: border-box;
-}
-
+.tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap,
 .tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap {
+	text-align: center;
 	max-width: 100%;
 	-ms-flex: 0 0 100%;
 	flex: 0 0 100%;
 	margin: 0;
-	padding: 1em 15px;
+	padding: calc(0.5 * var(--tcgap));
 	box-sizing: border-box;
 }
 
@@ -4182,7 +4511,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap .tm-epo-field-label,
-.tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap > label .tm-epo-field-label {
+.tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap > label.tm-epo-field-label {
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -4240,7 +4569,7 @@ table.tc-epo-element-variations {
 	display: none;
 }
 
-.tm-extra-product-options .tmcp-field-wrap.tc-product-hidden {
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap.tc-product-hidden {
 	display: none;
 }
 
@@ -4264,6 +4593,7 @@ table.tc-epo-element-variations {
 	z-index: 145400;
 	padding: 15px;
 	pointer-events: none;
+	bottom: auto !important;
 }
 
 #tm-tooltip::after {
@@ -4320,7 +4650,7 @@ table.tc-epo-element-variations {
 	margin-right: 0;
 }
 
-.tm-extra-product-options .tm-epo-element-label.tm-tooltip {
+.tm-extra-product-options .tc-epo-label.tm-tooltip {
 	display: inline-block;
 	width: auto;
 }
@@ -4330,6 +4660,25 @@ table.tc-epo-element-variations {
 	margin-right: 0.5em;
 }
 
+#tm-tooltip.tc-error {
+	background: #ff4500;
+	border-color: #ff4500;
+	color: #fff;
+}
+
+#tm-tooltip.tc-error::after {
+	border-top-color: #ff4500;
+}
+
+#tm-tooltip.tc-error.top::after {
+	border-bottom-color: #ff4500;
+}
+
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap .tc-tooltip,
+.tm-extra-product-options ul.tmcp-ul-wrap .tc-field-display .tc-tooltip {
+	align-self: center;
+}
+
 /* 14. Cart and Order styles */
 
 .woocommerce #content table.cart img.epo-option-image,
@@ -4337,7 +4686,7 @@ table.tc-epo-element-variations {
 .woocommerce-page #content table.cart img.epo-option-image,
 .woocommerce-page table.cart img.epo-option-image,
 .epo-option-image {
-	max-height: none;
+	max-height: 100px;
 	max-width: 70% !important;
 	height: auto !important;
 	width: auto !important;
@@ -4450,8 +4799,7 @@ td.product-name a.tm-cart-edit-options,
 
 .tm-epo-cart-row-header .product-quantity,
 .tm-epo-cart-row-product .product-quantity,
-.tm-epo-cart-row .product-quantity,
-.tm-epo-cart-row-product-noepo .product-quantity {
+.tm-epo-cart-row .product-quantity {
 	text-align: center;
 }
 
@@ -4559,6 +4907,41 @@ td.product-name a.tm-cart-edit-options,
 	position: absolute !important;
 	z-index: 2;
 	opacity: 0.6;
+}
+
+button.tmicon {
+	display: inline-block;
+	left: auto !important;
+	position: relative;
+	right: auto !important;
+	overflow: hidden;
+	width: 30px !important;
+	height: 30px !important;
+	line-height: 30px !important;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	flex-shrink: 0;
+	background: none;
+	border: none;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+button.tmicon.delete {
+	color: #ff4500;
+	border-radius: 100%;
+}
+
+button.tmicon.delete:hover {
+	color: #fff;
+	background: #ff4500;
 }
 
 /* 16. Theme fixes */
@@ -4670,8 +5053,8 @@ td.product-name a.tm-cart-edit-options,
 
 /* Aurum theme fix */
 
-.use-images-container .replaced-checkboxes + label::before,
-.use-images-container .replaced-radio-buttons + label::before,
+.tc-images-container .replaced-checkboxes + label::before,
+.tc-images-container .replaced-radio-buttons + label::before,
 .replaced-checkboxes + label.tm-epo-style::before,
 .replaced-radio-buttons + label.tm-epo-style::before {
 	display: none;
@@ -4706,4 +5089,5 @@ body[data-form-style="minimal"] .tc-extra-product-options .minimal-form-input la
 .woocommerce div.product.elementor.tm-has-options form.cart:not(.grouped_form):not(.variations_form) {
 	-ms-flex-wrap: wrap !important;
 	flex-wrap: wrap !important;
+	max-width: 100%;
 }

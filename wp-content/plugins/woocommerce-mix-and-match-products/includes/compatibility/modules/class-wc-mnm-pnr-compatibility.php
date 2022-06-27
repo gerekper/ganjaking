@@ -85,7 +85,7 @@ class WC_MNM_PnR_Compatibility {
 
 		if ( isset( $item['mnm_container'] ) ) {
 
-			// find container item
+			// Find container item.
 			foreach ( $order->get_items() as $order_item ) {
 
 				$is_parent = ( isset( $order_item['mnm_cart_key'] ) && $item['mnm_container'] == $order_item['mnm_cart_key'] ) ? true : false;
@@ -126,8 +126,8 @@ class WC_MNM_PnR_Compatibility {
 
 			if ( false === self::has_fixed_points( $product ) && $product->is_priced_per_product() ) {
 
-				$max_mnm_price = $product->get_mnm_price( 'max' );
-				$min_mnm_price = $product->get_mnm_price( 'min' );
+				$max_mnm_price = $product->get_container_price( 'max' );
+				$min_mnm_price = $product->get_container_price( 'min' );
 
 				if ( '' !== $max_mnm_price ) {
 					self::$mnm_price_max = $max_mnm_price;

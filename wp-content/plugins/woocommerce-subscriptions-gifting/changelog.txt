@@ -1,5 +1,12 @@
 *** WooCommerce Subscriptions Gifting Changelog ***
 
+2022-05-31 - version 2.4.0
+ * Dev: Updates the WordPress tested up to version to 6.0.
+ * Dev: Removes the readme.txt file.
+
+2022-05-06 - version 2.3.0
+ * Fix: Notice displayed when required plugins are not installed now mentions WooCommerce Payments. PR #400
+
 2022-03-16 - version 2.2.0
  * Add: Subscriptions with WooCommerce Payments compatibility. PR#392
  * Fix: Hide extra labels on new recipient account page. PR#396

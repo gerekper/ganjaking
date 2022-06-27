@@ -132,11 +132,9 @@ if ( ! defined( 'WPINC' ) ) {
 			<button onclick="WP_Smush.onboarding.goTo('auto')" class="<# if ( 'auto' === data.slide ) { #>sui-current<# } #>" <# if ( 'auto' === data.slide ) { #>disabled<# } #>>
 				<?php esc_html_e( 'Automatic Compression', 'wp-smushit' ); ?>
 			</button>
-			<?php if ( WP_Smush::is_pro() ) : ?>
-				<button onclick="WP_Smush.onboarding.goTo('lossy')" class="<# if ( 'lossy' === data.slide ) { #>sui-current<# } #>" <# if ( 'lossy' === data.slide ) { #>disabled<# } #>>
-					<?php esc_html_e( 'Advanced Compression', 'wp-smushit' ); ?>
-				</button>
-			<?php endif; ?>
+			<button onclick="WP_Smush.onboarding.goTo('lossy')" class="<# if ( 'lossy' === data.slide ) { #>sui-current<# } #>" <# if ( 'lossy' === data.slide ) { #>disabled<# } #>>
+				<?php esc_html_e( 'Advanced Compression', 'wp-smushit' ); ?>
+			</button>
 			<button onclick="WP_Smush.onboarding.goTo('strip_exif')" class="<# if ( 'strip_exif' === data.slide ) { #>sui-current<# } #>" <# if ( 'strip_exif' === data.slide ) { #>disabled<# } #>>
 				<?php esc_html_e( 'EXIF Metadata', 'wp-smushit' ); ?>
 			</button>

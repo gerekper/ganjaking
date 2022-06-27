@@ -21,7 +21,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  protected function __construct()
  {
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function bindValue($param, $value, $type = ParameterType::STRING)
  {
  $type = $this->convertParamType($type);
@@ -31,7 +31,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function bindParam($param, &$variable, $type = ParameterType::STRING, $length = null, $driverOptions = null)
  {
  $type = $this->convertParamType($type);
@@ -41,7 +41,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function closeCursor()
  {
  try {
@@ -52,7 +52,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  return \true;
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function execute($params = null)
  {
  try {
@@ -61,7 +61,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function fetch($fetchMode = null, $cursorOrientation = PDO::FETCH_ORI_NEXT, $cursorOffset = 0)
  {
  $args = func_get_args();
@@ -74,7 +74,7 @@ class PDOStatement extends \PDOStatement implements StatementInterface, Result
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function fetchColumn($columnIndex = 0)
  {
  try {

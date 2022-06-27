@@ -17,7 +17,7 @@ class UnderscoreNamingStrategy implements NamingStrategy
  private const NUMBER_AWARE_PATTERN = '/(?<=[a-z0-9])([A-Z])/';
  private $case;
  private $pattern;
- public function __construct($case = \CASE_LOWER, bool $numberAware = \false)
+ public function __construct($case = CASE_LOWER, bool $numberAware = \false)
  {
  if (!$numberAware) {
  Deprecation::trigger('doctrine/orm', 'https://github.com/doctrine/orm/pull/7908', 'Creating %s without setting second argument $numberAware=true is deprecated and will be removed in Doctrine ORM 3.0.', self::class);
@@ -50,7 +50,7 @@ class UnderscoreNamingStrategy implements NamingStrategy
  }
  public function referenceColumnName()
  {
- return $this->case === \CASE_UPPER ? 'ID' : 'id';
+ return $this->case === CASE_UPPER ? 'ID' : 'id';
  }
  public function joinColumnName($propertyName, $className = null)
  {
@@ -67,7 +67,7 @@ class UnderscoreNamingStrategy implements NamingStrategy
  private function underscore(string $string) : string
  {
  $string = preg_replace($this->pattern, '_$1', $string);
- if ($this->case === \CASE_UPPER) {
+ if ($this->case === CASE_UPPER) {
  return strtoupper($string);
  }
  return strtolower($string);

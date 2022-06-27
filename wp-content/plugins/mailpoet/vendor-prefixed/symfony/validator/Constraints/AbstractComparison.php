@@ -10,23 +10,25 @@ abstract class AbstractComparison extends Constraint
  public $message;
  public $value;
  public $propertyPath;
- public function __construct($options = null)
+ public function __construct($value = null, $propertyPath = null, string $message = null, array $groups = null, $payload = null, array $options = [])
  {
- if (null === $options) {
- $options = [];
+ if (\is_array($value)) {
+ $options = \array_merge($value, $options);
+ } elseif (null !== $value) {
+ $options['value'] = $value;
  }
- if (\is_array($options)) {
- if (!isset($options['value']) && !isset($options['propertyPath'])) {
+ parent::__construct($options, $groups, $payload);
+ $this->message = $message ?? $this->message;
+ $this->propertyPath = $propertyPath ?? $this->propertyPath;
+ if (null === $this->value && null === $this->propertyPath) {
  throw new ConstraintDefinitionException(\sprintf('The "%s" constraint requires either the "value" or "propertyPath" option to be set.', static::class));
  }
- if (isset($options['value']) && isset($options['propertyPath'])) {
+ if (null !== $this->value && null !== $this->propertyPath) {
  throw new ConstraintDefinitionException(\sprintf('The "%s" constraint requires only one of the "value" or "propertyPath" options to be set, not both.', static::class));
  }
- if (isset($options['propertyPath']) && !\class_exists(PropertyAccess::class)) {
+ if (null !== $this->propertyPath && !\class_exists(PropertyAccess::class)) {
  throw new LogicException(\sprintf('The "%s" constraint requires the Symfony PropertyAccess component to use the "propertyPath" option.', static::class));
  }
- }
- parent::__construct($options);
  }
  public function getDefaultOption()
  {

@@ -42,9 +42,8 @@ class DefinedTest extends TestExpression
  $this->changeIgnoreStrictCheck($node->getNode('node'));
  }
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->subcompile($this->getNode('node'));
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\Test\\DefinedTest', 'MailPoetVendor\\Twig_Node_Expression_Test_Defined');

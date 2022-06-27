@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Helper functions.
  *
  * @class    WC_CP_Helpers
- * @version  7.0.7
+ * @version  8.4.1
  */
 class WC_CP_Helpers {
 
@@ -43,6 +43,10 @@ class WC_CP_Helpers {
 	public static function cache_get( $key, $group_key = '' ) {
 
 		$value = null;
+
+		if ( defined( 'WC_CP_DEBUG_RUNTIME_CACHE' ) ) {
+			return $value;
+		}
 
 		if ( $group_key ) {
 

@@ -36,24 +36,16 @@ function wc_od_field_wrapper( $field ) {
 	}
 
 	$field['custom_attributes'] = $custom_attributes;
-
-	// Tooltips position was changed in WC 3.4.
-	$tip_html     = ( $field['desc_tip'] ? wc_help_tip( $field['desc_tip'], true ) : '' );
-	$tip_in_label = version_compare( WC()->version, '3.4', '>=' );
 	?>
 	<tr valign="top">
 		<th scope="row" class="titledesc">
 			<?php
 			printf(
-				'<label for="%1$s">%2$s%3$s</label>',
+				'<label for="%1$s">%2$s %3$s</label>',
 				esc_attr( $field['id'] ),
 				esc_html( $field['title'] ),
-				( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wc_help_tip( $field['desc_tip'], true )
 			);
-
-			if ( ! $tip_in_label ) :
-				echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			endif;
 			?>
 		</th>
 		<td class="forminp forminp-<?php echo esc_attr( $field['type'] ); ?>">
@@ -106,42 +98,6 @@ function wc_od_shipping_days_field( $field ) {
 		<p class="description"><?php echo $field['desc']; ?></p>
 	<?php endif; ?>
 	</fieldset>
-	<?php
-}
-
-/**
- * Outputs the content for the wc_od_day_range field.
- *
- * @since 1.0.0
- * @param array $field The field data.
- */
-function wc_od_day_range_field( $field ) {
-	$field_id = $field['id'];
-	$value    = WC_OD()->settings()->get_setting( $field_id );
-	?>
-	<label for="<?php echo $field_id; ?>">
-	<?php
-		printf( __( 'Between %1$s and %2$s days.', 'woocommerce-order-delivery' ),
-			sprintf(
-				'<input id="%1$s" name="%1$s[min]" type="number" value="%2$s" style="%3$s" %4$s />',
-				$field_id,
-				esc_attr( $value['min'] ),
-				esc_attr( $field['css'] ),
-				implode( ' ', $field['custom_attributes'] )
-			),
-			sprintf(
-				'<input id="%1$s" name="%1$s[max]" type="number" value="%2$s" style="%3$s" %4$s />',
-				$field_id,
-				esc_attr( $value['max'] ),
-				esc_attr( $field['css'] ),
-				implode( ' ', $field['custom_attributes'] )
-			)
-		);
-	?>
-	</label>
-	<?php if ( $field['desc'] ) : ?>
-		<p class="description"><?php echo $field['desc']; ?></p>
-	<?php endif; ?>
 	<?php
 }
 

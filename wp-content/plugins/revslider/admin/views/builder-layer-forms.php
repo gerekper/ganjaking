@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 if(!defined('ABSPATH')) exit();
 ?>
@@ -755,6 +755,12 @@ if(!defined('ABSPATH')) exit();
 						<onelong><label_icon class="ui_rotatez"></label_icon><input  class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="deg" data-r="idle.rotationZ" data-min="-3600" data-max="3600" type="text"></onelong>
 						<oneshort><label_icon class="ui_opacity"></label_icon><input  class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="" data-r="idle.opacity" data-min="0" data-max="1" data-steps="0.05" type="text"></oneshort>
 					</row>
+					<label_a><?php _e('iOS Fix by', 'revslider');?></label_a><select  class="layerinput tos2 nosearchbox easyinit" data-r="idle.filtersIOSFix">
+						<option value="d"><?php _e('Default', 'revslider');?></option>									
+						<option value="z"><?php _e('z', 'revslider');?></option>
+						<option value="x"><?php _e('x', 'revslider');?></option>
+						<option value="r"><?php _e('Rotation', 'revslider');?></option>							
+					</select>
 					
 				</div>
 			</div><!-- END OF BOX SHADOW SETTING -->
@@ -1295,8 +1301,10 @@ if(!defined('ABSPATH')) exit();
 							<row>
 								<onelong class="_ltsel_main_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.filter.grayscale" type="text"></onelong>
 								<oneshort class="_ltsel_main_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.filter.brightness" type="text"></oneshort>
-							</row>								
+							</row>															
+							
 							<longoption class="_ltsel_main_filter"><label_a><?php _e('Set Filters on Mask', 'revslider');?></label_a><input type="checkbox" class="layerinput easyinit" data-r="timeline.filtersOnMask"/></longoption>
+							
 							
 							<div class="div15"></div>
 							<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_brightness</i><?php _e('Layer Back-Drop Filter', 'revslider');?></div>

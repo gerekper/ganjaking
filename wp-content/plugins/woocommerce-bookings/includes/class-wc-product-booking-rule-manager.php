@@ -317,6 +317,11 @@ class WC_Product_Booking_Rule_Manager {
 				'override' => $override_block,
 			);
 
+			// Updating end time 00:00 to 24:00, so that user can book slots till next midnight.
+			if ( isset( $fields['to'] ) && '00:00' === $fields['to'] ) {
+				$fields['to'] = '24:00';
+			}
+
 			$type_function = self::get_type_function( $fields['type'] );
 			if ( 'get_time_range_for_custom_date' === $type_function ) {
 				$type_costs = self::$type_function( $fields['from_date'], $fields['to_date'], $fields['from'], $fields['to'], $cost_array );
@@ -477,6 +482,12 @@ class WC_Product_Booking_Rule_Manager {
 
 			$type_function = self::get_type_function( $fields['type'] );
 			$bookable      = 'yes' === $fields['bookable'] ? true : false;
+
+			// Updating end time 00:00 to 24:00, so that user can book slots till next midnight.
+			if ( isset( $fields['to'] ) && '00:00' === $fields['to'] ) {
+				$fields['to'] = '24:00';
+			}
+
 			if ( defined( 'WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR' ) && WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR && ( 'store_availability' === $fields['type'] ) ) {
 				$type_availability = false;
 			} elseif ( 'get_rrule_range' === $type_function ) {
@@ -702,6 +713,11 @@ class WC_Product_Booking_Rule_Manager {
 		$month       = date( 'n', $check_date );
 		$day         = date( 'j', $check_date );
 		$day_of_week = date( 'N', $check_date );
+
+		// Updating end time 00:00 to 24:00, so that user can book slots till next midnight.
+		if ( isset( $range['to'] ) && '00:00' === $range['to'] ) {
+			$range['to'] = '24:00';
+		}
 
 		if ( in_array( $type, array( 'time:range', 'custom:daterange' ) ) ) { // type: date range with time
 			if ( ! isset( $range[ $year ][ $month ][ $day ] ) ) {
@@ -1104,7 +1120,7 @@ class WC_Product_Booking_Rule_Manager {
 			} elseif ( false !== strpos( $type, 'time' ) ) {
 				// if the day doesn't match and the day is not zero skip the rule
 				// zero means all days. SO rule only apply for zero or a matching day.
-				if ( ! empty( $range['day'] ) && $slot_day_no != $range['day'] ) {
+				if ( ! empty( $range['day'] ) && $slot_day_no !== $range['day'] ) {
 					continue;
 				}
 
@@ -1160,8 +1176,8 @@ class WC_Product_Booking_Rule_Manager {
 				// specific to hour duration types. If start time is in between
 				// rule start and end times the rule should be applied.
 				if ( 'hour' === $bookable_product->get_duration_unit()
-					&& $slot_start_time > $rule_start_time
-					&& $slot_start_time < $rule_end_time ) {
+				     && $slot_start_time > $rule_start_time
+				     && $slot_start_time < $rule_end_time ) {
 
 					$bookable = $rule_val;
 					continue;

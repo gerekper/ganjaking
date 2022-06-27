@@ -1,0 +1,847 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-23 00:37+0000\n"
+"PO-Revision-Date: 2022-03-29 17:25+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: af\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: .\n"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1704
+msgid "\""
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:116
+#: /woocommerce-dropshipping/packingslip.php:116
+#, php-format
+msgid "<strong>Supplier Account #</strong> %s"
+msgstr "<strong>Verskafferrekening #</strong> %s"
+
+#: /woocommerce-dropshipping/packingslip.php:84
+#, php-format
+msgid "[ %s Order # %s  ]"
+msgstr "[ %s bestelling # %s ]"
+
+#: /woocommerce-dropshipping/complete.php:84
+#, php-format
+msgid "[ %s Order # %s is completed ]"
+msgstr "[ %s bestelling # %s is voltooi ]"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:56
+msgid "Account Information"
+msgstr "Rekening Inligting"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:103
+msgid "Active Affiliate Products"
+msgstr "Aktiewe geaffilieerde produkte"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:242
+msgid "Add New Dropshipping Supplier"
+msgstr "Voeg nuwe dropshipping-verskaffer by"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:246
+msgid "Add or remove Dropshipping Suppliers"
+msgstr "Voeg Dropshipping-verskaffers by of verwyder"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:151
+msgid "Adjust Plugin Settings"
+msgstr "Pas inpropinstellings aan"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1609
+msgid "AliExpress Action"
+msgstr "AliExpress Aksie"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:145
+msgid "Aliexpress Import"
+msgstr "Aliexpress invoer"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:338
+msgid "AliExpress Orders"
+msgstr "AliExpress Bestellings"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:61
+msgid "Aliexpress Orders"
+msgstr "Aliexpress-bestellings"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:339
+msgid "AliExpress Orders placed."
+msgstr "AliExpress Bestellings geplaas."
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Aliexpress Product"
+msgstr "Aliexpress produk"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:358
+msgid "AliExpress Supplier"
+msgstr "AliExpress verskaffer"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:392
+msgid "AliExpress Supplier Store Name"
+msgstr "AliExpress Verskaffer Winkel Naam"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:411
+msgid "AliExpress Supplier Store Price Range"
+msgstr "AliExpress Verskafferswinkel Prysreeks"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:402
+msgid "AliExpress Supplier Store URL"
+msgstr "AliExpress Verskafferwinkel URL"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:239
+msgid "All Dropshipping Suppliers"
+msgstr "Alle Dropshipping-verskaffers"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1816
+msgid "All Orders"
+msgstr "Alle bestellings"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:256
+msgid "Amazon Affiliate ID"
+msgstr "Amazon geaffilieerde ID"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:199
+msgid "Amazon Product ID"
+msgstr "Amazon produk ID"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:198
+msgid "and hit the \"Save Changes\" button"
+msgstr "en druk die \"Stoor veranderinge\"-knoppie"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1156
+msgid "API Key Mismatch!!"
+msgstr "API-sleutel wanpas!!"
+
+#: /woocommerce-dropshipping/complete.php:1035
+#: /woocommerce-dropshipping/packingslip.php:1035
+msgid "Billing Address"
+msgstr "Rekeningadres"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:247
+msgid "Choose from the most used Dropshipping Suppliers"
+msgstr "Kies uit die mees gebruikte Dropshipping-verskaffers"
+
+#: /woocommerce-dropshipping/complete.php:171
+#: /woocommerce-dropshipping/packingslip.php:171
+msgid "Chosen Shipping Method:"
+msgstr "Gekose afleweringsmetode:"
+
+#: /woocommerce-dropshipping/complete.php:994
+#: /woocommerce-dropshipping/complete.php:1141
+#: /woocommerce-dropshipping/packingslip.php:994
+#: /woocommerce-dropshipping/packingslip.php:1141
+msgid "Company Address"
+msgstr "Maatskappy Adres"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:96
+msgid "Completed Dropshipping Orders"
+msgstr "Dropshipping-bestellings voltooi"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:152
+msgid "Configure packing slips, emails and more."
+msgstr "Stel pakstrokies, e-posse en meer op."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:286
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:311
+msgid "Cost of goods"
+msgstr "Koste van goedere"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:313
+msgid "Cost of goods value included in the supplier email"
+msgstr "Koste van goedere waarde ingesluit in die verskaffer e-pos"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:419
+msgid "Currency"
+msgstr "Geldeenheid"
+
+#: /woocommerce-dropshipping/complete.php:246
+#: /woocommerce-dropshipping/packingslip.php:246
+#, php-format
+msgid "Customer Order Note : %s"
+msgstr "Kliëntbestellingsnota: %s"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:313
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:314
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:70
+msgid "Date"
+msgstr "Datum"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:468
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:514
+msgid "Description - Type of Package"
+msgstr "Beskrywing - Tipe Pakket"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:518
+msgid "Description - Type of Package value included in the supplier email"
+msgstr "Beskrywing - Tipe Pakketwaarde ingesluit in die verskaffer se e-pos"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Docs"
+msgstr "Dokumente"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:305
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:306
+msgid "Dropshipping"
+msgstr "Dropshipping"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:548
+msgid "Dropshipping Notifications"
+msgstr "Dropshipping-kennisgewings"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:236
+msgid "Dropshipping Supplier"
+msgstr "Dropshipping verskaffer"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:240
+msgid "Edit Dropshipping Supplier"
+msgstr "Wysig Dropshipping-verskaffer"
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Enable this option if this product is from Aliexpress"
+msgstr "Aktiveer hierdie opsie as hierdie produk van Aliexpress is"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:385
+msgid "Enter URL to AliExpress Product"
+msgstr "Voer URL na AliExpress-produk in"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1441
+msgid "Error. Product does not exist in woocommerce store."
+msgstr "Fout. Produk bestaan nie in woocommerce winkel nie."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:938
+msgid "Given parent categories id does not exist in product categories list."
+msgstr "Gegewe ouerkategorieë-ID bestaan nie in produkkategorieëlys nie."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:153
+msgid "Go to Settings"
+msgstr "Gaan na Instellings"
+
+#. Description of the plugin
+msgid ""
+"Handle dropshipping from your WooCommerce. Create a packing slip, and notify "
+"the vendor when an order is paid. Import inventory updates via CSV from your "
+"vendors."
+msgstr ""
+"Hanteer dropshipping vanaf jou WooCommerce. Skep 'n pakstrokie en stel die "
+"verkoper in kennis wanneer 'n bestelling betaal is. Voer voorraadopdaterings "
+"via CSV van jou verskaffers af in."
+
+#. URI of the plugin
+msgid "http://woocommerce.com/products/woocommerce-dropshipping/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://opmc.com.au/"
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:436
+#: /woocommerce-dropshipping/packingslip.php:436
+msgid "Image"
+msgstr "Beeld"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:652
+msgid "Image data is empty!"
+msgstr "Prentdata is leeg!"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:147
+msgid "Install Now"
+msgstr "Installeer nou"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:146
+msgid "Install the extension to get started"
+msgstr "Installeer die uitbreiding om te begin"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:126
+msgid "Low on Stock"
+msgstr "Min op voorraad"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:159
+msgid "Manage Suppliers"
+msgstr "Bestuur verskaffers"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1589
+msgid "Merchant store currency code not found!"
+msgstr "Handelaar winkel geldeenheid kode nie gevind nie!"
+
+#: /woocommerce-dropshipping/complete.php:829
+#: /woocommerce-dropshipping/packingslip.php:829
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:921
+msgid "Name parameter required."
+msgstr "Naam parameter vereis."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:243
+msgid "New Dropshipping Supplier Name"
+msgstr "Nuwe Dropshipping-verskaffernaam"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:850
+msgid "No categories found!"
+msgstr "Geen kategorieë gevind nie!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:248
+msgid "No Dropshipping Suppliers found"
+msgstr "Geen dropshipping-verskaffers gevind nie"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:73
+msgid "Notes"
+msgstr "Notas"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:634
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1165
+msgid "Oops! Something went wrong. Please try again!"
+msgstr "Oeps! Iets het verkeerd geloop. Probeer asseblief weer!"
+
+#. Author of the plugin
+msgid "OPMC Australia Pty Ltd"
+msgstr "OPMC Australia Pty Ltd"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:49
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:65
+msgid "Order Number"
+msgstr "Bestellingnommer"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:166
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:175
+msgid "Order number"
+msgstr "Bestellingnommer"
+
+#: /woocommerce-dropshipping/complete.php:234
+#: /woocommerce-dropshipping/packingslip.php:234
+msgid "Order Number :"
+msgstr "Bestellingnommer :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:40
+msgid "Orders"
+msgstr "Bestellings"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:75
+msgid "Orders Completed"
+msgstr "Bestellings voltooi"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:68
+msgid "Orders in Progress"
+msgstr "Bestellings aan die gang"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:158
+msgid "Organise your store's products by their supplier."
+msgstr "Organiseer jou winkel se produkte volgens hul verskaffer."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:35
+msgid "Out of Stock"
+msgstr "Uit voorraad uit"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:82
+msgid "Out of Stock Listings"
+msgstr "Uitvoorraad-inskrywings"
+
+#: /woocommerce-dropshipping/complete.php:196
+#: /woocommerce-dropshipping/complete.php:218
+#: /woocommerce-dropshipping/packingslip.php:196
+#: /woocommerce-dropshipping/packingslip.php:218
+msgid "Payment Type :"
+msgstr "Tipe van betaling :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:89
+msgid "Pending Orders"
+msgstr "Hangende bestellings"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1639
+msgid "Place Order"
+msgstr "Plaas bestelling"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:253
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1202
+msgid "Please enter a valid Type (simple or variable)!"
+msgstr "Voer asseblief 'n geldige tipe (eenvoudig of veranderlik) in!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:444
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1393
+msgid "Please enter a valid URL for this AliExpress Product!"
+msgstr "Voer asseblief 'n geldige URL vir hierdie AliExpress-produk in!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:448
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1397
+msgid "Please enter a valid URL for this AliExpress Store!"
+msgstr "Voer asseblief 'n geldige URL vir hierdie AliExpress Winkel in!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1389
+msgid "Please enter AliExpress Store Name for this product!"
+msgstr "Voer asseblief AliExpress Winkelnaam vir hierdie produk in!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:452
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1401
+msgid "Please enter AliExpress Store Price Range for this product!"
+msgstr "Voer asseblief AliExpress-winkelprysreeks vir hierdie produk in!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:155
+#, php-format
+msgid "Please see the attached PDF. Thank you! - %s"
+msgstr "Sien asseblief die aangehegte PDF. Dankie! - %s"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1232
+msgid "Please specify a list of valid categories in array format!"
+msgstr ""
+"Spesifiseer asseblief 'n lys van geldige kategorieë in skikkingsformaat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1246
+msgid ""
+"Please specify a list of valid categories in array format. Categories array "
+"must contain a valid numeric id parameter!"
+msgstr ""
+"Spesifiseer asseblief 'n lys van geldige kategorieë in skikkingsformaat. "
+"Kategorieë-skikking moet 'n geldige numeriese ID-parameter bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1293
+msgid ""
+"Please specify a list of valid image URLs in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Spesifiseer asseblief 'n lys van geldige prent-URL'e in skikking-formaat. "
+"Prente-skikking moet 'n geldige beeld-URL in src bevat. Prenttipe kan een "
+"van hierdie wees: (jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1254
+msgid "Please specify a list of valid images URLs in array format!"
+msgstr ""
+"Spesifiseer asseblief 'n lys van geldige prente-URL'e in skikking-formaat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:283
+msgid "Please specify a valid category array format!"
+msgstr "Spesifiseer asseblief 'n geldige kategorie-skikkingformaat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:297
+msgid ""
+"Please specify a valid category array format. Categories array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige kategorie-skikkingformaat. Kategorieë-"
+"skikking moet 'n geldige numeriese ID-parameter bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:365
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1314
+msgid ""
+"Please specify a valid list of Dimensions in array format. Dimensions array "
+"must contain a valid numeric length, width, and height parameters!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige lys dimensies in skikkingsformaat. "
+"Afmetings-skikking moet 'n geldige numeriese lengte-, breedte- en "
+"hoogteparameters bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1357
+msgid ""
+"Please specify a valid list of Tags array format. Tags array must contain a "
+"valid numeric id parameter!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige lys Tags-skikkingformaat. Tags-skikking "
+"moet 'n geldige numeriese ID-parameter bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:394
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1343
+msgid ""
+"Please specify a valid list of Tags in array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige lys merkers in skikkingsformaat. Tags-"
+"skikking moet 'n geldige numeriese ID-parameter bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:408
+msgid ""
+"Please specify a valid list of Tagsin array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige lys Tagsin-skikkingformaat. Tags-skikking "
+"moet 'n geldige numeriese ID-parameter bevat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:386
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1335
+msgid ""
+"Please specify a valid non-negative numeric height parameter within "
+"Dimensions array!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige nie-negatiewe numeriese hoogte parameter "
+"binne Dimensies skikking!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:373
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1322
+msgid ""
+"Please specify a valid non-negative numeric length parameter within "
+"Dimensions array!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige nie-negatiewe numeriese lengte parameter "
+"binne Dimensies skikking!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:379
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1328
+msgid ""
+"Please specify a valid non-negative numeric width parameter within "
+"Dimensions array!"
+msgstr ""
+"Spesifiseer asseblief 'n geldige nie-negatiewe numeriese breedteparameter "
+"binne Dimensions-skikking!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:305
+msgid "Please specify valid URLs to images in array format!"
+msgstr "Spesifiseer asseblief geldige URL's na beelde in skikking-formaat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:344
+msgid ""
+"Please specify valid URLs to images in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Spesifiseer asseblief geldige URL's na beelde in skikkingsformaat. Prente-"
+"skikking moet 'n geldige beeld-URL in src bevat. Prenttipe kan een van "
+"hierdie wees: (jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:140
+msgid "Plugin Setup"
+msgstr "Inpropopstelling"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:128
+msgid "POD"
+msgstr "POD"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:244
+msgid "Popular Dropshipping Suppliers"
+msgstr "Gewilde Dropshipping-verskaffers"
+
+#: /woocommerce-dropshipping/complete.php:614
+#: /woocommerce-dropshipping/complete.php:646
+#: /woocommerce-dropshipping/packingslip.php:614
+#: /woocommerce-dropshipping/packingslip.php:646
+msgid "Price"
+msgstr "Prys"
+
+#: /woocommerce-dropshipping/complete.php:488
+#: /woocommerce-dropshipping/packingslip.php:488
+msgid "Product"
+msgstr "Produk"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:500
+msgid "Product already exists. Please select another product."
+msgstr "Produk bestaan reeds. Kies asseblief 'n ander produk."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:384
+msgid "Product URL"
+msgstr "Produk URL"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:45
+msgid "Projected Profit"
+msgstr "Geprojekteerde wins"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:30
+msgid "Published Listings"
+msgstr "Gepubliseerde lyste"
+
+#: /woocommerce-dropshipping/complete.php:512
+#: /woocommerce-dropshipping/packingslip.php:512
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:50
+msgid "Recent Order Data"
+msgstr "Onlangse bestellingsdata"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:238
+msgid "Search Dropshipping Suppliers"
+msgstr "Soek Dropshipping-verskaffers"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:245
+msgid "Separate Dropshipping Suppliers with commas"
+msgstr "Skei Dropshipping-verskaffers met kommas"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:221
+msgid "Setting for price rate is not set"
+msgstr "Instelling vir pryskoers is nie gestel nie"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Settings"
+msgstr "Instellings"
+
+#: /woocommerce-dropshipping/complete.php:1080
+#: /woocommerce-dropshipping/complete.php:1241
+#: /woocommerce-dropshipping/packingslip.php:1080
+#: /woocommerce-dropshipping/packingslip.php:1241
+msgid "Shipping Address"
+msgstr "Afleweringsadres"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:72
+msgid "Shipping Company"
+msgstr "Verskepingsmaatskappy"
+
+#: /woocommerce-dropshipping/complete.php:838
+#: /woocommerce-dropshipping/complete.php:848
+#: /woocommerce-dropshipping/packingslip.php:838
+#: /woocommerce-dropshipping/packingslip.php:848
+msgid "Shipping Cost"
+msgstr "Gestuurkoste"
+
+#: /woocommerce-dropshipping/complete.php:464
+#: /woocommerce-dropshipping/packingslip.php:464
+msgid "SKU"
+msgstr "SKU"
+
+#: /woocommerce-dropshipping/complete.php:314
+#: /woocommerce-dropshipping/packingslip.php:314
+msgid "Customer Email : %s"
+msgstr "Kliënt-e-pos : %s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:732
+msgid "New Order #%1$s From %2$s"
+msgstr "Nuwe bestelling #%1$s Vanaf %2$s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "To mark this order as shipped please click the following link:"
+msgstr "Om hierdie bestelling as verskeep te merk, klik asseblief op die volgende skakel:"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "Mark as shipped"
+msgstr "Merk as gestuur"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:773
+msgid "View order in dashboard"
+msgstr "Bekyk bestelling in dashboard"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1559
+msgid "Something went wrong. Please try again!"
+msgstr "Iets het verkeerd geloop. Probeer asseblief weer!"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:391
+msgid "Store Name"
+msgstr "Winkel Naam"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:401
+msgid "Store URL"
+msgstr "Stoor URL"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:235
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:237
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:157
+msgid "Suppliers"
+msgstr "Verskaffers"
+
+#: /woocommerce-dropshipping/complete.php:868
+#: /woocommerce-dropshipping/packingslip.php:868
+msgid "taxes"
+msgstr "belasting"
+
+#: /woocommerce-dropshipping/complete.php:1298
+msgid "Thank you!"
+msgstr "Dankie!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:415
+msgid "The Attributes parameter must be in a valid array format!"
+msgstr "Die kenmerke parameter moet in 'n geldige skikking formaat wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1364
+msgid "The Attributess parameter must be in a valid array format!"
+msgstr "Die Eienskap-parameter moet in 'n geldige skikking-formaat wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:879
+msgid "The Category Parent parameter is required and must be numeric value!"
+msgstr ""
+"Die Kategorie Ouer-parameter word vereis en moet numeriese waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:419
+msgid "The Default Attributes parameter must be in a valid array format!"
+msgstr ""
+"Die Default Attributes parameter moet in 'n geldige skikking formaat wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1368
+msgid "The Default Attributess parameter must be in a valid array format!"
+msgstr ""
+"Die Default Attributes parameter moet in 'n geldige skikking formaat wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:273
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:875
+msgid "The Description parameter is required!"
+msgstr "Die parameter Beskrywing word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:957
+msgid "The Id parameter is required and must be a number!"
+msgstr "Die ID-parameter word vereis en moet 'n nommer wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:350
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1299
+msgid ""
+"The Manage Stock parameter is required and must be a boolean (true/false) "
+"value!"
+msgstr ""
+"Die Bestuur voorraad-parameter word vereis en moet 'n Boolese (waar/onwaar) "
+"waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:871
+msgid "The Name parameter is required!"
+msgstr "Die Naam parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:428
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1377
+msgid ""
+"The Number Of Orders parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Die Aantal Bestellings-parameter moet 'n geldige nie-negatiewe numeriese "
+"waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2002
+msgid "The Order Id does not exist!"
+msgstr "Die bestelling-ID bestaan nie!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:977
+msgid "The order id does not exist."
+msgstr "Die bestelling-ID bestaan nie."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2007
+msgid "The Order Id parameter is required!"
+msgstr "Die Order ID parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2012
+msgid "The Order Status parameter is required!"
+msgstr "Die Order Status parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:261
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1210
+msgid ""
+"The Price parameter is required and must be a valid non-negative numeric "
+"value!"
+msgstr ""
+"Die Prys-parameter word vereis en moet 'n geldige nie-negatiewe numeriese "
+"waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:265
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1214
+msgid ""
+"The Regular Price parameter is required and must be a valid non-negative "
+"numeric value!"
+msgstr ""
+"Die Gereelde Prys-parameter word vereis en moet 'n geldige nie-negatiewe "
+"numeriese waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:269
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1218
+msgid "The Sale Price parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Die Verkoopprys-parameter moet 'n geldige nie-negatiewe numeriese waarde "
+"wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:277
+msgid "The Short Description parameter is required!"
+msgstr "Die Kort Beskrywing parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:257
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1206
+msgid "The SKU parameter is required!"
+msgstr "Die SKU-parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:354
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1303
+msgid ""
+"The Stock Quantity parameter is required and must be a valid non-negative "
+"number!"
+msgstr ""
+"Die Voorraad Hoeveelheid parameter word vereis en moet 'n geldige nie-"
+"negatiewe getal wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:249
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1198
+msgid "The Title parameter is required!"
+msgstr "Die titel parameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:423
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1372
+msgid "The Variations parameter must be in a valid array format!"
+msgstr "Die Variasies-parameter moet in 'n geldige skikking-formaat wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:358
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1307
+msgid "The Weight parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Die Weight parameter moet 'n geldige nie-negatiewe numeriese waarde wees!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1090
+msgid "The woo API key  parameter is required!"
+msgstr "Die woo API-sleutelparameter word vereis!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1086
+msgid "The woo url parameter is required!"
+msgstr "Die woo url parameter word vereis!"
+
+#: /woocommerce-dropshipping/complete.php:915
+#: /woocommerce-dropshipping/complete.php:932
+#: /woocommerce-dropshipping/packingslip.php:915
+#: /woocommerce-dropshipping/packingslip.php:932
+msgid "Total"
+msgstr "Totaal"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:87
+msgid "Tracking Number"
+msgstr "Spoornommer"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:71
+msgid "Tracking Number(s)"
+msgstr "Naspoornommer(s)"
+
+#: /woocommerce-dropshipping/complete.php:346
+#: /woocommerce-dropshipping/packingslip.php:346
+msgid "Tracking Number:"
+msgstr "Naspoornommer:"
+
+#: /woocommerce-dropshipping/complete.php:543
+#: /woocommerce-dropshipping/complete.php:575
+#: /woocommerce-dropshipping/packingslip.php:543
+#: /woocommerce-dropshipping/packingslip.php:575
+msgid "Type Of Package"
+msgstr "Tipe Pakket"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:241
+msgid "Update Dropshipping Supplier"
+msgstr "Dateer Dropshipping-verskaffer op"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1160
+msgid "URL mismatch."
+msgstr "URL klop nie."
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:500
+msgid "User already exists.  Password inherited."
+msgstr "Gebruiker bestaan reeds. Wagwoord geërf."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:159
+#, php-format
+msgid "We hope you enjoy your order. Thank you for shopping with %s"
+msgstr ""
+"Ons hoop jy geniet jou bestelling. Dankie dat jy met %s inkopies gedoen het"
+
+#. Name of the plugin
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:95
+msgid "WooCommerce Dropshipping"
+msgstr "WooCommerce Dropshipping"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:197
+msgid ""
+"Woocommerce Dropshipping activated successfully! In order for the plugin to "
+"work correctly. Visit"
+msgstr ""
+"Woocommerce Dropshipping is suksesvol geaktiveer! Om die inprop korrek te "
+"laat werk. Besoek"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:24
+msgid "WooCommerce Dropshipping Dashboard"
+msgstr "WooCommerce Dropshipping Dashboard"
+
+#. 1: href link to Fileinfo extension php doc
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:55
+#, php-format
+msgid "WooCommerce Dropshipping requires %s to be installed on your server."
+msgstr ""
+"WooCommerce Dropshipping vereis dat %s op jou bediener geïnstalleer word."

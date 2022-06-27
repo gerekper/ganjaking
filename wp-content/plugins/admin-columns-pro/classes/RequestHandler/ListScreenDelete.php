@@ -30,7 +30,7 @@ class ListScreenDelete implements RequestHandler {
 			return;
 		}
 
-		$list_screen = $this->storage->find( new ListScreenId( $request->get( 'layout_id' ) ) );
+		$list_screen = $this->storage->find( new ListScreenId( $request->get( 'ac_delete_layout_id' ) ) );
 
 		if ( ! $list_screen ) {
 			return;

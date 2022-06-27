@@ -2,7 +2,6 @@
 /**
  * Conditional Shipping and Payments Functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  */
 

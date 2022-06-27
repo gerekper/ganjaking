@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1367,6 +1367,27 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						var price_html = '<span class="woocommerce-Price-amount amount">' + html + '</span>';
 						jQuery('.sc-email-content .discount-info').html(price_html + ' <?php echo ! empty( $store_credit_label['singular'] ) ? esc_html( ucwords( $store_credit_label['singular'] ) ) : esc_html__( 'Store Credit', 'woocommerce-smart-coupons' ); ?>');
 					});
+
+					/**
+					 * Append coupon amount to email preview
+					 */
+					jQuery('.sc-send-smart-coupon-container').on('keyup change', '#amount', function(){
+						var price_symbol = jQuery('.sc-send-smart-coupon-container  span.woocommerce-Price-currencySymbol').text();
+						var price_amount = jQuery('.sc-send-smart-coupon-container #amount').val();
+						var woocommerce_price_html = '<bdi><span class="woocommerce-Price-currencySymbol"> '+ price_symbol + '</span>' + price_amount +'</bdi>';
+						jQuery('.sc-email-content .discount-info').html( '<span class="woocommerce-Price-amount amount">' + woocommerce_price_html +  '</span>' +' <?php echo ! empty( $store_credit_label['singular'] ) ? esc_html( ucwords( $store_credit_label['singular'] ) ) : esc_html__( 'Store Credit', 'woocommerce-smart-coupons' ); ?>');
+						jQuery('.sc-preview-email-container #header_wrapper h1 span').html(woocommerce_price_html);
+					});
+
+					/**
+					 * Append coupon expiry date to email preview
+					 */
+					jQuery('.sc-send-smart-coupon-container').on('keyup change', '#expiry_date', function(){
+						var expiry_date = jQuery('.sc-send-smart-coupon-container #expiry_date').val();
+						jQuery('.sc-email-content .coupon-expire').html(expiry_date);
+					});
+
+
 					setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 100);
 					jQuery('.sc-email-content #body_content_inner').prepend('<p class="sc-credit-message"></p>');
 					jQuery('#' + editor_id).on('keyup change', function(){

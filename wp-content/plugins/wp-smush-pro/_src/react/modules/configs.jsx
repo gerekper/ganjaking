@@ -147,7 +147,6 @@ export const Configs = ({ isWidget }) => {
 			lazy_load: __('Lazy Load', 'wp-smushit'),
 			cdn: __('CDN', 'wp-smushit'),
 			webp_mod: __('Local WebP', 'wp-smushit'),
-			tools: __('Tools', 'wp-smushit'),
 			settings: __('Settings', 'wp-smushit'),
 			networkwide: __('Subsite Controls', 'wp-smushit'),
 		},

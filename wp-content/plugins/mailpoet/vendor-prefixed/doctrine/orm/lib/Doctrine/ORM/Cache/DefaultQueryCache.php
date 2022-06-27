@@ -15,7 +15,6 @@ use MailPoetVendor\Doctrine\ORM\PersistentCollection;
 use MailPoetVendor\Doctrine\ORM\Query;
 use MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping;
 use MailPoetVendor\Doctrine\ORM\UnitOfWork;
-use function array_key_exists;
 use function array_map;
 use function array_shift;
 use function array_unshift;

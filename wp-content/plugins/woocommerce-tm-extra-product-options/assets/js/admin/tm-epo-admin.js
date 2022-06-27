@@ -80,7 +80,7 @@
 					variation +
 					'" data-price-input-attribute="' +
 					attribute +
-					'" />'
+					'">'
 			);
 			jo.append(
 				'<select class="tmcp-price-input-type tmcp-price-input tmcp-price-input-variation-' +
@@ -134,7 +134,7 @@
 		}
 
 		$( '#tm-meta-cpf-mode' ).val( mode );
-		$( '.tm-mode-selector' ).addClass( 'tc-hidden' );
+		$( '.tm-mode-selector' ).addClass( 'tc-active' );
 		$( '.tm-mode-builder,.tm-mode-local,.tm-mode-settings' ).hide();
 		$( '.tm-mode-' + mode ).show();
 		$( '.tc-builder-select,.tc-local-select,.tc-settings-select' ).removeClass( 'button-primary' );

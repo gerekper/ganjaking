@@ -462,10 +462,13 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 * @return string
 	 */
 	protected function format_price( $price ) {
-		$negative = $price < 0;
-		$price    = floatval( $negative ? $price * -1 : $price );
+		$number = 0;
 
-		return number_format( $price, 2, '.', '' ) . ( $this->currency ? " {$this->currency}" : '' );
+		if ( is_numeric( $price ) ) {
+			$number = ( $price < 0 ? $price * - 1 : $price );
+		}
+
+		return number_format( $number, 2, '.', '' ) . ( $this->currency ? " {$this->currency}" : '' );
 	}
 
 	/**

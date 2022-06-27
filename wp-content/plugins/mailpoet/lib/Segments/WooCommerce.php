@@ -81,7 +81,7 @@ class WooCommerce {
     $this->connection = $connection;
   }
 
-  public function shouldShowWooCommerceSegment() {
+  public function shouldShowWooCommerceSegment(): bool {
     $isWoocommerceActive = $this->woocommerceHelper->isWooCommerceActive();
     $woocommerceUserExists = $this->subscribersRepository->woocommerceUserExists();
 
@@ -91,7 +91,7 @@ class WooCommerce {
     return true;
   }
 
-  public function synchronizeRegisteredCustomer($wpUserId, $currentFilter = null) {
+  public function synchronizeRegisteredCustomer(int $wpUserId, ?string $currentFilter = null): bool {
     $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
 
     $currentFilter = $currentFilter ?: $this->wp->currentFilter();
@@ -141,7 +141,7 @@ class WooCommerce {
     return true;
   }
 
-  public function synchronizeGuestCustomer($orderId) {
+  public function synchronizeGuestCustomer(int $orderId): void {
     $wcOrder = $this->woocommerceHelper->wcGetOrder($orderId);
 
     if (!$wcOrder instanceof \WC_Order) return;
@@ -154,7 +154,7 @@ class WooCommerce {
     $email = $this->insertSubscriberFromOrder($orderId, $status);
 
     if (empty($email)) {
-      return false;
+      return;
     }
     $subscriber = $this->subscribersRepository->findOneBy(['email' => $email]);
 
@@ -229,7 +229,7 @@ class WooCommerce {
     return $charset1 === $charset2;
   }
 
-  private function markRegisteredCustomers() {
+  private function markRegisteredCustomers(): void {
     // Mark WP users having a customer role as WooCommerce subscribers
     global $wpdb;
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
@@ -309,13 +309,21 @@ class WooCommerce {
     $now = (Carbon::createFromTimestamp($this->wp->currentTime('timestamp')))->format('Y-m-d H:i:s');
     $source = Source::WOOCOMMERCE_USER;
     foreach ($emails as $email) {
-      $subscribersValues[] = "(1, '{$email}', '{$status}', '{$now}', '{$now}', '{$source}')";
+      $email = strval($this->connection->quote($email));
+      $subscribersValues[] = "(1, {$email}, '{$status}', '{$now}', '{$now}', '{$source}')";
     }
 
+    // Update existing subscribers
+    $this->connection->executeQuery('
+      UPDATE ' . $subscribersTable . ' mps
+      SET mps.is_woocommerce_user = 1
+      WHERE mps.email IN (:emails)
+    ', ['emails' => $emails], ['emails' => Connection::PARAM_STR_ARRAY]);
+
+    // Insert new subscribers
     $this->connection->executeQuery('
       INSERT IGNORE INTO ' . $subscribersTable . ' (`is_woocommerce_user`, `email`, `status`, `created_at`, `last_subscribed_at`, `source`) VALUES
       ' . implode(',', $subscribersValues) . '
-      ON DUPLICATE KEY UPDATE is_woocommerce_user = 1
     ');
 
     return count($emails);
@@ -484,10 +492,12 @@ class WooCommerce {
     // Insert WC customer emails to a temporary table and ensure matching collations
     // between MailPoet and WooCommerce emails for left join to use an index
     $tmpTableName = Env::$dbPrefix . 'tmp_wc_emails';
-    $collation = '';
     if ($this->needsCollationChange()) {
       $collation = "COLLATE $this->mailpoetEmailCollation";
+    } else {
+      $collation = "COLLATE $this->wpPostmetaValueCollation";
     }
+
     $this->connection->executeQuery("
       CREATE TEMPORARY TABLE {$tmpTableName}
         (`email` varchar(150) NOT NULL, UNIQUE(`email`)) {$collation}

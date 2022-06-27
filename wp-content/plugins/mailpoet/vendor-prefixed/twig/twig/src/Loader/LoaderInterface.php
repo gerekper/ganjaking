@@ -5,9 +5,8 @@ use MailPoetVendor\Twig\Error\LoaderError;
 use MailPoetVendor\Twig\Source;
 interface LoaderInterface
 {
- public function getSourceContext($name);
- public function getCacheKey($name);
- public function isFresh($name, $time);
- public function exists($name);
+ public function getSourceContext(string $name) : Source;
+ public function getCacheKey(string $name) : string;
+ public function isFresh(string $name, int $time) : bool;
+ public function exists(string $name);
 }
-\class_alias('MailPoetVendor\\Twig\\Loader\\LoaderInterface', 'MailPoetVendor\\Twig_LoaderInterface');

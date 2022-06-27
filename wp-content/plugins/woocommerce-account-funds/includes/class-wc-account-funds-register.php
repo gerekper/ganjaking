@@ -32,7 +32,7 @@ class WC_Account_Funds_Register {
 	public function funds_on_register( $customer_id ) {
 		$funds = get_option( 'account_funds_add_on_register', 0 );
 
-		WC_Account_Funds::add_funds( $customer_id, $funds );
+		WC_Account_Funds_Manager::increase_user_funds( $customer_id, $funds );
 	}
 }
 

@@ -8,22 +8,30 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-<li id="<?php echo esc_attr( $field_id ); ?>" class="cpf_hide_element tm-extra-product-options-field tc-row tc-cell<?php
+
+$extraliclass = '';
 if ( $required ) {
-	echo ' tm-epo-has-required';
+	$extraliclass .= ' tm-epo-has-required';
 }
 if ( isset( $li_class ) ) {
-	echo ' ' . esc_attr( $li_class );
-} ?>">
-    <span class="tm-epo-element-label"><?php echo esc_html( $title ); ?><?php if ( $required ) { ?><span
-                class="tm-required">*</span><?php } ?></span>
-    <div class="tm-extra-product-options-container">
-        <ul data-original-rules="<?php echo esc_attr( $original_rules ); ?>" data-rules="<?php echo esc_attr( $rules ); ?>" data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
-            class="tmcp-ul-wrap tmcp-attributes tm-extra-product-options-<?php echo esc_attr( $type ); ?>">
+	$extraliclass .= ' ' . $li_class;
+}
+?>
+<li id="<?php echo esc_attr( $field_id ); ?>" class="cpf-element tm-extra-product-options-field tc-row tc-cell<?php echo esc_attr( $extraliclass ); ?>">
+	<span class="tc-epo-label tm-epo-element-label">
+	<?php
+	echo esc_html( $label );
+	if ( $required && ! empty( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) && 'left' === THEMECOMPLETE_EPO()->tm_epo_global_required_indicator_position ) {
+		// THEMECOMPLETE_EPO()->tm_epo_global_required_indicator may contain HTML code.
+		echo '<span class="tm-epo-required">' . apply_filters( 'wc_epo_kses', wp_kses_post( THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ), THEMECOMPLETE_EPO()->tm_epo_global_required_indicator ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+	?>
+	</span>
+	<div class="tc-element-container">
+		<ul data-original-rules="<?php echo esc_attr( $original_rules ); ?>" data-rules="<?php echo esc_attr( $rules ); ?>" data-rulestype="<?php echo esc_attr( $rules_type ); ?>" class="tmcp-ul-wrap tmcp-attributes tm-extra-product-options-<?php echo esc_attr( $type ); ?>">

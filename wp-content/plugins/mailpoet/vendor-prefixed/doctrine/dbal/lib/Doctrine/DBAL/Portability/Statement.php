@@ -64,7 +64,7 @@ class Statement implements IteratorAggregate, DriverStatement, Result
  $this->defaultFetchMode = $fetchMode;
  return $this->stmt->setFetchMode($fetchMode, $arg2, $arg3);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  return new StatementIterator($this);

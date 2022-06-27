@@ -43,7 +43,17 @@ class Hooks {
       $error = WPFunctions::get()->__('[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]', 'mailpoet-premium');
       $error = Helpers::replaceLinkTags($error, 'admin.php?page=mailpoet-settings#premium', [], 'link1');
       $error = Helpers::replaceLinkTags($error, 'admin.php?page=mailpoet-premium', [], 'link2');
-      echo '<br><br>' . $error;
+      echo wp_kses(
+        '<br><br>' . $error,
+        [
+          'br' => [],
+          'a' => [
+            'href' => true,
+            'class' => true,
+            'target' => true,
+          ],
+        ]
+      );
     }
   }
 }

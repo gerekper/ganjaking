@@ -137,8 +137,8 @@ class WC_Brands_Block_Templates {
 		// Only add the template if  asking for Product Brands
 		if (
 			in_array( 'taxonomy-product_brand', $slugs, true ) ||
-			$this->is_taxonomy_product_brand_template( $post_id )  ||
-			( ! $post_id && ! count( $slugs ) )
+			( ! $post_id && ! count( $slugs ) ) ||
+			( ! count( $slugs ) && $this->is_taxonomy_product_brand_template( $post_id ) )
 		) {
 			$query_result[] = $this->get_product_brands_template( $template_type );
 		}

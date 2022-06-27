@@ -112,6 +112,10 @@ class Betterdocs_Pro
 		 * Extend post type Class
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-multiple-kb.php';
+        /**
+         * This trait is used to restrict content based on Internal KB settings
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/betterdocs-content-restrictions.php';
 		/**
 		 * Extend post type Class
 		 */

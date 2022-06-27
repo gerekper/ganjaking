@@ -6,68 +6,37 @@
     max-width: 100%;
 }
 
-/*Admin notice*/
-.villatheme-notification-wrapper {
-    border: 1px solid rgba(241, 93, 88, 1);
-    border-radius: 3px;
-    padding: 0;
-    margin: 0;
-}
-
-.villatheme-notification-controls {
-    text-align: right;
-    margin: 10px 0 0;
-}
-
-.villatheme-button {
-    text-decoration: none;
+.villatheme-dashboard p {
     display: inline-block;
-    padding: 10px 15px;
-    font-size: 14px;
-    color: #fff;
-    background: #999999;
-    border-radius: 2px;
-    transition: all .2s ease-in-out;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-}
-
-.villatheme-button.villatheme-primary {
-    background-color: rgba(241, 93, 88, 1);
-}
-
-.villatheme-button:hover {
-    opacity: 0.9;
-    color: #212121;
-    box-shadow: 0px 0px 5px #666;
-}
-
-.villatheme-content .villatheme-left {
-    width: 200px;
-    background: rgba(241, 93, 88, 1);
-    box-sizing: border-box;
-    padding: 10px;
-    font-weight: 700;
-    text-align: center;
-    font-size: 31px;
-    line-height: 1.5;
-    display: inline-block;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.villatheme-content .villatheme-right {
-    display: inline-block;
-    padding: 10px;
-    box-sizing: border-box;
-    vertical-align: top;
     width: 100%;
 }
 
-.villatheme-content .villatheme-left + .villatheme-right {
-    width: calc(100% - 210px);
+/*Admin notice*/
+.villatheme-dashboard .button {
+    padding: 4px 16px;
+    color: #393e46;
+    border-color: #eee;
+    margin-right: 7px;
+    z-index: 1 !important;
+}
+
+.villatheme-dashboard .button.button-primary {
+    color: #fff;
+    background: #00adb5;
+}
+
+.villatheme-dashboard .button.button-primary:hover {
+    border-color: #393e46;
+}
+
+.villatheme-dashboard .button.notice-dismiss {
+    background: transparent;
+    border: none;
+    line-height: 19px;
+}
+
+.villatheme-dashboard .button.notice-dismiss:hover {
+    background: transparent;
 }
 
 /*Widget Dashboard*/
@@ -102,6 +71,20 @@
     margin: 0;
 }
 
+.villatheme-col-3 {
+    width: 23%;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1%;
+    box-shadow: 0 0 8px #CCC;
+    font-weight: 300;
+    position: relative;
+    line-height: 1.5;
+    padding: 15px;
+}
+
 .villatheme-col-4 {
     width: 31.33%;
     box-sizing: border-box;
@@ -113,7 +96,7 @@
     font-weight: 300;
     position: relative;
     line-height: 1.5;
-
+    padding: 10px;
 }
 
 .villatheme-item-image {
@@ -122,47 +105,13 @@
     font-size: 0;
 }
 
-.villatheme-item-controls {
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.1);
-    transition: all .2s ease-in-out;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    cursor: pointer;
+.villatheme-item-title, .villatheme-item-description, .villatheme-item-rating, .villatheme-item-controls {
+    padding: 7px 0;
 }
 
-.villatheme-item-controls:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-}
-
-.villatheme-item-controls-inner {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 auto;
-    text-align: center;
-    width: 100%;
-    max-width: 99%;
-    font-size: 16px;
-}
-
-.villatheme-col-4:hover .villatheme-item-controls {
-    visibility: visible;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.villatheme-item-title, .villatheme-item-description, .villatheme-item-rating {
-    padding: 10px 20px 0;
+.villatheme-item-title a {
+    text-decoration: none;
+    color: #212121;
 }
 
 .villatheme-item-rating {
@@ -192,13 +141,77 @@
     line-height: 16px;
 }
 
-.rtl .villatheme-content a.vi-button-dismiss {
-    right: unset;
+.villatheme-button-upgrade {
+    color: red;
 }
 
 .villatheme-content {
     position: relative;
     padding-right: 86px;
+}
+
+.villatheme-item-controls .button {
+    padding: 4px 16px;
+}
+
+/*Toolbar*/
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .villatheme-toolbar .ab-icon {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default .villatheme-toolbar .ab-icon::before {
+    color: #4E9F3D;
+}
+
+
+@-webkit-keyframes villatheme-rotating /* Safari and Chrome */
+{
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes villatheme-rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.villatheme-rotating {
+    -webkit-animation: villatheme-rotating 1s ease;
+    -moz-animation: villatheme-rotating 1s ease;
+    -ms-animation: villatheme-rotating 1s ease;
+    -o-animation: villatheme-rotating 1s ease;
+    animation: villatheme-rotating 1s ease;
+    animation-delay: 2s;
+}
+
+#wp-admin-bar-villatheme .dashicons,
+#wp-admin-bar-villatheme .dashicons-before:before {
+    font-family: 'dashicons';
+}
+
+#wp-admin-bar-villatheme .villatheme-hide-toolbar-button-title {
+    padding: 0 5px;
 }
 
 @media screen and (max-width: 480px) {

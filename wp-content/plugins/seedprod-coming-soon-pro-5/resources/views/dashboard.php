@@ -301,6 +301,24 @@ var seedprod_save_app_settings_ajax_url = <?php echo wp_json_encode( esc_url_raw
 <?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_create_blog_and_home_for_theme', 'seedprod_pro_create_blog_and_home_for_theme' ) ); ?>
 var seedprod_create_blog_and_home_for_theme_ajax_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
 
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_export_theme_files', 'seedprod_pro_export_theme_files' ) ); ?>
+var seedprod_export_themebuilder_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_import_theme_files', 'seedprod_pro_import_theme_files' ) ); ?>
+var seedprod_import_themebuilder_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_import_theme_by_url', 'seedprod_pro_import_theme_by_url' ) ); ?>
+var seedprod_import_theme_by_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_export_landing_pages', 'seedprod_pro_export_landing_pages' ) ); ?>
+var seedprod_export_landingpages_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_import_landing_pages', 'seedprod_pro_import_landing_pages' ) ); ?>
+var seedprod_import_landingpages_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
 <?php
 $seedprod_unsupported_feature = get_option( 'seedprod_unsupported_feature' );
 if ( ! empty( $seedprod_unsupported_feature ) ) {
@@ -317,6 +335,7 @@ var seedprod_data_admin =
 	<?php
 	echo wp_json_encode(
 		array(
+			'plugin_version'               => SEEDPROD_PRO_VERSION,
 			'show_on_front'                => $show_on_front,
 			'page_for_posts'               => $page_for_posts,
 			'page_on_front'                => $page_on_front,

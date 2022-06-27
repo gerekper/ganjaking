@@ -2,6 +2,7 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Mapping;
 if (!defined('ABSPATH')) exit;
+use BackedEnum;
 use BadMethodCallException;
 use DateInterval;
 use DateTime;
@@ -12,14 +13,15 @@ use MailPoetVendor\Doctrine\DBAL\Types\Types;
 use MailPoetVendor\Doctrine\Deprecations\Deprecation;
 use MailPoetVendor\Doctrine\Instantiator\Instantiator;
 use MailPoetVendor\Doctrine\Instantiator\InstantiatorInterface;
-use MailPoetVendor\Doctrine\ORM\Cache\Exception\CacheException;
 use MailPoetVendor\Doctrine\ORM\Cache\Exception\NonCacheableEntityAssociation;
+use MailPoetVendor\Doctrine\ORM\EntityRepository;
 use MailPoetVendor\Doctrine\ORM\Id\AbstractIdGenerator;
 use MailPoetVendor\Doctrine\Persistence\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\Persistence\Mapping\ReflectionService;
 use InvalidArgumentException;
 use LogicException;
 use ReflectionClass;
+use ReflectionEnum;
 use ReflectionNamedType;
 use ReflectionProperty;
 use RuntimeException;
@@ -34,6 +36,7 @@ use function array_values;
 use function assert;
 use function class_exists;
 use function count;
+use function enum_exists;
 use function explode;
 use function gettype;
 use function in_array;
@@ -77,6 +80,9 @@ class ClassMetadataInfo implements ClassMetadata
  public const CACHE_USAGE_READ_ONLY = 1;
  public const CACHE_USAGE_NONSTRICT_READ_WRITE = 2;
  public const CACHE_USAGE_READ_WRITE = 3;
+ public const GENERATED_NEVER = 0;
+ public const GENERATED_INSERT = 1;
+ public const GENERATED_ALWAYS = 2;
  public $name;
  public $namespace;
  public $rootEntityName;
@@ -109,9 +115,10 @@ class ClassMetadataInfo implements ClassMetadata
  public $sequenceGeneratorDefinition;
  public $tableGeneratorDefinition;
  public $changeTrackingPolicy = self::CHANGETRACKING_DEFERRED_IMPLICIT;
- public $isVersioned;
+ public $requiresFetchAfterChange = \false;
+ public $isVersioned = \false;
  public $versionField;
- public $cache = null;
+ public $cache;
  public $reflClass;
  public $isReadOnly = \false;
  protected $namingStrategy;
@@ -254,6 +261,9 @@ class ClassMetadataInfo implements ClassMetadata
  if ($this->cache) {
  $serialized[] = 'cache';
  }
+ if ($this->requiresFetchAfterChange) {
+ $serialized[] = 'requiresFetchAfterChange';
+ }
  return $serialized;
  }
  public function newInstance()
@@ -268,24 +278,32 @@ class ClassMetadataInfo implements ClassMetadata
  $parentReflFields = [];
  foreach ($this->embeddedClasses as $property => $embeddedClass) {
  if (isset($embeddedClass['declaredField'])) {
- $childProperty = $reflService->getAccessibleProperty($this->embeddedClasses[$embeddedClass['declaredField']]['class'], $embeddedClass['originalField']);
+ $childProperty = $this->getAccessibleProperty($reflService, $this->embeddedClasses[$embeddedClass['declaredField']]['class'], $embeddedClass['originalField']);
  assert($childProperty !== null);
  $parentReflFields[$property] = new ReflectionEmbeddedProperty($parentReflFields[$embeddedClass['declaredField']], $childProperty, $this->embeddedClasses[$embeddedClass['declaredField']]['class']);
  continue;
  }
- $fieldRefl = $reflService->getAccessibleProperty($embeddedClass['declared'] ?? $this->name, $property);
+ $fieldRefl = $this->getAccessibleProperty($reflService, $embeddedClass['declared'] ?? $this->name, $property);
  $parentReflFields[$property] = $fieldRefl;
  $this->reflFields[$property] = $fieldRefl;
  }
  foreach ($this->fieldMappings as $field => $mapping) {
  if (isset($mapping['declaredField']) && isset($parentReflFields[$mapping['declaredField']])) {
- $this->reflFields[$field] = new ReflectionEmbeddedProperty($parentReflFields[$mapping['declaredField']], $reflService->getAccessibleProperty($mapping['originalClass'], $mapping['originalField']), $mapping['originalClass']);
+ $childProperty = $this->getAccessibleProperty($reflService, $mapping['originalClass'], $mapping['originalField']);
+ assert($childProperty !== null);
+ if (isset($mapping['enumType'])) {
+ $childProperty = new ReflectionEnumProperty($childProperty, $mapping['enumType']);
+ }
+ $this->reflFields[$field] = new ReflectionEmbeddedProperty($parentReflFields[$mapping['declaredField']], $childProperty, $mapping['originalClass']);
  continue;
  }
- $this->reflFields[$field] = isset($mapping['declared']) ? $reflService->getAccessibleProperty($mapping['declared'], $field) : $reflService->getAccessibleProperty($this->name, $field);
+ $this->reflFields[$field] = isset($mapping['declared']) ? $this->getAccessibleProperty($reflService, $mapping['declared'], $field) : $this->getAccessibleProperty($reflService, $this->name, $field);
+ if (isset($mapping['enumType']) && $this->reflFields[$field] !== null) {
+ $this->reflFields[$field] = new ReflectionEnumProperty($this->reflFields[$field], $mapping['enumType']);
+ }
  }
  foreach ($this->associationMappings as $field => $mapping) {
- $this->reflFields[$field] = isset($mapping['declared']) ? $reflService->getAccessibleProperty($mapping['declared'], $field) : $reflService->getAccessibleProperty($this->name, $field);
+ $this->reflFields[$field] = isset($mapping['declared']) ? $this->getAccessibleProperty($reflService, $mapping['declared'], $field) : $this->getAccessibleProperty($reflService, $this->name, $field);
  }
  }
  public function initializeReflection($reflService)
@@ -453,13 +471,19 @@ class ClassMetadataInfo implements ClassMetadata
  }
  private function isTypedProperty(string $name) : bool
  {
- return \PHP_VERSION_ID >= 70400 && isset($this->reflClass) && $this->reflClass->hasProperty($name) && $this->reflClass->getProperty($name)->hasType();
+ return PHP_VERSION_ID >= 70400 && isset($this->reflClass) && $this->reflClass->hasProperty($name) && $this->reflClass->getProperty($name)->hasType();
  }
  private function validateAndCompleteTypedFieldMapping(array $mapping) : array
  {
  $type = $this->reflClass->getProperty($mapping['fieldName'])->getType();
  if ($type) {
  if (!isset($mapping['type']) && $type instanceof ReflectionNamedType) {
+ if (PHP_VERSION_ID >= 80100 && !$type->isBuiltin() && enum_exists($type->getName())) {
+ $mapping['enumType'] = $type->getName();
+ $reflection = new ReflectionEnum($type->getName());
+ $type = $reflection->getBackingType();
+ assert($type instanceof ReflectionNamedType);
+ }
  switch ($type->getName()) {
  case DateInterval::class:
  $mapping['type'] = Types::DATEINTERVAL;
@@ -545,6 +569,22 @@ class ClassMetadataInfo implements ClassMetadata
  throw MappingException::sqlConversionNotAllowedForIdentifiers($this->name, $mapping['fieldName'], $mapping['type']);
  }
  $mapping['requireSQLConversion'] = \true;
+ }
+ if (isset($mapping['generated'])) {
+ if (!in_array($mapping['generated'], [self::GENERATED_NEVER, self::GENERATED_INSERT, self::GENERATED_ALWAYS])) {
+ throw MappingException::invalidGeneratedMode($mapping['generated']);
+ }
+ if ($mapping['generated'] === self::GENERATED_NEVER) {
+ unset($mapping['generated']);
+ }
+ }
+ if (isset($mapping['enumType'])) {
+ if (PHP_VERSION_ID < 80100) {
+ throw MappingException::enumsRequirePhp81($this->name, $mapping['fieldName']);
+ }
+ if (!enum_exists($mapping['enumType'])) {
+ throw MappingException::nonEnumTypeMapped($this->name, $mapping['fieldName'], $mapping['enumType']);
+ }
  }
  return $mapping;
  }
@@ -1040,6 +1080,9 @@ class ClassMetadataInfo implements ClassMetadata
  {
  $mapping = $this->validateAndCompleteFieldMapping($mapping);
  $this->assertFieldNotMapped($mapping['fieldName']);
+ if (isset($mapping['generated'])) {
+ $this->requiresFetchAfterChange = \true;
+ }
  $this->fieldMappings[$mapping['fieldName']] = $mapping;
  }
  public function addInheritedAssociationMapping(array $mapping)
@@ -1350,6 +1393,7 @@ class ClassMetadataInfo implements ClassMetadata
  {
  $this->isVersioned = \true;
  $this->versionField = $mapping['fieldName'];
+ $this->requiresFetchAfterChange = \true;
  if (!isset($mapping['default'])) {
  if (in_array($mapping['type'], ['integer', 'bigint', 'smallint'], \true)) {
  $mapping['default'] = 1;
@@ -1363,6 +1407,9 @@ class ClassMetadataInfo implements ClassMetadata
  public function setVersioned($bool)
  {
  $this->isVersioned = $bool;
+ if ($bool) {
+ $this->requiresFetchAfterChange = \true;
+ }
  }
  public function setVersionField($versionField)
  {
@@ -1443,7 +1490,7 @@ class ClassMetadataInfo implements ClassMetadata
  if (empty($className)) {
  return $className;
  }
- if ($className !== null && strpos($className, '\\') === \false && $this->namespace) {
+ if (strpos($className, '\\') === \false && $this->namespace) {
  return $this->namespace . '\\' . $className;
  }
  return $className;
@@ -1512,5 +1559,13 @@ class ClassMetadataInfo implements ClassMetadata
  if (isset($mapping['orderBy']) && !is_array($mapping['orderBy'])) {
  throw new InvalidArgumentException("'orderBy' is expected to be an array, not " . gettype($mapping['orderBy']));
  }
+ }
+ private function getAccessibleProperty(ReflectionService $reflService, string $class, string $field) : ?ReflectionProperty
+ {
+ $reflectionProperty = $reflService->getAccessibleProperty($class, $field);
+ if ($reflectionProperty !== null && PHP_VERSION_ID >= 80100 && $reflectionProperty->isReadOnly()) {
+ $reflectionProperty = new ReflectionReadonlyProperty($reflectionProperty);
+ }
+ return $reflectionProperty;
  }
 }

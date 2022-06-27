@@ -38,19 +38,15 @@ if ( ! defined( 'WPINC' ) ) {
 
 			<div class="sui-box-body sui-content-center sui-spacing-sides--30 sui-spacing-top--0 sui-spacing-bottom--50">
 				<h3 class="sui-box-title sui-lg" id="smush-title-updated-dialog" style="white-space: normal">
-					<?php esc_html_e( 'Update: Manage Your Uploaded Images!', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'NEW: Super Smush Compression', 'wp-smushit' ); ?>
 				</h3>
 
 				<p class="sui-description">
-					<?php esc_html_e( 'You now have greater control over your images, with new settings to override WordPress Core functionality. Compress uploaded images, backup uploaded images, scale images to a desired threshold, disable scaling altogether, and more.', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Optimize images up to 2x more with our multi-pass lossy compression. Enable super smush compression and increase savings by more than 2x on average without any visible loss in quality.', 'wp-smushit' ); ?>
 				</p>
 
-				<p class="sui-description">
-					<?php esc_html_e( 'Check out these new features in the Bulk Smush settings.', 'wp-smushit' ); ?>
-				</p>
-
-				<a href="<?php echo esc_url( $cta_url ); ?>" class="sui-button" onclick="WP_Smush.onboarding.hideUpgradeModal()">
-					<?php esc_html_e( 'Got it', 'wp-smushit' ); ?>
+				<a href="<?php echo esc_url( $cta_url ); ?>#column-lossy" class="sui-button sui-button-blue" onclick="WP_Smush.onboarding.hideUpgradeModal()">
+					<?php esc_html_e( 'Go to settings', 'wp-smushit' ); ?>
 				</a>
 			</div>
 		</div>

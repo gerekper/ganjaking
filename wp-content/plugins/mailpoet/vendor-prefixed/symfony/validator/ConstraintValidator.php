@@ -13,9 +13,9 @@ abstract class ConstraintValidator implements ConstraintValidatorInterface
  }
  protected function formatTypeOf($value)
  {
- return \is_object($value) ? \get_class($value) : \gettype($value);
+ return \get_debug_type($value);
  }
- protected function formatValue($value, $format = 0)
+ protected function formatValue($value, int $format = 0)
  {
  if ($format & self::PRETTY_DATE && $value instanceof \DateTimeInterface) {
  if (\class_exists(\IntlDateFormatter::class)) {
@@ -50,7 +50,7 @@ abstract class ConstraintValidator implements ConstraintValidatorInterface
  }
  return (string) $value;
  }
- protected function formatValues(array $values, $format = 0)
+ protected function formatValues(array $values, int $format = 0)
  {
  foreach ($values as $key => $value) {
  $values[$key] = $this->formatValue($value, $format);

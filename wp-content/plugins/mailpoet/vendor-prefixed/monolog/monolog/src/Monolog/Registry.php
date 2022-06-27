@@ -1,11 +1,12 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog;
 if (!defined('ABSPATH')) exit;
 use InvalidArgumentException;
 class Registry
 {
- private static $loggers = array();
- public static function addLogger(Logger $logger, $name = null, $overwrite = \false)
+ private static $loggers = [];
+ public static function addLogger(Logger $logger, ?string $name = null, bool $overwrite = \false)
  {
  $name = $name ?: $logger->getName();
  if (isset(self::$loggers[$name]) && !$overwrite) {
@@ -13,16 +14,15 @@ class Registry
  }
  self::$loggers[$name] = $logger;
  }
- public static function hasLogger($logger)
+ public static function hasLogger($logger) : bool
  {
  if ($logger instanceof Logger) {
  $index = \array_search($logger, self::$loggers, \true);
  return \false !== $index;
- } else {
+ }
  return isset(self::$loggers[$logger]);
  }
- }
- public static function removeLogger($logger)
+ public static function removeLogger($logger) : void
  {
  if ($logger instanceof Logger) {
  if (\false !== ($idx = \array_search($logger, self::$loggers, \true))) {
@@ -32,11 +32,11 @@ class Registry
  unset(self::$loggers[$logger]);
  }
  }
- public static function clear()
+ public static function clear() : void
  {
- self::$loggers = array();
+ self::$loggers = [];
  }
- public static function getInstance($name)
+ public static function getInstance($name) : Logger
  {
  if (!isset(self::$loggers[$name])) {
  throw new InvalidArgumentException(\sprintf('Requested "%s" logger instance is not in the registry', $name));

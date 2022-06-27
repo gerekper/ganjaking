@@ -438,7 +438,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
                     'level'       => $this->get_group_level(),
 				)
 			);
-
+			
 		}
 
 		$ct_popup_button_close  = $this->get_cookie( $this->id, '' );
@@ -513,17 +513,112 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	 */
 	public function give_consent( $custom_expire_time = 0, $custom_consent_level = 0 ) {
 
+		$consent_id             = $custom_consent_level ? $custom_consent_level : ct_ultimate_gdpr_get_value('level_id', $this->get_request_array() ,CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY );
 		$consent_level          = $custom_consent_level ? $custom_consent_level : (int) ct_ultimate_gdpr_get_value( 'level', $this->get_request_array(), CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY );
 		$expire_time            = $custom_expire_time ? $custom_expire_time : $this->get_expire_time();
 		$skip_cookies           = ct_ultimate_gdpr_get_value( 'skip_cookies', $this->get_request_array() );
 		$ct_popup_button_close  = ct_ultimate_gdpr_get_value( 'ct_ultimate_gdpr_button_close', $this->get_request_array() );
 		$time                   = time();
 
+		// singular is used
+		if(is_array($consent_id)) {
+			
+			// by group
+			$level_1 = ['1'];  // 1 - block-all
+			$level_2 = ['2'];  // 2 - essential
+			$level_3 = ['2','3'];  // 3 - functionality
+			$level_4 = ['2','3','4']; // 4 - analytics
+			$level_5 = ['2','3','4','5']; // 5 - advertising
+			// single
+			$id_5 = ['5']; // 5 => 2
+			$id_6 = ['6']; // 6
+			$id_7 = ['7']; // 7
+			$id_8 = ['8']; // 8
+			// single multiple
+			$id_9 = ['5','6']; // 9 => 3
+			$id_10 = ['5','7']; // 9
+			$id_11 = ['5','8']; // 10
+			$id_12 = ['6','7']; // 11
+			$id_13 = ['6','8']; // 12
+			$id_14 = ['7','8']; // 13
+			$id_15 = ['5','6','7']; // 15 => 4
+			$id_16 = ['5','7','8']; // 14
+			$id_17 = ['5','6','8']; // 15
+			$id_18 = ['6','7','8']; // 16
+			$id_19 = ['5','6','7','8']; // 19 => 5
+
+
+			switch ($consent_id) {
+				case $level_1 :
+					if( empty(array_diff( $consent_id, $level_1)) ) $consent_level = 1;
+					break;
+				// case $level_2:
+				// 	if( empty(array_diff( $consent_id, $level_2)) ) $consent_level = 2;
+				// 	break;
+				// case $level_3:
+				// 	if( empty(array_diff( $consent_id, $level_3)) ) $consent_level = 3;
+				// 	break;
+				// case $level_4:
+				// 	if( empty(array_diff( $consent_id, $level_4)) ) $consent_level = 4;
+				// 	break;
+				// case $level_5:
+				// 	if( empty(array_diff( $consent_id, $level_5)) ) $consent_level = 5;
+					break;
+				case $id_5:
+					if( empty(array_diff( $consent_id, $id_5)) ) $consent_level = 2;
+					break;
+				case $id_6:
+					if( empty(array_diff( $consent_id, $id_6)) ) $consent_level = 6;
+					break;
+				case $id_7:
+					if( empty(array_diff( $consent_id, $id_7)) ) $consent_level = 7;
+					break;
+				case $id_8:
+					if( empty(array_diff( $consent_id, $id_8)) ) $consent_level = 8;
+					break;
+				case $id_9:
+					if( empty(array_diff( $consent_id, $id_9)) ) $consent_level = 3;
+					break;
+				case $id_10:
+					if( empty(array_diff( $consent_id, $id_10)) ) $consent_level = 9;
+					break;
+				case $id_11:
+					if( empty(array_diff( $consent_id, $id_11)) ) $consent_level = 10;
+					break;
+				case $id_12:
+					if( empty(array_diff( $consent_id, $id_12)) ) $consent_level = 11;
+					break;
+				case $id_13:
+					if( empty(array_diff( $consent_id, $id_13)) ) $consent_level = 12;
+					break;
+				case $id_14:
+					if( empty(array_diff( $consent_id, $id_14)) ) $consent_level = 13;
+					break;
+				case $id_15:
+					if( empty(array_diff( $consent_id, $id_15)) ) $consent_level = 4;
+					break;	
+				case $id_16:
+					if( empty(array_diff( $consent_id, $id_16)) ) $consent_level = 14;
+					break;	
+				case $id_17:
+					if( empty(array_diff( $consent_id, $id_17)) ) $consent_level = 15;
+					break;	
+				case $id_18:
+					if( empty(array_diff( $consent_id, $id_18)) ) $consent_level = 16;
+					break;
+				case $id_19:
+					if( empty(array_diff( $consent_id, $id_19)) ) $consent_level = 5;
+					break;
+				default: 
+			}
+		}
+
 		$value = array(
 			'consent_declined'    => false,
 			'consent_expire_time' => $expire_time,
 			'consent_level'       => $consent_level,
 			'consent_time'        => $time,
+			'consent_id'		  => $consent_id,
 		);
 
 		// save settings in a user meta
@@ -626,12 +721,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
         if ( $this->is_user_bot() ) {
             return false;
-        }
+		}
 
 		$template = $this->get_option( 'cookie_use_group_popup' ) ? 'cookie-group-popup' : 'cookie-popup';
-
+		
 		$options = array_merge( $this->get_default_options(), $this->options );
-		ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( $template, false ), true, $options );
+		// 1173
+		ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
 
 	}
 
@@ -714,12 +810,15 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
             CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE  => array(),
             CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS   => array(),
             CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING   => array(),
-            CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA => array(),
+            CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA => array()
 		) );
+	
 
-		if ( $level ) {
 
-			$cookies_names = array();
+		$cookies_names = array();
+
+		// checking for group cookies
+		if ( $level < 6 ) {
 
 			foreach ( $cookies_to_block as $cookie_level => $cookie_group ) {
 
@@ -728,12 +827,66 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				}
 
 			}
-
 			$cookies_to_block = $cookies_names;
-
 		}
 
+		// checking granular cookie
+		if ( $level > 5 ) {
+
+			$levels = CT_Ultimate_GDPR_Model_Group::$level_id;
+			$level_id = [];
+			$cookie_arr = [];
+			$cookie_accept = [];
+
+			foreach( $levels as $k => $v) {
+				if($level == $k) {
+					$level_id = $v;
+				}
+			}
+
+			$tmp = [ CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL, 5, 6, 7, 8 ];
+			$map_cookie = array_map($this->map_cookie, $tmp, $cookies_to_block);
+
+			foreach ( $map_cookie as $cookie_level => $cookie_group ) {
+				
+				if(empty($cookie_group[1])) {
+					continue;
+				}
+				$cookie_arr[] = $cookie_group[1];
+	
+				if( in_array( $cookie_group[0], $level_id ) ) {
+					$cookie_accept[] = $cookie_group[1];
+				}
+			}
+
+			foreach($cookie_arr as $k => $v) {
+			
+				foreach($cookie_accept as $a => $b) {
+					if(in_array( $v[0], $b) ) {
+						unset($cookie_arr[$k], $v);
+					}
+				}				 	
+			}
+
+			$cookies = array_values( $cookie_arr );
+
+			foreach($cookies as $k => $v) {
+				$cookies_names =  array_merge( $cookies_names, $v );	
+			}
+			$cookies_to_block = $cookies_names;
+		}
+	 
 		return apply_filters( 'ct_ultimate_gdpr_cookie_cookies_to_block', $cookies_to_block, $level );
+	}
+
+	
+	/**
+	 *
+	 *
+	 * @return array
+	 */
+	public function map_cookie($n, $m) {
+		return [$n => $m];
 	}
 
 	/**
@@ -1871,13 +2024,21 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			);
 
 			add_settings_field(
+				'cookie_single_popup',
+				esc_html__( 'Block cookie individually (Italian GDPR)', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_single_popup' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-1'
+			);
+
+			add_settings_field(
 				'cookie_group_popup_header_content',
 				esc_html__( 'Advanced cookie groups popup header content', 'ct-ultimate-gdpr' ),
 				array( $this, 'render_field_cookie_group_popup_header_content' ),
 				'ct-ultimate-gdpr-cookie',
 				'ct-ultimate-gdpr-cookie_tab-3_section-1'
 			);
-
+			
 			add_settings_field(
 				'cookie_group_popup_header_content',
 				esc_html__( 'Advanced cookie groups popup header content', 'ct-ultimate-gdpr' ),
@@ -3544,6 +3705,22 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	 *
 	 */
 	public function render_field_cookie_use_group_popup() {
+
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		printf(
+			"<input class='ct-ultimate-gdpr-field' type='checkbox' id='%s' name='%s' %s />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$admin->get_option_value_escaped( $field_name ) ? 'checked' : ''
+		);
+
+	}
+
+	/**
+	 *
+	 */
+	public function render_field_cookie_single_popup() {
 
 		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
 		$field_name = $admin->get_field_name( __FUNCTION__ );
@@ -6155,6 +6332,5 @@ Reklame: Samle inn personlig identifiserbar informasjon som navn og sted;',
 		update_option( 'ct_gdpr_check_last_cookies_scan', $date );
 
     }
-
-
+ 
 }

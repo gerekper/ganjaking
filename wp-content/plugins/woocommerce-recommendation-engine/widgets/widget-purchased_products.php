@@ -70,7 +70,7 @@ class WooCommerce_Widget_Purcahsed_Products extends WP_Widget {
         else if ($number > 15)
             $number = 15;
 
-        $activity_type = 'completed';
+	    $status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
         ?>
 
         <?php
@@ -82,7 +82,7 @@ class WooCommerce_Widget_Purcahsed_Products extends WP_Widget {
 
         $query_args['post__in'] = array();
 
-        $this->similar_products = woocommerce_recommender_get_purchased_together(get_the_ID(), $activity_type);
+        $this->similar_products = woocommerce_recommender_get_purchased_together(get_the_ID(), $status);
         if ($this->similar_products) {
             foreach ($this->similar_products as $product_id => $score) {
                 if ($score > 0) {

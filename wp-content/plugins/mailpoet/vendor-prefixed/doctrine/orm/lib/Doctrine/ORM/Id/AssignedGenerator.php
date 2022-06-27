@@ -2,12 +2,12 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Id;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
+use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Exception\EntityMissingAssignedId;
 use function get_class;
 class AssignedGenerator extends AbstractIdGenerator
 {
- public function generate(EntityManager $em, $entity)
+ public function generateId(EntityManagerInterface $em, $entity)
  {
  $class = $em->getClassMetadata(get_class($entity));
  $idFields = $class->getIdentifierFieldNames();

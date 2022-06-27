@@ -8,6 +8,7 @@ jQuery(function( $ ) {
 	}
 
 	var WC_OD_Settings = {
+
 		init: function() {
 			var $timepickers   = $( '.timepicker' ),
 			    $eventCalendar = $( '.wc-od-calendar-field' );
@@ -20,6 +21,7 @@ jQuery(function( $ ) {
 			this.deliveryCheckoutOptionsToggle();
 			this.statusToggle();
 			this.shippingMethodsFieldsToggle();
+			this.feeFieldsToggle();
 
 			if ( $eventCalendar.length && typeof $.fn.WC_OD_Calendar === 'function' ) {
 				// Init calendar.
@@ -30,6 +32,7 @@ jQuery(function( $ ) {
 				}
 			}
 		},
+
 		deliveryCheckoutOptionsToggle: function() {
 			var $field = $( 'input[name="wc_od_checkout_delivery_option"]' ),
 				$toggleFields = $(
@@ -51,6 +54,7 @@ jQuery(function( $ ) {
 				});
 			}
 		},
+
 		statusToggle: function() {
 			$( '.wc-od-input-toggle input[type="checkbox"]' ).on( 'change', function() {
 				var $toggle = $( this ).siblings( 'span' );
@@ -92,19 +96,38 @@ jQuery(function( $ ) {
 				}
 			});
 		},
+
 		shippingMethodsFieldsToggle: function() {
 			$( 'select#shipping_methods_option' ).on( 'change', function() {
+				var $tr = $( this ).closest( 'tr' );
+
 				if ( 'specific' === $( this ).val() ) {
-					$( this ).closest('tr').next( 'tr' ).hide();
-					$( this ).closest('tr').next().next( 'tr' ).show();
+					$tr.next( 'tr' ).hide();
+					$tr.next().next( 'tr' ).show();
 				} else if ( 'all_except' === $( this ).val() ) {
-					$( this ).closest('tr').next( 'tr' ).show();
-					$( this ).closest('tr').next().next( 'tr' ).hide();
+					$tr.next( 'tr' ).show();
+					$tr.next().next( 'tr' ).hide();
 				} else {
-					$( this ).closest('tr').next( 'tr' ).hide();
-					$( this ).closest('tr').next().next( 'tr' ).hide();
+					$tr.next( 'tr' ).hide();
+					$tr.next().next( 'tr' ).hide();
 				}
 			}).trigger( 'change' );
+		},
+
+		feeFieldsToggle: function() {
+			$( '#fee_tax_status' ).on( 'change', function() {
+				$( '#fee_tax_class' ).closest( 'tr' ).toggle( 'none' !== $( this ).val() )
+			}).trigger( 'change' );
+
+			$( '#fee_amount' ).on( 'keyup', function() {
+				var amount = $( this ).val().replace( /[,.]/g, '' );
+
+				$( '[name^="fee_"]' ).not( '#fee_amount' ).closest( 'tr' ).toggle( 0 < amount );
+
+				if ( 0 < amount ) {
+					$( '#fee_tax_status' ).trigger( 'change' );
+				}
+			}).trigger( 'keyup' );
 		}
 	};
 

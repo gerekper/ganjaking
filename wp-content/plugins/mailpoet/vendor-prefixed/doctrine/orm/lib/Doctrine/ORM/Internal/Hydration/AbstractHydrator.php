@@ -124,6 +124,7 @@ abstract class AbstractHydrator
  }
  public function hydrateRow()
  {
+ Deprecation::triggerIfCalledFromOutside('doctrine/orm', 'https://github.com/doctrine/orm/pull/9072', '%s is deprecated.', __METHOD__);
  $row = $this->statement()->fetchAssociative();
  if ($row === \false) {
  $this->cleanup();

@@ -51,4 +51,10 @@ if ( isset( $additional_content ) && '' !== $additional_content ) {
 </table>';
 	<?php
 }
+/**
+ * Filter woocommerce email.
+ *
+ * @since 1.6.4
+ * @param string $email_footer
+ */
 echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

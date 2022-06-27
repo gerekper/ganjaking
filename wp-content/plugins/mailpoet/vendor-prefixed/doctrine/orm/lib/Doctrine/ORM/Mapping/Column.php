@@ -4,7 +4,7 @@ namespace MailPoetVendor\Doctrine\ORM\Mapping;
 if (!defined('ABSPATH')) exit;
 use Attribute;
 use MailPoetVendor\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-#[Attribute(Attribute::TARGET_PROPERTY)]
+#[\Attribute(Attribute::TARGET_PROPERTY)]
 final class Column implements Annotation
 {
  public $name;
@@ -14,9 +14,13 @@ final class Column implements Annotation
  public $scale = 0;
  public $unique = \false;
  public $nullable = \false;
+ public $insertable = \true;
+ public $updatable = \true;
+ public $enumType = null;
  public $options = [];
  public $columnDefinition;
- public function __construct(?string $name = null, ?string $type = null, ?int $length = null, ?int $precision = null, ?int $scale = null, bool $unique = \false, bool $nullable = \false, array $options = [], ?string $columnDefinition = null)
+ public $generated;
+ public function __construct(?string $name = null, ?string $type = null, ?int $length = null, ?int $precision = null, ?int $scale = null, bool $unique = \false, bool $nullable = \false, bool $insertable = \true, bool $updatable = \true, ?string $enumType = null, array $options = [], ?string $columnDefinition = null, ?string $generated = null)
  {
  $this->name = $name;
  $this->type = $type;
@@ -25,7 +29,11 @@ final class Column implements Annotation
  $this->scale = $scale;
  $this->unique = $unique;
  $this->nullable = $nullable;
+ $this->insertable = $insertable;
+ $this->updatable = $updatable;
+ $this->enumType = $enumType;
  $this->options = $options;
  $this->columnDefinition = $columnDefinition;
+ $this->generated = $generated;
  }
 }

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.14.0
+ * @version  6.15.3
  */
 class WC_PB_Cart {
 
@@ -26,6 +26,13 @@ class WC_PB_Cart {
 	 * @var string
 	 */
 	protected $validation_context = null;
+
+	/**
+	 * Flag to avoid infinite loops when removing a bundle parent via a child.
+	 *
+	 * @var string
+	 */
+	protected $removing_container_key = null;
 
 	/**
 	 * The single instance of the class.
@@ -71,6 +78,15 @@ class WC_PB_Cart {
 	 * Setup hooks.
 	 */
 	protected function __construct() {
+		add_action( 'init', array( $this, 'add_hooks' ), 0 );
+	}
+
+	/**
+	 * Add hooks.
+	 *
+	 * @since  6.15.0
+	 */
+	public function add_hooks() {
 
 		// Validate bundle add-to-cart.
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_to_cart' ), 10, 6 );
@@ -111,7 +127,7 @@ class WC_PB_Cart {
 			add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'update_quantity_in_cart' ), 1 );
 		}
 
-		// Remove bundled items on removing parent item.
+		// Keep removals of bundles and bundled items in sync.
 		add_action( 'wp_loaded', array( $this, 'update_cart_action_remove_item' ), 19 );
 		add_action( 'woocommerce_remove_cart_item', array( $this, 'cart_item_remove' ), 10, 2 );
 		add_action( 'woocommerce_restore_cart_item', array( $this, 'cart_item_restore' ), 10, 2 );
@@ -121,8 +137,10 @@ class WC_PB_Cart {
 		add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'cart_shipping_packages' ), 5 );
 
 		// Remove recurring component of bundled subscription-type products in statically-priced bundles.
-		add_action( 'woocommerce_subscription_cart_before_grouping', array( $this, 'add_subcription_filter' ) );
-		add_action( 'woocommerce_subscription_cart_after_grouping', array( $this, 'remove_subcription_filter' ) );
+		if ( WC_PB()->compatibility->is_module_loaded( 'subscriptions' ) ) {
+			add_action( 'woocommerce_subscription_cart_before_grouping', array( $this, 'add_subcription_filter' ) );
+			add_action( 'woocommerce_subscription_cart_after_grouping', array( $this, 'remove_subcription_filter' ) );
+		}
 
 		// "Sold Individually" context support under WC 3.5+.
 		add_filter( 'woocommerce_add_to_cart_sold_individually_found_in_cart', array( $this, 'sold_individually_found_in_cart' ), 10, 4 );
@@ -130,7 +148,7 @@ class WC_PB_Cart {
 
 	/*
 	|--------------------------------------------------------------------------
-	| API methods.
+	| Class methods.
 	|--------------------------------------------------------------------------
 	*/
 
@@ -139,7 +157,6 @@ class WC_PB_Cart {
 	 *
 	 * @since  5.8.1
 	 *
-	 * @param  string  $context
 	 * @return string
 	 */
 	public function is_cart_session_loaded() {
@@ -201,7 +218,7 @@ class WC_PB_Cart {
 	 */
 	public function parse_bundle_configuration( $bundle, $configuration = array(), $strict_mode = false ) {
 
-		$bundled_items       = $bundle->get_bundled_items();
+		$bundled_items        = $bundle->get_bundled_items();
 		$parsed_configuration = array();
 
 		foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
@@ -210,8 +227,12 @@ class WC_PB_Cart {
 
 			$defaults = array(
 				'product_id' => $strict_mode ? '' : $bundled_item->get_product_id(),
-				'quantity'   => $bundled_item->get_quantity( 'default' )
+				'quantity'   => $bundled_item->is_optional() ? 0 : $bundled_item->get_quantity( 'default' )
 			);
+
+			if ( $bundled_item->is_optional() ) {
+				$defaults[ 'optional_selected' ] = 'no';
+			}
 
 			$parsed_configuration[ $bundled_item_id ] = wp_parse_args( $item_configuration, $defaults );
 
@@ -384,7 +405,7 @@ class WC_PB_Cart {
 						$posted_config[ $bundled_item_id ][ 'attributes' ] = $attr_stamp;
 
 						// Store posted variation ID, or search for it.
-						if ( sizeof( $variations ) > 1 ) {
+						if ( count( $variations ) > 1 ) {
 
 							$bundled_item_variation_id_request_key = $posted_field_prefix . 'bundle_variation_id_' . $bundled_item_id;
 
@@ -469,14 +490,22 @@ class WC_PB_Cart {
 	/**
 	 * Validates the selected bundled items in a bundle configuration.
 	 *
-	 * @param  mixed   $product
-	 * @param  int     $product_quantity
-	 * @param  array   $configuration
-	 * @param  string  $context
-	 * @return boolean
+	 * @throws Exception
+	 *
+	 * @param  mixed         $product
+	 * @param  int           $product_quantity
+	 * @param  array         $configuration
+	 * @param  array|string  $args
+	 * @return bool
 	 */
-	public function validate_bundle_configuration( $product, $product_quantity, $configuration, $context = '' ) {
+	public function validate_bundle_configuration( $product, $product_quantity, $configuration, $args = array() ) {
 
+		$defaults = array(
+			'context'         => is_string( $args ) ? $args : '', // Back in the day, args was a string and was used to pass context.
+			'throw_exception' => WC_PB_Core_Compatibility::is_api_request() // Do not add a notice in Rest/Store API requests, unless otherwise instructed.
+		);
+
+		$args                   = wp_parse_args( $args, $defaults );
 		$is_configuration_valid = true;
 
 		if ( is_numeric( $product ) ) {
@@ -487,18 +516,15 @@ class WC_PB_Cart {
 
 			try {
 
-				if ( '' === $context ) {
-
-					/**
-					 * 'woocommerce_bundle_validation_context' filter.
-					 *
-					 * @since  5.7.4
-					 *
-					 * @param  string             $context
-					 * @param  WC_Product_Bundle  $context
-					 */
-					$context = apply_filters( 'woocommerce_bundle_validation_context', 'add-to-cart', $product );
-				}
+				/**
+				 * 'woocommerce_bundle_validation_context' filter.
+				 *
+				 * @since  5.7.4
+				 *
+				 * @param  string             $context
+				 * @param  WC_Product_Bundle  $context
+				 */
+				$context = '' === $args[ 'context' ] ? apply_filters( 'woocommerce_bundle_validation_context', 'add-to-cart', $product ) : $args[ 'context' ];
 
 				$this->validation_context = $context;
 
@@ -512,7 +538,7 @@ class WC_PB_Cart {
 				// Grab bundled items.
 				$bundled_items = $product->get_bundled_items();
 
-				if ( sizeof( $bundled_items ) ) {
+				if ( count( $bundled_items ) ) {
 
 					foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
 
@@ -520,12 +546,11 @@ class WC_PB_Cart {
 						$bundled_variation_id = '';
 						$bundled_product_type = $bundled_item->product->get_type();
 
-						// Optional.
-						$is_optional           = $bundled_item->is_optional();
-						$is_optional_selected  = $is_optional && isset( $configuration[ $bundled_item_id ][ 'optional_selected' ] ) && 'yes' === $configuration[ $bundled_item_id ][ 'optional_selected' ];
-
-						if ( $is_optional && ! $is_optional_selected ) {
-							continue;
+						// Optional item not selected?
+						if ( $bundled_item->is_optional() ) {
+							if ( isset( $configuration[ $bundled_item_id ][ 'optional_selected' ] ) && 'no' === $configuration[ $bundled_item_id ][ 'optional_selected' ] ) {
+								continue;
+							}
 						}
 
 						// Check existence.
@@ -533,8 +558,10 @@ class WC_PB_Cart {
 
 							$missing_contents = false;
 
+							// Item not present in configuration?
 							if ( ! isset( $configuration[ $bundled_item_id ] ) || empty( $configuration[ $bundled_item_id ][ 'product_id' ] ) ) {
 								$missing_contents = true;
+							// Item was optional and left out when the configuration was made, but is no longer optional?
 							} elseif ( isset( $configuration[ $bundled_item_id ][ 'optional_selected' ] ) && 'no' === $configuration[ $bundled_item_id ][ 'optional_selected' ] ) {
 								$missing_contents = true;
 							}
@@ -698,7 +725,7 @@ class WC_PB_Cart {
 
 								if ( $missing_attributes ) {
 									/* translators: %1$s: Field name, Product title */
-									$reason = sprintf( _n( '%1$s is a required &quot;%2$s&quot; field.', '%1$s are required &quot;%2$s&quot; fields.', sizeof( $missing_attributes ), 'woocommerce-product-bundles' ), wc_format_list_of_items( $missing_attributes ), $bundled_item->get_raw_title() );
+									$reason = sprintf( _n( '%1$s is a required &quot;%2$s&quot; field.', '%1$s are required &quot;%2$s&quot; fields.', count( $missing_attributes ), 'woocommerce-product-bundles' ), wc_format_list_of_items( $missing_attributes ), $bundled_item->get_raw_title() );
 								} else {
 									if ( 'add-to-cart' === $context ) {
 										/* translators: %1$s: Bundled product name */
@@ -788,7 +815,11 @@ class WC_PB_Cart {
 
 			} catch ( Exception $e ) {
 
-				if ( ! WC_PB_Core_Compatibility::is_rest_api_request() ) {
+				if ( $args[ 'throw_exception' ] ) {
+
+					throw $e;
+
+				} else {
 
 					$notice = $e->getMessage();
 
@@ -906,6 +937,9 @@ class WC_PB_Cart {
 
 			$title = isset( $cart_item[ 'stamp' ][ $bundled_item_id ][ 'title' ] ) ? $cart_item[ 'stamp' ][ $bundled_item_id ][ 'title' ] : $bundled_item->get_raw_title();
 			$cart_item[ 'data' ]->set_name( $title );
+			if ( is_a( $cart_item[ 'data' ], 'WC_Product_Variation' ) ) {
+				$cart_item[ 'data' ]->set_parent_data( array_merge( $cart_item[ 'data' ]->get_parent_data(), array( 'title' => $title ) ) );
+			}
 		}
 
 		if ( $cart_item[ 'data' ]->needs_shipping() ) {
@@ -1105,6 +1139,17 @@ class WC_PB_Cart {
 		return $cart_item_key;
 	}
 
+	/**
+	 * Indicates whether a container item is being removed.
+	 *
+	 * @since  6.15.0
+	 *
+	 * @param  string  $item_key
+	 * @return string
+	 */
+	public function is_removing_container_cart_item( $cart_item_key ) {
+		return $this->removing_container_key === $cart_item_key;
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -1116,6 +1161,11 @@ class WC_PB_Cart {
 	 * Check bundle cart item configurations on cart load.
 	 */
 	public function check_cart_items() {
+
+		// Store API cart item validation is done via 'wooocommerce_store_api_validate_cart_item'.
+		if ( WC_PB_Core_Compatibility::is_store_api_request() ) {
+			return;
+		}
 
 		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
 
@@ -1247,9 +1297,9 @@ class WC_PB_Cart {
 			$bundled_item_id = $cart_item[ 'bundled_item_id' ];
 			$bundled_item    = $parent_item[ 'data' ]->get_bundled_item( $bundled_item_id );
 
-			$min_quantity    = $parent_quantity * $bundled_item->get_quantity( 'min' );
-			$max_quantity    = $bundled_item->get_quantity( 'max' );
-			$max_quantity    = $max_quantity ? $parent_quantity * $max_quantity : '';
+			$min_quantity = $parent_quantity * $bundled_item->get_quantity( 'min' );
+			$max_quantity = $bundled_item->get_quantity( 'max' );
+			$max_quantity = $max_quantity ? $parent_quantity * $max_quantity : '';
 
 			if ( $quantity % $parent_quantity != 0 ) {
 
@@ -1395,7 +1445,6 @@ class WC_PB_Cart {
 			if ( empty( $cart_item_data[ 'stamp' ] ) ) {
 				/* translators: Bundled product name */
 				throw new Exception( sprintf( __( 'The requested configuration of &quot;%s&quot; cannot be purchased at the moment.', 'woocommerce-product-bundles' ), $bundle->get_title() ) );
-				return false;
 			}
 
 			// Now add all items - yay.
@@ -1436,7 +1485,6 @@ class WC_PB_Cart {
 						$variations   = $bundled_item_stamp[ 'attributes' ];
 					} else {
 						throw new Exception( sprintf( __( 'The requested configuration of &quot;%s&quot; cannot be purchased at the moment.', 'woocommerce-product-bundles' ), $bundle->get_title() ) );
-						return false;
 					}
 				}
 
@@ -1763,8 +1811,11 @@ class WC_PB_Cart {
 
 				unset( $cart->removed_cart_contents[ $bundled_item_cart_key ][ 'data' ] );
 
+				// Prevent infinite loops.
+				$this->removing_container_key = $cart_item_key;
 				/** WC core action. */
 				do_action( 'woocommerce_remove_cart_item', $bundled_item_cart_key, $cart );
+				$this->removing_container_key = null;
 
 				unset( $cart->cart_contents[ $bundled_item_cart_key ] );
 
@@ -1780,7 +1831,18 @@ class WC_PB_Cart {
 				do_action( 'woocommerce_bundled_cart_item_removed', $bundled_item_cart_key, $cart );
 			}
 
-		} elseif ( ! isset( $_POST[ 'update-bundle' ] ) && wc_pb_is_bundled_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
+		} elseif ( $container_key = wc_pb_get_bundled_cart_item_container( $cart->removed_cart_contents[ $cart_item_key ], $cart->cart_contents, true ) ) {
+
+			if ( isset( $_POST[ 'update-bundle' ] ) ) {
+				return;
+			}
+
+			$container_item = $cart->cart_contents[ $container_key ];
+
+			// Prevent infinite loops.
+			if ( $this->is_removing_container_cart_item( $container_key ) ) {
+				return;
+			}
 
 			$cart_item       = $cart->removed_cart_contents[ $cart_item_key ];
 			$bundled_item_id = isset( $cart_item[ 'bundled_item_id' ] ) ? absint( $cart_item[ 'bundled_item_id' ] ) : false;
@@ -1793,6 +1855,74 @@ class WC_PB_Cart {
 				return;
 			}
 
+			$bundle = $container_item[ 'data' ];
+			if ( ! $bundle->is_type( 'bundle' ) ) {
+				return;
+			}
+
+			$bundled_item = $bundle->get_bundled_item( $bundled_item_id );
+			$is_mandatory = $bundled_item->get_quantity( 'min', array( 'check_optional' => true ) ) > 0;
+
+			// If the container is visible, and we are attempting to remove a mandatory item, stop.
+			if ( WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'parent_item' ) ) {
+
+				if ( $is_mandatory ) {
+
+					unset( $cart->removed_cart_contents[ $cart_item_key ] );
+
+					/** Triggered when attempting to remove a mandatory bundled item with a visible parent from the cart.
+					 *
+					 * @since  6.15.0
+					 *
+					 * @param  string  $bundled_item_cart_key
+					 * @param  WC_Cart $cart
+					 */
+					do_action( 'woocommerce_remove_mandatory_bundled_cart_item', $cart_item_key, $cart );
+
+					/*
+					 * This exception should never be thrown under normal circumstances.
+					 * If an attempt is made to remove this item in the legacy cart, 'update_cart_action_remove_item' should catch the request, add a notice, and redirect.
+					 * If an attempt is made via the Store API, a RouteException should be thrown via 'woocommerce_remove_mandatory_bundled_cart_item'.
+					 */
+					$notice = __( 'This product is a mandatory part of a bundle and cannot be removed.', 'woocommerce-product-bundles' );
+					throw new Exception( $notice );
+				}
+
+			// If the container is hidden, remove the entire bundle if this is the last visible item, or if it's a mandatory item.
+			} else {
+
+				$bundled_cart_items = wc_pb_get_bundled_cart_items( $container_item );
+				$visible_items      = 0;
+
+				if ( empty( $bundled_cart_items ) ) {
+					return;
+				}
+
+				foreach ( $bundled_cart_items as $bundled_cart_item ) {
+
+					$maybe_visible_bundled_item = $bundle->get_bundled_item( $bundled_cart_item[ 'bundled_item_id' ] );
+
+					if ( ! is_a( $maybe_visible_bundled_item, 'WC_Bundled_Item' ) ) {
+						continue;
+					}
+
+					if ( $maybe_visible_bundled_item->is_visible( 'cart' ) ) {
+						$visible_items++;
+					}
+				}
+
+				// Remove container!
+				if ( $is_mandatory || $visible_items === 1 ) {
+
+					// Prevent infinite loops through 'woocommerce_remove_cart_item'.
+					$this->removing_container_key = $container_key;
+					$cart->remove_cart_item( $container_key );
+					$this->removing_container_key = null;
+
+					return;
+				}
+			}
+
 			// Fix for the current optional item.
 			$stamp[ $bundled_item_id ][ 'quantity' ] = 0;
 			if ( isset( $stamp[ $bundled_item_id ][ 'optional_selected' ] ) && 'yes' === $stamp[ $bundled_item_id ][ 'optional_selected' ] ) {
@@ -1800,7 +1930,6 @@ class WC_PB_Cart {
 			}
 
 			// Update the stamp.
-			$container_key = wc_pb_get_bundled_cart_item_container( $cart_item, $cart->cart_contents, true );
 			WC()->cart->cart_contents[ $container_key ][ 'stamp' ] = $stamp;
 			foreach ( wc_pb_get_bundled_cart_items( WC()->cart->cart_contents[ $container_key ], $cart->cart_contents, true ) as $child_key ) {
 				WC()->cart->cart_contents[ $child_key ][ 'stamp' ] = $stamp;
@@ -1963,7 +2092,7 @@ class WC_PB_Cart {
 	 * Treat bundled subs as non-sub products when bundled in statically-priced bundles.
 	 * Method: Do not add product in any subscription cart group.
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	public function add_subcription_filter() {
 		add_filter( 'woocommerce_is_subscription', array( $this, 'is_subscription_filter' ), 100, 3 );
@@ -1973,7 +2102,7 @@ class WC_PB_Cart {
 	 * Treat bundled subs as non-sub products when bundled in statically-priced bundles.
 	 * Method: Do not add product in any subscription cart group.
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	public function remove_subcription_filter() {
 		remove_filter( 'woocommerce_is_subscription', array( $this, 'is_subscription_filter' ), 100, 3 );
@@ -2039,7 +2168,9 @@ class WC_PB_Cart {
 			if ( $product_id === $search_cart_item[ 'product_id' ] && 'product' === $product->get_sold_individually_context() ) {
 				$found = true;
 			} elseif ( wc_pb_is_bundle_container_cart_item( $search_cart_item ) && isset( $cart_item[ 'stamp' ] ) && $cart_item[ 'stamp' ] === $search_cart_item[ 'stamp' ] ) {
-				throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() ) ) );
+				/* translators: %1$s: Product title */
+				$message = sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() );
+				throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), $message ) );
 			}
 		}
 
@@ -2097,65 +2228,5 @@ class WC_PB_Cart {
 	public function cart_item_remove_link( $link, $cart_item_key ) {
 		_deprecated_function( __METHOD__ . '()', '5.5.0', 'WC_PB_Display::cart_item_remove_link()' );
 		return WC_PB()->display->cart_item_remove_link( $link, $cart_item_key );
-	}
-	public function woo_bundles_validation( $add, $product_id, $product_quantity, $variation_id = '', $variations = array(), $cart_item_data = array() ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::validate_add_to_cart()' );
-		return $this->validate_add_to_cart( $add, $product_id, $product_quantity, $variation_id, $variations, $cart_item_data );
-	}
-	public function woo_bundles_add_cart_item_data( $cart_item_data, $product_id ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::add_cart_item_data()' );
-		return $this->add_cart_item_data( $cart_item_data, $product_id );
-	}
-	public function woo_bundles_add_bundle_to_cart( $bundle_cart_key, $bundle_id, $bundle_quantity, $variation_id, $variation, $cart_item_data ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::bundle_add_to_cart()' );
-		return $this->bundle_add_to_cart( $bundle_cart_key, $bundle_id, $bundle_quantity, $variation_id, $variation, $cart_item_data );
-	}
-	public function woo_bundles_add_cart_item_filter( $cart_item, $cart_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::add_cart_item_filter()' );
-		return $this->add_cart_item_filter( $cart_item, $cart_key );
-	}
-	public function woo_bundles_get_cart_data_from_session( $cart_item, $cart_session_item, $cart_item_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::get_cart_item_from_session()' );
-		return $this->get_cart_item_from_session( $cart_item, $cart_session_item, $cart_item_key );
-	}
-	public function woo_bundles_cart_item_quantity( $quantity, $cart_item_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_item_quantity()' );
-		return $this->cart_item_quantity( $quantity, $cart_item_key );
-	}
-	public function woo_bundles_cart_item_remove_link( $link, $cart_item_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_item_remove_link()' );
-		return $this->cart_item_remove_link( $link, $cart_item_key );
-	}
-	public function woo_bundles_update_quantity_in_cart( $cart_item_key, $quantity = 0 ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::update_quantity_in_cart()' );
-		return $this->update_quantity_in_cart( $cart_item_key, $quantity );
-	}
-	public function woo_bundles_order_again( $cart_item_data, $order_item, $order ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::order_again()' );
-		return $this->order_again( $cart_item_data, $order_item, $order );
-	}
-	public function woo_bundles_cart_item_price_html( $price, $values, $cart_item_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_item_price_html()' );
-		return $this->cart_item_price_html( $price, $values, $cart_item_key );
-	}
-	public function woo_bundles_item_subtotal( $subtotal, $values, $cart_item_key ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::item_subtotal()' );
-		return $this->item_subtotal( $subtotal, $values, $cart_item_key );
-	}
-	public function woo_bundles_cart_item_removed( $cart_item_key, $cart ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_item_removed()' );
-		return $this->cart_item_removed( $cart_item_key, $cart );
-	}
-	public function woo_bundles_cart_item_restored( $cart_item_key, $cart ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_item_restored()' );
-		return $this->cart_item_restored( $cart_item_key, $cart );
-	}
-	public function woo_bundles_shipping_packages_fix( $packages ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::cart_shipping_packages()' );
-		return $this->cart_shipping_packages( $packages );
-	}
-	public function woo_bundles_coupon_validity( $valid, $product, $coupon, $cart_item ) {
-		_deprecated_function( __METHOD__ . '()', '5.0.0', __CLASS__ . '::coupon_is_valid_for_product()' );
-		return $this->coupon_is_valid_for_product( $valid, $product, $coupon, $cart_item );
 	}
 }

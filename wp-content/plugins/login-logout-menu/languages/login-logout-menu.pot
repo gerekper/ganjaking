@@ -1,0 +1,97 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Login Logout Menu\n"
+"POT-Creation-Date: 2019-12-16 12:15+0500\n"
+"PO-Revision-Date: 2019-12-16 12:14+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: login-logout-menu.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#. Plugin Name of the plugin/theme
+#: login-logout-menu.php:100
+msgid "Login Logout Menu"
+msgstr ""
+
+#: login-logout-menu.php:109 login-logout-menu.php:111
+msgid "Log In"
+msgstr ""
+
+#: login-logout-menu.php:110 login-logout-menu.php:111
+msgid "Log Out"
+msgstr ""
+
+#: login-logout-menu.php:112
+msgid "Register"
+msgstr ""
+
+#: login-logout-menu.php:113
+msgid "Profile"
+msgstr ""
+
+#: login-logout-menu.php:114
+msgid "User"
+msgstr ""
+
+#: login-logout-menu.php:150
+msgid "Help"
+msgstr ""
+
+#: login-logout-menu.php:153
+msgid ""
+"To redirect user after login/logout/register just add a relative link after "
+"the link's keyword, example :"
+msgstr ""
+
+#: login-logout-menu.php:154
+msgid "You can also use"
+msgstr ""
+
+#: login-logout-menu.php:154
+msgid ""
+"to redirect the user on the current visited page after login/logout/"
+"register, example :"
+msgstr ""
+
+#: login-logout-menu.php:155
+#, php-format
+msgid ""
+"To get plugin support contact us on <a href=\"%1$s\" target=\"_blank"
+"\">plugin support forum</a> or <a href=\"%2$s\" target=\"_blank\">contact us "
+"page</a>."
+msgstr ""
+
+#: login-logout-menu.php:161
+msgid "Add to Menu"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://WPBrigade.com/wordpress/plugins/login-logout-menu/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Login Logout Menu is a handy plugin which allows you to add login, logout, "
+"register and profile menu items in your selected menu."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://WPBrigade.com/"
+msgstr ""

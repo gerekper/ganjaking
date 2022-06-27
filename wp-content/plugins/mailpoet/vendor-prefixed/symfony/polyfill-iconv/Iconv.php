@@ -13,7 +13,7 @@ final class Iconv
  private static $convertMap = array();
  private static $errorHandler;
  private static $lastError;
- private static $ulenMask = array("À" => 2, "Ð" => 2, "à" => 3, "ð" => 4);
+ private static $ulenMask = array("\xc0" => 2, "\xd0" => 2, "\xe0" => 3, "\xf0" => 4);
  private static $isValidUtf8;
  public static function iconv($inCharset, $outCharset, $str)
  {
@@ -286,7 +286,7 @@ final class Iconv
  $j = 0;
  $len = \strlen($s);
  while ($i < $len) {
- $u = $s[$i] & "ð";
+ $u = $s[$i] & "\xf0";
  $i += isset($ulenMask[$u]) ? $ulenMask[$u] : 1;
  ++$j;
  }
@@ -393,10 +393,10 @@ final class Iconv
  $i = $j = 0;
  $len = \strlen($str);
  while ($i < $len) {
- if ($str[$i] < "€") {
+ if ($str[$i] < "\x80") {
  $u[$j++] = $str[$i++];
  } else {
- $ulen = $str[$i] & "ð";
+ $ulen = $str[$i] & "\xf0";
  $ulen = isset($ulenMask[$ulen]) ? $ulenMask[$ulen] : 1;
  $uchr = \substr($str, $i, $ulen);
  if (1 === $ulen || !($valid || \preg_match('/^.$/us', $uchr))) {
@@ -440,10 +440,10 @@ final class Iconv
  $i = 0;
  $len = \strlen($str);
  while ($i < $len) {
- if ($str[$i] < "€") {
+ if ($str[$i] < "\x80") {
  $uchr = $str[$i++];
  } else {
- $ulen = $str[$i] & "ð";
+ $ulen = $str[$i] & "\xf0";
  $ulen = isset($ulenMask[$ulen]) ? $ulenMask[$ulen] : 1;
  $uchr = \substr($str, $i, $ulen);
  if ($ignore && (1 === $ulen || !($valid || \preg_match('/^.$/us', $uchr)))) {
@@ -460,7 +460,7 @@ final class Iconv
  $uchr = self::$translitMap[$uchr];
  } elseif ($uchr >= "Ã€") {
  $uchr = \MailPoetVendor\Normalizer::normalize($uchr, \MailPoetVendor\Normalizer::NFD);
- if ($uchr[0] < "€") {
+ if ($uchr[0] < "\x80") {
  $uchr = $uchr[0];
  } elseif ($ignore) {
  continue;

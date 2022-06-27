@@ -1,9 +1,9 @@
 /*!
- * jQuery Validation Plugin v1.19.2
+ * jQuery Validation Plugin v1.19.3
  *
  * https://jqueryvalidation.org/
  *
- * Copyright (c) 2020 Jörn Zaefferer
+ * Copyright (c) 2021 Jörn Zaefferer
  * Released under the MIT license
  *
  * Renamed methods for compatibility
@@ -79,7 +79,7 @@
 						//   - There was a pending request due to `remote` method and `stopRequest()`
 						//     was called to submit the form in case it's valid
 						if ( tc_validator.submitButton && ( tc_validator.settings.submitHandler || tc_validator.formSubmitted ) ) {
-							hidden = $( "<input type='hidden'/>" ).attr( 'name', tc_validator.submitButton.name ).val( $( tc_validator.submitButton ).val() ).appendTo( tc_validator.currentForm );
+							hidden = $( "<input type='hidden'>" ).attr( 'name', tc_validator.submitButton.name ).val( $( tc_validator.submitButton ).val() ).appendTo( tc_validator.currentForm );
 						}
 
 						if ( tc_validator.settings.submitHandler && ! tc_validator.settings.debug ) {
@@ -1444,7 +1444,7 @@
 				return (
 					this.optional( element ) ||
 					// eslint-disable-next-line no-useless-escape
-					/^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i.test(
+					/^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
 						value
 					)
 				);

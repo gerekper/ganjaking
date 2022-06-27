@@ -1,10 +1,11 @@
 <?php
 /**
  * Customizer Range Control
- *
+ * 
  * @version 1.0.0
  * @author Kathy Darling
  * @license GPL-3.0
+ * 
  */
 
 // Exit if accessed directly.
@@ -20,7 +21,7 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
 class KIA_Customizer_Range_Control extends \WP_Customize_Control {
 	public $type = 'kia-range';
 
-	private $version = '1.0.0';
+	private $version = '1.0.1';
 
 	/**
 	 * Enqueue scripts/styles.

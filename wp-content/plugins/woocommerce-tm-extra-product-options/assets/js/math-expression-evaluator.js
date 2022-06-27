@@ -1,6 +1,6 @@
 /**
  * https://github.com/bugwheels94/math-expression-evaluator
- * math-expression-evaluator version 1.3.5
+ * math-expression-evaluator version 1.3.8
  *
  * Renamed methods for compatibility
  * reformatted code by themeComplete
@@ -640,7 +640,7 @@
 				cEv = TCMexp.math.mul;
 				cShow = '&times;';
 				cPre = 3;
-				i = i - cToken.length;
+				i = i - 1;
 			}
 			obj = {
 				value: cEv,

@@ -4,8 +4,8 @@ Donate link: https://yoa.st/1up
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
-Tested up to: 5.9
-Stable tag: 18.3
+Tested up to: 6.0
+Stable tag: 19.1
 Requires PHP: 5.6.20
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -36,6 +36,7 @@ Yoast SEO is packed full of features, designed to help visitors and search engin
 * **Faster loading times** for your whole website, due to an innovative way of managing data in WordPress.
 * **[Premium]** E-mail support for our [Yoast SEO Premium](https://yoa.st/1v8) users.
 * **[Premium]** The possibility to expand Yoast SEO with the [News SEO](https://yoa.st/1uv), [Video SEO](https://yoa.st/1uw), [Local SEO](https://yoa.st/1uu) and [WooCommerce SEO](https://yoa.st/3rh) extensions.
+* **[Premium]** **New!** Yoast SEO Premium comes with wide-ranging crawl settings that help you improve how search engines crawl your site.
 
 #### WRITE KILLER CONTENT WITH YOAST SEO
 We know content is king, that's why Yoast SEO is famous for its **state-of-the-art content and SEO analysis**. Yoast SEO gives you:
@@ -126,7 +127,7 @@ Want more information on search engine optimization and Yoast SEO? Have a look a
 * Also follow Yoast on [Facebook](https://facebook.com/yoast), [Instagram](https://www.instagram.com/yoast/) & [Twitter](https://twitter.com/yoast).
 
 == Installation ==
-Starting with Yoast SEO consists of just two steps: installing and setting up the plugin. Yoast SEO is designed to work with your site’s specific needs, so don’t forget to go through the Yoast SEO configuration workout as explained in the ‘after activation’ step!
+Starting with Yoast SEO consists of just two steps: installing and setting up the plugin. Yoast SEO is designed to work with your site’s specific needs, so don’t forget to go through the Yoast SEO first-time configuration as explained in the ‘after activation’ step!
 
 ### INSTALL YOAST SEO FROM WITHIN WORDPRESS
 
@@ -143,8 +144,8 @@ Starting with Yoast SEO consists of just two steps: installing and setting up th
 
 ### AFTER ACTIVATION
 
-1. You should see (a notice to start) the Yoast SEO configuration workout;
-1. Go through the configuration workout and set up the plugin for your site;
+1. You should see (a notice to start) the Yoast SEO first-time configuration;
+1. Go through this configuration and set up the plugin for your site;
 1. You’re done!
 
 == Frequently Asked Questions ==
@@ -236,47 +237,56 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Changelog ==
 
-= 18.3 =
-Release Date: March 8th, 2022
+= 19.1 =
+Release Date: June 14th, 2022
 
-Meet Yoast SEO 18.3! For this release, we did another round of fixes and improvements. Read more about what's new in Yoast SEO 18.3 in [our release post in English](https://yoa.st/release-8-3-22) or [our release post in Spanish](https://yoa.st/release-8-3-22-spanish)!
-
-Enhancements:
-
-* Improves the importer so you can now import `post_meta`, `robot_txt` and search appearance options when moving from All-In-One SEO to Yoast SEO.
-* Improves feedback strings for the Keyphrase Length assessment by making it explicit that we only count content words for languages with function word support.
-
-Bugfixes:
-
-* Fixes a bug where the Force rewrite titles option would be shown when a user was using a block-based theme.
-* Fixes a bug where the title of a page would not get included in our `get_head` REST route.
-* Fixes a bug where URLs in the XML sitemaps in certain edge cases would potentially be mangled, most notably when schema-relative URLs were being used.
-* Fixes an issue where HowTo images would not be optimized if they did not start with the site URL.
-* Fixes a bug where HowTo images with custom width would lose their custom width in the Twenty Twenty-One theme.
-
-Other:
-
-* Fixes an incompatibility with Elementor 3.6.0 where the React contents of the Yoast tab in Elementor were not rendered.
-
-= 18.2 =
-Release Date: February 22nd, 2022
-
-Yoast SEO 18.2 is out today! This release includes more fixes and enhancements to enjoy. We improved the workings of the FAQ and How-to blocks. Happy optimizing! Read more about what's new in Yoast SEO 18.2 in [our release post in English](https://yoa.st/release-22-2-22) or [our release post in Spanish](https://yoa.st/release-22-2-22-spanish)!
+Yoast SEO 19.1 is out today! In this release, we've rolled out some improvements that make the content and SEO analyses more flexible. We've also expanded our range of crawl settings in Premium. Read more about what's new in Yoast SEO 19.1 in [our release post in English](https://yoa.st/release-14-6-22) or [our release post in Spanish](https://yoa.st/release-14-6-22-spanish)!
 
 Enhancements:
 
-* Optimizes the images in FAQ and HowTo blocks to be more responsive and load faster.
+* Improves text analysis by splitting text on full-stop only when the next sentence is preceded by a whitespace.
+* Prompts users to set up their site in order to take advantage of all SEO features.
 
 Bugfixes:
 
-* Fixes a bug where the "Save changes" button would overlap with the admin sidebar on WordPress.com. Props to @DustyReagan.
-* Fixes a bug where a (debug) deprecation message would show in the widget editor on WordPress 5.8 and above.
-* Fixes a bug where a console warning would be thrown when adding a structured data block in the block editor, FSE editor or widget editor.
+* Fixes a bug where the "Check links to this URL" option on admin bar menu would lead to an error page on setups with home URL different from the site URL. Props to @suascat.
+* Fixes a bug where the network setting for the crawl cleanup feature would default to `Disable` when the super admin saved settings before upgrading/installing Premium.
+* Fixes a bug which caused the Spanish transition word `para ilustrar` to not be recognized by the transition words assessment.
 
 Other:
 
-* Adds a filter to enable/disable creating indexables: `Yoast\WP\SEO\should_index_indexables`
-* Adds an `__isset` magic method to ease working with helper surfaces. Props to @nlemoine.
+* Adds an informative error message to the steps of the First-time configuration should an error occur.
+* Adds dismissable weekly webinar promo banners to Yoast settings pages & block/Elementor editor sidebars.
+* Adds new disabled toggles to the Crawl settings tab in the General page.
+* Improves handling of OAuth errors in the Wincher integration and clears refresh tokens that seem to be invalid.
+
+= 19.0 =
+Release Date: May 31st, 2022
+
+Say hi to Yoast SEO 19.0! This release helps make your sitemaps available to Bing, we've updated Yoast SEO to add your XML sitemap link(s) to your robots.txt file — if you want. Plus: we've fixed a couple of bugs with Elementor and our readability analyses. Happy updating! Read more about what's new in Yoast SEO 19.0 in [our release post in English](https://yoa.st/release-31-5-22) or [our release post in Spanish](https://yoa.st/release-31-5-22-spanish)!
+
+Enhancements:
+
+* Following a change of policy by Bing, we now reference the XML sitemap in the robots.txt file to make it discoverable for search engines.
+* Changes `Disallow: /wp-admin/` to `Disallow:` in the default robots.txt file to follow our best-practice guide.
+
+Bugfixes:
+
+* Fixes a bug where an error in saving the Site representation step of the First-time configuration would not block the advancement to the next step.
+* Fixes a bug where editing an existing post created in the Block editor in Elementor would result in an analysis result discrepancy.
+* Fixes a bug where items in lists were not excluded for the readability assessment that checks whether consecutive sentences do not begin with the same words.
+* Fixes a bug where outdated information is shown in the First-time configuration Social profiles step
+* Fixes a bug where saving an invalid organization name in the First-time configuration would fail without feedback.
+* Fixes a bug where the schema would not be updated with the new logo when the user changed it via the First-time Configuration.
+* Fixes a bug where the titles of the steps in the First-time configuration would not be translated.
+* Fixes a bug where users would be able to leave a step containing errors by clicking another step's edit button.
+
+Other:
+
+* Adds a Crawl settings tab in the General page with an upsell to Premium.
+* Adds a Redirects page with an upsell to Premium.
+* Deprecates the configuration workout classes.
+* Sets the WordPress tested up to version to 6.0.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
 use MailPoetVendor\Doctrine\DBAL\Platforms\AbstractPlatform;
 use MailPoetVendor\Doctrine\Deprecations\Deprecation;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
+use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Exception\NotSupported;
 use function method_exists;
 class UuidGenerator extends AbstractIdGenerator
@@ -17,7 +17,7 @@ class UuidGenerator extends AbstractIdGenerator
  throw NotSupported::createForDbal3();
  }
  }
- public function generate(EntityManager $em, $entity)
+ public function generateId(EntityManagerInterface $em, $entity)
  {
  $connection = $em->getConnection();
  $sql = 'SELECT ' . $connection->getDatabasePlatform()->getGuidExpression();

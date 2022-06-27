@@ -187,14 +187,14 @@ if( !class_exists( 'LoginPress_Social_Login_Check' ) ) {
       */
       public function onGPlusLogin() {
         include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/autoload.php';
-        include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient/src/Google/Client.php';
+        include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient/src/Client.php';
         include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient-services/src/Google/Service/Oauth2.php';
 
         $_settings    = get_option('loginpress_social_logins');
         $clientId     = $_settings['gplus_client_id']; //Google client ID
         $clientSecret = $_settings['gplus_client_secret']; //Google client secret
         $redirectURL  = $_settings['gplus_redirect_uri']; //Callback URL
-				$gClient      = new Google_Client();
+		$gClient      = new Google_Client();
         $gClient->setApplicationName( 'LoginPress Social Login' );
         $gClient->setClientId( $clientId );
         $gClient->setClientSecret( $clientSecret );
@@ -323,6 +323,13 @@ if( !class_exists( 'LoginPress_Social_Login_Check' ) ) {
           $sha_verifier = sha1( $result->deutype.$result->deuid );
           $sql = $wpdb->prepare( "SELECT * FROM `{$wpdb->prefix}loginpress_social_login_details` WHERE `provider_name` LIKE %s AND `identifier` LIKE %d AND `sha_verifier` LIKE %s", $result->deutype, $result->deuid, $sha_verifier );
           $row = $wpdb->get_results( $sql );
+
+			if ( ! isset( $row[0]->email ) && $result->email === $result->deuid . '@facebook.com' ) {
+				$result->email = $result->email;
+
+			} else if (  $result->email === $result->deuid . '@facebook.com' ) {
+				$result->email = $row[0]->email;
+			}
           $user_object = get_user_by( 'email', $result->email );
 
           if( ! $row ) {

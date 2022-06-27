@@ -82,8 +82,9 @@ class CT_Ultimate_GDPR_Shortcode_Policy_Accept {
 	public function auto_insert_policy_shortcode() {
 
 		$ct_ultimate_gdpr_policy_option = get_option( 'ct-ultimate-gdpr-policy' );
-		$page_id = $ct_ultimate_gdpr_policy_option[ 'policy_target_page' ];
-
+		$page_id = ( isset( $ct_ultimate_gdpr_policy_option['policy_target_page'] ) ) 
+			? $ct_ultimate_gdpr_policy_option['policy_target_page'] : NULL;
+			
 		if( !empty($page_id) ) {
 
 			if( $page_id == "wp" )

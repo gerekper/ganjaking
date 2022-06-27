@@ -23,7 +23,6 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -197,7 +196,7 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 			
 			$contents = @file_get_contents("https://api.quickemailverification.com/v1/verify?email=$oemail&apikey=$apikey");
 			 
-			if ( $contents !== false ) {
+			if ( false !== $contents ) {
 
 				$res = @json_decode($contents);
 				
@@ -210,13 +209,13 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 					}
 					
 					// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
-					Af_Logger::debug(print_r($res,true));	
+					Af_Logger::debug(print_r($res, true));	
 				}			    
 				
 			}
 			
 		} // if ( 1 === $regex_result )
-		Af_Logger::debug('temporary email rule risk : '. ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('temporary email rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	

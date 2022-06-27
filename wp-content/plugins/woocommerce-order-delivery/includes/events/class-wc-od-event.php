@@ -84,8 +84,8 @@ if ( ! class_exists( 'WC_OD_Event' ) ) {
 			// all_day has been explicitly specified.
 			if ( isset( $args['all_day'] ) ) {
 				$this->all_day = (bool) $args['all_day'];
-			// Guess all_day based off of ISO8601 date strings.
 			} else {
+				// Guess all_day based off of ISO8601 date strings.
 				$this->all_day = preg_match( $this->all_day_regex, $args['start'] ) &&
 					( ! isset( $args['end'] ) || preg_match( $this->all_day_regex, $args['end'] ) );
 			}
@@ -97,7 +97,7 @@ if ( ! class_exists( 'WC_OD_Event' ) ) {
 
 			// Parse dates.
 			$this->start = wc_od_parse_datetime( $args['start'], $timezone );
-			$this->end = isset( $args['end'] ) ? wc_od_parse_datetime( $args['end'], $timezone ) : null;
+			$this->end   = isset( $args['end'] ) ? wc_od_parse_datetime( $args['end'], $timezone ) : null;
 
 			// Record additional properties.
 			foreach ( $args as $name => $value ) {
@@ -125,13 +125,13 @@ if ( ! class_exists( 'WC_OD_Event' ) ) {
 
 			// Normalize our event's dates for comparison with the all-day range.
 			$event_start = wc_od_strip_time( $this->start );
-			$event_end = isset( $this->end ) ? wc_od_strip_time( $this->end ) : null;
+			$event_end   = isset( $this->end ) ? wc_od_strip_time( $this->end ) : null;
 
 			// Check if the two ranges intersect.
 			if ( $event_end ) {
 				$is_valid = $event_start < $filters['end'] && $event_end >= $filters['start'];
-			// No end time? Only check if the start is within range.
 			} else {
+				// No end time? Only check if the start is within range.
 				$is_valid = $event_start < $filters['end'] && $event_start >= $filters['start'];
 			}
 

@@ -6,7 +6,6 @@ use MailPoetVendor\Doctrine\ORM\Query\AST\Node;
 use MailPoetVendor\Doctrine\ORM\Query\Lexer;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;
 use MailPoetVendor\Doctrine\ORM\Query\SqlWalker;
-use function call_user_func_array;
 class ConcatFunction extends FunctionNode
 {
  public $firstStringPrimary;

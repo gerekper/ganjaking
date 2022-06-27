@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.6.39
+ * Version: 3.6.42
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
- * Tested up to: 5.8
- * WC tested up to: 5.7
+ * Tested up to: 5.9
+ * WC tested up to: 6.3
  * WC requires at least: 3.2.3
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.39' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.42' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -303,7 +303,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			$settings = $this->settings;
 
 			$zip_origin = null;
-			$method     = ( isset($_POST['product_method']) && !empty($_POST['product_method']) ) ? $_POST['product_method'] : false;
+			$method     = ( ! empty( $_POST['product_method'] ) && is_array( $_POST['product_method'] ) ) ? $_POST['product_method'] : false;
 
 			if (! $method ) return;
 

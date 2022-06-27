@@ -10,18 +10,19 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 1.9.0
+ * @version 2.0.0
  */
-// Exit if accessed directly
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 ?>
-<table cellspacing="0" class="mnm_table mnm_child_products">
+<table cellspacing="0" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 	<?php if ( count( $column_headers ) ) : ?>
 	<thead>
 		<tr>

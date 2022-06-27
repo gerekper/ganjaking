@@ -42,7 +42,7 @@
 			return false;
 		} );
 
-		$( '.inline-edit' ).on( function( e ) {
+		$( '.inline-edit' ).on( 'click', function( e ) {
 			e.preventDefault();
 
 			var id = $(this).data("id");

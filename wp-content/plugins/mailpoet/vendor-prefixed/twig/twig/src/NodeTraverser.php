@@ -14,7 +14,7 @@ final class NodeTraverser
  $this->addVisitor($visitor);
  }
  }
- public function addVisitor(NodeVisitorInterface $visitor)
+ public function addVisitor(NodeVisitorInterface $visitor) : void
  {
  $this->visitors[$visitor->getPriority()][] = $visitor;
  }
@@ -28,22 +28,18 @@ final class NodeTraverser
  }
  return $node;
  }
- private function traverseForVisitor(NodeVisitorInterface $visitor, Node $node)
+ private function traverseForVisitor(NodeVisitorInterface $visitor, Node $node) : ?Node
  {
  $node = $visitor->enterNode($node, $this->env);
  foreach ($node as $k => $n) {
- if (\false !== ($m = $this->traverseForVisitor($visitor, $n)) && null !== $m) {
+ if (null !== ($m = $this->traverseForVisitor($visitor, $n))) {
  if ($m !== $n) {
  $node->setNode($k, $m);
  }
  } else {
- if (\false === $m) {
- @\trigger_error('Returning "false" to remove a Node from NodeVisitorInterface::leaveNode() is deprecated since Twig version 2.9; return "null" instead.', \E_USER_DEPRECATED);
- }
  $node->removeNode($k);
  }
  }
  return $visitor->leaveNode($node, $this->env);
  }
 }
-\class_alias('MailPoetVendor\\Twig\\NodeTraverser', 'MailPoetVendor\\Twig_NodeTraverser');

@@ -1,5 +1,15 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2022-06-20 - version 3.6.42
+* Fix   - Multiple address display incorrectly in plain text email.
+* Fix   - Updating status of single package.
+
+2022-05-25 - version 3.6.41
+* Fix   - Unsupported operand types: string - string in wcms-order.php on PHP 8.
+
+2022-05-03 - version 3.6.40
+* Fix   - Fatal error on checkout with PHP 8.0 when virtual products added to the cart.
+
 2022-01-05 - version 3.6.39
 * Fix   - Missing Languages folder and .pot file in release-ready zip file.
 

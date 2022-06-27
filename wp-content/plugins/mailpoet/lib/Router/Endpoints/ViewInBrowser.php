@@ -38,6 +38,7 @@ class ViewInBrowser {
 
   private function displayNewsletter($result) {
     header('Content-Type: text/html; charset=utf-8');
+    // phpcs:ignore WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter,WordPress.Security.EscapeOutput.OutputNotEscaped
     echo $result;
     exit;
   }

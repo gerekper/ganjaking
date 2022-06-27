@@ -8,7 +8,7 @@ use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class MacroTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $lineno = $token->getLine();
  $stream = $this->parser->getStream();
@@ -36,13 +36,12 @@ final class MacroTokenParser extends AbstractTokenParser
  $this->parser->setMacro($name, new MacroNode($name, new BodyNode([$body]), $arguments, $lineno, $this->getTag()));
  return new Node();
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endmacro');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'macro';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\MacroTokenParser', 'MailPoetVendor\\Twig_TokenParser_Macro');

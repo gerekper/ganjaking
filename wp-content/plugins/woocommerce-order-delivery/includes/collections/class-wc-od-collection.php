@@ -43,7 +43,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	}
 
 	/**
-	 * Gets all of the collection's keys.
+	 * Gets the collection's keys.
 	 *
 	 * @since 1.6.0
 	 *
@@ -418,27 +418,54 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	protected function where_clause( $item, $clause ) {
 		list( $key, $value, $operator ) = array_pad( $clause, 3, null );
 
+		$item_value = $this->get_item_value( $item, $key );
+
 		switch ( $operator ) {
 			default:
 			case '===':
-				return $item[ $key ] === $value;
+				return $item_value === $value;
 			case '!==':
-				return $item[ $key ] !== $value;
+				return $item_value !== $value;
 			case '=':
 			case '==':
-				return $item[ $key ] == $value; // WPCS: loose comparison ok.
+				return $item_value == $value; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 			case '!=':
 			case '<>':
-				return $item[ $key ] != $value; // WPCS: loose comparison ok.
+				return $item_value != $value; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 			case '<':
-				return $item[ $key ] < $value;
+				return $item_value < $value;
 			case '>':
-				return $item[ $key ] > $value;
+				return $item_value > $value;
 			case '<=':
-				return $item[ $key ] <= $value;
+				return $item_value <= $value;
 			case '>=':
-				return $item[ $key ] >= $value;
+				return $item_value >= $value;
 		}
+	}
+
+	/**
+	 * Gets the item value for the specified key.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param mixed  $item A collection's item.
+	 * @param string $key  The key.
+	 * @return mixed
+	 */
+	protected function get_item_value( $item, $key ) {
+		$item_value = null;
+
+		if ( is_object( $item ) ) {
+			if ( method_exists( $item, "get_{$key}" ) ) {
+				$item_value = call_user_func( array( $item, "get_{$key}" ) );
+			} elseif ( property_exists( $item, $key ) ) {
+				$item_value = $item->{$key};
+			}
+		} elseif ( is_array( $item ) ) {
+			$item_value = $item[ $key ];
+		}
+
+		return $item_value;
 	}
 
 	/*

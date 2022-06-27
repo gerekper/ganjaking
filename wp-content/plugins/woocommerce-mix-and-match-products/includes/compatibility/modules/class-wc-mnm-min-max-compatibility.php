@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  1.10.6
+ * @version  2.0.7
  */
 class WC_MNM_Min_Max_Compatibility {
 
 	/**
 	 * The child item object whose qty input is being filtered.
-	 * @var WC_Product
+	 * @var WC_MNM_Child_Item
 	 */
 	public static $child_item = false;
 
@@ -36,17 +36,17 @@ class WC_MNM_Min_Max_Compatibility {
 	public static function init() {
 
 		// Add admin option.
-		add_action( 'woocommerce_mnm_product_options', array( __CLASS__, 'min_max_options' ), 50, 2 );
+		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'min_max_options' ), 50, 2 );
 		add_action( 'woocommerce_admin_process_product_object', array( __CLASS__, 'process_mnm_min_max_data' ) );
 
 		// Validate child items with min/max quantities.
-		add_filter( 'woocommerce_mnm_item_add_to_cart_validation', array( __CLASS__, 'min_max_item_validation' ), 10, 5 );
+		add_filter( 'wc_mnm_child_item_add_to_cart_validation', array( __CLASS__, 'min_max_item_validation' ), 10, 5 );
 
 		// Set global $child_item variable.
-		add_action( 'woocommerce_mnm_child_item_details', array( __CLASS__, 'restore_quantities_set' ), -10, 2 );
+		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'restore_quantities_set' ), -10, 2 );
 
 		// Unset global $child_item variable.
-		add_action( 'woocommerce_mnm_child_item_details', array( __CLASS__, 'restore_quantities_unset' ), 999 );
+		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'restore_quantities_unset' ), 999 );
 
 		// Restore child items quantities to the values they had before min/max interference.
 		add_filter( 'woocommerce_quantity_input_args', array( __CLASS__, 'save_quantity_input_args' ), 0, 2 );
@@ -66,9 +66,13 @@ class WC_MNM_Min_Max_Compatibility {
 		add_filter( 'woocommerce_cart_item_product', array( __CLASS__, 'add_child_item_to_product' ), 10, 3 );
 
 		// Apply min/max/grouped restrictions to child variations.
-		add_filter( 'woocommerce_mnm_quantity_input_min', array( __CLASS__, 'variation_inputs' ), 10, 3 );
-		add_filter( 'woocommerce_mnm_quantity_input_max', array( __CLASS__, 'variation_inputs' ), 10, 3 );
-		add_filter( 'woocommerce_mnm_quantity_input_step', array( __CLASS__, 'variation_inputs' ), 10, 3 );
+		add_filter( 'wc_mnm_child_item_quantity_input_min', array( __CLASS__, 'child_item_quantity_limits' ), 10, 3 );
+		add_filter( 'wc_mnm_child_item_quantity_input_max', array( __CLASS__, 'child_item_quantity_limits' ), 10, 3 );
+		add_filter( 'wc_mnm_child_item_quantity_input_step', array( __CLASS__, 'child_item_quantity_limits' ), 10, 3 );
+
+		// Skip using the groupof/step as the min for child items.
+		add_filter( 'wc_min_max_use_group_as_min_quantity', array( __CLASS__, 'skip_group_for_child_items' ), 10, 3 );
+		add_filter( 'wc_min_max_use_group_as_input_quantity', array( __CLASS__, 'skip_group_for_child_items' ), 10, 3 );
 
 	}
 
@@ -85,16 +89,18 @@ class WC_MNM_Min_Max_Compatibility {
 
 		// Ignore Min/Max Quantities in Container.
 		woocommerce_wp_radio(
-            array(
-			'id'          => '_mnm_ignore_min_max_rules',
-			'label'       => __( 'WooCommmerce Min/Max Quantities compatibility', 'woocommerce-mix-and-match-products' ),
-			'value'       => $mnm_product_object->get_meta( '_mnm_ignore_min_max_rules' ) == 'yes' ? 'ignore' : 'default',
-			'description' => __( 'Select ignore to disregard the Min/Max Quantities plugin\'s rules for products in this container.', 'woocommerce-mix-and-match-products' ),
-			'desc_tip'  => true,
-			'options'     => array( 'default' => __( 'Apply rules in container', 'woocommerce-mix-and-match-products' ),
-									'ignore' => __( 'Ignore rules in container', 'woocommerce-mix-and-match-products' ) )
-            )
-        );
+			array(
+				'id'          => '_mnm_ignore_min_max_rules',
+				'label'       => __( 'WooCommmerce Min/Max Quantities compatibility', 'woocommerce-mix-and-match-products' ),
+				'value'       => $mnm_product_object->get_meta( '_mnm_ignore_min_max_rules' ) == 'yes' ? 'ignore': 'default',
+				'description' => __( 'Select ignore to disregard the Min/Max Quantities plugin\'s rules for products in this container.', 'woocommerce-mix-and-match-products' ),
+				'desc_tip'    => true,
+				'options'     => array(
+					'default'    => __( 'Apply rules in container', 'woocommerce-mix-and-match-products' ),
+					'ignore'     => __( 'Ignore rules in container', 'woocommerce-mix-and-match-products' ),
+				)
+			)
+		);
 	}
 
 	/**
@@ -117,29 +123,24 @@ class WC_MNM_Min_Max_Compatibility {
 	 * By default, Min/Max will catch the invalid item in the cart, but this will prevent the whole container from being added with an invalid configuration.
 	 *
 	 * @param bool $is_valid
-	 * @param obj $container WC_Product_Mix_and_Match of parent container.
-	 * @param obj $mnm_item WC_Product of child item.
+	 * @param WC_Product_Mix_and_Match $container  of parent container.
+	 * @param WC_MNM_Child_Item $child_item of child item.
 	 * @param int $item_quantity Quantity of child item.
 	 * @param int $container_quantity Quantity of parent container.
-	 * @since  1.6.1
+	 * @since 1.6.1
 	 */
-	public static function min_max_item_validation( $is_valid, $container, $mnm_item, $item_quantity, $container_quantity ) {
+	public static function min_max_item_validation( $is_valid, $container, $child_item, $item_quantity, $container_quantity ) {
 
 		if ( ! self::contents_ignores_rules( $container ) ) {
 
-			if ( $mnm_item->get_parent_id() > 0 ) {
-				$product_id = $mnm_item->get_parent_id();
-				$variation_id = $mnm_item->get_id();
-			} else {
-				$product_id = $mnm_item->get_id();
-				$variation_id = 0;
-			}
+			$product_id   = $child_item->get_product_id();
+			$variation_id = $child_item->get_variation_id();
 
 			$is_valid = WC_Min_Max_Quantities::get_instance()->add_to_cart( $is_valid, $product_id, $item_quantity * $container_quantity, $variation_id );
 
 			if ( ! $is_valid ) {
 				// translators: %s product title.
-				$notice = sprintf( __( '&quot;%s&quot; cannot  be added to the cart as configured.', 'woocommerce-mix-and-match-products' ), $container->get_title() );
+				$notice = sprintf( _x( '&quot;%s&quot; cannot  be added to the cart as configured.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container->get_title() );
 				throw new Exception( $notice );
 			}
 		}
@@ -151,7 +152,7 @@ class WC_MNM_Min_Max_Compatibility {
 	/**
 	 * Set global $child_item variable.
 	 *
-	 * @param  WC_Product  $child_item
+	 * @param  WC_MNM_Child_Item $child_item of child item.
 	 * @param  WC_Product_Mix_and_Match $container
 	 * @return void
 	 */
@@ -343,34 +344,38 @@ class WC_MNM_Min_Max_Compatibility {
 
 
 	/**
-	 * Apply min/max/step to variations.
+	 * Apply min/max/step to all child products.
+	 * Unfortunately, applying to the products means ultimately we check the meta twice (here and then again by MMQ in the woocommerce_quantity_input_args filter)
+	 * But this ensure we validate properly on add to cart instead of only relying on the input limits.
 	 *
-	 * @since  1.11.0
+	 * @since  2.0.7
 	 * @param  string  $qty
-	 * @param  WC_Product  $child_product
+	 * @param  WC_MNM_Child_Item  $child_item
 	 * @param obj $container WC_Product_Mix_and_Match of parent container.
 	 * @return string
 	 */
-	public static function variation_inputs( $qty, $child_product, $container_product ) {
+	public static function child_item_quantity_limits( $qty, $child_item, $container_product ) {
 
-		if ( $child_product->get_parent_id() > 0 && ! self::contents_ignores_rules( $container_product ) ) {
+		$child_product = $child_item->get_product();
 
-			$current_filter = str_replace( 'woocommerce_mnm_quantity_input_', '', current_filter()  );
+		if ( $child_product && ! self::contents_ignores_rules( $container_product ) ) {
+
+			$current_filter = str_replace( 'wc_mnm_child_item_quantity_input_', '', current_filter() );
+			$prefix         = $child_item->get_variation_id() ? 'variation_': '';
 
 			switch ( $current_filter ) {
 				case 'min':
-					$min = $child_product->get_meta( 'variation_minimum_allowed_quantity', true );
+					$min = $child_product->get_meta( $prefix . 'minimum_allowed_quantity', true );
 					$qty = $min ? $min : $qty;
 					break;
 				case 'max':
-					$max = $child_product->get_meta( 'variation_maximum_allowed_quantity', true );
+					$max = $child_product->get_meta( $prefix . 'maximum_allowed_quantity', true );
 					$qty = $max ? $max : $qty;
 					break;
 				case 'group':
-					$step = $child_product->get_meta( 'variation_group_of_quantity', true );
+					$step = WC_Min_Max_Quantities::get_instance()->get_group_of_quantity_for_product( $child_product );
 					$qty = $step ? $step : $qty;
 					break;
-
 			}
 
 		}
@@ -378,6 +383,38 @@ class WC_MNM_Min_Max_Compatibility {
 		return $qty;
 	}
 
+	/**
+	 * If this is a MNM child item, don't use Group as for our minimum or initial value.
+	 * 
+	 * @since 2.0.7
+	 *
+	 * @param boolean $use_group Whether to use group quantity as minimum. Default true.
+	 * @param object  $product   Product object.
+	 * @param array   $data      Available product data.
+	 * @return boolean
+	 */
+	public static function skip_group_for_child_items( $use_group, $product, $data ) {
 
+		// Check if this product has the mnm_child_item prop directly set.
+		if ( WC_MNM_Product_Prices::is_child_pricing_context( $product ) ) {
+			$use_group = false;
+		}
+		return $use_group;
+	}
+	
+
+	/*-----------------------------------------------------------------*/
+	/*  Deprecated    .                                                */
+	/*-----------------------------------------------------------------*/
+
+	/**
+	 * Apply min/max/step to variations.
+	 *
+	 * @deprecated 2.0.7
+	 */
+	public static function variation_inputs( $qty, $child_item, $container_product ) {
+		wc_deprecated_function( 'WC_Mix_and_Match::variation_inputs()', '2.0.7', 'Method renamed to WC_MNM_Min_Max_Compatibility::child_item_quantity_limits().' );
+		return self::child_item_quantity_limits( $qty, $child_item, $container_product );
+	}
 }
 WC_MNM_Min_Max_Compatibility::init();

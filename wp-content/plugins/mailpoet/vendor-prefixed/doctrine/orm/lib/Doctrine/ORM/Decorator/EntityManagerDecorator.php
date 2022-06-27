@@ -5,14 +5,13 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping;
 use MailPoetVendor\Doctrine\Persistence\ObjectManagerDecorator;
-use function get_class;
+use function get_debug_type;
 use function method_exists;
 use function sprintf;
 use function trigger_error;
 use const E_USER_NOTICE;
 abstract class EntityManagerDecorator extends ObjectManagerDecorator implements EntityManagerInterface
 {
- protected $wrapped;
  public function __construct(EntityManagerInterface $wrapped)
  {
  $this->wrapped = $wrapped;
@@ -36,7 +35,7 @@ abstract class EntityManagerDecorator extends ObjectManagerDecorator implements 
  public function wrapInTransaction(callable $func)
  {
  if (!method_exists($this->wrapped, 'wrapInTransaction')) {
- trigger_error(sprintf('Calling `transactional()` instead of `wrapInTransaction()` which is not implemented on %s', get_class($this->wrapped)), \E_USER_NOTICE);
+ trigger_error(sprintf('Calling `transactional()` instead of `wrapInTransaction()` which is not implemented on %s', get_debug_type($this->wrapped)), E_USER_NOTICE);
  return $this->wrapped->transactional($func);
  }
  return $this->wrapped->wrapInTransaction($func);

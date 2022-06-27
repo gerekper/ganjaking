@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Tools\Pagination;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Platforms\AbstractPlatform;
-use MailPoetVendor\Doctrine\DBAL\Platforms\SQLServer2012Platform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\SQLServerPlatform;
 use MailPoetVendor\Doctrine\ORM\Query;
 use MailPoetVendor\Doctrine\ORM\Query\AST\SelectStatement;
@@ -31,12 +30,12 @@ class CountOutputWalker extends SqlWalker
  }
  public function walkSelectStatement(SelectStatement $AST)
  {
- if ($this->platform instanceof SQLServer2012Platform || $this->platform instanceof SQLServerPlatform) {
+ if ($this->platform instanceof SQLServerPlatform) {
  $AST->orderByClause = null;
  }
  $sql = parent::walkSelectStatement($AST);
  if ($AST->groupByClause) {
- return sprintf('SELECT %s AS dctrn_count FROM (%s) dctrn_table', $this->platform->getCountExpression('*'), $sql);
+ return sprintf('SELECT COUNT(*) AS dctrn_count FROM (%s) dctrn_table', $sql);
  }
  // Find out the SQL alias of the identifier column of the root entity
  // It may be possible to make this work with multiple root entities but that
@@ -74,6 +73,6 @@ class CountOutputWalker extends SqlWalker
  throw new RuntimeException(sprintf('Not all identifier properties can be found in the ResultSetMapping: %s', implode(', ', array_diff($rootIdentifier, array_keys($sqlIdentifier)))));
  }
  // Build the counter query
- return sprintf('SELECT %s AS dctrn_count FROM (SELECT DISTINCT %s FROM (%s) dctrn_result) dctrn_table', $this->platform->getCountExpression('*'), implode(', ', $sqlIdentifier), $sql);
+ return sprintf('SELECT COUNT(*) AS dctrn_count FROM (SELECT DISTINCT %s FROM (%s) dctrn_result) dctrn_table', implode(', ', $sqlIdentifier), $sql);
  }
 }

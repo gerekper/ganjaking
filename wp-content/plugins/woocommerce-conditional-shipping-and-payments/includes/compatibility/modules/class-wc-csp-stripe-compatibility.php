@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Stripe_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.4.0
  */

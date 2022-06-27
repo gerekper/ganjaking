@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Update_Cart_Restriction interface
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */

@@ -36,10 +36,10 @@ class WC_PB_Coupon {
 	 *
 	 * @since  5.8.0
 	 *
-	 * @param  bool        $valid
-	 * @param  WC_Product  $product
-	 * @param  WC_Coupon   $coupon
-	 * @param  array       $item
+	 * @param  bool                   $valid
+	 * @param  WC_Product             $product
+	 * @param  WC_Coupon              $coupon
+	 * @param  WC_Order_Item_Product  $item
 	 * @return boolean
 	 */
 	public static function coupon_is_valid_for_product(  $valid, $product, $coupon, $item  ) {

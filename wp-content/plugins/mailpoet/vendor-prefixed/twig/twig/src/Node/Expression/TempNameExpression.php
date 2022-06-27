@@ -8,9 +8,8 @@ class TempNameExpression extends AbstractExpression
  {
  parent::__construct([], ['name' => $name], $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->raw('$_')->raw($this->getAttribute('name'))->raw('_');
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\TempNameExpression', 'MailPoetVendor\\Twig_Node_Expression_TempName');

@@ -92,6 +92,10 @@ class WC_Deposits_Cart_Manager {
 		add_filter( 'woocommerce_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 		add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'remove_add_to_cart_class' ), 10, 2 );
+
+		// Display correct tax when the "Display Tax Totals" setting is set to "As a single total".
+		// @see https://github.com/woocommerce/woocommerce-deposits/issues/385.
+		add_filter( 'woocommerce_cart_totals_taxes_total_html', array( $this, 'cart_totals_taxes_total_html' ) );
 	}
 
 	/**
@@ -240,7 +244,40 @@ class WC_Deposits_Cart_Manager {
 		if ( is_null( $cart_item ) || is_null( WC()->cart ) ) {
 			return null;
 		}
-		return WC()->cart->generate_cart_id( $cart_item['product_id'], $cart_item['variation_id'], $cart_item['variation'] );
+
+		$cart_item_data = array();
+		/**
+		 * Consider booking data in generate cart id,
+		 * Otherwise it will generate same cart id for 2 booking items from same bookable product.
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-deposits/issues/427
+		 */
+		if ( isset( $cart_item['booking'] ) && isset( $cart_item['booking']['_booking_id'] ) ) {
+			$cart_item_data['booking_id'] = $cart_item['booking']['_booking_id'];
+		}
+
+		// Consider product addons.
+		if ( isset( $cart_item['addons'] ) && ! empty( $cart_item['addons'] ) ) {
+			$cart_item_data['addons'] = $cart_item['addons'];
+		}
+
+		return WC()->cart->generate_cart_id( $cart_item['product_id'], $cart_item['variation_id'], $cart_item['variation'], $cart_item_data );
+	}
+
+	/**
+	 * Checks if a parameter exist in $_POST or $_GET.
+	 *
+	 * @param string $name a key/parameter.
+	 *
+	 * @return mixed|null
+	 */
+	public static function check_global_param_exist( $name ) {
+		$value = filter_input( INPUT_POST, $name, FILTER_SANITIZE_STRING );
+		if ( null === $value || false === $value ) {
+			$value = filter_input( INPUT_GET, $name, FILTER_SANITIZE_STRING );
+		}
+
+		return $value;
 	}
 
 	/**
@@ -336,8 +373,8 @@ class WC_Deposits_Cart_Manager {
 			return $passed;
 		}
 
-		$wc_deposit_option       = isset( $_POST['wc_deposit_option'] ) ? sanitize_text_field( $_POST['wc_deposit_option'] ) : false;
-		$wc_deposit_payment_plan = isset( $_POST['wc_deposit_payment_plan'] ) ? sanitize_text_field( $_POST['wc_deposit_payment_plan'] ) : false;
+		$wc_deposit_option       = self::check_global_param_exist( 'wc_deposit_option' );
+		$wc_deposit_payment_plan = self::check_global_param_exist( 'wc_deposit_payment_plan' );
 
 		// Validate chosen plan
 		if ( ( 'yes' === $wc_deposit_option || WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) && 'plan' === WC_Deposits_Product_Manager::get_deposit_type( $product_id ) ) {
@@ -362,8 +399,8 @@ class WC_Deposits_Cart_Manager {
 			return $cart_item_meta;
 		}
 
-		$wc_deposit_option       = isset( $_POST['wc_deposit_option'] ) ? sanitize_text_field( $_POST['wc_deposit_option'] ) : false;
-		$wc_deposit_payment_plan = isset( $_POST['wc_deposit_payment_plan'] ) ? sanitize_text_field( $_POST['wc_deposit_payment_plan'] ) : false;
+		$wc_deposit_option       = self::check_global_param_exist( 'wc_deposit_option' );
+		$wc_deposit_payment_plan = self::check_global_param_exist( 'wc_deposit_payment_plan' );
 
 		if ( 'yes' === $wc_deposit_option || WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) {
 			$cart_item_meta['is_deposit'] = true;
@@ -1159,6 +1196,28 @@ class WC_Deposits_Cart_Manager {
 		}
 
 		return $taxes;
+	}
+
+	/**
+	 * Display the correct tax when the "Display Tax Totals" setting is set to "As a single total".
+	 *
+	 * @param string $total_html  Tax Total HTML.
+	 * @return string Tax Total HTML.
+	 */
+	public function cart_totals_taxes_total_html( $total_html ) {
+		if ( ! WC()->cart || ! $this->has_deposit( WC()->cart ) ) {
+			return $total_html;
+		}
+
+		$cart_tax_totals = WC()->cart->get_tax_totals();
+		$deferred_tax    = $this->calculate_deferred_taxes_from_cart( WC()->cart );
+		if ( empty( $deferred_tax ) || empty( $cart_tax_totals ) ) {
+			// No modifications required.
+			return $total_html;
+		}
+
+		$tax = WC()->cart->get_taxes_total() - array_sum( $this->calculate_deferred_taxes_from_cart() );
+		return wc_price( $tax );
 	}
 
 	/**

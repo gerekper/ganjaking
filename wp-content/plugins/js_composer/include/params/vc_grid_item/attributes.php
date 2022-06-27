@@ -479,8 +479,7 @@ function vc_gitem_template_attribute_post_title( $value, $data ) {
 	), $data ) );
 	$id = 0;
 	if ( isset( $data['post'] ) ) {
-		$id = apply_filters( 'vc_object_id', $data['post']->ID );
-		$id = apply_filters( 'wpml_object_id', $id );
+		$id = apply_filters( 'wpml_object_id', $id, 'post', true );
 	}
 
 	return get_the_title( $id );

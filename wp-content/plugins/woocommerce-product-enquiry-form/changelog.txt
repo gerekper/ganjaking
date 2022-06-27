@@ -1,5 +1,16 @@
 *** Product Enquiry Form Changelog ***
 
+2022-06-07 - version 1.2.24
+* Tweak - WC 6.6 compatibility.
+
+2022-05-10 - version 1.2.23
+* Fix - reCAPTCHA v3 retry.
+* Tweak - WooCommerce 6.5 and WordPress 6.0 compatibility.
+
+2022-02-08 - version 1.2.22
+* Fix - Include languages folder and POT file in the release.
+* Tweak - WC 6.2 compatibility.
+
 2022-01-13 - version 1.2.21
 * Fix - Unify `.github/**.md` files with other repos.
 * Tweak - WC 6.1 compatibility.

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.1
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -352,6 +352,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							'post_status'  => 'publish',
 							'post_author'  => 1,
 							'post_type'    => 'shop_coupon',
+							'post_parent'  => ! empty( $coupon_id ) ? absint( $coupon_id ) : 0,
 						);
 
 						$new_coupon_id = wp_insert_post( $coupon_args );
@@ -613,7 +614,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 				$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 			}
 
-			$code = ( ! empty( $coupon_code ) ) ? $coupon_code : 0;
+			$code = ( ! empty( $coupon_code ) ) ? $coupon_code : '';
 
 			if ( ! empty( $current_user->ID ) ) {
 

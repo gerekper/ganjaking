@@ -28,21 +28,21 @@ foreach ( $addon['options'] as $i => $option ) {
 
 	if ( 'percentage_based' === $price_type ) {
 		$price_display     = $price_raw;
-		$price_for_display = apply_filters(
+		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$option,
 			$i,
 			'checkbox'
-		);
+		) : '';
 	} else {
-		$price_for_display = apply_filters(
+		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,
 			$i,
 			'checkbox'
-		);
+		) : '';
 	}
 
 	$selected = isset( $_POST[ 'addon-' . sanitize_title( $field_name ) ] ) ? wc_clean( wp_unslash( $_POST[ 'addon-' . sanitize_title( $field_name ) ] ) ) : array();
@@ -50,24 +50,27 @@ foreach ( $addon['options'] as $i => $option ) {
 		$selected = array( $selected );
 	}
 	$current_value = ( in_array( sanitize_title( $option_label ), $selected, true ) ) ? 1 : 0;
+
+	$option_id = sanitize_title( $field_name ) . '-' . $i;
 	?>
 
 	<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) . '-' . $i ); ?>">
-		<label>
-			<input
-				type="checkbox"
-				<?php echo $addon_required ? 'required' : ''; ?>
-				class="wc-pao-addon-field wc-pao-addon-checkbox"
-				name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]"
-				data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
-				data-price="<?php echo esc_attr( $price_display ); ?>"
-				data-price-type="<?php echo esc_attr( $price_type ); ?>"
-				value="<?php echo esc_attr( sanitize_title( $option_label ) ); ?>"
-				data-label="<?php echo esc_attr( wptexturize( $option_label ) ); ?>"
-			/> <?php echo wp_kses_post( wptexturize( $option_label . ' ' . $price_for_display ) ); ?>
+		<input
+			type="checkbox"
+			id="<?php echo esc_attr( $option_id ); ?>"
+			<?php echo $addon_required ? 'required' : ''; ?>
+			class="wc-pao-addon-field wc-pao-addon-checkbox"
+			name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]"
+			data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
+			data-price="<?php echo esc_attr( $price_display ); ?>"
+			data-price-type="<?php echo esc_attr( $price_type ); ?>"
+			value="<?php echo esc_attr( sanitize_title( $option_label ) ); ?>"
+			data-label="<?php echo esc_attr( wptexturize( $option_label ) ); ?>"
+		/>
+		<label for="<?php echo esc_attr( $option_id ); ?>">
+			<?php echo wp_kses_post( wptexturize( $option_label . ' ' . $price_for_display ) ); ?>
 		</label>
 	</p>
-
 	<?php
 }
 
@@ -77,5 +80,3 @@ if ( $addon_required ) {
 	</div>
 	<?php
 }
-
-?>

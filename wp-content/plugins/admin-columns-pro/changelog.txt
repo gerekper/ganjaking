@@ -1,5 +1,35 @@
 == Changelog ==
 
+= 5.7.2 =
+Release Date: June 14th, 2022
+
+* [Added] It is now possible to toggle the Row Actions (Below title) on the setting page per list table
+* [Added] New hook that runs before the value is saved in (bulk/inline) edit `acp/editing/before_save`
+* [Improved] Changed the radio buttons to a Toggle element for column settings that have a on/off state
+* [Fixed] Updater on License page is fixed
+* [Fixed] Smart Filtering for some columns on the Taxonomy overview paged did not work
+* [Updated] Admin Columns Core changes ( 4.5.2 )
+* [Added] It is now possible to select the Website display for User related columns
+* [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
+
+= 5.7.1 =
+Release Date: May 16th, 2022
+
+* [Added] It is now possible to hide the Comment Type filter in the Hide on Screen section for Comments
+* [Added] Custom Field column can now display nested serialized data
+* [Added] Better display value for serialized Custom Fields (Multiple values)
+* [Improved] The Link count column can now display All, internal, or external links
+* [Improved] The 'Hide on screen' options are renamed to work more intuitive (toggle to show instead of hiding)
+* [Improved] The media column types are now grouped based on the media type
+* [Fixed] Export for the Media Taxonomy column now works correctly
+* [Fixed] Javascript: possible null error for the column configurator when the screen options are not available
+* [Fixed] There was a Filter button in the footer on the Taxonomy page when there were no filters available
+* [Fixed] Several issues during the updates of Admin Columns plugins
+* [Updated] Admin Columns Core changes ( 4.5.1 )
+* [Added] New Audio player column for Media list table
+* [Added] New Video player column for Media list table
+* [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
+
 = 5.7 =
 Release Date: March 22nd, 2022
 

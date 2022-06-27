@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 17.1.1
+ * Version: 18.1.1
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 5.9
  * WC requires at least: 3.0
- * WC tested up to: 6.2
+ * WC tested up to: 6.3
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -20,7 +20,7 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '17.1.1' );
+	define( 'REDSYS_VERSION', '18.1.1' );
 }
 if ( ! defined( 'REDSYS_FLUSH_VERSION' ) ) {
 	define( 'REDSYS_FLUSH_VERSION', 100 );
@@ -51,7 +51,7 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2022/02/14/woocommerce-redsys-gateway-17-1-x/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2022/03/21/woocommerce-redsys-gateway-18-1-x-varios/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -79,15 +79,7 @@ if ( ! defined( 'REDSYS_GPL' ) ) {
 }
 
 require_once REDSYS_PLUGIN_PATH_P . 'includes/defines.php';
-
-/**
- * Package: WooCommerce Redsys Gateway
- * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once REDSYS_PLUGIN_PATH_P . 'woo-includes/woo-functions.php';
-}
+require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-push-notifications.php'; // Version 18.0 Add Push Notifications.
 
 /**
  * Package: WooCommerce Redsys Gateway
@@ -126,6 +118,7 @@ add_action( 'admin_init', 'redsys_deactivate_plugins' );
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-site-health.php';
 require_once REDSYS_PLUGIN_NOTICE_PATH_P . 'notices.php';
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-settings-tab-redsys-sort-invoices.php';
+require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-push-notifications-menu.php';
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-card-images.php';
 
 if ( ! class_exists( 'RedsysAPI' ) ) {
@@ -222,7 +215,7 @@ add_filter( 'template_include', 'redsys_custom_template_pay' );
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
  * Copyright: (C) 2013 - 2022 José Conti
  */
-woothemes_queue_update( plugin_basename( __FILE__ ), '50392593e834002d8bee386333d1ed3c', '187871' );
+
 function woocommerce_gateway_redsys_premium_init() {
 
 	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {

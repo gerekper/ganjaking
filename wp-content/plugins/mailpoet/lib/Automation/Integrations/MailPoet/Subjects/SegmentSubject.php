@@ -28,13 +28,22 @@ class SegmentSubject implements Subject {
     $this->segmentsRepository = $segmentsRepository;
 
     $this->fields = [
-      // name
+      'name' => 
       new Field(
         'mailpoet:segment:name',
         Field::TYPE_STRING,
         __('Segment name', 'mailpoet'),
         function () {
           return $this->getSegment()->getName();
+        }
+      ),
+      'id' => 
+      new Field(
+        'mailpoet:segment:id',
+        Field::TYPE_INTEGER,
+        __('Segment ID', 'mailpoet'),
+        function () {
+          return $this->getSegment()->getId();
         }
       ),
     ];

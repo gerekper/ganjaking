@@ -9,12 +9,7 @@ class Preload
     public static function init() 
     {
         if(!empty(Config::$options['preload']['preload']) || !empty(Config::$options['preload']['critical_images'])) {
-
-            add_action('perfmatters_output_buffer_init', array('Perfmatters\Preload', 'add_preloads'));
-
-            if(!empty(Config::$options['preload']['critical_images'])) {
-                add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Preload', 'prepare_critical_images'));
-            }
+            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Preload', 'add_preloads'));
         }
     }
 
@@ -138,77 +133,65 @@ class Preload
             foreach(self::$preloads as $preload) {
                 $preloads_string.= $preload;
             }
-            $html = str_replace('</title>', '</title>' . $preloads_string, $html);
-        }
-
-        return $html;
-    }
-
-    //add data attribute to critical images
-    public static function prepare_critical_images($html) {
-
-        //match all img tags
-        preg_match_all('#<img([^>]+?)\/?>#is', $html, $images, PREG_SET_ORDER);
-
-        if(!empty($images)) {
-
-            $count = 0;
-
-            //loop through images
-            foreach($images as $image) {
-
-                if($count >= Config::$options['preload']['critical_images']) {
-                    break;
-                }
-
-                if(strpos($image[0], 'secure.gravatar.com') !== false) {
-                    continue;
-                }
-
-                $exclusions = apply_filters('perfmatters_critical_image_exclusions', array());
-                if(!empty($exclusions) && is_array($exclusions)) {
-                    foreach($exclusions as $exclusion) {
-                        if(strpos($image[0], $exclusion) !== false) {
-                            continue 2;
-                        }
-                    }
-                }
-
-                $count++;
-
-                $new_image = str_replace('<img ', '<img data-perfmatters-preload="' . $count . '" ', $image[0]);
-                $html = str_replace($image[0], $new_image, $html);
+            $pos = strpos($html, '</title>');
+            if($pos !== false) {
+                $html = substr_replace($html, '</title>' . $preloads_string, $pos, 8);
             }
         }
-
+        
         return $html;
     }
 
     //add critical image preloads
     public static function add_critical_image_preloads(&$html) {
 
-        //match preload picture > src tag
-        preg_match_all('#<picture.+?data-perfmatters-preload="(.)".+?\/picture>#is', $html, $pictures, PREG_SET_ORDER);
+        //match all image formats
+        preg_match_all('#(<picture.*?)?<img([^>]+?)\/?>(?><\/picture>)?#is', $html, $matches, PREG_SET_ORDER);
 
-        if(!empty($pictures)) {
+        if(!empty($matches)) {
 
-            foreach($pictures as $picture) {
+            $count = 0;
+            
+            foreach($matches as $match) {
 
-                preg_match('#<source([^>]+?image\/webp[^>]+?)\/?>#is', $picture[0], $source);
-
-                if(!empty($source)) {
-
-                    self::generate_critical_image_preload($picture[1], $source[1]);
-                    $new_picture = str_replace('data-perfmatters-preload="' . $picture[1] . '"', '', $picture[0]);
-                    $html = str_replace($picture[0], $new_picture, $html);
+                if($count >= Config::$options['preload']['critical_images']) {
+                    break;
                 }
-            }
-        } 
 
-        preg_match_all('#<img([^>]+?data-perfmatters-preload="(.)"[^>]+?)\/?>#is', $html, $images, PREG_SET_ORDER);
-        if(!empty($images)) {
-            foreach($images as $image) {
-                self::generate_critical_image_preload($image[2], $image[1]);
+                if(strpos($match[0], 'secure.gravatar.com') !== false) {
+                    continue;
+                }
+
+                $exclusions = apply_filters('perfmatters_critical_image_exclusions', array());
+                if(!empty($exclusions) && is_array($exclusions)) {
+                    foreach($exclusions as $exclusion) {
+                        if(strpos($match[0], $exclusion) !== false) {
+                            continue 2;
+                        }
+                    }
+                }
+
+                //picture tag
+                if(!empty($match[1])) {
+                    preg_match('#<source([^>]+?image\/webp[^>]+?)\/?>#is', $match[0], $source);
+
+                    if(!empty($source)) {
+                        self::generate_critical_image_preload($source[1]);
+                        $new_picture = str_replace('<picture', '<picture data-perfmatters-preload', $match[0]);
+                        $new_picture = str_replace('<img', '<img data-perfmatters-preload', $new_picture);
+                        $html = str_replace($match[0], $new_picture, $html);
+                        $count++;
+                        continue;
+                    }
+                }
+
+                //img tag
+                if(!empty($match[2])) {
+                    self::generate_critical_image_preload($match[2]);
+                    $new_image = str_replace('<img', '<img data-perfmatters-preload', $match[0]);
+                    $html = str_replace($match[0], $new_image, $html);
+                    $count++;
+                }
             }
         }
 
@@ -218,16 +201,11 @@ class Preload
     }
 
     //generate preload link from att string
-    private static function generate_critical_image_preload($index, $att_string) {
+    private static function generate_critical_image_preload($att_string) {
         if(!empty($att_string)) {
             $atts = perfmatters_lazyload_get_atts_array($att_string);
-
             $src = $atts['data-src'] ?? $atts['src'] ?? '';
-
-            self::$preloads[$index] = '<link rel="preload" href="' . $src . '" as="image"' . 
-                (!empty($atts['srcset']) ? ' imagesrcset="' . $atts['srcset'] . '"' : '') .
-                (!empty($atts['sizes']) ? ' imagesizes="' . $atts['sizes'] . '"' : '') .
-                ' />';
+            self::$preloads[] = '<link rel="preload" href="' . $src . '" as="image"' . (!empty($atts['srcset']) ? ' imagesrcset="' . $atts['srcset'] . '"' : '') . (!empty($atts['sizes']) ? ' imagesizes="' . $atts['sizes'] . '"' : '') . ' />';
         }
     }
 }

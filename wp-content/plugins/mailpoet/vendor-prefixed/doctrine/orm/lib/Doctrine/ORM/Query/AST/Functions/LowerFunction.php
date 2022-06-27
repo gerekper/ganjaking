@@ -6,12 +6,13 @@ use MailPoetVendor\Doctrine\ORM\Query\AST\Node;
 use MailPoetVendor\Doctrine\ORM\Query\Lexer;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;
 use MailPoetVendor\Doctrine\ORM\Query\SqlWalker;
+use function sprintf;
 class LowerFunction extends FunctionNode
 {
  public $stringPrimary;
  public function getSql(SqlWalker $sqlWalker)
  {
- return $sqlWalker->getConnection()->getDatabasePlatform()->getLowerExpression($sqlWalker->walkSimpleArithmeticExpression($this->stringPrimary));
+ return sprintf('LOWER(%s)', $sqlWalker->walkSimpleArithmeticExpression($this->stringPrimary));
  }
  public function parse(Parser $parser)
  {

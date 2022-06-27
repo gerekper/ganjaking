@@ -249,14 +249,18 @@ class WC_Recommender_Admin {
 		$builder = new WC_Recommender_Recorder();
 
 		$builder->woocommerce_recommender_build_simularity_against_product( $product_id, $related_product_id, array( 'viewed' ) );
-		$builder->woocommerce_recommender_build_simularity_against_product( $product_id, $related_product_id, array( 'completed' ) );
-		$builder->woocommerce_build_purchased_together_against_product( $product_id, $related_product_id, array( 'completed' ) );
+
+		$ordered_together_status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+		$builder->woocommerce_recommender_build_simularity_against_product( $product_id, $related_product_id, array( $ordered_together_status ) );
+
+		$fpt_status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+		$builder->woocommerce_build_purchased_together_against_product( $product_id, $related_product_id, array( $fpt_status ) );
 
 		$recommendations = array();
 
 		$recommendations['viewed_similar']     = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(related_product_id) FROM $woocommerce_recommender->db_tbl_recommendations WHERE product_id = %d AND rkey = %s", $product_id, 'wc_recommender_viewed_' . $product_id ) );
-		$recommendations['ordered_similar']    = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(related_product_id) FROM $woocommerce_recommender->db_tbl_recommendations WHERE product_id = %d AND rkey = %s", $product_id, 'wc_recommender_completed_' . $product_id ) );
-		$recommendations['purchased_together'] = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(related_product_id) FROM $woocommerce_recommender->db_tbl_recommendations WHERE product_id = %d AND rkey = %s", $product_id, 'wc_recommender_fpt_completed_' . $product_id ) );
+		$recommendations['ordered_similar']    = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(related_product_id) FROM $woocommerce_recommender->db_tbl_recommendations WHERE product_id = %d AND rkey = %s", $product_id, 'wc_recommender_' . $ordered_together_status . '_' . $product_id ) );
+		$recommendations['purchased_together'] = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(related_product_id) FROM $woocommerce_recommender->db_tbl_recommendations WHERE product_id = %d AND rkey = %s", $product_id, 'wc_recommender_fpt_' . $fpt_status . '_' . $product_id ) );
 
 		$results = array(
 			'viewed_similar'     => $recommendations['viewed_similar'],

@@ -47,6 +47,7 @@
 			$this->default_submission			= 'form';
 			$this->default_method 				= 'alltransactions';
 			$this->default_addgautm 			= 'no';
+			$this->default_withDelivery 		= 'no';
 
 			// Load the settings.
 			$this->init_settings();
@@ -121,14 +122,14 @@
 			add_action( 'woocommerce_payment_complete', array( $this, 'redirect' ) );
 
 			// When a subscriber or store manager changes a subscription's status in the store, change the status with WorldPay
-			add_action( 'woocommerce_subscription_cancelled_worldpay', array( $this, 'cancel_subscription_with_worldpay'), 10, 2 );
+			add_action( 'woocommerce_subscription_status_cancelled', array( $this, 'cancel_subscription_with_worldpay' ) );
+			add_action( 'woocommerce_subscription_cancelled_worldpay', array( $this, 'cancel_subscription_with_worldpay') );
 
 			// Remove subs support if $this->dynamiccallback is TRUE or remote ID is not set
 			if( $this->dynamiccallback || $this->remoteid == '' ) {
 
 				$this->supports = array(
-					'products',
-					'refunds'
+					'products'
 				);
 
 			} else {
@@ -716,8 +717,8 @@
 							$renewal_order->add_order_note( __( 'WorldPay subscription payment completed.', 'woocommerce_worlday' ) );
 
 							// Set WorldPay as the payment method (we can't use $renewal_order->set_payment_method() here as it requires an object we don't have)
-							$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
-							$renewal_order->set_payment_method( $available_gateways['worldpay'] ); 
+							update_post_meta( $renewal_order->get_id(), '_payment_method', $this->id );
+							update_post_meta( $renewal_order->get_id(), '_payment_method_title', $this->method_title );
 
 						}
 
@@ -877,28 +878,35 @@
 		 * When a store manager or user cancels a subscription in the store, also cancel the subscription with WorldPay. 
 		 */
 		function cancel_subscription_with_worldpay( $subscription ) {
-			global $woocommerce;
 
-			$profile_id = get_post_meta( $subscription->parent_id, '_futurepayid', TRUE );
+			if ( $subscription && $subscription->get_payment_method() == $this->id ) {
 
-			$response = $this->change_subscription_status( $profile_id, 'Cancel' );
+				$parent_order      	= $subscription->get_parent();
+	            $parent_order_id   	= $parent_order->get_id();
 
-			if ( isset( $response['ACK'] ) && $response['ACK'] == 'Success' ) {
-				$order 	 = new WC_Order( (int) $subscription->parent_id );
-				$order->add_order_note( __( 'Subscription cancelled', 'woocommerce_worlday' ) );
+				$futurepayid 		= get_post_meta( $parent_order_id, '_futurepayid', TRUE );
+
+				$response 			= $this->change_subscription_status( $futurepayid, 'Cancel' );
+
+				if ( isset( $response['ACK'] ) && $response['ACK'] == 'Success' ) {
+					$order 	 = new WC_Order( (int) $subscription->parent_id );
+					$order->add_order_note( __( 'Subscription cancelled', 'woocommerce_worlday' ) );
+				}
+
 			}
+
 		}
 
 		/**
 		 * Cancel Subscription via iAdmin
 		 */
-		function change_subscription_status( $profile_id, $new_status ) {
+		function change_subscription_status( $futurepayid, $new_status ) {
 
-			if ( self::status() == 'testing' ) :
+			if ( self::status() == 'testing' ) {
 				$curlurl = 'https://secure-test.worldpay.com/wcc/iadmin';
-			else :
+			} else {
 				$curlurl = 'https://secure.worldpay.com/wcc/iadmin';
-			endif;
+			}
 
 			switch( $new_status ) {
 				case 'Cancel' :
@@ -908,7 +916,7 @@
 					$api_request 				= array();
 					$api_request['instId'] 		= urlencode( $this->remoteid );
 					$api_request['authPW'] 		= urlencode( $this->remotepw );
-					$api_request['futurePayId'] = $profile_id;
+					$api_request['futurePayId'] = $futurepayid;
 					$api_request['op-cancelFP'] = '';
 
 					break;
@@ -922,43 +930,43 @@
    				$this->log->add( $this->id, '====================================' );
    			}
 
-			$cancel_array = array(
-									'method' 		=> 'POST',
-									'timeout' 		=> 45,
-									'redirection' 	=> 5,
-									'httpversion' 	=> '1.0',
-									'blocking' 		=> true,
-									'headers' 		=> array(),
-									'body' 			=> $api_request,
-									'cookies' 		=> array()
-    							);
+   			try {
 
-			$res = wp_remote_post( $curlurl, $cancel_array );
+				$headers = array(
+				    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+				    'Cache-Control: no-cache',
+				    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+				    'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'],
+				);
 
-			// Debugging
-			if ( $this->debug == true ) {
-   				$this->log->add( $this->id, __('WorldPay Cancel Subscription Response', 'woocommerce_worlday') . '');
-   				$this->log->add( $this->id, '====================================' );
-   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $res['body'] ), TRUE ) );
-   				$this->log->add( $this->id, '====================================' );
-   			}
+				$cancel_request = array(
+										'method' 		=> 'POST',
+										'timeout' 		=> 45,
+										'redirection' 	=> 5,
+										'httpversion' 	=> '1.0',
+										'blocking' 		=> true,
+										'headers' 		=> $headers,
+										'body' 			=> $api_request,
+										'cookies' 		=> array()
+	    							);
 
-			if( is_wp_error( $res ) ) {
+				$result = wp_remote_post( $curlurl, $cancel_request );
 
-				$content = 'There was a problem cancelling the subscription with the FuturePay ID ' . $profile_id . '. The API Request is <pre>' . 
-					print_r( $api_request,TRUE ) . '</pre>. The returned error is <pre>' . 
-					print_r( $res['body'],TRUE ) . '</pre>. You may need to contact WorldPay for more information about this error.';
-
-			} else {
-
-				if ( !$this->startsWith( $res['body'], 'Y' ) ) {
-
-					$content = 'There was a problem cancelling the subscription with the FuturePay ID ' . $profile_id . '. The API Request is <pre>' . 
-						print_r( $api_request,TRUE ) . '</pre>. WorldPay returned the error <pre>' . 
-						print_r( $res['body'],TRUE ) . '</pre> The full returned array is <pre>' . 
-						print_r( $res,TRUE ) . '</pre>. Please login to WorldPay and cancel the subscription manually. Please check your Remote Administration Installation ID and Remote Administration Installation Password in your settings.';
-					
+				if( is_wp_error( $result ) ) {
+					$error = $result->get_error_message();
+					throw new Exception( __( 'There was a problem cancelling the subscription with the FuturePay ID ' . $futurepayid . ' <pre>' . print_r( $error, TRUE ) . '</pre>', 'woocommerce_worlday' ) );
+				} else {
+					if ( !$this->startsWith( $result['body'], 'Y' ) ) {
+						throw new Exception( __( 'There was a problem cancelling the subscription with the FuturePay ID ' . $futurepayid . ' <pre>' . print_r( $result['body'], TRUE ) . '</pre>', 'woocommerce_worlday' ) );
+					}
 				}
+
+   			} catch( Exception $e ) {
+
+   				$this->log->add( $this->id, __('WorldPay Cancel Subscription Request', 'woocommerce_worlday') . '');
+   				$this->log->add( $this->id, '====================================' );
+   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $e->getMessage() ), TRUE ) );
+   				$this->log->add( $this->id, '====================================' );
 
 			}
 
@@ -972,91 +980,89 @@
 		 */
     	function process_refund( $order_id, $amount = NULL, $reason = '' ) {
 
-    		$order = new WC_Order( $order_id );
+   			try {
 
-    		$api_request = array();
+	    		$order = new WC_Order( $order_id );
 
-			if ( self::status() == 'testing' ) :
-				$curlurl = 'https://secure-test.worldpay.com/wcc/itransaction';
-				$api_request['testMode'] = '100';
-			else :
-				$curlurl = 'https://secure.worldpay.com/wcc/itransaction';
-				$api_request['testMode'] = '0';
-			endif;
+	    		$api_request = array();
 
-			// New API Request for cancellations
-			$api_request['instId'] 				= $this->remoteid;
-			$api_request['authPW'] 				= $this->remotepw;
-			$api_request['cartId']   			= 'Refund';
-			$api_request['transId'] 			= $this->get_transaction_id( $order );
-			$api_request['amount']   			= $amount;
-			$api_request['currency'] 			= $order->get_currency();
-			$api_request['op'] 					= 'refund-partial';
+				if ( self::status() == 'testing' ) :
+					$curlurl = 'https://secure-test.worldpay.com/wcc/authorise';
+					$api_request['testMode'] = '100';
+				else :
+					$curlurl = 'https://secure.worldpay.com/wcc/authorise';
+					$api_request['testMode'] = '0';
+				endif;
 
-			// Debugging
-			if ( $this->debug == true ) {
-   				$this->log->add( $this->id, __('WorldPay Refund Request', 'woocommerce_worlday') . '');
-   				$this->log->add( $this->id, '====================================' );
-   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $api_request ), TRUE ) );
-   				$this->log->add( $this->id, '====================================' );
-   			}
+				// New API Request for cancellations
+				$api_request['instId'] 				= $this->remoteid;
+				$api_request['authPW'] 				= $this->remotepw;
+				$api_request['cartId']   			= 'Refund';
+				$api_request['transId'] 			= $this->get_transaction_id( $order );
+				$api_request['amount']   			= $amount;
+				$api_request['currency'] 			= $order->get_currency();
+				$api_request['op'] 					= 'refund-partial';
 
-			$cancel_array = array(
-									'method' 		=> 'POST',
-									'timeout' 		=> 45,
-									'redirection' 	=> 5,
-									'httpversion' 	=> '1.0',
-									'blocking' 		=> true,
-									'headers' 		=> array(),
-									'body' 			=> $api_request,
-									'cookies' 		=> array()
-    							);
+				// Debugging
+				if ( $this->debug == true ) {
+	   				$this->log->add( $this->id, __('WorldPay Refund Request', 'woocommerce_worlday') . '');
+	   				$this->log->add( $this->id, '====================================' );
+	   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $api_request ), TRUE ) );
+	   				$this->log->add( $this->id, '====================================' );
+	   			}
 
-			$res = wp_remote_post( $curlurl, $cancel_array );
+				$headers = array(
+				    'Accept' 		=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+				    'Cache-Control' => 'no-cache',
+				    'Content-Type' 	=> 'application/x-www-form-urlencoded; charset=utf-8'
+				);
 
-			// Debugging
-			if ( $this->debug == true ) {
+				$cancel_array = array(
+									//	'method' 		=> 'POST',
+									//	'timeout' 		=> 45,
+									//	'httpversion' 	=> '1.1',
+									//	'sslverify'   	=> true,
+										'headers' 		=> $headers,
+									//	'User-Agent' 	=> $_SERVER['HTTP_USER_AGENT'],
+										'body' 			=> $api_request,
+	    							);
+
+				$this->log->add( $this->id, print_r( $cancel_array, TRUE ) );
+
+				$result = wp_remote_post( $curlurl, $cancel_array );
+
+				if( is_wp_error( $result ) ) {
+
+					$error = $result->get_error_message();
+					throw new Exception( __( 'There was a problem with the API when processing this refund : ' . print_r( $error, TRUE ), 'woocommerce_worlday' ) );
+
+				} elseif ( $this->startsWith( $result['body'], 'A' ) ) {
+
+					$transactionid = explode(",", $result['body'] );
+
+					$order 	     	= new WC_Order( (int) $order_id );
+					$order_currency = $order->get_currency();
+
+					$order->add_order_note( sprintf( __( 'Order Refunded<br />Refund Amount - %1$s<br />Refund Reason - %2$s<br />Transaction Id - %3$s', 'woocommerce_worlday' ), wc_price( $amount, array( 'currency' => $order_currency ) ), $reason, $transactionid[1] ) );
+
+					return true;
+
+				} else {
+
+					throw new Exception( __( 'There was a problem processing this refund : ' . print_r( $result['body'], TRUE ), 'woocommerce_worlday' ) );
+
+				}
+
+   			} catch( Exception $e ) {
+
    				$this->log->add( $this->id, __('WorldPay Refund Response', 'woocommerce_worlday') . '');
    				$this->log->add( $this->id, '====================================' );
-   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $res['body'] ), TRUE ) );
+   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $e->getMessage() ), TRUE ) );
    				$this->log->add( $this->id, '====================================' );
-   			}
 
-			if( is_wp_error( $res ) ) {
-
-				$content = 'There was a problem Refunding this payment for order ' . $order_id . '. The Transaction ID is ' .$api_request['transId']. '.The API Request is <pre>' . 
-					print_r( $api_request,TRUE ) . '</pre>. The returned error is <pre>' . 
-					print_r( $res['body'],TRUE ) . '</pre>. You may need to contact WorldPay for more information about this error.';
-
-				wp_mail( $this->worldpaydebugemail ,'WorldPay Refund Failure 01 ' . time(), $content );
-
-				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday')  . "\r\n" . $res['body'] );
-
-			} elseif ( $this->startsWith( $res['body'], 'A' ) ) {
-
-				$transactionid = explode(",", $res['body'] );
-
-				$order 	     	= new WC_Order( (int) $order_id );
-				$order_currency = $order->get_currency();
-
-				$order->add_order_note( sprintf( __( 'Order Refunded<br />Refund Amount - %1$s<br />Refund Reason - %2$s<br />Transaction Id - %3$s', 'woocommerce_worlday' ), wc_price( $amount, array( 'currency' => $order_currency ) ), $reason, $transactionid[1] ) );
-
-				return true;
-
-			} else {
-
-				$content = 'There was a problem Refunding this payment for order ' . $order_id . '. The Transaction ID is ' .$api_request['transId']. '.The API Request is <pre>' . 
-					print_r( $api_request,TRUE ) . '</pre>. WorldPay returned the error <pre>' . 
-					print_r( $res['body'],TRUE ) . '</pre> The full returned array is <pre>' . 
-					print_r( $res,TRUE ) . '</pre>. Please check your Remote Administration Installation ID and Remote Administration Installation Password in your settings.';
-				
-				wp_mail( $this->worldpaydebugemail ,'WorldPay Refund Failure 02 ' . time(), $content );
-
-				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday')  . "\r\n" . $res['body'] );
+   				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday') . $e->getMessage() );
 
 			}
-
-			return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday') );
 
     	}
 

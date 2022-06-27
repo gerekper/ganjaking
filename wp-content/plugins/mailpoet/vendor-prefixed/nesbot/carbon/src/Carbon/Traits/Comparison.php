@@ -15,7 +15,7 @@ trait Comparison
  }
  public function equalTo($date) : bool
  {
- return $this == $date;
+ return $this == $this->resolveCarbon($date);
  }
  public function ne($date) : bool
  {
@@ -31,7 +31,7 @@ trait Comparison
  }
  public function greaterThan($date) : bool
  {
- return $this > $date;
+ return $this > $this->resolveCarbon($date);
  }
  public function isAfter($date) : bool
  {
@@ -51,7 +51,7 @@ trait Comparison
  }
  public function lessThan($date) : bool
  {
- return $this < $date;
+ return $this < $this->resolveCarbon($date);
  }
  public function isBefore($date) : bool
  {

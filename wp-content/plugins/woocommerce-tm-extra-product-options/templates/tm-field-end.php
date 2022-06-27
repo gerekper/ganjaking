@@ -8,11 +8,13 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 4.0
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
-</ul></div></li>
+		</ul>
+	</div>
+</li>

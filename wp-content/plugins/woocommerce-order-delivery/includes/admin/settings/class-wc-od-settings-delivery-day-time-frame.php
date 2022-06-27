@@ -8,18 +8,24 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( 'WC_OD_Settings_Delivery_Day_Time_Frame', false ) ) {
+	return;
+}
+
 if ( ! class_exists( 'WC_OD_Settings_Time_Frame', false ) ) {
 	include_once 'class-wc-od-settings-time-frame.php';
 }
 
-if ( class_exists( 'WC_OD_Settings_Delivery_Day_Time_Frame', false ) ) {
-	return;
+if ( ! trait_exists( 'WC_OD_Settings_Fee' ) ) {
+	require_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-fee.php';
 }
 
 /**
  * WC_OD_Settings_Delivery_Day_Time_Frame class.
  */
 class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
+
+	use WC_OD_Settings_Fee;
 
 	/**
 	 * The delivery day ID.
@@ -36,6 +42,13 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 	protected $delivery_day;
 
 	/**
+	 * Time frame object.
+	 *
+	 * @var WC_OD_Time_Frame
+	 */
+	protected $time_frame;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.5.0
@@ -46,6 +59,8 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 	public function __construct( $day_id, $frame_id ) {
 		$this->id     = 'delivery_days';
 		$this->day_id = $day_id;
+
+		$this->time_frame = wc_od_get_time_frame( 'new' === $frame_id ? 0 : $frame_id );
 
 		parent::__construct( $frame_id );
 	}
@@ -66,30 +81,37 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 	}
 
 	/**
+	 * Initialise form fields.
+	 *
+	 * @since 2.0.0
+	 */
+	public function init_form_fields() {
+		parent::init_form_fields();
+
+		$this->form_fields = array_merge(
+			$this->form_fields,
+			$this->get_fee_fields()
+		);
+	}
+
+	/**
 	 * Initialise Settings.
 	 *
 	 * @since 1.5.0
 	 */
 	public function init_settings() {
-		$settings     = $this->get_form_fields_defaults();
-		$delivery_day = $this->get_delivery_day();
+		$settings = $this->get_form_fields_defaults();
 
 		if ( $this->is_new() ) {
-			// Copy the shipping methods fields from the delivery day settings.
-			$settings['shipping_methods_option'] = $delivery_day->get_shipping_methods_option();
-			$settings['shipping_methods']        = $delivery_day->get_shipping_methods();
+			$delivery_day = $this->get_delivery_day();
 
-			// Copy the value of number_of_orders.
-			$settings['number_of_orders'] = $delivery_day->get_number_of_orders();
+			// Inherit the settings from the delivery day.
+			$inherit_settings   = array_keys( $settings );
+			$inherit_settings[] = 'shipping_methods';
 
-			// Backward compatibility.
-			$settings['delivery_days'] = array( (string) $this->day_id );
+			$settings = array_merge( $settings, $delivery_day->get_props( $inherit_settings ) );
 		} else {
-			$time_frame = $delivery_day->get_time_frames()->get( $this->frame_id );
-
-			if ( $time_frame ) {
-				$settings = array_merge( $settings, $time_frame->to_array() );
-			}
+			$settings = array_merge( $settings, $this->time_frame->get_data_without( array( 'id', 'meta_data' ) ) );
 		}
 
 		if ( $settings['shipping_methods_option'] ) {
@@ -148,6 +170,20 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 	}
 
 	/**
+	 * Sanitizes the settings.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $settings The settings to sanitize.
+	 * @return array
+	 */
+	public function sanitized_fields( $settings ) {
+		$settings = $this->sanitize_fee_fields( $settings );
+
+		return parent::sanitized_fields( $settings );
+	}
+
+	/**
 	 * Saves the settings.
 	 *
 	 * @since 1.7.0
@@ -157,26 +193,13 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 	public function save() {
 		$settings = $this->sanitized_fields( $this->settings );
 
-		// Insert the time frame settings into the 'delivery_days' setting.
-		$delivery_days = wc_od_get_delivery_days();
-		$time_frames   = $delivery_days->get( $this->day_id )->get_time_frames();
+		$this->time_frame->set_props( $settings );
 
-		if ( $this->is_new() ) {
-			$time_frames->add( $settings );
-		} else {
-			$time_frames->set( $this->frame_id, $settings );
-		}
+		$delivery_day = $this->get_delivery_day();
+		$delivery_day->add_time_frame( $this->time_frame );
+		$delivery_day->save();
 
-		$saved = update_option( $this->get_option_key(), $delivery_days->to_array() );
-
-		// Reset the delivery day.
-		$this->delivery_day = null;
-
-		/** @var WC_OD_Delivery_Cache $delivery_cache */
-		$delivery_cache = WC_OD_Delivery_Cache::instance();
-		$delivery_cache->remove_order_cache();
-
-		return $saved;
+		return true;
 	}
 
 	/**
@@ -191,20 +214,5 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 
 		wp_safe_redirect( wc_od_get_settings_url( 'delivery_day', array( 'day_id' => $this->day_id ) ) );
 		exit;
-	}
-
-	/**
-	 * Sanitizes the settings.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param array $settings The settings to sanitize.
-	 * @return array
-	 */
-	public function sanitized_fields( $settings ) {
-		// Backward compatibility.
-		unset( $settings['delivery_days'] );
-
-		return parent::sanitized_fields( $settings );
 	}
 }

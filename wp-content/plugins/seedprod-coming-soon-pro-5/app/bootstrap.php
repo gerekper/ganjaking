@@ -19,6 +19,8 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 	if ( strpos( $hook_suffix, 'seedprod_pro' ) !== false ) {
 		// remove conflicting scripts
 		wp_dequeue_script( 'googlesitekit_admin' );
+		wp_dequeue_script( 'tds_js_vue_files_last');
+		wp_dequeue_script( 'js_files_for_wp_admin');
 
 		$vue_app_folder = 'pro';
 		if ( strpos( $hook_suffix, 'seedprod_pro_builder' ) !== false || strpos( $hook_suffix, 'seedprod_pro_template' ) !== false ) {
@@ -273,9 +275,14 @@ add_filter( 'plugin_action_links', 'seedprod_pro_plugin_action_links', 10, 2 );
 function seedprod_pro_plugin_action_links( $links, $file ) {
 	$plugin_file = SEEDPROD_PRO_SLUG;
 
-	if ( $file == $plugin_file ) {
-		$settings_link = '<a href="admin.php?page=seedprod_pro">Setup</a>';
+	if ( $file == $plugin_file || 'seedprod-pro/seedprod-pro.php' == $file ) {
+		$settings_link = '<a href="admin.php?page=seedprod_pro">Settings</a>';
 		array_unshift( $links, $settings_link );
+		if( 'lite' === SEEDPROD_PRO_BUILD ){
+            $upgrade_link = '<a href="https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=plugin-actions-upgrade-link" target="_blank" style="color: #1da867;
+font-weight: 600;">Upgrade to Pro</a>';
+            array_unshift($links, $upgrade_link);
+        }
 	}
 	return $links;
 }

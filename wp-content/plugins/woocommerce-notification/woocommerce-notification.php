@@ -3,20 +3,20 @@
  * Plugin Name: WooCommerce Notification Premium
  * Plugin URI: http://villatheme.com
  * Description: Increase conversion rate by highlighting other customers that have bought products.
- * Version: 1.4.3
+ * Version: 1.4.6
  * Author: Andy Ha (villatheme.com)
  * Author URI: http://villatheme.com
- * Copyright 2016-2021 VillaTheme.com. All rights reserved.
+ * Copyright 2016-2022 VillaTheme.com. All rights reserved.
  * Requires PHP: 7.0
  * Requires at least: 5.0
- * Tested up to: 5.8
+ * Tested up to: 5.9
  * WC requires at least: 4.0
- * WC tested up to: 6.0.0
+ * WC tested up to: 6.3.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-define( 'VI_WNOTIFICATION_VERSION', '1.4.3' );
+define( 'VI_WNOTIFICATION_VERSION', '1.4.6' );
 /**
  * Detect plugin. For use on Front End only.
  */

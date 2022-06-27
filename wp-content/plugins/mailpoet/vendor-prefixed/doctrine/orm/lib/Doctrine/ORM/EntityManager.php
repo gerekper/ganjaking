@@ -29,7 +29,7 @@ use InvalidArgumentException;
 use Throwable;
 use function array_keys;
 use function call_user_func;
-use function get_class;
+use function get_debug_type;
 use function gettype;
 use function is_array;
 use function is_callable;
@@ -426,7 +426,7 @@ class EntityManager implements EntityManagerInterface
  return DriverManager::getConnection($connection, $config, $eventManager ?: new EventManager());
  }
  if (!$connection instanceof Connection) {
- throw new InvalidArgumentException(sprintf('Invalid $connection argument of type %s given%s.', is_object($connection) ? get_class($connection) : gettype($connection), is_object($connection) ? '' : ': "' . $connection . '"'));
+ throw new InvalidArgumentException(sprintf('Invalid $connection argument of type %s given%s.', get_debug_type($connection), is_object($connection) ? '' : ': "' . $connection . '"'));
  }
  if ($eventManager !== null && $connection->getEventManager() !== $eventManager) {
  throw MismatchedEventManager::create();

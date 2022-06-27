@@ -56,27 +56,31 @@ class WC_Store_Credit_Emails {
 	 * Adds styles to the emails.
 	 *
 	 * @since 3.7.0
+	 * @since 4.0.1 The `$email` argument is optional.
 	 *
 	 * @param string   $css   The email styles.
-	 * @param WC_Email $email Email object.
+	 * @param WC_Email $email Optional. Email object. Default null.
 	 * @return string
 	 */
-	public function email_styles( $css, $email ) {
-		if ( 'wc_store_credit_send_credit' === $email->id ) {
-			ob_start();
-			wc_store_credit_get_template( 'emails/store-credit-styles.php' );
-			$styles = ob_get_clean();
-
-			/**
-			 * Filters the styles for the Store Credit emails.
-			 *
-			 * @since 3.7.0
-			 *
-			 * @param string   $styles The email styles.
-			 * @param WC_Email $email  Email object.
-			 */
-			$css .= apply_filters( 'wc_store_credit_email_styles', $styles, $email );
+	public function email_styles( $css, $email = null ) {
+		// AutomateWoo re-declares the filter hook 'woocommerce_email_styles' but it doesn't include the $email argument.
+		if ( ! $email instanceof WC_Email || 'wc_store_credit_send_credit' !== $email->id ) {
+			return $css;
 		}
+
+		ob_start();
+		wc_store_credit_get_template( 'emails/store-credit-styles.php' );
+		$styles = ob_get_clean();
+
+		/**
+		 * Filters the styles for the Store Credit emails.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param string   $styles The email styles.
+		 * @param WC_Email $email  Email object.
+		 */
+		$css .= apply_filters( 'wc_store_credit_email_styles', $styles, $email );
 
 		return $css;
 	}

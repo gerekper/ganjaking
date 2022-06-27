@@ -1,27 +1,27 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog\Handler;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Monolog\ResettableInterface;
-abstract class AbstractProcessingHandler extends AbstractHandler
+abstract class AbstractProcessingHandler extends AbstractHandler implements ProcessableHandlerInterface, FormattableHandlerInterface
 {
- public function handle(array $record)
+ use ProcessableHandlerTrait;
+ use FormattableHandlerTrait;
+ public function handle(array $record) : bool
  {
  if (!$this->isHandling($record)) {
  return \false;
  }
+ if ($this->processors) {
  $record = $this->processRecord($record);
+ }
  $record['formatted'] = $this->getFormatter()->format($record);
  $this->write($record);
  return \false === $this->bubble;
  }
- protected abstract function write(array $record);
- protected function processRecord(array $record)
+ protected abstract function write(array $record) : void;
+ public function reset()
  {
- if ($this->processors) {
- foreach ($this->processors as $processor) {
- $record = \call_user_func($processor, $record);
- }
- }
- return $record;
+ parent::reset();
+ $this->resetProcessors();
  }
 }

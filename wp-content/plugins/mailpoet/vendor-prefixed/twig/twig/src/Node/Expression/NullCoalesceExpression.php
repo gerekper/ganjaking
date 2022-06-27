@@ -18,7 +18,7 @@ class NullCoalesceExpression extends ConditionalExpression
  }
  parent::__construct($test, $left, $right, $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  if ($this->getNode('expr2') instanceof NameExpression) {
  $this->getNode('expr2')->setAttribute('always_defined', \true);
@@ -28,4 +28,3 @@ class NullCoalesceExpression extends ConditionalExpression
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\NullCoalesceExpression', 'MailPoetVendor\\Twig_Node_Expression_NullCoalesce');

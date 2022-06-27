@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce WorldPay Gateway
 Plugin URI: http://woothemes.com/woocommerce/
 Description: Extends WooCommerce. Provides a WorldPay gateway for WooCommerce. Includes basic support for Subscriptions. http://www.worldpay.com.
-Version: 4.3.0
+Version: 5.0.0
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
-WC tested up to: 6.0.0
+WC tested up to: 6.4.0
 Woo: 18646:6bc48c9d12dc0c43add4b099665a80b0
 */
 
@@ -47,7 +47,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '6bc48c9d12dc0c43add4b09966
 // Defines
 define( 'WORLDPAYPLUGINPATH', plugin_dir_path( __FILE__ ) );
 define( 'WORLDPAYPLUGINURL', plugin_dir_url( __FILE__ ) );
-define( 'WORLDPAYPLUGINVERSION', '4.3.0' );
+define( 'WORLDPAYPLUGINVERSION', '5.0.0' );
 
 // Load Admin files
 if( is_admin() ) {
@@ -89,9 +89,9 @@ function init_worldpay_gateway() {
 	include('classes/class-wc-gateway-worldpay-widget.php');
 
     // If the site supports Gutenberg Blocks, support the Checkout block
-/*    if( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) && class_exists( 'WC_Gateway_Worldpay_Form' ) ) {
+    if( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) && class_exists( 'WC_Gateway_Worldpay_Form' ) ) {
         require_once( dirname(__FILE__) . "/classes/blocks/blocks-class.php" );
         Automattic\WooCommerce\Blocks\Payments\Integrations\Wc_Worldpay_Blocks::register();
     }
-*/
+    
 } // END init_worldpay_gateway

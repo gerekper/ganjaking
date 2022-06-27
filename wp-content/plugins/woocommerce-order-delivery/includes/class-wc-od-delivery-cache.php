@@ -15,7 +15,9 @@ if ( class_exists( 'WC_OD_Delivery_Cache' ) ) {
 /**
  * Class WC_OD_Delivery_Cache
  */
-class WC_OD_Delivery_Cache extends WC_OD_Singleton {
+class WC_OD_Delivery_Cache {
+
+	use WC_OD_Singleton_Trait;
 
 	const CACHE_EXPIRES      = 3600;
 	const ORDER_CACHE_PREFIX = 'wc-od_order_';
@@ -24,10 +26,12 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 	 * WC_OD_Delivery_Cache constructor.
 	 */
 	public function __construct() {
-		parent::__construct();
-
 		add_action( 'woocommerce_update_order', array( $this, 'on_order_updated' ), 10, 1 );
 		add_action( 'wp_trash_post', array( $this, 'on_order_deleted' ) );
+
+		// Delivery days settings updated.
+		add_action( 'wc_od_delivery_day_updated', array( $this, 'remove_order_cache' ) );
+		add_action( 'wc_od_delivery_day_deleted', array( $this, 'remove_order_cache' ) );
 	}
 
 	/**
@@ -91,15 +95,19 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 	/**
 	 * Removes all the cached transients related to the orders cache.
 	 *
+	 * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
+	 *
 	 * @return bool|int
 	 */
 	public function remove_order_cache() {
 		global $wpdb;
 
-		$sql    = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%' .self::ORDER_CACHE_PREFIX . '%"' ;
-		$result = $wpdb->query( $sql );
-
-		return $result;
+		return $wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
+				'%' . self::ORDER_CACHE_PREFIX . '%'
+			)
+		);
 	}
 
 	/**

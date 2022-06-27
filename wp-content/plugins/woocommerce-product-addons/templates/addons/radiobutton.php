@@ -34,21 +34,21 @@ foreach ( $addon['options'] as $i => $option ) {
 	$label        = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? $option['label'] : '';
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_for_display = apply_filters(
+		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$option,
 			$i,
 			'radiobutton'
-		);
+		) : '';
 	} else {
-		$price_for_display = apply_filters(
+		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,
 			$i,
 			'radiobutton'
-		);
+		) : '';
 	}
 
 	$price_display = WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw );
@@ -56,21 +56,25 @@ foreach ( $addon['options'] as $i => $option ) {
 	if ( 'percentage_based' === $price_type ) {
 		$price_display = $price_raw;
 	}
+
+	$option_id = sanitize_title( $field_name ) . '-' . $i;
 	?>
-		<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
-			<label>
-				<input
-					type="radio"
-					class="wc-pao-addon-field wc-pao-addon-radio"
-					name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]"
-					data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
-					data-price="<?php echo esc_attr( $price_display ); ?>"
-					data-price-type="<?php echo esc_attr( $price_type ); ?>"
-					value="<?php echo esc_attr( sanitize_title( $label ) ); ?>"
-					<?php checked( $current_value, 1 ); ?>
-					<?php echo WC_Product_Addons_Helper::is_addon_required( $addon ) ? 'required' : ''; ?>
-					data-label="<?php echo esc_attr( wptexturize( $label ) ); ?>"
-					/>&nbsp;&nbsp;<?php echo wp_kses_post( wptexturize( $label . ' ' . $price_for_display ) ); ?>
-			</label>
-		</p>
-<?php } ?>
+	<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+		<input
+			type="radio"
+			id="<?php echo esc_attr( $option_id ); ?>"
+			class="wc-pao-addon-field wc-pao-addon-radio"
+			name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]"
+			data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
+			data-price="<?php echo esc_attr( $price_display ); ?>"
+			data-price-type="<?php echo esc_attr( $price_type ); ?>"
+			value="<?php echo esc_attr( sanitize_title( $label ) ); ?>"
+			<?php checked( $current_value, 1 ); ?>
+			<?php echo WC_Product_Addons_Helper::is_addon_required( $addon ) ? 'required' : ''; ?>
+			data-label="<?php echo esc_attr( wptexturize( $label ) ); ?>"
+		/>
+		<label for="<?php echo esc_attr( $option_id ); ?>">
+			<?php echo wp_kses_post( wptexturize( $label . ' ' . $price_for_display ) ); ?>
+		</label>
+	</p>
+<?php }

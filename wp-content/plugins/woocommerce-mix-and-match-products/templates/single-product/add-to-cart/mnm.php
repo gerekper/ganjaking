@@ -10,12 +10,13 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 1.11.6
+ * @version 2.0.0
  */
-// Exit if accessed directly
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -33,17 +34,17 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	<?php
 
 	/**
-	 * 'woocommerce_mnm_content_loop' action.
+	 * 'wc_mnm_content_loop' action.
 	 *
 	 * @param  WC_Mix_and_Match  $product
 	 * @since  1.8.0
 	 *
-	 * @hooked woocommerce_mnm_content_loop - 10
+	 * @hooked wc_mnm_content_loop - 10
 	 */
-	do_action( 'woocommerce_mnm_content_loop', $product );
+	do_action( 'wc_mnm_content_loop', $product );
 
 	/**
-	 * 'woocommerce_mnm_add_to_cart_wrap' action.
+	 * 'wc_mnm_add_to_cart_wrap' action.
 	 *
 	 * @param  WC_Mix_and_Match  $product
 	 * @since  1.3.0
@@ -51,7 +52,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	 * @hooked wc_mnm_template_reset_link       - 10
 	 * @hooked wc_mnm_template_add_to_cart_wrap - 20
 	 */
-	do_action( 'woocommerce_mnm_add_to_cart_wrap', $product );
+	do_action( 'wc_mnm_add_to_cart_wrap', $product );
 
 	?>
 

@@ -9,121 +9,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Gets the plugin prefix.
- *
- * Note: The prefix is used for the settings Ids.
- *
- * @since 1.1.0
- * @deprecated 1.7.0
- *
- * @return string The plugin prefix.
- */
-function wc_od_get_prefix() {
-	wc_deprecated_function( __FUNCTION__, '1.7.0' );
-
-	return 'wc_od_';
-}
-
-/**
- * Converts a string (e.g. 'yes' or 'no') to a bool.
- *
- * @since 1.5.0
- * @deprecated 1.7.0
- *
- * @param string $string String to convert.
- * @return bool
- */
-function wc_od_string_to_bool( $string ) {
-	wc_deprecated_function( __FUNCTION__, '1.7.0', 'wc_string_to_bool' );
-
-	return wc_string_to_bool( $string );
-}
-
-/**
- * Converts a bool to a 'yes' or 'no'.
- *
- * @since 1.5.0
- * @deprecated 1.7.0
- *
- * @param bool $bool String to convert.
- * @return string
- */
-function wc_od_bool_to_string( $bool ) {
-	wc_deprecated_function( __FUNCTION__, '1.7.0', 'wc_bool_to_string' );
-
-	return wc_bool_to_string( $bool );
-}
-
-/**
- * Gets the logger instance.
- *
- * @since 1.4.0
- * @deprecated 1.7.0
- *
- * @return WC_Logger
- */
-function wc_od_get_logger() {
-	wc_deprecated_function( __FUNCTION__, '1.7.0', 'wc_get_logger' );
-
-	return wc_get_logger();
-}
-
-/**
- * Get an array of checkout fields.
- *
- * @since 1.5.0
- * @deprecated 1.7.0
- *
- * @param string $fieldset Optional. The fieldset to get.
- * @return array
- */
-function wc_od_get_checkout_fields( $fieldset = '' ) {
-	wc_deprecated_function( __FUNCTION__, '1.7.0', 'WC_Checkout->get_checkout_fields()' );
-
-	$checkout = WC()->checkout();
-
-	return $checkout->get_checkout_fields( $fieldset );
-}
-
-/**
- * Gets a property from the order.
- *
- * @since 1.1.0
- * @since 1.6.0 Added support for 'currency' property.
- * @deprecated 1.7.0
- *
- * @param mixed  $the_order Post object or post ID of the order.
- * @param string $key      Name of prop to get.
- * @return mixed|null The prop value. Null on failure.
- */
-function wc_od_get_order_prop( $the_order, $key ) {
-	wc_deprecated_function( __FUNCTION__, '1.7.0', "WC_Order->get_{$key}()" );
-
-	$order = wc_od_get_order( $the_order );
-
-	if ( ! $order ) {
-		return null;
-	}
-
-	$getter = array( $order, "get_{$key}" );
-
-	// Properties renamed in WC 3.0+.
-	$renamed_props = array(
-		'date_created' => 'order_date',
-		'currency'     => 'order_currency',
-	);
-
-	if ( is_callable( $getter ) ) {
-		$prop = call_user_func( $getter );
-	} else {
-		$key  = ( array_key_exists( $key, $renamed_props ) ? $renamed_props[ $key ] : $key );
-		$prop = $order->{$key};
-	}
-
-	return $prop;
-}
-
-/**
  * Gets the timezone string for the site.
  *
  * @since 1.0.4
@@ -154,4 +39,45 @@ function wc_od_local_datetime_to_timestamp( $date ) {
 	$datetime = new DateTime( $date, new DateTimeZone( wc_timezone_string() ) );
 
 	return $datetime->format( 'U' );
+}
+
+/**
+ * Outputs the content for the wc_od_day_range field.
+ *
+ * @since 1.0.0
+ * @deprecated 2.0.0
+ *
+ * @param array $field The field data.
+ */
+function wc_od_day_range_field( $field ) {
+	wc_deprecated_function( __FUNCTION__, '2.0.0' );
+
+	$field_id = $field['id'];
+	$value    = WC_OD()->settings()->get_setting( $field_id );
+	?>
+	<label for="<?php echo $field_id; ?>">
+		<?php
+		printf(
+			__( 'Between %1$s and %2$s days.', 'woocommerce-order-delivery' ),
+			sprintf(
+				'<input id="%1$s" name="%1$s[min]" type="number" value="%2$s" style="%3$s" %4$s />',
+				$field_id,
+				esc_attr( $value['min'] ),
+				esc_attr( $field['css'] ),
+				implode( ' ', $field['custom_attributes'] )
+			),
+			sprintf(
+				'<input id="%1$s" name="%1$s[max]" type="number" value="%2$s" style="%3$s" %4$s />',
+				$field_id,
+				esc_attr( $value['max'] ),
+				esc_attr( $field['css'] ),
+				implode( ' ', $field['custom_attributes'] )
+			)
+		);
+		?>
+	</label>
+	<?php if ( $field['desc'] ) : ?>
+		<p class="description"><?php echo $field['desc']; ?></p>
+	<?php endif; ?>
+	<?php
 }

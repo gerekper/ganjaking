@@ -1,9 +1,5 @@
 
 <?php
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function eighth_presets() {
   ob_start();
   if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) : ?>

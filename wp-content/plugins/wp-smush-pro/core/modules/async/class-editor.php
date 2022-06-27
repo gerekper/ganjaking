@@ -77,11 +77,11 @@ class Editor extends Abstract_Async {
 	 */
 	protected function run_action() {
 		if ( isset( $_POST['wp-action'], $_POST['do'], $_POST['postid'] )
-			 && 'image-editor' === $_POST['wp-action']
-			 && check_ajax_referer( 'image_editor-' . $_POST['postid'] )
-			 && 'open' != $_POST['do']
+			&& 'image-editor' === $_POST['wp-action']
+			&& check_ajax_referer( 'image_editor-' . (int) $_POST['postid'] )
+			&& 'open' !== $_POST['do']
 		) {
-			$postid = ! empty( $_POST['postid'] ) ? $_POST['postid'] : '';
+			$postid = ! empty( $_POST['postid'] ) ? (int) $_POST['postid'] : '';
 			// Allow the Asynchronous task to run.
 			do_action( "wp_async_$this->action", $postid, $_POST );
 		}

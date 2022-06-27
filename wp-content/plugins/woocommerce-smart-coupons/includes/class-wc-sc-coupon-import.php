@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -266,7 +266,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				$coupon_postmeta_headers = $coupon_column_headers['postmeta_headers'];
 				$coupon_term_headers     = $coupon_column_headers['term_headers'];
 				$column_headers          = array_merge( $coupon_posts_headers, $coupon_postmeta_headers, $coupon_term_headers );
-				$export_file = $woocommerce_smart_coupon->export_coupon_csv( $column_headers, array() ); // phpcs:ignore
+				$export_file             = $woocommerce_smart_coupon->export_coupon_csv( $column_headers, array() ); // phpcs:ignore
 
 				if ( is_array( $export_file ) && ! isset( $export_file['error'] ) ) {
 
@@ -276,8 +276,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					$csvfilename = $csv_folder . $filename;
 					$fp          = fopen( $csvfilename, 'w' ); // phpcs:ignore
 					if ( false !== $fp ) {
-						file_put_contents( $csvfilename, $export_file['file_content'] ); // phpcs:ignore
-						fclose( $fp ); // phpcs:ignore
+                        fwrite( $fp , $export_file['file_content'] ); // phpcs:ignore
+                        fclose( $fp ); // phpcs:ignore
 						$_POST['export_file'] = $export_file;
 
 						$total_coupons_to_generate          = sanitize_text_field( wp_unslash( $_POST['no_of_coupons_to_generate'] ) );

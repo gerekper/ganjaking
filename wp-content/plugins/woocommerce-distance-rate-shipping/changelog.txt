@@ -1,5 +1,13 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-03-28 - version 1.0.35
+* Fix   - Virtual products are not exempt from quantity-based rules when in the cart with physical products.
+* Tweak - WC 6.3 compatibility.
+
+2022-03-17 - version 1.0.34
+* Fix - Distance shipping rule does not consider a distance less than 50 meter.
+* Fix - Order total rule use price before tax when prices entered inclusive of tax.
+
 2022-03-03 - version 1.0.33
 * Fix - Returns functionality to rule cost calculation hooks.
 

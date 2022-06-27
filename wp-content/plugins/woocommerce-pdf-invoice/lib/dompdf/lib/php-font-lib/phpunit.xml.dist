@@ -12,7 +12,7 @@
         >
     <testsuites>
         <testsuite name="PHP Font Lib Test Suite">
-            <directory>./tests/FontLib/</directory>
+            <directory>./tests/WooCommercePDFInvoiceFontLib/</directory>
         </testsuite>
     </testsuites>
 

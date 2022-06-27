@@ -4,10 +4,11 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Node\EmbedNode;
 use MailPoetVendor\Twig\Node\Expression\ConstantExpression;
 use MailPoetVendor\Twig\Node\Expression\NameExpression;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class EmbedTokenParser extends IncludeTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $stream = $this->parser->getStream();
  $parent = $this->parser->getExpressionParser()->parseExpression();
@@ -55,13 +56,12 @@ final class EmbedTokenParser extends IncludeTokenParser
  );
  return new EmbedNode($module->getTemplateName(), $module->getAttribute('index'), $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endembed');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'embed';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\EmbedTokenParser', 'MailPoetVendor\\Twig_TokenParser_Embed');

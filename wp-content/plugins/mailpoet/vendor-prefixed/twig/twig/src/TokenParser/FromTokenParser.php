@@ -3,10 +3,11 @@ namespace MailPoetVendor\Twig\TokenParser;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Node\Expression\AssignNameExpression;
 use MailPoetVendor\Twig\Node\ImportNode;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class FromTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $macro = $this->parser->getExpressionParser()->parseExpression();
  $stream = $this->parser->getStream();
@@ -43,9 +44,8 @@ final class FromTokenParser extends AbstractTokenParser
  }
  return $node;
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'from';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\FromTokenParser', 'MailPoetVendor\\Twig_TokenParser_From');

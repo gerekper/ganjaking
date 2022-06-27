@@ -6,14 +6,14 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\EOT;
+namespace WooCommercePDFInvoiceFontLib\EOT;
 
 /**
  * EOT font file.
  *
  * @package php-font-lib
  */
-class File extends \FontLib\TrueType\File {
+class File extends \WooCommercePDFInvoiceFontLib\TrueType\File {
   const TTEMBED_SUBSET                   = 0x00000001;
   const TTEMBED_TTCOMPRESSED             = 0x00000004;
   const TTEMBED_FAILIFVARIATIONSIMULATED = 0x00000010;

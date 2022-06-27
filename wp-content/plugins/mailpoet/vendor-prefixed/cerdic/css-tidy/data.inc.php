@@ -448,6 +448,7 @@ $data['csstidy']['all_properties']['word-break'] = 'CSS3.0';
 $data['csstidy']['all_properties']['word-spacing'] = 'CSS1.0,CSS2.0,CSS2.1,CSS3.0';
 $data['csstidy']['all_properties']['word-wrap'] = 'CSS3.0';
 $data['csstidy']['all_properties']['z-index'] = 'CSS2.0,CSS2.1,CSS3.0';
+$data['csstidy']['all_properties']['--custom'] = 'CSS3.0';
 $data['csstidy']['quoted_string_properties'] = array('content', 'font-family', 'quotes');
 $data['csstidy']['multiple_properties'] = array('background', 'background-image');
 $data['csstidy']['predefined_templates']['default'][0] = '<span class="at">';

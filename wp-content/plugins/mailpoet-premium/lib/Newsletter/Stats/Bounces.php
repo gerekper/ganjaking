@@ -132,7 +132,9 @@ class Bounces {
       ->orWhere($qb->expr()->like('last_name', ':search'))
       ->setParameter('search', '%' . $search . '%');
     $statement = $qb->execute();
-    assert($statement instanceof Statement);// for PHPStan, it doesn't know execute always returns Statement for SELECT queries
+    if (!$statement instanceof Statement) { // for PHPStan, it doesn't know execute always returns Statement for SELECT queries
+      throw new \Exception('$statement must be an instance of Statement');
+    }
     $subscriberIds = $statement->fetchAll();
 
     $subscriberIds = array_column($subscriberIds, 'id');

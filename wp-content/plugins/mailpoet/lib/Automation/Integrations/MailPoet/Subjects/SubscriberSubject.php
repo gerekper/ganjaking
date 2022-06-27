@@ -28,8 +28,16 @@ class SubscriberSubject implements Subject {
     $this->subscribersRepository = $subscribersRepository;
 
     $this->fields = [
-      // email
-      new Field(
+      'id' => new Field(
+        'mailpoet:subscriber:id',
+        Field::TYPE_INTEGER,
+        __('Subscriber ID', 'mailpoet'),
+        function() {
+          return $this->getSubscriber()->getId();
+        }
+      ),
+
+      'email' => new Field(
         'mailpoet:subscriber:email',
         Field::TYPE_STRING,
         __('Subscriber email', 'mailpoet'),
@@ -38,8 +46,7 @@ class SubscriberSubject implements Subject {
         }
       ),
 
-      // status
-      new Field(
+      'status' => new Field(
         'mailpoet:subscriber:status',
         Field::TYPE_ENUM,
         __('Subscriber status', 'mailpoet'),

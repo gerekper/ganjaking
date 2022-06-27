@@ -8,7 +8,6 @@ use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\ORM\PersistentCollection;
 use MailPoetVendor\Doctrine\ORM\Query;
 use MailPoetVendor\Doctrine\ORM\UnitOfWork;
-use function array_walk;
 use function assert;
 class DefaultCollectionHydrator implements CollectionHydrator
 {

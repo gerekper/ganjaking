@@ -4,6 +4,8 @@
  */
 class BetterDocs_Pro_IA {
 
+    use BetterDocs_Content_Restrictions;
+
     const DEV_MODE = false;
 
     /**
@@ -308,7 +310,7 @@ class BetterDocs_Pro_IA {
             $search_settings['show'] = false;
         }
 
-        $search_url = $this->make_url( $settings, 'true' );
+        $search_url = $this->make_url( $settings, '', true );
         $search_settings['SEARCH_URL'] = $search_url;
 
         $search_placeholder = $this->setNempty( 'search_placeholder_text', $settings ) ? $settings['search_placeholder_text'] : __( 'Search...', 'betterdocs-pro' );
@@ -447,7 +449,7 @@ class BetterDocs_Pro_IA {
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
 
-    public static function make_url( $settings, $base = false ) {
+    public function make_url( $settings, $base = false, $search = false ) {
         $sub_string_arr_include = [];
         $query_string_as_array = [];
         $sub_string_url = '';
@@ -458,7 +460,7 @@ class BetterDocs_Pro_IA {
             return $base_url;
         }
 
-        if( isset( $settings['content_type'] ) && ! empty( $settings['content_type'] ) && $settings['content_type'] === 'docs_categories' ) {
+        if( isset( $settings['content_type'] ) && ! empty( $settings['content_type'] ) && $settings['content_type'] === 'docs_categories' && $search == false ) {
             $base_url = $site_url . 'wp/v2/doc_category';
         }
 
@@ -473,6 +475,7 @@ class BetterDocs_Pro_IA {
 
         $parsed_url = parse_url( $base_url );
         $query_string_as_array = isset( $parsed_url['path'] ) ? explode( '&', $parsed_url['path'] ) : '';
+
         if( isset( $settings['content_type'] ) && ! empty( $settings['content_type'] ) ) {
             switch( $settings['content_type'] ) {
                 case 'docs' :
@@ -484,18 +487,38 @@ class BetterDocs_Pro_IA {
                         }
                         $query_string_as_array[] = implode("&", $sub_string_arr_include);
                     }
+                    if ($this->content_restriction() == 1) {
+                        if ($this->content_visibility_by_role() == false && !empty($this->get_restricted_category())) {
+                            $query_string_as_array[] = 'doc_category_exclude=' . implode(',', $this->get_restricted_category());
+                        }
+                        if ($this->content_visibility_by_role() == false && !empty($this->get_restricted_kb())) {
+                            $query_string_as_array[] = 'knowledge_base_exclude=' . implode( ',', $this->get_restricted_kb());
+                        }
+                    }
                     break;
                 case 'docs_categories' :
                     $sub_string_url = is_array( $settings['doc_category_list'] ) ? implode( ',', $settings['doc_category_list'] ) : '';
-                    if( ! empty( $sub_string_url ) ) {
+                    if ( $search == true && ! empty( $sub_string_url )) {
+                        $query_string_as_array[] = 'doc_category=' . $sub_string_url;
+                    } else if( ! empty( $sub_string_url ) ) {
                         $query_string_as_array[] = 'include=' . $sub_string_url;
+                    }
+
+                    $doc_category_ids = get_terms([
+                        'taxonomy' => 'doc_category',
+                        'fields' => 'ids',
+                    ]);
+
+                    if( $search == true && empty( $sub_string_url ) && $this->content_restriction() == 1 && $this->content_visibility_by_role() == false && !empty($this->get_restricted_category())) {
+                        $query_string_as_array[] = 'doc_category=' . implode(',', array_diff($doc_category_ids, $this->get_restricted_category()));
+                    } else if ( empty( $sub_string_url ) && $this->content_restriction() == 1 && $this->content_visibility_by_role() == false && !empty($this->get_restricted_category())) {
+                        $query_string_as_array[] = 'include=' . implode(',', array_diff($doc_category_ids, $this->get_restricted_category()));
                     }
                     break;
             }
 
             $firstKey = reset($query_string_as_array);
             $othersKey = array_slice($query_string_as_array, 1);
-
             if ( $othersKey ) {
                 $query_string_as_array = $firstKey . '?' . implode( '&', $othersKey );
             } else {

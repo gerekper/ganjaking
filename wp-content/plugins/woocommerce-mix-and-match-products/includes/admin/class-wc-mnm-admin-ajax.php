@@ -33,6 +33,7 @@ class WC_MNM_Admin_Ajax {
 
 		// Ajax handler for editing containers in manual/editable orders.
 		add_action( 'wp_ajax_woocommerce_edit_container_in_order', array( __CLASS__, 'ajax_edit_container_in_order' ) );
+
 	}
 
 	/*
@@ -88,12 +89,13 @@ class WC_MNM_Admin_Ajax {
 			wp_send_json( $failure );
 		}
 
-		$product       = $item->get_product();
-		$child_items = $product ? $product->get_children() : false;
+		$product = $item->get_product();
 
-		if ( empty( $child_items ) ) {
+		if ( ! $product->has_child_items() ) {
 			wp_send_json( $failure );
 		}
+
+		$child_items = $product->get_child_items();
 
 		// Initialize form state based on the actual configuration of the container.
 		$configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $order );
@@ -107,6 +109,9 @@ class WC_MNM_Admin_Ajax {
 
 		// Hide links.
 		add_filter( 'woocommerce_product_is_visible', '__return_false' );
+
+		// Manually include theme hooks/functions.
+		WC_Mix_and_Match()->theme_includes();
 
 		ob_start();
 		include( 'meta-boxes/views/html-mnm-container-edit-form.php' );
@@ -176,13 +181,13 @@ class WC_MNM_Admin_Ajax {
 		if ( $posted_configuration !== $current_configuration ) {
 
 			$added_to_order = WC_Mix_and_Match()->order->add_container_to_order(
-                $product,
-                $order,
-                $item->get_quantity(),
-                array(
+				$product,
+				$order,
+				$item->get_quantity(),
+				array(
 				'configuration' => $posted_configuration
-                )
-            );
+				)
+			);
 
 			// Invalid configuration?
 			if ( is_wp_error( $added_to_order ) ) {
@@ -199,7 +204,7 @@ class WC_MNM_Admin_Ajax {
 				if ( $notice ) {
 					// translators: %1$s is "The submitted configuration is invalid" %2$s is the error reason.
 					$message = sprintf(
-                        _x( '%1$s %2$s', 'edit container in order: formatted validation message', 'woocommerce-mix-and-match-products' ),
+						_x( '%1$s %2$s', 'edit container in order: formatted validation message', 'woocommerce-mix-and-match-products' ),
 						$message,
 						$notice
 					);

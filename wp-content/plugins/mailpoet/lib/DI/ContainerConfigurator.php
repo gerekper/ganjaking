@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Env;
+use MailPoet\Validator\Validator;
 use MailPoetVendor\Psr\Container\ContainerInterface;
 use MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder;
 use MailPoetVendor\Symfony\Component\DependencyInjection\Reference;
@@ -34,6 +35,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     // AdminPages
     $container->autowire(\MailPoet\AdminPages\PageRenderer::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Automation::class)->setPublic(true);
+    $container->autowire(\MailPoet\AdminPages\Pages\AutomationEditor::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\ExperimentalFeatures::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\FormEditor::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Forms::class)->setPublic(true);
@@ -86,6 +88,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\API\JSON\v1\SubscriberStats::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\Subscribers::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\WoocommerceSettings::class)->setPublic(true);
+    $container->autowire(\MailPoet\Util\APIPermissionHelper::class)->setPublic(true);
     // API response builders
     $container->autowire(\MailPoet\API\JSON\ResponseBuilders\NewslettersResponseBuilder::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\ResponseBuilders\NewsletterTemplatesResponseBuilder::class);
@@ -94,6 +97,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\API\JSON\ResponseBuilders\FormsResponseBuilder::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\ResponseBuilders\SegmentsResponseBuilder::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\ResponseBuilders\DynamicSegmentsResponseBuilder::class)->setPublic(true);
+    $container->autowire(\MailPoet\API\JSON\ResponseBuilders\ScheduledTaskSubscriberResponseBuilder::class)->setPublic(true);
     // Automatic emails
     $container->autowire(\MailPoet\AutomaticEmails\AutomaticEmails::class)->setPublic(true);
     $container->autowire(\MailPoet\AutomaticEmails\AutomaticEmailFactory::class)->setPublic(true);
@@ -104,15 +108,36 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\AutomaticEmails\WooCommerce\Events\PurchasedInCategory::class)->setPublic(true);
     $container->autowire(\MailPoet\AutomaticEmails\WooCommerce\Events\PurchasedProduct::class)->setPublic(true);
     // Automation
-    $container->autowire(\MailPoet\Automation\API\API::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\API\EndpointFactory::class)
+    $container->autowire(\MailPoet\Automation\Engine\API\API::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\API\EndpointContainer::class)
       ->setPublic(true)
       ->setArgument('$container', new Reference(ContainerWrapper::class));
-    $container->autowire(\MailPoet\Automation\API\Endpoints\SystemDatabaseEndpoint::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\API\Endpoints\WorkflowsEndpoint::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Automation::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Migrations\Migrator::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\WordPress::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Builder\CreateWorkflowFromTemplateController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Control\ActionScheduler::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Control\StepRunner::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Control\Steps\ActionStepRunner::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Control\TriggerHandler::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Engine::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Migrations\Migrator::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Registry::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Storage\WorkflowRunStorage::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Storage\WorkflowStorage::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\WordPress::class)->setPublic(true);
+    // Automation - API endpoints
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\Workflows\WorkflowsGetEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\Workflows\WorkflowsCreateFromTemplateEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\System\DatabasePostEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\System\DatabaseDeleteEndpoint::class)->setPublic(true);
+    // Automation - core integration
+    $container->autowire(\MailPoet\Automation\Integrations\Core\Actions\WaitAction::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\Core\CoreIntegration::class)->setPublic(true);
+    // Automation - MailPoet integration
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\MailPoetIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Subjects\SegmentSubject::class)->setPublic(true)->setShared(false);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class)->setPublic(true)->setShared(false);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Triggers\SegmentSubscribedTrigger::class)->setPublic(true)->setShared(false);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder::class)->setPublic(true)->setShared(false);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Actions\SendWelcomeEmailAction::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Config\AccessControl::class)->setPublic(true);
     $container->autowire(\MailPoet\Config\Activator::class)->setPublic(true);
@@ -167,7 +192,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Cron\Daemon::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\DaemonHttpRunner::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Supervisor::class)->setPublic(true);
-    $container->autowire(\MailPoet\Cron\Triggers\MailPoet::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Triggers\WordPress::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\WorkersFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\SendingQueue\SendingErrorHandler::class)->setPublic(true);
@@ -175,6 +199,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Cron\Workers\StatsNotifications\Scheduler::class);
     $container->autowire(\MailPoet\Cron\Workers\StatsNotifications\StatsNotificationsRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository::class)->setPublic(true);
+    $container->autowire(\MailPoet\Cron\Workers\SendingQueue\Tasks\Mailer::class)->setPublic(true);
     // Cron workers
     $container->autowire(\MailPoet\Cron\Workers\Scheduler::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\SendingQueue\SendingQueue::class)->setPublic(true);
@@ -188,6 +213,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Cron\Workers\WooCommerceSync::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\ExportFilesCleanup::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\Beamer::class)->setPublic(true);
+    $container->autowire(\MailPoet\Cron\Workers\SubscribersEmailCount::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\InactiveSubscribers::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\UnsubscribeTokens::class)->setPublic(true);
     $container->autowire(\MailPoet\Cron\Workers\SubscriberLinkTokens::class)->setPublic(true);
@@ -277,7 +303,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Router\Router::class)
       ->setArgument('$container', new Reference(ContainerWrapper::class));
     // Mailer
-    $container->autowire(\MailPoet\Mailer\Mailer::class);
+    $container->autowire(\MailPoet\Mailer\MailerFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Mailer\WordPress\WordpressMailerReplacer::class);
     $container->autowire(\MailPoet\Mailer\Methods\Common\BlacklistCheck::class);
     $container->autowire(\MailPoet\Mailer\MetaInfo::class);
@@ -287,6 +313,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Subscribers\ConfirmationEmailMailer::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\RequiredCustomFieldValidator::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\SubscriberActions::class)->setPublic(true);
+    $container->autowire(\MailPoet\Subscribers\SubscribersEmailCountsController::class);
     $container->autowire(\MailPoet\Subscribers\InactiveSubscribersController::class);
     $container->autowire(\MailPoet\Subscribers\LinkTokens::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\SubscribersRepository::class)->setPublic(true);
@@ -369,6 +396,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Newsletter\AutomaticEmailsRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\NewsletterHtmlSanitizer::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Url::class)->setPublic(true);
+    $container->autowire(\MailPoet\Newsletter\NewsletterValidator::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Links\Links::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Listing\NewsletterListingRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Options\NewsletterOptionsRepository::class)->setPublic(true);
@@ -403,6 +431,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Newsletter\Scheduler\ReEngagementScheduler::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Sending\ScheduledTasksRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository::class)->setPublic(true);
+    $container->autowire(\MailPoet\Newsletter\Sending\ScheduledTaskSubscribersListingRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Sending\SendingQueuesRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\ViewInBrowser\ViewInBrowserController::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\ViewInBrowser\ViewInBrowserRenderer::class)->setPublic(true);
@@ -421,6 +450,9 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->register(\MailPoet\Util\CdnAssetUrl::class)
       ->setPublic(true)
       ->setFactory([__CLASS__, 'getCdnAssetsUrl']);
+    $container->autowire(\MailPoet\Newsletter\Scheduler\Scheduler::class)->setPublic(true);
+    // Validator
+    $container->autowire(Validator::class)->setPublic(true);
     // WooCommerce
     $container->autowire(\MailPoet\WooCommerce\Helper::class)->setPublic(true);
     $container->autowire(\MailPoet\WooCommerce\Settings::class)->setPublic(true);
@@ -468,6 +500,6 @@ class ContainerConfigurator implements IContainerConfigurator {
   }
 
   public static function getCdnAssetsUrl(): \MailPoet\Util\CdnAssetUrl {
-    return new \MailPoet\Util\CdnAssetUrl(Env::$baseUrl);
+    return new \MailPoet\Util\CdnAssetUrl((string)Env::$baseUrl);
   }
 }

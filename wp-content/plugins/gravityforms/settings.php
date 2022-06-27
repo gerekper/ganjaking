@@ -241,7 +241,7 @@ class GFSettings {
 			update_option( 'recently_activated', array( $plugin => time() ) + (array) get_option( 'recently_activated' ) );
 
 			?>
-			<div class="updated fade gf-notice notice-success"><?php echo sprintf( esc_html__( 'Gravity Forms has been successfully uninstalled. It can be re-activated from the %splugins page%s.', 'gravityforms' ), "<a href='plugins.php'>", '</a>' ) ?></div>
+			<div class="updated fade gf-notice notice-success" role="alert"><?php echo sprintf( esc_html__( 'Gravity Forms has been successfully uninstalled. It can be re-activated from the %splugins page%s.', 'gravityforms' ), "<a href='plugins.php'>", '</a>' ) ?></div>
 			<?php
 			return;
 		}
@@ -677,7 +677,7 @@ class GFSettings {
 			<tbody>
 				<tr>
 					<td data-header="<?php esc_html_e( 'License Type', 'gravityforms' ); ?>">
-						<p><?php echo $license_info->get_data_value( 'product_name' ); ?></p>
+						<p><?php echo trim( str_replace( 'Gravity Forms', '', $license_info->get_data_value( 'product_name' ) ) ); ?></p>
 					</td>
 					<td data-header="<?php esc_html_e( 'License Status', 'gravityforms' ); ?>">
 						<p>
@@ -702,13 +702,7 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php esc_html_e( $license_info->renewal_text() ); ?>">
-						<p>
-							<?php if ( $license_info->has_expiration() ) : ?>
-								<?php echo gmdate( 'M d, Y', strtotime( $license_info->get_data_value('date_expires' ) ) ); ?>
-							<?php else: ?>
-								<?php _e( 'Does not expire', 'gravityforms' ); ?>
-							<?php endif; ?>
-						</p>
+						<p><?php echo esc_html( $license_info->renewal_date() ); ?></p>
 					</td>
 					<td data-header="<?php _e( 'Days Left', 'gravityforms' ); ?>">
 						<p>

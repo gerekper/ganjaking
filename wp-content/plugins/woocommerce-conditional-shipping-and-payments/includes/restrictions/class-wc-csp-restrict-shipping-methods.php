@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Restrict_Shipping_Methods class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -450,7 +449,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					?>
 				</div>
 			</div>
-			<div class="sw-form-field sw-form-field--checkbox show-excluded-checked" style="<?php echo false === $show_excluded ? 'display:none;' : ''; ?>">
+			<div class="sw-form-field sw-form-field--checkbox show-excluded-checked" style="<?php echo false === $show_excluded || false === $this->supports( 'static-notices' ) ? 'display:none;' : ''; ?>">
 				<label>
 					<?php _e( 'Show Static Notices', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</label>

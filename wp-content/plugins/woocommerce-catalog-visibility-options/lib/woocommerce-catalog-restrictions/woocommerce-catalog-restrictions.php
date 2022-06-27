@@ -8,6 +8,8 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 	class WC_Catalog_Restrictions {
 
 		private static $_instance;
+		private static $transient_clear_count = 0;
+		private static $max_transient_clear_count = 5;
 
 		public static function instance() {
 			if ( self::$_instance == null ) {
@@ -60,7 +62,7 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 				add_action( 'admin_init', array( $this, 'on_admin_init' ) );
 			}
 
-			//Setup Hooks to clear transients when a post is saved, a category is saved, a user changes their location, a user is updated, a user logs on / out. 
+			//Setup Hooks to clear transients when a post is saved, a category is saved, a user changes their location, a user is updated, a user logs on / out.
 			add_action( 'save_post', array( $this, 'clear_transients' ) );
 			add_action( 'created_term', array( $this, 'clear_transients' ) );
 			add_action( 'edit_term', array( $this, 'clear_transients' ) );
@@ -89,20 +91,24 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 
 		public function clear_transients() {
 			global $wpdb;
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_related%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_loop%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_product_loop%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_product_query%'" );
 
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_twccr%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_twccr%'" );
+			if (self::$transient_clear_count < self::$max_transient_clear_count) {
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_related%'" );
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_loop%'" );
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_product_loop%'" );
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_product_query%'" );
 
-			if ( $this->use_db_filter_cache ) {
-				$table = $wpdb->prefix . 'wc_cvo_cache';
-				$wpdb->query( "DELETE FROM $table" );
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_twccr%'" );
+				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_twccr%'" );
+
+				if ( $this->use_db_filter_cache ) {
+					$table = $wpdb->prefix . 'wc_cvo_cache';
+					$wpdb->query( "DELETE FROM $table" );
+				}
+
+				wp_cache_flush();
+				self::$transient_clear_count++;
 			}
-
-			wp_cache_flush();
 		}
 
 		public function clear_session_transients() {
@@ -200,7 +206,7 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 		}
 
 		/*
-		 * Template and Location Picker Function 
+		 * Template and Location Picker Function
 		 */
 
 		public function get_location_for_current_user() {

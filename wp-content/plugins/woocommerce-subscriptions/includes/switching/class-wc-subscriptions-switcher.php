@@ -47,21 +47,29 @@ class WC_Subscriptions_Switcher {
 		// We need to create subscriptions on checkout and want to do it after almost all other extensions have added their products/items/fees
 		add_action( 'woocommerce_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 2 );
 
-		// We need to create subscriptions on checkout and want to do it after almost all other extensions have added their products/items/fees
-		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) || \Automattic\WooCommerce\Blocks\Package::is_experimental_build() ) ) {
-			add_action( 'woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
-		} else {
-			add_action( '__experimental_woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
+		// Same as above for WooCommerce Blocks.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) ) {
+			if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+				add_action( 'woocommerce_store_api_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
+			} elseif ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) ) {
+				add_action( 'woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
+			} else {
+				add_action( '__experimental_woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
+			}
 		}
 
 		// When creating an order, add meta if it's for switching a subscription
 		add_action( 'woocommerce_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 2 );
 
-		// From blocks - When creating an order, add meta if it's for switching a subscription
-		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) || \Automattic\WooCommerce\Blocks\Package::is_experimental_build() ) ) {
-			add_action( 'woocommerce_blocks_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 1 );
-		} else {
-			add_action( '__experimental_woocommerce_blocks_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 1 );
+		// Same as above for WooCommerce Blocks.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) ) {
+			if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+				add_action( 'woocommerce_store_api_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 1 );
+			} elseif ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) ) {
+				add_action( 'woocommerce_blocks_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 1 );
+			} else {
+				add_action( '__experimental_woocommerce_blocks_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 1 );
+			}
 		}
 
 		// Don't allow switching to the same product

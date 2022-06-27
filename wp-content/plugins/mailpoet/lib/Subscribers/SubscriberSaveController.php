@@ -5,7 +5,9 @@ namespace MailPoet\Subscribers;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\ConflictException;
 use MailPoet\CustomFields\CustomFieldsRepository;
+use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
@@ -72,8 +74,33 @@ class SubscriberSaveController {
     $this->wp = $wp;
   }
 
+  public function filterOutReservedColumns(array $subscriberData): array {
+    $reservedColumns = [
+      'id',
+      'wp_user_id',
+      'is_woocommerce_user',
+      'status',
+      'subscribed_ip',
+      'confirmed_ip',
+      'confirmed_at',
+      'created_at',
+      'updated_at',
+      'deleted_at',
+      'unconfirmed_data',
+    ];
+    return array_diff_key(
+      $subscriberData,
+      array_flip($reservedColumns)
+    );
+  }
+
+  /**
+   * @throws ConflictException
+   * @throws ValidationException
+   * @throws \Exception
+   */
   public function save(array $data): SubscriberEntity {
-    if (is_array($data) && !empty($data)) {
+    if (!empty($data)) {
       $data = $this->wp->stripslashesDeep($data);
     }
 
@@ -100,6 +127,10 @@ class SubscriberSaveController {
       );
     }
 
+    if (isset($data['email']) && $this->isNewEmail($data['email'], $oldSubscriber)) {
+      $this->verifyEmailIsUnique($data['email']);
+    }
+
     $subscriber = $this->createOrUpdate($data, $oldSubscriber);
 
     $this->updateCustomFields($data, $subscriber);
@@ -121,26 +152,6 @@ class SubscriberSaveController {
     }
 
     return $subscriber;
-  }
-
-  public function filterOutReservedColumns(array $subscriberData): array {
-    $reservedColumns = [
-      'id',
-      'wp_user_id',
-      'is_woocommerce_user',
-      'status',
-      'subscribed_ip',
-      'confirmed_ip',
-      'confirmed_at',
-      'created_at',
-      'updated_at',
-      'deleted_at',
-      'unconfirmed_data',
-    ];
-    return array_diff_key(
-      $subscriberData,
-      array_flip($reservedColumns)
-    );
   }
 
   private function getNonDefaultSubscribedSegments(array $data): array {
@@ -178,6 +189,9 @@ class SubscriberSaveController {
     return array_diff($data['segments'], $oldSegmentIds);
   }
 
+  /**
+   * @throws ValidationException
+   */
   public function createOrUpdate(array $data, ?SubscriberEntity $subscriber): SubscriberEntity {
     if (!$subscriber) {
       $subscriber = $this->createSubscriber();
@@ -205,6 +219,22 @@ class SubscriberSaveController {
     $this->subscribersRepository->flush();
 
     return $subscriber;
+  }
+
+  private function isNewEmail(string $email, ?SubscriberEntity $subscriber): bool {
+    if ($subscriber && ($subscriber->getEmail() === $email)) return false;
+    return true;
+  }
+
+  /**
+   * @throws ConflictException
+   */
+  private function verifyEmailIsUnique(string $email): void {
+    $existingSubscriber = $this->subscribersRepository->findOneBy(['email' => $email]);
+    if ($existingSubscriber) {
+      $exceptionMessage = __(sprintf('A subscriber with E-mail "%s" already exists.', $email), 'mailpoet');
+      throw new ConflictException($exceptionMessage);
+    }
   }
 
   private function createSubscriber(): SubscriberEntity {

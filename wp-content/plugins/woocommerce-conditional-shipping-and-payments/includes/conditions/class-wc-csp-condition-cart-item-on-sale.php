@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Cart_Item_On_Sale class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.8.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart Item On-Sale Condition.
  *
  * @class    WC_CSP_Condition_Cart_Item_On_Sale
- * @version  1.7.6
+ * @version  1.13.0
  */
 class WC_CSP_Condition_Cart_Item_On_Sale extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Cart_Item_On_Sale extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                             = 'cart_item_on_sale';
 		$this->title                          = __( 'Product On Sale', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 20;
 		$this->supported_product_restrictions = array( 'payment_gateways' );
 		$this->supported_global_restrictions  = array( 'payment_gateways' );
 	}

@@ -76,3 +76,26 @@ function wc_account_funds_is_request( $type ) {
 function wc_account_funds_get_template( $template_name, $args = array() ) {
 	wc_get_template( $template_name, $args, '', WC_ACCOUNT_FUNDS_PATH . 'templates/' );
 }
+
+/**
+ * Gets whether the current user has the capability to accomplish the specified action.
+ *
+ * @since 2.7.0
+ *
+ * @param string $action  The action name.
+ * @param mixed  ...$args Additional parameters to pass to the callback functions.
+ * @return bool
+ */
+function wc_account_funds_current_user_can( $action, ...$args ) {
+	/**
+	 * Filters whether the current user has the capability to accomplish the specified action.
+	 *
+	 * The dynamic portion of the hook name, $action, refers to the action to accomplish.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param bool  $has_capability Whether the current user has the capability.
+	 * @param mixed ...$args        Additional parameters to pass to the callback functions.
+	 */
+	return apply_filters( "wc_account_funds_current_user_can_{$action}", current_user_can( 'manage_woocommerce' ), ...$args );
+}

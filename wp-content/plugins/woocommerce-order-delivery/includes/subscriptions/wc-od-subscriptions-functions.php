@@ -237,7 +237,7 @@ function wc_od_get_subscription_delivery_days( $the_subscription ) {
 	$shipping_method = wc_od_get_order_shipping_method( $subscription );
 	$delivery_days   = wc_od_get_delivery_days();
 
-	foreach ( $delivery_days as $index => $delivery_day ) {
+	foreach ( $delivery_days as $delivery_day ) {
 		// Updates the status of the delivery day.
 		$status = wc_od_get_delivery_day_status(
 			$delivery_day,
@@ -306,12 +306,15 @@ function wc_od_get_subscription_preferred_delivery_days( $the_subscription ) {
 
 			// Restrict the time frames to the preferred by the customer.
 			if ( ! empty( $preferred_day['time_frame'] ) ) {
-				$time_frame_id = wc_od_parse_time_frame_id( $preferred_day['time_frame'] );
+				if ( is_numeric( $preferred_day['time_frame'] ) ) {
+					$time_frame = wc_od_get_time_frame( $preferred_day['time_frame'] );
+				} else {
+					$time_frames = $delivery_day->get_time_frames();
+					$time_frame  = wc_od_get_time_frame_at_position( $time_frames, wc_od_parse_time_frame_id( $preferred_day['time_frame'] ) );
+				}
 
-				if ( false !== $time_frame_id ) {
-					$time_frames = $delivery_day->get_time_frames()->intersect_keys( array_flip( array( $time_frame_id ) ) );
-
-					$delivery_day->set_time_frames( $time_frames );
+				if ( $time_frame ) {
+					$delivery_day->set_time_frames( array( $time_frame ) );
 				}
 			}
 		}
@@ -525,16 +528,25 @@ function wc_od_setup_subscription_delivery_preferences( $the_subscription ) {
 	$delivery_days  = wc_od_get_subscription_delivery_days( $subscription );
 	$preferred_days = array();
 
-	foreach ( $delivery_days as $index => $delivery_day ) {
-		$time_frame_id = wc_od_search_time_frame( $delivery_day->get_time_frames(), $search_params );
+	foreach ( $delivery_days as $delivery_day ) {
+		$time_frame_id = (string) wc_od_search_time_frame( $delivery_day->get_time_frames(), $search_params );
 
-		$preferred_days[ $index ] = array(
+		/*
+		 * If the migration script wasn't executed, the ID has the format new:index.
+		 * In this case we preserve the prefix 'time_frame:'.
+		 * For time frames with a real ID, we just use it without any prefix.
+		 */
+		if ( $time_frame_id && 0 === strpos( $time_frame_id, 'new:' ) ) {
+			$time_frame_id = str_replace( 'new:', 'time_frame:', $time_frame_id );
+		}
+
+		$preferred_days[ $delivery_day->get_id() ] = array(
 			'enabled'    => $delivery_day->get_enabled(),
-			'time_frame' => ( false === $time_frame_id ? '' : 'time_frame:' . $time_frame_id ),
+			'time_frame' => $time_frame_id,
 		);
 	}
 
-	// Setup the 'delivery_days' based on the order time frame.
+	// Set up the 'delivery_days' based on the order time frame.
 	wc_od_update_order_meta( $subscription, '_delivery_days', $preferred_days, true );
 	wc_od_delete_order_meta( $subscription, '_delivery_time_frame', true );
 }
@@ -671,7 +683,8 @@ function wc_od_update_subscription_delivery_time_frame( $the_subscription ) {
 			if ( $delivery_days && isset( $delivery_days[ $wday ] ) && ! empty( $delivery_days[ $wday ]['time_frame'] ) ) {
 				$time_frame = $delivery_days[ $wday ]['time_frame'];
 			} else {
-				$time_frame = 'time_frame:' . $time_frames->first()->get_id();
+				$time_frame_id = $time_frames->first()->get_id();
+				$time_frame    = ( 0 < $time_frame_id ? $time_frame_id : 'time_frame:0' ); // Backward compatibility.
 			}
 		}
 	}
@@ -688,6 +701,7 @@ function wc_od_update_subscription_delivery_time_frame( $the_subscription ) {
  *
  * @since 1.3.0
  * @since 1.5.0 The `value` parameter in the field arguments is deprecated.
+ * @since 2.0.0 The `value` parameter in the field arguments is no longer provided.
  *
  * @param mixed $the_subscription Post object or post ID of the subscription.
  * @return array|false An array with the delivery fields. False on failure.
@@ -702,17 +716,12 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 	$delivery_date = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
 
 	$fields = array(
+		'delivery_date'    => wc_od_get_delivery_date_field_args( array(), 'subscription' ),
 		'next_order_start' => array(
 			'type'        => 'wc_od_subscription_section_start',
 			'title'       => __( 'Next order', 'woocommerce-order-delivery' ),
 			'description' => __( 'This will be the delivery details for the next order.', 'woocommerce-order-delivery' ),
 			'class'       => array( 'wc-od-subscription-next-order' ),
-		),
-		'delivery_date'    => wc_od_get_delivery_date_field_args(
-			array(
-				'value' => $delivery_date, // Deprecated.
-			),
-			'subscription'
 		),
 	);
 
@@ -727,15 +736,12 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 		);
 
 		if ( ! empty( $choices ) ) {
-			$delivery_time_frame = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_time_frame' );
-
 			$fields['delivery_time_frame'] = array(
 				'label'    => _x( 'Time frame', 'checkout field label', 'woocommerce-order-delivery' ),
 				'type'     => 'select',
 				'class'    => array( 'form-row-wide' ),
 				'required' => ( 'required' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ),
 				'options'  => $choices,
-				'value'    => $delivery_time_frame, // Deprecated.
 			);
 		}
 	}
@@ -754,7 +760,6 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 			'subscription_id' => $subscription->get_id(),
 			'type'            => 'wc_od_subscription_delivery_days',
 			'label'           => __( 'Delivery days', 'woocommerce-order-delivery' ),
-			'value'           => wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_days' ), // Deprecated.
 			'required'        => true,
 		),
 		'delivery_preferences_end'   => array(
@@ -795,8 +800,18 @@ function wc_od_get_subscription_delivery_field_value( $the_subscription, $input 
 	$value = wc_od_get_posted_data( $input );
 
 	if ( is_null( $value ) ) {
-		$value = wc_od_get_order_meta( $subscription->get_id(), "_{$input}" );
+		$value = $subscription->get_meta( "_{$input}" );
 		$value = ( '' === $value ? null : $value );
+	}
+
+	// Backward compatibility for not already migrated time frame IDs.
+	if ( 'delivery_time_frame' === $input && ! is_numeric( $value ) ) {
+		$delivery_date = $subscription->get_meta( '_delivery_date' );
+		$time_frame    = wc_od_get_time_frame_for_date( $delivery_date, $value );
+
+		if ( $time_frame && 0 < $time_frame->get_id() ) {
+			$value = $time_frame->get_id();
+		}
 	}
 
 	/**
@@ -884,7 +899,7 @@ function wc_od_subscription_delivery_days_field( $field, $key, $args, $value ) {
 	ob_start();
 	?>
 	<div class="form-row <?php echo esc_attr( implode( ' ', $args['class'] ) ); ?>" id="<?php echo esc_attr( $key ); ?>">
-		<label><?php echo esc_html( $args['label'] ) . $required; // WPCS: XSS ok. ?></label>
+		<label><?php echo esc_html( $args['label'] ) . $required; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
 		<table class="<?php echo esc_attr( $class['base'] ); ?> shop_table shop_table_responsive">
 			<thead>
 				<tr>
@@ -921,8 +936,18 @@ function wc_od_subscription_delivery_days_field( $field, $key, $args, $value ) {
 						if ( ! $enabled || ! $delivery_day->has_time_frames() ) :
 							echo '-';
 						else :
-							$choices  = wc_od_get_time_frames_choices( $delivery_day->get_time_frames(), 'subscription' );
-							$selected = ( isset( $value[ $index ] ) && isset( $value[ $index ]['time_frame'] ) ? $value[ $index ]['time_frame'] : '' );
+							$time_frames = $delivery_day->get_time_frames();
+							$choices     = wc_od_get_time_frames_choices( $time_frames, 'subscription' );
+							$selected    = ( isset( $value[ $index ] ) && isset( $value[ $index ]['time_frame'] ) ? $value[ $index ]['time_frame'] : '' );
+
+							// Backward compatibility for not already migrated time frame IDs.
+							if ( $selected && ! is_numeric( $selected ) ) {
+								$time_frame = wc_od_get_time_frame_at_position( $time_frames, wc_od_parse_time_frame_id( $selected ) );
+
+								if ( $time_frame && $time_frame->get_id() ) {
+									$selected = $time_frame->get_id();
+								}
+							}
 
 							echo '<select class="select" name="' . esc_attr( "{$key}[{$index}][time_frame]" ) . '">';
 							foreach ( $choices as $choice => $label ) :

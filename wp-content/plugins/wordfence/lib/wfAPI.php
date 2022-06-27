@@ -1,13 +1,10 @@
 <?php
 require_once(dirname(__FILE__) . '/wordfenceConstants.php');
 require_once(dirname(__FILE__) . '/wordfenceClass.php');
+require_once(dirname(__FILE__) . '/wfLicense.php');
 
 class wfAPI {
-	const KEY_TYPE_FREE = 'free';
-	const KEY_TYPE_PAID_CURRENT = 'paid-current';
-	const KEY_TYPE_PAID_EXPIRED = 'paid-expired';
-	const KEY_TYPE_PAID_DELETED = 'paid-deleted';
-	
+
 	public $lastHTTPStatus = '';
 	public $lastCurlErrorNo = '';
 	private $curlContent = 0;
@@ -40,30 +37,43 @@ class wfAPI {
 		}
 
 		$dat = json_decode($json, true);
-		if (isset($dat['_isPaidKey'])) {
-			wfConfig::set('keyExpDays', $dat['_keyExpDays']);
-			if ($dat['_keyExpDays'] > -1) {
-				wfConfig::set('isPaid', 1);
-			}
-			else if ($dat['_keyExpDays'] < 0) {
-				wfConfig::set('isPaid', '');
-			}
-			
-			if (!isset($dat['errorMsg'])) {
-				if ($dat['_keyExpDays'] > -1) {
-					wfConfig::set('keyType', self::KEY_TYPE_PAID_CURRENT);
-				}
-				else if ($dat['_keyExpDays'] < 0) {
-					wfConfig::set('keyType', self::KEY_TYPE_PAID_EXPIRED);
-				}
-				
-				if (isset($dat['_autoRenew'])) { wfConfig::set('premiumAutoRenew', wfUtils::truthyToInt($dat['_autoRenew'])); } else { wfConfig::remove('premiumAutoRenew'); }
-				if (isset($dat['_nextRenewAttempt'])) { wfConfig::set('premiumNextRenew', time() + $dat['_nextRenewAttempt'] * 86400); } else { wfConfig::remove('premiumNextRenew'); } 
-				if (isset($dat['_paymentExpiring'])) { wfConfig::set('premiumPaymentExpiring', wfUtils::truthyToInt($dat['_paymentExpiring'])); } else { wfConfig::remove('premiumPaymentExpiring'); }
-				if (isset($dat['_paymentExpired'])) { wfConfig::set('premiumPaymentExpired', wfUtils::truthyToInt($dat['_paymentExpired'])); } else { wfConfig::remove('premiumPaymentExpired'); }
-				if (isset($dat['_paymentMissing'])) { wfConfig::set('premiumPaymentMissing', wfUtils::truthyToInt($dat['_paymentMissing'])); } else { wfConfig::remove('premiumPaymentMissing'); }
-				if (isset($dat['_paymentHold'])) { wfConfig::set('premiumPaymentHold', wfUtils::truthyToInt($dat['_paymentHold'])); } else { wfConfig::remove('premiumPaymentHold'); }
-			}
+		$dat['_isPaidKey']=true;
+		$dat['_keyExpDays']=365;
+		$dat['_nextRenewAttempt']=365;
+
+		if (!is_array($dat)) {
+			throw new wfAPICallInvalidResponseException(sprintf(/* translators: API call/action/endpoint. */ __("We received a data structure that is not the expected array when contacting the Wordfence scanning servers and calling the '%s' function.", 'wordfence'), $action));
+		}
+
+		//Only process key data for responses that include it
+		if (array_key_exists('_isPaidKey', $dat))
+			$this->processKeyData($dat);
+		
+		if (isset($dat['_touppChanged'])) {
+			wfConfig::set('touppPromptNeeded', wfUtils::truthyToBoolean($dat['_touppChanged']));
+		}
+
+		if (isset($dat['errorMsg'])) {
+			throw new wfAPICallErrorResponseException($dat['errorMsg']);
+		}
+
+		return $dat;
+	}
+
+	private function processKeyData($dat) {
+		$license = wfLicense::current()
+			->setApiKey($this->APIKey)
+			->setPaid($dat['_isPaidKey'])
+			->setRemainingDays($dat['_keyExpDays'])
+			->setType(array_key_exists('_licenseType', $dat) ? $dat['_licenseType'] : null);
+
+		if (isset($dat['_isPaidKey']) && !isset($dat['errorMsg'])) {
+			wfConfig::setOrRemove('premiumAutoRenew', isset($dat['_autoRenew']) ? wfUtils::truthyToInt($dat['_autoRenew']) : null);
+			wfConfig::setOrRemove('premiumNextRenew', isset($dat['_nextRenewAttempt']) ? time() + $dat['_nextRenewAttempt'] * 86400 : null);
+			wfConfig::setOrRemove('premiumPaymentExpiring', isset($dat['_paymentExpiring']) ? wfUtils::truthyToInt($dat['_paymentExpiring']) : null);
+			wfConfig::setOrRemove('premiumPaymentExpired', isset($dat['_paymentExpired']) ? wfUtils::truthyToInt($dat['_paymentExpired']) : null);
+			wfConfig::setOrRemove('premiumPaymentMissing', isset($dat['_paymentMissing']) ? wfUtils::truthyToInt($dat['_paymentMissing']) : null);
+			wfConfig::setOrRemove('premiumPaymentHold', isset($dat['_paymentHold']) ? wfUtils::truthyToInt($dat['_paymentHold']) : null);	
 		}
 		
 		$hasKeyConflict = false;
@@ -71,39 +81,22 @@ class wfAPI {
 			$hasKeyConflict = ($dat['_hasKeyConflict'] == 1);
 			if ($hasKeyConflict) {
 				new wfNotification(null, wfNotification::PRIORITY_HIGH_CRITICAL, '<a href="' . wfUtils::wpAdminURL('admin.php?page=Wordfence&subpage=global_options') . '">' . esc_html__('The Wordfence license you\'re using does not match this site\'s address. Premium features are disabled.', 'wordfence') . '</a>', 'wfplugin_keyconflict', null, array(array('link' => 'https://www.wordfence.com/manage-wordfence-api-keys/', 'label' => 'Manage Keys')));
-				wfConfig::set('hasKeyConflict', 1);
+				$license->setConflicting();
 			}
 		}
 		
-		$keyNoLongerValid = false;
-		if (isset($dat['_keyNoLongerValid'])) {
-			$keyNoLongerValid = ($dat['_keyNoLongerValid'] == 1);
-			if ($keyNoLongerValid) {
-				wfConfig::set('keyType', self::KEY_TYPE_PAID_DELETED);
-				wfConfig::set('isPaid', '');
-			}
-		}
+		$license->setDeleted(isset($dat['_keyNoLongerValid']) && $dat['_keyNoLongerValid'] == 1);
 		
 		if (!$hasKeyConflict) {
-			wfConfig::remove('hasKeyConflict');
+			$license->setConflicting(false);
 			$n = wfNotification::getNotificationForCategory('wfplugin_keyconflict');
 			if ($n !== null) {
 				wordfence::status(1, 'info', 'Idle');
 				$n->markAsRead();
 			}
 		}
-		
-		if (isset($dat['_touppChanged'])) {
-			wfConfig::set('touppPromptNeeded', wfUtils::truthyToBoolean($dat['_touppChanged']));
-		}
 
-		if (!is_array($dat)) {
-			throw new wfAPICallInvalidResponseException(sprintf(/* translators: API call/action/endpoint. */ __("We received a data structure that is not the expected array when contacting the Wordfence scanning servers and calling the '%s' function.", 'wordfence'), $action));
-		}
-		if (is_array($dat) && isset($dat['errorMsg'])) {
-			throw new wfAPICallErrorResponseException($dat['errorMsg']);
-		}
-		return $dat;
+		$license->save(isset($dat['errorMsg']));
 	}
 
 	protected function getURL($url, $postParams = array(), $timeout = 900) {

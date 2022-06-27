@@ -347,6 +347,13 @@ jQuery.fn.wc_get_mnm_script = function() {
 			},
 
 			/**
+			 * Is in_stock?
+			 */
+			is_in_stock: function() {
+				return container.price_data.is_in_stock === 'yes';
+			},
+
+			/**
 			 * Set container size.
 			 *
 			 * @return int
@@ -417,32 +424,18 @@ jQuery.fn.wc_get_mnm_script = function() {
 				/**
 				 * Update totals upon changing quantities.
 				 */
-				.on(
-					'input change',
-					':input',
-					function( e ) {
-
-						// Restrict to min/max limits.
-						var $input = $( this ),
-						min        = parseFloat( $input.attr( 'min' ) ),
-						max        = parseFloat( $input.attr( 'max' ) );
-
-						// Max can't be higher than the container size.
-						if ( container.api.get_max_container_size() > 0 ) {
-							max = Math.min( max, parseFloat( container.api.get_max_container_size() ) );
-						}
-
-						if ( e.type === 'change' && min >= 0 && ( parseFloat( $input.val() ) < min || isNaN( parseFloat( $input.val() ) ) ) ) {
-							$input.val( min );
-						}
-
-						if ( e.type === 'change' && max > 0 && parseFloat( $input.val() ) > max ) {
-							$input.val( max );
-						}
-
-						container.update_container( child_item );
-					}
-				);
+				.on( 'input', ':input', function() {
+					clearTimeout( child_item.child_item_timer );
+					var $input = $(this);
+					 child_item.child_item_timer = setTimeout(function() {
+						$input.trigger( 'change' );
+					}, 500);
+						
+				} )
+				.on ( 'change', ':input', function() {					
+					child_item.update_quantity();
+					container.update_container( child_item );
+				} );
 
 		};
 
@@ -495,9 +488,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 					return true;
 				}
 
-				var tax_ratios      = price_data.prices_tax[ product_id ],
-				    regular_price   = price_data.regular_prices[ product_id ],
-				    price           = price_data.prices[ product_id ],
+				// Non-purchasable items don't have prices in the price_data.
+				var tax_ratios      = price_data.prices_tax.hasOwnProperty( product_id ) ? price_data.prices_tax[ product_id ] : { incl: 1, excl: 1 },
+					regular_price   = price_data.regular_prices.hasOwnProperty( product_id ) ? price_data.regular_prices[ product_id ] : 0.0,
+					price           = price_data.prices.hasOwnProperty( product_id ) ? price_data.prices[ product_id ] : 0.0,
 
 				totals = {
 					price:          0.0,
@@ -528,6 +522,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				}
 
 			} );
+
 
 			return price_data;
 
@@ -648,7 +643,6 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.get_price_html = function( price_data_array, config ) {
 
 			var price_data = 'undefined' === typeof( price_data_array ) ? container.price_data : price_data_array,
-
 				container_price_html = '',
 				default_config       = {
 					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
@@ -673,6 +667,46 @@ jQuery.fn.wc_get_mnm_script = function() {
 			container_price_html = '<' + config.tag + ' class="price">' + price_data.price_string.replace( '%s', container_price_html ) + '</' + config.tag + '>';
 
 			return container_price_html;
+		};
+
+		/**
+		 * Build the price + current quantity html component.
+		 */
+		this.get_status_html = function( price_data_array, config ) {
+
+			var price_data = 'undefined' === typeof( price_data_array ) ? container.price_data : price_data_array,
+				default_config       = {
+					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
+					'tag'              : 'span'
+			};
+
+			config = 'undefined' === typeof( config ) ? {} : config;
+			config = $.extend( default_config, config );
+
+			var mode = container.$mnm_cart.data( 'validation_mode' );
+
+			// Attempt to grab formatted total from data attributes, for compat alternative validation mini-extensions.
+			var qty = container.$mnm_cart.data( 'total_' + mode );
+			var formatted_total = container.$mnm_cart.data( 'formatted_total_' + mode );
+
+			// If not, rely on quantity count.
+			if ( 'undefined' === typeof qty || 'undefined' === typeof formatted_total ) {
+
+				qty = container.api.get_container_size();
+
+				if ( container.api.get_max_container_size() ) {
+					formatted_total = 1 === container.api.get_max_container_size() ? wc_mnm_params.i18n_quantity_format_counter_single : wc_mnm_params.i18n_quantity_format_counter;
+					formatted_total = formatted_total.replace( '%max', container.api.get_max_container_size() );
+				} else {
+					formatted_total = 1 === qty ? wc_mnm_params.i18n_quantity_format_single : wc_mnm_params.i18n_quantity_format;
+				}
+
+				formatted_total = formatted_total.replace( '%s', qty );
+				
+				
+			}
+
+			return wc_mnm_params.i18n_status_format.replace( '%v', container.get_price_html( price_data, config ) ).replace( '%s', formatted_total );
 		};
 
 		/**
@@ -935,12 +969,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 			this.validate();
 
 			// Calculate totals.
-			if ( container.api.is_purchasable() && container.api.is_priced_per_product() ) {
+			if ( false === this.is_initialized || ( container.api.is_purchasable() && container.api.is_priced_per_product() ) ) {
 				this.update_totals( triggered_by );
 			}
 
-			// Update error messages.
-			this.update_ui();
+			// Update status/notices.
+            if ( container.api.is_purchasable() && container.api.is_in_stock() ) {
+                this.update_ui();
+            }
 
 			this.$mnm_form.trigger( 'wc-mnm-form-updated', [ this ] );
 
@@ -962,7 +998,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 					function( index, child_item ) {
 
 						var product_qty = child_item.get_quantity();
-						var product_id       = child_item.get_item_id();
+						var product_id  = child_item.get_item_id();
 
 						new_config.push( {
 							product_id: product_id,
@@ -1024,30 +1060,15 @@ jQuery.fn.wc_get_mnm_script = function() {
 				function() {
 					container.updated_totals_task();
 				},
-				10
+				100
 			);
 		};
 
 		/**
 		 * Refreshes the container price string in the UI.
+		 * Price update is moved to update_ui to account for 2.0 status string.
 		 */
 		this.updated_totals_task = function() {
-
-			if ( container.api.is_priced_per_product() ) {
-
-				var container_price_html = container.get_price_html();
-
-				// Update price.
-				if ( container_price_html !== '' ) {
-					this.$mnm_price.html( container_price_html );
-					// Show price.
-					this.$mnm_price.slideDown( 200 );
-				} else {
-					// Hide price.
-					this.$mnm_price.slideUp( 200 );
-				}
-
-			}
 
 			// Addons compatibility.
 			if ( container.has_addons() ) {
@@ -1063,6 +1084,17 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 */
 		this.update_ui = function() {
 
+			var container_status_html = container.get_status_html();
+
+			// Update price.
+			if ( container_status_html !== '' ) {
+				this.$mnm_price.html( container_status_html );
+				this.$mnm_price.slideDown( 200 );
+			} else {
+				// Hide price.
+				this.$mnm_price.slideUp( 200 );
+			}
+
 			if ( this.passes_validation() ) {
 
 				// Enable add to cart button.
@@ -1072,12 +1104,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 			} else {
 
 				// Disable add to cart button.
-				this.$mnm_button.attr( 'disabled', true ).addClass( 'disabled' );
+				this.$mnm_button.prop( 'disabled', true ).addClass( 'disabled' );
 				this.$mnm_form.trigger( 'wc-mnm-hide-add-to-cart-button', [ container ] );
 			}
 
 			// Display the status/error messages.
-			if ( this.has_status_messages() || false === this.passes_validation() ) {
+			if ( this.has_status_messages() || ! this.passes_validation() ) {
 
 				var $messages = $( '<ul/>' );
 				var messages  = this.get_messages( 'all' );
@@ -1092,11 +1124,15 @@ jQuery.fn.wc_get_mnm_script = function() {
 				}
 
 				this.$mnm_message_content.html( $messages.html() );
+				
 				this.$mnm_message.slideDown( 200 );
 
 			} else {
 				this.$mnm_message.slideUp( 200 );
 			}
+
+			// Change message style based on validation.
+			this.$mnm_message.toggleClass( 'woocommerce-error', ! this.passes_validation() );
 
 			// Hide/Show Reset Link.
 			if ( container.api.get_container_size() > 0 ) {
@@ -1187,40 +1223,61 @@ jQuery.fn.wc_get_mnm_script = function() {
 			var min_container_size = this.api.get_min_container_size();
 			var max_container_size = this.api.get_max_container_size();
 			var total_qty          = this.api.get_container_size();
+			var qty_message        = this.selected_quantity_message( total_qty ); // "Selected X total".
 			var error_message      = '';
+			var valid_message      = '';
 			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
-			if ( min_container_size === max_container_size && total_qty !== min_container_size ) {
-				error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
-				error_message = error_message.replace( '%s', min_container_size );
+			if ( min_container_size === max_container_size ) {
+
+				valid_message = wc_mnm_params.i18n_valid_fixed_message;
+
+				if ( total_qty !== min_container_size ) {
+					error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
+					error_message = error_message.replace( '%s', min_container_size );
+				}
 
 				// Validate a range.
-			} else if ( max_container_size > 0 && min_container_size > 0 && ( total_qty < min_container_size || total_qty > max_container_size ) ) {
-				error_message = wc_mnm_params.i18n_min_max_qty_error.replace( '%max', max_container_size ).replace( '%min', min_container_size );
+			} else if ( max_container_size > 0 && min_container_size > 0 ) {
+
+				valid_message = wc_mnm_params.i18n_valid_range_message;
+	
+				if ( total_qty < min_container_size || total_qty > max_container_size ) {
+					error_message = wc_mnm_params.i18n_min_max_qty_error;
+				}
 
 				// Validate that a container has minimum number of items.
-			} else if ( min_container_size > 0 && total_qty < min_container_size ) {
-				error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
-				error_message = error_message.replace( '%min', min_container_size );
+			} else if ( min_container_size >= 0 ) {
+
+				valid_message = wc_mnm_params.i18n_valid_min_message;
+
+				if ( total_qty < min_container_size ) {
+					error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
+				}
 
 				// Validate that a container has fewer than the maximum number of items.
-			} else if ( max_container_size > 0 && total_qty > max_container_size ) {
-				error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
-				error_message = error_message.replace( '%max', max_container_size );
+			} else if ( max_container_size > 0 ) {
+
+				valid_message = wc_mnm_params.i18n_valid_max_message;
+
+				if ( total_qty > max_container_size ) {
+					error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
+				}
 			}
 
 			// Add error message.
 			if ( error_message !== '' ) {
-				// "Selected X total".
-				var selected_qty_message = this.selected_quantity_message( total_qty );
+				error_message = error_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );
+				
+				this.add_message( error_message.replace( '%v', qty_message ), 'error' );
 
-				// Add error message, replacing placeholders with current values.
-				this.add_message( error_message.replace( '%v', selected_qty_message ), 'error' );
+				// Add selected qty status message if there are no error messages.
+			} else {
 
-				// Add selected qty status message if there are no error messages and infinite container is used.
-			} else if ( this.api.get_max_container_size() === false ) {
-				this.add_message( this.selected_quantity_message( total_qty ) );
+				valid_message = valid_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );
+
+				this.add_message( valid_message.replace( '%v', qty_message ) );
 			}
 
 			// Let mini extensions add their own error/status messages.
@@ -1278,15 +1335,21 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		this.initialize = function() {
 
-			this.$mnm_item_qty    = $mnm_item.find( ':input.qty' );
 			this.$self            = $mnm_item;
+			this.$mnm_item_qty    = $mnm_item.find( ':input.qty' );
+			this.$item_qty_div    = $mnm_item.find( '.quantity' );
 			this.$mnm_item_data   = $mnm_item.find( '.mnm-item-data' );
 			this.$mnm_item_images = $mnm_item.find( '.mnm_child_product_images' );
 
+			this.child_item_timer = false;
+			this.child_item_index = index;
 			this.mnm_item_index = index;
 			this.mnm_item_id    = this.$mnm_item_data.data( 'mnm_item_id' );
 
 			this.sold_individually = typeof( container.price_data.is_sold_individually[ this.mnm_item_id ] ) === 'undefined' ? false : container.price_data.is_sold_individually[ this.mnm_item_id ] === 'yes';
+
+			// Set original quantity.
+			this.$mnm_item_data.data( 'original_quantity', this.get_quantity() );
 
 			this.init_scripts();
 
@@ -1296,7 +1359,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			return this.mnm_item_id;
 		};
 
-		this.get_quantity          = function() {
+		this.get_quantity = function() {
 			var qty,
 				type = this.get_type();
 
@@ -1313,12 +1376,80 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			return qty ? parseInt( qty, 10 ) : 0;
 		};
+
 		this.get_original_quantity = function() {
 			var original_quantity;
 			original_quantity = this.$mnm_item_data.data( 'original_quantity' );
 			return original_quantity ? parseInt( original_quantity, 10 ) : 0;
 		};
-		this.get_type              = function() {
+
+        this.get_prev_quantity = function() {
+            var qty = this.$self.data( 'prev_quantity' );
+			return qty ? parseInt( qty, 10 ) : this.get_original_quantity();
+		};
+
+        this.update_quantity = function() {
+
+			// Restrict to min/max limits.
+			var $msg_html  = this.$item_qty_div.find( '.wc_mnm_child_item_error' ),
+			msg            = '',
+			type           = this.get_type(),
+			current_qty    = this.get_quantity(),
+			new_qty        = this.get_quantity(),
+			prev_qty       = this.get_prev_quantity(),
+			min            = parseFloat( this.$mnm_item_qty.attr( 'min' ) ),
+			max            = parseFloat( this.$mnm_item_qty.attr( 'max' ) ),
+			container_max  = container.api.get_max_container_size(),
+			container_size = container.api.get_container_size(),
+			potential_size = container_size + ( current_qty - prev_qty );
+
+			if ( ! $msg_html.length ) {
+				this.$item_qty_div.append( '<div class="wc_mnm_child_item_error" />' );
+				$msg_html = this.$item_qty_div.find( '.wc_mnm_child_item_error' );
+			}
+
+			// Max can't be higher than the container size.
+			if ( container_max > 0 ) {
+				max = Math.min( max, container_max );
+			}
+
+			// Validate individual quantity limits and prevent over-filling container.
+			if ( container_max > 0 && potential_size > container_max ) {
+				new_qty = container_size >= container_max ? prev_qty : Math.min( container_max - container_size, max );
+				msg = wc_mnm_params.i18n_child_item_max_container_qty_message.replace( '%d', container_max );
+			} else if ( min >= 0 && current_qty < min ) {
+				new_qty = min;
+				msg = wc_mnm_params.i18n_child_item_min_qty_message.replace( '%d', min );
+			} else if ( max > 0 && current_qty > max ) {
+				new_qty = max;
+				msg = wc_mnm_params.i18n_child_item_max_qty_message.replace( '%d', max );
+			}
+
+			if ( msg ) {
+				$msg_html.html( msg ).show();
+			}
+
+			this.child_item_timer = setTimeout(function() {
+				$msg_html.hide();
+			}, 2000 );
+           
+			// Reset the quantity input.
+			switch ( type ) {
+				case 'checkbox':
+					this.$mnm_item_qty.prop( 'checked', this.$mnm_item_qty.val() && new_qty === parseInt( this.$mnm_item_qty.val() ) );
+				break;
+				case 'select':
+					this.$mnm_item_qty.children( 'option:selected' ).val(); // @todo - Support for Select Layout plugin.
+				break;
+				default:
+					this.$mnm_item_qty.val( new_qty );
+			}
+
+			this.$self.data( 'prev_quantity', new_qty );
+
+		};
+
+		this.get_type = function() {
 			var type = 'input';
 
 			if ( this.$mnm_item_qty.is( ':checkbox' ) ) {
@@ -1382,7 +1513,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 	} // End WC_MNM_Child_Item.
 
 	/*-----------------------------------------------------------------*/
-	/*  Initialization.                                                */
+	/*  Page Ready.                                                    */
 	/*-----------------------------------------------------------------*/
 
 	jQuery(
@@ -1450,6 +1581,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 				}
 			);
+
+			/*-----------------------------------------------------------------*/
+			/*  Initialization.                                                */
+			/*-----------------------------------------------------------------*/
 
 			/**
 			* Script initialization on '.mnm_form' jQuery objects.

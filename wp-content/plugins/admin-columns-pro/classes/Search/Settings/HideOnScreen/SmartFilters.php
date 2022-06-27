@@ -12,8 +12,4 @@ class SmartFilters extends HideOnScreen {
 		parent::__construct( self::NAME, __( 'Smart Filters', 'codepress-admin-columns' ) );
 	}
 
-	public function get_dependent_on() {
-		return [ HideOnScreen\Filters::NAME ];
-	}
-
 }

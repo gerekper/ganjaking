@@ -80,3 +80,6 @@ add_filter( 'ct_ultimate_gdpr_controller_plugins_collects_data_instagram-feed/in
 
 add_filter( 'ct_ultimate_gdpr_controller_plugins_compatible_wpforms-lite/wpforms.php', '__return_true' );
 add_filter( 'ct_ultimate_gdpr_controller_plugins_collects_data_wpforms-lite/wpforms.php', '__return_false' );
+
+add_filter( 'ct_ultimate_gdpr_controller_plugins_compatible_siteorigin-panels/siteorigin-panels.php', '__return_true' );
+add_filter( 'ct_ultimate_gdpr_controller_plugins_collects_data_siteorigin-panels/siteorigin-panels.php', '__return_false' );

@@ -36,6 +36,11 @@ function seedprod_pro_render_wc_template_tags_shortcode( $atts ) {
 		return;
 	}
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	global $product;
 
 	// If the WC_product Object is not defined globally
@@ -58,7 +63,7 @@ function seedprod_pro_render_wc_template_tags_shortcode( $atts ) {
 			$values   = $match[1];
 		}
 		if ( 'the_post_thumbnail' === $a['tag'] ) {
-			remove_all_filters('post_thumbnail_html');
+			remove_all_filters( 'post_thumbnail_html' );
 			$values2 = array( 'alt' => get_the_title() );
 		}
 
@@ -104,7 +109,7 @@ add_shortcode( 'sp_menu_cart', 'seedprod_pro_woocommerce_template_tags_menu_cart
  */
 function seedprod_pro_woocommerce_template_tags_menu_cart_shortcode( $atts ) {
 	// Check if the WC Instance exists.
-	if ( null === WC()->cart ) {
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		return;
 	}
 
@@ -158,6 +163,11 @@ function seedprod_pro_woocommerce_template_tags_add_to_cart_shortcode( $atts ) {
 		),
 		$atts
 	);
+
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
 
 	// Get current product.
 	$render = '';
@@ -259,6 +269,11 @@ function seedprod_pro_woocommerce_template_tags_product_meta_shortcode( $atts ) 
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render = '';
 
@@ -333,6 +348,11 @@ function seedprod_pro_woocommerce_template_tags_product_data_tabs_shortcode( $at
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render = '';
 
@@ -377,6 +397,11 @@ function seedprod_pro_woocommerce_template_tags_additional_information_shortcode
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render = '';
 
@@ -420,6 +445,11 @@ function seedprod_pro_woocommerce_template_tags_product_related_shortcode( $atts
 		),
 		$atts
 	);
+
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
 
 	// Get current product.
 	$render = '';
@@ -481,6 +511,11 @@ function seedprod_pro_woocommerce_template_tags_upsells_shortcode( $atts ) {
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render = '';
 
@@ -522,6 +557,11 @@ function seedprod_pro_woocommerce_template_tags_product_rating_shortcode( $atts 
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render = '';
 
@@ -562,6 +602,11 @@ function seedprod_pro_woocommerce_template_tags_product_stock_shortcode( $atts )
 		array(),
 		$atts
 	);
+
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
 
 	// Get current product.
 	$render = '';

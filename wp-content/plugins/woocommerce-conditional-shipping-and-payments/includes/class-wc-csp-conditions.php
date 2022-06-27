@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Conditions class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditions class.
  *
  * @class    WC_CSP_Conditions
- * @version  1.10.0
+ * @version  1.13.1
  */
 class WC_CSP_Conditions {
 
@@ -477,5 +476,34 @@ class WC_CSP_Conditions {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Sorts conditions data by execution priority.
+	 * Conditions with lower priority are evaluated first to preserve CPU resources.
+	 *
+	 * @since  1.13.1
+	 *
+	 * @param  array  $data
+	 * @return array
+	 */
+	public function get_optimized_conditions_data( $data ) {
+
+		$sorted_data = array();
+		$sort_order  = array();
+
+		foreach ( $this->conditions as $id => $condition ) {
+			$sort_order[ $id ] = $condition->get_priority();
+		}
+
+		asort( $sort_order );
+
+		foreach ( $data as $condition_index => $condition_data ) {
+			$data[ $condition_index ][ 'priority' ] = $sort_order[ $condition_data[ 'condition_id' ] ];
+		}
+
+		$sorted_data = wp_list_sort( $data, 'priority' );
+
+		return $sorted_data;
 	}
 }

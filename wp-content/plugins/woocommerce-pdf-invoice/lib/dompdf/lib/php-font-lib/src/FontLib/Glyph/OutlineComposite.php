@@ -7,7 +7,7 @@
  * @version $Id: Font_Table_glyf.php 46 2012-04-02 20:22:38Z fabien.menager $
  */
 
-namespace FontLib\Glyph;
+namespace WooCommercePDFInvoiceFontLib\Glyph;
 
 /**
  * Composite glyph outline
@@ -220,7 +220,7 @@ class OutlineComposite extends Outline {
   public function getSVGContours() {
     $contours = array();
 
-    /** @var \FontLib\Table\Type\glyf $glyph_data */
+    /** @var \WooCommercePDFInvoiceFontLib\Table\Type\glyf $glyph_data */
     $glyph_data = $this->getFont()->getTableObject("glyf");
 
     /** @var Outline[] $glyphs */

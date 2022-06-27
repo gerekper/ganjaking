@@ -56,7 +56,7 @@ class CompositeExpression implements Countable
  }
  return $that;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function count()
  {
  return count($this->parts);

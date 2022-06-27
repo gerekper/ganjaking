@@ -7,17 +7,14 @@
 jQuery(document).ready(function ($) {
   wp_reset.is_plugin_page = parseInt(wp_reset.is_plugin_page, 10);
   wp_reset.add_collection_item_dialog_markup = false;
-  console.log(wp_reset.current_screen);
 
   window.wpr_deactivate = false;
   if (wp_reset.current_screen == "plugins.php") {
     $("#deactivate-wp-reset").on("click", function (e) {
-      console.log('Click');
-      if (wp_reset.space_usage_total != '0' && window.wpr_deactivate == false) {
+      if (wp_reset.space_usage_total != "0" && window.wpr_deactivate == false) {
         e.preventDefault();
-      
-        console.log("Deactivate WPR" + wp_reset.space_usage_total);
-        swal_text = "<div style='padding:20px 10px'>WP Reset is using " + wp_reset.space_usage_total + " of space that will <strong>not</strong> be removed automatically on deactivation. Would you like to review used space before you deactivate WP Reset?</div>"; 
+
+        swal_text = "<div style='padding:20px 10px'>WP Reset is using " + wp_reset.space_usage_total + " of space that will <strong>not</strong> be removed automatically on deactivation. Would you like to review used space before you deactivate WP Reset?</div>";
         wpr_swal
           .fire({
             type: "",
@@ -30,14 +27,13 @@ jQuery(document).ready(function ($) {
           })
           .then((result) => {
             if (result.value) {
-              window.location = wp_reset.settings_url + '#tab-snapshots';
+              window.location = wp_reset.settings_url + "#tab-snapshots";
             } else {
-              window.location = $(this).attr('href');
+              window.location = $(this).attr("href");
             }
           });
       } else {
-          console.log('OK');
-          return true;
+        return true;
       }
     });
   }

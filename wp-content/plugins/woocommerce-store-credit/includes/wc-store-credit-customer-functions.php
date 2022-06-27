@@ -55,7 +55,7 @@ function wc_store_credit_get_customer_email( $the_customer ) {
  *
  * @param mixed  $the_customer Customer object, email or ID.
  * @param string $status       Optional. The coupon status. Accepts: 'all', 'active', 'exhausted'. Default: 'active'.
- * @return array|false An array with the store credit coupons. False on failure.
+ * @return WC_Coupon[]|false An array with the store credit coupons. False on failure.
  */
 function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active' ) {
 	$customer_email = wc_store_credit_get_customer_email( $the_customer );
@@ -91,6 +91,7 @@ function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active'
 				'key'     => 'coupon_amount',
 				'value'   => 0,
 				'compare' => ( 'active' === $status ? '>' : '=' ),
+				'type'    => 'decimal(10, ' . wc_get_price_decimals() . ')',
 			);
 		}
 

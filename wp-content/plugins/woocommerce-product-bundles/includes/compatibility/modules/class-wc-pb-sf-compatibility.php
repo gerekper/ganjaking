@@ -30,6 +30,11 @@ class WC_PB_SF_Compatibility {
 		if ( class_exists( 'Storefront_WooCommerce' ) ) {
 			// Fix sticky add to cart button behavior when "Form Location" is "After Summary".
 			add_filter( 'storefront_sticky_add_to_cart_params', array( __CLASS__, 'sticky_add_to_cart_params' ) );
+
+			// Prevent use of 'parent_cart_item_meta' flag when using the new block-based cart.
+			if ( WC_PB()->compatibility->is_module_loaded( 'blocks' ) ) {
+				add_filter( 'woocommerce_bundles_group_mode_options_data', array( __CLASS__, 'bundles_group_mode_options_data' ), 11 );
+			}
 		}
 	}
 
@@ -49,6 +54,19 @@ class WC_PB_SF_Compatibility {
 
 		return $params;
 	}
+
+		/**
+		 * Prevent use of 'parent_cart_item_meta' flag when using the new block-based cart.
+		 *
+		 * @since  6.15.0
+		 *
+		 * @param  array  $group_mode_data
+		 * @return array
+		 */
+		public static function bundles_group_mode_options_data( $group_mode_data ) {
+			$group_mode_data[ 'parent' ][ 'features' ] = array_diff( $group_mode_data[ 'parent' ][ 'features' ], array( 'parent_cart_item_meta' ) );
+			return $group_mode_data;
+		}
 }
 
 WC_PB_SF_Compatibility::init();

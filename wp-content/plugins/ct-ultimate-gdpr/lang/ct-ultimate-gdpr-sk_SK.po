@@ -18,13 +18,13 @@ msgstr ""
 # wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),
 # $url
 msgid "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner"
-msgstr ""
+msgstr "[Ultimate GDPR & CCPA] Váš licenčný kľúč chýba. Ak chcete použiť skener súborov cookie, <a href=%s> zadajte platnú kľúč</a>"
 
 # printf(
 # esc_html__( "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s", 'ct-ultimate-gdpr' ),
 # $host_version,
 msgid "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s"
-msgstr ""
+msgstr "Na vašom serveri je spustená verzia PHP %s, minimálna požiadavka Ultimate GDPR a CCPA %s je aspoň %s"
 
 # if ( empty( $import_file ) ) {
 # $this->view_options['notices'] = array( esc_html__( 'Please upload a file to import', 'ct-ultimate-gdpr' ) );
@@ -102,31 +102,31 @@ msgstr "Ultimate GDPR & CCPA"
 # esc_html__('License', 'ct-ultimate-gdpr'), // Title
 # null, // callback
 msgid "License"
-msgstr ""
+msgstr "Licencia"
 
 # 'admin_envato_key', // ID
 # esc_html__("Envato key", 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_admin_envato_key'), // Callback
 msgid "Envato key"
-msgstr ""
+msgstr "Envato kľúč"
 
 #
 # CT_Ultimate_GDPR_Model_Front_View::instance()->add('notices', esc_html__("OK!", 'ct-ultimate-gdpr'));
 #
 msgid "OK!"
-msgstr ""
+msgstr "OK!"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__('Age Verification', 'ct-ultimate-gdpr'),
 # esc_html__('Age Verification', 'ct-ultimate-gdpr'),
 msgid "Age Verification"
-msgstr ""
+msgstr "Overenie veku"
 
 # 'ct-ultimate-gdpr-age_tab-1_section-1', // ID
 # esc_html__('Popup content', 'ct-ultimate-gdpr'), // Title
 # null, // callback
 msgid "Popup content"
-msgstr ""
+msgstr "Obsah kontextového okna"
 
 # 'ct-ultimate-gdpr-age_tab-1_section-2', // ID
 # esc_html__('Options', 'ct-ultimate-gdpr'), // Title
@@ -138,7 +138,7 @@ msgstr "Možnosti"
 # esc_html__('Epiration time', 'ct-ultimate-gdpr'), // Title
 # null, // callback
 msgid "Epiration time"
-msgstr ""
+msgstr "Doba expirácie"
 
 # 'ct-ultimate-gdpr-age_tab-2_section-1', // ID
 # esc_html__('Expiration time', 'ct-ultimate-gdpr'), // Title
@@ -150,7 +150,7 @@ msgstr ""
 # esc_html__('Position of the age popup', 'ct-ultimate-gdpr'), // Title
 # null, // callback
 msgid "Position of the age popup"
-msgstr ""
+msgstr "Poloha kontextového okna veku"
 
 # 'ct-ultimate-gdpr-age_tab-2_section-2', // ID
 # esc_html__('Buttons styles', 'ct-ultimate-gdpr'), // Title
@@ -162,7 +162,7 @@ msgstr "Štýly tlačidiel"
 # esc_html__('Popup box', 'ct-ultimate-gdpr'), // Title
 # null, // callback
 msgid "Popup box"
-msgstr ""
+msgstr "Vyskakovacie pole"
 
 # 'ct-ultimate-gdpr-age_tab-2_section-6', // ID
 # esc_html__('Custom style CSS', 'ct-ultimate-gdpr'), // Title
@@ -174,19 +174,19 @@ msgstr "Vlastný štýl CSS"
 # esc_html__("Popup title", 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_age_popup_title'), // Callback
 msgid "Popup title"
-msgstr ""
+msgstr "Názov kontextového okna"
 
 # 'age_popup_content', // ID
 # esc_html__('Age popup content', 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_age_popup_content'), // Callback
 msgid "Age popup content"
-msgstr ""
+msgstr "Obsah kontextového okna veku"
 
 # 'age_popup_label_accept', // ID
 # esc_html__("Popup 'Submit' button label", 'ct-ultimate-gdpr'), // Title
 # array($this, 'render_field_age_popup_label_accept'), // Callback
 msgid "Popup 'Submit' button label"
-msgstr ""
+msgstr "Menovka tlačidla „Odoslať“ v kontextovom okne"
 
 # 'age_popup_consent_crawler',
 # esc_html__('Do not block user agents (eg. bots) containing the following texts (comma separated)', 'ct-ultimate-gdpr'),
@@ -198,49 +198,49 @@ msgstr "Nezakrývajte používateľské agenty (napríklad roboty), ktoré obsah
 # esc_html__('Lower age limit to enter the website', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_limit_to_enter'),
 msgid "Lower age limit to enter the website"
-msgstr ""
+msgstr "Dolná veková hranica pre vstup na webovú stránku"
 
 # 'age_limit_to_sell',
 # esc_html__('Lower age limit to provide personal data', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_limit_to_sell'),
 msgid "Lower age limit to provide personal data"
-msgstr ""
+msgstr "Dolná veková hranica na poskytnutie osobných údajov"
 
 # 'age_placeholder',
 # esc_html__('Default age select placeholder', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_placeholder'),
 msgid "Default age select placeholder"
-msgstr ""
+msgstr "Predvolena hodnota pre výber veku"
 
 # 'age_assume_default',
 # esc_html__('Enter age value to assume if age not yet entered', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_assume_default'),
 msgid "Enter age value to assume if age not yet entered"
-msgstr ""
+msgstr "Ak vek nie je zadaný, zadajte hodnotu veku"
 
 # 'age_enabled',
 # esc_html__('Enable Age Verification', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_enabled'),
 msgid "Enable Age Verification"
-msgstr ""
+msgstr "Povoliť overenie veku"
 
 # 'age_display_all',
 # esc_html__('Display the popup on all pages', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_display_all'),
 msgid "Display the popup on all pages"
-msgstr ""
+msgstr "Zobrazte kontextové okno na všetkých stránkach"
 
 # 'check_if_user_is_from_ca',
 # esc_html__('Check if user is from California', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_check_if_user_is_from_ca'),
 msgid "Check if user is from California"
-msgstr ""
+msgstr "Skontrolujte, či používateľ pochádza z Kalifornie"
 
 # 'age_pages',
 # esc_html__('Select page where to display the popup', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_pages'),
 msgid "Select page where to display the popup"
-msgstr ""
+msgstr "Vyberte stránku, na ktorej sa zobrazí kontextové okno"
 
 # 'age_verification_page',
 # esc_html__("Select 'my account' page (one to redirect to when user is underage, eg. show link on registration form)", 'ct-ultimate-gdpr'),
@@ -252,7 +252,7 @@ msgstr ""
 # esc_html__('Set age verification expire time [s]', 'ct-ultimate-gdpr'),
 # array($this, 'render_field_age_expire'),
 msgid "Set age verification expire time [s]"
-msgstr ""
+msgstr "Nastaviť čas vypršania platnosti overenia veku [s]"
 
 # 'age_button_shape',
 # esc_html__('Button shape', 'ct-ultimate-gdpr'),
@@ -342,43 +342,43 @@ msgstr "Odstrániť"
 # 'red_velvet'          => esc_html__('Red Velvet', 'ct-ultimate-gdpr'),
 # 'thin_mint'           => esc_html__('Thin Mint', 'ct-ultimate-gdpr'),
 msgid "Red Velvet"
-msgstr ""
+msgstr "Červený zamat"
 
 # 'red_velvet'          => esc_html__('Red Velvet', 'ct-ultimate-gdpr'),
 # 'thin_mint'           => esc_html__('Thin Mint', 'ct-ultimate-gdpr'),
 # 'mint_chocolate'      => esc_html__('Mint Chocolate', 'ct-ultimate-gdpr'),
 msgid "Thin Mint"
-msgstr ""
+msgstr "Jemná mäta"
 
 # 'thin_mint'           => esc_html__('Thin Mint', 'ct-ultimate-gdpr'),
 # 'mint_chocolate'      => esc_html__('Mint Chocolate', 'ct-ultimate-gdpr'),
 # 'classic_createit'    => esc_html__('Classic createIT', 'ct-ultimate-gdpr'),
 msgid "Mint Chocolate"
-msgstr ""
+msgstr "Mätová čokoláda"
 
 # 'mint_chocolate'      => esc_html__('Mint Chocolate', 'ct-ultimate-gdpr'),
 # 'classic_createit'    => esc_html__('Classic createIT', 'ct-ultimate-gdpr'),
 # 'blueberry_orange'    => esc_html__('Blueberry with Orange', 'ct-ultimate-gdpr'),
 msgid "Classic createIT"
-msgstr ""
+msgstr "Klasické vytvorenie IT"
 
 # 'classic_createit'    => esc_html__('Classic createIT', 'ct-ultimate-gdpr'),
 # 'blueberry_orange'    => esc_html__('Blueberry with Orange', 'ct-ultimate-gdpr'),
 # 'blue_velvet'         => esc_html__('Blue Velvet', 'ct-ultimate-gdpr'),
 msgid "Blueberry with Orange"
-msgstr ""
+msgstr "Čučoriedka s pomarančom"
 
 # 'blueberry_orange'    => esc_html__('Blueberry with Orange', 'ct-ultimate-gdpr'),
 # 'blue_velvet'         => esc_html__('Blue Velvet', 'ct-ultimate-gdpr'),
 # 'chocolate_matcha'    => esc_html__('Chocolate Matcha', 'ct-ultimate-gdpr'),
 msgid "Blue Velvet"
-msgstr ""
+msgstr "Modrý zamat"
 
 # 'blue_velvet'         => esc_html__('Blue Velvet', 'ct-ultimate-gdpr'),
 # 'chocolate_matcha'    => esc_html__('Chocolate Matcha', 'ct-ultimate-gdpr'),
 # 'classic_dark'        => esc_html__('Classic Dark', 'ct-ultimate-gdpr'),
 msgid "Chocolate Matcha"
-msgstr ""
+msgstr "Čokoládová matcha"
 
 # 'chocolate_matcha'    => esc_html__('Chocolate Matcha', 'ct-ultimate-gdpr'),
 # 'classic_dark'        => esc_html__('Classic Dark', 'ct-ultimate-gdpr'),
@@ -396,43 +396,43 @@ msgstr "Klasický Svetlý"
 # 'oreo'                => esc_html__('Oreo', 'ct-ultimate-gdpr'),
 # 'blue_shortbread'     => esc_html__('Blue Shortbread', 'ct-ultimate-gdpr'),
 msgid "Oreo"
-msgstr ""
+msgstr "Oreo"
 
 # 'oreo'                => esc_html__('Oreo', 'ct-ultimate-gdpr'),
 # 'blue_shortbread'     => esc_html__('Blue Shortbread', 'ct-ultimate-gdpr'),
 # 'light_mint'          => esc_html__('Light Mint', 'ct-ultimate-gdpr'),
 msgid "Blue Shortbread"
-msgstr ""
+msgstr "Modré pečivo"
 
 # 'blue_shortbread'     => esc_html__('Blue Shortbread', 'ct-ultimate-gdpr'),
 # 'light_mint'          => esc_html__('Light Mint', 'ct-ultimate-gdpr'),
 # 'blue_cupcake'        => esc_html__('Blue Cupcake', 'ct-ultimate-gdpr'),
 msgid "Light Mint"
-msgstr ""
+msgstr "Jemná mäta"
 
 # 'light_mint'          => esc_html__('Light Mint', 'ct-ultimate-gdpr'),
 # 'blue_cupcake'        => esc_html__('Blue Cupcake', 'ct-ultimate-gdpr'),
 # 'matcha'              => esc_html__('Matcha', 'ct-ultimate-gdpr'),
 msgid "Blue Cupcake"
-msgstr ""
+msgstr "Modrý muffin"
 
 # 'blue_cupcake'        => esc_html__('Blue Cupcake', 'ct-ultimate-gdpr'),
 # 'matcha'              => esc_html__('Matcha', 'ct-ultimate-gdpr'),
 # 'mint'                => esc_html__('Mint', 'ct-ultimate-gdpr'),
 msgid "Matcha"
-msgstr ""
+msgstr "Matcha"
 
 # 'matcha'              => esc_html__('Matcha', 'ct-ultimate-gdpr'),
 # 'mint'                => esc_html__('Mint', 'ct-ultimate-gdpr'),
 # 'none'                => esc_html__('None', 'ct-ultimate-gdpr'),
 msgid "Mint"
-msgstr ""
+msgstr "Mäta"
 
 # 'mint'                => esc_html__('Mint', 'ct-ultimate-gdpr'),
 # 'none'                => esc_html__('None', 'ct-ultimate-gdpr'),
 # );
 msgid "None"
-msgstr ""
+msgstr "Žiadne"
 
 # $positions   = array(
 # 'squared' => esc_html__('Squared', 'ct-ultimate-gdpr'),
@@ -642,19 +642,19 @@ msgstr "Tento obsah vyžaduje cookies"
 # 'age_my_account_disclaimer'                     => esc_html__("Removal of your data will not limit in any way the system functionalities", 'ct-ultimate-gdpr'),
 # 'age_placeholder'                               => '',
 msgid "Removal of your data will not limit in any way the system functionalities"
-msgstr ""
+msgstr "Odstránenie vašich údajov žiadnym spôsobom neobmedzí funkcionality systému"
 
 # 'age_verification_page'                         => '',
 # 'age_popup_title'                               => esc_html__("Age verification", 'ct-ultimate-gdpr'),
 # 'age_popup_content'                             => esc_html__("Enter your date of birth", 'ct-ultimate-gdpr'),
 msgid "Age verification"
-msgstr ""
+msgstr "Overenie veku"
 
 # 'age_popup_title'                               => esc_html__("Age verification", 'ct-ultimate-gdpr'),
 # 'age_popup_content'                             => esc_html__("Enter your date of birth", 'ct-ultimate-gdpr'),
 # ));
 msgid "Enter your date of birth"
-msgstr ""
+msgstr "Zadajte dátum narodenia"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Data Breach', 'ct-ultimate-gdpr' ),
@@ -702,7 +702,7 @@ msgstr "<h3> Ak chcete zobraziť všetky zistené súbory cookie, prejdite na ka
 # wp_kses_post( __( 'Reset cookie settings after ended session', 'ct-ultimate-gdpr' ) ),
 # ''
 msgid "Reset cookie settings after ended session"
-msgstr ""
+msgstr "Po ukončení relácie resetujte nastavenia súborov cookie"
 
 # 'hint' => sprintf(
 # wp_kses_post( __( 'Ask users to accept/reject cookies with every visit on the website', 'ct-ultimate-gdpr' ) ),
@@ -798,7 +798,7 @@ msgstr "Každý štvrťrok"
 # esc_html__( 'Cookie Consent', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Cookie Consent', 'ct-ultimate-gdpr' ),
 msgid "Cookie Consent"
-msgstr ""
+msgstr "Súhlas s používaním súborov cookie"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Services Manager', 'ct-ultimate-gdpr' ),
@@ -828,7 +828,7 @@ msgstr "ID sledovania služby Google Analytics"
 # esc_html__( 'Cookie scanner settings', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Cookie scanner settings"
-msgstr ""
+msgstr "Nastavenia skenera súborov cookie"
 
 # 'ct-ultimate-gdpr-cookie_tab-2_section-3', // ID
 # esc_html__( 'Read more', 'ct-ultimate-gdpr' ), // Title
@@ -840,7 +840,7 @@ msgstr "Prečítať viac"
 # esc_html__( 'Reject All Cookies', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Reject All Cookies"
-msgstr ""
+msgstr "Odmietnuť všetky súbory cookie"
 
 # 'ct-ultimate-gdpr-cookie_tab-2_section-4', // ID
 # esc_html__( 'Position of the cookie notice box', 'ct-ultimate-gdpr' ), // Title
@@ -864,7 +864,7 @@ msgstr "Ochranný kód"
 # esc_html__( 'Withdrawal Cookie Agreement', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Withdrawal Cookie Agreement"
-msgstr ""
+msgstr "Vypovedanie dohody o používaní súborov cookies"
 
 # 'ct-ultimate-gdpr-cookie_tab-3_section-1', // ID
 # esc_html__( 'Advanced Cookies Settings', 'ct-ultimate-gdpr' ), // Title
@@ -906,7 +906,7 @@ msgstr "Ďalšie nastavenia"
 # esc_html__( 'My account disclaimer', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "My account disclaimer"
-msgstr ""
+msgstr "Vylúčenie zodpovednosti za môj účet"
 
 # 'cookie_content_language', // ID
 # esc_html__( 'Provide default content for the selected language (remember to save changes)', 'ct-ultimate-gdpr' ), // Title
@@ -960,13 +960,13 @@ msgstr "Vyberte stránku, na ktorej sa má zobraziť vyskakovacie okno súborov 
 # esc_html__( 'Always display cookie popup', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_display_always' ),
 msgid "Always display cookie popup"
-msgstr ""
+msgstr "Vždy zobraziť kontextové okno pre súboty cookie"
 
 # 'cookie_scan_period',
 # esc_html__( 'Choose how often cookie scans should be performed', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_scan_period' ),
 msgid "Choose how often cookie scans should be performed"
-msgstr ""
+msgstr "Vyberte, ako často sa majú vykonávať kontroly súborov cookie"
 
 # 'cookie_default_level_assigned_for_inserted_cookies',
 # esc_html__( 'Choose default level of new cookies', 'ct-ultimate-gdpr' ),
@@ -1032,445 +1032,445 @@ msgstr "Prečítajte si viac Vlastná adresa URL"
 # esc_html__( 'Heading', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_withdrawal_cookies_agreement' ),
 msgid "Heading"
-msgstr ""
+msgstr "Nadpis"
 
 # 'cookie_withdrawal_cookies_agreement_description',
 # esc_html__( 'Description', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_withdrawal_cookies_agreement_description' ),
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 # 'cookie_show_always',
 # esc_html__( 'Show advanced cookie popup always, even when the consent is given', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_show_always' ),
 msgid "Show advanced cookie popup always, even when the consent is given"
-msgstr "Показывать расширенное отображение cookie всегда, даже когда дается согласие"
+msgstr "Vždy zobraziť kontextové okno s rozšírenými súbormi cookie, aj keď je daný súhlas"
 
 # 'cookie_use_group_popup',
 # esc_html__( 'Use advanced cookie groups popup', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_use_group_popup' ),
 msgid "Use advanced cookie groups popup"
-msgstr "Использовать расширенные группы файлов cookie"
+msgstr "Použiť kontextové okno rozšírených skupín súborov cookie"
 
 # 'cookie_group_popup_header_content',
 # esc_html__( 'Advanced cookie groups popup header content', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_header_content' ),
 msgid "Advanced cookie groups popup header content"
-msgstr "Расширенное содержание заголовков cookie-групп"
+msgstr "Obsah kontextovej hlavičky rozšírených skupín súborov cookie"
 
 # 'cookie_settings_trigger',
 # esc_html__( 'Trigger cookie settings by', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_settings_trigger' ),
 msgid "Trigger cookie settings by"
-msgstr "Настройки триггера cookie"
+msgstr "Spustiť nastavenia súborov cookie podľa"
 
 # 'cookie_trigger_modal_icon',
 # esc_html__( 'Trigger cookie settings icon', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_trigger_modal_icon' ),
 msgid "Trigger cookie settings icon"
-msgstr "Иконка настроек Trigger cookie"
+msgstr "Spustiť nastavenia súboru cookie ikona"
 
 # 'cookie_trigger_modal_text',
 # esc_html__( 'Trigger cookie settings text', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_trigger_modal_text' ),
 msgid "Trigger cookie settings text"
-msgstr "Текст настроек Trigger cookie"
+msgstr "Spustiť nastavenia súborov cookie text"
 
 # 'cookie_trigger_modal_bg',
 # esc_html__( 'Trigger cookie settings background color', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_trigger_modal_bg' ),
 msgid "Trigger cookie settings background color"
-msgstr "Цвет фона настроек печенья"
+msgstr "Spustiť nastavenia súboru cookie farba pozadia"
 
 # 'cookie_trigger_modal_bg_shape',
 # esc_html__( 'Trigger cookie settings shape', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_trigger_modal_bg_shape' ),
 msgid "Trigger cookie settings shape"
-msgstr "Форма настроек cookie триггера"
+msgstr "Spustiť nastavenia súboru cookie tvar"
 
 # 'cookie_gear_icon_position',
 # esc_html__( 'Trigger cookie settings position', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_gear_icon_position' ),
 msgid "Trigger cookie settings position"
-msgstr "Положение настроек триггера cookie"
+msgstr "Spustiť nastavenia súboru cookie  pozícia"
 
 # 'cookie_gear_icon_color',
 # esc_html__( 'Trigger cookie settings color', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_gear_icon_color' ),
 msgid "Trigger cookie settings color"
-msgstr "Цвет настроек cookie триггера"
+msgstr "Spustiť nastavenia súboru cookie farba"
 
 # 'cookie_group_popup_features_wills_group_2',
 # esc_html__( 'List of features available for Essential level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_available_group_2' ),
 msgid "List of features available for Essential level (semicolon separated)"
-msgstr "Список функций, доступных для уровня Essential (точка с запятой)"
+msgstr "Zoznam dostupných funkcií pre základnú úroveň (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wonts_group_2',
 # esc_html__( 'List of features not available for Essential level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_nonavailable_group_2' ),
 msgid "List of features not available for Essential level (semicolon separated)"
-msgstr "Список функций, недоступных для основного уровня (точка с запятой)"
+msgstr "Zoznam nedostupných funkcií pre základnú úroveň (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wills_group_3',
 # esc_html__( 'List of features available for Functionality level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_available_group_3' ),
 msgid "List of features available for Functionality level (semicolon separated)"
-msgstr "Список функций, доступных для уровня функциональности (точка с запятой)"
+msgstr "Zoznam dostupných funkcií pre úroveň funkčnosti (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wonts_group_3',
 # esc_html__( 'List of features not available for Functionality level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_nonavailable_group_3' ),
 msgid "List of features not available for Functionality level (semicolon separated)"
-msgstr "Список функций, недоступных для уровня функциональности (точка с запятой)"
+msgstr "Zoznam nedostupných funkcií pre úroveň funkčnosti (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wills_group_4',
 # esc_html__( 'List of features available for Analytics level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_available_group_4' ),
 msgid "List of features available for Analytics level (semicolon separated)"
-msgstr "Список функций, доступных для уровня Analytics (точка с запятой)"
+msgstr "Zoznam dostupných funkcií pre úroveň analytiky (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wonts_group_4',
 # esc_html__( 'List of features not available for Analytics level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_nonavailable_group_4' ),
 msgid "List of features not available for Analytics level (semicolon separated)"
-msgstr "Список функций, недоступных для уровня Analytics (точка с запятой)"
+msgstr "Zoznam nedostupných funkcií pre úroveň analytiky (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wills_group_5',
 # esc_html__( 'List of features available for Advertising level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_available_group_5' ),
 msgid "List of features available for Advertising level (semicolon separated)"
-msgstr "Список возможностей для уровня рекламы (точка с запятой)"
+msgstr "Zoznam dostupných funkcií pre úroveň inzercie (oddelené bodkočiarkou)"
 
 # 'cookie_group_popup_features_wonts_group_5',
 # esc_html__( 'List of features not available for Advertising level (semicolon separated)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_features_nonavailable_group_5' ),
 msgid "List of features not available for Advertising level (semicolon separated)"
-msgstr "Список функций, недоступных для уровня рекламы (точка с запятой)"
+msgstr "Zoznam nedostupných funkcií pre úroveň inzercie (oddelené bodkočiarkou)"
 
 # 'cookie_modal_header_color',
 # esc_html__( 'Cookie modal header color', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_modal_header_color' ),
 msgid "Cookie modal header color"
-msgstr "Модный цвет заголовка cookie"
+msgstr "Farba modálnej hlavičky súboru cookie"
 
 # 'cookie_modal_text_color',
 # esc_html__( 'Cookie modal text color', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_modal_text_color' ),
 msgid "Cookie modal text color"
-msgstr "Cookie modal text color"
+msgstr "Farba modálneho textu súboru cookie"
 
 # 'cookie_modal_skin',
 # esc_html__( 'Cookie modal skin', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_modal_skin' ),
 msgid "Cookie modal skin"
-msgstr "Модная кожа печенья"
+msgstr "Modálny vzhľad súboru cookie"
 
 # 'cookie_close_text_modal',
 # esc_html__( 'Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_close_text_modal' ),
 msgid "Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)"
-msgstr ""
+msgstr "Modálny text zatvorenia súboru cookie (ak je prázdny, zobrazí sa tlačidlo X (zatvoriť). Ak nie, zobrazí sa text)"
 
 # 'cookie_group_popup_hide_level_1',
 # esc_html__( 'Hide "Block All" level features', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_hide_level_1' ),
 msgid "Hide \"Block All\" level features"
-msgstr "Скрыть \\\"Заблокировать все\\\" функции"
+msgstr "Skryť funkcie na úrovni „Blokovať všetko“."
 
 # 'cookie_group_popup_hide_level_2',
 # esc_html__( 'Hide "Essential" level features', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_hide_level_2' ),
 msgid "Hide \"Essential\" level features"
-msgstr "Скрыть \\\"существенный\\\" функции"
+msgstr "Skryť funkcie na úrovni „Základné“."
 
 # 'cookie_group_popup_hide_level_3',
 # esc_html__( 'Hide "Functionality" level features', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_hide_level_3' ),
 msgid "Hide \"Functionality\" level features"
-msgstr "Скрыть \\\"функциональность\\\" функции"
+msgstr "Skryť funkcie na úrovni „Funkčnosť“."
 
 # 'cookie_group_popup_hide_level_4',
 # esc_html__( 'Hide "Analytics" level features', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_hide_level_4' ),
 msgid "Hide \"Analytics\" level features"
-msgstr "Скрыть \\\"аналитика\\\" функции"
+msgstr "Skryť funkcie na úrovni „Analytika“."
 
 # 'cookie_group_popup_hide_level_5',
 # esc_html__( 'Hide "Advertising" level features', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_group_popup_hide_level_5' ),
 msgid "Hide \"Advertising\" level features"
-msgstr "Скрыть \\\"реклама\\\" функции"
+msgstr "Skryť funkcie na úrovni „Reklama“."
 
 # 'cookie_group_popup_label_save', // ID
 # esc_html__( "Advanced cookie popup 'save & close' button label (leave empty for default)", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_cookie_group_popup_label_save' ), // Callback
 msgid "Advanced cookie popup 'save & close' button label (leave empty for default)"
-msgstr "Продвинутая метка кнопки 'Сохранить и закрыть' cookie для cookie (оставить пустыми по умолчанию)"
+msgstr "Menovka tlačidla „uložiť a zavrieť“ kontextového vyskakovacieho okna súboru cookie (pre predvolené nastavenie ponechajte prázdne)"
 
 # 'cookie_cookies_group_default',
 # esc_html__( "Select default privacy group", 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_cookies_group_default' ),
 msgid "Select default privacy group"
-msgstr "Выберите группу конфиденциальности по умолчанию"
+msgstr "Vyberte predvolenú skupinu ochrany osobných údajov"
 
 # 'cookie_refresh_after_save',
 # esc_html__( "Reload page when user saves changes", 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_refresh_after_save' ),
 msgid "Reload page when user saves changes"
-msgstr "Обновить страницу, когда пользователь сохраняет изменения"
+msgstr "Znovu načítať stránku po uložení zmien používateľom"
 
 # 'cookie_cookies_group_after_accept',
 # esc_html__( "Select privacy group after user accepts cookies in the popup", 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_cookie_cookies_group_after_accept' ),
 msgid "Select privacy group after user accepts cookies in the popup"
-msgstr "Выберите группу конфиденциальности после того, как пользователь примет файлы cookie во всплывающем окне"
+msgstr "Keď používateľ v kontextovom okne prijme súbory cookie, vyberte skupinu ochrany osobných údajov"
 
 # $values = array(
 # ''   => esc_html__( 'Select', 'ct-ultimate-gdpr' ),
 # 'cs' => 'Čeština',
 msgid "Select"
-msgstr "Выбрать"
+msgstr "Vyberte"
 
 # $positions = array(
 # 'classic'       => esc_html__( 'Classic', 'ct-ultimate-gdpr' ),
 # 'classic_blue'  => esc_html__( 'Classic Dark', 'ct-ultimate-gdpr' ),
 msgid "Classic"
-msgstr "классический"
+msgstr "Klasické"
 
 # 'classic_light' => esc_html__( 'Classic Light', 'ct-ultimate-gdpr' ),
 # 'modern'        => esc_html__( 'Modern', 'ct-ultimate-gdpr' ),
 # 'apas_blue'     => esc_html__( 'Apas Blue', 'ct-ultimate-gdpr' ),
 msgid "Modern"
-msgstr "Современное"
+msgstr "Moderné"
 
 # 'modern'        => esc_html__( 'Modern', 'ct-ultimate-gdpr' ),
 # 'apas_blue'     => esc_html__( 'Apas Blue', 'ct-ultimate-gdpr' ),
 # 'apas_black'    => esc_html__( 'Apas Black', 'ct-ultimate-gdpr' ),
 msgid "Apas Blue"
-msgstr "Apas Blue"
+msgstr "Apas modrá"
 
 # 'apas_blue'     => esc_html__( 'Apas Blue', 'ct-ultimate-gdpr' ),
 # 'apas_black'    => esc_html__( 'Apas Black', 'ct-ultimate-gdpr' ),
 # 'apas_white'    => esc_html__( 'Apas White', 'ct-ultimate-gdpr' ),
 msgid "Apas Black"
-msgstr "Apas Black"
+msgstr "Apas čierna"
 
 # 'apas_black'    => esc_html__( 'Apas Black', 'ct-ultimate-gdpr' ),
 # 'apas_white'    => esc_html__( 'Apas White', 'ct-ultimate-gdpr' ),
 # 'kahk_blue'     => esc_html__( 'Kahk Blue', 'ct-ultimate-gdpr' ),
 msgid "Apas White"
-msgstr "Apas White"
+msgstr "Apas biela"
 
 # 'apas_white'    => esc_html__( 'Apas White', 'ct-ultimate-gdpr' ),
 # 'kahk_blue'     => esc_html__( 'Kahk Blue', 'ct-ultimate-gdpr' ),
 # 'kahk_black'    => esc_html__( 'Kahk Black', 'ct-ultimate-gdpr' ),
 msgid "Kahk Blue"
-msgstr "Kahk Blue"
+msgstr "Kahky modrá"
 
 # 'kahk_blue'     => esc_html__( 'Kahk Blue', 'ct-ultimate-gdpr' ),
 # 'kahk_black'    => esc_html__( 'Kahk Black', 'ct-ultimate-gdpr' ),
 # 'kahk_white'    => esc_html__( 'Kahk White', 'ct-ultimate-gdpr' ),
 msgid "Kahk Black"
-msgstr "Kahk Black"
+msgstr "Kahky čierna"
 
 # 'kahk_black'    => esc_html__( 'Kahk Black', 'ct-ultimate-gdpr' ),
 # 'kahk_white'    => esc_html__( 'Kahk White', 'ct-ultimate-gdpr' ),
 # 'oreo_blue'     => esc_html__( 'Oreo Blue', 'ct-ultimate-gdpr' ),
 msgid "Kahk White"
-msgstr "Kahk White"
+msgstr "Kahky biela"
 
 # 'kahk_white'    => esc_html__( 'Kahk White', 'ct-ultimate-gdpr' ),
 # 'oreo_blue'     => esc_html__( 'Oreo Blue', 'ct-ultimate-gdpr' ),
 # 'oreo_black'    => esc_html__( 'Oreo Black', 'ct-ultimate-gdpr' ),
 msgid "Oreo Blue"
-msgstr "Oreo Blue"
+msgstr "Oreo modrá"
 
 # 'oreo_blue'     => esc_html__( 'Oreo Blue', 'ct-ultimate-gdpr' ),
 # 'oreo_black'    => esc_html__( 'Oreo Black', 'ct-ultimate-gdpr' ),
 # 'oreo_white'    => esc_html__( 'Oreo White', 'ct-ultimate-gdpr' ),
 msgid "Oreo Black"
-msgstr "Oreo Black"
+msgstr "Oreo čierna"
 
 # 'oreo_black'    => esc_html__( 'Oreo Black', 'ct-ultimate-gdpr' ),
 # 'oreo_white'    => esc_html__( 'Oreo White', 'ct-ultimate-gdpr' ),
 # 'wafer_blue'    => esc_html__( 'Wafer Blue', 'ct-ultimate-gdpr' ),
 msgid "Oreo White"
-msgstr "Oreo White"
+msgstr "Oreo biela"
 
 # 'oreo_white'    => esc_html__( 'Oreo White', 'ct-ultimate-gdpr' ),
 # 'wafer_blue'    => esc_html__( 'Wafer Blue', 'ct-ultimate-gdpr' ),
 # 'wafer_black'   => esc_html__( 'Wafer Black', 'ct-ultimate-gdpr' ),
 msgid "Wafer Blue"
-msgstr "Wafer Blue"
+msgstr "Oblátkovo čierna"
 
 # 'wafer_blue'    => esc_html__( 'Wafer Blue', 'ct-ultimate-gdpr' ),
 # 'wafer_black'   => esc_html__( 'Wafer Black', 'ct-ultimate-gdpr' ),
 # 'wafer_white'   => esc_html__( 'Wafer White', 'ct-ultimate-gdpr' ),
 msgid "Wafer Black"
-msgstr "Wafer Black"
+msgstr "Oblátkovo čierna"
 
 # 'wafer_black'   => esc_html__( 'Wafer Black', 'ct-ultimate-gdpr' ),
 # 'wafer_white'   => esc_html__( 'Wafer White', 'ct-ultimate-gdpr' ),
 # 'jumble_blue'   => esc_html__( 'Jumble Blue', 'ct-ultimate-gdpr' ),
 msgid "Wafer White"
-msgstr "Wafer White"
+msgstr "Oblátkovo biela"
 
 # 'wafer_white'   => esc_html__( 'Wafer White', 'ct-ultimate-gdpr' ),
 # 'jumble_blue'   => esc_html__( 'Jumble Blue', 'ct-ultimate-gdpr' ),
 # 'jumble_black'  => esc_html__( 'Jumble Black', 'ct-ultimate-gdpr' ),
 msgid "Jumble Blue"
-msgstr "Jumble Blue"
+msgstr "Jumble modrá"
 
 # 'jumble_blue'   => esc_html__( 'Jumble Blue', 'ct-ultimate-gdpr' ),
 # 'jumble_black'  => esc_html__( 'Jumble Black', 'ct-ultimate-gdpr' ),
 # 'jumble_white'  => esc_html__( 'Jumble White', 'ct-ultimate-gdpr' ),
 msgid "Jumble Black"
-msgstr "Jumble Black"
+msgstr "Jumble čierna"
 
 # 'jumble_black'  => esc_html__( 'Jumble Black', 'ct-ultimate-gdpr' ),
 # 'jumble_white'  => esc_html__( 'Jumble White', 'ct-ultimate-gdpr' ),
 # 'khapse_blue'   => esc_html__( 'Khapse Blue', 'ct-ultimate-gdpr' ),
 msgid "Jumble White"
-msgstr "Jumble White"
+msgstr "Jumble biela"
 
 # 'jumble_white'  => esc_html__( 'Jumble White', 'ct-ultimate-gdpr' ),
 # 'khapse_blue'   => esc_html__( 'Khapse Blue', 'ct-ultimate-gdpr' ),
 # 'khapse_black'  => esc_html__( 'Khapse Black', 'ct-ultimate-gdpr' ),
 msgid "Khapse Blue"
-msgstr "Khapse Blue"
+msgstr "Khapse modrá"
 
 # 'khapse_blue'   => esc_html__( 'Khapse Blue', 'ct-ultimate-gdpr' ),
 # 'khapse_black'  => esc_html__( 'Khapse Black', 'ct-ultimate-gdpr' ),
 # 'khapse_white'  => esc_html__( 'Khapse White', 'ct-ultimate-gdpr' ),
 msgid "Khapse Black"
-msgstr "Khapse Black"
+msgstr "Khapse čierna"
 
 # 'khapse_black'  => esc_html__( 'Khapse Black', 'ct-ultimate-gdpr' ),
 # 'khapse_white'  => esc_html__( 'Khapse White', 'ct-ultimate-gdpr' ),
 # 'tareco_blue'   => esc_html__( 'Tareco Blue', 'ct-ultimate-gdpr' ),
 msgid "Khapse White"
-msgstr "Khapse White"
+msgstr "Khapse biela"
 
 # 'khapse_white'  => esc_html__( 'Khapse White', 'ct-ultimate-gdpr' ),
 # 'tareco_blue'   => esc_html__( 'Tareco Blue', 'ct-ultimate-gdpr' ),
 # 'tareco_black'  => esc_html__( 'Tareco Black', 'ct-ultimate-gdpr' ),
 msgid "Tareco Blue"
-msgstr "Tareco Blue"
+msgstr "Tareco modrá"
 
 # 'tareco_blue'   => esc_html__( 'Tareco Blue', 'ct-ultimate-gdpr' ),
 # 'tareco_black'  => esc_html__( 'Tareco Black', 'ct-ultimate-gdpr' ),
 # 'tareco_white'  => esc_html__( 'Tareco White', 'ct-ultimate-gdpr' ),
 msgid "Tareco Black"
-msgstr "Tareco Black"
+msgstr "Tareco čierna"
 
 # 'tareco_black'  => esc_html__( 'Tareco Black', 'ct-ultimate-gdpr' ),
 # 'tareco_white'  => esc_html__( 'Tareco White', 'ct-ultimate-gdpr' ),
 # 'kichel_blue'   => esc_html__( 'Kichel Blue', 'ct-ultimate-gdpr' ),
 msgid "Tareco White"
-msgstr "Tareco White"
+msgstr "Tareco biela"
 
 # 'tareco_white'  => esc_html__( 'Tareco White', 'ct-ultimate-gdpr' ),
 # 'kichel_blue'   => esc_html__( 'Kichel Blue', 'ct-ultimate-gdpr' ),
 # 'kichel_black'  => esc_html__( 'Kichel Black', 'ct-ultimate-gdpr' ),
 msgid "Kichel Blue"
-msgstr "Kichel Blue"
+msgstr "Kichel modrá"
 
 # 'kichel_blue'   => esc_html__( 'Kichel Blue', 'ct-ultimate-gdpr' ),
 # 'kichel_black'  => esc_html__( 'Kichel Black', 'ct-ultimate-gdpr' ),
 # 'kichel_white'  => esc_html__( 'Kichel White', 'ct-ultimate-gdpr' ),
 msgid "Kichel Black"
-msgstr "Kichel Black"
+msgstr "Kichel čierna"
 
 # 'kichel_black'  => esc_html__( 'Kichel Black', 'ct-ultimate-gdpr' ),
 # 'kichel_white'  => esc_html__( 'Kichel White', 'ct-ultimate-gdpr' ),
 # 'macaron_blue'  => esc_html__( 'Macaron Blue', 'ct-ultimate-gdpr' ),
 msgid "Kichel White"
-msgstr "Kichel White"
+msgstr "Kichel biela"
 
 # 'kichel_white'  => esc_html__( 'Kichel White', 'ct-ultimate-gdpr' ),
 # 'macaron_blue'  => esc_html__( 'Macaron Blue', 'ct-ultimate-gdpr' ),
 # 'macaron_black' => esc_html__( 'Macaron Black', 'ct-ultimate-gdpr' ),
 msgid "Macaron Blue"
-msgstr "Macaron Blue"
+msgstr "Makarónovo modrá"
 
 # 'macaron_blue'  => esc_html__( 'Macaron Blue', 'ct-ultimate-gdpr' ),
 # 'macaron_black' => esc_html__( 'Macaron Black', 'ct-ultimate-gdpr' ),
 # 'macaron_white' => esc_html__( 'Macaron White', 'ct-ultimate-gdpr' ),
 msgid "Macaron Black"
-msgstr "Macaron Black"
+msgstr "Makarónovo čierna"
 
 # 'macaron_black' => esc_html__( 'Macaron Black', 'ct-ultimate-gdpr' ),
 # 'macaron_white' => esc_html__( 'Macaron White', 'ct-ultimate-gdpr' ),
 # 'wibele_blue'   => esc_html__( 'Wibele Blue', 'ct-ultimate-gdpr' ),
 msgid "Macaron White"
-msgstr "Macaron White"
+msgstr "Makarónovo biela"
 
 # 'macaron_white' => esc_html__( 'Macaron White', 'ct-ultimate-gdpr' ),
 # 'wibele_blue'   => esc_html__( 'Wibele Blue', 'ct-ultimate-gdpr' ),
 # 'wibele_black'  => esc_html__( 'Wibele Black', 'ct-ultimate-gdpr' ),
 msgid "Wibele Blue"
-msgstr "Wibele Blue"
+msgstr "Wibele modrá"
 
 # 'wibele_blue'   => esc_html__( 'Wibele Blue', 'ct-ultimate-gdpr' ),
 # 'wibele_black'  => esc_html__( 'Wibele Black', 'ct-ultimate-gdpr' ),
 # 'wibele_white'  => esc_html__( 'Wibele White', 'ct-ultimate-gdpr' ),
 msgid "Wibele Black"
-msgstr "Wibele Black"
+msgstr "Wibele čierna"
 
 # 'wibele_black'  => esc_html__( 'Wibele Black', 'ct-ultimate-gdpr' ),
 # 'wibele_white'  => esc_html__( 'Wibele White', 'ct-ultimate-gdpr' ),
 # );
 msgid "Wibele White"
-msgstr "Wibele White"
+msgstr "Wibele biela"
 
 # 'text_only_' => esc_html__( 'Text Only', 'ct-ultimate-gdpr' ),
 # 'icon_only_' => esc_html__( 'Icon Only', 'ct-ultimate-gdpr' ),
 # 'text_icon_' => esc_html__( 'Icon and Text', 'ct-ultimate-gdpr' ),
 msgid "Icon Only"
-msgstr "Только Иконка"
+msgstr "Iba ikona"
 
 # $positions   = array(
 # 'top_left_'      => esc_html__( 'Top Left', 'ct-ultimate-gdpr' ),
 # 'top_center_'    => esc_html__( 'Top center', 'ct-ultimate-gdpr' ),
 msgid "Top Left"
-msgstr "Верхний левый"
+msgstr "Hore vľavo"
 
 # 'top_left_'      => esc_html__( 'Top Left', 'ct-ultimate-gdpr' ),
 # 'top_center_'    => esc_html__( 'Top center', 'ct-ultimate-gdpr' ),
 # 'top_right_'     => esc_html__( 'Top Right', 'ct-ultimate-gdpr' ),
 msgid "Top center"
-msgstr "Верхний центр"
+msgstr "Hore v strede"
 
 # 'top_center_'    => esc_html__( 'Top center', 'ct-ultimate-gdpr' ),
 # 'top_right_'     => esc_html__( 'Top Right', 'ct-ultimate-gdpr' ),
 # 'center_left_'   => esc_html__( 'Center Left', 'ct-ultimate-gdpr' ),
 msgid "Top Right"
-msgstr "В правом верхнем углу"
+msgstr "Hore vpravo"
 
 # 'top_right_'     => esc_html__( 'Top Right', 'ct-ultimate-gdpr' ),
 # 'center_left_'   => esc_html__( 'Center Left', 'ct-ultimate-gdpr' ),
 # 'center_right_'  => esc_html__( 'Center Right', 'ct-ultimate-gdpr' ),
 msgid "Center Left"
-msgstr "Центр слева"
+msgstr "Stred vľavo"
 
 # 'center_left_'   => esc_html__( 'Center Left', 'ct-ultimate-gdpr' ),
 # 'center_right_'  => esc_html__( 'Center Right', 'ct-ultimate-gdpr' ),
 # 'bottom_left_'   => esc_html__( 'Bottom Left', 'ct-ultimate-gdpr' ),
 msgid "Center Right"
-msgstr "ентр права"
+msgstr "Stred vpravo"
 
 # 'center_right_'  => esc_html__( 'Center Right', 'ct-ultimate-gdpr' ),
 # 'bottom_left_'   => esc_html__( 'Bottom Left', 'ct-ultimate-gdpr' ),
 # 'bottom_center_' => esc_html__( 'Bottom Center', 'ct-ultimate-gdpr' ),
 msgid "Bottom Left"
-msgstr "Нижняя левая"
+msgstr "Dole vľavo"
 
 # 'bottom_left_'   => esc_html__( 'Bottom Left', 'ct-ultimate-gdpr' ),
 # 'bottom_center_' => esc_html__( 'Bottom Center', 'ct-ultimate-gdpr' ),
 # 'bottom_right_'  => esc_html__( 'Bottom Right', 'ct-ultimate-gdpr' ),
 msgid "Bottom Center"
-msgstr "Нижний Центр"
+msgstr "Dole vpravo"
 
 # 'bottom_center_' => esc_html__( 'Bottom Center', 'ct-ultimate-gdpr' ),
 # 'bottom_right_'  => esc_html__( 'Bottom Right', 'ct-ultimate-gdpr' ),
@@ -1482,403 +1482,403 @@ msgstr "Внизу справа"
 # 'round'   => esc_html__( 'Round', 'ct-ultimate-gdpr' ),
 # 'rounded' => esc_html__( 'Rounded', 'ct-ultimate-gdpr' ),
 msgid "Round"
-msgstr "Круглый"
+msgstr "Okrúhle"
 
 # $positions   = array(
 # 'default'            => esc_html__( 'Default', 'ct-ultimate-gdpr' ),
 # 'style-one'          => esc_html__( 'Neutral', 'ct-ultimate-gdpr' ),
 msgid "Default"
-msgstr "По умолчанию"
+msgstr "Predvolené"
 
 # 'default'            => esc_html__( 'Default', 'ct-ultimate-gdpr' ),
 # 'style-one'          => esc_html__( 'Neutral', 'ct-ultimate-gdpr' ),
 # 'style-two'          => esc_html__( 'Modern Blue', 'ct-ultimate-gdpr' ),
 msgid "Neutral"
-msgstr "нейтральный"
+msgstr "Neutrálne"
 
 # 'style-one'          => esc_html__( 'Neutral', 'ct-ultimate-gdpr' ),
 # 'style-two'          => esc_html__( 'Modern Blue', 'ct-ultimate-gdpr' ),
 # 'compact-dark-blue'  => esc_html__( 'Compact Dark Blue', 'ct-ultimate-gdpr' ),
 msgid "Modern Blue"
-msgstr "Современный синий"
+msgstr "Moderná modrá"
 
 # 'style-two'          => esc_html__( 'Modern Blue', 'ct-ultimate-gdpr' ),
 # 'compact-dark-blue'  => esc_html__( 'Compact Dark Blue', 'ct-ultimate-gdpr' ),
 # 'compact-light-blue' => esc_html__( 'Compact Light Blue', 'ct-ultimate-gdpr' ),
 msgid "Compact Dark Blue"
-msgstr "Компактный синий"
+msgstr "Kompaktná tmavomodrá"
 
 # 'compact-dark-blue'  => esc_html__( 'Compact Dark Blue', 'ct-ultimate-gdpr' ),
 # 'compact-light-blue' => esc_html__( 'Compact Light Blue', 'ct-ultimate-gdpr' ),
 # 'compact-green'      => esc_html__( 'Compact Green', 'ct-ultimate-gdpr' ),
 msgid "Compact Light Blue"
-msgstr "Компактный голубой"
+msgstr "Kompaktná svetlomodrá"
 
 # 'compact-light-blue' => esc_html__( 'Compact Light Blue', 'ct-ultimate-gdpr' ),
 # 'compact-green'      => esc_html__( 'Compact Green', 'ct-ultimate-gdpr' ),
 # );
 msgid "Compact Green"
-msgstr "Компактный зеленый"
+msgstr "Kompaktná zelená"
 
 # 'cookie_content'                                   => $this->get_default_cookie_content(),
 # 'cookie_popup_label_accept'                        => esc_html__( 'Accept', 'ct-ultimate-gdpr' ),
 # 'cookie_popup_label_read_more'                     => esc_html__( 'Read more', 'ct-ultimate-gdpr' ),
 msgid "Accept"
-msgstr "Принять"
+msgstr "Prijať"
 
 # 'cookie_popup_label_read_more'                     => esc_html__( 'Read more', 'ct-ultimate-gdpr' ),
 # 'cookie_popup_label_settings'                      => esc_html__( 'Change Settings', 'ct-ultimate-gdpr' ),
 # 'cookie_position'                                  => 'bottom_panel_',
 msgid "Change Settings"
-msgstr "Изменить Настройки"
+msgstr "Zmeniť nastavenia"
 
 # 'cookie_withdrawal_cookies_agreement'			   => esc_html__( "Withdrawal Cookie Agreement", 'ct-ultimate-gdpr' ),
 # 'cookie_withdrawal_cookies_agreement_description'  => esc_html__( "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use.", 'ct-ultimate-gdpr' ),
 # 'cookie_withdrawal_cookies_agreement_button_bg_color'        => '#ff7d27',
 msgid "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use."
-msgstr ""
+msgstr "Rozhodnite sa zablokovať všetky súbory cookie, ktoré používame. Tieto nastavenia môžete kedykoľvek zmeniť. Zistite viac o súboroch cookie, ktoré používame."
 
 # 'message' => sprintf(
 # esc_html__( 'Cookies detected: %s, Cookies saved: %s', 'ct-ultimate-gdpr' ),
 # count($cookies_detected) ? implode( ', ', $cookies_detected ) : 'N/A',
 msgid "Cookies detected: %s, Cookies saved: %s"
-msgstr "Обнаружены файлы cookie: %s, сохраненные файлы cookie: %s"
+msgstr "Identifikované súbory cookie: %s, uložené súbory cookie: %s"
 
 # $result          = new stdClass();
 # $result->message = esc_html__( 'There was a problem with connecting to the cookie scanner. Skipped this url.', 'ct-ultimate-gdpr' );
 # }
 msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
-msgstr "Возникла проблема с подключением к сканеру файлов cookie. Пропустил этот URL."
+msgstr "Vyskytol sa problém s pripojením ku skeneru súborov cookie. Táto URL adresa bola preskočená."
 
 # <input type="text" readonly class="button button-primary" name="ct-ultimate-gdpr-cookie-content-language"
 # value="<?php _e( 'Load', 'ct-ultimate-gdpr' ); ?>" />
 #
 msgid "Load"
-msgstr "нагрузка"
+msgstr "Načítať"
 
 # if ( ! $email ) {
 # CT_Ultimate_GDPR_Model_Front_View::instance()->add( 'notices', esc_html__( "Wrong email!", 'ct-ultimate-gdpr' ) );
 #
 msgid "Wrong email!"
-msgstr "Неправильный адрес электронной почты!"
+msgstr "Nesprávny email!"
 
 # if ( ! ct_ultimate_gdpr_recaptcha_verify() ) {
 # CT_Ultimate_GDPR_Model_Front_View::instance()->add( 'notices', esc_html__( "Recaptcha error!", 'ct-ultimate-gdpr' ) );
 #
 msgid "Recaptcha error!"
-msgstr "Ошибка Recaptcha!"
+msgstr "Chyba recaptcha!"
 
 # $notify_mail,
 # esc_html__( "[Ultimate GDPR & CCPA] New Data Access request", 'ct-ultimate-gdpr' ),
 # sprintf(
 msgid "[Ultimate GDPR & CCPA] New Data Access request"
-msgstr "[Ultimate GDPR & CCPA] Запрос на Доступ к новым данным"
+msgstr "[Ultimate GDPR & CCPA] Nová žiadosť o prístup k údajom"
 
 # sprintf(
 # esc_html__( "There is a new data access request from email %s. See details at %s", 'ct-ultimate-gdpr' ),
 # $email,
 msgid "There is a new data access request from email %s. See details at %s"
-msgstr "Имеется запрос на доступ к новым данным из эл. почты%s. Посмотреть детали %s"
+msgstr "Existuje nová žiadosť o prístup k údajom z e-mailu %s. Podrobnosti nájdete na %s"
 
 #
 # CT_Ultimate_GDPR_Model_Front_View::instance()->add( 'notices', esc_html__( "Your request was sent!", 'ct-ultimate-gdpr' ) );
 #
 msgid "Your request was sent!"
-msgstr "Ваш запрос послан!"
+msgstr "Vaša žiadosť bola odoslaná!"
 
 # sprintf(
 # esc_html__( "Data was sent to email: %s", 'ct-ultimate-gdpr' ),
 # implode( ', ', $emails )
 msgid "Data was sent to email: %s"
-msgstr "Данные посланы по адресу: %s"
+msgstr "Údaje boli odoslané na email: %s"
 
 # sprintf(
 # esc_html__( "The following emails were removed from the list: %s", 'ct-ultimate-gdpr' ),
 # implode( ', ', $emails )
 msgid "The following emails were removed from the list: %s"
-msgstr "Следующие адреса были удалены из списка: %s"
+msgstr "Nasledujúce e-maily boli zo zoznamu odstránené: %s"
 
 # 'date'          => date( $date_format, $request['date'] ),
 # 'status'        => $request['status'] ? date( $date_format, $request['date'] ) : esc_html__( "Not sent", 'ct-ultimate-gdpr' ),
 # );
 msgid "Not sent"
-msgstr "Не послано"
+msgstr "Neposlané"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Data Access', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Data Access', 'ct-ultimate-gdpr' ),
 msgid "Data Access"
-msgstr "Доступ к данным"
+msgstr "Prístup k údajom"
 
 # 'ct-ultimate-gdpr-dataaccess', // ID
 # esc_html__( 'Data access settings', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Data access settings"
-msgstr "Настройки доступа к данным"
+msgstr "Nastavenia prístupu k údajom"
 
 # 'dataaccess_automated_dataaccess', // ID
 # esc_html__( "Automatically send data to all users on their request", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_dataaccess_automated_dataaccess' ), // Callback
 msgid "Automatically send data to all users on their request"
-msgstr "Автоматическая отправка данных всем пользователям по их запросу"
+msgstr "Automaticky odosielať údaje všetkým používateľom na ich žiadosť"
 
 # 'dataaccess_remove_empty_fields', // ID
 # esc_html__( "Remove empty fields in Data Access Request List", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_dataaccess_remove_empty_fields' ), // Callback
 msgid "Remove empty fields in Data Access Request List"
-msgstr "Удалить пустые поля в Список запросов на доступ к данным"
+msgstr "Odstrániť prázdne polia v zozname žiadostí o prístup k údajom"
 
 # 'dataaccess_notify_email', // ID
 # esc_html__( "Email to send new request notifications to", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_dataaccess_notify_mail' ), // Callback
 msgid "Email to send new request notifications to"
-msgstr "Адрес, на который нужно отправлять новые уведомления"
+msgstr "E-mail, na ktorý sa majú odosielať upozornenia na novú žiadosť"
 
 # 'dataaccess_notify_email'   => get_bloginfo( 'admin_email' ),
 # 'dataaccess_mail_title'     => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data request results from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # 'dataaccess_mail_content'   => sprintf( esc_html__( "Please find data attached", 'ct-ultimate-gdpr' ) ),
 msgid "[Ultimate GDPR & CCPA] Data request results from %s"
-msgstr "[Ultimate GDPR & CCPA] Результаты запроса о данных из %s"
+msgstr "[Ultimate GDPR & CCPA] Žiadosť o údaje vyplýva z %s"
 
 # 'dataaccess_mail_title'     => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data request results from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # 'dataaccess_mail_content'   => sprintf( esc_html__( "Please find data attached", 'ct-ultimate-gdpr' ) ),
 # ) );
 msgid "Please find data attached"
-msgstr "Пожалуйста, посмотрите данные во вложении"
+msgstr "Údaje nájdete v prílohe"
 
 # $email_title = sprintf(
 # esc_html__( "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s", 'ct-ultimate-gdpr' ),
 # get_bloginfo( 'name' )
 msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR & CCPA] Новый запрос на Право Быть Забытым из %s"
+msgstr "[Ultimate GDPR & CCPA] Nová žiadosť o právo na zabudnutie údajov od %s"
 
 # $email_address = sprintf(
 # esc_html__( "There is a new Right To Be Forgotten request from email %s. See details at %s", 'ct-ultimate-gdpr' ),
 # $email,
 msgid "There is a new Right To Be Forgotten request from email %s. See details at %s"
-msgstr "Существует новый запрос «Право быть забытым» из электронной почты% s. Подробнее см. В разделе% s"
+msgstr "Existuje nová žiadosť o právo na zabudnutie odoslaná z e-mailu %s. Podrobnosti nájdete na %s"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Right To Be Forgotten', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Right To Be Forgotten', 'ct-ultimate-gdpr' ),
 msgid "Right To Be Forgotten"
-msgstr "Право быть забытым"
+msgstr "Právo na zabudnutie"
 
 # $email,
 # sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # $this->get_id(),
 msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
-msgstr "[Ultimate GDPR & CCPA] Пожалуйста, подтвердите запрос на право быть забытым %s"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte žiadosť o zabudnutie od %s"
 
 # 'notices',
 # esc_html__( 'Your request was already confirmed.', 'ct-ultimate-gdpr' )
 # );
 msgid "Your request was already confirmed."
-msgstr "Ваш запрсо уже подтвержден."
+msgstr "Vaša žiadosť už bola potvrdená."
 
 # 'notices',
 # esc_html__( 'Your request was successfully confirmed.', 'ct-ultimate-gdpr' )
 # );
 msgid "Your request was successfully confirmed."
-msgstr "Ваш запрос полностью подтвержден."
+msgstr "Vaša žiadosť bola úspešne potvrdená."
 
 # 'notices',
 # esc_html__( 'Your request was not confirmed. Please check the link or contact admin.', 'ct-ultimate-gdpr' )
 # );
 msgid "Your request was not confirmed. Please check the link or contact admin."
-msgstr "Ваш запрос не подтвержден. Пожалуйста, проверьте ссылку или свяжитесь с админом."
+msgstr "Vaša žiadosť nebola potvrdená. Skontrolujte odkaz alebo kontaktujte správcu."
 
 # sprintf(
 # esc_html__( "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s", 'ct-ultimate-gdpr' ),
 # implode( ', ', $emails )
 msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
-msgstr "[Ultimate GDPR & CCPA] Сообщения эл. почты были посланы следующим пользователям: %s"
+msgstr "[Ultimate GDPR & CCPA] E-maily boli odoslané nasledujúcim používateľom: %s"
 
 # sprintf(
 # esc_html__( "[Ultimate GDPR & CCPA] The following emails were removed from list: %s", 'ct-ultimate-gdpr' ),
 # implode( ', ', $emails )
 msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
-msgstr "[Ultimate GDPR & CCPA] Следующие сообщения эл. почты были удалены из списка: %s"
+msgstr "[Ultimate GDPR & CCPA] Nasledujúce e-maily boli odstránené zo zoznamu: %s"
 
 # sprintf(
 # esc_html__( "Non existing service id: %s", 'ct-ultimate-gdpr' ),
 # $service_id
 msgid "Non existing service id: %s"
-msgstr "Не существующий индентификатор услуги %s"
+msgstr "Neexistujúce ID služby: %s"
 
 # sprintf(
 # esc_html__( "There was an error forgetting %s service: %s", 'ct-ultimate-gdpr' ),
 # $service_id,
 msgid "There was an error forgetting %s service: %s"
-msgstr "Произошла ошибка забывания услуги %s: %s"
+msgstr "Pri službe zabudnutia pre %s sa vyskytla chyba: %s"
 
 # array(
 # esc_html__( "[Ultimate GDPR & CCPA] Services data were removed", 'ct-ultimate-gdpr' ),
 # )
 msgid "[Ultimate GDPR & CCPA] Services data were removed"
-msgstr "[Ultimate GDPR & CCPA] Данные об услугах были удалены"
+msgstr "[Ultimate GDPR & CCPA] Údaje služieb boli odstránené"
 
 # 'ct-ultimate-gdpr-forgotten_section-1', // ID
 # esc_html__( 'Forms skin', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Forms skin"
-msgstr "Формы кожи"
+msgstr "Vytváranie vzhľadu"
 
 # 'ct-ultimate-gdpr-forgotten', // ID
 # esc_html__( 'Right to be forgotten settings', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Right to be forgotten settings"
-msgstr "Настройки права быть забытым"
+msgstr "Nastavenia práva na zabudnutie"
 
 # 'forgotten_skin_shape',
 # esc_html__( 'Skin', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_forgotten_skin_shape' ),
 msgid "Skin"
-msgstr "кожа"
+msgstr "Vzhľad"
 
 # 'forgotten_automated_forget', // ID
 # esc_html__( "Automatically forget users who confirmed their mail", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_automated_forget' ), // Callback
 msgid "Automatically forget users who confirmed their mail"
-msgstr "Автоматически забывайте пользователей, которые подтвердили свою почту"
+msgstr "Automaticky zabudnúť na používateľov, ktorí svoju poštu potvrdili"
 
 # 'forgotten_automated_user_email', // ID
 # esc_html__( "Automatically send email about data removal to users who confirmed their email", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_automated_user_email' ), // Callback
 msgid "Automatically send email about data removal to users who confirmed their email"
-msgstr "Автоматически отправлять электронную почту об удалении данных пользователям, которые подтвердили свою электронную почту"
+msgstr "Automaticky odoslať e-mail o odstránení údajov používateľom, ktorí potvrdili svoj e-mail"
 
 # 'forgotten_automated_user_forget_roles', // ID
 # esc_html__( "Permit users of selected roles only to be forgotten automatically", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_automated_user_forget_roles' ), // Callback
 msgid "Permit users of selected roles only to be forgotten automatically"
-msgstr "Разрешить пользователям только выбранные роли автоматически забывать"
+msgstr "Povoliť automatické zabudnutie iba používateľov vybraných rolí"
 
 # 'forgotten_notify_mail', // ID
 # esc_html__( "Admin email to send new request notifications to", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_notify_mail' ), // Callback
 msgid "Admin email to send new request notifications to"
-msgstr "Адрес админа, на который нужно отправлять новые уведомления"
+msgstr "E-mail správcu, na ktorý sa majú odosielať upozornenia na nové žiadosti"
 
 # 'forgotten_notify_email_subject', // ID
 # esc_html__( "User notification email subject", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_notify_email_subject' ), // Callback
 msgid "User notification email subject"
-msgstr "Пользовательский вопрос по электронной почте"
+msgstr "Predmet e-mailu s upozornením používateľa"
 
 # 'forgotten_notify_email_message', // ID
 # esc_html__( "User notification email message", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_notify_email_message' ), // Callback
 msgid "User notification email message"
-msgstr "Содержание уведомления, посланного пользователю по электронной почте"
+msgstr "E-mailová správa s upozornením používateľa"
 
 # 'forgotten_target_page', // ID
 # esc_html__( "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_forgotten_target_page' ), // Callback
 msgid "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)"
-msgstr "Задайте настраиваемый URL-адрес на странице, содержащей код Ultimate GDPR & CCPA shortcode в качестве целевой страницы подтверждения по электронной почте (или оставить пустой для автоматического определения)"
+msgstr "Nastavte vlastnú webovú adresu na stránku obsahujúcu skrátený kód Ultimate GDPR a CCPA ako cieľovú stránku s potvrdením e-mailu (alebo ponechajte prázdnu pre automatické zistenie)"
 
 # ''                              => esc_html__( 'Default', 'ct-ultimate-gdpr' ),
 # 'ct-ultimate-gdpr-simple-form'  => esc_html__( 'Simple form', 'ct-ultimate-gdpr' ),
 # 'ct-ultimate-gdpr-rounded-form' => esc_html__( 'Rounded form', 'ct-ultimate-gdpr' ),
 msgid "Simple form"
-msgstr "Простая форма"
+msgstr "Jednoduchý formulár"
 
 # 'ct-ultimate-gdpr-simple-form'  => esc_html__( 'Simple form', 'ct-ultimate-gdpr' ),
 # 'ct-ultimate-gdpr-rounded-form' => esc_html__( 'Rounded form', 'ct-ultimate-gdpr' ),
 # 'ct-ultimate-gdpr-tabbed-form'  => esc_html__( 'Tabbed form', 'ct-ultimate-gdpr' ),
 msgid "Rounded form"
-msgstr "Закругленная форма"
+msgstr "Zaoblený formulár"
 
 # 'ct-ultimate-gdpr-rounded-form' => esc_html__( 'Rounded form', 'ct-ultimate-gdpr' ),
 # 'ct-ultimate-gdpr-tabbed-form'  => esc_html__( 'Tabbed form', 'ct-ultimate-gdpr' ),
 # );
 msgid "Tabbed form"
-msgstr "Вкладка"
+msgstr "Kartový formulár"
 
 # 'forgotten_notify_mail'                 => get_bloginfo( 'admin_email' ),
 # 'forgotten_notify_email_subject'        => esc_html__( "[Ultimate GDPR & CCPA] Your data has been forgotten", 'ct-ultimate-gdpr' ),
 # 'forgotten_notify_email_message'        => esc_html__( "[Ultimate GDPR & CCPA] Your data has been forgotten", 'ct-ultimate-gdpr' ),
 msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
-msgstr "[Ultimate GDPR & CCPA] Ваши данными были забыты"
+msgstr "[Ultimate GDPR & CCPA] Vaše údaje boli zabudnuté"
 
 # 'ct-ultimate-gdpr',
 # esc_html__( 'Plugins', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Plugins', 'ct-ultimate-gdpr' ),
 msgid "Plugins"
-msgstr "Плагины"
+msgstr "Pluginy"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Privacy Policy', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Privacy Policy', 'ct-ultimate-gdpr' ),
 msgid "Privacy Policy"
-msgstr "Политика конфиденциальности"
+msgstr "Zásady ochrany osobných údajov"
 
 # 'policy_header', // ID
 # esc_html__( 'Instructions', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_header' ), // Callback
 msgid "Instructions"
-msgstr "Руководство"
+msgstr "Inštrukcie"
 
 # 'policy_require_administrator', // ID
 # esc_html__( 'Require administrators to accept Privacy Policy (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_require_administrator' ), // Callback
 msgid "Require administrators to accept Privacy Policy (redirect)"
-msgstr "Требуются администраторы, чтобы принять Политику Конфиденциальности (перенапарвьте)"
+msgstr "Vyžadovať od správcov prijatie zásad ochrany osobných údajov (presmerovanie)"
 
 # 'policy_require_users', // ID
 # esc_html__( 'Require logged in users to accept Privacy Policy (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_require_users' ), // Callback
 msgid "Require logged in users to accept Privacy Policy (redirect)"
-msgstr "Требуются зарегистрированные пользователи, чтобы принять Политику Конфиденциальности (перенапарвьте)"
+msgstr "Vyžadovať od prihlásených používateľov prijatie zásad ochrany osobných údajov (presmerovanie)"
 
 # 'policy_require_guests', // ID
 # esc_html__( 'Require not logged in users/guests to accept Privacy Policy (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_require_guests' ), // Callback
 msgid "Require not logged in users/guests to accept Privacy Policy (redirect)"
-msgstr "Необходимо, чтобы не зарегистрированные пользователи/посетители приняли Политику Конфиденциальности (перенаправить)"
+msgstr "Vyžadovať od neprihlásených používateľov/hosti prijatie zásad ochrany osobných údajov (presmerovanie)"
 
 # 'policy_wp_page', // ID
 # esc_html__( 'WordPress Privacy Policy page', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_wp_page' ), // Callback
 msgid "WordPress Privacy Policy page"
-msgstr "Политика конфиденциальности WordPress"
+msgstr "WordPress stránka Zásady ochrany osobných údajov"
 
 # 'policy_target_page', // ID
 # esc_html__( 'Page with existing Privacy Policy', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_target_page' ), // Callback
 msgid "Page with existing Privacy Policy"
-msgstr "Страница о существующей Политике Конфиденциальности"
+msgstr "Stránka s existujúcimi Zásadami ochrany osobných údajov"
 
 # 'policy_target_custom',
 # esc_html__( 'Privacy Policy Custom URL', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_policy_target_custom' ),
 msgid "Privacy Policy Custom URL"
-msgstr "Политика Конфиденциальнсоти, настройка URL"
+msgstr "Vlastná URL adresa Zásad ochrany osobných údajov"
 
 # 'policy_target_custom_new_tab', // ID
 # esc_html__( 'Open Privacy Policy in a new Tab', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_new_tab' ), // Callback
 msgid "Open Privacy Policy in a new Tab"
-msgstr ""
+msgstr "Otvorte Zásady ochrany osobných údajov na novej karte"
 
 # 'policy_after_page', // ID
 # esc_html__( 'Page to redirect to after Privacy Policy accepted', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_after_page' ), // Callback
 msgid "Page to redirect to after Privacy Policy accepted"
-msgstr "Страница, на которую следует перенапрвить после принятия Политики Конфиденциальности"
+msgstr "Stránka na presmerovanie po prijatí Zásad ochrany osobných údajov"
 
 # 'policy_btn_styling', // ID
 # esc_html__( 'Shortcode Button Styling', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_btn_styling' ), // Callback
 msgid "Shortcode Button Styling"
-msgstr "Стиль кнопок для штрихкодов"
+msgstr "Štýl tlačidla krátkeho kódu"
 
 # 'policy_version', // ID
 # esc_html__( 'Privacy Policy version, eg. 1.0 (if you change it, user has to give consent again)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_version' ), // Callback
 msgid "Privacy Policy version, eg. 1.0 (if you change it, user has to give consent again)"
-msgstr "Версия Политики Конфиденциальности, например 1.0 (если вы хотите поменять ее,пользователь должен дать согласие еще раз)"
+msgstr "Verzia Zásad ochrany osobných údajov, napr. 1.0 (ak to zmeníte, používateľ musí dať súhlas znova)"
 
 # 'policy_redirect_first', // ID
 # esc_html__( 'Redirect to Privacy Policy first (if Terms and Conditions also redirect)', 'ct-ultimate-gdpr' ), // Title
@@ -1890,205 +1890,205 @@ msgstr "Presmerovať na Zásady ochrany osobných údajov ako prvé (ak je nasta
 # esc_html__( "Convert the following text to Privacy Policy link in all services templates, eg. 'Privacy Policy'", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_policy_placeholder' ), // Callback
 msgid "Convert the following text to Privacy Policy link in all services templates, eg. 'Privacy Policy'"
-msgstr "Преобразуйте следующий текст в ссылку Политики Конфиденциальности на всех шаблонах услуг, например как 'Политика Конфиденциальности'"
+msgstr "Preveďte nasledujúci text na odkaz Zásady ochrany osobných údajov vo všetkých šablónach služieb, napr. 'Zásady ochrany osobných údajov'"
 
 # $url,
 # esc_html__( 'Click here to create', 'ct-ultimate-gdpr' )
 # );
 msgid "Click here to create"
-msgstr "Нажмите здесь, чтобы создать"
+msgstr "Kliknutím sem vytvoríte"
 
 # printf(
 # esc_html__( '1. Place %s shortcode on your existing Privacy Policy page to add an accept button.%s2. Select Privacy Policy page below, so users can be redirected there to give their consent.', 'ct-ultimate-gdpr' ),
 # '<b>[ultimate_gdpr_policy_accept]</b>',
 msgid "1. Place %s shortcode on your existing Privacy Policy page to add an accept button.%s2. Select Privacy Policy page below, so users can be redirected there to give their consent."
-msgstr "1. Разместите шорткод %s  на вашей существующей странице Политика Конфиденциальности, чтобы добавить кнопку.%s2. Выберите страницу Политика Конфиденциальности внизу, чтобы перенаправить туда пользователей, чтобы они могли дать согласие."
+msgstr "1. Umiestnite skrátený kód %s na svoju existujúcu stránku Zásad ochrany osobných údajov a pridajte tlačidlo prijať.%s2. Nižšie vyberte stránku Zásady ochrany osobných údajov, kam budú presmerovaní používatelia, aby mohli vyjadriť svoj súhlas."
 
 # $wp_page->ID         = 'wp';
 # $wp_page->post_title = esc_html__( 'WordPress Privacy page', 'ct-ultimate-gdpr' );
 # array_unshift( $posts, $wp_page );
 msgid "WordPress Privacy page"
-msgstr "Страница конфиденциальности WordPress"
+msgstr "WordPress stránka ochrany osobných údajov"
 
 # // add default options
 # printf( "<option value='-1' %s >%s</option>",  $value == -1 ? 'selected' : '' , esc_html__( 'Last visited page', 'ct-ultimate-gdpr' ) );
 # printf( "<option value='0' %s >%s</option>",  $value == 0 ? 'selected' : '', esc_html__( "Don't redirect", 'ct-ultimate-gdpr' ) );
 msgid "Last visited page"
-msgstr "Последняя посещаемая страница"
+msgstr "Posledná navštívená stránka"
 
 # printf( "<option value='-1' %s >%s</option>",  $value == -1 ? 'selected' : '' , esc_html__( 'Last visited page', 'ct-ultimate-gdpr' ) );
 # printf( "<option value='0' %s >%s</option>",  $value == 0 ? 'selected' : '', esc_html__( "Don't redirect", 'ct-ultimate-gdpr' ) );
 #
 msgid "Don't redirect"
-msgstr "Не перенаправлять"
+msgstr "Nepresmerovať"
 
 # $positions   = array(
 # 'policy_theme_default' => esc_html__( 'Theme Default', 'ct-ultimate-gdpr' ),
 # 'policy_cookie_btn'    => esc_html__( 'Cookie box buttons', 'ct-ultimate-gdpr' ),
 msgid "Theme Default"
-msgstr "Тема по умолчанию"
+msgstr "Predvolená téma"
 
 # 'policy_theme_default' => esc_html__( 'Theme Default', 'ct-ultimate-gdpr' ),
 # 'policy_cookie_btn'    => esc_html__( 'Cookie box buttons', 'ct-ultimate-gdpr' ),
 # );
 msgid "Cookie box buttons"
-msgstr "Кнопки для кнопок cookie"
+msgstr "Tlačidlá boxu pre cookies"
 
 # 'ct-ultimate-gdpr',
 # esc_html__( 'Pseudonymization', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Pseudonymization', 'ct-ultimate-gdpr' ),
 msgid "Pseudonymization"
-msgstr "Псевдоминизация"
+msgstr "Pseudonymizácia"
 
 # if ( ! $this->check_encryption_possible() ) {
 # $this->add_view_option( 'notices', array( esc_html__( 'Encryption is not possible. Please check your openssl library.', 'ct-ultimate-gdpr' ) ) );
 #
 msgid "Encryption is not possible. Please check your openssl library."
-msgstr "Кодирование невозможно. Пожалуйста, проверьте вашу openssl библиотеку."
+msgstr "Šifrovanie nie je možné. Skontrolujte svoju knižnicu openssl."
 
 # 'pseudonymization_warning', // ID
 # esc_html__( 'Warning', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_pseudonymization_warning' ), // Callback
 msgid "Warning"
-msgstr "Предупреждение"
+msgstr "Pozor"
 
 # 'pseudonymization_encrypt_new_data', // ID
 # esc_html__( 'Automatically encrypt new data', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_pseudonymization_encrypt_new_data' ), // Callback
 msgid "Automatically encrypt new data"
-msgstr "Автоматическое кодирование новых данных"
+msgstr "Automaticky šifrovať nové údaje"
 
 # 'pseudonymization_decrypt_all_data', // ID
 # esc_html__( 'Automatically decrypt all data on the fly (if you have anything encrypted, this is recommended)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_pseudonymization_decrypt_all_data' ), // Callback
 msgid "Automatically decrypt all data on the fly (if you have anything encrypted, this is recommended)"
-msgstr "Автоматически расшифровывать все данные на лету (если вы имеет что-то в закодированном виде, рекомендовано)"
+msgstr "Automaticky dešifrovať všetky údaje za chodu (ak máte niečo zašifrované, odporúča sa to)"
 
 # 'pseudonymization_encrypt_services_header', // ID
 # esc_html__( 'Select data to encrypt', 'ct-ultimate-gdpr' ), // Title
 # '__return_empty_string', // Callback
 msgid "Select data to encrypt"
-msgstr "Выбрать данные для кодирования"
+msgstr "Vyberte údaje na šifrovanie"
 
 # '<h4>',
 # esc_html__( 'This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. ', 'ct-ultimate-gdpr' ),
 # '</h4>'
 msgid "This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. "
-msgstr "Эта функция является экспериментальной и может привести к потере необратимых данных! После шифрования может быть невозможно, чтобы кто-либо расшифровывал ваши данные. "
+msgstr "Táto funkcia je experimentálna a môže viesť k nenávratnej strate údajov! Po zašifrovaní môže byť pre niekoho nemožné dešifrovať vaše údaje. "
 
 # echo sprintf( "%s %s %s %s %s %s %s %s %s %s %s %s %s %s",
 # esc_html__( 'Pseudonymization feature allows you to encrypt some of the data stored in the database. That way, if anyone got access to your database, the user\'s data would be pseudonymized. Database contents are permanently encrypted and can be decrypted on the fly when accessed by users. You can also permanently decrypt all your contents.', 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "Pseudonymization feature allows you to encrypt some of the data stored in the database. That way, if anyone got access to your database, the user's data would be pseudonymized. Database contents are permanently encrypted and can be decrypted on the fly when accessed by users. You can also permanently decrypt all your contents."
-msgstr "Псевдонимизация дает вам возможность закодировать часть данных, хранящихся в базе. Таким образом, что, если бы кто-либо получил доступ к базе данных, то данные пользователя были бы обезличены. Контент базы данных постоянно кодируется, но его можно легко и быстро расшифровать, поскольку сами пользователи имеют к нему доступ . Вы также можете постоянно кодировать весь ваш контент."
+msgstr "Pseudonymizačná funkcia umožňuje zašifrovať niektoré údaje uložené v databáze. Týmto spôsobom, ak by niekto získal prístup k vašej databáze, údaje používateľa by boli pseudonymizované. Obsah databázy je trvalo zašifrovaný a je možné ho dešifrovať za chodu, počas prístupu používateľov. Celý obsah môžete tiež natrvalo dešifrovať."
 
 # '<br>',
 # esc_html__( 'How to use:', 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "How to use:"
-msgstr "Как пользоваться:"
+msgstr "Ako používať:"
 
 # '<br>',
 # esc_html__( '1. Make a backup', 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "1. Make a backup"
-msgstr "1. Сделайте резервную копию"
+msgstr "1. Urobte zálohu"
 
 # '<br>',
 # esc_html__( "2. Select which data to encrypt", 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "2. Select which data to encrypt"
-msgstr "2. Выберите данные, которые надо закодировать"
+msgstr "2. Vyberte, ktoré údaje sa majú šifrovať"
 
 # '<br>',
 # esc_html__( "3. (Optionally) Select 'automatically encrypt new data' for continuous encryption of all incoming data", 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "3. (Optionally) Select 'automatically encrypt new data' for continuous encryption of all incoming data"
-msgstr "3. (Необязательно) Выберите «автоматически зашифровать новые данные» для непрерывного шифрования всех входящих данных"
+msgstr "3. (Voliteľne) Na nepretržité šifrovanie všetkých prichádzajúcich údajov vyberte možnosť „automaticky šifrovať nové údaje“."
 
 # '<br>',
 # esc_html__( "4. Click 'Save changes'", 'ct-ultimate-gdpr' ),
 # '<br>',
 msgid "4. Click 'Save changes'"
-msgstr "4. Нажмите 'Сохранить изменения'"
+msgstr "4. Kliknite na „Uložiť zmeny“"
 
 # '<br>',
 # esc_html__( "5. (Optionally) Click 'Encrypt selected' to encrypt all current data which has not been yet encrypted", 'ct-ultimate-gdpr' )
 # );
 msgid "5. (Optionally) Click 'Encrypt selected' to encrypt all current data which has not been yet encrypted"
-msgstr "5. (По желанию) Нажмите 'Закодировать выбранное', чтобы кодировать все имеющиеся данные, которые еще не закодированы"
+msgstr "5. (Voliteľne) Kliknutím na „Zašifrovať vybraté“ zašifrujete všetky aktuálne údaje, ktoré ešte neboli zašifrované"
 
 #
 # $this->add_view_option( 'notices', array( esc_html__( 'Data encrypted successfully', 'ct-ultimate-gdpr' ) ) );
 #
 msgid "Data encrypted successfully"
-msgstr "Данные закодированы успешно"
+msgstr "Údaje boli úspešne zašifrované"
 
 # if ( ! $this->check_encryption_possible() ) {
 # $this->add_view_option( 'notices', array( esc_html__( 'Decryption is not possible. Please check your openssl library.', 'ct-ultimate-gdpr' ) ) );
 #
 msgid "Decryption is not possible. Please check your openssl library."
-msgstr "Расшифровка невозможна. Пожалуйста, проверьте  openssl библиотеку."
+msgstr "Dešifrovanie nie je možné. Skontrolujte svoju knižnicu openssl."
 
 #
 # $this->add_view_option( 'notices', array( esc_html__( 'Data decrypted successfully', 'ct-ultimate-gdpr' ) ) );
 #
 msgid "Data decrypted successfully"
-msgstr "Данные закодированы успешно"
+msgstr "Údaje boli úspešne dešifrované"
 
 # sprintf(
 # esc_html__( "[Ultimate GDPR & CCPA] New Data Rectification request from %s", 'ct-ultimate-gdpr' ),
 # get_bloginfo( 'name' )
 msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR & CCPA] Запрос на Исправление Новых данных из %s"
+msgstr "[Ultimate GDPR & CCPA] Nová žiadosť o opravu údajov od %s"
 
 # sprintf(
 # esc_html__( "There is a new Data Rectification request from email %s. See details at %s", 'ct-ultimate-gdpr' ),
 # $email,
 msgid "There is a new Data Rectification request from email %s. See details at %s"
-msgstr "Имеется запрос на исправление новых Данных из эл. почты %s. Смотирите детали на %s"
+msgstr "Existuje nová žiadosť o opravu údajov z e-mailu %s. Podrobnosti nájdete na %s"
 
 # $email,
 # sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # $this->get_id(),
 msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
-msgstr "[Ultimate GDPR & CCPA] Пожалуйста, подтвердите ваш запрос на исправление данных из %s"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte svoju žiadosť o opravu údajov od %s"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Data Rectification', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Data Rectification', 'ct-ultimate-gdpr' ),
 msgid "Data Rectification"
-msgstr "Исправление данных"
+msgstr "Oprava údajov"
 
 # 'ct-ultimate-gdpr-rectification', // ID
 # esc_html__( 'Data Rectification settings', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Data Rectification settings"
-msgstr "Настройки исправления данных"
+msgstr "Nastavenia opravy údajov"
 
 # 'rectification_notify_email', // ID
 # esc_html__( "Email to send admin notifications to", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_rectification_notify_mail' ), // Callback
 msgid "Email to send admin notifications to"
-msgstr "Послать по эл. почте уведомления админа"
+msgstr "E-mail, na ktorý sa majú odosielať upozornenia správcu"
 
 # 'rectification_mail_title', // ID
 # esc_html__( 'User mail title', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_rectification_mail_title' ), // Callback
 msgid "User mail title"
-msgstr "Заголовок эл. почты пользователя"
+msgstr "Názov pošty používateľa"
 
 # 'rectification_mail_content', // ID
 # esc_html__( 'User mail content', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_rectification_mail_content' ), // Callback
 msgid "User mail content"
-msgstr "Содержимое почты пользователя"
+msgstr "Obsah pošty používateľa"
 
 # 'rectification_notify_email' => get_bloginfo( 'admin_email' ),
 # 'rectification_mail_title'   => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data rectification notice from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # 'rectification_mail_content' => sprintf( esc_html__( "Your data has been rectified", 'ct-ultimate-gdpr' ) ),
 msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
-msgstr "[Ultimate GDPR & CCPA] Уведомление об исправленни данных из %s"
+msgstr "Vaše údaje boli opravené"
 
 # 'rectification_mail_title'   => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data rectification notice from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # 'rectification_mail_content' => sprintf( esc_html__( "Your data has been rectified", 'ct-ultimate-gdpr' ) ),
@@ -2100,103 +2100,103 @@ msgstr "Ваши данные исправлены"
 # 'menu_name'          => __( 'Services', 'ct-ultimate-gdpr' ),
 # 'parent_item_colon'  => __( 'Parent Services', 'ct-ultimate-gdpr' ),
 msgid "Services"
-msgstr "Сервисы"
+msgstr "Služby"
 
 # 'menu_name'          => __( 'Services', 'ct-ultimate-gdpr' ),
 # 'parent_item_colon'  => __( 'Parent Services', 'ct-ultimate-gdpr' ),
 # 'all_items'          => __( 'All Services', 'ct-ultimate-gdpr' ),
 msgid "Parent Services"
-msgstr "Сервисы для Родителей"
+msgstr "Služby pre rodičov"
 
 # 'parent_item_colon'  => __( 'Parent Services', 'ct-ultimate-gdpr' ),
 # 'all_items'          => __( 'All Services', 'ct-ultimate-gdpr' ),
 # 'view_item'          => __( 'View Service', 'ct-ultimate-gdpr' ),
 msgid "All Services"
-msgstr "Все Сервисы\""
+msgstr "Všetky služby"
 
 # 'all_items'          => __( 'All Services', 'ct-ultimate-gdpr' ),
 # 'view_item'          => __( 'View Service', 'ct-ultimate-gdpr' ),
 # 'add_new_item'       => __( 'Add New Service', 'ct-ultimate-gdpr' ),
 msgid "View Service"
-msgstr "Просмотреть Сервис"
+msgstr "Zobraziť službu"
 
 # 'view_item'          => __( 'View Service', 'ct-ultimate-gdpr' ),
 # 'add_new_item'       => __( 'Add New Service', 'ct-ultimate-gdpr' ),
 # 'add_new'            => __( 'Add New', 'ct-ultimate-gdpr' ),
 msgid "Add New Service"
-msgstr "Добавить Новый Сервис"
+msgstr "Pridať novú službu"
 
 # 'add_new_item'       => __( 'Add New Service', 'ct-ultimate-gdpr' ),
 # 'add_new'            => __( 'Add New', 'ct-ultimate-gdpr' ),
 # 'edit_item'          => __( 'Edit Service', 'ct-ultimate-gdpr' ),
 msgid "Add New"
-msgstr "Добавить Новое"
+msgstr "Pridať nové"
 
 # 'add_new'            => __( 'Add New', 'ct-ultimate-gdpr' ),
 # 'edit_item'          => __( 'Edit Service', 'ct-ultimate-gdpr' ),
 # 'update_item'        => __( 'Update Service', 'ct-ultimate-gdpr' ),
 msgid "Edit Service"
-msgstr "Изменить Сервис"
+msgstr "Upraviť službu"
 
 # 'edit_item'          => __( 'Edit Service', 'ct-ultimate-gdpr' ),
 # 'update_item'        => __( 'Update Service', 'ct-ultimate-gdpr' ),
 # 'search_items'       => __( 'Search Services', 'ct-ultimate-gdpr' ),
 msgid "Update Service"
-msgstr "Обновить Сервис"
+msgstr "Aktualizačná služba"
 
 # 'update_item'        => __( 'Update Service', 'ct-ultimate-gdpr' ),
 # 'search_items'       => __( 'Search Services', 'ct-ultimate-gdpr' ),
 # 'not_found'          => __( 'Not Found', 'ct-ultimate-gdpr' ),
 msgid "Search Services"
-msgstr "Поиск Сервисов"
+msgstr "Vyhľadávacie služby"
 
 # 'search_items'       => __( 'Search Services', 'ct-ultimate-gdpr' ),
 # 'not_found'          => __( 'Not Found', 'ct-ultimate-gdpr' ),
 # 'not_found_in_trash' => __( 'Not found in Trash', 'ct-ultimate-gdpr' ),
 msgid "Not Found"
-msgstr "Не найдено"
+msgstr "Nenájdené"
 
 # 'not_found'          => __( 'Not Found', 'ct-ultimate-gdpr' ),
 # 'not_found_in_trash' => __( 'Not found in Trash', 'ct-ultimate-gdpr' ),
 # );
 msgid "Not found in Trash"
-msgstr "Не найдено в Корзине"
+msgstr "Nenašiel sa v koši"
 
 # $args = array(
 # 'label'               => __( 'services', 'ct-ultimate-gdpr' ),
 # 'description'         => __( 'Services', 'ct-ultimate-gdpr' ),
 msgid "services"
-msgstr "cервисы"
+msgstr "Služby"
 
 # 'ct-ultimate-gdpr-services', // ID
 # esc_html__( 'Services options', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Services options"
-msgstr "Варианты услуг"
+msgstr "Možnosti služieb"
 
 # 'services_recaptcha_key', // ID
 # esc_html__( "Recaptcha key (for myaccount shortcode submissions)", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_services_recaptcha_key' ), // Callback
 msgid "Recaptcha key (for myaccount shortcode submissions)"
-msgstr "Ключ Recaptcha (для отправки коротких сообщений myaccount)"
+msgstr "Kľúč Recaptcha (pre odoslanie krátkeho kódu z môjho účtu)"
 
 # 'services_recaptcha_secret', // ID
 # esc_html__( "Recaptcha secret key (for myaccount shortcode submissions)", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_services_recaptcha_secret' ), // Callback
 msgid "Recaptcha secret key (for myaccount shortcode submissions)"
-msgstr "Секретный ключ Recaptcha (для отправки коротких сообщений myaccount)"
+msgstr "Tajný kľúč Recaptcha (pre odoslanie krátkeho kódu z môjho účtu)"
 
 # 'services_logger_pseudonymized_ip', // ID
 # esc_html__( "When logging consents of users who did not accept Privacy Policy, log their IP", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_services_logger_pseudonymized_ip' ), // Callback
 msgid "When logging consents of users who did not accept Privacy Policy, log their IP"
-msgstr "При регистрации согласия пользователей, которые не приняли Политику конфиденциальности, зарегистрируйте их IP-адрес"
+msgstr "Pri zaznamenávaní súhlasov používateľov, ktorí neprijali Zásady ochrany osobných údajov, zaznamenaž ich IP"
 
 # 'services_logger_pseudonymized_user_agent', // ID
 # esc_html__( "When logging consents of users who did not accept Privacy Policy, log their User Agent", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_services_logger_pseudonymized_user_agent' ), // Callback
 msgid "When logging consents of users who did not accept Privacy Policy, log their User Agent"
-msgstr "При регистрации согласия пользователей, которые не приняли Политику конфиденциальности, зарегистрируйте их User Agent"
+msgstr "Pri zaznamenávaní súhlasov používateľov, ktorí neprijali Zásady ochrany osobných údajov, zaznamenať ich používateľského agenta"
 
 # $labels = array(
 # 'name'               => _x( 'Services', 'Post Type General Name', 'ct-ultimate-gdpr' ),
@@ -2216,97 +2216,97 @@ msgstr "Сервисы"
 # esc_html__( 'Terms And Conditions', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Terms And Conditions', 'ct-ultimate-gdpr' ),
 msgid "Terms And Conditions"
-msgstr "Сроки и условия"
+msgstr "Podmienky používania"
 
 # $this->get_id(), // ID
 # esc_html__( 'Terms and Conditions', 'ct-ultimate-gdpr' ), // Title
 # null, // callback
 msgid "Terms and Conditions"
-msgstr "Сроки и условия"
+msgstr "Podmienky používania"
 
 # 'terms_require_administrator', // ID
 # esc_html__( 'Require administrators to accept Terms and Conditions (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_require_administrator' ), // Callback
 msgid "Require administrators to accept Terms and Conditions (redirect)"
-msgstr "Требовать от администраторы принимать Условия и положения (перенаправлять)"
+msgstr "Vyžadovať, aby správcovia prijali Podmienky používania (presmerovanie)"
 
 # 'terms_require_users', // ID
 # esc_html__( 'Require logged in users to accept Terms and Conditions (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_require_users' ), // Callback
 msgid "Require logged in users to accept Terms and Conditions (redirect)"
-msgstr "Требуются зарегистрированные пользователи, чтобы принять Сроки и Условия (перенаправить)"
+msgstr "Vyžadovať od prihlásených používateľov súhlas s Podmienkami používania (presmerovanie)"
 
 # 'terms_require_guests', // ID
 # esc_html__( 'Require guest users to accept Terms and Conditions (redirect)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_require_guests' ), // Callback
 msgid "Require guest users to accept Terms and Conditions (redirect)"
-msgstr "Требовать от гостевых пользователей принимать Условия и положения (перенаправлять)"
+msgstr "Vyžadovať od hosťovských používateľov, aby prijali zmluvné podmienky (presmerovanie)"
 
 # 'terms_target_page', // ID
 # esc_html__( 'The page with existing Terms and Conditions', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_target_page' ), // Callback
 msgid "The page with existing Terms and Conditions"
-msgstr "Страница с существующими Условиями использования"
+msgstr "Stránka s existujúcimi zmluvnými podmienkami"
 
 # 'terms_after_page', // ID
 # esc_html__( 'The page to redirect to after Terms accepted', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_after_page' ), // Callback
 msgid "The page to redirect to after Terms accepted"
-msgstr "Страница для перенаправления после принятия Условий"
+msgstr "Stránka na presmerovanie po prijatí podmienok"
 
 # 'terms_target_custom',
 # esc_html__( 'Terms and Condition Custom URL', 'ct-ultimate-gdpr' ),
 # array( $this, 'render_field_terms_target_custom' ),
 msgid "Terms and Condition Custom URL"
-msgstr "Сроки и условия Пользовательский URL"
+msgstr "Vlastná URL adresa zmluvných podmienok"
 
 # 'terms_version', // ID
 # esc_html__( 'Terms version, eg. 1.0 (if you change it, user has to give consent again)', 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_version' ), // Callback
 msgid "Terms version, eg. 1.0 (if you change it, user has to give consent again)"
-msgstr "Версия Условий, например, 1.0 (если вы хотите поменять ее, пользователь должен дать согласие еще раз)"
+msgstr "Verzia podmienok, napr. 1.0 (ak to zmeníte, používateľ musí dať súhlas znova)"
 
 # 'terms_placeholder', // ID
 # esc_html__( "Convert the following text to Terms and Conditions link in all services templates, eg. 'Terms and Conditions'", 'ct-ultimate-gdpr' ), // Title
 # array( $this, 'render_field_terms_placeholder' ), // Callback
 msgid "Convert the following text to Terms and Conditions link in all services templates, eg. 'Terms and Conditions'"
-msgstr "Преобразуйте следующий текст в ссылку Сроки и Условия на всех шаблонах услуг, например как 'Сроки и Условия'"
+msgstr "Preveďte nasledujúci text na odkaz Podmienky používania vo všetkých šablónach služieb, napr. 'Podmienky'"
 
 # printf(
 # esc_html__( '1. Place %s shortcode on your existing Terms and Conditions page to add an accept button.%s2. Select Terms and Conditions page below, so users can be redirected there to give their consent.', 'ct-ultimate-gdpr' ),
 # '<b>[ultimate_gdpr_terms_accept]</b>',
 msgid "1. Place %s shortcode on your existing Terms and Conditions page to add an accept button.%s2. Select Terms and Conditions page below, so users can be redirected there to give their consent."
-msgstr "1. Разместите шорткод %s на вашей существующей странице Сроки и Условия, чтобы добавить кнопку принять.%s2. Выберите страницу Сроки и Условия внизу, чтобы перенаправить туда пользователей, чтобы они могли дать согласие."
+msgstr "1. Umiestnite skrátený kód %s na svoju existujúcu stránku Zmluvných podmienok a pridajte tlačidlo prijatia.%s2. Vyberte stránku Zmluvné podmienky nižšie, aby tam mohli byť používatelia presmerovaní, aby vyjadrili svoj súhlas."
 
 # sprintf(
 # esc_html__( "There is a new Unsubscribe request from email %s. See details at %s", 'ct-ultimate-gdpr' ),
 # $email,
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
-msgstr "Существует новый запрос Отказаться от рассылки по электронной почте %s. Подробнее см. В разделе %s"
+msgstr "Existuje nová žiadosť o zrušenie odberu z e-mailu %s. Podrobnosti nájdete na %s"
 
 # $email,
 # sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 # $this->get_id(),
 msgid "[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
-msgstr "[Ultimate GDPR & CCPA] Пожалуйста, подтвердите запрос, чтобы он был отписано из бюллетеней %s"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte žiadosť o zrušenie odberu noviniek %s"
 
 # sprintf(
 # esc_html__( "There was an error unsubscribing %s from %s service: %s", 'ct-ultimate-gdpr' ),
 # $email,
 msgid "There was an error unsubscribing %s from %s service: %s"
-msgstr "Ошибка отправки %s из %s службы: %s"
+msgstr "Pri odhlasovaní %s zo služby %s sa vyskytla chyba: %s"
 
 # array(
 # esc_html__( "[Ultimate GDPR & CCPA] Unsubscription finished!", 'ct-ultimate-gdpr' ),
 # )
 msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
-msgstr "[Ultimate GDPR & CCPA] Отказ от подписки закончен!"
+msgstr "[Ultimate GDPR & CCPA] Zrušenie odberu bolo dokončené!"
 
 # CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_name(),
 # esc_html__( 'Unsubscribe', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Unsubscribe', 'ct-ultimate-gdpr' ),
 msgid "Unsubscribe"
-msgstr "Отказаться от подписки"
+msgstr "Zrušiť odber"
 
 # 'ct-ultimate-gdpr-unsubscribe', // ID
 # esc_html__( 'Unsubscribe settings', 'ct-ultimate-gdpr' ), // Title
@@ -2366,7 +2366,7 @@ msgstr "Nevyhnutný"
 # echo esc_html__( "not applicable", 'ct-ultimate-gdpr' );
 # endif;
 msgid "not applicable"
-msgstr ""
+msgstr "nepoužiteľný"
 
 # "services_{$this->get_id()}_block_cookies", // ID
 # sprintf( esc_html__( "[%s] Block Addthis cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
@@ -2378,7 +2378,7 @@ msgstr "[%s] Blok Pridať tieto cookies, ak užívateľ neprijal cookies funkcio
 # sprintf( esc_html__( "[%s] Hide from Forget Me Form", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
 # array( $this, "render_hide_from_forgetme_form" ), // Callback
 msgid "[%s] Hide from Forget Me Form"
-msgstr ""
+msgstr "[%s] Skryť z formulára Zabudnúť ma"
 
 # 'services_Akismet_inject_consent_field', // Name of the field
 # esc_html__( "Inject consent checkbox to all forms", 'ct-ultimate-gdpr' ), // The label of the field
@@ -2390,7 +2390,7 @@ msgstr "Vložte začiarkavacie políčko do všetkých formulárov"
 # return esc_html__( 'Akismet process data from user\'s comments', 'ct-ultimate-gdpr' );
 # }
 msgid "Akismet process data from user's comments"
-msgstr ""
+msgstr "Akismet spracováva údaje z komentárov používateľov"
 
 # sprintf(
 # esc_html__( "[%s] Inject consent checkbox to all forms", 'ct-ultimate-gdpr' ),
@@ -2744,13 +2744,13 @@ msgstr "Quform zbiera dáta, ktorý sú užívateľmi vkladané vo formulároch"
 # return apply_filters( "ct_ultimate_gdpr_service_{$this->get_id()}_name", esc_html__("Do not sell my information", 'ct-ultimate-gdpr'));
 # }
 msgid "Do not sell my information"
-msgstr ""
+msgstr "Nepredávajte moje informácie"
 
 # protected function get_default_description() {
 # return esc_html__( 'Request not to sell personal information', 'ct-ultimate-gdpr' );
 # }
 msgid "Request not to sell personal information"
-msgstr ""
+msgstr "Žiadosť o nepredávanie osobných údajov"
 
 # $this->get_id(),
 # esc_html__( 'Consent is required', 'ct-ultimate-gdpr' )
@@ -2990,19 +2990,19 @@ msgstr "Užívateľské dáta aplikácie WordPress sú uložené ako užívateľ
 # return esc_html__( 'WPForms Lite gathers data entered by users in forms', 'ct-ultimate-gdpr' );
 # }
 msgid "WPForms Lite gathers data entered by users in forms"
-msgstr ""
+msgstr "WPForms Lite zhromažďuje údaje zadané používateľmi vo formulároch"
 
 # sprintf( // field label
 # esc_html__( "[%s] Compliance Consent Text", 'ct-ultimate-gdpr'),
 # $this->get_name()
 msgid "[%s] Compliance Consent Text"
-msgstr ""
+msgstr "[%s] Text súhlasu s dodržiavaním pravidiel"
 
 # protected function get_default_description() {
 # return esc_html__( 'Easy Form for Mailchimp gathers data entered by users in forms', 'ct-ultimate-gdpr' );
 # }
 msgid "Easy Form for Mailchimp gathers data entered by users in forms"
-msgstr ""
+msgstr "Easy Form z Mailchimp-u zhromažďuje údaje zadané používateľmi do formulárov"
 
 # protected function get_default_description() {
 # return esc_html__( 'WooCommerce Wishlist gathers data entered by users in shop orders', 'ct-ultimate-gdpr' );
@@ -3044,13 +3044,13 @@ msgstr ""
 # <label for="ct-ultimate-gdpr-party-filter"> <?php echo esc_html__( 'First or Third Party Filter', 'ct-ultimate-gdpr' ); ?></label>
 # <select name="ct-ultimate-gdpr-party-filter" id="ct-ultimate-gdpr-party-filter">
 msgid "First or Third Party Filter"
-msgstr ""
+msgstr "Filter prvej alebo tretej strany"
 
 # <select name="ct-ultimate-gdpr-party-filter" id="ct-ultimate-gdpr-party-filter">
 # <option value=""><?php echo esc_html__( 'Any', 'ct-ultimate-gdpr' ); ?></option>
 # <option value="<?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?>"><?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?></option>
 msgid "Any"
-msgstr ""
+msgstr "akýkoľvek"
 
 # <option value=""><?php echo esc_html__( 'Any', 'ct-ultimate-gdpr' ); ?></option>
 # <option value="<?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?>"><?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?></option>
@@ -3128,7 +3128,7 @@ msgstr "Nastavenie"
 # <?php echo esc_html__( 'Age verification popup', 'ct-ultimate-gdpr' ); ?>
 # </a>
 msgid "Age verification popup"
-msgstr ""
+msgstr "Vyskakovacie okno na overenie veku"
 
 # <a href="#" id="age-preference" class="nav-tab">
 # <?php echo esc_html__( 'Preferences', 'ct-ultimate-gdpr' ); ?>
@@ -3200,31 +3200,31 @@ msgstr "Stiahnuť protokol so súhlasy"
 # value="<?php echo esc_html__( 'Delete consents log', 'ct-ultimate-gdpr' ); ?>"/>
 # <p><?php echo esc_html__( 'NOTE: Once it is deleted you cannot retrieved the consent logs again.', 'ct-ultimate-gdpr'  ); ?></p>
 msgid "Delete consents log"
-msgstr ""
+msgstr "Odstrániť záznamy súhlasov"
 
 # value="<?php echo esc_html__( 'Delete consents log', 'ct-ultimate-gdpr' ); ?>"/>
 # <p><?php echo esc_html__( 'NOTE: Once it is deleted you cannot retrieved the consent logs again.', 'ct-ultimate-gdpr'  ); ?></p>
 # </form>
 msgid "NOTE: Once it is deleted you cannot retrieved the consent logs again."
-msgstr ""
+msgstr "POZNÁMKA: Po jeho odstránení už nebudete môcť znova získať záznamy o súhlase."
 
 # <input type="submit" class="button button-secondary" name="ct-ultimate-gdpr-check-cookies"
 # value="<?php echo esc_html__( 'Scan for cookies', 'ct-ultimate-gdpr' ); ?>"/>
 #
 msgid "Scan for cookies"
-msgstr ""
+msgstr "Vyhľadať súbory cookie"
 
 # <p style = "display:inline-block;margin-left:15px;">
 # <?php echo esc_html__( 'Last scan: ', 'ct-ultimate-gdpr'  ); ?>
 # <?php echo get_option( 'ct_gdpr_check_last_cookies_scan' ); ?>
 msgid "Last scan: "
-msgstr ""
+msgstr "Posledné skenovanie: "
 
 # ?>
 # <p><?php echo esc_html__( 'The website has not been scanned yet.', 'ct-ultimate-gdpr'  ); ?></p>
 # <?php
 msgid "The website has not been scanned yet."
-msgstr ""
+msgstr "Webová stránka ešte nebola skontrolovaná."
 
 # <p>
 # <?php echo esc_html__( 'Your website should be publicly accessible so that the Cookie Detector can work properly.', 'ct-ultimate-gdpr' ); ?>
@@ -3992,7 +3992,7 @@ msgstr "Toto pole je povinné"
 # <?php echo esc_html__( 'Parent or guard authorization required', 'ct-ultimate-gdpr' ); ?>
 # </a>
 msgid "Parent or guard authorization required"
-msgstr ""
+msgstr "Vyžaduje sa oprávnenie rodiča alebo zástupcu"
 
 #
 # $unsusbcribe_subheader = ct_ultimate_gdpr_get_value('unsubscribe_subheader', $options, esc_html__( 'Below, you can browse services which sign up users to newsletters. Check services which newsletters you wish to be unsubscribed from. The subscription will stop immediately.', 'ct-ultimate-gdpr' ), false);
@@ -4028,25 +4028,25 @@ msgstr ""
 # <label for="ct-ultimate-gdpr-age-date"><?php echo esc_html__('Date of birth', 'ct-ultimate-gdpr'); ?></label>
 # <input type="date" id="ct-ultimate-gdpr-age-date" name="ct-ultimate-gdpr-age-date" required
 msgid "Date of birth"
-msgstr ""
+msgstr "Dátum narodenia"
 
 # <div class="ct-headerContent">
 # <?php echo esc_html__('Parent or guard authorization.', 'ct-ultimate-gdpr'); ?> <?php echo sprintf(esc_html__('Your guard needs to be at least %s years old.', 'ct-ultimate-gdpr'), $ageLimitToSell); ?>
 #
 msgid "Parent or guard authorization."
-msgstr ""
+msgstr "Povolenie rodiča alebo zástupcu."
 
 # <div class="ct-headerContent">
 # <?php echo esc_html__('Parent or guard authorization.', 'ct-ultimate-gdpr'); ?> <?php echo sprintf(esc_html__('Your guard needs to be at least %s years old.', 'ct-ultimate-gdpr'), $ageLimitToSell); ?>
 #
 msgid "Your guard needs to be at least %s years old."
-msgstr ""
+msgstr "Váš zástupca musí mať aspoň %s rokov."
 
 #
 # <label for="ct-ultimate-gdpr-age-guard-name"><?php echo esc_html__('Name', 'ct-ultimate-gdpr'); ?></label>
 # <input type="text" id="ct-ultimate-gdpr-age-guard-name" name="ct-ultimate-gdpr-age-guard-name" value="<?php echo esc_html(isset($options['age_date_array']['guard_name']) ? $options['age_date_array']['guard_name'] : ''); ?>"/>
 msgid "Name"
-msgstr ""
+msgstr "Meno"
 
 # <div class="ct-headerContent">
 # <?php echo esc_html__( 'Below, you can request for your personal data that\'s collected by this website sent to you in an email.', 'ct-ultimate-gdpr' ); ?>
@@ -4160,427 +4160,427 @@ msgstr "Už ste odsúhlasili poslednú verziu Zmluvných podmienok"
 # 'label' => esc_html__( 'Service name', 'ct-ultimate-gdpr' ),
 # 'name' => 'service_name',
 msgid "Service name"
-msgstr ""
+msgstr "Názov služby"
 
 # 'key' => 'field_5b0e763cfcf3f',
 # 'label' => esc_html__( 'Script names', 'ct-ultimate-gdpr' ),
 # 'name' => 'script_name',
 msgid "Script names"
-msgstr ""
+msgstr "Názvy skriptov"
 
 # 'type' => 'text',
 # 'instructions' => esc_html__( 'Please input comma separated names of cookie creating scripts', 'ct-ultimate-gdpr' ),
 # 'default_value' => '',
 msgid "Please input comma separated names of cookie creating scripts"
-msgstr ""
+msgstr "Zadajte názvy skriptov na vytváranie súborov cookie, jednotlivé oddelte čiarkami"
 
 # 'type' => 'text',
 # 'instructions' => esc_html__( 'Please input comma separated cookie names', 'ct-ultimate-gdpr' ),
 # 'default_value' => '',
 msgid "Please input comma separated cookie names"
-msgstr ""
+msgstr "Zadajte názvy súborov cookie oddelené čiarkou"
 
 # 'key' => 'field_5b0e7684fcf42',
 # 'label' => esc_html__( 'First or Third party?', 'ct-ultimate-gdpr' ),
 # 'name' => 'first_or_third_party',
 msgid "First or Third party?"
-msgstr ""
+msgstr "Prvá alebo tretia strana?"
 
 # 'key' => 'field_5b0e76d4fcf43',
 # 'label' => esc_html__( 'Can be blocked?', 'ct-ultimate-gdpr' ),
 # 'name' => 'can_be_blocked',
 msgid "Can be blocked?"
-msgstr ""
+msgstr "Dá sa zablokovať?"
 
 # 'key' => 'field_5b0e76d623443',
 # 'label' => esc_html__( 'Cookies hold private data?', 'ct-ultimate-gdpr' ),
 # 'name' => 'private_data',
 msgid "Cookies hold private data?"
-msgstr ""
+msgstr "Uchovávajú súbory cookie súkromné údaje?"
 
 # 'key' => 'field_5b0e76ebfcf44',
 # 'label' => esc_html__( 'Session or Persistent?', 'ct-ultimate-gdpr' ),
 # 'name' => 'session_or_persistent',
 msgid "Session or Persistent?"
-msgstr ""
+msgstr "Relácia alebo trvalé?"
 
 # 'key' => 'field_5b0e7733fcf47',
 # 'label' => esc_html__( 'Do you want to activate this service?', 'ct-ultimate-gdpr' ),
 # 'name' => 'is_active',
 msgid "Do you want to activate this service?"
-msgstr ""
+msgstr "Chcete si túto službu aktivovať?"
 
 #
 # $upgrader->strings['downloading_package'] = esc_html__( 'Downloading update...', 'ct-ultimate-gdpr' );
 #
 msgid "Downloading update..."
-msgstr ""
+msgstr "Sťahuje sa aktualizácia..."
 
 # $this->add_admin_notice(
 # esc_html__( 'Ultimate GDPR & CCPA: Update server is not responding', 'ct-ultimate-gdpr' )
 # );
 msgid "Ultimate GDPR & CCPA: Update server is not responding"
-msgstr ""
+msgstr "Ultimate GDPR a CCPA: Aktualizačný server neodpovedá"
 
 # if ( is_wp_error( $response ) || ! $response || ! $response_array || empty( $response_array['version'] ) ) {
 # return new WP_Error( '0', esc_html__( 'Could not get new version info from OP', 'ct-ultimate-gdpr' ) );
 # }
 msgid "Could not get new version info from OP"
-msgstr ""
+msgstr "Od OP sa nepodarilo získať informácie o novej verzii"
 
 # esc_url( $this->get_tgmpa_status_url( 'update' ) ),
 # esc_attr__( 'This plugin needs to be updated to be compatible with your theme.', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Update Required', 'ct-ultimate-gdpr' )
 msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr ""
+msgstr "Pre kompatibilitu s vašou témou je potrebné aktualizovať tento doplnok."
 
 # $this->strings = array(
 # 'page_title'                      => esc_html__( 'Install Required Plugins', 'ct-ultimate-gdpr' ),
 # 'menu_title'                      => esc_html__( 'Install Plugins', 'ct-ultimate-gdpr' ),
 msgid "Install Required Plugins"
-msgstr ""
+msgstr "Nainštalujte požadované doplnky"
 
 # 'page_title'                      => esc_html__( 'Install Required Plugins', 'ct-ultimate-gdpr' ),
 # 'menu_title'                      => esc_html__( 'Install Plugins', 'ct-ultimate-gdpr' ),
 # /* translators: %s: plugin name. */
 msgid "Install Plugins"
-msgstr ""
+msgstr "Nainštalujte doplnky"
 
 # /* translators: %s: plugin name. */
 # 'installing'                      => esc_html__( 'Installing Plugin: %s', 'ct-ultimate-gdpr' ),
 # /* translators: %s: plugin name. */
 msgid "Installing Plugin: %s"
-msgstr ""
+msgstr "Inštalácia doplnku: %s"
 
 # /* translators: %s: plugin name. */
 # 'updating'                        => esc_html__( 'Updating Plugin: %s', 'ct-ultimate-gdpr' ),
 # 'oops'                            => esc_html__( 'Something went wrong with the plugin API.', 'ct-ultimate-gdpr' ),
 msgid "Updating Plugin: %s"
-msgstr ""
+msgstr "Aktualizácia doplnku: %s"
 
 # 'updating'                        => esc_html__( 'Updating Plugin: %s', 'ct-ultimate-gdpr' ),
 # 'oops'                            => esc_html__( 'Something went wrong with the plugin API.', 'ct-ultimate-gdpr' ),
 # 'notice_can_install_required'     => _n_noop(
 msgid "Something went wrong with the plugin API."
-msgstr ""
+msgstr "Vyskytol sa problém s API rozhraním doplnku."
 
 # ),
 # 'return'                          => esc_html__( 'Return to Required Plugins Installer', 'ct-ultimate-gdpr' ),
 # 'dashboard'                       => esc_html__( 'Return to the Dashboard', 'ct-ultimate-gdpr' ),
 msgid "Return to Required Plugins Installer"
-msgstr ""
+msgstr "Vráťte sa do Inštalátora požadovaných doplnkov"
 
 # 'return'                          => esc_html__( 'Return to Required Plugins Installer', 'ct-ultimate-gdpr' ),
 # 'dashboard'                       => esc_html__( 'Return to the Dashboard', 'ct-ultimate-gdpr' ),
 # 'plugin_activated'                => esc_html__( 'Plugin activated successfully.', 'ct-ultimate-gdpr' ),
 msgid "Return to the Dashboard"
-msgstr ""
+msgstr "Vráťte sa do Ovládacieho panela."
 
 # 'dashboard'                       => esc_html__( 'Return to the Dashboard', 'ct-ultimate-gdpr' ),
 # 'plugin_activated'                => esc_html__( 'Plugin activated successfully.', 'ct-ultimate-gdpr' ),
 # 'activated_successfully'          => esc_html__( 'The following plugin was activated successfully:', 'ct-ultimate-gdpr' ),
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "Plugin bol úspešne aktivovaný."
 
 # 'plugin_activated'                => esc_html__( 'Plugin activated successfully.', 'ct-ultimate-gdpr' ),
 # 'activated_successfully'          => esc_html__( 'The following plugin was activated successfully:', 'ct-ultimate-gdpr' ),
 # /* translators: 1: plugin name. */
 msgid "The following plugin was activated successfully:"
-msgstr ""
+msgstr "Nasledujúci doplnok bol úspešne aktivovaný:"
 
 # /* translators: 1: plugin name. */
 # 'plugin_already_active'           => esc_html__( 'No action taken. Plugin %1$s was already active.', 'ct-ultimate-gdpr' ),
 # /* translators: 1: plugin name. */
 msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
+msgstr "Nepodnikli sa žiadne kroky. Doplnok %1$s už bol aktívny."
 
 # /* translators: 1: plugin name. */
 # 'plugin_needs_higher_version'     => esc_html__( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', 'ct-ultimate-gdpr' ),
 # /* translators: 1: dashboard link. */
 msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
-msgstr ""
+msgstr "Plugin nie je aktivovaný. Pre tento motív je potrebná vyššia verzia %s. Aktualizujte doplnok."
 
 # /* translators: 1: dashboard link. */
 # 'complete'                        => esc_html__( 'All plugins installed and activated successfully. %1$s', 'ct-ultimate-gdpr' ),
 # 'dismiss'                         => esc_html__( 'Dismiss this notice', 'ct-ultimate-gdpr' ),
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
+msgstr "Všetky doplnky boli úspešne nainštalované a aktivované. %1$s"
 
 # 'complete'                        => esc_html__( 'All plugins installed and activated successfully. %1$s', 'ct-ultimate-gdpr' ),
 # 'dismiss'                         => esc_html__( 'Dismiss this notice', 'ct-ultimate-gdpr' ),
 # 'notice_cannot_install_activate'  => esc_html__( 'There are one or more required or recommended plugins to install, update or activate.', 'ct-ultimate-gdpr' ),
 msgid "Dismiss this notice"
-msgstr ""
+msgstr "Odmietnuť toto upozornenie"
 
 # 'dismiss'                         => esc_html__( 'Dismiss this notice', 'ct-ultimate-gdpr' ),
 # 'notice_cannot_install_activate'  => esc_html__( 'There are one or more required or recommended plugins to install, update or activate.', 'ct-ultimate-gdpr' ),
 # 'contact_admin'                   => esc_html__( 'Please contact the administrator of this site for help.', 'ct-ultimate-gdpr' ),
 msgid "There are one or more required or recommended plugins to install, update or activate."
-msgstr ""
+msgstr "Existuje jeden alebo viac požadovaných alebo odporúčaných doplnkov, ktoré by mali byť nainštalované, aktualizované, alebo aktivované."
 
 # 'notice_cannot_install_activate'  => esc_html__( 'There are one or more required or recommended plugins to install, update or activate.', 'ct-ultimate-gdpr' ),
 # 'contact_admin'                   => esc_html__( 'Please contact the administrator of this site for help.', 'ct-ultimate-gdpr' ),
 # );
 msgid "Please contact the administrator of this site for help."
-msgstr ""
+msgstr "Požiadajte o pomoc správcu tejto stránky."
 
 # esc_attr__( 'This plugin needs to be updated to be compatible with your theme.', 'ct-ultimate-gdpr' ),
 # esc_html__( 'Update Required', 'ct-ultimate-gdpr' )
 # );
 msgid "Update Required"
-msgstr ""
+msgstr "Vyžaduje sa aktualizácia"
 
 # if ( has_filter( 'tgmpa_admin_menu_use_add_theme_page' ) ) {
 # _deprecated_function( 'The "tgmpa_admin_menu_use_add_theme_page" filter', '2.5.0', esc_html__( 'Set the parent_slug config variable instead.', 'ct-ultimate-gdpr' ) );
 # }
 msgid "Set the parent_slug config variable instead."
-msgstr ""
+msgstr "Namiesto toho nastavte konfiguračnú premennú parent_slug."
 
 # } else {
 # echo '<a href="' . esc_url( admin_url('') ) . '"> ' . esc_html__( 'Return to Dashboard', 'ct-ultimate-gdpr' ) . '</a>';
 # }
 msgid "Return to Dashboard"
-msgstr ""
+msgstr "Vráťte sa do Ovládacieho panelu"
 
 # } else {
 # return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'ct-ultimate-gdpr' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'ct-ultimate-gdpr' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
 # }
 msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
-msgstr ""
+msgstr "Balík vzdialeného pluginu neobsahuje priečinok s požadovaným slug-om a premenovanie nefungovalo."
 
 # } else {
 # return new WP_Error( 'rename_failed', esc_html__( 'The remote plugin package does not contain a folder with the desired slug and renaming did not work.', 'ct-ultimate-gdpr' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'ct-ultimate-gdpr' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
 # }
 msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
-msgstr ""
+msgstr "Kontaktujte poskytovateľa doplnku a požiadajte ho, aby zabalil svoj doplnok podľa pokynov pre WordPress."
 
 # } elseif ( empty( $subdir_name ) ) {
 # return new WP_Error( 'packaged_wrong', esc_html__( 'The remote plugin package consists of more than one file, but the files are not packaged in a folder.', 'ct-ultimate-gdpr' ) . ' ' . esc_html__( 'Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines.', 'ct-ultimate-gdpr' ), array( 'found' => $subdir_name, 'expected' => $desired_slug ) );
 # }
 msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
-msgstr ""
+msgstr "Balík vzdialených doplnkov pozostáva z viac ako jedného súboru, ale súbory nie sú zabalené v priečinku."
 
 # /* translators: %s: version number */
 # esc_html__( 'TGMPA v%s', 'ct-ultimate-gdpr' ),
 # self::TGMPA_VERSION
 msgid "TGMPA v%s"
-msgstr ""
+msgstr "TGMPA v%s"
 
 # if ( true === $required ) {
 # return esc_html__( 'Required', 'ct-ultimate-gdpr' );
 # }
 msgid "Required"
-msgstr ""
+msgstr "Požadované"
 
 #
 # return esc_html__( 'Recommended', 'ct-ultimate-gdpr' );
 # }
 msgid "Recommended"
-msgstr ""
+msgstr "Odporúčané"
 
 # case 'repo':
 # $string = esc_html__( 'WordPress Repository', 'ct-ultimate-gdpr' );
 # break;
 msgid "WordPress Repository"
-msgstr ""
+msgstr "WordPress úložisko"
 
 # case 'external':
 # $string = esc_html__( 'External Source', 'ct-ultimate-gdpr' );
 # break;
 msgid "External Source"
-msgstr ""
+msgstr "Externý zdroj"
 
 # case 'bundled':
 # $string = esc_html__( 'Pre-Packaged', 'ct-ultimate-gdpr' );
 # break;
 msgid "Pre-Packaged"
-msgstr ""
+msgstr "Pred-zabalené"
 
 # if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
 # return esc_html__( 'Not Installed', 'ct-ultimate-gdpr' );
 # }
 msgid "Not Installed"
-msgstr ""
+msgstr "Nie je nainštalované"
 
 # if ( ! $this->tgmpa->is_plugin_active( $slug ) ) {
 # $install_status = esc_html__( 'Installed But Not Activated', 'ct-ultimate-gdpr' );
 # } else {
 msgid "Installed But Not Activated"
-msgstr ""
+msgstr "Nainštalované, ale neaktivované"
 
 # } else {
 # $install_status = esc_html__( 'Active', 'ct-ultimate-gdpr' );
 # }
 msgid "Active"
-msgstr ""
+msgstr "Aktívne"
 
 # if ( $this->tgmpa->does_plugin_require_update( $slug ) && false === $this->tgmpa->does_plugin_have_update( $slug ) ) {
 # $update_status = esc_html__( 'Required Update not Available', 'ct-ultimate-gdpr' );
 #
 msgid "Required Update not Available"
-msgstr ""
+msgstr "Požadovaná aktualizácia nie je k dispozícii"
 
 # } elseif ( $this->tgmpa->does_plugin_require_update( $slug ) ) {
 # $update_status = esc_html__( 'Requires Update', 'ct-ultimate-gdpr' );
 #
 msgid "Requires Update"
-msgstr ""
+msgstr "Vyžaduje Aktualizáciu"
 
 # } elseif ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
 # $update_status = esc_html__( 'Update recommended', 'ct-ultimate-gdpr' );
 # }
 msgid "Update recommended"
-msgstr ""
+msgstr "Odporúča sa aktualizácia"
 
 # $output[] = sprintf(
 # '<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . esc_html__( 'Installed version:', 'ct-ultimate-gdpr' ) . '</p>',
 # $color,
 msgid "Installed version:"
-msgstr ""
+msgstr "Nainštalovaná verzia:"
 
 # $output[] = sprintf(
 # '<p><span style="min-width: 32px; text-align: right; float: right;">%1$s</span>' . esc_html__( 'Minimum required version:', 'ct-ultimate-gdpr' ) . '</p>',
 # $item['minimum_version']
 msgid "Minimum required version:"
-msgstr ""
+msgstr "Minimálna požadovaná verzia:"
 
 # $output[] = sprintf(
 # '<p><span style="min-width: 32px; text-align: right; float: right;%1$s">%2$s</span>' . esc_html__( 'Available version:', 'ct-ultimate-gdpr' ) . '</p>',
 # $color,
 msgid "Available version:"
-msgstr ""
+msgstr "Dostupná verzia:"
 
 # 'plugin' => esc_html__( 'Plugin', 'ct-ultimate-gdpr' ),
 # 'source' => esc_html__( 'Source', 'ct-ultimate-gdpr' ),
 # 'type'   => esc_html__( 'Type', 'ct-ultimate-gdpr' ),
 msgid "Source"
-msgstr ""
+msgstr "Zdroj"
 
 # 'source' => esc_html__( 'Source', 'ct-ultimate-gdpr' ),
 # 'type'   => esc_html__( 'Type', 'ct-ultimate-gdpr' ),
 # );
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 # if ( 'all' === $this->view_context || 'update' === $this->view_context ) {
 # $columns['version'] = esc_html__( 'Version', 'ct-ultimate-gdpr' );
 # $columns['status']  = esc_html__( 'Status', 'ct-ultimate-gdpr' );
 msgid "Version"
-msgstr ""
+msgstr "Verzia"
 
 # $columns['version'] = esc_html__( 'Version', 'ct-ultimate-gdpr' );
 # $columns['status']  = esc_html__( 'Status', 'ct-ultimate-gdpr' );
 # }
 msgid "Status"
-msgstr ""
+msgstr "Postavenie"
 
 # /* translators: %2$s: plugin name in screen reader markup */
 # $actions['install'] = esc_html__( 'Install %2$s', 'ct-ultimate-gdpr' );
 # } else {
 msgid "Install %2$s"
-msgstr ""
+msgstr "Nainštalujte %2$s"
 
 # /* translators: %2$s: plugin name in screen reader markup */
 # $actions['update'] = esc_html__( 'Update %2$s', 'ct-ultimate-gdpr' );
 # }
 msgid "Update %2$s"
-msgstr ""
+msgstr "Aktualizujte %2$s"
 
 # /* translators: %2$s: plugin name in screen reader markup */
 # $actions['activate'] = esc_html__( 'Activate %2$s', 'ct-ultimate-gdpr' );
 # }
 msgid "Activate %2$s"
-msgstr ""
+msgstr "Aktivujte %2$s"
 
 # <div class="update-message">',
 # esc_html__( 'Upgrade message from the plugin author:', 'ct-ultimate-gdpr' ),
 # ' <strong>', wp_kses_data( $item['upgrade_notice'] ), '</strong>
 msgid "Upgrade message from the plugin author:"
-msgstr ""
+msgstr "Správa o aktualizácii od autora doplnku:"
 
 # if ( current_user_can( 'install_plugins' ) ) {
 # $actions['tgmpa-bulk-install'] = esc_html__( 'Install', 'ct-ultimate-gdpr' );
 # }
 msgid "Install"
-msgstr ""
+msgstr "Inštalácia"
 
 # if ( current_user_can( 'activate_plugins' ) ) {
 # $actions['tgmpa-bulk-activate'] = esc_html__( 'Activate', 'ct-ultimate-gdpr' );
 # }
 msgid "Activate"
-msgstr ""
+msgstr "Aktivovať"
 
 # if ( 'install' === $install_type ) {
 # $message = esc_html__( 'No plugins were selected to be installed. No action taken.', 'ct-ultimate-gdpr' );
 # } else {
 msgid "No plugins were selected to be installed. No action taken."
-msgstr ""
+msgstr "Neboli vybraté žiadne doplnky na inštaláciu. Nepodnikli sa žiadne kroky."
 
 # } else {
 # $message = esc_html__( 'No plugins were selected to be updated. No action taken.', 'ct-ultimate-gdpr' );
 # }
 msgid "No plugins were selected to be updated. No action taken."
-msgstr ""
+msgstr "Neboli vybraté žiadne doplnky na aktualizáciu. Nepodnikli sa žiadne kroky."
 
 # if ( 'install' === $install_type ) {
 # $message = esc_html__( 'No plugins are available to be installed at this time.', 'ct-ultimate-gdpr' );
 # } else {
 msgid "No plugins are available to be installed at this time."
-msgstr ""
+msgstr "Momentálne nie sú k dispozícii žiadne doplnky na inštaláciu."
 
 # } else {
 # $message = esc_html__( 'No plugins are available to be updated at this time.', 'ct-ultimate-gdpr' );
 # }
 msgid "No plugins are available to be updated at this time."
-msgstr ""
+msgstr "Momentálne nie sú k dispozícii žiadne doplnky na aktualizáciu."
 
 # if ( empty( $_POST['plugin'] ) ) {
 # echo '<div id="message" class="error"><p>', esc_html__( 'No plugins were selected to be activated. No action taken.', 'ct-ultimate-gdpr' ), '</p></div>';
 #
 msgid "No plugins were selected to be activated. No action taken."
-msgstr ""
+msgstr "Neboli vybraté žiadne doplnky na aktiváciu. Nepodnikli sa žiadne kroky."
 
 # if ( empty( $plugins_to_activate ) ) {
 # echo '<div id="message" class="error"><p>', esc_html__( 'No plugins are available to be activated at this time.', 'ct-ultimate-gdpr' ), '</p></div>';
 #
 msgid "No plugins are available to be activated at this time."
-msgstr ""
+msgstr "Momentálne nie sú k dispozícii žiadne doplnky na aktiváciu."
 
 # public function activate_strings() {
 # $this->strings['activation_failed']  = esc_html__( 'Plugin activation failed.', 'ct-ultimate-gdpr' );
 # $this->strings['activation_success'] = esc_html__( 'Plugin activated successfully.', 'ct-ultimate-gdpr' );
 msgid "Plugin activation failed."
-msgstr ""
+msgstr "Aktivácia doplnku zlyhala."
 
 # /* translators: 1: plugin name, 2: action number 3: total number of actions. */
 # $this->upgrader->strings['skin_before_update_header'] = esc_html__( 'Updating Plugin %1$s (%2$d/%3$d)', 'ct-ultimate-gdpr' );
 # } else {
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Aktualizuje sa doplnok %1$s (%2$d/%3$d)"
 
 # /* translators: 1: plugin name, 2: error message. */
 # $this->upgrader->strings['skin_update_failed_error'] = esc_html__( 'An error occurred while installing %1$s: <strong>%2$s</strong>.', 'ct-ultimate-gdpr' );
 # /* translators: 1: plugin name. */
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr ""
+msgstr "Pri inštalácii %1$s sa vyskytla chyba: <strong>%2$s</strong> ."
 
 # /* translators: 1: plugin name. */
 # $this->upgrader->strings['skin_update_failed'] = esc_html__( 'The installation of %1$s failed.', 'ct-ultimate-gdpr' );
 #
 msgid "The installation of %1$s failed."
-msgstr ""
+msgstr "Inštalácia %1$s zlyhala."
 
 # // Automatic activation strings.
 # $this->upgrader->strings['skin_upgrade_start'] = esc_html__( 'The installation and activation process is starting. This process may take a while on some hosts, so please be patient.', 'ct-ultimate-gdpr' );
 # /* translators: 1: plugin name. */
 msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr ""
+msgstr "Spúšťa sa proces inštalácie a aktivácie. Tento proces môže na niektorých hostiteľoch chvíľu trvať, takže buďte trpezliví."
 
 # /* translators: 1: plugin name. */
 # $this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed and activated successfully.', 'ct-ultimate-gdpr' );
 # $this->upgrader->strings['skin_upgrade_end']       = esc_html__( 'All installations and activations have been completed.', 'ct-ultimate-gdpr' );
 msgid "%1$s installed and activated successfully."
-msgstr ""
+msgstr "%1$s bolo úspešne nainštalované a aktivované."
 
 # $this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed and activated successfully.', 'ct-ultimate-gdpr' );
 # $this->upgrader->strings['skin_upgrade_end']       = esc_html__( 'All installations and activations have been completed.', 'ct-ultimate-gdpr' );
@@ -4592,45 +4592,45 @@ msgstr ""
 # $this->upgrader->strings['skin_before_update_header'] = esc_html__( 'Installing and Activating Plugin %1$s (%2$d/%3$d)', 'ct-ultimate-gdpr' );
 # } else {
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Inštalácia a aktivácia doplnku %1$s (%2$d/%3$d)"
 
 # // Default installation strings.
 # $this->upgrader->strings['skin_upgrade_start'] = esc_html__( 'The installation process is starting. This process may take a while on some hosts, so please be patient.', 'ct-ultimate-gdpr' );
 # /* translators: 1: plugin name. */
 msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr ""
+msgstr "Začína sa proces inštalácie. Tento proces môže na niektorých hostiteľoch chvíľu trvať, takže buďte trpezliví."
 
 # /* translators: 1: plugin name. */
 # $this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed successfully.', 'ct-ultimate-gdpr' );
 # $this->upgrader->strings['skin_upgrade_end']       = esc_html__( 'All installations have been completed.', 'ct-ultimate-gdpr' );
 msgid "%1$s installed successfully."
-msgstr ""
+msgstr "%1$s úspešne nainštalované."
 
 # $this->upgrader->strings['skin_update_successful'] = esc_html__( '%1$s installed successfully.', 'ct-ultimate-gdpr' );
 # $this->upgrader->strings['skin_upgrade_end']       = esc_html__( 'All installations have been completed.', 'ct-ultimate-gdpr' );
 # /* translators: 1: plugin name, 2: action number 3: total number of actions. */
 msgid "All installations have been completed."
-msgstr ""
+msgstr "Všetky inštalácie boli dokončené."
 
 # /* translators: 1: plugin name, 2: action number 3: total number of actions. */
 # $this->upgrader->strings['skin_before_update_header'] = esc_html__( 'Installing Plugin %1$s (%2$d/%3$d)', 'ct-ultimate-gdpr' );
 # }
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Inštaluje sa doplnok %1$s (%2$d/%3$d)"
 
 # $last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
 # $imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'ct-ultimate-gdpr' ) . ' ' . $last_plugin );
 #
 msgctxt "plugin A *and* plugin B"
 msgid "and"
-msgstr ""
+msgstr "a"
 
 # /* translators: 1: install status, 2: update status */
 # esc_html_x( '%1$s, %2$s', 'Install/Update Status', 'ct-ultimate-gdpr' ),
 # $install_status,
 msgctxt "Install/Update Status"
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
 # if ( $this->tgmpa->is_plugin_installed( $item['slug'] ) ) {
 # $installed = ! empty( $item['installed_version'] ) ? $item['installed_version'] : esc_html_x( 'unknown', 'as in: "version nr unknown"', 'ct-ultimate-gdpr' );
@@ -4643,29 +4643,89 @@ msgstr "neznámy"
 # $text = _n( 'To Install <span class="count">(%s)</span>', 'To Install <span class="count">(%s)</span>', $count, 'ct-ultimate-gdpr' );
 # break;
 msgid "To Install <span class=\"count\">(%s)</span>"
-msgstr ""
+msgstr "Na inštaláciu <span class=\"count\">(%s)</span>"
 
 # /* translators: 1: number of plugins. */
 # $text = _n( 'Update Available <span class="count">(%s)</span>', 'Update Available <span class="count">(%s)</span>', $count, 'ct-ultimate-gdpr' );
 # break;
 msgid "Update Available <span class=\"count\">(%s)</span>"
-msgstr ""
+msgstr "Dostupná aktualizácia <span class=\"count\">(%s)</span>"
 
 # /* translators: 1: number of plugins. */
 # $text = _n( 'To Activate <span class="count">(%s)</span>', 'To Activate <span class="count">(%s)</span>', $count, 'ct-ultimate-gdpr' );
 # break;
 msgid "To Activate <span class=\"count\">(%s)</span>"
-msgstr ""
+msgstr "Na aktiváciu <span class=\"count\">(%s)</span>"
 
 # '<div id="message" class="updated"><p>%1$s %2$s.</p></div>',
 # esc_html( _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'ct-ultimate-gdpr' ) ),
 # $imploded
 msgid "The following plugins were activated successfully:"
-msgstr ""
+msgstr "Nasledujúce pluginy boli úspešne aktivované:"
 
 # /* translators: 1: number of plugins. */
 # $text = _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $count, 'plugins', 'ct-ultimate-gdpr' );
 # break;
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
-msgstr ""
+msgstr "Všetky <span class=\"count\">(%s)</span>"
+
+# public function render_services_Akismet_inject_consent_field(){
+# $settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">'.__('Settings').'</a>' : __('Settings (Not Active)');
+# printf( __('<i>Set this on Akismet Plugin %s </i>', 'ct-ultimate-gdpr'), $settingLink );
+msgid "Settings (Not Active)"
+msgstr "Nastavenia (neaktívne)"
+
+# public function render_services_Akismet_inject_consent_field(){
+# $settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">'.__('Settings').'</a>' : __('Settings (Not Active)');
+# printf( __('<i>Set this on Akismet Plugin %s </i>', 'ct-ultimate-gdpr'), $settingLink );
+msgid "<i>Set this on Akismet Plugin %s </i>"
+msgstr "<i>Nastavte v Akismet Plugin %s</i>"
+
+# "services_{$this->get_id()}_block_cookies", // ID
+# sprintf( esc_html__( "[%s] Block WPML cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+# array( $this, "render_field_services_sitepress_block_cookies" ), // Callback
+msgid "[%s] Block WPML cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Blokovať súbory cookie WPML, keď používateľ neakceptuje Funkčné súbory cookie"
+
+# "services_{$this->get_id()}_consent_field_privacy_policy", // ID
+# sprintf( esc_html__( "[%s] Inject consent to privacy policy", 'ct-ultimate-gdpr' ), $this->get_name() ),
+# array( $this, "render_field_services_{$this->get_id()}_consent_field_privacy_policy" ), // Callback
+msgid "[%s] Inject consent to privacy policy"
+msgstr "[%s] Vložiť súhlas so zásadami ochrany osobných údajov"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"

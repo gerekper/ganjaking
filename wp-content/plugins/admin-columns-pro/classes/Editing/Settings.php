@@ -87,26 +87,22 @@ class Settings extends AC\Settings\Column
 		return $view;
 	}
 
-	protected function create_radio_element() {
-		$radio = $this->create_element( 'radio', 'edit' );
-		$radio
-			->set_options( [
-				'on'  => __( 'Yes' ),
-				'off' => __( 'No' ),
-			] );
+	protected function create_toggle_element() {
+		$setting = new AC\Form\Element\Toggle( self::NAME, '', $this->get_value( self::NAME ) === 'on', 'on', 'off' );
+		$setting->add_class( 'ac-setting-input_' . self::NAME );
 
 		if ( $this->refresh_column ) {
-			$radio->set_attribute( 'data-refresh', 'column' );
+			$setting->set_attribute( 'data-refresh', 'column' );
 		}
 
-		return $radio;
+		return $setting;
 	}
 
 	public function create_view() {
 		$view = new View();
 		$view->set( 'label', __( 'Inline Editing', 'codepress-admin-columns' ) )
 		     ->set( 'instructions', $this->get_instruction() )
-		     ->set( 'setting', $this->create_radio_element() );
+		     ->set( 'setting', $this->create_toggle_element() );
 
 		foreach ( $this->sections as $section ) {
 			$view->set( 'sections', [ $section->create_view() ] );

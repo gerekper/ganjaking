@@ -3,8 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Persisters;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Exception\PersisterException;
-use MailPoetVendor\Doctrine\ORM\ORMException;
-use LogicException;
 use function sprintf;
 final class MatchingAssociationFieldRequiresObject extends PersisterException
 {

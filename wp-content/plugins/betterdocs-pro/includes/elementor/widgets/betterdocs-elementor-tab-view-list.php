@@ -43,7 +43,7 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
         return 'https://betterdocs.co/#pricing';
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         do_action('betterdocs/elementor/widgets/query', $this, 'knowledge_base');
 
@@ -73,11 +73,18 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
             'hide_empty' => true,
             'parent'     => 0,
             'order'      => $settings['order'],
-            'orderby'    => $settings['orderby'],
             'offset'     => $settings['offset'],
             'number'     => $settings['box_per_page']
         );
 
+        if ($settings['orderby'] == 'betterdocs_order') {
+            $terms_object['meta_key'] = 'kb_order';
+            $terms_object['orderby'] = 'meta_value_num';
+            $terms_object['order'] = 'ASC';
+        } else {
+            $terms_object['orderby'] = $settings['orderby'];
+        }
+        
         if($settings['include'])
         {
             $terms_object['include'] = array_diff($settings['include'], (array) $settings['exclude']);
@@ -89,7 +96,7 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
         }
 
 
-        $taxonomy_objects = get_terms($terms_object);
+        $taxonomy_objects = get_terms( apply_filters( 'betterdocs_kb_terms_object', $terms_object ) );
 
         if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) {
             $class = ['betterdocs-categories-wrap betterdocs-tab-grid ash-bg multiple-kb'];
@@ -111,7 +118,7 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
                     if ($kb->count > 0) {
                         echo '<div class="betterdocs-tab-content '.$kb->slug.'">';
                         echo '<div class="betterdocs-tab-categories">';
-                        $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $settings['tab_list_posts_orderby'], $kb->slug, $settings['nested_subcategory_tab_list']);
+                        $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $settings['order'], $settings['orderby'], $kb->slug, $settings['nested_subcategory_tab_list']);
                         if ($category_objects && !is_wp_error($category_objects)) {
                             // display category grid by order
                             foreach ($category_objects as $term) {
@@ -173,6 +180,8 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
                                                     'docs',
                                                     $settings['nested_sub_cat_orderby'],
                                                     $settings['nested_sub_cat_order'],
+                                                    $settings['orderby'],
+                                                    $settings['order'],
                                                     '',
                                                     $kb->slug,
                                                     $settings['nested_posts_per_page']

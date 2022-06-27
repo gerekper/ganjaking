@@ -22,7 +22,7 @@ global $product;
 	<?php
 	$heading = sprintf(
 		/* translators: %s: product name */
-		apply_filters( 'woocommerce_instagram_section_title', __( '%s on Instagram', 'woocommerce-instagram' ) ),
+		apply_filters( 'woocommerce_instagram_section_title', __( '%s on Instagram', 'woocommerce-instagram' ) ), // phpcs:ignore WooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
 		$product->get_name()
 	);
 
@@ -43,7 +43,7 @@ global $product;
 	endif;
 	?>
 
-	<?php if ( apply_filters( 'woocommerce_instagram_display_action_note', true ) ) : // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHooksComment ?>
+	<?php if ( apply_filters( 'woocommerce_instagram_display_action_note', true ) ) : // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 		<p class="woocommerce-instagram-call-to-action">
 			<?php
 			echo wp_kses_post(

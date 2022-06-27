@@ -287,6 +287,8 @@
 				},
 				cancel: '.tm-add-box',
 				forcePlaceholderSize: true,
+				revert: 200,
+				placeholder: 'tm-box pl',
 				tolerance: 'pointer'
 			} );
 

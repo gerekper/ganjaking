@@ -91,6 +91,7 @@ class WC_Booking_Form {
 			'i18n_dates'                 => __( 'Dates', 'woocommerce-bookings' ),
 			'i18n_choose_options'        => __( 'Please select the options for your booking and make sure duration rules apply.', 'woocommerce-bookings' ),
 			'i18n_clear_date_selection'  => __( 'To clear selection, pick a new start date', 'woocommerce-bookings' ),
+			'i18n_request_failed'        => __( 'We weren\'t able to get that information. Please contact the store owner for help.', 'woocommerce-bookings' ),
 			'pao_pre_30'                 => ( defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0', '<' ) ) ? 'true' : 'false',
 			'pao_active'                 => class_exists( 'WC_Product_Addons' ),
 			'timezone_conversion'        => wc_should_convert_timezone(),
@@ -695,6 +696,6 @@ class WC_Booking_Form {
 			}
 		}
 
-		return apply_filters( 'wc_bookings_get_time_slots_html', $block_html, $available_blocks, $blocks );
+		return apply_filters( 'wc_bookings_get_time_slots_html', $block_html, $available_blocks, $blocks, $this->product );
 	}
 }

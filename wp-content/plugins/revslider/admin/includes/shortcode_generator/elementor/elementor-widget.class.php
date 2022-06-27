@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -33,7 +33,7 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 		
 	}
 
-	protected function _register_controls() {
+	public function rs_register_controls() {
 		
 		/*Fallback
 		$shortcode = $this->get_settings_for_display( 'text' );
@@ -132,6 +132,10 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 		$this->end_controls_section();	
 	}
 
+	protected function register_controls() {
+		$this->rs_register_controls();
+	}
+
 	protected function render() {
 		global $rs_loaded_by_editor;
 		
@@ -160,5 +164,13 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) $rs_loaded_by_editor = false;
 	}
 	
+}
 
+/**
+ * function _register_controls() is deprecated since 3.1.0 of Elementor
+ **/
+class RevSliderElementorWidgetPre310 extends RevSliderElementorWidget {
+	protected function _register_controls() {
+		$this->rs_register_controls();
+	}
 }

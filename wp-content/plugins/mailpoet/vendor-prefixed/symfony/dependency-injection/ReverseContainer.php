@@ -14,11 +14,11 @@ final class ReverseContainer
  $this->serviceContainer = $serviceContainer;
  $this->reversibleLocator = $reversibleLocator;
  $this->tagName = $tagName;
- $this->getServiceId = \Closure::bind(function ($service) : ?string {
+ $this->getServiceId = \Closure::bind(function (object $service) : ?string {
  return (\array_search($service, $this->services, \true) ?: \array_search($service, $this->privates, \true)) ?: null;
  }, $serviceContainer, Container::class);
  }
- public function getId($service) : ?string
+ public function getId(object $service) : ?string
  {
  if ($this->serviceContainer === $service) {
  return 'service_container';
@@ -31,7 +31,7 @@ final class ReverseContainer
  }
  return null;
  }
- public function getService(string $id)
+ public function getService(string $id) : object
  {
  if ($this->serviceContainer->has($id)) {
  return $this->serviceContainer->get($id);

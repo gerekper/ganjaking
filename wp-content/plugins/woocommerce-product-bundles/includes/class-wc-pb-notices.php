@@ -46,8 +46,8 @@ class WC_PB_Notices {
 
 		self::$plugin_data = array(
 			'wc-pb-bulk-discounts' => array(
-				'install_path'   => 'product-bundles-bulk-discounts-for-woocommerce/product-bundles-bulk-discounts-for-woocommerce.php',
-				'install_check'  => 'WC_PB_Bulk_Discounts'
+				'install_path'  => 'product-bundles-bulk-discounts-for-woocommerce/product-bundles-bulk-discounts-for-woocommerce.php',
+				'install_check' => 'WC_PB_Bulk_Discounts'
 			)
 		);
 
@@ -77,7 +77,7 @@ class WC_PB_Notices {
 	 * @param  string  $notice_name
 	 * @param  string  $key
 	 * @param  mixed   $value
-	 * @return array
+	 * @return void
 	 */
 	public static function set_notice_option( $notice_name, $key, $value ) {
 
@@ -86,11 +86,11 @@ class WC_PB_Notices {
 		}
 
 		if ( ! is_string( $key ) ) {
-			$key = strval( $key );
+			$key = (string) $key;
 		}
 
 		if ( ! is_string( $notice_name ) ) {
-			$notice_name = strval( $notice_name );
+			$notice_name = (string) $notice_name;
 		}
 
 		if ( ! isset( self::$notice_options ) || ! is_array( self::$notice_options ) ) {

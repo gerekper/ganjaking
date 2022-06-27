@@ -10,18 +10,9 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 
-	class WC_OD_Order_Details extends WC_OD_Singleton {
+	class WC_OD_Order_Details {
 
-		/**
-		 * The order ID.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0
-		 *
-		 * @var int The order ID.
-		 */
-		public $order_id;
-
+		use WC_OD_Singleton_Trait;
 
 		/**
 		 * Constructor.
@@ -29,8 +20,6 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 		 * @since 1.0.0
 		 */
 		protected function __construct() {
-			parent::__construct();
-
 			add_action( 'woocommerce_view_order', array( $this, 'order_details' ), 20 );
 			add_action( 'woocommerce_thankyou', array( $this, 'order_details' ), 20 );
 		}
@@ -66,32 +55,5 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 				}
 			}
 		}
-
-		/**
-		 * We use the email subject filter to capture the order data and
-		 * include the delivery date section at the end of the emails.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 The order is fetched from the $email parameter in the 'email_footer' method.
-		 *
-		 * @param string $email_subject The email subject.
-		 * @return string The email subject.
-		 */
-		public function capture_order( $email_subject ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-
-			return $email_subject;
-		}
-
-		/**
-		 * Displays the delivery date section at the end of the emails.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.4.1
-		 */
-		public function email_footer() {
-			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Emails->delivery_details()' );
-		}
-
 	}
 }

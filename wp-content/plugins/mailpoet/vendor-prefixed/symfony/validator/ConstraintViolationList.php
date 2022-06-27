@@ -4,11 +4,17 @@ if (!defined('ABSPATH')) exit;
 class ConstraintViolationList implements \IteratorAggregate, ConstraintViolationListInterface
 {
  private $violations = [];
- public function __construct(array $violations = [])
+ public function __construct(iterable $violations = [])
  {
  foreach ($violations as $violation) {
  $this->add($violation);
  }
+ }
+ public static function createFromMessage(string $message) : self
+ {
+ $self = new self();
+ $self->add(new ConstraintViolation($message, '', [], null, '', null));
+ return $self;
  }
  public function __toString()
  {
@@ -28,22 +34,22 @@ class ConstraintViolationList implements \IteratorAggregate, ConstraintViolation
  $this->violations[] = $violation;
  }
  }
- public function get($offset)
+ public function get(int $offset)
  {
  if (!isset($this->violations[$offset])) {
  throw new \OutOfBoundsException(\sprintf('The offset "%s" does not exist.', $offset));
  }
  return $this->violations[$offset];
  }
- public function has($offset)
+ public function has(int $offset)
  {
  return isset($this->violations[$offset]);
  }
- public function set($offset, ConstraintViolationInterface $violation)
+ public function set(int $offset, ConstraintViolationInterface $violation)
  {
  $this->violations[$offset] = $violation;
  }
- public function remove($offset)
+ public function remove(int $offset)
  {
  unset($this->violations[$offset]);
  }

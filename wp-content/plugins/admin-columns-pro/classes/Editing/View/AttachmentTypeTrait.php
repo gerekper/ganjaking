@@ -16,13 +16,11 @@ trait AttachmentTypeTrait {
 			throw new InvalidArgumentException( 'Invalid attachment type.' );
 		}
 
-		$this->set( 'attachment', [
-			'library' => [
-				'type' => $type,
-			],
-		] );
+		$args = (array) $this->get_arg( 'attachment' );
 
-		return $this;
+		$args['library']['type'] = $type;
+
+		return $this->set( 'attachment', $args );
 	}
 
 }

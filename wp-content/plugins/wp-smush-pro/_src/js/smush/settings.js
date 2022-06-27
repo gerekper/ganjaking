@@ -45,15 +45,6 @@
 	});
 
 	/**
-	 * Tools page.
-	 */
-	$('form#smush-tools-form').on('submit', function (e) {
-		e.preventDefault();
-		$('#save-settings-button').addClass('sui-button-onload-text');
-		saveSettings($(this).serialize(), 'tools');
-	});
-
-	/**
 	 * Settings page.
 	 */
 	$('form#smush-settings-form').on('submit', function (e) {

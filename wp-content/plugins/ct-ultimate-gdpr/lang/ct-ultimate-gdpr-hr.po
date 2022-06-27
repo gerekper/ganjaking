@@ -5429,3 +5429,39 @@ msgstr ""
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgstr ""
+
+msgid "January"
+msgstr "Siječanj"
+
+msgid "February"
+msgstr "Veljača"
+
+msgid "March"
+msgstr "Ožujak"
+
+msgid "April"
+msgstr "Travanj"
+
+msgid "May"
+msgstr "Svibanj"
+
+msgid "June"
+msgstr "Lipanj"
+
+msgid "July"
+msgstr "Srpanj"
+
+msgid "August"
+msgstr "Kolovoz"
+
+msgid "September"
+msgstr "Rujan"
+
+msgid "October"
+msgstr "Listopad"
+
+msgid "November"
+msgstr "Studeni"
+
+msgid "December"
+msgstr "Prosinac"

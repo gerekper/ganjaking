@@ -13,18 +13,19 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.9.7
+ * Version:           3.10.2
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       wp-smushit
  * Domain Path:       /languages/
+ * Network:           true
  * WDP ID:            912164
  */
 
 /*
-Copyright 2007-2020 Incsub (http://incsub.com)
+Copyright 2007-2022 Incsub (http://incsub.com)
 Author - Aaron Edwards, Sam Najian, Umesh Kumar, Anton Vanyukov
 
 This program is free software; you can redistribute it and/or modify
@@ -47,11 +48,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.9.7' );
+	define( 'WP_SMUSH_VERSION', '3.10.2' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-12-2' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-12-10' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -230,7 +231,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				// Maybe require some external classes.
 				$external_libs = array( 'WDEV_Logger' );
 				if ( in_array( $class, $external_libs, true ) ) {
-					$lib = str_replace( '_', '-', strtolower( $class ) );
+					$lib  = str_replace( '_', '-', strtolower( $class ) );
 					$file = WP_SMUSH_DIR . "core/external/{$lib}/{$lib}.php";
 					if ( file_exists( $file ) ) {
 						require_once $file;
@@ -335,42 +336,11 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		}
 
 		/**
-		 * Filters the rating message, include stats if greater than 1Mb
-		 *
-		 * @param string $message  Message text.
-		 *
-		 * @return string
-		 */
-		public function wp_smush_rating_message( $message ) {
-			if ( empty( $this->core()->stats ) ) {
-				$this->core()->setup_global_stats();
-			}
-
-			$savings    = $this->core()->stats;
-			$show_stats = false;
-
-			// If there is any saving, greater than 1Mb, show stats.
-			if ( ! empty( $savings ) && ! empty( $savings['bytes'] ) && $savings['bytes'] > 1048576 ) {
-				$show_stats = true;
-			}
-
-			$message = "Hey %s, you've been using %s for a while now, and we hope you're happy with it.";
-
-			// Conditionally Show stats in rating message.
-			if ( $show_stats ) {
-				$message .= sprintf( " You've smushed <strong>%s</strong> from %d images already, improving the speed and SEO ranking of this site!", $savings['human'], $savings['total_images'] );
-			}
-			$message .= " We've spent countless hours developing this free plugin for you, and we would really appreciate it if you dropped us a quick rating!";
-
-			return $message;
-		}
-
-		/**
-		 * Register sub-modules.
+		 * Register submodules.
 		 * Only for wordpress.org members.
 		 */
 		public function register_free_modules() {
-			if ( false === strpos( WP_SMUSH_DIR, 'wp-smushit' ) ) {
+			if ( false === strpos( WP_SMUSH_DIR, 'wp-smushit' ) || class_exists( 'WPMUDEV_Dashboard' ) || file_exists( WP_PLUGIN_DIR . '/wpmudev-updates/update-notifications.php' ) ) {
 				return;
 			}
 
@@ -391,7 +361,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 			// Register the current plugin.
 			do_action(
-				'wdev-register-plugin',
+				'wdev_register_plugin',
 				/* 1             Plugin ID */ WP_SMUSH_BASENAME,
 				/* 2          Plugin Title */ 'Smush',
 				/* 3 https://wordpress.org */ '/plugins/wp-smushit/',
@@ -399,11 +369,9 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				/* 5  Mailchimp List id for the plugin - e.g. 4b14b58816 is list id for Smush */ '4b14b58816'
 			);
 
-			// The rating message contains 2 variables: user-name, plugin-name.
-			add_filter( 'wdev-rating-message-' . WP_SMUSH_BASENAME, array( $this, 'wp_smush_rating_message' ) );
 			// The email message contains 1 variable: plugin-name.
 			add_filter(
-				'wdev-email-message-' . WP_SMUSH_BASENAME,
+				'wdev_email_message_' . WP_SMUSH_BASENAME,
 				function () {
 					return "You're awesome for installing %s! Make sure you get the most out of it, boost your Google PageSpeed score with these tips and tricks - just for users of Smush!";
 				}
@@ -473,7 +441,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				$valid        = $api_auth[ $api_key ]['validity'];
 
 				// Difference in hours.
-				$diff = ( current_time( 'timestamp' ) - $last_checked ) / HOUR_IN_SECONDS;
+				$diff = ( time() - $last_checked ) / HOUR_IN_SECONDS;
 
 				if ( 24 < $diff ) {
 					$revalidate = true;
@@ -493,14 +461,14 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 				// This is the first check.
 				if ( ! isset( $api_auth[ $api_key ]['timestamp'] ) ) {
-					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
+					$api_auth[ $api_key ]['timestamp'] = time();
 				}
 
 				$request = $this->api()->check( $manual );
 
 				if ( ! is_wp_error( $request ) && 200 === wp_remote_retrieve_response_code( $request ) ) {
 					// Update the timestamp only on successful attempts.
-					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
+					$api_auth[ $api_key ]['timestamp'] = time();
 					update_site_option( 'wp_smush_api_auth', $api_auth );
 
 					$result = json_decode( wp_remote_retrieve_body( $request ) );

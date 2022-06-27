@@ -164,7 +164,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		}
 
 		// Update account funds.
-		WC_Account_Funds::remove_funds( $order->get_customer_id(), $order_total );
+		WC_Account_Funds_Manager::decrease_user_funds( $order->get_customer_id(), $order_total );
 
 		$order->update_meta_data( '_funds_used', $order_total );
 		$order->update_meta_data( '_funds_removed', 1 );
@@ -212,7 +212,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				);
 			}
 
-			WC_Account_Funds::remove_funds( $user_id, $order_total );
+			WC_Account_Funds_Manager::decrease_user_funds( $user_id, $order_total );
 
 			$order->update_meta_data( '_funds_used', $order_total );
 			$order->update_meta_data( '_funds_removed', 1 );
@@ -245,7 +245,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			return false;
 		}
 
-		WC_Account_Funds::add_funds( $order->get_customer_id(), $amount );
+		WC_Account_Funds_Manager::increase_user_funds( $order->get_customer_id(), $amount );
 
 		$funds_refunded = (float) $order->get_meta( '_funds_refunded' );
 

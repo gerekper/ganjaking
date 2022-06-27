@@ -102,7 +102,7 @@ class WC_Instagram_Product_Catalog_Items {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return array
+	 * @return WC_Instagram_Product_Catalog_Item[]
 	 */
 	public function get_all() {
 		$this->load_product_items();
@@ -111,11 +111,22 @@ class WC_Instagram_Product_Catalog_Items {
 	}
 
 	/**
+	 * Gets if there are still product items to process.
+	 *
+	 * @since 4.1.3
+	 *
+	 * @return bool
+	 */
+	public function has_next() {
+		return ( $this->product_items->valid() || $this->product_ids->valid() );
+	}
+
+	/**
 	 * Gets the next product item.
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return WC_Instagram_Product_Catalog_Item|false
+	 * @return WC_Instagram_Product_Catalog_Item|WC_Instagram_Product_Catalog_Item_Variation[]|false
 	 */
 	public function get_next() {
 		$product_item = false;

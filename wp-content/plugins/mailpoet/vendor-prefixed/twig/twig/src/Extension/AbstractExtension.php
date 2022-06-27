@@ -28,4 +28,3 @@ abstract class AbstractExtension implements ExtensionInterface
  return [];
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Extension\\AbstractExtension', 'MailPoetVendor\\Twig_Extension');

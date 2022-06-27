@@ -16,7 +16,7 @@ class Artist extends AC\Column\Media\Artist
 	}
 
 	public function editing() {
-		return new Editing\Service\Media\MetaData( new Editing\View\Text(), 'artist' );
+		return new Editing\Service\Media\MetaData\Audio( 'artist' );
 	}
 
 	public function export() {

@@ -22,25 +22,24 @@ $product_title          = $product->get_name();
 if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_price' !== $addon_type ) {
 	$price_prefix = 0 < $addon_price ? '+' : '';
 	$price_type   = $addon_price_type;
-	$adjust_price = $adjust_price;
 	$price_raw    = apply_filters( 'woocommerce_product_addons_price_raw', $addon_price, $addon );
 
 	if ( 'percentage_based' === $price_type ) {
-		$price_display = apply_filters(
+		$price_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_price',
 			$adjust_price && $price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 			$addon,
 			0,
 			$addon_type
-		);
+		) : '';
 	} else {
-		$price_display = apply_filters(
+		$price_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_price',
 			$adjust_price && $price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$addon,
 			0,
 			$addon_type
-		);
+		) : '';
 	}
 }
 ?>

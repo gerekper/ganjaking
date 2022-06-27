@@ -12,10 +12,11 @@ defined( 'ABSPATH' ) || exit;
  * Gets the days by the specified property and value.
  *
  * @since 1.0.0
- * @param array $days      The days data.
+ *
+ * @param array  $days     The days' data.
  * @param string $property The day property to filter.
- * @param mixed $value     The property value to search.
- * @return array The filtered days.
+ * @param mixed  $value    The property value to search.
+ * @return array
  */
 function wc_od_get_days_by( $days, $property, $value ) {
 	$filtered_days = array();
@@ -36,15 +37,15 @@ function wc_od_get_days_by( $days, $property, $value ) {
  * @return array The filtered events.
  */
 function wc_od_get_events( $filters = array() ) {
-	$event_type = ( isset( $filters['type'] ) ? $filters['type'] : 'event' ) ;
+	$event_type  = ( isset( $filters['type'] ) ? $filters['type'] : 'event' );
 	$event_class = 'WC_OD_Event';
 	if ( 'delivery' === $event_type ) {
 		$event_class = 'WC_OD_Event_Delivery';
 	}
 
-	$event_filters = array_diff_key( $filters, array_flip( array( 'timezone', 'start', 'end', 'type' ) ) );
+	$event_filters          = array_diff_key( $filters, array_flip( array( 'timezone', 'start', 'end', 'type' ) ) );
 	$event_filters['start'] = wc_od_parse_datetime( $filters['start'] );
-	$event_filters['end'] = wc_od_parse_datetime( $filters['end'] );
+	$event_filters['end']   = wc_od_parse_datetime( $filters['end'] );
 
 	// Parse the timezone parameter if it is present.
 	$timezone = null;
@@ -52,8 +53,8 @@ function wc_od_get_events( $filters = array() ) {
 		$timezone = new DateTimeZone( $filters['timezone'] );
 	}
 
-	$setting_name = $event_type . '_events';
-	$events = WC_OD()->settings()->get_setting( $setting_name, array() );
+	$setting_name    = $event_type . '_events';
+	$events          = WC_OD()->settings()->get_setting( $setting_name, array() );
 	$filtered_events = array();
 	foreach ( $events as $eventData ) {
 		$event = new $event_class( $eventData, $timezone );
@@ -85,7 +86,7 @@ function wc_od_get_events( $filters = array() ) {
  * @return array An array with the disabled days.
  */
 function wc_od_get_disabled_days( $args = array(), $context = '' ) {
-	$today = wc_od_get_local_date();
+	$today             = wc_od_get_local_date();
 	$max_delivery_days = ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ); // Non-inclusive.
 
 	$defaults = array(
@@ -185,7 +186,7 @@ function wc_od_is_current_day_disabled( $disabled, $timestamp, $args, $context )
 	if (
 		! $disabled && // Not disabled yet.
 		( isset( $args['type'] ) ) && 'delivery' === $args['type'] && // Only for delivery.
-		in_array( $context, array( 'checkout', 'checkout-auto' ), true ) && // Checkout context.
+		'checkout' === $context && // Checkout context.
 		date( 'Y-m-d', $timestamp ) === wc_od_get_local_date( false ) // It's the current date.
 	) {
 		$delivery_day = wc_od_get_delivery_day( date( 'w', $timestamp ) );
@@ -235,7 +236,7 @@ function wc_od_validate_delivery_date( $date, $args = array(), $context = '' ) {
 		'shipping_method'    => false,
 		'start_date'         => false,
 		'end_date'           => false, // The maximum date (Non-inclusive).
-		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
+		'delivery_days'      => wc_od_get_delivery_days()->to_array(),
 		'disabled_days'      => null, // Use these disabled days if not null.
 		'disabled_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
 			'type'    => 'delivery',
@@ -290,7 +291,7 @@ function wc_od_validate_delivery_date( $date, $args = array(), $context = '' ) {
 				$context
 			);
 		} else {
-			$status = $delivery_day['enabled'];
+			$status = ( $delivery_day instanceof WC_OD_Delivery_Day ? $delivery_day->get_enabled() : $delivery_day['enabled'] );
 		}
 
 		$valid = wc_string_to_bool( $status );
@@ -327,6 +328,7 @@ function wc_od_validate_delivery_date( $date, $args = array(), $context = '' ) {
  * @since 1.5.4 The default value of the `start_date` parameter is the current timestamp.
  *              Check the shipping time limit for the `start_date` parameter instead of the current date.
  *              Deprecated `days_for_shipping` parameter.
+ * @since 2.0.0 The parameter `days_for_shipping` is no longer used.
  *
  * @param array  $args    Optional. The arguments used to calculate the date.
  * @param string $context Optional. The context.
@@ -337,7 +339,6 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 	$defaults = array(
 		'min_working_days'   => WC_OD()->settings()->get_setting( 'min_working_days' ),
 		'shipping_days'      => WC_OD()->settings()->get_setting( 'shipping_days' ),
-		'days_for_shipping'  => 0, // Deprecated. We keep it for backward compatibility with hooks.
 		'start_date'         => current_time( 'timestamp' ), // Accept strings or timestamps.
 		'end_date'           => false, // The maximum date (Non-inclusive) to look for a valid date.
 		'disabled_days_args' => array( // Arguments passed to the wc_od_disabled_days() function.
@@ -381,7 +382,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 	$wday     = date( 'w', $start_timestamp );
 
 	// Don't modify the original values.
-	$days_for_shipping = intval( $args['days_for_shipping'] );
+	$days_for_shipping = 0;
 	$min_working_days  = intval( $args['min_working_days'] );
 
 	do {
@@ -430,6 +431,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
  * @since 1.4.0
  * @since 1.5.0 Added `shipping_method` parameter to `$args`.
  * @since 1.7.0 Deprecated the parameter `delivery_range` from `$args`.
+ * @since 2.0.0 The parameter `delivery_range` is no longer used.
  *
  * @param array  $args    Optional. The arguments used to calculate the date.
  * @param string $context Optional. The context.
@@ -439,8 +441,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 	$defaults = array(
 		'shipping_method'             => false,
 		'shipping_days'               => WC_OD()->settings()->get_setting( 'shipping_days' ),
-		'delivery_days'               => WC_OD()->settings()->get_setting( 'delivery_days' ),
-		'delivery_range'              => array(),
+		'delivery_days'               => wc_od_get_delivery_days()->to_array(),
 		'delivery_date'               => wc_od_get_local_date( false ), // Accept strings or timestamps.
 		'end_date'                    => wc_od_get_local_date( false ), // The minimum date to look for a valid date. Today as default.
 		'disabled_shipping_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
@@ -483,22 +484,9 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 		return false;
 	}
 
-	if ( ! empty( $args['delivery_range'] ) ) {
-		wc_doing_it_wrong( __FUNCTION__, 'The parameter "delivery_range" is deprecated.', '1.7.0' );
-
-		$delivery_range = new WC_OD_Delivery_Range();
-		$delivery_range->set_props(
-			array(
-				'from' => $args['delivery_range']['min'],
-				'to'   => $args['delivery_range']['max'],
-			)
-		);
-	} else {
-		$delivery_range = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
-	}
-
 	$days_for_delivery = 0;
 	$wday              = intval( date( 'w', $delivery_timestamp ) );
+	$delivery_range    = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
 	$min_delivery_days = $delivery_range->get_from();
 	$deadline          = wc_od_get_timestamp( $args['end_date'] );
 
@@ -538,7 +526,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 	 * @since 1.1.0
 	 *
 	 * @param int    $timestamp A timestamp representing the last shipping date.
-	 * @param array  $args      A array with the arguments used to calculate the date.
+	 * @param array  $args      An array with the arguments used to calculate the date.
 	 * @param string $context   The context.
 	 */
 	return apply_filters( 'wc_od_get_last_shipping_date', $last_shipping_date, $args, $context );
@@ -550,6 +538,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
  * @since 1.1.0
  * @since 1.5.0 Added `shipping_method` parameter to `$args`. Set the default value `end_date` to the setting value `max_delivery_days`.
  * @since 1.7.0 Deprecated the parameter `delivery_range` from `$args`.
+ * @since 2.0.0 The parameter `delivery_range` is no longer used.
  *
  * @param array  $args    Optional. The arguments used to calculate the date.
  * @param string $context Optional. The context.
@@ -559,8 +548,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 	$defaults = array(
 		'shipping_date'      => '', // Accept strings or timestamps.
 		'shipping_method'    => '',
-		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
-		'delivery_range'     => array(), // Backward compatibility.
+		'delivery_days'      => wc_od_get_delivery_days()->to_array(),
 		'end_date'           => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
 		'disabled_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
 			'type'    => 'delivery',
@@ -570,7 +558,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	// Avoid to calculate the default shipping date value if this will be overridden in the wp_parse_args() function.
+	// Avoid the need to calculate the default shipping date value if this will be overridden in the wp_parse_args() function.
 	// We use an empty string instead of 'false' to avoid conflict with an invalid timestamp.
 	if ( '' === $args['shipping_date'] ) {
 		$args['shipping_date'] = wc_od_get_first_shipping_date( array(), $context );
@@ -607,24 +595,11 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		return false;
 	}
 
-	if ( ! empty( $args['delivery_range'] ) ) {
-		wc_doing_it_wrong( __FUNCTION__, 'The parameter "delivery_range" is deprecated.', '1.7.0' );
-
-		$delivery_range = new WC_OD_Delivery_Range();
-		$delivery_range->set_props(
-			array(
-				'from' => $args['delivery_range']['min'],
-				'to'   => $args['delivery_range']['max'],
-			)
-		);
-	} else {
-		$delivery_range = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
-	}
-
 	$deadline = wc_od_get_timestamp( $args['end_date'] );
 	$wday     = (int) date( 'w', $shipping_timestamp );
 
 	$days_for_delivery = 0;
+	$delivery_range    = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
 	$min_delivery_days = $delivery_range->get_from();
 
 	// Calculate the statuses only for the default delivery days.
@@ -691,7 +666,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 function wc_od_get_next_delivery_date( $args = array(), $context = '' ) {
 	$defaults = array(
 		'shipping_method'    => false,
-		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
+		'delivery_days'      => wc_od_get_delivery_days()->to_array(),
 		'delivery_date'      => current_time( 'Y-m-d' ), // Accept strings or timestamps.
 		'end_date'           => false, // The maximum date (Non-inclusive) to look for a valid date.
 		'disabled_days_args' => array( // Arguments used by the wc_od_disabled_days() function.

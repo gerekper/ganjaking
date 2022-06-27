@@ -44,7 +44,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</table>
 </div>
 
-<a href="<?php echo esc_url( $this->get_url( 'smush-tools' ) ); ?>" class="sui-button sui-button-ghost">
+<a href="<?php echo esc_url( $this->get_url( 'smush-settings' ) ); ?>" class="sui-button sui-button-ghost">
 	<span class="sui-icon-wrench-tool" aria-hidden="true"></span>
 	<?php esc_html_e( 'View Tools', 'wp-smushit' ); ?>
 </a>

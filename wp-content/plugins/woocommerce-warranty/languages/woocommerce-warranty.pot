@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Warranty Requests 1.9.31\n"
+"Project-Id-Version: WooCommerce Warranty Requests 1.9.33\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-warranty\n"
-"POT-Creation-Date: 2022-01-05 19:07:14+00:00\n"
+"POT-Creation-Date: 2022-04-04 22:47:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -341,8 +341,8 @@ msgstr ""
 #: includes/class-warranty-admin.php:1749 includes/class-warranty-cart.php:49
 #: includes/class-warranty-cart.php:316 includes/class-warranty-frontend.php:64
 #: includes/class-warranty-settings.php:322
-#: includes/class.warranty_active_reports_list_table.php:169
-#: includes/class.warranty_completed_reports_list_table.php:169
+#: includes/class.warranty_active_reports_list_table.php:175
+#: includes/class.warranty_completed_reports_list_table.php:175
 #: includes/functions.php:223 includes/updates/update_1.1.php:35
 #: templates/admin/order-item-warranty.php:42
 #: templates/admin/product-panel.php:49 templates/manage.php:152
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Select options"
 msgstr ""
 
-#: includes/class-warranty-coupons.php:79
+#: includes/class-warranty-coupons.php:82
 msgid "Coupon sent"
 msgstr ""
 
@@ -915,16 +915,16 @@ msgstr ""
 msgid "Order Date"
 msgstr ""
 
-#: includes/class.warranty_active_reports_list_table.php:188
-#: includes/class.warranty_completed_reports_list_table.php:188
+#: includes/class.warranty_active_reports_list_table.php:196
+#: includes/class.warranty_completed_reports_list_table.php:196
 #: templates/list.php:409
 msgid "No requests found."
 msgstr ""
 
-#: includes/class.warranty_active_reports_list_table.php:210
-#: includes/class.warranty_active_reports_list_table.php:212
-#: includes/class.warranty_completed_reports_list_table.php:211
-#: includes/class.warranty_completed_reports_list_table.php:213
+#: includes/class.warranty_active_reports_list_table.php:218
+#: includes/class.warranty_active_reports_list_table.php:220
+#: includes/class.warranty_completed_reports_list_table.php:219
+#: includes/class.warranty_completed_reports_list_table.php:221
 #: templates/list.php:456 templates/list.php:458 templates/new.php:23
 msgid "Search"
 msgstr ""
@@ -941,8 +941,8 @@ msgstr ""
 msgid "Tracking Code:"
 msgstr ""
 
-#: includes/functions.php:82 includes/functions.php:1371
-#: includes/functions.php:1388
+#: includes/functions.php:82 includes/functions.php:1380
+#: includes/functions.php:1397
 msgid "Track Shipment"
 msgstr ""
 
@@ -1002,19 +1002,19 @@ msgstr ""
 msgid "%d %s for %s; "
 msgstr ""
 
-#: includes/functions.php:747
+#: includes/functions.php:756
 msgid "RMA Request for Order #"
 msgstr ""
 
-#: includes/functions.php:1042
+#: includes/functions.php:1051
 msgid "Item Returned"
 msgstr ""
 
-#: includes/functions.php:1096
+#: includes/functions.php:1105
 msgid "Refund failed"
 msgstr ""
 
-#: includes/functions.php:1348
+#: includes/functions.php:1357
 msgid "<a href=\"%s\">RMA #%d</a> status changed to %s"
 msgstr ""
 

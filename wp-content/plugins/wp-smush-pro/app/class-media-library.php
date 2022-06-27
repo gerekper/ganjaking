@@ -119,14 +119,16 @@ class Media_Library extends Abstract_Module {
 			return $query;
 		}
 
+		$filter = filter_input( INPUT_GET, 'smush-filter', FILTER_SANITIZE_SPECIAL_CHARS );
+
 		// Ignored.
-		if ( isset( $_REQUEST['smush-filter'] ) && 'ignored' === $_REQUEST['smush-filter'] ) {
+		if ( 'ignored' === $filter ) {
 			$query->set( 'meta_query', $this->query_ignored() );
 			return $query;
 		}
 
 		// Not processed.
-		if ( isset( $_REQUEST['smush-filter'] ) && 'unsmushed' === $_REQUEST['smush-filter'] ) {
+		if ( 'unsmushed' === $filter ) {
 			$query->set( 'meta_query', $this->query_unsmushed() );
 			return $query;
 		}
@@ -191,7 +193,6 @@ class Media_Library extends Abstract_Module {
 		return array(
 			array(
 				'key'     => 'wp-smush-ignore-bulk',
-				'value'   => 'true',
 				'compare' => 'EXISTS',
 			),
 		);
@@ -350,17 +351,14 @@ class Media_Library extends Abstract_Module {
 		$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_NULL_ON_FAILURE );
 
 		// Show Temporary Status, For Async Optimisation, No Good workaround.
-		if ( ! Helper::file_in_progress( $id, 'restore' ) && 'upload-attachment' === $action && $this->settings->get( 'auto' ) ) {
+		if ( ! get_transient( 'wp-smush-restore-' . $id ) && 'upload-attachment' === $action && $this->settings->get( 'auto' ) ) {
 			$status_txt = '<p class="smush-status">' . __( 'Smushing in progress...', 'wp-smushit' ) . '</p>';
+			$button_txt = __( 'Smush Now!', 'wp-smushit' );
 
-			// We need to show the smush button.
-			$show_button = false;
-			$button_txt  = __( 'Smush Now!', 'wp-smushit' );
-
-			return $this->column_html( $id, $status_txt, $button_txt, $show_button );
+			return $this->column_html( $id, $status_txt, $button_txt, false );
 		}
 
-		// Else Return the normal status.
+		// Else return the normal status.
 		return trim( $this->generate_markup( $id ) );
 	}
 
@@ -388,7 +386,7 @@ class Media_Library extends Abstract_Module {
 		if ( ! empty( $skip_msg[ $msg_id ] ) ) {
 			$skip_rsn = '<a href="https://wpmudev.com/project/wp-smush-pro/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_medialibrary_savings" target="_blank">
 				<span class="sui-tooltip sui-tooltip-left sui-tooltip-constrained sui-tooltip-top-right-mobile" data-tooltip="' . $skip_msg[ $msg_id ] . '">
-				<span class="sui-tag sui-tag-purple sui-tag-sm">' . esc_html__( 'PRO', 'wp-smushit' ) .  '</span></span></a>';
+				<span class="sui-tag sui-tag-purple sui-tag-sm">' . esc_html__( 'PRO', 'wp-smushit' ) . '</span></span></a>';
 		}
 
 		return $skip_rsn;
@@ -401,11 +399,12 @@ class Media_Library extends Abstract_Module {
 	 *
 	 * @param int $id  Attachment ID.
 	 *
-	 * @return string|array  HTML content or array of results.
+	 * @return string  HTML content or array of results.
 	 */
 	public function generate_markup( $id ) {
 		// Don't proceed if attachment is not image, or if image is not a jpg, png or gif, or if is not found.
-		if ( ! ( $is_smushable = Helper::is_smushable( $id ) ) ) {// phpcs:ignore
+		$is_smushable = Helper::is_smushable( $id );
+		if ( ! $is_smushable ) {
 			return false === $is_smushable ? __( 'Image not found!', 'wp-smushit' ) : __( 'Not processed', 'wp-smushit' );
 		}
 
@@ -445,11 +444,16 @@ class Media_Library extends Abstract_Module {
 	 * @return string
 	 */
 	private function get_optimization_status( $id, $smush_data ) {
-		if ( Helper::file_in_progress( $id, 'smush' ) ) {
+		if ( get_transient( 'smush-in-progress-' . $id ) ) {
 			return __( 'Smushing in progress...', 'wp-smushit' );
 		}
 
-		if ( Helper::is_ignored( $id ) ) {
+		$is_ignored = get_post_meta( $id, 'wp-smush-ignore-bulk', true );
+		if ( $is_ignored > 0 ) {
+			if ( Core::STATUS_ANIMATED === $is_ignored ) {
+				return __( 'Skip animated file', 'wp-smushit' );
+			}
+
 			return __( 'Ignored from auto-smush', 'wp-smushit' );
 		}
 
@@ -463,14 +467,22 @@ class Media_Library extends Abstract_Module {
 			return __( 'Already optimized', 'wp-smushit' );
 		}
 
-		$percent     = ( $stats['size_before'] - $stats['size_after'] ) / $stats['size_before'] * 100;
-		$status_text = sprintf(
-			/* translators: %1$s: bytes savings, %2$s: percentage savings, %3$d: number of images */
-			_n( 'Reduced by %1$s (%2$s)', '%3$d images reduced by %1$s (%2$s)', $stats['count_images'], 'wp-smushit' ),
-			esc_html( size_format( $stats['size_before'] - $stats['size_after'], 1 ) ),
-			sprintf( '%01.1f%%', number_format_i18n( $percent, 2 ) ),
-			$stats['count_images']
-		);
+		$percent = ( $stats['size_before'] - $stats['size_after'] ) / $stats['size_before'] * 100;
+
+		if ( 1 < $stats['count_images'] ) {
+			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings, %3$d: number of images */
+				esc_html__( '%3$d images reduced by %1$s (%2$s)', 'wp-smushit' ),
+				esc_html( size_format( $stats['size_before'] - $stats['size_after'], 1 ) ),
+				sprintf( '%01.1f%%', number_format_i18n( $percent, 2 ) ),
+				$stats['count_images']
+			);
+		} else {
+			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings */
+				esc_html__( 'Reduced by %1$s (%2$s)', 'wp-smushit' ),
+				esc_html( size_format( $stats['size_before'] - $stats['size_after'], 1 ) ),
+				sprintf( '%01.1f%%', number_format_i18n( $percent, 2 ) )
+			);
+		}
 
 		$file_path = get_attached_file( $id );
 		$size      = file_exists( $file_path ) ? filesize( $file_path ) : 0;
@@ -497,12 +509,17 @@ class Media_Library extends Abstract_Module {
 	 * @return string
 	 */
 	public function get_optimization_links( $id, $smush_data = array(), $attachment_data = array() ) {
-		if ( Helper::file_in_progress( $id, 'smush' ) ) {
+		if ( get_transient( 'smush-in-progress-' . $id ) ) {
 			return '';
 		}
 
 		// Skipped.
-		if ( Helper::is_ignored( $id ) ) {
+		$is_ignored = get_post_meta( $id, 'wp-smush-ignore-bulk', true );
+		if ( $is_ignored ) {
+			// If there is an animated file, return.
+			if ( Core::STATUS_ANIMATED === $is_ignored ) {
+				return '';
+			}
 			$nonce = wp_create_nonce( 'wp-smush-remove-skipped' );
 			return "<a href='#' class='wp-smush-remove-skipped' data-id='{$id}' data-nonce='{$nonce}'>" . __( 'Undo', 'wp-smushit' ) . '</a>';
 		}
@@ -649,7 +666,8 @@ class Media_Library extends Abstract_Module {
 	 */
 	private function column_html( $id, $html = '', $button_txt = '', $show_button = true ) {
 		// Don't proceed if attachment is not image, or if image is not a jpg, png or gif, or if is not found.
-		if ( ! ( $is_smushable = Helper::is_smushable( $id ) ) ) {// phpcs:ignore
+		$is_smushable = Helper::is_smushable( $id );
+		if ( ! $is_smushable ) {
 			return false === $is_smushable ? __( 'Image not found!', 'wp-smushit' ) : __( 'Not processed', 'wp-smushit' );
 		}
 
@@ -664,7 +682,7 @@ class Media_Library extends Abstract_Module {
 
 		$html .= "<a href='#' class='wp-smush-send' data-id='{$id}'>{$button_txt}</a>";
 
-		if ( Helper::is_ignored( $id ) ) {
+		if ( get_post_meta( $id, 'wp-smush-ignore-bulk', true ) ) {
 			$nonce = wp_create_nonce( 'wp-smush-remove-skipped' );
 			$html .= " | <a href='#' class='wp-smush-remove-skipped' data-id={$id} data-nonce={$nonce}>" . __( 'Show in bulk Smush', 'wp-smushit' ) . '</a>';
 		} else {
@@ -874,7 +892,7 @@ class Media_Library extends Abstract_Module {
 	 * @return string
 	 */
 	private function get_super_smush_link( $id, $smush_data ) {
-		if ( ! WP_Smush::is_pro() || empty( $smush_data['stats'] ) ) {
+		if ( empty( $smush_data['stats'] ) ) {
 			return '';
 		}
 
@@ -883,7 +901,7 @@ class Media_Library extends Abstract_Module {
 			return '';
 		}
 
-		// Check if premium user, compression was lossless, and lossy compression is enabled.
+		// Check if compression was lossless, and lossy compression is enabled.
 		if ( ! $this->settings->get( 'lossy' ) || 'image/gif' === get_post_mime_type( $id ) ) {
 			return '';
 		}

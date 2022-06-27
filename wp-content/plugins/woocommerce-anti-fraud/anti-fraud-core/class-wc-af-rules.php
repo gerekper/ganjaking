@@ -60,7 +60,6 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 		 * @param $json
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return WC_AF_Rule
 		 */

@@ -79,7 +79,7 @@ function wc_od_calendar_update_event() {
 
 	if ( false !== $events ) {
 		if ( isset( $event['id'] ) && isset( $events[ $event['id'] ] ) ) {
-			$event = wc_od_parse_event( $event );
+			$event                  = wc_od_parse_event( $event );
 			$events[ $event['id'] ] = $event;
 
 			WC_OD()->settings()->update_setting( $events_setting, $events );

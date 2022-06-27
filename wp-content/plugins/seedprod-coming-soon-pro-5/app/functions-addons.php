@@ -119,32 +119,34 @@ function seedprod_pro_deactivate_addon() {
  */
 function seedprod_pro_activate_addon() {
 	// Run a security check.
-	check_ajax_referer( 'seedprod_pro_activate_addon', 'nonce' );
-
-	// Check for permissions.
-	if ( ! current_user_can( 'activate_plugins' ) ) {
-		wp_send_json_error();
-	}
-
-	if ( isset( $_POST['plugin'] ) ) {
-		$type = 'addon';
-		if ( ! empty( $_POST['type'] ) ) {
-			$type = sanitize_key( wp_unslash( $_POST['type'] ) );
+	if ( check_ajax_referer( 'seedprod_pro_activate_addon', 'nonce' ) ) {
+		// Check for permissions.
+		if ( ! current_user_can( 'activate_plugin' ) ) {
+			wp_send_json_error( esc_html__( 'Could not activate addon. Please check user permissions.', 'seedprod-pro' ) );
 		}
 
-		$plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
-		$activate = activate_plugins( $plugin );
+		if ( isset( $_POST['plugin'] ) ) {
+			$type = 'addon';
+			if ( ! empty( $_POST['type'] ) ) {
+				$type = sanitize_key( wp_unslash( $_POST['type'] ) );
+			}
 
-		if ( ! is_wp_error( $activate ) ) {
-			if ( 'plugin' === $type ) {
-				wp_send_json_success( esc_html__( 'Plugin activated.', 'seedprod-pro' ) );
-			} else {
-				wp_send_json_success( esc_html__( 'Addon activated.', 'seedprod-pro' ) );
+			$plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
+			$activate = activate_plugin( $plugin, '', false, true );
+
+			if ( ! is_wp_error( $activate ) ) {
+				if ( 'plugin' === $type ) {
+					wp_send_json_success( esc_html__( 'Plugin activated.', 'seedprod-pro' ) );
+				} else {
+					wp_send_json_success( esc_html__( 'Addon activated.', 'seedprod-pro' ) );
+				}
 			}
 		}
+
+		wp_send_json_error( esc_html__( 'Could not activate addon. Please activate from the Plugins page.', 'seedprod-pro' ) );
 	}
 
-	wp_send_json_error( esc_html__( 'Could not activate addon. Please activate from the Plugins page.', 'seedprod-pro' ) );
+	wp_send_json_error( esc_html__( 'Could not activate addon. Please refresh page and try again.', 'seedprod-pro' ) );
 }
 
 /**
@@ -158,21 +160,37 @@ function seedprod_pro_get_plugins_list() {
 	$am_plugins  = array(
 		'google-analytics-for-wordpress/googleanalytics.php' => 'monsterinsights',
 		'google-analytics-premium/googleanalytics-premium.php' => 'monsterinsights-pro',
-		'optinmonster/optin-monster-wp-api.php'           => 'optinmonster',
-		'wp-mail-smtp/wp_mail_smtp.php'                   => 'wpmailsmtp',
-		'wp-mail-smtp-pro/wp_mail_smtp.php'               => 'wpmailsmtp-pro',
-		'wpforms-lite/wpforms.php'                        => 'wpforms',
-		'wpforms/wpforms.php'                             => 'wpforms-pro',
-		'rafflepress/rafflepress.php'                     => 'rafflepress',
-		'rafflepress-pro/rafflepress-pro.php'             => 'rafflepress-pro',
-		'trustpulse-api/trustpulse.php'                   => 'trustpulse',
-		'google-analytics-dashboard-for-wp/gadwp.php'     => 'exactmetrics',
-		'exactmetrics-premium/exactmetrics-premium.php'   => 'exactmetrics-pro',
-		'all-in-one-seo-pack/all_in_one_seo_pack.php'     => 'all-in-one',
-		'all-in-one-seo-pack-pro/all_in_one_seo_pack.php' => 'all-in-one-pro',
-		'seo-by-rank-math/rank-math.php'                  => 'rank-math',
-		'wordpress-seo/wp-seo.php'                        => 'yoast',
-		'autodescription/autodescription.php'             => 'seo-framework',
+		'optinmonster/optin-monster-wp-api.php'            => 'optinmonster',
+		'wp-mail-smtp/wp_mail_smtp.php'                    => 'wpmailsmtp',
+		'wp-mail-smtp-pro/wp_mail_smtp.php'                => 'wpmailsmtp-pro',
+		'wpforms-lite/wpforms.php'                         => 'wpforms',
+		'wpforms/wpforms.php'                              => 'wpforms-pro',
+		'rafflepress/rafflepress.php'                      => 'rafflepress',
+		'rafflepress-pro/rafflepress-pro.php'              => 'rafflepress-pro',
+		'trustpulse-api/trustpulse.php'                    => 'trustpulse',
+		'google-analytics-dashboard-for-wp/gadwp.php'      => 'exactmetrics',
+		'exactmetrics-premium/exactmetrics-premium.php'    => 'exactmetrics-pro',
+		'all-in-one-seo-pack/all_in_one_seo_pack.php'      => 'all-in-one',
+		'all-in-one-seo-pack-pro/all_in_one_seo_pack.php'  => 'all-in-one-pro',
+		'seo-by-rank-math/rank-math.php'                   => 'rank-math',
+		'wordpress-seo/wp-seo.php'                         => 'yoast',
+		'autodescription/autodescription.php'              => 'seo-framework',
+		'instagram-feed/instagram-feed.php'                => 'instagramfeed',
+		'instagram-feed-pro/instagram-feed.php'            => 'instagramfeed-pro',
+		'custom-facebook-feed/custom-facebook-feed.php'    => 'customfacebookfeed',
+		'custom-facebook-feed-pro/custom-facebook-feed.php' => 'customfacebookfeed-pro',
+		'custom-twitter-feeds/custom-twitter-feed.php'     => 'customtwitterfeeds',
+		'custom-twitter-feeds-pro/custom-twitter-feed.php' => 'customtwitterfeeds-pro',
+		'feeds-for-youtube/youtube-feed.php'               => 'feedsforyoutube',
+		'youtube-feed-pro/youtube-feed.php'                => 'feedsforyoutube-pro',
+		'pushengage/main.php'                              => 'pushengage',
+		'sugar-calendar-lite/sugar-calendar-lite.php'      => 'sugarcalendar',
+		'sugar-calendar/sugar-calendar.php'                => 'sugarcalendar-pro',
+		'stripe/stripe-checkout.php'                       => 'wpsimplepay',
+		'wp-simple-pay-pro-3/simple-pay.php'               => 'wpsimplepay-pro',
+		'easy-digital-downloads/easy-digital-downloads.php' => 'easydigitaldownloads',
+		'searchwp/index.php'                               => 'searchwp',
+		'affiliate-wp/affiliate-wp.php'                    => 'affiliatewp',
 	);
 	$all_plugins = get_plugins();
 
@@ -211,21 +229,37 @@ function seedprod_pro_get_plugins_array() {
 	$am_plugins  = array(
 		'google-analytics-for-wordpress/googleanalytics.php' => 'monsterinsights',
 		'google-analytics-premium/googleanalytics-premium.php' => 'monsterinsights-pro',
-		'optinmonster/optin-monster-wp-api.php'           => 'optinmonster',
-		'wp-mail-smtp/wp_mail_smtp.php'                   => 'wpmailsmtp',
-		'wp-mail-smtp-pro/wp_mail_smtp.php'               => 'wpmailsmtp-pro',
-		'wpforms-lite/wpforms.php'                        => 'wpforms',
-		'wpforms/wpforms.php'                             => 'wpforms-pro',
-		'rafflepress/rafflepress.php'                     => 'rafflepress',
-		'rafflepress-pro/rafflepress-pro.php'             => 'rafflepress-pro',
-		'trustpulse-api/trustpulse.php'                   => 'trustpulse',
-		'google-analytics-dashboard-for-wp/gadwp.php'     => 'exactmetrics',
-		'exactmetrics-premium/exactmetrics-premium.php'   => 'exactmetrics-pro',
-		'all-in-one-seo-pack/all_in_one_seo_pack.php'     => 'all-in-one',
-		'all-in-one-seo-pack-pro/all_in_one_seo_pack.php' => 'all-in-one-pro',
-		'seo-by-rank-math/rank-math.php'                  => 'rank-math',
-		'wordpress-seo/wp-seo.php'                        => 'yoast',
-		'autodescription/autodescription.php'             => 'seo-framework',
+		'optinmonster/optin-monster-wp-api.php'            => 'optinmonster',
+		'wp-mail-smtp/wp_mail_smtp.php'                    => 'wpmailsmtp',
+		'wp-mail-smtp-pro/wp_mail_smtp.php'                => 'wpmailsmtp-pro',
+		'wpforms-lite/wpforms.php'                         => 'wpforms',
+		'wpforms/wpforms.php'                              => 'wpforms-pro',
+		'rafflepress/rafflepress.php'                      => 'rafflepress',
+		'rafflepress-pro/rafflepress-pro.php'              => 'rafflepress-pro',
+		'trustpulse-api/trustpulse.php'                    => 'trustpulse',
+		'google-analytics-dashboard-for-wp/gadwp.php'      => 'exactmetrics',
+		'exactmetrics-premium/exactmetrics-premium.php'    => 'exactmetrics-pro',
+		'all-in-one-seo-pack/all_in_one_seo_pack.php'      => 'all-in-one',
+		'all-in-one-seo-pack-pro/all_in_one_seo_pack.php'  => 'all-in-one-pro',
+		'seo-by-rank-math/rank-math.php'                   => 'rank-math',
+		'wordpress-seo/wp-seo.php'                         => 'yoast',
+		'autodescription/autodescription.php'              => 'seo-framework',
+		'instagram-feed/instagram-feed.php'                => 'instagramfeed',
+		'instagram-feed-pro/instagram-feed.php'            => 'instagramfeed-pro',
+		'custom-facebook-feed/custom-facebook-feed.php'    => 'customfacebookfeed',
+		'custom-facebook-feed-pro/custom-facebook-feed.php' => 'customfacebookfeed-pro',
+		'custom-twitter-feeds/custom-twitter-feed.php'     => 'customtwitterfeeds',
+		'custom-twitter-feeds-pro/custom-twitter-feed.php' => 'customtwitterfeeds-pro',
+		'feeds-for-youtube/youtube-feed.php'               => 'feedsforyoutube',
+		'youtube-feed-pro/youtube-feed.php'                => 'feedsforyoutube-pro',
+		'pushengage/main.php'                              => 'pushengage',
+		'sugar-calendar-lite/sugar-calendar-lite.php'      => 'sugarcalendar',
+		'sugar-calendar/sugar-calendar.php'                => 'sugarcalendar-pro',
+		'stripe/stripe-checkout.php'                       => 'wpsimplepay',
+		'wp-simple-pay-pro-3/simple-pay.php'               => 'wpsimplepay-pro',
+		'easy-digital-downloads/easy-digital-downloads.php' => 'easydigitaldownloads',
+		'searchwp/index.php'                               => 'searchwp',
+		'affiliate-wp/affiliate-wp.php'                    => 'affiliatewp',
 	);
 	$all_plugins = get_plugins();
 

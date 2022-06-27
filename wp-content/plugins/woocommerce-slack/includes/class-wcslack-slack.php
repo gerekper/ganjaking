@@ -49,20 +49,28 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 		 * @author  Bryce <bryce@bryce.se>
 		 * @since   1.0.0
 		 */
-
 		public function all_channels( $api_key ) {
+
+			$channels_array = array( 'select' => __( 'Select Channel...', 'woocommerce-slack' ) );
 
 			$url = 'https://slack.com/api/conversations.list?types=public_channel,private_channel';
 
+			if ( ! empty( get_transient( 'wcslack_429_status' ) ) ) {
+				return $channels_array;
+			}
+
 			$resp = wp_remote_get( $url, array(
 				'user-agent' => get_bloginfo( 'name' ) . ' / 1.0',
-				'headers'=> array(
+				'headers'    => array(
 					'Content-Type'  => 'application/json',
 					'Authorization' => 'Bearer ' . $api_key,
 				),
 			) );
 
-			$channels_array = array( 'select' => 'Select Channel...' );
+			if ( 429 == wp_remote_retrieve_response_code( $resp ) ) {
+				set_transient( 'wcslack_429_status', $resp, MINUTE_IN_SECONDS );
+				return $channels_array;
+			}
 
 			$body    = wp_remote_retrieve_body( $resp );
 			$decoded = json_decode( $body, true );
@@ -82,52 +90,6 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 			return $channels_array;
 
 		}
-
-		/**
-		 * List all groups
-		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.1.0
-		 */
-
-		public function all_groups( $api_key ) {
-
-			$url = 'https://slack.com/api/groups.list';
-
-			$resp = wp_remote_get( $url, array(
-				'user-agent' => get_bloginfo( 'name' ) . ' / 1.0',
-				'headers'=> array(
-					'Content-Type'  => 'application/json',
-					'Authorization' => 'Bearer ' . $api_key,
-				),
-			) );
-
-			$body    = wp_remote_retrieve_body( $resp );
-			$decoded = json_decode( $body, true );
-
-			$groups_array = array();
-
-			if ( empty( $decoded['groups'] ) ) {
-				return $groups_array;
-			}
-
-			$groups = $decoded['groups'];
-
-			if ( ! empty( $groups ) ) {
-
-				foreach ( $groups as $group ) {
-
-					$groups_array[$group['id']] = $group['name'];
-
-				}
-
-			}
-
-			return $groups_array;
-
-		}
-
 
 		/**
 		 * Send Message / Notification

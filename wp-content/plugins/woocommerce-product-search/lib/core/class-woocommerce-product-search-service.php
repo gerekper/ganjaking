@@ -480,6 +480,8 @@ class WooCommerce_Product_Search_Service {
 			return;
 		}
 
+		$set_wps_process_query_vars = false;
+
 		$post_ids = null;
 
 		if (
@@ -489,6 +491,8 @@ class WooCommerce_Product_Search_Service {
 			isset( $_REQUEST['ixwpsp'] ) ||
 			isset( $_REQUEST['ixwpse'] )
 		) {
+
+			$set_wps_process_query_vars = true;
 
 			$s = self::get_s();
 			$use_engine = self::use_engine();
@@ -573,6 +577,8 @@ class WooCommerce_Product_Search_Service {
 
 			$ixwpst = self::get_ixwpst( $wp_query );
 			if ( !empty( $ixwpst ) ) {
+
+				$set_wps_process_query_vars = true;
 
 				$limit = apply_filters( 'woocommerce_product_search_process_query_object_term_limit', self::OBJECT_TERM_LIMIT );
 				if ( is_numeric( $limit ) ) {
@@ -714,7 +720,9 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-		$wps_process_query_vars = $wp_query->query_vars;
+		if ( $set_wps_process_query_vars ) {
+			$wps_process_query_vars = $wp_query->query_vars;
+		}
 
 	}
 
@@ -1170,12 +1178,18 @@ class WooCommerce_Product_Search_Service {
 		);
 		if ( isset( $args['include'] ) ) {
 			if ( is_array( $args['include'] ) && count( $args['include'] ) > 0 ) {
-				$where[] = 'ot.term_id IN (' . implode( ',', array_map( 'intval', $args['include'] ) ) . ') ';
+
+				$args_include = apply_filters( 'woocommerce_product_search_request_term_ids_include', $args['include'], $args, $taxonomies );
+				$args_include = array_unique( array_map( 'intval', $args_include ) );
+				$where[] = 'ot.term_id IN (' . implode( ',', $args_include ) . ') ';
 			}
 		}
 		if ( isset( $args['exclude'] ) ) {
 			if ( is_array( $args['exclude'] ) && count( $args['exclude'] ) > 0 ) {
-				$where[] = 'ot.term_id NOT IN (' . implode( ',', array_map( 'intval', $args['exclude'] ) ) . ') ';
+
+				$args_exclude = apply_filters( 'woocommerce_product_search_request_term_ids_exclude', $args['exclude'], $args, $taxonomies );
+				$args_exclude = array_unique( array_map( 'intval', $args_exclude ) );
+				$where[] = 'ot.term_id NOT IN (' . implode( ',', $args_exclude ) . ') ';
 			}
 		}
 

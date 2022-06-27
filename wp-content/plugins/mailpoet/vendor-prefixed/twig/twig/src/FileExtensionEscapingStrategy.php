@@ -3,7 +3,7 @@ namespace MailPoetVendor\Twig;
 if (!defined('ABSPATH')) exit;
 class FileExtensionEscapingStrategy
 {
- public static function guess($name)
+ public static function guess(string $name)
  {
  if (\in_array(\substr($name, -1), ['/', '\\'])) {
  return 'html';
@@ -25,4 +25,3 @@ class FileExtensionEscapingStrategy
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\FileExtensionEscapingStrategy', 'MailPoetVendor\\Twig_FileExtensionEscapingStrategy');

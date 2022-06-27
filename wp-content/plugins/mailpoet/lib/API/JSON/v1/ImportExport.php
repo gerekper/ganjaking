@@ -5,11 +5,11 @@ namespace MailPoet\API\JSON\v1;
 if (!defined('ABSPATH')) exit;
 
 
-use InvalidArgumentException;
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
 use MailPoet\API\JSON\ResponseBuilders\SegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\ConflictException;
 use MailPoet\Cron\CronWorkerScheduler;
 use MailPoet\Cron\Workers\WooCommerceSync;
 use MailPoet\CustomFields\CustomFieldsRepository;
@@ -112,7 +112,7 @@ class ImportExport extends APIEndpoint {
       return $this->badRequest([
         APIError::BAD_REQUEST => __('Please specify a name.', 'mailpoet'),
       ]);
-    } catch (InvalidArgumentException $exception) {
+    } catch (ConflictException $exception) {
       return $this->badRequest([
         APIError::BAD_REQUEST => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
       ]);

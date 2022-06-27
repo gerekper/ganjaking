@@ -73,8 +73,16 @@
 	box-shadow: none !important;
 }
 
-.wc-pao-addon .wc-pao-addon-wrap label {
-	display: flex;
+.wc-pao-addon-chars-remaining {
+	display: none;
+}
+
+.wc-pao-addon-chars-remaining.visible {
+	display: block;
+}
+
+.woocommerce .wc-pao-addon .wc-pao-addon-wrap label {
+	display: inline;
 }
 
 .wc-pao-addon abbr.required {

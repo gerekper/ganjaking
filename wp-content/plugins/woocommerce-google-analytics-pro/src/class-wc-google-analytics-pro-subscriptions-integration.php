@@ -17,13 +17,13 @@
 * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
 *
 * @author      SkyVerge
-* @copyright   Copyright (c) 2015-2020, SkyVerge, Inc.
+* @copyright   Copyright (c) 2015-2022, SkyVerge, Inc.
 * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
 */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
 * Google Analytics Pro Subscriptions Integration
@@ -42,7 +42,7 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 	 */
 	public function __construct() {
 
-		add_filter( 'wc_google_analytics_pro_settings', array( $this, 'add_settings' ) );
+		add_filter( 'wc_google_analytics_pro_settings', array( $this, 'add_settings' ), 10, 2 );
 
 		add_filter( 'wc_google_analytics_pro_do_not_track_completed_purchase', array( $this, 'set_subscription_ga_identity'), 10, 2 );
 
@@ -50,7 +50,7 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 
 		add_action( 'woocommerce_init', array( $this, 'init_hooks' ) );
 
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			add_action( 'admin_init', array( $this, 'maybe_add_update_settings_notice' ) );
 		}
 	}
@@ -394,9 +394,14 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 	 * @since 1.5.0
 	 *
 	 * @param array $settings
+	 * @param WC_Google_Analytics_Pro_Integration $integration
 	 * @return array
 	 */
-	public function add_settings( $settings ) {
+	public function add_settings( $settings, $integration ) {
+
+		if ( ! $integration->is_connected() ) {
+			return $settings;
+		}
 
 		$subscription_settings = array(
 			'subscription_event_names_section'            => array(
@@ -455,8 +460,8 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 		);
 
 		// try to append after default events
-		if ( array_key_exists( 'reordered_event_name', $settings ) ) {
-			$settings = Framework\SV_WC_Helper::array_insert_after( $settings, 'reordered_event_name', $subscription_settings );
+		if ( array_key_exists( '404_error_event_name', $settings ) ) {
+			$settings = Framework\SV_WC_Helper::array_insert_after( $settings, '404_error_event_name', $subscription_settings );
 		} else {
 			$settings = array_merge( $settings, $subscription_settings );
 		}

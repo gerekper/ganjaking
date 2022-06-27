@@ -191,6 +191,13 @@
 											'description' 	=> __( 'This is what appears on the payment screen when the customer lands at WorldPay and is also shown on statements and emails between your store and the shopper. Add {ordernum} to include the order number in the description', 'woocommerce_worlday' ),
 											'default' 		=> $this->default_orderDesc
 											),
+			'withDelivery' 			=> array(
+											'title' 		=> __( 'Include Delivery Address', 'woocommerce_worlday' ),
+											'type' 			=> 'select',
+											'options' 		=> array('yes'=>'Yes','no'=>'No'),
+											'description' 	=> __( 'If this is set to yes then the delivery address will be included as part of the transaction. This will only be used if the order needs to be delivered, it will not be included for virtual/download orders', 'woocommerce_worlday' ),
+											'default' 		=> $this->default_withDelivery
+											),
 			'fixContact' 			=> array(
 											'title' 		=> __( 'Fix Customer Info', 'woocommerce_worlday' ),
 											'type' 			=> 'select',

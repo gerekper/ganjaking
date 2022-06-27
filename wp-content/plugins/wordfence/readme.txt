@@ -3,8 +3,8 @@ Contributors: mmaunder, wfryan, wfmatt, wfmattr
 Tags: security, firewall, malware scanner, web application firewall, two factor authentication, block hackers, country blocking, clean hacked site, blocklist, waf, login security
 Requires at least: 3.9
 Requires PHP: 5.3
-Tested up to: 5.8
-Stable tag: 7.5.7
+Tested up to: 5.9
+Stable tag: 7.5.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,7 +147,7 @@ No. Wordfence Security is extremely fast and uses techniques like caching its ow
 
 = What if my site has already been hacked? =
 
-Wordfence Security is able to repair core files, themes and plugins on sites where security is already compromised. You can follow this guide on [how to clean a hacked website](https://www.wordfence.com/docs/how-to-clean-a-hacked-wordpress-site-using-wordfence/) using Wordfence. However, please note that site security cannot be assured unless you do a full reinstall if your site has been hacked. We recommend you only use Wordfence Security to get your site into a running state in order to recover the data you need to do a full reinstall. If you need help repairing a hacked site, we offer an affordable, high-quality [site cleaning service](https://www.wordfence.com/wordfence-site-cleanings/) that includes a Premium key for a year.
+Wordfence Security is able to repair core files, themes and plugins on sites where security is already compromised. You can follow this guide on [how to clean a hacked website using Wordfence](https://www.wordfence.com/docs/how-to-clean-a-hacked-wordpress-site-using-wordfence/). If you are cleaning your own site after a hack, note that site security cannot be assured unless you do a full reinstall if your site has been hacked. We recommend you only use Wordfence Security to get your site into a running state in order to recover the data you need to do a full reinstall. If you need help with a security issue, check out [Wordfence Care](https://www.wordfence.com/products/wordfence-care/), which offers hands-on support from our team, including dealing with a hacked site. For mission-critical sites, check out [Wordfence Response](https://www.wordfence.com/products/wordfence-response/).
 
 = Does Wordfence Security support IPv6? =
 
@@ -159,7 +159,7 @@ Yes. WordPress Multi-Site is fully supported. Using Wordfence you can scan every
 
 = What support options are available for Wordfence users? =
 
-Providing excellent customer service is very important to us.  We offer help to all our customers whether you are using the Premium or free version of Wordfence.  For help with the free version, you can post in our [forum](https://wordpress.org/support/plugin/wordfence) where we have dedicated staff responding to questions. If you need faster or more in-depth help, Premium customers can submit a [support ticket](https://support.wordfence.com/support/home) to our Premium support team.
+Providing excellent customer service is very important to us. Our free users receive volunteer-level support in our [support forums](https://wordpress.org/support/plugin/wordfence). [Wordfence Premium](https://www.wordfence.com/products/wordfence-premium/) customers get paid ticket-based support. [Wordfence Care](https://www.wordfence.com/products/wordfence-care/) customers receive hands-on support including help with security incidents and a yearly security audit. [Wordfence Response](https://www.wordfence.com/products/wordfence-response/) customers get 24/7/365 support from our incident response team, with a 1 hour response time, and a maximum of 24 hours to resolve a security issue.
 
 = Where can I learn more about WordPress security? =
 
@@ -184,6 +184,19 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.5.9 - March 22, 2022 =
+* Improvement: Updated GeoIP database
+* Improvement: Removed blocking data update logic in order to reduce timeouts
+* Improvement: Increased timeout value for API calls in order to reduce timeouts
+* Improvement: Clarified notification count on Wordfence menu
+* Improvement: Improved scan compatibility with WooCommerce
+* Improvement: Added messaging when application passwords are disabled
+* Fix: Prevented warnings and errors when constants are defined based on the value of other constants in wp-config.php
+* Fix: Corrected redundant escaping that prevented viewing or repairing files in scan results
+
+= 7.5.8 - February 1, 2022 =
+* Launch of Wordfence Care and Wordfence Response
 
 = 7.5.7 - November 22, 2021 =
 * Improvement: Made preliminary changes for compatibility with PHP 8.1

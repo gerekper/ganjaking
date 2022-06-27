@@ -21,16 +21,9 @@ abstract class Template
  $this->env = $env;
  $this->extensions = $env->getExtensions();
  }
- public function __toString()
- {
- return $this->getTemplateName();
- }
  public abstract function getTemplateName();
  public abstract function getDebugInfo();
- public function getSourceContext()
- {
- return new Source('', $this->getTemplateName());
- }
+ public abstract function getSourceContext();
  public function getParent(array $context)
  {
  if (null !== $this->parent) {
@@ -173,9 +166,10 @@ abstract class Template
  if (\false !== ($pos = \strrpos($class, '___', -1))) {
  $class = \substr($class, 0, $pos);
  }
- return $this->env->loadClass($class, $template, $index);
+ } else {
+ $class = $this->env->getTemplateClass($template);
  }
- return $this->env->loadTemplate($template, $index);
+ return $this->env->loadTemplate($class, $template, $index);
  } catch (Error $e) {
  if (!$e->getSourceContext()) {
  $e->setSourceContext($templateName ? new Source('', $templateName) : $this->getSourceContext());
@@ -245,4 +239,3 @@ abstract class Template
  }
  protected abstract function doDisplay(array $context, array $blocks = []);
 }
-\class_alias('MailPoetVendor\\Twig\\Template', 'MailPoetVendor\\Twig_Template');

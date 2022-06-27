@@ -13,7 +13,19 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 <?php if ($firewall->firewallMode() == 'enabled' && $firewall->ruleMode() == wfFirewall::RULE_MODE_PREMIUM): ?>
 	<li>
 		<div class="wf-block-labeled-value wf-waf-status wf-waf-status-full-enabled">
-			<div class="wf-block-labeled-value-label"><?php esc_html_e('Wordfence Firewall &amp; Premium Enabled', 'wordfence'); ?></div>
+			<div class="wf-block-labeled-value-label"><?php
+				switch (wfLicense::current()->getType()) {
+				case wfLicense::TYPE_RESPONSE:
+					esc_html_e('Wordfence Firewall &amp; Response License Enabled', 'wordfence');
+					break;
+				case wfLicense::TYPE_CARE:
+					esc_html_e('Wordfence Firewall &amp; Care License Enabled', 'wordfence');
+					break;
+				default:
+					esc_html_e('Wordfence Firewall &amp; Premium Enabled', 'wordfence');
+					break;
+				}
+			?></div>
 		</div>
 	</li>
 <?php else: ?>

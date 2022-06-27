@@ -1009,9 +1009,17 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			$rounding_precision  = apply_filters( 'woocommerce_distance_rate_shipping_distance_rounding_precision', 1 );
 			$distance_value      = $distance->rows[0]->elements[0]->distance->value;
 
-			$quantity            = WC()->cart->get_cart_contents_count();
+			// Get product quantities from package contents.
+			$package_quantities  = array_map( function( $package_items ) {
+
+				return ! empty( $package_items['quantity'] ) ? $package_items['quantity'] : 0;
+
+			}, $package['contents'] );
+			
+			// Calculate the product quantities.
+			$quantity            = is_array( $package_quantities ) ? array_sum( $package_quantities ) : 0;
 			$weight              = WC()->cart->cart_contents_weight;
-			$order_total         = $package['contents_cost'];
+			$order_total         = $package['cart_subtotal'];
 
 			if ( 'imperial' === $this->unit ) {
 				$distance = round( $distance_value * 0.000621371192, $rounding_precision );
@@ -1065,7 +1073,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 	
 							switch( $and_rule['condition'] ) {
 								case 'distance':
-									$result = $this->distance_shipping_rule( $and_rule, $distance, $package );
+									$result = $this->distance_shipping_rule( $and_rule, $distance, $package, $distance_value );
 								break;
 	
 								case 'time':
@@ -1330,11 +1338,24 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 		}
 
-		public function distance_shipping_rule( $rule, $distance, $package ) {
+		/**
+		 * Processing the shipping rule.
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param  array  $rule       Rule.
+		 * @param  float  $distance   Distance in KM.
+		 * @param  object $package    Package to ship.
+		 * @param  float  $distance_m Distance in M.
+		 * 
+		 * @return bool  Result of the rule.
+		 */
+		public function distance_shipping_rule( $rule, $distance, $package, $distance_m ) {
 			$min_match = false;
 			$max_match = false;
 
-			if ( isset( $distance ) && $distance > 0 ) {
+			if ( isset( $distance_m ) && $distance_m > 0 ) {
 
 				if ( empty( $rule['min'] ) || $distance >= $rule['min'] ) {
 					$min_match = true;

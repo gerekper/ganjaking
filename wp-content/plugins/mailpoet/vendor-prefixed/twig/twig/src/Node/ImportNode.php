@@ -10,7 +10,7 @@ class ImportNode extends Node
  {
  parent::__construct(['expr' => $expr, 'var' => $var], ['global' => $global], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write('$macros[')->repr($this->getNode('var')->getAttribute('name'))->raw('] = ');
  if ($this->getAttribute('global')) {
@@ -24,4 +24,3 @@ class ImportNode extends Node
  $compiler->raw(";\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\ImportNode', 'MailPoetVendor\\Twig_Node_Import');

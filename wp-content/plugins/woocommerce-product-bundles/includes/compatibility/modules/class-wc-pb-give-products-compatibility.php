@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Give Products Integration.
  *
- * @version 5.5.0
+ * @version 6.15.0
  */
 class WC_PB_Give_Products_Compatibility {
 
 	public static function init() {
 		// Whenever a product bundle is given to an user make sure all the bundled items are included in the order.
-		add_action( 'woocommerce_order_given', array( __CLASS__, 'add_bundle_product_to_order' ) );
+		add_action( 'woocommerce_order_given', array( __CLASS__, 'add_bundle_to_order' ) );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class WC_PB_Give_Products_Compatibility {
 	 *
 	 * @param  int  $order_id
 	 */
-	public static function add_bundle_product_to_order( $order_id ) {
+	public static function add_bundle_to_order( $order_id ) {
 
 		$order                 = wc_get_order( $order_id );
 		$items_to_remove       = array();
@@ -46,15 +46,13 @@ class WC_PB_Give_Products_Compatibility {
 
 			if ( $product && $product->is_type( 'bundle' ) ) {
 
-				$items_to_remove[] = $order_item;
-
 				// Re-add the product bundle to the order this time adding the bundled items.
-				WC_PB()->order->add_bundle_to_order( $product, $order, $product_qty );
+				$result = WC_PB()->order->add_bundle_to_order( $product, $order, $product_qty );
 
-				// Remove the original product bundle "container" item as it has no bundled items associated to it.
-				wc_delete_order_item( $order_item_id );
-
-				$order_contains_bundle = true;
+				if ( ! is_wp_error( $result ) ) {
+					$items_to_remove[] = $order_item;
+					$order_contains_bundle = true;
+				}
 			}
 		}
 

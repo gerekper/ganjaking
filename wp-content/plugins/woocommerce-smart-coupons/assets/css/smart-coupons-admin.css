@@ -8,7 +8,8 @@
 #sc_coupon_categorydiv div.tabs-panel,
 button#export_coupons,
 a#wc_sc_print_coupons,
-a#sc-manage-category {
+a#sc-manage-category,
+#wc-sc-copy-coupon-code {
 	background-color: #f0fff0;
 }
 button#export_coupons > span.dashicons,

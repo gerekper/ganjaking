@@ -43,7 +43,7 @@ class CronDaemon {
   }
 
   public function ping() {
-     die($this->cronHelper->pingDaemon());
+     die(esc_html($this->cronHelper->pingDaemon()));
   }
 
   public function pingResponse() {

@@ -15,7 +15,7 @@ class ArrayExpression extends AbstractExpression
  }
  }
  }
- public function getKeyValuePairs()
+ public function getKeyValuePairs() : array
  {
  $pairs = [];
  foreach (\array_chunk($this->nodes, 2) as $pair) {
@@ -23,7 +23,7 @@ class ArrayExpression extends AbstractExpression
  }
  return $pairs;
  }
- public function hasElement(AbstractExpression $key)
+ public function hasElement(AbstractExpression $key) : bool
  {
  foreach ($this->getKeyValuePairs() as $pair) {
  // we compare the string representation of the keys
@@ -34,14 +34,14 @@ class ArrayExpression extends AbstractExpression
  }
  return \false;
  }
- public function addElement(AbstractExpression $value, AbstractExpression $key = null)
+ public function addElement(AbstractExpression $value, AbstractExpression $key = null) : void
  {
  if (null === $key) {
  $key = new ConstantExpression(++$this->index, $value->getTemplateLine());
  }
  \array_push($this->nodes, $key, $value);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->raw('[');
  $first = \true;
@@ -55,4 +55,3 @@ class ArrayExpression extends AbstractExpression
  $compiler->raw(']');
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\ArrayExpression', 'MailPoetVendor\\Twig_Node_Expression_Array');

@@ -10,7 +10,6 @@ use MailPoet\Config\Renderer as TemplateRenderer;
 use MailPoet\Entities\FormEntity;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscribers\SubscriberSubscribeController;
-use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
 
 class DisplayFormInWPContent {
@@ -191,7 +190,7 @@ class DisplayFormInWPContent {
     }
 
     // generate security token
-    $templateData['token'] = Security::generateToken();
+    $templateData['token'] = $this->wp->wpCreateNonce('mailpoet_token');
 
     // add API version
     $templateData['api_version'] = API::CURRENT_VERSION;

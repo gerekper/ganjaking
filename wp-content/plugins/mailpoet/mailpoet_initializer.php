@@ -46,6 +46,9 @@ if (WP_DEBUG && PHP_VERSION_ID >= 70100 && file_exists($tracyPath)) {
       // set higher number of displayed AJAX rows
       $maxAjaxRows = 4;
       $tracyScriptHtml .= "<script>window.TracyMaxAjaxRows = $maxAjaxRows;</script>\n";
+
+      // just minor adjustments to Debugger::renderLoader() output
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $tracyScriptHtml;
     }
 
@@ -53,6 +56,7 @@ if (WP_DEBUG && PHP_VERSION_ID >= 70100 && file_exists($tracyPath)) {
     session_start();
     Debugger::enable(Debugger::DEVELOPMENT);
   }
+  define('MAILPOET_DEVELOPMENT', true);
 }
 
 define('MAILPOET_VERSION', $mailpoetPlugin['version']);

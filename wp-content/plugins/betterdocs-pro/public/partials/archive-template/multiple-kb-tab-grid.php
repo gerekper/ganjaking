@@ -21,10 +21,11 @@ echo '<div class="betterdocs-wraper betterdocs-mkb-wraper">';
         <div class="betterdocs-archive-tab-grid">';
             $output = betterdocs_generate_output();
             $terms_orderby = BetterDocs_DB::get_settings('terms_orderby');
+            $terms_order   = BetterDocs_DB::get_settings('terms_order');
             if (BetterDocs_DB::get_settings('alphabetically_order_term') == 1) {
-                $terms_orderby = BetterDocs_DB::get_settings('alphabetically_order_term');
+                $terms_orderby = 'name';
             }
-            echo do_shortcode( '[betterdocs_multiple_kb_tab_grid terms_orderby="'.esc_html($terms_orderby).'"]' );
+            echo do_shortcode( '[betterdocs_multiple_kb_tab_grid terms_order="'.esc_html($terms_order).'" terms_orderby="'.esc_html($terms_orderby).'"]' );
         echo '</div>
     </div>
 </div>';

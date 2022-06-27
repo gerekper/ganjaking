@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 3.3
+ * Version: 3.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 6.2
+ * WC tested up to: 6.3
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -81,7 +81,6 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 			$this->mailbox_id = isset( $woocommerce_help_scout_settings['mailbox_id'] ) ? $woocommerce_help_scout_settings['mailbox_id'] : '';
 
 			// Load plugin text domain.
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 			add_action( 'rest_api_init', array( $this, 'get_woo_data_endpoint' ) );
 
 			// Checks with WooCommerce is installed.
@@ -114,6 +113,8 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 				add_action( 'admin_notices', array( $this, 'woocommerce_missing_notice' ) );
 			}
 		}
+
+
 
 		/**
 		 * Function get_woo_data_endpoint.
@@ -204,7 +205,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 			if ( null == self::$instance ) {
 				self::$instance = new self();
 			}
-
+			load_plugin_textdomain( 'woocommerce-help-scout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 			return self::$instance;
 		}
 
@@ -251,8 +252,6 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 		 * @return void
 		 */
 		public function load_plugin_textdomain() {
-			// $locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-help-scout' );
-			// load_textdomain( 'woocommerce-help-scout', trailingslashit( WP_LANG_DIR ) . 'woocommerce-help-scout/woocommerce-help-scout-' . $locale . '.mo' );
 			load_plugin_textdomain( 'woocommerce-help-scout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 

@@ -10,14 +10,15 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 1.10.6
+ * @version 2.0.0
  */
-// Exit if accessed directly
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<tr <?php wc_product_class( 'mnm_item', $mnm_item ); ?> data-mnm_id="<?php echo esc_attr( $mnm_id ); ?>" data-regular_price="<?php echo esc_attr( $regular_price ); ?>" data-price="<?php echo esc_attr( $price ); ?>" >
+<tr <?php wc_product_class( $classes, $child_item->get_product() ); ?> <?php echo wc_implode_html_attributes( $child_item->get_data_attributes() ); ?> >

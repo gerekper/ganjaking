@@ -8,9 +8,8 @@ class FlushNode extends Node
  {
  parent::__construct([], [], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write("flush();\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\FlushNode', 'MailPoetVendor\\Twig_Node_Flush');

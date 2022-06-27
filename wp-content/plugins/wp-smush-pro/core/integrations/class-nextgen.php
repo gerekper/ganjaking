@@ -84,12 +84,6 @@ class NextGen extends Abstract_Integration {
 		add_action( 'admin_init', array( $this, 'init_modules' ) );
 
 		/**
-		 * FILTERS
-		 */
-		// Show submit button when Gutenberg is active.
-		add_filter( 'wp_smush_integration_show_submit', '__return_true' );
-
-		/**
 		 * ACTIONS
 		 */
 		// Auto Smush image, if enabled, runs after NextGen is finished uploading the image.
@@ -170,6 +164,8 @@ class NextGen extends Abstract_Integration {
 	 */
 	public function smush_bulk() {
 		$stats = array();
+
+		check_ajax_referer( 'wp-smush-ajax', '_nonce' );
 
 		if ( empty( $_GET['attachment_id'] ) ) {
 			wp_send_json_error(
@@ -572,13 +568,13 @@ class NextGen extends Abstract_Integration {
 		// If file exists, corresponding to our backup path.
 		if ( file_exists( $backup_path ) ) {
 			// Restore.
-			$restored[] = @copy( $backup_path, $attachment_file_path );
+			$restored[] = copy( $backup_path, $attachment_file_path );
 
 			// Delete the backup.
-			@unlink( $backup_path );
+			unlink( $backup_path );
 		} elseif ( file_exists( $attachment_file_path . '_backup' ) ) {
 			// Restore from other backups.
-			$restored[] = @copy( $attachment_file_path . '_backup', $attachment_file_path );
+			$restored[] = copy( $attachment_file_path . '_backup', $attachment_file_path );
 		}
 		// Restoring the other sizes.
 		$attachment_data = ! empty( $image->meta_data['wp_smush'] ) ? $image->meta_data['wp_smush'] : array();
@@ -596,13 +592,13 @@ class NextGen extends Abstract_Integration {
 				// If file exists, corresponding to our backup path.
 				if ( file_exists( $backup_path ) ) {
 					// Restore.
-					$restored[] = @copy( $backup_path, $attachment_size_file_path );
+					$restored[] = copy( $backup_path, $attachment_size_file_path );
 
 					// Delete the backup.
-					@unlink( $backup_path );
+					unlink( $backup_path );
 				} elseif ( file_exists( $attachment_size_file_path . '_backup' ) ) {
 					// Restore from other backups.
-					$restored[] = @copy( $attachment_size_file_path . '_backup', $attachment_size_file_path );
+					$restored[] = copy( $attachment_size_file_path . '_backup', $attachment_size_file_path );
 				}
 			}
 		}
@@ -656,7 +652,7 @@ class NextGen extends Abstract_Integration {
 		}
 
 		// Check Nonce.
-		if ( ! wp_verify_nonce( $_POST['_nonce'], 'wp-smush-resmush-' . $_POST['attachment_id'] ) ) {
+		if ( ! wp_verify_nonce( $_POST['_nonce'], 'wp-smush-resmush-' . (int) $_POST['attachment_id'] ) ) {
 			wp_send_json_error(
 				array(
 					'error_msg' => '<div class="wp-smush-error">' . esc_html__( "Image couldn't be smushed as the nonce verification failed, try reloading the page.", 'wp-smushit' ) . '</div>',
@@ -1012,7 +1008,7 @@ class NextGen extends Abstract_Integration {
 			return $meta;
 		} else {
 			// Else Replace the Original file with resized file.
-			$replaced = @copy( $resized['file_path'], $file_path );
+			$replaced = copy( $resized['file_path'], $file_path );
 			$this->maybe_unlink( $resized['file_path'], $sizes, $image, $storage );
 		}
 
@@ -1069,7 +1065,7 @@ class NextGen extends Abstract_Integration {
 
 		// Unlink directly if meta value is not specified.
 		if ( empty( $sizes ) ) {
-			@unlink( $path );
+			unlink( $path );
 		}
 
 		$unlink = true;
@@ -1088,7 +1084,7 @@ class NextGen extends Abstract_Integration {
 
 		// Unlink the file.
 		if ( $unlink ) {
-			@unlink( $path );
+			unlink( $path );
 		}
 
 		return $unlink;

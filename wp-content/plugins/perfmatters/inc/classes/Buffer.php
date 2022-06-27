@@ -6,32 +6,39 @@ class Buffer
     //initialize buffer
     public static function init()
     {
-        //initialize classes that filter the buffer
-        Fonts::init();
-        CDN::init();
-        Images::init();
-        Preload::init();
+        //inital checks
+        if(is_admin() || perfmatters_is_dynamic_request() || perfmatters_is_page_builder() || isset($_GET['perfmatters'])) {
+            return;
+        }
 
-        //add buffer actions
-        add_action('init', array('Perfmatters\Buffer', 'start'), 0);
-        add_action('template_redirect', array('Perfmatters\Buffer', 'start'));
+        //buffer is allowed
+        if(!apply_filters('perfmatters_allow_buffer', true)) {
+            return;
+        }
+
+        //add buffer action
+        add_action('template_redirect', array('Perfmatters\Buffer', 'start'), -9999);
     }
 
     //start buffer
     public static function start()
     {
-        $current_filter = current_filter();
+        if(has_filter('perfmatters_output_buffer_template_redirect')) {
 
-        if(!empty($current_filter) && has_filter('perfmatters_output_buffer_' . $current_filter)) {
+            //exclude certain requests
+            if(is_embed() || is_feed() || is_preview() || is_customize_preview()) {
+                return;
+            }
 
-            ob_start(function($html) use ($current_filter) {
-                 //exclude certain requests
-                if(is_admin() || perfmatters_is_dynamic_request() || perfmatters_is_page_builder() || is_embed() || is_feed() || is_preview() || is_customize_preview() || isset($_GET['perfmatters'])) {
-                    return $html;
-                }
+            //don't buffer amp
+            if(function_exists('is_amp_endpoint') && is_amp_endpoint()) {
+                return;
+            }
+
+            ob_start(function($html) {
 
                 //run buffer filters
-                $html = (string) apply_filters('perfmatters_output_buffer_' . $current_filter, $html);
+                $html = (string) apply_filters('perfmatters_output_buffer_template_redirect', $html);
 
                 //return processed html
                 return $html;

@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 	<p>
 	<?php
 		/* translators: %s: delivery date */
-		printf( wp_kses_post( __( 'We will try our best to deliver your order on %s.', 'woocommerce-order-delivery' ) ), "<strong>{$delivery_date}</strong>" ); // WPCS: XSS ok.
+		printf( wp_kses_post( __( 'We will try our best to deliver your order on %s.', 'woocommerce-order-delivery' ) ), "<strong>{$delivery_date}</strong>" ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
 	</p>
 
@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
 		<p>
 		<?php
 			/* translators: %s: delivery time frame */
-			printf( wp_kses_post( __( 'Time frame: %s', 'woocommerce-order-delivery' ) ), '<strong>' . wc_od_time_frame_to_string( $delivery_time_frame ) . '</strong>' ); // WPCS: XSS ok.
+			printf( wp_kses_post( __( 'Time frame: %s', 'woocommerce-order-delivery' ) ), '<strong>' . wc_od_time_frame_to_string( $delivery_time_frame ) . '</strong>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		?>
 		</p>
 	<?php endif; ?>

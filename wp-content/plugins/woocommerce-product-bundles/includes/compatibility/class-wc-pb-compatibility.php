@@ -15,18 +15,27 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.14.0
+ * @version  6.15.0
  */
 class WC_PB_Compatibility {
 
 	/**
 	 * Min required plugin versions to check.
+	 *
 	 * @var array
 	 */
 	private $required = array();
 
 	/**
+	 * Modules to load.
+	 *
+	 * @var array
+	 */
+	private $modules = array();
+
+	/**
 	 * Publicly accessible props for use by compat classes. Still not moved for back-compat.
+	 *
 	 * @var array
 	 */
 	public static $addons_prefix          = '';
@@ -37,6 +46,7 @@ class WC_PB_Compatibility {
 
 	/**
 	 * The single instance of the class.
+	 *
 	 * @var WC_PB_Compatibility
 	 *
 	 * @since 5.0.0
@@ -82,10 +92,11 @@ class WC_PB_Compatibility {
 
 		// Define dependencies.
 		$this->required = array(
-			'cp'     => '6.2.0',
+			'cp'     => '8.4.0',
 			'pao'    => '3.0.14',
 			'topatc' => '1.0.3',
-			'bd'     => '1.3.1'
+			'bd'     => '1.3.1',
+			'blocks' => '7.2.0'
 		);
 
 		// Initialize.
@@ -151,6 +162,15 @@ class WC_PB_Compatibility {
 	}
 
 	/**
+	 * Checks if a module has been loaded.
+	 *
+	 * @return boolean
+	 */
+	public function is_module_loaded( $name ) {
+		return isset( $this->modules[ $name ] );
+	}
+
+	/**
 	 * Load compatibility classes.
 	 *
 	 * @return void
@@ -158,6 +178,11 @@ class WC_PB_Compatibility {
 	public function module_includes() {
 
 		$module_paths = array();
+
+		// WooCommerce Cart/Checkout Blocks support.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) >= 0 ) {
+			$module_paths[ 'blocks' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-blocks-compatibility.php';
+		}
 
 		// Addons support.
 		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, $this->required[ 'pao' ] ) >= 0 ) {
@@ -205,7 +230,7 @@ class WC_PB_Compatibility {
 		}
 
 		// Subscriptions fixes.
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 			$module_paths[ 'subscriptions' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-subscriptions-compatibility.php';
 		}
 
@@ -293,9 +318,9 @@ class WC_PB_Compatibility {
 		 * @since  5.7.6
 		 * @param  array $module_paths
 		 */
-		$module_paths = apply_filters( 'woocommerce_bundles_compatibility_modules', $module_paths );
+		$this->modules = apply_filters( 'woocommerce_bundles_compatibility_modules', $module_paths );
 
-		foreach ( $module_paths as $name => $path ) {
+		foreach ( $this->modules as $name => $path ) {
 			require_once( $path );
 		}
 	}
@@ -351,9 +376,7 @@ class WC_PB_Compatibility {
 
 		// Addons version check.
 		if ( class_exists( 'WC_Product_Addons' ) ) {
-
 			$required_version = $this->required[ 'pao' ];
-
 			if ( ! defined( 'WC_PRODUCT_ADDONS_VERSION' ) || version_compare( WC_PRODUCT_ADDONS_VERSION, $required_version ) < 0 ) {
 
 				$extension      = __( 'Product Add-Ons', 'woocommerce-product-bundles' );
@@ -363,6 +386,20 @@ class WC_PB_Compatibility {
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_PB_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'addons_lt_' . $required_version, 'type' => 'warning' ) );
+			}
+		}
+
+		// Blocks feature plugin check.
+		if ( defined( 'WC_BLOCKS_IS_FEATURE_PLUGIN' ) ) {
+			$required_version = $this->required[ 'blocks' ];
+			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) < 0 ) {
+
+				$plugin      = __( 'WooCommerce Blocks', 'woocommerce-product-bundles' );
+				$plugin_url  = 'https://woocommerce.com/products/woocommerce-gutenberg-products-block/';
+				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
+				$notice      = sprintf( __( 'The installed version of <strong>%1$s</strong> does not support <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $plugin, $plugin_url, $plugin, $required_version );
+
+				WC_PB_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'blocks_lt_' . $required_version, 'type' => 'warning' ) );
 			}
 		}
 
@@ -447,7 +484,7 @@ class WC_PB_Compatibility {
 	 */
 	public function is_subscription( $product ) {
 
-		if ( ! class_exists( 'WC_Subscriptions' ) ) {
+		if ( ! class_exists( 'WC_Subscriptions' ) && ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 			return false;
 		}
 
@@ -497,14 +534,7 @@ class WC_PB_Compatibility {
 	 * @return boolean
 	 */
 	public function is_composited_cart_item( $item ) {
-
-		$is = false;
-
-		if ( function_exists( 'wc_cp_is_composited_cart_item' ) ) {
-			$is = wc_cp_is_composited_cart_item( $item );
-		}
-
-		return $is;
+		return $this->is_module_loaded( 'composite_products' ) && function_exists( 'wc_cp_is_composited_cart_item' ) && wc_cp_is_composited_cart_item( $item );
 	}
 
 	/**
@@ -517,14 +547,7 @@ class WC_PB_Compatibility {
 	 * @return boolean
 	 */
 	public function is_composited_order_item( $item, $order ) {
-
-		$is = false;
-
-		if ( function_exists( 'wc_cp_is_composited_order_item' ) ) {
-			$is = wc_cp_is_composited_order_item( $item, $order );
-		}
-
-		return $is;
+		return $this->is_module_loaded( 'composite_products' ) && function_exists( 'wc_cp_is_composited_order_item' ) && wc_cp_is_composited_order_item( $item, $order );
 	}
 
 	/*

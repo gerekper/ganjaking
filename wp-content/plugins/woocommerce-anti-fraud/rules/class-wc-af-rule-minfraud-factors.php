@@ -25,7 +25,6 @@ class WC_AF_Rule_MinFraud_Factors extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -41,7 +40,7 @@ class WC_AF_Rule_MinFraud_Factors extends WC_AF_Rule {
 
 			$risk = true;
 		}
-		Af_Logger::debug('minfraud factors rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('minfraud factors rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 
@@ -49,7 +48,7 @@ class WC_AF_Rule_MinFraud_Factors extends WC_AF_Rule {
 
 		$order = wc_get_order($order); //getting order Object
 
-		if ($order === false) {
+		if (false === $order) {
 			return false;
 		}
 
@@ -160,14 +159,14 @@ class WC_AF_Rule_MinFraud_Factors extends WC_AF_Rule {
 		curl_close($curl);
 		$score = json_decode( $response, true );  //echo 'Factors'; echo '<pre>'; print_r($score); 
 		$error = @$score['code'];
-		if ($error == 'AUTHORIZATION_INVALID') {
-			Af_Logger::debug('minfraud factors score  ' .$error);
+		if ('AUTHORIZATION_INVALID' === $error) {
+			Af_Logger::debug('minfraud factors score  ' . $error);
 			return;
 
 		} else {
 
 			$minmraud_score = @$score['risk_score'];
-			Af_Logger::debug('minfraud factors score  ' .$minmraud_score);
+			Af_Logger::debug('minfraud factors score  ' . $minmraud_score);
 			return  $minmraud_score;
 		}
 	}

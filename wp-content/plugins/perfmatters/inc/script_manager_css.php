@@ -149,23 +149,31 @@ html, body {
 	overflow-y: scroll;
 	padding: 20px 20px 0px 20px;
 }
-#perfmatters-script-manager-disclaimer {
+.pmsm-notice {
 	background: #ffffff;
-	padding: 20px 20px 10px 20px;
-	margin: 0px 0px 20px 0px;
-}
-#perfmatters-script-manager #pmsm-disclaimer-close {
-	float: right;
-	margin: -20px -20px 10px 10px;
-	padding: 0px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-weight: bold;
-}
-#perfmatters-script-manager-disclaimer p {
-	font-size: 14px;
+	padding: 10px;
 	margin: 0px 0px 10px 0px;
+	border-radius: 3px;
+	border-left: 4px solid #4A89DD; 
+}
+.pmsm-notice-warning {
+	border-color: #FFC14E;
+}
+#pmsm-disclaimer-close {
+	float: right;
+	padding: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-weight: bold;
+  background: none;
+  color: #787c82
+}
+#pmsm-disclaimer-close:hover {
+	color: #d63638;
+}
+#pmsm-notices .pmsm-notice:last-child {
+	margin-bottom: 20px;
 }
 #perfmatters-script-manager-container {
 	position: relative;
@@ -216,6 +224,7 @@ html, body {
 .perfmatters-script-manager-group h4 {
 	display: inline-block;
 	margin: 0px;
+	padding: 0px;
 	font-size: 20px;
 	line-height: 40px;
 	font-weight: 700;
@@ -255,6 +264,7 @@ html, body {
 	border: none;
 	background: #ffffff;
 	color: #4a545a;
+	width: auto;
 }
 #perfmatters-script-manager .pmsm-column-status {
 	width: 120px;
@@ -278,7 +288,8 @@ html, body {
 	vertical-align: top;
 	font-size: 14px;
 	background: #ffffff;
-	color: #4a545a
+	color: #4a545a;
+	width: auto;
 }
 #perfmatters-script-manager table td.perfmatters-script-manager-type {
 	font-size: 14px;
@@ -431,6 +442,10 @@ html, body {
 	outline: none;
 	border: 1px solid #ccc;
 	margin: 0px;
+	height: 30px;
+	color: #282E34;
+	border-radius: unset;
+	text-transform: none;
 }
 #perfmatters-script-manager .pmsm-dependencies {
 	font-size: 10px;
@@ -651,7 +666,7 @@ html, body {
 	padding: 8px 5px;
 	border: none;
 }
-#script-manager-settings .switch {
+#script-manager-settings .perfmatters-switch {
   position: relative;
   display: inline-block;
   width: 48px;
@@ -659,11 +674,11 @@ html, body {
   font-size: 1px;
   margin-bottom: 5px;
 }
-#script-manager-settings .switch input {
+#script-manager-settings .perfmatters-switch input {
   display: block;
   margin: 0px;
 }
-#script-manager-settings .slider {
+#script-manager-settings .perfmatters-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -674,7 +689,7 @@ html, body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-#script-manager-settings .slider:before {
+#script-manager-settings .perfmatters-slider:before {
   position: absolute;
   content: '';
   height: 20px;
@@ -685,14 +700,14 @@ html, body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-#script-manager-settings input:checked + .slider {
+#script-manager-settings input:checked + .perfmatters-slider {
   background-color: #2196F3;
 }
 
-#script-manager-settings input:focus + .slider {
+#script-manager-settings input:focus + .perfmatters-slider {
   box-shadow: 0 0 1px #2196F3;
 }
-#script-manager-settings input:checked + .slider:before {
+#script-manager-settings input:checked + .perfmatters-slider:before {
   -webkit-transform: translateX(20px);
   -ms-transform: translateX(20px);
   transform: translateX(20px);

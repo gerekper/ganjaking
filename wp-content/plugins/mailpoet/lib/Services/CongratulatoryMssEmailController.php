@@ -6,12 +6,12 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer;
-use MailPoet\Mailer\Mailer;
+use MailPoet\Mailer\MailerFactory;
 use MailPoet\Mailer\MetaInfo;
 
 class CongratulatoryMssEmailController {
-  /** @var Mailer */
-  private $mailer;
+  /** @var MailerFactory */
+  private $mailerFactory;
 
   /** @var MetaInfo */
   private $mailerMetaInfo;
@@ -20,11 +20,11 @@ class CongratulatoryMssEmailController {
   private $renderer;
 
   public function __construct(
-    Mailer $mailer,
+    MailerFactory $mailerFactory,
     MetaInfo $mailerMetaInfo,
     Renderer $renderer
   ) {
-    $this->mailer = $mailer;
+    $this->mailerFactory = $mailerFactory;
     $this->mailerMetaInfo = $mailerMetaInfo;
     $this->renderer = $renderer;
   }
@@ -41,6 +41,6 @@ class CongratulatoryMssEmailController {
     $extraParams = [
       'meta' => $this->mailerMetaInfo->getSendingTestMetaInfo(),
     ];
-    $this->mailer->send($renderedNewsletter, $toEmailAddress, $extraParams);
+    $this->mailerFactory->getDefaultMailer()->send($renderedNewsletter, $toEmailAddress, $extraParams);
   }
 }

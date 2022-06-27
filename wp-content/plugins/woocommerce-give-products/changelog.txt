@@ -1,5 +1,12 @@
 *** WooCommerce Give Products Changelog ***
 
+2022-06-07 - version 1.1.18
+* Tweak - WC 6.6 compatibility.
+
+2022-05-10 - version 1.1.17
+* Tweak - WC 6.5 compatibility.
+* Tweak - WordPress 6.0 compatibility.
+
 2022-02-08 - version 1.1.16
 * Fix - Include languages folder and POT file in the release.
 * Tweak - WC 6.2 compatibility.

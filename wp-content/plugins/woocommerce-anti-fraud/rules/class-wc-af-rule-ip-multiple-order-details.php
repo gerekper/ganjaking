@@ -27,7 +27,6 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	 * @param string $where
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return string
 	 */
@@ -43,7 +42,6 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -114,7 +112,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 			}
 
 		}
-		Af_Logger::debug('multiple order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('multiple order rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

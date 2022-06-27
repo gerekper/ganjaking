@@ -12271,6 +12271,11 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 								this.add_validation_message( wc_composite_params.i18n_select_product_addons_for, 'composite' );
 							}
 
+							if ( this.has_restricted_addons() && ! this.has_valid_restricted_addons() ) {
+								this.add_validation_message( wc_composite_params.i18n_review_product_addons );
+								this.add_validation_message( wc_composite_params.i18n_review_product_addons_for, 'composite' );
+							}
+
 							if ( this.is_nyp() && ! this.is_valid_nyp() ) {
 								this.add_validation_message( wc_composite_params.i18n_enter_valid_price );
 								this.add_validation_message( wc_composite_params.i18n_enter_valid_price_for, 'composite' );
@@ -12688,6 +12693,10 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				valid = this.has_valid_required_addons();
 			}
 
+			if ( valid && this.is_visible() && this.has_restricted_addons() ) {
+				valid = this.has_valid_restricted_addons();
+			}
+
 			if ( valid && this.is_visible() && this.is_nyp() ) {
 				valid = this.is_valid_nyp();
 			}
@@ -12702,6 +12711,24 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 		WC_CP_Component.prototype.has_valid_required_addons = function() {
 			var $addons = this.$component_summary_content.find( 'input, textarea, select' ).filter( '[required]' );
 			return $addons.filter( function() { return '' === this.value; } ).length === 0;
+		};
+
+		/**
+		 * Validates restricted addons.
+		 */
+		WC_CP_Component.prototype.has_valid_restricted_addons = function() {
+			var $addons = this.$component_summary_content.find( '.wc-pao-addon-custom-text' ).filter( '[pattern]' ),
+				valid   = true
+
+			if ( $addons.length > 0 ) {
+				$addons.each( function() {
+					if ( valid && ! this.checkValidity() && '' !== this.value ) {
+						this.reportValidity();
+						valid = false
+					}
+				});
+			}
+			return valid;
 		};
 
 		/**
@@ -12893,6 +12920,20 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 			var product_data = this.component_options_model.get_option_data( this.get_selected_product() );
 
 			if ( product_data && product_data.has_required_addons ) {
+				return true;
+			}
+
+			return false;
+		};
+
+		/**
+		 * True if the selected option includes required addons.
+		 */
+		WC_CP_Component.prototype.has_restricted_addons = function() {
+
+			var product_data = this.component_options_model.get_option_data( this.get_selected_product() );
+
+			if ( product_data && product_data.has_restricted_addons ) {
 				return true;
 			}
 

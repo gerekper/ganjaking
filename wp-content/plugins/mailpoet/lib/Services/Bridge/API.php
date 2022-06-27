@@ -18,7 +18,10 @@ class API {
 
   const RESPONSE_CODE_KEY_INVALID = 401;
   const RESPONSE_CODE_STATS_SAVED = 204;
+  const RESPONSE_CODE_INTERNAL_SERVER_ERROR = 500;
+  const RESPONSE_CODE_BAD_GATEWAY = 502;
   const RESPONSE_CODE_TEMPORARY_UNAVAILABLE = 503;
+  const RESPONSE_CODE_GATEWAY_TIMEOUT = 504;
   const RESPONSE_CODE_NOT_ARRAY = 422;
   const RESPONSE_CODE_PAYLOAD_TOO_BIG = 413;
   const RESPONSE_CODE_PAYLOAD_ERROR = 400;
@@ -36,7 +39,7 @@ class API {
   public $urlMessages = 'https://bridge.mailpoet.com/api/v0/messages';
   public $urlBounces = 'https://bridge.mailpoet.com/api/v0/bounces/search';
   public $urlStats = 'https://bridge.mailpoet.com/api/v0/stats';
-  public $urlAuthorizedEmailAddresses = 'https://bridge.mailpoet.com/api/v0/authorized_email_addresses';
+  public $urlAuthorizedEmailAddresses = 'https://bridge.mailpoet.com/api/v1/authorized_email_address';
 
   public function __construct(
     $apiKey,
@@ -63,6 +66,7 @@ class API {
         $body = json_decode($this->wp->wpRemoteRetrieveBody($result), true);
         break;
       default:
+        $this->logKeyCheckError((int)$code, 'mss');
         $body = null;
         break;
     }
@@ -85,6 +89,7 @@ class API {
         }
         break;
       default:
+        $this->logKeyCheckError((int)$code, 'premium');
         $body = null;
         break;
     }
@@ -93,7 +98,7 @@ class API {
   }
 
   public function logCurlInformation($headers, $info) {
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->addInfo(
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->info(
       'requests-curl.after_request',
       ['headers' => $headers, 'curl_info' => $info]
     );
@@ -159,21 +164,22 @@ class API {
         'code' => $code,
         'error' => is_wp_error($result) ? $result->get_error_message() : null,
       ];
-      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->addError('Stats API call failed.', $logData);
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error('Stats API call failed.', $logData);
     }
     return $isSuccess;
   }
 
-  public function getAuthorizedEmailAddresses() {
+  public function getAuthorizedEmailAddresses(): ?array {
     $result = $this->request(
       $this->urlAuthorizedEmailAddresses,
       null,
       'GET'
     );
-    if ($this->wp->wpRemoteRetrieveResponseCode($result) === 200) {
-      return json_decode($this->wp->wpRemoteRetrieveBody($result), true);
+    if ($this->wp->wpRemoteRetrieveResponseCode($result) !== 200) {
+      return null;
     }
-    return false;
+    $data = json_decode($this->wp->wpRemoteRetrieveBody($result), true);
+    return is_array($data) ? $data : null;
   }
 
   public function setKey($apiKey) {
@@ -208,6 +214,15 @@ class API {
       'curl_error' => $this->curlHandle ? curl_error($this->curlHandle) : $error->get_error_message(),
       'curl_info' => $this->curlHandle ? curl_getinfo($this->curlHandle) : 'n/a',
     ];
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->addError('requests-curl.failed', $logData);
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->error('requests-curl.failed', $logData);
+  }
+
+  private function logKeyCheckError(int $code, string $keyType): void {
+    $logData = [
+      'http_code' => $code,
+      'home_url' => $this->wp->homeUrl(),
+      'key_type' => $keyType,
+    ];
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->error('key-validation.failed', $logData);
   }
 }

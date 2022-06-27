@@ -43,7 +43,7 @@ class BetterDocsPro_Analytics {
     public function __construct() {
         add_action( 'wp_head', array( $this, 'analytics_data' ) );
         add_action( 'admin_init', array( $this, 'betterdocs' ) );
-        add_action( 'betterdocs_admin_menu', array( $this, 'add_analytics_menu' ) );
+        add_filter( 'betterdocs_admin_menu', array( $this, 'add_analytics_menu' ), 9, 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
         add_action( 'betterdocs_before_settings_load', array( $this, 'add_settings' ) );
         add_action( 'wp_ajax_betterdocs_pro_analytics', array( $this, 'clicked_analytics_data' ) );
@@ -98,16 +98,16 @@ class BetterDocsPro_Analytics {
      * This method is responsible for adding analytics in Menu
      * @return void
      */
-    public function add_analytics_menu( $pages ){
-
-        $betterdocs_analytics_caps = apply_filters( 'betterdocs_analytics_caps', 'administrator', 'analytics_roles' );
-
-        $pages['betterdocs-analytics'] = array(
-            'title'      => __('Analytics', 'betterdocs-pro'),
-            'capability' => $betterdocs_analytics_caps,
-            'callback'   => array( $this, 'page_outputs' )
-        );
-
+    public function add_analytics_menu( $pages ) {
+        $pages['analytics'] =    array(
+			'parent_slug' => 'betterdocs-admin',
+			'page_title'  => 'Analytics',
+			'menu_title'  => 'Analytics',
+			'text_domain' => 'betterdocs-pro',
+			'capability'  => 'read_docs_analytics',
+			'menu_slug'   => 'betterdocs-analytics',
+			'callback'    => array( $this, 'page_outputs')
+		);
         return $pages;
     }
     /**

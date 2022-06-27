@@ -12,7 +12,8 @@ use MailPoet\Subscribers\SubscribersRepository;
 class Subscribers {
   const SUBSCRIBERS_OLD_LIMIT = 'unlimited';
   const SUBSCRIBERS_NEW_LIMIT = 'unlimited';
-  const NEW_LIMIT_DATE = '2022-00-00';
+  const PREMIUM_SUBSCRIBERS_LIMIT= 'unlimited';
+  const NEW_LIMIT_DATE = '2019-11-00';
   const MSS_KEY_STATE = 'mta.mailpoet_api_key_state.state';
   const MSS_SUBSCRIBERS_LIMIT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.site_active_subscriber_limit';
   const MSS_SUPPORT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.support_tier';
@@ -44,40 +45,21 @@ class Subscribers {
   }
 
   public function checkEmailVolumeLimitIsReached(): bool {
-    /*
-    $emailVolumeLimit = $this->getEmailVolumeLimit();
-    if (!$emailVolumeLimit) {
-    }
-    $emailsSent = $this->getEmailsSent();
-    return $emailsSent > $emailVolumeLimit;
-    */
     return false;
-  }
+    }
 
   public function getSubscribersCount() {
     return $this->subscribersRepository->getTotalSubscribers();
   }
 
   public function hasValidApiKey() {
+    return true;
     return $this->hasValidMssKey() || $this->hasValidPremiumKey();
   }
 
   public function getSubscribersLimit() {
-    /*
-    if (!$this->hasValidApiKey()) {
-      return $this->getFreeSubscribersLimit();
-    }
-
-    if ($this->hasValidMssKey() && $this->hasMssSubscribersLimit()) {
-      return $this->getMssSubscribersLimit();
-    }
-
-    if ($this->hasValidPremiumKey() && $this->hasPremiumSubscribersLimit()) {
-      return $this->getPremiumSubscribersLimit();
-    }
-    */
     return false;
-  }
+    }
 
   public function getEmailVolumeLimit(): int {
     return (int)$this->settings->get(self::PREMIUM_EMAIL_VOLUME_LIMIT_SETTING_KEY);
@@ -88,6 +70,7 @@ class Subscribers {
   }
 
   private function hasValidMssKey() {
+    return true;
     $state = $this->settings->get(self::MSS_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;
   }
@@ -101,15 +84,18 @@ class Subscribers {
   }
 
   public function hasMssPremiumSupport() {
+    return true;
     return $this->hasValidMssKey() && $this->settings->get(self::MSS_SUPPORT_SETTING_KEY) === 'premium';
   }
 
   public function hasValidPremiumKey() {
+    return true;
     $state = $this->settings->get(self::PREMIUM_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;
   }
 
   private function hasPremiumSubscribersLimit() {
+    return true;
     return !empty($this->settings->get(self::PREMIUM_SUBSCRIBERS_LIMIT_SETTING_KEY));
   }
 
@@ -118,6 +104,7 @@ class Subscribers {
   }
 
   public function hasPremiumSupport() {
+    return true;
     return $this->hasValidPremiumKey() && $this->settings->get(self::PREMIUM_SUPPORT_SETTING_KEY) === 'premium';
   }
 

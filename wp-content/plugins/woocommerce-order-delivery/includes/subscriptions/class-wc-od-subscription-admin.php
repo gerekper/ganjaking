@@ -96,7 +96,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 			}
 
 			$delivery_date        = $subscription->get_meta( '_delivery_date' );
-			$posted_delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // WPCS: sanitization ok.
+			$posted_delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 			// No delivery date or modified manually by the merchant.
 			if ( ! $posted_delivery_date || ( $delivery_date !== $posted_delivery_date ) ) {
@@ -140,61 +140,6 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 					)
 				);
 			}
-		}
-
-		/**
-		 * Deletes the subscription delivery date when the next payment date is deleted manually by the merchant.
-		 *
-		 * @since 1.3.0
-		 *
-		 * @param WC_Subscription $subscription The subscription instance.
-		 * @param string          $date_type    The date type.
-		 */
-		public function subscription_date_deleted( $subscription, $date_type ) {
-			wc_deprecated_function( __METHOD__, '1.5.5', 'WC_OD_Subscriptions->subscription_date_deleted()' );
-		}
-
-		/**
-		 * Filter the fields to display in the subscription details section.
-		 *
-		 * @since 1.4.0
-		 * @deprecated 1.5.0 Moved fields to the subscription delivery meta box.
-		 *
-		 * @param array    $fields An array with the fields data.
-		 * @param WC_Order $order  The order instance.
-		 * @return array
-		 */
-		public function subscription_details_fields( $fields, $order ) {
-			wc_deprecated_function( __METHOD__, '1.5.0' );
-
-			return $fields;
-		}
-
-		/**
-		 * Customizes the delivery date field label in the subscription details.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.4.0 Use the 'subscription_details_fields' method instead.
-		 *
-		 * @param string $label The field label.
-		 * @return string The field label.
-		 */
-		public function delivery_date_field_label( $label ) {
-			wc_deprecated_function( __METHOD__, '1.4.0' );
-
-			return $label;
-		}
-
-		/**
-		 * Adds the delivery preferences in the admin subscription details.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.5.0 Moved to the template `includes/admin/meta-boxes/views/html-subscription-delivery.php`.
-		 *
-		 * @param WC_Order $order The order instance.
-		 */
-		public function subscription_delivery_preferences( $order ) {
-			wc_deprecated_function( __METHOD__, '1.5.0' );
 		}
 	}
 }

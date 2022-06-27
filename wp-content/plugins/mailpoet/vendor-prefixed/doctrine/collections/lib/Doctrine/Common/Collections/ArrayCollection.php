@@ -77,17 +77,17 @@ class ArrayCollection implements Collection, Selectable
  unset($this->elements[$key]);
  return \true;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetExists($offset)
  {
  return $this->containsKey($offset);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetGet($offset)
  {
  return $this->get($offset);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetSet($offset, $value)
  {
  if (!isset($offset)) {
@@ -96,7 +96,7 @@ class ArrayCollection implements Collection, Selectable
  }
  $this->set($offset, $value);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetUnset($offset)
  {
  $this->remove($offset);
@@ -134,7 +134,7 @@ class ArrayCollection implements Collection, Selectable
  {
  return array_values($this->elements);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function count()
  {
  return count($this->elements);
@@ -152,7 +152,7 @@ class ArrayCollection implements Collection, Selectable
  {
  return empty($this->elements);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  return new ArrayIterator($this->elements);
@@ -163,7 +163,7 @@ class ArrayCollection implements Collection, Selectable
  }
  public function filter(Closure $p)
  {
- return $this->createFrom(array_filter($this->elements, $p, \ARRAY_FILTER_USE_BOTH));
+ return $this->createFrom(array_filter($this->elements, $p, ARRAY_FILTER_USE_BOTH));
  }
  public function forAll(Closure $p)
  {

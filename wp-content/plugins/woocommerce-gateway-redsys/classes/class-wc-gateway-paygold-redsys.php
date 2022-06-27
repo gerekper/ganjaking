@@ -45,6 +45,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'paygold' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'paygold' );
 		$this->customer         = WCRed()->get_redsys_option( 'customer', 'paygold' );
+		$this->merchantgroup    = WCRed()->get_redsys_option( 'merchantgroup', 'paygold' );
 		$this->transactionlimit = WCRed()->get_redsys_option( 'transactionlimit', 'paygold' );
 		$this->commercename     = WCRed()->get_redsys_option( 'commercename', 'paygold' );
 		$this->terminal         = WCRed()->get_redsys_option( 'terminal', 'paygold' );
@@ -285,6 +286,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
+				'desc_tip'    => true,
+			),
+			'merchantgroup'    => array(
+				'title'       => __( 'Merchant Group Number', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'It is an identifier for sharing tokens between websites of the same company', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
 			'transactionlimit' => array(
@@ -610,6 +617,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		} else {
 			$final_notify_url = $this->notify_url;
 		}
+		if ( ! empty( $this->merchantgroup ) ) {
+			$ds_merchant_group = '<DS_MERCHANT_GROUP>' . $this->merchantgroup . '</DS_MERCHANT_GROUP>';
+		} else {
+			$ds_merchant_group = '';
+		}
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'paygold', '$order_id: ' . $order_id );
 			$this->log->add( 'paygold', '$user_id: ' . $user_id );
@@ -624,6 +636,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'paygold', '$merchant_name: ' . $merchant_name );
 			$this->log->add( 'paygold', '$redsys_adr: ' . $redsys_adr );
 			$this->log->add( 'paygold', '$ds_merchant_terminal: ' . $ds_merchant_terminal );
+			$this->log->add( 'paygold', '$ds_merchant_group: ' . $ds_merchant_group );
 			$this->log->add( 'paygold', '$customermail: ' . $customermail );
 			$this->log->add( 'paygold', '$p2f_xmldata: ' . $p2f_xmldata );
 			$this->log->add( 'paygold', '$final_notify_url: ' . $final_notify_url );
@@ -1536,69 +1549,21 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'paygold' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', '$test_mode: ' . $test_mode );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', '$selections NOT empty' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', 'Not loged In hiding gateway' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '$user_id: ' . $user_id );
-					$this->log->add( 'paygold', '$userid: ' . $userid );
-					$this->log->add( 'paygold', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/*********************************/' );
-				$this->log->add( 'paygold', '$selections Empty, showing gateway' );
-				$this->log->add( 'paygold', '/*********************************/' );
-				$this->log->add( 'paygold', ' ' );
-			}
 			return true;
 		}
 	}
@@ -1610,50 +1575,9 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', '   Is NOT admin ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '   Is user logget in ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '   $user_id: ' . $user_id );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
-				}
 				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '   SHOW Gateway' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
-					} else {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '   DONT SHOW Gateway' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
-					}
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '   $user_id: ' . $user_id );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
-				}
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

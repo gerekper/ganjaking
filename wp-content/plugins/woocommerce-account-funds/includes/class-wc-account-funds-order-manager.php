@@ -110,7 +110,7 @@ class WC_Account_Funds_Order_Manager {
 		// Calculate a percentage of the refunded total over the order total, multiplied by top up amount.
 		$funds = ( ( -1 * $refund->get_total() ) / $order->get_total() ) * $top_up_sum;
 
-		WC_Account_Funds::remove_funds( $customer_id, $funds );
+		WC_Account_Funds_Manager::decrease_user_funds( $customer_id, $funds );
 
 		$order->add_order_note(
 			sprintf(
@@ -140,7 +140,7 @@ class WC_Account_Funds_Order_Manager {
 			$funds_used = (float) $order->get_meta( '_funds_used' );
 
 			if ( $funds_used ) {
-				WC_Account_Funds::remove_funds( $customer_id, $funds_used );
+				WC_Account_Funds_Manager::decrease_user_funds( $customer_id, $funds_used );
 				$order->update_meta_data( '_funds_removed', 1 );
 				$order->save_meta_data();
 
@@ -224,7 +224,7 @@ class WC_Account_Funds_Order_Manager {
 			);
 
 			if ( $customer_id && $funds > 0 ) {
-				WC_Account_Funds::add_funds( $customer_id, $funds );
+				WC_Account_Funds_Manager::increase_user_funds( $customer_id, $funds );
 
 				$order->update_meta_data( '_funds_refunded', $funds_used );
 				$order->save_meta_data();
@@ -289,7 +289,7 @@ class WC_Account_Funds_Order_Manager {
 
 			$funds = ( $product->is_type( 'topup' ) ? $item['line_subtotal'] : $product->get_regular_price() * $item->get_quantity() );
 
-			WC_Account_Funds::add_funds( $customer_id, $funds );
+			WC_Account_Funds_Manager::increase_user_funds( $customer_id, $funds );
 			$order->update_meta_data( '_funds_deposited', 1 );
 			$order->save_meta_data();
 

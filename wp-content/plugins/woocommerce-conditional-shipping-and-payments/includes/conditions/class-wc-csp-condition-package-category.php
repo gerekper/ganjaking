@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Package_Category class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Category in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Category
- * @version  1.12.1
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Package_Category extends WC_CSP_Package_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Package_Category extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                            = 'category_in_package';
 		$this->title                         = __( 'Category', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                      = 50;
 		$this->supported_global_restrictions = array( 'shipping_methods', 'shipping_countries' );
 	}
 

@@ -7,7 +7,7 @@
  * @version $Id: Font_Table_glyf.php 46 2012-04-02 20:22:38Z fabien.menager $
  */
 
-namespace FontLib\Glyph;
+namespace WooCommercePDFInvoiceFontLib\Glyph;
 /**
  * Glyph outline component
  *

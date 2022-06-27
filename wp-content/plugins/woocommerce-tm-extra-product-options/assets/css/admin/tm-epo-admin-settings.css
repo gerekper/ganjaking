@@ -1,3 +1,9 @@
+
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable selector-id-pattern */
+/* stylelint-disable declaration-block-no-duplicate-properties */
+
 /** Settings css **/
 
 /**
@@ -166,7 +172,7 @@
 .tc-button.tc:focus {
 	z-index: 2;
 	background: #fff;
-	border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1 1 stretch;
+	border-image: linear-gradient(to right, #f00, #ffa600, #ff0, #008000, #0ff, #00f, #ee82ee) 1 1 stretch;
 }
 
 .tc-button.tc.tc-reset-button {
@@ -188,7 +194,7 @@
 	outline: none;
 	box-shadow: none;
 	border-bottom: 1px solid;
-	border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1 1 stretch;
+	border-image: linear-gradient(to right, #f00, #ffa600, #ff0, #008000, #0ff, #00f, #ee82ee) 1 1 stretch;
 }
 
 /* Checkboxes */
@@ -329,24 +335,24 @@
 	margin: 8px 1em;
 }
 
-.tm-epo-style-wrapper + .tmhexcolorimage,
-.tm-epo-style-wrapper + .tc-label-wrap .tmhexcolorimage:first-child {
+.tc-epo-style-wrapper + .tmhexcolorimage,
+.tc-epo-style-wrapper + .tc-label-wrap .tmhexcolorimage:first-child {
 	margin: 0 0.5em;
 	vertical-align: middle;
 }
 
-.tm-epo-style-wrapper input[type="checkbox"],
-.tm-epo-style-wrapper input[type="radio"] {
+.tc-epo-style-wrapper input[type="checkbox"],
+.tc-epo-style-wrapper input[type="radio"] {
 	visibility: hidden;
 	display: inline !important;
 }
 
-.tm-epo-style-wrapper input[type="checkbox"]:checked + .tm-epo-style::after,
-.tm-epo-style-wrapper input[type="radio"]:checked + .tm-epo-style::after {
+.tc-epo-style-wrapper input[type="checkbox"]:checked + .tm-epo-style::after,
+.tc-epo-style-wrapper input[type="radio"]:checked + .tm-epo-style::after {
 	opacity: 1;
 }
 
-.tm-epo-style-wrapper {
+.tc-epo-style-wrapper {
 	height: 2em;
 	width: 2em;
 	position: relative;
@@ -354,7 +360,7 @@
 	vertical-align: middle;
 }
 
-.tm-epo-style-wrapper input[type="radio"] + .tm-epo-style::after {
+.tc-epo-style-wrapper input[type="radio"] + .tm-epo-style::after {
 	content: "\f111";
 }
 
@@ -379,8 +385,8 @@
 	line-height: 1;
 }
 
-.tm-epo-style-wrapper.round2,
-.tm-epo-style-wrapper.square2 {
+.tc-epo-style-wrapper.round2,
+.tc-epo-style-wrapper.square2 {
 	height: 1em;
 	width: 1em;
 	padding: 5px;
@@ -402,8 +408,8 @@
 	top: 0;
 }
 
-.tm-epo-style-wrapper.round2 .tm-epo-style::after,
-.tm-epo-style-wrapper.square2 .tm-epo-style::after {
+.tc-epo-style-wrapper.round2 .tm-epo-style::after,
+.tc-epo-style-wrapper.square2 .tm-epo-style::after {
 	font-size: 0.7em;
 	margin-top: -0.5em;
 }
@@ -467,10 +473,6 @@
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
 	width: 100%;
-}
-
-.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
-.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
 	padding: 8px 16px;
 	line-height: 36px;
 }
@@ -541,7 +543,7 @@
 	right: 16px;
 }
 
-.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow:after {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow::after {
 	font-weight: 900;
 	font-family: tc-fontawesome, Arial, Helvetica, sans-serif;
 	content: "\f107";
@@ -550,12 +552,8 @@
 	position: absolute;
 }
 
-.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow:after {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow::after {
 	color: #4732f9;
-}
-
-.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow b {
-	display: none;
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
@@ -563,6 +561,7 @@
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow b {
+	display: none;
 	border-color: transparent;
 }
 
@@ -582,7 +581,7 @@
 	position: relative;
 }
 
-.woocommerce_page_wc-settings .select2-container--open .select2-dropdown:after {
+.woocommerce_page_wc-settings .select2-container--open .select2-dropdown::after {
 	background: #fff;
 }
 
@@ -646,7 +645,7 @@
 
 .woocommerce_page_wc-settings .select2-container--default .select2-results__option--highlighted[aria-selected] {
 	background: linear-gradient(to right, #3d30ba, #0000ba);
-	color: white;
+	color: #fff;
 }
 
 .woocommerce_page_wc-settings .select2-container--default .select2-results__option:focus,
@@ -674,6 +673,10 @@
 	box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.1) !important;
 	color: #4732f9 !important;
 	border: 1px solid #4732f9 !important;
+}
+
+.woocommerce .tc-wrapper table.form-table input::placeholder {
+	color: #ccc;
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--multiple,
@@ -840,7 +843,7 @@
 .flasho {
 	font-size: 14px;
 	line-height: 1.42857143;
-	font-family: Roboto, "Open Sans" Helvetica, Arial, sans-serif;
+	font-family: Roboto, "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 .tc-wrapper,
@@ -959,6 +962,14 @@
 	width: 100%;
 }
 
+.tm-inner {
+	margin: 1em 2.2em;
+}
+
+.tm-error .tm-inner {
+	color: #c0392b;
+}
+
 .tc-question.flasho {
 	border: 0;
 	box-shadow: 0 0 1px 10px rgba(0, 0, 0, 0.1), 0 0 50px 13px rgba(0, 0, 255, 0.05);
@@ -1003,11 +1014,6 @@
 	margin-top: 1em;
 }
 
-.tm-settings-wrap .tm-section-title {
-	font-size: 24px;
-	line-height: 32px;
-}
-
 .tm-settings-wrap .tm-tabs {
 	background: #fff;
 	overflow: hidden;
@@ -1047,7 +1053,7 @@
 	padding: 40px;
 	margin: 0;
 	border-bottom: 1px solid;
-	border-image: linear-gradient(to right, transparent, #fff 6%, blue, violet, #fff 96%, transparent) 25 25 stretch;
+	border-image: linear-gradient(to right, transparent, #fff 6%, #00f, #ee82ee, #fff 96%, transparent) 25 25 stretch;
 }
 
 .tm-settings-wrap .header h3 {
@@ -1066,6 +1072,8 @@
 }
 
 .tm-settings-wrap .tm-section-title {
+	font-size: 24px;
+	line-height: 32px;
 	color: #4732f9;
 	margin: 0 -40px;
 	font-weight: 400;
@@ -1082,7 +1090,11 @@
 	display: table;
 }
 
-.tm-settings-wrap .form-table {
+.tc-hide-nav #screen-meta-links,
+.tc-hide-nav .nav-tab-wrapper,
+.tc-hide-nav .woo-nav-tab-wrapper,
+.tm-settings-wrap .form-table,
+.tm-settings-wrap + p.submit {
 	display: none;
 }
 
@@ -1092,11 +1104,7 @@
 	clear: both;
 	text-align: right;
 	border-top: 1px solid #ccc;
-	border-image: linear-gradient(to right, transparent, #fff 22%, blue, violet, #fff 96%, transparent) 25 25 stretch;
-}
-
-.tm-settings-wrap + p.submit {
-	display: none;
+	border-image: linear-gradient(to right, transparent, #fff 22%, #00f, #ee82ee, #fff 96%, transparent) 25 25 stretch;
 }
 
 /*****************/
@@ -1176,7 +1184,12 @@
 	color: #4732f9;
 }
 
-.tab-header-icon {
+.tab-header-icon,
+.tab-header-icon.tcfa,
+.tab-header-icon.tcfas,
+.tab-header-icon.tcfar,
+.tab-header-icon.tcfal,
+.tcfad {
 	margin-right: 20px;
 	width: 2.5em;
 	height: 2.5em;
@@ -1191,7 +1204,7 @@
 
 .tm-settings-wrap .tm-box .tab-header.open .tab-header-icon {
 	color: #4732f9 !important;
-	border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1 1 stretch;
+	border-image: linear-gradient(to right, #f00, #ffa600, #ff0, #008000, #0ff, #00f, #ee82ee) 1 1 stretch;
 	background: #fff;
 }
 
@@ -1226,7 +1239,7 @@
 	color: #4732f9;
 	font-weight: 700;
 	border-bottom: 1px solid #29cae4;
-	border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1 1 stretch;
+	border-image: linear-gradient(to right, #f00, #ffa600, #ff0, #008000, #0ff, #00f, #ee82ee) 1 1 stretch;
 }
 
 .woocommerce .tm-settings-wrap table.form-table th span.description {
@@ -1418,12 +1431,6 @@ a.tm-mn-delfile {
 	color: #eee;
 }
 
-.tc-hide-nav #screen-meta-links,
-.tc-hide-nav .nav-tab-wrapper,
-.tc-hide-nav .woo-nav-tab-wrapper {
-	display: none;
-}
-
 ul.select2-results__options::-webkit-scrollbar,
 .woocommerce .tc-wrapper table.form-table textarea::-webkit-scrollbar {
 	background: #e8edf6;
@@ -1462,4 +1469,105 @@ body.tc-hide-nav {
 
 .blockUI.blockOverlay {
 	background: #fff !important;
+}
+
+.constant-name,
+.constant-value {
+	width: 100% !important;
+}
+
+.constant-value-wrap,
+.tc-constant-delete {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+}
+
+.tc-constant-delete {
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	flex-grow: 0;
+	flex-basis: 0;
+	width: auto;
+	padding: 0 4px;
+}
+
+.tc-constant-delete .delete {
+	cursor: pointer;
+}
+
+.constant-value-text {
+	flex: 0 1 100%;
+}
+
+.constant-value-delete {
+	flex: 0 1 auto;
+	margin: 19px 1em 0 1em;
+}
+
+.woocommerce .tm-settings-wrap table.form-table .constantrow th {
+	padding: 10px 0 !important;
+}
+
+.tm-settings-wrap .form-table .constantrow td {
+	padding: 10px !important;
+}
+
+.constant-label-wrap {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #a6adc6;
+}
+
+.woocommerce .tc-wrapper table.form-table .tm-error label {
+	color: #c0392b !important;
+}
+
+.woocommerce .tc-wrapper table.form-table .tm-error input[type="text"] {
+	border: 1px solid #c0392b !important;
+	color: #e74c3c !important;
+	outline: 0;
+	background: #fee !important;
+}
+
+button.tmicon {
+	display: inline-block;
+	left: auto !important;
+	position: relative;
+	right: auto !important;
+	overflow: hidden;
+	width: 30px !important;
+	height: 30px !important;
+	line-height: 30px !important;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	flex-shrink: 0;
+	background: none;
+	border: none;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+button.tmicon.delete {
+	color: #ff4500;
+	border-radius: 100%;
+}
+
+button.tmicon.delete:hover {
+	color: #fff;
+	background: #ff4500;
 }

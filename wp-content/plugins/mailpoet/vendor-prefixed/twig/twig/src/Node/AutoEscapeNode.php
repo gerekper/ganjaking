@@ -8,9 +8,8 @@ class AutoEscapeNode extends Node
  {
  parent::__construct(['body' => $body], ['value' => $value], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->subcompile($this->getNode('body'));
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\AutoEscapeNode', 'MailPoetVendor\\Twig_Node_AutoEscape');

@@ -74,7 +74,7 @@
             /**
              * Add scripts
              */
-            add_action( 'admin_enqueue_scripts', array( $this,'pdf_media_assets' ) );
+            add_action( 'admin_enqueue_scripts', array( $this, 'pdf_media_assets' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'woocommerce_pdf_admin_css' ) );
 
             /**

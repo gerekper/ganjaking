@@ -115,7 +115,7 @@
 			}
                         
                         if ( isset($min_field_length_include)) {
-				if ( $userpro->field_exists($k) && $userpro->field_type($k) == 'text' && $v != '' && strlen($v) < userpro_get_option('min_field_length') && $userpro->field_label($k) && in_array($k, $min_field_length_include ) ) {
+				if ( $userpro->field_exists($k) && $userpro->field_type($k) == 'text' && strlen($v) < userpro_get_option('min_field_length') && $userpro->field_label($k) && in_array($k, $min_field_length_include ) ) {
 					$errors[$k] = sprintf(__('Minimum %s characters are required for %s','userpro'), userpro_get_option('min_field_length'),$userpro->field_label($k));
 				}
 			}

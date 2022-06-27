@@ -1,4 +1,8 @@
 *** Currency Converter Changelog ***
+2022-06-13 - version 1.6.28
+* Tweak - WP tested up to 6.0.
+* Tweak - WC tested up to 6.5.
+
 2022-02-09 - version 1.6.27
 * Tweak - WC tested up to 6.1.
 * Tweak - WP tested up to 5.9.

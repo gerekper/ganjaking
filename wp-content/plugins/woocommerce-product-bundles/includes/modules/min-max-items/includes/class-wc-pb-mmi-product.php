@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_MMI_Product
- * @version  6.10.3
+ * @version  6.15.4
  */
 class WC_PB_MMI_Product {
 
@@ -396,7 +396,7 @@ class WC_PB_MMI_Product {
 
  				$item_stock_available = '' === $item_stock_available ? $item_max_quantity : min( $item_stock_available, $item_max_quantity );
 
-				if ( '' === $item_stock_available ) {
+				if ( '' === $item_stock_available || is_null( $item_stock_available ) ) {
 					$stock_available = '';
 					break;
 				}
@@ -437,7 +437,7 @@ class WC_PB_MMI_Product {
 
 				$item_stock_available = $bundled_data_item->get_meta( 'max_stock' );
 
-				if ( '' === $item_stock_available ) {
+				if ( '' === $item_stock_available || is_null( $item_stock_available ) ) {
 					$stock_available = '';
 					break;
 				}

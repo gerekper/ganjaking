@@ -111,7 +111,7 @@ class Styles {
 
     $typeSpecificStyles = $this->getFormTypeSpecificStyles($selector, $displayType);
 
-    $messagesStyles = $this->renderMessagesStyles($formSettings, $selector);
+    $messagesStyles = $this->renderFormMessageStyles($form, $selector);
 
     $additionalStyles = $selector . ' .mailpoet_paragraph.last {margin-bottom: 0} ';
     $media .= " @media (min-width: 500px) {{$selector} .last .mailpoet_paragraph:last-child {margin-bottom: 0}} ";
@@ -177,6 +177,14 @@ class Styles {
 
   private function getWidthValue(array $width) {
     return $width['value'] . ($width['unit'] === 'percent' ? '%' : 'px');
+  }
+
+  public function renderFormMessageStyles(FormEntity $form, string $selector): string {
+    $formSettings = $form->getSettings();
+    if (!is_array($formSettings)) {
+      return '';
+    }
+    return $this->renderMessagesStyles($formSettings, $selector);
   }
 
   private function renderMessagesStyles(array $formSettings, string $selector): string {

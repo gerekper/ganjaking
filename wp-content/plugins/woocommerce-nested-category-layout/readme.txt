@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 5.2
-Tested up to: 5.9.1
+Tested up to: 6.0
 Requires PHP: 7.0
 
 == Installation ==

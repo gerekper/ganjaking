@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract Settings API Class
+ * Abstract Settings API class
  *
  * @package WC_OD/Abstracts
  * @since   1.5.0
@@ -16,10 +16,16 @@ if ( class_exists( 'WC_OD_Settings_API', false ) ) {
 	return;
 }
 
+if ( ! trait_exists( 'WC_OD_Settings_Shipping_Methods' ) ) {
+	include_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-shipping-methods.php';
+}
+
 /**
  * Class WC_OD_Settings_API
  */
 abstract class WC_OD_Settings_API extends WC_Settings_API {
+
+	use WC_OD_Settings_Shipping_Methods;
 
 	/**
 	 * The plugin ID. Used for option names.
@@ -40,14 +46,7 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 	public $save_individually = true;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.5.0
-	 */
-	public function __construct() {}
-
-	/**
-	 * Return the name of the option in the WP DB.
+	 * Gets the name of the option in the WP DB.
 	 *
 	 * @since 1.5.0
 	 * @since 1.7.0 Added `$setting` parameter.
@@ -410,19 +409,6 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 	}
 
 	/**
-	 * Validates a 'shipping_methods' field.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $key   Field key.
-	 * @param mixed  $value Posted Value.
-	 * @return array An array with the shipping methods.
-	 */
-	public function validate_shipping_methods_field( $key, $value ) {
-		return $this->validate_array_field( $key, $value );
-	}
-
-	/**
 	 * Validates a table field.
 	 *
 	 * @since 1.5.0
@@ -461,32 +447,6 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 	}
 
 	/**
-	 * Sanitizes the 'shipping methods' fields.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param array $settings The settings to sanitize.
-	 * @return array
-	 */
-	protected function sanitize_shipping_methods_fields( $settings ) {
-		if ( ! isset( $settings['shipping_methods_option'] ) ) {
-			return $settings;
-		}
-
-		$settings['shipping_methods'] = array();
-
-		if ( ! empty( $settings['shipping_methods_option'] ) ) {
-			$setting_key = "{$settings['shipping_methods_option']}_shipping_methods";
-
-			$settings['shipping_methods'] = ( ! empty( $settings[ $setting_key ] ) ? $settings[ $setting_key ] : array() );
-		}
-
-		unset( $settings['specific_shipping_methods'], $settings['all_except_shipping_methods'] );
-
-		return $settings;
-	}
-
-	/**
 	 * Generate the HTML for a table field.
 	 *
 	 * @since 1.5.0
@@ -502,87 +462,6 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 		ob_start();
 		wc_od_field_wrapper( $field );
 		return ob_get_clean();
-	}
-
-	/**
-	 * Generates the HTML for a 'shipping_methods' field.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $key  The field key.
-	 * @param mixed  $data The field data.
-	 * @return string
-	 */
-	public function generate_shipping_methods_html( $key, $data ) {
-		$defaults = array(
-			'type'              => 'multiselect',
-			'class'             => 'wc-enhanced-select-nostd',
-			'css'               => 'width: 400px;',
-			'desc_tip'          => true,
-			'options'           => wc_od_get_shipping_methods_choices(),
-			'custom_attributes' => array(
-				'data-placeholder' => __( 'Select shipping methods', 'woocommerce-order-delivery' ),
-			),
-		);
-
-		$data = wp_parse_args( $data, $defaults );
-
-		return $this->generate_multiselect_html( $key, $data );
-	}
-
-	/**
-	 * Gets the 'shipping methods' fields ready to be registered in the form fields.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @return array
-	 */
-	protected function get_shipping_methods_fields() {
-		return array(
-			'shipping_methods_option'     => array(
-				'title'    => __( 'Shipping methods', 'woocommerce-order-delivery' ),
-				'type'     => 'select',
-				'class'    => 'wc-enhanced-select',
-				'css'      => 'width: 400px;',
-				'desc_tip' => true,
-				'options'  => array(
-					''           => __( 'All shipping methods', 'woocommerce-order-delivery' ),
-					'all_except' => __( 'All shipping methods, except&hellip;', 'woocommerce-order-delivery' ),
-					'specific'   => __( 'Only specific shipping methods', 'woocommerce-order-delivery' ),
-				),
-			),
-			'all_except_shipping_methods' => array(
-				'title' => __( 'All shipping methods, except&hellip;', 'woocommerce-order-delivery' ),
-				'type'  => 'shipping_methods',
-			),
-			'specific_shipping_methods'   => array(
-				'title' => __( 'Only specific shipping methods', 'woocommerce-order-delivery' ),
-				'type'  => 'shipping_methods',
-			),
-		);
-	}
-
-	/**
-	 * Gets the 'number_of_orders' field ready to be registered in the form fields.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @return array
-	 */
-	protected function get_number_of_orders_field() {
-		return array(
-			'number_of_orders' => array(
-				'title'             => __( 'Number of orders', 'woocommerce-order-delivery' ),
-				'description'       => __( '0 means that there is no limit of orders.', 'woocommerce-order-delivery' ),
-				'desc_tip'          => __( 'Maximum number of orders that can be delivered on the day.', 'woocommerce-order-delivery' ),
-				'type'              => 'number',
-				'css'               => 'width: 50px;',
-				'custom_attributes' => array(
-					'min'  => 0,
-					'step' => 1,
-				),
-			),
-		);
 	}
 
 	/**
@@ -603,22 +482,16 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 			)
 		);
 
-		$field_key    = $this->get_field_key( $key );
-		$tip_in_label = version_compare( WC()->version, '3.4', '>=' );
-		$tip_html     = $this->get_tooltip_html( $data );
+		$field_key = $this->get_field_key( $key );
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
 				<?php
-				if ( ! $tip_in_label ) :
-					echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				endif;
-
 				printf(
-					'<label for="%1$s">%2$s%3$s</label>',
+					'<label for="%1$s">%2$s %3$s</label>',
 					esc_attr( $field_key ),
 					wp_kses_post( $data['title'] ),
-					( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					wp_kses_post( $this->get_tooltip_html( $data ) )
 				);
 				?>
 			</th>
@@ -650,5 +523,31 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 			</td>
 		</tr>
 		<?php
+	}
+
+	/**
+	 * Gets the 'number_of_orders' field ready to be registered in the form fields.
+	 *
+	 * @since 1.8.0
+	 * @deprecated 2.1.0
+	 *
+	 * @return array
+	 */
+	protected function get_number_of_orders_field() {
+		wc_deprecated_function( __FUNCTION__, '2.1.0', 'WC_OD_Settings_Lockout->get_lockout_fields()' );
+
+		return array(
+			'number_of_orders' => array(
+				'title'             => __( 'Number of orders', 'woocommerce-order-delivery' ),
+				'description'       => __( '0 means that there is no limit of orders.', 'woocommerce-order-delivery' ),
+				'desc_tip'          => __( 'Maximum number of orders that can be delivered on the day.', 'woocommerce-order-delivery' ),
+				'type'              => 'number',
+				'css'               => 'width: 50px;',
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
+			),
+		);
 	}
 }

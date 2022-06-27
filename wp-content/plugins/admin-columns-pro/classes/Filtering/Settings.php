@@ -54,11 +54,8 @@ class Settings extends AC\Settings\Column
 	}
 
 	public function create_view() {
-		$filter = $this->create_element( 'radio', 'filter' )
-		               ->set_options( [
-			               'on'  => __( 'Yes' ),
-			               'off' => __( 'No' ),
-		               ] );
+		$filter = new AC\Form\Element\Toggle( 'filter', '', $this->get_value( 'filter' ) === 'on', 'on', 'off' );
+		$filter->add_class( 'ac-setting-input_filter' );
 
 		// Main settings
 		$view = new View();

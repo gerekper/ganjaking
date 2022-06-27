@@ -68,7 +68,7 @@ class Lexer
  'interpolation_end' => '{\\s*' . \preg_quote($this->options['interpolation'][1], '#') . '}A',
  ];
  }
- public function tokenize(Source $source)
+ public function tokenize(Source $source) : TokenStream
  {
  $this->source = $source;
  $this->code = \str_replace(["\r\n", "\r"], "\n", $source->getCode());
@@ -113,7 +113,7 @@ class Lexer
  }
  return new TokenStream($this->tokens, $this->source);
  }
- private function lexData()
+ private function lexData() : void
  {
  // if no matches are left we return the rest of the template as simple text token
  if ($this->position == \count($this->positions[0]) - 1) {
@@ -142,7 +142,7 @@ class Lexer
  } elseif ($this->options['whitespace_line_trim'] === $this->positions[2][$this->position][0]) {
  // whitespace_line_trim detected ({%~, {{~ or {#~)
  // don't trim \r and \n
- $text = \rtrim($text, " \t\0\v");
+ $text = \rtrim($text, " \t\x00\v");
  }
  }
  $this->pushToken(
@@ -180,7 +180,7 @@ class Lexer
  break;
  }
  }
- private function lexBlock()
+ private function lexBlock() : void
  {
  if (empty($this->brackets) && \preg_match($this->regexes['lex_block'], $this->code, $match, 0, $this->cursor)) {
  $this->pushToken(
@@ -192,7 +192,7 @@ class Lexer
  $this->lexExpression();
  }
  }
- private function lexVar()
+ private function lexVar() : void
  {
  if (empty($this->brackets) && \preg_match($this->regexes['lex_var'], $this->code, $match, 0, $this->cursor)) {
  $this->pushToken(
@@ -204,7 +204,7 @@ class Lexer
  $this->lexExpression();
  }
  }
- private function lexExpression()
+ private function lexExpression() : void
  {
  // whitespace
  if (\preg_match('/\\s+/A', $this->code, $match, 0, $this->cursor)) {
@@ -273,7 +273,7 @@ class Lexer
  throw new SyntaxError(\sprintf('Unexpected character "%s".', $this->code[$this->cursor]), $this->lineno, $this->source);
  }
  }
- private function lexRawData()
+ private function lexRawData() : void
  {
  if (!\preg_match($this->regexes['lex_raw_data'], $this->code, $match, \PREG_OFFSET_CAPTURE, $this->cursor)) {
  throw new SyntaxError('Unexpected end of file: Unclosed "verbatim" block.', $this->lineno, $this->source);
@@ -288,7 +288,7 @@ class Lexer
  } else {
  // whitespace_line_trim detected ({%~, {{~ or {#~)
  // don't trim \r and \n
- $text = \rtrim($text, " \t\0\v");
+ $text = \rtrim($text, " \t\x00\v");
  }
  }
  $this->pushToken(
@@ -296,14 +296,14 @@ class Lexer
  $text
  );
  }
- private function lexComment()
+ private function lexComment() : void
  {
  if (!\preg_match($this->regexes['lex_comment'], $this->code, $match, \PREG_OFFSET_CAPTURE, $this->cursor)) {
  throw new SyntaxError('Unclosed comment.', $this->lineno, $this->source);
  }
  $this->moveCursor(\substr($this->code, $this->cursor, $match[0][1] - $this->cursor) . $match[0][0]);
  }
- private function lexString()
+ private function lexString() : void
  {
  if (\preg_match($this->regexes['interpolation_start'], $this->code, $match, 0, $this->cursor)) {
  $this->brackets[] = [$this->options['interpolation'][0], $this->lineno];
@@ -330,7 +330,7 @@ class Lexer
  throw new SyntaxError(\sprintf('Unexpected character "%s".', $this->code[$this->cursor]), $this->lineno, $this->source);
  }
  }
- private function lexInterpolation()
+ private function lexInterpolation() : void
  {
  $bracket = \end($this->brackets);
  if ($this->options['interpolation'][0] === $bracket[0] && \preg_match($this->regexes['interpolation_end'], $this->code, $match, 0, $this->cursor)) {
@@ -344,7 +344,7 @@ class Lexer
  $this->lexExpression();
  }
  }
- private function pushToken($type, $value = '')
+ private function pushToken($type, $value = '') : void
  {
  // do not push empty text tokens
  if (0 === $type && '' === $value) {
@@ -352,12 +352,12 @@ class Lexer
  }
  $this->tokens[] = new Token($type, $value, $this->lineno);
  }
- private function moveCursor($text)
+ private function moveCursor($text) : void
  {
  $this->cursor += \strlen($text);
  $this->lineno += \substr_count($text, "\n");
  }
- private function getOperatorRegex()
+ private function getOperatorRegex() : string
  {
  $operators = \array_merge(['='], \array_keys($this->env->getUnaryOperators()), \array_keys($this->env->getBinaryOperators()));
  $operators = \array_combine($operators, \array_map('strlen', $operators));
@@ -380,12 +380,12 @@ class Lexer
  }
  return '/' . \implode('|', $regex) . '/A';
  }
- private function pushState($state)
+ private function pushState($state) : void
  {
  $this->states[] = $this->state;
  $this->state = $state;
  }
- private function popState()
+ private function popState() : void
  {
  if (0 === \count($this->states)) {
  throw new \LogicException('Cannot pop state without a previous state.');
@@ -393,4 +393,3 @@ class Lexer
  $this->state = \array_pop($this->states);
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Lexer', 'MailPoetVendor\\Twig_Lexer');

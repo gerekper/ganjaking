@@ -3,9 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style>
-
    body {
-      font-family: [[PDFFONTFAMILY]];
+    font-family: [[PDFFONTFAMILY]];
       font-size: 11px;
     }
 
@@ -46,61 +45,11 @@
       page-break-before: always; 
     }
 
-    .shop_table {
-
-    }
-
-    .orderdetails {
-
-    } 
-
-    .ordercontent {
-
-    }
-
-    .pdf_table_row {
-
-    }
-
-    .pdf_table_cell {
-
-    }
-
-    .pdf_table_row_title {
-
-    }
-
-    .pdf_table_cell_title {
-
-    }
-
-    .pdf_table_row_heading {
-
-    }
-
-    .pdf_table_cell_heading {
-
-    }
-
-    .pdf_table_row_odd {
-
-    }
-
-    .pdf_table_row_even {
-
-    }
-
-    .pdf_table_cell_odd {
-
-    }
-
-    .pdf_table_cell_even {
-
-    }
-
     [[PDFPAIDINFULLOVERLAY]]
 
     [[PDFCURRENCYSYMBOLFONT]]
+
+    [[PDFINVOICEADDITIONALCSS]]
   </style> 
 </head>
   <body[[PDFRTL]]>

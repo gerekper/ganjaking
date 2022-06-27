@@ -1,5 +1,41 @@
 *** Redsys Gateway Change Log ***
 
+2022.03.24 - version 18.1.1
+
+* IMPROVED: Improved compatibility with the generated payment link by WooCommerce (Redsys redirection).
+* FIXED: Fixed an error with Redsys in the Checkout (InSite). Using $this when not in object context.
+
+2022.03.21 - version 18.1.0
+
+* NEW: Added a custom status for Redsys Orders. Pending Redsys Payment
+* IMPROVED: Added more push notifications.
+* IMPROVED: Now Orders can be flagged as paid even though were marked as Cancelled.
+* FIXED: The Errors check in Redsys Push Notifications now remain checked.
+* FIXED: Added "cancelled» as not paid statuses.
+
+2022.03.14 - version 18.0.0
+
+* NEW: Mobile Push Notification. Needs Catapush service.
+* NEW: Now, an Order Subscription Note is added if the Credit Card doesn't exist or expired.
+* NEW: Errors are added to Order Notes.
+* NEW: New global function push().
+* NEW: New global function get_post_edit_url().
+* NEW: New global function get_last_four().
+* NEW: Declared compatibility with WooCommerce 6.3.
+* NEW: Now you can customize an email for notifications.
+* IMPROVED: Now is only allowed to add a Subscription credit card in My Account > Add payment method when 1clic is disabled.
+* IMPROVED: The SCA LWV is now an option in Redsys redirection && Redsys in ths Checkout. You need to ask Redsys to enable it.
+* IMPROVED: Now DS_MERCHANT_GROUP is sent with PayGold.
+* IMPROVED: Removed several logs that were annoying and not useful.
+* IMPROVED: Now the plugin check Ds_Card_Number & Ds_CardNumber. Redsys is sending both fields.
+* IMPROVED: Removed many pre PDS2 deprecated code.
+* IMPROVED: Updated some strings.
+* FIXED: InSite DS_MERCHANT_PRODUCTDESCRIPTION Works again.
+* FIXED: If a subscription is not renewed, WooCommerce Subscriptions will retry it.
+* FIXED: Refunds with InSite, works again.
+* FIXED: Removed InSite debug line in checkout.
+* FIXED: Removed deprecated code on Global Class $get_token.
+
 2022.02.19 - version 17.1.1
 
 * IMPROVED: More information about token are shown in user edit.
@@ -125,7 +161,7 @@
 * IMPROVED: Now Checkout is only reloaded when there is an error when InSite is active.
 * IMPROVED: All JS plugin files minified.
 * IMPROVED: Now a finger pointer is show when cursor is over InSite Pay button.
-* UPDATED: Updated the email send to admin when Ds_CardNumber is not send by Redsys.
+* UPDATED: Updated the email send to admin when Ds_Card_Number is not send by Redsys.
 * FIXED: TRA and LWV in standard payment.
 * FIXED: Fixed a Bizum payment problem over some servers configuration.
 * FIXED: Fixed a problem with flush rules (Thanks to @frantorres)

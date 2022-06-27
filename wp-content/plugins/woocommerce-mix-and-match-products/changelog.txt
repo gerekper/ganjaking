@@ -1,5 +1,71 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.06.15 - version 2.0.7
+* Important: Slight spacing tweaks in a few strings. Double-check translations.
+* New: Introduce Flatsome theme compat module. Closes #350.
+* Fix: Min/Max Quantities compat - unset group by quantity as minimum. Closes #316.
+* Fix: Don't run foreign key ALTER sql when updating if foreign keys already exist. Removes DB error in log. Closes #426.
+* Fix: Update foreign keys to use database prefix.
+* Tweak: Add [Frontend] context to customer-facing translatable strings.
+
+2022.06.13 - version 2.0.6
+* Fix: When discounting from sale price, use regular price to calculate discounted price if product has empty sale price. Restores strikethrough discount html.
+* Fix: PHP notice for undefined $price variable in sale price filter.
+* Fix: Support grid styles in quickview modal in Storefront theme.
+* Tweak: Change strings and buttons to use "edit|reset selections" instead of "configuration"
+* Tweak: Astra support for mobile grids.
+* Tweak: Use h4 headings for child product titles.
+* Tweak: Remove styles from reset button, inherit from theme button styles.
+* Tweak: Refine Mix and Match configuration display in cart block.
+
+2022.06.10 - version 2.0.5
+* Fix - Load order/dependencies for the Cart and Checkout blocks scripts.
+* New - Display container config in mini cart.
+
+2022.06.09 - version 2.0.4
+* Fix: Missing child item configuration in ShipStation.
+* Fix: Incorrect cumulative package weight calculation when packed together.
+
+2022.06.08 - version 2.0.3
+* Fix: Fatal error with All Products for WooCommerce Subscriptions < 3.2.
+* Tweak: Apply style rules by class only and not by list elements.
+* Tweak: Add compatibility module for WoodMart theme.
+* Tweak: Remove wrapping div from add to cart button.
+* Tweak: Change success class to woocommerce-message.
+* Dev: Add wc_mnm_grid_has_flex_layout filter.
+
+2022.06.06 - version 2.0.2
+* Fix: Fatal error not enough parameters sent to woocommerce_paypal_payments_product_supports_payment_request_button callback.
+* Fix: Update zip build routine to always include the block scripts!
+
+2022.06.06 - version 2.0.1
+* Fix: Fatal error WC_MNM_PayPal_Compatibility class not found.
+
+2022.06.06 - version 2.0.0
+* IMPORTANT: Allowed contents/child items are stored in their own table. - This is a major change to data storage. Please backup your database before upgrading.
+* Required: WordPress 4.7 is required.
+* Required: WooCommerce 3.6 is required.
+* Update: Tested up to WooCommerce 6.5.0.
+* New: Support for WooCommerce Cart/Checkout blocks.
+* New: Support for selecting allowed contents by category.
+* New: Compatibility with All Products for Subscriptions.
+* New: Set global styles for Mix and Match products in the Customizer.
+* New: Separate template for the add to cart button.
+* New: Updated mix and match shipping interface in admin metabox.
+* New: Add theme support modules for Astra, Avada, OceanWP, X themes.
+* Dev: Add wc_mnm_loop_classes filter to add custom classes to mix and match loop.
+* Dev: Add wc_mnm_child_item_classes filter to add custom CSS to child items.
+* Dev: Add wc_mnm_child_item_data_attributes filter to add custom data attributes to child items.
+* Dev: Deprecated mix and match product class methods - get_children(), get_available_children(), get_contents(), set_contents(), has_children(), has_available_children(), get_child_quantity(), get_child_availability_html(), maybe_apply_discount_to_child()
+* Dev: BREAKING! formatting change for results of WC_Product_Mix_and_Match::get_layout_options() and WC_Product_Mix_and_Match::get_add_to_cart_form_location_options()
+* Dev: Rename all action hooks with wc_mnm_ prefix. woocommerce_mnm_ hooks are deprecated but should still work.
+* Dev: Rename all filters with wc_mnm_ prefix. woocommerce_mnm_ filters are deprecated but should still work.
+
+2022.05.02 - version 1.12.1
+* Update: Tested up to WooCommerce 6.5.0.
+* Fix: Import/export of child variations.
+* Dev: Add update warning notice for when 2.0 is released.
+
 2022.01.28 - version 1.12.0
 * Update: Tested up to WooCommerce 6.1.0.
 * Note: This release is largely targeted towards improved compatibility with mini-extensions. If you are using any mini-extensions, please look to see if there's an update.
@@ -38,14 +104,15 @@
 * Fix: Compatibility with PayPal Express Smart buttons. Requires WooCommerce PayPal Express gateway plugin v1.6.21.
 
 2021.04.28 - version 1.11.1
-Fix: 1.10.0 database upgrade routine failures when updating 20+ Mix and Match products.
+* Fix: 1.10.0 database upgrade routine failures when updating 20+ Mix and Match products.
 
-2021.03.23 - version 1.11.0
-New: Use _prime_post_caches() to boost speed of fetching child products.
-Fix: Only add indent wrapping div to product name if it doesn't already exist. Prevent multiple sub-arrows from displaying when coupons fail.
-Fix: Php 8 compat: Required parameter follows optional parameter.
-Fix: Add margin reset to <figure> in single product page.
-Dev: Add get_props_to_meta_keys() getter to data store class.
+22021.03.23 - version 1.11.0
+* New: Use _prime_post_caches() to boost speed of fetching child products.
+* Fix: Only add indent wrapping div to product name if it doesn't already exist. Prevent multiple sub-arrows from displaying when coupons fail.
+* Fix: Php 8 compat: Required parameter follows optional parameter.
+* Fix: Fixed PHP warnings about admin notices.
+* Fix: Add margin reset to <figure> in single product page.
+* Dev: Add get_props_to_meta_keys() getter to data store class.
 
 2020-12.07 - version 1.10.6
 * Fix - Grand total calculations for containers + Product Addons.

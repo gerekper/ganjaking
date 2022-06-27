@@ -10,12 +10,11 @@ abstract class AbstractUnary extends AbstractExpression
  {
  parent::__construct(['node' => $node], [], $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->raw(' ');
  $this->operator($compiler);
  $compiler->subcompile($this->getNode('node'));
  }
- public abstract function operator(Compiler $compiler);
+ public abstract function operator(Compiler $compiler) : Compiler;
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\Unary\\AbstractUnary', 'MailPoetVendor\\Twig_Node_Expression_Unary');

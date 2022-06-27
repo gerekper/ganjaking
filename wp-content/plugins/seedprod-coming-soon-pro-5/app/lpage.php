@@ -612,7 +612,7 @@ function seedprod_pro_save_lpage() {
 		$sp_post               = $_POST;
 		$sp_post['lpage_html'] = stripslashes_deep( $sp_post['lpage_html'] );
 
-		// remove uneeded code
+		// remove unneeded code
 		$html = $sp_post['lpage_html'];
 		if ( ! empty( $html ) ) {
 			$html = preg_replace( "'<span class=\"sp-hidden\">START-REMOVE</span>[\s\S]+?<span class=\"sp-hidden\">END-REMOVE</span>'", '', $html );
@@ -695,9 +695,20 @@ function seedprod_pro_save_lpage() {
 
 				// remove action so they don't conflict with the save. Yoast SEO was trying to analytize this content.
 				remove_all_actions( 'wp_insert_post' );
-				wp_update_post( $update );
+				if ( is_multisite() ) {
+					kses_remove_filters();
+					wp_update_post( $update );
+					kses_init_filters();
+				}else{
+					wp_update_post( $update );
+				}
 				$status = 'updated';
+			}
 
+			if ( class_exists( 'SeedProd_Tracking' ) ) {
+				$tracking         = new SeedProd_Tracking();
+				$block_usage_data = $tracking->get_block_data( $check_post_type->document->sections );
+				update_post_meta( $lpage_id, '_seedprod_block_usage', $block_usage_data );
 			}
 		}
 
@@ -939,7 +950,7 @@ function seedprod_pro_template_subscribe() {
 /**
  * Save/Update lpages Template.
  */
-function seedprod_pro_save_template() {
+function seedprod_pro_save_template() {  
 	// get template code and set name and slug
 	if ( check_ajax_referer( 'seedprod_nonce' ) ) {
 		if ( ! current_user_can( apply_filters( 'seedprod_lpage_capability', 'edit_others_posts' ) ) ) {

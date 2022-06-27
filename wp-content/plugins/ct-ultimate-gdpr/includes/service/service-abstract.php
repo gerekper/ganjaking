@@ -484,4 +484,22 @@ abstract class CT_Ultimate_GDPR_Service_Abstract implements CT_Ultimate_GDPR_Ser
 
     }
 
+	/**
+     * @return int
+     */
+	public function get_privacy_policy_page_id() {
+
+		$ct_ultimate_gdpr_policy_option = get_option( 'ct-ultimate-gdpr-policy');
+
+		if( $ct_ultimate_gdpr_policy_option ) {
+
+			$id = ( isset($ct_ultimate_gdpr_policy_option[ 'policy_target_page' ] ) ) 
+				? $ct_ultimate_gdpr_policy_option[ 'policy_target_page' ] : NULL;
+ 	
+			if( $id == "wp" )
+				$id = get_option( 'wp_page_for_privacy_policy' );
+		}
+		return $id;
+	}
+
 }

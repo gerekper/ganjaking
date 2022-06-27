@@ -20,17 +20,17 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * @since 1.3.0
 		 */
 		public function __construct() {
-			add_action( 'wc_od_install_add_endpoints', array( $this, 'add_endpoints' ) );
-			add_filter( 'query_vars', array( $this, 'query_vars' ) );
+			// Edit delivery endpoint.
+			add_filter( 'woocommerce_get_query_vars', array( $this, 'query_vars' ) );
+			add_filter( 'woocommerce_endpoint_edit-delivery_title', array( $this, 'edit_delivery_title' ) );
+			add_action( 'woocommerce_account_edit-delivery_endpoint', array( $this, 'edit_delivery_content' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 			// View Subscription hooks.
 			add_filter( 'wcs_view_subscription_actions', array( $this, 'view_subscription_actions' ), 10, 2 );
 			add_action( 'woocommerce_after_template_part', array( $this, 'insert_delivery_content' ) );
 
-			// Edit Delivery hooks.
-			add_filter( 'the_title', array( $this, 'edit_delivery_title' ) );
-			add_action( 'woocommerce_account_edit-delivery_endpoint', array( $this, 'edit_delivery_content' ) );
+			// Edit Delivery content.
 			add_action( 'wp_ajax_wc_od_refresh_subscription_delivery_content', array( $this, 'refresh_delivery_content' ) );
 			add_action( 'template_redirect', array( $this, 'save_delivery' ) );
 			add_filter( 'woocommerce_form_field_wc_od_subscription_section_start', 'wc_od_subscription_section_start_field', 10, 3 );
@@ -47,23 +47,25 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * Registers the custom endpoints.
 		 *
 		 * @since 1.3.0
+		 * @deprecated 2.1.0
 		 */
 		public function add_endpoints() {
+			wc_deprecated_function( __FUNCTION__, '2.1.0' );
 			add_rewrite_endpoint( 'edit-delivery', EP_ROOT | EP_PAGES );
 		}
 
 		/**
-		 * Add custom query vars.
+		 * Registers custom query vars.
 		 *
 		 * @since 1.3.0
 		 *
-		 * @param array $vars The query vars.
-		 * @return array An array with the query vars.
+		 * @param array $query_vars The query vars.
+		 * @return array
 		 */
-		public function query_vars( $vars ) {
-			$vars[] = 'edit-delivery';
+		public function query_vars( $query_vars ) {
+			$query_vars['edit-delivery'] = 'edit-delivery';
 
-			return $vars;
+			return $query_vars;
 		}
 
 		/**
@@ -200,42 +202,17 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * Change the edit-delivery endpoint title.
 		 *
 		 * @since 1.3.0
+		 * @since 2.1.0 Deprecated `$title` argument.
 		 *
-		 * @param string $title The title.
-		 * @return string The endpoint title.
+		 * @param string $deprecated Deprecated argument.
+		 * @return string
 		 */
-		public function edit_delivery_title( $title ) {
-			if ( ! is_admin() && is_main_query() && in_the_loop() && wc_od_is_edit_delivery_endpoint() ) {
-				$title = sprintf(
-					/* translators: %s: subscription ID. */
-					esc_html_x( 'Subscription delivery #%s', 'edit subscription delivery title', 'woocommerce-order-delivery' ),
-					wc_od_get_current_subscription_id()
-				);
-
-				remove_filter( 'the_title', array( $this, 'edit_delivery_title' ) );
-			}
-
-			return $title;
-		}
-
-		/**
-		 * Set the template location for the edit-delivery page.
-		 *
-		 * Backward compatibility with WC 2.5.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.7.0
-		 *
-		 * @param string $located       The template location.
-		 * @param string $template_name The template name.
-		 * @param array  $args          The template arguments.
-		 * @param string $template_path The template path.
-		 * @return string The template location.
-		 */
-		public function edit_delivery_template( $located, $template_name, $args, $template_path ) {
-			wc_deprecated_function( __FUNCTION__, '1.7.0' );
-
-			return $located;
+		public function edit_delivery_title( $deprecated = '' ) {
+			return sprintf(
+				/* translators: %s: subscription ID. */
+				esc_html_x( 'Subscription delivery #%s', 'edit subscription delivery title', 'woocommerce-order-delivery' ),
+				wc_od_get_current_subscription_id()
+			);
 		}
 
 		/**
@@ -277,10 +254,9 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 */
 		public function save_delivery() {
 			if (
-				'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ||
 				empty( $_POST['action'] ) || 'edit_delivery' !== $_POST['action'] ||
 				empty( $_POST['subscription_id'] ) ||
-				empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'wc_od_edit_delivery' )
+				empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'wc_od_edit_delivery' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			) {
 				return;
 			}
@@ -306,12 +282,12 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 				}
 
 				// Validate required.
-				if ( ! empty( $field['required'] ) && $field['required'] && empty( $_POST[ $key ] ) ) {
+				if ( ! empty( $field['required'] ) && empty( $_POST[ $key ] ) ) {
 					/* translators: %s: field name */
 					wc_add_notice( sprintf( __( '%s is a required field.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
 					$valid = false;
 				} else {
-					$value = wc_clean( wp_unslash( $_POST[ $key ] ) ); // WPCS: sanitization ok.
+					$value = wc_clean( wp_unslash( $_POST[ $key ] ) );
 
 					/**
 					 * Validate the subscription delivery field.
@@ -381,7 +357,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 				 *
 				 * @since 1.3.0
 				 *
-				 * @param array           $values       The fields values.
+				 * @param array           $values       The fields' values.
 				 * @param array           $previous     The previous fields values.
 				 * @param WC_Subscription $subscription The subscription instance.
 				 */
@@ -408,7 +384,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 			if ( is_null( $value ) || ! wc_od_validate_subscription_delivery_date( $subscription, $value ) ) {
 				$value = null;
 
-				/* translators: %s: field name */
+				/* translators: %s: field label */
 				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
 			}
 

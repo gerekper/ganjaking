@@ -23,7 +23,6 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -49,7 +48,7 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 			$risk = true;
 		}
 		
-		Af_Logger::debug('international order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('international order rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

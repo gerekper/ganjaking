@@ -1,15 +1,15 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Table Rate Shipping 3.0.36\n"
+"Project-Id-Version: WooCommerce Table Rate Shipping 3.0.40\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-table-rate-shipping\n"
-"POT-Creation-Date: 2021-12-13 19:30:38+00:00\n"
+"POT-Creation-Date: 2022-06-21 11:02:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -37,28 +37,28 @@ msgid "Table rates are dynamic rates based on a number of cart conditions."
 msgstr ""
 
 #: includes/class-wc-shipping-table-rate.php:41
-#: includes/class-wc-shipping-table-rate.php:163
+#: includes/class-wc-shipping-table-rate.php:165
 msgid "Table Rate"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:159
+#: includes/class-wc-shipping-table-rate.php:161
 #: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:144
 msgid "Method Title"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:162
+#: includes/class-wc-shipping-table-rate.php:164
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:166
+#: includes/class-wc-shipping-table-rate.php:168
 msgid "Tax Status"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:172
+#: includes/class-wc-shipping-table-rate.php:174
 msgid "Taxable"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:173
+#: includes/class-wc-shipping-table-rate.php:175
 #: includes/functions-admin.php:94
 #: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:156
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:28
@@ -68,117 +68,145 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:177
+#: includes/class-wc-shipping-table-rate.php:179
 msgid "Tax included in shipping costs"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:184
+#: includes/class-wc-shipping-table-rate.php:186
 msgid "Yes, I will enter costs below inclusive of tax"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:185
+#: includes/class-wc-shipping-table-rate.php:187
 msgid "No, I will enter costs below exclusive of tax"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:189
+#: includes/class-wc-shipping-table-rate.php:191
 msgid "Handling Fee"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:191
+#: includes/class-wc-shipping-table-rate.php:193
 msgid ""
 "Enter an amount, e.g. %s. Leave blank to disable. This cost is applied once "
 "for the order as a whole."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:193
-#: includes/class-wc-shipping-table-rate.php:200
-#: includes/class-wc-shipping-table-rate.php:227
-#: includes/class-wc-shipping-table-rate.php:235
-#: includes/class-wc-shipping-table-rate.php:243
+#: includes/class-wc-shipping-table-rate.php:195
+#: includes/class-wc-shipping-table-rate.php:202
+#: includes/class-wc-shipping-table-rate.php:229
+#: includes/class-wc-shipping-table-rate.php:237
+#: includes/class-wc-shipping-table-rate.php:245
 #: includes/functions-admin.php:104
 msgid "n/a"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:196
+#: includes/class-wc-shipping-table-rate.php:198
 msgid "Maximum Shipping Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:198
+#: includes/class-wc-shipping-table-rate.php:200
 msgid ""
 "Maximum cost that the customer will pay after all the shipping rules have "
 "been applied. If the shipping cost calculated is bigger than this value, "
 "this cost will be the one shown."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:203
+#: includes/class-wc-shipping-table-rate.php:205
 msgid "Rates"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:205
+#: includes/class-wc-shipping-table-rate.php:207
 msgid "This is where you define your table rates which are applied to an order."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:209
+#: includes/class-wc-shipping-table-rate.php:211
 msgid "Calculation Type"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:211
+#: includes/class-wc-shipping-table-rate.php:213
 msgid ""
 "Per order rates will offer the customer all matching rates. Calculated "
 "rates will sum all matching rates and provide a single total."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:215
+#: includes/class-wc-shipping-table-rate.php:217
 msgid "Per order"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:216
+#: includes/class-wc-shipping-table-rate.php:218
 msgid "Calculated rates per item"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:217
+#: includes/class-wc-shipping-table-rate.php:219
 msgid "Calculated rates per line item"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:218
+#: includes/class-wc-shipping-table-rate.php:220
 msgid "Calculated rates per shipping class"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:222
+#: includes/class-wc-shipping-table-rate.php:224
 msgid "Handling Fee Per [item]"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:225
+#: includes/class-wc-shipping-table-rate.php:227
 msgid ""
 "Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5%%. Leave "
 "blank to disable. Applied based on the \"Calculation Type\" chosen below."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:230
+#: includes/class-wc-shipping-table-rate.php:232
 msgid "Minimum Cost Per [item]"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:233
+#: includes/class-wc-shipping-table-rate.php:235
 msgid ""
 "Minimum cost for this shipping method (optional). If the cost is lower, "
 "this minimum cost will be enforced."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:238
+#: includes/class-wc-shipping-table-rate.php:240
 msgid "Maximum Cost Per [item]"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:241
+#: includes/class-wc-shipping-table-rate.php:243
 msgid ""
 "Maximum cost for this shipping method (optional). If the cost is higher, "
 "this maximum cost will be enforced."
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:276
+#: includes/class-wc-shipping-table-rate.php:248
+msgid "Discounts in Min-Max"
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:249
+msgid "Use discounted price when comparing Min-Max Price Conditions."
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:251
+msgid ""
+"When comparing Min-Max Price Condition for rate in Table Rates, set if "
+"discounted or non-discounted price should be used."
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:256
+msgid "Taxes in Min-Max"
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:257
+msgid "Use price with tax when comparing Min-Max Price Conditions."
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:259
+msgid ""
+"When comparing Min-Max Price Condition for rate in Table Rates, set if "
+"price with taxes or without taxes should be used."
+msgstr ""
+
+#: includes/class-wc-shipping-table-rate.php:294
 msgid "Table Rates"
 msgstr ""
 
-#: includes/class-wc-shipping-table-rate.php:283
+#: includes/class-wc-shipping-table-rate.php:301
 msgid "Class Priorities"
 msgstr ""
 
@@ -315,7 +343,7 @@ msgstr ""
 msgid "No shipping classes exist - you can ignore this option :)"
 msgstr ""
 
-#: includes/functions-admin.php:148 woocommerce-table-rate-shipping.php:191
+#: includes/functions-admin.php:148 woocommerce-table-rate-shipping.php:192
 msgid "Class"
 msgstr ""
 
@@ -638,51 +666,51 @@ msgstr ""
 msgid "Add To Zone"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:148
+#: woocommerce-table-rate-shipping.php:149
 msgid "View Documentation"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:148
+#: woocommerce-table-rate-shipping.php:149
 msgid "Docs"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:149
+#: woocommerce-table-rate-shipping.php:150
 msgid "Visit Premium Customer Support Forum"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:149
+#: woocommerce-table-rate-shipping.php:150
 msgid "Premium Support"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:168
+#: woocommerce-table-rate-shipping.php:169
 msgid "Setup Zones"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:168
+#: woocommerce-table-rate-shipping.php:169
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:188
+#: woocommerce-table-rate-shipping.php:189
 msgid "Order"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:189
+#: woocommerce-table-rate-shipping.php:190
 msgid "Item"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:190
+#: woocommerce-table-rate-shipping.php:191
 msgid "Line Item"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:192
+#: woocommerce-table-rate-shipping.php:193
 msgid "Delete the selected rates?"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:193
+#: woocommerce-table-rate-shipping.php:194
 msgid "Duplicate the selected rates?"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:262
+#: woocommerce-table-rate-shipping.php:268
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Table Rate Shipping requires %s to be installed and active."
 msgstr ""

@@ -738,11 +738,7 @@ class WC_Points_Rewards_Cart_Checkout {
 		 * Reduce by any discounts.  One minor drawback: if the discount includes a discount on tax and/or shipping
 		 * it will cost the customer points, but this is a better solution than granting full points for discounted orders.
 		 */
-		if ( version_compare( WC_VERSION, '2.3', '<' ) ) {
-			$discount = WC()->cart->discount_cart + WC()->cart->discount_total;
-		} else {
-			$discount = ( wc_prices_include_tax() ) ? WC()->cart->discount_cart + WC()->cart->discount_cart_tax : WC()->cart->discount_cart;
-		}
+		$discount = ( wc_prices_include_tax() ) ? WC()->cart->discount_cart + WC()->cart->discount_cart_tax : WC()->cart->discount_cart;
 
 		$discount_amount = min( WC_Points_Rewards_Manager::calculate_points( $discount ), $points_earned );
 
@@ -815,9 +811,7 @@ class WC_Points_Rewards_Cart_Checkout {
 		}
 
 		if ( is_null( $existing_discount_amounts ) ) {
-			$existing_discount_amounts = version_compare( WC_VERSION, '3.0.0', '<' )
-				? WC()->cart->discount_total
-				: WC()->cart->get_cart_discount_total();
+			$existing_discount_amounts = WC()->cart->get_cart_discount_total();
 		}
 
 		/*
@@ -830,21 +824,11 @@ class WC_Points_Rewards_Cart_Checkout {
 		}
 
 		// if the available discount is greater than the order total, make the discount equal to the order total less any other discounts
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-				$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal_ex_tax - $existing_discount_amounts ) );
+		if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
+			$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal_ex_tax - $existing_discount_amounts ) );
 
-			} else {
-				$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal - $existing_discount_amounts ) );
-
-			}
 		} else {
-			if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-				$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal_ex_tax - $existing_discount_amounts ) );
-
-			} else {
-				$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal - $existing_discount_amounts ) );
-			}
+			$discount_applied = max( 0, min( $discount_applied, WC()->cart->subtotal - $existing_discount_amounts ) );
 		}
 
 		// limit the discount available by the global maximum discount if set

@@ -8,61 +8,66 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
 <li class="tmcp-field-wrap">
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
-    <label class="tm-epo-field-label" for="<?php echo esc_attr( $id ); ?>">
-        <input <?php
-		if ( isset( $placeholder ) && $placeholder !== '' ) {
-			echo 'placeholder="' . esc_attr( $placeholder ) . '" ';
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+	<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
+		<?php
+		$input_args = [
+			'nodiv'   => 1,
+			'default' => $get_default_value,
+			'type'    => 'decimal' === $input_type ? 'number' : $input_type,
+			'tags'    => [
+				'id'                  => $id,
+				'name'                => $name,
+				'class'               => $fieldtype . ' tm-epo-field tmcp-textfield',
+				'data-price'          => '',
+				'data-rules'          => $rules,
+				'data-original-rules' => $original_rules,
+				'data-rulestype'      => $rules_type,
+				'data-freechars'      => $freechars,
+			],
+		];
+		if ( isset( $placeholder ) && '' !== $placeholder ) {
+			$input_args['tags']['placeholder'] = $placeholder;
 		}
-		if ( isset( $min_chars ) && $min_chars !== '' ) {
-			echo 'minlength="' . esc_attr( $min_chars ) . '" ';
+		if ( isset( $min_chars ) && '' !== $min_chars ) {
+			$input_args['tags']['minlength'] = $min_chars;
 		}
-		if ( isset( $max_chars ) && $max_chars !== '' ) {
-			echo 'maxlength="' . esc_attr( $max_chars ) . '" ';
+		if ( isset( $max_chars ) && '' !== $max_chars ) {
+			$input_args['tags']['maxlength'] = $max_chars;
 		}
 		if ( isset( $required ) && ! empty( $required ) ) {
-			echo 'required ';
+			$input_args['tags']['required'] = true;
 		}
-		?>class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield"
-           name="<?php echo esc_attr( $name ); ?>"
-           data-price=""
-           data-rules="<?php echo esc_attr( $rules ); ?>"
-           data-original-rules="<?php echo esc_attr( $original_rules ); ?>"
-           data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
-           data-freechars="<?php echo esc_attr( $freechars ); ?>"
-           value="<?php echo esc_attr( $get_default_value ); ?>"
-           id="<?php echo esc_attr( $id ); ?>"
-			<?php if ( ! empty( $tax_obj ) ) {
-				echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
-			} ?>
-           type="<?php if ( $input_type === 'decimal') { echo 'number'; } else { echo esc_attr( $input_type ); } ?>"<?php
-		if ( $input_type === "number" ) {
-			echo ' step="any" pattern="[0-9]" inputmode="numeric"';
-			if ( isset( $min ) && $min !== '' ) {
-				echo ' min="' . esc_attr( $min ) . '"';
+		if ( ! empty( $tax_obj ) ) {
+			$input_args['tags']['data-tax-obj'] = $tax_obj;
+		}
+		if ( 'number' === $input_type || 'decimal' === $input_type ) {
+			$input_args['tags']['step'] = 'any';
+			if ( 'decimal' === $input_type ) {
+				$input_args['tags']['pattern'] = '[0-9]*';
+			} else {
+				$input_args['tags']['pattern'] = '[0-9]';
 			}
-			if ( isset( $max ) && $max !== '' ) {
-				echo ' max="' . esc_attr( $max ) . '"';
+			$input_args['tags']['inputmode'] = 'numeric';
+			if ( isset( $min ) && '' !== $min ) {
+				$input_args['tags']['min'] = $min;
 			}
-		} else if ( $input_type === "decimal" ) {
-			echo ' step="any" pattern="[0-9]*" inputmode="numeric"';
-			if ( isset( $min ) && $min !== '' ) {
-				echo ' min="' . esc_attr( $min ) . '"';
-			}
-			if ( isset( $max ) && $max !== '' ) {
-				echo ' max="' . esc_attr( $max ) . '"';
+			if ( isset( $max ) && '' !== $max ) {
+				$input_args['tags']['max'] = $max;
 			}
 		}
-		?> /></label>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>
-	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : array() ); ?>
+		THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
+		?>
+		</label>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
 </li>

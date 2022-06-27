@@ -6,40 +6,26 @@
  * Description: Supercharge your Google Analytics tracking with enhanced eCommerce tracking and custom event tracking
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 1.11.0
+ * Version: 1.12.0
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2015-2020, SkyVerge, Inc.
+ * Copyright: (c) 2015-2022, SkyVerge, Inc.
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author    SkyVerge
  * @category  Integration
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
- * WC requires at least: 3.5
- * WC tested up to: 5.6.0
+ * WC requires at least: 3.9.4
+ * WC tested up to: 6.3.1
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), 'd8aed8b7306b509eec1589e59abe319f', '1312497' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
-
 
 /**
  * WooCommerce Google Analytics Pro loader.
@@ -56,10 +42,10 @@ class WC_Google_Analytics_Pro_Loader {
 	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.2';
+	const FRAMEWORK_VERSION = '5.10.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Google Analytics Pro';

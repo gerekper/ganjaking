@@ -1,5 +1,12 @@
 *** WC Coupon Campaigns ***
 
+2022-06-07 - version 1.1.23
+* Tweak - WC 6.6 compatibility.
+
+2022-05-10 - version 1.1.22
+* Tweak - WC 6.5 compatibility.
+* Tweak - WordPress 6.0 compatibility.
+
 2022-02-08 - version 1.1.21
 * Fix - Include languages folder and POT file in the release.
 * Tweak - WC 6.2 compatibility.

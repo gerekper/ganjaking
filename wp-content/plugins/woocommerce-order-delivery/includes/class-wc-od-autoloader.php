@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 			$file = $this->get_file_name_from_class( $class );
 
 			/**
-			 * Filters the autoload classes.
+			 * Filters autoload classes.
 			 *
 			 * @since 1.0.0
 			 *

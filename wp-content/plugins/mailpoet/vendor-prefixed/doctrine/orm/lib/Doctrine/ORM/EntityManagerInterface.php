@@ -6,6 +6,7 @@ use BadMethodCallException;
 use DateTimeInterface;
 use MailPoetVendor\Doctrine\Common\EventManager;
 use MailPoetVendor\Doctrine\DBAL\Connection;
+use MailPoetVendor\Doctrine\DBAL\LockMode;
 use MailPoetVendor\Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use MailPoetVendor\Doctrine\ORM\Proxy\ProxyFactory;
 use MailPoetVendor\Doctrine\ORM\Query\Expr;

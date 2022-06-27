@@ -7,14 +7,14 @@ abstract class AbstractLoader implements LoaderInterface
 {
  public const DEFAULT_NAMESPACE = '\\Symfony\\Component\\Validator\\Constraints\\';
  protected $namespaces = [];
- protected function addNamespaceAlias($alias, $namespace)
+ protected function addNamespaceAlias(string $alias, string $namespace)
  {
  $this->namespaces[$alias] = $namespace;
  }
- protected function newConstraint($name, $options = null)
+ protected function newConstraint(string $name, $options = null)
  {
  if (\str_contains($name, '\\') && \class_exists($name)) {
- $className = (string) $name;
+ $className = $name;
  } elseif (\str_contains($name, ':')) {
  [$prefix, $className] = \explode(':', $name, 2);
  if (!isset($this->namespaces[$prefix])) {

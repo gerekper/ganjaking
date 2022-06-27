@@ -97,11 +97,7 @@ class WC_Points_Rewards_Admin {
 		add_action( 'woocommerce_process_shop_coupon_meta', array( $this, 'save_coupon_points_modifier_field' ) );
 
 		// Sync variation prices.
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			add_action( 'woocommerce_variable_product_sync', array( $this, 'variable_product_sync' ), 10, 2 );
-		} else {
-			add_action( 'woocommerce_variable_product_sync_data', array( $this, 'variable_product_sync' ), 10 );
-		}
+		add_action( 'woocommerce_variable_product_sync_data', array( $this, 'variable_product_sync' ), 10 );
 
 		// Tool to clear points.
 		add_filter( 'woocommerce_debug_tools', array( $this, 'woocommerce_debug_tools' ) );
@@ -481,16 +477,10 @@ class WC_Points_Rewards_Admin {
 	 * Filters the save custom field type functions so they get sanitized correctly
 	 */
 	public function save_custom_field_types() {
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.4.0', '>=' ) ) {
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_earn_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_redeem_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_label', array( $this, 'save_singular_plural_field' ), 10, 3 );
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_expiry', array( $this, 'save_points_expiry' ), 10, 3 );
-		} else {
-			add_action( 'woocommerce_update_option_conversion_ratio', array( $this, '_deprecated_save_conversion_ratio_field' ) );
-			add_action( 'woocommerce_update_option_singular_plural', array( $this, '_deprecated_save_singular_plural_field' ) );
-			add_action( 'woocommerce_update_option_points_expiry', array( $this, '_deprecated_save_points_expiry' ) );
-		}
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_earn_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_redeem_points_ratio', array( $this, 'save_conversion_ratio_field' ), 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_label', array( $this, 'save_singular_plural_field' ), 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_points_rewards_points_expiry', array( $this, 'save_points_expiry' ), 10, 3 );
 	}
 
 	/**
@@ -817,15 +807,6 @@ class WC_Points_Rewards_Admin {
 	}
 
 	/**
-	 * Backward compatible function to deal with deprecated actions in 2.4
-	 * @since 2.4
-	 */
-	public function _deprecated_save_points_expiry( $option ) {
-		$value = $this->save_points_expiry( null, $option, null );
-		update_option( $option['id'], $value );
-	}
-
-	/**
 	 * Save the Earn Points/Redeem Points Conversion Ratio field
 	 *
 	 * @since 1.0
@@ -858,15 +839,6 @@ class WC_Points_Rewards_Admin {
 	}
 
 	/**
-	 * Backward compatible function to deal with deprecated actions in 2.4
-	 * @since 2.4
-	 */
-	public function _deprecated_save_conversion_ratio_field( $option ) {
-		$value = $this->save_conversion_ratio_field( null, $option, null );
-		update_option( $option['id'], $value );
-	}
-
-	/**
 	 * Save the singular-plural text fields
 	 *
 	 * @since 0.1
@@ -877,16 +849,6 @@ class WC_Points_Rewards_Admin {
 		if ( ! empty( $_POST[ $option['id'] . '_singular' ] ) && ! empty( $_POST[ $option['id'] . '_plural' ] ) )
 			return wc_clean( $_POST[ $option['id'] . '_singular' ] ) . ':' . wc_clean( $_POST[ $option['id'] . '_plural' ] );
 	}
-
-	/**
-	 * Backward compatible function to deal with deprecated actions in 2.4
-	 * @since 2.4
-	 */
-	public function _deprecated_save_singular_plural_field( $option ) {
-		$value = $this->save_singular_plural_field( null, $option, null );
-		update_option( $option['id'], $value );
-	}
-
 
 	/**
 	 * Render the 'Points Expry' section
@@ -1059,10 +1021,7 @@ class WC_Points_Rewards_Admin {
 						);
 					}
 
-					// WC 2.2+
-					if ( version_compare( WC_VERSION, '2.2.0', '>=' ) ) {
-						$args['post_status'] = array( 'wc-processing', 'wc-completed' );
-					}
+					$args['post_status'] = array( 'wc-processing', 'wc-completed' );
 
 					// grab a set of order ids for existing orders with no earned points set
 					$order_ids = get_posts( $args );
@@ -1193,12 +1152,8 @@ class WC_Points_Rewards_Admin {
 	 * @param array $children In WC3.0+ this is not passed.
 	 */
 	public function variable_product_sync( $product, $children = array() ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$variation_id = $product;
-		} else {
-			$variation_id = $product->get_id();
-			$children     = $product->get_children();
-		}
+		$variation_id = $product->get_id();
+		$children     = $product->get_children();
 
 		$wc_max_points_earned = '';
 		$wc_min_points_earned = '';

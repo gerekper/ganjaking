@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Recommendation Engine 3.2.8\n"
+"Project-Id-Version: WooCommerce Recommendation Engine 3.2.9\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-recommendation-engine\n"
-"POT-Creation-Date: 2022-01-12 10:53:09+00:00\n"
+"POT-Creation-Date: 2022-06-08 12:26:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,22 +190,22 @@ msgstr ""
 msgid "A list of all recorded session history"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:450
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:450
+#: admin/class-wc-recommender-admin.php:454
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:454
 msgid "Recommendations rebuilt for %d products"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:454
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:454
+#: admin/class-wc-recommender-admin.php:458
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:458
 msgid "Please choose at least one product"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:462
-#: admin/class-wc-recommender-admin.php:471
-#: admin/class-wc-recommender-admin.php:479
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:462
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:471
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:479
+#: admin/class-wc-recommender-admin.php:466
+#: admin/class-wc-recommender-admin.php:475
+#: admin/class-wc-recommender-admin.php:483
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:466
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:475
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:483
 msgid "Session Activity Truncuated Before %s"
 msgstr ""
 
@@ -255,9 +255,9 @@ msgstr ""
 msgid "Purchased Together:"
 msgstr ""
 
-#: admin/class-wc-recommender-table-recommendations.php:240
+#: admin/class-wc-recommender-table-recommendations.php:244
 #: admin/class-wc-recommender-table-session-history.php:217
-#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:240
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:244
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:217
 msgid "Empty folder"
 msgstr ""
@@ -473,47 +473,47 @@ msgid "Adding Also Purchased for ProductID: %d"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:56
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:55
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:56
 msgid "Adding Purchased Together for ProductID: %d"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:71
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:70
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:71
 msgid "Recommendations Rebuilt."
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:78
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:77
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:78
 msgid "Recommendations Engine Is Installing Stats"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:90
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:89
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:90
 msgid "Processing %d orders"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:94
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:93
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:94
 msgid "Installing Stats for OrderID: %s"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:123
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:122
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:123
 msgid "Recording Activity for ProductID: %s"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:141
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:140
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:141
 msgid "Updating Activity for ProductID: %s"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:165
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:164
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:165
 msgid "Recording View for ProductID: %s"
 msgstr ""
 
 #: classes/class-wc-recommender-cli-rebuild.php:180
-#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:179
+#: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:180
 msgid "No orders found to process"
 msgstr ""
 

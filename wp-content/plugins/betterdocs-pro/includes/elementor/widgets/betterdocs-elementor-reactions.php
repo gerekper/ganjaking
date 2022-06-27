@@ -60,7 +60,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->end_controls_section();
         }
 
-        protected function _register_controls () {
+        protected function register_controls () {
 
             if (!is_plugin_active('betterdocs-pro/betterdocs-pro.php')) {
                 $this->betterdocs_pro_not_activated();

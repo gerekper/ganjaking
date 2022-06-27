@@ -2,10 +2,11 @@
 namespace MailPoetVendor\Twig\TokenParser;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Node\IncludeNode;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 class IncludeTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $expr = $this->parser->getExpressionParser()->parseExpression();
  list($variables, $only, $ignoreMissing) = $this->parseArguments();
@@ -44,9 +45,8 @@ class IncludeTokenParser extends AbstractTokenParser
  );
  return [$variables, $only, $ignoreMissing];
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'include';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\IncludeTokenParser', 'MailPoetVendor\\Twig_TokenParser_Include');

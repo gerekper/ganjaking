@@ -1,69 +1,56 @@
-.notice {
-  margin: 5px 20px 15px 2px;
+.settings_page_perfmatters .notice {
+  margin: 10px 0px;
 }
-
-.update-nag {
+.settings_page_perfmatters .update-nag {
   margin-top: 5px;
 }
-
 #setting-error-perfmatters-hidden-notice {
   display: none;
 }
 
 /* Header */
 #perfmatters-admin-header {
+  display: flex;
+  align-items: center;
   background: #282E34;
-  margin: 0px 0px 10px -20px;
+  margin: 0px 0px 0px -20px;
   padding: 0px 20px 0px 22px;
   overflow: hidden;
 }
-#perfmatters-admin-header #perfmatters-admin-header-logo {
-  color: #ffffff;
-  margin: 0px;
-  display: inline-block;
-  height: 60px;
-  float: left;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+#perfmatters-logo {
+  height: 24px;
+  margin-right: 10px;
 }
-#perfmatters-admin-header #perfmatters-admin-header-logo img {
-  display: inline-block;
-  height: 32px;
-  margin: 14px 0px 14px 0px;
-}
-#perfmatters-admin-header #perfmatters-admin-header-logo span {
-  font-size: 12px;
-  margin: 0px 0px 5px 5px;
+#perfmatters-page-title {
+  font-size: 24px;
+  color: #fff;
 }
 #perfmatters-admin-header #perfmatters-admin-header-buttons {
   line-height: 60px;
   height: 60px;
   display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
   align-items: center;
-  float: right;
   margin: 0px 0px 0px 20px;
 }
 #perfmatters-admin-header #perfmatters-admin-header-buttons a {
-  display: inline-block;
-  background: rgba(0,0,0,0.15);
   padding: 8px 10px;
   color: white;
   text-decoration: none;
-  margin: 0px 0px 0px 20px;
+  margin: 0px 0px 0px 10px;
   line-height: normal;
   font-size: 13px;
+  border-radius: 3px;
 }
-
-#perfmatters-admin-header #perfmatters-admin-header-buttons a:hover {
+#perfmatters-admin-header #perfmatters-admin-header-buttons a:hover, #perfmatters-admin-header #perfmatters-admin-header-buttons a.perfmatters-active {
   background: rgba(0,0,0,0.25);
 }
-
 #perfmatters-admin-header #perfmatters-admin-header-buttons a i {
   width: auto;
   height: auto;
   font-size: 14px;
-  margin: 2px 4px 0px 0px;
+  margin: 0px 4px 0px 0px;
 }
 
 #perfmatters-admin-header #perfmatters-admin-header-notice {
@@ -76,43 +63,19 @@
   font-weight: bold;
 }
 
-@media all and (max-width: 1240px) {
-  #perfmatters-admin-header #perfmatters-admin-header-notice {
-    display: none;
-  }
-}
-
-@media all and (max-width: 600px) {
-  #perfmatters-admin-header #perfmatters-admin-header-logo, #perfmatters-admin-header #perfmatters-admin-header-buttons {
-    width: 100%;
-  }  
-  #perfmatters-admin-header #perfmatters-admin-header-buttons {
-    align-items: start;
-    justify-content: center;
-    height: 50px;
-    line-height: 50px;
-  }
-  #perfmatters-admin-header #perfmatters-admin-header-buttons a:first-child {
-    margin-left: 0px;
-  }
-}
-
-#perfmatters-admin {
-  margin-top: 0px;
-}
-
 /* Navigation */
-#perfmatters-admin .nav-tab-wrapper {
-  padding-top: 0px;
-  margin-top: 15px;
-}
 #perfmatters-admin .perfmatters-subnav {
-  padding: 10px 0px 0px 0px;
+  display: flex;
+  background: #fff;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #e2e4e7;
 }
 #perfmatters-admin .perfmatters-subnav a {
-  display: inline-block;
-  font-size: 15px; 
-  margin: 0px 0px 5px 0px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px; 
   padding: 10px;
   text-decoration: none;
   box-shadow: none;
@@ -127,30 +90,32 @@
 }
 #perfmatters-admin .perfmatters-subnav a span.dashicons {
   margin-right: 3px;
-  font-size: 19px;
+  font-size: 13px;
+  width: 13px;
+  height: 13px;
 }
 
 /* General UI */
+.perfmatters-settings-section {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e4e7;
+  border-radius: 3px;
+}
+#perfmatters-admin .section-content {
+  display: none;
+}
 #perfmatters-admin .section-content.active {
   display: block;
 }
-#perfmatters-admin .section-content.hide {
-  display: none;
-}
 
 #perfmatters-admin h2 {
-	font-size: 24px;
-	line-height: normal;
-	margin: 25px 0px 0px 0px;
-}
-
-#perfmatters-admin p.perfmatters-subheading {
-	font-size: 12px;
-	line-height: normal;
-	font-style: italic;
-	margin: 5px 0px 0px 0px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #dddddd;
+	font-size: 18px;
+  line-height: normal;
+  margin: 0px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e4e7;
 }
 
 #perfmatters-admin p.perfmatters-warning {
@@ -159,12 +124,17 @@
   padding: 10px;
   font-weight: bold;
 }
+#perfmatters-admin .form-table th {
+  padding: 15px 10px 15px 0px;
+  font-size: 13px;
+  font-weight: normal;
+}
 
 #perfmatters-admin .form-table td {
   position: relative;
-  vertical-align: top;
+  padding: 10px;
 }
-#perfmatters-admin .switch {
+#perfmatters-admin .perfmatters-switch {
   position: relative;
   display: inline-block;
   width: 48px;
@@ -172,7 +142,7 @@
   font-size: 1px;
 }
 
-#perfmatters-admin .switch input {
+#perfmatters-admin .perfmatters-switch input {
   display: block;
   margin: 0px;
   border: none;
@@ -180,41 +150,35 @@
   box-shadow: none;
 }
 
-#perfmatters-admin .slider {
+#perfmatters-admin .perfmatters-slider {
   position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 3px;
 }
 
-#perfmatters-admin .slider:before {
+#perfmatters-admin .perfmatters-slider:before {
   position: absolute;
   content: "";
   height: 20px;
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
+  background-color: #fff;
   transition: .4s;
+  border-radius: 3px;
 }
 
-#perfmatters-admin input:checked + .slider {
+#perfmatters-admin input:checked + .perfmatters-slider {
   background-color: #007cba;
 }
 
-#perfmatters-admin input:focus + .slider {
+#perfmatters-admin input:focus + .perfmatters-slider {
   box-shadow: 0 0 1px #007cba;
 }
 
-#perfmatters-admin input:checked + .slider:before {
-  -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
+#perfmatters-admin input:checked + .perfmatters-slider:before {
   transform: translateX(20px);
 }
 
@@ -263,15 +227,14 @@
   flex-shrink: 0;
   float: right;
   margin-right: -10px;
-  margin-top: 1px;
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
   vertical-align: top;
   text-align: center;
-  line-height: 15px;
+  line-height: 16px;
   font-size: 12px;
-  background: #ffffff;
-  color: #bbbbbb;
+  background: #F0F0F1;
+  color: #777;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -345,10 +308,6 @@
   margin: 0px;
   padding: 0px;
   float: left;
-}
-
-#perfmatters-admin p.submit .button, #perfmatters-admin #perfmatters-restore .button {
-  margin: 10px 10px 0px 0px;
 }
 
 #perfmatters-admin .perfmatters-button-warning {
@@ -460,4 +419,31 @@ a.perfmatters-add-input-row {
 
 #perfmatters-admin ::placeholder {
   color: #ccc;
+}
+
+@media all and (max-width: 1240px) {
+  #perfmatters-admin-header #perfmatters-admin-header-notice {
+    display: none;
+  }
+}
+
+@media all and (max-width: 782px) {
+  #perfmatters-admin-header #perfmatters-admin-header-buttons a:first-child {
+    margin-left: 0px;
+  }
+  #perfmatters-admin .perfmatters-subnav {
+    flex-direction: column;
+  }
+  .perfmatters-mobile-hide {
+    display: none !important;
+  }
+  #perfmatters-admin .form-table td {
+    padding: 0px;
+  }
+  #perfmatters-admin .perfmatters-tooltip-text {
+    display: none !important;
+  }
+  #perfmatters-admin textarea {
+    min-width:  0px;
+  }
 }

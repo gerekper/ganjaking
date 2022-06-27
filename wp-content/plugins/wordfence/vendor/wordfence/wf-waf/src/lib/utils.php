@@ -1101,7 +1101,7 @@ class wfWAFUtils {
 						!is_array($endParenToken) && $endParenToken === ')'
 					) {
 						if (token_name($constantValueToken[0]) === 'T_STRING') {
-							$value = constant($constantValueToken[1]);
+							$value = defined($constantValueToken[1]) ? constant($constantValueToken[1]) : null;
 						}
 						else {
 							$value = self::substr($constantValueToken[1], 1, -1);

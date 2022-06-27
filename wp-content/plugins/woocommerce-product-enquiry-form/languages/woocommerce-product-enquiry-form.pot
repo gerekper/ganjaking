@@ -1,15 +1,15 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Enquiry Form 1.2.19\n"
+"Project-Id-Version: WooCommerce Product Enquiry Form 1.2.24\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-enquiry-form\n"
-"POT-Creation-Date: 2021-08-10 23:11:16+00:00\n"
+"POT-Creation-Date: 2022-06-07 15:14:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: woocommerce-product-enquiry-form.php:194
 #: woocommerce-product-enquiry-form.php:214
-#: woocommerce-product-enquiry-form.php:352
+#: woocommerce-product-enquiry-form.php:355
 msgid "Product Enquiry"
 msgstr ""
 
@@ -104,53 +104,53 @@ msgstr ""
 msgid "What would you like to know?"
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:251
+#: woocommerce-product-enquiry-form.php:254
 msgid "Send Enquiry"
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:265
+#: woocommerce-product-enquiry-form.php:268
 msgid "Please enter your name."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:271
+#: woocommerce-product-enquiry-form.php:274
 msgid "Please enter your email."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:277
+#: woocommerce-product-enquiry-form.php:280
 msgid "Please enter your enquiry."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:295
+#: woocommerce-product-enquiry-form.php:298
 msgid "Enquiry sent successfully. We will get back to you shortly."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:398
+#: woocommerce-product-enquiry-form.php:401
 msgid "Invalid product!"
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:401
+#: woocommerce-product-enquiry-form.php:404
 msgid "Please enter a valid email."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:412
+#: woocommerce-product-enquiry-form.php:415
 msgid "Please click on the anti-spam checkbox."
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:417
+#: woocommerce-product-enquiry-form.php:420
 msgid "Product Enquiry - %s"
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:420
+#: woocommerce-product-enquiry-form.php:423
 msgid "Hello, "
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:422
+#: woocommerce-product-enquiry-form.php:425
 msgid ""
 "You have been contacted by %s (%s) about %s (%s). Their enquiry is as "
 "follows: "
 msgstr ""
 
-#: woocommerce-product-enquiry-form.php:478
+#: woocommerce-product-enquiry-form.php:481
 msgid "Disable enquiry form?"
 msgstr ""
 

@@ -1,5 +1,14 @@
 *** Warranty Requests Changelog ***
 
+2022-04-04 - version 1.9.33
+* Tweak - Add 'after_warranty_create_coupon' action hook and 'warranty_update_request_data' filter hook.
+
+2022-03-28 - version 1.9.32
+* Fix   - Validity column broken on warranty report tables.
+* Fix   - "Manage Return" orders page action button not displaying properly.
+* Fix   - warranty_get_item_amount() not calculating the correct refund amount.
+* Tweak - Update WC 6.3 and WP 5.9 compatibility.
+
 2022-01-05 - version 1.9.31
 * Fix   - Missing Languages folder and .pot file in release-ready zip file.
 

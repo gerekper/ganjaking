@@ -216,7 +216,7 @@ wp_enqueue_style( 'wp-color-picker' );
 								<li><label for="spinner-<?php echo absint( $image ); ?>" class="sui-box-selector">
 									<input type="radio" name="animation[spinner-icon]" id="spinner-<?php echo absint( $image ); ?>" value="<?php echo absint( $image ); ?>" <?php checked( $image === $settings['animation']['spinner']['selected'] ); ?> />
 									<span>
-										<button class="remove-selector sui-button-icon sui-tooltip smush-ll-remove" data-tooltip="<?php esc_attr_e( 'Remove', 'wp-smushit' ); ?>">
+										<button class="remove-selector sui-button-icon sui-tooltip smush-ll-remove" data-id="<?php echo absint( $image ); ?>" data-tooltip="<?php esc_attr_e( 'Remove', 'wp-smushit' ); ?>">
 											<i class="sui-icon-close" aria-hidden="true" data-id="<?php echo absint( $image ); ?>" data-type="spinner"></i>
 										</button>
 

@@ -6,9 +6,9 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\TrueType;
+namespace WooCommercePDFInvoiceFontLib\TrueType;
 
-use FontLib\Table\DirectoryEntry;
+use WooCommercePDFInvoiceFontLib\Table\DirectoryEntry;
 
 /**
  * TrueType table directory entry.

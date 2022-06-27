@@ -78,7 +78,10 @@ class Redsys_Push_Notifications_Menu {
 	 */
 	public static function get_settings() {
 
-		$readonly = array( 'disabled' => 'disabled' );
+		$readonly = array(
+			'checked'  => 'checked',
+			'disabled' => 'disabled',
+		);
 		$settings = array(
 			'title'               => array(
 				'name' => esc_html__( 'Redsys Push Notifications (by José Conti)', 'woocommerce-redsys' ),

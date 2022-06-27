@@ -31,10 +31,14 @@ class WCS_Cart_Early_Renewal extends WCS_Cart_Renewal {
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'maybe_record_early_renewal' ), 100, 2 );
 		} else {
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 2 );
-			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) || \Automattic\WooCommerce\Blocks\Package::is_experimental_build() ) ) {
-				add_action( 'woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 1 );
-			} else {
-				add_action( '__experimental_woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 1 );
+			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) ) {
+				if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+					add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 1 );
+				} elseif ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) ) {
+					add_action( 'woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 1 );
+				} else {
+					add_action( '__experimental_woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_early_renewal_metadata_to_order' ), 100, 1 );
+				}
 			}
 		}
 

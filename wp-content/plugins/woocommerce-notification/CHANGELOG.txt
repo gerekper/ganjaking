@@ -1,3 +1,16 @@
+/*1.4.6 - 2022.03.29**/
+- Updated: Update support file
+
+/*1.4.5 - 2022.03.22**/
+- Fixed: Fixed able replace multi shortcode in message
+- Fixed: Error when getting null data from orders
+- Updated: Compatible with WC6.3.0
+- Updated: Update support file
+
+/*1.4.4 - 2022.02.11**/
+- Update: Compatible with WC 6.2.0 and WP5.9
+- Updated: Compatible with WooCommerce Cart All in One by VillaTheme
+
 /*1.4.3 - 2021.12.31**/
 - Fixed: Compatible with the Polylang plugin
 - Updated: Compatibility with WC6.0.0

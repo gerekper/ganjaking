@@ -31,7 +31,7 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 	 */
 	public static function init_fields( $the_subscription ) {
 		$subscription  = wcs_get_subscription( $the_subscription );
-		$delivery_date = wc_od_get_subscription_delivery_field_value( $the_subscription, 'delivery_date' );
+		$delivery_date = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
 
 		$fields = array(
 			'delivery_date' => array(
@@ -92,7 +92,7 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 	public static function output( $post = null ) {
 		global $thepostid;
 
-		$the_subscription = ( isset( $_POST['post_id'] ) ? wc_clean( wp_unslash( $_POST['post_id'] ) ) : $post->ID ); // WPCS: CSRF ok, sanitization ok.
+		$the_subscription = ( isset( $_POST['post_id'] ) ? wc_clean( wp_unslash( $_POST['post_id'] ) ) : $post->ID ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		// Set the global variable for AJAX requests.
 		$thepostid = $the_subscription;
@@ -118,7 +118,7 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 			return;
 		}
 
-		$delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
+		$delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		if ( $delivery_date ) {
 			wc_od_update_order_meta( $post_id, '_delivery_date', $delivery_date, true );

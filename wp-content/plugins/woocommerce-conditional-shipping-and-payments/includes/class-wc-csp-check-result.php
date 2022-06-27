@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Check_Result class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -17,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class    WC_CSP_Check_Result
  * @version  1.11.0
- * @author   SomewhereWarm
  *
  */
 class WC_CSP_Check_Result {

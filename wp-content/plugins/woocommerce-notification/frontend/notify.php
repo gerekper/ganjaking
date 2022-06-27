@@ -19,7 +19,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			return;
 		}
 		add_action( 'wp_print_styles', array( $this, 'wp_print_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'init_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'init_scripts' ), 4 );
 
 		add_action( 'wp_ajax_nopriv_woonotification_get_product', array( $this, 'product_html' ) );
 		add_action( 'wp_ajax_woonotification_get_product', array( $this, 'product_html' ) );
@@ -894,21 +894,11 @@ class VI_WNOTIFICATION_Frontend_Notify {
 									$product_thumb ) : '',
 								'time'       => $this->time_substract( $order->get_date_created()->date_i18n( "Y-m-d H:i:s" ) ),
 								'time_org'   => $order->get_date_created()->date_i18n( "Y-m-d H:i:s" ),
-								'first_name' => base64_encode( ucfirst( get_post_meta( $order_id,
-									'_billing_first_name',
-									true ) ) ),
-								'last_name'  => base64_encode( ucfirst( get_post_meta( $order_id,
-									'_billing_last_name',
-									true ) ) ),
-								'city'       => base64_encode( ucfirst( get_post_meta( $order_id,
-									'_billing_city',
-									true ) ) ),
-								'state'      => base64_encode( ucfirst( get_post_meta( $order_id,
-									'_billing_state',
-									true ) ) ),
-								'country'    => base64_encode( ucfirst( WC()->countries->countries[ get_post_meta( $order_id,
-									'_billing_country',
-									true ) ] ) ),
+								'first_name' => get_post_meta( $order_id, '_billing_first_name', true ) ? base64_encode( ucfirst( get_post_meta( $order_id, '_billing_first_name', true ) ) ) : '',
+								'last_name'  => get_post_meta( $order_id, '_billing_last_name', true ) ? base64_encode( ucfirst( get_post_meta( $order_id, '_billing_last_name', true ) ) ) : '',
+								'city'       => get_post_meta( $order_id, '_billing_city', true ) ? base64_encode( ucfirst( get_post_meta( $order_id, '_billing_city', true ) ) ) : '',
+								'state'      => get_post_meta( $order_id, '_billing_state', true ) ? base64_encode( ucfirst( get_post_meta( $order_id, '_billing_state', true ) ) ) : '',
+								'country'    => get_post_meta( $order_id, '_billing_country', true ) ? base64_encode( ucfirst( WC()->countries->countries[ get_post_meta( $order_id, '_billing_country', true ) ] ) ) : '',
 							);
 							if ( ! $product_tmp['thumb'] && $p_data->is_type( 'variation' ) ) {
 								$parent_id = $p_data->get_parent_id();
@@ -1200,6 +1190,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		if ( ! $enable ) {
 			return;
 		}
+
 		$enable_mobile = $this->settings->enable_mobile();
 		if ( ! $enable_mobile && wp_is_mobile() ) {
 			return;

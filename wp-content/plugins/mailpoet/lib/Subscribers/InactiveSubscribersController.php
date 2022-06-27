@@ -17,7 +17,10 @@ use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class InactiveSubscribersController {
 
-  private $inactiveTaskIdsTableCreated = false;
+  const UNOPENED_EMAILS_THRESHOLD = 3;
+  const LIFETIME_EMAILS_THRESHOLD = 10;
+
+  private $processedTaskIdsTableCreated = false;
 
   /** @var SettingsRepository */
   private $settingsRepository;
@@ -33,9 +36,9 @@ class InactiveSubscribersController {
     $this->entityManager = $entityManager;
   }
 
-  public function markInactiveSubscribers(int $daysToInactive, int $batchSize, ?int $startId = null) {
+  public function markInactiveSubscribers(int $daysToInactive, int $batchSize, ?int $startId = null, ?int $unopenedEmails = self::UNOPENED_EMAILS_THRESHOLD) {
     $thresholdDate = $this->getThresholdDate($daysToInactive);
-    return $this->deactivateSubscribers($thresholdDate, $batchSize, $startId);
+    return $this->deactivateSubscribers($thresholdDate, $batchSize, $startId, $unopenedEmails);
   }
 
   public function markActiveSubscribers(int $daysToInactive, int $batchSize): int {
@@ -62,7 +65,7 @@ class InactiveSubscribersController {
   /**
    * @return int|bool
    */
-  private function deactivateSubscribers(Carbon $thresholdDate, int $batchSize, ?int $startId = null) {
+  private function deactivateSubscribers(Carbon $thresholdDate, int $batchSize, ?int $startId = null, ?int $unopenedEmails = self::UNOPENED_EMAILS_THRESHOLD) {
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
     $scheduledTasksTable = $this->entityManager->getClassMetadata(ScheduledTaskEntity::class)->getTableName();
     $scheduledTaskSubscribersTable = $this->entityManager->getClassMetadata(ScheduledTaskSubscriberEntity::class)->getTableName();
@@ -80,45 +83,49 @@ class InactiveSubscribersController {
       return false;
     }
 
-    // We take into account only emails which have at least one opening tracked
-    // to ensure that tracking was enabled for the particular email
-    $inactiveTaskIdsTable = 'inactive_task_ids';
-    if (!$this->inactiveTaskIdsTableCreated) {
-      $inactiveTaskIdsTableSql = "
-        CREATE TEMPORARY TABLE IF NOT EXISTS {$inactiveTaskIdsTable}
+    // Temporary table with processed tasks from threshold date up to yesterday
+    $processedTaskIdsTable = 'inactive_task_ids';
+    if (!$this->processedTaskIdsTableCreated) {
+      $processedTaskIdsTableSql = "
+        CREATE TEMPORARY TABLE IF NOT EXISTS {$processedTaskIdsTable}
         (INDEX task_id_ids (id))
         SELECT DISTINCT task_id as id FROM {$sendingQueuesTable} as sq
           JOIN {$scheduledTasksTable} as st ON sq.task_id = st.id
           WHERE st.processed_at > :thresholdDate
           AND st.processed_at < :dayAgo
       ";
-      $connection->executeQuery($inactiveTaskIdsTableSql, [
+      $connection->executeQuery($processedTaskIdsTableSql, [
         'thresholdDate' => $thresholdDateIso,
         'dayAgo' => $dayAgoIso,
       ]);
-      $this->inactiveTaskIdsTableCreated = true;
+      $this->processedTaskIdsTableCreated = true;
     }
 
-    // Select subscribers who received a recent tracked email but didn't open it
+    // Select subscribers who received at least a number of emails after threshold date and subscribed before that
     $startId = (int)$startId;
     $endId = $startId + $batchSize;
+    $lifetimeEmailsThreshold = self::LIFETIME_EMAILS_THRESHOLD;
     $inactiveSubscriberIdsTmpTable = 'inactive_subscriber_ids';
     $connection->executeQuery("
       CREATE TEMPORARY TABLE IF NOT EXISTS {$inactiveSubscriberIdsTmpTable}
       (UNIQUE subscriber_id (id))
-      SELECT DISTINCT s.id FROM {$subscribersTable} as s
+      SELECT s.id FROM {$subscribersTable} as s
         JOIN {$scheduledTaskSubscribersTable} as sts USE INDEX (subscriber_id) ON s.id = sts.subscriber_id
-        JOIN {$inactiveTaskIdsTable} task_ids ON task_ids.id = sts.task_id
+        JOIN {$processedTaskIdsTable} task_ids ON task_ids.id = sts.task_id
       WHERE s.last_subscribed_at < :thresholdDate
         AND s.status = :status
         AND s.id >= :startId
         AND s.id < :endId
+        AND s.email_count >= {$lifetimeEmailsThreshold}
+      GROUP BY s.id
+      HAVING count(s.id) >= :unopenedEmailsThreshold
     ",
       [
         'thresholdDate' => $thresholdDateIso,
         'status' => SubscriberEntity::STATUS_SUBSCRIBED,
         'startId' => $startId,
         'endId' => $endId,
+        'unopenedEmailsThreshold' => $unopenedEmails,
     ]);
 
     $result = $connection->executeQuery("

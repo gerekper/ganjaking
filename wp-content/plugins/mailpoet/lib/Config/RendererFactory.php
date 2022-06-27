@@ -5,7 +5,7 @@ namespace MailPoet\Config;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Twig\Loader\FilesystemLoader as TwigFileSystem;
 
 class RendererFactory {
 
@@ -14,9 +14,14 @@ class RendererFactory {
 
   public function getRenderer() {
     if (!$this->renderer) {
-      $caching = WPFunctions::get()->applyFilters('mailpoet_template_cache_enabled', !WP_DEBUG);
       $debugging = WP_DEBUG;
-      $this->renderer = new Renderer($caching, $debugging);
+      $autoReload = defined('MAILPOET_DEVELOPMENT') && MAILPOET_DEVELOPMENT;
+      $this->renderer = new Renderer(
+        $debugging,
+        Env::$cachePath,
+        new TwigFileSystem(Env::$viewsPath),
+        $autoReload
+      );
     }
     return $this->renderer;
   }

@@ -21,6 +21,7 @@ use MailPoetVendor\Doctrine\ORM\Query\ParameterTypeInferer;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;
 use MailPoetVendor\Doctrine\ORM\Query\ParserResult;
 use MailPoetVendor\Doctrine\ORM\Query\QueryException;
+use MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping;
 use MailPoetVendor\Doctrine\ORM\Utility\HierarchyDiscriminatorResolver;
 use MailPoetVendor\Psr\Cache\CacheItemPoolInterface;
 use function array_keys;
@@ -206,7 +207,6 @@ final class Query extends AbstractQuery
  $originalValue = $parameter->getValue();
  $value = $originalValue;
  $rsm = $this->getResultSetMapping();
- assert($rsm !== null);
  if ($value instanceof ClassMetadata && isset($rsm->metadataParameterMapping[$key])) {
  $value = $value->getMetadataValue($rsm->metadataParameterMapping[$key]);
  }

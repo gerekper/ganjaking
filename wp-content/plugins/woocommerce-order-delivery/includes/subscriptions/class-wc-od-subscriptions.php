@@ -8,7 +8,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( version_compare( get_option( 'woocommerce_subscriptions_active_version' ), '2.2', '<' ) ) {
+if ( version_compare( get_option( 'woocommerce_subscriptions_active_version' ), '3.0', '<' ) ) {
 	add_action( 'admin_notices', 'wc_od_subscriptions_requirements_notice' );
 	return;
 }
@@ -21,7 +21,7 @@ if ( version_compare( get_option( 'woocommerce_subscriptions_active_version' ), 
 function wc_od_subscriptions_requirements_notice() {
 	if ( current_user_can( 'activate_plugins' ) ) :
 		/* translators: %s: woocommerce subscription version */
-		$message = sprintf( __( '<strong>WooCommerce Order Delivery</strong> requires WooCommerce Subscriptions %s or higher.', 'woocommerce-order-delivery' ), '2.2' );
+		$message = sprintf( __( '<strong>WooCommerce Order Delivery</strong> requires WooCommerce Subscriptions %s or higher.', 'woocommerce-order-delivery' ), '3.0' );
 
 		printf( '<div class="error"><p>%s</p></div>', wp_kses_post( $message ) );
 	endif;
@@ -71,33 +71,6 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 			if ( is_admin() ) {
 				include_once 'class-wc-od-subscription-admin.php';
 			}
-		}
-
-		/**
-		 * Restricts the maximum delivery days value to the minimum subscription period.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.5.5
-		 *
-		 * @param int $max_delivery_days The max delivery days value.
-		 * @return int The maximum delivery days.
-		 */
-		public function checkout_max_delivery_days( $max_delivery_days ) {
-			wc_deprecated_function( __METHOD__, '1.5.5', 'Moved to WC_OD_Subscriptions_Checkout->max_delivery_days()' );
-
-			return $max_delivery_days;
-		}
-
-		/**
-		 * Setups the subscription's delivery preferences.
-		 *
-		 * @since 1.5.0
-		 * @deprecated 1.5.5
-		 *
-		 * @param WC_Subscription $subscription The subscription instance.
-		 */
-		public function setup_delivery_preferences( $subscription ) {
-			wc_deprecated_function( __METHOD__, '1.5.5', 'wc_od_setup_subscription_delivery_preferences' );
 		}
 
 		/**
@@ -207,23 +180,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @return array An array with the order metadata.
 		 */
 		public function copy_order_meta( $meta, $to_order, $from_order ) {
-			$type = str_replace( array( 'wcs_', '_meta' ), '', current_filter() );
-
-			$copy_meta = array();
-
-			if ( 'subscription' !== $type ) {
-				/**
-				 * Filters the subscription delivery fields that will be copied as metadata to the order.
-				 *
-				 * @since      1.3.0
-				 * @deprecated 1.5.0 Use the `wc_od_exclude_order_meta` filter instead.
-				 *
-				 * @param array           $fields       An array with the field keys.
-				 * @param WC_Subscription $subscription The subscription instance.
-				 */
-				$copy_meta = apply_filters( 'wc_od_copy_order_meta', $copy_meta, $from_order );
-			}
-
+			$type          = str_replace( array( 'wcs_', '_meta' ), '', current_filter() );
 			$exclude_metas = array( '_delivery_days', '_shipping_date' );
 
 			// Use the checkout form fields values.
@@ -254,13 +211,10 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 
 			// Exclude the meta keys from the copy.
 			foreach ( $exclude_metas as $exclude_meta ) {
-				// Backward compatibility with the 'wc_od_copy_order_meta' hook.
-				if ( ! in_array( ltrim( $exclude_meta, '_' ), $copy_meta, true ) ) {
-					$index = array_search( $exclude_meta, $meta_keys, true );
+				$index = array_search( $exclude_meta, $meta_keys, true );
 
-					if ( false !== $index ) {
-						unset( $meta[ $index ] );
-					}
+				if ( false !== $index ) {
+					unset( $meta[ $index ] );
 				}
 			}
 
@@ -458,34 +412,6 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 				wc_od_update_order_meta( $order_id, '_shipping_date', $shipping_date, true );
 			}
 		}
-
-		/**
-		 * Registers the emails of a subscription that will include the delivery information.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.4.1
-		 *
-		 * @param array $email_ids The email IDs.
-		 * @return array An array with the email IDs.
-		 */
-		public function register_subscription_emails( $email_ids ) {
-			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->emails_with_delivery_details()' );
-
-			return $email_ids;
-		}
-
-		/**
-		 * Additional delivery information for the subscription emails.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 1.4.1
-		 *
-		 * @param array $args The arguments.
-		 */
-		public function email_after_delivery_details( $args ) {
-			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->delivery_details()' );
-		}
-
 	}
 }
 

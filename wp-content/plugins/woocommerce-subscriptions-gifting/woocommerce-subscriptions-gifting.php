@@ -5,11 +5,12 @@
  * Description: Allow customers to buy a subscription product for someone else, then share subscription management between the purchaser and recipient.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 2.2.0
+ * Version: 2.4.0
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text-Domain: woocommerce-subscriptions-gifting
  * Domain Path: /languages
+ * Tested up to: 6.0
  *
  * Woo: 2866545:ac28f8f74457de42a18d32c3ec48b272
  * WC requires at least: 3.0
@@ -58,7 +59,7 @@ class WCS_Gifting {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.2.0';
+	public static $version = '2.4.0';
 
 	/**
 	 * Minimum WooCommerce version required.
@@ -442,7 +443,7 @@ class WCS_Gifting {
 		}
 
 		if ( ! class_exists( 'WC_Subscription' ) ) {
-			self::output_plugin_dependency_notice( 'WooCommerce Subscriptions' );
+			self::output_plugin_dependency_notice( 'WooCommerce Subscriptions / WooCommerce Payments' );
 
 			return;
 		}
@@ -487,26 +488,32 @@ class WCS_Gifting {
 				</div>
 				<?php
 			} else {
-				switch ( $plugin_name ) {
-					case 'WooCommerce Subscriptions':
-						$plugin_url = 'http://www.woocommerce.com/products/woocommerce-subscriptions/';
-						break;
-					case 'WooCommerce':
-						$plugin_url = 'http://wordpress.org/extend/plugins/woocommerce/';
-						break;
-					default:
-						$plugin_url = '';
+				$message = null;
+
+				if ( 'WooCommerce Subscriptions / WooCommerce Payments' === $plugin_name ) {
+					$wcs_plugin_url   = 'http://www.woocommerce.com/products/woocommerce-subscriptions/';
+					$wcpay_plugin_url = 'http://www.woocommerce.com/products/woocommerce-payments/';
+
+					// translators: 1$-2$: opening and closing <strong> tags, 3$:opening link tag, leads to WooCommerce Payments plugin product page, 4$:opening link tag, leads to WooCommerce Subscriptions plugin product page, 5$-6$: opening and closing link tags, leads to plugins.php in admin.
+					$message = sprintf( esc_html__( '%1$sWooCommerce Subscriptions Gifting is inactive.%2$s WooCommerce Subscriptions Gifting requires either the %3$sWooCommerce Payments%6$s or %4$sWooCommerce Subscriptions%6$s plugin to be active to work correctly. Please %5$sinstall & activate either one &raquo;%6$s', 'woocommerce-subscriptions-gifting' ), '<strong>', '</strong>', '<a href="' . esc_url( $wcpay_plugin_url ) . '">', '<a href="' . esc_url( $wcs_plugin_url ) . '">', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' );
+				} elseif ( 'WooCommerce' === $plugin_name ) {
+					$plugin_url = 'http://wordpress.org/extend/plugins/woocommerce/';
+
+					// translators: 1$-2$: opening and closing <strong> tags, 3$ plugin name, 4$:opening link tag, leads to plugin product page, 5$-6$: opening and closing link tags, leads to plugins.php in admin.
+					$message = sprintf( esc_html__( '%1$sWooCommerce Subscriptions Gifting is inactive.%2$s WooCommerce Subscriptions Gifting requires the %4$s%3$s%6$s plugin to be active to work correctly. Please %5$sinstall & activate %3$s &raquo;%6$s', 'woocommerce-subscriptions-gifting' ), '<strong>', '</strong>', esc_html( $plugin_name ), '<a href="' . esc_url( $plugin_url ) . '">', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' );
 				}
-				?>
-				<div id="message" class="error">
-					<p>
-					<?php
-						// translators: 1$-2$: opening and closing <strong> tags, 3$ plugin name, 4$:opening link tag, leads to plugin product page, 5$-6$: opening and closing link tags, leads to plugins.php in admin.
-						printf( esc_html__( '%1$sWooCommerce Subscriptions Gifting is inactive.%2$s WooCommerce Subscriptions Gifting requires the %4$s%3$s%6$s plugin to be active to work correctly. Please %5$sinstall & activate %3$s &raquo;%6$s', 'woocommerce-subscriptions-gifting' ), '<strong>', '</strong>', esc_html( $plugin_name ), '<a href="' . esc_url( $plugin_url ) . '">', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' );
+
+				if ( $message ) {
 					?>
-					</p>
-				</div>
-				<?php
+					<div id="message" class="error">
+						<p>
+						<?php
+							echo $message; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						?>
+						</p>
+					</div>
+					<?php
+				}
 			}
 		}
 	}

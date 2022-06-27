@@ -37,15 +37,17 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 		$this->init_form_fields();
 
 		// Get settings
-		$this->enabled            = 'yes';
-		$this->title              = $this->get_option( 'title', __( 'Table Rate', 'woocommerce-table-rate-shipping' ) );
-		$this->fee                = $this->get_option( 'handling_fee' );
-		$this->order_handling_fee = $this->get_option( 'order_handling_fee' );
-		$this->tax_status         = $this->get_option( 'tax_status' );
-		$this->calculation_type   = $this->get_option( 'calculation_type' );
-		$this->min_cost           = $this->get_option( 'min_cost' );
-		$this->max_cost           = $this->get_option( 'max_cost' );
-		$this->max_shipping_cost  = $this->get_option( 'max_shipping_cost' );
+		$this->enabled               = 'yes';
+		$this->title                 = $this->get_option( 'title', __( 'Table Rate', 'woocommerce-table-rate-shipping' ) );
+		$this->fee                   = $this->get_option( 'handling_fee' );
+		$this->order_handling_fee    = $this->get_option( 'order_handling_fee' );
+		$this->tax_status            = $this->get_option( 'tax_status' );
+		$this->calculation_type      = $this->get_option( 'calculation_type' );
+		$this->minmax_after_discount = $this->get_option( 'minmax_after_discount' );
+		$this->minmax_with_tax       = $this->get_option( 'minmax_with_tax' );
+		$this->min_cost              = $this->get_option( 'min_cost' );
+		$this->max_cost              = $this->get_option( 'max_cost' );
+		$this->max_shipping_cost     = $this->get_option( 'max_shipping_cost' );
 
 		// Table rate specific variables
 		$this->rates_table     = $wpdb->prefix . 'woocommerce_shipping_table_rates';
@@ -240,7 +242,23 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 				'desc_tip'    => true,
 				'description' => __( 'Maximum cost for this shipping method (optional). If the cost is higher, this maximum cost will be enforced.', 'woocommerce-table-rate-shipping'),
 				'default'     => '',
-				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' )
+				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' ),
+			),
+			'minmax_after_discount' => array(
+				'title'       => __( 'Discounts in Min-Max', 'woocommerce-table-rate-shipping' ),
+				'label'       => __( 'Use discounted price when comparing Min-Max Price Conditions.', 'woocommerce-table-rate-shipping' ),
+				'type'        => 'checkbox',
+				'description' => __( 'When comparing Min-Max Price Condition for rate in Table Rates, set if discounted or non-discounted price should be used.', 'woocommerce-table-rate-shipping' ),
+				'default'     => '',
+				'desc_tip'    => true,
+			),
+			'minmax_with_tax' => array(
+				'title'       => __( 'Taxes in Min-Max', 'woocommerce-table-rate-shipping' ),
+				'label'       => __( 'Use price with tax when comparing Min-Max Price Conditions.', 'woocommerce-table-rate-shipping' ),
+				'type'        => 'checkbox',
+				'description' => __( 'When comparing Min-Max Price Condition for rate in Table Rates, set if price with taxes or without taxes should be used.', 'woocommerce-table-rate-shipping' ),
+				'default'     => '',
+				'desc_tip'    => true,
 			),
 		);
 
@@ -628,7 +646,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						$matched = true;
 
 						if ( $rate->rate_abort ) {
-							if ( ! empty( $rate->rate_abort_reason ) ) {
+							if ( ! empty( $rate->rate_abort_reason ) && ! wc_has_notice( $rate->rate_abort_reason, 'notice' ) ) {
 								$this->add_notice( $rate->rate_abort_reason, $package );
 							}
 							return;
@@ -758,15 +776,15 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 
 					// Rate matched class
 					if ( $rate_match ) {
-						$rate_label = ! empty( $rate->rate_label ) ? $rate->rate_label : $this->title;
-						$class_cost = 0;
+						$rate_label  = $this->title;
+						$class_cost  = 0;
 						$class_cost += (float) $rate->rate_cost;
 						$class_cost += (float) $rate->rate_cost_per_item * $class->items_in_class;
 						$class_cost += (float) $rate->rate_cost_per_weight_unit * $class->weight;
 						$class_cost += ( (float) $rate->rate_cost_percent / 100 ) * $class->price;
 
 						if ( $rate->rate_abort ) {
-							if ( ! empty( $rate->rate_abort_reason ) ) {
+							if ( ! empty( $rate->rate_abort_reason ) && ! wc_has_notice( $rate->rate_abort_reason, 'notice' ) ) {
 								$this->add_notice( $rate->rate_abort_reason, $package );
 							}
 							return;
@@ -853,7 +871,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 					$label = $this->title;
 
 				if ( $rate->rate_abort ) {
-					if ( ! empty( $rate->rate_abort_reason ) ) {
+					if ( ! empty( $rate->rate_abort_reason ) && ! wc_has_notice( $rate->rate_abort_reason, 'notice' ) ) {
 						$this->add_notice( $rate->rate_abort_reason, $package );
 					}
 					$rates = array(); // Clear rates
@@ -1023,10 +1041,13 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 */
 	public function get_product_price( $_product, $qty = 1, $item = array() ) {
 
-		// Use the product price based on the line item totals (including coupons and discounts).
-		// This is not enabled by default (since it can be interpreted differently).
-		if ( apply_filters( 'woocommerce_table_rate_compare_price_limits_after_discounts', false, $item ) && isset( $item['line_total'] ) ) {
-			return $item['line_total'] + ( ! empty( $item['line_tax'] ) ? $item['line_tax'] : 0 );
+		// Use the product price  with discounts or without discounts to calculate Min-Max conditions.
+		if ( apply_filters( 'woocommerce_table_rate_compare_price_limits_after_discounts', wc_string_to_bool( $this->minmax_after_discount ), $item ) && isset( $item['line_total'] ) ) {
+			$row_base_price = $item['line_total'] + ( wc_string_to_bool( $this->minmax_with_tax ) && isset( $item['line_tax'] ) ? $item['line_tax'] : 0 );
+			return apply_filters( 'woocommerce_table_rate_package_row_base_price', $row_base_price, $_product, $qty );
+		} elseif ( isset( $item['line_subtotal'] ) ) {
+			$row_base_price = $item['line_subtotal'] + ( wc_string_to_bool( $this->minmax_with_tax ) && isset( $item['line_subtotal_tax'] ) ? $item['line_subtotal_tax'] : 0 );
+			return apply_filters( 'woocommerce_table_rate_package_row_base_price', $row_base_price, $_product, $qty );
 		}
 
 		$row_base_price = $_product->get_price() * $qty;
@@ -1089,8 +1110,8 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			return;
 		}
 
-		if ( ! wc_has_notice( $message, 'error' ) ) {
-			wc_add_notice( $message, 'error' );
+		if ( ! wc_has_notice( $message, 'notice' ) ) {
+			wc_add_notice( $message, 'notice', array( 'wc_trs' => 'yes' ) );
 		}
 	}
 

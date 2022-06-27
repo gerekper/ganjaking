@@ -20,12 +20,10 @@ import Smush from '../smush/smush';
 			$( '.wp-smush-all' ).on( 'click', function( e ) {
 				e.preventDefault();
 
-				$( '.sui-notice-top.sui-notice-success' ).remove();
-
-				const bulkWarning = document.getElementById(
-					'bulk_smush_warning'
+				const bulkRunning = document.getElementById(
+					'wp-smush-running-notice'
 				);
-				bulkWarning.classList.add( 'sui-hidden' );
+				bulkRunning.classList.add( 'sui-hidden' );
 
 				// Remove limit exceeded styles.
 				const progress = $( '.wp-smush-bulk-progress-bar-wrapper' );
@@ -36,7 +34,7 @@ import Smush from '../smush/smush';
 				progress
 					.find( '.sui-progress-block .wp-smush-cancel-bulk' )
 					.removeClass( 'sui-hidden' );
-				if ( bulkWarning ) {
+				if ( bulkRunning ) {
 					document
 						.getElementById( 'bulk-smush-resume-button' )
 						.classList.add( 'sui-hidden' );
@@ -86,35 +84,14 @@ import Smush from '../smush/smush';
 				$.post( ajaxurl, {
 					action: 'ignore_bulk_image',
 					id: self.attr( 'data-id' ),
+					_ajax_nonce: wp_smush_msgs.nonce,
 				} ).done( ( response ) => {
-					if (
-						self.is( 'a' ) &&
-						response.success &&
-						'undefined' !== typeof response.data.links
-					) {
-						self.parent()
-							.parent()
-							.find( '.smush-status' )
-							.text( wp_smush_msgs.ignored );
-						e.target.closest( '.smush-status-links' ).innerHTML =
-							response.data.links;
+					if ( self.is( 'a' ) && response.success && 'undefined' !== typeof response.data.links ) {
+						self.parent().parent().find( '.smush-status' ).text( wp_smush_msgs.ignored );
+						e.target.closest( '.smush-status-links' ).innerHTML = response.data.links;
 					}
 				} );
 			} );
-
-			/**
-			 * Show upsell on free version and when there are no images to compress.
-			 *
-			 * @since 3.7.2
-			 */
-			const upsellBox = document.getElementById( 'smush-box-bulk-upgrade' );
-			if (
-				upsellBox &&
-				!window.wp_smushit_data.unsmushed.length &&
-				!window.wp_smushit_data.resmush.length
-			) {
-				upsellBox.classList.remove( 'sui-hidden' );
-			}
 		},
 	};
 

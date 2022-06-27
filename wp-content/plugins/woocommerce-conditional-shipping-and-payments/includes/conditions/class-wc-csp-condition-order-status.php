@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Order_Status class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.9.0
  */
@@ -17,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class    WC_CSP_Condition_Order_Status
  * @version  1.9.0
- * @author   SomewhereWarm
  */
 class WC_CSP_Condition_Order_Status extends WC_CSP_Condition {
 

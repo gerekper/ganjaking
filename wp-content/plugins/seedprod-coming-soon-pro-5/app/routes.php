@@ -72,7 +72,7 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_theme_templates_page'
 	);
 
-	if ( 'pro' === SEEDPROD_PRO_BUILD ) {
+	if ( 'lite' === SEEDPROD_PRO_BUILD ) {
 		add_submenu_page(
 			'seedprod_pro',
 			__( 'Templates', 'seedprod-pro' ),
@@ -128,15 +128,32 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_featurerequest_page'
 	);
 
-	if ( SEEDPROD_PRO_BUILD == 'lite' ) {
+	if ( 'pro' === SEEDPROD_PRO_BUILD ) {
 		add_submenu_page(
 			'seedprod_pro',
-			__( 'Get Pro', 'seedprod-pro' ),
-			'<span id="sp-lite-admin-menu__upgrade" style="color:#ff845b">' . __( 'Get Pro', 'seedprod-pro' ) . '</span>',
+			__( 'Import / Export', 'seedprod-pro' ),
+			__( 'Import / Export', 'seedprod-pro' ),
+			apply_filters( 'seedprod_theme_templates_menu_capability', 'edit_others_posts' ),
+			'seedprod_pro_export_import_tools',
+			'seedprod_pro_export_import_tools_page'
+		);
+	}
+
+	if ( 'lite' === SEEDPROD_PRO_BUILD ) {
+		add_submenu_page(
+			'seedprod_pro',
+			__( 'Upgrade to Pro', 'seedprod-pro' ),
+			'<span id="sp-lite-admin-menu__upgrade">' . __( 'Upgrade to Pro', 'seedprod-pro' ) . '</span>',
 			apply_filters( 'seedprod_gopro_menu_capability', 'edit_others_posts' ),
 			'seedprod_pro_get_pro',
 			'seedprod_pro_get_pro_page'
 		);
+		// add class
+		add_action( 'admin_footer', 'seedprod_pro_upgrade_link_class' );
+		function seedprod_pro_upgrade_link_class(){
+			echo "<script>jQuery(function($) { $('#sp-lite-admin-menu__upgrade').parent().parent().addClass('sp-lite-admin-menu__upgrade_wrapper')});</script>";
+		}
+
 	}
 
 	add_submenu_page(
@@ -244,6 +261,13 @@ function seedprod_pro_update_selected_page_in_submenu() {
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_templates']" ).parent().addClass('current');
 			}
+
+			// EXport Import Templates
+			if(location.hash.indexOf('#/exportimport-templates') >= 0){
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_export_import_tools']" ).parent().addClass('current');
+			}
+
 			// Subscribers
 			if(location.hash.indexOf('#/subscribers') >= 0){
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
@@ -309,6 +333,12 @@ function seedprod_pro_redirect_to_site() {
 		exit();
 	}
 
+	// export /  import  templates
+	if ( isset( $_GET['page'] ) && 'seedprod_pro_export_import_tools' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		wp_safe_redirect( 'admin.php?page=seedprod_pro#/exportimport-templates' );
+		exit();
+	}
+
 	// growth tools page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_growth_tools' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		wp_safe_redirect( 'admin.php?page=seedprod_pro#/growth-tools' );
@@ -323,13 +353,13 @@ function seedprod_pro_redirect_to_site() {
 
 	// feature request page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_featurerequest' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		wp_redirect( 'https://www.seedprod.com/suggest-a-feature/?utm_source=wordpress&utm_medium=plugin-sidebar&utm_campaign=suggest-a-feature' );
+		wp_redirect( 'https://www.seedprod.com/suggest-a-feature/?utm_source=wordpress&utm_medium=plugin-sidebar&utm_campaign=suggest-a-feature' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 		exit();
 	}
 
 	// getpro page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_get_pro' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		wp_redirect( seedprod_pro_upgrade_link( 'wp-sidebar-menu' ) );
+		wp_redirect( seedprod_pro_upgrade_link( 'wp-sidebar-menu' ) ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 		exit();
 	}
 }
@@ -407,7 +437,12 @@ function seedprod_pro_render_templatetag() {
 function seedprod_pro_render_wc_template_tags() {
 	if ( check_ajax_referer( 'seedprod_nonce' ) ) {
 		if ( ! current_user_can( apply_filters( 'seedprod_builder_preview_render_capability', 'edit_others_posts' ) ) ) {
-			wp_send_json_error();
+			return;
+		}
+
+		// Check if the WC Instance exists.
+		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			return;
 		}
 
 		$content = '';
@@ -675,5 +710,79 @@ function seedprod_pro_get_widget_wpresults() {
 
 // login redirect
 add_action( 'login_head', 'seedprod_pro_redirect_login_page' );
+
+
+
+// Make RafflePress Discoverable
+if ('pro' === SEEDPROD_PRO_BUILD) {
+    add_filter('install_plugins_table_api_args_featured', 'seedprod_pro_featured_plugins_tab');
+}
+/**
+ * Helper function for adding plugins to featured list
+ *
+ * @return array
+ */
+function seedprod_pro_featured_plugins_tab($args)
+{
+add_filter('plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3);
+
+return $args;
+} // featured_plugins_tab
+
+
+/**
+ * Add plugins to featured plugins list
+ *
+ * @return object
+ */
+function seedprod_pro_plugins_api_result($res, $action, $args)
+{
+remove_filter('plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3);
+
+$res = seedprod_pro_add_plugin_featured('rafflepress', $res);
+
+return $res;
+} // plugins_api_result
+
+/**
+ * Add single plugin to featured list
+ *
+ * @return object
+ */
+function seedprod_pro_add_plugin_featured($plugin_slug, $res)
+{
+// check if plugin is already on the list
+if (!empty($res->plugins) && is_array($res->plugins)) {
+	foreach ($res->plugins as $plugin) {
+	if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
+		return $res;
+	}
+	} // foreach
+}
+
+if ($plugin_info = get_transient('wf-plugin-info-' . $plugin_slug)) {
+	array_splice($res->plugins,4,0,array($plugin_info));
+	//array_unshift($res->plugins, $plugin_info);
+} else {
+	$plugin_info = plugins_api('plugin_information', array(
+	'slug'   => $plugin_slug,
+	'is_ssl' => is_ssl(),
+	'fields' => array(
+		'banners'           => true,
+		'reviews'           => true,
+		'downloaded'        => true,
+		'active_installs'   => true,
+		'icons'             => true,
+		'short_description' => true,
+	)
+	));
+	if (!is_wp_error($plugin_info)) {
+	$res->plugins = array_merge(array($plugin_info), $res->plugins);
+	set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
+	}
+}
+
+return $res;
+} // add_plugin_featured
 
 

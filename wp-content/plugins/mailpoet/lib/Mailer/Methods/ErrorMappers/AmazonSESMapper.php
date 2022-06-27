@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Mailer\Methods\ErrorMappers;
 
@@ -9,7 +9,6 @@ use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\SubscriberError;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Swift_RfcComplianceException;
 
 class AmazonSESMapper {
   use BlacklistErrorMapperTrait;
@@ -19,7 +18,7 @@ class AmazonSESMapper {
 
   public function getErrorFromException(\Exception $e, $subscriber) {
     $level = MailerError::LEVEL_HARD;
-    if ($e instanceof Swift_RfcComplianceException) {
+    if (strpos($e->getMessage(), 'Invalid address') !== false && strpos($e->getMessage(), '(to):') !== false) {
       $level = MailerError::LEVEL_SOFT;
     }
     $subscriberErrors = [new SubscriberError($subscriber, null)];

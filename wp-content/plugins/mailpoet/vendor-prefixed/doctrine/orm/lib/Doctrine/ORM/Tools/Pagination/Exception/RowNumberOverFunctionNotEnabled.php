@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Tools\Pagination\Exception;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
-use LogicException;
 final class RowNumberOverFunctionNotEnabled extends ORMException
 {
  public static function create() : self

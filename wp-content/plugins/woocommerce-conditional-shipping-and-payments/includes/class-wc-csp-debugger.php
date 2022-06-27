@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Debugger class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.11.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * CSP Debugger
  *
  * @class    WC_CSP_Debugger
- * @version  1.12.1
+ * @version  1.13.0
  */
 class WC_CSP_Debugger {
 
@@ -81,10 +80,7 @@ class WC_CSP_Debugger {
 		self::$shipping_methods_restriction      = WC_CSP()->restrictions->get_restriction( 'shipping_methods' );
 		self::$shipping_destinations_restriction = WC_CSP()->restrictions->get_restriction( 'shipping_countries' );
 
-		add_action( 'woocommerce_review_order_before_cart_contents', array( __CLASS__, 'prepare_debug_info_excluded_shipping_methods' ), 20 );
-		add_action( 'woocommerce_review_order_before_cart_contents', array( __CLASS__, 'prepare_debug_info_excluded_payment_gateways' ), 20 );
-		add_action( 'woocommerce_review_order_before_cart_contents', array( __CLASS__, 'prepare_debug_info_excluded_shipping_destinations' ), 20 );
-
+		add_action( 'woocommerce_review_order_before_cart_contents', array( __CLASS__, 'add_debug_notices' ), 20 );
 	}
 
 	/**
@@ -131,12 +127,11 @@ class WC_CSP_Debugger {
 	}
 
 	/**
-	 * Prepares the notice data for the payment gateways that CSP has excluded.
-	 * Sends the data to the renderer for parsing and creating notices.
+	 * Adds checkout notices for all debug messages.
 	 *
 	 * @return void
 	 */
-	public static function prepare_debug_info_excluded_payment_gateways() {
+	public static function add_debug_notices() {
 
 		if ( ! self::$enabled ) {
 			return;
@@ -145,6 +140,33 @@ class WC_CSP_Debugger {
 		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
 			return;
 		}
+
+		// Payment methods.
+		$payment_gateways_debug = self::prepare_debug_info_excluded_payment_gateways();
+		if ( ! empty( $payment_gateways_debug ) ) {
+			wc_add_notice( $payment_gateways_debug, 'notice' );
+		}
+
+		// Shipping methods.
+		$shipping_methods_debug = self::prepare_debug_info_excluded_shipping_methods();
+		if ( ! empty( $shipping_methods_debug ) ) {
+			wc_add_notice( $shipping_methods_debug, 'notice' );
+		}
+
+		// Shipping destinations.
+		$shipping_destinations_debug = self::prepare_debug_info_excluded_shipping_destinations();
+		if ( ! empty( $shipping_destinations_debug ) ) {
+			wc_add_notice( $shipping_destinations_debug, 'notice' );
+		}
+	}
+
+	/**
+	 * Prepares the notice data for the payment gateways that CSP has excluded.
+	 * Sends the data to the renderer for parsing and creating notices.
+	 *
+	 * @return void
+	 */
+	public static function prepare_debug_info_excluded_payment_gateways() {
 
 		// Add and remove the following filters when done.
 		self::$is_running = true;
@@ -173,7 +195,7 @@ class WC_CSP_Debugger {
 		remove_filter( 'woocommerce_csp_rule_map_include_restriction_data', array( __CLASS__, 'force_rule_map_to_include_restriction_data' ), 100 );
 		self::$is_running = false;
 
-		self::render( $results, 'payment_gateways' );
+		return self::construct_debug_html( $results, 'payment_gateways' );
 	}
 
 	/**
@@ -184,20 +206,11 @@ class WC_CSP_Debugger {
 	 */
 	public static function prepare_debug_info_excluded_shipping_methods() {
 
-		if ( ! self::$enabled ) {
-			return;
-		}
-
-		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
-			return;
-		}
-
 		self::$is_running = true;
 		remove_filter( 'woocommerce_package_rates', array( self::$shipping_methods_restriction, 'exclude_package_shipping_methods' ), 10 );
 		add_filter( 'woocommerce_csp_rule_map_include_restriction_data', array( __CLASS__, 'force_rule_map_to_include_restriction_data' ), 100, 4 );
 		add_filter( 'woocommerce_cart_shipping_packages', array( __CLASS__, 'add_debug_variables_to_packages' ), 10 );
 
-		WC()->cart->calculate_shipping();
 		WC()->cart->calculate_totals();
 		$shipping_packages = apply_filters( 'woocommerce_csp_shipping_packages', WC()->shipping->get_packages() );
 
@@ -257,12 +270,15 @@ class WC_CSP_Debugger {
 			}
 		}
 
+		// Reset previous state and re-calculate excluded Shipping Methods.
 		add_filter( 'woocommerce_package_rates', array( self::$shipping_methods_restriction, 'exclude_package_shipping_methods' ), 10, 2 );
 		remove_filter( 'woocommerce_csp_rule_map_include_restriction_data', array( __CLASS__, 'force_rule_map_to_include_restriction_data' ), 100 );
 		remove_filter( 'woocommerce_cart_shipping_packages', array( __CLASS__, 'add_debug_variables_to_packages' ), 10 );
 		self::$is_running = false;
 
-		self::render( $results, 'shipping_methods' );
+		WC()->cart->calculate_totals();
+
+		return self::construct_debug_html( $results, 'shipping_methods' );
 	}
 
 	/**
@@ -272,14 +288,6 @@ class WC_CSP_Debugger {
 	 * @return void
 	 */
 	public static function prepare_debug_info_excluded_shipping_destinations() {
-
-		if ( ! self::$enabled ) {
-			return;
-		}
-
-		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
-			return;
-		}
 
 		self::$is_running = true;
 
@@ -299,7 +307,7 @@ class WC_CSP_Debugger {
 
 		self::$is_running = false;
 
-		self::render( $results, 'shipping_destinations' );
+		return self::construct_debug_html( $results, 'shipping_destinations' );
 	}
 
 	/**
@@ -310,8 +318,9 @@ class WC_CSP_Debugger {
 	 *
 	 * @return void
 	 */
-	private static function render( $results, $restriction_type ) {
+	private static function construct_debug_html( $results, $restriction_type ) {
 
+		$markup = '';
 		switch ( $restriction_type ) {
 			case 'payment_gateways':
 
@@ -372,18 +381,23 @@ class WC_CSP_Debugger {
 
 			case 'shipping_methods':
 
-				$markup  = '';
 				$heading = sprintf(
 					'<p><strong>%1$s &mdash; %2$s</strong></p>',
 					__( 'Conditional Shipping and Payments Debug Data', 'woocommerce-conditional-shipping-and-payments' ),
 					__( 'Shipping Methods', 'woocommerce-conditional-shipping-and-payments' )
 				);
-				$markup  .= $heading;
+
+				$markup .= $heading;
 
 				$package_displayed_index = 0;
 				$packages_count          = count( $results );
 
 				if ( WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ) {
+
+					if ( ! $packages_count ) {
+						$markup .= '<p>' . __( 'No shipping options found.', 'woocommerce-conditional-shipping-and-payments' ) . '</p>';
+						break;
+					}
 
 					foreach ( $results as $package_index => $packages ) {
 
@@ -448,7 +462,6 @@ class WC_CSP_Debugger {
 
 			case 'shipping_destinations':
 
-				$markup  = '';
 				$heading = sprintf(
 					'<p><strong>%1$s &mdash; %2$s</strong></p>',
 					__( 'Conditional Shipping and Payments Debug Data', 'woocommerce-conditional-shipping-and-payments' ),
@@ -499,13 +512,9 @@ class WC_CSP_Debugger {
 				}
 
 				break;
-			default:
-				$markup = '';
 		}
 
-		if ( ! empty( $markup ) ) {
-			wc_add_notice( $markup, 'notice' );
-		}
+		return $markup;
 	}
 
 	/**
@@ -535,11 +544,10 @@ class WC_CSP_Debugger {
 			'product' === $level
 				? admin_url( 'post.php?post=' . $product_id . '&action=edit' )
 				: admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $message[ 'debug_info' ][ 'restriction_id' ] . '&view_rule=' . $message[ 'debug_info' ][ 'index' ] ),
-			$message[ 'debug_info' ][ 'description' ]
+			isset( $message[ 'debug_info' ][ 'description' ] ) ? $message[ 'debug_info' ][ 'description' ] : ''
 		);
 
 		return $message_markup;
-
 	}
 
 }

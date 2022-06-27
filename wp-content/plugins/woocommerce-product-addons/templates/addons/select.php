@@ -34,21 +34,21 @@ $required   = ! empty( $addon['required'] ) ? $addon['required'] : '';
 			$label        = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? $option['label'] : '';
 
 			if ( 'percentage_based' === $price_type ) {
-				$price_for_display = apply_filters(
+				$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 					'woocommerce_product_addons_option_price',
 					$price_raw ? '(' . $price_prefix . $price_raw . '%)' : '',
 					$option,
 					$i,
 					'select'
-				);
+				) : '';
 			} else {
-				$price_for_display = apply_filters(
+				$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 					'woocommerce_product_addons_option_price',
 					$price_raw ? '(' . $price_prefix . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 					$option,
 					$i,
 					'select'
-				);
+				) : '';
 			}
 
 			$price_display = WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw );

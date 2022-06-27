@@ -1,7 +1,6 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\DependencyInjection;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
 use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 class ChildDefinition extends Definition
@@ -10,13 +9,12 @@ class ChildDefinition extends Definition
  public function __construct(string $parent)
  {
  $this->parent = $parent;
- $this->setPrivate(\false);
  }
  public function getParent()
  {
  return $this->parent;
  }
- public function setParent($parent)
+ public function setParent(string $parent)
  {
  $this->parent = $parent;
  return $this;
@@ -38,13 +36,5 @@ class ChildDefinition extends Definition
  throw new InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
  }
  return $this;
- }
- public function setAutoconfigured($autoconfigured) : self
- {
- throw new BadMethodCallException('A ChildDefinition cannot be autoconfigured.');
- }
- public function setInstanceofConditionals(array $instanceof) : self
- {
- throw new BadMethodCallException('A ChildDefinition cannot have instanceof conditionals set on it.');
  }
 }

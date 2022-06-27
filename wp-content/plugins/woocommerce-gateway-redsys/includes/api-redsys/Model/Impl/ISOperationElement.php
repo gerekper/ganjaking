@@ -72,7 +72,7 @@ if (! class_exists ( 'ISOperationElement' )) {
 		private $cardCountry;
 		
 		/**
-		 * @XML_ELEM=Ds_CardNumber
+		 * @XML_ELEM=Ds_Card_Number
 		 */
 		private $cardNumber;
 		

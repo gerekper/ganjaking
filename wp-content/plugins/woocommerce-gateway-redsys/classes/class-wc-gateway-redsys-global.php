@@ -178,7 +178,7 @@ class WC_Gateway_Redsys_Global {
 		?>
 		<div class="redsysnotice">
 			<span class="dashicons dashicons-welcome-learn-more redsysnotice-dash"></span>
-			<span class="redsysnotice__content"><?php printf( __( 'For Redsys Help: Check WooCommerce.com Plugin <a href="%1$s" target="_blank" rel="noopener">Documentation page</a> for setup, <a href="%2$s" target="_blank" rel="noopener">FAQ page</a> for working problems, or open a <a href="%3$s" target="_blank" rel="noopener">Ticket</a> for support', 'woocommerce-redsys' ), 'https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/', 'https://redsys.joseconti.com/redsys-for-woocommerce/', 'https://woocommerce.com/my-account/tickets/' ); ?><span>
+			<span class="redsysnotice__content"><?php printf( __( 'For Redsys Help: Check the website <a href="%1$s" target="_blank" rel="noopener">Guides</a> for setup, <a href="%2$s" target="_blank" rel="noopener">FAQ page</a> for working problems, or open a <a href="%3$s" target="_blank" rel="noopener">Ticket</a> for support', 'woocommerce-redsys' ), 'https://redsys.joseconti.com/guias/', 'https://redsys.joseconti.com/redsys-for-woocommerce/', 'https://woocommerce.com/my-account/tickets/' ); ?><span>
 		</div>
 		<?php
 	}
@@ -380,11 +380,11 @@ class WC_Gateway_Redsys_Global {
 	public function get_token_type( $token_id ) {
 		if ( $token_id ) {
 			$redsys_token_type = trim( get_option( 'token_type_' . $token_id ) );
-			if ( 'R' === $redsys_token_type || 'C' === $redsys_token_type  ) {
+			if ( 'R' === $redsys_token_type || 'C' === $redsys_token_type ) {
 				return $redsys_token_type;
 			} else {
 				$redsys_token_type = get_option( 'token_type_' . $this->get_token_by_id( $token_id ), false );
-				if ( 'R' === $redsys_token_type || 'C' === $redsys_token_type  ) {
+				if ( 'R' === $redsys_token_type || 'C' === $redsys_token_type ) {
 					return $redsys_token_type;
 				}
 			}
@@ -966,6 +966,24 @@ class WC_Gateway_Redsys_Global {
 				return false;
 			}
 		} else {
+			return false;
+		}
+	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2022 José Conti
+	 */
+	public function is_cancelled( $order_id ) {
+
+		if ( $this->order_exist( $order_id ) ) {
+
+			$order  = $this->get_order( $order_id );
+			$status = $order->get_status();
+
+			if ( 'cancelled' === $status ) {
+				return true;
+			}
 			return false;
 		}
 	}
@@ -1597,12 +1615,6 @@ class WC_Gateway_Redsys_Global {
 		if ( $order->get_total() > 0 ) {
 			return $needs_payment;
 		}
-
-		if ( 'yes' === $get_token ) {
-			$needs_payment = true;
-			return $needs_payment;
-		}
-		return $needs_payment;
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
@@ -1878,6 +1890,7 @@ class WC_Gateway_Redsys_Global {
 		$ds_merchant_terminal = $this->get_redsys_option( 'terminal', 'paygold' );
 		$secretsha256         = $this->get_redsys_option( 'secretsha256', 'paygold' );
 		$descripredsys        = $this->get_redsys_option( 'descripredsys', 'paygold' );
+		$merchantgroup        = $this->get_redsys_option( 'merchantgroup', 'paygold' );
 		$p2f_xmldata          = '&lt;![CDATA[&lt;nombreComprador&gt;' . $name . ' ' . $last_name . '&lt;&#47;nombreComprador&gt;&lt;direccionComprador&gt;' . $adress_ship_ship_addr_line1 . ' ' . $adress_ship_ship_addr_line2 . ', ' . $adress_ship_shipAddrCity . ', ' . $adress_ship_shipAddrState . ', ' . $adress_ship_shipAddrPostCode . ', ' . $adress_ship_shipAddrCountry . '&lt;&#47;direccionComprador&gt;&lt;textoLibre1&gt;' . $texto_libre1 . '&lt;&#47;textoLibre1&gt;&lt;subjectMailCliente&gt;' . $subject . '&lt;&#47;subjectMailCliente&gt;]]&gt;';
 		$ds_signature         = '';
 		$expiration           = $this->get_redsys_option( 'expiration', 'paygold' );
@@ -1910,6 +1923,12 @@ class WC_Gateway_Redsys_Global {
 			$log->add( 'paygold', '$final_notify_url: ' . $final_notify_url );
 		}
 
+		if ( ! $merchantgroup ) {
+			$ds_merchant_group = '';
+		} else {
+			$ds_merchant_group = '<DS_MERCHANT_GROUP>' . $merchantgroup . '</DS_MERCHANT_GROUP>';
+		}
+
 		if ( 'SMS' === $type ) {
 			$send     = '<DS_MERCHANT_CUSTOMER_MOBILE>' . $send_to . '</DS_MERCHANT_CUSTOMER_MOBILE>';
 			$sms_text = '<DS_MERCHANT_CUSTOMER_SMS_TEXT>' . $sms_txt . '</DS_MERCHANT_CUSTOMER_SMS_TEXT>';
@@ -1932,6 +1951,7 @@ class WC_Gateway_Redsys_Global {
 		$datos_entrada .= '<DS_MERCHANT_URLOK>' . $url_ok . '</DS_MERCHANT_URLOK>';
 		if ( 'Add Payment Method' === $product_description ) {
 			if ( 'R' === $token_type ) {
+				$datos_entrada .= $ds_merchant_group;
 				$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
 				$datos_entrada .= '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
 				$datos_entrada .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
@@ -1942,6 +1962,7 @@ class WC_Gateway_Redsys_Global {
 				set_transient( $orderid2 . '_user_id_token', $user_id, $exp_sec );
 			}
 			if ( 'C' === $token_type ) {
+				$datos_entrada .= $ds_merchant_group;
 				$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>REQUIRED<DS_MERCHANT_IDENTIFIER>';
 				$datos_entrada .= '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
 				$datos_entrada .= '<DS_MERCHANT_COF_TYPE>C</DS_MERCHANT_COF_TYPE>';
@@ -2053,6 +2074,53 @@ class WC_Gateway_Redsys_Global {
 				<input name="submit_3ds" type="submit" class="button-alt" id="submit_redsys_3ds_method" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
 			</form>';
 			return $tresdmehod;
+	}
+
+	public function send_push( $type ) {
+
+		if ( 'error' === $type || ! $type ) {
+			return true;
+		}
+		return false;
+	}
+
+	public function push( $message, $type = false ) {
+
+		$send = $this->send_push( $type );
+		if ( $send ) {
+			$push = new Redsys_Push_Notifications();
+			$push->call( $message );
+		}
+	}
+
+	public function get_post_edit_url( $post_id ) {
+		$url = get_admin_url() . 'post.php?post=' . $post_id . '&action=edit';
+		return $url;
+	}
+
+	public function get_last_four( $number = false, $number2 = false ) {
+
+		if ( ! $number2 && ! $number && '' !== $numbe && '' !== $numbe2 ) {
+			$dscardnumber4 = '0000';
+		} else {
+			if ( $number2 ) {
+				$dscardnumber4 = substr( $number2, -4 );
+			} else {
+				$dscardnumber4 = substr( $number, -4 );
+			}
+		}
+		return $dscardnumber4;
+	}
+
+	public function add_subscription_note( $text, $order_id ) {
+
+		$subscriptions = wcs_get_subscriptions_for_order( $order_id, array( 'order_type' => 'any' ) );
+		if ( $subscriptions ) {
+			foreach ( $subscriptions as $subscription_id => $subscription_obj ) {
+				$subscription_obj->add_order_note( $text );
+			}
+		}
+		return false;
 	}
 
 	function print_overlay_image() {

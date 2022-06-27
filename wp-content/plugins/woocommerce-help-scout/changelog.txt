@@ -1,5 +1,11 @@
 *** WooCommerce Help Scout Changelog ***
 
+2022-04-07 - version 3.4
+* PLUGINS-1453 - Fix fatal error which is causing subscriptions fail
+* PLUGINS-1396 - Fix Notice errors
+* PLUGINS-645 - Support other languages
+* PLUGINS-1518 - Language fixes
+
 2022-03-02 - version 3.3
 * PLUGINS-997 - Fix various notice errors.
 * PLUGINS-207 - Validation errors.

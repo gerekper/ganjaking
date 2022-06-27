@@ -25,13 +25,16 @@ class CustomFieldType extends AC\Settings\Column\CustomFieldType {
 				$settings[] = new AC\Settings\Column\NumberOfItems( $this->column );
 
 				break;
+			case AC\Settings\Column\CustomFieldType::TYPE_ARRAY :
+				$settings[] = new SerializedArray( $this->column );
+
+				break;
 		}
 
 		return $settings;
 	}
 
 	public function format( $value, $original_value ) {
-
 		switch ( $this->get_field_type() ) {
 
 			case AC\Settings\Column\CustomFieldType::TYPE_POST :
@@ -39,21 +42,19 @@ class CustomFieldType extends AC\Settings\Column\CustomFieldType {
 				$string = ac_helper()->array->implode_recursive( ',', $value );
 				$ids = ac_helper()->string->string_to_array_integers( $string );
 
-				$value = new Collection( $ids );
-
-				break;
+				return new Collection( $ids );
 			case AC\Settings\Column\CustomFieldType::TYPE_IMAGE :
 			case AC\Settings\Column\CustomFieldType::TYPE_MEDIA :
 				$value = parent::format( $value, $original_value );
 				$value->limit( $this->column->get_setting( 'number_of_items' )->get_value() );
 
-				break;
+				return $value;
+			case AC\Settings\Column\CustomFieldType::TYPE_ARRAY :
 
+				return $value;
 			default :
-				$value = parent::format( $value, $original_value );
+				return parent::format( $value, $original_value );
 		}
-
-		return $value;
 	}
 
 	/**

@@ -47,7 +47,6 @@ use MailPoetVendor\Twig\TokenParser\DeprecatedTokenParser;
 use MailPoetVendor\Twig\TokenParser\DoTokenParser;
 use MailPoetVendor\Twig\TokenParser\EmbedTokenParser;
 use MailPoetVendor\Twig\TokenParser\ExtendsTokenParser;
-use MailPoetVendor\Twig\TokenParser\FilterTokenParser;
 use MailPoetVendor\Twig\TokenParser\FlushTokenParser;
 use MailPoetVendor\Twig\TokenParser\ForTokenParser;
 use MailPoetVendor\Twig\TokenParser\FromTokenParser;
@@ -56,7 +55,6 @@ use MailPoetVendor\Twig\TokenParser\ImportTokenParser;
 use MailPoetVendor\Twig\TokenParser\IncludeTokenParser;
 use MailPoetVendor\Twig\TokenParser\MacroTokenParser;
 use MailPoetVendor\Twig\TokenParser\SetTokenParser;
-use MailPoetVendor\Twig\TokenParser\SpacelessTokenParser;
 use MailPoetVendor\Twig\TokenParser\UseTokenParser;
 use MailPoetVendor\Twig\TokenParser\WithTokenParser;
 use MailPoetVendor\Twig\TwigFilter;
@@ -67,19 +65,6 @@ final class CoreExtension extends AbstractExtension
  private $dateFormats = ['F j, Y H:i', '%d days'];
  private $numberFormat = [0, '.', ','];
  private $timezone = null;
- private $escapers = [];
- public function setEscaper($strategy, callable $callable)
- {
- @\trigger_error(\sprintf('The "%s" method is deprecated since Twig 2.11; use "%s::setEscaper" instead.', __METHOD__, EscaperExtension::class), \E_USER_DEPRECATED);
- $this->escapers[$strategy] = $callable;
- }
- public function getEscapers()
- {
- if (0 === \func_num_args() || \func_get_arg(0)) {
- @\trigger_error(\sprintf('The "%s" method is deprecated since Twig 2.11; use "%s::getEscapers" instead.', __METHOD__, EscaperExtension::class), \E_USER_DEPRECATED);
- }
- return $this->escapers;
- }
  public function setDateFormat($format = null, $dateIntervalFormat = null)
  {
  if (null !== $format) {
@@ -112,11 +97,11 @@ final class CoreExtension extends AbstractExtension
  {
  return $this->numberFormat;
  }
- public function getTokenParsers()
+ public function getTokenParsers() : array
  {
- return [new ApplyTokenParser(), new ForTokenParser(), new IfTokenParser(), new ExtendsTokenParser(), new IncludeTokenParser(), new BlockTokenParser(), new UseTokenParser(), new FilterTokenParser(), new MacroTokenParser(), new ImportTokenParser(), new FromTokenParser(), new SetTokenParser(), new SpacelessTokenParser(), new FlushTokenParser(), new DoTokenParser(), new EmbedTokenParser(), new WithTokenParser(), new DeprecatedTokenParser()];
+ return [new ApplyTokenParser(), new ForTokenParser(), new IfTokenParser(), new ExtendsTokenParser(), new IncludeTokenParser(), new BlockTokenParser(), new UseTokenParser(), new MacroTokenParser(), new ImportTokenParser(), new FromTokenParser(), new SetTokenParser(), new FlushTokenParser(), new DoTokenParser(), new EmbedTokenParser(), new WithTokenParser(), new DeprecatedTokenParser()];
  }
- public function getFilters()
+ public function getFilters() : array
  {
  return [
  // formatting filters
@@ -161,24 +146,23 @@ final class CoreExtension extends AbstractExtension
  new TwigFilter('keys', '\\MailPoetVendor\\twig_get_array_keys_filter'),
  ];
  }
- public function getFunctions()
+ public function getFunctions() : array
  {
  return [new TwigFunction('max', 'max'), new TwigFunction('min', 'min'), new TwigFunction('range', 'range'), new TwigFunction('constant', '\\MailPoetVendor\\twig_constant'), new TwigFunction('cycle', '\\MailPoetVendor\\twig_cycle'), new TwigFunction('random', '\\MailPoetVendor\\twig_random', ['needs_environment' => \true]), new TwigFunction('date', '\\MailPoetVendor\\twig_date_converter', ['needs_environment' => \true]), new TwigFunction('include', '\\MailPoetVendor\\twig_include', ['needs_environment' => \true, 'needs_context' => \true, 'is_safe' => ['all']]), new TwigFunction('source', '\\MailPoetVendor\\twig_source', ['needs_environment' => \true, 'is_safe' => ['all']])];
  }
- public function getTests()
+ public function getTests() : array
  {
  return [new TwigTest('even', null, ['node_class' => EvenTest::class]), new TwigTest('odd', null, ['node_class' => OddTest::class]), new TwigTest('defined', null, ['node_class' => DefinedTest::class]), new TwigTest('same as', null, ['node_class' => SameasTest::class, 'one_mandatory_argument' => \true]), new TwigTest('none', null, ['node_class' => NullTest::class]), new TwigTest('null', null, ['node_class' => NullTest::class]), new TwigTest('divisible by', null, ['node_class' => DivisiblebyTest::class, 'one_mandatory_argument' => \true]), new TwigTest('constant', null, ['node_class' => ConstantTest::class]), new TwigTest('empty', '\\MailPoetVendor\\twig_test_empty'), new TwigTest('iterable', '\\MailPoetVendor\\twig_test_iterable')];
  }
- public function getNodeVisitors()
+ public function getNodeVisitors() : array
  {
  return [new MacroAutoImportNodeVisitor()];
  }
- public function getOperators()
+ public function getOperators() : array
  {
  return [['not' => ['precedence' => 50, 'class' => NotUnary::class], '-' => ['precedence' => 500, 'class' => NegUnary::class], '+' => ['precedence' => 500, 'class' => PosUnary::class]], ['or' => ['precedence' => 10, 'class' => OrBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'and' => ['precedence' => 15, 'class' => AndBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'b-or' => ['precedence' => 16, 'class' => BitwiseOrBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'b-xor' => ['precedence' => 17, 'class' => BitwiseXorBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'b-and' => ['precedence' => 18, 'class' => BitwiseAndBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '==' => ['precedence' => 20, 'class' => EqualBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '!=' => ['precedence' => 20, 'class' => NotEqualBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '<=>' => ['precedence' => 20, 'class' => SpaceshipBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '<' => ['precedence' => 20, 'class' => LessBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '>' => ['precedence' => 20, 'class' => GreaterBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '>=' => ['precedence' => 20, 'class' => GreaterEqualBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '<=' => ['precedence' => 20, 'class' => LessEqualBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'not in' => ['precedence' => 20, 'class' => NotInBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'in' => ['precedence' => 20, 'class' => InBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'matches' => ['precedence' => 20, 'class' => MatchesBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'starts with' => ['precedence' => 20, 'class' => StartsWithBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'ends with' => ['precedence' => 20, 'class' => EndsWithBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '..' => ['precedence' => 25, 'class' => RangeBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '+' => ['precedence' => 30, 'class' => AddBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '-' => ['precedence' => 30, 'class' => SubBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '~' => ['precedence' => 40, 'class' => ConcatBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '*' => ['precedence' => 60, 'class' => MulBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '/' => ['precedence' => 60, 'class' => DivBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '//' => ['precedence' => 60, 'class' => FloorDivBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], '%' => ['precedence' => 60, 'class' => ModBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'is' => ['precedence' => 100, 'associativity' => ExpressionParser::OPERATOR_LEFT], 'is not' => ['precedence' => 100, 'associativity' => ExpressionParser::OPERATOR_LEFT], '**' => ['precedence' => 200, 'class' => PowerBinary::class, 'associativity' => ExpressionParser::OPERATOR_RIGHT], '??' => ['precedence' => 300, 'class' => NullCoalesceExpression::class, 'associativity' => ExpressionParser::OPERATOR_RIGHT]]];
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Extension\\CoreExtension', 'MailPoetVendor\\Twig_Extension_Core');
 namespace MailPoetVendor;
 use MailPoetVendor\Twig\Environment;
 use MailPoetVendor\Twig\Error\LoaderError;
@@ -431,8 +415,8 @@ function twig_get_array_keys_filter($array)
  while ($array instanceof \IteratorAggregate) {
  $array = $array->getIterator();
  }
- if ($array instanceof \Iterator) {
  $keys = [];
+ if ($array instanceof \Iterator) {
  $array->rewind();
  while ($array->valid()) {
  $keys[] = $array->key();
@@ -440,7 +424,6 @@ function twig_get_array_keys_filter($array)
  }
  return $keys;
  }
- $keys = [];
  foreach ($array as $key => $item) {
  $keys[] = $key;
  }
@@ -494,32 +477,86 @@ function twig_in_filter($value, $compare)
  if ($compare instanceof Markup) {
  $compare = (string) $compare;
  }
- if (\is_array($compare)) {
- return \in_array($value, $compare, \is_object($value) || \is_resource($value));
- } elseif (\is_string($compare) && (\is_string($value) || \is_int($value) || \is_float($value))) {
+ if (\is_string($compare)) {
+ if (\is_string($value) || \is_int($value) || \is_float($value)) {
  return '' === $value || \false !== \strpos($compare, (string) $value);
- } elseif ($compare instanceof \Traversable) {
+ }
+ return \false;
+ }
+ if (!\is_iterable($compare)) {
+ return \false;
+ }
  if (\is_object($value) || \is_resource($value)) {
+ if (!\is_array($compare)) {
  foreach ($compare as $item) {
  if ($item === $value) {
  return \true;
  }
  }
- } else {
+ return \false;
+ }
+ return \in_array($value, $compare, \true);
+ }
  foreach ($compare as $item) {
- if ($item == $value) {
+ if (0 === twig_compare($value, $item)) {
  return \true;
  }
  }
- }
  return \false;
+}
+function twig_compare($a, $b)
+{
+ // int <=> string
+ if (\is_int($a) && \is_string($b)) {
+ $bTrim = \trim($b, " \t\n\r\v\f");
+ if (!\is_numeric($bTrim)) {
+ return (string) $a <=> $b;
  }
- return \false;
+ if ((int) $bTrim == $bTrim) {
+ return $a <=> (int) $bTrim;
+ } else {
+ return (float) $a <=> (float) $bTrim;
+ }
+ }
+ if (\is_string($a) && \is_int($b)) {
+ $aTrim = \trim($a, " \t\n\r\v\f");
+ if (!\is_numeric($aTrim)) {
+ return $a <=> (string) $b;
+ }
+ if ((int) $aTrim == $aTrim) {
+ return (int) $aTrim <=> $b;
+ } else {
+ return (float) $aTrim <=> (float) $b;
+ }
+ }
+ // float <=> string
+ if (\is_float($a) && \is_string($b)) {
+ if (\is_nan($a)) {
+ return 1;
+ }
+ $bTrim = \trim($b, " \t\n\r\v\f");
+ if (!\is_numeric($bTrim)) {
+ return (string) $a <=> $b;
+ }
+ return $a <=> (float) $bTrim;
+ }
+ if (\is_string($a) && \is_float($b)) {
+ if (\is_nan($b)) {
+ return 1;
+ }
+ $aTrim = \trim($a, " \t\n\r\v\f");
+ if (!\is_numeric($aTrim)) {
+ return $a <=> (string) $b;
+ }
+ return (float) $aTrim <=> $b;
+ }
+ // fallback to <=>
+ return $a <=> $b;
 }
 function twig_trim_filter($string, $characterMask = null, $side = 'both')
 {
  if (null === $characterMask) {
- $characterMask = " \t\n\r\0\v";
+ $characterMask = " \t\n\r\x00\v";
  }
  switch ($side) {
  case 'both':
@@ -686,6 +723,9 @@ function twig_source(Environment $env, $name, $ignoreMissing = \false)
 function twig_constant($constant, $object = null)
 {
  if (null !== $object) {
+ if ('class' === $constant) {
+ return \get_class($object);
+ }
  $constant = \get_class($object) . '::' . $constant;
  }
  return \constant($constant);
@@ -693,6 +733,9 @@ function twig_constant($constant, $object = null)
 function twig_constant_is_defined($constant, $object = null)
 {
  if (null !== $object) {
+ if ('class' === $constant) {
+ return \true;
+ }
  $constant = \get_class($object) . '::' . $constant;
  }
  return \defined($constant);

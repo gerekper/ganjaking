@@ -164,7 +164,9 @@ $attr_array  = array(
                             $month_name = $temp_date->format('F');
 
                             $selected = $month_number == $month_placeholder ? 'selected' : '';
-                            echo "<option value='$month_number' $selected>$month_name</option>";
+                            echo "<option value='$month_number' $selected>";
+                            esc_html_e($month_name, 'ct-ultimate-gdpr');
+                            echo "</option>";
 
                         endforeach;
                     ?>

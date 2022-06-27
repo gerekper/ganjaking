@@ -16,7 +16,9 @@ defined( 'ABSPATH' ) || exit;
 function wc_od_update_140_shipping_dates() {
 	global $wpdb;
 
-	$results = $wpdb->get_results( $wpdb->prepare( "
+	$results = $wpdb->get_results(
+		$wpdb->prepare(
+			"
 		SELECT meta1.post_id AS order_id
 		FROM {$wpdb->posts} AS posts, {$wpdb->postmeta} AS meta1
 		WHERE posts.id = meta1.post_id
@@ -29,7 +31,10 @@ function wc_od_update_140_shipping_dates() {
 				WHERE meta1.post_id = meta2.post_id
 				AND meta2.meta_key = '_shipping_date'
 			)
-	", wc_od_get_local_date( false ) ) );
+	",
+			wc_od_get_local_date( false )
+		)
+	);
 
 	foreach ( $results as $order_data ) {
 		$shipping_timestamp = wc_od_get_order_last_shipping_date( $order_data->order_id, 'update' );
@@ -87,11 +92,13 @@ function wc_od_update_150_settings_bool_values_to_string() {
 function wc_od_update_150_subscriptions_bool_values_to_string() {
 	global $wpdb;
 
-	$results = $wpdb->get_results( "
+	$results = $wpdb->get_results(
+		"
 		SELECT *
 		FROM {$wpdb->postmeta}
 		WHERE meta_key = '_delivery_days'
-	" );
+	"
+	);
 
 	foreach ( $results as $meta ) {
 		$value = maybe_unserialize( $meta->meta_value );
@@ -108,25 +115,13 @@ function wc_od_update_150_subscriptions_bool_values_to_string() {
 
 /**
  * Sync the 'delivery_days' setting with the new default values.
+ *
+ * @deprecated 2.0.0
  */
 function wc_od_update_150_delivery_days_setting() {
-	$setting       = wc_od_maybe_prefix( 'delivery_days' );
-	$delivery_days = get_option( $setting );
+	wc_deprecated_function( __FUNCTION__, '2.0.0', 'wc_od_update_200_update_settings' );
 
-	if ( ! empty( $delivery_days ) ) {
-		$defaults = WC_OD()->settings()->get_default( 'delivery_days' );
-
-		// Sync the new parameters for each delivery day.
-		foreach ( $defaults as $index => $default_day ) {
-			if ( isset( $delivery_days[ $index ] ) ) {
-				$delivery_days[ $index ] = array_merge( $default_day, $delivery_days[ $index ] );
-			} else {
-				$delivery_days[ $index ] = $default_day;
-			}
-		}
-
-		update_option( $setting, $delivery_days );
-	}
+	wc_od_update_200_update_settings();
 }
 
 /**
@@ -215,4 +210,52 @@ function wc_od_update_195_update_settings() {
  */
 function wc_od_update_195_db_version() {
 	WC_OD_Install::update_db_version( '1.9.5' );
+}
+
+/**
+ * Updates the plugin settings.
+ *
+ * @since 2.0.0
+ */
+function wc_od_update_200_update_settings() {
+	// The option 'auto' is no longer available.
+	$option = get_option( 'wc_od_delivery_fields_option' );
+
+	if ( 'auto' === $option ) {
+		update_option( 'wc_od_delivery_fields_option', 'required' );
+	}
+
+	// Update the delivery days and time frames settings.
+	$delivery_days = get_option( 'wc_od_delivery_days', array() );
+
+	foreach ( $delivery_days as $day_id => $data ) {
+		$delivery_day = wc_od_get_delivery_day( $data );
+		$delivery_day->set_id( $day_id );
+		$delivery_day->save();
+	}
+}
+
+/**
+ * Updates the delivery details for the already created subscriptions.
+ *
+ * @since 2.0.0
+ */
+function wc_od_update_200_update_subscriptions_delivery() {
+	// Plugin not active.
+	if ( ! WC_OD_Utils::is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) ) {
+		return false;
+	}
+
+	include_once WC_OD_PATH . 'includes/updates/class-wc-od-update-200-subscriptions-delivery.php';
+
+	$instance = new WC_OD_Update_200_Subscriptions_Delivery();
+
+	return $instance->update();
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_od_update_200_db_version() {
+	WC_OD_Install::update_db_version( '2.0.0' );
 }

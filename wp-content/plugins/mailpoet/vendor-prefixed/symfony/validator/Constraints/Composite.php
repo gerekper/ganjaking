@@ -5,9 +5,9 @@ use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 abstract class Composite extends Constraint
 {
- public function __construct($options = null)
+ public function __construct($options = null, array $groups = null, $payload = null)
  {
- parent::__construct($options);
+ parent::__construct($options, $groups, $payload);
  $this->initializeNestedConstraints();
  $compositeOption = $this->getCompositeOption();
  $nestedConstraints = $this->{$compositeOption};
@@ -41,7 +41,7 @@ abstract class Composite extends Constraint
  if (isset(((array) $constraint)['groups'])) {
  $excessGroups = \array_diff($constraint->groups, $this->groups);
  if (\count($excessGroups) > 0) {
- throw new ConstraintDefinitionException(\sprintf('The group(s) "%s" passed to the constraint "%s" should also be passed to its containing constraint "%s".', \implode('", "', $excessGroups), \get_class($constraint), static::class));
+ throw new ConstraintDefinitionException(\sprintf('The group(s) "%s" passed to the constraint "%s" should also be passed to its containing constraint "%s".', \implode('", "', $excessGroups), \get_debug_type($constraint), static::class));
  }
  } else {
  $constraint->groups = $this->groups;
@@ -49,7 +49,7 @@ abstract class Composite extends Constraint
  }
  $this->{$compositeOption} = $nestedConstraints;
  }
- public function addImplicitGroupName($group)
+ public function addImplicitGroupName(string $group)
  {
  parent::addImplicitGroupName($group);
  $nestedConstraints = $this->{$this->getCompositeOption()};

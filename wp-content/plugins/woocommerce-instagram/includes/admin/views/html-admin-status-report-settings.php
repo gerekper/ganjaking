@@ -48,6 +48,12 @@
 			<td class="help"></td>
 			<td colspan="3"><?php echo esc_html( $data['catalog_permalink'] ); ?></td>
 		</tr>
+
+		<tr>
+			<td data-export-label="Catalog interval"><?php esc_html_e( 'Catalog interval', 'woocommerce-instagram' ); ?>:</td>
+			<td class="help"></td>
+			<td colspan="3"><?php echo esc_html( $data['catalogs_interval'] ); ?>h</td>
+		</tr>
 	</tbody>
 </table>
 <?php

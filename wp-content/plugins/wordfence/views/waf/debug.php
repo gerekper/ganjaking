@@ -105,6 +105,7 @@ try {
 	<meta charset="UTF-8">
 	<title><?php echo esc_html($title) ?></title>
 	<link rel="stylesheet" href="<?php echo wfUtils::getBaseURL() . wfUtils::versionedAsset('css/main.css'); ?>">
+	<link rel="stylesheet" href="<?php echo wfLicense::current()->getStylesheet(); ?>">
 	<style>
 		html {
 			font-family: "Open Sans", Helvetica, Arial, sans-serif;

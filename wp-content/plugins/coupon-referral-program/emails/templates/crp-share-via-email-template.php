@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the woo header.
  *
  * @hooked WC_Emails::email_header() Output the email header
+ * @since 1.6.4
+ * @param string $email_heading
+ * @param string $email
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
@@ -60,5 +63,7 @@ if ( isset( $additional_content ) && '' !== $additional_content ) {
  * Include the woo footer.
  *
  * @hooked WC_Emails::email_footer() Output the email footer
+ * @since 1.6.4
+ * @param string $email
  */
 do_action( 'woocommerce_email_footer', $email );

@@ -40,7 +40,7 @@ class TableGenerator
  $sql = 'SELECT sequence_value, sequence_increment_by' . ' FROM ' . $platform->appendLockHint($this->generatorTableName, LockMode::PESSIMISTIC_WRITE) . ' WHERE sequence_name = ? ' . $platform->getWriteLockSQL();
  $row = $this->conn->fetchAssociative($sql, [$sequence]);
  if ($row !== \false) {
- $row = array_change_key_case($row, \CASE_LOWER);
+ $row = array_change_key_case($row, CASE_LOWER);
  $value = $row['sequence_value'];
  $value++;
  assert(is_int($value));

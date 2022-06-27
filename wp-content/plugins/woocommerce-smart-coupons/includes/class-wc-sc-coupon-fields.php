@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1085,9 +1085,25 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 							document.execCommand("copy");
 							document.getElementById("sc-click-to-copy-btn").innerHTML = '<?php echo esc_html__( 'Copied!', 'woocommerce-smart-coupons' ); ?>';
 							setTimeout(function(){
-								document.getElementById("sc-click-to-copy-btn").innerHTML = '<?php echo esc_html__( 'Click To Copy', 'woocommerce-smart-coupons' ); ?>';
+								document.getElementById("sc-click-to-copy-btn").innerHTML = '<?php echo esc_html__( 'Click to copy', 'woocommerce-smart-coupons' ); ?>';
 							}, 1000);
 						}
+						jQuery(function(){
+							jQuery( '.post-type-shop_coupon' ).find( '.button.generate-coupon-code' ).after(
+								' <a href="#" id="wc-sc-copy-coupon-code" class="button"><?php esc_html_e( 'Copy coupon code', 'woocommerce-smart-coupons' ); ?></a>'
+							);
+							jQuery('#wc-sc-copy-coupon-code').on('click', function(e){
+								e.preventDefault();
+								var copyCouponCode = document.getElementById("title");
+								jQuery.trim(copyCouponCode);
+								copyCouponCode.select();
+								document.execCommand("copy");
+								document.getElementById("wc-sc-copy-coupon-code").innerHTML = '<?php echo esc_html__( 'Copied!', 'woocommerce-smart-coupons' ); ?>';
+								setTimeout(function(){
+									document.getElementById("wc-sc-copy-coupon-code").innerHTML = '<?php echo esc_html__( 'Copy coupon code', 'woocommerce-smart-coupons' ); ?>';
+								}, 1000);
+							});
+						});
 					</script>
 					<?php
 				}

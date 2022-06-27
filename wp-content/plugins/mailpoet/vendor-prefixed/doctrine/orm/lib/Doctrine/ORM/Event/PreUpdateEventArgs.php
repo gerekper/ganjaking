@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\PersistentCollection;
 use InvalidArgumentException;
-use function get_class;
+use function get_debug_type;
 use function sprintf;
 class PreUpdateEventArgs extends LifecycleEventArgs
 {
@@ -41,7 +41,7 @@ class PreUpdateEventArgs extends LifecycleEventArgs
  private function assertValidField(string $field) : void
  {
  if (!isset($this->entityChangeSet[$field])) {
- throw new InvalidArgumentException(sprintf('Field "%s" is not a valid field of the entity "%s" in PreUpdateEventArgs.', $field, get_class($this->getEntity())));
+ throw new InvalidArgumentException(sprintf('Field "%s" is not a valid field of the entity "%s" in PreUpdateEventArgs.', $field, get_debug_type($this->getEntity())));
  }
  }
 }

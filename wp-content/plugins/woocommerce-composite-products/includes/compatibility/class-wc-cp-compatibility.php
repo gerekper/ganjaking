@@ -14,18 +14,27 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.0.0
+ * @version  8.4.0
  */
 class WC_CP_Compatibility {
 
 	/**
 	 * Array of min required plugin versions.
+	 *
 	 * @var array
 	 */
 	private $required = array();
 
 	/**
+	 * Modules to load.
+	 *
+	 * @var array
+	 */
+	private $modules = array();
+
+	/**
 	 * The single instance of the class.
+	 *
 	 * @var WC_CP_Compatibility
 	 *
 	 * @since 3.7.0
@@ -72,9 +81,10 @@ class WC_CP_Compatibility {
 	public function __construct() {
 
 		$this->required = array(
-			'pb'  => '6.14.0',
-			'ci'  => '1.2.4',
-			'pao' => '3.0.14'
+			'pb'     => '6.14.0',
+			'ci'     => '1.2.4',
+			'pao'    => '3.0.14',
+			'blocks' => '7.2.0'
 		);
 
 		// Initialize.
@@ -133,11 +143,25 @@ class WC_CP_Compatibility {
 	}
 
 	/**
+	 * Checks if a module has been loaded.
+	 *
+	 * @return boolean
+	 */
+	public function is_module_loaded( $name ) {
+		return isset( $this->modules[ $name ] );
+	}
+
+	/**
 	 * Init compatibility classes.
 	 */
 	public function module_includes() {
 
 		$module_paths = array();
+
+		// WooCommerce Cart/Checkout Blocks support.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ] ) >= 0 ) {
+			$module_paths[ 'blocks' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-blocks-compatibility.php';
+		}
 
 		// Addons support.
 		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, $this->required[ 'pao' ] ) >= 0 ) {
@@ -268,9 +292,9 @@ class WC_CP_Compatibility {
 		 * @since  3.13.6
 		 * @param  array $module_paths
 		 */
-		$module_paths = apply_filters( 'woocommerce_composites_compatibility_modules', $module_paths );
+		$this->modules = apply_filters( 'woocommerce_composites_compatibility_modules', $module_paths );
 
-		foreach ( $module_paths as $name => $path ) {
+		foreach ( $this->modules as $name => $path ) {
 			require_once( $path );
 		}
 	}

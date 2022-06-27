@@ -83,6 +83,9 @@ class PageRenderer {
       if (is_admin() && $this->subscribersCountCacheRecalculation->shouldBeScheduled()) {
         $this->subscribersCountCacheRecalculation->schedule();
       }
+
+      // We are in control of the template and the data can be considered safe at this point
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $this->renderer->render($template, $data + $defaults);
     } catch (\Exception $e) {
       $notice = new WPNotice(WPNotice::TYPE_ERROR, $e->getMessage());

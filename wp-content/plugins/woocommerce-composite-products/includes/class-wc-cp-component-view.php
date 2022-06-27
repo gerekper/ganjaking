@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Maintains component view state.
  *
  * @class    WC_CP_Component_View
- * @version  8.1.4
+ * @version  8.4.2
  */
 class WC_CP_Component_View {
 
@@ -336,7 +336,8 @@ class WC_CP_Component_View {
 					'option_product_data'   => $product_data,
 					'option_price_data'     => $component_option->get_price_data(),
 					'has_addons'            => $component_option->has_addons(),
-					'has_required_addons'   => $component_option->has_addons( true ),
+					'has_required_addons'   => $component_option->has_addons( 'required' ),
+					'has_restricted_addons' => $component_option->has_addons( 'restricted' ),
 					'is_configurable'       => $component_option->is_configurable(),
 					'is_nyp'                => $component_option->is_nyp(),
 					'is_in_view'            => false === $is_selected || $is_selected_option_in_view,

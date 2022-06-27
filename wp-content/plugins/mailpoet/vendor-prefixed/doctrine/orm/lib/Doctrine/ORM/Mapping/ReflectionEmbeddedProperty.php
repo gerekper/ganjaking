@@ -18,7 +18,7 @@ class ReflectionEmbeddedProperty extends ReflectionProperty
  $this->embeddedClass = (string) $embeddedClass;
  parent::__construct($childProperty->getDeclaringClass()->getName(), $childProperty->getName());
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getValue($object = null)
  {
  $embeddedObject = $this->parentProperty->getValue($object);
@@ -27,7 +27,7 @@ class ReflectionEmbeddedProperty extends ReflectionProperty
  }
  return $this->childProperty->getValue($embeddedObject);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setValue($object, $value = null)
  {
  $embeddedObject = $this->parentProperty->getValue($object);

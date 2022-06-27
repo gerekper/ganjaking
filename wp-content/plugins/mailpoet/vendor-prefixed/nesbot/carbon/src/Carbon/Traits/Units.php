@@ -108,7 +108,7 @@ trait Units
  {
  return parent::add($interval);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function add($unit, $value = 1, $overflow = null)
  {
  if (\is_string($unit) && \func_num_args() === 1) {
@@ -196,7 +196,7 @@ trait Units
  {
  return parent::sub($interval);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function sub($unit, $value = 1, $overflow = null)
  {
  if (\is_string($unit) && \func_num_args() === 1) {

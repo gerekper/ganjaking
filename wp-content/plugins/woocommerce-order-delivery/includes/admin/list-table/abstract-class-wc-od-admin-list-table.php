@@ -111,7 +111,7 @@ abstract class WC_OD_Admin_List_Table {
 	public function render_date_filter( $filter ) {
 		global $wp_locale;
 
-		$months = $this->get_date_filter_months( $filter['id'] );
+		$months       = $this->get_date_filter_months( $filter['id'] );
 		$months_count = count( $months );
 
 		if ( ! $months_count ) {
@@ -273,14 +273,18 @@ abstract class WC_OD_Admin_List_Table {
 			$extra_checks .= " AND {$wpdb->posts}.post_status != 'trash'";
 		}
 
-		$query = $wpdb->prepare( "
+		$query = $wpdb->prepare(
+			"
 			SELECT DISTINCT YEAR( meta_value ) AS year, MONTH( meta_value ) AS month
 			FROM $wpdb->postmeta
 			INNER JOIN $wpdb->posts ON $wpdb->posts.id = $wpdb->postmeta.post_id  
 			WHERE $wpdb->posts.post_type = %s AND meta_key = %s
 			$extra_checks
 			ORDER BY meta_value DESC
-		", $this->list_table_type, "_$key" );
+		",
+			$this->list_table_type,
+			"_$key"
+		);
 
 		return $wpdb->get_results( $query );
 	}

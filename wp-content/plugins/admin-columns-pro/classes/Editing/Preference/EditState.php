@@ -16,9 +16,14 @@ class EditState extends Site {
 	 * @return bool
 	 */
 	public function is_active( $key ) {
+		$value = $this->get( $key );
+
+		if ( null === $value ) {
+			$value = apply_filters( 'acp/editing/inline/button_default_state', false );
+		}
 
 		// '1' (string) is for backwards compatibility
-		return in_array( $this->get( $key ), [ '1', 1 ], true );
+		return in_array( $value, [ '1', 1, true ], true );
 	}
 
 }

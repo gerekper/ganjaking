@@ -6,11 +6,11 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  * @version $Id: Font_Table_glyf.php 46 2012-04-02 20:22:38Z fabien.menager $
  */
-namespace FontLib\Glyph;
+namespace WooCommercePDFInvoiceFontLib\Glyph;
 
-use FontLib\Table\Type\glyf;
-use FontLib\TrueType\File;
-use FontLib\BinaryStream;
+use WooCommercePDFInvoiceFontLib\Table\Type\glyf;
+use WooCommercePDFInvoiceFontLib\TrueType\File;
+use WooCommercePDFInvoiceFontLib\BinaryStream;
 
 /**
  * `glyf` font table.
@@ -19,7 +19,7 @@ use FontLib\BinaryStream;
  */
 class Outline extends BinaryStream {
   /**
-   * @var \FontLib\Table\Type\glyf
+   * @var \WooCommercePDFInvoiceFontLib\Table\Type\glyf
    */
   protected $table;
 

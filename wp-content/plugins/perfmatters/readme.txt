@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 4.7
 Requires PHP: 7.0
-Tested up to: 5.8.2
-Stable tag: 1.8.2
+Tested up to: 6.0
+Stable tag: 1.9.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,14 +13,15 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 
 == Description ==
 
-[Perfmatters](https://perfmatters.io/) is a lightweight web performance plugin designed to help increase Google Core Web Vitals scores and fine-tune how assets load on your site. 
+[Perfmatters](https://perfmatters.io/) is a lightweight web performance plugin designed to help increase Google Core Web Vitals scores and fine-tune how assets load on your site.
 
 = Features =
 
 * Easy quick toggle options to turn off resources that shouldn't be loading. 
-* Defer and delay JavaScript, including third-party scripts.
 * Disable scripts and plugins on a per post/page or sitewide basis with the Script Manager. 
-* Preload resources and prefetch links for quicker load times.
+* Defer and delay JavaScript, including third-party scripts.
+* Automatically remove unused CSS.
+* Preload resources, critical images, and prefetch links for quicker load times.
 * Lazy load images and enable click-to-play thumbnails on videos.
 * Host Google Analytics and Google Fonts locally.
 * Change your WordPress login URL. 
@@ -33,6 +34,123 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 1.9.4 - 06.21.2022 =
+* Updated EDD plugin updater class to version 1.9.2.
+* Added default exclusion to REST API option for compatibility.
+
+= 1.9.3 - 06.17.2022 =
+* Remove Used CSS filter adjustment to fix an issue where certain WordPress post functions wouldn't be available when trying to selectively disable the feature.
+* Rolled back minor plugin UI JavaScript addition, as it was interfering with entering data on multiple lines in certain input fields.
+
+= 1.9.2 - 06.16.2022 =
+* Added new perfmatters_used_css filter.
+* Added new perfmatters_allow_buffer filter.
+* Added a notice in the Script Manager when Testing Mode is enabled.
+* Improved reliability of CSS Background Image function when child elements with additional background images are present.
+* Script Manager style compatibility fixes.
+* Fixed an issue where some post specific meta options were not being respected when determining if a feature should run.
+* Fixed an issue where pressing enter on the main plugin settings page would trigger a specific form action instead of save settings.
+* Changed CSS class initialization hook to be in the correct order with other output buffer functions.
+* Made an adjustment to how we generate the local used stylesheet URL for better compatibility.
+* Fixed an issue where loading attribute was still getting applied to images that were excluded from lazy loading.
+* Fixed an issue where images inside an excluded picture element were not also getting excluded.
+* Fixed an issue in the Script Manager where archives were not being grouped together with their respective post type.
+* Additions to plugin UI JavaScript to allow for disabled sections to be hidden even when nested controllers are present.
+* Moved background process library to composer autoloader.
+* Removed BETA tag from Remove Unused CSS option.
+
+= 1.9.1 - 05.23.2022 =
+* Added new option to lazy load CSS Background Images.
+* Added new option for Dual Tracking when using gtag.js in local analytics.
+* Added new perfmatters_rest_api_exceptions filter.
+* Fixed an issue where individually delayed local scripts would not get correctly rewritten to load from the CDN.
+* Fixed an issue where lazy loading would run into an error if no px or % was specified with the threshold value.
+* Fixed an issue with buffer validation that was conflicting with certain caching setups.
+* Fixed an issue where existing font preconnect and prefetch tags were not being detected properly when using Local Fonts.
+* Fixed an error related to cookie constants when running MU Mode in certain environments.
+* Fixed multiple AMP validation errors and added additional checks to prevent certain functions from running on AMP URLs.
+* Minor adjustment to CDN rewrite regex pattern to work with encoded quotation characters.
+* Changed toggle CSS selectors to be more specific to prevent conflicts.
+* Moved plugin settings header output to in_admin_header action hook for compatibility.
+* Moved JS optimization functions to new class structure to be more inline with current codebase.
+* Improvements to critical image preloading allowed for a move to a singular output buffer.
+
+= 1.9.0 - 04.15.2022 =
+* Fixed an issue that was causing excluded selectors to not be recognized properly after Used CSS was cleared.
+* Minor adjustments to the new plugin UI.
+
+= 1.8.9 - 04.13.2022 =
+* Updated plugin settings UI.
+* Added new post meta option to Clear Used CSS for an individual page or post type.
+* Added new perfmatters_rucss_excluded_selectors filter.
+* Fixed a lazy loading issue that was preventing some images from loading properly in Safari.
+* Migrated Delay JS Timeout dropdown to a simpler on/off toggle that will default to 10 seconds. Our filter is also still available to set a custom timeout value.
+* Fixed an issue with MU plugin that was interfering with rewrite rules in some instances.
+* Added additional excluded page builder parameter for Flatsome UX.
+* Moved restore default functionality to a separate option on the tools page.
+* Code refactoring.
+* Translation updates.
+
+= 1.8.8 - 03.23.2022 =
+* Changed default setting for Used CSS Method from file to inline, as we think this will be the more compatible solution for most users going forward. If you were previously using the file method, you may need to save that option again.
+* Added width and height parameters to placeholder SVGs to prevent warnings for a ratio mismatch that would happen for some images.
+* Fixed an issue where the noscript tags were getting malformed for some images inside picture tags after lazy loading.
+* Removed placeholder SVGs on source tags since the image tag will already have one.
+* Changed settings export file name date format to be easier to organize when managing multiples.
+* Updated tooltip for Blank Favicon option to be more clear.
+
+
+= 1.8.7 - 03.14.2022 =
+* Added new Used CSS Method option to choose whether to load used CSS from a file or inline.
+* Added new perfmatters_cache_path filter.
+* Updated metabox functions to restrict metabox display to administrators only.
+* Made some adjustments to custom login URL function to better support 3rd party tools using WP CLI.
+* Added Fusion Builder query string parameters to excluded page builders array.
+* Adjusted Unused CSS regex to be more consistent when stylesheets are placed in between other link tags.
+* Changes to instances where ABSPATH was used to determine a directory location for better compatibility with certain hosts.
+* Fixed an issue with Remove Global Styles option where duotone SVGs were not being removed on WordPress 5.9.2.
+* Fixed an issue where WooCommerce block stylesheets were not getting correctly dequeued when Disable Scripts option was set.
+* Fixed an issue that was causing the CSS Parser library not to get included correctly in certain cases.
+* Translation updates.
+
+= 1.8.6 - 02.10.2022 =
+* Added new option to Remove Global Styles related to duotone filters.
+* Added new perfmatters_script_manager_locale filter.
+* Added new perfmatters_disable_woocommerce_scripts filter.
+* Added new perfmatters_page_builders filter.
+* Added new perfmatters_delay_js_behavior filter.
+* Fixed an issue with the unused CSS parser that was incorrectly rewriting relative URLs if there was no query string present on the original stylesheet src.
+* Added additional parameter to page builders array for compatibility.
+* Fixed an issue that was causing the login URL disabled 404 behavior to result in an error if a 404 template was not found.
+* Added some additional checks before creating cache directories for local fonts and used CSS.
+* Fixed an issue that was causing the fade-in effect to conflict with child images inside a lazy loaded container.
+* Fixed an undefined index warning coming from unused CSS settings update function.
+* Added a default delay JS exclusion for admin only inline customize-support script.
+* Refactored entire meta.php code to be more efficient (38% smaller) and in line with current structure.
+* Translation updates.
+
+= 1.8.5 - 01.19.2022 =
+* Added new feature to Remove Unused CSS (BETA).
+* Added new perfmatters_remove_unused_css filter.
+* Adjusted CDN Rewrite buffer priority for better compatibility with other features.
+* Made an improvement to the Disable XML-RPC function to return a 403 error when xmlrpc.php is accessed directly.
+* Script Manager stylesheet updates for better compatibility.
+* Fixed an issue in the Script Manager where the input controls were sometimes not displaying after toggling a script off.
+* Added additional style for YouTube preview thumbnail play button to fix an alignment issue with certain setups.
+* Buffer adjustments for compatibility.
+
+= 1.8.4 - 12.19.2021 =
+* Fixed an issue that was interfering with sitemap display in certain configurations.
+* Added <a> element support for lazy loading inline background images.
+
+= 1.8.3 - 12.13.2021 =
+* Added new perfmatters_fade_in_speed filter.
+* Fixed an issue that was preventing lazy loading fade in from working correctly with certain background images.
+* Fixed an issue that was interfering with the display of certain inline SVG elements.
+* Adjusted local analytics hook priority for better compatibility.
+* Script Manager style updates for better compatibility.
+* Translation updates.
 
 = 1.8.2 - 12.08.2021 =
 * New Lazy Loading option to Exclude Leading Images.

@@ -125,18 +125,19 @@ if (isset($array['type']) && userpro_field_by_role( $key, $user_id ) && userpro_
 		}
 
 	}
-	else if($array['type'] == 'datepicker' && userpro_get_option('date_to_age') == 1){
+	else if($array['type'] == 'datepicker' && userpro_get_option('date_to_age') == 1 ){
 		$format = '';
-        $date_format = explode('-',userpro_get_option('date_format'));
+		$separator = userpro_get_option('date_format')[2];
+        $date_format = explode($separator,userpro_get_option('date_format'));
         foreach($date_format as $f){
             if($f == 'yy'){
-                $format .= substr(strtoupper($f), 1) . '-';
+                $format .= substr(strtoupper($f), 1) . $separator;
             }
             else{
-                $format .= substr($f, 1) . '-';
+                $format .= substr($f, 1) . $separator;
             }
         }
-        $format = rtrim($format, '-');
+        $format = rtrim($format, $separator);
 				try{
 					$start = DateTime::createFromFormat($format, date($format));
         			$end   = DateTime::createFromFormat($format, $value);
@@ -152,7 +153,9 @@ if (isset($array['type']) && userpro_field_by_role( $key, $user_id ) && userpro_
 				}
 		}
 	else {
+
 		$res .= $value;
+
 	}
 
 	/* hidden field notice */

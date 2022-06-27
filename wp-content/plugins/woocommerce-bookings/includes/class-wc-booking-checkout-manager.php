@@ -26,7 +26,7 @@ class WC_Booking_Checkout_Manager {
 			unset( $available_gateways );
 
 			$available_gateways = array();
-			$available_gateways['wc-booking-gateway'] = new WC_Bookings_Gateway();
+			$available_gateways['wc-bookings-gateway'] = new WC_Bookings_Gateway();
 		}
 
 		return $available_gateways;

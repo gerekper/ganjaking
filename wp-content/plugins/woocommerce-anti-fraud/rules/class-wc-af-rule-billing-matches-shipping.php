@@ -24,7 +24,6 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 		 * @param WC_Order $order
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return bool
 		 */
@@ -38,7 +37,7 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 				$risk = true;
 				Af_Logger::debug('billing address not matches shipping address. This rule is at risk');
 			}
-			Af_Logger::debug('billing shipping rule risk : '. ( $risk===true ? 'true' : 'false' ));
+			Af_Logger::debug('billing shipping rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 			return $risk;
 		}
 

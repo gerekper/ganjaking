@@ -15,7 +15,7 @@ class MacroNode extends Node
  }
  parent::__construct(['body' => $body, 'arguments' => $arguments], ['name' => $name], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write(\sprintf('public function macro_%s(', $this->getAttribute('name')));
  $count = \count($this->getNode('arguments'));
@@ -43,4 +43,3 @@ class MacroNode extends Node
  $compiler->write("try {\n")->indent()->subcompile($this->getNode('body'))->raw("\n")->write("return ('' === \$tmp = ob_get_contents()) ? '' : new Markup(\$tmp, \$this->env->getCharset());\n")->outdent()->write("} finally {\n")->indent()->write("ob_end_clean();\n")->outdent()->write("}\n")->outdent()->write("}\n\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\MacroNode', 'MailPoetVendor\\Twig_Node_Macro');

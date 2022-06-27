@@ -42,7 +42,16 @@ $mwb_crp_revenue = $this->get_revenue( $user_id );
 		if ( $this->is_social_sharing_enabled() ) {
 			$html = $this->get_social_sharing_html( $user_id );
 			// phpcs:ignore WordPress.Security.EscapeOutput
-			echo $html;
+			?>
+			<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, "script", "facebook-jssdk"));</script>
+			<?php
+				echo wp_kses_post( $html );
 			?>
 			<div class="mwb_crp_email_wrap">
 				<p id="mwb_crp_notice"></p>

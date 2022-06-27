@@ -8,9 +8,8 @@ class BlockReferenceNode extends Node implements NodeOutputInterface
  {
  parent::__construct([], ['name' => $name], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write(\sprintf("\$this->displayBlock('%s', \$context, \$blocks);\n", $this->getAttribute('name')));
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\BlockReferenceNode', 'MailPoetVendor\\Twig_Node_BlockReference');

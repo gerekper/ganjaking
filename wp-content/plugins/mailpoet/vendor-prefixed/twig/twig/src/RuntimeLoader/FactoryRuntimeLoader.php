@@ -8,12 +8,12 @@ class FactoryRuntimeLoader implements RuntimeLoaderInterface
  {
  $this->map = $map;
  }
- public function load($class)
+ public function load(string $class)
  {
- if (isset($this->map[$class])) {
+ if (!isset($this->map[$class])) {
+ return null;
+ }
  $runtimeFactory = $this->map[$class];
  return $runtimeFactory();
  }
- }
 }
-\class_alias('MailPoetVendor\\Twig\\RuntimeLoader\\FactoryRuntimeLoader', 'MailPoetVendor\\Twig_FactoryRuntimeLoader');

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds hooks for Product Add-Ons Compatibility.
  *
- * @version  6.0.4
+ * @version  8.4.2
  */
 class WC_CP_Addons_Compatibility {
 
@@ -75,10 +75,16 @@ class WC_CP_Addons_Compatibility {
 	 * @since  4.0.0
 	 *
 	 * @param  mixed    $product
-	 * @param  boolean  $required
+	 * @param  mixed    $type
 	 * @return boolean
 	 */
-	public static function has_addons( $product, $required = false ) {
+	public static function has_addons( $product, $type = '' ) {
+
+		// Backwards compatibility:
+		// has_addons used to be called with a true argument to check if there were any required add-ons.
+		if ( is_bool( $type ) ) {
+			$type = $type ? 'required' : '';
+		}
 
 		if ( is_object( $product ) && is_a( $product, 'WC_Product' ) ) {
 			$product_id = $product->get_id();
@@ -98,13 +104,25 @@ class WC_CP_Addons_Compatibility {
 
 		if ( ! empty( $addons ) ) {
 
-			if ( $required ) {
+			if ( 'required' === $type ) {
 
 				foreach ( $addons as $addon ) {
 
 					$type = ! empty( $addon[ 'type' ] ) ? $addon[ 'type' ] : '';
 
 					if ( 'heading' !== $type && isset( $addon[ 'required' ] ) && '1' == $addon[ 'required' ] ) {
+						$has_addons = true;
+						break;
+					}
+				}
+
+			} elseif( 'restricted' === $type ) {
+
+				foreach ( $addons as $addon ) {
+
+					$type = ! empty( $addon[ 'type' ] ) ? $addon[ 'type' ] : '';
+
+					if ( 'custom_text' === $type && isset( $addon[ 'restrictions_type' ] ) && 'any_text' !== $addon[ 'restrictions_type' ] ) {
 						$has_addons = true;
 						break;
 					}

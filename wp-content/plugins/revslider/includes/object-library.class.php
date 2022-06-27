@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -15,7 +15,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	private $object_orig_path	= '/revslider/objects/';
 	private $customsvgpath		= '/revslider/svg/objects/';
 	private $sizes				= array('75', '50', '25', '10');
-	private $curl_check			= null;
 	private $font_icon_paths;
 	public	$upload_dir;
 	public	$download_path;
@@ -189,50 +188,47 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		// Check folder permission and define file location
 		if($_download && $download === true && wp_mkdir_p($this->upload_dir['basedir'].$path)){
-			$curl = ($this->check_curl_connection()) ? new WP_Http_Curl() : false;
 			$file = $this->upload_dir['basedir'] . $path . $object_handle;
 
 			if(!is_file($file)){
 				$image_data = false;
 
-				if($curl !== false){
-					if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
-						$error = __('Plugin not activated', 'revslider');
-					}else{
-						$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-						$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
-						$rattr	= array(
-							'library_version' => urlencode(self::LIBRARY_VERSION),
-							'version'	=> urlencode(RS_REVISION),
-							'handle'	=> urlencode($object_handle),
-							'download'	=> urlencode($type),
-							'product'	=> urlencode(RS_PLUGIN_SLUG)
-						);
+				if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
+					$error = __('Plugin not activated', 'revslider');
+				}else{
+					$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
+					$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+					$rattr	= array(
+						'library_version' => urlencode(self::LIBRARY_VERSION),
+						'version'	=> urlencode(RS_REVISION),
+						'handle'	=> urlencode($object_handle),
+						'download'	=> urlencode($type),
+						'product'	=> urlencode(RS_PLUGIN_SLUG)
+					);
 
-						$http_force = false;
-						if(!in_array($type, $this->allowed_types, true)){
-							$rattr['code']	= urlencode($code); //push code only if needed
-							$http_force		= true; //force http
-						}
+					$http_force = false;
+					if(!in_array($type, $this->allowed_types, true)){
+						$rattr['code']	= urlencode($code); //push code only if needed
+						$http_force		= true; //force http
+					}
 
-						$image_data = $rslb->call_url($this->library_download, $rattr, 'library', $http_force);
+					$image_data = $rslb->call_url($this->library_download, $rattr, 'library', $http_force);
 
-						if(!is_wp_error($image_data) && isset($image_data['body']) && isset($image_data['response']) && isset($image_data['response']['code']) && $image_data['response']['code'] == '200'){
-							$image_data = $image_data['body'];
-							//check body for errors in here
-							$check = json_decode($image_data, true);
-							if(!empty($check)){
-								if(isset($check['error'])){
-									$image_data = false;
-									$error = $check['error'];
-								}
-							}elseif(trim($image_data) == ''){
-								$error = __('No data received', 'revslider');
+					if(!is_wp_error($image_data) && isset($image_data['body']) && isset($image_data['response']) && isset($image_data['response']['code']) && $image_data['response']['code'] == '200'){
+						$image_data = $image_data['body'];
+						//check body for errors in here
+						$check = json_decode($image_data, true);
+						if(!empty($check)){
+							if(isset($check['error'])){
+								$image_data = false;
+								$error = $check['error'];
 							}
-						}else{
-							$image_data = false;
-							$error = __('Error downloading object', 'revslider');
+						}elseif(trim($image_data) == ''){
+							$error = __('No data received', 'revslider');
 						}
+					}else{
+						$image_data = false;
+						$error = __('Error downloading object', 'revslider');
 					}
 				}
 
@@ -319,43 +315,39 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			return array('error' => $error);
 		}
 
-		$curl = ($this->check_curl_connection()) ? new WP_Http_Curl() : false;
-
 		$layers_data = false;
-		if($curl !== false){
-			$validated = get_option('revslider-valid', 'false');
+		$validated = get_option('revslider-valid', 'false');
 
-			if($validated == 'false'){
-				$error = __('Plugin not activated', 'revslider');
-			}else{
-				$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
-				$rattr	= array(
-					'code'		=> urlencode($code),
-					'library_version' => urlencode(self::LIBRARY_VERSION),
-					'version'	=> urlencode(RS_REVISION),
-					'handle'	=> urlencode($object_handle),
-					'download'	=> urlencode('layers'),
-					'product'	=> urlencode(RS_PLUGIN_SLUG)
-				);
+		if($validated == 'false'){
+			$error = __('Plugin not activated', 'revslider');
+		}else{
+			$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+			$rattr	= array(
+				'code'		=> urlencode($code),
+				'library_version' => urlencode(self::LIBRARY_VERSION),
+				'version'	=> urlencode(RS_REVISION),
+				'handle'	=> urlencode($object_handle),
+				'download'	=> urlencode('layers'),
+				'product'	=> urlencode(RS_PLUGIN_SLUG)
+			);
 
-				$layers_data = $rslb->call_url($this->library_download, $rattr, 'library');
+			$layers_data = $rslb->call_url($this->library_download, $rattr, 'library');
 
-				if(!is_wp_error($layers_data) && isset($layers_data['body']) && isset($layers_data['response']) && isset($layers_data['response']['code']) && $layers_data['response']['code'] == '200'){
-					$layers_data = $layers_data['body'];
-					//check body for errors in here
-					$check = json_decode($layers_data, true);
-					if(!empty($check)){
-						if(isset($check['error'])){
-							$layers_data = false;
-							$error = $check['error'];
-						}
-					}elseif(trim($layers_data) == ''){
-						$error = __('No data received', 'revslider');
+			if(!is_wp_error($layers_data) && isset($layers_data['body']) && isset($layers_data['response']) && isset($layers_data['response']['code']) && $layers_data['response']['code'] == '200'){
+				$layers_data = $layers_data['body'];
+				//check body for errors in here
+				$check = json_decode($layers_data, true);
+				if(!empty($check)){
+					if(isset($check['error'])){
+						$layers_data = false;
+						$error = $check['error'];
 					}
-				}else{
-					$layers_data = false;
-					$error = __('Error downloading layers data', 'revslider');
+				}elseif(trim($layers_data) == ''){
+					$error = __('No data received', 'revslider');
 				}
+			}else{
+				$layers_data = false;
+				$error = __('Error downloading layers data', 'revslider');
 			}
 		}
 
@@ -592,17 +584,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		return true;
 	}
-
-	/**
-	 * Check if Curl can be used
-	 */
-	public function check_curl_connection(){
-		if($this->curl_check !== null) return $this->curl_check;
-		$curl = new WP_Http_Curl();
-		$this->curl_check = $curl->test();
-		return $this->curl_check;
-	}
-
+	
+	
 	/**
 	 * Returns an URL if it is an object library image, depending on the choosen width/height
 	 */

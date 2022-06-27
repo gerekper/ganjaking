@@ -1,3 +1,20 @@
+<?php 
+	if(isset($_GET['post_id']) ){
+		if( empty(get_post($_GET['post_id'])) ){
+			die;
+		}
+		else{
+			$my_post = get_post($_GET['post_id'] );
+			$author_id= $my_post->post_author;
+			if(get_current_user_id() != $author_id && !current_user_can('edit_posts')){
+			 	echo do_shortcode("[userpro_private restrict_to_roles='administrator']1[/userpro_private]");
+				die;
+	 		}
+		}	
+	}
+	 	
+?>
+
 <div class="userpro userpro-<?php echo $i; ?> userpro-<?php echo $layout; ?> custom-publish-layout" <?php userpro_args_to_data( $args ); ?>>
 
 	<a href="#" class="userpro-close-popup"><?php _e('Close','userpro'); ?></a>
@@ -27,6 +44,7 @@
 			
 			<!-- Begin Publisher -->
 		<?php 	
+
 			/* Moved from index.php file */
 			require_once userpro_path . "functions/frontend-publisher-functions.php";
 			 if (isset($args['publish_field_order'])) { 

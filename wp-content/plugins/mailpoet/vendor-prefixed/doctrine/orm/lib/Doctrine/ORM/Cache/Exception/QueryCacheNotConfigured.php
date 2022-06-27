@@ -2,7 +2,6 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Cache\Exception;
 if (!defined('ABSPATH')) exit;
-use LogicException;
 final class QueryCacheNotConfigured extends CacheException
 {
  public static function create() : self

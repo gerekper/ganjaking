@@ -69,15 +69,15 @@ class CT_Ultimate_GDPR_Shortcode_Cookie_Popup {
 			array( 'cookie_modal_always_visible' => true ),
 			array( 'content' => $content )
 		);
-
+        
 		ob_start();
-		ct_ultimate_gdpr_locate_template(
-			"cookie-group-popup",
-			true,
-			$options
-		);
-
-		return ob_get_clean();
+        ct_ultimate_gdpr_locate_template(
+            "cookie-template", // "cookie-group-popup"
+            true,
+            $options
+        );
+		
+        return ob_get_clean();
 
 	}
 }

@@ -3,8 +3,7 @@ namespace MailPoetVendor\Twig\Sandbox;
 if (!defined('ABSPATH')) exit;
 interface SecurityPolicyInterface
 {
- public function checkSecurity($tags, $filters, $functions);
- public function checkMethodAllowed($obj, $method);
- public function checkPropertyAllowed($obj, $method);
+ public function checkSecurity($tags, $filters, $functions) : void;
+ public function checkMethodAllowed($obj, $method) : void;
+ public function checkPropertyAllowed($obj, $property) : void;
 }
-\class_alias('MailPoetVendor\\Twig\\Sandbox\\SecurityPolicyInterface', 'MailPoetVendor\\Twig_Sandbox_SecurityPolicyInterface');

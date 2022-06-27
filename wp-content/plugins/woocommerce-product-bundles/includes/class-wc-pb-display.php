@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.14.0
+ * @version  6.15.1
  */
 class WC_PB_Display {
 
@@ -98,9 +98,6 @@ class WC_PB_Display {
 		/*
 		 * Single-product.
 		 */
-
-		// Display "Additional Information" tab for unassembled Bundles with physical bundled items.
-		add_filter( 'wc_product_enable_dimensions_display', array( $this, 'display_additional_information' ) );
 
 		// Display info notice when editing a bundle from the cart. Notices are rendered at priority 10.
 		add_action( 'woocommerce_before_single_product', array( $this, 'add_edit_in_cart_notice' ), 0 );
@@ -369,7 +366,7 @@ class WC_PB_Display {
 	 * @since  5.8.0
 	 *
 	 * @param  WC_Bundled_Item  $bundled_item
-	 * @return int
+	 * @return void
 	 */
 	public function incr_grid_layout_pos( $bundled_item ) {
 
@@ -389,34 +386,6 @@ class WC_PB_Display {
 	 */
 	public function reset_grid_layout_pos() {
 		$this->grid_layout_pos = 1;
-	}
-
-	/**
-	 * Display "Additional Information" tab for unassembled Bundles with physical bundled items.
-	 *
-	 * @since  6.13.4
-	 *
-	 * @param  bool $display
-	 * @return bool
-	 */
-	public function display_additional_information( $display ) {
-
-		global $product;
-
-		// If a Product Bundle is unassembled, then display the weight and dimensions of shipped individually, physical bundled items.
-		if ( $product->is_type( 'bundle' ) && $product->is_virtual() ) {
-
-			$bundled_items = $product->get_bundled_items();
-
-			foreach ( $bundled_items as $bundled_item ) {
-				if ( $bundled_item->is_shipped_individually() && $bundled_item->product->has_dimensions() ) {
-					$display = true;
-					break;
-				}
-			}
-		}
-
-		return $display;
 	}
 
 	/**
@@ -497,7 +466,7 @@ class WC_PB_Display {
 	 *
 	 * @return string
 	 */
-	private function display_cart_prices_including_tax() {
+	public function display_cart_prices_including_tax() {
 
 		if ( is_null( $this->display_cart_prices_incl_tax ) ) {
 			$this->display_cart_prices_incl_tax = WC()->cart->display_prices_including_tax();
@@ -644,43 +613,54 @@ class WC_PB_Display {
 			$aggregate_prices = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_prices' );
 
 			if ( $aggregate_prices ) {
-
-				$calc_type           = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
-				$bundle_price        = WC_PB_Product_Prices::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type ) );
-				$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
-				$bundled_items_price = 0.0;
-
-				foreach ( $bundled_cart_items as $bundled_cart_item ) {
-
-					$bundled_item_id        = $bundled_cart_item[ 'bundled_item_id' ];
-					$bundled_item_raw_price = $bundled_cart_item[ 'data' ]->get_price();
-
-					if ( WC_PB()->compatibility->is_subscription( $bundled_cart_item[ 'data' ] ) ) {
-
-						$bundled_item = $cart_item[ 'data' ]->get_bundled_item( $bundled_item_id );
-
-						if ( $bundled_item ) {
-							$bundled_item_raw_recurring_fee = $bundled_cart_item[ 'data' ]->get_price();
-							$bundled_item_raw_sign_up_fee   = (double) WC_Subscriptions_Product::get_sign_up_fee( $bundled_cart_item[ 'data' ] );
-							$bundled_item_raw_price         = $bundled_item->get_up_front_subscription_price( $bundled_item_raw_recurring_fee, $bundled_item_raw_sign_up_fee, $bundled_cart_item[ 'data' ] );
-						}
-					}
-
-					$bundled_item_qty     = $bundled_cart_item[ 'data' ]->is_sold_individually() ? 1 : $bundled_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
-					$bundled_item_price   = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_item_qty ) );
-					$bundled_items_price += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
-				}
-
-				$price = wc_price( (double) $bundle_price + $bundled_items_price );
-
+				$price = wc_price( self::get_container_cart_item_price_amount( $cart_item, 'price' ) );
 			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
-
 				$hide_container_zero_price = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' );
 				$price                     = $hide_container_zero_price ? '' : $price;
 			}
 		}
 
 		return $price;
+	}
+
+	/**
+	 * Aggregates parent + child cart item prices.
+	 *
+	 * @since  6.15.0
+	 *
+	 * @param  array   $cart_item
+	 * @return string
+	 */
+	public function get_container_cart_item_price_amount( $cart_item, $type ) {
+
+		$calc_type           = ! WC_PB()->display->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+		$price_fn            = 'get_' . $type;
+		$bundle_price        = (double) wc_format_decimal( WC_PB_Product_Prices::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->$price_fn(), 'calc' => $calc_type ) ), wc_pb_price_num_decimals() );
+		$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
+		$bundled_items_price = 0.0;
+
+		foreach ( $bundled_cart_items as $bundled_cart_item ) {
+
+			$bundled_item_id        = $bundled_cart_item[ 'bundled_item_id' ];
+			$bundled_item_raw_price = $bundled_cart_item[ 'data' ]->$price_fn();
+
+			if ( WC_PB()->compatibility->is_subscription( $bundled_cart_item[ 'data' ] ) && ! WC_PB()->compatibility->is_subscription( $cart_item[ 'data' ] ) ) {
+
+				$bundled_item = $cart_item[ 'data' ]->get_bundled_item( $bundled_item_id );
+
+				if ( $bundled_item ) {
+					$bundled_item_raw_recurring_fee = $bundled_cart_item[ 'data' ]->$price_fn();
+					$bundled_item_raw_sign_up_fee   = (double) WC_Subscriptions_Product::get_sign_up_fee( $bundled_cart_item[ 'data' ] );
+					$bundled_item_raw_price         = $bundled_item->get_up_front_subscription_price( $bundled_item_raw_recurring_fee, $bundled_item_raw_sign_up_fee, $bundled_cart_item[ 'data' ] );
+				}
+			}
+
+			$bundled_item_qty     = $bundled_cart_item[ 'data' ]->is_sold_individually() ? 1 : $bundled_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
+			$bundled_item_price   = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_item_qty ) );
+			$bundled_items_price += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
+		}
+
+		return $bundle_price + $bundled_items_price;
 	}
 
 	/**
@@ -718,9 +698,7 @@ class WC_PB_Display {
 					if ( WC_PB()->compatibility->is_composited_cart_item( $bundle_container_item ) ) {
 						$subtotal = '';
 					} elseif ( $subtotal ) {
-						$subtotal_string = __( 'Subtotal', 'woocommerce-product-bundles' );
-						/* translators: %1$s: Subtotal string, %2$s: Subtotal amount */
-						$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), $subtotal_string, $subtotal ) . '</span>';
+						$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . $subtotal . '</span>';
 					}
 
 				} elseif ( $subtotal && function_exists( 'wc_cp_get_composited_cart_item_container' ) && ( $composite_container_item_key = wc_cp_get_composited_cart_item_container( $bundle_container_item, WC()->cart->cart_contents, true ) ) ) {
@@ -743,7 +721,7 @@ class WC_PB_Display {
 						}
 
 						if ( $show_subtotal ) {
-							$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), __( 'Subtotal', 'woocommerce-product-bundles' ), $subtotal ) . '</span>';
+							$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . $subtotal . '</span>';
 						} else {
 							$subtotal = '';
 						}
@@ -781,7 +759,7 @@ class WC_PB_Display {
 					$bundled_item_id        = $bundled_cart_item[ 'bundled_item_id' ];
 					$bundled_item_raw_price = $bundled_cart_item[ 'data' ]->get_price();
 
-					if ( WC_PB()->compatibility->is_subscription( $bundled_cart_item[ 'data' ] ) ) {
+					if ( WC_PB()->compatibility->is_subscription( $bundled_cart_item[ 'data' ] ) && ! WC_PB()->compatibility->is_subscription( $cart_item[ 'data' ] ) ) {
 
 						$bundled_item = $cart_item[ 'data' ]->get_bundled_item( $bundled_item_id );
 
@@ -792,8 +770,8 @@ class WC_PB_Display {
 						}
 					}
 
-					$bundled_item_price    = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_cart_item[ 'quantity' ] ) );
-					$bundled_items_price  += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
+					$bundled_item_price  = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_cart_item[ 'quantity' ] ) );
+					$bundled_items_price += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
 				}
 
 				$subtotal = $this->format_subtotal( $cart_item[ 'data' ], (double) $bundle_price + $bundled_items_price );
@@ -806,6 +784,27 @@ class WC_PB_Display {
 		}
 
 		return $subtotal;
+	}
+
+	/**
+	 * Aggregates cart item totals.
+	 *
+	 * @param  array   $cart_item
+	 * @param  string  $type
+	 * @return float
+	 */
+	public static function get_container_cart_item_subtotal_amount( $cart_item, $type ) {
+
+		$bundle_price        = wc_format_decimal( (double) $cart_item[ 'line_' . $type ], wc_pb_price_num_decimals() );
+		$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
+		$bundled_items_price = 0.0;
+
+		foreach ( $bundled_cart_items as $bundled_cart_item ) {
+			$bundled_item_price    = $bundled_cart_item[ 'line_' . $type ];
+			$bundled_items_price  += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
+		}
+
+		return $bundle_price + $bundled_items_price;
 	}
 
 	/**
@@ -1029,7 +1028,7 @@ class WC_PB_Display {
 				}
 
 				if ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'parent_cart_item_meta' ) ) {
-					$content .= $this->get_bundle_container_cart_item_data( $cart_item, true );
+					$content .= $this->get_bundle_container_cart_item_data( $cart_item, array( 'html' => true ) );
 				}
 			}
 		}
@@ -1123,11 +1122,25 @@ class WC_PB_Display {
 	 */
 	public function cart_item_data( $data, $cart_item ) {
 
+		// When serving a Store API request...
+		if ( WC_PB_Core_Compatibility::is_store_api_request() && wc_pb_is_bundle_container_cart_item( $cart_item ) ) {
+
+			if ( ! $cart_item[ 'data' ]->is_type( 'bundle' ) ) {
+				return $data;
+			}
+
+			$bundle = $cart_item[ 'data' ];
+
+			// Add bundled items as metadata.
+			$data = array_merge( $data, $this->get_bundle_container_cart_item_data( $cart_item, array( 'aggregated' => false ) ) );
+		}
+
 		if ( $container = wc_pb_get_bundled_cart_item_container( $cart_item ) ) {
 
 			$bundle      = $container[ 'data' ];
 			$part_of_key = __( 'Part of', 'woocommerce-product-bundles' );
 			$exists      = in_array( $part_of_key, array_keys( $data ) );
+
 			if ( ! $exists && WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'child_item_meta' ) ) {
 				$data[] = array(
 					'key'   => $part_of_key,
@@ -1362,56 +1375,68 @@ class WC_PB_Display {
 	 * @since  5.8.0
 	 *
 	 * @param  array  $cart_item
+	 * @param  mixed  $arg
 	 * @return array
 	 */
-	public function get_bundle_container_cart_item_data( $cart_item, $formatted = false ) {
+	public function get_bundle_container_cart_item_data( $cart_item, $arg = array() ) {
 
-		$data = array();
+		if ( is_array( $arg ) ) {
 
+			$args = wp_parse_args( $arg, array(
+				'html'       => false,
+				'aggregated' => true,
+			) );
+
+		} else {
+
+			$args = array(
+				'html'       => ( bool ) $arg,
+				'aggregated' => true,
+			);
+		}
+
+		$data               = array();
 		$bundled_cart_items = wc_pb_get_bundled_cart_items( $cart_item );
 
 		if ( ! empty( $bundled_cart_items ) ) {
 
-			$bundled_item_descriptions = array();
+			$woocommerce_bundle_container_cart_item_data = array();
 
 			foreach ( $bundled_cart_items as $bundled_cart_item_key => $bundled_cart_item ) {
 
-				$bundled_item_id          = $bundled_cart_item[ 'bundled_item_id' ];
-				$bundled_item_description = '';
+				$bundled_item_id = $bundled_cart_item[ 'bundled_item_id' ];
 
 				if ( $bundled_item = $cart_item[ 'data' ]->get_bundled_item( $bundled_item_id ) ) {
 
 					if ( $bundled_item->is_visible( 'cart' ) ) {
+
 						$bundled_item_description = WC_PB_Helpers::format_product_shop_title( $bundled_cart_item[ 'data' ]->get_name(), $bundled_cart_item[ 'quantity' ] );
+
+						if ( $args[ 'aggregated' ] ) {
+
+							$woocommerce_bundle_container_cart_item_data[] = $bundled_item_description;
+
+						} else {
+
+							$data[] = array(
+								'key'   => __( 'Includes', 'woocommerce-product-bundles' ),
+								'value' => $bundled_item_description
+							);
+						}
 					}
-
-					/**
-					 * 'woocommerce_bundle_container_cart_item_data_value' filter.
-					 *
-					 * @since  5.8.0
-					 *
-					 * @param  string  $bundled_item_description
-					 * @param  array   $bundled_cart_item
-					 * @param  string  $bundled_cart_item_key
-					 */
-					$bundled_item_description = apply_filters( 'woocommerce_bundle_container_cart_item_data_value', $bundled_item_description, $bundled_cart_item, $bundled_cart_item_key );
-				}
-
-				if ( $bundled_item_description ) {
-					$bundled_item_descriptions[] = $bundled_item_description;
 				}
 			}
 
-			if ( ! empty( $bundled_item_descriptions ) ) {
+			if ( ! empty( $woocommerce_bundle_container_cart_item_data ) ) {
 
 				$data[] = array(
 					'key'   => __( 'Includes', 'woocommerce-product-bundles' ),
-					'value' => implode( '<br/>', $bundled_item_descriptions )
+					'value' => ( string ) implode( '<br/>', $woocommerce_bundle_container_cart_item_data )
 				);
 			}
 		}
 
-		if ( $formatted ) {
+		if ( $args[ 'html' ] ) {
 
 			$formatted_data = '';
 
@@ -1429,7 +1454,16 @@ class WC_PB_Display {
 			$data = $formatted_data;
 		}
 
-		return $data;
+		/**
+		 * 'woocommerce_bundle_container_cart_item_data' filter.
+		 *
+		 * @since  6.15.0
+		 *
+		 * @param  string  $bundled_item_description
+		 * @param  array   $bundled_cart_item
+		 * @param  string  $bundled_cart_item_key
+		 */
+		return apply_filters( 'woocommerce_bundle_container_cart_item_data', $data, $cart_item, $args );
 	}
 
 	/**
@@ -1497,7 +1531,7 @@ class WC_PB_Display {
 					if ( WC_PB()->compatibility->is_composited_order_item( $bundle_container_item, $order ) ) {
 						$subtotal = '';
 					} elseif ( $subtotal ) {
-						$subtotal = '<span class="bundled_table_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), __( 'Subtotal', 'woocommerce-product-bundles' ), $subtotal ) . '</span>';
+						$subtotal = '<span class="bundled_table_item_subtotal">' . $subtotal . '</span>';
 					}
 
 				} elseif ( $subtotal && function_exists( 'wc_cp_get_composited_order_item_container' ) && ( $composite_container_item = wc_cp_get_composited_order_item_container( $bundle_container_item, $order ) ) ) {
@@ -1513,7 +1547,7 @@ class WC_PB_Display {
 						}
 
 						if ( $show_subtotal ) {
-							$subtotal = '<span class="bundled_table_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), __( 'Subtotal', 'woocommerce-product-bundles' ), $subtotal ) . '</span>';
+							$subtotal = '<span class="bundled_table_item_subtotal">' . $subtotal . '</span>';
 						} else {
 							$subtotal = '';
 						}
@@ -1700,7 +1734,12 @@ class WC_PB_Display {
 	 * @return string
 	 */
 	public function email_styles( $css ) {
-		$css .= ' .bundled_table_item td:first-of-type { padding-left: 2.5em !important; } .bundled_table_item td { border-top: none; font-size: 0.875em; } #body_content table tr.bundled_table_item td ul.wc-item-meta { font-size: inherit; } ';
+
+		if ( is_rtl() ) {
+			$css .= ' .bundled_table_item td:first-of-type { padding-right: 2.5em !important; } .bundled_table_item td { border-top: none; font-size: 0.875em; } #body_content table tr.bundled_table_item td ul.wc-item-meta { font-size: inherit; } .bundled_table_item_subtotal { white-space: nowrap; } .bundled_table_item_subtotal:after { display: inline-block; width: 1em; height: 1em; background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj48cGF0aCBkPSJNMzM2LjEgMTY4LjFjLTkuMzc1IDkuMzc1LTI0LjU2IDkuMzc1LTMzLjk0IDBMMjE2IDgxLjk0VjQ4OGMwIDEzLjI1LTEwLjc1IDI0LTI0IDI0SDI0QzEwLjc1IDUxMiAwIDUwMS4zIDAgNDg4czEwLjc1LTI0IDI0LTI0aDE0NFY4MS45NEw4MC45NyAxNjguMWMtOS4zNzUgOS4zNzUtMjQuNTYgOS4zNzUtMzMuOTQgMHMtOS4zNzUtMjQuNTYgMC0zMy45NGwxMjgtMTI4QzE3OS43IDIuMzQ0IDE4NS44IDAgMTkyIDBzMTIuMjggMi4zNDQgMTYuOTcgNy4wMzFsMTI4IDEyOEMzNDYuMyAxNDQuNCAzNDYuMyAxNTkuNiAzMzYuMSAxNjguMXoiLz48L3N2Zz4="); background-repeat: no-repeat; background-position: right; background-size: contain; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: rotate(90deg); -ms-transform:rotate(90deg); transform: rotate(90deg); content:""; margin:0 8px 0 2px; opacity:.25 } ';
+		} else {
+			$css .= ' .bundled_table_item td:first-of-type { padding-left: 2.5em !important; } .bundled_table_item td { border-top: none; font-size: 0.875em; } #body_content table tr.bundled_table_item td ul.wc-item-meta { font-size: inherit; } .bundled_table_item_subtotal { white-space: nowrap; } .bundled_table_item_subtotal:after { display: inline-block; width: 1em; height: 1em; background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj48cGF0aCBkPSJNMzM2LjEgMzc2LjFsLTEyOCAxMjhDMjA0LjMgNTA5LjcgMTk4LjIgNTEyIDE5MS4xIDUxMnMtMTIuMjgtMi4zNDQtMTYuOTctNy4wMzFsLTEyOC0xMjhjLTkuMzc1LTkuMzc1LTkuMzc1LTI0LjU2IDAtMzMuOTRzMjQuNTYtOS4zNzUgMzMuOTQgMEwxNjggNDMwLjFWNDhoLTE0NEMxMC43NSA0OCAwIDM3LjI1IDAgMjRTMTAuNzUgMCAyNCAwSDE5MmMxMy4yNSAwIDI0IDEwLjc1IDI0IDI0djQwNi4xbDg3LjAzLTg3LjAzYzkuMzc1LTkuMzc1IDI0LjU2LTkuMzc1IDMzLjk0IDBTMzQ2LjMgMzY3LjYgMzM2LjEgMzc2LjF6Ii8+PC9zdmc+"); background-repeat: no-repeat; background-position: right; background-size: contain; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transform: rotate(90deg); content: ""; margin: 0 2px 0 8px; opacity: .25; } ';
+		}
 		return $css;
 	}
 

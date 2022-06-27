@@ -24,7 +24,6 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -33,21 +32,29 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 		Af_Logger::debug('Checking first order processing rule');
 		global $wpdb;
 		$risk = false;
+
+		$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing') )) . "'";
+		
 		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed','processing' ) ) ) . "' ) ;", $order->get_billing_email() )); 
+			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
+
+			Af_Logger::debug('order AMount : ' . print_r($order_amount, true));
+			
+			$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing', 'pending','on-hold') )) . "'";
 			
 		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed','processing','pending','on-hold' ) ) ) . "' ) ;", $order->get_billing_email() )); 
+			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
 			
+			Af_Logger::debug('order AMount count : ' . print_r($order_count, true));
 			
 		// Risk is true if order amount is smaller than 2
-		if ( ( $order_amount < 1 ) && ( $order_count == 1 )) {
+		if ( ( $order_amount < 1 ) && ( 1 == $order_count )) {
 
 			$risk = true;
 
@@ -58,7 +65,7 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 			
 		}
 		
-		Af_Logger::debug('first order processing rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('first order processing rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	
 	}

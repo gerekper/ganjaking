@@ -1,16 +1,9 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Positive extends GreaterThan
 {
- use NumberConstraintTrait;
+ use ZeroComparisonConstraintTrait;
  public $message = 'This value should be positive.';
- public function __construct($options = null)
- {
- parent::__construct($this->configureNumberConstraintOptions($options));
- }
- public function validatedBy() : string
- {
- return GreaterThanValidator::class;
- }
 }

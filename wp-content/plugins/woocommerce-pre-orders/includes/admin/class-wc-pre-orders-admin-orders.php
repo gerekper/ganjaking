@@ -137,7 +137,7 @@ class WC_Pre_Orders_Admin_Orders {
 	public function add_order_page_filters() {
 		//We only need to create a new select if the WooCommerce Subscriptions plugin is not active
 		// Otherwise we just add to the subscriptions filter
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) || class_exists( 'WC_Subscriptions' ) ) {
 			add_filter( 'woocommerce_subscriptions_order_type_dropdown', array( $this, 'add_pre_order_filter' ) );
 		} else {
 			// Add dropdown to admin orders screen to filter on order type

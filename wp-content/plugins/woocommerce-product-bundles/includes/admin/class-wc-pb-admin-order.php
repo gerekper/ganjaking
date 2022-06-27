@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles edit-order functions and filters.
  *
  * @class    WC_PB_Admin_Order
- * @version  6.12.7
+ * @version  6.14.1
  */
 class WC_PB_Admin_Order {
 
@@ -68,7 +68,7 @@ class WC_PB_Admin_Order {
 				$is_configurable = true;
 			} elseif ( $bundled_item->get_quantity( 'min' ) !== $bundled_item->get_quantity( 'max' ) ) {
 				$is_configurable = true;
-			} elseif ( ( $configurable_attributes = $bundled_item->get_product_variation_attributes( true ) ) && sizeof( $configurable_attributes ) > 0 ) {
+			} elseif ( ( $configurable_attributes = $bundled_item->get_product_variation_attributes( true ) ) && count( $configurable_attributes ) > 0 ) {
 				$is_configurable = true;
 			}
 
@@ -129,7 +129,7 @@ class WC_PB_Admin_Order {
 						'configuration' => apply_filters( 'woocommerce_auto_added_bundle_configuration', WC_PB()->cart->get_posted_bundle_configuration( $product ), $product, $item, $order )
 					) );
 
-					if ( $added_to_order ) {
+					if ( ! is_wp_error( $added_to_order ) ) {
 
 						$new_container_item = $order->get_item( $added_to_order );
 

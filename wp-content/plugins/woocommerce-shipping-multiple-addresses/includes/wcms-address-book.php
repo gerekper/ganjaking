@@ -564,7 +564,7 @@ class WC_MS_Address_Book {
         $new_array = array();
         $sortable_array = array();
 
-        if (count($array) > 0) {
+        if ( is_array( $array ) && 0 < count( $array ) ) {
             foreach ($array as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $k2 => $v2) {

@@ -43,6 +43,9 @@ class Composer extends Abstract_Integration {
 
 		if ( $this->settings->get( 'js_builder' ) ) {
 			add_filter( 'image_make_intermediate_size', array( $this, 'process_image_resize' ) );
+
+			// CDN link image handler for ajax based loading.
+			add_filter( 'wp_get_attachment_image_src', array( $this, 'cdn_attachment_image_src' ) );
 		}
 	}
 
@@ -158,6 +161,42 @@ class Composer extends Abstract_Integration {
 		return $vc_image;
 	}
 
+	/**
+	 * Replace the image src with cdn link for all the Ajax requests.
+	 *
+	 * @since 3.9.10
+	 *
+	 * @see SMUSH-206
+	 *
+	 * @param array|false $image {
+	 *     Array of image data, or boolean false if no image is available.
+	 *
+	 *     @type string $0 Image source URL.
+	 *     @type int    $1 Image width in pixels.
+	 *     @type int    $2 Image height in pixels.
+	 *     @type bool   $3 Whether the image is a resized image.
+	 * }
+	 *
+	 * @return mixed
+	 */
+	public function cdn_attachment_image_src( $image ) {
+		if ( ! wp_doing_ajax() ) {
+			return $image;
+		}
+
+		$cdn = WP_Smush::get_instance()->core()->mod->cdn;
+
+		if ( ! $cdn->get_status() ) {
+			return $image;
+		}
+
+		if ( is_array( $image ) && ! empty( $image[0] ) ) {
+			$image[0] = $cdn->generate_cdn_url( $image[0] );
+		}
+
+		return $image;
+	}
+
 	/**************************************
 	 *
 	 * PRIVATE CLASSES
@@ -167,11 +206,12 @@ class Composer extends Abstract_Integration {
 	 * Should only be active when WPBakery Page Builder is installed.
 	 *
 	 * @since 3.2.1
+	 *
+	 * @see https://kb.wpbakery.com/docs/inner-api/vc_disable_frontend
 	 */
 	private function check_for_js_builder() {
 		// This function exists since WPBakery 4.0 (02.03.2014) and is listed
 		// on their API docs. It should be stable enough to rely on it.
-		// @see https://kb.wpbakery.com/docs/inner-api/vc_disable_frontend/
 		$this->enabled = defined( 'WPB_VC_VERSION' ) && function_exists( 'vc_disable_frontend' );
 	}
 

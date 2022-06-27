@@ -10,7 +10,7 @@ class DeprecatedNode extends Node
  {
  parent::__construct(['expr' => $expr], [], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this);
  $expr = $this->getNode('expr');
@@ -23,4 +23,3 @@ class DeprecatedNode extends Node
  $compiler->raw('.')->string(\sprintf(' ("%s" at line %d).', $this->getTemplateName(), $this->getTemplateLine()))->raw(", E_USER_DEPRECATED);\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\DeprecatedNode', 'MailPoetVendor\\Twig_Node_Deprecated');

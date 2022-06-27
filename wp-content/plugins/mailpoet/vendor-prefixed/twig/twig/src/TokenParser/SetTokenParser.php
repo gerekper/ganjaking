@@ -2,11 +2,12 @@
 namespace MailPoetVendor\Twig\TokenParser;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Error\SyntaxError;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Node\SetNode;
 use MailPoetVendor\Twig\Token;
 final class SetTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $lineno = $token->getLine();
  $stream = $this->parser->getStream();
@@ -38,13 +39,12 @@ final class SetTokenParser extends AbstractTokenParser
  }
  return new SetNode($capture, $names, $values, $lineno, $this->getTag());
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endset');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'set';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\SetTokenParser', 'MailPoetVendor\\Twig_TokenParser_Set');

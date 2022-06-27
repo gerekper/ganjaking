@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Bundles WooCommerce Analytics.
  *
- * @version  6.9.0
+ * @version  6.15.3
  */
 class WC_PB_Admin_Analytics {
 
@@ -110,7 +110,8 @@ class WC_PB_Admin_Analytics {
 	 * Register analytics JS.
 	 */
 	public static function register_script() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Loader' ) || ! Automattic\WooCommerce\Admin\Loader::is_admin_or_embed_page() ) {
+
+		if ( ! WC_PB_Core_Compatibility::is_admin_or_embed_page() ) {
 			return;
 		}
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -56,19 +56,41 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 		}
 
 		/**
+		 * Handle call to functions which is not available in this class
+		 *
+		 * @param string $function_name The function name.
+		 * @param array  $arguments Array of arguments passed while calling $function_name.
+		 * @return result of function call
+		 */
+		public function __call( $function_name = '', $arguments = array() ) {
+
+			global $woocommerce_smart_coupon;
+
+			if ( ! is_callable( array( $woocommerce_smart_coupon, $function_name ) ) ) {
+				return;
+			}
+
+			if ( ! empty( $arguments ) ) {
+				return call_user_func_array( array( $woocommerce_smart_coupon, $function_name ), $arguments );
+			} else {
+				return call_user_func( array( $woocommerce_smart_coupon, $function_name ) );
+			}
+
+		}
+
+
+		/**
 		 * Set global coupons in options table for faster fetching
 		 */
 		public function set_global_coupons() {
-
 			global $wpdb;
-
-			$global_coupons = get_option( 'sc_display_global_coupons' );
-
-			$current_sc_version = get_option( 'sa_sc_db_version', '' );             // code for updating the db - for autoload related fix.
+			$global_coupon_option_name = 'sc_display_global_coupons';
+			$global_coupons            = get_option( $global_coupon_option_name );
+			$current_sc_version        = get_option( 'sa_sc_db_version', '' );             // code for updating the db - for autoload related fix.
 
 			if ( false === $global_coupons ) {
 				$wpdb->query( $wpdb->prepare( 'SET SESSION group_concat_max_len=%d', 999999 ) ); // phpcs:ignore
-				$wpdb->delete( $wpdb->prefix . 'options', array( 'option_name' => 'sc_display_global_coupons' ) ); // WPCS: cache ok, db call ok.
+				$wpdb->delete( $wpdb->prefix . 'options', array( 'option_name' => $global_coupon_option_name ) ); // WPCS: cache ok, db call ok.
 				$wpdb->query( // phpcs:ignore
 					$wpdb->prepare(
 						"REPLACE INTO {$wpdb->prefix}options (option_name, option_value, autoload)
@@ -83,7 +105,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 											AND pm.meta_key = %s
 											AND pm.meta_value = %s)
 							",
-						'sc_display_global_coupons',
+						$global_coupon_option_name,
 						'no',
 						'shop_coupon',
 						'publish',
@@ -92,28 +114,25 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 					)
 				);
 
-				$global_coupons = get_option( 'sc_display_global_coupons' );
-
-				if ( ! empty( $global_coupons ) ) {
+				if ( ! empty( $this->sc_get_option( $global_coupon_option_name ) ) ) {
 					$wpdb->query( // phpcs:ignore
 						$wpdb->prepare(
 							"UPDATE {$wpdb->prefix}options
-								SET option_value = (SELECT IFNULL(GROUP_CONCAT(post_id SEPARATOR ','), '')
-													FROM {$wpdb->prefix}postmeta
-													WHERE meta_key = %s
-														AND CAST(meta_value AS CHAR) = %s
-														AND FIND_IN_SET(post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
+								SET option_value = (SELECT IFNULL(GROUP_CONCAT(DISTINCT pm.post_id SEPARATOR ','), '')
+													FROM {$wpdb->prefix}postmeta AS pm
+													WHERE ( ( pm.meta_key = %s AND CAST(pm.meta_value AS CHAR) = %s )
+													  OR NOT EXISTS( SELECT 1 FROM wp_postmeta AS pm1 WHERE pm1.meta_key = %s AND pm.post_id = pm1.post_id  ) ) 
+													  AND FIND_IN_SET(pm.post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
 								WHERE option_name = %s",
 							'customer_email',
 							'a:0:{}',
-							'sc_display_global_coupons',
-							'sc_display_global_coupons'
+							'customer_email',
+							$global_coupon_option_name,
+							$global_coupon_option_name
 						)
 					);
 
-					$global_coupons = get_option( 'sc_display_global_coupons' );
-
-					if ( ! empty( $global_coupons ) ) {
+					if ( ! empty( $this->sc_get_option( $global_coupon_option_name ) ) ) {
 						$wpdb->query( // phpcs:ignore
 							$wpdb->prepare(
 								"UPDATE {$wpdb->prefix}options
@@ -125,14 +144,12 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 									WHERE option_name = %s",
 								'auto_generate_coupon',
 								'yes',
-								'sc_display_global_coupons',
-								'sc_display_global_coupons'
+								$global_coupon_option_name,
+								$global_coupon_option_name
 							)
 						);
 
-						$global_coupons = get_option( 'sc_display_global_coupons' );
-
-						if ( ! empty( $global_coupons ) ) {
+						if ( ! empty( $this->sc_get_option( $global_coupon_option_name ) ) ) {
 							$wpdb->query( // phpcs:ignore
 								$wpdb->prepare(
 									"UPDATE {$wpdb->prefix}options
@@ -144,18 +161,41 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 										WHERE option_name = %s",
 									'discount_type',
 									'smart_coupon',
-									'sc_display_global_coupons',
-									'sc_display_global_coupons'
+									$global_coupon_option_name,
+									$global_coupon_option_name
 								)
 							);
+
+							if ( ! empty( $this->sc_get_option( $global_coupon_option_name ) ) ) {
+								$wpdb->query( // phpcs:ignore
+									$wpdb->prepare(
+										"UPDATE {$wpdb->prefix}options
+                                    SET option_value = (SELECT IFNULL(GROUP_CONCAT(DISTINCT pm_expiry_date.post_id SEPARATOR ','), '')
+                                                        FROM {$wpdb->prefix}postmeta AS pm_expiry_date 
+                                                        JOIN {$wpdb->prefix}postmeta AS pm_expiry_time 
+                                                        on ( pm_expiry_time.post_id = pm_expiry_date.post_id
+                                                            AND pm_expiry_date.meta_key = %s
+                                                            AND pm_expiry_time.meta_key = %s
+                                                        )
+                                                        WHERE ( (pm_expiry_date.meta_value IS NULL OR pm_expiry_date.meta_value = '') 
+                                                            OR ( IFNULL(pm_expiry_date.meta_value, 0) + IFNULL(pm_expiry_time.meta_value, 0) ) > %d )
+                                                            AND FIND_IN_SET(pm_expiry_date.post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
+                                    WHERE option_name = %s",
+										'date_expires',
+										'wc_sc_expiry_time',
+										time(),
+										$global_coupon_option_name,
+										$global_coupon_option_name
+									)
+								);
+								$global_coupons = $this->get_coupon_options( $global_coupon_option_name );
+							}
 						}
 					}
-
-					$global_coupons = get_option( 'sc_display_global_coupons' );
 				}
 			}
 
-			if ( ( empty( $current_sc_version ) || version_compare( $current_sc_version, '3.3.6', '<' ) ) && false !== $global_coupons ) {
+			if ( ( empty( $current_sc_version ) || version_compare( $current_sc_version, '3.3.6', '<' ) ) && ! empty( $this->sc_get_option( $global_coupon_option_name ) ) ) {
 
 				$wpdb->query( // phpcs:ignore
 					$wpdb->prepare(
@@ -163,7 +203,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 							SET autoload = %s
 							WHERE option_name = %s",
 						'no',
-						'sc_display_global_coupons'
+						$global_coupon_option_name
 					)
 				);
 
@@ -298,8 +338,6 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 			$this->sc_update_global_coupons( $post_id );
 
 		}
-
-
 
 	}
 

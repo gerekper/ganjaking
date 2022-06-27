@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Drip
  * Plugin URI: https://woocommerce.com/products/woocommerce-drip/
  * Description: Integrate your WooCommerce store and customers with your Drip account.
- * Version: 1.2.28
+ * Version: 1.2.30
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * License: GPL-2.0+
@@ -11,9 +11,9 @@
  *
  * Copyright: © 2022 WooCommerce
  * Woo: 609085:cbafd0ee5daa6120a5902df2ecf6fe7b
- * WC tested up to: 6.2
+ * WC tested up to: 6.6
  * WC requires at least: 3.0
- * Tested up to: 5.9
+ * Tested up to: 6.0
  *
  * @package woocommerce-drip
  */
@@ -45,7 +45,7 @@ function woocommerce_drip_init() {
 	}
 
 	if ( ! class_exists( 'WC_Drip' ) ) {
-		define( 'WC_DRIP_VERSION', '1.2.28' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_DRIP_VERSION', '1.2.30' ); // WRCS: DEFINED_VERSION.
 
 		/**
 		 * WC_Drip Class
@@ -75,9 +75,6 @@ function woocommerce_drip_init() {
 
 				// Drip API PHP Library Class
 				require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/Drip_API.class.php' );
-
-				// WC Plugin Compatability Class (https://github.com/skyverge/wc-plugin-compatibility)
-				include( plugin_dir_path( __FILE__ ) . 'includes/lib/class-wcdrip-wc-plugin-compatibility.php' );
 
 				// Vroom.. Vroom..
 				add_action( 'init', array( 'WC_Drip_Init', 'get_instance' ) );

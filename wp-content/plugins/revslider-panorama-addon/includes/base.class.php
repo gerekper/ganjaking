@@ -15,7 +15,7 @@ class RsPanoramaBase extends RsAddOnPanoramaBase {
 					 $_PluginUrl     = RS_PANORAMA_PLUGIN_URL,
 					 $_PluginTitle   = 'panorama',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.7';
+				     $_Version       = '3.0.6';
 	
 	public function __construct() {
 		

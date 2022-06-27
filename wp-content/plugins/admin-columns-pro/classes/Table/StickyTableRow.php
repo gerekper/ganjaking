@@ -38,7 +38,7 @@ class StickyTableRow implements AC\Registrable {
 	}
 
 	public function is_sticky( $key ) {
-		return (bool) $this->preferences()->get( $key );
+		return (bool) apply_filters( 'acp/sticky_header/enable', $this->preferences()->get( $key ) );
 	}
 
 	public function update_sticky_table() {

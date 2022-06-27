@@ -1001,6 +1001,30 @@ class WoocommerceGpfFeedItem {
 			}
 		}
 
+		/**
+		 * Allow integrations to add images to the list.
+		 * Integrations should return the information in the following structure:
+		 *
+		 * [
+		 *     'source' => [
+		 *         $id => $url,
+		 *         $id => $url,
+		 *      ],
+		 * ]
+		 */
+		$additional_images_to_register = apply_filters(
+			'woocommerce_gpf_additional_images_to_register',
+			[],
+			$this->specific_product,
+			$this->general_product,
+			$this->image_style
+		);
+		foreach ( $additional_images_to_register as $source => $images ) {
+			foreach ( $images as $image_id => $image_url ) {
+				$this->register_image_source( $image_id, $image_url, $source );
+			}
+		}
+
 		// Uniquefy the ordered_image_sources array...
 		$this->ordered_images = array_unique( $this->ordered_images, SORT_REGULAR );
 
@@ -1343,8 +1367,10 @@ class WoocommerceGpfFeedItem {
 			$return = $product->get_weight();
 			if ( ! empty( $return ) ) {
 				$return .= ' ' . get_option( 'woocommerce_weight_unit' );
+
 				return [ $return ];
 			}
+
 			return [];
 		}
 		if ( is_callable( [ $product, 'get_' . $field ] ) ) {

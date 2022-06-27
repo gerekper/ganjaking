@@ -31,6 +31,6 @@ class WC_Store_Credit_Item_Discount_Shipping extends WC_Store_Credit_Item_Discou
 		}
 
 		/** This filter is documented in woocommerce/includes/class-wc-tax.php */
-		$this->discount_taxes = apply_filters( 'woocommerce_calc_shipping_tax', $this->discount_taxes, $price, $this->get_item()->tax_rates );
+		$this->discount_taxes = apply_filters( 'woocommerce_calc_shipping_tax', $this->discount_taxes, $price, $this->get_item()->tax_rates ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 }

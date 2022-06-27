@@ -7,11 +7,11 @@ use MailPoetVendor\Twig\Node\BodyNode;
 use MailPoetVendor\Twig\Node\MacroNode;
 use MailPoetVendor\Twig\Node\ModuleNode;
 use MailPoetVendor\Twig\Node\Node;
-use MailPoetVendor\Twig\NodeVisitor\AbstractNodeVisitor;
+use MailPoetVendor\Twig\NodeVisitor\NodeVisitorInterface;
 use MailPoetVendor\Twig\Profiler\Node\EnterProfileNode;
 use MailPoetVendor\Twig\Profiler\Node\LeaveProfileNode;
 use MailPoetVendor\Twig\Profiler\Profile;
-final class ProfilerNodeVisitor extends AbstractNodeVisitor
+final class ProfilerNodeVisitor implements NodeVisitorInterface
 {
  private $extensionName;
  private $varName;
@@ -20,11 +20,11 @@ final class ProfilerNodeVisitor extends AbstractNodeVisitor
  $this->extensionName = $extensionName;
  $this->varName = \sprintf('__internal_%s', \hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $extensionName));
  }
- protected function doEnterNode(Node $node, Environment $env)
+ public function enterNode(Node $node, Environment $env) : Node
  {
  return $node;
  }
- protected function doLeaveNode(Node $node, Environment $env)
+ public function leaveNode(Node $node, Environment $env) : ?Node
  {
  if ($node instanceof ModuleNode) {
  $node->setNode('display_start', new Node([new EnterProfileNode($this->extensionName, Profile::TEMPLATE, $node->getTemplateName(), $this->varName), $node->getNode('display_start')]));
@@ -36,9 +36,8 @@ final class ProfilerNodeVisitor extends AbstractNodeVisitor
  }
  return $node;
  }
- public function getPriority()
+ public function getPriority() : int
  {
  return 0;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Profiler\\NodeVisitor\\ProfilerNodeVisitor', 'MailPoetVendor\\Twig_Profiler_NodeVisitor_Profiler');

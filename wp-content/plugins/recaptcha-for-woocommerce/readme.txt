@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:5.9
-Version:2.29
-Stable tag:2.29
+Tested up to:6.6
+Version:2.35
+Stable tag:2.35
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,44 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.35 =
+
+* Fixed critical error occured for some of clients
+
+
+= 2.34 =
+
+* Tested with WordPress 6.0
+* Tested with WooCommerce 6.5
+
+
+= 2.33 =
+
+
+* Added action for checkout registration form - i13_woo_checkout_regform_action to render captcha on checkout registration form. For example
+  for example you can do something like below in your functions.php
+  
+    add_action('woocommerce_after_checkout_registration_form', 'i13woo_extra_checkout_register_fields', 9999);
+    function i13woo_extra_checkout_register_fields(){
+
+        do_action( 'i13_woo_checkout_regform_action');
+    }
+    
+= 2.32 =
+
+* Fixes for reCaptcha not working with Wordfence Security 2FA - wp login
+
+
+= 2.31 =
+
+* Fixes for reCaptcha v3 multiple instance not working on checkout in some themes
+
+
+= 2.30 =
+
+* Fixes Google Pay issue in some themes
+
 
 = 2.29 =
 

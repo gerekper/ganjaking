@@ -13,7 +13,7 @@ function perfmatters_network_admin_menu() {
     }
  
  	//Add Settings Section
-    add_settings_section('perfmatters_network', 'Network Setup', 'perfmatters_network_callback', 'perfmatters_network');
+    add_settings_section('perfmatters_network', 'Network Setup', '__return_false', 'perfmatters_network');
    
    	//Add Options Fields
 	add_settings_field(
@@ -57,11 +57,6 @@ function perfmatters_network_admin_menu() {
 }
 add_filter('network_admin_menu', 'perfmatters_network_admin_menu');
 
-//Perfmatters Network Section Callback
-function perfmatters_network_callback() {
-	echo '<p class="perfmatters-subheading">' . __('Manage network access control and setup a network default site.', 'perfmatters') . '</p>';
-}
- 
 //Perfmatters Network Access
 function perfmatters_network_access_callback() {
 	$perfmatters_network = get_site_option('perfmatters_network');
@@ -202,52 +197,51 @@ function perfmatters_network_page_callback() {
 		//hidden h2 for admin notice placement
 		echo "<h2 style='display: none;'></h2>";
 
-  		//Tab Navigation
-		echo "<h2 class='nav-tab-wrapper'>";
-			echo "<a href='?page=perfmatters&tab=network' class='nav-tab " . ($_GET['tab'] == 'network' ? 'nav-tab-active' : '') . "'>" . __('Network', 'perfmatters') . "</a>";
-			echo "<a href='?page=perfmatters&tab=license' class='nav-tab " . ($_GET['tab'] == 'license' ? 'nav-tab-active' : '') . "'>" . __('License', 'perfmatters') . "</a>";
-		echo "</h2>";
-
 		//Network Tab Content
 		if($_GET['tab'] == 'network') {
 
 	  		echo "<form method='POST' action='edit.php?action=perfmatters_update_network_options' style='overflow: hidden;'>";
 			    settings_fields('perfmatters_network');
-			    do_settings_sections('perfmatters_network');
+			    perfmatters_settings_section('perfmatters_network', 'perfmatters_network');
 			    submit_button();
 	  		echo "</form>";
 
-	  		echo "<form method='POST'>";
-	 
-	  			echo "<h2>" . __('Apply Default Settings', 'perfmatters') . "</h2>";
-	  			echo '<p class="perfmatters-subheading">' . __('Choose a site to apply the settings from your network default site.', 'perfmatters') . '</p>';
+	  		echo "<form method='POST' style='margin-top: 25px;'>";
+	  			echo '<div class="perfmatters-settings-section">';
+		  			echo "<h2>" . __('Apply Default Settings', 'perfmatters') . "</h2>";
 
-				wp_nonce_field('perfmatters-network-apply', '_wpnonce', true, true);
-				echo "<p>" . __('Select a site from the dropdown and click to apply the settings from your network default (above).', 'perfmatters') . "</p>";
+					wp_nonce_field('perfmatters-network-apply', '_wpnonce', true, true);
+					echo "<p>" . __('Select a site from the dropdown and click to apply the settings from your network default (above).', 'perfmatters') . "</p>";
 
-				echo "<select name='perfmatters_network_apply_blog' style='margin-right: 10px;'>";
-					$sites = array_map('get_object_vars', get_sites(array('deleted' => 0)));
-					if(is_array($sites) && $sites !== array()) {
-						echo "<option value=''>" . __('Select a Site', 'perfmatters') . "</option>";
-						foreach($sites as $site) {
-							echo "<option value='" . $site['blog_id'] . "'>" . $site['blog_id'] . ": " . $site['domain'] . $site['path'] . "</option>";
+					echo "<select name='perfmatters_network_apply_blog' style='margin-right: 10px;'>";
+						$sites = array_map('get_object_vars', get_sites(array('deleted' => 0)));
+						if(is_array($sites) && $sites !== array()) {
+							echo "<option value=''>" . __('Select a Site', 'perfmatters') . "</option>";
+							foreach($sites as $site) {
+								echo "<option value='" . $site['blog_id'] . "'>" . $site['blog_id'] . ": " . $site['domain'] . $site['path'] . "</option>";
+							}
 						}
-					}
-				echo "</select>";
+					echo "</select>";
 
-				echo "<input type='submit' name='perfmatters_apply_defaults' value='" . __('Apply Default Settings', 'perfmatters') . "' class='button' />";
+					echo "<input type='submit' name='perfmatters_apply_defaults' value='" . __('Apply Default Settings', 'perfmatters') . "' class='button' />";
 
-				echo "<br />";
+					echo "<br />";
 
-				echo "<p>" . __('Apply the settings from your network default to all sites. Depending on the amount, this may take a while.', 'perfmatters') . "</p>";
+					echo "<p>" . __('Apply the settings from your network default to all sites. Depending on the amount, this may take a while.', 'perfmatters') . "</p>";
 
-				echo "<input type='submit' name='perfmatters_apply_defaults_all' value='" . __('Apply Default Settings to All Sites', 'perfmatters') . "' class='button' onclick='return confirm(\"" . __('Are you sure? This will permanently overwrite all Perfmatters options for all subsites.', 'perfmatters') . "\");' />";
+					echo "<input type='submit' name='perfmatters_apply_defaults_all' value='" . __('Apply Default Settings to All Sites', 'perfmatters') . "' class='button' onclick='return confirm(\"" . __('Are you sure? This will permanently overwrite all Perfmatters options for all subsites.', 'perfmatters') . "\");' />";
+				echo '</div>';
 			echo "</form>";
 		}
-		//License Tab Content
 		elseif($_GET['tab'] == 'license') {
-			//license custom form output
+
+			//license output
 			require_once('license.php');
+		}
+		elseif($_GET['tab'] == 'support') {
+
+			//support output
+			require_once('support.php');
 		}
 
 	echo "</div>";

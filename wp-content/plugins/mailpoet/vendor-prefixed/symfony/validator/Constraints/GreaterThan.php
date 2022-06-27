@@ -1,6 +1,7 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class GreaterThan extends AbstractComparison
 {
  public const TOO_LOW_ERROR = '778b7ae0-84d3-481a-9dec-35fdb64b1d78';

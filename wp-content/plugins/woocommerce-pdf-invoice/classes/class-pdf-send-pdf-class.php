@@ -21,7 +21,7 @@
 			$this->settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			// Add download link if required
-			if( isset( $this->settings['attachment_method'] ) && $this->settings['attachment_method'] != '0' ) {
+			if( isset( $this->settings['attachment_method'] ) && in_array( $this->settings['attachment_method'], array('1','2') ) ) {
 				add_action( 'woocommerce_email_before_order_table', array( 'WC_send_pdf', 'pdf_download_link' ), 10, 4 );
 			}
 
@@ -102,7 +102,7 @@
 
 				} else {
 					
-					$pdf = WC_send_pdf::get_woocommerce_invoice( $order, $id, FALSE );
+					$pdf = WC_send_pdf::get_woocommerce_pdf_invoice( $order, $id, FALSE );
 
             		// Apply a filter to modify the PDF if required
             		$pdf = apply_filters( 'pdf_invoice_modify_attachment', $pdf, $id, $order );
@@ -148,13 +148,13 @@
 	 	}
 
 		/**
-		 * [get_woocommerce_invoice description]
+		 * [get_woocommerce_pdf_invoice description]
 		 * @param  [type] $order    [description]
 		 * @param  [type] $email_id [description]
 		 * @param  [type] $stream   [description]
 		 * @return [type]           [description]
 		 */
-		public static function get_woocommerce_invoice( $order = NULL, $email_id = NULL, $stream = NULL ) {
+		public static function get_woocommerce_pdf_invoice( $order = NULL, $email_id = NULL, $stream = NULL ) {
 			
 			// Stop everything if iconv or mbstring are not loaded, prevents fatal errors
 			if ( ! extension_loaded( 'iconv' ) || ! extension_loaded( 'mbstring' ) || ! $order ) {
@@ -742,7 +742,7 @@
 
 			$content = str_replace(	'[[PDFORDERSUBTOTAL]]', 					self::get_pdf_order_subtotal( $order_id ), 	  								$content );
 			$content = str_replace(	'[[PDFORDERSHIPPING]]', 					self::get_pdf_order_shipping( $order_id ), 	  								$content );
-			$content = str_replace(	'[[PDFORDERFEES]]', 						self::get_pdf_order_fees( $order_id ), 	  									$content );
+			$content = str_replace(	'[[PDFORDERFEES]]', 						self::get_pdf_order_fees( $order_id, $tax_display ), 	  					$content );
 			$content = str_replace(	'[[PDFORDERDISCOUNT]]', 					self::get_pdf_order_discount( $order_id ), 	  								$content );
 			$content = str_replace(	'[[PDFORDERTAX]]', 							self::get_pdf_order_tax( $order_id ), 	  									$content );
 			$content = str_replace(	'[[PDFORDERTOTAL]]', 						self::get_pdf_order_total( $order_id ), 	  								$content );
@@ -783,6 +783,9 @@
 
 			// Paid im full overlay
 			$content = str_replace(	'[[PDFPAIDINFULLOVERLAY]]', 				self::get_pdf_template_paid_in_full_overlay( $order, $settings ), 			$content );
+
+			// Additional CSS
+			$content = str_replace(	'[[PDFINVOICEADDITIONALCSS]]', 				self::get_pdf_template_additional_template_css( $order, $settings ), 		$content );
 
 			// Allow the content to be filtered
 			$content = apply_filters( 'pdf_content_additional_content' , $content , $order_id );
@@ -1632,14 +1635,21 @@
 							 */
 							$item_name = apply_filters( 'pdf_invoice_item_name', $item_name, $item, $_product, $order );
 
+							$item_quantity 	= $item->get_quantity();
+							$price_ex 		= wc_price( $item->get_subtotal() / $item_quantity, array( 'currency' => $order_currency ) );
+							$total_ex 		= wc_price( $item->get_subtotal(), array( 'currency' => $order_currency ) );
+							$tax 			= wc_price( $item->get_subtotal_tax() / $item_quantity, array( 'currency' => $order_currency ) );
+							$price_inc 		= wc_price( ( $item->get_subtotal() + $item->get_subtotal_tax() ) / $item_quantity, array( 'currency' => $order_currency ) );
+							$total_inc 		= wc_price( $item->get_subtotal() + $item->get_subtotal_tax(), array( 'currency' => $order_currency ) );
+
 						$line .= 	'<tr class="pdf_table_row '  . $row_class  . '">' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="5%" align="right">' . $item['quantity'] . ' x</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="5%" align="right">' . $item_quantity . ' x</td>' .
 									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="50%">' .  stripslashes( $item_name ) . '</td>' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  .  wc_price( $item['total'] / $item['qty'], array( 'currency' => $order_currency ) ) . '</td>' .							
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  .  wc_price( $item['total'], array( 'currency' => $order_currency ) ) . '</td>' .	
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="7%" align="right">'  .  wc_price( $item['total_tax'] / $item['qty'], array( 'currency' => $order_currency ) ). '</td>' .			
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' .  wc_price( ( $item['total'] + $item['total_tax'] ) / $item['qty'], array( 'currency' => $order_currency ) ). '</td>' .
-									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' .  wc_price( $item['total'] + $item['total_tax'], array( 'currency' => $order_currency ) ). '</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  .  $price_ex . '</td>' .							
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="9%" align="right">'  . $total_ex . '</td>' .	
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="7%" align="right">'  . $tax . '</td>' .			
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' . $price_inc . '</td>' .
+									'<td class="pdf_table_cell ' . $cell_class . '" valign="top" width="10%" align="right">' . $total_inc . '</td>' .
 									'</tr>';
 
 						$line = apply_filters( 'pdf_invoice_item_line', $line, $order );
@@ -2308,7 +2318,7 @@
 		/** 
 		 * Get Fees
 		 */
-		function get_pdf_order_fees( $order_id ) {
+		function get_pdf_order_fees( $order_id, $tax_display = "" ) {
 
 			if (!$order_id) return;	
 
@@ -2855,9 +2865,6 @@
 				$order_id 		= $order->get_id();
 				$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
 
-				// Check we have an invoice number
-				$has_invoice_number = isset( $invoice_meta['invoice_number'] ) ? TRUE : FALSE;
-
 				// Set the "Paid in full" text
 				if( isset( $settings['paid_in_full_text'] ) && strlen( $settings['paid_in_full_text'] ) !== 0 ) {
 					$paid_in_full_text = $settings['paid_in_full_text'];
@@ -2865,7 +2872,7 @@
 					$paid_in_full_text = __( 'PAID IN FULL', 'woocommerce-pdf-invoice' );
 				}
 
-				if( $order->needs_payment() || !$has_invoice_number ) {
+				if( $order->needs_payment() || !isset( $invoice_meta['invoice_number'] ) || strlen( $invoice_meta['invoice_number'] ) === 0 ) {
 					$overlaycss = '';
 				} else {
 
@@ -2897,6 +2904,22 @@
 			}
 
 			return apply_filters( 'pdf_template_paid_in_full_overlay_css', $overlaycss, $order, $settings );
+		}
+
+		/**
+		 * Gets the pdf template additional template css.
+		 *
+		 * @param      <type>  $order     The order
+		 * @param      <type>  $settings  The settings
+		 *
+		 * @return     <type>  The pdf template additional template css.
+		 */
+		public static function get_pdf_template_additional_template_css( $order, $settings ) {
+
+			$additional_css = '';
+
+			return apply_filters( 'pdf_template_additional_template_css', $additional_css, $order, $settings );
+
 		}
 
 		/**

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Helper Functions.
  *
  * @class    WC_PB_Helpers
- * @version  6.5.0
+ * @version  6.15.2
  */
 class WC_PB_Helpers {
 
@@ -36,6 +36,10 @@ class WC_PB_Helpers {
 	public static function cache_get( $key, $group_key = '' ) {
 
 		$value = null;
+
+		if ( defined( 'WC_PB_DEBUG_RUNTIME_CACHE' ) ) {
+			return $value;
+		}
 
 		if ( $group_key ) {
 
@@ -327,7 +331,7 @@ class WC_PB_Helpers {
 	public static function format_list_of_items( $items ) {
 
 		$item_string = '';
-		$count       = sizeof( $items );
+		$count       = count( $items );
 		$loop        = 1;
 
 		foreach ( $items as $key => $item ) {

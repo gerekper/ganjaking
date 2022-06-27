@@ -12,8 +12,8 @@ class QuickAdd extends ACP\Settings\ListScreen\HideOnScreen {
 			'hide_new_inline',
 			sprintf(
 				'%s (%s)',
-				__( 'Quick Add', 'codepress-admin-columns' ),
-				__( 'Add Row', 'codepress-admin-columns' )
+				__( 'Add Row', 'codepress-admin-columns' ),
+				__( 'Quick Add', 'codepress-admin-columns' )
 			)
 		);
 	}

@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * The plugin integration class.
@@ -131,6 +131,27 @@ class WC_Google_Analytics_Pro_Integration extends Framework\SV_WC_Tracking_Integ
 		$this->email_tracking = wc_google_analytics_pro()->load_class( '/src/class-wc-google-analytics-pro-email-tracking.php', 'WC_Google_Analytics_Pro_Email_Tracking' );
 	}
 
+
+	/**
+	 * Gets the Google Analytics tracking script URL.
+	 *
+	 * @since 1.12.0
+	 *
+	 * @return string Google Analytics tracking script URL
+	 */
+	public function get_ga_script_url() {
+
+		/**
+		 * Filters the analytics.js tracking URL.
+		 *
+		 * Third parties may use this filter to serve a different tracking script.
+		 *
+		 * @since 1.12.0
+		 *
+		 * @param string $tracking_url the analytics.js tracking URL
+		 */
+		return apply_filters( 'wc_google_analytics_pro_tracking_script_url', 'https://www.google-analytics.com/analytics.js' );
+	}
 
 	/**
 	 * Returns the Google Analytics tracking function name.
@@ -466,7 +487,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','<?php echo $this->get_ga_function_name(); ?>');
+	})(window,document,'script','<?php echo esc_url( $this->get_ga_script_url() ); ?>','<?php echo $this->get_ga_function_name(); ?>');
 	<?php $tracker_options = $this->get_tracker_options(); ?>
 	<?php echo $this->get_ga_function_name(); ?>( 'create', '<?php echo esc_js( $this->get_tracking_id() ); ?>', <?php echo ! empty( $tracker_options ) ? wp_json_encode( $tracker_options ) : "'auto'"; ?> );
 	<?php echo $this->get_ga_function_name(); ?>( 'set', 'forceSSL', true );
@@ -902,7 +923,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 	private function do_not_track( $admin_event = false, $user_id = null ) {
 
 		// do not track activity in the admin area, unless specified
-		if ( ! $admin_event && ! is_ajax() && is_admin() ) {
+		if ( ! $admin_event && ! wp_doing_ajax() && is_admin() ) {
 			$do_not_track = true;
 		} else {
 			$do_not_track = ! $this->is_tracking_enabled_for_user_role( $user_id );
@@ -1216,7 +1237,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 
 	/**
 	 * Determines whether the integration is connected.
-	 *	
+	 *
 	 * @since 1.11.0
 	 *
 	 * @return bool
@@ -1225,7 +1246,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 
 		return ! empty( $this->get_access_token() ) || ! empty( $this->get_tracking_id() );
 	}
-	
+
 
 	/**
 	 * Gets the Management API handler.
@@ -1387,7 +1408,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 				'default' => 'yes',
 			];
 		}
-		
+
 		$form_fields['debug_mode'] = [
 			'title'   => __( 'Debug Mode', 'woocommerce-google-analytics-pro' ),
 			'label'   => __( 'Log API requests, responses, and errors for debugging. Only enable this if you experience issues!', 'woocommerce-google-analytics-pro' ),
@@ -1606,8 +1627,8 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 
 		// posted property need as previous settings values pre-loads before the updated values
 		$posted_property = (string) filter_input( INPUT_POST, $this->get_field_key( 'property' ), FILTER_SANITIZE_STRING );
-		
-		if ( '' === $posted_property &&  
+
+		if ( '' === $posted_property &&
 		     '' !== $this->get_option( 'tracking_id', '' ) &&
 		     '' === $this->get_option( 'property', '' ) ) {
 			$fields = array_merge( [
@@ -2044,7 +2065,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 	public function added_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 
 		// don't track add to cart from AJAX here
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 
@@ -3421,7 +3442,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 
 			$parts = explode( '|', $sanitized_fields['property'] );
 
-			// set the tracking ID 
+			// set the tracking ID
 			$sanitized_fields['tracking_id'] = $parts[1];
 		}
 

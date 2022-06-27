@@ -21,8 +21,8 @@ class WC_Widget_Brand_Description extends WP_Widget {
 	function __construct() {
 
 		/* Widget variable settings. */
-		$this->woo_widget_name        = __('WooCommerce Brand Description', 'wc_brands' );
-		$this->woo_widget_description = __( 'When viewing a brand archive, show the current brands description.', 'wc_brands' );
+		$this->woo_widget_name        = __('WooCommerce Brand Description', 'woocommerce-brands' );
+		$this->woo_widget_description = __( 'When viewing a brand archive, show the current brands description.', 'woocommerce-brands' );
 		$this->woo_widget_idbase      = 'wc_brands_brand_description';
 		$this->woo_widget_cssclass    = 'widget_brand_description';
 
@@ -68,7 +68,7 @@ class WC_Widget_Brand_Description extends WP_Widget {
 	function form( $instance ) {
 		?>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'wc_brands') ?></label>
+				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'woocommerce-brands') ?></label>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php if ( isset ( $instance['title'] ) ) echo esc_attr( $instance['title'] ); ?>" />
 			</p>
 		<?php

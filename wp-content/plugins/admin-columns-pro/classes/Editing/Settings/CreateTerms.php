@@ -21,13 +21,9 @@ class CreateTerms extends AC\Settings\Column {
 	public function create_view() {
 		$taxonomy = get_taxonomy( $this->column->get_taxonomy() );
 		$view = new View();
-		$enable_term = $this
-			->create_element( 'radio', 'enable_term_creation' )
-			->set_options( [
-					'on'  => __( 'Yes' ),
-					'off' => __( 'No' ),
-				]
-			);
+
+		$enable_term = new AC\Form\Element\Toggle( 'enable_term_creation', '', $this->get_value( 'enable_term_creation' ) === 'on', 'on', 'off' );
+		$enable_term->add_class( 'ac-setting-input_enable_term_creation' );
 
 		if ( $taxonomy ) {
 			$view->set( 'label', sprintf( __( 'Allow new %s?', 'codepress-admin-columns' ), strtolower( $taxonomy->labels->name ) ) )

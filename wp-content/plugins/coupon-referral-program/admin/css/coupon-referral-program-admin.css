@@ -84,3 +84,9 @@ table.form-table tr th {
 #mwb_cpr_image {
     display: none;
 }
+
+.wps-info-img{
+    margin-right: 6px !important;
+    margin-bottom: -2px !important;
+    max-width: 15px !important;
+}

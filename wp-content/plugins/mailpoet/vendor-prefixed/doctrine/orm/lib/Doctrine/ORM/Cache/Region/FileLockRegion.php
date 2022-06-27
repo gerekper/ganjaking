@@ -67,7 +67,7 @@ class FileLockRegion implements ConcurrentRegion
  }
  private function getLockFileName(CacheKey $key) : string
  {
- return $this->directory . \DIRECTORY_SEPARATOR . $key->hash . '.' . self::LOCK_EXTENSION;
+ return $this->directory . DIRECTORY_SEPARATOR . $key->hash . '.' . self::LOCK_EXTENSION;
  }
  private function getLockContent(string $filename)
  {
@@ -135,7 +135,7 @@ class FileLockRegion implements ConcurrentRegion
  }
  $lock = Lock::createLockRead();
  $filename = $this->getLockFileName($key);
- if (!@file_put_contents($filename, $lock->value, \LOCK_EX)) {
+ if (!@file_put_contents($filename, $lock->value, LOCK_EX)) {
  return null;
  }
  chmod($filename, 0664);

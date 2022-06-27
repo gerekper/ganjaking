@@ -198,6 +198,28 @@ function wc_store_credit_log( $message, $level = 'notice', $handle = 'wc_store_c
 }
 
 /**
+ * Gets if the specified plugin is active.
+ *
+ * @since 4.1.0
+ *
+ * @param string $plugin Base plugin path from plugins directory.
+ * @return bool
+ */
+function wc_store_credit_is_plugin_active( $plugin ) {
+	static $active_plugins = null;
+
+	if ( ! $active_plugins ) {
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+
+		if ( is_multisite() ) {
+			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+		}
+	}
+
+	return ( in_array( $plugin, $active_plugins, true ) || array_key_exists( $plugin, $active_plugins ) );
+}
+
+/**
  * Gets the proportional discounts for the specified amounts.
  *
  * The discounts are calculated as a percentage of the total discounting amount.

@@ -13,6 +13,7 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/sitelogo-functions.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/templateparts.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-post-info.php';
 
+
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-wpforms.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-rafflepress.php';
 
@@ -20,6 +21,7 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-lp.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-theme-template.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-woocommerce-template-tags.php';
+
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-csp-mm.php';
 
@@ -29,6 +31,9 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/nestednavmenu.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-404.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-loginp.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-domain-mapping.php';
+if ( 'pro' === SEEDPROD_PRO_BUILD ) {
+	require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/tracking.php';
+}
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/backwards/backwards_compatibility.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/subscriber.php';
@@ -59,6 +64,9 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/license.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/upgrade.php';
 
 
+
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-theme-functions.php';
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-landing-functions.php';
 
 
 

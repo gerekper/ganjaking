@@ -43,47 +43,5 @@ if ( ! class_exists( 'WC_OD_Utils' ) ) {
 		public static function is_woocommerce_settings_page() {
 			return ( is_admin() && isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] );
 		}
-
-		/**
-		 * Gets the WooCommerce version.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 Use the constant 'WC_VERSION' or the property 'WC()->version' instead.
-		 *
-		 * @return string The WooCommerce version.
-		 */
-		public static function get_woocommerce_version() {
-			wc_deprecated_function( __METHOD__, '1.1.0', 'WC_VERSION or WC()->version' );
-
-			return WC()->version;
-		}
-
-		/**
-		 * Gets the menu slug for the WooCommerce settings page.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.4.0 No longer necessary.
-		 *
-		 * @return string The menu slug for the WooCommerce settings page.
-		 */
-		public static function get_woocommerce_settings_page_slug() {
-			wc_deprecated_function( __METHOD__, '1.4.0' );
-
-			return 'wc-settings';
-		}
-
-		/**
-		 * Gets the section slug for the shipping options.
-		 *
-		 * @since 1.0.2
-		 * @deprecated 1.4.0 No longer necessary.
-		 *
-		 * @return string The section slug for the shipping options.
-		 */
-		public static function get_shipping_options_section_slug() {
-			wc_deprecated_function( __METHOD__, '1.4.0' );
-
-			return 'options';
-		}
 	}
 }

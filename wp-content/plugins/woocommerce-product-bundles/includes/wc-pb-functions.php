@@ -262,9 +262,9 @@ function wc_pb_is_bundle_container_cart_item( $cart_item ) {
  *
  * @since  5.0.0
  *
- * @param  array     $bundled_order_item
- * @param  WC_Order  $order
- * @param  boolean   $return_id
+ * @param  WC_Order_Item  $bundled_order_item
+ * @param  WC_Order       $order
+ * @param  boolean        $return_id
  * @return mixed
  */
 function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = false, $return_id = false ) {
@@ -319,6 +319,10 @@ function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = f
 		if ( $container && is_callable( array( $container, 'get_id' ) ) ) {
 			$result = $return_id ? $container->get_id() : $container;
 		}
+	} else {
+
+		// Invalidate order cache before moving to the next Composite Product in the order.
+		WC_PB_Helpers::cache_delete( 'order_' . $bundled_order_item->get_order_id() );
 	}
 
 	return $result;
@@ -329,9 +333,9 @@ function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = f
  *
  * @since  5.0.0
  *
- * @param  array     $container_order_item
- * @param  WC_Order  $order
- * @param  boolean   $return_ids
+ * @param  WC_Order_Item  $container_order_item
+ * @param  WC_Order       $order
+ * @param  boolean        $return_ids
  * @return mixed
  */
 function wc_pb_get_bundled_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -391,8 +395,8 @@ function wc_pb_get_bundled_order_items( $container_order_item, $order = false, $
  *
  * @since  5.0.0
  *
- * @param  array     $order_item
- * @param  WC_Order  $order
+ * @param  WC_Order_Item  $order_item
+ * @param  WC_Order       $order
  * @return boolean
  */
 function wc_pb_is_bundled_order_item( $order_item, $order = false ) {
@@ -412,7 +416,7 @@ function wc_pb_is_bundled_order_item( $order_item, $order = false ) {
  *
  * @since  5.0.0
  *
- * @param  array  $order_item
+ * @param  WC_Order_Item  $order_item
  * @return boolean
  */
 function wc_pb_maybe_is_bundled_order_item( $order_item ) {
@@ -431,7 +435,7 @@ function wc_pb_maybe_is_bundled_order_item( $order_item ) {
  *
  * @since  5.0.0
  *
- * @param  array  $order_item
+ * @param  WC_Order_Item  $order_item
  * @return boolean
  */
 function wc_pb_is_bundle_container_order_item( $order_item ) {

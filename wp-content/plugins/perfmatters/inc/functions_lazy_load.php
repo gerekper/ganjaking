@@ -4,9 +4,9 @@ function perfmatters_lazy_load_init() {
 
 	$perfmatters_options = get_option('perfmatters_options');
 
-	if(!empty(apply_filters('perfmatters_lazyload', !empty($perfmatters_options['lazyload']['lazy_loading']) || !empty($perfmatters_options['lazyload']['lazy_loading_iframes'])))) {
+	if(!empty(apply_filters('perfmatters_lazyload', !empty($perfmatters_options['lazyload']['lazy_loading']) || !empty($perfmatters_options['lazyload']['lazy_loading_iframes']) || !empty($perfmatters_options['lazyload']['css_background_images'])))) {
 
-		$exclude_lazy_loading = perfmatters_get_post_meta('perfmatters_exclude_lazy_loading');
+		$exclude_lazy_loading = Perfmatters\Utilities::get_post_meta('perfmatters_exclude_lazy_loading');
 
 		//check if its ok to lazy load
 		if(!$exclude_lazy_loading && !is_admin() && !perfmatters_is_dynamic_request() && !isset($_GET['perfmatters']) && !perfmatters_is_page_builder() && !is_embed() && !is_feed() && !is_customize_preview()) {
@@ -17,11 +17,15 @@ function perfmatters_lazy_load_init() {
 			}
 
 			//actions + filters
-			add_filter('template_redirect', 'perfmatters_lazy_load', 2);
+			add_filter('template_redirect', 'perfmatters_lazy_load', -99999);
 			add_action('wp_enqueue_scripts', 'perfmatters_enqueue_lazy_load');
 			add_action('wp_footer', 'perfmatters_print_lazy_load_js', PHP_INT_MAX);
 			add_action('wp_head', 'perfmatters_print_lazy_load_css', PHP_INT_MAX);
 			add_filter('wp_lazy_loading_enabled', '__return_false');
+			add_filter('wp_get_attachment_image_attributes', function($attr) {
+				unset($attr['loading']);
+			  	return $attr;
+			});
 		}
 	}
 }
@@ -49,15 +53,20 @@ function perfmatters_lazy_load_buffer($html) {
 	//replace image tags
 	if(!empty($perfmatters_options['lazyload']['lazy_loading'])) {
 
-		$html = perfmatters_lazy_load_images($html, $buffer);
 		$html = perfmatters_lazy_load_pictures($html, $buffer);
 		$html = perfmatters_lazy_load_background_images($html, $buffer);
+		$html = perfmatters_lazy_load_images($html, $buffer);
 	}
 
 	//replace iframes + videos
 	if(!empty($perfmatters_options['lazyload']['lazy_loading_iframes'])) {
 		$html = perfmatters_lazy_load_iframes($html, $buffer);
 		$html = perfmatters_lazy_load_videos($html, $buffer);
+	}
+
+	//replace css background elements
+	if(!empty($perfmatters_options['lazyload']['css_background_images'])) {
+		$html = perfmatters_lazy_load_css_background_images($html, $buffer);
 	}
 	
 	return $html;
@@ -82,7 +91,6 @@ function perfmatters_lazy_load_images($html, $buffer) {
 	preg_match_all('#<img([^>]+?)\/?>#is', $buffer, $images, PREG_SET_ORDER);
 
 	if(!empty($images)) {
-		//return $images[3][0];
 
 		$options = get_option('perfmatters_options');
 
@@ -129,12 +137,17 @@ function perfmatters_lazy_load_pictures($html, $buffer) {
 			if(!perfmatters_lazyload_excluded($picture[1], perfmatters_lazyload_forced_atts())) {
 
 				//skip if no-lazy class is found
-				if(!empty($picture_atts['class']) && strpos($picture_atts['class'], 'no-lazy') !== false) {
-					continue;
-				}
+				if((!empty($picture_atts['class']) && strpos($picture_atts['class'], 'no-lazy') !== false) || perfmatters_lazyload_excluded($picture[0], perfmatters_lazyload_excluded_atts())) {
 
-				//skip if exluded attribute was found
-				if(perfmatters_lazyload_excluded($picture[0], perfmatters_lazyload_excluded_atts())) {
+					//mark image for exclusion later
+					preg_match('#<img([^>]+?)\/?>#is', $picture[0], $image);
+					if(!empty($image)) {
+						$image_atts = perfmatters_lazyload_get_atts_array($image[1]);
+						$image_atts['class'] = (!empty($image_atts['class']) ? $image_atts['class'] . ' ' : '') . 'no-lazy';
+						$image_atts_string = perfmatters_lazyload_get_atts_string($image_atts);
+						$new_image = sprintf('<img %1$s />', $image_atts_string);                
+		                $html = str_replace($image[0], $new_image, $html);
+					}
 					continue;
 				}
 			}
@@ -154,13 +167,8 @@ function perfmatters_lazy_load_pictures($html, $buffer) {
 						continue;
 					}
 
-	            	//create placeholder src
-					$width = !empty($picture_atts['width']) ? $picture_atts['width'] : 0;
-					$height = !empty($picture_atts['height']) ? $picture_atts['height'] : 0;
-					$placeholder = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20" . $width . "%20" . $height . "'%3E%3C/svg%3E";
-
 					//migrate srcet
-	                $new_source = preg_replace('/([\s"\'])srcset/i', '${1}srcset="' . $placeholder . '" data-srcset', $source[0]);
+	                $new_source = preg_replace('/([\s"\'])srcset/i', '${1}data-srcset', $source[0]);
 
 	                //migrate sizes
 	                $new_source = preg_replace('/([\s"\'])sizes/i', '${1}data-sizes', $new_source);
@@ -168,22 +176,6 @@ function perfmatters_lazy_load_pictures($html, $buffer) {
 	                //replace source in html	                
 	                $html = str_replace($source[0], $new_source, $html);
 	            }
-			}
-			else {
-				continue;
-			}
-
-			//match img tag inside the picture
-			preg_match('#<img([^>]+?)\/?>#isU', $picture[0], $image);
-
-			if(!empty($image)) {
-
-				//get lazy load image
-				$lazy_image = perfmatters_lazy_load_image($image);
-
-				//replace image in html
-       	 		$html = str_replace($image[0], $lazy_image, $html);
-
 			}
 			else {
 				continue;
@@ -199,7 +191,7 @@ function perfmatters_lazy_load_background_images($html, $buffer) {
 
 	//match all elements with inline styles
 	//preg_match_all('#<(?<tag>div|figure|section|span|li)(\s+[^>]+[\'"\s]?style\s*=\s*[\'"].*?background-image.*?[\'"][^>]*)>#is', $buffer, $elements, PREG_SET_ORDER); //alternate to possibly filter some out that don't have background images???
-	preg_match_all('#<(?<tag>div|figure|section|span|li)(\s+[^>]*[\'"\s]?style\s*=\s*[\'"].*?[\'"][^>]*)>#is', $buffer, $elements, PREG_SET_ORDER);
+	preg_match_all('#<(?<tag>div|figure|section|span|li|a)(\s+[^>]*[\'"\s]?style\s*=\s*[\'"].*?[\'"][^>]*)>#is', $buffer, $elements, PREG_SET_ORDER);
 
 	if(!empty($elements)) {
 
@@ -289,7 +281,7 @@ function perfmatters_lazy_load_image($image) {
 		//add placeholder src
 		$width = !empty($image_atts['width']) ? $image_atts['width'] : 0;
 		$height = !empty($image_atts['height']) ? $image_atts['height'] : 0;
-		$image_atts['src'] = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20" . $width . "%20" . $height . "'%3E%3C/svg%3E";
+		$image_atts['src'] = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='" . $width . "'%20height='" . $height . "'%20viewBox='0%200%20" . $width . "%20" . $height . "'%3E%3C/svg%3E";
 
 		//migrate srcset
 		if(!empty($image_atts['srcset'])) {
@@ -301,6 +293,11 @@ function perfmatters_lazy_load_image($image) {
 		if(!empty($image_atts['sizes'])) {
 			$image_atts['data-sizes'] = $image_atts['sizes'];
 			unset($image_atts['sizes']);
+		}
+
+		//unset existing loading attribute
+		if(isset($image_atts['loading'])) {
+			unset($image_atts['loading']);
 		}
 	}
 
@@ -520,6 +517,40 @@ function perfmatters_lazy_load_videos($html, $buffer) {
 	return $html;
 }
 
+//lazy load css background images
+function perfmatters_lazy_load_css_background_images($html, $buffer) {
+
+	//get plugin options
+	$perfmatters_options = get_option('perfmatters_options');
+
+	if(!empty($perfmatters_options['lazyload']['css_background_selectors'])) {
+
+		//match all selectors
+		preg_match_all('#<(?>div|section)(\s[^>]*?(' . implode('|', $perfmatters_options['lazyload']['css_background_selectors']) . ').*?)>#i', $buffer, $selectors, PREG_SET_ORDER);
+
+		if(!empty($selectors)) {
+
+			foreach($selectors as $selector) {
+
+				$selector_atts = perfmatters_lazyload_get_atts_array($selector[1]);
+
+				$selector_atts['class'] = !empty($selector_atts['class']) ? $selector_atts['class'] . ' ' . 'perfmatters-lazy-css-bg' : 'perfmatters-lazy-css-bg';
+
+				$selector_atts_string = perfmatters_lazyload_get_atts_string($selector_atts);
+
+				//replace video attributes string
+				$selector_lazyload  = str_replace($selector[1], ' ' . $selector_atts_string, $selector[0]);
+
+				//replace video with placeholder
+				$html = str_replace($selector[0], $selector_lazyload, $html);
+
+				unset($selector_lazyload);
+			}
+		}
+	}
+	return $html;
+}
+
 function perfmatters_lazyload_get_atts_array($atts_string) {
 	
 	if(!empty($atts_string)) {
@@ -604,13 +635,16 @@ function perfmatters_print_lazy_load_js() {
 	global $perfmatters_options;
 
 	$threshold = apply_filters('perfmatters_lazyload_threshold', (!empty($perfmatters_options['lazyload']['threshold']) ? $perfmatters_options['lazyload']['threshold'] : '0px'));
+	if(ctype_digit($threshold)) {
+		$threshold.= 'px';
+	}
 
 	$output = '<script>';
 
 		$output.= 'document.addEventListener("DOMContentLoaded",function(){';
 
 			//initialize lazy loader
-			$output.= 'var lazyLoadInstance=new LazyLoad({elements_selector:"img[data-src],.perfmatters-lazy",thresholds:"' . $threshold . ' 0px",callback_loaded:function(element){if(element.tagName==="IFRAME"){if(element.classList.contains("loaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}});';
+			$output.= 'var lazyLoadInstance=new LazyLoad({elements_selector:"img[data-src],.perfmatters-lazy,.perfmatters-lazy-css-bg",thresholds:"' . $threshold . ' 0px",callback_loaded:function(element){if(element.tagName==="IFRAME"){if(element.classList.contains("loaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}});';
 
 			//dom monitoring
 			if(!empty($perfmatters_options['lazyload']['lazy_loading_dom_monitoring'])) { 
@@ -640,7 +674,7 @@ function perfmatters_print_lazy_load_css() {
 
 	//youtube thumbnails
 	if(!empty($options['lazyload']['lazy_loading_iframes']) && !empty($options['lazyload']['youtube_preview_thumbnails'])) {
-		$styles.= '.perfmatters-lazy-youtube{position:relative;width:100%;max-width:100%;height:0;padding-bottom:56.23%;overflow:hidden}.perfmatters-lazy-youtube img{position:absolute;top:0;right:0;bottom:0;left:0;display:block;width:100%;max-width:100%;height:auto;margin:auto;border:none;cursor:pointer;transition:.5s all;-webkit-transition:.5s all;-moz-transition:.5s all}.perfmatters-lazy-youtube img:hover{-webkit-filter:brightness(75%)}.perfmatters-lazy-youtube .play{position:absolute;top:50%;left:50%;width:68px;height:48px;margin-left:-34px;margin-top:-24px;background:url('.plugins_url('perfmatters/img/youtube.svg').') no-repeat;background-position:center;background-size:cover;pointer-events:none}.perfmatters-lazy-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:99}';
+		$styles.= '.perfmatters-lazy-youtube{position:relative;width:100%;max-width:100%;height:0;padding-bottom:56.23%;overflow:hidden}.perfmatters-lazy-youtube img{position:absolute;top:0;right:0;bottom:0;left:0;display:block;width:100%;max-width:100%;height:auto;margin:auto;border:none;cursor:pointer;transition:.5s all;-webkit-transition:.5s all;-moz-transition:.5s all}.perfmatters-lazy-youtube img:hover{-webkit-filter:brightness(75%)}.perfmatters-lazy-youtube .play{position:absolute;top:50%;left:50%;right:auto;width:68px;height:48px;margin-left:-34px;margin-top:-24px;background:url('.plugins_url('perfmatters/img/youtube.svg').') no-repeat;background-position:center;background-size:cover;pointer-events:none}.perfmatters-lazy-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:99}';
 		if(current_theme_supports('responsive-embeds')) {
 			$styles.= '.wp-has-aspect-ratio .wp-block-embed__wrapper{position:relative;}.wp-has-aspect-ratio .perfmatters-lazy-youtube{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;padding-bottom:0}';
 		}
@@ -648,7 +682,12 @@ function perfmatters_print_lazy_load_css() {
 
 	//fade in effect
 	if(!empty($options['lazyload']['fade_in'])) {
-		$styles.= '.perfmatters-lazy:not(picture),.perfmatters-lazy img{opacity:0}.perfmatters-lazy.loaded,.perfmatters-lazy img.loaded{opacity:1;transition:opacity .5s}';
+		$styles.= '.perfmatters-lazy:not(picture),.perfmatters-lazy>img{opacity:0}.perfmatters-lazy.loaded,.perfmatters-lazy>img.loaded,.perfmatters-lazy[data-was-processed=true],.perfmatters-lazy.loaded>img{opacity:1;transition:opacity ' . apply_filters('perfmatters_fade_in_speed', 500) . 'ms}';
+	}
+
+	//css background images
+	if(!empty($options['lazyload']['css_background_images'])) {
+		$styles.='body .perfmatters-lazy-css-bg:not([data-was-processed="true"]), body .perfmatters-lazy-css-bg:not([data-was-processed="true"]) *{background-image:none!important;will-change:transform;transition:opacity 0.025s ease-in,transform 0.025s ease-in!important;}';
 	}
 	
 	//print styles

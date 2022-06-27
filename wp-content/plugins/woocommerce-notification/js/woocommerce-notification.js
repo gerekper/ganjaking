@@ -528,6 +528,7 @@ var woo_notification = {
             var data_time = '<small>' + _woocommerce_notification_params.str_about + ' ' + time_str + ' ' + _woocommerce_notification_params.str_ago + ' </small>';
             var data_custom = this.message_custom;
             var image_html = '';
+            let replace_regex = '';
             if (product.thumb) {
                 jQuery('#message-purchased').addClass('wn-product-with-image').removeClass('wn-product-without-image');
                 if (image_redirect === '1') {
@@ -543,19 +544,22 @@ var woo_notification = {
                 jQuery('#message-purchased').addClass('wn-product-without-image').removeClass('wn-product-with-image');
             }
             /*Replace custom message*/
-            data_custom = data_custom.replace('{number}', this.get_data_custom_number(product.url));
+            replace_regex = /{number}/g;
+            data_custom = data_custom.replaceAll(replace_regex, this.get_data_custom_number(product.url));
             /*Replace message*/
-            var replaceArray = this.shortcodes;
-            var replaceArrayValue = [data_first_name, data_city, data_state, data_country, data_product, data_product_link, data_time, data_custom];
-            var finalAns = string;
+            let replaceArray = this.shortcodes;
+            let replaceArrayValue = [data_first_name, data_city, data_state, data_country, data_product, data_product_link, data_time, data_custom];
+            let finalAns = string;
             for (var i = replaceArray.length - 1; i >= 0; i--) {
-                finalAns = finalAns.replace(replaceArray[i], replaceArrayValue[i]);
+                replace_regex = new RegExp(replaceArray[i],'g');
+
+                finalAns = finalAns.replaceAll(replace_regex, replaceArrayValue[i]);
             }
-            var close_html = '';
+            let close_html = '';
             if (parseInt(this.show_close) > 0) {
                 close_html = '<div id="notify-close"></div>'
             }
-            var html = image_html + '<p class="wn-notification-message-container">' + finalAns + '</p>';
+            let html = image_html + '<p class="wn-notification-message-container">' + finalAns + '</p>';
             jQuery('#message-purchased').html('<div class="message-purchase-main">' + html + '</div>' + close_html);
             this.close_notify();
             woo_notification.message_show();

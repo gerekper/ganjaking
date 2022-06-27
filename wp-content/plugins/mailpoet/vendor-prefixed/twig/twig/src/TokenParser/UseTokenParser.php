@@ -7,7 +7,7 @@ use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class UseTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $template = $this->parser->getExpressionParser()->parseExpression();
  $stream = $this->parser->getStream();
@@ -41,9 +41,8 @@ final class UseTokenParser extends AbstractTokenParser
  $this->parser->addTrait(new Node(['template' => $template, 'targets' => new Node($targets)]));
  return new Node();
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'use';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\UseTokenParser', 'MailPoetVendor\\Twig_TokenParser_Use');

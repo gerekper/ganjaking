@@ -699,7 +699,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function __set_state($dump);
  /**
  * Returns the list of properties to dump on serialize() called on.
@@ -731,7 +731,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function add($unit, $value = 1, $overflow = null);
  /**
  * Add seconds to the instance using timestamp. Positive $value travels
@@ -1029,7 +1029,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static|false
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function createFromFormat($format, $time, $tz = null);
  /**
  * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
@@ -2022,7 +2022,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return array
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function getLastErrors();
  /**
  * Get the raw callable macro registered globally or locally for a given name.
@@ -2830,7 +2830,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return array|string
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function jsonSerialize();
  /**
  * Modify to the last occurrence of a given day of the week
@@ -3118,7 +3118,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static|false
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function modify($modify);
  /**
  * Determines if the instance is not equal to another
@@ -3466,7 +3466,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setDate($year, $month, $day);
  /**
  * Set the year, month, and date for this instance to that of the passed instance.
@@ -3525,7 +3525,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setISODate($year, $week, $day = 1);
  /**
  * Set the translator for the current instance.
@@ -3614,7 +3614,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setTime($hour, $minute, $second = 0, $microseconds = 0);
  /**
  * Set the hour, minute, second and microseconds for this instance to that of the passed instance.
@@ -3641,7 +3641,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setTimestamp($unixTimestamp);
  /**
  * Set the instance's timezone from a string or object.
@@ -3650,7 +3650,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setTimezone($value);
  /**
  * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -3965,7 +3965,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
  *
  * @return static
  */
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function sub($unit, $value = 1, $overflow = null);
  public function subRealUnit($unit, $value = 1);
  /**

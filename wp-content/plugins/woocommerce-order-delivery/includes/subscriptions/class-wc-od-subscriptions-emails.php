@@ -62,11 +62,14 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 		 * @return array An array with the email IDs.
 		 */
 		public function emails_with_delivery_details( $email_ids ) {
-			$email_ids = array_merge( $email_ids, array(
-				'new_renewal_order',
-				'customer_processing_renewal_order',
-				'customer_completed_renewal_order',
-			) );
+			$email_ids = array_merge(
+				$email_ids,
+				array(
+					'new_renewal_order',
+					'customer_processing_renewal_order',
+					'customer_completed_renewal_order',
+				)
+			);
 
 			return $email_ids;
 		}
@@ -97,20 +100,25 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 			$links = array();
 			foreach ( $subscription_ids as $subscription_id ) {
 				if ( wc_od_subscription_has_delivery_preferences( $subscription_id ) ) {
-					$links[] = sprintf( '<a href="%1$s">%2$s</a>',
+					$links[] = sprintf(
+						'<a href="%1$s">%2$s</a>',
 						esc_url( wc_od_edit_delivery_endpoint( $subscription_id ) ),
-						esc_attr( "#{$subscription_id}")
+						esc_attr( "#{$subscription_id}" )
 					);
 				}
 			}
 
 			if ( ! empty( $links ) ) {
-				$text = wp_kses( _n(
-					'Edit the delivery preferences for the subscription: %s',
-					'Edit the delivery preferences for the subscriptions: %s',
-					count( $links ),
-					'woocommerce-order-delivery'
-				), array( 'a' => array( 'href' => array() ) ) );
+				$text = wp_kses(
+					/* translators: %s: subscription links */
+					_n(
+						'Edit the delivery preferences for the subscription: %s',
+						'Edit the delivery preferences for the subscriptions: %s',
+						count( $links ),
+						'woocommerce-order-delivery'
+					),
+					array( 'a' => array( 'href' => array() ) )
+				);
 
 				printf( '<p>%s</p>', sprintf( $text, join( ', ', $links ) ) );
 			}

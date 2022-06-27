@@ -119,13 +119,13 @@ class BulkSave implements RequestHandler {
 			return self::SAVE_NOT_EDITABLE;
 		}
 
-		$edit_value = $service->get_value( $id );
-
-		$edit_value = ( new ApplyFilter\EditValue( $id, $column ) )->apply_filters( $edit_value );
+		$edit_value = ( new ApplyFilter\EditValue( $id, $column ) )->apply_filters( $service->get_value( $id ) );
 
 		if ( null === $edit_value ) {
 			return self::SAVE_NOT_EDITABLE;
 		}
+
+		do_action( 'acp/editing/before_save', $column, $id, $request );
 
 		$result = $service->update( $request );
 

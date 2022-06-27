@@ -5,13 +5,10 @@ use MailPoetVendor\Twig\Compiler;
 use MailPoetVendor\Twig\Node\Expression\AbstractExpression;
 use MailPoetVendor\Twig\Node\Expression\ConstantExpression;
 use MailPoetVendor\Twig\Source;
-class ModuleNode extends Node
+final class ModuleNode extends Node
 {
  public function __construct(Node $body, ?AbstractExpression $parent, Node $blocks, Node $macros, Node $traits, $embeddedTemplates, Source $source)
  {
- if (__CLASS__ !== static::class) {
- @\trigger_error('Overriding ' . __CLASS__ . ' is deprecated since Twig 2.4.0 and the class will be final in 3.0.', \E_USER_DEPRECATED);
- }
  $nodes = ['body' => $body, 'blocks' => $blocks, 'macros' => $macros, 'traits' => $traits, 'display_start' => new Node(), 'display_end' => new Node(), 'constructor_start' => new Node(), 'constructor_end' => new Node(), 'class_end' => new Node()];
  if (null !== $parent) {
  $nodes['parent'] = $parent;
@@ -25,7 +22,7 @@ class ModuleNode extends Node
  {
  $this->setAttribute('index', $index);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $this->compileTemplate($compiler);
  foreach ($this->getAttribute('embedded_templates') as $template) {
@@ -69,7 +66,7 @@ class ModuleNode extends Node
  if (!$this->getAttribute('index')) {
  $compiler->write("use MailPoetVendor\\Twig\\Environment;\n")->write("use MailPoetVendor\\Twig\\Error\\LoaderError;\n")->write("use MailPoetVendor\\Twig\\Error\\RuntimeError;\n")->write("use MailPoetVendor\\Twig\\Extension\\SandboxExtension;\n")->write("use MailPoetVendor\\Twig\\Markup;\n")->write("use MailPoetVendor\\Twig\\Sandbox\\SecurityError;\n")->write("use MailPoetVendor\\Twig\\Sandbox\\SecurityNotAllowedTagError;\n")->write("use MailPoetVendor\\Twig\\Sandbox\\SecurityNotAllowedFilterError;\n")->write("use MailPoetVendor\\Twig\\Sandbox\\SecurityNotAllowedFunctionError;\n")->write("use MailPoetVendor\\Twig\\Source;\n")->write("use MailPoetVendor\\Twig\\Template;\n\n");
  }
- $compiler->write('/* ' . \str_replace('*/', '* /', $this->getSourceContext()->getName()) . " */\n")->write('class ' . $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')))->raw(\sprintf(" extends %s\n", $compiler->getEnvironment()->getBaseTemplateClass(\false)))->write("{\n")->indent()->write("private \$source;\n")->write("private \$macros = [];\n\n");
+ $compiler->write('/* ' . \str_replace('*/', '* /', $this->getSourceContext()->getName()) . " */\n")->write('class ' . $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')))->raw(" extends Template\n")->write("{\n")->indent()->write("private \$source;\n")->write("private \$macros = [];\n\n");
  }
  protected function compileConstructor(Compiler $compiler)
  {
@@ -196,4 +193,3 @@ class ModuleNode extends Node
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\ModuleNode', 'MailPoetVendor\\Twig_Node_Module');

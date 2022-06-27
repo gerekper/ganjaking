@@ -10,29 +10,55 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WC_Data', false ) ) {
+	include_once WC_ABSPATH . 'includes/abstracts/abstract-wc-data.php';
+}
+
 /**
  * Abstract WC_OD_Data class.
  */
-abstract class WC_OD_Data implements ArrayAccess {
-
-	/**
-	 * Object data.
-	 *
-	 * Name value pairs (name + default value).
-	 *
-	 * @var array
-	 */
-	protected $data = array();
+abstract class WC_OD_Data extends WC_Data implements ArrayAccess {
 
 	/**
 	 * Constructor.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param array $data The object data.
+	 * @throws Exception When the load of the object data fails.
+	 *
+	 * @param mixed $data Data object, ID, or an array with data.
 	 */
-	public function __construct( array $data = array() ) {
-		$this->data = array_merge( $this->data, $data );
+	public function __construct( $data = 0 ) {
+		parent::__construct();
+
+		if ( is_numeric( $data ) && $data > 0 ) {
+			$this->set_id( $data );
+		} elseif ( $data instanceof self ) {
+			$this->set_id( $data->get_id() );
+		} elseif ( ! empty( $data->ID ) ) {
+			$this->set_id( $data->ID );
+		} elseif ( is_array( $data ) ) {
+			$this->set_props( $data );
+		} else {
+			$this->set_object_read();
+		}
+
+		$this->read_object_from_database();
+	}
+
+	/**
+	 * If the object has an ID, read using the data store.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @throws Exception When the load of the object data fails.
+	 */
+	protected function read_object_from_database() {
+		$this->data_store = WC_Data_Store::load( $this->object_type );
+
+		if ( $this->get_id() > 0 ) {
+			$this->data_store->read( $this );
+		}
 	}
 
 	/**
@@ -44,30 +70,7 @@ abstract class WC_OD_Data implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function __get( $key ) {
-		return $this->offsetGet( $key );
-	}
-
-	/**
-	 * Gets all data for this object.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @return array
-	 */
-	public function get_data() {
-		return $this->data;
-	}
-
-	/**
-	 * Gets a prop for a getter method.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $prop Name of prop to get.
-	 * @return mixed
-	 */
-	protected function get_prop( $prop ) {
-		return ( array_key_exists( $prop, $this->data ) ? $this->data[ $prop ] : null );
+		return $this->data_get( $key );
 	}
 
 	/**
@@ -75,39 +78,99 @@ abstract class WC_OD_Data implements ArrayAccess {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param array $keys An array with the object properties.
+	 * @param array $props An array with the property keys.
 	 * @return array
 	 */
-	public function get_props( array $keys ) {
-		return array_combine(
-			$keys,
-			array_map( array( $this, 'offsetGet' ), $keys )
-		);
+	public function get_props( array $props ) {
+		return array_combine( $props, array_map( array( $this, 'data_get' ), $props ) );
 	}
 
 	/**
-	 * Sets a prop for a setter method.
+	 * Gets all data for this object excluding the specified properties.
 	 *
-	 * @since 1.6.0
+	 * @since 2.0.0
 	 *
-	 * @param string $prop Name of prop to set.
-	 * @param mixed  $value Value of the prop.
+	 * @param array $exclude The properties to exclude from the list.
+	 * @return array
 	 */
-	protected function set_prop( $prop, $value ) {
-		if ( array_key_exists( $prop, $this->data ) ) {
-			$this->data[ $prop ] = $value;
+	public function get_data_without( $exclude ) {
+		if ( empty( $exclude ) ) {
+			return $this->get_data();
 		}
+
+		$data = array_merge( array( 'id' => $this->get_id() ), $this->data );
+		$data = array_diff_key( $data, array_flip( $exclude ) );
+
+		// Don't read the object metadata if not necessary.
+		if ( ! in_array( 'meta_data', $exclude, true ) ) {
+			$data['meta_data'] = $this->get_meta_data();
+		}
+
+		return $data;
 	}
 
 	/**
-	 * Sets a collection of props in one go.
+	 * Merge changes with data and clear.
 	 *
-	 * @since 1.6.0
+	 * Overrides WC_Data::apply_changes.
+	 * `array_replace_recursive` does not work well with array properties
+	 * because it merges the values instead of replacing them.
 	 *
-	 * @param array $props Key value pairs to set. Key is the prop and should map to a setter function name.
+	 * @since 2.0.0
 	 */
-	public function set_props( $props ) {
-		array_map( array( $this, 'offsetSet' ), array_keys( $props ), array_values( $props ) );
+	public function apply_changes() {
+		$this->data    = array_replace( $this->data, $this->changes ); // @codingStandardsIgnoreLine
+		$this->changes = array();
+	}
+
+	/**
+	 * Sets a boolean property.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $prop  Property name.
+	 * @param mixed  $value Property value.
+	 */
+	protected function set_bool_prop( $prop, $value ) {
+		$this->set_prop( $prop, wc_string_to_bool( $value ) );
+	}
+
+	/**
+	 * Call the getter method associated to the property.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $prop Property key.
+	 * @return mixed
+	 */
+	protected function data_get( $prop ) {
+		if ( array_key_exists( $prop, $this->data ) ) {
+			$getter = "get_$prop";
+
+			if ( is_callable( array( $this, $getter ) ) ) {
+				return $this->$getter();
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Call the setter method associated to the property.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $prop Property key.
+	 * @param mixed  $value Property value.
+	 */
+	protected function data_set( $prop, $value ) {
+		if ( array_key_exists( $prop, $this->data ) ) {
+			$setter = "set_$prop";
+
+			if ( is_callable( array( $this, $setter ) ) ) {
+				$this->$setter( $value );
+			}
+		}
 	}
 
 	/**
@@ -156,10 +219,10 @@ abstract class WC_OD_Data implements ArrayAccess {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Array Access Methods
+	| Array Access Methods (Deprecated)
 	|--------------------------------------------------------------------------
 	|
-	| For backward compatibility with legacy arrays.
+	| Backward compatibility with legacy arrays.
 	|
 	*/
 
@@ -167,11 +230,14 @@ abstract class WC_OD_Data implements ArrayAccess {
 	 * OffsetExists for ArrayAccess.
 	 *
 	 * @since 1.6.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param string $offset Offset.
 	 * @return bool
 	 */
 	public function offsetExists( $offset ) {
+		wc_deprecated_function( 'Array access', '2.0.0' );
+
 		return array_key_exists( $offset, $this->data );
 	}
 
@@ -179,52 +245,41 @@ abstract class WC_OD_Data implements ArrayAccess {
 	 * OffsetGet for ArrayAccess.
 	 *
 	 * @since 1.6.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param string $offset Offset.
 	 * @return mixed
 	 */
 	public function offsetGet( $offset ) {
-		if ( array_key_exists( $offset, $this->data ) ) {
-			$getter = "get_$offset";
+		wc_deprecated_function( 'Array access', '2.0.0', "get_{$offset}()" );
 
-			if ( is_callable( array( $this, $getter ) ) ) {
-				return $this->$getter();
-			}
-		}
-
-		return null;
+		return $this->data_get( $offset );
 	}
 
 	/**
 	 * OffsetSet for ArrayAccess.
 	 *
 	 * @since 1.6.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param string $offset Offset.
 	 * @param mixed  $value  Value.
 	 */
 	public function offsetSet( $offset, $value ) {
-		if ( ! array_key_exists( $offset, $this->data ) ) {
-			return;
-		}
+		wc_deprecated_function( 'Array access', '2.0.0', "set_{$offset}()" );
 
-		$setter = "set_$offset";
-
-		if ( is_callable( array( $this, $setter ) ) ) {
-			$this->$setter( $value );
-		}
+		$this->data_set( $offset, $value );
 	}
 
 	/**
 	 * OffsetUnset for ArrayAccess.
 	 *
 	 * @since 1.6.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param string $offset Offset.
 	 */
 	public function offsetUnset( $offset ) {
-		if ( array_key_exists( $offset, $this->data ) ) {
-			unset( $this->data[ $offset ] );
-		}
+		wc_deprecated_function( 'Array access', '2.0.0' );
 	}
 }

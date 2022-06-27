@@ -1,8 +1,15 @@
-/*global wc_add_to_cart_variation_params */
+/* global wc_add_to_cart_variation_params */
+
 ( function( $, window, document ) {
 	'use strict';
 	/**
 	 * VariationForm class which handles variation forms and attributes.
+	 *
+	 * @param {Object} $form The product form
+	 * @param {Object} element The product element
+	 * @param {Object} currentCart The current cart form
+	 * @param {Object} variableProductContainers The container for the variable product
+	 * @param {Object} epoObject The EPO Object
 	 */
 	var VariationForm = function( $form, element, currentCart, variableProductContainers, epoObject ) {
 		var self = this;
@@ -21,7 +28,7 @@
 		self.useAjax = false === self.variationData;
 		self.xhr = false;
 		self.loading = true;
-		self.variationId = $form.closest( '.cpf_hide_element' ).find( '.tc-epo-element-product-container-variation-id input.product-variation-id' );
+		self.variationId = $form.closest( '.tc-epo-element-product-li-container' ).find( '.tc-epo-element-product-container-variation-id input.product-variation-id' );
 
 		// Methods.
 		self.getChosenAttributes = self.getChosenAttributes.bind( self );
@@ -54,6 +61,8 @@
 
 	/**
 	 * Refresh variations container
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onRefreshContainer = function( event ) {
 		var form = event.data.variationForm;
@@ -67,6 +76,9 @@
 
 	/**
 	 * Reset all fields.
+	 *
+	 * @param {Event} event The event Object.
+	 * @param {Object} variation The variation Object.
 	 */
 	VariationForm.prototype.onUpdateField = function( event, variation ) {
 		var form = event.data.variationForm;
@@ -115,6 +127,8 @@
 
 	/**
 	 * Reset all fields.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onReset = function( event ) {
 		event.preventDefault();
@@ -123,20 +137,25 @@
 	};
 
 	/**
-     /**
-     * When a variation is hidden.
-     */
+	 * When a variation is hidden.
+	 *
+	 * @param {Event} event The event Object.
+	 */
 	VariationForm.prototype.onHide = function( event ) {
 		event.preventDefault();
 	};
 	/**
 	 * When a variation is shown.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onShow = function( event ) {
 		event.preventDefault();
 	};
 	/**
 	 * When displayed variation data is reset.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onResetDisplayedVariation = function( event ) {
 		var form = event.data.variationForm;
@@ -147,6 +166,8 @@
 
 	/**
 	 * When the product image is reset.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onResetImage = function( event ) {
 		event.data.variationForm.$form.tc_variations_image_update( false );
@@ -154,6 +175,8 @@
 
 	/**
 	 * Looks for matching variations for current selected attributes.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onFindVariation = function( event ) {
 		var form = event.data.variationForm;
@@ -230,6 +253,9 @@
 
 	/**
 	 * Triggered when a variation has been found which matches all attributes.
+	 *
+	 * @param {Event} event The event Object.
+	 * @param {Object} variation The variation Object.
 	 */
 	VariationForm.prototype.onFoundVariation = function( event, variation ) {
 		var form = event.data.variationForm,
@@ -261,6 +287,8 @@
 			variation.price_html = '';
 		}
 
+		form.$form.find( '.tc-epo-element-product-container-cart' ).find( '.stock' ).remove();
+
 		$template_html = template( {
 			variation: variation
 		} );
@@ -274,7 +302,7 @@
 			$qty.val( '1' ).attr( 'min', '1' ).attr( 'max', '1' );
 			$qtyWrap.hide();
 		} else {
-			if ( variation.min_qty !== '' && variation.min_qty < qtyMin ) {
+			if ( variation.min_qty !== '' && variation.min_qty > qtyMin ) {
 				qtyMin = variation.min_qty;
 			}
 
@@ -284,19 +312,28 @@
 
 			if ( qtyMin ) {
 				$qty.attr( 'min', qtyMin );
+			} else {
+				$qty.removeAttr( 'min' );
 			}
 			if ( qtyMax ) {
 				$qty.attr( 'max', qtyMax );
+			} else {
+				$qty.removeAttr( 'max' );
 			}
 
 			if ( qtyMax && $.epoAPI.math.toInt( $qty.val() ) > qtyMax ) {
 				$qty.val( qtyMax );
+			}
+			if ( qtyMin > $.epoAPI.math.toInt( $qty.val() ) ) {
+				$qty.val( qtyMin );
 			}
 			$qtyWrap.show();
 		}
 
 		if ( ! variation.is_purchasable || ! variation.is_in_stock || ! variation.variation_is_visible ) {
 			purchasable = false;
+			$qty.val( '0' ).attr( 'min', '0' ).attr( 'max', '0' );
+			$qtyWrap.hide();
 		}
 		// Reveal
 		if ( $.epoAPI.util.trim( form.$singleVariation.text() ) ) {
@@ -309,6 +346,8 @@
 
 	/**
 	 * Triggered when an attribute field changes.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onChange = function( event ) {
 		var form = event.data.variationForm;
@@ -335,6 +374,8 @@
 
 	/**
 	 * Updates attributes in the DOM to show valid values.
+	 *
+	 * @param {Event} event The event Object.
 	 */
 	VariationForm.prototype.onUpdateAttributes = function( event ) {
 		var form = event.data.variationForm,
@@ -373,7 +414,7 @@
 			if ( ! current_attr_select.data( 'attribute_html' ) ) {
 				refSelect = current_attr_select.clone();
 
-				refSelect.find( 'option' ).prop( 'disabled', false ).removeAttr( 'selected attached' );
+				refSelect.find( 'option' ).prop( 'disabled', false ).prop( 'selected', false ).removeAttr( 'attached' );
 
 				current_attr_select.data( 'attribute_options', refSelect.find( 'option' + option_gt_filter ).get() ); // Legacy data attribute.
 				current_attr_select.data( 'attribute_html', refSelect.html() );
@@ -488,7 +529,6 @@
 
 	/**
 	 * Get chosen attributes from form.
-	 * @return array
 	 */
 	VariationForm.prototype.getChosenAttributes = function() {
 		var data = {};
@@ -516,6 +556,9 @@
 
 	/**
 	 * Find matching variations for attributes.
+	 *
+	 * @param {Array} variations Variations.
+	 * @param {Array} attributes attributes.
 	 */
 	VariationForm.prototype.findMatchingVariations = function( variations, attributes ) {
 		var matching = [];
@@ -533,7 +576,9 @@
 
 	/**
 	 * See if attributes match.
-	 * @return {Boolean}
+	 *
+	 * @param {Array} variation_attributes Variation attributes.
+	 * @param {Array} attributes attributes.
 	 */
 	VariationForm.prototype.isMatch = function( variation_attributes, attributes ) {
 		var match = true;
@@ -554,6 +599,8 @@
 
 	/**
 	 * Show or hide the reset link.
+	 *
+	 * @param {bool} on true or false.
 	 */
 	VariationForm.prototype.toggleResetLink = function( on ) {
 		if ( on ) {
@@ -567,6 +614,11 @@
 
 	/**
 	 * Function to call tc_variation_form on jquery selector.
+	 *
+	 * @param {Object} element The product element
+	 * @param {Object} currentCart The current cart form
+	 * @param {Object} variableProductContainers The container for the variable product
+	 * @param {Object} thisEpoObject The EPO Object
 	 */
 	$.fn.tc_product_variation_form = function( element, currentCart, variableProductContainers, thisEpoObject ) {
 		new VariationForm( this, element, currentCart, variableProductContainers, thisEpoObject );
@@ -576,6 +628,8 @@
 
 	/**
 	 * Stores the default text for an element so it can be reset later
+	 *
+	 * @param {string} content Content to set.
 	 */
 	$.fn.tc_set_content = function( content ) {
 		if ( undefined === this.attr( 'data-o_content' ) ) {
@@ -594,6 +648,9 @@
 
 	/**
 	 * Stores a default attribute for an element so it can be reset later
+	 *
+	 * @param {string} attr Attribute name.
+	 * @param {string} value Value name.
 	 */
 	$.fn.tc_set_variation_attr = function( attr, value ) {
 		if ( undefined === this.attr( 'data-o_' + attr ) ) {
@@ -608,6 +665,8 @@
 
 	/**
 	 * Reset a default attribute for an element so it can be reset later
+	 *
+	 * @param {string} attr Attribute name.
 	 */
 	$.fn.tc_reset_variation_attr = function( attr ) {
 		if ( undefined !== this.attr( 'data-o_' + attr ) ) {
@@ -616,6 +675,8 @@
 	};
 	/**
 	 * Sets product images for the chosen variation
+	 *
+	 * @param {Object} variation variation object.
 	 */
 	$.fn.tc_variations_image_update = function( variation ) {
 		var $form = this,
@@ -671,8 +732,8 @@
 	/**
 	 * Avoids using wp.template where possible in order to be CSP compliant.
 	 * wp.template uses internally eval().
-	 * @param {string} templateId
-	 * @return {Function}
+	 *
+	 * @param {string} templateId The id of the template.
 	 */
 	function wpTemplate( templateId ) {
 		var html = document.getElementById( 'tmpl-' + templateId ).textContent;

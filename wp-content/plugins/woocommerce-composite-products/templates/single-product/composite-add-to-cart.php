@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    1.0.0
- * @version  4.1.0
+ * @version  8.4.2
  */
 
 // Exit if accessed directly.
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 *
 			 * @hooked wc_cp_add_to_cart_button - 10
 			 */
-			do_action( 'woocommerce_composite_add_to_cart_button' );
+			do_action( 'woocommerce_composite_add_to_cart_button', $product );
 
 			// No longer needed as this has been moved to the 'add-to-cart/composite-button.php' template. Leaving this here for back-compat.
 			?><input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product_id ); ?>" />

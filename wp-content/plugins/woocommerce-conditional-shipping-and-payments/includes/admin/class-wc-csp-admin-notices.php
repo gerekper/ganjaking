@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Admin_Notices class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.5.0
  */

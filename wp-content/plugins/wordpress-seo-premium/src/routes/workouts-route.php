@@ -18,7 +18,6 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
 use Yoast\WP\SEO\Routes\Route_Interface;
 use Yoast\WP\SEO\Routes\Workouts_Route as Base_Workouts_Route;
 
-
 /**
  * Workouts_Route class.
  */

@@ -48,14 +48,14 @@ class WC_Mix_and_Match_Stock_Manager {
 	 * Add a product to the collection.
 	 *
 	 * @param int          $product_id
-	 * @param false|int    $variation_id
+	 * @param int    $variation_id
 	 * @param int          $quantity
 	 */
-	public function add_item( $product_id, $variation_id = false, $quantity = 1 ) {
+	public function add_item( $product_id, $variation_id = 0, $quantity = 1 ) {
 
 		$this->items[] = new WC_Mix_and_Match_Stock_Manager_Item( $product_id, $variation_id, $quantity );
 
-		// update the total of items in the container
+		// update the total of items in the container.
 		$this->total_qty += $quantity;
 	}
 
@@ -161,7 +161,7 @@ class WC_Mix_and_Match_Stock_Manager {
 
 		$quantities_in_cart = WC()->cart->get_cart_item_quantities();
 
-		// If we are updating a container in-cart, subtract the child item cart quantites that belong to the bundle being updated, since it's going to be removed later on.
+		// If we are updating a container in-cart, subtract the child item cart quantites that belong to the container_id being updated, since it's going to be removed later on.
 		if ( isset( $_POST['update-container'] ) ) {
 
 			$updating_cart_key = wc_clean( $_POST['update-container'] );
@@ -210,7 +210,7 @@ class WC_Mix_and_Match_Stock_Manager {
 	public function validate_stock( $args = array() ) {
 
 		if ( is_bool( $args ) && $args ) {
-			// Throw a warning... updating cart
+			// Throw a warning... updating cart.
 			$args = array( 'context' => 'cart' );
 		}
 
@@ -255,15 +255,15 @@ class WC_Mix_and_Match_Stock_Manager {
 				// Check if product is_sold_individually.
 				if ( $managed_product->is_sold_individually() && $quantity > 1 ) {
 					// translators: %s product title.
-					$reason = sprintf( __( 'Only 1 &quot;%s&quot; may be purchased.', 'woocommerce-mix-and-match-products' ), $managed_product_title );
+					$reason = sprintf( _x( 'Only 1 &quot;%s&quot; may be purchased.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
 
 					if ( 'add-to-cart' === $context ) {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 
 					} else {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 					}
 
 					throw new Exception( $notice );
@@ -273,14 +273,14 @@ class WC_Mix_and_Match_Stock_Manager {
 				// We also need to take into account the 'woocommerce_notify_no_stock_amount' setting.
 				if ( ! $managed_product->is_in_stock() ) {
 					// translators: %s product title.
-					$reason = sprintf( __( '&quot;%s&quot; is out of stock.', 'woocommerce-mix-and-match-products' ), $managed_product_title );
+					$reason = sprintf( _x( '&quot;%s&quot; is out of stock.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title );
 
 					if ( 'add-to-cart' === $context ) {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 					} else {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 					}
 
 					throw new Exception( $notice );
@@ -288,14 +288,14 @@ class WC_Mix_and_Match_Stock_Manager {
 				// Not enough stock for this configuration.
 				} elseif ( ! $managed_product->has_enough_stock( $quantity ) ) {
 					// translators: %1$s product title. %2$s quantity in stock.
-					$reason = sprintf( __( 'There is not enough stock of &quot;%1$s&quot; (%2$s remaining).', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity() );
+					$reason = sprintf( _x( 'There is not enough stock of &quot;%1$s&quot; (%2$s remaining).', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity() );
 
 					if ( 'add-to-cart' === $context ) {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to your cart as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 					} else {
 						// translators: %1$s product title. %2$s Error reason.
-						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+						$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 					}
 
 					throw new Exception( $notice );
@@ -311,17 +311,17 @@ class WC_Mix_and_Match_Stock_Manager {
 					if ( isset( $cart_quantities[ $managed_item_id ] ) && ! $managed_product->has_enough_stock( $cart_quantities[ $managed_item_id ] + $quantity ) ) {
 
 						// translators: %1$s product title. %2$s quantity in stock. %3$s quantity in cart.
-						$reason = sprintf( __( 'There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart).', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity(), $cart_quantities[ $managed_item_id ] );
+						$reason = sprintf( _x( 'There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart).', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity(), $cart_quantities[ $managed_item_id ] );
 
 						if ( 'add-to-cart' === $context ) {
 							// translators: %1$s product title. %2$s Error reason.
-							$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to the cart as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be added to the cart as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 						} else {
 							// translators: %1$s product title. %2$s Error reason.
-							$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
+							$notice = sprintf( _x( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
 						}
 
-						$notice = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce-mix-and-match-products' ), $notice );
+						$notice = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), _x( 'View Cart', '[Frontend]', 'woocommerce-mix-and-match-products' ), $notice );
 
 						throw new Exception( $notice );
 
@@ -389,7 +389,7 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 	 * @param int $quantity
 	 */
 
-	public function __construct( $product_id, $variation_id = false, $quantity = 1 ) {
+	public function __construct( $product_id, $variation_id = 0, $quantity = 1 ) {
 
 		$this->product_id   = $product_id;
 		$this->variation_id = $variation_id;

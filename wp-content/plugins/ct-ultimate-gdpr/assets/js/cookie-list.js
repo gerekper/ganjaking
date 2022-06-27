@@ -1,12 +1,6 @@
 /** @var ct_ultimate_gdpr_cookie_list object - localized */
 
-jQuery(document).on('ready', function () {
-
-    render_list(jQuery('#ct-ultimate-gdpr-party-filter').val());
-
-    jQuery('#ct-ultimate-gdpr-party-filter').change(function () {
-        render_list(jQuery(this).val());
-    });
+jQuery(function () {
 
     function render_list(party_filter) {
 
@@ -40,5 +34,11 @@ jQuery(document).on('ready', function () {
 
         return row;
     }
+
+    render_list(jQuery('#ct-ultimate-gdpr-party-filter').val());
+
+    jQuery('#ct-ultimate-gdpr-party-filter').change(function () {
+        render_list(jQuery(this).val());
+    });
 
 });

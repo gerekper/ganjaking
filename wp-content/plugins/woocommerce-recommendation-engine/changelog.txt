@@ -1,4 +1,9 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2022.06.08 - version 3.2.9
+    * Fix: Fix view template for the shortcode, woocommerce_related_products_by_status when using the completed status.
+    * Update:  Include new filters when rebuilding items directly from the admin dashboard.
+    * Update:  WC and WP Updates.
+
 2022.01.12 - version 3.2.8
     * New:  New filter, woocommerce_recommender_purchased_together_status, which will allow you to change the status that purchased together is built from.
                 add_filter('woocommerce_recommender_purchased_together_status', function($status) { return 'processing'; });
@@ -90,58 +95,58 @@
 
 2016.10.26 - version 3.1.1
 	* Update:  Use "RollingCurl" library to execute the cron job build jobs asynchronously.
-	
+
 2016.02.04 - version 3.0.3
-	* Updated languages folder path, is now /languages.  
-	* Added .pot file for translators. 
-	
+	* Updated languages folder path, is now /languages.
+	* Added .pot file for translators.
+
 2016.01.04 - version 3.0.2
-	* Correction:  Spelling error corrections on admin screen. 
-	
+	* Correction:  Spelling error corrections on admin screen.
+
 2015.12.04 - version 3.0.1
-	* Fix:  Correct the count for the Orders column on recommendations maintenance screen. 
-	
+	* Fix:  Correct the count for the Orders column on recommendations maintenance screen.
+
 2015.07.17 - version 3.0.0
-	* Feature:  Added Recommendations admin area for viewing and managing recommendations. 
-	* Feature:  Added admin area to rebuild all recommendations based on recorded activity. 
-	* Feature:  Added admin area to install statistics based on order history before the plugin was activated. 
-	
+	* Feature:  Added Recommendations admin area for viewing and managing recommendations.
+	* Feature:  Added admin area to rebuild all recommendations based on recorded activity.
+	* Feature:  Added admin area to install statistics based on order history before the plugin was activated.
+
 2015.04.21 - version 2.1.2
 * Fix - Potential XSS with add_query_arg
 
 2015.02.20 - version 2.1.1
-	* Fix:  Only start a session on front end requests. 
-	* Fix:  Do not start a session on WP_CRON jobs. 
-	
+	* Fix:  Only start a session on front end requests.
+	* Fix:  Do not start a session on WP_CRON jobs.
+
 2014.08.13 - version 2.1.0
 	* Compatibility with WooCommerce 2.2.x
-	* Fixes session ID recording issues. 
-	* Removed the stats generation part of the installation script.  This is now handled via the cron job.  Recommendations will not be present until 
-		the cron job has run for the first time. 
-	* Changed default column layout to be 2 columns instead of 4. 
-	
+	* Fixes session ID recording issues.
+	* Removed the stats generation part of the installation script.  This is now handled via the cron job.  Recommendations will not be present until
+		the cron job has run for the first time.
+	* Changed default column layout to be 2 columns instead of 4.
+
 2014.05.21 - version 2.0.3
-	* Fix problem in installation script with duplicate key defined error. 
-	* Fix memory and timeout issue in installation script by limiting the processing of only the last 500 orders. 
-	* Fix to installation script to make sure that items returned from the order are a complete woocommerce product. 
+	* Fix problem in installation script with duplicate key defined error.
+	* Fix memory and timeout issue in installation script by limiting the processing of only the last 500 orders.
+	* Fix to installation script to make sure that items returned from the order are a complete woocommerce product.
 	* Fix problem where WooCommerce is not always returning a product object from get_product_from_item();
 
 2014.04.29 - version 2.0.2
-	* Update table schema to change the column 'key' to 'rkey' to prevent various MYSQL issues. 
-	
+	* Update table schema to change the column 'key' to 'rkey' to prevent various MYSQL issues.
+
 2014.04.08 - version 2.0.1
 	* Update to installer to account for duplicate primary key issue with dbDelta().
 
 2014.02.15 - version 2.0.0
-	* Calculate scores twicedaily via WP Cron. 
+	* Calculate scores twicedaily via WP Cron.
 
 2014.01.07 - version 1.2.0
 	* 2.1 Compatibility
-	* 2.1 - Modified installation hook priority to 99 to allow the woocommerce taxononmies to be registered first. 
-	
+	* 2.1 - Modified installation hook priority to 99 to allow the woocommerce taxononmies to be registered first.
+
 2014.01.03 - version 1.1.0
-	* Major change to the way the data is collected and calculated.  Only a single query is executed, dramatically reducing the 
-		overall load on the MYSQL server and improving performance. 
+	* Major change to the way the data is collected and calculated.  Only a single query is executed, dramatically reducing the
+		overall load on the MYSQL server and improving performance.
 
 2013.07.22 - version 1.0.2
 	* Update: Only install stats on first installation / activation of the plugin
@@ -149,7 +154,7 @@
 
 2013.07.15 - version 1.0.1
 	* Update: Added Admin Settings to allow users to easily configure the total items and number
-		total number of columns to display the items in. 
+		total number of columns to display the items in.
 
 2013.06.26 - version 1.0
  * First Release

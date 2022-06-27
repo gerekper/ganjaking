@@ -22,11 +22,11 @@ use MailPoetVendor\Twig\RuntimeLoader\RuntimeLoaderInterface;
 use MailPoetVendor\Twig\TokenParser\TokenParserInterface;
 class Environment
 {
- public const VERSION = '2.14.11';
- public const VERSION_ID = 21411;
- public const MAJOR_VERSION = 2;
- public const MINOR_VERSION = 14;
- public const RELEASE_VERSION = 11;
+ public const VERSION = '3.3.10';
+ public const VERSION_ID = 30310;
+ public const MAJOR_VERSION = 3;
+ public const MINOR_VERSION = 3;
+ public const RELEASE_VERSION = 10;
  public const EXTRA_VERSION = '';
  private $charset;
  private $loader;
@@ -36,7 +36,6 @@ class Environment
  private $lexer;
  private $parser;
  private $compiler;
- private $baseTemplateClass;
  private $globals = [];
  private $resolvedGlobals;
  private $loadedTemplates;
@@ -50,13 +49,9 @@ class Environment
  public function __construct(LoaderInterface $loader, $options = [])
  {
  $this->setLoader($loader);
- $options = \array_merge(['debug' => \false, 'charset' => 'UTF-8', 'base_template_class' => Template::class, 'strict_variables' => \false, 'autoescape' => 'html', 'cache' => \false, 'auto_reload' => null, 'optimizations' => -1], $options);
+ $options = \array_merge(['debug' => \false, 'charset' => 'UTF-8', 'strict_variables' => \false, 'autoescape' => 'html', 'cache' => \false, 'auto_reload' => null, 'optimizations' => -1], $options);
  $this->debug = (bool) $options['debug'];
- $this->setCharset($options['charset']);
- $this->baseTemplateClass = '\\' . \ltrim($options['base_template_class'], '\\');
- if ('\\' . Template::class !== $this->baseTemplateClass && '\\Twig_Template' !== $this->baseTemplateClass) {
- @\trigger_error('The "base_template_class" option on ' . __CLASS__ . ' is deprecated since Twig 2.7.0.', \E_USER_DEPRECATED);
- }
+ $this->setCharset($options['charset'] ?? 'UTF-8');
  $this->autoReload = null === $options['auto_reload'] ? $this->debug : (bool) $options['auto_reload'];
  $this->strictVariables = (bool) $options['strict_variables'];
  $this->setCache($options['cache']);
@@ -64,19 +59,6 @@ class Environment
  $this->addExtension(new CoreExtension());
  $this->addExtension(new EscaperExtension($options['autoescape']));
  $this->addExtension(new OptimizerExtension($options['optimizations']));
- }
- public function getBaseTemplateClass()
- {
- if (1 > \func_num_args() || \func_get_arg(0)) {
- @\trigger_error('The ' . __METHOD__ . ' is deprecated since Twig 2.7.0.', \E_USER_DEPRECATED);
- }
- return $this->baseTemplateClass;
- }
- public function setBaseTemplateClass($class)
- {
- @\trigger_error('The ' . __METHOD__ . ' is deprecated since Twig 2.7.0.', \E_USER_DEPRECATED);
- $this->baseTemplateClass = $class;
- $this->updateOptionsHash();
  }
  public function enableDebug()
  {
@@ -126,7 +108,7 @@ class Environment
  {
  if (\is_string($cache)) {
  $this->originalCache = $cache;
- $this->cache = new FilesystemCache($cache);
+ $this->cache = new FilesystemCache($cache, $this->autoReload ? FilesystemCache::FORCE_BYTECODE_INVALIDATION : 0);
  } elseif (\false === $cache) {
  $this->originalCache = $cache;
  $this->cache = new NullCache();
@@ -136,35 +118,27 @@ class Environment
  throw new \LogicException('Cache can only be a string, false, or a \\Twig\\Cache\\CacheInterface implementation.');
  }
  }
- public function getTemplateClass($name, $index = null)
+ public function getTemplateClass(string $name, int $index = null) : string
  {
  $key = $this->getLoader()->getCacheKey($name) . $this->optionsHash;
  return $this->templateClassPrefix . \hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $key) . (null === $index ? '' : '___' . $index);
  }
- public function render($name, array $context = [])
+ public function render($name, array $context = []) : string
  {
  return $this->load($name)->render($context);
  }
- public function display($name, array $context = [])
+ public function display($name, array $context = []) : void
  {
  $this->load($name)->display($context);
  }
- public function load($name)
+ public function load($name) : TemplateWrapper
  {
  if ($name instanceof TemplateWrapper) {
  return $name;
  }
- if ($name instanceof Template) {
- @\trigger_error('Passing a \\Twig\\Template instance to ' . __METHOD__ . ' is deprecated since Twig 2.7.0, use \\Twig\\TemplateWrapper instead.', \E_USER_DEPRECATED);
- return new TemplateWrapper($this, $name);
+ return new TemplateWrapper($this, $this->loadTemplate($this->getTemplateClass($name), $name));
  }
- return new TemplateWrapper($this, $this->loadTemplate($name));
- }
- public function loadTemplate($name, $index = null)
- {
- return $this->loadClass($this->getTemplateClass($name), $name, $index);
- }
- public function loadClass($cls, $name, $index = null)
+ public function loadTemplate(string $cls, string $name, int $index = null) : Template
  {
  $mainCls = $cls;
  if (null !== $index) {
@@ -192,11 +166,10 @@ class Environment
  }
  }
  }
- // to be removed in 3.0
- $this->extensionSet->initRuntime($this);
+ $this->extensionSet->initRuntime();
  return $this->loadedTemplates[$cls] = new $cls($this);
  }
- public function createTemplate($template, string $name = null)
+ public function createTemplate(string $template, string $name = null) : TemplateWrapper
  {
  $hash = \hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $template, \false);
  if (null !== $name) {
@@ -207,19 +180,19 @@ class Environment
  $loader = new ChainLoader([new ArrayLoader([$name => $template]), $current = $this->getLoader()]);
  $this->setLoader($loader);
  try {
- return new TemplateWrapper($this, $this->loadTemplate($name));
+ return new TemplateWrapper($this, $this->loadTemplate($this->getTemplateClass($name), $name));
  } finally {
  $this->setLoader($current);
  }
  }
- public function isTemplateFresh($name, $time)
+ public function isTemplateFresh(string $name, int $time) : bool
  {
  return $this->extensionSet->getLastModified() <= $time && $this->getLoader()->isFresh($name, $time);
  }
- public function resolveTemplate($names)
+ public function resolveTemplate($names) : TemplateWrapper
  {
  if (!\is_array($names)) {
- $names = [$names];
+ return $this->load($names);
  }
  $count = \count($names);
  foreach ($names as $name) {
@@ -232,7 +205,7 @@ class Environment
  if (1 !== $count && !$this->getLoader()->exists($name)) {
  continue;
  }
- return $this->loadTemplate($name);
+ return $this->load($name);
  }
  throw new LoaderError(\sprintf('Unable to find one of the following templates: "%s".', \implode('", "', $names)));
  }
@@ -240,7 +213,7 @@ class Environment
  {
  $this->lexer = $lexer;
  }
- public function tokenize(Source $source)
+ public function tokenize(Source $source) : TokenStream
  {
  if (null === $this->lexer) {
  $this->lexer = new Lexer($this);
@@ -251,7 +224,7 @@ class Environment
  {
  $this->parser = $parser;
  }
- public function parse(TokenStream $stream)
+ public function parse(TokenStream $stream) : ModuleNode
  {
  if (null === $this->parser) {
  $this->parser = new Parser($this);
@@ -262,14 +235,14 @@ class Environment
  {
  $this->compiler = $compiler;
  }
- public function compile(Node $node)
+ public function compile(Node $node) : string
  {
  if (null === $this->compiler) {
  $this->compiler = new Compiler($this);
  }
  return $this->compiler->compile($node)->getSource();
  }
- public function compileSource(Source $source)
+ public function compileSource(Source $source) : string
  {
  try {
  return $this->compile($this->parse($this->tokenize($source)));
@@ -284,11 +257,11 @@ class Environment
  {
  $this->loader = $loader;
  }
- public function getLoader()
+ public function getLoader() : LoaderInterface
  {
  return $this->loader;
  }
- public function setCharset($charset)
+ public function setCharset(string $charset)
  {
  if ('UTF8' === ($charset = null === $charset ? null : \strtoupper($charset))) {
  // iconv on Windows requires "UTF-8" instead of "UTF8"
@@ -296,11 +269,11 @@ class Environment
  }
  $this->charset = $charset;
  }
- public function getCharset()
+ public function getCharset() : string
  {
  return $this->charset;
  }
- public function hasExtension($class)
+ public function hasExtension(string $class) : bool
  {
  return $this->extensionSet->hasExtension($class);
  }
@@ -308,11 +281,11 @@ class Environment
  {
  $this->runtimeLoaders[] = $loader;
  }
- public function getExtension($class)
+ public function getExtension(string $class) : ExtensionInterface
  {
  return $this->extensionSet->getExtension($class);
  }
- public function getRuntime($class)
+ public function getRuntime(string $class)
  {
  if (isset($this->runtimes[$class])) {
  return $this->runtimes[$class];
@@ -334,7 +307,7 @@ class Environment
  $this->extensionSet->setExtensions($extensions);
  $this->updateOptionsHash();
  }
- public function getExtensions()
+ public function getExtensions() : array
  {
  return $this->extensionSet->getExtensions();
  }
@@ -342,23 +315,23 @@ class Environment
  {
  $this->extensionSet->addTokenParser($parser);
  }
- public function getTokenParsers()
+ public function getTokenParsers() : array
  {
  return $this->extensionSet->getTokenParsers();
  }
- public function getTags()
+ public function getTokenParser(string $name) : ?TokenParserInterface
  {
- $tags = [];
- foreach ($this->getTokenParsers() as $parser) {
- $tags[$parser->getTag()] = $parser;
+ return $this->extensionSet->getTokenParser($name);
  }
- return $tags;
+ public function registerUndefinedTokenParserCallback(callable $callable) : void
+ {
+ $this->extensionSet->registerUndefinedTokenParserCallback($callable);
  }
  public function addNodeVisitor(NodeVisitorInterface $visitor)
  {
  $this->extensionSet->addNodeVisitor($visitor);
  }
- public function getNodeVisitors()
+ public function getNodeVisitors() : array
  {
  return $this->extensionSet->getNodeVisitors();
  }
@@ -366,15 +339,15 @@ class Environment
  {
  $this->extensionSet->addFilter($filter);
  }
- public function getFilter($name)
+ public function getFilter(string $name) : ?TwigFilter
  {
  return $this->extensionSet->getFilter($name);
  }
- public function registerUndefinedFilterCallback(callable $callable)
+ public function registerUndefinedFilterCallback(callable $callable) : void
  {
  $this->extensionSet->registerUndefinedFilterCallback($callable);
  }
- public function getFilters()
+ public function getFilters() : array
  {
  return $this->extensionSet->getFilters();
  }
@@ -382,11 +355,11 @@ class Environment
  {
  $this->extensionSet->addTest($test);
  }
- public function getTests()
+ public function getTests() : array
  {
  return $this->extensionSet->getTests();
  }
- public function getTest($name)
+ public function getTest(string $name) : ?TwigTest
  {
  return $this->extensionSet->getTest($name);
  }
@@ -394,19 +367,19 @@ class Environment
  {
  $this->extensionSet->addFunction($function);
  }
- public function getFunction($name)
+ public function getFunction(string $name) : ?TwigFunction
  {
  return $this->extensionSet->getFunction($name);
  }
- public function registerUndefinedFunctionCallback(callable $callable)
+ public function registerUndefinedFunctionCallback(callable $callable) : void
  {
  $this->extensionSet->registerUndefinedFunctionCallback($callable);
  }
- public function getFunctions()
+ public function getFunctions() : array
  {
  return $this->extensionSet->getFunctions();
  }
- public function addGlobal($name, $value)
+ public function addGlobal(string $name, $value)
  {
  if ($this->extensionSet->isInitialized() && !\array_key_exists($name, $this->getGlobals())) {
  throw new \LogicException(\sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
@@ -417,7 +390,7 @@ class Environment
  $this->globals[$name] = $value;
  }
  }
- public function getGlobals()
+ public function getGlobals() : array
  {
  if ($this->extensionSet->isInitialized()) {
  if (null === $this->resolvedGlobals) {
@@ -427,7 +400,7 @@ class Environment
  }
  return \array_merge($this->extensionSet->getGlobals(), $this->globals);
  }
- public function mergeGlobals(array $context)
+ public function mergeGlobals(array $context) : array
  {
  // we don't use array_merge as the context being generally
  // bigger than globals, this code is faster.
@@ -438,17 +411,16 @@ class Environment
  }
  return $context;
  }
- public function getUnaryOperators()
+ public function getUnaryOperators() : array
  {
  return $this->extensionSet->getUnaryOperators();
  }
- public function getBinaryOperators()
+ public function getBinaryOperators() : array
  {
  return $this->extensionSet->getBinaryOperators();
  }
- private function updateOptionsHash()
+ private function updateOptionsHash() : void
  {
- $this->optionsHash = \implode(':', [$this->extensionSet->getSignature(), \PHP_MAJOR_VERSION, \PHP_MINOR_VERSION, self::VERSION, (int) $this->debug, $this->baseTemplateClass, (int) $this->strictVariables]);
+ $this->optionsHash = \implode(':', [$this->extensionSet->getSignature(), \PHP_MAJOR_VERSION, \PHP_MINOR_VERSION, self::VERSION, (int) $this->debug, (int) $this->strictVariables]);
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Environment', 'MailPoetVendor\\Twig_Environment');

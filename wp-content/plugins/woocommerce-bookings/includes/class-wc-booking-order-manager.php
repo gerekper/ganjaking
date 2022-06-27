@@ -205,6 +205,7 @@ class WC_Booking_Order_Manager {
 			'timezone_conversion' => 'yes' === WC_Bookings_Timezone_Settings::get( 'use_client_timezone' ),
 			'datetime_format'     => wc_bookings_convert_to_moment_format( $date_format . $time_format ),
 			'timezone_notice'     => __( 'All bookings start and end times except where stated differently are displayed in the following timezone: ', 'woocommerce-bookings' ),
+			'cancel_confirmation' => __( 'Are you sure you want to cancel your booking?', 'woocommerce-bookings' ),
 		);
 
 		wp_localize_script( 'wc-bookings-user-my-account', 'wc_bookings_user_my_account_params', $my_account_params );
@@ -620,7 +621,7 @@ class WC_Booking_Order_Manager {
 		$created_via    = is_callable( array( $order, 'get_created_via' ) ) ? $order->get_created_via() : $order->created_via;
 		$payment_method = is_callable( array( $order, 'get_payment_method' ) ) ? $order->get_payment_method() : $order->payment_method;
 
-		if ( 'bookings' === $created_via || 'wc-booking-gateway' === $payment_method ) {
+		if ( 'bookings' === $created_via || 'wc-bookings-gateway' === $payment_method ) {
 			return false;
 		}
 		return $return;
@@ -641,7 +642,7 @@ class WC_Booking_Order_Manager {
 		}
 		$payment_method = is_callable( array( $order, 'get_payment_method' ) ) ? $order->get_payment_method() : $order->payment_method;
 
-		if ( $order->has_status( 'pending' ) && 'wc-booking-gateway' === $payment_method ) {
+		if ( $order->has_status( 'pending' ) && 'wc-bookings-gateway' === $payment_method ) {
 			$status = array();
 
 			foreach ( $order->get_items() as $order_item_id => $item ) {
@@ -819,8 +820,8 @@ class WC_Booking_Order_Manager {
 			'booking_ids' => $booking_ids,
 		);
 
-		$timestamp = apply_filters( 'woocommerce_bookings_failed_order_expire_scheduled_time_stamp', current_time( 'timestamp' ) + ( 7 * DAY_IN_SECONDS ) );
-		wp_schedule_single_event( $timestamp, 'woocommerce_bookings_failed_order_expired', $args );
+		$timestamp = apply_filters( 'woocommerce_bookings_failed_order_expire_scheduled_time_stamp', time() + ( HOUR_IN_SECONDS ) );
+		as_schedule_single_action( $timestamp, 'woocommerce_bookings_failed_order_expired', $args );
 	}
 
 	/**

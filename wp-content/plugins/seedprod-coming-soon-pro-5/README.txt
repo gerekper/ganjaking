@@ -1,11 +1,11 @@
-=== WordPress Website Builder by SeedProd - Custom Themes, Landing Pages, Coming Soon Page, Maintenance Mode & more...  ===
+=== Website Builder by SeedProd — Custom Theme Builder, Landing Page Builder, Coming Soon, Maintenance Mode & more  ===
 Contributors: seedprod, smub
 Donate link: http://www.seedprod.com
 Tags: maintenance mode, coming soon page, landing page, website builder, page builder
 Requires at least: 5.0
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 6.9.0.8
+Stable tag: 6.12.0
 Text Domain: coming-soon
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -221,11 +221,42 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 
 == Upgrade Notice ==
 
-= 6.9.0.8 =
+= 6.10.0 =
 
-NEW - WordPress Theme Builder and many builder enhancements.
+NEW - WooCommerce Support in Pro and other bug fixes.
 
 == Changelog ==
+= 6.10.0 =
+New!  Create a complete WooCommerce Store with SeedProd.
+
+Added – WooCommerce Template Tag Blocks:
+Menu Cart
+Product Title
+Product Featured Image
+Product Price
+Product Meta
+Add To Cart
+Product Content
+Short Description
+Additional Information
+Products Related
+Upsells
+Product Rating
+Product Stock
+Archive Products
+Product Dat Tabs
+Added – New Conditions:
+Product Page
+Product Category
+Product Tag
+Shop Page
+Added – Full Screen Cover and Contain Static Option for BG images.
+Added – Evergreen – restart option to countdown when it reaches zero.
+Fixed – Inconsistent image size on Testimonial and Author Box Blocks Tweak – Add Spacing to Product Grid Block
+Fixed – Added missing custom css attribute section to button.
+Tweak – Removed srcset attribute from images that are svgs.
+Tweak – Added option to restart evergreen countdown when it ends.
+
 = 6.9.0 =
 
 * Added - Flexbox Alignment on Rows and Columns

@@ -6,10 +6,10 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib;
+namespace WooCommercePDFInvoiceFontLib;
 
-use FontLib\Table\Type\name;
-use FontLib\TrueType\File;
+use WooCommercePDFInvoiceFontLib\Table\Type\name;
+use WooCommercePDFInvoiceFontLib\TrueType\File;
 
 /**
  * Adobe Font Metrics file creation utility class.

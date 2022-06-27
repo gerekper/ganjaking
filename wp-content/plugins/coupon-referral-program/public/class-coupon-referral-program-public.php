@@ -323,6 +323,12 @@ class Coupon_Referral_Program_Public {
 			if ( empty( $referral_key ) ) {
 				$referral_key = $this->set_referral_key( $user_id );
 			}
+			/**
+			 * Filter referral site url.
+			 *
+			 * @since 1.6.4
+			 * @param string site url() .
+			 */
 			$referral_url  = apply_filters( 'mwb_crp_referral_link_url', site_url() );
 			$referral_link = $referral_url . '?ref=' . $referral_key;
 		}
@@ -383,11 +389,26 @@ class Coupon_Referral_Program_Public {
 					$referral_user  = get_user_by( 'ID', $refree_id );
 					$referral_email = $this->get_user_email( $referral_user );
 					if ( isset( $refree_id ) && ! empty( $refree_id ) && ! empty( $user_id ) ) {
+						/**
+						 * Filter check WPS PAR is active.
+						 *
+						 * @since 1.6.4
+						 * @param bool false flag .
+						 */
+						$check_par_enable = apply_filters( 'mwb_crp_par_check_enable', false );
 						update_user_meta( $user_id, 'mwb_cpr_user_referred_by', $refree_id );
 						if ( $this->check_signup_is_enable() && $this->check_reffral_signup_is_enable() ) {
 							if ( ! self::check_is_points_rewards_enable() ) {
 								$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
 								$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+							} elseif ( $check_par_enable ) {
+								/**
+								 * Add points for referral sigup for user.
+								 *
+								 * @since 1.6.4
+								 * @param integer $user_id .
+								 */
+								do_action( 'mwb_crp_par_referral_signup_add_points', $user_id );
 							} else {
 								$points = $this->get_points_for_signup();
 								WC_Points_Rewards_Manager::increase_points( $user_id, $points, 'reffral-account-signup' );
@@ -395,12 +416,24 @@ class Coupon_Referral_Program_Public {
 						}
 						// referal signup.
 						if ( $this->check_reffre_signup_is_enable() ) {
-							if ( ! self::check_is_points_rewards_enable() ) {
-								$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
-								$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
-							} else {
-								$points = $this->get_points_for_refree_signup();
-								WC_Points_Rewards_Manager::increase_points( $refree_id, $points, 'reffree-account-on-referal-signup' );
+							$total_allowed_referral = get_option( 'mwb_crp_total_number_referred_users', 0 );
+							if ( empty( $total_allowed_referral ) || ( $this->mwb_crp_get_total_referred_users( $retrive_data ) <= $total_allowed_referral ) ) {
+								if ( ! self::check_is_points_rewards_enable() ) {
+									$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
+									$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+								} elseif ( $check_par_enable ) {
+									/**
+									 * Add points for referee after user signup.
+									 *
+									 * @since 1.6.4
+									 * @param integer $user_id .
+									 * @param integer $refree_id .
+									 */
+									do_action( 'mwb_crp_par_referee_add_points_for_new_user_signup', $user_id, $refree_id );
+								} else {
+									$points = $this->get_points_for_refree_signup();
+									WC_Points_Rewards_Manager::increase_points( $refree_id, $points, 'reffree-account-on-referal-signup' );
+								}
 							}
 						}
 					}
@@ -466,7 +499,6 @@ class Coupon_Referral_Program_Public {
 			$mwb_crp_referral_signup_array[ $coupon_code ] = $user_id;
 			update_user_meta( $refree_id, 'mwb_crp_referal_signup_coupon', $mwb_crp_referral_signup_array );
 		}
-
 	}
 	/**
 	 * Get signup coupons
@@ -622,7 +654,6 @@ class Coupon_Referral_Program_Public {
 			$class = 'mwb_crp_btn_top_right';
 		}
 		return $class;
-
 	}
 
 	/**
@@ -749,6 +780,12 @@ class Coupon_Referral_Program_Public {
 		}
 		$mwb_cpr_coupon_prefix = get_option( 'coupon_prefix', '' );
 		$password              = $mwb_cpr_coupon_prefix . $password;
+		/**
+		 * Filter coupon code.
+		 *
+		 * @since 1.6.4
+		 * @param string $password
+		 */
 		$password              = apply_filters( 'mwb_cpr_coupons', $password );
 		return $password;
 	}
@@ -981,21 +1018,20 @@ class Coupon_Referral_Program_Public {
 	public function get_social_sharing_html( $user_id ) {
 
 		$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
-		$page_permalink     = apply_filters( 'mwb_crp_referral_link_url', site_url() );
-		$referral_link      = $page_permalink . '?ref=' . $user_reference_key;
-		$content            = '';
-		$content            = $content . '<div class="mwb_crp_wrapper_button">';
+		/**
+		 * Filter referral site url.
+		 *
+		 * @since 1.6.4
+		 * @param string site url() .
+		 */
+		$page_permalink = apply_filters( 'mwb_crp_referral_link_url', site_url() );
+		$referral_link  = $page_permalink . '?ref=' . $user_reference_key;
+		$content        = '';
+		$content        = $content . '<div class="mwb_crp_wrapper_button">';
 
 		$twitter_button = '<div class="mwb_crp_btn mwb_crp_common_class"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=' . $page_permalink . '?ref=' . $user_reference_key . '" target="_blank"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . '/public/images/twitter.png">' . esc_html__( 'Tweet', 'coupon-referral-program' ) . '</a></div>';
 
 		$fb_button = '<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, "script", "facebook-jssdk"));</script>
 		<div class="fb-share-button mwb_crp_common_class" data-href="' . $page_permalink . '?ref=' . $user_reference_key . '" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=' . $page_permalink . '?ref=' . $user_reference_key . '">' . __( 'Share', 'coupon-referral-program' ) . '</a></div>';
 
 		$mail = '<a class="mwb_wpr_mail_button mwb_crp_common_class" href="#" rel="nofollow"><img src ="' . COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/images/email.png"></a>';
@@ -1066,7 +1102,13 @@ class Coupon_Referral_Program_Public {
 						$order_total                = $order->get_total();
 						$referral_discount_on_order = $this->get_referral_discount_order( $user_id );
 						if ( isset( $refree_id ) && ! empty( $refree_id ) ) {
-
+							/**
+							 * Filter check WPS PAR is active.
+							 *
+							 * @since 1.6.4
+							 * @param bool false flag .
+							 */
+							$check_par_enable = apply_filters( 'mwb_crp_par_check_enable', false );
 							if ( ! self::check_is_points_rewards_enable() ) {
 								$mwb_cpr_coupon_amount  = $this->get_referral_coupon_amount( $referral_discount_on_order, $order_total );
 								$mwb_cpr_coupon_length  = $this->mwb_get_coupon_length();
@@ -1092,6 +1134,15 @@ class Coupon_Referral_Program_Public {
 									update_post_meta( $order_id, 'referral_has_rewarded', $refree_id );
 									$this->save_referral_coupon_code( $mwb_cpr_code, $refree_id, $user_id );
 								}
+							} elseif ( $check_par_enable ) {
+								/**
+								 * Add points for referee on the order purchases.
+								 *
+								 * @since 1.6.4
+								 * @param integer $user_id .
+								 * @param integer $refree_id .
+								 */
+								do_action( 'mwb_crp_par_order_purchase_add_points', $user_id, $refree_id );
 							} else {
 								$points = $this->get_points_for_reffral_purchase();
 								WC_Points_Rewards_Manager::increase_points( $refree_id, $points, 'refrral-order-purchase' );
@@ -2041,6 +2092,12 @@ class Coupon_Referral_Program_Public {
 		if ( filter_var( $emal_id, FILTER_VALIDATE_EMAIL ) ) {
 			if ( isset( $user_id ) && ! empty( $user_id ) ) {
 				$user_reference_key = get_user_meta( $user_id, 'referral_key', true );
+				/**
+				 * Filter referral site url.
+				 *
+				 * @since 1.6.4
+				 * @param string site url() .
+				 */
 				$page_permalink     = apply_filters( 'mwb_crp_referral_link_url', site_url() );
 				$referral_link      = $page_permalink . '?ref=' . $user_reference_key;
 				$customer_email     = WC()->mailer()->emails['crp_share_via_email'];
@@ -2397,6 +2454,47 @@ class Coupon_Referral_Program_Public {
 		}
 
 		return $created_date;
+	}
+	/**
+	 * Get total referred users
+	 *
+	 * @param string $referral_key .
+	 * @return $referral_count
+	 */
+	public function mwb_crp_get_total_referred_users( $referral_key ) {
+		$referral_count     = 0;
+		$args               = array(
+			'limit'  => - 1,
+			'fields' => array( 'ID' ),
+		);
+		$args['meta_query'] = array(
+			array(
+				'key'     => 'referral_key',
+				'value'   => trim( $referral_key ),
+				'compare' => '==',
+			),
+		);
+		$referral_user_data = get_users( $args );
+		$refree_id          = $referral_user_data[0]->ID;
+		if ( ! empty( $refree_id ) ) {
+			$args               = array(
+				'limit'  => - 1,
+				'fields' => array( 'ID' ),
+			);
+			$args['meta_query'] = array(
+				array(
+					'key'     => 'mwb_cpr_user_referred_by',
+					'value'   => $refree_id,
+					'compare' => '==',
+				),
+			);
+			$referral_user_data = get_users( $args );
+			if ( ! empty( $referral_user_data ) && is_array( $referral_user_data ) ) {
+				$referral_count = count( $referral_user_data );
+			}
+		}
+		return $referral_count;
+
 	}
 
 }

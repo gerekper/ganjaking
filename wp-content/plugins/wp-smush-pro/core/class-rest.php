@@ -13,7 +13,6 @@
 namespace Smush\Core;
 
 use WP_Smush;
-use Smush\Core\Helper;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -73,7 +72,7 @@ class Rest {
 	 * @return array|string
 	 */
 	public function register_image_stats( $image ) {
-		if ( Helper::file_in_progress( $image['id'], 'smush' ) ) {
+		if ( get_transient( 'smush-in-progress-' . $image['id'] ) ) {
 			return __( 'Smushing in progress', 'wp-smushit' );
 		}
 
@@ -100,7 +99,7 @@ class Rest {
 		$configs_handler = new Configs();
 		register_rest_route(
 			'wp-smush/v1',
-			'/' . Configs::OPTION_NAME . '/',
+			'/preset_configs/',
 			array(
 				array(
 					'methods'             => 'GET',

@@ -3,7 +3,7 @@ namespace MailPoetVendor\Twig\Error;
 if (!defined('ABSPATH')) exit;
 class SyntaxError extends Error
 {
- public function addSuggestions($name, array $items)
+ public function addSuggestions(string $name, array $items) : void
  {
  $alternatives = [];
  foreach ($items as $item) {
@@ -19,4 +19,3 @@ class SyntaxError extends Error
  $this->appendMessage(\sprintf(' Did you mean "%s"?', \implode('", "', \array_keys($alternatives))));
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Error\\SyntaxError', 'MailPoetVendor\\Twig_Error_Syntax');

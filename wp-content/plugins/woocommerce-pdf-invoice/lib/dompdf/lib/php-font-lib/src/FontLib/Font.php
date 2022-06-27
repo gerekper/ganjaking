@@ -6,9 +6,9 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib;
+namespace WooCommercePDFInvoiceFontLib;
 
-use FontLib\Exception\FontNotFoundException;
+use WooCommercePDFInvoiceFontLib\Exception\FontNotFoundException;
 
 /**
  * Generic font file.
@@ -60,7 +60,7 @@ class Font {
     }
 
     if ($class) {
-      $class = "FontLib\\$class";
+      $class = "WooCommercePDFInvoiceFontLib\\$class";
 
       /** @var TrueType\File $obj */
       $obj = new $class;

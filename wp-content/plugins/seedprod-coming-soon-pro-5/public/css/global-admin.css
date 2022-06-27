@@ -96,3 +96,11 @@
 .sp-rotate-template b.is-visible {
 	position: relative;
 }
+
+.sp-lite-admin-menu__upgrade_wrapper{
+	background-color: #1da867;
+}
+.sp-lite-admin-menu__upgrade_wrapper a{
+	color: #fff !important;
+	font-weight: 600;
+}

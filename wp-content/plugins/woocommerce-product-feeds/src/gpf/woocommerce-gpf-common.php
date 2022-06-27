@@ -184,6 +184,14 @@ class WoocommerceGpfCommon {
 					'google_len'      => 50,
 					'multiple'        => true,
 				],
+				'short_title'                         => [
+					'desc'                   => __( 'Short title', 'woocommerce_gpf' ),
+					'full_desc'              => __( 'Use this to briefly and clearly identify the product you’re selling. In contrast to the title attribute, the value you submit for the short title should be concise and will only be used in certain contexts where a short title is more user-frinedly, such as Discovery campaigns.', 'woocommerce_gpf' ),
+					'can_prepopulate'        => true,
+					'feed_types'             => [ 'google', 'googlelocalproducts' ],
+					'skip_on_category_pages' => true,
+					'google_len'             => 150,
+				],
 				'gender'                              => [
 					'desc'             => __( 'Gender', 'woocommerce_gpf' ),
 					'full_desc'        => __( 'Target gender for the item', 'woocommerce_gpf' ),
@@ -325,6 +333,24 @@ class WoocommerceGpfCommon {
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 100,
 				],
+				'ships_from_country'                  => [
+					'desc'             => __( 'Ships from country', 'woocommerce_gpf' ),
+					'full_desc'        => __( 'You can use this to indicate which country products will typically be shipped from.', 'woocommerce_gpf' ),
+					'can_default'      => true,
+					'can_prepopulate'  => false,
+					'callback'         => 'render_generic_select',
+					'options_callback' => 'WoocommerceProductFeedsFieldOptions::country_options',
+					'feed_types'       => [ 'google' ],
+				],
+				'shopping_ads_excluded_country'       => [
+					'desc'             => __( 'Shopping ads excluded countries', 'woocommerce_gpf' ),
+					'full_desc'        => __( 'Use this attribute to stop a product from showing in certain countries, while still allowing it to show in a primary country.', 'woocommerce_gpf' ),
+					'can_default'      => true,
+					'can_prepopulate'  => false,
+					'callback'         => 'render_generic_select',
+					'options_callback' => 'WoocommerceProductFeedsFieldOptions::country_options',
+					'feed_types'       => [ 'google' ],
+				],
 				'transit_time_label'                  => [
 					'desc'            => __( 'Transit time label', 'woocommerce_gpf' ),
 					'full_desc'       => __( 'Label that you assign to a product to help assign different transit times in Merchant Center account settings.', 'woocommerce_gpf' ),
@@ -384,7 +410,6 @@ class WoocommerceGpfCommon {
 				'cost_of_goods_sold'                  => [
 					'desc'            => __( 'Cost of goods sold', 'woocommerce_gpf' ),
 					'full_desc'       => __( 'Use this when reporting conversions with basket data to get additional reporting on gross profit. You should enter a value and currency, e.g. "8.08 USD"', 'woocommerce_gpf' ),
-					'can_default'     => false,
 					'callback'        => 'render_textfield',
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],

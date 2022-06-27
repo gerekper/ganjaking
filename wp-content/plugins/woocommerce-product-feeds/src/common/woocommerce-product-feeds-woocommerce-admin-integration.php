@@ -3,6 +3,7 @@
 use Automattic\WooCommerce\Admin\Features\Onboarding;
 use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 use Automattic\WooCommerce\Admin\Loader;
+use Automattic\WooCommerce\Admin\PageController;
 
 class WoocommerceProductFeedsWoocommerceAdminIntegration {
 
@@ -18,6 +19,18 @@ class WoocommerceProductFeedsWoocommerceAdminIntegration {
 	}
 
 	/**
+	 * Compat for WC < 6.3
+	 *
+	 * @return bool
+	 */
+	private function is_admin_page() {
+		if ( method_exists( PageController::class, 'is_admin_page' ) ) {
+			return PageController::is_admin_page();
+		}
+		return Loader::is_admin_page();
+	}
+
+	/**
 	 * Register the task list item and the JS.
 	 */
 	public function admin_enqueue_scripts() {
@@ -25,7 +38,7 @@ class WoocommerceProductFeedsWoocommerceAdminIntegration {
 		if (
 			! function_exists( 'wc_admin_is_registered_page' ) ||
 			! class_exists( 'Automattic\WooCommerce\Admin\Loader' ) ||
-			! Loader::is_admin_page() ||
+			! $this->is_admin_page() ||
 			! $this->should_show_tasks()
 		) {
 			return;

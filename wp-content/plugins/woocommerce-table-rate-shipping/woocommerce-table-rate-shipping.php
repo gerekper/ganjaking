@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Table Rate Shipping
  * Plugin URI: https://woocommerce.com/products/table-rate-shipping/
  * Description: Table rate shipping lets you define rates depending on location vs shipping class, price, weight, or item count.
- * Version: 3.0.36
+ * Version: 3.0.40
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
- * Tested up to: 5.8
+ * Tested up to: 6.0
  * Text Domain: woocommerce-table-rate-shipping
- * Copyright: © 2021 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /languages
- * WC tested up to: 5.9
+ * WC tested up to: 6.5
  * WC requires at least: 2.6
  *
  * Woo: 18718:3034ed8aff427b0f635fe4c86bbf008a
@@ -41,7 +41,7 @@ class WC_Table_Rate_Shipping {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.36' ); // WRCS: DEFINED_VERSION.
+		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.40' ); // WRCS: DEFINED_VERSION.
 		define( 'TABLE_RATE_SHIPPING_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) );
 		define( 'WC_TABLE_RATE_SHIPPING_MAIN_FILE', __FILE__ );
 
@@ -119,6 +119,7 @@ class WC_Table_Rate_Shipping {
 
 		// Hooks.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 		add_filter( 'woocommerce_translations_updates_for_woocommerce-table-rate-shipping', '__return_true' );
@@ -195,6 +196,11 @@ class WC_Table_Rate_Shipping {
 				'delete_rates_nonce' => wp_create_nonce( 'delete-rate' ),
 			)
 		);
+	}
+
+	public function frontend_enqueue_scripts() {
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		wp_enqueue_script( 'woocommerce_shipping_table_rate_checkout', plugins_url( '/assets/js/frontend-checkout' . $suffix . '.js', __FILE__ ), array( 'jquery' ), TABLE_RATE_SHIPPING_VERSION, true );
 	}
 
 	/**
@@ -281,8 +287,8 @@ class WC_Table_Rate_Shipping {
             foreach( $packages as $package_id => $package ) {
                 $package_hash = WC_Table_Rate_Shipping::create_package_hash( $package );
 
-                if ( isset( $abort[ $package_hash ] ) && ! wc_has_notice( $abort[ $package_hash ], 'error' ) ) {
-                    wc_add_notice( $abort[ $package_hash ], 'error' );
+                if ( isset( $abort[ $package_hash ] ) && ! wc_has_notice( $abort[ $package_hash ], 'notice' ) ) {
+                    wc_add_notice( $abort[ $package_hash ], 'notice', array( 'wc_trs' => 'yes' ) );
                 }
 
             }

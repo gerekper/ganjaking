@@ -61,6 +61,7 @@ class REST_API extends Framework\REST_API {
 		$this->supports = [
 			'v2',
 			'v3',
+			'v4',
 		];
 
 		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.6.0' ) ) {

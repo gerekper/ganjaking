@@ -14,6 +14,13 @@ defined( 'ABSPATH' ) || exit;
 class WC_Store_Credit_Product_Addons {
 
 	/**
+	 * Stores if there are errors with the product validation.
+	 *
+	 * @var bool
+	 */
+	private static $has_errors = false;
+
+	/**
 	 * Init.
 	 *
 	 * @since 3.2.0
@@ -23,6 +30,7 @@ class WC_Store_Credit_Product_Addons {
 		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'product_content' ) );
 		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'custom_amount_content' ) );
 		add_action( 'wc_store_credit_single_product_content', array( __CLASS__, 'different_receiver_content' ), 20 );
+		add_action( 'wp', array( __CLASS__, 'check_validation_errors' ) );
 
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'validate_add_cart_item' ), 20, 2 );
 		add_filter( 'woocommerce_add_cart_item_data', array( __CLASS__, 'add_cart_item_data' ), 10, 2 );
@@ -47,6 +55,17 @@ class WC_Store_Credit_Product_Addons {
 		$product = wc_store_credit_get_product( $the_product );
 
 		return ( $product instanceof WC_Store_Credit_Product && $product->allow_different_receiver() );
+	}
+
+	/**
+	 * Checks if there are errors with the product validation.
+	 *
+	 * @since 4.0.3
+	 */
+	public static function check_validation_errors() {
+		if ( is_product() && 0 < wc_notice_count( 'error' ) ) {
+			self::$has_errors = true;
+		}
 	}
 
 	/**
@@ -167,12 +186,28 @@ class WC_Store_Credit_Product_Addons {
 			)
 		);
 
+		if ( self::$has_errors && isset( $_POST['send-to-different-customer'] ) && '1' === $_POST['send-to-different-customer'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$data['display_receiver_fields'] = 'expanded';
+		}
+
 		$args = array(
 			'data'   => $data,
 			'fields' => self::get_receiver_fields(),
 		);
 
 		wc_store_credit_get_template( 'single-product/store-credit/custom-receiver.php', $args );
+	}
+
+	/**
+	 * Gets the field value by key.
+	 *
+	 * @since 4.0.3
+	 *
+	 * @param string $key Field key.
+	 * @return mixed
+	 */
+	public static function get_value( $key ) {
+		return ( self::$has_errors ? wc_get_post_data_by_key( $key ) : '' );
 	}
 
 	/**

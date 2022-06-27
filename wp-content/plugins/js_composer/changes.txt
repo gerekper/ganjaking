@@ -1,3 +1,13 @@
+07.04.2022 - ver 6.9.0
+   New: Filter to disable full width row JS
+   Update: Option to set custom color for the round chart element
+   Update: WPML compatibility improved with filters for images
+   Fix: Raw HTML element works properly for WPML Translation Editor
+   Fix: Auto-mapper deprecation notice works properly
+   Fix: Template preview works properly
+   Fix: Stretched row works properly in WordPress default themes
+   Fix: Post grid works properly
+
 20.12.2021 - ver 6.8.0
   - Update: Deprecated jQuery removed from the plugin
   - Fix: Button animation works properly on Safari

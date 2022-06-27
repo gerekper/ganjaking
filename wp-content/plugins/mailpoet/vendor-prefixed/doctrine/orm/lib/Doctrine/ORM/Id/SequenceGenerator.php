@@ -3,7 +3,7 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Id;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
+use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use Serializable;
 use function serialize;
 use function unserialize;
@@ -18,7 +18,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
  $this->_sequenceName = $sequenceName;
  $this->_allocationSize = $allocationSize;
  }
- public function generate(EntityManager $em, $entity)
+ public function generateId(EntityManagerInterface $em, $entity)
  {
  if ($this->_maxValue === null || $this->_nextValue === $this->_maxValue) {
  // Allocate new values

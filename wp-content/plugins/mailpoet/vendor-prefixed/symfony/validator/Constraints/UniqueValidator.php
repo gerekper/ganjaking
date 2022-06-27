@@ -19,12 +19,23 @@ class UniqueValidator extends ConstraintValidator
  throw new UnexpectedValueException($value, 'array|IteratorAggregate');
  }
  $collectionElements = [];
+ $normalizer = $this->getNormalizer($constraint);
  foreach ($value as $element) {
+ $element = $normalizer($element);
  if (\in_array($element, $collectionElements, \true)) {
  $this->context->buildViolation($constraint->message)->setParameter('{{ value }}', $this->formatValue($value))->setCode(Unique::IS_NOT_UNIQUE)->addViolation();
  return;
  }
  $collectionElements[] = $element;
  }
+ }
+ private function getNormalizer(Unique $unique) : callable
+ {
+ if (null === $unique->normalizer) {
+ return static function ($value) {
+ return $value;
+ };
+ }
+ return $unique->normalizer;
  }
 }

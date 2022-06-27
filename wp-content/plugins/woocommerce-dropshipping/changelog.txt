@@ -1,5 +1,18 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-03-31 - version 4.0
+* PLUGINS-1251 - Add link to suppliers email notification directing to "Order list page" of the supplier's dashboard.
+* PLUGINS-1246 - Fix Other shipping and billing details have changed.
+* PLUGINS-1247 - Fix Cost of goods value rounding off.
+* PLUGINS-1290 - Add specific languages to be included in our plugin.
+* PLUGINS-1244 - Fix POD, Tracking number not showing in order page list.
+* PLUGINS-1235 - Fix some words in the packing slip are not translatable.
+* PLUGINS-136 - Get tracking details.
+* PLUGINS-1321 - Profit Graph.
+* PLUGINS-583 - Variation for "update product" endpoint not deleting variation as on CBE.
+* PLUGINS-1079 - Fix PDF library issues.
+* PLUGINS-1365 - Settings are getting reset after updating the plugin(automatic updates).
+
 2022-02-25 - version 3.9
 * PLUGINS-1394 - Add Compatibility for upcoming Dropshipping Pro.
 

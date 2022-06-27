@@ -6,10 +6,10 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\EOT;
+namespace WooCommercePDFInvoiceFontLib\EOT;
 
 use Exception;
-use FontLib\Font;
+use WooCommercePDFInvoiceFontLib\Font;
 
 /**
  * TrueType font file header.
@@ -18,7 +18,7 @@ use FontLib\Font;
  *
  * @property File $font
  */
-class Header extends \FontLib\Header {
+class Header extends \WooCommercePDFInvoiceFontLib\Header {
   protected $def = array(
     "format"        => self::uint32,
     "numTables"     => self::uint16,

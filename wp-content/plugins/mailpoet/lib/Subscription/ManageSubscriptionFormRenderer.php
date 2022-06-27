@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Subscription;
 
@@ -6,19 +6,19 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer as TemplateRenderer;
+use MailPoet\CustomFields\CustomFieldsRepository;
+use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Block\Date as FormBlockDate;
 use MailPoet\Form\Renderer as FormRenderer;
-use MailPoet\InvalidStateException;
-use MailPoet\Models\CustomField;
-use MailPoet\Models\Segment;
-use MailPoet\Models\Subscriber;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\LinkTokens;
-use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Url as UrlHelper;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 
 class ManageSubscriptionFormRenderer {
   const FORM_STATE_SUCCESS = 'success';
@@ -45,8 +45,11 @@ class ManageSubscriptionFormRenderer {
   /** @var TemplateRenderer */
   private $templateRenderer;
 
-  /** @var SubscribersRepository */
-  private $subscribersRepository;
+  /** @var CustomFieldsRepository */
+  private $customFieldsRepository;
+
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
 
   public function __construct(
     WPFunctions $wp,
@@ -56,7 +59,8 @@ class ManageSubscriptionFormRenderer {
     FormRenderer $formRenderer,
     FormBlockDate $dateBlock,
     TemplateRenderer $templateRenderer,
-    SubscribersRepository $subscribersRepository
+    CustomFieldsRepository $customFieldsRepository,
+    SegmentsRepository $segmentsRepository
   ) {
     $this->wp = $wp;
     $this->settings = $settings;
@@ -65,10 +69,11 @@ class ManageSubscriptionFormRenderer {
     $this->formRenderer = $formRenderer;
     $this->dateBlock = $dateBlock;
     $this->templateRenderer = $templateRenderer;
-    $this->subscribersRepository = $subscribersRepository;
+    $this->customFieldsRepository = $customFieldsRepository;
+    $this->segmentsRepository = $segmentsRepository;
   }
 
-  public function renderForm(Subscriber $subscriber, string $formState = self::FORM_STATE_NOT_SUBMITTED): string {
+  public function renderForm(SubscriberEntity $subscriber, string $formState = self::FORM_STATE_NOT_SUBMITTED): string {
     $basicFields = $this->getBasicFields($subscriber);
     $customFields = $this->getCustomFields($subscriber);
     $segmentField = $this->getSegmentField($subscriber);
@@ -90,32 +95,19 @@ class ManageSubscriptionFormRenderer {
 
     $form = $this->wp->applyFilters('mailpoet_manage_subscription_page_form_fields', $form);
 
-    // Because subscriber isn't stored in DB Doctrine can't found entity in DB, we need temporary workaround
-    if ($subscriber->email !== Pages::DEMO_EMAIL) {
-      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
-    } else {
-      $subscriberEntity = new SubscriberEntity();
-      $subscriberEntity->setEmail($subscriber->email);
-      $subscriberEntity->setFirstName($subscriber->firstName);
-      $subscriberEntity->setLastName($subscriber->lastName);
-      $subscriberEntity->setLinkToken($subscriber->linkToken);
-    }
-    if (!$subscriberEntity) {
-      throw new InvalidStateException();
-    }
     $templateData = [
       'actionUrl' => admin_url('admin-post.php'),
       'redirectUrl' => $this->urlHelper->getCurrentUrl(),
-      'email' => $subscriber->email,
-      'token' => $this->linkTokens->getToken($subscriberEntity),
+      'email' => $subscriber->getEmail(),
+      'token' => $this->linkTokens->getToken($subscriber),
       'editEmailInfo' => __('Need to change your email address? Unsubscribe using the form below, then simply sign up again.', 'mailpoet'),
       'formHtml' => $this->formRenderer->renderBlocks($form, [], null, $honeypot = false, $captcha = false),
       'formState' => $formState,
     ];
 
-    if ($subscriber->isWPUser() || $subscriber->isWooCommerceUser()) {
+    if ($subscriber->isWPUser() || $subscriber->getIsWoocommerceUser()) {
       $wpCurrentUser = $this->wp->wpGetCurrentUser();
-      if ($wpCurrentUser->user_email === $subscriber->email) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      if ($wpCurrentUser->user_email === $subscriber->getEmail()) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $templateData['editEmailInfo'] = Helpers::replaceLinkTags(
           __('[link]Edit your profile[/link] to update your email.', 'mailpoet'),
           $this->wp->getEditProfileUrl(),
@@ -133,11 +125,23 @@ class ManageSubscriptionFormRenderer {
     return $this->templateRenderer->render('subscription/manage_subscription.html', $templateData);
   }
 
-  private function getCustomFields(Subscriber $subscriber): array {
-    return array_map(function($customField) use($subscriber) {
-      $customField->id = 'cf_' . $customField->id;
-      $customField = $customField->asArray();
-      $customField['params']['value'] = $subscriber->{$customField['id']};
+  private function getCustomFields(SubscriberEntity $subscriber): array {
+    $customFieldValues = [];
+    foreach ($subscriber->getSubscriberCustomFields() as $subscriberCustomField) {
+      $customField = $subscriberCustomField->getCustomField();
+      if (!$customField) continue;
+
+      $customFieldValues[$customField->getId()] = $subscriberCustomField->getValue();
+    }
+    return array_map(function(CustomFieldEntity $customFieldEntity) use($customFieldValues) {
+      $customField = [
+        'id' => 'cf_' . $customFieldEntity->getId(),
+        'name' => $customFieldEntity->getName(),
+        'type' => $customFieldEntity->getType(),
+        'params' => $customFieldEntity->getParams(),
+      ];
+
+      $customField['params']['value'] = $customFieldValues[$customFieldEntity->getId()] ?? null;
 
       if ($customField['type'] === 'date') {
         $dateFormats = $this->dateBlock->getDateFormats();
@@ -150,18 +154,18 @@ class ManageSubscriptionFormRenderer {
       }
 
       return $customField;
-    }, CustomField::findMany());
+    }, $this->customFieldsRepository->findAll());
   }
 
-  private function getBasicFields(Subscriber $subscriber): array {
+  private function getBasicFields(SubscriberEntity $subscriber): array {
     return [
       [
         'id' => 'first_name',
         'type' => 'text',
         'params' => [
           'label' => __('First name', 'mailpoet'),
-          'value' => $subscriber->firstName,
-          'disabled' => ($subscriber->isWPUser() || $subscriber->isWooCommerceUser()),
+          'value' => $subscriber->getFirstName(),
+          'disabled' => ($subscriber->isWPUser() || $subscriber->getIsWoocommerceUser()),
         ],
       ],
       [
@@ -169,8 +173,8 @@ class ManageSubscriptionFormRenderer {
         'type' => 'text',
         'params' => [
           'label' => __('Last name', 'mailpoet'),
-          'value' => $subscriber->lastName,
-          'disabled' => ($subscriber->isWPUser() || $subscriber->isWooCommerceUser()),
+          'value' => $subscriber->getLastName(),
+          'disabled' => ($subscriber->isWPUser() || $subscriber->getIsWoocommerceUser()),
         ],
       ],
       [
@@ -182,41 +186,41 @@ class ManageSubscriptionFormRenderer {
           'values' => [
             [
               'value' => [
-                Subscriber::STATUS_SUBSCRIBED => __('Subscribed', 'mailpoet'),
+                SubscriberEntity::STATUS_SUBSCRIBED => __('Subscribed', 'mailpoet'),
               ],
               'is_checked' => (
-                $subscriber->status === Subscriber::STATUS_SUBSCRIBED
+                $subscriber->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED
               ),
             ],
             [
               'value' => [
-                Subscriber::STATUS_UNSUBSCRIBED => __('Unsubscribed', 'mailpoet'),
+                SubscriberEntity::STATUS_UNSUBSCRIBED => __('Unsubscribed', 'mailpoet'),
               ],
               'is_checked' => (
-                $subscriber->status === Subscriber::STATUS_UNSUBSCRIBED
+                $subscriber->getStatus() === SubscriberEntity::STATUS_UNSUBSCRIBED
               ),
             ],
             [
               'value' => [
-                Subscriber::STATUS_BOUNCED => __('Bounced', 'mailpoet'),
+                SubscriberEntity::STATUS_BOUNCED => __('Bounced', 'mailpoet'),
               ],
               'is_checked' => (
-                $subscriber->status === Subscriber::STATUS_BOUNCED
+                $subscriber->getStatus() === SubscriberEntity::STATUS_BOUNCED
               ),
               'is_disabled' => true,
               'is_hidden' => (
-                $subscriber->status !== Subscriber::STATUS_BOUNCED
+                $subscriber->getStatus() !== SubscriberEntity::STATUS_BOUNCED
               ),
             ],
             [
               'value' => [
-                Subscriber::STATUS_INACTIVE => __('Inactive', 'mailpoet'),
+                SubscriberEntity::STATUS_INACTIVE => __('Inactive', 'mailpoet'),
               ],
               'is_checked' => (
-                $subscriber->status === Subscriber::STATUS_INACTIVE
+                $subscriber->getStatus() === SubscriberEntity::STATUS_INACTIVE
               ),
               'is_hidden' => (
-                $subscriber->status !== Subscriber::STATUS_INACTIVE
+                $subscriber->getStatus() !== SubscriberEntity::STATUS_INACTIVE
               ),
             ],
           ],
@@ -225,30 +229,31 @@ class ManageSubscriptionFormRenderer {
     ];
   }
 
-  private function getSegmentField(Subscriber $subscriber): array {
+  private function getSegmentField(SubscriberEntity $subscriber): array {
     $segmentIds = $this->settings->get('subscription.segments', []);
+
+    // Get default segments
+    $criteria = ['type' => SegmentEntity::TYPE_DEFAULT, 'deletedAt' => null];
     if (!empty($segmentIds)) {
-      $segments = Segment::getPublic()
-        ->whereIn('id', $segmentIds)
-        ->findMany();
-    } else {
-      $segments = Segment::getPublic()
-        ->findMany();
+      $criteria['id'] = $segmentIds;
     }
+    $segments = $this->segmentsRepository->findBy($criteria, ['name' => Criteria::ASC]);
+
     $subscribedSegmentIds = [];
-    if (!empty($subscriber->subscriptions)) {
-      foreach ($subscriber->subscriptions as $subscription) {
-        if ($subscription['status'] === Subscriber::STATUS_SUBSCRIBED) {
-          $subscribedSegmentIds[] = $subscription['segment_id'];
-        }
+    foreach ($subscriber->getSubscriberSegments() as $subscriberSegment) {
+      $segment = $subscriberSegment->getSegment();
+      if (!$segment) continue;
+
+      if ($subscriberSegment->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED) {
+        $subscribedSegmentIds[] = $segment->getId();
       }
     }
 
-    $segments = array_map(function($segment) use($subscribedSegmentIds) {
+    $segments = array_map(function(SegmentEntity $segment) use($subscribedSegmentIds) {
       return [
-        'id' => $segment->id,
-        'name' => $segment->name,
-        'is_checked' => in_array($segment->id, $subscribedSegmentIds),
+        'id' => $segment->getId(),
+        'name' => $segment->getName(),
+        'is_checked' => in_array($segment->getId(), $subscribedSegmentIds),
       ];
     }, $segments);
 

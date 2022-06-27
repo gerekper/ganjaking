@@ -228,7 +228,7 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 	<?php
 	if ( $options['cookie_position'] == "full_layout_panel_" ) {
 		?>
-        <div class="ct-ultimate-gdpr-cookie-fullPanel-overlay"></div>
+        <div class="ct-ultimate-gdpr-cookie-fullPanel-overlay" style="display:none"></div>
 		<?php
 	}
 	?>

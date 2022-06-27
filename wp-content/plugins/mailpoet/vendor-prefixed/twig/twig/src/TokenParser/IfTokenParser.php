@@ -7,7 +7,7 @@ use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Token;
 final class IfTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $lineno = $token->getLine();
  $expr = $this->parser->getExpressionParser()->parseExpression();
@@ -48,17 +48,16 @@ final class IfTokenParser extends AbstractTokenParser
  );
  return new IfNode(new Node($tests), $else, $lineno, $this->getTag());
  }
- public function decideIfFork(Token $token)
+ public function decideIfFork(Token $token) : bool
  {
  return $token->test(['elseif', 'else', 'endif']);
  }
- public function decideIfEnd(Token $token)
+ public function decideIfEnd(Token $token) : bool
  {
  return $token->test(['endif']);
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'if';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\IfTokenParser', 'MailPoetVendor\\Twig_TokenParser_If');

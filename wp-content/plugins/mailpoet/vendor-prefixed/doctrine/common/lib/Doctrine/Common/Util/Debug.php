@@ -92,7 +92,7 @@ final class Debug
  {
  $clone = (array) $var;
  foreach (array_keys($clone) as $key) {
- $aux = explode("\0", $key);
+ $aux = explode("\x00", $key);
  $name = end($aux);
  if ($aux[0] === '') {
  $name .= ':' . ($aux[1] === '*' ? 'protected' : $aux[1] . ':private');

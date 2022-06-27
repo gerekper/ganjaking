@@ -1,5 +1,8 @@
 *** WooCommerce Nested Category Layout Changelog ***
 
+2022.06.16 - version 1.17.4
+ * Fix - Additional compatibility fixes
+
 2022.03.04 - version 1.17.3
  * Fix - Compatibility with WOOF - Products Filter for WooCommerce, YITH WooCommerce Ajax Product Filter, Advanced AJAX Product Filters by BeRocket, and WooCommerce Filter Product Widget
  * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`

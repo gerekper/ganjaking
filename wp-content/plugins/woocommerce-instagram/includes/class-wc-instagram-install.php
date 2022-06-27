@@ -121,7 +121,7 @@ class WC_Instagram_Install {
 		if ( ! empty( $_GET['force_update_wc_instagram'] ) ) {
 			check_admin_referer( 'wc_instagram_force_db_update', 'wc_instagram_force_db_update_nonce' );
 			$blog_id = get_current_blog_id();
-			do_action( 'wp_' . $blog_id . '_wc_instagram_updater_cron' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHooksComment
+			do_action( 'wp_' . $blog_id . '_wc_instagram_updater_cron' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
 			wp_safe_redirect( wc_instagram_get_settings_url() );
 			exit;
 		}

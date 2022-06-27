@@ -131,7 +131,7 @@ class Smush extends Abstract_Module {
 		}
 
 		// Add the timestamp.
-		$super_smushed['timestamp'] = current_time( 'timestamp' );
+		$super_smushed['timestamp'] = time();
 
 		update_option( $key, $super_smushed, false );
 
@@ -376,7 +376,7 @@ class Smush extends Abstract_Module {
 		$headers = array(
 			'accept'       => 'application/json',   // The API returns JSON.
 			'content-type' => 'application/binary', // Set content type to binary.
-			'lossy'        => WP_Smush::is_pro() && $this->settings->get( 'lossy' ) ? 'true' : 'false',
+			'lossy'        => $this->settings->get( 'lossy' ) ? 'true' : 'false',
 			'exif'         => $this->settings->get( 'strip_exif' ) ? 'false' : 'true',
 		);
 
@@ -546,7 +546,7 @@ class Smush extends Abstract_Module {
 	 * @return WP_Error|array
 	 */
 	public function resize_from_meta_data( $attachment_id, $meta ) {
-		// Check if it's real a image, and is supported.
+		// Check if it's real image, and is supported.
 		if ( ! Helper::is_smushable( $attachment_id ) ) {
 			return $meta;
 		}
@@ -829,45 +829,35 @@ class Smush extends Abstract_Module {
 
 		$attachment_id = (int) $attachment_id;
 		if ( $attachment_id < 1 ) {
-			$ref_errors->add(
-				'missing_id',
-				__( 'No attachment ID was received.', 'wp-smushit' ),
-				array(
-					'file_name'     => 'undefined',
-				)
-			);
+			$message = __( 'No attachment ID was received.', 'wp-smushit' );
+			$ref_errors->add( 'missing_id', $message, array( 'file_name' => 'undefined' ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
-		// Check if the file is ignored.
-		if ( Helper::is_ignored( $attachment_id ) ) {
-			$ref_errors->add(
-				'ignored',
-				__( 'Skip ignored file.', 'wp-smushit' ),
-				array(
-					'file_name'     => sprintf(
-						/* translators: %d - attachment ID */
-						esc_html__( 'undefined (attachment ID: %d)', 'wp-smushit' ),
-						(int) $attachment_id
-					),
-				)
-			);
+		$file_name = sprintf( /* translators: %d - attachment ID */
+			esc_html__( 'attachment ID: %d', 'wp-smushit' ),
+			$attachment_id
+		);
+
+		// Check if the file is ignored or animated.
+		$is_ignored = (int) get_post_meta( $attachment_id, 'wp-smush-ignore-bulk', true );
+		if ( $is_ignored > 0 ) {
+			$type    = 'ignored';
+			$message = __( 'Skip ignored file.', 'wp-smushit' );
+
+			if ( Core::STATUS_ANIMATED === $is_ignored ) {
+				$type    = 'animated';
+				$message = __( 'Skip animated file.', 'wp-smushit' );
+			}
+
+			$ref_errors->add( $type, $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
 		// Return the status if the file is in progress.
-		if ( Helper::file_in_progress( $attachment_id ) ) {
-			$ref_errors->add(
-				'in_progress',
-				__( 'File is in progress.', 'wp-smushit' ),
-				array(
-					'file_name'     => sprintf(
-						/* translators: %d - attachment ID */
-						esc_html__( 'undefined (attachment ID: %d)', 'wp-smushit' ),
-						(int) $attachment_id
-					),
-				)
-			);
+		if ( get_transient( 'wp-smush-restore-' . $attachment_id ) || get_transient( 'smush-in-progress-' . $attachment_id ) ) {
+			$message = __( 'File processing is in progress.', 'wp-smushit' );
+			$ref_errors->add( 'in_progress', $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
@@ -881,28 +871,15 @@ class Smush extends Abstract_Module {
 		 * Causes PHP Warning: Illegal string offset 'file' message.
 		 */
 		if ( ! is_array( $ref_meta ) || ! isset( $ref_meta['file'] ) ) {
-			$ref_errors->add(
-				'no_file_meta',
-				__( 'No file data found in image meta', 'wp-smushit' ),
-				array(
-					'file_name'     => sprintf(
-						/* translators: %d - attachment ID */
-						esc_html__( 'undefined (attachment ID: %d)', 'wp-smushit' ),
-						(int) $attachment_id
-					),
-				)
-			);
+			$message = __( 'No file data found in image meta', 'wp-smushit' );
+			$ref_errors->add( 'no_file_meta', $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
 		// Try to get the file name from path.
 		$file_name = explode( '/', $ref_meta['file'] );
-
-		if ( is_array( $file_name ) ) {
-			$file_name = array_pop( $file_name );
-		} else {
-			$file_name = $ref_meta['file'];
-		}
+		$file_name = is_array( $file_name ) ? array_pop( $file_name ) : $ref_meta['file'];
+		$file_name = Helper::get_image_media_link( $attachment_id, $file_name );
 
 		/**
 		 * Filter: wp_smush_image
@@ -913,13 +890,8 @@ class Smush extends Abstract_Module {
 		 * @param int  $ID    Attachment Id, Attachment id of the image being processed.
 		 */
 		if ( ! apply_filters( 'wp_smush_image', true, $attachment_id ) ) {
-			$ref_errors->add(
-				'skipped',
-				esc_html__( 'Skipped with wp_smush_image filter', 'wp-smushit' ),
-				array(
-					'file_name' => Helper::get_image_media_link( $attachment_id, $file_name ),
-				)
-			);
+			$message = esc_html__( 'Skipped with wp_smush_image filter', 'wp-smushit' );
+			$ref_errors->add( 'skipped', $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
@@ -928,25 +900,15 @@ class Smush extends Abstract_Module {
 
 		// If the file doesn't exist, return.
 		if ( ! file_exists( $file_path ) ) {
-			$ref_errors->add(
-				'not_found',
-				esc_html__( 'Image not found.', 'wp-smushit' ),
-				array(
-					'file_name' => Helper::get_image_media_link( $attachment_id, $file_name ),
-				)
-			);
+			$message = esc_html__( 'Image not found.', 'wp-smushit' );
+			$ref_errors->add( 'not_found', $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
 		// Check if file is animated, return.
 		if ( Helper::check_animated_status( $file_path, $attachment_id ) ) {
-			$ref_errors->add(
-				'animated',
-				esc_html__( 'Skip animate file.', 'wp-smushit' ),
-				array(
-					'file_name' => Helper::get_image_media_link( $attachment_id, $file_name ),
-				)
-			);
+			$message = esc_html__( 'Skip animated file.', 'wp-smushit' );
+			$ref_errors->add( 'animated', $message, array( 'file_name' => $file_name ) );
 			return $this->no_smushit( $attachment_id, $ref_errors );
 		}
 
@@ -969,7 +931,7 @@ class Smush extends Abstract_Module {
 		$has_error = $ref_errors->has_errors();
 		if ( ! $has_error ) {
 			// Set a transient to avoid multiple request.
-			Helper::lock_file_before_doing( 'smush', $attachment_id );
+			set_transient( 'smush-in-progress-' . $attachment_id, 1, HOUR_IN_SECONDS );
 
 			// Is doing wp_generate_attachment_metadata.
 			$generating_metadata = doing_filter( 'wp_generate_attachment_metadata' );
@@ -1016,7 +978,7 @@ class Smush extends Abstract_Module {
 		}
 
 		/**
-		 * Fires after Smushing a file.
+		 * Fires after optimizing a file.
 		 *
 		 * @param int $attachment_id Attachment ID.
 		 * @param array $ref_meta Metadata.
@@ -1040,7 +1002,7 @@ class Smush extends Abstract_Module {
 		}
 
 		// Delete the transient after attachment meta is updated.
-		Helper::release_file_after_doing( 'smush', $attachment_id );
+		delete_transient( 'smush-in-progress-' . $attachment_id );
 
 		// Reset prevent infinite loop.
 		$this->prevent_infinite_loop = null;
@@ -1064,7 +1026,7 @@ class Smush extends Abstract_Module {
 		}
 
 		$upload_attachment    = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS );
-		$is_upload_attachment = 'upload-attachment' === $upload_attachment || isset( $_POST['post_id'] );// phpcs:ignore
+		$is_upload_attachment = 'upload-attachment' === $upload_attachment || isset( $_POST['post_id'] );
 
 		// Our async task runs when action is upload-attachment and post_id found. So do not run on these conditions.
 		if ( $is_upload_attachment && defined( 'WP_SMUSH_ASYNC' ) && WP_SMUSH_ASYNC ) {
@@ -1100,7 +1062,7 @@ class Smush extends Abstract_Module {
 		 * @since 3.9.6
 		 * If it's not in ajax we are already handled it inside self::smushit().
 		 */
-		if ( ! $return && $attachment_id > 0 && Helper::file_in_progress( $attachment_id ) ) {
+		if ( ! $return && $attachment_id > 0 && ( get_transient( 'smush-in-progress-' . $attachment_id ) || get_transient( 'wp-smush-restore-' . $attachment_id ) ) ) {
 			// Get the button status.
 			$status = WP_Smush::get_instance()->library()->generate_markup( $attachment_id );
 			wp_send_json_success( $status );
@@ -1129,8 +1091,9 @@ class Smush extends Abstract_Module {
 			// Prepare data for ajax.
 			$error_code = $errors->get_error_code();
 			$error_data = $errors->get_error_data();
+
 			$status = array(
-				'error' => $error_code,
+				'error'        => $error_code,
 				'error_msg'    => '<p class="wp-smush-error-message">' . Helper::filter_error( $errors->get_error_message( $error_code ), $attachment_id ) . '</p>',
 				'show_warning' => (int) $this->show_warning(),
 			);
@@ -1275,7 +1238,7 @@ class Smush extends Abstract_Module {
 	 */
 	public function wp_smush_handle_editor_async( $id, $post_data ) {
 		// If we don't have image id, or the smush is already in progress for the image, return.
-		if ( empty( $id ) || Helper::file_in_progress( $id ) ) {
+		if ( empty( $id ) || get_transient( 'smush-in-progress-' . $id ) || get_transient( 'wp-smush-restore-' . $id ) ) {
 			return;
 		}
 

@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<form method="post" class="delete">
 									<?= ( new \ACP\Nonce\LayoutNonce() )->create_field() ?>
 									<input type="hidden" name="<?= ListScreenCreate::PARAM_ACTION; ?>" value="<?= ListScreenCreate::PARAM_DELETE_LIST; ?>">
-									<input type="hidden" name="layout_id" value="<?= esc_attr( $list_screen->get_layout_id() ); ?>">
+									<input type="hidden" name="ac_delete_layout_id" value="<?= esc_attr( $list_screen->get_layout_id() ); ?>">
 									<input type="hidden" name="list_screen" value="<?= esc_attr( $list_screen->get_key() ); ?>">
 									<input type="submit" class="delete" value="<?= esc_attr( __( 'Delete', 'codepress-admin-columns' ) ); ?>"<?= $onclick; ?>/>
 								</form>

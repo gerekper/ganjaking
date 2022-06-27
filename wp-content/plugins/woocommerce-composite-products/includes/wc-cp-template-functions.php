@@ -81,12 +81,18 @@ function wc_cp_add_to_cart() {
 
 /**
  * Add-to-cart button and quantity template for composite products.
+ *
+ * @param  WC_Product_Composite  $composite
  */
-function wc_cp_add_to_cart_button() {
+function wc_cp_add_to_cart_button( $composite = false ) {
 
 	if ( isset( $_GET[ 'update-composite' ] ) ) {
 		$cart_id = wc_clean( $_GET[ 'update-composite' ] );
 		echo '<input type="hidden" name="update-composite" value="' . $cart_id . '" />';
+	}
+
+	if ( $composite && ! $composite->is_in_stock() ) {
+		return;
 	}
 
 	wc_get_template( 'single-product/add-to-cart/composite-quantity-input.php', array(), false, WC_CP()->plugin_path() . '/templates/' );

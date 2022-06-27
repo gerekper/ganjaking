@@ -17,7 +17,7 @@ use ACP\Nonce;
 use ACP\RequestDispatcher;
 use ACP\RequestHandler;
 use ACP\Type\SiteUrl;
-use ACP\Updates\ProductsUpdater;
+use ACP\Updates\PluginDataUpdater;
 
 class LicenseDeactivate implements RequestHandler {
 
@@ -52,7 +52,7 @@ class LicenseDeactivate implements RequestHandler {
 	private $activation_token_factory;
 
 	/**
-	 * @var ProductsUpdater
+	 * @var PluginDataUpdater
 	 */
 	private $products_updater;
 
@@ -61,7 +61,7 @@ class LicenseDeactivate implements RequestHandler {
 	 */
 	private $permission_checker;
 
-	public function __construct( LicenseKeyRepository $license_key_repository, ActivationKeyStorage $activation_key_storage, ActivationStorage $activation_storage, RequestDispatcher $api, SiteUrl $site_url, ActivationTokenFactory $activation_token_factory, ProductsUpdater $products_updater, PermissionChecker $permission_checker ) {
+	public function __construct( LicenseKeyRepository $license_key_repository, ActivationKeyStorage $activation_key_storage, ActivationStorage $activation_storage, RequestDispatcher $api, SiteUrl $site_url, ActivationTokenFactory $activation_token_factory, PluginDataUpdater $products_updater, PermissionChecker $permission_checker ) {
 		$this->license_key_repository = $license_key_repository;
 		$this->activation_key_storage = $activation_key_storage;
 		$this->activation_storage = $activation_storage;
@@ -107,6 +107,9 @@ class LicenseDeactivate implements RequestHandler {
 		}
 
 		$this->products_updater->update( $token );
+
+		wp_clean_plugins_cache();
+		wp_update_plugins();
 
 		$this->success_notice( $response->get( 'message' ) );
 	}

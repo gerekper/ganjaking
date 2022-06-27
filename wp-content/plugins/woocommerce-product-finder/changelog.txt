@@ -1,5 +1,11 @@
 *** Product Finder Changelog ***
 
+2022-06-07 - version 1.2.23
+* Tweak - WC 6.6 compatibility.
+
+2022-05-10 - version 1.2.22
+* Tweak - WooCommerce 6.5 and WordPress 6.0 compatibility.
+
 2022-02-08 - version 1.2.21
 * Fix - Include languages folder and POT file in the release.
 * Tweak - WC 6.2 compatibility.

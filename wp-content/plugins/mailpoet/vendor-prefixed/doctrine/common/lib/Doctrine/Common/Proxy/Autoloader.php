@@ -24,7 +24,7 @@ class Autoloader
  $classNameRelativeToProxyNamespace = substr($className, strlen($proxyNamespace));
  // remove namespace separators from remaining class name
  $fileName = str_replace('\\', '', $classNameRelativeToProxyNamespace);
- return $proxyDir . \DIRECTORY_SEPARATOR . $fileName . '.php';
+ return $proxyDir . DIRECTORY_SEPARATOR . $fileName . '.php';
  }
  public static function register($proxyDir, $proxyNamespace, $notFoundCallback = null)
  {

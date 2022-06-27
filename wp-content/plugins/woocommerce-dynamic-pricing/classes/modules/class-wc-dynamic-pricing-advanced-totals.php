@@ -52,7 +52,7 @@ class WC_Dynamic_Pricing_Advanced_Totals extends WC_Dynamic_Pricing_Advanced_Bas
 
 							$matched = true;
 
-							//Adjust the cart items. 
+							//Adjust the cart items.
 							foreach ( $temp_cart as $cart_item_key => $cart_item ) {
 								$product = $cart_item['data'];
 								if ( $collector['type'] == 'cat' ) {
@@ -111,7 +111,7 @@ class WC_Dynamic_Pricing_Advanced_Totals extends WC_Dynamic_Pricing_Advanced_Bas
 
 
 	private function is_applied_to_product( $product, $targets ) {
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			return false;
 		}
 

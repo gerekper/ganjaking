@@ -60,6 +60,8 @@ class Warranty_Coupons {
         update_post_meta($coupon_id, 'maximum_amount', '');
         update_post_meta($coupon_id, 'customer_email', $email);
 
+        do_action( 'after_warranty_create_coupon', $coupon_id, $order_id, $warranty_id );
+
         $refunded_amount = get_post_meta( $warranty_id, '_refund_amount', true );
 
         if ( !$refunded_amount ) {
@@ -67,13 +69,14 @@ class Warranty_Coupons {
         }
         $refunded_amount += $coupon_amount;
 
-        $data = array(
+        $data = apply_filters( 'warranty_update_request_data', array(
             'refund_amount' => $refunded_amount,
             'coupon_sent'   => 'yes',
             'coupon_code'   => $coupon_code,
             'coupon_amount' => $coupon_amount,
             'coupon_date'   => current_time('mysql')
-        );
+        ), $warranty_id, $coupon_id, $order_id );
+
         warranty_update_request( $warranty_id, $data );
 
         $return_message = __('Coupon sent', 'wc_warranty');

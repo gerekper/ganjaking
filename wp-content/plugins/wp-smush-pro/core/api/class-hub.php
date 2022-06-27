@@ -10,8 +10,8 @@
 
 namespace Smush\Core\Api;
 
-use Smush\Core\Configs;
 use Smush\Core\Settings;
+use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -70,7 +70,7 @@ class Hub {
 	 */
 	public function action_get_stats( $params, $action ) {
 		$status   = array();
-		$core = \WP_Smush::get_instance()->core();
+		$core     = WP_Smush::get_instance()->core();
 		$settings = Settings::get_instance();
 
 		$status['cdn']   = $core->mod->cdn->is_active();
@@ -94,7 +94,7 @@ class Hub {
 		$status['count_unsmushed'] = $core->remaining_count;
 		$status['savings']         = $core->stats;
 
-		$status['dir']   = $core->dir_stats;
+		$status['dir'] = $core->dir_stats;
 
 		wp_send_json_success( (object) $status );
 	}

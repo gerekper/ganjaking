@@ -4,10 +4,10 @@ Plugin Name: Slider Revolution
 Plugin URI: https://www.sliderrevolution.com/
 Description: Slider Revolution - More than just a WordPress Slider
 Author: ThemePunch
-Secret Key: 79ec684eb95bbd822fa1b06b7a2631b5
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.5.19
+Version: 6.5.25
 Author URI: https://themepunch.com/
 */
 
@@ -22,7 +22,7 @@ if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.5.19');
+define('RS_REVISION',			'6.5.25');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -247,7 +247,7 @@ try{
 	}
 
 	register_activation_hook(__FILE__, array('RevSliderFront', 'create_tables'));
-	register_activation_hook(__FILE__, array('RevSliderAdmin', 'welcome_screen_activate'));
+	register_activation_hook(__FILE__, array('RevSliderFront', 'welcome_screen_activate'));
 	add_action('plugins_loaded', array('RevSliderFront', 'create_tables'));
 	add_action('plugins_loaded', array('RevSliderPluginUpdate', 'do_update_checks')); //add update checks
 	add_action('plugins_loaded', array('RevSliderPageTemplate', 'get_instance'));
@@ -270,3 +270,5 @@ function get_rs_plugin_url(){
 
 	return $url;
 }
+/* Anti-Leecher Identifier */
+/* Credited By BABIATO-FORUM */

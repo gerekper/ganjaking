@@ -1,0 +1,4 @@
+!.eslintrc.js
+vendor
+assets
+node_modules

@@ -72,7 +72,6 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			add_action( 'woocommerce_admin_field_wc_od_table', 'wc_od_field_wrapper' );
 			add_action( 'woocommerce_admin_field_wc_od_shipping_days', 'wc_od_field_wrapper' );
 			add_action( 'woocommerce_admin_field_wc_od_delivery_days', 'wc_od_field_wrapper' );
-			add_action( 'woocommerce_admin_field_wc_od_day_range', 'wc_od_field_wrapper' );
 			add_action( 'woocommerce_admin_field_wc_od_calendar', 'wc_od_calendar_field' );
 
 			// Custom fields sanitize.
@@ -115,20 +114,22 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		 * @since 1.0.0
 		 */
 		public function includes() {
-			if ( $this->is_shipping_tab() ) {
-				if ( $this->is_calendar_section() ) {
-					include_once 'wc-od-admin-calendars-settings.php';
-				} else {
-					include_once 'wc-od-admin-general-settings.php';
-				}
-
-				/**
-				 * Includes the necessary files.
-				 *
-				 * @since 1.0.0
-				 */
-				do_action( 'wc_od_settings_includes' );
+			if ( ! $this->is_shipping_tab() ) {
+				return;
 			}
+
+			if ( $this->is_calendar_section() ) {
+				include_once 'wc-od-admin-calendars-settings.php';
+			} else {
+				include_once 'wc-od-admin-general-settings.php';
+			}
+
+			/**
+			 * Includes the necessary files.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'wc_od_settings_includes' );
 		}
 
 		/**
@@ -441,7 +442,6 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						'title'    => __( 'Delivery days', 'woocommerce-order-delivery' ),
 						'desc'     => __( 'Choose the available days to deliver orders.', 'woocommerce-order-delivery' ),
 						'type'     => 'wc_od_delivery_days',
-						'value'    => WC_OD()->settings()->get_setting( 'delivery_days' ),
 						'desc_tip' => true,
 					),
 
@@ -468,7 +468,6 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						'default'  => WC_OD()->settings()->get_default( 'delivery_fields_option' ),
 						'options'  => array(
 							'optional' => __( 'The fields are optional', 'woocommerce-order-delivery' ),
-							'auto'     => __( 'The fields values will be assigned automatically if the customer leave them empty', 'woocommerce-order-delivery' ),
 							'required' => __( 'The fields are required', 'woocommerce-order-delivery' ),
 						),
 					),
@@ -588,7 +587,6 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 
 			switch ( $setting_type ) {
 				case 'shipping_days':
-				case 'delivery_days':
 					$setting_id      = wc_od_no_prefix( $setting['id'] );
 					$previous_value  = WC_OD()->settings()->get_setting( $setting_id );
 					$days_data       = is_array( $value ) ? $value : array();
@@ -613,24 +611,13 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					$enabled_days = wc_od_get_days_by( $clean_days_data, 'enabled', 'yes' );
 
 					if ( empty( $enabled_days ) ) {
-						$error_key = ( 'shipping_days' === $setting_id ? 'shipping_days_empty' : 'delivery_days_empty' );
-						$this->add_setting_error( $error_key );
+						$this->add_setting_error( 'shipping_days_empty' );
 					} else {
 						$value = $clean_days_data;
 					}
 					break;
-				case 'day_range':
-					if ( null === $value ) {
-						$value = array(
-							'min' => 0,
-							'max' => 0,
-						);
-					} else {
-						$value = array(
-							'min' => ( isset( $value['min'] ) ? absint( $value['min'] ) : 0 ),
-							'max' => ( isset( $value['max'] ) ? absint( $value['max'] ) : 0 ),
-						);
-					}
+				case 'delivery_days':
+					$value = $this->sanitize_delivery_days_field( $value );
 					break;
 				case 'table':
 					$instance = wc_od_get_table_field( $setting );
@@ -647,6 +634,31 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			}
 
 			return $value;
+		}
+
+		/**
+		 * Sanitizes the 'delivery_days' setting field.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param mixed $value The field value.
+		 * @return null
+		 */
+		protected function sanitize_delivery_days_field( $value ) {
+			if ( empty( $value ) ) {
+				$this->add_setting_error( 'delivery_days_empty' );
+			} else {
+				$delivery_days = wc_od_get_delivery_days();
+
+				foreach ( $delivery_days as $delivery_day ) {
+					$enabled = array_key_exists( $delivery_day->get_id(), $value );
+					$delivery_day->set_enabled( $enabled );
+					$delivery_day->save();
+				}
+			}
+
+			// Always return null to avoid saving the field with the Options API.
+			return null;
 		}
 
 		/**
@@ -667,26 +679,12 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		}
 
 		/**
-		 * Validate and save the setting.
-		 *
-		 * Backward compatibility with WC 2.3 and older.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 We sanitize the field in the 'sanitize_field' method instead of save it directly.
-		 *
-		 * @param array $setting The setting data.
-		 */
-		public function save_field( $setting ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-		}
-
-		/**
 		 * Gets a setting error message by key.
 		 *
 		 * @since 1.0.0
 		 *
 		 * @param string $error_key Optional. The error key.
-		 * @return string The error message, or an empty string if the key doesn't exists.
+		 * @return string The error message, or an empty string if the key doesn't exist.
 		 */
 		public function get_setting_error_message( $error_key = '' ) {
 			/**
@@ -696,10 +694,13 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			 *
 			 * @param array $error_messages The error messages.
 			 */
-			$error_messages = apply_filters( 'wc_od_settings_error_messages', array(
-				'shipping_days_empty' => __( 'You must check at least one shipping day.', 'woocommerce-order-delivery' ),
-				'delivery_days_empty' => __( 'You must check at least one delivery day.', 'woocommerce-order-delivery' ),
-			) );
+			$error_messages = apply_filters(
+				'wc_od_settings_error_messages',
+				array(
+					'shipping_days_empty' => __( 'You must check at least one shipping day.', 'woocommerce-order-delivery' ),
+					'delivery_days_empty' => __( 'You must check at least one delivery day.', 'woocommerce-order-delivery' ),
+				)
+			);
 
 			if ( $error_key ) {
 				return ( isset( $error_messages[ $error_key ] ) ? $error_messages[ $error_key ] : '' );

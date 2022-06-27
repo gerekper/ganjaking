@@ -91,6 +91,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Post_SMTP' => __DIR__ . '/../..' . '/includes/service/service-post-smtp.php',
         'CT_Ultimate_GDPR_Service_Quform' => __DIR__ . '/../..' . '/includes/service/service-quform.php',
         'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => __DIR__ . '/../..' . '/includes/service/service-sell-personal-data.php',
+        'CT_Ultimate_GDPR_Service_Siteorigin_Panels' => __DIR__ . '/../..' . '/includes/service/service-siteorigin-panels.php',
         'CT_Ultimate_GDPR_Service_Ultimate_Member' => __DIR__ . '/../..' . '/includes/service/service-ultimate-member.php',
         'CT_Ultimate_GDPR_Service_WPForms_Lite' => __DIR__ . '/../..' . '/includes/service/service-wpforms-lite.php',
         'CT_Ultimate_GDPR_Service_WP_Comments' => __DIR__ . '/../..' . '/includes/service/service-wp-comments.php',

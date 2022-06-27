@@ -1,5 +1,11 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-04-05 - version 1.5.10
+* Enhancement - Display correct tax when the “Display Tax Totals” setting is set to “As a single total”
+* Fix         - Incorrect discount calculations for the bookable product and product add-ons
+* Tweak       - bump tested up to WordPress version 5.9
+* Enhancement – Allow $_GET deposits metadata while adding product in the cart
+
 2022-02-28 - version 1.5.9
 * Feature - Introduce a new action hook that fires immediately after the props for new scheduled order are set.
 * Fix - Remove "Add Plan" button.

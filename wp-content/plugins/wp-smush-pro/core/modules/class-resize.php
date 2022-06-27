@@ -136,8 +136,6 @@ class Resize extends Abstract_Module {
 			return Helper::cache_get( $id, 'should_resize' );
 		}
 
-		$should_resize = $this->check_should_resize( $id, $meta );
-
 		/**
 		 * Filter whether the uploaded image should be resized or not
 		 *
@@ -173,7 +171,7 @@ class Resize extends Abstract_Module {
 		 * Get unfiltered file path if it exists, otherwise we will use filtered attached file ( e.g s3).
 		 * Please check Png2jpg::__construct() for the detail.
 		 */
-		$file_path = Helper::get_attached_file( $id, 'resize' );
+		$file_path = Helper::get_attached_file( $id, 'check-resize' );
 		if ( ! empty( $file_path ) ) {
 			// Skip: if "noresize" is included in the filename, Thanks to Imsanity.
 			if ( strpos( $file_path, 'noresize' ) !== false ) {
@@ -256,7 +254,12 @@ class Resize extends Abstract_Module {
 		);
 
 		// Good to go.
-		$file_path = Helper::get_attached_file( $id );// S3+.
+		$file_path = Helper::get_attached_file( $id, 'resize' );// S3+.
+
+		// Make sure scaled file exits.
+		if ( ! file_exists( $file_path ) ) {
+			return;
+		}
 
 		$original_file_size = filesize( $file_path );
 
@@ -283,9 +286,7 @@ class Resize extends Abstract_Module {
 			$savings['size_after']  = $u_file_size;
 
 			// Store savings in metadata.
-			if ( ! empty( $savings ) ) {
-				update_post_meta( $id, 'wp-smush-resize_savings', $savings );
-			}
+			update_post_meta( $id, 'wp-smush-resize_savings', $savings );
 
 			$meta['width']  = ! empty( $resize['width'] ) ? $resize['width'] : $meta['width'];
 			$meta['height'] = ! empty( $resize['height'] ) ? $resize['height'] : $meta['height'];
@@ -421,7 +422,7 @@ class Resize extends Abstract_Module {
 	 * @return bool
 	 */
 	private function replace_original_image( $file_path, $resized, $meta = array() ) {
-		$replaced = @copy( $resized['file_path'], $file_path );
+		$replaced = copy( $resized['file_path'], $file_path );
 		$this->maybe_unlink( $resized['file_path'], $meta );
 
 		return $replaced;
@@ -457,7 +458,7 @@ class Resize extends Abstract_Module {
 
 		// Unlink directly if meta value is not specified.
 		if ( empty( $meta['sizes'] ) ) {
-			@unlink( $path );
+			unlink( $path );
 		}
 
 		$unlink = true;
@@ -475,7 +476,7 @@ class Resize extends Abstract_Module {
 		}
 
 		if ( $unlink ) {
-			@unlink( $path );
+			unlink( $path );
 		}
 
 		return true;

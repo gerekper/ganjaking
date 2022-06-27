@@ -1,5 +1,47 @@
 *** WooCommerce Amazon Fulfillment Changelog ***
 
+2022-06-24 - version 4.0.7
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Revert order number sent to Amazon to WC order / post ID
+* Fix issue preventing scheduled inventory sync
+* Fix automatic order status syncing (depends on active inventory sync schedule)
+
+2022-06-23 - version 4.0.6
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Restore support for PHP 7.3 and prior by removing typed class properties
+
+2022-06-21 - version 4.0.5
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix issue with variation SKUs not being properly sent to Amazon
+
+2022-06-17 - version 4.0.4
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix additional error Disabled Shipping Methods setting
+
+2022-06-16 - version 4.0.3
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix error when Disabled Shipping Methods setting is used
+
+2022-06-15 - version 4.0.2
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix plugin activation error when Sync Shipping Status setting is ON
+
+2022-06-06 - version 4.0.1
+* Version Bump to fix issue with WooCommerce Marketplace changelog.txt parsing
+* MAJOR UPDATE (see details below in version 4.0.0)
+
+2022-06-06 - version 4.0.0
+* MAJOR UPDATE
+* Implemented Amazon's new Selling Partner API (SP-API)
+* Implemented Login with Amazon (LWA) for authorizing access to Seller Central and fulfillment data
+* Temporary support for both MWS and SP-API (you must update to SP-API before Jul 31, 2022)
+* Added features to Import Products and map SKUs from Amazon fulfillment into to WooCommerce
+* Added a native WC Shipping method for Amazon with the ability to enable/disable any of the Amazon shipping speeds
+* Added dynamic estimated arrival times in the Cart and Checkout from Amazon's SP-API
+* Added dynamic estimated fulfillment rates from Amazon and provided to customer during shopping experience
+* Added features to set a fixed or % mark-up amount to add to Amazon's estimated fulfillment rates
+* Added shipment status, carrier, and tracking number to the view order screen and admin edit order screen
+
 2021-03-29 - version 3.3.8
 * Fixed bug with Amazon settings display logic
 

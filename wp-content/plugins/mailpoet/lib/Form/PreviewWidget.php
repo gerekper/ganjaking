@@ -25,6 +25,8 @@ class PreviewWidget extends \WP_Widget {
    * Output the widget itself.
    */
   public function widget($args, $instance = null) {
+    // We control the html
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
     echo $this->formHtml;
   }
 }

@@ -1,5 +1,17 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-06-07 - version 1.7.9
+* Tweak - WC 6.6 compatibility.
+
+2022-05-05 - version 1.7.8
+* Tweak - Changed minimum WC version to 4.5.
+* Tweak - WC 6.5 and WP 6.0 compatibility.
+
+2022-04-05 - version 1.7.7
+* Add - Support for Subscriptions with WooCommerce Payments.
+* Fix - Compatibility with WC Blocks 7.2.
+* Tweak - WC 6.3 compatibility.
+
 2022-02-02 - version 1.7.6
 * Fix - Negative balance of points.
 

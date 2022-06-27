@@ -10,7 +10,7 @@ use MailPoet\Mailer\Methods\Common\BlacklistCheck;
 use MailPoet\Mailer\Methods\ErrorMappers\SendGridMapper;
 use MailPoet\WP\Functions as WPFunctions;
 
-class SendGrid {
+class SendGrid implements MailerMethod {
   public $url = 'https://api.sendgrid.com/api/mail.send.json';
   public $apiKey;
   public $sender;
@@ -38,7 +38,7 @@ class SendGrid {
     $this->blacklist = new BlacklistCheck();
   }
 
-  public function send($newsletter, $subscriber, $extraParams = []) {
+  public function send($newsletter, $subscriber, $extraParams = []): array {
     if ($this->blacklist->isBlacklisted($subscriber)) {
       $error = $this->errorMapper->getBlacklistError($subscriber);
       return Mailer::formatMailerErrorResult($error);

@@ -1028,7 +1028,7 @@
 			behaviour: 'tap',
 			orientation: 'horizontal',
 			keyboardSupport: true,
-			cssPrefix: 'noUi-',
+			cssPrefix: 'noui-',
 			cssClasses: cssClasses,
 			keyboardPageMultiplier: 5,
 			keyboardDefaultStep: 10

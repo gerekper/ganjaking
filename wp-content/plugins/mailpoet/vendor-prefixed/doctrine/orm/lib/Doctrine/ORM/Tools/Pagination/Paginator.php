@@ -50,7 +50,7 @@ class Paginator implements Countable, IteratorAggregate
  $this->useOutputWalkers = $useOutputWalkers;
  return $this;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function count()
  {
  if ($this->count === null) {
@@ -62,7 +62,7 @@ class Paginator implements Countable, IteratorAggregate
  }
  return $this->count;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  $offset = $this->query->getFirstResult();

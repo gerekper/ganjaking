@@ -59,11 +59,11 @@
 				this.onboardingSlides = [
 					'start',
 					'auto',
+					'lossy',
 					'strip_exif',
 					'lazy_load',
 					'usage',
 				];
-				this.selection.lossy = false;
 			}
 
 			if ( 'false' === dialog.dataset.tracking ) {
@@ -132,7 +132,7 @@
 		/**
 		 * Update the template, register new listeners.
 		 *
-		 * @param {string} directionClass  Accepts: fadeInRight, fadeInLeft, none.
+		 * @param {string} directionClass Accepts: fadeInRight, fadeInLeft, none.
 		 */
 		renderTemplate( directionClass = 'none' ) {
 			// Grab the selected value.
@@ -231,7 +231,7 @@
 		/**
 		 * Handle navigation.
 		 *
-		 * @param {Object} e
+		 * @param {Object}      e
 		 * @param {null|string} whereTo
 		 */
 		next( e, whereTo = null ) {
@@ -354,7 +354,19 @@
 		 */
 		hideUpgradeModal: () => {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', ajaxurl + '?action=hide_new_features');
+			xhr.open( 'POST', ajaxurl + '?action=hide_new_features' );
+			xhr.onload = () => {
+				if ( 200 === xhr.status ) {
+					if ( window.location.search.indexOf('page=smush-bulk#column-lossy') ) {
+						window.SUI.closeModal( 'smush-updated-dialog' );
+					}
+					window.location.href = window.wp_smush_msgs.bulk_smush_url + '#column-lossy';
+				} else {
+					window.console.log(
+						'Request failed.  Returned status of ' + xhr.status
+					);
+				}
+			}
 			xhr.send();
 		},
 	};
@@ -383,4 +395,4 @@
 	} );
 
 	window.addEventListener( 'load', () => WP_Smush.onboarding.init() );
-} )();
+}() );

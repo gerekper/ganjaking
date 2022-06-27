@@ -36,7 +36,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
         return 'https://betterdocs.co/#pricing';
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         /**
          * Query Popular Articles

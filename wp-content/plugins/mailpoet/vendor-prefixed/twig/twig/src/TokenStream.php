@@ -67,4 +67,3 @@ final class TokenStream
  return $this->source;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenStream', 'MailPoetVendor\\Twig_TokenStream');

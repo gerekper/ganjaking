@@ -21,38 +21,38 @@ class TreeWalkerChainIterator implements Iterator, ArrayAccess
  $this->query = $query;
  $this->parserResult = $parserResult;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function rewind()
  {
  return reset($this->walkers);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function current()
  {
  return $this->offsetGet(key($this->walkers));
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function key()
  {
  return key($this->walkers);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function next()
  {
  next($this->walkers);
  return $this->offsetGet(key($this->walkers));
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function valid()
  {
  return key($this->walkers) !== null;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetExists($offset)
  {
  return isset($this->walkers[$offset ?? '']);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetGet($offset)
  {
  if ($this->offsetExists($offset)) {
@@ -60,7 +60,7 @@ class TreeWalkerChainIterator implements Iterator, ArrayAccess
  }
  return null;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetSet($offset, $value)
  {
  if ($offset === null) {
@@ -69,7 +69,7 @@ class TreeWalkerChainIterator implements Iterator, ArrayAccess
  $this->walkers[$offset] = $value;
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetUnset($offset)
  {
  if ($this->offsetExists($offset)) {

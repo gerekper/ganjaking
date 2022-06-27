@@ -25,6 +25,30 @@ class Subscription {
   const OPTIN_SEGMENTS_SETTING_NAME = 'woocommerce.optin_on_checkout.segments';
   const OPTIN_MESSAGE_SETTING_NAME = 'woocommerce.optin_on_checkout.message';
 
+  private $allowedHtml = [
+    'input' => [
+      'type' => true,
+      'name' => true,
+      'id' => true,
+      'class' => true,
+      'value' => true,
+      'checked' => true,
+    ],
+    'span' => [
+      'class' => true,
+    ],
+    'label' => [
+      'class' => true,
+      'data-automation-id' => true,
+      'for' => true,
+    ],
+    'p' => [
+      'class' => true,
+      'id' => true,
+      'data-priority' => true,
+    ],
+  ];
+
   /** @var SettingsController */
   private $settings;
 
@@ -66,16 +90,22 @@ class Subscription {
       $checked = true;
     }
     $labelString = $this->settings->get(self::OPTIN_MESSAGE_SETTING_NAME);
-    $template = $this->wp->applyFilters(
+    $template = (string)$this->wp->applyFilters(
       'mailpoet_woocommerce_checkout_optin_template',
-      $this->getSubscriptionField($inputName, $checked, $labelString),
+      wp_kses(
+        $this->getSubscriptionField($inputName, $checked, $labelString),
+        $this->allowedHtml
+      ),
       $inputName,
       $checked,
       $labelString
     );
+    // The template has been sanitized above and can be considered safe.
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
     echo $template;
     if ($template) {
-      echo $this->getSubscriptionPresenceCheckField();
+      $field = $this->getSubscriptionPresenceCheckField();
+      echo wp_kses($field, $this->allowedHtml);
     }
   }
 
@@ -116,7 +146,7 @@ class Subscription {
       ],
       1
     );
-    return str_replace('type="text', 'type="hidden"', $field);
+    return str_replace('type="text"', 'type="hidden"', $field);
   }
 
   public function isCurrentUserSubscribed() {

@@ -112,16 +112,20 @@ class WC_Slack_Settings extends WC_Integration {
 
 		// Actions.
 		add_action( 'woocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'init', array( $this, 'test_init' ), 10 );
-		add_action( 'init', array( $this, 'scripts' ) );
+		add_action( 'admin_init', array( $this, 'test_init' ), 10 );
+		add_action( 'admin_init', array( $this, 'scripts' ) );
 
-		add_action( 'init', array( $this, 'available_channels' ) );
+		add_action( 'woocommerce_slack_update_channels', array( $this, 'update_channels' ) );
 
 		// Filters.
 		add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
 
 		if ( isset( $_POST['wc_slack_redirect'] ) && $_POST['wc_slack_redirect'] && empty( $_POST['save'] ) ) {
 			$this->process_slack_redirect();
+		}
+
+		if ( false === wp_get_scheduled_event( 'woocommerce_slack_update_channels' ) ) {
+			wp_schedule_event( time(), 'twicedaily', 'woocommerce_slack_update_channels' );
 		}
 
 	}
@@ -301,11 +305,12 @@ class WC_Slack_Settings extends WC_Integration {
 	 * @return void
 	 */
 	public function init_form_fields() {
-
 		/**
 		 * Use variables for frequently used text strings.
 		 */
 		$which_room_desc = __( 'Which channel or group do you want the notifications to be sent to?', 'woocommerce-slack' );
+
+		$available_channels = $this->available_channels();
 
 		$this->form_fields = array(
 			'client_id'       => array(
@@ -331,7 +336,7 @@ class WC_Slack_Settings extends WC_Integration {
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'description'       => __( 'Which channel or group do you want the notifications to be sent to by default?', 'woocommerce-slack' ),
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 			),
 			'emoji' => array(
 				'title'             => __( 'Default Emoji', 'woocommerce-slack' ),
@@ -375,7 +380,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-post-new-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-post-new-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -416,7 +421,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-order-new-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-order-new-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -465,7 +470,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-back-order-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-back-order-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -498,7 +503,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-low-stock-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-low-stock-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -531,7 +536,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-out-stock-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-out-stock-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -564,7 +569,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-new-review-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-review-new-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -605,7 +610,7 @@ class WC_Slack_Settings extends WC_Integration {
 			'notif-new-customer-channel' => array(
 				'type'              => 'multiselect',
 				'description'       => $which_room_desc,
-				'options'           => $this->available_channels(),
+				'options'           => $available_channels,
 				'class'             => 'wcslack-customer-new-field wc-enhanced-select',
 				'default'           => 'select',
 			),
@@ -775,7 +780,9 @@ class WC_Slack_Settings extends WC_Integration {
 				exit;
 			}
 
+			// Set access token and refresh channels on achieving a successful connection.
 			update_option( 'wc_slack_access_token', $access_token );
+			$this->update_channels();
 			$redirect_args['wc_slack_oauth'] = 'success';
 
 			wp_safe_redirect( add_query_arg( $redirect_args, admin_url( '/admin.php?' ) ), 301 );
@@ -914,7 +921,6 @@ class WC_Slack_Settings extends WC_Integration {
 		if ( isset( $_GET['wcslack_reload_channels'] ) && ( $_GET['wcslack_reload_channels'] == 1 ) ) {
 
 			delete_transient( 'wcslack_all_channels' );
-			delete_transient( 'wcslack_all_groups' );
 
 			wp_safe_redirect( admin_url() . 'admin.php?page=wc-settings&tab=integration&section=wcslack' );
 
@@ -975,38 +981,34 @@ class WC_Slack_Settings extends WC_Integration {
 	}
 
 	/**
-	 * Show available channels
+	 * Retrieve list of available channels.
+	 *
+	 * @return array
 	 */
-
 	public function available_channels() {
+		$all_channels = get_transient( 'wcslack_all_channels' );
+
+		if ( ! is_array( $all_channels ) ) {
+			$this->update_channels();
+			$all_channels = get_transient( 'wcslack_all_channels' );
+		}
+
+		return (array) $all_channels;
+	}
+
+	/**
+	 * Slack was return 429 (rate limiting) while the channel transient was empty, causing this to run
+	 * multiple times on every pageload.
+	 */
+	public function update_channels() {
 		$wcslack_api = new WC_Slack_API();
 
 		$wrapper     = $this->wrapper();
 		$api_key     = $wrapper['api_key'];
 		$connection  = $this->test_client_connection();
 
-		if ( $api_key && $connection ) {
-			$all_channels = get_transient( 'wcslack_all_channels' ) ?: array();
-			$all_groups   = get_transient( 'wcslack_all_groups' )   ?: array();
-
-			if ( empty( $all_channels ) ) {
-				$all_channels = (array) $wcslack_api->all_channels( $api_key );
-				set_transient( 'wcslack_all_channels', $all_channels, 86400 );
-			}
-
-			if ( empty( $all_groups ) ) {
-				$all_groups = (array) $wcslack_api->all_groups( $api_key );
-				set_transient( 'wcslack_all_groups', $all_groups, 86400 );
-			}
-
-			return array_merge( (array) $all_channels, (array) $all_groups );
-
-		} else {
-
-			return array( 'Reload Page to See Channels' );
-
-		}
-
+		$all_channels = (array) $wcslack_api->all_channels( $api_key );
+		set_transient( 'wcslack_all_channels', $all_channels, DAY_IN_SECONDS );
 	}
 
 	/**

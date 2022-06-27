@@ -47,7 +47,9 @@ class DaemonHttpRunner {
   public function ping() {
     // if Tracy enabled & called by 'MailPoet Cron' user agent, disable Tracy Bar
     // (happens in CronHelperTest because it's not a real integration test - calls other WP instance)
-    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null;
+    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ?
+      sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT']))
+      : null;
     if (class_exists(Debugger::class) && $userAgent === 'MailPoet Cron') {
       Debugger::$showBar = false;
     }
@@ -122,7 +124,8 @@ class DaemonHttpRunner {
   }
 
   public function terminateRequest($message = false) {
-    die($message);
+    echo esc_html($message);
+    die();
   }
 
   public function isCronTriggerMethodWordPress() {

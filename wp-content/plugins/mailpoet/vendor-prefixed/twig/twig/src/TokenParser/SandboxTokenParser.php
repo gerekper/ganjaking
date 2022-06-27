@@ -3,12 +3,13 @@ namespace MailPoetVendor\Twig\TokenParser;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Error\SyntaxError;
 use MailPoetVendor\Twig\Node\IncludeNode;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Node\SandboxNode;
 use MailPoetVendor\Twig\Node\TextNode;
 use MailPoetVendor\Twig\Token;
 final class SandboxTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $stream = $this->parser->getStream();
  $stream->expect(
@@ -31,13 +32,12 @@ final class SandboxTokenParser extends AbstractTokenParser
  }
  return new SandboxNode($body, $token->getLine(), $this->getTag());
  }
- public function decideBlockEnd(Token $token)
+ public function decideBlockEnd(Token $token) : bool
  {
  return $token->test('endsandbox');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'sandbox';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\SandboxTokenParser', 'MailPoetVendor\\Twig_TokenParser_Sandbox');

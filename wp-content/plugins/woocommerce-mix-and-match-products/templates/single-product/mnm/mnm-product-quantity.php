@@ -10,73 +10,45 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 1.11.4
+ * @version 2.0.0
  */
-// Exit if accessed directly
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 global $product;
 
-$child_id = $mnm_item->get_id();
+echo wp_kses_post( $child_item->get_availability_html() );
 
-if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
+if ( ! $child_item->get_product()->is_purchasable() || ! $child_item->get_product()->is_in_stock() ) {
+    return;
+}
 
-	/**
-	 * The quantity input name.
-	 */
-	$input_name = wc_mnm_get_child_input_name( $product->get_id() );
+// Checkbox input
+if ( $child_item->get_quantity( 'step' ) === $child_item->get_quantity( 'max' ) ) { ?>
 
-	/**
-	 * The quantity input value.
-	 */
-	$quantity = isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ? intval( $_REQUEST[ $input_name ][ $child_id ] ) : apply_filters( 'woocommerce_mnm_quantity_input', '', $mnm_item, $product );
+    <div class="mnm-checkbox-qty">
+        <input id="<?php echo esc_attr( $input_args[ 'input_id' ] );?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() );?>" value="<?php echo esc_attr( $child_item->get_quantity( 'max' ) );?>" <?php checked( $child_item->get_quantity( 'max' ) === $child_item->get_quantity( 'value' ), true );?>/>
+        <label for="<?php echo esc_attr( $input_args[ 'input_id' ] );?>"><?php echo wp_kses_post( $input_args[ 'checkbox_label' ] );?></label>
+    </div>
 
-	/**
-	 * The min/max input value.
-	 */
-	$min_qty = $product->get_child_quantity( 'min', $child_id );
-	$max_qty = $product->get_child_quantity( 'max', $child_id );
+    <?php
 
-	if ( 'tabular' === $product->get_layout() && $min_qty === $max_qty ) {
-		echo $min_qty;
-	}
-
-	/**
-	 * Filter woocommerce_mnm_child_quantity_input_args.
-	 *
-	 * @param array $args
-	 * @param obj WC_Product
-	 * @param obj WC_Product_Mix_and_Match
-	 */
-	$input_args = apply_filters(
-        'woocommerce_mnm_child_quantity_input_args',
-		array(
-			'input_name'  => $input_name . '[' . $child_id . ']',
-			'input_value' => $quantity,
-			'min_value'   => $min_qty,
-			'max_value'   => $max_qty,
-			'placeholder' => 0,
-			'step'        => $product->get_child_quantity( 'step', $child_id ),
-			'classes'     => array( 'qty', 'mnm-quantity', 'input-text' ),
-		),
-		$mnm_item,
-        $product
-    );
-
-	woocommerce_quantity_input( $input_args, $mnm_item );
-
+// Default number input.
 } else {
 
-	/**
-	 * Child item availability message.
-	 *
-	 * @param str $availability
-	 * @param obj WC_Product
-	 */
-	echo apply_filters( 'woocommerce_mnm_availability_html', $product->get_child_availability_html( $child_id ), $mnm_item );
+    if ( $child_item->get_quantity( 'min' ) === $child_item->get_quantity( 'max' ) ) { ?>
+
+        <p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></span></p>
+        
+    <?php 
+    }
+
+    woocommerce_quantity_input( $input_args, $child_item->get_product() );
+
 }

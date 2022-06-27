@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+          "Perfmatters\\": "inc/classes"
+        }
+    },
+    "require": {
+        "sabberworm/php-css-parser": "^8.4",
+        "deliciousbrains/wp-background-processing": "^1.0"
+    }
+}

@@ -78,8 +78,8 @@ class WC_Points_Rewards_Order {
 			$order = wc_get_order( $order );
 		}
 
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-		$order_user_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->user_id : $order->get_user_id();
+		$order_id = $order->get_id();
+		$order_user_id = $order->get_user_id();
 
 		// bail for guest user
 		if ( ! $order_user_id ) {
@@ -132,11 +132,7 @@ class WC_Points_Rewards_Order {
 
 		foreach ( $order->get_items() as $item_key => $item ) {
 
-			if ( version_compare( WC_VERSION, '4.4.0', '>=' ) ) {
-				$product = $item->get_product();
-			} else {
-				$product = $order->get_product_from_item( $item );
-			}
+			$product = $item->get_product();
 
 			if ( ! is_object( $product ) ) {
 				continue;
@@ -159,16 +155,12 @@ class WC_Points_Rewards_Order {
 
 		// Reduce by any discounts.  One minor drawback: if the discount includes a discount on tax and/or shipping
 		// It will cost the customer points, but this is a better solution than granting full points for discounted orders.
-		if ( version_compare( WC_VERSION, '2.3', '<' ) ) {
-			$discount = $order->get_total_discount( false );
-		} else {
-			$discount = $order->get_total_discount( ! wc_prices_include_tax() );
-		}
+		$discount = $order->get_total_discount( ! wc_prices_include_tax() );
 
 		$points_earned -= min( WC_Points_Rewards_Manager::calculate_points( $discount ), $points_earned );
 
 		// Check if applied coupons have a points modifier and use it to adjust the points earned.
-		$coupons = version_compare( WC_VERSION, '3.7', 'ge' ) ? $order->get_coupon_codes() : $order->get_used_coupons();
+		$coupons = $order->get_coupon_codes();
 
 		$points_earned = WC_Points_Rewards_Manager::calculate_points_modification_from_coupons( $points_earned, $coupons );
 
@@ -227,7 +219,7 @@ class WC_Points_Rewards_Order {
 
 		$order = wc_get_order( $order_id );
 
-		$order_user_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->user_id : $order->get_user_id();
+		$order_user_id = $order->get_user_id();
 
 		// bail for guest user
 		if ( ! $order_user_id ) {
@@ -253,7 +245,7 @@ class WC_Points_Rewards_Order {
 		}
 
 		// only deduct points if they were redeemed for a discount
-		$coupon_codes = version_compare( WC_VERSION, '3.7', 'ge' ) ? $order->get_coupon_codes() : $order->get_used_coupons();
+		$coupon_codes = $order->get_coupon_codes();
 		if ( ! in_array( $discount_code, $coupon_codes ) && in_array( $order->get_status(), $order_statuses ) ) {
 			return;
 		}
@@ -305,8 +297,8 @@ class WC_Points_Rewards_Order {
 
 		$order = wc_get_order( $order_id );
 
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-		$order_user_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->user_id : $order->get_user_id();
+		$order_id = $order->get_id();
+		$order_user_id = $order->get_user_id();
 
 		// bail for guest user
 		if ( ! $order_user_id ) {
@@ -362,7 +354,7 @@ class WC_Points_Rewards_Order {
 		global $wc_points_rewards;
 
 		$order         = wc_get_order( $order_id );
-		$order_user_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->user_id : $order->get_user_id();
+		$order_user_id = $order->get_user_id();
 
 		// Bail for guest user.
 		if ( ! $order_user_id ) {

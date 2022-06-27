@@ -17,7 +17,7 @@ use ACP\RequestHandler;
 use ACP\Type\Activation\Key;
 use ACP\Type\LicenseKey;
 use ACP\Type\SiteUrl;
-use ACP\Updates\ProductsUpdater;
+use ACP\Updates\PluginDataUpdater;
 use InvalidArgumentException;
 
 class LicenseActivate implements RequestHandler {
@@ -38,7 +38,7 @@ class LicenseActivate implements RequestHandler {
 	private $site_url;
 
 	/**
-	 * @var ProductsUpdater
+	 * @var PluginDataUpdater
 	 */
 	private $products_updater;
 
@@ -52,7 +52,7 @@ class LicenseActivate implements RequestHandler {
 	 */
 	private $permission_checker;
 
-	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, ProductsUpdater $products_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
+	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, PluginDataUpdater $products_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
 		$this->activation_key_storage = $activation_key_storage;
 		$this->api = $api;
 		$this->site_url = $site_url;
@@ -116,6 +116,9 @@ class LicenseActivate implements RequestHandler {
 		$this->activation_key_storage->save( $activation_key );
 		$this->activation_updater->update( $activation_key );
 		$this->products_updater->update( $activation_key );
+
+		wp_clean_plugins_cache();
+		wp_update_plugins();
 
 		( new Notice( $response->get( 'message' ) ) )->register();
 	}

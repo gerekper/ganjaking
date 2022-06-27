@@ -618,7 +618,6 @@ if ( ! class_exists( 'WC_Slack_Settings' ) ) {
 			if ( isset( $_GET['wcslack_reload_channels'] ) && ( $_GET['wcslack_reload_channels'] == 1 ) ) {
 
 				delete_transient( 'wcslack_all_channels' );
-				delete_transient( 'wcslack_all_groups' );
 
 				wp_safe_redirect( get_admin_url() . 'admin.php?page=wc-settings&tab=integration&section=wcslack' );
 
@@ -706,19 +705,13 @@ if ( ! class_exists( 'WC_Slack_Settings' ) ) {
 
 			if ( $api_key ) {
 				$all_channels = get_transient( 'wcslack_all_channels' ) ?: array();
-				$all_groups   = get_transient( 'wcslack_all_groups' )   ?: array();
 
 				if ( empty( $all_channels ) ) {
 					$all_channels = (array) $wcslack_api->all_channels( $api_key );
 					set_transient( 'wcslack_all_channels', $all_channels, 86400 );
 				}
 
-				if ( empty( $all_groups ) ) {
-					$all_groups = (array) $wcslack_api->all_groups( $api_key );
-					set_transient( 'wcslack_all_groups', $all_groups, 86400 );
-				}
-
-				return array_merge( $all_channels, $all_groups );
+				return $all_channels;
 
 			} else {
 

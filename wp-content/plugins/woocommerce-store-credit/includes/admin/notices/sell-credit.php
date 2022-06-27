@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php
 		printf(
 			'<a class="button-secondary docs" href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://docs.woocommerce.com/document/woocommerce-store-credit/' ),
+			esc_url( 'https://woocommerce.com/document/woocommerce-store-credit/' ),
 			esc_attr_x( 'View WooCommerce Store Credit documentation', 'aria-label: documentation link', 'woocommerce-store-credit' ),
 			esc_html__( 'Read more', 'woocommerce-store-credit' )
 		);

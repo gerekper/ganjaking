@@ -672,3 +672,22 @@ function vc_str_remove_protocol( $str ) {
 		'http://',
 	), '//', $str );
 }
+
+if ( ! function_exists( 'wpb_get_current_theme_slug' ) ) {
+	/**
+	 * Get current theme slug (actually the directory name)
+	 *
+	 * When child theme is in use will return the parent's slug.
+	 *
+	 * @return string
+	 */
+	function wpb_get_current_theme_slug() {
+		$theme  = wp_get_theme();
+		$parent = $theme->parent();
+		if ( $parent instanceof WP_Theme ) {
+			return $parent->get_stylesheet();
+		}
+
+		return $theme->get_stylesheet();
+	}
+}

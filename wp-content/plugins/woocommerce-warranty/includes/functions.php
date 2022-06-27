@@ -398,19 +398,28 @@ function warranty_get_default_warranty() {
  * Get the line total order item meta
  *
  * @param int $warranty_id
+ *
  * @return float
  */
 function warranty_get_item_amount( $warranty_id ) {
-	$order_item_key = get_post_meta( $warranty_id, '_index', true );
-	$total = 0;
+	$item_indexes = array_column( warranty_get_request_items( $warranty_id ), 'order_item_index' );
+	$total        = 0;
 
-	if ( $order_item_key ) {
-		$total =  wc_get_order_item_meta( $order_item_key, '_line_total', true );
+	if ( ! empty( $item_indexes ) ) {
+		foreach ( $item_indexes as $item_index ) {
+
+			try {
+				$line_total = wc_format_decimal( wc_get_order_item_meta( $item_index, '_line_total', true ) );
+				$total     += floatval( $line_total );
+			} catch ( Exception $e ) {
+				error_log( "Exception caught in warranty_get_item_amount. {$e->getMessage()}." );
+			}
+		}
 	} else {
 		$order_id = get_post_meta( $warranty_id, '_order_id', true );
 		$order    = wc_get_order( $order_id );
 		if ( $order ) {
-			$total    = $order->get_total();
+			$total = $order->get_total();
 		}
 	}
 
@@ -896,14 +905,14 @@ function warranty_load( $request_id ) {
 
 		// warranty products
 		$warranty['products'] = warranty_get_request_items( $request_id );
-		
+
 		if( isset( $warranty['products'][0]['product_id'] ) ){
 			$warranty['product_id'] 	= $warranty['products'][0]['product_id'];
 			$warranty['product_name'] 	= get_the_title( $warranty['product_id'] );
 		}else{
 			$warranty['product_id'] 	= 0;
 		}
-		
+
 	}
 
 	return apply_filters( 'warranty_load', $warranty, $request_id );

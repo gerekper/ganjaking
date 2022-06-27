@@ -20,7 +20,7 @@ final class Token
  public const INTERPOLATION_START_TYPE = 10;
  public const INTERPOLATION_END_TYPE = 11;
  public const ARROW_TYPE = 12;
- public function __construct($type, $value, $lineno)
+ public function __construct(int $type, $value, int $lineno)
  {
  $this->type = $type;
  $this->value = $value;
@@ -30,7 +30,7 @@ final class Token
  {
  return \sprintf('%s(%s)', self::typeToString($this->type, \true), $this->value);
  }
- public function test($type, $values = null)
+ public function test($type, $values = null) : bool
  {
  if (null === $values && !\is_int($type)) {
  $values = $type;
@@ -38,11 +38,11 @@ final class Token
  }
  return $this->type === $type && (null === $values || \is_array($values) && \in_array($this->value, $values) || $this->value == $values);
  }
- public function getLine()
+ public function getLine() : int
  {
  return $this->lineno;
  }
- public function getType()
+ public function getType() : int
  {
  return $this->type;
  }
@@ -50,7 +50,7 @@ final class Token
  {
  return $this->value;
  }
- public static function typeToString($type, $short = \false)
+ public static function typeToString(int $type, bool $short = \false) : string
  {
  switch ($type) {
  case self::EOF_TYPE:
@@ -100,7 +100,7 @@ final class Token
  }
  return $short ? $name : 'MailPoetVendor\\Twig\\Token::' . $name;
  }
- public static function typeToEnglish($type)
+ public static function typeToEnglish(int $type) : string
  {
  switch ($type) {
  case self::EOF_TYPE:
@@ -136,4 +136,3 @@ final class Token
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Token', 'MailPoetVendor\\Twig_Token');

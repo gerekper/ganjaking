@@ -84,11 +84,11 @@ class Async extends Abstract_Async {
 	 * TODO: Check if async is enabled or not.
 	 */
 	protected function run_action() {
-		$metadata = ! empty( $_POST['metadata'] ) ? $_POST['metadata'] : '';
-		$id       = ! empty( $_POST['id'] ) ? $_POST['id'] : '';
+		// Nonce validated in parent method.
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		// Get metadata from $_POST.
-		if ( ! empty( $metadata ) && wp_attachment_is_image( $id ) ) {
+		if ( ! empty( $_POST['metadata'] ) && wp_attachment_is_image( $id ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			// Allow the Asynchronous task to run.
 			do_action( "wp_async_$this->action", $id );
 		}

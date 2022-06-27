@@ -395,7 +395,7 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 					$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email );
 				}
 			}
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
+			?>
 				<select id="customer_user" style="width: 200px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>" data-allow_clear="true">
 
 					<?php
@@ -404,9 +404,7 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 						}
 					?>
 				</select>
-			<?php } else { ?>
-				<input type="hidden" class="wc-customer-search" id="customer_user" name="_customer_user" data-placeholder="<?php _e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>" data-selected="<?php echo esc_attr( $user_string ); ?>" value="<?php echo $customer_id; ?>" data-allow_clear="true" style="width:200px" />
-			<?php }
+			<?php
 
 			submit_button( __( 'Filter', 'woocommerce-points-and-rewards' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
 			echo '</div>';

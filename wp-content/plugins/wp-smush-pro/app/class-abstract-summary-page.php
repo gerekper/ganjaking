@@ -93,17 +93,22 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			$resize_savings = size_format( $core->stats['resize_savings'], 1 );
 		}
 
+		list( $percent_optimized, $grade ) = $this->get_grade_data();
+
 		$this->view(
 			'summary/meta-box',
 			array(
-				'human_format'    => empty( $human[1] ) ? 'B' : $human[1],
-				'human_size'      => empty( $human[0] ) ? '0' : $human[0],
-				'remaining'       => $this->get_total_images_to_smush(),
-				'resize_count'    => ! $resize_count ? 0 : $resize_count,
-				'resize_enabled'  => (bool) $this->settings->get( 'resize' ),
-				'resize_savings'  => $resize_savings,
-				'stats_percent'   => $core->stats['percent'] > 0 ? number_format_i18n( $core->stats['percent'], 1 ) : 0,
-				'total_optimized' => $core->stats['total_images'],
+				'human_format'      => empty( $human[1] ) ? 'B' : $human[1],
+				'human_size'        => empty( $human[0] ) ? '0' : round( (int) $human[0] ),
+				'remaining'         => $this->get_total_images_to_smush(),
+				'resize_count'      => ! $resize_count ? 0 : $resize_count,
+				'resize_enabled'    => (bool) $this->settings->get( 'resize' ),
+				'resize_savings'    => $resize_savings,
+				'stats_percent'     => $core->stats['percent'] > 0 ? number_format_i18n( $core->stats['percent'], 1 ) : 0,
+				'total_optimized'   => $core->stats['total_images'],
+				'percent_grade'     => $grade,
+				'percent_metric'    => 0.0 === (float) $percent_optimized ? 100 : $percent_optimized,
+				'percent_optimized' => $percent_optimized,
 			)
 		);
 	}
@@ -120,71 +125,45 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	public function pro_savings_stats() {
 		$core = WP_Smush::get_instance()->core();
 
-		if ( ! WP_Smush::is_pro() ) {
-			if ( empty( $core->stats ) || empty( $core->stats['pro_savings'] ) ) {
-				$core->set_pro_savings();
-			}
-			$pro_savings      = $core->stats['pro_savings'];
-			$show_pro_savings = $pro_savings['savings'] > 0;
-			if ( $show_pro_savings ) {
-				?>
-				<li class="smush-avg-pro-savings" id="smush-avg-pro-savings">
-					<span class="sui-list-label"><?php esc_html_e( 'Pro Savings', 'wp-smushit' ); ?>
-						<span class="sui-tag sui-tag-pro sui-tooltip sui-tooltip-constrained" data-tooltip="<?php esc_html_e( 'Join WPMU DEV to unlock multi-pass lossy compression', 'wp-smushit' ); ?>">
-							<?php esc_html_e( 'PRO', 'wp-smushit' ); ?>
-						</span>
-					</span>
-					<span class="sui-list-detail wp-smush-stats">
-						<span class="wp-smush-stats-human"><?php echo esc_html( $pro_savings['savings'] ); ?></span>
-						<span class="wp-smush-stats-sep">/</span>
-						<span class="wp-smush-stats-percent"><?php echo esc_html( $pro_savings['percent'] ); ?></span>%
-					</span>
-				</li>
-				<?php
-			}
-		} else {
-			$compression_savings = 0;
-			if ( ! empty( $core->stats ) && ! empty( $core->stats['bytes'] ) ) {
-				$compression_savings = $core->stats['bytes'] - $core->stats['resize_savings'];
-			}
-			?>
-			<li class="super-smush-attachments">
-				<span class="sui-list-label">
-					<?php esc_html_e( 'Super-Smush Savings', 'wp-smushit' ); ?>
-					<?php if ( ! $this->settings->get( 'lossy' ) ) { ?>
-						<p class="wp-smush-stats-label-message sui-hidden-sm sui-hidden-md sui-hidden-lg">
-							<?php
-							$settings_link = '#';
-							$link_class    = 'wp-smush-lossy-enable';
-							if ( Settings::can_access( 'bulk' ) && 'smush-bulk' !== $this->get_slug() ) {
-								$settings_link = $this->get_url( 'smush-bulk' ) . '#enable-lossy';
-								$link_class    = '';
-							}
-							printf( /* translators: %1$s; starting a tag, %2$s: ending a tag */
-								esc_html__( 'Compress images up to 2x more than regular smush with almost no visible drop in quality. %1$sEnable Super-Smush%2$s', 'wp-smushit' ),
-								'<a role="button" class="' . esc_attr( $link_class ) . '" href="' . esc_url( $settings_link ) . '">',
-								'</a>'
-							);
-							?>
-						</p>
-					<?php } ?>
-				</span>
-				<?php if ( WP_Smush::is_pro() ) : ?>
-					<span class="sui-list-detail wp-smush-stats">
-						<?php if ( ! $this->settings->get( 'lossy' ) ) : ?>
-							<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
-								<?php esc_html_e( 'Enable Super-Smush', 'wp-smushit' ); ?>
-							</a>
-						<?php else : ?>
-							<span class="smushed-savings">
-								<?php echo esc_html( size_format( $compression_savings, 1 ) ); ?>
-							</span>
-						<?php endif; ?>
+		$compression_savings = 0;
+		if ( ! empty( $core->stats ) && ! empty( $core->stats['bytes'] ) ) {
+			$compression_savings = $core->stats['bytes'] - $core->stats['resize_savings'];
+		}
+		?>
+		<li class="super-smush-attachments">
+			<span class="sui-list-label">
+				<?php esc_html_e( 'Super-Smush Savings', 'wp-smushit' ); ?>
+				<?php if ( ! $this->settings->get( 'lossy' ) ) { ?>
+					<p class="wp-smush-stats-label-message sui-hidden-sm sui-hidden-md sui-hidden-lg">
+						<?php
+						$settings_link = '#';
+						$link_class    = 'wp-smush-lossy-enable';
+						if ( Settings::can_access( 'bulk' ) && 'smush-bulk' !== $this->get_slug() ) {
+							$settings_link = $this->get_url( 'smush-bulk' ) . '#enable-lossy';
+							$link_class    = '';
+						}
+						printf( /* translators: %1$s; starting a tag, %2$s: ending a tag */
+							esc_html__( 'Compress images up to 2x more than regular smush with almost no visible drop in quality. %1$sEnable Super-Smush%2$s', 'wp-smushit' ),
+							'<a role="button" class="' . esc_attr( $link_class ) . '" href="' . esc_url( $settings_link ) . '">',
+							'</a>'
+						);
+						?>
+					</p>
+				<?php } ?>
+			</span>
+			<span class="sui-list-detail wp-smush-stats">
+				<?php if ( ! $this->settings->get( 'lossy' ) ) : ?>
+					<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
+						<?php esc_html_e( 'Enable Super-Smush', 'wp-smushit' ); ?>
+					</a>
+				<?php else : ?>
+					<span class="smushed-savings">
+						<?php echo esc_html( size_format( $compression_savings, 1 ) ); ?>
 					</span>
 				<?php endif; ?>
-			</li>
-			<?php
-		}
+			</span>
+		</li>
+		<?php
 	}
 
 	/**
@@ -230,9 +209,8 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 
 		// This is the same calculation used for $core->remaining_count,
 		// except that we don't add the re-smushed count here.
-		$unsmushed_count = WP_Smush::get_instance()->core()->total_count - WP_Smush::get_instance()->core()->smushed_count - WP_Smush::get_instance()->core()->skipped_count;
-
-		// Sometimes this number can be negative, if there are weird issues with meta data.
+		$unsmushed_count = WP_Smush::get_instance()->core()->total_count - WP_Smush::get_instance()->core()->smushed_count - WP_Smush::get_instance()->core()->skipped_count;			   	   			 	 	 	 	
+		// Sometimes this number can be negative, if there are weird issues with metadata.
 		if ( $unsmushed_count > 0 ) {
 			return $images_to_resmush + $unsmushed_count;
 		}
@@ -318,5 +296,37 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			</span>
 		</li>
 		<?php
+	}
+
+	/**
+	 * Get grade data (percent optimized and class name) for the score widget in summary meta box.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @return array
+	 */
+	protected function get_grade_data() {
+		$core = WP_Smush::get_instance()->core();
+
+		$total_images_to_smush = $this->get_total_images_to_smush();
+		$total_images          = $core->total_count - $core->skipped_count;
+
+		$percent_optimized = 0;
+		if ( 0 === $total_images ) {
+			$grade = 'sui-grade-dismissed';
+		} elseif ( $total_images === $total_images_to_smush ) {
+			$grade = 'sui-grade-f';
+		} else {
+			$percent_optimized = floor( ( $total_images - $total_images_to_smush ) * 100 / $total_images );
+
+			$grade = 'sui-grade-f';
+			if ( $percent_optimized >= 60 && $percent_optimized < 90 ) {
+				$grade = 'sui-grade-c';
+			} elseif ( $percent_optimized >= 90 ) {
+				$grade = 'sui-grade-a';
+			}
+		}
+
+		return array( $percent_optimized, $grade );
 	}
 }

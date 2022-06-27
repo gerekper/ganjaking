@@ -12,6 +12,9 @@
  * @var int        $resize_savings
  * @var string|int $stats_percent
  * @var int        $total_optimized
+ * @var string     $percent_grade
+ * @var int|float  $percent_metric
+ * @var int        $percent_optimized
  *
  * @var Smush\App\Abstract_Page $this  Page.
  */
@@ -22,44 +25,22 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$tooltip = sprintf(
-	/* translators: %d - number of images */
-	_n( 'You have %d image that needs smushing', 'You have %d images that need smushing', $remaining, 'wp-smushit' ),
-	absint( $remaining )
-);
-
-$tooltip_singular = sprintf(
-	/* translators: %s - count placeholder */
-	__( 'You have %s image that needs smushing', 'wp-smushit' ),
-	'{count}'
-);
-
-$tooltip_plural = sprintf(
-	/* translators: %s - count placeholder */
-	__( 'You have %s images that need smushing', 'wp-smushit' ),
-	'{count}'
-);
-
-$branded_image = apply_filters( 'wpmudev_branding_hero_image', '' );
 ?>
 
-<?php if ( $branded_image ) : ?>
-	<div class="sui-summary-image-space" aria-hidden="true" style="background-image: url('<?php echo esc_url( $branded_image ); ?>')"></div>
-<?php else : ?>
-	<div class="sui-summary-image-space" aria-hidden="true"></div>
-<?php endif; ?>
+<div class="sui-summary-image-space" aria-hidden="true">
+	<div class="sui-circle-score <?php echo esc_attr( $percent_grade ); ?> loaded" data-score="<?php echo absint( $percent_optimized ); ?>" id="smush-image-score">
+		<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+			<circle stroke-width="16" cx="50" cy="50" r="42"></circle>
+			<circle stroke-width="16" cx="50" cy="50" r="42" style="--metric-array: <?php echo 2.63893782902 * absint( $percent_metric ); ?> <?php echo 263.893782902 - absint( $percent_metric ); ?>"></circle>
+		</svg>
+		<span class="sui-circle-score-label"><?php echo absint( $percent_optimized ); ?></span>
+	</div>
+	<small><?php esc_html_e( 'Images optimized in the media library', 'wp-smushit' ); ?></small>
+</div>
 <div class="sui-summary-segment">
 	<div class="sui-summary-details">
 		<span class="sui-summary-large wp-smush-stats-human">
 			<?php echo esc_html( $human_size ); ?>
-		</span>
-		<span
-			class="sui-tooltip"
-			data-tooltip="<?php echo esc_html( $tooltip ); ?>"
-			data-singular="<?php echo esc_html( $tooltip_singular ); ?>"
-			data-plural="<?php echo esc_html( $tooltip_plural ); ?>"
-		>
-			<i class="sui-icon-info sui-warning smush-stats-icon <?php echo $remaining > 0 ? '' : 'sui-hidden'; ?>" aria-hidden="true"></i>
 		</span>
 		<span class="sui-summary-detail wp-smush-savings">
 			<span class="wp-smush-stats-human"><?php echo esc_html( $human_format ); ?></span> /

@@ -768,7 +768,9 @@ class csstidy
  }
  public function property_is_valid($property)
  {
- if (\in_array(\trim($property), $this->data['csstidy']['multiple_properties'])) {
+ if (\strpos($property, '--') === 0) {
+ $property = "--custom";
+ } elseif (\in_array(\trim($property), $this->data['csstidy']['multiple_properties'])) {
  $property = \trim($property);
  }
  $all_properties =& $this->data['csstidy']['all_properties'];

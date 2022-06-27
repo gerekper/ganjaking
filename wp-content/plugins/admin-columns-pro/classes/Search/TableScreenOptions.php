@@ -11,14 +11,15 @@ class TableScreenOptions {
 
 	const INPUT_NAME = 'acp_enable_smart_filtering_button';
 
-	/** @var Enqueueable[] $assets */
+	/**
+	 * @var Enqueueable[] $assets
+	 */
 	private $assets;
 
-	/** @var Preferences\SmartFiltering */
+	/**
+	 * @var Preferences\SmartFiltering
+	 */
 	private $preferences;
-
-	/** @var ACP\Settings\ListScreen\HideOnScreen\Filters */
-	private $hide_filters;
 
 	/**
 	 * @var Settings\HideOnScreen\SmartFilters
@@ -28,12 +29,10 @@ class TableScreenOptions {
 	public function __construct(
 		array $assets,
 		Preferences\SmartFiltering $preferences,
-		ACP\Settings\ListScreen\HideOnScreen\Filters $hide_filters,
 		Settings\HideOnScreen\SmartFilters $hide_smart_filters
 	) {
 		$this->assets = $assets;
 		$this->preferences = $preferences;
-		$this->hide_filters = $hide_filters;
 		$this->hide_smart_filters = $hide_smart_filters;
 	}
 
@@ -70,7 +69,7 @@ class TableScreenOptions {
 			return;
 		}
 
-		if ( $this->hide_filters->is_hidden( $list_screen ) || $this->hide_smart_filters->is_hidden( $list_screen ) ) {
+		if ( $this->hide_smart_filters->is_hidden( $list_screen ) ) {
 			return;
 		}
 

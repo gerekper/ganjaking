@@ -125,7 +125,11 @@ class FilterFactory {
     }
   }
 
-  private function userRole($action) {
+  /**
+   * @param ?string $action
+   * @return MailPoetCustomFields|SubscriberScore|SubscriberSegment|SubscriberSubscribedDate|UserRole
+   */
+  private function userRole(?string $action) {
     if ($action === SubscriberSubscribedDate::TYPE) {
       return $this->subscriberSubscribedDate;
     } elseif ($action === SubscriberScore::TYPE) {
@@ -138,7 +142,11 @@ class FilterFactory {
     return $this->userRole;
   }
 
-  private function email($action) {
+  /**
+   * @param ?string $action
+   * @return EmailAction|EmailActionClickAny|EmailOpensAbsoluteCountAction
+   */
+  private function email(?string $action) {
     $countActions = [EmailOpensAbsoluteCountAction::TYPE, EmailOpensAbsoluteCountAction::MACHINE_TYPE];
     if (in_array($action, $countActions)) {
       return $this->emailOpensAbsoluteCount;
@@ -148,15 +156,19 @@ class FilterFactory {
     return $this->emailAction;
   }
 
-  private function wooCommerceMembership() {
+  private function wooCommerceMembership(): WooCommerceMembership {
     return $this->wooCommerceMembership;
   }
 
-  private function wooCommerceSubscription() {
+  private function wooCommerceSubscription(): WooCommerceSubscription {
     return $this->wooCommerceSubscription;
   }
 
-  private function wooCommerce($action) {
+  /**
+   * @param ?string $action
+   * @return Filter
+   */
+  private function wooCommerce(?string $action) {
     if ($action === WooCommerceProduct::ACTION_PRODUCT) {
       return $this->wooCommerceProduct;
     } elseif ($action === WooCommerceNumberOfOrders::ACTION_NUMBER_OF_ORDERS) {

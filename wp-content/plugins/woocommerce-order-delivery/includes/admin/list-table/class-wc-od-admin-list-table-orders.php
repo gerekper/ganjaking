@@ -42,20 +42,23 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 		 *
 		 * @param array $filters The shop order filters
 		 */
-		$this->filters = apply_filters( 'wc_od_admin_shop_order_filters', array(
-			'shipping_date' => array(
-				'id'    => 'shipping_date',
-				'type'  => 'date',
-				'label' => _x( 'Filter by shipping date', 'shop order filter', 'woocommerce-order-delivery' ),
-				'empty' => _x( 'All shipping dates', 'shop order filter', 'woocommerce-order-delivery' ),
-			),
-			'delivery_date' => array(
-				'id'    => 'delivery_date',
-				'type'  => 'date',
-				'label' => _x( 'Filter by delivery date', 'shop order filter', 'woocommerce-order-delivery' ),
-				'empty' => _x( 'All delivery dates', 'shop order filter', 'woocommerce-order-delivery' ),
+		$this->filters = apply_filters(
+			'wc_od_admin_shop_order_filters',
+			array(
+				'shipping_date' => array(
+					'id'    => 'shipping_date',
+					'type'  => 'date',
+					'label' => _x( 'Filter by shipping date', 'shop order filter', 'woocommerce-order-delivery' ),
+					'empty' => _x( 'All shipping dates', 'shop order filter', 'woocommerce-order-delivery' ),
+				),
+				'delivery_date' => array(
+					'id'    => 'delivery_date',
+					'type'  => 'date',
+					'label' => _x( 'Filter by delivery date', 'shop order filter', 'woocommerce-order-delivery' ),
+					'empty' => _x( 'All delivery dates', 'shop order filter', 'woocommerce-order-delivery' ),
+				),
 			)
-		) );
+		);
 	}
 
 	/**
@@ -101,7 +104,8 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 					'bulk_action' => $report_action,
 					'changed'     => $changed,
 					'ids'         => join( ',', $ids ),
-				), $redirect_to
+				),
+				$redirect_to
 			);
 		}
 
@@ -129,6 +133,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 
 		if ( 'calculated_shipping_date' === $bulk_action && $number ) {
 			$message = sprintf(
+				/* translators: %s number of orders */
 				_n( 'Updated the shipping date for %d order.', 'Updated the shipping date for %d orders.', $number, 'woocommerce-order-delivery' ),
 				number_format_i18n( $number )
 			);

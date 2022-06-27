@@ -16,7 +16,7 @@ class WC_MS_Front {
 		add_filter( 'body_class', array( $this, 'output_body_class' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ), 11 );
 		add_action( 'woocommerce_view_order', array( $this, 'show_multiple_addresses_notice' ) );
-		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_order_item_addresses' ) );
+		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_order_item_addresses' ), 10, 4 );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'list_order_item_addresses' ) );
 
 		// cleanup
@@ -184,7 +184,7 @@ class WC_MS_Front {
 			$packages  = $order->get_meta( '_wcms_packages' );
 			$multiship = $order->get_meta( '_multiple_shipping' );
 
-			if ( ( $packages && count( $packages ) > 1 ) || $multiship == 'yes' ) {
+			if ( ( is_array( $packages ) && 1 < count( $packages ) ) || $multiship == 'yes' ) {
 				wp_enqueue_script( 'wcms_shipping_address_override', plugins_url( 'assets/js/address-override.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ) );
 			}
 		}
@@ -271,8 +271,8 @@ class WC_MS_Front {
 	 *
 	 * @param int|WC_Order $order_id
 	 */
-	public function email_order_item_addresses( $order_id ) {
-		do_action( 'wcms_order_shipping_packages_table', $order_id, true );
+	public function email_order_item_addresses( $order, $sent_to_admin, $plain_text, $email ) {
+		do_action( 'wcms_order_shipping_packages_table', $order, true, $plain_text );
 	}
 
 	/**
@@ -281,7 +281,7 @@ class WC_MS_Front {
 	 * @param int|WC_Order $order_id
 	 */
 	public function list_order_item_addresses( $order_id ) {
-		do_action( 'wcms_order_shipping_packages_table', $order_id, false );
+		do_action( 'wcms_order_shipping_packages_table', $order_id, false, false );
 	}
 
 	/**

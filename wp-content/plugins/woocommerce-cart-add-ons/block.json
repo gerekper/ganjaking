@@ -1,0 +1,57 @@
+{
+	"apiVersion": 2,
+	"name": "woocommerce/cart-add-ons",
+	"version": "1.0.0",
+	"title": "Cart Add-ons",
+	"category": "woocommerce",
+	"icon": "cart",
+	"description": "Upsell additional products to customers on the cart page.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "sfn_cart_addons",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/index.css",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Cart Add-ons"
+		},
+		"numberOfProducts": {
+			"type": "number",
+			"default": 3
+		},
+		"defaultAddons": {
+			"type": "array",
+			"default": []
+		},
+		"categoryMatches": {
+			"type": "array",
+			"default": []
+		},
+		"categoryMatchesSelectedCategory": {
+			"type": "array",
+			"default": []
+		},
+		"categoryMatchesProductAddons": {
+			"type": "array",
+			"default": []
+		},
+		"productMatches": {
+			"type": "array",
+			"default": []
+		},
+		"productMatchesSelectedProduct": {
+			"type": "array",
+			"default": []
+		},
+		"productMatchesProductAddons": {
+			"type": "array",
+			"default": []
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		}
+	}
+}

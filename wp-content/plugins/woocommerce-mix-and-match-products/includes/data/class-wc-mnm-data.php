@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
- * @version  1.3.0
+ * @version  2.0.0
  */
 
 // Exit if accessed directly.
@@ -20,6 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_MNM_Data {
 
 	public static function init() {
+
+		// MNM Child Item Data Store class.
+		// @since 2.0.0
+		require_once( 'class-wc-mnm-child-item-data-store.php' );
 
 		// Mix and Match product custom post type data store.
 		require_once( 'class-wc-product-mix-and-match-data-store-cpt.php' );
@@ -38,6 +42,7 @@ class WC_MNM_Data {
 	public static function register_mnm_type_data_store( $stores ) {
 
 		$stores['product-mix-and-match'] = 'WC_Product_MNM_Data_Store_CPT';
+		$stores['wc-mnm-child-item'] = 'WC_MNM_Child_Item_Data_Store';
 
 		return $stores;
 	}

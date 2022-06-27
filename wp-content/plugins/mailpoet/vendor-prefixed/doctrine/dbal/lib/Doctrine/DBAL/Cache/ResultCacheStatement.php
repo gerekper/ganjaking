@@ -49,7 +49,7 @@ class ResultCacheStatement implements IteratorAggregate, ResultStatement, Result
  $this->defaultFetchMode = $fetchMode;
  return \true;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  $data = $this->fetchAll();

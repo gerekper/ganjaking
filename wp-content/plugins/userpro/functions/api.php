@@ -2150,7 +2150,16 @@ EOF;
         if ($request == 'view' || $request == 'profile') {
             $link = apply_filters('userpro_user_profile_url', $link, $user_id);
         }
-
+        if ( class_exists('sitepress') ) {
+            global $sitepress;
+            if($sitepress->get_default_language() != $sitepress->get_current_language()){
+                if(strpos($link, '?lang') !== false){
+                    $link = str_replace('/?lang='.$sitepress->get_current_language(), '',$link);
+                    return $link . '?lang='. $sitepress->get_current_language();
+                }
+                
+            }
+        }
         return $link;
     }
 

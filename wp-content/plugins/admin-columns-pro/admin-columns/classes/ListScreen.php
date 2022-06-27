@@ -788,7 +788,7 @@ abstract class ListScreen {
 	}
 
 	public function set_preferences( array $preferences ) {
-		$this->preferences = $preferences;
+		$this->preferences = apply_filters( 'ac/list_screen/preferences', $preferences, $this );
 
 		return $this;
 	}
@@ -827,7 +827,11 @@ abstract class ListScreen {
 			return $original_value;
 		}
 
-		$value = ( new Kses() )->sanitize( $column->get_value( $id ) );
+		$value = $column->get_value( $id );
+
+		if ( apply_filters( 'ac/column/value/sanitize', true, $column, $id ) ) {
+			$value = ( new Kses() )->sanitize( $value );
+		}
 
 		// You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
 		if ( $column->is_original() && ac_helper()->string->is_empty( $value ) ) {

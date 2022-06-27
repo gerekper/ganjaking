@@ -1,0 +1,435 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: woocommerce-help-scout-fr_FR\n"
+"POT-Creation-Date: 2022-04-06 12:33+0530\n"
+"PO-Revision-Date: 2022-04-06 12:53+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: _;__;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-wc-help-scout-ajax.php:49
+#: includes/class-wc-help-scout-ajax.php:246
+#: includes/class-wc-help-scout-ajax.php:324
+msgid "There was security vulnerability issues in your request."
+msgstr ""
+"Il y avait des problèmes de vulnérabilité de sécurité dans votre demande."
+
+#: includes/class-wc-help-scout-ajax.php:95
+#: includes/class-wc-help-scout-ajax.php:260
+#: includes/class-wc-help-scout-ajax.php:376
+msgid ""
+"Invalid Authorization! <br/>Please re-validate plugin with your helpscout "
+"account from settings."
+msgstr ""
+"Autorisation invalide ! <br/>Veuillez revalider le plugin avec votre compte "
+"helpscout depuis les paramètres."
+
+#: includes/class-wc-help-scout-ajax.php:157
+#: includes/class-wc-help-scout-ajax.php:274
+#: includes/class-wc-help-scout-ajax.php:391
+msgid ""
+"There was an error in the request, please reload this page and try again."
+msgstr ""
+"Une erreur s'est produite dans la demande, veuillez recharger cette page et "
+"réessayer."
+
+#: includes/class-wc-help-scout-ajax.php:168
+msgid "Subject is a required field."
+msgstr "Le sujet est un champ obligatoire."
+
+#: includes/class-wc-help-scout-ajax.php:179
+msgid "Description is a required field."
+msgstr "La description est un champ obligatoire."
+
+#: includes/class-wc-help-scout-ajax.php:194
+msgid "Invalid order ID."
+msgstr "Invalid order ID."
+
+#: includes/class-wc-help-scout-ajax.php:200
+msgid "Order"
+msgstr "Commande"
+
+#: includes/class-wc-help-scout-ajax.php:284
+msgid "\\a\\t"
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:307
+msgid "This conversation has no comments yet"
+msgstr "Cette conversation n'a pas encore de commentaires"
+
+#: includes/class-wc-help-scout-ajax.php:401
+msgid "Message is a required field."
+msgstr "Le message est un champ obligatoire."
+
+#: includes/class-wc-help-scout-ajax.php:413
+msgid "Reply sent successfully!"
+msgstr "Réponse envoyée avec succès !"
+
+#: includes/class-wc-help-scout-ajax.php:418
+msgid "Failed to send the response, please try again or contact us for help."
+msgstr ""
+"Échec de l'envoi de la réponse, veuillez réessayer ou contactez-nous pour "
+"obtenir de l'aide."
+
+#: includes/class-wc-help-scout-api.php:111 woocommerce-help-scout.php:544
+msgid "Invalid customer"
+msgstr "Client invalide"
+
+#: includes/class-wc-help-scout-api.php:471 woocommerce-help-scout.php:952
+msgid "Invalid customer ID"
+msgstr "Identifiant client invalide"
+
+#: includes/class-wc-help-scout-api.php:475 woocommerce-help-scout.php:956
+msgid "You have only read permission"
+msgstr "Vous n'avez qu'une autorisation de lecture"
+
+#: includes/class-wc-help-scout-api.php:479
+msgid "You do not have permission to read this customer"
+msgstr "Vous n'êtes pas autorisé à lire ce client"
+
+#: includes/class-wc-help-scout-integration.php:96
+#: includes/class-wc-help-scout-integration.php:1407
+#: includes/class-wc-help-scout-privacy.php:23
+msgid "Help Scout"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:99
+#, php-format
+msgid ""
+"Help Scout is a scalable customer support, no help desk headaches.<br/><br/"
+">Redirect URL:  %1$s <br/><br/><b>Notes :</b> <br/>1. Please make sure you "
+"enable legacy of woocommerce <a href=\"%2$s\" target=\"_blank\">click here</"
+"a>.<br/>2. REST Api that you create have read permission also <a href=\"%3$s"
+"\" target=\"_blank\">click here</a>."
+msgstr ""
+"Help Scout est un support client évolutif, pas de soucis d'assistance.<br/"
+"><br/>URL de redirection : %1$s <br/><br/><b>Remarques :</b> <br/>1 . "
+"Assurez-vous d'activer l'héritage de woocommerce  <a href=\"%2$s\" target="
+"\"_blank\">cliquez ici</a>.<br/>2. L'API REST que vous créez est également "
+"autorisée à lire  <a href=\"%3$s\" target=\"_blank\">cliquez ici</a>."
+
+#: includes/class-wc-help-scout-integration.php:175
+#: includes/class-wc-help-scout-integration.php:1407
+msgid "Conversation created successfully."
+msgstr "Conversation créée avec succès."
+
+#: includes/class-wc-help-scout-integration.php:176
+#: includes/class-wc-help-scout-integration.php:1405
+msgid "View conversation."
+msgstr "Afficher la conversation."
+
+#: includes/class-wc-help-scout-integration.php:179
+#: includes/class-wc-help-scout-integration.php:1400
+msgid "Failed to create the conversation, please try again."
+msgstr "Échec de la création de la conversation, veuillez réessayer."
+
+#: includes/class-wc-help-scout-integration.php:219
+#: includes/class-wc-help-scout-integration.php:238
+msgid "Please, wait a few moments, sending your request..."
+msgstr "Veuillez patienter quelques instants, en envoyant votre demande..."
+
+#: includes/class-wc-help-scout-integration.php:220
+#: includes/class-wc-help-scout-integration.php:239
+msgid "Thank you for your contact, we will respond as soon as possible."
+msgstr ""
+"Merci pour votre contact, nous vous répondrons dans les plus brefs délais."
+
+#: includes/class-wc-help-scout-integration.php:223
+#: includes/class-wc-help-scout-integration.php:242
+msgid ""
+"There was an error in the request, please try again or contact us for "
+"assistance."
+msgstr ""
+"Une erreur s'est produite dans la demande, veuillez réessayer ou contactez-"
+"nous pour obtenir de l'aide."
+
+#: includes/class-wc-help-scout-integration.php:224
+msgid "Please, wait a few moments, retrieving the conversation data..."
+msgstr ""
+"Veuillez patienter quelques instants, en récupérant les données de la "
+"conversation..."
+
+#: includes/class-wc-help-scout-integration.php:225
+msgid "Reply"
+msgstr "Répondre"
+
+#: includes/class-wc-help-scout-integration.php:226
+msgid "Reply to"
+msgstr "Répondre à"
+
+#: includes/class-wc-help-scout-integration.php:227
+msgid "Message"
+msgstr "Un message"
+
+#: includes/class-wc-help-scout-integration.php:228
+msgid "Send"
+msgstr "Envoyer"
+
+#: includes/class-wc-help-scout-integration.php:264
+#, php-format
+msgid "Enable Logging %s"
+msgstr "Activer la journalisation %s"
+
+#: includes/class-wc-help-scout-integration.php:265
+msgid "Log Help Scout events, such as API requests."
+msgstr "Enregistrez les événements Help Scout, tels que les demandes d'API."
+
+#: includes/class-wc-help-scout-integration.php:268
+#: includes/class-wc-help-scout-integration.php:270
+msgid "View Log"
+msgstr "Afficher le journal"
+
+#: includes/class-wc-help-scout-integration.php:275
+msgid "APP Key"
+msgstr "Clé d'application"
+
+#: includes/class-wc-help-scout-integration.php:277
+msgid ""
+"Enter your Scout APP API Key. Create one by navigating to Your Profile > My "
+"apps and click Create My App"
+msgstr ""
+"Entrez votre clé API Scout APP. Créez-en un en accédant à Votre profil > "
+"Mes applications et cliquez sur Créer mon application"
+
+#: includes/class-wc-help-scout-integration.php:282
+msgid "APP Secret"
+msgstr "Application secrète"
+
+#: includes/class-wc-help-scout-integration.php:284
+msgid "Enter your Help Scout APP Secret Key."
+msgstr "Entrez votre clé secrète de l'application Help Scout."
+
+#: includes/class-wc-help-scout-integration.php:289
+msgid "Mailbox ID"
+msgstr "ID de la boîte aux lettres"
+
+#: includes/class-wc-help-scout-integration.php:291
+msgid ""
+"Enter with your Help Scout Mailbox ID. Find this in your Help Scout Mailbox "
+"> Mailbox Settings > Edit Mailbox, example: <code>https://secure.helpscout."
+"net/settings/mailbox/ID-HERE/</code>."
+msgstr ""
+"Entrez avec votre ID de boîte aux lettres Help Scout. Trouvez ceci dans "
+"votre boîte aux lettres Help Scout > Paramètres de la boîte aux lettres > "
+"Modifier la boîte aux lettres, par exemple : <code>https://secure.helpscout."
+"net/settings/mailbox/ID-HERE/</code>."
+
+#: includes/class-wc-help-scout-integration.php:296
+msgid "Assigned To (optional)"
+msgstr "Attribué à (facultatif)"
+
+#: includes/class-wc-help-scout-integration.php:298
+msgid ""
+"Enter the user ID responsible for conversations. Find this in the \"Your "
+"Profile\" page URL, example: <code>https://secure.helpscout.net/users/"
+"profile/USER-ID-HERE/</code>."
+msgstr ""
+"Entrez l'ID utilisateur responsable des conversations. Trouvez-le dans "
+"l'URL de la page \"Votre profil\", par exemple : <code>https://secure."
+"helpscout.net/users/profile/USER-ID-HERE/</code>."
+
+#: includes/class-wc-help-scout-integration.php:303
+msgid "Conversation CC (optional)"
+msgstr "Conversation CC (facultatif)"
+
+#: includes/class-wc-help-scout-integration.php:305
+msgid ""
+"Enter a list of users emails that will receive copies of the all "
+"conversations, separate each email address with a comma."
+msgstr ""
+"Entrez une liste d'e-mails d'utilisateurs qui recevront des copies de "
+"toutes les conversations, séparez chaque adresse e-mail par une virgule."
+
+#: includes/class-wc-help-scout-integration.php:310
+msgid "Conversation BCC (optional)"
+msgstr "Cci de conversation (facultatif)"
+
+#: includes/class-wc-help-scout-integration.php:312
+msgid ""
+"Enter a list of users emails that will receive hidden copies of the all "
+"conversations, separate each email address with a comma."
+msgstr ""
+"Entrez une liste d'e-mails d'utilisateurs qui recevront des copies cachées "
+"de toutes les conversations, séparez chaque adresse e-mail par une virgule."
+
+#: includes/class-wc-help-scout-integration.php:317
+msgid "Debug Log"
+msgstr "Journal de débogage"
+
+#: includes/class-wc-help-scout-integration.php:326
+msgid "Hide Support Conversations From Sidebar"
+msgstr "Masquer les conversations d'assistance de la barre latérale"
+
+#: includes/class-wc-help-scout-integration.php:333
+msgid "Hide Help Button From Order Details Page"
+msgstr "Masquer le bouton d'aide de la page des détails de la commande"
+
+#: includes/class-wc-help-scout-integration.php:341
+msgid "<a href=\"#\" id=\"allow_access_url\">Allow Access</a>"
+msgstr "<a href=\"#\" id=\"allow_access_url\">Permettre l'accès</a>"
+
+#: includes/class-wc-help-scout-integration.php:680
+msgid "Active"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:681
+msgid "Pending"
+msgstr "En attente"
+
+#: includes/class-wc-help-scout-integration.php:682
+msgid "Closed"
+msgstr "Fermée"
+
+#: includes/class-wc-help-scout-integration.php:683
+msgid "Spam"
+msgstr "Spam"
+
+#: includes/class-wc-help-scout-integration.php:1177
+msgid "Order data:"
+msgstr "Données de commande :"
+
+#: includes/class-wc-help-scout-integration.php:1184
+#, php-format
+msgid "Order number: %s"
+msgstr "Numéro de commande : %s"
+
+#: includes/class-wc-help-scout-integration.php:1188
+#, php-format
+msgid "Order date: %s"
+msgstr "Date de commande : %s"
+
+#: includes/class-wc-help-scout-integration.php:1313
+#, php-format
+msgid "Comment in %1$s at %2$s"
+msgstr "Commentaire dans %1$s à %2$s"
+
+#: includes/class-wc-help-scout-integration.php:1371
+msgid "Actions"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:1384
+msgid "Create a Conversation"
+msgstr "Créer une conversation"
+
+#: includes/class-wc-help-scout-integration.php:1400
+#: includes/class-wc-help-scout-integration.php:1410
+#: includes/class-wc-help-scout-integration.php:1413
+msgid "Help Scout Error"
+msgstr "Aide Scout Erreur"
+
+#: includes/class-wc-help-scout-integration.php:1410
+msgid "This comment has not a valid email address."
+msgstr "Ce commentaire n'a pas d'adresse e-mail valide."
+
+#: includes/class-wc-help-scout-integration.php:1413
+msgid ""
+"This review/comment is empty, needs some content to create the conversation!"
+msgstr ""
+"Cette critique/commentaire est vide, a besoin de contenu pour créer la "
+"conversation !"
+
+#: includes/class-wc-help-scout-integration.php:1448
+msgid "Report an issue"
+msgstr "Signaler un problème"
+
+#: includes/class-wc-help-scout-my-account.php:509
+msgid "Get Help"
+msgstr "Obtenir de l'aide"
+
+#: includes/class-wc-help-scout-my-account.php:514
+msgid "Ticket/Conversation"
+msgstr "Billet/Conversation"
+
+#: includes/class-wc-help-scout-my-account.php:619
+msgid "Support Conversations"
+msgstr "Conversations de soutien"
+
+#: includes/class-wc-help-scout-my-account.php:670
+msgid "My Support Conversations"
+msgstr "Mes conversations d'assistance"
+
+#: includes/class-wc-help-scout-privacy.php:25
+#: includes/class-wc-help-scout-privacy.php:27
+msgid "WooCommerce Help Scout Customer Data"
+msgstr "WooCommerce aide à identifier les données client"
+
+#: includes/class-wc-help-scout-privacy.php:35
+#, php-format
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+"En utilisant cette extension, vous pouvez stocker des données personnelles "
+"ou partager des données avec un service externe. <a href=\"%s\" target="
+"\"_blank\">En savoir plus sur son fonctionnement, y compris sur ce que vous "
+"voudrez peut-être inclure dans votre politique de confidentialité.</a>"
+
+#: includes/class-wc-help-scout-privacy.php:52
+msgid "Customer Data"
+msgstr "Données client"
+
+#: includes/class-wc-help-scout-privacy.php:56
+msgid "Help Scout customer id"
+msgstr "Aider l'identifiant client Scout"
+
+#: includes/class-wc-help-scout-privacy.php:83
+msgid "Help Scout Personal Data erased."
+msgstr "Aidez Scout à effacer les données personnelles."
+
+#: includes/class-wc-help-scout-shortcodes.php:66
+#, php-format
+msgid "Order #%1$s - %2$s"
+msgstr "Commande #%1$s - %2$s"
+
+#: woocommerce-help-scout.php:156
+#, php-format
+msgid ""
+"%1$sWooCommerce Help Scout is almost ready.%2$s To get started, %3$sconnect "
+"your Help Scout account%4$s and specify a Mailbox ID."
+msgstr ""
+"%1$sWooCommerce Help Scout est presque prêt.%2$s Pour commencer, "
+"%3$sconnectez votre compte Help Scout%4$s et spécifiez un ID de boîte aux "
+"lettres."
+
+#: woocommerce-help-scout.php:343 woocommerce-help-scout.php:470
+msgid "Sorry no data found"
+msgstr "Désolé aucune donnée trouvée"
+
+#: woocommerce-help-scout.php:364
+msgid "Customer Since"
+msgstr "Client depuis"
+
+#: woocommerce-help-scout.php:372
+msgid "Lifetime Value"
+msgstr "Valeur à vie"
+
+#: woocommerce-help-scout.php:380
+msgid "Past 12 Months"
+msgstr "12 derniers mois"
+
+#: woocommerce-help-scout.php:388
+msgid "Average Order"
+msgstr "Commande moyenne"
+
+#: woocommerce-help-scout.php:419
+msgid "Recent Orders"
+msgstr "Dernières commandes"
+
+#: woocommerce-help-scout.php:454
+msgid "WooCommerce Profile"
+msgstr "Profil WooCommerce"
+
+#: woocommerce-help-scout.php:473
+msgid "Authentication failed! Please check your Helpscout secret key"
+msgstr ""
+"Authentification échouée! Veuillez vérifier votre clé secrète Helpscout"

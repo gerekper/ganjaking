@@ -47,7 +47,10 @@ var wps_price_slider = {};
 				animate : true,
 				min : min_price,
 				max : max_price,
-				values : [ current_min_price, current_max_price ],
+				values : [
+					wps_price_slider.easeOut( current_min_price, min_price, max_price ),
+					wps_price_slider.easeOut( current_max_price, min_price, max_price )
+				],
 				create : function() {
 				},
 				slide : function( event, ui ) {
@@ -76,7 +79,8 @@ var wps_price_slider = {};
 						if ( !$( this ).slider( 'option', 'disabled' ) ) {
 							min_input.trigger( 'input' );
 						}
-					} else if ( new_max != max_input.data( 'old_max' ) ) {
+					}
+					if ( new_max != max_input.data( 'old_max' ) ) {
 						max_input.data( 'old_max', new_max );
 						if ( !$( this ).slider( 'option', 'disabled' ) ) {
 							max_input.trigger( 'input' );

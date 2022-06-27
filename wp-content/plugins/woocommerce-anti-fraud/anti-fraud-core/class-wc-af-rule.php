@@ -13,7 +13,6 @@ if ( ! interface_exists( 'WC_AF_iRule' ) ) {
 		 * @param WC_Order $order
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return bool
 		 */
@@ -36,17 +35,17 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * @param $risk_points
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
-		function __construct( $id, $label, $risk_points ) {
+		public function __construct( $id, $label, $risk_points ) {
 			$this->id          = $id;
 			$this->label       = $label;
 			$this->risk_points = $risk_points;
 		}
 
 		/**
+		 * Get Id
+		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return string
 		 */
@@ -55,10 +54,11 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		}
 
 		/**
+		 * Set Id
+		 *
 		 * @param $id
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function set_id( $id ) {
@@ -66,8 +66,9 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		}
 
 		/**
+		 * Get Lable
+		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return string
 		 */
@@ -76,10 +77,11 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		}
 
 		/**
+		 * Set lable
+		 *
 		 * @param $label
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function set_label( $label ) {
@@ -87,8 +89,9 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		}
 
 		/**
+		 * Get risk point
+		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return int
 		 */
@@ -97,10 +100,11 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		}
 
 		/**
+		 * Set risk point
+		 *
 		 * @param $risk_points
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function set_risk_points( $risk_points ) {
@@ -111,7 +115,6 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * Create JSON object containing rule data
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 */
 		public function to_json() {

@@ -277,18 +277,43 @@ class WC_Store_Credit_Discounts_Order extends WC_Store_Credit_Discounts {
 		$tax_rates = array();
 
 		foreach ( $taxes as $rate_id => $amount ) {
-			$tax_rate = WC_Tax::_get_tax_rate( $rate_id );
+			$tax_rate = $this->get_tax_rate( $rate_id );
 
-			$tax_rates[ $rate_id ] = array(
-				'rate'     => (float) $tax_rate['tax_rate'],
-				'name'     => $tax_rate['tax_rate_name'],
-				'shipping' => wc_bool_to_string( $tax_rate['tax_rate_shipping'] ),
-				'compound' => wc_bool_to_string( $tax_rate['tax_rate_compound'] ),
-			);
+			if ( ! empty( $tax_rate ) ) {
+				$tax_rates[ $rate_id ] = array(
+					'rate'     => (float) $tax_rate['tax_rate'],
+					'name'     => ( isset( $tax_rate['tax_rate_name'] ) ? $tax_rate['tax_rate_name'] : '' ),
+					'shipping' => wc_bool_to_string( $tax_rate['tax_rate_shipping'] ),
+					'compound' => wc_bool_to_string( $tax_rate['tax_rate_compound'] ),
+				);
+			}
 		}
 
 		$object->tax_rates = $tax_rates;
 
 		return $object;
+	}
+
+	/**
+	 * Gets the tax rate data.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int $rate_id Tax rate ID.
+	 * @return array
+	 */
+	protected function get_tax_rate( $rate_id ) {
+		$tax_rate = ( is_numeric( $rate_id ) ? WC_Tax::_get_tax_rate( $rate_id ) : array() );
+
+		/**
+		 * Filters the tax rate data when calculating the Store Credit discounts for an order.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param array    $tax_rate Tax rate data.
+		 * @param int      $rate_id  Tax rate ID.
+		 * @param WC_Order $order    Order object.
+		 */
+		return apply_filters( 'wc_store_credit_discounts_order_tax_rate', $tax_rate, $rate_id, $this->get_object() );
 	}
 }

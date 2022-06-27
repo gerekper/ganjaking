@@ -168,7 +168,7 @@ function wc_od_shipping_method_choice_value( $method ) {
  * @return string
  */
 function wc_od_shipping_method_choice_label( $choice_id ) {
-	$parts = preg_split( '/:/', $choice_id );
+	$parts = explode( ':', $choice_id );
 
 	if ( 2 > count( $parts ) ) {
 		return '';
@@ -198,7 +198,10 @@ function wc_od_shipping_method_choice_label( $choice_id ) {
 				$rate = wc_od_get_shipping_table_rate_by_id( $method, $rate_id );
 
 				if ( $rate ) {
-					$title .= " - {$rate['rate_label']}";
+					/* translators: %d: Rate ID of the table rate shipping */
+					$rate_label = ( ! empty( $rate['rate_label'] ) ? $rate['rate_label'] : sprintf( _x( 'Rate %d', 'table rate shipping label', 'woocommerce-order-delivery' ), $rate_id ) );
+
+					$title .= " - {$rate_label}";
 				}
 			} else {
 				$title .= ': ' . __( 'All rates', 'woocommerce-order-delivery' );
@@ -313,7 +316,7 @@ function wc_od_get_shipping_methods_for_delivery_day( $delivery_day, $args = arr
 		$time_frame_id = wc_od_parse_time_frame_id( $args['time_frame'] );
 
 		if ( false !== $time_frame_id ) {
-			$time_frame = $delivery_day->get_time_frames()->get( $time_frame_id );
+			$time_frame = $delivery_day->get_time_frame( $time_frame_id );
 
 			if ( $time_frame ) {
 				$shipping_methods = $time_frame->get_shipping_methods();

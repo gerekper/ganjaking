@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Customer class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.1.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.11.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
@@ -33,6 +32,7 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                             = 'customer';
 		$this->title                          = __( 'Customer', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 50;
 		$this->supported_product_restrictions = array( 'shipping_countries', 'payment_gateways', 'shipping_methods' );
 		$this->supported_global_restrictions  = array( 'shipping_countries', 'payment_gateways', 'shipping_methods' );
 		$this->available_modifiers            = array(
@@ -166,6 +166,10 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 				$check_emails[] = wc_clean( $_POST[ 'billing_email' ] );
 
 			// Updating order review?
+			} elseif ( WC_CSP_Core_Compatibility::is_store_api_request( 'cart' ) && is_a( WC()->customer, 'WC_Customer' ) && WC()->customer->get_billing_email() ) {
+
+				$check_emails[] = WC()->customer->get_billing_email();
+
 			} elseif ( did_action( 'woocommerce_checkout_update_order_review' ) && ! empty( $_POST[ 'post_data' ] ) ) {
 				parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( is_array( $billing_data ) && isset( $billing_data[ 'billing_email' ] ) ) {

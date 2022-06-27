@@ -6,7 +6,6 @@
 require( '@wpmudev/shared-ui/dist/js/_src/code-snippet' );
 require( '@wpmudev/shared-ui/dist/js/_src/modal-dialog' );
 require( '@wpmudev/shared-ui/dist/js/_src/notifications' );
-require( '@wpmudev/shared-ui/dist/js/_src/scores' );
 require( '@wpmudev/shared-ui/dist/js/_src/select2.full' );
 require( '@wpmudev/shared-ui/dist/js/_src/select2' );
 require( '@wpmudev/shared-ui/dist/js/_src/tabs' );

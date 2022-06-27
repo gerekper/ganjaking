@@ -10,12 +10,11 @@ abstract class AbstractBinary extends AbstractExpression
  {
  parent::__construct(['left' => $left, 'right' => $right], [], $lineno);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->raw('(')->subcompile($this->getNode('left'))->raw(' ');
  $this->operator($compiler);
  $compiler->raw(' ')->subcompile($this->getNode('right'))->raw(')');
  }
- public abstract function operator(Compiler $compiler);
+ public abstract function operator(Compiler $compiler) : Compiler;
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Expression\\Binary\\AbstractBinary', 'MailPoetVendor\\Twig_Node_Expression_Binary');

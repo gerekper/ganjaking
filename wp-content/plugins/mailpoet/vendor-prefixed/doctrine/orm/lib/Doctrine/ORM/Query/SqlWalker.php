@@ -1241,7 +1241,7 @@ class SqlWalker implements TreeWalker
  }
  public function walkInParameter($inParam)
  {
- return $inParam instanceof AST\InputParameter ? $this->walkInputParameter($inParam) : $this->walkLiteral($inParam);
+ return $inParam instanceof AST\InputParameter ? $this->walkInputParameter($inParam) : $this->walkArithmeticExpression($inParam);
  }
  public function walkLiteral($literal)
  {

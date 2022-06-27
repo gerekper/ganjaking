@@ -1,13 +1,16 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2022-04-11 - version 1.7.1
+* Fix – Order type filter duplicated when WooCommerce Payments is installed.
+
 2022-02-15 - version 1.7.0
 * Add - Blocks integration.
 * Tweak - Bump supported WC Version.
-* Tweak - Bump tested up to WP Version.  
+* Tweak - Bump tested up to WP Version.
 
 2022-01-10 - version 1.6.0
 * Fix - Jquery deprecated code.
-* Tweak - Jquery 3.0 compatibility. 
+* Tweak - Jquery 3.0 compatibility.
 * Tweak - Improve performance of scheduled action that completes orders after product is released.
 * Fix - Use WooCommerce order details template instead of a custom one.
 * Fix - "Your previous cart was emptied" message does not show when using ajax cart.
@@ -15,9 +18,9 @@
 * Fix - Broken email links when sending links via WooCommerce > Pre-Orders > Actions.
 * Tweak - Pre-Orders table under My Account > Pre Orders responsiveness.
 * Fix - Stock inventory is not replenished when a pre-order that's set to charge "Upon Release" is canceled.
-* Tweak - Pre-load product when clicking on "Use the actions menu" to change the release date.  
+* Tweak - Pre-load product when clicking on "Use the actions menu" to change the release date.
 * Add - Allow to search for Pre orders only and Regular orders only on WooCommerce > Orders.
-* Fix - Refunded orders are counted as Net Sales in WC > Reports when Pre-Orders is active. 
+* Fix - Refunded orders are counted as Net Sales in WC > Reports when Pre-Orders is active.
 * Tweak - Prevent listing pre-orders when they must be paid upfront and the payment fails.
 * Tweak - Rename the .pot file so it matches the registered text domain.
 * Add - Add fees to order when creating via admin.

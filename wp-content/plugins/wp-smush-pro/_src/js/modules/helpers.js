@@ -14,10 +14,10 @@
 		init: () => {},
 
 		/**
-		 * Convert bytes to human readable form.
+		 * Convert bytes to human-readable form.
 		 *
-		 * @param {number} a  Bytes
-		 * @param {number} b  Number of digits
+		 * @param {number} a Bytes
+		 * @param {number} b Number of digits
 		 * @return {*} Formatted Bytes
 		 */
 		formatBytes: ( a, b ) => {
@@ -41,7 +41,7 @@
 		/**
 		 * Get size from a string.
 		 *
-		 * @param {string} formattedSize  Formatter string
+		 * @param {string} formattedSize Formatter string
 		 * @return {*} Formatted Bytes
 		 */
 		getSizeFromString: ( formattedSize ) => {
@@ -51,7 +51,7 @@
 		/**
 		 * Get type from formatted string.
 		 *
-		 * @param {string} formattedSize  Formatted string
+		 * @param {string} formattedSize Formatted string
 		 * @return {*} Formatted Bytes
 		 */
 		getFormatFromString: ( formattedSize ) => {
@@ -131,4 +131,4 @@
 	};
 
 	WP_Smush.helpers.init();
-} )();
+}() );

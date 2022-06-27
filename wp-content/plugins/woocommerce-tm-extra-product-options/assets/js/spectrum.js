@@ -964,8 +964,7 @@
 			};
 		},
 		toPercentageRgbString: function() {
-			return this._a === 1
-				? 'rgb(' + mathRound( bound01( this._r, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._g, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._b, 255 ) * 100 ) + '%)'
+			return this._a === 1 ? 'rgb(' + mathRound( bound01( this._r, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._g, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._b, 255 ) * 100 ) + '%)'
 				: 'rgba(' + mathRound( bound01( this._r, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._g, 255 ) * 100 ) + '%, ' + mathRound( bound01( this._b, 255 ) * 100 ) + '%, ' + this._roundA + ')';
 		},
 		toName: function() {
@@ -1263,7 +1262,7 @@
 	}
 }( Math ) );
 
-// Spectrum Colorpicker v2.0
+// Spectrum Colorpicker v2.0.8
 // https://github.com/seballot/spectrum
 // Author: Brian Grinstead
 // License: MIT
@@ -1389,7 +1388,7 @@
 				"<div class='sp-alpha'><div class='sp-alpha-inner'><div class='sp-alpha-handle'></div></div></div>",
 				'</div>',
 				"<div class='sp-input-container sp-cf'>",
-				"<input class='sp-input' type='text' spellcheck='false'  />",
+				"<input class='sp-input' type='text' spellcheck='false'>",
 				'</div>',
 				"<div class='sp-initial sp-thumb sp-cf'></div>",
 				"<div class='sp-button-container sp-cf'>",
@@ -1417,9 +1416,9 @@
 				c += tinycolor.equals( color, current ) ? ' sp-thumb-active' : '';
 				formattedString = tiny.toString( opts.preferredFormat || 'rgb' );
 				swatchStyle = rgbaSupport ? 'background-color:' + tiny.toRgbString() : 'filter:' + tiny.toFilter();
-				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" /></span></span>' );
+				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';"></span></span>' );
 			} else {
-				html.push( '<span class="sp-thumb-el sp-clear-display"><span class="sp-clear-palette-only" style="background-color: transparent;" /></span></span>' );
+				html.push( '<span class="sp-thumb-el sp-clear-display"><span class="sp-clear-palette-only" style="background-color: transparent;"></span></span>' );
 			}
 		}
 		return "<div class='sp-cf " + className + "'>" + html.join( '' ) + '</div>';
@@ -1565,7 +1564,7 @@
 
 				// if showPaletteOnly and didn't set initialcolor
 				// set initialcolor to first palette
-				if ( opts.showPaletteOnly && ! opts.color ) {
+				if ( opts.showPaletteOnly && ! initialColor ) {
 					initialColor = palette[ 0 ][ 0 ] === '' ? palette[ 0 ][ 0 ] : Object.keys( paletteLookup )[ 0 ];
 				}
 			}
@@ -1642,7 +1641,7 @@
 
 			offsetElement.on( 'click.spectrum touchstart.spectrum', function( e ) {
 				if ( ! disabled ) {
-					toggle();
+					show();
 				}
 
 				e.stopPropagation();
@@ -1661,7 +1660,7 @@
 
 			// Handle user typed input
 			[ textInput, boundElement ].forEach( function( input ) {
-				input.change( function() {
+				input.on( 'change', function() {
 					setFromTextInput( input.val() );
 				} );
 				input.on( 'paste', function() {
@@ -1669,7 +1668,7 @@
 						setFromTextInput( input.val() );
 					}, 1 );
 				} );
-				input.keydown( function( e ) {
+				input.on( 'keydown', function( e ) {
 					if ( e.keyCode === 13 ) {
 						setFromTextInput( $( input ).val() );
 						// eslint-disable-next-line eqeqeq
@@ -2384,10 +2383,8 @@
 		return spect;
 	}
 
-	/**
-	 * checkOffset - get the offset below/above and left/right element depending on screen position
-	 * Thanks https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.datepicker.js
-	 */
+	// checkOffset - get the offset below/above and left/right element depending on screen position
+	// Thanks https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.datepicker.js
 	function getOffset( picker, input ) {
 		var extraY = 0;
 		var dpWidth = picker.outerWidth();
@@ -2417,22 +2414,16 @@
 		};
 	}
 
-	/**
-	 * noop - do nothing
-	 */
+	// noop - do nothing
 	function noop() {}
 
-	/**
-	 * stopPropagation - makes the code only doing this a little easier to read in line
-	 */
+	// stopPropagation - makes the code only doing this a little easier to read in line
 	function stopPropagation( e ) {
 		e.stopPropagation();
 	}
 
-	/**
-	 * Create a function bound to a given object
-	 * Thanks to underscore.js
-	 */
+	// Create a function bound to a given object
+	// Thanks to underscore.js
 	function bind( func, obj ) {
 		var slice = Array.prototype.slice;
 		var args = slice.call( arguments, 2 );
@@ -2441,10 +2432,8 @@
 		};
 	}
 
-	/**
-	 * Lightweight drag helper.  Handles containment within the element, so that
-	 * when dragging, the x is within [0,element.width] and y is within [0,element.height]
-	 */
+	// Lightweight drag helper.  Handles containment within the element, so that
+	// when dragging, the x is within [0,element.width] and y is within [0,element.height]
 	function draggable( element, onmove, onstart, onstop ) {
 		var doc = document;
 		var dragging = false;
@@ -2560,9 +2549,7 @@
 		return $.fn.spectrum.inputTypeColorSupport();
 	}
 
-	/**
-	 * Define a jQuery plugin
-	 */
+	// Define a jQuery plugin
 	$.fn.spectrum = function( opts ) {
 		var returnValue;
 		var args;
@@ -2624,7 +2611,7 @@
 	$.fn.spectrum.inputTypeColorSupport = function() {
 		var colorInput;
 		if ( typeof inputTypeColorSupport._cachedResult === 'undefined' ) {
-			colorInput = $( "<input type='color'/>" )[ 0 ]; // if color element is supported, value will default to not null
+			colorInput = $( "<input type='color'>" )[ 0 ]; // if color element is supported, value will default to not null
 			inputTypeColorSupport._cachedResult = colorInput.type === 'color' && colorInput.value !== '';
 		}
 		return inputTypeColorSupport._cachedResult;

@@ -3,37 +3,36 @@ namespace MailPoetVendor\Twig\Loader;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Error\LoaderError;
 use MailPoetVendor\Twig\Source;
-final class ArrayLoader implements LoaderInterface, ExistsLoaderInterface, SourceContextLoaderInterface
+final class ArrayLoader implements LoaderInterface
 {
  private $templates = [];
  public function __construct(array $templates = [])
  {
  $this->templates = $templates;
  }
- public function setTemplate($name, $template)
+ public function setTemplate(string $name, string $template) : void
  {
  $this->templates[$name] = $template;
  }
- public function getSourceContext($name)
+ public function getSourceContext(string $name) : Source
  {
- $name = (string) $name;
  if (!isset($this->templates[$name])) {
  throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
  }
  return new Source($this->templates[$name], $name);
  }
- public function exists($name)
+ public function exists(string $name) : bool
  {
  return isset($this->templates[$name]);
  }
- public function getCacheKey($name)
+ public function getCacheKey(string $name) : string
  {
  if (!isset($this->templates[$name])) {
  throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
  }
  return $name . ':' . $this->templates[$name];
  }
- public function isFresh($name, $time)
+ public function isFresh(string $name, int $time) : bool
  {
  if (!isset($this->templates[$name])) {
  throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
@@ -41,4 +40,3 @@ final class ArrayLoader implements LoaderInterface, ExistsLoaderInterface, Sourc
  return \true;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Loader\\ArrayLoader', 'MailPoetVendor\\Twig_Loader_Array');

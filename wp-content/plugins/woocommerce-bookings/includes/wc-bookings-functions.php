@@ -634,7 +634,7 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 
 			if ( ! empty( $existing_bookings ) ) {
 				foreach ( $existing_bookings as $existing_booking ) {
-					if ( $existing_booking->is_within_block( $block, strtotime( "+{$inteval_in_minutes} minutes", $block ) ) ) {
+					if ( $existing_booking->is_intersecting_block( $block, strtotime( "+{$inteval_in_minutes} minutes", $block ) ) ) {
 						$existing_booking_product    = $existing_booking->get_product();
 						$qty_to_add                  = $existing_booking_product->has_person_qty_multiplier() ? max( 1, array_sum( $existing_booking->get_persons() ) ) : 1;
 						// Default resource in case we don't have anything in product or existing bookings.

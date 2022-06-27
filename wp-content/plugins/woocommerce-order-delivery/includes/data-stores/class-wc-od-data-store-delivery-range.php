@@ -21,6 +21,12 @@ class WC_OD_Data_Store_Delivery_Range {
 	 * @param WC_OD_Delivery_Range $delivery_range Delivery range object.
 	 */
 	public function create( &$delivery_range ) {
+		// Updating the default delivery range.
+		if ( 0 === $delivery_range->get_id() ) {
+			$this->update( $delivery_range );
+			return;
+		}
+
 		// The method 'get_data()' doesn't fetch the data with the applied changes.
 		$delivery_range->apply_changes();
 
@@ -210,11 +216,7 @@ class WC_OD_Data_Store_Delivery_Range {
 	 * @return array
 	 */
 	protected function get_data( $delivery_range ) {
-		$data = $delivery_range->get_data();
-
-		unset( $data['id'], $data['meta_data'] );
-
-		return $data;
+		return $delivery_range->get_data_without( array( 'id', 'met_data' ) );
 	}
 
 	/**

@@ -5,10 +5,8 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Platforms\AbstractPlatform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\DB2Platform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\OraclePlatform;
-use MailPoetVendor\Doctrine\DBAL\Platforms\PostgreSQL94Platform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\SQLAnywherePlatform;
-use MailPoetVendor\Doctrine\DBAL\Platforms\SQLServer2012Platform;
 use MailPoetVendor\Doctrine\DBAL\Platforms\SQLServerPlatform;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Mapping\QuoteStrategy;
@@ -62,7 +60,7 @@ class LimitSubqueryOutputWalker extends SqlWalker
  }
  private function platformSupportsRowNumber() : bool
  {
- return $this->platform instanceof PostgreSQL94Platform || $this->platform instanceof PostgreSQLPlatform || $this->platform instanceof SQLServer2012Platform || $this->platform instanceof SQLServerPlatform || $this->platform instanceof OraclePlatform || $this->platform instanceof SQLAnywherePlatform || $this->platform instanceof DB2Platform || method_exists($this->platform, 'supportsRowNumberFunction') && $this->platform->supportsRowNumberFunction();
+ return $this->platform instanceof PostgreSQLPlatform || $this->platform instanceof SQLServerPlatform || $this->platform instanceof OraclePlatform || $this->platform instanceof SQLAnywherePlatform || $this->platform instanceof DB2Platform || method_exists($this->platform, 'supportsRowNumberFunction') && $this->platform->supportsRowNumberFunction();
  }
  private function rebuildOrderByForRowNumber(SelectStatement $AST) : void
  {

@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.53
+ * Version: 1.15.54
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
  * Tested up to: 5.9
- * WC tested up to: 6.2
+ * WC tested up to: 6.3
  * WC requires at least: 2.6
  *
  * Copyright: © 2022 WooCommerce
@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+use WooCommerce\Bookings\Blocks\WC_Bookings_Blocks_Integration;
 
 // phpcs:disable WordPress.Files.FileName
 
@@ -81,9 +82,10 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.53' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.54' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
-	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
+	define( 'WC_BOOKINGS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 	define( 'WC_BOOKINGS_MAIN_FILE', __FILE__ );
 	define( 'WC_BOOKINGS_GUTENBERG_EXISTS', function_exists( 'register_block_type' ) ? true : false );
 	if ( ! defined( 'WC_BOOKINGS_CONNECT_WOOCOMMERCE_URL' ) ) {
@@ -130,6 +132,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 
 			// Register menu items in the new WooCommerce navigation.
 			add_action( 'admin_menu', array( $this, 'register_navigation_items' ), 6 );
+
 		}
 
 		/**
@@ -341,6 +344,8 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 				new WC_Booking_Products_Import();
 				new WC_Bookings_Tracks();
 			}
+
+
 		}
 
 		/**
@@ -387,7 +392,23 @@ function woocommerce_bookings_init() {
 	}
 
 	$GLOBALS['wc_bookings'] = WC_Bookings::instance();
+
 }
 
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-bookings', '__return_true' );
+
+/**
+ * Gets block-based features initialized.
+ */
+if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+	add_action(
+		'woocommerce_blocks_loaded',
+		function() {
+			if ( WC_BOOKINGS_GUTENBERG_EXISTS ) {
+				require_once WC_BOOKINGS_ABSPATH . 'includes/blocks/class-wc-bookings-blocks.php';
+				new WC_Bookings_Blocks_Integration();
+			};
+		}
+	);
+}

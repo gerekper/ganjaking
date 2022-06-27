@@ -406,7 +406,7 @@
 			if ( ! inst ) {
 				this.uuid += 1;
 				id = 'dp' + this.uuid;
-				this._dialogInput = $( "<input type='text' id='" + id + "' />" );
+				this._dialogInput = $( "<input type='text' id='" + id + "'>" );
 				this._dialogInput.on( 'keydown', this._doKeyDown );
 				$( 'body' ).append( this._dialogInput );
 				inst = this._newInst( this._dialogInput, false );

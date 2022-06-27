@@ -45,11 +45,8 @@ class Column extends AC\Settings\Column implements AC\Settings\Header {
 	 * @return View
 	 */
 	public function create_view() {
-		$setting = $this->create_element( 'radio', 'search' )
-		                ->set_options( [
-			                'on'  => __( 'Yes' ),
-			                'off' => __( 'No' ),
-		                ] );
+		$setting = new AC\Form\Element\Toggle( 'search', '', $this->get_value( 'search' ) === 'on', 'on', 'off' );
+		$setting->add_class( 'ac-setting-input_search' );
 
 		$view = new View();
 		$view->set( 'label', __( 'Smart Filtering', 'codepress-admin-columns' ) )

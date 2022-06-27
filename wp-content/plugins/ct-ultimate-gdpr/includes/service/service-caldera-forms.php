@@ -216,8 +216,8 @@ class CT_Ultimate_GDPR_Service_Caldera_Forms extends CT_Ultimate_GDPR_Service_Ab
 	}
 
 	public function enqueue_static( ) {
-		wp_enqueue_script( 'ct_ultimate_gdpr_service_caldera_forms', ct_ultimate_gdpr_url( 'assets/js/service-caldera-forms.js' ), array( 'jquery' ) );
-		wp_localize_script( 'ct_ultimate_gdpr_service_caldera_forms', 'ct_ultimate_gdpr_caldera_forms', array(
+		wp_enqueue_script( 'ct-ultimate-gdpr-service-caldera-forms', ct_ultimate_gdpr_url( 'assets/js/service-caldera-forms.js' ), array( 'jquery' ) );
+		wp_localize_script( 'ct-ultimate-gdpr-service-caldera-forms', 'ct_ultimate_gdpr_caldera_forms', array(
 			'checkbox' => ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'service/service-caldera-forms-consent-field', false ) ),
 		) );
 	}

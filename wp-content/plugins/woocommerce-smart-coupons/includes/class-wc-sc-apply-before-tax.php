@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.4.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -32,6 +32,14 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * @var $sc_credit_left
 		 */
 		private $sc_credit_left = array();
+
+		/**
+		 * Store credit left after application on each cart item in REST API
+		 *
+		 * @var $sc_api_credit_left
+		 */
+		private $sc_api_credit_left = array();
+		/**
 
 		/**
 		 * Remaining total to apply credit
@@ -366,7 +374,58 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 
 			$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
 			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
-			$quantity      = $cart_item['quantity'];
+
+			if ( is_object( $cart_item ) && is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
+				$product_id           = ( is_callable( array( $cart_item, 'get_product_id' ) ) ) ? $cart_item->get_product_id() : 0;
+				$variation_id         = ( is_callable( array( $cart_item, 'get_variation_id' ) ) ) ? $cart_item->get_variation_id() : 0;
+				$quantity             = ( is_callable( array( $cart_item, 'get_quantity' ) ) ) ? $cart_item->get_quantity() : 1;
+				$item_id              = ( is_callable( array( $cart_item, 'get_id' ) ) ) ? $cart_item->get_id() : 0;
+				$product_subtotal     = ( is_callable( array( $cart_item, 'get_subtotal' ) ) ) ? $cart_item->get_subtotal() : 0;
+				$product_subtotal_tax = ( is_callable( array( $cart_item, 'get_subtotal_tax' ) ) ) ? $cart_item->get_subtotal_tax() : 0;
+
+				if ( ! empty( $this->sc_api_credit_left[ $item_id ][ $variation_id ] ) ) {
+					return $this->sc_api_credit_left[ $item_id ][ $variation_id ] / $quantity;
+				} elseif ( ! empty( $this->sc_api_credit_left[ $item_id ][ $product_id ] ) ) {
+					return $this->sc_api_credit_left[ $item_id ][ $product_id ] / $quantity;
+				}
+				if ( empty( $this->sc_api_credit_left[ $coupon_code ] ) ) {
+					return $discount;
+				}
+
+				$prices_include_tax = ( 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) ? true : false;
+				if ( true === $prices_include_tax ) {
+					$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+					if ( 'no' === $sc_include_tax ) {
+						$discounting_amount = $product_subtotal / $quantity;
+					}
+				}
+
+				$credit_left = ( ! empty( $this->sc_api_credit_left ) && isset( $this->sc_api_credit_left[ $coupon_code ] ) ) ? $this->sc_api_credit_left[ $coupon_code ] : $coupon_amount;
+
+				if ( $credit_left > 0 ) {
+
+					$discount = $discounting_amount * $quantity;
+
+					if ( $credit_left >= $discount ) {
+						$credit_left                              = $credit_left - $discount;
+						$this->sc_api_credit_left[ $coupon_code ] = $credit_left;
+					} else {
+						$discount                                 = $credit_left;
+						$this->sc_api_credit_left[ $coupon_code ] = 0;
+					}
+				}
+				$discount = $discount / $quantity;
+
+				if ( ! empty( $variation_id ) ) {
+					$this->sc_api_credit_left[ $item_id ][ $variation_id ] = $discount;
+				} else {
+					$this->sc_api_credit_left[ $item_id ][ $product_id ] = $discount;
+				}
+				return $discount;
+			}
+
+			$product  = isset( $cart_item['data'] ) ? $cart_item['data'] : array();
+			$quantity = $cart_item['quantity'];
 
 			// Compatibility for WC version < 3.2.0.
 			if ( ! isset( $cart_item['key'] ) ) {
@@ -532,6 +591,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 */
 		public function cart_reset_credit_left() {
 			$this->sc_credit_left                  = array();
+			$this->sc_api_credit_left              = array();
 			$this->remaining_total_to_apply_credit = array();
 		}
 	}

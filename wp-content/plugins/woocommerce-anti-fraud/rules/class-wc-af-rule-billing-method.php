@@ -24,7 +24,6 @@ class WC_AF_Rule_Billing_Method extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -61,7 +60,7 @@ class WC_AF_Rule_Billing_Method extends WC_AF_Rule {
 				}
 			}
 		} 
-		Af_Logger::debug('billing method rule risk : '. ( $risk===true ? 'true' : 'false' )); 
+		Af_Logger::debug('billing method rule risk : ' . ( true === $risk ? 'true' : 'false' )); 
 		return $risk;
 	}
 

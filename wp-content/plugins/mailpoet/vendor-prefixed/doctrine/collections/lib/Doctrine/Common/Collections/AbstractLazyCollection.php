@@ -8,7 +8,7 @@ abstract class AbstractLazyCollection implements Collection
 {
  protected $collection;
  protected $initialized = \false;
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function count()
  {
  $this->initialize();
@@ -134,31 +134,31 @@ abstract class AbstractLazyCollection implements Collection
  $this->initialize();
  return $this->collection->slice($offset, $length);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  $this->initialize();
  return $this->collection->getIterator();
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetExists($offset)
  {
  $this->initialize();
  return $this->collection->offsetExists($offset);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetGet($offset)
  {
  $this->initialize();
  return $this->collection->offsetGet($offset);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetSet($offset, $value)
  {
  $this->initialize();
  $this->collection->offsetSet($offset, $value);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function offsetUnset($offset)
  {
  $this->initialize();

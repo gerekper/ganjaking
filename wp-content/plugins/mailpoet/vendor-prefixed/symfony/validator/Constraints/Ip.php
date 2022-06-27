@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use MailPoetVendor\Symfony\Component\Validator\Exception\InvalidArgumentException;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Ip extends Constraint
 {
  public const V4 = '4';
@@ -27,14 +28,17 @@ class Ip extends Constraint
  public $version = self::V4;
  public $message = 'This is not a valid IP address.';
  public $normalizer;
- public function __construct($options = null)
+ public function __construct(array $options = null, string $version = null, string $message = null, callable $normalizer = null, array $groups = null, $payload = null)
  {
- parent::__construct($options);
+ parent::__construct($options, $groups, $payload);
+ $this->version = $version ?? $this->version;
+ $this->message = $message ?? $this->message;
+ $this->normalizer = $normalizer ?? $this->normalizer;
  if (!\in_array($this->version, self::$versions)) {
  throw new ConstraintDefinitionException(\sprintf('The option "version" must be one of "%s".', \implode('", "', self::$versions)));
  }
  if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
- throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \is_object($this->normalizer) ? \get_class($this->normalizer) : \gettype($this->normalizer)));
+ throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \get_debug_type($this->normalizer)));
  }
  }
 }

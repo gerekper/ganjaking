@@ -141,42 +141,50 @@ class Warranty_Completed_Reports_List_Table extends WP_List_Table {
 	    return $out;
     }
 
-    function column_validity($item) {
-        $order_id       = get_post_meta( $item->ID, '_order_id', true );
-        $order          = wc_get_order( $order_id );
-        $item_key       = get_post_meta( $item->ID, '_index', true );
-        $warranty       = wc_get_order_item_meta( $item_key, '_item_warranty', true );
-        $warranty       = maybe_unserialize($warranty);
-        $addon_index    = wc_get_order_item_meta( $item_key, '_item_warranty_selected', true );
+	function column_validity( $item ) {
+		$order_id     = get_post_meta( $item->ID, '_order_id', true );
+		$order        = wc_get_order( $order_id );
+		$item_indexes = array_column( warranty_get_request_items( $item->ID ), 'order_item_index' );
 
-        if ( $warranty ) {
-            if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-                $completed = get_post_meta( $order->id, '_completed_date', true);
-            } else {
-                $completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-            }
+		if ( empty( $item_indexes ) ) {
+			return;
+		}
 
-            if ( 'addon_warranty' === $warranty['type'] ) {
-                if (! empty($completed) ) {
-                    $addon          = $warranty['addons'][$addon_index];
-                    $date           = warranty_get_date( $completed, $addon['value'], $addon['duration'] );
+		foreach ( $item_indexes as $item_index ) {
+			$warranty    = wc_get_order_item_meta( $item_index, '_item_warranty', true );
+			$warranty    = maybe_unserialize( $warranty );
+			$addon_index = wc_get_order_item_meta( $item_index, '_item_warranty_selected', true );
 
-                    echo $date;
-                }
+			if ( $warranty ) {
+				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+					$completed = get_post_meta( $order->id, '_completed_date', true );
+				} else {
+					$completed = $order->get_date_completed() ? $order->get_date_completed()
+					                                                  ->date( 'Y-m-d H:i:s' ) : false;
+				}
 
-            } elseif ( $warranty['type'] == 'included_warranty' ) {
-                if ( $warranty['length'] == 'lifetime' ) {
-                    echo __('Lifetime', 'wc_warranty');
-                } else {
-                    if (! empty($completed) ) {
-                        $date   = warranty_get_date( $completed, $warranty['value'], $warranty['duration'] );
+				if ( 'addon_warranty' === $warranty['type'] ) {
+					if ( ! empty( $completed ) ) {
+						$addon = $warranty['addons'][ $addon_index ];
+						$date  = warranty_get_date( $completed, $addon['value'], $addon['duration'] );
 
-                        echo $date;
-                    }
-                }
-            }
-        }
-    }
+						echo $date;
+					}
+				} elseif ( $warranty['type'] == 'included_warranty' ) {
+					if ( $warranty['length'] == 'lifetime' ) {
+						echo __( 'Lifetime', 'wc_warranty' );
+					} else {
+						if ( ! empty( $completed ) ) {
+							$date = warranty_get_date( $completed, $warranty['value'], $warranty['duration'] );
+
+							echo $date;
+						}
+					}
+				}
+				echo '<br>';
+			}
+		}
+	}
 
     function column_date($item) {
         $order_id   = get_post_meta( $item->ID, '_order_id', true );

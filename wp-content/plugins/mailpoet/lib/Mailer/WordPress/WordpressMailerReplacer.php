@@ -5,15 +5,15 @@ namespace MailPoet\Mailer\WordPress;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Mailer\Mailer;
+use MailPoet\Mailer\MailerFactory;
 use MailPoet\Mailer\MetaInfo;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscribersRepository;
 
 class WordpressMailerReplacer {
 
-  /** @var Mailer */
-  private $mailer;
+  /** @var MailerFactory */
+  private $mailerFactory;
 
   /** @var MetaInfo */
   private $mailerMetaInfo;
@@ -25,12 +25,12 @@ class WordpressMailerReplacer {
   private $subscribersRepository;
 
   public function __construct(
-    Mailer $mailer,
+    MailerFactory $mailerFactory,
     MetaInfo $mailerMetaInfo,
     SettingsController $settings,
     SubscribersRepository $subscribersRepository
   ) {
-    $this->mailer = $mailer;
+    $this->mailerFactory = $mailerFactory;
     $this->mailerMetaInfo = $mailerMetaInfo;
     $this->settings = $settings;
     $this->subscribersRepository = $subscribersRepository;
@@ -47,8 +47,7 @@ class WordpressMailerReplacer {
     }
     if ($sendTransactional) {
       $phpmailer = new WordPressMailer(
-        $this->mailer,
-        new FallbackMailer($this->settings),
+        $this->mailerFactory,
         $this->mailerMetaInfo,
         $this->subscribersRepository
       );

@@ -12,11 +12,11 @@ use MailPoetVendor\Twig\Node\Expression\MethodCallExpression;
 use MailPoetVendor\Twig\Node\Expression\NameExpression;
 use MailPoetVendor\Twig\Node\Expression\ParentExpression;
 use MailPoetVendor\Twig\Node\Node;
-final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
+final class SafeAnalysisNodeVisitor implements NodeVisitorInterface
 {
  private $data = [];
  private $safeVars = [];
- public function setSafeVars($safeVars)
+ public function setSafeVars(array $safeVars) : void
  {
  $this->safeVars = $safeVars;
  }
@@ -36,7 +36,7 @@ final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
  return $bucket['value'];
  }
  }
- private function setSafe(Node $node, array $safe)
+ private function setSafe(Node $node, array $safe) : void
  {
  $hash = \spl_object_hash($node);
  if (isset($this->data[$hash])) {
@@ -49,11 +49,11 @@ final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
  }
  $this->data[$hash][] = ['key' => $node, 'value' => $safe];
  }
- protected function doEnterNode(Node $node, Environment $env)
+ public function enterNode(Node $node, Environment $env) : Node
  {
  return $node;
  }
- protected function doLeaveNode(Node $node, Environment $env)
+ public function leaveNode(Node $node, Environment $env) : ?Node
  {
  if ($node instanceof ConstantExpression) {
  // constants are marked safe for all
@@ -72,7 +72,7 @@ final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
  // filter expression is safe when the filter is safe
  $name = $node->getNode('filter')->getAttribute('value');
  $args = $node->getNode('arguments');
- if (\false !== ($filter = $env->getFilter($name))) {
+ if ($filter = $env->getFilter($name)) {
  $safe = $filter->getSafe($args);
  if (null === $safe) {
  $safe = $this->intersectSafe($this->getSafe($node->getNode('node')), $filter->getPreservesSafety());
@@ -85,8 +85,7 @@ final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
  // function expression is safe when the function is safe
  $name = $node->getAttribute('name');
  $args = $node->getNode('arguments');
- $function = $env->getFunction($name);
- if (\false !== $function) {
+ if ($function = $env->getFunction($name)) {
  $this->setSafe($node, $function->getSafe($args));
  } else {
  $this->setSafe($node, []);
@@ -122,9 +121,8 @@ final class SafeAnalysisNodeVisitor extends AbstractNodeVisitor
  }
  return \array_intersect($a, $b);
  }
- public function getPriority()
+ public function getPriority() : int
  {
  return 0;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\NodeVisitor\\SafeAnalysisNodeVisitor', 'MailPoetVendor\\Twig_NodeVisitor_SafeAnalysis');

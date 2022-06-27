@@ -16,9 +16,9 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 		/* Widget variable settings. */
 		$this->widget_cssclass    = 'woocommerce widget_brand_nav widget_layered_nav';
-		$this->widget_description = __( 'Shows brands in a widget which lets you narrow down the list of products when viewing products.', 'wc_brands' );
+		$this->widget_description = __( 'Shows brands in a widget which lets you narrow down the list of products when viewing products.', 'woocommerce-brands' );
 		$this->widget_id          = 'woocommerce_brand_nav';
-		$this->widget_name        = __('WooCommerce Brand Layered Nav', 'wc_brands' );
+		$this->widget_name        = __('WooCommerce Brand Layered Nav', 'woocommerce-brands' );
 
 		add_filter( 'woocommerce_product_subcategories_args', array( $this, 'filter_out_cats' ) );
 
@@ -147,7 +147,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 		global $woocommerce;
 
 		if ( empty( $new_instance['title'] ) )
-			$new_instance['title'] = __( 'Brands', 'wc_brands' );
+			$new_instance['title'] = __( 'Brands', 'woocommerce-brands' );
 
 		$instance['title']        = strip_tags( stripslashes( $new_instance['title'] ) );
 		$instance['display_type'] = stripslashes( $new_instance['display_type'] );
@@ -169,13 +169,13 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 		if ( ! isset( $instance['display_type'] ) )
 			$instance['display_type'] = 'list';
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wc_brands' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'woocommerce-brands' ) ?></label>
 		<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php if ( isset( $instance['title'] ) ) echo esc_attr( $instance['title'] ); ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'display_type' ); ?>"><?php _e( 'Display Type:', 'wc_brands' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'display_type' ); ?>"><?php _e( 'Display Type:', 'woocommerce-brands' ) ?></label>
 		<select id="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'display_type' ) ); ?>">
-			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php _e( 'List', 'wc_brands' ); ?></option>
-			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php _e( 'Dropdown', 'wc_brands' ); ?></option>
+			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php _e( 'List', 'woocommerce-brands' ); ?></option>
+			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php _e( 'Dropdown', 'woocommerce-brands' ); ?></option>
 		</select></p>
 		<?php
 	}
@@ -277,7 +277,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 			if ( 0 == $depth ) {
 				echo '<select class="wc-brand-dropdown-layered-nav-' . esc_attr( $taxonomy ) . '">';
-				echo '<option value="">' . __( 'Any Brand', 'wc_brands' ) . '</option>';
+				echo '<option value="">' . __( 'Any Brand', 'woocommerce-brands' ) . '</option>';
 			}
 
 			foreach ( $terms as $term ) {

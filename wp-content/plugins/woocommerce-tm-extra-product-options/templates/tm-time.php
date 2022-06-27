@@ -8,42 +8,52 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0.12.4
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
 <li class="tmcp-field-wrap">
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
-    <label for="<?php echo esc_attr( $id ); ?>" class="tm-epo-field-label tm-epo-timepicker-label-container">
-        <input type="<?php echo esc_attr( $input_type ); ?>"
-               class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-time<?php echo esc_attr( $button_style ); ?>"
-               data-mask="<?php echo esc_attr( $time_mask ); ?>"
-               data-mask-placeholder="<?php echo esc_attr( $time_placeholder ); ?>"
-               data-min-time="<?php echo esc_attr( $min_time ); ?>"
-               data-max-time="<?php echo esc_attr( $max_time ); ?>"
-               data-time-format="<?php echo esc_attr( $time_format ); ?>"
-               data-custom-time-format="<?php echo esc_attr( $custom_time_format ); ?>"
-               data-time-theme="<?php echo esc_attr( $time_theme ); ?>"
-               data-time-theme-size="<?php echo esc_attr( $time_theme_size ); ?>"
-               data-time-theme-position="<?php echo esc_attr( $time_theme_position ); ?>"
-               data-tranlation-hour="<?php echo esc_attr( $tranlation_hour ); ?>"
-               data-tranlation-minute="<?php echo esc_attr( $tranlation_minute ); ?>"
-               data-tranlation-second="<?php echo esc_attr( $tranlation_second ); ?>"
-               data-price=""
-               data-rules="<?php echo esc_attr( $rules ); ?>"
-               data-original-rules="<?php echo esc_attr( $original_rules ); ?>"
-               data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
-               id="<?php echo esc_attr( $id ); ?>"
-               value="<?php echo esc_attr( $get_default_value ); ?>"
-			<?php if ( ! empty( $tax_obj ) ) {
-				echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
-			} ?>
-               name="<?php echo esc_attr( $name ); ?>" <?php if ( isset( $required ) && ! empty( $required ) ) { echo 'required '; }?>/>
-    </label>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>
-	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : array() ); ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+	<label for="<?php echo esc_attr( $id ); ?>" class="tm-epo-field-label tm-epo-timepicker-label-container<?php echo esc_attr( $class_label ); ?>">
+	<?php
+	$input_args = [
+		'nodiv'   => 1,
+		'default' => $get_default_value,
+		'type'    => $input_type,
+		'tags'    => [
+			'id'                       => $id,
+			'name'                     => $name,
+			'class'                    => $fieldtype . $button_style . ' tm-epo-field tmcp-time',
+			'data-price'               => '',
+			'data-rules'               => $rules,
+			'data-original-rules'      => $original_rules,
+			'data-mask'                => $time_mask,
+			'data-mask-placeholder'    => $time_placeholder,
+			'data-min-time'            => $min_time,
+			'data-max-time'            => $max_time,
+			'data-time-format'         => $time_format,
+			'data-custom-time-format'  => $custom_time_format,
+			'data-time-theme'          => $time_theme,
+			'data-time-theme-size'     => $time_theme_size,
+			'data-time-theme-position' => $time_theme_position,
+			'data-tranlation-hour'     => $tranlation_hour,
+			'data-tranlation-minute'   => $tranlation_minute,
+			'data-tranlation-second'   => $tranlation_second,
+		],
+	];
+	if ( isset( $required ) && ! empty( $required ) ) {
+		$input_args['tags']['required'] = true;
+	}
+	if ( ! empty( $tax_obj ) ) {
+		$input_args['tags']['data-tax-obj'] = $tax_obj;
+	}
+	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
+	?>
+	</label>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
 </li>

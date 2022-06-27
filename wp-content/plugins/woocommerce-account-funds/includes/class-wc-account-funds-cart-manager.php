@@ -449,6 +449,14 @@ class WC_Account_Funds_Cart_Manager {
 
 		$cart->set_total( max( 0, $total - $funds ) );
 
+		/*
+		 * The cart session is updated with priority 10 before WC 6.3.
+		 * So we have to update the cart session manually.
+		 */
+		if ( version_compare( WC_VERSION, '6.3.0', '<' ) ) {
+			WC()->session->set( 'cart_totals', WC()->cart->get_totals() );
+		}
+
 		WC()->session->set( 'used-account-funds', $funds );
 	}
 

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 4.0.0\n"
+"Project-Id-Version: WooCommerce Store Credit 4.1.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-10T09:17:40+00:00\n"
+"POT-Creation-Date: 2022-06-16T15:00:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-store-credit\n"
@@ -55,6 +55,7 @@ msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-menu.php:70
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:54
+#: includes/admin/views/html-admin-status-report-settings.php:21
 #: includes/class-wc-store-credit-privacy.php:22
 #: includes/class-wc-store-credit-products.php:46
 msgid "Store Credit"
@@ -199,6 +200,7 @@ msgid "The following options are specific to store credit coupons."
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:51
+#: includes/admin/views/html-admin-status-report-settings.php:32
 msgctxt "setting label"
 msgid "My Account"
 msgstr ""
@@ -209,6 +211,7 @@ msgid "Display store credit on the My Account page."
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:58
+#: includes/admin/views/html-admin-status-report-settings.php:37
 msgctxt "setting label"
 msgid "Delete after use"
 msgstr ""
@@ -219,6 +222,7 @@ msgid "Delete the coupon when the credit is exhausted."
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:65
+#: includes/admin/views/html-admin-status-report-settings.php:42
 msgctxt "setting label"
 msgid "Individual use"
 msgstr ""
@@ -229,6 +233,7 @@ msgid "The coupon cannot be used in conjunction with other coupons."
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:74
+#: includes/admin/views/html-admin-status-report-settings.php:47
 msgctxt "setting desc"
 msgid "Include tax"
 msgstr ""
@@ -244,6 +249,7 @@ msgid "The options 'Prices entered with tax' and 'Round tax at subtotal' must be
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:91
+#: includes/admin/views/html-admin-status-report-settings.php:52
 msgctxt "setting label"
 msgid "Apply to shipping"
 msgstr ""
@@ -264,27 +270,28 @@ msgid "Available placeholders: %s"
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-settings.php:111
+#: includes/admin/views/html-admin-status-report-settings.php:57
 msgctxt "setting label"
 msgid "Coupon code format"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:162
+#: includes/admin/class-wc-store-credit-admin.php:163
 msgctxt "aria-label: settings link"
 msgid "View WooCommerce Store Credit settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:163
+#: includes/admin/class-wc-store-credit-admin.php:164
 msgctxt "plugin action link"
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:186
+#: includes/admin/class-wc-store-credit-admin.php:187
 #: includes/admin/notices/sell-credit.php:32
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Store Credit documentation"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:187
+#: includes/admin/class-wc-store-credit-admin.php:188
 msgctxt "plugin row link"
 msgid "Docs"
 msgstr ""
@@ -430,7 +437,7 @@ msgid "Add a title for the receiver form."
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:194
-#: includes/class-wc-store-credit-product-addons.php:166
+#: includes/class-wc-store-credit-product-addons.php:185
 msgid "Send credit to someone?"
 msgstr ""
 
@@ -577,6 +584,14 @@ msgstr ""
 msgid "Send credit"
 msgstr ""
 
+#: includes/admin/views/html-admin-status-report-settings.php:21
+msgid "This section shows information about WooCommerce Store Credit."
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-settings.php:67
+msgid "-"
+msgstr ""
+
 #: includes/admin/wc-store-credit-admin-functions.php:124
 msgid "Dismiss"
 msgstr ""
@@ -700,61 +715,61 @@ msgid "Allowed emails"
 msgstr ""
 
 #. translators: %s: minimum amount
-#: includes/class-wc-store-credit-product-addons.php:104
+#: includes/class-wc-store-credit-product-addons.php:123
 msgid "Minimum amount: %s"
 msgstr ""
 
 #. translators: %s: Currency symbol
-#: includes/class-wc-store-credit-product-addons.php:111
+#: includes/class-wc-store-credit-product-addons.php:130
 msgctxt "product field label"
 msgid "Credit amount (%s)"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:132
+#: includes/class-wc-store-credit-product-addons.php:151
 msgctxt "product field label"
 msgid "Send to"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:133
+#: includes/class-wc-store-credit-product-addons.php:152
 msgctxt "product field placeholder"
 msgid "The receiver email"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:138
+#: includes/class-wc-store-credit-product-addons.php:157
 msgctxt "product field label"
 msgid "Message"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:139
+#: includes/class-wc-store-credit-product-addons.php:158
 msgctxt "product field placeholder"
 msgid "Add a message"
 msgstr ""
 
 #. translators: %s: field label
-#: includes/class-wc-store-credit-product-addons.php:203
+#: includes/class-wc-store-credit-product-addons.php:238
 msgid "\"%s\" is a required field."
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:213
+#: includes/class-wc-store-credit-product-addons.php:248
 msgid "The credit amount is not valid."
 msgstr ""
 
 #. translators: %s: minimum amount
-#: includes/class-wc-store-credit-product-addons.php:221
+#: includes/class-wc-store-credit-product-addons.php:256
 msgid "The minimum credit amount is %s."
 msgstr ""
 
 #. translators: %s: maximum amount
-#: includes/class-wc-store-credit-product-addons.php:229
+#: includes/class-wc-store-credit-product-addons.php:264
 msgid "The maximum credit amount is %s."
 msgstr ""
 
 #. translators: %s: amount step
-#: includes/class-wc-store-credit-product-addons.php:238
+#: includes/class-wc-store-credit-product-addons.php:273
 msgid "The credit amount has an interval of %s."
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:358
+#: includes/class-wc-store-credit-product-addons.php:393
 msgid "Credit amount"
 msgstr ""
 
@@ -843,29 +858,29 @@ msgid "Text for the email CTA button."
 msgstr ""
 
 #. translators: $1: customer name, $2 customer id, $3: customer email
-#: includes/wc-store-credit-customer-functions.php:127
+#: includes/wc-store-credit-customer-functions.php:128
 msgid "%1$s (#%2$s &ndash; %3$s)"
 msgstr ""
 
-#: includes/wc-store-credit-functions.php:363
+#: includes/wc-store-credit-functions.php:385
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-store-credit-functions.php:364
+#: includes/wc-store-credit-functions.php:386
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-store-credit-functions.php:365
+#: includes/wc-store-credit-functions.php:387
 msgid "month"
 msgid_plural "months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-store-credit-functions.php:366
+#: includes/wc-store-credit-functions.php:388
 msgid "year"
 msgid_plural "years"
 msgstr[0] ""

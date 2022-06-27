@@ -14,7 +14,7 @@ echo esc_html__( 'A delivery note has been added to the subscription:', 'woocomm
 
 echo "----------\n\n";
 
-echo wptexturize( $note ) . "\n\n"; // WPCS: XSS ok.
+echo wptexturize( $note ) . "\n\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 echo "----------\n\n";
 

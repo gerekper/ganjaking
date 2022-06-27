@@ -1001,7 +1001,6 @@ function seedprod_pro_block_options() {
 	return $block_options;
 }
 
-
 /**
 * Get times
 */
@@ -1580,10 +1579,10 @@ function seedprod_pro_wp_post_revision_fields( $fields, $post ) {
 	} elseif ( ( ! empty( $post['post_content_filtered'] ) && strpos( $post['post_content'], 'sp-theme-template' ) !== false ) || strpos( $post['post_title'], 'Global CSS' ) !== false ) {
 		$fields['post_content_filtered'] = 'Content Filtered';
 		return $fields;
-	} elseif ( ! empty( $post['post_content_filtered'] ) && $post['post_type'] == 'seedprod' ) {
+	} elseif ( ! empty( $post['post_content_filtered'] ) && 'seedprod' == $post['post_type'] ) {
 		$fields['post_content_filtered'] = 'Content Filtered';
 		return $fields;
-	}else {
+	} else {
 		return $fields;
 	}
 }
@@ -2063,6 +2062,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
  * Extract Page CSS
  */
 function seedprod_pro_extract_page_css( $html, $id = null ) {
+	if ( empty( $html ) ) {
+		$output         = array();
+		$output['css']  = '';
+		$output['html'] = '';
+		return $output;
+	}
 	require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/simple_html_dom.php';
 	$phtml = seedprod_str_get_html( $html );
 
@@ -2125,20 +2130,20 @@ function seedprod_pro_extract_page_css( $html, $id = null ) {
 		}
 
 		// Get desktop visibility css.
-		$device_device_css = '';
-		if ( ! empty( $settings->document->settings->deviceVisibilityCss ) ) {
-			$device_device_css = $settings->document->settings->deviceVisibilityCss;
+		$device_desktop_css = '';
+		if ( ! empty( $settings->document->settings->desktopVisibilityCss ) ) {
+			$device_desktop_css = $settings->document->settings->desktopVisibilityCss;
 		}
 
 		if ( ! empty( $mobile_css ) || ! empty( $device_mobile_css ) ) {
 			$mobile_css = '@media only screen and (max-width: 480px) {' . $mobile_css . $device_mobile_css . '}';
 		}
 
-		if ( ! empty( $device_device_css ) ) {
-			$device_device_css = '@media only screen and (min-width: 480px) {' . $device_device_css . '}';
+		if ( ! empty( $device_desktop_css ) ) {
+			$device_desktop_css = '@media only screen and (min-width: 480px) {' . $device_desktop_css . '}';
 		}
 
-		$output['css'] = $output['css'] . $mobile_css . $device_device_css;
+		$output['css'] = $output['css'] . $mobile_css . $device_desktop_css;
 	}
 
 	// Clean HTML
@@ -2270,6 +2275,10 @@ function seedprod_pro_theme_template_conditons() {
 				'text'  => __( 'Is Child of', 'seedprod-pro' ),
 				'value' => 'seedprod_pro_is_child_of(x)',
 			),
+			6 => array(
+				'text'  => __( 'Is Attachment', 'seedprod-pro' ),
+				'value' => 'is_attachment(x)',
+			),
 		),
 		'Posts'      =>
 		array(
@@ -2357,9 +2366,12 @@ function seedprod_pro_theme_template_conditons() {
 	return $conditons;
 }
 
+/**
+ * Get Permalink.
+ */
 function seedprod_pro_get_permalink() {
 	ob_start();
-	echo get_permalink();
+	echo esc_url( get_permalink() );
 	return ob_get_clean();
 }
 

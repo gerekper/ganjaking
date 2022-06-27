@@ -6,15 +6,19 @@ use AC\ListScreen;
 
 class HideOnScreen {
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	protected $name;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	protected $label;
 
 	public function __construct( $name, $label ) {
-		$this->name = $name;
-		$this->label = $label;
+		$this->name = (string) $name;
+		$this->label = (string) $label;
 	}
 
 	public function get_name() {

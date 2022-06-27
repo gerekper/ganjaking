@@ -1,5 +1,22 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-06-07 - version 4.9.24
+* Tweak - WC 6.6 compatibility.
+
+2022-05-31 - version 4.9.23
+* Fix - Abandoned cart emails should be rescheduled if the cart is emptied and then refilled.
+* Fix - Inconsistency in scheduling emails when there are multiple Cart Abandoned Follow-ups.
+
+2022-05-10 - version 4.9.22
+* Tweak - WC 6.5 compatibility.
+* Tweak - WordPress 6.0 compatibility.
+
+2022-05-05 - version 4.9.21
+* Fix - Wrong post type for uninstall script.
+
+2022-03-29 - version 4.9.20
+* Fix - Fix Inline Editing Button For Mailing Lists.
+
 2022-03-16 - version 4.9.19
 * Fix - New - Adds support for Subscriptions with WooCommerce Payments.
 

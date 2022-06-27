@@ -3,6 +3,7 @@ namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class File extends Constraint
 {
  // Check the Image constraint for clashes if adding new constants here
@@ -28,14 +29,36 @@ class File extends Constraint
  public $uploadExtensionErrorMessage = 'A PHP extension caused the upload to fail.';
  public $uploadErrorMessage = 'The file could not be uploaded.';
  protected $maxSize;
- public function __construct($options = null)
+ public function __construct(array $options = null, $maxSize = null, bool $binaryFormat = null, $mimeTypes = null, string $notFoundMessage = null, string $notReadableMessage = null, string $maxSizeMessage = null, string $mimeTypesMessage = null, string $disallowEmptyMessage = null, string $uploadIniSizeErrorMessage = null, string $uploadFormSizeErrorMessage = null, string $uploadPartialErrorMessage = null, string $uploadNoFileErrorMessage = null, string $uploadNoTmpDirErrorMessage = null, string $uploadCantWriteErrorMessage = null, string $uploadExtensionErrorMessage = null, string $uploadErrorMessage = null, array $groups = null, $payload = null)
  {
- parent::__construct($options);
+ if (null !== $maxSize && !\is_int($maxSize) && !\is_string($maxSize)) {
+ throw new \TypeError(\sprintf('"%s": Expected argument $maxSize to be either null, an integer or a string, got "%s".', __METHOD__, \get_debug_type($maxSize)));
+ }
+ if (null !== $mimeTypes && !\is_array($mimeTypes) && !\is_string($mimeTypes)) {
+ throw new \TypeError(\sprintf('"%s": Expected argument $mimeTypes to be either null, an array or a string, got "%s".', __METHOD__, \get_debug_type($mimeTypes)));
+ }
+ parent::__construct($options, $groups, $payload);
+ $this->maxSize = $maxSize ?? $this->maxSize;
+ $this->binaryFormat = $binaryFormat ?? $this->binaryFormat;
+ $this->mimeTypes = $mimeTypes ?? $this->mimeTypes;
+ $this->notFoundMessage = $notFoundMessage ?? $this->notFoundMessage;
+ $this->notReadableMessage = $notReadableMessage ?? $this->notReadableMessage;
+ $this->maxSizeMessage = $maxSizeMessage ?? $this->maxSizeMessage;
+ $this->mimeTypesMessage = $mimeTypesMessage ?? $this->mimeTypesMessage;
+ $this->disallowEmptyMessage = $disallowEmptyMessage ?? $this->disallowEmptyMessage;
+ $this->uploadIniSizeErrorMessage = $uploadIniSizeErrorMessage ?? $this->uploadIniSizeErrorMessage;
+ $this->uploadFormSizeErrorMessage = $uploadFormSizeErrorMessage ?? $this->uploadFormSizeErrorMessage;
+ $this->uploadPartialErrorMessage = $uploadPartialErrorMessage ?? $this->uploadPartialErrorMessage;
+ $this->uploadNoFileErrorMessage = $uploadNoFileErrorMessage ?? $this->uploadNoFileErrorMessage;
+ $this->uploadNoTmpDirErrorMessage = $uploadNoTmpDirErrorMessage ?? $this->uploadNoTmpDirErrorMessage;
+ $this->uploadCantWriteErrorMessage = $uploadCantWriteErrorMessage ?? $this->uploadCantWriteErrorMessage;
+ $this->uploadExtensionErrorMessage = $uploadExtensionErrorMessage ?? $this->uploadExtensionErrorMessage;
+ $this->uploadErrorMessage = $uploadErrorMessage ?? $this->uploadErrorMessage;
  if (null !== $this->maxSize) {
  $this->normalizeBinaryFormat($this->maxSize);
  }
  }
- public function __set($option, $value)
+ public function __set(string $option, $value)
  {
  if ('maxSize' === $option) {
  $this->normalizeBinaryFormat($value);
@@ -43,14 +66,14 @@ class File extends Constraint
  }
  parent::__set($option, $value);
  }
- public function __get($option)
+ public function __get(string $option)
  {
  if ('maxSize' === $option) {
  return $this->maxSize;
  }
  return parent::__get($option);
  }
- public function __isset($option)
+ public function __isset(string $option)
  {
  if ('maxSize' === $option) {
  return \true;
@@ -67,7 +90,7 @@ class File extends Constraint
  $this->maxSize = $matches[1] * $factors[$unit = \strtolower($matches[2])];
  $this->binaryFormat = $this->binaryFormat ?? 2 === \strlen($unit);
  } else {
- throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum size.', $this->maxSize));
+ throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum size.', $maxSize));
  }
  }
 }

@@ -40,7 +40,7 @@ class Connection extends BaseConnection
  // make use of c-level support for case handling
  $this->_conn->setAttribute(PDO::ATTR_CASE, $params['fetch_case']);
  } else {
- $this->case = $params['fetch_case'] === ColumnCase::LOWER ? \CASE_LOWER : \CASE_UPPER;
+ $this->case = $params['fetch_case'] === ColumnCase::LOWER ? CASE_LOWER : CASE_UPPER;
  }
  }
  }

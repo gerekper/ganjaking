@@ -4,16 +4,15 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\TwigFunction;
 final class StringLoaderExtension extends AbstractExtension
 {
- public function getFunctions()
+ public function getFunctions() : array
  {
  return [new TwigFunction('template_from_string', '\\MailPoetVendor\\twig_template_from_string', ['needs_environment' => \true])];
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Extension\\StringLoaderExtension', 'MailPoetVendor\\Twig_Extension_StringLoader');
 namespace MailPoetVendor;
 use MailPoetVendor\Twig\Environment;
 use MailPoetVendor\Twig\TemplateWrapper;
-function twig_template_from_string(Environment $env, $template, string $name = null)
+function twig_template_from_string(Environment $env, $template, string $name = null) : TemplateWrapper
 {
  return $env->createTemplate((string) $template, $name);
 }

@@ -23,7 +23,8 @@ var ixwps = {
 	doPost : true,
 	blinkerTimeouts : [],
 	blinkerTimeout : 5000,
-	xhr : null
+	xhr : null,
+	dragging : false
 };
 
 ( function( $ ) {
@@ -46,7 +47,7 @@ ixwps.dynamicFocus = function ( fieldId, resultsId ) {
 		setTimeout(
 			function() {
 				var hasFocus = ( $elem.find( ':focus' ).length > 0 );
-				if ( ! hasFocus ) {
+				if ( ! hasFocus && ! ixwps.dragging ) {
 					$results.hide();
 				}
 			},
@@ -65,6 +66,16 @@ ixwps.dynamicFocus = function ( fieldId, resultsId ) {
 		}
 
 		$results.show();
+	} );
+
+	$( document ).on( 'mouseup touchend', function ( e ) {
+		var hasFocus = $field.is( ':focus' );
+		if ( !hasFocus ) {
+			hasFocus = ( $field.find( ':focus' ).length > 0 );
+			if ( ! hasFocus ) {
+				$results.hide();
+			}
+		}
 	} );
 };
 
@@ -340,6 +351,24 @@ ixwps.clickable = function( resultsId ) {
 };
 
 $( document ).ready( function() {
+
+	$( document ).on( 'mousedown touchstart', function ( e ) {
+		ixwps.dragging = true;
+	} );
+	$( document ).on( 'mouseup touchend', function ( e ) {
+		ixwps.dragging = false;
+	} );
+	$( document ).on( 'mousemove touchmove', function( e ) {
+		if ( ixwps.dragging ) {
+			if ( !e.buttons ) {
+				ixwps.dragging = false;
+			}
+		}
+	} );
+	$( document ).on( 'click', function ( e ) {
+		ixwps.dragging = false;
+	} );
+
 
 	$( '.product-search-form input.product-search-field' ).prop( 'disabled', false );
 

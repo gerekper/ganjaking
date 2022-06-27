@@ -412,8 +412,8 @@ class Lazy extends Abstract_Module {
 		if ( empty( $path ) ) {
 			return $image;
 		}
-		$ext  = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
-		$ext  = 'jpg' === $ext ? 'jpeg' : $ext;
+		$ext = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+		$ext = 'jpg' === $ext ? 'jpeg' : $ext;
 
 		// If not a supported image in src or not an iframe - skip.
 		$iframe = 'iframe' === substr( $image, 1, 6 );

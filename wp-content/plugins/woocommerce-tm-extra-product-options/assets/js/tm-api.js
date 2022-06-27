@@ -33,8 +33,9 @@
 	 * Number.isInteger
 	 *
 	 * The Number.isInteger() method determines whether the passed value is an integer.
-	 *
 	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
+	 *
+	 * @param {any} value the value to check
 	 */
 	Number.isInteger =
 		Number.isInteger ||
@@ -366,6 +367,10 @@ window.jQuery.jMaskGlobals = {
 	/**
 	 * Rounds a number
 	 * modified from http://locutus.io/php/math/round/
+	 *
+	 * @param {any} value the value to round.
+	 * @param {int} precision the precision.
+	 * @param {string} mode the rounding mode.
 	 */
 	$.epoAPI.math.round = function( value, precision, mode ) {
 		var m;
@@ -678,6 +683,9 @@ window.jQuery.jMaskGlobals = {
 
 	/**
 	 * Check and normalise the value of precision (must be positive integer)
+	 *
+	 * @param {any} val the value to check.
+	 * @param {any} base the value to return is check fails.
 	 */
 	function checkPrecision( val, base ) {
 		val = Math.round( Math.abs( val ) );
@@ -685,7 +693,11 @@ window.jQuery.jMaskGlobals = {
 	}
 
 	/**
-	 * Takes a string/array of strings, removes all formatting/cruft and returns the raw float value
+	 * Takes a string/array of strings, removes all formatting/cruft
+	 * and returns the raw float value.
+	 *
+	 * @param {any} value the value to unformat.
+	 * @param {any} decimal the decimal point.
 	 */
 	function unformat( value, decimal ) {
 		var regex;
@@ -727,6 +739,9 @@ window.jQuery.jMaskGlobals = {
 	 *
 	 * Fixes binary rounding issues (eg. (0.615).toFixed(2) === "0.61") that present
 	 * problems for accounting- and finance-related software.
+	 *
+	 * @param {any} value the value to convert.
+	 * @param {int} precision the precision.
 	 */
 	function toFixed( value, precision ) {
 		var exponentialForm;
@@ -752,6 +767,8 @@ window.jQuery.jMaskGlobals = {
 	 *     precision: 2,   // decimal places
 	 * }
 	 *
+	 * @param {any} number the value to convert.
+	 * @param {Object} opts the options for formatting.
 	 */
 	function format( number, opts ) {
 		var formats;

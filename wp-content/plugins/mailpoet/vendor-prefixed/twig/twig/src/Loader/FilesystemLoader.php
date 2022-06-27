@@ -3,7 +3,7 @@ namespace MailPoetVendor\Twig\Loader;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Error\LoaderError;
 use MailPoetVendor\Twig\Source;
-class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, SourceContextLoaderInterface
+class FilesystemLoader implements LoaderInterface
 {
  public const MAIN_NAMESPACE = '__main__';
  protected $paths = [];
@@ -20,15 +20,15 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  $this->setPaths($paths);
  }
  }
- public function getPaths($namespace = self::MAIN_NAMESPACE)
+ public function getPaths(string $namespace = self::MAIN_NAMESPACE) : array
  {
- return isset($this->paths[$namespace]) ? $this->paths[$namespace] : [];
+ return $this->paths[$namespace] ?? [];
  }
- public function getNamespaces()
+ public function getNamespaces() : array
  {
  return \array_keys($this->paths);
  }
- public function setPaths($paths, $namespace = self::MAIN_NAMESPACE)
+ public function setPaths($paths, string $namespace = self::MAIN_NAMESPACE) : void
  {
  if (!\is_array($paths)) {
  $paths = [$paths];
@@ -38,7 +38,7 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  $this->addPath($path, $namespace);
  }
  }
- public function addPath($path, $namespace = self::MAIN_NAMESPACE)
+ public function addPath(string $path, string $namespace = self::MAIN_NAMESPACE) : void
  {
  // invalidate the cache
  $this->cache = $this->errorCache = [];
@@ -48,7 +48,7 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  $this->paths[$namespace][] = \rtrim($path, '/\\');
  }
- public function prependPath($path, $namespace = self::MAIN_NAMESPACE)
+ public function prependPath(string $path, string $namespace = self::MAIN_NAMESPACE) : void
  {
  // invalidate the cache
  $this->cache = $this->errorCache = [];
@@ -63,16 +63,16 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  \array_unshift($this->paths[$namespace], $path);
  }
  }
- public function getSourceContext($name)
+ public function getSourceContext(string $name) : Source
  {
- if (null === ($path = $this->findTemplate($name)) || \false === $path) {
+ if (null === ($path = $this->findTemplate($name))) {
  return new Source('', $name, '');
  }
  return new Source(\file_get_contents($path), $name, $path);
  }
- public function getCacheKey($name)
+ public function getCacheKey(string $name) : string
  {
- if (null === ($path = $this->findTemplate($name)) || \false === $path) {
+ if (null === ($path = $this->findTemplate($name))) {
  return '';
  }
  $len = \strlen($this->rootPath);
@@ -81,23 +81,23 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  return $path;
  }
- public function exists($name)
+ public function exists(string $name)
  {
  $name = $this->normalizeName($name);
  if (isset($this->cache[$name])) {
  return \true;
  }
- return null !== ($path = $this->findTemplate($name, \false)) && \false !== $path;
+ return null !== $this->findTemplate($name, \false);
  }
- public function isFresh($name, $time)
+ public function isFresh(string $name, int $time) : bool
  {
  // false support to be removed in 3.0
- if (null === ($path = $this->findTemplate($name)) || \false === $path) {
+ if (null === ($path = $this->findTemplate($name))) {
  return \false;
  }
  return \filemtime($path) < $time;
  }
- protected function findTemplate($name, $throw = \true)
+ protected function findTemplate(string $name, bool $throw = \true)
  {
  $name = $this->normalizeName($name);
  if (isset($this->cache[$name])) {
@@ -105,7 +105,7 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  if (isset($this->errorCache[$name])) {
  if (!$throw) {
- return \false;
+ return null;
  }
  throw new LoaderError($this->errorCache[$name]);
  }
@@ -114,14 +114,14 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  list($namespace, $shortname) = $this->parseName($name);
  } catch (LoaderError $e) {
  if (!$throw) {
- return \false;
+ return null;
  }
  throw $e;
  }
  if (!isset($this->paths[$namespace])) {
  $this->errorCache[$name] = \sprintf('There are no registered paths for namespace "%s".', $namespace);
  if (!$throw) {
- return \false;
+ return null;
  }
  throw new LoaderError($this->errorCache[$name]);
  }
@@ -138,15 +138,15 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  $this->errorCache[$name] = \sprintf('Unable to find template "%s" (looked into: %s).', $name, \implode(', ', $this->paths[$namespace]));
  if (!$throw) {
- return \false;
+ return null;
  }
  throw new LoaderError($this->errorCache[$name]);
  }
- private function normalizeName($name)
+ private function normalizeName(string $name) : string
  {
- return \preg_replace('#/{2,}#', '/', \str_replace('\\', '/', (string) $name));
+ return \preg_replace('#/{2,}#', '/', \str_replace('\\', '/', $name));
  }
- private function parseName($name, $default = self::MAIN_NAMESPACE)
+ private function parseName(string $name, string $default = self::MAIN_NAMESPACE) : array
  {
  if (isset($name[0]) && '@' == $name[0]) {
  if (\false === ($pos = \strpos($name, '/'))) {
@@ -158,9 +158,9 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  return [$default, $name];
  }
- private function validateName($name)
+ private function validateName(string $name) : void
  {
- if (\false !== \strpos($name, "\0")) {
+ if (\false !== \strpos($name, "\x00")) {
  throw new LoaderError('A template name cannot contain NUL bytes.');
  }
  $name = \ltrim($name, '/');
@@ -177,9 +177,8 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
  }
  }
  }
- private function isAbsolutePath($file)
+ private function isAbsolutePath(string $file) : bool
  {
  return \strspn($file, '/\\', 0, 1) || \strlen($file) > 3 && \ctype_alpha($file[0]) && ':' === $file[1] && \strspn($file, '/\\', 2, 1) || null !== \parse_url($file, \PHP_URL_SCHEME);
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Loader\\FilesystemLoader', 'MailPoetVendor\\Twig_Loader_Filesystem');

@@ -84,11 +84,6 @@ if ( ! defined( 'WPINC' ) ) {
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'CDN', 'wp-smushit' ); ?></span>
 					</label>
-					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-tools" name="wp-smush-access[]" value="tools" <?php checked( ! is_array( $networkwide ) || in_array( 'tools', $networkwide, true ) ); ?>>
-						<span aria-hidden="true">&nbsp;</span>
-						<span><?php esc_html_e( 'Tools', 'wp-smushit' ); ?></span>
-					</label>
 					<?php // Don't display if Dashboard's whitelabel is hiding documentation. ?>
 					<?php if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) : ?>
 						<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">

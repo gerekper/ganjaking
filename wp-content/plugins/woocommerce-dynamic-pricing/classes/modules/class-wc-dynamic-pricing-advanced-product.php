@@ -90,7 +90,7 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 		$pricing_rule_sets = apply_filters( 'wc_dynamic_pricing_get_product_pricing_rule_sets', WC_Dynamic_Pricing_Compatibility::get_product_meta( $product, '_pricing_rules' ), $product->get_id(), $this );
 		$pricing_rule_sets = apply_filters( 'wc_dynamic_pricing_get_cart_item_pricing_rule_sets', $pricing_rule_sets, $cart_item );
 		$sets              = array();
-		if ( $pricing_rule_sets ) {
+		if ( $pricing_rule_sets && is_array($pricing_rule_sets) ) {
 			foreach ( $pricing_rule_sets as $set_id => $set_data ) {
 				$sets[ $set_id ] = new WC_Dynamic_Pricing_Adjustment_Set_Product( $set_id, $set_data );
 			}
@@ -209,7 +209,7 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 							$terms = $this->get_product_category_ids( $cart_item['data'] );
 
 							if ( count( array_intersect( $collector['args']['cats'], $terms ) ) > 0 ) {
-								//How many blocks are available.  
+								//How many blocks are available.
 								$b = floor( $q / ( $rule['from'] + $rule['adjust'] ) );
 								$a = $b * $rule['adjust'];
 								$f = $b * $rule['from'];
@@ -229,9 +229,9 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 						case 'product':
 
 							if ( $q > $cart_item['quantity'] ) {
-								//The quantity of the Product in the cart is greater than this line item quanity.  An extension must be allowing the product to be 
-								//in the cart more than once ( product-addons, gravity forms, etc.. ) or this is a variation.   
-								//Special handling needed in this situation.   
+								//The quantity of the Product in the cart is greater than this line item quanity.  An extension must be allowing the product to be
+								//in the cart more than once ( product-addons, gravity forms, etc.. ) or this is a variation.
+								//Special handling needed in this situation.
 								$b = floor( $q / ( $rule['from'] + $rule['adjust'] ) );
 								$a = $b * $rule['adjust'];
 								$f = $b * $rule['from'];
@@ -267,8 +267,8 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 							break;
 						case 'variation':
 							if ( $q > $cart_item['quantity'] ) {
-								//The quantity of the variation in the cart is greater than this line item quantity.  More than one variation is in the cart 
-								//for this product.  Handle the same as if the product is in the cart more than once. 
+								//The quantity of the variation in the cart is greater than this line item quantity.  More than one variation is in the cart
+								//for this product.  Handle the same as if the product is in the cart more than once.
 								$b = floor( $q / ( $rule['from'] + $rule['adjust'] ) );
 								$a = $b * $rule['adjust'];
 								$f = $b * $rule['from'];
@@ -278,7 +278,7 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 								}
 							} else {
 
-								//How many blocks are available.  
+								//How many blocks are available.
 								$b = floor( $q / ( $rule['from'] + $rule['adjust'] ) );
 								$a = $b * $rule['adjust'];
 								$f = $b * $rule['from'];

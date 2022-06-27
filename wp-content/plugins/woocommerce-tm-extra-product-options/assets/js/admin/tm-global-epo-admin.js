@@ -245,12 +245,12 @@
 		variationSectionIndex: false,
 		variationFieldIndex: false,
 
-		canTakeLogic: [ 'product', 'color', 'range', 'radiobuttons', 'checkboxes', 'selectbox', 'textfield', 'textarea', 'variations' ],
+		canTakeLogic: [ 'product', 'color', 'range', 'radiobuttons', 'checkboxes', 'selectbox', 'selectboxmultiple', 'textfield', 'textarea', 'variations' ],
 
 		addSortables: function() {
 			if ( $.tmEPOAdmin.is_original ) {
 				// Sections sortable
-				$( '.builder_layout' ).sortable( {
+				$( '.builder-layout' ).sortable( {
 					handle: '.move',
 					cursor: 'move',
 					items: '.builder-wrapper:not(.tma-nomove)',
@@ -368,7 +368,7 @@
 							is_original_post: TMEPOGLOBALADMINJS.is_original_post
 						} );
 						uploader.start();
-						$( '.flasho' ).addClass( 'tm_color_notice' );
+						$( '.flasho' ).addClass( 'tc-color-notice' );
 					} );
 
 					$( '.details-append' ).on( 'click', function() {
@@ -384,7 +384,7 @@
 							is_original_post: TMEPOGLOBALADMINJS.is_original_post
 						} );
 						uploader.start();
-						$( '.flasho' ).addClass( 'tm_color_notice' );
+						$( '.flasho' ).addClass( 'tc-color-notice' );
 					} );
 				} else {
 					$( '#tc-floatbox-content' ).find( '.override-selection' ).remove();
@@ -399,7 +399,7 @@
 						is_original_post: TMEPOGLOBALADMINJS.is_original_post
 					} );
 					uploader.start();
-					$( '.flasho' ).addClass( 'tm_color_notice' );
+					$( '.flasho' ).addClass( 'tc-color-notice' );
 				}
 			} );
 
@@ -413,15 +413,15 @@
 					$( '.tc-progress-info-content' ).html( data.message );
 				}
 				if ( data && data.result !== undefined && $.epoAPI.math.toFloat( data.result ) === 1 ) {
-					$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tm_success' );
-					$( '.tc-progress-info-content' ).removeClass( 'tm_color_error' ).addClass( 'tm_color_success' );
-					$( '.flasho' ).removeClass( 'tm_color_notice tm_color_error' ).addClass( 'tm_color_success' );
+					$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tc-success' );
+					$( '.tc-progress-info-content' ).removeClass( 'tc-color-error' ).addClass( 'tc-color-success' );
+					$( '.flasho' ).removeClass( 'tc-color-notice tc-color-error' ).addClass( 'tc-color-success' );
 					$( '.floatbox-cancel' ).remove();
 					$( '.tc-progress-info-content' ).html( TMEPOGLOBALADMINJS.i18n_saving );
 					$( window ).off( 'beforeunload.edit-post' );
 					if ( data.options ) {
 						if ( Array.isArray( data.jsobject ) ) {
-							$( '.builder_layout' ).html( data.options );
+							$( '.builder-layout' ).html( data.options );
 							TCBUILDER = data.jsobject;
 							$.tmEPOAdmin.setGlobalVariationObject( 'initialitize_on_after' );
 							toastr.success( data.message, TMEPOGLOBALADMINJS.i18n_epo );
@@ -431,9 +431,9 @@
 					}
 					popup.destroy();
 				} else {
-					$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tm_error' );
-					$( '.tc-progress-info-content' ).removeClass( 'tm_color_success' ).addClass( 'tm_color_error' );
-					$( '.flasho' ).removeClass( 'tm_color_notice tm_color_success' ).addClass( 'tm_color_error' );
+					$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tc-error' );
+					$( '.tc-progress-info-content' ).removeClass( 'tc-color-success' ).addClass( 'tc-color-error' );
+					$( '.flasho' ).removeClass( 'tc-color-notice tc-color-success' ).addClass( 'tc-color-error' );
 				}
 			} );
 
@@ -446,12 +446,12 @@
 			tcuploader.bind( 'Error', function( uploader, error ) {
 				if ( error && error.message ) {
 					$( '.tc-progress-info-content' )
-						.removeClass( 'tm_color_success' )
-						.addClass( 'tm_color_error' )
+						.removeClass( 'tc-color-success' )
+						.addClass( 'tc-color-error' )
 						.html( '\nError #' + error.code + ': ' + error.message );
 				}
-				$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tm_error' );
-				$( '.flasho' ).removeClass( 'tm_color_notice tm_color_success' ).addClass( 'tm_color_error' );
+				$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tc-error' );
+				$( '.flasho' ).removeClass( 'tc-color-notice tc-color-success' ).addClass( 'tc-color-error' );
 			} );
 
 			tcuploader.bind( 'UploadComplete', function() {
@@ -725,7 +725,7 @@
 						caretPos = caretPos + txtToAdd.length;
 						txtarea.selectionStart = caretPos;
 						txtarea.selectionEnd = caretPos;
-						txtarea.trigger( ' focus' );
+						$txt.trigger( ' focus' );
 						txtarea.scrollTop = scrollPos;
 					} );
 
@@ -742,7 +742,7 @@
 
 			// Upload button
 			$( document ).on( 'click.cpf', '.tm_upload_button', $.tmEPOAdmin.upload );
-			$( document ).on( 'change.cpf', '.use_images,.tm-use-lightbox,.use_colors', $.tmEPOAdmin.tm_upload );
+			$( document ).on( 'change.cpf', '.changes-product-image,.tm-use-lightbox,.replacement-mode', $.tmEPOAdmin.floatbox_content_js );
 			$( document ).on( 'change.cpf', '.use_url', $.tmEPOAdmin.tm_url );
 
 			$( document ).on( 'change.cpf', '.tm-pricetype-selector', $.tmEPOAdmin.tm_pricetype_selector );
@@ -847,6 +847,7 @@
 						$.tmEPOAdmin.setFieldValue( sectionIndex, fieldIndex, 'internal_name', input.val(), true );
 					} else if ( edit.is( '.tm-for-section' ) ) {
 						TCBUILDER[ sectionIndex ].section.sections_internal_name.default = input.val();
+						TCBUILDER[ sectionIndex ].sections_internal_name = input.val();
 					}
 
 					input.remove();
@@ -925,14 +926,14 @@
 
 				if ( $this.is( '.active' ) ) {
 					$this.removeClass( 'active' );
-					on.addClass( 'tm-hidden' );
-					off.removeClass( 'tm-hidden' );
-					divs.hide();
+					on.addClass( 'tc-hidden' );
+					off.removeClass( 'tc-hidden' );
+					divs.addClass( 'tc-hidden' );
 				} else {
 					$this.addClass( 'active' );
-					on.removeClass( 'tm-hidden' );
-					off.addClass( 'tm-hidden' );
-					divs.show();
+					on.removeClass( 'tc-hidden' );
+					off.addClass( 'tc-hidden' );
+					divs.removeClass( 'tc-hidden' );
 				}
 			} );
 
@@ -1102,7 +1103,7 @@
 
 				if ( productType.length ) {
 					if ( ! ( productType.val() === 'variable' || productType.val() === 'variable-subscription' ) ) {
-						variationElement = $( '.builder_layout .element-variations' );
+						variationElement = $( '.builder-layout .element-variations' );
 						if ( variationElement.length ) {
 							variationElement.closest( '.builder-wrapper' ).remove();
 							$.tmEPOAdmin.builder_reorder_multiple();
@@ -1121,12 +1122,18 @@
 			} );
 			$( document ).on(
 				'change.cpf',
-				'.product_page_tm-global-epo #product_catdiv input:checkbox, .product_page_tm-global-epo #tmProductIds, .product_page_tm-global-epo #tc-enabled-options, .product_page_tm-global-epo #tc-disabled-options',
+				'.product_page_tm-global-epo #product_catdiv input:checkbox, .product_page_tm-global-epo #tm_product_ids, .product_page_tm-global-epo #tc-enabled-options, .product_page_tm-global-epo #tc-disabled-options',
 				function() {
 					$.tmEPOAdmin.checkIfApplied();
 				}
 			);
-
+			$( document ).on(
+				'DOMSubtreeModified',
+				'.tagchecklist',
+				function() {
+					$.tmEPOAdmin.checkIfApplied();
+				}
+			);
 			$.tmEPOAdmin.addEventsDone = 1;
 		},
 
@@ -1168,18 +1175,20 @@
 			$.tmEPOAdmin.disableCategories();
 
 			$( '#product_catdiv' ).before( $( '<div class="tc-info-box hidden"></div>' ) );
-			$.tmEPOAdmin.checkIfApplied();
+
+			$( function() {
+				$.tmEPOAdmin.checkIfApplied();
+			} );
 
 			$.tmEPOAdmin.initSectionsCheck();
 
 			$.tmEPOAdmin.fixFormSubmit();
 
-			$.tmEPOAdmin.makeResizables( $( '.builder-wrapper' ) );
-			$.tmEPOAdmin.makeResizables( $( '.bitem' ) );
-
 			$.tmEPOAdmin.pre_element_logic_init_done = false;
 			$.tmEPOAdmin.isinit = false;
-			$( '.builder_layout' ).removeClass( 'tm-hidden' );
+			$( '.builder-layout' ).removeClass( 'tm-hidden' );
+			$.tmEPOAdmin.makeResizables( $( '.builder-wrapper' ) );
+			$.tmEPOAdmin.makeResizables( $( '.bitem' ) );
 		},
 
 		initialitize_on_after: function() {
@@ -1227,9 +1236,16 @@
 			var keys = Object.keys( $.tmEPOAdmin.builderSize );
 			var widthStops = [];
 			var startLimit;
+			var builderLayout;
 
 			obj = $( obj );
 			if ( obj.length === 0 ) {
+				return;
+			}
+
+			builderLayout = obj.closest( '.builder-layout' );
+
+			if ( builderLayout.is( '.builder-template' ) ) {
 				return;
 			}
 
@@ -1245,7 +1261,7 @@
 					if ( el.is( '.bitem' ) ) {
 						bitemContainer = el.closest( '.bitem-wrapper' ).first();
 					} else {
-						bitemContainer = el.closest( '.builder_layout' );
+						bitemContainer = el.closest( '.builder-layout' );
 					}
 
 					if ( el.is( '.ui-resizable' ) ) {
@@ -1339,38 +1355,30 @@
 							if ( el.is( '.builder-wrapper' ) ) {
 								$.tmEPOAdmin.makeResizables( el.find( '.bitem' ) );
 							}
+							if ( bitem.is( '.bitem' ) ) {
+								bitem.find( '.bitem-settings' ).removeClass( 'show' );
+							} else {
+								bitem.find( '.section-settings' ).removeClass( 'show' );
+							}
 						},
 						resize: function( event, ui ) {
 							var percentage = ( 100 * ui.size.width ) / bitemContainer.width();
 							var limit1 = widthStops.filter( function( x ) {
 								return x <= percentage;
 							} );
-							var limit2 = widthStops.filter( function( x ) {
-								return x >= percentage;
-							} );
-							var half;
 							var bitem = ui.originalElement;
 
 							limit1 = limit1[ limit1.length - 1 ];
-							limit2 = limit2[ 0 ];
 							if ( limit1 === undefined ) {
 								limit1 = widthStops[ widthStops.length - 1 ];
 							}
-							if ( limit2 === undefined ) {
-								limit2 = widthStops[ 0 ];
-							}
-							half = ( limit2 - limit1 ) / 2;
 
-							if ( startLimit >= limit2 ) {
-								if ( limit2 - half < percentage ) {
-									bitem.removeClass( 'ui-highlight' );
-								} else {
-									bitem.addClass( 'ui-highlight' );
-								}
-							} else if ( limit2 - half > percentage ) {
-								bitem.removeClass( 'ui-highlight' );
+							bitem.addClass( 'ui-highlight' );
+
+							if ( bitem.is( '.bitem' ) ) {
+								bitem.find( '.bitem-settings' ).addClass( 'show' ).find( '.bitem-setting.size' ).html( limit1 + '%' );
 							} else {
-								bitem.addClass( 'ui-highlight' );
+								bitem.find( '.section-settings' ).addClass( 'show' ).find( '.section-setting.size' ).html( limit1 + '%' );
 							}
 
 							ui.size.height = ui.originalSize.height;
@@ -1549,6 +1557,9 @@
 							.get()
 							.join( ',' );
 					}
+					bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
+						$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
+					} );
 					TCBUILDER[ bwindex ].section.sections_slides.default = slides;
 					$.tmEPOAdmin.builder_reorder_multiple();
 					$.tmEPOAdmin.section_logic_init();
@@ -1626,8 +1637,8 @@
 
 				builderWrapper.addClass( 'tm-slider-wizard' );
 				tab1 = '<div class="tm-box"><h4 class="tm-slider-wizard-header" data-id="tm-slide0">1</h4></div>';
-				add = '<div class="tm-box tm-add-box"><h4 class="tm-add-tab"><span class="tcfa tcfa-plus"></span></h4></div>';
-				btitle.after( '<div class="transition tm-slider-wizard-headers">' + tab1 + add + '</div>' );
+				add = '<div class="tm-slider-wizard-add tm-add-box"><h4 class="tm-add-tab"><span class="tmicon tcfa tcfa-plus"></span></h4></div>';
+				btitle.after( '<div class="transition tm-slider-wizard-headers"><div class="tm-slider-wizard-tabs">' + tab1 + '</div>' + add + '</div>' );
 				bitem_wrapper.addClass( 'tm-slider-wizard-tab tm-slide0' );
 
 				$.tmEPOAdmin.createSlider( builderWrapper );
@@ -1724,17 +1735,17 @@
 					$( '.builder_add_variation' ).addClass( 'inline' ).removeClass( 'tm-hidden' );
 					$( '.tma-variations-wrap' ).removeClass( 'tm-hidden' );
 					$.tmEPOAdmin.addVariationEvents();
-					variationElement = $( '.builder_layout .element-variations' );
+					variationElement = $( '.builder-layout .element-variations' );
 
 					isForced = false;
 					if ( ! variationElement.length ) {
 						$.tmEPOAdmin.var_is( 'tm-style-variation-forced', true );
 						$.tmEPOAdmin.builder_add_variation_onClick();
 						isForced = true;
-						variationElement = $( '.builder_layout .element-variations' );
+						variationElement = $( '.builder-layout .element-variations' );
 					} else if ( $.tmEPOAdmin.getFieldValue( $.tmEPOAdmin.variationSection, 'variations_disabled' ) === '1' ) {
 						isForced = true;
-						variationElement = $( '.builder_layout .element-variations' );
+						variationElement = $( '.builder-layout .element-variations' );
 						$.tmEPOAdmin.var_is( 'tm-style-variation-forced', true );
 					}
 					if ( variationElement.length ) {
@@ -1972,10 +1983,13 @@
 
 				if ( typeof subscribe === 'function' ) {
 					sub = function() {
-						var isSavingPost = wp.data.select( 'core/editor' ).isSavingPost();
+						var isSavingPost;
 						var didPostSaveRequestSucceed = wp.data.select( 'core/editor' ).didPostSaveRequestSucceed();
 						var didPostSaveRequestFail = wp.data.select( 'core/editor' ).didPostSaveRequestFail();
 
+						if ( wp && wp.data && wp.data.select( 'core/editor' ) ) {
+							isSavingPost = wp.data.select( 'core/editor' ).isSavingPost();
+						}
 						if ( ! found && isSavingPost ) {
 							found = true;
 							$.tmEPOAdmin.createTmMetaSerialized();
@@ -2007,12 +2021,12 @@
 				$( '.builder-add-section-action' ).hide();
 				$( '.builder-selector' ).hide();
 				$( '.tc-welcome' ).show();
-				$( '.builder_layout' ).hide();
+				$( '.builder-layout' ).hide();
 			} else {
 				$( '.builder-add-section-action' ).show();
 				$( '.builder-selector' ).show();
 				$( '.tc-welcome' ).hide();
-				$( '.builder_layout' ).show();
+				$( '.builder-layout' ).show();
 			}
 		},
 
@@ -2030,21 +2044,23 @@
 			var tmProductIds;
 			var tmEnabledOptions;
 			var tmDisabledOptions;
+			var tagCheckList;
 
 			if ( ! $( 'body' ).is( '.product_page_tm-global-epo' ) ) {
 				return;
 			}
 
-			nocat = $( '#tm_meta_disableCategories:checked' ).length > 0;
-			cat = $( '#product_catdiv input:checkbox' ).not( $( '#tm_meta_disableCategories' ) ).filter( ':checked' ).length > 0;
-			tmProductIds = $( '#tmProductIds' ).val();
+			nocat = $( '#tm_meta_disable_categories:checked' ).length > 0;
+			cat = $( '#product_catdiv input:checkbox' ).not( $( '#tm_meta_disable_categories' ) ).filter( ':checked' ).length > 0;
+			tagCheckList = $( '.tagchecklist' ).children( 'li' ).length;
+			tmProductIds = $( '#tm_product_ids' ).val();
 			tmEnabledOptions = $( '#tc-enabled-options' ).val();
 			tmDisabledOptions = $( '#tc-disabled-options' ).val();
 			tmProductIds = tmProductIds && tmProductIds !== null ? tmProductIds.length > 0 : false;
 			tmEnabledOptions = tmEnabledOptions && tmEnabledOptions !== null ? tmEnabledOptions.length > 0 : false;
 			tmDisabledOptions = tmDisabledOptions && tmDisabledOptions !== null ? tmDisabledOptions.length > 0 : false;
 			if ( nocat ) {
-				if ( tmProductIds || tmEnabledOptions || tmDisabledOptions ) {
+				if ( tmProductIds || tmEnabledOptions || tmDisabledOptions || tagCheckList ) {
 					$( '.tc-info-box' ).removeClass( 'tc-error tc-all-products' ).addClass( 'hidden' ).html( '' );
 				} else {
 					$( '.tc-info-box' ).removeClass( 'hidden tc-all-products' ).addClass( 'tc-error' ).html( TMEPOGLOBALADMINJS.i18n_form_not_applied_to_all );
@@ -2101,9 +2117,11 @@
 				return;
 			}
 
-			if ( element instanceof $ ) {
+			if ( element instanceof $ && element.length ) {
 				section = element.closest( '.builder-wrapper' ).index();
-				element = $.tmEPOAdmin.find_index( TCBUILDER[ section ].section.is_slider, element );
+				if ( TCBUILDER[ section ] && TCBUILDER[ section ].section ) {
+					element = $.tmEPOAdmin.find_index( TCBUILDER[ section ].section.is_slider, element );
+				}
 			}
 
 			if ( section === undefined && element !== undefined ) {
@@ -2391,7 +2409,7 @@
 			$( '.builder-panel-mass-add' ).removeClass( 'disabled' );
 			$( '.tm-panel-populate-wrapper' ).remove();
 			$.tmEPOAdmin.paginattion_init( 'last' );
-			$.tmEPOAdmin.tm_upload();
+			$.tmEPOAdmin.floatbox_content_js();
 		},
 
 		add_panel_row: function( line, panels_wrap, _last ) {
@@ -2441,11 +2459,17 @@
 				$.tmEPOAdmin.builder_clone_elements_after_events( _clone );
 
 				panels_wrap.append( _clone );
-				_clone.find( '.tm_option_enabled' ).prop( 'checked', true ).val( '1' ).trigger( 'changechoice' );
+				_clone.find( 'input:checkbox' ).toArray().forEach( function( checkbox ) {
+					checkbox = $( checkbox );
+					checkbox.val( checkbox.data( 'builder' ).tags.value );
+					if ( checkbox.is( '.tm_option_enabled' ) ) {
+						checkbox.prop( 'checked', true ).trigger( 'changechoice' );
+					}
+				} );
 
 				$.tcToolTip( _clone.find( '.tm-tooltip' ) );
 				$.tmEPOAdmin.paginattion_init( 'last' );
-				$.tmEPOAdmin.tm_upload();
+				$.tmEPOAdmin.floatbox_content_js();
 			}
 		},
 
@@ -2482,13 +2506,13 @@
 					_clone.find( '.section_elements' ).empty();
 					_clone.find( '.tm-internal-name' ).remove();
 					if ( ap ) {
-						_clone.appendTo( '.builder_layout' );
+						_clone.appendTo( '.builder-layout' );
 						TCBUILDER.push( sectionObject );
-					} else if ( $( '.builder_layout .tma-variations-wrap' ).length > 0 ) {
-						$( '.builder_layout .tma-variations-wrap' ).after( _clone );
+					} else if ( $( '.builder-layout .tma-variations-wrap' ).length > 0 ) {
+						$( '.builder-layout .tma-variations-wrap' ).after( _clone );
 						TCBUILDER.splice( 1, 0, sectionObject );
 					} else {
-						_clone.prependTo( '.builder_layout' );
+						_clone.prependTo( '.builder-layout' );
 						TCBUILDER.unshift( sectionObject );
 					}
 
@@ -2596,7 +2620,7 @@
 		},
 
 		tm_variations_check: function() {
-			var variationElement = $( '.builder_layout .element-variations' );
+			var variationElement = $( '.builder-layout .element-variations' );
 			var data;
 			var foundIndex;
 
@@ -2695,7 +2719,7 @@
 				_clone.addClass( 'tma-nomove tma-variations-wrap' );
 				$.tmEPOAdmin.var_is( 'tm-style-variation-added', true );
 
-				_clone2 = $.tmEPOAdmin.builder_clone_element( 'variations', $( '.builder_layout' ).find( '.builder-wrapper' ).first() );
+				_clone2 = $.tmEPOAdmin.builder_clone_element( 'variations', $( '.builder-layout' ).find( '.builder-wrapper' ).first() );
 				$.tmEPOAdmin.setVariationSection();
 				if ( $.tmEPOAdmin.var_is( 'tm-style-variation-forced' ) === true ) {
 					$( '.builder_add_section' ).addClass( 'inline' );
@@ -3111,7 +3135,7 @@
 
 							field_type = elementType === 'variations'
 								? 'variation'
-								: $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'product', 'selectbox' ] ) !== -1
+								: $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'product', 'selectbox', 'selectboxmultiple' ] ) !== -1
 									? 'multiple'
 									: 'text';
 
@@ -3141,7 +3165,7 @@
 								} );
 
 								values[ field_index ] = '<select data-element="' + field_index + '" data-section="' + section_id + '" class="cpf-logic-value">' + field_values.join( '' ) + '</select>';
-							} else if ( $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'selectbox' ] ) !== -1 ) {
+							} else if ( $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'selectbox', 'selectboxmultiple' ] ) !== -1 ) {
 								tm_option_titles = $.tmEPOAdmin.getFieldMultiple( field, 'title', elementType );
 								tm_option_values = $.tmEPOAdmin.getFieldMultiple( field, 'value', elementType );
 								field_values = [];
@@ -3333,7 +3357,7 @@
 			$.each( rules.rules, function( i, _rule ) {
 				if ( ! ( ( _logic[ _rule.section ] !== undefined && _logic[ _rule.section ].values[ _rule.element ] !== undefined ) || _rule.section === _rule.element ) ) {
 					if ( sectionIndex !== undefined && fieldIndex !== undefined ) {
-						bitem = $( '.builder_layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
+						bitem = $( '.builder-layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
 
 						bitem = bitem.find( '.bitem' ).eq( fieldIndex );
 
@@ -3459,10 +3483,9 @@
 			}
 		},
 
-		logic_get_JSON: function( s ) {
+		logic_get_JSON: function( s, type, thisId ) {
 			var rules = $( s ).find( '.builder-logic-div' );
-			var this_section_id = s.find( '.tm-builder-sections-uniqid' ).val();
-			var section_logic = {};
+			var logic = {};
 			var _toggle = rules.find( '.epo-rule-toggle' ).val();
 			var _what = rules.find( '.epo-rule-what' ).val();
 			var $cpf_logic_element;
@@ -3471,10 +3494,10 @@
 			var cpf_logic_operator;
 			var cpfLogicValue;
 
-			section_logic.section = this_section_id;
-			section_logic.toggle = _toggle;
-			section_logic.what = _what;
-			section_logic.rules = [];
+			logic[ type ] = thisId;
+			logic.toggle = _toggle;
+			logic.what = _what;
+			logic.rules = [];
 
 			rules
 				.find( '.tm-logic-wrapper' )
@@ -3491,7 +3514,7 @@
 						cpfLogicValue = $.tmEPOAdmin.tm_escape( cpfLogicValue );
 					}
 
-					section_logic.rules.push( {
+					logic.rules.push( {
 						section: cpf_logic_section,
 						element: cpf_logic_element,
 						operator: cpf_logic_operator,
@@ -3499,46 +3522,17 @@
 					} );
 				} );
 
-			return JSON.stringify( section_logic );
+			return JSON.stringify( logic );
+		},
+
+		section_logic_get_JSON: function( s ) {
+			var this_section_id = s.find( '.tm-builder-sections-uniqid' ).val();
+			return $.tmEPOAdmin.logic_get_JSON( s, 'section', this_section_id );
 		},
 
 		element_logic_get_JSON: function( s ) {
-			var rules = $( s ).find( '.builder-logic-div' );
 			var this_element_id = s.find( '.tm-builder-element-uniqid' ).val();
-			var element_logic = {};
-			var _toggle = rules.find( '.epo-rule-toggle' ).val();
-			var _what = rules.find( '.epo-rule-what' ).val();
-			var $cpf_logic_element;
-			var cpf_logic_section;
-			var cpf_logic_element;
-			var cpf_logic_operator;
-			var cpfLogicValue;
-
-			element_logic.element = this_element_id;
-			element_logic.toggle = _toggle;
-			element_logic.what = _what;
-			element_logic.rules = [];
-
-			rules
-				.find( '.tm-logic-wrapper' )
-				.children( '.tm-logic-rule' )
-				.each( function( i, el ) {
-					el = $( el );
-					$cpf_logic_element = el.find( '.cpf-logic-element' );
-					cpf_logic_section = $cpf_logic_element.children( 'option:selected' ).attr( 'data-section' );
-					cpf_logic_element = $cpf_logic_element.val();
-					cpf_logic_operator = el.find( '.cpf-logic-operator' ).val();
-					cpfLogicValue = el.find( '.cpf-logic-value' ).val();
-
-					element_logic.rules.push( {
-						section: cpf_logic_section,
-						element: cpf_logic_element,
-						operator: cpf_logic_operator,
-						value: cpfLogicValue
-					} );
-				} );
-
-			return JSON.stringify( element_logic );
+			return $.tmEPOAdmin.logic_get_JSON( s, 'element', this_element_id );
 		},
 
 		cpf_add_rule: function( e ) {
@@ -3795,7 +3789,7 @@
 				elementType = $.tmEPOAdmin.getFieldValue( field, 'element_type' );
 				check = false;
 
-				if ( $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'selectbox' ] ) !== -1 ) {
+				if ( $.inArray( elementType, [ 'radiobuttons', 'checkboxes', 'selectbox', 'selectboxmultiple' ] ) !== -1 ) {
 					tm_option_values = $.tmEPOAdmin.getFieldMultiple( field, 'value', elementType );
 
 					Object.keys( tm_option_values ).some( function( el, index ) {
@@ -3825,7 +3819,7 @@
 				check = true; //this is a section
 			}
 
-			bitem = $( '.builder_layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
+			bitem = $( '.builder-layout' ).find( '.builder-wrapper' ).eq( sectionIndex );
 			if ( fieldIndex !== undefined ) {
 				bitem = bitem.find( '.bitem' ).eq( fieldIndex );
 			}
@@ -3916,7 +3910,7 @@
 						$.tmEPOAdmin.builderItemsSortableObj.start.element = 'drag';
 					}
 
-					$( '.builder_layout .bitem-wrapper' ).not( '.tma-variations-wrap .bitem-wrapper' ).addClass( 'highlight' );
+					$( '.builder-layout .bitem-wrapper' ).not( '.tma-variations-wrap .bitem-wrapper' ).addClass( 'highlight' );
 				},
 				stop: function( e, ui ) {
 					var builderWrapper;
@@ -3955,7 +3949,7 @@
 					$.tmEPOAdmin.builder_reorder_multiple();
 
 					$.tmEPOAdmin.logic_reindex();
-					$( '.builder_layout .bitem-wrapper' ).removeClass( 'highlight' );
+					$( '.builder-layout .bitem-wrapper' ).removeClass( 'highlight' );
 				},
 				tolerance: 'pointer',
 				forcePlaceholderSize: true,
@@ -3969,6 +3963,7 @@
 
 		builder_delete_do: function() {
 			var builderWrapper;
+			var builderLayout;
 			var _bitem;
 			var is_slider;
 			var field_index;
@@ -3977,6 +3972,13 @@
 			var elementType;
 			var is_enabled;
 			var field;
+
+			builderLayout = $this.closest( '.builder-layout' );
+
+			if ( builderLayout.is( '.builder-template' ) ) {
+				$.tmEPOAdmin.builder_section_delete_do.apply( this );
+				return;
+			}
 
 			builderWrapper = $this.closest( '.builder-wrapper' );
 			sectionIndex = builderWrapper.index();
@@ -3987,7 +3989,7 @@
 			TCBUILDER[ sectionIndex ].section.sections.default = TCBUILDER[ sectionIndex ].section.sections.default.toString();
 			field = TCBUILDER[ sectionIndex ].fields[ field_index ];
 			elementType = $.tmEPOAdmin.getFieldValue( field, 'element_type' );
-			is_enabled = $.tmEPOAdmin.getFieldValue( field, 'enabled', elementType ) === '1';
+			is_enabled = $.tmEPOAdmin.getFieldValue( field, 'enabled', elementType ) === undefined || $.tmEPOAdmin.getFieldValue( field, 'enabled', elementType ) === '1';
 
 			$.tmEPOAdmin.builderItemsSortableObj.start.section = TCBUILDER[ sectionIndex ].section.sections_uniqid.default;
 			$.tmEPOAdmin.builderItemsSortableObj.start.section_eq = sectionIndex.toString();
@@ -3999,6 +4001,7 @@
 
 			if ( ! is_enabled ) {
 				$.tmEPOAdmin.builderItemsSortableObj.start.disabled = true;
+				$.tmEPOAdmin.builderItemsSortableObj.start.disabledFieldIndex = $.tmEPOAdmin.find_index( is_slider, $this, '.bitem', '.element-is-disabled' );
 			}
 			_bitem.remove();
 			TCBUILDER[ sectionIndex ].fields.splice( field_index, 1 );
@@ -4058,8 +4061,6 @@
 				builderWrapper.removeClass( 'tm-hide-bitems' ); //show
 				$this.removeClass( 'tcfa-caret-up' ).addClass( 'tcfa-caret-down' );
 			}
-
-			$this.closest( '.builder-wrapper' ).find( '.float.builder_drag_elements' ).remove();
 		},
 
 		builder_section_delete_do: function() {
@@ -4264,7 +4265,7 @@
 
 					$.tmEPOAdmin.changeBuilder( content, sectionIndex );
 
-					TCBUILDER[ sectionIndex ].section.sections_clogic.default = $.tmEPOAdmin.logic_get_JSON( content );
+					TCBUILDER[ sectionIndex ].section.sections_clogic.default = $.tmEPOAdmin.section_logic_get_JSON( content );
 
 					$.tmEPOAdmin.sections_type_onChange( sectionIndex );
 
@@ -4389,7 +4390,8 @@
 								if (
 									builder[ i ].multiple[ ii ][ iii ].id === 'multiple_checkboxes_options_default_value' ||
 									builder[ i ].multiple[ ii ][ iii ].id === 'multiple_radiobuttons_options_default_value' ||
-									builder[ i ].multiple[ ii ][ iii ].id === 'multiple_selectbox_options_default_value'
+									builder[ i ].multiple[ ii ][ iii ].id === 'multiple_selectbox_options_default_value' ||
+									builder[ i ].multiple[ ii ][ iii ].id === 'multiple_selectboxmultiple_options_default_value'
 								) {
 									element.val( ii );
 								} else {
@@ -4574,6 +4576,7 @@
 				cancelClass: '.floatbox-cancel',
 				updateEvent: function( inst ) {
 					var new_enabled;
+					var new_logic;
 					var section_id;
 					var true_field_index;
 					var new_field_index;
@@ -4596,9 +4599,8 @@
 
 					$.tmEPOAdmin.set_field_title( bitem, sectionIndex, fieldIndex );
 
-					$.tmEPOAdmin.logic_reindex_force();
-
 					new_enabled = elementType === 'variations' || content.find( '.is_enabled' ).length === 0 || content.find( '.is_enabled' ).is( ':checked' ) ? '1' : '0';
+					new_logic = content.find( '.activate-element-logic' ).length === 0 || content.find( '.activate-element-logic' ).is( ':checked' ) ? '1' : '0';
 
 					if ( new_enabled === '0' ) {
 						bitem.addClass( 'element-is-disabled' );
@@ -4614,28 +4616,31 @@
 						Object.keys( TCBUILDER[ sectionIndex ].fields ).forEach( function( i ) {
 							rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ i ], 'clogic', true ) || 'null';
 							rules = $.epoAPI.util.parseJSON( rules );
-							rules = $.tmEPOAdmin.logic_check_rules_reindex( bitem, rules, true_field_index, new_field_index, section_id, new_enabled );
+							rules = $.tmEPOAdmin.logic_check_rules_reindex( bitem, rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
 							$.tmEPOAdmin.setFieldValue( sectionIndex, i, 'clogic', JSON.stringify( rules ), true );
 						} );
 
-						// needs check if element in rule is from the section above, otherwise no need to checnge the rule.
+						// needs check if element in rule is from the section above, otherwise no need to change the rule.
 						Object.keys( TCBUILDER ).forEach( function( i ) {
 							i = parseInt( i, 10 );
 							if ( i !== sectionIndex ) {
 								section_rules = TCBUILDER[ i ].section.sections_clogic.default || 'null';
 								section_rules = $.epoAPI.util.parseJSON( section_rules );
-								section_rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ), section_rules, true_field_index, new_field_index, section_id, new_enabled );
+								section_rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ), section_rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
 								TCBUILDER[ i ].section.sections_clogic.default = JSON.stringify( section_rules );
 
 								Object.keys( TCBUILDER[ i ].fields ).forEach( function( ii ) {
 									rules = $.tmEPOAdmin.getFieldValue( TCBUILDER[ i ].fields[ ii ], 'clogic', true ) || 'null';
 									rules = $.epoAPI.util.parseJSON( rules );
-									rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ).find( '.bitem' ).eq( ii ), rules, true_field_index, new_field_index, section_id, new_enabled );
+									rules = $.tmEPOAdmin.logic_check_rules_reindex( $( '.builder-wrapper' ).eq( i ).find( '.bitem' ).eq( ii ), rules, true_field_index, new_field_index, section_id, new_enabled, new_logic );
 									$.tmEPOAdmin.setFieldValue( i, ii, 'clogic', JSON.stringify( rules ), true );
 								} );
 							}
 						} );
 					}
+
+					$.tmEPOAdmin.logic_reindex_force();
+
 					inst.destroy();
 					$( 'body' ).removeClass( 'floatbox-open' );
 				},
@@ -4675,7 +4680,7 @@
 				if ( elementType === 'variations' ) {
 					$.tmEPOAdmin.variations_display_as();
 				} else {
-					$.tmEPOAdmin.tm_upload();
+					$.tmEPOAdmin.floatbox_content_js();
 				}
 
 				$.tmEPOAdmin.set_fields_logic( content );
@@ -4779,7 +4784,7 @@
 				} );
 		},
 
-		logic_check_rules_reindex: function( el, rules, true_field_index, new_field_index, section_id, new_enabled ) {
+		logic_check_rules_reindex: function( el, rules, true_field_index, new_field_index, section_id, new_enabled, new_logic ) {
 			var copy;
 
 			if ( typeof rules !== 'object' || rules === null ) {
@@ -4800,6 +4805,7 @@
 			true_field_index = parseInt( true_field_index, 10 );
 			new_field_index = parseInt( new_field_index, 10 );
 			new_enabled = parseInt( new_enabled, 10 );
+			new_logic = parseInt( new_logic, 10 );
 
 			$.each( rules.rules, function( i, _rule ) {
 				var section = _rule.section;
@@ -4808,7 +4814,7 @@
 				if ( section === section_id && element.toString().isNumeric() ) {
 					element = parseInt( element, 10 );
 					if ( true_field_index === element ) {
-						if ( new_enabled === 0 ) {
+						if ( new_logic && new_enabled === 0 ) {
 							delete copy.rules[ i ];
 							el.addClass( 'tm-wrong-rule' );
 						} else if ( new_enabled === 1 ) {
@@ -5513,8 +5519,8 @@
 				.not( '.builder-logic-div select, .panels_wrap select, .options-wrap select' )
 				.each( function() {
 					var select2_args = {
-						allowClear: false,
-						minimumResultsForSearch: -1,
+						allowClear: $( this ).is( '.wc-template-search' ) ? true : false,
+						minimumResultsForSearch: $( this ).is( '.wc-template-search' ) ? 0 : -1,
 						dropdownCssClass: 'tc-dropdown'
 					};
 
@@ -5843,14 +5849,12 @@
 			} );
 		},
 
-		tm_upload: function() {
+		floatbox_content_js: function() {
 			var $this = $( '#tc-floatbox-content' );
-			var $use_images_all = $this.find( '.use_images' ).not( '.tm-changes-product-image' );
-			var $use_color_all = $this.find( '.use_colors' );
-			var $use_div_images = $this.find( '.tm-use-images' );
-			var $use_div_colors = $this.find( '.tm-use-colors' );
-			var $use_imagesp_all = $this.find( '.tm-changes-product-image' );
-			var $swatchmode = $this.find( '.swatchmode' );
+			var $replacementMode = $this.find( '.replacement-mode:checked' );
+			var $swatchPositionDiv = $this.find( '.tm-swatch-position' );
+			var $changesProductImage = $this.find( '.tm-changes-product-image' );
+			var $showTooltip = $this.find( '.show-tooltip' );
 			var $use_lightbox = $( '#tc-floatbox-content .tm-show-when-use-images' );
 			var $show_when_use_color = $( '#tc-floatbox-content .tm-show-when-use-color' );
 			var tm_upload = $this.find( '.builder-element-wrap' ).find( '.tm_upload_button' ).not( '.tm_upload_buttonp,.tm_upload_buttonl' );
@@ -5874,58 +5878,47 @@
 			tm_cell_images.hide();
 			tm_color_picker.hide();
 
-			if ( $use_images_all.val() !== '' && $use_color_all.val() !== '' ) {
-				$use_div_colors.show();
-				$use_div_images.show();
-			}
-			if ( $use_images_all.val() === '' && $use_color_all.val() === '' ) {
-				$use_div_colors.show();
-				$use_div_images.show();
-			}
-			if ( $use_images_all.val() !== '' && $use_color_all.val() === '' ) {
-				$use_div_colors.hide();
-				$use_div_images.show();
-			}
-			if ( $use_images_all.val() === '' && $use_color_all.val() !== '' ) {
-				$use_div_colors.show();
-				$use_div_images.hide();
+			if ( $replacementMode.val() === 'none' || $replacementMode.val() === 'text' ) {
+				$swatchPositionDiv.hide();
+			} else {
+				$swatchPositionDiv.show();
 			}
 
-			if ( $use_imagesp_all.val() === 'images' && $use_images_all.val() === '' ) {
+			if ( $changesProductImage.val() === 'images' && ( $replacementMode.val() === 'none' || $replacementMode.val() === 'text' ) ) {
 				tm_option_image = $this.find( '.tm_option_image' ).not( '.tm_option_imagep' );
 				tm_option_imagep = $this.find( '.tm_option_imagep' );
 				tm_upload_imagep_img = $this.find( '.tm_upload_imagep .tm_upload_image_img' );
-				$use_imagesp_all.val( 'custom' );
+				$changesProductImage.val( 'custom' );
 				tm_option_image.each( function( i ) {
 					tm_option_imagep.eq( i ).val( $( this ).val() );
 					tm_upload_imagep_img.attr( 'src', $( this ).val() );
 				} );
 			}
 
-			if ( ! $use_images_all.length || $use_images_all.val() !== 'images' ) {
-				if ( $use_imagesp_all.val() === 'images' ) {
-					$use_imagesp_all.val( '' );
+			if ( ! $replacementMode.length || $replacementMode.val() !== 'image' ) {
+				if ( $changesProductImage.val() === 'images' ) {
+					$changesProductImage.val( '' );
 				}
-				$use_imagesp_all.find( "option[value='images']" ).attr( 'disabled', 'disabled' ).hide();
+				$changesProductImage.find( "option[value='images']" ).attr( 'disabled', 'disabled' ).hide();
 			} else {
-				$use_imagesp_all.find( "option[value='images']" ).prop( 'disabled', false ).show();
+				$changesProductImage.find( "option[value='images']" ).prop( 'disabled', false ).show();
 			}
 			setTimeout( function() {
-				$use_imagesp_all.selectWoo( 'destroy' ).removeClass( 'enhanced' );
-				$.tmEPOAdmin.create_normal_dropdown( $use_imagesp_all.parent() );
-				$use_imagesp_all.trigger( 'change.select2' );
+				$changesProductImage.selectWoo( 'destroy' ).removeClass( 'enhanced' );
+				$.tmEPOAdmin.create_normal_dropdown( $changesProductImage.parent() );
+				$changesProductImage.trigger( 'change.select2' );
 			}, 100 );
-			if ( $use_images_all.val() === 'images' || $use_images_all.val() === 'start' || $use_images_all.val() === 'end' || ( $use_images_all.val() === 'images' && $use_imagesp_all.val() === 'images' ) ) {
+			if ( $replacementMode.val() === 'image' || ( $replacementMode.val() === 'images' && $changesProductImage.val() === 'images' ) ) {
 				tm_upload.show();
 				tm_upload_image.show();
 				tm_cell_images.show();
 			}
-			if ( $use_imagesp_all.val() === 'custom' ) {
+			if ( $changesProductImage.val() === 'custom' ) {
 				tm_uploadp.show();
 				tm_upload_imagep.show();
 				tm_cell_images.show();
 			}
-			if ( $use_images_all.val() !== '' ) {
+			if ( $replacementMode.val() === 'image' ) {
 				$use_lightbox.show();
 				if ( $( '#tc-floatbox-content .tm-use-lightbox' ).is( ':checked' ) ) {
 					tm_uploadl.show();
@@ -5934,27 +5927,33 @@
 			} else {
 				$use_lightbox.hide();
 			}
-			if ( $use_color_all.val() === 'color' ) {
+			if ( $replacementMode.val() === 'color' ) {
 				$show_when_use_color.show();
-				if ( $swatchmode.val() === 'swatch_img' || $swatchmode.val() === 'swatch_img_lbl' || $swatchmode.val() === 'swatch_img_desc' || $swatchmode.val() === 'swatch_img_lbl_desc' ) {
-					$swatchmode.val( '' );
+				if ( $showTooltip.val() === 'swatch_img' || $showTooltip.val() === 'swatch_img_lbl' || $showTooltip.val() === 'swatch_img_desc' || $showTooltip.val() === 'swatch_img_lbl_desc' ) {
+					$showTooltip.val( '' );
 				}
-				$swatchmode.find( "option[value='swatch_img']" ).attr( 'disabled', 'disabled' ).hide();
-				$swatchmode.find( "option[value='swatch_img_lbl']" ).attr( 'disabled', 'disabled' ).hide();
-				$swatchmode.find( "option[value='swatch_img_desc']" ).attr( 'disabled', 'disabled' ).hide();
-				$swatchmode.find( "option[value='swatch_img_lbl_desc']" ).attr( 'disabled', 'disabled' ).hide();
+				$showTooltip.find( "option[value='swatch_img']" ).attr( 'disabled', 'disabled' ).hide();
+				$showTooltip.find( "option[value='swatch_img_lbl']" ).attr( 'disabled', 'disabled' ).hide();
+				$showTooltip.find( "option[value='swatch_img_desc']" ).attr( 'disabled', 'disabled' ).hide();
+				$showTooltip.find( "option[value='swatch_img_lbl_desc']" ).attr( 'disabled', 'disabled' ).hide();
 			} else {
-				$swatchmode.find( "option[value='swatch_img']" ).prop( 'disabled', false ).show();
-				$swatchmode.find( "option[value='swatch_img_lbl']" ).prop( 'disabled', false ).show();
-				$swatchmode.find( "option[value='swatch_img_desc']" ).prop( 'disabled', false ).show();
-				$swatchmode.find( "option[value='swatch_img_lbl_desc']" ).prop( 'disabled', false ).show();
+				$showTooltip.find( "option[value='swatch_img']" ).prop( 'disabled', false ).show();
+				$showTooltip.find( "option[value='swatch_img_lbl']" ).prop( 'disabled', false ).show();
+				$showTooltip.find( "option[value='swatch_img_desc']" ).prop( 'disabled', false ).show();
+				$showTooltip.find( "option[value='swatch_img_lbl_desc']" ).prop( 'disabled', false ).show();
 
-				if ( $use_images_all.val() !== 'images' ) {
+				if ( $replacementMode.val() !== 'image' ) {
 					$show_when_use_color.hide();
 				}
 			}
 
-			if ( $use_color_all.val() === 'color' || $use_color_all.val() === 'start' || $use_color_all.val() === 'end' ) {
+			setTimeout( function() {
+				$showTooltip.selectWoo( 'destroy' ).removeClass( 'enhanced' );
+				$.tmEPOAdmin.create_normal_dropdown( $showTooltip.parent() );
+				$showTooltip.trigger( 'change.select2' );
+			}, 100 );
+
+			if ( $replacementMode.val() === 'color' ) {
 				tm_cell_images.show();
 				tm_color_picker.show();
 			}
@@ -6321,13 +6320,13 @@
 				obj.append( list );
 
 				list = $(
-					'<div class="tc-clearfix tm-epo-switch-wrapper"><div class="formula-field-mode-selector"><input checked="checked" name="formulamode" class="formula-field-mode" id="formulafieldmode0" value="price" type="radio" ><label for="formulafieldmode0"><span class="tc-radio-text">' +
+					'<div class="tc-clearfix tm-epo-switch-wrapper"><div class="formula-field-mode-selector"><input checked="checked" name="formulamode" class="formula-field-mode" id="formulafieldmode0" value="price" type="radio"><label for="formulafieldmode0"><span class="tc-radio-text">' +
 						TMEPOGLOBALADMINJS.i18n_formula_field_price +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode1" value="value" type="radio" ><label for="formulafieldmode1"><span class="tc-radio-text">' +
+						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode1" value="value" type="radio"><label for="formulafieldmode1"><span class="tc-radio-text">' +
 						TMEPOGLOBALADMINJS.i18n_formula_field_value +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode2"  value="quantity" type="radio" ><label for="formulafieldmode2"><span class="tc-radio-text">' +
+						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode2"  value="quantity" type="radio"><label for="formulafieldmode2"><span class="tc-radio-text">' +
 						TMEPOGLOBALADMINJS.i18n_formula_field_quantity +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode3" value="count" type="radio" ><label for="formulafieldmode3"><span class="tc-radio-text">' +
+						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode3" value="count" type="radio"><label for="formulafieldmode3"><span class="tc-radio-text">' +
 						TMEPOGLOBALADMINJS.i18n_formula_field_count +
 						'</span></label></div></div>'
 				);

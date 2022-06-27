@@ -99,7 +99,7 @@ class WC_Dynamic_Pricing_Simple_Group extends WC_Dynamic_Pricing_Simple_Base {
 	}
 
 	public function is_applied_to_product( $_product ) {
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			return false;
 		}
 
@@ -107,7 +107,6 @@ class WC_Dynamic_Pricing_Simple_Group extends WC_Dynamic_Pricing_Simple_Base {
 	}
 
 	private function get_adjusted_price( $rule, $price ) {
-		$result       = $price;
 		$num_decimals = apply_filters( 'woocommerce_dynamic_pricing_get_decimals', (int) get_option( 'woocommerce_price_num_decimals' ) );
 		$amount       = apply_filters( 'woocommerce_dynamic_pricing_get_rule_amount', $rule['amount'], $rule, null, $this );
 		switch ( $rule['type'] ) {

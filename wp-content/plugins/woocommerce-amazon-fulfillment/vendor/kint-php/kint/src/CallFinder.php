@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 /*
  * The MIT License (MIT)

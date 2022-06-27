@@ -43,7 +43,7 @@ class WC_PB_BS_Display {
 	 * @return void
 	 */
 	public static function apply_bundled_item_template_overrides() {
-		add_filter( 'woocommerce_locate_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10, 3 );
+		add_filter( 'wc_get_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10, 4 );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class WC_PB_BS_Display {
 	 * @return void
 	 */
 	public static function reset_bundled_item_template_overrides() {
-		remove_filter( 'woocommerce_locate_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10, 3 );
+		remove_filter( 'wc_get_template', array( __CLASS__, 'get_bundled_item_template_location' ), 10, 4 );
 	}
 
 	/*
@@ -162,10 +162,11 @@ class WC_PB_BS_Display {
 	 *
 	 * @param  string  $template
 	 * @param  string  $template_name
+	 * @param  string  $template_args
 	 * @param  string  $template_path
 	 * @return string
 	 */
-	public static function get_bundled_item_template_location( $template, $template_name, $template_path ) {
+	public static function get_bundled_item_template_location( $template, $template_name, $template_args, $template_path ) {
 
 		if ( false === strpos( $template_path, WC_PB()->plugin_path() . '/includes/modules/bundle-sells' ) ) {
 

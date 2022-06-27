@@ -391,6 +391,9 @@ class WC_Dropshipping_Orders {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);  // set default monospaced font
 		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);  // set margins
 		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		if(get_bloginfo("language") === "zh-CN"){
+		    $pdf->SetFont('kozminproregular', '', '');
+		}
 		//$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); // set auto page breaks
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  // set image scale factor
@@ -674,7 +677,7 @@ class WC_Dropshipping_Orders {
 			} else if ($order->get_status() == 'cancelled') {
 		  		$hdrs['Subject'] = 'Order #'.$order_info['number'].' is cancelled ';
 			} else {
-				$hdrs['Subject'] = 'New Order #'.$order_info['number'].' From '.$from_name;
+				$hdrs['Subject'] = sprintf( __('New Order #%1$s From %2$s', 'woocommerce-dropshipping' ),$order_info['id'],	$from_name  );
 			}
 			//Mail Subject
 			/*if ($order_status == 'completed') {
@@ -692,7 +695,7 @@ class WC_Dropshipping_Orders {
 			if($order->get_status() != 'completed' || $order->get_status() != 'cancelled') {
 				if($complete_url == '1') {
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-			    	<tr><td style="text-align: center;">To mark this order as shipped please click the following link:<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'">Mark as shipped</a></td></tr></table>';
+			    	<tr><td style="text-align: center;">'.sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping'  ),"" ).'<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'">'.sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping'  ),"" ).'</a></td></tr></table>';
 			    }
 			}
 			$headers  = "From: ".wp_specialchars_decode($from_name)." <".$from_email.">\r\n";
@@ -736,7 +739,7 @@ class WC_Dropshipping_Orders {
 			}else if ($order_status == 'cancelled') {
 				$hdrs['Subject'] = 'Order #'.$order_info['id'].' is cancelled ';
 			} else {
-				$hdrs['Subject'] = 'New Order #'.$order_info['id'].' From '.$from_name;
+				$hdrs['Subject'] = sprintf( __('New Order #%1$s From %2$s', 'woocommerce-dropshipping' ),$order_info['id'],	$from_name  );
 			}
 			$semi_rand = md5(time());
 			$semi_rand_mixed = $semi_rand."11";
@@ -766,7 +769,13 @@ class WC_Dropshipping_Orders {
 			$message .= " boundary=\"{$mime_boundary_alt}\"\n\n";
 			// The space in front of boundary is crucial.
 			$email_message_text  = strip_tags($html);
-			$email_message_html = '<div style="background-color: '.( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#ccc' ).';">'.$html.'</div>';
+			if ($options['order_button_email'] == '1') { 
+				 $order_link = '<div style="text-align: center; margin-top: -15px;padding-bottom: 10px;"><a href="'.get_site_url().'/wp-admin/admin.php?page=dropshipper-order-list" style="display: inline-block; font-size:16px; font-weight: bold; color: green; text-decoration: none;">'.sprintf( __('View order in dashboard', 'woocommerce-dropshipping' ),"" ).'</a></div>';
+			 }
+			 else{
+				$order_link = '';
+			    }
+			$email_message_html = '<div style="background-color: '.( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#ccc' ).';">'.$html.$order_link.'</div>';
 			$attachment_name = $order_info['id'].'_'.$supplier_info['slug'].'.pdf';
 			// Add a multipart boundary above the plain message
 			$message .= "--{$mime_boundary_alt}\n" .
@@ -822,13 +831,14 @@ class WC_Dropshipping_Orders {
 			$message .= "--{$mime_boundary_mixed}--";			// Must have 2 hyphens at the end
 			//wp_mail($hdrs['To'], $hdrs['Subject'] , $email_message_html, $headers);
 			if ( isset( $options['supp_notification'] ) ) {
-				if ( $options['supp_notification'] == 0 ) {
+				if ( $options['supp_notification'] == 1 ) {
 					error_log( print_r( $order->get_order_number(), true ) );
 					error_log( 'Order notification disabled â€” will not send notification to supplier' );
 					return;
 				}
 			}
-			mail($hdrs['To'], $hdrs['Subject'], $message, $headers);
+			wp_mail($hdrs['To'], $hdrs['Subject'], $email_message_html, $headers, $attachments);
+			//mail($hdrs['To'], $hdrs['Subject'], $message, $headers);
 		}
 	}
 	public function send_order_email_html( $text ) {

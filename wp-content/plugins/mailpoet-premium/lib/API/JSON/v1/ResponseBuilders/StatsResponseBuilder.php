@@ -65,6 +65,7 @@ class StatsResponseBuilder {
       if ($segment instanceof SegmentEntity) {
         $result[] = [
           'name' => $segment->getName(),
+          'id' => (string)$segment->getId(), // (string) for BC and consistency
         ];
       }
     }

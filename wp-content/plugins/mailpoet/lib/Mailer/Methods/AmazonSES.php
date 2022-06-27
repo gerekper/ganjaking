@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Mailer\Methods;
 
@@ -9,24 +9,34 @@ use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\Methods\Common\BlacklistCheck;
 use MailPoet\Mailer\Methods\ErrorMappers\AmazonSESMapper;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Swift_Message;
+use PHPMailer\PHPMailer\PHPMailer;
 
-class AmazonSES {
+class AmazonSES extends PHPMailerMethod {
+  /** @var string */
   public $awsAccessKey;
+  /** @var string */
   public $awsSecretKey;
+  /** @var string */
   public $awsRegion;
+  /** @var string */
   public $awsEndpoint;
+  /** @var string */
   public $awsSigningAlgorithm;
+  /** @var string */
   public $awsService;
+  /** @var string */
   public $awsTerminationString;
+  /** @var string */
   public $hashAlgorithm;
+  /** @var string */
   public $url;
-  public $sender;
-  public $replyTo;
-  public $returnPath;
-  public $message;
+  /** @var string */
+  public $rawMessage;
+  /** @var string */
   public $date;
+  /** @var string */
   public $dateWithoutTime;
+  /** @var string[] */
   private $availableRegions = [
     'US East (N. Virginia)' => 'us-east-1',
     'US East (Ohio)' => 'us-east-2',
@@ -54,14 +64,10 @@ class AmazonSES {
     'South America (Sao Paulo)' => 'sa-east-1',
     'AWS GovCloud (US)' => 'us-gov-west-1',
   ];
-
   /** @var AmazonSESMapper */
-  private $errorMapper;
-
-  /** @var BlacklistCheck */
-  private $blacklist;
-
-  private $wp;
+  protected $errorMapper;
+  /** @var WPFunctions */
+  protected $wp;
 
   public function __construct(
     $region,
@@ -70,7 +76,8 @@ class AmazonSES {
     $sender,
     $replyTo,
     $returnPath,
-    AmazonSESMapper $errorMapper
+    AmazonSESMapper $errorMapper,
+    WPFunctions $wp
   ) {
     $this->awsAccessKey = $accessKey;
     $this->awsSecretKey = $secretKey;
@@ -86,17 +93,16 @@ class AmazonSES {
     $this->url = 'https://' . $this->awsEndpoint;
     $this->sender = $sender;
     $this->replyTo = $replyTo;
-    $this->returnPath = ($returnPath) ?
-      $returnPath :
-      $this->sender['from_email'];
+    $this->returnPath = $returnPath;
     $this->date = gmdate('Ymd\THis\Z');
     $this->dateWithoutTime = gmdate('Ymd');
     $this->errorMapper = $errorMapper;
-    $this->wp = new WPFunctions();
+    $this->wp = $wp;
     $this->blacklist = new BlacklistCheck();
+    $this->mailer = $this->buildMailer();
   }
 
-  public function send($newsletter, $subscriber, $extraParams = []) {
+  public function send($newsletter, $subscriber, $extraParams = []): array {
     if ($this->blacklist->isBlacklisted($subscriber)) {
       $error = $this->errorMapper->getBlacklistError($subscriber);
       return Mailer::formatMailerErrorResult($error);
@@ -122,57 +128,26 @@ class AmazonSES {
     return Mailer::formatMailerSendSuccessResult();
   }
 
+  public function buildMailer(): PHPMailer {
+    return new PHPMailer(true);
+  }
+
   public function getBody($newsletter, $subscriber, $extraParams = []) {
-    $this->message = $this->createMessage($newsletter, $subscriber, $extraParams);
-    $body = [
+    /* Configure mailer and call preSend() method to prepare message */
+    $mailer = $this->configureMailerWithMessage($newsletter, $subscriber, $extraParams);
+    $mailer->preSend();
+    /* When message is prepared, we can get the raw message */
+    $this->rawMessage = $mailer->getSentMIMEMessage();
+    return [
       'Action' => 'SendRawEmail',
       'Version' => '2010-12-01',
       'Source' => $this->sender['from_name_email'],
-      'RawMessage.Data' => $this->encodeMessage($this->message),
+      'RawMessage.Data' => $this->encodeMessage($this->rawMessage),
     ];
-    return $body;
   }
 
-  public function createMessage($newsletter, $subscriber, $extraParams = []) {
-    $message = (new Swift_Message())
-      ->setTo($this->processSubscriber($subscriber))
-      ->setFrom([
-          $this->sender['from_email'] => $this->sender['from_name'],
-        ])
-      ->setSender($this->sender['from_email'])
-      ->setReplyTo([
-          $this->replyTo['reply_to_email'] => $this->replyTo['reply_to_name'],
-        ])
-      ->setReturnPath($this->returnPath)
-      ->setSubject($newsletter['subject']);
-    if (!empty($extraParams['unsubscribe_url'])) {
-      $headers = $message->getHeaders();
-      $headers->addTextHeader('List-Unsubscribe', '<' . $extraParams['unsubscribe_url'] . '>');
-    }
-    if (!empty($newsletter['body']['html'])) {
-      $message = $message->setBody($newsletter['body']['html'], 'text/html');
-    }
-    if (!empty($newsletter['body']['text'])) {
-      $message = $message->addPart($newsletter['body']['text'], 'text/plain');
-    }
-    return $message;
-  }
-
-  public function encodeMessage(Swift_Message $message) {
-    return base64_encode($message->toString());
-  }
-
-  public function processSubscriber($subscriber) {
-    preg_match('!(?P<name>.*?)\s<(?P<email>.*?)>!', $subscriber, $subscriberData);
-    if (!isset($subscriberData['email'])) {
-      $subscriberData = [
-        'email' => $subscriber,
-      ];
-    }
-    return [
-      $subscriberData['email'] =>
-        (isset($subscriberData['name'])) ? $subscriberData['name'] : '',
-    ];
+  public function encodeMessage(string $message) {
+    return base64_encode($message);
   }
 
   public function request($newsletter, $subscriber, $extraParams = []) {

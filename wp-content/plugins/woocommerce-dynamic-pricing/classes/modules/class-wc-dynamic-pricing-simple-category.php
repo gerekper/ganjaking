@@ -135,7 +135,7 @@ class WC_Dynamic_Pricing_Simple_Category extends WC_Dynamic_Pricing_Simple_Base 
 
 	public function is_applied_to_product( $_product, $cat_id = false ) {
 
-		if ( is_admin() && ! is_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
+		if ( is_admin() && ! wp_doing_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
 			return false;
 		}
 
@@ -264,7 +264,7 @@ class WC_Dynamic_Pricing_Simple_Category extends WC_Dynamic_Pricing_Simple_Base 
 
 						//3.1.19 - make sure the item is in the collectors in addition to the targets.
 						$collectors = array_map( 'intval', $pricing_rule_set['collector']['args']['cats'] );
-						//Grab targets from advanced category discounts so we properly show 0 based discounts for targets, not for the collector category values. 
+						//Grab targets from advanced category discounts so we properly show 0 based discounts for targets, not for the collector category values.
 						$cats_to_check           = isset( $pricing_rule_set['targets'] ) ? array_map( 'intval', $pricing_rule_set['targets'] ) : array_map( 'intval', $pricing_rule_set['collector']['args']['cats'] );
 						$product_is_in_collector = count( array_intersect( $collectors, $cats_to_check ) ) > 0;
 						if ( $product_is_in_collector && $this->is_applied_to_product( $_product, $cats_to_check ) ) {

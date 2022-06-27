@@ -39,4 +39,12 @@ jQuery(document).ready(function(){
 	        }
 	    });
 	});	
+
+	jQuery(function() {
+		const params = new URL(window.location.href).searchParams;
+		if (params.get('page') == 'wc-settings' && params.get('tab') == 'wc_af' && params.get('section') == 'need_support') {
+			jQuery('.submit').hide();
+		}
+	})
+
 });

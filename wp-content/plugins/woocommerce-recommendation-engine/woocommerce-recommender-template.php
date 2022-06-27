@@ -2,11 +2,11 @@
 
 if (!function_exists('woocommerce_related_products_by_status')) {
 	/**
-	 * Outputs related products by a particular status.  This is the more generic version of the specialized output functions. 
+	 * Outputs related products by a particular status.  This is the more generic version of the specialized output functions.
 	 * @global WC_Recommendation_Engine $woocommerce_recommender
-	 * @param int $posts_per_page The number of products to display. 
-	 * @param int $columns The number of columns to display. 
-	 * @param string $activity_type The type of activity to display. Allowed values are completed and viewed. 
+	 * @param int $posts_per_page The number of products to display.
+	 * @param int $columns The number of columns to display.
+	 * @param string $activity_type The type of activity to display. Allowed values are completed and viewed.
 	 */
 	function woocommerce_related_products_by_status($posts_per_page = 4, $columns = 2, $activity_type = 'completed') {
 		global $woocommerce_recommender;
@@ -26,13 +26,13 @@ if (!function_exists('woocommerce_related_products_by_status')) {
 }
 
 if (!function_exists('woocommerce_related_products_purchased_together')) {
-	
+
 		/**
-	 * Outputs products which are frequently purchased together.  This is a generic version of the more specialized functions. 
+	 * Outputs products which are frequently purchased together.  This is a generic version of the more specialized functions.
 	 * @global WC_Recommendation_Engine $woocommerce_recommender
-	 * @param int $posts_per_page The number of products to display. 
-	 * @param int $columns The number of columns to display. 
-	 * @param string $activity_type The type of activity to display. 
+	 * @param int $posts_per_page The number of products to display.
+	 * @param int $columns The number of columns to display.
+	 * @param string $activity_type The type of activity to display.
 	 */
 	function woocommerce_related_products_purchased_together($posts_per_page = 4, $columns = 2, $activity_type = 'completed') {
 		global $woocommerce_recommender;
@@ -51,9 +51,9 @@ if (!function_exists('woocommerce_related_products_purchased_together')) {
 
 if (!function_exists('woocommerce_recommender_output_viewed_products')) {
 	/**
-	 * Outputs products which are related by frequent views. 
-	 * 
-	 * Uses the special template to load WooCommerce columns and number of products into globals for use later. 
+	 * Outputs products which are related by frequent views.
+	 *
+	 * Uses the special template to load WooCommerce columns and number of products into globals for use later.
 	 */
 	function woocommerce_recommender_output_viewed_products() {
 		global $related_posts_per_page, $related_columns;
@@ -70,15 +70,16 @@ if (!function_exists('woocommerce_recommender_output_viewed_products')) {
 
 if (!function_exists('woocommerce_recommender_output_purchased_products')) {
 	/**
-	 * Outputs products which are related by purchase history. 
-	 * 
-	 * Uses the special template to load WooCommerce columns and number of products into globals for use later. 
+	 * Outputs products which are related by purchase history.
+	 *
+	 * Uses the special template to load WooCommerce columns and number of products into globals for use later.
 	 */
 	function woocommerce_recommender_output_purchased_products() {
 		global $related_posts_per_page, $related_columns;
 		woocommerce_recommender_get_posts_and_columns();
-		
-		woocommerce_related_products_by_status($related_posts_per_page, $related_columns, 'completed');
+
+		$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+		woocommerce_related_products_by_status($related_posts_per_page, $related_columns, $status);
 	}
 
 	add_shortcode('woocommerce_recommender_purchased_products', function() {
@@ -89,9 +90,9 @@ if (!function_exists('woocommerce_recommender_output_purchased_products')) {
 
 if (!function_exists('woocommerce_recommender_output_purchased_together')) {
 	/**
-	 * Outputs products which are frequently purchased at the same time. 
-	 * 
-	 * Uses the special template to load WooCommerce columns and number of products into globals for use later. 
+	 * Outputs products which are frequently purchased at the same time.
+	 *
+	 * Uses the special template to load WooCommerce columns and number of products into globals for use later.
 	 */
 
 	function woocommerce_recommender_output_purchased_together() {
@@ -99,8 +100,8 @@ if (!function_exists('woocommerce_recommender_output_purchased_together')) {
 		woocommerce_recommender_get_posts_and_columns();
 
 		$related_posts_per_page = 3;
-
-		woocommerce_related_products_purchased_together($related_posts_per_page, $related_columns, 'completed');
+		$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+		woocommerce_related_products_purchased_together($related_posts_per_page, $related_columns, $status);
 	}
 
 	add_shortcode('woocommerce_recommender_purchased_together', function() {

@@ -22,8 +22,11 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 		public function __construct() {
 			add_filter( 'wc_od_first_shipping_date_args', array( $this, 'first_shipping_date_args' ), 10, 2 );
 			add_filter( 'wc_od_max_delivery_days', array( $this, 'max_delivery_days' ) );
-			add_filter( 'woocommerce_checkout_fields', array( $this, 'checkout_fields' ), 20 );
+			add_filter( 'woocommerce_checkout_get_value', array( $this, 'checkout_get_value' ), 20, 2 );
+			add_filter( 'wc_od_enable_fees_for_cart', array( $this, 'enable_fees_for_cart' ), 10, 2 );
+			add_filter( 'woocommerce_subscriptions_is_recurring_fee', array( $this, 'is_recurring_fee' ), 10, 3 );
 
+			add_action( 'woocommerce_adjust_order_fees_for_setup_cart_for_subscription_renewal', array( $this, 'adjust_order_fees' ) );
 			add_action( 'woocommerce_checkout_subscription_created', array( $this, 'subscription_created' ) );
 		}
 
@@ -85,60 +88,119 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 		}
 
 		/**
+		 * Gets the value for a checkout field.
+		 *
+		 * Populates the value from the subscription data.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param mixed  $value The field value.
+		 * @param string $input The input key.
+		 * @return mixed
+		 */
+		public function checkout_get_value( $value, $input ) {
+			// Not a delivery field, or it has already been initialized.
+			if ( 0 !== strpos( $input, 'delivery_' ) || ! is_null( $value ) ) {
+				return $value;
+			}
+
+			$cart_item = wcs_cart_contains_renewal();
+
+			// Only for subscription renewals.
+			if ( ! $cart_item || ! isset( $cart_item['subscription_renewal'] ) ) {
+				return null;
+			}
+
+			$renewal = $cart_item['subscription_renewal'];
+
+			if ( ! empty( $renewal['subscription_renewal_early'] ) ) {
+				$object = wcs_get_subscription( $renewal['subscription_id'] );
+			} else {
+				$object = wc_get_order( $renewal['renewal_order_id'] );
+			}
+
+			if ( ! $object ) {
+				return null;
+			}
+
+			$value = $object->get_meta( "_{$input}" );
+
+			// Find the ID from the time frame data.
+			if ( 'delivery_time_frame' === $input && is_array( $value ) && ! empty( $value ) ) {
+				$delivery_date = WC()->checkout()->get_value( 'delivery_date' );
+				$time_frames   = WC_OD()->checkout()->get_time_frames_for_date( $delivery_date );
+
+				$search_params = array_intersect_key( $value, array_flip( array( 'time_from', 'time_to' ) ) );
+				$time_frame_id = wc_od_search_time_frame( $time_frames, $search_params );
+				$value         = ( false === $time_frame_id ? '' : str_replace( 'new:', 'time_frame:', $time_frame_id ) );
+			}
+
+			return $value;
+		}
+
+		/**
 		 * Filters the registered delivery fields in the checkout form.
 		 *
 		 * @since 1.5.5
+		 * @deprecated 2.0.0
 		 *
 		 * @param array $fields The checkout fields.
 		 * @return array
 		 */
 		public function checkout_fields( $fields ) {
-			$renewal = wcs_cart_contains_renewal();
-
-			// Only for subscription renewals with delivery fields.
-			if ( ! $renewal || empty( $fields['delivery']['delivery_date'] ) ) {
-				return $fields;
-			}
-
-			$is_early_renewal = ( ! empty( $renewal['subscription_renewal']['subscription_renewal_early'] ) );
-			$order_id         = intval( $is_early_renewal ? $renewal['subscription_renewal']['subscription_id'] : $renewal['subscription_renewal']['renewal_order_id'] );
-
-			$checkout      = WC()->checkout();
-			$delivery_date = $checkout->get_value( 'delivery_date' );
-
-			// The delivery date field can be empty. So, we only set the default value the first time.
-			if ( is_null( $delivery_date ) ) {
-				$delivery_date = wc_od_get_order_meta( $order_id, '_delivery_date' );
-
-				if ( $delivery_date ) {
-					$fields['delivery']['delivery_date']['default'] = wc_od_localize_date( $delivery_date );
-				}
-			} elseif ( ! empty( $fields['delivery']['delivery_time_frame'] ) && is_null( $checkout->get_value( 'delivery_time_frame' ) ) ) {
-				// Set the default value for the delivery time frame field after updating the delivery date.
-				$time_frame = wc_od_get_order_meta( $order_id, '_delivery_time_frame' );
-
-				// Find the ID from the time frame data.
-				if ( ! $is_early_renewal && $time_frame ) {
-					$time_frames = wc_od_get_time_frames_for_date(
-						$delivery_date,
-						array(
-							'shipping_method' => WC_OD()->checkout()->get_shipping_method(),
-						),
-						'checkout'
-					);
-
-					$search_params = array_intersect_key( $time_frame, array_flip( array( 'time_from', 'time_to' ) ) );
-					$time_frame_id = wc_od_search_time_frame( $time_frames, $search_params );
-					$time_frame    = ( false === $time_frame_id ? '' : 'time_frame:' . $time_frame_id );
-				}
-
-				// Set only if it's in the options list.
-				if ( $time_frame && isset( $fields['delivery']['delivery_time_frame']['options'][ $time_frame ] ) ) {
-					$fields['delivery']['delivery_time_frame']['default'] = $time_frame;
-				}
-			}
+			wc_deprecated_function( __FUNCTION__, '2.0.0' );
 
 			return $fields;
+		}
+
+		/**
+		 * Whether to enable the delivery fees for the specified cart.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param bool    $enable_fees Whether to enable the fees.
+		 * @param WC_Cart $cart        Cart object.
+		 */
+		public function enable_fees_for_cart( $enable_fees, $cart ) {
+			// Recurring carts don't have delivery fees.
+			return ( $enable_fees && ! property_exists( $cart, 'recurring_cart_key' ) );
+		}
+
+		/**
+		 * Filters if it's a recurring fee.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param bool     $recurring Whether it's a recurring fee.
+		 * @param stdClass $fee       Fee object.
+		 * @param WC_Cart  $cart      Cart object.
+		 * @return bool
+		 */
+		public function is_recurring_fee( $recurring, $fee, $cart ) {
+			// Enable the delivery fees on manual renewals.
+			if ( ! $recurring && ! property_exists( $cart, 'recurring_cart_key' ) && 0 === strpos( $fee->id, 'delivery_' ) ) {
+				$recurring = true;
+			}
+
+			return $recurring;
+		}
+
+		/**
+		 * Adjusts the Order fees before setting up the cart renewal.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param WC_Order $order Order object.
+		 */
+		public function adjust_order_fees( $order ) {
+			$fees = $order->get_fees();
+
+			// Remove the delivery fees.
+			foreach ( $fees as $fee ) {
+				if ( wc_string_to_bool( $fee->get_meta( '_delivery_fee' ) ) ) {
+					$order->remove_item( $fee->get_id() );
+				}
+			}
 		}
 
 		/**

@@ -12,7 +12,7 @@ class IfNode extends Node
  }
  parent::__construct($nodes, [], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this);
  for ($i = 0, $count = \count($this->getNode('tests')); $i < $count; $i += 2) {
@@ -29,4 +29,3 @@ class IfNode extends Node
  $compiler->outdent()->write("}\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\IfNode', 'MailPoetVendor\\Twig_Node_If');

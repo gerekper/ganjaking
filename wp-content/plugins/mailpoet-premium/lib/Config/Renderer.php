@@ -5,9 +5,9 @@ namespace MailPoet\Premium\Config;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\DI\ContainerWrapper;
+use MailPoet\Config\TwigEnvironment;
+use MailPoet\Config\TwigFileSystemCache;
 use MailPoet\Twig;
-use MailPoet\Util\CdnAssetUrl;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Twig\Environment as TwigEnv;
 use MailPoetVendor\Twig\Extension\DebugExtension;
@@ -24,19 +24,20 @@ class Renderer {
 
   public function __construct(
     $cachingEnabled = false,
-    $debuggingEnabled = false
+    $debuggingEnabled = false,
+    $autoReload = false
   ) {
     $this->cachingEnabled = $cachingEnabled;
     $this->debuggingEnabled = $debuggingEnabled;
     $this->cachePath = Env::$cachePath;
 
     $fileSystem = new TwigFileSystem(Env::$viewsPath);
-    $this->renderer = new TwigEnv(
+    $this->renderer = new TwigEnvironment(
       $fileSystem,
       [
-        'cache' => $this->detectCache(),
+        'cache' => new TwigFileSystemCache($this->cachePath),
         'debug' => $this->debuggingEnabled,
-        'auto_reload' => true,
+        'auto_reload' => $autoReload,
       ]
     );
 
@@ -51,6 +52,10 @@ class Renderer {
     $this->setupHelpscout();
     $this->setupGlobalVariables();
     $this->setupSyntax();
+  }
+
+  public function getTwig(): TwigEnv {
+    return $this->renderer;
   }
 
   public function setupTranslations() {
@@ -79,7 +84,7 @@ class Renderer {
       'assets_url' => Env::$assetsUrl,
       'assets_manifest_js' => $this->assetsManifestJs,
       'assets_manifest_css' => $this->assetsManifestCss,
-    ], ContainerWrapper::getInstance()->get(CdnAssetUrl::class)));
+    ]));
   }
 
   public function setupSyntax() {
@@ -90,10 +95,6 @@ class Renderer {
       'interpolation' => ['%{', '}'],
     ]);
     $this->renderer->setLexer($lexer);
-  }
-
-  public function detectCache() {
-    return $this->cachingEnabled ? $this->cachePath : false;
   }
 
   public function setupDebug() {

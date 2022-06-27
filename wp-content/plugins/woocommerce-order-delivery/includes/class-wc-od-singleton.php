@@ -13,6 +13,7 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 	 * The class that implements the singleton pattern.
 	 *
 	 * @since 1.1.0
+	 * @deprecated 2.0.0 Use the WC_OD_Singleton_Trait instead.
 	 */
 	abstract class WC_OD_Singleton {
 
@@ -38,7 +39,9 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 		 *
 		 * @since 1.1.0
 		 */
-		protected function __construct() {}
+		protected function __construct() {
+			wc_deprecated_function( 'WC_OD_Singleton::__construct', '2.0.0', 'WC_OD_Singleton_Trait' );
+		}
 
 		/**
 		 * Prevents cloning.
@@ -46,7 +49,7 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 		 * @since 1.1.0
 		 */
 		private function __clone() {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce-order-delivery' ), '1.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, 'Cloning is forbidden.', '1.0.0' );
 		}
 
 		/**
@@ -55,7 +58,7 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 		 * @since 1.1.0
 		 */
 		final public function __wakeup() {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-order-delivery' ), '1.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, 'Unserializing instances of this class is forbidden.', '1.0.0' );
 		}
 	}
 }

@@ -6,10 +6,9 @@ function userpro_fields_group_by_template($template, $group = 'default')
 {
 
     $array = get_option("userpro_fields_groups");
+    if(!empty( $array[$template][$group]) && isset($array[$template][$group])) {
 
-    if(isset($array[$template][$group])) {
-
-        if(count($array[$template][$group]) > 0) {
+        if(is_countable($array[$template][$group]) && count($array[$template][$group]) > 0) {
 
             return (array)$array[$template][$group];
 

@@ -139,7 +139,7 @@ trait Modifiers
  {
  return $this->max($date);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function modify($modify)
  {
  return parent::modify((string) $modify);

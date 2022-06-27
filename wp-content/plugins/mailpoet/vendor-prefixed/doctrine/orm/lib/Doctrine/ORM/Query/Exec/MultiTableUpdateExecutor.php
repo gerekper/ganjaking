@@ -10,7 +10,6 @@ use MailPoetVendor\Doctrine\ORM\Query\AST\UpdateStatement;
 use MailPoetVendor\Doctrine\ORM\Query\ParameterTypeInferer;
 use MailPoetVendor\Doctrine\ORM\Query\SqlWalker;
 use MailPoetVendor\Doctrine\ORM\Utility\PersisterHelper;
-use Throwable;
 use function array_merge;
 use function array_reverse;
 use function array_slice;

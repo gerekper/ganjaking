@@ -533,17 +533,19 @@ class Populator {
     }
   }
 
-  private function rowExists($table, $columns) {
+  private function rowExists(string $tableName, array $columns): bool {
     global $wpdb;
 
-    $conditions = array_map(function($key) {
-      return $key . '=%s';
-    }, array_keys($columns));
+    $conditions = array_map(function($key, $value) {
+      return esc_sql($key) . "='" . esc_sql($value) . "'";
+    }, array_keys($columns), $columns);
 
-    return $wpdb->get_var($wpdb->prepare(
-      "SELECT COUNT(*) FROM $table WHERE " . implode(' AND ', $conditions),
-      array_values($columns)
-    )) > 0;
+    $table = esc_sql($tableName);
+    // $conditions is escaped
+    // phpcs:ignore WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter
+    return $wpdb->get_var(
+      "SELECT COUNT(*) FROM $table WHERE " . implode(' AND ', $conditions)
+    ) > 0;
   }
 
   private function insertRow($table, $row) {
@@ -571,14 +573,14 @@ class Populator {
     $conditions = ['1=1'];
     $values = [];
     foreach ($where as $field => $value) {
-      $conditions[] = "`t1`.`$field` = `t2`.`$field`";
-      $conditions[] = "`t1`.`$field` = %s";
+      $conditions[] = "`t1`.`" . esc_sql($field) . "` = `t2`.`" . esc_sql($field) . "`";
+      $conditions[] = "`t1`.`" . esc_sql($field) . "` = %s";
       $values[] = $value;
     }
 
     $conditions = implode(' AND ', $conditions);
 
-    $sql = "DELETE FROM `$table` WHERE $conditions";
+    $table = esc_sql($table);
     return $wpdb->query(
       $wpdb->prepare(
         "DELETE t1 FROM $table t1, $table t2 WHERE t1.id < t2.id AND $conditions",
@@ -617,8 +619,7 @@ class Populator {
     }
     $tables = [ScheduledTask::$_table, SendingQueue::$_table];
     foreach ($tables as $table) {
-      $query = "UPDATE `%s` SET meta = NULL WHERE meta = 'null'";
-      $wpdb->query(sprintf($query, $table));
+      $wpdb->query("UPDATE `" . esc_sql($table) . "` SET meta = NULL WHERE meta = 'null'");
     }
     return true;
   }
@@ -655,12 +656,12 @@ class Populator {
     if (version_compare((string)$this->settings->get('db_version', '3.42.1'), '3.42.0', '>')) {
       return false;
     }
-    $query = "UPDATE `%s` SET last_subscribed_at = GREATEST(COALESCE(confirmed_at, 0), COALESCE(created_at, 0)) WHERE status != '%s' AND last_subscribed_at IS NULL;";
-    $wpdb->query(sprintf(
-      $query,
-      Subscriber::$_table,
+    $table = esc_sql(Subscriber::$_table);
+    $query = $wpdb->prepare(
+      "UPDATE `{$table}` SET last_subscribed_at = GREATEST(COALESCE(confirmed_at, 0), COALESCE(created_at, 0)) WHERE status != %s AND last_subscribed_at IS NULL;",
       Subscriber::STATUS_UNCONFIRMED
-    ));
+    );
+    $wpdb->query($query);
     return true;
   }
 
@@ -708,11 +709,10 @@ class Populator {
     if (version_compare((string)$this->settings->get('db_version', '3.46.14'), '3.46.13', '>')) {
       return;
     }
-    $query = "UPDATE `%s` SET `url` = '%s' WHERE `url` = '%s';";
     global $wpdb;
-    $wpdb->query(sprintf(
-      $query,
-      $this->entityManager->getClassMetadata(NewsletterLinkEntity::class)->getTableName(),
+    $table = esc_sql($this->entityManager->getClassMetadata(NewsletterLinkEntity::class)->getTableName());
+    $wpdb->query($wpdb->prepare(
+      "UPDATE `$table` SET `url` = %s WHERE `url` = %s;",
       NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
       NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE
     ));
@@ -889,19 +889,14 @@ class Populator {
       )
     );
     if ($premiumTableExists) {
+      $table = esc_sql(Newsletter::$_table);
       $query = "
         UPDATE
-          `%s` as n
-        JOIN %s as ped ON n.id=ped.newsletter_id
+          `{$table}` as n
+        JOIN `$premiumTableName` as ped ON n.id=ped.newsletter_id
           SET n.ga_campaign = ped.ga_campaign
       ";
-      $wpdb->query(
-        sprintf(
-          $query,
-          Newsletter::$_table,
-          $premiumTableName
-        )
-      );
+      $wpdb->query($query);
     }
     return true;
   }

@@ -35,6 +35,7 @@ class WC_Instagram_Admin_System_Status {
 			'has_page'          => wc_instagram_has_business_account(),
 			'catalog_permalink' => wc_instagram_get_setting( 'product_catalog_permalink', 'product-catalog/' ),
 			'catalogs'          => wc_instagram_get_product_catalogs( array(), 'objects' ),
+			'catalogs_interval' => wc_instagram_get_setting( 'generate_catalogs_interval', 1 ),
 		);
 
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';

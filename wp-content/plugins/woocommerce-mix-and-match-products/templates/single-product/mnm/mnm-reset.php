@@ -10,14 +10,15 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.woocommerce.com/document/template-structure/
+ * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 1.4.0
+ * @version 2.0.7
  */
-// Exit if accessed directly
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<a class="mnm_reset"  style="display: none;" href="#"><?php _e( 'Reset configuration', 'woocommerce-mix-and-match-products' ); ?></a>
+<button type="button" class="mnm_reset button" style="display: none;"><?php echo esc_html_x( 'Clear selection', '[Frontend]', 'woocommerce-mix-and-match-products' ); ?></button>

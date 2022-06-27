@@ -1,23 +1,35 @@
 # WooCommerce Amazon Fulfillment
-An integration between WooCommerce and Fulfillment by Amazon (FBA) by Never Settle.
+An integration between WooCommerce (WC) and Amazon Multi-channel Fulfillment (MCF) / FBA by Never Settle.
 
 ## Description
-This plugin integrates Amazon Fulfillment (FBA) with WooCommerce to provide a powerful automated shipping solution to store owners. It requires an active Amazon Pro Seller account and FBA service as well as MWS credentials which you can generate in your Seller Central dashboard. The plugin includes links to register for MWS credentials in the settings.
+This plugin integrates Amazon Multi-channel Fulfillment (MCF) with WooCommerce to provide a powerful automated shipping solution to store owners. 
+It requires an active Amazon Pro Seller account and - as of version 4 - uses the new Amazon Selling Partner API (SP-API).
+When updating to version 4 for the first time, it will attempt to automatically migrate existing MWS credentials to SP-API credentials.
+Most existing Sellers should be automatically updated. However, if there are issues with the automatic migration, and for new Sellers,
+There's now a 1-click Login with Amazon (LWA) process to authorize the extension to access your Seller Central and FBA data. 
 
 ## Features 
-* Ultimate flexibility: Select which individual products you want to be handled by FBA and which ones you want to manually fulfill
-* Map Amazon Shipping Speeds to WooCommerce shipping methods (massively improved in version 1.1.0.1)!
+* Ultimate flexibility: Select which individual products you want to be handled by MCF / FBA and which ones you want to manually fulfill
+* NEW - Import Products from your Amazon fulfillment account into to WooCommerce
+* NEW - There's now a native WC Shipping method included for Amazon
+* NEW - Enable or Disable any of the Amazon shipping speeds in the new Amazon Shipping method for WC
+* NEW - Dynamic estimated arrival times are provided in the Cart and Checkout from Amazon's SP-API 
+* NEW - Dynamic estimated fulfillment rates are retrieved from the Amazon API and presented during the shopping experience 
+* NEW - Specify a fixed amount, or a % mark-up to dynamically add to Amazon's estimated fulfillment rates
+* NEW - Shipment status, carrier, and tracking number are provided to customer on the view order screen and admin on the edit order screen in WP Admin 
 * Automatically sends orders to FBA for fulfillment when payment is received
 * Manually submit orders to FBA if necessary
 * Easily track the current status of fulfillment orders on the normal Orders screen with support for both full and partial fulfillment (orders can be mixed)
 * Fully integrated into standard WooCommerce conventions and processes like order status, order notes, etc.
-* Supports THREE inventory sync modes: Update local product stock numbers from FBA inventory every time an order is placed; and/or update local stock numbers automatically on an hourly schedule; and/or manually trigger a full inventory sync from Amazon stock level numbers (also a good idea to do when setting up the integration)
-* Supports international fulfillment through FBA as long as your FBA policy allows it, but also now supports turning OFF fulfillment for international shipping addresses as of version 1.1.0.1
-* The customer receives a shipping notice from FBA when the order actually ships (this can be disabled as of version 1.1.0.2)
-* The customer can access shipping and tracking information right from their View Order page in their My Account area
-* Receive shipping notifications to your WP admin email address or set a different address to receive notifications
-* Receive email notifications at the site admin address when an FBA submission fails and optionally turn those notifications OFF
-* As of version 1.1.0.1 – ALL new Smart Fulfillment decision engine with granular control of when NS FBA should or should not send fulfillment requests to Amazon at both the order and the item level
+* Supports THREE inventory sync modes: 
+  * Update local product stock numbers from FBA inventory every time an order is placed
+  * Update local stock numbers automatically on an hourly schedule
+  * Manually trigger a full inventory sync from Amazon stock level numbers (also a good idea to do when setting up the integration)
+* NEW - Supports international fulfillment through MCF using Amazon's international shipping features
+* The customer receives a shipping notice from Amazon when the order actually ships (this can be disabled)
+* Optionally receive shipping notifications to your WP admin email address or set a different address to receive notifications
+* Optionally receive email notifications at the site admin email address when a fulfillment submission fails
+* Smart Fulfillment decision engine with granular control of when NS FBA should or should not send fulfillment requests to Amazon at both the order and the item level
 * Manual override settings to bypass other active conditions when an order is Manually sent to FBA
 * Option to disable sending orders to FBA that match specific shipping methods
 * Vacation Mode to enable sending to FBA regardless of product settings
@@ -46,15 +58,57 @@ This plugin integrates Amazon Fulfillment (FBA) with WooCommerce to provide a po
 6. NS FBA for WooCommerce works behind the scenes to send all order's shipping information to Amazon
 7. For manual forms of payment like checks, or to manually re-submit an order to fulfillment, you can use the new custom order Action "Send to Amazon FBA" (but use that carefully)
 
+## Full Documentation
+
+https://woocommerce.com/document/amazon-fulfillment/
+
 ## Frequently Asked Questions
 
-Available at https://neversettle.it/documentation/ns-fba-woocommerce/
-
-## Screenshots
-
-Available at https://neversettle.it/documentation/ns-fba-woocommerce/
+https://woocommerce.com/document/amazon-fulfillment/#section-17 
 
 ## Changelog
+
+### 2022-06-24 - version 4.0.7
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Revert order number sent to Amazon to WC order / post ID
+* Fix issue preventing scheduled inventory sync
+* Fix automatic order status syncing (depends on active inventory sync schedule)
+
+### 2022-06-23 - version 4.0.6
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Restore support for PHP 7.3 and prior by removing typed class properties
+
+### 2022-06-21 - version 4.0.5
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix issue with variation SKUs not being properly sent to Amazon
+
+### 2022-06-17 - version 4.0.4
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix additional error Disabled Shipping Methods setting
+
+### 2022-06-16 - version 4.0.3
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix error when Disabled Shipping Methods setting is used
+
+### 2022-06-15 - version 4.0.2
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix plugin activation error when Sync Shipping Status setting is ON
+
+### 2022-06-06 - version 4.0.1
+* Version Bump to fix issue with WooCommerce Marketplace changelog.txt parsing
+* MAJOR UPDATE (see details below in version 4.0.0)
+
+### 2022-06-06 - version 4.0.0
+* MAJOR UPDATE
+* Implemented Amazon's new Selling Partner API (SP-API)
+* Implemented Login with Amazon (LWA) for authorizing access to Seller Central and fulfillment data
+* Temporary support for both MWS and SP-API (you must update to SP-API before Jul 31, 2022)
+* Added features to Import Products and map SKUs from Amazon fulfillment into to WooCommerce
+* Added a native WC Shipping method for Amazon with the ability to enable/disable any of the Amazon shipping speeds
+* Added dynamic estimated arrival times in the Cart and Checkout from Amazon's SP-API
+* Added dynamic estimated fulfillment rates from Amazon and provided to customer during shopping experience
+* Added features to set a fixed or % mark-up amount to add to Amazon's estimated fulfillment rates
+* Added shipment status, carrier, and tracking number to the view order screen and admin edit order screen
 
 ### 2021-03-29 - version 3.3.8
 * Fixed bug with Amazon settings display logic

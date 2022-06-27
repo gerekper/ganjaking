@@ -545,6 +545,19 @@ jQuery( function( $ ) {
 			if ( total_add_ons > 1 ) {
 				$( '.wc-pao-toolbar' ).show();
 			}
+
+			// Sync "Multiply cost by person count" field for Accommodation + Bookings.
+			$( '[name*="addon_wc_booking_person_qty_multiplier"]' ).on(
+				'change',
+				function () {
+					const addonCheckboxName  = $( this ).attr( 'name' );
+					const addonCheckboxValue = $( this ).is( ':checked' );
+					$( '[name*="' + addonCheckboxName + '"]' ).prop(
+						'checked',
+						addonCheckboxValue
+					);
+				}
+			);
 		}
 	};
 

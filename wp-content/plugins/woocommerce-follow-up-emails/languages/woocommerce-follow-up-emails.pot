@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Follow-Up Emails 4.9.19\n"
+"Project-Id-Version: Follow-Up Emails 4.9.24\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-follow-up-emails\n"
-"POT-Creation-Date: 2022-03-16 18:21:34+00:00\n"
+"POT-Creation-Date: 2022-06-07 14:28:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1010,11 +1010,11 @@ msgstr ""
 msgid "Importing failed. Could not load order (#%d)"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-scheduler.php:301
+#: includes/addons/class-fue-addon-woocommerce-scheduler.php:323
 msgid "The email &quot;%s&quot; has been removed due to an order status change"
 msgstr ""
 
-#: includes/addons/class-fue-addon-woocommerce-scheduler.php:2245
+#: includes/addons/class-fue-addon-woocommerce-scheduler.php:2252
 msgid "Email queued: %1$s, scheduled on %2$s<br/>Trigger: %3$s"
 msgstr ""
 
@@ -1294,10 +1294,10 @@ msgstr ""
 #: includes/class-fue-ajax.php:2433 includes/class-fue-ajax.php:2472
 #: includes/class-fue-ajax.php:2571 includes/class-fue-ajax.php:2672
 #: includes/class-fue-ajax.php:2922 includes/class-fue-ajax.php:3004
-#: includes/class-fue-ajax.php:3019 includes/class-fue-ajax.php:3189
-#: includes/class-fue-ajax.php:3207 includes/class-fue-ajax.php:3225
-#: includes/class-fue-ajax.php:3240 includes/class-fue-ajax.php:3258
-#: includes/class-fue-ajax.php:3300 includes/class-fue-ajax.php:3362
+#: includes/class-fue-ajax.php:3019 includes/class-fue-ajax.php:3194
+#: includes/class-fue-ajax.php:3212 includes/class-fue-ajax.php:3230
+#: includes/class-fue-ajax.php:3245 includes/class-fue-ajax.php:3263
+#: includes/class-fue-ajax.php:3305 includes/class-fue-ajax.php:3367
 #: includes/class-fue-coupons.php:99 includes/class-fue-coupons.php:542
 #: includes/class-fue-install.php:182
 msgid "You do not have permission"
@@ -1990,7 +1990,7 @@ msgstr ""
 msgid "Archive"
 msgstr ""
 
-#: includes/class-fue-ajax.php:1182 includes/class-fue-ajax.php:3185
+#: includes/class-fue-ajax.php:1182 includes/class-fue-ajax.php:3190
 msgid "Error: Invalid request. Please try again."
 msgstr ""
 
@@ -3399,39 +3399,43 @@ msgstr ""
 msgid "Deleted email from queue"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:876
+#: includes/sending/class-fue-sending-scheduler.php:861
+msgid "Updated new user email to queue"
+msgstr ""
+
+#: includes/sending/class-fue-sending-scheduler.php:904
 msgid "Queued email"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:938
+#: includes/sending/class-fue-sending-scheduler.php:966
 msgid "Email has been added to the queue (Queue ID #%d)"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:955
+#: includes/sending/class-fue-sending-scheduler.php:983
 msgid "Cannot schedule an email with a missing message"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:988
+#: includes/sending/class-fue-sending-scheduler.php:1016
 #. translators: %s User email.
 msgid "One-time email has already been sent to %s"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:1024
+#: includes/sending/class-fue-sending-scheduler.php:1052
 #. translators: %1$d Similar item ID, %2$s New date to send item.
 msgid "Similar queue item found (#%1$d). Adjusting schedule to send on %2$s"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:1039
+#: includes/sending/class-fue-sending-scheduler.php:1067
 #. translators: %1$s Email name %2$d Queue ID.
 msgid "The email \"%1$s\" has been added to the queue (Queue ID #%2$d)"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:1088
+#: includes/sending/class-fue-sending-scheduler.php:1116
 #. translators: %s Send date.
 msgid "Email is scheduled to be sent on %s"
 msgstr ""
 
-#: includes/sending/class-fue-sending-scheduler.php:1108
+#: includes/sending/class-fue-sending-scheduler.php:1136
 msgid "Email has been removed from the scheduler"
 msgstr ""
 

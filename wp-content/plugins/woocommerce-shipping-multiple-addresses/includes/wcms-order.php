@@ -21,7 +21,7 @@ class WC_MS_Order {
 		add_action( 'woocommerce_admin_order_data_after_shipping_address', array( $this, 'override_order_shipping_address' ) );
 
 		// Compatibility action for displaying order shipping packages
-		add_action( 'wcms_order_shipping_packages_table', array( $this, 'display_order_shipping_addresses' ), 10, 2 );
+		add_action( 'wcms_order_shipping_packages_table', array( $this, 'display_order_shipping_addresses' ), 10, 3 );
 
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_multiple_addresses_line' ), 1 );
 
@@ -46,7 +46,7 @@ class WC_MS_Order {
 		$order    = wc_get_order( $order_id );
 		$status   = '';
 
-		if ( ! $order ) {
+		if ( $order ) {
 			$packages = $order->get_meta( '_wcms_packages' );
 			$email    = $_POST['email'];
 
@@ -203,7 +203,129 @@ class WC_MS_Order {
 		endif;
 	}
 
-	public function display_order_shipping_addresses( $order, $email = false ) {
+	/**
+	 * Get shipping method name for the current package.
+	 *
+	 * @param int   $idx Index of the package.
+	 * @param array $methods Array of shipping method.
+	 * @param array $available_methods Array of available method.
+	 *
+	 * @return string
+	 */
+	public function get_shipping_method_name( $idx, $methods, $available_methods ) {
+		$method   = $methods[ $idx ]['label'];
+
+		foreach ( $available_methods as $ship_method ) {
+			if ( $ship_method->get_method_id() . ':' . $ship_method->get_instance_id() === $methods[ $idx ]['id']
+				|| $ship_method->get_method_id() === $methods[ $idx ]['id']
+			) {
+				$method = $ship_method->get_name();
+				break;
+			}
+		}
+
+		return $method;
+	}
+
+	/**
+	 * Get shipping address data from cart package.
+	 *
+	 * @param array $package Array of information about the package.
+	 *
+	 * @return string
+	 */
+	public function get_package_shipping_address( $package ) {
+		return ! empty( $package['destination'] ) ? WC()->countries->get_formatted_address( $package['destination'] ) : '';
+	}
+
+	/**
+	 * Get products out of the cart package.
+	 *
+	 * @param array    $products Array of products.
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return array
+	 */
+	public function get_package_products( $products, $order ) {
+
+		$package_items  = $order->get_meta( '_packages_item_ids' );
+		$order_items    = $order->get_items();
+		$cart_item_keys = $this->get_cart_item_keys( $order );
+
+		$product_infos = array();
+
+		foreach ( $products as $i => $product ) {
+
+			// Get a matching order item.
+			$item = false;
+			if ( ! empty( $product['cart_key'] ) && ! empty( $cart_item_keys[ $product['cart_key'] ] ) && isset( $order_items[ $cart_item_keys[ $product['cart_key'] ] ] ) ) {
+				$item = $order_items[ $cart_item_keys[ $product['cart_key'] ] ];
+			} elseif ( ! empty( $package_items[ $i ] ) && isset( $order_items[ $package_items[ $i ] ] ) ) {
+				// Fallback for items stored before WC 3.0.
+				$item = $order_items[ $package_items[ $i ] ];
+			}
+
+			// Get item name and meta.
+			if ( empty( $item ) ) {
+				$id = empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'];
+				$name = apply_filters( 'wcms_product_title', get_the_title( $id ), $product );
+				$meta = apply_filters( 'wcms_package_item_meta', self::get_item_meta( $product ), $product );
+			} else {
+				$name = is_callable( array( $item, 'get_name' ) ) ? $item->get_name() : get_the_title( empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'] );
+				$name = apply_filters( 'wcms_product_title', $name, $product, $item );
+				$meta = function_exists( 'wc_display_item_meta' ) ? wc_display_item_meta( $item, array( 'echo' => false ) ) : self::get_item_meta( $product );
+				$meta = apply_filters( 'wcms_package_item_meta', $meta, $product, $item );
+			}
+
+			$product_infos[] = array(
+				'name'    => $name,
+				'qty'     => $product['quantity'],
+				'meta'    => $meta,
+				'product' => $product,
+			);
+		}
+
+		return $product_infos;
+	}
+
+	/**
+	 * Get all the order items (and generate a unique key for each)
+	 *
+	 * @param WC_Order $order WC Order object.
+	 *
+	 * @return array
+	 */
+	public function get_cart_item_keys( $order ) {
+		$order_items    = $order->get_items();
+		$cart_item_keys = array();
+		foreach ( $order_items as $item_id => $item ) {
+			if ( ! empty( $item['wcms_cart_key'] ) ) {
+				$cart_item_keys[ $item['wcms_cart_key'] ] = $item_id;
+			}
+		}
+
+		return $cart_item_keys;
+	}
+
+	/**
+	 * Display shipping address in email.
+	 *
+	 * @param WC_Order $order Current order.
+	 * @param boolean  $email Flag to check whether the display is for email or not.
+	 * @param boolean  $plain_text Flag to check if the email is using plain text or not.
+	 *
+	 * @return void
+	 */
+	public function display_order_shipping_addresses( $order, $email = false, $plain_text = false ) {
+		$allowed_html = array(
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+			),
+			'br'     => array(),
+			'em'     => array(),
+			'strong' => array(),
+		);
 
 		if ( $order instanceof WC_Order ) {
 			$order_id   = WC_MS_Compatibility::get_order_prop( $order, 'id' );
@@ -220,120 +342,147 @@ class WC_MS_Order {
 			return;
 		}
 
-		$package_items     = $order->get_meta( '_packages_item_ids' );
 		$methods           = $order->get_meta( '_shipping_methods' );
 		$packages          = $order->get_meta( '_wcms_packages' );
 		$available_methods = $order->get_shipping_methods();
 
-		if ( ! $packages || count( $packages ) == 1 ) {
+		if ( empty( $packages ) || ! is_array( $packages ) || 1 === count( $packages ) ) {
 			return;
 		}
 
-		// Get all the order items (and generate a unique key for each)
-		$order_items = $order->get_items();
-		$cart_item_keys = array();
-		foreach ( $order_items as $item_id => $item ) {
-			if ( ! empty( $item['wcms_cart_key'] ) ) {
-				$cart_item_keys[ $item['wcms_cart_key'] ] = $item_id;
-			}
+		if ( $plain_text && $email ) {
+			$this->display_order_shipping_addresses_plain_email( $packages, $order );
+			return;
 		}
 
+		// Get all the order items (and generate a unique key for each).
+		$cart_item_keys = $this->get_cart_item_keys( $order );
+
 		if ( $email ) {
-			$table_style = ' cellspacing="0" cellpadding="6" style="width: 100%; border: 1px solid #eee;" border="1" bordercolor="#eee"';
-			$th_style    = ' scope="col" style="text-align:left; border: 1px solid #eee;"';
-			$td_style    = ' style="text-align:left; vertical-align:middle; border: 1px solid #eee;"';
+			$table_style = 'width: 100%; border: 1px solid #eee;';
+			$th_style    = 'text-align:left; border: 1px solid #eee;';
+			$td_style    = 'text-align:left; vertical-align:middle; border: 1px solid #eee;';
 		} else {
 			$table_style = '';
 			$th_style    = '';
 			$td_style    = '';
 		}
-	?>
+		?>
 
-		<p><strong><?php _e( 'This order ships to multiple addresses.', 'wc_shipping_multiple_address' ); ?></strong></p>
-		<table class="shop_table shipping_packages"<?php echo $table_style; ?>>
+		<p><strong><?php esc_html_e( 'This order ships to multiple addresses.', 'wc_shipping_multiple_address' ); ?></strong></p>
+		<table class="shop_table shipping_packages" cellspacing="0" cellpadding="6" style="<?php echo esc_attr( $table_style ); ?>">
 			<thead>
 				<tr>
-					<th<?php echo $th_style; ?>><?php _e( 'Products', 'wc_shipping_multiple_address' ); ?></th>
-					<th<?php echo $th_style; ?>><?php _e( 'Address', 'wc_shipping_multiple_address' ); ?></th>
+					<th scope="col" style="<?php echo esc_attr( $th_style ); ?>"><?php esc_html_e( 'Products', 'wc_shipping_multiple_address' ); ?></th>
+					<th scope="col" style="<?php echo esc_attr( $th_style ); ?>"><?php esc_html_e( 'Address', 'wc_shipping_multiple_address' ); ?></th>
 					<?php do_action( 'wc_ms_shop_table_head' ); ?>
-					<th<?php echo $th_style; ?>><?php _e( 'Notes', 'wc_shipping_multiple_address' ); ?></th>
+					<th scope="col" style="<?php echo esc_attr( $th_style ); ?>"><?php esc_html_e( 'Notes', 'wc_shipping_multiple_address' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 
-	<?php
+		<?php
 
 		foreach ( $packages as $x => $package ) {
-			$products = $package['contents'];
-			$method   = $methods[ $x ]['label'];
+			$products      = $package['contents'];
+			$method        = $this->get_shipping_method_name( $x, $methods, $available_methods );
+			$address       = $this->get_package_shipping_address( $package );
+			$product_infos = $this->get_package_products( $products, $order );
 
-			foreach ( $available_methods as $ship_method ) {
-				if ( $ship_method->get_method_id() . ':' . $ship_method->get_instance_id() === $methods[ $x ]['id']
-					|| $ship_method->get_method_id() === $methods[ $x ]['id']
-				) {
-					$method = $ship_method->get_name();
-					break;
-				}
-			}
+			// Products.
+			echo '<tr><td style="' . esc_attr( $td_style ) . '"><ul>';
 
-			$address = empty( $package['destination'] ) ? '' : WC()->countries->get_formatted_address( $package['destination'] );
+			foreach ( $product_infos as $i => $info ) {
+				$info_text = $info['name'] . ' &times; ' . $info['qty'];
 
-			// Products
-			echo '<tr><td' . $td_style . '><ul>';
-
-			foreach ( $products as $i => $product ) {
-
-				// Get a matching order item
-				$item = false;
-				if ( ! empty( $product['cart_key'] ) && ! empty( $cart_item_keys[ $product['cart_key'] ] ) && isset( $order_items[ $cart_item_keys[ $product['cart_key'] ] ] ) ) {
-					$item = $order_items[ $cart_item_keys[ $product['cart_key'] ] ];
-				} elseif ( ! empty( $package_items[ $i ] ) && isset( $order_items[ $package_items[ $i ] ] ) ) {
-					// Fallback for items stored before WC 3.0
-					$item = $order_items[ $package_items[ $i ] ];
+				if ( ! empty( $info['meta'] ) ) {
+					$info_text .= '<br />' . $info['meta'];
 				}
 
-				// Get item name and meta
-				if ( empty( $item ) ) {
-					$id = empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'];
-					$name = apply_filters( 'wcms_product_title', get_the_title( $id ), $product );
-					$meta = apply_filters( 'wcms_package_item_meta', self::get_item_meta( $product ), $product );
-				} else {
-					$name = is_callable( array( $item, 'get_name' ) ) ? $item->get_name() : get_the_title( empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'] );
-					$name = apply_filters( 'wcms_product_title', $name, $product, $item );
-					$meta = function_exists( 'wc_display_item_meta' ) ? wc_display_item_meta( $item, array( 'echo' => false ) ) : self::get_item_meta( $product );
-					$meta = apply_filters( 'wcms_package_item_meta', $meta, $product, $item );
-				}
-
-				echo '<li>' . $name . ' &times; ' . $product['quantity'];
-				if ( ! empty( $meta ) ) {
-					echo '<br />' . $meta;
-				}
-				echo '</li>';
+				echo '<li>' . wp_kses( $info_text, $allowed_html ) . '</li>';
 			}
 
 			echo '</ul></td>';
 
-			// Address
-			echo '<td' . $td_style . '>' . $address . '<br/><em>(' . $method . ')</em></td>';
+			// Address.
+			echo '<td style="' . esc_attr( $td_style ) . '">' . wp_kses( $address, $allowed_html ) . '<br/><em>(' . esc_html( $method ) . ')</em></td>';
 
 			do_action( 'wc_ms_shop_table_row', $package, $order_id );
 
-			// Notes
-			echo '<td' . $td_style . '>';
+			// Notes.
+			echo '<td style="' . esc_attr( $td_style ) . '">';
 			if ( ! empty( $package['note'] ) ) {
-				echo $package['note'];
+				echo wp_kses( $package['note'], $allowed_html );
 			} else {
 				echo '&ndash;';
 			}
 
 			if ( ! empty( $package['date'] ) ) {
-				echo '<p>' . sprintf( __( 'Delivery date: %s', 'wc_shipping_multiple_address' ), $package['date'] ) . '</p>';
+				// translators: %s is replaced with the package date.
+				echo '<p>' . sprintf( esc_html__( 'Delivery date: %s', 'wc_shipping_multiple_address' ), esc_html( $package['date'] ) ) . '</p>';
 			}
 			echo '</td>';
 
 			echo '</tr>';
 		}
 		echo '</table>';
+	}
+
+	/**
+	 * Display shipping address in plain email.
+	 *
+	 * @param array    $packages Array of packages.
+	 * @param WC_Order $order Current order object.
+	 *
+	 * @return void
+	 */
+	public function display_order_shipping_addresses_plain_email( $packages, $order ) {
+		$methods           = $order->get_meta( '_shipping_methods' );
+		$available_methods = $order->get_shipping_methods();
+
+		echo esc_html__( 'This order ships to multiple addresses.', 'wc_shipping_multiple_address' ) . "\n\n";
+
+		foreach ( $packages as $x => $package ) {
+			$products      = $package['contents'];
+			$method        = $this->get_shipping_method_name( $x, $methods, $available_methods );
+			$address       = str_replace( '<br/>', "\n", $this->get_package_shipping_address( $package ) );
+			$product_infos = $this->get_package_products( $products, $order );
+
+			// translators: %d is replaced with the address index.
+			echo sprintf( esc_html__( 'Address %d', 'wc_shipping_multiple_address' ), ( $x + 1 ) ) . "\n\n";
+
+			// Products.
+			echo esc_html__( 'Products:', 'wc_shipping_multiple_address' ) . "\n";
+
+			foreach ( $product_infos as $i => $info ) {
+				echo esc_html( ( $i + 1 ) . '. ' . $info['name'] . ' x ' . $info['qty'] );
+				if ( ! empty( $info['meta'] ) ) {
+					echo "\n\t" . esc_html( $info['meta'] );
+				}
+				echo "\n\n";
+			}
+
+			echo esc_html__( 'Address:', 'wc_shipping_multiple_address' ) . "\n";
+
+			// Address.
+			echo esc_html( $address ) . ' (' . esc_html( $method ) . ')' . "\n\n";
+
+			do_action( 'wc_ms_shop_table_row', $package, $order_id );
+
+			// Notes.
+			if ( ! empty( $package['note'] ) ) {
+				echo esc_html( $package['note'] );
+			} else {
+				echo '&ndash;';
+			}
+
+			if ( ! empty( $package['date'] ) ) {
+				// translators: %s is replaced with the package date.
+				echo "\n" . sprintf( esc_html__( 'Delivery date: %s', 'wc_shipping_multiple_address' ), esc_html( $package['date'] ) );
+			}
+
+			echo "\n\n\n";
+		}
 	}
 
 	public function show_multiple_addresses_line( $column ) {
@@ -640,7 +789,7 @@ class WC_MS_Order {
 
 		$packages = $order->get_meta( '_wcms_packages' );
 
-		if ( $packages && isset( $_POST['edit_address'] ) && count( $_POST['edit_address'] ) > 0 ) {
+		if ( $packages && is_array( $_POST['edit_address'] ) && 0 < count( $_POST['edit_address'] ) ) {
 			foreach ( $_POST['edit_address'] as $idx ) {
 				if ( ! isset( $packages[ $idx ] ) ) {
 					continue;
@@ -699,10 +848,10 @@ class WC_MS_Order {
 			wc_update_order_item_meta( $item_id, 'tax_amount', $tax_total[ $item_id ] );
 		}
 
-		$old_total_tax = $order->get_meta( '_order_tax' );
+		$old_total_tax = floatval( $order->get_meta( '_order_tax' ) );
 
 		if ( $total_tax > $old_total_tax ) {
-			$order_total = $order->get_meta( '_order_total' );
+			$order_total  = floatval( $order->get_meta( '_order_total' ) );
 			$order_total -= $old_total_tax;
 			$order_total += $total_tax;
 
@@ -797,7 +946,7 @@ class WC_MS_Order {
 
 		$packages = $order->get_meta( '_shipping_packages' );
 
-		if ( $packages && count( $packages ) > 1 ) {
+		if ( is_array( $packages ) && 1 < count( $packages ) ) {
 			$template = dirname( WC_Ship_Multiple::FILE ) . '/templates/pip-template-body.php';
 		}
 

@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Cache\Persister\Collection;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Common\Util\ClassUtils;
-use MailPoetVendor\Doctrine\ORM\Cache\CacheException;
 use MailPoetVendor\Doctrine\ORM\Cache\Exception\CannotUpdateReadOnlyCollection;
 use MailPoetVendor\Doctrine\ORM\PersistentCollection;
 class ReadOnlyCachedCollectionPersister extends NonStrictReadWriteCachedCollectionPersister

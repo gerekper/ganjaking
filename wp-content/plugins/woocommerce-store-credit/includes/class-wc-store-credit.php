@@ -27,7 +27,7 @@ final class WC_Store_Credit {
 	 *
 	 * @var string
 	 */
-	public $version = '4.0.0';
+	public $version = '4.1.1';
 
 	/**
 	 * Constructor.
@@ -72,6 +72,14 @@ final class WC_Store_Credit {
 	 * @since 3.0.0
 	 */
 	public function includes() {
+		/**
+		 * Interfaces.
+		 */
+		include_once WC_STORE_CREDIT_PATH . 'includes/interfaces/interface-wc-store-credit-integration.php';
+
+		/**
+		 * Core classes.
+		 */
 		include_once WC_STORE_CREDIT_PATH . 'includes/wc-store-credit-functions.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-autoloader.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/wc-store-credit-functions.php';
@@ -83,6 +91,7 @@ final class WC_Store_Credit {
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-order-details.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-paypal.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-rest-api.php';
+		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-integrations.php';
 
 		if ( wc_store_credit_is_request( 'admin' ) ) {
 			include_once WC_STORE_CREDIT_PATH . 'includes/admin/class-wc-store-credit-admin.php';

@@ -55,7 +55,7 @@ final class CacheAdapter implements CacheItemPoolInterface
  $this->commit();
  }
  $value = $this->cache->fetch($key);
- if (\PHP_VERSION_ID >= 80000) {
+ if (PHP_VERSION_ID >= 80000) {
  if ($value !== \false) {
  return new TypedCacheItem($key, $value, \true);
  }
@@ -74,7 +74,7 @@ final class CacheAdapter implements CacheItemPoolInterface
  assert(self::validKeys($keys));
  $values = $this->doFetchMultiple($keys);
  $items = [];
- if (\PHP_VERSION_ID >= 80000) {
+ if (PHP_VERSION_ID >= 80000) {
  foreach ($keys as $key) {
  if (array_key_exists($key, $values)) {
  $items[$key] = new TypedCacheItem($key, $values[$key], \true);

@@ -6,10 +6,10 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\TrueType;
+namespace WooCommercePDFInvoiceFontLib\TrueType;
 
 use Countable;
-use FontLib\BinaryStream;
+use WooCommercePDFInvoiceFontLib\BinaryStream;
 use Iterator;
 use OutOfBoundsException;
 

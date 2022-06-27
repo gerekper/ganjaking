@@ -11,9 +11,9 @@ class IncludeNode extends Node implements NodeOutputInterface
  if (null !== $variables) {
  $nodes['variables'] = $variables;
  }
- parent::__construct($nodes, ['only' => (bool) $only, 'ignore_missing' => (bool) $ignoreMissing], $lineno, $tag);
+ parent::__construct($nodes, ['only' => $only, 'ignore_missing' => $ignoreMissing], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this);
  if ($this->getAttribute('ignore_missing')) {
@@ -47,4 +47,3 @@ class IncludeNode extends Node implements NodeOutputInterface
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\IncludeNode', 'MailPoetVendor\\Twig_Node_Include');

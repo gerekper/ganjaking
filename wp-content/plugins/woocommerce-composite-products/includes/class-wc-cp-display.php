@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.3.0
+ * @version  8.4.2
  */
 class WC_CP_Display {
 
@@ -129,6 +129,9 @@ class WC_CP_Display {
 
 		// Filter cart item count.
 		add_filter( 'woocommerce_cart_contents_count', array( $this, 'cart_contents_count' ) );
+
+		// Item data.
+		add_filter( 'woocommerce_get_item_data', array( $this, 'cart_item_data' ), 10, 2 );
 
 		// Filter cart widget items.
 		add_action( 'woocommerce_before_mini_cart', array( $this, 'add_cart_widget_filters' ) );
@@ -288,6 +291,8 @@ class WC_CP_Display {
 			'i18n_select_product_options_for'          => __( 'Please choose product options.', 'woocommerce-composite-products' ),
 			'i18n_select_product_addons'               => __( 'Please configure all required product fields to continue&hellip;', 'woocommerce-composite-products' ),
 			'i18n_select_product_addons_for'           => __( 'Please configure all required product fields.', 'woocommerce-composite-products' ),
+			'i18n_review_product_addons'               => __( 'Please ensure that all product fields match the required format to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_review_product_addons_for'           => __( 'Please ensure that all product fields match the required format.', 'woocommerce-composite-products' ),
 			'i18n_enter_valid_price'                   => __( 'Please enter a valid amount to continue&hellip;', 'woocommerce-composite-products' ),
 			'i18n_enter_valid_price_for'               => __( 'Please enter a valid amount.', 'woocommerce-composite-products' ),
 			'i18n_summary_empty_component'             => _x( 'Select option', 'summary element configure action text singular', 'woocommerce-composite-products' ),
@@ -470,7 +475,7 @@ class WC_CP_Display {
  	 *
  	 * @return string
  	 */
- 	private function display_cart_prices_including_tax() {
+ 	public function display_cart_prices_including_tax() {
 
  		if ( is_null( $this->display_cart_prices_incl_tax ) ) {
  			$this->display_cart_prices_incl_tax = WC()->cart->display_prices_including_tax();
@@ -552,21 +557,7 @@ class WC_CP_Display {
 			$aggregate_prices = apply_filters( 'woocommerce_add_composited_cart_item_prices', true, $cart_item, $cart_item_key );
 
 			if ( $aggregate_prices ) {
-
-				$child_items_price = 0.0;
-				$calc_type         = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
-				$composite_price   = WC_CP_Products::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type ) );
-				$child_cart_items  = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
-
-				foreach ( $child_cart_items as $child_cart_item ) {
-
-					$child_item_qty     = $child_cart_item[ 'data' ]->is_sold_individually() ? 1 : $child_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
-					$child_item_price   = WC_CP_Products::get_product_price( $child_cart_item[ 'data' ], array( 'price' => $child_cart_item[ 'data' ]->get_price(), 'calc' => $calc_type, 'qty' => $child_item_qty ) );
-					$child_items_price += wc_format_decimal( (double) $child_item_price, wc_cp_price_num_decimals() );
-				}
-
-				$price = wc_price( (double) $composite_price + $child_items_price );
-
+				$price = wc_price( self::get_container_cart_item_price_amount( $cart_item, 'price' ) );
 			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
 
 				$child_items          = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
@@ -577,6 +568,34 @@ class WC_CP_Display {
 				}
 			}
 		}
+
+		return $price;
+	}
+
+	/**
+	 * Aggregates parent + child cart item prices.
+	 *
+	 * @since  8.4.0
+	 *
+	 * @param  array   $cart_item
+	 * @return string
+	 */
+	public function get_container_cart_item_price_amount( $cart_item, $type ) {
+
+		$child_items_price = 0.0;
+		$price_fn          = 'get_' . $type;
+		$calc_type         = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
+		$composite_price   = WC_CP_Products::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->$price_fn(), 'calc' => $calc_type ) );
+		$child_cart_items  = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
+
+		foreach ( $child_cart_items as $child_cart_item ) {
+
+			$child_item_qty     = $child_cart_item[ 'data' ]->is_sold_individually() ? 1 : $child_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
+			$child_item_price   = WC_CP_Products::get_product_price( $child_cart_item[ 'data' ], array( 'price' => $child_cart_item[ 'data' ]->$price_fn(), 'calc' => $calc_type, 'qty' => $child_item_qty ) );
+			$child_items_price += wc_format_decimal( (double) $child_item_price, wc_cp_price_num_decimals() );
+		}
+
+		$price = (double) $composite_price + $child_items_price;
 
 		return $price;
 	}
@@ -670,6 +689,30 @@ class WC_CP_Display {
 	}
 
 	/**
+	 * Aggregates cart item subtotals.
+	 *
+	 * @param  array   $cart_item
+	 * @param  string  $type
+	 * @return float
+	 */
+	public function get_container_cart_item_subtotal_amount( $cart_item, $type ) {
+
+		$child_items_price = 0.0;
+		$composite_price   = wc_format_decimal( (double) $cart_item[ 'line_' . $type ], wc_cp_price_num_decimals() );
+		$child_cart_items  = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
+
+		foreach ( $child_cart_items as $child_cart_item ) {
+
+			$child_item_price   = $child_cart_item[ 'line_' . $type ];
+			$child_items_price += wc_format_decimal( (double) $child_item_price, wc_cp_price_num_decimals() );
+		}
+
+		$subtotal = (double) $composite_price + $child_items_price;
+
+		return $subtotal;
+	}
+
+	/**
 	 *
 	 * Modifies child cart item subtotals.
 	 *
@@ -696,9 +739,7 @@ class WC_CP_Display {
 				} elseif ( false === $component_option->is_priced_individually() && empty( $cart_item[ 'line_subtotal' ] ) ) {
 					$subtotal = '';
 				} elseif ( $subtotal && apply_filters( 'woocommerce_add_composited_cart_item_subtotals', true, $composite_container_item, $composite_container_item_key ) ) {
-					/* translators: %1$s: Subotal prefix, %2$s: Subtotal. */
-					$subtotal_string = $this->is_cart_widget() ? $subtotal : sprintf( _x( '%1$s: %2$s', 'component subtotal', 'woocommerce-composite-products' ), __( 'Subtotal', 'woocommerce-composite-products' ), $subtotal );
-					$subtotal        = '<span class="component_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . $subtotal_string . '</span>';
+					$subtotal = '<span class="component_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . $subtotal . '</span>';
 				}
 			}
 		}
@@ -965,6 +1006,46 @@ class WC_CP_Display {
 	}
 
 	/**
+	 * Add composited items as meta to the parent item.
+	 *
+	 * @param  array  $data
+	 * @param  array  $cart_item
+	 * @return array
+	 */
+	public function cart_item_data( $data, $cart_item ) {
+
+		// When serving a Store API request...
+		if ( WC_CP_Core_Compatibility::is_store_api_request() && wc_cp_is_composite_container_cart_item( $cart_item ) ) {
+
+			if ( ! $cart_item[ 'data' ]->is_type( 'composite' ) ) {
+				return $data;
+			}
+
+			// Add composited items as metadata.
+			$data = array_merge( $data, $this->get_composite_container_cart_item_data( $cart_item, array( 'aggregated' => false ) ) );
+		}
+
+		if ( WC_CP_Core_Compatibility::is_store_api_request() && $container = wc_cp_get_composited_cart_item_container( $cart_item ) ) {
+
+			$composite       = $container[ 'data' ];
+			$part_of_key     = __( 'Part of', 'woocommerce-composite-products' );
+			$exists          = in_array( $part_of_key, array_keys( $data ) );
+			$component_id    = $cart_item[ 'composite_item' ];
+			$component       = $composite->get_component( $component_id );
+			$component_title = $component->get_title();
+
+			if ( ! $exists) {
+				$data[] = array(
+					'key'   => $part_of_key,
+					'value' => $composite->get_title() . ', ' . $component_title
+				);
+			}
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Rendering cart widget?
 	 *
 	 * @since  3.14.0
@@ -1083,48 +1164,46 @@ class WC_CP_Display {
 	 * @param  array  $cart_item
 	 * @return array
 	 */
-	public function get_composite_container_cart_item_data( $cart_item, $formatted = false ) {
+	public function get_composite_container_cart_item_data( $cart_item, $arg = array() ) {
 
-		$data = array();
+		if ( is_array( $arg ) ) {
 
+			$args = wp_parse_args( $arg, array(
+				'html'       => false,
+				'aggregated' => true,
+			) );
+
+		} else {
+
+			$args = array(
+				'html'       => ( bool ) $arg,
+				'aggregated' => true,
+			);
+		}
+
+		$data             = array();
 		$child_cart_items = wc_cp_get_composited_cart_items( $cart_item );
 
 		if ( ! empty( $child_cart_items ) ) {
 
-			$child_item_descriptions = array();
-
 			foreach ( $child_cart_items as $child_cart_item_key => $child_cart_item ) {
 
-				$component_id           = $child_cart_item[ 'composite_item' ];
-				$child_item_description = '';
+				$component_id = $child_cart_item[ 'composite_item' ];
 
 				if ( $component = $cart_item[ 'data' ]->get_component( $component_id ) ) {
 
 					$child_item_title       = $component->get_title();
 					$child_item_description = WC_CP_Product::get_title_string( $child_cart_item[ 'data' ]->get_name(), $child_cart_item[ 'quantity' ] );
 
-					/**
-					 * 'woocommerce_composite_container_cart_item_data_value' filter.
-					 *
-					 * @since  3.14.0
-					 *
-					 * @param  string  $child_item_description
-					 * @param  array   $child_cart_item
-					 * @param  string  $child_cart_item_key
-					 */
-					$child_item_description = apply_filters( 'woocommerce_composite_container_cart_item_data_value', $child_item_description, $child_cart_item, $child_cart_item_key );
-				}
-
-				if ( $child_item_description ) {
 					$data[] = array(
 						'key'   => $child_item_title,
-						'value' => $child_item_description
+						'value' => apply_filters( 'woocommerce_composite_container_cart_item_data_value', $child_item_description, $child_cart_item, $child_cart_item_key )
 					);
 				}
 			}
 		}
 
-		if ( $formatted ) {
+		if ( $args[ 'html' ] ) {
 
 			$formatted_data = '';
 
@@ -1142,7 +1221,16 @@ class WC_CP_Display {
 			$data = $formatted_data;
 		}
 
-		return $data;
+		/**
+		 * 'woocommerce_composite_container_cart_item_data' filter.
+		 *
+		 * @since  8.4.0
+		 *
+		 * @param  array   $data
+		 * @param  array   $cart_item
+		 * @param  array   $args
+		 */
+		return apply_filters( 'woocommerce_composite_container_cart_item_data', $data, $cart_item, $args );
 	}
 
 	/*
@@ -1192,7 +1280,7 @@ class WC_CP_Display {
 				 * @param  WC_Order  $order
 				 */
 				if ( apply_filters( 'woocommerce_add_composited_order_item_subtotals', true, $parent_item, $order ) ) {
-					$subtotal = '<span class="component_table_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'component subtotal', 'woocommerce-composite-products' ), __( 'Subtotal', 'woocommerce-composite-products' ), $subtotal ) . '</span>';
+					$subtotal = '<span class="component_table_item_subtotal">' . $subtotal . '</span>';
 				}
 			}
 
@@ -1359,7 +1447,13 @@ class WC_CP_Display {
 	 * @return string
 	 */
 	public function email_styles( $css ) {
-		$css .= ' .component_table_item td:first-of-type { padding-left: 2.5em !important; } .component_table_item td { border-top: none; font-size: 0.875em; } .component_table_item td dl.component, .component_table_item td dl.component dt, .component_table_item td dl.component dd { margin: 0; padding: 0; } .component_table_item td dl.component dt { font-weight: bold; } .component_table_item td dl.component dd p { margin-bottom: 0 !important; } #body_content table tr.component_table_item td ul.wc-item-meta { font-size: inherit; } ';
+
+		if ( is_rtl() ) {
+			$css .= '.component_table_item td:first-of-type { padding-right:2.5em !important; } .component_table_item td { border-top: none; font-size: 0.875em; } .component_table_item td dl.component, .component_table_item td dl.component dt, .component_table_item td dl.component dd { margin: 0; padding: 0; } .component_table_item td dl.component dt { font-weight: bold; } .component_table_item td dl.component dd p { margin-bottom: 0 !important; } #body_content table tr.component_table_item td ul.wc-item-meta { font-size: inherit; } .component_table_item_subtotal { white-space: nowrap; } .component_table_item_subtotal:after { display: inline-block; width: 1em; height: 1em; background: url( "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj48cGF0aCBkPSJNMzM2LjEgMTY4LjFjLTkuMzc1IDkuMzc1LTI0LjU2IDkuMzc1LTMzLjk0IDBMMjE2IDgxLjk0VjQ4OGMwIDEzLjI1LTEwLjc1IDI0LTI0IDI0SDI0QzEwLjc1IDUxMiAwIDUwMS4zIDAgNDg4czEwLjc1LTI0IDI0LTI0aDE0NFY4MS45NEw4MC45NyAxNjguMWMtOS4zNzUgOS4zNzUtMjQuNTYgOS4zNzUtMzMuOTQgMHMtOS4zNzUtMjQuNTYgMC0zMy45NGwxMjgtMTI4QzE3OS43IDIuMzQ0IDE4NS44IDAgMTkyIDBzMTIuMjggMi4zNDQgMTYuOTcgNy4wMzFsMTI4IDEyOEMzNDYuMyAxNDQuNCAzNDYuMyAxNTkuNiAzMzYuMSAxNjguMXoiLz48L3N2Zz4="); background-repeat: no-repeat; background-position: right; background-size: contain; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg); content:""; margin:0 8px 0 0; opacity: .25; }';
+		} else {
+			$css .= '.component_table_item td:first-of-type { padding-left: 2.5em !important; } .component_table_item td { border-top: none; font-size: 0.875em; } .component_table_item td dl.component, .component_table_item td dl.component dt, .component_table_item td dl.component dd { margin: 0; padding: 0; } .component_table_item td dl.component dt { font-weight: bold; } .component_table_item td dl.component dd p { margin-bottom: 0 !important; } #body_content table tr.component_table_item td ul.wc-item-meta { font-size: inherit; } .component_table_item_subtotal { white-space: nowrap; } .component_table_item_subtotal:after { display: inline-block; width: 1em; height: 1em; background: url( "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj48cGF0aCBkPSJNMzM2LjEgMzc2LjFsLTEyOCAxMjhDMjA0LjMgNTA5LjcgMTk4LjIgNTEyIDE5MS4xIDUxMnMtMTIuMjgtMi4zNDQtMTYuOTctNy4wMzFsLTEyOC0xMjhjLTkuMzc1LTkuMzc1LTkuMzc1LTI0LjU2IDAtMzMuOTRzMjQuNTYtOS4zNzUgMzMuOTQgMEwxNjggNDMwLjFWNDhoLTE0NEMxMC43NSA0OCAwIDM3LjI1IDAgMjRTMTAuNzUgMCAyNCAwSDE5MmMxMy4yNSAwIDI0IDEwLjc1IDI0IDI0djQwNi4xbDg3LjAzLTg3LjAzYzkuMzc1LTkuMzc1IDI0LjU2LTkuMzc1IDMzLjk0IDBTMzQ2LjMgMzY3LjYgMzM2LjEgMzc2LjF6Ii8+PC9zdmc+"); background-repeat: no-repeat; background-position: right; background-size: contain; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transform: rotate(90deg); content: ""; margin: 0 0 0 8px; opacity: .25; }';
+		}
+
 		return $css;
 	}
 

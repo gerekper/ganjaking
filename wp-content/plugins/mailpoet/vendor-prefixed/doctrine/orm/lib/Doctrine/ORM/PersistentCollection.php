@@ -8,11 +8,11 @@ use MailPoetVendor\Doctrine\Common\Collections\Collection;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 use MailPoetVendor\Doctrine\Common\Collections\Selectable;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
+use ReturnTypeWillChange;
 use RuntimeException;
 use function array_combine;
 use function array_diff_key;
 use function array_map;
-use function array_udiff_assoc;
 use function array_values;
 use function array_walk;
 use function get_class;
@@ -205,6 +205,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
  {
  return $this->containsKey($offset);
  }
+ #[\ReturnTypeWillChange]
  public function offsetGet($offset)
  {
  return $this->get($offset);
@@ -217,6 +218,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
  }
  $this->set($offset, $value);
  }
+ #[\ReturnTypeWillChange]
  public function offsetUnset($offset)
  {
  return $this->remove($offset);

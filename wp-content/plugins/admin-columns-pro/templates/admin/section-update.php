@@ -1,4 +1,4 @@
-<div class="acp-plugin-version-section" data-needs-update="<?= $this->needs_update ?>" data-update-link="<?= $this->plugin_update_link ?>">
+<div class="acp-plugin-version-section" data-update-ready="<?= $this->plugin_update_ready ?>" data-update-basename="<?= $this->plugin_update_basename ?>" data-update-slug="<?= $this->plugin_update_slug ?>" data-update-nonce="<?= $this->plugin_update_nonce ?>">
 	<div class="acp-plugin-version-section__current">
 		<span class="acp-plugin-version-section__current__label"><?= $this->plugin_label; ?></span>
 		<a href="<?= $this->changelog_link ?>" data-acp-comp="changelog" class="acp-plugin-version-badge <?= $this->available_version ? '-old' : ''; ?>">

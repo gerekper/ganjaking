@@ -15,26 +15,26 @@ final class EscaperExtension extends AbstractExtension
  {
  $this->setDefaultStrategy($defaultStrategy);
  }
- public function getTokenParsers()
+ public function getTokenParsers() : array
  {
  return [new AutoEscapeTokenParser()];
  }
- public function getNodeVisitors()
+ public function getNodeVisitors() : array
  {
  return [new EscaperNodeVisitor()];
  }
- public function getFilters()
+ public function getFilters() : array
  {
  return [new TwigFilter('escape', '\\MailPoetVendor\\twig_escape_filter', ['needs_environment' => \true, 'is_safe_callback' => '\\MailPoetVendor\\twig_escape_filter_is_safe']), new TwigFilter('e', '\\MailPoetVendor\\twig_escape_filter', ['needs_environment' => \true, 'is_safe_callback' => '\\MailPoetVendor\\twig_escape_filter_is_safe']), new TwigFilter('raw', '\\MailPoetVendor\\twig_raw_filter', ['is_safe' => ['all']])];
  }
- public function setDefaultStrategy($defaultStrategy)
+ public function setDefaultStrategy($defaultStrategy) : void
  {
  if ('name' === $defaultStrategy) {
  $defaultStrategy = [FileExtensionEscapingStrategy::class, 'guess'];
  }
  $this->defaultStrategy = $defaultStrategy;
  }
- public function getDefaultStrategy($name)
+ public function getDefaultStrategy(string $name)
  {
  // disable string callables to avoid calling a function named html or js,
  // or any other upcoming escaping strategy
@@ -71,11 +71,9 @@ final class EscaperExtension extends AbstractExtension
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Extension\\EscaperExtension', 'MailPoetVendor\\Twig_Extension_Escaper');
 namespace MailPoetVendor;
 use MailPoetVendor\Twig\Environment;
 use MailPoetVendor\Twig\Error\RuntimeError;
-use MailPoetVendor\Twig\Extension\CoreExtension;
 use MailPoetVendor\Twig\Extension\EscaperExtension;
 use MailPoetVendor\Twig\Markup;
 use MailPoetVendor\Twig\Node\Expression\ConstantExpression;
@@ -149,7 +147,7 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
  }
  $string = \preg_replace_callback('#[^a-zA-Z0-9,\\._]#Su', function ($matches) {
  $char = $matches[0];
- static $shortMap = ['\\' => '\\\\', '/' => '\\/', "\10" => '\\b', "\f" => '\\f', "\n" => '\\n', "\r" => '\\r', "\t" => '\\t'];
+ static $shortMap = ['\\' => '\\\\', '/' => '\\/', "\x08" => '\\b', "\f" => '\\f', "\n" => '\\n', "\r" => '\\r', "\t" => '\\t'];
  if (isset($shortMap[$char])) {
  return $shortMap[$char];
  }
@@ -217,12 +215,8 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
  case 'url':
  return \rawurlencode($string);
  default:
- static $escapers;
- if (null === $escapers) {
- // merge the ones set on CoreExtension for BC (to be removed in 3.0)
- $escapers = \array_merge($env->getExtension(CoreExtension::class)->getEscapers(\false), $env->getExtension(EscaperExtension::class)->getEscapers());
- }
- if (isset($escapers[$strategy])) {
+ $escapers = $env->getExtension(EscaperExtension::class)->getEscapers();
+ if (\array_key_exists($strategy, $escapers)) {
  return $escapers[$strategy]($env, $string, $charset);
  }
  $validStrategies = \implode(', ', \array_merge(['html', 'js', 'url', 'css', 'html_attr'], \array_keys($escapers)));

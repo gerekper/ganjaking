@@ -6,12 +6,13 @@ use MailPoetVendor\Doctrine\ORM\Query\AST\Node;
 use MailPoetVendor\Doctrine\ORM\Query\Lexer;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;
 use MailPoetVendor\Doctrine\ORM\Query\SqlWalker;
+use function sprintf;
 class UpperFunction extends FunctionNode
 {
  public $stringPrimary;
  public function getSql(SqlWalker $sqlWalker)
  {
- return $sqlWalker->getConnection()->getDatabasePlatform()->getUpperExpression($sqlWalker->walkSimpleArithmeticExpression($this->stringPrimary));
+ return sprintf('UPPER(%s)', $sqlWalker->walkSimpleArithmeticExpression($this->stringPrimary));
  }
  public function parse(Parser $parser)
  {

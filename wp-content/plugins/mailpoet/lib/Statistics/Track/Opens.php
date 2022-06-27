@@ -66,7 +66,7 @@ class Opens {
             $this->statisticsOpensRepository->flush();
           }
         }
-        $this->subscribersRepository->maybeUpdateLastEngagement($subscriber, $userAgent ?? null);
+        $this->subscribersRepository->maybeUpdateLastEngagement($subscriber);
         return $this->returnResponse($displayImage);
       }
       $statistics = new StatisticsOpenEntity($newsletter, $queue, $subscriber);
@@ -77,7 +77,7 @@ class Opens {
       }
       $this->statisticsOpensRepository->persist($statistics);
       $this->statisticsOpensRepository->flush();
-      $this->subscribersRepository->maybeUpdateLastEngagement($subscriber, $userAgent ?? null);
+      $this->subscribersRepository->maybeUpdateLastEngagement($subscriber);
       $this->statisticsOpensRepository->recalculateSubscriberScore($subscriber);
     }
     return $this->returnResponse($displayImage);
@@ -87,6 +87,9 @@ class Opens {
     if (!$displayImage) return;
     // return 1x1 pixel transparent gif image
     header('Content-Type: image/gif');
+
+    // Output of base64_decode is predetermined and safe in this case
+    // phpcs:ignore WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter, WordPress.Security.EscapeOutput.OutputNotEscaped
     echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
     exit;
   }

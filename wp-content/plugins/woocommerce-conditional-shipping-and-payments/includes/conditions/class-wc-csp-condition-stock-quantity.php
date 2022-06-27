@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Stock_Quantity class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.9.4
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Stock Quantity Condition.
  *
  * @class    WC_CSP_Condition_Stock_Quantity
- * @version  1.9.4
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Stock_Quantity extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Stock_Quantity extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                             = 'stock_quantity';
 		$this->title                          = __( 'Stock Quantity', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 20;
 		$this->supported_product_restrictions = array( 'payment_gateways', 'shipping_methods', 'shipping_countries' );
 	}
 

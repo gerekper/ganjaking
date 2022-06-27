@@ -31,9 +31,9 @@ if ( ! defined( 'WPINC' ) ) {
 		</span>
 	</div>
 	<div class="sui-box-settings-col-2" id="column-<?php echo esc_attr( $name ); ?>">
-		<div class="sui-form-field">
-			<label for="<?php echo esc_attr( $name ); ?>" class="sui-toggle">
-				<?php if ( 'bulk' !== $name ) : ?>
+		<?php if ( 'bulk' !== $name ) : ?>
+			<div class="sui-form-field">
+				<label for="<?php echo esc_attr( $name ); ?>" class="sui-toggle">
 					<input
 						type="checkbox"
 						id="<?php echo esc_attr( $name ); ?>"
@@ -47,12 +47,12 @@ if ( ! defined( 'WPINC' ) ) {
 					<span id="<?php echo esc_attr( $name . '-label' ); ?>" class="sui-toggle-label">
 						<?php echo esc_html( Settings::get_setting_data( $name, 'label' ) ); ?>
 					</span>
-				<?php endif; ?>
-				<!-- Print/Perform action in right setting column -->
-				<?php do_action( 'smush_setting_column_right_inside', $name ); ?>
-			</label>
-			<?php do_action( 'smush_setting_column_right_additional', $name ); ?>
-		</div>
+					<!-- Print/Perform action in right setting column -->
+					<?php do_action( 'smush_setting_column_right_inside', $name ); ?>
+				</label>
+				<?php do_action( 'smush_setting_column_right_additional', $name ); ?>
+			</div>
+		<?php endif; ?>
 		<!-- Print/Perform action in right setting column -->
 		<?php do_action( 'smush_setting_column_right_outside', $name ); ?>
 	</div>

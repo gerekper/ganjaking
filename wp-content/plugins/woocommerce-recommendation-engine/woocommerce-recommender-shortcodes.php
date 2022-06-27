@@ -54,7 +54,8 @@ function woocommerce_shortcode_related_products_by_status( $atts ) {
 		}
 	}
 
-	$name = $args['type'] == 'completed' || $args['type'] == 'viewed' ? '-' . $args['type'] : '';
+	// $name = $args['type'] == 'completed' || $args['type'] == 'viewed' ? '-' . $args['type'] : '';
+	$name = '-viewed'; // this is a generic view template.
 
 	wc_reset_loop();
 	wc_get_template( 'shortcodes/related' . $name . '.php', array(

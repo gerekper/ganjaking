@@ -35,4 +35,8 @@ final class TermQueryInformation implements Registrable {
 		return isset( $query->query_vars[ self::KEY ] ) && $query->query_vars[ self::KEY ];
 	}
 
+	public function is_main_query_by_args( $args ) {
+		return isset( $args[ self::KEY ] ) && $args[ self::KEY ];
+	}
+
 }

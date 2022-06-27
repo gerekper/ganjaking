@@ -6,10 +6,10 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\Table\Type;
+namespace WooCommercePDFInvoiceFontLib\Table\Type;
 
-use FontLib\Table\Table;
-use FontLib\Font;
+use WooCommercePDFInvoiceFontLib\Table\Table;
+use WooCommercePDFInvoiceFontLib\Font;
 
 /**
  * `name` font table.

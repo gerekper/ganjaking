@@ -3,6 +3,5 @@ namespace MailPoetVendor\Twig\RuntimeLoader;
 if (!defined('ABSPATH')) exit;
 interface RuntimeLoaderInterface
 {
- public function load($class);
+ public function load(string $class);
 }
-\class_alias('MailPoetVendor\\Twig\\RuntimeLoader\\RuntimeLoaderInterface', 'MailPoetVendor\\Twig_RuntimeLoaderInterface');

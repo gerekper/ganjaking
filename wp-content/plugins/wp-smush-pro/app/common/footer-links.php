@@ -23,11 +23,7 @@ if ( WP_Smush::is_pro() ) {
 ?>
 
 <div class="sui-footer">
-	<?php
-	// @codingStandardsIgnoreStart
-	echo $footer_text;
-	// @codingStandardsIgnoreEnd
-	?>
+	<?php echo wp_kses_post( $footer_text ); ?>
 </div>
 
 <ul class="sui-footer-nav">

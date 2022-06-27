@@ -15,7 +15,7 @@
 
 		<?php if ( $this->button_check_for_updates ) : ?>
 			<form method="post">
-				<?= wp_nonce_field( 'acp-force-plugin-update', '_acnonce' ); ?>
+				<?php wp_nonce_field( 'acp-force-plugin-update', '_acnonce' ); ?>
 				<input type="hidden" name="action" value="acp-force-plugin-updates">
 				<button class="button"><?= __( 'Check for Updates', 'codepress-admin-columns' ) ?></button>
 			</form>

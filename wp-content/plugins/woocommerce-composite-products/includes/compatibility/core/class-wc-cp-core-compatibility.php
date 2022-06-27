@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions related to WC core backwards compatibility.
  *
  * @class    WC_CP_Core_Compatibility
- * @version  5.0.5
+ * @version  8.4.2
  */
 class WC_CP_Core_Compatibility {
 
@@ -27,12 +27,14 @@ class WC_CP_Core_Compatibility {
 
 	/**
 	 * Cache 'gte' comparison results.
+	 *
 	 * @var array
 	 */
 	private static $is_wc_version_gte = array();
 
 	/**
 	 * Cache 'gt' comparison results.
+	 *
 	 * @var array
 	 */
 	private static $is_wc_version_gt = array();
@@ -60,6 +62,49 @@ class WC_CP_Core_Compatibility {
 	 * @var   bool
 	 */
 	private static $is_wc_admin_active;
+
+	/**
+	 * Current REST request.
+	 *
+	 * @since 8.4.0
+	 * @var WP_REST_Request
+	 */
+	private static $request;
+
+	/**
+	 * Constructor.
+	 */
+	public static function init() {
+		// Save current rest request. Is there a better way to get it?
+		add_filter( 'rest_pre_dispatch', array( __CLASS__, 'save_rest_request' ), 10, 3 );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Callbacks.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Saves the current rest request.
+	 *
+	 * @since  8.4.0
+	 *
+	 * @param  mixed            $result
+	 * @param  WP_REST_Server   $server
+	 * @param  WP_REST_Request  $request
+	 * @return mixed
+	 */
+	public static function save_rest_request( $result, $server, $request ) {
+		self::$request = $request;
+		return $result;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Utilities.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Helper method to get the version of the currently installed WooCommerce.
@@ -210,6 +255,49 @@ class WC_CP_Core_Compatibility {
 			self::$is_wp_version_gte[ $version ] = $wp_version && version_compare( WC_CP()->plugin_version( true, $wp_version ), $version, '>=' );
 		}
 		return self::$is_wp_version_gte[ $version ];
+	}
+
+	/**
+	 * Whether this is a Store/REST API request.
+	 *
+	 * @since  8.4.0
+	 *
+	 * @return boolean
+	 */
+	public static function is_api_request() {
+		return self::is_store_api_request() || self::is_rest_api_request();
+	}
+
+	/**
+	 * Returns the current Store/REST API request or false.
+	 *
+	 * @since  8.4.0
+	 *
+	 * @return WP_REST_Request|false
+	 */
+	public static function get_api_request() {
+		return self::$request instanceof WP_REST_Request ? self::$request : false;
+	}
+
+	/**
+	 * Whether this is a Store API request.
+	 *
+	 * @since  8.4.0
+	 *
+	 * @param  string  $route
+	 * @return boolean
+	 */
+	public static function is_store_api_request( $route = '' ) {
+
+		$request = self::get_api_request();
+
+		if ( false !== $request && strpos( $request->get_route(), 'wc/store' ) !== false ) {
+			if ( '' === $route || strpos( $request->get_route(), $route ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/*
@@ -526,6 +614,11 @@ class WC_CP_Core_Compatibility {
 	 * @return boolean
 	 */
 	public static function is_rest_api_request() {
+
+		if ( false !== self::get_api_request() ) {
+			return true;
+		}
+
 		return method_exists( WC(), 'is_rest_api_request' ) ? WC()->is_rest_api_request() : defined( 'REST_REQUEST' );
 	}
 
@@ -550,4 +643,27 @@ class WC_CP_Core_Compatibility {
 
 		return self::$is_wc_admin_active;
 	}
+
+	/**
+	 * Returns true if is a react based admin page.
+	 *
+	 * @since  8.4.2
+	 *
+	 * @return boolean
+	 */
+	public static function is_admin_or_embed_page() {
+
+		if ( class_exists( '\Automattic\WooCommerce\Admin\PageController' ) && method_exists( '\Automattic\WooCommerce\Admin\PageController', 'is_admin_or_embed_page' ) ) {
+
+			return \Automattic\WooCommerce\Admin\PageController::is_admin_or_embed_page();
+
+		} elseif ( class_exists( '\Automattic\WooCommerce\Admin\Loader' ) && method_exists( '\Automattic\WooCommerce\Admin\Loader', 'is_admin_or_embed_page' ) ) {
+
+			return \Automattic\WooCommerce\Admin\Loader::is_admin_or_embed_page();
+		}
+
+		return false;
+	}
 }
+
+WC_CP_Core_Compatibility::init();

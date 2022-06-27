@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.14.0
+ * @version  6.15.4
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -548,14 +548,14 @@ class WC_Product_Bundle extends WC_Product {
 
 				$bundled_item_min_qty = $bundled_data_item->get_meta( 'quantity_min' );
 
-				if ( 'yes' === $bundled_data_item->get_meta( 'optional' ) || 0 === $bundled_item_min_qty ) {
+				if ( 'yes' === $bundled_data_item->get_meta( 'optional' ) || 0 === $bundled_item_min_qty || is_null( $bundled_item_min_qty ) ) {
 					continue;
 				}
 
 				$bundled_item_stock_quantity = $bundled_data_item->get_meta( 'max_stock' );
 
 				// Infinite qty? Move on.
-				if ( '' === $bundled_item_stock_quantity ) {
+				if ( '' === $bundled_item_stock_quantity || is_null( $bundled_item_stock_quantity ) ) {
 					continue;
 				}
 
@@ -1996,7 +1996,7 @@ class WC_Product_Bundle extends WC_Product {
 
 			$bundled_item = WC_PB_Helpers::cache_get( $cache_key, $cache_group );
 
-			if ( $this->has_bundled_data_item_changes() || defined( 'WC_PB_DEBUG_RUNTIME_CACHE' ) || null === $bundled_item ) {
+			if ( $this->has_bundled_data_item_changes() || null === $bundled_item ) {
 
 				$bundled_item = new WC_Bundled_Item( $bundled_data_item, $this );
 
@@ -2532,7 +2532,7 @@ class WC_Product_Bundle extends WC_Product {
 		} elseif ( 'publish' !== $this->get_status() && ! current_user_can( 'edit_post', $this->get_id() ) ) {
 			$purchasable = false;
 		// Check if the product contains anything.
-		} elseif ( 0 === sizeof( $this->get_bundled_data_items() ) ) {
+		} elseif ( 0 === count( $this->get_bundled_data_items() ) ) {
 			$purchasable = false;
 		// Check if all non-optional contents are purchasable.
 		} elseif ( $this->contains( 'non_purchasable' ) ) {
@@ -2687,7 +2687,7 @@ class WC_Product_Bundle extends WC_Product {
 	}
 
 	/**
-	 * Returns whether or not the bundle has any attributes set. Takes into account the attributes of all bundled products.
+	 * Returns whether or not the bundle has any attributes set.
 	 *
 	 * @return boolean
 	 */
@@ -2709,21 +2709,7 @@ class WC_Product_Bundle extends WC_Product {
 
 				foreach ( $bundled_items as $bundled_item ) {
 
-					/**
-					 * 'woocommerce_bundle_show_bundled_product_attributes' filter.
-					 *
-					 * @param  boolean            $show_attributes
-					 * @param  WC_Product_Bundle  $this
-					 */
-					$show_bundled_product_attributes = apply_filters( 'woocommerce_bundle_show_bundled_product_attributes', $bundled_item->is_visible(), $this, $bundled_item );
-
-					if ( ! $show_bundled_product_attributes ) {
-						continue;
-					}
-
-					$bundled_product = $bundled_item->product;
-
-					if ( $bundled_product->has_attributes() ) {
+					if ( $bundled_item->has_attributes() ) {
 						$has_attributes = true;
 						break;
 					}

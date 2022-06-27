@@ -10,10 +10,16 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WC_OD_Data', false ) ) {
+	include_once WC_OD_PATH . 'includes/abstracts/abstract-class-wc-od-data.php';
+}
+
 /**
  * Class WC_OD_Delivery_Range.
  */
-class WC_OD_Delivery_Range extends WC_Data {
+class WC_OD_Delivery_Range extends WC_OD_Data {
+
+	use WC_OD_Data_Shipping_Methods;
 
 	/**
 	 * Range ID
@@ -30,16 +36,16 @@ class WC_OD_Delivery_Range extends WC_Data {
 	protected $object_type = 'delivery_range';
 
 	/**
-	 * Data array, with defaults.
+	 * Delivery range object data.
+	 *
+	 * Name value pairs (name + default value).
 	 *
 	 * @var array
 	 */
 	protected $data = array(
-		'title'                   => '',
-		'from'                    => 0,
-		'to'                      => 0,
-		'shipping_methods_option' => '',
-		'shipping_methods'        => array(),
+		'title' => '',
+		'from'  => 0,
+		'to'    => 0,
 	);
 
 	/**
@@ -50,16 +56,19 @@ class WC_OD_Delivery_Range extends WC_Data {
 	 * @param mixed $range Delivery range object or ID.
 	 */
 	public function __construct( $range = null ) {
-		parent::__construct( $range );
+		$this->data = array_merge(
+			$this->data,
+			$this->get_default_shipping_methods_data()
+		);
 
-		if ( is_numeric( $range ) && ! empty( $range ) ) {
+		$this->default_data = $this->data;
+
+		if ( is_numeric( $range ) ) {
 			$this->set_id( $range );
 		} elseif ( $range instanceof self ) {
 			$this->set_id( $range->get_id() );
-		} elseif ( 0 === $range || '0' === $range ) {
-			$this->set_id( 0 );
 		} else {
-			$this->set_object_read( true );
+			$this->set_object_read();
 		}
 
 		$this->read_object_from_database();
@@ -71,9 +80,9 @@ class WC_OD_Delivery_Range extends WC_Data {
 	 * @since 1.7.0
 	 */
 	protected function read_object_from_database() {
-		$this->data_store = WC_Data_Store::load( 'delivery_range' );
+		$this->data_store = WC_Data_Store::load( $this->object_type );
 
-		if ( ! $this->get_object_read() ) {
+		if ( ! $this->get_object_read() && ! is_null( $this->get_id() ) ) {
 			$this->data_store->read( $this );
 		}
 	}
@@ -120,30 +129,6 @@ class WC_OD_Delivery_Range extends WC_Data {
 		return $this->get_prop( 'to', $context );
 	}
 
-	/**
-	 * Gets the shipping methods option.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $context View or edit context.
-	 * @return string
-	 */
-	public function get_shipping_methods_option( $context = 'view' ) {
-		return $this->get_prop( 'shipping_methods_option', $context );
-	}
-
-	/**
-	 * Gets the shipping methods.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $context View or edit context.
-	 * @return array
-	 */
-	public function get_shipping_methods( $context = 'view' ) {
-		return $this->get_prop( 'shipping_methods', $context );
-	}
-
 	/*
 	 * --------------------------------------------------------------------------
 	 * Setters
@@ -183,61 +168,11 @@ class WC_OD_Delivery_Range extends WC_Data {
 		$this->set_prop( 'to', intval( $to ) );
 	}
 
-	/**
-	 * Sets the shipping methods option.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param string $option The shipping method option.
-	 */
-	public function set_shipping_methods_option( $option ) {
-		$this->set_prop( 'shipping_methods_option', wc_clean( $option ) );
-	}
-
-	/**
-	 * Sets the shipping methods.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @param array $methods The shipping methods.
-	 */
-	public function set_shipping_methods( $methods ) {
-		$this->set_prop( 'shipping_methods', wc_clean( $methods ) );
-	}
-
 	/*
 	 * --------------------------------------------------------------------------
 	 * Others
 	 * --------------------------------------------------------------------------
 	 */
-
-	/**
-	 * Saves the delivery range.
-	 *
-	 * @since 1.7.0
-	 *
-	 * @return int
-	 */
-	public function save() {
-		if ( ! $this->data_store ) {
-			return $this->get_id();
-		}
-
-		/** This action is documented in woocommerce/includes/abstracts/abstract-wc-data.php */
-		do_action( 'woocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
-
-		// The original WC_Data->save() method consider the ID zero as false.
-		if ( null !== $this->get_id() ) {
-			$this->data_store->update( $this );
-		} else {
-			$this->data_store->create( $this );
-		}
-
-		/** This action is documented in woocommerce/includes/abstracts/abstract-wc-data.php */
-		do_action( 'woocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
-
-		return $this->get_id();
-	}
 
 	/**
 	 * Deletes a delivery range.
@@ -262,20 +197,14 @@ class WC_OD_Delivery_Range extends WC_Data {
 	 * Gets if this delivery range is valid for the specified shipping method.
 	 *
 	 * @since 1.7.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param string $shipping_method The shipping method.
 	 * @return bool
 	 */
 	public function is_valid_for_shipping_method( $shipping_method ) {
-		$option = $this->get_shipping_methods_option();
+		wc_deprecated_function( __FUNCTION__, '2.0.0', 'WC_OD_Delivery_Range->validate_shipping_method()' );
 
-		if ( ! $option ) {
-			return true;
-		}
-
-		$shipping_methods = wc_od_expand_shipping_methods( $this->get_shipping_methods() );
-		$in_array         = in_array( $shipping_method, $shipping_methods, true );
-
-		return ( ( 'specific' === $option && $in_array ) || ( 'all_except' === $option && ! $in_array ) );
+		return $this->validate_shipping_method( $shipping_method );
 	}
 }

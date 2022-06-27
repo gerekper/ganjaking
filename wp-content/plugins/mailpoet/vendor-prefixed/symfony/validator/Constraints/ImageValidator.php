@@ -85,16 +85,16 @@ class ImageValidator extends FileValidator
  if (!\is_numeric((string) $constraint->minRatio)) {
  throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid minimum ratio.', $constraint->minRatio));
  }
- if ($ratio < $constraint->minRatio) {
- $this->context->buildViolation($constraint->minRatioMessage)->setParameter('{{ ratio }}', $ratio)->setParameter('{{ min_ratio }}', $constraint->minRatio)->setCode(Image::RATIO_TOO_SMALL_ERROR)->addViolation();
+ if ($ratio < \round($constraint->minRatio, 2)) {
+ $this->context->buildViolation($constraint->minRatioMessage)->setParameter('{{ ratio }}', $ratio)->setParameter('{{ min_ratio }}', \round($constraint->minRatio, 2))->setCode(Image::RATIO_TOO_SMALL_ERROR)->addViolation();
  }
  }
  if (null !== $constraint->maxRatio) {
  if (!\is_numeric((string) $constraint->maxRatio)) {
  throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum ratio.', $constraint->maxRatio));
  }
- if ($ratio > $constraint->maxRatio) {
- $this->context->buildViolation($constraint->maxRatioMessage)->setParameter('{{ ratio }}', $ratio)->setParameter('{{ max_ratio }}', $constraint->maxRatio)->setCode(Image::RATIO_TOO_BIG_ERROR)->addViolation();
+ if ($ratio > \round($constraint->maxRatio, 2)) {
+ $this->context->buildViolation($constraint->maxRatioMessage)->setParameter('{{ ratio }}', $ratio)->setParameter('{{ max_ratio }}', \round($constraint->maxRatio, 2))->setCode(Image::RATIO_TOO_BIG_ERROR)->addViolation();
  }
  }
  if (!$constraint->allowSquare && $width == $height) {

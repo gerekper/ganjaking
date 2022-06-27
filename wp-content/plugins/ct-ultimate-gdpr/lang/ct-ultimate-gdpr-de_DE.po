@@ -4669,3 +4669,63 @@ msgstr ""
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgstr ""
+
+# public function render_services_Akismet_inject_consent_field(){
+# $settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">'.__('Settings').'</a>' : __('Settings (Not Active)');
+# printf( __('<i>Set this on Akismet Plugin %s </i>', 'ct-ultimate-gdpr'), $settingLink );
+msgid "Settings (Not Active)"
+msgstr ""
+
+# public function render_services_Akismet_inject_consent_field(){
+# $settingLink = $this->is_active() ? '<a href="' . get_admin_url() . '/options-general.php?page=akismet-key-config">'.__('Settings').'</a>' : __('Settings (Not Active)');
+# printf( __('<i>Set this on Akismet Plugin %s </i>', 'ct-ultimate-gdpr'), $settingLink );
+msgid "<i>Set this on Akismet Plugin %s </i>"
+msgstr ""
+
+# "services_{$this->get_id()}_block_cookies", // ID
+# sprintf( esc_html__( "[%s] Block WPML cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+# array( $this, "render_field_services_sitepress_block_cookies" ), // Callback
+msgid "[%s] Block WPML cookies when a user doesn't accept Functionality cookies"
+msgstr ""
+
+# "services_{$this->get_id()}_consent_field_privacy_policy", // ID
+# sprintf( esc_html__( "[%s] Inject consent to privacy policy", 'ct-ultimate-gdpr' ), $this->get_name() ),
+# array( $this, "render_field_services_{$this->get_id()}_consent_field_privacy_policy" ), // Callback
+msgid "[%s] Inject consent to privacy policy"
+msgstr ""
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "März"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Dezember"

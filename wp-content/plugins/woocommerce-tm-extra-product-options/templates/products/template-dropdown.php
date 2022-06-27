@@ -8,74 +8,102 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
- * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @author  ThemeComplete
+ * @package WooCommerce Extra Product Options/Templates/Products
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
-
+$checked_option = [];
 ?>
 <li class="tmcp-field-wrap">
-    <div class="tc-epo-element-product-holder tc-epo-element-product-<?php echo esc_attr( $layout_mode ); ?>">
-        <label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
-            <select class="<?php echo esc_attr( $fieldtype ); ?> tc-epo-field-product tm-epo-field tmcp-select" name="<?php echo esc_attr( $name ); ?>" data-no-price-change="1" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" data-price="" data-rules="" data-original-rules="" data-no-price="<?php echo esc_attr( ! $priced_individually ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php
-			if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
-				THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
+	<div class="tc-epo-element-product-holder tc-epo-element-product-<?php echo esc_attr( $layout_mode ); ?>">
+		<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
+		<?php
+		$select_array = [
+			'class' => $fieldtype . ' tc-epo-field-product tm-epo-field tmcp-select',
+			'id'    => $id,
+			'name'  => $name,
+			'atts'  => [
+				'data-price'           => '',
+				'data-rules'           => '',
+				'data-original-rules'  => '',
+				'data-placeholder'     => $placeholder,
+				'data-no-price-change' => '1',
+				'data-no-price'        => ( ! $priced_individually ),
+			],
+		];
+
+		if ( isset( $required ) && ! empty( $required ) ) {
+			$select_array['required'] = true;
+		}
+		if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
+			$select_array['atts'] = array_merge( $select_array['atts'], $element_data_attr );
+		}
+
+		$select_options = [];
+		if ( is_array( $options ) ) {
+			foreach ( $options as $option ) {
+				$current_option = [
+					'text'  => $option['text'],
+					'value' => $option['value_to_show'],
+					'attS'  => [],
+				];
+
+				if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
+					$current_option['selected'] = $option['selected'];
+					if ( $option['selected'] === $option['current'] ) {
+						$checked_option = $option;
+					}
+				}
+				if ( isset( $option['css_class'] ) ) {
+					$current_option['class'] = 'tc-multiple-option tc-select-option' . $option['css_class'];
+				}
+				if ( isset( $option['data_price'] ) ) {
+					$current_option['atts']['data-price'] = $option['data_price'];
+				}
+				if ( isset( $option['tm_tooltip_html'] ) && ! empty( $option['tm_tooltip_html'] ) ) {
+					$current_option['atts']['data-tm-tooltip-html'] = $option['tm_tooltip_html'];
+				}
+				if ( isset( $option['data_rules'] ) ) {
+					$current_option['atts']['data-rules'] = $option['data_rules'];
+				}
+				if ( isset( $option['data_original_rules'] ) ) {
+					$current_option['atts']['data-original-rules'] = $option['data_original_rules'];
+				}
+				if ( isset( $option['data_rulestype'] ) ) {
+					$current_option['atts']['data-rulestype'] = $option['data_rulestype'];
+				}
+				if ( isset( $option['data_text'] ) ) {
+					$current_option['atts']['data-text'] = $option['data_text'];
+				}
+				if ( isset( $option['data_type'] ) ) {
+					$current_option['atts']['data-type'] = $option['data_type'];
+				}
+				if ( isset( $option['data_hide_amount'] ) ) {
+					$current_option['atts']['data-hide-amount'] = $option['data_hide_amount'];
+				}
+				$current_option['atts']['data-no-price'] = ( ! $priced_individually );
+
+				$select_options[] = $current_option;
 			}
-			if ( isset( $required ) && ! empty( $required ) ) { 
-				echo ' required '; 
+			if ( ! empty( $checked_option ) ) {
+				$option = $checked_option;
 			}
-			?> ><?php 
-				if ( is_array( $options ) ):
-					foreach ( $options as $option ) :
-						?>
-                        <option <?php
-						if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
-							selected( $option['selected'], $option['current'] );
-						}
-						?> value="<?php echo esc_attr( $option['value_to_show'] ); ?>"<?php
-						if ( isset( $option['css_class'] ) ) {
-							?> class="tc-multiple-option tc-select-option<?php echo esc_attr( $option['css_class'] ); ?>" <?php
-						} ?> data-no-price="<?php echo esc_attr( ! $priced_individually ); ?>"<?php
-						if ( isset( $option['data_price'] ) ) {
-							?> data-price="<?php echo esc_attr( $option['data_price'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['tm_tooltip_html'] ) && ! empty( $option['tm_tooltip_html'] ) ) {
-							?> data-tm-tooltip-html="<?php echo esc_attr( $option['tm_tooltip_html'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_rules'] ) ) {
-							?> data-rules="<?php echo esc_attr( $option['data_rules'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_original_rules'] ) ) {
-							?> data-original-rules="<?php echo esc_attr( $option['data_original_rules'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_rulestype'] ) ) {
-							?> data-rulestype="<?php echo esc_attr( $option['data_rulestype'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_text'] ) ) {
-							?> data-text="<?php echo esc_attr( $option['data_text'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_type'] ) ) {
-							?> data-type="<?php echo esc_attr( $option['data_type'] ); ?>"<?php
-						} ?><?php
-						if ( isset( $option['data_hide_amount'] ) ) {
-							?> data-hide-amount="<?php echo esc_attr( $option['data_hide_amount'] ); ?>"<?php
-						} ?> ><?php
-						// $option['text'] may contain HTML code
-						echo apply_filters( 'wc_epo_kses', wp_kses_post( $option['text'] ), $option['text'], FALSE );
-						?></option><?php
-					endforeach;
-				endif; ?>
-            </select>
-        </label>
-		<?php 
-		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' );
-		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php' );
+		}
+
+		THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, '/n', false, true );
 		?>
-    </div>
+		</label>
+		<?php
+		require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php';
+		require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php';
+		?>
+	</div>
 </li>
-<li class="tc-epo-element-product-li-container tm-hidden"><?php 
-	include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variation.php' );
-	include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-container.php' );
-	?></li>
+<li class="tc-epo-element-product-li-container tm-hidden">
+<?php
+	require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variation.php';
+	require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-container.php';
+?>
+</li>

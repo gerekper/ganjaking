@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.2.0
+ * @version     1.3.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -228,7 +228,7 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 					'pinged'                => $post->pinged,
 					'post_modified'         => $new_post_date,
 					'post_modified_gmt'     => $new_post_date_gmt,
-					'post_parent'           => $post_parent,
+					'post_parent'           => 0, // No need to link it with any other coupon.
 					'menu_order'            => $post->menu_order,
 					'post_mime_type'        => $post->post_mime_type,
 				)

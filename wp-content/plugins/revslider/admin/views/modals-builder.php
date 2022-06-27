@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -818,6 +818,11 @@ if(!defined('ABSPATH')) exit();
 							<!-- JUMP TO SLIDE -->
 							<div id="la_settings_jumpto" class="la_settings">
 								<label_a><?php _e('Jump to Slide', 'revslider');?></label_a><select id="la_jump_to_slide" data-r="actions.action.#actionindex#.jump_to_slide" class="easyinit actioninput nosearchbox tos2"></select>
+								<span class="linebreak"></span>
+							</div>
+
+							<!-- SCROLL BELOW SETTINGS -->
+							<div id="la_settings_getAccelerationPermissionk" class="la_settings">								
 								<span class="linebreak"></span>
 							</div>
 

@@ -100,7 +100,7 @@ class RedirectMiddleware
         });
     }
     /**
-     * Check for too many redirects
+     * Check for too many redirects.
      *
      * @return void
      *
@@ -135,10 +135,10 @@ class RedirectMiddleware
             $modify['method'] = 'GET';
             $modify['body'] = '';
         }
-        $uri = $this->redirectUri($request, $response, $protocols);
+        $uri = self::redirectUri($request, $response, $protocols);
         if (isset($options['idn_conversion']) && $options['idn_conversion'] !== \false) {
             $idnOptions = $options['idn_conversion'] === \true ? \IDNA_DEFAULT : $options['idn_conversion'];
-            $uri = _idn_uri_convert($uri, $idnOptions);
+            $uri = \YoastSEO_Vendor\GuzzleHttp\Utils::idnUriConvert($uri, $idnOptions);
         }
         $modify['uri'] = $uri;
         \YoastSEO_Vendor\GuzzleHttp\Psr7\rewind_body($request);
@@ -150,14 +150,35 @@ class RedirectMiddleware
         } else {
             $modify['remove_headers'][] = 'Referer';
         }
-        // Remove Authorization header if host is different.
-        if ($request->getUri()->getHost() !== $modify['uri']->getHost()) {
+        // Remove Authorization and Cookie headers if required.
+        if (self::shouldStripSensitiveHeaders($request->getUri(), $modify['uri'])) {
             $modify['remove_headers'][] = 'Authorization';
+            $modify['remove_headers'][] = 'Cookie';
         }
         return \YoastSEO_Vendor\GuzzleHttp\Psr7\modify_request($request, $modify);
     }
     /**
-     * Set the appropriate URL on the request based on the location header
+     * Determine if we should strip sensitive headers from the request.
+     *
+     * We return true if either of the following conditions are true:
+     *
+     * 1. the host is different;
+     * 2. the scheme has changed, and now is non-https.
+     *
+     * @return bool
+     */
+    private static function shouldStripSensitiveHeaders(\YoastSEO_Vendor\Psr\Http\Message\UriInterface $originalUri, \YoastSEO_Vendor\Psr\Http\Message\UriInterface $modifiedUri)
+    {
+        if (\strcasecmp($originalUri->getHost(), $modifiedUri->getHost()) !== 0) {
+            return \true;
+        }
+        if ($originalUri->getScheme() !== $modifiedUri->getScheme() && 'https' !== $modifiedUri->getScheme()) {
+            return \true;
+        }
+        return \false;
+    }
+    /**
+     * Set the appropriate URL on the request based on the location header.
      *
      * @param RequestInterface  $request
      * @param ResponseInterface $response
@@ -165,7 +186,7 @@ class RedirectMiddleware
      *
      * @return UriInterface
      */
-    private function redirectUri(\YoastSEO_Vendor\Psr\Http\Message\RequestInterface $request, \YoastSEO_Vendor\Psr\Http\Message\ResponseInterface $response, array $protocols)
+    private static function redirectUri(\YoastSEO_Vendor\Psr\Http\Message\RequestInterface $request, \YoastSEO_Vendor\Psr\Http\Message\ResponseInterface $response, array $protocols)
     {
         $location = \YoastSEO_Vendor\GuzzleHttp\Psr7\UriResolver::resolve($request->getUri(), new \YoastSEO_Vendor\GuzzleHttp\Psr7\Uri($response->getHeaderLine('Location')));
         // Ensure that the redirect URI is allowed based on the protocols.

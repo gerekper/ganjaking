@@ -8,9 +8,8 @@ class SandboxNode extends Node
  {
  parent::__construct(['body' => $body], [], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write("if (!\$alreadySandboxed = \$this->sandbox->isSandboxed()) {\n")->indent()->write("\$this->sandbox->enableSandbox();\n")->outdent()->write("}\n")->write("try {\n")->indent()->subcompile($this->getNode('body'))->outdent()->write("} finally {\n")->indent()->write("if (!\$alreadySandboxed) {\n")->indent()->write("\$this->sandbox->disableSandbox();\n")->outdent()->write("}\n")->outdent()->write("}\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\SandboxNode', 'MailPoetVendor\\Twig_Node_Sandbox');

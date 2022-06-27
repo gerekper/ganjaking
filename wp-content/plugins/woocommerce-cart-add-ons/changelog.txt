@@ -1,5 +1,21 @@
 *** WooCommerce Cart Add-ons ***
 
+2022-05-31 - version 2.3.0
+* Fix - Update Cart Add-ons Block editor settings.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
+
+2022-05-17 - version 2.2.0
+* Fix - Add the Cart add-ons block.
+* Fix - Compatibility fix for composer v2.2.0.
+* Fix - Enter a summary of all changes on this Pull Request. This will appear in the changelog if accepted.
+* Fix - Fixes #80.
+* Fix - Fixes the missing `/build` folder on the dist zip file.
+* Fix - Include variations when validating product matches.
+* Fix - Optimize fetching the of products and categories in the Cart add-ons block's settings panel.
+* Fix - Update package-lock.json and node dependencies.
+* Fix - Variable products now are taking into consideration when inside category matches using blocks. .
+
 2021-08-03 - version 2.1.0
 * Fix - Fix appearance of cart addons shortcodes due to missing classnames.
 * Fix - Fix sidebar widget .

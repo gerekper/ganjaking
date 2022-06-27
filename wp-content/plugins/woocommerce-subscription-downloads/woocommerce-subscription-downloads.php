@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Subscription Downloads
  * Plugin URI: https://woocommerce.com/products/woocommerce-subscription-downloads/
  * Description: Associate downloadable products with a Subscription product in WooCommerce, and grant subscribers access to the associated downloads for the downloadable products.
- * Version: 1.1.32
+ * Version: 1.3.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-subscription-downloads
  * Domain Path: /languages
- * WC tested up to: 4.5
+ * WC tested up to: 6.5
  * WC requires at least: 2.6
- * Tested up to: 5.5
+ * Tested up to: 6.0
  *
- * Copyright: © 2020 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.1.32' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.3.0' ); // WRCS: DEFINED_VERSION.
 
 if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 
@@ -212,8 +212,8 @@ if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 		 * WooCommerce fallback notice.
 		 */
 		public function woocommerce_missing_notice() {
-			/* translators: 1: href link to woocommerce 2: href link to woocommerce-subscriptions */
-			echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Subscription Downloads depends on the last version of %1$s and %2$s to work!', 'woocommerce-subscription-downloads' ), '<a href="https://wordpress.org/extend/plugins/woocommerce/">' . esc_html__( 'WooCommerce', 'woocommerce-subscription-downloads' ) . '</a>', '<a href="https://woocommerce.com/products/woocommerce-subscriptions/">' . esc_html__( 'WooCommerce Subscriptions', 'woocommerce-subscription-downloads' ) . '</a>' ) . '</p></div>';
+			/* translators: 1: href link to woocommerce 2: href link to woocommerce-subscriptions 3: href link to woocommerce-payments */
+			echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Subscription Downloads requires %1$s and either %2$s or %3$s!', 'woocommerce-subscription-downloads' ), '<a href="https://wordpress.org/extend/plugins/woocommerce/">' . esc_html__( 'WooCommerce', 'woocommerce-subscription-downloads' ) . '</a>', '<a href="https://woocommerce.com/products/woocommerce-subscriptions/">' . esc_html__( 'WooCommerce Subscriptions', 'woocommerce-subscription-downloads' ) . '</a>', '<a href="https://woocommerce.com/products/woocommerce-payments/">' . esc_html__( 'WooCommerce Payments', 'woocommerce-subscription-downloads' ) . '</a>' ) . '</p></div>';
 		}
 	}
 

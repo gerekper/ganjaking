@@ -228,6 +228,10 @@ function wc_cp_get_composited_order_item_container( $maybe_composited_order_item
 		if ( $container && is_callable( array( $container, 'get_id' ) ) ) {
 			$result = $return_id ? $container->get_id() : $container;
 		}
+	} else {
+
+		// Invalidate order cache before moving to the next Composite Product in the order.
+		WC_CP_Helpers::cache_delete( 'order_' . $maybe_composited_order_item->get_order_id() );
 	}
 
 	return $result;

@@ -6,15 +6,11 @@ use MailPoetVendor\Doctrine\Common\Annotations\CachedReader;
 use MailPoetVendor\Doctrine\Common\Annotations\PsrCachedReader;
 use MailPoetVendor\Doctrine\Common\Annotations\Reader;
 use MailPoetVendor\Doctrine\Common\Cache\ArrayCache;
-use MailPoetVendor\Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use MailPoetVendor\Psr\Cache\CacheItemPoolInterface;
 use MailPoetVendor\Symfony\Component\Cache\Adapter\ArrayAdapter;
-use MailPoetVendor\Symfony\Component\Cache\DoctrineProvider as SymfonyDoctrineProvider;
-use MailPoetVendor\Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use MailPoetVendor\Symfony\Component\Validator\Context\ExecutionContextFactory;
 use MailPoetVendor\Symfony\Component\Validator\Exception\LogicException;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ValidatorException;
-use MailPoetVendor\Symfony\Component\Validator\Mapping\Cache\CacheInterface;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Factory\LazyLoadingMetadataFactory;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Loader\AnnotationLoader;
@@ -23,8 +19,8 @@ use MailPoetVendor\Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Loader\XmlFileLoader;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
-use MailPoetVendor\Symfony\Component\Validator\Util\LegacyTranslatorProxy;
 use MailPoetVendor\Symfony\Component\Validator\Validator\RecursiveValidator;
+use MailPoetVendor\Symfony\Component\Validator\Validator\ValidatorInterface;
 use MailPoetVendor\Symfony\Contracts\Translation\LocaleAwareInterface;
 use MailPoetVendor\Symfony\Contracts\Translation\TranslatorInterface;
 use MailPoetVendor\Symfony\Contracts\Translation\TranslatorTrait;
@@ -32,7 +28,7 @@ use MailPoetVendor\Symfony\Contracts\Translation\TranslatorTrait;
 \class_exists(TranslatorInterface::class);
 \class_exists(LocaleAwareInterface::class);
 \class_exists(TranslatorTrait::class);
-class ValidatorBuilder implements ValidatorBuilderInterface
+class ValidatorBuilder
 {
  private $initializers = [];
  private $loaders = [];
@@ -40,6 +36,7 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  private $yamlMappings = [];
  private $methodMappings = [];
  private $annotationReader;
+ private $enableAnnotationMapping = \false;
  private $metadataFactory;
  private $validatorFactory;
  private $mappingCache;
@@ -55,7 +52,7 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  $this->initializers = \array_merge($this->initializers, $initializers);
  return $this;
  }
- public function addXmlMapping($path)
+ public function addXmlMapping(string $path)
  {
  if (null !== $this->metadataFactory) {
  throw new ValidatorException('You cannot add custom mappings after setting a custom metadata factory. Configure your metadata factory instead.');
@@ -71,7 +68,7 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  $this->xmlMappings = \array_merge($this->xmlMappings, $paths);
  return $this;
  }
- public function addYamlMapping($path)
+ public function addYamlMapping(string $path)
  {
  if (null !== $this->metadataFactory) {
  throw new ValidatorException('You cannot add custom mappings after setting a custom metadata factory. Configure your metadata factory instead.');
@@ -87,7 +84,7 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  $this->yamlMappings = \array_merge($this->yamlMappings, $paths);
  return $this;
  }
- public function addMethodMapping($methodName)
+ public function addMethodMapping(string $methodName)
  {
  if (null !== $this->metadataFactory) {
  throw new ValidatorException('You cannot add custom mappings after setting a custom metadata factory. Configure your metadata factory instead.');
@@ -103,34 +100,46 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  $this->methodMappings = \array_merge($this->methodMappings, $methodNames);
  return $this;
  }
- public function enableAnnotationMapping(Reader $annotationReader = null)
+ public function enableAnnotationMapping()
  {
  if (null !== $this->metadataFactory) {
  throw new ValidatorException('You cannot enable annotation mapping after setting a custom metadata factory. Configure your metadata factory instead.');
  }
- $this->annotationReader = $annotationReader ?? $this->createAnnotationReader();
+ $skipDoctrineAnnotations = 1 > \func_num_args() ? \false : \func_get_arg(0);
+ if (\false === $skipDoctrineAnnotations || null === $skipDoctrineAnnotations) {
+ trigger_deprecation('symfony/validator', '5.2', 'Not passing true as first argument to "%s" is deprecated. Pass true and call "addDefaultDoctrineAnnotationReader()" if you want to enable annotation mapping with Doctrine Annotations.', __METHOD__);
+ $this->addDefaultDoctrineAnnotationReader();
+ } elseif ($skipDoctrineAnnotations instanceof Reader) {
+ trigger_deprecation('symfony/validator', '5.2', 'Passing an instance of "%s" as first argument to "%s" is deprecated. Pass true instead and call setDoctrineAnnotationReader() if you want to enable annotation mapping with Doctrine Annotations.', \get_debug_type($skipDoctrineAnnotations), __METHOD__);
+ $this->setDoctrineAnnotationReader($skipDoctrineAnnotations);
+ } elseif (\true !== $skipDoctrineAnnotations) {
+ throw new \TypeError(\sprintf('"%s": Argument 1 is expected to be a boolean, "%s" given.', __METHOD__, \get_debug_type($skipDoctrineAnnotations)));
+ }
+ $this->enableAnnotationMapping = \true;
  return $this;
  }
  public function disableAnnotationMapping()
  {
+ $this->enableAnnotationMapping = \false;
  $this->annotationReader = null;
+ return $this;
+ }
+ public function setDoctrineAnnotationReader(?Reader $reader) : self
+ {
+ $this->annotationReader = $reader;
+ return $this;
+ }
+ public function addDefaultDoctrineAnnotationReader() : self
+ {
+ $this->annotationReader = $this->createAnnotationReader();
  return $this;
  }
  public function setMetadataFactory(MetadataFactoryInterface $metadataFactory)
  {
- if (\count($this->xmlMappings) > 0 || \count($this->yamlMappings) > 0 || \count($this->methodMappings) > 0 || null !== $this->annotationReader) {
+ if (\count($this->xmlMappings) > 0 || \count($this->yamlMappings) > 0 || \count($this->methodMappings) > 0 || $this->enableAnnotationMapping) {
  throw new ValidatorException('You cannot set a custom metadata factory after adding custom mappings. You should do either of both.');
  }
  $this->metadataFactory = $metadataFactory;
- return $this;
- }
- public function setMetadataCache(CacheInterface $cache)
- {
- @\trigger_error(\sprintf('%s is deprecated since Symfony 4.4. Use setMappingCache() instead.', __METHOD__), \E_USER_DEPRECATED);
- if (null !== $this->metadataFactory) {
- throw new ValidatorException('You cannot set a custom metadata cache after setting a custom metadata factory. Configure your metadata factory instead.');
- }
- $this->mappingCache = $cache;
  return $this;
  }
  public function setMappingCache(CacheItemPoolInterface $cache)
@@ -146,15 +155,12 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  $this->validatorFactory = $validatorFactory;
  return $this;
  }
- public function setTranslator(LegacyTranslatorInterface $translator)
+ public function setTranslator(TranslatorInterface $translator)
  {
  $this->translator = $translator;
- while ($this->translator instanceof LegacyTranslatorProxy) {
- $this->translator = $this->translator->getTranslator();
- }
  return $this;
  }
- public function setTranslationDomain($translationDomain)
+ public function setTranslationDomain(?string $translationDomain)
  {
  $this->translationDomain = $translationDomain;
  return $this;
@@ -176,7 +182,7 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  foreach ($this->methodMappings as $methodName) {
  $loaders[] = new StaticMethodLoader($methodName);
  }
- if ($this->annotationReader) {
+ if ($this->enableAnnotationMapping) {
  $loaders[] = new AnnotationLoader($this->annotationReader);
  }
  return \array_merge($loaders, $this->loaders);
@@ -215,27 +221,13 @@ class ValidatorBuilder implements ValidatorBuilderInterface
  if (!\class_exists(AnnotationReader::class)) {
  throw new LogicException('Enabling annotation based constraint mapping requires the packages doctrine/annotations and symfony/cache to be installed.');
  }
- // Doctrine Annotation >= 1.13, Symfony Cache
- if (\class_exists(PsrCachedReader::class) && \class_exists(ArrayAdapter::class)) {
+ if (\class_exists(ArrayAdapter::class)) {
  return new PsrCachedReader(new AnnotationReader(), new ArrayAdapter());
  }
- // Doctrine Annotations < 1.13, Doctrine Cache >= 1.11, Symfony Cache
- if (\class_exists(CachedReader::class) && \class_exists(DoctrineProvider::class) && \class_exists(ArrayAdapter::class)) {
- return new CachedReader(new AnnotationReader(), DoctrineProvider::wrap(new ArrayAdapter()));
- }
- // Doctrine Annotations < 1.13, Doctrine Cache < 1.11, Symfony Cache
- if (\class_exists(CachedReader::class) && !\class_exists(DoctrineProvider::class) && \class_exists(ArrayAdapter::class)) {
- return new CachedReader(new AnnotationReader(), new SymfonyDoctrineProvider(new ArrayAdapter()));
- }
- // Doctrine Annotations < 1.13, Doctrine Cache < 1.11
  if (\class_exists(CachedReader::class) && \class_exists(ArrayCache::class)) {
+ trigger_deprecation('symfony/validator', '5.4', 'Enabling annotation based constraint mapping without having symfony/cache installed is deprecated.');
  return new CachedReader(new AnnotationReader(), new ArrayCache());
  }
- // Doctrine Annotation >= 1.13, Doctrine Cache >= 2, no Symfony Cache
- if (\class_exists(PsrCachedReader::class)) {
- throw new LogicException('Enabling annotation based constraint mapping requires the package symfony/cache to be installed.');
- }
- // Doctrine Annotation (<1.13 || >2), no Doctrine Cache, no Symfony Cache
- throw new LogicException('Enabling annotation based constraint mapping requires the packages doctrine/annotations (>=1.13) and symfony/cache to be installed.');
+ throw new LogicException('Enabling annotation based constraint mapping requires the packages doctrine/annotations and symfony/cache to be installed.');
  }
 }

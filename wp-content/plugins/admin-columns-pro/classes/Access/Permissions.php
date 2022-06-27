@@ -52,8 +52,9 @@ final class Permissions {
 	 * @return bool
 	 */
 	public function has_usage_permission() {
-		//return $this->has_permission( self::USAGE );
 		return true;
+
+		return $this->has_permission( self::USAGE );
 	}
 
 	/**

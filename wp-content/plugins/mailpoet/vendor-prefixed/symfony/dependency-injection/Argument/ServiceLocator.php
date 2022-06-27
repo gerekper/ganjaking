@@ -14,7 +14,7 @@ class ServiceLocator extends BaseServiceLocator
  $this->serviceTypes = $serviceTypes;
  parent::__construct($serviceMap);
  }
- public function get($id)
+ public function get(string $id)
  {
  return isset($this->serviceMap[$id]) ? ($this->factory)(...$this->serviceMap[$id]) : parent::get($id);
  }

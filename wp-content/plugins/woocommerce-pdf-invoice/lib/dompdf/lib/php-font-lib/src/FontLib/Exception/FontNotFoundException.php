@@ -1,6 +1,6 @@
 <?php
 
-namespace FontLib\Exception;
+namespace WooCommercePDFInvoiceFontLib\Exception;
 
 class FontNotFoundException extends \Exception
 {

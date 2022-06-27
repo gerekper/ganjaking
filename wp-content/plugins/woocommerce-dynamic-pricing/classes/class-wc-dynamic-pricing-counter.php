@@ -41,10 +41,13 @@ class WC_Dynamic_Pricing_Counter {
 		add_action( 'wp_ajax_nopriv_send_cart_email_ajax', array( $this, 'empty_counter' ), 0 );
 
 
-		add_filter( 'woocommerce_get_cart_item_from_session', array( &$this, 'get_cart_item_from_session' ), 100, 3 );
+		add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'get_cart_item_from_session' ), 100, 3 );
 
 		//Add action to reset counters when product added to cart
-		add_action( 'woocommerce_add_to_cart', array( &$this, 'on_add_to_cart' ), 100, 6 );
+		add_action( 'woocommerce_add_to_cart', array( $this, 'on_add_to_cart' ), 100, 6 );
+
+
+		add_action( 'woocommerce_after_cart_item_quantity_update', [$this, 'on_after_cart_item_quantity_update'], 10, 4 );
 	}
 
 	public function empty_counter() {
@@ -133,6 +136,18 @@ class WC_Dynamic_Pricing_Counter {
 		}
 
 		do_action( 'wc_dynamic_pricing_counter_updated' );
+	}
+
+	public function on_after_cart_item_quantity_update($cart_item_key, $quantity, $old_quantity, $cart) {
+		$cart_item = WC()->cart->get_cart_item($cart_item_key);
+		$variation_id = 0;
+		$product_id = $cart_item['data']->get_id();
+		if ($cart_item['data']->is_type('variation')) {
+			$variation_id = $cart_item['data']->get_id();
+			$product_id = $cart_item['data']->get_parent_id();
+		}
+
+		$this->on_add_to_cart($cart_item_key, $product_id, $quantity, $variation_id, null, null);
 	}
 
 	public function on_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {

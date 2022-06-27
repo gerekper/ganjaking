@@ -51,11 +51,6 @@
   }
 
   function getIconOutput( index ) {
-    // var output = React.createElement('img', { alt: index['alt'], title: index['alt'], className: index['id'], src:index['src']});
-    // var output = '<img src="' + index['src'] + '" alt="' + index['alt'] + '" id="' + index['alt'] + '" />';
-
-    console.log( output );
-
     return output;
   }
 
@@ -69,7 +64,6 @@
         content: React.createElement( Content, null ),
         edit: React.createElement( Content, null ),
         placeOrderButtonLabel: WorldpayLocale['Proceed to Worldpay'],
-        icons: React.createElement( getWorldpayIcons( iconsrc ), null ),
         canMakePayment: () => true,
         ariaLabel: label
   };

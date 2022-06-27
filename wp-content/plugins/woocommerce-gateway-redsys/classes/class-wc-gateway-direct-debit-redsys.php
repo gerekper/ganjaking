@@ -1461,69 +1461,21 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'directdebitredsys' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', '$test_mode: ' . $test_mode );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '$selections NOT empty' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', 'Not loged In hiding gateway' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '$user_id: ' . $user_id );
-					$this->log->add( 'directdebitredsys', '$userid: ' . $userid );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/*********************************/' );
-				$this->log->add( 'directdebitredsys', '$selections Empty, showing gateway' );
-				$this->log->add( 'directdebitredsys', '/*********************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
-			}
 			return true;
 		}
 	}
@@ -1535,50 +1487,9 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '   Is NOT admin ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '   Is user logget in ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
 				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '   SHOW Gateway' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-					} else {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '   DONT SHOW Gateway' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-					}
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

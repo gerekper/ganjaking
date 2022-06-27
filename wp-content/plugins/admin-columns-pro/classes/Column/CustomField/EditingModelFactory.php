@@ -12,12 +12,12 @@ use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
 use ACP\Editing\Settings;
 use ACP\Editing\View;
+use ACP\Settings\Column\SerializedArray;
 
 class EditingModelFactory {
 
 	public static function unsupported_field_types() {
 		return [
-			CustomFieldType::TYPE_ARRAY,
 			CustomFieldType::TYPE_COUNT,
 			CustomFieldType::TYPE_NON_EMPTY,
 		];
@@ -38,6 +38,12 @@ class EditingModelFactory {
 		}
 
 		switch ( $field_type ) {
+			case CustomFieldType::TYPE_ARRAY :
+				if ( ! $storage instanceof Editing\Storage\Meta ) {
+					return false;
+				}
+
+				return new Service\SerializedMeta( $storage, self::get_serialized_keys( $column ) );
 			case CustomFieldType::TYPE_BOOLEAN :
 				return new Service\Basic(
 					new View\Toggle(
@@ -91,6 +97,14 @@ class EditingModelFactory {
 					? new Service\Basic( ( new View\TextArea() )->set_clear_button( true ), $storage )
 					: new Service\Basic( ( new View\Text() )->set_clear_button( true ), $storage );
 		}
+	}
+
+	private static function get_serialized_keys( Column\CustomField $column ) {
+		$setting = $column->get_setting( 'array_keys' );
+
+		return $setting instanceof SerializedArray
+			? $setting->get_keys()
+			: [];
 	}
 
 	private static function get_editable_type( Column\CustomField $column ) {

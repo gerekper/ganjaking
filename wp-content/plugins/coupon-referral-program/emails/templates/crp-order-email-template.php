@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the woo header.
  *
  * @hooked WC_Emails::email_header() Output the email header
+ * @since 1.6.4
+ * @param string $email_heading
+ * @param string $email
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
@@ -48,7 +51,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 									<tbody>
 										<tr>
 											<td>
-												<div style="text-align: center;"><?php echo esc_html( $coupon_amount ); ?></div>
+												<div style="text-align: center;"><?php echo wp_kses_post( $coupon_amount ); ?></div>
 											</td>
 										</tr>
 									</tbody>
@@ -85,5 +88,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
  * Include the woo footer.
  *
  * @hooked WC_Emails::email_footer() Output the email footer
+ * @since 1.6.4
+ * @param string $email
  */
 do_action( 'woocommerce_email_footer', $email );

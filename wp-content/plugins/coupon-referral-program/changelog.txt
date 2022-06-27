@@ -1,5 +1,11 @@
 *** Coupon Referal Program ***
 
+2022-06-06 - version 1.6.4
+  * New: Compatibility with WooCommerce 6.5.1
+  * New: Compatibility with WordPress 6.0
+  * New: Limit the referee gets coupon on the new user signup using him/her referral link
+  * Fix: Other minor fixes
+
 2022-02-04 - version 1.6.3
   * New: Notice display of current version for **WP Swings**
   * New: Minor Bug fixes

@@ -16,7 +16,7 @@ final class Source
  {
  return $this->code;
  }
- public function getName()
+ public function getName() : string
  {
  return $this->name;
  }
@@ -25,4 +25,3 @@ final class Source
  return $this->path;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Source', 'MailPoetVendor\\Twig_Source');

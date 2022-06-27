@@ -2,7 +2,6 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Exception;
 if (!defined('ABSPATH')) exit;
-use LogicException;
 use function implode;
 use function sprintf;
 final class UnrecognizedIdentifierFields extends ORMException implements ManagerException

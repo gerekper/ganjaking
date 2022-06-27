@@ -136,7 +136,7 @@ class WC_Dynamic_Pricing_Simple_Taxonomy extends WC_Dynamic_Pricing_Simple_Base 
 	}
 
 	public function is_applied_to_product( $p, $cat_id = false ) {
-		if ( is_admin() && ! is_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
+		if ( is_admin() && !wp_doing_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
 			return false;
 		}
 
@@ -235,7 +235,7 @@ class WC_Dynamic_Pricing_Simple_Taxonomy extends WC_Dynamic_Pricing_Simple_Base 
 				if ( ! isset( $pricing_rule_set['mode'] ) || ( isset( $pricing_rule_set['mode'] ) && $pricing_rule_set['mode'] != 'block' ) ) {
 					$process_discounts = apply_filters( 'woocommerce_dynamic_pricing_process_product_discounts', true, $_product, 'simple_taxonomy_' . $this->taxonomy, $this, array( 'data' => $_product ) );
 					if ( $process_discounts ) {
-						//Grab targets from advanced category discounts so we properly show 0 based discounts for targets, not for the collector category values. 
+						//Grab targets from advanced category discounts so we properly show 0 based discounts for targets, not for the collector category values.
 						$cats_to_check = isset( $pricing_rule_set['targets'] ) ? array_map( 'intval', $pricing_rule_set['targets'] ) : $pricing_rule_set['collector']['args']['cats'][0];
 						if ( $this->is_applied_to_product( $_product, $cats_to_check ) ) {
 							$rule = array_shift( $pricing_rule_set['rules'] );

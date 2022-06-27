@@ -14,4 +14,7 @@ global $wpdb;
 
 // Delete the plugin options.
 delete_option( 'woocommerce_subscription_downloads_version' );
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}woocommerce_subscription_downloads" );
+
+if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}woocommerce_subscription_downloads" );
+}

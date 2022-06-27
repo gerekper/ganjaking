@@ -63,7 +63,7 @@ class Images
         }
 
         //get image path
-        $image_path = ABSPATH . parse_url($url)['path'];
+        $image_path = str_replace('/wp-content', '', WP_CONTENT_DIR) . '/' . parse_url($url)['path'];
 
         if(file_exists($image_path)) {
 

@@ -19,7 +19,7 @@
 <table class="wc_status_table widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="6" data-export-label="Product Catalogs"><h2><?php echo esc_html_x( 'Product catalogs', 'product catalogs: table column', 'woocommerce-instagram' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the product catalogs created with WooCommerce Instagram.', 'woocommerce-instagram' ) ); ?></h2></th>
+			<th colspan="7" data-export-label="Product Catalogs"><h2><?php echo esc_html_x( 'Product catalogs', 'product catalogs: table column', 'woocommerce-instagram' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the product catalogs created with WooCommerce Instagram.', 'woocommerce-instagram' ) ); ?></h2></th>
 		</tr>
 		<tr>
 			<td><strong><?php echo esc_html_x( 'Title', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
@@ -28,18 +28,26 @@
 			<td><strong><?php echo esc_html_x( 'Variations', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 			<td><strong><?php echo esc_html_x( 'Tax location', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 			<td><strong><?php echo esc_html_x( 'Stock', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
+			<td><strong><?php echo esc_html_x( 'Last update (UTC)', 'product catalogs: table column', 'woocommerce-instagram' ); ?></strong></td>
 		</tr>
 	</thead>
 	<tbody>
 		<?php
 		foreach ( $data['catalogs'] as $catalog ) :
+			$last_modified = $catalog->get_file( 'xml' )->get_last_modified();
+			$last_update   = ( $last_modified ? $last_modified->date( 'Y-m-d H:i' ) : '-' );
 			$tax_location  = wc_instagram_get_formatted_product_catalog_tax_location( $catalog, '-' );
 			$include_stock = $catalog->get_include_stock();
-			$extra_info    = array(
-				'Slug: ' . $catalog->get_slug(),
+
+			$extra_info = array(
+				'Feed URL: ' . esc_url( wc_instagram_get_product_catalog_url( $catalog->get_slug() ) ),
 				'Variations: ' . wc_bool_to_string( $catalog->get_include_variations() ),
 				'Tax location: ' . $tax_location,
 				'Stock: ' . wc_bool_to_string( $include_stock ),
+				'Last update (UTC): ' . $last_update,
+				'Images: ' . $catalog->get_images_option(),
+				'Description: ' . $catalog->get_description_field(),
+				'Variation Description: ' . $catalog->get_variation_description_field(),
 			);
 
 			if ( $include_stock ) :
@@ -59,6 +67,7 @@
 			echo '<td>' . esc_html( wc_instagram_bool_to_string( $catalog->get_include_variations() ) ) . '</td>';
 			echo '<td>' . esc_html( $tax_location ) . '</td>';
 			echo '<td>' . esc_html( wc_instagram_bool_to_string( $include_stock ) ) . '</td>';
+			echo '<td>' . esc_html( $last_update ) . '</td>';
 			echo '</tr>';
 		endforeach;
 		?>

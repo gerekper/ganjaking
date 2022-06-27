@@ -32,11 +32,12 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		if ( ! WP_Smush::is_pro() ) {
 			// Reset transient.
 			Core::check_bulk_limit( true );
+			add_action( 'smush_setting_column_tag', array( $this, 'add_lossy_new_tag' ) );
 		}
 
 		add_action( 'smush_setting_column_right_inside', array( $this, 'settings_desc' ), 10, 2 );
 		add_action( 'smush_setting_column_right_inside', array( $this, 'auto_smush' ), 15, 2 );
-		add_action( 'smush_setting_column_right_inside', array( $this, 'image_sizes' ), 15, 2 );
+		add_action( 'smush_setting_column_right_outside', array( $this, 'image_sizes' ), 15, 2 );
 		add_action( 'smush_setting_column_right_additional', array( $this, 'resize_settings' ), 20 );
 		add_action( 'smush_setting_column_right_outside', array( $this, 'full_size_options' ), 20, 2 );
 		add_action( 'smush_setting_column_right_outside', array( $this, 'scale_options' ), 20, 2 );
@@ -62,21 +63,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			);
 		}
 
-		// Only for the Free version and when there aren't images to smush.
-		if ( ! WP_Smush::is_pro() ) {
-			$this->add_meta_box(
-				'bulk/upgrade',
-				'',
-				null,
-				null,
-				null,
-				'main',
-				array(
-					'box_class' => 'sui-box sui-hidden',
-				)
-			);
-		}
-
 		$class = WP_Smush::is_pro() ? 'wp-smush-pro' : '';
 		$this->add_meta_box(
 			'bulk-settings',
@@ -90,16 +76,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			)
 		);
 
-		// Do not show if pro user.
-		if ( ! WP_Smush::is_pro() ) {
-			$this->add_meta_box(
-				'pro-features',
-				__( 'Upgrade to Smush Pro', 'wp-smushit' ),
-				function () {
-					$this->view( 'pro-features/meta-box' );
-				}
-			);
-		}
+		$this->modals['restore-images'] = array();
 	}
 
 	/**
@@ -254,7 +231,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					}
 					break;
 				case 'original':
-					esc_html_e( 'By default, WordPress won’t compress the images that you upload, only its generated attachments. Enable this feature to compress your uploaded images.', 'wp-smushit' );
+					esc_html_e( 'By default, WordPress will only compress the generated attachments when you upload images, not the original ones. Enable this feature to compress the original images.', 'wp-smushit' );
 					break;
 				case 'strip_exif':
 					esc_html_e(
@@ -311,7 +288,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		}
 
 		// Additional image sizes.
-		$image_sizes = $this->settings->get_setting( 'wp-smush-image_sizes', false );
+		$image_sizes = $this->settings->get_setting( 'wp-smush-image_sizes' );
 		$sizes       = WP_Smush::get_instance()->core()->image_dimensions();
 
 		$all_selected = false === $image_sizes || count( $image_sizes ) === count( $sizes );
@@ -339,7 +316,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 								$checked = true;
 							} else {
 								// WPMDUDEV hosting support: cast $size_k to string to properly work with object cache.
-								$checked = is_array( $image_sizes ) ? in_array( (string) $size_k, $image_sizes, true ) : false;
+								$checked = is_array( $image_sizes ) && in_array( (string) $size_k, $image_sizes, true );
 							}
 							?>
 							<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
@@ -419,10 +396,10 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				<span id="backup-label" class="sui-toggle-label">
 					<?php echo esc_html( Settings::get_setting_data( 'backup', 'label' ) ); ?>
 				</span>
+				<span class="sui-description sui-toggle-description" id="backup-desc">
+					<?php echo esc_html( Settings::get_setting_data( 'backup', 'desc' ) ); ?>
+				</span>
 			</label>
-			<span class="sui-description sui-toggle-description" id="backup-desc">
-				<?php echo esc_html( Settings::get_setting_data( 'backup', 'desc' ) ); ?>
-			</span>
 
 			<div class="sui-toggle-content <?php echo $this->settings->get( 'original' ) ? 'sui-hidden' : ''; ?>" id="backup-notice">
 				<div class="sui-notice" style="margin-top: 10px">
@@ -432,7 +409,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 							<p>
 								<?php
 								printf( /* translators: %1$s - <strong>, %2$s - </strong> */
-									esc_html__( '%1$sCompress Uploaded Images%2$s is disabled, which means that enabling %1$sBackup Uploaded Images%2$s won’t yield additional benefits and will use more storage space. We recommend enabling %1$sBackup Uploaded Images%2$s only if %1$sCompress Uploaded Images%2$s is also enabled.', 'wp-smushit' ),
+									esc_html__( '%1$sCompress original images%2$s is disabled, which means that enabling %1$sBackup original images%2$s won’t yield additional benefits and will use more storage space. We recommend enabling %1$sBackup original images%2$s only if %1$sCompress original images%2$s is also enabled.', 'wp-smushit' ),
 									'<strong>',
 									'</strong>'
 								);
@@ -481,10 +458,10 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				<span id="no_scale-label" class="sui-toggle-label">
 					<?php echo esc_html( Settings::get_setting_data( 'no_scale', 'label' ) ); ?>
 				</span>
+				<span class="sui-description sui-toggle-description" id="no_scale-desc">
+					<?php echo esc_html( Settings::get_setting_data( 'no_scale', 'desc' ) ); ?>
+				</span>
 			</label>
-			<span class="sui-description sui-toggle-description" id="no_scale-desc">
-				<?php echo esc_html( Settings::get_setting_data( 'no_scale', 'desc' ) ); ?>
-			</span>
 		</div>
 		<?php
 	}
@@ -517,15 +494,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		// except that we don't add the re-smushed count here.
 		$unsmushed_count = $core->total_count - $core->smushed_count - $core->skipped_count;
 
-		$upgrade_url = add_query_arg(
-			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'smush_bulksmush_completed_pagespeed_upgradetopro',
-			),
-			$this->upgrade_url
-		);
-
 		$bulk_upgrade_url = add_query_arg(
 			array(
 				'coupon'       => 'SMUSH30OFF',
@@ -541,12 +509,10 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			'bulk/meta-box',
 			array(
 				'core'                  => $core,
-				'hide_pagespeed'        => get_site_option( 'wp-smush-hide_pagespeed_suggestion' ),
 				'is_pro'                => WP_Smush::is_pro(),
 				'unsmushed_count'       => $unsmushed_count > 0 ? $unsmushed_count : 0,
 				'resmush_count'         => count( get_option( 'wp-smush-resmush-list', array() ) ),
 				'total_images_to_smush' => $total_images_to_smush,
-				'upgrade_url'           => $upgrade_url,
 				'bulk_upgrade_url'      => $bulk_upgrade_url,
 			)
 		);
@@ -580,8 +546,27 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'cdn_enabled'      => $this->settings->get( 'cdn' ),
 				'grouped_settings' => $fields,
 				'settings'         => $this->settings->get(),
+				'backups_count'    => count( WP_Smush::get_instance()->core()->mod->backup->get_attachments_with_backups() ),
 			)
 		);
+	}
+
+	/**
+	 * Show a "new" tag near the super-smush option for free users.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param string $name Option name.
+	 *
+	 * @return void
+	 */
+	public function add_lossy_new_tag( $name ) {
+		if ( 'lossy' !== $name ) {
+			return;
+		}
+		?>
+		<span class="sui-tag sui-tag-beta"><?php esc_html_e( 'New', 'wp-smushit' ); ?></span>
+		<?php
 	}
 
 }

@@ -7,12 +7,12 @@ use AC\Form\Nonce;
 use AC\Request;
 use ACP\ActivationTokenFactory;
 use ACP\RequestHandler;
-use ACP\Updates\ProductsUpdater;
+use ACP\Updates\PluginDataUpdater;
 
 class ForcePluginUpdates implements RequestHandler {
 
 	/**
-	 * @var ProductsUpdater
+	 * @var PluginDataUpdater
 	 */
 	private $products_updater;
 
@@ -21,7 +21,7 @@ class ForcePluginUpdates implements RequestHandler {
 	 */
 	private $token_factory;
 
-	public function __construct( ProductsUpdater $products_updater, ActivationTokenFactory $token_factory ) {
+	public function __construct( PluginDataUpdater $products_updater, ActivationTokenFactory $token_factory ) {
 		$this->products_updater = $products_updater;
 		$this->token_factory = $token_factory;
 	}
@@ -36,6 +36,9 @@ class ForcePluginUpdates implements RequestHandler {
 		}
 
 		$this->products_updater->update( $this->token_factory->create() );
+
+		wp_clean_plugins_cache();
+		wp_update_plugins();
 	}
 
 }

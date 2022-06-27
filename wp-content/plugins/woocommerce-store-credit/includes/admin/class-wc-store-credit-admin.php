@@ -43,6 +43,7 @@ class WC_Store_Credit_Admin {
 		include_once 'class-wc-store-credit-admin-notices.php';
 		include_once 'class-wc-store-credit-admin-meta-boxes.php';
 		include_once 'class-wc-store-credit-admin-send-credit-page.php';
+		include_once 'class-wc-store-credit-admin-system-status.php';
 	}
 
 	/**
@@ -182,7 +183,7 @@ class WC_Store_Credit_Admin {
 			$row_meta = array(
 				'docs' => sprintf(
 					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://docs.woocommerce.com/document/woocommerce-store-credit/' ),
+					esc_url( 'https://woocommerce.com/document/woocommerce-store-credit/' ),
 					esc_attr_x( 'View WooCommerce Store Credit documentation', 'aria-label: documentation link', 'woocommerce-store-credit' ),
 					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-store-credit' )
 				),

@@ -23,7 +23,6 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Phone_Matches_Billing_Country' ) ) {
 		 * @param WC_Order $order
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return bool
 		 */
@@ -76,7 +75,7 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Phone_Matches_Billing_Country' ) ) {
 				$risk = true;
 			}
 			
-			Af_Logger::debug('billing phone matches billing country rule risk : ' . ( $risk===true ? 'true' : 'false' )); 
+			Af_Logger::debug('billing phone matches billing country rule risk : ' . ( true === $risk ? 'true' : 'false' )); 
 			return $risk;
 		}
 

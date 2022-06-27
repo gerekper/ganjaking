@@ -16,7 +16,7 @@ use MailPoetVendor\Twig\Node\ModuleNode;
 use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Node\PrintNode;
 use MailPoetVendor\Twig\NodeTraverser;
-final class EscaperNodeVisitor extends AbstractNodeVisitor
+final class EscaperNodeVisitor implements NodeVisitorInterface
 {
  private $statusStack = [];
  private $blocks = [];
@@ -28,7 +28,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  {
  $this->safeAnalysis = new SafeAnalysisNodeVisitor();
  }
- protected function doEnterNode(Node $node, Environment $env)
+ public function enterNode(Node $node, Environment $env) : Node
  {
  if ($node instanceof ModuleNode) {
  if ($env->hasExtension(EscaperExtension::class) && ($defaultStrategy = $env->getExtension(EscaperExtension::class)->getDefaultStrategy($node->getTemplateName()))) {
@@ -45,7 +45,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  }
  return $node;
  }
- protected function doLeaveNode(Node $node, Environment $env)
+ public function leaveNode(Node $node, Environment $env) : ?Node
  {
  if ($node instanceof ModuleNode) {
  $this->defaultStrategy = \false;
@@ -67,13 +67,13 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  }
  return $node;
  }
- private function shouldUnwrapConditional(ConditionalExpression $expression, Environment $env, $type)
+ private function shouldUnwrapConditional(ConditionalExpression $expression, Environment $env, string $type) : bool
  {
  $expr2Safe = $this->isSafeFor($type, $expression->getNode('expr2'), $env);
  $expr3Safe = $this->isSafeFor($type, $expression->getNode('expr3'), $env);
  return $expr2Safe !== $expr3Safe;
  }
- private function unwrapConditional(ConditionalExpression $expression, Environment $env, $type)
+ private function unwrapConditional(ConditionalExpression $expression, Environment $env, string $type) : ConditionalExpression
  {
  // convert "echo a ? b : c" to "a ? echo b : echo c" recursively
  $expr2 = $expression->getNode('expr2');
@@ -90,7 +90,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  }
  return new ConditionalExpression($expression->getNode('expr1'), $expr2, $expr3, $expression->getTemplateLine());
  }
- private function escapeInlinePrintNode(InlinePrint $node, Environment $env, $type)
+ private function escapeInlinePrintNode(InlinePrint $node, Environment $env, string $type) : Node
  {
  $expression = $node->getNode('node');
  if ($this->isSafeFor($type, $expression, $env)) {
@@ -98,7 +98,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  }
  return new InlinePrint($this->getEscaperFilter($type, $expression), $node->getTemplateLine());
  }
- private function escapePrintNode(PrintNode $node, Environment $env, $type)
+ private function escapePrintNode(PrintNode $node, Environment $env, string $type) : Node
  {
  if (\false === $type) {
  return $node;
@@ -110,7 +110,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  $class = \get_class($node);
  return new $class($this->getEscaperFilter($type, $expression), $node->getTemplateLine());
  }
- private function preEscapeFilterNode(FilterExpression $filter, Environment $env)
+ private function preEscapeFilterNode(FilterExpression $filter, Environment $env) : FilterExpression
  {
  $name = $filter->getNode('filter')->getAttribute('value');
  $type = $env->getFilter($name)->getPreEscape();
@@ -124,7 +124,7 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  $filter->setNode('node', $this->getEscaperFilter($type, $node));
  return $filter;
  }
- private function isSafeFor($type, Node $expression, $env)
+ private function isSafeFor(string $type, Node $expression, Environment $env) : bool
  {
  $safe = $this->safeAnalysis->getSafe($expression);
  if (null === $safe) {
@@ -148,12 +148,11 @@ final class EscaperNodeVisitor extends AbstractNodeVisitor
  {
  $line = $node->getTemplateLine();
  $name = new ConstantExpression('escape', $line);
- $args = new Node([new ConstantExpression((string) $type, $line), new ConstantExpression(null, $line), new ConstantExpression(\true, $line)]);
+ $args = new Node([new ConstantExpression($type, $line), new ConstantExpression(null, $line), new ConstantExpression(\true, $line)]);
  return new FilterExpression($node, $name, $args, $line);
  }
- public function getPriority()
+ public function getPriority() : int
  {
  return 0;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\NodeVisitor\\EscaperNodeVisitor', 'MailPoetVendor\\Twig_NodeVisitor_Escaper');

@@ -3,6 +3,7 @@ namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\InvalidArgumentException;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Uuid extends Constraint
 {
  public const TOO_SHORT_ERROR = 'aa314679-dac9-4f54-bf97-b2049df8f2a3';
@@ -18,15 +19,21 @@ class Uuid extends Constraint
  public const V3_MD5 = 3;
  public const V4_RANDOM = 4;
  public const V5_SHA1 = 5;
+ public const V6_SORTABLE = 6;
+ public const ALL_VERSIONS = [self::V1_MAC, self::V2_DCE, self::V3_MD5, self::V4_RANDOM, self::V5_SHA1, self::V6_SORTABLE];
  public $message = 'This is not a valid UUID.';
  public $strict = \true;
- public $versions = [self::V1_MAC, self::V2_DCE, self::V3_MD5, self::V4_RANDOM, self::V5_SHA1];
+ public $versions = self::ALL_VERSIONS;
  public $normalizer;
- public function __construct($options = null)
+ public function __construct(array $options = null, string $message = null, array $versions = null, bool $strict = null, callable $normalizer = null, array $groups = null, $payload = null)
  {
- parent::__construct($options);
+ parent::__construct($options, $groups, $payload);
+ $this->message = $message ?? $this->message;
+ $this->versions = $versions ?? $this->versions;
+ $this->strict = $strict ?? $this->strict;
+ $this->normalizer = $normalizer ?? $this->normalizer;
  if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
- throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \is_object($this->normalizer) ? \get_class($this->normalizer) : \gettype($this->normalizer)));
+ throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \get_debug_type($this->normalizer)));
  }
  }
 }

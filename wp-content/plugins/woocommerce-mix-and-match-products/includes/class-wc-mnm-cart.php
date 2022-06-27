@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Cart
  * @since    1.0.0
- * @version  1.9.12
+ * @version  2.0.7
  */
 
 // Exit if accessed directly.
@@ -80,21 +80,8 @@ class WC_Mix_and_Match_Cart {
 			add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'update_quantity_in_cart' ) );
 		}
 
-		// Filter cart widget items.
-		add_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'cart_widget_filter' ), 10, 3 );
-
-		// Filter cart item count.
-		add_filter( 'woocommerce_cart_contents_count', array( $this, 'cart_contents_count' ) );
-
-		// Control modification of packed items' quantity.
-		add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'cart_item_remove_link' ), 10, 2 );
-
-		// Change packed item quantity output.
-		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'cart_item_quantity' ), 10, 3 );
-
-		// Hide packed item price.
-		add_filter( 'woocommerce_cart_item_price', array( $this, 'cart_item_price' ), 10, 3 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'cart_item_subtotal' ), 10, 3 );
+		// Filter cart weight.
+		add_filter( 'woocommerce_cart_contents_weight', array( $this, 'cart_contents_weight' ) );
 
 		// Remove/restore children cart items when parent is removed/restored.
 		add_action( 'woocommerce_cart_item_removed', array( $this, 'cart_item_removed' ), 10, 2 );
@@ -122,19 +109,19 @@ class WC_Mix_and_Match_Cart {
 	/**
 	 * Adds mnm contents to the cart.
 	 *
-	 * @param  string   $item_cart_key
+	 * @param  string   $container_cart_key
 	 * @param  int      $product_id
 	 * @param  int      $quantity
 	 * @param  int      $variation_id
 	 * @param  array    $variation
 	 * @param  array    $cart_item_data
 	 */
-	function add_mnm_items_to_cart( $item_cart_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
+	function add_mnm_items_to_cart( $container_cart_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 
 		if ( wc_mnm_is_container_cart_item( $cart_item_data ) ) {
 
 			$mnm_cart_item_data = array(
-				'mnm_container' => $item_cart_key,
+				'mnm_container' => $container_cart_key,
 				'mnm_child_id'  => $variation_id > 0 ? $variation_id : $product_id
 			);
 
@@ -148,6 +135,9 @@ class WC_Mix_and_Match_Cart {
 				$item_quantity      = $mnm_item_data['quantity'];
 				$mnm_quantity       = $item_quantity * $quantity;
 
+				// Add the child item ID.
+				$mnm_cart_item_data[ 'child_item_id' ] = isset( $mnm_item_data[ 'child_item_id' ] ) ? $mnm_item_data[ 'child_item_id' ] : 0;
+
 				/**
 				 * Allow filtering child cart item data.
 				 *
@@ -158,7 +148,7 @@ class WC_Mix_and_Match_Cart {
 				 * @param int $item_id The child item product or variation ID.
 				 * @param int $product_id The Mix and Match container product ID.
 				 */
-				$mnm_cart_item_data = (array) apply_filters( 'woocommerce_mnm_child_cart_item_data', $mnm_cart_item_data, $cart_item_data, $item_id, $product_id );
+				$mnm_cart_item_data = (array) apply_filters( 'wc_mnm_child_cart_item_data', $mnm_cart_item_data, $cart_item_data, $item_id, $product_id );
 
 				/**
 				 * Before child item is added to cart.
@@ -169,21 +159,14 @@ class WC_Mix_and_Match_Cart {
 				 * @param array $mnm_variations Attributes of specific variation being added to cart.
 				 * @param array $mnm_cart_item_data Child item product data.
 				 */
-				do_action( 'woocommerce_mnm_before_mnm_add_to_cart', $mnm_product_id, $mnm_quantity, $mnm_variation_id, $mnm_variations, $mnm_cart_item_data );
+				do_action( 'wc_mnm_before_mnm_add_to_cart', $mnm_product_id, $mnm_quantity, $mnm_variation_id, $mnm_variations, $mnm_cart_item_data );
 
 				// Add to cart.
 				$mnm_item_cart_key = $this->mnm_add_to_cart( $product_id, $mnm_product_id, $mnm_quantity, $mnm_variation_id, $mnm_variations, $mnm_cart_item_data );
 
-				if ( $mnm_item_cart_key ) {
-
-					if ( ! isset( WC()->cart->cart_contents[ $item_cart_key ]['mnm_contents'] ) ) {
-
-						WC()->cart->cart_contents[ $item_cart_key ]['mnm_contents'] = array();
-
-					} elseif ( ! in_array( $mnm_item_cart_key, WC()->cart->cart_contents[ $item_cart_key ]['mnm_contents'] ) ) {
-
-						WC()->cart->cart_contents[ $item_cart_key ]['mnm_contents'][] = $mnm_item_cart_key;
-					}
+                // Push child key to parent mnm_contents.
+				if ( $mnm_item_cart_key && ! in_array( $mnm_item_cart_key, wc()->cart->cart_contents[ $container_cart_key ]['mnm_contents'] ) ) {
+					wc()->cart->cart_contents[ $container_cart_key ]['mnm_contents'][] = $mnm_item_cart_key;
 				}
 
 				/**
@@ -195,7 +178,7 @@ class WC_Mix_and_Match_Cart {
 				 * @param array $mnm_variations Attributes of specific variation being added to cart.
 				 * @param array $mnm_cart_item_data Child item product data.
 				 */
-				do_action( 'woocommerce_mnm_after_mnm_add_to_cart', $mnm_product_id, $mnm_quantity, $mnm_variation_id, $mnm_variations, $mnm_cart_item_data );
+				do_action( 'wc_mnm_after_mnm_add_to_cart', $mnm_product_id, $mnm_quantity, $mnm_variation_id, $mnm_variations, $mnm_cart_item_data );
 
 			}
 		}
@@ -250,19 +233,20 @@ class WC_Mix_and_Match_Cart {
 			 * @param str $cart_item_key Key in the WooCommerce cart array.
 			 */
 			WC()->cart->cart_contents[ $cart_item_key ] = apply_filters(
-                'woocommerce_add_cart_item',
-                array_merge(
-                    $cart_item_data,
-                    array(
-                    'product_id'   => absint( $product_id ),
-                    'variation_id' => absint( $variation_id ),
-                    'variation'    => $variation,
-                    'quantity'     => $quantity,
-                    'data'         => $product_data
-                    )
-                ),
-                $cart_item_key
-            );
+				'woocommerce_add_cart_item',
+				array_merge(
+					$cart_item_data,
+					array(
+						'key'          => $cart_item_key,
+						'product_id'   => absint( $product_id ),
+						'variation_id' => absint( $variation_id ),
+						'variation'    => $variation,
+						'quantity'     => $quantity,
+						'data'         => $product_data,
+					)
+				),
+				$cart_item_key
+			);
 
 		}
 
@@ -279,7 +263,7 @@ class WC_Mix_and_Match_Cart {
 		 * @param array $cart_item_data
 		 * @param int $container_id
 		 */
-		do_action( 'woocommerce_mnm_add_to_cart', $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data, $container_id );
+		do_action( 'wc_mnm_add_to_cart', $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data, $container_id );
 
 		return $cart_item_key;
 	}
@@ -290,7 +274,7 @@ class WC_Mix_and_Match_Cart {
 	 *
 	 *    $config = array(
 	 *        134 => array(                             // ID of child item.
-	 *            'mnm_child_id'      => 134,           // ID of child item.
+	 *            'child_item_id'     => 134,           // ID of child item.
 	 *            'product_id'        => 15,            // ID of child product.
 	 *            'quantity'          => 2,             // Qty of child product, will fall back to min.
 	 *            'variation_id'      => 43             // ID of chosen variation, if applicable.
@@ -311,10 +295,11 @@ class WC_Mix_and_Match_Cart {
 
 		if ( is_object( $product ) && $product->is_type( 'mix-and-match' ) ) {
 
-			$product_id      = $product->get_id();
-			$child_items     = $product->get_children();
+			$product_id = $product->get_id();	
 
-			if ( ! empty( $child_items ) ) {
+			if ( $product->has_child_items() ) {
+
+				$child_items = $product->get_child_items();
 
 				/*
 				 * Choose between $_POST or $_GET for grabbing data.
@@ -327,38 +312,41 @@ class WC_Mix_and_Match_Cart {
 					$posted_data = $_GET;
 				}
 
-				$posted_field_name = wc_mnm_get_child_input_name( $product_id );
+				foreach ( $child_items as $child_item_id => $child_item ) {
 
-				if ( isset( $posted_data[ $posted_field_name ] ) ) {
+					$child_product    = $child_item->get_product();
+					$child_product_id = $child_product->get_id();
 
-					foreach ( $child_items as $child_id => $child_product ) {
-
-						// Check that a product even had a quantity field posted.
-						if ( empty( $posted_data[ $posted_field_name ][ $child_id ] ) ) {
-							continue;
-						}
-
-						// Check that a product has been selected.
-						$child_item_quantity = intval( $posted_data[ $posted_field_name ][ $child_id ] );
-
-						if ( $child_item_quantity <= 0 ) {
-							continue;
-						}
-
-						// Build the configuration array.
-						$posted_config[ $child_id ] = array();
-
-						$parent_id = $child_product->get_parent_id();
-
-						$posted_config[ $child_id ]['mnm_child_id'] = $child_id;
-						$posted_config[ $child_id ]['product_id']   = $parent_id > 0 ? $parent_id : $child_product->get_id();
-						$posted_config[ $child_id ]['variation_id'] = $parent_id > 0 ? $child_product->get_id() : 0;
-						$posted_config[ $child_id ]['quantity']     = $child_item_quantity;
-						$posted_config[ $child_id ]['variation']    = $parent_id > 0 ? $child_product->get_variation_attributes() : array();
-
+					$posted_field_name = $child_item->get_input_name( false );
+					
+					// Check that a product even had a quantity field posted.
+					if ( empty( $posted_data[ $posted_field_name ] ) || empty( $posted_data[ $posted_field_name ][ $child_product_id ] ) ) {
+						continue;
 					}
+
+					// Check that a product has been selected.
+					$child_item_quantity = intval( $posted_data[ $posted_field_name ][ $child_product_id ] );
+
+					if ( $child_item_quantity <= 0 ) {
+						continue;
+					}
+
+					// Build the configuration array.
+					$posted_config[ $child_product_id ] = array();
+
+					$parent_id = $child_product->get_parent_id();
+
+					$posted_config[ $child_product_id ]['child_item_id'] = $child_item_id;
+					$posted_config[ $child_product_id ]['mnm_child_id']  = $child_product_id;
+					$posted_config[ $child_product_id ]['product_id']    = $parent_id > 0 ? $parent_id : $child_product->get_id();
+					$posted_config[ $child_product_id ]['variation_id']  = $parent_id > 0 ? $child_product->get_id() : 0;
+					$posted_config[ $child_product_id ]['quantity']      = $child_item_quantity;
+					$posted_config[ $child_product_id ]['variation']     = $parent_id > 0 ? $child_product->get_variation_attributes() : array();
+
 				}
+				
 			}
+
 		}
 
 		/**
@@ -369,7 +357,7 @@ class WC_Mix_and_Match_Cart {
 		 * @param WC_Mix_and_Match_Product $product
 		 * @return array
 		 */
-		return (array) apply_filters( 'woocommerce_mnm_get_posted_container_configuration', $posted_config, $product );
+		return (array) apply_filters( 'wc_mnm_get_posted_container_configuration', $posted_config, $product );
 	}
 
 
@@ -407,7 +395,7 @@ class WC_Mix_and_Match_Cart {
 		 * @param WC_Mix_and_Match_Product $container
 		 * @return array
 		 */
-		return (array) apply_filters( 'woocommerce_mnm_get_posted_container_form_data', $form_data, $configuration, $container );
+		return (array) apply_filters( 'wc_mnm_get_posted_container_form_data', $form_data, $configuration, $container );
 
 	}
 
@@ -470,14 +458,14 @@ class WC_Mix_and_Match_Cart {
 		$is_valid = true;
 
 		/**
-		 * 'woocommerce_mnm_before_container_validation' filter.
+		 * 'wc_mnm_before_container_validation' filter.
 		 *
 		 * Early chance to stop/bypass any further validation.
 		 *
 		 * @param  boolean            $true
 		 * @param  WC_Product_Mix_and_Match  $container
 		 */
-		if ( apply_filters( 'woocommerce_mnm_before_container_validation', true, $container ) ) {
+		if ( apply_filters( 'wc_mnm_before_container_validation', true, $container ) ) {
 
 			$configuration = isset( $cart_item_data['mnm_config'] ) ? $cart_item_data['mnm_config'] : $this->get_posted_container_configuration( $container );
 
@@ -526,26 +514,49 @@ class WC_Mix_and_Match_Cart {
 	}
 
 
-	/**
-	 * Check container cart item configurations on cart load.
-	 */
-	public function check_cart_items() {
+    /**
+     * Check container cart item configurations on cart load.
+     */
+    public function check_cart_items() {
 
-		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
+        foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
 
-			if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
+            if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
+                $this->validate_container_in_cart( $cart_item );
+            }
+        }
+    }
 
-				$configuration = isset( $cart_item['mnm_config'] ) ? $cart_item['mnm_config'] : $this->get_posted_container_configuration( $cart_item['data'] );
 
-				$this->validate_container_configuration( $cart_item['data'], $cart_item['quantity'], $configuration, 'cart' );
-			}
-		}
-	}
+    /**
+     * Check container cart item configuration and children.
+     * 
+     * @since 2.0.0
+     * 
+     * @param  array $cart_item
+     */
+    public function validate_container_in_cart( $cart_item ) {
+
+        $configuration = isset( $cart_item['mnm_config'] ) ? $cart_item['mnm_config'] : $this->get_posted_container_configuration( $cart_item['data'] );
+
+        // Re-validate, though unlikely to have changed config.
+        $this->validate_container_configuration( $cart_item['data'], $cart_item['quantity'], $configuration, array( 'context' => 'cart' ) );
+
+        // Check child cart items are actually still in cart.
+        if ( count( $cart_item['mnm_config'] ) !== count( wc_mnm_get_child_cart_items( $cart_item, wc()->cart->cart_contents, true ) ) ) {
+            $notice = sprintf( esc_html__x( 'Sorry, the configuration for "%s" is no longer valid. Please edit your cart and try again.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $cart_item['data']->get_name() );
+            wc_add_notice( $notice, 'error' );
+        }
+
+    }
+
 
 
 	/**
 	 * Validates add to cart for MNM containers.
 	 * Basically ensures that stock for all child products exists before attempting to add them to cart.
+	 * 
+	 * @throws Exception
 	 *
 	 * @since  1.4.0
 	 *
@@ -553,10 +564,17 @@ class WC_Mix_and_Match_Cart {
 	 * @param  int     $container_quantity
 	 * @param  array   $configuration
 	 * @see            get_posted_container_configuration() for array details.
-	 * @param  string  $context - Possible values: 'add-to-cart'|'add-to-order'|'cart'
+	 * @param  array|string  $args
 	 * @return boolean
 	 */
-	public function validate_container_configuration( $container, $container_quantity, $configuration, $context = '' ) {
+	public function validate_container_configuration( $container, $container_quantity, $configuration, $args = array() ) {
+
+		$defaults = array(
+			'context'         => is_string( $args ) ? $args : '', // Back in the day, args was a string and was used to pass context. Possible values: 'add-to-cart'|'add-to-order'|'cart'
+			'throw_exception' => WC_MNM_Core_Compatibility::is_api_request() // Do not add a notice in Rest/Store API requests, unless otherwise instructed.
+		);
+
+		$args = wp_parse_args( $args, $defaults );
 
 		$is_valid = true;
 
@@ -571,18 +589,15 @@ class WC_Mix_and_Match_Cart {
 
 			try {
 
-				if ( '' === $context ) {
-
-					/**
-					 * 'woocommerce_mnm_container_validation_context' filter.
-					 *
-					 * @since  1.9.0
-					 *
-					 * @param  string                   $context
-					 * @param  WC_Product_Mix_and_Match $container
-					 */
-					$context = apply_filters( 'woocommerce_mnm_container_validation_context', 'add-to-cart', $container );
-				}
+				/**
+				 * 'wc_mnm_container_validation_context' filter.
+				 *
+				 * @since  1.9.0
+				 *
+				 * @param  string                   $context
+				 * @param  WC_Product_Mix_and_Match $container
+				 */
+				$context = '' === $args[ 'context' ] ? apply_filters( 'wc_mnm_container_validation_context', 'add-to-cart', $container ) : $args[ 'context' ];
 
 				$container_id    = $container->get_id();
 				$container_title = $container->get_title();
@@ -591,17 +606,20 @@ class WC_Mix_and_Match_Cart {
 				// The stock manager class keeps a record of stock-managed product / variation ids.
 				$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $container );
 
-				// Grab child items.
-				$mnm_items = $container->get_children();
+				if ( $container->has_child_items() ) {
 
-				if ( sizeof( $mnm_items ) ) {
+					// Grab child items.
+					$child_items = $container->get_child_items();
 
 					// Loop through the items.
-					foreach ( $mnm_items as $id => $mnm_item ) {
+					foreach ( $child_items as $child_item_id => $child_item ) {
+
+						$child_product    = $child_item->get_product();
+						$child_product_id = $child_product->get_id();
 
 						// Check that a product has been selected.
-						if ( isset( $configuration[ $id ] ) && $configuration[ $id ] !== '' ) {
-							$item_quantity = $configuration[ $id ]['quantity'];
+						if ( isset( $configuration[ $child_product_id ] ) && $configuration[ $child_product_id ] !== '' ) {
+							$item_quantity = $configuration[ $child_product_id ]['quantity'];
 							// If the ID isn't in the posted data something is rotten in Denmark.
 						} else {
 							continue;
@@ -614,54 +632,67 @@ class WC_Mix_and_Match_Cart {
 						$quantity = $item_quantity * $container_quantity;
 
 						// Product is_purchasable - only for per item pricing.
-						if ( $container->is_priced_per_product() && ! $mnm_item->is_purchasable() ) {
+						if ( $container->is_priced_per_product() && ! $child_product->is_purchasable() ) {
 							// translators: %s is the product title.
-							$notice = sprintf( __( 'The configuration you have selected cannot be added to the cart since &quot;%s&quot; cannot be purchased.', 'woocommerce-mix-and-match-products' ), $mnm_item->get_title() );
+							$notice = sprintf( _x( 'The configuration you have selected cannot be added to the cart since &quot;%s&quot; cannot be purchased.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $child_product->get_title() );
 							throw new Exception( $notice );
 						}
 
-						// Check individual min/max quantities
-						$min_quantity  = $container->get_child_quantity( 'min', $id );
-						$max_quantity  = $container->get_child_quantity( 'max', $id );
-						$step_quantity = $container->get_child_quantity( 'step', $id );
+						// Check individual min/max quantities.
+						$min_quantity  = $child_item->get_quantity( 'min' );
+						$max_quantity  = $child_item->get_quantity( 'max' );
+						$step_quantity = $child_item->get_quantity( 'step' );
 
 						if ( $max_quantity && $item_quantity > $max_quantity ) {
-							// translators: %s is the product title. %d is the maximum quantity of the child product.
-							$notice = sprintf( __( 'The configuration you have selected cannot be added to the cart since you cannot select more than %1$d of &quot;%2$s&quot;.', 'woocommerce-mix-and-match-products' ), $max_quantity, $mnm_item->get_title() );
+							// translators: %1ds is the maximum quantity of the child product. %2$s is the product title.
+							$notice = sprintf( _x( 'The configuration you have selected cannot be added to the cart since you cannot select more than %1$d of &quot;%2$s&quot;.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $max_quantity, $child_product->get_title() );
 							throw new Exception( $notice );
 						} elseif ( $min_quantity && $item_quantity < $min_quantity ) {
-							// translators: %s is the product title. %d is the minimum quantity of the child product.
-							$notice = sprintf( __( 'The configuration you have selected cannot be added to the cart since you must select at least %1$d of &quot;%2$s&quot;.', 'woocommerce-mix-and-match-products' ), $min_quantity, $mnm_item->get_title() );
+							// translators: %1$d is the minimum quantity of the child product. %2$s is the product title.
+							$notice = sprintf( _x( 'The configuration you have selected cannot be added to the cart since you must select at least %1$d of &quot;%2$s&quot;.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_quantity, $child_product->get_title() );
 							throw new Exception( $notice );
 						} elseif ( $step_quantity > 1 && $item_quantity % $step_quantity ) {
-							// translators: %s is the product title. %d is the step quantity of the child product.
-							$notice = sprintf( __( 'The configuration you have selected cannot be added to the cart since you must select &quot;%1$s&quot; in quantities of %2$d.', 'woocommerce-mix-and-match-products' ), $mnm_item->get_title(), $step_quantity );
+							// translators: %1$s is the product title. %2$d is the step quantity of the child product.
+							$notice = sprintf( _x( 'The configuration you have selected cannot be added to the cart since you must select &quot;%1$s&quot; in quantities of %2$d.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $child_product->get_title(), $step_quantity );
 							throw new Exception( $notice );
 						}
 
 						// Stock management.
-						if ( $mnm_item->is_type( 'variation' ) ) {
-							$mnm_stock->add_item( $mnm_item->get_parent_id(), $id, $quantity );
-						} else {
-							$mnm_stock->add_item( $id, false, $quantity );
-						}
-
+						$mnm_stock->add_item( $child_item->get_product_id(), $child_item->get_variation_id(), $quantity );
+						
 						/**
 						 * Individual item validation.
 						 *
 						 * @param bool $is_valid
 						 * @param obj $container WC_Product_Mix_and_Match of parent container.
-						 * @param obj $mnm_item WC_Product of child item.
+						 * @param obj $child_item WC_MNM_Child_Item of child item.
 						 * @param int $item_quantity Quantity of child item.
 						 * @param int $container_quantity Quantity of parent container.
 						 */
-						if ( ! apply_filters( 'woocommerce_mnm_item_add_to_cart_validation', true, $container, $mnm_item, $item_quantity, $container_quantity ) ) {
-							$is_valid = false;
+						$is_valid = apply_filters( 'wc_mnm_child_item_' . str_replace( '-', '_', $context ) . '_validation', true, $container, $child_item, $item_quantity, $container_quantity );
+
+						if ( has_filter( 'woocommerce_mnm_item_add_to_cart_validation' ) ) {
+
+							wc_deprecated_function( 'woocommerce_mnm_item_add_to_cart_validation', '2.0.0', 'wc_mnm_child_item_add_to_cart_validation, nb: 3rd param will be WC_MNM_Child_Item object.' );
+							/**
+							 * Individual item validation.
+							 * 
+							 * @deprecated - 2.0.0
+							 *
+							 * @param bool $is_valid
+							 * @param obj $container WC_Product_Mix_and_Match of parent container.
+							 * @param obj $child_product WC_Product of child item.
+							 * @param int $item_quantity Quantity of child item.
+							 * @param int $container_quantity Quantity of parent container.
+							 */
+							$is_valid = apply_filters( 'woocommerce_mnm_item_add_to_cart_validation', $is_valid, $container, $child_product, $item_quantity, $container_quantity );
+						}
+
+						if ( ! $is_valid ) {
 							break;
 						}
 					} // End foreach.
 				}
-
 				
 				// The number of items allowed to be in the container.
 				$min_container_size = $container->get_min_container_size();
@@ -672,7 +703,6 @@ class WC_Mix_and_Match_Cart {
 					$is_valid = false;
 					// translators: %1$d is the maximum container quantity. %2$s is the container product title.
 					$notice = sprintf( _n( 'You have selected too many items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too many items. Please choose %1$d items for &quot;%2$s&quot;.', $max_container_size, 'woocommerce-mix-and-match-products' ), $max_container_size, $container->get_title() );
-
 				}
 
 				// Validate the min number of items in the container.
@@ -682,14 +712,14 @@ class WC_Mix_and_Match_Cart {
 					$notice = sprintf( _n( 'You have selected too few items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too few items. Please choose %1$d items for &quot;%2$s&quot;.', $min_container_size, 'woocommerce-mix-and-match-products' ), $min_container_size, $container->get_title() );
 				}
 
-				// Check stock for stock-managed bundled items when adding to cart. If out of stock, don't proceed.
+				// Check stock for stock-managed child items when adding to cart. If out of stock, don't proceed.
 				if ( $is_valid && 'add-to-cart' === $context ) {
 					$is_valid = $mnm_stock->validate_stock(
-                        array(
+						array(
 						'context'         => $context,
 						'throw_exception' => true
-                        )
-                    );
+						)
+					);
 				}
 
 				/**
@@ -699,20 +729,26 @@ class WC_Mix_and_Match_Cart {
 				 * @param  WC_Product_Mix_and_Match $container
 				 * @param  WC_MNM_Stock_Manager     $mnm_stock
 				 * @param  array                    $configuration
-				 * @since  1.9.0
+				 * @since  2.0.0
 				 */
-				$is_valid = apply_filters( 'woocommerce_mnm_' . str_replace( '-', '_', $context ) . '_container_validation', $is_valid, $container, $mnm_stock, $configuration );
+				$is_valid = apply_filters( 'wc_mnm_' . str_replace( '-', '_', $context ) . '_container_validation', $is_valid, $container, $mnm_stock, $configuration );
 
-				/**
-				 * Validate the container.
-				 *
-				 * @deprecated 1.9.0
-				 *
-				 * @param bool $is_valid
-				 * @param obj WC_Mix_and_Match_Stock_Manager $mnm_stock
-				 * @param obj WC_Product_Mix_and_Match $container
-				 */
-				$is_valid = apply_filters( 'woocommerce_mnm_add_to_cart_validation', $is_valid, $mnm_stock, $container );
+				if ( has_filter( 'woocommerce_mnm_add_to_cart_validation' ) ) {
+
+					wc_deprecated_function( 'woocommerce_mnm_add_to_cart_validation', '2.0.0', 'wc_mnm_child_item_add_to_cart_validation, nb: parameters have switched order.' );
+
+					/**
+					 * Validate the container.
+					 *
+					 * @deprecated 1.9.0
+					 *
+					 * @param bool $is_valid
+					 * @param obj WC_Mix_and_Match_Stock_Manager $mnm_stock
+					 * @param obj WC_Product_Mix_and_Match $container
+					 */
+					$is_valid = apply_filters( 'woocommerce_mnm_add_to_cart_validation', $is_valid, $mnm_stock, $container );
+
+				}
 
 				/**
 				 * Late Exception for containers allows for alternative validations.
@@ -731,13 +767,21 @@ class WC_Mix_and_Match_Cart {
 				 * @param obj WC_Mix_and_Match_Stock_Manager $cart_item_data
 				 * @param obj WC_Product_Mix_and_Match $container
 				 */
-				$notice = apply_filters( 'woocommerce_mnm_container_quantity_error_message', $e->getMessage(), $mnm_stock, $container );
+				$notice = apply_filters( 'wc_mnm_container_quantity_error_message', $e->getMessage(), $mnm_stock, $container );
 
-				if ( $notice ) {
-					wc_add_notice( $notice, 'error' );
+				if ( $args[ 'throw_exception' ] ) {
+
+					throw new Exception( $notice );
+
+				} else {
+
+					if ( $notice ) {
+						wc_add_notice( $notice, 'error' );
+					}
+
+					$is_valid = false;
+
 				}
-
-				$is_valid = false;
 
 			}
 
@@ -768,7 +812,7 @@ class WC_Mix_and_Match_Cart {
 	 * @return string
 	 */
 	public function edit_in_cart_redirect_message( $message ) {
-		return __( 'Cart updated.', 'woocommerce-mix-and-match-products' );
+		return _x( 'Cart updated.', '[Frontend]', 'woocommerce-mix-and-match-products' );
 	}
 
 
@@ -817,7 +861,7 @@ class WC_Mix_and_Match_Cart {
 				foreach ( $configuration as $child_item_id => $child_item_configuration ) {
 
 					/**
-					 * 'woocommerce_mnm_child_item_cart_item_identifier' filter.
+					 * 'wc_mnm_child_item_cart_item_identifier' filter.
 					 *
 					 * Filters the config data array - use this to add any container-specific data that should result in unique container item ids being produced when the input data changes, such as add-ons data.
 					 *
@@ -825,7 +869,7 @@ class WC_Mix_and_Match_Cart {
 					 * @param  int    $child_item_id
 					 * @param  mixed  $product_id
 					 */
-					$configuration[ $child_item_id ] = apply_filters( 'woocommerce_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product_id );
+					$configuration[ $child_item_id ] = apply_filters( 'wc_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product_id );
 				}
 
 				// Add the array to the container item's data.
@@ -848,20 +892,45 @@ class WC_Mix_and_Match_Cart {
 	 * Modifies mnm cart item virtual status and price depending on pricing and shipping options.
 	 *
 	 * @param  array                     $cart_item
-	 * @param  WC_Product_Mix_and_Match  $parent
+	 * @param  WC_Product_Mix_and_Match  $container
 	 * @return array
 	 */
-	private function set_mnm_cart_item( $cart_item, $parent ) {
+	private function set_mnm_cart_item( $cart_item, $container ) {
+		
+		$child_item_id = isset( $cart_item[ 'child_item_id' ] ) ? $cart_item[ 'child_item_id' ] : 0;
 
-		// If the container has a dynamic price, potentially discount item.
-		if ( $parent->is_priced_per_product() ) {
-			$parent->maybe_apply_discount_to_child( $cart_item['data'] );
-			// If the container has a static price, set item's price to zero.
-		} else {
-			$cart_item['data']->set_price( 0 );
-			$cart_item['data']->set_regular_price( 0 );
-			$cart_item['data']->set_sale_price( '' );
+        // If the item went into the cart before 2.0 update then it won't have a child_item_id key.
+        if ( ! $child_item_id ) {
+            $child_item_id = ! empty( $cart_item[ 'variation_id' ] ) ? 'product-' . $cart_item[ 'variation_id' ] : 'product-' . $cart_item[ 'product_id' ];
+            $cart_item[ 'child_item_id' ] = $child_item_id;
+        }
+
+		$child_item = $container->get_child_item( $cart_item[ 'child_item_id' ] ); // @todo - if the item went into the cart before 2.0 update then it won't have a child_item_id key
+
+		if ( ! $child_item ) {
+			return $cart_item;
 		}
+
+		$discount_method = WC_MNM_Product_Prices::get_discount_method();
+
+		$cart_item['data']->mnm_child_item = $child_item;
+
+		if ( 'props' === $discount_method ) {
+
+			// If container is static-priced, the child products have 0 price.
+			if ( ! $container->is_priced_per_product() ) {
+
+				$cart_item['data']->set_price( 0 );
+				$cart_item['data']->set_regular_price( 0 );
+				$cart_item['data']->set_sale_price( '' );
+
+				// If the container has a dynamic price, potentially discount item.
+			} elseif ( $child_item && $child_item->has_discount() ) {
+				$cart_item['data']->set_price( $child_item->get_raw_price( $cart_item[ 'data' ], 'cart' ) );
+				$cart_item['data']->set_sale_price( $child_item->get_raw_price( $cart_item[ 'data' ], 'cart' ) );
+			}
+
+		}		
 
 		// If is not shipped individually, mark it as virtual and save weight to be optionally added to the container.
 		if ( $cart_item['data']->needs_shipping() ) {
@@ -874,24 +943,23 @@ class WC_Mix_and_Match_Cart {
 			 * @param bool $per_product_shipping
 			 * @param obj WC_Product  $cart_item['data']
 			 * @param  int $item_id Product or Variation ID of child item.
-			 * @param obj WC_Product_Mix_and_Match $parent Product object of parent container.
+			 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 			 */
-			if ( false === apply_filters( 'woocommerce_mnm_item_shipped_individually', $parent->is_shipped_per_product(), $cart_item['data'], $item_id, $parent ) ) {
+			if ( ! apply_filters( 'wc_mnm_child_item_shipped_individually', ! $container->is_packed_together(), $cart_item['data'], $item_id, $container ) ) {
 
 				/**
-				 * Does the child item have weight?
+				 * Does the child item add weight?
 				 *
 				 * @param bool $has_weight
 				 * @param obj WC_Product  $cart_item['data']
 				 * @param  int $item_id Product or Variation ID of child item.
-				 * @param obj WC_Product_Mix_and_Match $parent Product object of parent container.
+				 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 				 */
-				if ( apply_filters( 'woocommerce_mnm_item_has_bundled_weight', false, $cart_item['data'], $item_id, $parent ) ) {
+				if ( apply_filters( 'wc_mnm_child_item_has_cumulative_weight', $container->is_weight_cumulative(), $cart_item['data'], $item_id, $container ) ) {
 					$cart_item['data']->bundled_weight = $cart_item['data']->get_weight( 'edit' );
 				}
 
-				$cart_item['data']->bundled_value = $cart_item['data']->get_price( 'edit' );
-
+				$cart_item['data']->bundled_value = 'props' === $discount_method ? $cart_item[ 'data' ]->get_price( 'edit' ) : $child_item->get_raw_price( $cart_item[ 'data' ] );
 				$cart_item['data']->set_virtual( true );
 				$cart_item['data']->set_weight( '' );
 			}
@@ -901,9 +969,9 @@ class WC_Mix_and_Match_Cart {
 		 * Allow the child item to be modified by other plugins.
 		 *
 		 * @param array $cart_item
-		 * @param obj WC_Product_Mix_and_Match $parent Product object of parent container.
+		 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 		 */
-		return apply_filters( 'woocommerce_mnm_cart_item', $cart_item, $parent );
+		return apply_filters( 'wc_mnm_child_cart_item', $cart_item, $container );
 	}
 
 
@@ -917,13 +985,14 @@ class WC_Mix_and_Match_Cart {
 	 */
 	private function set_mnm_container_cart_item( $cart_item ) {
 		$container = $cart_item['data'];
+
 		/**
 		 * Allow MNM container cart item data to be modified
 		 *
 		 * @param array $cart_item
 		 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 		 */
-		return apply_filters( 'woocommerce_mnm_container_cart_item', $cart_item, $container );
+		return apply_filters( 'wc_mnm_container_cart_item', $cart_item, $container );
 	}
 
 
@@ -951,9 +1020,7 @@ class WC_Mix_and_Match_Cart {
 
 				$parent    = $cart_contents[ $container_cart_key ]['data'];
 				$cart_item = $this->set_mnm_cart_item( $cart_item, $parent );
-
-				// Add item key to parent items.
-				array_push( WC()->cart->cart_contents[ $container_cart_key ]['mnm_contents'], $cart_item_key );
+				
 			}
 		}
 
@@ -994,7 +1061,7 @@ class WC_Mix_and_Match_Cart {
 			}
 		}
 
-		// Child items.
+		// Child items. - @todo - store entire config on child items.
 		if ( wc_mnm_maybe_is_child_cart_item( $cart_session_item ) ) {
 
 			$container_cart_key = $cart_session_item['mnm_container'];
@@ -1036,11 +1103,11 @@ class WC_Mix_and_Match_Cart {
 				// Remove orphaned child items from the cart.
 				$container_item = wc_mnm_get_cart_item_container( $cart_item );
 
-				$child_id = $cart_item['variation_id'] ? $cart_item['variation_id'] : $cart_item['product_id'];
+				$child_product_id = $cart_item[ 'variation_id' ] ? $cart_item[ 'variation_id' ] : $cart_item[ 'product_id' ];
 
 				if ( ! $container_item || ! is_array( $container_item['mnm_contents'] ) || ! in_array( $cart_item_key, $container_item['mnm_contents'] ) ) {
 					unset( WC()->cart->cart_contents[ $cart_item_key ] );
-				} elseif ( $container_item['data']->is_type( 'mix-and-match' ) && ! array_key_exists( $child_id, $container_item['data']->get_children() ) ) {
+				} elseif ( $container_item['data']->is_type( 'mix-and-match' ) && ! $container_item['data']->is_allowed_child_product( $child_product_id ) ) {
 					unset( WC()->cart->cart_contents[ $cart_item_key ] );
 				}
 			}
@@ -1092,205 +1159,41 @@ class WC_Mix_and_Match_Cart {
 		}
 	}
 
-
 	/**
-	 * Do not show mix and matched items in cart widget.
+	 * Filters the reported cart weights.
+	 * Counts cumulative weight of containers.
+	 * 
+	 * @since 2.0.0
 	 *
-	 * @param  bool     $show
-	 * @param  array    $cart_item
-	 * @param  string   $cart_item_key
-	 * @return bool
+	 * @param  float  $weight
+	 * @return float
 	 */
-	public function cart_widget_filter( $show, $cart_item, $cart_item_key ) {
-
-		if ( wc_mnm_maybe_is_child_cart_item( $cart_item ) ) {
-			$show = false;
-		}
-
-		return $show;
-	}
-
-
-	/**
-	 * Filters the reported number of cart items.
-	 * Counts only MnM containers.
-	 *
-	 * @param  int  $count
-	 * @return int
-	 */
-	public function cart_contents_count( $count ) {
+	public function cart_contents_weight( $weight ) {
 
 		$cart_items = WC()->cart->get_cart();
-		$subtract   = 0;
 
 		foreach ( $cart_items as $key => $cart_item ) {
 
-			if ( wc_mnm_maybe_is_child_cart_item( $cart_item ) ) {
-				$subtract += $cart_item['quantity'];
-			}
-		}
+			if ( wc_mnm_is_container_cart_item( $cart_item ) && $cart_item['data']->is_weight_cumulative() ) {
+				
+				foreach ( wc_mnm_get_child_cart_items( $cart_item, $cart_items, true ) as $child_item_key ) {
 
-		return $count - $subtract;
-	}
+					$child_cart_item_data = $cart_items[ $child_item_key ];
+					$child_product        = $child_cart_item_data['data'];
+					$child_product_qty    = $child_cart_item_data['quantity'];
+					$child_product_weight = isset( $child_product->bundled_weight ) ? $child_product->bundled_weight : 0.0;
 
-
-	/**
-	 * MnM items can't be removed individually from the cart.
-	 * This filter doesn't pass the $cart_item array for some reason.
-	 *
-	 * @param  string  $link
-	 * @param  string  $cart_item_key
-	 * @return string
-	 */
-	public function cart_item_remove_link( $link, $cart_item_key ) {
-
-		if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['mnm_container'] ) && ! empty( WC()->cart->cart_contents[ $cart_item_key ]['mnm_container'] ) ) {
-			$link = '';
-		}
-
-		return $link;
-	}
-
-
-	/**
-	 * Modifies the cart.php formatted quantity for items in the container.
-	 *
-	 * @param  string  $quantity
-	 * @param  string  $cart_item_key
-	 * @param  array   $cart_item
-	 * @return string
-	 */
-	public function cart_item_quantity( $quantity, $cart_item_key, $cart_item ) {
-
-		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
-			$quantity = $cart_item['quantity'];
-		}
-
-		return $quantity;
-	}
-
-
-	/**
-	 * Modifies the cart.php formatted html prices visibility for items in the container.
-	 *
-	 * @param  string  $price
-	 * @param  array   $cart_item
-	 * @param  string  $cart_item_key
-	 * @return string
-	 */
-	public function cart_item_price( $price, $cart_item, $cart_item_key ) {
-
-		// Child items.
-		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
-
-			if ( $container_cart_item['data']->is_priced_per_product() ) {
-				$price = '<span class="bundled_' . ( WC_Mix_and_Match()->display->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_price">' . $price . '</span>';
-			} else {
-				$price = '&nbsp;';
-			}
-
-			// Parent container.
-		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
-
-			if ( $cart_item['data']->is_priced_per_product() ) {
-
-				$mnm_items_price     = 0;
-				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'] ) : wc_get_price_including_tax( $cart_item['data'] );
-
-				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $mnm_item_key => $mnm_item ) {
-
-					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item['data'], array( 'qty'   => $mnm_item['quantity'] ) ) : wc_get_price_including_tax( $mnm_item['data'], array( 'qty'   => $mnm_item['quantity'] ) );
-					$mnm_items_price    += (double) $child_item_price;
-
+					// Add weight for the child items.
+					if ( $child_product_weight) {
+						$weight += $child_product_weight * $child_product_qty;
+					}
 				}
 
-				$aggregate_price = $mnm_container_price + $mnm_items_price / $cart_item['quantity'];
-				$price = wc_price( $aggregate_price );
 			}
 		}
 
-		return $price;
+		return $weight;
 	}
-
-
-	/**
-	 * Modifies the cart.php template formatted subtotal appearance.
-	 *
-	 * @param  string  $subtotal
-	 * @param  array   $cart_item
-	 * @param  string  $cart_item_key
-	 * @return string
-	 */
-	public function cart_item_subtotal( $subtotal, $cart_item, $cart_item_key ) {
-
-		// Child items.
-		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
-
-			if ( $container_cart_item['data']->is_priced_per_product() ) {
-				// translators: %s is subtotal price.
-				$subtotal = '<span class="bundled_' . ( WC_Mix_and_Match()->display->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_price">' . sprintf( __( 'Subtotal: %s', 'woocommerce-mix-and-match-products' ), $subtotal ) . '</span>';
-			} else {
-				$subtotal = '&nbsp;';
-			}
-
-			// Parent container.
-		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
-
-			if ( $cart_item['data']->is_priced_per_product() ) {
-
-				$mnm_items_price     = 0;
-				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) ) : wc_get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) );
-
-				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $mnm_item_key => $mnm_item ) {
-
-					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) ) : wc_get_price_including_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) );
-					$mnm_items_price    += (double) $child_item_price;
-
-				}
-
-				$aggregate_subtotal = (double) $mnm_container_price + $mnm_items_price;
-
-				$subtotal = $this->format_product_subtotal( $cart_item['data'], $aggregate_subtotal );
-			}
-		}
-
-		return $subtotal;
-	}
-
-	/**
-	 * Outputs a formatted subtotal ( @see cart_item_subtotal() ).
-	 * @static
-	 * @param  obj     $product   The WC_Product.
-	 * @param  string  $subtotal  Formatted subtotal.
-	 * @return string             Modified formatted subtotal.
-	 */
-	public static function format_product_subtotal( $product, $subtotal ) {
-
-		$cart = WC()->cart;
-		$taxable = $product->is_taxable();
-		$product_subtotal = wc_price( $subtotal );
-
-		// Taxable.
-		if ( $taxable ) {
-
-			$tax_subtotal = WC_MNM_Core_Compatibility::is_wc_version_gte( '3.2' ) ? $cart->get_subtotal_tax() : $cart->tax_total;
-
-			$cart_display_prices_including_tax = WC_MNM_Core_Compatibility::is_wc_version_gte( '3.3' ) ? $cart->display_prices_including_tax() : $cart->tax_display_cart === 'incl';
-
-			if ( $cart_display_prices_including_tax ) {
-				if ( ! wc_prices_include_tax() && $tax_subtotal > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
-				}
-		} else {
-				if ( wc_prices_include_tax() && $tax_subtotal > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
-				}
-			}
-		}
-
-		return $product_subtotal;
-	}
-
 
 	/**
 	 * Remove child cart items with parent.
@@ -1298,7 +1201,7 @@ class WC_Mix_and_Match_Cart {
 	 * @param  string  $cart_item_key
 	 * @param  obj WC_Cart $cart
 	 */
-	function cart_item_removed( $cart_item_key, $cart ) {
+	public function cart_item_removed( $cart_item_key, $cart ) {
 
 		if ( wc_mnm_is_container_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
 
@@ -1331,7 +1234,7 @@ class WC_Mix_and_Match_Cart {
 	 * @param  string  $cart_item_key
 	 * @param  WC_Cart $cart
 	 */
-	function cart_item_restored( $cart_item_key, $cart ) {
+	public function cart_item_restored( $cart_item_key, $cart ) {
 
 		if ( wc_mnm_is_container_cart_item( $cart->cart_contents[ $cart_item_key ] ) ) {
 
@@ -1384,10 +1287,10 @@ class WC_Mix_and_Match_Cart {
 							if ( $container->needs_shipping() ) {
 
 								// Aggregate weights.
-								$aggregate_weight = 0.0;
+								$cumulative_weight = 0.0;
 
 								// Aggregate prices.
-								$aggregate_value = 0.0;
+								$cumulative_value = 0.0;
 
 								$container_totals = array(
 									'line_subtotal'     => $cart_item_data['line_subtotal'],
@@ -1400,13 +1303,15 @@ class WC_Mix_and_Match_Cart {
 								foreach ( wc_mnm_get_child_cart_items( $cart_item_data, WC()->cart->cart_contents, true ) as $child_item_key ) {
 
 									$child_cart_item_data = WC()->cart->cart_contents[ $child_item_key ];
-									$child_product      = $child_cart_item_data['data'];
-									$child_product_qty  = $child_cart_item_data['quantity'];
+									$child_product        = $child_cart_item_data['data'];
+									$child_product_qty    = $child_cart_item_data['quantity'];
+									$child_product_value  = isset( $child_product->bundled_value ) ? $child_product->bundled_value: 0.0;
+									$child_product_weight = isset( $child_product->bundled_weight ) ? $child_product->bundled_weight : 0.0;
 
-									// Aggregate price for the entire container.
-									if ( isset( $child_product->bundled_value ) && $child_product->bundled_value ) {
+									// Aggregate price of physically packaged child item - already converted to virtual.
+									if ( $child_product_value ) {
 
-										$aggregate_value += $child_product->bundled_value * $child_product_qty;
+										$cumulative_value += $child_product_value * $child_product_qty;
 
 										$container_totals['line_subtotal']     += $child_cart_item_data['line_subtotal'];
 										$container_totals['line_total']        += $child_cart_item_data['line_total'];
@@ -1421,23 +1326,23 @@ class WC_Mix_and_Match_Cart {
 										$container_totals['line_tax_data']['subtotal'] = array_merge( $container_totals['line_tax_data']['subtotal'], $child_item_line_tax_data['subtotal'] );
 									}
 
-									// Aggregate weight for the entire container.
-									if ( isset( $child_product->bundled_weight ) && $child_product->bundled_weight ) {
-										$aggregate_weight += $child_product->bundled_weight * $child_product_qty;
+									// Aggregate weight of physically packaged child item - already converted to virtual.
+									if ( $child_product_weight ) {
+										$cumulative_weight += $child_product_weight * $child_product_qty;
 									}
 								}
 
-								if ( $aggregate_value > 0 ) {
+								if ( $cumulative_value > 0 ) {
 									$container_price = $container->get_price( 'edit' );
-									$container->set_price( (double) $container_price + $aggregate_value / $container_qty );
+									$container->set_price( (double) $container_price + $cumulative_value / $container_qty );
 								}
 
-								if ( $aggregate_weight > 0 ) {
+								if ( $cumulative_weight > 0 ) {
 									$container_weight = $container->get_weight( 'edit' );
-									$container->set_weight( (double) $container_weight + $aggregate_weight / $container_qty );
+									$container->set_weight( (double) $container_weight + $cumulative_weight / $container_qty );
 								}
 
-								$packages[ $package_key ]['contents'][ $cart_item_key ]           = array_merge( $cart_item_data, $container_totals );
+								$packages[ $package_key ]['contents'][ $cart_item_key ]         = array_merge( $cart_item_data, $container_totals );
 								$packages[ $package_key ]['contents'][ $cart_item_key ]['data'] = $container;
 							}
 						}
@@ -1482,6 +1387,119 @@ class WC_Mix_and_Match_Cart {
 	public function get_bundled_cart_item_container_key( $item ) {
 		wc_deprecated_function( 'WC_Mix_and_Match_Cart::get_bundled_cart_item_container_key()', '1.4.0', 'wc_mnm_get_cart_item_container' );
 		return wc_mnm_get_cart_item_container( $item, false, true );
+	}
+
+	/**
+	 * Do not show mix and matched items in cart widget.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 *
+	 * @param  bool     $show
+	 * @param  array    $cart_item
+	 * @param  string   $cart_item_key
+	 * @return bool
+	 */
+	public function cart_widget_filter( $show, $cart_item, $cart_item_key ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_widget_filter()', '2.0.0', 'WC_Mix_and_Match_Display::cart_widget_filter()' );
+		return WC_Mix_and_Match()->display->cart_widget_filter( $show, $cart_item, $cart_item_key );
+	}
+
+
+	/**
+	 * Filters the reported number of cart items.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 * Counts only MnM containers.
+	 *
+	 * @param  int  $count
+	 * @return int
+	 */
+	public function cart_contents_count( $count ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_contents_count()', '2.0.0', 'WC_Mix_and_Match_Display::cart_contents_count()' );
+		return WC_Mix_and_Match()->display->cart_contents_count( $count );
+	}
+
+	/**
+	 * MnM items can't be removed individually from the cart.
+	 * This filter doesn't pass the $cart_item array for some reason.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 *
+	 * @param  string  $link
+	 * @param  string  $cart_item_key
+	 * @return string
+	 */
+	public function cart_item_remove_link( $link, $cart_item_key ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_item_remove_link()', '2.0.0', 'WC_Mix_and_Match_Display::cart_item_remove_link()' );
+		return WC_Mix_and_Match()->display->cart_item_remove_link( $link, $cart_item_key );
+	}
+
+	/**
+	 * Modifies the cart.php formatted quantity for items in the container.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 *
+	 * @param  string  $quantity
+	 * @param  string  $cart_item_key
+	 * @param  array   $cart_item
+	 * @return string
+	 */
+	public function cart_item_quantity( $quantity, $cart_item_key, $cart_item ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_item_quantity()', '2.0.0', 'WC_Mix_and_Match_Display::cart_item_quantity()' );
+		return WC_Mix_and_Match()->display->cart_item_quantity( $quantity, $cart_item_key, $cart_item );
+	}
+
+
+	/**
+	 * Modifies the cart.php formatted html prices visibility for items in the container.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 *
+	 * @param  string  $price
+	 * @param  array   $cart_item
+	 * @param  string  $cart_item_key
+	 * @return string
+	 */
+	public function cart_item_price( $price, $cart_item, $cart_item_key ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_item_quantity()', '2.0.0', 'WC_Mix_and_Match_Display::cart_item_quantity()' );
+		return WC_Mix_and_Match()->display->cart_item_price( $price, $cart_item, $cart_item_key );
+	}
+
+
+	/**
+	 * Modifies the cart.php template formatted subtotal appearance.
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 *
+	 * @param  string  $subtotal
+	 * @param  array   $cart_item
+	 * @param  string  $cart_item_key
+	 * @return string
+	 */
+	public function cart_item_subtotal( $subtotal, $cart_item, $cart_item_key ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::cart_item_subtotal()', '2.0.0', 'WC_Mix_and_Match_Display::cart_item_subtotal()' );
+		return WC_Mix_and_Match()->display->cart_item_subtotal( $subtotal, $cart_item, $cart_item_key );
+	}
+
+	/**
+	 * Outputs a formatted subtotal ( @see cart_item_subtotal() ).
+	 * 
+	 * @deprecated 2.0.0
+	 * 
+	 * @static
+	 * @param  obj     $product   The WC_Product.
+	 * @param  string  $subtotal  Formatted subtotal.
+	 * @return string             Modified formatted subtotal.
+	 */
+	public static function format_product_subtotal( $product, $subtotal ) {
+		wc_deprecated_function( 'WC_Mix_and_Match_Cart::format_product_subtotal()', '2.0.0', 'WC_Mix_and_Match_Display::format_product_subtotal()' );
+		return WC_Mix_and_Match()->display->format_product_subtotal( $product, $subtotal );
 	}
 
 } //End class.

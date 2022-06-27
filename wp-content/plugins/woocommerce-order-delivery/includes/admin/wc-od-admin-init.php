@@ -9,16 +9,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin init.
- *
- * @since 1.0.0
- * @deprecated 1.6.0
- */
-function wc_od_admin_init() {
-	wc_deprecated_function( 'wc_od_admin_init', '1.6.0' );
-}
-
-/**
  * Looks at the current screen and loads the correct list table handler.
  *
  * Based on the method WC_Admin_Post_Types::setup_screen().
@@ -57,11 +47,11 @@ add_action( 'check_ajax_referer', 'wc_od_admin_setup_screen', 20 );
  * @return array The modified shop order columns.
  */
 function wc_od_admin_shop_order_columns( $columns ) {
-	$index = array_search( 'order_date', array_keys( $columns ) );
-	$modified_columns = array_slice( $columns, 0, $index );
+	$index                             = array_search( 'order_date', array_keys( $columns ) );
+	$modified_columns                  = array_slice( $columns, 0, $index );
 	$modified_columns['shipping_date'] = __( 'Shipping Date', 'woocommerce-order-delivery' );
 	$modified_columns['delivery_date'] = __( 'Delivery Date', 'woocommerce-order-delivery' );
-	$modified_columns = array_merge( $modified_columns, array_slice( $columns, $index ) );
+	$modified_columns                  = array_merge( $modified_columns, array_slice( $columns, $index ) );
 
 	return $modified_columns;
 }
@@ -83,7 +73,7 @@ function wc_od_admin_shop_order_sort_columns( $columns ) {
 
 	return $columns;
 }
-add_filter( "manage_edit-shop_order_sortable_columns", 'wc_od_admin_shop_order_sort_columns' );
+add_filter( 'manage_edit-shop_order_sortable_columns', 'wc_od_admin_shop_order_sort_columns' );
 
 /**
  * Prints the content for the custom orders columns.
@@ -146,10 +136,13 @@ function wc_od_admin_shop_order_orderby( $vars ) {
 	// Sorting
 	if ( isset( $vars['orderby'] ) ) {
 		if ( in_array( $vars['orderby'], array( 'shipping_date', 'delivery_date' ) ) ) {
-			$vars = array_merge( $vars, array(
-				'meta_key' => "_{$vars['orderby']}",
-				'orderby'  => 'meta_value_num',
-			) );
+			$vars = array_merge(
+				$vars,
+				array(
+					'meta_key' => "_{$vars['orderby']}",
+					'orderby'  => 'meta_value_num',
+				)
+			);
 		}
 	}
 
@@ -165,11 +158,11 @@ add_filter( 'request', 'wc_od_admin_shop_order_orderby' );
  * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
  *
  * @param string $orderby The orderby query.
- * @param array $query    The query parameters.
+ * @param array  $query   The query parameters.
  * @return string The filtered orderby query.
  */
 function wc_od_admin_posts_orderby_date( $orderby, $query ) {
-    global $wpdb;
+	global $wpdb;
 
 	if ( 'shop_order' === $query->get( 'post_type' ) && in_array( $query->get( 'meta_key' ), array( '_shipping_date', '_delivery_date' ) ) ) {
 		$orderby = "CAST( $wpdb->postmeta.meta_value AS DATE ) " . $query->get( 'order' );
@@ -182,18 +175,6 @@ add_filter( 'posts_orderby', 'wc_od_admin_posts_orderby_date', 10, 2 );
 
 /** Edit Order functions ******************************************************/
 
-
-/**
- * Adds the date fields to the 'Order Details' meta box.
- *
- * @since 1.0.0
- * @deprecated 1.5.0 Moved code to the method `WC_OD_Meta_Box_Order_Delivery::output`.
- *
- * @param WC_Order $order The order.
- */
-function wc_od_admin_order_data_after_order_details( $order ) {
-	wc_deprecated_function( 'wc_od_admin_order_data_after_order_details', '1.5.0' );
-}
 
 /**
  * Saves the date fields on the edit-order page.

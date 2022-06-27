@@ -521,7 +521,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 			$end         = new WC_DateTime( $this->get_to_range() );
 			$is_all_day  = false === strpos( $this->get_from_range(), ':' );
 			$date_format = $is_all_day ? 'Y-m-d' : 'Y-m-d g:i A';
-	
+
 			/**
 			 * Using start time for all-day events but end time for intraday events.
 			 * This is required to see events which already started in the past but

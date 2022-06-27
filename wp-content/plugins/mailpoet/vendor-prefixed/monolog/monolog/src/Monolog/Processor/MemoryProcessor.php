@@ -1,18 +1,18 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog\Processor;
 if (!defined('ABSPATH')) exit;
 abstract class MemoryProcessor implements ProcessorInterface
 {
  protected $realUsage;
  protected $useFormatting;
- public function __construct($realUsage = \true, $useFormatting = \true)
+ public function __construct(bool $realUsage = \true, bool $useFormatting = \true)
  {
- $this->realUsage = (bool) $realUsage;
- $this->useFormatting = (bool) $useFormatting;
+ $this->realUsage = $realUsage;
+ $this->useFormatting = $useFormatting;
  }
- protected function formatBytes($bytes)
+ protected function formatBytes(int $bytes)
  {
- $bytes = (int) $bytes;
  if (!$this->useFormatting) {
  return $bytes;
  }

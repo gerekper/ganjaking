@@ -679,7 +679,7 @@ svg>g>g:last-child{pointer-events:none}
 .sp-form-group .sp-color-value-clear{display:inline-block;right:7px;color:#efefef}
 .sp-form-group .sp-btn-primary{background-color:#38a169;color:#fff;padding:10px 10px;border-radius:4px;line-height:1;cursor:pointer}
 .sp-bg-cv-transparent{background-image:linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%);background-size:10px 10px;background-position:0 0,0 5px,5px -5px,-5px 0;width:1.25rem;height:1.25rem;border-radius:9999px}
-.gutter.gutter-horizontal{cursor:ew-resize;margin-left:-1px !important;margin-right:-1px !important}
+.gutter.gutter-horizontal{cursor:ew-resize;margin-left:-1px !important;margin-right:-1px !important;min-height:75px}
 .sp-btn-group span{padding:7px;background:#eee;width:50px;display:inline-block;text-align:center;cursor:pointer}
 .sp-btn-group span.active{background:#ccc}
 .sp-btn-group span:hover{background:#ddd}

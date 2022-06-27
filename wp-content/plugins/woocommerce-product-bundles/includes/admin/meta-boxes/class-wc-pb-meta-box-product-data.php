@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.12.0
+ * @version  6.14.1
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -514,7 +514,7 @@ class WC_PB_Meta_Box_Product_Data {
 				}
 
 				/* translators: %1$s: Item Grouping option name, %2$s: Unassembled bundle docs URL, %3$s: Pricing URL link */
-				$group_modes_without_parent_msg = sprintf( _n( '%1$s is only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', '%1$s are only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', sizeof( $group_modes_without_parent ), 'woocommerce-product-bundles' ), WC_PB_Helpers::format_list_of_items( $group_modes_without_parent ), WC_PB()->get_resource_url( 'shipping-options' ), WC_PB()->get_resource_url( 'pricing-options' ) );
+				$group_modes_without_parent_msg = sprintf( _n( '%1$s is only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', '%1$s are only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', count( $group_modes_without_parent ), 'woocommerce-product-bundles' ), WC_PB_Helpers::format_list_of_items( $group_modes_without_parent ), WC_PB()->get_resource_url( 'shipping-options' ), WC_PB()->get_resource_url( 'pricing-options' ) );
 				/* translators: Reason */
 				self::add_admin_error( sprintf( __( 'The chosen <strong>Item Grouping</strong> option is invalid. %s', 'woocommerce-product-bundles' ), $group_modes_without_parent_msg ) );
 
@@ -589,7 +589,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 					// Bundling subscription products requires Subs v2.0+.
 					if ( $is_subscription ) {
-						if ( ! class_exists( 'WC_Subscriptions' ) || version_compare( WC_Subscriptions::$version, '2.0.0', '<' ) ) {
+						if ( ( ! class_exists( 'WC_Subscriptions' ) && ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) || ( class_exists( 'WC_Subscriptions' ) && version_compare( WC_Subscriptions::$version, '2.0.0', '<' ) ) ) {
 							/* translators: Bundled product name */
 							self::add_admin_error( sprintf( __( '<strong>%s</strong> was not saved. WooCommerce Subscriptions version 2.0 or higher is required in order to bundle Subscription products.', 'woocommerce-product-bundles' ), $product_title ) );
 							continue;
@@ -969,7 +969,7 @@ class WC_PB_Meta_Box_Product_Data {
 					$variations = $bundled_product->get_children();
 					$attributes = $bundled_product->get_attributes();
 
-					if ( sizeof( $variations ) < 50 ) {
+					if ( count( $variations ) < 50 ) {
 
 						?><select multiple="multiple" name="bundle_data[<?php echo $loop; ?>][allowed_variations][]" style="width: 95%;" data-placeholder="<?php _e( 'Choose variations&hellip;', 'woocommerce-product-bundles' ); ?>" class="sw-select2"> <?php
 
@@ -1310,7 +1310,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 			$help_tip .= '<strong>' . $option[ 'title' ] . '</strong> &ndash; ' . $option[ 'description' ];
 
-			if ( $loop < sizeof( $options ) - 1 ) {
+			if ( $loop < count( $options ) - 1 ) {
 				$help_tip .= '</br></br>';
 			}
 

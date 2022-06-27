@@ -57,6 +57,13 @@ class Field {
     return $this->factory;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getValue() {
+    return $this->getFactory()();
+  }
+
   public function getArgs(): array {
     return $this->args;
   }

@@ -1,5 +1,8 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.03.24 - version 3.2.2
+* Fix - Ensure that HTML prompts are saved and rendered correctly.
+
 2022.03.16 - version 3.2.1
 * Tweak - Used new WooCommerce brand colors.
 * Fix - Made sure that the 'wcsatt_price_html_discount_format' filter is added only when there is at least one discounted subscription plan. 

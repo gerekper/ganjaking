@@ -73,14 +73,14 @@ abstract class Abstract_Async {
 	 *
 	 * @var array
 	 */
-	protected $_body_data;
+	protected $body_data;
 
 	/**
 	 * Constructor to wire up the necessary actions
 	 *
 	 * Which hooks the asynchronous postback happens on can be set by the
-	 * $auth_level parameter. There are essentially three options: logged in users
-	 * only, logged out users only, or both. Set this when you instantiate an
+	 * $auth_level parameter. There are essentially three options: logged-in users
+	 * only, logged-out users only, or both. Set this when you instantiate an
 	 * object by using one of the three class constants to do so:
 	 *  - LOGGED_IN
 	 *  - LOGGED_OUT
@@ -95,10 +95,17 @@ abstract class Abstract_Async {
 		if ( empty( $this->action ) ) {
 			throw new Exception( 'Action not defined for class ' . __CLASS__ );
 		}
-		// Handle the actual action.
-		add_action( $this->action, array( $this, 'launch' ), (int) $this->priority, (int) $this->argument_count );
 
-		add_action( "admin_post_wp_async_$this->action", array( $this, 'handle_postback' ) );
+		// Handle the actual action.
+		add_action( $this->action, array( $this, 'launch' ), $this->priority, $this->argument_count );
+
+		if ( $auth_level & self::LOGGED_IN ) {
+			add_action( "admin_post_wp_async_$this->action", array( $this, 'handle_postback' ) );
+		}
+
+		if ( $auth_level & self::LOGGED_OUT ) {
+			add_action( "admin_post_nopriv_wp_async_$this->action", array( $this, 'handle_postback' ) );
+		}
 	}
 
 	/**
@@ -106,6 +113,8 @@ abstract class Abstract_Async {
 	 * get an exception thrown by prepare_data().
 	 *
 	 * @uses func_get_args() To grab any arguments passed by the action
+	 *
+	 * @return mixed|void
 	 */
 	public function launch() {
 		$data = func_get_args();
@@ -119,7 +128,7 @@ abstract class Abstract_Async {
 		$data['action'] = "wp_async_$this->action";
 		$data['_nonce'] = $this->create_async_nonce();
 
-		$this->_body_data = $data;
+		$this->body_data = $data;
 
 		$shutdown_action = has_action( 'shutdown', array( $this, 'process_request' ) );
 
@@ -156,18 +165,17 @@ abstract class Abstract_Async {
 	 * @uses wp_remote_post()
 	 */
 	public function process_request() {
-		if ( ! empty( $this->_body_data ) ) {
+		if ( ! empty( $this->body_data ) ) {
 			$cookies = array();
 			foreach ( $_COOKIE as $name => $value ) {
-				$cookies[] = "$name=" . urlencode( is_array( $value ) ? serialize( $value ) : $value );
+				$cookies[] = "$name=" . rawurlencode( is_array( $value ) ? serialize( $value ) : $value );
 			}
 
-			// TODO: We've set sslverify to false.
 			$request_args = array(
 				'timeout'   => apply_filters( 'smush_async_time_out', 0 ),
 				'blocking'  => false,
 				'sslverify' => false,
-				'body'      => $this->_body_data,
+				'body'      => $this->body_data,
 				'headers'   => array(
 					'cookie' => implode( '; ', $cookies ),
 				),
@@ -236,12 +244,12 @@ abstract class Abstract_Async {
 		$i      = wp_nonce_tick();
 
 		// Nonce generated 0-12 hours ago.
-		if ( substr( wp_hash( $i . $action . get_class( $this ), 'nonce' ), - 12, 10 ) == $nonce ) {
+		if ( substr( wp_hash( $i . $action . get_class( $this ), 'nonce' ), - 12, 10 ) === $nonce ) {
 			return 1;
 		}
 
 		// Nonce generated 12-24 hours ago.
-		if ( substr( wp_hash( ( $i - 1 ) . $action . get_class( $this ), 'nonce' ), - 12, 10 ) == $nonce ) {
+		if ( substr( wp_hash( ( $i - 1 ) . $action . get_class( $this ), 'nonce' ), - 12, 10 ) === $nonce ) {
 			return 2;
 		}
 
@@ -259,9 +267,8 @@ abstract class Abstract_Async {
 		if ( substr( $action, 0, 7 ) === 'nopriv_' ) {
 			$action = substr( $action, 7 );
 		}
-		$action = "wp_async_$action";
 
-		return $action;
+		return "wp_async_$action";
 	}
 
 	/**

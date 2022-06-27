@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		groupHeading.addEventListener('change', function(e) {
 
-			var elem = event.target;
+			var elem = e.target;
 
 			//group status toggle/select
 			if(elem.classList.contains('perfmatters-status-toggle') || elem.classList.contains('perfmatters-status-select')) {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		section.addEventListener('change', function(e) {
 
-			var elem = event.target;
+			var elem = e.target;
 
 			//script status toggle/select
 			if(elem.classList.contains('perfmatters-status-toggle') || elem.classList.contains('perfmatters-status-select')) {
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		input.addEventListener('change', function(e) {
 
-			var elem = event.target;
+			var elem = e.target;
 
 			elem.classList.add('pmsm-changed');
 

@@ -1,5 +1,11 @@
 *** WooCommerce Memberships Changelog ***
 
+2022.03.28 - version 1.23.0
+ * Feature - Introduce a configurable membership directory block with search, filtering, and pagination of members.
+
+2022.02.14 - version 1.22.11
+ * Fix - When a user doesn't belong to any membership plan, don't show them any profile fields in the My Account area
+
 2022.02.08 - version 1.22.10
  * Fix - Remove deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
  * Misc - Require WooCommerce v3.9.4 or later

@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Package_Weight class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Package Weight Condition.
  *
  * @class    WC_CSP_Condition_Package_Weight
- * @version  1.5.2
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                            = 'package_weight';
 		$this->title                         = __( 'Package Weight', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                      = 20;
 		$this->supported_global_restrictions = array( 'shipping_methods', 'shipping_countries' );
 	}
 

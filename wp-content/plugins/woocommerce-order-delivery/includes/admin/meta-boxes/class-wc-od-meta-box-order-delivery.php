@@ -61,17 +61,6 @@ class WC_OD_Meta_Box_Order_Delivery {
 		);
 
 		/**
-		 * Filters the fields to add in the order details section.
-		 *
-		 * @since 1.4.0
-		 * @deprecated 1.5.0 Use the `wc_od_admin_order_delivery_fields` filter instead.
-		 *
-		 * @param array    $fields An array with the fields data.
-		 * @param WC_Order $order  The order instance.
-		 */
-		$fields = apply_filters( 'wc_od_admin_order_details_fields', $fields, $order );
-
-		/**
 		 * Filters the order delivery fields.
 		 *
 		 * @since 1.5.0
@@ -120,7 +109,7 @@ class WC_OD_Meta_Box_Order_Delivery {
 		$order = wc_get_order( $order_id );
 
 		// Process the delivery_date field.
-		$posted_delivery_date  = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
+		$posted_delivery_date  = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 		$delivery_date_changed = ( (string) $order->get_meta( '_delivery_date' ) !== $posted_delivery_date );
 
 		if ( $posted_delivery_date ) {
@@ -139,7 +128,7 @@ class WC_OD_Meta_Box_Order_Delivery {
 		}
 
 		// Process the shipping_date field.
-		$posted_shipping_date  = ( isset( $_POST['_shipping_date'] ) ? wc_clean( wp_unslash( $_POST['_shipping_date'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
+		$posted_shipping_date  = ( isset( $_POST['_shipping_date'] ) ? wc_clean( wp_unslash( $_POST['_shipping_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 		$shipping_date_changed = ( (string) $order->get_meta( '_shipping_date' ) !== $posted_shipping_date );
 
 		// Shipping date not changed manually by the merchant.

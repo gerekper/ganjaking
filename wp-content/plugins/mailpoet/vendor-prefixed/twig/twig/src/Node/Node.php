@@ -51,49 +51,49 @@ class Node implements \Countable, \IteratorAggregate
  $node->compile($compiler);
  }
  }
- public function getTemplateLine()
+ public function getTemplateLine() : int
  {
  return $this->lineno;
  }
- public function getNodeTag()
+ public function getNodeTag() : ?string
  {
  return $this->tag;
  }
- public function hasAttribute($name)
+ public function hasAttribute(string $name) : bool
  {
  return \array_key_exists($name, $this->attributes);
  }
- public function getAttribute($name)
+ public function getAttribute(string $name)
  {
  if (!\array_key_exists($name, $this->attributes)) {
  throw new \LogicException(\sprintf('Attribute "%s" does not exist for Node "%s".', $name, static::class));
  }
  return $this->attributes[$name];
  }
- public function setAttribute($name, $value)
+ public function setAttribute(string $name, $value) : void
  {
  $this->attributes[$name] = $value;
  }
- public function removeAttribute($name)
+ public function removeAttribute(string $name) : void
  {
  unset($this->attributes[$name]);
  }
- public function hasNode($name)
+ public function hasNode(string $name) : bool
  {
  return isset($this->nodes[$name]);
  }
- public function getNode($name)
+ public function getNode(string $name) : self
  {
  if (!isset($this->nodes[$name])) {
  throw new \LogicException(\sprintf('Node "%s" does not exist for Node "%s".', $name, static::class));
  }
  return $this->nodes[$name];
  }
- public function setNode($name, self $node)
+ public function setNode(string $name, self $node) : void
  {
  $this->nodes[$name] = $node;
  }
- public function removeNode($name)
+ public function removeNode(string $name) : void
  {
  unset($this->nodes[$name]);
  }
@@ -102,39 +102,23 @@ class Node implements \Countable, \IteratorAggregate
  {
  return \count($this->nodes);
  }
- #[\ReturnTypeWillChange]
- public function getIterator()
+ public function getIterator() : \Traversable
  {
  return new \ArrayIterator($this->nodes);
  }
- public function setTemplateName($name)
- {
- $triggerDeprecation = 2 > \func_num_args() || \func_get_arg(1);
- if ($triggerDeprecation) {
- @\trigger_error('The ' . __METHOD__ . ' method is deprecated since version 2.8 and will be removed in 3.0. Use setSourceContext() instead.', \E_USER_DEPRECATED);
- }
- $this->name = $name;
- foreach ($this->nodes as $node) {
- $node->setTemplateName($name, $triggerDeprecation);
- }
- }
- public function getTemplateName()
+ public function getTemplateName() : ?string
  {
  return $this->sourceContext ? $this->sourceContext->getName() : null;
  }
- public function setSourceContext(Source $source)
+ public function setSourceContext(Source $source) : void
  {
  $this->sourceContext = $source;
  foreach ($this->nodes as $node) {
  $node->setSourceContext($source);
  }
- $this->setTemplateName($source->getName(), \false);
  }
- public function getSourceContext()
+ public function getSourceContext() : ?Source
  {
  return $this->sourceContext;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\Node', 'MailPoetVendor\\Twig_Node');
-// Ensure that the aliased name is loaded to keep BC for classes implementing the typehint with the old aliased name.
-\class_exists('MailPoetVendor\\Twig\\Compiler');

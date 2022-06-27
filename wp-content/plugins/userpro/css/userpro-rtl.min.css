@@ -205,7 +205,7 @@ div.userpro input[type=text].userpro-datepicker:focus{
 
 /* plugin core */
 
-div.userpro * {padding:0; margin:0;text-decoration: none;outline:none;border:0;letter-spacing: 0px}
+/*div.userpro * {padding:0; margin:0;text-decoration: none;outline:none;border:0;letter-spacing: 0px}*/
 
 div.userpro form {margin: 0 !important}
 
@@ -613,7 +613,7 @@ div.userpro-online-item img.userpro-profile-badge.userpro-hide-from-list {displa
 /* form section */
 div.userpro-section {
 	margin: 15px 0 0 0;
-	padding: 0 0 8px 0 !important;
+/*	padding: 0 0 8px 0 !important;*/
 	font-size: 13px;
 	position: relative;
 	transition: all .2s linear !important;

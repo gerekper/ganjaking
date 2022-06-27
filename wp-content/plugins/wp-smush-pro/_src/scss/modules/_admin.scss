@@ -10,13 +10,6 @@
 	 * @since 3.8.6
 	 */
 	.wrap-smush {
-		.smush-upsell-link {
-			color: $purple;
-			&:hover:not(.sui-button),
-			&:focus:not(.sui-button),
-			&:active:not(.sui-button) { color: #64007e; }
-		}
-
 		// Images.
 		div[class^="sui-dashboard-"] .sui-box-title:before {
 			color: #333333;
@@ -93,44 +86,69 @@
 		}
 	}
 
-	// Overwrite the dashboard image.
-	.sui-wrap .sui-summary.sui-dashboard-summary:not(.sui-unbranded):not(.sui-summary-sm):not(.sui-rebranded) {
-		@if variable-exists(summary-image) {
-			@include background-2x("#{$img--path}/smush-graphic-summary", 'png', auto, 90%);
-			background-position: 0 bottom;
-			background-color: #ffffff;
-		}
-
-		@include media(max-width, md) {
-			background-image: unset;
-		}
-	}
-
-	/** Override SUI styles (since 3.6.0) */
-	.sui-notice-top p { width: 100%; }
-
-	/**
-	 * Fix summary image size. Overwrite of SUI styles.
-	 */
-	@media screen and (min-width: 783px) {
-		.sui-wrap .sui-summary:not(.sui-rebranded):not(.sui-unbranded):not(.sui-summary-sm) {
-			background-size: auto 80%;
-		}
-		.sui-wrap .sui-summary.sui-rebranded {
-			background-image: none !important;
-		}
-	}
-
 	.sui-wrap {
 		/**
-		 * Upesll notices.
+		 * Bulk smush meta boxes
 		 *
-		 * @since 3.2.3
+		 * @since 3.10.0
 		 */
-		.smush-upsell-notice {
-			margin-left: 130px !important;
-			@media screen and (max-width: 782px) {
-				margin-left: 0 !important;
+		.sui-dashboard-summary, .sui-summary-smush, .sui-summary-smush-nextgen {
+			background-image: none !important;
+		}
+
+		.sui-settings-label > .sui-tag {
+			vertical-align: middle;
+			margin-left: 3px;
+		}
+
+		.sui-summary:not(.sui-unbranded):not(.sui-summary-sm) .sui-summary-image-space {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+
+			background-color: #F8F8F8;
+			margin: 20px 10px;
+			min-width: 266px;
+			flex: 0 0 266px;
+
+			@include media(min-width, lg) {
+				min-width: 388px;
+				flex: 0 0 388px;
+			}
+
+			.sui-circle-score {
+				height: 110px;
+				margin-bottom: 10px;
+
+				circle {
+					stroke-width: 10;
+					&:last-of-type {
+						stroke-dasharray: var(--metric-array);
+					}
+				}
+
+				.sui-circle-score-label {
+					position: absolute;
+					display: flex;
+					align-content: space-between;
+					justify-content: center;
+					align-items: center;
+					width: 110px;
+					margin: 0;
+					font-weight: 700;
+					font-size: 30px;
+					letter-spacing: -1px;
+					color: #333;
+
+					&:after {
+						content: '%';
+					}
+				}
+			}
+
+			& > small {
+				color: #333 !important;
 			}
 		}
 
@@ -507,11 +525,8 @@
 		}
 
 		.wp-smush-bulk-progress-bar-wrapper {
-			.sui-progress-state {
-				span {
-					display: inline-block;
-				}
-			}
+			margin-bottom: 30px;
+			.sui-progress-state span { display: inline-block; }
 		}
 
 		#sui-cross-sell-footer h3 {
@@ -522,105 +537,112 @@
 		.smush-final-log {
 			margin-top: 30px;
 
-			.smush-bulk-error-row {
-				align-content: center;
-				align-items: center;
-				border-bottom: 1px solid #E6E6E6;
-				box-shadow: inset 2px 0 0 0 #FECF2F;
-				display: flex;
-				height: 52px;
-				justify-content: space-between;
-				margin: 0 -30px;
-				padding: 0 20px;
-				font-size: 13px;
-				letter-spacing: -0.25px;
+			.smush-bulk-errors {
+				overflow-y: scroll;
+            	height: 200px;
+            	padding-left: 30px;
+    			padding-right: 30px;
 
-				&:first-child {
-					border-top: 1px solid #E6E6E6;
-				}
-
-				.smush-bulk-image-data {
-					display: flex;
+				.smush-bulk-error-row {
 					align-content: center;
 					align-items: center;
-					flex-basis: 100%;
+					border-bottom: 1px solid #E6E6E6;
+					box-shadow: inset 2px 0 0 0 #FECF2F;
+					display: flex;
+					height: 52px;
+					justify-content: space-between;
+					margin: 0 -30px;
+					padding: 0 20px;
+					font-size: 13px;
+					letter-spacing: -0.25px;
 
-					&:before {
-						content: "I";
-						font-family: wpmudev-plugin-icons !important;
-						speak: none;
-						font-size: 16px;
-						font-style: normal;
-						font-weight: 400;
-						font-variant: normal;
-						text-transform: none;
-						line-height: 1;
-						text-rendering: auto;
-						display: inline-block;
-						margin-right: 10px;
-						color: #FECF2F;
+					&:first-child {
+						border-top: 1px solid #E6E6E6;
 					}
-
-					.sui-icon-photo-picture {
-						font-size: 12px;
-						border-radius: 4px;
-						background-color: #E6E6E6;
-						margin-right: 10px;
-						padding-left: 9px;
-						padding-top: 1px;
-						width: 30px;
-						height: 30px;
-
-						&:before {
-							width: 30px;
-							height: 30px;
-						}
-					}
-
-					.attachment-thumbnail {
-						border-radius: 4px;
-						width: 30px;
-						height: 30px;
-						margin-right: 10px;
-					}
-
-					.smush-image-name {
-						line-height: 15px;
-						font-weight: 500;
-						margin-right: 10px;
-						word-break: break-all;
-					}
-
-					.smush-image-error {
-						line-height: 15px;
-						word-break: break-all;
-						margin-right: 10px;
-					}
-				}
-
-				.smush-bulk-image-actions {
-					flex-basis: 30px;
-
-					button:disabled {
-						background-color: #F2F2F2;
-						cursor: default;
-
-						.sui-icon-eye-hide:before {
-							color: lighten( #333333, 50% );
-						}
-					}
-				}
-
-				@media screen and (max-width: 600px) {
-					height: auto;
 
 					.smush-bulk-image-data {
-						flex-wrap: wrap;
-						padding: 10px 20px;
+						display: flex;
+						align-content: center;
+						align-items: center;
+						flex-basis: 100%;
+
+						&:before {
+							content: "I";
+							font-family: wpmudev-plugin-icons !important;
+							speak: none;
+							font-size: 16px;
+							font-style: normal;
+							font-weight: 400;
+							font-variant: normal;
+							text-transform: none;
+							line-height: 1;
+							text-rendering: auto;
+							display: inline-block;
+							margin-right: 10px;
+							color: #FECF2F;
+						}
+
+						.sui-icon-photo-picture {
+							font-size: 12px;
+							border-radius: 4px;
+							background-color: #E6E6E6;
+							margin-right: 10px;
+							padding-left: 9px;
+							padding-top: 1px;
+							width: 30px;
+							height: 30px;
+
+							&:before {
+								width: 30px;
+								height: 30px;
+							}
+						}
+
+						.attachment-thumbnail {
+							border-radius: 4px;
+							width: 30px;
+							height: 30px;
+							margin-right: 10px;
+						}
+
+						.smush-image-name {
+							line-height: 15px;
+							font-weight: 500;
+							margin-right: 10px;
+							word-break: break-all;
+						}
+
+						.smush-image-error {
+							line-height: 15px;
+							word-break: break-all;
+							margin-right: 10px;
+						}
 					}
 
-					.smush-image-error {
-						margin-top: 10px;
+					.smush-bulk-image-actions {
+						flex-basis: 30px;
+
+						button:disabled {
+							background-color: #F2F2F2;
+							cursor: default;
+
+							.sui-icon-eye-hide:before {
+								color: lighten( #333333, 50% );
+							}
+						}
+					}
+
+					@media screen and (max-width: 600px) {
+						height: auto;
+
+						.smush-bulk-image-data {
+							flex-wrap: wrap;
+							padding: 10px 20px;
+						}
+
+						.smush-image-error {
+							margin-top: 10px;
+						}
 					}
 				}
 			}
@@ -663,57 +685,6 @@
 					opacity: 0.68;
 					transition: opacity 0.5s;
 				}
-			}
-		}
-
-		.smush-pro-features-header {
-			background: #F6F6F6 url('#{$img--path}/widget-background-smush.svg') center no-repeat;
-			background-size: cover;
-			margin: -30px -30px 30px;
-			padding: 40px 30px;
-			text-align: center;
-
-			@media screen and (max-width: 782px) {
-				margin: -35px -20px 20px;
-			}
-
-			& > div {
-				max-width: 610px;
-				margin: 0 auto;
-
-				p { margin-bottom: 10px; }
-
-				& > div {
-					display: flex;
-					justify-content: center;
-					align-items: flex-start;
-
-					@media screen and (max-width: 782px) {
-						flex-flow: column;
-						align-items: center;
-
-						a {
-							margin-bottom: 10px;
-							margin-right: 0;
-						}
-
-						.sui-button {
-							padding: 12px 0;
-							width: 200px;
-						}
-					}
-				}
-
-				.sui-button-ghost {
-					margin-right: 0;
-				}
-			}
-
-			small {
-				color: #C053DC;
-				font-size: 10px;
-				line-height: 30px;
-				display: block;
 			}
 		}
 
@@ -775,78 +746,6 @@
 		.sui-toggle + label {
 			font-weight: 500;
 		}
-
-		#smush-box-bulk-upgrade {
-			border-left: 2px solid #8D00B1;
-
-			#wp-smush-bulk-smush-upgrade-text-container {
-
-				p {
-					color: #333333;
-					font-size: 13px;
-					line-height: 22px;
-					margin-bottom: 10px;
-				}
-
-				@media screen and (min-width: 783px) {
-					margin-left: 100px;
-				}
-			}
-
-			@media screen and (min-width: 783px) {
-				background: #FFFFFF url('#{$img--path}/smush-graphic-bulksmush-upsell@2x.png') top 25px left 30px no-repeat;
-				background-size: 73px 119px;
-			}
-		}
-	}
-
-	.wp-smush-pagespeed-recommendation {
-		font-size: 13px;
-
-		.smush-recommendation-title {
-			color: #333333;
-			font-weight: 500;
-		}
-
-		.dismiss-recommendation {
-			font-size: 12px;
-			color: #AAAAAA;
-			cursor: pointer;
-			float: right;
-
-			.sui-icon-close:before {
-				color: #AAAAAA;
-			}
-		}
-
-		ol.smush-recommendation-list {
-			margin-left: 0;
-			list-style: none;
-			counter-reset: custom-counter;
-			li {
-				counter-increment: custom-counter;
-				margin: 0 0 10px;
-				padding: 13px 20px;
-				background-color: #FAFAFA;
-				color: #333;
-				border-radius: 4px;
-				&:before {
-					content: counter(custom-counter) ".";
-					margin-right: 3px;
-				}
-				&:last-child {
-					margin-bottom: 0;
-				}
-			}
-		}
-	}
-
-	// Upgrade dialog.
-	#smush-updated-dialog {
-		.sui-icon-hub::before {
-			color: #333333;
-			vertical-align: middle;
-		}
 	}
 
 	.smush-align-left {
@@ -857,16 +756,29 @@
 		float: right;
 	}
 
-	.sui-summary.sui-summary-smush {
-		.smushed-items-count {
-			margin: 5px;
+	.sui-summary.sui-summary-smush,
+	.sui-summary.sui-dashboard-summary {
+		.sui-summary-detail.wp-smush-savings .wp-smush-stats-human,
+		.sui-summary-large.wp-smush-stats-human,
+		.sui-summary-details .sui-summary-detail {
+			font-size: 22px;
+			line-height: 22px;
+			font-weight: 700;
+		}
 
+		.sui-summary-detail.wp-smush-savings,
+		.sui-summary-detail.wp-smush-savings .wp-smush-stats-percent {
+			font-size: 15px;
+			font-weight: 400;
+		}
+
+		.smushed-items-count {
 			.wp-smush-count-resize-total {
-				display: inline-block;
-				margin-left: 50px;
+				margin-top: 16px;
+				display: block;
 			}
 			.wp-smush-count-total {
-				display: inline-block;
+				display: block;
 			}
 		}
 
@@ -875,12 +787,14 @@
 		}
 
 		.sui-summary-details {
+			.sui-summary-sub {
+				margin-bottom: 16px;
+			}
+
 			.sui-summary-detail {
-				font-size: 15px;
-				font-weight: 500;
-				line-height: 22px;
 				display: inline-flex;
 
+				+ .sui-summary-sub { margin-top: 0; }
 				.wp-smush-stats-percent { margin-left: 5px; }
 				.wp-smush-stats-human { margin-right: 5px; }
 			}
@@ -917,16 +831,6 @@
 	.sui-box-footer .sui-icon-loader {
 		line-height: 18px;
 		vertical-align: middle;
-	}
-
-	@media screen and (max-width: 600px) {
-		.sui-summary-smush {
-			.smushed-items-count {
-				margin: 0;
-				display: flex;
-				justify-content: space-between;
-			}
-		}
 	}
 
 	/**

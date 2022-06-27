@@ -30,13 +30,23 @@ If you have any problem, please send an email to us at support@wpbrigade.com
 
 
 == Current Pro Version ==
-2.5.0
+2.5.2
 
 
 == Changelog ==
 
-= 2.5.0 - 9th November, 2020 =
+= 2.5.2 - 24th June, 2022 =
+* Bugfix: Google reCaptcha issue during user registration wth WordPress 6.0.
+* Enhancement: Styled the language selector for premium themes.
+* Compatibility: Compatible with PHP 8.1
+* Compatibility: Compatible with WordPress 6.0
 
+= 2.5.1 - 1st March, 2022 =
+* Bugfix: Download and Install loginpress addons on Agency license.
+* Enhancement: Added a filter `loginpress_premium_theme` to extend the premium themes.
+* Enhancement: Design the Language Switcher dropdown for all themes.
+
+= 2.5.0 - 9th November, 2020 =
 * New Feature: Introducing Google reCAPTCHA V2 Invisible.
 * New Feature: Introducing Google reCAPTCHA V3.
 * Bugfix: Date formate fix on license key deactivation.

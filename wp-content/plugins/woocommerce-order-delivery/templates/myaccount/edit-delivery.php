@@ -17,8 +17,14 @@ defined( 'ABSPATH' ) || exit;
 if ( ! $subscription || ! wc_od_user_has_subscription_delivery_caps( $subscription ) ) {
 	$notice = sprintf(
 		wp_kses(
+			/* translators: %s: URL to the 'My Account' page */
 			__( 'Invalid Subscription. <a href="%s" class="wc-forward">My Account</a>', 'woocommerce-order-delivery' ),
-			array( 'a' => array( 'href' => array(), 'class' => array() ) )
+			array(
+				'a' => array(
+					'href'  => array(),
+					'class' => array(),
+				),
+			)
 		),
 		esc_url( wc_get_page_permalink( 'myaccount' ) )
 	);

@@ -1,5 +1,20 @@
 *** Table Rate Shipping Changelog ***
 
+2022-06-21 - version 3.0.40
+* Fix - Make sure the woocommerce_table_rate_package_row_base_price filter is always called.
+
+2022-06-09 - version 3.0.39
+* Add - Option to set how Min-Max Price conditions are compared: with or without taxes.
+* Fix - Tax rate included in calculations when "Min-Max Price Calculation" is enabled.
+
+2022-05-03 - version 3.0.38
+* Add - Option to set how Min-Max Price conditions are compared: before discounts or after discounts.
+
+2022-03-28 - version 3.0.37
+* Fix 	- "Abort Reason" blocks user to proceed to checkout eventhough another shipping method available.
+* Fix   - "Per Order" label is still used after the calculation type is changed to "Class" type.
+* Tweak - WC 6.3 and WP 5.9 compatibility.
+
 2021-12-13 - version 3.0.36
 * Fix   - Excluding the /languages folder in composer.json file.
 * Tweak - WC 5.9 compatibility.

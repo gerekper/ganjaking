@@ -21,7 +21,7 @@ class WC_MNM_PO_Compatibility {
 
 	public static function init() {
 
-		// Pre-orders support
+		// Pre-orders support.
 		add_filter( 'wc_pre_orders_cart_item_meta', array( __CLASS__, 'remove_bundled_pre_orders_cart_item_meta' ), 10, 2 );
 		add_filter( 'wc_pre_orders_order_item_meta', array( __CLASS__, 'remove_bundled_pre_orders_order_item_meta' ), 10, 3 );
 	}

@@ -105,7 +105,7 @@
 		var val = select.val();
 		var row1 = $( '#tm_epo_floating_totals_box_visibility' ).closest( 'tr' );
 		var row2 = $( '#tm_epo_floating_totals_box_add_button' ).closest( 'tr' );
-		var row3 = $( '#tm_epo_totals_box_pixels' ).closest( 'tr' );
+		var row3 = $( '#tm_epo_floating_totals_box_pixels' ).closest( 'tr' );
 
 		if ( val === 'disable' ) {
 			row1.hide();
@@ -121,7 +121,7 @@
 	function tm_epo_floating_totals_box_visibility_settings( select ) {
 		var val = select.val();
 		var val2 = $( '#tm_epo_floating_totals_box' ).val();
-		var row1 = $( '#tm_epo_totals_box_pixels' ).closest( 'tr' );
+		var row1 = $( '#tm_epo_floating_totals_box_pixels' ).closest( 'tr' );
 
 		if ( val === 'always' || val2 === 'disable' ) {
 			row1.hide();
@@ -160,7 +160,7 @@
 			.closest( 'td' )
 			.css( 'position', 'relative' )
 			.append(
-				'<label class="tm-epo-field-label"><span class="tm-epo-style-wrapper"><input type="checkbox" checked><span class="tm-epo-style"></span></span></label><label class="tm-epo-field-label"><span class="tm-epo-style-wrapper"><input type="radio" checked><span class="tm-epo-style"></span></span></label>'
+				'<label class="tm-epo-field-label"><span class="tc-epo-style-wrapper"><input type="checkbox" checked><span class="tm-epo-style"></span></span></label><label class="tm-epo-field-label"><span class="tc-epo-style-wrapper"><input type="radio" checked><span class="tm-epo-style"></span></span></label>'
 			);
 	}
 
@@ -168,14 +168,13 @@
 		var val = select.val();
 		var label = $( '.tm-epo-field-label' );
 
-		label.find( '.tm-epo-style-wrapper, .tm-epo-style' ).removeClass( 'square square2 round round2' ).addClass( val );
+		label.find( '.tc-epo-style-wrapper, .tm-epo-style' ).removeClass( 'square square2 round round2' ).addClass( val );
 	}
 
 	function tm_css_styles_settings( select ) {
-		var val = select.val();
 		var row1 = $( '#tm_epo_css_styles_style' ).closest( 'tr' );
 
-		if ( val === 'on' ) {
+		if ( select.is( ':checked' ) ) {
 			row1.show();
 		} else {
 			row1.hide();
@@ -273,6 +272,101 @@
 			'json'
 		).always( function() {
 			form.unblock();
+		} );
+	}
+
+	function setMathData() {
+		var tmEpoMath = $( '#tm_epo_math' );
+		var dataRow = $( '.constantrow' );
+		var mathArray = {};
+
+		dataRow
+			.toArray()
+			.forEach( function( el, i ) {
+				var $el = $( el );
+				var constantName = $el.find( '.constant-name' );
+				var name = constantName.val();
+				var constantValue = $el.find( '.constant-value' );
+				var value = constantValue.val();
+				var labelName = constantName.closest( '.constant-label-wrap' );
+				var labelValue = constantValue.closest( '.constant-label-wrap' );
+
+				if ( name === '' ) {
+					labelName.addClass( 'tm-error' );
+				} else {
+					labelName.removeClass( 'tm-error' );
+				}
+				if ( value === '' ) {
+					labelValue.addClass( 'tm-error' );
+				} else {
+					labelValue.removeClass( 'tm-error' );
+				}
+
+				if ( name !== '' || value !== '' ) {
+					mathArray[ 'm' + i ] = {
+						name: name,
+						value: value
+					};
+				}
+			} );
+
+		tmEpoMath.val( JSON.stringify( mathArray ) );
+	}
+
+	function tm_epo_math() {
+		var tmEpoMath = $( '#tm_epo_math' );
+		var mathArray;
+		var template = '';
+
+		tmEpoMath.closest( 'tr' ).hide();
+
+		mathArray = $.epoAPI.util.parseJSON( tmEpoMath.val() );
+		if ( ! mathArray ) {
+			mathArray = {};
+		}
+
+		Object.keys( mathArray ).forEach( function( key, i ) {
+			var name = mathArray[ key ].name;
+			var value = mathArray[ key ].value;
+
+			template = template + $.epoAPI.template.html( window.wp.template( 'tc-constant-template' ), {
+				id: i,
+				labelname: TMEPOADMINSETTINGSJS.i18n_constant_name,
+				labelvalue: TMEPOADMINSETTINGSJS.i18n_constant_value,
+				constantname: name,
+				constantvalue: value,
+				labelnameclass: ( name === '' ) ? ' tm-error' : '',
+				labelvalueclass: ( value === '' ) ? ' tm-error' : ''
+			} );
+		} );
+
+		$( '.tc-add-constant' ).closest( 'tr' ).before( template );
+
+		$( document ).on( 'click', '.tc-add-constant', function() {
+			var $this = $( this );
+			var constantDiv = $this.closest( 'tr' );
+			var len = $( '.constantrow' ).length;
+
+			constantDiv.before( $.epoAPI.template.html( window.wp.template( 'tc-constant-template' ), {
+				id: len,
+				labelname: TMEPOADMINSETTINGSJS.i18n_constant_name,
+				labelvalue: TMEPOADMINSETTINGSJS.i18n_constant_value
+			} ) );
+		} );
+
+		$( document ).on( 'click', '.tc-constant-delete .delete', function() {
+			$( this ).closest( 'tr' ).remove();
+		} );
+
+		$( document ).on( 'change blur keyup', '.constant-name, .constant-value', function() {
+			var $this = $( this );
+			var label = $this.closest( '.constant-label-wrap' );
+
+			if ( $this.val() === '' ) {
+				label.addClass( 'tm-error' );
+			} else {
+				label.removeClass( 'tm-error' );
+			}
 		} );
 	}
 
@@ -390,8 +484,10 @@
 
 			$( document ).on( 'click', '.tc-save-button', function( e ) {
 				var form = $( this ).closest( 'form' );
-				var data = form.tcSerializeObject();
+				var data;
 
+				setMathData();
+				data = form.tcSerializeObject();
 				data = $.extend( true, data, {
 					action: 'tm_save_settings',
 					save: 'save',
@@ -471,6 +567,8 @@
 			tm_epo_show_price_inside_option_settings( $( '#tm_epo_show_price_inside_option' ) );
 			tm_epo_show_hide_uploaded_file_url_cart_settings( $( '#tm_epo_show_hide_uploaded_file_url_cart' ) );
 
+			tm_epo_math();
+
 			$( document ).on( 'click.cpf', '.tm-mn-movetodir,.tm-mn-deldir,.tm-mn-delfile', function( e ) {
 				var $this = $( this );
 				var forminp_tm_html = $( '.forminp-tm_html' );
@@ -517,10 +615,11 @@
 							if ( response && response.result && response.result !== '' ) {
 								forminp_tm_html.html( response.result );
 							} else if ( response && response.error && response.message ) {
-								$_html = $.tmEPOAdmin.builder_floatbox_template_import( {
+								$_html = $.epoAPI.template.html( window.wp.template( 'tc-floatbox-import' ), {
 									id: 'tc-floatbox-content',
+									title: TMEPOADMINSETTINGSJS.i18n_error_title,
 									html: '<div class="tm-inner">' + response.message + '</div>',
-									title: TMEPOADMINSETTINGSJS.i18n_error_title
+									cancel: TMEPOADMINSETTINGSJS.i18n_cancel
 								} );
 								$.tcFloatBox( {
 									closefadeouttime: 0,

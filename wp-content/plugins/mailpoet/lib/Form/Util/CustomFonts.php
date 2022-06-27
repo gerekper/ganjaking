@@ -5,6 +5,7 @@ namespace MailPoet\Form\Util;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Settings\SettingsController;
 use MailPoet\WP\Functions;
 
 class CustomFonts {
@@ -77,31 +78,44 @@ class CustomFonts {
   /** @var Functions */
   private $wp;
 
+  /** @var SettingsController */
+  private $settings;
+
   public function __construct(
-    Functions $wp
+    Functions $wp,
+    SettingsController $settings
   ) {
     $this->wp = $wp;
+    $this->settings = $settings;
+  }
+
+  public function displayCustomFonts(): bool {
+    $display = $this->wp->applyFilters('mailpoet_display_custom_fonts', $this->settings->get('3rd_party_libs.enabled') === '1');
+    return (bool)$display;
   }
 
   public function enqueueStyle() {
-    $displayCustomFonts = $this->wp->applyFilters('mailpoet_display_custom_fonts', true);
-    if ($displayCustomFonts) {
-      // Due to a conflict with the WooCommerce Payments plugin, we need to load custom fonts in more requests.
-      // When we load all custom fonts in one request, a form from WC Payments isn't displayed correctly.
-      // It looks that the larger file size overloads the Stripe SDK.
-      foreach (array_chunk(self::FONTS, self::FONT_CHUNK_SIZE) as $key => $fonts) {
-        $this->wp->wpEnqueueStyle('mailpoet_custom_fonts_' . $key, $this->generateLink($fonts));
-      }
+    if (!$this->displayCustomFonts()) {
+      return;
+    }
+
+    // Due to a conflict with the WooCommerce Payments plugin, we need to load custom fonts in more requests.
+    // When we load all custom fonts in one request, a form from WC Payments isn't displayed correctly.
+    // It looks that the larger file size overloads the Stripe SDK.
+    foreach (array_chunk(self::FONTS, self::FONT_CHUNK_SIZE) as $key => $fonts) {
+      $this->wp->wpEnqueueStyle('mailpoet_custom_fonts_' . $key, $this->generateLink($fonts));
     }
   }
 
-  public function generateHtmlCustomFontLink() {
-    $output = '';
+  public function generateHtmlCustomFontLink(): string {
+    if (!$this->displayCustomFonts()) {
+      return '';
+    }
 
+    $output = '';
     foreach (array_chunk(self::FONTS, self::FONT_CHUNK_SIZE) as $key => $fonts) {
       $output .= sprintf('<link href="%s" rel="stylesheet">', $this->generateLink($fonts));
     }
-
     return $output;
   }
 

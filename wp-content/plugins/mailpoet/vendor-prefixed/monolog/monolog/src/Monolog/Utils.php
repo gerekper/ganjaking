@@ -1,14 +1,29 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog;
 if (!defined('ABSPATH')) exit;
-class Utils
+final class Utils
 {
- public static function getClass($object)
+ const DEFAULT_JSON_FLAGS = \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_PRESERVE_ZERO_FRACTION | \JSON_INVALID_UTF8_SUBSTITUTE | \JSON_PARTIAL_OUTPUT_ON_ERROR;
+ public static function getClass(object $object) : string
  {
  $class = \get_class($object);
- return 'c' === $class[0] && 0 === \strpos($class, "class@anonymous\0") ? \get_parent_class($class) . '@anonymous' : $class;
+ if (\false === ($pos = \strpos($class, "@anonymous\x00"))) {
+ return $class;
  }
- public static function canonicalizePath($streamUrl)
+ if (\false === ($parent = \get_parent_class($class))) {
+ return \substr($class, 0, $pos + 10);
+ }
+ return $parent . '@anonymous';
+ }
+ public static function substr(string $string, int $start, ?int $length = null) : string
+ {
+ if (\extension_loaded('mbstring')) {
+ return \mb_strcut($string, $start, $length);
+ }
+ return \substr($string, $start, null === $length ? \strlen($string) : $length);
+ }
+ public static function canonicalizePath(string $streamUrl) : string
  {
  $prefix = '';
  if ('file://' === \substr($streamUrl, 0, 7)) {
@@ -26,10 +41,10 @@ class Utils
  $streamUrl = \getcwd() . '/' . $streamUrl;
  return $prefix . $streamUrl;
  }
- public static function jsonEncode($data, $encodeFlags = null, $ignoreErrors = \false)
+ public static function jsonEncode($data, ?int $encodeFlags = null, bool $ignoreErrors = \false) : string
  {
- if (null === $encodeFlags && \version_compare(\PHP_VERSION, '5.4.0', '>=')) {
- $encodeFlags = \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE;
+ if (null === $encodeFlags) {
+ $encodeFlags = self::DEFAULT_JSON_FLAGS;
  }
  if ($ignoreErrors) {
  $json = @\json_encode($data, $encodeFlags);
@@ -44,7 +59,7 @@ class Utils
  }
  return $json;
  }
- public static function handleJsonError($code, $data, $encodeFlags = null)
+ public static function handleJsonError(int $code, $data, ?int $encodeFlags = null) : string
  {
  if ($code !== \JSON_ERROR_UTF8) {
  self::throwEncodeError($code, $data);
@@ -56,8 +71,8 @@ class Utils
  } else {
  self::throwEncodeError($code, $data);
  }
- if (null === $encodeFlags && \version_compare(\PHP_VERSION, '5.4.0', '>=')) {
- $encodeFlags = \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE;
+ if (null === $encodeFlags) {
+ $encodeFlags = self::DEFAULT_JSON_FLAGS;
  }
  $json = \json_encode($data, $encodeFlags);
  if ($json === \false) {
@@ -65,7 +80,19 @@ class Utils
  }
  return $json;
  }
- private static function throwEncodeError($code, $data)
+ public static function pcreLastErrorMessage(int $code) : string
+ {
+ if (\PHP_VERSION_ID >= 80000) {
+ return \preg_last_error_msg();
+ }
+ $constants = \get_defined_constants(\true)['pcre'];
+ $constants = \array_filter($constants, function ($key) {
+ return \substr($key, -6) == '_ERROR';
+ }, \ARRAY_FILTER_USE_KEY);
+ $constants = \array_flip($constants);
+ return $constants[$code] ?? 'UNDEFINED_ERROR';
+ }
+ private static function throwEncodeError(int $code, $data) : void
  {
  switch ($code) {
  case \JSON_ERROR_DEPTH:
@@ -85,13 +112,56 @@ class Utils
  }
  throw new \RuntimeException('JSON encoding failed: ' . $msg . '. Encoding: ' . \var_export($data, \true));
  }
- public static function detectAndCleanUtf8(&$data)
+ private static function detectAndCleanUtf8(&$data) : void
  {
  if (\is_string($data) && !\preg_match('//u', $data)) {
  $data = \preg_replace_callback('/[\\x80-\\xFF]+/', function ($m) {
  return \utf8_encode($m[0]);
  }, $data);
- $data = \str_replace(array('¤', '¦', '¨', '´', '¸', '¼', '½', '¾'), array('€', 'Š', 'š', 'Ž', 'ž', 'Œ', 'œ', 'Ÿ'), $data);
+ if (!\is_string($data)) {
+ $pcreErrorCode = \preg_last_error();
+ throw new \RuntimeException('Failed to preg_replace_callback: ' . $pcreErrorCode . ' / ' . self::pcreLastErrorMessage($pcreErrorCode));
  }
+ $data = \str_replace(['¤', '¦', '¨', '´', '¸', '¼', '½', '¾'], ['€', 'Š', 'š', 'Ž', 'ž', 'Œ', 'œ', 'Ÿ'], $data);
+ }
+ }
+ public static function expandIniShorthandBytes($val)
+ {
+ if (!\is_string($val)) {
+ return \false;
+ }
+ // support -1
+ if ((int) $val < 0) {
+ return (int) $val;
+ }
+ if (!\preg_match('/^\\s*(?<val>\\d+)(?:\\.\\d+)?\\s*(?<unit>[gmk]?)\\s*$/i', $val, $match)) {
+ return \false;
+ }
+ $val = (int) $match['val'];
+ switch (\strtolower($match['unit'] ?? '')) {
+ case 'g':
+ $val *= 1024;
+ case 'm':
+ $val *= 1024;
+ case 'k':
+ $val *= 1024;
+ }
+ return $val;
+ }
+ public static function getRecordMessageForException(array $record) : string
+ {
+ $context = '';
+ $extra = '';
+ try {
+ if ($record['context']) {
+ $context = "\nContext: " . \json_encode($record['context']);
+ }
+ if ($record['extra']) {
+ $extra = "\nExtra: " . \json_encode($record['extra']);
+ }
+ } catch (\Throwable $e) {
+ // noop
+ }
+ return "\nThe exception occurred while attempting to log: " . $record['message'] . $context . $extra;
  }
 }

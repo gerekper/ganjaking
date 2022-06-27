@@ -1,0 +1,838 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Dropshipping\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-23 00:37+0000\n"
+"PO-Revision-Date: 2022-03-29 16:53+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Loco-Version: 2.5.3; wp-5.7.2\n"
+"X-Domain: woocommerce-dropshipping\n"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1704
+msgid "\""
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:116
+#: /woocommerce-dropshipping/packingslip.php:116
+#, php-format
+msgid "<strong>Supplier Account #</strong> %s"
+msgstr "<strong>Leverandørkonto nr.</strong> %s"
+
+#: /woocommerce-dropshipping/packingslip.php:84
+#, php-format
+msgid "[ %s Order # %s  ]"
+msgstr "[ %s Ordre # %s ]"
+
+#: /woocommerce-dropshipping/complete.php:84
+#, php-format
+msgid "[ %s Order # %s is completed ]"
+msgstr "[ %s Ordre # %s er gennemført ]"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:56
+msgid "Account Information"
+msgstr "Kontooplysninger"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:103
+msgid "Active Affiliate Products"
+msgstr "Aktive tilknyttede produkter"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:242
+msgid "Add New Dropshipping Supplier"
+msgstr "Tilføj ny Dropshipping-leverandør"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:246
+msgid "Add or remove Dropshipping Suppliers"
+msgstr "Tilføj eller fjern Dropshipping-leverandører"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:151
+msgid "Adjust Plugin Settings"
+msgstr "Juster plugin-indstillinger"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1609
+msgid "AliExpress Action"
+msgstr "AliExpress Action"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:145
+msgid "Aliexpress Import"
+msgstr "Aliexpress import"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:338
+msgid "AliExpress Orders"
+msgstr "AliExpress ordrer"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:61
+msgid "Aliexpress Orders"
+msgstr "Aliexpress ordrer"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:339
+msgid "AliExpress Orders placed."
+msgstr "AliExpress Ordrer afgivet."
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Aliexpress Product"
+msgstr "Aliexpress produkt"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:358
+msgid "AliExpress Supplier"
+msgstr "AliExpress leverandør"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:392
+msgid "AliExpress Supplier Store Name"
+msgstr "AliExpress leverandørbutiks navn"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:411
+msgid "AliExpress Supplier Store Price Range"
+msgstr "AliExpress Leverandør Butik Prisklasse"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:402
+msgid "AliExpress Supplier Store URL"
+msgstr "AliExpress Supplier Store URL"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:239
+msgid "All Dropshipping Suppliers"
+msgstr "Alle Dropshipping-leverandører"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1816
+msgid "All Orders"
+msgstr "Alle ordrer"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:256
+msgid "Amazon Affiliate ID"
+msgstr "Amazon Affiliate ID"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:199
+msgid "Amazon Product ID"
+msgstr "Amazon produkt-id"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:198
+msgid "and hit the \"Save Changes\" button"
+msgstr "og tryk på knappen \"Gem ændringer\""
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1156
+msgid "API Key Mismatch!!"
+msgstr "API-nøgle uoverensstemmelse!!"
+
+#: /woocommerce-dropshipping/complete.php:1035
+#: /woocommerce-dropshipping/packingslip.php:1035
+msgid "Billing Address"
+msgstr "Betalingsadresse"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:247
+msgid "Choose from the most used Dropshipping Suppliers"
+msgstr "Vælg mellem de mest brugte Dropshipping-leverandører"
+
+#: /woocommerce-dropshipping/complete.php:171
+#: /woocommerce-dropshipping/packingslip.php:171
+msgid "Chosen Shipping Method:"
+msgstr "Valgt forsendelsesmetode:"
+
+#: /woocommerce-dropshipping/complete.php:994
+#: /woocommerce-dropshipping/complete.php:1141
+#: /woocommerce-dropshipping/packingslip.php:994
+#: /woocommerce-dropshipping/packingslip.php:1141
+msgid "Company Address"
+msgstr "Virksomhedens adresse"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:96
+msgid "Completed Dropshipping Orders"
+msgstr "Afsluttede dropshipping-ordrer"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:152
+msgid "Configure packing slips, emails and more."
+msgstr "Konfigurer følgesedler, e-mails og mere."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:286
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:311
+msgid "Cost of goods"
+msgstr "Vareomkostninger"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:313
+msgid "Cost of goods value included in the supplier email"
+msgstr "Vareværdien inkluderet i leverandørens e-mail"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:419
+msgid "Currency"
+msgstr "Betalingsmiddel"
+
+#: /woocommerce-dropshipping/complete.php:246
+#: /woocommerce-dropshipping/packingslip.php:246
+#, php-format
+msgid "Customer Order Note : %s"
+msgstr "Kundeordrebemærkning: %s"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:313
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:314
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:70
+msgid "Date"
+msgstr "Dato"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:468
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:514
+msgid "Description - Type of Package"
+msgstr "Beskrivelse - Pakketype"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:518
+msgid "Description - Type of Package value included in the supplier email"
+msgstr "Beskrivelse - Type pakkeværdi inkluderet i leverandørens e-mail"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Docs"
+msgstr "Dokumenter"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:305
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:306
+msgid "Dropshipping"
+msgstr "Dropshipping"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:548
+msgid "Dropshipping Notifications"
+msgstr "Dropshipping-meddelelser"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:236
+msgid "Dropshipping Supplier"
+msgstr "Dropshipping leverandør"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:240
+msgid "Edit Dropshipping Supplier"
+msgstr "Rediger Dropshipping-leverandør"
+
+#: /woocommerce-dropshipping/ali-api/ali-inc/aliprodfilter.inc.php:12
+msgid "Enable this option if this product is from Aliexpress"
+msgstr "Aktiver denne mulighed, hvis dette produkt er fra Aliexpress"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:385
+msgid "Enter URL to AliExpress Product"
+msgstr "Indtast URL til AliExpress-produkt"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1441
+msgid "Error. Product does not exist in woocommerce store."
+msgstr "Fejl. Produktet findes ikke i woocommerce butik."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:938
+msgid "Given parent categories id does not exist in product categories list."
+msgstr "Givet overordnet kategori-id findes ikke i produktkategorilisten."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:153
+msgid "Go to Settings"
+msgstr "Gå til Indstillinger"
+
+#. Description of the plugin
+msgid ""
+"Handle dropshipping from your WooCommerce. Create a packing slip, and notify "
+"the vendor when an order is paid. Import inventory updates via CSV from your "
+"vendors."
+msgstr ""
+"Håndter dropshipping fra din WooCommerce. Opret en følgeseddel, og underret "
+"leverandøren, når en ordre er betalt. Importer lageropdateringer via CSV fra "
+"dine leverandører."
+
+#. URI of the plugin
+msgid "http://woocommerce.com/products/woocommerce-dropshipping/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://opmc.com.au/"
+msgstr ""
+
+#: /woocommerce-dropshipping/complete.php:436
+#: /woocommerce-dropshipping/packingslip.php:436
+msgid "Image"
+msgstr "Billede"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:652
+msgid "Image data is empty!"
+msgstr "Billeddata er tomme!"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:147
+msgid "Install Now"
+msgstr "Installer nu"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:146
+msgid "Install the extension to get started"
+msgstr "Installer udvidelsen for at komme i gang"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:126
+msgid "Low on Stock"
+msgstr "Lavt på lager"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:159
+msgid "Manage Suppliers"
+msgstr "Administrer leverandører"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1589
+msgid "Merchant store currency code not found!"
+msgstr "Forhandlerens valutakode blev ikke fundet!"
+
+#: /woocommerce-dropshipping/complete.php:829
+#: /woocommerce-dropshipping/packingslip.php:829
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:921
+msgid "Name parameter required."
+msgstr "Navneparameter påkrævet."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:243
+msgid "New Dropshipping Supplier Name"
+msgstr "Nyt Dropshipping-leverandørnavn"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:850
+msgid "No categories found!"
+msgstr "Ingen kategorier fundet!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:248
+msgid "No Dropshipping Suppliers found"
+msgstr "Ingen Dropshipping-leverandører fundet"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:73
+msgid "Notes"
+msgstr "Noter"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:634
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1165
+msgid "Oops! Something went wrong. Please try again!"
+msgstr "Ups! Noget gik galt. Prøv igen!"
+
+#. Author of the plugin
+msgid "OPMC Australia Pty Ltd"
+msgstr "OPMC Australia Pty Ltd"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:49
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:65
+msgid "Order Number"
+msgstr "Ordrenummer"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:166
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:175
+msgid "Order number"
+msgstr "Ordrenummer"
+
+#: /woocommerce-dropshipping/complete.php:234
+#: /woocommerce-dropshipping/packingslip.php:234
+msgid "Order Number :"
+msgstr "Ordrenummer :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:40
+msgid "Orders"
+msgstr "Ordre:% s"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:75
+msgid "Orders Completed"
+msgstr "Ordrer gennemført"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:68
+msgid "Orders in Progress"
+msgstr "Ordrer i gang"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:158
+msgid "Organise your store's products by their supplier."
+msgstr "Organiser din butiks produkter efter deres leverandør."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:35
+msgid "Out of Stock"
+msgstr "Udsolgt"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:82
+msgid "Out of Stock Listings"
+msgstr "Udsolgte lister"
+
+#: /woocommerce-dropshipping/complete.php:196
+#: /woocommerce-dropshipping/complete.php:218
+#: /woocommerce-dropshipping/packingslip.php:196
+#: /woocommerce-dropshipping/packingslip.php:218
+msgid "Payment Type :"
+msgstr "Betalings type :"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:89
+msgid "Pending Orders"
+msgstr "Afventende ordrer"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1639
+msgid "Place Order"
+msgstr "Angiv bestilling"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:253
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1202
+msgid "Please enter a valid Type (simple or variable)!"
+msgstr "Indtast venligst en gyldig type (simpel eller variabel)!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:444
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1393
+msgid "Please enter a valid URL for this AliExpress Product!"
+msgstr "Indtast venligst en gyldig URL for dette AliExpress-produkt!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:448
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1397
+msgid "Please enter a valid URL for this AliExpress Store!"
+msgstr "Indtast venligst en gyldig URL for denne AliExpress Butik!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1389
+msgid "Please enter AliExpress Store Name for this product!"
+msgstr "Indtast AliExpress butiksnavn for dette produkt!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:452
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1401
+msgid "Please enter AliExpress Store Price Range for this product!"
+msgstr "Indtast AliExpress Butiks prisklasse for dette produkt!"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:155
+#, php-format
+msgid "Please see the attached PDF. Thank you! - %s"
+msgstr "Se venligst den vedhæftede PDF. Tak skal du have! - %s"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1232
+msgid "Please specify a list of valid categories in array format!"
+msgstr "Angiv venligst en liste over gyldige kategorier i array-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1246
+msgid ""
+"Please specify a list of valid categories in array format. Categories array "
+"must contain a valid numeric id parameter!"
+msgstr ""
+"Angiv venligst en liste over gyldige kategorier i matrixformat. Kategorier-"
+"array skal indeholde en gyldig numerisk id-parameter!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1293
+msgid ""
+"Please specify a list of valid image URLs in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Angiv venligst en liste over gyldige billed-URL'er i matrixformat. Billed-"
+"array skal indeholde en gyldig billed-URL i src. Billedtypen kan være en af "
+"disse: (jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1254
+msgid "Please specify a list of valid images URLs in array format!"
+msgstr "Angiv venligst en liste over gyldige billeder-URL'er i array-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:283
+msgid "Please specify a valid category array format!"
+msgstr "Angiv venligst et gyldigt kategoriarray-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:297
+msgid ""
+"Please specify a valid category array format. Categories array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Angiv venligst et gyldigt kategorimatrixformat. Kategorier-array skal "
+"indeholde en gyldig numerisk id-parameter!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:365
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1314
+msgid ""
+"Please specify a valid list of Dimensions in array format. Dimensions array "
+"must contain a valid numeric length, width, and height parameters!"
+msgstr ""
+"Angiv venligst en gyldig liste over dimensioner i matrixformat. Dimensions "
+"array skal indeholde en gyldig numerisk længde, bredde og højde parametre!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1357
+msgid ""
+"Please specify a valid list of Tags array format. Tags array must contain a "
+"valid numeric id parameter!"
+msgstr ""
+"Angiv venligst en gyldig liste over tags-arrayformat. Tags-array skal "
+"indeholde en gyldig numerisk id-parameter!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:394
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1343
+msgid ""
+"Please specify a valid list of Tags in array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Angiv venligst en gyldig liste over tags i array-format. Tags-array skal "
+"indeholde en gyldig numerisk id-parameter!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:408
+msgid ""
+"Please specify a valid list of Tagsin array format. Tags array must contain "
+"a valid numeric id parameter!"
+msgstr ""
+"Angiv venligst en gyldig liste over Tagsin-arrayformat. Tags-array skal "
+"indeholde en gyldig numerisk id-parameter!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:386
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1335
+msgid ""
+"Please specify a valid non-negative numeric height parameter within "
+"Dimensions array!"
+msgstr ""
+"Angiv venligst en gyldig ikke-negativ numerisk højdeparameter i Dimensions-"
+"arrayet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:373
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1322
+msgid ""
+"Please specify a valid non-negative numeric length parameter within "
+"Dimensions array!"
+msgstr ""
+"Angiv venligst en gyldig ikke-negativ numerisk længdeparameter i Dimensions-"
+"array!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:379
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1328
+msgid ""
+"Please specify a valid non-negative numeric width parameter within "
+"Dimensions array!"
+msgstr ""
+"Angiv venligst en gyldig ikke-negativ numerisk breddeparameter i Dimensions-"
+"array!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:305
+msgid "Please specify valid URLs to images in array format!"
+msgstr "Angiv venligst gyldige URL'er til billeder i array-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:344
+msgid ""
+"Please specify valid URLs to images in array format. Images array must "
+"contain a valid image URL in src. Image type can be one of these: (jpg, gif, "
+"png, jpeg)."
+msgstr ""
+"Angiv venligst gyldige URL'er til billeder i array-format. Billed-array skal "
+"indeholde en gyldig billed-URL i src. Billedtypen kan være en af disse: "
+"(jpg, gif, png, jpeg)."
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:140
+msgid "Plugin Setup"
+msgstr "Plugin opsætning"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:128
+msgid "POD"
+msgstr "POD"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:244
+msgid "Popular Dropshipping Suppliers"
+msgstr "Populære Dropshipping-leverandører"
+
+#: /woocommerce-dropshipping/complete.php:614
+#: /woocommerce-dropshipping/complete.php:646
+#: /woocommerce-dropshipping/packingslip.php:614
+#: /woocommerce-dropshipping/packingslip.php:646
+msgid "Price"
+msgstr "Pris"
+
+#: /woocommerce-dropshipping/complete.php:488
+#: /woocommerce-dropshipping/packingslip.php:488
+msgid "Product"
+msgstr "Produkt"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:500
+msgid "Product already exists. Please select another product."
+msgstr "Produktet findes allerede. Vælg venligst et andet produkt."
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:384
+msgid "Product URL"
+msgstr "Produkt URL"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:45
+msgid "Projected Profit"
+msgstr "Forventet overskud"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:30
+msgid "Published Listings"
+msgstr "Udgivet Listings"
+
+#: /woocommerce-dropshipping/complete.php:512
+#: /woocommerce-dropshipping/packingslip.php:512
+msgid "Quantity"
+msgstr "Antal"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:50
+msgid "Recent Order Data"
+msgstr "Seneste ordredata"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:238
+msgid "Search Dropshipping Suppliers"
+msgstr "Søg efter Dropshipping-leverandører"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:245
+msgid "Separate Dropshipping Suppliers with commas"
+msgstr "Adskil Dropshipping-leverandører med kommaer"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:221
+msgid "Setting for price rate is not set"
+msgstr "Indstilling for prissats er ikke fastsat"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:177
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: /woocommerce-dropshipping/complete.php:1080
+#: /woocommerce-dropshipping/complete.php:1241
+#: /woocommerce-dropshipping/packingslip.php:1080
+#: /woocommerce-dropshipping/packingslip.php:1241
+msgid "Shipping Address"
+msgstr "Forsendelsesadresse"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:72
+msgid "Shipping Company"
+msgstr "Fragtfirma"
+
+#: /woocommerce-dropshipping/complete.php:838
+#: /woocommerce-dropshipping/complete.php:848
+#: /woocommerce-dropshipping/packingslip.php:838
+#: /woocommerce-dropshipping/packingslip.php:848
+msgid "Shipping Cost"
+msgstr "Forsendelsesomkostninger"
+
+#: /woocommerce-dropshipping/complete.php:464
+#: /woocommerce-dropshipping/packingslip.php:464
+msgid "SKU"
+msgstr "SKU"
+
+#: /woocommerce-dropshipping/complete.php:314
+#: /woocommerce-dropshipping/packingslip.php:314
+msgid "Customer Email : %s"
+msgstr "Kunde-e-mail : %s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:732
+msgid "New Order #%1$s From %2$s"
+msgstr "Ny ordre #%1$s Fra %2$s"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "To mark this order as shipped please click the following link:"
+msgstr "Klik på følgende link for at markere denne ordre som afsendt:"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:698
+msgid "Mark as shipped"
+msgstr "Marker som afsendt"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-orders.php:773
+msgid "View order in dashboard"
+msgstr "Se ordre i dashboard"
+
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1559
+msgid "Something went wrong. Please try again!"
+msgstr "Noget gik galt. Prøv igen!"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:391
+msgid "Store Name"
+msgstr "Butiksnavn"
+
+#: /woocommerce-dropshipping/ali-api/class-wc-dropshipping-product-extra-fields.php:401
+msgid "Store URL"
+msgstr "Gem URL"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:235
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:237
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:157
+msgid "Suppliers"
+msgstr "Leverandører"
+
+#: /woocommerce-dropshipping/complete.php:868
+#: /woocommerce-dropshipping/packingslip.php:868
+msgid "taxes"
+msgstr "skatter"
+
+#: /woocommerce-dropshipping/complete.php:1298
+msgid "Thank you!"
+msgstr "Tak skal du have!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:415
+msgid "The Attributes parameter must be in a valid array format!"
+msgstr "Attributter-parameteren skal være i et gyldigt array-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1364
+msgid "The Attributess parameter must be in a valid array format!"
+msgstr "Attribut-parameteren skal være i et gyldigt array-format!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:879
+msgid "The Category Parent parameter is required and must be numeric value!"
+msgstr ""
+"Parameteren Category Parent er påkrævet og skal være en numerisk værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:419
+msgid "The Default Attributes parameter must be in a valid array format!"
+msgstr "Parameteren Default Attributes skal være i et gyldigt matrixformat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1368
+msgid "The Default Attributess parameter must be in a valid array format!"
+msgstr "Parameteren Default Attributes skal være i et gyldigt matrixformat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:273
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:875
+msgid "The Description parameter is required!"
+msgstr "Parameteren Beskrivelse er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:957
+msgid "The Id parameter is required and must be a number!"
+msgstr "Id-parameteren er påkrævet og skal være et tal!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:350
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1299
+msgid ""
+"The Manage Stock parameter is required and must be a boolean (true/false) "
+"value!"
+msgstr ""
+"Parameteren Administrer aktie er påkrævet og skal være en boolesk (sand/"
+"falsk) værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:871
+msgid "The Name parameter is required!"
+msgstr "Navn-parameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:428
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1377
+msgid ""
+"The Number Of Orders parameter must be a valid non-negative numeric value!"
+msgstr ""
+"Parameteren Antal ordrer skal være en gyldig ikke-negativ numerisk værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2002
+msgid "The Order Id does not exist!"
+msgstr "Ordre-id'et findes ikke!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:977
+msgid "The order id does not exist."
+msgstr "Ordre-id'et findes ikke."
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2007
+msgid "The Order Id parameter is required!"
+msgstr "Ordre-id-parameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:2012
+msgid "The Order Status parameter is required!"
+msgstr "Parameteren Ordrestatus er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:261
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1210
+msgid ""
+"The Price parameter is required and must be a valid non-negative numeric "
+"value!"
+msgstr ""
+"Parameteren Pris er påkrævet og skal være en gyldig ikke-negativ numerisk "
+"værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:265
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1214
+msgid ""
+"The Regular Price parameter is required and must be a valid non-negative "
+"numeric value!"
+msgstr ""
+"Parameteren Normalpris er påkrævet og skal være en gyldig ikke-negativ "
+"numerisk værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:269
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1218
+msgid "The Sale Price parameter must be a valid non-negative numeric value!"
+msgstr "Parameteren Salgspris skal være en gyldig ikke-negativ numerisk værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:277
+msgid "The Short Description parameter is required!"
+msgstr "Parameteren Kort beskrivelse er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:257
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1206
+msgid "The SKU parameter is required!"
+msgstr "SKU-parameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:354
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1303
+msgid ""
+"The Stock Quantity parameter is required and must be a valid non-negative "
+"number!"
+msgstr ""
+"Parameteren Lagermængde er påkrævet og skal være et gyldigt ikke-negativt "
+"tal!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:249
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1198
+msgid "The Title parameter is required!"
+msgstr "Titel parameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:423
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1372
+msgid "The Variations parameter must be in a valid array format!"
+msgstr "Variationsparameteren skal være i et gyldigt matrixformat!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:358
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1307
+msgid "The Weight parameter must be a valid non-negative numeric value!"
+msgstr "Parameteren Vægt skal være en gyldig ikke-negativ numerisk værdi!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1090
+msgid "The woo API key  parameter is required!"
+msgstr "Woo API-nøgleparameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1086
+msgid "The woo url parameter is required!"
+msgstr "Woo url parameteren er påkrævet!"
+
+#: /woocommerce-dropshipping/complete.php:915
+#: /woocommerce-dropshipping/complete.php:932
+#: /woocommerce-dropshipping/packingslip.php:915
+#: /woocommerce-dropshipping/packingslip.php:932
+msgid "Total"
+msgstr "Total"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-checkout.php:87
+msgid "Tracking Number"
+msgstr "Tracking nummer"
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-product.php:71
+msgid "Tracking Number(s)"
+msgstr "Sporingsnumre"
+
+#: /woocommerce-dropshipping/complete.php:346
+#: /woocommerce-dropshipping/packingslip.php:346
+msgid "Tracking Number:"
+msgstr "Tracking nummer:"
+
+#: /woocommerce-dropshipping/complete.php:543
+#: /woocommerce-dropshipping/complete.php:575
+#: /woocommerce-dropshipping/packingslip.php:543
+#: /woocommerce-dropshipping/packingslip.php:575
+msgid "Type Of Package"
+msgstr "Pakketype"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:241
+msgid "Update Dropshipping Supplier"
+msgstr "Opdater Dropshipping-leverandør"
+
+#: /woocommerce-dropshipping/ali-api/woocommerce_aliexpress.php:1160
+msgid "URL mismatch."
+msgstr "URL-uoverensstemmelse."
+
+#: /woocommerce-dropshipping/inc/class-wc-dropshipping-admin.php:500
+msgid "User already exists.  Password inherited."
+msgstr "Bruger eksistere allerede. Adgangskode arvet."
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:159
+#, php-format
+msgid "We hope you enjoy your order. Thank you for shopping with %s"
+msgstr "Vi håber du bliver glad for din ordre. Tak, fordi du handlede med %s"
+
+#. Name of the plugin
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:95
+msgid "WooCommerce Dropshipping"
+msgstr "WooCommerce Dropshipping"
+
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:197
+msgid ""
+"Woocommerce Dropshipping activated successfully! In order for the plugin to "
+"work correctly. Visit"
+msgstr ""
+"Woocommerce Dropshipping blev aktiveret med succes! For at plugin'et "
+"fungerer korrekt. Besøg"
+
+#: /woocommerce-dropshipping/templates/wc-dropshipping-dashboard.php:24
+msgid "WooCommerce Dropshipping Dashboard"
+msgstr "WooCommerce Dropshipping Dashboard"
+
+#. 1: href link to Fileinfo extension php doc
+#: /woocommerce-dropshipping/woocommerce-dropshipping.php:55
+#, php-format
+msgid "WooCommerce Dropshipping requires %s to be installed on your server."
+msgstr "WooCommerce Dropshipping kræver, at %s er installeret på din server."

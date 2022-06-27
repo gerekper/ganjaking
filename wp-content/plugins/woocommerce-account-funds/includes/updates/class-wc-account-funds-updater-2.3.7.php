@@ -138,7 +138,7 @@ EOT;
 
 				$customer_id = $order->get_customer_id( 'edit' );
 
-				WC_Account_Funds::remove_funds( $customer_id, $funds_used );
+				WC_Account_Funds_Manager::decrease_user_funds( $customer_id, $funds_used );
 
 				$this->log(
 					sprintf(

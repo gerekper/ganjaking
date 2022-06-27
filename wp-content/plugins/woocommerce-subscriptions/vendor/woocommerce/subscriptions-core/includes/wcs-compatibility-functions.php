@@ -98,13 +98,15 @@ function wcs_get_objects_property( $object, $property, $single = 'single', $defa
 			if ( is_callable( array( $object, $function_name ) ) ) {
 				$value = $object->$function_name();
 			} else {
-				// If we don't have a method for this specific property, but we are using WC 3.0, it may be set as meta data on the object so check if we can use that.
-				if ( method_exists( $object, 'get_meta' ) && $object->meta_exists( $prefixed_key ) ) {
-					if ( 'single' === $single ) {
-						$value = $object->get_meta( $prefixed_key, true );
-					} else {
-						// WC_Data::get_meta() returns an array of stdClass objects with id, key & value properties when meta is available.
-						$value = wp_list_pluck( $object->get_meta( $prefixed_key, false ), 'value' );
+				// If we don't have a method for this specific property, but we are using WC 3.0, use $object->get_meta().
+				if ( method_exists( $object, 'get_meta' ) ) {
+					if ( $object->meta_exists( $prefixed_key ) ) {
+						if ( 'single' === $single ) {
+							$value = $object->get_meta( $prefixed_key, true );
+						} else {
+							// WC_Data::get_meta() returns an array of stdClass objects with id, key & value properties when meta is available.
+							$value = wp_list_pluck( $object->get_meta( $prefixed_key, false ), 'value' );
+						}
 					}
 				} elseif ( 'single' === $single && isset( $object->$property ) ) { // WC < 3.0.
 					$value = $object->$property;
@@ -156,14 +158,12 @@ function wcs_set_objects_property( &$object, $key, $value, $save = 'save', $meta
 		'_sale_price_dates_to'   => 'set_date_on_sale_to',
 	);
 
-	// If we have a 3.0 object with a predefined setter function, use it
+	// If we have an object with a predefined setter function, use it
 	if ( isset( $meta_setters_map[ $prefixed_key ] ) && is_callable( array( $object, $meta_setters_map[ $prefixed_key ] ) ) ) {
 		$function = $meta_setters_map[ $prefixed_key ];
 		$object->$function( $value );
 
-	// If we have a 3.0 object, use the setter if available.
-	} elseif ( is_callable( array( $object, 'set' . $prefixed_key ) ) ) {
-
+	} elseif ( is_callable( array( $object, 'set' . $prefixed_key ) ) ) { // If we have an object, use the setter if available
 		// Prices include tax is stored as a boolean in props but saved in the database as a string yes/no, so we need to normalise it here to make sure if we have a string (which can be passed to it by things like wcs_copy_order_meta()) that it's converted to a boolean before being set
 		if ( '_prices_include_tax' === $prefixed_key && ! is_bool( $value ) ) {
 			$value = 'yes' === $value;
@@ -176,48 +176,14 @@ function wcs_set_objects_property( &$object, $key, $value, $save = 'save', $meta
 		$function_name = 'set' . str_replace( '_order', '', $prefixed_key );
 		$object->$function_name( $value );
 
-	// If there is no setter, treat as meta within the 3.0.x object.
-	} elseif ( is_callable( array( $object, 'update_meta_data' ) ) ) {
+	} else { // If there is no setter, treat as meta within the data object
 		$meta_key = ( 'prefix_meta_key' === $prefix_meta_key ) ? $prefixed_key : $key;
 		$object->update_meta_data( $meta_key, $value, $meta_id );
-
-	// 2.6.x handling for name which is not meta.
-	} elseif ( 'name' === $key ) {
-		$object->post->post_title = $value;
-
-	// 2.6.x handling for everything else.
-	} else {
-		$object->$key = $value;
 	}
 
 	// Save the data
 	if ( 'save' === $save ) {
-		if ( is_callable( array( $object, 'save' ) ) ) { // WC 3.0+
-			$object->save();
-		} elseif ( 'date_created' == $key ) { // WC < 3.0+
-			wp_update_post(
-				array(
-					'ID'            => wcs_get_objects_property( $object, 'id' ),
-					'post_date'     => get_date_from_gmt( $value ),
-					'post_date_gmt' => $value,
-				)
-			);
-		} elseif ( 'name' === $key ) { // the replacement for post_title added in 3.0, need to update post_title not post meta
-			wp_update_post(
-				array(
-					'ID'         => wcs_get_objects_property( $object, 'id' ),
-					'post_title' => $value,
-				)
-			);
-		} else {
-			$meta_key = ( 'prefix_meta_key' === $prefix_meta_key ) ? $prefixed_key : $key;
-
-			if ( ! empty( $meta_id ) ) {
-				update_metadata_by_mid( 'post', $meta_id, $value, $meta_key );
-			} else {
-				update_post_meta( wcs_get_objects_property( $object, 'id' ), $meta_key, $value );
-			}
-		}
+		$object->save();
 	}
 }
 

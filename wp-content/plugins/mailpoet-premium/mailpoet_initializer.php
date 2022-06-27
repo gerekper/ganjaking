@@ -78,7 +78,10 @@ function mailpoet_premium_free_version_required_notice() {
     __('You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium.', 'mailpoet-premium'),
     MAILPOET_VERSION_REQUIRED
   );
-  printf('<div class="error"><p>%1$s</p></div>', $notice);
+  printf(
+    '<div class="error"><p>%1$s</p></div>',
+    esc_html($notice)
+  );
 }
 
 // Display MailPoet Premium upgrade error notice
@@ -93,5 +96,15 @@ function mailpoet_premium_upgrade_required_notice() {
     $notice = Helpers::replaceLinkTags($notice, 'admin.php?page=mailpoet-premium', [], 'link2');
   }
 
-  printf('<div class="error"><p>%1$s</p></div>', $notice);
+  printf(
+    '<div class="error"><p>%1$s</p></div>',
+    wp_kses(
+      $notice,
+      [
+        'a' => [
+          'href' => true,
+        ],
+      ]
+    )
+  );
 }

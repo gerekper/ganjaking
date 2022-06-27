@@ -15,7 +15,7 @@ use ACP\RequestDispatcher;
 use ACP\Type\Activation\Key;
 use ACP\Type\LicenseKey;
 use ACP\Type\SiteUrl;
-use ACP\Updates\ProductsUpdater;
+use ACP\Updates\PluginDataUpdater;
 use InvalidArgumentException;
 
 class LicenseActivate implements RequestAjaxHandler {
@@ -36,9 +36,9 @@ class LicenseActivate implements RequestAjaxHandler {
 	private $site_url;
 
 	/**
-	 * @var ProductsUpdater
+	 * @var PluginDataUpdater
 	 */
-	private $products_updater;
+	private $plugin_updater;
 
 	/**
 	 * @var ActivationUpdater
@@ -50,11 +50,11 @@ class LicenseActivate implements RequestAjaxHandler {
 	 */
 	private $permission_checker;
 
-	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, ProductsUpdater $products_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
+	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, PluginDataUpdater $plugins_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
 		$this->activation_key_storage = $activation_key_storage;
 		$this->api = $api;
 		$this->site_url = $site_url;
-		$this->products_updater = $products_updater;
+		$this->plugins_updater = $plugins_updater;
 		$this->activation_updater = $activation_updater;
 		$this->permission_checker = $permission_checker;
 	}
@@ -102,7 +102,10 @@ class LicenseActivate implements RequestAjaxHandler {
 
 		$this->activation_key_storage->save( $activation_key );
 		$this->activation_updater->update( $activation_key );
-		$this->products_updater->update( $activation_key );
+		$this->plugins_updater->update( $activation_key );
+
+		wp_clean_plugins_cache();
+		wp_update_plugins();
 
 		wp_send_json_success( [
 			'permissions' => $response->get( 'permissions' ),

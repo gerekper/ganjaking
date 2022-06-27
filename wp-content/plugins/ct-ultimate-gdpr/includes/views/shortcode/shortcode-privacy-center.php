@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div class="container detailed-features">
+<div class="detailed-features">
 
-    <div class="row">
+
 
 		<?php if ( $url = ct_ultimate_gdpr_get_value( 'myaccount_url', $options ) ) : ?>
 
@@ -200,5 +200,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php endif; ?>
 
-    </div>
+   
 </div>

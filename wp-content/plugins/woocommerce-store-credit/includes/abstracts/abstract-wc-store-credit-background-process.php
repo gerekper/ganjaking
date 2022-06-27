@@ -35,6 +35,6 @@ abstract class WC_Store_Credit_Background_Process extends WC_Background_Process 
 	 * @since 4.0.0
 	 */
 	public function force_process() {
-		do_action( $this->cron_hook_identifier ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHooksComment
+		do_action( $this->cron_hook_identifier ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 }

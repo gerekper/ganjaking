@@ -39,7 +39,9 @@
 			// Get the current user
         	$current_user = wp_get_current_user();
 
-			if ( isset( $post_type ) && $post_type === 'shop_order' && get_post_meta( $post->ID, '_invoice_meta', TRUE ) && in_array('administrator', $current_user->roles) ) {
+        	$invoice_meta_box_allowed_user_role  = apply_filters( 'pdf_invoice_allowed_user_role_invoice_meta_box', 'administrator' );
+
+			if ( isset( $post_type ) && $post_type === 'shop_order' && get_post_meta( $post->ID, '_invoice_meta', TRUE ) && in_array($invoice_meta_box_allowed_user_role, $current_user->roles) ) {
 				add_meta_box( 'woocommerce-invoice-meta', __('Invoice Meta', 'woocommerce-pdf-invoice'), array($this,'woocommerce_invoice_meta_box'), 'shop_order', 'advanced', 'low');
 			}
 		}
@@ -94,7 +96,9 @@
 
 			// Get the current user
         	$current_user = wp_get_current_user();
-        	if( in_array( 'administrator', $current_user->roles ) ) {
+        	$save_invoice_meta_allowed_user_role  = apply_filters( 'pdf_invoice_allowed_user_role_invoice_meta_box', 'administrator' );
+        	
+        	if( in_array( $save_invoice_meta_allowed_user_role, $current_user->roles ) ) {
 
 				$id                				  = $order->get_id();
 				$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );

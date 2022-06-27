@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  6.13.3
+ * @version  6.15.4
  */
 class WC_PB_Order {
 
@@ -130,6 +130,11 @@ class WC_PB_Order {
 		 */
 		foreach ( $configuration as $bundled_item_id => $bundled_item_configuration ) {
 
+			if ( ! $bundle->has_bundled_item( $bundled_item_id ) ) {
+				unset( $configuration[ $bundled_item_id ] );
+				continue;
+			}
+
 			$bundled_order_item_qty = false;
 
 			foreach ( $bundled_order_items as $bundled_order_item ) {
@@ -137,11 +142,6 @@ class WC_PB_Order {
 					$bundled_order_item_qty = $bundled_order_item->get_quantity();
 					break;
 				}
-			}
-
-			if ( ! $bundled_order_item_qty ) {
-				unset( $configuration[ $bundled_item_id ] );
-				continue;
 			}
 
 			// Normalize with the quantity of the parent.
@@ -197,9 +197,10 @@ class WC_PB_Order {
 
 		if ( $bundle && $bundle->is_type( 'bundle' ) ) {
 
-			$configuration = $args[ 'configuration' ];
+			try {
 
-			if ( WC_PB()->cart->validate_bundle_configuration( $bundle, $quantity, $configuration, 'add-to-order' ) ) {
+				$configuration = $args[ 'configuration' ];
+				$is_valid      = WC_PB()->cart->validate_bundle_configuration( $bundle, $quantity, $configuration, array( 'context' => 'add-to-order', 'throw_exception' => true ) );
 
 				// Add container item.
 				$container_order_item_id = $order->add_product( $bundle, $quantity, $args );
@@ -384,15 +385,20 @@ class WC_PB_Order {
 				 */
 				do_action( 'woocommerce_bundle_added_to_order', $container_order_item, $order, $bundle, $quantity, $args );
 
-			} else {
+			} catch ( Exception $e ) {
 
-				$error_data = array( 'notices' => wc_get_notices( 'error' ) );
-				$message    = __( 'The submitted bundle configuration could not be added to this order.', 'woocommerce-product-bundles' );
+				$error = $e->getMessage();
 
-				if ( $args[ 'silent' ] ) {
-					wc_clear_notices();
+				if ( $error && false === $args[ 'silent' ] ) {
+					wc_add_notice( $error, 'error' );
 				}
 
+				$error_data = array( 'notices' => array(
+					'notice' => $error
+				) );
+
+				/* translators: %1$s: Error message */
+				$message        = sprintf( __( 'The submitted bundle configuration could not be added to this order: %s', 'woocommerce-product-bundles' ), $error );
 				$added_to_order = new WP_Error( 'woocommerce_bundle_configuration_invalid', $message, $error_data );
 			}
 
@@ -716,6 +722,10 @@ class WC_PB_Order {
 
 				// If it needs shipping, modify its weight to include the weight of all "packaged" items.
 				if ( $bundle_weight = $item->get_meta( '_bundle_weight', true ) ) {
+
+					if ( is_null( $bundle_weight ) ) {
+						$bundle_weight = '';
+					}
 					$product->set_weight( $bundle_weight );
 				}
 
@@ -845,6 +855,11 @@ class WC_PB_Order {
 			if ( $product->needs_shipping() ) {
 
 				if ( $bundle_weight = $item->get_meta( '_bundle_weight', true ) ) {
+
+					if ( is_null( $bundle_weight ) ) {
+						$bundle_weight = '';
+					}
+
 					$product->set_weight( $bundle_weight, $bundle_weight );
 				}
 
@@ -1139,7 +1154,7 @@ class WC_PB_Order {
 			if ( $child_items = wc_pb_get_bundled_order_items( $item ) ) {
 
 				// If no child requires processing and the container is virtual, it should not require processing - @see 'container_item_needs_processing()'.
-				if ( $product->is_virtual() && sizeof( $child_items ) > 0 ) {
+				if ( $product->is_virtual() && count( $child_items ) > 0 ) {
 					if ( 'no' === $item->get_meta( '_bundled_items_need_processing', true ) ) {
 						$product->bundle_needs_processing = 'no';
 					}

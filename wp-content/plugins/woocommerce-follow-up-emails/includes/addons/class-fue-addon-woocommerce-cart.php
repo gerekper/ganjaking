@@ -186,7 +186,7 @@ class FUE_Addon_Woocommerce_Cart {
 		self::clone_cart();
 
 		update_user_meta( $user_id, '_fue_cart_last_update', current_time( 'timestamp' ) );
-		update_user_meta( $user_id, '_wcfue_cart_emails', array() );
+		self::set_user_cart_session( $user_id, array() );
 
 		return;
 	}

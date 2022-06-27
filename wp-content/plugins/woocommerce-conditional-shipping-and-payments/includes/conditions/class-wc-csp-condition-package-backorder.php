@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Package_Backorder class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.4.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Backorder in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Backorder
- * @version  1.4.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Package_Backorder extends WC_CSP_Package_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Package_Backorder extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                            = 'backorder_in_package';
 		$this->title                         = __( 'Backorder', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                      = 20;
 		$this->supported_global_restrictions = array( 'shipping_methods', 'shipping_countries' );
 	}
 

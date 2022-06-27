@@ -29,17 +29,10 @@ if( !class_exists( 'LoginPress_Facebook' ) ) {
       );
 
       include LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/facebook/autoload.php';
-      $fb = new Facebook\Facebook( $config );
+      $fb 			= new Facebook\Facebook( $config );
+			$callback = $callBackUrl . 'lpsl_login_id' . '=facebook_check';
 
-      $encoded_url = isset( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '';
-      if( isset( $encoded_url ) && $encoded_url != '' ) {
-        $callback = $callBackUrl . 'lpsl_login_id' . '=facebook_check&redirect_to=' . $encoded_url;
-      }
-      else {
-        $callback = $callBackUrl . 'lpsl_login_id' . '=facebook_check';
-      }
-
-      if( $action == 'login' ) {
+			if( $action == 'login' ) {
         // Well looks like we are a fresh dude, login to Facebook!
         $helper = $fb->getRedirectLoginHelper();
         $permissions = array('email', 'public_profile'); // optional
@@ -79,7 +72,7 @@ if( !class_exists( 'LoginPress_Facebook' ) ) {
             $fb->setDefaultAccessToken( $accessToken );
 
             try {
-              $response = $fb->get( '/me?fields=email,name, first_name, last_name, gender, link, about, birthday, education, hometown, is_verified, languages, location, website' );
+              $response = $fb->get( '/me?fields=email,name, first_name, last_name, gender, link, about, birthday, education, hometown, languages, location, website' );
               $userNode = $response->getGraphUser();
             }
             catch( Facebook\Exceptions\FacebookResponseException $e ) {
@@ -102,7 +95,7 @@ if( !class_exists( 'LoginPress_Facebook' ) ) {
               $lp_fb_user_details->deutype    = 'facebook';
               $lp_fb_user_details->first_name = $user_profile['first_name'];
               $lp_fb_user_details->last_name  = $user_profile['last_name'];
-              if(isset($user_profile['email']) || $user_profile['email'] != '') {
+              if( isset( $user_profile['email'] ) && ! empty( $user_profile['email'] ) ) {
 
                 $user_email = $user_profile['email'];
               } else {
@@ -112,7 +105,7 @@ if( !class_exists( 'LoginPress_Facebook' ) ) {
               $lp_fb_user_details->email      = $user_email;
               $lp_fb_user_details->username   = ($user_profile['first_name'] !='') ? strtolower( $user_profile['first_name'] ) : $user_email;
               $lp_fb_user_details->gender     = isset($user_profile['gender']) ? $user_profile['gender'] : 'N/A';
-              $lp_fb_user_details->url        = $user_profile['link'];
+              $lp_fb_user_details->url        = isset( $user_profile['link'] ) ? $user_profile['link'] : '';
               $lp_fb_user_details->about      = ''; //facebook doesn't return user about details.
               $headers = get_headers( 'https://graph.facebook.com/' . $user_profile['id'] . '/picture?width='.$width.'&height='.$height, 1 );
               // just a precaution, check whether the header isset...

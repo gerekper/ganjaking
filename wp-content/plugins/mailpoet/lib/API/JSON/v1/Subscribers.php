@@ -7,21 +7,26 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
+use MailPoet\API\JSON\ErrorResponse;
+use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\SubscribersResponseBuilder;
+use MailPoet\API\JSON\SuccessResponse;
 use MailPoet\Config\AccessControl;
+use MailPoet\ConflictException;
 use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Exception;
 use MailPoet\Listing;
-use MailPoet\Models\Subscriber;
 use MailPoet\Segments\SegmentsRepository;
+use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\SubscriberListingRepository;
 use MailPoet\Subscribers\SubscriberSaveController;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscribers\SubscriberSubscribeController;
 use MailPoet\UnexpectedValueException;
+use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Subscribers extends APIEndpoint {
@@ -56,6 +61,9 @@ class Subscribers extends APIEndpoint {
   /** @var SubscriberSubscribeController */
   private $subscribeController;
 
+  /** @var SettingsController */
+  private $settings;
+
   public function __construct(
     Listing\Handler $listingHandler,
     ConfirmationEmailMailer $confirmationEmailMailer,
@@ -64,7 +72,8 @@ class Subscribers extends APIEndpoint {
     SubscriberListingRepository $subscriberListingRepository,
     SegmentsRepository $segmentsRepository,
     SubscriberSaveController $saveController,
-    SubscriberSubscribeController $subscribeController
+    SubscriberSubscribeController $subscribeController,
+    SettingsController $settings
   ) {
     $this->listingHandler = $listingHandler;
     $this->confirmationEmailMailer = $confirmationEmailMailer;
@@ -74,6 +83,7 @@ class Subscribers extends APIEndpoint {
     $this->segmentsRepository = $segmentsRepository;
     $this->saveController = $saveController;
     $this->subscribeController = $subscribeController;
+    $this->settings = $settings;
   }
 
   public function get($data = []) {
@@ -109,7 +119,7 @@ class Subscribers extends APIEndpoint {
   private function preferUnsubscribedStatusFromSegment(array $subscriber, $segmentId) {
     $segmentStatus = $this->findSegmentStatus($subscriber, $segmentId);
 
-    if ($segmentStatus === Subscriber::STATUS_UNSUBSCRIBED) {
+    if ($segmentStatus === SubscriberEntity::STATUS_UNSUBSCRIBED) {
       $subscriber['status'] = $segmentStatus;
     }
     return $subscriber;
@@ -142,12 +152,21 @@ class Subscribers extends APIEndpoint {
     );
   }
 
-  public function save($data = []) {
+  /**
+   * @param array $data
+   * @return ErrorResponse|SuccessResponse
+   * @throws \Exception
+   */
+  public function save(array $data = []) {
     try {
       $subscriber = $this->saveController->save($data);
     } catch (ValidationException $validationException) {
       return $this->badRequest([$this->getErrorMessage($validationException)]);
-    }
+    } catch (ConflictException $conflictException) {
+      return $this->badRequest([
+        APIError::BAD_REQUEST => $conflictException->getMessage(),
+      ]);
+    };
 
     return $this->successResponse(
       $this->subscribersResponseBuilder->build($subscriber)
@@ -199,6 +218,12 @@ class Subscribers extends APIEndpoint {
   }
 
   public function sendConfirmationEmail($data = []) {
+    if (!(bool)$this->settings->get('signup_confirmation.enabled', true)) {
+      $errorMessage = __('Sign-up confirmation is disabled in your [link]MailPoet settings[/link]. Please enable it to resend confirmation emails or update your subscriber’s status manually.', 'mailpoet');
+      $errorMessage = Helpers::replaceLinkTags($errorMessage, 'admin.php?page=mailpoet-settings#/signup');
+      return $this->errorResponse([APIError::BAD_REQUEST => $errorMessage], [], Response::STATUS_BAD_REQUEST);
+    }
+
     $id = (isset($data['id']) ? (int)$data['id'] : false);
     $subscriber = $this->subscribersRepository->findOneById($id);
     if ($subscriber instanceof SubscriberEntity) {

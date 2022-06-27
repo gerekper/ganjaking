@@ -58,10 +58,7 @@ if ( ! class_exists( 'WC_OD_Email_Order_Note' ) ) {
 				return;
 			}
 
-			// Added in WC 3.1.
-			if ( method_exists( $this, 'setup_locale' ) ) {
-				$this->setup_locale();
-			}
+			$this->setup_locale();
 
 			if ( $note && is_a( $order, 'WC_Order' ) ) {
 				$this->object = $order;
@@ -74,27 +71,19 @@ if ( ! class_exists( 'WC_OD_Email_Order_Note' ) ) {
 				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 			}
 
-			// Added in WC 3.1.
-			if ( method_exists( $this, 'restore_locale' ) ) {
-				$this->restore_locale();
-			}
+			$this->restore_locale();
 		}
 
 		/**
 		 * Sets a placeholder value.
 		 *
-		 * Adds backward compatibility with older WC versions.
+		 * @since 1.4.0
 		 *
 		 * @param string $key   The placeholder key.
 		 * @param mixed  $value The placeholder value.
 		 */
 		public function setPlaceholder( $key, $value ) {
-			if ( version_compare( WC()->version, '3.2.0', '<' ) ) {
-				$this->find[ $key ]    = "{{$key}}";
-				$this->replace[ $key ] = $value;
-			} else {
-				$this->placeholders[ "{{$key}}" ] = $value;
-			}
+			$this->placeholders[ "{{$key}}" ] = $value;
 		}
 
 		/**
@@ -157,6 +146,7 @@ if ( ! class_exists( 'WC_OD_Email_Order_Note' ) ) {
 			$fields['recipient'] = array(
 				'title'       => __( 'Recipient(s)', 'woocommerce-order-delivery' ),
 				'type'        => 'text',
+				/* translators: %s: WP admin email */
 				'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'woocommerce-order-delivery' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 				'placeholder' => '',
 				'default'     => '',

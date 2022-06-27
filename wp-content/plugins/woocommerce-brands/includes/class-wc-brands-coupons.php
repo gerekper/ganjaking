@@ -5,7 +5,7 @@
  */
 class WC_Brands_Coupons {
 
-	const E_WC_COUPON_EXCLUDED_BRANDS = 115;
+	const E_WC_COUPON_EXCLUDED_BRANDS = 301;
 
 	/**
 	 * Constructor
@@ -22,46 +22,33 @@ class WC_Brands_Coupons {
 	 *
 	 * If one of the following conditions are met, an exception will be thrown and
 	 * displayed as an error notice on the cart page:
-	 * 
+	 *
 	 * 1) Coupon has a brand requirement but no products in the cart have the brand.
 	 * 2) All products in the cart match the brand exclusion rule.
 	 * 3) For a cart discount, there is at least one product in cart that matches exclusion rule.
 	 *
 	 * @throws Exception
-	 * @param bool      $valid  Whether the coupon is valid
-	 * @param WC_Coupon $coupon Coupon object
-	 * @return bool     $valid  True if coupon is valid, otherwise Exception will be thrown
+	 * @param  bool         $valid  Whether the coupon is valid
+	 * @param  WC_Coupon    $coupon Coupon object
+	 * @param  WC_Discounts $discounts Discounts object
+	 * @return bool         $valid  True if coupon is valid, otherwise Exception will be thrown
 	 */
 	public function is_coupon_valid( $valid, $coupon, $discounts = null ) {
 		$this->set_brand_settings_on_coupon( $coupon );
 
-		// Only check if coupon still valid and the coupon has brand restrictions on it.
+		// Only check if coupon has brand restrictions on it.
 		$brand_restrictions = ( ! empty( $coupon->included_brands ) || ! empty( $coupon->excluded_brands ) );
-		if ( $valid && ! $brand_restrictions && ! WC()->cart->is_empty() ) {
+		if ( ! $brand_restrictions ) {
 			return $valid;
 		}
 
 		$included_brands_match   = false;
 		$excluded_brands_matches = 0;
 
-		$items = WC()->cart->get_cart();
+		$items = $discounts->get_items();
 
-		// In case we're applying a coupon from the backend, use discounts items
-		if ( empty( $items ) && is_callable( array( $discounts, 'get_items' ) ) ) {
-			$items = array_map( function( $order_item_id ) {
-				return array(
-					'product_id' => $order_item_id,
-				);
-			}, array_keys( $discounts->get_items() ) );
-		}
-
-		// If we don't have items to work with we should just pass the original validity.
-		if ( empty( $items ) ) {
-			return $valid;
-		}
-
-		foreach( $items as $cart_item ) {
-			$product_brands = $this->get_product_brands( $cart_item['product_id'] );
+		foreach ( $items as $item ) {
+			$product_brands = $this->get_product_brands( $item->product->get_id() );
 
 			if ( ! empty( array_intersect( $product_brands, $coupon->included_brands ) ) ) {
 				$included_brands_match = true;
@@ -92,7 +79,7 @@ class WC_Brands_Coupons {
 
 	/**
 	 * Check if a coupon is valid for a product.
-	 * 
+	 *
 	 * This allows percentage and product discounts to apply to only
 	 * the correct products in the cart.
 	 *
@@ -132,26 +119,11 @@ class WC_Brands_Coupons {
 	 * @return string
 	 */
 	public function brand_exclusion_error( $err, $err_code, $coupon ) {
-		if ( self::E_WC_COUPON_EXCLUDED_BRANDS != $err_code && ! WC()->cart->is_empty() ) {
+		if ( self::E_WC_COUPON_EXCLUDED_BRANDS != $err_code ) {
 			return $err;
 		}
 
-		$this->set_brand_settings_on_coupon( $coupon );
-
-		// Get a list of excluded brands that are present in the cart.
-		$brands = array();
-		foreach( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			$intersect = array_intersect( $this->get_product_brands( $cart_item['product_id'] ), $coupon->excluded_brands );
-
-			if ( ! empty( $intersect ) ) {
-				foreach( $intersect as $cat_id) {
-					$cat = get_term( $cat_id, 'product_brand' );
-					$brands[] = $cat->name;
-				}
-			}
-		}
-
-		return sprintf( __( 'Sorry, this coupon is not applicable to the brands: %s.', 'wc_brands' ), implode( ', ', array_unique( $brands ) ) );
+		return __( 'Sorry, this coupon is not applicable to the brands of selected products.', 'woocommerce-brands' );
 	}
 
 	/**

@@ -28,7 +28,7 @@ class ApiActivateResponse implements Rule {
 				$permissions = new Permissions( $data['permissions'] );
 			}
 		}
-		
+
 		// `Usage` permissions are given when the API call fails.
 		if ( $this->response->has_error() && $this->has_error_code( $this->response->get_error(), 'http_request_failed' ) ) {
 			$permissions = $permissions->with_permission( Permissions::USAGE );

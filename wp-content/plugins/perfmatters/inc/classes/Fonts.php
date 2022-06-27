@@ -50,8 +50,10 @@ class Fonts
     public static function local_google_fonts($html) {
 
         //create our fonts cache directory
-        @mkdir(PERFMATTERS_CACHE_DIR . 'fonts/', 0755, true);
-
+        if(!is_dir(PERFMATTERS_CACHE_DIR . 'fonts/')) {
+            @mkdir(PERFMATTERS_CACHE_DIR . 'fonts/', 0755, true);
+        }
+        
         //rewrite cdn url in font file cache url
         $cdn_url = !empty(Config::$options['fonts']['cdn_url']) ? Config::$options['fonts']['cdn_url'] : (!empty(Config::$options['cdn']['enable_cdn']) && !empty(Config::$options['cdn']['cdn_url']) ? Config::$options['cdn']['cdn_url'] : '');
         if(!empty($cdn_url)) {
@@ -59,7 +61,7 @@ class Fonts
         }
 
         //remove existing google font preconnect + prefetch links
-        preg_match_all('#<link(?:[^>]+)?href=(["\'])(.*?fonts\.(gstatic|googleapis)\.com.*?)\1.*?>#i', $html, $google_links, PREG_SET_ORDER);
+        preg_match_all('#<link(?:[^>]+)?href=(["\'])([^>]*?fonts\.(gstatic|googleapis)\.com.*?)\1.*?>#i', $html, $google_links, PREG_SET_ORDER);
         if(!empty($google_links)) {
             foreach($google_links as $google_link) {
                 if(preg_match('#rel=(["\'])(.*?(preconnect|prefetch).*?)\1#i', $google_link[0])) {

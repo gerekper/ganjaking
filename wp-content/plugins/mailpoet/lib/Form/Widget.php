@@ -6,13 +6,12 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\API\JSON\API;
-use MailPoet\Config\Renderer as ConfigRenderer;
+use MailPoet\Config\RendererFactory;
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\FormEntity;
 use MailPoet\Form\Renderer as FormRenderer;
 use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
 
 // phpcs:disable Generic.Files.InlineHTML
@@ -39,7 +38,8 @@ class Widget extends \WP_Widget {
       ['description' => WPFunctions::get()->__('Add a newsletter subscription form', 'mailpoet')]
     );
     $this->wp = new WPFunctions;
-    $this->renderer = new \MailPoet\Config\Renderer(!WP_DEBUG, !WP_DEBUG);
+
+    $this->renderer = (new RendererFactory())->getRenderer();
     $this->assetsController = new AssetsController($this->wp, $this->renderer, SettingsController::getInstance());
     $this->formRenderer = ContainerWrapper::getInstance()->get(FormRenderer::class);
     $this->formsRepository = ContainerWrapper::getInstance()->get(FormsRepository::class);
@@ -96,9 +96,11 @@ class Widget extends \WP_Widget {
     ];
 
     try {
+      // We control the template and the data is sanitized
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $this->renderer->render('form/iframe.html', $data);
     } catch (\Exception $e) {
-      echo $e->getMessage();
+      echo esc_html($e->getMessage());
     }
 
     exit();
@@ -136,31 +138,30 @@ class Widget extends \WP_Widget {
     // get forms list
     $forms = $this->formsRepository->findBy(['deletedAt' => null], ['name' => 'asc']);
     ?><p>
-      <label for="<?php $this->get_field_id( 'title' ) ?>"><?php WPFunctions::get()->_e('Title:', 'mailpoet'); ?></label>
+      <label for="<?php esc_attr($this->get_field_id( 'title' )) ?>"><?php echo esc_html(WPFunctions::get()->__('Title:', 'mailpoet')); ?></label>
       <input
         type="text"
         class="widefat"
-        id="<?php echo $this->get_field_id('title') ?>"
-        name="<?php echo $this->get_field_name('title'); ?>"
-        value="<?php echo WPFunctions::get()->escAttr($title); ?>"
+        id="<?php echo esc_attr($this->get_field_id('title')) ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>"
+        value="<?php echo esc_attr($title); ?>"
       />
     </p>
     <p>
-      <select class="widefat" id="<?php echo $this->get_field_id('form') ?>" name="<?php echo $this->get_field_name('form'); ?>">
+      <select class="widefat" id="<?php echo esc_attr($this->get_field_id('form')) ?>" name="<?php echo esc_attr($this->get_field_name('form')); ?>">
         <?php
         // Select the first one from the list if none selected
         if ($selectedForm === 0 && !empty($forms)) $selectedForm = $forms[0]->getId();
         foreach ($forms as $form) {
-          $isSelected = ($selectedForm === $form->getId()) ? 'selected="selected"' : '';
           $formName = $form->getName() ? $this->wp->escHtml($form->getName()) : "({$this->wp->_x('no name', 'fallback for forms without a name in a form list')})";
           $formName .= $form->getStatus() === FormEntity::STATUS_DISABLED ? ' (' . __('inactive', 'mailpoet') . ')' : '';
           ?>
-        <option value="<?php echo $form->getId(); ?>" <?php echo $isSelected; ?>><?php echo $formName; ?></option>
+        <option value="<?php echo esc_attr((string)$form->getId()); ?>" <?php echo ($selectedForm === $form->getId()) ? 'selected="selected"' : ''; ?>><?php echo esc_html($formName); ?></option>
         <?php } ?>
       </select>
     </p>
     <p>
-      <a href="<?php echo $formEditUrl; ?>" target="_blank" class="mailpoet_form_new"><?php WPFunctions::get()->_e('Create a new form', 'mailpoet'); ?></a>
+      <a href="<?php echo esc_url($formEditUrl); ?>" target="_blank" class="mailpoet_form_new"><?php echo esc_html(WPFunctions::get()->__('Create a new form', 'mailpoet')); ?></a>
     </p>
     <?php
     return '';
@@ -251,13 +252,13 @@ class Widget extends \WP_Widget {
       );
 
       // generate security token
-      $data['token'] = Security::generateToken();
+      $data['token'] = $this->wp->wpCreateNonce('mailpoet_token');
 
       // add API version
       $data['api_version'] = API::CURRENT_VERSION;
 
       // render form
-      $renderer = new ConfigRenderer();
+      $renderer = (new RendererFactory())->getRenderer();
       try {
         $output = $renderer->render('form/front_end_form.html', $data);
         $output = WPFunctions::get()->doShortcode($output);
@@ -268,6 +269,8 @@ class Widget extends \WP_Widget {
     }
 
     if ($formType === 'widget') {
+      // We control the template and the data is sanitized
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $output;
     } else {
       return $output;

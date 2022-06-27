@@ -139,6 +139,20 @@ class Profile_Field extends \WC_Data {
 
 
 	/**
+	 * Gets the profile field label.
+	 *
+	 * @since 1.23.0
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+
+		$definition = $this->get_definition();
+		return $definition ? $definition->get_name( 'view' ) : '';
+	}
+
+
+	/**
 	 * Sets the profile field slug.
 	 *
 	 * @since 1.19.0

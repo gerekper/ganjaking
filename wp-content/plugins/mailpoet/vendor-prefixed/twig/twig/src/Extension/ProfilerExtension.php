@@ -23,9 +23,8 @@ class ProfilerExtension extends AbstractExtension
  $this->actives[0]->leave();
  }
  }
- public function getNodeVisitors()
+ public function getNodeVisitors() : array
  {
  return [new ProfilerNodeVisitor(static::class)];
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Extension\\ProfilerExtension', 'MailPoetVendor\\Twig_Extension_Profiler');

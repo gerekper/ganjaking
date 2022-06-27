@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -2494,10 +2494,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		}catch(Exception $e){
 			$this->show_error($this->view, $e->getMessage());
 		}
-	}
-
-	public static function welcome_screen_activate(){
-		set_transient('_revslider_welcome_screen_activation_redirect', true, 60);
 	}
 
 	public function open_welcome_page(){

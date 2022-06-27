@@ -45,7 +45,7 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 
 			// Get the rules
 			$rules = WC_AF_Rules::get()->get_rules();     
-                        
+						
 			// Set points
 			$score = 100;
 			$risk_points = 0;
@@ -67,13 +67,13 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 				}
 
 			}
-                        //echo '<pre>'; print_r($score); echo '</pre>'; exit;
-                        //echo '<pre>'; print_r($risk_points); echo '</pre>'; 
-                        //echo '<pre>'; print_r($rules); echo '</pre>'; exit;  
+						//echo '<pre>'; print_r($score); echo '</pre>'; exit;
+						//echo '<pre>'; print_r($risk_points); echo '</pre>'; 
+						//echo '<pre>'; print_r($rules); echo '</pre>'; exit;  
 			//$score = ($this->max_weight*100)/$risk_points;
 			// Calculate score
 			//$this->score = absint( $score );        
-			Af_Logger::debug('Anti fraud final score '.$score);	
+			Af_Logger::debug('Anti fraud final score ' . $score);	
 			$this->score = $score ;
 		}
 
@@ -81,7 +81,6 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 		 * Get the score
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return int
 		 */
@@ -94,7 +93,6 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 		 * Get passed rules
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return array
 		 */
@@ -106,7 +104,6 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 		 * Get failed rules
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return array
 		 */

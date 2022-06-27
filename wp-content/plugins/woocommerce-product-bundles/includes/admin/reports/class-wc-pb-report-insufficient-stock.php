@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Report_Stock' ) ) {
  *
  * Handles reporting of bundles with an "Insufficient stock" status.
  *
- * @version  6.5.0
+ * @version  6.14.1
  */
 class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 
@@ -141,7 +141,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 				$this->items[]      = $item;
 			}
 
-			$this->max_items = sizeof( $insufficient_stock_results );
+			$this->max_items = count( $insufficient_stock_results );
 		}
 	}
 

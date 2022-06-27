@@ -76,7 +76,10 @@ class Migrator {
 
   private function runQuery(string $query): int {
     $this->wpdb->hide_errors();
+    // It's a private method and all Queries in this class are safe
+    // phpcs:ignore WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter
     $result = $this->wpdb->query($query);
+
     if ($result === false) {
       throw Exceptions::migrationFailed($this->wpdb->last_error ?: 'Unknown error');
     }

@@ -18,9 +18,9 @@
 
 namespace WooCommercePDFInvoice;
 
-use FontLib\Exception\FontNotFoundException;
-use FontLib\Font;
-use FontLib\BinaryStream;
+use WooCommercePDFInvoiceFontLib\Exception\FontNotFoundException;
+use WooCommercePDFInvoiceFontLib\Font;
+use WooCommercePDFInvoiceFontLib\BinaryStream;
 
 class Cpdf
 {

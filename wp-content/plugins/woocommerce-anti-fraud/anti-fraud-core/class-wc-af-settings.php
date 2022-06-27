@@ -46,6 +46,9 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Minfraud' ) );
 				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Quickemailverification' ) );
 
+				add_action('woocommerce_admin_field_button', array($this, 'opmc_add_admin_field_button') );
+				add_action('woocommerce_admin_field_timepicker', array($this, 'opmc_add_admin_field_timepicker') );
+
 				/* initiation of logging instance */
 				$this->log = new WC_Logger();
 			}
@@ -66,6 +69,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'wc_af' ),
 				'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'wc_af' ),
 				'minfraud_recaptcha_settings' => __( 'Re-Captcha', 'wc_af' ),
+				'need_support' => __('Need Support?', 'wc_af'),
 				);
 
 				return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -358,6 +362,48 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					) );
 
+				}
+				if ('need_support' == $current_section) {
+
+					/**
+					 * WCAF Filter Plugin  MinFraud Settings
+					 *
+					 * @since 1.0.0
+					 * @param array $settings Array of the plugin settings
+					 */
+
+					$settings = apply_filters('need_support', array(
+						array(
+							'name'     => __('Support for the Anti-Fraud Plugin', 'woocommerce-anti-fraud'),
+							'type'     => 'title',
+							'desc'     => '<hr/>',
+							'id'       => 'wc_af_need_support',
+						),
+						array(
+							'title'    => __('Facing an Issue with the plugin?', 'woocommerce-anti-fraud'),
+							'name' => __('Contact Our Support', 'woocommerce-anti-fraud'),
+							'type' => 'button',
+							'desc' => __('If you have any issues or feedback about Anti-Fraud plugin, we would loveo here from you!', 'woocommerce-anti-fraud'),
+							'class' => 'button-secondary',
+							'href'  => 'https://woocommerce.com/my-account/create-a-ticket/',
+							'id'	=> 'wc_af_contact_support',
+						),
+						array(
+							'title'    => __('Love our Plugin?', 'woocommerce-anti-fraud'),
+							'title_icon' => WOOCOMMERCE_ANTI_FRAUD_PLUGIN_URL . 'templates/icons/stars.png',
+							'name' => __('Leave Us a Review!', 'woocommerce-anti-fraud'),
+							'type' => 'button',
+							'desc' => __('Your positive reviews are always encouraging!', 'woocommerce-anti-fraud'),
+							'class' => 'button-secondary',
+							'href'  => 'https://woocommerce.com/products/woocommerce-anti-fraud/#reviews-start',
+							'id'	=> 'wc_af_contact_support',
+						),
+						array(
+							'type' => 'sectionend',
+							'id'   => 'wc_af_need_support'
+						)
+
+					));
 				} if ( 'minfraud_recaptcha_settings' == $current_section ) {
 
 					/**
@@ -1018,7 +1064,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					array(
 						'name'        => __( 'Define unsafe countries', 'woocommerce-anti-fraud' ),
 						'type'        => 'multiselect',
-						'desc'        => __( '' ),
+						'desc'        => '',
 						'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_define_unsafe_countries_list',
 						'class'        => 'chzn-drop',
 						'options'      => $this->get_countries()
@@ -1151,6 +1197,38 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 					),
 					array(
+						'title'       => __( 'Limit Order between time', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'no',
+						'desc' => __( 'Limit the number orders to be placed during the given timeframe.', 'woocommerce-anti-fraud' ),
+						'id'    => 'wc_af_limit_order_count'
+					),
+					array(
+						'name'     => __( 'Start Time ', 'woocommerce-anti-fraud' ),
+						'type'     => 'time',
+						'desc'     => __( 'Start time limit order between.', 'woocommerce-anti-fraud' ),
+						'id'       => 'wc_af_limit_time_start',
+						'css'         => 'display: block; width: 8.5em;',
+						'default' => '',
+					),
+					array(
+						'name'     => __('End Time ', 'woocommerce-anti-fraud'),
+						'type'     => 'time',
+						'desc'     => __('End time limit order between.', 'woocommerce-anti-fraud'),
+						'id'       => 'wc_af_limit_time_end',
+						'css'         => 'display: block; width: 8.5em;',
+						'default' => '',
+					),
+					array(
+						'name'     => __('Allowed Orders', 'woocommerce-anti-fraud'),
+						'type'     => 'number',
+						'desc'     => __('Allowed numbers of order between.', 'woocommerce-anti-fraud'),
+						'id'       => 'wc_af_allowed_order_limit',
+						'css'         => 'display: block; width: 5em;',
+						'default' => '',
+					),
+					array(
 						'type' => 'sectionend',
 						'id' => 'wc_af_amounts'
 					),
@@ -1166,6 +1244,38 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				 */
 				return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings, $current_section );
 
+			}
+
+
+			public function opmc_add_admin_field_button( $value ) {
+				$option_value = (array) WC_Admin_Settings::get_option( $value['id'] );
+				$description = WC_Admin_Settings::get_field_description( $value );
+				
+				?>
+			   
+				<tr valign="top">
+					<th scope="row" class="titledesc">
+						<label for="<?php echo esc_attr( $value['id'] ); ?>">
+							<?php echo esc_html( $value['title'] ); ?>
+						</label>
+						<?php if (isset($value['title_icon']) && '' != $value['title_icon']) : ?>
+							<img src="<?php echo esc_attr($value['title_icon']); ?>" alt="<?php echo esc_html( $value['title'] ); ?>" style="width:100px;">
+						<?php endif; ?>
+					</th>
+					
+					<td class="forminp forminp-<?php echo esc_attr( $value['type'] ); ?>">
+						<a 
+							target="_blank"
+							href="<?php echo esc_attr( $value['href'] ); ?>" 
+							class="<?php echo esc_attr($value['class']); ?>" 
+							id="<?php echo esc_attr($value['id']); ?>"							
+							><?php echo esc_attr( $value['name'] ); ?></a> 
+						<?php echo wp_kses_post($description['description']); ?>
+					   
+					</td>
+				</tr>
+
+				<?php       
 			}
 
 
@@ -1216,7 +1326,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					$this->log->add( 'MinFraud', print_r( array( 'current settings tab' => $curr_settings, 'setting enable' => $setting_type ), true ) );
 
-					if ($setting_type == 'yes' &&  $curr_settings == 'wc_af_minfraud_settings') {
+					if ('yes' == $setting_type &&  'wc_af_minfraud_settings' == $curr_settings) {
 
 						$maxmind_user = get_option( 'wc_af_maxmind_user' );
 						$maxmind_license_key = get_option( 'wc_af_maxmind_license_key' );
@@ -1248,7 +1358,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						$result = json_decode( $response, true );
 						$error = $result['code'];
 
-						if ($error == 'AUTHORIZATION_INVALID') {
+						if ('AUTHORIZATION_INVALID' === $error) {
 
 							$this->log->add( 'MinFraud', '====== Authentication failed' );
 							$this->log->add( 'MinFraud', print_r( array( 'MaxMind Account Id' => $maxmind_user, 'MaxMind license key' => $maxmind_license_key ), true ) );
@@ -1390,14 +1500,14 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					$setting_type = get_option( 'wc_af_suspecius_email' );
 
-					if ($setting_type == 'yes' &&  $curr_settings == 'wc_af_general_settings') {
+					if ('yes' == $setting_type &&  'wc_af_general_settings' == $curr_settings) {
 
 						$email_api_key = get_option( 'check_email_domain_api_key' );
 						$admin_email = get_option( 'admin_email' );
 
 						$contents = @file_get_contents("https://api.quickemailverification.com/v1/verify?email=$admin_email&apikey=$email_api_key");
 
-						if ( $contents !== false ) {
+						if ( false !== $contents ) {
 
 							$res = @json_decode($contents);
 

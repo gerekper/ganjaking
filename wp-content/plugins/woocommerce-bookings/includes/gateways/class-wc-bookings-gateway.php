@@ -9,10 +9,10 @@ class WC_Bookings_Gateway extends WC_Payment_Gateway {
 	 * Constructor for the gateway.
 	 */
 	public function __construct() {
-		$this->id                = 'wc-booking-gateway';
+		$this->id                = 'wc-bookings-gateway';
 		$this->icon              = '';
 		$this->has_fields        = false;
-		$this->method_title      = __( 'Check booking availability', 'woocommerce-bookings' );
+		$this->method_title      = __( 'Subject to confirmation', 'woocommerce-bookings' );
 		$this->title             = $this->method_title;
 		$this->order_button_text = __( 'Request Confirmation', 'woocommerce-bookings' );
 

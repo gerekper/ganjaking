@@ -1,5 +1,44 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-06-01 - version 2.1.0
+* Tweak - Better handling of shipping methods with different rates based on cart conditions.
+* Tweak - Improved performance when validating if a shipping method is applicable to a Delivery Range, Delivery Day, or Time frame.
+* Tweak - Use the rate ID as the label fallback for the rates of the 'Table rates' shipping method.
+* Tweak - Tested compatibility with WC 6.6.
+* Tweak - Tested compatibility with WP 6.0.
+* Dev - Use WooCommerce hooks for registering the 'edit-delivery' endpoint on the 'My Account' page.
+
+2022.05.09 - version 2.0.1
+* Fix - When editing the Sunday delivery day, its time frames were not displayed in the table.
+
+2022.05.04 - version 2.0.0
+* Feature - Charge an additional cost (delivery fee) for choosing specific delivery days and time frames.
+* Tweak - Removed the option 'auto' in favor of the option 'required' in the 'Delivery fields' setting.
+* Tweak - Hide the delivery fields in the checkout form when there are no available dates.
+* Tweak - Keep the delivery fields' values when refreshing the checkout form.
+* Tweak - Prevent the interaction with the delivery fields while the checkout fragments are being refreshed.
+* Tweak - Validate the 'Delivery days' form field is not empty when adding a time frame to multiple delivery days.
+* Tweak - Display the info 'Number of orders' in the 'Description' column of the 'Delivery days' setting table.
+* Tweak - Don't display the delivery estimation text when the range of days is zero. 
+* Tweak - Added a link to get support in the plugin list.
+* Tweak - Improved formatting of the System Status Report.
+* Tweak - Tested compatibility up to WC 6.5.
+* Tweak - Tested compatibility with WP 5.9.
+* Fix - Fixed a double triggering of the event 'update_checkout' when clearing the value of the delivery date picker.
+* Fix - Fixed compatibility issue for PHP 8.1.
+* Dev - Use a WC background process to handle the plugin updates.
+* Dev - Use a trait instead of a class for implementing the Singleton pattern.
+* Dev - Added custom tables for storing the time frames' data.
+* Dev - Added data stores for handling the delivery days and time frames.
+* Dev - WC Subscriptions v2 is no longer supported.
+* Dev - Dropped deprecated plugin code up to version 1.7.
+* Dev - Deprecated the access as an array to the data properties of a `WC_OD_Data` object.
+* Dev - Deprecated custom setting field `wc_od_day_range`.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
+2021.12.16 - version 1.9.6
+* Tweak - Tested compatibility with WC 6.0.
+
 2021.11.25 - version 1.9.5
 * Feature - Added setting to include a description in the delivery section on the checkout page.
 * Tweak - Tested compatibility with WC 5.9.

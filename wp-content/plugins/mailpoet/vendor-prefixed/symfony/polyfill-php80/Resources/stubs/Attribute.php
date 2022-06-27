@@ -1,7 +1,7 @@
 <?php
 namespace MailPoetVendor;
 if (!defined('ABSPATH')) exit;
-#[Attribute(\Attribute::TARGET_CLASS)]
+#[\Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
 {
  public const TARGET_CLASS = 1;

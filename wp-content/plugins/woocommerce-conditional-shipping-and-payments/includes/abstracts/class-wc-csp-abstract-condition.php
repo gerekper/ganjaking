@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.1.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Condition class.
  *
  * @class    WC_CSP_Condition
- * @version  1.4.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition {
 
@@ -49,6 +48,13 @@ class WC_CSP_Condition {
 	public $supported_product_restrictions = array();
 
 	/**
+	 * Supported global restriction ids - must be set.
+	 *
+	 * @var int
+	 */
+	protected $priority = 10;
+
+	/**
 	 * Runtime caching of the category hierarchical tree.
 	 *
 	 * @since 1.8.1
@@ -56,6 +62,17 @@ class WC_CSP_Condition {
 	 * @var array
 	 */
 	protected static $product_categories_tree;
+
+	/**
+	 * Retrieves the evaluation priority of this condition.
+	 *
+	 * @since  1.13.1
+	 *
+	 * @return int
+	 */
+	public function get_priority() {
+		return $this->priority;
+	}
 
 	/**
 	 * Validate, process and return condition fields. Must be overriden to save condition data.

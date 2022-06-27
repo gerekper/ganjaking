@@ -5,6 +5,7 @@
 
   <script type="text/javascript">
     <% autoescape 'js' %>
+      var mailpoet_authorized_emails = <%= json_encode(authorized_emails) %>;
       var mailpoet_woocommerce_active = <%= json_encode(is_woocommerce_active == true) %>;
       var mailpoet_members_plugin_active = <%= json_encode(is_members_plugin_active == true) %>;
       var mailpoet_is_new_user = <%= json_encode(is_new_user == true) %>;
@@ -99,6 +100,8 @@
     'readGuide': __('Read our guide'),
 
     'invalidEmail': __('Invalid email address'),
+    'youNeedToAuthorizeTheEmail': __('You need to authorize the email address [email] to be able to send with it.'),
+    'authorizeMyEmail': __('Authorize my email address'),
 
     'enableSignupConfTitle': __('Enable sign-up confirmation'),
     'enableSignupConfDescription': __("If you enable this option, your subscribers will first receive a confirmation email after they subscribe. Once they confirm their subscription (via this email), they will be marked as 'confirmed' and will begin to receive your email newsletters."),
@@ -118,7 +121,6 @@
     'taskCron': __('Newsletter task scheduler (cron)'),
     'taskCronDescription': __('Select what will activate your newsletter queue.'),
     'websiteVisitors': __('Visitors to your website (recommended)'),
-    'mailpoetScript': __("MailPoet's own script. Doesn't work with [link]these hosts[/link]."),
     'serverCron': __("Server side cron (Linux cron)"),
     'addCommandToCrontab': __("To use this option please add this command to your crontab:"),
     'withFrequency': __("With the frequency of running it every minute:"),
@@ -147,10 +149,12 @@
     'shareDataDescription': __('Share anonymous data and help us improve the plugin. We appreciate your help!'),
     'captchaTitle': __('Protect your forms against spam signups'),
     'captchaDescription': __('Built-in CAPTCHA protects your subscription forms against bots. Alternatively, use reCAPTCHA by Google.'),
+    'reCaptchaDescription': __('Please use the same reCAPTCHA type as in Google reCAPTCHA Settings.'),
     'signupForCaptchaKey': __('Sign up for an API key pair here.'),
     'builtInCaptcha': __('Built-in CAPTCHA (default)'),
     'disbaledBecauseExtensionMissing': __('(disabled because GD or FreeType extension is missing)'),
-    'googleReCaptcha': __('Google reCAPTCHA v2'),
+    'googleReCaptchaCheckbox': __('Google reCAPTCHA v2 Checkbox'),
+    'googleReCaptchaInvisible': __('Google reCAPTCHA v2 Invisible'),
     'yourReCaptchaKey': __('Your reCAPTCHA Site Key'),
     'yourReCaptchaSecret': __('Your reCAPTCHA Secret Key'),
     'fillReCaptchaKeys': __('Please fill the reCAPTCHA keys.'),

@@ -14,6 +14,7 @@ use MailPoetVendor\Gregwar\Captcha\CaptchaBuilder;
 class Captcha {
   const TYPE_BUILTIN = 'built-in';
   const TYPE_RECAPTCHA = 'recaptcha';
+  const TYPE_RECAPTCHA_INVISIBLE = 'recaptcha-invisible';
   const TYPE_DISABLED = null;
 
   /** @var WPFunctions */
@@ -24,6 +25,10 @@ class Captcha {
 
   /** @var SubscriberIPsRepository */
   private $subscriberIPsRepository;
+
+  public static function isReCaptcha(?string $captchaType) {
+    return in_array($captchaType, [self::TYPE_RECAPTCHA, self::TYPE_RECAPTCHA_INVISIBLE]);
+  }
 
   public function __construct(
     SubscriberIPsRepository $subscriberIPsRepository,

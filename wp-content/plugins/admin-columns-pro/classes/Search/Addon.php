@@ -34,11 +34,6 @@ final class Addon implements Registrable {
 	private $table_preference;
 
 	/**
-	 * @var ACP\Settings\ListScreen\HideOnScreen\Filters
-	 */
-	private $hide_filters;
-
-	/**
 	 * @var Settings\HideOnScreen\SmartFilters
 	 */
 	private $hide_smart_filters;
@@ -48,7 +43,6 @@ final class Addon implements Registrable {
 		$this->location = $location;
 		$this->segment_repository = $segment_repository;
 		$this->table_preference = new Preferences\SmartFiltering();
-		$this->hide_filters = new ACP\Settings\ListScreen\HideOnScreen\Filters();
 		$this->hide_smart_filters = new Settings\HideOnScreen\SmartFilters();
 	}
 
@@ -82,7 +76,6 @@ final class Addon implements Registrable {
 				new AC\Asset\Script( 'acp-search-table-screen-options', $this->location->with_suffix( 'assets/search/js/screen-options.bundle.js' ), [ 'ac-table' ] ),
 			],
 			$this->table_preference,
-			$this->hide_filters,
 			$this->hide_smart_filters
 		);
 	}
@@ -123,7 +116,7 @@ final class Addon implements Registrable {
 		$request_handler = new RequestHandler\Rules( $list_screen );
 		$request_handler->handle( $request );
 
-		if ( $this->hide_filters->is_hidden( $list_screen ) || $this->hide_smart_filters->is_hidden( $list_screen ) ) {
+		if ( $this->hide_smart_filters->is_hidden( $list_screen ) ) {
 			return;
 		}
 

@@ -133,7 +133,7 @@ class WC_Points_Rewards_Product_Admin {
 			)
 		);
 
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( WC_Points_Rewards::is_wc_subscriptions_present() ) {
 			// Subscription renewal integration
 			woocommerce_wp_text_input( array(
 					'id'            => '_wc_points_renewal_points',
@@ -202,7 +202,6 @@ class WC_Points_Rewards_Product_Admin {
 		$max_discount_description    = __( 'Enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 		$renewal_points_description = __( 'For Subscription renewals with a different point value than the signup, enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' );
 
-		if ( version_compare( WC_VERSION, '2.3.0', '>=' ) ) {
 		?>
 			<p class="form-row form-row-first">
 				<label><?php _e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $points_earned_description ); ?>">: [?]</a></label>
@@ -213,42 +212,15 @@ class WC_Points_Rewards_Product_Admin {
 				<label><?php _e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $max_discount_description ); ?>">: [?]</a></label>
 				<input type="text" size="5" name="variable_max_point_discount[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max_discount ); ?>" placeholder="<?php _e( 'Variation Max Points Discount', 'woocommerce-points-and-rewards' ); ?>" />
 			</p>
-				<?php
-				if ( class_exists( 'WC_Subscriptions' ) ) {
-				?>
+		<?php
+		if ( WC_Points_Rewards::is_wc_subscriptions_present() ) {
+		?>
 			<p class="form-row form-row-full">
 				<label><?php _e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?><a href="#" class="tips" data-tip="<?php echo wc_sanitize_tooltip( $renewal_points_description ); ?>">: [?]</a></label>
 				<input type="text" size="5" name="variable_renewal_points[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $renewal_points ); ?>" placeholder="<?php _e( 'Variation Change Rewards Points', 'woocommerce-points-and-rewards' ); ?>" />
 			</p>
-				<?php
-				}
-		} else {
-				?> 
-			<tr>
-				<td>
-					<img style="float: right;" class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $points_earned_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
-					<label><?php _e( 'Points Earned', 'woocommerce-points-and-rewards' ); ?></label>
-					<input type="number" size="5" name="variable_points_earned[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $points_earned ); ?>" step="any" min="0" placeholder="<?php _e( 'Variation Points Earned', 'woocommerce-points-and-rewards' ); ?>" />
-				</td>
-				<td>
-					<img style="float: right;" class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $max_discount_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
-					<label><?php _e( 'Maximum Points Discount', 'woocommerce-points-and-rewards' ); ?></label>
-					<input type="text" size="5" name="variable_max_point_discount[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max_discount ); ?>" placeholder="<?php _e( 'Variation Max Points Discount', 'woocommerce-points-and-rewards' ); ?>" />
-				</td>
-			</tr>
-			<?php
-			if ( class_exists( 'WC_Subscriptions' ) ) {
-			?>
-				<tr>
-					<td class="show_if_variable-subscription">
-						<img style="float: right;" class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $renewal_points_description ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
-						<label><?php _e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?></label>
-						<input type="text" size="5" name="variable_renewal_points[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $renewal_points ); ?>" placeholder="<?php _e( 'Variation Change Rewards Points', 'woocommerce-points-and-rewards' ); ?>" />
-					</td>
-				</tr>
-			<?php
-			} // End if().
-		} // End if().
+		<?php
+		}
 
 		do_action( 'wc_points_rewards_after_variable_product_fields', $loop, $variation_data );
 
@@ -312,9 +284,9 @@ class WC_Points_Rewards_Product_Admin {
 
 					if ( value != null ) {
 						$( ':input[name^="variable_points_earned"]' ).val( value ).change();
-					}				
+					}
 				});
-			});		
+			});
 		</script>
 	<?php
 	}
@@ -430,8 +402,8 @@ class WC_Points_Rewards_Product_Admin {
 	public function render_edit_product_category_fields( $term ) {
 
 		// get points earned / maximum points discount from product category meta
-		$points_earned = $this->get_term_meta( $term->term_id, '_wc_points_earned', true );
-		$max_discount  = $this->get_term_meta( $term->term_id, '_wc_points_max_discount', true );
+		$points_earned = get_term_meta( $term->term_id, '_wc_points_earned', true );
+		$max_discount  = get_term_meta( $term->term_id, '_wc_points_max_discount', true );
 
 		$this->get_product_category_fields_html( $points_earned, $max_discount );
 
@@ -465,7 +437,7 @@ class WC_Points_Rewards_Product_Admin {
 				</td>
 			</tr>
 		<?php
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( WC_Points_Rewards::is_wc_subscriptions_present() ) {
 		?>
 			<tr class="formfield">
 				<th scope="row" valign="top"><label><?php _e( 'Change Renewal Points', 'woocommerce-points-and-rewards' ); ?></label></th>
@@ -491,23 +463,23 @@ class WC_Points_Rewards_Product_Admin {
 
 		// points earned
 		if ( isset( $_POST['_wc_points_earned'] ) && '' !== $_POST['_wc_points_earned'] ) {
-			$this->update_term_meta( $term_id, '_wc_points_earned', $_POST['_wc_points_earned'] );
+			update_term_meta( $term_id, '_wc_points_earned', $_POST['_wc_points_earned'] );
 		} else {
-			$this->delete_term_meta( $term_id, '_wc_points_earned' );
+			delete_term_meta( $term_id, '_wc_points_earned' );
 		}
 
 		// max points discount
 		if ( isset( $_POST['_wc_points_max_discount'] ) && '' !== $_POST['_wc_points_max_discount'] ) {
-			$this->update_term_meta( $term_id, '_wc_points_max_discount', $_POST['_wc_points_max_discount'] );
+			update_term_meta( $term_id, '_wc_points_max_discount', $_POST['_wc_points_max_discount'] );
 		} else {
-			$this->delete_term_meta( $term_id, '_wc_points_max_discount' );
+			delete_term_meta( $term_id, '_wc_points_max_discount' );
 		}
 
 		// change rewewal points
 		if ( isset( $_POST['_wc_points_renewal_points'] ) && '' !== $_POST['_wc_points_renewal_points'] ) {
-			$this->update_term_meta( $term_id, '_wc_points_renewal_points', $_POST['_wc_points_renewal_points'] );
+			update_term_meta( $term_id, '_wc_points_renewal_points', $_POST['_wc_points_renewal_points'] );
 		} else {
-			$this->delete_term_meta( $term_id, '_wc_points_renewal_points' );
+			delete_term_meta( $term_id, '_wc_points_renewal_points' );
 		}
 
 		// Clear all points transients
@@ -563,65 +535,13 @@ class WC_Points_Rewards_Product_Admin {
 	 */
 	public function add_product_category_list_table_points_column( $columns, $column, $term_id ) {
 
-		$points_earned = $this->get_term_meta( $term_id, '_wc_points_earned' );
+		$points_earned = get_term_meta( $term_id, '_wc_points_earned', true );
 
 		if ( 'points_earned' == $column ) {
 			echo ( '' !== $points_earned ) ? esc_html( $points_earned ) : '&mdash;';
 		}
 
 		return $columns;
-	}
-
-	/**
-	 *
-	 * Updates a term meta. Compatibility function for WC 3.6.
-	 *
-	 * @since 1.6.19
-	 * @param int    $term_id    Term ID.
-	 * @param string $meta_key   Meta key.
-	 * @param mixed  $meta_value Meta value.
-	 * @return bool
-	 */
-	private function update_term_meta( $term_id, $meta_key, $meta_value ) {
-		if ( version_compare( WC_VERSION, '3.6', 'ge' ) ) {
-			return update_term_meta( $term_id, $meta_key, $meta_value );
-		} else {
-			return update_woocommerce_term_meta( $term_id, $meta_key, $meta_value );
-		}
-	}
-
-	/**
-	 *
-	 * Deletes a term meta. Compatibility function for WC 3.6.
-	 *
-	 * @since 1.6.19
-	 * @param int    $term_id    Term ID.
-	 * @param string $meta_key   Meta key.
-	 * @return bool
-	 */
-	private function delete_term_meta( $term_id, $meta_key ) {
-		if ( version_compare( WC_VERSION, '3.6', 'ge' ) ) {
-			return delete_term_meta( $term_id, $meta_key );
-		} else {
-			return delete_woocommerce_term_meta( $term_id, $meta_key );
-		}
-	}
-
-	/**
-	 * Gets a term meta. Compatibility function for WC 3.6.
-	 *
-	 * @since 1.6.19
-	 * @param int    $term_id Term ID.
-	 * @param string $key     Meta key.
-	 * @param bool   $single  Whether to return a single value. (default: true).
-	 * @return mixed
-	 */
-	private function get_term_meta( $term_id, $key, $single = true ) {
-		if ( version_compare( WC_VERSION, '3.6', 'ge' ) ) {
-			return get_term_meta( $term_id, $key, $single );
-		} else {
-			return get_woocommerce_term_meta( $term_id, $key, $single );
-		}
 	}
 
 } // end \WC_Points_Rewards_Admin class

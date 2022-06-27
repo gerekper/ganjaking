@@ -6,9 +6,9 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\Table\Type;
-use FontLib\Table\Table;
-use FontLib\TrueType\File;
+namespace WooCommercePDFInvoiceFontLib\Table\Type;
+use WooCommercePDFInvoiceFontLib\Table\Table;
+use WooCommercePDFInvoiceFontLib\TrueType\File;
 
 /**
  * `post` font table.

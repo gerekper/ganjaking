@@ -102,10 +102,11 @@ table.toplevel_page_warranties tr.inline-edit-row td {
     border-bottom: 1px solid #ccc;
 }
 
-.button.tips.inline-rma {
-    padding: 2px !important;
-    font-size: 19px;
-    line-height: 10px;
+.button.tips.inline-rma.dashicons-controls-repeat {
+    text-indent: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button.tips.inline-rma span.dashicons {

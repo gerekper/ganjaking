@@ -33,7 +33,6 @@ class WC_AF_Admin_Email extends WC_Email {
 	/**
 	 * Initialize the class via this init method instead of the constructor to enhance performance.
 	 *
-	 * @access private
 	 * @since  1.0.0
 	 */
 	private function init() {
@@ -61,7 +60,6 @@ class WC_AF_Admin_Email extends WC_Email {
 	/**
 	 * This method is triggered on WP Cron.
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 */
 	public function send_notification() {
@@ -97,7 +95,6 @@ class WC_AF_Admin_Email extends WC_Email {
 	 * @param String $template_name
 	 * @param String $template_path
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 *
 	 * @return String
@@ -113,7 +110,6 @@ class WC_AF_Admin_Email extends WC_Email {
 	/**
 	 * Get the email header.
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 *
 	 * @param mixed $email_heading heading for the email
@@ -127,7 +123,6 @@ class WC_AF_Admin_Email extends WC_Email {
 	/**
 	 * Get the email footer.
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 *
 	 * @return void
@@ -137,9 +132,8 @@ class WC_AF_Admin_Email extends WC_Email {
 	}
 
 	/**
-	 * get_content_html function.
+	 * Get_content_html function.
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 *
 	 * @return string
@@ -158,9 +152,8 @@ class WC_AF_Admin_Email extends WC_Email {
 	}
 
 	/**
-	 * get_content_plain function.
+	 * Get_content_plain function.
 	 *
-	 * @access public
 	 * @since  1.0.0
 	 *
 	 * @return string

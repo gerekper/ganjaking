@@ -7,8 +7,8 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterPostEntity;
-use MailPoet\Models\Newsletter;
 use MailPoet\Newsletter\AutomatedLatestContent;
+use MailPoet\Newsletter\BlockPostQuery;
 use MailPoet\Newsletter\NewsletterPostsRepository;
 
 class AutomatedLatestContentBlock {
@@ -37,7 +37,7 @@ class AutomatedLatestContentBlock {
   public function render(NewsletterEntity $newsletter, $args) {
     $newerThanTimestamp = false;
     $newsletterId = false;
-    if ($newsletter->getType() === Newsletter::TYPE_NOTIFICATION_HISTORY) {
+    if ($newsletter->getType() === NewsletterEntity::TYPE_NOTIFICATION_HISTORY) {
       $parent = $newsletter->getParent();
       if ($parent instanceof NewsletterEntity) {
         $newsletterId = $parent->getId();
@@ -50,7 +50,14 @@ class AutomatedLatestContentBlock {
       }
     }
     $postsToExclude = $this->getRenderedPosts((int)$newsletterId);
-    $aLCPosts = $this->ALC->getPosts($args, $postsToExclude, $newsletterId, $newerThanTimestamp);
+    $query = new BlockPostQuery([
+      'args' => $args,
+      'postsToExclude' => $postsToExclude,
+      'newsletterId' => $newsletterId,
+      'newerThanTimestamp' => $newerThanTimestamp,
+      'dynamic' => true,
+    ]);
+    $aLCPosts = $this->ALC->getPosts($query);
     foreach ($aLCPosts as $post) {
       $postsToExclude[] = $post->ID;
     }

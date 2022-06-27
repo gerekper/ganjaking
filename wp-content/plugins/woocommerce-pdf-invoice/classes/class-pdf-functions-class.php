@@ -754,7 +754,7 @@
 				
 				// Check the current user ID matches the ID of the user who placed the order
 				if ( $user_id == $current_user->ID ) {
-					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
+					echo WC_send_pdf::get_woocommerce_pdf_invoice( $order, NULL, 'false' );
 				}
 			 
 			}
@@ -783,7 +783,7 @@
 				
 				// Check ordernonce and pdfnonce match
 				if ( $ordernonce == $pdfnonce ) {
-					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
+					echo WC_send_pdf::get_woocommerce_pdf_invoice( $order, NULL, 'false' );
 				}
 			 
 			}
@@ -801,7 +801,7 @@
 				$order_id = stripslashes( $_GET['pdfid'] );
 				$order    = new WC_Order($order_id);
 
-				echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
+				echo WC_send_pdf::get_woocommerce_pdf_invoice( $order, NULL, 'false' );
 			 
 			}
 
@@ -1059,6 +1059,10 @@
 					foreach( $invoice_meta as $meta ) {
 						delete_post_meta_by_key( $meta );
 					}
+
+					// Delete other postmeta
+					delete_post_meta_by_key( '_invoice_created_mysql' );
+					delete_post_meta_by_key( '_wc_pdf_invoice_created_date' );
 
 					// Delete invoice number option
 					delete_option( 'woocommerce_pdf_invoice_current_invoice' );

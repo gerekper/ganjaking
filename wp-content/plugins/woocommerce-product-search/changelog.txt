@@ -1,5 +1,17 @@
 *** WooCommerce Product Search ***
 
+2022.04.01 - version 4.6.0
+* WordPress 6.0 compatible.
+* WooCommerce 6.4 compatible.
+* Resolves an issue where a product menu item could cause the price filter to extend the price limits to the full range of products.
+* Accessibility improvement to avoid prematurely hiding results provided by the Product Search Field when long clicks or secondary clicks are used.
+* Organized the extension's settings sections into its Settings submenu within the new WooCommerce Admin menu.
+* Resolved an issue where excluded terms would have no effect with WPML.
+* Added the woocommerce_product_search_request_term_ids_include filter.
+* Added the woocommerce_product_search_request_term_ids_exclude filter.
+* Fixes price slider handle positions should reflect correct current values set when present in page request.
+* Fixes price slider's upper limit handle should react on first change.
+
 2022.03.21 - version 4.5.0
 * WordPress 6.0 compatible.
 * WooCommerce 6.3 compatible.

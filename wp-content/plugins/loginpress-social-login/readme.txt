@@ -1,7 +1,31 @@
 == Changelog ==
 
+= 1.5.3 - 2022-06-24
+* Bugfix: Twitter Login issue with PHP 8.1
+* Bugfix: Facebook Login issue with PHP 8.1
+* Bugfix: Facebook Login issue if the user revokes his email address.
+* Enhancement: Removed LoginPress social login links from crawling.
+* Compatibility: Compatible with PHP 8.0.
+* Compatibility: Compatible with WordPress 6.0
+
+= 1.5.2 - 2021-12-01
+* Bugfix: `is_verified` param deprecated by Facebook.
+* Compatibility: Compatible with WordPress 5.8
+
+= 1.5.1 - 2020-03-13 
+* Bugfix: Google Client SDK path updated.
+* Compatibility: Compatible with WordPress 5.7
+
+= 1.5.0 - 2020-01-11
+* Bugfix: Social Login shortcode icon's SVGs fix.
+* Bugfix: Social Login shortcode redirection fix.
+* Enhancement: Updated Google Client SDK to 2.8.3.
+* Enhancement: Update Help tab documentation.
+* Enhancement: Code Optimized.
+* Compatibility: Compatible with WordPress 5.6
+
 = 1.4.1 - 2020-11-09
-* New Feature:  Added a Shortcode 'loginpress_social_login' to add Login buttons anywhere.
+* New Feature: Added a Shortcode 'loginpress_social_login' to add Login buttons anywhere.
 * Enhancement: Update Social Icon SVG's for social login.
 * Enhancement: Code Optimized.
 

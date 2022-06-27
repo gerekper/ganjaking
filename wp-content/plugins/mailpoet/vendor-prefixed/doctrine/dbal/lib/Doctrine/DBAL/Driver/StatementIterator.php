@@ -10,7 +10,7 @@ class StatementIterator implements IteratorAggregate
  {
  $this->statement = $statement;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  while (($result = $this->statement->fetch()) !== \false) {

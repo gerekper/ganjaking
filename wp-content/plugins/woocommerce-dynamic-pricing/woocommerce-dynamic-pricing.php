@@ -5,18 +5,18 @@
  * Woo: 18643:9a41775bb33843f52c93c922b0053986
  * Plugin URI: https://woocommerce.com/products/dynamic-pricing/
  * Description: WooCommerce Dynamic Pricing lets you configure dynamic pricing rules for products, categories and members.
- * Version: 3.1.27
+ * Version: 3.1.28
  * Author: Element Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
- * Tested up to: 5.8
+ * Tested up to: 6.0
  * Text Domain: woocommerce-dynamic-pricing
  * Domain Path: /i18n/languages/
  * Copyright: © 2009-2022 Element Stark LLC.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 6.0
+ * WC tested up to: 6.5
  */
 
 
@@ -109,6 +109,7 @@ class WC_Dynamic_Pricing {
 			$this->load_rest_api_front_end();
 		}
 
+
 		if ( isset( $_POST['createaccount'] ) ) {
 			add_filter( 'woocommerce_dynamic_pricing_is_rule_set_valid_for_user', array(
 				$this,
@@ -135,6 +136,7 @@ class WC_Dynamic_Pricing {
 		include 'classes/class-wc-dynamic-pricing-context.php';
 		include 'classes/class-wc-dynamic-pricing-counter.php';
 		include 'classes/class-wc-dynamic-pricing-tracker.php';
+		include 'classes/class-wc-dynamic-pricing-cart-query.php';
 
 		//Include the collectors.
 		include 'classes/collectors/class-wc-dynamic-pricing-collector.php';
@@ -192,6 +194,9 @@ class WC_Dynamic_Pricing {
 		/* Boot up required classes */
 		WC_Dynamic_Pricing_Context::register();
 
+		//Initialize the dynamic pricing counter.  Records various counts when items are restored from session.
+		WC_Dynamic_Pricing_Counter::register();
+
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ), 0 );
 		add_filter( 'woocommerce_product_is_on_sale', array( $this, 'on_get_product_is_on_sale' ), 10, 2 );
 		add_filter( 'woocommerce_composite_get_price', array( $this, 'on_get_composite_price' ), 10, 2 );
@@ -202,6 +207,11 @@ class WC_Dynamic_Pricing {
 			$this,
 			'on_woocommerce_get_variation_prices_hash'
 		), 99, 1 );
+
+		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'on_cart_loaded_from_session' ), 98, 1 );
+
+		//Add the actions dynamic pricing uses to trigger price adjustments
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'on_calculate_totals' ), 98, 1 );
 	}
 
 	public function load_front_end() {
@@ -279,19 +289,12 @@ class WC_Dynamic_Pricing {
 		WC_Dynamic_Pricing_FrontEnd_UX::init();
 
 		add_action( 'wp_loaded', array( $this, 'on_wp_loaded' ), 0 );
-
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ), 0 );
-
-
 		add_filter( 'woocommerce_product_is_on_sale', array( $this, 'on_get_product_is_on_sale' ), 10, 2 );
-
-
 		add_filter( 'woocommerce_composite_get_price', array( $this, 'on_get_composite_price' ), 10, 2 );
 		add_filter( 'woocommerce_composite_get_base_price', array( $this, 'on_get_composite_base_price' ), 10, 2 );
-
 		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'check_cart_coupon_is_valid' ), 99, 2 );
 		add_filter( 'woocommerce_coupon_is_valid_for_product', array( $this, 'check_coupon_is_valid' ), 99, 4 );
-
 		add_filter( 'woocommerce_get_variation_prices_hash', array(
 			$this,
 			'on_woocommerce_get_variation_prices_hash'

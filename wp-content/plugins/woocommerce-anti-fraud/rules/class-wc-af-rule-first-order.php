@@ -23,7 +23,6 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -33,26 +32,38 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 		global $wpdb;
 		$risk = false;
 
+		$statuses = "'wc-" . implode("','wc", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed') )) . "'";
+
+		Af_Logger::debug('first order rule status ' . print_r($statuses, true));
+		
 		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed' ) ) ) . "' ) ;", $order->get_billing_email() )); 
-		
-		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
+			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
+
+			Af_Logger::debug('first order amount: ' . print_r($order_amount, true));
+			
+			$statuses = "'wc-" . implode("','wc", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed', 'processing', 'pending','on-hold') )) . "'";
+
+		Af_Logger::debug('first order rule status 1 ' . print_r($statuses, true));
+			
+			$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed','processing','pending','on-hold' ) ) ) . "' ) ;", $order->get_billing_email() )); 		
+			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 		
 			
-		if ( ( $order_amount < 1 ) && ( $order_count == 1 )) {
+			Af_Logger::debug('first order count: ' . print_r($order_count, true));
+
+		if ( ( $order_amount < 1 ) && ( 1 == $order_count )) {
 			$risk = true;
 		} elseif (( $order_amount < 1 ) && ( $order_count > 1 )) {
 			parent::__construct( 'first_order', 'Customer has ordered before, but has never completed their order', $this->rule_weight );
 			$risk = true;
 			
 		}
-		Af_Logger::debug('first order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('first order rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	
 	}

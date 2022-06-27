@@ -20,6 +20,7 @@ use MailPoetVendor\Doctrine\ORM\Query\Parameter;
 use MailPoetVendor\Doctrine\ORM\Query\QueryException;
 use MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping;
 use MailPoetVendor\Doctrine\Persistence\Mapping\MappingException;
+use LogicException;
 use MailPoetVendor\Psr\Cache\CacheItemPoolInterface;
 use Traversable;
 use function array_map;
@@ -223,7 +224,7 @@ abstract class AbstractQuery
  $this->_hydrationCacheProfile = null;
  return $this;
  }
- // DBAL < 3.2
+ // DBAL 2
  if (!method_exists(QueryCacheProfile::class, 'setResultCache')) {
  if (!$profile->getResultCacheDriver()) {
  $defaultHydrationCacheImpl = $this->_em->getConfiguration()->getHydrationCache();
@@ -250,7 +251,7 @@ abstract class AbstractQuery
  $this->_queryCacheProfile = null;
  return $this;
  }
- // DBAL < 3.2
+ // DBAL 2
  if (!method_exists(QueryCacheProfile::class, 'setResultCache')) {
  if (!$profile->getResultCacheDriver()) {
  $defaultResultCacheDriver = $this->_em->getConfiguration()->getResultCache();
@@ -282,7 +283,7 @@ abstract class AbstractQuery
  }
  return $this;
  }
- // DBAL < 3.2
+ // DBAL 2
  if (!method_exists(QueryCacheProfile::class, 'setResultCache')) {
  $resultCacheDriver = DoctrineProvider::wrap($resultCache);
  $this->_queryCacheProfile = $this->_queryCacheProfile ? $this->_queryCacheProfile->setResultCacheDriver($resultCacheDriver) : new QueryCacheProfile(0, null, $resultCacheDriver);
@@ -325,7 +326,7 @@ abstract class AbstractQuery
  if (!$cache) {
  return $this;
  }
- // Compatibility for DBAL < 3.2
+ // Compatibility for DBAL 2
  if (!method_exists($this->_queryCacheProfile, 'setResultCache')) {
  $this->_queryCacheProfile = $this->_queryCacheProfile->setResultCacheDriver(DoctrineProvider::wrap($cache));
  return $this;
@@ -446,6 +447,9 @@ abstract class AbstractQuery
  $this->setParameters($parameters);
  }
  $rsm = $this->getResultSetMapping();
+ if ($rsm === null) {
+ throw new LogicException('Uninitialized result set mapping.');
+ }
  $stmt = $this->_doExecute();
  return $this->_em->newHydrator($this->_hydrationMode)->iterate($stmt, $rsm, $this->_hints);
  }
@@ -458,6 +462,9 @@ abstract class AbstractQuery
  $this->setParameters($parameters);
  }
  $rsm = $this->getResultSetMapping();
+ if ($rsm === null) {
+ throw new LogicException('Uninitialized result set mapping.');
+ }
  if ($rsm->isMixed && count($rsm->scalarMappings) > 0) {
  throw QueryException::iterateWithMixedResultNotAllowed();
  }
@@ -502,6 +509,9 @@ abstract class AbstractQuery
  return $stmt;
  }
  $rsm = $this->getResultSetMapping();
+ if ($rsm === null) {
+ throw new LogicException('Uninitialized result set mapping.');
+ }
  $data = $this->_em->newHydrator($this->_hydrationMode)->hydrateAll($stmt, $rsm, $this->_hints);
  $setCacheEntry($data);
  return $data;
@@ -509,7 +519,7 @@ abstract class AbstractQuery
  private function getHydrationCache() : CacheItemPoolInterface
  {
  assert($this->_hydrationCacheProfile !== null);
- // Support for DBAL < 3.2
+ // Support for DBAL 2
  if (!method_exists($this->_hydrationCacheProfile, 'getResultCache')) {
  $cacheDriver = $this->_hydrationCacheProfile->getResultCacheDriver();
  assert($cacheDriver !== null);
@@ -522,6 +532,9 @@ abstract class AbstractQuery
  private function executeUsingQueryCache($parameters = null, $hydrationMode = null)
  {
  $rsm = $this->getResultSetMapping();
+ if ($rsm === null) {
+ throw new LogicException('Uninitialized result set mapping.');
+ }
  $queryCache = $this->_em->getCache()->getQueryCache($this->cacheRegion);
  $queryKey = new QueryCacheKey($this->getHash(), $this->lifetime, $this->cacheMode ?: Cache::MODE_NORMAL, $this->getTimestampKey());
  $result = $queryCache->get($queryKey, $rsm, $this->_hints);
@@ -543,6 +556,7 @@ abstract class AbstractQuery
  }
  private function getTimestampKey() : ?TimestampCacheKey
  {
+ assert($this->_resultSetMapping !== null);
  $entityName = reset($this->_resultSetMapping->aliasMap);
  if (empty($entityName)) {
  return null;

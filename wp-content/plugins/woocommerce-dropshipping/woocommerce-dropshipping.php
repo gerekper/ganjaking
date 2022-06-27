@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 3.9
+ * Version: 4.0
 
  * Author: OPMC Australia Pty Ltd
 
@@ -183,6 +183,8 @@ final class WC_Dropshipping {
 		add_filter( 'plugin_action_links', array( $this, 'wc_dropshipping_plugin_links' ), 10, 4 );
 
 		add_filter( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action("admin_menu", array( $this,"graph_report_options_submenu"));
+		
 		add_filter("aliexpress_product_discount_pro",array($this,'aliexpress_product_discount'),10,3);
 		add_filter("aliexpress_product_price_calculator_pro",array($this,'aliexpress_product_price_calculator'),10,3);
 		add_filter("cdiscount_product_add_pro",array($this,'cdiscount_product_add'),10,3);
@@ -190,6 +192,22 @@ final class WC_Dropshipping {
 		add_filter("update_aliexpress_tracking_number_pro",array($this,'update_aliexpress_tracking_number'),10,3);
 
 	}
+	
+	public function graph_report_options_submenu() {
+		 $this->page_id = add_submenu_page(
+		 'woocommerce',
+		 __('Graph Reports', 'woocommerce-dropshipping'),
+		 __('Graph Reports', 'woocommerce-dropshipping'),
+		 'manage_woocommerce',
+		 'Graph Reports',
+		 array($this, 'graph_report_page')
+		 );
+		 }
+
+		 public function graph_report_page() {
+
+		      require('templates/graph-reports.php');
+		 }
 
 	public function init () {
 

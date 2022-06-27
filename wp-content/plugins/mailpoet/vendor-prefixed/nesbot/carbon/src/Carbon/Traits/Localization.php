@@ -341,7 +341,7 @@ trait Localization
  return '>>DO NOT REPLACE<<';
  }
  $parts = \explode('|', $message);
- return $key === 'to' ? static::cleanWordFromTranslationString(\end($parts)) : '(?:' . \implode('|', \array_map([static::class, 'cleanWordFromTranslationString'], $parts)) . ')';
+ return $key === 'to' ? self::cleanWordFromTranslationString(\end($parts)) : '(?:' . \implode('|', \array_map([static::class, 'cleanWordFromTranslationString'], $parts)) . ')';
  }, $keys);
  }
  private static function getTranslationArray($translation, $length, $timeString) : array

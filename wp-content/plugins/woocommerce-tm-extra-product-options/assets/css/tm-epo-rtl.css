@@ -38,14 +38,14 @@
 .tc-cell,
 .tm-extra-product-options .tc-cell,
 .tm-extra-product-options .cpfclear,
-.tm-extra-product-options .tm-extra-product-options-container,
+.tm-extra-product-options .tc-element-container,
 .tm-extra-product-options .tmcp-ul-wrap,
 .tm-collapse,
 .tm-collapse-wrap {
 	float: right !important;
 }
 
-.tm-extra-product-options ul.tmcp-elements.use-images-container li.tmcp-field-wrap {
+.tm-extra-product-options ul.tmcp-elements.tc-images-container li.tmcp-field-wrap {
 	padding: 1em 0 0 0.25em;
 }
 

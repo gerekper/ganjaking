@@ -21,7 +21,7 @@ if ( ! class_exists( 'WC_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  6.8.1
+ * @version  6.14.1
  */
 class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
@@ -314,14 +314,14 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 						$delete_ids[] = $id;
 					}
 
-					if ( self::time_exceeded() || self::memory_exceeded() || sizeof( $processed_ids ) >= 50 ) {
+					if ( self::time_exceeded() || self::memory_exceeded() || count( $processed_ids ) >= 50 ) {
 
 						$resync_ids = array_diff( $sync_ids, $processed_ids, $delete_ids );
 
 						// Anything left to process?
 						if ( ! empty( $resync_ids ) ) {
 
-							WC_PB_Core_Compatibility::log( sprintf( 'Restarting task - processed %s IDs.', sizeof( $processed_ids ) ), 'info', 'wc_pb_db_sync_tasks' );
+							WC_PB_Core_Compatibility::log( sprintf( 'Restarting task - processed %s IDs.', count( $processed_ids ) ), 'info', 'wc_pb_db_sync_tasks' );
 
 							// Ensures that the remaining IDs will be processed before everything else in the queue.
 							add_filter( $this->identifier . '_time_exceeded', '__return_true' );
@@ -342,7 +342,7 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 					$data_store->delete_bundled_items_stock_sync_status( $delete_ids );
 				}
 
-				if ( sizeof( $processed_ids ) + sizeof( $delete_ids ) === sizeof( $sync_ids ) ) {
+				if ( count( $processed_ids ) + count( $delete_ids ) === count( $sync_ids ) ) {
 					WC_PB_Core_Compatibility::log( 'Task complete.', 'info', 'wc_pb_db_sync_tasks' );
 					return false;
 				}

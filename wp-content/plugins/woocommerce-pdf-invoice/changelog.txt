@@ -1,4 +1,15 @@
 *** WooCommerce PDF Invoice Changelog ***
+2022.05.31 - version 4.15.6
+ * Add image for "paid in full"
+ * Fix - Undefined variable $tax_display
+ * New - PDFINVOICEADDITIONALCSS template tag. Use pdf_template_additional_template_css to add CSS to template file.
+
+2022.04.01 - version 4.15.5
+ * Bug - respect "Attach a PDF Invoice to the email or include a download link?" setting
+ * Bug - make sure all invoice meta is deleted when invoice is deleted
+ * Fix - Discounts modifying line prices, use $item methods to retrieve line prices.
+ * New - Additional filters for functions limited by user role
+
 2021.12.21 - version 4.15.4
  * Fix admin actions when using mPDF
 

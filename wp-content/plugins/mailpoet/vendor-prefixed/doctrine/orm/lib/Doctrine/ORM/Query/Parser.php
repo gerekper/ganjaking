@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Query;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Deprecations\Deprecation;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\ORM\Query;
@@ -1473,7 +1472,7 @@ class Parser
  if ($this->lexer->lookahead['type'] === Lexer::T_INPUT_PARAMETER) {
  return $this->InputParameter();
  }
- return $this->Literal();
+ return $this->ArithmeticExpression();
  }
  public function InputParameter()
  {

@@ -8,82 +8,99 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
 <li class="tmcp-field-wrap">
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
-    <label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
-        <select class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-select"
-                name="<?php echo esc_attr( $name ); ?>"
-                data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
-                data-price=""
-                data-rules=""
-                data-original-rules=""
-                <?php if ( ! empty( $changes_product_image ) ) {
-                    echo 'data-changes-product-image="' . esc_attr( $changes_product_image ) . '" ';
-                } ?>
-                id="<?php echo esc_attr( $id ); ?>"<?php 
-                if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
-                    THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
-                }
-                if ( isset( $required ) && ! empty( $required ) ) { 
-                    echo ' required '; 
-                }
-                ?>>
-			<?php 
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+	<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
+	<?php
+	$select_array = [
+		'class' => $fieldtype . ' tm-epo-field tmcp-select',
+		'id'    => $id,
+		'name'  => $name,
+		'atts'  => [
+			'data-price'          => '',
+			'data-rules'          => '',
+			'data-original-rules' => '',
+			'data-placeholder'    => $placeholder,
+		],
+	];
 
-            if ( is_array($options) ){
+	if ( isset( $required ) && ! empty( $required ) ) {
+		$select_array['required'] = true;
+	}
+	if ( ! empty( $tax_obj ) ) {
+		$select_array['atts']['data-tax-obj'] = $tax_obj;
+	}
+	if ( ! empty( $changes_product_image ) ) {
+		$select_array['atts']['data-changes-product-image'] = $changes_product_image;
+	}
+	if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
+		$select_array['atts'] = array_merge( $select_array['atts'], $element_data_attr );
+	}
 
-                foreach ($options as $option) {
-                    ?>
-            <option <?php if ( isset( $option['selected'] ) && isset( $option['current'] ) ) { selected( $option['selected'], $option['current'] ); } ?> value="<?php echo esc_attr( $option['value_to_show'] ); ?>" 
-                <?php if ( isset( $option['css_class'] ) ) { ?>
-                class="tc-multiple-option tc-select-option<?php echo esc_attr( $option['css_class'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_url'] ) && ! empty( $option['data_url'] ) ) { ?>
-                data-url="<?php echo esc_attr( $option['data_url'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_imagep'] ) ) { ?>
-                data-imagep="<?php echo esc_attr( $option['data_imagep'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_price'] ) ) { ?>
-                data-price="<?php echo esc_attr( $option['data_price'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['tm_tooltip_html'] ) && ! empty( $option['tm_tooltip_html'] ) ) { ?>
-                data-tm-tooltip-html="<?php echo esc_attr( $option['tm_tooltip_html'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['image_variations'] ) ) { ?>
-                data-image-variations="<?php echo esc_attr( $option['image_variations'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_rules'] ) ) { ?>
-                data-rules="<?php echo esc_attr( $option['data_rules'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_original_rules'] ) ) { ?>
-                data-original-rules="<?php echo esc_attr( $option['data_original_rules'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_rulestype'] ) ) { ?>
-                data-rulestype="<?php echo esc_attr( $option['data_rulestype'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_text'] ) ) { ?>
-                data-text="<?php echo esc_attr( $option['data_text'] ); ?>" 
-                <?php } ?>
-                <?php if ( isset( $option['data_hide_amount'] ) ) { ?>
-                data-hide-amount="<?php echo esc_attr( $option['data_hide_amount'] ); ?>"
-                <?php } ?> ><?php 
-                // $option['text'] may contain HTML code
-                echo apply_filters( 'wc_epo_kses', wp_kses_post( $option['text'] ), $option['text'], FALSE );
-                ?></option>
-                <?php 
-                }
-            }
-            ?>
-        </select></label>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>
-	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : array() ); ?>
+	$select_options = [];
+	if ( is_array( $options ) ) {
+		foreach ( $options as $option ) {
+			$current_option = [
+				'text'  => $option['text'],
+				'value' => $option['value_to_show'],
+				'attS'  => [],
+			];
+
+			if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
+				$current_option['selected'] = $option['selected'];
+			}
+			if ( isset( $option['css_class'] ) ) {
+				$current_option['class'] = 'tc-multiple-option tc-select-option' . $option['css_class'];
+			}
+			if ( isset( $option['data_url'] ) && ! empty( $option['data_url'] ) ) {
+				$current_option['atts']['data-url'] = $option['data_url'];
+			}
+			if ( isset( $option['data_imagep'] ) ) {
+				$current_option['atts']['data-imagep'] = $option['data_imagep'];
+			}
+			if ( isset( $option['data_price'] ) ) {
+				$current_option['atts']['data-price'] = $option['data_price'];
+			}
+			if ( isset( $option['tm_tooltip_html'] ) && ! empty( $option['tm_tooltip_html'] ) ) {
+				$current_option['atts']['data-tm-tooltip-html'] = $option['tm_tooltip_html'];
+			}
+			if ( isset( $option['image_variations'] ) ) {
+				$current_option['atts']['data-image-variations'] = $option['image_variations'];
+			}
+			if ( isset( $option['data_rules'] ) ) {
+				$current_option['atts']['data-rules'] = $option['data_rules'];
+			}
+			if ( isset( $option['data_original_rules'] ) ) {
+				$current_option['atts']['data-original-rules'] = $option['data_original_rules'];
+			}
+			if ( isset( $option['data_rulestype'] ) ) {
+				$current_option['atts']['data-rulestype'] = $option['data_rulestype'];
+			}
+			if ( isset( $option['data_text'] ) ) {
+				$current_option['atts']['data-text'] = $option['data_text'];
+			}
+			if ( isset( $option['data_hide_amount'] ) ) {
+				$current_option['atts']['data-hide-amount'] = $option['data_hide_amount'];
+			}
+			if ( ! empty( $tax_obj ) ) {
+				$current_option['atts']['data-tax-obj'] = $tax_obj;
+			}
+
+			$select_options[] = $current_option;
+		}
+	}
+
+	THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, '/n', false, true );
+	?>
+	</label>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
 </li>

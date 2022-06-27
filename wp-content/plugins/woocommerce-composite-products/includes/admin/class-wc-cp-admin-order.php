@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products edit-order functions and filters.
  *
  * @class    WC_CP_Admin_Order
- * @version  8.3.0
+ * @version  8.4.0
  */
 class WC_CP_Admin_Order {
 
@@ -123,7 +123,7 @@ class WC_CP_Admin_Order {
 						'configuration' => apply_filters( 'woocommerce_auto_added_composite_configuration', WC_CP()->cart->get_posted_composite_configuration( $product ), $product, $item, $order )
 					) );
 
-					if ( $added_to_order ) {
+					if ( ! is_wp_error( $added_to_order ) ) {
 
 						$new_container_item = $order->get_item( $added_to_order );
 

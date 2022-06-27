@@ -1,10 +1,13 @@
 <?php
 /**
  * Mix and Match order item
+ * 
+ * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order/Views
  *
  * @var object $item The item being displayed
  * @var int $item_id The id of the item being displayed
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -18,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 
 	foreach ( $child_items as $child_item ) {
-		do_action( 'woocommerce_mnm_child_item_details', $child_item, $product );
+		do_action( 'wc_mnm_child_item_details', $child_item, $product );
 	}
 
 	?>

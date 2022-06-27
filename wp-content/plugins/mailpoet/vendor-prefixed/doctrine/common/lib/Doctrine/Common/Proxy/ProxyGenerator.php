@@ -1,11 +1,12 @@
 <?php
 namespace MailPoetVendor\Doctrine\Common\Proxy;
 if (!defined('ABSPATH')) exit;
+use BackedEnum;
 use MailPoetVendor\Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use MailPoetVendor\Doctrine\Common\Proxy\Exception\UnexpectedValueException;
 use MailPoetVendor\Doctrine\Common\Util\ClassUtils;
 use MailPoetVendor\Doctrine\Persistence\Mapping\ClassMetadata;
-use MailPoetVendor\ReflectionIntersectionType;
+use ReflectionIntersectionType;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -17,6 +18,7 @@ use function array_diff;
 use function array_key_exists;
 use function array_map;
 use function array_slice;
+use function array_unique;
 use function assert;
 use function call_user_func;
 use function chmod;
@@ -25,6 +27,7 @@ use function dirname;
 use function explode;
 use function file;
 use function file_put_contents;
+use function get_class;
 use function implode;
 use function in_array;
 use function interface_exists;
@@ -50,6 +53,7 @@ use function trim;
 use function uniqid;
 use function var_export;
 use const DIRECTORY_SEPARATOR;
+use const PHP_VERSION_ID;
 class ProxyGenerator
 {
  public const PATTERN_MATCH_ID_METHOD = '((public\\s+)?(function\\s+%s\\s*\\(\\)\\s*)\\s*(?::\\s*\\??\\s*\\\\?[a-z_\\x7f-\\xff][\\w\\x7f-\\xff]*(?:\\\\[a-z_\\x7f-\\xff][\\w\\x7f-\\xff]*)*\\s*)?{\\s*return\\s*\\$this->%s;\\s*})i';
@@ -58,6 +62,7 @@ class ProxyGenerator
  protected $placeholders = ['baseProxyInterface' => Proxy::class, 'additionalProperties' => ''];
  protected $proxyClassTemplate = '<?php
 namespace <namespace>;
+<enumUseStatements>
 class <proxyShortClassName> extends \\<className> implements \\<baseProxyInterface>
 {
  public $__initializer__;
@@ -185,6 +190,28 @@ class <proxyShortClassName> extends \\<className> implements \\<baseProxyInterfa
  $proxyClassName = ClassUtils::generateProxyClassName($class->getName(), $this->proxyNamespace);
  $parts = explode('\\', strrev($proxyClassName), 2);
  return strrev($parts[1]);
+ }
+ public function generateEnumUseStatements(ClassMetadata $class) : string
+ {
+ if (PHP_VERSION_ID < 80100) {
+ return "\n";
+ }
+ $defaultProperties = $class->getReflectionClass()->getDefaultProperties();
+ $lazyLoadedPublicProperties = $this->getLazyLoadedPublicPropertiesNames($class);
+ $enumClasses = [];
+ foreach ($class->getReflectionClass()->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+ $name = $property->getName();
+ if (!in_array($name, $lazyLoadedPublicProperties, \true)) {
+ continue;
+ }
+ if (array_key_exists($name, $defaultProperties) && $defaultProperties[$name] instanceof BackedEnum) {
+ $enumClassNameParts = explode('\\', get_class($defaultProperties[$name]));
+ $enumClasses[] = $enumClassNameParts[0];
+ }
+ }
+ return implode("\n", array_map(static function ($className) {
+ return 'use ' . $className . ';';
+ }, array_unique($enumClasses))) . "\n";
  }
  private function generateClassName(ClassMetadata $class)
  {
@@ -404,7 +431,7 @@ EOT;
  if ($prop->isStatic()) {
  continue;
  }
- $allProperties[] = $prop->isPrivate() ? "\0" . $prop->getDeclaringClass()->getName() . "\0" . $prop->getName() : $prop->getName();
+ $allProperties[] = $prop->isPrivate() ? "\x00" . $prop->getDeclaringClass()->getName() . "\x00" . $prop->getName() : $prop->getName();
  }
  $lazyPublicProperties = $this->getLazyLoadedPublicPropertiesNames($class);
  $protectedProperties = array_diff($allProperties, $lazyPublicProperties);
@@ -510,7 +537,7 @@ EOT;
  public function getProxyFileName($className, $baseDirectory = null)
  {
  $baseDirectory = $baseDirectory ?: $this->proxyDirectory;
- return rtrim($baseDirectory, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR . Proxy::MARKER . str_replace('\\', '', $className) . '.php';
+ return rtrim($baseDirectory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . Proxy::MARKER . str_replace('\\', '', $className) . '.php';
  }
  private function isShortIdentifierGetter($method, ClassMetadata $class)
  {

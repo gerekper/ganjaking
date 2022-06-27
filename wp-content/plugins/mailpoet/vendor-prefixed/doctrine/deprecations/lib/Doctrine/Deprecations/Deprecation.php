@@ -41,7 +41,7 @@ class Deprecation
  if (isset(self::$ignoredPackages[$package])) {
  return;
  }
- $backtrace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+ $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
  $message = sprintf($message, ...$args);
  self::delegateTriggerToBackend($message, $backtrace, $link, $package);
  }
@@ -50,10 +50,10 @@ class Deprecation
  if (self::$type === self::TYPE_NONE) {
  return;
  }
- $backtrace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+ $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
  // first check that the caller is not from a tests folder, in which case we always let deprecations pass
- if (strpos($backtrace[1]['file'], \DIRECTORY_SEPARATOR . 'tests' . \DIRECTORY_SEPARATOR) === \false) {
- $path = \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR . $package . \DIRECTORY_SEPARATOR;
+ if (strpos($backtrace[1]['file'], DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR) === \false) {
+ $path = DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . $package . DIRECTORY_SEPARATOR;
  if (strpos($backtrace[0]['file'], $path) === \false) {
  return;
  }
@@ -85,11 +85,11 @@ class Deprecation
  return;
  }
  $message .= sprintf(' (%s:%d called by %s:%d, %s, package %s)', self::basename($backtrace[0]['file']), $backtrace[0]['line'], self::basename($backtrace[1]['file']), $backtrace[1]['line'], $link, $package);
- @trigger_error($message, \E_USER_DEPRECATED);
+ @trigger_error($message, E_USER_DEPRECATED);
  }
  private static function basename(string $filename) : string
  {
- $pos = strrpos($filename, \DIRECTORY_SEPARATOR);
+ $pos = strrpos($filename, DIRECTORY_SEPARATOR);
  if ($pos === \false) {
  return $filename;
  }

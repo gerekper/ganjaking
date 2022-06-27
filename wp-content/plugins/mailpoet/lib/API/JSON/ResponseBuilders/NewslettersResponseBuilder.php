@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SendingQueueEntity;
-use MailPoet\Models\SendingQueue;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Newsletter\Statistics\NewsletterStatistics;
 use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
 use MailPoet\Newsletter\Url as NewsletterUrl;
@@ -38,16 +38,21 @@ class NewslettersResponseBuilder {
   /** @var NewsletterUrl */
   private $newsletterUrl;
 
+  /** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
+
   public function __construct(
     EntityManager $entityManager,
     NewslettersRepository $newslettersRepository,
     NewsletterStatisticsRepository $newslettersStatsRepository,
-    NewsletterUrl $newsletterUrl
+    NewsletterUrl $newsletterUrl,
+    SendingQueuesRepository $sendingQueuesRepository
   ) {
     $this->newslettersStatsRepository = $newslettersStatsRepository;
     $this->newslettersRepository = $newslettersRepository;
     $this->entityManager = $entityManager;
     $this->newsletterUrl = $newsletterUrl;
+    $this->sendingQueuesRepository = $sendingQueuesRepository;
   }
 
   public function build(NewsletterEntity $newsletter, $relations = []) {
@@ -89,9 +94,10 @@ class NewslettersResponseBuilder {
         $data['children_count'] = $this->newslettersStatsRepository->getChildrenCount($newsletter);
       }
       if ($relation === self::RELATION_SCHEDULED) {
-        $data['total_scheduled'] = (int)SendingQueue::findTaskByNewsletterId($newsletter->getId())
-          ->where('tasks.status', SendingQueue::STATUS_SCHEDULED)
-          ->count();
+        $data['total_scheduled'] = $this->sendingQueuesRepository->countAllByNewsletterAndTaskStatus(
+          $newsletter,
+          SendingQueueEntity::STATUS_SCHEDULED
+        );
       }
 
       if ($relation === self::RELATION_STATISTICS) {
@@ -153,9 +159,10 @@ class NewslettersResponseBuilder {
       $data['segments'] = [];
       $data['options'] = $this->buildOptions($newsletter);
       $data['total_sent'] = $statistics ? $statistics->getTotalSentCount() : 0;
-      $data['total_scheduled'] = (int)SendingQueue::findTaskByNewsletterId($newsletter->getId())
-        ->where('tasks.status', SendingQueue::STATUS_SCHEDULED)
-        ->count();
+      $data['total_scheduled'] = $this->sendingQueuesRepository->countAllByNewsletterAndTaskStatus(
+        $newsletter,
+        SendingQueueEntity::STATUS_SCHEDULED
+      );
     } elseif ($newsletter->getType() === NewsletterEntity::TYPE_NOTIFICATION) {
       $data['segments'] = $this->buildSegments($newsletter);
       $data['children_count'] = $this->newslettersStatsRepository->getChildrenCount($newsletter);

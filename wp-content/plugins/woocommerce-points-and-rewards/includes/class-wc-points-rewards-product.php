@@ -365,7 +365,7 @@ class WC_Points_Rewards_Product {
 	 * @return int the points earned
 	 */
 	public static function get_product_points( $product, $order = null ) {
-		$variation_id = ( version_compare( WC_VERSION, '3.0', '<' ) && isset( $product->variation_id ) ) ? $product->variation_id : $product->get_id();
+		$variation_id = $product->get_id();
 
 		if ( empty( $variation_id ) ) {
 			// simple or variable product, for variable product return the maximum possible points earned
@@ -419,7 +419,7 @@ class WC_Points_Rewards_Product {
 		global $wpdb;
 
 		if ( $product->is_type( 'variation' ) ) {
-			$product_id = version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->parent_id : $product->get_parent_id();
+			$product_id = $product->get_parent_id();
 		} else {
 			$product_id = $product->get_id();
 		}
@@ -434,11 +434,7 @@ class WC_Points_Rewards_Product {
 
 		$category_ids_string = implode( ',', array_map( 'intval', $category_ids ) );
 
-		if ( version_compare( WC()->version, '2.6.0', '>=' ) ) {
-			$category_points_query = "SELECT term_id AS category_id, meta_value AS points FROM {$wpdb->termmeta} WHERE meta_key = '_wc_points_earned' AND term_id IN ( $category_ids_string );";
-		} else {
-			$category_points_query = "SELECT woocommerce_term_id AS category_id, meta_value AS points FROM {$wpdb->woocommerce_termmeta} WHERE meta_key = '_wc_points_earned' AND woocommerce_term_id IN ( $category_ids_string );";
-		}
+		$category_points_query = "SELECT term_id AS category_id, meta_value AS points FROM {$wpdb->termmeta} WHERE meta_key = '_wc_points_earned' AND term_id IN ( $category_ids_string );";
 
 		$category_points_data = $wpdb->get_results( $category_points_query );
 
@@ -454,7 +450,7 @@ class WC_Points_Rewards_Product {
 
 			// subscriptions integration - if subscriptions is active check if this is a renewal order
 			if ( self::is_order_renewal( $order ) ) {
-				$renewal_points = version_compare( WC_VERSION, '3.6', 'ge' ) ? get_term_meta( $category_id, '_wc_points_renewal_points', true ) : get_woocommerce_term_meta( $category_id, '_wc_points_renewal_points', true );
+				$renewal_points = get_term_meta( $category_id, '_wc_points_renewal_points', true );
 				$points = ( $renewal_points ) ? $renewal_points : $points;
 			}
 
@@ -547,7 +543,7 @@ class WC_Points_Rewards_Product {
 	 * @return float|string the maximum discount
 	 */
 	private static function get_product_max_discount( $product ) {
-		$variation_id = ( version_compare( WC_VERSION, '3.0', '<' ) && isset( $product->variation_id ) ) ? $product->variation_id : $product->get_id();
+		$variation_id = $product->get_id();
 
 		if ( empty( $variation_id ) ) {
 
@@ -580,7 +576,7 @@ class WC_Points_Rewards_Product {
 		global $wpdb;
 
 		if ( $product->is_type( 'variation' ) ) {
-			$product_id = version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->parent_id : $product->get_parent_id();
+			$product_id = $product->get_parent_id();
 		} else {
 			$product_id = $product->get_id();
 		}
@@ -595,11 +591,8 @@ class WC_Points_Rewards_Product {
 
 		$category_ids_string = implode( ',', array_map( 'intval', $category_ids ) );
 
-		if ( version_compare( WC()->version, '2.6.0', '>=' ) ) {
-			$category_discount_query = "SELECT term_id AS category_id, meta_value AS max_discount FROM {$wpdb->termmeta} WHERE meta_key = '_wc_points_max_discount' AND term_id IN ( $category_ids_string );";
-		} else {
-			$category_discount_query = "SELECT woocommerce_term_id AS category_id, meta_value AS max_discount FROM {$wpdb->woocommerce_termmeta} WHERE meta_key = '_wc_points_max_discount' AND woocommerce_term_id IN ( $category_ids_string );";
-		}
+		$category_discount_query = "SELECT term_id AS category_id, meta_value AS max_discount FROM {$wpdb->termmeta} WHERE meta_key = '_wc_points_max_discount' AND term_id IN ( $category_ids_string );";
+
 		$category_discount_data = $wpdb->get_results( $category_discount_query );
 
 		$category_discount_array = array();

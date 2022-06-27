@@ -25,7 +25,6 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -47,7 +46,7 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 			
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://geoip.maxmind.com/geoip/v2.1/insights/'.$ip_address,
+			CURLOPT_URL => 'https://geoip.maxmind.com/geoip/v2.1/insights/' . $ip_address,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_USERAGENT => 'AnTiFrAuDOPMC',
 			CURLOPT_ENCODING => '',
@@ -72,24 +71,24 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 				if ( isset( $response['country']['iso_code'] ) && !empty( $response['country']['iso_code'] ) ) {
 					if ( ( $billing_country == $response['country']['iso_code'] ) ) {
 						$risk = false;
-						Af_Logger::debug('Customer IP address matched given billing country '.$billing_country.' and city '.$billing_city);
+						Af_Logger::debug('Customer IP address matched given billing country ' . $billing_country . ' and city ' . $billing_city);
 					} else {
 						$risk = true;
-						Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
+						Af_Logger::debug('Customer IP address not matched given billing country ' . $billing_country . ' and city ' . $billing_city);
 					}
 				} else {
 					$risk = true;
-					Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
+					Af_Logger::debug('Customer IP address not matched given billing country ' . $billing_country . ' and city ' . $billing_city);
 				}
 			} else {
 				$risk = true;
-				Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
+				Af_Logger::debug('Customer IP address not matched given billing country ' . $billing_country . ' and city ' . $billing_city);
 			}
 		} else {
 			$risk = false;
 			Af_Logger::debug('Maxmind creds not authenticated. IP Address rule is disabled.');
 		}
-		Af_Logger::debug('ip address rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('ip address rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	

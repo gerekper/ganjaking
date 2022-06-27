@@ -89,6 +89,28 @@ class FUE_Addon_Woocommerce_Scheduler {
 	}
 
 	/**
+	 * Update user's email to all unsent emails by the given user ID and the original user email
+	 *
+	 * @since 4.9.23
+	 * @param int user_id
+	 * @param string $original_user_email
+	 * @param string $new_user_email
+	 */
+	public function update_user_email_to_unsent_emails( $user_id, $original_user_email, $new_user_email ) {
+		$args = array(
+			'user_id'    => $user_id,
+			'user_email' => $original_user_email,
+			'is_sent'    => 0,
+		);
+
+		$queue_items = Follow_Up_Emails::instance()->scheduler->get_items( $args );
+
+		foreach ( $queue_items as $item ) {
+			Follow_Up_Emails::instance()->scheduler->update_user_email( $item->id, $new_user_email );
+		}
+	}
+
+	/**
 	 * Delete records from the database matching the ID of the deleted order
 	 * @param int $order_id
 	 */
@@ -573,7 +595,6 @@ class FUE_Addon_Woocommerce_Scheduler {
 		$cart_emails    = array();
 		$always_prods   = array();
 		$always_cats    = array();
-		$email_created  = false;
 
 		$cart_session = FUE_Addon_Woocommerce_Cart::get_user_cart_session( $user_id );
 
@@ -618,9 +639,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 				$args['email_id']   = $email->id;
 				$queue_check = Follow_Up_Emails::instance()->scheduler->get_items( $args );
 
-				if ( count( $queue_check ) > 0 ) {
-					$email_created = true;
-				} elseif ( ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
+				if ( count( $queue_check ) === 0 && ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
 
 					if ( $this->is_product_or_category_excluded( $item['product_id'], null, null, $email ) ) {
 						continue;
@@ -651,9 +670,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 				$args['email_id']   = $email->id;
 				$check = Follow_Up_Emails::instance()->scheduler->get_items( $args );
 
-				if ( count( $check ) > 0 ) {
-					$email_created = true;
-				} elseif ( ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
+				if ( count( $check ) === 0 && ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
 					if ( $this->is_product_or_category_excluded( $item['product_id'], null, null, $email ) ) {
 						continue;
 					}
@@ -684,9 +701,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 				$args['email_id']   = $email->id;
 				$check = Follow_Up_Emails::instance()->scheduler->get_items( $args );
 
-				if ( count( $check ) > 0 ) {
-					$email_created = true;
-				} elseif ( ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
+				if ( count( $check ) === 0 && ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
 					if ( $this->is_product_or_category_excluded( $item['product_id'], null, null, $email ) ) {
 						continue;
 					}
@@ -715,9 +730,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 					'user_email' => $user_email,
 				);
 
-				if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $email ) ) ) {
-					$email_created = true;
-				}
+				FUE_Sending_Scheduler::queue_email( $insert, $email );
 			}
 		}
 
@@ -732,110 +745,104 @@ class FUE_Addon_Woocommerce_Scheduler {
 					'user_email' => $user_email,
 				);
 
-				if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $email ) ) ) {
-					$email_created = true;
-				}
+				FUE_Sending_Scheduler::queue_email( $insert, $email );
 			}
 		}
 
 		// Product matches.
-		$email_created = $this->process_cart_emails_by_priority( $cart_emails, array(
+		$this->process_cart_emails_by_priority( $cart_emails, array(
 			'user_id'    => $user_id,
 			'user_email' => $user_email,
 		) );
 
 		// Find a category match.
-		if ( ! $email_created ) {
-			$emails = array();
-			foreach ( $cart as $item_key => $item ) {
-				$cat_ids = wp_get_object_terms( $item['product_id'], 'product_cat', array( 'fields' => 'ids' ) );
-				if ( empty( $cat_ids ) ) {
-					continue;
-				}
+		$emails = array();
+		foreach ( $cart as $item_key => $item ) {
+			$cat_ids = wp_get_object_terms( $item['product_id'], 'product_cat', array( 'fields' => 'ids' ) );
+			if ( empty( $cat_ids ) ) {
+				continue;
+			}
 
-				if ( apply_filters( 'fue_storewide_category_trigger_parent_emails', true ) ) {
-					foreach ( $cat_ids as $id ) {
-						$parent_categories = get_ancestors( $id, 'product_cat' );
-						$cat_ids = array_merge( $cat_ids, $parent_categories );
-					}
-				}
-
-				$rows = $this->get_cart_emails( FUE_Email::STATUS_ACTIVE, array(
-					'category_id' => $cat_ids,
-				) );
-
-				foreach ( $rows as $email ) {
-					$args = $search_params;
-					$args['product_id'] = $item['product_id'];
-					$args['email_id']   = $email->id;
-					$check = Follow_Up_Emails::instance()->scheduler->get_items( $args );
-
-					if ( count( $check ) == 0 && ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
-						if ( $this->is_product_or_category_excluded( 0, $cat_ids, null, $email ) ) {
-							continue;
-						}
-
-						if ( $this->exclude_customer_based_on_purchase_history( $customer, $email ) ) {
-							continue;
-						}
-
-						$cart_session[] = $email->id . '_' . $item['product_id'];
-						$emails[] = array( 'id' => $email->id, 'item' => $item['product_id'], 'priority' => $email->priority );
-					}
+			if ( apply_filters( 'fue_storewide_category_trigger_parent_emails', true ) ) {
+				foreach ( $cat_ids as $id ) {
+					$parent_categories = get_ancestors( $id, 'product_cat' );
+					$cat_ids = array_merge( $cat_ids, $parent_categories );
 				}
 			}
 
-			$email_created = $this->process_cart_emails_by_priority( $emails, array(
-				'user_id'    => $user_id,
-				'user_email' => $user_email,
-			) );
-		}
-
-		if ( ! $email_created ) {
-			// Find a storewide mailer.
-			$emails = $this->get_cart_emails( FUE_Email::STATUS_ACTIVE, array(
-				'product_id'    => 0,
-				'category_id'   => 0,
+			$rows = $this->get_cart_emails( FUE_Email::STATUS_ACTIVE, array(
+				'category_id' => $cat_ids,
 			) );
 
-			foreach ( $emails as $email ) {
-				$args             = $search_params;
-				$args['email_id'] = $email->id;
-				$check            = Follow_Up_Emails::instance()->scheduler->get_items( $args );
+			foreach ( $rows as $email ) {
+				$args = $search_params;
+				$args['product_id'] = $item['product_id'];
+				$args['email_id']   = $email->id;
+				$check = Follow_Up_Emails::instance()->scheduler->get_items( $args );
 
-				if ( count( $check ) > 0 || in_array( $email->id . '_0', $cart_session ) ) {
-					continue;
-				}
-
-				if ( $added_product ) {
-					if ( $this->is_product_or_category_excluded( $added_product, null, null, $email ) ) {
+				if ( count( $check ) == 0 && ! in_array( $email->id . '_' . $item['product_id'], $cart_session ) ) {
+					if ( $this->is_product_or_category_excluded( 0, $cat_ids, null, $email ) ) {
 						continue;
 					}
-				} else {
-					// If no $added_product is specified, make sure there are no
-					// excluded products in the cart.
-					foreach ( $cart as $item ) {
-						if ( $this->is_product_or_category_excluded( $item['product_id'], null, null, $email ) ) {
-							continue 2;
-						}
-					}
-				}
 
-				if ( $this->exclude_customer_based_on_purchase_history( $customer, $email ) ) {
+					if ( $this->exclude_customer_based_on_purchase_history( $customer, $email ) ) {
+						continue;
+					}
+
+					$cart_session[] = $email->id . '_' . $item['product_id'];
+					$emails[] = array( 'id' => $email->id, 'item' => $item['product_id'], 'priority' => $email->priority );
+				}
+			}
+		}
+
+		$this->process_cart_emails_by_priority( $emails, array(
+			'user_id'    => $user_id,
+			'user_email' => $user_email,
+		) );
+
+		// Find a storewide mailer.
+		$emails = $this->get_cart_emails( FUE_Email::STATUS_ACTIVE, array(
+			'product_id'    => 0,
+			'category_id'   => 0,
+		) );
+
+		foreach ( $emails as $email ) {
+			$args             = $search_params;
+			$args['email_id'] = $email->id;
+			$check            = Follow_Up_Emails::instance()->scheduler->get_items( $args );
+
+			if ( count( $check ) > 0 || in_array( $email->id . '_0', $cart_session ) ) {
+				continue;
+			}
+
+			if ( $added_product ) {
+				if ( $this->is_product_or_category_excluded( $added_product, null, null, $email ) ) {
 					continue;
 				}
-
-				$cart_session[] = $email->id . '_0';
-
-				$insert = array(
-					'is_cart'    => 1,
-					'product_id' => ( $added_product ) ? $added_product : 0,
-					'user_id'    => $user_id,
-					'user_email' => $user_email,
-				);
-
-				FUE_Sending_Scheduler::queue_email( $insert, $email );
+			} else {
+				// If no $added_product is specified, make sure there are no
+				// excluded products in the cart.
+				foreach ( $cart as $item ) {
+					if ( $this->is_product_or_category_excluded( $item['product_id'], null, null, $email ) ) {
+						continue 2;
+					}
+				}
 			}
+
+			if ( $this->exclude_customer_based_on_purchase_history( $customer, $email ) ) {
+				continue;
+			}
+
+			$cart_session[] = $email->id . '_0';
+
+			$insert = array(
+				'is_cart'    => 1,
+				'product_id' => ( $added_product ) ? $added_product : 0,
+				'user_id'    => $user_id,
+				'user_email' => $user_email,
+			);
+
+			FUE_Sending_Scheduler::queue_email( $insert, $email );
 		}
 
 		FUE_Addon_Woocommerce_Cart::set_user_cart_session( $user_id, $cart_session );

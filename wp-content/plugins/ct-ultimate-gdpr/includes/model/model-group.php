@@ -29,12 +29,33 @@ class CT_Ultimate_GDPR_Model_Group {
 	 *
 	 */
 	const LEVEL_PRIVATE_DATA = 6;
-
+ 
 	/**
 	 * @var array
 	 */
 	protected $levels;
 
+	/**
+	 * new levels for granular cookie level => [values]
+	 */
+	public static $level_id = [
+		1 => ['1'],
+		2 => ['5'],
+		3 => ['5','6'],
+		4 => ['5','6','7'],
+		5 => ['5','6','7','8'],
+		6 =>  ['6'],
+		7 =>  ['7'],
+		8 =>  ['8'],
+		9 =>  ['5','7'],
+		10 => ['5','8'],
+		11 => ['6','7'],
+		12 => ['6','8'],
+		13 => ['7','8'],
+		14 => ['5','7','8'],
+		15 => ['5','6','8'],
+		16 => ['6','7','8']
+	];
 
 	/**
 	 * @param $level
@@ -238,4 +259,51 @@ class CT_Ultimate_GDPR_Model_Group {
 
 		return $cookie ? $cookie->get_group_level() : self::LEVEL_CONVENIENCE;
 	}
+
+	/**
+	 * @return string
+	 */
+	public static function is_level_checked($level, $id) {
+
+		$arr = [];
+		$level_id = self::$level_id;
+
+		if( array_key_exists($level, $level_id) ) {
+
+			foreach( $level_id as $k => $v) {
+			
+				if($level == $k) {
+					$arr = $v;
+				}	 
+			}
+
+			if( in_array($id, $arr) ) {
+				return 'checked';
+			}
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function is_level_checked_active($level, $id) {
+
+		$arr = [];
+		$level_id = self::$level_id;
+
+		if( array_key_exists($level, $level_id) ) {
+
+			foreach( $level_id as $k => $v) {
+			
+				if($level == $k) {
+					$arr = $v;
+				}	 
+			}
+
+			if( in_array($id, $arr) ) {
+				return true;
+			}
+		}
+	}
+
 }

@@ -78,10 +78,10 @@ class WC_MNM_Meta_Box_Order {
 				if ( apply_filters( 'wc_mnm_auto_add_child_items', false, $product, $item, $order ) ) {
 
 					$added_to_order = WC_Mix_and_Match()->order->add_container_to_order(
-                        $product,
-                        $order,
-                        $item->get_quantity(),
-                        array(
+						$product,
+						$order,
+						$item->get_quantity(),
+						array(
 
 						/**
 						 * 'wc_mnm_auto_add_container_configuration' filter.
@@ -94,8 +94,8 @@ class WC_MNM_Meta_Box_Order {
 						 * @param  $order    WC_Order
 						 */
 						'configuration' => apply_filters( 'wc_mnm_auto_add_container_configuration', array(), $product, $item, $order )
-                        )
-                    );
+						)
+					);
 
 					if ( $added_to_order ) {
 
@@ -153,14 +153,14 @@ class WC_MNM_Meta_Box_Order {
 			if ( $product && $product->is_type( 'mix-and-match' ) ) {
 
 				/**
-				 * 'woocommerce_is_mnm_container_order_item_editable' filter.
+				 * 'wc_mnm_is_container_order_item_editable' filter.
 				 *
 				 * @param  $auto_add  boolean
 				 * @param  $product   WC_Product_Mix_and_Match
 				 * @param  $item      WC_Order_Item
 				 * @param  $order     WC_Order
 				 */
-				if ( apply_filters( 'woocommerce_is_mnm_container_order_item_editable', true, $product, $item, self::$order ) ) {
+				if ( apply_filters( 'wc_mnm_is_container_order_item_editable', true, $product, $item, self::$order ) ) {
 
 					// Already configured?
 					$is_configured = wc_mnm_is_container_order_item( $item, self::$order );

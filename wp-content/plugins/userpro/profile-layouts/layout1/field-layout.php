@@ -125,18 +125,19 @@ if ($user_id){
 			}
 				
 		}
-		else if($array['type'] == 'datepicker' && userpro_get_option('date_to_age') == 1){
+		else if($array['type'] == 'datepicker' && userpro_get_option('date_to_age') == 1 ){
 		$format = '';
-        $date_format = explode('-',userpro_get_option('date_format'));
+		$separator = userpro_get_option('date_format')[2];
+        $date_format = explode($separator,userpro_get_option('date_format'));
         foreach($date_format as $f){
             if($f == 'yy'){
-                $format .= substr(strtoupper($f), 1) . '-';
+                $format .= substr(strtoupper($f), 1) . $separator;
             }
             else{
-                $format .= substr($f, 1) . '-';
+                $format .= substr($f, 1) . $separator;
             }
         }
-        $format = rtrim($format, '-');
+        $format = rtrim($format, $separator);
 				try{
 					$start = DateTime::createFromFormat($format, date($format));
         			$end   = DateTime::createFromFormat($format, $value);
@@ -151,9 +152,11 @@ if ($user_id){
 					$res.= $value;
 				}
 		}
-		else {
-			$res .= $value;
-		}
+	else {
+
+		$res .= $value;
+
+	}
 		
 		/* hidden field notice */
 		if (userpro_field_is_viewable($key, $user_id, $args) && ( userpro_profile_data( 'hide_'.$key, $user_id ) || userpro_field_default_hidden( $key, $template, $args[ $template . '_group' ] ) ) ) {

@@ -12,6 +12,7 @@ class UsedAsFeaturedImage extends AC\Column
 
 	public function __construct() {
 		$this->set_type( 'column-used_as_featured_image' )
+		     ->set_group( 'media-image' )
 		     ->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
 	}
 

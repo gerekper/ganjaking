@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite order-related filters and functions.
  *
  * @class    WC_CP_Order
- * @version  8.3.0
+ * @version  8.4.0
  */
 class WC_CP_Order {
 
@@ -199,9 +199,10 @@ class WC_CP_Order {
 
 		if ( $composite && 'composite' === $composite->get_type() ) {
 
-			$configuration = $args[ 'configuration' ];
+			try {
 
-			if ( WC_CP()->cart->validate_composite_configuration( $composite, $quantity, $configuration, 'add-to-order' ) ) {
+				$configuration = $args[ 'configuration' ];
+				$is_valid      = WC_CP()->cart->validate_composite_configuration( $composite, $quantity, $configuration, array( 'context' => 'add-to-order', 'throw_exception' => true ) );
 
 				// Add container item.
 				$container_order_item_id = $order->add_product( $composite, $quantity, $args );
@@ -398,15 +399,20 @@ class WC_CP_Order {
 				 */
 				do_action( 'woocommerce_composite_added_to_order', $container_order_item, $order, $composite, $quantity, $args );
 
-			} else {
+			} catch ( Exception $e ) {
 
-				$error_data = array( 'notices' => wc_get_notices( 'error' ) );
-				$message    = __( 'The submitted composite configuration could not be added to this order.', 'woocommerce-composite-products' );
+				$error = $e->getMessage();
 
-				if ( $args[ 'silent' ] ) {
-					wc_clear_notices();
+				if ( $error && false === $args[ 'silent' ] ) {
+					wc_add_notice( $notice, 'error' );
 				}
 
+				$error_data = array( 'notices' => array(
+					'notice' => $error
+				) );
+
+				/* translators: %1$s: Error message */
+				$message        = sprintf( __( 'The submitted composite configuration could not be added to this order: %s', 'woocommerce-composite-products' ), $error );
 				$added_to_order = new WP_Error( 'woocommerce_composite_configuration_invalid', $message, $error_data );
 			}
 

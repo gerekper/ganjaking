@@ -6,9 +6,9 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\WOFF;
+namespace WooCommercePDFInvoiceFontLib\WOFF;
 
-use FontLib\Table\DirectoryEntry;
+use WooCommercePDFInvoiceFontLib\Table\DirectoryEntry;
 
 /**
  * WOFF font file table directory entry.

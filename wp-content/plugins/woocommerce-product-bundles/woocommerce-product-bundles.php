@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.14.0
+* Version: 6.15.5
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -15,10 +15,10 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.8
+* Tested up to: 5.9
 *
-* WC requires at least: 3.6
-* WC tested up to: 6.0
+* WC requires at least: 3.9
+* WC tested up to: 6.5
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.14.0
+ * @version  6.15.5
  */
 class WC_Bundles {
 
-	public $version  = '6.14.0';
+	public $version  = '6.15.5';
 	public $required = '3.6.0';
 
 	/**
@@ -167,7 +167,7 @@ class WC_Bundles {
 
 		if ( $base ) {
 			$version_parts = explode( '-', $version );
-			$version       = sizeof( $version_parts ) > 1 ? $version_parts[ 0 ] : $version;
+			$version       = count( $version_parts ) > 1 ? $version_parts[ 0 ] : $version;
 		}
 
 		return $version;
@@ -333,7 +333,7 @@ class WC_Bundles {
 		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-ajax.php' );
 
 		// REST API hooks.
-		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-rest-api.php' );
+		require_once( WC_PB_ABSPATH . 'includes/api/class-wc-pb-rest-api.php' );
 
 		// Notices handling.
 		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-notices.php' );
@@ -371,7 +371,7 @@ class WC_Bundles {
 	 * Load textdomain.
 	 */
 	public function load_translation() {
-		load_plugin_textdomain( 'woocommerce-product-bundles', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'woocommerce-product-bundles', false, dirname( $this->plugin_basename() ) . '/languages/' );
 	}
 
 	/**
@@ -387,28 +387,43 @@ class WC_Bundles {
 		$resource = false;
 
 		if ( 'pricing-options' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-configuration/#pricing';
+			$resource = 'https://woocommerce.com/document/bundles/bundles-configuration/#pricing';
 		} elseif ( 'shipping-options' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-configuration/#shipping';
+			$resource = 'https://woocommerce.com/document/bundles/bundles-configuration/#shipping';
 		} elseif ( 'update-php' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/how-to-update-your-php-version/';
+			$resource = 'https://woocommerce.com/document/how-to-update-your-php-version/';
 		} elseif ( 'docs-contents' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/bundles/';
+			$resource = 'https://woocommerce.com/document/bundles/';
 		} elseif ( 'max-input-vars' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-faq/#faq_bundled_items_dont_save';
+			$resource = 'https://woocommerce.com/document/bundles/bundles-faq/#faq_bundled_items_dont_save';
 		} elseif ( 'updating' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/how-to-update-woocommerce/';
+			$resource = 'https://woocommerce.com/document/how-to-update-woocommerce/';
 		} elseif ( 'min-max' === $handle ) {
 			$resource = 'https://wordpress.org/plugins/product-bundles-minmax-items-for-woocommerce/';
 		} elseif ( 'bulk-discounts' === $handle ) {
 			$resource = 'https://wordpress.org/plugins/product-bundles-bulk-discounts-for-woocommerce/';
 		} elseif ( 'analytics-revenue' === $handle ) {
-			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-faq/#faq_analytics_bundles_revenue';
+			$resource = 'https://woocommerce.com/document/bundles/bundles-configuration/#pb-analytics';
 		} elseif ( 'ticket-form' === $handle ) {
 			$resource = WC_PB_SUPPORT_URL;
 		}
 
 		return $resource;
+	}
+
+	/**
+	 * Get the file modified time as a cache buster if we're in dev mode.
+	 *
+	 * @since 6.15.0
+	 *
+	 * @param  string  $file
+	 * @return string
+	 */
+	public function get_file_version( $file ) {
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( $file ) ) {
+			return filemtime( $file );
+		}
+		return $this->plugin_version();
 	}
 
 	/*

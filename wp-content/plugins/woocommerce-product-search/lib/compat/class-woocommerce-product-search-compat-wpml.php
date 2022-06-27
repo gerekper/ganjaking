@@ -43,6 +43,8 @@ class WooCommerce_Product_Search_Compat_WPML {
 		add_action( 'woocommerce_product_search_indexer_index_end', array( __CLASS__, 'woocommerce_product_search_indexer_index_end' ) );
 
 		add_action( 'wcml_after_sync_product_data', array( __CLASS__, 'wcml_after_sync_product_data' ), 10, 3 );
+
+		add_filter( 'woocommerce_product_search_request_term_ids_exclude', array( __CLASS__, 'woocommerce_product_search_request_term_ids_exclude'), 10, 3 );
 	}
 
 	/**
@@ -298,6 +300,51 @@ class WooCommerce_Product_Search_Compat_WPML {
 			}
 		}
 		return $content;
+	}
+
+	/**
+	 * Terms excluded
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param int[] $exclude
+	 * @param array $args
+	 * @param string[] $taxonomies
+	 *
+	 * @return int[]
+	 */
+	public static function woocommerce_product_search_request_term_ids_exclude( $exclude, $args, $taxonomies ) {
+
+		global $sitepress, $woocommerce_wpml;
+
+		if (
+			is_array( $exclude ) &&
+			count( $exclude ) > 0 &&
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'get_active_languages' ) &&
+			!empty( $woocommerce_wpml ) &&
+			is_object( $woocommerce_wpml ) &&
+			!empty( $woocommerce_wpml->terms ) &&
+			is_object( $woocommerce_wpml->terms ) &&
+			method_exists( $woocommerce_wpml->terms, 'wcml_get_translated_term' )
+		) {
+			$active_languages = $sitepress->get_active_languages();
+			foreach ( $exclude as $term_id ) {
+				$term = get_term( $term_id );
+				foreach ( $active_languages as $language ) {
+					$translated_term = $woocommerce_wpml->terms->wcml_get_translated_term( $term_id, $term->taxonomy, $language['code'] );
+					if (
+						!empty( $translated_term ) &&
+						!empty( $translated_term->term_id )
+					) {
+						$translated_term_ids[] = intval( $translated_term->term_id );
+					}
+				}
+			}
+			$exclude = array_unique( array_merge( $exclude, $translated_term_ids ) );
+		}
+		return $exclude;
 	}
 }
 

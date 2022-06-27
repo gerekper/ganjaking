@@ -234,15 +234,69 @@ class WooCommerce_Product_Search_Admin_Navigation {
 					'order' => 20
 				)
 			);
-			Menu::add_plugin_item(
+
+			Menu::add_plugin_category(
 				array(
 					'id'         => 'woocommerce-product-search-settings',
 					'title'      => __( 'Settings', 'woocommerce-product-search' ),
 					'capability' => 'manage_woocommerce',
-					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_GENERAL ),
 					'parent'     => 'woocommerce-product-search',
+					'order'      => 30
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-product-search-settings-general',
+					'title'      => __( 'General', 'woocommerce-product-search' ),
+					'capability' => 'manage_woocommerce',
+					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_GENERAL ),
+					'parent'     => 'woocommerce-product-search-settings',
 
-					'order' => 30
+					'order'      => 10
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-product-search-settings-weights',
+					'title'      => __( 'Weights', 'woocommerce-product-search' ),
+					'capability' => 'manage_woocommerce',
+					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_WEIGHTS ),
+					'parent'     => 'woocommerce-product-search-settings',
+
+					'order'      => 20
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-product-search-settings-thumbnails',
+					'title'      => __( 'Thumbnails', 'woocommerce-product-search' ),
+					'capability' => 'manage_woocommerce',
+					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_THUMBNAILS ),
+					'parent'     => 'woocommerce-product-search-settings',
+
+					'order'      => 30
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-product-search-settings-css',
+					'title'      => __( 'CSS', 'woocommerce-product-search' ),
+					'capability' => 'manage_woocommerce',
+					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_CSS ),
+					'parent'     => 'woocommerce-product-search-settings',
+
+					'order'      => 40
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-product-search-settings-index',
+					'title'      => __( 'Index', 'woocommerce-product-search' ),
+					'capability' => 'manage_woocommerce',
+					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_INDEX ),
+					'parent'     => 'woocommerce-product-search-settings',
+
+					'order'      => 50
 				)
 			);
 
@@ -253,9 +307,9 @@ class WooCommerce_Product_Search_Admin_Navigation {
 						'title'      => __( 'Assistant', 'woocommerce-product-search' ),
 						'capability' => 'manage_woocommerce',
 						'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_ASSISTANT ),
-						'parent'     => 'woocommerce-product-search',
+						'parent'     => 'woocommerce-product-search-settings',
 
-						'order' => 40
+						'order' => 60
 					)
 				);
 			}

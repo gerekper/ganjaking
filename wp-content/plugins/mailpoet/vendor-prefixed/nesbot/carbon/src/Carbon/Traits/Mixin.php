@@ -12,7 +12,7 @@ trait Mixin
  protected static $macroContextStack = [];
  public static function mixin($mixin)
  {
- \is_string($mixin) && \trait_exists($mixin) ? static::loadMixinTrait($mixin) : static::loadMixinClass($mixin);
+ \is_string($mixin) && \trait_exists($mixin) ? self::loadMixinTrait($mixin) : self::loadMixinClass($mixin);
  }
  private static function loadMixinClass($mixin)
  {
@@ -42,7 +42,7 @@ trait Mixin
  // @codeCoverageIgnore
  }
  // in case of errors not converted into exceptions
- $closure = $closure ?? $closureBase;
+ $closure = $closure ?: $closureBase;
  return $closure(...\func_get_args());
  });
  }

@@ -801,69 +801,21 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'masterpass' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'masterpass', '$test_mode: ' . $test_mode );
-			$this->log->add( 'masterpass', '/****************************/' );
-			$this->log->add( 'masterpass', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'masterpass', '/****************************/' );
-			$this->log->add( 'masterpass', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'masterpass', ' ' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'masterpass', ' ' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', '$selections NOT empty' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'masterpass', ' ' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', 'Not loged In hiding gateway' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'masterpass', '$user_id: ' . $user_id );
-					$this->log->add( 'masterpass', '$userid: ' . $userid );
-					$this->log->add( 'masterpass', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'masterpass', ' ' );
-				$this->log->add( 'masterpass', '/*********************************/' );
-				$this->log->add( 'masterpass', '$selections Empty, showing gateway' );
-				$this->log->add( 'masterpass', '/*********************************/' );
-				$this->log->add( 'masterpass', ' ' );
-			}
 			return true;
 		}
 	}
@@ -875,50 +827,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'masterpass', ' ' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', '   Is NOT admin ' );
-				$this->log->add( 'masterpass', '/****************************/' );
-				$this->log->add( 'masterpass', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'masterpass', ' ' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', '   Is user logget in ' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'masterpass', ' ' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', '   $user_id: ' . $user_id );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', ' ' );
-				}
 				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'masterpass', ' ' );
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', '   SHOW Gateway' );
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', ' ' );
-					} else {
-						$this->log->add( 'masterpass', ' ' );
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', '   DONT SHOW Gateway' );
-						$this->log->add( 'masterpass', '/****************************/' );
-						$this->log->add( 'masterpass', ' ' );
-					}
-					$this->log->add( 'masterpass', ' ' );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', '   $user_id: ' . $user_id );
-					$this->log->add( 'masterpass', '/****************************/' );
-					$this->log->add( 'masterpass', ' ' );
-				}
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

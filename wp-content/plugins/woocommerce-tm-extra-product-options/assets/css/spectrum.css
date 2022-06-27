@@ -5,19 +5,6 @@ Author: Brian Grinstead
 License: MIT
 ***/
 
-.epo.sp-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: inline-block;
-	*display: inline;
-	*zoom: 1;
-
-	/* https://github.com/seballot/spectrum/issues/40 */
-	z-index: 9999994;
-	overflow: hidden;
-}
-
 .sp-original-input-container {
 	position: relative;
 	display: inline-flex;
@@ -66,6 +53,7 @@ input.spectrum.with-add-on {
 	position: relative;
 	width: 100%;
 	display: inline-block;
+	margin-bottom: 10px;
 }
 
 .epo .sp-top-inner {
@@ -284,13 +272,13 @@ input.spectrum.with-add-on {
 }
 
 /* Clearfix hack */
-.epo .sp-cf:before,
-.epo .sp-cf:after {
+.epo .sp-cf::before,
+.epo .sp-cf::after {
 	content: "";
 	display: table;
 }
 
-.epo .sp-cf:after {
+.epo .sp-cf::after {
 	clear: both;
 }
 
@@ -350,7 +338,15 @@ Theme authors:
 Here are the basic themeable display options (colors, fonts, global widths)
 */
 
+
 .epo.sp-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/* https://github.com/seballot/spectrum/issues/40 */
+	z-index: 9999994;
+	overflow: hidden;
 	display: inline-flex;
 	border: 0;
 	background-color: #fff;
@@ -371,10 +367,6 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
-}
-
-.epo .sp-top {
-	margin-bottom: 10px;
 }
 
 .epo .sp-color,
@@ -462,11 +454,12 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	display: block;
 	position: relative;
 	float: left;
-	width: 24px;
-	height: 15px;
+	width: 16px;
+	height: 16px;
 	margin: 3px;
+	border: none;
+	border-radius: 3px;
 	cursor: pointer;
-	border: solid 2px transparent;
 }
 
 .sp-palette .sp-thumb-el:hover,
@@ -551,8 +544,8 @@ Here are the basic themeable display options (colors, fonts, global widths)
 	right: 0;
 	top: 0;
 	bottom: 0;
-	padding: 0 2px;
-	line-height: 2.1;
+	padding: 3px;
+	line-height: calc(2rem - 5px);
 	background-color: #fff;
 	height: auto;
 	float: none;
@@ -576,16 +569,6 @@ Here are the basic themeable display options (colors, fonts, global widths)
 .epo .sp-preview-inner.sp-clear-display {
 	display: none;
 }
-
-/* Color Picker */
-.sp-palette .sp-thumb-el {
-	width: 16px;
-	height: 16px;
-	margin: 3px;
-	border: none;
-	border-radius: 3px;
-}
-
 
 /* Buttons: http://hellohappy.org/css3-buttons/ */
 .epo.sp-container button {

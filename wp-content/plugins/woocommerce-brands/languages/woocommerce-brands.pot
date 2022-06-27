@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Brands package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Brands 1.6.28\n"
+"Project-Id-Version: WooCommerce Brands 1.6.33\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-brands\n"
-"POT-Creation-Date: 2022-03-04 15:32:38+00:00\n"
+"POT-Creation-Date: 2022-06-21 13:17:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,98 +14,98 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wc-brands-admin.php:31 includes/class-wc-brands-admin.php:532
-#: includes/class-wc-brands-admin.php:543 includes/class-wc-brands.php:247
-#: includes/class-wc-brands.php:249
+#: includes/class-wc-brands-admin.php:31 includes/class-wc-brands-admin.php:524
+#: includes/class-wc-brands-admin.php:535 includes/class-wc-brands.php:208
+#: includes/class-wc-brands.php:210
 #: includes/widgets/class-wc-widget-brand-nav.php:150
 msgid "Brands"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:108
+#: includes/class-wc-brands-admin.php:104
 msgid "Product brands"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:109
+#: includes/class-wc-brands-admin.php:105
 msgid "Any brand"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:118
+#: includes/class-wc-brands-admin.php:114
 msgid ""
 "A product must be associated with this brand for the coupon to remain valid "
 "or, for \"Product Discounts\", products with these brands will be "
 "discounted."
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:123
+#: includes/class-wc-brands-admin.php:119
 msgid "Exclude brands"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:124
+#: includes/class-wc-brands-admin.php:120
 msgid "No brands"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:133
+#: includes/class-wc-brands-admin.php:129
 msgid ""
 "Product must not be associated with these brands for the coupon to remain "
 "valid or, for \"Product Discounts\", products associated with these brands "
 "will not be discounted."
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:162
+#: includes/class-wc-brands-admin.php:158
 msgid "Brands Archives"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:165
+#: includes/class-wc-brands-admin.php:161
 msgid "Show description"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:166
+#: includes/class-wc-brands-admin.php:162
 msgid ""
 "Choose to show the brand description on the archive page. Turn this off if "
 "you intend to use the description widget instead. Please note: this is only "
 "for themes that do not show the description."
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:221
-#: includes/class-wc-brands-admin.php:298
+#: includes/class-wc-brands-admin.php:218
+#: includes/class-wc-brands-admin.php:295
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:225
-#: includes/class-wc-brands-admin.php:303
+#: includes/class-wc-brands-admin.php:222
+#: includes/class-wc-brands-admin.php:300
 msgid "Upload/Add image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:226
-#: includes/class-wc-brands-admin.php:304
+#: includes/class-wc-brands-admin.php:223
+#: includes/class-wc-brands-admin.php:301
 msgid "Remove image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:251
-#: includes/class-wc-brands-admin.php:329
+#: includes/class-wc-brands-admin.php:248
+#: includes/class-wc-brands-admin.php:326
 msgid "Choose an image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:253
-#: includes/class-wc-brands-admin.php:331
+#: includes/class-wc-brands-admin.php:250
+#: includes/class-wc-brands-admin.php:328
 msgid "Use image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:374
+#: includes/class-wc-brands-admin.php:371
 msgid ""
 "Brands be added and managed from this screen. You can optionally upload a "
 "brand image to display in brand widgets and on brand archives"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:400
+#: includes/class-wc-brands-admin.php:397
 msgid "Image"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:462
+#: includes/class-wc-brands-admin.php:448
 msgid "Select a brand"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:479
+#: includes/class-wc-brands-admin.php:471
 msgid "Product brand base"
 msgstr ""
 
@@ -129,69 +129,68 @@ msgstr ""
 msgid "Product Tag"
 msgstr ""
 
-#: includes/class-wc-brands-coupons-legacy.php:191
-#: includes/class-wc-brands-coupons.php:154
-msgid "Sorry, this coupon is not applicable to the brands: %s."
+#: includes/class-wc-brands-coupons.php:126
+msgid "Sorry, this coupon is not applicable to the brands of selected products."
 msgstr ""
 
-#: includes/class-wc-brands.php:114
+#: includes/class-wc-brands.php:93
 #. translators: %s: WooCommerce link
 msgid ""
 "Full Site Editor themes require %s >= 6.1 for full compatibility with "
 "WooCommerce Brands."
 msgstr ""
 
-#: includes/class-wc-brands.php:232 includes/class-wc-brands.php:239
+#: includes/class-wc-brands.php:193 includes/class-wc-brands.php:200
 msgid "brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:250
+#: includes/class-wc-brands.php:211
 msgid "Brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:251
+#: includes/class-wc-brands.php:212
 msgid "Search Brands"
 msgstr ""
 
-#: includes/class-wc-brands.php:252
+#: includes/class-wc-brands.php:213
 msgid "All Brands"
 msgstr ""
 
-#: includes/class-wc-brands.php:253
+#: includes/class-wc-brands.php:214
 msgid "Parent Brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:254
+#: includes/class-wc-brands.php:215
 msgid "Parent Brand:"
 msgstr ""
 
-#: includes/class-wc-brands.php:255
+#: includes/class-wc-brands.php:216
 msgid "Edit Brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:256
+#: includes/class-wc-brands.php:217
 msgid "Update Brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:257
+#: includes/class-wc-brands.php:218
 msgid "Add New Brand"
 msgstr ""
 
-#: includes/class-wc-brands.php:258
+#: includes/class-wc-brands.php:219
 msgid "New Brand Name"
 msgstr ""
 
-#: includes/class-wc-brands.php:259
+#: includes/class-wc-brands.php:220
 msgid "No Brands Found"
 msgstr ""
 
-#: includes/class-wc-brands.php:383
+#: includes/class-wc-brands.php:345
 msgid "%1$s: "
 msgid_plural "%2$s: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-brands.php:845
+#: includes/class-wc-brands.php:804
 msgid "Limit result set to products assigned a specific brand ID."
 msgstr ""
 
@@ -334,17 +333,17 @@ msgstr ""
 msgid "https://woocommerce.com/"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:494
+#: includes/class-wc-brands-admin.php:486
 msgctxt "slug"
 msgid "brand"
 msgstr ""
 
-#: includes/class-wc-brands-admin.php:519
+#: includes/class-wc-brands-admin.php:511
 msgctxt "slug"
 msgid "product"
 msgstr ""
 
-#: includes/class-wc-brands.php:181
+#: includes/class-wc-brands.php:142
 msgctxt "slug"
 msgid "uncategorized"
 msgstr ""

@@ -12,6 +12,8 @@ use MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Initializer {
+
+  /** @var Renderer */
   private $renderer;
 
   /** @var WPFunctions */
@@ -23,16 +25,21 @@ class Initializer {
   /** @var SegmentCombinations */
   private $segmentCombinations;
 
+  /** @var Automation */
+  private $automation;
+
   const INITIALIZED = 'MAILPOET_PREMIUM_INITIALIZED';
 
   public function __construct(
     WPFunctions $wp,
     ConfigHooks $hooks,
-    SegmentCombinations $segmentCombinations
+    SegmentCombinations $segmentCombinations,
+    Automation $automation
   ) {
     $this->wp = $wp;
     $this->hooks = $hooks;
     $this->segmentCombinations = $segmentCombinations;
+    $this->automation = $automation;
   }
 
   public function init($params = [
@@ -66,6 +73,7 @@ class Initializer {
     $this->setupSegmentCombinations();
 
      $this->hooks->init();
+     $this->automation->init();
 
     if (!defined(self::INITIALIZED)) {
       define(self::INITIALIZED, true);
@@ -112,25 +120,37 @@ class Initializer {
     // shortcode URLs to substitute with user-friendly names
     $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
 
-    echo $this->renderer->render('newsletters/campaign_stats.html', $data);
+    $this->renderView('newsletters/campaign_stats.html', $data);
   }
 
   public function subscribersStats() {
     // shortcode URLs to substitute with user-friendly names
     $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
 
-    echo $this->renderer->render('subscribers/stats.html', $data);
+    $this->renderView('subscribers/stats.html', $data);
   }
 
   public function dynamicSegmentCombinations() {
-    echo $this->renderer->render('segments/dynamic.html');
+    $this->renderView('segments/dynamic.html');
   }
 
   public function includePremiumStyles() {
-    echo $this->renderer->render('styles.html');
+    $this->renderView('styles.html');
   }
 
   public function includePremiumJavascript() {
-    echo $this->renderer->render('scripts.html');
+    $this->renderView('scripts.html');
+  }
+
+  /**
+   * @param string $path
+   * @param array<string, mixed> $data
+   * @return void
+   * @throws \Exception
+   */
+  private function renderView(string $path, array $data = []) {
+    // We control those templates and the data.
+    // phpcs:ignore WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter,WordPress.Security.EscapeOutput.OutputNotEscaped
+    echo $this->renderer->render($path, $data);
   }
 }

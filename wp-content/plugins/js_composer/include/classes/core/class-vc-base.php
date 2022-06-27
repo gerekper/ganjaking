@@ -510,6 +510,11 @@ class Vc_Base {
 		wp_register_script( 'nivo-slider', vc_asset_url( 'lib/bower/nivoslider/jquery.nivo.slider.pack.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'flexslider', vc_asset_url( 'lib/flexslider/jquery.flexslider.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'wpb_composer_front_js', vc_asset_url( 'js/dist/js_composer_front.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
+		wp_localize_script( 'wpb_composer_front_js', 'vcData', array(
+			'currentTheme' => array(
+				'slug' => wpb_get_current_theme_slug(),
+			),
+		) );
 
 		/**
 		 * @since 4.4

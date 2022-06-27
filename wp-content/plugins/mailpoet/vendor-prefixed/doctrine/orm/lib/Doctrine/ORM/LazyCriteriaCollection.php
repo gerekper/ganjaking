@@ -7,6 +7,7 @@ use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 use MailPoetVendor\Doctrine\Common\Collections\Selectable;
 use MailPoetVendor\Doctrine\ORM\Persisters\Entity\EntityPersister;
+use ReturnTypeWillChange;
 class LazyCriteriaCollection extends AbstractLazyCollection implements Selectable
 {
  protected $entityPersister;
@@ -17,6 +18,7 @@ class LazyCriteriaCollection extends AbstractLazyCollection implements Selectabl
  $this->entityPersister = $entityPersister;
  $this->criteria = $criteria;
  }
+ #[\ReturnTypeWillChange]
  public function count()
  {
  if ($this->isInitialized()) {

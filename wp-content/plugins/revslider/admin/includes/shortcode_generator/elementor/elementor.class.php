@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -45,7 +45,11 @@ class RevSliderElementor {
 
 		// Register widget
 		$widgets_manager = \Elementor\Plugin::instance()->widgets_manager;
-		$widgets_manager->register_widget_type( new RevSliderElementorWidget() );
+		if(version_compare(ELEMENTOR_VERSION, '3.1.0', '<=')){
+			$widgets_manager->register_widget_type( new RevSliderElementorWidgetPre310() );
+		}else{
+			$widgets_manager->register_widget_type( new RevSliderElementorWidget() );
+		}
 
 	}
 	

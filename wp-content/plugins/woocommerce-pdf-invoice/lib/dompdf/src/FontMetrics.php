@@ -10,7 +10,7 @@
 
 namespace WooCommercePDFInvoice;
 
-use FontLib\Font;
+use WooCommercePDFInvoiceFontLib\Font;
 
 /**
  * The font metrics class

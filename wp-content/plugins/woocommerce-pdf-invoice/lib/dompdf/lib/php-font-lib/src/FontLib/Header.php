@@ -5,9 +5,9 @@
  * @author  Fabien Ménager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-namespace FontLib;
+namespace WooCommercePDFInvoiceFontLib;
 
-use FontLib\TrueType\File;
+use WooCommercePDFInvoiceFontLib\TrueType\File;
 
 /**
  * Font header container.

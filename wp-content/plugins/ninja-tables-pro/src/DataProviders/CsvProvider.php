@@ -55,7 +55,11 @@ class CsvProvider
         // Ensure the correct url if requesting goggle spreadsheet
         if ($type == 'google-csv') {
             $parsedUrl = parse_url($url);
-            parse_str($parsedUrl['query'], $query);
+            $queryIndex  = '';
+            if (isset($parsedUrl['query'])) {
+                $queryIndex = $parsedUrl['query'];
+            }
+            parse_str($queryIndex, $query);
             unset($query['output']);
             $query = build_query($query);
             $path = substr($parsedUrl['path'], 0, strrpos($parsedUrl['path'], '/'));

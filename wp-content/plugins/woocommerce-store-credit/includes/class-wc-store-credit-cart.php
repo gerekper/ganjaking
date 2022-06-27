@@ -230,8 +230,22 @@ class WC_Store_Credit_Cart {
 	 * Updates the cart totals.
 	 *
 	 * @since 3.0.0
+	 *
+	 * @param WC_Cart $cart Cart object.
 	 */
-	public function after_calculate_totals() {
+	public function after_calculate_totals( $cart ) {
+		/**
+		 * Filters whether to calculate the shipping discounts for the specified cart.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param bool    $calculate_discounts Whether to calculate the shipping discounts.
+		 * @param WC_Cart $cart                Cart object.
+		 */
+		if ( ! apply_filters( 'wc_store_credit_calculate_shipping_discounts_for_cart', true, $cart ) ) {
+			return;
+		}
+
 		$cart_discounts = $this->get_cart_discounts();
 		$cart_discounts->calculate_shipping_discounts();
 		$cart_discounts->calculate_totals();

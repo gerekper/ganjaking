@@ -31,7 +31,12 @@ class WC_Points_Rewards_Extend_Store_Endpoint {
 	 *
 	 */
 	public static function init() {
-		self::$extend = Package::container()->get( ExtendRestApi::class );
+		if ( version_compare( Package::get_version(), '7.2.0', '>=' ) ) {
+			self::$extend = Automattic\WooCommerce\StoreApi\StoreApi::container()->get( Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema::class );
+		} else {
+			self::$extend = Package::container()->get( ExtendRestApi::class );
+		}
+
 		self::extend_store();
 	}
 

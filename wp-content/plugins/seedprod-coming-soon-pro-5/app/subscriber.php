@@ -553,6 +553,8 @@ function seedprod_pro_subscribe_callback() {
 			$values,
 			$format_values
 		);
+		// run a do_action to allow other to hook into
+		do_action( 'seedprod_add_subscriber', $values );
 	}
 
 	wp_send_json_success();

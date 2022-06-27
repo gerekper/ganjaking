@@ -169,7 +169,7 @@ class WC_MS_Gifts {
         $packages      = $order->get_meta( '_wcms_packages' );
         $order_is_gift = ( true == $order->get_meta( '_gift_' . $package_index ) ) ? true : false;
 
-        if ( $order_is_gift && count( $packages ) == 1 ) {
+        if ( $order_is_gift && is_array( $packages ) && 1 == count( $packages ) ) {
             // inject the gift data into the only package
             // because multishipping doesn't process gift
             // data when there's only one package

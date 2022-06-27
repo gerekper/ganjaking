@@ -8,7 +8,6 @@
 
 namespace Smush\Core;
 
-use Smush\Core\Modules\Smush;
 use WP_CLI;
 use WP_CLI_Command;
 use WP_Smush;
@@ -53,6 +52,9 @@ class CLI extends WP_CLI_Command {
 	 *
 	 * # Smush first 5 images.
 	 * $ wp smush compress --type=batch --image=5
+	 *
+	 * @param array $args        All the positional arguments.
+	 * @param array $assoc_args  All the arguments defined like --key=value or --flag or --no-flag.
 	 */
 	public function compress( $args, $assoc_args ) {
 		$type  = $assoc_args['type'];
@@ -95,6 +97,8 @@ class CLI extends WP_CLI_Command {
 	 *
 	 * @subcommand list
 	 * @when after_wp_load
+	 *
+	 * @param array $args  All the positional arguments.
 	 */
 	public function _list( $args ) {
 		if ( ! empty( $args ) ) {
@@ -146,6 +150,9 @@ class CLI extends WP_CLI_Command {
 	 *
 	 * # Restore single image with ID = 10.
 	 * $ wp smush restore --id=10
+	 *
+	 * @param array $args        All the positional arguments.
+	 * @param array $assoc_args  All the arguments defined like --key=value or --flag or --no-flag.
 	 */
 	public function restore( $args, $assoc_args ) {
 		$id = $assoc_args['id'];
@@ -273,7 +280,12 @@ class CLI extends WP_CLI_Command {
 		foreach ( $attachments as $attachment_id ) {
 			if ( ! $core->mod->backup->backup_exists( $attachment_id ) ) {
 				$warning = true;
-				WP_CLI::warning( __( "Image {$attachment_id} cannot be restored", 'wp-smushit' ) );
+
+				$warning_text = printf( /* translators: %d - attachment ID */
+					esc_html__( 'Image %d cannot be restored', 'wp-smushit' ),
+					(int) $attachment_id
+				);
+				WP_CLI::warning( $warning_text );
 				$progress->tick();
 				continue;
 			}

@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Membership_Plan class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.4.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Membership Plan Condition.
  *
  * @class    WC_CSP_Condition_Membership_Plan
- * @version  1.11.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                             = 'membership_plan';
 		$this->title                          = __( 'Membership Plan', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 100;
 		$this->supported_global_restrictions  = array( 'payment_gateways', 'shipping_methods', 'shipping_countries' );
 		$this->supported_product_restrictions = array( 'payment_gateways', 'shipping_methods', 'shipping_countries' );
 	}

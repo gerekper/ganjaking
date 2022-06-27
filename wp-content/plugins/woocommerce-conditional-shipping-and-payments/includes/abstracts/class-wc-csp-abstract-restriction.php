@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Restriction class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.12.1
+ * @version  1.13.1
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -461,14 +460,6 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	}
 
 	/**
-	 * If the restriction supports multiple rule definitions.
-	 * @return bool
-	 */
-	public function supports_multiple() {
-		return $this->supports_multiple;
-	}
-
-	/**
 	 * Retrieves product restriction data.
 	 *
 	 * @param  int|WC_Product  $product
@@ -478,6 +469,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	public function get_product_restriction_data( $product, $context = 'view' ) {
 
 		$disable_product_restrictions = get_option( 'wccsp_restrictions_disable_product', false );
+		$restriction_data             = null;
 
 		if ( 'view' === $context && 'yes' === $disable_product_restrictions ) {
 			return array();
@@ -491,24 +483,42 @@ class WC_CSP_Restriction extends WC_Settings_API {
 			$product    = wc_get_product( $product_id );
 		}
 
-		$restriction_data = array();
-		$restriction_meta = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) && $product ? $product->get_meta( '_wccsp_restrictions', true ) : get_post_meta( $product_id, '_wccsp_restrictions', true );
+		if ( 'view' === $context ) {
+			$restriction_data = WC_CSP_Helpers::cache_get( $this->id . '_' . $product_id, 'product_restriction_data' );
+		}
 
-		$restrictions = WC_CSP()->restrictions->maybe_update_restriction_data( $restriction_meta, 'product' );
+		if ( is_null( $restriction_data ) ) {
 
-		if ( $restrictions ) {
-			foreach ( $restrictions as $restriction ) {
-				if ( $restriction[ 'restriction_id' ] == $this->id ) {
+			$restriction_data = array();
+			$restriction_meta = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) && $product ? $product->get_meta( '_wccsp_restrictions', true ) : get_post_meta( $product_id, '_wccsp_restrictions', true );
 
-					$is_disabled = ! empty( $restriction[ 'enabled' ] ) && 'no' === $restriction[ 'enabled' ];
+			$restrictions = WC_CSP()->restrictions->maybe_update_restriction_data( $restriction_meta, 'product' );
 
-					// Omit rule if restriction is disabled in view context.
-					if ( 'view' === $context && $is_disabled ) {
-						continue;
+			if ( $restrictions ) {
+				foreach ( $restrictions as $restriction ) {
+					if ( $restriction[ 'restriction_id' ] == $this->id ) {
+
+						$is_disabled = ! empty( $restriction[ 'enabled' ] ) && 'no' === $restriction[ 'enabled' ];
+
+						if ( 'view' === $context ) {
+
+							// Omit rule if restriction is disabled in view context.
+							if ( $is_disabled ) {
+								continue;
+							}
+
+							if ( ! empty( $restriction[ 'conditions' ] ) ) {
+								$restriction[ 'conditions' ] = WC_CSP()->conditions->get_optimized_conditions_data( $restriction[ 'conditions' ] );
+							}
+						}
+
+						$restriction_data[] = $restriction;
 					}
-
-					$restriction_data[] = $restriction;
 				}
+			}
+
+			if ( 'view' === $context ) {
+				WC_CSP_Helpers::cache_set( $this->id . '_' . $product_id, $restriction_data, 'product_restriction_data' );
 			}
 		}
 
@@ -524,26 +534,45 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	public function get_global_restriction_data( $context = 'view' ) {
 
 		$disable_global_restrictions = get_option( 'wccsp_restrictions_disable_global', false );
+		$restriction_data            = null;
 
-		if ( 'view' === $context && 'yes' === $disable_global_restrictions ) {
-			return array();
+		if ( 'view' === $context ) {
+
+			if ( 'yes' === $disable_global_restrictions ) {
+				return array();
+			}
+
+			$restriction_data = WC_CSP_Helpers::cache_get( $this->id, 'global_restriction_data' );
 		}
 
-		$restriction_data = array();
+		if ( is_null( $restriction_data ) ) {
 
-		$global_restrictions = WC_CSP()->restrictions->maybe_update_restriction_data( get_option( 'wccsp_restrictions_global_settings', false ), 'global' );
+			$restriction_data    = array();
+			$global_restrictions = WC_CSP()->restrictions->maybe_update_restriction_data( get_option( 'wccsp_restrictions_global_settings', false ), 'global' );
 
-		if ( $global_restrictions && isset( $global_restrictions[ $this->id ] ) ) {
-			foreach ( $global_restrictions[ $this->id ] as $restriction ) {
+			if ( $global_restrictions && isset( $global_restrictions[ $this->id ] ) ) {
+				foreach ( $global_restrictions[ $this->id ] as $restriction ) {
 
-				$is_disabled = ! empty( $restriction[ 'enabled' ] ) && 'no' === $restriction[ 'enabled' ];
+					$is_disabled = ! empty( $restriction[ 'enabled' ] ) && 'no' === $restriction[ 'enabled' ];
 
-				// Omit rule if restriction is disabled in view context.
-				if ( 'view' === $context && $is_disabled ) {
-					continue;
+					if ( 'view' === $context ) {
+
+						// Omit rule if restriction is disabled in view context.
+						if ( $is_disabled ) {
+							continue;
+						}
+
+						if ( ! empty( $restriction[ 'conditions' ] ) ) {
+							$restriction[ 'conditions' ] = WC_CSP()->conditions->get_optimized_conditions_data( $restriction[ 'conditions' ] );
+						}
+					}
+
+					$restriction_data[] = $restriction;
 				}
+			}
 
-				$restriction_data[] = $restriction;
+			if ( 'view' === $context ) {
+				WC_CSP_Helpers::cache_set( $this->id, $restriction_data, 'global_restriction_data' );
 			}
 		}
 
@@ -671,7 +700,6 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		 * @param  array   $args
 		 */
 		return apply_filters( 'woocommerce_csp_' . $this->id . '_resolution_message', $this->get_resolution_message_content( $restriction, $context, $args ), $restriction, $context, $args );
-		return '';
 	}
 
 	/**
@@ -803,6 +831,33 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		}
 
 		return $active_rules_map;
+	}
+
+	/**
+	 * If the restriction supports multiple rule definitions.
+	 * @return bool
+	 */
+	public function supports_multiple() {
+		return $this->supports_multiple;
+	}
+
+	/**
+	 * Checks if a feature is supported.
+	 *
+	 * @since  1.13.0
+	 *
+	 * @param  string  $feature
+	 * @return boolean
+	 */
+	public function supports( $feature ) {
+
+		if ( 'static-notices' === $feature ) {
+			return ! WC_CSP_Core_Compatibility::is_block_based_checkout();
+		} elseif ( 'multiple' === $feature ) {
+			return $this->supports_multiple();
+		}
+
+		return true;
 	}
 
 	/**

@@ -16,7 +16,7 @@ use MailPoetVendor\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
 \class_exists(RewindableGenerator::class);
 \class_exists(ArgumentServiceLocator::class);
-class Container implements ResettableContainerInterface
+class Container implements ContainerInterface, ResetInterface
 {
  protected $parameterBag;
  protected $services = [];
@@ -49,19 +49,19 @@ class Container implements ResettableContainerInterface
  {
  return $this->parameterBag;
  }
- public function getParameter($name)
+ public function getParameter(string $name)
  {
  return $this->parameterBag->get($name);
  }
- public function hasParameter($name)
+ public function hasParameter(string $name)
  {
  return $this->parameterBag->has($name);
  }
- public function setParameter($name, $value)
+ public function setParameter(string $name, $value)
  {
  $this->parameterBag->set($name, $value);
  }
- public function set($id, $service)
+ public function set(string $id, ?object $service)
  {
  // Runs the internal initializer; used by the dumped container to include always-needed files
  if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
@@ -92,7 +92,7 @@ class Container implements ResettableContainerInterface
  }
  $this->services[$id] = $service;
  }
- public function has($id)
+ public function has(string $id)
  {
  if (isset($this->aliases[$id])) {
  $id = $this->aliases[$id];
@@ -105,13 +105,9 @@ class Container implements ResettableContainerInterface
  }
  return isset($this->fileMap[$id]) || isset($this->methodMap[$id]);
  }
- public function get($id, $invalidBehavior = 1)
+ public function get(string $id, int $invalidBehavior = 1)
  {
- $service = $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
- if (!\is_object($service) && null !== $service) {
- @\trigger_error(\sprintf('Non-object services are deprecated since Symfony 4.4, please fix the "%s" service which is of type "%s" right now.', $id, \gettype($service)), \E_USER_DEPRECATED);
- }
- return $service;
+ return $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
  }
  private function make(string $id, int $invalidBehavior)
  {
@@ -155,7 +151,7 @@ class Container implements ResettableContainerInterface
  }
  return null;
  }
- public function initialized($id)
+ public function initialized(string $id)
  {
  if (isset($this->aliases[$id])) {
  $id = $this->aliases[$id];
@@ -187,19 +183,19 @@ class Container implements ResettableContainerInterface
  {
  return [];
  }
- public static function camelize($id)
+ public static function camelize(string $id)
  {
  return \strtr(\ucwords(\strtr($id, ['_' => ' ', '.' => '_ ', '\\' => '_ '])), [' ' => '']);
  }
- public static function underscore($id)
+ public static function underscore(string $id)
  {
  return \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], \str_replace('_', '.', $id)));
  }
- protected function load($file)
+ protected function load(string $file)
  {
  return require $file;
  }
- protected function getEnv($name)
+ protected function getEnv(string $name)
  {
  if (isset($this->resolving[$envName = "env({$name})"])) {
  throw new ParameterCircularReferenceException(\array_keys($this->resolving));

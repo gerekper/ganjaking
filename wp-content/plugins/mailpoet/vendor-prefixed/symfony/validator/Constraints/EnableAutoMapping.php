@@ -3,9 +3,10 @@ namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::TARGET_CLASS)]
 class EnableAutoMapping extends Constraint
 {
- public function __construct($options = null)
+ public function __construct(array $options = null)
  {
  if (\is_array($options) && \array_key_exists('groups', $options)) {
  throw new ConstraintDefinitionException(\sprintf('The option "groups" is not supported by the constraint "%s".', __CLASS__));

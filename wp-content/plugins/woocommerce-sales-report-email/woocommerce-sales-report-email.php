@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Sales Report Email
  * Plugin URI: https://woocommerce.com/products/woocommerce-sales-report-email/
  * Description: Daily Sales Report Email
- * Version: 1.1.23
+ * Version: 1.1.25
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * License: GPL v3
- * WC tested up to: 6.2
+ * WC tested up to: 6.6
  * WC requires at least: 2.6
- * Tested up to: 5.9
+ * Tested up to: 6.0
  * Woo: 473579:a276a32606bc06fc451666a02c52cc64
  *
  * This program is free software: you can redistribute it and/or modify

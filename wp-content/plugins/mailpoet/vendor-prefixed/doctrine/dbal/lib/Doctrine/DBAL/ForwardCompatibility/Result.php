@@ -27,7 +27,7 @@ class Result implements IteratorAggregate, DriverStatement, DriverResultStatemen
  {
  $this->stmt = $stmt;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function getIterator()
  {
  return $this->stmt;

@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 2.1.0
+ * Version: 2.3.0
  * Author: WooCommerce
- * Tested up to: 5.8
+ * Tested up to: 6.0
  * WC requires at least: 4.0
- * WC tested up to: 5.5
+ * WC tested up to: 6.5
  * Author URI: https://woocommerce.com/
  * Text domain: sfn_cart_addons
  * Woo: 18717:3a8ef25334396206f5da4cf208adeda3
@@ -36,10 +36,11 @@ use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 use Automattic\WooCommerce\Admin\Features\Features;
 
+
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
-define( 'WC_CART_ADDONS_VERSION', '2.1.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '2.3.0' ); // WRCS: DEFINED_VERSION.
 
 require 'widget.php';
 
@@ -66,6 +67,7 @@ class SFN_Cart_Addons {
 
 		// Shortcode.
 		add_shortcode( 'display-addons', array( $this, 'sc_display_addons' ) );
+
 	}
 
 	public function register_widget() {
@@ -79,6 +81,7 @@ class SFN_Cart_Addons {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_style( 'wc_cart_addons_styles', plugins_url( 'assets/css/frontend.css', __FILE__ ), array(), WC_CART_ADDONS_VERSION );
+
 	}
 
 	public function menu() {
@@ -716,6 +719,7 @@ class SFN_Cart_Addons {
 
 		return $categories;
 	}
+
 }
 
 // Plugin init hook.
@@ -750,4 +754,15 @@ function sfn_display_cart_addons( $length = 4, $display_mode = 'loop', $add_to_c
 	if ( isset( $sfn_cart_addons ) ) {
 		echo $sfn_cart_addons->display_addons( $length, $display_mode, $add_to_cart );
 	}
+}
+
+if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.1', '>=' ) ) {
+	// This class needs to run after WooCommerce Blocks is ready.
+	add_action(
+		'woocommerce_blocks_loaded',
+		function() {
+			require_once dirname( __FILE__ ) . '/includes/class-woocommerce-cart-addons-blocks.php';
+			new WooCommerce_Cart_Addons_Blocks();
+		}
+	);
 }

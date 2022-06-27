@@ -19,16 +19,16 @@ class Step {
   private $key;
 
   /** @var string|null */
-  private $nextStepId;
+  protected $nextStepId;
 
   /** @var array */
-  private $args;
+  protected $args;
 
   public function __construct(
     string $id,
     string $type,
     string $key,
-    ?string $nextStepId,
+    ?string $nextStepId = null,
     array $args = []
   ) {
     $this->id = $id;
@@ -52,6 +52,10 @@ class Step {
 
   public function getNextStepId(): ?string {
     return $this->nextStepId;
+  }
+
+  public function setNextStepId(string $id): void {
+    $this->nextStepId = $id;
   }
 
   public function getArgs(): array {

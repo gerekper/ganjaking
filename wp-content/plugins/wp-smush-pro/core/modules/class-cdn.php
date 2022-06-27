@@ -190,7 +190,7 @@ class CDN extends Abstract_Module {
 	 * @since 3.2.1
 	 */
 	public function status() {
-		if ( ! $this->get_status() ) {
+		if ( ! $this->settings->get( 'cdn' ) ) {
 			return 'disabled';
 		}
 
@@ -570,9 +570,11 @@ class CDN extends Abstract_Module {
 			 * The preg_match is required to make sure that srcset is not already defined.
 			 * For the majority of images, srcset will be parsed as part of the wp_calculate_image_srcset filter.
 			 * But some images, for example, logos in Avada - will add their own srcset. For such images - generate our own.
+			 *
+			 * @since 3.9.10 Add 2 new parameters `$original_src, $image`  for filter `smush_skip_adding_srcset` to allow user disable auto-resize for specific image.
 			 */
 			if ( ! preg_match( '/srcset=["\'](.*?smushcdn\.com[^"\']+)["\']/i', $image ) ) {
-				if ( $this->settings->get( 'auto_resize' ) && ! apply_filters( 'smush_skip_adding_srcset', false ) ) {
+				if ( $this->settings->get( 'auto_resize' ) && ! apply_filters( 'smush_skip_adding_srcset', false, $original_src, $image ) ) {
 					list( $srcset, $sizes ) = $this->generate_srcset( $original_src );
 
 					if ( ! is_null( $srcset ) && false !== $srcset ) {
@@ -657,6 +659,14 @@ class CDN extends Abstract_Module {
 
 		// Store the original $src to be used later on.
 		$original_src = $src;
+
+		/**
+		 * Filter hook to alter background image src at the earliest.
+		 *
+		 * @param string $src    Image src.
+		 * @param string $image  Image tag.
+		 */
+		$src = apply_filters( 'smush_cdn_before_process_background_src', $src, $image );
 
 		// Make sure this image is inside a supported directory. Try to convert to valid path.
 		$src = $this->is_supported_path( $src );
@@ -1068,7 +1078,7 @@ class CDN extends Abstract_Module {
 	private function get_size_from_file_name( $src ) {
 		$size = array();
 
-		if ( preg_match( '/(\d+)x(\d+)\.(?:' . implode( '|', $this->supported_extensions ) . ')$/i', $src, $size ) ) {
+		if ( preg_match( '/-(\d+)x(\d+)\.(?:' . implode( '|', $this->supported_extensions ) . ')$/i', $src, $size ) ) {
 			// Get size and width.
 			$width  = (int) $size[1];
 			$height = (int) $size[2];
@@ -1385,7 +1395,7 @@ class CDN extends Abstract_Module {
 		if ( empty( $path ) ) {
 			return false;
 		}
-		$ext  = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+		$ext = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
 		if ( ! in_array( $ext, $this->supported_extensions, true ) ) {
 			return false;
 		}

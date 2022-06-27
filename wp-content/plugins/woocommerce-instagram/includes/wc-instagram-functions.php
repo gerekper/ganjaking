@@ -193,7 +193,7 @@ function wc_instagram_get_setting( $name, $default = null ) {
  */
 function wc_instagram_get_transient_expiration_time( $context = '' ) {
 	// Backward compatibility.
-	$expiration = apply_filters( 'woocommerce_instagram_transient_expire_time', DAY_IN_SECONDS );
+	$expiration = apply_filters( 'woocommerce_instagram_transient_expire_time', DAY_IN_SECONDS ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
 
 	/**
 	 * Filters the expiration time for the transient used to cache the API requests.
@@ -223,7 +223,7 @@ function wc_instagram_get_columns( $context = '' ) {
 	}
 
 	// Backward compatibility.
-	$columns = apply_filters( 'woocommerce_instagram_columns', $columns );
+	$columns = apply_filters( 'woocommerce_instagram_columns', $columns ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
 
 	/**
 	 * Filters the columns to use in a media grid.
@@ -255,7 +255,7 @@ function wc_instagram_get_images_number( $context = '' ) {
 	}
 
 	// Backward compatibility.
-	$number = apply_filters( 'woocommerce_instagram_images', $number );
+	$number = apply_filters( 'woocommerce_instagram_images', $number ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
 
 	/**
 	 * Filters the number of images to display in a media grid.

@@ -52,11 +52,11 @@ class TraceableValidator implements ValidatorInterface, ResetInterface
  $this->collectedData[] = ['caller' => \compact('name', 'file', 'line'), 'context' => \compact('value', 'constraints', 'groups'), 'violations' => \iterator_to_array($violations)];
  return $violations;
  }
- public function validateProperty($object, $propertyName, $groups = null)
+ public function validateProperty(object $object, string $propertyName, $groups = null)
  {
  return $this->validator->validateProperty($object, $propertyName, $groups);
  }
- public function validatePropertyValue($objectOrClass, $propertyName, $value, $groups = null)
+ public function validatePropertyValue($objectOrClass, string $propertyName, $value, $groups = null)
  {
  return $this->validator->validatePropertyValue($objectOrClass, $propertyName, $value, $groups);
  }

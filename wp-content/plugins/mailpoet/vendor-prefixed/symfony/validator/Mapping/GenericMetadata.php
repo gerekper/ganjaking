@@ -2,10 +2,9 @@
 namespace MailPoetVendor\Symfony\Component\Validator\Mapping;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
+use MailPoetVendor\Symfony\Component\Validator\Constraints\Cascade;
 use MailPoetVendor\Symfony\Component\Validator\Constraints\DisableAutoMapping;
 use MailPoetVendor\Symfony\Component\Validator\Constraints\EnableAutoMapping;
-use MailPoetVendor\Symfony\Component\Validator\Constraints\Length;
-use MailPoetVendor\Symfony\Component\Validator\Constraints\NotBlank;
 use MailPoetVendor\Symfony\Component\Validator\Constraints\Traverse;
 use MailPoetVendor\Symfony\Component\Validator\Constraints\Valid;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -31,8 +30,8 @@ class GenericMetadata implements MetadataInterface
  }
  public function addConstraint(Constraint $constraint)
  {
- if ($constraint instanceof Traverse) {
- throw new ConstraintDefinitionException(\sprintf('The constraint "%s" can only be put on classes. Please use "Symfony\\Component\\Validator\\Constraints\\Valid" instead.', \get_class($constraint)));
+ if ($constraint instanceof Traverse || $constraint instanceof Cascade) {
+ throw new ConstraintDefinitionException(\sprintf('The constraint "%s" can only be put on classes. Please use "Symfony\\Component\\Validator\\Constraints\\Valid" instead.', \get_debug_type($constraint)));
  }
  if ($constraint instanceof Valid && null === $constraint->groups) {
  $this->cascadingStrategy = CascadingStrategy::CASCADE;
@@ -63,18 +62,15 @@ class GenericMetadata implements MetadataInterface
  }
  public function getConstraints()
  {
- $this->configureLengthConstraints($this->constraints);
  return $this->constraints;
  }
  public function hasConstraints()
  {
  return \count($this->constraints) > 0;
  }
- public function findConstraints($group)
+ public function findConstraints(string $group)
  {
- $constraints = $this->constraintsByGroup[$group] ?? [];
- $this->configureLengthConstraints($constraints);
- return $constraints;
+ return $this->constraintsByGroup[$group] ?? [];
  }
  public function getCascadingStrategy()
  {
@@ -87,23 +83,5 @@ class GenericMetadata implements MetadataInterface
  public function getAutoMappingStrategy() : int
  {
  return $this->autoMappingStrategy;
- }
- private function configureLengthConstraints(array $constraints) : void
- {
- $allowEmptyString = \true;
- foreach ($constraints as $constraint) {
- if ($constraint instanceof NotBlank) {
- $allowEmptyString = \false;
- break;
- }
- }
- if ($allowEmptyString) {
- return;
- }
- foreach ($constraints as $constraint) {
- if ($constraint instanceof Length && null === $constraint->allowEmptyString) {
- $constraint->allowEmptyString = \false;
- }
- }
  }
 }

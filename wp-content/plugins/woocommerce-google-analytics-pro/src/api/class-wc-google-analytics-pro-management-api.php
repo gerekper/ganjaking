@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -29,7 +29,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Account_Summari
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Profiles_Response;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Request;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Response;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Google Analytics Management API handler.

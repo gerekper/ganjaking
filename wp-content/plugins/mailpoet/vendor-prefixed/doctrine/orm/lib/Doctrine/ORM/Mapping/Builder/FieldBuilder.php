@@ -41,6 +41,20 @@ class FieldBuilder
  $this->mapping['precision'] = $p;
  return $this;
  }
+ public function insertable(bool $flag = \true) : self
+ {
+ if (!$flag) {
+ $this->mapping['notInsertable'] = \true;
+ }
+ return $this;
+ }
+ public function updatable(bool $flag = \true) : self
+ {
+ if (!$flag) {
+ $this->mapping['notUpdatable'] = \true;
+ }
+ return $this;
+ }
  public function scale($s)
  {
  $this->mapping['scale'] = $s;

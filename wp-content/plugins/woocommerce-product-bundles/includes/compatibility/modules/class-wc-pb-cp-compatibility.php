@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version  6.14.0
+ * @version  6.15.1
  */
 class WC_PB_CP_Compatibility {
 
@@ -122,6 +122,12 @@ class WC_PB_CP_Compatibility {
 		 */
 
 		add_filter( 'woocommerce_parsed_rest_composite_order_item_configuration', array( __CLASS__, 'parse_composited_rest_bundle_configuration' ), 10, 3 );
+
+		/*
+		 * Store API.
+		 */
+
+		add_filter( 'rest_request_after_callbacks', array( __CLASS__, 'filter_store_api_cart_item_data' ), 20, 3 );
 
 		/*
 		 * Analytics.
@@ -629,7 +635,7 @@ class WC_PB_CP_Compatibility {
 
 		$group_mode_data[ 'flat_composited' ] = array(
 			'title'      => __( 'Composited Flat', 'woocommerce-composite-products' ),
-			'features'   => array( 'parent_item', 'child_item_indent', 'child_item_meta' ),
+			'features'   => array( 'parent_item', 'child_item_indent', 'child_item_meta', 'parent_cart_widget_item_meta' ),
 			'is_visible' => false
 		);
 
@@ -882,14 +888,17 @@ class WC_PB_CP_Compatibility {
 		return $content;
 	}
 
+	/**
+	 * Append bundled item data to composited bundle metadata.
+	 *
+	 * @param  string  $title
+	 * @param  array   $cart_item
+	 * @param  string  $cart_item_key
+	 * @return string
+	 */
 	public static function composited_bundle_cart_item_data_value( $title, $cart_item, $cart_item_key ) {
 
-		if ( wc_pb_is_bundle_container_cart_item( $cart_item ) && wc_cp_is_composited_cart_item( $cart_item ) ) {
-
-			// None Composited group mode.
-			$hide_title = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' );
-			// Flat Composited group mode.
-			$append_child_data = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'parent_cart_widget_item_meta' ) && WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'child_item_meta' );
+		if ( wc_pb_is_bundle_container_cart_item( $cart_item ) && $cart_item[ 'data' ]->is_type( 'bundle' ) ) {
 
 			/**
 			 * 'woocommerce_composited_bundle_container_cart_item_hide_title' filter.
@@ -898,30 +907,25 @@ class WC_PB_CP_Compatibility {
 			 * @param  array    $cart_item
 			 * @param  string   $cart_item_key
 			 */
-			$hide_title = apply_filters( 'woocommerce_composited_bundle_container_cart_item_hide_title', $hide_title, $cart_item, $cart_item_key );
-
-			if ( $hide_title || $append_child_data ) {
+			if ( apply_filters( 'woocommerce_composited_bundle_container_cart_item_hide_title', WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' ), $cart_item, $cart_item_key ) ) {
 
 				$bundled_cart_items = wc_pb_get_bundled_cart_items( $cart_item );
 
-				if ( $hide_title && empty( $bundled_cart_items ) ) {
+				if ( empty( $bundled_cart_items ) ) {
 
 					$title = __( 'No selection', 'woocommerce-product-bundles' );
 
 				} else {
 
-					if ( $hide_title ) {
-						$title = '';
-					} else {
-						$title .= '<br/>';
-					}
-
-					$bundle_meta = WC_PB()->display->get_bundle_container_cart_item_data( $cart_item );
-
-					foreach ( $bundle_meta as $meta ) {
-						$title .= $meta[ 'value' ] . '<br/>';
-					}
+					$bundle_meta = WC_PB()->display->get_bundle_container_cart_item_data( $cart_item, array( 'aggregated' => false ) );
+					$title       = implode( ', ', wp_list_pluck( $bundle_meta, 'value' ) );
 				}
+
+			} elseif ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'parent_cart_widget_item_meta' ) ) {
+
+				$bundle_meta = WC_PB()->display->get_bundle_container_cart_item_data( $cart_item, array( 'aggregated' => false ) );
+
+				$title .= ' &ndash; ' . implode( ', ', wp_list_pluck( $bundle_meta, 'value' ) );
 			}
 		}
 
@@ -1112,7 +1116,7 @@ class WC_PB_CP_Compatibility {
 	 */
 	public static function composited_bundle_checkout_item_quantity( $quantity, $cart_item, $cart_item_key = false ) {
 
-		if ( wc_pb_is_bundle_container_cart_item( $cart_item ) && wc_cp_is_composited_cart_item( $cart_item ) ) {
+		if ( wc_pb_is_bundle_container_cart_item( $cart_item ) ) {
 
 			$hide_qty = WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' );
 
@@ -1377,6 +1381,107 @@ class WC_PB_CP_Compatibility {
 		}
 
 		return $configuration;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Store API.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Filter store API responses.
+	 *
+	 * @since  6.15.1
+	 *
+	 * @param  $response  WP_REST_Response
+	 * @param  $server    WP_REST_Server
+	 * @param  $request   WP_REST_Request
+	 * @return WP_REST_Response
+	 */
+	public static function filter_store_api_cart_item_data( $response, $server, $request ) {
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		if ( strpos( $request->get_route(), 'wc/store' ) === false ) {
+			return $response;
+		}
+
+		$data = $response->get_data();
+
+		if ( empty( $data[ 'items' ] ) ) {
+			return $response;
+		}
+
+		$cart = WC()->cart->get_cart();
+
+		foreach ( $data[ 'items' ] as &$item_data ) {
+
+			$cart_item_key = $item_data[ 'key' ];
+			$cart_item     = isset( $cart[ $cart_item_key ] ) ? $cart[ $cart_item_key ] : null;
+
+			if ( is_null( $cart_item ) ) {
+				continue;
+			}
+
+			// Is this a composited bundle?
+			if ( isset( $item_data[ 'extensions' ]->composites[ 'composited_item_data' ] ) && isset( $item_data[ 'extensions' ]->bundles[ 'bundle_data' ] ) ) {
+
+				// If the subtotal is zero at this point, no aggregation happened.
+				if ( empty( $item_data[ 'totals' ]->line_subtotal ) ) {
+					$item_data[ 'extensions' ]->composites[ 'composited_item_data' ][ 'is_subtotal_hidden' ] = true;
+				}
+
+				// If the price is zero at this point, no aggregation happened.
+				if ( empty( $item_data[ 'prices' ]->raw_prices[ 'price' ] ) ) {
+					$item_data[ 'extensions' ]->composites[ 'composited_item_data' ][ 'is_price_hidden' ] = true;
+				}
+
+				if ( ! $cart_item[ 'data' ]->is_type( 'bundle' ) ) {
+					continue;
+				}
+
+				if ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' ) ) {
+					$item_data[ 'extensions' ]->bundles[ 'bundle_data' ][ 'is_title_hidden' ] = true;
+					$item_data[ 'quantity_limits' ]->editable = false;
+				}
+
+				foreach ( $data[ 'items' ] as &$bundled_item_data ) {
+
+					if ( ! isset( $bundled_item_data[ 'extensions' ]->bundles[ 'bundled_by' ] ) ) {
+						continue;
+					}
+
+					if ( $cart_item[ 'key' ] === $bundled_item_data[ 'extensions' ]->bundles[ 'bundled_by' ] ) {
+
+						$bundled_item_data[ 'extensions' ]->bundles[ 'bundled_item_data' ][ 'is_composited' ] = true;
+
+						if ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'component_multiselect' ) ) {
+							$bundled_item_data[ 'extensions' ]->bundles[ 'bundled_item_data' ][ 'is_ungrouped' ] = true;
+						}
+
+						// Do not display bundled item prices if aggregated at parent level since we can't nest deeper.
+						if ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_prices' ) ) {
+							$bundled_item_data[ 'extensions' ]->bundles[ 'bundled_item_data' ][ 'is_price_hidden' ] = true;
+						}
+
+						// Do not display bundled item subtotals if aggregated at parent level since we can't nest deeper.
+						if ( WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_subtotals' ) ) {
+							$bundled_item_data[ 'extensions' ]->bundles[ 'bundled_item_data' ][ 'is_subtotal_hidden' ] = true;
+						}
+
+						// This basically controls the "arrow" that makes subtotals look indented. If the parent composite aggregates its components, then all bundled item subtotals should appear indented as well.
+						$bundled_item_data[ 'extensions' ]->bundles[ 'bundled_item_data' ][ 'is_subtotal_aggregated' ] = $item_data[ 'extensions' ]->composites[ 'composited_item_data' ][ 'is_subtotal_aggregated' ];
+					}
+				}
+			}
+		}
+
+		$response->set_data( $data );
+
+		return $response;
 	}
 
 	/*

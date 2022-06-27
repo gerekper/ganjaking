@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -63,12 +63,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'update_smart_coupon_balance' ) );
 			add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'update_smart_coupon_balance' ) );
 			add_action( 'sc_after_order_calculate_discount_amount', array( $this, 'update_smart_coupon_balance' ), 10 );
-
 			add_action( 'woocommerce_order_status_changed', array( $this, 'handle_coupon_process_on_3rd_party_order_statuses' ), 20, 3 );
-
 			add_filter( 'woocommerce_paypal_args', array( $this, 'modify_paypal_args' ), 11, 2 );
-
 			add_action( 'admin_init', array( $this, 'delete_smart_coupons_contribution' ), 11 );
+
+			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'virtual_downloadable_item_needs_update_smart_coupon_balance' ), 10, 3 );
 		}
 
 		/**
@@ -308,9 +307,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		 */
 		public function update_smart_coupon_balance( $order_id ) {
 
-			if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
-					|| ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) ) // phpcs:ignore
-				) {
+            if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
+                || ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) ) // phpcs:ignore
+			) {
 				return;
 			}
 
@@ -318,11 +317,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 			$order_used_coupons = $this->get_coupon_codes( $order );
 
-			if ( $order_used_coupons ) {
+			if ( ! empty( $order_used_coupons ) ) {
 
 				$smart_coupons_contribution = get_post_meta( $order_id, 'smart_coupons_contribution', true );
 
-				if ( ! isset( $smart_coupons_contribution ) || empty( $smart_coupons_contribution ) || ( is_array( $smart_coupons_contribution ) && count( $smart_coupons_contribution ) <= 0 ) ) {
+				if ( empty( $smart_coupons_contribution ) || ! is_array( $smart_coupons_contribution ) ) {
 					return;
 				}
 
@@ -333,18 +332,18 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						$smart_coupon = new WC_Coupon( $code );
 
 						if ( $this->is_wc_gte_30() ) {
-							if ( ! is_object( $smart_coupon ) || ! is_callable( array( $smart_coupon, 'get_id' ) ) ) {
+							if ( ! is_object( $smart_coupon ) ) {
 								continue;
 							}
-							$coupon_id = $smart_coupon->get_id();
+							$coupon_id = ( is_callable( array( $smart_coupon, 'get_id' ) ) ) ? $smart_coupon->get_id() : 0;
 							if ( empty( $coupon_id ) ) {
-								$coupon_id = wc_get_coupon_id_by_code( $code );
+								$coupon_id = function_exists( 'wc_get_coupon_id_by_code' ) ? wc_get_coupon_id_by_code( $code ) : 0;
 								if ( empty( $coupon_id ) ) {
 									continue;
 								}
 							}
-							$coupon_amount = $smart_coupon->get_amount();
-							$discount_type = $smart_coupon->get_discount_type();
+							$coupon_amount = ( is_callable( array( $smart_coupon, 'get_amount' ) ) ) ? $smart_coupon->get_amount() : 0;
+							$discount_type = ( is_callable( array( $smart_coupon, 'get_discount_type' ) ) ) ? $smart_coupon->get_discount_type() : '';
 						} else {
 							$coupon_id     = ( ! empty( $smart_coupon->id ) ) ? $smart_coupon->id : 0;
 							$coupon_amount = ( ! empty( $smart_coupon->amount ) ) ? $smart_coupon->amount : 0;
@@ -670,8 +669,29 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 					if ( ( 'yes' === $auto_generation_of_code || 'smart_coupon' === $discount_type ) && 'add' === $operation ) {
 
 						if ( get_post_meta( $coupon_id, 'is_pick_price_of_product', true ) === 'yes' && 'smart_coupon' === $discount_type ) {
-							$products_price = ( ! $prices_include_tax ) ? $item_total : $item_total + $item_tax;
-							$amount         = $products_price / $qty;
+
+							$amount                   = 0;
+							$products_price           = ( ! $prices_include_tax ) ? $item_total : $item_total + $item_tax;
+							$calculated_product_price = $products_price / $qty;
+
+							if ( is_object( $order_item ) && is_a( $order_item, 'WC_Order_Item_Product' ) ) {
+								$subtotal     = ( is_callable( array( $order_item, 'get_subtotal' ) ) ) ? $order_item->get_subtotal() : 0;
+								$subtotal_tax = ( is_callable( array( $order_item, 'get_subtotal_tax' ) ) ) ? $order_item->get_subtotal_tax() : 0;
+								$amount       = $subtotal + $subtotal_tax;
+								$amount       = round( $amount, get_option( 'woocommerce_price_num_decimals', 2 ) );
+							}
+							if ( empty( $amount ) ) {
+								$amount = $calculated_product_price;
+							}
+							$amount = apply_filters(
+								'wc_sc_auto_generated_coupon_pick_price_of_product',
+								$amount,
+								array(
+									'calculated_product_price' => $calculated_product_price,
+									'order_item' => $order_item,
+								)
+							);
+
 						} else {
 							$amount = $coupon_amount;
 						}
@@ -1352,6 +1372,85 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 			return $template;
 
+		}
+
+		/**
+		 * Virtual downloadable order item needs update smart coupon balance.
+		 *
+		 * @param boolean $virtual_downloadable_item true/false.
+		 * @param object  $_product line item.
+		 * @param int     $order_id order id.
+		 * @return bool|mixed
+		 */
+		public function virtual_downloadable_item_needs_update_smart_coupon_balance( $virtual_downloadable_item = true, $_product = null, $order_id = 0 ) {
+			if ( empty( $order_id ) ) {
+				return $virtual_downloadable_item;
+			}
+			$order                        = wc_get_order( $order_id );
+			$hooks_available_for_statuses = array( 'on-hold', 'pending', 'processing', 'completed', 'failed', 'refunded', 'cancelled' );
+			$order_status                 = ( is_object( $order ) && is_callable( array( $order, 'get_status' ) ) ) ? $order->get_status() : '';
+			if ( ! in_array( $order_status, $hooks_available_for_statuses, true ) ) {
+				return $virtual_downloadable_item;
+			}
+
+			if ( did_action( 'wc_sc_balance_updated_for_virtual_downloadable_item' ) >= 1 ) {
+				return $virtual_downloadable_item;
+			}
+
+			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items() : array();
+
+			if ( false === $virtual_downloadable_item ) {
+				$is_included_other_products_in_cart = false;
+				if ( ! empty( $order_items ) ) {
+					foreach ( $order_items as $item ) {
+						if ( $item->is_type( 'line_item' ) ) {
+							$product = ( is_object( $item ) && is_callable( array( $item, 'get_product' ) ) ) ? $item->get_product() : null;
+
+							if ( ! is_a( $product, 'WC_Product' ) ) {
+								continue;
+							}
+
+							$is_virtual_downloadable_item = $product->is_downloadable() && $product->is_virtual();
+
+							if ( false === $is_virtual_downloadable_item ) {
+								$is_included_other_products_in_cart = true;
+								break;
+							}
+						}
+					}
+				}
+				$order_used_coupons = $this->get_coupon_codes( $order );
+
+				if ( ! empty( $order_used_coupons ) ) {
+					foreach ( $order_used_coupons as $code ) {
+						$smart_coupon = new WC_Coupon( $code );
+						if ( $this->is_wc_gte_30() ) {
+							$discount_type = $smart_coupon->get_discount_type();
+						} else {
+							$discount_type = ( ! empty( $smart_coupon->discount_type ) ) ? $smart_coupon->discount_type : '';
+						}
+						if ( 'smart_coupon' === $discount_type ) {
+							if ( false === $is_included_other_products_in_cart ) {
+								remove_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'update_smart_coupon_balance' ) );
+								remove_action( 'woocommerce_order_status_pending_to_on-hold', array( $this, 'update_smart_coupon_balance' ) );
+								remove_action( 'woocommerce_order_status_failed_to_on-hold', array( $this, 'update_smart_coupon_balance' ) );
+								remove_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'update_smart_coupon_balance' ) );
+								remove_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'update_smart_coupon_balance' ) );
+								$this->update_smart_coupon_balance( $order_id );
+								do_action(
+									'wc_sc_balance_updated_for_virtual_downloadable_item',
+									array(
+										'order_id' => $order_id,
+										'product'  => $_product,
+										'source'   => $this,
+									)
+								);
+							}
+						}
+					}
+				}
+			}
+			return $virtual_downloadable_item;
 		}
 
 	}

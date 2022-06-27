@@ -25,8 +25,8 @@
     object-fit: cover; }
   .up-professional-layout__cover_buttons {
     position: absolute;
-    bottom: 0;
-    right: 0; }
+    bottom: 165px;
+    right: 42px; }
     @media screen and (max-width: 660px) {
       .up-professional-layout__cover_buttons {
         top: 15px;
@@ -283,7 +283,8 @@
     opacity: 1;
     transition: all .3s ease; }
     .up-professional-btn span i {
-      margin: 0 10px 0 0; }
+      /*margin: 0 10px 0 10px;*/
+    }
 
 @keyframes rotateloader {
   from {

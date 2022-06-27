@@ -184,6 +184,15 @@ tr.wc_sc_custom_design_css_wrapper .CodeMirror {
 	height: 200px;
 }
 
+.sc-coupons-list details > summary {
+	list-style: none;
+}
+
+.sc-coupons-list details > summary::marker, /* Latest Chrome, Edge, Firefox */ 
+.sc-coupons-list details > summary::-webkit-details-marker /* Safari */ {
+	display: none;
+}
+
 @media (min-width: 768px) {
 	.sc_info_box {
 		float: unset !important;

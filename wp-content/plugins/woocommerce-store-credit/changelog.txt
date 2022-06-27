@@ -1,5 +1,31 @@
 *** Store Credit Changelog ***
 
+2022-06-16 - version 4.1.1
+* Tweak - Added plugin info to the WooCommerce System Status Report.
+* Tweak - Tested compatibility with WC 6.6.
+
+2022-05-19 - version 4.1.0
+* Feature - Added compatibility with 'WooCommerce USPS Shipping'.
+* Tweak - Tested compatibility with WP 6.0.
+* Fix - Fixed wrong order total when the shipping costs are calculated with 'WooCommerce Shipping & Tax'.
+* Fix - Fixed wrong discount in the shipping costs when the taxes are calculated with 'WooCommerce AvaTax'.
+
+2022-04-28 - version 4.0.5
+* Tweak - Tested compatibility with WC 6.5.
+
+2022-04-21 - version 4.0.4
+* Tweak - Tested compatibility with WC 6.4.
+* Fix - Exhausted coupons with the amount format $0.00 were still displayed on the 'My account' page.
+
+2022-03-24 - version 4.0.3
+* Tweak - Keep the form values when the add-to-cart validation fails with a Store Credit product.
+
+2022-03-22 - version 4.0.2
+* Tweak - Display the Store Credit pricing options in the product data meta box with a higher priority.
+
+2022-03-16 - version 4.0.1
+* Fix - Fixed compatibility issue when sending AutomateWoo emails.
+
 2022-03-10 - version 4.0.0
 * Feature - Allow customers to choose the amount of credit to purchase.
 * Tweak - Display the credit amount when a Store Credit product is added to the cart.

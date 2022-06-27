@@ -104,7 +104,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 	}
 
 	public function is_applied_to_product( $_product ) {
-		if ( is_admin() && ! is_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
+		if ( is_admin() && ! wp_doing_ajax() && apply_filters( 'woocommerce_dynamic_pricing_skip_admin', true ) ) {
 			return false;
 		}
 
@@ -235,6 +235,11 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 				$variation_rules      = isset( $pricing_rule_set['variation_rules'] ) ? $pricing_rule_set['variation_rules'] : '';
 				$applied_to_variation = $variation_rules && isset( $variation_rules['args']['type'] ) && $variation_rules['args']['type'] == 'variations';
 
+				if ($variation_rules && isset( $variation_rules['args']['type'] ) &&  $variation_rules['args']['type'] == 'product') {
+					$variation_rules = '';
+					$applied_to_variation = false;
+				}
+
 				/** Commented out the is_single in 2.9.8 **/
 				//if ( is_single() ) {
 				if ( $applied_to_variation && ( $_product->is_type( 'variable' ) || $_product->is_type( 'variation' ) ) && $variation_rules ) {
@@ -311,7 +316,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 							$show_pricing_in_shop = apply_filters( 'woocommerce_dynamic_pricing_show_adjustments_in_shop', ( $rule['from'] == '0' || $rule['from']  == '1'), $rule, $_product );
 							if ( $show_pricing_in_shop ) {
 
-								//first rule matched takes precedence for the item. 
+								//first rule matched takes precedence for the item.
 								if ( ! $applied_rule ) {
 									if ( $applied_to_variation && $variation_id ) {
 										$applied_rule = $rule;

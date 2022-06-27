@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.1
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -188,7 +188,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 					<?php
 					/* translators: Non product type coupon labels */
 					$tooltip_text = sprintf( esc_html__( 'Product attributes that the coupon will be applied to, or that need to be in the cart in order for the %s to be applied.', 'woocommerce-smart-coupons' ), $non_product_coupon_types_label );
-					echo wc_help_tip( $tooltip_text ); // phpcs:ignore
+                    echo wc_help_tip( $tooltip_text ); // phpcs:ignore
 					?>
 				</p>
 			</div>
@@ -207,7 +207,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 					<?php
 					/* translators: Non product type coupon labels */
 					$tooltip_text = sprintf( esc_html__( 'Product attributes that the coupon will not be applied to, or that cannot be in the cart in order for the %s to be applied.', 'woocommerce-smart-coupons' ), $non_product_coupon_types_label );
-					echo wc_help_tip( $tooltip_text ); // phpcs:ignore
+                    echo wc_help_tip( $tooltip_text ); // phpcs:ignore
 					?>
 				</p>
 			</div>
@@ -233,7 +233,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 			if ( is_int( wp_is_post_autosave( $post ) ) ) {
 				return;
 			}
-			if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
+            if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) { // phpcs:ignore
 				return;
 			}
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -243,11 +243,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 				return;
 			}
 
-			$product_attribute_ids = ( isset( $_POST['wc_sc_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+            $product_attribute_ids = ( isset( $_POST['wc_sc_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_product_attribute_ids'] ) ) : array(); // phpcs:ignore
 			$product_attribute_ids = implode( '|', $product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
 			update_post_meta( $post_id, 'wc_sc_product_attribute_ids', $product_attribute_ids );
 
-			$exclude_product_attribute_ids = ( isset( $_POST['wc_sc_exclude_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_exclude_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+            $exclude_product_attribute_ids = ( isset( $_POST['wc_sc_exclude_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_exclude_product_attribute_ids'] ) ) : array(); // phpcs:ignore
 			$exclude_product_attribute_ids = implode( '|', $exclude_product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
 			update_post_meta( $post_id, 'wc_sc_exclude_product_attribute_ids', $exclude_product_attribute_ids );
 		}
@@ -263,7 +263,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 		 */
 		public function validate( $valid = false, $product = null, $coupon = null, $values = null ) {
 
-			$backtrace = wp_list_pluck( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ), 'function' ); // phpcs:ignore
+            $backtrace = wp_list_pluck( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ), 'function' ); // phpcs:ignore
 
 			// If coupon is already invalid, no need for further checks.
 			// Ignore this check if the discount type is a non-product-type discount.
@@ -312,6 +312,32 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 							$exclude_attribute_found = true;
 						} else {
 							$exclude_attribute_found = false;
+						}
+					}
+
+					if ( false === $product_attribute_found && false === $exclude_attribute_found ) {
+						$product_parent_id = is_callable( array( $product, 'get_parent_id' ) ) ? $product->get_parent_id() : 0;
+						if ( ! empty( $product_parent_id ) ) {
+							$parent_product = ( function_exists( 'wc_get_product' ) ) ? wc_get_product( $product_parent_id ) : null;
+							if ( ! empty( $parent_product ) ) {
+								$parent_product_attribute_ids = $this->get_product_attributes( $parent_product );
+								if ( apply_filters( 'wc_sc_check_parent_attributes', true, $product ) && ! empty( $product_attribute_ids ) && is_array( $product_attribute_ids ) ) {
+									$parent_product_attribute_id = array_intersect( $product_attribute_ids, $parent_product_attribute_ids );
+									if ( count( $parent_product_attribute_id ) > 0 ) {
+										$product_attribute_found = true;
+									} else {
+										$product_attribute_found = false;
+									}
+								}
+								if ( apply_filters( 'wc_sc_check_parent_attributes', true, $product ) && ! empty( $exclude_product_attribute_ids ) && is_array( $exclude_product_attribute_ids ) ) {
+									$exclude_parent_product_attribute_id = array_intersect( $exclude_product_attribute_ids, $parent_product_attribute_ids );
+									if ( count( $exclude_parent_product_attribute_id ) > 0 ) {
+										$exclude_attribute_found = true;
+									} else {
+										$exclude_attribute_found = false;
+									}
+								}
+							}
 						}
 					}
 
@@ -459,6 +485,20 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 									$common_exclude_attribute_ids = array_intersect( $exclude_product_attribute_ids, $product_attributes );
 									if ( count( $common_exclude_attribute_ids ) > 0 ) {
 										$excluded_products[] = $invalid_product->get_name();
+									} else {
+										$product_parent_id = is_callable( array( $invalid_product, 'get_parent_id' ) ) ? $invalid_product->get_parent_id() : 0;
+										if ( ! empty( $product_parent_id ) ) {
+											$parent_product = ( function_exists( 'wc_get_product' ) ) ? wc_get_product( $product_parent_id ) : '';
+											if ( ! empty( $parent_product ) ) {
+												$parent_product_attribute_ids = $this->get_product_attributes( $parent_product );
+												if ( apply_filters( 'wc_sc_check_parent_attributes', true, $invalid_product ) && ! empty( $exclude_product_attribute_ids ) && is_array( $exclude_product_attribute_ids ) ) {
+													$exclude_parent_product_attribute_id = array_intersect( $exclude_product_attribute_ids, $parent_product_attribute_ids );
+													if ( count( $exclude_parent_product_attribute_id ) > 0 ) {
+														$excluded_products[] = $invalid_product->get_name();
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -538,10 +578,10 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 		 */
 		public function generate_coupon_attribute_meta( $data = array(), $post = array() ) {
 
-			$product_attribute_ids = ( isset( $post['wc_sc_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+            $product_attribute_ids = ( isset( $post['wc_sc_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_attribute_ids'] ) ) : array(); // phpcs:ignore
 			$data['wc_sc_product_attribute_ids'] = implode( '|', $product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
 
-			$exclude_product_attribute_ids = ( isset( $post['wc_sc_exclude_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_exclude_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+            $exclude_product_attribute_ids = ( isset( $post['wc_sc_exclude_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_exclude_product_attribute_ids'] ) ) : array(); // phpcs:ignore
 			$data['wc_sc_exclude_product_attribute_ids'] = implode( '|', $exclude_product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
 
 			return $data;

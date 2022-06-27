@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 4.1.1\n"
+"Project-Id-Version: WooCommerce Instagram 4.1.9\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-28T15:17:32+00:00\n"
+"POT-Creation-Date: 2022-06-21T14:31:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-instagram\n"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: includes/abstracts/abstract-wc-instagram-settings-api.php:200
+#: includes/abstracts/abstract-wc-instagram-settings-api.php:199
 msgctxt "settings back link label"
 msgid "Return to the Instagram settings"
 msgstr ""
@@ -1257,7 +1257,12 @@ msgstr ""
 msgid "This section shows the product catalogs created with WooCommerce Instagram."
 msgstr ""
 
-#: includes/admin/views/html-admin-status-report-catalogs.php:54
+#: includes/admin/views/html-admin-status-report-catalogs.php:31
+msgctxt "product catalogs: table column"
+msgid "Last update (UTC)"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-catalogs.php:62
 msgid "View product catalog feed"
 msgstr ""
 
@@ -1279,6 +1284,10 @@ msgstr ""
 
 #: includes/admin/views/html-admin-status-report-settings.php:47
 msgid "Catalog permalink"
+msgstr ""
+
+#: includes/admin/views/html-admin-status-report-settings.php:53
+msgid "Catalog interval"
 msgstr ""
 
 #: includes/admin/wc-instagram-admin-functions.php:113

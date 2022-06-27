@@ -6,12 +6,13 @@ use MailPoetVendor\Doctrine\ORM\Query\AST\SimpleArithmeticExpression;
 use MailPoetVendor\Doctrine\ORM\Query\Lexer;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;
 use MailPoetVendor\Doctrine\ORM\Query\SqlWalker;
+use function sprintf;
 class SqrtFunction extends FunctionNode
 {
  public $simpleArithmeticExpression;
  public function getSql(SqlWalker $sqlWalker)
  {
- return $sqlWalker->getConnection()->getDatabasePlatform()->getSqrtExpression($sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression));
+ return sprintf('SQRT(%s)', $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression));
  }
  public function parse(Parser $parser)
  {

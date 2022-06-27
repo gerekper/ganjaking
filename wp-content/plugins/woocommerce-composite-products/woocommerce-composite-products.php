@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.3.8
+* Version: 8.5.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -12,13 +12,13 @@
 * Text Domain: woocommerce-composite-products
 * Domain Path: /languages/
 *
-* Requires PHP: 5.6
+* Requires PHP: 7.0
 *
 * Requires at least: 4.4
 * Tested up to: 5.8
 *
-* WC requires at least: 3.1
-* WC tested up to: 6.0
+* WC requires at least: 3.9
+* WC tested up to: 6.5
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,12 +33,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.3.8
+ * @version  8.4.4
  */
 class WC_Composite_Products {
 
-	public $version  = '8.3.8';
-	public $required = '3.6.0';
+	public $version  = '8.5.0';
+	public $required = '3.9.0';
 
 	/**
 	 * The single instance of the class.
@@ -202,9 +202,9 @@ class WC_Composite_Products {
 		}
 
 		// PHP version check.
-		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
+		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
 			/* translators: %1$s: PHP version, %2$s: Documentation link. */
-			$notice = sprintf( __( 'WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
+			$notice = sprintf( __( 'WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '7.0.0', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
 			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -341,7 +341,7 @@ class WC_Composite_Products {
 		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-display.php' );
 
 		// REST API hooks.
-		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-rest-api.php' );
+		require_once( WC_CP_ABSPATH . 'includes/api/class-wc-cp-rest-api.php' );
 
 		// Notices handling.
 		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-notices.php' );
@@ -371,7 +371,7 @@ class WC_Composite_Products {
 	 * Load textdomain.
 	 */
 	public function load_translation() {
-		load_plugin_textdomain( 'woocommerce-composite-products', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'woocommerce-composite-products', false, dirname( $this->plugin_basename() ) . '/languages/' );
 	}
 
 	/**
@@ -411,6 +411,20 @@ class WC_Composite_Products {
 		return $resource;
 	}
 
+	/**
+	 * Get the file modified time as a cache buster if we're in dev mode.
+	 *
+	 * @since 8.4.0
+	 *
+	 * @param  string  $file
+	 * @return string
+	 */
+	public function get_file_version( $file ) {
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( $file ) ) {
+			return filemtime( $file );
+		}
+		return $this->plugin_version();
+	}
 }
 
 /**

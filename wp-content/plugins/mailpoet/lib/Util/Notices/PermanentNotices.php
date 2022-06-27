@@ -42,6 +42,9 @@ class PermanentNotices {
   /** @var ChangedTrackingNotice */
   private $changedTrackingNotice;
 
+  /** @var DeprecatedFilterNotice */
+  private $deprecatedFilterNotice;
+
   public function __construct(
     WPFunctions $wp,
     TrackingConfig $trackingConfig,
@@ -57,6 +60,7 @@ class PermanentNotices {
     $this->headersAlreadySentNotice = new HeadersAlreadySentNotice($settings, $trackingConfig, $wp);
     $this->emailWithInvalidListNotice = new EmailWithInvalidSegmentNotice($wp);
     $this->changedTrackingNotice = new ChangedTrackingNotice($wp);
+    $this->deprecatedFilterNotice = new DeprecatedFilterNotice($wp);
   }
 
   public function init() {
@@ -97,6 +101,9 @@ class PermanentNotices {
     $this->changedTrackingNotice->init(
       Menu::isOnMailPoetAdminPage($excludeWizard)
     );
+    $this->deprecatedFilterNotice->init(
+      Menu::isOnMailPoetAdminPage($excludeWizard)
+    );
   }
 
   public function ajaxDismissNoticeHandler() {
@@ -122,6 +129,9 @@ class PermanentNotices {
         break;
       case (ChangedTrackingNotice::OPTION_NAME):
         $this->changedTrackingNotice->disable();
+        break;
+      case (DeprecatedFilterNotice::OPTION_NAME):
+        $this->deprecatedFilterNotice->disable();
         break;
     }
   }

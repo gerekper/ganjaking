@@ -190,6 +190,7 @@ jQuery(document).ready(function ($) {
         $('.ct-tab-3 .section-1').prepend('<thead></thead>');
         $('.ct-tab-3 .section-1 tbody tr:first-child()').appendTo('.ct-tab-3 .section-1 thead');
         $('.ct-tab-3 .section-1 tbody tr:first-child()').appendTo('.ct-tab-3 .section-1 thead');
+        $('.ct-tab-3 .section-1 tbody tr:first-child()').appendTo('.ct-tab-3 .section-1 thead');
     }
 
     //SERVICES PREVENT DEFAULT OF PLUGIN NAME LOAD

@@ -24,7 +24,6 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -51,9 +50,9 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 
 			if ( ( true === in_array( $billing_country, $risk_countries ) ) || ( true === in_array( $shipping_country, $risk_countries ) ) ) {
 				$risk = true;
-				Af_Logger::debug('billing country ' .$billing_country. ' is at risk');
+				Af_Logger::debug('billing country ' . $billing_country . ' is at risk');
 				if ( !empty($shipping_country) ) {
-					Af_Logger::debug('shipping country ' .$shipping_country. ' is at risk');
+					Af_Logger::debug('shipping country ' . $shipping_country . ' is at risk');
 				}
 			}
 		}
@@ -67,13 +66,13 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 			if ( $store_country == $billing_country && $store_country == $shipping_country ) {
 				
 				$risk = false;
-				Af_Logger::debug('billing country ' .$billing_country. ' is base country.');
+				Af_Logger::debug('billing country ' . $billing_country . ' is base country.');
 				if ( !empty($shipping_country) ) {
-					Af_Logger::debug('shipping country ' .$shipping_country. ' is base country.');
+					Af_Logger::debug('shipping country ' . $shipping_country . ' is base country.');
 				}
 			}
 		}
-		Af_Logger::debug('country rule risk : '. ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('country rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 

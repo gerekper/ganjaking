@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib;
+namespace WooCommercePDFInvoiceFontLib;
 
 /**
  * Autoloads FontLib classes
@@ -14,7 +14,7 @@ namespace FontLib;
  * @package php-font-lib
  */
 class CO_Autoloader {
-  const PREFIX = 'FontLib';
+  const PREFIX = 'WooCommercePDFInvoiceFontLib';
 
   /**
    * Register the autoloader

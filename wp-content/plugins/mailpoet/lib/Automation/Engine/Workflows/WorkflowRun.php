@@ -38,11 +38,16 @@ class WorkflowRun {
   public function __construct(
     int $workflowId,
     string $triggerKey,
-    array $subjects
+    array $subjects,
+    int $id = null
   ) {
     $this->workflowId = $workflowId;
     $this->triggerKey = $triggerKey;
     $this->subjects = $subjects;
+
+    if ($id) {
+      $this->id = $id;
+    }
 
     $now = new DateTimeImmutable();
     $this->createdAt = $now;
@@ -99,7 +104,7 @@ class WorkflowRun {
     $workflowRun->id = (int)$data['id'];
     $workflowRun->status = $data['status'];
     $workflowRun->createdAt = $data['created_at'];
-    $workflowRun->createdAt = $data['updated_at'];
+    $workflowRun->updatedAt = $data['updated_at'];
     return $workflowRun;
   }
 }

@@ -590,7 +590,7 @@ function userpro_process_form()
                 }
 
                 if (!username_exists($username_or_email)) {
-                    $output['error']['username_or_email'] = __('There is no such user in our system.', 'userpro');
+//                    $output['error']['username_or_email'] = __('There is no such user in our system.', 'userpro');
                 } elseif (!$userpro->can_reset_pass($username_or_email)) {
                     $output['error']['username_or_email'] = __('Resetting admin password is not permitted!', 'userpro');
                 }
@@ -1161,6 +1161,14 @@ function userpro_side_validate()
  *
  * @param $input_value string email  domain
  */
+
+function validateMinLength($val, $key){
+    if(in_array($key, explode(',',userpro_get_option('min_field_length_include') ) ) && strlen($val) < userpro_get_option('min_field_length')){
+            return __('Too short');
+    }
+    return null;
+}
+
 function checkIfEmailWhitelisted($input_value)
 {
     /* Check if email is whitelisted */

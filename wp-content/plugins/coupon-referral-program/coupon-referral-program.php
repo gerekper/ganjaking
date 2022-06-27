@@ -13,8 +13,8 @@
  *
  * Plugin Name:       Coupon Referral Program
  * Plugin URI:        https://woocommerce.com/products/coupon-referral-program/
- * Description:       This extension is mainly to install a referral program on your site and share the discount coupons in return.
- * Version:           1.6.3
+ * Description:       <code><strong>Coupon Referral Program</strong></code> extension is mainly to install a referral program on your site and share the discount coupons in return. <a href="https://wpswings.com/woocommerce-plugins/?utm_source=wpswings-crp-shop&utm_medium=crp-woo-backend&utm_campaign=shop-page">Elevate your e-commerce store by exploring more on WP Swings</a>
+ * Version:           1.6.4
  * Author:            WP Swings
  * Author URI:        https://wpswings.com/?utm_source=wpswings-crp-woo&utm_medium=woo-backend&utm_campaign=official
  * Developer:         WP Swings
@@ -23,9 +23,9 @@
  * Domain Path:       /languages
  * Woo: 3820066:337863f09a287f1aaa7ad10d885a170e
  * Requires at least:        4.6
- * Tested up to:             5.9
+ * Tested up to:             6.0
  * WC requires at least:     3.0
- * WC tested up to:          6.1.1
+ * WC tested up to:          6.5.1
  *
  * Copyright:         © 2009-2022 WooCommerce.
  * License:           GNU General Public License v3.0
@@ -57,7 +57,7 @@ if ( $activated ) {
 	/** Define plugin constants.  */
 	function define_coupon_referral_program_constants() {
 
-		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.2' );
+		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.4' );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_PATH', plugin_dir_path( __FILE__ ) );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_URL', plugin_dir_url( __FILE__ ) );
 	}
@@ -252,8 +252,9 @@ if ( $activated ) {
 	function mwb_crp_plugin_row_meta( $links, $file ) {
 		if ( strpos( $file, 'coupon-referral-program/coupon-referral-program.php' ) !== false ) {
 			$new_links = array(
-				'doc'     => '<a href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><i class="far fa-file-alt" ></i>Documentation</a>',
-				'support' => '<a href="https://wpswings.com/submit-query/?utm_source=wpswings-coupon-woo&utm_medium=woo-backend&utm_campaign=submit-query" target="_blank"><i class="fas fa-user-ninja" ></i>Support</a>',
+				'demo'    => '<a href="https://demo.wpswings.com/coupon-referral-program/?utm_source=wpswings-crp-demo&utm_medium=crp-woo-backend&utm_campaign=demo" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Demo.svg" class="wps-info-img" alt="demo image">Demo</a>',
+				'doc'     => '<a href="https://woocommerce.com/document/coupon-referral-program/" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Documentation.svg" class="wps-info-img" alt="documentation image">Documentation</a>',
+				'support' => '<a href="https://wpswings.com/submit-query/?utm_source=wpswings-crp-support&utm_medium=crp-woo-backend&utm_campaign=submit-query" target="_blank"><img src="' . esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ) . 'admin/images/Support.svg" class="wps-info-img" alt="support image">Support</a>',
 			);
 
 			$links = array_merge( $links, $new_links );
@@ -275,68 +276,6 @@ if ( $activated ) {
 		add_rewrite_endpoint( 'referral_coupons', EP_PAGES );
 		flush_rewrite_rules();
 	}
-
-	/**
-	 * Migration to new domain notice.
-	 *
-	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-	 * @param array  $plugin_data An array of plugin data.
-	 * @param string $status Status filter currently applied to the plugin list.
-	 */
-	function crp_upgrade_notice( $plugin_file, $plugin_data, $status ) {
-
-		?>
-		<tr class="plugin-update-tr active notice-warning notice-alt">
-			<td colspan="4" class="plugin-update colspanchange">
-				<div class="notice notice-success inline update-message notice-alt">
-					<div class='wps-notice-title wps-notice-section'>
-						<p><strong>IMPORTANT NOTICE:</strong></p>
-					</div>
-					<div class='wps-notice-content wps-notice-section'>
-						<p>From this update <strong>Version 1.6.3</strong> onwards, the plugin and its support will be handled by <strong>WP Swings</strong>.</p><p><strong>WP Swings</strong> is just our improvised and rebranded version with all quality solutions and help being the same, so no worries at your end.
-						Please connect with us for all setup, support, and update related queries without hesitation.</p>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<style>
-			.wps-notice-section > p:before {
-				content: none;
-			}
-		</style>
-		<?php
-
-	}
-	// Upgrade notice.
-	add_action( 'after_plugin_row_' . plugin_basename( __FILE__ ), 'crp_upgrade_notice', 0, 3 );
-
-	/**
-	 * Migration to new domain notice on Referral settings page.
-	 */
-	function crp_admin_notice_on_settings_page() {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
-
-		if ( 'crp-referral_setting' === $tab ) {
-			?>
-			<div class="notice notice-success notice-alt">
-				<div class='wps-notice-title wps-notice-section'>
-					<p><strong>IMPORTANT NOTICE:</strong></p>
-				</div>
-				<div class='wps-notice-content wps-notice-section'>
-					<p>From this update <strong>Version 1.6.3</strong> onwards, the plugin and its support will be handled by <strong>WP Swings</strong>.</p><p><strong>WP Swings</strong> is just our improvised and rebranded version with all quality solutions and help being the same, so no worries at your end.
-					Please connect with us for all setup, support, and update related queries without hesitation.</p>
-				</div>
-			</div>
-			<style>
-				.wps-notice-section > p:before {
-					content: none;
-				}
-			</style>
-			<?php
-		}
-	}
-	add_action( 'admin_notices', 'crp_admin_notice_on_settings_page' );
 } else {
 
 	// WooCommerce is not active so deactivate this plugin.
@@ -364,4 +303,3 @@ if ( $activated ) {
 		<?php
 	}
 }
-

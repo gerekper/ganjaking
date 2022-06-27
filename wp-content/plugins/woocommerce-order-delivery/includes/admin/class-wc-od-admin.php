@@ -107,27 +107,23 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		 * @return array
 		 */
 		public function plugin_row_meta( $links, $file ) {
-			if ( WC_OD_BASENAME === $file ) {
-				$row_meta = array(
-					'docs'     => sprintf(
-						'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-						esc_url( 'https://docs.woocommerce.com/document/woocommerce-order-delivery/' ),
-						esc_attr_x( 'View WooCommerce Order Delivery documentation', 'aria-label: documentation link', 'woocommerce-order-delivery' ),
-						esc_html_x( 'Docs', 'plugin row link', 'woocommerce-order-delivery' )
-					),
-					'whatsnew' => sprintf(
-						'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-						esc_url( 'https://docs.woocommerce.com/document/woocommerce-order-delivery/version-1-9/' ),
-						esc_attr(
-							/* translators: %s plugin version */
-							sprintf( _x( 'What\'s New in WooCommerce Order Delivery %s', 'aria-label: what\'s new link', 'woocommerce-order-delivery' ), '1.9' )
-						),
-						esc_html_x( 'What\'s New', 'plugin row link', 'woocommerce-order-delivery' )
-					),
-				);
-
-				$links = array_merge( $links, $row_meta );
+			if ( WC_OD_BASENAME !== $file ) {
+				return $links;
 			}
+
+			$links['docs'] = sprintf(
+				'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+				esc_url( 'https://woocommerce.com/document/woocommerce-order-delivery/' ),
+				esc_attr_x( 'View WooCommerce Order Delivery documentation', 'aria-label: documentation link', 'woocommerce-order-delivery' ),
+				esc_html_x( 'Docs', 'plugin row link', 'woocommerce-order-delivery' )
+			);
+
+			$links['support'] = sprintf(
+				'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+				esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=976514' ),
+				esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-order-delivery' ),
+				esc_html_x( 'Support', 'plugin row link', 'woocommerce-order-delivery' )
+			);
 
 			return $links;
 		}

@@ -26,13 +26,14 @@ use GuzzleHttp\ClientInterface;
  * CredentialsLoader contains the behaviour used to locate and find default
  * credentials files on the file system.
  */
-abstract class CredentialsLoader implements FetchAuthTokenInterface
+abstract class CredentialsLoader implements
+    FetchAuthTokenInterface,
+    UpdateMetadataInterface
 {
     const TOKEN_CREDENTIAL_URI = 'https://oauth2.googleapis.com/token';
     const ENV_VAR = 'GOOGLE_APPLICATION_CREDENTIALS';
     const WELL_KNOWN_PATH = 'gcloud/application_default_credentials.json';
     const NON_WINDOWS_WELL_KNOWN_PATH_BASE = '.config';
-    const AUTH_METADATA_KEY = 'authorization';
 
     /**
      * @param string $cause
@@ -130,20 +131,29 @@ abstract class CredentialsLoader implements FetchAuthTokenInterface
      * @param string|array $scope the scope of the access request, expressed
      *        either as an Array or as a space-delimited String.
      * @param array $jsonKey the JSON credentials.
+     * @param string|array $defaultScope The default scope to use if no
+     *   user-defined scopes exist, expressed either as an Array or as a
+     *   space-delimited string.
+     *
      * @return ServiceAccountCredentials|UserRefreshCredentials
      */
-    public static function makeCredentials($scope, array $jsonKey)
-    {
+    public static function makeCredentials(
+        $scope,
+        array $jsonKey,
+        $defaultScope = null
+    ) {
         if (!array_key_exists('type', $jsonKey)) {
             throw new \InvalidArgumentException('json key is missing the type field');
         }
 
         if ($jsonKey['type'] == 'service_account') {
+            // Do not pass $defaultScope to ServiceAccountCredentials
             return new ServiceAccountCredentials($scope, $jsonKey);
         }
 
         if ($jsonKey['type'] == 'authorized_user') {
-            return new UserRefreshCredentials($scope, $jsonKey);
+            $anyScope = $scope ?: $defaultScope;
+            return new UserRefreshCredentials($anyScope, $jsonKey);
         }
 
         throw new \InvalidArgumentException('invalid value in the type field');
@@ -204,6 +214,7 @@ abstract class CredentialsLoader implements FetchAuthTokenInterface
      * export a callback function which updates runtime metadata.
      *
      * @return array updateMetadata function
+     * @deprecated
      */
     public function getUpdateMetadataFunc()
     {
@@ -223,6 +234,10 @@ abstract class CredentialsLoader implements FetchAuthTokenInterface
         $authUri = null,
         callable $httpHandler = null
     ) {
+        if (isset($metadata[self::AUTH_METADATA_KEY])) {
+            // Auth metadata has already been set
+            return $metadata;
+        }
         $result = $this->fetchAuthToken($httpHandler);
         if (!isset($result['access_token'])) {
             return $metadata;

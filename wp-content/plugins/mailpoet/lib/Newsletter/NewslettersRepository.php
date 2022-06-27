@@ -69,6 +69,30 @@ class NewslettersRepository extends Repository {
   }
 
   /**
+   * @return NewsletterEntity[]
+   */
+  public function findActiveByTypeAndGroup(string $type, ?string $group): array {
+    $qb = $this->entityManager
+      ->createQueryBuilder()
+      ->select('n')
+      ->from(NewsletterEntity::class, 'n')
+      ->where('n.status = :status')
+      ->setParameter(':status', NewsletterEntity::STATUS_ACTIVE)
+      ->andWhere('n.deletedAt IS NULL')
+      ->andWhere('n.type = :type')
+      ->setParameter('type', $type);
+
+    if ($group) {
+      $qb->join('n.options', 'o', Join::WITH, 'o.value = :group')
+        ->join('o.optionField', 'f', Join::WITH, 'f.name = :nameGroup AND f.newsletterType = :type')
+        ->setParameter('nameGroup', NewsletterOptionFieldEntity::NAME_GROUP)
+        ->setParameter('group', $group);
+    }
+
+    return $qb->getQuery()->getResult();
+  }
+
+  /**
    * @param string[] $types
    * @return NewsletterEntity[]
    */
@@ -192,7 +216,7 @@ class NewslettersRepository extends Repository {
     if (empty($ids)) {
       return 0;
     }
-    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS, $attachProcessors = true)->addInfo(
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS, $attachProcessors = true)->info(
       'trashing newsletters', ['id' => $ids]
     );
     // Fetch children id for trashing

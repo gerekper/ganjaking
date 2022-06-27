@@ -16,7 +16,7 @@ use function trait_exists;
 use function trigger_error;
 use const DIRECTORY_SEPARATOR;
 use const E_USER_DEPRECATED;
-@trigger_error(ClassLoader::class . ' is deprecated.', \E_USER_DEPRECATED);
+@trigger_error(ClassLoader::class . ' is deprecated.', E_USER_DEPRECATED);
 class ClassLoader
 {
  protected $fileExtension = '.php';
@@ -68,7 +68,7 @@ class ClassLoader
  if (!$this->canLoadClass($className)) {
  return \false;
  }
- require ($this->includePath !== null ? $this->includePath . \DIRECTORY_SEPARATOR : '') . str_replace($this->namespaceSeparator, \DIRECTORY_SEPARATOR, $className) . $this->fileExtension;
+ require ($this->includePath !== null ? $this->includePath . DIRECTORY_SEPARATOR : '') . str_replace($this->namespaceSeparator, DIRECTORY_SEPARATOR, $className) . $this->fileExtension;
  return self::typeExists($className);
  }
  public function canLoadClass($className)
@@ -76,9 +76,9 @@ class ClassLoader
  if ($this->namespace !== null && strpos($className, $this->namespace . $this->namespaceSeparator) !== 0) {
  return \false;
  }
- $file = str_replace($this->namespaceSeparator, \DIRECTORY_SEPARATOR, $className) . $this->fileExtension;
+ $file = str_replace($this->namespaceSeparator, DIRECTORY_SEPARATOR, $className) . $this->fileExtension;
  if ($this->includePath !== null) {
- return is_file($this->includePath . \DIRECTORY_SEPARATOR . $file);
+ return is_file($this->includePath . DIRECTORY_SEPARATOR . $file);
  }
  return stream_resolve_include_path($file) !== \false;
  }

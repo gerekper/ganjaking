@@ -188,7 +188,7 @@ class WC_Brands_Coupons_Legacy {
 				}
 			}
 
-			$err = sprintf( __( 'Sorry, this coupon is not applicable to the brands: %s.', 'wc_brands' ), implode( ', ', array_unique( $brands ) ) );
+			$err = sprintf( __( 'Sorry, this coupon is not applicable to the brands: %s.', 'woocommerce-brands' ), implode( ', ', array_unique( $brands ) ) );
 		}
 		return $err;
 	}

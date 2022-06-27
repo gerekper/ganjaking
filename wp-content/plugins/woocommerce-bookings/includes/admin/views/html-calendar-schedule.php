@@ -7,6 +7,7 @@
 		<input type="hidden" name="view" value="<?php echo esc_attr( $view ); ?>" />
 		<input type="hidden" name="tab" value="calendar" />
 		<input type="hidden" name="calendar_day" value="<?php echo esc_attr( $day ); ?>" />
+		<input type="hidden" name="calendar_month" value="<?php echo esc_attr( $month ); ?>" />
 
 		<?php include 'html-calendar-nav.php'; ?>
 

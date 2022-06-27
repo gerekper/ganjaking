@@ -41,7 +41,7 @@ echo esc_html( $email_heading ) . "\n\n"; ?>
 								<tbody>
 									<tr>
 										<td>
-											<div style="text-align: center;"><?php echo esc_html( $coupon_amount ); ?></div>
+											<div style="text-align: center;"><?php echo wp_kses_post( $coupon_amount ); ?></div>
 										</td>
 									</tr>
 								</tbody>
@@ -73,4 +73,10 @@ echo esc_html( $email_heading ) . "\n\n"; ?>
 	</tbody>
 </table>
 <?php
+/**
+ * Filter woocommerce email.
+ *
+ * @since 1.6.4
+ * @param string $email_footer
+ */
 echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

@@ -25,8 +25,8 @@ function wc_od_get_current_screen_id() {
 	}
 
 	// Get the value from the request.
-	if ( ! $screen_id && ! empty( $_REQUEST['screen'] ) ) {
-		$screen_id = wc_clean( wp_unslash( $_REQUEST['screen'] ) ); // WPCS: CSRF ok.
+	if ( ! $screen_id && ! empty( $_REQUEST['screen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		$screen_id = wc_clean( wp_unslash( $_REQUEST['screen'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 	}
 
 	return $screen_id;

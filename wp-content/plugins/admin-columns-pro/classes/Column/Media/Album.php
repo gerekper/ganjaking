@@ -12,7 +12,7 @@ class Album extends AC\Column\Media\Album
 	implements Sorting\Sortable, Editing\Editable, Export\Exportable, Search\Searchable {
 
 	public function sorting() {
-		return new Sorting\Model\Media\MetaDataText( $this->get_sub_key() );
+		return new Sorting\Model\Media\MetaDataText( 'album' );
 	}
 
 	public function export() {
@@ -20,11 +20,11 @@ class Album extends AC\Column\Media\Album
 	}
 
 	public function editing() {
-		return new Editing\Service\Media\MetaData( new Editing\View\Text(), $this->get_sub_key() );
+		return new Editing\Service\Media\MetaData\Audio( 'album' );
 	}
 
 	public function search() {
-		return new Search\Comparison\Media\MetaData( $this->get_sub_key() );
+		return new Search\Comparison\Media\MetaData( 'album' );
 	}
 
 }

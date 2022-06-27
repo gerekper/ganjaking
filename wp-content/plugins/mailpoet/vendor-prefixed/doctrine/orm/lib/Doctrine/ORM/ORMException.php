@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Common\Cache\Cache as CacheDriver;
 use MailPoetVendor\Doctrine\Persistence\ObjectRepository;
 use Exception;
-use function get_class;
+use function get_debug_type;
 use function implode;
 use function sprintf;
 class ORMException extends Exception
@@ -76,11 +76,11 @@ class ORMException extends Exception
  }
  public static function queryCacheUsesNonPersistentCache(CacheDriver $cache)
  {
- return new self('Query Cache uses a non-persistent cache driver, ' . get_class($cache) . '.');
+ return new self('Query Cache uses a non-persistent cache driver, ' . get_debug_type($cache) . '.');
  }
  public static function metadataCacheUsesNonPersistentCache(CacheDriver $cache)
  {
- return new self('Metadata Cache uses a non-persistent cache driver, ' . get_class($cache) . '.');
+ return new self('Metadata Cache uses a non-persistent cache driver, ' . get_debug_type($cache) . '.');
  }
  public static function proxyClassesAlwaysRegenerating()
  {

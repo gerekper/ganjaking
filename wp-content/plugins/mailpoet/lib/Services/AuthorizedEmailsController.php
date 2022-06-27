@@ -70,7 +70,7 @@ class AuthorizedEmailsController {
 
     $authorizedEmails = $this->bridge->getAuthorizedEmailAddresses();
     // Keep previous check result for an invalid response from API
-    if ($authorizedEmails === false) {
+    if (!$authorizedEmails) {
       return null;
     }
     $authorizedEmails = array_map('strtolower', $authorizedEmails);

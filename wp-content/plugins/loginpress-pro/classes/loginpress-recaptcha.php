@@ -3,7 +3,7 @@
  * LoginPress reCAPTCHA.
  *
  * @since 1.0.1
- * @version 2.5.0
+ * @version 2.5.2
  */
 if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 
@@ -50,6 +50,8 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 
 			$cap_register = isset( $this->loginpress_settings['captcha_enable']['register_form'] ) ? $this->loginpress_settings['captcha_enable']['register_form'] : false;
 
+			$action       = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
+
 			/* Add reCAPTCHA on login form */
 			if ( $cap_login ) {
 				add_action( 'login_form', array( $this, 'loginpress_recaptcha_field' ) );
@@ -75,8 +77,12 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 				add_filter( 'allow_password_reset', array( $this, 'loginpress_recaptcha_lostpassword_auth' ) );
 			}
 
-			/* Authentication reCAPTCHA on registration form */
-			if ( ! isset( $_GET['customize_changeset_uuid'] ) && $cap_register ) {
+			/**
+			 * Authentication reCAPTCHA on registration form && if register action is performed.
+			 *
+			 * @version 2.5.2
+			 */
+			if ( ! isset( $_GET['customize_changeset_uuid'] ) && $cap_register && 'register' === $action ) {
 				add_filter( 'registration_errors', array( $this, 'loginpress_recaptcha_registration_auth' ), 10, 3 );
 			}
 
@@ -104,6 +110,7 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 					'label' => __( 'Enable reCAPTCHA', 'loginpress-pro' ),
 					'desc'  => __( 'Enable LoginPress reCaptcha', 'loginpress-pro' ),
 					'type'  => 'checkbox',
+					// 'sanitize_callback' => 'sanitize_text_field',
 				),
 				array(
 					'name'    => 'recaptcha_type',
@@ -115,7 +122,6 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 						'v2-robot'     => __( 'V2 I\'m not robot.', 'loginpress-pro' ),
 						'v2-invisible' => __( 'V2 invisible', 'loginpress-pro' ),
 						'v3'           => __( 'V3', 'loginpress-pro' ),
-
 					),
 				),
 				array(
@@ -466,6 +472,7 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 			}
 
 			$response  = $reCaptcha->verify( wp_unslash( $_POST['g-recaptcha-response'] ), $this->loginpress_get_remote_ip() );
+
 			return $response;
 		}
 
@@ -548,6 +555,7 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 		public function loginpress_recaptcha_registration_auth( $errors, $sanitized_user_login, $user_email ) {
 
       $cap_type = isset( $this->loginpress_settings['recaptcha_type'] ) ? $this->loginpress_settings['recaptcha_type'] : 'v2-robot';
+
 			if ( isset( $_POST['g-recaptcha-response'] ) ) {
 
 				if ( 'v3' == $cap_type ) {
@@ -558,14 +566,12 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 						return new WP_Error( 'recaptcha_error', $this->loginpress_recaptcha_error() );
 					}
 				} else {
-
 					$response = $this->loginpress_recaptcha_verifier();
 					if ( ! $response->isSuccess() ) {
 						return new WP_Error( 'recaptcha_error', $this->loginpress_recaptcha_error() );
 					}
 				}
 			}
-
 			return $errors;
 		}
 

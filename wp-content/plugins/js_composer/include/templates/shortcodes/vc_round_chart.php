@@ -162,6 +162,12 @@ foreach ( $values as $k => $v ) {
 }
 
 $options[] = 'data-vc-type="' . esc_attr( $type ) . '"';
+$legendColor = isset( $atts['legend_color'] ) ? $atts['legend_color'] : 'black';
+if ( 'custom' === $legendColor ) {
+	$legendColor = isset( $atts['custom_legend_color'] ) ? $atts['custom_legend_color'] : 'black';
+} else {
+	$legendColor = vc_convert_vc_color( $legendColor );
+}
 $round_chart_data = [
 	'labels' => $labels,
 	'datasets' => [
@@ -172,7 +178,7 @@ $round_chart_data = [
 	],
 ];
 $options[] = 'data-vc-values="' . esc_attr( wp_json_encode( $round_chart_data ) ) . '"';
-
+$options[] = 'data-vc-legend-color="' . esc_attr( $legendColor ) . '"';
 if ( '' !== $title ) {
 	$title = '<h2 class="wpb_heading">' . $title . '</h4>';
 }

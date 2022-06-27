@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Restrictions class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -78,7 +77,7 @@ class WC_CSP_Restrictions {
 	/**
 	 * Get restriction class by restriction_id.
 	 *
-	 * @param  str    $restriction_id
+	 * @param  string  $restriction_id
 	 * @return WC_CSP_Restriction
 	 */
 	public function get_restriction( $restriction_id ) {

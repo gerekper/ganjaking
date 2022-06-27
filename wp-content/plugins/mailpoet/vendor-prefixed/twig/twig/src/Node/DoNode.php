@@ -9,9 +9,8 @@ class DoNode extends Node
  {
  parent::__construct(['expr' => $expr], [], $lineno, $tag);
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this)->write('')->subcompile($this->getNode('expr'))->raw(";\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\DoNode', 'MailPoetVendor\\Twig_Node_Do');

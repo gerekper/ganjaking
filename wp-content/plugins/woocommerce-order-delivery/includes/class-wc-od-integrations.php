@@ -59,9 +59,7 @@ class WC_OD_Integrations {
 	 */
 	public function init_integrations() {
 		foreach ( $this->integrations as $integration ) {
-			$implements = class_implements( $integration );
-
-			if ( ! is_array( $implements ) || ! in_array( 'WC_OD_Integration', $implements, true ) ) {
+			if ( ! is_a( $integration, 'WC_OD_Integration', true ) ) {
 				continue;
 			}
 

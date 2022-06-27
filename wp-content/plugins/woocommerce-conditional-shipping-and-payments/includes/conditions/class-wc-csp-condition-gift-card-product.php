@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Gift_Card_Product class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.8.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Gift Card Product Condition.
  *
  * @class    WC_CSP_Condition_Gift_Card_Product
- * @version  1.8.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Gift_Card_Product extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Gift_Card_Product extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                             = 'gift_card_product';
 		$this->title                          = __( 'Gift Card Product', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 20;
 		$this->supported_global_restrictions  = array( 'payment_gateways' );
 		$this->supported_product_restrictions = array( 'payment_gateways' );
 	}

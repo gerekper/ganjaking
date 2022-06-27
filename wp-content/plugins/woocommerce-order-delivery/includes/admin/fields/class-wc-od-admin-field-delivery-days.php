@@ -46,11 +46,7 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 			),
 		);
 
-		parent::__construct(
-			$field,
-			$columns,
-			$field['value']
-		);
+		parent::__construct( $field, $columns, wc_od_get_delivery_days()->all() );
 	}
 
 	/**
@@ -86,19 +82,20 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 * Outputs the column 'status'.
 	 *
 	 * @since 1.5.0
+	 * @since 2.0.0 The second argument is a delivery day object.
 	 *
-	 * @param int   $row  The row index.
-	 * @param array $data The row data.
+	 * @param int                $day_id       Delivery Day ID.
+	 * @param WC_OD_Delivery_Day $delivery_day Delivery day object.
 	 */
-	public function output_column_status( $row, $data ) {
-		$enabled = wc_string_to_bool( $data['enabled'] );
+	public function output_column_status( $day_id, $delivery_day ) {
+		$enabled = $delivery_day->is_enabled();
 		$label   = ( $enabled ? __( 'Yes', 'woocommerce-order-delivery' ) : __( 'No', 'woocommerce-order-delivery' ) );
 
 		echo '<label class="wc-od-input-toggle">';
 
 		printf(
 			'<input type="checkbox" name="%1$s" %2$s />',
-			esc_attr( $this->id . "[{$row}][enabled]" ),
+			esc_attr( $this->id . "[{$day_id}][enabled]" ),
 			checked( $enabled, true, false )
 		);
 
@@ -114,46 +111,64 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 * Outputs the column 'description'.
 	 *
 	 * @since 1.5.0
+	 * @since 2.0.0 The second argument is a delivery day object.
 	 *
-	 * @param int   $row  The row index.
-	 * @param array $data The row data.
+	 * @param int                $day_id       Delivery Day ID.
+	 * @param WC_OD_Delivery_Day $delivery_day Delivery day object.
 	 */
-	public function output_column_description( $row, $data ) {
-		if ( ! empty( $data['time_frames'] ) ) {
-			$time_frames = array();
+	public function output_column_description( $day_id, $delivery_day ) {
+		if ( $delivery_day->has_time_frames() ) {
+			$links       = array();
+			$time_frames = $delivery_day->get_time_frames();
 
-			foreach ( $data['time_frames'] as $key => $time_frame ) {
+			foreach ( $time_frames as $time_frame ) {
 				$params = array(
-					'day_id'   => $row,
-					'frame_id' => $key,
+					'day_id'   => $day_id,
+					'frame_id' => $time_frame->get_id(),
 				);
 
-				$time_frames[] = sprintf(
+				$links[] = sprintf(
 					'<a href="%1$s">%2$s</a>',
 					esc_url( wc_od_get_settings_url( 'time_frame', $params ) ),
-					esc_html( $time_frame['title'] )
+					esc_html( $time_frame->get_title() )
 				);
 			}
 
 			printf(
 				'<p><strong>%1$s</strong> %2$s</p>',
 				esc_html__( 'Time frames:', 'woocommerce-order-delivery' ),
-				wp_kses_post( join( ' | ', $time_frames ) )
-			);
-		} elseif ( ! empty( $data['shipping_methods'] ) ) {
-			if ( isset( $data['shipping_methods_option'] ) && 'all_except' === $data['shipping_methods_option'] ) {
-				$label = __( 'All shipping methods, except:', 'woocommerce-order-delivery' );
-			} else {
-				$label = __( 'Shipping methods:', 'woocommerce-order-delivery' );
-			}
-
-			printf(
-				'<p><strong>%1$s</strong> %2$s</p>',
-				esc_html( $label ),
-				esc_html( join( ' | ', array_map( 'wc_od_shipping_method_choice_label', $data['shipping_methods'] ) ) )
+				wp_kses_post( join( ' | ', $links ) )
 			);
 		} else {
-			echo '-';
+			if ( $delivery_day->get_number_of_orders() ) {
+				printf(
+					'<p><strong>%1$s</strong> %2$s</p>',
+					esc_html( __( 'Number of orders:', 'woocommerce-order-delivery' ) ),
+					esc_html( $delivery_day->get_number_of_orders() )
+				);
+			}
+
+			if ( 0 < $delivery_day->get_fee_amount() ) {
+				printf(
+					'<p><strong>%1$s</strong> %2$s</p>',
+					esc_html( __( 'Fee:', 'woocommerce-order-delivery' ) ),
+					wp_kses_post( wc_price( $delivery_day->get_fee_amount() ) )
+				);
+			}
+
+			if ( $delivery_day->has_shipping_methods() ) {
+				if ( 'all_except' === $delivery_day->get_shipping_methods_option() ) {
+					$label = __( 'All shipping methods, except:', 'woocommerce-order-delivery' );
+				} else {
+					$label = __( 'Shipping methods:', 'woocommerce-order-delivery' );
+				}
+
+				printf(
+					'<p><strong>%1$s</strong> %2$s</p>',
+					esc_html( $label ),
+					esc_html( join( ' | ', array_map( 'wc_od_shipping_method_choice_label', $delivery_day->get_shipping_methods() ) ) )
+				);
+			}
 		}
 	}
 
@@ -161,16 +176,17 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 * Outputs the column 'action'.
 	 *
 	 * @since 1.5.0
+	 * @since 2.0.0 The second argument is a delivery day object.
 	 *
-	 * @param int   $row  The row index.
-	 * @param array $data The row data.
+	 * @param int                $day_id       Delivery Day ID.
+	 * @param WC_OD_Delivery_Day $delivery_day Delivery day object.
 	 */
-	public function output_column_action( $row, $data ) {
-		$label = ( wc_string_to_bool( $data['enabled'] ) ? __( 'Manage', 'woocommerce-order-delivery' ) : __( 'Set Up', 'woocommerce-order-delivery' ) );
+	public function output_column_action( $day_id, $delivery_day ) {
+		$label = ( $delivery_day->is_enabled() ? __( 'Manage', 'woocommerce-order-delivery' ) : __( 'Set Up', 'woocommerce-order-delivery' ) );
 
 		printf(
 			'<a class="button alignright" href="%1$s">%2$s</a>',
-			esc_url( $this->get_row_url( $row ) ),
+			esc_url( $this->get_row_url( $day_id ) ),
 			esc_html( $label )
 		);
 	}

@@ -36,7 +36,6 @@ $smushit_keys = array(
 	'wp-smush-super_smushed_nextgen',
 	'wp-smush-settings_updated',
 	'wp-smush-hide_smush_welcome',
-	'wp-smush-hide_upgrade_notice',
 	'wp-smush-hide_update_info',
 	'wp-smush-install-type',
 	'wp-smush-version',
@@ -165,7 +164,7 @@ if ( is_multisite() ) {
 	delete_metadata( $meta_type, null, 'wp-smush-pngjpg_savings', '', $delete_all );
 }
 // Delete Directory smush table.
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}smush_dir_images" );
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->base_prefix}smush_dir_images" );
 
 // Delete directory scan data.
 delete_option( 'wp-smush-scan-step' );

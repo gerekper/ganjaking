@@ -127,11 +127,6 @@ class Admin {
 		// JS that can be used on all pages in the WP backend.
 		wp_register_script( 'smush-admin-common', WP_SMUSH_URL . 'app/assets/js/smush-admin-common.min.js', array( 'jquery' ), WP_SMUSH_VERSION, true );
 
-		if ( ! WP_Smush::is_pro() ) {
-			// Used on dashboard video widget.
-			wp_register_script( 'smush-wistia', '//fast.wistia.com/assets/external/E-v1.js', array(), WP_SMUSH_VERSION, true );
-		}
-
 		// Main CSS.
 		wp_register_style( 'smush-admin', WP_SMUSH_URL . 'app/assets/css/smush-admin.min.css', array(), WP_SMUSH_VERSION );
 
@@ -175,11 +170,6 @@ class Admin {
 			// Smush admin (smush-admin) includes the Shared UI.
 			wp_enqueue_style( 'smush-admin' );
 			wp_enqueue_script( 'smush-wpmudev-sui' );
-
-			if ( ! WP_Smush::is_pro() ) {
-				// Used on dashboard video widget.
-				wp_enqueue_script( 'smush-wistia' );
-			}
 		}
 
 		if ( ! in_array( $current_page, array( 'post', 'post-new', 'page', 'edit-page' ), true ) ) {
@@ -228,11 +218,12 @@ class Admin {
 		$links['smush_docs'] = '<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs" aria-label="' . esc_attr( __( 'View Smush Documentation', 'wp-smushit' ) ) . '" target="_blank">' . esc_html__( 'Docs', 'wp-smushit' ) . '</a>';
 
 		// Settings link.
-		$settings_page            = is_multisite() && is_network_admin() ? network_admin_url( 'admin.php?page=smush' ) : menu_page_url( 'smush', false );
-		$links['smush_dashboard'] = '<a href="' . $settings_page . '" aria-label="' . esc_attr( __( 'Go to Smush Dashboard', 'wp-smushit' ) ) . '">' . esc_html__( 'Settings', 'wp-smushit' ) . '</a>';
+		$settings_page            = is_multisite() && is_network_admin() ? network_admin_url( 'admin.php?page=smush-settings' ) : menu_page_url( 'smush-settings', false );
+		$links['smush_dashboard'] = '<a href="' . $settings_page . '" aria-label="' . esc_attr( __( 'Go to Smush settings', 'wp-smushit' ) ) . '">' . esc_html__( 'Settings', 'wp-smushit' ) . '</a>';
 
-		if ( is_network_admin() && ! is_plugin_active_for_network( WP_SMUSH_BASENAME ) ) {
-			// Remove links for network admin when plugin is not activated for network.
+		$access = get_site_option( 'wp-smush-networkwide' );
+		if ( ! is_network_admin() && is_plugin_active_for_network( WP_SMUSH_BASENAME ) && ! $access ) {
+			// Remove settings link for subsites if Subsite Controls is not set on network permissions tab.
 			unset( $links['smush_dashboard'] );
 		}
 
@@ -305,10 +296,6 @@ class Admin {
 
 			if ( Abstract_Page::should_render( 'integrations' ) ) {
 				$this->pages['integrations'] = new Pages\Integrations( 'smush-integrations', __( 'Integrations', 'wp-smushit' ), 'smush' );
-			}
-
-			if ( Abstract_Page::should_render( 'tools' ) ) {
-				$this->pages['tools'] = new Pages\Tools( 'smush-tools', __( 'Tools', 'wp-smushit' ), 'smush' );
 			}
 
 			if ( ! is_multisite() || is_network_admin() ) {
@@ -513,12 +500,6 @@ class Admin {
 	 * @param int $unsmushed_count Unsmushed image count.
 	 */
 	public function print_pending_bulk_smush_content( $total_count, $resmush_count, $unsmushed_count ) {
-		$tooltip_message = sprintf(
-			/* translators: %d total number of images to smush. */
-			_n( 'You have %d attachment that needs smushing. Click Bulk Smush and compress the images in bulk.', 'You have %d attachments that need smushing. Click Bulk Smush and compress the images in bulk.', $total_count, 'wp-smushit' ),
-			$total_count
-		);
-
 		$unsmushed_message = '';
 		if ( 0 < $unsmushed_count ) {
 			$unsmushed_message = sprintf(
@@ -549,35 +530,10 @@ class Admin {
 			( $unsmushed_message && $resmush_message ? esc_html__( ' and ', 'wp-smushit' ) : '' ),
 			$resmush_message
 		);
-
-		if ( ! WP_Smush::is_pro() && $total_count > Core::$max_free_bulk ) {
-			$upgrade_url = add_query_arg(
-				array(
-					'coupon'       => 'SMUSH30OFF',
-					'checkout'     => 0,
-					'utm_source'   => 'smush',
-					'utm_medium'   => 'plugin',
-					'utm_campaign' => 'smush_bulksmush_morethan50images_upgradetopro',
-				),
-				esc_url( 'https://wpmudev.com/project/wp-smush-pro/' )
-			);
-
-			$image_count_description .= sprintf(
-				/* translators: 1. opening 'a' tag to the upgrade url, 2. closing 'a' tag, 3. bulk smush image limit for free */
-				esc_html__( ' %1$sUpgrade to Pro%2$s to bulk smush all images in one click. Free users can smush %3$d images per batch.', 'wp-smushit' ),
-				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank" style="color: #8D00B1;">',
-				'</a>',
-				esc_html( Core::$max_free_bulk )
-			);
-		}
-
 		?>
 		<span id="wp-smush-bulk-image-count"><?php echo esc_html( $total_count ); ?></span>
-		<span class="sui-tooltip sui-tooltip-constrained" data-tooltip="<?php echo esc_attr( $tooltip_message ); ?>" style="--tooltip-width: 240px;">
-			<i class="sui-icon-info sui-warning" aria-hidden="true"></i>
-		</span>
 		<p id="wp-smush-bulk-image-count-description">
-			<?php echo $image_count_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php echo wp_kses_post( $image_count_description ); ?>
 		</p>
 		<?php
 	}

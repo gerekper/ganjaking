@@ -18,7 +18,6 @@ use MailPoetVendor\Doctrine\ORM\Id\SequenceGenerator;
 use MailPoetVendor\Doctrine\ORM\Id\UuidGenerator;
 use MailPoetVendor\Doctrine\ORM\Mapping\Exception\CannotGenerateIds;
 use MailPoetVendor\Doctrine\ORM\Mapping\Exception\InvalidCustomGenerator;
-use MailPoetVendor\Doctrine\ORM\Mapping\Exception\TableGeneratorNotImplementedYet;
 use MailPoetVendor\Doctrine\ORM\Mapping\Exception\UnknownGeneratorType;
 use MailPoetVendor\Doctrine\Persistence\Mapping\AbstractClassMetadataFactory;
 use MailPoetVendor\Doctrine\Persistence\Mapping\ClassMetadata as ClassMetadataInterface;
@@ -57,11 +56,13 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
  protected function onNotFoundMetadata($className)
  {
  if (!$this->evm->hasListeners(Events::onClassMetadataNotFound)) {
- return;
+ return null;
  }
  $eventArgs = new OnClassMetadataNotFoundEventArgs($className, $this->em);
  $this->evm->dispatchEvent(Events::onClassMetadataNotFound, $eventArgs);
- return $eventArgs->getFoundMetadata();
+ $classMetadata = $eventArgs->getFoundMetadata();
+ assert($classMetadata instanceof ClassMetadata || $classMetadata === null);
+ return $classMetadata;
  }
  protected function doLoadMetadata($class, $parent, $rootEntityFound, array $nonSuperclassParents)
  {
@@ -393,7 +394,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
  }
  private function determineIdGeneratorStrategy(AbstractPlatform $platform) : int
  {
- if ($platform instanceof Platforms\OraclePlatform || $platform instanceof Platforms\PostgreSQL94Platform || $platform instanceof Platforms\PostgreSQLPlatform) {
+ if ($platform instanceof Platforms\OraclePlatform || $platform instanceof Platforms\PostgreSQLPlatform) {
  return ClassMetadata::GENERATOR_TYPE_SEQUENCE;
  }
  if ($platform->supportsIdentityColumns()) {
@@ -407,7 +408,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
  private function truncateSequenceName(string $schemaElementName) : string
  {
  $platform = $this->getTargetPlatform();
- if (!in_array($platform->getName(), ['oracle', 'sqlanywhere'], \true)) {
+ if (!$platform instanceof Platforms\OraclePlatform && !$platform instanceof Platforms\SQLAnywherePlatform) {
  return $schemaElementName;
  }
  $maxIdentifierLength = $platform->getMaxIdentifierLength();
@@ -448,7 +449,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
  }
  protected function isEntity(ClassMetadataInterface $class)
  {
- return isset($class->isMappedSuperclass) && $class->isMappedSuperclass === \false;
+ return !$class->isMappedSuperclass;
  }
  private function getTargetPlatform() : Platforms\AbstractPlatform
  {

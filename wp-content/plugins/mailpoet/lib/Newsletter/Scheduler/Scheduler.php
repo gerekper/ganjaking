@@ -5,16 +5,30 @@ namespace MailPoet\Newsletter\Scheduler;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\Newsletter;
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 
 class Scheduler {
   const MYSQL_TIMESTAMP_MAX = '2038-01-19 03:14:07';
 
-  public static function getNextRunDate($schedule, $fromTimestamp = false) {
-    $wp = new WPFunctions();
-    $fromTimestamp = ($fromTimestamp) ? $fromTimestamp : $wp->currentTime('timestamp');
+  /** @var WPFunctions  */
+  private $wp;
+
+  /** @var NewslettersRepository */
+  private $newslettersRepository;
+
+  public function __construct(
+    WPFunctions $wp,
+    NewslettersRepository $newslettersRepository
+  ) {
+    $this->wp = $wp;
+    $this->newslettersRepository = $newslettersRepository;
+  }
+
+  public function getNextRunDate($schedule, $fromTimestamp = false) {
+    $fromTimestamp = ($fromTimestamp) ? $fromTimestamp : $this->wp->currentTime('timestamp');
     try {
       $schedule = \Cron\CronExpression::factory($schedule);
       $nextRunDate = $schedule->getNextRunDate(Carbon::createFromTimestamp($fromTimestamp))
@@ -25,9 +39,8 @@ class Scheduler {
     return $nextRunDate;
   }
 
-  public static function getPreviousRunDate($schedule, $fromTimestamp = false) {
-    $wp = WPFunctions::get();
-    $fromTimestamp = ($fromTimestamp) ? $fromTimestamp : $wp->currentTime('timestamp');
+  public function getPreviousRunDate($schedule, $fromTimestamp = false) {
+    $fromTimestamp = ($fromTimestamp) ? $fromTimestamp : $this->wp->currentTime('timestamp');
     try {
       $schedule = \Cron\CronExpression::factory($schedule);
       $previousRunDate = $schedule->getPreviousRunDate(Carbon::createFromTimestamp($fromTimestamp))
@@ -38,9 +51,8 @@ class Scheduler {
     return $previousRunDate;
   }
 
-  public static function getScheduledTimeWithDelay($afterTimeType, $afterTimeNumber, $wp = null): Carbon {
-    $wp = $wp ?? WPFunctions::get();
-    $currentTime = Carbon::createFromTimestamp($wp->currentTime('timestamp'));
+  public function getScheduledTimeWithDelay($afterTimeType, $afterTimeNumber): Carbon {
+    $currentTime = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
     switch ($afterTimeType) {
       case 'minutes':
         $currentTime->addMinutes($afterTimeNumber);
@@ -62,15 +74,14 @@ class Scheduler {
     return $currentTime;
   }
 
-  public static function getNewsletters($type, $group = false) {
-    return Newsletter::getPublished()
-      ->filter('filterType', $type, $group)
-      ->filter('filterStatus', Newsletter::STATUS_ACTIVE)
-      ->filter('filterWithOptions', $type)
-      ->findMany();
+  /**
+   * @return NewsletterEntity[]
+   */
+  public function getNewsletters(string $type, ?string $group = null): array {
+    return $this->newslettersRepository->findActiveByTypeAndGroup($type, $group);
   }
 
-  public static function formatDatetimeString($datetimeString) {
+  public function formatDatetimeString($datetimeString) {
     return Carbon::parse($datetimeString)->format('Y-m-d H:i:s');
   }
 }

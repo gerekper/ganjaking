@@ -53,9 +53,9 @@
 			public static $RESPONSE_LANGUAGE_TAG = "Ds_Language";
 			public static $RESPONSE_MERCHANT_DATA_TAG = "Ds_MerchantData";
 			public static $RESPONSE_CARD_COUNTRY_TAG = "Ds_Card_Country";
-			public static $RESPONSE_CARD_NUMBER_TAG = "Ds_CardNumber";
-			public static $RESPONSE_EXPIRY_DATE_TAG = "Ds_CardNumber";
-			public static $RESPONSE_MERCHANT_IDENTIFIER_TAG = "Ds_CardNumber";
+			public static $RESPONSE_CARD_NUMBER_TAG = "Ds_Card_Number";
+			public static $RESPONSE_EXPIRY_DATE_TAG = "Ds_Card_Number";
+			public static $RESPONSE_MERCHANT_IDENTIFIER_TAG = "Ds_Card_Number";
 			public static $RESPONSE_DCC_TAG = "DCC";
 			public static $RESPONSE_DCC_CURRENCY_TAG = "moneda";
 			public static $RESPONSE_DCC_CURRENCY_STRING_TAG = "litMoneda";

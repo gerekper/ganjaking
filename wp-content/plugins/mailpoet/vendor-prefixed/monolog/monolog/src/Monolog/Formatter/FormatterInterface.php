@@ -1,4 +1,5 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog\Formatter;
 if (!defined('ABSPATH')) exit;
 interface FormatterInterface

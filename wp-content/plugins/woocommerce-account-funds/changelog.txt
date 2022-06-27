@@ -1,5 +1,20 @@
 *** WooCommerce Account Funds ***
 
+2022-06-14 - version 2.7.0
+* Tweak - Validates the format of the funds' amount in the edit user screen.
+* Tweak - Updated link to get support in the plugin list.
+* Tweak - Tested compatibility up to WC 6.6.
+* Tweak - Tested compatibility with WP 6.0.
+* Dev - Added filters for customizing who can view and edit the users' funds.
+* Dev - Deprecated methods `WC_Account_Funds::add_funds()` and `WC_Account_Funds::remove_funds()`.
+* Dev - Updated the minimum requirements to WC 3.7, WP 4.9, and PHP 5.6.
+
+2022-04-28 - version 2.6.5
+* Tweak - Tested compatibility up to WC 6.5.
+
+2022-03-09 - version 2.6.4
+* Tweak - Update the cart session after applying the funds.
+
 2022-02-23 - version 2.6.3
 * Tweak - Use the order's currency symbol to format order prices.
 * Tweak - Tested compatibility with WC 6.3.

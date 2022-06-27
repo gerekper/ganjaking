@@ -10,7 +10,7 @@ use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WP\Notice as WPNotice;
 
 class RequirementsChecker {
-  const TEST_FOLDER_PERMISSIONS = 'TempAndCacheFolderCreation';
+  const TEST_FOLDER_PERMISSIONS = 'TempFolderCreation';
   const TEST_PDO_EXTENSION = 'PDOExtension';
   const TEST_XML_EXTENSION = 'XmlExtension';
   const TEST_VENDOR_SOURCE = 'VendorSource';
@@ -44,12 +44,11 @@ class RequirementsChecker {
     return $results;
   }
 
-  public function checkTempAndCacheFolderCreation() {
+  public function checkTempFolderCreation() {
     $paths = [
       'temp_path' => Env::$tempPath,
-      'cache_path' => Env::$cachePath,
     ];
-    if (!is_dir($paths['cache_path']) && !wp_mkdir_p($paths['cache_path'])) {
+    if (!is_dir($paths['temp_path']) && !wp_mkdir_p($paths['temp_path'])) {
       $error = Helpers::replaceLinkTags(
         WPFunctions::get()->__('MailPoet requires write permissions inside the /wp-content/uploads folder. Please read our [link]instructions[/link] on how to resolve this issue.', 'mailpoet'),
         'https://kb.mailpoet.com/article/152-minimum-requirements-for-mailpoet-3#folder_permissions',

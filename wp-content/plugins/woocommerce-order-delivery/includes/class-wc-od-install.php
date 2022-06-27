@@ -20,10 +20,10 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * Database updates that need to be run per version.
 		 *
 		 * @since 1.4.0
+		 *
 		 * @var array
 		 */
 		private static $db_updates = array(
-			// The migration 1.4.0 has been removed because it's the same as the 1.4.1. It avoids to execute the code twice for new installs.
 			'1.4.1' => array(
 				'wc_od_update_141_shipping_dates',
 				'wc_od_update_141_db_version',
@@ -31,7 +31,6 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 			'1.5.0' => array(
 				'wc_od_update_150_settings_bool_values_to_string',
 				'wc_od_update_150_subscriptions_bool_values_to_string',
-				'wc_od_update_150_delivery_days_setting',
 				'wc_od_update_150_db_version',
 			),
 			'1.6.0' => array(
@@ -45,6 +44,11 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 			'1.9.5' => array(
 				'wc_od_update_195_update_settings',
 				'wc_od_update_195_db_version',
+			),
+			'2.0.0' => array(
+				'wc_od_update_200_update_settings',
+				'wc_od_update_200_update_subscriptions_delivery',
+				'wc_od_update_200_db_version',
 			),
 		);
 
@@ -62,6 +66,8 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * @since 1.2.0
 		 */
 		public static function init() {
+			WC_OD_DB_Tables::register_tables();
+
 			add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
 			add_action( 'init', array( __CLASS__, 'init_background_updater' ), 5 );
 			add_action( 'init', array( __CLASS__, 'add_endpoints' ) );
@@ -69,6 +75,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 			add_action( 'admin_init', array( __CLASS__, 'add_notices' ), 20 );
 			add_action( 'wc_od_updater_complete', array( __CLASS__, 'updated' ) );
 			add_action( 'wc_od_purge_expired_events', array( __CLASS__, 'purge_expired_events' ) );
+			add_filter( 'wpmu_drop_tables', array( 'WC_OD_DB_Tables', 'drop_tables' ) );
 		}
 
 		/**
@@ -88,12 +95,12 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * @since 1.4.0
 		 */
 		public static function init_background_updater() {
-			include_once dirname( __FILE__ ) . '/class-wc-od-background-updater.php';
+			include_once WC_OD_PATH . 'includes/backgrounds/class-wc-od-background-updater.php';
 			self::$background_updater = new WC_OD_Background_Updater();
 		}
 
 		/**
-		 * Check the plugin version and run the updater is necessary.
+		 * Check the plugin version and run the updater if necessary.
 		 *
 		 * This check is done on all requests and runs if the versions do not match.
 		 *
@@ -102,6 +109,12 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		public static function check_version() {
 			if ( ! defined( 'IFRAME_REQUEST' ) && version_compare( get_option( 'wc_od_version' ), WC_OD_VERSION, '<' ) ) {
 				self::install();
+
+				/**
+				 * Fires when the plugin update finished.
+				 *
+				 * @since 1.4.0
+				 */
 				do_action( 'wc_od_updated' );
 			}
 		}
@@ -119,8 +132,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 
 			if ( ! empty( $_GET['force_update_wc_od'] ) ) {
 				check_admin_referer( 'wc_od_force_db_update', 'wc_od_force_db_update_nonce' );
-				$blog_id = get_current_blog_id();
-				do_action( 'wp_' . $blog_id . '_wc_od_updater_cron' );
+				self::$background_updater->force_process();
 				wp_safe_redirect( wc_od_get_settings_url() );
 				exit;
 			}
@@ -158,7 +170,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 */
 		public static function update_notice() {
 			if ( self::needs_db_update() ) {
-				if ( self::$background_updater->is_updating() || ! empty( $_GET['do_update_wc_od'] ) ) { // WPCS: CSRF ok.
+				if ( self::$background_updater->is_updating() || ! empty( $_GET['do_update_wc_od'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 					WC_OD_Admin_Notices::add_notice( 'updating' );
 				} else {
 					WC_OD_Admin_Notices::add_notice( 'update' );
@@ -184,6 +196,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 			// Add transient to indicate that we are running the installation process.
 			set_transient( 'wc_od_installing', 'yes', MINUTE_IN_SECONDS * 10 );
 
+			WC_OD_DB_Tables::create_tables();
 			self::remove_notices();
 			self::add_cron_jobs();
 			self::add_endpoints();
@@ -331,39 +344,6 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		}
 
 		/**
-		 * Adds custom links to the plugins page.
-		 *
-		 * @since 1.2.0
-		 * @deprecated 1.6.0 Moved to WC_OD_Admin->plugin_action_links()
-		 * @see WC_OD_Admin->plugin_action_links()
-		 *
-		 * @param array $links The plugin links.
-		 * @return array The filtered plugin links.
-		 */
-		public static function plugin_action_links( $links ) {
-			wc_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_action_links()' );
-
-			return $links;
-		}
-
-		/**
-		 * Show row meta on the plugin screen.
-		 *
-		 * @since 1.2.0
-		 * @deprecated 1.6.0 Moved to WC_OD_Admin->plugin_row_meta()
-		 * @see WC_OD_Admin->plugin_row_meta()
-		 *
-		 * @param mixed $links Plugin Row Meta.
-		 * @param mixed $file  Plugin Base file.
-		 * @return array
-		 */
-		public static function plugin_row_meta( $links, $file ) {
-			wc_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_row_meta()' );
-
-			return $links;
-		}
-
-		/**
 		 * Deletes the expired events from the database to improve the performance.
 		 *
 		 * @since 1.2.0
@@ -386,7 +366,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 					$expired_ids  = wp_list_pluck( $expired, 'id' );
 					$valid_events = array();
 
-					foreach ( $events as $index => $event ) {
+					foreach ( $events as $event ) {
 						if ( ! in_array( $event['id'], $expired_ids ) ) {
 							$valid_events[ $event['id'] ] = $event;
 						}

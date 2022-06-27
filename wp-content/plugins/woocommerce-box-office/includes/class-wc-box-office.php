@@ -171,6 +171,7 @@ class WC_Box_Office {
 		require_once( $this->dir . 'includes/class-wc-box-office-report.php' );
 		require_once( $this->dir . 'includes/class-wc-box-office-privacy.php' );
 		require_once( $this->dir . 'includes/class-wc-box-office-order.php' );
+		require_once( $this->dir . 'includes/class-wc-box-office-blocks.php' );
 	}
 
 	/**
@@ -197,6 +198,7 @@ class WC_Box_Office {
 		$this->components->report           = new WC_Box_Office_Report();
 		$this->components->cron             = new WC_Box_Office_Cron();
 		$this->components->updater          = new WC_Box_Office_Updater();
+		$this->components->blocks           = new WC_Box_Office_Blocks();
 	}
 
 	/**

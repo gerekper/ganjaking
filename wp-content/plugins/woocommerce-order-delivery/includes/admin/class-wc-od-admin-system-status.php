@@ -44,7 +44,6 @@ class WC_OD_Admin_System_Status {
 			'min_working_days'         => WC_OD()->settings()->get_setting( 'min_working_days' ),
 			'shipping_days'            => WC_OD()->settings()->get_setting( 'shipping_days' ),
 			'delivery_ranges'          => WC_OD_Delivery_Ranges::get_ranges(),
-			'checkout_location'        => WC_OD()->settings()->get_setting( 'checkout_location' ),
 			'checkout_delivery_option' => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
 			'delivery_days'            => wc_od_get_delivery_days(),
 			'delivery_fields_option'   => WC_OD()->settings()->get_setting( 'delivery_fields_option' ),
@@ -66,6 +65,9 @@ class WC_OD_Admin_System_Status {
 		);
 
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';
+		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-shipping-days.php';
+		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-ranges.php';
+		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-days.php';
 	}
 
 	/**

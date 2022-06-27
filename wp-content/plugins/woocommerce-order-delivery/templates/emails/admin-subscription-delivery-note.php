@@ -15,7 +15,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <p><?php esc_html_e( 'A delivery note has been added to the subscription:', 'woocommerce-order-delivery' ); ?></p>
 
-<blockquote><?php echo wpautop( wptexturize( $note ) ) ?></blockquote>
+<blockquote><?php echo wpautop( wptexturize( $note ) ); ?></blockquote>
 
 <p><?php esc_html_e( 'For your reference, the subscription details are shown below.', 'woocommerce-order-delivery' ); ?></p>
 

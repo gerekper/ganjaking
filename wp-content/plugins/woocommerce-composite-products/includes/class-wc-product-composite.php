@@ -2125,7 +2125,7 @@ class WC_Product_Composite extends WC_Product {
 
 			$component = WC_CP_Helpers::cache_get( $cache_key, $cache_group );
 
-			if ( $this->composite_meta_save_pending || defined( 'WC_CP_DEBUG_RUNTIME_CACHE' ) || null === $component ) {
+			if ( $this->composite_meta_save_pending || null === $component ) {
 				$component = new WC_CP_Component( $component_id, $this );
 				WC_CP_Helpers::cache_set( $cache_key, $component, $cache_group );
 			}

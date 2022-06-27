@@ -108,18 +108,20 @@ class Profile_Fields_Area {
 	private function get_profile_fields_for_user() {
 
 		$profile_fields = [];
+		$user_id = get_current_user_id();
+		$membership_plan_ids = array_map(
+			static function( $membership ) {
+				return $membership->get_plan_id();
+			},
+			wc_memberships_get_user_memberships( $user_id )
+		);
 
-		if ( $user_id = get_current_user_id() ) {
+		if ( $user_id && $membership_plan_ids ) {
 
 			$profile_field_definitions = Profile_Fields::get_profile_field_definitions( [
 				'visibility'          => Profile_Fields::VISIBILITY_PROFILE_FIELDS_AREA,
 				'editable_by'         => Profile_Field_Definition::EDITABLE_BY_CUSTOMER,
-				'membership_plan_ids' => array_map(
-					static function( $membership ) {
-						return $membership->get_plan_id();
-					},
-					wc_memberships_get_user_memberships( $user_id )
-				),
+				'membership_plan_ids' => $membership_plan_ids,
 			] );
 
 			$posted_data = (array) Framework\SV_WC_Helper::get_posted_value( 'member_profile_fields', [] );

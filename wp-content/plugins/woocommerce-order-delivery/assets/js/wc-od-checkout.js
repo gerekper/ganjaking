@@ -24,6 +24,17 @@ jQuery( function( $ ) {
 		_bindEvents: function() {
 			var that = this;
 
+			// Prevent the interaction with the delivery fields while the checkout fragments are being refreshed.
+			this.$body.on( 'update_checkout', function() {
+				$( '#wc-od:not(:empty)' ).block({
+					message: null,
+					overlayCSS: {
+						background: '#fff',
+						opacity: 0.6
+					}
+				});
+			});
+
 			// Update the calendar when the checkout form changes.
 			this.$body.on( 'updated_checkout', function() {
 				that.updateDeliveryDateCalendar();
@@ -42,7 +53,7 @@ jQuery( function( $ ) {
 			this.options = $.extend( {}, this.options, window.wc_od_checkout_l10n );
 
 			// Create the calendar.
-			$( '#delivery_date' ).wc_od_datepicker( this.options ).on( 'changeDate', function() {
+			$( '#delivery_date' ).wc_od_datepicker( this.options ).on( 'changedDate', function() {
 				that.$body.trigger( 'update_checkout' );
 			});
 		}

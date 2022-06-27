@@ -405,7 +405,7 @@ class WC_MS_Checkout {
             $order->update_meta_data( '_shipping_addresses', $sess_item_address );
             //wcms_session_delete( 'cart_item_addresses' );
 
-            if ( $sess_packages ) {
+            if ( is_array( $sess_packages ) ) {
                 if ( $has_item_address ) {
                     $shipping_address = array(
                         'first_name'    => '',
@@ -1443,17 +1443,19 @@ class WC_MS_Checkout {
             'line_subtotal' => 0,
             'line_subtotal_tax' => 0
         );
-
-        // Calculate the line value.
-        for ( $i = 0; $i < count( $packages ); $i++ ) {
-            if ( isset( $packages[ $i ]['contents'][ $cart_item_key ] ) ) {
-                $new_cart_item = $packages[ $i ]['contents'][ $cart_item_key ];
-                $package_item['line_total']        += isset( $new_cart_item['line_total'] ) ? $new_cart_item['line_total'] : 0;
-                $package_item['line_tax']          += isset( $new_cart_item['line_tax'] ) ? $new_cart_item['line_tax'] : 0;
-                $package_item['line_subtotal']     += isset( $new_cart_item['line_subtotal'] ) ? $new_cart_item['line_subtotal'] : 0;
-                $package_item['line_subtotal_tax'] += isset( $new_cart_item['line_subtotal_tax'] ) ? $new_cart_item['line_subtotal_tax'] : 0;
-            }
-        }
+	
+		if ( is_array( $packages ) ) {
+			// Calculate the line value.
+			for ( $i = 0; $i < count( $packages ); $i++ ) {
+				if ( isset( $packages[ $i ]['contents'][ $cart_item_key ] ) ) {
+					$new_cart_item = $packages[ $i ]['contents'][ $cart_item_key ];
+					$package_item['line_total']        += isset( $new_cart_item['line_total'] ) ? $new_cart_item['line_total'] : 0;
+					$package_item['line_tax']          += isset( $new_cart_item['line_tax'] ) ? $new_cart_item['line_tax'] : 0;
+					$package_item['line_subtotal']     += isset( $new_cart_item['line_subtotal'] ) ? $new_cart_item['line_subtotal'] : 0;
+					$package_item['line_subtotal_tax'] += isset( $new_cart_item['line_subtotal_tax'] ) ? $new_cart_item['line_subtotal_tax'] : 0;
+				}
+			}
+		}
 
         // Replace the cart item with the modified one.
         if ( isset( $new_cart_item ) ) {

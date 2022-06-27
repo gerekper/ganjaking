@@ -7,7 +7,8 @@ use ACP\Editing\View;
 class Image extends View {
 
 	use AttachmentTypeTrait,
-		MultipleTrait;
+		MultipleTrait,
+		MediaUploadToTrait;
 
 	public function __construct() {
 		parent::__construct( 'media' );

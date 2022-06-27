@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Twig\Profiler\Profile;
 final class BlackfireDumper
 {
- public function dump(Profile $profile)
+ public function dump(Profile $profile) : string
  {
  $data = [];
  $this->dumpProfile('main()', $profile, $data);
@@ -44,4 +44,3 @@ EOF;
  }
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Profiler\\Dumper\\BlackfireDumper', 'MailPoetVendor\\Twig_Profiler_Dumper_Blackfire');

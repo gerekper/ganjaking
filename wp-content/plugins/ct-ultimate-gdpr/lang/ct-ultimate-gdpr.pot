@@ -1,16 +1,16 @@
-# Copyright (C) 2021 CreateIT
+# Copyright (C) 2022 CreateIT
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 3.3\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 3.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-16T12:57:12+01:00\n"
-"PO-Revision-Date: 2021-12-16T12:57:12+01:00\n"
+"POT-Creation-Date: 2022-04-08T12:02:44+02:00\n"
+"PO-Revision-Date: 2022-04-08T12:02:44+02:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
 
@@ -127,7 +127,7 @@ msgstr ""
 
 #: includes/controller/controller-age.php:557
 #: includes/controller/controller-age.php:564
-#: includes/controller/controller-cookie.php:1326
+#: includes/controller/controller-cookie.php:1479
 msgid "Options"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgid "Position of the age popup"
 msgstr ""
 
 #: includes/controller/controller-age.php:587
-#: includes/controller/controller-cookie.php:1350
+#: includes/controller/controller-cookie.php:1503
 msgid "Buttons styles"
 msgstr ""
 
@@ -150,8 +150,8 @@ msgstr ""
 
 #: includes/controller/controller-age.php:601
 #: includes/controller/controller-age.php:841
-#: includes/controller/controller-cookie.php:1392
-#: includes/controller/controller-cookie.php:1846
+#: includes/controller/controller-cookie.php:1545
+#: includes/controller/controller-cookie.php:1999
 msgid "Custom style CSS"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgid "Popup 'Submit' button label"
 msgstr ""
 
 #: includes/controller/controller-age.php:637
-#: includes/controller/controller-cookie.php:1564
+#: includes/controller/controller-cookie.php:1717
 #: includes/controller/controller-policy.php:169
 #: includes/controller/controller-terms.php:519
 msgid "Do not block user agents (eg. bots) containing the following texts (comma separated)"
@@ -215,74 +215,74 @@ msgid "Set age verification expire time [s]"
 msgstr ""
 
 #: includes/controller/controller-age.php:731
-#: includes/controller/controller-cookie.php:1635
+#: includes/controller/controller-cookie.php:1788
 msgid "Button shape"
 msgstr ""
 
 #: includes/controller/controller-age.php:740
-#: includes/controller/controller-cookie.php:1663
-#: includes/controller/controller-cookie.php:1820
+#: includes/controller/controller-cookie.php:1816
+#: includes/controller/controller-cookie.php:1973
 msgid "Button background color"
 msgstr ""
 
 #: includes/controller/controller-age.php:749
-#: includes/controller/controller-cookie.php:1653
-#: includes/controller/controller-cookie.php:1828
+#: includes/controller/controller-cookie.php:1806
+#: includes/controller/controller-cookie.php:1981
 msgid "Button text color"
 msgstr ""
 
 #: includes/controller/controller-age.php:759
-#: includes/controller/controller-cookie.php:1724
+#: includes/controller/controller-cookie.php:1877
 msgid "Position  (bottom, top and full page layout)"
 msgstr ""
 
 #: includes/controller/controller-age.php:767
-#: includes/controller/controller-cookie.php:1732
+#: includes/controller/controller-cookie.php:1885
 msgid "Distance from border [px]"
 msgstr ""
 
 #: includes/controller/controller-age.php:777
-#: includes/controller/controller-cookie.php:1743
+#: includes/controller/controller-cookie.php:1896
 msgid "Box style"
 msgstr ""
 
 #: includes/controller/controller-age.php:785
-#: includes/controller/controller-cookie.php:1751
+#: includes/controller/controller-cookie.php:1904
 msgid "Box shape"
 msgstr ""
 
 #: includes/controller/controller-age.php:793
-#: includes/controller/controller-cookie.php:1759
+#: includes/controller/controller-cookie.php:1912
 msgid "Background color"
 msgstr ""
 
 #: includes/controller/controller-age.php:801
-#: includes/controller/controller-cookie.php:1767
+#: includes/controller/controller-cookie.php:1920
 msgid "Background image"
 msgstr ""
 
 #: includes/controller/controller-age.php:810
-#: includes/controller/controller-cookie.php:1710
+#: includes/controller/controller-cookie.php:1863
 msgid "Active Tab"
 msgstr ""
 
 #: includes/controller/controller-age.php:821
-#: includes/controller/controller-cookie.php:1775
+#: includes/controller/controller-cookie.php:1928
 msgid "Text color"
 msgstr ""
 
 #: includes/controller/controller-age.php:831
-#: includes/controller/controller-cookie.php:1785
+#: includes/controller/controller-cookie.php:1938
 msgid "Protection shortcode label"
 msgstr ""
 
 #: includes/controller/controller-age.php:960
-#: includes/controller/controller-cookie.php:2588
+#: includes/controller/controller-cookie.php:2749
 msgid "Update"
 msgstr ""
 
 #: includes/controller/controller-age.php:961
-#: includes/controller/controller-cookie.php:2589
+#: includes/controller/controller-cookie.php:2750
 msgid "Remove"
 msgstr ""
 
@@ -315,12 +315,12 @@ msgid "Chocolate Matcha"
 msgstr ""
 
 #: includes/controller/controller-age.php:986
-#: includes/controller/controller-cookie.php:2607
+#: includes/controller/controller-cookie.php:2768
 msgid "Classic Dark"
 msgstr ""
 
 #: includes/controller/controller-age.php:987
-#: includes/controller/controller-cookie.php:2608
+#: includes/controller/controller-cookie.php:2769
 msgid "Classic Light"
 msgstr ""
 
@@ -354,86 +354,86 @@ msgstr ""
 
 #: includes/controller/controller-age.php:1024
 #: includes/controller/controller-age.php:1087
-#: includes/controller/controller-cookie.php:2669
-#: includes/controller/controller-cookie.php:2730
-#: includes/controller/controller-cookie.php:3853
+#: includes/controller/controller-cookie.php:2830
+#: includes/controller/controller-cookie.php:2891
+#: includes/controller/controller-cookie.php:4030
 msgid "Squared"
 msgstr ""
 
 #: includes/controller/controller-age.php:1025
 #: includes/controller/controller-age.php:1088
-#: includes/controller/controller-cookie.php:2668
-#: includes/controller/controller-cookie.php:2729
-#: includes/controller/controller-cookie.php:3852
+#: includes/controller/controller-cookie.php:2829
+#: includes/controller/controller-cookie.php:2890
+#: includes/controller/controller-cookie.php:4029
 msgid "Rounded"
 msgstr ""
 
 #: includes/controller/controller-age.php:1056
-#: includes/controller/controller-cookie.php:2699
-#: includes/controller/controller-cookie.php:3680
+#: includes/controller/controller-cookie.php:2860
+#: includes/controller/controller-cookie.php:3857
 msgid "Text Only"
 msgstr ""
 
 #: includes/controller/controller-age.php:1057
-#: includes/controller/controller-cookie.php:2700
-#: includes/controller/controller-cookie.php:3682
+#: includes/controller/controller-cookie.php:2861
+#: includes/controller/controller-cookie.php:3859
 msgid "Icon and Text"
 msgstr ""
 
 #: includes/controller/controller-age.php:1161
-#: includes/controller/controller-cookie.php:2800
+#: includes/controller/controller-cookie.php:2961
 msgid "Normal"
 msgstr ""
 
 #: includes/controller/controller-age.php:1162
-#: includes/controller/controller-cookie.php:2801
+#: includes/controller/controller-cookie.php:2962
 msgid "Large"
 msgstr ""
 
 #: includes/controller/controller-age.php:1397
-#: includes/controller/controller-cookie.php:3628
+#: includes/controller/controller-cookie.php:3805
 msgid "Bottom left"
 msgstr ""
 
 #: includes/controller/controller-age.php:1398
-#: includes/controller/controller-cookie.php:3629
+#: includes/controller/controller-cookie.php:3806
 msgid "Bottom right"
 msgstr ""
 
 #: includes/controller/controller-age.php:1399
-#: includes/controller/controller-cookie.php:3630
+#: includes/controller/controller-cookie.php:3807
 msgid "Bottom panel"
 msgstr ""
 
 #: includes/controller/controller-age.php:1400
-#: includes/controller/controller-cookie.php:3631
+#: includes/controller/controller-cookie.php:3808
 msgid "Top left"
 msgstr ""
 
 #: includes/controller/controller-age.php:1401
-#: includes/controller/controller-cookie.php:3632
+#: includes/controller/controller-cookie.php:3809
 msgid "Top right"
 msgstr ""
 
 #: includes/controller/controller-age.php:1402
-#: includes/controller/controller-cookie.php:3633
+#: includes/controller/controller-cookie.php:3810
 msgid "Top panel"
 msgstr ""
 
 #: includes/controller/controller-age.php:1403
-#: includes/controller/controller-cookie.php:3634
+#: includes/controller/controller-cookie.php:3811
 msgid "Full page layout"
 msgstr ""
 
 #: includes/controller/controller-age.php:1467
 #: includes/controller/controller-age.php:1509
-#: includes/controller/controller-cookie.php:3600
+#: includes/controller/controller-cookie.php:3777
 msgid "Front page"
 msgstr ""
 
 #: includes/controller/controller-age.php:1470
 #: includes/controller/controller-age.php:1512
-#: includes/controller/controller-cookie.php:3603
+#: includes/controller/controller-cookie.php:3780
 msgid "Posts page"
 msgstr ""
 
@@ -447,113 +447,122 @@ msgid "Submit"
 msgstr ""
 
 #: includes/controller/controller-age.php:1559
-#: includes/controller/controller-cookie.php:4018
+#: includes/controller/controller-cookie.php:4195
 #: includes/views/cookie-group-popup.php:364
 #: includes/views/cookie-group-popup.php:408
+#: includes/views/cookie-single-popup.php:318
+#: includes/views/cookie-single-popup.php:363
 msgid "Trigger"
 msgstr ""
 
 #: includes/controller/controller-age.php:1564
-#: includes/controller/controller-cookie.php:4023
+#: includes/controller/controller-cookie.php:4200
 #: includes/views/cookie-group-popup.php:638
 #: includes/views/cookie-group-popup.php:683
 #: includes/views/cookie-group-popup.php:703
 #: includes/views/cookie-group-popup.php:727
 #: includes/views/cookie-group-popup.php:770
+#: includes/views/cookie-single-popup.php:477
 msgid "This website will:"
 msgstr ""
 
 #: includes/controller/controller-age.php:1565
-#: includes/controller/controller-cookie.php:4024
+#: includes/controller/controller-cookie.php:4201
 msgid "This website won't:"
 msgstr ""
 
 #: includes/controller/controller-age.php:1566
-#: includes/controller/controller-cookie.php:4025
+#: includes/controller/controller-cookie.php:4202
 #: includes/views/cookie-group-popup.php:815
+#: includes/views/cookie-single-popup.php:657
 msgid "Save & Close"
 msgstr ""
 
 #: includes/controller/controller-age.php:1567
-#: includes/controller/controller-cookie.php:4026
-#: includes/model/model-group.php:77
-#: includes/model/model-group.php:133
+#: includes/controller/controller-cookie.php:4203
+#: includes/model/model-group.php:98
+#: includes/model/model-group.php:154
+#: includes/views/cookie-single-popup.php:416
 msgid "Block all"
 msgstr ""
 
 #: includes/controller/controller-age.php:1568
-#: includes/controller/controller-cookie.php:4027
+#: includes/controller/controller-cookie.php:4204
+#: includes/views/cookie-single-popup.php:428
 msgid "Essentials"
 msgstr ""
 
 #: includes/controller/controller-age.php:1569
-#: includes/controller/controller-cookie.php:4028
-#: includes/model/model-group.php:59
-#: includes/model/model-group.php:130
+#: includes/controller/controller-cookie.php:4205
+#: includes/model/model-group.php:80
+#: includes/model/model-group.php:151
+#: includes/views/cookie-single-popup.php:440
 msgid "Functionality"
 msgstr ""
 
 #: includes/controller/controller-age.php:1570
-#: includes/controller/controller-cookie.php:4029
-#: includes/model/model-group.php:65
-#: includes/model/model-group.php:131
+#: includes/controller/controller-cookie.php:4206
+#: includes/model/model-group.php:86
+#: includes/model/model-group.php:152
+#: includes/views/cookie-single-popup.php:452
 msgid "Analytics"
 msgstr ""
 
 #: includes/controller/controller-age.php:1571
-#: includes/controller/controller-cookie.php:4030
-#: includes/model/model-group.php:71
-#: includes/model/model-group.php:132
+#: includes/controller/controller-cookie.php:4207
+#: includes/model/model-group.php:92
+#: includes/model/model-group.php:153
+#: includes/views/cookie-single-popup.php:464
 msgid "Advertising"
 msgstr ""
 
 #: includes/controller/controller-age.php:1572
-#: includes/controller/controller-cookie.php:4031
+#: includes/controller/controller-cookie.php:4208
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1574
-#: includes/controller/controller-cookie.php:4032
+#: includes/controller/controller-cookie.php:4209
 msgid "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1576
-#: includes/controller/controller-cookie.php:4033
+#: includes/controller/controller-cookie.php:4210
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1578
-#: includes/controller/controller-cookie.php:4034
+#: includes/controller/controller-cookie.php:4211
 msgid "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1580
-#: includes/controller/controller-cookie.php:4035
+#: includes/controller/controller-cookie.php:4212
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1582
-#: includes/controller/controller-cookie.php:4036
+#: includes/controller/controller-cookie.php:4213
 msgid "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
 #: includes/controller/controller-age.php:1584
-#: includes/controller/controller-cookie.php:4037
+#: includes/controller/controller-cookie.php:4214
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
 #: includes/controller/controller-age.php:1586
-#: includes/controller/controller-cookie.php:4038
+#: includes/controller/controller-cookie.php:4215
 msgid "Remember your login details"
 msgstr ""
 
 #: includes/controller/controller-age.php:1590
-#: includes/controller/controller-cookie.php:4042
+#: includes/controller/controller-cookie.php:4219
 msgid "This content requires cookies"
 msgstr ""
 
 #: includes/controller/controller-age.php:1591
-#: includes/controller/controller-cookie.php:4043
+#: includes/controller/controller-cookie.php:4220
 msgid "Removal of your data will not limit in any way the system functionalities"
 msgstr ""
 
@@ -598,43 +607,44 @@ msgstr ""
 msgid "There was a data breach on our page..."
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1175
-#: includes/controller/controller-cookie.php:5811
+#: includes/controller/controller-cookie.php:1328
+#: includes/controller/controller-cookie.php:5988
 msgid "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all detected cookies.</h3>"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1280
-#: includes/controller/controller-cookie.php:1281
+#: includes/controller/controller-cookie.php:1433
+#: includes/controller/controller-cookie.php:1434
 msgid "Cookie Consent"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1289
-#: includes/controller/controller-cookie.php:1290
+#: includes/controller/controller-cookie.php:1442
+#: includes/controller/controller-cookie.php:1443
 msgid "Services Manager"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1312
-#: includes/controller/controller-cookie.php:1473
+#: includes/controller/controller-cookie.php:1465
+#: includes/controller/controller-cookie.php:1626
 msgid "Cookie popup content"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1319
+#: includes/controller/controller-cookie.php:1472
 msgid "Buttons labels"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1333
+#: includes/controller/controller-cookie.php:1486
 msgid "Google Analytics Tracking ID"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1343
+#: includes/controller/controller-cookie.php:1496
 msgid "Cookie scanner settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1357
-#: includes/controller/controller-cookie.php:4000
+#: includes/controller/controller-cookie.php:1510
+#: includes/controller/controller-cookie.php:4177
 #: includes/shortcode/shortcode-cookie-popup.php:750
 #: includes/views/cookie-group-popup.php:302
 #: includes/views/cookie-popup.php:196
+#: includes/views/cookie-single-popup.php:266
 #: includes/views/shortcode/shortcode-privacy-center.php:47
 #: includes/views/shortcode/shortcode-privacy-center.php:75
 #: includes/views/shortcode/shortcode-privacy-center.php:103
@@ -647,561 +657,567 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1364
+#: includes/controller/controller-cookie.php:1517
 msgid "Reject All Cookies"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1371
+#: includes/controller/controller-cookie.php:1524
 msgid "Position of the cookie notice box"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1378
+#: includes/controller/controller-cookie.php:1531
 msgid "Cookie notice box"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1385
+#: includes/controller/controller-cookie.php:1538
 msgid "Protection shortcode"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1399
-#: includes/controller/controller-cookie.php:4044
+#: includes/controller/controller-cookie.php:1552
+#: includes/controller/controller-cookie.php:4221
 msgid "Withdrawal Cookie Agreement"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1408
+#: includes/controller/controller-cookie.php:1561
 msgid "Advanced Cookies Settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1416
+#: includes/controller/controller-cookie.php:1569
 msgid "Trigger cookie"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1423
+#: includes/controller/controller-cookie.php:1576
 msgid "Modal styles"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1430
+#: includes/controller/controller-cookie.php:1583
 msgid "Lists of features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1438
+#: includes/controller/controller-cookie.php:1591
 msgid "Labels"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1445
+#: includes/controller/controller-cookie.php:1598
 msgid "Additional settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1452
-#: includes/controller/controller-cookie.php:1795
+#: includes/controller/controller-cookie.php:1605
+#: includes/controller/controller-cookie.php:1948
 msgid "My account disclaimer"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1465
+#: includes/controller/controller-cookie.php:1618
 msgid "Provide default content for the selected language (remember to save changes)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1482
+#: includes/controller/controller-cookie.php:1635
 msgid "Cookie popup 'accept' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1490
+#: includes/controller/controller-cookie.php:1643
 msgid "Cookie popup 'read more' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1498
+#: includes/controller/controller-cookie.php:1651
 msgid "Cookie popup 'change settings' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1506
+#: includes/controller/controller-cookie.php:1659
 msgid "Open \"Read More\" in a new tab"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1515
+#: includes/controller/controller-cookie.php:1668
 msgid "Display cookie popup on all pages"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1523
+#: includes/controller/controller-cookie.php:1676
 msgid "Check if user is from European Union"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1532
+#: includes/controller/controller-cookie.php:1685
 msgid "Reset cookie settings after ended session"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1540
+#: includes/controller/controller-cookie.php:1693
 msgid "Ask users to accept/reject cookies with every visit on the website"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1556
+#: includes/controller/controller-cookie.php:1709
 msgid "Select page where to display the cookie popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1572
+#: includes/controller/controller-cookie.php:1725
 msgid "Always display cookie popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1583
+#: includes/controller/controller-cookie.php:1736
 msgid "Choose how often cookie scans should be performed"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1591
+#: includes/controller/controller-cookie.php:1744
 msgid "Choose default level of new cookies"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1599
+#: includes/controller/controller-cookie.php:1752
 msgid "Cookies whitelist (never block these cookies, comma separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1607
+#: includes/controller/controller-cookie.php:1760
 msgid "Block selected/all cookies until user consents"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1615
+#: includes/controller/controller-cookie.php:1768
 #: includes/controller/controller-policy.php:137
 #: includes/controller/controller-terms.php:495
 msgid "Set consent expire time [s]"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1626
+#: includes/controller/controller-cookie.php:1779
 msgid "Button settings by"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1644
+#: includes/controller/controller-cookie.php:1797
 msgid "Button size"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1672
-#: includes/controller/controller-cookie.php:1836
+#: includes/controller/controller-cookie.php:1825
+#: includes/controller/controller-cookie.php:1989
 msgid "Button border color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1682
+#: includes/controller/controller-cookie.php:1835
 msgid "Cookie close modal button (an option to decline the cookies completely)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1693
+#: includes/controller/controller-cookie.php:1846
 msgid "Read more page"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1701
+#: includes/controller/controller-cookie.php:1854
 msgid "Read More Custom URL"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1804
+#: includes/controller/controller-cookie.php:1957
 msgid "Heading"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1812
+#: includes/controller/controller-cookie.php:1965
 msgid "Description"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1859
+#: includes/controller/controller-cookie.php:2012
 msgid "Show advanced cookie popup always, even when the consent is given"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1867
+#: includes/controller/controller-cookie.php:2020
 msgid "Use advanced cookie groups popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1875
-#: includes/controller/controller-cookie.php:1883
+#: includes/controller/controller-cookie.php:2028
+msgid "Block cookie individually (Italian GDPR)"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:2036
+#: includes/controller/controller-cookie.php:2044
 msgid "Advanced cookie groups popup header content"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1894
+#: includes/controller/controller-cookie.php:2055
 msgid "Trigger cookie settings by"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1902
+#: includes/controller/controller-cookie.php:2063
 msgid "Trigger cookie settings icon"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1910
+#: includes/controller/controller-cookie.php:2071
 msgid "Trigger cookie settings text"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1918
+#: includes/controller/controller-cookie.php:2079
 msgid "Trigger cookie settings background color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1926
+#: includes/controller/controller-cookie.php:2087
 msgid "Trigger cookie settings shape"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1934
+#: includes/controller/controller-cookie.php:2095
 msgid "Trigger cookie settings position"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1942
+#: includes/controller/controller-cookie.php:2103
 msgid "Trigger cookie settings color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1952
+#: includes/controller/controller-cookie.php:2113
 msgid "List of features available for Essential level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1960
+#: includes/controller/controller-cookie.php:2121
 msgid "List of features not available for Essential level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1968
+#: includes/controller/controller-cookie.php:2129
 msgid "List of features available for Functionality level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1976
+#: includes/controller/controller-cookie.php:2137
 msgid "List of features not available for Functionality level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1984
+#: includes/controller/controller-cookie.php:2145
 msgid "List of features available for Analytics level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1992
+#: includes/controller/controller-cookie.php:2153
 msgid "List of features not available for Analytics level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2000
+#: includes/controller/controller-cookie.php:2161
 msgid "List of features available for Advertising level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2008
+#: includes/controller/controller-cookie.php:2169
 msgid "List of features not available for Advertising level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2019
+#: includes/controller/controller-cookie.php:2180
 msgid "Cookie modal header color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2027
+#: includes/controller/controller-cookie.php:2188
 msgid "Cookie modal text color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2035
+#: includes/controller/controller-cookie.php:2196
 msgid "Cookie modal skin"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2043
+#: includes/controller/controller-cookie.php:2204
 msgid "Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2053
+#: includes/controller/controller-cookie.php:2214
 msgid "<i>This website will</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2061
+#: includes/controller/controller-cookie.php:2222
 msgid "<i>This website won't</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2069
+#: includes/controller/controller-cookie.php:2230
 msgid "Hide \"Block All\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2077
+#: includes/controller/controller-cookie.php:2238
 msgid "Hide \"Essential\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2085
+#: includes/controller/controller-cookie.php:2246
 msgid "Hide \"Functionality\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2093
+#: includes/controller/controller-cookie.php:2254
 msgid "Hide \"Analytics\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2101
+#: includes/controller/controller-cookie.php:2262
 msgid "Hide \"Advertising\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2109
+#: includes/controller/controller-cookie.php:2270
 msgid "<i>Block all</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2117
+#: includes/controller/controller-cookie.php:2278
 msgid "<i>Essentials</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2125
+#: includes/controller/controller-cookie.php:2286
 msgid "<i>Functionality</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2133
+#: includes/controller/controller-cookie.php:2294
 msgid "<i>Analytics</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2141
+#: includes/controller/controller-cookie.php:2302
 msgid "<i>Advertising</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2151
+#: includes/controller/controller-cookie.php:2312
 msgid "Advanced cookie popup 'save & close' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2159
+#: includes/controller/controller-cookie.php:2320
 msgid "Select default privacy group"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2167
+#: includes/controller/controller-cookie.php:2328
 msgid "Reload page when user saves changes"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2176
+#: includes/controller/controller-cookie.php:2337
 msgid "Select privacy group after user accepts cookies in the popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2273
+#: includes/controller/controller-cookie.php:2434
 msgid "Never"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2274
+#: includes/controller/controller-cookie.php:2435
 msgid "Weekly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2275
+#: includes/controller/controller-cookie.php:2436
 msgid "Monthly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2276
+#: includes/controller/controller-cookie.php:2437
 msgid "Quarterly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2304
+#: includes/controller/controller-cookie.php:2465
 msgid "Select"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2336
+#: includes/controller/controller-cookie.php:2497
 msgid "Load"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2606
+#: includes/controller/controller-cookie.php:2767
 msgid "Classic"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2609
+#: includes/controller/controller-cookie.php:2770
 msgid "Modern"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2610
+#: includes/controller/controller-cookie.php:2771
 msgid "Apas Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2611
+#: includes/controller/controller-cookie.php:2772
 msgid "Apas Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2612
+#: includes/controller/controller-cookie.php:2773
 msgid "Apas White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2613
+#: includes/controller/controller-cookie.php:2774
 msgid "Kahk Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2614
+#: includes/controller/controller-cookie.php:2775
 msgid "Kahk Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2615
+#: includes/controller/controller-cookie.php:2776
 msgid "Kahk White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2616
+#: includes/controller/controller-cookie.php:2777
 msgid "Oreo Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2617
+#: includes/controller/controller-cookie.php:2778
 msgid "Oreo Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2618
+#: includes/controller/controller-cookie.php:2779
 msgid "Oreo White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2619
+#: includes/controller/controller-cookie.php:2780
 msgid "Wafer Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2620
+#: includes/controller/controller-cookie.php:2781
 msgid "Wafer Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2621
+#: includes/controller/controller-cookie.php:2782
 msgid "Wafer White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2622
+#: includes/controller/controller-cookie.php:2783
 msgid "Jumble Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2623
+#: includes/controller/controller-cookie.php:2784
 msgid "Jumble Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2624
+#: includes/controller/controller-cookie.php:2785
 msgid "Jumble White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2625
+#: includes/controller/controller-cookie.php:2786
 msgid "Khapse Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2626
+#: includes/controller/controller-cookie.php:2787
 msgid "Khapse Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2627
+#: includes/controller/controller-cookie.php:2788
 msgid "Khapse White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2628
+#: includes/controller/controller-cookie.php:2789
 msgid "Tareco Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2629
+#: includes/controller/controller-cookie.php:2790
 msgid "Tareco Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2630
+#: includes/controller/controller-cookie.php:2791
 msgid "Tareco White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2631
+#: includes/controller/controller-cookie.php:2792
 msgid "Kichel Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2632
+#: includes/controller/controller-cookie.php:2793
 msgid "Kichel Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2633
+#: includes/controller/controller-cookie.php:2794
 msgid "Kichel White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2634
+#: includes/controller/controller-cookie.php:2795
 msgid "Macaron Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2635
+#: includes/controller/controller-cookie.php:2796
 msgid "Macaron Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2636
+#: includes/controller/controller-cookie.php:2797
 msgid "Macaron White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2637
+#: includes/controller/controller-cookie.php:2798
 msgid "Wibele Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2638
+#: includes/controller/controller-cookie.php:2799
 msgid "Wibele Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2639
+#: includes/controller/controller-cookie.php:2800
 msgid "Wibele White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3681
+#: includes/controller/controller-cookie.php:3858
 msgid "Icon Only"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3779
+#: includes/controller/controller-cookie.php:3956
 msgid "Top Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3780
+#: includes/controller/controller-cookie.php:3957
 msgid "Top center"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3781
+#: includes/controller/controller-cookie.php:3958
 msgid "Top Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3782
+#: includes/controller/controller-cookie.php:3959
 msgid "Center Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3783
+#: includes/controller/controller-cookie.php:3960
 msgid "Center Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3784
+#: includes/controller/controller-cookie.php:3961
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3785
+#: includes/controller/controller-cookie.php:3962
 msgid "Bottom Center"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3786
+#: includes/controller/controller-cookie.php:3963
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3851
+#: includes/controller/controller-cookie.php:4028
 msgid "Round"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3929
+#: includes/controller/controller-cookie.php:4106
 #: includes/controller/controller-forgotten.php:809
 msgid "Default"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3930
+#: includes/controller/controller-cookie.php:4107
 msgid "Neutral"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3931
+#: includes/controller/controller-cookie.php:4108
 msgid "Modern Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3932
+#: includes/controller/controller-cookie.php:4109
 msgid "Compact Dark Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3933
+#: includes/controller/controller-cookie.php:4110
 msgid "Compact Light Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3934
+#: includes/controller/controller-cookie.php:4111
 msgid "Compact Green"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:3999
+#: includes/controller/controller-cookie.php:4176
 #: includes/views/age-popup.php:43
 #: includes/views/cookie-group-popup.php:121
 #: includes/views/cookie-popup.php:30
+#: includes/views/cookie-single-popup.php:121
 #: includes/views/shortcode/shortcode-policy-accept.php:54
 #: includes/views/shortcode/shortcode-terms-accept.php:54
 msgid "Accept"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4001
+#: includes/controller/controller-cookie.php:4178
 #: includes/views/cookie-group-popup.php:129
 #: includes/views/cookie-popup.php:38
+#: includes/views/cookie-single-popup.php:129
 msgid "Change Settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4045
+#: includes/controller/controller-cookie.php:4222
 msgid "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use."
 msgstr ""
 
-#: includes/controller/controller-cookie.php:5684
+#: includes/controller/controller-cookie.php:5861
 msgid "Every week"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:5688
+#: includes/controller/controller-cookie.php:5865
 msgid "Every month"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:5692
+#: includes/controller/controller-cookie.php:5869
 msgid "Every quarter"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:5798
+#: includes/controller/controller-cookie.php:5975
 msgid "Cookies detected: %s, Cookies saved: %s"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:6023
+#: includes/controller/controller-cookie.php:6200
 msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
 msgstr ""
 
@@ -1814,8 +1830,8 @@ msgstr ""
 msgid "To confirm, please follow this link: %s"
 msgstr ""
 
-#: includes/model/model-group.php:52
-#: includes/model/model-group.php:129
+#: includes/model/model-group.php:73
+#: includes/model/model-group.php:150
 msgid "Essential"
 msgstr ""
 
@@ -1834,7 +1850,7 @@ msgstr ""
 #: includes/service/service-caldera-forms.php:157
 #: includes/service/service-cf7db.php:132
 #: includes/service/service-contact-form-7.php:129
-#: includes/service/service-ct-waitlist.php:133
+#: includes/service/service-ct-waitlist.php:143
 #: includes/service/service-custom-facebook-feed.php:64
 #: includes/service/service-eform.php:159
 #: includes/service/service-events-manager.php:122
@@ -1889,7 +1905,7 @@ msgstr ""
 #: includes/service/service-buddypress.php:350
 #: includes/service/service-caldera-forms.php:149
 #: includes/service/service-contact-form-7.php:103
-#: includes/service/service-ct-waitlist.php:112
+#: includes/service/service-ct-waitlist.php:111
 #: includes/service/service-eform.php:149
 #: includes/service/service-events-manager.php:112
 #: includes/service/service-formidable-forms.php:153
@@ -1917,7 +1933,7 @@ msgstr ""
 #: includes/service/service-buddypress.php:334
 #: includes/service/service-caldera-forms.php:133
 #: includes/service/service-cf7db.php:116
-#: includes/service/service-ct-waitlist.php:95
+#: includes/service/service-ct-waitlist.php:94
 #: includes/service/service-custom-facebook-feed.php:56
 #: includes/service/service-eform.php:132
 #: includes/service/service-flamingo.php:98
@@ -1928,6 +1944,7 @@ msgstr ""
 #: includes/service/service-mailster.php:183
 #: includes/service/service-ninja-forms.php:62
 #: includes/service/service-quform.php:115
+#: includes/service/service-siteorigin-panels.php:64
 #: includes/service/service-woocommerce.php:181
 #: includes/service/service-wp-comments.php:109
 #: includes/service/service-wp-foro.php:420
@@ -1943,7 +1960,7 @@ msgstr ""
 #: includes/service/service-buddypress.php:342
 #: includes/service/service-caldera-forms.php:141
 #: includes/service/service-cf7db.php:124
-#: includes/service/service-ct-waitlist.php:103
+#: includes/service/service-ct-waitlist.php:102
 #: includes/service/service-eform.php:140
 #: includes/service/service-flamingo.php:106
 #: includes/service/service-formcraft.php:103
@@ -1952,6 +1969,7 @@ msgstr ""
 #: includes/service/service-mailster.php:191
 #: includes/service/service-ninja-forms.php:70
 #: includes/service/service-quform.php:123
+#: includes/service/service-siteorigin-panels.php:72
 #: includes/service/service-wp-foro.php:428
 #: includes/service/service-wp-simple-paypal-shopping-cart.php:149
 #: includes/service/service-yith-woocommerce-wishlist.php:90
@@ -2014,22 +2032,22 @@ msgstr ""
 msgid "Contact Form 7 gathers data entered by users in forms"
 msgstr ""
 
-#: includes/service/service-ct-waitlist.php:77
+#: includes/service/service-ct-waitlist.php:76
 #: includes/service/service-mailster.php:155
 #: includes/service/service-quform.php:87
 msgid "There were problems forgetting data for user: %s"
 msgstr ""
 
-#: includes/service/service-ct-waitlist.php:123
-msgid "[%s] Display consent checkbox for logged in user"
+#: includes/service/service-ct-waitlist.php:122
+msgid "[%s] Consent Message"
 msgstr ""
 
-#: includes/service/service-ct-waitlist.php:141
+#: includes/service/service-ct-waitlist.php:151
 msgid "Waitlist for WooCommerce - Back In Stock Notifier"
 msgstr ""
 
-#: includes/service/service-ct-waitlist.php:249
-msgid "Waitlist for WooCommerce - Back In Stock Notifier gathers data entered by users in forms"
+#: includes/service/service-ct-waitlist.php:278
+msgid "Waitlist for WooCommerce - Back In Stock Notifier by CreateIT gathers data entered by users in forms"
 msgstr ""
 
 #: includes/service/service-eform.php:253
@@ -2198,6 +2216,14 @@ msgstr ""
 
 #: includes/service/service-sell-personal-data.php:76
 msgid "Request not to sell personal information"
+msgstr ""
+
+#: includes/service/service-siteorigin-panels.php:80
+msgid "[%s] Inject consent to privacy policy"
+msgstr ""
+
+#: includes/service/service-siteorigin-panels.php:134
+msgid "Page Builder by SiteOrigin does not collect users data, however it may use services from Google Fonts, Google Maps, and embed external videos from Youtube or Vimeo. By using this Site, you signify your acceptance of this policy."
 msgstr ""
 
 #: includes/service/service-ultimate-member.php:126
@@ -3047,6 +3073,10 @@ msgstr ""
 #: includes/views/cookie-group-popup.php:369
 #: includes/views/cookie-group-popup.php:402
 #: includes/views/cookie-group-popup.php:413
+#: includes/views/cookie-single-popup.php:312
+#: includes/views/cookie-single-popup.php:323
+#: includes/views/cookie-single-popup.php:357
+#: includes/views/cookie-single-popup.php:368
 msgid "Cookie Box Settings"
 msgstr ""
 
@@ -3062,6 +3092,7 @@ msgstr ""
 #: includes/views/cookie-group-popup.php:658
 #: includes/views/cookie-group-popup.php:747
 #: includes/views/cookie-group-popup.php:790
+#: includes/views/cookie-single-popup.php:479
 msgid "This website wont't:"
 msgstr ""
 

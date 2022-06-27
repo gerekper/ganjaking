@@ -11,7 +11,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WC_OD_Settings Class.
  */
-class WC_OD_Settings extends WC_OD_Singleton {
+class WC_OD_Settings {
+
+	use WC_OD_Singleton_Trait;
 
 	/**
 	 * Stores the default settings values.
@@ -35,8 +37,6 @@ class WC_OD_Settings extends WC_OD_Singleton {
 	 * @since 1.0.0
 	 */
 	protected function __construct() {
-		parent::__construct();
-
 		add_action( 'added_option', array( $this, 'updated_setting' ), 10, 2 );
 		add_action( 'updated_option', array( $this, 'updated_setting' ), 10, 3 );
 	}
@@ -122,43 +122,6 @@ class WC_OD_Settings extends WC_OD_Singleton {
 				'delivery_ranges'          => array(),
 				'checkout_location'        => 'after_additional_fields',
 				'checkout_delivery_option' => 'calendar',
-				'delivery_days'            => array(
-					array( // Sunday.
-						'enabled'          => 'no',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Monday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Tuesday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Wednesday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Thursday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Friday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-					array( // Saturday.
-						'enabled'          => 'yes',
-						'time_frames'      => array(),
-						'shipping_methods' => array(),
-					),
-				),
 				'max_delivery_days'        => 90,
 				'enable_local_pickup'      => 'no',
 				'shipping_events_index'    => 1,
@@ -191,8 +154,19 @@ class WC_OD_Settings extends WC_OD_Singleton {
 	 * @return mixed The default setting value. Null otherwise.
 	 */
 	public function get_default( $name ) {
-		$defaults    = $this->get_defaults();
 		$setting_key = $this->get_setting_key( $name );
+
+		// Keep the backward compatibility.
+		if ( 'delivery_days' === $setting_key ) {
+			wc_doing_it_wrong( __FUNCTION__, "The setting '{$name}' is deprecated. Use wc_od_get_delivery_days() instead.", '2.0.0' );
+
+			$delivery_day = wc_od_get_delivery_day( array() );
+			$data         = $delivery_day->to_array();
+
+			return array_fill( 0, 7, $data );
+		}
+
+		$defaults = $this->get_defaults();
 
 		return ( isset( $defaults[ $setting_key ] ) ? $defaults[ $setting_key ] : null );
 	}
@@ -220,6 +194,12 @@ class WC_OD_Settings extends WC_OD_Singleton {
 	 */
 	public function get_setting( $name, $default = null ) {
 		$setting_key = $this->get_setting_key( $name );
+
+		// Keep the backward compatibility.
+		if ( 'delivery_days' === $setting_key ) {
+			wc_doing_it_wrong( __FUNCTION__, "The setting '{$name}' is deprecated. Use wc_od_get_delivery_days() instead.", '2.0.0' );
+			return wc_od_get_delivery_days()->to_array();
+		}
 
 		if ( ! $this->has_setting( $setting_key ) ) {
 			return $default;

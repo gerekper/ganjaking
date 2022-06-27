@@ -278,7 +278,20 @@ function perfmatters_settings() {
         'perfmatters_options', 
         array(
             'id' => 'blank_favicon',
-            'tooltip' => __('Adds a blank favicon to your WordPress header which will prevent a Missing Favicon or 404 error from showing up on certain website speed testing tools.', 'perfmatters')
+            'tooltip' => __('Adds a blank favicon to your WordPress header, which will prevent a missing favicon or 404 error. If you already have a favicon on your site, you should leave this off. ', 'perfmatters')
+        )
+    );
+
+    //remove global styles
+    add_settings_field(
+        'remove_global_styles', 
+        perfmatters_title(__('Remove Global Styles', 'perfmatters'), 'remove_global_styles', 'https://perfmatters.io/docs/remove-global-inline-styles-wordpress/'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'perfmatters_options', 
+        array(
+            'id' => 'remove_global_styles',
+            'tooltip' => __('Remove the inline global styles (CSS and SVG code) related to duotone filters.', 'perfmatters')
         )
     );
 
@@ -371,7 +384,7 @@ function perfmatters_settings() {
     );
 
     //login url options section
-    add_settings_section('login_url', __('Login URL', 'perfmatters'), 'perfmatters_options_login_url_callback', 'perfmatters_options');
+    add_settings_section('login_url', __('Login URL', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //change login url
     add_settings_field(
@@ -428,7 +441,7 @@ function perfmatters_settings() {
     if(class_exists('WooCommerce')) {
 
         //woocommerce options section
-        add_settings_section('perfmatters_woocommerce', 'WooCommerce', 'perfmatters_woocommerce_callback', 'perfmatters_options');
+        add_settings_section('perfmatters_woocommerce', 'WooCommerce', '__return_false', 'perfmatters_options');
 
         //disable woocommerce scripts
         add_settings_field(
@@ -485,7 +498,7 @@ function perfmatters_settings() {
 
     /* assets section
     /**********************************************************/
-    add_settings_section('assets', __('Assets', 'perfmatters'), 'perfmatters_options_assets_callback', 'perfmatters_options');
+    add_settings_section('assets', __('Assets', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //script manager
     add_settings_field(
@@ -502,7 +515,7 @@ function perfmatters_settings() {
     );
 
     //assets js section
-    add_settings_section('assets_js', __('JavaScript', 'perfmatters'), 'perfmatters_options_assets_js_callback', 'perfmatters_options');
+    add_settings_section('assets_js', __('JavaScript', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //defer js
     add_settings_field(
@@ -564,6 +577,7 @@ function perfmatters_settings() {
             'id' => 'delay_js',
             'section' => 'assets',
             'tooltip' => __('Delay JavaScript from loading until user interaction.', 'perfmatters'),
+            'class' => 'perfmatters-input-controller'
         )
     );
 
@@ -583,7 +597,7 @@ function perfmatters_settings() {
                 'all' => __('Delay All Scripts', 'perfmatters')
             ),
             'tooltip' => __('Choose the method used to delay scripts.', 'perfmatters'),
-            'class' => 'perfmatters-input-controller'
+            'class' => 'assets-delay_js perfmatters-input-controller' . (empty($perfmatters_options['assets']['delay_js']) ? ' hidden' : '')
         )
     );
 
@@ -601,7 +615,7 @@ function perfmatters_settings() {
             'textareatype' => 'oneperline',
             'placeholder' => 'example.js',
             'tooltip' => __('Delay specific JavaScript files by adding the source URL (example.js), or delay an inline script by adding a unique string from that script. Format: one per line', 'perfmatters'),
-            'class' => 'assets-delay_js_behavior perfmatters-select-control-' . (!empty($perfmatters_options['assets']['delay_js_behavior']) ? ' hidden' : '')
+            'class' => 'assets-delay_js assets-delay_js_behavior perfmatters-select-control-' . (!empty($perfmatters_options['assets']['delay_js_behavior']) || empty($perfmatters_options['assets']['delay_js']) ? ' hidden' : '')
         )
     );
 
@@ -619,7 +633,7 @@ function perfmatters_settings() {
             'textareatype' => 'oneperline',
             'placeholder' => 'example.js',
             'tooltip' => __('Exclude specific JavaScript files from delay by adding the source URL (example.js), or exclude an inline script by adding a unique string from that script. Format: one per line', 'perfmatters'),
-            'class' => 'assets-delay_js_behavior perfmatters-select-control-all' . (empty($perfmatters_options['assets']['delay_js_behavior']) ? ' hidden' : '')
+            'class' => 'assets-delay_js assets-delay_js_behavior perfmatters-select-control-all' . (empty($perfmatters_options['assets']['delay_js_behavior'])  || empty($perfmatters_options['assets']['delay_js']) ? ' hidden' : '')
         )
     );
 
@@ -633,26 +647,123 @@ function perfmatters_settings() {
         array(
             'id' => 'delay_timeout',
             'section' => 'assets',
+            'tooltip' => __('Load delayed scripts after a set amount of time if no user interaction has been detected.', 'perfmatters'),
+            'class' => 'assets-delay_js' . (empty($perfmatters_options['assets']['delay_js']) ? ' hidden' : '')
+        )
+    );
+
+    //assets css section
+    add_settings_section('assets_css', __('CSS', 'perfmatters'), '__return_false', 'perfmatters_options');
+
+    //remove unused css
+    add_settings_field(
+        'remove_unused_css', 
+        perfmatters_title(__('Remove Unused CSS', 'perfmatters'), 'remove_unused_css', 'https://perfmatters.io/docs/remove-unused-css/#remove-unused-css'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'id' => 'remove_unused_css',
+            'section' => 'assets',
+            'tooltip' => __('Remove unused CSS from your stylesheets and print out used CSS inline in the header.', 'perfmatters'),
+            'class' => 'perfmatters-input-controller'
+        )
+    );
+
+    //used css method
+    add_settings_field(
+        'rucss_method', 
+        perfmatters_title(__('Used CSS Method', 'perfmatters'), 'rucss_method', 'https://perfmatters.io/docs/remove-unused-css/#css-method'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'id' => 'rucss_method',
+            'section' => 'assets',
             'input' => 'select',
             'options' => array(
-                "" => __('None', 'perfmatters'),
-                "1" => '1 ' . __('second', 'perfmatters'),
-                "2" => '2 ' . __('seconds', 'perfmatters'),
-                "3" => '3 ' . __('seconds', 'perfmatters'),
-                "4" => '4 ' . __('seconds', 'perfmatters'),
-                "5" => '5 ' . __('seconds', 'perfmatters'),
-                "6" => '6 ' . __('seconds', 'perfmatters'),
-                "7" => '7 ' . __('seconds', 'perfmatters'),
-                "8" => '8 ' . __('seconds', 'perfmatters'),
-                "9" => '9 ' . __('seconds', 'perfmatters'),
-                "10" => '10 ' . __('seconds', 'perfmatters')
-                ),
-            'tooltip' => __('Load delayed scripts after a set amount of time if no user interaction has been detected.', 'perfmatters')
+                '' => __('Inline', 'perfmatters'),
+                'file' => __('File', 'perfmatters')
+            ),
+            'tooltip' => __('Choose how the used CSS will be included.', 'perfmatters'),
+            'class' => 'assets-remove_unused_css' . (empty($perfmatters_options['assets']['remove_unused_css']) ? ' hidden' : '')
+        )
+    );
+
+    //unused css stylesheet behavior
+    add_settings_field(
+        'rucss_stylesheet_behavior', 
+        perfmatters_title(__('Stylesheet Behavior', 'perfmatters'), 'rucss_stylesheet_behavior', 'https://perfmatters.io/docs/remove-unused-css/#stylesheet-behavior'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'id' => 'rucss_stylesheet_behavior',
+            'section' => 'assets',
+            'input' => 'select',
+            'options' => array(
+                '' => __('Delay', 'perfmatters'),
+                'async' => __('Async', 'perfmatters'),
+                'remove' => __('Remove', 'perfmatters')
+            ),
+            'tooltip' => __('Choose how the original stylesheets (unused CSS) will be included.', 'perfmatters'),
+            'class' => 'assets-remove_unused_css' . (empty($perfmatters_options['assets']['remove_unused_css']) ? ' hidden' : '')
+        )
+    );
+
+    //remove unused css excluded stylesheets
+    add_settings_field(
+        'rucss_excluded_stylesheets', 
+        perfmatters_title(__('Excluded Stylesheets', 'perfmatters'), 'rucss_excluded_stylesheets', 'https://perfmatters.io/docs/remove-unused-css/#excluded-stylesheets'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'id' => 'rucss_excluded_stylesheets',
+            'section' => 'assets',
+            'input' => 'textarea',
+            'textareatype' => 'oneperline',
+            'tooltip' => __('Exclude specific stylesheets from unused CSS removal by adding a unique portion of the source URL (example.css). Format: one per line', 'perfmatters'),
+            'class' => 'assets-remove_unused_css' . (empty($perfmatters_options['assets']['remove_unused_css']) ? ' hidden' : '')
+        )
+    );
+
+    //remove unused css excluded selectors
+    add_settings_field(
+        'rucss_excluded_selectors', 
+        perfmatters_title(__('Excluded Selectors', 'perfmatters'), 'rucss_excluded_selectors', 'https://perfmatters.io/docs/remove-unused-css/#excluded-selectors'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'id' => 'rucss_excluded_selectors',
+            'section' => 'assets',
+            'input' => 'textarea',
+            'textareatype' => 'oneperline',
+            'tooltip' => __('Exclude specific CSS selectors from being removed by adding the element ID, class name, etc. (#id, .class). Format: one per line', 'perfmatters'),
+            'class' => 'assets-remove_unused_css' . (empty($perfmatters_options['assets']['remove_unused_css']) ? ' hidden' : '')
+        )
+    );
+
+    //clear used css
+    add_settings_field(
+        'clear_used_css', 
+        perfmatters_title(__('Clear Used CSS', 'perfmatters'), 'clear_used_css', 'https://perfmatters.io/docs/remove-unused-css/#clear-used-css'), 
+        'perfmatters_print_input',
+        'perfmatters_options', 
+        'assets_css', 
+        array(
+            'section' => 'assets',
+            'id' => 'clear_used_css',
+            'input' => 'button',
+            'title' => __('Clear Used CSS', 'perfmatters'),
+            'class' => 'assets-remove_unused_css' . (empty($perfmatters_options['assets']['remove_unused_css']) ? ' hidden' : ''),
+            'tooltip' => __('Remove all existing unused CSS files that have been generated.', 'perfmatters')
         )
     );
 
     //assets code section
-    add_settings_section('assets_code', __('Code', 'perfmatters'), 'perfmatters_options_assets_code_callback', 'perfmatters_options');
+    add_settings_section('assets_code', __('Code', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //header code
     add_settings_field(
@@ -707,7 +818,7 @@ function perfmatters_settings() {
 
     /* preload section
     /**********************************************************/
-    add_settings_section('preload', __('Preloading', 'perfmatters'), 'perfmatters_options_preload_callback', 'perfmatters_options');
+    add_settings_section('preload', __('Preloading', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //enable instant page
     add_settings_field(
@@ -793,7 +904,7 @@ function perfmatters_settings() {
 
     /* lazyload section
     /**********************************************************/
-    add_settings_section('lazyload', __('Lazy Loading', 'perfmatters'), 'perfmatters_options_lazyload_callback', 'perfmatters_options');
+    add_settings_section('lazyload', __('Lazy Loading', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //images
     add_settings_field(
@@ -940,9 +1051,42 @@ function perfmatters_settings() {
         )
     );
 
+    //css background images
+    add_settings_field(
+        'css_background_images', 
+        perfmatters_title(__('CSS Background Images', 'perfmatters'), 'css_background_images', 'https://perfmatters.io/docs/lazy-load-wordpress/#css-background-images'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'lazyload', 
+        array(
+            'section' => 'lazyload',
+            'id' => 'css_background_images',
+            'tooltip' => __('Allow lazy loading of background images coming from (CSS) stylesheets.', 'perfmatters'),
+            'class' => 'perfmatters-input-controller'
+        )
+    );
+
+    //css background selectors
+    add_settings_field(
+        'css_background_selectors', 
+        perfmatters_title(__('Background Selectors', 'perfmatters'), 'css_background_selectors', 'https://perfmatters.io/docs/lazy-load-wordpress/#css-background-images'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'lazyload', 
+        array(
+            'section' => 'lazyload',
+            'id' => 'css_background_selectors',
+            'input' => 'textarea',
+            'textareatype' => 'oneperline',
+            'placeholder' => 'div-background-class',
+            'tooltip' => __('Lazy load a CSS background image by adding a unique selector (ID or class) found on the element that the background image has been applied to. Format: one per line', 'perfmatters'),
+            'class' => 'lazyload-css_background_images' . (empty($perfmatters_options['lazyload']['css_background_images']) ? ' hidden' : '')
+        )
+    );
+
     /* fonts section
     /**********************************************************/
-    add_settings_section('perfmatters_fonts', __('Fonts', 'perfmatters'), 'perfmatters_options_fonts_callback', 'perfmatters_options');
+    add_settings_section('perfmatters_fonts', __('Fonts', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //disable google fonts
     add_settings_field(
@@ -1025,7 +1169,7 @@ function perfmatters_settings() {
 
     /* cdn section
     /**********************************************************/
-    add_settings_section('perfmatters_cdn', 'CDN', 'perfmatters_options_cdn_callback', 'perfmatters_options');
+    add_settings_section('perfmatters_cdn', 'CDN', '__return_false', 'perfmatters_options');
 
     //enable cdn rewrite
     add_settings_field(
@@ -1091,7 +1235,7 @@ function perfmatters_settings() {
 
     /* analytics section
     /**********************************************************/
-    add_settings_section('perfmatters_analytics', __('Google Analytics', 'perfmatters'), 'perfmatters_options_analytics_callback', 'perfmatters_options');
+    add_settings_section('perfmatters_analytics', __('Google Analytics', 'perfmatters'), '__return_false', 'perfmatters_options');
 
     //enable local ga
     add_settings_field(
@@ -1271,10 +1415,41 @@ function perfmatters_settings() {
         )
     );
 
+    //dual tracking
+    add_settings_field(
+        'dual_tracking', 
+        perfmatters_title(__('Dual Tracking', 'perfmatters'), 'dual_tracking', 'https://perfmatters.io/docs/local-analytics/#dual-tracking'),
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'perfmatters_analytics', 
+        array(
+            'section' => 'analytics',
+            'id' => 'dual_tracking',
+            'class' => 'perfmatters-input-controller analytics-script_type perfmatters-select-control-gtag' . (empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] != 'gtag' ? ' hidden' : ''),
+            'tooltip' => __('Run Google Analytics 4 and Universal Analytics simultaneously.', 'perfmatters')
+        )
+    );
+
+    //measurement id
+    add_settings_field(
+        'measurement_id', 
+        perfmatters_title(__('Measurement ID', 'perfmatters'), 'measurement_id', 'https://perfmatters.io/docs/local-analytics/#dual-tracking'), 
+        'perfmatters_print_input', 
+        'perfmatters_options', 
+        'perfmatters_analytics', 
+        array(
+            'section' => 'analytics',
+            'id' => 'measurement_id',
+            'input' => 'text',
+            'class' => 'analytics-dual_tracking analytics-script_type perfmatters-select-control-gtag' . (empty($perfmatters_options['analytics']['script_type']) || $perfmatters_options['analytics']['script_type'] != 'gtag' || empty($perfmatters_options['analytics']['dual_tracking']) ? ' hidden' : ''),
+            'tooltip' => __('Input your Google Analytics 4 measurement ID.', 'perfmatters')
+        )
+    );
+
     register_setting('perfmatters_options', 'perfmatters_options', 'perfmatters_sanitize_options');
 
     //tools plugin section
-    add_settings_section('plugin', __('Plugin', 'perfmatters'), 'perfmatters_tools_plugin_callback', 'perfmatters_tools');
+    add_settings_section('plugin', __('Plugin', 'perfmatters'), '__return_false', 'perfmatters_tools');
 
     if(!is_multisite()) {
 
@@ -1306,6 +1481,23 @@ function perfmatters_settings() {
         	'input' => 'checkbox',
         	'option' => 'perfmatters_tools',
         	'tooltip' => __('Disable the use of visual UI elements in the plugin settings such as checkbox toggles and hovering tooltips.', 'perfmatters')
+        )
+    );
+
+    //restore defaults
+    add_settings_field(
+        'restore_defaults', 
+        perfmatters_title(__('Restore Default Options', 'perfmatters'), 'restore_defaults', 'https://perfmatters.io/docs/restore-default-options/'), 
+        'perfmatters_print_input',
+        'perfmatters_tools', 
+        'plugin', 
+        array(
+            'id'      => 'restore_defaults',
+            'input'   => 'button',
+            'title'   => __('Restore Default Options', 'perfmatters'),
+            'confirmation' => __('Are you sure? This will remove all existing plugin options and restore them to their default states.', 'perfmatters'),
+            'option'  => 'perfmatters_tools',
+            'tooltip' => __('Restore all plugin options to their default settings.', 'perfmatters')
         )
     );
 
@@ -1355,7 +1547,7 @@ function perfmatters_settings() {
     );
 
     //database section
-    add_settings_section('database', __('Database', 'perfmatters'), 'perfmatters_tools_database_callback', 'perfmatters_tools');
+    add_settings_section('database', __('Database', 'perfmatters'), '__return_false', 'perfmatters_tools');
 
     //post revisions
     add_settings_field(
@@ -1588,84 +1780,18 @@ function perfmatters_network_defaults(&$defaults, $option) {
     }
 }
 
-//main options group callback
-function perfmatters_options_callback() {
-	echo '<p class="perfmatters-subheading">' . __('Select which performance options you would like to enable.', 'perfmatters') . '</p>';
-}
-
-//options login url group callback
-function perfmatters_options_login_url_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Change your login URL.', 'perfmatters') . '</p>';
-}
-
-//woocommerce options group callback
-function perfmatters_woocommerce_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Disable specific elements of WooCommerce.', 'perfmatters') . '</p>';
-}
-
-//options assets group callback
-function perfmatters_options_assets_callback() {
-    echo '<p class="perfmatters-subheading">' . __("Manage the assets loading on your site.", 'perfmatters') . '</p>';
-}
-
-//options assets js group callback
-function perfmatters_options_assets_js_callback() {
-    echo '<p class="perfmatters-subheading">' . __("Manage JavaScript loading on your site.", 'perfmatters') . '</p>';
-}
-
-//options assets code group callback
-function perfmatters_options_assets_code_callback() {
-    echo '<p class="perfmatters-subheading">' . __("Add code globally to your entire site.", 'perfmatters') . '</p>';
-}
-
-//options preload group callback
-function perfmatters_options_preload_callback() {
-    echo '<p class="perfmatters-subheading">' . __("Preload resources you'll need later in advance.", 'perfmatters') . '</p>';
-}
-
-//lazy loading options group callback
-function perfmatters_options_lazyload_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Lazy Load images across your site.', 'perfmatters') . '</p>';
-}
-
-//fonts options group callback
-function perfmatters_options_fonts_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Optimize your fonts.', 'perfmatters') . '</p>';
-}
-
-//cdn group callback
-function perfmatters_options_cdn_callback() {
-    echo '<p class="perfmatters-subheading">' . __('CDN options that allow you to rewrite your site URLs with your CDN URLs.', 'perfmatters') . '</p>';
-}
-
-//analytics group callback
-function perfmatters_options_analytics_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Optimization options for Google Analytics.', 'perfmatters') . '</p>';
-}
-
-//tools callback
-function perfmatters_tools_plugin_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Perfmatters plugin management tools.', 'perfmatters') . '</p>';
-}
-
-//tools database callback
-function perfmatters_tools_database_callback() {
-    echo '<p class="perfmatters-subheading">' . __('Optimize and clean up your WordPress database.', 'perfmatters') . '</p>';
-    echo '<p class="perfmatters-warning"><span class="dashicons dashicons-warning"></span> ' . __('These functions make permanent changes that cannot be reverted! Back up your database before proceeding.', 'perfmatters') . '</p>';
-}
-
 //print settings section
 function perfmatters_settings_section($page, $section) {
     global $wp_settings_sections;
     if(!empty($wp_settings_sections[$page][$section])) {
-        echo '<h2>' . __($wp_settings_sections[$page][$section]['title'], 'perfmatters') . '</h2>';
-        echo $wp_settings_sections[$page][$section]['callback']();
-
-        echo "<table class='form-table'>";
-            echo "<tbody>";
-                do_settings_fields($page, $section);
-            echo "</tbody>";
-        echo "</table>";
+        echo '<div class="perfmatters-settings-section">';
+            echo '<h2>' . __($wp_settings_sections[$page][$section]['title'], 'perfmatters') . '</h2>';
+            echo '<table class="form-table">';
+                echo '<tbody>';
+                    do_settings_fields($page, $section);
+                echo '</tbody>';
+            echo '</table>';
+        echo '</div>';
     }
 }
 
@@ -1749,19 +1875,19 @@ function perfmatters_print_input($args) {
 
     //checkbox + toggle
     else {
-        if((empty($tools['accessibility_mode']) || $tools['accessibility_mode'] != "1") && (empty($args['input']) || $args['input'] != 'checkbox')) {
-            echo "<label for='" . $selection_id . "' class='switch'>";
+        if(empty($tools['accessibility_mode']) && (empty($args['input']) || $args['input'] != 'checkbox')) {
+            echo "<label for='" . $selection_id . "' class='perfmatters-switch'>";
         }
             echo "<input type='checkbox' id='" . $selection_id . "' name='" . $option . "[" . $args['id'] . "]' value='1' style='display: inline-block; margin: 0px;' ";
-            if(!empty($options[$args['id']]) && $options[$args['id']] == "1") {
+            if(!empty($options[$args['id']])) {
                 echo "checked";
             }
             if(!empty($args['confirmation'])) {
                 echo " onChange=\"this.checked=this.checked?confirm('" . $args['confirmation'] . "'):false;\"";
             }
             echo ">";
-        if((empty($tools['accessibility_mode']) || $tools['accessibility_mode'] != "1") && (empty($args['input']) || $args['input'] != 'checkbox')) {
-               echo "<div class='slider'></div>";
+        if(empty($tools['accessibility_mode']) && (empty($args['input']) || $args['input'] != 'checkbox')) {
+               echo "<div class='perfmatters-slider'></div>";
            echo "</label>";
         }
     }
@@ -1970,12 +2096,15 @@ function perfmatters_sanitize_options($values) {
     //textarea inputs with one per line
     $sections_one_per_line = array(
         'lazyload' => array(
-            'lazy_loading_exclusions'
+            'lazy_loading_exclusions',
+            'css_background_selectors'
         ),
         'assets' => array(
             'js_exclusions',
             'delay_js_inclusions',
-            'delay_js_exclusions'
+            'delay_js_exclusions',
+            'rucss_excluded_stylesheets',
+            'rucss_excluded_selectors'
         ),
         'preload' => array(
             'dns_prefetch'

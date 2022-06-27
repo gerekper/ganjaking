@@ -16,15 +16,15 @@ class Compiler
  {
  $this->env = $env;
  }
- public function getEnvironment()
+ public function getEnvironment() : Environment
  {
  return $this->env;
  }
- public function getSource()
+ public function getSource() : string
  {
  return $this->source;
  }
- public function compile(Node $node, $indentation = 0)
+ public function compile(Node $node, int $indentation = 0)
  {
  $this->lastLine = null;
  $this->source = '';
@@ -37,7 +37,7 @@ class Compiler
  $node->compile($this);
  return $this;
  }
- public function subcompile(Node $node, $raw = \true)
+ public function subcompile(Node $node, bool $raw = \true)
  {
  if (\false === $raw) {
  $this->source .= \str_repeat(' ', $this->indentation * 4);
@@ -45,7 +45,7 @@ class Compiler
  $node->compile($this);
  return $this;
  }
- public function raw($string)
+ public function raw(string $string)
  {
  $this->source .= $string;
  return $this;
@@ -57,9 +57,9 @@ class Compiler
  }
  return $this;
  }
- public function string($value)
+ public function string(string $value)
  {
- $this->source .= \sprintf('"%s"', \addcslashes($value, "\0\t\"\$\\"));
+ $this->source .= \sprintf('"%s"', \addcslashes($value, "\x00\t\"\$\\"));
  return $this;
  }
  public function repr($value)
@@ -105,17 +105,17 @@ class Compiler
  }
  return $this;
  }
- public function getDebugInfo()
+ public function getDebugInfo() : array
  {
  \ksort($this->debugInfo);
  return $this->debugInfo;
  }
- public function indent($step = 1)
+ public function indent(int $step = 1)
  {
  $this->indentation += $step;
  return $this;
  }
- public function outdent($step = 1)
+ public function outdent(int $step = 1)
  {
  // can't outdent by more steps than the current indentation level
  if ($this->indentation < $step) {
@@ -124,9 +124,8 @@ class Compiler
  $this->indentation -= $step;
  return $this;
  }
- public function getVarName()
+ public function getVarName() : string
  {
  return \sprintf('__internal_compile_%d', $this->varNameSalt++);
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Compiler', 'MailPoetVendor\\Twig_Compiler');

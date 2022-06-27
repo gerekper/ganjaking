@@ -55,13 +55,19 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 			'number_of_orders' => array(
 				'label' => __( 'Number of orders', 'woocommerce-order-delivery' ),
 			),
+			'fee'              => array(
+				'label' => __( 'Fee', 'woocommerce-order-delivery' ),
+			),
 		);
 
-		parent::__construct(
-			$field,
-			$columns,
-			( isset( $field['value'] ) ? $field['value'] : array() )
-		);
+		$value = array();
+
+		if ( false !== $this->day_id ) {
+			$delivery_day = wc_od_get_delivery_day( $this->day_id );
+			$value        = $delivery_day->get_time_frames()->to_array();
+		}
+
+		parent::__construct( $field, $columns, $value );
 	}
 
 	/**
@@ -70,11 +76,13 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 	 * @since 1.5.0
 	 */
 	public function init_day_id() {
-		if ( isset( $_GET['day_id'] ) ) {
-			$day_id = (int) wc_clean( wp_unslash( $_GET['day_id'] ) ); // WPCS: CSRF ok.
-
-			$this->day_id = ( $day_id >= 0 && $day_id <= 6 ? $day_id : false );
+		if ( ! isset( $_GET['day_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			return;
 		}
+
+		$day_id = absint( wp_unslash( $_GET['day_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+
+		$this->day_id = ( $day_id < 7 ? $day_id : false );
 	}
 
 	/**
@@ -150,20 +158,6 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 	}
 
 	/**
-	 * Outputs the action links for a row.
-	 *
-	 * @since 1.5.0
-	 * @deprecated 1.7.0
-	 *
-	 * @param mixed $row The row index.
-	 */
-	public function row_actions( $row ) {
-		wc_deprecated_function( __FUNCTION__, '1.7.0', 'WC_OD_Admin_Field_Table->output_row_actions()' );
-
-		$this->output_row_actions( $row );
-	}
-
-	/**
 	 * Outputs the column 'title'.
 	 *
 	 * @since 1.5.0
@@ -222,6 +216,22 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 	}
 
 	/**
+	 * Outputs the column 'fee'.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int   $row  The row index.
+	 * @param array $data The row data.
+	 */
+	public function output_column_fee( $row, $data ) {
+		if ( isset( $data['fee_amount'] ) && $data['fee_amount'] ) {
+			echo wp_kses_post( wc_price( $data['fee_amount'] ) );
+		} else {
+			echo '-';
+		}
+	}
+
+	/**
 	 * Outputs the table footer.
 	 *
 	 * @since 1.5.0
@@ -236,5 +246,17 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 			</tr>
 		</tfoot>
 		<?php
+	}
+
+	/**
+	 * Sanitizes the field value.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param array $value The field value.
+	 * @return array
+	 */
+	public function sanitize_field( $value ) {
+		return ( is_array( $value ) ? array_keys( $value ) : array() );
 	}
 }

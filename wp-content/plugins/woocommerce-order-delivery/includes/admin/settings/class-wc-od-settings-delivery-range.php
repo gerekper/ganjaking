@@ -48,8 +48,6 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 		} else {
 			$this->delivery_range = $delivery_range;
 		}
-
-		parent::__construct();
 	}
 
 	/**

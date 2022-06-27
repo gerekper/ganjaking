@@ -14,7 +14,7 @@
 		});
 
 		// JSON Array of Option IDs / Classes
-		var json_notif = [ 
+		var json_notif = [
 		    { "#woocommerce_wcslack_notif-post-new": ".wcslack-post-new-field" },
 		    { "#woocommerce_wcslack_notif-order-new": ".wcslack-order-new-field" },
 		    { "#woocommerce_wcslack_notif-back-order": ".wcslack-back-order-field" },
@@ -82,7 +82,7 @@
 
 				// On Check Hiding
 
-				$( checkbox_var ).click(function() {
+				$( checkbox_var ).on( 'click', function() {
 					if ( $(this).is(':checked') ) {
 						$( child_var ).show();
 					} else {
@@ -107,9 +107,9 @@ jQuery.fn.wchcnselectText = function(){
     if (doc.body.createTextRange) {
         range = document.body.createTextRange();
         range.moveToElementText(element);
-        range.select();
+        range.trigger( 'select' );
     } else if (window.getSelection) {
-        selection = window.getSelection();        
+        selection = window.getSelection();
         range = document.createRange();
         range.selectNodeContents(element);
         selection.removeAllRanges();
@@ -119,14 +119,14 @@ jQuery.fn.wchcnselectText = function(){
 
 // Highlight text on sleect for template tags
 jQuery(function() {
-	jQuery('span.wchcn-tag').click(function() {
+	jQuery('span.wchcn-tag').on( 'click', function() {
     	jQuery(this).wchcnselectText();
 	});
 });
 
 jQuery( document ).ready( function( $ ) {
-    $( '.wc-slack-connect' ).click( function() {
+    $( '.wc-slack-connect' ).on( 'click', function() {
         $( '#wc_slack_redirect' ).val( '1' );
-        $( '#mainform' ) .submit();
+        $( '#mainform' ).trigger( 'submit' );
     } );
 } );

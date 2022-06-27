@@ -26,7 +26,6 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -51,7 +50,7 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 			}
 
 		}
-		Af_Logger::debug('free email rule risk : '. ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('free email rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

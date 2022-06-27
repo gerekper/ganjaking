@@ -1,15 +1,24 @@
 *** WooCommerce Bookings Changelog ***
 
-2022-03-17 - version 1.15.53
-* Fix - Booking Time Not Available After Booking Released from Cart.
-* Fix - Booking changed to "Partially Paid" even when deposit payment failed.
-* Fix - Compatibility issue with WooCommerce Multi-Currency.
-* Fix - Inconsistency manual created bookings vs. frontend.
-* Fix - Min Block Bookable Setting "x" hours into the future does not work with day range bookings.
-* Fix - Overbooking with "Customer defined blocks of".
-* Fix - Partially booked slots not considered for new bookings.
-* Fix - Show category in API only if it has a bookable product.
-* Fix - Undefined array key "resource_id" when using 'Customer defined blocks of'.
+2022-04-15 - version 1.15.54
+* Fix - Add confirmation before canceling a booking.
+* Fix - Added the ability to checkout bookable products with the new checkout Gutenberg block. .
+* Fix - Adds error callback for ajax post for time-picker.js.
+* Fix - Admin Calendar Month View - last day in calendar grid shows no bookings.
+* Fix - Admin calendar "schedule" month resets when selecting a product.
+* Fix - Calendar shows available, even when all blocks are booked.
+* Fix - Check booking availability payment method is hidden from settings.
+* Fix - Fix The 12:00 AM is considered as next day's midnight, not Today's.
+* Fix - Fix/3046 - Updates "Check booking availability" copy to "Subject to confirmation".
+* Fix - Fix: Plugin asset URL issue for plugin installed via symlink.
+* Fix - Incorrect time for CRON canceling failed orders.
+* Fix - Resources block entire day when added after bookings are made.
+* Fix - Updated - filter `wc_bookings_get_time_slots_html` includes 4th argument, containing the product data.
+* Update - Time changed for CRON to cancel failed orders.
+
+2022-03-25 - version 1.15.53
+* Tweak - WC 6.3 compatibility.
+* Tweak - WP 5.9 compatibility.
 
 2022-02-08 - version 1.15.52
 * Fix - Fixes an issue with the previous build size.

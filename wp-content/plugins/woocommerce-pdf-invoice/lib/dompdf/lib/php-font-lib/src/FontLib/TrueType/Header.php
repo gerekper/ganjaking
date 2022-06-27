@@ -6,14 +6,14 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\TrueType;
+namespace WooCommercePDFInvoiceFontLib\TrueType;
 
 /**
  * TrueType font file header.
  *
  * @package php-font-lib
  */
-class Header extends \FontLib\Header {
+class Header extends \WooCommercePDFInvoiceFontLib\Header {
   protected $def = array(
     "format"        => self::uint32,
     "numTables"     => self::uint16,

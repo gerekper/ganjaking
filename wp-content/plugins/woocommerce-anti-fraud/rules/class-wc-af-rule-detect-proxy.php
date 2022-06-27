@@ -22,7 +22,6 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -45,9 +44,9 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 
 		// Default risk is false
 		$risk = false;
-		$contents = @file_get_contents("http://proxycheck.io/v2/".$ip."?key=913st5-6a024j-t43896-i0t35y&vpn=1&asn=1&tag=".home_url());
+		$contents = @file_get_contents('http://proxycheck.io/v2/' . $ip . '?key=913st5-6a024j-t43896-i0t35y&vpn=1&asn=1&tag=' . home_url());
 				 
-		if ( $contents !== false ) {
+		if ( false !== $contents ) {
 
 			$res = @json_decode($contents);
 			
@@ -64,11 +63,11 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 				}
 				
 				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
-				Af_Logger::debug(print_r($res,true));	
+				Af_Logger::debug(print_r($res, true));	
 			}			    
 			
 		}
-		Af_Logger::debug('detect proxy rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('detect proxy rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 	

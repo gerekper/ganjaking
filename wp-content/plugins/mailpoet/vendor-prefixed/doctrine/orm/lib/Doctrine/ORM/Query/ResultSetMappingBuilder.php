@@ -2,6 +2,7 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Query;
 if (!defined('ABSPATH')) exit;
+use MailPoetVendor\Doctrine\DBAL\Types\Type;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 use MailPoetVendor\Doctrine\ORM\Internal\SQLResultCasing;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -223,17 +224,23 @@ class ResultSetMappingBuilder extends ResultSetMapping
  $sql = '';
  foreach ($this->columnOwnerMap as $columnName => $dqlAlias) {
  $tableAlias = $tableAliases[$dqlAlias] ?? $dqlAlias;
- if ($sql) {
+ if ($sql !== '') {
  $sql .= ', ';
  }
- $sql .= $tableAlias . '.';
  if (isset($this->fieldMappings[$columnName])) {
  $class = $this->em->getClassMetadata($this->declaringClasses[$columnName]);
- $sql .= $class->fieldMappings[$this->fieldMappings[$columnName]]['columnName'];
+ $fieldName = $this->fieldMappings[$columnName];
+ $classFieldMapping = $class->fieldMappings[$fieldName];
+ $columnSql = $tableAlias . '.' . $classFieldMapping['columnName'];
+ if (isset($classFieldMapping['requireSQLConversion']) && $classFieldMapping['requireSQLConversion'] === \true) {
+ $type = Type::getType($classFieldMapping['type']);
+ $columnSql = $type->convertToPHPValueSQL($columnSql, $this->em->getConnection()->getDatabasePlatform());
+ }
+ $sql .= $columnSql;
  } elseif (isset($this->metaMappings[$columnName])) {
- $sql .= $this->metaMappings[$columnName];
+ $sql .= $tableAlias . '.' . $this->metaMappings[$columnName];
  } elseif (isset($this->discriminatorColumns[$dqlAlias])) {
- $sql .= $this->discriminatorColumns[$dqlAlias];
+ $sql .= $tableAlias . '.' . $this->discriminatorColumns[$dqlAlias];
  }
  $sql .= ' AS ' . $columnName;
  }

@@ -5,6 +5,7 @@
  * @since 3.0
  * @package WP_Smush
  *
+ * @var bool   $detection         Detection settings.
  * @var string $site_language     Site language.
  * @var bool   $tracking          Tracking status.
  * @var string $translation_link  Link to plugin translation page.
@@ -21,6 +22,8 @@ if ( ! defined( 'WPINC' ) ) {
 		<?php esc_html_e( 'Configure general settings for this plugin.', 'wp-smushit' ); ?>
 	</p>
 </div>
+
+<?php do_action( 'wp_smush_render_setting_row', 'detection', $detection ); ?>
 
 <div class="sui-box-settings-row">
 	<div class="sui-box-settings-col-1">

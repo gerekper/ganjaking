@@ -19,7 +19,6 @@ class WC_AF_Rule_Many_Items extends WC_AF_Rule {
 	 * @param WC_Order $order
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -37,7 +36,7 @@ class WC_AF_Rule_Many_Items extends WC_AF_Rule {
 		if ( $order->get_item_count() > ( $total_products * apply_filters( 'wc_af_many_items_multiplier', 1.5 ) ) ) {
 			$risk = true;
 		}
-		Af_Logger::debug('order many times rule risk : ' . ( $risk===true ? 'true' : 'false' ));
+		Af_Logger::debug('order many times rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 	}
 

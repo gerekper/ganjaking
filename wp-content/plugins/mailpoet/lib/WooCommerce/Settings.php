@@ -32,14 +32,19 @@ class Settings {
     ) {
       return;
     }
+
+    //The templates are in our control and the inputs are sanitized.
+    //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
     echo $this->renderer->render('woocommerce/settings_button.html', [
-      'woocommerce_template_id' => $this->settings->get(TransactionalEmails::SETTING_EMAIL_ID),
+      'woocommerce_template_id' => (int)$this->settings->get(TransactionalEmails::SETTING_EMAIL_ID),
     ]);
     if (!(bool)$this->settings->get('woocommerce.use_mailpoet_editor')) {
       return;
     }
+    // The templates are in our control and the inputs are sanitized.
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
     echo $this->renderer->render('woocommerce/settings_overlay.html', [
-      'woocommerce_template_id' => $this->settings->get(TransactionalEmails::SETTING_EMAIL_ID),
+      'woocommerce_template_id' => (int)$this->settings->get(TransactionalEmails::SETTING_EMAIL_ID),
     ]);
   }
 }

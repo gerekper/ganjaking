@@ -81,7 +81,6 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 
 			$api_key    = $wrapper['api_key'];
 			$wcdrip_api = new Drip_Api( $api_key );
-			$compat     = new WC_Drip_WC_Plugin_Compatibility();
 
 			if ( $wrapper['event_sale_name'] ) {
 				$event_sale_name = $wrapper['event_sale_name'];
@@ -90,9 +89,9 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 			}
 
 			// Order Variable
-			$order = $compat->wc_get_order( $order_id );
+			$order = wc_get_order( $order_id );
 
-			$billing_email = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
+			$billing_email = $order->get_billing_email();
 
 			if ( empty( $billing_email ) ) {
 				return;
@@ -100,7 +99,7 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 
 			// Order Items
 			$products = implode(', ', array_map( function ( $product ) {
-				return version_compare( WC_VERSION, '3.0', '<' ) ? $product['name'] : $product->get_name();
+				return $product->get_name();
 			}, $order->get_items() ) );
 
 			$product_ids = implode( ', ', array_filter( array_map( function ( $product ) {
@@ -209,7 +208,7 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 			$wrapper    = wcdrip_get_settings();
 			$api_key    = $wrapper['api_key'];
 			$wcdrip_api = new Drip_Api( $api_key );
-			$email      = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
+			$email      = $order->get_billing_email();
 			$value      = $order->get_total();
 			$products   = $order->get_items();
 
@@ -270,7 +269,7 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 
 			// Build custom fields to attach to customer
 			$content = apply_filters( 'wcdrip_custom_fields', array(
-				'name'               => version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_first_name . ' ' . $order->billing_last_name : $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+				'name'               => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
 				'lifetime_value'     => $lifetime_value,
 				'purchased_products' => $total_products,
 			), $email, $lifetime_value, $products, $order );

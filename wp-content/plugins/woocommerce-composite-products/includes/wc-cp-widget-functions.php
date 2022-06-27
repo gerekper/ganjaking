@@ -58,7 +58,7 @@ function wc_cp_remove_composite_summary_widget( $widget_areas ) {
 
 					$is_summary_widget_visible = WC_CP_Helpers::cache_get( 'cp_summary_widget_visible' );
 
-					if ( defined( 'WC_CP_DEBUG_RUNTIME_CACHE' ) || null === $is_summary_widget_visible ) {
+					if ( null === $is_summary_widget_visible ) {
 						$is_summary_widget_visible = WC_Widget_Composite::is_visible();
 						WC_CP_Helpers::cache_set( 'cp_summary_widget_visible', $is_summary_widget_visible );
 					}

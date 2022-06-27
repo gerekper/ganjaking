@@ -11,7 +11,7 @@ class UuidValidator extends ConstraintValidator
  // xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
  // Roughly speaking:
  // x = any hexadecimal character
- // M = any allowed version {1..5}
+ // M = any allowed version {1..6}
  // N = any allowed variant {8, 9, a, b}
  public const STRICT_LENGTH = 36;
  public const STRICT_FIRST_HYPHEN_POSITION = 8;

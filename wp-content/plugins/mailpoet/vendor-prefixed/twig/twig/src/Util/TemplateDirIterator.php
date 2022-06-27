@@ -14,4 +14,3 @@ class TemplateDirIterator extends \IteratorIterator
  return (string) parent::key();
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Util\\TemplateDirIterator', 'MailPoetVendor\\Twig_Util_TemplateDirIterator');

@@ -157,27 +157,18 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 		return $view->set_template( 'admin/section-updates' );
 	}
 
-	private function get_update_link( $basename ) {
-		$url = add_query_arg(
-			[
-				'action' => 'upgrade-plugin',
-				'plugin' => $basename,
-			],
-			self_admin_url( 'update.php' )
-		);
-
-		return wp_nonce_url( $url, sprintf( 'upgrade-plugin_%s', $basename ) );
-	}
-
 	private function render_section_update( PluginInformation $plugin ) {
-		$can_be_updated = $plugin->has_update() && $plugin->get_update()->has_package() && current_user_can( 'update_plugins' );
+		$update_ready = $plugin->has_update() && $plugin->get_update()->has_package() && current_user_can( 'update_plugins' );
 
 		$view = new View( [
-			'plugin_update_link' => $can_be_updated ? $this->get_update_link( $plugin->get_basename() ) : null,
-			'plugin_label'       => $plugin->get_name(),
-			'current_version'    => $plugin->get_version()->get_value(),
-			'available_version'  => $plugin->has_update() ? $plugin->get_update()->get_version()->get_value() : null,
-			'changelog_link'     => $this->get_changelog_url( $plugin->get_dirname() )->get_url(),
+			'plugin_update_basename' => $plugin->get_basename(),
+			'plugin_update_slug'     => $plugin->get_dirname(),
+			'plugin_update_nonce'    => wp_create_nonce( 'updates' ),
+			'plugin_update_ready'    => $update_ready,
+			'plugin_label'           => $plugin->get_name(),
+			'current_version'        => $plugin->get_version()->get_value(),
+			'available_version'      => $plugin->has_update() ? $plugin->get_update()->get_version()->get_value() : null,
+			'changelog_link'         => $this->get_changelog_url( $plugin->get_dirname() )->get_url(),
 		] );
 
 		return $view->set_template( 'admin/section-update' );

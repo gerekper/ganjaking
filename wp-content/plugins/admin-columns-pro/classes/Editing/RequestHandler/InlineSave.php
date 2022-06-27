@@ -27,7 +27,6 @@ class InlineSave implements RequestHandler {
 	}
 
 	public function handle( Request $request ) {
-
 		$response = new Response\Json();
 
 		$id = $request->filter( 'id', null, FILTER_SANITIZE_NUMBER_INT );
@@ -72,6 +71,8 @@ class InlineSave implements RequestHandler {
 
 		try {
 			$request->add_middleware( new SaveValue( new ApplyFilter\SaveValue( $id, $column ) ) );
+
+			do_action( 'acp/editing/before_save', $column, $id, $request );
 
 			$service->update( $request );
 

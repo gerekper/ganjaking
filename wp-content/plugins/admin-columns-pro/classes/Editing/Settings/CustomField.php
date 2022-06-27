@@ -7,11 +7,11 @@ use ACP\Editing\Settings;
 
 class CustomField extends Settings {
 
-	protected function create_radio_element() {
-		$radio = parent::create_radio_element();
+	protected function create_toggle_element() {
+		$toggle = parent::create_toggle_element();
 
-		$radio = new AC\Settings\Form\Instruction(
-			$radio,
+		$toggle = new AC\Settings\Form\Instruction(
+			$toggle,
 			sprintf(
 				'<p class="help-msg">%s</p>',
 				sprintf(
@@ -25,7 +25,7 @@ class CustomField extends Settings {
 			)
 		);
 
-		return $radio;
+		return $toggle;
 	}
 
 }

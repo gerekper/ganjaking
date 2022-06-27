@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Cart_Recurring_Item class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.4.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product on Subscription in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Reccuring_Item
- * @version  1.12.1
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                            = 'recurring_item_in_cart';
 		$this->title                         = __( 'Product on Subscription', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                      = 40;
 		$this->supported_global_restrictions = array( 'payment_gateways' );
 	}
 

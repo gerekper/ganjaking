@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Shipping_Country_State class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Country/State Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Country_State
- * @version  1.11.0
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                             = 'shipping_country';
 		$this->title                          = __( 'Shipping Country/State', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                       = 20;
 		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
 		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways' );
 	}

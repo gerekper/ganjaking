@@ -539,6 +539,10 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 * @param int $quantity The stock quantity.
 	 */
 	public function set_stock_quantity( $quantity ) {
+		if ( ! is_numeric( $quantity ) ) {
+			return;
+		}
+
 		$this->set_prop( 'stock_quantity', absint( $quantity ) );
 	}
 
@@ -550,6 +554,10 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 * @param int $quantity The stock quantity.
 	 */
 	public function set_backorder_stock_quantity( $quantity ) {
+		if ( ! is_numeric( $quantity ) ) {
+			return;
+		}
+
 		$this->set_prop( 'backorder_stock_quantity', absint( $quantity ) );
 	}
 

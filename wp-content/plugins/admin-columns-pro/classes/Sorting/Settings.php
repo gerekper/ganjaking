@@ -37,16 +37,13 @@ class Settings extends AC\Settings\Column
 	}
 
 	public function create_view() {
-		$sort = $this->create_element( 'radio', 'sort' )
-		             ->set_options( [
-			             'on'  => __( 'Yes' ),
-			             'off' => __( 'No' ),
-		             ] );
+		$setting = new AC\Form\Element\Toggle( 'sort', '', $this->get_value( 'sort' ) === 'on', 'on', 'off' );
+		$setting->add_class( 'ac-setting-input_sort' );
 
 		$view = new View();
 		$view->set( 'label', __( 'Sorting', 'codepress-admin-columns' ) )
 		     ->set( 'instructions', $this->get_instructions() )
-		     ->set( 'setting', $sort );
+		     ->set( 'setting', $setting );
 
 		return $view;
 	}

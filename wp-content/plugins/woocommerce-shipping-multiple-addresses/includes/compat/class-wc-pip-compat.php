@@ -69,7 +69,7 @@ class WC_Pip_Compat {
 		$multiple_shipping = $order->get_meta( '_multiple_shipping' );
 		$packages          = $order->get_meta( '_wcms_packages' );
 
-		if ( 'yes' === $multiple_shipping && $packages && count( $packages ) > 1 ) {
+		if ( 'yes' === $multiple_shipping && $packages && is_array( $packages ) && 1 < count( $packages ) ) {
 			return true;
 		}
 		return false;

@@ -208,6 +208,7 @@ class Admin extends NextGen {
 		}
 
 		$wp_smush_msgs = array(
+			'nonce'         => wp_create_nonce( 'wp-smush-ajax' ),
 			'resmush'       => esc_html__( 'Super-Smush', 'wp-smushit' ),
 			'smush_now'     => esc_html__( 'Smush Now', 'wp-smushit' ),
 			'error_in_bulk' => $error_in_bulk,
@@ -232,18 +233,13 @@ class Admin extends NextGen {
 
 		// Get the unsmushed ids, used for localized stats as well as normal localization.
 		$unsmushed = $this->ng_stats->get_ngg_images( 'unsmushed' );
-		$unsmushed = ( ! empty( $unsmushed ) && is_array( $unsmushed ) ) ? array_keys( $unsmushed ) : '';
+		$unsmushed = ( ! empty( $unsmushed ) && is_array( $unsmushed ) ) ? array_keys( $unsmushed ) : array();
 
 		$smushed = $this->ng_stats->get_ngg_images();
-		$smushed = ( ! empty( $smushed ) && is_array( $smushed ) ) ? array_keys( $smushed ) : '';
+		$smushed = ( ! empty( $smushed ) && is_array( $smushed ) ) ? array_keys( $smushed ) : array();
 
 		$this->smushed = $smushed;
-		if ( ! empty( $_REQUEST['ids'] ) ) {
-			// Sanitize the ids and assign it to a variable.
-			$this->ids = array_map( 'intval', explode( ',', $_REQUEST['ids'] ) );
-		} else {
-			$this->ids = $unsmushed;
-		}
+		$this->ids     = $unsmushed;
 
 		$this->super_smushed = get_option( 'wp-smush-super_smushed_nextgen', array() );
 		$this->super_smushed = ! empty( $this->super_smushed['ids'] ) ? $this->super_smushed['ids'] : array();

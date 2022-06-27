@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_2;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_12;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -121,7 +121,7 @@ class SV_WC_Tracking_Integration extends \WC_Integration {
 			add_action( 'woocommerce_add_to_cart', array( $this, 'added_to_cart' ), 10, 6 );
 
 			// AJAX add to cart
-			if ( is_ajax() ) {
+			if ( wp_doing_ajax() ) {
 				add_action( 'woocommerce_ajax_added_to_cart', array( $this, 'ajax_added_to_cart' ) );
 			}
 		}

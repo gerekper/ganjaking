@@ -58,9 +58,7 @@ class WC_Account_Funds_Integrations {
 	 */
 	public function init_integrations() {
 		foreach ( $this->integrations as $integration ) {
-			$implements = class_implements( $integration );
-
-			if ( ! is_array( $implements ) || ! in_array( 'WC_Account_Funds_Integration', $implements, true ) ) {
+			if ( ! is_a( $integration, 'WC_Account_Funds_Integration', true ) ) {
 				continue;
 			}
 

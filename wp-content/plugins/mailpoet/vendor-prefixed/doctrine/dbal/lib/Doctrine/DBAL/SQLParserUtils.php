@@ -52,7 +52,7 @@ class SQLParserUtils
  }
  $carry = [];
  foreach (self::getUnquotedStatementFragments($statement) as $fragment) {
- preg_match_all('/' . $token . '/', $fragment[0], $matches, \PREG_OFFSET_CAPTURE);
+ preg_match_all('/' . $token . '/', $fragment[0], $matches, PREG_OFFSET_CAPTURE);
  foreach ($matches[0] as $placeholder) {
  $collector($placeholder[0], $placeholder[1], $fragment[1], $carry);
  }
@@ -138,7 +138,7 @@ class SQLParserUtils
  {
  $literal = self::ESCAPED_SINGLE_QUOTED_TEXT . '|' . self::ESCAPED_DOUBLE_QUOTED_TEXT . '|' . self::ESCAPED_BACKTICK_QUOTED_TEXT . '|' . self::ESCAPED_BRACKET_QUOTED_TEXT;
  $expression = sprintf('/((.+(?i:ARRAY)\\[.+\\])|([^\'"`\\[]+))(?:%s)?/s', $literal);
- preg_match_all($expression, $statement, $fragments, \PREG_OFFSET_CAPTURE);
+ preg_match_all($expression, $statement, $fragments, PREG_OFFSET_CAPTURE);
  return $fragments[1];
  }
  private static function extractParam($paramName, $paramsOrTypes, $isParam, $defaultValue = null)

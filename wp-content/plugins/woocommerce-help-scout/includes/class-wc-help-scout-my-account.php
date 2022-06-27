@@ -42,8 +42,9 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 		$this->conversation_cc  = $woocommerce_help_scout_settings['conversation_cc'];
 		$this->conversation_bcc = $woocommerce_help_scout_settings['conversation_bcc'];
 		$this->debug            = $woocommerce_help_scout_settings['debug'];
-		$this->hide_conversation = $woocommerce_help_scout_settings['hide_conversation'];
-		$this->hide_help_button = $woocommerce_help_scout_settings['hide_help_button'];
+		$this->hide_conversation = isset( $woocommerce_help_scout_settings['hide_conversation'] ) ? $woocommerce_help_scout_settings['hide_conversation'] : '';
+		$this->hide_help_button = isset( $woocommerce_help_scout_settings['hide_help_button'] ) ? $woocommerce_help_scout_settings['hide_help_button'] : '';
+
 		if ( 'yes' == $this->debug ) {
 			$this->log = WC_Help_Scout::get_logger();
 		}
@@ -200,7 +201,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 						),
 					);
 					$search_customers = wp_safe_remote_get( $customers_url . '?query=(email:' . $user_email . ')', $params );
-					// echo '<pre>'; print_r($search_customers); echo '</pre>';.
+
 					if (
 					! is_wp_error( $search_customers )
 					&& 200 == $search_customers['response']['code']
@@ -356,7 +357,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 
 		$params['method'] = 'PATCH';
 		$params['body']   = stripslashes( json_encode( $customer_data ) );
-		$update_customer = wp_safe_remote_post( $customers_url_by_id, $params ); // echo '<pre>'; print_r($update_customer); echo '</pre>'; exit;.
+		$update_customer = wp_safe_remote_post( $customers_url_by_id, $params );
 
 		if ( 'yes' == $this->debug ) {
 			$this->log->add( $this->id, 'update_customer => Customer ID for the user ' . $user_id . ' is ' . $customer_id );
@@ -649,10 +650,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 	 * @return void
 	 */
 	public function my_support_conversations_content() {
-		// echo $this->get_my_conversations();.
-		// echo esc_html($this->get_my_conversations());.
 		echo wp_kses( $this->get_my_conversations(), $this->allowed_array );
-		// echo $this->get_my_conversations();.
 	}
 
 	/**

@@ -30,6 +30,9 @@ class WC_Booking_Cart_Manager {
 			add_action( 'woocommerce_add_order_item_meta', array( $this, 'order_item_meta' ), 50, 2 );
 		}
 
+		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'review_items_on_block_checkout' ), 10, 1 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'review_items_on_shortcode_checkout' ), 10, 1 );
+
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_booking_requires_confirmation' ), 20, 2 );
 		add_action( 'woocommerce_cart_item_removed', array( $this, 'cart_item_removed' ), 20 );
 		add_action( 'woocommerce_cart_item_restored', array( $this, 'cart_item_restored' ), 20 );
@@ -208,7 +211,7 @@ class WC_Booking_Cart_Manager {
 				$booking_id = $cart_item['booking']['_booking_id'];
 				$booking    = get_wc_booking( $booking_id );
 
-				if ( ! $booking || ! $booking->has_status( array( 'was-in-cart', 'in-cart', 'unpaid', 'paid' ) ) ) {
+				if ( ! $booking || ! $booking->has_status( array( 'was-in-cart', 'in-cart', 'unpaid', 'paid', 'pending-confirmation' ) ) ) {
 					unset( WC()->cart->cart_contents[ $cart_item_key ] );
 
 					WC()->cart->calculate_totals();
@@ -387,15 +390,118 @@ class WC_Booking_Cart_Manager {
 				) );
 			}
 
-			// Set as pending when the booking requires confirmation
-			if ( wc_booking_requires_confirmation( $values['product_id'] ) ) {
-				$booking_status = 'pending-confirmation';
-			}
+			$order        = wc_get_order( $order_id );
+			$order_status = $order->get_status();
 
 			$booking->set_order_id( $order_id );
 			$booking->set_order_item_id( $item_id );
-			$booking->set_status( $booking_status );
+
+			/**
+			 * In this particular case, the status will be 'in-cart' as we don't want to change it
+			 * before the actual order is done if we're dealing with the checkout blocks.
+			 * The checkout block creates a draft order before it is then changes to another more final status.
+			 * Later the woocommerce_blocks_checkout_order_processed hook is called and
+			 * review_items_on_checkout runs to change the status of the booking to their correct value.
+			 */
+
+			if ( 'checkout-draft' === $order_status ) {
+				$booking->set_status( 'in-cart' );
+			}
 			$booking->save();
+		}
+	}
+
+	/**
+	 * Goes through all the bookings after the order is submitted via a checkout block to update their statuses.
+	 *
+	 * @param WC_Order $order The order represented.
+	 */
+	public function review_items_on_block_checkout( $order ) {
+		$order_id = $order->get_id();
+
+		if ( empty( $order_id ) ) {
+			return;
+		}
+
+		$order        = wc_get_order( $order_id );
+		$order_status = $order->get_status();
+
+		$bookings = WC_Booking_Data_Store::get_booking_ids_from_order_id( $order_id );
+
+		foreach ( $bookings as $booking_id ) {
+
+			$booking    = get_wc_booking( $booking_id );
+			$product_id = $booking->get_product_id();
+			if ( empty( $product_id ) ) {
+				continue;
+			}
+
+			/**
+			 * We just want to deal with the bookings that we left forcibly on the 'in-cart' state
+			 * and provide them the same state they would be if not using blocks.
+			 */
+			if ( ! wc_booking_requires_confirmation( $product_id ) && ! in_array( $order_status, array( 'processing', 'completed' ), true ) ) {
+				/**
+				 * We need to bring the booking status from the new in-cart status to unpaid if it doesn't require confirmation
+				 */
+				$booking->set_status( 'unpaid' );
+				$booking->save();
+			} elseif ( 'in-cart' === $booking->get_status() && wc_booking_requires_confirmation( $product_id ) ) {
+				/**
+				 * If the order is in cart and requires confirmation, we need to change this.
+				 */
+				$booking->set_status( 'pending-confirmation' );
+				$booking->save();
+			}
+		}
+	}
+
+	/**
+	 * Makes sure we change the booking statuses to account for the new order statuses created by WooCommerce Blocks
+	 * and also account for products that might have the new in-cart status.
+	 *
+	 * @param mixed $order_id The order represented.
+	 */
+	public function review_items_on_shortcode_checkout( $order_id ) {
+
+		if ( empty( $order_id ) ) {
+			return;
+		}
+
+		/**
+		 * We need to make sure we don't do anything to the booking just yet because of the new checkout-draft status
+		 * assigned by the checkout block when entering the checkout page.
+		 */
+		$order        = wc_get_order( $order_id );
+		$order_status = $order->get_status();
+
+		if ( 'checkout-draft' === $order_status ) {
+			return;
+		}
+
+		$bookings = WC_Booking_Data_Store::get_booking_ids_from_order_id( $order_id );
+
+		foreach ( $bookings as $booking_id ) {
+
+			$booking    = get_wc_booking( $booking_id );
+			$product_id = $booking->get_product_id();
+
+			if ( empty( $product_id ) ) {
+				continue;
+			}
+			if ( ! wc_booking_requires_confirmation( $product_id ) && ! in_array( $order_status, array( 'processing', 'completed' ), true ) ) {
+				/**
+				 * We need to bring the booking status from the new in-cart status to unpaid if it doesn't require confirmation
+				 */
+				$booking->set_status( 'unpaid' );
+				$booking->save();
+			} elseif ( 'in-cart' === $booking->get_status() && wc_booking_requires_confirmation( $product_id ) ) {
+				/**
+				 * If the order is in cart and requires confirmation, we need to change this.
+				 */
+				$booking->set_status( 'pending-confirmation' );
+				$booking->save();
+			}
 		}
 	}
 

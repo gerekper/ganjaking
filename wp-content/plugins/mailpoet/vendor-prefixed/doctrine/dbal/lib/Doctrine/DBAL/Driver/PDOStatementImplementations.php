@@ -4,15 +4,15 @@ if (!defined('ABSPATH')) exit;
 use ReturnTypeWillChange;
 use function func_get_args;
 use const PHP_VERSION_ID;
-if (\PHP_VERSION_ID >= 80000) {
+if (PHP_VERSION_ID >= 80000) {
  trait PDOStatementImplementations
  {
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function setFetchMode($mode, ...$args)
  {
  return $this->doSetFetchMode($mode, ...$args);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function fetchAll($mode = null, ...$args)
  {
  return $this->doFetchAll($mode, ...$args);

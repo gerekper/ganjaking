@@ -29,16 +29,13 @@ class Env {
     self::$pluginName = 'mailpoet-premium';
     self::$viewsPath = self::$path . '/views';
     self::$assetsPath = self::$path . '/assets';
-    self::$assetsUrl = WPFunctions::get()->pluginsUrl('/assets', $file);
+
+    self::$assetsUrl = defined('ABSPATH') ? WPFunctions::get()->pluginsUrl('/assets', $file) : '';
     // Use MailPoet Free's upload dir to prevent it from being altered
     // due to late Premium initialization, just replace the plugin name at the end
     self::$tempPath = preg_replace('/' . ParentEnv::$pluginName . '$/', self::$pluginName, ParentEnv::$tempPath);
-    if (is_string(self::$tempPath)) {
-      self::$cachePath = self::$tempPath . '/cache';
-    } else {
-      throw new \Exception('Cache folder is invalid');
-    }
-    self::$languagesPath = self::$path . '/lang';
+    self::$cachePath = self::$path . '/generated/twig/';
+    self::$languagesPath = ParentEnv::$languagesPath;
     self::$libPath = self::$path . '/lib';
     self::$cdnAssetsBaseUrl = ParentEnv::$baseUrl;
   }

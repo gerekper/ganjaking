@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Event;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\Common\EventArgs;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
 class PreFlushEventArgs extends EventArgs
 {

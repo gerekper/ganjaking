@@ -20,6 +20,13 @@ if ( ! defined( 'WPINC' ) ) {
 class Core extends Stats {
 
 	/**
+	 * Animated status.
+	 *
+	 * @var int
+	 */
+	const STATUS_ANIMATED = 2;
+
+	/**
 	 * S3 module
 	 *
 	 * @var Integrations\S3
@@ -200,12 +207,21 @@ class Core extends Stats {
 		$this->wp_smush_async();
 
 		if ( is_admin() ) {
-			$this->s3      = new Integrations\S3();
+			$this->s3 = new Integrations\S3();
+		}
+
+		/**
+		 * Load NextGen integration on admin or custom ajax request.
+		 *
+		 * @since 3.10.0
+		 */
+		if ( is_admin() || defined( 'NGG_AJAX_SLUG' ) && ! empty( $_REQUEST[ NGG_AJAX_SLUG ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$this->nextgen = new Integrations\Nextgen();
 		}
 
 		new Integrations\Gutenberg();
 		new Integrations\Composer();
+		new Integrations\Gravity_Forms();
 		new Integrations\Envira( $this->mod->cdn );
 		new Integrations\Avada( $this->mod->cdn );
 	}
@@ -224,11 +240,6 @@ class Core extends Stats {
 	 * Initialize the Smush Async class.
 	 */
 	private function wp_smush_async() {
-		// Don't load the Async task, if user not logged in or not in backend.
-		if ( ! is_admin() || ! is_user_logged_in() ) {
-			return;
-		}
-
 		// Check if Async is disabled.
 		if ( defined( 'WP_SMUSH_ASYNC' ) && ! WP_SMUSH_ASYNC ) {
 			return;
@@ -236,7 +247,11 @@ class Core extends Stats {
 
 		// Instantiate class.
 		new Modules\Async\Async();
-		new Modules\Async\Editor();
+
+		// Load the Editor Async task only if user logged in or in backend.
+		if ( is_admin() && is_user_logged_in() ) {
+			new Modules\Async\Editor();
+		}
 	}
 
 	/**
@@ -315,6 +330,7 @@ class Core extends Stats {
 			),
 			// URLs.
 			'smush_url'               => network_admin_url( 'admin.php?page=smush' ),
+			'bulk_smush_url'          => network_admin_url( 'admin.php?page=smush-bulk' ),
 			'directory_url'           => network_admin_url( 'admin.php?page=smush-directory' ),
 			'localWebpURL'            => network_admin_url( 'admin.php?page=smush-webp' ),
 		);
@@ -335,14 +351,9 @@ class Core extends Stats {
 				$this->setup_global_stats( true );
 			}
 
-			// Localize smushit_IDs variable, if there are fix number of IDs.
-			$this->unsmushed_attachments = ! empty( $_REQUEST['ids'] ) ? array_map( 'intval', explode( ',', $_REQUEST['ids'] ) ) : array();
-
-			if ( empty( $this->unsmushed_attachments ) ) {
-				// Get attachments if all the images are not smushed.
-				$this->unsmushed_attachments = $this->remaining_count > 0 ? $this->get_unsmushed_attachments() : array();
-				$this->unsmushed_attachments = ! empty( $this->unsmushed_attachments ) && is_array( $this->unsmushed_attachments ) ? array_values( $this->unsmushed_attachments ) : $this->unsmushed_attachments;
-			}
+			// Get attachments if all the images are not smushed.
+			$this->unsmushed_attachments = $this->remaining_count > 0 ? $this->get_unsmushed_attachments() : array();
+			$this->unsmushed_attachments = ! empty( $this->unsmushed_attachments ) && is_array( $this->unsmushed_attachments ) ? array_values( $this->unsmushed_attachments ) : $this->unsmushed_attachments;
 
 			// Array of all smushed, unsmushed and lossless IDs.
 			$data = array(
@@ -351,6 +362,7 @@ class Core extends Stats {
 				'count_total'        => $this->total_count - $this->skipped_count,
 				'count_images'       => $this->stats['total_images'],
 				'count_resize'       => $this->stats['resize_count'],
+				'count_skipped'      => $this->skipped_count,
 				'unsmushed'          => $this->unsmushed_attachments,
 				'resmush'            => $this->resmush_ids,
 				'size_before'        => $this->stats['size_before'],

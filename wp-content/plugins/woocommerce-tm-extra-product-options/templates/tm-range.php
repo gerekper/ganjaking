@@ -8,48 +8,62 @@
  * (the plugin or theme developer) will need to copy the new files
  * to your theme or plugin to maintain compatibility.
  *
- * @author  themeComplete
+ * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @version 6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<li class="tmcp-field-wrap<?php if ( ! empty( $show_picker_value ) ) { echo ' tm-show-picker-' . esc_attr( $show_picker_value ); } ?>">
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
-    <div class="tm-range-picker<?php if ( $pips == "yes" ) { echo ' pips'; } ?>"
-         data-min="<?php echo esc_attr( $min ); ?>"
-         data-max="<?php echo esc_attr( $max ); ?>"
-         data-step="<?php echo esc_attr( $step ); ?>"
-         data-pips="<?php echo esc_attr( $pips ); ?>"
-         data-noofpips="<?php echo esc_attr( $noofpips ); ?>"
-         data-show-picker-value="<?php echo esc_attr( $show_picker_value ); ?>"
-         data-field-id="<?php echo esc_attr( $id ); ?>"
-         data-start="<?php echo esc_attr( $get_default_value ); ?>"></div>
-    <label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>"></label>
-    <input <?php
-	if ( isset( $placeholder ) ) {
-		echo 'placeholder="' . esc_attr( $placeholder ) . '" ';
+<li class="tmcp-field-wrap <?php echo esc_attr( ( ! empty( $show_picker_value ) ) ? ' tm-show-picker-' . $show_picker_value : '' ); ?>">
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
+	<?php
+	$input_args = [
+		'nodiv' => 1,
+		'type'  => 'div',
+		'tags'  => [
+			'class'                  => 'tm-range-picker',
+			'data-min'               => $min,
+			'data-max'               => $max,
+			'data-step'              => $step,
+			'data-pips'              => $pips,
+			'data-noofpips'          => $noofpips,
+			'data-show-picker-value' => $show_picker_value,
+			'data-field-id'          => $id,
+			'data-start'             => $get_default_value,
+		],
+	];
+	if ( 'yes' === $pips ) {
+		$input_args['tags']['class'] .= ' pips';
 	}
-	if ( isset( $max_chars ) && $max_chars != '' ) {
-		echo 'maxlength="' . esc_attr( $max_chars ) . '" ';
-    }
-    if ( isset( $required ) && ! empty( $required ) ) {
-        echo 'required ';
-    }
-	?>class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield tmcp-range"
-       name="<?php echo esc_attr( $name ); ?>"
-       data-price=""
-       data-rules="<?php echo esc_attr( $rules ); ?>"
-       data-original-rules="<?php echo esc_attr( $original_rules ); ?>"
-       data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
-       value="<?php echo esc_attr( $get_default_value ); ?>"
-       id="<?php echo esc_attr( $id ); ?>"
-		<?php if ( ! empty( $tax_obj ) ) {
-			echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
-		} ?>
-       type="hidden"/>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
-	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>
-	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : array() ); ?>
+	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
+	?>
+	<label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>">
+	<?php
+	$input_args = [
+		'nodiv'   => 1,
+		'default' => $get_default_value,
+		'type'    => 'hidden',
+		'tags'    => [
+			'id'                  => $id,
+			'name'                => $name,
+			'class'               => $fieldtype . ' tm-epo-field tmcp-textfield tmcp-range',
+			'data-price'          => '',
+			'data-rules'          => $rules,
+			'data-original-rules' => $original_rules,
+			'data-rulestype'      => $rules_type,
+		],
+	];
+	if ( isset( $required ) && ! empty( $required ) ) {
+		$input_args['tags']['required'] = true;
+	}
+	if ( ! empty( $tax_obj ) ) {
+		$input_args['tags']['data-tax-obj'] = $tax_obj;
+	}
+	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
+	?>
+	</label>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
+	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
+	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
 </li>

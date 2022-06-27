@@ -45,7 +45,7 @@ trait Creator
  if (isset($locale)) {
  \setlocale(\LC_NUMERIC, $locale);
  }
- static::setLastErrors(parent::getLastErrors());
+ self::setLastErrors(parent::getLastErrors());
  }
  private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz)
  {
@@ -309,7 +309,7 @@ trait Creator
  }
  return \false;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function createFromFormat($format, $time, $tz = null)
  {
  $function = static::$createFromFormatFunction;
@@ -375,7 +375,7 @@ trait Creator
  {
  static::$lastErrors = $lastErrors;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function getLastErrors()
  {
  return static::$lastErrors;

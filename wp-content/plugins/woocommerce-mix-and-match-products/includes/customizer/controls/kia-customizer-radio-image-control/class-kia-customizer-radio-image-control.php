@@ -5,6 +5,7 @@
  * @version 1.0.0
  * @author Kathy Darling
  * @license GPL-3.0
+ *
  */
 
 // Exit if accessed directly.
@@ -20,7 +21,7 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
 class KIA_Customizer_Radio_Image_Control extends \WP_Customize_Control {
 	public $type = 'kia-radio-image';
 
-	private $version = '1.0.0';
+	private $version = '1.0.1';
 
 	/**
 	 * Enqueue scripts/styles.

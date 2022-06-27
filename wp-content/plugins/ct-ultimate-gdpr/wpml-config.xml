@@ -46,6 +46,9 @@
             <key name="services_wp-simple-paypal-shopping-cart_description"/>
             <key name="services_wp-user_description"/>
             <key name="services_youtube_description"/>
+            <key name="services_siteorigin_panels_service_name"/>
+            <key name="services_siteorigin_panels_description"/>
+            <key name="cookie_close_text_modal"/>
         </key>
         <key name="simple_string_option"/>
     </admin-texts>

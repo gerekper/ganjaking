@@ -47,9 +47,14 @@ class Beacon {
     }
 
     $cronHelper = ContainerWrapper::getInstance()->get(CronHelper::class);
-    $cronPingUrl = $cronHelper->getCronUrl(
-      CronDaemon::ACTION_PING
-    );
+    try {
+      $cronPingUrl = $cronHelper->getCronUrl(
+        CronDaemon::ACTION_PING
+      );
+    } catch (\Exception $e) {
+      $cronPingUrl = __('Can‘t generate cron URL.', 'mailpoet') . ' (' . $e->getMessage() . ')';
+    }
+
     return [
       'name' => $currentUser->display_name, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       'email' => $sender['address'],
@@ -59,7 +64,7 @@ class Beacon {
       'MailPoet Premium/MSS key' => $premiumKey,
       'WordPress version' => $this->wp->getBloginfo('version'),
       'Database version' => $dbVersion,
-      'Web server' => (!empty($_SERVER["SERVER_SOFTWARE"])) ? $_SERVER["SERVER_SOFTWARE"] : 'N/A',
+      'Web server' => (!empty($_SERVER["SERVER_SOFTWARE"])) ? sanitize_text_field(wp_unslash($_SERVER["SERVER_SOFTWARE"])) : 'N/A',
       'Server OS' => (function_exists('php_uname')) ? utf8_encode(php_uname()) : 'N/A',
       'WP_MEMORY_LIMIT' => WP_MEMORY_LIMIT,
       'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
@@ -78,6 +83,7 @@ class Beacon {
         $mta['frequency']['emails'],
         $mta['frequency']['interval']
       ),
+      "Send all site's emails with" => $this->settings->get('send_transactional_emails') ? 'current sending method' : 'default WordPress sending method',
       'Task Scheduler method' => $this->settings->get('cron_trigger.method'),
       'Cron ping URL' => $cronPingUrl,
       'Default FROM address' => $this->settings->get('sender.address'),

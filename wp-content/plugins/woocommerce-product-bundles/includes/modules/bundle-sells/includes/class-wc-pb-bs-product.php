@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version  6.13.3
+ * @version  6.15.4
  */
 class WC_PB_BS_Product {
 
@@ -86,6 +86,10 @@ class WC_PB_BS_Product {
 
 			$title = $product->get_meta( '_wc_pb_bundle_sells_title', true );
 
+			if ( is_null( $title ) ) {
+				$title = '';
+			}
+
 			/**
 			 * 'wc_pb_bundle_sells_title' filter.
 			 *
@@ -123,6 +127,11 @@ class WC_PB_BS_Product {
 
 			if ( null === $discount ) {
 				$discount = $product->get_meta( '_wc_pb_bundle_sells_discount', true, 'edit' );
+
+				if ( is_null( $discount ) ) {
+					$discount = 0;
+				}
+
 				WC_PB_Helpers::cache_get( 'bundle_sells_discount_' . $product->get_id(), $discount );
 			}
 

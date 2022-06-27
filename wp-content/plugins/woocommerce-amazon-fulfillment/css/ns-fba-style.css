@@ -199,3 +199,52 @@ input[type=submit][name^=ns_fba] + .spinner {
 	float: none;
 	margin-top: -6px;
 }
+
+div[aria-describedby='check-skus-modal']{
+	z-index: 9999;
+}
+
+/* SKU Modal Styles */
+
+#check-skus-modal table{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+#check-skus-modal tr{
+	height: 35px;
+}
+
+#check-skus-modal th, #check-skus-modal td{
+	padding: 5px;
+}
+
+.wc-sp-columns-header{
+	text-decoration: underline;
+	height: 40px;
+	background-color: #cccaca;
+}
+
+.wc-sp-table-header h2, .wc-sp-table-header .spinner{
+	float: left;
+}
+
+.wc-sp-table-header .spinner{
+	margin-top: 18px;
+}
+
+.wc-sp-odd-row{
+	background-color: #d9d8d8;
+}
+
+.wc-sp-pair-row{
+	background-color: #eceaea;
+}
+
+
+/********************/
+
+.shipping-setting-help-tip{
+	position: relative !important;
+	float: none !important;
+}

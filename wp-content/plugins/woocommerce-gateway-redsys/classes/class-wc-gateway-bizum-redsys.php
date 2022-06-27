@@ -1561,69 +1561,21 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'bizumredsys' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumredsys', '$test_mode: ' . $test_mode );
-			$this->log->add( 'bizumredsys', '/****************************/' );
-			$this->log->add( 'bizumredsys', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'bizumredsys', '/****************************/' );
-			$this->log->add( 'bizumredsys', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumredsys', ' ' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumredsys', ' ' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', '$selections NOT empty' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumredsys', ' ' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', 'Not loged In hiding gateway' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumredsys', '$user_id: ' . $user_id );
-					$this->log->add( 'bizumredsys', '$userid: ' . $userid );
-					$this->log->add( 'bizumredsys', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumredsys', ' ' );
-				$this->log->add( 'bizumredsys', '/*********************************/' );
-				$this->log->add( 'bizumredsys', '$selections Empty, showing gateway' );
-				$this->log->add( 'bizumredsys', '/*********************************/' );
-				$this->log->add( 'bizumredsys', ' ' );
-			}
 			return true;
 		}
 	}
@@ -1635,50 +1587,9 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumredsys', ' ' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', '   Is NOT admin ' );
-				$this->log->add( 'bizumredsys', '/****************************/' );
-				$this->log->add( 'bizumredsys', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumredsys', ' ' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', '   Is user logget in ' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumredsys', ' ' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', ' ' );
-				}
 				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'bizumredsys', ' ' );
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', '   SHOW Gateway' );
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', ' ' );
-					} else {
-						$this->log->add( 'bizumredsys', ' ' );
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', '   DONT SHOW Gateway' );
-						$this->log->add( 'bizumredsys', '/****************************/' );
-						$this->log->add( 'bizumredsys', ' ' );
-					}
-					$this->log->add( 'bizumredsys', ' ' );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', '   $user_id: ' . $user_id );
-					$this->log->add( 'bizumredsys', '/****************************/' );
-					$this->log->add( 'bizumredsys', ' ' );
-				}
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

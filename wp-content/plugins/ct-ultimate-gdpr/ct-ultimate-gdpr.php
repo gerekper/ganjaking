@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 3.3
+ * Version: 3.4
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -73,7 +73,10 @@ class CT_Ultimate_GDPR {
 		add_action( 'wp', array( $this, 'controller_actions' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'ct_ultimate_gdpr_after_controllers_registered', array( $this, 'update_plugin_database' ) );
-
+		if(!is_admin()){ // do not activate defer asset if on admin page
+			add_filter('script_loader_tag', array( $this, 'defer_script' ));
+			add_filter('style_loader_tag', array( $this, 'defer_style' ));
+		}
 	}
 
 	/**
@@ -234,7 +237,9 @@ class CT_Ultimate_GDPR {
 	public function wp_enqueue_scripts_action() {
 		wp_enqueue_style( 'ct-ultimate-gdpr', ct_ultimate_gdpr_url( '/assets/css/style.min.css' ), array(), ct_ultimate_gdpr_get_plugin_version() );
 		wp_enqueue_style( 'ct-ultimate-gdpr-font-awesome', ct_ultimate_gdpr_url( '/assets/css/fonts/font-awesome/css/font-awesome.min.css' ) );
-    wp_enqueue_style( 'ct-ultimate-gdpr-custom-fonts', ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) );
+    	wp_enqueue_style( 'ct-ultimate-gdpr-custom-fonts', ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) );
+		
+		wp_enqueue_script( 'ct-ultimate-gdpr-defer-assets', ct_ultimate_gdpr_url( '/assets/js/load-deferred-assets.js' ), ct_ultimate_gdpr_get_plugin_version() );
 	}
 
 	/**
@@ -249,8 +254,8 @@ class CT_Ultimate_GDPR {
 	 */
 	public function register_services() {
 		CT_Ultimate_GDPR_Model_Services::instance()
-		                               ->set_front_controller( $this )
-		                               ->get_services();
+			->set_front_controller( $this )
+			->get_services();
 	}
 
 	/**
@@ -364,6 +369,23 @@ class CT_Ultimate_GDPR {
 		$obj = new CT_Ultimate_GDPR_Shortcode_Terms_Accept();
 		$obj->auto_insert_terms_shortcode();
 	}
+
+	public function defer_script($scriptTag){
+		
+		if(strpos($scriptTag, "id='ct-ultimate-gdpr") && !strpos($scriptTag, "id='ct-ultimate-gdpr-defer-assets")){ // if the handler begins with ct-ultimate-gdpr. The second comment is to exempt the defer js
+			$scriptTag = str_replace('<script', '<div class="ct-ultimate-gdpr-deferred-js" has-loaded="0"', $scriptTag);
+			$scriptTag = str_replace('script>', 'div>', $scriptTag);
+		}
+		return $scriptTag;
+	}
+	public function defer_style($styleTag){
+		if(strpos($styleTag, "id='ct-ultimate-gdpr")){
+			$styleTag = str_replace('<link', '<div class="ct-ultimate-gdpr-deferred-css" has-loaded="0"', $styleTag);
+			$styleTag = str_replace('link>', 'div>', $styleTag);
+		}
+		return $styleTag;
+	}
+	
 }
 
 CT_Ultimate_GDPR::instance();

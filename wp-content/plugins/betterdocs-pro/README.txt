@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.6
+Stable tag: 2.0.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,21 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.0.9 - 07/04/2022 = 
+- Fixed: Fatal error if a default WordPress user role doesn't exist
+
+= 2.0.8 - 07/04/2022 =
+- Fixed: Fatal Error while processing Role Management migration
+- Fixed: Internal Knowledge base throwing Fatal error
+- Few minor bug fixes & improvements
+
+= 2.0.7 - 27/03/2022 =
+- Improved: Refactored Role Management module for better performance
+- Fixed: Knowledgebase specific search not working
+- Fixed: Restricted Docs still showing inside Instant Answers
+- Fixed: Single Docs still being accessible in Knowledge Base Search result even if they are in the restricted list
+- Few minor bug fixes & improvements
 
 = 2.0.6 - 06/03/2022 =
 - Fixed: Doc page not found error if tag and doc slug are same

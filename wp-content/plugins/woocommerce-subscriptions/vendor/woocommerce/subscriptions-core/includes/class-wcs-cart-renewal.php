@@ -93,10 +93,10 @@ class WCS_Cart_Renewal {
 			add_action( 'woocommerce_checkout_update_order_meta', array( &$this, 'set_order_item_id' ), 10, 2 );
 
 			// After order meta is saved, get the order line item ID for the renewal so we can update it later
-			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) || \Automattic\WooCommerce\Blocks\Package::is_experimental_build() ) ) {
-				add_action( 'woocommerce_blocks_checkout_update_order_meta', array( &$this, 'set_order_item_id' ), 10, 1 );
+			if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+				add_action( 'woocommerce_store_api_checkout_update_order_meta', array( &$this, 'set_order_item_id' ) );
 			} else {
-				add_action( '__experimental_woocommerce_blocks_checkout_update_order_meta', array( &$this, 'set_order_item_id' ), 10, 1 );
+				add_action( 'woocommerce_blocks_checkout_update_order_meta', array( &$this, 'set_order_item_id' ) );
 			}
 
 			// Don't display cart item key meta stored above on the Edit Order screen
@@ -391,7 +391,7 @@ class WCS_Cart_Renewal {
 				continue;
 			}
 
-			if ( isset( $item[ $this->cart_item_key ]['renewal_order_id'] ) && ! 'shop_order' == get_post_type( $item[ $this->cart_item_key ]['renewal_order_id'] ) ) {
+			if ( isset( $item[ $this->cart_item_key ]['renewal_order_id'] ) && ! 'shop_order' === WC_Data_Store::load( 'order' )->get_order_type( $item[ $this->cart_item_key ]['renewal_order_id'] ) ) {
 				$cart->remove_cart_item( $key );
 				$removed_count_order++;
 				continue;
@@ -451,7 +451,10 @@ class WCS_Cart_Renewal {
 					}
 				}
 
-				$_product->set_price( $price / $item_to_renew['qty'] );
+				// In rare cases quantity can be zero. Check first to prevent triggering a fatal error in php8+
+				if ( 0 !== $item_to_renew['qty'] ) {
+					$_product->set_price( $price / $item_to_renew['qty'] );
+				}
 
 				// Don't carry over any sign up fee
 				wcs_set_objects_property( $_product, 'subscription_sign_up_fee', 0, 'set_prop_only' );

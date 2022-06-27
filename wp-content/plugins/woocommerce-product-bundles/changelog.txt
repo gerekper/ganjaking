@@ -1,13 +1,46 @@
 *** WooCommerce Product Bundles ***
 
+2022.05.31 - version 6.15.5
+* Important - WooCommerce version 3.9 is now required.
+* Fix - Include minified frontend script files for the new Cart and Checkout blocks integration. 
+
+2022.05.31 - version 6.15.4
+* Tweak - Check for NULL values after 'get_meta' calls.
+
+2022.05.03 - version 6.15.3
+* Fix - Fixed a fatal error that was triggered from invalid Exception arguments.
+* Fix - Fix deprecation warning for 'is_admin_or_embed_page' in WooCommerce 6.3+.
+
+2022.04.01 - version 6.15.2
+* Fix - Fixed an issue that prevented subscription plans from being applied to bundled order items when there were multiple Product Bundles in an order.
+* Fix - Resolved an issue that caused optional bundled items to be preselected when re-ordering/switching.
+* Fix - Prevent bundled item dimensions from showing up in the 'Additional Information' tab of assembled bundles.
+
+2022.03.30 - version 6.15.1
+* Fix - Added support for composited bundles when using the new Cart and Checkout blocks - requires Composite Products 8.4.0.
+* Fix - Group bundled items in single 'Includes' meta when viewing the legacy mini cart.
+* Fix - Appended list of bundled items next to composited container bundles in the cart widget.
+* Fix - Fixed an issue that prevented bundled item quantity inputs from appearing in bundles when object caching is enabled and bundle-sells are in use.
+* Fix - Resolved an issue with missing 'checkout-blocks.css'.
+* Fix - Resolved an issue that prevented bundles from being ordered again if one or more items is saved as optional after the original order is placed.
+
+2022.03.21 - version 6.15.0
+* Fix - Added compatibility with the Cart and Checkout blocks.
+* Tweak - Removed the 'Subtotal' prefix from bundled item subtotals in all templates.
+* Tweak - Further cleaned up onboarding notice.
+
+2022.03.16 - version 6.14.1
+* Tweak - Added compatibility for WooCommerce Payments Subscriptions functionality.
+* Tweak - Simplified onboarding notice.
+
 2022.02.07 - version 6.14.0
 * Fix - Recalculate bundled item stock status when the 'Min Quantity', 'Filter Variations' or 'Optional' setting changes.
+* Fix - Display the 'Additional Information' tab for unassembled Product Bundles with physical items.
+* Fix - Fixed issue that prevented Bundle-Sells from being imported via the REST API.
 * Tweak - Made it possible to remove individual optional items that are part of an ungrouped bundle with mandatory items.
 * Tweak - Move Composite Products integration module code into Product Bundles.
-* Fix - Display the 'Additional Information' tab for unassembled Product Bundles with physical items.
 * Tweak - Refactored 'WC_Product_Bundle::apply_subs_price_html' and introduced 'WC_Product_Bundle::apply_subs_calculate_price_data' which can be used to update Bundle structured product data to include subscription prices.
 * Tweak - Use new WooCommerce brand colors.
-* Fix - Fixed issue that prevented Bundle-Sells from being imported via the REST API.
 
 2022.01.13 - version 6.13.3
 * Fix - Fixed an issue where override title setting was not respected when manually adding items to an order in admin.

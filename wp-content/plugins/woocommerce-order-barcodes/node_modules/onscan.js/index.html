@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	<script src="onscan.js"></script>
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark" style="margin-bottom: 20px">
+  <span class="navbar-brand mb-0 h1">onScan.js Playground</span>
+</nav>
+<div class="container">
+	<form id="playground" class="form-horizontal">
+		<div class="row">
+			<div class="col-12 col-xs-12">
+				<textarea style="margin: 5px 5px 0 5px" id="consoleTextField" readonly="readonly" class="form-control" rows="10"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-xs-12">
+				<input style="margin: 5px 5px 0 5px" type="button" id="clearTextArea" class="btn btn-light btn-default" onclick="javascript:document.getElementById('consoleTextField').value = '';" value="Clear Console Log" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-xs-12">
+				<h3>Methods</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-xs-12 col-md-5">
+				<div style="margin: 5px 5px 0 5px" class="input-group mb-3">
+  					<input id="iTestInput" class="form-control" placeholder="Enter scan code or [key,key,...]" title="Scan code as string or [keyCode,keyCode,...]" />
+					<div class="input-group-append input-group-btn">
+				    	<input type="button" class="btn btn-primary" id="bFireTestInput" onclick="fireTestInput()" value="simulate()">
+				  	</div>
+				</div>
+			</div>
+			<div class="col-12 col-xs-12 col-md-7">
+				<input style="margin: 5px 5px 0 5px" type="button" id="bGenerateonScan" class="btn btn-primary" onclick="initOnScan()" value="attachTo(document)" />
+				<input style="margin: 5px 5px 0 5px" type="button" id="bDestroyonScan" class="btn btn-primary" onclick="destroyOnScan()" value="detachFrom(document)" />
+				<input style="margin: 5px 5px 0 5px" type="button" id="bGgetonScanSettings" class="btn btn-primary" onclick="getonScanSettings()" value="getOptions()" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-xs-12 col-md-6">
+				<h3>Mode</h3>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">reactToKeydown:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iAcceptKeyInput" type="checkbox" checked="checked"/>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">reactToPaste:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iAcceptPasteInput" type="checkbox" checked="checked"/>
+					</div>
+				</div>
+				<h3>Events / Callbacks</h3>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onScan:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnComplete" type="checkbox" checked="checked"/>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onScanButtonLongPress:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnScanButtonLongPressed" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onScanError:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnError" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onKeyDetect:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnKeyDetect" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onKeyProcess:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnKeyProcessed" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">onPaste:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iOnPaste" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">Use event handlers, not callbacks:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iCompleteHandler" type="checkbox" />
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-xs-12 col-md-6">
+				<h3>Options</h3>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">timeBeforeScanTest:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iTimeBeforeScanTest" class="form-control" value="100" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">avgTimeByChar:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iAvgTimeByChar" class="form-control" value="30" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">minLength:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iMinLength" class="form-control" value="6" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">suffixKeyCodes:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iEndChar" class="form-control" value="9,13" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">prefixKeyCodes:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iStartChar" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">ignoreIfFocusOn:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<div class="input-group">
+						  <div class="input-group-prepend input-group-addon">
+						    <div class="input-group-text">
+						      <input id="iIgnoreIfFocusOn" type="checkbox" />
+						    </div>
+						  </div>
+						  <input id="iIgnoreIfFocusOnSelector" class="form-control" value="input" />
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">scanButtonKeyCode:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iScanButtonKeyCode" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">scanButtonLongPressTime:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iScanButtonLongPressThreshold" class="form-control" value="500" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-12 col-xs-12 col-sm-7 col-lg-6">singleScanQty:</label>
+					<div class="col-12 col-xs-12 col-sm-5">
+						<input id="iSingleScanQty" class="form-control" value="1" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">keyCodeMapper:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="ikeyCodeMapper" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">stopPropagation:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iStopPropagation" type="checkbox" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-9 col-xs-9 col-sm-7 col-lg-6">preventDefault:</label>
+					<div class="col-3 col-xs-3 col-sm-5 checkbox form-check">
+						<input id="iPreventDefault" type="checkbox" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+	if (typeof console  != "undefined") 
+    if (typeof console.log != 'undefined')
+        console.olog = console.log;
+    else
+        console.olog = function() {};
+
+	console.log = function(message, error) {
+		console.olog(message);
+		var oOutput = document.getElementById('consoleTextField');
+		if (error){ 
+			oOutput.value += "ERROR: " + message + '\n';
+		} else {
+			oOutput.value += ('> ' + message + '\n');
+		}
+		oOutput.scrollTop = oOutput.scrollHeight;
+	};
+	console.error = console.debug = console.info =  console.log;
+
+	window.onerror = function(msg){
+			console.log(msg, true);
+	}
+	
+	function initOnScan(){
+		
+		
+		var prop;
+		var array;
+		var suffixKeyCodes = [];
+		var prefixKeyCodes = [];
+		
+		
+		if (document.getElementById("iEndChar").value){
+			array = document.getElementById("iEndChar").value.split(",");
+			for (prop in array)
+				suffixKeyCodes.push(parseInt(array[prop]));
+	//			suffixKeyCodes.push(parseInt(prop));
+		}
+		if (document.getElementById("iStartChar").value){
+			array = document.getElementById("iStartChar").value.split(",")
+			for (prop in document.getElementById("iStartChar").value.split(","))
+				prefixKeyCodes.push(parseInt(array[prop]));
+		}
+						
+		var options = {
+			timeBeforeScanTest: parseInt(document.getElementById("iTimeBeforeScanTest").value), 
+			avgTimeByChar: parseInt(document.getElementById("iAvgTimeByChar").value),
+			minLength: parseInt(document.getElementById("iMinLength").value), 
+			suffixKeyCodes: suffixKeyCodes,
+			prefixKeyCodes: prefixKeyCodes, 
+			scanButtonLongPressTime: parseInt(document.getElementById("iScanButtonLongPressThreshold").value), 
+			stopPropagation: document.getElementById("iStopPropagation").checked, 
+			preventDefault: document.getElementById("iPreventDefault").checked,
+			reactToPaste: document.getElementById("iAcceptPasteInput").checked,
+			reactToKeyDown: document.getElementById("iAcceptKeyInput").checked,
+			singleScanQty: parseInt(document.getElementById("iSingleScanQty").value)
+		}
+		
+		if (document.getElementById("iOnComplete").checked){
+			options.onScan = function(barcode, qty){
+				console.log("[onScan]: Code: " + barcode + " Quantity: " + qty);
+			};
+		} else {
+			options.onScan = function(){};
+		}
+				
+		if (document.getElementById("iOnError").checked){
+			options.onScanError = function(err){
+				var sFormatedErrorString = "Error Details: {\n";
+				for (var i in err){
+					sFormatedErrorString += '    ' + i + ': ' + err[i] + ",\n";
+				}
+				sFormatedErrorString = sFormatedErrorString.trim().replace(/,$/, '') + "\n}";
+				console.log("[onScanError]: " + sFormatedErrorString);
+			}; 	
+		} else {
+			options.onScanError = function(){};
+		}
+		
+		
+		if (document.getElementById("iOnKeyProcessed").checked){
+			options.onKeyProcess = function(sChar, oEvent){
+				console.log('[onKeyProcess]: Processed character "' + sChar + '"');
+			};
+		} else {
+			options.onKeyProcess = function(){};
+		}
+		
+		
+		if (document.getElementById("iOnKeyDetect").checked){
+			options.onKeyDetect = function(iKey, oEvent){
+				var oEventProps = ''
+					+ 'key:"' + oEvent.key + '", '
+					+ 'ctrlKey:' + oEvent.ctrlKey + ', '
+					+ 'altKey:' + oEvent.altKey + ', '
+					+ 'shiftKey:' + oEvent.shiftKey + ', '
+					+ 'metaKey:' + oEvent.metaKey + ', '
+					+ 'keyCode:' + oEvent.keyCode + ', '
+					+ 'charCode:' + oEvent.charCode + ', ';
+				console.log('[onKeyDetect]: Detected key code "' + iKey + '". Event dump: ' + oEventProps);
+			};
+		} else {
+			options.onKeyDetect = function(){};
+		}
+		
+		if (document.getElementById("iIgnoreIfFocusOn").checked){
+			document.getElementById("iIgnoreIfFocusOnSelector").removeAttribute("disabled");
+			options.ignoreIfFocusOn = document.getElementById("iIgnoreIfFocusOnSelector").value;
+		} else {
+			options.ignoreIfFocusOn = false;
+			document.getElementById("iIgnoreIfFocusOnSelector").disabled = "disabled";
+		}
+		
+		if (document.getElementById("iScanButtonKeyCode").value){
+			options.scanButtonKeyCode = parseInt(document.getElementById("iScanButtonKeyCode").value);
+		} else {
+			options.scanButtonKeyCode = false;
+		}
+		
+		if (document.getElementById("iOnScanButtonLongPressed").checked){
+			options.onScanButtonLongPress = function(){
+				console.log("[onScanButtonLongPress]: ScanButton has been long-pressed");
+			};
+		} else {
+			options.onScanButtonLongPress = function(){};
+		}
+		
+		if (document.getElementById("iOnPaste").checked){
+			options.onPaste = function(sPasteString){
+				console.log("[onPaste]: Data has been pasted: " + sPasteString);
+			}
+		} else {
+			options.onPaste = function(){};
+		}
+							
+		if (document.getElementById("iCompleteHandler").checked){
+			document.addEventListener('scan', scanHandler);
+		} else {
+			document.removeEventListener('scan', scanHandler);
+		}
+		
+		if (document.getElementById("iCompleteHandler").checked){
+			document.addEventListener('scanError', scanErrorHandler);
+		} else {
+			document.removeEventListener('scanError', scanErrorHandler);
+		}
+		
+		if (document.getElementById("ikeyCodeMapper").checked){
+			options.keyCodeMapper = function (e) {
+				var iKeyCode = e.which;
+				var sChar = onScan.decodeKeyEvent(e);
+				console.log('[keyCodeMapper]: Decoding key code "' + iKeyCode + '" to "' + sChar + '"')
+				return sChar;
+			}
+		}		
+		
+		try {
+			onScan.attachTo(document, options);
+			console.log("onScan Started!");
+		} catch(e) {
+			onScan.setOptions(document, options);
+			console.log("onScansettings changed!");
+		}
+		
+
+	}
+	
+	function destroyOnScan(){
+		console.log("onScan destroyed!");
+		onScan.detachFrom(document);	
+	}
+	
+	function clearTextArea(){
+		document.getElementById('consoleTextField').value = "";
+	}
+	
+	function scanHandler(e){
+		console.log("[scanHandler]: Code: " + e.detail.code);
+	}
+	
+	function scanErrorHandler(e){
+		var sFormatedErrorString = "Error Details: {\n";
+		for (var i in e.detail){
+			sFormatedErrorString += '    ' + i + ': ' + e.detail[i] + ",\n";
+		}
+		sFormatedErrorString = sFormatedErrorString.trim().replace(/,$/, '') + "\n}";
+		console.log("[scanErrorHandler]: " + sFormatedErrorString);
+	}
+	
+	function getonScanSettings(){
+		var sFormatedErrorString = "Scanner Settings: \n";
+				var aJSONArray = JSON.stringify(onScan.getOptions(document)).split(",");
+				for (prop = 0; prop < aJSONArray.length - 1; prop++){
+					if (aJSONArray[prop+1][0] == '\"'){
+						sFormatedErrorString += aJSONArray[prop] + "," + "\n";
+					} else {
+						sFormatedErrorString += aJSONArray[prop] + ",";
+					}
+				}
+				sFormatedErrorString += aJSONArray[aJSONArray.length - 1];
+				
+				console.log(sFormatedErrorString);
+		
+		
+	}
+	
+	function fireTestInput(){
+		var sInput = (document.getElementById("iTestInput").value || '').trim();
+		if (sInput.startsWith('[') && sInput.endsWith(']')) {
+			onScan.simulate(document, JSON.parse(sInput));
+		} else {
+			onScan.simulate(document, sInput);
+		}
+	}
+	
+	(function(){
+		initOnScan();
+		document.querySelectorAll("#playground input").forEach(function(oInput){
+			if (oInput.type == 'button' || oInput.readonly) {
+				return;
+			}
+			
+			oInput.addEventListener('change', function(){
+				console.log('onScan configuration updated');
+				onScan.detachFrom(document);
+				initOnScan();
+			});
+		});
+	})();
+</script>
+
+
+</body>
+</html>

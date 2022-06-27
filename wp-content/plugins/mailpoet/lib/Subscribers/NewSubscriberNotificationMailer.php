@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer;
-use MailPoet\Mailer\Mailer;
+use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Mailer\MailerFactory;
 use MailPoet\Mailer\MetaInfo;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
@@ -14,11 +16,10 @@ use MailPoet\Settings\SettingsController;
 use MailPoet\WP\Functions as WPFunctions;
 
 class NewSubscriberNotificationMailer {
-
   const SETTINGS_KEY = 'subscriber_email_notification';
 
-  /** @var Mailer */
-  private $mailer;
+  /** @var MailerFactory */
+  private $mailerFactory;
 
   /** @var Renderer */
   private $renderer;
@@ -30,14 +31,35 @@ class NewSubscriberNotificationMailer {
   private $mailerMetaInfo;
 
   public function __construct(
-    Mailer $mailer,
+    MailerFactory $mailerFactory,
     Renderer $renderer,
     SettingsController $settings
   ) {
-    $this->mailer = $mailer;
+    $this->mailerFactory = $mailerFactory;
     $this->renderer = $renderer;
     $this->settings = $settings;
     $this->mailerMetaInfo = new MetaInfo();
+  }
+
+  /**
+   * This method can be removed and code calling it can be updated to call self::send()
+   * once self::send() is migrated to use Doctrine instead of Paris.
+   *
+   * @param SegmentEntity[] $segments
+   */
+  public function sendWithSubscriberAndSegmentEntities(SubscriberEntity $subscriber, array $segments) {
+    $subscriberModel = Subscriber::findOne($subscriber->getId());
+    $segmentModels = [];
+
+    foreach ($segments as $segmentEntity) {
+      $segmentModel = Segment::findOne($segmentEntity->getId());
+
+      if ($segmentModel instanceof Segment) {
+        $segmentModels[] = $segmentModel;
+      }
+    }
+
+    $this->send($subscriberModel, $segmentModels);
   }
 
   /**
@@ -55,7 +77,7 @@ class NewSubscriberNotificationMailer {
       $extraParams = [
         'meta' => $this->mailerMetaInfo->getNewSubscriberNotificationMetaInfo(),
       ];
-      $this->mailer->send($this->constructNewsletter($subscriber, $segments), $settings['address'], $extraParams);
+      $this->mailerFactory->getDefaultMailer()->send($this->constructNewsletter($subscriber, $segments), $settings['address'], $extraParams);
     } catch (\Exception $e) {
       if (WP_DEBUG) {
         throw $e;

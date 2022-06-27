@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
- * @version  1.11.4
+ * @version  2.0.6
  */
 
 // Exit if accessed directly.
@@ -13,11 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WC_Mix_and_Match_Helpers Class.
+ * Formerly the WC_Mix_and_Match_Helpers class.
+ * Renamed in 2.0.0
+ */
+class_alias( 'WC_MNM_Helpers', 'WC_Mix_and_Match_Helpers' );
+
+/**
+ * WC_MNM_Helpers Class.
  *
  * Mix and Match order caching helper functions.
  */
-class WC_Mix_and_Match_Helpers {
+class WC_MNM_Helpers {
 
 	/**
 	 * Runtime cache for simple storage.
@@ -30,13 +36,23 @@ class WC_Mix_and_Match_Helpers {
 	 * Simple runtime cache getter.
 	 *
 	 * @param  string  $key
+	 * @param  string  $group_key
 	 * @return mixed
 	 */
-	public static function cache_get( $key ) {
+	public static function cache_get( $key, $group_key = '' ) {
+
 		$value = null;
-		if ( isset( self::$cache[ $key ] ) ) {
+
+		if ( $group_key ) {
+
+			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+				$value = self::cache_get( $group_key . '_' . $group_id . '_' . $key );
+			}
+
+		} elseif ( isset( self::$cache[ $key ] ) ) {
 			$value = self::$cache[ $key ];
 		}
+
 		return $value;
 	}
 
@@ -44,24 +60,45 @@ class WC_Mix_and_Match_Helpers {
 	 * Simple runtime cache setter.
 	 *
 	 * @param  string  $key
-	 * @param  mixed   $value=
+	 * @param  mixed   $value
+	 * @param  string  $group_key
 	 */
-	public static function cache_set( $key, $value ) {
-		self::$cache[ $key ] = $value;
+	public static function cache_set( $key, $value, $group_key = '' ) {
+
+		if ( $group_key ) {
+
+			if ( null === ( $group_id = self::cache_get( $group_key . '_id' ) ) ) {
+				$group_id = md5( $group_key );
+				self::cache_set( $group_key . '_id', $group_id );
+			}
+
+			self::$cache[ $group_key . '_' . $group_id . '_' . $key ] = $value;
+
+		} else {
+			self::$cache[ $key ] = $value;
+		}
 	}
 
 	/**
 	 * Simple runtime cache unsetter.
 	 *
 	 * @param  string  $key
-	 * @param  mixed   $value=
+	 * @param  mixed   $value
+	 * @param  string  $group_key
 	 */
-	public static function cache_delete( $key ) {
-		if ( isset( self::$cache[ $key ] ) ) {
+	public static function cache_delete( $key, $group_key = '' ) {
+
+		if ( $group_key ) {
+
+			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+				self::cache_delete( $group_key . '_' . $group_id . '_' . $key );
+			}
+
+		} elseif ( isset( self::$cache[ $key ] ) ) {
 			unset( self::$cache[ $key ] );
 		}
 	}
-
+	
 	/**
 	 * Product types supported by the plugin.
 	 * You can dynamically attach these product types to Mix and Match Product.
@@ -76,7 +113,7 @@ class WC_Mix_and_Match_Helpers {
 		 *
 		 * @param  array
 		 */
-		return apply_filters( 'woocommerce_mnm_supported_products', array( 'simple', 'variation' ) );
+		return apply_filters( 'wc_mnm_supported_products', array( 'simple', 'variation' ) );
 	}
 
 	/**
@@ -100,12 +137,20 @@ class WC_Mix_and_Match_Helpers {
 	 * @param  string  $qty
 	 * @return string
 	 */
-	public static function format_product_title( $title, $qty = '' ) {
+	public static function format_product_title( $title, $qty = '', $args = array() ) {
+
+		$args = wp_parse_args( $args, array(
+			'title_first' => true,
+		) );
 
 		$title_string = $title;
 
 		if ( $qty ) {
-			$title_string = sprintf( esc_html_x( '%1$s &times; %2$d', 'title, quantity', 'woocommerce-mix-and-match-products' ), $title_string, $qty );
+			if ( $args[ 'title_first' ] ) {
+				$title_string = sprintf( esc_html_x( '%1$s &times; %2$d', '[Frontend] product title x quantity', 'woocommerce-mix-and-match-products' ), $title_string, $qty );
+			} else {
+				$title_string = sprintf( esc_html_x( '%1$d &times; %2$s', '[Frontend] quantity x product title', 'woocommerce-mix-and-match-products' ), $qty, $title_string );
+			}
 		}
 
 		return $title_string;
@@ -124,8 +169,8 @@ class WC_Mix_and_Match_Helpers {
 	 *
 	 * @return string woocommerce version number or null
 	 */
-	private static function get_wc_version() {
-		wc_deprecated_function( 'WC_Mix_and_Match_Helpers::get_wc_version()', '1.2.0', 'WC_MNM_Core_Compatibility::get_wc_version()' );
+	public static function get_wc_version() {
+		wc_deprecated_function( 'WC_MNM_Helpers::get_wc_version()', '1.2.0', 'WC_MNM_Core_Compatibility::get_wc_version()' );
 		return WC_MNM_Core_Compatibility::get_wc_version();
 	}
 
@@ -139,7 +184,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @return bool true if the installed version of WooCommerce is 2.2 or greater
 	 */
 	public static function is_wc_version_gte_2_4() {
-		wc_deprecated_function( 'WC_Mix_and_Match_Helpers::is_wc_version_gte_2_4()', '1.2.0', 'WC_MNM_Core_Compatibility::is_wc_version_gte( "2.4.0" )' );
+		wc_deprecated_function( 'WC_MNM_Helpers::is_wc_version_gte_2_4()', '1.2.0', 'WC_MNM_Core_Compatibility::is_wc_version_gte( "2.4.0" )' );
 		return WC_MNM_Core_Compatibility::is_wc_version_gte( '2.4.0' );
 	}
 
@@ -156,7 +201,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @return double                   modified product price incl. or excl. tax
 	 */
 	public static function get_product_display_price( $product, $price ) {
-		wc_deprecated_function( 'WC_Mix_and_Match_Helpers::get_product_display_price()', '1.3.0', 'wc_get_price_to_display()' );
+		wc_deprecated_function( 'WC_MNM_Helpers::get_product_display_price()', '1.3.0', 'wc_get_price_to_display()' );
 		return wc_get_price_to_display( $product, array( 'price' => $price ) );
 	}
 
@@ -171,7 +216,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @return string                             formatted attributes
 	 */
 	public static function get_formatted_variation_attributes( $variation, $flat = false ) {
-		wc_deprecated_function( 'WC_Mix_and_Match_Helpers::get_formatted_variation_attributes()', '1.2.0', 'wc_get_formatted_variation()' );
+		wc_deprecated_function( 'WC_MNM_Helpers::get_formatted_variation_attributes()', '1.2.0', 'wc_get_formatted_variation()' );
 		return wc_get_formatted_variation( $variation, $flat );
 	}
 

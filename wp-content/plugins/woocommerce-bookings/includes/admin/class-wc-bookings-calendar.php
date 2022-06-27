@@ -118,9 +118,10 @@ class WC_Bookings_Calendar {
 				/*
 				* Calculate end date: how many days from the next month we need to include.
 				* We want to have calendar without empty days in the last row.
+				* Bookings from the last day in the calendar grid are included by setting $end_time to it's 23:59:59.
 				*/
-				$end_padding            = 6 - $end_column;
-				$end_time               = strtotime( "+{$end_padding} day midnight", strtotime( "$year-$month-$month_number_of_days" ) );
+				$end_padding = 7 - $end_column;
+				$end_time    = strtotime( "+{$end_padding} day midnight", strtotime( "$year-$month-$month_number_of_days" ) ) - 1;
 
 				$this->events           = WC_Global_Availability_Data_Store::get_events_in_date_range(
 					$start_time,

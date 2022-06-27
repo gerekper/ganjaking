@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.39\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.42\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2022-01-05 18:58:47+00:00\n"
+"POT-Creation-Date: 2022-06-20 09:54:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,12 +78,12 @@ msgid "Drag items here"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
-#: includes/wcms-order.php:257 woocommerce-shipping-multiple-addresses.php:508
+#: includes/wcms-order.php:377 woocommerce-shipping-multiple-addresses.php:508
 msgid "Address"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:65
-#: includes/wcms-order.php:595 templates/address-block.php:27
+#: includes/wcms-order.php:744 templates/address-block.php:27
 msgid "Edit"
 msgstr ""
 
@@ -264,88 +264,102 @@ msgstr ""
 msgid "Ships to multiple addresses"
 msgstr ""
 
-#: includes/wcms-order.php:252
+#: includes/wcms-order.php:372 includes/wcms-order.php:443
 msgid "This order ships to multiple addresses."
 msgstr ""
 
-#: includes/wcms-order.php:256 multi-shipping.php:138 settings.php:47
+#: includes/wcms-order.php:376 multi-shipping.php:138 settings.php:47
 msgid "Products"
 msgstr ""
 
-#: includes/wcms-order.php:259
+#: includes/wcms-order.php:379
 msgid "Notes"
 msgstr ""
 
-#: includes/wcms-order.php:330
+#: includes/wcms-order.php:422 includes/wcms-order.php:481
+#. translators: %s is replaced with the package date.
 msgid "Delivery date: %s"
 msgstr ""
 
-#: includes/wcms-order.php:354
+#: includes/wcms-order.php:452
+#. translators: %d is replaced with the address index.
+msgid "Address %d"
+msgstr ""
+
+#: includes/wcms-order.php:455
+msgid "Products:"
+msgstr ""
+
+#: includes/wcms-order.php:465
+msgid "Address:"
+msgstr ""
+
+#: includes/wcms-order.php:503
 msgid "Ships to multiple addresses "
 msgstr ""
 
-#: includes/wcms-order.php:374
+#: includes/wcms-order.php:523
 msgid "Order Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-order.php:501
+#: includes/wcms-order.php:650
 msgid "Pending"
 msgstr ""
 
-#: includes/wcms-order.php:502 includes/wcms-order.php:507
+#: includes/wcms-order.php:651 includes/wcms-order.php:656
 msgid "Completed"
 msgstr ""
 
-#: includes/wcms-order.php:504
+#: includes/wcms-order.php:653
 msgid "GO"
 msgstr ""
 
-#: includes/wcms-order.php:507
+#: includes/wcms-order.php:656
 msgid "Change"
 msgstr ""
 
-#: includes/wcms-order.php:534
+#: includes/wcms-order.php:683
 msgid "Do you want to send an email to the customer?"
 msgstr ""
 
-#: includes/wcms-order.php:811 multi-shipping.php:183
+#: includes/wcms-order.php:960 multi-shipping.php:183
 msgid "Part of your order has been shipped"
 msgstr ""
 
-#: includes/wcms-order.php:839
+#: includes/wcms-order.php:988
 msgid ""
 "Hi there. Part of your recent order on %s has been completed. Your order "
 "details are shown below for your reference:"
 msgstr ""
 
-#: includes/wcms-order.php:841
+#: includes/wcms-order.php:990
 msgid "Order:"
 msgstr ""
 
-#: includes/wcms-order.php:865 templates/pip-template-body.php:118
+#: includes/wcms-order.php:1014 templates/pip-template-body.php:118
 #: templates/pip-template-body.php:204 templates/shipping-address-table.php:66
 #: woocommerce-shipping-multiple-addresses.php:508
 msgid "Product"
 msgstr ""
 
-#: includes/wcms-order.php:866 templates/pip-template-body.php:119
+#: includes/wcms-order.php:1015 templates/pip-template-body.php:119
 #: templates/pip-template-body.php:205 templates/shipping-address-table.php:67
 msgid "Quantity"
 msgstr ""
 
-#: includes/wcms-order.php:901
+#: includes/wcms-order.php:1050
 msgid "Download %d:"
 msgstr ""
 
-#: includes/wcms-order.php:903
+#: includes/wcms-order.php:1052
 msgid "Download:"
 msgstr ""
 
-#: includes/wcms-order.php:934 templates/pip-template-body.php:55
+#: includes/wcms-order.php:1083 templates/pip-template-body.php:55
 msgid "Billing address"
 msgstr ""
 
-#: includes/wcms-order.php:938 templates/pip-template-body.php:75
+#: includes/wcms-order.php:1087 templates/pip-template-body.php:75
 msgid "Shipping address"
 msgstr ""
 

@@ -102,6 +102,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		if ( isset( $this->settings['product_fields']['bing_promotion_id'] ) ) {
 			echo "\tpromotion_ID";
 		}
+		do_action( 'woocommerce_gpf_bing_feed_header_output', $this->settings );
 		echo "\r\n";
 
 	}
@@ -202,8 +203,8 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		$output .= $this->output_element( $feed_item, 'gtin' );
 
 		if ( isset( $this->settings['product_fields']['condition'] ) ) {
-			if ( isset( $feed_item->additional_elements['condition'][0] ) ) {
-				switch ( $feed_item->additional_elements['condition'][0] ) {
+			if ( ! empty( $feed_item->additional_elements['condition'][0] ) ) {
+				switch ( strtolower( $feed_item->additional_elements['condition'][0] ) ) {
 					case 'new':
 						$output .= "\t" . $this->tsvescape( 'New' );
 						break;
@@ -231,6 +232,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 
 		$output .= $this->output_element( $feed_item, 'bing_promotion_id' );
 
+		$output .= apply_filters( 'woocommerce_gpf_bing_feed_row_output', '', $feed_item );
 		$output .= "\r\n";
 
 		return $output;

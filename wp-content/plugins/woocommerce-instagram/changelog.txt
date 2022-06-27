@@ -1,5 +1,38 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-06-21 - version 4.1.9
+* Tweak - Reduced to 25 the number of products to process per batch when generating a catalog file.
+* Fix - Fixed the lock of the process for generating a catalog file when it's interrupted for exceeding the execution limits.
+
+2022-06-08 - version 4.1.8
+* Fix - Fixed duplicated products in the catalog files when including specific products in the catalog.
+
+2022-06-06 - version 4.1.7
+* Fix - Fixed duplicated products in the catalog files when excluding specific products from the catalog.
+
+2022-06-03 - version 4.1.6
+* Fix - Fixed fatal error when formatting a product with no price in PHP 8.0+.
+
+2022-06-02 - version 4.1.5
+* Tweak - Improved the log texts of the process for generating the catalog files.
+* Tweak - Include the catalog feed URL in the System Status Report.
+* Tweak - Tested compatibility with WC 6.6.
+* Tweak - Tested compatibility with WP 6.0.
+* Fix - Fixed the interruption of the catalog files generation when excluding products from it.
+
+2022-04-28 - version 4.1.4
+* Tweak - Tested compatibility with WC 6.5.
+
+2022-04-20 - version 4.1.3
+* Tweak - Tested compatibility with WC 6.4.
+* Fix - The 'Stock Quantity' option of the already created catalogs was set to zero when updating the extension from a version prior to 4.1.0.
+* Fix - Fixed the interruption of the catalog files generation when the load of a product fails.
+
+2022-03-16 - version 4.1.2
+* Tweak - Improved product catalogs table in the System Status Report.
+* Tweak - Include the last modified date in the catalog XML file.
+* Fix - Fixed duplicated error notice on the settings page when the selected Facebook page doesn't have an Instagram account connected to it.
+
 2022-02-28 - version 4.1.1
 * Tweak - Unregister scheduled actions on plugin deactivation.
 * Tweak - Unregister custom post types on plugin deactivation.

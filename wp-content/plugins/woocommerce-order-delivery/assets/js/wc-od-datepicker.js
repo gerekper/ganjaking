@@ -65,8 +65,15 @@
 			var that = this;
 
 			// Sync the related hidden input field with the datepicker field.
-			this.element.on( 'changeDate', function ( event ) {
-				that.hiddenElement.val( event.format( 'yyyy-mm-dd' ) );
+			this.element.on( 'changeDate clearDate', function ( event ) {
+				var oldDate = that.hiddenElement.val(),
+					newDate = ( event.date ? event.format( 'yyyy-mm-dd' ) : '' );
+
+				// The event 'changeDate' is also triggered before the event 'clearDate.
+				if ( newDate !== oldDate ) {
+					that.hiddenElement.val( newDate );
+					that.element.trigger( 'changedDate', [ event ] );
+				}
 			});
 		},
 

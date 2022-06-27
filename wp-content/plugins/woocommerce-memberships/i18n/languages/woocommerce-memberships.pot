@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.22.10\n"
+"Project-Id-Version: WooCommerce Memberships 1.23.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2022-02-08 10:39:06+00:00\n"
+"POT-Creation-Date: 2022-03-28 14:31:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Memberships"
 msgstr ""
 
-#: class-wc-memberships.php:1235
+#: class-wc-memberships.php:1235 src/Blocks.php:264
 #: src/admin/class-wc-memberships-admin-user-memberships.php:120
 #: src/admin/class-wc-memberships-import-export-handler.php:467
 #: src/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:180
@@ -126,51 +126,74 @@ msgstr ""
 msgid "Related Product"
 msgstr ""
 
-#: src/Blocks.php:283 src/Blocks.php:290
+#: src/Blocks.php:262
+#: src/admin/class-wc-memberships-admin-user-memberships.php:109
+msgid "Email"
+msgstr ""
+
+#: src/Blocks.php:263
+msgid "Phone"
+msgstr ""
+
+#: src/Blocks.php:265
+msgid "Address"
+msgstr ""
+
+#: src/Blocks.php:266
+msgid ""
+"We didn’t find any members. Please try a different search or check for "
+"typos."
+msgstr ""
+
+#: src/Blocks.php:267
+msgid "No records found..."
+msgstr ""
+
+#: src/Blocks.php:333 src/Blocks.php:340
 msgid "restricted"
 msgstr ""
 
-#: src/Blocks.php:284 src/Blocks.php:291
+#: src/Blocks.php:334 src/Blocks.php:341
 msgid "hide"
 msgstr ""
 
-#: src/Blocks.php:285 src/Blocks.php:292
+#: src/Blocks.php:335 src/Blocks.php:342
 msgid "protected"
 msgstr ""
 
-#: src/Blocks.php:293
+#: src/Blocks.php:343
 msgid "memberships"
 msgstr ""
 
-#: src/Blocks.php:294
+#: src/Blocks.php:344
 msgid "members"
 msgstr ""
 
-#: src/Blocks.php:295
+#: src/Blocks.php:345
 msgid "non-members"
 msgstr ""
 
-#: src/Blocks.php:296
+#: src/Blocks.php:346
 msgid "non members"
 msgstr ""
 
-#: src/Blocks.php:297
+#: src/Blocks.php:347
 msgid "restrictions"
 msgstr ""
 
-#: src/Blocks.php:298
+#: src/Blocks.php:348
 msgid "content"
 msgstr ""
 
-#: src/Blocks.php:299
+#: src/Blocks.php:349
 msgid "hidden"
 msgstr ""
 
-#: src/Blocks.php:300
+#: src/Blocks.php:350
 msgid "private"
 msgstr ""
 
-#: src/Blocks.php:301
+#: src/Blocks.php:351
 msgid "public"
 msgstr ""
 
@@ -208,57 +231,57 @@ msgstr ""
 msgid "Profile field definition ID invalid or not found while updating."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:314
+#: src/Profile_Fields/Profile_Field.php:328
 #: src/integrations/Elementor_Builder.php:212
 #: src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-admin.php:802
 #: src/utilities/class-wc-memberships-csv-export-user-memberships.php:515
 msgid "Yes"
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:314
+#: src/Profile_Fields/Profile_Field.php:328
 #: src/integrations/Elementor_Builder.php:213
 #: src/integrations/subscriptions/class-wc-memberships-integration-subscriptions-admin.php:803
 #: src/utilities/class-wc-memberships-csv-export-user-memberships.php:515
 msgid "No"
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:437
+#: src/Profile_Fields/Profile_Field.php:451
 msgid "The profile field is invalid."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:442
+#: src/Profile_Fields/Profile_Field.php:456
 #. translators: Placeholder: %s - profile field name
 msgid "The profile field %s should be assigned to a user."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:447
+#: src/Profile_Fields/Profile_Field.php:461
 #. translators: Placeholder: %s - profile field name
 msgid "The profile field %s must have a valid slug."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:452
+#: src/Profile_Fields/Profile_Field.php:466
 #. translators: Placeholder: %s - profile field name
 msgid "The profile field %s is required."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:458
+#: src/Profile_Fields/Profile_Field.php:472
 #. translators: Placeholder: %s - profile field name
 msgid ""
 "The value of the profile field %s does not match one of the possible "
 "options."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:464
+#: src/Profile_Fields/Profile_Field.php:478
 #. translators: Placeholder: %s - profile field name
 msgid "The value for the profile field %s is invalid."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:470
+#: src/Profile_Fields/Profile_Field.php:484
 #. translators: Placeholder: %s - profile field name
 msgid "The value of the profile field %s does not match an existing uploaded file."
 msgstr ""
 
-#: src/Profile_Fields/Profile_Field.php:482
+#: src/Profile_Fields/Profile_Field.php:496
 #. translators: Placeholder: %s - profile field name
 msgid "The user must be a member of one of the %s profile field plans."
 msgstr ""
@@ -898,10 +921,6 @@ msgstr[1] ""
 msgid "Name"
 msgstr ""
 
-#: src/admin/class-wc-memberships-admin-user-memberships.php:109
-msgid "Email"
-msgstr ""
-
 #: src/admin/class-wc-memberships-admin-user-memberships.php:121
 #: src/admin/class-wc-memberships-admin-user-memberships.php:278
 #: src/admin/class-wc-memberships-import-export-handler.php:482
@@ -1051,15 +1070,22 @@ msgid ""
 "visible on the members list."
 msgstr ""
 
-#: src/admin/class-wc-memberships-admin-user-memberships.php:1433
+#: src/admin/class-wc-memberships-admin-user-memberships.php:1407
+msgid ""
+"%1$s Membership Directories %2$s %3$s New! We’ve made adding member "
+"directories easier. You can use a block to add a directory to any page. "
+"%4$s Read more %5$s"
+msgstr ""
+
+#: src/admin/class-wc-memberships-admin-user-memberships.php:1448
 msgid "Please select a membership plan."
 msgstr ""
 
-#: src/admin/class-wc-memberships-admin-user-memberships.php:1461
+#: src/admin/class-wc-memberships-admin-user-memberships.php:1476
 msgid "Please select a user to add as a member."
 msgstr ""
 
-#: src/admin/class-wc-memberships-admin-user-memberships.php:1473
+#: src/admin/class-wc-memberships-admin-user-memberships.php:1488
 #: src/admin/class-wc-memberships-admin-users.php:178
 msgid "This user is already a member of every plan."
 msgstr ""
@@ -2055,7 +2081,7 @@ msgid "Endpoint for the My Account &rarr; My Membership page"
 msgstr ""
 
 #: src/admin/class-wc-memberships-settings.php:822
-#: src/frontend/My_Account/Profile_Fields_Area.php:155
+#: src/frontend/My_Account/Profile_Fields_Area.php:157
 #: templates/myaccount/my-profile-fields.php:42
 msgid "My Profile"
 msgstr ""
@@ -3491,101 +3517,101 @@ msgid "Membership plan additional meta data."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:489
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1142
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1146
 msgid "Meta ID."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:495
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1148
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1152
 msgid "Meta key."
 msgstr ""
 
 #: src/api/abstract-wc-memberships-rest-api-membership-plans.php:500
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1153
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1157
 msgid "Meta value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:51
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:50
 #: src/class-wc-memberships-post-types.php:142
 msgid "User Membership"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:108
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:106
 msgid "Unique identifier of a user membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:190
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:283
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:186
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:273
 msgid "Invalid request."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:196
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:192
 msgid "Required %s is missing."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:207
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:203
 #. translators: Placeholders: %1$s - customer ID, %2$s - membership plan ID
 msgid "A membership already exists for user %1$s and plan %2$s."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:291
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:281
 #. translators: Placeholder: %s - user membership identifier (may be empty)
 msgid "User Membership%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:317
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:305
 msgid "Could not change the membership plan of this user membership. %s"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:362
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:346
 #. translators: Placeholder: %s - customer identifier (may be empty)
 msgid "Membership Plan%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:390
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:372
 #. translators: Placeholder: %s - customer identifier (may be empty)
 msgid "Customer%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:433
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:413
 #. translators: Placeholder: %s - date string name
 msgid "Invalid %s date value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:446
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:425
 #. translators: Placeholder: %s - product identifier (may be empty)
 msgid "Product%s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:458
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:436
 #. translators: Placeholder: %s - order identifier (may be empty)
 msgid "Order %s invalid or not found."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:469
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:446
 msgid "Invalid user membership status: \"%s\"."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:483
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:459
 msgid "Invalid profile fields."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:495
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:469
 #. translators: Placeholders: %d - array item index
 msgid "The profile field slug in \"profile_fields[%d][slug]\" is required."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:505
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:478
 #. translators: Placeholders: %d - array item index
 msgid "The profile field value in \"profile_fields[%d][value]\" is required."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:517
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:489
 #. translators: Placeholder: %s - profile field slug
 msgid "No profile field definition found for \"%s\"."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:524
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:496
 #. translators: Placeholders: %1$s - profile field value, %2$s - profile field
 #. slug
 msgid ""
@@ -3593,138 +3619,140 @@ msgid ""
 "ID."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:534
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:504
 #. translators: Placeholders: %1$s - array item index, %2$s - error message
 msgid "The \"profile_fields[%1$s]\" data is invalid. %2$s"
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:551
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:520
 msgid "Invalid meta data."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:560
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:528
 msgid "Invalid meta data key."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:565
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:533
 msgid "Invalid meta data value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:586
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:554
 msgid "An error occurred while setting properties for the user membership %s."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:610
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:577
+#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:76
 msgid "Limit results to user memberships of a specific status."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:618
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:585
+#: src/api/v4/class-wc-memberships-rest-api-v4-user-memberships.php:65
 msgid ""
 "Limit results to user memberships for a specific plan (matched by ID or "
 "slug)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:625
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:592
 msgid ""
 "Limit results to user memberships belonging to a specific customer (matched "
 "by ID, login name or email address)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:632
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:599
 msgid ""
 "Limit results to user memberships related to a specific order (matched by "
 "ID)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:639
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:606
 msgid ""
 "Limit results to user memberships granted after the purchase of a specific "
 "product (matched by ID)."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1020
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1024
 msgid "Unique identifier of the user membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1026
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1030
 msgid "Unique identifier of the user the membership belongs to."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1031
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1035
 msgid "Unique identifier of the plan the user membership grants access to."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1036
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1040
 msgid "User membership status."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1042
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1046
 msgid "Unique identifier of the order that grants access."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1047
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1051
 msgid ""
 "Unique identifier of the purchased product, or its variation, that grants "
 "access."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1052
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1056
 msgid "The date when the user membership is created, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1058
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1062
 msgid "The date when the user membership is created, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1064
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1068
 msgid "The date when the user membership starts being active, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1070
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1074
 msgid "The date when the user membership starts being active, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1075
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1079
 msgid "The date when the user membership ends, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1081
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1085
 msgid "The date when the user membership ends, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1086
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1090
 msgid "The date when the user membership was last paused, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1092
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1096
 msgid "The date when the user membership was last paused, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1097
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1101
 msgid "The date when the user membership was cancelled, in the site timezone."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1103
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1107
 msgid "The date when the user membership was cancelled, in UTC."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1108
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1112
 msgid "The URL pointing to the Members Area to view the membership."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1114
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1118
 msgid "User membership profile fields."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1121
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1125
 msgid "Profile field slug."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1127
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1131
 msgid "Profile field value."
 msgstr ""
 
-#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1135
+#: src/api/abstract-wc-memberships-rest-api-user-memberships.php:1139
 msgid "User membership additional meta data."
 msgstr ""
 
@@ -3770,6 +3798,32 @@ msgstr ""
 
 #: src/api/class-wc-memberships-webhooks.php:155
 msgid "Membership Plan Restored"
+msgstr ""
+
+#: src/blocks/Members_Directory.php:142
+msgid "Search..."
+msgstr ""
+
+#: src/blocks/Members_Directory.php:146 src/blocks/Members_Directory.php:147
+msgid "All Plans"
+msgstr ""
+
+#: src/blocks/Members_Directory.php:159 src/blocks/Members_Directory.php:160
+msgid "All Statuses"
+msgstr ""
+
+#: src/blocks/Members_Directory.php:183
+msgid "Filter"
+msgstr ""
+
+#: src/blocks/Members_Directory.php:192
+#: src/functions/wc-memberships-functions-members-area.php:393
+msgid "Previous"
+msgstr ""
+
+#: src/blocks/Members_Directory.php:193
+#: src/functions/wc-memberships-functions-members-area.php:396
+msgid "Next"
 msgstr ""
 
 #: src/class-wc-memberships-ajax.php:492
@@ -4544,7 +4598,7 @@ msgid ""
 msgstr ""
 
 #: src/class-wc-memberships-user-messages.php:1248
-#: src/frontend/My_Account/Profile_Fields_Area.php:357
+#: src/frontend/My_Account/Profile_Fields_Area.php:359
 msgid "Dismiss"
 msgstr ""
 
@@ -4845,19 +4899,19 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: src/frontend/My_Account/Profile_Fields_Area.php:230
+#: src/frontend/My_Account/Profile_Fields_Area.php:232
 msgid "Cannot update profile fields. Please try again."
 msgstr ""
 
-#: src/frontend/My_Account/Profile_Fields_Area.php:245
+#: src/frontend/My_Account/Profile_Fields_Area.php:247
 msgid "Some profile fields had invalid or missing values and were not saved."
 msgstr ""
 
-#: src/frontend/My_Account/Profile_Fields_Area.php:247
+#: src/frontend/My_Account/Profile_Fields_Area.php:249
 msgid "The profile fields have been saved."
 msgstr ""
 
-#: src/frontend/My_Account/Profile_Fields_Area.php:350
+#: src/frontend/My_Account/Profile_Fields_Area.php:352
 #. translators: Placeholders: %1$s - <strong>, %2$s - </strong>, %3$s - opening
 #. <a> tag, %4$s - closing </a> tag
 msgid ""
@@ -4939,14 +4993,6 @@ msgstr ""
 
 #: src/functions/wc-memberships-functions-members-area.php:391
 msgid "First"
-msgstr ""
-
-#: src/functions/wc-memberships-functions-members-area.php:393
-msgid "Previous"
-msgstr ""
-
-#: src/functions/wc-memberships-functions-members-area.php:396
-msgid "Next"
 msgstr ""
 
 #: src/functions/wc-memberships-functions-members-area.php:398

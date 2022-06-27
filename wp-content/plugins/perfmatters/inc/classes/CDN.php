@@ -30,7 +30,7 @@ class CDN
         }
 
         //rewrite urls in html
-        $regEx = '#(?<=[(\"\'])(?:' . $regExURL . ')?/(?:((?:' . $directories . ')[^\"\')]+)|([^/\"\']+\.[^/\"\')]+))(?=[\"\')])#';
+        $regEx = '#(?<=[(\"\']|&quot;)(?:' . $regExURL . ')?/(?:((?:' . $directories . ')[^\"\')]+)|([^/\"\']+\.[^/\"\')]+))(?=[\"\')]|&quot;)#';
 
         //base exclusions
         $exclusions = array('script-manager.js');

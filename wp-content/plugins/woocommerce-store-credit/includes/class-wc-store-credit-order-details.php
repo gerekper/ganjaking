@@ -91,7 +91,7 @@ class WC_Store_Credit_Order_Details {
 			}
 
 			$value = join( '<span class="divider">, </span>', $coupons );
-		} elseif ( $this->is_shipping_discount( $order_item ) ) {
+		} elseif ( $this->is_shipping_discount( $order_item ) && is_numeric( $value ) ) {
 			$value = wc_price( - $value );
 		}
 

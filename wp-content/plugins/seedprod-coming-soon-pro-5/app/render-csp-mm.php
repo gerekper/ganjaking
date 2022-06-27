@@ -170,6 +170,7 @@ class SeedProd_Pro_Render {
 		// Top Level Settings
 		$ts                = get_option( 'seedprod_settings' );
 		$seedprod_settings = json_decode( $ts );
+		$get_request_uri = ! empty( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : null;
 
 		// Page Info
 		$page_id = 0;

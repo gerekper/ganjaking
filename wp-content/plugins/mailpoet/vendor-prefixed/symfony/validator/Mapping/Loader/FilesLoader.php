@@ -7,7 +7,7 @@ abstract class FilesLoader extends LoaderChain
  {
  parent::__construct($this->getFileLoaders($paths));
  }
- protected function getFileLoaders($paths)
+ protected function getFileLoaders(array $paths)
  {
  $loaders = [];
  foreach ($paths as $path) {
@@ -15,5 +15,5 @@ abstract class FilesLoader extends LoaderChain
  }
  return $loaders;
  }
- protected abstract function getFileLoaderInstance($path);
+ protected abstract function getFileLoaderInstance(string $path);
 }

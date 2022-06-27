@@ -280,7 +280,7 @@ class Common {
 	 */
 	public function wpml_ignore_duplicate_attachment( $attachment_id, $duplicated_attachment_id ) {
 		// Ignore the image from Smush if duplicate.
-		Helper::ignore_file( $duplicated_attachment_id );
+		update_post_meta( $duplicated_attachment_id, 'wp-smush-ignore-bulk', true );
 	}
 
 	/**
@@ -295,7 +295,7 @@ class Common {
 	 */
 	public function wpml_undo_ignore_attachment( $attachment_id ) {
 		// Delete ignore flag.
-		Helper::undo_ignored_file( $attachment_id );
+		delete_post_meta( $attachment_id, 'wp-smush-ignore-bulk' );
 	}
 
 	/**
@@ -459,7 +459,7 @@ class Common {
 
 		foreach ( $matches as $key => $url ) {
 			// Only use the match for the thumbnail URL if it's supported.
-			if ( 'thumb' !== $key || ! $cdn->is_supported_path( $url[0] ) ) {
+			if ( 'thumb' !== $key || empty( $url[0] ) || ! $cdn->is_supported_path( $url[0] ) ) {
 				continue;
 			}
 
@@ -600,6 +600,7 @@ class Common {
 	public function thumbnail_regenerate_handler( $new_meta, $attachment_id ) {
 		// Remove the filter as we are no longer need it.
 		remove_filter( 'wp_update_attachment_metadata', array( $this, 'thumbnail_regenerate_handler' ), 99999 );
+
 		/**
 		 * Skip if there is WP uploading a new image,
 		 * or the attachment is not an image or does not have thumbnails.
@@ -607,7 +608,6 @@ class Common {
 		if (
 			empty( $new_meta['sizes'] )
 			// Async uploading.
-			// phpcs:ignore
 			|| isset( $_POST['post_id'] ) || isset( $_FILES['async-upload'] )
 			// Smushed it, don't need to check it again.
 			|| did_action( 'wp_smush_before_smush_file' )
@@ -620,7 +620,7 @@ class Common {
 		}
 
 		// Skip if the attachment has an active smush operation or in being restored by Smush or ignored.
-		if ( Helper::file_in_progress( $attachment_id ) || Helper::is_ignored( $attachment_id ) ) {
+		if ( get_transient( 'smush-in-progress-' . $attachment_id ) || get_transient( 'wp-smush-restore-' . $attachment_id ) || get_post_meta( $attachment_id, 'wp-smush-ignore-bulk', true ) ) {
 			return $new_meta;
 		}
 

@@ -23,7 +23,7 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 	public function __construct() {
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ), 10, 2 );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
-		add_action( 'woocommerce_product_options_pricing', array( $this, 'product_data_options_pricing' ) );
+		add_action( 'woocommerce_product_options_pricing', array( $this, 'product_data_options_pricing' ), 20 );
 		add_action( 'woocommerce_admin_process_product_object', array( $this, 'save_product_data' ) );
 	}
 

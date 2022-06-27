@@ -3,9 +3,8 @@ namespace MailPoetVendor\Symfony\Component\Validator\Util;
 if (!defined('ABSPATH')) exit;
 class PropertyPath
 {
- public static function append($basePath, $subPath)
+ public static function append(string $basePath, string $subPath)
  {
- $subPath = (string) $subPath;
  if ('' !== $subPath) {
  if ('[' === $subPath[0]) {
  return $basePath . $subPath;

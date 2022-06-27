@@ -239,9 +239,16 @@ class WC_Bookings_Init {
 
 	/**
 	 * Add a custom payment gateway
-	 * This gateway works with booking that requires confirmation
+	 * This gateway works with bookings that require confirmation.
+	 * It's only needed on the front-end so we make sure we hide
+	 * that gateway in the admin, as it has no options to configure. 
 	 */
 	public function include_gateway( $gateways ) {
+		$page = isset( $_GET['page'] ) ? wc_clean( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$tab  = isset( $_GET['tab'] ) ? wc_clean( $_GET['tab'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( is_admin() && 'wc-settings' === $page && 'checkout' === $tab ) {
+			return $gateways;
+		}
 		$gateways[] = 'WC_Bookings_Gateway';
 
 		return $gateways;

@@ -340,8 +340,21 @@ class WC_Bookings_Controller {
 					continue;
 				}
 
-				$date_format     = date( $default_date_format, $check_date );
-				$booking_type    = isset( $available_slots[ $booking['res'] ] ) && in_array( $date_format, $available_slots[ $booking['res'] ] ) ? 'partially_booked_days' : 'fully_booked_days';
+				$date_format = date( $default_date_format, $check_date );
+				
+				if ( isset( $available_slots[ $booking['res'] ] ) && in_array( $date_format, $available_slots[ $booking['res'] ] ) ) {
+					$booking_type = 'partially_booked_days';
+				} elseif ( $bookable_product->get_resources() && ! in_array( $booking['res'], array_keys( $available_slots ) ) ) {
+					/**
+					 * Previous booking was made with the resource out of
+					 * currently assigned resources. This might happen if
+					 * a resource was added after previous booking was made.
+					 */
+					$booking_type = 'partially_booked_days';
+				} else {
+					$booking_type = 'fully_booked_days';
+				}
+
 				$booked_day_blocks[ $booking_type ][ $date_format ][ $booking['res'] ] = 1;
 
 				$check_date      = strtotime( '+1 day', $check_date );

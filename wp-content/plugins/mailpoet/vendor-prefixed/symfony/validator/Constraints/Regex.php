@@ -3,6 +3,7 @@ namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Exception\InvalidArgumentException;
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Regex extends Constraint
 {
  public const REGEX_FAILED_ERROR = 'de1e3db3-5ed4-4941-aae4-59f3667cc3a3';
@@ -12,11 +13,20 @@ class Regex extends Constraint
  public $htmlPattern;
  public $match = \true;
  public $normalizer;
- public function __construct($options = null)
+ public function __construct($pattern, string $message = null, string $htmlPattern = null, bool $match = null, callable $normalizer = null, array $groups = null, $payload = null, array $options = [])
  {
- parent::__construct($options);
+ if (\is_array($pattern)) {
+ $options = \array_merge($pattern, $options);
+ } elseif (null !== $pattern) {
+ $options['value'] = $pattern;
+ }
+ parent::__construct($options, $groups, $payload);
+ $this->message = $message ?? $this->message;
+ $this->htmlPattern = $htmlPattern ?? $this->htmlPattern;
+ $this->match = $match ?? $this->match;
+ $this->normalizer = $normalizer ?? $this->normalizer;
  if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
- throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \is_object($this->normalizer) ? \get_class($this->normalizer) : \gettype($this->normalizer)));
+ throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', \get_debug_type($this->normalizer)));
  }
  }
  public function getDefaultOption()

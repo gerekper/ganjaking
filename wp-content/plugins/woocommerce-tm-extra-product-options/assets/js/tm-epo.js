@@ -61,9 +61,22 @@
 		return 500;
 	};
 
+	var originalVal = $.fn.val;
+
 	if ( ! TMEPOJS || ! wp ) {
 		return;
 	}
+
+	// Trigger plugin events when other plugins use val.
+	$.fn.val = function() {
+		var result = originalVal.apply( this, arguments );
+		if ( arguments.length > 0 ) {
+			if ( $( this ).is( '.input-text.qty' ) ) {
+				$( this ).trigger( 'change.cpf' );
+			}
+		}
+		return result;
+	};
 
 	// Set update event for Lazy Load XT
 	if ( TMEPOJS.tm_epo_no_lazy_load === 'no' && $.lazyLoadXT ) {
@@ -137,7 +150,9 @@
 			lettersspaceonly: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.lettersspaceonly ),
 			alphanumeric: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.alphanumeric ),
 			alphanumericunicode: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.alphanumericunicode ),
-			alphanumericunicodespace: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.alphanumericunicodespace )
+			alphanumericunicodespace: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.alphanumericunicodespace ),
+			repeaterminrows: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.repeaterminrows ),
+			repeatermaxrows: $.tc_validator.format( TMEPOJS.tm_epo_global_validator_messages.repeatermaxrows )
 		} );
 	}
 
@@ -237,6 +252,20 @@
 				);
 			},
 			$.tc_validator.messages.alphanumericunicodespace
+		);
+		$.tc_validator.addMethod(
+			'repeaterminrows',
+			function( value, element, param ) {
+				return $.epoAPI.math.toInt( $( element ).closest( '.tc-element-inner-wrap' ).find( '.tc-repeater-element' ).length ) >= $.epoAPI.math.toInt( param );
+			},
+			$.tc_validator.messages.repeaterminrows
+		);
+		$.tc_validator.addMethod(
+			'repeatermaxrows',
+			function( value, element, param ) {
+				return $.epoAPI.math.toInt( $( element ).closest( '.tc-element-inner-wrap' ).find( '.tc-repeater-element' ).length ) <= $.epoAPI.math.toInt( param );
+			},
+			$.tc_validator.messages.repeatermaxrows
 		);
 	}
 
@@ -430,7 +459,7 @@
 
 						$( header )
 							.find( '.tm-qty' )
-							.closest( '.cpf_hide_element' )
+							.closest( '.cpf-element' )
 							.find( '.tm-epo-field' )
 							.on( 'change.cpf', function() {
 								$( header ).trigger( 'openwrap.tmtoggle' );
@@ -523,7 +552,7 @@
 		if ( _cart ) {
 			taxable = _cart.attr( 'data-taxable' );
 			tax_rate = _cart.attr( 'data-tax-rate' );
-			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
+			prices_include_tax = _cart.attr( 'data-prices-include-tax' ) || TMEPOJS.prices_include_tax;
 			is_vat_exempt = _cart.attr( 'data-is-vat-exempt' );
 			non_base_location_prices = _cart.attr( 'data-non-base-location-prices' );
 			taxes_of_one = _cart.attr( 'data-taxes-of-one' );
@@ -555,6 +584,8 @@
 						taxable = true;
 					}
 					tax_rate = tax_rate.tax_rate;
+					taxes_of_one = tax_rate / 100;
+					base_taxes_of_one = tax_rate / 100;
 				}
 			}
 			if ( taxable ) {
@@ -644,7 +675,7 @@
 			value = 0;
 		}
 		if ( _cart ) {
-			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
+			tax_display_mode = _cart.attr( 'data-tax-display-mode' ) || TMEPOJS.tax_display_mode;
 			if ( tax_display_mode === 'incl' ) {
 				value = get_price_including_tax( value, _cart, element, force, variation, pricetype, doubleforce );
 			} else {
@@ -758,13 +789,19 @@
 						}
 					}
 
+					if ( TMEPOJS.tm_epo_auto_hide_price_if_zero === 'yes' && $.tmempty( row.price ) === true ) {
+						row.price = '';
+					} else {
+						row.price = tm_set_price( row.price, this.this_epo_totals_container, true, false );
+					}
+
 					values_obj.push( {
 						label_show: row.label_show,
 						value_show: row.value_show,
 						title: row.title,
 						value: row.value,
 						quantity: row.quantity,
-						price: tm_set_price( row.price, this.this_epo_totals_container, true, false )
+						price: row.price
 					} );
 				} );
 			}
@@ -815,26 +852,47 @@
 				this.floatingBox.show();
 				return;
 			}
-
-			if ( jWindow.scrollTop() > $.epoAPI.math.toFloat( TMEPOJS.floating_totals_box_pixels ) || this.is_nks_alt ) {
-				if ( ( this.floatingBox.is( ':hidden' ) && ! this.floatingBox.is( ':empty' ) ) || this.is_nks_alt ) {
-					if ( this.is_nks === false ) {
-						this.floatingBox.fadeIn();
-					} else {
-						this.floatingBox.show();
+			if ( TMEPOJS.floating_totals_box_visibility === 'hideafterscroll' ) {
+				if ( jWindow.scrollTop() > $.epoAPI.math.toFloat( TMEPOJS.floating_totals_box_pixels ) && ! this.is_nks_alt ) {
+					if ( ! this.floatingBox.is( ':hidden' ) ) {
+						if ( this.is_nks === false ) {
+							this.floatingBox.fadeOut();
+						} else {
+							this.floatingBox.hide();
+						}
 					}
-				} else if ( ! this.floatingBox.is( ':hidden' ) && this.floatingBox.is( ':empty' ) ) {
+				} else if ( this.floatingBox.is( ':hidden' ) || this.is_nks_alt ) {
+					if ( ! this.floatingBox.is( ':empty' ) || this.is_nks_alt ) {
+						if ( this.is_nks === false ) {
+							this.floatingBox.fadeIn();
+						} else {
+							this.floatingBox.show();
+						}
+					}
+				}
+			}
+
+			if ( TMEPOJS.floating_totals_box_visibility === 'afterscroll' ) {
+				if ( jWindow.scrollTop() > $.epoAPI.math.toFloat( TMEPOJS.floating_totals_box_pixels ) || this.is_nks_alt ) {
+					if ( ( this.floatingBox.is( ':hidden' ) && ! this.floatingBox.is( ':empty' ) ) || this.is_nks_alt ) {
+						if ( this.is_nks === false ) {
+							this.floatingBox.fadeIn();
+						} else {
+							this.floatingBox.show();
+						}
+					} else if ( ! this.floatingBox.is( ':hidden' ) && this.floatingBox.is( ':empty' ) ) {
+						if ( this.is_nks === false ) {
+							this.floatingBox.fadeOut();
+						} else {
+							this.floatingBox.hide();
+						}
+					}
+				} else if ( ! this.floatingBox.is( ':hidden' ) ) {
 					if ( this.is_nks === false ) {
 						this.floatingBox.fadeOut();
 					} else {
 						this.floatingBox.hide();
 					}
-				}
-			} else if ( ! this.floatingBox.is( ':hidden' ) ) {
-				if ( this.is_nks === false ) {
-					this.floatingBox.fadeOut();
-				} else {
-					this.floatingBox.hide();
 				}
 			}
 		},
@@ -1006,9 +1064,7 @@
 		return obj1;
 	};
 
-	/**
-	 * Stores a default attribute for an element so it can be reset later
-	 */
+	// Stores a default attribute for an element so it can be reset later
 	$.fn.tc_set_attr = function( attr, value, id ) {
 		if ( undefined === id ) {
 			id = 0;
@@ -1029,9 +1085,7 @@
 		}
 	};
 
-	/**
-	 * Reset a default attribute for an element so it can be reset later
-	 */
+	// Reset a default attribute for an element so it can be reset later
 	$.fn.tc_reset_attr = function( attr, id ) {
 		if ( undefined === id ) {
 			id = 0;
@@ -1207,9 +1261,9 @@
 		if ( _class.length > 0 ) {
 			_class = _class[ 0 ];
 			if ( _class === 'cpf-type-product' ) {
-				if ( $element.is( '.cpf-type-product-mode-product' ) ) {
+				if ( element.is( '.cpf-type-product-mode-product' ) || element.is( '.cpf-type-product-checkbox' ) || element.is( '.cpf-type-product-thumbnailmultiple' ) ) {
 					_class = 'cpf-type-checkbox';
-				} else if ( $element.is( '.cpf-type-product-dropdown' ) ) {
+				} else if ( element.is( '.cpf-type-product-dropdown' ) ) {
 					_class = 'cpf-type-select';
 				} else {
 					_class = 'cpf-type-radio';
@@ -1229,6 +1283,11 @@
 				case 'cpf-type-select':
 					tcAPI.getElementFromFieldCache[ the_epo_id ] = [];
 					tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ] = $element.find( '.tm-epo-field.tmcp-select' );
+					return tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ];
+
+				case 'cpf-type-selectmultiple':
+					tcAPI.getElementFromFieldCache[ the_epo_id ] = [];
+					tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ] = $element.find( '.tm-epo-field.tmcp-selectmultiple' );
 					return tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ];
 
 				case 'cpf-type-textarea':
@@ -1254,6 +1313,11 @@
 				case 'cpf-type-date':
 					tcAPI.getElementFromFieldCache[ the_epo_id ] = [];
 					tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ] = $element.find( '.tm-epo-field.tmcp-date' );
+					return tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ];
+
+				case 'cpf-type-time':
+					tcAPI.getElementFromFieldCache[ the_epo_id ] = [];
+					tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ] = $element.find( '.tm-epo-field.tmcp-time' );
 					return tcAPI.getElementFromFieldCache[ the_epo_id ][ data_uniqid ];
 
 				case 'cpf-type-variations':
@@ -1481,19 +1545,36 @@
 		};
 	}
 
-	function field_is_active( field, nochecks ) {
+	function field_is_active( field, nochecks, single ) {
 		var hideElement;
 		var singleField;
+		var ul;
+		var isInsideProductElement;
+		var productElementActive;
+		var productElementSectionActive;
 
 		field = $( field );
-		if ( field.is( '.cpf_hide_element' ) ) {
+		if ( field.is( '.cpf-element' ) ) {
 			hideElement = field;
 			field = field.find( '.tmcp-field, .tmcp-fee-field' );
 		} else {
-			hideElement = field.closest( '.cpf_hide_element' );
+			hideElement = field.closest( '.cpf-element' );
 		}
 
-		if ( hideElement.data( 'isactive' ) !== false && hideElement.closest( '.cpf-section' ).data( 'isactive' ) !== false ) {
+		if ( single ) {
+			ul = field.closest( '.tmcp-ul-wrap' );
+		} else {
+			ul = hideElement;
+		}
+
+		isInsideProductElement = hideElement.closest( '.cpf-type-product' );
+
+		if ( isInsideProductElement ) {
+			productElementActive = isInsideProductElement.data( 'isactive' );
+			isInsideProductElement = isInsideProductElement.closest( '.cpf-section' );
+			productElementSectionActive = isInsideProductElement.data( 'isactive' );
+		}
+		if ( productElementActive !== false && productElementSectionActive !== false && hideElement.data( 'isactive' ) !== false && hideElement.closest( '.cpf-section' ).data( 'isactive' ) !== false ) {
 			singleField = field.first();
 			field.prop( 'disabled', false );
 
@@ -1501,22 +1582,22 @@
 				if ( singleField.is( ':radio, .cpf-type-radio' ) || singleField.is( ':checkbox, .cpf-type-checkbox' ) ) {
 					field.filter( ':checked' ).closest( '.tmcp-field-wrap' ).find( '.tm-qty' ).prop( 'disabled', false );
 					field.not( ':checked' ).closest( '.tmcp-field-wrap' ).find( '.tm-qty' ).prop( 'disabled', true );
-				} else if ( singleField.is( 'select, .cpf-type-select' ) ) {
+				} else if ( singleField.is( 'select, .cpf-type-select, .cpf-type-selectmultiple' ) ) {
 					if ( singleField.val() ) {
-						hideElement.find( '.tm-qty' ).prop( 'disabled', false );
+						ul.find( '.tm-qty' ).prop( 'disabled', false );
 					} else {
-						hideElement.find( '.tm-qty' ).prop( 'disabled', true );
+						ul.find( '.tm-qty' ).prop( 'disabled', true );
 					}
 				} else if ( singleField.val() ) {
-					hideElement.find( '.tm-qty' ).prop( 'disabled', false );
+					ul.find( '.tm-qty' ).prop( 'disabled', false );
 				} else {
-					hideElement.find( '.tm-qty' ).prop( 'disabled', true );
+					ul.find( '.tm-qty' ).prop( 'disabled', true );
 				}
 			} else if ( ! nochecks ) {
 				hideElement.find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
 			}
 
-			if ( ! singleField.is( '.cpf_hide_element' ) ) {
+			if ( ! singleField.is( '.cpf-element' ) ) {
 				field.removeClass( 'tcdisabled' ).addClass( 'tcenabled' );
 
 				if ( field.is( '.tmcp-upload' ) ) {
@@ -1537,7 +1618,7 @@
 			return true;
 		}
 
-		if ( ! field.is( '.cpf_hide_element' ) ) {
+		if ( ! field.is( '.cpf-element' ) ) {
 			field.prop( 'disabled', true ).removeClass( 'tcenabled' ).addClass( 'tcdisabled' );
 			hideElement.find( '.tm-qty' ).prop( 'disabled', true );
 			if ( field.is( '.tmcp-upload' ) ) {
@@ -1703,7 +1784,7 @@
 	function tm_check_section_match( elements, operator ) {
 		var all_checked = true;
 		var val;
-		var all_elements = elements.find( '.cpf_hide_element' );
+		var all_elements = elements.find( '.cpf-element' );
 		var radio_checked;
 		var checkbox_checked;
 		var noSplit = false;
@@ -1718,8 +1799,12 @@
 
 		$( all_elements ).each( function( j, element ) {
 			var _class;
+			var elementToCheck = '';
 
 			element = $( element );
+			if ( element.is( '.cpf-type-product' ) ) {
+				elementToCheck = ':not(.tc-extra-product-options-inline .tm-epo-field)';
+			}
 			if ( field_is_active( element ) ) {
 				_class = element
 					.attr( 'class' )
@@ -1741,7 +1826,7 @@
 					_class = _class[ 0 ];
 					if ( _class === 'cpf-type-product' ) {
 						noSplit = true;
-						if ( element.is( '.cpf-type-product-mode-product' ) ) {
+						if ( element.is( '.cpf-type-product-mode-product' ) || element.is( '.cpf-type-product-checkbox' ) || element.is( '.cpf-type-product-thumbnailmultiple' ) ) {
 							_class = 'cpf-type-checkbox';
 						} else if ( element.is( '.cpf-type-product-dropdown' ) ) {
 							_class = 'cpf-type-select';
@@ -1751,7 +1836,7 @@
 					}
 					switch ( _class ) {
 						case 'cpf-type-radio':
-							radio_checked = element.find( 'input.tm-epo-field.tmcp-radio:checked' );
+							radio_checked = element.find( 'input.tm-epo-field.tmcp-radio:checked' + elementToCheck );
 							if ( operator === 'isnotempty' ) {
 								all_checked = all_checked && radio_checked.length > 0;
 								if ( radio_checked.length > 0 ) {
@@ -1763,7 +1848,7 @@
 							break;
 
 						case 'cpf-type-checkbox':
-							checkbox_checked = element.find( 'input.tm-epo-field.tmcp-checkbox:checked' );
+							checkbox_checked = element.find( 'input.tm-epo-field.tmcp-checkbox:checked' + elementToCheck );
 							if ( operator === 'isnotempty' ) {
 								all_checked = all_checked && checkbox_checked.length > 0;
 								if ( checkbox_checked.length > 0 ) {
@@ -1775,29 +1860,44 @@
 							break;
 
 						case 'cpf-type-select':
-							val = element.find( 'select.tm-epo-field.tmcp-select' ).val();
+							val = element.find( 'select.tm-epo-field.tmcp-select' + elementToCheck ).val();
 							if ( val && ! noSplit ) {
 								val = val.slice( 0, val.lastIndexOf( '_' ) );
 							}
 							break;
 
+						case 'cpf-type-selectmultiple':
+							val = element.find( 'select.tm-epo-field.tmcp-selectmultiple' + elementToCheck ).val();
+							if ( val && ! noSplit ) {
+								val.forEach( function( option, i ) {
+									val[ i ] = option.slice( 0, option.lastIndexOf( '_' ) );
+								} );
+							}
+							break;
+
 						case 'cpf-type-textarea':
-							val = element.find( 'textarea.tm-epo-field.tmcp-textarea' ).val();
+							val = element.find( 'textarea.tm-epo-field.tmcp-textarea' + elementToCheck ).val();
 							break;
 
 						case 'cpf-type-textfield':
-							val = element.find( 'input.tm-epo-field.tmcp-textfield' ).val();
+							val = element.find( 'input.tm-epo-field.tmcp-textfield' + elementToCheck ).val();
 							break;
 
 						case 'cpf-type-color':
-							val = element.find( 'input.tm-epo-field.tm-color-picker' ).val();
+							val = element.find( 'input.tm-epo-field.tm-color-picker' + elementToCheck ).val();
 							break;
 
 						case 'cpf-type-range':
-							val = element.find( 'input.tm-epo-field.tmcp-range' ).val();
+							val = element.find( 'input.tm-epo-field.tmcp-range' + elementToCheck ).val();
 							break;
 					}
-					all_checked = all_checked && tm_check_match( val, '', operator );
+					if ( Array.isArray( val ) ) {
+						all_checked = all_checked && val.some( function( item ) {
+							return tm_check_match( item, '', operator );
+						} );
+					} else {
+						all_checked = all_checked && tm_check_match( val, '', operator );
+					}
 				} else {
 					all_checked = all_checked && false;
 				}
@@ -1817,12 +1917,16 @@
 		var ret;
 		var _class;
 		var noSplit = false;
+		var elementToCheck = '';
 
 		if ( ! element.length ) {
 			return false;
 		}
 		if ( element.is( '.cpf-section' ) ) {
 			return tm_check_section_match( element, operator );
+		}
+		if ( element.is( '.cpf-type-product' ) ) {
+			elementToCheck = ':not(.tc-extra-product-options-inline .tm-epo-field)';
 		}
 		_class = element
 			.attr( 'class' )
@@ -1844,7 +1948,7 @@
 			_class = _class[ 0 ];
 			if ( _class === 'cpf-type-product' ) {
 				noSplit = true;
-				if ( element.is( '.cpf-type-product-mode-product' ) ) {
+				if ( element.is( '.cpf-type-product-mode-product' ) || element.is( '.cpf-type-product-checkbox' ) || element.is( '.cpf-type-product-thumbnailmultiple' ) ) {
 					_class = 'cpf-type-checkbox';
 				} else if ( element.is( '.cpf-type-product-dropdown' ) ) {
 					_class = 'cpf-type-select';
@@ -1854,13 +1958,13 @@
 			}
 			switch ( _class ) {
 				case 'cpf-type-radio':
-					radio_checked = element.find( 'input.tm-epo-field.tmcp-radio:checked' );
+					radio_checked = element.find( 'input.tm-epo-field.tmcp-radio:checked' + elementToCheck );
 
 					if ( operator === 'is' || operator === 'isnot' ) {
 						if ( radio_checked.length === 0 ) {
 							return false;
 						}
-						val = element.find( 'input.tm-epo-field.tmcp-radio:checked' ).val();
+						val = element.find( 'input.tm-epo-field.tmcp-radio:checked' + elementToCheck ).val();
 						if ( val && ! noSplit ) {
 							val = val.slice( 0, val.lastIndexOf( '_' ) );
 						}
@@ -1873,7 +1977,7 @@
 					}
 					break;
 				case 'cpf-type-checkbox':
-					checkbox_checked = element.find( 'input.tm-epo-field.tmcp-checkbox:checked' );
+					checkbox_checked = element.find( 'input.tm-epo-field.tmcp-checkbox:checked' + elementToCheck );
 
 					if ( operator === 'is' || operator === 'isnot' ) {
 						if ( checkbox_checked.length === 0 ) {
@@ -1903,32 +2007,45 @@
 					break;
 
 				case 'cpf-type-select':
-					val = element.find( 'select.tm-epo-field.tmcp-select' ).val();
+					val = element.find( 'select.tm-epo-field.tmcp-select' + elementToCheck ).val();
 					if ( val && ! noSplit ) {
 						val = val.slice( 0, val.lastIndexOf( '_' ) );
 					}
 					break;
 
+				case 'cpf-type-selectmultiple':
+					val = element.find( 'select.tm-epo-field.tmcp-selectmultiple' + elementToCheck ).val();
+					if ( val && ! noSplit ) {
+						val.forEach( function( option, i ) {
+							val[ i ] = option.slice( 0, option.lastIndexOf( '_' ) );
+						} );
+					}
+					break;
+
 				case 'cpf-type-textarea':
-					val = element.find( 'textarea.tm-epo-field.tmcp-textarea' ).val();
+					val = element.find( 'textarea.tm-epo-field.tmcp-textarea' + elementToCheck ).val();
 					break;
 
 				case 'cpf-type-textfield':
-					val = element.find( 'input.tm-epo-field.tmcp-textfield' ).val();
+					val = element.find( 'input.tm-epo-field.tmcp-textfield' + elementToCheck ).val();
 					break;
 
 				case 'cpf-type-color':
-					val = element.find( 'input.tm-epo-field.tm-color-picker' ).val();
+					val = element.find( 'input.tm-epo-field.tm-color-picker' + elementToCheck ).val();
 					break;
 
 				case 'cpf-type-range':
-					val = element.find( 'input.tm-epo-field.tmcp-range' ).val();
+					val = element.find( 'input.tm-epo-field.tmcp-range' + elementToCheck ).val();
 					break;
 
 				case 'cpf-type-variations':
 					return tm_variation_check_match( element, value, operator );
 			}
-
+			if ( Array.isArray( val ) ) {
+				return val.some( function( item ) {
+					return tm_check_match( item, value, operator );
+				} );
+			}
 			return tm_check_match( val, value, operator );
 		}
 		return false;
@@ -1982,7 +2099,7 @@
 								el.data( 'initial_activation', 1 );
 							}
 						} );
-						if ( ( $this.is( '.cpf_hide_element' ) && enabledEpos.length ) || $this.is( '.cpf-section' ) ) {
+						if ( ( $this.is( '.cpf-element' ) && enabledEpos.length ) || $this.is( '.cpf-section' ) ) {
 							$this.data( 'did_initial_activation', 1 );
 						}
 					} );
@@ -2019,7 +2136,7 @@
 			$( elements ).each( function( j, o ) {
 				o = $( o );
 				if ( o.is( '.cpf-section' ) ) {
-					o = o.find( '.cpf_hide_element' );
+					o = o.find( '.cpf-element' );
 				}
 				o.each( function( theindex, theelement ) {
 					field_is_active( $( theelement ).find( '.tm-epo-field' ) );
@@ -2088,9 +2205,9 @@
 						var $epo_id1;
 						var _events = 'change.cpflogic';
 
-						// this essentially only work for the plugin so we use
+						// this essentially only works for the plugin so we use
 						// cache and not recalcualte each time
-						if ( ! $this_epo_container ) {
+						if ( ! $this_epo_container || $this_epo_container.closest( '.tc-extra-product-options-inline' ).length ) {
 							$pid1 = '.tm-product-id-' + $element.closest( '.tc-extra-product-options' ).attr( 'data-product-id' );
 							$epo_id1 = "[data-epo-id='" + $element.closest( '.tc-extra-product-options' ).attr( 'data-epo-id' ) + "']";
 							$this_epo_container = $( '.tc-extra-product-options' + $pid1 + $epo_id1 );
@@ -2190,6 +2307,7 @@
 		var value;
 		var obj_section;
 		var obj_element;
+		var closestProductElement;
 
 		if ( root_element.is( '.cpf-section' ) ) {
 			search_obj = false;
@@ -2204,11 +2322,12 @@
 				cpf_section = $( obj_el ).find( '.cpf-section' );
 			}
 
-			cpf_section.each( function( index, el ) {
+			cpf_section.filter( '[data-haslogic="1"]' ).each( function( index, el ) {
 				sect = $( el );
 				logic = sect.data( 'logic' );
 				haslogic = parseInt( sect.data( 'haslogic' ), 10 );
 				fields = [];
+				closestProductElement = sect.parent().closest( '.cpf-type-product' );
 
 				if ( haslogic === 1 && validate_logic( logic ) ) {
 					$.each( logic.rules, function( i, rule ) {
@@ -2219,14 +2338,23 @@
 							value = rule.value;
 
 							if ( search_obj ) {
-								obj_section = search_obj.filter( "[data-uniqid='" + section + "']" );
-								if ( element !== section ) {
-									obj_element = obj_section.find( '.cpf_hide_element' ).eq( element );
+								if ( closestProductElement.length ) {
+									obj_section = closestProductElement.find( '.cpf-section' ).filter( "[data-uniqid='" + section + "']" );
+									if ( element !== section ) {
+										obj_element = obj_section.find( '.cpf-element' ).eq( element );
+									} else {
+										obj_element = obj_section;
+									}
 								} else {
-									obj_element = obj_section;
+									obj_section = search_obj.filter( "[data-uniqid='" + section + "']" );
+									if ( element !== section ) {
+										obj_element = obj_section.find( '.cpf-element:not(.cpf-element .cpf-element)' ).eq( element );
+									} else {
+										obj_element = obj_section;
+									}
 								}
 							} else if ( element !== section ) {
-								obj_element = root_element.find( '.cpf_hide_element' ).eq( element );
+								obj_element = root_element.find( '.cpf-element' ).eq( element );
 							} else {
 								obj_element = obj_section;
 							}
@@ -2251,7 +2379,7 @@
 
 	function cpf_element_logic( obj ) {
 		var root_element = $( obj );
-		var all_sections = root_element.find( '.cpf-section' );
+		var all_sections = root_element.find( '.cpf-section' ).not( '.cpf-type-product .cpf-section' );
 		var search_obj;
 		var current_element;
 		var logic;
@@ -2262,6 +2390,7 @@
 		var value;
 		var obj_section;
 		var obj_element;
+		var closestProductElement;
 
 		if ( root_element.is( '.cpf-section' ) ) {
 			search_obj = false;
@@ -2269,12 +2398,14 @@
 			search_obj = all_sections;
 		}
 
-		root_element.find( '.cpf_hide_element' ).each( function( index, el ) {
+		root_element.find( '.cpf-element[data-haslogic="1"]' ).each( function( index, el ) {
 			var fields = [];
 
 			current_element = $( el );
 			logic = current_element.data( 'logic' );
 			haslogic = parseInt( current_element.data( 'haslogic' ), 10 );
+
+			closestProductElement = current_element.parent().closest( '.cpf-type-product' );
 
 			if ( haslogic === 1 && validate_logic( logic ) ) {
 				$.each( logic.rules, function( i, rule ) {
@@ -2285,14 +2416,23 @@
 						value = rule.value;
 
 						if ( search_obj ) {
-							obj_section = search_obj.filter( "[data-uniqid='" + section + "']" );
-							if ( element !== section ) {
-								obj_element = obj_section.find( '.cpf_hide_element' ).eq( element );
+							if ( closestProductElement.length ) {
+								obj_section = closestProductElement.find( '.cpf-section' ).filter( "[data-uniqid='" + section + "']" );
+								if ( element !== section ) {
+									obj_element = obj_section.find( '.cpf-element' ).eq( element );
+								} else {
+									obj_element = obj_section;
+								}
 							} else {
-								obj_element = obj_section;
+								obj_section = search_obj.filter( "[data-uniqid='" + section + "']" );
+								if ( element !== section ) {
+									obj_element = obj_section.find( '.cpf-element:not(.cpf-element .cpf-element)' ).eq( element );
+								} else {
+									obj_element = obj_section;
+								}
 							}
 						} else if ( element !== section ) {
-							obj_element = root_element.find( '.cpf_hide_element' ).eq( element );
+							obj_element = root_element.find( '.cpf-element' ).eq( element );
 						} else {
 							obj_element = obj_section;
 						}
@@ -2316,7 +2456,7 @@
 	} // End Conditional logic
 
 	// Return price value without tax
-	function tm_set_price_without_tax( value, _cart ) {
+	function tm_set_price_without_tax( value, _cart, force ) {
 		var taxable;
 		var tax_rate;
 		var tax_display_mode;
@@ -2328,7 +2468,7 @@
 			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
 			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
 
-			if ( taxable && tax_display_mode === 'incl' && prices_include_tax !== '1' ) {
+			if ( force || ( taxable && tax_display_mode === 'incl' && prices_include_tax !== '1' ) ) {
 				value = parseFloat( value ) / ( 1 + ( tax_rate / 100 ) );
 			}
 		}
@@ -2337,7 +2477,7 @@
 	}
 
 	// Return price with tax
-	function tm_set_price_with_tax( value, _cart ) {
+	function tm_set_price_with_tax( value, _cart, force ) {
 		var taxable;
 		var tax_rate;
 		var tax_display_mode;
@@ -2348,7 +2488,7 @@
 			tax_rate = _cart.attr( 'data-tax-rate' );
 			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
 			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
-			if ( taxable && tax_display_mode !== 'incl' && prices_include_tax === '1' ) {
+			if ( force || ( taxable && tax_display_mode !== 'incl' && prices_include_tax === '1' ) ) {
 				value = parseFloat( value ) * ( 1 + ( tax_rate / 100 ) );
 			}
 		}
@@ -2404,6 +2544,17 @@
 		return tm_set_price_( val, sign, inc_tax_string );
 	}
 
+	function replace_suffixes( value, rawValue, tc_totals_ob, totalsHolder ) {
+		if ( totalsHolder.attr( 'data-tax-display-mode' ) === 'excl' ) {
+			tc_totals_ob[ value ] = tc_totals_ob[ value ].replace( /{price_excluding_tax}/g, tm_set_price_totals( tc_totals_ob[ rawValue ], totalsHolder, true, false ) );
+			tc_totals_ob[ value ] = tc_totals_ob[ value ].replace( /{price_including_tax}/g, tm_set_price_totals( tm_set_price_with_tax( tc_totals_ob[ rawValue ], totalsHolder, true ), totalsHolder, true, false ) );
+		} else {
+			tc_totals_ob[ value ] = tc_totals_ob[ value ].replace( /{price_including_tax}/g, tm_set_price_totals( tc_totals_ob[ rawValue ], totalsHolder, true, false ) );
+			tc_totals_ob[ value ] = tc_totals_ob[ value ].replace( /{price_excluding_tax}/g, tm_set_price_totals( tm_set_price_without_tax( tc_totals_ob[ rawValue ], totalsHolder, true ), totalsHolder, true, false ) );
+		}
+		return tc_totals_ob;
+	}
+
 	function tm_force_update_price( obj, price, formated_price, original_price, original_formated_price ) {
 		tm_update_price( obj, price, formated_price, original_price, original_formated_price, true );
 	}
@@ -2414,12 +2565,14 @@
 		var $ba_amount;
 		var priceobj;
 		var f;
+		var pw;
 
 		if ( $obj.length === 0 ) {
 			return;
 		}
 
 		w = $obj.closest( '.tmcp-field-wrap' );
+		pw = $obj.closest( '.tc-price-wrap' );
 		f = w.find( '.tm-epo-field' );
 
 		if ( ! force && f.attr( 'data-no-price-change' ) === '1' && f.data( 'price-changed' ) ) {
@@ -2446,6 +2599,8 @@
 
 		if ( ( TMEPOJS.tm_epo_auto_hide_price_if_zero === 'yes' && $.tmempty( price ) === false ) || TMEPOJS.tm_epo_auto_hide_price_if_zero !== 'yes' ) {
 			if ( ( $.tmempty( price ) === true && f.attr( 'data-no-price' ) === '1' ) || ( ! force && f.length > 0 && ( f.attr( 'data-no-price' ) === '1' || ( f.attr( 'data-type' ) === 'variable' && ! f.data( 'price' ) ) || ( f.is( '.tmcp-select' ) && ! f.children( 'option:selected' ).data( 'price' ) ) ) ) ) {
+				pw.addClass( 'tm-hidden' );
+				$obj.addClass( 'tm-hidden' );
 				$obj.empty();
 				$ba_amount.addClass( 'tm-hidden' );
 			} else {
@@ -2454,9 +2609,13 @@
 				} else {
 					$obj.html( $.epoAPI.template.html( tcAPI.templateEngine.price, { price: priceobj } ) );
 				}
+				pw.removeClass( 'tm-hidden' );
+				$obj.removeClass( 'tm-hidden' );
 				$ba_amount.removeClass( 'tm-hidden' );
 			}
 		} else {
+			pw.addClass( 'tm-hidden' );
+			$obj.addClass( 'tm-hidden' );
 			$obj.empty();
 			$ba_amount.addClass( 'tm-hidden' );
 		}
@@ -2741,7 +2900,7 @@
 
 	// URL replacement setup
 	function tm_set_url_fields() {
-		jDocument.on( 'click.cpfurl change.cpfurl tmredirect', '.use_url_container .tmcp-radio, .use_url_container .tmcp-radio+label', function( e ) {
+		jDocument.on( 'click.cpfurl change.cpfurl tmredirect', '.tc-url-container .tmcp-radio, .tc-url-container .tmcp-radio+label', function( e ) {
 			var data_url = $( this ).attr( 'data-url' );
 			if ( data_url ) {
 				if ( window.location !== data_url ) {
@@ -2750,7 +2909,7 @@
 				}
 			}
 		} );
-		jDocument.on( 'change.cpfurl tmredirect', '.use_url_container .tmcp-select', function( e ) {
+		jDocument.on( 'change.cpfurl tmredirect', '.tc-url-container .tmcp-select', function( e ) {
 			var data_url = $( this ).children( 'option:selected' ).attr( 'data-url' );
 			if ( data_url ) {
 				if ( window.location !== data_url ) {
@@ -2793,14 +2952,14 @@
 		var el = $.tcepo.errorObject[ epoEventId ] || item;
 		var elsection;
 		var elsectionlink;
-		var elcpf_hide_element;
+		var cpfElement;
 		var pos;
 
 		if ( el ) {
 			if ( TMEPOJS.tm_epo_disable_error_scroll !== 'yes' ) {
 				elsection = el.closest( '.cpf-section' );
 				elsectionlink = elsection.find( '.tm-section-link' );
-				elcpf_hide_element = el.closest( '.cpf_hide_element' );
+				cpfElement = el.closest( '.cpf-element' );
 
 				if ( elsection.find( '.tm-toggle' ).length ) {
 					elsection.find( '.tm-toggle' ).trigger( 'openwrap.tmtoggle' );
@@ -2817,12 +2976,12 @@
 					setTimeout( function() {
 						elsection.find( '.tcowl-carousel' ).trigger( 'refresh.owl.carousel' );
 
-						if ( elcpf_hide_element.length > 0 ) {
-							errorContainer.tcScrollTo( elcpf_hide_element, 300, window.tc_validation_offset );
+						if ( cpfElement.length > 0 ) {
+							errorContainer.tcScrollTo( cpfElement, 300, window.tc_validation_offset );
 						}
 					}, 200 );
-				} else if ( elcpf_hide_element.length > 0 ) {
-					errorContainer.tcScrollTo( elcpf_hide_element, 300, window.tc_validation_offset );
+				} else if ( cpfElement.length > 0 ) {
+					errorContainer.tcScrollTo( cpfElement, 300, window.tc_validation_offset );
 				}
 			}
 
@@ -2935,7 +3094,7 @@
 						checked = parseInt( checked, 10 ) + 1;
 					}
 				} );
-				ew = field.closest( '.cpf_hide_element' );
+				ew = field.closest( '.cpf-element' );
 				em = ew.find( 'div.tm-error-min' );
 
 				if ( eln < checked ) {
@@ -2950,9 +3109,9 @@
 						em.remove();
 					}
 					if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
-						field.before( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).before( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					} else {
-						field.after( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).after( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					}
 					main_product.find( tcAPI.addToCartButtonSelector ).first().removeClass( 'disabled loading fpd-disabled' ).prop( 'disabled', false );
 				} else {
@@ -3014,7 +3173,7 @@
 						checked = parseInt( checked, 10 ) + 1;
 					}
 				} );
-				ew = field.closest( '.cpf_hide_element' );
+				ew = field.closest( '.cpf-element' );
 				em = ew.find( 'div.tm-error-min' );
 
 				if ( eln !== checked ) {
@@ -3029,9 +3188,9 @@
 						em.remove();
 					}
 					if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
-						field.before( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).before( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					} else {
-						field.after( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).after( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					}
 					main_product.find( tcAPI.addToCartButtonSelector ).first().removeClass( 'disabled loading fpd-disabled' ).prop( 'disabled', false );
 				} else {
@@ -3095,7 +3254,7 @@
 						checked = parseInt( checked, 10 ) + 1;
 					}
 				} );
-				ew = field.closest( '.cpf_hide_element' );
+				ew = field.closest( '.cpf-element' );
 				em = ew.find( 'div.tm-error-min' );
 				if ( eln > checked ) {
 					checkall = false;
@@ -3109,9 +3268,9 @@
 						em.remove();
 					}
 					if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
-						field.before( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).before( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					} else {
-						field.after( '<div class="tm-error-min tm-error">' + message + '</div>' );
+						field.closest( '.tc-element-container' ).after( '<div class="tm-error-min tm-error tc-cell tcwidth-100">' + message + '</div>' );
 					}
 				} else {
 					em.remove();
@@ -3223,11 +3382,12 @@
 		var id;
 		var thisVal;
 		var thisValForced;
-		var thisElementWrap = thisElement.closest( '.cpf_hide_element' );
+		var thisElementWrap = thisElement.closest( '.tmcp-ul-wrap' );
 		var totalsHolder_tc_totals_ob = epoObject.this_epo_totals_container.data( 'totalsHolder_tc_totals_ob' );
 		var thisElementIndex = thisElementWrap.find( '.tmcp-field, .tmcp-fee-field' ).filter( ':checked' ).index( thisElement );
 		var thisElementIndexForced = thisElementWrap.find( '.tmcp-field, .tmcp-fee-field' ).index( thisElement );
 		var this_epo_container = epoObject.is_associated ? epoObject.this_epo_container : epoObject.this_epo_container.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector );
+		var constants = $.epoAPI.util.parseJSON( TMEPOJS.tm_epo_math ) || {};
 
 		if ( thisElementIndex === -1 && ! thisElement.is( '.tmcp-checkbox, .tmcp-radio' ) ) {
 			thisElementIndex = 0;
@@ -3268,14 +3428,26 @@
 			}
 		}
 
+		Object.keys( constants ).forEach( function( key ) {
+			var name;
+			var value;
+
+			if ( constants[ key ].name !== '' && constants[ key ].value !== '' ) {
+				name = new RegExp( '{' + constants[ key ].name + '}', 'g' );
+				value = constants[ key ].value;
+
+				formula = formula.replace( name, $.epoAPI.math.unformat( value, tcAPI.localInputDecimalSeparator ) );
+			}
+		} );
+
 		if ( totalsHolder_tc_totals_ob !== undefined ) {
 			// product quantity
-			formula = formula.replace( /{quantity}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.qty, tcAPI.localInputDecimalSeparator ) );
+			formula = formula.replace( /{quantity}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.qty ) );
 			// original product price
 			if ( useOriginalPrice && totalsHolder_tc_totals_ob.original_product_price !== undefined ) {
-				formula = formula.replace( /{product_price}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.original_product_price, tcAPI.localInputDecimalSeparator ) );
+				formula = formula.replace( /{product_price}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.original_product_price ) );
 			} else {
-				formula = formula.replace( /{product_price}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.product_price, tcAPI.localInputDecimalSeparator ) );
+				formula = formula.replace( /{product_price}/g, $.epoAPI.math.unformat( totalsHolder_tc_totals_ob.product_price ) );
 			}
 		} else {
 			// product quantity
@@ -3285,9 +3457,15 @@
 		}
 
 		if ( thisValForced.floatingBoxData !== undefined && thisValForced.floatingBoxData[ thisElementIndexForced ] !== undefined ) {
+			// the option/element value
+			if ( thisValForced.floatingBoxData[ thisElementIndexForced ].input_type === 'number' ) {
+				formula = formula
+					.replace( /{this.value}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText ) );
+			} else {
+				formula = formula
+					.replace( /{this.value}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localDecimalSeparator ) );
+			}
 			formula = formula
-				// the option/element value
-				.replace( /{this.value}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localInputDecimalSeparator ) )
 				// the option/element value length
 				.replace( /{this.value.length}/g, thisValForced.floatingBoxData[ thisElementIndexForced ].valueText.length );
 		} else {
@@ -3322,8 +3500,8 @@
 				if ( undefined !== match[ 2 ] && 'string' === typeof match[ 2 ] ) {
 					pos = match[ 2 ].indexOf( '.', match[ 2 ].indexOf( '.' ) + 1 );
 					if ( pos !== -1 ) {
-						id = match[ 2 ].substr( 0, pos );
-						type = match[ 2 ].substr( pos + 1 );
+						id = match[ 2 ].substring( 0, pos );
+						type = match[ 2 ].substring( pos + 1 );
 
 						if ( $.inArray( type, [ 'price', 'value', 'value.length', 'quantity', 'count', 'count.quantity' ] ) !== -1 ) {
 							elementWrap = this_epo_container.find( "[data-uniqid='" + $.epoAPI.util.escapeSelector( id ) + "']" );
@@ -3359,6 +3537,9 @@
 											if ( val.floatingBoxData ) {
 												val = val.floatingBoxData
 													.map( function( x ) {
+														if ( x.input_type === 'number' ) {
+															return $.epoAPI.math.unformat( x.valueText );
+														}
 														return $.epoAPI.math.unformat( x.valueText, tcAPI.localInputDecimalSeparator );
 													} )
 													.reduce( function( acc, thisval ) {
@@ -3381,7 +3562,9 @@
 											break;
 
 										// element quantity
+										// the total option quantity of this element
 										case 'quantity':
+										case 'count.quantity':
 											if ( val.floatingBoxData ) {
 												val = val.floatingBoxData
 													.map( function( x ) {
@@ -3397,19 +3580,6 @@
 										case 'count':
 											if ( val.floatingBoxData ) {
 												val = val.floatingBoxData.length;
-											}
-											break;
-
-										// the total option quantity of this element
-										case 'count.quantity':
-											if ( val.floatingBoxData ) {
-												val = val.floatingBoxData
-													.map( function( x ) {
-														return x.quantity;
-													} )
-													.reduce( function( acc, thisval ) {
-														return $.epoAPI.math.toFloat( acc ) + $.epoAPI.math.toFloat( thisval );
-													}, 0 );
 											}
 											break;
 									}
@@ -3439,9 +3609,7 @@
 		return elementPrice;
 	}
 
-	/**
-	 * Set field price rules
-	 */
+	// Set field price rules
 	function get_price_type( epoObject, obj ) {
 		var element = $( obj );
 		var setter = element;
@@ -3545,16 +3713,9 @@
 	}
 
 	function wordLength( str ) {
-		var regex;
+		var regex = new RegExp( /[\p{L}\d!@#$%^&*()_+=\{[\}\]|\\"':;?/>.<,-]+/, 'gu' );
 		var m;
 		var len = 0;
-
-		// ie doesn't allow the u modifier
-		if ( !! window.MSInputMethodContext && !! document.documentMode ) {
-			regex = /\S+/g;
-		} else {
-			regex = new RegExp( /\S+/, 'gu' );
-		}
 
 		while ( ( m = regex.exec( str ) ) !== null ) {
 			// This is necessary to avoid infinite loops with zero-width matches
@@ -3566,12 +3727,10 @@
 		return len;
 	}
 
-	/**
-	 * Set field price rules
-	 */
+	// Set field price rules
 	function tm_element_epo_rules( epoObject, obj, args, setter_override, noremove, manthnoevent ) {
 		var element = $( obj );
-		var setter = element;
+		var setterall = element;
 		var cart;
 		var current_variation;
 		var bundleid;
@@ -3598,11 +3757,12 @@
 		var min_value;
 		var main_product = epoObject.main_product;
 		var epoEventId = epoObject.epoEventId;
-		var this_epo_totals_container = epoObject.this_epo_totals_container;
 		var variation_id_selector;
 		var _tmcpulwrap;
 		var cart_total;
 		var per_product_pricing = true;
+		var addedPrice = 0;
+		var originalAddedPrice = 0;
 
 		if ( element.data( 'associated_price_set' ) ) {
 			return;
@@ -3619,15 +3779,14 @@
 			}
 			current_variation = cart.find( variation_id_selector ).val();
 
-			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart );
+			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart, epoObject );
 
 			// Get current woocommerce variation
 			if ( ! current_variation ) {
 				current_variation = 0;
 			}
 
-			epoTotalsContainer = $.epoAPI.applyFilter( 'tc_get_totals_container', this_epo_totals_container, element, main_product, bundleid );
-
+			epoTotalsContainer = $.epoAPI.applyFilter( 'tc_get_totals_container', epoObject.this_epo_totals_container, element, main_product, bundleid );
 			product_price = tm_calculate_product_price( epoTotalsContainer );
 			product_original_price = tm_calculate_product_regular_price( epoTotalsContainer );
 			apply_dpd = epoTotalsContainer.data( 'fields-price-rules' );
@@ -3650,101 +3809,58 @@
 		}
 
 		if ( element.is( 'select' ) ) {
-			setter = element.find( 'option:selected' );
+			setterall = element.find( 'option:selected' );
 		}
 		if ( setter_override ) {
-			setter = setter_override;
+			setterall = setter_override;
 		}
 
-		rules = $.epoAPI.util.parseJSON( setter.attr( 'data-rules' ) );
-		rulestype = $.epoAPI.util.parseJSON( setter.attr( 'data-rulestype' ) );
-		original_rules = $.epoAPI.util.parseJSON( setter.attr( 'data-original-rules' ) );
+		setterall.toArray().forEach( function( setter ) {
+			setter = $( setter );
 
-		if ( original_rules === undefined ) {
-			original_rules = rules;
-		}
+			rules = $.epoAPI.util.parseJSON( setter.attr( 'data-rules' ) );
+			rulestype = $.epoAPI.util.parseJSON( setter.attr( 'data-rulestype' ) );
+			original_rules = $.epoAPI.util.parseJSON( setter.attr( 'data-original-rules' ) );
 
-		pricetype = '';
-		if ( typeof rules === 'object' ) {
-			if ( current_variation in rules ) {
-				price = rules[ current_variation ];
-				original_price = original_rules[ current_variation ];
-			} else {
-				_rules = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-rules' ) );
-				_original_rules = element.closest( '.tmcp-ul-wrap' ).data( 'original-rules' );
-
-				if ( typeof _rules === 'object' ) {
-					if ( current_variation in _rules ) {
-						price = _rules[ current_variation ];
-					} else {
-						price = rules[ 0 ];
-					}
-				} else {
-					price = rules[ 0 ];
-				}
-
-				if ( typeof _original_rules === 'object' ) {
-					if ( current_variation in _original_rules ) {
-						original_price = _original_rules[ current_variation ];
-					} else {
-						original_price = original_rules[ 0 ];
-					}
-				} else {
-					original_price = original_rules[ 0 ];
-				}
+			if ( original_rules === undefined ) {
+				original_rules = rules;
 			}
 
-			if ( typeof rulestype === 'object' ) {
-				if ( current_variation in rulestype ) {
-					pricetype = rulestype[ current_variation ];
-				} else {
-					_rulestype = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-rulestype' ) );
-					if ( typeof _rulestype === 'object' ) {
-						if ( current_variation in _rulestype ) {
-							pricetype = _rulestype[ current_variation ];
-						} else {
-							pricetype = rulestype[ 0 ];
-						}
-					} else {
-						pricetype = rulestype[ 0 ];
-					}
-				}
-			} else {
-				rulestype = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-ulestype' ) );
-				if ( typeof rulestype === 'object' ) {
-					if ( current_variation in rulestype ) {
-						pricetype = rulestype[ current_variation ];
-					} else {
-						pricetype = rulestype[ 0 ];
-					}
-				}
-			}
-		} else {
-			_tmcpulwrap = element.closest( '.tmcp-ul-wrap' );
-			rules = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rules' ) );
-			original_rules = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-original-rules' ) );
-
+			pricetype = '';
 			if ( typeof rules === 'object' ) {
 				if ( current_variation in rules ) {
 					price = rules[ current_variation ];
+					original_price = original_rules[ current_variation ];
 				} else {
-					price = rules[ 0 ];
-				}
-				if ( typeof original_rules === 'object' ) {
-					if ( current_variation in original_rules ) {
-						original_price = original_rules[ current_variation ];
+					_rules = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-rules' ) );
+					_original_rules = element.closest( '.tmcp-ul-wrap' ).data( 'original-rules' );
+
+					if ( typeof _rules === 'object' ) {
+						if ( current_variation in _rules ) {
+							price = _rules[ current_variation ];
+						} else {
+							price = rules[ 0 ];
+						}
+					} else {
+						price = rules[ 0 ];
+					}
+
+					if ( typeof _original_rules === 'object' ) {
+						if ( current_variation in _original_rules ) {
+							original_price = _original_rules[ current_variation ];
+						} else {
+							original_price = original_rules[ 0 ];
+						}
 					} else {
 						original_price = original_rules[ 0 ];
 					}
-				} else {
-					original_price = price;
 				}
 
 				if ( typeof rulestype === 'object' ) {
 					if ( current_variation in rulestype ) {
 						pricetype = rulestype[ current_variation ];
 					} else {
-						_rulestype = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rulestype' ) );
+						_rulestype = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-rulestype' ) );
 						if ( typeof _rulestype === 'object' ) {
 							if ( current_variation in _rulestype ) {
 								pricetype = _rulestype[ current_variation ];
@@ -3756,7 +3872,7 @@
 						}
 					}
 				} else {
-					rulestype = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rulestype' ) );
+					rulestype = $.epoAPI.util.parseJSON( element.closest( '.tmcp-ul-wrap' ).attr( 'data-ulestype' ) );
 					if ( typeof rulestype === 'object' ) {
 						if ( current_variation in rulestype ) {
 							pricetype = rulestype[ current_variation ];
@@ -3765,250 +3881,297 @@
 						}
 					}
 				}
-			}
-		}
-
-		if ( typeof pricetype === 'object' ) {
-			pricetype = pricetype[ 0 ];
-		}
-		if ( element.is( '.tmcp-fee-field' ) ) {
-			if ( $.inArray( pricetype, [ 'fee', 'stepfee', 'currentstepfee' ] ) !== -1 ) {
-				pricetype = '';
-			}
-			apply_dpd = 0;
-		}
-
-		if ( noremove === undefined ) {
-			if ( element.is( 'select' ) ) {
-				element.find( 'option' ).removeClass( 'tm-epo-late-field' ).removeData( 'tm-price-for-late islate' );
 			} else {
-				setter.removeClass( 'tm-epo-late-field' ).removeData( 'tm-price-for-late islate' );
+				_tmcpulwrap = element.closest( '.tmcp-ul-wrap' );
+				rules = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rules' ) );
+				original_rules = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-original-rules' ) );
+
+				if ( typeof rules === 'object' ) {
+					if ( current_variation in rules ) {
+						price = rules[ current_variation ];
+					} else {
+						price = rules[ 0 ];
+					}
+					if ( typeof original_rules === 'object' ) {
+						if ( current_variation in original_rules ) {
+							original_price = original_rules[ current_variation ];
+						} else {
+							original_price = original_rules[ 0 ];
+						}
+					} else {
+						original_price = price;
+					}
+
+					if ( typeof rulestype === 'object' ) {
+						if ( current_variation in rulestype ) {
+							pricetype = rulestype[ current_variation ];
+						} else {
+							_rulestype = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rulestype' ) );
+							if ( typeof _rulestype === 'object' ) {
+								if ( current_variation in _rulestype ) {
+									pricetype = _rulestype[ current_variation ];
+								} else {
+									pricetype = rulestype[ 0 ];
+								}
+							} else {
+								pricetype = rulestype[ 0 ];
+							}
+						}
+					} else {
+						rulestype = $.epoAPI.util.parseJSON( _tmcpulwrap.attr( 'data-rulestype' ) );
+						if ( typeof rulestype === 'object' ) {
+							if ( current_variation in rulestype ) {
+								pricetype = rulestype[ current_variation ];
+							} else {
+								pricetype = rulestype[ 0 ];
+							}
+						}
+					}
+				}
 			}
-		}
-		if ( pricetype !== 'math' ) {
-			price = cleanPrice( price );
-			original_price = cleanPrice( original_price );
-		}
 
-		switch ( pricetype ) {
-			case '':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd );
-				break;
-			case 'math':
-				price = calculateMathPrice( price, element, epoObject, manthnoevent );
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
-				original_price = calculateMathPrice( original_price, element, epoObject, true, true );
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd );
-				break;
-			case 'percent_cart_total':
-				cart_total = parseFloat( TMEPOJS.cart_total );
+			if ( typeof pricetype === 'object' ) {
+				pricetype = pricetype[ 0 ];
+			}
+			if ( element.is( '.tmcp-fee-field' ) ) {
+				if ( $.inArray( pricetype, [ 'fee', 'stepfee', 'currentstepfee' ] ) !== -1 ) {
+					pricetype = '';
+				}
+				apply_dpd = 0;
+			}
 
-				if ( ! Number.isFinite( cart_total ) ) {
-					cart_total = 0;
-				}
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * cart_total;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * cart_total;
-				break;
-
-			case 'percent':
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price;
-				break;
-			case 'percentcurrenttotal':
-				$.tcepo.lateFieldsPrices[ epoEventId ].push( {
-					setter: setter,
-					price: price,
-					original_price: original_price,
-					bundleid: bundleid,
-					pricetype: pricetype
-				} );
-				setter.data( 'tm-price-for-late', price ).data( 'tm-original-price-for-late', original_price ).data( 'islate', 1 ).addClass( 'tm-epo-late-field' );
-				price = 0;
-				original_price = 0;
-				break;
-			case 'fixedcurrenttotal':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
-				$.tcepo.lateFieldsPrices[ epoEventId ].push( {
-					setter: setter,
-					price: price,
-					original_price: original_price,
-					bundleid: bundleid,
-					pricetype: pricetype
-				} );
-				setter.data( 'tm-price-for-late', price ).data( 'tm-original-price-for-late', original_price ).data( 'islate', 1 ).addClass( 'tm-epo-late-field' );
-				price = 0;
-				original_price = 0;
-				break;
-			case 'word':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
-				break;
-			case 'wordpercent':
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * wordLength( setter.val() );
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * wordLength( setter.val() );
-				break;
-			case 'wordnon':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = wordLength( setter.val() ) - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
-				break;
-			case 'wordpercentnon':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = wordLength( setter.val() ) - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
-				break;
-
-			case 'char':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val().length;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * setter.val().length;
-				break;
-			case 'charpercent':
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * setter.val().length;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * setter.val().length;
-				break;
-			case 'charnospaces':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val().replace( /\s/g, '' ).length;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * setter.val().replace( /\s/g, '' ).length;
-				break;
-			case 'charnofirst':
-				textlength = setter.val().length - 1;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
-				break;
-
-			case 'charnon':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = setter.val().length - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
-				break;
-			case 'charpercentnon':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = setter.val().length - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
-				break;
-			case 'charnonnospaces':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = setter.val().replace( /\s/g, '' ).length - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
-				break;
-			case 'charpercentnonnospaces':
-				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
-				if ( ! Number.isFinite( freechars ) ) {
-					freechars = 0;
-				}
-				textlength = setter.val().replace( /\s/g, '' ).length - freechars;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
-				break;
-
-			case 'charpercentnofirst':
-				textlength = setter.val().length - 1;
-				if ( textlength < 0 ) {
-					textlength = 0;
-				}
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
-				break;
-			case 'step':
-				if ( is_range_field ) {
-					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val();
-					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
+			if ( noremove === undefined ) {
+				if ( element.is( 'select' ) ) {
+					element.find( 'option' ).removeClass( 'tm-epo-late-field' ).removeData( 'tm-price-for-late islate' );
 				} else {
-					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
-					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
+					setter.removeClass( 'tm-epo-late-field' ).removeData( 'tm-price-for-late islate' );
 				}
-				break;
-			case 'currentstep':
-				if ( is_range_field ) {
-					price = tm_apply_dpd( setter.val(), epoTotalsContainer, apply_dpd );
-					original_price = tm_apply_dpd( setter.val(), epoTotalsContainer, apply_dpd );
-				} else {
-					price = tm_apply_dpd( $.epoAPI.math.toFloat( setter.val() ), epoTotalsContainer, apply_dpd );
-					original_price = tm_apply_dpd( $.epoAPI.math.toFloat( setter.val() ), epoTotalsContainer, apply_dpd );
-				}
-				break;
-			case 'intervalstep':
-				if ( is_range_field ) {
-					min_value = parseFloat( $( '.tm-range-picker[data-field-id="' + setter.attr( 'id' ) + '"]' ).attr( 'data-min' ) );
-					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * ( setter.val() - min_value );
-					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * ( setter.val() - min_value );
-				}
-				break;
-			case 'row':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * ( ( setter.val().match( /(\r\n|\n|\r)/gm ) || [] ).length + 1 );
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * ( ( setter.val().match( /(\r\n|\n|\r)/gm ) || [] ).length + 1 );
-				break;
-		}
+			}
+			if ( pricetype !== 'math' ) {
+				price = cleanPrice( price );
+				original_price = cleanPrice( original_price );
+			}
 
-		if ( ! raw_price ) {
+			switch ( pricetype ) {
+				case '':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd );
+					break;
+				case 'math':
+					price = calculateMathPrice( price, element, epoObject, manthnoevent );
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
+					original_price = calculateMathPrice( original_price, element, epoObject, true, true );
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd );
+					break;
+				case 'percent_cart_total':
+					cart_total = parseFloat( TMEPOJS.cart_total );
+
+					if ( ! Number.isFinite( cart_total ) ) {
+						cart_total = 0;
+					}
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * cart_total;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * cart_total;
+					break;
+
+				case 'percent':
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price;
+					break;
+				case 'percentcurrenttotal':
+					$.tcepo.lateFieldsPrices[ epoEventId ].push( {
+						setter: setter,
+						price: price,
+						original_price: original_price,
+						bundleid: bundleid,
+						pricetype: pricetype
+					} );
+					setter.data( 'tm-price-for-late', price ).data( 'tm-original-price-for-late', original_price ).data( 'islate', 1 ).addClass( 'tm-epo-late-field' );
+					price = 0;
+					original_price = 0;
+					break;
+				case 'fixedcurrenttotal':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
+					$.tcepo.lateFieldsPrices[ epoEventId ].push( {
+						setter: setter,
+						price: price,
+						original_price: original_price,
+						bundleid: bundleid,
+						pricetype: pricetype
+					} );
+					setter.data( 'tm-price-for-late', price ).data( 'tm-original-price-for-late', original_price ).data( 'islate', 1 ).addClass( 'tm-epo-late-field' );
+					price = 0;
+					original_price = 0;
+					break;
+				case 'word':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
+					break;
+				case 'wordpercent':
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * wordLength( setter.val() );
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * wordLength( setter.val() );
+					break;
+				case 'wordnon':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = wordLength( setter.val() ) - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
+					break;
+				case 'wordpercentnon':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = wordLength( setter.val() ) - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
+					break;
+
+				case 'char':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val().length;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * setter.val().length;
+					break;
+				case 'charpercent':
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * setter.val().length;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * setter.val().length;
+					break;
+				case 'charnospaces':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val().replace( /\s/g, '' ).length;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * setter.val().replace( /\s/g, '' ).length;
+					break;
+				case 'charnofirst':
+					textlength = setter.val().length - 1;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
+					break;
+
+				case 'charnon':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = setter.val().length - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
+					break;
+				case 'charpercentnon':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = setter.val().length - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
+					break;
+				case 'charnonnospaces':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = setter.val().replace( /\s/g, '' ).length - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * textlength;
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * textlength;
+					break;
+				case 'charpercentnonnospaces':
+					freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
+					if ( ! Number.isFinite( freechars ) ) {
+						freechars = 0;
+					}
+					textlength = setter.val().replace( /\s/g, '' ).length - freechars;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
+					break;
+
+				case 'charpercentnofirst':
+					textlength = setter.val().length - 1;
+					if ( textlength < 0 ) {
+						textlength = 0;
+					}
+					price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * textlength;
+					original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * textlength;
+					break;
+				case 'step':
+					if ( is_range_field ) {
+						price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * setter.val();
+						original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
+					} else {
+						price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
+						original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * $.epoAPI.math.toFloat( setter.val() );
+					}
+					break;
+				case 'currentstep':
+					if ( is_range_field ) {
+						price = tm_apply_dpd( setter.val(), epoTotalsContainer, apply_dpd );
+						original_price = tm_apply_dpd( setter.val(), epoTotalsContainer, apply_dpd );
+					} else {
+						price = tm_apply_dpd( $.epoAPI.math.toFloat( setter.val() ), epoTotalsContainer, apply_dpd );
+						original_price = tm_apply_dpd( $.epoAPI.math.toFloat( setter.val() ), epoTotalsContainer, apply_dpd );
+					}
+					break;
+				case 'intervalstep':
+					if ( is_range_field ) {
+						min_value = parseFloat( $( '.tm-range-picker[data-field-id="' + setter.attr( 'id' ) + '"]' ).attr( 'data-min' ) );
+						price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * ( setter.val() - min_value );
+						original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * ( setter.val() - min_value );
+					}
+					break;
+				case 'row':
+					price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * ( ( setter.val().match( /(\r\n|\n|\r)/gm ) || [] ).length + 1 );
+					original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * ( ( setter.val().match( /(\r\n|\n|\r)/gm ) || [] ).length + 1 );
+					break;
+			}
+
 			raw_price = price;
-		}
-		if ( ! raw_original_price ) {
 			raw_original_price = original_price;
-		}
 
-		if ( element.data( 'tm-quantity' ) ) {
-			price = price * parseFloat( element.data( 'tm-quantity' ) );
-			original_price = original_price * parseFloat( element.data( 'tm-quantity' ) );
-			raw_price = raw_price * parseFloat( element.data( 'tm-quantity' ) );
-			raw_original_price = raw_original_price * parseFloat( element.data( 'tm-quantity' ) );
-		}
+			if ( element.data( 'tm-quantity' ) ) {
+				price = price * parseFloat( element.data( 'tm-quantity' ) );
+				original_price = original_price * parseFloat( element.data( 'tm-quantity' ) );
+				raw_price = raw_price * parseFloat( element.data( 'tm-quantity' ) );
+				raw_original_price = raw_original_price * parseFloat( element.data( 'tm-quantity' ) );
+			}
 
-		formatted_price = tm_set_price( price, epoTotalsContainer, false, false, setter, pricetype );
-		original_formatted_price = tm_set_price( original_price, epoTotalsContainer, false, false, setter, pricetype );
+			addedPrice = addedPrice + parseFloat( price );
+			originalAddedPrice = originalAddedPrice + parseFloat( original_price );
 
-		element.data( 'price_set', 1 );
-		setter.data( 'price_set', 1 );
-		setter.data( 'raw_price', raw_price );
-		setter.data( 'raw_original_price', raw_original_price );
-		setter.data( 'price', tm_set_tax_price( price, epoTotalsContainer, setter, pricetype ) );
-		setter.data( 'original_price', tm_set_tax_price( original_price, epoTotalsContainer, setter, pricetype ) );
-		if ( ! setter_override ) {
-			tm_update_price( setter.closest( '.tmcp-field-wrap' ).find( '.tc-price' ), price, formatted_price, original_price, original_formatted_price );
-			element.data( 'price-changed', 1 );
-		}
+			formatted_price = tm_set_price( addedPrice, epoTotalsContainer, false, false, setter, pricetype );
+			original_formatted_price = tm_set_price( originalAddedPrice, epoTotalsContainer, false, false, setter, pricetype );
+
+			element.data( 'price_set', 1 );
+			setter.data( 'price_set', 1 );
+			setter.data( 'raw_price', raw_price );
+			setter.data( 'raw_original_price', raw_original_price );
+			setter.data( 'price', tm_set_tax_price( price, epoTotalsContainer, setter, pricetype ) );
+			setter.data( 'original_price', tm_set_tax_price( original_price, epoTotalsContainer, setter, pricetype ) );
+
+			if ( ! setter_override ) {
+				tm_update_price( setter.closest( '.tmcp-field-wrap' ).find( '.tc-price' ), addedPrice, formatted_price, originalAddedPrice, original_formatted_price );
+				element.data( 'price-changed', 1 );
+			}
+		} );
 	}
 
 	function tm_epo_rules( epoObject, theCart ) {
@@ -4059,7 +4222,7 @@
 			}
 
 			current_variation = cart.find( variation_id_selector ).val();
-			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart );
+			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart, epoObject );
 
 			// get current woocommerce variation
 			if ( ! current_variation ) {
@@ -4268,7 +4431,7 @@
 				tm_update_price( setter.closest( '.tmcp-field-wrap' ).find( '.tc-price' ), taxPrice, formattedPrice, taxOriginalPrice, originalFormattedPrice );
 
 				if ( hidden.length === 0 ) {
-					realSetter.before( '<input type="hidden" id="' + id + hiddenName + '" name="' + id + hiddenName + '" value="' + tm_set_price_without_tax( price, _cart ) + '" />' );
+					realSetter.before( '<input type="hidden" id="' + id + hiddenName + '" name="' + id + hiddenName + '" value="' + tm_set_price_without_tax( price, _cart ) + '">' );
 				}
 				if ( setter.is( '.tm-epo-field.tmcp-radio' ) ) {
 					if ( setter.is( ':checked' ) ) {
@@ -4290,57 +4453,6 @@
 		} );
 
 		return [ total, originalTotal ];
-	}
-
-	function tc_add_dimensions( epoObject ) {
-		var selectors = [ '.tm-variation-ul-color', '.tm-variation-ul-image', '.tm-variation-ul-radiostart', '.tm-variation-ul-radioend', 'ul.use-images-container', 'ul.use_colors_container' ];
-		var main_product = epoObject.main_product;
-		var lis;
-		var cpf_section;
-		var el;
-		var ew;
-
-		$( '.tc-extra-product-options' ).addClass( 'tc-show-hidden' );
-
-		selectors.forEach( function( selector ) {
-			main_product
-				.find( selector )
-				.toArray()
-				.forEach( function( ul ) {
-					$( ul )
-						.toArray()
-						.forEach( function( s ) {
-							s = $( s );
-							lis = s.find( '.tmhexcolorimage-li-nowh' );
-							if ( lis.length ) {
-								cpf_section = s.closest( '.cpf-section' );
-								el = lis.first();
-
-								ew = 100;
-								if ( cpf_section.length && cpf_section.find( '.tm-collapse-wrap.closed' ).length ) {
-									cpf_section.find( '.tm-collapse-wrap' ).removeClass( 'closed' ).show();
-									if ( lis.is( '.tc-mode-endcolor, .tc-mode-startcolor' ) ) {
-										ew = el.css( 'line-height' );
-									} else {
-										ew = el.width() - 1 + 'px';
-									}
-									cpf_section.find( '.tm-collapse-wrap' ).addClass( 'closed' ).hide();
-								} else if ( lis.is( '.tc-mode-endcolor, .tc-mode-startcolor' ) ) {
-									ew = el.css( 'line-height' );
-								} else {
-									ew = el.width() - 1 + 'px';
-								}
-
-								lis.find( '.tmhexcolorimage' ).css( {
-									'min-width': ew,
-									'min-height': ew
-								} );
-							}
-						} );
-				} );
-		} );
-
-		$( '.tc-extra-product-options' ).removeClass( 'tc-show-hidden' );
 	}
 
 	function tm_lazyload() {
@@ -4403,12 +4515,369 @@
 		} );
 	}
 
+	function repeaterAdd( el, elementInnerWrap ) {
+		var cpf = elementInnerWrap.closest( '.cpf-element' );
+		var maxRows = cpf.data( 'repeater-max-rows' );
+		var repeater = elementInnerWrap.find( '.tc-repeater-element' );
+		var rows = repeater.length;
+		var repeaterLast = repeater.last();
+		var repeaterLastUL = repeater.last().find( '.tmcp-ul-wrap' );
+		var clone;
+		var cloneUl;
+		var originalId = el.data( 'tc-repeater-id' );
+		var index = el.data( 'tc-repeater-init' );
+
+		if ( maxRows ) {
+			if ( rows >= maxRows ) {
+				return false;
+			}
+		}
+
+		if ( rows + 1 >= maxRows && el.is( '.tc-repeater-add' ) ) {
+			el.closest( '.tc-repeater-wrap' ).addClass( 'tc-hidden' );
+		}
+
+		if ( repeaterLastUL.is( '.tm-element-ul-date, .tm-element-ul-time' ) ) {
+			repeaterLastUL.find( '.tm-epo-field' ).tm_datepicker( 'destroy' );
+			repeaterLastUL.find( '.tmcp-date-select' ).off();
+		}
+		if ( repeaterLastUL.is( '.tm-element-ul-color' ) ) {
+			repeaterLastUL.find( '.tm-epo-field' ).spectrum( 'destroy' );
+		}
+
+		clone = repeaterLast.tcClone( true );
+
+		clone.find( '.tm-epo-field' ).attr( 'id', function( i, value ) {
+			return value.replace( /\_\d+$/g, '' ) + '_' + index;
+		} );
+		clone.find( '[data-for]' ).attr( 'data-for', function( i, value ) {
+			return value.replace( /\_\d+$/g, '' ) + '_' + index;
+		} );
+		clone.find( '[for]' ).attr( 'for', function( i, value ) {
+			return value.replace( /\_\d+$/g, '' ) + '_' + index;
+		} );
+		clone.find( '[data-field-id]' ).attr( 'data-field-id', function( i, value ) {
+			return value.replace( /\_\d+$/g, '' ) + '_' + index;
+		} );
+		clone.find( '[data-tm-date]' ).attr( 'data-tm-date', function() {
+			return originalId + '_' + index;
+		} );
+		clone.find( '.tm-epo-field' ).attr( 'name', function( i, value ) {
+			return value.replace( /\[\d+\]/g, '[' + index + ']' );
+		} );
+		clone.find( '.tm-qty' ).attr( 'name', function( i, value ) {
+			return value.replace( /\[\d+\]/g, '[' + index + ']' );
+		} );
+		clone.find( '.tmcp-date-select' ).attr( 'name', function( i, value ) {
+			return value.replace( /\[\d+\]/g, '[' + index + ']' );
+		} );
+		clone.find( '.tmcp-date-select' ).attr( 'id', function( i, value ) {
+			return originalId + '_' + index + '_' + value.substring( value.lastIndexOf( '_' ) + 1 );
+		} );
+
+		cloneUl = clone.find( '.tmcp-ul-wrap' );
+
+		if ( elementInnerWrap.find( '.tc-repeater-element' ).length > 0 ) {
+			elementInnerWrap.find( '.tc-repeater-delete' ).removeClass( 'tc-hidden' );
+			clone.find( '.tc-repeater-delete' ).removeClass( 'tc-hidden' );
+		}
+
+		if ( cloneUl.is( '.tm-element-ul-checkbox' ) ) {
+			clone.find( 'li.tmcp-field-wrap' ).removeClass( 'tc-active' );
+			clone
+				.find( '.tm-epo-field.tmcp-checkbox' )
+				.prop( 'checked', false );
+			clone
+				.find( '.tm-epo-field.tmcp-checkbox' )
+				.filter( function( i, x ) {
+					return $.inArray( $( x ).val(), el.data( 'repeater-init-value' ) ) !== -1;
+				} )
+				.prop( 'checked', true )
+				.closest( 'li.tmcp-field-wrap' ).addClass( 'tc-active' );
+		} else if ( cloneUl.is( '.tm-element-ul-radio' ) ) {
+			clone.find( 'li.tmcp-field-wrap' ).removeClass( 'tc-active' );
+			clone
+				.find( '.tm-epo-field.tmcp-radio' )
+				.filter( function( i, x ) {
+					return $( x ).val() === el.data( 'repeater-init-value' );
+				} )
+				.prop( 'checked', true )
+				.closest( 'li.tmcp-field-wrap' ).addClass( 'tc-active' );
+		} else {
+			clone.find( '.tm-epo-field' ).val( el.data( 'repeater-init-value' ) );
+		}
+
+		if ( ! cloneUl.is( '.tm-element-ul-checkbox' ) && ! cloneUl.is( '.tm-element-ul-radio' ) ) {
+			clone.find( '.tm-epo-field' ).val( el.data( 'repeater-init-value' ) );
+		}
+
+		el.data( 'tc-repeater-init', el.data( 'tc-repeater-init' ) + 1 );
+
+		return [ clone, repeaterLast, repeaterLastUL ];
+	}
+
+	function repeaterAddAfter( epoObject, clone, repeaterLast, repeaterLastUL, doevents ) {
+		var cloneUl = clone.find( '.tmcp-ul-wrap' );
+
+		if ( cloneUl.is( '.tm-element-ul-range' ) ) {
+			clone.find( '.tm-range-picker' ).removeData( 'tc-picker-init' ).attr( 'class', 'tm-range-picker' ).html( '' );
+			tm_set_range_pickers( clone );
+		}
+		if ( cloneUl.is( '.tm-element-ul-date, .tm-element-ul-time' ) ) {
+			tm_set_datepicker( repeaterLastUL );
+			tm_set_datepicker( cloneUl );
+		}
+		if ( cloneUl.is( '.tm-element-ul-color' ) ) {
+			tm_set_color_pickers( repeaterLastUL );
+			tm_set_color_pickers( cloneUl );
+		}
+		clone.find( '.tm-tooltip' ).removeData( 'tctooltip' ).removeData( 'tm-has-tm-tip' );
+		$.tcToolTip( clone.find( '.tm-tooltip' ) );
+
+		//  apply specific field rules
+		clone.find( '.tm-epo-field' )
+			.removeData( 'addedtcEpoBeforeOptionPriceCalculation' )
+			.each( function( y, elc ) {
+				var element = $( elc );
+				field_is_active( element, false, true );
+				if ( element.is( '.tcenabled' ) ) {
+					tm_element_epo_rules( epoObject, element );
+				}
+				element.on( 'tc_element_epo_rules', function() {
+					tm_element_epo_rules( epoObject, element );
+				} );
+			} );
+		if ( ! doevents ) {
+			return;
+		}
+		if ( cloneUl.is( '.tm-element-ul-checkbox' ) ) {
+			clone
+				.find( '.tm-epo-field.tmcp-checkbox' )
+				.filter( ':checked' )
+				.trigger( 'change.cpf' );
+		} else if ( cloneUl.is( '.tm-element-ul-radio' ) ) {
+			clone
+				.find( '.tm-epo-field.tmcp-radio' )
+				.filter( ':checked' )
+				.trigger( 'change.cpf' );
+		} else {
+			clone.find( '.tm-epo-field' ).trigger( 'change.cpf' );
+		}
+	}
+
+	function repeaterDelete( elementInnerWrap, repeaterElement, repeaterObj, $this ) {
+		var cpf = elementInnerWrap.closest( '.cpf-element' );
+		var minRows = cpf.data( 'repeater-min-rows' );
+		var rows = elementInnerWrap.find( '.tc-repeater-element' ).length;
+		var repeaterElementIndex = repeaterElement.index();
+		var message;
+
+		if ( minRows ) {
+			if ( rows <= minRows ) {
+				if ( $this ) {
+					message = '<div class="tm-error-repeater tm-error tc-cell tcwidth-100">' + $.tc_validator.messages.repeaterminrows( minRows ) + '</div>';
+					$this.tcToolTip( { tip: message, onetime: true, trigger: true, tipclass: 'tc-error' } );
+				}
+				return false;
+			}
+		}
+		if ( rows === 1 ) {
+			return;
+		}
+		if ( rows === 2 ) {
+			elementInnerWrap.find( '.tc-repeater-delete' ).addClass( 'tc-hidden' );
+		}
+		if ( repeaterObj.is( '.tc-repeater-add' ) ) {
+			repeaterObj.closest( '.tc-repeater-wrap' ).removeClass( 'tc-hidden' );
+		}
+		repeaterElement.remove();
+		repeaterObj.data( 'tc-repeater-init', repeaterObj.data( 'tc-repeater-init' ) - 1 );
+		if ( repeaterElementIndex + 1 === rows ) {
+			return;
+		}
+		elementInnerWrap.find( '.tc-repeater-element' )
+			.toArray()
+			.forEach( function( clone, index ) {
+				clone = $( clone );
+				clone.find( '.tm-epo-field' ).attr( 'id', function( i, value ) {
+					return value.replace( /\_\d+$/g, '' ) + ( ( index !== 0 ) ? '_' + index : '' );
+				} );
+				clone.find( '[data-for]' ).attr( 'data-for', function( i, value ) {
+					return value.replace( /\_\d+$/g, '' ) + ( ( index !== 0 ) ? '_' + index : '' );
+				} );
+				clone.find( '[for]' ).attr( 'for', function( i, value ) {
+					return value.replace( /\_\d+$/g, '' ) + ( ( index !== 0 ) ? '_' + index : '' );
+				} );
+				clone.find( '[data-field-id]' ).attr( 'data-field-id', function( i, value ) {
+					return value.replace( /\_\d+$/g, '' ) + ( ( index !== 0 ) ? '_' + index : '' );
+				} );
+				clone.find( '[data-tm-date]' ).attr( 'data-tm-date', function( i, value ) {
+					return value.replace( /\_\d+$/g, '' ) + ( ( index !== 0 ) ? '_' + index : '' );
+				} );
+				clone.find( '.tm-epo-field' ).attr( 'name', function( i, value ) {
+					return value.replace( /\[\d+\]/g, '[' + index + ']' );
+				} );
+				clone.find( '.tm-qty' ).attr( 'name', function( i, value ) {
+					return value.replace( /\[\d+\]/g, '[' + index + ']' );
+				} );
+				clone.find( '.tmcp-date-select' ).attr( 'name', function( i, value ) {
+					return value.replace( /\[\d+\]/g, '[' + index + ']' );
+				} );
+			} );
+	}
+
+	function tm_set_repeaters( obj, epoObject ) {
+		var currentCart;
+		var qtyElement;
+		if ( ! obj ) {
+			return;
+		}
+		obj = $( obj );
+
+		if ( obj.length ) {
+			currentCart = epoObject.main_cart;
+			qtyElement = getQtyElement( currentCart );
+			obj.find( '.tc-repeater-quantity' )
+				.toArray()
+				.forEach( function( repeater, qx ) {
+					var el = $( repeater );
+					var tmEpoField;
+					var repeaterElement;
+					var length;
+
+					if ( el.data( 'tc-repeater-init' ) ) {
+						return;
+					}
+					repeaterElement = el.find( '.tc-repeater-element' );
+					length = repeaterElement.length;
+					tmEpoField = repeaterElement.first().find( '.tm-epo-field' );
+					if ( tmEpoField.is( ':checkbox' ) ) {
+						el.data( 'repeater-init-value',
+							tmEpoField.filter( ':checked' ).toArray().map( function( x ) {
+								return $( x ).val();
+							} ) );
+					} else if ( tmEpoField.is( ':radio' ) ) {
+						el.data( 'repeater-init-value', tmEpoField.filter( ':checked' ).val() );
+					} else {
+						el.data( 'repeater-init-value', tmEpoField.val() );
+					}
+					el.data( 'tc-repeater-init', length );
+					el.data( 'tc-repeater-id', tmEpoField.attr( 'id' ) );
+					el.data( 'tc-repeater-name', tmEpoField.attr( 'name' ) );
+
+					if ( qtyElement.length ) {
+						qtyElement
+							.off( 'change.r' + qx + 'cpf input.r' + qx + 'cpf' )
+							.on( 'change.r' + qx + 'cpf input.r' + qx + 'cpf', function() {
+								var field = $( this );
+								var prevValue = field.data( 'tm-prev-value' );
+								var value = field.val();
+								var difference = value - prevValue;
+								var elementInnerWrap;
+								var thisRepeaterElement;
+								var i;
+								var ele;
+								var cloned;
+								var repeaterLast;
+								var repeaterLastUL;
+								if ( difference === 0 ) {
+									return;
+								}
+								elementInnerWrap = el.find( '.tc-element-inner-wrap' );
+								if ( difference > 0 ) {
+									thisRepeaterElement = elementInnerWrap.find( '.tc-repeater-element' ).eq( value - 1 );
+									if ( thisRepeaterElement.length ) {
+										return;
+									}
+									for ( i = 0; i < difference; i++ ) {
+										cloned = repeaterAdd( el, elementInnerWrap );
+										if ( cloned ) {
+											if ( ele ) {
+												ele = ele.add( cloned[ 0 ] );
+											} else {
+												ele = cloned[ 0 ];
+											}
+											if ( i === 0 ) {
+												repeaterLast = cloned[ 1 ];
+												repeaterLastUL = cloned[ 2 ];
+											}
+										}
+									}
+									if ( ele ) {
+										ele.appendTo( elementInnerWrap.find( '.tc-element-container' ) );
+										repeaterAddAfter( epoObject, ele, repeaterLast, repeaterLastUL );
+									}
+								} else {
+									for ( i = value - difference; i > value; i -= 1 ) {
+										thisRepeaterElement = elementInnerWrap.find( '.tc-repeater-element' ).eq( i - 1 );
+										repeaterDelete( elementInnerWrap, thisRepeaterElement, el );
+									}
+								}
+								currentCart.trigger( {
+									type: 'tm-epo-update',
+									norules: 2
+								} );
+							} );
+					}
+				} );
+
+			obj.find( '.tc-repeater-add' )
+				.toArray()
+				.forEach( function( repeater ) {
+					var el = $( repeater );
+					var tmEpoField;
+					var elementInnerWrap;
+					var repeaterElement;
+					var length;
+					if ( el.data( 'tc-repeater-init' ) ) {
+						return;
+					}
+					elementInnerWrap = el.closest( '.tc-element-inner-wrap' );
+					repeaterElement = elementInnerWrap.find( '.tc-repeater-element' );
+					length = repeaterElement.length;
+					tmEpoField = repeaterElement.first().find( '.tm-epo-field' );
+					if ( elementInnerWrap.find( '.tc-repeater-element' ).length > 1 ) {
+						elementInnerWrap.find( '.tc-repeater-delete' ).removeClass( 'tc-hidden' );
+					}
+					if ( tmEpoField.is( ':checkbox' ) ) {
+						el.data( 'repeater-init-value',
+							tmEpoField.filter( ':checked' ).toArray().map( function( x ) {
+								return $( x ).val();
+							} ) );
+					} else if ( tmEpoField.is( ':radio' ) ) {
+						el.data( 'repeater-init-value', tmEpoField.filter( ':checked' ).val() );
+					} else {
+						el.data( 'repeater-init-value', tmEpoField.val() );
+					}
+					el.data( 'tc-repeater-init', length );
+					el.data( 'tc-repeater-id', tmEpoField.attr( 'id' ) );
+					el.data( 'tc-repeater-name', tmEpoField.attr( 'name' ) );
+
+					el.on( 'click.repeater', function() {
+						var ele = repeaterAdd( el, elementInnerWrap );
+						if ( ele ) {
+							ele[ 0 ].appendTo( elementInnerWrap.find( '.tc-element-container' ) );
+							repeaterAddAfter( epoObject, ele[ 0 ], ele[ 1 ], ele[ 2 ], true );
+						}
+					} );
+				} );
+
+			obj.find( '.tc-repeater-delete .delete' ).on( 'click', function() {
+				var $this = $( this );
+				var elementInnerWrap = $this.closest( '.tc-element-inner-wrap' );
+				var repeaterElement = $this.closest( '.tc-repeater-element' );
+				repeaterDelete( elementInnerWrap, repeaterElement, elementInnerWrap.find( '.tc-repeater-add' ), $this );
+			} );
+		}
+	}
+
 	function tm_set_color_pickers( obj ) {
 		if ( ! obj ) {
 			return;
 		}
-		if ( $( obj ).length ) {
-			$( obj ).spectrum( {
+		obj = $( obj ).find( '.tm-color-picker' );
+		if ( obj.length ) {
+			obj.spectrum( {
 				type: 'color',
 				theme: 'epo',
 				showButtons: true,
@@ -4419,7 +4888,7 @@
 				chooseText: TMEPOJS.closeText,
 				cancelText: TMEPOJS.i18n_cancel
 			} );
-			$( obj ).spectrum( 'enable' );
+			obj.spectrum( 'enable' );
 		}
 	}
 
@@ -4483,7 +4952,7 @@
 					name = field.attr( 'name' );
 					file = field.attr( 'data-file' );
 					field.trigger( 'change.tcupload' );
-					field.after( '<input type="hidden" class="tmcp-upload-hidden" name="' + name + '" value="' + file + '" />' );
+					field.after( '<input type="hidden" class="tmcp-upload-hidden" name="' + name + '" value="' + file + '">' );
 					field.removeAttr( 'data-file data-filename' );
 				} );
 		} catch ( err ) {
@@ -4748,7 +5217,7 @@
 						}
 					}
 					lateVariationEvent = [];
-					tm_epo_variation_section.find( '.tm-epo-variation-element' ).last().trigger( 'tm_epo_variation_element_change' );
+					tm_epo_variation_section.find( '.tm-epo-variation-element:not(.tm-hidden .tm-epo-variation-element)' ).last().trigger( 'tm_epo_variation_element_change' );
 				} );
 				// document ready
 				$( function() {
@@ -4816,7 +5285,7 @@
 					}
 				}
 				lateVariationEvent = [];
-				tm_epo_variation_section.find( '.tm-epo-variation-element' ).last().trigger( 'tm_epo_variation_element_change' );
+				tm_epo_variation_section.find( '.tm-epo-variation-element:not(.tm-hidden .tm-epo-variation-element)' ).last().trigger( 'tm_epo_variation_element_change' );
 			}
 
 			// global event for custom variations
@@ -5579,7 +6048,7 @@
 						field_is_active( t ) &&
 						has_active_changes_product_image( t ) &&
 						tm_check_field_match( {
-							element: t.closest( '.cpf_hide_element' ),
+							element: t.closest( '.cpf-element' ),
 							operator: 'isnotempty',
 							value: ''
 						} )
@@ -5756,7 +6225,7 @@
 						current_element = current_image_replacement.attr( 'id' ).replace( '_tmimage', '' );
 						el_to_check = $this_epo_container.find( "[id='" + current_element + "']" );
 
-						if ( el_to_check.is( ':checked' ) && el_to_check.closest( '.cpf_hide_element' ).is( ':visible' ) ) {
+						if ( el_to_check.is( ':checked' ) && el_to_check.closest( '.cpf-element' ).is( ':visible' ) ) {
 							$current_product_element.find( '.tm-clone-product-image' ).eq( i ).show();
 							a.attr( 'href', $current_product_element.find( '.tm-clone-product-image' ).eq( i ).prop( 'src' ) );
 							img.data( 'tm-current-image', current_element );
@@ -5839,7 +6308,7 @@
 						field_is_active( t ) &&
 						has_active_changes_product_image( t ) &&
 						tm_check_field_match( {
-							element: t.closest( '.cpf_hide_element' ),
+							element: t.closest( '.cpf-element' ),
 							operator: 'isnotempty',
 							value: ''
 						} )
@@ -5858,7 +6327,7 @@
 					return;
 				}
 
-				tmcie_id = $this_epo_container.find( "[id='" + tm_current_image_element_id + "']" ).closest( '.cpf_hide_element' );
+				tmcie_id = $this_epo_container.find( "[id='" + tm_current_image_element_id + "']" ).closest( '.cpf-element' );
 				if ( ! tm_current_image_element_id || ( tmcie_id.data( 'isactive' ) !== false && tmcie_id.closest( '.cpf-section' ).data( 'isactive' ) !== false ) ) {
 					return;
 				}
@@ -5876,7 +6345,7 @@
 						current_element = current_image_replacement.attr( 'id' ).replace( '_tmimage', '' );
 						el_to_check = $this_epo_container.find( "[id='" + current_element + "']" );
 
-						if ( el_to_check.is( ':checked' ) && el_to_check.closest( '.cpf_hide_element' ).is( ':visible' ) ) {
+						if ( el_to_check.is( ':checked' ) && el_to_check.closest( '.cpf-element' ).is( ':visible' ) ) {
 							$current_product_element.find( '.tm-clone-product-image' ).eq( i ).show();
 							a.attr( 'href', $current_product_element.find( '.tm-clone-product-image' ).eq( i ).prop( 'src' ) );
 							img.data( 'tm-current-image', current_element );
@@ -6029,7 +6498,7 @@
 					// Full number format support.
 					format: {
 						from: function( value ) {
-							return $.epoAPI.math.unformat( value, tcAPI.localInputDecimalSeparator );
+							return $.epoAPI.math.unformat( value, tcAPI.localDecimalSeparator );
 						},
 						to: function( value ) {
 							return formatPrice( value, { precision: $decimals } );
@@ -6051,7 +6520,7 @@
 					}
 				} );
 
-				$tmh = el.find( '.noUi-handle-lower' );
+				$tmh = el.find( '.noui-handle-lower' );
 				el.get( 0 ).noUiSlider.on( 'slide', function() {
 					$tmh.trigger( 'tmmovetooltip' );
 					$tmfid.trigger( 'change.cpf' );
@@ -6079,9 +6548,64 @@
 
 				if ( $show_picker_value !== 'left' && $show_picker_value !== 'right' ) {
 					$tmh.attr( 'title', $start );
-					el.addClass( 'noUi-show-tooltip' );
+					el.addClass( 'noui-show-tooltip' );
 				}
 			} );
+		$( document ).on( 'click', '.tm-show-picker-value', function() {
+			var $this = $( this );
+			var li = $this.closest( '.tmcp-field-wrap' );
+			var value = li.find( '.tmcp-range' ).val();
+			var edit;
+			var html5Slider = $this.closest( '.tmcp-field-wrap' ).find( '.tm-range-picker' );
+
+			$this.addClass( 'tc-hidden' ).after( $( '<input type="number" class="tm-show-picker-value-edit">' ) );
+			edit = li.find( '.tm-show-picker-value-edit' );
+			edit.focus().val( value ).wrap( '<div class="tm-show-picker-value-edit-wrap"></div>' );
+			edit.attr( 'step', html5Slider.attr( 'data-step' ) );
+			edit.attr( 'min', html5Slider.attr( 'data-min' ) );
+			edit.attr( 'max', html5Slider.attr( 'data-max' ) );
+			$( document ).data( 'range-picker-edit', li.find( '.tm-show-picker-value-edit' ) );
+		} );
+		$( document ).on( 'change input', '.tm-show-picker-value-edit', function() {
+			var $this = $( this );
+			var html5Slider = $this.closest( '.tmcp-field-wrap' ).find( '.tm-range-picker' );
+			var $decimals = html5Slider.attr( 'data-step' ).split( '.' );
+			var value = $this.val();
+			if ( $decimals.length === 1 ) {
+				$decimals = 0;
+			} else {
+				$decimals = $decimals[ 1 ].length;
+			}
+
+			html5Slider.get( 0 ).noUiSlider.set( [ formatPrice( value, { precision: $decimals } ), null ] );
+		} );
+		$( document ).on( 'keydown', '.tm-show-picker-value-edit', function( event ) {
+			var key;
+
+			if ( window.event ) {
+				key = window.event.keyCode;
+			} else {
+				key = event.which;
+			}
+			if ( key === 13 ) {
+				event.preventDefault();
+			}
+		} );
+
+		$( document ).on( 'click', function( event ) {
+			var $this;
+
+			if ( ! $( document ).data( 'range-picker-edit' ) || $( event.target ).is( '.tm-show-picker-value' ) ) {
+				return;
+			}
+
+			if ( $( event.target ).closest( '.tm-show-picker-value-edit-wrap' ).length === 0 ) {
+				$this = $( document ).data( 'range-picker-edit' );
+				$this.closest( '.tmcp-field-wrap' ).find( '.tm-show-picker-value' ).data( 'has-edit', 0 ).removeClass( 'tc-hidden' );
+				$this.closest( '.tm-show-picker-value-edit-wrap' ).remove();
+				$( document ).removeData( 'range-picker-edit' );
+			}
+		} );
 	}
 
 	function validate_date_with_options( date, inputElement ) {
@@ -6265,10 +6789,6 @@
 				var $index;
 				var $split2;
 				var $index2;
-
-				if ( default_date === '' ) {
-					//default_date = 1;
-				}
 
 				if ( disabled_dates !== '' ) {
 					$split = disabled_dates.split( ',' );
@@ -6680,16 +7200,11 @@
 				validClass: 'tm-valid',
 				errorElement: 'label',
 				errorPlacement: function( error, element ) {
-					if ( element.is( '.tm-epo-field.tmcp-radio' ) || element.is( '.tm-epo-field.tmcp-checkbox' ) || element.is( '.tm-epo-field.tmcp-radio' ) ) {
-						if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
-							error.prependTo( element.closest( '.tmcp-ul-wrap' ).parent() );
-						} else {
-							error.appendTo( element.closest( '.tmcp-ul-wrap' ).parent() );
-						}
-					} else if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
-						error.prependTo( element.closest( '.tmcp-field-wrap' ) );
+					error.addClass( 'tc-cell tcwidth-100' );
+					if ( TMEPOJS.tm_epo_global_error_label_placement === 'before' ) {
+						element.closest( '.tc-element-container' ).before( error );
 					} else {
-						error.appendTo( element.closest( '.tmcp-field-wrap' ) );
+						element.closest( '.tc-element-container' ).after( error );
 					}
 					return false;
 				},
@@ -6816,7 +7331,7 @@
 		}
 	}
 
-	function fetchOptionPrices( epoObject, epoHolder, selector, total, original_total, floatingBoxData, showTotal, forced ) {
+	function fetchOptionPrices( epoObject, epoHolder, selector, total, original_total, floatingBoxData, showTotal, forced, setPriceTax ) {
 		var obj = epoHolder.find( selector );
 
 		if ( epoObject.is_associated === false ) {
@@ -6840,7 +7355,7 @@
 			var field = $( tmcpfield );
 			var _value = '';
 			var fieldval;
-			var field_div = field.closest( '.cpf_hide_element' );
+			var field_div = field.closest( '.cpf-element' );
 			var field_wrap = field.closest( '.tmcp-field-wrap' );
 			var field_label_show = field_div.attr( 'data-fblabelshow' );
 			var field_value_show = field_div.attr( 'data-fbvalueshow' );
@@ -6856,11 +7371,12 @@
 			var options;
 			var forrangepicker;
 			var $decimals;
-			var _valueText;
+			var _valueText = '';
 			var setter;
+			var dofloatingBoxData = false;
 
 			if ( field_label_show === '' ) {
-				field_title = field_div.find( '.tm-epo-element-label' ).html();
+				field_title = field_div.find( '.tc-epo-label' ).html();
 			}
 
 			if ( option_quantity === undefined ) {
@@ -6880,7 +7396,7 @@
 						showTotal = true;
 						field.data( 'isset', 1 );
 						liw = field.closest( 'li.tmcp-field-wrap' );
-						cri = liw.find( '.checkbox_image,.radio_image' );
+						cri = liw.find( '.checkbox-image,.radio-image' );
 						_value = '';
 						_valueText = '';
 
@@ -6891,30 +7407,21 @@
 						}
 
 						if ( cri.length ) {
-							if ( field.closest( '.tmcp-ul-wrap' ).is( '.use_colors_container' ) ) {
+							if ( field.closest( '.tmcp-ul-wrap' ).is( '.tc-colors-container' ) ) {
 								_value = _value + cri.closest( '.tc-label-wrap' ).clone().addClass( 'tc-img-floating' )[ 0 ].outerHTML;
 							} else {
 								_value = _value + cri.clone().addClass( 'tc-img-floating' )[ 0 ].outerHTML;
 							}
 						}
 
-						if ( field.closest( '.tmcp-ul-wrap' ).is( '.use-images-container' ) ) {
+						if ( field.closest( '.tmcp-ul-wrap' ).is( '.tc-images-container' ) ) {
 							_value = liw.find( '.tc-label' ).first().html();
 							_valueText = _value;
 							if ( cri.length ) {
-								_value = _value + '<img class="tc-img-floating" src="' + field.attr( 'data-image' ) + '"';
+								_value = _value + '<img class="tc-img-floating" src="' + field.attr( 'data-image' ) + '">';
 							}
 						}
-						floatingBoxData.push( {
-							title: field_title,
-							value: _value,
-							valueText: _valueText,
-							price: option_price_taxed,
-							original_price: option_original_price_taxed,
-							quantity: option_quantity,
-							label_show: field_label_show,
-							value_show: field_value_show
-						} );
+						dofloatingBoxData = true;
 					} else {
 						field.data( 'isset', 0 );
 					}
@@ -6935,18 +7442,32 @@
 
 					if ( ! ( setter.val() === '' && setter.attr( 'data-rulestype' ) === '' ) ) {
 						_value = setter.attr( 'data-text' );
-
-						floatingBoxData.push( {
-							title: field_title,
-							value: _value,
-							valueText: _value,
-							price: option_price_taxed,
-							original_price: option_original_price_taxed,
-							quantity: option_quantity,
-							label_show: field_label_show,
-							value_show: field_value_show
-						} );
+						dofloatingBoxData = true;
+						_valueText = _value;
 					}
+				} else if ( field.is( '.tmcp-selectmultiple' ) ) {
+					setter = field.find( 'option:selected' );
+					setter.toArray().forEach( function( setterel ) {
+						setterel = $( setterel );
+						option_price = option_price + $.epoAPI.math.toFloat( setterel.data( 'raw_price' ) );
+						option_price_taxed = option_price_taxed + $.epoAPI.math.toFloat( setterel.data( 'price' ) );
+						option_original_price = option_original_price + $.epoAPI.math.toFloat( setterel.data( 'raw_original_price' ) );
+						option_original_price_taxed = option_original_price_taxed + $.epoAPI.math.toFloat( setterel.data( 'original_price' ) );
+
+						options = field.children( 'option:selected' );
+						if ( ! ( options.val() === '' && options.attr( 'data-rulestype' ) === '' ) ) {
+							showTotal = true;
+						}
+
+						field.find( 'option' ).data( 'isset', 0 );
+						setterel.data( 'isset', 1 );
+
+						if ( ! ( setterel.val() === '' && setterel.attr( 'data-rulestype' ) === '' ) ) {
+							_value = setterel.attr( 'data-text' );
+							dofloatingBoxData = true;
+							_valueText = _value;
+						}
+					} );
 				} else {
 					fieldval = field.val();
 					if ( field.is( "[type='file']" ) ) {
@@ -6965,7 +7486,7 @@
 
 							_value = fieldval;
 							if ( field.is( '.tmcp-range' ) ) {
-								forrangepicker = $( ".tm-range-picker[data-field-id='" + field.attr( 'id' ) + "']" );
+								forrangepicker = field.closest( '.tmcp-field-wrap' ).find( '.tm-range-picker' );
 								$decimals = forrangepicker.attr( 'data-step' ).split( '.' );
 								if ( $decimals.length === 1 ) {
 									$decimals = 0;
@@ -6974,17 +7495,8 @@
 								}
 								_value = formatPrice( _value, { precision: $decimals } );
 							}
-
-							floatingBoxData.push( {
-								title: field_title,
-								value: _value,
-								valueText: _value,
-								price: option_price_taxed,
-								original_price: option_original_price_taxed,
-								quantity: option_quantity,
-								label_show: field_label_show,
-								value_show: field_value_show
-							} );
+							dofloatingBoxData = true;
+							_valueText = _value;
 						}
 					} else {
 						field.data( 'isset', 0 );
@@ -6993,17 +7505,36 @@
 				if ( ! option_price ) {
 					option_price = 0;
 				}
-				if ( ! option_price_taxed ) {
-					option_price_taxed = 0;
-				}
 				if ( ! option_original_price ) {
 					option_original_price = 0;
+				}
+				if ( ! option_price_taxed ) {
+					option_price_taxed = 0;
 				}
 				if ( ! option_original_price_taxed ) {
 					option_original_price_taxed = 0;
 				}
-				total = parseFloat( total ) + parseFloat( option_price );
-				original_total = parseFloat( original_total ) + parseFloat( option_original_price );
+				if ( dofloatingBoxData ) {
+					floatingBoxData.push( {
+						title: field_title,
+						value: _value,
+						valueText: _valueText,
+						price: option_price_taxed,
+						original_price: option_original_price_taxed,
+						quantity: option_quantity,
+						label_show: field_label_show,
+						value_show: field_value_show,
+						input_type: field.attr( 'type' )
+					} );
+				}
+				if ( setPriceTax ) {
+					option_price = tm_set_tax_price( option_price, epoObject.this_epo_totals_container, field, undefined, undefined, undefined, true );
+					option_original_price = tm_set_tax_price( option_original_price, epoObject.this_epo_totals_container, field, undefined, undefined, undefined, true );
+				}
+				total = $.epoAPI.math.toFloat( total ) + $.epoAPI.math.toFloat( option_price );
+				total = $.epoAPI.math.toFloat( $.epoAPI.math.round( total, 10 ) );
+				original_total = $.epoAPI.math.toFloat( original_total ) + $.epoAPI.math.toFloat( option_original_price );
+				original_total = $.epoAPI.math.toFloat( $.epoAPI.math.round( original_total, 10 ) );
 			}
 		} );
 
@@ -7050,6 +7581,7 @@
 		thisVariableProductContainer.removeClass( 'tm-hidden' );
 		if ( showOnly ) {
 			jWindow.trigger( 'cpflogicdone' );
+			thisVariableProductContainer.find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
 		}
 
 		if ( isTrigger === undefined && TMEPOJS.tm_epo_global_product_element_scroll === 'yes' ) {
@@ -7083,6 +7615,15 @@
 		var eventName = epoObject.is_associated ? 'tc-variation-form' : 'wc-variation-form';
 		var eventNamePrefix = epoObject.is_associated ? 'tc_' : '';
 		var epoVariationSection;
+		var thismaxlength;
+		var epoFieldAll;
+		var selectSelector;
+		var epoFieldText;
+		var epoResetRadio;
+		var epoFieldUpload;
+		var epoFieldHasClearButton;
+		var tmQty;
+		var tmQuantity;
 
 		// Non default product (eg. composite product)
 		if ( alternativeCart && cartContainer ) {
@@ -7091,7 +7632,7 @@
 			totalsHolderContainer = main_product.find( '.tm-totals-form-' + itemId );
 			totalsHolder = main_product.find( '.tm-epo-totals.tm-cart-' + itemId );
 			variationForm = cartContainer.find( '.variations_form' ).first();
-			// Default product
+		// Default product
 		} else {
 			if ( ! main_cart || main_cart.length === 0 ) {
 				if ( this_epo_container.is( '.tc-shortcode' ) ) {
@@ -7134,9 +7675,47 @@
 
 		tm_epo_rules( epoObject, currentCart );
 
+		epoFieldAll = epoHolder.find( '.tm-epo-field' );
+		if ( ! epoObject.is_associated ) {
+			epoFieldAll = epoFieldAll.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-field' );
+		}
+
+		epoFieldText = epoHolder.find( '.tm-epo-field.tmcp-textarea,.tm-epo-field.tmcp-textfield' );
+		if ( ! epoObject.is_associated ) {
+			epoFieldText = epoFieldText.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-field' );
+		}
+
+		epoResetRadio = epoHolder.find( '.tm-epo-reset-radio' );
+		if ( ! epoObject.is_associated ) {
+			epoResetRadio = epoResetRadio.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-reset-radio' );
+		}
+
+		epoFieldUpload = epoHolder.find( '.tm-epo-field.tmcp-upload' );
+		if ( ! epoObject.is_associated ) {
+			epoFieldUpload = epoFieldUpload.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-field.tmcp-upload' );
+		}
+
+		epoFieldHasClearButton = epoHolder.find( '.tm-has-clearbutton .tm-epo-field' );
+		if ( ! epoObject.is_associated ) {
+			epoFieldHasClearButton = epoFieldHasClearButton.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-has-clearbutton .tm-epo-field' );
+		}
+
+		tmQty = epoHolder.find( '.tm-quantity .tm-qty' );
+		if ( ! epoObject.is_associated ) {
+			tmQty = tmQty.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-quantity .tm-qty' );
+		}
+
+		tmQuantity = epoHolder.find( '.tm-quantity' );
+		if ( ! epoObject.is_associated ) {
+			tmQuantity = tmQuantity.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-quantity' );
+		}
+
+		selectSelector = epoHolder.find( 'select.tm-epo-field' );
+		if ( ! epoObject.is_associated ) {
+			selectSelector = selectSelector.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' select.tm-epo-field' );
+		}
 		// update price amount for select elements
-		epoHolder
-			.find( 'select.tm-epo-field' )
+		selectSelector
 			.off( 'tm-select-change-html' )
 			.on( 'tm-select-change-html', function() {
 				var field = $( this );
@@ -7146,7 +7725,7 @@
 				var e_description;
 				var sign;
 
-				if ( field.is( '.tc-epo-field-product' ) ) {
+				if ( field.is( '.tc-epo-field-product' ) || field.is( '.tmcp-selectmultiple' ) ) {
 					return;
 				}
 
@@ -7155,7 +7734,7 @@
 				}
 
 				formatted_price = tm_set_price( field.find( 'option:selected' ).data( 'price' ), totalsHolder, true, false, field );
-				original_formatted_price = tm_set_price( field.find( 'option:selected' ).data( 'original_price' ), totalsHolder, false, false, field );
+				original_formatted_price = tm_set_price( field.find( 'option:selected' ).data( 'original_price' ), totalsHolder, true, false, field );
 				e_tip = field.closest( '.tmcp-field-wrap' ).find( '.tc-tooltip' );
 				e_description = field.closest( '.tmcp-field-wrap' ).find( '.tc-inline-description' );
 
@@ -7291,12 +7870,12 @@
 					norules: 1,
 					element: field
 				} );
-			} );
+			} ).trigger( 'tm-select-change-html-all' );
 
 		// Element quantity selector
-		epoHolder
-			.off( 'focus.cpf', '.tm-quantity .tm-qty' )
-			.on( 'focus.cpf', '.tm-quantity .tm-qty', function() {
+		tmQty
+			.off( 'focus.cpf' )
+			.on( 'focus.cpf', function() {
 				var qtyField = $( this );
 				var field = qtyField.closest( '.tmcp-field-wrap' ).find( '.tm-epo-field' );
 				var currentVal = parseFloat( qtyField.val() );
@@ -7331,8 +7910,8 @@
 					qtyField.data( 'tm-prev-value', min );
 				}
 			} )
-			.off( 'change.cpf', '.tm-quantity .tm-qty' )
-			.on( 'change.cpf', '.tm-quantity .tm-qty', function( event, data ) {
+			.off( 'change.cpf' )
+			.on( 'change.cpf', function( event, data ) {
 				var qtyField = $( this );
 				var field = qtyField.closest( '.tmcp-field-wrap' ).find( '.tm-epo-field' );
 				var currentVal = parseFloat( qtyField.val() );
@@ -7376,8 +7955,8 @@
 
 				qtyField.trigger( 'cpf-changed' );
 			} )
-			.off( 'tmaddquantity', '.tm-quantity .tm-qty' )
-			.on( 'tmaddquantity', '.tm-quantity .tm-qty', function() {
+			.off( 'tmaddquantity' )
+			.on( 'tmaddquantity', function() {
 				var qtyField = $( this );
 				var field = qtyField.closest( '.tmcp-field-wrap' ).find( '.tm-epo-field' );
 
@@ -7385,7 +7964,12 @@
 			} );
 
 		// Insert characters remaining for text-areas and text-fields
-		epoHolder.find( '.tmcp-textfield.tm-epo-field[maxlength],textarea.tm-epo-field[maxlength]' ).each( function() {
+		thismaxlength = epoHolder.find( '.tmcp-textfield.tm-epo-field[maxlength],textarea.tm-epo-field[maxlength]' );
+		if ( ! epoObject.is_associated ) {
+			thismaxlength = thismaxlength.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-field' );
+		}
+
+		thismaxlength.each( function() {
 			var field = $( this );
 			var html = $.epoAPI.template.html( tcAPI.templateEngine.tc_chars_remanining, {
 				maxlength: field.attr( 'maxlength' ),
@@ -7394,8 +7978,7 @@
 
 			field.after( $( html ) );
 		} );
-		epoHolder
-			.find( 'input.tm-epo-field[maxlength],textarea.tm-epo-field[maxlength]' )
+		thismaxlength
 			.off( 'change.tc_maxlen input.tc_maxlen' )
 			.on( 'change.tc_maxlen input.tc_maxlen', function() {
 				var field = $( this );
@@ -7407,8 +7990,7 @@
 			} );
 
 		// Change product image event
-		epoHolder
-			.find( '.tm-epo-field' )
+		epoFieldAll
 			.off( 'tm_trigger_product_image' )
 			.on( 'tm_trigger_product_image', function() {
 				var field = $( this );
@@ -7488,8 +8070,7 @@
 				}
 			} );
 
-		epoHolder
-			.find( '.tm-quantity' )
+		tmQuantity
 			.off( 'showhide.cpfcustom' )
 			.on( 'showhide.cpfcustom', function() {
 				var quantity_selector = $( this );
@@ -7513,7 +8094,7 @@
 						if ( field.is( ':checked' ) ) {
 							show = true;
 							if ( TMEPOJS.tm_epo_show_only_active_quantities === 'yes' ) {
-								radios = field.closest( '.cpf_hide_element' ).find( '.tm-epo-field.tmcp-radio' );
+								radios = field.closest( '.tc-element-inner-wrap' ).find( '.tm-epo-field.tmcp-radio' );
 								radios.each( function() {
 									$( this ).closest( '.tmcp-field-wrap' ).find( '.tm-quantity' ).hide();
 								} );
@@ -7550,15 +8131,13 @@
 				}
 			} );
 
-		epoHolder
-			.find( '.tm-epo-field' )
+		epoFieldAll
 			.off( 'change.cpfcustom' )
 			.on( 'change.cpfcustom', function() {
 				$( this ).closest( '.tmcp-field-wrap' ).find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
 			} );
 
-		epoHolder
-			.find( '.tm-epo-field' )
+		epoFieldAll
 			.off( 'change.cpf' )
 			.on( 'change.cpf', function( event, data ) {
 				var field = $( this );
@@ -7581,7 +8160,7 @@
 
 				if ( ! field.is( '.tm-epo-variation-element' ) ) {
 					if ( field.is( '.use_images:checkbox, .use_images:radio' ) && field.attr( 'data-imagec' ) ) {
-						is_replace = is_li.find( '.radio_image,.checkbox_image' ).first();
+						is_replace = is_li.find( '.radio-image,.checkbox-image' ).first();
 						if ( is_replace.length > 0 ) {
 							if ( field.is( ':checked' ) ) {
 								is_replace.prop( 'src', field.attr( 'data-imagec' ) );
@@ -7598,7 +8177,7 @@
 							.not( field )
 							.each( function() {
 								var r = $( this );
-								r.closest( '.tmcp-field-wrap' ).find( '.radio_image' ).first().prop( 'src', r.attr( 'data-image' ) );
+								r.closest( '.tmcp-field-wrap' ).find( '.radio-image' ).first().prop( 'src', r.attr( 'data-image' ) );
 							} );
 					}
 
@@ -7610,7 +8189,7 @@
 					} else {
 						if ( field.is( '.tmcp-radio' ) ) {
 							field
-								.closest( '.cpf_hide_element' )
+								.closest( '.cpf-element' )
 								.find( '.tm-quantity .tm-qty' )
 								.each( function() {
 									if ( ! $( this ).closest( 'li.tmcp-field-wrap' ).find( '.tmcp-radio' ).is( ':checked' ) ) {
@@ -7642,34 +8221,43 @@
 				} );
 			} );
 
-		epoHolder
-			.find( '.tm-epo-field' )
+		epoFieldAll
 			.filter( ':checkbox:checked, :radio:checked' )
 			.each( function() {
 				$( this ).closest( '.tmcp-field-wrap' ).addClass( 'tc-active' );
 				$( this ).trigger( 'change.cpf' );
 			} );
 
-		epoHolder
-			.find( '.tm-has-clearbutton .tm-epo-field' )
+		epoFieldHasClearButton
 			.off( 'change.cpfclearbutton' )
 			.on( 'change.cpfclearbutton cpfclearbutton', function() {
 				var field = $( this );
 				var radioResetElement;
 				var fieldWrap = field.closest( '.tmcp-field-wrap' );
+				var fieldSearch;
 
 				if ( field.is( ':checked' ) ) {
-					radioResetElement = field.closest( '.cpf_hide_element' ).find( '.tm-epo-reset-radio' ).removeClass( 'tm-hidden' );
+					fieldSearch = field.closest( '.tc-element-inner-wrap' );
+
+					if ( fieldSearch.find( '.tc-epo-element-product-li-container' ).length ) {
+						fieldSearch = fieldSearch.find( '.tmcp-ul-wrap' ).first().children( '.tmcp-field-wrap' ).not( '.tc-epo-element-product-li-container' );
+					}
+
+					radioResetElement = fieldSearch.find( '.tm-epo-reset-radio' );
+					if ( ! radioResetElement.length ) {
+						radioResetElement = field.closest( '.tc-element-inner-wrap' ).find( '.tm-epo-reset-radio' ).first();
+					}
+					radioResetElement.removeClass( 'tm-hidden' );
+
 					fieldWrap.append( radioResetElement );
 				}
 			} );
 
-		epoHolder
-			.find( '.tm-epo-reset-radio' )
+		epoResetRadio
 			.off( 'click.cpf' )
 			.on( 'click.cpf', function() {
 				var radioResetElement = $( this );
-				var fieldContainer = radioResetElement.closest( '.cpf_hide_element' );
+				var fieldContainer = radioResetElement.closest( '.tc-element-inner-wrap' );
 				var checkedRadios = fieldContainer.find( '.tm-epo-field.tmcp-radio:checked' );
 
 				if ( checkedRadios.length ) {
@@ -7681,15 +8269,19 @@
 			} );
 
 		if ( _ && _.debounce ) {
-			epoHolder.find( '.tm-epo-field.tmcp-textarea,.tm-epo-field.tmcp-textfield' ).on( 'keyup',
+			epoFieldText.on( 'keyup',
 				_.debounce( function() {
-					$( this ).trigger( 'change.cpf' );
+					var $this = $( this );
+					if ( $this.closest( '.tmcp-ul-wrap' ).data( 'tm-validation' ) ) {
+						currentCart.tc_validate().element( $this );
+					}
+					$this.trigger( 'change.cpf' );
+					$this.closest( '.tmcp-field-wrap' ).find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
 				}, 10 )
 			);
 		}
 
-		epoHolder
-			.find( '.tm-epo-field.tmcp-upload' )
+		epoFieldUpload
 			.off( 'change.cpfv change.tcupload' )
 			.on( 'change.cpfv change.tcupload', function() {
 				var field = $( this );
@@ -7718,7 +8310,7 @@
 					num_uploads = [];
 				}
 				if ( val !== '' ) {
-					num_uploads[ field.closest( '.cpf_hide_element' ).attr( 'data-uniqid' ) ] = val;
+					num_uploads[ field.closest( '.cpf-element' ).attr( 'data-uniqid' ) ] = val;
 				}
 				epoHolder.data( 'num_uploads', num_uploads );
 				field.next( '.tmcp-upload-hidden' ).remove();
@@ -7726,25 +8318,26 @@
 				if ( ( val || valHidden ) && TMEPOJS.tm_epo_upload_inline_image_preview === 'yes' && windowURL && windowURL.createObjectURL && file ) {
 					if ( ! uploadPreview.length ) {
 						uploadPreview = $( '<div class="tc-upload-preview"></div>' );
-						li.find( 'label.tm-epo-field-label' ).after( uploadPreview );
+						li.find( 'label.tm-epo-field-label' ).append( uploadPreview );
 					}
 					uploadPreview.empty();
 					image = new Image();
 					image.onload = function() {
 						var src = this.src;
-						uploadPreview.html( '<img src="' + src + '"></div>' );
+						uploadPreview.html( '<img src="' + src + '">' );
 					};
 					if ( valHidden ) {
 						image.src = valHidden;
 					} else {
 						image.src = windowURL.createObjectURL( file );
+						windowURL.revokeObjectURL( file );
 					}
 				}
 			} );
 
 		qtyElement
-			.off( 'change.cpf' )
-			.on( 'change.cpf', function() {
+			.off( 'change.cpf input.cpf' )
+			.on( 'change.cpf input.cpf', function() {
 				var field = $( this );
 
 				currentCart.trigger( 'tm-epo-check-dpd' );
@@ -7770,7 +8363,7 @@
 				var selected;
 				var variableProductContainers;
 				var thisVariableProductContainer;
-				var productContainerWraps = $this.closest( '.cpf_hide_element' ).find( '.tc-epo-element-product-container-wrap' );
+				var productContainerWraps = $this.closest( '.cpf-element' ).find( '.tc-epo-element-product-container-wrap' );
 				var thisProductContainerWrap = $this.closest( '.tmcp-field-wrap' ).find( '.tc-epo-element-product-container-wrap' );
 				var hasProductContainerWrap = thisProductContainerWrap.length > 0;
 				var postData;
@@ -7780,10 +8373,11 @@
 				var associatedSetter = $this;
 				var productPrice;
 				var originalProductPrice;
-				var elementContainer = $this.closest( '.cpf_hide_element' );
-				var epoField = $this.closest( '.cpf_hide_element' ).find( '.tm-epo-field' ).not( '.tc-epo-element-product-li-container .tm-epo-field' );
+				var elementContainer = $this.closest( '.cpf-element' );
+				var epoField = $this.closest( '.cpf-element' ).find( '.tm-epo-field' ).not( '.tc-epo-element-product-li-container .tm-epo-field' );
 				var checked = epoField.filter( ':checked' );
 				var qty;
+				var counter = $this.attr( 'data-counter' );
 
 				if ( data && data.forced === 2 ) {
 					return;
@@ -7892,6 +8486,7 @@
 					}
 					selected = $this.children( ':selected' );
 					associatedSetter = selected;
+					counter = selected.index();
 					value = $this.val();
 					type = selected.attr( 'data-type' );
 					elementContainer.find( '.tc-epo-element-product-li-container' ).removeClass( 'tm-hidden' );
@@ -7941,7 +8536,7 @@
 						layout_mode: elementContainer.attr( 'data-product-layout-mode' ),
 						uniqid: elementContainer.attr( 'data-uniqid' ),
 						name: $this.attr( 'name' ),
-						counter: $this.attr( 'data-counter' ),
+						counter: counter,
 						quantity_min: elementContainer.attr( 'data-quantity-min' ),
 						quantity_max: elementContainer.attr( 'data-quantity-max' ),
 						priced_individually: elementContainer.attr( 'data-priced-individually' ),
@@ -7969,6 +8564,7 @@
 									elementContainer.find( '.tc-epo-element-product-container-wrap' ).append( thisVariableProductContainer );
 								}
 								show_product_html( epoObject, main_product, thisVariableProductContainer, type, $this, currentCart, variableProductContainers, isTrigger );
+								thisVariableProductContainer.find( tcAPI.associateQtySelector ).trigger( 'change' );
 							}
 						},
 						complete: function() {
@@ -7987,7 +8583,7 @@
 				var $this = $( this );
 				var qtyalt = $this.closest( '.tm-quantity-alt' ).find( tcAPI.associateQtySelector );
 				var isAdd = $this.is( '.alt' );
-				var productContainerWraps = $this.closest( '.cpf_hide_element' ).find( '.tc-epo-element-product-container-wrap' );
+				var productContainerWraps = $this.closest( '.cpf-element' ).find( '.tc-epo-element-product-container-wrap' );
 
 				if ( $this.data( 'inittriggeredonce' ) ) {
 					if ( isAdd ) {
@@ -8017,7 +8613,7 @@
 			.off( 'change.cpfqtyalt', '.cpf-type-product ' + tcAPI.associateQtySelector )
 			.on( 'change.cpfqtyalt', '.cpf-type-product ' + tcAPI.associateQtySelector, function() {
 				var $this = $( this );
-				var epoField = $this.closest( '.cpf_hide_element' ).find( '.tm-epo-field' ).not( '.tc-epo-element-product-li-container .tm-epo-field' );
+				var epoField = $this.closest( '.cpf-element' ).find( '.tm-epo-field' ).not( '.tc-epo-element-product-li-container .tm-epo-field' );
 				var addButton = $this.closest( '.tm-quantity-alt' ).find( '.single_add_to_cart_product' );
 				var checked = epoField.filter( ':checked' );
 				var qty;
@@ -8105,6 +8701,8 @@
 			var total_plus_fee;
 			var original_total_plus_fee;
 			var product_total_price_without_options;
+			var unit_price;
+			var unit_original_price;
 			var formatted_unit_price;
 			var formatted_unit_original_price;
 			var html;
@@ -8147,6 +8745,7 @@
 			var _ftotal;
 			var _foriginal_total;
 			var totalsHolder_tc_totals_ob;
+			var temp;
 
 			if ( event.epoObject ) {
 				currentEpoObject = $.extend( true, {}, event.epoObject );
@@ -8162,7 +8761,7 @@
 				return;
 			}
 
-			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart );
+			bundleid = $.epoAPI.applyFilter( 'tc_get_bundleid', cart.attr( 'data-product_id' ), cart, currentEpoObject );
 			priceOverrideMode = totalsHolder.attr( 'data-price-override' );
 			cartQty = getCurrentQty( cart );
 			currentVariation = getCurrentVariation( cart );
@@ -8289,6 +8888,17 @@
 				totalsHolder: totalsHolder
 			} );
 
+			if ( ! currentEpoObject.associated_connect && ! event.noassociated ) {
+				if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && ! cart.is( $.tcAPI().associatedEpoCart ) ) {
+					cart.find( $.tcAPI().associatedEpoCart ).toArray().forEach( function( acart ) {
+						$( acart ).trigger( {
+							type: 'tm-epo-update',
+							noassociated: 1
+						} );
+					} );
+				}
+			}
+
 			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'no' ) {
 				fetch = fetchOptionPrices( currentEpoObject, epoHolder, '.tmcp-field:not(.tc-epo-field-product)', total, original_total, floatingBoxData, showTotal );
 				total = fetch.total;
@@ -8316,7 +8926,7 @@
 				totalsHolder.data( 'tm-floating-box-data', floatingBoxData );
 			}
 
-			fetch = fetchOptionPrices( currentEpoObject, epoHolder, '.tmcp-fee-field', cart_fee_options_total, cart_fee_options_original_total, floatingBoxData, showTotal );
+			fetch = fetchOptionPrices( currentEpoObject, epoHolder, '.tmcp-fee-field', cart_fee_options_total, cart_fee_options_original_total, floatingBoxData, showTotal, false, true );
 			cart_fee_options_total = fetch.total;
 			cart_fee_options_original_total = fetch.original_total;
 			floatingBoxData = fetch.floatingBoxData;
@@ -8358,6 +8968,7 @@
 				finalTotalBoxMode === 'options' ||
 				finalTotalBoxMode === 'final' ||
 				finalTotalBoxMode === 'hideoptionsifzero' ||
+				finalTotalBoxMode === 'hideiftotaliszero' ||
 				finalTotalBoxMode === 'optionsiftotalnotzero'
 			) {
 				showTotal = true;
@@ -8425,18 +9036,18 @@
 			_total = $.epoAPI.applyFilter( 'tc_adjust_options_price_per_unit', _total, product_total_price );
 			total = parseFloat( _total * cartQty * elementQty );
 			total = total + noSyncTotal;
-			total = $.epoAPI.applyFilter( 'tc_adjust_options_total_price', total, cartQty, elementQty, _total, noSyncTotal );
+			total = $.epoAPI.applyFilter( 'tc_adjust_options_total_price', total, cartQty, elementQty, _total, noSyncTotal, totalsHolder );
 
 			_original_total = _original_total + late_total_price[ 1 ];
 			_original_total = $.epoAPI.applyFilter( 'tc_adjust_options_price_per_unit', _original_total, product_total_price );
 			original_total = parseFloat( _original_total * cartQty * elementQty );
 			original_total = original_total + noSyncOriginalTotal;
-			original_total = $.epoAPI.applyFilter( 'tc_adjust_options_total_price', original_total, cartQty, elementQty, _original_total, noSyncOriginalTotal );
+			original_total = $.epoAPI.applyFilter( 'tc_adjust_options_original_total_price', original_total, cartQty, elementQty, _original_total, noSyncOriginalTotal, totalsHolder );
 
 			if ( priceOverrideMode === '1' && parseFloat( total ) > 0 ) {
 				productPrice = 0;
 				rawProductPrice = 0;
-				product_total_price = parseFloat( productPrice * cartQty );
+				product_total_price = 0;
 			}
 
 			product_total_price = $.epoAPI.applyFilter( 'tc_adjust_product_total_price_without_options', product_total_price );
@@ -8480,12 +9091,12 @@
 			product_total_price = tm_set_tax_price( product_total_price, totalsHolder, undefined, undefined, undefined, undefined, true );
 			total = tm_set_tax_price( total, totalsHolder, undefined, undefined, undefined, undefined, true );
 			_total = tm_set_tax_price( _total, totalsHolder, undefined, undefined, undefined, undefined, true );
-			cart_fee_options_total = tm_set_tax_price( cart_fee_options_total, totalsHolder, undefined, undefined, undefined, undefined, true );
-			total_plus_fee = tm_set_tax_price( total_plus_fee, totalsHolder, undefined, undefined, undefined, undefined, true );
+
+			total_plus_fee = parseFloat( cart_fee_options_total ) + parseFloat( tm_set_tax_price( raw_total, totalsHolder, undefined, undefined, undefined, undefined, true ) );
 			original_total = tm_set_tax_price( original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
 			_original_total = tm_set_tax_price( _original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
 			cart_fee_options_original_total = tm_set_tax_price( cart_fee_options_original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
-			original_total_plus_fee = tm_set_tax_price( original_total_plus_fee, totalsHolder, undefined, undefined, undefined, undefined, true );
+			original_total_plus_fee = parseFloat( cart_fee_options_original_total ) + parseFloat( tm_set_tax_price( original_total, totalsHolder, undefined, undefined, undefined, undefined, true ) );
 			extraFee = tm_set_tax_price( extraFee, totalsHolder, undefined, undefined, undefined, undefined, true );
 
 			formatted_options_total = tm_set_price_totals( total, totalsHolder, true, true );
@@ -8494,19 +9105,19 @@
 			formatted_fees_original_total = tm_set_price_totals( cart_fee_options_original_total, totalsHolder, true, true );
 
 			product_total_price_without_options = product_total_price;
-			product_total_price = parseFloat( product_total_price + total_plus_fee + extraFee );
-			product_total_price = $.epoAPI.applyFilter( 'tc_adjust_product_total_price', product_total_price, total_plus_fee, extraFee, total, cart_fee_options_total, totalsHolder );
-			product_total_original_price = parseFloat( product_total_price + original_total_plus_fee + extraFee );
-			product_total_original_price = $.epoAPI.applyFilter( 'tc_adjust_product_total_price', product_total_price, original_total_plus_fee, extraFee, original_total, cart_fee_options_original_total, totalsHolder );
+			product_total_price = $.epoAPI.applyFilter( 'tc_adjust_product_total_price', parseFloat( product_total_price + total_plus_fee + extraFee ), product_total_price_without_options, total_plus_fee, extraFee, total, cart_fee_options_total, totalsHolder );
+			product_total_original_price = $.epoAPI.applyFilter( 'tc_adjust_product_total_original_price', parseFloat( product_total_price + original_total_plus_fee + extraFee ), product_total_price_without_options, original_total_plus_fee, extraFee, original_total, cart_fee_options_original_total, totalsHolder );
 
 			formatted_final_total = tm_set_price_totals( product_total_price, totalsHolder, true, true );
 			formatted_final_original_total = tm_set_price_totals( product_total_original_price, totalsHolder, true, true );
-			formatted_unit_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _total ) ), totalsHolder, true, true );
-			formatted_unit_original_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _original_total ) ), totalsHolder, true, true );
+			unit_price = parseFloat( productPrice + parseFloat( _total ) );
+			unit_original_price = parseFloat( productPrice + parseFloat( _original_total ) );
 			if ( TMEPOJS.tm_epo_fees_on_unit_price === 'yes' ) {
-				formatted_unit_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _total ) + parseFloat( parseFloat( cart_fee_options_total ) / cartQty ) ), totalsHolder, true, true );
-				formatted_unit_original_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _original_total ) + parseFloat( parseFloat( cart_fee_options_original_total ) / cartQty ) ), totalsHolder, true, true );
+				unit_price = parseFloat( productPrice + parseFloat( _total ) + parseFloat( parseFloat( cart_fee_options_total ) / cartQty ) );
+				unit_original_price = parseFloat( productPrice + parseFloat( _original_total ) + parseFloat( parseFloat( cart_fee_options_original_total ) / cartQty ) );
 			}
+			formatted_unit_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _total ) + parseFloat( parseFloat( cart_fee_options_total ) / cartQty ) ), totalsHolder, true, true );
+			formatted_unit_original_price = tm_set_price_totals( parseFloat( productPrice + parseFloat( _original_total ) + parseFloat( parseFloat( cart_fee_options_original_total ) / cartQty ) ), totalsHolder, true, true );
 
 			if ( finalTotalBoxMode !== 'pxq' && finalTotalBoxMode !== 'final' && finalTotalBoxMode !== 'hide' && ! ( total_plus_fee === 0 && finalTotalBoxMode === 'hideoptionsifzero' ) ) {
 				if ( ! ( total === 0 && finalTotalBoxMode === 'hideoptionsifzero' ) || finalTotalBoxMode === 'options' ) {
@@ -8534,6 +9145,7 @@
 				epo: currentEpoObject,
 				totalsHolder: totalsHolder,
 				event: event,
+				unit_price: unit_price,
 				productPrice: productPrice,
 				_total: _total,
 				total_plcart_fee_options_totals_fee: cart_fee_options_total,
@@ -8543,6 +9155,7 @@
 				epo: currentEpoObject,
 				totalsHolder: totalsHolder,
 				event: event,
+				unit_original_price: unit_original_price,
 				productPrice: productPrice,
 				_original_total: _original_total,
 				total_plcart_fee_options_totals_fee: cart_fee_options_total,
@@ -8647,6 +9260,8 @@
 				product_total_original_price: product_total_original_price,
 				product_total_price_without_options: product_total_price_without_options,
 
+				product_unit_price: unit_price,
+				product_unit_original_price: unit_original_price,
 				formatted_unit_price: formatted_unit_price,
 				formatted_options_total: formatted_options_total,
 				formatted_fees_total: formatted_fees_total,
@@ -8780,6 +9395,15 @@
 				qty: cartQty
 			} );
 
+			tc_totals_ob = replace_suffixes( 'formatted_fees_original_total', 'cart_fee_options_total_original_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_fees_total', 'cart_fee_options_total_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_final_original_total', 'product_total_original_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_final_total', 'product_total_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_options_original_total', 'options_original_total_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_options_total', 'options_total_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_unit_original_price', 'product_unit_original_price', tc_totals_ob, totalsHolder );
+			tc_totals_ob = replace_suffixes( 'formatted_unit_price', 'product_unit_price', tc_totals_ob, totalsHolder );
+
 			currentEpoObject.tc_totals_ob = tc_totals_ob;
 
 			if ( tc_totals_ob.showTotal !== undefined ) {
@@ -8853,10 +9477,12 @@
 				currentEpoObject.associated_connect.data( 'price-changed', 1 );
 
 				setTimeout( function() {
-					currentEpoObject.mainEpoObject.main_cart.trigger( {
-						type: 'tm-epo-update',
-						norules: 2
-					} );
+					if ( ! ( currentEpoObject.associated_connect && event.noassociated ) ) {
+						currentEpoObject.mainEpoObject.main_cart.trigger( {
+							type: 'tm-epo-update',
+							norules: 2
+						} );
+					}
 				}, 20 );
 			}
 
@@ -8886,6 +9512,7 @@
 				if (
 					finalTotalBoxMode === 'disable' ||
 					finalTotalBoxMode === 'disable_change' ||
+					( finalTotalBoxMode === 'hideiftotaliszero' && product_total_price === 0 ) ||
 					( ( finalTotalBoxMode === 'hideifoptionsiszero' || finalTotalBoxMode === 'optionsiftotalnotzero' ) && total_plus_fee === 0 ) ||
 					finalTotalBoxMode === 'hide'
 				) {
@@ -8914,69 +9541,92 @@
 
 					if ( finalTotalBoxMode === 'disable_change' || TMEPOJS.tm_epo_change_variation_price === 'yes' ) {
 						if ( totalsHolder.data( 'is-on-sale' ) ) {
+							temp = $.epoAPI.util.decodeHTML(
+								$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_sale_price, {
+									price: _f_regular_price,
+									sale_price: _fprice,
+									customer_price_format_wrap_start: customer_price_format_wrap_start,
+									customer_price_format_wrap_end: customer_price_format_wrap_end
+								} )
+							);
+							temp = {
+								formatted: temp,
+								raw: tc_totals_ob.product_total_price
+							};
+							temp = replace_suffixes( 'formatted', 'raw', temp, totalsHolder );
+							temp = temp.formatted;
 							update_native_html
-								.html(
-									$.epoAPI.util.decodeHTML(
+								.html( temp )
+								.show();
+						} else {
+							temp = $.epoAPI.util.decodeHTML(
+								$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+									price: _fprice,
+									customer_price_format_wrap_start: customer_price_format_wrap_start,
+									customer_price_format_wrap_end: customer_price_format_wrap_end
+								} )
+							);
+							temp = {
+								formatted: temp,
+								raw: tc_totals_ob.product_total_price
+							};
+							temp = replace_suffixes( 'formatted', 'raw', temp, totalsHolder );
+							temp = temp.formatted;
+							update_native_html
+								.html( temp )
+								.show();
+						}
+					}
+
+					if ( finalTotalBoxMode === 'disable_change' || TMEPOJS.tm_epo_change_original_price === 'yes' ) {
+						if ( ! alternativeCart || main_product.find( '.cpf-bto-price' ).length === 0 ) {
+							if ( currentEpoObject.associated_connect ) {
+								nativeProductPriceSelector = currentEpoObject.main_product.find( tcAPI.associatedNativeProductPriceSelector );
+							} else {
+								nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
+							}
+
+							if ( nativeProductPriceSelector.length === 0 && main_product.is( '.tc-after-shop-loop' ) ) {
+								nativeProductPriceSelector = main_product.closest( '.product' ).find( '.price' );
+							}
+							if ( nativeProductPriceSelector.data( 'tc-original-html' ) === undefined ) {
+								nativeProductPriceSelector.data( 'tc-original-html', nativeProductPriceSelector.html() );
+							}
+							if ( product_total_price > 0 ) {
+								if ( totalsHolder.data( 'is-on-sale' ) && ! ( priceOverrideMode === '1' && parseFloat( original_total_plus_fee + extraFee ) > 0 ) ) {
+									temp = $.epoAPI.util.decodeHTML(
 										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_sale_price, {
 											price: _f_regular_price,
 											sale_price: _fprice,
 											customer_price_format_wrap_start: customer_price_format_wrap_start,
 											customer_price_format_wrap_end: customer_price_format_wrap_end
 										} )
-									)
-								)
-								.show();
-						} else {
-							update_native_html
-								.html(
-									$.epoAPI.util.decodeHTML(
+									);
+									temp = {
+										formatted: temp,
+										raw: tc_totals_ob.product_total_price
+									};
+									temp = replace_suffixes( 'formatted', 'raw', temp, totalsHolder );
+									temp = temp.formatted;
+									nativeProductPriceSelector
+										.html( temp )
+										.show();
+								} else {
+									temp = $.epoAPI.util.decodeHTML(
 										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
 											price: _fprice,
 											customer_price_format_wrap_start: customer_price_format_wrap_start,
 											customer_price_format_wrap_end: customer_price_format_wrap_end
 										} )
-									)
-								)
-								.show();
-						}
-					}
-
-					if ( finalTotalBoxMode === 'disable_change' || TMEPOJS.tm_epo_change_original_price === 'yes' ) {
-						if ( currentEpoObject.associated_connect ) {
-							nativeProductPriceSelector = currentEpoObject.main_product.find( tcAPI.associatedNativeProductPriceSelector );
-						} else {
-							nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
-						}
-
-						if ( ! alternativeCart || main_product.find( '.cpf-bto-price' ).length === 0 ) {
-							if ( nativeProductPriceSelector.data( 'tc-original-html' ) === undefined ) {
-								nativeProductPriceSelector.data( 'tc-original-html', nativeProductPriceSelector.html() );
-							}
-							if ( product_total_price > 0 ) {
-								if ( totalsHolder.data( 'is-on-sale' ) && ! ( priceOverrideMode === '1' && parseFloat( original_total_plus_fee + extraFee ) > 0 ) ) {
+									);
+									temp = {
+										formatted: temp,
+										raw: tc_totals_ob.product_total_price
+									};
+									temp = replace_suffixes( 'formatted', 'raw', temp, totalsHolder );
+									temp = temp.formatted;
 									nativeProductPriceSelector
-										.html(
-											$.epoAPI.util.decodeHTML(
-												$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_sale_price, {
-													price: _f_regular_price,
-													sale_price: _fprice,
-													customer_price_format_wrap_start: customer_price_format_wrap_start,
-													customer_price_format_wrap_end: customer_price_format_wrap_end
-												} )
-											)
-										)
-										.show();
-								} else {
-									nativeProductPriceSelector
-										.html(
-											$.epoAPI.util.decodeHTML(
-												$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
-													price: _fprice,
-													customer_price_format_wrap_start: customer_price_format_wrap_start,
-													customer_price_format_wrap_end: customer_price_format_wrap_end
-												} )
-											)
-										)
+										.html( temp )
 										.show();
 								}
 							} else if ( this_product_type && this_product_type !== 'composite' ) {
@@ -9073,8 +9723,8 @@
 					var field = $( this );
 					var id = $.epoAPI.dom.id( field.attr( 'data-tm-for-variation' ) );
 					var section = field.closest( '.cpf-type-variations' );
-					var inputs = field.closest( '.cpf_hide_element' ).find( '.tm-epo-variation-element' );
-					var lis = field.closest( '.cpf_hide_element' ).find( '.tmcp-field-wrap' );
+					var inputs = field.closest( '.cpf-element' ).find( '.tm-epo-variation-element' );
+					var lis = field.closest( '.cpf-element' ).find( '.tmcp-field-wrap' );
 
 					inputs.prop( 'checked', false );
 					lis.removeClass( 'tc-active' );
@@ -9140,6 +9790,10 @@
 					var section = field.closest( '.cpf-type-variations' );
 					var nativeSelect = variationForm.find( "[data-attribute_name='attribute_" + id + "']" );
 					var exists;
+
+					if ( field.closest( '.tm-epo-variation-section' ).is( '.tm-hidden' ) ) {
+						return;
+					}
 
 					if ( ! ( e && e.type && e.type === 'tm_epo_variation_element_change' ) ) {
 						exists = false;
@@ -9269,12 +9923,10 @@
 			tm_custom_variations( epoObject, cartContainer, itemId, main_product, epoHolder );
 		}
 
-		epoHolder.find( 'select.tm-epo-field' ).trigger( 'tm-select-change-html' );
-		epoHolder.find( '.tm-quantity .tm-qty' ).trigger( 'change.cpf', { init: 1 } );
-		epoHolder.find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
-		epoHolder.find( '.tm-has-clearbutton .tm-epo-field:checked' ).trigger( 'cpfclearbutton' );
-
-		tc_add_dimensions( epoObject );
+		selectSelector.trigger( 'tm-select-change-html' );
+		tmQty.trigger( 'change.cpf', { init: 1 } );
+		tmQuantity.trigger( 'showhide.cpfcustom' );
+		epoFieldHasClearButton.filter( ':checked' ).trigger( 'cpfclearbutton' );
 
 		jWindow.on( 'tm-do-epo-update', function() {
 			// This must be run every time to get correct results for percent price types
@@ -9419,6 +10071,9 @@
 		var product_id_selector = '.tm-product-id-' + product_id;
 		var epo_id_selector = "[data-epo-id='" + epo_id + "']";
 		var epoEventId = 'p' + product_id + 'e' + epo_id;
+		var this_epo_container = $( '.tc-extra-product-options' + product_id_selector + epo_id_selector );
+		var this_totals_container = $( '.tc-totals-form' + product_id_selector + epo_id_selector );
+		var this_epo_totals_container = $( '.tc-epo-totals' + product_id_selector + epo_id_selector );
 
 		epoObject.isManual = true;
 
@@ -9433,6 +10088,9 @@
 		epoObject.epoEventId = epoEventId;
 		epoObject.noEpoUpdate = true;
 		epoObject.thisForm = item;
+		epoObject.this_epo_container = this_epo_container;
+		epoObject.this_totals_container = this_totals_container;
+		epoObject.this_epo_totals_container = this_epo_totals_container;
 
 		tm_lazyload();
 		main_product.find( '.tm-collapse' ).tmtoggle();
@@ -9440,9 +10098,10 @@
 
 		tm_set_datepicker( item );
 		tm_set_range_pickers( item );
+		tm_set_repeaters( item, epoObject );
 		tm_css_styles( item );
-		tm_set_color_pickers( itemEpoContainer.find( '.tm-color-picker' ) );
-		tm_set_lightbox( itemEpoContainer.find( '.tc-lightbox-image' ).not( '.tm-extra-product-options-variations .radio_image' ) );
+		tm_set_color_pickers( itemEpoContainer );
+		tm_set_lightbox( itemEpoContainer.find( '.tc-lightbox-image' ).not( '.tm-extra-product-options-variations .radio-image' ) );
 
 		// Start Condition Logic
 		cpf_section_logic( itemEpoContainer );
@@ -9670,6 +10329,7 @@
 		tm_set_upload_rules( epo_object );
 		tm_set_datepicker( this_epo_container );
 		tm_set_range_pickers( this_epo_container );
+		tm_set_repeaters( this_epo_container, epo_object );
 		tm_set_url_fields();
 
 		$.tcToolTip( this_epo_container.find( '.tm-tooltip' ) );
@@ -9719,8 +10379,8 @@
 		tm_lazyload();
 
 		tm_css_styles( this_epo_container );
-		tm_set_color_pickers( this_epo_container.find( '.tm-color-picker' ) );
-		tm_set_lightbox( this_epo_container.find( '.tc-lightbox-image' ).not( '.tm-extra-product-options-variations .radio_image' ) );
+		tm_set_color_pickers( this_epo_container );
+		tm_set_lightbox( this_epo_container.find( '.tc-lightbox-image' ).not( '.tm-extra-product-options-variations .radio-image' ) );
 		tm_theme_specific_actions( epo_object );
 		tc_compatibility( epo_object );
 
@@ -9729,9 +10389,6 @@
 			tm_form_submit_event( epo_object );
 			tm_show_hide_add_to_cart_button( main_product, epo_object, $.tcepo.oneOptionIsSelected[ epoEventId ] );
 		}
-		jWindow.on( 'cpflogicdone', function() {
-			tc_add_dimensions( epo_object );
-		} );
 
 		jWindow.trigger( 'tm-epo-init-end', { epo: epo_object } );
 
@@ -9810,18 +10467,17 @@
 						jProductWrap = $this.closest( '.tc-after-shop-loop.tm-has-options' );
 
 						if ( jProductWrap.length === 0 ) {
-							// Check based on native add to cart selector.
-							jProductWrap = $( tcAPI.addToCartSelector + "[value='" + product_id + "']" )
+							// Check based on plugin add to cart selector.
+							jProductWrap = $( tcAPI.tcAddToCartSelector + "[data-epo-id='" + epo_id + "'][value='" + product_id + "']" )
 								.closest( 'form,.cart' )
 								.first()
 								.parent();
-							// Check based on plugin add to cart selector.
+							// Check based on native add to cart selector.
 							if ( jProductWrap.length === 0 ) {
-								jProductWrap = $( tcAPI.tcAddToCartSelector + "[value='" + product_id + "']" )
+								jProductWrap = $( tcAPI.addToCartSelector + "[value='" + product_id + "']" )
 									.closest( 'form,.cart' )
 									.first()
 									.parent();
-
 								if ( jProductWrap.length === 0 ) {
 									// Check if we are in a shortcode
 									jProductWrap = $this.closest( 'form,.cart' ).first().parent( '.tm-has-options' );
@@ -9847,7 +10503,7 @@
 								$this
 									.closest( 'form,.cart' )
 									.first()
-									.append( $( '<input name="add-to-cart" value="' + product_id + '" type="hidden" />' ) );
+									.append( $( '<input name="add-to-cart" value="' + product_id + '" type="hidden">' ) );
 								$this.closest( 'form,.cart' ).first().append( $( '<input type="hidden" value="" class="variation_id" name="variation_id">' ) );
 							}
 
@@ -9868,6 +10524,10 @@
 
 	$.tcepo.tm_init_epo = function( main_product, is_quickview, product_id, epo_id ) {
 		tm_init_epo( main_product, is_quickview, product_id, epo_id );
+	};
+
+	$.tcepo.tmLazyloadContainer = function( container ) {
+		tmLazyloadContainer = container;
 	};
 
 	jWindow.on( 'tc_manual_init', function( evt, container ) {
@@ -10032,7 +10692,13 @@
 			var testContainer;
 			var parsedUrl;
 			var time = 1;
-			var found = false;
+			var detectContainer;
+			var requestContainer;
+
+			parsedUrl = $.epoAPI.util.parseParams( settings.data );
+			if ( parsedUrl.action === 'wc_epo_get_associated_product_html' ) {
+				return;
+			}
 
 			$( '.tm-formepo-normal' ).remove();
 			$( '.tm-formepo' ).remove();
@@ -10052,119 +10718,137 @@
 
 			$.extend( qv_container, added );
 
-			Object.keys( qv_container ).forEach( function( key ) {
-				if ( found ) {
-					return;
-				}
-				noProductCheck = false;
-				container = $( qv_container[ key ] );
-
-				if ( key === 'woothemes_quick_view' && container.is( '.fusion-woocommerce-quick-view-container' ) ) {
-					return true;
-				}
-
-				if ( key === 'fusion_quick_view_load' && container.find( tcAPI.epoSelector ).length === 0 ) {
-					return true;
-				}
-
-				if ( key === 'woodmart_quick_shop' ) {
-					parsedUrl = $.epoAPI.util.parseParams( settings.url );
-					if ( parsedUrl.action === 'woodmart_quick_shop' ) {
-						testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + '.post-' + parsedUrl.id ) );
-						if ( testContainer.length ) {
-							container = testContainer;
-							noProductCheck = true;
-						}
+			detectContainer = function() {
+				var keyfound = false;
+				Object.keys( qv_container ).forEach( function( key ) {
+					if ( $( qv_container[ key ] ).length ) {
+						keyfound = key;
 					}
-				}
-				if ( key === 'woodmart_quick_view' ) {
-					parsedUrl = $.epoAPI.util.parseParams( settings.url );
-					if ( parsedUrl.action === 'woodmart_quick_view' ) {
-						testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + '.post-' + parsedUrl.id ) );
-						if ( testContainer.length ) {
-							container = testContainer;
-							noProductCheck = true;
-						}
-					}
-				}
-
-				if ( key === 'quickview_pro' ) {
-					parsedUrl = settings.url.split( '/' );
-					if ( parsedUrl.length ) {
-						testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + ' .post-' + parsedUrl[ parsedUrl.length - 1 ] ) );
-						if ( testContainer.length ) {
-							container = testContainer;
-							noProductCheck = true;
-						}
-					}
-				}
-
-				if ( key === 'wqv_popup_content' || key === 'wp_food' || key === 'jet_popup_get_content' ) {
-					noProductCheck = true;
-				}
-
-				if ( key === 'woofood' && settings.data ) {
-					parsedUrl = $.epoAPI.util.parseParams( settings.data );
-					if ( parsedUrl.action === 'woofood_quickview_ajax' ) {
-						testContainer = testContainer = container.find( 'form' ).parent();
-						if ( testContainer.length ) {
-							container = testContainer;
-							noProductCheck = true;
-						}
-					}
-				}
-
-				if ( container.find( '.product' ).length === 0 && container.is( '.product' ) ) {
-					noProductCheck = true;
-				}
-
-				if ( container.length && ( container.find( '.product' ).length > 0 || noProductCheck ) ) {
-					container.removeClass( 'tc-init' );
-					found = true;
-
-					if (
-						key === 'fusion_quick_view_load' ||
-						key === 'jet_popup_get_content' ||
-						key === 'wp_food' ||
-						key === 'woodmart_quick_shop' ||
-						key === 'woodmart_quick_view' ||
-						key === 'lightboxpro' ||
-						key === 'jckqv_quick_view' ||
-						key === 'yith_quick_view' ||
-						key === 'theme_flatsome'
-					) {
-						variationsFormIsLoaded = true;
-					}
-					tmLazyloadContainer = container;
-
-					if ( key === 'fusion_quick_view_load' ) {
-						time = 1400;
-					}
-
+				} );
+				return keyfound;
+			};
+			requestContainer = function( times ) {
+				var id = requestAnimationFrame( function() {
 					setTimeout( function() {
-						product_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-product-id' );
-						epo_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-epo-id' );
+						requestContainer( times - 1 );
+					}, 200 );
+				} );
+				var key = detectContainer();
+
+				if ( key || 0 === times ) {
+					cancelAnimationFrame( id );
+					if ( key ) {
+						noProductCheck = false;
+						container = $( qv_container[ key ] );
+
+						if ( key === 'woothemes_quick_view' && container.is( '.fusion-woocommerce-quick-view-container' ) ) {
+							return true;
+						}
+
+						if ( key === 'fusion_quick_view_load' && container.find( tcAPI.epoSelector ).length === 0 ) {
+							return true;
+						}
+
 						if ( key === 'woodmart_quick_shop' ) {
-							container.addClass( 'has-options' );
-						}
-
-						// Reset element cache
-						tcAPI.getElementFromFieldCache = [];
-						tm_init_epo( tmLazyloadContainer, true, product_id, epo_id );
-						jWindow.trigger( 'tmlazy' );
-						jWindow.trigger( 'tm_epo_loaded_quickview' );
-						if ( $.jMaskGlobals ) {
-							tmLazyloadContainer.find( $.jMaskGlobals.maskElements ).each( function() {
-								var t = $( this );
-
-								if ( t.attr( 'data-mask' ) ) {
-									t.mask( t.attr( 'data-mask' ) );
+							parsedUrl = $.epoAPI.util.parseParams( settings.url );
+							if ( parsedUrl.action === 'woodmart_quick_shop' ) {
+								testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + '.post-' + parsedUrl.id ) );
+								if ( testContainer.length ) {
+									container = testContainer;
+									noProductCheck = true;
 								}
-							} );
+							}
 						}
-					}, time );
+						if ( key === 'woodmart_quick_view' ) {
+							parsedUrl = $.epoAPI.util.parseParams( settings.url );
+							if ( parsedUrl.action === 'woodmart_quick_view' ) {
+								testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + '.post-' + parsedUrl.id ) );
+								if ( testContainer.length ) {
+									container = testContainer;
+									noProductCheck = true;
+								}
+							}
+						}
+
+						if ( key === 'quickview_pro' ) {
+							parsedUrl = settings.url.split( '/' );
+							if ( parsedUrl.length ) {
+								testContainer = $( $.epoAPI.util.escapeSelector( qv_container[ key ] + ' .post-' + parsedUrl[ parsedUrl.length - 1 ] ) );
+								if ( testContainer.length ) {
+									container = testContainer;
+									noProductCheck = true;
+								}
+							}
+						}
+
+						if ( key === 'wqv_popup_content' || key === 'wp_food' || key === 'jet_popup_get_content' ) {
+							noProductCheck = true;
+						}
+
+						if ( key === 'woofood' && settings.data ) {
+							parsedUrl = $.epoAPI.util.parseParams( settings.data );
+							if ( parsedUrl.action === 'woofood_quickview_ajax' ) {
+								testContainer = testContainer = container.find( 'form' ).parent();
+								if ( testContainer.length ) {
+									container = testContainer;
+									noProductCheck = true;
+								}
+							}
+						}
+
+						if ( container.find( '.product' ).length === 0 && container.is( '.product' ) ) {
+							noProductCheck = true;
+						}
+
+						if ( ( container.find( '.product' ).length > 0 || noProductCheck ) ) {
+							container.removeClass( 'tc-init' );
+
+							if (
+								key === 'fusion_quick_view_load' ||
+								key === 'jet_popup_get_content' ||
+								key === 'wp_food' ||
+								key === 'woodmart_quick_shop' ||
+								key === 'woodmart_quick_view' ||
+								key === 'lightboxpro' ||
+								key === 'jckqv_quick_view' ||
+								key === 'yith_quick_view' ||
+								key === 'theme_flatsome'
+							) {
+								variationsFormIsLoaded = true;
+							}
+							tmLazyloadContainer = container;
+
+							if ( key === 'fusion_quick_view_load' ) {
+								time = 1400;
+							}
+
+							setTimeout( function() {
+								product_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-product-id' );
+								epo_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-epo-id' );
+								if ( key === 'woodmart_quick_shop' ) {
+									container.addClass( 'has-options' );
+								}
+
+								// Reset element cache
+								tcAPI.getElementFromFieldCache = [];
+								tm_init_epo( tmLazyloadContainer, true, product_id, epo_id );
+								jWindow.trigger( 'tmlazy' );
+								jWindow.trigger( 'tm_epo_loaded_quickview' );
+								if ( $.jMaskGlobals ) {
+									tmLazyloadContainer.find( $.jMaskGlobals.maskElements ).each( function() {
+										var t = $( this );
+
+										if ( t.attr( 'data-mask' ) ) {
+											t.mask( t.attr( 'data-mask' ) );
+										}
+									} );
+								}
+							}, time );
+						}
+					}
 				}
-			} );
+			};
+			requestContainer( 10 );
 		} );
 
 		init_epo_plugin();
@@ -10190,31 +10874,7 @@
 
 		// Fix several custom quantity buttons on themes
 		jDocument.on( 'click', '.quantity .jckqv-qty-spinner, .quantity .ui-spinner-button', function() {
-			$( this ).closest( '.quantity' ).find( 'input.qty' ).trigger( 'change' );
-		} );
-
-		// Sober theme quickview fix
-		jBody.on( 'sober_quickview_opened', function() {
-			var product_id;
-			var epo_id;
-
-			tmLazyloadContainer = $( '#quick-view-modal' );
-
-			product_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-product-id' );
-			epo_id = tmLazyloadContainer.find( tcAPI.epoSelector ).attr( 'data-epo-id' );
-
-			tm_init_epo( tmLazyloadContainer, true, product_id, epo_id );
-			jWindow.trigger( 'tmlazy' );
-			jWindow.trigger( 'tm_epo_loaded_quickview' );
-			if ( $.jMaskGlobals ) {
-				tmLazyloadContainer.find( $.jMaskGlobals.maskElements ).each( function() {
-					var t = $( this );
-
-					if ( t.attr( 'data-mask' ) ) {
-						t.mask( t.attr( 'data-mask' ) );
-					}
-				} );
-			}
+			$( this ).closest( '.quantity' ).find( tcAPI.qtySelector ).trigger( 'change' );
 		} );
 
 		// bulk variations forms plugin

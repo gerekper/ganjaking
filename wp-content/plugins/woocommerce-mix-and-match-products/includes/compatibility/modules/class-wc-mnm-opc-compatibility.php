@@ -39,26 +39,13 @@ class WC_MNM_OPC_Compatibility {
 		// Enqueue script.
 		wp_enqueue_script( 'wc-add-to-cart-mnm' );
 
-		if ( $product->is_purchasable() ) {
+		ob_start();
 
-			ob_start();
+		// Load the add to cart template.
+		wc_mnm_template_add_to_cart( $product );
 
-			// Load the add to cart template.
-			wc_get_template(
-				'single-product/add-to-cart/mnm.php',
-				array(
-					'container'          => $product,
-					'min_container_size' => $product->get_min_container_size(),
-					'max_container_size' => $product->get_max_container_size(),
-					'mnm_products'       => $product->get_available_children(),
-					'classes'           => 'layout_' . $product->get_layout(),
-				),
-				'',
-				WC_Mix_and_Match()->plugin_path() . '/templates/'
-			);
+		echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );
 
-			echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );
-		}
 	}
 
 	/**

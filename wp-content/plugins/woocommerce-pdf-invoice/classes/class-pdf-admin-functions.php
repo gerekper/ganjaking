@@ -390,6 +390,12 @@ class WC_pdf_admin_functions {
 					delete_post_meta( $id, $meta_key );
 				}
 
+				// Delete other postmeta
+				delete_post_meta( $id, '_invoice_created_mysql' );
+				delete_post_meta( $id, '_wc_pdf_invoice_created_date' );
+
+				WC_pdf_admin_functions::handle_next_invoice_number();
+
 				// Add order note
 				$order->add_order_note( __("Invoice deleted. <br/>Previous details : ", 'woocommerce-pdf-invoice' ) . '<br />' . $ordernote, false, true );
 

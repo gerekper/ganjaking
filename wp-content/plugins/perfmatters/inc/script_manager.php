@@ -23,6 +23,9 @@ global $currentID;
 $currentID = perfmatters_get_current_ID();
 $pmsm_tab = !empty($_POST['tab']) ? $_POST['tab'] : 'main';
 
+//filter language locale for script manager ui
+switch_to_locale(apply_filters('perfmatters_script_manager_locale', ''));
+
 //process settings form
 if(isset($_POST['pmsm_save_settings'])) {
 
@@ -84,15 +87,15 @@ if(isset($_POST['pmsm_global_trash'])) {
 global $perfmatters_script_manager_settings;
 $perfmatters_script_manager_settings = get_option('perfmatters_script_manager_settings');
 
-//build array iof existing plugin disables
+//build array of existing plugin disables
 global $perfmatters_disables;
 $perfmatters_disables = array();
-if(!empty($perfmatters_options['disable_google_maps']) && $perfmatters_options['disable_google_maps'] == "1") {
+if(!empty($perfmatters_options['disable_google_maps'])) {
 	$perfmatters_disables[] = 'maps.google.com';
 	$perfmatters_disables[] = 'maps.googleapis.com';
 	$perfmatters_disables[] = 'maps.gstatic.com';
 }
-if(!empty($perfmatters_options['disable_google_fonts']) && $perfmatters_options['disable_google_fonts'] == "1") {
+if(!empty($perfmatters_options['disable_google_fonts'])) {
 	$perfmatters_disables[] = 'fonts.googleapis.com';
 }
 
@@ -152,22 +155,26 @@ echo "<div id='perfmatters-script-manager-wrapper' " . (isset($_GET['perfmatters
 		//visible container
 		echo "<div id='pmsm-viewport'>";
 
-			//disclaimer
-			if(empty($perfmatters_script_manager_settings['hide_disclaimer']) || $perfmatters_script_manager_settings['hide_disclaimer'] != "1") {
-				echo "<div id='perfmatters-script-manager-disclaimer'>";
-					echo "<form method='POST'>";
-						echo $pmsm_tab != 'main' ? "<input type='hidden' name='tab' value='" . $pmsm_tab . "' />" : "";
-						wp_nonce_field('pmsm_disclaimer_close', 'pmsm_disclaimer_close_nonce');
-						echo "<input type='submit' id='pmsm-disclaimer-close' name='pmsm_disclaimer_close' value='X' />";
-					echo "</form>";
-					echo "<p>";
-						_e("The Script Manager lets you disable CSS and JS files on a per post basis, by custom post types, and regex. We recommend testing this locally or on a staging site first, as you could break your site's appearance. You can also use Testing Mode to preview your configuration as an admin.", 'perfmatters');
-					echo "</p>";
-					echo "<p>";
-						_e("If you run into trouble, you can reset your entire Script Manager configuration from the settings tab. For more information, see the <a href='https://perfmatters.io/docs/' target='_blank' title='Perfmatters Documentation'>Perfmatters documentation</a>.", 'perfmatters');
-					echo "</p>";
-				echo "</div>";
-			}
+			echo '<div id="pmsm-notices">';
+
+				//disclaimer
+				if(empty($perfmatters_script_manager_settings['hide_disclaimer'])) {
+					echo '<div class="pmsm-notice">';
+						echo '<form method="POST">';
+							echo $pmsm_tab != 'main' ? '<input type="hidden" name="tab" value="' . $pmsm_tab . '" />' : '';
+							wp_nonce_field('pmsm_disclaimer_close', 'pmsm_disclaimer_close_nonce');
+							echo '<button type="submit" id="pmsm-disclaimer-close" name="pmsm_disclaimer_close"/><span class="dashicons dashicons-dismiss"></span></button>';
+						echo '</form>';
+							_e('We recommend testing Script Manager changes on a staging/dev site first, as you could break your site\'s appearance.', 'perfmatters');
+							echo ' <a href="https://perfmatters.io/docs/disable-scripts-per-post-page/" target="_blank">' . __('View Documentation', 'perfmatters') . '</a>';
+					echo '</div>';
+				}
+
+				//testing mode
+				if(!empty($perfmatters_script_manager_settings['testing_mode'])) {
+					echo '<div class="pmsm-notice pmsm-notice-warning">' . __('You are in Testing Mode. Changes will only be visible to logged-in admins.') . '</div>';
+				}
+			echo '</div>';
 
 			//universal form
 			echo "<form method='POST' id='pmsm-" . $pmsm_tab . "-form'>";

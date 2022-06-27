@@ -83,7 +83,8 @@ class CT_Ultimate_GDPR_Shortcode_Terms_Accept {
 	public function auto_insert_terms_shortcode() {
 
 		$ct_ultimate_gdpr_terms_option = get_option( 'ct-ultimate-gdpr-terms' );
-		$page_id = $ct_ultimate_gdpr_terms_option[ 'terms_target_page' ];
+		$page_id = ( isset( $ct_ultimate_gdpr_terms_option['terms_target_page'] ) ) 
+			? $ct_ultimate_gdpr_terms_option['terms_target_page'] : NULL;
 
 		if( !empty($page_id) ) {
 

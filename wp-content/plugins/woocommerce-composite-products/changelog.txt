@@ -1,5 +1,27 @@
 *** WooCommerce Composite Products ***
 
+2022.06.14 - version 8.5.0
+* Important - PHP 7.0 is now required.
+* Fix - Fixed a fatal error that was triggered by the Cart/Checkout blocks integration when the global cart object was null.
+
+2022.05.31 - version 8.4.3
+* Important - WooCommerce version 3.9+ is now required.
+* Fix - Include minified frontend script files for the new Cart and Checkout blocks integration.
+
+2022.05.03 - version 8.4.2
+* Feature - Introduced validation for composited product add-ons with input type restrictions.
+* Tweak - Introduced the 'woocommerce_composited_item_price' filter.
+* Tweak - Removed the Add to Cart button from out of stock Composites.
+* Fix - Fixed fatal error that was triggered from invalid Exception arguments.
+* Fix - Fixed deprecation warning for 'is_admin_or_embed_page' in WooCommerce 6.3+.
+
+2022.04.01 - version 8.4.1
+* Fix - Fixed issue that prevented subscription plans from being applied to composited order items when there were multiple Composite Products in an order.
+
+2022.03.30 - version 8.4.0
+* Fix - Added compatibility with the Cart and Checkout blocks.
+* Tweak - Removed the 'Subtotal' prefix from component subtotals in all templates.
+
 2022.03.16 - version 8.3.8
 * Tweak - Bump the required Product Bundles version to 6.14.0.
 * Tweak - Use new WooCommerce brand colors.

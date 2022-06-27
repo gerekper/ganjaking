@@ -90,7 +90,7 @@ else if (wfConfig::get('touppPromptNeeded')) {
 												'linkNewWindow' => true,
 											))->render();
 											?>
-										<?php elseif (wfConfig::get('keyType') == wfAPI::KEY_TYPE_PAID_EXPIRED): ?>
+										<?php elseif (wfConfig::get('keyType') == wfLicense::KEY_TYPE_PAID_EXPIRED): ?>
 											<?php
 											echo wfView::create('common/status-critical', array(
 												'id' => 'wf-premium-alert',
@@ -101,7 +101,7 @@ else if (wfConfig::get('touppPromptNeeded')) {
 												'linkNewWindow' => true,
 											))->render();
 											?>
-										<?php elseif (wfConfig::get('keyType') == wfAPI::KEY_TYPE_PAID_DELETED): ?>
+										<?php elseif (wfConfig::get('keyType') == wfLicense::KEY_TYPE_PAID_DELETED): ?>
 											<?php
 											echo wfView::create('common/status-critical', array(
 												'id' => 'wf-premium-alert',
@@ -111,11 +111,11 @@ else if (wfConfig::get('touppPromptNeeded')) {
 												'linkLabel' => null
 											))->render();
 											?>
-										<?php elseif (wfConfig::get('keyType') == wfAPI::KEY_TYPE_FREE || wfConfig::get('keyType') === false): ?>
+										<?php elseif (wfConfig::get('keyType') == wfLicense::KEY_TYPE_FREE || wfConfig::get('keyType') === false): ?>
 											<div>
 												<p><h3><?php esc_html_e('Premium Protection Disabled', 'wordfence'); ?></h3></p>
 												<p><?php esc_html_e('As a free Wordfence user, you are currently using the Community version of the Threat Defense Feed. Premium users are protected by additional firewall rules and malware signatures. Upgrade to Premium today to improve your protection.', 'wordfence'); ?></p>
-												<p><a class="wf-btn wf-btn-primary wf-btn-callout-subtle" href="https://www.wordfence.com/gnl1dashboardUpgrade/wordfence-signup/#premium-order-form" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Premium', 'wordfence'); ?></a>&nbsp;&nbsp;<a class="wf-btn wf-btn-callout-subtle wf-btn-default" href="https://www.wordfence.com/gnl1dashboardLearn/wordfence-signup/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
+												<p><a class="wf-btn wf-btn-primary wf-btn-callout-subtle" href="https://www.wordfence.com/gnl1dashboardUpgrade/products/wordfence-premium/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Premium', 'wordfence'); ?></a>&nbsp;&nbsp;<a class="wf-btn wf-btn-callout-subtle wf-btn-default" href="https://www.wordfence.com/gnl1dashboardLearn/products/pricing/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
 											</div>
 										<?php elseif (wfConfig::get('keyExpDays') < 30 && (wfConfig::get('premiumAutoRenew', null) === '0' || wfConfig::get('premiumAutoRenew', null) === 0)): ?>
 											<?php
@@ -188,10 +188,19 @@ else if (wfConfig::get('touppPromptNeeded')) {
 												))->render();
 											}
 											?>
-										<?php elseif (wfConfig::get('keyType') == wfAPI::KEY_TYPE_PAID_CURRENT): ?>
+										<?php elseif (wfLicense::current()->isPaidAndCurrent()): ?>
 											<div class="wf-block-labeled-value wf-protection-status wf-protection-status-<?php echo esc_attr($firewall->ruleMode()); ?>">
 												<div class="wf-block-labeled-value-value"><i class="wf-fa wf-fa-check" aria-hidden="true"></i></div>
-												<div class="wf-block-labeled-value-label"><?php esc_html_e('Wordfence Premium Enabled', 'wordfence'); ?></div>
+												<div class="wf-block-labeled-value-label"><?php echo esc_html(sprintf(__('%s Enabled', 'wordfence'), wfLicense::current()->getTypeLabel(true))); ?></div>
+												<?php if (wfLicense::current()->isBelowResponse()): ?>
+													<p>
+													<?php if (wfLicense::current()->isBelowCare()): ?>
+														<a href="https://www.wordfence.com/gnl1dashboardLearnCareResponse/products/pricing/"><?php esc_html_e('Learn about Wordfence Care and Wordfence Response', 'wordfence') ?></a>
+													<?php else: ?>
+														<a href="https://www.wordfence.com/gnl1dashboardLearnResponse/products/wordfence-response/"><?php esc_html_e('Learn about Wordfence Response', 'wordfence') ?></a>
+													<?php endif ?>
+													</p>
+												<?php endif ?>
 											</div> 
 										<?php endif; ?>
 									</li>

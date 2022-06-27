@@ -71,12 +71,12 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 					continue; //no categories
 				}
 
-				$rule = reset( $set->pricing_rules ); //block rules can only have one line item. 
+				$rule = reset( $set->pricing_rules ); //block rules can only have one line item.
 				if ( $q < $rule['from'] ) {
 					//continue;
 				}
 				if ( $rule['repeating'] == 'yes' ) {
-					$b = floor( $q / ( $rule['from'] ) ); //blocks - this is how many times has the required amount been met. 
+					$b = floor( $q / ( $rule['from'] ) ); //blocks - this is how many times has the required amount been met.
 				} else {
 					$b = 1;
 				}
@@ -111,17 +111,17 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 				$rcq = $cq; //remaining clean quantity
 				$rmq = $mq; //remaining mixed quantity
 
-				$tt = 0; //the total number of items we can discount. 
-				//for each block reduce the amount of remaining items which can make up a discount by the amount required. 
+				$tt = 0; //the total number of items we can discount.
+				//for each block reduce the amount of remaining items which can make up a discount by the amount required.
 				if ( $rcq || $rmq ) {
 					for ( $x = 0; $x < $b; $x ++ ) {
-						//If the remaining clean quantity minus what is required to make a block is greater than 0 there are more clean quantity items remaining. 
-						//This means we don't have to eat into mixed quantities yet. 
+						//If the remaining clean quantity minus what is required to make a block is greater than 0 there are more clean quantity items remaining.
+						//This means we don't have to eat into mixed quantities yet.
 						if ( $rcq - $rule['from'] >= 0 ) {
 							$rcq -= $rule['from'];
 							$tt  += $rule['adjust'];
 							//If the total items that can be discounted is greater than the number of clean items to be discounted, reduce the
-							//mixed quantity by the difference, because those items will be discounted and can not count towards making another discounted item. 
+							//mixed quantity by the difference, because those items will be discounted and can not count towards making another discounted item.
 							if ( $tt > $ct ) {
 								$rmq -= ( $tt - $ct );
 							}
@@ -132,7 +132,7 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 
 							$rt -= ( $ct + $mt ) - $tt;
 						} else {
-							//how many items left over from clean quantities.  if we have a buy two get one free, we may have one quantity of clean item, and two mixed items. 
+							//how many items left over from clean quantities.  if we have a buy two get one free, we may have one quantity of clean item, and two mixed items.
 							$l = $rcq ? $rule['from'] - $rcq : 0;
 							if ( $rcq > 0 ) {
 								//If the remaining mixed quantity minus the left overs trigger items is more than 0, we have another discount available
@@ -165,8 +165,8 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 						$price_adjusted = false;
 						$original_price = $this->get_price_to_discount( $ctitem, $cart_item_key );
 
-						//Check if the original price is free, we don't want to apply any of these discounts, or use any of them up by 
-						//applying a discount to a free item. 
+						//Check if the original price is free, we don't want to apply any of these discounts, or use any of them up by
+						//applying a discount to a free item.
 						$op_check = floatval( $original_price );
 						if ( empty( $op_check ) && $rule['type'] != 'fixed_adjustment' ) {
 							continue;
@@ -511,7 +511,7 @@ class WC_Dynamic_Pricing_Advanced_Category extends WC_Dynamic_Pricing_Advanced_B
 	}
 
 	private function is_applied_to_product( $product, $targets ) {
-		if ( is_admin() && !is_ajax() ) {
+		if ( is_admin() && !wp_doing_ajax() ) {
 			return false;
 		}
 

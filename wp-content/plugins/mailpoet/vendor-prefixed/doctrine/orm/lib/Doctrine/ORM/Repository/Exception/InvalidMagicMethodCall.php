@@ -2,7 +2,6 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Repository\Exception;
 if (!defined('ABSPATH')) exit;
-use BadMethodCallException;
 use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
 use MailPoetVendor\Doctrine\ORM\Exception\RepositoryException;
 final class InvalidMagicMethodCall extends ORMException implements RepositoryException

@@ -2276,3 +2276,4 @@ a{
 .bbpress-usepro-div {
     display: inline-block;
 }
+div.userpro-overlay-inner div.userpro a.userpro-close-popup {margin-top: 50px;z-index: 300;display: block!important;color: black!important;}

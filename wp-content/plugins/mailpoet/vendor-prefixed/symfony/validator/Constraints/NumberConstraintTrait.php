@@ -2,6 +2,7 @@
 namespace MailPoetVendor\Symfony\Component\Validator\Constraints;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+trigger_deprecation('symfony/validator', '5.2', '%s is deprecated.', NumberConstraintTrait::class);
 trait NumberConstraintTrait
 {
  private function configureNumberConstraintOptions($options) : array

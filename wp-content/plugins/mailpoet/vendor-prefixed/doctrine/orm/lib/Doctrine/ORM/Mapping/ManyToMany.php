@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 use Attribute;
 use MailPoetVendor\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
 use MailPoetVendor\Doctrine\Deprecations\Deprecation;
-#[Attribute(Attribute::TARGET_PROPERTY)]
+#[\Attribute(Attribute::TARGET_PROPERTY)]
 final class ManyToMany implements Annotation
 {
  public $targetEntity;

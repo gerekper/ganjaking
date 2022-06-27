@@ -1,9 +1,9 @@
 === MailPoet - emails and newsletters in WordPress ===
 Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
-Requires at least: 5.3
-Tested up to: 5.9
-Stable tag: 3.84.0
+Requires at least: 5.6
+Tested up to: 6.0
+Stable tag: 3.91.0
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -107,11 +107,14 @@ Please note:
 **Official translations**
 
 * Arabic
+* Catalan
 * Chinese
+* Czech
 * Danish
 * Dutch
 * French (FR)
 * German
+* Greek
 * Italian
 * Japanese
 * Mexican
@@ -127,9 +130,7 @@ Please note:
 
 * Albanian
 * British
-* Catalan
 * French (CA)
-* Greek
 * Hebrew
 * Hungarian
 * Norwegian
@@ -144,6 +145,20 @@ We welcome experienced translators to translate directly on [our Transifex proje
 [Our repository](https://github.com/mailpoet/mailpoet/) is public on GitHub.
 
 Have a question for us? Reach us at security@ our domain, or report security issues to our [Bug Bounty program](https://hackerone.com/automattic).
+
+= Use of 3rd Party Services =
+
+To improve user experience, MailPoet may use the following 3rd party libraries if the _Load 3rd-party libraries_ setting is enabled:
+
+* Google Fonts - used in Form Editor which you can use to customize your forms, and in the Email Editor to style emails. This can be individually [disabled by a filter](https://kb.mailpoet.com/article/332-how-to-disable-google-fonts)
+
+* HelpScout - used to show help tooltips throughout the plugin, easily access documentation, and contact our customer support team. This functionality may load scripts from [https://beacon-v2.helpscout.net/](https://beacon-v2.helpscout.net/)
+
+* Mixpanel - used to send data about the usage of the MailPoet plugin when you [agree with sharing usage data with us](https://kb.mailpoet.com/article/130-sharing-your-data-with-us)
+
+* Satismeter - used to ask for feedback.
+
+Loading all these libraries is disabled by default. The option can be enabled in the _MailPoet's Settings > Advanced > Load 3rd-party libraries_.
 
 == Frequently Asked Questions ==
 
@@ -203,6 +218,114 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.91.0 - 2022-06-22 =
+* Fixed: template caching.
+
+= 3.90.2 - 2022-06-20 =
+* Improved: tested up to WordPress 6.0;
+* Improved: when sending with MailPoet Sending Service, show a warning when unauthorized email is used in settings;
+* Fixed: correctly reset error message when sending resumes;
+* Fixed: MailPoet Marketing Opt-in block is not translated in WordPress 6;
+* Fixed: some special characters in WordPress name don't show correctly when synced to MailPoet.
+
+= 3.90.1 - 2022-06-16 =
+* Fixed: occasional error related to twig templates when updating the plugin.
+
+= 3.90.0 - 2022-06-14 =
+* Updated: js-cookie library to version 3;
+* Improved: autocomplete's accessibility for first and last name;
+* Improved: added labels to inputs in public forms to improve accessibility;
+* Improved: list badge now links to its subscribers;
+* Improved: some 3rd party plugins should no longer falsely mark MailPoet as malware;
+* Improved: checkbox and radio buttons are focusable;
+* Fixed: invalid HTML markup in rendered email;
+* Fixed: Unhandled error for inaccessible cron worker.
+
+= 3.89.4 - 2022-06-06 =
+* Improved: better handle trying to change a subscriber email to an existing one;
+* Fixed: SMTP configuration doesn't work without authentication;
+* Fixed: subscribers without orders don't show in "0 orders" segment;
+* Fixed: creating custom field can break Form editor;
+* Fixed: Google Fonts libraries loading in iframe even when 3rd-party libraries are disabled.
+
+= 3.89.3 - 2022-05-24 =
+* Added: Google reCAPTCHA v2 Invisible;
+* Improved: auto adjust the height of form's iframe;
+* Changed: mailpoet_mailer_smtp_transport_agent filter replaced with mailpoet_mailer_smtp_option;
+* Changed: replaced Swift Mailer with PHPMailer.
+
+= 3.89.2 - 2022-05-19 =
+* Fixed: form editor not opening in some cases.
+
+= 3.89.1 - 2022-05-17 =
+* Improved: performance fixes;
+* Improved: error handling when using MailPoet Sending Service;
+* Changed: removed deprecated code;
+* Changed: automatic emails can no longer be activated without an unsubscribe link when sending with MSS;
+* Fixed: remove unnecessary redirect that in some circumstances prevented displaying a form;
+* Fixed: users added via MemberPress now receive welcome emails targeted to custom roles.
+
+= 3.89.0 - 2022-05-09 =
+* Updated: Removed MailPoet Task Scheduler;
+* Improved: faster page load;
+* Improved: compatibility with WooCommerce Blocks 7.2;
+* Improved: tested with WordPress 6;
+* Fixed: TypeError when calculating lifetime emails takes longer than usual.
+
+= 3.88.2 - 2022-05-03 =
+* Improved: show error message when trying to send confirmation email with signup confirmation disabled;
+* Changed: minimum PHP version bumped to 7.2.5;
+* Fixed: blank page when importing a template;
+* Fixed: drafts and future posts can't be included in newsletter.
+
+= 3.88.1 - 2022-04-28 =
+* Fixed: Abandoned Cart Email cannot be edited.
+
+= 3.88.0 - 2022-04-25 =
+* Added: new official translations Catalan, Czech and Greek;
+* Fixed: email batches containing invalid addresses lost by MSS.
+
+= 3.87.2 - 2022-04-19 =
+* Added: description of 3rd party libraries usage;
+* Fixed: "none of" condition for "MailPoet custom field" segment doesn't work;
+* Fixed: block toolbar in form editor is not visible for top block.
+
+= 3.87.1 - 2022-04-14 =
+* Improved: minor changes and fixes.
+
+= 3.87.0 - 2022-04-11 =
+* Added: new condition (at least 10 emails in lifetime) before marking subscriber as inactive;
+* Added: logging for failed MailPoet key validation checks;
+* Updated: minimum required WordPress version to 5.6;
+* Updated: npm dependencies;
+* Improved: when the subscription requires an upgrade, link directly to the upgrade page;
+* Improved: show notice in the plugin when the subscription is pending approval;
+* Fixed: List-Unsubscribe header format when sending with your host;
+* Fixed: hidden MailPoet fields visible in WooCommerce checkout;
+* Fixed: Manage subscription page doesn't work when all lists are unchecked.
+
+= 3.86.0 - 2022-04-05 =
+* Improved: apply form success message styles also on Captcha confirmation page;
+* Fixed: potential "Call to undefined method" error.
+
+= 3.85.1 - 2022-03-29 =
+* Updated: 1and1 hosting renamed to "IONOS by 1&1";
+* Updated: composer dependencies;
+* Updated: Gutenberg dependencies;
+* Improved: don't count "Pending payment" and "On-hold" orders to purchased segments;
+* Improved: when searching subscribers, update groups counts with found results;
+* Fixed: critical error at checkout with WooCommerce checkout block;
+* Fixed: error preventing sending when line height is set to 0 in email editor;
+* Fixed: shortcode default value not used in Emails opened from a Newsletter Archive page.
+
+= 3.85.0 - 2022-03-21 =
+* Improved: add "Send all site's emails with" to Help → System Status;
+* Fixed: sending limit can be exceeded in some cases.
+
+= 3.84.1 - 2022-03-14 =
+* Added: more engagement checks before marking subscriber as inactive;
+* Fixed: when scheduling an email, button says "Send" instead of "Schedule".
 
 = 3.84.0 - 2022-03-08 =
 * Improved: more robust segment subscribers count calculation in segment form;

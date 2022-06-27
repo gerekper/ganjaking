@@ -24,14 +24,6 @@ class WC_Account_Funds_Admin {
 		// Plugin action links.
 		add_filter( 'plugin_action_links_' . WC_ACCOUNT_FUNDS_BASENAME, array( $this, 'action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
-
-		// Users.
-		add_filter( 'manage_users_columns', array( $this, 'manage_users_columns' ) );
-		add_action( 'manage_users_custom_column', array( $this, 'manage_users_custom_column' ), 10, 3 );
-		add_action( 'show_user_profile', array( $this, 'user_meta_fields' ) );
-		add_action( 'edit_user_profile', array( $this, 'user_meta_fields' ) );
-		add_action( 'personal_options_update', array( $this, 'save_user_meta_fields' ) );
-		add_action( 'edit_user_profile_update', array( $this, 'save_user_meta_fields' ) );
 	}
 
 	/**
@@ -43,6 +35,7 @@ class WC_Account_Funds_Admin {
 		include_once 'wc-account-funds-admin-functions.php';
 		include_once 'class-wc-account-funds-admin-notices.php';
 		include_once 'class-wc-account-funds-admin-system-status.php';
+		include_once 'class-wc-account-funds-admin-users.php';
 	}
 
 	/**
@@ -105,105 +98,85 @@ class WC_Account_Funds_Admin {
 	 * @return array
 	 */
 	public static function plugin_row_meta( $links, $file ) {
-		if ( WC_ACCOUNT_FUNDS_BASENAME === $file ) {
-			$row_meta = array(
-				'docs'      => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/document/account-funds/' ),
-					esc_attr_x( 'View WooCommerce Account Funds documentation', 'aria-label: documentation link', 'woocommerce-account-funds' ),
-					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-account-funds' )
-				),
-				'changelog' => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/changelogs/woocommerce-account-funds/changelog.txt' ),
-					esc_attr_x( 'View WooCommerce Account Funds changelog', 'aria-label: changelog link', 'woocommerce-account-funds' ),
-					esc_html_x( 'Changelog', 'plugin row link', 'woocommerce-account-funds' )
-				),
-				'support'   => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://support.woocommerce.com/' ),
-					esc_attr_x( 'View WooCommerce Account Funds support', 'aria-label: support link', 'woocommerce-account-funds' ),
-					esc_html_x( 'Support', 'plugin row link', 'woocommerce-account-funds' )
-				),
-			);
-
-			$links = array_merge( $links, $row_meta );
+		if ( WC_ACCOUNT_FUNDS_BASENAME !== $file ) {
+			return $links;
 		}
+
+		$links['docs'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
+			esc_url( 'https://woocommerce.com/document/account-funds/' ),
+			esc_attr_x( 'View WooCommerce Account Funds documentation', 'aria-label: documentation link', 'woocommerce-account-funds' ),
+			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-account-funds' )
+		);
+
+		$links['changelog'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
+			esc_url( 'https://woocommerce.com/changelogs/woocommerce-account-funds/changelog.txt' ),
+			esc_attr_x( 'View WooCommerce Account Funds changelog', 'aria-label: changelog link', 'woocommerce-account-funds' ),
+			esc_html_x( 'Changelog', 'plugin row link', 'woocommerce-account-funds' )
+		);
+
+		$links['support'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=18728' ),
+			esc_attr_x( 'View WooCommerce Account Funds support', 'aria-label: support link', 'woocommerce-account-funds' ),
+			esc_html_x( 'Support', 'plugin row link', 'woocommerce-account-funds' )
+		);
 
 		return $links;
 	}
 
 	/**
-	 * Add column
-	 * @param  array $columns
+	 * Adds custom columns to the users' table.
+	 *
+	 * @deprecated 2.7.0
+	 *
+	 * @param array $columns Table columns.
 	 * @return array
 	 */
 	public function manage_users_columns( $columns ) {
-		if ( current_user_can( 'manage_woocommerce' ) ) {
-			$columns['account_funds'] = __( 'Account Funds', 'woocommerce-account-funds' );
-		}
+		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->add_columns()' );
+
 		return $columns;
 	}
 
 	/**
-	 * Column value
-	 * @param  string $value
-	 * @param  string $column_name
-	 * @param  int $user_id
+	 * Gets the content for the custom column of the users table.
+	 *
+	 * @deprecated 2.7.0
+	 *
+	 * @param string $content Column content.
+	 * @param string $column  Column name.
+	 * @param int    $user_id User ID.
 	 * @return string
 	 */
-	public function manage_users_custom_column( $value, $column_name, $user_id ) {
-		if ( $column_name === 'account_funds' ) {
-        	$funds = get_user_meta( $user_id, 'account_funds', true );
-        	$funds = $funds ? $funds : 0;
-        	$value = wc_price( $funds );
-   		}
-    	return $value;
+	public function manage_users_custom_column( $content, $column, $user_id ) {
+		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->get_column_content()' );
+
+		return $content;
 	}
 
 	/**
-	 * Show Meta Fields
-	 * @param  object $user
+	 * Shows custom fields on the edit user pages.
+	 *
+	 * @deprecated 2.7.0
+	 *
+	 * @param WP_User $user User object.
 	 */
 	public function user_meta_fields( $user ) {
-		if ( current_user_can( 'manage_woocommerce' ) ) {
-		    $funds = get_user_meta( $user->ID, 'account_funds', true );
-		    $funds = $funds ? $funds : 0;
-		    ?>
-			<h3><?php _e( 'Account Funds', 'woocommerce-account-funds' ); ?></h3>
-			<table class="form-table">
-				<tr>
-	                <th><label for="account_funds"><?php _e( 'Account Funds Amount', 'woocommerce-account-funds' ); ?></label></th>
-	                <td>
-	                    <input type="text" name="account_funds" id="account_funds" value="<?php echo esc_attr( $funds ); ?>" class="small-text" /><br/>
-	                    <span class="description"><?php _e( 'Funds this user can use to purchase items', 'woocommerce-account-funds' ); ?></span>
-	                </td>
-	            </tr>
-			</table>
-			<?php
-		}
+		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->user_meta_fields()' );
 	}
 
 	/**
 	 * Save meta fields.
 	 *
 	 * @version 2.1.6
+	 * @deprecated 2.7.0
 	 *
 	 * @param int $user_id User ID.
 	 */
 	public function save_user_meta_fields( $user_id ) {
-		if ( isset( $_POST['account_funds'] ) && current_user_can( 'manage_woocommerce' ) ) {
-			$current_funds = floatval( get_user_meta( $user_id, 'account_funds', true ) );
-			$new_funds     = floatval( wc_clean( $_POST['account_funds'] ) );
-			if ( update_user_meta( $user_id, 'account_funds', $new_funds ) ) {
-				if ( $current_funds < $new_funds ) {
-					// Send email to customer.
-					$wc_emails = WC_Emails::instance();
-					$email = $wc_emails->emails['WC_Account_Funds_Email_Account_Funds_Increase'];
-					$email->trigger( $user_id, $current_funds, $new_funds );
-				}
-			}
-		}
+		wc_deprecated_function( __FUNCTION__, '2.7.0', 'WC_Account_Funds_Admin_Users->save_user_meta_fields()' );
 	}
 
 	/**
@@ -217,9 +190,12 @@ class WC_Account_Funds_Admin {
 		$settings = array();
 
 		if ( has_filter( 'woocommerce_account_funds_get_settings' ) ) {
+			wc_deprecated_hook( 'woocommerce_account_funds_get_settings', '2.6.0' );
+
 			/**
 			 * The plugin settings.
 			 *
+			 * @since 2.0.0
 			 * @deprecated 2.6.0
 			 *
 			 * @param array $settings An array with the settings.

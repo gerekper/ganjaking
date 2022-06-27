@@ -1,9 +1,9 @@
 <?php
 /**
 * Plugin Name: LoginPress - Social Login
-* Plugin URI: https://www.WPBrigade.com/wordpress/plugins/loginpress/
+* Plugin URI: https://loginpress.pro/
 * Description: This is a premium add-on of LoginPress WordPress plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to login using social media accounts like Facebook, Twitter and Google/G+ etc
-* Version: 1.4.1
+* Version: 1.5.3
 * Author: WPBrigade
 * Author URI: https://www.WPBrigade.com/
 * Text Domain: loginpress-social-login
@@ -21,7 +21,7 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     /**
     * @var string
     */
-    public $version = '1.4.1';
+    public $version = '1.5.3';
     private $is_shortcode = false;
 
     /**
@@ -83,8 +83,6 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
       add_action( 'delete_user', array( $this, 'delete_user_row' ) );
 
       add_action( 'admin_enqueue_scripts', array( $this, 'loginpress_social_login_admin_action_scripts' ) );
-      // perform the check when the_posts() function is called
-      add_action( 'the_posts', array( $this, 'loginpress_social_login_scripts' ) );
       add_action( 'login_enqueue_scripts', array( $this, 'load_login_assets' ) );
       add_action( 'login_footer', array( $this, 'login_page_custom_footer' ) );
 
@@ -96,7 +94,7 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     /**
      * Add social avatar to user profile.
      */
-    public function insert_avatar( $avatar = '', $id_or_email, $size = 96, $default = '', $alt = false ) {
+    public function insert_avatar( $avatar, $id_or_email, $size = 96, $default = '', $alt = false ) {
       global $wpdb;
       $id = 0;
 
@@ -257,34 +255,6 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
       }
     }
 
-    /**
-     * [loginpress_social_login_scripts description]
-     * @param  [type] $posts [description]
-     * @return [type]        [description]
-     */
-    function loginpress_social_login_scripts( $posts ) {
-        if ( empty( $posts ) )
-            return $posts;
-
-        // false because we have to search through the posts first
-        $allow = false;
-
-        // search through each post
-        foreach ( $posts as $post ) {
-            // check the post content for the short code
-            if ( stripos( $post->post_content, 'loginpress_social_login') )
-                // we have found a post with the short code
-                $allow = true;
-                // stop the search
-            break;
-        }
-        if ( $allow ) {
-            wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
-            wp_enqueue_style( 'loginpress-social-login', plugins_url( 'assets/css/login.css', __FILE__ ), array(), LOGINPRESS_SOCIAL_VERSION );
-        }
-        return $posts;
-    }
-
     function settings_tab( $loginpress_tabs ) {
       $new_tab = array(
         array(
@@ -297,6 +267,11 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
 
     }
 
+		/**
+		 * Callback for help tab documentation.
+		 * @since 1.0.2
+		 * @version 1.4.2
+		 */
     function loginpress_social_login_help_tab_callback() {
 
       if ( ! class_exists( 'LoginPress_Promotion_tabs' ) ) {
@@ -316,30 +291,33 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
       </ul>
       <h4>Step 2:</h4>
       <ul>
-      <li>2.1 If you are here (at Facebook Developer section) first time.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.1 You will be required to “Create a Facebook for Developers account”. Click “Create First App” button.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.2 Fill out the form. (Display Name, Contact Email) and click on “Create App ID”.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.3 Select a Scenario here. In our case it\'s “Integrate Facebook Login”. Select it and click on “Confirm button”.</li>
-      <li>2.2 If you have registered already.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.1 Click “Create App” from “My Apps” and fill out the required informational fields.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.2 Fill out the form. (Display Name, Contact Email) and click on “Create App ID”.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.3 After you have created the App, please select a product type here. In our case, we use “Facebook login”.</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.4 Select the platform for this app: Here we use "web".</li>
-      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.5 Enter your web URL <strong>' . esc_html( site_url() ) . '</strong> and save the settings.</li>
+			<li>2.1 If you are here (at Facebook Developer section) first time, 
+			You will be required to “Create a Facebook for Developers account”, if you dont have one</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.1 Click “My Apps” button.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.2 Click “Create App” button.</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.3 Select “Build Connected Experiences” option and click Continue.</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.4 Fill out the form. <b>( Display Name, Contact Email )</b> and click on “Create App”.</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.1.5 Add a product to your App. In our case it\'s “Facebook Login”. Click on “Set Up” button under "Facebook Login".</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.6 Select the platform for this app: Here we use "web".</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;2.2.7 Enter your web URL <strong>' . esc_html( site_url() ) . '</strong> and save the settings.</li>
       </ul>
       <h4>Step 3:</h4>
       <ul>
-      <li>3.1 Go to Settings &gt; Basic from the left side menu.</li>
-      <li>3.2 Fill out the required fields (Contact Email, App Domains, and Privacy Policy URL).</li>
-      <li>3.3 Here you find the App ID and App Secret.</li>
-      <li>3.4 Copy that ID & Secret and use it in our plugin settings.</li>
-      <li>3.5 Save the settings.</li>
+			<li>3.1 On Facebook for Developer\'s page, Go to <strong>Settings &gt; Basic</strong> from the left side menu of Facebook.</li>
+			<li>3.2 Fill out the required fields and click "Save"
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;3.2.1 <strong>Contact Email</strong></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;3.2.2 <strong>App Domain URL</strong></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;3.2.3 <strong>Privacy Policy URL</strong> </li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;3.2.4 <strong>Data Deletion Instructions URL</strong></li>
+      <li>3.3 Then select the category and press confirm button.</li>
+      <li>3.4 Here you will find the App ID and App Secret.</li>
+      <li>3.5 Copy that App ID & Secret ID and use it in LoginPress Social Login\'s settings.</li>
+      <li>3.6 Save Plugin\'s settings.</li>
       </ul>
       <h4>Step 4:</h4>
       <ul>
-      <li>4.1 Go to Facebook Login &gt; Settings from left side menu.</li>
-      <li>4.2 There Please set the <b>Use Strict Mode for Redirect URIs</b> as Yes.</li>
-      <li>4.3 Add valid OAuth redirect URIs here:
+      <li>4.1 On Facebook for Developer\'s page, Go to <strong>Facebook Login &gt; Settings</strong> from left side menu.</li>
+      <li>4.2 Add valid OAuth redirect URIs here:
       <li>&nbsp;&nbsp;&nbsp;&nbsp;4.3.1 <strong>' . esc_html( wp_login_url() . '?lpsl_login_id=facebook_check' ) . '</strong></li>
       <li>&nbsp;&nbsp;&nbsp;&nbsp;4.3.2 <strong>' . esc_html( site_url() . '/admin.php?lpsl_login_id=facebook_check' ) . '</strong></li>
       </li>
@@ -347,9 +325,8 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
       </ul>
       <h4>Step 5:</h4>
       <ul>
-      <li>5.1 Final Step make this App public. For this, You just need to slide the checkbox that you see on topbar.</li>
-      <li>5.2 After that select the category and press confirm button.</li>
-      <li>5.3 Save the settings and enjoy it.</li>
+      <li>5.1 Final Step: On Facebook for Developer\'s page, You just need to slide the checkbox that you see on top-bar for making this App publically.</li>
+      <li>5.2 Save the settings and enjoy it.</li>
       </ul>';
       $html .= $video_html->_addon_video( 'Helping video for Facebook Authentication', 'HhR5J7sdVXw' ) . '</div></div>';
       $html .= '<div class="loginpress-social-accordions">';
@@ -381,25 +358,28 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
       <h4>Step 1:</h4>
       <ul>
       <li>1.1 You must register your website with Google APIs at <a href="https://console.developers.google.com/" target="_blank">https://console.developers.google.com/</a>.</li>
-      <li>1.2 Click on “Create” button and fill out the required informational fields. (Project Name)</li>
+      <li>1.2 Click on <b>New Project</b> button and fill out the required informational field. <b>(Project Name and Location).</b></li>
       <li>&nbsp;&nbsp;1.2.1 If you have more then 1 project in Google APIs, please confirm your project from top left dropdown project list.</li>
-      <li>1.3 Click on “OAuth consent screen” from the left side menu and fill out the required informational fields. (Application Name, Authorized domains).</li>
-      <li>1.4 Save the settings.</li>
+			<li>1.3 Click on “OAuth consent screen” from the left side menu.</li>
+			<li>&nbsp;&nbsp;1.3.1. For User Type choose “External”.</li>
+			<li>&nbsp;&nbsp;1.3.2. Fill out the required informational fields. (Application Name, App domain links and Authorized domains).</li>
+			<li>&nbsp;&nbsp;1.3.3. Your Site URL is <strong>' . esc_html( site_url() ) . '</strong></li>
+			<li>&nbsp;&nbsp;1.3.4. For Scopes section leave everything as it is and click “Save and Continue” </li>
+			<li>&nbsp;&nbsp;1.3.5. For Test Users section leave everything be and click “Save and Continue” </li>
+      <li>1.4 Click Back to Dashboard.</li>
       </ul>
       <h4>Step 2:</h4>
       <ul>
-      <li>2.1 After saving the OAuth consent screen settings, you will be redirected on the Credentials page.</li>
-      <li>2.2 Please select “OAuth Client ID” from “Create Credential” dropdown.</li>
+			<li>2.1 Go to the Credentials page from left side-bar.</li>
+			<li>2.2 Please select “Create Credentials” and select “OAuth client ID” from the dropdown.</li>
       <li>2.3 Select the Application type here. In our case it\'s “Web application”.</li>
-      <li>2.4 Fill out the required informational fields (Name & Authorized redirect URIs) save the settings.</li>
+      <li>2.4 Fill out the required informational fields (Name of your Application & Authorized redirect URIs) save the settings.</li>
       <li>&nbsp;&nbsp;2.4.1 Authorized redirect URIs: <strong>' . esc_html( wp_login_url() . '?lpsl_login_id=gplus_login' ) . '</strong></li>
       </ul>
       <h4>Step 3:</h4>
       <ul>
-      <li>3.1 After saving the settings, a popup will appear with “OAuth Client Created” heading. </li>
-      <li>3.2 Copy the Client ID and Client Secret from here and paste it in our plugin setting.</li>
-      <li>3.3 Paste the Authorized redirect URIs: <strong>' . esc_html( wp_login_url() . '?lpsl_login_id=gplus_login' ) . '</strong> .</li>
-      <li>3.4 Save the settings and enjoy.</li>
+      <li>3.1 After saving the settings, a popup will appear with “OAuth Client Created” heading. Copy the <b>Client ID</b> and <b>Client Secret</b> from here and use it in our plugin setting.</li>
+      <li>3.2 Save the settings and enjoy.</li>
       </ul>';
       $html .= $video_html->_addon_video( 'Helping video for Google Authentication', 'slG76UHkFRw' ) . '</div></div>';
       $html .= '<div class="loginpress-social-accordions">';
@@ -466,9 +446,11 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     */
     function is_login_page() {
 			$total_pages = array( 'wp-login.php', 'wp-register.php' );
-			$translatpress_page = array( 'index.php' );														
-			if( is_plugin_active( 'translatepress-multilingual/index.php' ) ) {		
-				$total_pages = array_merge( $total_pages, $translatpress_page );		//If TranslatePress add language-code to domain attribute is set
+			$translatpress_page = array( 'index.php' );
+
+			//If TranslatePress plugin is activated add span tag on login page for "OR"
+			if( is_plugin_active( 'translatepress-multilingual/index.php' ) ) {
+				$total_pages = array_merge( $total_pages, $translatpress_page );		
 			}
 			return in_array( $GLOBALS['pagenow'], $total_pages, true );
 
@@ -483,12 +465,12 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     function loginpress_social_login_shortcode( $atts ) {
       $atts = shortcode_atts(
         array(
-          'disable_google'    => 'false',
-          'disable_facebook'  => 'false',
-          'disable_twitter'   => 'false',
-          'disable_linkedin'  => 'false',
-					'display'           => 'row',
-					'social_redirect_to' => 'true'
+          'disable_google'      =>  'false',
+          'disable_facebook'    =>  'false',
+          'disable_twitter'     =>  'false',
+          'disable_linkedin'    =>  'false',
+					'display'             =>  'row',
+					'social_redirect_to'  =>  'true'
         ),
         $atts
       );
@@ -506,7 +488,7 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     /**
      * HTML struture for social login buttons.
      * @since 1.0.0
-     * @version 1.3.0
+     * @version 1.4.2
 		 * @param $atts attributes of shortcode 
      */
     public function loginpress_social_login( $atts ) {
@@ -516,152 +498,109 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
 				if( is_user_logged_in() ){
 					return;
 				}
-
+				//Enqueue Styles for short-code
+				wp_enqueue_style( 'loginpress-social-login', plugins_url( 'assets/css/login.css', __FILE__ ), array(), LOGINPRESS_SOCIAL_VERSION );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$encoded_url = '';
-				$social_encoded_url = '';
 				if( !empty($atts['social_redirect_to']) && $atts['social_redirect_to'] == 'true') {
-				$social_redirect_to =  $atts['social_redirect_to'] == 'true' ? site_url() . $_SERVER['REQUEST_URI'] : site_url();
-				$social_encoded_url = urlencode( $social_redirect_to );
+					$encoded_url =  $atts['social_redirect_to'] == 'true' ? site_url() . $_SERVER['REQUEST_URI'] : site_url();
+					$redirect_to = urlencode( $encoded_url );
 				}
 				$encoded_url = urlencode( $redirect_to );
       	$display_style = ( isset( $atts['display'] ) && 'column' == $atts['display'] ) ? 'block loginpress-social-display-col' : 'block'; // v1.3.0 ?>
 
-      <div class='social-networks <?php echo $display_style; ?>'>
+      	<div class='social-networks <?php echo $display_style; ?>'>
 
-        <?php if( $this->is_login_page() ) : ?>
-          <span class="social-sep"><span><?php _e( 'or', 'loginpress-social-login' ); ?></span></span>
-        <?php endif;
+					<?php if( $this->is_login_page() ) : ?>
+						<?php $separator_text = apply_filters( 'loginpress_social_login_separator', __( 'or', 'loginpress-social-login' ) ); ?>
+						<span class="social-sep"><span><?php esc_html_e( $separator_text ); ?></span></span>
+					<?php endif;
 
-        do {
-          if ( true === $this->is_shortcode && 'true' === $atts['disable_google'] ) {
-            break;
-          }
-
-          if ( isset( $this->settings['gplus'] ) && $this->settings['gplus'] == 'on' && ! empty( $this->settings['gplus_client_id'] ) && ! empty( $this->settings['gplus_client_secret'] ) ) : ?>
-
-            <a href="<?php echo wp_login_url(); ?>?lpsl_login_id=gplus_login
-            <?php
-            if ( $encoded_url ) {
-              echo '&state=' . base64_encode( "redirect_to=$encoded_url" ). "&redirect_to=$redirect_to";
+					do {
+						if ( true === $this->is_shortcode && 'true' === $atts['disable_google'] ) {
+							break;
 						}
-						if ( !empty( $social_encoded_url )  ) {
-              echo '&state=' . base64_encode( "redirect_to=$social_encoded_url" ). "&redirect_to=$social_redirect_to";
-            }
 
-            ?>
-            " title='
-            <?php
-            _e( 'Login with Google', 'loginpress-social-login' );
-            ?>
-            ' >
-            <div class="lpsl-icon-block icon-google-plus clearfix">
+						if ( isset( $this->settings['gplus'] ) && $this->settings['gplus'] == 'on' && ! empty( $this->settings['gplus_client_id'] ) && ! empty( $this->settings['gplus_client_secret'] ) ) : 
+							$encoded_url = isset( $encoded_url ) ? '&state=' . base64_encode( "redirect_to=" . $encoded_url ) . "&redirect_to=" . $redirect_to : '' ;
+						?>
 
-              <span class="lpsl-login-text"><?php _e( 'Login with Google', 'loginpress-social-login' ); ?></span>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg lpsl-google-svg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
-            </div>
-          </a>
+							<a href="<?php echo wp_login_url() . "?lpsl_login_id=gplus_login" . $encoded_url; ?>" rel="nofollow"
+							title="<?php _e( 'Login with Google', 'loginpress-social-login' ); ?>" >
+							<div class="lpsl-icon-block icon-google-plus clearfix">
 
-          <?php
-          endif;
-        } while (0);
+								<span class="lpsl-login-text"><?php _e( 'Login with Google', 'loginpress-social-login' ); ?></span>
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg lpsl-google-svg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+							</div>
+						</a>
 
-        do {
-          if ( true === $this->is_shortcode && 'true' === $atts['disable_facebook'] ) {
-            break;
-          }
+						<?php
+						endif;
+					} while (0);
 
-          if ( isset( $this->settings['facebook'] ) && $this->settings['facebook'] == 'on' && ! empty( $this->settings['facebook_app_id'] ) && ! empty( $this->settings['facebook_app_secret'] ) ) : ?>
+					do {
+						if ( true === $this->is_shortcode && 'true' === $atts['disable_facebook'] ) {
+							break;
+						}
 
-            <a href="<?php echo wp_login_url(); ?>?lpsl_login_id=facebook_login
-              <?php
-              if ( $encoded_url ) {
-                echo '&state=' . base64_encode( "redirect_to=$encoded_url" ) . "&redirect_to=$redirect_to";
-							}
-							if ( !empty( $social_encoded_url ) ) {
-								echo '&state=' . base64_encode( "redirect_to=$social_encoded_url" ). "&redirect_to=$social_redirect_to";
-							}
-              ?>
-              " title='
-              <?php
-              _e( 'Login with Facebook', 'loginpress-social-login' );
-              ?>
-              ' >
-              <div class="lpsl-icon-block icon-facebook clearfix">
-                <span class="lpsl-login-text"><?php _e( 'Login with Facebook', 'loginpress-social-login' ); ?></span>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#43609c" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
-              </div>
-            </a>
+						if ( isset( $this->settings['facebook'] ) && $this->settings['facebook'] == 'on' && ! empty( $this->settings['facebook_app_id'] ) && ! empty( $this->settings['facebook_app_secret'] ) ) : 
+						$encoded_url = isset( $encoded_url ) ? '&state=' . base64_encode( "redirect_to=" . $encoded_url ) . "&redirect_to=" . $redirect_to : '' ; ?>
 
-          <?php
-          endif;
-        } while (0);
+							<a href="<?php echo wp_login_url() . "?lpsl_login_id=facebook_login" . $encoded_url; ?>" rel="nofollow"
+							title="<?php _e( 'Login with Facebook', 'loginpress-social-login' ); ?>" >
+								<div class="lpsl-icon-block icon-facebook clearfix">
+									<span class="lpsl-login-text"><?php _e( 'Login with Facebook', 'loginpress-social-login' ); ?></span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#43609c" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+								</div>
+							</a>
 
-        do {
-          if ( true === $this->is_shortcode && 'true' === $atts['disable_twitter'] ) {
-            break;
-          }
+						<?php
+						endif;
+					} while (0);
 
-          if ( isset( $this->settings['twitter'] ) && $this->settings['twitter'] == 'on' && ! empty( $this->settings['twitter_oauth_token'] ) && ! empty( $this->settings['twitter_token_secret'] ) ) : ?>
+					do {
+						if ( true === $this->is_shortcode && 'true' === $atts['disable_twitter'] ) {
+							break;
+						}
 
-            <a href="<?php echo wp_login_url(); ?>?lpsl_login_id=twitter_login
-              <?php
-              if ( $encoded_url ) {
-                echo '&state=' . base64_encode( "redirect_to=$encoded_url" ) . "&redirect_to=$redirect_to";
-							}
-							if ( !empty( $social_encoded_url ) ) {
-								echo '&state=' . base64_encode( "redirect_to=$social_encoded_url" ). "&redirect_to=$social_redirect_to";
-							}
-              ?>
-              " title='
-              <?php
-              _e( 'Login with Twitter', 'loginpress-social-login' );
-              ?>
-              ' >
-              <div class="lpsl-icon-block icon-twitter clearfix">
+						if ( isset( $this->settings['twitter'] ) && $this->settings['twitter'] == 'on' && ! empty( $this->settings['twitter_oauth_token'] ) && ! empty( $this->settings['twitter_token_secret'] ) ) : 
+						$encoded_url = isset( $encoded_url ) ? '&state=' . base64_encode( "redirect_to=" . $encoded_url ) . "&redirect_to=" . $redirect_to : '' ; ?>
+						
+							<a href="<?php echo wp_login_url() . "?lpsl_login_id=twitter_login" . $encoded_url; ?>" rel="nofollow"
+							title="<?php _e( 'Login with Twitter', 'loginpress-social-login' ); ?>" >
+								<div class="lpsl-icon-block icon-twitter clearfix">
 
-                <span class="lpsl-login-text"><?php _e( 'Login with Twitter', 'loginpress-social-login' ); ?></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#1da1f3" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-              </div>
-            </a>
+									<span class="lpsl-login-text"><?php _e( 'Login with Twitter', 'loginpress-social-login' ); ?></span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#1da1f3" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+								</div>
+							</a>
 
-          <?php
-          endif;
-        } while (0);
+						<?php
+						endif;
+					} while (0);
 
-        do {
-          if ( true === $this->is_shortcode && 'true' === $atts['disable_linkedin'] ) {
-            break;
-          }
+					do {
+						if ( true === $this->is_shortcode && 'true' === $atts['disable_linkedin'] ) {
+							break;
+						}
 
-          if ( isset( $this->settings['linkedin'] ) && $this->settings['linkedin'] == 'on' && ! empty( $this->settings['linkedin_client_id'] ) && ! empty( $this->settings['linkedin_client_secret'] ) ) : ?>
+						if ( isset( $this->settings['linkedin'] ) && $this->settings['linkedin'] == 'on' && ! empty( $this->settings['linkedin_client_id'] ) && ! empty( $this->settings['linkedin_client_secret'] ) ) : 
+						$encoded_url = isset( $encoded_url ) ? '&state=' . base64_encode( "redirect_to=" . $encoded_url ) . "&redirect_to=" . $redirect_to : '' ; ?>
 
-            <a href="<?php echo wp_login_url(); ?>?lpsl_login_id=linkedin_login
-              <?php
-              if ( $encoded_url ) {
-                echo '&state=' . base64_encode( "redirect_to=$encoded_url" ) . "&redirect_to=$redirect_to";
-							}
-							if ( !empty( $social_encoded_url ) ) {
-								echo '&state=' . base64_encode( "redirect_to=$social_encoded_url" ). "&redirect_to=$social_redirect_to";
-							}
-              ?>
-              " title='
-              <?php
-              _e( 'Login with LinkedIn', 'loginpress-social-login' );
-              ?>
-              ' >
-              <div class="lpsl-icon-block icon-linkdin clearfix">
+							<a href="<?php echo wp_login_url(). "?lpsl_login_id=linkedin_login" . $encoded_url; ?>" rel="nofollow"
+							title="<?php _e( 'Login with LinkedIn', 'loginpress-social-login' ); ?>" >
+								<div class="lpsl-icon-block icon-linkdin clearfix">
 
-                <span class="lpsl-login-text"><?php _e( 'Login with LinkedIn', 'loginpress-social-login' ); ?></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#0076b4" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
-              </div>
-            </a>
+									<span class="lpsl-login-text"><?php _e( 'Login with LinkedIn', 'loginpress-social-login' ); ?></span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#0076b4" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+								</div>
+							</a>
 
-          <?php
-          endif;
-        } while (0); ?>
+						<?php
+						endif;
+					} while (0); ?>
 
-      </div>
+      	</div>
       <?php
     }
 
@@ -820,7 +759,6 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     */
     function load_login_assets() {
 
-      wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
       wp_enqueue_style( 'loginpress-social-login', plugins_url( 'assets/css/login.css', __FILE__ ), array(), LOGINPRESS_SOCIAL_VERSION );
     }
 
@@ -833,10 +771,6 @@ endif;
 * @since  1.0.0
 * @return LoginPress
 */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function loginPress_social_loader() {
   return LoginPress_Social::instance();
 }

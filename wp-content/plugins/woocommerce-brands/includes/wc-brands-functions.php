@@ -13,7 +13,7 @@
  * @return string
  */
 function get_brand_thumbnail_url( $brand_id, $size = 'full' ) {
-	$thumbnail_id = WC_Brands::get_term_meta( $brand_id, 'thumbnail_id', true );
+	$thumbnail_id = get_term_meta( $brand_id, 'thumbnail_id', true );
 
 	if ( $thumbnail_id ) {
 		$thumb_src = wp_get_attachment_image_src( $thumbnail_id, $size );
@@ -32,7 +32,7 @@ function get_brand_thumbnail_url( $brand_id, $size = 'full' ) {
  * @return string
  */
 function get_brand_thumbnail_image( $brand, $size = '' ) {
-	$thumbnail_id = WC_Brands::get_term_meta( $brand->term_id, 'thumbnail_id', true );
+	$thumbnail_id = get_term_meta( $brand->term_id, 'thumbnail_id', true );
 
 	if ( '' === $size || 'brand-thumb' === $size ) {
 		$size = apply_filters( 'woocommerce_brand_thumbnail_size', 'shop_catalog' );

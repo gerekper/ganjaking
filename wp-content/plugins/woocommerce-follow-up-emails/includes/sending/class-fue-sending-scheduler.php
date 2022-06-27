@@ -839,6 +839,34 @@ class FUE_Sending_Scheduler {
 	}
 
 	/**
+	 * Update the user_email field to an email queue
+	 *
+	 * @since 4.9.23
+	 * @param int $id
+	 * @param string $user_email
+	 */
+	public function update_user_email( $id, $user_email ) {
+		$wpdb = Follow_Up_Emails::instance()->wpdb;
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->prefix}followup_email_orders
+				SET user_email = %s
+				WHERE id = %d",
+				$user_email,
+				$id
+			)
+		);
+
+		fue_debug_log(
+			__( 'Updated new user email to queue', 'follow_up_emails' ),
+			array(
+				'id'         => $id,
+				'user_email' => $user_email,
+			)
+		);
+	}
+
+	/**
 	 * Add an email to the queue
 	 *
 	 * @param array     $values

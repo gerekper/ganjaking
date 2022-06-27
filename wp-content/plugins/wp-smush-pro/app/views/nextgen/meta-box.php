@@ -67,9 +67,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<?php WP_Smush::get_instance()->admin()->print_pending_bulk_smush_content( $total_images_to_smush, $resmush_count, $ng->remaining_count ); ?>
 	</div>
 
-	<div id="wp-smush-all-button-container">
-		<button type="button" class="sui-button sui-button-blue wp-smush-nextgen-bulk">
-			<?php esc_html_e( 'BULK SMUSH', 'wp-smushit' ); ?>
-		</button>
-	</div>
+	<button type="button" class="sui-button sui-button-blue wp-smush-nextgen-bulk">
+		<?php esc_html_e( 'BULK SMUSH', 'wp-smushit' ); ?>
+	</button>
 </div>

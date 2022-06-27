@@ -24,7 +24,7 @@
 					if (initial == "#get_Conversation") {
 						var order = urli.pop();
 						$( ".conversation-view-" + order ).click();
-						// alert(".conversation-view-" + order);.
+						
 						var Url = urli.join( "/" );
 						history.replaceState( "", "", Url );
 					}

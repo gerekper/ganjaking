@@ -6,16 +6,16 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\TrueType;
+namespace WooCommercePDFInvoiceFontLib\TrueType;
 
-use FontLib\AdobeFontMetrics;
-use FontLib\Font;
-use FontLib\BinaryStream;
-use FontLib\Table\Table;
-use FontLib\Table\DirectoryEntry;
-use FontLib\Table\Type\glyf;
-use FontLib\Table\Type\name;
-use FontLib\Table\Type\nameRecord;
+use WooCommercePDFInvoiceFontLib\AdobeFontMetrics;
+use WooCommercePDFInvoiceFontLib\Font;
+use WooCommercePDFInvoiceFontLib\BinaryStream;
+use WooCommercePDFInvoiceFontLib\Table\Table;
+use WooCommercePDFInvoiceFontLib\Table\DirectoryEntry;
+use WooCommercePDFInvoiceFontLib\Table\Type\glyf;
+use WooCommercePDFInvoiceFontLib\Table\Type\name;
+use WooCommercePDFInvoiceFontLib\Table\Type\nameRecord;
 
 /**
  * TrueType font file.
@@ -282,7 +282,7 @@ class File extends BinaryStream {
 
 
     $type = $this->getFontType();
-    $class = "FontLib\\$type\\TableDirectoryEntry";
+    $class = "WooCommercePDFInvoiceFontLib\\$type\\TableDirectoryEntry";
 
     for ($i = 0; $i < $this->header->data["numTables"]; $i++) {
       /** @var TableDirectoryEntry $entry */
@@ -303,14 +303,14 @@ class File extends BinaryStream {
     if (!self::$raw) {
       $name_canon = preg_replace("/[^a-z0-9]/", "", strtolower($tag));
 
-      $class = "FontLib\\Table\\Type\\$name_canon";
+      $class = "WooCommercePDFInvoiceFontLib\\Table\\Type\\$name_canon";
 
       if (!isset($this->directory[$tag]) || !class_exists($class)) {
         return;
       }
     }
     else {
-      $class = "FontLib\\Table\\Table";
+      $class = "WooCommercePDFInvoiceFontLib\\Table\\Table";
     }
 
     /** @var Table $table */

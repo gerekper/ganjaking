@@ -38,7 +38,9 @@ class WC_Instagram_Product_Catalog_Format_CSV extends WC_Instagram_Product_Catal
 
 		fputcsv( $output, $this->get_output_heading() );
 
-		foreach ( $this->get_product_items() as $product_item ) {
+		$product_items = $this->get_product_items();
+
+		foreach ( $product_items as $product_item ) {
 			fputcsv( $output, $this->get_formatted_item( $product_item ) );
 		}
 

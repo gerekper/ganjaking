@@ -82,16 +82,34 @@ class Nextgen extends Abstract_Page {
 	public function dashboard_summary_metabox() {
 		$ng = WP_Smush::get_instance()->core()->nextgen->ng_admin;
 
-		$lossy_enabled = WP_Smush::is_pro() && $this->settings->get( 'lossy' );
+		$lossy_enabled = $this->settings->get( 'lossy' );
 
 		$smushed_image_count = 0;
 		if ( $lossy_enabled ) {
-			$smushed_image = $ng->ng_stats->get_ngg_images( 'smushed' );
+			$smushed_image = $ng->ng_stats->get_ngg_images();
 			if ( ! empty( $smushed_image ) && is_array( $smushed_image ) && ! empty( $this->resmush_ids ) && is_array( $this->resmush_ids ) ) {
 				// Get smushed images excluding resmush IDs.
 				$smushed_image = array_diff_key( $smushed_image, array_flip( $this->resmush_ids ) );
 			}
 			$smushed_image_count = is_array( $smushed_image ) ? count( $smushed_image ) : 0;
+		}
+
+		$percent_optimized = 0;
+		if ( 0 === $smushed_image_count ) {
+			$grade = 'sui-grade-dismissed';
+		} else {
+			$resmush_ids   = get_option( 'wp-smush-nextgen-resmush-list', false );
+			$resmush_count = $resmush_ids ? count( $resmush_ids ) : 0;
+			$total_count   = WP_Smush::get_instance()->core()->nextgen->ng_admin->total_count;
+
+			$percent_optimized = floor( ( $smushed_image_count - $resmush_count ) * 100 / $total_count );
+
+			$grade = 'sui-grade-f';
+			if ( $percent_optimized >= 60 && $percent_optimized < 90 ) {
+				$grade = 'sui-grade-c';
+			} elseif ( $percent_optimized >= 90 ) {
+				$grade = 'sui-grade-a';
+			}
 		}
 
 		$this->view(
@@ -104,6 +122,9 @@ class Nextgen extends Abstract_Page {
 				'stats_human'         => $ng->stats['human'] > 0 ? $ng->stats['human'] : '0 MB',
 				'stats_percent'       => $ng->stats['percent'] > 0 ? number_format_i18n( $ng->stats['percent'], 1 ) : 0,
 				'total_count'         => $ng->total_count,
+				'percent_grade'       => $grade,
+				'percent_metric'      => 0.0 === (float) $percent_optimized ? 100 : $percent_optimized,
+				'percent_optimized'   => $percent_optimized,
 			)
 		);
 	}

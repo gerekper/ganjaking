@@ -74,7 +74,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 		 *
 		 * @param int $limit The number of items to process per page.
 		 */
-		$limit = apply_filters( 'wc_instagram_product_catalog_items_per_page', 50 );
+		$limit = apply_filters( 'wc_instagram_product_catalog_items_per_page', 25 );
 
 		return absint( $limit );
 	}
@@ -112,6 +112,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			array(
 				'offset'           => 0,
 				'variation_offset' => 0,
+				'total'            => 0,
 			)
 		);
 
@@ -127,31 +128,37 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 		);
 
 		if ( 0 === $data['offset'] ) {
-			$this->log( 'Generating catalog: ' . $catalog->get_slug() . ".{$format}" );
+			$data['total'] = count( $catalog->get_product_ids() );
+			update_option( $data_option, $data );
+
+			$this->log(
+				sprintf(
+					'Generating catalog file %1$s with %2$d products.',
+					$catalog->get_slug() . ".{$format}",
+					$data['total']
+				)
+			);
 			$catalog_file->set_status( 'processing' );
 			$catalog_file->init();
 		}
 
-		$initial_offset = $data['offset'];
-		$product_item   = $catalog_items->get_next();
+		while ( $catalog_items->has_next() ) {
+			$product_item = $catalog_items->get_next();
 
-		// Skip variation offset.
-		if ( $data['variation_offset'] > 0 && is_array( $product_item ) ) {
-			$product_item = array_slice( $product_item, 0, $data['variation_offset'] );
-		}
-
-		$data['variation_offset'] = 0;
-
-		while ( $product_item ) {
 			// Iterate over the product variations.
 			if ( is_array( $product_item ) ) {
+				// Skip variation offset for the first product item.
+				if ( $data['variation_offset'] > 0 ) {
+					$product_item = array_slice( $product_item, 0, $data['variation_offset'] );
+				}
+
 				foreach ( $product_item as $variation ) {
 					$catalog_file->add_item( $variation );
 					$data['variation_offset']++;
 
 					update_option( $data_option, $data );
 				}
-			} else {
+			} elseif ( $product_item ) {
 				$catalog_file->add_item( $product_item );
 			}
 
@@ -159,15 +166,12 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			$data['variation_offset'] = 0;
 
 			update_option( $data_option, $data );
-
-			$product_item = $catalog_items->get_next();
 		}
 
-		$batch_items = absint( $data['offset'] - $initial_offset );
+		$this->log( "Processed {$data['offset']} of {$data['total']} products." );
 
-		$this->log( "Processed {$batch_items} items." );
-
-		if ( $limit <= $batch_items ) {
+		if ( $data['offset'] < $data['total'] ) {
+			update_option( $data_option, $data );
 			$catalog_file->close();
 
 			return $args;

@@ -61,11 +61,11 @@ class Workouts_Integration implements Integration_Interface {
 	/**
 	 * Workouts_Integration constructor.
 	 *
-	 * @param Indexable_Repository   $indexable_repository    The indexables repository.
-	 * @param WPSEO_Shortlinker      $shortlinker             The shortlinker.
-	 * @param Options_Helper         $options_helper          The options helper.
-	 * @param Prominent_Words_Helper $prominent_words_helper  The prominent words helper.
-	 * @param Post_Type_Helper       $post_type_helper        The post type helper.
+	 * @param Indexable_Repository   $indexable_repository   The indexables repository.
+	 * @param WPSEO_Shortlinker      $shortlinker            The shortlinker.
+	 * @param Options_Helper         $options_helper         The options helper.
+	 * @param Prominent_Words_Helper $prominent_words_helper The prominent words helper.
+	 * @param Post_Type_Helper       $post_type_helper       The post type helper.
 	 */
 	public function __construct(
 		Indexable_Repository $indexable_repository,

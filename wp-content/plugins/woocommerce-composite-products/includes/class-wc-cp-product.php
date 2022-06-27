@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Product wrapper class.
  *
  * @class    WC_CP_Product
- * @version  8.3.5
+ * @version  8.4.2
  */
 class WC_CP_Product {
 
@@ -512,7 +512,7 @@ class WC_CP_Product {
 		}
 
 		// Any add-ons?
-		if ( ! $is_configurable && $this->has_addons( true ) ) {
+		if ( ! $is_configurable && $this->has_addons( 'required' ) ) {
 			$is_configurable = true;
 		}
 
@@ -522,12 +522,20 @@ class WC_CP_Product {
 	/**
 	 * True if the composited product has addons.
 	 *
+	 * @param mixed $type
+	 *
 	 * @return boolean
 	 */
-	public function has_addons( $required = false ) {
+	public function has_addons( $type = '' ) {
 
 		if ( ! $this->exists() || ! $this->is_purchasable() ) {
 			return null;
+		}
+
+		// Backwards compatibility:
+		// has_addons used to be called with a true argument to check if there were any required add-ons.
+		if ( is_bool( $type ) ) {
+			$type = $type ? 'required' : '';
 		}
 
 		$has_addons = false;
@@ -538,7 +546,7 @@ class WC_CP_Product {
 		}
 
 		// Any add-ons?
-		if ( WC_CP()->compatibility->has_addons( $this->get_product(), $required ) ) {
+		if ( WC_CP()->compatibility->has_addons( $this->get_product(), $type ) ) {
 			$has_addons = true;
 		}
 

@@ -5,10 +5,10 @@
  * @author  Fabien Ménager <fabien.menager@gmail.com>
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-namespace FontLib\Table\Type;
+namespace WooCommercePDFInvoiceFontLib\Table\Type;
 
-use FontLib\Font;
-use FontLib\BinaryStream;
+use WooCommercePDFInvoiceFontLib\Font;
+use WooCommercePDFInvoiceFontLib\BinaryStream;
 
 /**
  * Font table name record.

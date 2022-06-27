@@ -1,15 +1,20 @@
 <?php
+declare (strict_types=1);
 namespace MailPoetVendor\Monolog\Formatter;
 if (!defined('ABSPATH')) exit;
-use Exception;
+use MailPoetVendor\Monolog\DateTimeImmutable;
 use MailPoetVendor\Monolog\Utils;
+use Throwable;
 class NormalizerFormatter implements FormatterInterface
 {
- const SIMPLE_DATE = "Y-m-d H:i:s";
+ public const SIMPLE_DATE = "Y-m-d\\TH:i:sP";
  protected $dateFormat;
- public function __construct($dateFormat = null)
+ protected $maxNormalizeDepth = 9;
+ protected $maxNormalizeItemCount = 1000;
+ private $jsonEncodeOptions = Utils::DEFAULT_JSON_FLAGS;
+ public function __construct(?string $dateFormat = null)
  {
- $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+ $this->dateFormat = null === $dateFormat ? static::SIMPLE_DATE : $dateFormat;
  if (!\function_exists('json_encode')) {
  throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
  }
@@ -25,10 +30,46 @@ class NormalizerFormatter implements FormatterInterface
  }
  return $records;
  }
- protected function normalize($data, $depth = 0)
+ public function getDateFormat() : string
  {
- if ($depth > 9) {
- return 'Over 9 levels deep, aborting normalization';
+ return $this->dateFormat;
+ }
+ public function setDateFormat(string $dateFormat) : self
+ {
+ $this->dateFormat = $dateFormat;
+ return $this;
+ }
+ public function getMaxNormalizeDepth() : int
+ {
+ return $this->maxNormalizeDepth;
+ }
+ public function setMaxNormalizeDepth(int $maxNormalizeDepth) : self
+ {
+ $this->maxNormalizeDepth = $maxNormalizeDepth;
+ return $this;
+ }
+ public function getMaxNormalizeItemCount() : int
+ {
+ return $this->maxNormalizeItemCount;
+ }
+ public function setMaxNormalizeItemCount(int $maxNormalizeItemCount) : self
+ {
+ $this->maxNormalizeItemCount = $maxNormalizeItemCount;
+ return $this;
+ }
+ public function setJsonPrettyPrint(bool $enable) : self
+ {
+ if ($enable) {
+ $this->jsonEncodeOptions |= \JSON_PRETTY_PRINT;
+ } else {
+ $this->jsonEncodeOptions &= ~\JSON_PRETTY_PRINT;
+ }
+ return $this;
+ }
+ protected function normalize($data, int $depth = 0)
+ {
+ if ($depth > $this->maxNormalizeDepth) {
+ return 'Over ' . $this->maxNormalizeDepth . ' levels deep, aborting normalization';
  }
  if (null === $data || \is_scalar($data)) {
  if (\is_float($data)) {
@@ -42,46 +83,45 @@ class NormalizerFormatter implements FormatterInterface
  return $data;
  }
  if (\is_array($data)) {
- $normalized = array();
+ $normalized = [];
  $count = 1;
  foreach ($data as $key => $value) {
- if ($count++ > 1000) {
- $normalized['...'] = 'Over 1000 items (' . \count($data) . ' total), aborting normalization';
+ if ($count++ > $this->maxNormalizeItemCount) {
+ $normalized['...'] = 'Over ' . $this->maxNormalizeItemCount . ' items (' . \count($data) . ' total), aborting normalization';
  break;
  }
  $normalized[$key] = $this->normalize($value, $depth + 1);
  }
  return $normalized;
  }
- if ($data instanceof \DateTime) {
- return $data->format($this->dateFormat);
+ if ($data instanceof \DateTimeInterface) {
+ return $this->formatDate($data);
  }
  if (\is_object($data)) {
- // TODO 2.0 only check for Throwable
- if ($data instanceof Exception || \PHP_VERSION_ID > 70000 && $data instanceof \Throwable) {
- return $this->normalizeException($data);
+ if ($data instanceof Throwable) {
+ return $this->normalizeException($data, $depth);
  }
- // non-serializable objects that implement __toString stringified
- if (\method_exists($data, '__toString') && !$data instanceof \JsonSerializable) {
+ if ($data instanceof \JsonSerializable) {
+ $value = $data->jsonSerialize();
+ } elseif (\method_exists($data, '__toString')) {
  $value = $data->__toString();
  } else {
- // the rest is json-serialized in some way
- $value = $this->toJson($data, \true);
+ // the rest is normalized by json encoding and decoding it
+ $value = \json_decode($this->toJson($data, \true), \true);
  }
- return \sprintf("[object] (%s: %s)", Utils::getClass($data), $value);
+ return [Utils::getClass($data) => $value];
  }
  if (\is_resource($data)) {
- return \sprintf('[resource] (%s)', \get_resource_type($data));
+ return \sprintf('[resource(%s)]', \get_resource_type($data));
  }
  return '[unknown(' . \gettype($data) . ')]';
  }
- protected function normalizeException($e)
+ protected function normalizeException(Throwable $e, int $depth = 0)
  {
- // TODO 2.0 only check for Throwable
- if (!$e instanceof Exception && !$e instanceof \Throwable) {
- throw new \InvalidArgumentException('Exception/Throwable expected, got ' . \gettype($e) . ' / ' . Utils::getClass($e));
+ if ($e instanceof \JsonSerializable) {
+ return (array) $e->jsonSerialize();
  }
- $data = array('class' => Utils::getClass($e), 'message' => $e->getMessage(), 'code' => (int) $e->getCode(), 'file' => $e->getFile() . ':' . $e->getLine());
+ $data = ['class' => Utils::getClass($e), 'message' => $e->getMessage(), 'code' => (int) $e->getCode(), 'file' => $e->getFile() . ':' . $e->getLine()];
  if ($e instanceof \SoapFault) {
  if (isset($e->faultcode)) {
  $data['faultcode'] = $e->faultcode;
@@ -104,12 +144,31 @@ class NormalizerFormatter implements FormatterInterface
  }
  }
  if ($previous = $e->getPrevious()) {
- $data['previous'] = $this->normalizeException($previous);
+ $data['previous'] = $this->normalizeException($previous, $depth + 1);
  }
  return $data;
  }
- protected function toJson($data, $ignoreErrors = \false)
+ protected function toJson($data, bool $ignoreErrors = \false) : string
  {
- return Utils::jsonEncode($data, null, $ignoreErrors);
+ return Utils::jsonEncode($data, $this->jsonEncodeOptions, $ignoreErrors);
+ }
+ protected function formatDate(\DateTimeInterface $date)
+ {
+ // in case the date format isn't custom then we defer to the custom DateTimeImmutable
+ // formatting logic, which will pick the right format based on whether useMicroseconds is on
+ if ($this->dateFormat === self::SIMPLE_DATE && $date instanceof DateTimeImmutable) {
+ return (string) $date;
+ }
+ return $date->format($this->dateFormat);
+ }
+ public function addJsonEncodeOption(int $option) : self
+ {
+ $this->jsonEncodeOptions |= $option;
+ return $this;
+ }
+ public function removeJsonEncodeOption(int $option) : self
+ {
+ $this->jsonEncodeOptions &= ~$option;
+ return $this;
  }
 }

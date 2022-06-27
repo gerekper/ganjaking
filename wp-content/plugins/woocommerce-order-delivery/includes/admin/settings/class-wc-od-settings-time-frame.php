@@ -16,10 +16,16 @@ if ( class_exists( 'WC_OD_Settings_Time_Frame', false ) ) {
 	return;
 }
 
+if ( ! trait_exists( 'WC_OD_Settings_Lockout' ) ) {
+	include_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-lockout.php';
+}
+
 /**
  * WC_OD_Settings_Time_Frame class.
  */
 class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
+
+	use WC_OD_Settings_Lockout;
 
 	/**
 	 * Settings Form ID.
@@ -45,8 +51,6 @@ class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
 	 */
 	public function __construct( $frame_id = 'new' ) {
 		$this->frame_id = $frame_id;
-
-		parent::__construct();
 	}
 
 	/**
@@ -100,11 +104,10 @@ class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
 
 		$this->form_fields = array_merge(
 			$this->form_fields,
-			$this->get_number_of_orders_field(),
+			$this->get_lockout_fields(),
 			$this->get_shipping_methods_fields()
 		);
 
-		$this->form_fields['number_of_orders']['default']            = 0;
 		$this->form_fields['shipping_methods_option']['description'] = __( 'Choose the available shipping methods for this time frame.', 'woocommerce-order-delivery' );
 	}
 

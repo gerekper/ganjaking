@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Mapping\Exception;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
-use LogicException;
 use function sprintf;
 use function var_export;
 final class InvalidCustomGenerator extends ORMException

@@ -12,7 +12,6 @@ use MailPoetVendor\Doctrine\DBAL\Result;
 use MailPoetVendor\Doctrine\DBAL\Types\Type;
 use MailPoetVendor\Doctrine\DBAL\Types\Types;
 use MailPoetVendor\Doctrine\ORM\EntityManagerInterface;
-use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 use MailPoetVendor\Doctrine\ORM\Mapping\MappingException;
 use MailPoetVendor\Doctrine\ORM\Mapping\QuoteStrategy;
@@ -29,7 +28,9 @@ use MailPoetVendor\Doctrine\ORM\Repository\Exception\InvalidFindByCall;
 use MailPoetVendor\Doctrine\ORM\UnitOfWork;
 use MailPoetVendor\Doctrine\ORM\Utility\IdentifierFlattener;
 use MailPoetVendor\Doctrine\ORM\Utility\PersisterHelper;
+use LengthException;
 use function array_combine;
+use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_search;
@@ -37,7 +38,6 @@ use function array_unique;
 use function array_values;
 use function assert;
 use function count;
-use function get_class;
 use function implode;
 use function is_array;
 use function is_object;
@@ -110,36 +110,49 @@ class BasicEntityPersister implements EntityPersister
  }
  $stmt->executeStatement();
  if ($isPostInsertId) {
- $generatedId = $idGenerator->generate($this->em, $entity);
+ $generatedId = $idGenerator->generateId($this->em, $entity);
  $id = [$this->class->identifier[0] => $generatedId];
  $postInsertIds[] = ['generatedId' => $generatedId, 'entity' => $entity];
  } else {
  $id = $this->class->getIdentifierValues($entity);
  }
- if ($this->class->isVersioned) {
- $this->assignDefaultVersionValue($entity, $id);
+ if ($this->class->requiresFetchAfterChange) {
+ $this->assignDefaultVersionAndUpsertableValues($entity, $id);
  }
  }
  $this->queuedInserts = [];
  return $postInsertIds;
  }
- protected function assignDefaultVersionValue($entity, array $id)
+ protected function assignDefaultVersionAndUpsertableValues($entity, array $id)
  {
- $value = $this->fetchVersionValue($this->class, $id);
- $this->class->setFieldValue($entity, $this->class->versionField, $value);
+ $values = $this->fetchVersionAndNotUpsertableValues($this->class, $id);
+ foreach ($values as $field => $value) {
+ $value = Type::getType($this->class->fieldMappings[$field]['type'])->convertToPHPValue($value, $this->platform);
+ $this->class->setFieldValue($entity, $field, $value);
  }
- protected function fetchVersionValue($versionedClass, array $id)
+ }
+ protected function fetchVersionAndNotUpsertableValues($versionedClass, array $id)
  {
- $versionField = $versionedClass->versionField;
- $fieldMapping = $versionedClass->fieldMappings[$versionField];
+ $columnNames = [];
+ foreach ($this->class->fieldMappings as $key => $column) {
+ if (isset($column['generated']) || $this->class->isVersioned && $key === $versionedClass->versionField) {
+ $columnNames[$key] = $this->quoteStrategy->getColumnName($key, $versionedClass, $this->platform);
+ }
+ }
  $tableName = $this->quoteStrategy->getTableName($versionedClass, $this->platform);
  $identifier = $this->quoteStrategy->getIdentifierColumnNames($versionedClass, $this->platform);
- $columnName = $this->quoteStrategy->getColumnName($versionField, $versionedClass, $this->platform);
  // FIXME: Order with composite keys might not be correct
- $sql = 'SELECT ' . $columnName . ' FROM ' . $tableName . ' WHERE ' . implode(' = ? AND ', $identifier) . ' = ?';
+ $sql = 'SELECT ' . implode(', ', $columnNames) . ' FROM ' . $tableName . ' WHERE ' . implode(' = ? AND ', $identifier) . ' = ?';
  $flatId = $this->identifierFlattener->flattenIdentifier($versionedClass, $id);
- $value = $this->conn->fetchOne($sql, array_values($flatId), $this->extractIdentifierTypes($id, $versionedClass));
- return Type::getType($fieldMapping['type'])->convertToPHPValue($value, $this->platform);
+ $values = $this->conn->fetchNumeric($sql, array_values($flatId), $this->extractIdentifierTypes($id, $versionedClass));
+ if ($values === \false) {
+ throw new LengthException('Unexpected empty result for database query.');
+ }
+ $values = array_combine(array_keys($columnNames), $values);
+ if (!$values) {
+ throw new LengthException('Unexpected number of database columns.');
+ }
+ return $values;
  }
  private function extractIdentifierTypes(array $id, ClassMetadata $versionedClass) : array
  {
@@ -163,9 +176,9 @@ class BasicEntityPersister implements EntityPersister
  $isVersioned = $this->class->isVersioned;
  $quotedTableName = $this->quoteStrategy->getTableName($this->class, $this->platform);
  $this->updateTable($entity, $quotedTableName, $data, $isVersioned);
- if ($isVersioned) {
+ if ($this->class->requiresFetchAfterChange) {
  $id = $this->class->getIdentifierValues($entity);
- $this->assignDefaultVersionValue($entity, $id);
+ $this->assignDefaultVersionAndUpsertableValues($entity, $id);
  }
  }
  protected final function updateTable($entity, $quotedTableName, array $updateData, $versioned = \false) : void
@@ -284,7 +297,7 @@ class BasicEntityPersister implements EntityPersister
  $this->deleteJoinTableRecords($identifier, $types);
  return (bool) $this->conn->delete($tableName, $id, $types);
  }
- protected function prepareUpdateData($entity)
+ protected function prepareUpdateData($entity, bool $isInsert = \false)
  {
  $versionField = null;
  $result = [];
@@ -304,6 +317,12 @@ class BasicEntityPersister implements EntityPersister
  if (!isset($this->class->associationMappings[$field])) {
  $fieldMapping = $this->class->fieldMappings[$field];
  $columnName = $fieldMapping['columnName'];
+ if (!$isInsert && isset($fieldMapping['notUpdatable'])) {
+ continue;
+ }
+ if ($isInsert && isset($fieldMapping['notInsertable'])) {
+ continue;
+ }
  $this->columnTypes[$columnName] = $fieldMapping['type'];
  $result[$this->getOwningTable($field)][$columnName] = $newVal;
  continue;
@@ -342,7 +361,7 @@ class BasicEntityPersister implements EntityPersister
  }
  protected function prepareInsertData($entity)
  {
- return $this->prepareUpdateData($entity);
+ return $this->prepareUpdateData($entity, \true);
  }
  public function getOwningTable($fieldName)
  {
@@ -774,6 +793,9 @@ class BasicEntityPersister implements EntityPersister
  continue;
  }
  if (!$this->class->isIdGeneratorIdentity() || $this->class->identifier[0] !== $name) {
+ if (isset($this->class->fieldMappings[$name]['notInsertable'])) {
+ continue;
+ }
  $columns[] = $this->quoteStrategy->getColumnName($name, $this->class, $this->platform);
  $this->columnTypes[$name] = $this->class->fieldMappings[$name]['type'];
  }
@@ -1035,8 +1057,18 @@ class BasicEntityPersister implements EntityPersister
  }
  return [$newValue];
  }
- if (is_object($value) && $this->em->getMetadataFactory()->hasMetadataFor(ClassUtils::getClass($value))) {
- $class = $this->em->getClassMetadata(get_class($value));
+ return $this->getIndividualValue($value);
+ }
+ private function getIndividualValue($value)
+ {
+ if (!is_object($value)) {
+ return [$value];
+ }
+ $valueClass = ClassUtils::getClass($value);
+ if ($this->em->getMetadataFactory()->isTransient($valueClass)) {
+ return [$value];
+ }
+ $class = $this->em->getClassMetadata($valueClass);
  if ($class->isIdentifierComposite) {
  $newValue = [];
  foreach ($class->getIdentifierValues($value) as $innerValue) {
@@ -1044,15 +1076,7 @@ class BasicEntityPersister implements EntityPersister
  }
  return $newValue;
  }
- }
- return [$this->getIndividualValue($value)];
- }
- private function getIndividualValue($value)
- {
- if (!is_object($value) || !$this->em->getMetadataFactory()->hasMetadataFor(ClassUtils::getClass($value))) {
- return $value;
- }
- return $this->em->getUnitOfWork()->getSingleIdentifierValue($value);
+ return [$this->em->getUnitOfWork()->getSingleIdentifierValue($value)];
  }
  public function exists($entity, ?Criteria $extraConditions = null)
  {

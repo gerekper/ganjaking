@@ -33,7 +33,7 @@ class Deprecated_Hooks {
 	 */
 	private $deprecated_filter_hooks = array(
 		'wp_smush_backup_exists' => 'smush_backup_exists',
-		'wp_smush_file_exists'	 => 'smush_file_exists',
+		'wp_smush_file_exists'   => 'smush_file_exists',
 	);
 
 	/**
@@ -44,8 +44,8 @@ class Deprecated_Hooks {
 	private $deprecated_version = array(
 		'smush_backup_exists'             => '3.9.6',
 		'smush_s3_integration_fetch_file' => '3.9.6',
-		'smush_s3_backup_remove'		  => '3.9.6',
-		'smush_file_exists'				  => '3.9.6',
+		'smush_s3_backup_remove'          => '3.9.6',
+		'smush_file_exists'               => '3.9.6',
 	);
 
 	/**
@@ -79,15 +79,15 @@ class Deprecated_Hooks {
 		$old_hooks = array();
 		if ( isset( $this->deprecated_action_hooks[ $new_hook ] ) ) {
 			$old_hooks = $this->deprecated_action_hooks[ $new_hook ];
+
 			$this->is_action = true;
 		} elseif ( isset( $this->deprecated_filter_hooks[ $new_hook ] ) ) {
 			$old_hooks = $this->deprecated_filter_hooks[ $new_hook ];
 			// reset hook type.
 			$this->is_action = null;
 		}
-		$old_hooks = is_array( $old_hooks ) ? $old_hooks : array( $old_hooks );
 
-		return $old_hooks;
+		return is_array( $old_hooks ) ? $old_hooks : array( $old_hooks );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Deprecated_Hooks {
 	 *
 	 * @param  string $old_hook          Old hook name.
 	 * @param  array  $new_callback_args New callback args.
-	 * @return mixed
+	 * @return mixed|void
 	 */
 	protected function trigger_hook( $old_hook, $new_callback_args ) {
 		if ( $this->is_action ) {

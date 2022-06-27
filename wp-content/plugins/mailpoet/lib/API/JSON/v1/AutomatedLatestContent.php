@@ -6,24 +6,36 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
+use MailPoet\API\JSON\SuccessResponse;
 use MailPoet\Config\AccessControl;
+use MailPoet\Newsletter\AutomatedLatestContent as ALC;
+use MailPoet\Newsletter\BlockPostQuery;
+use MailPoet\Util\APIPermissionHelper;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WP\Posts as WPPosts;
 
 class AutomatedLatestContent extends APIEndpoint {
-  /** @var \MailPoet\Newsletter\AutomatedLatestContent  */
+  /** @var ALC  */
   public $ALC;
+
+  /*** @var WPFunctions */
   private $wp;
+
+  /*** @var APIPermissionHelper */
+  private $permissionHelper;
+
   public $permissions = [
     'global' => AccessControl::PERMISSION_MANAGE_EMAILS,
   ];
 
   public function __construct(
-    \MailPoet\Newsletter\AutomatedLatestContent $alc,
+    ALC $alc,
+    APIPermissionHelper $permissionHelper,
     WPFunctions $wp
   ) {
     $this->ALC = $alc;
     $this->wp = $wp;
+    $this->permissionHelper = $permissionHelper;
   }
 
   public function getPostTypes() {
@@ -62,31 +74,46 @@ class AutomatedLatestContent extends APIEndpoint {
       'order' => 'ASC',
     ];
 
-    $args = $this->wp->applyFilters('mailpoet_search_terms_args', $args);
-    $terms = WPPosts::getTerms($args);
+    $args = (array)$this->wp->applyFilters('mailpoet_search_terms_args', $args);
+    $terms = WPFunctions::get()->getTerms($args);
 
     return $this->successResponse(array_values($terms));
   }
 
-  public function getPosts($data = []) {
+  /**
+   * Fetches posts for Posts static block
+   */
+  public function getPosts(array $data = []): SuccessResponse {
     return $this->successResponse(
-      $this->ALC->getPosts($data)
+      $this->getPermittedPosts($this->ALC->getPosts(new BlockPostQuery(['args' => $data, 'dynamic' => false])))
     );
   }
 
-  public function getTransformedPosts($data = []) {
-    $posts = $this->ALC->getPosts($data);
+  /**
+   * Fetches products for Abandoned Cart Content dynamic block
+   */
+  public function getTransformedPosts(array $data = []): SuccessResponse {
+    $posts = $this->getPermittedPosts($this->ALC->getPosts(new BlockPostQuery([
+      'args' => $data,
+      // If the request is for Posts block then we are fetching data for a static block
+      'dynamic' => !(isset($data['type']) && $data['type'] === "posts"),
+    ]
+    )));
     return $this->successResponse(
       $this->ALC->transformPosts($data, $posts)
     );
   }
 
-  public function getBulkTransformedPosts($data = []) {
+  /**
+   * Fetches different post types for ALC dynamic block
+   */
+  public function getBulkTransformedPosts(array $data = []): SuccessResponse {
     $usedPosts = [];
     $renderedPosts = [];
 
     foreach ($data['blocks'] as $block) {
-      $posts = $this->ALC->getPosts($block, $usedPosts);
+      $query = new BlockPostQuery(['args' => $block, 'postsToExclude' => $usedPosts]);
+      $posts = $this->getPermittedPosts($this->ALC->getPosts($query));
       $renderedPosts[] = $this->ALC->transformPosts($block, $posts);
 
       foreach ($posts as $post) {
@@ -95,5 +122,15 @@ class AutomatedLatestContent extends APIEndpoint {
     }
 
     return $this->successResponse($renderedPosts);
+  }
+
+  /**
+   * @param \WP_Post[] $posts
+   * @return \WP_Post[]
+   */
+  private function getPermittedPosts($posts) {
+    return array_filter($posts, function ($post) {
+      return $this->permissionHelper->checkReadPermission($post);
+    });
   }
 }

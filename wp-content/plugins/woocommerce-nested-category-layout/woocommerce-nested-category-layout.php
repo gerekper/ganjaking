@@ -6,7 +6,7 @@
  * Description: WooCommerce Nested Category Catalog Page Layout
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.17.3
+ * Version: 1.17.4
  * Text Domain: woocommerce-nested-category-layout
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 142840:60d07379d28e80cf143790b8aea869a7
  * WC requires at least: 3.9.4
- * WC tested up to: 6.2.1
+ * WC tested up to: 6.6.0
  */
 
 defined( 'ABSPATH' ) or exit;

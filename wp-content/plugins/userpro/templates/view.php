@@ -172,7 +172,7 @@
 			<div class="userpro-field userpro-submit userpro-column">
 				
 				<?php if ( $userpro->request_verification($user_id) ) { ?>
-				<input type="button" value="<?php _e('Request Verification','userpro'); ?>" class="popup-request_verify userpro-button secondary" data-up_username="<?php echo $userpro->id_to_member($user_id); ?>" />
+				<input type="button" value="<?php _e('Request Verification','userpro'); ?>" class="popup_userpro-request_verify userpro-button secondary" data-up_username="<?php echo $userpro->id_to_member($user_id); ?>" />
 				<?php } ?>
 				
 				<?php if ( userpro_can_delete_user($user_id) ) { ?>

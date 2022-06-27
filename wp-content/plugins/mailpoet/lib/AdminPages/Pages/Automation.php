@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\PageRenderer;
-use MailPoet\Automation\Migrations\Migrator;
+use MailPoet\Automation\Engine\Migrations\Migrator;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Automation {

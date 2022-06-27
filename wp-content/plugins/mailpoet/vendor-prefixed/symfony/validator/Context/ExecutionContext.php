@@ -1,7 +1,6 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\Validator\Context;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\ConstraintViolation;
 use MailPoetVendor\Symfony\Component\Validator\ConstraintViolationList;
@@ -33,11 +32,8 @@ class ExecutionContext implements ExecutionContextInterface
  private $validatedConstraints = [];
  private $initializedObjects;
  private $cachedObjectsRefs;
- public function __construct(ValidatorInterface $validator, $root, $translator, string $translationDomain = null)
+ public function __construct(ValidatorInterface $validator, $root, TranslatorInterface $translator, string $translationDomain = null)
  {
- if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
- throw new \TypeError(\sprintf('Argument 3 passed to "%s()" must be an instance of "%s", "%s" given.', __METHOD__, TranslatorInterface::class, \is_object($translator) ? \get_class($translator) : \gettype($translator)));
- }
  $this->validator = $validator;
  $this->root = $root;
  $this->translator = $translator;
@@ -45,14 +41,14 @@ class ExecutionContext implements ExecutionContextInterface
  $this->violations = new ConstraintViolationList();
  $this->cachedObjectsRefs = new \SplObjectStorage();
  }
- public function setNode($value, $object, MetadataInterface $metadata = null, $propertyPath)
+ public function setNode($value, ?object $object, MetadataInterface $metadata = null, string $propertyPath)
  {
  $this->value = $value;
  $this->object = $object;
  $this->metadata = $metadata;
- $this->propertyPath = (string) $propertyPath;
+ $this->propertyPath = $propertyPath;
  }
- public function setGroup($group)
+ public function setGroup(?string $group)
  {
  $this->group = $group;
  }
@@ -60,11 +56,11 @@ class ExecutionContext implements ExecutionContextInterface
  {
  $this->constraint = $constraint;
  }
- public function addViolation($message, array $parameters = [])
+ public function addViolation(string $message, array $parameters = [])
  {
  $this->violations->add(new ConstraintViolation($this->translator->trans($message, $parameters, $this->translationDomain), $message, $parameters, $this->root, $this->propertyPath, $this->getValue(), null, null, $this->constraint));
  }
- public function buildViolation($message, array $parameters = []) : ConstraintViolationBuilderInterface
+ public function buildViolation(string $message, array $parameters = []) : ConstraintViolationBuilderInterface
  {
  return new ConstraintViolationBuilder($this->violations, $this->constraint, $message, $parameters, $this->root, $this->propertyPath, $this->getValue(), $this->translator, $this->translationDomain);
  }
@@ -111,42 +107,46 @@ class ExecutionContext implements ExecutionContextInterface
  {
  return $this->metadata instanceof PropertyMetadataInterface ? $this->metadata->getPropertyName() : null;
  }
- public function getPropertyPath($subPath = '') : string
+ public function getPropertyPath(string $subPath = '') : string
  {
  return PropertyPath::append($this->propertyPath, $subPath);
  }
- public function markGroupAsValidated($cacheKey, $groupHash)
+ public function markGroupAsValidated(string $cacheKey, string $groupHash)
  {
  if (!isset($this->validatedObjects[$cacheKey])) {
  $this->validatedObjects[$cacheKey] = [];
  }
  $this->validatedObjects[$cacheKey][$groupHash] = \true;
  }
- public function isGroupValidated($cacheKey, $groupHash) : bool
+ public function isGroupValidated(string $cacheKey, string $groupHash) : bool
  {
  return isset($this->validatedObjects[$cacheKey][$groupHash]);
  }
- public function markConstraintAsValidated($cacheKey, $constraintHash)
+ public function markConstraintAsValidated(string $cacheKey, string $constraintHash)
  {
  $this->validatedConstraints[$cacheKey . ':' . $constraintHash] = \true;
  }
- public function isConstraintValidated($cacheKey, $constraintHash) : bool
+ public function isConstraintValidated(string $cacheKey, string $constraintHash) : bool
  {
  return isset($this->validatedConstraints[$cacheKey . ':' . $constraintHash]);
  }
- public function markObjectAsInitialized($cacheKey)
+ public function markObjectAsInitialized(string $cacheKey)
  {
  $this->initializedObjects[$cacheKey] = \true;
  }
- public function isObjectInitialized($cacheKey) : bool
+ public function isObjectInitialized(string $cacheKey) : bool
  {
  return isset($this->initializedObjects[$cacheKey]);
  }
- public function generateCacheKey($object)
+ public function generateCacheKey(object $object) : string
  {
  if (!isset($this->cachedObjectsRefs[$object])) {
  $this->cachedObjectsRefs[$object] = \spl_object_hash($object);
  }
  return $this->cachedObjectsRefs[$object];
+ }
+ public function __clone()
+ {
+ $this->violations = clone $this->violations;
  }
 }

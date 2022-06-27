@@ -5,13 +5,13 @@ use MailPoetVendor\Twig\Profiler\Profile;
 abstract class BaseDumper
 {
  private $root;
- public function dump(Profile $profile)
+ public function dump(Profile $profile) : string
  {
  return $this->dumpProfile($profile);
  }
- protected abstract function formatTemplate(Profile $profile, $prefix);
- protected abstract function formatNonTemplate(Profile $profile, $prefix);
- protected abstract function formatTime(Profile $profile, $percent);
+ protected abstract function formatTemplate(Profile $profile, $prefix) : string;
+ protected abstract function formatNonTemplate(Profile $profile, $prefix) : string;
+ protected abstract function formatTime(Profile $profile, $percent) : string;
  private function dumpProfile(Profile $profile, $prefix = '', $sibling = \false) : string
  {
  if ($profile->isRoot()) {
@@ -38,4 +38,3 @@ abstract class BaseDumper
  return $str;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Profiler\\Dumper\\BaseDumper', 'MailPoetVendor\\Twig_Profiler_Dumper_Base');

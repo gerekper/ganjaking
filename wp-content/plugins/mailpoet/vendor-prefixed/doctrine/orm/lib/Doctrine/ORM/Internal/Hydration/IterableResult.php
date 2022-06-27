@@ -14,7 +14,7 @@ class IterableResult implements Iterator
  {
  $this->_hydrator = $hydrator;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function rewind()
  {
  if ($this->_rewinded === \true) {
@@ -23,24 +23,24 @@ class IterableResult implements Iterator
  $this->_current = $this->next();
  $this->_rewinded = \true;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function next()
  {
  $this->_current = $this->_hydrator->hydrateRow();
  $this->_key++;
  return $this->_current;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function current()
  {
  return $this->_current;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function key()
  {
  return $this->_key;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function valid()
  {
  return $this->_current !== \false;

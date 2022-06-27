@@ -3,10 +3,8 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Query;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
-use MailPoetVendor\Doctrine\ORM\Mapping\AssociationMetadata;
 use MailPoetVendor\Doctrine\ORM\Query\AST\PathExpression;
 use Exception;
-use LogicException;
 class QueryException extends ORMException
 {
  public static function dqlError($dql)

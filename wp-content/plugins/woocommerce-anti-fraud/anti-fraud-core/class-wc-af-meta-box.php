@@ -18,7 +18,6 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 		 * Output the metabox output
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public function output() {
 
@@ -27,7 +26,7 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 				return;
 			}
 
-			$order_id = $_GET['post'];
+			$order_id = sanitize_text_field( $_GET['post'] );
 
 			// Create Score object and calculate score
 			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
@@ -39,18 +38,18 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 			if ( '' != $score_points ) {
 
 				// The label
-				echo '<span class="mb-score-label" style="color:' . $meta['color'] . '">' . WC_AF_Score_Helper::invert_score( $score_points ) . ' % ' . $meta['label'] . '</span>' . PHP_EOL;
+				echo '<span class="mb-score-label" style="color:' . esc_attr($meta['color']) . '">' . esc_attr( WC_AF_Score_Helper::invert_score( $score_points ) ) . ' % ' . esc_attr($meta['label']) . '</span>' . PHP_EOL;
 
 				// Circle points
 				$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
 
 				// The circle
-				echo '<input class="knob" data-fgColor="' . $meta['color'] . '" data-thickness=".4" data-readOnly=true value="0" rel="' . $circle_points . '">';
+				echo '<input class="knob" data-fgColor="' . esc_attr($meta['color']) . '" data-thickness=".4" data-readOnly=true value="0" rel="' . esc_attr($circle_points) . '">';
 
 				// The rules
 				$json_rules = get_post_meta( $order_id, 'wc_af_failed_rules', true );
 				$whitelist_action = get_post_meta( $order_id, 'whitelist_action', true );
-				$whitelist_action_style = ( $whitelist_action == 'user_email_whitelisted' ) ? 'style="color:grey"' : '';
+				$whitelist_action_style = ( 'user_email_whitelisted' == $whitelist_action ) ? 'style="color:grey"' : '';
 				//echo '<pre>'; print_r($json_rules); echo '</pre>';
 
 				// Failed Rules
@@ -61,9 +60,9 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 					echo '<ul>' . PHP_EOL;
 					
 					foreach ( $json_rules as $wc_af_failed_rule ) {
-						$wc_af_failed_rule_decode = json_decode($wc_af_failed_rule,true);
-						if ( $wc_af_failed_rule_decode['id'] == 'whitelist' ) {
-							echo '<li class="failed" '.$whitelist_action_style.'>' . $wc_af_failed_rule_decode['label'] . '</li>' . PHP_EOL;
+						$wc_af_failed_rule_decode = json_decode($wc_af_failed_rule, true);
+						if ('whitelist' == $wc_af_failed_rule_decode['id'] ) {
+							echo '<li class="failed" ' . esc_attr($whitelist_action_style) . '>' . esc_attr($wc_af_failed_rule_decode['label']) . '</li>' . PHP_EOL;
 						}
 					}
 
@@ -73,12 +72,12 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 						if ( ! is_a( $rule, 'WC_AF_Rule' ) ) {
 							continue;
 						}
-						echo '<li class="failed" '.$whitelist_action_style.'>' . $rule->get_label() . '</li>' . PHP_EOL;
+						echo '<li class="failed" ' . esc_attr($whitelist_action_style) . '>' . esc_attr($rule->get_label()) . '</li>' . PHP_EOL;
 					}
 
 					echo '</ul>' . PHP_EOL;
 					//echo '<p><a href="#" data_id='.$order_id.' class="button button-primary test-fraud">' . __( 'Ajax Fraud Risk', 'woocommerce-anti-fraud' ) . '</a></p>' . PHP_EOL;
-					echo '<a class="woocommerce-af-risk-failure-list-toggle" href="#" data-toggle="' . __( 'Hide details', 'woocommerce-anti-fraud' ) . '">' . __( 'Show fraud risk details', 'woocommerce-anti-fraud' ) . '</a>' . PHP_EOL;
+					echo '<a class="woocommerce-af-risk-failure-list-toggle" href="#" data-toggle="' . esc_html__( 'Hide details', 'woocommerce-anti-fraud' ) . '">' . esc_html__( 'Show fraud risk details', 'woocommerce-anti-fraud' ) . '</a>' . PHP_EOL;
 
 					echo '</div>' . PHP_EOL;
 				}
@@ -102,12 +101,12 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 				// Check if we're currently waiting for an audit
 				if ( WC_AF_Score_Helper::is_fraud_check_queued( $order_id ) ) {
 
-					echo '<p>' . __( 'This order is currently in queue for a fraud check.', 'woocommerce-anti-fraud' ) . '</p>' . PHP_EOL;
+					echo '<p>' . esc_html__( 'This order is currently in queue for a fraud check.', 'woocommerce-anti-fraud' ) . '</p>' . PHP_EOL;
 
 				} else {
 					// No score found and order not scheduled for fraud check
-					echo '<p>' . $meta['label'] . '</p>' . PHP_EOL;
-					echo '<p><a href="' . admin_url( 'post.php?post=' . $_GET['post'] . '&action=edit&schedule_anti_fraud=1' ) . '" class="button button-primary">' . __( 'Calculate Fraud Risk', 'woocommerce-anti-fraud' ) . '</a></p>' . PHP_EOL;
+					echo '<p>' . esc_attr($meta['label']) . '</p>' . PHP_EOL;
+					echo '<p><a href="' . esc_url( admin_url( 'post.php?post=' . sanitize_text_field( $_GET['post'] ) . '&action=edit&schedule_anti_fraud=1' )) . '" class="button button-primary">' . esc_html__( 'Calculate Fraud Risk', 'woocommerce-anti-fraud' ) . '</a></p>' . PHP_EOL;
 				}
 
 			}

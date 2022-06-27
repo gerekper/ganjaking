@@ -17,22 +17,43 @@ use MailPoetVendor\Twig\TwigFunction;
 class Functions extends AbstractExtension {
 
   /** @var SettingsController */
-  private $settings;
+  private $settings = null;
 
   /** @var WooCommerceHelper */
-  private $woocommerceHelper;
+  private $woocommerceHelper = null;
 
   /** @var WPFunctions */
-  private $wp;
+  private $wp = null;
 
   /** @var UrlDecorator */
-  private $referralUrlDecorator;
+  private $referralUrlDecorator = null;
 
-  public function __construct() {
-    $this->settings = SettingsController::getInstance();
-    $this->woocommerceHelper = new WooCommerceHelper();
-    $this->wp = WPFunctions::get();
-    $this->referralUrlDecorator = new UrlDecorator($this->wp, $this->settings);
+  private function getWooCommerceHelper(): WooCommerceHelper {
+    if ($this->woocommerceHelper === null) {
+      $this->woocommerceHelper = new WooCommerceHelper();
+    }
+    return $this->woocommerceHelper;
+  }
+
+  private function getreferralUrlDecorator(): UrlDecorator {
+    if ($this->referralUrlDecorator === null) {
+      $this->referralUrlDecorator = new UrlDecorator($this->getWp(), $this->getSettings());
+    }
+    return $this->referralUrlDecorator;
+  }
+
+  private function getSettings(): SettingsController {
+    if ($this->settings === null) {
+      $this->settings = SettingsController::getInstance();
+    }
+    return $this->settings;
+  }
+
+  private function getWp(): WPFunctions {
+    if ($this->wp === null) {
+      $this->wp = WPFunctions::get();
+    }
+    return $this->wp;
   }
 
   public function getFunctions() {
@@ -171,10 +192,10 @@ class Functions extends AbstractExtension {
 
     $label = null;
     $labels = [
-      'minute' => $this->wp->__('every minute', 'mailpoet'),
-      'minutes' => $this->wp->__('every %1$d minutes', 'mailpoet'),
-      'hour' => $this->wp->__('every hour', 'mailpoet'),
-      'hours' => $this->wp->__('every %1$d hours', 'mailpoet'),
+      'minute' => $this->getWp()->__('every minute', 'mailpoet'),
+      'minutes' => $this->getWp()->__('every %1$d minutes', 'mailpoet'),
+      'hour' => $this->getWp()->__('every hour', 'mailpoet'),
+      'hours' => $this->getWp()->__('every %1$d hours', 'mailpoet'),
     ];
 
     if ($value >= 60) {
@@ -202,11 +223,11 @@ class Functions extends AbstractExtension {
   }
 
   public function getWPDateFormat() {
-    return $this->wp->getOption('date_format') ?: 'F j, Y';
+    return $this->getWp()->getOption('date_format') ?: 'F j, Y';
   }
 
   public function getWPStartOfWeek() {
-    return $this->wp->getOption('start_of_week') ?: 0;
+    return $this->getWp()->getOption('start_of_week') ?: 0;
   }
 
   public function getMailPoetVersion() {
@@ -218,7 +239,7 @@ class Functions extends AbstractExtension {
   }
 
   public function getWPTimeFormat() {
-    return $this->wp->getOption('time_format') ?: 'g:i a';
+    return $this->getWp()->getOption('time_format') ?: 'g:i a';
   }
 
   public function getWPDateTimeFormat() {
@@ -226,7 +247,7 @@ class Functions extends AbstractExtension {
   }
 
   public function params($key = null) {
-    $args = $this->wp->stripslashesDeep($_GET);
+    $args = $this->getWp()->stripslashesDeep($_GET);
     if (array_key_exists($key, $args)) {
       return $args[$key];
     }
@@ -235,7 +256,7 @@ class Functions extends AbstractExtension {
 
   public function installedInLastTwoWeeks() {
     $maxNumberOfWeeks = 2;
-    $installedAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->settings->get('installed_at'));
+    $installedAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->getSettings()->get('installed_at'));
     if ($installedAt === false) {
       return false;
     }
@@ -243,11 +264,11 @@ class Functions extends AbstractExtension {
   }
 
   public function isRtl() {
-    return $this->wp->isRtl();
+    return $this->getWp()->isRtl();
   }
 
   public function getTwoLettersLocale() {
-    return explode('_', $this->wp->getLocale())[0];
+    return explode('_', $this->getWp()->getLocale())[0];
   }
 
   public function getFreeDomains() {
@@ -255,7 +276,7 @@ class Functions extends AbstractExtension {
   }
 
   public function isWoocommerceActive() {
-    return $this->woocommerceHelper->isWooCommerceActive();
+    return $this->getWooCommerceHelper()->isWooCommerceActive();
   }
 
   public function statsColor($percentage) {
@@ -298,10 +319,10 @@ class Functions extends AbstractExtension {
   }
 
   public function addReferralId($url) {
-    return $this->referralUrlDecorator->decorate($url);
+    return $this->getreferralUrlDecorator()->decorate($url);
   }
 
   public function libs3rdPartyEnabled(): bool {
-    return $this->settings->get('3rd_party_libs.enabled') === '1';
+    return $this->getSettings()->get('3rd_party_libs.enabled') === '1';
   }
 }

@@ -1,12 +1,12 @@
 /**
  * jquery.tctooltip.js
  *
- * @version: v1.0
+ * @version: v1.1
  * @author: themeComplete
  *
  * Created by themeComplete
  *
- * Copyright (c) 2019 themeComplete http://themecomplete.com
+ * Copyright (c) 2021 themeComplete http://themecomplete.com
  */
 ( function( window, $ ) {
 	'use strict';
@@ -58,6 +58,10 @@
 			}
 
 			$( window ).off( 'scroll.tcToolTip resize.tcToolTip' );
+
+			if ( settings.onetime ) {
+				this.destroy();
+			}
 		},
 
 		initTooltip: function( target, tooltip, nofx ) {
@@ -138,7 +142,7 @@
 				pos_from_top = target.offset().top - scroll.top - tooltip.outerHeight() - 10;
 
 				if ( pos_top < 0 || pos_from_top < 0 ) {
-					pos_top = target.offset().top + target.outerHeight();
+					pos_top = target.offset().top + target.outerHeight() + 10;
 					tooltip.addClass( 'top' );
 					tooltip.removeClass( 'bottom' );
 				} else {
@@ -170,6 +174,7 @@
 			var tooltip;
 			var tip;
 			var img;
+			var settings = this.settings;
 
 			if ( target.data( 'is_moving' ) ) {
 				return;
@@ -194,8 +199,12 @@
 
 				if ( tip !== undefined ) {
 					$( '#tm-tooltip' ).remove();
-
-					tooltip = $( '<div id="tm-tooltip" class="tm-tip tm-animated"></div>' );
+					if ( ! settings.tipclass ) {
+						settings.tipclass = '';
+					} else {
+						settings.tipclass = ' ' + settings.tipclass;
+					}
+					tooltip = $( '<div id="tm-tooltip" class="tm-tip tm-animated' + settings.tipclass + '"></div>' );
 					tooltip.css( 'opacity', 0 ).html( tip ).appendTo( 'body' );
 
 					img = tooltip.find( 'img' );
@@ -210,9 +219,9 @@
 					target.data( 'is_moving', false );
 
 					target.on( 'tmmovetooltip', this.initTooltip.bind( this, target, tooltip, 1 ) );
-					target.on( 'mouseleave tmhidetooltip', this.removeTooltip.bind( this, target, tooltip ) );
+					target.on( 'mouseleave.tc tmhidetooltip', this.removeTooltip.bind( this, target, tooltip ) );
 
-					target.closest( 'label' ).on( 'mouseleave tmhidetooltip', this.removeTooltip.bind( this, target, tooltip ) );
+					target.closest( 'label' ).on( 'mouseleave.tc tmhidetooltip', this.removeTooltip.bind( this, target, tooltip ) );
 
 					tooltip.on( 'click', this.removeTooltip.bind( this, target, tooltip ) );
 				}
@@ -221,8 +230,22 @@
 			return false;
 		},
 
+		destroy: function() {
+			if ( this.targets.length > 0 ) {
+				this.targets.toArray().forEach( function( element ) {
+					var target = $( element );
+					target.closest( 'off' ).on( 'mouseleave.tc tmhidetooltip' );
+					target.off( 'tc-tooltip-html-changed tmmovetooltip tmhidetooltip mouseenter.tc mouseleave.tc tmshowtooltip.tc' );
+					target.removeData( 'tmtip-title' );
+					target.removeData( 'tm-tip-html' );
+				} );
+				this.targets.removeData( 'tctooltip tm-has-tm-tip is_moving' );
+			}
+		},
+
 		init: function() {
 			var that = this;
+			var settings = this.settings;
 
 			if ( this.targets.length > 0 ) {
 				this.targets.toArray().forEach( function( element ) {
@@ -243,7 +266,7 @@
 					var is_hide_label;
 
 					target = $( element );
-					tip = undefined;
+					tip = settings.tip || undefined;
 
 					if ( target.data( 'tm-has-tm-tip' ) === undefined ) {
 						is_swatch = target.attr( 'data-tm-tooltip-swatch' );
@@ -265,19 +288,22 @@
 						}
 
 						label = target.closest( '.tmcp-field-wrap' );
+						if ( label.is( '.tc-epo-element-product-holder' ) ) {
+							label = target.closest( '.cpf-element' );
+						}
 						if ( label.length === 0 ) {
-							label = target.closest( '.cpf_hide_element' );
+							label = target.closest( '.cpf-element' );
 						}
 						if ( label.length === 0 ) {
 							label = target.closest( '.cpf-section' ).find( '.tc-section-inner-wrap .tm-section-description.tm-description' );
 						}
 						findlabel = label.find( '.tm-tip-html' );
 						if ( findlabel.length === 0 ) {
-							findlabel = label.find( '.checkbox-image-label,.radio-image-label' );
+							findlabel = label.find( '.checkbox-image-label,.checkbox-image-label-inline,.radio-image-label,.radio-image-label-inline' );
 						}
 
 						if ( findlabel.length === 0 ) {
-							findlabel = label.next( '.checkbox-image-label,.radio-image-label,.tm-tip-html' );
+							findlabel = label.next( '.checkbox-image-label,.checkbox-image-label-inline,.radio-image-label,.radio-image-label-inline,.tm-tip-html' );
 						}
 						if ( findlabel.length === 0 && label.is( '.tm-description' ) ) {
 							findlabel = label;
@@ -300,34 +326,38 @@
 							descHTML = desc.attr( 'data-tm-tooltip-html' );
 						}
 
-						if ( is_swatch ) {
-							tip = findlabel.html();
-						} else if ( is_swatch_desc ) {
-							tip = '<aside>' + descHTML + '</aside>';
-						} else if ( is_swatch_lbl_desc ) {
-							tip = '<aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
-						} else if ( is_swatch_img ) {
-							tip = '<img src="' + get_img_src + '">';
-						} else if ( is_swatch_img_lbl ) {
-							tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside>';
-						} else if ( is_swatch_img_desc ) {
-							tip = '<img src="' + get_img_src + '"><aside>' + descHTML + '</aside>';
-						} else if ( is_swatch_img_lbl_desc ) {
-							tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
-						}
-
-						if ( tip !== undefined ) {
-							target.data( 'tm-tip-html', tip );
-							if ( is_hide_label ) {
-								findlabel.hide();
+						if ( tip === undefined ) {
+							if ( is_swatch ) {
+								tip = findlabel.html();
+							} else if ( is_swatch_desc ) {
+								tip = '<aside>' + descHTML + '</aside>';
+							} else if ( is_swatch_lbl_desc ) {
+								tip = '<aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
+							} else if ( is_swatch_img ) {
+								tip = '<img src="' + get_img_src + '">';
+							} else if ( is_swatch_img_lbl ) {
+								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside>';
+							} else if ( is_swatch_img_desc ) {
+								tip = '<img src="' + get_img_src + '"><aside>' + descHTML + '</aside>';
+							} else if ( is_swatch_img_lbl_desc ) {
+								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
 							}
-						}
 
-						// The following two methods are here for dynamic tooltip support
-						if ( target.attr( 'data-tm-tooltip-html' ) ) {
-							tip = target.attr( 'data-tm-tooltip-html' );
+							if ( tip !== undefined ) {
+								target.data( 'tm-tip-html', tip );
+								if ( is_hide_label ) {
+									findlabel.hide();
+								}
+							}
+
+							// The following two methods are here for dynamic tooltip support
+							if ( target.attr( 'data-tm-tooltip-html' ) ) {
+								tip = target.attr( 'data-tm-tooltip-html' );
+							} else {
+								tip = target.attr( 'title' );
+							}
 						} else {
-							tip = target.attr( 'title' );
+							target.data( 'tm-tip-html', tip );
 						}
 
 						target.on( 'tc-tooltip-html-changed', function() {
@@ -339,7 +369,11 @@
 						} );
 
 						target.closest( 'label' ).on( 'mouseenter tmshowtooltip', that.show.bind( that, target ) );
-						target.on( 'mouseenter tmshowtooltip', that.show.bind( that, target ) );
+						target.on( 'mouseenter.tc tmshowtooltip.tc', that.show.bind( that, target ) );
+
+						if ( settings.trigger ) {
+							that.show( target );
+						}
 					}
 				} );
 			}
@@ -373,6 +407,7 @@
 		}
 
 		if ( typeof option === 'string' ) {
+			data = targets.data( 'tctooltip' );
 			methodReturn = data[ option ].apply( data, [] );
 		}
 

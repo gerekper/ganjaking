@@ -34,7 +34,7 @@ class WC_MS_API {
      */
     private function calculate_shipping_packages( $order ) {
 		$packages   = $order->get_meta( '_wcms_packages' );
-        $multiship  = count( $packages ) > 1;
+        $multiship  = is_array( $packages ) && 1 < count( $packages );
 
         $retval = array(
             'multiple_shipping' => $multiship,

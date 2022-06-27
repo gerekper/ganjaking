@@ -1,11 +1,12 @@
 <?php
 namespace MailPoetVendor\Twig\TokenParser;
 if (!defined('ABSPATH')) exit;
+use MailPoetVendor\Twig\Node\Node;
 use MailPoetVendor\Twig\Node\WithNode;
 use MailPoetVendor\Twig\Token;
 final class WithTokenParser extends AbstractTokenParser
 {
- public function parse(Token $token)
+ public function parse(Token $token) : Node
  {
  $stream = $this->parser->getStream();
  $variables = null;
@@ -28,13 +29,12 @@ final class WithTokenParser extends AbstractTokenParser
  );
  return new WithNode($body, $variables, $only, $token->getLine(), $this->getTag());
  }
- public function decideWithEnd(Token $token)
+ public function decideWithEnd(Token $token) : bool
  {
  return $token->test('endwith');
  }
- public function getTag()
+ public function getTag() : string
  {
  return 'with';
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TokenParser\\WithTokenParser', 'MailPoetVendor\\Twig_TokenParser_With');

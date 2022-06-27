@@ -68,4 +68,3 @@ final class TemplateWrapper
  return $this->template;
  }
 }
-\class_alias('MailPoetVendor\\Twig\\TemplateWrapper', 'MailPoetVendor\\Twig_TemplateWrapper');

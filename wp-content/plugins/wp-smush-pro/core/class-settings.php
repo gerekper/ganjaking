@@ -50,9 +50,9 @@ class Settings {
 	 * @var array
 	 */
 	private $defaults = array(
-		'auto'              => true,  // works with CDN.
+		'auto'              => true, // works with CDN.
 		'lossy'             => false, // works with CDN.
-		'strip_exif'        => true,  // works with CDN.
+		'strip_exif'        => true, // works with CDN.
 		'resize'            => false,
 		'detection'         => false,
 		'original'          => false,
@@ -63,6 +63,7 @@ class Settings {
 		's3'                => false,
 		'gutenberg'         => false,
 		'js_builder'        => false,
+		'gform'             => false,
 		'cdn'               => false,
 		'auto_resize'       => false,
 		'webp'              => true,
@@ -82,14 +83,14 @@ class Settings {
 	 * @since 3.8.0  Added webp.
 	 * @var array $modules
 	 */
-	private $modules = array( 'bulk', 'integrations', 'lazy_load', 'cdn', 'webp', 'tools', 'settings' );
+	private $modules = array( 'bulk', 'integrations', 'lazy_load', 'cdn', 'webp', 'settings' );
 
 	/**
 	 * List of features/settings that are free.
 	 *
 	 * @var array $basic_features
 	 */
-	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'lazy_load' );
+	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'gform', 'lazy_load', 'lossy' );
 
 	/**
 	 * List of fields in bulk smush form.
@@ -107,7 +108,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	private $integrations_fields = array( 'gutenberg', 'js_builder', 's3', 'nextgen' );
+	private $integrations_fields = array( 'gutenberg', 'gform', 'js_builder', 's3', 'nextgen' );
 
 	/**
 	 * List of fields in CDN form.
@@ -136,7 +137,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	private $settings_fields = array( 'accessible_colors', 'usage', 'keep_data', 'api_auth' );
+	private $settings_fields = array( 'detection', 'accessible_colors', 'usage', 'keep_data', 'api_auth' );
 
 	/**
 	 * List of fields in lazy loading form.
@@ -146,15 +147,6 @@ class Settings {
 	 * @var array
 	 */
 	private $lazy_load_fields = array( 'lazy_load' );
-
-	/**
-	 * List of fields in tools form.
-	 *
-	 * @used-by save_settings()
-	 *
-	 * @var array
-	 */
-	private $tools_fields = array( 'detection' );
 
 	/**
 	 * Return the plugin instance.
@@ -248,9 +240,9 @@ class Settings {
 				'desc'        => esc_html__( 'Photos often store camera settings in the file, i.e., focal length, date, time and location. Removing EXIF data reduces the file size. Note: it does not strip SEO metadata.', 'wp-smushit' ),
 			),
 			'resize'            => array(
-				'label'       => esc_html__( 'Resize uploaded images', 'wp-smushit' ),
+				'label'       => esc_html__( 'Resize original images', 'wp-smushit' ),
 				'short_label' => esc_html__( 'Image Resizing', 'wp-smushit' ),
-				'desc'        => esc_html__( 'By default, WordPress will create a scaled version of all images over 2560x2560px and keep the uploaded image as backup. You can define a new resizing threshold here or completely disable the scaling functionality as well.', 'wp-smushit' ),
+				'desc'        => esc_html__( 'As of version 5.3, WordPress creates a scaled version of uploaded images over 2560x2560px by default, and keeps your original uploaded images as a backup. If desired, you can choose a different resizing threshold or disable the scaled images altogether.', 'wp-smushit' ),
 			),
 			'no_scale'          => array(
 				'label'       => esc_html__( 'Disable scaled images', 'wp-smushit' ),
@@ -263,14 +255,14 @@ class Settings {
 				'desc'        => esc_html__( 'This will add functionality to your website that highlights images that are either too large or too small for their containers.', 'wp-smushit' ),
 			),
 			'original'          => array(
-				'label'       => esc_html__( 'Compress uploaded images', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Uploaded Images', 'wp-smushit' ),
+				'label'       => esc_html__( 'Compress original images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Original Images', 'wp-smushit' ),
 				'desc'        => esc_html__( 'Choose how you want Smush to handle the original image file when you run a bulk smush.', 'wp-smushit' ),
 			),
 			'backup'            => array(
-				'label'       => esc_html__( 'Backup uploaded images', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Backup Uploaded Images', 'wp-smushit' ),
-				'desc'        => esc_html__( 'Enable this feature to save a copy of your uploaded images so you can restore them at any point. Note: Keeping a copy of uploaded files can significantly increase the size of your uploads folder.', 'wp-smushit' ),
+				'label'       => esc_html__( 'Backup original images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Backup Original Images', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Enable this feature to save a copy of your original images so you can restore them at any point. Note: Keeping a copy of the original images can significantly increase the size of your uploads folder.', 'wp-smushit' ),
 			),
 			'png_to_jpg'        => array(
 				'label'       => esc_html__( 'Auto-convert PNGs to JPEGs (lossy)', 'wp-smushit' ),
@@ -346,16 +338,6 @@ class Settings {
 	}
 
 	/**
-	 * Getter method for tools fields.
-	 *
-	 * @since 3.2.2
-	 * @return array
-	 */
-	public function get_tools_fields() {
-		return $this->tools_fields;
-	}
-
-	/**
 	 * Getter method for settings fields.
 	 *
 	 * @since 3.2.2
@@ -405,7 +387,7 @@ class Settings {
 
 			// Settings are taken from global settings.
 			if ( ! empty( $global_settings ) ) {
-				$site_settings['accessible_colors'] = isset( $global_settings['accessible_colors'] ) ? $global_settings['accessible_colors'] : $this->defaults['accessible_colors'];			   	   			 	 	 	 	
+				$site_settings['accessible_colors'] = isset( $global_settings['accessible_colors'] ) ? $global_settings['accessible_colors'] : $this->defaults['accessible_colors'];
 				$site_settings['usage']             = isset( $global_settings['usage'] ) ? $global_settings['usage'] : $this->defaults['usage'];
 				$site_settings['keep_data']         = isset( $global_settings['keep_data'] ) ? $global_settings['keep_data'] : $this->defaults['keep_data'];
 				$site_settings['webp_mod']          = isset( $global_settings['webp_mod'] ) ? $global_settings['webp_mod'] : $this->defaults['webp_mod'];
@@ -629,7 +611,6 @@ class Settings {
 
 		delete_site_option( 'wp-smush-networkwide' );
 		delete_site_option( 'wp-smush-hide_smush_welcome' );
-		delete_site_option( 'wp-smush-hide_upgrade_notice' );
 		delete_site_option( 'wp-smush-webp_hide_wizard' );
 		delete_site_option( 'wp-smush-preset_configs' );
 		$this->delete_setting( 'wp-smush-settings' );
@@ -638,7 +619,6 @@ class Settings {
 		$this->delete_setting( 'wp-smush-cdn_status' );
 		$this->delete_setting( 'wp-smush-lazy_load' );
 		$this->delete_setting( 'skip-smush-setup' );
-		$this->delete_setting( 'wp-smush-hide_pagespeed_suggestion' );
 		$this->delete_setting( 'wp-smush-hide-tutorials' );
 
 		wp_send_json_success();
@@ -704,12 +684,6 @@ class Settings {
 			}
 		}
 
-		if ( 'tools' === $page ) {
-			foreach ( $this->get_tools_fields() as $field ) {
-				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-			}
-		}
-
 		if ( 'settings' === $page ) {
 			$tab = filter_input( INPUT_POST, 'tab', FILTER_SANITIZE_SPECIAL_CHARS );
 			if ( ! isset( $tab ) ) {
@@ -719,7 +693,8 @@ class Settings {
 			}
 
 			if ( 'general' === $tab ) {
-				$new_settings['usage'] = filter_input( INPUT_POST, 'usage', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+				$new_settings['usage']     = filter_input( INPUT_POST, 'usage', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+				$new_settings['detection'] = filter_input( INPUT_POST, 'detection', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 			}
 			if ( 'permissions' === $tab ) {
 				$new_settings['networkwide'] = $this->parse_access_settings();
@@ -752,25 +727,27 @@ class Settings {
 	/**
 	 * Parse bulk Smush specific settings.
 	 *
+	 * Nonce processed in parent method.
+	 *
 	 * @since 3.2.0  Moved from save method.
 	 */
 	private function parse_bulk_settings() {
 		// Save the selected image sizes.
-		if ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) {
+		if ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$this->delete_setting( 'wp-smush-image_sizes' );
 		} else {
-			if ( ! isset( $_POST['wp-smush-image_sizes'] ) ) {
+			if ( ! isset( $_POST['wp-smush-image_sizes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$image_sizes = array();
 			} else {
-				$image_sizes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_POST['wp-smush-image_sizes'] ) ) );
+				$image_sizes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_POST['wp-smush-image_sizes'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			}
 
 			$this->set_setting( 'wp-smush-image_sizes', $image_sizes );
 		}
 
 		// Update Resize width and height settings if set.
-		$resize_sizes['width']  = isset( $_POST['wp-smush-resize_width'] ) ? (int) $_POST['wp-smush-resize_width'] : 0; // Input var ok.
-		$resize_sizes['height'] = isset( $_POST['wp-smush-resize_height'] ) ? (int) $_POST['wp-smush-resize_height'] : 0; // Input var ok.
+		$resize_sizes['width']  = isset( $_POST['wp-smush-resize_width'] ) ? (int) $_POST['wp-smush-resize_width'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$resize_sizes['height'] = isset( $_POST['wp-smush-resize_height'] ) ? (int) $_POST['wp-smush-resize_height'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		$this->set_setting( 'wp-smush-resize_sizes', $resize_sizes );
 	}
@@ -811,20 +788,16 @@ class Settings {
 
 		$args = array(
 			'format'          => array(
-				'filter'  => FILTER_VALIDATE_BOOLEAN,
-				'flags'   => FILTER_REQUIRE_ARRAY,
+				'filter' => FILTER_VALIDATE_BOOLEAN,
+				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
 			'output'          => array(
-				'filter'  => FILTER_VALIDATE_BOOLEAN,
-				'flags'   => FILTER_REQUIRE_ARRAY,
-			),
-			'animation'       => array(
-				'filter'  => FILTER_SANITIZE_SPECIAL_CHARS,
-				'flags'   => FILTER_REQUIRE_ARRAY,
+				'filter' => FILTER_VALIDATE_BOOLEAN,
+				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
 			'include'         => array(
-				'filter'  => FILTER_VALIDATE_BOOLEAN,
-				'flags'   => FILTER_REQUIRE_ARRAY,
+				'filter' => FILTER_VALIDATE_BOOLEAN,
+				'flags'  => FILTER_REQUIRE_ARRAY,
 			),
 			'exclude-pages'   => array(
 				'filter'  => FILTER_CALLBACK,
@@ -840,6 +813,11 @@ class Settings {
 		);
 
 		$settings = filter_input_array( INPUT_POST, $args );
+
+		// Verify lazyload.
+		if ( ! empty( $_POST['animation'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$settings['animation'] = map_deep( wp_unslash( $_POST['animation'] ), 'sanitize_text_field' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		}
 
 		// Fade-in settings.
 		$settings['animation']['fadein']['duration'] = 0;

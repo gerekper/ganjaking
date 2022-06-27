@@ -1,5 +1,13 @@
 *** WooCommerce Slack Changelog ***
 
+2022-03-25 - version 1.2.9
+* Fix - Improve mechanics for fetching and updating the list of available channels (props Brian Henry).
+* Fix - Removed requests to deprecated `groups.list` endpoint (props Brian Henry).
+
+2021-04-06 - version 1.2.8
+* Fix - Deprecated jQuery methods.
+* Tweak - WP 5.7 compatibility.
+
 2021-03-15 - version 1.2.7
 * Fix - Ensure we authenticate correctly when making Slack API calls (props @BrianHenryIE).
 * Tweak - WC 5.1.0 compatibility.

@@ -1,5 +1,11 @@
 *** WooCommerce Anti Fraud ***
 
+2022-04-11 - version 4.3
+* PLUGINS-1283 - Fix issue Maxmind are getting twice request per order.
+* PLUGINS-1165 - Order number restriction option during certain timeframe.
+* PLUGINS-1492 - Need Support and leave feedback options.
+* PLUGINS-1436 - Disable fraud checking whitelisted emails.
+
 2022-01-14 - version 4.2
 * PLUGINS-1362 - Proxycheck.io enhancement to track usage.
 

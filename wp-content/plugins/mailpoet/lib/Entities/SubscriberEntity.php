@@ -154,13 +154,26 @@ class SubscriberEntity {
   private $woocommerceSyncedAt;
 
   /**
+   * @ORM\Column(type="integer")
+   * @var int
+   */
+  private $emailCount = 0;
+
+  /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\SubscriberSegmentEntity", mappedBy="subscriber", orphanRemoval=true)
    * @var Collection<int, SubscriberSegmentEntity>
    */
   private $subscriberSegments;
 
+  /**
+   * @ORM\OneToMany(targetEntity="MailPoet\Entities\SubscriberCustomFieldEntity", mappedBy="subscriber", orphanRemoval=true)
+   * @var Collection<int, SubscriberCustomFieldEntity>
+   */
+  private $subscriberCustomFields;
+
   public function __construct() {
     $this->subscriberSegments = new ArrayCollection();
+    $this->subscriberCustomFields = new ArrayCollection();
   }
 
   /**
@@ -430,6 +443,13 @@ class SubscriberEntity {
   }
 
   /**
+   * @return Collection<int, SubscriberCustomFieldEntity>
+   */
+  public function getSubscriberCustomFields() {
+    return $this->subscriberCustomFields;
+  }
+
+  /**
    * @return float|null
    */
   public function getEngagementScore(): ?float {
@@ -471,6 +491,14 @@ class SubscriberEntity {
 
   public function getWoocommerceSyncedAt(): ?DateTimeInterface {
     return $this->woocommerceSyncedAt;
+  }
+
+  public function getEmailCount(): int {
+    return $this->emailCount;
+  }
+
+  public function setEmailCount(int $emailCount): void {
+    $this->emailCount = $emailCount;
   }
 
   /** @ORM\PreFlush */

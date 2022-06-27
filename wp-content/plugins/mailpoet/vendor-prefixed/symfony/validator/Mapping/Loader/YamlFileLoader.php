@@ -1,6 +1,7 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\Validator\Mapping\Loader;
 if (!defined('ABSPATH')) exit;
+use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\Mapping\ClassMetadata;
 use MailPoetVendor\Symfony\Component\Yaml\Exception\ParseException;
 use MailPoetVendor\Symfony\Component\Yaml\Parser as YamlParser;

@@ -78,7 +78,7 @@ span.upadmin-small-name {
 
 div.userpro-admin h3 i {
 	font-size: 15px;
-	margin: 0 8px 0 0;
+	margin: 0 8px 0 8px;
 }
 
 div.userpro-admin h3 span {
@@ -133,6 +133,7 @@ div.userpro-admin table.form-table th {
 	padding-left: 20px !important;
 	color: #666;
 	font-size: 12px !important;
+	padding: 15px 20px;
 }
 
 div.userpro-admin table.form-table,
@@ -183,7 +184,10 @@ input[type=text].upadmin-standard {
 
 .upadmin h4{margin: 0 0 5px 0;}
 .upadmin h3 {font-size: 16px !important;margin:0 0 10px 0!important;padding:0!important;}
-.upadmin h2 {position: relative}
+.upadmin h2 {
+	position: relative;
+	text-align: center;
+}
 .upadmin h2 a.upadmin-reset-fields,
 .upadmin h2 a.upadmin-reset-groups{
 	position: absolute;
@@ -266,6 +270,7 @@ div.upadmin-groups li {
 	box-sizing: border-box;
 	cursor: move;
 	position: relative;
+	text-align: center;
 }
 
 .upadmin-loader {margin: 15px 0 0 0;height: 30px;}
@@ -341,10 +346,14 @@ img.upadmin-load-inline {
 	box-sizing: border-box;
 	font-weight: bold;
 	position: relative;
+	display: flex;
+	justify-content: center;
 }
 .upadmin-tpl-head.max {
 	border-radius: 3px;
 	border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: center;
 }
 .upadmin-tpl-head img {position: absolute; top: 11px; margin: 0 0 0 15px}
 

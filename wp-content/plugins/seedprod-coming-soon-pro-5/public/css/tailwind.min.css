@@ -248,6 +248,7 @@ img{display:inline-block}
 .embed-responsive{position:relative;display:block;height:0;padding:0;overflow:hidden;margin-bottom:20px}
 .embed-responsive .embed-responsive-item,.embed-responsive iframe{position:absolute;top:0;bottom:0;left:0;width:100%;height:100%;border:0}
 .embed-responsive-16by9{padding-bottom:56.25%}
+.wp-embed-responsive .wp-embed-aspect-4-3 .wp-block-embed__wrapper:before,.wp-embed-responsive .wp-has-aspect-ratio .wp-block-embed__wrapper:before{padding-top:0 !important}
 .sp-map-responsive{overflow:hidden;padding-bottom:56.25%;position:relative;height:0}
 .sp-map-responsive iframe{left:0;top:0;height:100%;width:100%;position:absolute}
 .sp-button{border-radius:4px}
@@ -431,7 +432,7 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-mobile-menu-true .menu-item a{display:block;width:100%}
 .sp-mobile-menu-true .nav-menu .menu-item{display:block !important;font-size:22px;line-height:26px}
 .sp-mobile-menu-true .nav-menu{display:none}
-.sp-mobile-menu-true .nav-menu.active{display:block;background-color:#fff;width:100%;padding:10px;text-align:center}
+.sp-mobile-menu-true .nav-menu.active{display:block;background-color:transparent;width:100%;padding:10px;text-align:center}
 .sp-mobile-menu-true .nav-menu.active{left:0}
 .sp-mobile-menu-true .hamburger{display:block;cursor:pointer}
 .sp-mobile-menu-true .hamburger.active .bar:nth-child(2){opacity:0}
@@ -445,7 +446,8 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 }.seedprod-menu-horizontal .menu-item:first-child{padding-left:0 !important}
 .seedprod-menu-horizontal .sub-menu .menu-item:first-child{padding-left:10px !important}
 .seedprod-menu-horizontal .menu-item:last-child{padding-right:0 !important}
-.seedprod-menu-horizontal .sub-menu .menu-item:last-child{padding-left:10px !important}
+.seedprod-menu-horizontal .sub-menu .menu-item:last-child{padding-right:10px !important}
+.sp-mobile-menu-true ul.sub-menu{padding-left:10px}
 .custom-restricted-width .menu-item:first-child{padding-top:0 !important}
 .custom-restricted-width .menu-item:last-child{padding-bottom:0 !important}
 .sub-menu li{text-align:left !important}
@@ -537,8 +539,8 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-postnavigation-shortcodes a,.sp-postnavigation-shortcodes a:hover{text-decoration:none}
 .sp-postcontent p:not(:last-child){margin-bottom:20px}
 .sp-postcontent dl{margin:0;padding:0;margin-left:1rem;margin-bottom:20px}
-.sp-postcontent ul{display:block;list-style-type:disc;margin:0;padding:0;margin-left:1rem;margin-bottom:20px}
-.sp-postcontent ol{display:block;list-style-type:decimal;margin:0;padding:0;margin-left:1rem;margin-bottom:20px}
+.sp-postcontent ul{display:block;list-style-type:disc;list-style-position:outside;margin:0;padding:0;margin-left:2rem;margin-bottom:20px}
+.sp-postcontent ol{display:block;list-style-position:outside;margin:0;padding:0;margin-left:2rem;margin-bottom:20px}
 .sp-postcontent li{padding-left:.5rem;padding-right:.5rem}
 .sp-postcontent img,.sp-postcontent iframe{margin-bottom:20px}
 .sp-postcontent h1,.sp-postcontent h2,.sp-postcontent h3,.sp-postcontent h4,.sp-postcontent h5,.sp-postcontent h6{margin-bottom:10px}
@@ -550,6 +552,13 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .page-numbers{margin-right:4px}
 .blog .sp-type-archivetitle{display:none}
 .widget{margin-bottom:0}
+.sp-el-section,.sp-el-col,.sp-el-row{position:relative}
+.sp-section-shape,.sp-row-shape,.sp-col-shape{overflow:hidden;position:absolute;left:0;width:100%;line-height:0;direction:ltr}
+.sp-section-top,.sp-row-top,.sp-col-top{top:0}
+.sp-section-bottom,.sp-row-bottom,.sp-col-bottom{bottom:0}
+.sp-section-shape svg,.sp-row-shape svg,.sp-col-shape svg{display:block;width:100%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);position:relative}
+.sp-section-bottom,.sp-row-bottom,.sp-col-bottom{-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+.sp-section-shape .seedprod-shape-fill,.sp-row-shape .seedprod-shape-fill,.sp-col-shape .seedprod-shape-fill{fill:#fff}
 .sp-add-to-cart-wrapper form.cart{display:flex;flex-wrap:wrap;flex-direction:row}
 .sp-add-to-cart-wrapper form.variations_form div.single_variation_wrap{display:flex;flex-wrap:nowrap;flex-direction:column}
 .sp-add-to-cart-wrapper form.variations_form .single_variation_wrap .single_variation,.sp-add-to-cart-wrapper form.variations_form .single_variation_wrap .single_variation .woocommerce-variation-description,.sp-add-to-cart-wrapper form.variations_form .single_variation_wrap .single_variation .woocommerce-variation-price{margin:10px 0}

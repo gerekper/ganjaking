@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Config;
 
@@ -6,22 +6,20 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoetVendor\Doctrine\DBAL\Connection;
-use MailPoetVendor\Psr\Container\ContainerInterface;
 
 class DatabaseInitializer {
-  private $diContainer;
+  /** @var Connection */
+  private $connection;
 
   public function __construct(
-    ContainerInterface $diContainer
+    Connection $connection
   ) {
-    $this->diContainer = $diContainer;
+    $this->connection = $connection;
   }
 
   public function initializeConnection() {
-    $connection = $this->diContainer->get(Connection::class);
-
     // pass the same PDO connection to legacy Database object
     $database = new Database();
-    $database->init($connection->getWrappedConnection());
+    $database->init($this->connection->getWrappedConnection());
   }
 }

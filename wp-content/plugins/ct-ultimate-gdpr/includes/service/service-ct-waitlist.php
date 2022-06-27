@@ -31,7 +31,6 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 		);
 
 		$this->set_collected( $results );
-
 		return $this;
 	}
 
@@ -39,7 +38,7 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 	 * @return mixed
 	 */
 	public function get_name() {
-		return apply_filters( "ct_ultimate_gdpr_service_{$this->get_id()}_name", 'Waitlist for WooCommerce - Back In Stock Notifier' );
+		return apply_filters( "ct_ultimate_gdpr_service_{$this->get_id()}_name", 'Waitlist for WooCommerce - Back In Stock Notifier by CreateIT' );
 	}
 
 	/**
@@ -118,15 +117,26 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 		);
 
 		add_settings_field(
-			"services_{$this->get_id()}_auth_consent_field", // ID
+			"services_{$this->get_id()}_consent_message", // ID
 			sprintf(
-				esc_html__( "[%s] Display consent checkbox for logged in user", 'ct-ultimate-gdpr' ),
+				esc_html__( "[%s] Consent Message", 'ct-ultimate-gdpr' ),
 				$this->get_name()
-			),
-			array( $this, "render_field_services_{$this->get_id()}_auth_consent_field" ), // Callback
+			), // Title
+			array( $this, "render_field_services_{$this->get_id()}_consent_message" ), // Callback
 			$this->front_controller->find_controller('services')->get_id(), // Page
 			'ct-ultimate-gdpr-services-ctwaitlist_accordion-15' // Section
 		);
+		// Commenting this because its useless
+		// add_settings_field(
+		// 	"services_{$this->get_id()}_auth_consent_field", // ID
+		// 	sprintf(
+		// 		esc_html__( "[%s] Display consent checkbox for logged in user", 'ct-ultimate-gdpr' ),
+		// 		$this->get_name()
+		// 	),
+		// 	array( $this, "render_field_services_{$this->get_id()}_auth_consent_field" ), // Callback
+		// 	$this->front_controller->find_controller('services')->get_id(), // Page
+		// 	'ct-ultimate-gdpr-services-ctwaitlist_accordion-15' // Section
+		// );
 
         add_settings_field(
             "services_{$this->get_id()}_hide_from_forgetme_form", // ID
@@ -162,7 +172,20 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 		);
 
 	}
+	public function render_field_services_ct_waitlist_consent_message() {
 
+	    $admin = CT_Ultimate_GDPR::instance()->get_admin_controller();
+
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+
+        printf(
+            "<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='1' cols='100'>%s</textarea>",
+            $admin->get_field_name( __FUNCTION__ ),
+            $admin->get_field_name_prefixed( $field_name ),
+            $admin->get_option_value_escaped( $field_name ) ? $admin->get_option_value_escaped( $field_name ) : 'I consent to the storage of my data according to the Privacy Policy'
+        );
+
+    }
 
 	/**
 	 *
@@ -186,8 +209,14 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 	 */
 	public function front_action() {
 		$inject = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( "services_{$this->get_id()}_consent_field", false, $this->front_controller->find_controller('services')->get_id() );
-
 		if ( $inject ) {
+			$consentMessage = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( "services_{$this->get_id()}_consent_message", false, $this->front_controller->find_controller('services')->get_id() );
+			add_filter('ctWaitlist_consent_message', function($message) use ($consentMessage) {
+				return $consentMessage && $consentMessage!== '' ? $consentMessage : $message;
+			}, 10, 1);
+			add_filter('ctWaitlist_consent_enable', function($enable){
+				return true;
+			}, 10, 1);
 			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 		}
 	}
@@ -246,6 +275,6 @@ class CT_Ultimate_GDPR_Service_CT_Waitlist extends CT_Ultimate_GDPR_Service_Abst
 	 * @return string
 	 */
 	protected function get_default_description() {
-		return esc_html__( 'Waitlist for WooCommerce - Back In Stock Notifier gathers data entered by users in forms', 'ct-ultimate-gdpr' );
+		return esc_html__( 'Waitlist for WooCommerce - Back In Stock Notifier by CreateIT gathers data entered by users in forms', 'ct-ultimate-gdpr' );
 	}
 }

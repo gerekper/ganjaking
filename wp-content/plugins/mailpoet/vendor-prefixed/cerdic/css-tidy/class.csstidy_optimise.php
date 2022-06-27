@@ -809,19 +809,19 @@ class csstidy_optimise
  $value = $this->{$m}($value);
  }
  // simple replacement for properties
- $propertie = \str_ireplace(array('left', 'right', "\1"), array("\1", 'left', 'right'), $propertie);
+ $propertie = \str_ireplace(array('left', 'right', "\x01"), array("\x01", 'left', 'right'), $propertie);
  // be careful for values, not modifying protected or quoted valued
- foreach (array('left' => "\1", 'right' => 'left', "\1" => 'right') as $v => $r) {
+ foreach (array('left' => "\x01", 'right' => 'left', "\x01" => 'right') as $v => $r) {
  if (\strpos($value, $v) !== \false) {
  // attraper les left et right separes du reste (pas au milieu d'un mot)
  if (\in_array($v, array('left', 'right'))) {
- $value = \preg_replace(",\\b{$v}\\b,", "\0", $value);
+ $value = \preg_replace(",\\b{$v}\\b,", "\x00", $value);
  } else {
- $value = \str_replace($v, "\0", $value);
+ $value = \str_replace($v, "\x00", $value);
  }
- $value = $this->explode_ws("\0", $value . ' ', \true);
+ $value = $this->explode_ws("\x00", $value . ' ', \true);
  $value = \rtrim(\implode($r, $value));
- $value = \str_replace("\0", $v, $value);
+ $value = \str_replace("\x00", $v, $value);
  }
  }
  $return[$propertie] = $value;

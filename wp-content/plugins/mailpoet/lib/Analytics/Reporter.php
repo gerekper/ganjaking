@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\CronTrigger;
 use MailPoet\Entities\DynamicSegmentFilterData;
+use MailPoet\Listing\ListingDefinition;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Segments\DynamicSegments\DynamicSegmentFilterRepository;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
@@ -30,6 +31,7 @@ use MailPoet\Settings\Pages;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
+use MailPoet\Subscribers\SubscriberListingRepository;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -63,6 +65,9 @@ class Reporter {
   /** @var TrackingConfig */
   private $trackingConfig;
 
+  /** @var SubscriberListingRepository */
+  private $subscriberListingRepository;
+
   public function __construct(
     NewslettersRepository $newslettersRepository,
     SegmentsRepository $segmentsRepository,
@@ -72,7 +77,8 @@ class Reporter {
     WooCommerceHelper $woocommerceHelper,
     WPFunctions $wp,
     SubscribersFeature $subscribersFeature,
-    TrackingConfig $trackingConfig
+    TrackingConfig $trackingConfig,
+    SubscriberListingRepository $subscriberListingRepository
   ) {
     $this->newslettersRepository = $newslettersRepository;
     $this->segmentsRepository = $segmentsRepository;
@@ -83,6 +89,7 @@ class Reporter {
     $this->wp = $wp;
     $this->subscribersFeature = $subscribersFeature;
     $this->trackingConfig = $trackingConfig;
+    $this->subscriberListingRepository = $subscriberListingRepository;
   }
 
   public function getData() {
@@ -111,6 +118,7 @@ class Reporter {
       'MailPoet Premium version' => (defined('MAILPOET_PREMIUM_VERSION')) ? MAILPOET_PREMIUM_VERSION : 'N/A',
       'Total number of subscribers' => $this->subscribersFeature->getSubscribersCount(),
       'Sending Method' => isset($mta['method']) ? $mta['method'] : null,
+      "Send all site's emails with" => $this->settings->get('send_transactional_emails') ? 'current sending method' : 'default WordPress sending method',
       'Date of plugin installation' => $this->settings->get('installed_at'),
       'Subscribe in comments' => (boolean)$this->settings->get('subscribe.on_comment.enabled', false),
       'Subscribe in registration form' => (boolean)$this->settings->get('subscribe.on_register.enabled', false),
@@ -176,6 +184,11 @@ class Reporter {
       'Support tier' => $this->subscribersFeature->hasPremiumSupport() ? 'premium' : 'free',
       'Unauthorized email notice shown' => !empty($this->settings->get(AuthorizedEmailsController::AUTHORIZED_EMAIL_ADDRESSES_ERROR_SETTING)),
     ];
+
+    $result = array_merge(
+      $result,
+      $this->subscriberProperties()
+    );
     if ($hasWc) {
       $result['WooCommerce version'] = $woocommerce->version;
       $result['Number of WooCommerce subscribers'] = isset($segments['woocommerce_users']) ? (int)$segments['woocommerce_users'] : 0;
@@ -189,6 +202,17 @@ class Reporter {
       $result['Number of active abandoned cart'] = $newsletters['abandoned_cart_emails_count'];
     }
     return $result;
+  }
+
+  private function subscriberProperties(): array {
+    $definition = new ListingDefinition();
+    $groups = $this->subscriberListingRepository->getGroups($definition);
+    $properties = [];
+    foreach ($groups as $group) {
+      $properties['Subscribers > ' . $group['name']] = (int)$group['count'];
+    }
+
+    return $properties;
   }
 
   public function getTrackingData() {

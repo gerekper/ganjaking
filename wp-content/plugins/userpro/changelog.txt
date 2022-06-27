@@ -1,4 +1,30 @@
-Version 4.9.39 (26 January 2021)
+==================================
+Version 4.10.1 (30 March 2022)
+==================================
+ - Update: Support with newer PHP version and code more readable.
+
+==================================
+Version 4.9.41 (08 March 2022)
+==================================
+ - Fixed bug: Dropdown.
+ - Buttons: Changed alignment.
+ - Icons: Added extra space.
+ - Text: Changed alignment.
+ 
+============================
+Version 4.9.40 (15 June 2021)
+============================
+ - Security fix: User posts
+ - Security fix: Reset password by URL will always return generic response
+ - Enhancement: Date to age converter is now more dynamic with separators
+ - Fixed bug: Min length validation (empty fields will no longer pass it)
+ - Fixed bug: EMD filter with select field - no longer adds backslash to apostrophe or doesn't work
+ - Fixed bug: Request verification
+ - Fixed bug: Some servers had issues with google oAUTH file import
+ - Fixed bug: WPML ?lang format issue with profiles/redirects
+ - Fixed bug: Warning in a file "fields-functions"
+============================
+Version 4.9.39 (29 December 2020)
 ============================
  - Enhancement: Twitter social connect
  - Enhancement: Google social connect

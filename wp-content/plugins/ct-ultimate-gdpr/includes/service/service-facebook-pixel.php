@@ -144,7 +144,7 @@ class CT_Ultimate_GDPR_Service_Facebook_Pixel extends CT_Ultimate_GDPR_Service_A
 	 *
 	 */
 	public function enqueue_static() {
-		wp_enqueue_script( 'ct_ultimate_gdpr_service_facebook_pixel', ct_ultimate_gdpr_url( 'assets/js/service-facebook-pixel.js' ) );
+		wp_enqueue_script( 'ct-ultimate-gdpr-service-facebook-pixel', ct_ultimate_gdpr_url( 'assets/js/service-facebook-pixel.js' ) );
 	}
 
 	/**

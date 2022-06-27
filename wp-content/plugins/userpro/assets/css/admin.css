@@ -81,10 +81,14 @@
   margin: 0 0 25px 0; }
 
 .userpro-admin-contain .submit {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   right: 15px;
-  z-index: 99; }
+  z-index: 99; 
+  display: flex;
+  justify-content: center;
+}
+
   .userpro-admin-contain .submit.submit-static {
     position: relative; }
 

@@ -34,8 +34,8 @@ class BetterDocs_Multiple_Kb
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
 			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 7);
 			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 2);
-			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 2);
-			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 2);
+			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 3);
+			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 3);
 			add_action('betterdocs_list_tax_query_arg', array(__CLASS__, 'list_tax_query'), 10, 4);
 			add_action('betterdocs_taxonomy_object_meta_query', array(__CLASS__, 'taxonomy_object_meta_query'), 10, 3);
 			add_action('betterdocs_child_taxonomy_meta_query', array(__CLASS__, 'child_taxonomy_meta_query'), 10, 3);
@@ -43,7 +43,7 @@ class BetterDocs_Multiple_Kb
 			add_action('betterdocs_breadcrumb_archive_html', array(__CLASS__, 'breadcrumb_archive'), 10, 2);
 			add_action('betterdocs_breadcrumb_before_single_cat_html', array(__CLASS__, 'breadcrumb_single'), 10, 2);
 			add_action('betterdocs_breadcrumb_term_permalink', array(__CLASS__, 'breadcrumb_term_permalink'));
-			add_action('betterdocs_cat_term_permalink', array(__CLASS__, 'cat_term_permalink'), 10 , 3);
+			add_action('term_link', array(__CLASS__, 'doc_category_link'), 10 , 3);
 			add_action('betterdocs_doc_category_add_form_before', array(__CLASS__, 'doc_category_add_form'));
 			add_action('betterdocs_doc_category_update_form_before', array(__CLASS__, 'doc_category_update_form'));
 			add_filter('doc_category_row_actions', array(__CLASS__, 'disable_category_view'), 10, 2);
@@ -56,6 +56,7 @@ class BetterDocs_Multiple_Kb
 			add_action('admin_head', array(__CLASS__, 'admin_order_terms'));
 			add_action('wp_ajax_update_knowledge_base_order', array(__CLASS__, 'update_knowledge_base_order'));
 			add_action('betterdocs_internal_kb_fields', array(__CLASS__, 'internal_kb_settings_field'));
+			add_action('parse_term_query', array(__CLASS__, 'parse_knowledge_base_term_query'), 10, 1);
 			if (BetterDocs_DB::get_settings('kb_based_search') == 1) {
                 add_action('betterdocs_live_search_tax_query', array(__CLASS__, 'live_search_tax_query'), 10, 2);
             }
@@ -99,6 +100,20 @@ class BetterDocs_Multiple_Kb
         return $settings;
     }
 
+	public static function parse_knowledge_base_term_query( $term_query ) {
+		$screen = function_exists('get_current_screen') ? get_current_screen() : '';
+        if( empty( $term_query->query_vars['taxonomy'] ) || ! in_array( 'knowledge_base', $term_query->query_vars['taxonomy'], true ) || empty( $screen ) || ( empty( $screen ) && $screen->taxonomy !== 'knowledge_base' ) ) {
+            return;
+        }
+        $term_query->query_vars['meta_query'] = [
+			[
+				'key' => 'kb_order',
+				'type' => 'NUMERIC'
+			]
+		];
+		$term_query->query_vars['orderby'] = 'meta_value_num';
+	}
+
     public static function kb_based_search_settings()
     {
         return array(
@@ -118,7 +133,7 @@ class BetterDocs_Multiple_Kb
 			'readonly'	=> true,
 			'clipboard' => true,
 			'priority'	=> 10,
-			'help'      => __('<strong>You can use:</strong> [betterdocs_category_box_2 column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+			'help'      => __('<strong>You can use:</strong> [betterdocs_category_box_2 column="" nested_subcategory="" terms="" terms_orderby="" kb_slug="" multiple_knowledge_base="false" disable_customizer_style="false" title_tag="h2"]' , 'betterdocs-pro'),
 		);
 		$settings['category_grid_2_shortcode'] = array(
 			'type'      => 'text',
@@ -127,7 +142,7 @@ class BetterDocs_Multiple_Kb
 			'readonly'	=> true,
 			'clipboard' => true,
 			'priority'	=> 10,
-			'help'      => __('<strong>You can use:</strong> [betterdocs_category_grid_2 nested_subcategory="true" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+			'help'      => __('<strong>You can use:</strong> [betterdocs_category_grid_2 sidebar_list="false" orderby="" order="" count="true" icon="" masonry="" column="" posts="" nested_subcategory="" terms="" kb_slug="" terms_orderby="" terms_order="" multiple_knowledge_base="false" disable_customizer_style="false" title_tag="h2"]', 'betterdocs-pro')
 		);
 		$settings['multiple_kb_shortcode'] = array(
 			'type'      => 'text',
@@ -136,7 +151,7 @@ class BetterDocs_Multiple_Kb
 			'readonly'	=> true,
 			'clipboard' => true,
 			'priority'	=> 10,
-			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb column="" terms="" disable_customizer_style="false" title_tag="h2"]' , 'betterdocs-pro'),
 		);
 		$settings['multiple_kb_2_shortcode'] = array(
 			'type'      => 'text',
@@ -145,7 +160,7 @@ class BetterDocs_Multiple_Kb
 			'readonly'	=> true,
 			'clipboard' => true,
 			'priority'	=> 10,
-			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_2 column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_2 column="" terms="" disable_customizer_style="false" title_tag="h2"]' , 'betterdocs-pro'),
 		);
 		return $settings;
 	}
@@ -233,9 +248,10 @@ class BetterDocs_Multiple_Kb
 
 	public static function category_list_shortcode($shortcode, $terms_orderby)
 	{
-        $output = betterdocs_generate_output();
+        $output 	 = betterdocs_generate_output();
+		$terms_order = BetterDocs_DB::get_settings('terms_order');
 		if (is_tax('knowledge_base')) {
-			$shortcode = do_shortcode('[betterdocs_category_grid multiple_knowledge_base="true" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
+			$shortcode = do_shortcode('[betterdocs_category_grid multiple_knowledge_base="true" terms_order="'.$terms_order.'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
 		} else {
 			$shortcode = do_shortcode('[betterdocs_category_grid terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
 		}
@@ -243,22 +259,22 @@ class BetterDocs_Multiple_Kb
 		return $shortcode;
 	}
 
-	public static function category_box_shortcode($shortcode, $terms_orderby)
+	public static function category_box_shortcode($shortcode, $terms_orderby, $terms_order)
 	{
         $output = betterdocs_generate_output();
 		if (is_tax('knowledge_base')) {
-			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" terms_order="'.esc_html($terms_order).'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		} else {
-			$shortcode = do_shortcode('[betterdocs_category_box terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box terms_order="'.esc_html($terms_order).'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		}
 
 		return $shortcode;
 	}
 
-	public static function sidebar_category_shortcode($shortcode, $terms_orderby)
+	public static function sidebar_category_shortcode($shortcode, $terms_orderby, $terms_order)
 	{
         $output = betterdocs_generate_output();
-		return do_shortcode('[betterdocs_category_grid terms_orderby="'.esc_html($terms_orderby).'" sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" kb_slug="'.self::kb_slug().'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
+		return do_shortcode('[betterdocs_category_grid terms_order="'.$terms_order.'" terms_orderby="'.esc_html($terms_orderby).'" sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" kb_slug="'.self::kb_slug().'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
 	}
 
 	public static function breadcrumb_archive($html, $delimiter)
@@ -354,7 +370,13 @@ class BetterDocs_Multiple_Kb
 			'query_var'             => true,
 			'show_in_rest'          => true,
 			'has_archive'           => true,
-			'rewrite'               => array('slug' => $docs_archive, 'with_front' => false)
+			'rewrite'               => array('slug' => $docs_archive, 'with_front' => false),
+			'capabilities' => [
+                'manage_terms' => 'manage_knowledge_base_terms',
+                'edit_terms'   => 'edit_knowledge_base_terms',
+                'delete_terms' => 'delete_knowledge_base_terms',
+                'assign_terms' => 'edit_docs'
+            ]
 		);
 
 		register_taxonomy('knowledge_base', array(BetterDocs_Docs_Post_Type::$post_type), $manage_args);
@@ -524,14 +546,12 @@ class BetterDocs_Multiple_Kb
 		if ($multiple_kb == true || $kb_slug) {
             $value = $kb_slug ? $kb_slug : self::kb_slug();
 			$meta_query = array(
-				array(
 					'relation' => 'OR',
 					array(
 						'key'       => 'doc_category_knowledge_base',
 						'value'     => $value,
 						'compare'   => 'LIKE'
 					)
-				)
 			);
 		}
         return $meta_query;
@@ -681,8 +701,10 @@ class BetterDocs_Multiple_Kb
 		return $termlink;
 	}
 
-	public static function cat_term_permalink($term_permalink, $term_slug, $texanomy)
+	public static function doc_category_link($termlink, $term, $taxonomy)
 	{
+        if ($taxonomy != 'doc_category') return $termlink;
+
 		$q_object = get_queried_object();
 		$kb_slug = '';
 
@@ -695,7 +717,7 @@ class BetterDocs_Multiple_Kb
 		}
 
 		if (empty($kb_slug)) {
-			$category = get_term_by('slug', $term_slug, $texanomy, ARRAY_A);
+			$category = get_term_by('slug', $term->slug, $taxonomy, ARRAY_A);
 			$kb_arr = get_term_meta($category['term_id'], 'doc_category_knowledge_base', true);
 
 			if (empty($kb_arr[0])) {
@@ -705,8 +727,7 @@ class BetterDocs_Multiple_Kb
 			}
 		}
 
-		$term_permalink = str_replace('%knowledge_base%', $kb_slug, $term_permalink);
-		return $term_permalink;
+        return str_replace('%knowledge_base%', $kb_slug, $termlink);
 	}
 
 	public static function doc_category_add_form()
@@ -790,6 +811,8 @@ class BetterDocs_Multiple_Kb
 				}
 			}
 		}
+		$order = self::get_max_taxonomy_order('knowledge_base');
+        update_term_meta($term_id, 'kb_order', $order++);
 	}
 
 	/**

@@ -15,10 +15,6 @@
  * the License.
  */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Service_Oauth2_Tokeninfo extends Google_Model
 {
   protected $internal_gapi_mappings = array(

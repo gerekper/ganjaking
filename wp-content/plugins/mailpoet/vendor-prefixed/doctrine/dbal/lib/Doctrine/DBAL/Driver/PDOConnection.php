@@ -24,7 +24,7 @@ class PDOConnection extends PDO implements ConnectionInterface, ServerInfoAwareC
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function exec($sql)
  {
  try {
@@ -39,7 +39,7 @@ class PDOConnection extends PDO implements ConnectionInterface, ServerInfoAwareC
  {
  return PDO::getAttribute(PDO::ATTR_SERVER_VERSION);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function prepare($sql, $driverOptions = [])
  {
  try {
@@ -50,12 +50,12 @@ class PDOConnection extends PDO implements ConnectionInterface, ServerInfoAwareC
  throw Exception::new($exception);
  }
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function quote($value, $type = ParameterType::STRING)
  {
  return parent::quote($value, $type);
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function lastInsertId($name = null)
  {
  try {

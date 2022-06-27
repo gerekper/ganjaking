@@ -28,7 +28,7 @@ class WC_Brands_Admin {
 		add_filter( 'woocommerce_product_filters', array( $this, 'product_filter' ) );
 
 		$this->settings_tabs = array(
-			'brands' => __( 'Brands', 'wc_brands' )
+			'brands' => __( 'Brands', 'woocommerce-brands' )
 		);
 
 		// Hiding setting for future depreciation. Only users who have touched this settings should see it.
@@ -52,23 +52,19 @@ class WC_Brands_Admin {
 		// Permalinks
 		add_filter( 'pre_update_option_woocommerce_permalinks', array( $this, 'validate_product_base' ) );
 
-		if ( version_compare( WC_VERSION, '2.6.0', '>=' ) ) {
-			add_action( 'current_screen', array( $this, 'add_brand_base_setting' ) );
-		}
+		add_action( 'current_screen', array( $this, 'add_brand_base_setting' ) );
 
 		// CSV Import/Export Support.
 		// https://github.com/woocommerce/woocommerce/wiki/Product-CSV-Importer-&-Exporter
-		if ( version_compare( WC_VERSION, '3.1', '>=' ) ) {
-			// Import
-			add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_column_to_importer_exporter' ), 10 );
-			add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_default_column_mapping' ), 10 );
-			add_filter( 'woocommerce_product_import_inserted_product_object', array( $this, 'process_import' ), 10, 2 );
+		// Import
+		add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_column_to_importer_exporter' ), 10 );
+		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_default_column_mapping' ), 10 );
+		add_filter( 'woocommerce_product_import_inserted_product_object', array( $this, 'process_import' ), 10, 2 );
 
-			// Export
-			add_filter( 'woocommerce_product_export_column_names', array( $this, 'add_column_to_importer_exporter' ), 10 );
-			add_filter( 'woocommerce_product_export_product_default_columns', array( $this, 'add_column_to_importer_exporter' ), 10 );
-			add_filter( 'woocommerce_product_export_product_column_brand_ids', array( $this, 'get_column_value_brand_ids' ), 10, 2 );
-		}
+		// Export
+		add_filter( 'woocommerce_product_export_column_names', array( $this, 'add_column_to_importer_exporter' ), 10 );
+		add_filter( 'woocommerce_product_export_product_default_columns', array( $this, 'add_column_to_importer_exporter' ), 10 );
+		add_filter( 'woocommerce_product_export_product_column_brand_ids', array( $this, 'get_column_value_brand_ids' ), 10, 2 );
 	}
 
 	/**
@@ -105,8 +101,8 @@ class WC_Brands_Admin {
 		global $post;
 		// Brands
 		?>
-		<p class="form-field"><label for="product_brands"><?php _e( 'Product brands', 'wc_brands' ); ?></label>
-		<select id="product_brands" name="product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php _e( 'Any brand', 'wc_brands' ); ?>">
+		<p class="form-field"><label for="product_brands"><?php _e( 'Product brands', 'woocommerce-brands' ); ?></label>
+		<select id="product_brands" name="product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php _e( 'Any brand', 'woocommerce-brands' ); ?>">
 			<?php
 				$category_ids = (array) get_post_meta( $post->ID, 'product_brands', true );
 				$categories   = get_terms( 'product_brand', 'orderby=name&hide_empty=0' );
@@ -115,13 +111,13 @@ class WC_Brands_Admin {
 					echo '<option value="' . esc_attr( $cat->term_id ) . '"' . selected( in_array( $cat->term_id, $category_ids ), true, false ) . '>' . esc_html( $cat->name ) . '</option>';
 				}
 			?>
-		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'A product must be associated with this brand for the coupon to remain valid or, for "Product Discounts", products with these brands will be discounted.', 'wc_brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'A product must be associated with this brand for the coupon to remain valid or, for "Product Discounts", products with these brands will be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
 		<?php
 
 		// Exclude Brands
 		?>
-		<p class="form-field"><label for="exclude_product_brands"><?php esc_html_e( 'Exclude brands', 'wc_brands' ); ?></label>
-		<select id="exclude_product_brands" name="exclude_product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php esc_attr_e( 'No brands', 'wc_brands' ); ?>">
+		<p class="form-field"><label for="exclude_product_brands"><?php esc_html_e( 'Exclude brands', 'woocommerce-brands' ); ?></label>
+		<select id="exclude_product_brands" name="exclude_product_brands[]" style="width: 50%;"  class="wc-enhanced-select" multiple="multiple" data-placeholder="<?php esc_attr_e( 'No brands', 'woocommerce-brands' ); ?>">
 			<?php
 				$category_ids = (array) get_post_meta( $post->ID, 'exclude_product_brands', true );
 				$categories   = get_terms( 'product_brand', 'orderby=name&hide_empty=0' );
@@ -130,7 +126,7 @@ class WC_Brands_Admin {
 					echo '<option value="' . esc_attr( $cat->term_id ) . '"' . selected( in_array( $cat->term_id, $category_ids ), true, false ) . '>' . esc_html( $cat->name ) . '</option>';
 				}
 			?>
-		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Product must not be associated with these brands for the coupon to remain valid or, for "Product Discounts", products associated with these brands will not be discounted.', 'wc_brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
+		</select> <img class="help_tip" data-tip='<?php echo wc_sanitize_tooltip( __( 'Product must not be associated with these brands for the coupon to remain valid or, for "Product Discounts", products associated with these brands will not be discounted.', 'woocommerce-brands' ) ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" /></p>
 		<?php
 	} // End add_coupon_brands_fields()
 
@@ -159,11 +155,11 @@ class WC_Brands_Admin {
 		// Define settings
 		$this->settings = apply_filters( 'woocommerce_brands_settings_fields', array(
 
-			array( 'name' => __( 'Brands Archives', 'wc_brands' ), 'type' => 'title','desc' => '', 'id' => 'brands_archives' ),
+			array( 'name' => __( 'Brands Archives', 'woocommerce-brands' ), 'type' => 'title','desc' => '', 'id' => 'brands_archives' ),
 
 			array(
-				'name' => __( 'Show description', 'wc_brands' ),
-				'desc' => __( 'Choose to show the brand description on the archive page. Turn this off if you intend to use the description widget instead. Please note: this is only for themes that do not show the description.', 'wc_brands' ),
+				'name' => __( 'Show description', 'woocommerce-brands' ),
+				'desc' => __( 'Choose to show the brand description on the archive page. Turn this off if you intend to use the description widget instead. Please note: this is only for themes that do not show the description.', 'woocommerce-brands' ),
 				'tip'  => '',
 				'id'   => 'wc_brands_show_description',
 				'css'  => '',
@@ -188,6 +184,7 @@ class WC_Brands_Admin {
 
 		if ( in_array( $screen->id, array( 'edit-product_brand' ) ) ) {
 			wp_enqueue_media();
+			wp_enqueue_style( 'woocommerce_admin_styles' );
 		}
 	}
 
@@ -218,12 +215,12 @@ class WC_Brands_Admin {
 		global $woocommerce;
 		?>
 		<div class="form-field">
-			<label><?php _e( 'Thumbnail', 'wc_brands' ); ?></label>
+			<label><?php _e( 'Thumbnail', 'woocommerce-brands' ); ?></label>
 			<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo wc_placeholder_img_src(); ?>" width="60px" height="60px" /></div>
 			<div style="line-height:60px;">
 				<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" />
-				<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'wc_brands'); ?></button>
-				<button type="button" class="remove_image_button button"><?php _e('Remove image', 'wc_brands'); ?></button>
+				<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'woocommerce-brands'); ?></button>
+				<button type="button" class="remove_image_button button"><?php _e('Remove image', 'woocommerce-brands'); ?></button>
 			</div>
 			<script type="text/javascript">
 
@@ -248,9 +245,9 @@ class WC_Brands_Admin {
 
 						// Create the media frame.
 						file_frame = wp.media.frames.downloadable_file = wp.media({
-							title: '<?php _e( 'Choose an image', 'wc_brands' ); ?>',
+							title: '<?php _e( 'Choose an image', 'woocommerce-brands' ); ?>',
 							button: {
-								text: '<?php _e( 'Use image', 'wc_brands' ); ?>',
+								text: '<?php _e( 'Use image', 'woocommerce-brands' ); ?>',
 							},
 							multiple: false
 						});
@@ -286,7 +283,7 @@ class WC_Brands_Admin {
 		global $woocommerce;
 
 		$image 			= '';
-		$thumbnail_id 	= WC_Brands::get_term_meta( $term->term_id, 'thumbnail_id', true );
+		$thumbnail_id 	= get_term_meta( $term->term_id, 'thumbnail_id', true );
 		if ($thumbnail_id) {
 			$image = wp_get_attachment_url( $thumbnail_id );
 		}
@@ -295,13 +292,13 @@ class WC_Brands_Admin {
 		};
 		?>
 		<tr class="form-field">
-			<th scope="row" valign="top"><label><?php _e('Thumbnail', 'wc_brands'); ?></label></th>
+			<th scope="row" valign="top"><label><?php _e('Thumbnail', 'woocommerce-brands'); ?></label></th>
 			<td>
 				<div id="product_cat_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo $image; ?>" width="60px" height="60px" /></div>
 				<div style="line-height:60px;">
 					<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" value="<?php echo $thumbnail_id; ?>" />
-					<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'wc_brands'); ?></button>
-					<button type="button" class="remove_image_button button"><?php _e('Remove image', 'wc_brands'); ?></button>
+					<button type="button" class="upload_image_button button"><?php _e('Upload/Add image', 'woocommerce-brands'); ?></button>
+					<button type="button" class="remove_image_button button"><?php _e('Remove image', 'woocommerce-brands'); ?></button>
 				</div>
 				<script type="text/javascript">
 
@@ -326,9 +323,9 @@ class WC_Brands_Admin {
 
 							// Create the media frame.
 							file_frame = wp.media.frames.downloadable_file = wp.media({
-								title: '<?php _e( 'Choose an image', 'wc_brands' ); ?>',
+								title: '<?php _e( 'Choose an image', 'woocommerce-brands' ); ?>',
 								button: {
-									text: '<?php _e( 'Use image', 'wc_brands' ); ?>',
+									text: '<?php _e( 'Use image', 'woocommerce-brands' ); ?>',
 								},
 								multiple: false
 							});
@@ -363,7 +360,7 @@ class WC_Brands_Admin {
 
 	function thumbnail_field_save( $term_id, $tt_id, $taxonomy ) {
 		if ( isset( $_POST['product_cat_thumbnail_id'] ) ) {
-			WC_Brands::update_term_meta( $term_id, 'thumbnail_id', absint( $_POST['product_cat_thumbnail_id'] ) );
+			update_term_meta( $term_id, 'thumbnail_id', absint( $_POST['product_cat_thumbnail_id'] ) );
 		}
 	}
 
@@ -371,7 +368,7 @@ class WC_Brands_Admin {
 	 * Description for brand page
 	 */
 	function taxonomy_description() {
-		echo wpautop( __( 'Brands be added and managed from this screen. You can optionally upload a brand image to display in brand widgets and on brand archives', 'wc_brands' ) );
+		echo wpautop( __( 'Brands be added and managed from this screen. You can optionally upload a brand image to display in brand widgets and on brand archives', 'woocommerce-brands' ) );
 	}
 
 	/**
@@ -394,10 +391,10 @@ class WC_Brands_Admin {
 		if ( empty( $columns ) ) {
 			return;
 		}
-		
+
 		$new_columns = array();
 		$new_columns['cb'] = $columns['cb'];
-		$new_columns['thumb'] = __('Image', 'wc_brands');
+		$new_columns['thumb'] = __('Image', 'woocommerce-brands');
 		unset( $columns['cb'] );
 		$columns = array_merge( $new_columns, $columns );
 		return $columns;
@@ -416,7 +413,7 @@ class WC_Brands_Admin {
 			global $woocommerce;
 
 			$image        = '';
-			$thumbnail_id = WC_Brands::get_term_meta( $id, 'thumbnail_id', true );
+			$thumbnail_id = get_term_meta( $id, 'thumbnail_id', true );
 
 			if ( $thumbnail_id ) {
 				$image = wp_get_attachment_url( $thumbnail_id );
@@ -437,33 +434,28 @@ class WC_Brands_Admin {
 	public function product_filter( $filters ) {
 		global $wp_query;
 
-		$output = '';
+		ob_start();
 
 		$current_product_brand = isset( $wp_query->query['product_brand'] ) ? $wp_query->query['product_brand'] : '';
 		$args                  = array(
 			'pad_counts'         => 1,
 			'show_count'         => 1,
 			'hierarchical'       => 1,
-			'hide_empty'         => 1,
+			'hide_empty'         => 0,
 			'show_uncategorized' => 1,
 			'orderby'            => 'name',
 			'selected'           => $current_product_brand,
-			'menu_order'         => false
+			'show_option_none'   => __( 'Select a brand', 'woocommerce-brands' ),
+			'option_none_value'  => '',
+			'value_field'        => 'slug',
+			'taxonomy'           => 'product_brand',
+			'name'               => 'product_brand',
+			'class'              => 'dropdown_product_brand',
 		);
 
-		$terms = get_terms( 'product_brand' );
+		wc_product_dropdown_categories( $args );
 
-		if ( ! $terms ) {
-			return $filters;
-		}
-
-		$output .= $filters . PHP_EOL;
-		$output .= "<select name='product_brand' class='dropdown_product_brand'>";
-		$output .= '<option value="" ' .  selected( $current_product_brand, '', false ) . '>' . __( 'Select a brand', 'wc_brands' ) . '</option>';
-		$output .= wc_walk_category_dropdown_tree( $terms, 0, $args );
-		$output .= "</select>";
-
-		return $output;
+		return $filters . PHP_EOL . ob_get_clean();
 	}
 
 	/**
@@ -476,7 +468,7 @@ class WC_Brands_Admin {
 
 		add_settings_field(
 			'woocommerce_product_brand_slug',
-			__( 'Product brand base', 'wc_brands' ),
+			__( 'Product brand base', 'woocommerce-brands' ),
 			array( $this, 'product_brand_slug_input' ),
 			'permalink',
 			'optional'
@@ -491,13 +483,13 @@ class WC_Brands_Admin {
 	public function product_brand_slug_input() {
 		$permalink = get_option( 'woocommerce_brand_permalink', '' );
 		?>
-		<input name="woocommerce_product_brand_slug" type="text" class="regular-text code" value="<?php echo esc_attr( $permalink ); ?>" placeholder="<?php echo esc_attr_x( 'brand', 'slug', 'wc_brands' ) ?>" />
+		<input name="woocommerce_product_brand_slug" type="text" class="regular-text code" value="<?php echo esc_attr( $permalink ); ?>" placeholder="<?php echo esc_attr_x( 'brand', 'slug', 'woocommerce-brands' ) ?>" />
 		<?php
 	}
 
 	/**
 	 * Save permalnks settings.
-	 * 
+	 *
 	 * We need to save the options ourselves;
 	 * settings api does not trigger save for the permalinks page.
 	 */
@@ -511,7 +503,7 @@ class WC_Brands_Admin {
 
 	/**
 	 * Validate the product base.
-	 * 
+	 *
 	 * Must have an additional slug, not just the brand as the base.
 	 */
 	public function validate_product_base( $value ) {
@@ -524,12 +516,12 @@ class WC_Brands_Admin {
 
 	/**
 	 * Add csv column for importing/exporting.
-	 * 
+	 *
 	 * @param  array $options Mapping options
 	 * @return array $options
 	 */
 	public function add_column_to_importer_exporter( $options ) {
-		$options['brand_ids'] = __( 'Brands', 'wc_brands' );
+		$options['brand_ids'] = __( 'Brands', 'woocommerce-brands' );
 		return $options;
 	}
 
@@ -540,7 +532,7 @@ class WC_Brands_Admin {
 	 * @return array $mappings
 	 */
 	public function add_default_column_mapping( $mappings ) {
-		$new_mapping = array( __( 'Brands', 'wc_brands' ) => 'brand_ids' );
+		$new_mapping = array( __( 'Brands', 'woocommerce-brands' ) => 'brand_ids' );
 		return array_merge( $mappings, $new_mapping );
 	}
 
@@ -562,7 +554,7 @@ class WC_Brands_Admin {
 
 	/**
 	 * Parse brands field from a CSV during import.
-	 * 
+	 *
 	 * Based on WC_Product_CSV_Importer::parse_categories_field()
 	 *
 	 * @param string $value Field value.

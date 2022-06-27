@@ -485,7 +485,7 @@ function collageusers( $args ){
 					}
 				}
 				elseif($userpro->field_type($k) == 'datepicker' && userpro_get_option('date_to_age') == 1 && $v != '' && count(explode('-', $v)) == 2 ){
-				  			$from = date('Y-m-d', strtotime('-'. explode('-', $v)[1] - 1 . ' years') );
+				  			$from = date('Y-m-d', strtotime('-'. (explode('-', $v)[1] - 1) . ' years') );
 				  			$to = date('Y-m-d', strtotime('-'. explode('-', $v)[0] . ' years') );
 			  				$v = array($from, $to);
 			  				$query['meta_query'][] = array(
@@ -508,14 +508,18 @@ function collageusers( $args ){
 						  else {
 							$like = '=';
 						}
-
+						if($userpro->field_type($k) == 'select'){
+							$v = stripslashes($v);
+							$v = sanitize_text_field($v);
+							$v = str_replace('&#039;',"'",$v);
+						}
+						
 
 					$query['meta_query'][] = array(
 						'key' => $k,
 						'value' => $v,
 						'compare' => $like,
 					);
-
 					}
 				}
 			}
@@ -585,9 +589,9 @@ function collageusers( $args ){
 
 			foreach($array as $k=>$v) {
 
-				echo '<option value="'.$v.'" ';
+				echo '<option value="'.($v).'" ';
 				if (isset($_GET['emd-'.$key]) && $_GET['emd-'.$key] == $v) { echo 'selected="selected"'; }
-				echo '>'.$v.'</option>';
+				echo '>'.stripslashes($v).'</option>';
 
 			}
 

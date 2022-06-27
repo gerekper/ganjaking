@@ -24,18 +24,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Class Helper
  */
 class Helper {
-
-	/**
-	 * List of progress keys.
-	 *
-	 * @since 3.9.6
-	 * @var array
-	 */
-	private static $smush_progress_keys = array(
-		'smush' => 'smush-in-progress',
-		'restore' => 'wp-smush-restore',
-	);
-
 	/**
 	 * Temporary cache.
 	 *
@@ -72,16 +60,18 @@ class Helper {
 	public static function logger() {
 		if ( null === self::$logger ) {
 			$upload_dir = wp_get_upload_dir();
+
 			$log_dir = 'smush';
 			if ( false !== strpos( $upload_dir['basedir'], WP_CONTENT_DIR ) ) {
 				$log_dir = str_replace( trailingslashit( WP_CONTENT_DIR ), '', $upload_dir['basedir'] ) . '/smush';
 			}
+
 			self::$logger = WDEV_Logger::create(
 				array(
 					'log_dir'    => $log_dir,
 					'is_private' => true,
 					'modules'    => array(
-						'smush'   => array(
+						'smush'        => array(
 							'is_global_module' => true,
 						),
 						'cdn'          => array(),
@@ -131,11 +121,13 @@ class Helper {
 	public static function cache_get( $key, $group = null, $default = null ) {
 		// Add current blog id to support MU site.
 		$current_blog_id = get_current_blog_id();
-		$temp_cache = array();
+
 		// Get cache for current blog.
+		$temp_cache = array();
 		if ( isset( self::$temp_cache[ $current_blog_id ] ) ) {
 			$temp_cache = self::$temp_cache[ $current_blog_id ];
 		}
+
 		/**
 		 * Add a filter to force cache.
 		 * It might be helpful when we debug.
@@ -147,7 +139,8 @@ class Helper {
 				// Required for cache unique file name of png2jpg()->convert_to_jpg().
 				'convert_to_jpg',
 			);
-			if ( ! in_array( $group, $locked_groups ) ) {
+
+			if ( ! in_array( $group, $locked_groups, true ) ) {
 				return null;
 			}
 		}
@@ -203,30 +196,13 @@ class Helper {
 	public static function cache_delete( $cache_key ) {
 		// Add current blog id to support MU site.
 		$current_blog_id = get_current_blog_id();
+
 		// Delete temp cache by cache key.
 		if ( isset( $cache_key, self::$temp_cache[ $current_blog_id ][ $cache_key ] ) ) {
 			unset( self::$temp_cache[ $current_blog_id ][ $cache_key ] );
 		}
+
 		return true;
-	}
-
-
-	/**
-	 * Check if user is a WPMU DEV admin.
-	 *
-	 * @since 3.9.3
-	 *
-	 * @return bool
-	 */
-	public static function is_wpmu_dev_admin() {
-		if ( class_exists( '\WPMUDEV_Dashboard' ) ) {
-			if ( method_exists( '\WPMUDEV_Dashboard_Site', 'allowed_user' ) ) {
-				$user_id = get_current_user_id();
-				return \WPMUDEV_Dashboard::$site->allowed_user( $user_id );
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -246,13 +222,13 @@ class Helper {
 
 		// Get the File mime.
 		if ( class_exists( 'finfo' ) ) {
-			$finfo = new finfo( FILEINFO_MIME_TYPE );
+			$file_info = new finfo( FILEINFO_MIME_TYPE );
 		} else {
-			$finfo = false;
+			$file_info = false;
 		}
 
-		if ( $finfo ) {
-			$mime = file_exists( $path ) ? $finfo->file( $path ) : '';
+		if ( $file_info ) {
+			$mime = file_exists( $path ) ? $file_info->file( $path ) : '';
 		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime = mime_content_type( $path );
 		} else {
@@ -267,7 +243,7 @@ class Helper {
 	 *
 	 * @param array $posts Object of Posts.
 	 *
-	 * @return mixed array of post ids
+	 * @return array  Array of post IDs.
 	 */
 	public static function filter_by_mime( $posts ) {
 		if ( empty( $posts ) ) {
@@ -290,7 +266,7 @@ class Helper {
 	 *
 	 * @param string $attachment_id  Attachment ID.
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public static function get_pngjpg_savings( $attachment_id = '' ) {
 		// Initialize empty array.
@@ -300,7 +276,7 @@ class Helper {
 			'size_after'  => 0,
 		);
 
-		// Return empty array if attaachment id not provided.
+		// Return empty array if attachment id not provided.
 		if ( empty( $attachment_id ) ) {
 			return $savings;
 		}
@@ -310,7 +286,7 @@ class Helper {
 			return $savings;
 		}
 
-		foreach ( $pngjpg_savings as $size => $s_savings ) {
+		foreach ( $pngjpg_savings as $s_savings ) {
 			if ( empty( $s_savings ) ) {
 				continue;
 			}
@@ -336,13 +312,13 @@ class Helper {
 	public static function get_image_media_link( $id, $name, $src = false ) {
 		$mode = get_user_option( 'media_library_mode' );
 		if ( 'grid' === $mode ) {
-			$link = admin_url( "upload.php?item={$id}" );
+			$link = admin_url( "upload.php?item=$id" );
 		} else {
-			$link = admin_url( "post.php?post={$id}&action=edit" );
+			$link = admin_url( "post.php?post=$id&action=edit" );
 		}
 
 		if ( ! $src ) {
-			return "<a href='{$link}'>{$name}</a>";
+			return "<a href='$link'>$name</a>";
 		}
 
 		return $link;
@@ -383,9 +359,7 @@ class Helper {
 		/**
 		 * Used internally to modify the error message
 		 */
-		$error = apply_filters( 'wp_smush_error', $error, $attachment_id );
-
-		return $error;
+		return apply_filters( 'wp_smush_error', $error, $attachment_id );
 	}
 
 	/**
@@ -445,35 +419,44 @@ class Helper {
 	/**
 	 * Check to see if file is animated.
 	 *
-	 * @since 3.0  Moved from class-resize.php
+	 * @since 3.0    Moved from class-resize.php
+	 * @since 3.9.6  Add a new param $mime_type.
 	 *
 	 * @param string       $file_path  Image file path.
 	 * @param int          $id         Attachment ID.
 	 * @param false|string $mime_type  Mime type.
 	 *
-	 * @since 3.9.6 Add a new param $mime_type.
+	 * @return bool|int
 	 */
 	public static function check_animated_status( $file_path, $id, $mime_type = false ) {
 		// Only do this for GIFs.
 		$mime_type = $mime_type ? $mime_type : get_post_mime_type( $id );
 		if ( 'image/gif' !== $mime_type || ! isset( $file_path ) ) {
-			return;
+			return false;
 		}
 
 		// Try to check from saved meta.
 		$is_animated = get_post_meta( $id, 'wp-smush-animated', true );
 		if ( $is_animated ) {
+			/**
+			 * Support old version.
+			 *
+			 * @since 3.9.10
+			 */
+			update_post_meta( $id, 'wp-smush-ignore-bulk', Core::STATUS_ANIMATED );
+			// Clean the old metadata.
+			delete_post_meta( $id, 'wp-smush-animated' );
 			return true;
-		} else {
-			$enabled_backup = WP_Smush::get_instance()->core()->mod->backup->is_active();
-			// If enabling backup, it's safe for us to check exists result from the meta value.
-			if ( $enabled_backup && '0' === $is_animated ) {
-				// If it's not an animated image, returns.
-				return;
-			}
 		}
 
-		$filecontents = file_get_contents( $file_path );
+		$enabled_backup = WP_Smush::get_instance()->core()->mod->backup->is_active();
+		// If enabling backup, it's safe for us to check exists result from the meta value.
+		if ( $enabled_backup && '0' === $is_animated ) {
+			// If it's not an animated image, returns.
+			return false;
+		}
+
+		$filecontents = file_get_contents( $file_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
 		$str_loc = 0;
 		$count   = 0;
@@ -500,7 +483,12 @@ class Helper {
 		$is_animated = 0;
 		if ( $count > 1 ) {
 			$is_animated = 1;
-			update_post_meta( $id, 'wp-smush-animated', $is_animated );
+			/**
+			 * Set it as an ignored image to exclude from unsmushed list.
+			 *
+			 * @since 3.9.10
+			 */
+			update_post_meta( $id, 'wp-smush-ignore-bulk', Core::STATUS_ANIMATED );
 		} elseif ( $enabled_backup ) {
 			// Cache the result if user enabled the backup mode.
 			update_post_meta( $id, 'wp-smush-animated', $is_animated );
@@ -584,100 +572,6 @@ class Helper {
 	}
 
 	/**
-	 * Check if the file is in progress.
-	 *
-	 * @param int    $attachment_id Attachment ID.
-	 * @param string $action Current job: smush or restore.
-	 *
-	 * @return bool  True if the file is in progress.
-	 */
-	public static function file_in_progress( $attachment_id, $action = '' ) {
-		if ( ! empty( $action ) ) {
-			if ( isset( self::$smush_progress_keys[ $action ] ) ) {
-				$action = self::$smush_progress_keys[ $action ];
-			}
-
-			return get_transient( $action . '-' . $attachment_id );
-		}
-		return get_transient( "smush-in-progress-{$attachment_id}" ) || get_transient( "wp-smush-restore-{$attachment_id}" );
-	}
-
-	/**
-	 * Put file in progress.
-	 *
-	 * We use transient with expiration to release the file
-	 * if the site caused server error while smushing file.
-	 *
-	 * @param string $action Action name: smush or restore.
-	 * @param int    $attachment_id Attachment ID.
-	 *
-	 * @return bool True if the value was set, false otherwise.
-	 */
-	public static function lock_file_before_doing( $action, $attachment_id ) {
-		if ( isset( self::$smush_progress_keys[ $action ] ) ) {
-			$action = self::$smush_progress_keys[ $action ];
-		}
-		return set_transient( $action . '-' . $attachment_id, 1, HOUR_IN_SECONDS );
-	}
-
-	/**
-	 * Release the file.
-	 *
-	 * @param string $action Action name: smush or restore.
-	 * @param int    $attachment_id Attachment ID.
-	 *
-	 * @return bool  True if the value was delete, false otherwise.
-	 */
-	public static function release_file_after_doing( $action, $attachment_id ) {
-		if ( isset( self::$smush_progress_keys[ $action ] ) ) {
-			$action = self::$smush_progress_keys[ $action ];
-		}
-		return delete_transient( $action . '-' . $attachment_id );
-	}
-
-	/**
-	 * Check if the file is ignored.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return bool  True if the file is ignored.
-	 */
-	public static function is_ignored( $attachment_id ) {
-		if ( empty( $attachment_id ) ) {
-			return null;// Nothing to do.
-		}
-		return (bool) get_post_meta( $attachment_id, 'wp-smush-ignore-bulk', true );
-	}
-
-	/**
-	 * Ignore a file.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return bool|int
-	 */
-	public static function ignore_file( $attachment_id ) {
-		if ( empty( $attachment_id ) ) {
-			return null;// Nothing to do.
-		}
-		return update_post_meta( $attachment_id, 'wp-smush-ignore-bulk', true );
-	}
-
-	/**
-	 * Ignore a file.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return bool|int
-	 */
-	public static function undo_ignored_file( $attachment_id ) {
-		if ( empty( $attachment_id ) ) {
-			return null;// Nothing to do.
-		}
-		return delete_post_meta( $attachment_id, 'wp-smush-ignore-bulk' );
-	}
-
-	/**
 	 * Returns TRUE if the current request is REST API but is not media endpoint.
 	 *
 	 * @since 3.9.7
@@ -708,18 +602,24 @@ class Helper {
 	 * @since 3.9.6
 	 *
 	 * @param int    $attachment_id  Attachment ID.
-	 * @param string $type           false|original|smush|backup|resize.
+	 * @param string $type           false|original|scaled|smush|backup|resize|check-resize.
 	 * @param bool   $unfiltered     Whether to get unfiltered path or not.
 	 *
 	 * $type = original|backup => Try to get the original image file path.
 	 * $type = false|smush     => Get the file path base on the setting "compress original".
+	 * $type = scaled|resize   => Get the full file path, for large jpg it's scaled file not the original file.
 	 *
 	 * @return bool|string
 	 */
 	public static function get_raw_attached_file( $attachment_id, $type = 'smush', $unfiltered = false ) {
 		if ( function_exists( 'wp_get_original_image_path' ) ) {
+			if ( 'backup' === $type ) {
+				$type = 'original';
+			} elseif ( 'resize' === $type || 'check-resize' === $type ) {
+				$type = 'scaled';
+			}
 			// We will get the original file if we are doing for backup or restore, or smush original file.
-			if ( 'original' === $type || 'backup' === $type || Settings::get_instance()->get( 'original' ) ) {
+			if ( 'original' === $type || 'scaled' !== $type && Settings::get_instance()->get( 'original' ) ) {
 				$file_path = wp_get_original_image_path( $attachment_id, $unfiltered );
 			} else {
 				$file_path = get_attached_file( $attachment_id, $unfiltered );
@@ -739,10 +639,11 @@ class Helper {
 	 *
 	 * @param int    $attachment_id  Attachment ID.
 	 * @param string $type           false|original|smush|backup|resize
-	 * $type = smush|backup => Get the file path and download the attached file if it doesn't exist.
-	 * $type = resize       => Get the file path ( if it exists ), or filtered file path if it doesn't exist.
-	 * $type = original     => Only get the file path.
-	 * $type = false        => Get the file path base on the setting "compress original".
+	 * $type = smush|backup  => Get the file path and download the attached file if it doesn't exist.
+	 * $type = check-resize  => Get the file path ( if it exists ), or filtered file path if it doesn't exist.
+	 * $type = original      => Only get the original file path (not scaled file).
+	 * $type = scaled|resize => Get the full file path, for large jpg it's scaled file not the original file.
+	 * $type = false         => Get the file path base on the setting "compress original".
 	 *
 	 * @since 3.9.6 Moved S3 to S3 integration.
 	 * Add a hook filter to allow 3rd party to custom the result.
@@ -761,14 +662,14 @@ class Helper {
 		 * @param int         $attachment_id    Attachment ID.
 		 * @param bool        $should_download  Should download the file if it doesn't exist.
 		 * @param bool        $should_real_path Expecting a real file path instead an URL.
-		 * @param string      $type             false|original|smush|backup|resize.
+		 * @param string      $type             false|original|smush|backup|resize|scaled|check-resize.
 		 *
 		 * @usedby Smush\Core\Integrations\S3::get_attached_file
 		 */
-		// If the site is using S3, we only need to download the file when doing smush.
-		$should_download  = $type === 'smush' || 'backup' === $type;// phpcs:ignore
+		// If the site is using S3, we only need to download the file when doing smush, backup or resizing.
+		$should_download = in_array( $type, array( 'smush', 'backup', 'resize' ), true );
 		// But when restoring/smushing we are expecting a real file path.
-		$should_real_path = $type !== 'resize';// phpcs:ignore
+		$should_real_path = 'check-resize' !== $type;
 		$file_path        = apply_filters( 'wp_smush_get_attached_file', null, $attachment_id, $should_download, $should_real_path, $type );
 
 		if ( is_null( $file_path ) ) {
@@ -817,7 +718,7 @@ class Helper {
 		// Use is_numeric for common case.
 		if ( $file && is_numeric( $file ) ) {
 			$attachment_id = $file;
-			$file = null;
+			$file          = null;
 		}
 
 		// If the file path is not empty we will try to check file_exists first.
@@ -826,7 +727,7 @@ class Helper {
 		} else {
 			$file_exists = file_exists( $file );
 			if ( $file_exists ) {
-				return $file_exists;
+				return true;
 			}
 		}
 

@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Condition_Coupon_Code class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.3.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.12.1
+ * @version  1.13.1
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -26,6 +25,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                            = 'coupon_code_used';
 		$this->title                         = __( 'Coupon Code', 'woocommerce-conditional-shipping-and-payments' );
+		$this->priority                      = 20;
 		$this->supported_global_restrictions = array( 'shipping_methods', 'payment_gateways', 'shipping_countries' );
 	}
 

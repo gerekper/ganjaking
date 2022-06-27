@@ -13,7 +13,9 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 	/**
 	 * Class WC_OD_Checkout
 	 */
-	class WC_OD_Checkout extends WC_OD_Singleton {
+	class WC_OD_Checkout {
+
+		use WC_OD_Singleton_Trait;
 
 		/**
 		 * The first allowed date for ship an order.
@@ -46,8 +48,6 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @since 1.0.0
 		 */
 		protected function __construct() {
-			parent::__construct();
-
 			$this->register_location();
 
 			// WP Hooks.
@@ -58,7 +58,11 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'checkout_fields' ) );
 			add_filter( 'woocommerce_checkout_get_value', array( $this, 'checkout_get_value' ), 10, 2 );
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'checkout_fragments' ) );
+			add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
+			add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_order_review' ) );
+			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'cart_calculate_fees' ) );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
+			add_action( 'woocommerce_checkout_create_order_fee_item', array( $this, 'create_order_fee_item' ), 10, 2 );
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_meta' ) );
 		}
 
@@ -191,6 +195,17 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		}
 
 		/**
+		 * Gets if there are available dates for delivery.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @return bool
+		 */
+		public function has_available_dates() {
+			return ( $this->needs_date() && 0 < $this->get_first_delivery_date() );
+		}
+
+		/**
 		 * Enqueue scripts.
 		 *
 		 * @since 1.0.0
@@ -217,16 +232,25 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return array An array with the delivery date field arguments.
 		 */
 		public function get_delivery_date_field_args( $args = array() ) {
-			// Use the first delivery date as placeholder.
-			if ( 'auto' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ) {
-				$delivery_date = $this->get_first_delivery_date();
-
-				if ( $delivery_date ) {
-					$args['placeholder'] = wc_od_localize_date( $delivery_date );
-				}
-			}
-
 			return wc_od_get_delivery_date_field_args( $args, 'checkout' );
+		}
+
+		/**
+		 * Gets the available time frames for the specified date.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param string|int $date The date or timestamp.
+		 * @return WC_OD_Collection_Time_Frames.
+		 */
+		public function get_time_frames_for_date( $date ) {
+			return wc_od_get_time_frames_for_date(
+				$date,
+				array(
+					'shipping_method' => $this->get_shipping_method(),
+				),
+				'checkout'
+			);
 		}
 
 		/**
@@ -238,34 +262,28 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return array
 		 */
 		public function checkout_fields( $fields ) {
-			if ( ! $this->needs_date() ) {
+			if ( ! $this->has_available_dates() ) {
 				return $fields;
 			}
-
-			$delivery_date = $this->checkout_get_value( null, 'delivery_date' );
 
 			$fields['delivery'] = array(
 				'delivery_date' => $this->get_delivery_date_field_args(),
 			);
 
+			$delivery_date = WC()->checkout()->get_value( 'delivery_date' );
+
 			if ( $delivery_date ) {
 				add_filter( 'wc_od_get_time_frames_for_date', array( $this, 'filter_unavailable_time_frames' ), 10, 2 );
 
-				$choices = wc_od_get_time_frames_choices_for_date(
-					$delivery_date,
-					array(
-						'shipping_method' => $this->get_shipping_method(),
-					),
-					'checkout'
-				);
+				$time_frames = $this->get_time_frames_for_date( $delivery_date );
 
-				if ( ! empty( $choices ) ) {
+				if ( count( $time_frames ) ) {
 					$fields['delivery']['delivery_time_frame'] = array(
 						'label'    => _x( 'Time frame', 'checkout field label', 'woocommerce-order-delivery' ),
 						'type'     => 'select',
 						'class'    => array( 'form-row-wide' ),
 						'required' => ( 'required' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ),
-						'options'  => $choices,
+						'options'  => wc_od_get_time_frames_choices( $time_frames, 'checkout' ),
 						'priority' => 20,
 					);
 				}
@@ -275,7 +293,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		}
 
 		/**
-		 * Filter a checkout field value from the posted data.
+		 * Gets the value for a checkout field.
 		 *
 		 * Load the delivery fields value on refreshing the checkout fragments.
 		 *
@@ -283,16 +301,108 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 *
 		 * @param mixed  $value The field value.
 		 * @param string $input The input key.
-		 *
 		 * @return mixed
 		 */
 		public function checkout_get_value( $value, $input ) {
 			// We cannot use the method 'WC_Checkout->get_checkout_fields()' due to nested calls.
 			if ( 0 === strpos( $input, 'delivery_' ) ) {
-				$value = wc_od_get_posted_data( $input );
+				$value = WC()->session->get( $input );
 			}
 
 			return $value;
+		}
+
+		/**
+		 * Cart emptied.
+		 *
+		 * @since 2.0.0
+		 */
+		public function cart_emptied() {
+			// Deletes the delivery data stored in session.
+			WC()->session->set( 'delivery_date', null );
+			WC()->session->set( 'delivery_time_frame', null );
+		}
+
+		/**
+		 * Updates the order review during checkout.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param string $posted_data The posted data.
+		 */
+		public function update_order_review( $posted_data ) {
+			parse_str( $posted_data, $data );
+
+			// Use an empty string instead of null to disambiguate a non-initialized value in the session.
+			$delivery_date       = '';
+			$delivery_time_frame = '';
+
+			if ( ! empty( $data['delivery_date'] ) ) {
+				$delivery_date = wc_od_localize_date( $data['delivery_date'], 'Y-m-d' );
+			}
+
+			if ( $delivery_date ) {
+				// When the customer changes the delivery date, the submitted time frame might not be available.
+				$time_frames = $this->get_time_frames_for_date( $delivery_date );
+				$count       = count( $time_frames );
+
+				// Assign the unique time frame available.
+				if ( 1 === $count ) {
+					$delivery_time_frame = $time_frames->first()->get_id();
+				} elseif ( 1 < $count && ! empty( $data['delivery_time_frame'] ) ) {
+					$time_frame_id = wc_clean( wp_unslash( $data['delivery_time_frame'] ) );
+
+					if ( is_numeric( $time_frame_id ) ) {
+						$time_frame = $time_frames->get( $time_frame_id );
+					} else {
+						$time_frame = wc_od_get_time_frame_for_date( $delivery_date, $time_frame_id );
+					}
+
+					/*
+					 * If the time frame exists, the customer might have selected the same week day or
+					 * just changed the field value.
+					 */
+					if ( $time_frame ) {
+						$delivery_time_frame = $time_frame_id;
+					}
+				}
+			}
+
+			// Store the delivery details in session.
+			WC()->session->set( 'delivery_date', $delivery_date );
+			WC()->session->set( 'delivery_time_frame', $delivery_time_frame );
+		}
+
+		/**
+		 * Adds custom fees to the cart.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param WC_Cart $cart Cart object.
+		 */
+		public function cart_calculate_fees( $cart ) {
+			/**
+			 * Filters whether to enable the delivery fees for the specified cart.
+			 *
+			 * @since 2.0.0
+			 *
+			 * @param bool    $enable_fees Whether to enable the fees.
+			 * @param WC_Cart $cart        Cart object.
+			 */
+			$enable_fees = apply_filters( 'wc_od_enable_fees_for_cart', is_checkout(), $cart );
+
+			if ( ! $enable_fees ) {
+				return;
+			}
+
+			$args = array(
+				'delivery_date' => WC()->session->get( 'delivery_date' ),
+				'time_frame'    => WC()->session->get( 'delivery_time_frame' ),
+			);
+
+			$cart_fees = new WC_OD_Cart_Fees( $cart );
+			$cart_fees->calculate_fees( $args );
+			$cart_fees->add_fees();
 		}
 
 		/**
@@ -310,9 +420,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$this->checkout_content();
 			$fragments['#wc-od'] = ob_get_clean();
 
-			$fragments = $this->add_calendar_settings_fragment( $fragments );
-
-			return $fragments;
+			return $this->add_calendar_settings_fragment( $fragments );
 		}
 
 		/**
@@ -321,7 +429,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @since 1.0.0
 		 */
 		public function checkout_content() {
-			if ( ! $this->needs_details() ) {
+			if ( ! $this->needs_details() || ( $this->needs_date() && ! $this->has_available_dates() ) ) {
 				// Only prints the container to allow the fragment refresh.
 				echo '<div id="wc-od"></div>';
 				return;
@@ -329,37 +437,30 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 
 			$checkout = WC()->checkout();
 
-			// Backward compatibility.
-			$delivery_date_field_args = $this->get_delivery_date_field_args(
-				array(
-					'return' => true,
-				)
-			);
-
 			$shipping_method = $this->get_shipping_method();
 			$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $shipping_method );
 
 			/**
-			 * Filter the arguments used by the checkout/form-delivery-date.php template.
+			 * Filters the arguments used by the checkout/form-delivery-date.php template.
 			 *
 			 * @since 1.1.0
 			 * @since 1.5.0 The parameter `delivery_date_field` is deprecated.
+			 * @since 2.0.0 The parameter `delivery_date_field` is no longer provided.
 			 *
 			 * @param array $args The arguments.
 			 */
 			$args = apply_filters(
 				'wc_od_checkout_delivery_details_args',
 				array(
-					'title'               => __( 'Shipping and delivery', 'woocommerce-order-delivery' ),
-					'checkout'            => $checkout,
-					'delivery_date_field' => woocommerce_form_field( 'delivery_date', $delivery_date_field_args, $checkout->get_value( 'delivery_date' ) ),
-					'delivery_option'     => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
-					'shipping_date'       => wc_od_localize_date( $this->get_first_shipping_date() ),
-					'delivery_range'      => array(
+					'title'           => __( 'Shipping and delivery', 'woocommerce-order-delivery' ),
+					'checkout'        => $checkout,
+					'delivery_option' => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
+					'shipping_date'   => wc_od_localize_date( $this->get_first_shipping_date() ),
+					'delivery_range'  => array(
 						'min' => $range->get_from(),
 						'max' => $range->get_to(),
 					),
-					'checkout_text'       => WC_OD()->settings()->get_setting( 'checkout_text' ),
+					'checkout_text'   => WC_OD()->settings()->get_setting( 'checkout_text' ),
 				)
 			);
 
@@ -377,7 +478,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$today           = wc_od_get_local_date();
 			$start_timestamp = strtotime( $this->min_delivery_days() . ' days', $today );
 			$end_timestamp   = strtotime( ( $this->max_delivery_days() + 1 ) . ' days', $today ); // Non-inclusive.
-			$delivery_days   = WC_OD()->settings()->get_setting( 'delivery_days' );
+			$delivery_days   = wc_od_get_delivery_days()->all();
 
 			$disabled_dates = wc_od_get_disabled_days(
 				array(
@@ -462,7 +563,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @since 1.1.0
 		 */
 		public function print_calendar_settings() {
-			$settings = ( $this->needs_date() ? $this->get_calendar_settings() : array() );
+			$settings = ( $this->has_available_dates() ? $this->get_calendar_settings() : array() );
 			?>
 			<script id="wc_od_checkout_l10n" type="text/javascript">
 				/* <![CDATA[ */
@@ -498,7 +599,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @since 1.5.0
 		 */
 		public function checkout_validation() {
-			if ( ! $this->needs_date() ) {
+			if ( ! $this->has_available_dates() ) {
 				return;
 			}
 
@@ -534,7 +635,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		public function validate_delivery_date( $value, $field ) {
 			// Validation: Invalid date.
 			if ( $value && ! wc_od_validate_delivery_date( $value, $this->get_delivery_date_args(), 'checkout' ) ) {
-				/* translators: %s: field name */
+				/* translators: %s: field label */
 				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
 			}
 		}
@@ -548,70 +649,10 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @param array $field The field data.
 		 */
 		public function validate_delivery_time_frame( $value, $field ) {
-			if ( $value && ! in_array( $value, array_keys( $field['options'] ), true ) ) {
+			if ( $value && ! in_array( $value, array_keys( $field['options'] ) ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				/* translators: %s: field label */
 				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
 			}
-		}
-
-		/**
-		 * Validates if the day of the week is enabled for the delivery.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 This validation is done in the 'validate_delivery_date' method.
-		 *
-		 * @param boolean $valid Is valid the delivery date?.
-		 * @return boolean True if the delivery date is valid. False otherwise.
-		 */
-		public function validate_delivery_day( $valid ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-
-			return $valid;
-		}
-
-		/**
-		 * Validates if the minimum days for the delivery is satisfied.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 This validation is done in the 'validate_delivery_date' method.
-		 *
-		 * @param boolean $valid Is valid the delivery date?.
-		 * @return boolean True if the delivery date is valid. False otherwise.
-		 */
-		public function validate_minimum_days( $valid ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-
-			return $valid;
-		}
-
-		/**
-		 * Validates if the maximum days for the delivery is satisfied.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 This validation is done in the 'validate_delivery_date' method.
-		 *
-		 * @param boolean $valid Is valid the delivery date?.
-		 * @return boolean True if the delivery date is valid. False otherwise.
-		 */
-		public function validate_maximum_days( $valid ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-
-			return $valid;
-		}
-
-		/**
-		 * Validates that not exists events for the delivery date.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.1.0 This validation is done in the 'validate_delivery_date' method.
-		 *
-		 * @param boolean $valid Is valid the delivery date?.
-		 * @return boolean True if the delivery date is valid. False otherwise.
-		 */
-		public function validate_no_events( $valid ) {
-			wc_deprecated_function( __METHOD__, '1.1.0' );
-
-			return $valid;
 		}
 
 		/**
@@ -625,11 +666,6 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$checkout      = WC()->checkout();
 			$delivery_date = $checkout->get_value( 'delivery_date' );
 
-			// Assigns a delivery date automatically.
-			if ( ! $delivery_date && 'auto' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ) {
-				$delivery_date = $this->get_first_delivery_date( 'checkout-auto' );
-			}
-
 			if ( $delivery_date ) {
 				// Stores the date in the ISO 8601 format.
 				$delivery_date = wc_od_localize_date( $delivery_date, 'Y-m-d' );
@@ -641,31 +677,31 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		/**
 		 * Gets the shipping date to save with the order.
 		 *
-		 * @since 1.1.0
+		 * @since 1.4.0
+		 * @since 2.0.0 The parameter `$delivery_date` is required.
 		 *
-		 * @param string|int $delivery_date Optional. The order delivery date.
+		 * @param string|int $delivery_date The order delivery date.
 		 * @return string|false The shipping date string. False otherwise.
 		 */
 		public function get_order_shipping_date( $delivery_date = null ) {
-			if ( $delivery_date ) {
-				// Assigns a shipping date from the delivery date.
-				$shipping_date = wc_od_get_last_shipping_date(
-					array(
-						'shipping_method'             => $this->get_shipping_method(),
-						'delivery_date'               => $delivery_date,
-						'disabled_delivery_days_args' => array(
-							'type'    => 'delivery',
-							'country' => WC()->customer->get_shipping_country(),
-							'state'   => WC()->customer->get_shipping_state(),
-						),
-					),
-					'checkout-auto'
-				);
-			} else {
-				// The shipping date posted by the customer.
-				$checkout      = WC()->checkout();
-				$shipping_date = $checkout->get_value( 'shipping_date' );
+			if ( ! $delivery_date ) {
+				wc_doing_it_wrong( __FUNCTION__, 'You must provide a delivery date as the first argument.', '2.0.0' );
+				return false;
 			}
+
+			// Assigns a shipping date from the delivery date.
+			$shipping_date = wc_od_get_last_shipping_date(
+				array(
+					'shipping_method'             => $this->get_shipping_method(),
+					'delivery_date'               => $delivery_date,
+					'disabled_delivery_days_args' => array(
+						'type'    => 'delivery',
+						'country' => WC()->customer->get_shipping_country(),
+						'state'   => WC()->customer->get_shipping_state(),
+					),
+				),
+				'checkout-auto'
+			);
 
 			if ( $shipping_date ) {
 				// Stores the date in the ISO 8601 format.
@@ -686,31 +722,34 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		public function get_order_time_frame( $delivery_date ) {
 			$checkout      = WC()->checkout();
 			$time_frame_id = $checkout->get_value( 'delivery_time_frame' );
-			$time_frame    = null;
-
-			if ( $time_frame_id ) {
-				$time_frame = wc_od_get_time_frame_for_date( $delivery_date, $time_frame_id );
-			} elseif ( 'auto' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ) {
-				$time_frames = wc_od_get_time_frames_for_date(
-					$delivery_date,
-					array(
-						'shipping_method' => $this->get_shipping_method(),
-					),
-					'checkout-auto'
-				);
-
-				$time_frame = $time_frames->first();
-			}
+			$time_frame    = ( $time_frame_id ? wc_od_get_time_frame_for_date( $delivery_date, $time_frame_id ) : false );
 
 			return ( $time_frame ? wc_od_time_frame_to_order( $time_frame ) : false );
 		}
 
 		/**
-		 * Saves the order delivery date during checkout.
+		 * Adjusts the order item fee before saving the order.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param WC_Order_Item_Fee $item    Order item fee.
+		 * @param string            $fee_key The fee key.
+		 * @return WC_Order_Item_Fee
+		 */
+		public function create_order_fee_item( $item, $fee_key ) {
+			if ( 0 === strpos( $fee_key, 'delivery_' ) ) {
+				$item->add_meta_data( '_delivery_fee', 'yes', true );
+			}
+
+			return $item;
+		}
+
+		/**
+		 * Saves the order delivery details during checkout.
 		 *
 		 * @since 1.0.0
 		 * @since 1.1.0 Accepts a WC_Order as parameter.
-		 * @since 1.7.0 Doesn't accept an Order ID as parameter.
+		 * @since 1.7.0 Doesn't accept an Order ID as a parameter anymore.
 		 *
 		 * @param WC_Order $order Order object.
 		 */
@@ -720,22 +759,25 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				return;
 			}
 
-			if ( ! $this->needs_date() ) {
+			if ( ! $this->has_available_dates() ) {
 				return;
 			}
 
 			$delivery_date = $this->get_order_delivery_date();
-			$shipping_date = $this->get_order_shipping_date( $delivery_date );
 
-			if ( $delivery_date ) {
-				$order->update_meta_data( '_delivery_date', $delivery_date );
-
-				$time_frame = $this->get_order_time_frame( $delivery_date );
-
-				if ( $time_frame ) {
-					$order->update_meta_data( '_delivery_time_frame', $time_frame );
-				}
+			if ( ! $delivery_date ) {
+				return;
 			}
+
+			$order->update_meta_data( '_delivery_date', $delivery_date );
+
+			$time_frame = $this->get_order_time_frame( $delivery_date );
+
+			if ( $time_frame ) {
+				$order->update_meta_data( '_delivery_time_frame', $time_frame );
+			}
+
+			$shipping_date = $this->get_order_shipping_date( $delivery_date );
 
 			if ( $shipping_date ) {
 				$order->update_meta_data( '_shipping_date', $shipping_date );

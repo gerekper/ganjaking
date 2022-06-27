@@ -2,16 +2,16 @@
 
 if (!defined('ABSPATH')) exit;
 
-
 /*
  * Plugin Name: MailPoet 3 Premium (New)
- * Version: 3.84.0
+ * Version: 3.91.0
  * Plugin URI: https://www.mailpoet.com
+ * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: This plugin adds Premium features to the free version of MailPoet and unlocks the limit of 1,000 subscribers. Enjoy!
  * Author: MailPoet
  * Author URI: https://www.mailpoet.com
  * Update URI: https://www.mailpoet.com
- * Requires at least: 5.3
+ * Requires at least: 5.6
  *
  * Text Domain: mailpoet-premium
  * Domain Path: /lang/
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPremium = [
-  'version' => '3.84.0',
+  'version' => '3.91.0',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
@@ -54,7 +54,18 @@ function mailpoet_premium_php_version_notice() {
     __('MailPoet Premium requires PHP version 7.2.0 or newer (version 8.0 recommended). Please read our [link]instructions[/link] on how to resolve this issue.', 'mailpoet-premium')
   );
   $notice = str_replace('[/link]', '</a>', $notice);
-  printf('<div class="error"><p>%1$s</p></div>', $notice);
+  printf(
+    '<div class="error"><p>%1$s</p></div>',
+    wp_kses(
+      $notice,
+      [
+        'a' => [
+          'href' => true,
+          'target' => true,
+        ],
+      ]
+    )
+  );
 }
 
 // Check for presence of core dependencies
@@ -68,8 +79,13 @@ if (!file_exists($mailpoetPremium['autoloader']) || !file_exists($mailpoetPremiu
 // Display missing core dependencies error notice
 function mailpoet_premium_core_dependency_notice() {
   $notice = __('MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin.', 'mailpoet-premium');
-  printf('<div class="error"><p>%1$s</p></div>', $notice);
+  printf(
+    '<div class="error"><p>%1$s</p></div>',
+    esc_html($notice)
+  );
 }
 
 // Initialize plugin
 require_once($mailpoetPremium['initializer']);
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

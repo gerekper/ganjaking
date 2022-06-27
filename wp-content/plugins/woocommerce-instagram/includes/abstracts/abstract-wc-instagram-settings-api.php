@@ -105,7 +105,7 @@ abstract class WC_Instagram_Settings_API extends WC_Settings_API {
 	 */
 	public function get_form_fields() {
 		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->plugin_id . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->plugin_id . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -182,11 +182,10 @@ abstract class WC_Instagram_Settings_API extends WC_Settings_API {
 	 * Outputs the settings notices.
 	 *
 	 * @since 3.0.0
+	 * @deprecated 4.1.2
 	 */
 	public function output_notices() {
-		if ( $this->has_errors() ) {
-			$this->display_errors();
-		}
+		wc_deprecated_function( __FUNCTION__, '4.1.2' );
 	}
 
 	/**
@@ -259,7 +258,6 @@ abstract class WC_Instagram_Settings_API extends WC_Settings_API {
 		}
 
 		$this->enqueue_scripts();
-		$this->output_notices();
 		$this->output_heading();
 
 		parent::admin_options();
@@ -381,7 +379,7 @@ abstract class WC_Instagram_Settings_API extends WC_Settings_API {
 		$settings = $this->sanitize_subset_fields( $settings );
 
 		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->plugin_id . $this->id, $settings );
+		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->plugin_id . $this->id, $settings ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**

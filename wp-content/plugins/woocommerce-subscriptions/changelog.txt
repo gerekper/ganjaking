@@ -1,5 +1,23 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2022-06-07 - version 4.4.0
+* Fix - Fatal Error caused in rare cases where quantity is zero during renewal.
+
+2022-05-24 - version 4.3.0
+* Dev: Retrieving users subscriptions order has been updated to use the WooCommerce specific APIs in WC_Subscriptions_Order.
+* Dev: Deprecate the WC_Subscriptions_Order::get_meta() function. Use wcs_get_objects_property( $order, $meta_key, "single", $default ) instead.
+* Dev: Update the wcs_get_objects_property() function to prevent calls to get_post_meta() on objects that support calling the get_meta() function.
+* Dev: Replace the get_post_meta() calls in WCS_Post_Meta_Cache_Manager with WC_Order::get_meta().
+* Dev: Replace code using get_post_type( $order_id ) with WC Data Store get_order_type().
+* Dev: Replace all cases of update_post_meta() where an Order ID is passed to use WC_Order::update_meta_data() instead.
+
+2022-04-29 - version 4.2.0
+* Fix: Remove WooThemes helper/updater admin notice/banner. PR#4328
+* Fix: Remove PHP/deprecation notices during the early renewal and switch process when using WooCommerce Blocks 7.2. PR#4341
+* Fix: Display subscription billing details in the Cart Block when purchasing products with subscription plans created using the All Products extension. subscriptions-core#149
+* Update: Switch to global functions to remove deprecation warnings originating from WooCommerce Blocks. subscriptions-core#124
+* Dev: Update subscriptions-core to 1.9.0. PR#4345
+
 2022-03-22 - version 4.1.0
 * Fix: Undefined variable `user_can_suspend` when a customer suspension limit is defined and the max number of suspensions has been reached. PR#4318
 * Fix: Sets up subscriptions integration with the Mini Cart Block and adds new hook to filter compatible blocks. subscriptions-core#103

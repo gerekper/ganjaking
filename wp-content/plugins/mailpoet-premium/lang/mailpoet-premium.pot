@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailPoet 3 Premium (New) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 Premium (New) 3.85.0\n"
+"Project-Id-Version: MailPoet 3 Premium (New) 3.91.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-03-21 15:25:06+00:00\n"
+"POT-Creation-Date: 2022-06-22 11:16:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,44 +35,52 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:49
+msgid "Unsubscribe"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php:32
+msgid "WP user registration"
+msgstr ""
+
 #: lib/Config/Hooks.php:40
 msgid "[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]"
 msgstr ""
 
-#: lib/Config/Renderer.php:107
+#: lib/Config/Renderer.php:108
 msgid "Failed to render template \"%s\". Please ensure the template cache folder \"%s\" exists and has write permissions. Terminated with error: \"%s\""
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:329
+#: lib/Newsletter/Stats/SubscriberEngagement.php:331
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:361
+#: lib/Newsletter/Stats/SubscriberEngagement.php:363
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:366
+#: lib/Newsletter/Stats/SubscriberEngagement.php:368
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:371
+#: lib/Newsletter/Stats/SubscriberEngagement.php:373
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:376
+#: lib/Newsletter/Stats/SubscriberEngagement.php:378
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:385
+#: lib/Newsletter/Stats/SubscriberEngagement.php:387
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:396
+#: lib/Newsletter/Stats/SubscriberEngagement.php:398
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""
@@ -81,7 +89,7 @@ msgstr ""
 msgid "MailPoet Premium requires PHP version 7.2.0 or newer (version 8.0 recommended). Please read our [link]instructions[/link] on how to resolve this issue."
 msgstr ""
 
-#: mailpoet-premium.php:67
+#: mailpoet-premium.php:78
 msgid "MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin."
 msgstr ""
 
@@ -89,11 +97,11 @@ msgstr ""
 msgid "You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium."
 msgstr ""
 
-#: mailpoet_initializer.php:86
+#: mailpoet_initializer.php:89
 msgid "You have an older version of the Premium plugin. The features have been disabled in order not to break MailPoet. Please update it in the Plugins page now."
 msgstr ""
 
-#: mailpoet_initializer.php:88
+#: mailpoet_initializer.php:91
 msgid "Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version."
 msgstr ""
 

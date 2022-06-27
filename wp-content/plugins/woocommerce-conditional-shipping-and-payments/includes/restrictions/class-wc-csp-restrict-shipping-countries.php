@@ -2,7 +2,6 @@
 /**
  * WC_CSP_Restrict_Shipping_Countries class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Conditional Shipping and Payments
  * @since    1.0.0
  */

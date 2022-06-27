@@ -2,6 +2,8 @@
 /**
  * Outputs the Status section for Mix and Match.
  *
+ * @package  WooCommerce Mix and Match Products/Admin
+ * 
  * @version 1.3.0
  * @props to ProsPress
  */
@@ -37,7 +39,7 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 			$mark = '';
 		}
 
-		// Use mark_icon key if available, otherwise set based on $mark
+		// Use mark_icon key if available, otherwise set based on $mark.
 		if ( isset( $data['mark_icon'] ) ) {
 			$mark_icon = $data['mark_icon'];
 		} elseif ( 'yes' === $mark ) {

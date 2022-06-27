@@ -53,6 +53,7 @@ use function array_values;
 use function count;
 use function current;
 use function get_class;
+use function get_debug_type;
 use function implode;
 use function in_array;
 use function is_array;
@@ -106,6 +107,9 @@ class UnitOfWork implements PropertyChangedListener
  }
  public function commit($entity = null)
  {
+ if ($entity !== null) {
+ Deprecation::triggerIfCalledFromOutside('doctrine/orm', 'https://github.com/doctrine/orm/issues/8459', 'Calling %s() with any arguments to commit specific entities is deprecated and will not be supported in Doctrine ORM 3.0.', __METHOD__);
+ }
  $connection = $this->em->getConnection();
  if ($connection instanceof PrimaryReadReplicaConnection) {
  $connection->ensureConnectedToPrimary();
@@ -461,7 +465,7 @@ class UnitOfWork implements PropertyChangedListener
  }
  $state = $this->getEntityState($entry, self::STATE_NEW);
  if (!$entry instanceof $assoc['targetEntity']) {
- throw UnexpectedAssociationValue::create($assoc['sourceEntity'], $assoc['fieldName'], get_class($entry), $assoc['targetEntity']);
+ throw UnexpectedAssociationValue::create($assoc['sourceEntity'], $assoc['fieldName'], get_debug_type($entry), $assoc['targetEntity']);
  }
  switch ($state) {
  case self::STATE_NEW:
@@ -483,7 +487,6 @@ class UnitOfWork implements PropertyChangedListener
  // Can actually not happen right now as we assume STATE_NEW,
  // so the exception will be raised from the DBAL layer (constraint violation).
  throw ORMInvalidArgumentException::detachedEntityFoundThroughRelationship($assoc, $entry);
- break;
  default:
  }
  }
@@ -497,7 +500,7 @@ class UnitOfWork implements PropertyChangedListener
  }
  $idGen = $class->idGenerator;
  if (!$idGen->isPostInsertGenerator()) {
- $idValue = $idGen->generate($this->em, $entity);
+ $idValue = $idGen->generateId($this->em, $entity);
  if (!$idGen instanceof AssignedGenerator) {
  $idValue = [$class->getSingleIdentifierFieldName() => $this->convertSingleFieldIdentifierToPHPValue($class, $idValue)];
  $class->setIdentifierValues($entity, $idValue);
@@ -609,12 +612,14 @@ class UnitOfWork implements PropertyChangedListener
  {
  $identifier = [];
  foreach ($class->getIdentifierFieldNames() as $idField) {
- $value = $class->getFieldValue($entity, $idField);
+ $origValue = $class->getFieldValue($entity, $idField);
+ $value = null;
  if (isset($class->associationMappings[$idField])) {
  // NOTE: Single Columns as associated identifiers only allowed - this constraint it is enforced.
- $value = $this->getSingleIdentifierValue($value);
+ $value = $this->getSingleIdentifierValue($origValue);
  }
- $identifier[$idField] = $this->originalEntityData[$oid][$idField] = $value;
+ $identifier[$idField] = $value ?? $origValue;
+ $this->originalEntityData[$oid][$idField] = $origValue;
  }
  $this->entityStates[$oid] = self::STATE_MANAGED;
  $this->entityIdentifiers[$oid] = $identifier;
@@ -1327,6 +1332,7 @@ class UnitOfWork implements PropertyChangedListener
  if ($entityName === null) {
  $this->identityMap = $this->entityIdentifiers = $this->originalEntityData = $this->entityChangeSets = $this->entityStates = $this->scheduledForSynchronization = $this->entityInsertions = $this->entityUpdates = $this->entityDeletions = $this->nonCascadedNewDetectedEntities = $this->collectionDeletions = $this->collectionUpdates = $this->extraUpdates = $this->readOnlyObjects = $this->visitedCollections = $this->eagerLoadingEntities = $this->orphanRemovals = [];
  } else {
+ Deprecation::triggerIfCalledFromOutside('doctrine/orm', 'https://github.com/doctrine/orm/issues/8460', 'Calling %s() with any arguments to clear specific entities is deprecated and will not be supported in Doctrine ORM 3.0.', __METHOD__);
  $this->clearIdentityMapForEntityName($entityName);
  $this->clearEntityInsertionsForEntityName($entityName);
  }
@@ -1616,7 +1622,7 @@ class UnitOfWork implements PropertyChangedListener
  public function getEntityIdentifier($entity)
  {
  if (!isset($this->entityIdentifiers[spl_object_id($entity)])) {
- throw EntityNotFoundException::noIdentifierFound(get_class($entity));
+ throw EntityNotFoundException::noIdentifierFound(get_debug_type($entity));
  }
  return $this->entityIdentifiers[spl_object_id($entity)];
  }
@@ -1747,7 +1753,7 @@ class UnitOfWork implements PropertyChangedListener
  }
  private static function objToStr($obj) : string
  {
- return method_exists($obj, '__toString') ? (string) $obj : get_class($obj) . '@' . spl_object_id($obj);
+ return method_exists($obj, '__toString') ? (string) $obj : get_debug_type($obj) . '@' . spl_object_id($obj);
  }
  public function markReadOnly($object)
  {

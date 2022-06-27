@@ -13,9 +13,8 @@ class EmbedNode extends IncludeNode
  $this->setAttribute('name', $name);
  $this->setAttribute('index', $index);
  }
- protected function addGetTemplate(Compiler $compiler)
+ protected function addGetTemplate(Compiler $compiler) : void
  {
  $compiler->write('$this->loadTemplate(')->string($this->getAttribute('name'))->raw(', ')->repr($this->getTemplateName())->raw(', ')->repr($this->getTemplateLine())->raw(', ')->string($this->getAttribute('index'))->raw(')');
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\EmbedNode', 'MailPoetVendor\\Twig_Node_Embed');

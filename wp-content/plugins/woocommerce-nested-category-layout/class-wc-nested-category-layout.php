@@ -34,7 +34,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.17.3';
+	const VERSION = '1.17.4';
 
 	/** @var WC_Nested_Category_Layout single instance of this plugin */
 	protected static $instance;
@@ -66,6 +66,25 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	}
 
 
+	 /**
+	 * Is it main query for products.
+	 *
+	 * @since 1.17.4
+	 *
+	 * @param \WP_Query $wp_query WordPress query object
+	 * @return boolean
+	*/
+	public function is_product_main_query( $query = null ) {
+		global $wp_query;
+
+		if ( ! $query && $wp_query ) {
+			$query = $wp_query;
+		}
+
+		return $query && $query->is_main_query() && ( ( isset( $query->query_vars[ 'post_type' ] ) && 'product' === $query->query_vars[ 'post_type' ] ) || is_product_category() );
+	}
+
+
 	/**
 	 * Initializes the plugin.
 	 *
@@ -81,7 +100,8 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 			// no pagination: return all products when displaying nested categories/products
 			add_action( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
-			add_action( 'pre_get_posts', [ $this, 'handle_third_party_plugins_compatibility' ], 1 );
+			add_action( 'pre_get_posts', [ $this, 'handle_third_party_plugins_compatibility' ], 1, 999 );
+
 		} else {
 
 			// inject our admin options
@@ -369,6 +389,20 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		if ( $is_shop || $is_empty_product_category ) {
 			do_action( 'woocommerce_after_shop_loop' );
 		}
+
+		if( ! $is_empty_product_category ) {
+			global $wp_query;
+			foreach( $ncl_tax_query = $wp_query->get( 'tax_query' ) as $index => $term ) {
+
+				if( isset( $term['taxonomy'] ) && 'product_cat' === $term['taxonomy'] ) {
+
+					$ncl_tax_query[$index]['include_children'] = true;
+					$wp_query->tax_query = $ncl_tax_query;
+					$wp_query->tax_query = new WP_Tax_Query( $ncl_tax_query );
+				}
+			}
+		}
+
 	}
 
 
@@ -647,15 +681,20 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		return self::$instance;
 	}
 
+
 	/**
 	 * Handle third party plugins compatibility.
 	 *
 	 * @internal
 	 *
 	 * @since 1.17.3
+	 * @param \WP_Query $wp_query WordPress query object
 	 */
-	public function handle_third_party_plugins_compatibility() {
+	public function handle_third_party_plugins_compatibility( $wp_query ) {
 
+		if( ! $this->is_product_main_query( $wp_query ) ) {
+			return;
+		}
 		// YITH WooCommerce Ajax Product Filter
 		if ( isset( $_REQUEST['yith_wcan'] ) ) {
 			$this->disable_nested_categories();
@@ -667,12 +706,12 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		}
 
 		// Advanced AJAX Product Filters
-		if ( class_exists('BeRocket_url_parse_page') && ! isset( $_REQUEST['filters'] ) ) {
+		if ( class_exists( 'BeRocket_url_parse_page' ) && ! isset( $_REQUEST['filters'] ) ) {
 			remove_action( 'woocommerce_product_query', [ new BeRocket_url_parse_page(), 'woocommerce_product_query'], 99999999, 1 );
 		}
 
 		// Advanced AJAX Product Filters
-		if ( class_exists('BeRocket_url_parse_page') && isset( $_REQUEST['filters'] ) ) {
+		if ( class_exists( 'BeRocket_url_parse_page' ) && isset( $_REQUEST['filters'] ) ) {
 			$this->disable_nested_categories();
 		}
 
@@ -681,6 +720,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 			$this->disable_nested_categories();
 		}
 	}
+
 
 	/**
 	 * Remove product query hook to disable NCL.
@@ -691,5 +731,6 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		remove_action( 'wp', [ $this, 'wp_init' ] );
 		remove_action( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
 	}
+
 
 }

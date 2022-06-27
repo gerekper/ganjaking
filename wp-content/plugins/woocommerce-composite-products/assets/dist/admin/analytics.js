@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 27);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -98,7 +98,7 @@
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(22)();
+  module.exports = __webpack_require__(23)();
 }
 
 
@@ -221,7 +221,7 @@ if (false) { var throwOnDirectAccess, ReactIs; } else {
 /***/ (function(module, exports) {
 
 function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
+  module.exports = _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
 
@@ -246,7 +246,8 @@ module.exports = _extends, module.exports.__esModule = true, module.exports["def
 (function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
-/* 22 */
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -259,7 +260,7 @@ module.exports = _extends, module.exports.__esModule = true, module.exports["def
 
 
 
-var ReactPropTypesSecret = __webpack_require__(23);
+var ReactPropTypesSecret = __webpack_require__(24);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -318,7 +319,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -337,7 +338,9 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 24 */
+/* 25 */,
+/* 26 */,
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

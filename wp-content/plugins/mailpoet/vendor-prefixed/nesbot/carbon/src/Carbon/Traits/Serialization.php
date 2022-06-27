@@ -23,7 +23,7 @@ trait Serialization
  }
  return $instance;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public static function __set_state($dump)
  {
  if (\is_string($dump)) {
@@ -41,7 +41,7 @@ trait Serialization
  }
  return $properties;
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function __wakeup()
  {
  if (\get_parent_class() && \method_exists(parent::class, '__wakeup')) {
@@ -62,7 +62,7 @@ trait Serialization
  }
  $this->cleanupDumpProperties();
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function jsonSerialize()
  {
  $serializer = $this->localSerializer ?? static::$serializer;

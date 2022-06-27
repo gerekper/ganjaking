@@ -1,5 +1,13 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2022.06.22 - version 1.14.0
+* Tweak - Optimized the order in which restriction conditions are evaluated to improve performance.
+* Tweak - Introduced basic telemetry to collect data on extension usage when tracking is enabled.
+
+2022.04.14 - version 1.13.0
+* Fix - Added support for the new, block-based checkout.
+* Fix - Fixed an issue that made restricted Shipping Methods show up as available when the debugger was active.
+
 2022.03.16 - version 1.12.1
 * Tweak - Removed static Shipping Method restriction notices in the cart. Due to a core limitation, it has not been possible to make them work reliably.
 * Tweak - Updated the 'Show Excluded' tooltip in Payment Gateway Restrictions.

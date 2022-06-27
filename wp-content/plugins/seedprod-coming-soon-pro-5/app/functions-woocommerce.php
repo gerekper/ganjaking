@@ -249,6 +249,11 @@ function seedprod_pro_woocommerce_template_tags_archive_products_shortcode( $att
 		$atts
 	);
 
+	// Check if the WC Instance exists.
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
+
 	// Get current product.
 	$render    = '';
 	$ids_array = array();

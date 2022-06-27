@@ -7,14 +7,15 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 /**
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  8.3.5
+ * @version  8.4.2
  */
 
 class WC_CP_Cart {
@@ -26,6 +27,13 @@ class WC_CP_Cart {
 	 * @var string|null
 	 */
 	protected $validation_context = null;
+
+	/**
+	 * Flag to avoid infinite loops when removing a composite parent via a child.
+	 *
+	 * @var string
+	 */
+	protected $removing_container_key = null;
 
 	/**
 	 * The single instance of the class.
@@ -73,6 +81,15 @@ class WC_CP_Cart {
 	 * Setup hooks.
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'add_hooks' ), 0 );
+	}
+
+	/**
+	 * Add hooks.
+	 *
+	 * @since  8.4.0
+	 */
+	public function add_hooks() {
 
 		// Validate composite configuration on adding-to-cart.
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'add_to_cart_validation' ), 10, 6 );
@@ -113,7 +130,7 @@ class WC_CP_Cart {
 			add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'update_quantity_in_cart' ) );
 		}
 
-		// Remove/restore composited items when the parent gets removed/restored.
+		// Keep removals of composites and composited items in sync.
 		add_action( 'wp_loaded', array( $this, 'update_cart_action_remove_item' ), 19 );
 		add_action( 'woocommerce_remove_cart_item', array( $this, 'cart_item_remove' ), 10, 2 );
 		add_action( 'woocommerce_restore_cart_item', array( $this, 'cart_item_restore' ), 10, 2 );
@@ -128,7 +145,7 @@ class WC_CP_Cart {
 
 	/*
 	|--------------------------------------------------------------------------
-	| API Methods.
+	| Class Methods.
 	|--------------------------------------------------------------------------
 	*/
 
@@ -436,14 +453,20 @@ class WC_CP_Cart {
 	/**
 	 * Validates the components in a composite configuration.
 	 *
-	 * @param  mixed   $product
-	 * @param  int     $composite_quantity
-	 * @param  array   $configuration
-	 * @param  string  $context
+	 * @param  mixed         $product
+	 * @param  int           $composite_quantity
+	 * @param  array         $configuration
+	 * @param  array|string  $args
 	 * @return boolean
 	 */
-	public function validate_composite_configuration( $composite, $composite_quantity, $configuration, $context = '' ) {
+	public function validate_composite_configuration( $composite, $composite_quantity, $configuration, $args = array() ) {
 
+		$defaults = array(
+			'context'         => is_string( $args ) ? $args : '', // Back in the day, args was a string and was used to pass context.
+			'throw_exception' => WC_CP_Core_Compatibility::is_api_request() // Do not add a notice in Rest/Store API requests, unless otherwise instructed.
+		);
+
+		$args                   = wp_parse_args( $args, $defaults );
 		$is_configuration_valid = true;
 
 		if ( is_numeric( $composite ) ) {
@@ -454,18 +477,15 @@ class WC_CP_Cart {
 
 			try {
 
-				if ( '' === $context ) {
-
-					/**
-					 * 'woocommerce_composite_validation_context' filter.
-					 *
-					 * @since  3.13.5
-					 *
-					 * @param  string                $context
-					 * @param  WC_Product_Composite  $product
-					 */
-					$context = apply_filters( 'woocommerce_composite_validation_context', 'add-to-cart', $composite );
-				}
+				/**
+				 * 'woocommerce_composite_validation_context' filter.
+				 *
+				 * @since  3.13.5
+				 *
+				 * @param  string                $context
+				 * @param  WC_Product_Composite  $product
+				 */
+				$context = '' === $args[ 'context' ] ? apply_filters( 'woocommerce_composite_validation_context', 'add-to-cart', $composite ) : $args[ 'context' ];
 
 				$this->validation_context = $context;
 
@@ -474,7 +494,7 @@ class WC_CP_Cart {
 				$components      = $composite->get_components();
 				$validation_data = array();
 
-				// If a stock-managed product / variation exists in the bundle multiple times, its stock will be checked only once for the sum of all bundled quantities.
+				// If a stock-managed product / variation exists in the composite multiple times, its stock will be checked only once for the sum of all composited quantities.
 				// The WC_CP_Stock_Manager class does exactly that.
 				$composited_stock = new WC_CP_Stock_Manager( $composite );
 
@@ -852,7 +872,11 @@ class WC_CP_Cart {
 
 			} catch ( Exception $e ) {
 
-				if ( ! WC_CP_Core_Compatibility::is_rest_api_request() ) {
+				if ( $args[ 'throw_exception' ] ) {
+
+					throw $e;
+
+				} else {
 
 					$notice = $e->getMessage();
 
@@ -1136,6 +1160,18 @@ class WC_CP_Cart {
 		return $cart_item_key;
 	}
 
+	/**
+	 * Indicates whether a container item is being removed.
+	 *
+	 * @since  8.3.0
+	 *
+	 * @param  string  $item_key
+	 * @return string
+	 */
+	public function is_removing_container_cart_item( $cart_item_key ) {
+		return $this->removing_container_key === $cart_item_key;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Filter Hooks.
@@ -1166,6 +1202,12 @@ class WC_CP_Cart {
 	 * Check composite cart item configurations on cart load.
 	 */
 	public function check_cart_items() {
+
+		// Store API cart item validation is done via 'wooocommerce_store_api_validate_cart_item'.
+		if ( WC_CP_Core_Compatibility::is_store_api_request() ) {
+			return;
+		}
+
 		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
 
 			if ( wc_cp_is_composite_container_cart_item( $cart_item ) ) {
@@ -1658,6 +1700,7 @@ class WC_CP_Cart {
 	 * @return void
 	 */
 	public function update_cart_action_remove_item() {
+
 		if ( ! isset( $_REQUEST[ 'remove_item' ] ) ) {
 			return;
 		}
@@ -1697,7 +1740,7 @@ class WC_CP_Cart {
 				$item_removed_title        = $component ? sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), $component->get_title() ) : __( 'Item', 'woocommerce' );
 				/* translators: %s: Composite name. */
 				$composite_container_title = sprintf( _x( '&ldquo;%s&rdquo;', 'Composite name in quotes', 'woocommerce-composite-products' ), $composite->get_title() );
-				/* translators: %1$s: Item name, %2$s: Bundle name. */
+				/* translators: %1$s: Item name, %2$s: Composite name. */
 				$removed_notice            = __( sprintf( '%1$s cannot be removed. The item is a mandatory component of %2$s.', $item_removed_title, $composite_container_title ), 'woocommerce-composite-products' );
 
 				wc_add_notice( $removed_notice, 'error' );
@@ -1726,6 +1769,8 @@ class WC_CP_Cart {
 	/**
 	 * Remove child cart items with parent.
 	 *
+	 * @throws Exception
+	 *
 	 * @param  string   $cart_item_key
 	 * @param  WC_Cart  $cart
 	 * @return void
@@ -1743,12 +1788,15 @@ class WC_CP_Cart {
 
 				unset( $cart->removed_cart_contents[ $composited_item_cart_key ][ 'data' ] );
 
+				// Prevent infinite loops.
+				$this->removing_container_key = $cart_item_key;
 				/** WC core action. */
 				do_action( 'woocommerce_remove_cart_item', $composited_item_cart_key, $cart );
+				$this->removing_container_key = null;
 
 				unset( $cart->cart_contents[ $composited_item_cart_key ] );
 
-				/** Triggered when composited item is removed from the cart.
+				/** Triggered when a composited item is removed from the cart.
 				 *
 				 * @since  8.3.4
 				 *
@@ -1760,9 +1808,20 @@ class WC_CP_Cart {
 				do_action( 'woocommerce_composited_cart_item_removed', $composited_item_cart_key, $cart );
 			}
 
-		} elseif ( ! isset( $_POST[ 'update-composite' ] ) && wc_cp_is_composited_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
+		} elseif ( wc_cp_is_composited_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
 
-			$cart_item    = $cart->removed_cart_contents[ $cart_item_key ];
+			if ( isset( $_POST[ 'update-composite' ] ) ) {
+				return;
+			}
+
+			$cart_item     = $cart->removed_cart_contents[ $cart_item_key ];
+			$container_key = wc_cp_get_composited_cart_item_container( $cart_item, $cart->cart_contents, true );
+
+			// Prevent infinite loops.
+			if ( $this->is_removing_container_cart_item( $container_key ) ) {
+				return;
+			}
+
 			$component_id = isset( $cart_item[ 'composite_item' ] ) ? absint( $cart_item[ 'composite_item' ] ) : false;
 			if ( ! $component_id ) {
 				return;
@@ -1783,9 +1842,30 @@ class WC_CP_Cart {
 			} elseif ( 0 === $composite_data[ $component_id ][ 'quantity_min' ] ) {
 				// Mark qty to min.
 				$composite_data[ $component_id ][ 'quantity' ] = 0;
-			}
 
-			$container_key = wc_cp_get_composited_cart_item_container( $cart_item, $cart->cart_contents, true );
+			// Trying to remove a mandatory component?
+			} else {
+
+				unset( $cart->removed_cart_contents[ $cart_item_key ] );
+
+				/** Triggered when attempting to remove a mandatory bundled item with a visible parent from the cart.
+				 *
+				 * @since  8.4.0
+				 *
+				 * @param  string  $bundled_item_cart_key
+				 * @param  WC_Cart $cart
+				 */
+				do_action( 'woocommerce_remove_mandatory_composited_cart_item', $cart_item_key, $cart );
+
+				/*
+				 * This exception should never be thrown under normal circumstances.
+				 * If an attempt is made to remove this item in the legacy cart, 'update_cart_action_remove_item' should catch the request, add a notice, and redirect.
+				 * If an attempt is made via the Store API, a RouteException should be thrown via 'woocommerce_remove_mandatory_composited_cart_item'.
+				 */
+
+				$notice = __( 'This product is a mandatory part of a composite product and cannot be removed.', 'woocommerce-composite-products' );
+				throw new Exception( $notice );
+			}
 
 			// Apply the updated composite_data.
 			WC()->cart->cart_contents[ $container_key ][ 'composite_data' ] = $composite_data;
@@ -1985,7 +2065,8 @@ class WC_CP_Cart {
 				$found = true;
 			} elseif ( wc_cp_is_composite_container_cart_item( $search_cart_item ) && isset( $cart_item[ 'composite_data' ] ) && $cart_item[ 'composite_data' ] === $search_cart_item[ 'composite_data' ] ) {
 				/* translators: Product title. */
-				throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-composite-products' ), $product->get_title() ) ) );
+				$message = sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-composite-products' ), $product->get_title() );
+				throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), $message ) );
 			}
 		}
 

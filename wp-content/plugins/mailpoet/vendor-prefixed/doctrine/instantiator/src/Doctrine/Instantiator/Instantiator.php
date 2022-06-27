@@ -2,6 +2,7 @@
 namespace MailPoetVendor\Doctrine\Instantiator;
 if (!defined('ABSPATH')) exit;
 use ArrayIterator;
+use MailPoetVendor\Doctrine\Instantiator\Exception\ExceptionInterface;
 use MailPoetVendor\Doctrine\Instantiator\Exception\InvalidArgumentException;
 use MailPoetVendor\Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Exception;
@@ -9,12 +10,14 @@ use ReflectionClass;
 use ReflectionException;
 use Serializable;
 use function class_exists;
+use function enum_exists;
 use function is_subclass_of;
 use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
 use function strlen;
 use function unserialize;
+use const PHP_VERSION_ID;
 final class Instantiator implements InstantiatorInterface
 {
  public const SERIALIZATION_FORMAT_USE_UNSERIALIZER = 'C';
@@ -24,7 +27,8 @@ final class Instantiator implements InstantiatorInterface
  public function instantiate($className)
  {
  if (isset(self::$cachedCloneables[$className])) {
- return clone self::$cachedCloneables[$className];
+ $cachedCloneable = self::$cachedCloneables[$className];
+ return clone $cachedCloneable;
  }
  if (isset(self::$cachedInstantiators[$className])) {
  $factory = self::$cachedInstantiators[$className];
@@ -57,6 +61,9 @@ final class Instantiator implements InstantiatorInterface
  {
  if (!class_exists($className)) {
  throw InvalidArgumentException::fromNonExistingClass($className);
+ }
+ if (PHP_VERSION_ID >= 80100 && enum_exists($className, \false)) {
+ throw InvalidArgumentException::fromEnum($className);
  }
  $reflection = new ReflectionClass($className);
  if ($reflection->isAbstract()) {

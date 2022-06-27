@@ -142,7 +142,7 @@ class Language implements JsonSerializable
  {
  return $this->getId();
  }
- #[ReturnTypeWillChange]
+ #[\ReturnTypeWillChange]
  public function jsonSerialize()
  {
  return $this->getIsoDescription();

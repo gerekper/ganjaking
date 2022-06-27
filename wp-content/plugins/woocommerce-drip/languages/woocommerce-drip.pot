@@ -2,9 +2,9 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Drip 1.2.28\n"
+"Project-Id-Version: WooCommerce Drip 1.2.30\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-drip\n"
-"POT-Creation-Date: 2022-02-08 15:02:59+00:00\n"
+"POT-Creation-Date: 2022-06-07 15:09:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wcdrip-events.php:89
+#: includes/class-wcdrip-events.php:88
 msgid "Purchase"
 msgstr ""
 
-#: includes/class-wcdrip-events.php:145
+#: includes/class-wcdrip-events.php:144
 msgid "Customer"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgid ""
 "here."
 msgstr ""
 
-#: woocommerce-drip.php:110
+#: woocommerce-drip.php:107
 msgid "Documentation"
 msgstr ""
 

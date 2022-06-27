@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Product Enquiry Form
  * Plugin URI: https://woocommerce.com/products/product-enquiry-form/
  * Description: Adds an enquiry form tab to certain product pages which allows customers to contact you about a product. Also includes optional reCAPTCHA for preventing spam.
- * Version: 1.2.21
+ * Version: 1.2.24
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 3.1
- * Tested up to: 5.9
+ * Tested up to: 6.0
  * WC requires at least: 2.6
- * WC tested up to: 6.1
+ * WC tested up to: 6.6
  * Text Domain: wc_enquiry_form
  * Domain Path: /languages
  * Woo: 18601:5a0f5d72519a8ffcc86669f042296937
@@ -243,7 +243,10 @@ if ( ! class_exists( 'WC_Product_Enquiry_Form' ) ) :
 					<?php
 					if ( 'v2' === $this->recaptcha_version ) {
 						$this->display_recaptcha_v2_placeholder();
+					} else {
+						?><input type="hidden" name="g-recaptcha-response" value="" /><?php
 					}
+
 					?>
 
 					<p class="product_enquiry_button_container">
@@ -323,7 +326,7 @@ if ( ! class_exists( 'WC_Product_Enquiry_Form' ) ) :
 							<?php if ( 'v3' === $this->recaptcha_version ) { ?>
 								grecaptcha.ready( function() {
 									grecaptcha.execute( '<?php echo esc_js( $this->public_key ); ?>', { action: 'ecommerce' } ).then( function( token ) {
-										jQuery( '#product_enquiry_form' ).prepend( '<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+										document.querySelector( '#product_enquiry_form [name=g-recaptcha-response]' ).value = token;
 
 										prepareForm();
 									} );

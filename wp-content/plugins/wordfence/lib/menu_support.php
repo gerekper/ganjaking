@@ -28,20 +28,37 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 								<li>
 									<ul class="wf-block-list wf-block-list-horizontal">
 										<li class="wf-flex-vertical">
-											<h3><?php esc_html_e('Free Support', 'wordfence'); ?></h3>
-											<p class="wf-center"><?php echo wp_kses(__('Support for free customers is available via our forums page on wordpress.org. The majority of requests <strong>receive an answer within a few days.</strong>', 'wordfence'), array('strong'=>array())); ?></p>
-											<p><a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_FREE); ?>" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-default wf-btn-callout-subtle"><?php esc_html_e('Go to Support Forums', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
-										</li>
-										<li class="wf-flex-vertical">
-										<?php if (wfConfig::get('isPaid')): ?>
+										<?php if (wfLicense::current()->isPaidAndCurrent()): ?>
 											<h3><?php esc_html_e('Premium Support', 'wordfence'); ?></h3>
-											<p class="wf-center"><?php echo wp_kses(__('Our senior support engineers <strong>respond to Premium tickets within a few hours</strong> on average and have a direct line to our QA and development teams.', 'wordfence'), array('strong'=>array())); ?></p>
-											<p><a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_PREMIUM); ?>" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-primary wf-btn-callout-subtle"><?php esc_html_e('Go to Premium Support', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
+											<p class="wf-center">
+												<?php if (wfLicense::current()->isResponse()): ?>
+													<?php esc_html_e('As a Wordfence Response customer you are entitled to hands-on priority support 24 hours a day 365 days a year. Our incident response team is available out of hours to handle urgent issues and security incidents. Our customer support team is available during business hours (Monday to Friday, 6am to 5pm Pacific and 9am to 8pm Eastern time) for product assistance. Both teams can sign-in to your site to assist, on request.', 'wordfence'); ?>
+												<?php elseif (wfLicense::current()->isCare()): ?>
+													<?php esc_html_e('As a Wordfence Care customer you are entitled to hands-on priority support and have access to our incident response team. Our senior support engineers and incident response team respond to requests quickly within business hours (Monday to Friday, 6am to 5pm Pacific and 9am to 8pm Eastern time) and can sign-in to your site on request to assist with complex issues.', 'wordfence'); ?>
+												<?php else: ?>
+													<?php esc_html_e('As a Wordfence Premium customer you\'re entitled to paid support via our ticketing system. Our senior support engineers respond to Premium tickets during regular business hours (Monday to Friday, 6am to 5pm Pacific and 9am to 8pm Eastern time) and have a direct line to our QA and development teams.', 'wordfence') ?>
+												<?php endif ?>
+											</p>
+											<p>
+												<a href="<?php echo esc_attr(wfLicense::current()->getSupportUrl('helpPageSupport')) ?>" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-primary wf-btn-callout-subtle"><?php esc_html_e('Get Help', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a>
+												<div>
+												<?php if (wfLicense::current()->isBelowCare()): ?>
+													<a href="https://www.wordfence.com/gnl1helpPageCare/products/wordfence-care/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to hands-on support with Wordfence Care', 'wordfence') ?></a>
+												<?php elseif (wfLicense::current()->isBelowResponse()): ?>
+													<a href="https://www.wordfence.com/gnl1helpPageResponse/products/wordfence-response/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to a 24/7 1-hour response time with Wordfence Response', 'wordfence') ?></a>
+												<?php endif ?>
+												</div>
+											</p>
 										<?php else: ?>
 											<h3><?php esc_html_e('Upgrade Now to Access Premium Support', 'wordfence'); ?></h3>
 											<p class="wf-center"><?php echo wp_kses(__('Our senior support engineers <strong>respond to Premium tickets within a few hours</strong> on average and have a direct line to our QA and development teams.', 'wordfence'), array('strong'=>array())); ?></p>
 											<p><a href="https://www.wordfence.com/gnl1supportUpgrade/wordfence-signup/" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-primary wf-btn-callout-subtle"><?php esc_html_e('Upgrade to Premium', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
 										<?php endif; ?>
+										</li>
+										<li class="wf-flex-vertical">
+											<h3><?php esc_html_e('Free Support', 'wordfence'); ?></h3>
+											<p class="wf-center"><?php echo wp_kses(__('Support for free customers is available via our forums page on wordpress.org. The majority of requests <strong>receive an answer within a few days.</strong>', 'wordfence'), array('strong'=>array())); ?></p>
+											<p><a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_FREE); ?>" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-default wf-btn-callout-subtle"><?php esc_html_e('Go to Support Forums', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></p>
 										</li>
 									</ul>
 								</li>

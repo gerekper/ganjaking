@@ -61,7 +61,7 @@ class WC_OD_Delivery_Ranges {
 
 		foreach ( $ranges as $range ) {
 			// Match found.
-			if ( $range->is_valid_for_shipping_method( $shipping_method ) ) {
+			if ( $range->validate_shipping_method( $shipping_method ) ) {
 				return $range;
 			}
 		}

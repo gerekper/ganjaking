@@ -5724,7 +5724,7 @@ abstract class GFAddOn {
 			$full_path = $this->_full_path;
 		}
 
-		return plugins_url( null, $full_path );
+		return plugins_url( '', $full_path );
 	}
 
 	/**
@@ -5733,7 +5733,7 @@ abstract class GFAddOn {
 	 * @return string
 	 */
 	final public static function get_gfaddon_base_url() {
-		return plugins_url( null, __FILE__ );
+		return plugins_url( '', __FILE__ );
 	}
 
 	/**
@@ -5814,13 +5814,7 @@ abstract class GFAddOn {
 			return true;
 		}
 
-		if ( class_exists( 'GFCommon' ) ) {
-			$is_correct_version = version_compare( GFCommon::$version, $min_gravityforms_version, '>=' );
-
-			return $is_correct_version;
-		} else {
-			return false;
-		}
+		return version_compare( GFForms::$version, $min_gravityforms_version, '>=' );
 	}
 
 	/**

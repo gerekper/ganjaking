@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping destinations using conditional logic.
-* Version: 1.12.1
+* Version: 1.14.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -13,10 +13,10 @@
 * Domain Path: /languages/
 *
 * Requires at least: 4.1
-* Tested up to: 5.9
+* Tested up to: 6.0
 *
-* WC requires at least: 2.6
-* WC tested up to: 6.3
+* WC requires at least: 3.9
+* WC tested up to: 6.6
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.12.1
+ * @version  1.14.0
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -37,10 +37,10 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.12.1';
+	const VERSION = '1.14.0';
 
 	/* Required WC version */
-	const REQ_WC_VERSION = '2.6.0';
+	const REQ_WC_VERSION = '3.9.0';
 
 	/* Text domain */
 	const TEXT_DOMAIN = 'woocommerce-conditional-shipping-and-payments';
@@ -247,6 +247,9 @@ class WC_Conditional_Shipping_Payments {
 		// Abstract condition classes extended by the included condition classes.
 		require_once( WC_CSP_ABSPATH . 'includes/abstracts/class-wc-csp-abstract-condition.php' );
 		require_once( WC_CSP_ABSPATH . 'includes/abstracts/class-wc-csp-abstract-package-condition.php' );
+
+		// Add tracking.
+		require_once( WC_CSP_ABSPATH . 'includes/class-wc-csp-tracker.php' );
 
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {

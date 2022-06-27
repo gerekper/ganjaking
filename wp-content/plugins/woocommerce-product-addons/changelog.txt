@@ -1,5 +1,30 @@
 *** Product Addons Changelog ***
 
+2022-04-12 - version 4.9.0
+* Tweak - WC 6.3.1 compatibility.
+* Tweak - WP 5.9 compatibility.
+
+2022-04-12 - version 4.8.2
+* Fix - 'woocommerce_price_trim_zeros' sets precision, but doesn't actually trim.
+* Fix - Bookings add-on "Multiply cost by person count" can't be unchecked.
+* Tweak - WC X compatibility.
+* Tweak - WP X compatibility.
+
+2022-04-05 - version 4.8.1
+* Fix - Fixed an issue that prevented the Product Addons subtotals from showing up for bundled/composited items.
+
+2022-04-04 - version 4.8.0
+* Fix - Fix potential crash with 3rd themes and plugins.
+* Fix - Include vendor assets in composer.json.
+
+2022-02-16 - version 4.7.0
+* Fix - Hook to toggle the price from add-ons name does not work.
+* Fix - Incorrect add-on price according to the location-based tax.
+* Fix - Remove duplicate entries from the exclude list in composer.json.
+* Fix - Text character limit doesn't show until you start typing in field.
+* Fix - The HTML structure for checkboxes and radio buttons is improved.
+* Fix - Updated script that reads 'show-incomplete-sub-total' data. Fixes conflict with Composite Products extension.
+
 2022-02-08 - version 4.6.0
 * Fix - Add option to show incomplete subtotal.
 * Fix - Fix CI build errors.

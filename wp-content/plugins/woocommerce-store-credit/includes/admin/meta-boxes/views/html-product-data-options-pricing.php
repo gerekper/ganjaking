@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 ?>
 </div>
-<div class="options_group show_if_store_credit">
+<div class="store-credit-pricing-options options_group show_if_store_credit">
 	<?php
 	foreach ( $fields as $key => $field ) :
 		wc_store_credit_meta_box_field( $field );

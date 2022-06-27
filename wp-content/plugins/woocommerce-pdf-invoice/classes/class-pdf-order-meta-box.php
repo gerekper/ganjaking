@@ -179,7 +179,7 @@
 
 				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'send' ) {
 
-					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
+					echo WC_send_pdf::get_woocommerce_pdf_invoice( $order, NULL, 'false' );
 					exit;
 
 				} 
@@ -276,6 +276,10 @@
 			foreach( $invoice_meta as $meta_key ) {
 				delete_post_meta( $order_id, $meta_key );
 			}
+
+			// Delete other postmeta
+				delete_post_meta( $order_id, '_invoice_created_mysql' );
+				delete_post_meta( $order_id, '_wc_pdf_invoice_created_date' );
 
 			WC_pdf_admin_functions::handle_next_invoice_number();
 

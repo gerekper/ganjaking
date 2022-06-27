@@ -6,15 +6,15 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer;
+use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\CronHelper;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterLinkEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\StatsNotificationEntity;
-use MailPoet\Mailer\Mailer;
+use MailPoet\Mailer\MailerFactory;
 use MailPoet\Mailer\MetaInfo;
-use MailPoet\Models\ScheduledTask;
 use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -32,8 +32,8 @@ class Worker {
   /** @var Renderer */
   private $renderer;
 
-  /** @var \MailPoet\Mailer\Mailer */
-  private $mailer;
+  /** @var MailerFactory */
+  private $mailerFactory;
 
   /** @var SettingsController */
   private $settings;
@@ -62,8 +62,11 @@ class Worker {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
+  /** @var ServicesChecker */
+  private $servicesChecker;
+
   public function __construct(
-    Mailer $mailer,
+    MailerFactory $mailerFactory,
     Renderer $renderer,
     SettingsController $settings,
     CronHelper $cronHelper,
@@ -73,10 +76,11 @@ class Worker {
     NewsletterStatisticsRepository $newsletterStatisticsRepository,
     EntityManager $entityManager,
     SubscribersFeature $subscribersFeature,
-    SubscribersRepository $subscribersRepository
+    SubscribersRepository $subscribersRepository,
+    ServicesChecker $servicesChecker
   ) {
     $this->renderer = $renderer;
-    $this->mailer = $mailer;
+    $this->mailerFactory = $mailerFactory;
     $this->settings = $settings;
     $this->cronHelper = $cronHelper;
     $this->mailerMetaInfo = $mailerMetaInfo;
@@ -86,6 +90,7 @@ class Worker {
     $this->newsletterStatisticsRepository = $newsletterStatisticsRepository;
     $this->subscribersFeature = $subscribersFeature;
     $this->subscribersRepository = $subscribersRepository;
+    $this->servicesChecker = $servicesChecker;
   }
 
   /** @throws \Exception */
@@ -99,7 +104,7 @@ class Worker {
         $extraParams = [
           'meta' => $this->mailerMetaInfo->getStatsNotificationMetaInfo(),
         ];
-        $this->mailer->send($this->constructNewsletter($statsNotificationEntity), $settings['address'], $extraParams);
+        $this->mailerFactory->getDefaultMailer()->send($this->constructNewsletter($statsNotificationEntity), $settings['address'], $extraParams);
       } catch (\Exception $e) {
         if (WP_DEBUG) {
           throw $e;
@@ -164,7 +169,9 @@ class Worker {
       'subscribersLimitReached' => $this->subscribersFeature->check(),
       'hasValidApiKey' => $hasValidApiKey,
       'subscribersLimit' => $this->subscribersFeature->getSubscribersLimit(),
-      'upgradeNowLink' => $hasValidApiKey ? 'https://account.mailpoet.com/upgrade' : 'https://account.mailpoet.com/?s=' . ($subscribersCount + 1),
+      'upgradeNowLink' => $hasValidApiKey
+        ? 'https://account.mailpoet.com/orders/upgrade/' . $this->servicesChecker->generatePartialApiKey()
+        : 'https://account.mailpoet.com/?s=' . ($subscribersCount + 1),
     ];
     if ($link) {
       $context['topLinkClicks'] = $link->getTotalClicksCount();
@@ -175,7 +182,7 @@ class Worker {
   }
 
   private function markTaskAsFinished(ScheduledTaskEntity $task) {
-    $task->setStatus(ScheduledTask::STATUS_COMPLETED);
+    $task->setStatus(ScheduledTaskEntity::STATUS_COMPLETED);
     $task->setProcessedAt(new Carbon);
     $task->setScheduledAt(null);
     $this->entityManager->flush();

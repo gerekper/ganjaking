@@ -3162,19 +3162,24 @@ class FUE_AJAX {
 			exit;
 		}
 
-		$first_name = !empty( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$last_name  = !empty( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-	    $email      = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$first_name    = ! empty( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$last_name     = ! empty( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$email         = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$session_email = WC()->session->get( 'wc_guest_email', $email );
+
+		if ( $email !== $session_email ) {
+			Follow_Up_Emails::instance()->fue_wc->wc_scheduler->update_user_email_to_unsent_emails( 0, $session_email, $email );
+		}
 
 		WC()->session->set( 'wc_guest_email', $email );
 		WC()->session->set( 'wc_guest_name', array($first_name, $last_name) );
 
-	    // copy what's currently in WC's cart to our cart table
+		// copy what's currently in WC's cart to our cart table
 		FUE_Addon_Woocommerce_Cart::clone_cart();
 
-	    foreach ( WC()->cart->get_cart() as $cart_item ) {
-		    Follow_Up_Emails::instance()->fue_wc->wc_scheduler->queue_cart_emails( WC()->cart->get_cart(), 0, $email, $cart_item['product_id'] );
-	    }
+		foreach ( WC()->cart->get_cart() as $cart_item ) {
+			Follow_Up_Emails::instance()->fue_wc->wc_scheduler->queue_cart_emails( WC()->cart->get_cart(), 0, $email, $cart_item['product_id'] );
+		}
 	}
 
 	/**

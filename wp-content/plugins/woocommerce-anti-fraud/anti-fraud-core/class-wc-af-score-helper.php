@@ -8,16 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 	class WC_AF_Score_Helper {
 		/**
+		 * Get score meta
+		 * 
 		 * @param $score_points
 		 *
 		 * @static
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return array
 		*/
-		public static function get_score_meta( $score_points, $order_id='' ) { 
+		public static function get_score_meta( $score_points, $order_id = '' ) { 
 			//Af_Logger::debug('Score Points '.$score_points);
 			// No score? return defaults
 			if ( '' == $score_points ) {
@@ -36,11 +37,11 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			if ( $score_points <= $high_threshold && $score_points >= $low_threshold ) {
 				
 				$meta['label'] = __( 'Medium Risk', 'woocommerce-anti-fraud' );				
-				$meta['color'] = ( $whitelist_action=='user_email_whitelisted' ) ? 'grey' : '#FFAE00';
+				$meta['color'] = ( 'user_email_whitelisted' == $whitelist_action ) ? 'grey' : '#FFAE00';
 			} elseif ( $score_points > $high_threshold ) {
 				
 				$meta['label'] = __( 'High Risk', 'woocommerce-anti-fraud' );
-				$meta['color'] = ( $whitelist_action=='user_email_whitelisted' ) ? 'grey' :'#D54E21';
+				$meta['color'] = ( 'user_email_whitelisted' == $whitelist_action ) ? 'grey' :'#D54E21';
 			}
 
 			return $meta;
@@ -52,7 +53,6 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @param        $score
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 *
 		 * @return int
 		 */
@@ -68,7 +68,6 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @param $order_id
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 */
 		public function schedule_fraud_check( $order_id, $checknow = false ) {
 			// Try to get the Anti Fraud score
@@ -83,8 +82,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$order = wc_get_order( $order_id );
 			update_post_meta( $order_id, '_wc_af_waiting', true );
 
-			if( $checknow ) {
-                            
+			if ( $checknow ) {
+							
 				$this->do_check( $order_id );							
 			} else {							
 				// Schedule the anti fraud check				
@@ -98,7 +97,6 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @param $order_id
 		 *
 		 * @since  1.0.2
-		 * @access public
 		 */
 		public static function is_fraud_check_queued( $order_id ) {
 
@@ -113,13 +111,27 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @param $order_id
 		 *
 		 * @since  1.0.2
-		 * @access public
 		 */
 		public static function is_fraud_check_complete( $order_id ) {
 
 			$score = get_post_meta( $order_id, 'wc_af_score', true );
 			return ( ! empty( $score ) );
 
+		}
+
+		public function whitelistedEmail( $email) {
+			$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+
+			$whitelist = explode("\n", $email_whitelist);
+			$whitlisted_email = false;
+			
+			if (in_array($email, $whitelist)) {
+				Af_Logger::debug('whitelist email found' . $email);
+				$whitlisted_email = true;
+			}
+			Af_Logger::debug('whitlisted_email ' . $whitlisted_email);
+
+			return $whitlisted_email;
 		}
 		
 		/**
@@ -132,7 +144,18 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 *
 		 */
 		public function do_check( $order_id ) {
+
+			$order = new WC_Order($order_id);
+			$order_email = $order->get_billing_email();
 			
+			if ($this->whitelistedEmail($order_email)) {
+				Af_Logger::debug('Fraud Check exited.');
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
+				return;
+			}
+
 			// Create a Score object
 			$score = new WC_AF_Score( $order_id );
 
@@ -162,10 +185,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$order = wc_get_order( $order_id );
 			$current_user_id = $order->get_user_id();
 			$order_date = $order->get_date_created();
-			$order_date = date('Y-m-d',strtotime($order_date));
-			$currentDate = date('Y-m-d');
+			$order_date = gmdate('Y-m-d', strtotime($order_date));
+			$currentDate = gmdate('Y-m-d');
 			$userDetails = $order->get_user();
-			$userRole = ('' != $userDetails ) ? $userDetails->roles[0] : '';
+			$userRole = ( '' != $userDetails ) ? $userDetails->roles[0] : '';
 			$blacklist_available = false;
 
 			$args = array(  
@@ -184,7 +207,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$loop = new WP_Query( $args ); 
 			$orderids = [];	
-			while ( $loop->have_posts() ) { $loop->the_post(); 
+			while ( $loop->have_posts() ) {
+$loop->the_post(); 
 				$orderids[] = get_the_ID();
 			}
 			wp_reset_postdata();
@@ -311,15 +335,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					$new_status = 'processing';
 					
 				}
-				$wc_af_failed_rules = get_post_meta( $order_id, 'wc_af_failed_rules',true ); 
+				$wc_af_failed_rules = get_post_meta( $order_id, 'wc_af_failed_rules', true ); 
 				$wc_af_failed_rules[] = '{"id":"whitelist","label":"User Email is Whitelisted."}';
 				update_post_meta( $order_id, 'wc_af_failed_rules', $wc_af_failed_rules );
 				update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
 
 				$order->add_order_note( __( 'User Email is Whitelisted.', 'woocommerce-anti-fraud' ) );
-			} else if ( ( in_array($userRole,$wc_af_whitelist_user_roles) ) && ( 'yes' == $is_enable_whitelist_user_roles ) ) {
+			} else if ( ( in_array($userRole, $wc_af_whitelist_user_roles) ) && ( 'yes' == $is_enable_whitelist_user_roles ) ) {
 				
-				Af_Logger::debug($userRole. ' is available in user role white list ');
+				Af_Logger::debug($userRole . ' is available in user role white list ');
 				$is_whitelisted = true;
 				$cancel_score = get_option( 'wc_settings_anti_fraud_cancel_score' );
 				$hold_score   = get_option( 'wc_settings_anti_fraud_hold_score' );
@@ -343,7 +367,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			} else {
 				
 				Af_Logger::debug('Checking for payment method whitelist ');
-                            
+							
 				$cancel_score = get_option( 'wc_settings_anti_fraud_cancel_score' );
 				$hold_score   = get_option( 'wc_settings_anti_fraud_hold_score' );
 
@@ -362,18 +386,18 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 							if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 								
 								$new_status = 'cancelled';
-								Af_Logger::debug('Status changed to ' .$new_status);
+								Af_Logger::debug('Status changed to ' . $new_status);
 								$is_whitelisted = false;
 							} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 
 								$new_status = 'on-hold';
 							}
-						}else{
+						} else {
 							if ( 'cod' == $payment_method || 'bacs' == $payment_method || 'cheque' == $payment_method )	{
 								
 								$is_whitelisted = true;
 								$new_status = 'on-hold';					
-								Af_Logger::debug('Payment method ' . $payment_method . ' available in whitelist. Status changed to ' .$new_status. ' because payment method is '. $payment_method);								
+								Af_Logger::debug('Payment method ' . $payment_method . ' available in whitelist. Status changed to ' . $new_status . ' because payment method is ' . $payment_method);								
 							} else {
 								
 								$is_whitelisted = true;
@@ -393,7 +417,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 						$new_status = 'on-hold';
 					}
-					Af_Logger::debug('Status changed to ' .$new_status);
+					Af_Logger::debug('Status changed to ' . $new_status);
 				}
 				
 				//Auto blacklist email with high risk
@@ -413,9 +437,9 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				}
 				// Blacklist ip if enabled
 				if ('yes' == $is_enable_ip_blacklist  && $new_score_points > get_option('wc_settings_anti_fraud_higher_risk_threshold')) {
-					Af_Logger::debug('IP Blacklist '.$ip_address);
+					Af_Logger::debug('IP Blacklist ' . $ip_address);
 					$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
-					if ($existing_blacklist_ip != '') {
+					if ( '' != $existing_blacklist_ip ) {
 						$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
 					
 						if (!in_array( $ip_address, $auto_blacklist_ip )) {
@@ -432,9 +456,61 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				if ( 'yes' === get_option('wc_af_attempt_count_check') && true === $is_max ) {
 					$new_status = 'cancelled';
 					$order->add_order_note( __( 'Max order limit reched from same IP.', 'woocommerce-anti-fraud' ) );
-					Af_Logger::debug('Max Order Reched  and Order: '. $new_status);
+					Af_Logger::debug('Max Order Reched  and Order: ' . $new_status);
 				}
-			}      
+			}
+
+			$order_limit_enabled = get_option('wc_af_limit_order_count', 'no');
+
+			Af_Logger::debug('Order Limit enabled :' . print_r($order_limit_enabled, true));
+
+			if ('yes' === $order_limit_enabled) {
+
+				$orders_allowed_limit = get_option('wc_af_allowed_order_limit');
+				$limit_time_start = get_option('wc_af_limit_time_start');
+				$limit_time_end = get_option('wc_af_limit_time_end');
+				$is_update_status_active = get_option('wc_af_fraud_update_state');
+
+				$start_time =  new DateTime($limit_time_start, wp_timezone(  ));
+				$end_time =  new DateTime($limit_time_end, wp_timezone(  ));
+				$now = new DateTime('NOW', wp_timezone());
+
+				Af_Logger::debug('start Time : ' . print_r($start_time, true) . ' End Time ' . print_r($end_time, true) . ' Current Time ' . print_r($now, true));
+
+				// $start_time =  $start_time->format('Y-m-d H:i:s');
+				// $end_time =  $end_time->format('Y-m-d H:i:s');
+				// $now =  $now->format('Y-m-d H:i:s');
+
+				if ($now >= $start_time && $now <= $end_time) {
+					Af_Logger::debug('Start time :' . print_r($start_time, true));
+					Af_Logger::debug('End time :' . print_r($end_time, true));
+					Af_Logger::debug('Now time :' . print_r($now, true));
+					$orders_between = wc_get_orders(
+						array(
+							'limit'               => -1,
+							// 'exclude'             => array($order_id),
+							'type'                => wc_get_order_types('order-count'),
+							'date_created'          => $start_time->getTimestamp() . '...' . $end_time->getTimestamp(),
+							// 'date_after'          => $start_time->getTimestamp(),
+							// 'date_before'         => $end_time->getTimestamp(),
+						)
+					);
+
+					Af_Logger::debug('Total Orders in this time : ' . count($orders_between));
+					Af_Logger::debug('Total Allowed Orders in this time : ' . $orders_allowed_limit);
+
+					if ($orders_allowed_limit < count($orders_between)) {
+						$new_status = 'on-hold';
+						$order->add_order_note(__('Max Order Limit between time reached. Setting as On-Hold', 'woocommerce-anti-fraud'));
+						$is_update_status_active = 'yes';
+						Af_Logger::debug('Max Order Reched.');
+					}
+				} else {
+					Af_Logger::debug('Current Time not between');
+					
+				}
+			}
+
 			/**
 			 * Filter: 'wc_anti_fraud_new_order_status' - Allow altering new order status 
 			 *
@@ -443,7 +519,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			 * @api WC_Order $order    the Order
 			 */
 			$new_status = apply_filters( 'wc_anti_fraud_new_order_status', $new_status, $order_id, $order );
-			Af_Logger::debug('wc_anti_fraud_new_order_status  ' .$new_status);
+			Af_Logger::debug('wc_anti_fraud_new_order_status  ' . $new_status);
+
 			// Possibly update the order status
 			if ( $new_status ) {
 				update_post_meta( $order_id, '_wc_af_recommended_status', $new_status );
@@ -454,13 +531,13 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				 * @api array $statuses List of statuses to skip changes for
 				 */
 				$skip_status_change = apply_filters( 'wc_anti_fraud_skip_order_statuses', array( 'cancelled' ) );
-				$is_update_status_active = get_option('wc_af_fraud_update_state');
+				
 
 				Af_Logger::debug('is_update_status_active : ' . $is_update_status_active);
-				Af_Logger::debug('payment_requested_status : '. print_r($payment_requested_status, true));
+				Af_Logger::debug('payment_requested_status : ' . print_r($payment_requested_status, true));
 
 				if ( ! in_array( $order->get_status(), $skip_status_change ) && 'yes' == $is_update_status_active ) {
-					if(!empty($payment_requested_status)){
+					if (!empty($payment_requested_status)) {
 						$order->update_status( $payment_requested_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
 					} else {
 						$order->update_status( $new_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
@@ -476,7 +553,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$score_points = self::invert_score( $score_points );
 			$email_nofication_status = get_option('wc_af_email_notification');
 			
-			if ( ( $email_nofication_status == 'yes' ) && ( $score_points > $email_score ) ) {
+			if ( ( 'yes' == $email_nofication_status ) && ( $score_points > $email_score ) ) {
 
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
@@ -516,7 +593,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 				$is_update_status_active = get_option('wc_af_fraud_update_state');
 				if ( 'yes' == $is_update_status_active ) {
-					if(!empty($payment_requested_status)){
+					if (!empty($payment_requested_status)) {
 						$order->update_status( $payment_requested_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
 					} else {
 						$order->update_status( $new_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
@@ -542,12 +619,12 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				return WC_Geolocation::get_ip_address();
 			}
 
-			return $_SERVER['REMOTE_ADDR'];
+			return isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : '';
 		}
 		/**
 		  *Function to send email if payment is done via papal		
 		*/
-		function paypal_email_verification( $order, $score_points ) {
+		public function paypal_email_verification( $order, $score_points ) {
 			Af_Logger::debug('paypal_email_verification');
 			// This is unfortunately needed in the current WooCommerce email setup
 			if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
@@ -564,7 +641,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$payment_method = get_post_meta( $order_id, '_payment_method', true );
 
-			if ( $payment_method == 'ppec_paypal' ) {
+			if ('ppec_paypal' == $payment_method ) {
 
 				$orderemail = get_post_meta( $order_id, '_paypal_express_payer_email', true );
 			
@@ -589,7 +666,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					
 					if ($email_status) {
 						update_post_meta($order, 'wc_af_paypal_email_status', true);
-						Af_Logger::debug('paypal_email_verification notification send to  '.$orderemail);
+						Af_Logger::debug('paypal_email_verification notification send to  ' . $orderemail);
 					}
 				}	
 			} else {
@@ -601,7 +678,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				
 				if ($email_status) {
 					update_post_meta($order, 'wc_af_paypal_email_status', true);
-					Af_Logger::debug('paypal_email_verification notification send to  '.$orderemail);
+					Af_Logger::debug('paypal_email_verification notification send to  ' . $orderemail);
 				}
 			}
 		}

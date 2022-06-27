@@ -8,18 +8,29 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( 'WC_OD_Settings_Delivery_Day', false ) ) {
+	return;
+}
+
 if ( ! class_exists( 'WC_OD_Settings_API', false ) ) {
 	include_once WC_OD_PATH . 'includes/abstracts/abstract-class-wc-od-settings-api.php';
 }
 
-if ( class_exists( 'WC_OD_Settings_Delivery_Day', false ) ) {
-	return;
+if ( ! trait_exists( 'WC_OD_Settings_Lockout' ) ) {
+	include_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-lockout.php';
+}
+
+if ( ! trait_exists( 'WC_OD_Settings_Fee' ) ) {
+	include_once WC_OD_PATH . 'includes/traits/trait-wc-od-settings-fee.php';
 }
 
 /**
  * WC_OD_Settings_Delivery_Day class.
  */
 class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
+
+	use WC_OD_Settings_Lockout;
+	use WC_OD_Settings_Fee;
 
 	/**
 	 * The day ID.
@@ -45,8 +56,6 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 	public function __construct( $day_id ) {
 		$this->id     = 'delivery_days';
 		$this->day_id = $day_id;
-
-		parent::__construct();
 	}
 
 	/**
@@ -77,18 +86,19 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 				'title'   => __( 'Enable/Disable', 'woocommerce-order-delivery' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable this day for delivery', 'woocommerce-order-delivery' ),
-				'default' => $delivery_day['enabled'],
+				'default' => $delivery_day->get_enabled(),
 			),
 		);
 
 		if ( ! $delivery_day->has_time_frames() ) {
 			$this->form_fields = array_merge(
 				$this->form_fields,
-				$this->get_number_of_orders_field(),
-				$this->get_shipping_methods_fields()
+				$this->get_lockout_fields(),
+				$this->get_shipping_methods_fields(),
+				$this->get_fee_fields()
 			);
 
-			$this->form_fields['number_of_orders']['default']            = $delivery_day['number_of_orders'];
+			$this->form_fields['number_of_orders']['default']            = $delivery_day->get_number_of_orders();
 			$this->form_fields['shipping_methods_option']['description'] = __( 'Choose the available shipping methods for this delivery day.', 'woocommerce-order-delivery' );
 		}
 
@@ -142,7 +152,7 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 	 */
 	public function init_settings() {
 		$delivery_day = $this->get_delivery_day();
-		$settings     = array_merge( $this->get_form_fields_defaults(), $delivery_day->to_array() );
+		$settings     = array_merge( $this->get_form_fields_defaults(), $delivery_day->get_data_without( array( 'id', 'meta_data' ) ) );
 
 		if ( $settings['shipping_methods_option'] ) {
 			$setting_key = "{$settings['shipping_methods_option']}_shipping_methods";
@@ -156,6 +166,20 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 	}
 
 	/**
+	 * Sanitizes the settings.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param array $settings The settings to sanitize.
+	 * @return array
+	 */
+	public function sanitized_fields( $settings ) {
+		$settings = $this->sanitize_fee_fields( $settings );
+
+		return parent::sanitized_fields( $settings );
+	}
+
+	/**
 	 * Saves the settings.
 	 *
 	 * @since 1.7.0
@@ -165,19 +189,10 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 	public function save() {
 		$settings = $this->sanitized_fields( $this->settings );
 
-		// Merge the day settings with the rest of days.
-		$delivery_days = wc_od_get_delivery_days();
+		$delivery_day = $this->get_delivery_day();
+		$delivery_day->set_props( $settings );
+		$delivery_day->save();
 
-		$delivery_days->set( $this->day_id, $settings );
-
-		$saved = update_option( $this->get_option_key(), $delivery_days->to_array() );
-
-		// Reset the delivery day.
-		$this->delivery_day = null;
-
-		$delivery_cache = WC_OD_Delivery_Cache::instance();
-		$delivery_cache->remove_order_cache();
-
-		return $saved;
+		return true;
 	}
 }

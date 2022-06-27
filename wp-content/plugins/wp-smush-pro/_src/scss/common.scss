@@ -3,6 +3,14 @@
  */
 @import "modules/media";
 
+.sui-wrap .smush-upsell-link,
+.sui-wrap a.smush-upsell-link {
+	color: $purple;
+	&:hover:not(.sui-button),
+	&:focus:not(.sui-button),
+	&:active:not(.sui-button) { color: #64007e; }
+}
+
 /**
  * Media details (grid layout)
  * @since 3.4.0
@@ -168,63 +176,12 @@ a.wp-smush-lossy-enable:hover {
 		color: #333333;
 		font-size: 13px;
 		margin-top: 0;
-		margin-bottom: 0;
-	}
-
-	#wp-smush-all-button-container {
-		text-align: right;
+		margin-bottom: 10px;
 	}
 
 	.sui-tooltip,
 	.sui-tooltip > .sui-icon-info {
 		vertical-align: top;
-	}
-
-	#wp-smush-bulk-smush-upsell-row {
-		margin-top: 30px;
-		margin-right: 0;
-		margin-left: 0;
-		border-top: 1px solid #F2F2F2;
-		padding-top: 30px;
-
-		.sui-upsell-list li {
-			font-size: 13px;
-			color: $purple;
-		}
-
-		.sui-col-sm-6 {
-			&:first-child {
-				padding-right: 30px;
-				padding-left: 0;
-
-				@media only screen and (max-width: 782px) {
-					margin-bottom: 5px;
-				}
-			}
-		}
-
-		.sui-col-sm-3:last-child {
-			padding-right: 0;
-		}
-
-		h3 {
-			font-size: 20px;
-			line-height: 24px;
-			margin-bottom: 20px;
-		}
-
-		p {
-			margin-top: 0;
-			font-size: 13px;
-			line-height: 22px;
-
-			small {
-				color: #333333;
-				font-size: 11px;
-				line-height: 14px;
-				margin-top: 10px;
-			}
-		}
 	}
 }
 
@@ -475,7 +432,6 @@ div.wp-smush-info.notice {
  * CSS styles used Admin notice
  */
 .smush-notice.notice {
-	max-width: 1000px;
 	padding: 0;
 	margin: 5px 0 10px;
 	border: 1px solid #E5E5E5;
@@ -559,18 +515,6 @@ div.wp-smush-info.notice {
 	padding-right: 0;
 }
 
-.smush-notice-dismiss {
-	background: transparent;
-	border: 0;
-	cursor: pointer;
-	color: #C5C5C5;
-	-webkit-font-smoothing: antialiased;
-}
-
-.smush-notice-dismiss:hover {
-	color: #666;
-}
-
 /**
  * Upsell lists.
  * @since 3.9.1
@@ -581,16 +525,6 @@ div.wp-smush-info.notice {
 		max-width: 525px;
 		text-align: left;
 		margin: 0 auto;
-	}
-}
-
-@media only all and (max-width: 1200px) {
-	.smush-notice-dismiss {
-		display: block;
-		margin: 0 auto;
-		line-height: 18px;
-		padding-top: 8px;
-		padding-bottom: 2px;
 	}
 }
 
@@ -628,15 +562,6 @@ div.wp-smush-info.notice {
 	.smush-notice > .smush-notice-cta > button {
 		font-size: 14px;
 	}
-
-	.smush-notice > .smush-notice-cta > .smush-notice-dismiss {
-		display: inline-block;
-		float: none;
-		line-height: 26px;
-		padding-top: 0;
-		padding-bottom: 0;
-		font-size: 13px;
-	}
 }
 
 @media only all and (max-width: 500px) {
@@ -648,11 +573,5 @@ div.wp-smush-info.notice {
 		margin-bottom: 4px;
 		font-size: 16px;
 		height: 34px;
-	}
-
-	.smush-notice > .smush-notice-cta > .smush-notice-dismiss {
-		margin-top: 5px;
-		font-size: 14px;
-		height: 23px;
 	}
 }

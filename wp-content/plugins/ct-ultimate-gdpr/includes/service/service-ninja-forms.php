@@ -126,7 +126,7 @@ class CT_Ultimate_GDPR_Service_Ninja_Forms extends CT_Ultimate_GDPR_Service_Abst
 	 *
 	 */
 	public function enqueue_static() {
-		wp_enqueue_script( 'ct_ultimate_gdpr_service_ninja_forms', ct_ultimate_gdpr_url( 'assets/js/service-ninja-forms.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'ct-ultimate-gdpr-service-ninja-forms', ct_ultimate_gdpr_url( 'assets/js/service-ninja-forms.js' ), array( 'jquery' ) );
 	}
 
 	/**

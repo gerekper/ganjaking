@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Analytics Pro 1.11.0\n"
+"Project-Id-Version: WooCommerce Google Analytics Pro 1.12.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-09-21 17:59:54+00:00\n"
+"POT-Creation-Date: 2022-03-30 09:10:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -520,53 +520,53 @@ msgid ""
 "tracking, and custom event tracking"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:188
+#: src/class-wc-google-analytics-pro-integration.php:209
 msgid "Are you sure you wish to revoke access to your Google Account?"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1312
+#: src/class-wc-google-analytics-pro-integration.php:1333
 msgid "Search"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1316
+#: src/class-wc-google-analytics-pro-integration.php:1337
 msgid "Product category"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1320
+#: src/class-wc-google-analytics-pro-integration.php:1341
 msgid "Product tag"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1324
+#: src/class-wc-google-analytics-pro-integration.php:1345
 msgid "Archive"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1328
+#: src/class-wc-google-analytics-pro-integration.php:1349
 msgid "Related/Up sell"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1332
+#: src/class-wc-google-analytics-pro-integration.php:1353
 msgid "Cross sell (cart)"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1385
+#: src/class-wc-google-analytics-pro-integration.php:1406
 msgid "Enable Google Analytics tracking"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1392
+#: src/class-wc-google-analytics-pro-integration.php:1413
 msgid "Debug Mode"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1393
+#: src/class-wc-google-analytics-pro-integration.php:1414
 msgid ""
 "Log API requests, responses, and errors for debugging. Only enable this if "
 "you experience issues!"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1415
+#: src/class-wc-google-analytics-pro-integration.php:1436
 msgid "JavaScript function name"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1417
+#: src/class-wc-google-analytics-pro-integration.php:1438
 #. translators: %1$s - function name, %2$s - function name
 msgid ""
 "Set the global tracker function name. %1$s is deprecated and support for it "
@@ -574,111 +574,111 @@ msgid ""
 "%2$s only after any custom code is updated to use %2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1421
+#: src/class-wc-google-analytics-pro-integration.php:1442
 msgid "(Recommended)"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1454
+#: src/class-wc-google-analytics-pro-integration.php:1475
 msgid "Step"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1455
+#: src/class-wc-google-analytics-pro-integration.php:1476
 msgid "Event"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1456
+#: src/class-wc-google-analytics-pro-integration.php:1477
 msgid "Name"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1457
+#: src/class-wc-google-analytics-pro-integration.php:1478
 msgid "Enabled"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1507
+#: src/class-wc-google-analytics-pro-integration.php:1528
 msgid "Yes"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1508
+#: src/class-wc-google-analytics-pro-integration.php:1529
 msgid "Currently disabled, because the event name is not set."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1543
+#: src/class-wc-google-analytics-pro-integration.php:1564
 msgid "Get Connected"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1549
+#: src/class-wc-google-analytics-pro-integration.php:1570
 msgid "Re-authenticate with your Google account"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1549
+#: src/class-wc-google-analytics-pro-integration.php:1570
 msgid "Connect your Google account"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1558
+#: src/class-wc-google-analytics-pro-integration.php:1579
 msgid "Google Analytics Property"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1564
+#: src/class-wc-google-analytics-pro-integration.php:1585
 msgid "Select a property&hellip;"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1566
+#: src/class-wc-google-analytics-pro-integration.php:1587
 msgid "Choose which Analytics property you want to track"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1575
+#: src/class-wc-google-analytics-pro-integration.php:1596
 msgid ""
 "We need view & edit access to your Analytics account so we can display "
 "reports and automatically configure Analytics settings for you."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1576
+#: src/class-wc-google-analytics-pro-integration.php:1597
 msgid ""
 "You'll be prompted to choose an existing Google Analytics account. Click "
 "\"Allow\" to complete the connection and return here to choose a property "
 "to link to this website"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1580
+#: src/class-wc-google-analytics-pro-integration.php:1601
 msgid "Google Analytics account"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1585
+#: src/class-wc-google-analytics-pro-integration.php:1606
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "or %1$srevoke authorization%2$s"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1602
+#: src/class-wc-google-analytics-pro-integration.php:1623
 msgid "Tracking Settings"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1615
+#: src/class-wc-google-analytics-pro-integration.php:1636
 msgid "Google Analytics tracking ID"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1616
+#: src/class-wc-google-analytics-pro-integration.php:1637
 msgid ""
 "To change your Google Analytics tracking ID, please connect a Google "
 "account."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1629
+#: src/class-wc-google-analytics-pro-integration.php:1650
 msgid "Track Administrators?"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1632
+#: src/class-wc-google-analytics-pro-integration.php:1653
 msgid "Check to enable tracking when logged in as Administrator or Shop Manager."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1636
+#: src/class-wc-google-analytics-pro-integration.php:1657
 msgid "Tracking Options"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1637
+#: src/class-wc-google-analytics-pro-integration.php:1658
 msgid "Use Advertising Features"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1642
+#: src/class-wc-google-analytics-pro-integration.php:1663
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Demographics and Interests Reports "
@@ -686,107 +686,107 @@ msgid ""
 "Features%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1646
+#: src/class-wc-google-analytics-pro-integration.php:1667
 msgid "Use Enhanced Link Attribution"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1650
+#: src/class-wc-google-analytics-pro-integration.php:1671
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Enhanced Link Attribution. "
 "%1$sRead more about Enhanced Link Attribution%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1654
+#: src/class-wc-google-analytics-pro-integration.php:1675
 msgid "Anonymize IP addresses"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1659
+#: src/class-wc-google-analytics-pro-integration.php:1680
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Enabling this option is mandatory in certain countries due to national "
 "privacy laws. %1$sRead more about IP Anonymization%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1663
+#: src/class-wc-google-analytics-pro-integration.php:1684
 msgid "Track User ID"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1668
+#: src/class-wc-google-analytics-pro-integration.php:1689
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "Enable User ID tracking. %1$sRead more about the User ID feature%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1672
+#: src/class-wc-google-analytics-pro-integration.php:1693
 msgid "Google Optimize"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1673
+#: src/class-wc-google-analytics-pro-integration.php:1694
 msgid "Enable Google Optimize"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1677
+#: src/class-wc-google-analytics-pro-integration.php:1698
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "%1$sRead more about Google Optimize%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1681
+#: src/class-wc-google-analytics-pro-integration.php:1702
 msgid "Google Optimize Code"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1685
+#: src/class-wc-google-analytics-pro-integration.php:1706
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "e.g. \"GTM-XXXXXX\". %1$sRead more about this code%2$s"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1689
+#: src/class-wc-google-analytics-pro-integration.php:1710
 msgid "Track product impressions on:"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1690
+#: src/class-wc-google-analytics-pro-integration.php:1711
 msgid "Control where product impressions are tracked."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1691
+#: src/class-wc-google-analytics-pro-integration.php:1712
 msgid ""
 "If you're running into issues, particularly if you see the \"No HTTP "
 "response detected\" error, try disabling product impressions on archive "
 "pages."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1695
+#: src/class-wc-google-analytics-pro-integration.php:1716
 msgid "Single Product Pages"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1696
+#: src/class-wc-google-analytics-pro-integration.php:1717
 msgid "Archive Pages"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1715
+#: src/class-wc-google-analytics-pro-integration.php:1736
 msgid "Checkout Funnel"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1717
+#: src/class-wc-google-analytics-pro-integration.php:1738
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Configure your Analytics account to match the checkout funnel steps below "
 "to take advantage of %1$sCheckout Behavior Analysis%2$s."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1722
+#: src/class-wc-google-analytics-pro-integration.php:1743
 msgid "Funnel Steps"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:1884
-#: src/class-wc-google-analytics-pro-integration.php:2227
+#: src/class-wc-google-analytics-pro-integration.php:1905
+#: src/class-wc-google-analytics-pro-integration.php:2248
 msgid "Registered User"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:2227
+#: src/class-wc-google-analytics-pro-integration.php:2248
 msgid "Guest"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:3356
+#: src/class-wc-google-analytics-pro-integration.php:3377
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: The currently authenticated Google account does not have access to any "
@@ -794,7 +794,7 @@ msgid ""
 "to Google Analytics."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-integration.php:3366
+#: src/class-wc-google-analytics-pro-integration.php:3387
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: Something went wrong with the request to list the Google Analytics "
@@ -809,79 +809,79 @@ msgid ""
 "tracking Subscription events."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:403
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:408
 msgid "Subscription Event Names"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:404
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:409
 msgid ""
 "Customize the event names for Subscription events. Leave a field blank to "
 "disable tracking of that event."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:408
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:413
 msgid "Activated Subscription"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:409
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:414
 msgid "Triggered when a customer activates their subscription."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:414
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:419
 msgid "Subscription Free Trial Ended"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:415
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:420
 msgid "Triggered when a the free trial ends for a subscription."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:420
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:425
 msgid "Subscription End of Pre-Paid Term"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:421
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:426
 msgid ""
 "Triggered when the end of a pre-paid term for a previously cancelled "
 "subscription is reached."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:426
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:431
 msgid "Subscription Expired"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:427
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:432
 msgid "Triggered when a subscription expires."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:432
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:437
 msgid "Suspended Subscription"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:433
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:438
 msgid "Triggered when a customer suspends their subscription."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:438
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:443
 msgid "Reactivated Subscription"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:439
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:444
 msgid "Triggered when a customer reactivates their subscription."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:444
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:449
 msgid "Cancelled Subscription"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:445
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:450
 msgid "Triggered when a customer cancels their subscription."
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:450
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:455
 msgid "Renewed Subscription"
 msgstr ""
 
-#: src/class-wc-google-analytics-pro-subscriptions-integration.php:451
+#: src/class-wc-google-analytics-pro-subscriptions-integration.php:456
 msgid ""
 "Triggered when a customer is automatically billed for a subscription "
 "renewal."

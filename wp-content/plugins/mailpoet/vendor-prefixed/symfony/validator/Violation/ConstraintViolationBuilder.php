@@ -1,7 +1,6 @@
 <?php
 namespace MailPoetVendor\Symfony\Component\Validator\Violation;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use MailPoetVendor\Symfony\Component\Validator\Constraint;
 use MailPoetVendor\Symfony\Component\Validator\ConstraintViolation;
 use MailPoetVendor\Symfony\Component\Validator\ConstraintViolationList;
@@ -21,15 +20,8 @@ class ConstraintViolationBuilder implements ConstraintViolationBuilderInterface
  private $constraint;
  private $code;
  private $cause;
- public function __construct(ConstraintViolationList $violations, Constraint $constraint, $message, array $parameters, $root, string $propertyPath, $invalidValue, $translator, string $translationDomain = null)
+ public function __construct(ConstraintViolationList $violations, ?Constraint $constraint, $message, array $parameters, $root, $propertyPath, $invalidValue, TranslatorInterface $translator, $translationDomain = null)
  {
- if (null === $message) {
- @\trigger_error(\sprintf('Passing a null message when instantiating a "%s" is deprecated since Symfony 4.4.', __CLASS__), \E_USER_DEPRECATED);
- $message = '';
- }
- if (!$translator instanceof LegacyTranslatorInterface && !$translator instanceof TranslatorInterface) {
- throw new \TypeError(\sprintf('Argument 8 passed to "%s()" must be an instance of "%s", "%s" given.', __METHOD__, TranslatorInterface::class, \is_object($translator) ? \get_class($translator) : \gettype($translator)));
- }
  $this->violations = $violations;
  $this->message = $message;
  $this->parameters = $parameters;
@@ -40,12 +32,12 @@ class ConstraintViolationBuilder implements ConstraintViolationBuilderInterface
  $this->translationDomain = $translationDomain;
  $this->constraint = $constraint;
  }
- public function atPath($path)
+ public function atPath(string $path)
  {
  $this->propertyPath = PropertyPath::append($this->propertyPath, $path);
  return $this;
  }
- public function setParameter($key, $value)
+ public function setParameter(string $key, string $value)
  {
  $this->parameters[$key] = $value;
  return $this;
@@ -55,7 +47,7 @@ class ConstraintViolationBuilder implements ConstraintViolationBuilderInterface
  $this->parameters = $parameters;
  return $this;
  }
- public function setTranslationDomain($translationDomain)
+ public function setTranslationDomain(string $translationDomain)
  {
  $this->translationDomain = $translationDomain;
  return $this;
@@ -65,16 +57,13 @@ class ConstraintViolationBuilder implements ConstraintViolationBuilderInterface
  $this->invalidValue = $invalidValue;
  return $this;
  }
- public function setPlural($number)
+ public function setPlural(int $number)
  {
  $this->plural = $number;
  return $this;
  }
- public function setCode($code)
+ public function setCode(?string $code)
  {
- if (null !== $code && !\is_string($code)) {
- @\trigger_error(\sprintf('Not using a string as the error code in %s() is deprecated since Symfony 4.4. A type-hint will be added in 5.0.', __METHOD__), \E_USER_DEPRECATED);
- }
  $this->code = $code;
  return $this;
  }
@@ -87,14 +76,8 @@ class ConstraintViolationBuilder implements ConstraintViolationBuilderInterface
  {
  if (null === $this->plural) {
  $translatedMessage = $this->translator->trans($this->message, $this->parameters, $this->translationDomain);
- } elseif ($this->translator instanceof TranslatorInterface) {
- $translatedMessage = $this->translator->trans($this->message, ['%count%' => $this->plural] + $this->parameters, $this->translationDomain);
  } else {
- try {
- $translatedMessage = $this->translator->transChoice($this->message, $this->plural, $this->parameters, $this->translationDomain);
- } catch (\InvalidArgumentException $e) {
- $translatedMessage = $this->translator->trans($this->message, $this->parameters, $this->translationDomain);
- }
+ $translatedMessage = $this->translator->trans($this->message, ['%count%' => $this->plural] + $this->parameters, $this->translationDomain);
  }
  $this->violations->add(new ConstraintViolation($translatedMessage, $this->message, $this->parameters, $this->root, $this->propertyPath, $this->invalidValue, $this->plural, $this->code, $this->constraint, $this->cause));
  }

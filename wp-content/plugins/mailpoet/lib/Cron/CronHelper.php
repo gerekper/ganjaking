@@ -94,6 +94,10 @@ class CronHelper {
   }
 
   public function deactivateDaemon($daemon) {
+    // We do not need to deactivate an inactive daemon
+    if (isset($daemon['status']) && $daemon['status'] === self::DAEMON_STATUS_INACTIVE) {
+      return;
+    }
     $daemon['status'] = self::DAEMON_STATUS_INACTIVE;
     $this->settings->set(
       self::DAEMON_SETTING,
@@ -186,7 +190,9 @@ class CronHelper {
   public function getSiteUrl($siteUrl = false) {
     // additional check for some sites running inside a virtual machine or behind
     // proxy where there could be different ports (e.g., host:8080 => guest:80)
-    $siteUrl = ($siteUrl) ? $siteUrl : WPFunctions::get()->homeUrl();
+    if (!$siteUrl) {
+      $siteUrl = defined('MAILPOET_CRON_SITE_URL') ? MAILPOET_CRON_SITE_URL : $this->wp->homeUrl();
+    }
     $parsedUrl = parse_url($siteUrl);
     if (!is_array($parsedUrl)) {
       throw new \Exception(__('Site URL is unreachable.', 'mailpoet'));

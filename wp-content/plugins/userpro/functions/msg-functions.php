@@ -83,7 +83,7 @@ echo '<div class="userpro-message userpro-message-ajax"><p>'.__('Your account is
 	} 
 
 	function userpro_reset_link_sent(){
-		echo '<div class="userpro-message userpro-message-ajax"><p>'.__('A reset link has been sent to your email successfully.','userpro').'</p></div>';
+		echo '<div class="userpro-message userpro-message-ajax"><p>'.__('If user was found, ','userpro').__('A reset link has been sent to your email successfully.','userpro').'</p></div>';
 	}
 	function userpro_msg_block_account(){
 		echo '<div class="userpro-message userpro-message-ajax"><p>'.__('This account has been blocked. For more information please contact the website Administrator,Thanks.','userpro').'</p></div>';

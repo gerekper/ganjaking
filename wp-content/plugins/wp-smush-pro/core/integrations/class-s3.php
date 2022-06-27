@@ -2,6 +2,8 @@
 /**
  * S3 integration: S3 class
  *
+ * Minimum supported version - Offload Media 2.4
+ *
  * @package Smush\Core\Modules\Integrations
  * @subpackage S3
  * @since 2.7
@@ -60,6 +62,13 @@ class S3 extends Abstract_Integration {
 	private $doing_files;
 
 	/**
+	 * Cache list of filters for get_attached_file.
+	 *
+	 * @var null|array
+	 */
+	private $list_file_filters;
+
+	/**
 	 * S3 constructor.
 	 */
 	public function __construct() {
@@ -85,9 +94,6 @@ class S3 extends Abstract_Integration {
 			return;
 		}
 
-		// Show submit button when a pro user and the S3 plugin is installed.
-		add_filter( 'wp_smush_integration_show_submit', '__return_true' );
-
 		// Load all our custom actions/filters after loading as3cf.
 		if ( did_action( 'as3cf_init' ) ) {
 			$this->init();
@@ -112,10 +118,6 @@ class S3 extends Abstract_Integration {
 
 		// Check unique file with the backup file.
 		add_filter( 'wp_unique_filename', array( $this, 'filter_unique_filename' ), 99, 3 );// S3 is using priority 10.
-
-		// Add a filter to remove skipped thumbnails from s3 upload,
-		// we will handle this case via remove_missing_files_to_avoid_error_log_from_s3.
-		// add_action( 'wp_smush_after_smush_file', array( $this, 'maybe_remove_sizes_from_s3_upload' ) );
 
 		// Check if the file exists for the given path and download.
 		add_action( 'wp_smush_before_restore_backup', array( $this, 'maybe_download_file' ), 10, 2 );
@@ -221,26 +223,26 @@ class S3 extends Abstract_Integration {
 	 * @return bool
 	 */
 	public function is_image_on_s3( $attachment_id = '' ) {
-		/**
-		 * Amazon_S3_And_CloudFront global.
-		 *
-		 * @var Amazon_S3_And_CloudFront $as3cf
-		 */
-		global $as3cf;
-
-		if ( empty( $attachment_id ) || ! is_object( $as3cf ) ) {
+		if ( empty( $attachment_id ) ) {
 			return false;
 		}
+
 		// If the file path contains S3, get the s3 URL for the file.
-		return $as3cf->get_attachment_url( $attachment_id );
+		if ( function_exists( 'as3cf_get_attachment_url' ) ) {
+			return as3cf_get_attachment_url( $attachment_id );
+		}
+
+		Helper::logger()->integrations()->error( 'S3 - Function as3cf_get_attachment_url does not exists.' );
+		return false;
 	}
 
 	/**
 	 * Checks if file exits on S3.
 	 *
-	 * @param bool   $exists         If file exists on S3.
-	 * @param mixed  $file_path      File path or empty value.
-	 * @param string $attachment_id  Attachment ID.
+	 * @param bool   $exists           If file exists on S3.
+	 * @param mixed  $file_path        File path or empty value.
+	 * @param string $attachment_id    Attachment ID.
+	 * @param bool   $should_download  Should download attachment.
 	 *
 	 * @return bool|string Returns TRUE OR File path if it exists, FALSE otherwise.
 	 */
@@ -363,7 +365,7 @@ class S3 extends Abstract_Integration {
 		if ( ! is_object( $as3cf ) ) {
 			$class   = '';
 			$message = __( 'To use this feature you need to install WP Offload Media and have an Amazon S3 account setup.', 'wp-smushit' );
-		} elseif ( ! method_exists( $as3cf, 'is_plugin_setup' ) ) {
+		} elseif ( ! method_exists( $as3cf, 'is_plugin_setup' ) || ! method_exists( $as3cf, 'get_plugin_page_url' ) ) {
 			// Check if in case for some reason, we couldn't find the required function.
 			$class   = ' sui-notice-warning';
 			$message = sprintf( /* translators: %1$s: opening a tag, %2$s: closing a tag */
@@ -469,7 +471,6 @@ class S3 extends Abstract_Integration {
 			// When async uploading or the image is created from Gutenberg, activate smush mode.
 			&& empty( $new_meta['sizes'] )
 			&& ! empty( $image_meta['file'] )
-			// phpcs:ignore
 			&& ( isset( $_POST['post_id'] ) || isset( $_FILES['async-upload'] ) || ! Helper::is_non_rest_media() )
 			// If enabling auto-smush.
 			&& $this->settings->get( 'auto' )
@@ -479,6 +480,8 @@ class S3 extends Abstract_Integration {
 			&& ! did_action( 'wp_smush_before_restore_backup' )
 			// Managed it.
 			&& ! did_action( 'wp_smush_before_update_attachment_metadata' )
+			// Don't smush it.
+			&& ! did_action( 'wp_smush_no_smushit' )
 			// Only support Image.
 			&& Helper::is_smushable( $attachment_id )
 			// Make sure we only disable while async upload new image.
@@ -500,20 +503,42 @@ class S3 extends Abstract_Integration {
 		// Release smush mode.
 		$this->release_smush_mode();
 
-		if ( WP_SMUSH_ASYNC && $this->settings->get( 'auto' ) && doing_filter( 'wp_async_wp_generate_attachment_metadata' ) ) {
-			// Make sure all images will upload to cloud.
-			if ( ! did_action( 'wp_smush_before_update_attachment_metadata' ) && ! did_action( 'wp_smush_before_restore_backup' ) ) {
-				global $as3cf;
-				// Make sure method exits.
-				if ( ! method_exists( $as3cf, 'upload_attachment' ) ) {
-					Helper::logger()->integrations()->error( 'S3 - Method $as3cf->upload_attachment() does not exists.' );
-					return;
-				}
-				if ( $as3cf->get_setting( 'copy-to-s3' )
-					&& ! $this->does_image_exists( $attachment_id, $this->get_raw_attached_file( $attachment_id, 'original' ) ) ) {
-					$as3cf->upload_attachment( $attachment_id, wp_get_attachment_metadata( $attachment_id ) );
-				}
+		if ( ! WP_SMUSH_ASYNC || ! $this->settings->get( 'auto' ) || ! doing_filter( 'wp_async_wp_generate_attachment_metadata' ) || ! did_action( 'wp_smush_no_smushit' ) ) {
+			return;
+		}
+
+		if ( get_transient( 'smush-in-progress-' . $attachment_id ) || get_transient( 'wp-smush-restore-' . $attachment_id ) ) {
+			return;
+		}
+
+		// Make sure all images will upload to cloud.
+		if ( ! did_action( 'wp_smush_before_update_attachment_metadata' ) ) {
+			global $as3cf;
+			// If the image is already uploaded, returns.
+			if ( ! $as3cf->get_setting( 'copy-to-s3' ) || $this->does_image_exists( $attachment_id, $this->get_raw_attached_file( $attachment_id, 'original' ) ) ) {
+				return;
 			}
+			// Make sure method exits.
+			if ( method_exists( $as3cf, 'upload_attachment' ) ) {
+				$as3cf->upload_attachment( $attachment_id, wp_get_attachment_metadata( $attachment_id ) );
+				return;
+			}
+
+			$s3_filter_obj = $this->get_s3_filter_class();
+			if ( $s3_filter_obj && method_exists( $s3_filter_obj, 'wp_update_attachment_metadata' ) ) {
+				$s3_filter_obj->wp_update_attachment_metadata( wp_get_attachment_metadata( $attachment_id ), $attachment_id );
+				return;
+			}
+
+			// Log a warning.
+			Helper::logger()->integrations()->warning( 'S3 - the upload method does not exists, try to upload files via filter wp_update_attachment_metadata.' );
+
+			// Try to upload attachments via filter.
+			// Temporary disable our filters.
+			remove_filter( 'wp_update_attachment_metadata', array( $this, 'maybe_active_smush_mode' ), 1 );
+			apply_filters( 'wp_update_attachment_metadata', wp_get_attachment_metadata( $attachment_id ), $attachment_id );
+			// Restore our filters.
+			add_filter( 'wp_update_attachment_metadata', array( $this, 'maybe_active_smush_mode' ), 1, 2 );
 		}
 	}
 
@@ -568,6 +593,29 @@ class S3 extends Abstract_Integration {
 	}
 
 	/**
+	 * Delete multiple objects.
+	 *
+	 * @param array $objects_to_remove Objects to remove.
+	 */
+	private function delete_objects( $objects_to_remove ) {
+		$provider_client = $this->get_provider_client();
+		if ( $provider_client && method_exists( $provider_client, 'delete_objects' ) ) {
+			global $as3cf;
+			return $provider_client->delete_objects(
+				array(
+					'Bucket' => $as3cf->get_setting( 'bucket' ),
+					'Delete' => array(
+						'Objects' => $objects_to_remove,
+					),
+				)
+			);
+		} else {
+			Helper::logger()->integrations()->error( 'S3 - AWS_Provider->delete_objects does not exist.' );
+		}
+		return false;
+	}
+
+	/**
 	 * Remove the backup file and JPG files (PNG2JPG) from S3 when image is restored.
 	 *
 	 * @since 3.8.4
@@ -590,13 +638,6 @@ class S3 extends Abstract_Integration {
 		 */
 		global $as3cf;
 
-		// If S3 offload global variable is not available, plugin is not active.
-		if ( ! is_object( $as3cf ) || ! method_exists( $as3cf, 'delete_objects' ) ) {
-			return;
-		} else {
-			Helper::logger()->integrations()->error( 'S3 - Method $as3cf->delete_objects() does not exists.' );
-		}
-
 		// Get s3 object for the file.
 		if ( ! $s3_object = $this->is_attachment_served_by_provider( $as3cf, $attachment_id ) ) {
 			return false;
@@ -615,7 +656,7 @@ class S3 extends Abstract_Integration {
 			 */
 			foreach ( $file_paths as $size_key => $file_path ) {
 				if ( ! $removed && file_exists( $file_path ) ) {
-					@unlink( $file_path );// phpcs:ignore.
+					unlink( $file_path );
 				}
 
 				$objects_to_remove[] = array(
@@ -635,7 +676,7 @@ class S3 extends Abstract_Integration {
 
 			foreach ( $file_paths as $file_path ) {
 				if ( ! $removed && file_exists( $file_path ) ) {
-					@unlink( $file_path );// phpcs:ignore.
+					unlink( $file_path );
 				}
 				// Get the File path using basename for given attachment path.
 				$objects_to_remove[] = array(
@@ -644,15 +685,7 @@ class S3 extends Abstract_Integration {
 			}
 		}
 
-		// Get bucket details.
-		$bucket = $as3cf->get_setting( 'bucket' );
-		$region = $as3cf->get_setting( 'region' );
-		if ( is_wp_error( $region ) ) {
-			Helper::logger()->integrations()->error( 'S3 - Cannot retrieve the region: %s', $region->get_error_message() );
-			$region = '';
-		}
-
-		return $as3cf->delete_objects( $region, $bucket, $objects_to_remove );
+		return $this->delete_objects( $objects_to_remove );
 	}
 
 	/**
@@ -885,10 +918,16 @@ class S3 extends Abstract_Integration {
 	 * @return array List of file paths.
 	 */
 	public function maybe_add_missing_files_to_the_list( $file_paths ) {
-
+		/**
+		 * Get the full size key.
+		 * From S3 2.6, they changed the full size key.
+		 *
+		 * @since 3.9.10
+		 */
+		$full_size_key = is_callable( array( '\DeliciousBrains\WP_Offload_Media\Items\Media_Library_Item', 'primary_object_key' ) ) ? Media_Library_Item::primary_object_key() : 'original';
 		// Make sure exits the main file, not original file, and activating backup.
 		if (
-			isset( $file_paths['original'] )
+			isset( $file_paths[ $full_size_key ] )
 			&& $this->doing_files
 			&& $this->enable_private_media()
 			&& WP_Smush::get_instance()->core()->mod->backup->is_active()
@@ -970,17 +1009,103 @@ class S3 extends Abstract_Integration {
 		 *
 		 * @see AS3CF_Utils:get_attachment_file_paths() (>=1.2) and $as3cf->get_attachment_file_paths() (<1.2)
 		 */
-		global $as3cf;
-		// Temporary disable filters URL from S3.
-		remove_filter( 'get_attached_file', array( $as3cf, 'get_attached_file' ), 10, 2 );
-		remove_filter( 'wp_get_original_image_path', array( $as3cf, 'get_attached_file' ), 10, 2 );
-			// Get unfiltered file path.
-			$file_path = Helper::get_raw_attached_file( $attachment_id, $type, true );
-		// Enable S3 filters back.
-		add_filter( 'get_attached_file', array( $as3cf, 'get_attached_file' ), 10, 2 );
-		add_filter( 'wp_get_original_image_path', array( $as3cf, 'get_attached_file' ), 10, 2 );
+		// Temporary disable filters of get_attached_file.
+		$this->temp_disable_s3_file_filter();
+		// Get unfiltered file path.
+		$file_path = Helper::get_raw_attached_file( $attachment_id, $type, true );
+		// Revert S3 filters.
+		$this->revert_s3_file_filter();
 
 		return $file_path;
+	}
+
+	/**
+	 * Get the main file filter class of S3.
+	 * Before 2.6.0 it's $as3cf,
+	 * From 2.6.0 it's \DeliciousBrains\WP_Offload_Media\Integrations\Media_Library_Integration
+	 *
+	 * @return false|object False or class instance.
+	 */
+	private function get_s3_filter_class() {
+		static $s3_filter_obj;
+
+		if ( isset( $s3_filter_obj ) ) {
+			return $s3_filter_obj;
+		}
+
+		global $as3cf;
+
+		if ( ! is_object( $as3cf ) ) {
+			return false;
+		}
+
+		if ( method_exists( $as3cf, 'get_attached_file' ) ) {
+			return $as3cf;
+		}
+
+		$s3_filter_obj = false;
+		if ( method_exists( $as3cf, 'get_integration_manager' ) ) {
+			if ( method_exists( $as3cf->get_integration_manager(), 'get_integration' ) ) {
+				$media_library = $as3cf->get_integration_manager()->get_integration( 'mlib' );
+				if ( method_exists( $media_library, 'get_attached_file' ) ) {
+					$s3_filter_obj = $media_library;
+				} else {
+					Helper::logger()->integrations()->error( 'S3 - Media_Lib->get_attached_file does not exists.' );
+				}
+			}
+		}
+
+		return $s3_filter_obj;
+	}
+
+	/**
+	 * Temporary disable S3 get_attached_file filter.
+	 *
+	 * @since 3.9.8
+	 */
+	private function temp_disable_s3_file_filter() {
+		$s3_filter_obj = $this->get_s3_filter_class();
+		if ( $s3_filter_obj ) {
+			// Temporary disable filters URL from S3.
+			remove_filter( 'get_attached_file', array( $s3_filter_obj, 'get_attached_file' ), 10, 2 );
+			remove_filter( 'wp_get_original_image_path', array( $s3_filter_obj, 'get_attached_file' ), 10, 2 );
+			return;
+		}
+		global $wp_filter;
+		// Temporary disable all file filters.
+		if ( isset( $wp_filter['get_attached_file'] ) ) {
+			// Cache file filters.
+			$this->list_file_filters['get_attached_file'] = $wp_filter['get_attached_file'];
+			unset( $wp_filter['get_attached_file'] );
+
+			if ( isset( $wp_filter['wp_get_original_image_path'] ) ) {
+				$this->list_file_filters['get_attached_file'] = $wp_filter['wp_get_original_image_path'];
+				unset( $wp_filter['wp_get_original_image_path'] );
+			}
+		}
+	}
+
+	/**
+	 * Revert S3 get_attached_file filter.
+	 *
+	 * @since 3.9.8
+	 */
+	private function revert_s3_file_filter() {
+		$s3_filter_obj = $this->get_s3_filter_class();
+		if ( $s3_filter_obj ) {
+			// Revert filters URL of S3.
+			add_filter( 'get_attached_file', array( $s3_filter_obj, 'get_attached_file' ), 10, 2 );
+			add_filter( 'wp_get_original_image_path', array( $s3_filter_obj, 'get_attached_file' ), 10, 2 );
+			return;
+		}
+		// Maybe revert file filters.
+		if ( $this->list_file_filters ) {
+			global $wp_filter;
+			$wp_filter['get_attached_file'] = $this->list_file_filters['get_attached_file'];
+			if ( isset( $this->list_file_filters['wp_get_original_image_path'] ) ) {
+				$wp_filter['wp_get_original_image_path'] = $this->list_file_filters['wp_get_original_image_path'];
+			}
+		}
 	}
 
 	/**
@@ -1079,7 +1204,7 @@ class S3 extends Abstract_Integration {
 			$temp_file = download_url( $s3_url );
 			$renamed   = false;
 			if ( ! is_wp_error( $temp_file ) ) {
-				$renamed = @copy( $temp_file, $file_path );
+				$renamed = copy( $temp_file, $file_path );
 				unlink( $temp_file );
 			} else {
 				Helper::logger()->integrations()->error( 'S3 - Cannot download file [%s] due to error: %s', Helper::clean_file_path( $file_path ), $temp_file->get_error_message() );
@@ -1122,7 +1247,7 @@ class S3 extends Abstract_Integration {
 		}
 
 		// Get s3 object for the file.
-		if ( ! $s3_object = $this->is_attachment_served_by_provider( $as3cf, $attachment_id ) ) {// phpcs:ignore
+		if ( ! $s3_object = $this->is_attachment_served_by_provider( $as3cf, $attachment_id ) ) {
 			return false;
 		}
 
@@ -1145,21 +1270,21 @@ class S3 extends Abstract_Integration {
 			$key = path_join( $size_file_prefix, wp_basename( $file_path ) );
 		}
 
-		// Get bucket details.
-		$bucket = $as3cf->get_setting( 'bucket' );
-		$region = $as3cf->get_setting( 'region' );
-		if ( is_wp_error( $region ) ) {
-			Helper::logger()->integrations()->error( 'S3 - Cannot retrieve the region: %s', $region->get_error_message() );
-			$region = '';
+		$bucket   = $as3cf->get_setting( 'bucket' );
+		$s3client = $this->get_provider_client();
+		if ( ! $s3client ) {
+			Helper::logger()->integrations()->error( 'S3 - Provider client does not exists.' );
+			return false;
 		}
 
-		$s3client = $this->get_provider_client( $as3cf, $region );
-
 		// If we still have the older version of S3 Offload, use old method.
-		if ( method_exists( $s3client, 'doesObjectExist' ) ) {
+		if ( method_exists( $s3client, 'does_object_exist' ) ) {
+			$file_exists = $s3client->does_object_exist( $bucket, $key );
+		} elseif ( method_exists( $s3client, 'doesObjectExist' ) ) {
 			$file_exists = $s3client->doesObjectExist( $bucket, $key );
 		} else {
-			$file_exists = $s3client->does_object_exist( $bucket, $key );
+			Helper::logger()->integrations()->error( 'S3 - Method AWS_Provider->does_object_exist does not exist.' );
+			$file_exists = false;
 		}
 
 		return $file_exists;
@@ -1224,7 +1349,7 @@ class S3 extends Abstract_Integration {
 	 * @since 3.0
 	 *
 	 * @param Amazon_S3_And_CloudFront $as3cf         Amazon_S3_And_CloudFront global.
-	 * @param array                    $s3_object     Data array.
+	 * @param array|object             $s3_object     Data array.
 	 * @param string                   $uf_file_path  File path.
 	 *
 	 * @return bool|string
@@ -1250,15 +1375,19 @@ class S3 extends Abstract_Integration {
 	 *
 	 * Get provider client.
 	 *
-	 * @param Amazon_S3_And_CloudFront $as3cf   Amazon_S3_And_CloudFront global.
-	 * @param bool|string              $region  Specify region to client for signature.
-	 *
 	 * @since 3.0
 	 *
 	 * @return \Provider|\Null_Provider|bool
 	 * @throws \Exception Exception.
 	 */
-	private function get_provider_client( $as3cf, $region ) {
+	private function get_provider_client() {
+		global $as3cf;
+		// Get bucket details.
+		$region = $as3cf->get_setting( 'region' );
+		if ( is_wp_error( $region ) ) {
+			Helper::logger()->integrations()->error( 'S3 - Cannot retrieve the region: %s', $region->get_error_message() );
+			$region = '';
+		}
 		if ( method_exists( $as3cf, 'get_provider_client' ) ) {
 			return $as3cf->get_provider_client( $region );
 		} elseif ( method_exists( $as3cf, 'get_s3client' ) ) {
@@ -1317,7 +1446,8 @@ class S3 extends Abstract_Integration {
 	private function update_original_source_path( $attachment_id, $new_file, $old_filepath, $is_restoring = false ) {
 		global $as3cf;
 		$as3cf_item = $this->is_attachment_served_by_provider( $as3cf, $attachment_id );
-		if ( ! ( $as3cf_item && is_object( $as3cf_item ) && $as3cf_item instanceof Media_Library_Item && method_exists( $as3cf_item, 'key' ) ) ) {
+		if ( ! ( $as3cf_item && is_object( $as3cf_item ) && $as3cf_item instanceof Media_Library_Item && method_exists( $as3cf_item, 'key' ) && method_exists( $as3cf_item, 'is_private' ) ) ) {
+			Helper::logger()->integrations()->warning( 'S3 - Empty $as3cf_item or Media_Library_Item->is_private does not exist.' );
 			return false;
 		}
 		// If user enabling remove file on local, we will remove all our old PNG/JPG files from list of file paths to avoid error log.
@@ -1326,8 +1456,23 @@ class S3 extends Abstract_Integration {
 			add_filter( 'as3cf_upload_attachment_local_files_to_remove', array( $this, 'remove_missing_files_to_avoid_error_log_from_s3' ), 99 );
 		}
 
+		$extra_info = array();
+		if ( method_exists( $as3cf_item, 'extra_info' ) ) {
+			$extra_info = $as3cf_item->extra_info();
+		}
+		/**
+		 * Remove backup key from extra info.
+		 * From S3 2.6, they re-build the upload files base on extra info,
+		 * so we also need to remove the backup file from this data.
+		 *
+		 * @since 3.9.10
+		 */
+		if ( $is_restoring && isset( $extra_info['objects']['smush-full'] ) ) {
+			unset( $extra_info['objects']['smush-full'] );
+		}
+
 		$new_filename = basename( $new_file );
-		$as3cf_item = new Media_Library_Item(
+		$as3cf_item   = new Media_Library_Item(
 			$as3cf_item->provider(),
 			$as3cf_item->region(),
 			$as3cf_item->bucket(),
@@ -1336,7 +1481,7 @@ class S3 extends Abstract_Integration {
 			$as3cf_item->source_id(),
 			path_join( dirname( $as3cf_item->source_path() ), $new_filename ),
 			$new_filename,
-			$as3cf_item->extra_info(),
+			$extra_info,
 			$as3cf_item->id()
 		);
 
@@ -1355,7 +1500,7 @@ class S3 extends Abstract_Integration {
 					// Remove the original PNG file in private folder.
 					$object_key = path_join( dirname( $as3cf_item->key() ), basename( $old_filepath ) );
 				}
-			} elseif ( $backup->is_active() && $as3cf_item->is_private_size( 'smush-full' ) ) {
+			} elseif ( $backup->is_active() && ( method_exists( $as3cf_item, 'is_private_size' ) && $as3cf_item->is_private_size( 'smush-full' ) || $as3cf_item->is_private( 'smush-full' ) ) ) {
 				if ( method_exists( $as3cf_item, 'private_prefix' ) && method_exists( $as3cf_item, 'normalized_path_dir' ) ) {
 					/**
 					 * Remove old PNG file when user enable private media for backup size,
@@ -1387,20 +1532,10 @@ class S3 extends Abstract_Integration {
 
 			// Delete old PNG file.
 			if ( isset( $object_key ) ) {
-				if ( method_exists( $as3cf, 'delete_objects' ) ) {
-					$bucket = $as3cf->get_setting( 'bucket' );
-					$region = $as3cf->get_setting( 'region' );
-					if ( is_wp_error( $region ) ) {
-						Helper::logger()->integrations()->error( 'S3 - Cannot retrieve the region: %s', $region->get_error_message() );
-						$region = '';
-					}
-					$objects_to_remove[] = array(
-						'Key' => $object_key,
-					);
-					$as3cf->delete_objects( $region, $bucket, $objects_to_remove );
-				} else {
-					Helper::logger()->integrations()->error( 'S3 - Method $as3cf->delete_objects() does not exists.' );
-				}
+				$objects_to_remove[] = array(
+					'Key' => $object_key,
+				);
+				$this->delete_objects( $objects_to_remove );
 			}
 		}
 	}

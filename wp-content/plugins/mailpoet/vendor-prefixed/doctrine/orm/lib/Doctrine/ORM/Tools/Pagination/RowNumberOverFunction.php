@@ -2,7 +2,6 @@
 declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Tools\Pagination;
 if (!defined('ABSPATH')) exit;
-use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
 use MailPoetVendor\Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use MailPoetVendor\Doctrine\ORM\Query\AST\OrderByClause;
 use MailPoetVendor\Doctrine\ORM\Query\Parser;

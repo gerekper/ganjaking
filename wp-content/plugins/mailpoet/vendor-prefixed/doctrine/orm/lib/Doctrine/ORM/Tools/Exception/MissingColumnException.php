@@ -3,7 +3,6 @@ declare (strict_types=1);
 namespace MailPoetVendor\Doctrine\ORM\Tools\Exception;
 if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\ORM\Exception\ORMException;
-use LogicException;
 use function sprintf;
 final class MissingColumnException extends ORMException
 {

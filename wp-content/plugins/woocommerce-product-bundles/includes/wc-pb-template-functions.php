@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add-to-cart template for Product Bundles. Handles the 'Form location > After summary' case.
  *
- * @since  5.7.0
+ * @since  6.14.1
  */
 function wc_pb_template_add_to_cart_after_summary() {
 
@@ -640,16 +640,9 @@ function wc_pb_template_bundled_item_attributes( $product ) {
 
 			foreach ( $bundled_items as $bundled_item ) {
 
-				/** Documented in 'WC_Product_Bundle::has_attributes()'. */
-				$show_bundled_product_attributes = apply_filters( 'woocommerce_bundle_show_bundled_product_attributes', $bundled_item->is_visible(), $product, $bundled_item );
+				$args = $bundled_item->has_attributes() ? $bundled_item->get_attribute_template_args() : false;
 
-				if ( ! $show_bundled_product_attributes ) {
-					continue;
-				}
-
-				$args = $bundled_item->get_bundled_item_display_attribute_args();
-
-				if ( empty( $args[ 'product_attributes' ] ) ) {
+				if ( ! $args || empty( $args[ 'product_attributes' ] ) ) {
 					continue;
 				}
 
@@ -751,7 +744,7 @@ function wc_pb_template_bundled_variation_attribute_options( $args ) {
 		$html .= $attribute_options;
 	}
 
-	if ( sizeof( $configurable_variation_attributes ) === sizeof( $variation_attributes ) ) {
+	if ( count( $configurable_variation_attributes ) === count( $variation_attributes ) ) {
 		$variation_attribute_keys = array_keys( $variation_attributes );
 		// ...and add the reset-variations link.
 		if ( end( $variation_attribute_keys ) === $variation_attribute_name ) {

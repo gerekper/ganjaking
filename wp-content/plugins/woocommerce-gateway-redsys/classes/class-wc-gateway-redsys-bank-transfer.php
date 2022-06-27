@@ -727,69 +727,21 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'redsysbank' );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsysbank', '$test_mode: ' . $test_mode );
-			$this->log->add( 'redsysbank', '/****************************/' );
-			$this->log->add( 'redsysbank', '$selections ' . print_r( $selections, true ) );
-			$this->log->add( 'redsysbank', '/****************************/' );
-			$this->log->add( 'redsysbank', ' ' );
-		}
-
 		if ( 'yes' !== $test_mode ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbank', ' ' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', '$test_mode different to yes showing Gateway' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', ' ' );
-			}
 			return true;
 		}
 		if ( $selections[0] !== '' || empty( $selections ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbank', ' ' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', '$selections NOT empty' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', ' ' );
-			}
 			if ( ! $userid ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbank', ' ' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', 'Not loged In hiding gateway' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', ' ' );
-				}
 				return false;
 			}
 			foreach ( $selections as $user_id ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbank', '$user_id: ' . $user_id );
-					$this->log->add( 'redsysbank', '$userid: ' . $userid );
-					$this->log->add( 'redsysbank', ' ' );
-				}
 				if ( (int) $user_id === (int) $userid ) {
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', ' $user_id === $userid, Showing gateway' );
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', ' ' );
-					}
 					return true;
 				}
 				continue;
 			}
 			return false;
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbank', ' ' );
-				$this->log->add( 'redsysbank', '/*********************************/' );
-				$this->log->add( 'redsysbank', '$selections Empty, showing gateway' );
-				$this->log->add( 'redsysbank', '/*********************************/' );
-				$this->log->add( 'redsysbank', ' ' );
-			}
 			return true;
 		}
 	}
@@ -801,50 +753,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbank', ' ' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', '   Is NOT admin ' );
-				$this->log->add( 'redsysbank', '/****************************/' );
-				$this->log->add( 'redsysbank', ' ' );
-			}
 			if ( is_user_logged_in() ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbank', ' ' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', '   Is user logget in ' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', ' ' );
-				}
 				$user_id = get_current_user_id();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbank', ' ' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', '   $user_id: ' . $user_id );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', ' ' );
-				}
-				$show = $this->check_user_show_payment_method( $user_id );
-				if ( 'yes' === $this->debug ) {
-					if ( $show ) {
-						$this->log->add( 'redsysbank', ' ' );
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', '   SHOW Gateway' );
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', ' ' );
-					} else {
-						$this->log->add( 'redsysbank', ' ' );
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', '   DONT SHOW Gateway' );
-						$this->log->add( 'redsysbank', '/****************************/' );
-						$this->log->add( 'redsysbank', ' ' );
-					}
-					$this->log->add( 'redsysbank', ' ' );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', '   $user_id: ' . $user_id );
-					$this->log->add( 'redsysbank', '/****************************/' );
-					$this->log->add( 'redsysbank', ' ' );
-				}
+				$show    = $this->check_user_show_payment_method( $user_id );
 				if ( ! $show ) {
 					unset( $available_gateways[ $this->id ] );
 				}

@@ -115,6 +115,13 @@
 			return view;
 		};
 
+		window.vc.visualComposerView.prototype.initializeAccessPolicy = function () {
+			this.accessPolicy = {
+				be_editor: true,
+				fe_editor: false,
+				classic_editor: false
+			};
+		};
 	}
 
 	if ( window.VcGitemView ) {
@@ -148,13 +155,6 @@
 		} );
 	}
 
-	window.vc.visualComposerView.prototype.initializeAccessPolicy = function () {
-		this.accessPolicy = {
-			be_editor: true,
-			fe_editor: false,
-			classic_editor: false
-		};
-	};
 	window.vc.events.on( 'app.addAll', function () {
 		if ( parent && parent.vc ) {
 			parent.vc.templates_panel_view.setTemplatePreviewSize();

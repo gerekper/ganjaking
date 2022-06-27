@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for initiating and modifying no/low stock notification e-mails for Product Bundles.
  *
  * @class    WC_PB_Stock_Notifications
- * @version  6.10.0
+ * @version  6.15.4
  */
 class WC_PB_Stock_Notifications {
 
@@ -54,14 +54,14 @@ class WC_PB_Stock_Notifications {
 
 			$bundled_item_min_qty = $bundled_data_item->get_meta( 'quantity_min' );
 
-			if ( 'yes' === $bundled_data_item->get_meta( 'optional' ) || 0 === $bundled_item_min_qty ) {
+			if ( 'yes' === $bundled_data_item->get_meta( 'optional' ) || 0 === $bundled_item_min_qty || is_null( $bundled_item_min_qty ) ) {
 				continue;
 			}
 
 			$bundled_item_stock_quantity = $bundled_data_item->get_meta( 'max_stock' );
 
 			// Infinite qty? Move on.
-			if ( '' === $bundled_item_stock_quantity ) {
+			if ( '' === $bundled_item_stock_quantity || is_null( $bundled_item_stock_quantity ) ) {
 				continue;
 			}
 

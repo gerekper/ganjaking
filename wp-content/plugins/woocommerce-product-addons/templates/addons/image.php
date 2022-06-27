@@ -72,13 +72,13 @@ foreach ( $addon['options'] as $i => $option ) {
 		$price_type = ! empty( $option['price_type'] ) ? $option['price_type'] : '';
 		$label      = ! empty( $option['label'] ) ? $option['label'] : '';
 
-		$price_for_display = apply_filters(
+		$price_for_display = apply_filters( 'woocommerce_addons_add_price_to_name', true ) ? apply_filters(
 			'woocommerce_product_addons_option_price',
 			$price_raw ? '(' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw ) ) . ')' : '',
 			$option,
 			$i,
 			'image'
-		);
+		) : '';
 
 		$price_display = WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw );
 

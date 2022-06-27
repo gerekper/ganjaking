@@ -2,23 +2,23 @@
 if (!defined('ABSPATH')) exit;
  return array(
  'root' => array(
- 'pretty_version' => 'dev-master',
- 'version' => 'dev-master',
+ 'pretty_version' => 'dev-trunk',
+ 'version' => 'dev-trunk',
  'type' => 'library',
  'install_path' => __DIR__ . '/../../',
  'aliases' => array(),
- 'reference' => 'f467c43ccfb6fd9cca85cedb55ab621c0b8ee9ce',
+ 'reference' => 'e1514f51b61a16664d9844ac38b5066d95d778b0',
  'name' => '__root__',
  'dev' => false,
  ),
  'versions' => array(
  '__root__' => array(
- 'pretty_version' => 'dev-master',
- 'version' => 'dev-master',
+ 'pretty_version' => 'dev-trunk',
+ 'version' => 'dev-trunk',
  'type' => 'library',
  'install_path' => __DIR__ . '/../../',
  'aliases' => array(),
- 'reference' => 'f467c43ccfb6fd9cca85cedb55ab621c0b8ee9ce',
+ 'reference' => 'e1514f51b61a16664d9844ac38b5066d95d778b0',
  'dev_requirement' => false,
  ),
  'mtdowling/cron-expression' => array(

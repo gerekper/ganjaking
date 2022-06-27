@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -918,18 +918,23 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			}
 
 			if ( isset( $posted_data['export_file'] ) && is_array( $posted_data['export_file'] ) ) {
-				$export_file      = $posted_data['export_file'];
-				$csv_folder       = $export_file['wp_upload_dir'];
-				$filename         = str_replace( array( '\'', '"', ',', ';', '<', '>', '/', ':' ), '', $export_file['file_name'] );
-				$csvfilename      = $csv_folder . $filename;
-				$csv_file_handler          = fopen( $csvfilename, 'a' ); // phpcs:ignore
+				$export_file        = $posted_data['export_file'];
+				$csv_folder         = $export_file['wp_upload_dir'];
+				$filename           = str_replace( array( '\'', '"', ',', ';', '<', '>', '/', ':' ), '', $export_file['file_name'] );
+				$csvfilename        = $csv_folder . $filename;
+				$csv_file_handler   = fopen( $csvfilename, 'a' ); // phpcs:ignore
+				$smart_coupon_email = array();
+				$customer_emails    = $posted_data['customer_email']  = empty( $posted_data['customer_email'] ) ? $posted_data['smart_coupon_email'] : $posted_data['customer_email'];// phpcs:ignore
+				if ( ! empty( $customer_emails ) ) {
+					$smart_coupon_email = explode( ',', $customer_emails );
+				}
 				// Proceed only if file has opened in append mode.
 				if ( false !== $csv_file_handler ) {
 					for ( $no_of_coupons_created = 1; $no_of_coupons_created <= $no_of_coupons_to_generate; $no_of_coupons_created++ ) {
 						$posted_data['no_of_coupons_to_generate'] = 1;
-						$posted_data['customer_email']            = empty( $posted_data['customer_email'] ) ? $posted_data['smart_coupon_email'] : $posted_data['customer_email'];
 						$coupon_data                              = $woocommerce_smart_coupon->generate_coupons_code( $posted_data, '', '' );
-						$file_data = $woocommerce_smart_coupon->get_coupon_csv_data( $column_headers, $coupon_data ); // phpcs:ignore
+
+						$file_data                                = $woocommerce_smart_coupon->get_coupon_csv_data( $column_headers, $coupon_data ); // phpcs:ignore
 						if ( $file_data ) {
 
 								fwrite( $csv_file_handler, $file_data ); // phpcs:ignore
@@ -938,10 +943,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								update_option( 'current_time_woo_sc', time(), 'no' );
 								update_option( 'remaining_tasks_count_woo_sc', $no_of_remaining_coupons, 'no' );
 
-							if ( ! empty( $posted_data['customer_email'] ) ) {
-								$emails = explode( ',', $posted_data['customer_email'] );
-								array_shift( $emails ); // Remove first email so that it does not included in next run.
-								$posted_data['customer_email'] = implode( ',', $emails );
+							if ( ! empty( $posted_data['customer_email'] ) && count( $smart_coupon_email ) > 1 ) {
+								$posted_data['customer_email'] = '';
+								if ( ! empty( $customer_emails ) ) {
+									$sc_emails = explode( ',', $customer_emails );
+									array_shift( $sc_emails ); // Remove first email so that it does not included in next run.
+                                    $customer_emails = $posted_data['customer_email'] = ! empty( $sc_emails ) ? implode( ',', $sc_emails ) : '';// phpcs:ignore
+								}
 							}
 
 							// If csv generation is complete.

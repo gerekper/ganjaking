@@ -229,7 +229,8 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		// Need to set $post_id for backward compatibility with the filter, as $post can also be an object now.
 		if ( is_int( $post ) ) {
 			$post_id = $post;
-		} else {
+		}
+		else {
 			$post_id = $post->ID;
 		}
 

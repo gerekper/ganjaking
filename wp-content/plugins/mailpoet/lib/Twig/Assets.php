@@ -14,14 +14,11 @@ use MailPoetVendor\Twig\TwigFunction;
 class Assets extends AbstractExtension {
   private $globals;
 
-  /** @var CdnAssetUrl */
+  /** @var CdnAssetUrl|null */
   private $cdnAssetsUrl;
 
   public function __construct(array $globals, CdnAssetUrl $cdnAssetsUrl = null) {
     $this->globals = $globals;
-    if ($cdnAssetsUrl === null) {
-      $cdnAssetsUrl = ContainerWrapper::getInstance()->get(CdnAssetUrl::class);
-    }
     $this->cdnAssetsUrl = $cdnAssetsUrl;
   }
 
@@ -108,6 +105,9 @@ class Assets extends AbstractExtension {
   }
 
   public function generateCdnUrl($path) {
+    if ($this->cdnAssetsUrl === null) {
+      $this->cdnAssetsUrl = ContainerWrapper::getInstance()->get(CdnAssetUrl::class);
+    }
     return $this->cdnAssetsUrl->generateCdnUrl($path);
   }
 }

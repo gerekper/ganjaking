@@ -6,14 +6,14 @@
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
-namespace FontLib\WOFF;
+namespace WooCommercePDFInvoiceFontLib\WOFF;
 
 /**
  * WOFF font file header.
  *
  * @package php-font-lib
  */
-class Header extends \FontLib\TrueType\Header {
+class Header extends \WooCommercePDFInvoiceFontLib\TrueType\Header {
   protected $def = array(
     "format"         => self::uint32,
     "flavor"         => self::uint32,

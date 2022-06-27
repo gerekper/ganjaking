@@ -51,7 +51,11 @@ class WC_OD_Collection_Delivery_Days extends WC_OD_Collection {
 	 */
 	protected function get_delivery_day( $delivery_day, $weekday ) {
 		if ( ! $delivery_day instanceof WC_OD_Delivery_Day ) {
-			$delivery_day = new WC_OD_Delivery_Day( $delivery_day, $weekday );
+			$delivery_day = wc_od_get_delivery_day( $delivery_day );
+
+			if ( $delivery_day ) {
+				$delivery_day->set_id( $weekday );
+			}
 		}
 
 		return $delivery_day;

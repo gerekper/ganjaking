@@ -271,18 +271,15 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 					$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email );
 				}
 			}
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
-				<select id="customer_user" style="width: 200px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>">
+			?>
+			<select id="customer_user" style="width: 200px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>">
 
-					<?php
-						if ( ! empty( $customer_id ) ) {
-							echo '<option value="' . esc_attr( $customer_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
-						}
-					?>
-				</select>
-			<?php } else { ?>
-				<input type="hidden" class="wc-customer-search" id="customer_user" name="_customer_user" data-placeholder="<?php _e( 'Show All Customers', 'woocommerce-points-and-rewards' ); ?>" data-selected="<?php echo esc_attr( $user_string ); ?>" value="<?php echo $customer_id; ?>" data-allow_clear="true" style="width:200px" />
-			<?php } ?>
+				<?php
+					if ( ! empty( $customer_id ) ) {
+						echo '<option value="' . esc_attr( $customer_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
+					}
+				?>
+			</select>
 
 			<select id="dropdown_event_types" name="_event_type" class="wc-enhanced-select" style="width:200px">
 				<option value=""><?php esc_html_e( 'Show All Event Types', 'woocommerce-points-and-rewards' ); ?></option>

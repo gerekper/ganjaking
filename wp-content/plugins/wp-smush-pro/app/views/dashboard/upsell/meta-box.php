@@ -29,10 +29,6 @@ if ( ! defined( 'WPINC' ) ) {
 	</li>
 	<li>
 		<span class="sui-icon-check sui-md" aria-hidden="true"></span>
-		<?php esc_html_e( '2x better compression', 'wp-smushit' ); ?>
-	</li>
-	<li>
-		<span class="sui-icon-check sui-md" aria-hidden="true"></span>
 		<?php esc_html_e( 'Serve a next-gen format with WebP conversion', 'wp-smushit' ); ?>
 	</li>
 	<li>

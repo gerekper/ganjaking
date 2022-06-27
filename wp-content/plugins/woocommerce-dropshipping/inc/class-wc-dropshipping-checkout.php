@@ -41,6 +41,8 @@ class WC_Dropshipping_Checkout {
 		add_filter( 'woocommerce_new_order', array( $this, 'manual_add_cost_of_goods_on_orders' ), 10, 2 );
 
 		add_action( 'woocommerce_order_item_meta_start', array( $this, 'wc_email_after_order_table' ), 10, 4  );
+		
+		add_action( 'woocommerce_order_item_meta_end', array( $this, 'product_shipping_details' ), 10, 4  );
 
 	}
 
@@ -379,5 +381,62 @@ class WC_Dropshipping_Checkout {
 		}
 
 	}
+	
+		public function product_shipping_details( $item_id, $item, $order, $plain_text  ) {
+
+          	if ( $order->get_id()!=""){
+          	    
+          	    $orders = wc_get_order( $order->get_id());
+
+            // Loop through order line items
+         
+ 
+            foreach( $orders->get_items()  as $item_id => $item ){
+                // get order item data (in an unprotected array)
+                $item_data = $item->get_data();
+                
+                // get order item meta data (in an unprotected array)
+                $item_meta_data = $item->get_meta_data();
+                 $supplier_id = get_post_meta($item_id,'supplierid',true);
+               $arg = array(
+									'meta_key'	  =>	'supplier_id',
+									'meta_value'	=>	$supplier_id
+								);
+						$user_query = new WP_User_Query($arg);
+						$authors = $user_query->get_results();
+						foreach ($authors as $author)  {
+							$arrayuser[] = $author->ID;
+					    }
+            }
+            
+            $uniqe_userid = array_unique($arrayuser);
+           
+            $postid = $order->get_id();
+					foreach ($uniqe_userid as $key => $value) {
+					 	$dropshipper_shipping_info = get_post_meta($postid, 'dropshipper_shipping_info_'.$value, true);
+					 
+					 	$supplier_id = get_user_meta($value, 'supplier_id', true);
+					 	$term = get_term_by('id', $supplier_id, 'dropship_supplier');
+						if(isset($dropshipper_shipping_info) && $dropshipper_shipping_info!=""){
+						echo '<h2><b>'. __('Track Your Order', 'woocommerce-dropshippers').'</b></h2>';
+
+							echo '<strong>'. __('Shipping Date', 'woocommerce-dropshippers') .'</strong>: <span class="dropshipper_date">'. (empty($dropshipper_shipping_info['date'])? '-' :$dropshipper_shipping_info['date']) . '</span><br/>' ."\n";
+
+							echo '<strong>'. __('Tracking Number(s)', 'woocommerce-dropshippers') .'</strong>: <span class="dropshipper_tracking_number">'. (empty($dropshipper_shipping_info['tracking_number'])? '-' : $dropshipper_shipping_info['tracking_number']) . '</span><br/>'."\n";
+
+							echo '<strong>'. __('Shipping Company', 'woocommerce-dropshippers') .'</strong>: <span class="dropshipper_shipping_company">'. (empty($dropshipper_shipping_info['shipping_company'])? '-' : $dropshipper_shipping_info['shipping_company']) . '</span><br/>'."\n";
+
+							echo '<strong>'. __('Notes', 'woocommerce-dropshippers') .'</strong>: <span class="dropshipper_notes">'. (empty($dropshipper_shipping_info['notes'])? '-' : $dropshipper_shipping_info['notes']) . '</span><br/>'."\n";
+
+							echo "<hr>\n";
+						} else {
+							echo '';
+						}
+			 		}
+            
+          	}
+
+	}
+
 
 }

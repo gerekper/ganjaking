@@ -17,7 +17,7 @@ class SetNode extends Node implements NodeCaptureInterface
  }
  }
  }
- public function compile(Compiler $compiler)
+ public function compile(Compiler $compiler) : void
  {
  $compiler->addDebugInfo($this);
  if (\count($this->getNode('names')) > 1) {
@@ -65,4 +65,3 @@ class SetNode extends Node implements NodeCaptureInterface
  $compiler->raw(";\n");
  }
 }
-\class_alias('MailPoetVendor\\Twig\\Node\\SetNode', 'MailPoetVendor\\Twig_Node_Set');
