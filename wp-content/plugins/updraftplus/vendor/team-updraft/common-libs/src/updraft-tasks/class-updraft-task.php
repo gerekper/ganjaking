@@ -5,12 +5,12 @@
 
 if (!defined('ABSPATH')) die('Access denied.');
 
-if (!class_exists('Updraft_Task_1_1')) :
+if (!class_exists('Updraft_Task_1_2')) :
 
 if (!class_exists('Updraft_Task_Options')) require_once('class-updraft-task-options.php');
 if (!class_exists('Updraft_Task_Meta')) require_once('class-updraft-task-meta.php');
 
-abstract class Updraft_Task_1_1 {
+abstract class Updraft_Task_1_2 {
 
 	/**
 	 * A unique ID for the specific task
@@ -585,7 +585,7 @@ abstract class Updraft_Task_1_1 {
 
 		if (isset($this->_loggers)) {
 			foreach ($this->_loggers as $logger) {
-				$logger->log($error_type, $message);
+				$logger->log($message, $error_type);
 			}
 		}
 	}

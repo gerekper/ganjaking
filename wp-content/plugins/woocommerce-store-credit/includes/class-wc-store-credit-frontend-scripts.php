@@ -39,6 +39,11 @@ class WC_Store_Credit_Frontend_Scripts {
 			wp_enqueue_style( 'wc-store-credit' );
 		}
 
+		if ( is_cart() || is_checkout() ) {
+			wp_enqueue_style( 'wc-store-credit' );
+			wp_enqueue_script( 'wc-store-credit-cart' );
+		}
+
 		if ( is_product() ) {
 			$product = wc_store_credit_get_product( $post->ID );
 
@@ -78,6 +83,11 @@ class WC_Store_Credit_Frontend_Scripts {
 			'single-product' => array(
 				'handle' => 'wc-store-credit-single-product',
 				'path'   => "single-product{$suffix}.js",
+				'deps'   => array( 'jquery' ),
+			),
+			'cart'           => array(
+				'handle' => 'wc-store-credit-cart',
+				'path'   => "cart{$suffix}.js",
 				'deps'   => array( 'jquery' ),
 			),
 		);

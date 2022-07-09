@@ -68,6 +68,16 @@ jQuery(document).ready(function($) {
     $(this).removeClass('mepr-hover');
   });
 
+  //Change mouse pointer over drag target
+  $('body').on('mouseenter', '.mp-icon-drag-target', function() {
+    $(this).addClass('mepr-hover');
+  });
+  $('body').on('mouseleave', '.mp-icon-drag-target', function() {
+    $(this).removeClass('mepr-hover');
+  });
+
+
+
   $('.mepr-admin-notice.mepr-auto-open').each( function() {
     var _this = this;
 
@@ -124,6 +134,10 @@ jQuery(document).ready(function($) {
 
   $('body').on('click', '#mepr_stripe_connect_upgrade_notice button.notice-dismiss', function(e){
     Cookies.set('mepr_stripe_connect_upgrade_dismissed', '1', { expires: 1, path: '/' });
+  });
+
+  $('body').on('click', '#mepr_paypal_connect_upgrade_notice button.notice-dismiss', function(e){
+    Cookies.set('mepr_paypal_connect_upgrade_dismissed', '1', { expires: 1, path: '/' });
   });
 
   $('body').on('click', '.mepr-notice-dismiss-permanently button.notice-dismiss', function () {

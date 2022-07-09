@@ -3,23 +3,23 @@
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo esc_html_x('Phrase Filtering (case sensitive)', 'Setting title', 'ali2woo'); ?></h3>
         <span class="pull-right">
-            <a class="disabled" style="display: none;"><?php esc_html_e('You have unsaved changes', 'ali2woo'); ?></a>
-            <a href="#" class="apply-phrase-rules btn"><?php esc_html_e('Apply Filter to your Shop', 'ali2woo'); ?></a></span>
+            <a class="disabled" style="display: none;"><?php esc_html_e('You have unsaved changes', 'ali2woo');?></a>
+            <a href="#" class="apply-phrase-rules btn"><?php esc_html_e('Apply Filter to your Shop', 'ali2woo');?></a></span>
     </div>
 
 
     <div class="panel-body">
         <div class="panel panel-default" id="a2w-panel-info" style="display: none;">
-            <div class="panel-heading"><?php esc_html_e('Applying filter progress', 'ali2woo'); ?>  <button type="button" class="close" data-target="#a2w-panel-info" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only"><?php esc_html_e('Close', 'ali2woo'); ?></span>
+            <div class="panel-heading"><?php esc_html_e('Applying filter progress', 'ali2woo');?>  <button type="button" class="close" data-target="#a2w-panel-info" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only"><?php esc_html_e('Close', 'ali2woo');?></span>
 
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-4">
-                    <?php esc_html_e('Reviews', 'ali2woo') ?>
+                    <?php esc_html_e('Reviews', 'ali2woo')?>
                         <div class="progress reviews-progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 4em;">
-                            <?php esc_html_e('wait', 'ali2woo') ?>...
+                            <?php esc_html_e('wait', 'ali2woo')?>...
                             </div>
                         </div>
                     </div>
@@ -28,65 +28,65 @@
         </div>
         <div class="row">
             <div class="col-md-4 pb20">
-                <strong><?php esc_html_e('Phrase', 'ali2woo'); ?></strong>
+                <strong><?php esc_html_e('Phrase', 'ali2woo');?></strong>
             </div>
             <div class="col-md-8 pb20">
-                <strong><?php esc_html_e('Replacement', 'ali2woo'); ?></strong>   
+                <strong><?php esc_html_e('Replacement', 'ali2woo');?></strong>
             </div>
         </div>
-        <?php foreach ($phrases as $ind => $phrase) : ?>
+        <?php foreach ($phrases as $ind => $phrase): ?>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group input-block no-margin">
-                        <input type="text" value="<?php echo $phrase->phrase; ?>" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo'); ?>" />
+                        <input type="text" value="<?php echo $phrase->phrase; ?>" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo');?>" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group input-block no-margin">
-                        <input type="text" value="<?php echo $phrase->phrase_replace; ?>" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo'); ?>" />
-                    </div>   
+                        <input type="text" value="<?php echo $phrase->phrase_replace; ?>" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn--transparent delete">
                         <svg class="icon-cross">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use>
                         </svg>
-                    </button>  
+                    </button>
                 </div>
             </div>
-        <?php endforeach; ?> 
+        <?php endforeach;?>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group input-block no-margin">
-                    <input type="text" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo'); ?>" />
+                    <input type="text" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo');?>" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group input-block no-margin">
-                    <input type="text" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo'); ?>" />
-                </div>   
+                    <input type="text" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
+                </div>
             </div>
             <div class="col-md-4">
                 <button class="btn btn--transparent delete" style="display:none;">
                     <svg class="icon-cross">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use>
                     </svg>
-                </button>  
+                </button>
             </div>
         </div>
 
     </div>
 
 </div>
-<div class="panel small-padding margin-small-top panel-danger" style="display: none;"> 
-    <div class="panel-body"> 
-        <div class="container-flex flex-between"> 
-            <div class="container-flex"> 
-                <div class="svg-container no-shrink">   
-                    <svg class="icon-danger-circle margin-small-right"> 
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-danger-circle"></use> 
-                    </svg> 
-                </div> 
+<div class="panel small-padding margin-small-top panel-danger" style="display: none;">
+    <div class="panel-body">
+        <div class="container-flex flex-between">
+            <div class="container-flex">
+                <div class="svg-container no-shrink">
+                    <svg class="icon-danger-circle margin-small-right">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-danger-circle"></use>
+                    </svg>
+                </div>
                 <div class="ml5 mr10">
                     <div class="content"></div>
                 </div>
@@ -98,7 +98,7 @@
 <div class="container-fluid">
     <div class="row pt20 border-top">
         <div class="col-sm-12">
-            <input class="btn btn-success" id="save-phrases"  type="submit" value="<?php esc_html_e('Save settings', 'ali2woo'); ?>"/>
+            <input class="btn btn-success" id="save-phrases"  type="submit" value="<?php esc_html_e('Save settings', 'ali2woo');?>"/>
         </div>
     </div>
 </div>
@@ -106,23 +106,23 @@
 <div class="modal-overlay modal-apply-phrases">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><?php esc_html_e('Apply Filter to your Shop', 'ali2woo'); ?></h3>
-            <a class="modal-btn-close" href="#"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use></svg></a>
+            <h3 class="modal-title"><?php esc_html_e('Apply Filter to your Shop', 'ali2woo');?></h3>
+            <a class="modal-btn-close" href="#"></a>
         </div>
         <div class="modal-body">
-            <label><?php esc_html_e('Select the update type', 'ali2woo'); ?></label>
+            <label><?php esc_html_e('Select the update type', 'ali2woo');?></label>
             <div style="padding-bottom: 20px;">
                 <div class="type btn-group" role="group">
                     <button type="button" class="btn btn-default" value="products"><?php echo esc_html_x('Products', 'Apply Phrases', 'ali2woo'); ?></button>
                     <button type="button" class="btn btn-default" value="reviews"><?php echo esc_html_x('Reviews', 'Aplly Phrases', 'ali2woo'); ?></button>
                     <?php /*
-                      <button type="button" class="btn btn-default" value="shippings"><?php echo esc_html_x('Shipping methods', 'Apply Phrases', 'ali2woo'); ?></button>
-                     */ ?>
+<button type="button" class="btn btn-default" value="shippings"><?php echo esc_html_x('Shipping methods', 'Apply Phrases', 'ali2woo'); ?></button>
+ */?>
                     <button type="button" class="btn btn-default" value="all_types"><?php echo esc_html_x('All', 'Apply Phrases', 'ali2woo'); ?></button>
                 </div>
             </div>
             <div class="scope">
-                <label><?php esc_html_e('Select the update scope', 'ali2woo'); ?></label>
+                <label><?php esc_html_e('Select the update scope', 'ali2woo');?></label>
                 <div>
                     <div class="scope btn-group" role="group">
                         <button type="button" class="btn btn-default" value="shop"><?php echo esc_html_x('Shop', 'Apply Phrases', 'ali2woo'); ?></button>
@@ -133,8 +133,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default close-btn" type="button"><?php esc_html_e('Close', 'ali2woo'); ?></button>
-            <button class="btn btn-success apply-btn" type="button"><?php esc_html_e('Apply', 'ali2woo'); ?></button>
+            <button class="btn btn-default close-btn" type="button"><?php esc_html_e('Close', 'ali2woo');?></button>
+            <button class="btn btn-success apply-btn" type="button"><?php esc_html_e('Apply', 'ali2woo');?></button>
         </div>
     </div>
 </div>

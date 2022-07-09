@@ -1,5 +1,11 @@
 *** Store Credit Changelog ***
 
+2022-07-04 - version 4.2.0
+* Feature - Display the available Store Credit coupons on the Cart and Checkout pages.
+* Feature - Added support to product subcategories when restricting the usage of the coupons created from a Store Credit product.
+* Tweak - Exclude expired coupons from the Store Credit coupon list on the 'My account' page.
+* Tweak - Tested compatibility with WC 6.7.
+
 2022-06-16 - version 4.1.1
 * Tweak - Added plugin info to the WooCommerce System Status Report.
 * Tweak - Tested compatibility with WC 6.6.

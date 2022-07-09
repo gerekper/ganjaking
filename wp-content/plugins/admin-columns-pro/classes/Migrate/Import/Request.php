@@ -53,7 +53,7 @@ final class Request implements Registrable {
 	 */
 	private function is_request() {
 		$data = filter_input_array( INPUT_POST, [
-			'action'         => FILTER_SANITIZE_STRING,
+			'action'         => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
 			self::NONCE_NAME => FILTER_DEFAULT,
 		] );
 

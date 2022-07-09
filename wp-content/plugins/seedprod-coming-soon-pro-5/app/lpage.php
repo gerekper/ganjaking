@@ -729,8 +729,10 @@ function seedprod_pro_save_lpage() {
 			if ( 'css' == $check_post_type->page_type ) {
 				update_post_meta( $lpage_id, '_seedprod_css', $check_post_type->document->settings->globalHeadCss );
 				update_post_meta( $lpage_id, '_seedprod_builder_css', $check_post_type->document->settings->globalHeadCssBuilder );
-				update_post_meta( $lpage_id, '_seedprod_custom_css', $check_post_type->document->settings->customCss );
-				$css = $check_post_type->document->settings->globalHeadCss . $check_post_type->document->settings->customCss;
+				//update_post_meta( $lpage_id, '_seedprod_custom_css', $check_post_type->document->settings->customCss );
+				//$css = $check_post_type->document->settings->globalHeadCss . $check_post_type->document->settings->customCss;
+				update_post_meta( $lpage_id, '_seedprod_custom_css', '' );
+				$css = $check_post_type->document->settings->globalHeadCss;
 				seedprod_pro_generate_css_file( $lpage_id, $css );
 			} else {
 				if ( ! empty( $html ) ) {
@@ -1108,7 +1110,8 @@ function seedprod_pro_get_namespaced_custom_css() {
 			require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/seedprod_lessc.inc.php';
 			$less  = new seedprod_lessc();
 			$style = $less->parse( '.sp-html {' . $css . '}' );
-			echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			//echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '';
 			exit();
 		}
 	}

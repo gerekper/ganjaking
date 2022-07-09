@@ -3,7 +3,7 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.35
+ * Version: 2.36
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
@@ -54,7 +54,7 @@ class I13_Woo_Recpatcha {
 		add_action('wp_footer', array($this,'i13_woo_ajax_form_executes')); 
 				
 		//add_filter( 'option_active_plugins', array($this,'disable_recaptcha_plugin_if_rest_request') );
-		add_action('woocommerce_init', array($this, 'i13_woo_verify_add_payment_method'));
+		add_action('the_post', array($this, 'i13_woo_verify_add_payment_method'));
 		
 		add_action('woocommerce_before_add_to_cart_quantity', array($this, 'i13_woocommerce_payment_request_btn_captcha'));                    
 		add_action('woocommerce_proceed_to_checkout', array($this, 'i13_woocommerce_payment_request_btn_captcha'));      
@@ -3183,6 +3183,7 @@ class I13_Woo_Recpatcha {
 					
 			$page_id = wc_get_page_id('myaccount');
 		}
+				
 
 		$is_add_payment_method= ( $page_id && is_page($page_id) && ( isset($wp->query_vars['payment-methods']) || isset($wp->query_vars['add-payment-method']) ) );
 		if (version_compare($woocommerce->version, '4.3', '>=') ) {

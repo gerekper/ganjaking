@@ -85,7 +85,7 @@
 
                     <div class='row space-top'>
                         <div class='col-xs-12'>                            
-                            <div class='product<?php echo isset($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
+                            <div class='product<?php echo !empty($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
                                 <div class="a2w-row">
                                     <ul class="nav nav-tabs">
                                         <li class="select darker-background"><span class="for-checkbox"><input type="checkbox" class="form-control" value="<?php echo $product['import_id']; ?>"></span></li>
@@ -380,10 +380,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-
                                                 <?php foreach ($product['sku_products']['variations'] as $i => $var): ?>
-
                                                     <tr data-id="<?php echo $var['id']; ?>" class="var_data">
                                                         <td>
                                                             <input type="checkbox" value="1" class="check-var form-control" <?php if (!in_array($var['id'], $product['skip_vars'])): ?> checked="checked"<?php endif; ?>>
@@ -399,7 +396,7 @@
                                                             <td data-attr-id="<?php echo explode(":", $av)[0]; ?>"><input type="text" class="form-control attr" data-id="<?php echo $av; ?>" value="<?php echo isset($var['attributes_names'][$j]) ? $var['attributes_names'][$j] : ''; ?>"></td>
                                                         <?php endforeach; ?>
                                                         <td style="white-space: nowrap;" class="external-price" data-value="<?php echo $var['price']; ?>"><?php echo $localizator->getLocaleCurr($var['currency']); ?><?php echo $var['price']; ?></td>
-                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="<?php echo isset($product['shipping_cost'])?floatval($product['shipping_cost']):"0"?>" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>"><?php echo isset($product['shipping_cost'])?$localizator->getLocaleCurr($var['currency']).floatval($product['shipping_cost']):"N/A"?></td>
+                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="<?php echo !empty($product['shipping_cost'])?floatval($product['shipping_cost']):"0"?>" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>"><?php echo !empty($product['shipping_cost'])?$localizator->getLocaleCurr($var['currency']).floatval($product['shipping_cost']):"N/A"?></td>
                                                         <td>
                                                             <input type="text" class="form-control price" value="<?php echo $var['calc_price']; ?>">
                                                         </td>

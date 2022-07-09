@@ -1,6 +1,5 @@
 var a2w_reload_page_after_ajax = false;
-jQuery(function($) {
-
+jQuery(function ($) {
     var get_id_from_link_anchor = function(el) {
         var jq_el = $(el);
 
@@ -145,102 +144,161 @@ jQuery(function($) {
     var sync_btn = $('#a2w_bulk_order_sync_manual');
 
     sync_btn.on('click', function() {
-
         sync_btn.prop("disabled", true);
+        sync_btn.val(a2w_ali_orderfulfill_js.lang.please_wait_data_loads);
 
-        a2w_show_block(a2w_script_data.lang.bulk_order_sync);
-        a2w_show_tip(a2w_script_data.lang.please_wait);
+        a2w_get_fulfilled_orders((data) => {            
+            const groupedOrders = data.reduce((acc,d) => {
+                if(!acc[d.order_id]) acc[d.order_id] = [];
+                acc[d.order_id].push(d.order_id)
+                return acc;
+            }, {});
+            const orders_data = Object.keys(groupedOrders).map((order_id)=>({ 'action': 'a2w_sync_order_info', order_id }));
 
-        if (typeof a2w_get_order_tracking_code !== "undefined") {
+            const on_order_sync = (s) => {
+                if(state.cnt + state.error_cnt === state.total) {
+                    sync_btn.val(a2w_sprintf(a2w_ali_orderfulfill_js.lang.complete_result_sync_d_erros_d, state.cnt, state.error_cnt));
+                } else {
+                    sync_btn.val(a2w_sprintf(a2w_ali_orderfulfill_js.lang.process_sync_d_of_d_erros_d, state.cnt, state.total, state.error_cnt));
+                }
+            }
 
-            a2w_get_fulfilled_orders(function(data) {
-                var cnt = data.length;
+            var state = { total: orders_data.length, cnt: 0, error_cnt: 0 };
+            a2w_js_sync_order(orders_data, state, on_order_sync);
+        })
+    });
 
-                a2w_show_tip(a2w_script_data.lang.sync_process + ' 0/' + cnt + '...');
+    function a2w_js_sync_order(orders_to_sync, state, on_load_calback) {
+        if (orders_to_sync.length > 0) {
+            var data = orders_to_sync.shift();
 
-                if (cnt > 0)
-                    a2w_get_next_tracking_code(data, 0, 200, function(index, ext_id, tracking_codes, carrier_name, carrier_url, tracking_status, status) {
+            jQuery.post(ajaxurl, data).done(function (response) {
+                var json = jQuery.parseJSON(response);
+                if (json.state !== 'ok') {
+                    console.log(json);
+                }
+                if (json.state === 'error') {
+                    state.error_cnt++;
 
-                        if (status == 500) {
-
-                            a2w_show_tip(a2w_script_data.lang.tracking_sync, false, false, false, true);
-                            $('.hover_a2w_fulfillment .close').off('click').click(function() {
-                                a2w_hide_block();
-                            });
-
-                            sync_btn.prop("disabled", false);
-
-                            return false;
-                        }
-
-                        if (status == 404) {
-                            a2w_show_tip(a2w_script_data.lang.error_didnt_do_find_alix_order_num + data[index].ext_order_id);
-
-                            console.log(a2w_script_data.lang.error_didnt_do_find_alix_order_num + data[index].ext_order_id);
-                        }
-
-                        if (status == 401 || status == 403) {
-                            a2w_show_tip(a2w_script_data.lang.error_cant_do_tracking_sync_login_to_account, false, false, false, true);
-
-                            $('.hover_a2w_fulfillment .close').off('click').click(function() {
-                                a2w_hide_block();
-                            });
-
-                            sync_btn.prop("disabled", false)
-
-                            return false;
-                        }
-
-                        // if (status == 403) console.log(a2w_script_data.lang.error_403_code+data[index].ext_order_id);
-
-
-                        a2w_show_tip(a2w_script_data.lang.sync_process + ' ' + (index + 1) + '/' + cnt + '...');
-
-                        if (index === cnt - 1) {
-
-                            a2w_show_tip(a2w_script_data.lang.sync_done, false, false, false, false, false, true);
-                            $('.hover_a2w_fulfillment .refresh').off('click').click(function() {
-                                a2w_show_tip(a2w_script_data.lang.please_wait);
-                                window.location.reload();
-                            });
-
-                            sync_btn.prop("disabled", false);
-                        }
-                        if (tracking_codes && tracking_codes.length > 0) {
-                            a2w_save_tracking_code(data[index].order_id, ext_id, tracking_codes, carrier_name, carrier_url, tracking_status, function(res) {
-
-                                if (res !== null) {
-                                    if (res.state == 'error') {
-                                        console.log(res.message);
-                                    }
-                                }
-
-                            });
-                        }
-
-
-                    });
-                else {
-                    a2w_show_tip(a2w_script_data.lang.no_orders_for_synch, false, false, false, true);
-                    $('.hover_a2w_fulfillment .close').off('click').click(function() {
-                        a2w_hide_block();
-                    });
-
-                    sync_btn.prop("disabled", false);
+                } else {
+                    state.cnt++;
                 }
 
-            });
+                if (on_load_calback) {
+                    on_load_calback(state);
+                }
 
-        } else {
-            a2w_show_tip(a2w_script_data.lang.error_please_install_new_extension, false, false, false, true);
-            $('.hover_a2w_fulfillment .close').off('click').click(function() {
-                a2w_hide_block();
+                a2w_js_sync_order(orders_to_sync, state, on_load_calback);
+            }).fail(function (xhr, status, error) {
+                console.log(error);
+                state.error_cnt++;
+
+                if (on_load_calback) {
+                    on_load_calback(state);
+                }
+
+                a2w_js_sync_order(orders_to_sync, state, on_load_calback);
             });
         }
+    }
+
+    // sync_btn.on('click', function() {
+
+    //     sync_btn.prop("disabled", true);
+
+    //     a2w_show_block(a2w_script_data.lang.bulk_order_sync);
+    //     a2w_show_tip(a2w_script_data.lang.please_wait);
+
+    //     if (typeof a2w_get_order_tracking_code !== "undefined") {
+
+    //         a2w_get_fulfilled_orders(function(data) {
+    //             var cnt = data.length;
+
+    //             a2w_show_tip(a2w_script_data.lang.sync_process + ' 0/' + cnt + '...');
+
+    //             if (cnt > 0)
+    //                 a2w_get_next_tracking_code(data, 0, 200, function(index, ext_id, tracking_codes, carrier_name, carrier_url, tracking_status, status) {
+
+    //                     if (status == 500) {
+
+    //                         a2w_show_tip(a2w_script_data.lang.tracking_sync, false, false, false, true);
+    //                         $('.hover_a2w_fulfillment .close').off('click').click(function() {
+    //                             a2w_hide_block();
+    //                         });
+
+    //                         sync_btn.prop("disabled", false);
+
+    //                         return false;
+    //                     }
+
+    //                     if (status == 404) {
+    //                         a2w_show_tip(a2w_script_data.lang.error_didnt_do_find_alix_order_num + data[index].ext_order_id);
+
+    //                         console.log(a2w_script_data.lang.error_didnt_do_find_alix_order_num + data[index].ext_order_id);
+    //                     }
+
+    //                     if (status == 401 || status == 403) {
+    //                         a2w_show_tip(a2w_script_data.lang.error_cant_do_tracking_sync_login_to_account, false, false, false, true);
+
+    //                         $('.hover_a2w_fulfillment .close').off('click').click(function() {
+    //                             a2w_hide_block();
+    //                         });
+
+    //                         sync_btn.prop("disabled", false)
+
+    //                         return false;
+    //                     }
+
+    //                     // if (status == 403) console.log(a2w_script_data.lang.error_403_code+data[index].ext_order_id);
 
 
-        return false;
-    });
+    //                     a2w_show_tip(a2w_script_data.lang.sync_process + ' ' + (index + 1) + '/' + cnt + '...');
+
+    //                     if (index === cnt - 1) {
+
+    //                         a2w_show_tip(a2w_script_data.lang.sync_done, false, false, false, false, false, true);
+    //                         $('.hover_a2w_fulfillment .refresh').off('click').click(function() {
+    //                             a2w_show_tip(a2w_script_data.lang.please_wait);
+    //                             window.location.reload();
+    //                         });
+
+    //                         sync_btn.prop("disabled", false);
+    //                     }
+    //                     if (tracking_codes && tracking_codes.length > 0) {
+    //                         a2w_save_tracking_code(data[index].order_id, ext_id, tracking_codes, carrier_name, carrier_url, tracking_status, function(res) {
+
+    //                             if (res !== null) {
+    //                                 if (res.state == 'error') {
+    //                                     console.log(res.message);
+    //                                 }
+    //                             }
+
+    //                         });
+    //                     }
+
+
+    //                 });
+    //             else {
+    //                 a2w_show_tip(a2w_script_data.lang.no_orders_for_synch, false, false, false, true);
+    //                 $('.hover_a2w_fulfillment .close').off('click').click(function() {
+    //                     a2w_hide_block();
+    //                 });
+
+    //                 sync_btn.prop("disabled", false);
+    //             }
+
+    //         });
+
+    //     } else {
+    //         a2w_show_tip(a2w_script_data.lang.error_please_install_new_extension, false, false, false, true);
+    //         $('.hover_a2w_fulfillment .close').off('click').click(function() {
+    //             a2w_hide_block();
+    //         });
+    //     }
+
+
+    //     return false;
+    // });
 
     var a2w_get_next_tracking_code = function(data, i, status_code, callback_func) {
 

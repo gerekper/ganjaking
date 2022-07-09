@@ -893,10 +893,10 @@ if (!class_exists('A2W_ImportAjaxController')) {
                     }
                     foreach ($products as &$product) {
                         if ($product['id'] == $id || $product['import_id'] == $id) {
-                            $product_country_to = isset($product['shipping_to_country']) && $product['shipping_to_country'] ? $product['shipping_to_country'] : '';
-                            $product_country_from = isset($product['shipping_from_country']) && $product['shipping_from_country'] ? $product['shipping_from_country'] : '';
+                            $product_country_from = !empty($product['shipping_from_country']) ? $product['shipping_from_country'] : 'CN';
+                            $product_country_to = !empty($product['shipping_to_country']) ? $product['shipping_to_country'] : '';
                             $country_to = isset($_POST['country_to']) ? $_POST['country_to'] : $product_country_to;
-                            $country_from = isset($_POST['country_from']) ? $_POST['country_from'] : $product_country_from;
+                            $country_from = !empty($_POST['country_from']) ? $_POST['country_from'] : $product_country_from;
 
                             $product = A2W_Utils::update_product_shipping($product, $country_from, $country_to, $page, true);
 
@@ -909,9 +909,10 @@ if (!class_exists('A2W_ImportAjaxController')) {
                                 }
                             }
 
-                            $country = $country_from . $country_to;
+                            $country = A2W_ProductShippingMeta::meta_key($country_from, $country_to);
+
                             $items = isset($product['shipping_info'][$country]) ? $product['shipping_info'][$country] : array();
-                            $result[] = array('product_id' => $id, 'default_method' => isset($product['shipping_default_method']) ? $product['shipping_default_method'] : '', 'items' => $items, 'shipping_cost' => $product['shipping_cost'], 'variations' => $variations);
+                            $result[] = array('product_id' => $id, 'default_method' => isset($product['shipping_default_method']) ? $product['shipping_default_method'] : '', 'items' => $items, 'shipping_cost' => isset($product['shipping_cost'])?$product['shipping_cost']:'', 'variations' => $variations);
 
                             if ($page !== 'search') {
                                 $product_import_model->upd_product($product);
@@ -944,13 +945,13 @@ if (!class_exists('A2W_ImportAjaxController')) {
                     $country_to = isset($_POST['country_to']) ? $_POST['country_to'] : $product_country_to;
                     $country_from = isset($_POST['country_from']) ? $_POST['country_from'] : $product_country_from;
 
-                    $country = $country_from . $country_to;
+                    $country = A2W_ProductShippingMeta::meta_key($country_from, $country_to);
                     $method = isset($_POST['method']) ? $_POST['method'] : '';
 
                     if ($country && $method) {
                         $product['shipping_default_method'] = $method;
-                        $product['shipping_to_country'] = $country_to;
-                        $product['shipping_from_country'] = $country_from;
+                        $product['shipping_to_country'] = A2W_ProductShippingMeta::normalize_country($country_to);
+                        $product['shipping_from_country'] = A2W_ProductShippingMeta::normalize_country($country_from);
 
                         $product['shipping_cost'] = 0;
                         $items = isset($product['shipping_info'][$country]) ? $product['shipping_info'][$country] : array();

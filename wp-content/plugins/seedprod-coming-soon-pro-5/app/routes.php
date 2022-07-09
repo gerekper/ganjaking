@@ -64,12 +64,13 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_theme_templates_page'
 	);
 
-	add_theme_page(
-		__( 'Theme Builder', 'seedprod-pro' ),
-		__( 'Theme Builder', 'seedprod-pro' ),
-		apply_filters( 'seedprod_theme_templates_menu_capability', 'edit_others_posts' ),
-		'seedprod_pro_theme_templates',
-		'seedprod_pro_theme_templates_page'
+	add_submenu_page(
+		'seedprod_pro',
+		__('Setup', 'seedprod-pro'),
+		__('Setup', 'seedprod-pro'),
+		apply_filters('seedprod_setup_menu_capability', 'edit_others_posts'),
+		'seedprod_pro_setup',
+		'seedprod_pro_setup_page'
 	);
 
 	if ( 'lite' === SEEDPROD_PRO_BUILD ) {
@@ -203,6 +204,10 @@ function seedprod_pro_remove_menus() {
 	remove_submenu_page( 'seedprod_pro', 'seedprod_pro_template' );
 	remove_submenu_page( 'seedprod_pro', 'sp_pro_importexport' );
 	remove_submenu_page( 'seedprod_pro', 'sp_pro_debug' );
+	$dimiss_setup = get_option( 'seedprod_dismiss_setup' );
+    if ( !empty( $dimiss_setup ) ) {
+		remove_submenu_page( 'seedprod_pro', 'seedprod_pro_setup' );
+    }
 }
 
 /**
@@ -288,6 +293,11 @@ function seedprod_pro_update_selected_page_in_submenu() {
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_about_us']" ).parent().addClass('current');
 			}
+			// Setup
+			if(location.hash.indexOf('#/setup') >= 0){
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_setup']" ).parent().addClass('current');
+			}
 		}
 	});
 	</script>
@@ -349,6 +359,24 @@ function seedprod_pro_redirect_to_site() {
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_about_us' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		wp_safe_redirect( 'admin.php?page=seedprod_pro#/aboutus' );
 		exit();
+	}
+
+	//  setup page
+	if ( isset( $_GET['page'] ) && 'seedprod_pro_setup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if( !empty( $_GET[ 'sp_setup_dismiss' ] ) ){
+			update_option( 'seedprod_dismiss_setup', 1 );
+		}
+
+		$dimiss_setup = get_option( 'seedprod_dismiss_setup' );
+
+		if( !empty( $dimiss_setup ) ){
+			wp_safe_redirect( 'admin.php?page=seedprod_pro#/' );
+			exit();
+		}else{
+			wp_safe_redirect( 'admin.php?page=seedprod_pro#/setup' );
+			exit();
+		}
+
 	}
 
 	// feature request page
@@ -556,6 +584,9 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_seedprod_pro_delete_subscribers', 'seedprod_pro_delete_subscribers' );
 	
 
+	add_action( 'wp_ajax_seedprod_pro_install_addon_setup', 'seedprod_pro_install_addon_setup' );
+	add_action( 'wp_ajax_seedprod_pro_complete_setup_wizard', 'seedprod_pro_complete_setup_wizard' );
+
 	add_action( 'wp_ajax_seedprod_pro_get_plugins_list', 'seedprod_pro_get_plugins_list' );
 
 	add_action( 'wp_ajax_seedprod_pro_install_addon', 'seedprod_pro_install_addon' );
@@ -760,7 +791,7 @@ if (!empty($res->plugins) && is_array($res->plugins)) {
 	} // foreach
 }
 
-if ($plugin_info = get_transient('wf-plugin-info-' . $plugin_slug)) {
+if ($plugin_info = get_transient('seedprod-plugin-info-' . $plugin_slug)) {
 	array_splice($res->plugins,4,0,array($plugin_info));
 	//array_unshift($res->plugins, $plugin_info);
 } else {
@@ -778,7 +809,7 @@ if ($plugin_info = get_transient('wf-plugin-info-' . $plugin_slug)) {
 	));
 	if (!is_wp_error($plugin_info)) {
 	$res->plugins = array_merge(array($plugin_info), $res->plugins);
-	set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
+	set_transient('seedprod-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
 	}
 }
 

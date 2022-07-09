@@ -145,7 +145,7 @@ function wc_store_credit_meta_box_product_categories_field( $field ) {
 			'type'              => 'multiselect',
 			'class'             => 'wc-enhanced-select',
 			'style'             => 'width: 50%;',
-			'options'           => wc_store_credit_get_product_categories_choices(),
+			'options'           => wc_store_credit_get_product_categories_choices( true ),
 			'custom_attributes' => array(
 				'data-placeholder' => _x( 'Select product categories', 'setting placeholder', 'woocommerce-store-credit' ),
 			),

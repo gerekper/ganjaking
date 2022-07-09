@@ -786,6 +786,9 @@ class UpdraftPlus_Backup_History {
 			$remote_sent = !empty($backup['service']) && ((is_array($backup['service']) && in_array('remotesend', $backup['service'])) || 'remotesend' === $backup['service']);
 			if ($remote_sent) continue;
 
+			// We don't want to add an increment to a backup of another site
+			if (isset($backup['native']) && false == $backup['native']) continue;
+
 			foreach ($entities as $type) {
 				if (!isset($backup[$type])) continue 2;
 			}

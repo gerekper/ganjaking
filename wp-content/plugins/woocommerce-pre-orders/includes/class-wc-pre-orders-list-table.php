@@ -548,6 +548,11 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 								)
 							)
 						",
+						esc_attr( $_GET['s'] ),
+						esc_attr( $_GET['s'] ),
+						esc_attr( $_GET['s'] ),
+						esc_attr( $_GET['s'] ),
+						esc_attr( $_GET['s'] ),
 						esc_attr( $_GET['s'] )
 					)
 				),

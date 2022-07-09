@@ -70,6 +70,10 @@ class RedirectMiddleware
         }
         $this->guardMax($request, $options);
         $nextRequest = $this->modifyRequest($request, $options, $response);
+        // If authorization is handled by curl, unset it if URI is cross-origin.
+        if (\YoastSEO_Vendor\GuzzleHttp\Psr7\UriComparator::isCrossOrigin($request->getUri(), $nextRequest->getUri()) && \defined('\\CURLOPT_HTTPAUTH')) {
+            unset($options['curl'][\CURLOPT_HTTPAUTH], $options['curl'][\CURLOPT_USERPWD]);
+        }
         if (isset($options['allow_redirects']['on_redirect'])) {
             \call_user_func($options['allow_redirects']['on_redirect'], $request, $response, $nextRequest->getUri());
         }
@@ -150,32 +154,12 @@ class RedirectMiddleware
         } else {
             $modify['remove_headers'][] = 'Referer';
         }
-        // Remove Authorization and Cookie headers if required.
-        if (self::shouldStripSensitiveHeaders($request->getUri(), $modify['uri'])) {
+        // Remove Authorization and Cookie headers if URI is cross-origin.
+        if (\YoastSEO_Vendor\GuzzleHttp\Psr7\UriComparator::isCrossOrigin($request->getUri(), $modify['uri'])) {
             $modify['remove_headers'][] = 'Authorization';
             $modify['remove_headers'][] = 'Cookie';
         }
         return \YoastSEO_Vendor\GuzzleHttp\Psr7\modify_request($request, $modify);
-    }
-    /**
-     * Determine if we should strip sensitive headers from the request.
-     *
-     * We return true if either of the following conditions are true:
-     *
-     * 1. the host is different;
-     * 2. the scheme has changed, and now is non-https.
-     *
-     * @return bool
-     */
-    private static function shouldStripSensitiveHeaders(\YoastSEO_Vendor\Psr\Http\Message\UriInterface $originalUri, \YoastSEO_Vendor\Psr\Http\Message\UriInterface $modifiedUri)
-    {
-        if (\strcasecmp($originalUri->getHost(), $modifiedUri->getHost()) !== 0) {
-            return \true;
-        }
-        if ($originalUri->getScheme() !== $modifiedUri->getScheme() && 'https' !== $modifiedUri->getScheme()) {
-            return \true;
-        }
-        return \false;
     }
     /**
      * Set the appropriate URL on the request based on the location header.

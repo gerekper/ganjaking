@@ -92,16 +92,8 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 		// The "old" in the define is a legacy reference to a time before v4 signatures were in that library.
 		if (version_compare(PHP_VERSION, '5.5', '>=') && $this->provider_can_use_aws_sdk && (!defined('UPDRAFTPLUS_S3_OLDLIB') || !UPDRAFTPLUS_S3_OLDLIB)) {
 			
-			// From 0 to 255. Not intended to be perfectly evenly distributed.
-			$site_based_num = hexdec(substr(md5(network_site_url()), 0, 2));
-			
-			$days_since_1mar2022 = floor((time() - 1646136000)/86400);
-			
-			// Starts at 0 and hits 255 after 36 days
-			$day_score = $days_since_1mar2022 * 7;
-			
 			// Switch to AWS SDK increasingly less over time
-			if (!function_exists('curl_init') || $day_score <= $site_based_num || (defined('UPDRAFTPLUS_FORCE_S3_AWS_SDK') && UPDRAFTPLUS_FORCE_S3_AWS_SDK) || apply_filters('updraftplus_indicate_s3_class_prefer_aws_sdk', false)) {
+			if (!function_exists('curl_init') || (defined('UPDRAFTPLUS_FORCE_S3_AWS_SDK') && UPDRAFTPLUS_FORCE_S3_AWS_SDK) || apply_filters('updraftplus_indicate_s3_class_prefer_aws_sdk', false)) {
 				$class_to_use = 'UpdraftPlus_S3_Compat';
 			}
 		}

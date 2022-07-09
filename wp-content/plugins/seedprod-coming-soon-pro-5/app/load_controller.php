@@ -35,6 +35,7 @@ if ( 'pro' === SEEDPROD_PRO_BUILD ) {
 	require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/tracking.php';
 }
 
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/setup-wizard.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/backwards/backwards_compatibility.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/subscriber.php';
 add_action( 'plugins_loaded', array( 'SeedProd_Pro_Render', 'get_instance' ) );

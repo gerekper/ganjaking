@@ -232,14 +232,13 @@ class A2W_JSON_API_Core_Controller
 
                                 $a2w_order_item = new A2W_WooCommerceOrderItem($item);
 
-                                $external_id = $a2w_order_item->getExternalProductId();
+                                $external_id = $a2w_order_item->get_external_product_id();
 
                                 if (in_array($external_id, $matchProductIds)) {
 
                                     //save external order id if payment is done
                                     //  if ( strtolower( trim( $matchOrder['orderStatus'] ) ) === 'wait_seller_send_goods' ) {
-                                    $a2w_order_item->crud_update_external_order($external_order_id);
-                                    $a2w_order_item->save();
+                                    $a2w_order_item->update_external_order($external_order_id, true);
                                     // }
 
                                 }

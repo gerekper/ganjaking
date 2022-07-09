@@ -237,7 +237,7 @@ function seedprod_pro_add_admin_edit_seedprod() {
 			}
 
 			$edit_seedprod_label  = '<img src="' . SEEDPROD_PRO_PLUGIN_URL . 'public/svg/admin-bar-icon.svg" style="margin-right:7px; margin-top:5px">' . __( 'Edit with SeedProd', 'seedprod-pro' );
-			$back_wordpress_label = __( 'Back to WordPress Editor', 'seedprod-pro' );
+			$back_wordpress_label = __( 'Switch Back to WordPress Editor', 'seedprod-pro' );
 
 			$localizations = array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -308,7 +308,9 @@ function seedprod_pro_add_admin_edit_seedprod() {
             });
 
             jQuery(document).on("click", ".back_to_wp_editor", function(event) { 
-                
+                if (confirm("Are you sure you want to switch back to using the WordPress Editor instead of SeedProd?") == false) {
+					return false;
+				}
                 if (jQuery(".edit-post-header-toolbar").length) {
                     wp.data.dispatch( "core/block-editor" ).resetBlocks([]);
                     jQuery(".block-editor-block-list__layout").show();

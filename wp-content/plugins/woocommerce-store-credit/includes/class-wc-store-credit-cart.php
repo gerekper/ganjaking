@@ -21,13 +21,19 @@ class WC_Store_Credit_Cart {
 	protected $cart_discounts;
 
 	/**
+	 * The cart coupons instance.
+	 *
+	 * @var WC_Store_Credit_Cart_Coupons
+	 */
+	protected $cart_coupons;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 3.0.0
 	 */
 	public function __construct() {
-		add_action( 'template_redirect', array( $this, 'apply_coupon_from_url' ) );
-		add_action( 'woocommerce_add_to_cart', array( $this, 'apply_coupons_from_session' ), 20 );
+		$this->cart_coupons = new WC_Store_Credit_Cart_Coupons();
 
 		add_filter( 'woocommerce_cart_totals_coupon_label', array( $this, 'cart_totals_coupon_label' ), 10, 2 );
 		add_filter( 'woocommerce_coupon_discount_amount_html', array( $this, 'coupon_discount_amount_html' ), 10, 2 );
@@ -48,50 +54,22 @@ class WC_Store_Credit_Cart {
 	 * Applies a store credit coupon by URL.
 	 *
 	 * @since 3.7.0
+	 * @deprecated 4.2.0
 	 */
 	public function apply_coupon_from_url() {
-		if ( ! isset( $_GET['redeem_store_credit'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			return;
-		}
-
-		$coupon_code = rawurldecode( wc_clean( wp_unslash( $_GET['redeem_store_credit'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
-
-		if ( ! $coupon_code || ! wc_is_store_credit_coupon( $coupon_code ) ) {
-			wc_add_notice( __( 'Store credit coupon not found.', 'woocommerce-store-credit' ), 'error' );
-			wp_safe_redirect( remove_query_arg( 'redeem_store_credit' ) );
-			exit;
-		}
-
-		if ( ! WC()->cart || WC()->cart->is_empty() ) {
-			WC_Store_Credit_Session::add_coupon( $coupon_code );
-			wc_add_notice( __( 'The store credit will be applied after adding some products to the cart.', 'woocommerce-store-credit' ) );
-			wp_safe_redirect( wc_get_page_permalink( 'shop' ) );
-			exit;
-		}
-
-		WC()->cart->apply_coupon( $coupon_code );
-		wp_safe_redirect( wc_get_cart_url() );
-		exit;
+		wc_deprecated_function( __FUNCTION__, '4.2.0', 'WC_Store_Credit_Cart_Coupons->apply_coupon_from_url()' );
+		$this->cart_coupons->apply_coupon_from_url();
 	}
 
 	/**
 	 * Applies the store credit coupons stored in session.
 	 *
 	 * @since 3.7.0
+	 * @deprecated 4.2.0
 	 */
 	public function apply_coupons_from_session() {
-		$cart    = WC()->cart;
-		$coupons = WC_Store_Credit_Session::get_coupons();
-
-		if ( ! $cart || empty( $coupons ) ) {
-			return;
-		}
-
-		foreach ( $coupons as $coupon_code ) {
-			$cart->apply_coupon( $coupon_code );
-		}
-
-		WC_Store_Credit_Session::clear_coupons();
+		wc_deprecated_function( __FUNCTION__, '4.2.0', 'WC_Store_Credit_Cart_Coupons->apply_coupons_from_session()' );
+		$this->cart_coupons->apply_coupons_from_session();
 	}
 
 	/**

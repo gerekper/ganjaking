@@ -655,7 +655,7 @@ abstract class UpdraftPlus_RemoteSend {
 				$ret .= '<option value="'.esc_attr($k).'">'.htmlspecialchars($rsite['url']).'</option>';
 			}
 			$ret .= '</select>';
-			$ret .= ' <button class="button-primary" id="updraft_migrate_send_button" onclick="updraft_migrate_send_backup();">'.__('Send', 'updraftplus').'</button>';
+			$ret .= ' <button class="button-primary" id="updraft_migrate_send_button" onclick="updraft_migrate_send_backup_options();">'.__('Send', 'updraftplus').'</button>';
 			$ret .= '</p>';
 		}
 

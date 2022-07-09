@@ -4,17 +4,18 @@
  * Description of A2W_SettingPageAjaxController
  *
  * @author Andrey
- * 
- * @autoload: a2w_admin_init 
- * 
+ *
+ * @autoload: a2w_admin_init
+ *
  * @ajax: true
  */
 if (!class_exists('A2W_SettingPageAjaxController')) {
 
+    class A2W_SettingPageAjaxController
+    {
 
-    class A2W_SettingPageAjaxController {
-
-        public function __construct() {
+        public function __construct()
+        {
 
             add_action('wp_ajax_a2w_update_price_rules', array($this, 'ajax_update_price_rules'));
 
@@ -33,9 +34,15 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             add_action('wp_ajax_a2w_load_external_image', array($this, 'ajax_load_external_image'));
 
             add_action('wp_ajax_a2w_purchase_code_info', array($this, 'ajax_purchase_code_info'));
+
+            add_action('wp_ajax_a2w_build_aliexpress_api_auth_url', array($this, 'ajax_build_aliexpress_api_auth_url'));
+            add_action('wp_ajax_a2w_save_access_token', array($this, 'ajax_save_access_token'));
+            add_action('wp_ajax_a2w_delete_access_token', array($this, 'ajax_delete_access_token'));
+
         }
 
-        public function ajax_update_phrase_rules() {
+        public function ajax_update_phrase_rules()
+        {
             a2w_init_error_handler();
 
             $result = A2W_ResultBuilder::buildOk();
@@ -66,7 +73,8 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             wp_die();
         }
 
-        public function ajax_apply_phrase_rules() {
+        public function ajax_apply_phrase_rules()
+        {
             a2w_init_error_handler();
 
             $result = A2W_ResultBuilder::buildOk();
@@ -99,7 +107,7 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
                 }
 
                 if ($type === 'all_types' || $type === 'shippings') {
-                    
+
                 }
                 restore_error_handler();
             } catch (Throwable $e) {
@@ -115,7 +123,8 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             wp_die();
         }
 
-        public function ajax_update_price_rules() {
+        public function ajax_update_price_rules()
+        {
             a2w_init_error_handler();
 
             $result = A2W_ResultBuilder::buildOk();
@@ -123,22 +132,23 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
                 a2w_settings()->auto_commit(false);
 
                 $pricing_rules_types = array_keys(A2W_PriceFormula::pricing_rules_types());
-                a2w_set_setting('pricing_rules_type', $_POST['pricing_rules_type'] && in_array($_POST['pricing_rules_type'],$pricing_rules_types)?$_POST['pricing_rules_type']:$pricing_rules_types[0]);
+                a2w_set_setting('pricing_rules_type', $_POST['pricing_rules_type'] && in_array($_POST['pricing_rules_type'], $pricing_rules_types) ? $_POST['pricing_rules_type'] : $pricing_rules_types[0]);
 
                 $use_extended_price_markup = isset($_POST['use_extended_price_markup']) ? filter_var($_POST['use_extended_price_markup'], FILTER_VALIDATE_BOOLEAN) : false;
                 $use_compared_price_markup = isset($_POST['use_compared_price_markup']) ? filter_var($_POST['use_compared_price_markup'], FILTER_VALIDATE_BOOLEAN) : false;
 
                 a2w_set_setting('price_cents', isset($_POST['cents']) && intval($_POST['cents']) > -1 && intval($_POST['cents']) <= 99 ? intval(wp_unslash($_POST['cents'])) : -1);
-                if ($use_compared_price_markup)
+                if ($use_compared_price_markup) {
                     a2w_set_setting('price_compared_cents', isset($_POST['compared_cents']) && intval($_POST['compared_cents']) > -1 && intval($_POST['compared_cents']) <= 99 ? intval(wp_unslash($_POST['compared_cents'])) : -1);
-                else
+                } else {
                     a2w_set_setting('price_compared_cents', -1);
+                }
 
                 a2w_set_setting('use_extended_price_markup', $use_extended_price_markup);
                 a2w_set_setting('use_compared_price_markup', $use_compared_price_markup);
 
-                a2w_set_setting('add_shipping_to_price', !empty($_POST['add_shipping_to_price'])?filter_var($_POST['add_shipping_to_price'], FILTER_VALIDATE_BOOLEAN):false);
-                a2w_set_setting('apply_price_rules_after_shipping_cost', !empty($_POST['apply_price_rules_after_shipping_cost'])?filter_var($_POST['apply_price_rules_after_shipping_cost'], FILTER_VALIDATE_BOOLEAN):false);
+                a2w_set_setting('add_shipping_to_price', !empty($_POST['add_shipping_to_price']) ? filter_var($_POST['add_shipping_to_price'], FILTER_VALIDATE_BOOLEAN) : false);
+                a2w_set_setting('apply_price_rules_after_shipping_cost', !empty($_POST['apply_price_rules_after_shipping_cost']) ? filter_var($_POST['apply_price_rules_after_shipping_cost'], FILTER_VALIDATE_BOOLEAN) : false);
 
                 a2w_settings()->commit();
                 a2w_settings()->auto_commit(true);
@@ -171,7 +181,8 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             wp_die();
         }
 
-        public function ajax_apply_pricing_rules() {
+        public function ajax_apply_pricing_rules()
+        {
             a2w_init_error_handler();
 
             $result = A2W_ResultBuilder::buildOk(array('done' => 1));
@@ -255,19 +266,22 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             wp_die();
         }
 
-        public function ajax_calc_external_images_count() {
+        public function ajax_calc_external_images_count()
+        {
             echo json_encode(A2W_ResultBuilder::buildOk(array('total_images' => A2W_Attachment::calc_total_external_images())));
             wp_die();
         }
 
-        public function ajax_calc_external_images() {
+        public function ajax_calc_external_images()
+        {
             $page_size = isset($_POST['page_size']) && intval($_POST['page_size']) > 0 ? intval($_POST['page_size']) : 1000;
             $result = A2W_ResultBuilder::buildOk(array('ids' => A2W_Attachment::find_external_images($page_size)));
             echo json_encode($result);
             wp_die();
         }
 
-        public function ajax_load_external_image() {
+        public function ajax_load_external_image()
+        {
             global $wpdb;
 
             a2w_init_error_handler();
@@ -292,12 +306,12 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
                 $result = A2W_ResultBuilder::buildError("load_external_image: waiting for ID...");
             }
 
-
             echo json_encode($result);
             wp_die();
         }
 
-        public function ajax_reset_shipping_meta() {
+        public function ajax_reset_shipping_meta()
+        {
             $result = A2W_ResultBuilder::buildOk();
             //remove saved shipping meta
             A2W_ProductShippingMeta::clear_in_all_product();
@@ -305,28 +319,86 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             wp_die();
         }
 
-        public function ajax_purchase_code_info() {
+        public function ajax_purchase_code_info()
+        {
             $result = A2W_SystemInfo::server_ping();
-            if($result['state']!=='error'){
-                $result['tariff_name'] = empty($result['tariff_code']) || $result['tariff_code']==='free'?'Starter':ucfirst($result['tariff_code']);
+            if ($result['state'] !== 'error') {
+                $result['tariff_name'] = empty($result['tariff_code']) || $result['tariff_code'] === 'free' ? 'Starter' : ucfirst($result['tariff_code']);
 
-                $valid_to = !empty($result['valid_to'])?strtotime($result['valid_to']):false;
-                $tariff_to = !empty($result['tariff_to'])?strtotime($result['tariff_to']):false;
+                $valid_to = !empty($result['valid_to']) ? strtotime($result['valid_to']) : false;
+                $tariff_to = !empty($result['tariff_to']) ? strtotime($result['tariff_to']) : false;
 
-                $supported_until = ($valid_to && $tariff_to && $tariff_to > $valid_to)?$tariff_to:$valid_to;
-                    
+                $supported_until = ($valid_to && $tariff_to && $tariff_to > $valid_to) ? $tariff_to : $valid_to;
 
-                if($supported_until && $supported_until < time()){
-                    $result['supported_until'] = "Support expired on ".date("F j, Y", $supported_until);
-                }else if($supported_until){
+                if ($supported_until && $supported_until < time()) {
+                    $result['supported_until'] = "Support expired on " . date("F j, Y", $supported_until);
+                } else if ($supported_until) {
                     $result['supported_until'] = date("F j, Y", $supported_until);
-                }else{
+                } else {
                     $result['supported_until'] = "";
                 }
             }
             echo json_encode($result);
             wp_die();
         }
+
+        public function ajax_build_aliexpress_api_auth_url()
+        {
+          
+            $result = array('state' => 'ok', 'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v1/auth.php&state=');
+      
+             
+            $pc = a2w_get_setting('item_purchase_code');
+            if ($pc) {
+                // $pc = md5($pc);
+                $result = array(
+                    'state' => 'ok',
+                    'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v1/auth.php&state=' . $pc,
+                );
+            } else {
+                $result = array('state' => 'error', 'message' => 'Input your purchase code in the plugin settings');
+            }
+             
+            echo json_encode($result);
+            wp_die();
+        }
+
+        public function ajax_save_access_token()
+        {
+            $result = array('state' => 'error', 'message' => 'Wrong params');
+            if (isset($_POST['token'])) {
+                $token = A2W_AliexpressToken::getInstance();
+                $token->add($_POST['token']);
+
+                $tokens = $token->tokens();
+                $data = '';
+                foreach ($tokens as $t) {
+                    $data .= '<tr>';
+                    $data .= '<td>' . esc_attr($t['user_nick']) . '</td>';
+                    $data .= '<td>' . esc_attr(date("F j, Y, H:i:s", round($t['expire_time'] / 1000))) . '</td>';
+                    $data .= '<td><input type="checkbox" class="default" value="yes" ' . (isset($t['default']) && $t['default'] ? " checked" : "") . '/></td>';
+                    $data .= '<td><a href="#" data-token-id="' . $t['user_id'] . '">Delete</a></td>';
+                    $data .= '</tr>';
+                }
+                $result = array('state' => 'ok', 'data' => $data);
+            }
+
+            echo json_encode($result);
+            wp_die();
+        }
+
+        public function ajax_delete_access_token()
+        {
+            $result = array('state' => 'error', 'message' => 'Wrong params');
+            if (isset($_POST['id'])) {
+                $token = A2W_AliexpressToken::getInstance();
+                $token->del($_POST['id']);
+                $result = array('state' => 'ok');
+            }
+            echo json_encode($result);
+            wp_die();
+        }
+
     }
 
 }

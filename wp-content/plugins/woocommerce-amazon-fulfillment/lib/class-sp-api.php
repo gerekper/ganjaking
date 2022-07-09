@@ -99,6 +99,12 @@ if ( ! class_exists( 'SP_API' ) ) {
 
 			$url = $this->host . $path;
 
+			/** TODO: JUST FOR TESTING.
+			if ( $this->ns_fba->is_debug ) {
+				error_log( "\nSP-API make_request var url passed in: \n" . print_r( $url, true ) );              // phpcs:ignore
+			}
+			*/
+
 			$args = array(
 				'refreshToken'   => $this->token,
 				'requestUrl'     => rawurlencode( $url ),
@@ -114,14 +120,19 @@ if ( ! class_exists( 'SP_API' ) ) {
 
 			$url = add_query_arg( $args, self::SP_API_REQUEST_ENDPOINT );
 
+			// This is UGLY, but for now the quickest way to test + symbols in SKUs AAARRRRGH!
+			// Solution in progress - ticket open with Amazon. Suspect issue on their end.
+			// phpcs:ignore
+			//$url = str_ireplace( '%2B', '+', $url );
+
 			// Grabbing the response here gives us a single logging point on all request / response pairs.
 			$response = wp_remote_post( $url ); // phpcs:ignore
 
-			/** Saving this logging block commented out for now while we're in 4.0.0 transition.
+			/** TODO: JUST FOR TESTING.
 			if ( $this->ns_fba->is_debug ) {
-				error_log( "SP-API make_request var args: \n" . print_r( $args, true ) );            // phpcs:ignore
-				error_log( "SP-API make_request var url: \n" . print_r( $url, true ) );              // phpcs:ignore
-				error_log( "SP-API make_request var response:  \n" . print_r( $response, true ) );   // phpcs:ignore
+				error_log( "\nSP-API make_request var args: \n" . print_r( $args, true ) );            // phpcs:ignore
+				error_log( "\nSP-API make_request var url: \n" . print_r( $url, true ) );              // phpcs:ignore
+				error_log( "\nSP-API make_request var response:  \n" . print_r( $response, true ) );   // phpcs:ignore
 			}
 			*/
 			return $response;

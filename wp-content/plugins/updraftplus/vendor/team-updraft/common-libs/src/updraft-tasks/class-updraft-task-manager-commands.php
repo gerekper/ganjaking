@@ -14,7 +14,7 @@ class Updraft_Task_Manager_Commands_1_0 {
 	/**
 	 * Constructor
 	 *
-	 * @param Updraft_Task_Manager_1_2 $task_manager The task manager instance
+	 * @param Updraft_Task_Manager_1_3 $task_manager The task manager instance
 	 */
 	public function __construct($task_manager) {
 		$this->task_manager = $task_manager;

@@ -132,6 +132,52 @@
 
             </div>
         </div>
+
+
+
+        <div class="panel panel-primary mt20">
+            <div class="panel-heading">
+                <h3 class="display-inline"><?php echo esc_html_x('Aliexpress API', 'Setting title', 'ali2woo'); ?></h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input id="a2w_get_access_token"class="btn btn-success" type="button" value="<?php esc_html_e('Get Access Token', 'ali2woo');?>"/>
+                    </div>
+                </div>
+
+                <div class="row mt20">
+                    <div class="col-xs-12">
+                    <table class="table table-bordered a2w-tokens">
+                        <thead>
+                            <tr class="active">
+                                <th scope="col">User name</th>
+                                <th scope="col">Expire time</th>
+                                <th scope="col" style="width: 100px">Default</th>
+                                <th scope="col" style="width: 100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($tokens)): ?>
+                                <tr><td colspan="4" style="text-align: center;"><?php esc_html_e('Press "Get Access Token" to add new aliexpress access token', 'ali2woo');?></td></tr>
+                            <?php else: ?>
+                                <?php foreach ($tokens as $token): ?>
+                                    <tr>
+                                        <td><?php echo esc_attr($token['user_nick']); ?></td>
+                                        <td><?php echo esc_attr(date("F j, Y, H:i:s", round($token['expire_time'] / 1000))); ?></td>
+                                        <td><input type="checkbox" class="default" value="yes" <?php if (isset($token['default']) && $token['default']): ?>checked<?php endif;?>/></td>
+                                        <td><a href="#" data-token-id="<?php echo esc_attr($token['user_id']); ?>">Delete</a></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
     <div class="container-fluid">
         <div class="row pt20 border-top">
@@ -143,6 +189,10 @@
 </form>
 
 <script>
+    function ProcessChildMessage(message) {
+	    console.log('ProcessChildMessage.message', message)
+    }
+
     (function ($) {
         if(jQuery.fn.tooltip) { $('[data-toggle="tooltip"]').tooltip({"placement": "top"}); }
 
@@ -160,5 +210,68 @@
             $(this).parents('.account_options').addClass('account_type_'+$(this).val());
             return true;
         });
+
+        // Auth
+        $('#a2w_get_access_token').on('click', function (e) {
+            let $button = $(this);
+
+            $button.attr('disabled',true);
+
+            e.preventDefault();
+
+            $.post(ajaxurl, { action: 'a2w_build_aliexpress_api_auth_url' }).done(function (response) {
+                var json = jQuery.parseJSON(response);
+
+                if(json.state != 'ok'){
+                    show_notification(json.message, true);
+                }else{
+                    window.open(json.url, "_blank", "width=868,height=686");
+
+                    function  handleMessageEvent(event) {
+                        const data = event.data;
+
+                        if(event.data.state !== 'ok'){
+                            console.log('data',data)
+                            alert(data.message);
+                        }else{
+                            const token = event.data.data;
+                            $.post(ajaxurl, { action: 'a2w_save_access_token', token }).done(function (response) {
+                                response = jQuery.parseJSON(response);
+                                $('.a2w-tokens tbody').html(response.data);
+                            }).fail(function (xhr, status, error) {
+                                alert('Can not save access token');
+                            });
+                        }
+                        $button.removeAttr('disabled')
+
+                        window.removeEventListener("message", handleMessageEvent);
+                    }
+                    window.addEventListener('message', handleMessageEvent)
+                }
+            }).fail(function (xhr, status, error) {
+                console.log(error);
+                $button.removeAttr('disabled')
+            });
+
+        });
+
+        $('.a2w-tokens').on('click', 'a[data-token-id]', function (e) {
+            $(this).parents('tr').remove();
+            $.post(ajaxurl, { action: 'a2w_delete_access_token', id:$(this).attr('data-token-id') }).done(function (response) {
+                var json = jQuery.parseJSON(response);
+                if(json.state !== 'ok'){
+                    alert(json.message);
+                    console.log(json)
+                }
+            }).fail(function (xhr, status, error) {
+                alert(error)
+                console.log(error);
+            });
+            return false;
+        });
+
+
+
+
     })(jQuery);
 </script>

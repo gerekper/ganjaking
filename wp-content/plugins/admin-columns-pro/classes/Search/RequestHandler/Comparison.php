@@ -45,7 +45,7 @@ class Comparison extends Controller {
 
 	public function get_options_action() {
 		$column = $this->list_screen->get_column_by_name(
-			$this->request->filter( 'column', null, FILTER_SANITIZE_STRING )
+			$this->request->filter( 'column', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS )
 		);
 
 		$response = new Response\Json();

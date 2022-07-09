@@ -81,6 +81,11 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 				'response' => array(),
 			);
 
+			/** TODO: Only used for manually testing specific paths.
+			$path  = '/fba/inventory/v1/summaries?details=true&granularityType=Marketplace&granularityId=ATVPDKIKX0DER';
+			$path .= '&marketplaceIds=ATVPDKIKX0DER';
+			*/
+
 			$response = $this->sp_api->make_request( $path, 'TestApiConnection' );
 
 			if ( $this->sp_api->is_error_in( $response ) ) {
@@ -892,6 +897,8 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 		 * @return object|false
 		 */
 		public function get_inventory_summaries( $next_token = '', $skus = '' ) {
+			// TODO: woocommerce-setting-integration::inventory_test_results() should be using get_inventory_summaries().
+
 			$marketplace_id = $this->ns_fba->wc_integration->get_option( 'ns_fba_marketplace_id' );
 			$path           = '/fba/inventory/v1/summaries?details=true&granularityType=Marketplace&granularityId=' .
 							$marketplace_id . '&marketplaceIds=' . $marketplace_id;
@@ -934,7 +941,7 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 			$sync_enabled = $this->ns_fba->wc_integration->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' );
 
 			// phpcs:ignore
-			// error_log( "sync_inventory" );
+			//error_log( "sync_inventory" );
 
 			if ( 'yes' === $sync_enabled || true === $force ) {
 				$next_token = '';
@@ -948,18 +955,16 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 					}
 					// phpcs:disable WordPress.NamingConventions.ValidVariableName
 					foreach ( $inventory_data->payload->inventorySummaries as $inventorySummary ) {
+						// TODO: REPLACE THIS WITH SINGLE STOCK LEVEL FUNCTION NEW VER OF inventory->set_product_stock.
+						$wc_product = $this->ns_fba->wc->get_product_by_sku( $inventorySummary->sellerSku );
 
-						$wc_product_id = wc_get_product_id_by_sku( $inventorySummary->sellerSku );
-
-						if ( $wc_product_id > 0 ) {
-							$wc_product = wc_get_product( $wc_product_id );
-
-							$is_ns_fba_is_fulfilled = get_post_meta( $wc_product->get_id(), 'ns_fba_is_fulfill', true );
-
-							if ( ! empty( $is_ns_fba_is_fulfilled ) && 'yes' === $is_ns_fba_is_fulfilled ) {
-								$wc_product->set_stock_quantity( $inventorySummary->inventoryDetails->fulfillableQuantity );
-								$wc_product->save();
-							}
+						// TODO: Add checking for variation level on/off for amazon fulfill.
+						// But for now don't check because it could interfere with variation SKU stock level updates.
+						//$is_ns_fba_is_fulfilled = get_post_meta( $wc_product->get_id(), 'ns_fba_is_fulfill', true );
+						//if ( ! empty( $is_ns_fba_is_fulfilled ) && 'yes' === $is_ns_fba_is_fulfilled ) {
+						if ( ! empty( $wc_product ) ) {
+							$wc_product->set_stock_quantity( $inventorySummary->inventoryDetails->fulfillableQuantity );
+							$wc_product->save();
 						}
 					}
 

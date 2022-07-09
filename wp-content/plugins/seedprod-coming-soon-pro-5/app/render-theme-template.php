@@ -477,6 +477,11 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 					$values    = $match[1];
 				}
 
+				// switch out is_product if id is passed in.
+				if($cond_func == 'is_product' && !empty($values)){
+					$cond_func = 'is_single';
+				}
+
 				if ( strpos( $v1['type'], '_' ) != 0 && @call_user_func( $cond_func, $values ) ) { // phpcs:ignore
 					// or logic
 					$conditions_meet = true;
@@ -511,6 +516,11 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 					preg_match( '#\((.*?)\)#', $cond_func, $match );
 					$cond_func = str_replace( $match[0], '', $cond_func );
 					$values    = $match[1];
+				}
+
+				// switch out is_product if id is passed in.
+				if($cond_func == 'is_product' && !empty($values)){
+					$cond_func = 'is_single';
 				}
 
 				if ( strpos( $v2['type'], '_' ) != 0 && @call_user_func( $cond_func, $values ) ) { // phpcs:ignore

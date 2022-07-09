@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Advanced Notifications
  * Plugin URI: https://woocommerce.com/products/advanced-notifications
  * Description: Add additonal, advanced order and stock notifications to WordPress - ideal for improving store management or for dropshippers.
- * Version: 1.2.36
+ * Version: 1.3.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-advanced-notifications
  * Domain Path: /languages/
- * Tested up to: 5.8
+ * Tested up to: 6.0
  * WC requires at least: 2.6
- * WC tested up to: 5.9
+ * WC tested up to: 6.6
  * Woo: 18740:112372c44b002fea2640bd6bfafbca27
  *
  * Copyright: © 2022 WooCommerce
@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_ADVANCED_NOTIFICATIONS_VERSION', '1.2.36' ); // WRCS: DEFINED_VERSION.
-
+define( 'WC_ADVANCED_NOTIFICATIONS_VERSION', '1.3.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ADVANCED_NOTIFICATIONS_DB_VERSION', '1.0.1' ); // DB Version.
 /**
  * Localisation
  */
@@ -36,6 +36,8 @@ load_plugin_textdomain( 'woocommerce-advanced-notifications', false, plugin_base
  */
 function init_advanced_notifications() {
 	if ( class_exists( 'WooCommerce' ) ) {
+		woocommerce_advanced_notifications_db_check();
+
 		include_once 'includes/class-wc-advanced-notifications.php';
 		include_once 'includes/class-wc-advanced-notifications-privacy.php';
 	} else {
@@ -50,6 +52,12 @@ add_action( 'plugins_loaded', 'init_advanced_notifications' );
 function woocommerce_advanced_notifications_woocommerce_deactivated() {
 	/* translators: %s: WooCommerce link */
 	echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Advanced Notifications requires %s to be installed and active.', 'woocommerce-advanced-notifications' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
+}
+
+function woocommerce_advanced_notifications_db_check() {
+	if ( get_option( 'wc_advanced_notifications_db_version' ) != WC_ADVANCED_NOTIFICATIONS_DB_VERSION ) {
+        activate_advanced_notifications();
+    }
 }
 
 /**
@@ -92,6 +100,7 @@ notification_type varchar(240) NULL,
 notification_plain_text int(1) NOT NULL,
 notification_totals int(1) NOT NULL,
 notification_prices int(1) NOT NULL,
+notification_include_all_items int(1) NULL,
 notification_sent_count bigint(20) NOT NULL default 0,
 PRIMARY KEY  (notification_id)
 ) $collate;
@@ -107,4 +116,6 @@ PRIMARY KEY  (notification_id,object_id)
 ) $collate;
 ";
 	dbDelta( $sql );
+
+	update_option( 'wc_advanced_notifications_db_version', WC_ADVANCED_NOTIFICATIONS_DB_VERSION );
 }

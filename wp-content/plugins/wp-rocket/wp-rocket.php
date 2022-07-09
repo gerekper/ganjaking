@@ -2,8 +2,9 @@
 /**
  * Plugin Name: WP Rocket
  * Plugin URI: https://wp-rocket.me
+ * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The best WordPress performance plugin.
- * Version: 3.11.0.5
+ * Version: 3.11.4
  * Requires at least: 5.5
  * Requires PHP: 7.1
  * Code Name: Iego
@@ -20,13 +21,13 @@
 defined( 'ABSPATH' ) || exit;
 
 // Rocket defines.
-define( 'WP_ROCKET_VERSION',               '3.11.0.5' );
+define( 'WP_ROCKET_VERSION',               '3.11.4' );
 define( 'WP_ROCKET_WP_VERSION',            '5.5' );
 define( 'WP_ROCKET_WP_VERSION_TESTED',     '5.9' );
 define( 'WP_ROCKET_PHP_VERSION',           '7.1' );
-define( 'WP_ROCKET_PRIVATE_KEY'         , '80e86e99bac18af8135c31d3ac3e7360');
+define( 'WP_ROCKET_PRIVATE_KEY',           'ef0e6b913bc47aaefa88582615758ea9');
 define( 'WP_ROCKET_SLUG',                  'wp_rocket_settings' );
-define( 'WP_ROCKET_WEB_MAIN'            , 'https://wp-rocket.me/');
+define( 'WP_ROCKET_WEB_MAIN',              'https://wp-rocket.me/' );
 define( 'WP_ROCKET_WEB_API',               WP_ROCKET_WEB_MAIN . 'api/wp-rocket/' );
 define( 'WP_ROCKET_WEB_CHECK',             WP_ROCKET_WEB_MAIN . 'check_update.php' );
 define( 'WP_ROCKET_WEB_VALID',             WP_ROCKET_WEB_MAIN . 'valid_key.php' );

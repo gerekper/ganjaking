@@ -1,5 +1,10 @@
 *** WooCommerce Amazon Fulfillment Changelog ***
 
+2022-06-30 - version 4.0.8
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix issue with variation stock level not syncing
+* Fix issue with orders containing variations not auto sending to Amazon
+
 2022-06-24 - version 4.0.7
 * Patch to MAJOR UPDATE (see full details of version 4.0.0)
 * Revert order number sent to Amazon to WC order / post ID

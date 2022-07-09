@@ -128,6 +128,15 @@
 			</tr>
 			<tr>
 				<th>
+					<label for="notification_include_all_items"><?php esc_html_e( 'Include All Items', 'woocommerce-advanced-notifications' ); ?></label>
+				</th>
+				<td>
+					<label><input type="checkbox" name="notification_include_all_items" value="1" id="notification_include_all_items" class="input-checkbox" <?php checked( $admin->field_value( 'notification_include_all_items' ), 1 ); ?> /> <?php esc_html_e( 'Include All Items', 'woocommerce-advanced-notifications' ); ?></label>
+					<p class="description"><?php esc_html_e( 'Enable this to include all order items in the notification emails.', 'woocommerce-advanced-notifications' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th>
 					<label for="notification_prices"><?php esc_html_e( 'Prices', 'woocommerce-advanced-notifications' ); ?></label>
 				</th>
 				<td>

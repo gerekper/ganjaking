@@ -2,9 +2,9 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('Updraft_Notices')) require_once(UPDRAFTPLUS_DIR.'/includes/updraft-notices.php');
+if (!class_exists('Updraft_Notices_1_2')) require_once(UPDRAFTPLUS_DIR.'/vendor/team-updraft/common-libs/src/updraft-notices/updraft-notices.php');
 
-class UpdraftPlus_Notices extends Updraft_Notices {
+class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 
 	protected static $_instance = null;
 
@@ -244,7 +244,7 @@ class UpdraftPlus_Notices extends Updraft_Notices {
 				'prefix' => '',
 				'title' => __('Spring sale - 20% off UpdraftPlus Premium until May 31st', 'updraftplus'),
 				'text' => __('To benefit, use this discount code:', 'updraftplus').' ',
-				'image' => 'notices/spring.png',
+				'image' => 'notices/updraft_logo.png', // TODO: Change image and date back to april/spring next year
 				'button_link' => 'https://updraftplus.com/landing/updraftplus-premium',
 				'campaign' => 'spring',
 				'button_meta' => 'updraftplus',

@@ -4,7 +4,7 @@
 //     exit;
 // }
 
-if (!isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
     header('HTTP/1.1 304 Not Modified');
     header('Last-Modified: ' . $_SERVER['HTTP_IF_MODIFIED_SINCE'], true, 304);
     exit;
@@ -35,14 +35,14 @@ function a2w_mbstring_binary_safe_encoding($reset = false) {
 try {
     include('functions.php');
 
-    $key = "";
-    if (file_exists("../../../uploads/ali2woo/pk.php")) {
-        include ("../../../uploads/ali2woo/pk.php");
-        $key = a2w_plugin_key();
-    }
+    //$key = "";
+    //if (file_exists("../../../uploads/ali2woo/pk.php")) {
+    //    include ("../../../uploads/ali2woo/pk.php");
+    //    $key = a2w_plugin_key();
+    //}
     
-    //if( !empty($key) || a2w_verify_request($_REQUEST['_sign'], array('url'=>isset($_REQUEST['url'])?$_REQUEST['url']:''), $key) ){
-    //   header('HTTP/1.1 401 Unauthorized');
+    //if( empty($key) || !a2w_verify_request($_REQUEST['_sign'], array('url'=>isset($_REQUEST['url'])?$_REQUEST['url']:''), $key) ){
+    //    header('HTTP/1.1 401 Unauthorized');
     //    exit;
     //}
     

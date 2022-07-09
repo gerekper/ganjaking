@@ -54,7 +54,8 @@ class UpdraftPlus_Addons_MoreFiles {
 		add_filter('updraftplus_include_manifest', array($this, 'more_include_manifest'), 10, 2);
 		add_filter('updraftplus_more_rebuild', array($this, 'more_rebuild'), 10, 1);
 
-		add_filter('updraftplus_restore_all_downloaded_postscan', array($this, 'restore_all_downloaded_postscan'), 10, 7);
+		add_filter('updraftplus_restore_all_downloaded_postscan', array($this, 'restore_all_downloaded_postscan_more'), 10, 7);
+		add_filter('updraftplus_restore_all_downloaded_postscan', array($this, 'restore_all_downloaded_postscan_selective_restore'), 10, 7);
 		add_filter('updraft_backupable_file_entities_on_restore', array($this, 'backupable_file_entities_on_restore'), 10, 3);
 		add_filter('updraftplus_restore_path', array($this, 'restore_path_more'), 10, 4);
 
@@ -772,7 +773,7 @@ class UpdraftPlus_Addons_MoreFiles {
 	 * @param Array   $warn      - array of warning-level messages
 	 * N.B. An extra parameter $err is also available after $warn
 	 */
-	public function restore_all_downloaded_postscan($backups, $timestamp, $entities, &$info, &$mess, &$warn) {
+	public function restore_all_downloaded_postscan_more($backups, $timestamp, $entities, &$info, &$mess, &$warn) {
 		if (!isset($entities['more']) || !isset($backups[$timestamp]['more'])) return;
 
 		$not_found = false;
@@ -816,6 +817,133 @@ class UpdraftPlus_Addons_MoreFiles {
 		}
 		$mess[] = __('Please select the more files backups that you wish to restore:', 'updraftplus');
 		$info['addui'] = empty($info['addui']) ? $more_ui : $info['addui'] . '<br>' . $more_ui;
+	}
+
+	/**
+	 * WordPress action updraftplus_restore_all_downloaded_postscan called during the restore process.
+	 *
+	 * The last three parameters can be edited in-place.
+	 *
+	 * @param Array   $backups   - list of backups
+	 * @param Integer $timestamp - the timestamp (epoch time) of the backup being restored
+	 * @param Array   $entities  - elements being restored (as the keys of the array)
+	 * @param Array   $info      - information about the backup being restored
+	 * @param Array   $mess      - array of informational-level messages
+	 * @param Array   $warn      - array of warning-level messages
+	 * N.B. An extra parameter $err is also available after $warn
+	 */
+	public function restore_all_downloaded_postscan_selective_restore($backups, $timestamp, $entities, &$info, &$mess, &$warn) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+
+		$selective_restore_types = array(
+			'plugins',
+			'themes',
+		);
+
+		foreach ($selective_restore_types as $type) {
+			if (!isset($entities[$type]) || !isset($backups[$timestamp][$type])) continue;
+
+			$backup_entities = $this->get_backup_contents_list($backups[$timestamp][$type]);
+	
+			if (empty($backup_entities)) continue;
+			$selective_restore_ui = $this->get_entity_selective_restore_ui($backup_entities, $type);
+	
+			$info['addui'] = empty($info['addui']) ? $selective_restore_ui : $info['addui'] . '<br>' . $selective_restore_ui;
+		}
+	}
+
+	/**
+	 * This function will build the selective entity restore UI and return it
+	 *
+	 * @param Array  $entities - an array of entities to restore (plugins, themes)
+	 * @param String $type     - the type of entity (plugins, themes)
+	 *
+	 * @return String - returns the selective restore UI for this entity
+	 */
+	private function get_entity_selective_restore_ui($entities, $type) {
+
+		global $updraftplus;
+
+		$backupable_entities = $updraftplus->get_backupable_file_entities(false, true);
+		$description = isset($backupable_entities[$type]['singular_description']) ? $backupable_entities[$type]['singular_description'] : $type;
+		
+		$php_max_input_vars = ini_get("max_input_vars"); // phpcs:ignore PHPCompatibility.IniDirectives.NewIniDirectives.max_input_varsFound -- does not exist in PHP 5.2
+
+		$php_max_input_vars_exceeded = false;
+		if (!empty($php_max_input_vars) && count($entities) >= 0.90 * $php_max_input_vars) {
+			$php_max_input_vars_exceeded = true;
+			// If the amount of tables exceed 90% of the php max input vars then truncate the list to 50% of the php max input vars value
+			$entities = array_splice($entities, 0, $php_max_input_vars / 2);
+		}
+
+		$selective_restore_ui = '<div class="notice below-h2 updraft-restore-option">';
+		$selective_restore_ui .= '<p>'.sprintf(__('If you do not want to restore all your %s files, then de-select the unwanted ones here. Files not chosen will not be replaced.', 'updraftplus'), strtolower($description)).'(<a href="#" id="updraftplus_restore_'.$type.'_showmoreoptions">...</a>)</p>';
+
+		$selective_restore_ui .= '<div class="updraftplus_restore_'.$type.'_options_container" style="display:none;">';
+
+		$selective_restore_ui .= '<a class="updraft_restore_select_all_'.$type.'" href="#">'.__('Select all', 'updraftplus').'</a>';
+		$selective_restore_ui .= ' | <a class="updraft_restore_deselect_all_'.$type.'" href="#">'.__('Deselect all', 'updraftplus').'</a><br><br>';
+
+		if ($php_max_input_vars_exceeded) {
+			$all_other_entity_title = sprintf(__('The amount of %s files scanned is near or over the php_max_input_vars value so some %s files maybe truncated. This option will ensure all %s files not found will be restored.', 'updraftplus'), strtolower($description));
+			$selective_restore_ui .= '<input class="updraft_restore_'.$type.'_options" id="updraft_restore_'.$type.'_udp_all_other_'.$type.'" checked="checked" type="checkbox" name="updraft_restore_'.$type.'_options[]" value="udp_all_other_'.$type.'"> ';
+			$selective_restore_ui .= '<label for="updraft_restore_'.$type.'_udp_all_other_'.$type.'"  title="'.$all_other_entity_title.'">'.sprintf(__('Restore all %s not listed below', 'updraftplus'), strtolower($description)).'</label><br>';
+		}
+
+		foreach ($entities as $entity) {
+			$selective_restore_ui .= '<input class="updraft_restore_'.$type.'_options" id="updraft_restore_'.$type.'_'.$entity.'" checked="checked" type="checkbox" name="updraft_restore_'.$type.'_options[]" value="'.$entity.'"> ';
+			$selective_restore_ui .= '<label for="updraft_restore_'.$type.'_'.$entity.'">'.$entity.'</label><br>';
+		}
+		$selective_restore_ui .= '</div></div>';
+
+		return $selective_restore_ui;
+	}
+
+	/**
+	 * This function will get the top level folders (plugins, themes) from the passed in backup archives
+	 *
+	 * @param Array $backups - an array of backup archives
+	 *
+	 * @return Array - an array of top level entities inside the backups (plugin, themes)
+	 */
+	private function get_backup_contents_list($backups) {
+
+		global $updraftplus;
+		
+		if (!class_exists('UpdraftPlus_PclZip')) include(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+
+		$updraft_dir = $updraftplus->backups_dir_location();
+
+		$entities = array();
+
+		foreach ($backups as $file) {
+			$zip = new UpdraftPlus_PclZip;
+
+			$zipfile = $updraft_dir . '/' . $file;
+
+			if (!$zip->open($zipfile)) return $entities;
+	
+			// Don't put this in the for loop, or the magic __get() method gets called every time the loop goes round
+			$numfiles = $zip->numFiles;
+	
+			for ($i=0; $i < $numfiles; $i++) {
+				$si = $zip->statIndex($i);
+				$folders = explode('/', $si['name']);
+				$entity = isset($folders[1]) ? $folders[1] : false;
+
+				// We don't want hidden file system files showing up in the list of entities to restore
+				if (!$entity || "." === substr($entity, 0, 1) || "index.php" == $entity) continue;
+
+				if (!in_array($entity, $entities)) {
+					$entities[] = $entity;
+				}
+			}
+	
+			@$zip->close();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		}
+
+		sort($entities);
+
+		return $entities;
 	}
 
 	/**

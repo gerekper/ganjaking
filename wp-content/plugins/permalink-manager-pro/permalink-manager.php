@@ -4,15 +4,16 @@
 * Plugin Name:       Permalink Manager Pro
 * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
 * Description:       Advanced plugin that allows to set-up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
-* Version:           2.2.17
+* Version:           2.2.19.1
 * Author:            Maciej Bis
 * Author URI:        http://maciejbis.net/
 * License:           GPL-2.0+
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+* Secret Key:        83a5bb0e2ad5164690bc7a42ae592cf5
 * Text Domain:       permalink-manager
 * Domain Path:       /languages
 * WC requires at least: 3.0.0
-* WC tested up to:      6.3.1
+* WC tested up to:      6.6.1
 */
 
 // If this file is called directly or plugin is already defined, abort.
@@ -25,7 +26,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.2.17' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.2.19.1' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit(dirname(__FILE__)) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename(__FILE__));
@@ -143,7 +144,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 			// 2. Globals used to display additional content (eg. alerts)
 			global $permalink_manager_alerts, $permalink_manager_before_sections_html, $permalink_manager_after_sections_html;
 
-			$this->permalink_manager_alerts = $permalink_manager_alerts = apply_filters('permalink_manager_alerts', get_option('permalink-manager-alerts', array()));
+			$this->permalink_manager_alerts = $permalink_manager_alerts = apply_filters('permalink_manager_alerts', array());
 			$this->permalink_manager_before_sections_html = $permalink_manager_before_sections_html = apply_filters('permalink_manager_before_sections', '');
 			$this->permalink_manager_after_sections_html = $permalink_manager_after_sections_html = apply_filters('permalink_manager_after_sections', '');
 		}
@@ -182,7 +183,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 					'disable_slug_sanitization' => 0,
 					'keep_accents' => 0,
 					'partial_disable' => array(
-						'post_types' => array('attachment', 'tribe_events')
+						'post_types' => array('attachment', 'tribe_events', 'e-landing-page')
 					),
 					'ignore_drafts' => 1,
 					'edit_uris_cap' => 'publish_posts',
@@ -272,6 +273,11 @@ if(!class_exists('Permalink_Manager_Class')) {
 			// Save the settings in database
 			if(!empty($permalink_manager_unfiltered_options)) {
 				update_option('permalink-manager', $permalink_manager_unfiltered_options);
+			}
+
+			// Remove obsolete 'permalink-manager-alerts' from wp_options table
+			if(get_option('permalink-manager-alerts')) {
+				delete_option('permalink-manager-alerts');
 			}
 		}
 
@@ -370,3 +376,5 @@ if(!class_exists('Permalink_Manager_Class')) {
 
 	run_permalink_manager();
 }
+/* Anti-Leecher Identifier */
+/* Credited By BABIATO-FORUM */

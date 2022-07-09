@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title"><?php _e('Select an overriding product', 'ali2woo');?></h3>
-            <a class="modal-btn-close" href="#"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use></svg></a>
+            <a class="modal-btn-close" href="#"></a>
         </div>
         <div class="modal-body">
             <div class="modal-override-product-loader a2w-load-container" style="padding:80px 0;"><div class="a2w-load-speeding-wheel"></div></div>

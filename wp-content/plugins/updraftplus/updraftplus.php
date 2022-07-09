@@ -5,7 +5,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 2.22.11.25
+Version: 2.22.14.25
 Update URI: https://updraftplus.com/
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later

@@ -43,6 +43,7 @@ if (!class_exists('A2W_Shipping')) {
                 if ( ! $not_available_cost ) {
                     $not_available_cost = esc_html__( 'free', 'ali2woo' );
                 } else {
+                    $not_available_cost = apply_filters('wcml_raw_price_amount', $not_available_cost);
                     $not_available_cost = wc_price(  $not_available_cost );
                 }
                 $default_shipping_message = str_replace( array(
@@ -96,74 +97,62 @@ if (!class_exists('A2W_Shipping')) {
         /**
         * Add additional data to the method properties depending on the plugin settings
         */
-        public static function get_normalized($method, $country, $type = "select"){
+        public static function get_normalized($method, $country, $type = "select", $product=false){
 
-                    $countries = A2W_Shipping::get_countries();
+            $countries = A2W_Shipping::get_countries();
 
-                    $country_label =  $countries[$country];
+            $country_label =  $countries[$country];
 
-                    $local_values = self::get_local_method_by_company($method['company']);
+            $local_values = self::get_local_method_by_company($method['company']);
 
-                    //this method is disabled in the shipping list
-                    if ( $local_values === false) return false;
+            //this method is disabled in the shipping list
+            if ( $local_values === false) return false;
 
-                    //if no such method there, add it
-                    if (!$local_values) {
-                        self::add_local_method($method); 
-                        $local_values = self::get_local_method_by_company($method['company']);
-                    }
+            //if no such method there, add it
+            if (!$local_values) {
+                self::add_local_method($method); 
+                $local_values = self::get_local_method_by_company($method['company']);
+            }
 
-                    $ship_price = A2W_ShippingPriceFormula::apply_formula($method, $local_values);
+            $method['company'] = $local_values['title'];
 
-                    $method['company'] = $local_values['title'];
-                            
-                //    $method['serviceName'] = $local_values['serviceName'];
+            $ship_price = A2W_ShippingPriceFormula::apply_formula($method, $local_values);
+            $current_currency = apply_filters('wcml_price_currency', NULL );
+            $method['price'] = $ship_price = apply_filters( 'wcml_raw_price_amount', $ship_price, $current_currency );
+            
+            $method['formated_price'] = strip_tags(wc_price($method['price']));
 
-                    $method['price'] = $ship_price;
-                    $method['formated_price'] = strip_tags(wc_price($method['price']));
+            $method['formated_delivery_time'] = self::process_delivery_time($method['time']);
+            
+            $method_price_html = $method['price'] ? $method['formated_price'] : esc_html__('free', 'ali2woo');
 
-                    $method['formated_delivery_time'] = self::process_delivery_time($method['time']);
-                    
-                    $method_price_html = $method['price'] ? $method['formated_price'] : esc_html__('free', 'ali2woo');
+            //1) for visual info (in popup view) or select label
 
-                   /* if ($type == "select"){
-                        $method['label'] = $method['company'] . ", " . $method['formated_delivery_time'] . ", " . ($method['price'] ? 
-                        $method['formated_price'] : 
-                            esc_html__('free', 'ali2woo'));
-                    }*/
+            $shipping_option_text = a2w_get_setting('aliship_shipping_option_text');
 
-                      //1) for visual info (in popup view) or select label
-       
-                       $shipping_option_text = a2w_get_setting('aliship_shipping_option_text');
+            //do not replace {country}, it will be replaced in js
+            $shipping_info = str_replace( array('{shipping_cost}', '{shipping_company}', '{delivery_time}', '{country}'), 
+                array( $method_price_html, $method['company'], $method['formated_delivery_time'], $country_label), $shipping_option_text
+            );
 
-                       //do not replace {country}, it will be replaced in js
-                       $shipping_info = str_replace( array(
-                        '{shipping_cost}',
-                        '{shipping_company}',
-                        '{delivery_time}',
-                        '{country}'
-                        ), array( $method_price_html, $method['company'], $method['formated_delivery_time'], $country_label), $shipping_option_text );
+            $method['label'] = $shipping_info;
 
-                        $method['label'] = $shipping_info;
+            if ($type == "popup"){                
+                //2) for modal table
+                $html = '<div class="a2w-div-table-row">' .
+                '<div class="a2w-div-table-col small-col">' .
+                    '<input type="radio" class="select_method" value= "' . $method['serviceName'] . '" name="a2w_shipping_method_popup_field_{item_id}" id="a2w_shipping_method_popup_field_{item_id}_' . $method['serviceName'] . '">' .
+                '</div>' .
+                '<div class="a2w-div-table-col">' . $method['formated_delivery_time'] . '</div>' .
+                '<div class="a2w-div-table-col">' . $method_price_html . '</div>' .
+                '<div class="a2w-div-table-col">' . ($method['tracking'] ? esc_html__('yes', 'ali2woo') : esc_html__('no', 'ali2woo')) . '</div>' .
+                '<div class="a2w-div-table-col">' . $method['company'] . '</div>' .
+                '</div>';
 
-                    if ($type == "popup"){                
-                        //2) for modal table
-                        $html = '<div class="a2w-div-table-row">' .
-                        '<div class="a2w-div-table-col small-col">' .
-                           '<input type="radio" class="select_method" value= "' . $method['serviceName'] . '" name="a2w_shipping_method_popup_field_{item_id}" id="a2w_shipping_method_popup_field_{item_id}_' . $method['serviceName'] . '">' .
-                        '</div>' .
-                       '<div class="a2w-div-table-col">' . $method['formated_delivery_time'] . '</div>' .
-                       '<div class="a2w-div-table-col">' . $method_price_html . '</div>' .
-                       '<div class="a2w-div-table-col">' . ($method['tracking'] ? esc_html__('yes', 'ali2woo') : esc_html__('no', 'ali2woo')) . '</div>' .
-                       '<div class="a2w-div-table-col">' . $method['company'] . '</div>' .
-                       '</div>';
+                $method['html_row'] = $html;
+            }
 
-                       $method['html_row'] = $html;
-
-                    }
-
-                    return $method;
-
+            return $method;
         }
 
 
@@ -228,6 +217,7 @@ if (!class_exists('A2W_Shipping')) {
             $delivery_time = self::process_delivery_time( $shipping_info['delivery_time'] );
             $shipping_cost = floatval( ( $shipping_info['shipping_cost'] ) );
             if ( $shipping_cost ) {
+                $shipping_cost = apply_filters('wcml_raw_price_amount', $shipping_cost);
                 $shipping_cost    = wc_price( $shipping_cost, array( 'currency' => get_post_meta( $order_id, '_order_currency', true ) ) );
                 $display_value  = "[{$shipping_cost}] {$shipping_info['company']} ({$delivery_time})";
             } else {

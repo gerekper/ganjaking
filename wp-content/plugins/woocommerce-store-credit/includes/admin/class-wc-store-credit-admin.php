@@ -100,6 +100,10 @@ class WC_Store_Credit_Admin {
 		$screen_id             = wc_store_credit_get_current_screen_id();
 		$send_credit_screen_id = wc_store_credit_get_send_credit_screen_id();
 
+		if ( wc_store_credit_is_settings_page() ) {
+			wp_enqueue_script( 'wc-store-credit-settings', WC_STORE_CREDIT_URL . "assets/js/admin/settings{$suffix}.js", array( 'jquery' ), WC_STORE_CREDIT_VERSION, true );
+		}
+
 		if ( in_array( $screen_id, array( 'edit-shop_coupon', $send_credit_screen_id ), true ) ) {
 			wp_enqueue_script( 'wc-store-credit-admin-customer-search', WC_STORE_CREDIT_URL . "assets/js/admin/customer-search{$suffix}.js", array( 'wc-enhanced-select' ), WC_STORE_CREDIT_VERSION, true );
 		}

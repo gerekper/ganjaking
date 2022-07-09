@@ -57,7 +57,7 @@ class WC_Points_Rewards_Cart_Checkout {
 
 		// Reshow messages on checkout if coupon was applied or removed.
 		add_action( 'woocommerce_applied_coupon', array( $this, 'discount_updated' ), 40 );
-		add_action( 'woocommerce_removed_coupon', array( $this, 'discount_updated' ), 40 );
+		add_action( 'woocommerce_removed_coupon', [ $this, 'coupon_removed' ], 40 );
 	}
 
 	/**
@@ -105,6 +105,29 @@ class WC_Points_Rewards_Cart_Checkout {
 		WC()->cart->calculate_totals();
 		$this->render_earn_points_message();
 		$this->render_redeem_points_message();
+	}
+
+	/**
+	 * Redisplays the redeem and earn messages after a discount has been removed.
+	 * Handles edge case where WC Subscriptions is installed and removes coupons from recurring products
+	 * on all asynchronous requests
+	 *
+	 * @since 1.7.10
+	 * @param string $coupon_code Coupon code which is removed.
+	 */
+	public function coupon_removed( $coupon_code ) {
+		// If WC Subscriptions isn't active, continue with normal discount_updated.
+		if ( ! class_exists( 'WC_Subscriptions' ) && ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+			$this->discount_updated( $coupon_code );
+			return;
+		}
+
+		// If WC Subscriptions is active, only display notices for `?wc-ajax=remove_coupon` requests.
+		global $wp_query;
+		$action = $wp_query->get( 'wc-ajax' );
+		if ( $action === 'remove_coupon' ) {
+			$this->discount_updated( $coupon_code );
+		}
 	}
 
 	/**

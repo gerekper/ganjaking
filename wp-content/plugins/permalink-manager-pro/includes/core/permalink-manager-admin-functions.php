@@ -15,7 +15,6 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 		add_action( 'admin_notices', array($this, 'display_plugin_notices'));
 		add_action( 'admin_notices', array($this, 'display_global_notices'));
-		add_action( 'wp_ajax_dismissed_notice_handler', array($this, 'hide_global_notice') );
 
 		add_filter( 'default_hidden_columns', array($this, 'quick_edit_hide_column'), 99, 2 );
 	}
@@ -93,7 +92,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		}
 
 		// Check if current admin page is related to taxonomies
-		if(substr($this->active_subsection, 0, 4) == 'tax_') {
+		if(!empty($this->active_subsection) && substr($this->active_subsection, 0, 4) == 'tax_') {
 			$current_admin_tax = substr($this->active_subsection, 4, strlen($this->active_subsection));
 		} else {
 			$current_admin_tax = false;
@@ -1036,10 +1035,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$html = "";
 		if(!empty($permalink_manager_alerts) && is_array($permalink_manager_alerts)) {
 			foreach($permalink_manager_alerts as $alert_id => $alert) {
-				if(!empty($alert['show'])) {
-					// Hide notice in Permalink Manager Pro
-					if(defined('PERMALINK_MANAGER_PRO') && $alert['show'] == 'pro_hide') { continue; }
+				$dismissed_transient_name = sprintf('permalink-manager-notice_%s', sanitize_title($alert_id));
+				$dismissed = get_transient($dismissed_transient_name);
 
+				// Check if alert was dismissed
+				if(empty($dismissed)) {
 					// Display the notice only on the plugin pages
 					if(empty($active_section) && !empty($alert['plugin_only'])) { continue; }
 
@@ -1052,21 +1052,6 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		}
 
 		echo $html;
-	}
-
-	/**
-	 * Hide global notices (AJAX)
-	 */
-	function hide_global_notice() {
-		global $permalink_manager_alerts;
-
-		// Get the ID of the alert
-		$alert_id = (!empty($_REQUEST['alert_id'])) ? sanitize_title($_REQUEST['alert_id']) : "";
-		if(!empty($permalink_manager_alerts[$alert_id])) {
-			$permalink_manager_alerts[$alert_id]['show'] = 0;
-		}
-
-		update_option( 'permalink-manager-alerts', $permalink_manager_alerts);
 	}
 
 	/**

@@ -52,15 +52,16 @@ function wc_store_credit_get_customer_email( $the_customer ) {
  * Gets the store credit coupons associated to the specified customer.
  *
  * @since 3.0.0
+ * @since 4.2.0 Accepts the status 'expired'.
  *
  * @param mixed  $the_customer Customer object, email or ID.
- * @param string $status       Optional. The coupon status. Accepts: 'all', 'active', 'exhausted'. Default: 'active'.
+ * @param string $status       Optional. The coupon status. Accepts: 'all', 'active', 'expired', 'exhausted'. Default: 'active'.
  * @return WC_Coupon[]|false An array with the store credit coupons. False on failure.
  */
 function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active' ) {
 	$customer_email = wc_store_credit_get_customer_email( $the_customer );
 
-	if ( ! $customer_email || ! in_array( $status, array( 'all', 'active', 'exhausted' ), true ) ) {
+	if ( ! $customer_email || ! in_array( $status, array( 'all', 'active', 'expired', 'exhausted' ), true ) ) {
 		return false;
 	}
 
@@ -90,12 +91,37 @@ function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active'
 			$args['meta_query'][] = array(
 				'key'     => 'coupon_amount',
 				'value'   => 0,
-				'compare' => ( 'active' === $status ? '>' : '=' ),
+				'compare' => ( 'exhausted' === $status ? '=' : '>' ),
 				'type'    => 'decimal(10, ' . wc_get_price_decimals() . ')',
 			);
+
+			if ( 'expired' === $status ) {
+				$args['meta_query'][] = array(
+					'key'     => 'date_expires',
+					'value'   => time(),
+					'compare' => '<=',
+					'type'    => 'NUMERIC',
+				);
+			} elseif ( 'active' === $status ) {
+				$args['meta_query'][] = array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'date_expires',
+						'compare' => 'NOT EXISTS',
+					),
+					array(
+						'key'     => 'date_expires',
+						'value'   => time(),
+						'compare' => '>',
+						'type'    => 'NUMERIC',
+					),
+				);
+			}
 		}
 
+		add_filter( 'get_meta_sql', 'wc_store_credit_fix_customer_coupons_sql' );
 		$coupon_ids = array_map( 'intval', get_posts( $args ) );
+		add_filter( 'get_meta_sql', 'wc_store_credit_fix_customer_coupons_sql' );
 
 		// Cache the result.
 		wp_cache_set( $cache_key, $coupon_ids, 'store_credit' );
@@ -108,6 +134,21 @@ function wc_store_credit_get_customer_coupons( $the_customer, $status = 'active'
 	}
 
 	return $coupons;
+}
+
+/**
+ * Fixes the customer coupons SQL query.
+ *
+ * @since 4.2.0
+ *
+ * @param string[] $sql Array containing the query's JOIN and WHERE clauses.
+ * @return string[]
+ */
+function wc_store_credit_fix_customer_coupons_sql( $sql ) {
+	// The coupon meta 'date_expires' exists with a NULL value.
+	$sql['where'] = str_replace( '.post_id IS NULL', '.meta_value IS NULL', $sql['where'] );
+
+	return $sql;
 }
 
 /**

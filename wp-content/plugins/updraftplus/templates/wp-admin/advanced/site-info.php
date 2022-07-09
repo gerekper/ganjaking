@@ -62,6 +62,8 @@
 	if ('' == $db_version) $db_version = $wpdb->db_version();
 	
 	$updraftplus_admin->settings_debugrow(sprintf(__('%s version:', 'updraftplus'), 'MySQL'), htmlspecialchars($db_version));
+	$mysql_max_packet_size = round($updraftplus->max_packet_size(false, false)/1048576, 1);
+	$updraftplus_admin->settings_debugrow(__('Database maximum packet size:', 'updraftplus'), $mysql_max_packet_size.' MB');
 	$updraftplus_admin->settings_debugrow(__('Current SQL mode:', 'updraftplus'), htmlspecialchars($wpdb->get_var('SELECT @@GLOBAL.sql_mode')));
 	if (function_exists('curl_version') && function_exists('curl_exec')) {
 		$cv = curl_version();

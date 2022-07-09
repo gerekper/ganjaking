@@ -82,6 +82,9 @@ class UpdraftPlus_Storage_Methods_Interface {
 					$options[$method][$instance_id] = $opts;
 				}
 			}
+
+			// Get the list of template properties from the predefined storage method
+			$options[$method]['template_properties'] =  $object->get_template_properties();
 		}
 
 		return array(

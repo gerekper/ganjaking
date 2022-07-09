@@ -35,6 +35,23 @@ function wc_store_credit_get_current_screen_id() {
 }
 
 /**
+ * Gets if we are in the Store Credit settings page.
+ *
+ * @since 4.2.0
+ *
+ * @return bool
+ */
+function wc_store_credit_is_settings_page() {
+	// phpcs:disable WordPress.Security.NonceVerification
+	return (
+		is_admin() &&
+		isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] &&
+		isset( $_GET['tab'] ) && 'store_credit' === $_GET['tab']
+	);
+	// phpcs:enable WordPress.Security.NonceVerification
+}
+
+/**
  * Gets the specified admin url.
  *
  * @since 2.4.0

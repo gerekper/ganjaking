@@ -292,9 +292,10 @@
 
                         <?php $cur_a2w_default_ship_from = a2w_get_setting('default_ship_from');?>
                         <select name="a2w_default_ship_from" id="a2w_default_ship_from" class="form-control small-input country_list">
-                            <?php foreach ($shipping_countries as $country): ?>
-                                <option value="<?php echo $country['c']; ?>"<?php if ($cur_a2w_default_ship_from == $country['c']): ?> selected<?php endif;?>>
-                                    <?php echo $country['n']; ?>
+                            <option value=""><?php _e('N/A', 'ali2woo');?></option>
+                            <?php foreach ($shipping_countries as $code => $country): ?>
+                                <option value="<?php echo $code; ?>"<?php if ($cur_a2w_default_ship_from == $code): ?> selected<?php endif;?>>
+                                    <?php echo $country; ?>
                                 </option>
                             <?php endforeach;?>
                         </select>
@@ -586,6 +587,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>
+                        <strong><?php echo esc_html_x('CPF meta field', 'Setting title', 'ali2woo'); ?></strong>
+                    </label>
+                    <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's CPF field.This is used only for Customers from Brazil. If empty, billing company will be used as CPF when fulfilling AliExpress orders.", 'setting description', 'ali2woo'); ?>"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group input-block no-margin">
+                        <input type="text" placeholder="" class="form-control small-input" id="a2w_fulfillment_cpf_meta_key" name="a2w_fulfillment_cpf_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_cpf_meta_key')); ?>" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>
+                        <strong><?php echo esc_html_x('RUT meta field', 'Setting title', 'ali2woo'); ?></strong>
+                    </label>
+                    <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's RUT number. RUT number is required when you fulfill orders of Customers from Chile.", 'setting description', 'ali2woo'); ?>"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group input-block no-margin">
+                        <input type="text" placeholder="" class="form-control small-input" id="a2w_fulfillment_rut_meta_key" name="a2w_fulfillment_rut_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_rut_meta_key')); ?>" />
+                    </div>
+                </div>
+            </div>
+
 
             <div class="row">
                 <div class="col-md-4">

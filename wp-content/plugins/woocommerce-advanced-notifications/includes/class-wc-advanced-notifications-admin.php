@@ -280,15 +280,16 @@ class WC_Advanced_Notifications_Admin {
 	function add_recipient() {
 		global $wpdb;
 
-		$recipient_name 		= sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
-		$recipient_email 		= sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
-		$recipient_address 		= sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
-		$recipient_phone 		= sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
-		$recipient_website 		= sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
-		$notification_type 		= isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
-		$notification_plain_text= isset( $_POST['notification_plain_text'] ) ? 1 : 0;
-		$notification_totals	= isset( $_POST['notification_totals'] ) ? 1 : 0;
-		$notification_prices	= isset( $_POST['notification_prices'] ) ? 1 : 0;
+		$recipient_name          = sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
+		$recipient_email         = sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
+		$recipient_address       = sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
+		$recipient_phone         = sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
+		$recipient_website       = sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
+		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
+		$notification_plain_text = ! empty( $_POST['notification_plain_text'] ) ? 1 : 0;
+		$notification_totals     = ! empty( $_POST['notification_totals'] ) ? 1 : 0;
+		$notification_prices     = ! empty( $_POST['notification_prices'] ) ? 1 : 0;
+		$notification_all_items  = ! empty( $_POST['notification_include_all_items'] ) ? 1 : 0;
 
 		// Validate
 		if ( empty( $recipient_name ) ) {
@@ -311,18 +312,19 @@ class WC_Advanced_Notifications_Admin {
 		$result = $wpdb->insert(
 			"{$wpdb->prefix}advanced_notifications",
 			array(
-				'recipient_name' 			=> $recipient_name,
-				'recipient_email' 			=> $recipient_email,
-				'recipient_address' 		=> $recipient_address,
-				'recipient_phone' 			=> $recipient_phone,
-				'recipient_website' 		=> $recipient_website,
-				'notification_plain_text' 	=> $notification_plain_text,
-				'notification_type' 		=> serialize( $notification_type ),
-				'notification_totals' 		=> $notification_totals,
-				'notification_prices' 		=> $notification_prices
+				'recipient_name'                 => $recipient_name,
+				'recipient_email'                => $recipient_email,
+				'recipient_address'              => $recipient_address,
+				'recipient_phone'                => $recipient_phone,
+				'recipient_website'              => $recipient_website,
+				'notification_plain_text'        => $notification_plain_text,
+				'notification_type'              => serialize( $notification_type ),
+				'notification_totals'            => $notification_totals,
+				'notification_prices'            => $notification_prices,
+				'notification_include_all_items' => $notification_all_items,
 			),
 			array(
-				'%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d'
+				'%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d', '%d'
 			)
 		);
 
@@ -369,15 +371,16 @@ class WC_Advanced_Notifications_Admin {
 	function save_recipient() {
 		global $wpdb;
 
-		$recipient_name 		= sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
-		$recipient_email 		= sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
-		$recipient_address 		= sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
-		$recipient_phone 		= sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
-		$recipient_website 		= sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
-		$notification_type 		= isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
-		$notification_plain_text= isset( $_POST['notification_plain_text'] ) ? 1 : 0;
-		$notification_totals	= isset( $_POST['notification_totals'] ) ? 1 : 0;
-		$notification_prices	= isset( $_POST['notification_prices'] ) ? 1 : 0;
+		$recipient_name          = sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
+		$recipient_email         = sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
+		$recipient_address       = sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
+		$recipient_phone         = sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
+		$recipient_website       = sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
+		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
+		$notification_plain_text = ! empty( $_POST['notification_plain_text'] ) ? 1 : 0;
+		$notification_totals	 = ! empty( $_POST['notification_totals'] ) ? 1 : 0;
+		$notification_prices	 = ! empty( $_POST['notification_prices'] ) ? 1 : 0;
+		$notification_all_items  = ! empty( $_POST['notification_include_all_items'] ) ? 1 : 0;
 
 		// Validate
 		if ( empty( $recipient_name ) ) {
@@ -400,19 +403,20 @@ class WC_Advanced_Notifications_Admin {
 		$wpdb->update(
 			"{$wpdb->prefix}advanced_notifications",
 			array(
-				'recipient_name' 			=> $recipient_name,
-				'recipient_email' 			=> $recipient_email,
-				'recipient_address' 		=> $recipient_address,
-				'recipient_phone' 			=> $recipient_phone,
-				'recipient_website' 		=> $recipient_website,
-				'notification_plain_text' 	=> $notification_plain_text,
-				'notification_type' 		=> serialize( $notification_type ),
-				'notification_totals' 		=> $notification_totals,
-				'notification_prices' 		=> $notification_prices
+				'recipient_name'                 => $recipient_name,
+				'recipient_email'                => $recipient_email,
+				'recipient_address'              => $recipient_address,
+				'recipient_phone'                => $recipient_phone,
+				'recipient_website'              => $recipient_website,
+				'notification_plain_text'        => $notification_plain_text,
+				'notification_type'              => serialize( $notification_type ),
+				'notification_totals'            => $notification_totals,
+				'notification_prices'            => $notification_prices,
+				'notification_include_all_items' => $notification_all_items,
 			),
 			array( 'notification_id' => absint( $this->editing_id ) ),
 			array(
-				'%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d'
+				'%s', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d', '%d'
 			),
 			array( '%d' )
 		);

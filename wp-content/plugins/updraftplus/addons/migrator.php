@@ -1554,6 +1554,42 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 						}
 					});
 				}
+
+				function updraft_migrate_send_backup_options() {
+
+					var $ = jQuery;
+
+					var site_url = $('#updraft_remotesites_selector option:selected').text();
+
+					$('#updraft_migrate .updraft_migrate_widget_module_content, .updraft_migrate_intro').hide();
+					$('#updraft_migrate_tab_alt').html('<header><button class="button button-link close"><span class="dashicons dashicons-arrow-left-alt2"></span>'+updraftlion.back+'</button><h3><span class="dashicons dashicons-download"></span>'+updraftlion.send_to_another_site+'</h3></header><p><strong>'+updraftlion.sendtosite+'</strong> '+site_url+'</p><p>'+updraftlion.remote_send_backup_info+'</p><button class="button button-primary" id="updraft_migrate_send_existing_button" onclick="updraft_migrate_send_existing_backup();">'+updraftlion.send_existing_backup+'</button><button class="button button-primary" id="updraft_migrate_send_new_button" onclick="updraft_migrate_send_backup();">'+updraftlion.send_new_backup+'</button>').slideDown('fast');
+
+				}
+
+				function updraft_migrate_send_existing_backup() {
+					
+					var $ = jQuery;
+
+					var site_url = $('#updraft_remotesites_selector option:selected').text();
+					$('#updraft_migrate .updraft_migrate_widget_module_content, .updraft_migrate_intro').hide();
+					$('#updraft_migrate_tab_alt').html('<header><button class="button button-link close"><span class="dashicons dashicons-arrow-left-alt2"></span>'+updraftlion.back+'</button><h3><span class="dashicons dashicons-download"></span>'+updraftlion.send_to_another_site+'</h3></header><p><strong>'+updraftlion.sendtosite+'</strong> '+site_url+'</p><p>'+updraftlion.remote_send_backup_info+'</p><p id="updraft_migrate_findingbackupsprogress">'+updraftlion.scanning_backups+'</p>').slideDown('fast');
+
+					updraft_send_command('get_backup_list', {}, function(resp, status, response) {
+						$('#updraft_migrate_findingbackupsprogress').replaceWith('');
+						$('#updraft_migrate_tab_alt').append(resp.data);
+					}, { error_callback: function(response, status, error_code, resp) {
+							if (typeof resp !== 'undefined' && resp.hasOwnProperty('fatal_error')) {
+								$('#updraft_migrate_tab_alt').append('<p style="color:red;">'+resp.fatal_error_message+'</p>');
+								console.error(resp.fatal_error_message);
+							} else {
+								$('#updraft_migrate_tab_alt').append('<p style="color:red;">'+updraftlion.unexpectedresponse+' '+response+'</p>');
+								console.log(err);
+								console.log(response);
+							}
+						}
+					});
+
+				}
 				
 				function updraft_migrate_send_backup() {
 
@@ -1562,7 +1598,7 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 					$('#updraft_migrate .updraft_migrate_widget_module_content, .updraft_migrate_intro').hide();
 					var site_id = $('#updraft_remotesites_selector').val();
 					var site_url = $('#updraft_remotesites_selector option:selected').text();
-					$('#updraft_migrate_tab_alt').html('<p><strong>'+updraftlion.sendtosite+'</strong> '+site_url+'</p><p id="updraft_migrate_testinginprogress">'+updraftlion.testingconnection+'</p>').slideDown('fast');
+					$('#updraft_migrate_tab_alt').html('<header><button class="button button-link close"><span class="dashicons dashicons-arrow-left-alt2"></span>'+updraftlion.back+'</button><h3><span class="dashicons dashicons-download"></span>'+updraftlion.send_to_another_site+'</h3></header><p><strong>'+updraftlion.sendtosite+'</strong> '+site_url+'</p><p id="updraft_migrate_testinginprogress">'+updraftlion.testingconnection+'</p>').slideDown('fast');
 
 					var data = {
 						subsubaction: 'updraft_remote_ping_test',
@@ -1602,6 +1638,29 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 					});
 				}
 				
+				function updraft_migrate_go_existing_backup() {
+					var $ = jQuery;
+
+					var site_id = $('#updraft_remotesites_selector').val();
+					var backup_select = $('#updraft_migrate_tab_alt #updraftplus_remote_send_backup_options').find('option:selected');
+					var nonce = backup_select.data('nonce');
+					var timestamp = backup_select.data('timestamp');
+					var services = 'remotesend';
+					var extradata = {
+						services: 'remotesend/'+site_id
+					};
+
+					updraft_send_command('upload_local_backup', {
+						use_nonce: nonce,
+						use_timestamp: timestamp,
+						services: services,
+						extradata: extradata
+					}, function (response) {
+						jQuery('#updraft-navtab-backups').trigger('click');
+						alert(updraftlion.local_upload_started);
+					});
+				}
+
 				/**
 				 * Migrate send a backup
 				 */

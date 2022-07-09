@@ -32,7 +32,19 @@ function seedprod_pro_welcome_screen_do_activation_redirect() {
 	}
 
 	// Redirect to our page
-	wp_safe_redirect( add_query_arg( array( 'page' => 'seedprod_pro' ), admin_url( 'admin.php' ) ) . '#/welcome' );
+	$seedprod_dismiss_setup_wizard = get_option( 'seedprod_dismiss_setup_wizard' );
+	$seedprod_over_time = get_option( 'seedprod_over_time' );
+	if(!empty($seedprod_over_time)){
+	  if(!empty( $seedprod_over_time['installed_version']) && version_compare( $seedprod_over_time['installed_version'],  "6.12.2") === 1){
+		// run new onboarding flow
+		if(empty($seedprod_dismiss_setup_wizard)){
+			update_option( 'seedprod_dismiss_setup_wizard', true );
+			wp_safe_redirect( add_query_arg( array( 'page' => 'seedprod_pro' ), admin_url( 'admin.php' ) ) . '#/welcome' );
+		}
+	  }
+
+	}
+
 }
 
 

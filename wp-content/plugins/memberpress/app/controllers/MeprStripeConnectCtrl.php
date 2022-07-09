@@ -19,12 +19,10 @@ class MeprStripeConnectCtrl extends MeprBaseCtrl {
     add_action( 'update_option_home', array( $this, 'url_changed' ), 10, 3 );
     add_action( 'update_option_siteurl', array( $this, 'url_changed' ), 10, 3 );
     add_action( 'admin_notices', array( $this, 'upgrade_notice' ) );
+    add_action( 'admin_notices', array( $this, 'mp_disconnect_notice' ) );
     add_action( 'admin_notices', array( $this, 'admin_notices' ) );
     add_filter( 'site_status_tests', array( $this, 'add_site_health_test' ) );
     add_action( 'mepr-weekly-summary-email-inner-table-top-tr', array( $this, 'maybe_add_notice_to_weekly_summary_email' ) );
-
-    /*add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );*/
-
     add_action( 'wp_ajax_mepr_stripe_connect_update_creds', array( $this, 'process_update_creds' ) );
     add_action( 'wp_ajax_mepr_stripe_connect_refresh', array( $this, 'process_refresh_tokens' ) );
     add_action( 'wp_ajax_mepr_stripe_connect_disconnect', array( $this, 'process_disconnect' ) );
@@ -156,6 +154,39 @@ class MeprStripeConnectCtrl extends MeprBaseCtrl {
   }
 
   /**
+   * Display a notice about the Stripe gateway when MemberPress.com account has been disconnected.
+   *
+   * @return void
+   */
+  public function mp_disconnect_notice() {
+    $mepr_options = MeprOptions::fetch();
+    $account_email = get_option( 'mepr_authenticator_account_email' );
+    $secret = get_option( 'mepr_authenticator_secret_token' );
+    $site_uuid = get_option( 'mepr_authenticator_site_uuid' );
+    $payment_methods = $mepr_options->payment_methods();
+    $using_stripe = false;
+
+    if ( is_array( $payment_methods ) ) {
+      foreach ( $payment_methods as $pm ) {
+        if ( isset( $pm->key ) && $pm->key == 'stripe') {
+          $using_stripe = true;
+        }
+      }
+    }
+
+    if ( ! $account_email && ! $secret && ! $site_uuid && $using_stripe ) {
+      ?>
+
+      <div class="notice notice-error is-dismissible">
+        <p><?php esc_html_e( 'Your MemberPress.com account and Stripe gateway have been disconnected. Please re-connect the Stripe gateway by clicking the button below in order to start taking payments again.', 'memberpress' ); ?></p>
+        <p><a href="<?php echo admin_url( 'admin.php?page=memberpress-options#mepr-integration' ); ?>" class="button button-primary"><?php esc_html_e( 'Re-connect Stripe', 'memberpress' ); ?></a></p>
+      </div>
+
+      <?php
+    }
+  }
+
+  /**
    * Adds admin notices depending on what action was completed
    *
    * @return void
@@ -282,25 +313,6 @@ class MeprStripeConnectCtrl extends MeprBaseCtrl {
           </td>
         </tr>
       <?php
-    }
-  }
-
-  /**
-   * Enqueue admin scripts
-   *
-   * @return void
-   */
-  public function admin_enqueue_scripts( $hook ) {
-
-    if ( class_exists( 'MeprStripeGateway' ) && MeprStripeGateway::has_method_with_connect_status( 'not-connected' ) ) {
-      $admin_url = admin_url( 'admin.php?page=memberpress-options#mepr-integration' );
-      $l10n = array(
-        'tooltip_title'   => __( 'MemberPress Security Notice', 'memberpress' ),
-        'tooltip_body'    => __( 'Your current Stripe payment connection is out of date and may become insecure. Please click the button below to re-connect your Stripe payment method now.', 'memberpress' ),
-        'tooltip_button'  => '<p><a href="' . $admin_url . '" class="button button-primary" target="_blank">' . __('Re-connect Stripe Payment Method', 'memberpress') . '</a></p>'
-      );
-      wp_enqueue_script('mepr-shake-js', MEPR_JS_URL.'/admin_shake.js', array('jquery'), MEPR_VERSION);
-      wp_localize_script('mepr-shake-js', 'MeprShake', $l10n);
     }
   }
 

@@ -780,7 +780,8 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 				'e' => $email,
 				'p' => base64_encode($password),
 				'sid' => $updraftplus->siteid(),
-				'su' => base64_encode(home_url())
+				'su' => base64_encode(home_url()),
+				'v' => $updraftplus->version
 			)
 		));
 		

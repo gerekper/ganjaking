@@ -157,6 +157,8 @@ if (!class_exists('A2W_SettingPageController')) {
                 a2w_set_setting('fulfillment_phone_code', isset($_POST['a2w_fulfillment_phone_code']) ? wp_unslash($_POST['a2w_fulfillment_phone_code']) : '');
                 a2w_set_setting('fulfillment_phone_number', isset($_POST['a2w_fulfillment_phone_number']) ? wp_unslash($_POST['a2w_fulfillment_phone_number']) : '');
                 a2w_set_setting('fulfillment_custom_note', isset($_POST['a2w_fulfillment_custom_note']) ? wp_unslash($_POST['a2w_fulfillment_custom_note']) : '');
+                a2w_set_setting('fulfillment_cpf_meta_key', isset($_POST['a2w_fulfillment_cpf_meta_key']) ? wp_unslash($_POST['a2w_fulfillment_cpf_meta_key']) : '');
+                a2w_set_setting('fulfillment_rut_meta_key', isset($_POST['a2w_fulfillment_rut_meta_key']) ? wp_unslash($_POST['a2w_fulfillment_rut_meta_key']) : '');
 
                 a2w_set_setting('order_translitirate', isset($_POST['a2w_order_translitirate']));
                 a2w_set_setting('order_third_name', isset($_POST['a2w_order_third_name']));
@@ -183,6 +185,8 @@ if (!class_exists('A2W_SettingPageController')) {
         {
             $account = A2W_Account::getInstance();
 
+            $token = A2W_AliexpressToken::getInstance();
+
             if (isset($_POST['setting_form'])) {
                 $account->set_account_type(isset($_POST['a2w_account_type']) && in_array($_POST['a2w_account_type'], array('aliexpress', 'admitad', 'epn')) ? $_POST['a2w_account_type'] : 'aliexpress');
                 $account->use_custom_account(isset($_POST['a2w_use_custom_account']));
@@ -198,6 +202,8 @@ if (!class_exists('A2W_SettingPageController')) {
             }
 
             $this->model_put("account", $account);
+
+            $this->model_put("tokens", $token->tokens());
 
             return "settings/account.php";
         }

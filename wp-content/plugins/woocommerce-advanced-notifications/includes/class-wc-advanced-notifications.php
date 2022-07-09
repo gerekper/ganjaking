@@ -36,7 +36,7 @@ class WC_Advanced_Notifications {
 	}
 
 	public function send_notification_hooks() {
-		
+
 		// Hook emails
 		if ( apply_filters( 'woocommerce_advanced_notifications_multiple_statuses_trigger', true ) ) {
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_processing', true ) ) {
@@ -65,7 +65,7 @@ class WC_Advanced_Notifications {
 
 			/**
 			 * Add custom order status for WooCommerce Deposits compatibility.
-			 * 
+			 *
 			 * @since 1.2.35
 			 */
 
@@ -345,20 +345,26 @@ class WC_Advanced_Notifications {
 				// Buffer
 				ob_start();
 
-				// Get mail template
-				wc_get_template( $notification->notification_plain_text ? 'emails/new-order-plain.php' : 'emails/new-order.php', array(
-					'order'               => $order,
-					'email_heading'       => $email_heading,
-					'recipient_name'      => $notification->recipient_name,
-					'show_totals'         => $notification->notification_totals,
-					'show_prices'         => $notification->notification_prices,
-					'triggers'            => $notification->triggers,
-					'blogname'            => $blogname,
-					'sent_to_admin'       => false,
-					'show_download_links' => $order->is_download_permitted(),
-					'plain_text'          => $notification->notification_plain_text,
-					'email'               => ''
-				), 'woocommerce-advanced-notifications/', $this->plugin_path() . '/templates/' );
+				// Get mail template.
+				wc_get_template(
+					$notification->notification_plain_text ? 'emails/new-order-plain.php' : 'emails/new-order.php',
+					array(
+						'order'               => $order,
+						'email_heading'       => $email_heading,
+						'recipient_name'      => $notification->recipient_name,
+						'show_totals'         => $notification->notification_totals,
+						'show_prices'         => $notification->notification_prices,
+						'show_all_items'      => $notification->notification_include_all_items,
+						'triggers'            => $notification->triggers,
+						'blogname'            => $blogname,
+						'sent_to_admin'       => false,
+						'show_download_links' => $order->is_download_permitted(),
+						'plain_text'          => $notification->notification_plain_text,
+						'email'               => $mailer,
+					),
+					'woocommerce-advanced-notifications/',
+					$this->plugin_path() . '/templates/'
+				);
 
 				// Get contents
 				$message = ob_get_clean();
@@ -583,19 +589,25 @@ class WC_Advanced_Notifications {
 				ob_start();
 
 				// Get mail template.
-				wc_get_template( $notification->notification_plain_text ? 'emails/refunds-plain.php' : 'emails/refunds.php', array(
-					'order'               => $order,
-					'email_heading'       => $email_heading,
-					'recipient_name'      => $notification->recipient_name,
-					'show_totals'         => $notification->notification_totals,
-					'show_prices'         => $notification->notification_prices,
-					'triggers'            => $notification->triggers,
-					'blogname'            => $blogname,
-					'sent_to_admin'       => false,
-					'show_download_links' => $order->is_download_permitted(),
-					'plain_text'          => $notification->notification_plain_text,
-					'email'               => '',
-				), 'woocommerce-advanced-notifications/', $this->plugin_path() . '/templates/' );
+				wc_get_template(
+					$notification->notification_plain_text ? 'emails/refunds-plain.php' : 'emails/refunds.php',
+					array(
+						'order'               => $order,
+						'email_heading'       => $email_heading,
+						'recipient_name'      => $notification->recipient_name,
+						'show_totals'         => $notification->notification_totals,
+						'show_prices'         => $notification->notification_prices,
+						'show_all_items'      => $notification->notification_include_all_items,
+						'triggers'            => $notification->triggers,
+						'blogname'            => $blogname,
+						'sent_to_admin'       => false,
+						'show_download_links' => $order->is_download_permitted(),
+						'plain_text'          => $notification->notification_plain_text,
+						'email'               => $mailer,
+					),
+					'woocommerce-advanced-notifications/',
+					$this->plugin_path() . '/templates/'
+				);
 
 				// Get contents.
 				$message = ob_get_clean();

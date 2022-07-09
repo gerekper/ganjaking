@@ -108,7 +108,7 @@ class Segment extends Controller {
 		$data = filter_var_array(
 			$this->request->get_parameters()->all(),
 			[
-				'name'                     => FILTER_SANITIZE_STRING,
+				'name'                     => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
 				'query_string'             => FILTER_DEFAULT,
 				'whitelisted_query_string' => FILTER_DEFAULT,
 				'global'                   => FILTER_SANITIZE_NUMBER_INT,

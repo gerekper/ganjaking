@@ -2,7 +2,8 @@
 
 if (!function_exists('a2w_error_handler')) {
 
-    function a2w_error_handler($errno, $errstr, $errfile, $errline) {
+    function a2w_error_handler($errno, $errstr, $errfile, $errline)
+    {
         if (!(error_reporting() & $errno)) {
             return false;
         }
@@ -57,9 +58,9 @@ if (!function_exists('a2w_error_handler')) {
                 $typestr = "Unknown error[$errno]";
                 break;
         }
-        
+
         a2w_error_log(strip_tags("$typestr: " . $errstr . " in " . $errfile . " on line " . $errline));
-        if(!in_array($typestr, array('E_WARNING', 'E_NOTICE', 'E_DEPRECATED', 'E_USER_DEPRECATED', 'E_USER_WARNING', 'E_USER_NOTICE'))){
+        if (!in_array($typestr, array('E_WARNING', 'E_NOTICE', 'E_DEPRECATED', 'E_USER_DEPRECATED', 'E_USER_WARNING', 'E_USER_NOTICE'))) {
             throw new Exception("<b>$typestr</b>: $errstr in <b>$errfile</b> on line <b>$errline</b>");
         }
     }
@@ -68,7 +69,8 @@ if (!function_exists('a2w_error_handler')) {
 
 if (!function_exists('a2w_init_error_handler')) {
 
-    function a2w_init_error_handler() {
+    function a2w_init_error_handler()
+    {
         $old_error_handler = set_error_handler('a2w_error_handler');
         return $old_error_handler;
     }
@@ -77,16 +79,16 @@ if (!function_exists('a2w_init_error_handler')) {
 
 if (!function_exists('a2w_remote_get')) {
 
-    function a2w_remote_get($url, $args = array()) {
+    function a2w_remote_get($url, $args = array())
+    {
         $def_args = array(
-            'headers' => array('Accept-Encoding' => ''), 
-            'timeout' => 30, 
-            'useragent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', 
-            // 'verify' => false, 
-            // 'sslverify' => false, 
+            'headers' => array('Accept-Encoding' => ''),
+            'timeout' => 30,
+            'useragent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0',
+            // 'verify' => false,
+            // 'sslverify' => false,
             // 'verifyname' => false
         );
-
 
         if (!is_array($args)) {
             $args = array();
@@ -102,7 +104,6 @@ if (!function_exists('a2w_remote_get')) {
             $headers = $args['headers'];
             unset($args['headers']);
         }
-
 
         // If we've got cookies, use and convert them to Requests_Cookie.
         if (!empty($args['cookies'])) {
@@ -152,13 +153,14 @@ if (!function_exists('a2w_remote_get')) {
 
 if (!function_exists('a2w_remote_post')) {
 
-    function a2w_remote_post($url, $data = array(), $args = array()) {
+    function a2w_remote_post($url, $data = array(), $args = array())
+    {
         $def_args = array(
-            'headers' => array('Accept-Encoding' => ''), 
-            'timeout' => 30, 
-            'useragent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', 
-            // 'verify' => false, 
-            // 'sslverify' => false, 
+            'headers' => array('Accept-Encoding' => ''),
+            'timeout' => 30,
+            'useragent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0',
+            // 'verify' => false,
+            // 'sslverify' => false,
             // 'verifyname' => false
         );
 
@@ -176,7 +178,6 @@ if (!function_exists('a2w_remote_post')) {
             $headers = $args['headers'];
             unset($args['headers']);
         }
-
 
         // If we've got cookies, use and convert them to Requests_Cookie.
         if (!empty($args['cookies'])) {
@@ -227,7 +228,8 @@ if (!function_exists('a2w_remote_post')) {
 //for PHP < 5.5.0
 if (!function_exists('array_column')) {
 
-    function array_column(array $input, $columnKey, $indexKey = null) {
+    function array_column(array $input, $columnKey, $indexKey = null)
+    {
         $array = array();
         foreach ($input as $value) {
             if (!array_key_exists($columnKey, $value)) {
@@ -256,7 +258,8 @@ if (!function_exists('array_column')) {
 // https://stackoverflow.com/questions/35701730/utf8-endecode-removed-from-php7
 // php-xml package is missing in your php installation.
 if (!function_exists('utf8_decode')) {
-    function utf8_decode($string) {
+    function utf8_decode($string)
+    {
         // utf8_decode() unavailable, use getID3()'s iconv_fallback() conversions (possibly PHP is compiled without XML support)
         $newcharstring = '';
         $offset = 0;
@@ -265,20 +268,20 @@ if (!function_exists('utf8_decode')) {
             if ((ord($string[$offset]) | 0x07) == 0xF7) {
                 // 11110bbb 10bbbbbb 10bbbbbb 10bbbbbb
                 $charval = ((ord($string[($offset + 0)]) & 0x07) << 18) &
-                        ((ord($string[($offset + 1)]) & 0x3F) << 12) &
-                        ((ord($string[($offset + 2)]) & 0x3F) << 6) &
-                        (ord($string[($offset + 3)]) & 0x3F);
+                ((ord($string[($offset + 1)]) & 0x3F) << 12) &
+                ((ord($string[($offset + 2)]) & 0x3F) << 6) &
+                    (ord($string[($offset + 3)]) & 0x3F);
                 $offset += 4;
             } elseif ((ord($string[$offset]) | 0x0F) == 0xEF) {
                 // 1110bbbb 10bbbbbb 10bbbbbb
                 $charval = ((ord($string[($offset + 0)]) & 0x0F) << 12) &
-                        ((ord($string[($offset + 1)]) & 0x3F) << 6) &
-                        (ord($string[($offset + 2)]) & 0x3F);
+                ((ord($string[($offset + 1)]) & 0x3F) << 6) &
+                    (ord($string[($offset + 2)]) & 0x3F);
                 $offset += 3;
             } elseif ((ord($string[$offset]) | 0x1F) == 0xDF) {
                 // 110bbbbb 10bbbbbb
                 $charval = ((ord($string[($offset + 0)]) & 0x1F) << 6) &
-                        (ord($string[($offset + 1)]) & 0x3F);
+                    (ord($string[($offset + 1)]) & 0x3F);
                 $offset += 2;
             } elseif ((ord($string[$offset]) | 0x7F) == 0x7F) {
                 // 0bbbbbbb
@@ -299,9 +302,10 @@ if (!function_exists('utf8_decode')) {
 
 if (!function_exists('a2w_set_transient')) {
 
-    function a2w_set_transient($transient, $value, $expiration = 0, $use_cache = false, $autoload = 'no') {
+    function a2w_set_transient($transient, $value, $expiration = 0, $use_cache = false, $autoload = 'no')
+    {
         if (a2w_check_defined('A2W_SAVE_TRANSIENT_AS_OPTION')) {
-            wp_cache_delete( $transient, 'options' );
+            wp_cache_delete($transient, 'options');
             if (false === get_option($transient)) {
                 $result = add_option($transient, $value, '', $autoload);
             } else {
@@ -408,7 +412,8 @@ if (!function_exists('a2w_set_transient')) {
 
 if (!function_exists('a2w_get_transient')) {
 
-    function a2w_get_transient($transient, $use_cache = false) {
+    function a2w_get_transient($transient, $use_cache = false)
+    {
         if (a2w_check_defined('A2W_SAVE_TRANSIENT_AS_OPTION')) {
             return get_option($transient);
         }
@@ -430,8 +435,9 @@ if (!function_exists('a2w_get_transient')) {
          * @param string $transient     Transient name.
          */
         $pre = apply_filters("pre_transient_{$transient}", false, $transient);
-        if (false !== $pre)
+        if (false !== $pre) {
             return $pre;
+        }
 
         if ($use_cache && wp_using_ext_object_cache()) {
             $value = wp_cache_get($transient, 'transient');
@@ -451,8 +457,10 @@ if (!function_exists('a2w_get_transient')) {
                 }
             }
 
-            if (!isset($value))
+            if (!isset($value)) {
                 $value = get_option($transient_option);
+            }
+
         }
 
         /**
@@ -473,7 +481,8 @@ if (!function_exists('a2w_get_transient')) {
 
 if (!function_exists('a2w_delete_transient')) {
 
-    function a2w_delete_transient($transient, $use_cache = false) {
+    function a2w_delete_transient($transient, $use_cache = false)
+    {
         if (a2w_check_defined('A2W_SAVE_TRANSIENT_AS_OPTION')) {
             return delete_option($transient);
         }
@@ -494,8 +503,10 @@ if (!function_exists('a2w_delete_transient')) {
             $option_timeout = '_transient_timeout_' . $transient;
             $option = '_transient_' . $transient;
             $result = delete_option($option);
-            if ($result)
+            if ($result) {
                 delete_option($option_timeout);
+            }
+
         }
 
         if ($result) {
@@ -517,7 +528,8 @@ if (!function_exists('a2w_delete_transient')) {
 
 if (!function_exists('a2w_generate_call_trace')) {
 
-    function a2w_generate_call_trace() {
+    function a2w_generate_call_trace()
+    {
         $e = new Exception();
         $trace = array_reverse(explode("\n", $e->getTraceAsString()));
         array_shift($trace); // remove {main}
@@ -532,44 +544,50 @@ if (!function_exists('a2w_generate_call_trace')) {
 }
 
 if (!function_exists('a2w_check_defined')) {
-    function a2w_check_defined($name) {
+    function a2w_check_defined($name)
+    {
         return apply_filters('a2w_check_defined_filter', (defined($name) && constant($name)), $name);
     }
 }
 
 if (!function_exists('a2w_image_url')) {
-    function a2w_image_url($image_url) {
-        if(a2w_check_defined('A2W_USE_CDN')){
+    function a2w_image_url($image_url)
+    {
+        if (a2w_check_defined('A2W_USE_CDN')) {
             $image_url = base64_encode($image_url);
-            return A2W()->plugin_url() . '/includes/cdn.php?url=' . $image_url.'&_sign='.a2w_sign_request(array('url'=>$image_url));
-        }else{
+            return A2W()->plugin_url() . '/includes/cdn.php?url=' . $image_url . '&_sign=' . a2w_sign_request(array('url' => $image_url));
+        } else {
             return $image_url;
         }
     }
 }
 
 if (!function_exists('a2w_error_log')) {
-    function a2w_error_log($message) {
+    function a2w_error_log($message)
+    {
         A2W_Logs::getInstance()->write($message);
         error_log($message);
     }
 }
 
 if (!function_exists('a2w_info_log')) {
-    function a2w_info_log($message) {
+    function a2w_info_log($message)
+    {
         A2W_Logs::getInstance()->write($message);
     }
 }
 
 if (!function_exists('a2w_print_throwable')) {
-    function a2w_print_throwable($throwable) {
-        a2w_error_log('PHP Error:  '.$throwable->getMessage().' in '.$throwable->getFile().':'.$throwable->getLine().PHP_EOL.'Stack trace:'.PHP_EOL.$throwable->getTraceAsString());
+    function a2w_print_throwable($throwable)
+    {
+        a2w_error_log('PHP Error:  ' . $throwable->getMessage() . ' in ' . $throwable->getFile() . ':' . $throwable->getLine() . PHP_EOL . 'Stack trace:' . PHP_EOL . $throwable->getTraceAsString());
     }
 }
 
 if (!function_exists('a2w_gen_pk')) {
-    function a2w_gen_pk($length = 32) {
-        try{
+    function a2w_gen_pk($length = 32)
+    {
+        try {
             $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $len = strlen($chars);
             $val = '';
@@ -577,22 +595,22 @@ if (!function_exists('a2w_gen_pk')) {
                 $val .= $chars[rand(0, $len - 1)];
             }
 
-            if (!file_exists(WP_CONTENT_DIR. '/uploads/ali2woo/')) {
-                mkdir(WP_CONTENT_DIR.'/uploads/ali2woo/');
+            if (!file_exists(WP_CONTENT_DIR . '/uploads/ali2woo/')) {
+                mkdir(WP_CONTENT_DIR . '/uploads/ali2woo/');
             }
 
-            file_put_contents(WP_CONTENT_DIR.'/uploads/ali2woo/pk.php','<?php function a2w_plugin_key(){return "'.$val.'";}');
-        }catch (Exception $e) {
+            file_put_contents(WP_CONTENT_DIR . '/uploads/ali2woo/pk.php', '<?php function a2w_plugin_key(){return "' . $val . '";}');
+        } catch (Exception $e) {
             a2w_print_throwable($e);
         }
     }
 }
 
-
 if (!function_exists('a2w_get_pk')) {
-    function a2w_get_pk() {
-        if (file_exists(WP_CONTENT_DIR.'/uploads/ali2woo/pk.php')) {
-            require_once(WP_CONTENT_DIR.'/uploads/ali2woo/pk.php');
+    function a2w_get_pk()
+    {
+        if (file_exists(WP_CONTENT_DIR . '/uploads/ali2woo/pk.php')) {
+            require_once WP_CONTENT_DIR . '/uploads/ali2woo/pk.php';
             return a2w_plugin_key();
         }
         return "";
@@ -600,20 +618,33 @@ if (!function_exists('a2w_get_pk')) {
 }
 
 if (!function_exists('a2w_sign_request')) {
-    function a2w_sign_request($data, $pk=false) {
+    function a2w_sign_request($data, $pk = false)
+    {
         $pk = $pk ? $pk : a2w_get_pk();
         unset($data['_sign']);
         ksort($data);
         $val = "";
-        foreach($data as $k=>$v){
-            $val .= $k.$v;
+        foreach ($data as $k => $v) {
+            $val .= $k . $v;
         }
-        return md5($_SERVER['HTTP_HOST'].$val.$pk);
+        return md5($_SERVER['HTTP_HOST'] . $val . $pk);
     }
 }
 
 if (!function_exists('a2w_verify_request')) {
-    function a2w_verify_request($sign, $data, $pk=false) {
+    function a2w_verify_request($sign, $data, $pk = false)
+    {
         return $sign === a2w_sign_request($data, $pk);
+    }
+}
+
+if (!function_exists('a2w_json_decode')) {
+    function a2w_json_decode($json, $assoc = true, $depth = 512, $options = 2)
+    {
+        if (function_exists('mb_convert_encoding')) {
+            $json = mb_convert_encoding($json, 'UTF-8', 'UTF-8');
+        }
+
+        return json_decode($json, $assoc, $depth, $options);
     }
 }

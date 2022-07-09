@@ -93,7 +93,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 				if ($info['installed']) {
 					switch_theme($info['slug']);
 					if (wp_get_theme()->get_stylesheet() === $info['slug']) {
-						$result = array('activated' => true, 'info' => $this->_get_theme_info($query['theme']));
+						$result = array('activated' => true, 'info' => $this->_get_theme_info($query['theme']), 'last_state' => $info);
 					} else {
 						$result = $this->_generic_error_response('theme_not_activated', array(
 							'theme' => $query['theme'],
@@ -114,20 +114,22 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 			case 'network_enable':
 				$info = $this->_get_theme_info($query['theme']);
 				if ($info['installed']) {
-					// Make sure that network_enable_theme is present and callable since
-					// it is only available at 4.6. If not, we'll do things the old fashion way
-					if (is_callable(array('WP_Theme', 'network_enable_theme'))) {
-						WP_Theme::network_enable_theme($info['slug']);
-					} else {
-						$allowed_themes = get_site_option('allowedthemes');
-						$allowed_themes[$info['slug']] = true;
+					if (current_user_can('manage_network_themes')) {
+						// Make sure that network_enable_theme is present and callable since
+						// it is only available at 4.6. If not, we'll do things the old fashion way
+						if (is_callable(array('WP_Theme', 'network_enable_theme'))) {
+							WP_Theme::network_enable_theme($info['slug']);
+						} else {
+							$allowed_themes = get_site_option('allowedthemes');
+							$allowed_themes[$info['slug']] = true;
 
-						update_site_option('allowedthemes', $allowed_themes);
+							update_site_option('allowedthemes', $allowed_themes);
+						}
 					}
 
 					$allowed = WP_Theme::get_allowed_on_network();
 					if (is_array($allowed) && !empty($allowed[$info['slug']])) {
-						$result = array('enabled' => true, 'info' => $this->_get_theme_info($query['theme']));
+						$result = array('enabled' => true, 'info' => $this->_get_theme_info($query['theme']), 'last_state' => $info);
 					} else {
 						$result = $this->_generic_error_response('theme_not_enabled', array(
 							'theme' => $query['theme'],
@@ -148,22 +150,24 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 			case 'network_disable':
 				$info = $this->_get_theme_info($query['theme']);
 				if ($info['installed']) {
-					// Make sure that network_disable_theme is present and callable since
-					// it is only available at 4.6. If not, we'll do things the old fashion way
-					if (is_callable(array('WP_Theme', 'network_disable_theme'))) {
-						WP_Theme::network_disable_theme($info['slug']);
-					} else {
-						$allowed_themes = get_site_option('allowedthemes');
-						if (isset($allowed_themes[$info['slug']])) {
-							unset($allowed_themes[$info['slug']]);
-						}
+					if (current_user_can('manage_network_themes')) {
+						// Make sure that network_disable_theme is present and callable since
+						// it is only available at 4.6. If not, we'll do things the old fashion way
+						if (is_callable(array('WP_Theme', 'network_disable_theme'))) {
+							WP_Theme::network_disable_theme($info['slug']);
+						} else {
+							$allowed_themes = get_site_option('allowedthemes');
+							if (isset($allowed_themes[$info['slug']])) {
+								unset($allowed_themes[$info['slug']]);
+							}
 
-						update_site_option('allowedthemes', $allowed_themes);
+							update_site_option('allowedthemes', $allowed_themes);
+						}
 					}
 
 					$allowed = WP_Theme::get_allowed_on_network();
 					if (is_array($allowed) && empty($allowed[$info['slug']])) {
-						$result = array('disabled' => true, 'info' => $this->_get_theme_info($query['theme']));
+						$result = array('disabled' => true, 'info' => $this->_get_theme_info($query['theme']), 'last_state' => $info);
 					} else {
 						$result = $this->_generic_error_response('theme_not_disabled', array(
 							'theme' => $query['theme'],
@@ -262,7 +266,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 							'info' => $this->_get_theme_info($query['theme'])
 						));
 					} else {
-						$result = array('installed' => true, 'info' => $this->_get_theme_info($query['theme']));
+						$result = array('installed' => true, 'info' => $this->_get_theme_info($query['theme']), 'last_state' => $info);
 					}
 				}
 				break;
@@ -329,6 +333,26 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	}
 
 	/**
+	 * Processing an action for multiple items
+	 *
+	 * @param array $query Parameter array containing a list of themes to process
+	 * @return array Contains the results of the bulk process
+	 */
+	public function process_action_in_bulk($query) {
+		$action = isset($query['action']) ? $query['action'] : '';
+		$items = isset($query['args']) ? $query['args']['items'] : array();
+
+		$results = array();
+		if (!empty($action) && !empty($items) && is_array($items)) {
+			foreach ($items as $value) {
+				$results[] = array($this, $action)($value);
+			}
+		}
+
+		return $this->_response($results);
+	}
+
+	/**
 	 * Activates the theme
 	 *
 	 * @param array $query Parameter array containing the name of the theme to activate
@@ -336,10 +360,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function activate_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme'), array('switch_themes'));
+		$fields = array('theme');
+		$permissions = array('switch_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
+
+		$this->_preload_credentials($query);
 
 		$result = $this->_apply_theme_action('activate', $query);
 		if (empty($result['activated'])) {
@@ -357,10 +386,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function network_enable_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme'), array('switch_themes'));
+		$fields = array('theme');
+		$permissions = array('switch_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
+
+		$this->_preload_credentials($query);
 
 		$result = $this->_apply_theme_action('network_enable', $query);
 		if (empty($result['enabled'])) {
@@ -378,10 +412,15 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function network_disable_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme'), array('switch_themes'));
+		$fields = array('theme');
+		$permissions = array('switch_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
+
+		$this->_preload_credentials($query);
 
 		$result = $this->_apply_theme_action('network_disable', $query);
 		if (empty($result['disabled'])) {
@@ -399,7 +438,10 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function install_activate_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme', 'slug'), array('install_themes', 'switch_themes'));
+		$fields = array('theme', 'slug');
+		$permissions = array('install_themes', 'switch_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
@@ -427,7 +469,10 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function install_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme', 'slug'), array('install_themes'));
+		$fields = array('theme', 'slug');
+		$permissions = array('install_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
@@ -450,28 +495,31 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function delete_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme'), array('delete_themes'));
+		$fields = array('theme');
+		$permissions = array('delete_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
 
 		$this->_preload_credentials($query);
-		$info = $this->_get_theme_info($query['theme']);
 
+		$info = $this->_get_theme_info($query['theme']);
 		if ($info['installed']) {
 			$deleted = delete_theme($info['slug']);
 
 			if ($deleted) {
-				$result = array('deleted' => true, 'info' => $this->_get_theme_info($query['theme']));
+				$result = array('deleted' => true, 'info' => $this->_get_theme_info($query['theme']), 'last_state' => $info);
 			} else {
-				$result = $this->_generic_error_response('delete_theme_failed', array(
+				return $this->_generic_error_response('delete_theme_failed', array(
 					'theme' => $query['theme'],
 					'error_code' => 'delete_theme_failed',
 					'info' => $info
 				));
 			}
 		} else {
-			$result = $this->_generic_error_response('theme_not_installed', array(
+			return $this->_generic_error_response('theme_not_installed', array(
 				'theme' => $query['theme'],
 				'error_code' => 'theme_not_installed',
 				'info' => $info
@@ -489,16 +537,19 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function update_theme($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array('theme'), array('update_themes'));
+		$fields = array('theme');
+		$permissions = array('update_themes');
+
+		$error = $this->_validate_fields_and_capabilities($query, $fields, $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
 
 		$this->_preload_credentials($query);
-		$info = $this->_get_theme_info($query['theme']);
-
+		
 		// Make sure that we still have the theme installed before running
 		// the update process
+		$info = $this->_get_theme_info($query['theme']);
 		if ($info['installed']) {
 			// Load the updates command class if not existed
 			if (!class_exists('UpdraftCentral_Updates_Commands')) include_once('updates.php');
@@ -554,6 +605,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 				$info['active'] = ($slug === $current_theme_slug) ? true : false;
 				$info['slug'] = $slug;
 				$info['data'] = $value;
+				$info['name'] = $theme_name;
 				break;
 			}
 		}
@@ -569,7 +621,14 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 	 */
 	public function load_themes($query) {
 
-		$error = $this->_validate_fields_and_capabilities($query, array(), array('install_themes', 'switch_themes'));
+		$permissions = array('install_themes', 'switch_themes');
+		$args = array();
+		if (is_multisite() && !is_super_admin(get_current_user_id())) {
+			$permissions = array('switch_themes');
+			$args = array('allowed' => true, 'blog_id' => get_current_blog_id());
+		}
+
+		$error = $this->_validate_fields_and_capabilities($query, array(), $permissions);
 		if (!empty($error)) {
 			return $error;
 		}
@@ -585,7 +644,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 		$theme_updates = (array) $updates->get_item_updates('themes');
 
 		// Get all themes
-		$themes = wp_get_themes();
+		$themes = wp_get_themes($args);
 		$current_theme_slug = basename(get_stylesheet_directory());
 
 		foreach ($themes as $slug => $value) {
@@ -641,6 +700,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 		$result = array(
 			'themes' => $results,
 			'theme_updates' => $theme_updates,
+			'is_super_admin' => is_super_admin(),
 		);
 
 		$result = array_merge($result, $this->_get_backup_credentials_settings(get_theme_root()));

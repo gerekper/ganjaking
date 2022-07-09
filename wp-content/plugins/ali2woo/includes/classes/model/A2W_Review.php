@@ -268,21 +268,14 @@ if (!class_exists('A2W_Review')) {
         }
 
         public function maybe_skip_review($text){
-
             if (a2w_get_setting('review_skip_empty') && empty($text)) {
                 return true;
             }
-
-            $keywords_str = a2w_get_setting('review_skip_keywords');
-      
+            $keywords_str = trim(trim(a2w_get_setting('review_skip_keywords')),',');
             if ($keywords_str) {
-
-                $keywords = explode(',', $keywords_str);
-
+                $keywords = array_map('trim', explode(',', $keywords_str));
                 return $this->found_keywords($keywords, $text);
-     
             }
-
             return false;
         }
 

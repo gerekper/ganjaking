@@ -1094,6 +1094,9 @@ function seedprod_pro_new_page_to_seedprod() {
 					array( '%d' )
 				);
 
+				update_post_meta( $lpage_id, '_seedprod_edited_with_seedprod', '1' );
+				delete_post_meta( $lpage_id, '_seedprod_page' );
+
 				// redirect to setup
 				$edit_url = admin_url() . 'admin.php?page=seedprod_pro_builder&id=' . $lpage_id . '#/setup/' . $lpage_id;
 				wp_safe_redirect( $edit_url );

@@ -85,8 +85,13 @@ if ( 'bacs' !== ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->payment_
 
 			}
 
-			if ( ! $display )
+			if ( ! $display && ! empty( $show_all_items ) ) {
+				$display = true;
+			}
+
+			if ( ! $display ) {
 				continue;
+			}
 
 			$displayed_total += $order->get_line_total( $item, true );
 

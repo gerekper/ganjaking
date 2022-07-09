@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Shipment Tracking
  * Plugin URI: https://woocommerce.com/products/shipment-tracking/
  * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if neccessary via a regular link.
- * Version: 1.6.31
+ * Version: 1.7.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-shipment-tracking
  * Domain Path: /languages
  * WC requires at least: 2.6
- * WC tested up to: 5.9
- * Tested up to: 5.8
+ * WC tested up to: 6.1
+ * Tested up to: 5.9
  *
  * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
@@ -40,7 +40,7 @@ function woocommerce_shipment_tracking_missing_wc_notice() {
  * WC_Shipment_Tracking class
  */
 if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
-	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.6.31' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.7.0' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Plugin's main class.
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
 			add_action( 'wp_ajax_wc_shipment_tracking_save_form', array( $this->actions, 'save_meta_box_ajax' ) );
 			add_action( 'wp_ajax_wc_shipment_tracking_get_items', array( $this->actions, 'get_meta_box_items_ajax' ) );
 
-			$subs_version = class_exists( 'WC_Subscriptions' ) && ! empty( WC_Subscriptions::$version ) ? WC_Subscriptions::$version : null;
+			$subs_version = $this->get_subscriptions_version();
 
 			// Prevent data being copied to subscriptions.
 			if ( null !== $subs_version && version_compare( $subs_version, '2.0.0', '>=' ) ) {
@@ -221,6 +221,26 @@ if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
 			$this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
 
 			return $this->plugin_path;
+		}
+
+		/**
+		 * Gets the version of Subscriptions active on the store.
+		 *
+		 * This works for stores that have the WC Subscriptions extension activated or
+		 * the subscriptions-core version that is bundled in WooCommerce Payments.
+		 *
+		 * @return null|string
+		 */
+		public function get_subscriptions_version() {
+			$version = null;
+
+			if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+				$version = WC_Subscriptions_Core_Plugin::instance()->get_plugin_version();
+			} elseif ( class_exists( 'WC_Subscriptions' ) ) {
+				$version = WC_Subscriptions::$version;
+			}
+
+			return $version;
 		}
 	}
 endif;

@@ -523,7 +523,7 @@ if (!class_exists('A2W_Utils')) {
             return !$text ? '_' : $text;
         }
 
-        public static function get_product_shipping_info($_product, $quantity = 1, $default_country = false, $with_vars = true)
+        public static function get_product_shipping_info($_product, $quantity = 1, $default_country_to = false, $with_vars = true)
         {
             $woocommerce_model = new A2W_Woocommerce();
             $loader = new A2W_Aliexpress();
@@ -536,10 +536,10 @@ if (!class_exists('A2W_Utils')) {
             $product = $woocommerce_model->get_product_by_post_id($product_id, $with_vars);
 
             $product_country = isset($product['shipping_to_country']) && $product['shipping_to_country'] ? $product['shipping_to_country'] : '';
-            $shiping_to_country = $default_country ? $default_country : $product_country;
+            $shiping_to_country = $default_country_to ? $default_country_to : $product_country;
 
             $shiping_from_country = get_post_meta($_product->get_id(), '_a2w_country_code', true);
-            $shiping_from_country = empty($shiping_from_country) ? "" : $shiping_from_country;
+            $shiping_from_country = empty($shiping_from_country) ? "CN" : $shiping_from_country;
 
             $items = $shipping_meta->get_items($quantity, $shiping_from_country, $shiping_to_country);
 
@@ -565,11 +565,13 @@ if (!class_exists('A2W_Utils')) {
                 }
             }
 
+            $current_currency = apply_filters('wcml_price_currency', NULL );
             if (!$has_shipping_method) {
                 $default_method = "";
                 $tmp_p = -1;
                 foreach ($items as $k => $item) {
                     $price = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                    $price = apply_filters( 'wcml_raw_price_amount', $price, $current_currency );
                     if ($tmp_p < 0 || $price < $tmp_p || $item['serviceName'] == $default_ff_method) {
                         $tmp_p = $price;
                         $default_method = $item['serviceName'];
@@ -584,6 +586,7 @@ if (!class_exists('A2W_Utils')) {
             foreach ($items as $item) {
                 if ($item['serviceName'] == $default_method) {
                     $shipping_cost = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                    $shipping_cost = apply_filters( 'wcml_raw_price_amount', $shipping_cost, $current_currency );
                 }
             }
 
@@ -626,9 +629,9 @@ if (!class_exists('A2W_Utils')) {
 
         public static function update_product_shipping($product, $country_from, $country_to, $page, $update_price)
         {
-            if (!$country_from && !$country_to) {
-                return;
-            }
+            $country_from = !empty($country_from) ? $country_from : 'CN';
+            $country_from = A2W_ProductShippingMeta::normalize_country($country_from);
+            $country_to = A2W_ProductShippingMeta::normalize_country($country_to);
 
             $country_model = new A2W_Country();
 
@@ -638,6 +641,12 @@ if (!class_exists('A2W_Utils')) {
                     $shipping_from_country_list[$var['country_code']] = $var['country_code'];
                 }
             }
+
+            // TODO experemental
+            if (empty($shipping_from_country_list) && isset($product['local_seller_tag']) && strlen($product['local_seller_tag']) == 2) {
+                $shipping_from_country_list[$product['local_seller_tag']] = $product['local_seller_tag'];
+            }
+
             $shipping_from_country_list = array_values($shipping_from_country_list);
             $product['shipping_from_country_list'] = $shipping_from_country_list;
 
@@ -645,20 +654,24 @@ if (!class_exists('A2W_Utils')) {
                 $country_from = $shipping_from_country_list[0];
             }
 
-            $product['shipping_to_country'] = $country_to;
-            if ($c = $country_model->get_country($product['shipping_to_country'])) {
-                $product['shipping_to_country_name'] = $c['n'];
-            }
-
             $product['shipping_from_country'] = $country_from;
             if ($c = $country_model->get_country($product['shipping_from_country'])) {
-                $product['shipping_from_country_name'] = $c['n'];
+                $product['shipping_from_country_name'] = A2W_ProductShippingMeta::normalize_country($c);
+            }
+
+            if (!$country_to) {
+                return $product;
+            }
+
+            $product['shipping_to_country'] = $country_to;
+            if ($c = $country_model->get_country($product['shipping_to_country'])) {
+                $product['shipping_to_country_name'] = A2W_ProductShippingMeta::normalize_country($c);
             }
 
             if ($update_price) {
                 $loader = new A2W_Aliexpress();
 
-                $country = $country_from . $country_to;
+                $country = A2W_ProductShippingMeta::meta_key($country_from, $country_to);
 
                 if (empty($product['shipping_info'][$country])) {
                     $res = $loader->load_shipping_info($product['id'], 1, $country_to, $country_from, $page == 'import' ? $product['price_min'] : $product['price'], $page == 'import' ? $product['price_max'] : $product['price']);
@@ -685,11 +698,13 @@ if (!class_exists('A2W_Utils')) {
                     }
                 }
 
-                if (!$has_shipping_method) {
+                $current_currency = apply_filters('wcml_price_currency', NULL );
+                if (!$has_shipping_method) {                    
                     $default_method = "";
                     $tmp_p = -1;
                     foreach ($items as $k => $item) {
                         $price = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                        $price = apply_filters( 'wcml_raw_price_amount', $price, $current_currency );
                         if ($tmp_p < 0 || $price < $tmp_p || $item['serviceName'] == $default_ff_method) {
                             $tmp_p = $price;
                             $default_method = $item['serviceName'];
@@ -705,12 +720,110 @@ if (!class_exists('A2W_Utils')) {
                 foreach ($items as $item) {
                     if ($item['serviceName'] == $product['shipping_default_method']) {
                         $product['shipping_cost'] = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                        $product['shipping_cost'] = apply_filters( 'wcml_raw_price_amount', $product['shipping_cost'], $current_currency );
                     }
                 }
             }
 
             return $product;
         }
+
+        /**
+         * Get phone country code or return list of all country phone codes
+         *
+         * @param string $country
+         *
+         * @return mixed|string|null
+         */
+        public static function get_phone_country_code($country = '')
+        {
+            $data = array();
+            $file = A2W()->plugin_path() . '/assets/data/phone_country_code.json';
+            if (file_exists($file)) {
+                $data = json_decode(file_get_contents($file), true);
+            }
+            if ($country) {
+                return isset($data[$country]) ? $data[$country] : '';
+            } else {
+                return $data;
+            }
+        }
+
+        public static function get_country_by_phone_code($code)
+        {
+            $data = array();
+            $file = A2W()->plugin_path() . '/assets/data/phone_country_code.json';
+            if (file_exists($file)) {
+                $data = json_decode(file_get_contents($file), true);
+            }
+            foreach ($data as $country => $c) {
+                if ($code === $code) {
+                    return $country;
+                }
+
+            }
+            return '';
+        }
+
+        public static function sanitize_phone_number($phone)
+        {
+            return preg_replace('/[^\d]/', '', $phone);
+        }
+
+        public static function wp_kses_post($content)
+        {
+            $allowed_html = wp_kses_allowed_html('post');
+            $allowed_html = array_merge($allowed_html, array(
+                'input' => array(
+                    'type' => 1,
+                    'id' => 1,
+                    'name' => 1,
+                    'class' => 1,
+                    'placeholder' => 1,
+                    'autocomplete' => 1,
+                    'style' => 1,
+                    'value' => 1,
+                    'size' => 1,
+                    'checked' => 1,
+                    'disabled' => 1,
+                    'readonly' => 1,
+                    'data-*' => 1,
+                ),
+                'form' => array(
+                    'method' => 1,
+                    'id' => 1,
+                    'class' => 1,
+                    'action' => 1,
+                    'data-*' => 1,
+                ),
+                'select' => array(
+                    'id' => 1,
+                    'name' => 1,
+                    'class' => 1,
+                    'multiple' => 1,
+                    'data-*' => 1,
+                ),
+                'option' => array(
+                    'value' => 1,
+                    'selected' => 1,
+                    'data-*' => 1,
+                ),
+            )
+            );
+            foreach ($allowed_html as $key => $value) {
+                if ($key === 'input') {
+                    $allowed_html[$key]['data-*'] = 1;
+                    $allowed_html[$key]['checked'] = 1;
+                    $allowed_html[$key]['disabled'] = 1;
+                    $allowed_html[$key]['readonly'] = 1;
+                } elseif (in_array($key, array('div', 'span', 'a', 'form', 'select', 'option', 'tr', 'td'))) {
+                    $allowed_html[$key]['data-*'] = 1;
+                }
+            }
+
+            return wp_kses($content, $allowed_html);
+        }
+
     }
 
 }

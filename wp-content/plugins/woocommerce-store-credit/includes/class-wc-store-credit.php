@@ -27,7 +27,7 @@ final class WC_Store_Credit {
 	 *
 	 * @var string
 	 */
-	public $version = '4.1.1';
+	public $version = '4.2.0';
 
 	/**
 	 * Constructor.
@@ -125,6 +125,7 @@ final class WC_Store_Credit {
 
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'woocommerce_loaded', array( $this, 'wc_loaded' ) );
+		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 15 );
 	}
 
 	/**
@@ -146,5 +147,14 @@ final class WC_Store_Credit {
 		if ( class_exists( 'WC_Abstract_Privacy' ) ) {
 			include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-privacy.php';
 		}
+	}
+
+	/**
+	 * Includes the Template Functions - This makes them pluggable by plugins and themes.
+	 *
+	 * @since 4.2.0
+	 */
+	public function include_template_functions() {
+		include_once WC_STORE_CREDIT_PATH . 'includes/wc-store-credit-template-functions.php';
 	}
 }

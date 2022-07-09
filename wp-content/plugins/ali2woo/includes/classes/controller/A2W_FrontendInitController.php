@@ -19,6 +19,8 @@ if (!class_exists('A2W_FrontendInitController')) {
             add_action('wp_ajax_a2w_frontend_load_shipping_info', array($this, 'ajax_frontend_load_shipping_info'));
             add_action('wp_ajax_nopriv_a2w_frontend_load_shipping_info', array($this, 'ajax_frontend_load_shipping_info'));
 
+            add_filter( 'wcml_multi_currency_ajax_actions', 'add_action_to_multi_currency_ajax', 10, 1 );
+
             add_action('wp_ajax_a2w_frontend_update_shipping_list', array($this, 'ajax_frontend_update_shipping_list'));
             add_action('wp_ajax_nopriv_a2w_frontend_update_shipping_list', array($this, 'ajax_frontend_update_shipping_list'));
 
@@ -48,6 +50,11 @@ if (!class_exists('A2W_FrontendInitController')) {
             //also do not show in the customers emails
             add_filter('woocommerce_order_item_get_formatted_meta_data', array($this, 'woocommerce_order_item_get_formatted_meta_data'), 10, 2);
 
+        }
+
+        function add_action_to_multi_currency_ajax( $ajax_actions ) {
+            $ajax_actions[] = 'a2w_frontend_load_shipping_info'; // Add a AJAX action to the array            
+            return $ajax_actions;
         }
 
         public function ajax_frontend_load_shipping_info()

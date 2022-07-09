@@ -328,5 +328,160 @@
     color: white;
 }
 
-
 /* place orders in bulk popup end */
+
+.modal-overlay.modal-fulfillment {
+    z-index: 10000;
+}
+
+.modal-overlay.modal-fulfillment .modal-body {
+    min-height: 140px;
+}
+
+/* fulfillment model */
+.modal-overlay.modal-fulfillment .modal-content {
+    overflow: hidden;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.modal-overlay.modal-fulfillment .loader {
+    position: absolute;
+    width: 100%;
+    top: 55px;
+    bottom: 0px;
+    background-color: #fff;
+}
+
+.modal-fulfillment .order-info{
+    display: flex;
+}
+
+.modal-fulfillment .order-info > div {
+    margin-right: 20px;
+}
+
+.modal-fulfillment .order-info .order-message {
+    flex:1;
+    margin: 0;
+}
+
+.modal-fulfillment .name > div {
+    margin-top: 4px;
+}
+
+.modal-fulfillment .order-message, .modal-fulfillment .item-message {
+    font-weight: bold;
+}
+/* .modal-fulfillment .order-message > span, .modal-fulfillment .item-message > span {
+    font-weight: normal;
+} */
+.modal-fulfillment .order-message .error, .modal-fulfillment .item-message .error {
+    color:red;
+}
+.modal-fulfillment .order-message .ok, .modal-fulfillment .item-message .ok {
+    color:green;
+}
+
+.modal-fulfillment .wp-list-table.fulfillment-order-items th {
+    font-weight: bold;
+}
+
+.modal-fulfillment .wp-list-table.fulfillment-order-items tfoot th:first-child, .modal-fulfillment .wp-list-table.fulfillment-order-items thead th:first-child {
+    padding-left: 1em;
+}
+
+.modal-fulfillment .wp-list-table.fulfillment-order-items tbody td:first-child {
+    padding-left: 1em;
+}
+
+.modal-fulfillment .wp-list-table.fulfillment-order-items tbody td, .modal-fulfillment .wp-list-table.fulfillment-order-items tbody th {
+    padding: 1em;
+    line-height: initial;
+}
+.modal-fulfillment .wp-list-table.fulfillment-order-items td, .modal-fulfillment .wp-list-table.fulfillment-order-items th {
+    width: inherit;
+    vertical-align: middle;
+}
+
+.fulfillment-order-items .remove-item {transition: opacity 0.3s;float: right; background: url(../img/icons/close.png) center center no-repeat; background-size: 12px; width: 20px; height: 20px; opacity: 0.5;}
+.fulfillment-order-items .remove-item:hover{opacity: 1;}
+
+
+/* .fulfillment-order-items .photo{
+    width: 60px;
+}
+.fulfillment-order-items .cost{
+    width: 60px;
+}
+.fulfillment-order-items .quantity{
+    width: 60px;
+} */
+
+.modal-fulfillment .wp-list-table.fulfillment-order-items td.actions, .modal-fulfillment .wp-list-table.fulfillment-order-items th.actions{
+    width: 60px;
+}
+
+.fulfillment-order-items .shipping_company select{
+    max-width: 280px;
+}
+
+
+
+
+.fulfillment-order-items .photo img{
+    width: 40px;
+    height: 40px;
+
+}
+
+.fulfillment-order-items .attributes > div, .fulfillment-order-items .attributes > div > p {
+    display: inline-block;
+}
+
+.fulfillment-order-items .name > a {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 400px;
+}
+
+.modal-fulfillment .single-order-wrap:not(:last-child) {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-fulfillment .empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.modal-fulfillment .order-edit-address-form {
+    display:none;
+    margin-top: 1em;
+}
+
+.modal-fulfillment .order-edit-address-form.open {
+    display:block;
+}
+.modal-fulfillment .order-edit-address-form .form-field {
+    width: 200px;
+    display: inline-block;
+    margin: 4px 0;
+}
+.modal-fulfillment .order-edit-address-form .form-field label {
+    display:block;
+}
+
+.a2w-content .modal-fulfillment .btn-success .btn-icon-wrap{display: none;}
+.a2w-content .modal-fulfillment .btn-success:disabled {position: relative;padding-left: 42px;border: 1px solid #d2dce8;color: #b5c6da!important;background-color: #ffffff;background-image: none;}
+.a2w-content .modal-fulfillment .btn-success:disabled .btn-icon-wrap{display: block;}
+.a2w-content .modal-fulfillment .btn-success .btn-icon-wrap.cssload-container{display: none;}
+.a2w-content .modal-fulfillment .btn-success.loading .btn-icon-wrap.cssload-container{display: inherit;}
+
+/* fulfillment model */
+

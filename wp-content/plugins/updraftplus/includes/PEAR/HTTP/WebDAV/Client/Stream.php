@@ -226,7 +226,7 @@ class HTTP_WebDAV_Client_Stream
 			// Log only if the condition was not expected
 			global $updraftplus_404_should_be_logged;
 			if ((isset($updraftplus_404_should_be_logged) && $updraftplus_404_should_be_logged) || !isset($updraftplus_404_should_be_logged)) {
-            	trigger_error("file not found: ".$result->getStatus());
+            	trigger_error("file not found: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description(404));
 			}
             return false;
         }
@@ -456,7 +456,7 @@ class HTTP_WebDAV_Client_Stream
                 # You lie!
                 return 1 + $end - $start;
             } else {
-              trigger_error("Unexpected HTTP response code: ".$result->getStatus());
+              trigger_error("Unexpected HTTP response code: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()));
               return false;
             }
              
@@ -473,7 +473,7 @@ class HTTP_WebDAV_Client_Stream
             }
             
         default: 
-            trigger_error("Unexpected HTTP response code: ".$result->getStatus());
+            trigger_error("Unexpected HTTP response code: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()));
             return false;
         }
 
@@ -1009,7 +1009,7 @@ class HTTP_WebDAV_Client_Stream
 
         if ($result->getStatus() != 200) {
             // If the status is 301 we want to return false so the calling code can deal with it but not trigger any errors on the front end
-            if ($result->getStatus() != 301) trigger_error($result->getStatus() . ' returned when checking WebDAV server options using URL: ' . $this->url . ' response: ' . json_encode($result->getBody()));
+            if ($result->getStatus() != 301) trigger_error(UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()) . ' returned when checking WebDAV server options using URL: ' . $this->url . ' response: ' . json_encode($result->getBody()));
             return false;
         }
 
@@ -1139,6 +1139,7 @@ class HTTP_WebDAV_Client_Stream
 
         return $req;
     }
+
 }
 
 /*

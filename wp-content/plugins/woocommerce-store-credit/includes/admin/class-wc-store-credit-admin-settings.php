@@ -29,6 +29,7 @@ class WC_Store_Credit_Admin_Settings extends WC_Settings_Page {
 		parent::__construct();
 
 		add_filter( "woocommerce_get_settings_{$this->id}", array( $this, 'register_settings' ), 0 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wc_store_credit_cart_notice', array( $this, 'sanitize_cart_notice' ) );
 	}
 
 	/**
@@ -116,11 +117,52 @@ class WC_Store_Credit_Admin_Settings extends WC_Settings_Page {
 		);
 
 		$settings[] = array(
+			'id'      => 'wc_store_credit_show_cart_notice',
+			'name'    => _x( 'Display coupons', 'setting label', 'woocommerce-store-credit' ),
+			'desc'    => _x( "Display the customer's coupons on the Cart and Checkout pages.", 'setting desc', 'woocommerce-store-credit' ),
+			'type'    => 'checkbox',
+			'default' => 'yes',
+		);
+
+		$settings[] = array(
+			'id'                => 'wc_store_credit_cart_notice',
+			'name'              => _x( 'Coupons notice', 'setting label', 'woocommerce-store-credit' ),
+			'desc'              => _x( 'The notice to display on the Cart and Checkout pages when the customer has coupons available.', 'setting desc', 'woocommerce-store-credit' ),
+			'desc_tip'          => true,
+			'type'              => 'textarea',
+			'placeholder'       => sprintf(
+				'%1$s [link]%2$s[/link]',
+				__( 'You have store credit coupons available!', 'woocommerce-store-credit' ),
+				__( 'View coupons', 'woocommerce-store-credit' )
+			),
+			'custom_attributes' => array(
+				'rows' => 3,
+			),
+		);
+
+		$settings[] = array(
 			'id'   => 'store_credit_general',
 			'type' => 'sectionend',
 		);
 
 		return $settings;
+	}
+
+	/**
+	 * Sanitizes the option 'cart_notice'.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param string $value The option value.
+	 * @return string
+	 */
+	public function sanitize_cart_notice( $value ) {
+		if ( ! empty( $value ) && ! preg_match( '\[link].+\[/link]', $value ) ) {
+			$value  = str_replace( array( '[link]', '[/link]' ), '', $value );
+			$value .= ' [link]' . __( 'View coupons', 'woocommerce-store-credit' ) . '[/link]';
+		}
+
+		return $value;
 	}
 }
 

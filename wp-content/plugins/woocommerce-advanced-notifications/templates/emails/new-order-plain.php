@@ -52,6 +52,10 @@ foreach ( $order->get_items() as $item_id => $item ) {
 
 	}
 
+	if ( ! $display && ! empty( $show_all_items ) ) {
+		$display = true;
+	}
+
 	if ( ! $display ) {
 		continue;
 	}

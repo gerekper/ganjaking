@@ -5,9 +5,9 @@
 
 if (!defined('ABSPATH')) die('Access denied.');
 
-if (!class_exists('Updraft_Task_Manager_1_2')) :
+if (!class_exists('Updraft_Task_Manager_1_3')) :
 
-abstract class Updraft_Task_Manager_1_2 {
+abstract class Updraft_Task_Manager_1_3 {
 
 	protected $loggers;
 
@@ -25,9 +25,9 @@ abstract class Updraft_Task_Manager_1_2 {
 	 */
 	public function __construct() {
 
-		if (!class_exists('Updraft_Task_1_1')) require_once('class-updraft-task.php');
+		if (!class_exists('Updraft_Task_1_2')) require_once('class-updraft-task.php');
 		if (!class_exists('Updraft_Task_Manager_Commands_1_0')) require_once('class-updraft-task-manager-commands.php');
-		if (!class_exists('Updraft_Semaphore_2_2')) require_once(dirname(__FILE__).'/../updraft-semaphore/class-updraft-semaphore.php');
+		if (!class_exists('Updraft_Semaphore_3_0')) require_once(dirname(__FILE__).'/../updraft-semaphore/class-updraft-semaphore.php');
 		if (!class_exists('Updraft_Tasks_Activation')) require_once(dirname(__FILE__).'/class-updraft-tasks-activation.php');
 
 		$this->commands = new Updraft_Task_Manager_Commands_1_0($this);
@@ -82,7 +82,7 @@ abstract class Updraft_Task_Manager_1_2 {
 	 */
 	public function process_task($task) {
 
-		if (!is_a($task, 'Updraft_Task_1_1')) {
+		if (!is_a($task, 'Updraft_Task_1_2')) {
 			$task_id = (int) $task;
 			$task = $this->get_task_instance($task_id);
 		}
@@ -101,7 +101,7 @@ abstract class Updraft_Task_Manager_1_2 {
 	 */
 	public function get_task_status($task) {
 
-		if (!($task instanceof Updraft_Task_1_1)) {
+		if (!($task instanceof Updraft_Task_1_2)) {
 			$task_id = (int) $task;
 			$task = $this->get_task_instance($task_id);
 		}
@@ -119,7 +119,7 @@ abstract class Updraft_Task_Manager_1_2 {
 	 */
 	public function end_task($task) {
 		
-		if (!($task instanceof Updraft_Task_1_1)) {
+		if (!($task instanceof Updraft_Task_1_2)) {
 			$task_id = (int) $task;
 			$task = $this->get_task_instance($task_id);
 		}
@@ -147,9 +147,12 @@ abstract class Updraft_Task_Manager_1_2 {
 			$this->log(sprintf('A total of %d tasks of type %s found and will be processed in this iteration', $total, $type));
 		}
 
-		$this->queue_semaphore = new Updraft_Semaphore_2_2($type);
+		$this->queue_semaphore = new Updraft_Semaphore_3_0($type);
 		
-		$this->queue_semaphore->set_loggers($this->loggers);
+		// Prevent PHP warning which trigger from semaphore class set_loggers method if $this->loggers is empty
+		if (!empty($this->loggers)) {
+			$this->queue_semaphore->set_loggers($this->loggers);
+		}
 
 		if (!$this->queue_semaphore->lock()) {
 
@@ -161,7 +164,6 @@ abstract class Updraft_Task_Manager_1_2 {
 		$done = 0;
 		foreach ($task_list as $task) {
 			$this->process_task($task);
-			$this->queue_semaphore->update_lock(20);
 			$done++;
 			/**
 			 * Filters if the queue should be interrupted. Used after processing each task.
@@ -175,7 +177,7 @@ abstract class Updraft_Task_Manager_1_2 {
 			}
 		}
 
-		$this->queue_semaphore->unlock();
+		$this->queue_semaphore->release();
 		$this->log(sprintf('Successfully processed the queue (%s). %d tasks were processed out of %d.', $type, $done, $total));
 		$this->queue_semaphore->delete();
 
@@ -279,7 +281,7 @@ abstract class Updraft_Task_Manager_1_2 {
 
 		$tasks = array();
 		
-		if (array_key_exists($status, Updraft_Task_1_1::get_allowed_statuses())) {
+		if (array_key_exists($status, Updraft_Task_1_2::get_allowed_statuses())) {
 			$sql = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}tm_tasks WHERE status = %s AND type = %s", $status, $type);
 		} else {
 			$sql = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}tm_tasks WHERE type = %s", $type);
@@ -375,7 +377,7 @@ abstract class Updraft_Task_Manager_1_2 {
 	public function log($message, $error_type = 'info') {
 		if (isset($this->loggers)) {
 			foreach ($this->loggers as $logger) {
-				$logger->log($error_type, $message);
+				$logger->log($message, $error_type);
 			}
 		}
 	}

@@ -696,9 +696,25 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				wp_send_json_error( __( 'Inventory Test Fail! No options passed', $this->text_domain ) );
 			}
 
-			parse_str( sanitize_text_field( wp_unslash( $_REQUEST['options'] ) ), $options );
-			$sku              = stripslashes( $options['woocommerce_fba_ns_fba_test_inventory_sku'] );
+			/** TODO: JUST FOR TESTING.
+			if ( $this->ns_fba->is_debug ) {
+				error_log( "\ninventory_test_results() request options BEFORE parse: \n" . print_r( $_REQUEST['options'], true ) ); // phpcs:ignore
+			}
+			*/
+
+			// TODO: Clean up this atrocious mess. HINT: WE do NOT need to parse all the options into a var here!
+			// We need to rawurldecode the options so that their values go into the array properly.
+			// ALSO IGNORE sanitization warning here because trying to sanitize these options will mess up API requests.
+			// phpcs:ignore
+			parse_str( wp_unslash( $_REQUEST['options'] ), $options );
+			$sku              = $options['woocommerce_fba_ns_fba_test_inventory_sku'];
 			$inventory_number = -1;
+
+			/** TODO: JUST FOR TESTING.
+			if ( $this->ns_fba->is_debug ) {
+				error_log( "\ninventory_test_results() request options AFTER parse: \n" . print_r( $options, true ) );              // phpcs:ignore
+			}
+			*/
 
 			if ( ! $this->is_lwa_configured ) {
 				$service   = $this->ns_fba->inventory->create_service_inventory();
@@ -1267,7 +1283,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 							'title'       => __( 'Set Interval for Level Sync', $this->text_domain ),
 							'label'       => __( 'Set Interval for Level Sync', $this->text_domain ),
 							// translators: The last inventory sync container.
-							'description' => sprintf( __( 'Interval in minutes to sync your inventory levels automatically. %s', $this->text_domain ), $last_inventory_sync_date_container ),
+							'description' => sprintf( __( 'Interval in minutes to sync your order statuses and/or inventory levels automatically. %s', $this->text_domain ), $last_inventory_sync_date_container ),
 							'desc_tip'    => false,
 							'default'     => 1440,
 							'type'        => 'number',
@@ -1291,9 +1307,9 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 						'ns_fba_order_prefix'             => array(
 							'title'       => __( 'Order Prefix (Recommended)', $this->text_domain ),
-							'description' => __( 'This will add a prefix to the unique order key sent to Amazon for fulfillment. If it is blank, only the WooCommerce Order Key (like "wc_order_vhZOzkqNMuIkH") will be sent. It is recommended to specify a short value here (with no spaces) like "ns" specific to your store.', $this->text_domain ),
+							'description' => __( 'This will add a prefix to the unique order key sent to Amazon for fulfillment. If it is blank, only the WooCommerce Order ID (like "1234") will be sent. It is recommended to specify a short value here (with no spaces) like "ns_" specific to your store. ONLY USE letters, dashes, underscores!', $this->text_domain ),
 							'desc_tip'    => true,
-							'default'     => 'ecommerce',
+							'default'     => 'ecommerce_',
 							'type'        => 'text',
 						),
 

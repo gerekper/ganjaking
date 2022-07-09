@@ -285,11 +285,11 @@ if ( ! class_exists( 'NS_FBA_Utils' ) ) {
 		/**
 		 * Check if the order item can be processed by Amazon.
 		 *
-		 * @param WC_Order              $order The order.
-		 * @param WC_Order_Item         $item  The Order item.
-		 * @param WC_Order_Item_Product $item_product The Item product.
-		 * @param int                   $product_id The product id.
-		 * @param bool                  $is_manual_send If its a manual send.
+		 * @param WC_Order      $order The order.
+		 * @param WC_Order_Item $item  The Order item.
+		 * @param WC_Product    $item_product The Item product.
+		 * @param int           $product_id The product id.
+		 * @param bool          $is_manual_send If its a manual send.
 		 *
 		 * @return bool
 		 */
@@ -322,8 +322,13 @@ if ( ! class_exists( 'NS_FBA_Utils' ) ) {
 				return true;
 			}
 
-			// check if this order item's product setting for Fulfill with Amazon FBA is turned ON.
+			// TODO: Future handling for both parent and variation level settings on/off fulfillment.
+			$maybe_parent_id = $item_product->get_parent_id();
+			// Simple product check if the setting for Fulfill with Amazon FBA is turned ON.
 			if ( $item_product && 'yes' === get_post_meta( $product_id, 'ns_fba_is_fulfill', true ) ) {
+				$is_order_item_amazon_fulfill = true;
+				// Variation product check for parent product setting where Fulfill with Amazon is ON.
+			} elseif ( ! empty( $maybe_parent_id ) && 'yes' === get_post_meta( $maybe_parent_id, 'ns_fba_is_fulfill', true ) ) {
 				$is_order_item_amazon_fulfill = true;
 			} else {
 				$is_order_item_amazon_fulfill = false;

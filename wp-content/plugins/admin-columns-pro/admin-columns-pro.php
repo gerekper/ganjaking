@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns Pro
-Version: 5.7.2
+Version: 5.7.3
 Description: Customize columns on the administration screens for post(types), users and other content. Filter and sort content, and edit posts directly from the posts overview. All via an intuitive, easy-to-use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -20,7 +20,7 @@ if ( ! is_admin() ) {
 }
 
 define( 'ACP_FILE', __FILE__ );
-define( 'ACP_VERSION', '5.7.2' );
+define( 'ACP_VERSION', '5.7.3' );
 
 /**
  * Deactivate Admin Columns
@@ -85,7 +85,7 @@ add_action( 'after_setup_theme', function () {
 		'ac-addon-jetengine/ac-addon-jetengine.php'             => '1.1',
 		'ac-addon-metabox/ac-addon-metabox.php'                 => '1.3',
 		'ac-addon-ninjaforms/ac-addon-ninjaforms.php'           => '1.6',
-		'ac-addon-pods/ac-addon-pods.php'                       => '1.6',
+		'ac-addon-pods/ac-addon-pods.php'                       => '1.7',
 		'ac-addon-types/ac-addon-types.php'                     => '1.8',
 		'ac-addon-woocommerce/ac-addon-woocommerce.php'         => '3.7',
 		'ac-addon-yoast-seo/ac-addon-yoast-seo.php'             => '1.2',

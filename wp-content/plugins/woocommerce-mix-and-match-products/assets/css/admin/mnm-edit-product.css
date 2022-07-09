@@ -23,7 +23,6 @@
       text-align: center;
       -webkit-user-select: none;
          -moz-user-select: none;
-          -ms-user-select: none;
               user-select: none;
       display: inline-block;
       transition: border 0.2s;
@@ -140,7 +139,6 @@
   transition: background 0.2s ease;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   width: 2.375em; }
   .woocommerce_options_panel .options_group .wc_mnm_toggle .description > label::before {

@@ -597,8 +597,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		}
 		$default_uri = implode("/", $chunks);
 
-		$empty_tag_replacement = apply_filters('permalink_manager_empty_tag_replacement', null, $element);
-		$default_uri = ($empty_tag_replacement || is_null($empty_tag_replacement)) ? str_replace("//", "/", preg_replace("/%(.+?)%/", $empty_tag_replacement, $default_uri)) : $default_uri;
+		$empty_tag_replacement = apply_filters('permalink_manager_empty_tag_replacement', '', $element);
+		$default_uri = preg_replace("/%(.+?)%/", $empty_tag_replacement, $default_uri);
+		$default_uri = str_replace("//", "/", $default_uri);
 
 		return trim($default_uri, "/");
 	}

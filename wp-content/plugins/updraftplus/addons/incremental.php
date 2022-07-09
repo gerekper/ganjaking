@@ -172,7 +172,9 @@ class UpdraftPlus_Addons_Incremental {
 			if (isset($job_file_entities[$youwhat]) && isset($backup_history[$youwhat])) {
 				$job_file_entities[$youwhat]['index'] = count($backup_history[$youwhat]);
 				$job_backup_files_array[$youwhat] = $backup_history[$youwhat];
-				$job_backup_files_array[$youwhat.'-size'] = $backup_history[$youwhat.'-size'];
+				if (isset($backup_history[$youwhat.'-size'])) {
+					$job_backup_files_array[$youwhat.'-size'] = $backup_history[$youwhat.'-size'];
+				}
 			}
 		}
 

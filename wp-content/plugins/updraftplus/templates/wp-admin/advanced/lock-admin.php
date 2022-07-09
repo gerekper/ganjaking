@@ -15,7 +15,7 @@ if (!class_exists('UpdraftPlus_Addon_LockAdmin') || (defined('UPDRAFTPLUS_NOADMI
 					
 				} else {
 			
-					?><a href="<?php $updraftplus->get_url('premium');?>" target="_blank">
+					?><a href="<?php echo $updraftplus->get_url('premium');?>" target="_blank">
 						<em><?php _e('For the ability to lock access to UpdraftPlus settings with a password, upgrade to UpdraftPlus Premium.', 'updraftplus'); ?></em>
 					</a><?php
 			

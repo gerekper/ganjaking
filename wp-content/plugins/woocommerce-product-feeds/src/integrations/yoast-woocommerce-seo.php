@@ -61,7 +61,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 	 * phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public static function getGtin( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['isbn'] ) ) {
 			$meta_value = $meta['isbn'];
 		}
@@ -84,8 +84,15 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the GTIN8 value for a product.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getGtin8( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['gtin8'] ) ) {
 			return [ $meta['gtin8'] ];
 		}
@@ -93,8 +100,15 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the GTIN12 value for a product.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getGtin12( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['gtin12'] ) ) {
 			return [ $meta['gtin12'] ];
 		}
@@ -102,8 +116,15 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the GTIN13 value for a product.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getGtin13( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['gtin13'] ) ) {
 			return [ $meta['gtin13'] ];
 		}
@@ -111,8 +132,15 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the GTIN14 value for a product.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getGtin14( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['gtin14'] ) ) {
 			return [ $meta['gtin14'] ];
 		}
@@ -120,8 +148,17 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the ISBN value for a product.
+	 *
+	 * NB: Only valid for main products, not variations. Variations will simply return an empty array.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getIsbn( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['isbn'] ) ) {
 			return [ $meta['isbn'] ];
 		}
@@ -129,12 +166,34 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return [];
 	}
 
+	/**
+	 * Get the MPN value for a product.
+	 *
+	 * @param $product
+	 *
+	 * @return array
+	 */
 	public static function getMpn( $product ) {
-		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
+		$meta = get_post_meta( $product->get_id(), self::getMetaKey( $product ), true );
 		if ( ! empty( $meta['mpn'] ) ) {
 			return [ $meta['mpn'] ];
 		}
 
 		return [];
+	}
+
+	/**
+	 * Work out which meta key to look at depending on the product type.
+	 *
+	 * @param $product
+	 *
+	 * @return string
+	 */
+	public static function getMetaKey( $product ) {
+		if ( $product->get_type() === 'variation' ) {
+			return 'wpseo_variation_global_identifiers_values';
+		}
+
+		return 'wpseo_global_identifier_values';
 	}
 }

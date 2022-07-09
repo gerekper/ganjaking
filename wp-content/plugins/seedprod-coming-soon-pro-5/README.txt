@@ -1,11 +1,11 @@
-=== Website Builder by SeedProd — Custom Theme Builder, Landing Page Builder, Coming Soon, Maintenance Mode & more  ===
+=== Website Builder by SeedProd — Theme Builder, Landing Page Builder, Coming Soon Page, Maintenance Mode ===
 Contributors: seedprod, smub
 Donate link: http://www.seedprod.com
 Tags: maintenance mode, coming soon page, landing page, website builder, page builder
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 6.12.0
+Stable tag: 6.13.0
 Text Domain: coming-soon
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Easy Drag & Drop Page Builder. A complete solution to create a WordPress Website
 
 == Description ==
 
-= SeedProd - Drag & Drop WordPress Website Builder & Landing Page Builder =
+= SeedProd - Drag & Drop WordPress Website Builder, Landing Page Builder, Coming Soon Page & Maintenance Mode =
 
 SeedProd was originally created in 2011 and allowed you to create a Coming Soon Page or a Maintenance Mode Page. You could work on your website in private while visitors see a "Coming Soon" or "Maintenance Mode" page. It still does this and really well!
 
@@ -51,13 +51,15 @@ Landing Pages have a particular purpose and desired user action; therefore, you 
 
 You can use our Domain Mapping feature to put landings page on their own domain, our Dynamic Text feature to add personalization, or our WooCommerce Blocks to build one-off product pages. These are just a few of the many powerful features SeedProd provides.
 
-= Building Coming Soon and Maintenance Mode Pages with SeedProd =
+= Building Coming Soon Pages and Maintenance Mode Pages with SeedProd =
 
 SeedProd allows you to build a coming soon or maintenance mode page that will hide your site from visitors and search engines like Google. You can work on your website in private. When the website uses coming soon mode, the page will be indexed by Google as long as your site is not set to be private in WordPress. 
 
 In Maintenance Mode, we return a 503 header status that lets Google know your site is down for maintenance.
 
 Both of these modes are essential for any WordPress Website to have.
+
+The Free Version of SeedProd comes with a variety of Coming Soon Page and Maintenance Mode templates.
 
 
 ### Full Page Builder Feature List:
@@ -221,41 +223,10 @@ This is always a WordPress caching issue. Go to the caching plugin's settings pa
 
 == Upgrade Notice ==
 
-= 6.10.0 =
-
-NEW - WooCommerce Support in Pro and other bug fixes.
-
 == Changelog ==
-= 6.10.0 =
-New!  Create a complete WooCommerce Store with SeedProd.
 
-Added – WooCommerce Template Tag Blocks:
-Menu Cart
-Product Title
-Product Featured Image
-Product Price
-Product Meta
-Add To Cart
-Product Content
-Short Description
-Additional Information
-Products Related
-Upsells
-Product Rating
-Product Stock
-Archive Products
-Product Dat Tabs
-Added – New Conditions:
-Product Page
-Product Category
-Product Tag
-Shop Page
-Added – Full Screen Cover and Contain Static Option for BG images.
-Added – Evergreen – restart option to countdown when it reaches zero.
-Fixed – Inconsistent image size on Testimonial and Author Box Blocks Tweak – Add Spacing to Product Grid Block
-Fixed – Added missing custom css attribute section to button.
-Tweak – Removed srcset attribute from images that are svgs.
-Tweak – Added option to restart evergreen countdown when it ends.
+= 6.12.2 =
+[Changelog &raquo;](https://www.seedprod.com/docs/changelog/)
 
 = 6.9.0 =
 

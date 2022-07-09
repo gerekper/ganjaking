@@ -300,7 +300,7 @@ jQuery(document).ready(function() {
 		jQuery.ajax(permalink_manager.ajax_url, {
 			type: 'POST',
 			data: {
-				action: 'dismissed_notice_handler',
+				action: 'pm_dismissed_notice_handler',
 				alert_id: alert_id,
 			}
 		});
@@ -309,11 +309,27 @@ jQuery(document).ready(function() {
 	/**
 	 * Save permalinks from Gutenberg with AJAX
 	 */
+	var pm_container = jQuery('#permalink-manager.postbox');
+	var pm_container_disabled = false;
+	var pm_container_reloading = false;
 	jQuery('#permalink-manager .save-row.hidden').removeClass('hidden');
 	jQuery('#permalink-manager').on('click', '#permalink-manager-save-button', pm_gutenberg_save_uri);
 
+	function pm_gutenberg_loading_overlay(show = true) {
+		if(show && !pm_container_disabled) {
+			pm_container_disabled = true;
+
+			jQuery(pm_container).LoadingOverlay('show', {
+				background: 'rgba(0, 0, 0, 0.1)',
+			});
+		} else if(!show && pm_container_disabled) {
+			pm_container_disabled = false;
+
+			jQuery(pm_container).LoadingOverlay('hide', true);
+		}
+	}
+
 	function pm_gutenberg_reload() {
-		var pm_container = jQuery('#permalink-manager.postbox');
 		var pm_post_id = jQuery('input[name="permalink-manager-edit-uri-element-id"]').val();
 
 		jQuery.ajax({
@@ -322,14 +338,10 @@ jQuery(document).ready(function() {
 			data: {
 				'post_id': pm_post_id
 			},
-			beforeSend: function() {
-				jQuery(pm_container).LoadingOverlay("show", {
-					background  : "rgba(0, 0, 0, 0.1)",
-				});
-			},
+			beforeSend: pm_gutenberg_loading_overlay,
 			success: function(html) {
 				jQuery(pm_container).find('.permalink-manager-gutenberg').replaceWith(html);
-				jQuery(pm_container).LoadingOverlay("hide");
+				pm_gutenberg_loading_overlay(false);
 
 				jQuery(pm_container).find('select[name="auto_update_uri"]').trigger("change");
 				pm_help_tooltips();
@@ -338,13 +350,14 @@ jQuery(document).ready(function() {
 	}
 
 	function pm_gutenberg_save_uri() {
-		var pm_container = jQuery('#permalink-manager.postbox');
 		var pm_fields = jQuery(pm_container).find("input, select");
 
 		jQuery.ajax({
 			type: 'POST',
 			url: permalink_manager.ajax_url,
+			async: true,
 			data: jQuery(pm_fields).serialize() + '&action=pm_save_permalink',
+			beforeSend: pm_gutenberg_loading_overlay,
 			success: pm_gutenberg_reload
 		});
 
@@ -354,21 +367,25 @@ jQuery(document).ready(function() {
 	/**
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
-	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') !== 'undefined' && wp.data.select('core/editor') !== null) {
-		var pm_gutenberg_reload_in_progress = 0;
-
+	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') != null) {
 		const pm_unsubscribe = wp.data.subscribe(function() {
 			var isSavingPost = wp.data.select('core/editor').isSavingPost();
 			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
 			var didPostSaveRequestSucceed =  wp.data.select('core/editor').didPostSaveRequestSucceed();
+			var isSavingMetaBoxes = wp.data.select('core/edit-post').isSavingMetaBoxes();
 
-			// Wait until the last occurence is called
-			if(isSavingPost && !isAutosavingPost && didPostSaveRequestSucceed) {
-				clearTimeout(pm_gutenberg_reload_in_progress);
+			// Disable URI Editor until it is reloaded
+			if(isSavingPost && !isAutosavingPost) {
+				pm_gutenberg_loading_overlay();
+			}
 
-				pm_gutenberg_reload_in_progress = setTimeout(function(){
-					pm_gutenberg_reload();
-				}, 1500);
+			// Reload URI Editor only after metaboxes are saved
+			if(isSavingMetaBoxes) {
+				pm_container_reloading = true;
+			} else if(pm_container_reloading) {
+				pm_container_reloading = false;
+
+				pm_gutenberg_reload();
 			}
 		});
 	}
@@ -506,13 +523,15 @@ jQuery(document).ready(function() {
 					if(table_dom.length > 0) {
 						jQuery('html, body').animate({
 							scrollTop: table_dom.offset().top - 100
-	          }, 2000);
+						}, 2000);
 					}
 
 					// Reset progress & updated count
 					progress = updated_count = 0;
 					jQuery(form).attr("data-updated_count", 0);
 				}
+
+				return true;
       },
 			error: function(xhr, status, error_data) {
 				alert('Tthere was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.')

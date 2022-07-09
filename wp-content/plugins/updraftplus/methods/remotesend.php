@@ -392,7 +392,7 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 	
 		global $updraftplus;
 	
-		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(apply_filters('updraftplus_class_udrpc_path', UPDRAFTPLUS_DIR.'/includes/class-udrpc.php', $updraftplus->version));
+		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(apply_filters('updraftplus_class_udrpc_path', UPDRAFTPLUS_DIR.'/vendor/team-updraft/common-libs/src/updraft-rpc/class-udrpc.php', $updraftplus->version));
 
 		$opts = $this->get_opts();
 

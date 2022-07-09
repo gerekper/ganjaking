@@ -150,7 +150,7 @@ if (!class_exists('A2W_Aliexpress')) {
                     }
 
                     $country_from = a2w_get_setting('aliship_shipfrom', 'CN');
-                    $country_to = a2w_get_setting('aliship_shipto', 'US');
+                    $country_to = a2w_get_setting('aliship_shipto');
                     $result['product'] = A2W_Utils::update_product_shipping($result['product'], $country_from, $country_to, 'import', a2w_get_setting('add_shipping_to_price'));
 
                     if (($convert_attr_casea = a2w_get_setting('convert_attr_case')) != 'original') {
@@ -395,14 +395,14 @@ if (!class_exists('A2W_Aliexpress')) {
 
         public function load_shipping_info($product_id, $quantity, $country_code, $country_code_form = '', $min_price = '', $max_price = '')
         {
-
-            $country_code = $this->normalize_country($country_code);
+            $country_code = A2W_ProductShippingMeta::normalize_country($country_code);
 
             if (!empty($country_code_form)) {
-                $country_code_form = $this->normalize_country($country_code_form);
+                $country_code_form = A2W_ProductShippingMeta::normalize_country($country_code_form);
             }
 
             $request_url = A2W_RequestHelper::build_request('get_shipping_info', array('product_id' => $product_id, 'quantity' => $quantity, 'country_code' => $country_code, 'country_code_from' => $country_code_form, 'min_price' => $min_price, 'max_price' => $max_price));
+
             $request = a2w_remote_get($request_url);
             if (is_wp_error($request)) {
                 $result = A2W_ResultBuilder::buildError($request->get_error_message());
@@ -415,23 +415,6 @@ if (!class_exists('A2W_Aliexpress')) {
             }
 
             return $result;
-        }
-
-        private function normalize_country($country)
-        {
-            if ($country == "GB") {
-                $country = "UK";
-            }
-
-            if ($country == "RS") {
-                $country = "SRB";
-            }
-
-            if ($country == "ME") {
-                $country = "MNE";
-            }
-
-            return $country;
         }
 
         public static function clean_description($description)
@@ -556,6 +539,261 @@ if (!class_exists('A2W_Aliexpress')) {
                 }
             }
             return $content;
+        }
+
+        public function place_order($data, $session)
+        {
+            $order = $data['order'];
+
+            $wm = new A2W_Woocommerce();
+            $customer_info = $wm->get_order_user_info($order);
+
+            if (!$customer_info['phone']) {
+                return A2W_ResultBuilder::buildError(__('Phone number is required', 'ali2woo'));
+            } else if (!$customer_info['street'] && !$customer_info['address2']) {
+                return A2W_ResultBuilder::buildError(__('Street is required', 'ali2woo'));
+            } else if (!$customer_info['name']) {
+                return A2W_ResultBuilder::buildError(__('Contact name is required', 'ali2woo'));
+            } else if (!$customer_info['country']) {
+                return A2W_ResultBuilder::buildError(__('Country is required', 'ali2woo'));
+            } else if (!$customer_info['city'] && !$customer_info['state']) {
+                return A2W_ResultBuilder::buildError(__('City/State/Province is required', 'ali2woo'));
+            } else if (!$customer_info['postcode']) {
+                return A2W_ResultBuilder::buildError(__('Zip/Postal code is required', 'ali2woo'));
+            } else if ($customer_info['country'] === 'BR' && !$customer_info['cpf']) {
+                return A2W_ResultBuilder::buildError(__('CPF is mandatory in Brazil', 'ali2woo'));
+            } else if ($customer_info['country'] === 'CL' && !$customer_info['rutNo']) {
+                return A2W_ResultBuilder::buildError(__('RUT number is mandatory for Chilean customers', 'ali2woo'));
+            }
+
+            $order_note = a2w_get_setting('fulfillment_custom_note', '');
+
+            $product_items = array();
+            $processing_order_items = array();
+            $errors = array();
+            foreach ($data['order_items'] as $order_item) {
+                if (get_class($order_item) !== 'WC_Order_Item_Product') {
+                    continue;
+                }
+
+                $order_item_id = $order_item->get_id();
+
+                $quantity = $order_item->get_quantity() + $order->get_qty_refunded_for_item($order_item_id);
+
+                if ($quantity == 0) {
+                    continue;
+                }
+
+                $a2w_order_item = new A2W_WooCommerceOrderItem($order_item);
+
+                $product_id = $order_item->get_product_id();
+                $variation_id = $order_item->get_variation_id();
+
+                $aliexpress_product_id = get_post_meta($product_id, '_a2w_external_id', true);
+                if (!$aliexpress_product_id) {
+                    $errors[] = array('order_item_id' => $order_item_id, 'message' => __('AliExpress product not found', 'ali2woo'));
+                    continue;
+                }
+
+                if ($a2w_order_item->get_external_order_id()) {
+                    $errors[] = array('order_item_id' => $order_item_id, 'message' => __('Aliexpress order exists', 'ali2woo'));
+                    continue;
+                }
+
+                if ($variation_id) {
+                    $sku_attr = get_post_meta($variation_id, '_aliexpress_sku_props', true);
+                } else {
+                    $sku_attr = get_post_meta($product_id, '_aliexpress_sku_props', true);
+                }
+
+                $shipping_company = a2w_get_setting('fulfillment_prefship', '');
+                $shipping_meta = $order_item->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
+                if ($shipping_meta) {
+                    $shipping_meta = json_decode($shipping_meta, true);
+                    $shipping_company = $shipping_meta['service_name'];
+                }
+
+                if (!$shipping_company) {
+                    $errors[] = array('order_item_id' => $order_item_id, 'message' => __('Missing Shipping method', 'ali2woo'));
+                    continue;
+                }
+
+                $product_items[] = array(
+                    'product_count' => $quantity,
+                    'product_id' => $aliexpress_product_id,
+                    'sku_attr' => $sku_attr,
+                    'logistics_service_name' => $shipping_company,
+                    'order_memo' => $order_note,
+                );
+
+                $processing_order_items[] = $a2w_order_item;
+            }
+
+            if (!empty($errors)) {
+                return A2W_ResultBuilder::buildError(__('Product error', 'ali2woo'), array('error_code' => 'product_error', 'errors' => $errors));
+            }
+
+            $logistics_address = array(
+                'address' => $customer_info['street'],
+                'city' => remove_accents($customer_info['city']),
+                'contact_person' => $customer_info['name'],
+                'country' => $customer_info['country'],
+                'full_name' => $customer_info['name'],
+                'mobile_no' => $customer_info['phone'],
+                'phone_country' => $customer_info['phoneCountry'],
+                'province' => remove_accents($customer_info['state']),
+                // 'locale' => 'en_US',
+                // 'passport_no' => '',
+                // 'passport_no_date' => '',
+                // 'passport_organization' => '',
+                // 'tax_number' => '',
+            );
+            if (!empty($customer_info['cpf'])) {
+                $logistics_address['cpf'] = $customer_info['cpf'];
+            }
+            if (!empty($customer_info['rutNo'])) {
+                $logistics_address['rutNo'] = $customer_info['rutNo'];
+            }
+            if ($customer_info['postcode']) {
+                $logistics_address['zip'] = $customer_info['postcode'];
+            }
+            if ($customer_info['address2']) {
+                if ($customer_info['street']) {
+                    $logistics_address['address2'] = remove_accents($customer_info['address2']);
+                } else {
+                    $logistics_address['address'] = remove_accents($customer_info['address2']);
+                }
+            }
+
+            $logistics_address = apply_filters('a2w_orders_logistics_address', $logistics_address, $customer_info);
+
+            $payload = array(
+                'param_place_order_request4_open_api_d_t_o' => json_encode(
+                    array(
+                        'logistics_address' => $logistics_address,
+                        'product_items' => $product_items,
+                    )
+                ),
+            );
+
+            $params = array(
+                "session" => $session,
+                "method" => "aliexpress.trade.buy.placeorder",
+                "payload" => json_encode($payload),
+            );
+
+            $request_url = A2W_RequestHelper::build_request('sign', $params);
+            $request = a2w_remote_get($request_url);
+
+            if (is_wp_error($request)) {
+                $result = A2W_ResultBuilder::buildError($request->get_error_message());
+            } else {
+                if (intval($request['response']['code']) == 200) {
+                    $result = json_decode($request['body'], true);
+                } else {
+                    $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);
+                }
+            }
+
+            // $result = A2W_ResultBuilder::buildError('DEBUG STOP');
+            if ($result['state'] == 'error') {
+                return $result;
+            }
+
+            $request = a2w_remote_post($result['request']['requestUrl'], $result['request']['apiParams']);
+            if (is_wp_error($request)) {
+                $result = A2W_ResultBuilder::buildError($request->get_error_message());
+            } else {
+                if (intval($request['response']['code']) == 200) {
+                    $body = json_decode($request['body'], true);
+                    if(isset($body['aliexpress_trade_buy_placeorder_response']['result'])){
+                        $aliexpress_result = $body['aliexpress_trade_buy_placeorder_response']['result'];
+                        if ($aliexpress_result['is_success'] && isset($aliexpress_result['order_list']['number'])) {
+                            $aliexpress_order_ids = $aliexpress_result['order_list']['number'];
+                            
+                            foreach ($aliexpress_order_ids as $aliexpress_order_id) {
+                                $result = $this->load_order($aliexpress_order_id, $session);
+                                if($result['state'] === 'error') {
+                                    break;
+                                } else {
+                                    foreach($result['order']['child_order_list']['ae_child_order_info'] as $ae_product_info){
+                                        foreach($processing_order_items as $order_item) {
+                                            if($order_item->get_external_product_id() == $ae_product_info['product_id']){
+                                                $order_item->update_external_order($aliexpress_order_id, true);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            $result = A2W_ResultBuilder::buildOk();
+
+                            $placed_order_status = a2w_get_setting('placed_order_status');
+                            if ($placed_order_status) {
+                                $order->update_status($placed_order_status);
+                            }
+                        } else {
+                            $result = A2W_ResultBuilder::buildError(A2W_AliexpressError::message($aliexpress_result));
+                        }
+                    } else{
+                        a2w_error_log('plase order error: '.print_r($body, true));
+                        $message = isset($body['msg']) ? $body['msg'] : __('Aliexpress error', 'ali2woo');
+                        $result = A2W_ResultBuilder::buildError($message);
+                    }
+                } else {
+                    $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);
+                }
+            }
+
+            return $result;
+        }
+
+        public function load_order($order_id, $session)
+        {
+            $payload = array('order_id' => $order_id);
+            $params = array(
+                "session" => $session,
+                "method" => "aliexpress.ds.trade.order.get",
+                "payload" => json_encode($payload),
+            );
+
+            $request_url = A2W_RequestHelper::build_request('sign', $params);
+            $request = a2w_remote_get($request_url);
+
+            if (is_wp_error($request)) {
+                $result = A2W_ResultBuilder::buildError($request->get_error_message());
+            } else {
+                if (intval($request['response']['code']) == 200) {
+                    $result = json_decode($request['body'], true);
+                } else {
+                    $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);
+                }
+            }
+
+            // $result = A2W_ResultBuilder::buildError('DEBUG STOP');
+            if ($result['state'] == 'error') {
+                return $result;
+            }
+
+            $request = a2w_remote_post($result['request']['requestUrl'], $result['request']['apiParams']);
+            if (is_wp_error($request)) {
+                $result = A2W_ResultBuilder::buildError($request->get_error_message());
+            } else {
+                $result = A2W_ResultBuilder::buildOk();
+                if (intval($request['response']['code']) == 200) {
+                    $body = json_decode($request['body'], true);
+                    if(isset($body['error_response']['msg'])){
+                        $result = A2W_ResultBuilder::buildError($body['error_response']['code'] . ' - ' . $body['error_response']['msg']);
+                    } else if(intval($body['aliexpress_ds_trade_order_get_response']['rsp_code']) !== 200) {
+                        $result = A2W_ResultBuilder::buildError($body['aliexpress_ds_trade_order_get_response']['rsp_msg'], array('error_code'=>$body['aliexpress_ds_trade_order_get_response']['rsp_code']));
+                    } else {
+                        $result = A2W_ResultBuilder::buildOk(array('order' => $body['aliexpress_ds_trade_order_get_response']['result']));
+                    }
+                } else {
+                    $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);
+                }
+            }
+            return $result;
         }
 
     }

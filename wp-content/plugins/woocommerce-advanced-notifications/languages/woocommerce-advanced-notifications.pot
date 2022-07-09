@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.2.36\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.3.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2022-01-05 16:11:48+00:00\n"
+"POT-Creation-Date: 2022-07-04 08:34:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -75,18 +75,18 @@ msgstr ""
 msgid "Notification saved successfully"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:295
-#: includes/class-wc-advanced-notifications-admin.php:384
+#: includes/class-wc-advanced-notifications-admin.php:296
+#: includes/class-wc-advanced-notifications-admin.php:387
 msgid "Recipient name is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:299
-#: includes/class-wc-advanced-notifications-admin.php:388
+#: includes/class-wc-advanced-notifications-admin.php:300
+#: includes/class-wc-advanced-notifications-admin.php:391
 msgid "Recipient email is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:306
-#: includes/class-wc-advanced-notifications-admin.php:395
+#: includes/class-wc-advanced-notifications-admin.php:307
+#: includes/class-wc-advanced-notifications-admin.php:398
 msgid "A recipient email is invalid:"
 msgstr ""
 
@@ -197,61 +197,61 @@ msgstr ""
 msgid "[%s] New Order (%s)"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:407
+#: includes/class-wc-advanced-notifications.php:413
 msgid "Product low in stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:414
-#: includes/class-wc-advanced-notifications.php:463
+#: includes/class-wc-advanced-notifications.php:420
+#: includes/class-wc-advanced-notifications.php:469
 msgid "Variation #%s of %s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:416
-#: includes/class-wc-advanced-notifications.php:531
+#: includes/class-wc-advanced-notifications.php:422
+#: includes/class-wc-advanced-notifications.php:537
 msgid "Product #%s - %s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:420
-#: includes/class-wc-advanced-notifications.php:470
-#: includes/class-wc-advanced-notifications.php:536
+#: includes/class-wc-advanced-notifications.php:426
+#: includes/class-wc-advanced-notifications.php:476
+#: includes/class-wc-advanced-notifications.php:542
 #: templates/emails/new-order-plain.php:7 templates/emails/new-order.php:19
 #: templates/emails/refunds-plain.php:7 templates/emails/refunds.php:19
 msgid "Hi %s,"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:422
+#: includes/class-wc-advanced-notifications.php:428
 msgid "is low in stock."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:456
+#: includes/class-wc-advanced-notifications.php:462
 msgid "Product out of stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:465
+#: includes/class-wc-advanced-notifications.php:471
 msgid "Product #%1$s - %2$s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:472
+#: includes/class-wc-advanced-notifications.php:478
 msgid "is out of stock."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:522
+#: includes/class-wc-advanced-notifications.php:528
 msgid "Product Backorder"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:529
+#: includes/class-wc-advanced-notifications.php:535
 msgid "Variation #%1$s of %2$s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:538
+#: includes/class-wc-advanced-notifications.php:544
 msgid "%s units of %s have been backordered in order #%s."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:573
+#: includes/class-wc-advanced-notifications.php:579
 msgid "Customer Refund"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:575
+#: includes/class-wc-advanced-notifications.php:581
 msgid "[%s] Order Refund (%s)"
 msgstr ""
 
@@ -366,30 +366,39 @@ msgid ""
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:131
-msgid "Prices"
-msgstr ""
-
 #: includes/views/admin-screen-edit.php:134
-msgid "Include prices"
+msgid "Include All Items"
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:135
-msgid "Enable this to include product prices in the notification emails."
+msgid "Enable this to include all order items in the notification emails."
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:140
-msgid "Totals"
+msgid "Prices"
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:143
-msgid "Include order totals"
+msgid "Include prices"
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:144
-msgid "Enable this to include order totals in the notification emails."
+msgid "Enable this to include product prices in the notification emails."
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:149
+msgid "Totals"
+msgstr ""
+
+#: includes/views/admin-screen-edit.php:152
+msgid "Include order totals"
+msgstr ""
+
+#: includes/views/admin-screen-edit.php:153
+msgid "Enable this to include order totals in the notification emails."
+msgstr ""
+
+#: includes/views/admin-screen-edit.php:158
 msgid "Save changes"
 msgstr ""
 
@@ -415,13 +424,13 @@ msgstr ""
 msgid "jS F Y"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:115 templates/emails/new-order.php:149
-#: templates/emails/refunds-plain.php:110 templates/emails/refunds.php:143
+#: templates/emails/new-order-plain.php:119 templates/emails/new-order.php:154
+#: templates/emails/refunds-plain.php:114 templates/emails/refunds.php:147
 msgid "Total"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:123
-#: templates/emails/refunds-plain.php:118
+#: templates/emails/new-order-plain.php:127
+#: templates/emails/refunds-plain.php:122
 msgid "Note"
 msgstr ""
 
@@ -441,7 +450,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: templates/emails/new-order.php:158 templates/emails/refunds.php:152
+#: templates/emails/new-order.php:163 templates/emails/refunds.php:156
 msgid "Note:"
 msgstr ""
 
@@ -453,7 +462,7 @@ msgstr ""
 msgid "Order #%s has been refunded."
 msgstr ""
 
-#: woocommerce-advanced-notifications.php:52
+#: woocommerce-advanced-notifications.php:54
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Advanced Notifications requires %s to be installed and active."
 msgstr ""

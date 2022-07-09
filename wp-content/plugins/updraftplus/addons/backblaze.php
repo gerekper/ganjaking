@@ -651,18 +651,12 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		global $updraftplus_admin;
-
-		$classes = $this->get_css_classes(false);
-		
 		?>
-		<tr class="<?php echo $classes . ' ' . 'backblaze_pre_config_container';?>">
+		<tr class="{{get_template_css_classes false}} backblaze_pre_config_container">
 			<td colspan="2">
-				<img width="434" src="<?php echo UPDRAFTPLUS_URL;?>/images/backblaze.png"><br>
-				<?php $updraftplus_admin->curl_check('Backblaze B2', false, 'backblaze'); ?>
-				
-				<p><a href="https://updraftplus.com/support/configuring-backblaze-cloud-storage-access-in-updraftplus/" target="_blank"><strong><?php echo sprintf(__('For help configuring %s, including screenshots, follow this link.', 'updraftplus'), 'Backblaze');?></strong></a></p>
+				<img width="434" src="{{storage_image_url}}"><br>
+				{{{curl_existence_label}}}
+				<p><a href="https://updraftplus.com/support/configuring-backblaze-cloud-storage-access-in-updraftplus/" target="_blank"><strong>{{configuration_helper_link_text}}</strong></a></p>
 			</td>
 		</tr>
 
@@ -675,44 +669,64 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 	 * @return String - the template, ready for substitutions to be carried out
 	 */
 	public function get_configuration_template() {
-
 		ob_start();
-
-		$classes = $this->get_css_classes();
-		
 		?>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_key_id_label}}:</th>
+			<td><input type="text" size="40" data-updraft_settings_test="account_id" id="{{get_template_input_attribute_value "id" "account_id"}}" name="{{get_template_input_attribute_value "name" "account_id"}}" value="{{account_id}}"><br>
+			<em>{{{input_key_id_title}}}</em><br>
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_application_key_label}}:</th>
+			<td><input type="{{input_application_key_type}}" size="40" data-updraft_settings_test="key" id="{{get_template_input_attribute_value "id" "key"}}" name="{{get_template_input_attribute_value "name" "key"}}" value="{{key}}" /></td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_bucket_key_id_label}}:</th>
+			<td><input title="{{input_bucket_key_id_title}}" type="text" size="40" data-updraft_settings_test="single_bucket_key_id" id="{{get_template_input_attribute_value "id" "single_bucket_key_id"}}" name="{{get_template_input_attribute_value "name" "single_bucket_key_id"}}" value="{{single_bucket_key_id}}"><br>
+			<em>{{input_bucket_key_id_title}}</em></a><br>
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_backup_path_label}}:</th>
+			<td>/<input type="text" size="19" maxlength="50" placeholder="{{input_backup_path_name_placeholder}}" data-updraft_settings_test="bucket_name" id="{{get_template_input_attribute_value "id" "bucket_name"}}" name="{{get_template_input_attribute_value "name" "bucket_name"}}" value="{{bucket_name}}" />/<input type="text" size="19" maxlength="200" placeholder="{{input_backup_path_some_path_placeholder}}" data-updraft_settings_test="backup_path" id="{{get_template_input_attribute_value "id" "backup_path"}}" name="{{get_template_input_attribute_value "name" "backup_path"}}" value="{{backup_path}}" /><br>
+			<em>{{{input_backup_path_title}}}</em><br>
+			</td>
+		</tr>
 		
-		<tr class="<?php echo $classes;?>">
-			<th><?php echo _e('Master Application Key ID', 'updraftplus'); ?>:</th>
-			<td><input type="text" size="40" data-updraft_settings_test="account_id" <?php $this->output_settings_field_name_and_id('account_id');?> value="{{account_id}}"><br>
-			<em><?php echo sprintf(__('Get these settings from %s, or sign up %s.', 'updraftplus'), '<a aria-label="secure.backblaze.com/b2_buckets.htm" target="_blank" href="https://secure.backblaze.com/b2_buckets.htm">'.__('here', 'updraftplus').'</a>', '<a aria-label="www.backblaze.com/b2/" target="_blank" href="https://www.backblaze.com/b2/">'.__('here', 'updraftplus').'</a>');?></em></a><br>
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes;?>">
-			<th><?php _e('Application key', 'updraftplus'); ?>:</th>
-			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" size="40" data-updraft_settings_test="key" <?php $this->output_settings_field_name_and_id('key');?> value="{{key}}" /></td>
-		</tr>
-
-		<tr class="<?php echo $classes;?>">
-			<th><?php _e('Bucket application key ID', 'updraftplus'); ?>:</th>
-			<td><input title="<?php echo __('This is needed if, and only if, your application key was a bucket-specific application key (not a master key)', 'updraftplus');?>" type="text" size="40" data-updraft_settings_test="single_bucket_key_id" <?php $this->output_settings_field_name_and_id('single_bucket_key_id');?> value="{{single_bucket_key_id}}"><br>
-			<em><?php echo __('This is needed if, and only if, your application key was a bucket-specific application key (not a master key)', 'updraftplus');?></em></a><br>
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes;?>">
-			<th><?php _e('Backup path', 'updraftplus'); ?>:</th>
-			<td>/<input type="text" size="19" maxlength="50" placeholder="<?php _e('Bucket name', 'updraftplus');?>" data-updraft_settings_test="bucket_name" <?php $this->output_settings_field_name_and_id('bucket_name');?> value="{{bucket_name}}" />/<input type="text" size="19" maxlength="200" placeholder="<?php _e('some/path', 'updraftplus');?> " data-updraft_settings_test="backup_path" <?php $this->output_settings_field_name_and_id('backup_path');?> value="{{backup_path}}" /><br>
-			<em><?php echo '<a target="_blank" href="https://help.backblaze.com/hc/en-us/articles/217666908-What-you-need-to-know-about-B2-Bucket-names">'.__('There are limits upon which path-names are valid. Spaces are not allowed.', 'updraftplus').'</a>';?></em><br>
-			</td>
-		</tr>
-		
+		{{{get_template_test_button_html "Backblaze"}}}
 		<?php
-		
-		echo $this->get_test_button_html('Backblaze');
-		
 		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/backblaze.png',
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check('Backblaze B2', false, 'backblaze hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
+			'configuration_helper_link_text' => sprintf(__('For help configuring %s, including screenshots, follow this link.', 'updraftplus'), 'Backblaze'),
+			'input_key_id_label' => __('Master Application Key ID', 'updraftplus'),
+			'input_key_id_title' => sprintf(__('Get these settings from %s, or sign up %s.', 'updraftplus'), '<a aria-label="secure.backblaze.com/b2_buckets.htm" target="_blank" href="https://secure.backblaze.com/b2_buckets.htm">'.__('here', 'updraftplus').'</a>', '<a aria-label="www.backblaze.com/b2/" target="_blank" href="https://www.backblaze.com/b2/">'.__('here', 'updraftplus').'</a>'),
+			'input_application_key_label' => __('Application key', 'updraftplus'),
+			'input_application_key_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_bucket_key_id_label' => __('Bucket application key ID', 'updraftplus'),
+			'input_bucket_key_id_title' => __('This is needed if, and only if, your application key was a bucket-specific application key (not a master key)', 'updraftplus'),
+			'input_backup_path_label' => __('Backup path', 'updraftplus'),
+			'input_backup_path_name_placeholder' => __('Bucket name', 'updraftplus'),
+			'input_backup_path_title' => '<a target="_blank" href="https://help.backblaze.com/hc/en-us/articles/217666908-What-you-need-to-know-about-B2-Bucket-names">'.__('There are limits upon which path-names are valid. Spaces are not allowed.', 'updraftplus').'</a>',
+			'input_backup_path_some_path_placeholder' => __('some/path', 'updraftplus'),
+			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 	
 	/**

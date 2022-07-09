@@ -315,10 +315,20 @@ if (!class_exists('A2W_Woocommerce')) {
                 // set default shipping country from
                 if ($first_ava_var && !empty($first_ava_var['country_code'])) {
                     update_post_meta($product_id, '_a2w_country_code', $first_ava_var['country_code']);
+                } else if (isset($product['local_seller_tag']) && strlen($product['local_seller_tag']) == 2) {
+                    update_post_meta($product_id, '_a2w_country_code', $product['local_seller_tag']);
                 }
 
                 // save shipping meta data
                 $shipping_meta = new A2W_ProductShippingMeta($product_id);
+                if (!empty($product['shipping_info']) && is_array($product['shipping_info'])) {
+                    $shipping_data = array();
+                    foreach ($product['shipping_info'] as $mk => $data) {
+                        // if shipping data was saved without quantity
+                        $shipping_data[$mk] = isset($data[0]['serviceName']) ? array(1 => $data) : $data;
+                    }
+                    $shipping_meta->save_data($shipping_data);
+                }
                 if (isset($product['shipping_default_method'])) {
                     $shipping_meta->save_method($product['shipping_default_method'], false);
                 }
@@ -597,6 +607,8 @@ if (!class_exists('A2W_Woocommerce')) {
             // set default shipping country from
             if ($first_ava_var && !empty($first_ava_var['country_code'])) {
                 update_post_meta($product_id, '_a2w_country_code', $first_ava_var['country_code']);
+            } else if (isset($product['local_seller_tag']) && strlen($product['local_seller_tag']) == 2) {
+                update_post_meta($product_id, '_a2w_country_code', $product['local_seller_tag']);
             }
 
             // update variations
@@ -1534,6 +1546,16 @@ if (!class_exists('A2W_Woocommerce')) {
                     if ($need_process) {
                         if (!empty($variation['country_code'])) {
                             update_post_meta($variation_id, '_a2w_country_code', $variation['country_code']);
+                        } else if (isset($product['local_seller_tag']) && strlen($product['local_seller_tag']) == 2) {
+                            update_post_meta($variation_id, '_a2w_country_code', $product['local_seller_tag']);
+                        }
+
+                        if (isset($variation['skuId'])) {
+                            update_post_meta($variation_id, '_a2w_ali_sku_id', $variation['skuId']);
+                        }
+
+                        if (isset($variation['skuIdStr'])) {
+                            update_post_meta($variation_id, '_a2w_ali_sku_id_str', $variation['skuIdStr']);
                         }
 
                         if ($var_product = wc_get_product($variation_id)) {
@@ -1654,7 +1676,7 @@ if (!class_exists('A2W_Woocommerce')) {
                 $order_items_table = $wpdb->prefix . 'woocommerce_order_items';
                 $order_itemmeta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
                 $result = $wpdb->get_results(
-                    "SELECT pm1.meta_value as ext_order_id, pm3.order_id as order_id, pm2.meta_value as tracking_data FROM {$order_itemmeta_table} as pm1 " .
+                    "SELECT pm1.meta_value as ext_order_id, pm3.order_item_id as order_item_id, pm3.order_id as order_id, pm2.meta_value as tracking_data FROM {$order_itemmeta_table} as pm1 " .
                     "LEFT JOIN {$order_itemmeta_table} as pm2 ON (pm2.meta_key = '" . A2W_Constants::order_item_tracking_data_meta() . "' and pm1.order_item_id=pm2.order_item_id) " .
                     "LEFT JOIN {$order_items_table} as pm3 ON (pm1.order_item_id=pm3.order_item_id) " .
                     "WHERE pm1.meta_key = '" . A2W_Constants::order_item_external_order_meta() . "' AND pm1.meta_value <> ''");
@@ -1669,11 +1691,7 @@ if (!class_exists('A2W_Woocommerce')) {
                     $tracking_status = isset($item->tracking_data['tracking_status']) ? $item->tracking_data['tracking_status'] : false;
 
                     if ($only_not_delivered && $tracking_status) {
-                        if (in_array(strtolower(trim($tracking_status)), array(
-                            'delivery successful',
-                            'delivered',
-                        ), true)) {
-
+                        if(A2W_WooCommerceOrderItem::check_is_delivered($tracking_status)){
                             continue;
                         }
                     }
@@ -1735,19 +1753,19 @@ if (!class_exists('A2W_Woocommerce')) {
 
                         $a2w_order_item = new A2W_WooCommerceOrderItem($item);
 
-                        $external_order_id = $a2w_order_item->getExternalOrderId();
+                        $external_order_id = $a2w_order_item->get_external_order_id();
 
                         if ($external_order_id) {
 
                             $count_ext_order_ids = $count_ext_order_ids + 1;
 
-                            $check_tracking_codes = $a2w_order_item->getTrackingCodes();
+                            $check_tracking_codes = $a2w_order_item->get_tracking_codes();
 
                             if (floatval($external_order_id) === floatval($ext_id)) {
 
                                 $check_tracking_codes = array_unique(array_merge($check_tracking_codes, $tracking_codes));
 
-                                $a2w_order_item->crud_update_tracking_data($check_tracking_codes, $carrier_name, $carrier_url, $tracking_status);
+                                $a2w_order_item->update_tracking_data($check_tracking_codes, $carrier_name, $carrier_url, $tracking_status);
 
                                 $a2w_order_item->save();
 
@@ -1759,9 +1777,9 @@ if (!class_exists('A2W_Woocommerce')) {
 
                         }
 
-                        if ($a2w_order_item->isDelivered()) {
+                        if ($a2w_order_item->is_delivered()) {
                             $count_delivered = $count_delivered + 1;
-                        } else if ($a2w_order_item->isShipped()) {
+                        } else if ($a2w_order_item->is_shipped()) {
                             $count_shipped = $count_shipped + 1;
                         }
 
@@ -1803,6 +1821,90 @@ if (!class_exists('A2W_Woocommerce')) {
                 $result = false;
             }
 
+            return $result;
+        }
+
+        
+
+        public function delete_external_order_id($order_id, $ext_id)
+        {
+            a2w_init_error_handler();
+            try {
+                $result = true;
+                $order = wc_get_order($order_id);
+                if ($order !== false) {
+                    $order_items = $order->get_items();
+                    foreach ($order_items as $item_id => $item) {
+                        $a2w_order_item = new A2W_WooCommerceOrderItem($item);
+                        $external_order_id = $a2w_order_item->get_external_order_id();
+                        if ($external_order_id && floatval($external_order_id) === floatval($ext_id)) {
+                            $a2w_order_item->update_external_order("", true);
+                        }
+                    }
+                }
+            } catch (Throwable $e) {
+                a2w_print_throwable($e);
+                $result = false;
+            } catch (Exception $e) {
+                a2w_print_throwable($e);
+                $result = false;
+            }
+            return $result;
+        }
+
+        public function sync_order_with_aliexpress($order_id) {
+            a2w_init_error_handler();
+            try {
+                $result = A2W_ResultBuilder::buildOk();
+
+                $token = A2W_AliexpressToken::getInstance()->defaultToken();
+                if (!$token) {
+                    return A2W_ResultBuilder::buildError(__('Session token is not found. Add a new token in the plugin settings.', 'ali2woo'));
+                }
+
+                $order = wc_get_order($order_id);
+                if(!$order) {
+                    $result = A2W_ResultBuilder::buildError('Order not found');
+                } else {
+                    $external_order_ids = array();
+                    $order_items = $order->get_items();
+                    foreach ($order_items as $item_id => $item) {
+                        $a2w_order_item = new A2W_WooCommerceOrderItem($item);
+                        $external_order_id = $a2w_order_item->get_external_order_id();
+                        if(!empty($external_order_id)) {
+                            $external_order_ids[] = $external_order_id;
+                        }
+                    }
+
+                    $api = new A2W_Aliexpress();
+                    foreach ($external_order_ids as $external_order_id) {
+                        $order_result = $api->load_order($external_order_id, $token['access_token']);
+                        if($order_result['state']==='error' && isset($order_result['error_code']) && $order_result['error_code'] == 404) {
+                            // remove external order id
+                            $this->delete_external_order_id($order_id, $external_order_id);
+                        } else if($order_result['state']==='ok') {
+                            // update tracking info
+                            $tracking_codes = array();
+                            $carrier_name = "";
+                            $carrier_url = "";
+                            $tracking_status = $order_result['order']['logistics_status'];
+                            if(isset($order_result['order']['logistics_info_list']['ae_order_logistics_info'])){
+                                foreach($order_result['order']['logistics_info_list']['ae_order_logistics_info'] as $tracking){
+                                    $tracking_codes[] = $tracking['logistics_no'];
+                                    $carrier_name = $tracking['logistics_service'];
+                                }
+                            }
+                            $this->save_tracking_code($order_id, $external_order_id, $tracking_codes, $carrier_name, $carrier_url, $tracking_status);
+                        }
+                    }
+                }
+            } catch (Throwable $e) {
+                a2w_print_throwable($e);
+                $result = A2W_ResultBuilder::buildError($e->getMessage());
+            } catch (Exception $e) {
+                a2w_print_throwable($e);
+                $result = A2W_ResultBuilder::buildError($e->getMessage());
+            }
             return $result;
         }
 
@@ -2061,6 +2163,205 @@ if (!class_exists('A2W_Woocommerce')) {
                 }
             }
             return $res;
+        }
+
+        public function get_order_user_info($order)
+        {
+            $shipping_country = $order->get_shipping_country();
+            $billing_country = $order->get_billing_country();
+            if ($order->has_shipping_address()) {
+                $state_code = $order->get_shipping_state();
+                $city = $order->get_shipping_city();
+                $address1 = $order->get_shipping_address_1();
+                $address2 = $order->get_shipping_address_2();
+                $post_code = $order->get_shipping_postcode();
+            } else {
+                $state_code = $order->get_billing_state();
+                $city = $order->get_billing_city();
+                $address1 = $order->get_billing_address_1();
+                $address2 = $order->get_billing_address_2();
+                $post_code = $order->get_billing_postcode();
+            }
+            $woo_country = $shipping_country ? $shipping_country : $billing_country;
+            $country = A2W_ProductShippingMeta::normalize_country($woo_country);
+            $country_name = A2W_Country::get_country($country);
+            $phone_country = A2W_Utils::get_phone_country_code($country);
+            $phone = $order->get_billing_phone();
+            $default_phone_number = a2w_get_setting('fulfillment_phone_number', '');
+            $default_phone_code = a2w_get_setting('fulfillment_phone_code', '');
+            if ($phone && (!$default_phone_number /* || $country !== $default_phone_country*/)) {
+                $phone = str_replace($phone_country, '', $phone);
+                if (!$phone_country && function_exists('WC')) {
+                    $phone_country = WC()->countries->get_country_calling_code($woo_country);
+                }
+            } else {
+                $phone = $default_phone_number;
+                if ($default_phone_code) {
+                    $phone_country = A2W_Utils::get_country_by_phone_code($default_phone_code);
+                }
+            }
+            $states = A2W_Country::get_states($woo_country);
+            $name = trim($order->get_formatted_shipping_full_name());
+            if (!$name) {
+                $name = trim($order->get_formatted_billing_full_name());
+            }
+            if (!$name) {
+                $user = $order->get_user();
+                if ($user) {
+                    if (!empty($user->display_name)) {
+                        $name = $user->display_name;
+                    } elseif (!empty($user->user_nicename)) {
+                        $name = $user->user_nicename;
+                    } elseif (!empty($user->user_login)) {
+                        $name = $user->user_login;
+                    }
+                }
+            }
+            if ($state_code) {
+                $state = isset($states[$state_code]) ? $states[$state_code] : $state_code;
+            } else {
+                $state = $city;
+            }
+            $ali_states = A2W_Country::get_ali_states($country);
+            if (count($ali_states)) {
+                $address_ = array();
+                if (function_exists('mb_strtolower')) {
+                    $search = mb_strtolower($state);
+                    $search_1 = array($search, remove_accents($search));
+                    $found_state = false;
+                    foreach ($ali_states['addressList'] as $key => $value) {
+                        if (in_array(mb_strtolower($value['n']), $search_1, true)) {
+                            $found_state = $key;
+                            $state = $value['n'];
+                            break;
+                        }
+                    }
+                    if ($found_state === false) {
+                        if (array_search('Other', array_column($ali_states['addressList'], 'n')) !== false) {
+                            if ($state_code) {
+                                array_push($address_, $state);
+                            }
+                            $state = 'Other';
+                        }
+                    } else {
+                        if (isset($ali_states['addressList'][$found_state]['children']) && is_array($ali_states['addressList'][$found_state]['children']) && count($ali_states['addressList'][$found_state]['children'])) {
+                            $found_city = false;
+                            if ($city) {
+                                $search = mb_strtolower($city);
+                                $search_1 = array($search, remove_accents($search));
+                                foreach ($ali_states['addressList'][$found_state]['children'] as $key => $value) {
+                                    if (in_array(mb_strtolower($value['n']), $search_1, true)) {
+                                        $found_city = $key;
+                                        $city = $value['n'];
+                                        break;
+                                    }
+                                }
+                            }
+                            if ($found_city === false) {
+                                $city = ucwords(remove_accents($city));
+                                if (array_search('Other', array_column($ali_states['addressList'][$found_state]['children'], 'n')) !== false) {
+                                    array_push($address_, $city);
+                                    $city = 'Other';
+                                }
+                            }
+                        } else {
+                            $city = ucwords(remove_accents($city));
+                        }
+                    }
+                } else {
+                    $search = strtolower($state);
+                    $search_1 = array($search, remove_accents($search));
+                    $found_state = false;
+                    foreach ($ali_states['addressList'] as $key => $value) {
+                        if (in_array(strtolower($value['n']), $search_1, true)) {
+                            $found_state = $key;
+                            $state = $value['n'];
+                            break;
+                        }
+                    }
+                    if ($found_state === false) {
+                        if (array_search('Other', array_column($ali_states['addressList'], 'n')) !== false) {
+                            if ($state_code) {
+                                array_push($address_, $state);
+                            }
+                            $state = 'Other';
+                        }
+                    } elseif (isset($ali_states['addressList'][$found_state]['children']) && is_array($ali_states['addressList'][$found_state]['children']) && count($ali_states['addressList'][$found_state]['children'])) {
+                        $found_city = false;
+                        if ($city) {
+                            $search = strtolower($city);
+                            $search_1 = array($search, remove_accents($search));
+                            foreach ($ali_states['addressList'][$found_state]['children'] as $key => $value) {
+                                if (in_array(strtolower($value['n']), $search_1, true)) {
+                                    $found_city = $key;
+                                    $city = $value['n'];
+                                    break;
+                                }
+                            }
+                        }
+                        if ($found_city === false) {
+                            if (array_search('Other', array_column($ali_states['addressList'][$found_state]['children'], 'n')) !== false) {
+                                array_push($address_, $city);
+                                $city = 'Other';
+                            }
+                        }
+                    }
+                }
+                if (count($address_)) {
+                    if ($address1) {
+                        $address1 = implode(', ', array_merge(array($address1), $address_));
+                    }
+                    if ($address2) {
+                        $address2 = implode(', ', array_merge(array($address2), $address_));
+                    }
+                }
+            } else {
+                $state = isset($states[$state_code]) ? remove_accents($states[$state_code]) : (A2W_Country::is_support_other_city($country) ? 'Other' : $city);
+                $city = ucwords(remove_accents($city));
+            }
+            $result = array(
+                'name' => remove_accents($name),
+                'phone' => A2W_Utils::sanitize_phone_number($phone),
+                'street' => remove_accents($address1),
+                'address2' => remove_accents($address2),
+                'city' => $city,
+                'state_code' => remove_accents($state_code),
+                'state' => $state,
+                'country' => $country,
+                'countryName' => $country_name,
+                'postcode' => $post_code,
+                'phoneCountry' => $phone_country,
+                'cpf' => '',
+                'rutNo' => '',
+                'fromOrderId' => $order->get_id(),
+            );
+            if ($country === 'BR') {
+                $result['cpf'] = $order->get_shipping_company();
+                if (!$result['cpf']) {
+                    $result['cpf'] = $order->get_billing_company();
+                }
+                $cpf_meta_key = a2w_get_setting('fulfillment_cpf_meta_key', '');
+                if ($cpf_meta_key) {
+                    $cpf_meta = get_post_meta($order->get_id(), $cpf_meta_key, true);
+                    if ($cpf_meta) {
+                        $result['cpf'] = $cpf_meta;
+                    }
+                }
+            }
+            if ($country === 'CL') {
+                $rut_meta_key = a2w_get_setting('fulfillment_rut_meta_key', '');
+                if ($rut_meta_key) {
+                    $rut = get_post_meta($order->get_id(), $rut_meta_key, true);
+                    if ($rut) {
+                        $result['rutNo'] = substr($rut, 0, 12);
+                    }
+                }
+            }
+            if ($result['cpf']) {
+                $result['cpf'] = substr(A2W_Utils::sanitize_phone_number($result['cpf']), 0, 11);
+            }
+
+            return apply_filters('a2w_order_user_info', $result, $order);
         }
 
     }

@@ -1,5 +1,11 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-07-04 - version 1.1.0
+* Tweak - WC 6.6 and WP 6.0 compatibility.
+
+2022-05-03 - version 1.0.36
+* Fix   - Unit field always being set to 'distance'.
+
 2022-03-28 - version 1.0.35
 * Fix   - Virtual products are not exempt from quantity-based rules when in the cart with physical products.
 * Tweak - WC 6.3 compatibility.
@@ -33,7 +39,7 @@
 
 2020-09-23 - version 1.0.26
 * Tweak - Change "Fixed Cost" to "Base Cost" on settings page and improve tooltips.
-* Tweak - Update plugin author name.  
+* Tweak - Update plugin author name.
 
 2020-08-14 - version 1.0.25
 * Fix   - Replace deprecated jQuery methods.

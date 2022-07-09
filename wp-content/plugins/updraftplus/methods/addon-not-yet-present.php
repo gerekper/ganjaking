@@ -82,27 +82,43 @@ class UpdraftPlus_BackupModule_AddonNotYetPresent extends UpdraftPlus_BackupModu
 	 */
 	public function get_configuration_template() {
 		global $updraftplus;
-		
-		$link = sprintf(__('%s support is available as an add-on', 'updraftplus'), $this->description).' - <a href="'.$updraftplus->get_url('premium').'" target="_blank">'.__('follow this link to get it', 'updraftplus');
+		ob_start();
+	?>
+		<tr class="{{css_class}} {{method_id}}">
+			<th>{{description}}:</th>
+			<td>{{{image}}}{{addon_text}} - <a href="{{premium_url}}" target="_blank">{{premium_url_text}}</a></td>
+		</tr>
+		{{#unless php_version_supported}}
+		<tr class="{{css_class}} {{method_id}}">
+		<th></th>
+		<td>
+			<em>{{error_msg_trans}} {{hosting_text}} {{php_version_text}}</em>
+		</td>
+		</tr>
+		{{/unless}}
+	<?php
+		return ob_get_clean();
+	}
 
-		$default = '
-		<tr class="updraftplusmethod '.$this->method.'">
-			<th>'.$this->description.':</th>
-			<td>'.((!empty($this->image)) ? '<p><img src="'.UPDRAFTPLUS_URL.'/images/'.$this->image.'"></p>' : '').$link.'</a></td>
-			</tr>';
-
-		if (version_compare(phpversion(), $this->required_php, '<')) {
-			$default .= '<tr class="updraftplusmethod '.$this->method.'">
-			<th></th>
-			<td>
-				<em>
-					'.htmlspecialchars($this->error_msg_trans).'
-					'.htmlspecialchars(__('You will need to ask your web hosting company to upgrade.', 'updraftplus')).'
-					'.sprintf(__('Your %s version: %s.', 'updraftplus'), 'PHP', phpversion()).'
-				</em>
-			</td>
-			</tr>';
-		}
-		return $default;
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus;
+		$properties = array(
+			'description' => $this->description,
+			'php_version_supported' => (bool) apply_filters('updraftplus_storage_meets_php_requirement', version_compare(phpversion(), $this->required_php, '>='), $this->method),
+			'image' => (!empty($this->image)) ? '<p><img src="'.UPDRAFTPLUS_URL.'/images/'.$this->image.'"></p>' : '',
+			'error_msg_trans' => $this->error_msg_trans,
+			'premium_url' => $updraftplus->get_url('premium'),
+			'premium_url_text' => __('follow this link to get it', 'updraftplus'),
+			'addon_text' => sprintf(__('%s support is available as an add-on', 'updraftplus'), $this->description),
+			'php_version_text' => sprintf(__('Your PHP version: %s.', 'updraftplus'), phpversion()),
+			'hosting_text' => __('You will need to ask your web hosting company to upgrade.', 'updraftplus'),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 }

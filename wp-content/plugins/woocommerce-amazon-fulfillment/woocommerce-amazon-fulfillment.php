@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.0.7
+ * Version: 4.0.8
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -93,7 +93,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.0.7';
+			public $version = '4.0.8';
 
 			/**
 			 * The App name.

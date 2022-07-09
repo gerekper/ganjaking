@@ -223,7 +223,7 @@ $load_review = a2w_get_setting('load_review');
                 </div>
             </div>
 
-            <div class="row review_option">
+            <div class="row review_option" <?php if (!$load_review): ?>style="display: none;"<?php endif; ?>>
                 <div class="col-md-4">
                     <label>
                         <strong><?php  echo esc_html_x('Select country', 'Setting title', 'ali2woo'); ?></strong>
@@ -235,17 +235,18 @@ $load_review = a2w_get_setting('load_review');
                   
                         <?php $cur_country_array =  a2w_get_setting('review_country'); ?>
                         <select name="a2w_review_country[]" id="a2w_review_country" class="form-control large-input" multiple="multiple">
-                            <?php foreach ($reviews_countries as $country): ?>
-                                <option value="<?php echo $country['c']; ?>"<?php if (in_array($country['c'], $cur_country_array )): ?> selected<?php endif; ?>>
-                                    <?php echo $country['n']; ?>
+                            <?php foreach ($reviews_countries as $code => $country): ?>
+                                <option value="<?php echo $code; ?>"<?php if (in_array($code, $cur_country_array )): ?> selected<?php endif;?>>
+                                    <?php echo $country; ?>
                                 </option>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                         </select>        
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row review_option" <?php if (!$load_review): ?>style="display: none;"<?php endif; ?>
+                >
                 <div class="col-md-4">
                     <label for="a2w_moderation_reviews">
                         <strong><?php echo esc_html_x('Send reviews to draft', 'Setting title', 'ali2woo'); ?></strong>

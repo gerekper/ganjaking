@@ -3,7 +3,7 @@ Contributors: helgatheviking, SomewhereWarm
 Tags: woocommerce, product, container, boxes, kits, configurable
 Requires at least: 4.7.0
 Tested up to: 6.0.0
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 WC requires at least: 3.6.0
 WC tested up to: 6.5.0
 License: GPLv3

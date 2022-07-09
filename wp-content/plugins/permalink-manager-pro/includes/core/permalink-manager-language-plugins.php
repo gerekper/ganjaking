@@ -139,23 +139,23 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		}
 		// B. WPML & Polylang
 		else {
-			$is_wpml_compatible = self::is_wpml_compatible();
+			$is_wpml_compatible = (!empty($sitepress) && method_exists($sitepress, 'is_display_as_translated_post_type')) ? self::is_wpml_compatible() : false;
 
 			if(isset($element->post_type)) {
 				$element_id = $element->ID;
 				$element_type = $element->post_type;
 
-				$fallback_lang_on = (!empty($sitepress) && $is_wpml_compatible) ? $sitepress->is_display_as_translated_post_type($element_type) : false;
+				$fallback_lang_on = ($is_wpml_compatible) ? $sitepress->is_display_as_translated_post_type($element_type) : false;
 			} else if(isset($element->taxonomy)) {
 				$element_id = $element->term_taxonomy_id;
 				$element_type = $element->taxonomy;
 
-				$fallback_lang_on = (!empty($sitepress) && $is_wpml_compatible) ? $sitepress->is_display_as_translated_taxonomy($element_type) : false;
+				$fallback_lang_on = ($is_wpml_compatible) ? $sitepress->is_display_as_translated_taxonomy($element_type) : false;
 			} else {
 				return false;
 			}
 
-			if(!empty($fallback_lang_on) && !empty($sitepress) && !is_admin() && !wp_doing_ajax() && !defined('REST_REQUEST')) {
+			if(!empty($fallback_lang_on) && !is_admin() && !wp_doing_ajax() && !defined('REST_REQUEST')) {
 				$current_language = $sitepress->get_current_language();
 
 				if(!empty($element->post_type)) {
@@ -382,16 +382,8 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 					$domains = $sitepress_settings['language_domains'];
 				}
 
-				if(!empty($element)) {
-					$is_term = (!empty($element->term_taxonomy_id)) ? true : false;
-					$element_id = ($is_term) ? "tax-{$element->term_taxonomy_id}" : $element->ID;
-
-					// Filter only custom permalinks
-					if(empty($permalink_manager_uris[$element_id]) || empty($domains)) { return $base; }
-				}
-
 				// Replace the domain name
-				if(!empty($domains[$language_code])) {
+				if(!empty($domains) && !empty($domains[$language_code])) {
 					$base = trim($domains[$language_code], "/");
 
 					// Append URL scheme

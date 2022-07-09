@@ -361,8 +361,16 @@ if ( ! class_exists( 'NS_FBA_WooCommerce' ) ) {
 		 */
 		public function get_product_by_sku( $sku ) {
 			$product_id = wc_get_product_id_by_sku( $sku );
+
+			// phpcs:ignore
+			//error_log( "Product ID for SKU " . $sku . " is: " . $product_id );
+
+			// Product ID = 0 | FALSE if there is no product matching on SKU.
 			if ( $product_id ) {
-				return wc_get_product( $product_id );
+				$product = wc_get_product( $product_id );
+				// phpcs:ignore
+				//error_log( "Product object has SKU: " . $product->get_sku() );
+				return $product;
 			}
 			return null;
 		}

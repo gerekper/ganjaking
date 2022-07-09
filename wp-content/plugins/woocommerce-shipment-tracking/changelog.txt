@@ -1,5 +1,9 @@
 *** Shipment Tracking Changelog ***
 
+2022-03-28 - version 1.7.0
+* Fix   - Support for Subscriptions with WooCommerce Payments.
+* Tweak - WC 6.1 and WP 5.9 compatibility.
+
 2022-01-12 - version 1.6.31
 * Fix   - Change Canada Post Tracking URL.
 

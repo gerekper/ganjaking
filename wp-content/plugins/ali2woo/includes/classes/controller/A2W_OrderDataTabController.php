@@ -111,15 +111,15 @@ if (!class_exists('A2W_OrderDataTabController')) {
 
             $a2w_order_item = new A2W_WooCommerceOrderItem($item);
 
-            $external_order_id = $a2w_order_item->getExternalOrderId();
+            $external_order_id = $a2w_order_item->get_external_order_id();
 
-            $ali_order_link = $a2w_order_item->getAliOrderItemLink();
+            $ali_order_link = $a2w_order_item->get_ali_order_item_link();
 
-            $order_item_tracking_codes = $a2w_order_item->getFormatedTrackingCodes();
+            $order_item_tracking_codes = $a2w_order_item->get_formated_tracking_codes();
 
-            //$carrier_link = $a2w_order_item->getFormatedCarrierLink();
+            //$carrier_link = $a2w_order_item->get_formated_carrier_link();
 
-            $carrier_name = $a2w_order_item->getCarrierName();
+            $carrier_name = $a2w_order_item->get_carrier_name();
 
             ?>
 
@@ -185,9 +185,9 @@ if (!class_exists('A2W_OrderDataTabController')) {
 
             $a2w_order_item = new A2W_WooCommerceOrderItem($item);
 
-            $external_order_id = $a2w_order_item->getExternalOrderId();
+            $external_order_id = $a2w_order_item->get_external_order_id();
 
-            $order_item_tracking_codes = $a2w_order_item->getFormatedTrackingCodes(true);
+            $order_item_tracking_codes = $a2w_order_item->get_formated_tracking_codes(true);
             ?>
 
             <?php woocommerce_wp_text_input(array(
@@ -228,7 +228,7 @@ if (!class_exists('A2W_OrderDataTabController')) {
 
                     $external_order_id = intval($_POST['a2w_external_order_id_' . $item_id]);
 
-                    $a2w_order_item->crud_update_external_order($external_order_id);
+                    $a2w_order_item->update_external_order($external_order_id);
 
                 }
 
@@ -236,7 +236,7 @@ if (!class_exists('A2W_OrderDataTabController')) {
                     $tracking_codes = explode(',', $_POST['a2w_tracking_code_' . $item_id]);
                     $tracking_codes = array_map('trim', $tracking_codes);
 
-                    $a2w_order_item->crud_update_tracking_codes($tracking_codes);
+                    $a2w_order_item->update_tracking_codes($tracking_codes);
 
                 }
 

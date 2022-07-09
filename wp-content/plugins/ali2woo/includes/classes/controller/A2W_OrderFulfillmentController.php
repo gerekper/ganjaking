@@ -13,6 +13,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
 
     class A2W_OrderFulfillmentController extends A2W_AbstractController
     {
+        protected static $shipping_fields = array();
 
         public function __construct()
         {
@@ -25,10 +26,76 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
 
             add_filter('a2w_wcol_bulk_actions_init', array($this, 'bulk_actions'));
             add_action('wp_ajax_a2w_get_aliexpress_order_data', array($this, 'get_aliexpress_order_data'));
+
+            add_action('wp_ajax_a2w_load_fulfillment_model', array($this, 'ajax_load_fulfillment_model_html'));
+            add_action('wp_ajax_a2w_load_fulfillment_orders', array($this, 'ajax_load_fulfillment_orders_html'));
+            add_action('wp_ajax_a2w_save_order_shipping_info', array($this, 'ajax_save_order_shipping_info'));
+
+            add_action('wp_ajax_a2w_fulfillment_place_order', array($this, 'ajax_load_fulfillment_place_order'));
+
+            add_action('wp_ajax_a2w_update_fulfillment_shipping', array($this, 'ajax_update_fulfillment_shipping'));
+
+            add_action('wp_ajax_a2w_sync_order_info', array($this, 'ajax_sync_order_info'));
+
+            add_action( 'init', array($this, 'init') );
+        }
+
+        public function init() {
+            self::$shipping_fields = apply_filters(
+                'woocommerce_admin_shipping_fields',
+                array(
+                    'first_name' => array(
+                        'label' => __( 'First name', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'last_name'  => array(
+                        'label' => __( 'Last name', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'company'    => array(
+                        'label' => __( 'Company', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'address_1'  => array(
+                        'label' => __( 'Address line 1', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'address_2'  => array(
+                        'label' => __( 'Address line 2', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'city'       => array(
+                        'label' => __( 'City', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'postcode'   => array(
+                        'label' => __( 'Postcode / ZIP', 'woocommerce' ),
+                        'show'  => false,
+                    ),
+                    'country'    => array(
+                        'label'   => __( 'Country / Region', 'woocommerce' ),
+                        'show'    => false,
+                        'type'    => 'select',
+                        'class'   => 'js_field-country select short',
+                        'options' => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_shipping_countries(),
+                    ),
+                    'state'      => array(
+                        'label' => __( 'State / County', 'woocommerce' ),
+                        'class' => 'js_field-state select short',
+                        'show'  => false,
+                    ),
+                    'phone'      => array(
+                        'label' => __( 'Phone', 'woocommerce' ),
+                    ),
+                )
+            );
         }
 
         public function assets()
         {
+            wp_enqueue_style('a2w-admin-style', A2W()->plugin_url() . '/assets/css/admin_style.css', array(), A2W()->version);
+            // wp_enqueue_style('a2w-bootstrap-style', A2W()->plugin_url() . '/assets/js/bootstrap/css/bootstrap.min.css', array(), A2W()->version);
+
             wp_enqueue_script('a2w-ali-orderfulfill-js', A2W()->plugin_url() . '/assets/js/orderfulfill.js', array(), A2W()->version, true);
 
             wp_enqueue_script('a2w-sprintf-script', A2W()->plugin_url() . '/assets/js/sprintf.js', array(), A2W()->version);
@@ -36,9 +103,10 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             $lang_data = array(
                 'placing_orders_d_of_d' => _x('Placing orders %d/%d...', 'Status', 'ali2woo'),
                 'please_wait_data_loads' => _x('Please wait, data loads..', 'Status', 'ali2woo'),
-
                 'process_update_d_of_d_erros_d' => _x('Process update %d of %d. Errors: %d.', 'Status', 'ali2woo'),
+                'process_sync_d_of_d_erros_d' => _x('Process sync %d of %d. Errors: %d.', 'Status', 'ali2woo'),
                 'complete_result_updated_d_erros_d' => _x('Complete! Result updated: %d; errors: %d.', 'Status', 'ali2woo'),
+                'complete_result_sync_d_erros_d' => _x('Complete! Successfully synced: %d; errors: %d.', 'Status', 'ali2woo'),
                 'install_chrome_ext' => _x('Please install and connect to your website the Ali2Woo chrome extension to use this feature.', 'Status', 'ali2woo'),
                 'please_connect_chrome_extension_check_d' => _x('Please connect the Chrome extension to your store and then continue. Need help? Check out <a href="%s">the instruction</a>', 'Status', 'ali2woo'),
                 'we_found_old_order' => _x('We found an old order fulfillment process and removed it. Press the "Continue" button.', 'Status', 'ali2woo'),
@@ -140,9 +208,9 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             foreach ($items as $item) {
 
                 $normalized_item = new A2W_WooCommerceOrderItem($item);
-                $product_id = $normalized_item->getProductID();
-                $variation_id = $normalized_item->getVariationID();
-                $quantity = $normalized_item->getQuantity();
+                $product_id = $normalized_item->get_product_id();
+                $variation_id = $normalized_item->get_variation_id();
+                $quantity = $normalized_item->get_quantity();
 
                 $external_id = get_post_meta($product_id, '_a2w_external_id', true);
 
@@ -169,7 +237,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                     //try to use shipping method that user choose on the product page, cart or checkout
                     //if it returns empty, then keep it
                     //because chrome extension chosoe default shipping method in this case
-                    $shipping_service_name = $normalized_item->get_A2W_ShippingCode();
+                    $shipping_service_name = $normalized_item->get_ali_shipping_code();
 
                     //todo: make an ability to change the shipping method
                     //before place order on AliExpress
@@ -416,13 +484,13 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
 
             $sku = array();
 
-            if ($item->getVariationID() !== 0) {
+            if ($item->get_variation_id() !== 0) {
 
-                $variation_id = $item->getVariationID();
+                $variation_id = $item->get_variation_id();
                 $sku = $this->getSkuArrayByVariationID($variation_id);
 
             } else {
-                $product_id = $item->getProductID();
+                $product_id = $item->get_product_id();
                 $sku = $this->getSkuArrayByVariationID($product_id);
 
                 // if (empty($sku)){
@@ -471,6 +539,547 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             return $result;
         }
 
-    }
+        public function ajax_load_fulfillment_model_html()
+        {
 
+            $token = A2W_AliexpressToken::getInstance()->defaultToken();
+            
+            $purchase_code = A2W_Account::getInstance()->get_purchase_code();
+            
+            
+            ?>
+            <div class="modal-overlay modal-fulfillment">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"><?php _e('Order fulfillment', 'ali2woo');?></h3>
+                        <a class="modal-btn-close" href="#"></a>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <?php if($token && $purchase_code):?>
+                        <div style="display: inline-block;">
+                        <a id="pay-for-orders" target="_blank" class="btn btn-success" href="https://www.aliexpress.com/p/order/index.html" title="<?php _e('You will be redirected to the AlIExpress portal. You must be authorized in your account to make the payment', 'ali2woo');?>"><?php _e('Pay for order(s)', 'ali2woo');?></a>
+                        <button id="fulfillment-auto" class="btn btn-success" type="button">
+                            <div class="btn-icon-wrap cssload-container"><div class="cssload-speeding-wheel"></div></div>
+                            <?php _e('Fulfil orders automatically', 'ali2woo');?>
+                        </button>
+                        </div>
+
+                        <?php endif; ?>
+
+                        <?php if($purchase_code):?>
+                        <button id="fulfillment-chrome" class="btn btn-success" type="button">
+                            <div class="btn-icon-wrap cssload-container"><div class="cssload-speeding-wheel"></div></div>
+                            <?php _e('Fulfil orders via Chrome extension', 'ali2woo');?>
+                        </button>
+                        <?php endif; ?>
+                        <button class="btn btn-default modal-close" type="button"><?php _e('Close');?></button>
+                    </div>
+                </div>
+            </div>
+        <?php wp_die();
+        }
+
+        public function ajax_load_fulfillment_orders_html()
+        {
+            global $thepostid;
+            $old_thepostid = $thepostid;
+
+            $ids = array_map('intval', isset($_POST['ids']) ? (is_array($_POST['ids']) ? $_POST['ids'] : array($_POST['ids'])) : array());
+
+            $orders = array();
+            if (!empty($ids)) {
+                foreach ($ids as $order_id) {
+                    $orders[] = new WC_Order($order_id);
+                }
+            }
+
+            $is_wpml = false;
+            global $sitepress;
+            if (is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
+                $default_lang = apply_filters('wpml_default_language', null);
+                $current_language = apply_filters('wpml_current_language', null);
+                if ($current_language && $current_language !== $default_lang) {
+                    $is_wpml = true;
+                }
+            }
+
+            
+            $orders_data = array();
+            foreach ($orders as $order) {
+                // copied from woocommerce/includes/admin/list-tables/class-wc-admin-list-table-orders.php
+                $buyer = '';
+                if ($order->get_billing_first_name() || $order->get_billing_last_name()) {
+                    /* translators: 1: first name 2: last name */
+                    $buyer = trim(sprintf(_x('%1$s %2$s', 'full name', 'woocommerce'), $order->get_billing_first_name(), $order->get_billing_last_name()));
+                } elseif ($order->get_billing_company()) {
+                    $buyer = trim($order->get_billing_company());
+                } elseif ($order->get_customer_id()) {
+                    $user = get_user_by('id', $order->get_customer_id());
+                    $buyer = ucwords($user->display_name);
+                }
+
+                /**
+                 * Filter buyer name in list table orders.
+                 *
+                 * @since 3.7.0
+                 * @param string   $buyer Buyer name.
+                 * @param WC_Order $order Order data.
+                 */
+                $order_data['buyer'] = apply_filters('woocommerce_admin_order_buyer_name', $buyer, $order);
+
+
+                $shipping_address = $order->get_address('shipping');
+                if (empty($shipping_address['country'])) {
+                    $shipping_address = $order->get_address('billing');
+                }
+                $countries = WC()->countries->get_countries();
+                $formatted_address = WC()->countries->get_formatted_address($shipping_address, ', ');
+
+                $shiping_to_country = A2W_ProductShippingMeta::normalize_country($shipping_address['country']);
+
+                $order_data = array(
+                    'order_id' => $order->get_id(),
+                    'order_number' => $order->get_order_number(),
+                    'order' => $order,
+                    'buyer' => $buyer,
+                    'currency' => $order->get_currency(),
+                    'shiping_to_country' => $shiping_to_country,
+                    'shipping_address' => $shipping_address,
+                    'formatted_address' => $formatted_address,
+                    'total_cost' => 0,
+                    'items' => array(),
+                );
+
+                foreach ($order->get_items() as $item) {
+                    $a2w_order_item = new A2W_WooCommerceOrderItem($item);
+
+                    if(!$a2w_order_item->get_external_product_id()){
+                        continue;
+                    }
+
+                    $product = $item->get_product();
+
+                    $image = $product->get_image();
+
+                    $product_id = $item->get_product_id();
+                    $variation_id = $item->get_variation_id();
+
+                    $shipping_meta = new A2W_ProductShippingMeta($product_id);
+
+                    $shipping_info = A2W_Utils::get_product_shipping_info($product, $item->get_quantity(), $shiping_to_country, false);
+
+                    $current_shipping_company = '';
+                    $current_delivery_time = '-';
+                    $current_shipping_cost = '';
+                    $shipping_meta_data = $item->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
+
+                    if ($shipping_meta_data) {
+                        $shipping_meta_data = json_decode($shipping_meta_data, true);
+                        $current_shipping_company = $shipping_meta_data['service_name'];
+                        $current_delivery_time = $shipping_meta_data['delivery_time'];
+                        $current_shipping_cost = $shipping_meta_data['shipping_cost'];
+                    }
+                    $current_shipping_company = $current_shipping_company ? $current_shipping_company : $shipping_info['default_method'];
+
+                    $wpml_product_id = $wpml_variation_id = '';
+                    if ($is_wpml) {
+                        $wpml_object_id = apply_filters('wpml_object_id', $product_id, 'product', false, $sitepress->get_default_language());
+                        if ($wpml_object_id != $product_id) {
+                            $wpml_product = wc_get_product($wpml_object_id);
+                            if ($wpml_product) {
+                                $wpml_product_id = $wpml_object_id;
+                            }
+                        }
+                        if ($product_id) {
+                            $wpml_object_id = apply_filters('wpml_object_id', $product_id, 'product', false, $sitepress->get_default_language());
+                            if ($wpml_object_id != $product_id) {
+                                $wpml_variation = wc_get_product($wpml_object_id);
+                                if ($wpml_variation) {
+                                    $wpml_variation_id = $wpml_object_id;
+                                }
+                            }
+                        }
+                    }
+
+                    if ($wpml_product_id) {
+                        $aliexpress_product_id = get_post_meta($wpml_product_id, '_a2w_external_id', true);
+                    } else {
+                        $aliexpress_product_id = get_post_meta($product_id, '_a2w_external_id', true);
+                    }
+
+                    $aliexpress_price = $this->get_aliexpress_price($item, $is_wpml);
+
+                    $attributes = array();
+                    if ($meta_data = $item->get_formatted_meta_data('')) {
+                        foreach ($meta_data as $meta_id => $meta) {
+                            if (substr($meta->key, 0, 3) !== "pa_") {
+                                continue;
+                            }
+                            $attributes[] = force_balance_tags($meta->display_value);
+                        }
+                    }
+
+                    $total_cost = $aliexpress_price * $item->get_quantity() + ($current_shipping_cost ? $current_shipping_cost : 0);
+
+                    $order_data['items'][] = array(
+                        'order_item_id' => $item->get_id(),
+                        'image' => $image,
+                        'name' => $item->get_name(),
+                        'sku' => $product->get_sku(),
+                        'attributes' => implode(' / ', $attributes),
+                        'cost' => $aliexpress_price,
+                        'quantity' => $item->get_quantity(),
+                        'shipping_items' => $shipping_info['items'],
+                        'current_shipping' => $current_shipping_company,
+                        'current_delivery_time' => $current_delivery_time,
+                        'current_shipping_cost' => $current_shipping_cost,
+                        'total_cost' => $total_cost,
+                    );
+
+                    $order_data['total_cost'] += $total_cost;
+                }
+
+                if($order_data['items']) {
+                    $orders_data[] = $order_data;    
+                }
+            }
+            
+            if (empty(A2W_Account::getInstance()->get_purchase_code())) {
+                echo '<div class="empty">' . __("Purchase code not found. Input your purchase code in the plugin settings.", 'ali2woo') . '</div>';
+            } else  if (empty($orders_data)) {
+                echo '<div class="empty">' . __("Orders not found", 'ali2woo') . '</div>';
+            } else {
+                foreach ($orders_data as $order_data) {
+                    echo '<div class="single-order-wrap" data-order_id="' . esc_attr($order_data['order_id']) . '", data-shiping_to_country="' . $order_data['shiping_to_country'] . '">';
+                    echo '<div  class="order-info">';
+                    echo '<div class="order-name">';
+                    echo '<strong>' . __('Order', 'ali2woo') . ': </strong>';
+                    if ($order->get_status() === 'trash') {
+                        echo '<strong>#' . esc_attr($order_data['order_number']) . ' ' . esc_html($order_data['buyer']) . '</strong>';
+                    } else {
+                        echo '<a target="_blank" href="' . esc_url(admin_url('post.php?post=' . absint($order_data['order_id'])) . '&action=edit') . '" class="order-view"><strong>#' . esc_attr($order_data['order_number']) . ' ' . esc_html($order_data['buyer']) . '</strong></a>';
+                    }
+                    echo '</div>';
+                    echo '<div class="order-ship-to">';
+                    echo '<strong>' . __('Ship to', 'ali2woo') . ': </strong><span title="' . esc_attr($order_data['formatted_address']) . '">' . (isset($countries[$order_data['shipping_address']['country']]) ? $countries[$order_data['shipping_address']['country']] : $order_data['formatted_address']) . '</span> <a href="#" class="edit">' . __('Edit') . '</a>';
+                    echo '</div>';
+                    echo '<div class="order-total">';
+                    echo '<strong>' . __('Total cost', 'ali2woo') . ': </strong><span class="total">' . wc_price($order_data['total_cost'], array('currency' => $order_data['currency'])) . '</span>';
+                    echo '</div>';
+                    echo '<div class="order-message"></div>';
+                    echo '</div>';
+                    echo '<div class="order-edit-address-form">';
+                    $thepostid = $order_data['order_id'];
+                    foreach ( self::$shipping_fields as $key => $field ) {
+                        if ( ! isset( $field['type'] ) ) {
+                            $field['type'] = 'text';
+                        }
+                        if ( ! isset( $field['id'] ) ) {
+                            $field['id'] = '_shipping_' . $key;
+                        }
+
+                        $field_name = 'shipping_' . $key;
+
+                        if ( is_callable( array( $order_data['order'], 'get_' . $field_name ) ) ) {
+                            $field['value'] = $order_data['order']->{"get_$field_name"}( 'edit' );
+                        } else {
+                            $field['value'] = $order_data['order']->get_meta( '_' . $field_name );
+                        }
+
+                        switch ( $field['type'] ) {
+                            case 'select':
+                                woocommerce_wp_select( $field );
+                                break;
+                            default:
+                                woocommerce_wp_text_input( $field );
+                                break;
+                        }
+                    }
+                    echo '<button id="save-order-address" class="btn btn-success" type="button">' . __('Save') . '</button>';
+                    echo '</div>';
+                    echo '<table class="wp-list-table widefat striped table-view-list fulfillment-order-items">';
+                    echo '<thead>';
+                    echo '<tr><th colspan="2" class="name">' . __('Item', 'ali2woo') . '</th><th class="shipping_company">' . __('Shipping Company', 'ali2woo') . '</th><th class="delivery_time">' . __('Delivery Time', 'ali2woo') . '</th><th class="shipping_cost">' . __('Shipping Cost', 'ali2woo') . '</th><th class="cost">' . __('Cost', 'ali2woo') . '</th><th class="total">' . __('Total', 'ali2woo') . '</th><th class="actions"></th></tr>';
+                    echo '</thead>';
+                    echo '<body>';
+                    foreach ($order_data['items'] as $item) {
+                        echo '<tr data-order_item_id="' . esc_attr($item['order_item_id']) . '">';
+
+                        echo '<td class="photo">' . A2W_Utils::wp_kses_post($item['image']) . '</td>';
+                        echo '<td class="name">';
+                        echo '<a target="_blank" href="#">' . esc_html($item['name']) . '</a>';
+
+                        if ($attributes) {
+                            echo '<div class="info attributes">';
+                            echo '<strong>' . __('Attribute', 'ali2woo') . ': </strong><div>' . A2W_Utils::wp_kses_post($item['attributes']) . '</div>';
+                            echo '</div>';
+                        }
+
+                        echo '<div class="info sku">';
+                        echo '<strong>' . __('Sku', 'ali2woo') . ': </strong>' . esc_html($item['sku']);
+                        echo '</div>';
+                        echo '<div class="item-message"></div>';
+                        echo '</td>';
+                        echo '<td class="shipping_company">';
+                        echo '<select class="current-shipping-company">';
+                        foreach ($item['shipping_items'] as $si) {
+                            echo '<option value="' . $si['serviceName'] . '" ' . ($si['serviceName'] == $item['current_shipping'] ? ' selected="selected"' : '') . '>' . $si['company'] . ' (' . $si['time'] . 'days, ' . $si['localPriceFormatStr'] . ')</option>';
+                        }
+                        echo '</select>';
+                        echo '</td>';
+                        echo '<td class="delivery_time">';
+                        echo esc_html($item['current_delivery_time'] . ' days');
+                        echo '</td>';
+                        echo '<td class="shipping_cost">';
+                        echo $item['current_shipping_cost'] ? wc_price($item['current_shipping_cost'], array('currency' => $order_data['currency'])) : 'Free Shipping';
+                        echo '</td>';
+                        echo '<td class="cost">';
+                        echo wc_price($item['cost'], array('currency' => $order_data['currency'])) . ' x ' . esc_html($item['quantity']) . ' = <strong>' . wc_price($item['cost'] * $item['quantity'], array('currency' => $order_data['currency'])) . '</strong>';
+                        echo '</td>';
+                        echo '<td class="total_cost">';
+                        echo '<strong>' . wc_price($item['total_cost'], array('currency' => $order_data['currency'])) . '</strong>';
+                        echo '</td>';
+                        echo '<td class="actions">';
+                        echo '<a class="remove-item" href="#"></a>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+
+                    echo '</body>';
+                    echo '</table>';
+
+                    echo '</div>';
+                }
+            }
+            
+            $thepostid = $old_thepostid;
+
+            wp_die();
+        }
+
+        public function ajax_save_order_shipping_info() {
+            if(!isset($_POST['order_id'])) {
+                $result=array('state'=>'error', 'message'=>'waiting for order id');
+            } else{
+                // Get order object.
+                $order = wc_get_order( $_POST['order_id'] );
+                $props = array();
+
+                // Update shipping fields.
+                if ( ! empty( self::$shipping_fields ) ) {
+                    foreach ( self::$shipping_fields as $key => $field ) {
+                        if ( ! isset( $field['id'] ) ) {
+                            $field['id'] = '_shipping_' . $key;
+                        }
+
+                        if ( ! isset( $_POST[ $field['id'] ] ) ) {
+                            continue;
+                        }
+
+                        if ( is_callable( array( $order, 'set_shipping_' . $key ) ) ) {
+                            $props[ 'shipping_' . $key ] = wc_clean( wp_unslash( $_POST[ $field['id'] ] ) );
+                        } else {
+                            $order->update_meta_data( $field['id'], wc_clean( wp_unslash( $_POST[ $field['id'] ] ) ) );
+                        }
+                    }
+                }
+
+                // Save order data.
+                $order->set_props( $props );
+                $order->save();
+
+                if(isset($_POST['_shipping_country'])) {
+                    $shiping_to_country = A2W_ProductShippingMeta::normalize_country($_POST['_shipping_country']);
+
+                    foreach ($order->get_items() as $item) {
+                        $product = $item->get_product();
+
+                        $shipping_info = A2W_Utils::get_product_shipping_info($product, $item->get_quantity(), $shiping_to_country, false);
+
+                        $shipping_meta_data = $item->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
+                        $shipping_meta_data = $shipping_meta_data ? json_decode($shipping_meta_data, true) : array('company' => '', 'service_name' => '', 'delivery_time' => '', 'shipping_cost' => '', 'quantity' => $item->get_quantity(), 'cost_added' => true);
+                        foreach ($shipping_info['items'] as $si) {
+                            if ($si['serviceName'] == $shipping_info['default_method']) {
+                                $shipping_meta_data['company'] = $si['company'];
+                                $shipping_meta_data['service_name'] = $si['serviceName'];
+                                $shipping_meta_data['shipping_cost'] = $si['freightAmount']['value'];
+                                $shipping_meta_data['delivery_time'] = $si['time'];  
+                            }
+                        }
+
+                        $item->update_meta_data(A2W_Shipping::get_order_item_shipping_meta_key(), json_encode($shipping_meta_data));
+                        $item->save_meta_data();
+                    }
+                }
+
+                $result = array('state'=>'ok');
+            }
+
+            echo json_encode($result);
+            wp_die();
+        }
+
+        public function ajax_update_fulfillment_shipping()
+        {
+            $result = A2W_ResultBuilder::buildError('Shipping method not found');
+
+            $is_wpml = false;
+            global $sitepress;
+            if (is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
+                $default_lang = apply_filters('wpml_default_language', null);
+                $current_language = apply_filters('wpml_current_language', null);
+                if ($current_language && $current_language !== $default_lang) {
+                    $is_wpml = true;
+                }
+            }
+
+            $order_id = isset($_POST['order_id']) ? intval($_POST['order_id']) : 0;
+            $shiping_to_country = isset($_POST['shiping_to_country']) ? $_POST['shiping_to_country'] : false;
+            $items = isset($_POST['items']) && is_array($_POST['items']) ? $_POST['items'] : array();
+
+            $order_items = array();
+            foreach ($items as $item) {
+                $order_items[$item['order_item_id']] = $item['shipping'];
+            }
+
+            $total_order_price = 0;
+            if ($shiping_to_country && $order_id) {
+                $order = new WC_Order($order_id);
+                $result_items = array();
+                foreach ($order->get_items() as $item) {
+                    if (isset($order_items[$item->get_id()])) {
+                        $shipping = $order_items[$item->get_id()];
+
+                        $aliexpress_price = $this->get_aliexpress_price($item, $is_wpml);
+
+                        $product = $item->get_product();
+                        $product_id = $item->get_product_id();
+
+                        $shipping_meta = new A2W_ProductShippingMeta($product_id);
+                        $shipping_info = A2W_Utils::get_product_shipping_info($product, $item->get_quantity(), $shiping_to_country, false);
+
+                        $shipping_meta_data = $item->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
+                        $shipping_meta_data = $shipping_meta_data ? json_decode($shipping_meta_data, true) : array('company' => '', 'service_name' => '', 'delivery_time' => '', 'shipping_cost' => '', 'quantity' => $item->get_quantity(), 'cost_added' => true);
+                        $current_shipping_cost = 0;
+                        foreach ($shipping_info['items'] as $si) {
+                            if ($si['serviceName'] == $shipping) {
+                                $current_shipping_cost = $si['freightAmount']['value'];
+
+                                $shipping_meta_data['company'] = $si['company'];
+                                $shipping_meta_data['service_name'] = $si['serviceName'];
+                                $shipping_meta_data['shipping_cost'] = $si['freightAmount']['value'];
+                                $shipping_meta_data['delivery_time'] = $si['time'];
+
+                                $result_items[] = array(
+                                    'order_item_id' => $item->get_id(),
+                                    'shiping_time' => $si['time'] . ' days',
+                                    'shiping_price' => wc_price($si['freightAmount']['value'], array('currency' => $order->get_currency())),
+                                    'total_item_price' => wc_price($aliexpress_price * $item->get_quantity() + $si['freightAmount']['value'], array('currency' => $order->get_currency())),
+                                );
+                            }
+                        }
+
+                        $item->update_meta_data(A2W_Shipping::get_order_item_shipping_meta_key(), json_encode($shipping_meta_data));
+                        $item->save_meta_data();
+
+                        $total_order_price += $aliexpress_price * $item->get_quantity() + $current_shipping_cost;
+                    }
+                }
+
+                $result = A2W_ResultBuilder::buildOk(array('result' => array(
+                    'order_id' => $order_id,
+                    'total_order_price' => wc_price($total_order_price, array('currency' => $order->get_currency())),
+                    'items' => $result_items,
+                )));
+            } else {
+                $result = A2W_ResultBuilder::buildError('wrong params');
+            }
+
+            echo json_encode($result);
+            wp_die();
+        }
+
+        public function get_aliexpress_price($order_item, $is_wpml = false)
+        {
+            $product_id = $order_item->get_product_id();
+            $variation_id = $order_item->get_variation_id();
+
+            $wpml_product_id = $wpml_variation_id = '';
+            if ($is_wpml) {
+                $wpml_object_id = apply_filters('wpml_object_id', $product_id, 'product', false, $sitepress->get_default_language());
+                if ($wpml_object_id != $product_id) {
+                    $wpml_product = wc_get_product($wpml_object_id);
+                    if ($wpml_product) {
+                        $wpml_product_id = $wpml_object_id;
+                    }
+                }
+                if ($product_id) {
+                    $wpml_object_id = apply_filters('wpml_object_id', $product_id, 'product', false, $sitepress->get_default_language());
+                    if ($wpml_object_id != $product_id) {
+                        $wpml_variation = wc_get_product($wpml_object_id);
+                        if ($wpml_variation) {
+                            $wpml_variation_id = $wpml_object_id;
+                        }
+                    }
+                }
+            }
+            if ($wpml_variation_id) {
+                $aliexpress_price = get_post_meta($wpml_product_id, '_aliexpress_price', true);
+            } else if ($variation_id) {
+                $aliexpress_price = get_post_meta($variation_id, '_aliexpress_price', true);
+            } else if ($wpml_product_id) {
+                $aliexpress_price = get_post_meta($wpml_product_id, '_aliexpress_price', true);
+            } else {
+                $aliexpress_price = get_post_meta($product_id, '_aliexpress_price', true);
+            }
+
+            return $aliexpress_price;
+        }
+
+
+        public function ajax_load_fulfillment_place_order()
+        {
+            $order_id = isset($_POST['order_id']) ? intval($_POST['order_id']) : 0;
+            $items = isset($_POST['items']) && is_array($_POST['items']) ? array_map('intval', $_POST['items']) : array();
+
+            if ($order_id && $items) {
+
+                $token = A2W_AliexpressToken::getInstance()->defaultToken();
+
+                if (!$token) {
+                    $result = A2W_ResultBuilder::buildError(__('Session token is not found. Add a new token in the plugin settings.', 'ali2woo'));
+                } else {
+                    $order = new WC_Order($order_id);
+                    $order_items = array();
+                    foreach ($order->get_items() as $order_item) {
+                        if (in_array($order_item->get_id(), $items)) {
+                            $order_items[] = $order_item;
+                        }
+                    }
+
+                    $api = new A2W_Aliexpress();
+                    $result = $api->place_order(array('order' => $order, 'order_items' => $order_items), $token['access_token']);
+                }
+            } else {
+                $result = A2W_ResultBuilder::buildError('wrong params');
+            }
+
+            echo json_encode($result);
+            wp_die();
+        }
+
+        public function ajax_sync_order_info()
+        {
+            if(empty($_POST['order_id'])){
+                $result = A2W_ResultBuilder::buildError('wrong params');
+            }else{
+                $wc_api = new A2W_Woocommerce();
+                $result = $wc_api->sync_order_with_aliexpress($_POST['order_id']);
+            }
+            echo json_encode($result);
+            wp_die();
+        }
+
+    }
 }

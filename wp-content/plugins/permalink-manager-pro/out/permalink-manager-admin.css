@@ -86,11 +86,6 @@
 #permalink-manager .updated-slugs-table .row-title{max-width:400px}
 
 /**
- * Plugins admin page
- */
-.plugin_license_info_row{transform:translate(0,-1px)}
-
-/**
  * Columns
  */
 #permalink-manager .columns-container{overflow:hidden;margin-left:-15px;margin-right:-15px;clear:both;display:block}

@@ -180,6 +180,10 @@ if ( $dismiss_bottombar_cta ) {
 $seedprod_api_token    = get_option( 'seedprod_api_token' );
 $seedprod_user_id      = get_option( 'seedprod_user_id' );
 $seedprod_site_token   = get_option( 'seedprod_token' );
+if(empty($seedprod_site_token)){
+	$seedprod_site_token = wp_generate_uuid4();
+	update_option( 'seedprod_token', $seedprod_site_token );
+}
 $license_key           = get_option( 'seedprod_api_key' );
 $email_integration_url = '';
 

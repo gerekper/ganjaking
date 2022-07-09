@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WP_Rocket\Engine\Optimization\RUCSS\Admin;
 
 use WP_Rocket\Admin\Options_Data;
-use WP_Rocket\ENgine\Admin\Beacon\Beacon;
+use WP_Rocket\Engine\Admin\Beacon\Beacon;
 use WP_Rocket\Engine\Admin\Settings\Settings as AdminSettings;
 
 class Settings {
@@ -306,12 +306,18 @@ class Settings {
 	/**
 	 * Checks if we can display the RUCSS notices
 	 *
+	 * @param bool $check_enabled check if RUCSS is enabled.
+	 *
 	 * @since 3.11
 	 *
 	 * @return bool
 	 */
 	private function can_display_notice(): bool {
 		$screen = get_current_screen();
+
+		if ( ! rocket_direct_filesystem()->is_writable( rocket_get_constant( 'WP_ROCKET_USED_CSS_PATH' ) ) ) {
+			return false;
+		}
 
 		if (
 			isset( $screen->id )
@@ -389,7 +395,7 @@ class Settings {
 			&&
 			$value['remove_unused_css'] === $old_value['remove_unused_css']
 			&&
-			1 === $value['remove_unused_css']
+			$value['minify_concatenate_css'] === $old_value['minify_concatenate_css']
 			&&
 			0 === $old_value['minify_concatenate_css']
 		) {
@@ -468,4 +474,10 @@ class Settings {
 
 		update_option( 'wp_rocket_settings', $options );
 	}
+
+	/**
+	 * Display a notification on wrong license.
+	 *
+	 * @return void
+	 */
 }

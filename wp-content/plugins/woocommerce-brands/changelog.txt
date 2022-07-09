@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2022-07-06 - version 1.6.34
+* Tweak - WC 6.7 compatibility.
+
 2022-06-21 - version 1.6.33
 * Fix - Avoid collisions with other coupons.
 * Fix - Logic applying the coupon in the backend .

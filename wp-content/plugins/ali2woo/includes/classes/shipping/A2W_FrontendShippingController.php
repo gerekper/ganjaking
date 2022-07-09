@@ -728,7 +728,7 @@ if (!class_exists('A2W_FrontendShippingController')):
 
                 foreach ($shipping_methods as $method) {
 
-                    $normalized_method = A2W_Shipping::get_normalized($method, $default_shipping_to_country);
+                    $normalized_method = A2W_Shipping::get_normalized($method, $default_shipping_to_country, "select", $product);
 
                     if (!$normalized_method) {
                         continue;
@@ -761,6 +761,7 @@ if (!class_exists('A2W_FrontendShippingController')):
                     $default_shipping_method = $min_method['serviceName'];
                 }
 
+                $min_price = apply_filters('wcml_raw_price_amount', $min_price);
                 $min_price_html = ($min_price ? strip_tags(wc_price($min_price)) : __('free', 'ali2woo'));
 
                 $res['min_price_html'] = $min_price_html;

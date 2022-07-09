@@ -2166,6 +2166,12 @@ jQuery(function($) {
 		$(this).closest('.updraft_migrate_widget_module_content').hide();
 	});
 
+	$('#updraft-navtab-migrate-content').on('click', '#updraft_migrate_tab_alt .close', function (e) {
+		e.preventDefault();
+		$('.updraft_migrate_intro').show();
+		$('#updraft_migrate_tab_alt').html('').hide();
+	});
+
 	// Migrate show Add site button
 	$('#updraft-navtab-migrate-content').on('click', '.updraft_migrate_add_site--trigger', function (e) {
 		e.preventDefault();
@@ -2904,7 +2910,9 @@ jQuery(function($) {
 	 */
 	function add_new_instance(method) {
 		var template = Handlebars.compile(updraftlion.remote_storage_templates[method]);
-		var context = updraftlion.remote_storage_options[method]['default'];
+		var context = {}; // Initiate a reference by assigning an empty object to a variable (in this case the context variable) so that it can be used as a target of merging one or more other objects. Unlike basic values (boolean, string, integer, etc.), in Javascript objects and arrays are passed by reference
+		// copy what are in the template properties to the context overwriting the same object properties, and then copy what are in the default instance settings to the context overwriting all the same properties from the previous merging opeartion (if any). The context properties are overwritten by other objects that have the same properties later in the parameters order
+		Object.assign(context, updraftlion.remote_storage_options[method]['template_properties'], updraftlion.remote_storage_options[method]['default']);
 		var method_name = updraftlion.remote_storage_methods[method];
 		context['instance_id'] = 's-' + generate_instance_id(32);
 		context['instance_enabled'] = 1;
@@ -3538,6 +3546,8 @@ jQuery(function($) {
 			var anyselected = 0;
 			var moreselected = 0;
 			var dbselected = 0;
+			var pluginselected = 0;
+			var themeselected = 0;
 			var whichselected = [];
 			// Make a list of what files we want
 			var already_added_wpcore = 0;
@@ -3549,6 +3559,8 @@ jQuery(function($) {
 					var type = $(y).val();
 					if ('more' == type) moreselected = 1;
 					if ('db' == type) dbselected = 1;
+					if ('plugins' == type) pluginselected = 1;
+					if ('themes' == type) themeselected = 1;
 					if (1 == meta_foreign || (2 == meta_foreign && 'db' != type)) {
 						if ('wpcore' != type) {
 							howmany = $('#updraft_restore_form #updraft_restore_wpcore').data('howmany');
@@ -3641,12 +3653,14 @@ jQuery(function($) {
 						var sitename = $(this).val();
 						if (sitename == '') {
 							alert(updraftlion.pleasefillinrequired);
+							jQuery('.updraft-restore--next-step, .updraft-restore--cancel').prop('disabled', false);
 							continue_restore = 0;
 						} else if ($(this).attr('pattern') != '') {
 							var pattern = $(this).attr('pattern');
 							var re = new RegExp(pattern, "g");
 							if (!re.test(sitename)) {
 								alert($(this).data('invalidpattern'));
+								jQuery('.updraft-restore--next-step, .updraft-restore--cancel').prop('disabled', false);
 								continue_restore = 0;
 							}
 						}
@@ -3656,11 +3670,45 @@ jQuery(function($) {
 						
 						anyselected = 0;
 					
-						jQuery('input[name="updraft_restore_table_options[]"').each(function (x, y) {
+						jQuery('input[name="updraft_restore_tables_options[]"').each(function (x, y) {
 							if (jQuery(y).is(':checked') && !jQuery(y).is(':disabled')) anyselected = 1;
 						});
 						
 						if (0 == anyselected && !skipped_db_scan) {
+							alert(updraftlion.youdidnotselectany);
+							jQuery('.updraft-restore--next-step, .updraft-restore--cancel').prop('disabled', false);
+							return;
+						}
+					}
+
+					if (1 == pluginselected) {
+
+						anyselected = 0;
+
+						if (!jQuery(".updraftplus_restore_plugins_options_container").length) anyselected = 1;
+
+						jQuery('input[name="updraft_restore_plugins_options[]"').each(function (x, y) {
+							if (jQuery(y).is(':checked') && !jQuery(y).is(':disabled')) anyselected = 1;
+						});
+						
+						if (0 == anyselected) {
+							alert(updraftlion.youdidnotselectany);
+							jQuery('.updraft-restore--next-step, .updraft-restore--cancel').prop('disabled', false);
+							return;
+						}
+					}
+
+					if (1 == themeselected) {
+
+						anyselected = 0;
+
+						if (!jQuery(".updraftplus_restore_themes_options_container").length) anyselected = 1;
+
+						jQuery('input[name="updraft_restore_themes_options[]"').each(function (x, y) {
+							if (jQuery(y).is(':checked') && !jQuery(y).is(':disabled')) anyselected = 1;
+						});
+						
+						if (0 == anyselected) {
 							alert(updraftlion.youdidnotselectany);
 							jQuery('.updraft-restore--next-step, .updraft-restore--cancel').prop('disabled', false);
 							return;
@@ -3690,12 +3738,16 @@ jQuery(function($) {
 					if (!continue_restore) return;
 					var restore_options = $('#updraft_restoreoptions_ui select, #updraft_restoreoptions_ui input').serialize();
 
-					// jQuery serialize does not pick up unchecked checkboxes, but we want to include these so that we have a list of tables the user does not want to backup we prepend these with udp-skip-table- and check this on the backend
-					jQuery.each(jQuery('input[name="updraft_restore_table_options[]').filter(function(idx) {
-						return jQuery(this).prop('checked') === false
-					}), function(idx, el) {
-						restore_options += '&' + jQuery(el).attr('name') + '=' + 'udp-skip-table-' + jQuery(el).val();
-					});
+					// jQuery serialize does not pick up unchecked checkboxes, but we want to include these so that we have a list of table/plugins/themes the user does not want to restore we prepend these with udp-skip-{entity}- and check this on the backend
+					var entities = ['table', 'plugins', 'themes'];
+
+					jQuery.each(entities, function(i, entity) {
+						jQuery.each(jQuery('input[name="updraft_restore_' + entity + '_options[]').filter(function(idx) {
+							return jQuery(this).prop('checked') === false
+						}), function(idx, el) {
+							restore_options += '&' + jQuery(el).attr('name') + '=' + 'udp-skip-' + entity + '-' + jQuery(el).val();
+						});
+					})
 
 					console.log("Restore options: "+restore_options);
 
@@ -4271,6 +4323,9 @@ jQuery(function($) {
 
 		// a file was added in the queue
 		uploader.bind('FilesAdded', function(up, files) {
+			if ($('#updraft-plupload-modal').is(':hidden')) {
+				$('#updraft-plupload-modal').slideToggle();
+			}
 		// var hundredmb = 100 * 1024 * 1024, max = parseInt(up.settings.max_file_size, 10);
 		
 		plupload.each(files, function(file) {
@@ -4630,6 +4685,22 @@ jQuery(function($) {
 			jQuery('> input', jQuery(this).parents('div.backupnow-db-tables')).not('[data-non_wp_table]').prop('checked', true);
 			
 		}
+	});
+	jQuery('#updraft-restore-modal').on('click', '.updraft_restore_select_all_themes', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_themes_options').prop('checked', true);
+	});
+	jQuery('#updraft-restore-modal').on('click', '.updraft_restore_deselect_all_themes', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_themes_options').prop('checked', false);
+	});
+	jQuery('#updraft-restore-modal').on('click', '.updraft_restore_select_all_plugins', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_plugins_options').prop('checked', true);
+	});
+	jQuery('#updraft-restore-modal').on('click', '.updraft_restore_deselect_all_plugins', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_plugins_options').prop('checked', false);
 	});
 });
 
@@ -5030,18 +5101,99 @@ jQuery(function($) {
 		}
 	});
 
+	/**
+	 * Return a space-separated list of CSS classes suitable for rows in the configuration section
+	 *
+	 * @see UpdraftPlus_BackupModule::get_css_classes()
+	 *
+	 * @param {boolean} include_instance a boolean value to indicate if we want to include the instance_id in the css class, we may not want to include the instance if it's for a UI element that we don't want to be removed along with other UI elements that do include a instance id
+	 * @return {string} the list of CSS classes
+	 */
+	Handlebars.registerHelper('get_template_css_classes', function(include_instance, options) {
+		var css_classes = options.data.root.css_class + ' ' + options.data.root.method_id;
+		if (!include_instance || !options.data.root['is_multi_options_feature_supported']) return css_classes;
+		if (options.data.root['is_config_templates_feature_supported']) {
+			css_classes += ' ' + options.data.root.method_id + '-' + options.data.root.instance_id;
+		} else {
+			css_classes += ' ' + options.data.root.method_id + '-' + options.data.root._instance_id;
+		}
+		return css_classes;
+	});
+
+	/**
+	 * Output the value of an id or name attribute, as if currently within an input tag
+	 * This assumes standardised options handling (i.e. that the options array is updraft_(method-id))
+	 *
+	 * @see UpdraftPlus_BackupModule::output_settings_field_name_and_id()
+	 *
+	 * @param {string} input_attribute The attribute of an input tag
+	 * @param {mixed}  fields          the field identifiers
+	 * @return {string} a specific value to the given input attribute
+	 */
+	Handlebars.registerHelper('get_template_input_attribute_value', function(input_attribute, fields, options) {
+		var instance_id = options.data.root['is_config_templates_feature_supported'] ? options.data.root.instance_id : options.data.root._instance_id;
+		var id = ename = '';
+		var method_id = options.data.root.method_id;
+		try {
+			fields = JSON.parse(fields);
+		} catch (e) {}
+		if ("undefined" !== typeof fields && Array === fields.constructor) {
+			for (var i=0; i<fields.length; i++) {
+				id += '_' + fields[i];
+				ename += '[' + fields[i] + ']';
+			}
+		} else {
+			id = '_' + fields;
+			ename = '[' + fields + ']';
+		}
+		if ('id' === input_attribute) {
+			return 'updraft_'+method_id+id+'_'+instance_id;
+		} else if ('name' === input_attribute) {
+			return 'updraft_'+method_id+'[settings]['+instance_id+']'+ename;
+		} else {
+			return '';
+		}
+	});
+
+	/**
+	 * Return HTML a row of HTML elements for a test button
+	 *
+	 * @see UpdraftPlus_BackupModule::get_test_button_html()
+	 *
+	 * @param {string} title The text to be used in the button
+	 * @return {string} The HTML to be inserted into the settings page
+	 */
+	Handlebars.registerHelper('get_template_test_button_html', function(title, options) {
+		var instance_id = options.data.root['is_config_templates_feature_supported'] ? Handlebars.escapeExpression(options.data.root.instance_id) : Handlebars.escapeExpression(options.data.root._instance_id);
+		var css_classes = Handlebars.escapeExpression(Handlebars.helpers.get_template_css_classes.apply(this, [true, options]));
+		var input_label = Handlebars.escapeExpression(options.data.root.input_test_label);
+		var method_id = Handlebars.escapeExpression(options.data.root.method_id);
+		return '\
+		<tr class="'+css_classes+'"> \
+			<th></th> \
+			<td> \
+				<p> \
+					<button id="updraft-'+method_id+'-test-'+instance_id+'" type="button" class="button-primary updraft-test-button updraft-'+method_id+'-test-'+instance_id+'" data-instance_id="'+instance_id+'" data-method="'+method_id+'" data-method_label="'+title+'">'+input_label+'</button> \
+				</p> \
+			</td> \
+		</tr>';
+	});
+
 	// Add remote methods html using handlebarjs
 	if ($('#remote-storage-holder').length) {
 		var html = '';
+		var not_instance_ids = ['default', 'template_properties'];
 		for (var method in updraftlion.remote_storage_templates) {
-			if ('undefined' != typeof updraftlion.remote_storage_options[method] && 1 < Object.keys(updraftlion.remote_storage_options[method]).length) {
+			if ('undefined' != typeof updraftlion.remote_storage_options[method] && not_instance_ids.length < Object.keys(updraftlion.remote_storage_options[method]).length) {
 				var template = Handlebars.compile(updraftlion.remote_storage_templates[method]);
 				var first_instance = true;
 				var instance_count = 1;
 				for (var instance_id in updraftlion.remote_storage_options[method]) {
-					if ('default' === instance_id) continue;
+					if (not_instance_ids.indexOf(instance_id) > -1) continue;
 					
-					var context = updraftlion.remote_storage_options[method][instance_id];
+					var context = {}; // Initiate a reference by assigning an empty object to a variable (in this case the context variable) so that it can be used as a target of merging one or more other objects. Unlike basic values (boolean, string, integer, etc.), in Javascript objects and arrays are passed by reference
+					// copy what are in the template properties to the context overwriting the same object properties, and then copy what are in the instance settings to the context overwriting all the same properties from the previous merging operation (if any). The context properties are overwritten by other objects that have the same properties later in the parameters order
+					Object.assign(context, updraftlion.remote_storage_options[method]['template_properties'], updraftlion.remote_storage_options[method][instance_id]);
 
 					if ('undefined' == typeof context['instance_conditional_logic']) {
 						context['instance_conditional_logic'] = {
@@ -5428,6 +5580,15 @@ jQuery(function($) {
 		jQuery('.updraftplus_restore_tables_options_container').toggle();
 	});
 
+	jQuery('#updraft-restore-modal').on('click', '#updraftplus_restore_plugins_showmoreoptions', function(e) {
+		e.preventDefault();
+		jQuery('.updraftplus_restore_plugins_options_container').toggle();
+	});
+
+	jQuery('#updraft-restore-modal').on('click', '#updraftplus_restore_themes_showmoreoptions', function(e) {
+		e.preventDefault();
+		jQuery('.updraftplus_restore_themes_options_container').toggle();
+	});
 
 	/**
 	 * Sends request to generate a key to be used between UpdraftPlus

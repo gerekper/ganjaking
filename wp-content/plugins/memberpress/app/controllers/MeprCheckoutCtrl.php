@@ -176,8 +176,12 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     $mepr_coupon_code = '';
 
     extract($_REQUEST, EXTR_SKIP);
-    if(isset($_REQUEST['errors'])) {
-      $errors = array_map( 'wp_kses_post', $_REQUEST['errors'] ); // Use kses here so our error HTML isn't stripped
+    if ( isset( $_REQUEST['errors'] ) ) {
+      if ( is_array( $_REQUEST['errors'] ) ) {
+        $errors = array_map( 'wp_kses_post', $_REQUEST['errors'] ); // Use kses here so our error HTML isn't stripped
+      } else {
+        $errors = [ wp_kses_post( $_REQUEST['errors'] ) ];
+      }
     }
     //See if Coupon was passed via GET
     if(isset($_GET['coupon']) && !empty($_GET['coupon'])) {
@@ -272,6 +276,7 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
       if(!empty($errors)) {
         $_POST['errors'] = $errors; //Deprecated?
         $_REQUEST['errors'] = $errors;
+
         return;
       }
 
@@ -561,8 +566,8 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     if(isset($_REQUEST['payment_method_params'])) {
       extract($_REQUEST['payment_method_params'], EXTR_SKIP);
 
-      if(isset($_POST['errors']) && !empty($_POST['errors'])) {
-        $errors = $_POST['errors'];
+      if(isset($_REQUEST['errors']) && !empty($_REQUEST['errors'])) {
+        $errors = $_REQUEST['errors'];
         MeprView::render('/shared/errors', get_defined_vars());
       }
 

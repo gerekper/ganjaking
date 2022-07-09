@@ -5,111 +5,114 @@
  *
  * @author Mikhail
  */
-if (!class_exists('A2W_WooCommerceOrderItem')):
+if (!class_exists('A2W_WooCommerceOrderItem')) {
 
     class A2W_WooCommerceOrderItem
-{
+    {
         private $orderItem;
         private $has_changes; //use it for Woocommerce CRUD
 
         public function __construct($order_item)
-    {
-            $this->orderItem = $order_item;
+        {
+            if (is_numeric($order_item)) {
+                $this->orderItem = new WC_Order_Item_Product($order_item);
+            } else {
+                $this->orderItem = $order_item;
+            }
             $this->has_changes = false;
         }
 
-        public function getName()
-    {
-            if (is_array($this->orderItem)) {
-                return $this->orderItem['name'];
+        public function get_id()
+        {
+            if (get_class($this->orderItem) == 'WC_Order_Item_Product') {
+                return $this->orderItem->get_id();
+            } else {
+                return $this->orderItem['id'];
             }
+        }
 
+        public function get_order_id()
+        {
+            $order = $this->get_order();
+            return $order->get_id();
+        }
+
+        public function get_name()
+        {
             if (get_class($this->orderItem) == 'WC_Order_Item_Product') {
                 return $this->orderItem->get_name();
+            } else {
+                return $this->orderItem['name'];
             }
-
         }
 
-        public function getProductID()
-    {
-            if (is_array($this->orderItem)) {
-                return $this->orderItem['product_id'];
-            }
-
+        public function get_product_id()
+        {
             if (get_class($this->orderItem) == 'WC_Order_Item_Product') {
                 return $this->orderItem->get_product_id();
+            } else {
+                return $this->orderItem['product_id'];
             }
-
         }
 
-        public function getVariationID()
-    {
-            if (is_array($this->orderItem)) {
-                return $this->orderItem['variation_id'];
-            }
-
+        public function get_variation_id()
+        {
             if (get_class($this->orderItem) == 'WC_Order_Item_Product') {
                 return $this->orderItem->get_variation_id();
+            } else {
+                return $this->orderItem['variation_id'];
             }
-
         }
 
-        public function getQuantity()
-    {
-            if (is_array($this->orderItem)) {
-                return $this->orderItem['qty'];
-            }
-
+        public function get_quantity()
+        {
             if (get_class($this->orderItem) == 'WC_Order_Item_Product') {
                 return $this->orderItem->get_quantity();
+            } else {
+                return $this->orderItem['qty'];
             }
-
         }
 
-        public function isDelivered()
-    {
+        public static function check_is_delivered($status)
+        {
+            return in_array(strtolower(trim($status)), array('delivery successful', 'delivered', 'buyer_accept_goods'), true);
+        }
 
-            $tracking_status = $this->getTrackingStatus();
+        public function is_delivered()
+        {
+            $tracking_status = $this->get_tracking_status();
+            if ($tracking_status) {
+                return self::check_is_delivered($tracking_status);
+            }
+            return false;
+        }
+
+        public function is_shipped()
+        {
+
+            $tracking_status = $this->get_tracking_status();
 
             if ($tracking_status) {
                 if (in_array(strtolower(trim($tracking_status)), array(
-                'delivery successful',
-                'delivered',
-            ), true)) {
+                    'seller_shipped',
+                    'seller_send_goods'
+                ), true)) {
 
                     return true;
                 }
             }
 
             return false;
-
         }
 
-        public function isShipped()
-    {
-
-            $tracking_status = $this->getTrackingStatus();
-
-            if ($tracking_status) {
-                if (in_array(strtolower(trim($tracking_status)), array(
-                'seller_shipped',
-            ), true)) {
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public function getExternalProductId()
-    {
-            $product_id = $this->getProductID();
+        public function get_external_product_id()
+        {
+            $product_id = $this->get_product_id();
             return get_post_meta($product_id, A2W_Constants::product_external_meta(), true);
         }
 
-        public function getExternalOrderId()
-    {
+        public function get_external_order_id()
+        {
             $external_order_id = $this->orderItem->get_meta(A2W_Constants::order_item_external_order_meta());
 
             $external_order_id = is_array($external_order_id) ? $external_order_id[0] : '';
@@ -117,8 +120,8 @@ if (!class_exists('A2W_WooCommerceOrderItem')):
             return $external_order_id;
         }
 
-        private function getTrackingData()
-    {
+        private function get_tracking_data()
+        {
             $tracking_data = $this->orderItem->get_meta(A2W_Constants::order_item_tracking_data_meta());
 
             if (!$tracking_data) {
@@ -145,35 +148,35 @@ if (!class_exists('A2W_WooCommerceOrderItem')):
             return $tracking_data;
         }
 
-        public function getTrackingCodes()
-    {
+        public function get_tracking_codes()
+        {
 
-            $tracking_data = $this->getTrackingData();
+            $tracking_data = $this->get_tracking_data();
 
             return ($tracking_data && isset($tracking_data['tracking_codes'])) ? $tracking_data['tracking_codes'] : array();
 
             return array();
         }
 
-        public function getTrackingStatus()
-    {
-            $tracking_data = $this->getTrackingData();
+        public function get_tracking_status()
+        {
+            $tracking_data = $this->get_tracking_data();
             $tracking_status = $tracking_data['tracking_status'];
             return $tracking_status;
         }
 
-        public function getCarrierName()
-    {
-            $tracking_data = $this->getTrackingData();
+        public function get_carrier_name()
+        {
+            $tracking_data = $this->get_tracking_data();
             if ($tracking_data && isset($tracking_data['tracking_codes'])) {
                 return $tracking_data['carrier_name'];
             }
             return "";
         }
 
-        public function getAliOrderItemLink()
-    {
-            $external_order_id = $this->getExternalOrderId();
+        public function get_ali_order_item_link()
+        {
+            $external_order_id = $this->get_external_order_id();
 
             if ($external_order_id) {
                 $url = "https://trade.aliexpress.com/order_detail.htm?orderId={$external_order_id}";
@@ -184,9 +187,9 @@ if (!class_exists('A2W_WooCommerceOrderItem')):
 
         }
 
-        public function getFormatedCarrierLink()
-    {
-            $tracking_data = $this->getTrackingData();
+        public function get_formated_carrier_link()
+        {
+            $tracking_data = $this->get_tracking_data();
 
             if ($tracking_data && isset($tracking_data['tracking_codes'])) {
 
@@ -196,111 +199,119 @@ if (!class_exists('A2W_WooCommerceOrderItem')):
                 if ($tracking_url && $carrier_name) {
                     return "<a target='_blank' href='{$tracking_url}'>" . $carrier_name . "</a>";
                 } else if ($carrier_name) {
-                return $carrier_name;
+                    return $carrier_name;
+                }
+
             }
 
+            return "";
         }
 
-        return "";
-    }
+        public function get_formated_tracking_codes($plain = false)
+        {
 
-    public function getFormatedTrackingCodes($plain = false)
-    {
+            $tracking_numbers = $this->get_tracking_codes();
 
-        $tracking_numbers = $this->getTrackingCodes();
+            $tracking_numbers_formated = array();
 
-        $tracking_numbers_formated = array();
+            if (!$plain) {
 
-        if (!$plain) {
+                $tracking_url_template = "https://global.cainiao.com/detail.htm?mailNoList={tracking_number}";
 
-            $tracking_url_template = "https://global.cainiao.com/detail.htm?mailNoList={tracking_number}";
+                $tracking_url_template = apply_filters('a2w_get_tracking_url_template', $tracking_url_template);
 
-            $tracking_url_template = apply_filters('a2w_get_tracking_url_template', $tracking_url_template);
+                foreach ($tracking_numbers as $tracking_number) {
+                    $tracking_url = str_replace('{tracking_number}', $tracking_number, $tracking_url_template);
+                    $link_title = __('Click to see the tracking information', 'ali2woo');
+                    $tracking_numbers_formated[] = "<a target='_blank' title='{$link_title}' href='{$tracking_url}'>" . $tracking_number . "</a>";
+                }
 
-            foreach ($tracking_numbers as $tracking_number) {
-                $tracking_url = str_replace('{tracking_number}', $tracking_number, $tracking_url_template);
-                $link_title = __('Click to see the tracking information', 'ali2woo');
-                $tracking_numbers_formated[] = "<a target='_blank' title='{$link_title}' href='{$tracking_url}'>" . $tracking_number . "</a>";
+            } else {
+                $tracking_numbers_formated = $tracking_numbers;
             }
 
-        } else {
-            $tracking_numbers_formated = $tracking_numbers;
+            return !empty($tracking_numbers_formated) ? implode(",", $tracking_numbers_formated) : "";
+
         }
 
-        return !empty($tracking_numbers_formated) ? implode(",", $tracking_numbers_formated) : "";
+        public function get_ali_shipping_code()
+        {
+            $shipping_code = '';
 
-    }
+            $shipping_meta = $this->orderItem->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
 
-    public function get_A2W_ShippingCode()
-    {
-        $shipping_code = '';
+            $legacy_shipping_meta = $this->orderItem->get_meta(A2W_Shipping::get_order_item_legacy_shipping_meta_key());
 
-        $shipping_meta = $this->orderItem->get_meta(A2W_Shipping::get_order_item_shipping_meta_key());
+            if ($shipping_meta) {
+                $shipping_info = json_decode($shipping_meta, true);
+                $shipping_code = $shipping_info['service_name'];
+            } else
 
-        $legacy_shipping_meta = $this->orderItem->get_meta(A2W_Shipping::get_order_item_legacy_shipping_meta_key());
+            if ($legacy_shipping_meta) {
+                $shipping_code = $legacy_shipping_meta;
+            }
 
-        if ($shipping_meta) {
-            $shipping_info = json_decode($shipping_meta, true);
-            $shipping_code = $shipping_info['service_name'];
-        } else
-
-        if ($legacy_shipping_meta) {
-            $shipping_code = $legacy_shipping_meta;
+            return $shipping_code;
         }
 
-        return $shipping_code;
-    }
+        public function update_tracking_data($tracking_codes, $carrier_name, $carrier_url, $tracking_status, $force_save = false)
+        {
 
-    public function crud_update_tracking_data($tracking_codes, $carrier_name, $carrier_url, $tracking_status)
-    {
+            foreach ($tracking_codes as $tracking_number) {
+                $order_id = $this->orderItem->get_order_id();
+                //    $order_item_id =  $this->orderItem->get_id();
+                do_action('wcae_after_add_tracking_code', $order_id, $tracking_number);
+            }
 
-        foreach ($tracking_codes as $tracking_number) {
-            $order_id = $this->orderItem->get_order_id();
-            //    $order_item_id =  $this->orderItem->get_id();
-            do_action('wcae_after_add_tracking_code', $order_id, $tracking_number);
+            $this->orderItem->update_meta_data(A2W_Constants::order_item_tracking_data_meta(), array("tracking_codes" => $tracking_codes, "carrier_name" => $carrier_name, "carrier_url" => $carrier_url, "tracking_status" => $tracking_status));
+
+            $this->has_changes = true;
+            if ($force_save) {
+                $this->save();
+            }
         }
 
-        $this->orderItem->update_meta_data(A2W_Constants::order_item_tracking_data_meta(), array("tracking_codes" => $tracking_codes, "carrier_name" => $carrier_name, "carrier_url" => $carrier_url, "tracking_status" => $tracking_status));
+        public function update_tracking_codes($tracking_codes, $force_save = false)
+        {
 
-        $this->has_changes = true;
-    }
+            foreach ($tracking_codes as $tracking_number) {
+                $order_id = $this->orderItem->get_order_id();
+                //    $order_item_id =  $this->orderItem->get_id();
+                do_action('wcae_after_add_tracking_code', $order_id, $tracking_number);
+            }
 
-    public function crud_update_tracking_codes($tracking_codes)
-    {
+            $tracking_data = $this->get_tracking_data();
 
-        foreach ($tracking_codes as $tracking_number) {
-            $order_id = $this->orderItem->get_order_id();
-            //    $order_item_id =  $this->orderItem->get_id();
-            do_action('wcae_after_add_tracking_code', $order_id, $tracking_number);
+            $tracking_data["tracking_codes"] = $tracking_codes;
+
+            $this->orderItem->update_meta_data(A2W_Constants::order_item_tracking_data_meta(), $tracking_data);
+
+            $this->has_changes = true;
+            if ($force_save) {
+                $this->save();
+            }
         }
 
-        $tracking_data = $this->getTrackingData();
+        public function update_external_order($external_order_id, $force_save = false)
+        {
 
-        $tracking_data["tracking_codes"] = $tracking_codes;
+            $this->orderItem->update_meta_data(A2W_Constants::order_item_external_order_meta(), $external_order_id ? array($external_order_id) : "");
 
-        $this->orderItem->update_meta_data(A2W_Constants::order_item_tracking_data_meta(), $tracking_data);
-
-        $this->has_changes = true;
-    }
-
-    public function crud_update_external_order($external_order_id)
-    {
-
-        $this->orderItem->update_meta_data(A2W_Constants::order_item_external_order_meta(), array($external_order_id));
-
-        $this->has_changes = true;
-    }
-
-    public function save()
-    {
-        if ($this->has_changes) {
-            $this->orderItem->save();
-            return true;
+            $this->has_changes = true;
+            if ($force_save) {
+                $this->save();
+            }
         }
 
-        return false;
-    }
+        public function save()
+        {
+            if ($this->has_changes && get_class($this->orderItem) == 'WC_Order_Item_Product') {
+                $this->orderItem->save();
+                return true;
+            }
 
+            return false;
+        }
+
+    }
 }
-
-endif;

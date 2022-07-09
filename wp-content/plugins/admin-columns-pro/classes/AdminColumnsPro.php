@@ -182,6 +182,7 @@ final class AdminColumnsPro extends AC\Plugin {
 			new Search\Addon( $storage, $location, $segment_repository ),
 			new Filtering\Addon( $storage, $location, $request ),
 			new ThirdParty\ACF\Addon(),
+			new ThirdParty\BeaverBuilder\Addon(),
 			new ThirdParty\bbPress\Addon(),
 			new ThirdParty\Polylang\Addon(),
 			new ThirdParty\WooCommerce\Addon(),

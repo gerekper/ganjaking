@@ -36,3 +36,47 @@
 		font-size: 0.875em;
 	}
 }
+
+.wc-store-credit-cart-coupons {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	row-gap: 1.2rem;
+	column-gap: 1.2rem;
+	margin-bottom: 2.617924em;
+}
+
+.wc-store-credit-cart-coupon {
+	padding: 0.5rem;
+	border-radius: 2px;
+	background-color: #f8f8f8;
+	transition: transform 0.2s;
+
+	&:hover {
+		cursor: pointer;
+		transform: scale(1.05);
+	}
+
+	.coupon-amount {
+		font-size: 1.5rem;
+		font-weight: bold; /* stylelint-disable-line font-weight-notation */
+	}
+
+	.coupon-date-expires {
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+	}
+}
+
+.wc-store-credit-cart-coupon-inner {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	padding: 0.5rem;
+	border-style: dashed;
+	border-width: 2px;
+	border-radius: 2px;
+}
+
+.woocommerce-notices-wrapper .wc-store-credit-cart-coupons-title {
+	display: none;
+}

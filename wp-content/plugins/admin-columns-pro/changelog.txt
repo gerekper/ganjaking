@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.7.3 =
+Release Date: July 4th, 2022
+
+* [Added] Support for Beaver Builder template views
+* [Added] New hook to toggle persistent sorting as a preference `acp/sorting/remember_last_sorting_preference`
+* [Fixed] Smart Filtering for some Taxonomy columns did not work correctly
+* [Fixed] Suppress PHP 8.1 warnings
+
 = 5.7.2 =
 Release Date: June 14th, 2022
 

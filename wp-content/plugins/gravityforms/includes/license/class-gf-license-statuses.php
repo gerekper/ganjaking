@@ -18,7 +18,7 @@ class GF_License_Statuses {
 	const EXPIRED_LICENSE_KEY   = 'gravityapi_expired_license';
 	const SITE_REVOKED          = 'gravityapi_site_revoked';
 	const URL_CHANGED           = 'gravityapi_site_url_changed';
-	const MAX_SITES_EXCEEDED    = 'valid_key';
+	const MAX_SITES_EXCEEDED    = 'gravityapi_max_sites_exceeded';
 	const MULTISITE_NOT_ALLOWED = 'gravityapi_multisite_not_allowed';
 	const NO_DATA               = 'rest_no_route';
 

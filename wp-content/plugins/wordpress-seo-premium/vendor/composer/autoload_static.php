@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354
+class ComposerStaticInit46cfcb66f14b9d7480cfeb0451ab072c
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -168,8 +168,11 @@ class ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
         'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => __DIR__ . '/../..' . '/src/database/migration-runner-premium.php',
         'Yoast\\WP\\SEO\\Premium\\Generated\\Cached_Container' => __DIR__ . '/../..' . '/src/generated/container.php',
+        'Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper' => __DIR__ . '/../..' . '/src/helpers/current-page-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper' => __DIR__ . '/../..' . '/src/helpers/prominent-words-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper' => __DIR__ . '/../..' . '/src/helpers/zapier-helper.php',
+        'Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks' => __DIR__ . '/../..' . '/src/initializers/crawl-cleanup-permalinks.php',
+        'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => __DIR__ . '/../..' . '/src/initializers/index-now-key.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => __DIR__ . '/../..' . '/src/initializers/plugin.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => __DIR__ . '/../..' . '/src/initializers/redirect-handler.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
@@ -186,6 +189,8 @@ class ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration' => __DIR__ . '/../..' . '/src/integrations/cleanup-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Basic' => __DIR__ . '/../..' . '/src/integrations/front-end/crawl-cleanup-basic.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Rss' => __DIR__ . '/../..' . '/src/integrations/front-end/crawl-cleanup-rss.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Searches' => __DIR__ . '/../..' . '/src/integrations/front-end/crawl-cleanup-searches.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Index_Now_Ping' => __DIR__ . '/../..' . '/src/integrations/index-now-ping.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Author_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-author-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Date_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-date-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-posttype-archive.php',
@@ -227,9 +232,9 @@ class ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4230ac5b5876d83fe9e105a450c0b354::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit46cfcb66f14b9d7480cfeb0451ab072c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit46cfcb66f14b9d7480cfeb0451ab072c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit46cfcb66f14b9d7480cfeb0451ab072c::$classMap;
 
         }, null, ClassLoader::class);
     }

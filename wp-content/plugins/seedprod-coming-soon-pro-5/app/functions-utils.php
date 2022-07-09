@@ -2279,6 +2279,10 @@ function seedprod_pro_theme_template_conditons() {
 				'text'  => __( 'Is Attachment', 'seedprod-pro' ),
 				'value' => 'is_attachment(x)',
 			),
+			7 => array(
+				'text'  => __( 'Is 404', 'seedprod-pro' ),
+				'value' => 'is_404',
+			),
 		),
 		'Posts'      =>
 		array(

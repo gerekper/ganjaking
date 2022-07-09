@@ -3,6 +3,10 @@
 	<description>UpdraftPlus PHP Syntax Check</description>
 	<!-- Set Memory Limit -->
 	<ini name="memory_limit" value="150M"/>
+	<!-- CI Cache -->
+	<arg name="cache" value="../CI/phpcs-cache-syntax-check"/>
+	<!-- Check up to 4 files simultanously. -->
+	<arg name="parallel" value="4"/>
 	<!-- Check for PHP syntax errors -->
 	<rule ref="Generic.PHP.Syntax"/>
 </ruleset>

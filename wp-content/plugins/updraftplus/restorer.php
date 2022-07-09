@@ -77,11 +77,23 @@ class Updraft_Restorer {
 
 	private $include_unspecified_tables = false;
 
+	private $include_unspecified_plugins = false;
+
+	private $include_unspecified_themes = false;
+
 	private $tables_to_restore = array();
+
+	private $plugins_to_restore = array();
+
+	private $themes_to_restore = array();
 
 	private $stored_routine_supported = null;
 	
 	private $tables_to_skip = array();
+
+	private $plugins_to_skip = array();
+
+	private $themes_to_skip = array();
 
 	public $search_replace_obj = null;
 	
@@ -169,6 +181,14 @@ class Updraft_Restorer {
 		if (isset($restore_options['include_unspecified_tables'])) $this->include_unspecified_tables = $restore_options['include_unspecified_tables'];
 		if (isset($restore_options['tables_to_restore'])) $this->tables_to_restore = $restore_options['tables_to_restore'];
 		if (isset($restore_options['tables_to_skip'])) $this->tables_to_skip = $restore_options['tables_to_skip'];
+
+		if (isset($restore_options['include_unspecified_plugins'])) $this->include_unspecified_plugins = $restore_options['include_unspecified_plugins'];
+		if (isset($restore_options['plugins_to_restore'])) $this->plugins_to_restore = $restore_options['plugins_to_restore'];
+		if (isset($restore_options['plugins_to_skip'])) $this->plugins_to_skip = $restore_options['plugins_to_skip'];
+
+		if (isset($restore_options['include_unspecified_themes'])) $this->include_unspecified_themes = $restore_options['include_unspecified_themes'];
+		if (isset($restore_options['themes_to_restore'])) $this->themes_to_restore = $restore_options['themes_to_restore'];
+		if (isset($restore_options['themes_to_skip'])) $this->themes_to_skip = $restore_options['themes_to_skip'];
 
 		// Restore in the most helpful order
 		uksort($backup_set, array('UpdraftPlus_Manipulation_Functions', 'sort_restoration_entities'));
@@ -856,8 +876,12 @@ class Updraft_Restorer {
 
 		// Unzip package to working directory
 		if ('.zip' == strtolower(substr($package, -4, 4))) {
+
+			$folders_to_include = array();
+			if ('themes' == $type && !$this->include_unspecified_themes) $folders_to_include = $this->themes_to_restore;
+			if ('plugins' == $type && !$this->include_unspecified_plugins) $folders_to_include = $this->plugins_to_restore;
 		
-			$result = UpdraftPlus_Filesystem_Functions::unzip_file($package, $working_dir, $zip_starting_index);
+			$result = UpdraftPlus_Filesystem_Functions::unzip_file($package, $working_dir, $zip_starting_index, $folders_to_include);
 			
 		} elseif ('.tar' == strtolower(substr($package, -4, 4)) || '.tar.gz' == strtolower(substr($package, -7, 7)) || '.tar.bz2' == strtolower(substr($package, -8, 8))) {
 			if (!class_exists('UpdraftPlus_Archive_Tar')) {
@@ -1121,9 +1145,10 @@ class Updraft_Restorer {
 	 * @param  string  $type              specify type
 	 * @param  boolean $send_actions      send actions
 	 * @param  boolean $force_local       force local
+	 * @param  boolean $moving_old        indicates if we are moving old files
 	 * @return boolean
 	 */
-	public function move_backup_in($working_dir, $dest_dir, $preserve_existing = 1, $do_not_overwrite = array('plugins', 'themes', 'uploads', 'upgrade'), $type = 'not-others', $send_actions = false, $force_local = false) {
+	public function move_backup_in($working_dir, $dest_dir, $preserve_existing = 1, $do_not_overwrite = array('plugins', 'themes', 'uploads', 'upgrade'), $type = 'not-others', $send_actions = false, $force_local = false, $moving_old = false) {
 
 		global $wp_filesystem, $updraftplus;
 		$updraft_dir = $updraftplus->backups_dir_location();
@@ -1154,7 +1179,12 @@ class Updraft_Restorer {
 
 		$wpcore_config_moved = false;
 
-		if ('plugins' == $type || 'themes' == $type) $updraftplus->log("Top-level entities being moved: ".implode(', ', array_keys($upgrade_files)));
+		if ('plugins' == $type || 'themes' == $type) {
+			$upgrade_files_log = implode(', ', array_keys($upgrade_files));
+			if ('plugins' == $type && !empty($this->plugins_to_restore) && !$this->include_unspecified_plugins) $upgrade_files_log = implode(', ', $this->plugins_to_restore);
+			if ('themes' == $type && !empty($this->themes_to_restore) && !$this->include_unspecified_themes) $upgrade_files_log = implode(', ', $this->themes_to_restore);
+			$updraftplus->log("Top-level entities being moved: ".$upgrade_files_log);
+		}
 
 		foreach ($upgrade_files as $file => $filestruc) {
 
@@ -1217,6 +1247,38 @@ class Updraft_Restorer {
 			} elseif (('object-cache-backup.php' == $file || 'advanced-cache-backup.php' == $file) && 'others' == $type) {
 				if (!$wpfs->delete($working_dir."/".$file)) {
 					$this->restore_log_permission_failure_message($working_dir, 'Delete '.$working_dir."/".$file);
+				}
+				continue;
+			}
+
+			if ('plugins' == $type && !empty($this->plugins_to_skip) && in_array($file, $this->plugins_to_skip)) {
+				if (!$moving_old) {
+					$updraftplus->log("Skipping {$file} as user requested it to not be restored.", "notice-restore");
+					// Remove it from the temporary directory - so that it will be clean later
+					@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				}
+				continue;
+			} elseif ('plugins' == $type && !empty($this->plugins_to_restore) && !in_array($file, $this->plugins_to_restore) && !$this->include_unspecified_plugins) {
+				if (!$moving_old) {
+					$updraftplus->log("Skipping {$file} as it's not in the list of plugins to restore and we are not including unspecified plugins.", "notice-restore");
+					// Remove it from the temporary directory - so that it will be clean later
+					@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				}
+				continue;
+			}
+
+			if ('themes' == $type && !empty($this->themes_to_skip) && in_array($file, $this->themes_to_skip)) {
+				if (!$moving_old) {
+					$updraftplus->log("Skipping {$file} as user requested it to not be restored.", "notice-restore");
+					// Remove it from the temporary directory - so that it will be clean later
+					@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				}
+				continue;
+			} elseif ('themes' == $type && !empty($this->themes_to_restore) && !in_array($file, $this->themes_to_restore) && !$this->include_unspecified_themes) {
+				if (!$moving_old) {
+					$updraftplus->log("Skipping {$file} as it's not in the list of themes to restore and we are not including unspecified themes.", "notice-restore");
+					// Remove it from the temporary directory - so that it will be clean later
+					@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 				}
 				continue;
 			}
@@ -1851,13 +1913,13 @@ class Updraft_Restorer {
 		// Firstly, try direct filesystem method into updraft_dir
 		if ($move_old_destination > 0 && 1 == $move_old_destination % 2) {
 			// The final 'true' forces direct filesystem access
-			$move_old = @$this->move_backup_in($get_dir, $updraft_dir.'/'.$type.'-old/', 3, array(), $type, false, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			$move_old = @$this->move_backup_in($get_dir, $updraft_dir.'/'.$type.'-old/', 3, array(), $type, false, true, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 			if (is_wp_error($move_old)) $updraftplus->log_wp_error($move_old);
 		}
 
 		// Try wp_filesystem method into -old if that failed
 		if (2 >= $move_old_destination && (0 == $move_old_destination % 2 || (!empty($move_old) && is_wp_error($move_old)))) {
-			$move_old = @$this->move_backup_in($wp_filesystem_dir, $wp_filesystem_dir."-old/", 3, array(), $type);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			$move_old = @$this->move_backup_in($wp_filesystem_dir, $wp_filesystem_dir."-old/", 3, array(), $type, false, false, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 			if (is_wp_error($move_old)) $updraftplus->log_wp_error($move_old);
 		}
 

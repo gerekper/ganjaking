@@ -244,9 +244,9 @@ class Page {
 	public function customer_data() {
 		$user = $this->user_client->get_user_data();
 		$data = [
-			'license_type'       => __( 'Unavailable', 'rocket' ),
-			'license_expiration' => __( 'Unavailable', 'rocket' ),
-			'license_class'      => 'wpr-isInvalid',
+			'license_type'       => __( 'Infinite', 'rocket' ),
+			'license_expiration' => __( 'Lifetime', 'rocket' ),
+			'license_class'      => 'wpr-isValid',
 		];
 
 		if (
@@ -269,8 +269,8 @@ class Page {
 			$data['license_type'] = 'Plus';
 		}
 
-		$data['license_class']      = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isInvalid';
-		$data['license_expiration'] = date_i18n( get_option( 'date_format' ), (int) $user->licence_expiration );
+		$data['license_class']       = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isInvalid';
+		$data['license_expiration']  = date_i18n( get_option( 'date_format' ), (int) $user->licence_expiration );
 
 		return $data;
 	}
@@ -562,6 +562,7 @@ class Page {
 		$exclude_defer_js           = $this->beacon->get_suggest( 'exclude_defer_js' );
 		$rucss_beacon               = $this->beacon->get_suggest( 'remove_unused_css' );
 		$offline_beacon             = $this->beacon->get_suggest( 'offline' );
+		$fallback_css_beacon        = $this->beacon->get_suggest( 'fallback_css' );
 
 		$disable_combine_js  = $this->disable_combine_js();
 		$disable_combine_css = $this->disable_combine_css();
@@ -584,8 +585,8 @@ class Page {
 						'url' => $files_beacon['url'],
 					],
 					'page'   => 'file_optimization',
-					// translators: %1$s = type of minification (HTML, CSS or JS), %2$s = â€œWP Rocketâ€.
-					'helper' => rocket_maybe_disable_minify_css() ? sprintf( __( '%1$s Minification is currently activated in <strong>Autoptimize</strong>. If you want to use %2$sâ€™s minification, disable those options in Autoptimize.', 'rocket' ), 'CSS', WP_ROCKET_PLUGIN_NAME ) : '',
+					// translators: %1$s = type of minification (HTML, CSS or JS), %2$s = “WP Rocket”.
+					'helper' => rocket_maybe_disable_minify_css() ? sprintf( __( '%1$s Minification is currently activated in <strong>Autoptimize</strong>. If you want to use %2$s’s minification, disable those options in Autoptimize.', 'rocket' ), 'CSS', WP_ROCKET_PLUGIN_NAME ) : '',
 				],
 				'js'  => [
 					'title'  => __( 'JavaScript Files', 'rocket' ),
@@ -594,8 +595,8 @@ class Page {
 						'url' => $files_beacon['url'],
 					],
 					'page'   => 'file_optimization',
-					// translators: %1$s = type of minification (HTML, CSS or JS), %2$s = â€œWP Rocketâ€.
-					'helper' => rocket_maybe_disable_minify_js() ? sprintf( __( '%1$s Minification is currently activated in <strong>Autoptimize</strong>. If you want to use %2$sâ€™s minification, disable those options in Autoptimize.', 'rocket' ), 'JS', WP_ROCKET_PLUGIN_NAME ) : '',
+					// translators: %1$s = type of minification (HTML, CSS or JS), %2$s = “WP Rocket”.
+					'helper' => rocket_maybe_disable_minify_js() ? sprintf( __( '%1$s Minification is currently activated in <strong>Autoptimize</strong>. If you want to use %2$s’s minification, disable those options in Autoptimize.', 'rocket' ), 'JS', WP_ROCKET_PLUGIN_NAME ) : '',
 				],
 			]
 		);
@@ -719,8 +720,8 @@ class Page {
 							// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 							'description' => sprintf( __( 'Removes unused CSS per page and helps to reduce page size and HTTP requests. Recommended for best performance. Test thoroughly! %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $rucss_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $rucss_beacon['id'] ) . '" target="_blank">', '</a>' ),
 							'warning'     => [
-								'title'        => __( 'Weâ€™re still working on it!', 'rocket' ),
-								'description'  => __( 'This is a beta feature. Weâ€™re providing you early access but some changes might be added later on. If you notice any errors on your website, simply deactivate the feature.', 'rocket' ),
+								'title'        => __( 'We’re still working on it!', 'rocket' ),
+								'description'  => __( 'This is a beta feature. We are providing you early access but some changes might be added later on. If you notice any errors on your website, simply deactivate the feature.', 'rocket' ),
 								'button_label' => __( 'Activate Remove Unused CSS', 'rocket' ),
 							],
 							'sub_fields'  => [
@@ -746,7 +747,7 @@ class Page {
 							'label'       => __( 'Load CSS asynchronously', 'rocket' ),
 							'description' => is_plugin_active( 'wp-criticalcss/wp-criticalcss.php' ) ?
 								// translators: %1$s = plugin name.
-								sprintf( _x( 'Load CSS asynchronously is currently handled by the %1$s plugin. If you want to use WP Rocketâ€™s load CSS asynchronously option, disable the %1$s plugin.', 'WP Critical CSS compatibility', 'rocket' ), 'WP Critical CSS' ) :
+								sprintf( _x( 'Load CSS asynchronously is currently handled by the %1$s plugin. If you want to use WP Rocket’s load CSS asynchronously option, disable the %1$s plugin.', 'WP Critical CSS compatibility', 'rocket' ), 'WP Critical CSS' ) :
 								// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 								sprintf( __( 'Generates critical path CSS and loads CSS asynchronously. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $async_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $async_beacon['id'] ) . '" target="_blank">', '</a>' ),
 							'disabled'    => is_plugin_active( 'wp-criticalcss/wp-criticalcss.php' ) ? 'disabled' : '',
@@ -756,7 +757,7 @@ class Page {
 										'type'        => 'textarea',
 										'label'       => __( 'Fallback critical CSS', 'rocket' ),
 										// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-										'helper'      => sprintf( __( 'Provides a fallback if auto-generated critical path CSS is incomplete. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $async_beacon['url'] ) . '#fallback" data-beacon-article="' . esc_attr( $async_beacon['id'] ) . '" target="_blank">', '</a>' ),
+										'helper'      => sprintf( __( 'Provides a fallback if auto-generated critical path CSS is incomplete. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $fallback_css_beacon['url'] ) . '#fallback" data-beacon-article="' . esc_attr( $fallback_css_beacon['id'] ) . '" target="_blank">', '</a>' ),
 										'sanitize_callback' => 'sanitize_textarea',
 										'parent'      => '',
 										'section'     => 'css',
@@ -794,7 +795,7 @@ class Page {
 					'type'              => 'checkbox',
 					'label'             => __( 'Combine JavaScript files <em>(Enable Minify JavaScript files to select)</em>', 'rocket' ),
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description'       => sprintf( __( 'Combine JavaScript files combines your siteâ€™s internal, 3rd party and inline JS reducing HTTP requests. Not recommended if your site uses HTTP/2. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $combine_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $combine_beacon['id'] ) . '" target="_blank">', '</a>' ),
+					'description'       => sprintf( __( 'Combine JavaScript files combines your site’s internal, 3rd party and inline JS reducing HTTP requests. Not recommended if your site uses HTTP/2. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $combine_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $combine_beacon['id'] ) . '" target="_blank">', '</a>' ),
 					'helper'            => get_rocket_option( 'delay_js' ) ? __( 'For compatibility and best results, this option is disabled when delay javascript execution is enabled.', 'rocket' ) : '',
 					'container_class'   => [
 						$disable_combine_js ? 'wpr-isDisabled' : '',
@@ -992,8 +993,8 @@ class Page {
 						'url' => $lazyload_beacon['url'],
 					],
 					'page'        => 'media',
-					// translators: %1$s = â€œWP Rocketâ€, %2$s = a list of plugin names.
-					'helper'      => ! empty( $disable_lazyload ) ? sprintf( __( 'LazyLoad is currently activated in %2$s. If you want to use WP Rocketâ€™s LazyLoad, disable this option in %2$s.', 'rocket' ), WP_ROCKET_PLUGIN_NAME, $disable_lazyload ) : '',
+					// translators: %1$s = “WP Rocket”, %2$s = a list of plugin names.
+					'helper'      => ! empty( $disable_lazyload ) ? sprintf( __( 'LazyLoad is currently activated in %2$s. If you want to use WP Rocket’s LazyLoad, disable this option in %2$s.', 'rocket' ), WP_ROCKET_PLUGIN_NAME, $disable_lazyload ) : '',
 				],
 				'dimensions_section' => [
 					'title'       => __( 'Image Dimensions', 'rocket' ),
@@ -1029,8 +1030,8 @@ class Page {
 					'input_attr'        => [
 						'disabled' => ! empty( $disable_images_lazyload ) ? 1 : 0,
 					],
-					// translators: %1$s = â€œWP Rocketâ€, %2$s = a list of plugin names.
-					'description'       => ! empty( $disable_images_lazyload ) ? sprintf( __( 'LazyLoad for images is currently activated in %2$s. If you want to use %1$sâ€™s LazyLoad, disable this option in %2$s.', 'rocket' ), WP_ROCKET_PLUGIN_NAME, $disable_images_lazyload ) : '',
+					// translators: %1$s = “WP Rocket”, %2$s = a list of plugin names.
+					'description'       => ! empty( $disable_images_lazyload ) ? sprintf( __( 'LazyLoad for images is currently activated in %2$s. If you want to use %1$s’s LazyLoad, disable this option in %2$s.', 'rocket' ), WP_ROCKET_PLUGIN_NAME, $disable_images_lazyload ) : '',
 				],
 				'lazyload_iframes' => [
 					'container_class'   => [
@@ -1054,7 +1055,7 @@ class Page {
 					],
 					'type'              => 'checkbox',
 					'label'             => __( 'Replace YouTube iframe with preview image', 'rocket' ),
-					// translators: %1$s = â€œWP Rocketâ€, %2$s = a list of plugin or themes names.
+					// translators: %1$s = “WP Rocket”, %2$s = a list of plugin or themes names.
 					'description'       => ! empty( $disable_youtube_lazyload ) ? sprintf( __( 'Replace YouTube iframe with preview image is not compatible with %2$s.', 'rocket' ), WP_ROCKET_PLUGIN_NAME, $disable_youtube_lazyload ) : __( 'This can significantly improve your loading time if you have a lot of YouTube videos on a page.', 'rocket' ),
 					'parent'            => 'lazyload_iframes',
 					'section'           => 'lazyload_section',
@@ -1676,7 +1677,7 @@ class Page {
 			[
 				'heartbeat_section'  => [
 					'title'       => __( 'Heartbeat', 'rocket' ),
-					'description' => __( 'Reducing or disabling the Heartbeat APIâ€™s activity can help save some of your serverâ€™s resources.', 'rocket' ),
+					'description' => __( 'Reducing or disabling the Heartbeat API’s activity can help save some of your server’s resources.', 'rocket' ),
 					'type'        => 'fields_container',
 					'page'        => 'heartbeat',
 					'help'        => $heartbeat_beacon,
@@ -1891,10 +1892,10 @@ class Page {
 
 		if ( defined( 'WP_ROCKET_SUCURI_API_KEY_HIDDEN' ) && WP_ROCKET_SUCURI_API_KEY_HIDDEN ) {
 			// No need to display the dedicated tab if there is nothing to display on it.
-			$description   = __( 'Clear the Sucuri cache when WP Rocketâ€™s cache is cleared.', 'rocket' );
+			$description   = __( 'Clear the Sucuri cache when WP Rocket’s cache is cleared.', 'rocket' );
 			$settings_page = false;
 		} else {
-			$description   = __( 'Provide your API key to clear the Sucuri cache when WP Rocketâ€™s cache is cleared.', 'rocket' );
+			$description   = __( 'Provide your API key to clear the Sucuri cache when WP Rocket’s cache is cleared.', 'rocket' );
 			$settings_page = 'sucuri';
 		}
 

@@ -1,5 +1,8 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.06.27 - version 2.0.8
+* Fix: Limit loop classes in OceanWP theme compat to grid layout.
+
 2022.06.15 - version 2.0.7
 * Important: Slight spacing tweaks in a few strings. Double-check translations.
 * New: Introduce Flatsome theme compat module. Closes #350.

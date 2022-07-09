@@ -21,7 +21,7 @@ class EditState implements RequestHandler {
 	public function handle( Request $request ) {
 		$response = new Response\Json();
 
-		$list_screen_key = $request->filter( 'list_screen', '', FILTER_SANITIZE_STRING );
+		$list_screen_key = $request->filter( 'list_screen', '', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		if ( ! $list_screen_key ) {
 			$response->error();

@@ -160,9 +160,9 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		
 		try {
 			$storage = $method->getS3($adminaccesskey, $adminsecret, $useservercerts, $disableverify, $nossl);
-			if (!is_a($storage, 'UpdraftPlus_S3_Compat')) {
-				$msg = __('Cannot create new AWS user, since the old AWS toolkit is being used.', 'updraftplus');
-				$updraftplus->log('Cannot create new AWS user, since the old AWS toolkit is being used.');
+			if (!is_a($storage, 'UpdraftPlus_S3_Compat') && !is_a($storage, 'UpdraftPlus_S3')) {
+				$msg = __('Cannot create new AWS user, since an unknown AWS toolkit is being used.', 'updraftplus');
+				$updraftplus->log('Cannot create new AWS user, since an unknown AWS toolkit is being used.');
 				$updraftplus->log($msg, 'error');
 				$return_error = array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$msg);
 			}

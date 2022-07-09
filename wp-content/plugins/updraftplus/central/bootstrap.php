@@ -368,7 +368,7 @@ class UpdraftCentral_Main {
 	 * @return array
 	 */
 	public function get_udrpc($indicator_name = 'migrator.updraftplus.com') {
-		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(dirname(__FILE__).'/classes/class-udrpc.php');
+		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(UPDRAFTPLUS_DIR.'/vendor/team-updraft/common-libs/src/updraft-rpc/class-udrpc.php');
 		$ud_rpc = new UpdraftPlus_Remote_Communications($indicator_name);
 		$ud_rpc->set_can_generate(true);
 		return $ud_rpc;

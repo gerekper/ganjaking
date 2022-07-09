@@ -414,8 +414,8 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						// Ignore page endpoint if its value is 1
 						if(in_array($endpoint, array('page', 'paged')) && $endpoint_value == 1) { continue; }
 
-						// Replace whitespaces with '+' and sanitize the value
-						$endpoint_value = preg_replace('/\s+/', '+', $endpoint_value);
+						// Replace whitespaces with '+' (for YITH WooCommerce Ajax Product Filter URLs only) and sanitize the value
+						$endpoint_value = (isset($_GET['yith_wcan'])) ? preg_replace('/\s+/', '+', $endpoint_value) : $endpoint_value;
 						$query[$endpoint] = sanitize_text_field($endpoint_value);
 					}
 				}
@@ -811,7 +811,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$rel_old_uri = wp_make_link_relative($old_uri);
 			$rel_correct_permalink = wp_make_link_relative($correct_permalink);
 
-			if($rel_old_uri !== $rel_correct_permalink) {
+			if($redirect_type === 'www_redirect' || $rel_old_uri !== $rel_correct_permalink) {
 				wp_safe_redirect($correct_permalink, $redirect_mode, PERMALINK_MANAGER_PLUGIN_NAME);
 				exit();
 			}
@@ -833,9 +833,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$endpoints = Permalink_Manager_Helper_Functions::get_endpoints();
 		$endpoints_array = ($endpoints) ? explode("|", $endpoints) : array();
 
-		// Check if any endpoint is called (fix for feed and similar endpoints)
+		// Check if any endpoint is called (fix for endpoints)
 		foreach($endpoints_array as $endpoint) {
-			if(!empty($wp->query_vars[$endpoint]) && !in_array($endpoint, array('attachment', 'page', 'paged'))) {
+			if(!empty($wp->query_vars[$endpoint]) && !in_array($endpoint, array('attachment', 'page', 'paged', 'feed'))) {
 				$wp->query_vars['do_not_redirect'] = 1;
 				break;
 			}

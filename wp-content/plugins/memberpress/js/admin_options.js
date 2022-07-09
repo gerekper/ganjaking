@@ -1,4 +1,33 @@
 jQuery(document).ready(function($) {
+  $('.mepr-paypal-onboarding-button').tooltipster({
+    maxWidth: 300
+  });
+
+  $('[data-mepr-disconnect-paypal]').on('click', function () {
+    let methodId = $(this).data('method-id');
+    let sandbox = $(this).data('paypal-sandbox');
+    let disconnectConfirmMessage = $(this).data('disconnect-confirm-msg');
+
+    if (sandbox == true) {
+      if (window.confirm(disconnectConfirmMessage)) {
+        window.location.href = ajaxurl + '?action=mepr_paypal_connect_disconnect&sandbox=1&method-id=' + methodId;
+      }
+    } else {
+      if (window.confirm(disconnectConfirmMessage)) {
+        window.location.href = ajaxurl + '?action=mepr_paypal_connect_disconnect&method-id=' + methodId;
+      }
+    }
+  });
+
+  $('[data-mepr-upgrade-paypal]').on('click', function () {
+    let methodId = $(this).data('method-id');
+    let disconnectConfirmMessage = $(this).data('disconnect-confirm-msg');
+
+    if (window.confirm(disconnectConfirmMessage)) {
+      window.location.href = ajaxurl + '?action=mepr_paypal_connect_upgrade_standard_gateway&method-id=' + methodId;
+    }
+  });
+
   //Set the correct tab to display
   var hash = location.hash.replace('#','');
 
@@ -101,6 +130,8 @@ jQuery(document).ready(function($) {
         }
 
         mepr_toggle_boxes();
+        $('#mepr-integration-'+response.id+ ' .mepr-paypal-onboarding-button').hide();
+        $('#mepr-integration-'+response.id+ ' .mepr-paypal-save-option').show();
       }
       else {
         alert('Error');
@@ -334,9 +365,9 @@ jQuery(document).ready(function($) {
 
   mepr_setup_clipboard();
 
-  //Make who can purchase list sortable
+  //Make customer field rows sortable
   $(function() {
-    $('ol#custom_profile_fields').sortable();
+    $('ol#custom_profile_fields').sortable({ handle: 'span.mp-icon-drag-target' });
   });
 
   //Hide/Show SEO Unauthorized Noindex stuff
@@ -401,8 +432,6 @@ jQuery(document).ready(function($) {
     if($('#mepr-custom-fields-required-' + field_id).is(':checked')) {
       $('#mepr-custom-fields-signup-' + field_id).prop('checked', true);
       $('#mepr-custom-fields-signup-' + field_id).prop('disabled', true);
-      $('#mepr-custom-fields-account-' + field_id).prop('checked', true);
-      $('#mepr-custom-fields-account-' + field_id).prop('disabled', true);
     }
   });
 
@@ -425,16 +454,22 @@ jQuery(document).ready(function($) {
   });
 
   $('#custom_profile_fields').on('change', function(e) {
-    // If this is a text or select field, then let's bail.
-    if($(e.target).is('input[type="text"]') || $(e.target).is('select')) {
+    // If this is a text, select field, or the "Show in Account" checkbox, then let's bail.
+    if($(e.target).is('input[type="text"]') || $(e.target).is('select') || e.target.id.indexOf('account') >= 0) {
+      return;
+    }
+
+    var field_id = e.target.id.split('-').pop();
+
+    if(!field_id) {
       return;
     }
 
     if(e.target.id.indexOf('required') >= 0 && $(e.target).is('input[type="checkbox"]') && $(e.target).is(':checked')) {
-      $(e.target).siblings('input[type="checkbox"]').prop('checked', true);
-      $(e.target).siblings('input[type="checkbox"]').prop('disabled', true);
+      $('#mepr-custom-fields-signup-' + field_id).prop('checked', true);
+      $('#mepr-custom-fields-signup-' + field_id).prop('disabled', true);
     } else {
-      $(e.target).siblings('input[type="checkbox"]').prop('disabled', false);
+      $('#mepr-custom-fields-signup-' + field_id).prop('disabled', false);
     }
   });
 
@@ -652,8 +687,12 @@ jQuery(document).ready(function($) {
     var eu_tax = $('input[name=mepr_vat_tax_businesses]').prop('checked');
     if (seleted_tax_type === 'inclusive' && eu_tax === false) {
       $('#mepr_charge_business_customer_net_price_section').show();
+      if( $('input[name=mepr_charge_business_customer_net_price]').prop('checked') ){
+        $('#mepr_show_negative_tax_on_invoice_section').show();
+      }
     } else {
       $('#mepr_charge_business_customer_net_price_section').hide();
+      $('#mepr_show_negative_tax_on_invoice_section').hide();
     }
   };
 
@@ -726,5 +765,14 @@ jQuery(document).ready(function($) {
       $('#mepr-license-key').val(license_key);
       $('#mepr-activate-license-key').trigger('click');
     }, 250);
+  });
+
+  $('input[name=mepr_charge_business_customer_net_price]').change(function(){
+    var oThis = $(this);
+    if( oThis.prop('checked') ){
+      $('#mepr_show_negative_tax_on_invoice_section').show();
+    }else{
+      $('#mepr_show_negative_tax_on_invoice_section').hide();
+    }
   });
 });

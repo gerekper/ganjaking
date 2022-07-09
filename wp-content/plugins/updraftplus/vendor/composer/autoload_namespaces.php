@@ -15,6 +15,4 @@ return array(
     'File' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Eher\\OAuth' => array($vendorDir . '/eher/oauth/src'),
     'Crypt' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
-    'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),
-    'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
 );

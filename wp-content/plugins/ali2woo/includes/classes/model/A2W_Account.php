@@ -72,13 +72,18 @@ if (!class_exists('A2W_Account')) {
             
             a2w_set_setting('account_data', $this->account_data);
         }
+
+        public function get_purchase_code(){
+            if (a2w_check_defined('A2W_ITEM_PURCHASE_CODE')) {
+                return A2W_ITEM_PURCHASE_CODE;
+            }else{
+                return a2w_get_setting('item_purchase_code');
+            }
+        }
         
         public function build_params(){
-            if (a2w_check_defined('A2W_ITEM_PURCHASE_CODE')) {
-                $item_purchase_code = A2W_ITEM_PURCHASE_CODE;
-            }else{
-                $item_purchase_code = a2w_get_setting('item_purchase_code');
-            }
+            $item_purchase_code = $this->get_purchase_code();
+
             $result="token=".urlencode($item_purchase_code)."&version=".A2W()->version;
             
             if(!empty( $this->account_data['admitad']['cashback_url'])){

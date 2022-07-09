@@ -80,7 +80,8 @@ defined( 'ABSPATH' ) || exit;
 						<span class="wpr-title3"><?php esc_html_e( 'License', 'rocket' ); ?></span>
 						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data">
 							<?php echo esc_html( $data['customer_data']['license_type'] ); ?>
-						</span><br>
+						</span>				
+						<br>
 						<?php
 						/**
 						 * Fires when displaying the license information

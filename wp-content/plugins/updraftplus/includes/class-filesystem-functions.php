@@ -450,13 +450,14 @@ class UpdraftPlus_Filesystem_Functions {
 	 *
 	 * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
 	 *
-	 * @param String  $file			  - Full path and filename of ZIP archive.
-	 * @param String  $to			  - Full path on the filesystem to extract archive to.
-	 * @param Integer $starting_index - index of entry to start unzipping from (allows resumption)
+	 * @param String  $file               - Full path and filename of ZIP archive.
+	 * @param String  $to                 - Full path on the filesystem to extract archive to.
+	 * @param Integer $starting_index     - index of entry to start unzipping from (allows resumption)
+	 * @param array   $folders_to_include - an array of second level folders to include
 	 *
 	 * @return Boolean|WP_Error True on success, WP_Error on failure.
 	 */
-	public static function unzip_file($file, $to, $starting_index = 0) {
+	public static function unzip_file($file, $to, $starting_index = 0, $folders_to_include = array()) {
 		global $wp_filesystem;
 
 		if (!$wp_filesystem || !is_object($wp_filesystem)) {
@@ -496,14 +497,14 @@ class UpdraftPlus_Filesystem_Functions {
 		}
 		
 		if (class_exists('ZipArchive', false) && apply_filters('unzip_file_use_ziparchive', true)) {
-			$result = self::unzip_file_go($file, $to, $needed_dirs, 'ziparchive', $starting_index);
+			$result = self::unzip_file_go($file, $to, $needed_dirs, 'ziparchive', $starting_index, $folders_to_include);
 			if (true === $result || (is_wp_error($result) && 'incompatible_archive' != $result->get_error_code())) return $result;
 		}
 		
 		// Fall through to PclZip if ZipArchive is not available, or encountered an error opening the file.
 		// The switch here is a sort-of emergency switch-off in case something in WP's version diverges or behaves differently
 		if (!defined('UPDRAFTPLUS_USE_INTERNAL_PCLZIP') || UPDRAFTPLUS_USE_INTERNAL_PCLZIP) {
-			return self::unzip_file_go($file, $to, $needed_dirs, 'pclzip', $starting_index);
+			return self::unzip_file_go($file, $to, $needed_dirs, 'pclzip', $starting_index, $folders_to_include);
 		} else {
 			return _unzip_file_pclzip($file, $to, $needed_dirs);
 		}
@@ -593,15 +594,16 @@ class UpdraftPlus_Filesystem_Functions {
 	 *
 	 * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
 	 *
-	 * @param String  $file		  	  - full path and filename of ZIP archive.
-	 * @param String  $to		  	  - full path on the filesystem to extract archive to.
-	 * @param Array	  $needed_dirs	  - a partial list of required folders needed to be created.
-	 * @param String  $method	 	  - either 'ziparchive' or 'pclzip'.
-	 * @param Integer $starting_index - index of entry to start unzipping from (allows resumption)
+	 * @param String  $file               - full path and filename of ZIP archive.
+	 * @param String  $to                 - full path on the filesystem to extract archive to.
+	 * @param Array	  $needed_dirs        - a partial list of required folders needed to be created.
+	 * @param String  $method             - either 'ziparchive' or 'pclzip'.
+	 * @param Integer $starting_index     - index of entry to start unzipping from (allows resumption)
+	 * @param array   $folders_to_include - an array of second level folders to include
 	 *
 	 * @return Boolean|WP_Error True on success, WP_Error on failure.
 	 */
-	private static function unzip_file_go($file, $to, $needed_dirs = array(), $method = 'ziparchive', $starting_index = 0) {
+	private static function unzip_file_go($file, $to, $needed_dirs = array(), $method = 'ziparchive', $starting_index = 0, $folders_to_include = array()) {
 		global $wp_filesystem, $updraftplus;
 		
 		$class_to_use = ('ziparchive' == $method) ? 'UpdraftPlus_ZipArchive' : 'UpdraftPlus_PclZip';
@@ -639,6 +641,12 @@ class UpdraftPlus_Filesystem_Functions {
 
 			// Don't extract invalid files:
 			if (0 !== validate_file($info['name'])) continue;
+
+			if (!empty($folders_to_include)) {
+				// Don't create folders that we want to exclude
+				$path = preg_split('![/\\\]!', untrailingslashit($info['name']));
+				if (isset($path[1]) && !in_array($path[1], $folders_to_include)) continue;
+			}
 
 			$uncompressed_size += $info['size'];
 
@@ -709,6 +717,12 @@ class UpdraftPlus_Filesystem_Functions {
 
 			// Don't extract invalid files:
 			if (0 !== validate_file($info['name'])) continue;
+
+			if (!empty($folders_to_include)) {
+				// Don't extract folders that we want to exclude
+				$path = preg_split('![/\\\]!', untrailingslashit($info['name']));
+				if (isset($path[1]) && !in_array($path[1], $folders_to_include)) continue;
+			}
 
 			// PclZip will return (boolean)false for an empty file
 			if (isset($info['size']) && 0 == $info['size']) {

@@ -41,7 +41,7 @@
             </a>
         </span>
         <span class="seedprod-on">
-            <a href="#back" class="back_to_wp_editor button">Back to WordPress Editor</a>
+            <a href="#back" class="back_to_wp_editor button">Switch Back to WordPress Editor</a>
         </span>
     </div>`;
 

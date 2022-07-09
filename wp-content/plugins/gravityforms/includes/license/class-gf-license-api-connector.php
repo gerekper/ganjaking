@@ -99,7 +99,7 @@ class GF_License_API_Connector extends GF_API_Connector {
 			if ( $license_info ) {
 				return $license_info;
 			} else {
-				$this->clear_cache_for_key( $key );
+				return $license_info;
 			}
 		}
 

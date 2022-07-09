@@ -4,28 +4,32 @@
  * Description of A2W_SearchPage
  *
  * @author andrey
- * 
+ *
  * @autoload: a2w_admin_init
  */
 if (!class_exists('A2W_SearchPageController')) {
 
-    class A2W_SearchPageController extends A2W_AbstractAdminPage {
+    class A2W_SearchPageController extends A2W_AbstractAdminPage
+    {
 
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct(__('Search Products', 'ali2woo'), __('Search Products', 'ali2woo'), 'import', 'a2w_dashboard', 10);
-            
-            add_filter('a2w_configure_lang_data', array($this, 'configure_lang_data'));            
+
+            add_filter('a2w_configure_lang_data', array($this, 'configure_lang_data'));
         }
 
-        public function configure_lang_data($lang_data){
-            $lang_data['advance']=_x('Advance', 'Button', 'ali2woo');
-            $lang_data['simple']=_x('Simple', 'Button', 'ali2woo');
-            $lang_data['imported_successfully']=_x('Imported successfully.', 'Status', 'ali2woo');
-            $lang_data['import_failed']=_x('Import failed.', 'Status', 'ali2woo');
+        public function configure_lang_data($lang_data)
+        {
+            $lang_data['advance'] = _x('Advance', 'Button', 'ali2woo');
+            $lang_data['simple'] = _x('Simple', 'Button', 'ali2woo');
+            $lang_data['imported_successfully'] = _x('Imported successfully.', 'Status', 'ali2woo');
+            $lang_data['import_failed'] = _x('Import failed.', 'Status', 'ali2woo');
             return $lang_data;
         }
 
-        public function render($params = array()) {
+        public function render($params = array())
+        {
             $filter = array();
             if (is_array($_GET) && $_GET) {
                 $filter = array_merge($filter, $_GET);
@@ -71,8 +75,8 @@ if (!class_exists('A2W_SearchPageController')) {
                 $links = 4;
                 $last = ceil($load_products_result['total'] / $per_page);
                 $load_products_result['total_pages'] = $last;
-                $start = ( ( $load_products_result['page'] - $links ) > 0 ) ? $load_products_result['page'] - $links : 1;
-                $end = ( ( $load_products_result['page'] + $links ) < $last ) ? $load_products_result['page'] + $links : $last;
+                $start = (($load_products_result['page'] - $links) > 0) ? $load_products_result['page'] - $links : 1;
+                $end = (($load_products_result['page'] + $links) < $last) ? $load_products_result['page'] + $links : $last;
                 if ($start > 1) {
                     $pages_list[] = 1;
                     $pages_list[] = '';
@@ -101,20 +105,21 @@ if (!class_exists('A2W_SearchPageController')) {
             $this->model_put('chrome_ext_import', a2w_check_defined('A2W_CHROME_EXT_IMPORT'));
 
             
-            
+
             $this->model_put('load_products_result', $load_products_result);
 
             $search_version = 'v2';
-            $this->include_view('search_'.$search_version.'.php');
+            $this->include_view('search_' . $search_version . '.php');
         }
 
-        protected function get_categories() {
+        protected function get_categories()
+        {
             if (file_exists(A2W()->plugin_path() . '/assets/data/user_aliexpress_categories.json')) {
                 $result = json_decode(file_get_contents(A2W()->plugin_path() . '/assets/data/user_aliexpress_categories.json'), true);
             } else {
-                $result = array('categories'=>get_option('a2w_all_categories', array()));
+                $result = array('categories' => get_option('a2w_all_categories', array()));
             }
-            $result = isset($result["categories"]) && is_array($result["categories"])?$result["categories"]:array();
+            $result = isset($result["categories"]) && is_array($result["categories"]) ? $result["categories"] : array();
             array_unshift($result, array("id" => "0", "name" => "All categories", "level" => 1));
             return $result;
         }
@@ -122,4 +127,3 @@ if (!class_exists('A2W_SearchPageController')) {
     }
 
 }
-

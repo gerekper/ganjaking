@@ -2,7 +2,7 @@ window.yoast=window.yoast||{},window.yoast.helpers=function(t){var e={};function
 /* Translators: %d expands to the minimum width, %d expands to the minimum hight */
 Object(yt.__)("Your image dimensions are not suitable. The minimum dimensions are %dx%d pixels.","wordpress-seo"),200,200);return!(e<200||n<200)||r},function(t){var e=t.type,n=Object(yt.sprintf)(
 /* Translators: %s expands to the jpg format, %s expands to the png format, %s expands to the gif format. */
-Object(yt.__)("The format of the uploaded image is not supported. The supported formats are: %s, %s and %s.","wordpress-seo"),"JPG","PNG","GIF");return!!["jpg","png","gif","jpeg"].includes(e)||n}]),xt=vt([function(t,e){var n=t.width,r=t.height,o=Object(yt.__)("Your image dimensions are not suitable. The minimum dimensions are %dx%d pixels. The maximum dimensions are %dx%d pixels.","wordpress-seo"),i=n>4096||r>4096;
+Object(yt.__)("The format of the uploaded image is not supported. The supported formats are: %s, %s, %s and %s.","wordpress-seo"),"JPG","PNG","WEBP","GIF");return!!["jpg","png","gif","jpeg","webp"].includes(e)||n}]),xt=vt([function(t,e){var n=t.width,r=t.height,o=Object(yt.__)("Your image dimensions are not suitable. The minimum dimensions are %dx%d pixels. The maximum dimensions are %dx%d pixels.","wordpress-seo"),i=n>4096||r>4096;
 /* Translators: %d expands to the minimum width, %d expands to the minimum height,
   %d expands to the maximum width, %d expands to the maximum height. */return e&&(n<300||r<157||i)?Object(yt.sprintf)(o,300,157,4096,4096):!(n<200||r<200||i)||Object(yt.sprintf)(o,200,200,4096,4096)},function(t){var e=t.type,n=Object(yt.sprintf)(
 /* Translators: %s expands to the gif format, %s expands to the gif format. */

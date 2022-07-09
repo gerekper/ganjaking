@@ -341,6 +341,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 										$max_rule = wc_format_localized_price( $max_rule );
 									}
 
+									// 'conditions' array is introduced on 1.0.31. This condition is for the compatibility prior to version 1.0.31.
+									// To make sure the 'conditions' array has the correct value after the plugin is updated from 1.0.30 to 1.0.31.
 									if ( ! isset( $rule['conditions'] ) && isset( $rule['condition'] ) ) {
 										$rule['conditions'] = array(
 											array(
@@ -353,10 +355,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 										);
 									}
 
-									if ( ! isset( $rule['unit'] ) && isset( $rule['condition'] ) ) {
-										$rule['unit'] = ( 'time' === $rule['condition'] ) ? 'time' : 'distance';
-									} else {
-										$rule['unit'] = 'distance';
+									// 'unit' array is introduced on 1.0.31. This condition is for the compatibility prior to version 1.0.31.
+									// To make sure the 'unit' array has the correct value after the plugin is updated from 1.0.30 to 1.0.31.
+									if ( ! isset( $rule['unit'] ) ) {
+										$rule['unit'] = ( isset( $rule['condition'] ) && 'time' === $rule['condition'] ) ? 'time' : 'distance';
 									}
 
 									$table_conditions = $this->create_table_conditions( $i, $rule['conditions'] );

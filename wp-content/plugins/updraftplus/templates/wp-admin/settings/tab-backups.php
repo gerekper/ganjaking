@@ -77,8 +77,8 @@ if (!empty($options['include_header'])) echo '<h2>'.__('Existing backups', 'updr
 				<div id="plupload-upload-ui">
 				<div id="drag-drop-area">
 					<div class="drag-drop-inside">
-					<p class="drag-drop-info"><?php _e('Drop backup files here', 'updraftplus'); ?></p>
-					<p><?php _ex('or', 'Uploader: Drop backup files here - or - Select Files'); ?></p>
+					<p class="drag-drop-info"><?php _e('Drop your backup files', 'updraftplus'); ?></p>
+					<p><?php _ex('or', 'Uploader: Drop your backup files - or - Select Files'); ?></p>
 					<p class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></p>
 					</div>
 				</div>

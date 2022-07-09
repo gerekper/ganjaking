@@ -687,6 +687,9 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * [--collate]
 	 * : Specify a collation to use to replace any found in the database file that are not locally supported
 	 *
+	 * [--charset]
+	 * : Specify a charset to use to replace any found in the database file that are not locally supported
+	 *
 	 * ## EXAMPLES
 	 *
 	 * wp updraftplus restore b290ee083e9e --component="db,plugins,themes" --db-decryption-phrase=="test"
@@ -766,6 +769,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		if (!empty($assoc_args['db-dummy-restore'])) $restore_options['dummy_db_restore'] = $assoc_args['db-dummy-restore'];
 		
 		if (!empty($assoc_args['collate'])) $restore_options['updraft_restorer_collate'] = $assoc_args['collate'];
+		if (!empty($assoc_args['charset'])) $restore_options['updraft_restorer_charset'] = $assoc_args['charset'];
 		
 		if (class_exists('UpdraftPlus_Addons_MoreFiles')) {
 			if (isset($assoc_args['over-write-wp-config'])) {
@@ -787,6 +791,10 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		
 		list ($mess, $warn, $err, $info) = $updraftplus->analyse_db_file($backup_set['timestamp'], array());// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		
+		if (!empty($info['supported_charset'])) {
+			if (empty($assoc_args['charset'])) $restore_options['updraft_restorer_charset'] = $info['supported_charset'];
+		}
+
 		if (class_exists('UpdraftPlus_Addons_Migrator')) {
 			if (!empty($info['migration'])) {
 				if (isset($assoc_args['migration'])) {
@@ -1070,6 +1078,152 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		} else {
 			WP_CLI::success(__('You successfully logged in to UpdraftPlus.Com and connected this plugin with your account', 'updraftplus'));
 		}
+	}
+
+	/**
+	 * Create a clone using a UpdraftClone key
+	 *
+	 * NOTE: this command must be run with the --user=<user> flag otherwise the clone will fail to boot
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--clone-key=<updraftclone-key>]
+	 * : A UpdraftClone key generated on UpdraftPlus.com
+	 *
+	 * [--php=<php-version>]
+	 * : The PHP version to use on the clone (optional default: 7.4)
+	 *
+	 * [--wp=<wp-version>]
+	 * : The WP version to use on the clone (optional default: 5.9)
+	 *
+	 * [--region=<region>]
+	 * : The region to create the clone in (optional default: London)
+	 *
+	 * [--package=<package>]
+	 * : The clone package to boot (optional default: starter)
+	 *
+	 * [--admin-only]
+	 * : A boolean to indicate if the clone should only allow admins to login (optional default: False)
+	 *
+	 * [--wp-only]
+	 * : A boolean to indicate if we should boot a blank clone (optional default: False)
+	 *
+	 * ## EXAMPLES
+	 *
+	 * wp updraftplus updraftclone --user="USER NAME/ID" --clone-key="CLONE_KEY" --php="8.0" --wp="5.6" --region="london"
+	 *
+	 * @when after_wp_load
+	 *
+	 * @param Array $args       A indexed array of command line arguments
+	 * @param Array $assoc_args Key value pair of command line arguments
+	 */
+	public function updraftclone($args, $assoc_args) {
+		global $updraftplus;
+		$wp_version = $updraftplus->get_wordpress_version();
+
+		$clone_key = (!isset($assoc_args['clone-key']) || !is_string($assoc_args['clone-key'])) ? false : $assoc_args['clone-key'];
+
+		if (!$clone_key) {
+			WP_CLI::error(sprintf(__('No clone key provided. You can create a clone key at %s', 'updraftplus'), $updraftplus->get_url('my-account')));
+		}
+
+		$params = array(
+			'form_data' => array(
+				'clone_key' => $clone_key,
+				'consent' => 1,
+			)
+		);
+
+		$this->set_commands_object();
+		$response = $this->commands->process_updraftplus_clone_login($params);
+
+		if (!isset($response['clone_info'])) {
+			if (isset($response['status']) && 'error' == $response['status'] && isset($response['message'])) {
+				WP_CLI::error($response['message']);
+			} else {
+				WP_CLI::error(__('Failed to connect to UpdraftPlus.Com:', 'updraftplus').' '.json_encode($response));
+			}
+		}
+		
+		$wp_parts = explode('.', $wp_version);
+		$default_wp_version = $wp_parts[0] . '.' . $wp_parts[1];
+		$php_parts = explode(".", PHP_VERSION);
+		$default_php_version = $php_parts[0] . '.' . $php_parts[1];
+
+		$php_version = (!isset($assoc_args['php-version']) || !is_numeric($assoc_args['php-version'])) ? $default_php_version : (int) $assoc_args['php-version'];
+		$wp_version = (!isset($assoc_args['wp-version']) || !is_numeric($assoc_args['wp-version'])) ? $default_wp_version : (int) $assoc_args['wp-version'];
+		$region = (!isset($assoc_args['region'])) ? 'London' : $assoc_args['region'];
+		$package = (!isset($assoc_args['package'])) ? 'starter' : $assoc_args['package'];
+
+		if (isset($assoc_args['admin-only']) && filter_var($assoc_args['admin-only'], FILTER_VALIDATE_BOOLEAN)) {
+			$admin_only = true;
+		} else {
+			$admin_only = false;
+		}
+
+		if (isset($assoc_args['wp-only']) && filter_var($assoc_args['wp-only'], FILTER_VALIDATE_BOOLEAN)) {
+			$wp_only = true;
+		} else {
+			$wp_only = false;
+		}
+
+		$clone_id = $response['clone_info']['id'];
+		$secret_token = $response['clone_info']['secret_token'];
+
+		$params = array(
+			'form_data' => array(
+				'clone_id' => $clone_id,
+				'secret_token' => $secret_token,
+				'install_info' => array(
+					'php_version' => $php_version,
+					'wp_version' => $wp_version,
+					'region' => $region,
+					'package' => $package,
+					'admin_only' => $admin_only,
+					'use_queue' => 1,
+				)
+			)
+		);
+
+		if ($wp_only) $params['form_data']['install_info']['wp_only'] = 1;
+
+		$response = $this->commands->process_updraftplus_clone_create($params);
+
+		if ('success' != $response['status']) {
+			if (isset($response['status']) && 'error' == $response['status'] && isset($response['message'])) {
+				WP_CLI::error($response['message']);
+			} else {
+				WP_CLI::error(__('Failed to boot clone:', 'updraftplus').json_encode($response));
+			}
+		}
+		if ($wp_only) {
+			WP_CLI::success(__('The UpdraftClone boot process for an empty WordPress install has begun.', 'updraftplus') . ' ' . __('You will recieve an email when it completes.', 'updraftplus'));
+		}
+
+		// reset the secret token, this can change if we have been given one from the queue
+		$secret_token = $response['secret_token'];
+		$clone_url = $response['url'];
+		$key = $response['key'];
+		
+		// Run a UpdraftClone backup
+		$params = array(
+			'updraftplus_clone_backup' => 1,
+			'backupnow_nodb'    => 0,
+			'backupnow_nofiles' => 0,
+			'backupnow_nocloud' => 0,
+			'backupnow_label'   => 'UpdraftPlus Clone',
+			'extradata'         => array(),
+			'onlythisfileentity' => 'plugins,themes,uploads,others',
+			'clone_id' => $clone_id,
+			'secret_token' => $secret_token,
+			'clone_url' => $clone_url,
+			'key' => $key,
+			'backup_nonce' => 'current',
+			'backup_timestamp' => 'current',
+		);
+		$this->commands->backupnow($params);
+		
+		WP_CLI::success(__('The UpdraftClone boot process has started.', 'updraftplus') . ' ' . __('The creation of your data for creating the clone should now begin, and you will recieve an email when it completes.', 'updraftplus'));
 	}
 }
 

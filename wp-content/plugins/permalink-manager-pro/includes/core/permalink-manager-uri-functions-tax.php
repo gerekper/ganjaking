@@ -108,13 +108,20 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	/**
 	* Get the active URI
 	*/
-	public static function get_term_uri($term_id, $native_uri = false) {
+	public static function get_term_uri($term_id, $native_uri = false, $no_fallback = false) {
 		global $permalink_manager_uris;
 
 		// Check if input is term object
 		$term = (isset($term_id->term_id)) ? $term_id->term_id : get_term($term_id);
 
-		$final_uri = (!empty($permalink_manager_uris["tax-{$term_id}"])) ? $permalink_manager_uris["tax-{$term_id}"] : self::get_default_term_uri($term->term_id, $native_uri);
+		if(!empty($permalink_manager_uris["tax-{$term_id}"])) {
+			$final_uri = $permalink_manager_uris["tax-{$term_id}"];
+		} else if(!$no_fallback) {
+			$final_uri = self::get_default_term_uri($term->term_id, $native_uri);
+		} else {
+			$final_uri = '';
+		}
+
 		return $final_uri;
 	}
 

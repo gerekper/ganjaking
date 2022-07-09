@@ -918,6 +918,53 @@ class UpdraftPlus_Commands {
 	}
 
 	/**
+	 * This method will create UI for a list of local backups that can be remote sent and return it
+	 *
+	 * @param array $data - an array of data
+	 *
+	 * @return array      - an array with the results from the backup search
+	 */
+	public function get_backup_list($data) {
+		if (false === ($updraftplus_admin = $this->_load_ud_admin()) || false === ($updraftplus = $this->_load_ud())) return new WP_Error('no_updraftplus');
+
+		$response = array(
+			'result' => 'success'
+		);
+
+		$output = '';
+		$backup_history = UpdraftPlus_Backup_History::get_history();
+		
+		foreach ($backup_history as $key => $backup) {
+			$backup_complete = $updraftplus_admin->check_backup_is_complete($backup, false, false, true);
+			$remote_sent = !empty($backup['service']) && ((is_array($backup['service']) && in_array('remotesend', $backup['service'])) || 'remotesend' === $backup['service']);
+			if (!$backup_complete || $remote_sent) unset($backup_history[$key]);
+		}
+
+		if (!empty($backup_history)) {
+
+			$output .= '<p class="updraftplus-option updraftplus-option-inline updraft-remote_send">';
+			$output .= ' <span class="updraftplus-option-label">'.__('Backup:', 'updraftplus').'</span> ';
+			$output .= '<select id="updraftplus_remote_send_backup_options" name="updraftplus_remote_send_backup_options">';
+
+			foreach ($backup_history as $key => $backup) {
+				$total_size = round($updraftplus->get_total_backup_size($backup) / 1073741824, 1);
+				$pretty_date = get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $key), 'M d, Y G:i');
+				$label = isset($backup['label']) ? ' ' . $backup['label'] : '';
+				$output .= '<option value="'.$key. '" data-nonce="'.$backup['nonce'].'" data-timestamp="'.$key.'" data-size="'.$total_size.'">' . $pretty_date . $label . '</option>';
+			}
+			$output .= '</select>';
+			$output .= ' <button class="button button-primary" onclick="updraft_migrate_go_existing_backup()">'.__('Send', 'updraftplus').'</button>';
+			$output .= '</p>';
+		} else {
+			$output .= '<p>'.__('You have no local backups to send.', 'updraftplus').'</p>';
+		}
+
+		$response['data'] = $output;
+
+		return $response;
+	}
+	
+	/**
 	 * This function will add some needed filters in order to be able to send a local backup to remote storage it will then boot the backup process.
 	 *
 	 * @param array $data - data sent from the front end, it includes the backup timestamp and nonce
@@ -1053,6 +1100,7 @@ class UpdraftPlus_Commands {
 		if (!isset($response['status']) && 'success' != $response['status']) return $response;
 
 		$content = '';
+		$url = '';
 		
 		if (isset($response['data'])) {
 			$tokens = isset($response['data']['tokens']) ? $response['data']['tokens'] : 0;

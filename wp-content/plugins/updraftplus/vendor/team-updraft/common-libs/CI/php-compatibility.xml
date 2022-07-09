@@ -4,7 +4,11 @@
 	<description>UpdraftPlus PHP Compatibility Check</description>
 	<!-- Set Memory Limit -->
 	<ini name="memory_limit" value="150M"/>
-	<!-- Only Test for PHP 7.3+ -->
+	<!-- CI Cache -->
+	<arg name="cache" value="../CI/phpcs-cache-compatibility"/>
+	<!-- Check up to 4 files simultanously. -->
+	<arg name="parallel" value="4"/>
+	<!-- Only Test for PHP 5.2+ -->
 	<config name="testVersion" value="5.2-"/>
 	<!-- Ignoring Folders As they are part of Vendor packages -->
 	<!-- <exclude-pattern>src/tools/customer-tools/vendor</exclude-pattern> -->

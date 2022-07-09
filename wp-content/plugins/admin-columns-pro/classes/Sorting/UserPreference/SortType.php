@@ -55,7 +55,7 @@ class SortType {
 		$this->storage->set( $this->key, [
 			self::OPTION_ORDERBY => $sort_type->get_order_by(),
 			self::OPTION_ORDER   => $sort_type->get_order(),
-		], true );
+		] );
 	}
 
 }

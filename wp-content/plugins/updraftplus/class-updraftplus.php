@@ -96,6 +96,7 @@ class UpdraftPlus {
 			'UpdraftPlus_Filesystem_Functions' => 'includes/class-filesystem-functions.php',
 			'UpdraftPlus_Storage_Methods_Interface' => 'includes/class-storage-methods-interface.php',
 			'UpdraftPlus_Job_Scheduler' => 'includes/class-job-scheduler.php',
+			'UpdraftPlus_HTTP_Error_Descriptions' => 'includes/class-http-error-descriptions.php',
 		);
 		
 		foreach ($load_classes as $class => $relative_path) {
@@ -285,7 +286,7 @@ class UpdraftPlus {
 	 * @return array
 	 */
 	public function get_udrpc($indicator_name = 'migrator.updraftplus.com') {
-		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(apply_filters('updraftplus_class_udrpc_path', UPDRAFTPLUS_DIR.'/includes/class-udrpc.php', $this->version));
+		if (!class_exists('UpdraftPlus_Remote_Communications')) include_once(apply_filters('updraftplus_class_udrpc_path', UPDRAFTPLUS_DIR.'/vendor/team-updraft/common-libs/src/updraft-rpc/class-udrpc.php', $this->version));
 		$ud_rpc = new UpdraftPlus_Remote_Communications($indicator_name);
 		$ud_rpc->set_can_generate(true);
 		return $ud_rpc;
@@ -2028,8 +2029,8 @@ class UpdraftPlus {
 
 		if ($full_info) {
 			$arr = array(
-				'plugins' => array('path' => untrailingslashit(WP_PLUGIN_DIR), 'description' => __('Plugins', 'updraftplus')),
-				'themes' => array('path' => WP_CONTENT_DIR.'/themes', 'description' => __('Themes', 'updraftplus')),
+				'plugins' => array('path' => untrailingslashit(WP_PLUGIN_DIR), 'description' => __('Plugins', 'updraftplus'), 'singular_description' => __('Plugin', 'updraftplus')),
+				'themes' => array('path' => WP_CONTENT_DIR.'/themes', 'description' => __('Themes', 'updraftplus'), 'singular_description' => __('Theme', 'updraftplus')),
 				'uploads' => array('path' => untrailingslashit($wp_upload_dir['basedir']), 'description' => __('Uploads', 'updraftplus'))
 			);
 		} else {
@@ -2122,7 +2123,7 @@ class UpdraftPlus {
 		if ('E_DEPRECATED' == $e_type && !empty($this->no_deprecation_warnings)) {
 			return false;
 		}
-		
+
 		return "PHP event: code $e_type: $errstr (line $errline, $errfile)";
 
 	}
@@ -2295,8 +2296,19 @@ class UpdraftPlus {
 
 		$first_run = apply_filters('updraftplus_filerun_firstrun', 0);
 
-		// We don't want to be in permanent conflict with the overlap detector
-		if ($resumption_no >= $first_run + 8 && $resumption_no < $first_run + 15 && $resume_interval >= 300) {
+		// April 2022: a similar situation is handled further down, but takes longer to kick in; so extra check has been added (a case where the first runtime under cli was > 4 hours was followed by running under cgi-fci with only 20 minute resumption times; it's better to detect this early)
+		if ($resumption_no == $first_run + 1 && $resume_interval >= 600 && '' != PHP_SAPI) {
+			
+			$last_sapi = $this->jobdata_get('last_sapi');
+			
+			if ('' != $last_sapi && PHP_SAPI != $last_sapi) {
+				$resume_interval = $this->get_initial_resume_interval();
+				$this->log(sprintf("Run environment has changed (%s -> %s) - resetting resumption interval to %d", $last_sapi, PHP_SAPI, $resume_interval));
+				$this->jobdata_set('last_sapi', PHP_SAPI);
+			}
+			
+			// We don't want to be in permanent conflict with the overlap detector
+		} elseif ($resumption_no >= $first_run + 8 && $resumption_no < $first_run + 15 && $resume_interval >= 300) {
 
 			// $time_passed is set earlier
 			list($max_time, $timings_string, $run_times_known) = UpdraftPlus_Manipulation_Functions::max_time_passed($time_passed, $resumption_no - 1, $first_run);
@@ -2624,6 +2636,10 @@ class UpdraftPlus {
 			if ('begun' == $this->jobdata_get('prune')) {
 				// Begun, but not finished
 				$this->log('Restarting backup prune operation');
+				$updraftplus_backup->do_prune_standalone();
+				$allow_email = true;
+			} elseif ('finished' != $this->jobdata_get('prune')) {
+				// If prune has not begun or finished but we have undone files then start it
 				$updraftplus_backup->do_prune_standalone();
 				$allow_email = true;
 			}
@@ -3137,6 +3153,23 @@ class UpdraftPlus {
 	}
 
 	/**
+	 * Get the initial resumption interval, in seconds
+	 *
+	 * @return Integer
+	 */
+	private function get_initial_resume_interval() {
+		// Allow the resume interval to be more than 300 if last time we know we went beyond that - but never more than 600
+		if (defined('UPDRAFTPLUS_INITIAL_RESUME_INTERVAL') && is_numeric(UPDRAFTPLUS_INITIAL_RESUME_INTERVAL)) {
+			$resume_interval = UPDRAFTPLUS_INITIAL_RESUME_INTERVAL;
+		} else {
+			$resume_interval = (int) min(max(300, get_site_transient('updraft_initial_resume_interval')), 600);
+		}
+		// We delete it because we only want to know about behaviour found during the very last backup run (so, if you move servers then old data is not retained)
+		delete_site_transient('updraft_initial_resume_interval');
+		return $resume_interval;
+	}
+	
+	/**
 	 * This procedure initiates a backup run
 	 * $backup_files/$backup_database: true/false = yes/no (over-write allowed); 1/0 = yes/no (force)
 	 *
@@ -3327,14 +3360,7 @@ class UpdraftPlus {
 			return false;
 		}
 		
-		// Allow the resume interval to be more than 300 if last time we know we went beyond that - but never more than 600
-		if (defined('UPDRAFTPLUS_INITIAL_RESUME_INTERVAL') && is_numeric(UPDRAFTPLUS_INITIAL_RESUME_INTERVAL)) {
-			$resume_interval = UPDRAFTPLUS_INITIAL_RESUME_INTERVAL;
-		} else {
-			$resume_interval = (int) min(max(300, get_site_transient('updraft_initial_resume_interval')), 600);
-		}
-		// We delete it because we only want to know about behaviour found during the very last backup run (so, if you move servers then old data is not retained)
-		delete_site_transient('updraft_initial_resume_interval');
+		$resume_interval = $this->get_initial_resume_interval();
 
 		$job_file_entities = array();
 		if ($backup_files) {
@@ -3380,6 +3406,8 @@ class UpdraftPlus {
 			$one_shot,
 			'followsups_allowed',
 			$followups_allowed,
+			'last_sapi',
+			PHP_SAPI,
 		);
 
 		if ($one_shot) update_site_option('updraft_oneshotnonce', $this->nonce);
@@ -3729,8 +3757,6 @@ class UpdraftPlus {
 
 		$this->attachments = apply_filters('updraft_report_attachments', $attachments);
 
-		add_action('phpmailer_init', array($this, 'set_sender_email_address'), 9);
-
 		$attach_size = 0;
 		$unlink_files = array();
 
@@ -3769,9 +3795,19 @@ class UpdraftPlus {
 					$this->post_results_slack($subject, $body, trim($sendmail_addr), $this->file_nonce);
 				} else {
 					$this->log("Sending email ('$backup_contains') report (attachments: ".count($attachments).", size: ".round($attach_size/1024, 1)." KB) to: ".substr($sendmail_addr, 0, 5)."...");
+					$headers = array();
 					try {
+						$headers[] = "X-UpdraftPlus-Backup-ID: ".$this->nonce;
+						$from_email = apply_filters('updraftplus_email_from_header', $this->get_email_from_header());
+						$from_name = apply_filters('updraftplus_email_from_name_header', $this->get_email_from_name_header());
+						// Notice that we don't use the 'wp_mail_from' filter, but only the 'From:' header to set sender name and sender email address, the reason behind it is that some SMTP plugins override the "wp_mail()" function and they do anything they want inside their own "wp_mail()" function, including not to call the php_mailer filter nor the wp_mail_from and wp_mail_from_name filters, but since the function signature remain the same as the WP one, so they may evaluate and do something with the header parameter
+						if ('' !== $from_email) {
+							$headers[] = sprintf('From: %s <%s>', $from_name, $from_email);
+						} else {
+							add_filter('wp_mail_from_name', array($this, 'get_email_from_name_header'), 9);
+						}
 						add_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
-						wp_mail(trim($sendmail_addr), $subject, $body, array("X-UpdraftPlus-Backup-ID: ".$this->nonce), is_array($this->attachments) ? $this->attachments : array());
+						wp_mail(trim($sendmail_addr), $subject, $body, $headers, is_array($this->attachments) ? $this->attachments : array());
 						remove_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
 					} catch (Exception $e) {
 						$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
@@ -3783,7 +3819,6 @@ class UpdraftPlus {
 		foreach ($unlink_files as $file) @unlink($file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 
 		do_action('updraft_report_finished');
-		remove_action('phpmailer_init', array($this, 'set_sender_email_address'), 9);
 
 	}
 
@@ -3797,18 +3832,28 @@ class UpdraftPlus {
 	}
 
 	/**
-	 * Set the email sender to the administration email address
+	 * Check whether the provided admin_email is under the same domain with the site, and use it as a sender email to increase the chance of an email being sent successfully (if appropiate)
 	 *
-	 * @param Object $phpmailer PHPMailer object
+	 * @return String The admin email address if it's found to be in same domain, an empty string otherwise
 	 */
-	public function set_sender_email_address($phpmailer) {
+	public function get_email_from_header() {
 		$sitename = preg_replace('/^www\./i', '', strtolower($_SERVER['SERVER_NAME']));
 		$admin_email = get_bloginfo('admin_email');
 		$admin_email_domain = preg_replace('/^[^@]+@(.+)$/', "$1", $admin_email);
 		if (trim(strtolower($sitename)) === trim(strtolower($admin_email_domain))) {
 			// assuming (non validating) that the email account of the admin email does exist, and the admin email is under the same domain as with the web domain and the domain exists and live as well
-			$phpmailer->setFrom(get_bloginfo('admin_email'), sprintf(__('UpdraftPlus on %s', 'updraftplus'), $sitename), false);
+			return $admin_email;
 		}
+		return '';
+	}
+
+	/**
+	 * Build sender name and use something authentic that represents the identity of the plugin and web domain
+	 *
+	 * @return String The sender name
+	 */
+	public function get_email_from_name_header() {
+		return sprintf(__('UpdraftPlus on %s', 'updraftplus'), preg_replace('/^www\./i', '', strtolower($_SERVER['SERVER_NAME'])));
 	}
 	
 	/**
@@ -5176,6 +5221,7 @@ class UpdraftPlus {
 				$charset_select_html .= '<select name="updraft_restorer_charset" id="updraft_restorer_charset">';
 				if (is_array($db_supported_character_sets)) {
 					foreach ($db_supported_character_sets as $character_set) {
+						if ($character_set == $similar_type_charset) $info['supported_charset'] = $character_set;
 						$charset_select_html .= '<option value="'.esc_attr($character_set).'" '.selected($character_set, $similar_type_charset, false).'>'.esc_html($character_set).'</option>';
 					}
 				}
@@ -5336,26 +5382,30 @@ class UpdraftPlus {
 			}
 		}
 
-		$select_restore_tables = '<div class="notice below-h2 updraft-restore-option">';
-		$select_restore_tables .= '<p>'.__('If you do not want to restore all your database tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
+		if (empty($tables_found)) {
+			$warn[] = __('UpdraftPlus was unable to find any tables when scanning the database backup; it maybe corrupt.', 'updraftplus');
+		} else {
+			$select_restore_tables = '<div class="notice below-h2 updraft-restore-option">';
+			$select_restore_tables .= '<p>'.__('If you do not want to restore all your database tables, then choose some to exclude here.', 'updraftplus').'(<a href="#" id="updraftplus_restore_tables_showmoreoptions">...</a>)</p>';
 
-		$select_restore_tables .= '<div class="updraftplus_restore_tables_options_container" style="display:none;">';
+			$select_restore_tables .= '<div class="updraftplus_restore_tables_options_container" style="display:none;">';
 
-		if ($db_scan_timed_out || $php_max_input_vars_exceeded) {
-			if ($db_scan_timed_out) $all_other_table_title = __('The database scan was taking too long and consequently the list of all tables in the database could not be completed. This option will ensure all tables not found will be backed up.', 'updraftplus');
-			if ($php_max_input_vars_exceeded) $all_other_table_title = __('The amount of database tables scanned is near or over the php_max_input_vars value so some tables maybe truncated. This option will ensure all tables not found will be backed up.', 'updraftplus');
-			$select_restore_tables .= '<input class="updraft_restore_table_options" id="updraft_restore_table_udp_all_other_tables" checked="checked" type="checkbox" name="updraft_restore_table_options[]" value="udp_all_other_tables"> ';
-			$select_restore_tables .= '<label for="updraft_restore_table_udp_all_other_tables"  title="'.$all_other_table_title.'">'.__('Include all tables not listed below', 'updraftplus').'</label><br>';
+			if ($db_scan_timed_out || $php_max_input_vars_exceeded) {
+				if ($db_scan_timed_out) $all_other_table_title = __('The database scan was taking too long and consequently the list of all tables in the database could not be completed. This option will ensure all tables not found will be backed up.', 'updraftplus');
+				if ($php_max_input_vars_exceeded) $all_other_table_title = __('The amount of database tables scanned is near or over the php_max_input_vars value so some tables maybe truncated. This option will ensure all tables not found will be backed up.', 'updraftplus');
+				$select_restore_tables .= '<input class="updraft_restore_tables_options" id="updraft_restore_table_udp_all_other_tables" checked="checked" type="checkbox" name="updraft_restore_tables_options[]" value="udp_all_other_tables"> ';
+				$select_restore_tables .= '<label for="updraft_restore_table_udp_all_other_tables"  title="'.$all_other_table_title.'">'.__('Include all tables not listed below', 'updraftplus').'</label><br>';
+			}
+
+			foreach ($tables_found as $table) {
+				$checked = $skip_composite_tables && UpdraftPlus_Database_Utility::table_has_composite_private_key($table) ? '' : 'checked="checked"';
+				$select_restore_tables .= '<input class="updraft_restore_tables_options" id="updraft_restore_table_'.$table.'" '. $checked .' type="checkbox" name="updraft_restore_tables_options[]" value="'.$table.'"> ';
+				$select_restore_tables .= '<label for="updraft_restore_table_'.$table.'">'.$table.'</label><br>';
+			}
+			$select_restore_tables .= '</div></div>';
+
+			$info['addui'] = empty($info['addui']) ? $select_restore_tables : $info['addui'].'<br>'.$select_restore_tables;
 		}
-
-		foreach ($tables_found as $table) {
-			$checked = $skip_composite_tables && UpdraftPlus_Database_Utility::table_has_composite_private_key($table) ? '' : 'checked="checked"';
-			$select_restore_tables .= '<input class="updraft_restore_table_options" id="updraft_restore_table_'.$table.'" '. $checked .' type="checkbox" name="updraft_restore_table_options[]" value="'.$table.'"> ';
-			$select_restore_tables .= '<label for="updraft_restore_table_'.$table.'">'.$table.'</label><br>';
-		}
-		$select_restore_tables .= '</div></div>';
-
-		$info['addui'] = empty($info['addui']) ? $select_restore_tables : $info['addui'].'<br>'.$select_restore_tables;
 
 		// //need to make sure that we reset the file back to .crypt before clean temp files
 		// $db_file = $decrypted_file['fullpath'].'.crypt';

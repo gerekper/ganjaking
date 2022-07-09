@@ -122,8 +122,9 @@ class Screen implements AC\Registrable {
 	 */
 	public function save_user_preference() {
 		$request = Request\Sort::create_from_globals();
+		$persist = apply_filters( 'acp/sorting/remember_last_sorting_preference', true, $this->list_screen );
 
-		if ( $request->get_order_by() ) {
+		if ( $persist && $request->get_order_by() ) {
 			$this->user_preference()->save( SortType::create_by_request( $request ) );
 		}
 	}

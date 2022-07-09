@@ -532,7 +532,8 @@ div[class*="updraft_migrate_widget_temporary_clone_stage"] > h3 {
 }
 
 /* Migrate / Clone headers */
-.updraft_migrate_widget_module_content header {
+.updraft_migrate_widget_module_content header,
+#updraft_migrate_tab_alt header {
 	position: relative;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -548,24 +549,29 @@ div[class*="updraft_migrate_widget_temporary_clone_stage"] > h3 {
 }
 
 .updraft_migrate_widget_module_content header h3,
-.updraft_migrate_widget_module_content header button.button.close {
+.updraft_migrate_widget_module_content header button.button.close,
+#updraft_migrate_tab_alt header h3,
+#updraft_migrate_tab_alt header button.button.close {
 	padding: 10px;
 	line-height: 20px;
 	height: auto;
 	margin: 0;
 }
 
-.updraft_migrate_widget_module_content button.button.close {
+.updraft_migrate_widget_module_content button.button.close,
+#updraft_migrate_tab_alt button.button.close {
 	text-decoration: none;
 	padding-left: 5px;
 	border-right: 1px solid #CCC;
 }
 
-.updraft_migrate_widget_module_content button.button.close .dashicons {
+.updraft_migrate_widget_module_content button.button.close .dashicons,
+#updraft_migrate_tab_alt button.button.close .dashicons {
 	margin-top: 1px;
 }
 
-.updraft_migrate_widget_module_content header h3 {
+.updraft_migrate_widget_module_content header h3,
+#updraft_migrate_tab_alt header h3 {
 	margin: 0;
 }
 
@@ -587,6 +593,10 @@ div[class*="updraft_migrate_widget_temporary_clone_stage"] > h3 {
 	position: absolute;
 	left: 10px;
 	top: calc(50% - 8px);
+}
+
+#updraft_migrate_tab_alt #updraft_migrate_send_existing_button {
+	margin-right: 6px;
 }
 
 /*

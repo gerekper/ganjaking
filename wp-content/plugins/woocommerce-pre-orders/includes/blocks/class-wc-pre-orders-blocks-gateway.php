@@ -107,7 +107,7 @@ final class WC_Pre_Orders_Blocks_Gateway extends AbstractPaymentMethodType {
 			'pre_orders_pay_later_css',
 			$css_url,
 			array(),
-			$version,
+			$version
 		);
 
 		return array( 'pre_orders_pay_later' );

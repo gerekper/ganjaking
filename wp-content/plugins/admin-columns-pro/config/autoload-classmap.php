@@ -1145,6 +1145,8 @@ return array (
   'ACP\\Table\\Switcher' => $dir . '/classes/Table/Switcher.php',
   'ACP\\TermQueryInformation' => $dir . '/classes/TermQueryInformation.php',
   'ACP\\ThirdParty\\ACF\\Addon' => $dir . '/classes/ThirdParty/ACF/Addon.php',
+  'ACP\\ThirdParty\\BeaverBuilder\\Addon' => $dir . '/classes/ThirdParty/BeaverBuilder/Addon.php',
+  'ACP\\ThirdParty\\BeaverBuilder\\ListScreen\\Template' => $dir . '/classes/ThirdParty/BeaverBuilder/ListScreen/Template.php',
   'ACP\\ThirdParty\\Polylang\\Addon' => $dir . '/classes/ThirdParty/Polylang/Addon.php',
   'ACP\\ThirdParty\\Polylang\\ColumnGroup' => $dir . '/classes/ThirdParty/Polylang/ColumnGroup.php',
   'ACP\\ThirdParty\\Polylang\\ColumnReplacement' => $dir . '/classes/ThirdParty/Polylang/ColumnReplacement.php',

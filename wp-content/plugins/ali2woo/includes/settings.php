@@ -41,6 +41,7 @@ if (!class_exists('A2W_Settings')) {
 
         private $default_settings = array(
             'item_purchase_code' => '',
+            'aliexpress_access_tokens' => array(),
             'account_type' => 'aliexpress',
             'use_custom_account' => false,
             'account_data' => array('aliexpress' => array('appkey' => '', 'trackingid' => ''), 'admitad' => array('cashback_url' => '')),
@@ -81,6 +82,8 @@ if (!class_exists('A2W_Settings')) {
             'fulfillment_phone_code' => '',
             'fulfillment_phone_number' => '',
             'fulfillment_custom_note' => '',
+            'fulfillment_cpf_meta_key' => '',
+            'fulfillment_rut_meta_key' => '',
             'order_translitirate' => false,
             'order_third_name' => false,
             'order_autopay' => false,

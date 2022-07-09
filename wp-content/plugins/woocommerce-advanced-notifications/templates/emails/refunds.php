@@ -79,6 +79,10 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 			}
 
+			if ( ! $display && ! empty( $show_all_items ) ) {
+				$display = true;
+			}
+
 			if ( ! $display )
 				continue;
 

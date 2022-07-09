@@ -868,6 +868,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
   //Cancels a subscription is the limit_cycles_num >= txn_count
   //$trial_offset is used if a paid trial payment exists
   public function limit_payment_cycles() {
+
     //Check if limiting is even enabled
     if(!$this->limit_cycles) { return; }
 
@@ -879,9 +880,11 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
 
     //Cancel this subscription if the payment cycles are limited and have been reached
     if($this->status == MeprSubscription::$active_str && ($this->txn_count - $trial_offset) >= $this->limit_cycles_num) {
+
       $_REQUEST['expire'] = true; // pass the expire
       $_REQUEST['silent'] = true; // Don't want to send cancellation notices
       try {
+        file_put_contents( WP_CONTENT_DIR . '/paypal-connect.log', 'Canceling sub', FILE_APPEND );
         $pm->process_cancel_subscription($this->id);
       }
       catch(Exception $e) {
@@ -1209,17 +1212,31 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
 
     try {
       if(($old_sub = $usr->subscription_in_group($grp->ID, true, $this->id))) {
-        $evt_txn = $old_sub->latest_txn();
-        $old_sub->expire_txns(); //Expire associated transactions for the old subscription
-        $_REQUEST['silent'] = true; // Don't want to send cancellation notices
-        if($old_sub->status !== MeprSubscription::$cancelled_str) {
-          $old_sub->cancel();
+        //NOTE: This was added for one specific customer, it should only be used at customers own risk,
+        //we don not support any custom development or issues that arrise from using this hook
+        //to override the default group behavior.
+        $override_default_behavior = apply_filters('mepr-override-group-default-behavior-sub', false, $old_sub);
+
+        if (!$override_default_behavior) {
+          $evt_txn = $old_sub->latest_txn();
+          $old_sub->expire_txns(); //Expire associated transactions for the old subscription
+          $_REQUEST['silent'] = true; // Don't want to send cancellation notices
+          if($old_sub->status !== MeprSubscription::$cancelled_str) {
+            $old_sub->cancel();
+          }
         }
       }
       elseif($old_lifetime_txn = $usr->lifetime_subscription_in_group($grp->ID)) {
-        $old_lifetime_txn->expires_at = MeprUtils::ts_to_mysql_date(time() - MeprUtils::days(1));
-        $old_lifetime_txn->store();
-        $evt_txn = $old_lifetime_txn;
+        //NOTE: This was added for one specific customer, it should only be used at customers own risk,
+        //we don not support any custom development or issues that arrise from using this hook
+        //to override the default group behavior.
+        $override_default_behavior = apply_filters('mepr-override-group-default-behavior-lt', false, $old_lifetime_txn);
+
+        if (!$override_default_behavior) {
+          $old_lifetime_txn->expires_at = MeprUtils::ts_to_mysql_date(time() - MeprUtils::days(1));
+          $old_lifetime_txn->store();
+          $evt_txn = $old_lifetime_txn;
+        }
       }
     }
     catch(Exception $e) {
@@ -1774,7 +1791,6 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
 
   protected function mgm_txn_count($mgm, $val = '') {
     global $wpdb;
-
     $mepr_db = new MeprDb();
 
     switch($mgm) {

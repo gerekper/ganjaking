@@ -226,9 +226,10 @@ function a2w_update_product_prices(product_id, shipping_cost, variations) {
         jQuery(product).find('.variants-table [data-id="' + v.id + '"] .price').val(v.calc_price)
         jQuery(product).find('.variants-table [data-id="' + v.id + '"] .regular_price').val(v.calc_regular_price)
     });
-
-    jQuery(product).find('.external-shipping').html(jQuery(product).find('.external-shipping').attr('data-currency') + shipping_cost);
-    jQuery(product).find('.external-shipping').attr('data-value', shipping_cost);
+    if(shipping_cost){
+        jQuery(product).find('.external-shipping').html(jQuery(product).find('.external-shipping').attr('data-currency') + shipping_cost);
+        jQuery(product).find('.external-shipping').attr('data-value', shipping_cost);
+    }
     a2w_calc_profit(product_id);
 }
 
@@ -2093,7 +2094,6 @@ var Utils = new Utils();
 
             return false
         });
-
     });
 
 })(jQuery, window, document);
