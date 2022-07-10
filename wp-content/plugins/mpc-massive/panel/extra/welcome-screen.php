@@ -3,10 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MPC_Setup_Wizard {
 	private $step    = '';
 	private $steps   = array();
@@ -103,7 +99,8 @@ class MPC_Setup_Wizard {
 			<title><?php _e( 'Massive Addons &rsaquo; Setup Wizard', 'mpc' ); ?></title>
 			<?php //wp_print_scripts( 'ma-setup-js' ); ?>
 			<?php do_action( 'admin_print_styles' ); ?>
-			<?php do_action( 'admin_head' ); ?>
+            <?php // commented to fix admin fatal; ?>
+			<?php //do_action( 'admin_head' ); ?>
 		</head>
 		<body class="ma-setup ma-step-<?php echo $this->step ?> <?php echo $this->step == 'contents' || $this->step == 'download' ? 'ma-step-presets' : '' ?> wp-core-ui">
 		<h1 id="ma-logo"><a href="https://massive.mpcthemes.net"><img src="<?php echo mpc_get_plugin_path( __FILE__ ); ?>/assets/images/logo_dark.png" alt="Massive Addons" /></a></h1>

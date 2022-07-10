@@ -1706,7 +1706,7 @@ if ( ! class_exists( 'MPC_Snippets' ) ) {
 		}
 
 		/* Workers */
-		static function prefix_group( &$fields = array(), $group ) {
+		static function prefix_group( &$fields = array(), $group = '' ) {
 			for ( $i = 0; $i < count( $fields ); $i ++ ) {
 				if ( isset( $fields[ $i ][ 'group' ] ) ) {
 					continue;

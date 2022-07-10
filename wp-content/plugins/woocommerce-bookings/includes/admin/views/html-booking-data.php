@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'desc_tip'          => true,
 			'type'              => 'number',
 			'custom_attributes' => array(
-				'min'           => '',
+				'min'           => '0',
 				'step'          => '1',
 			),
 		) );

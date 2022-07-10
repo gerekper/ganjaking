@@ -1,5 +1,14 @@
 *** Product CSV Import Suite Changelog ***
 
+2022-07-06 - version 1.10.49
+* Tweak - Bump tested up to WordPress 6.0.
+
+2022-05-12 - version 1.10.48
+* Fix - Stock status of parent product when importing variations.
+
+2022-04-15 - version 1.10.47
+* Fix - Relative stock adjustments should properly account of product inventories that are already negative.
+
 2021-08-24 - version 1.10.46
 * Fix - Ensure we don't fire any unnecessary actions when importing products that don't have any `post_` fields.
 * Fix - Tweak: Wording update to remove "ninja" from import instructions.

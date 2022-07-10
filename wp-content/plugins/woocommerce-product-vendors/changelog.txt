@@ -1,5 +1,18 @@
 *** Product Vendors Changelog ***
 
+2022-07-06 - version 2.1.62
+* Add - Implement support for automatic translation files delivery.
+
+2022-05-26 - version 2.1.61
+* Fix - Ensure Vendor Managers do not see the "Sales summary" section on the dashboard.
+* Tweak - Bump tested up to WordPress version 6.0.
+
+2022-05-12 - version 2.1.60
+* Fix - Modify column content only when the column slug is `vendors` in user list table.
+
+2022-03-25 - version 2.1.59
+* Fix - Vendors can't sort bookings by date.
+
 2021-11-30 - version 2.1.58
 * Fix - check if `wp_get_object_terms` response is `WP_Error`.
 * Tweak - WC 5.9 compatibility.

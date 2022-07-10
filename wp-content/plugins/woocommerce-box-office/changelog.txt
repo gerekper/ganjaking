@@ -1,5 +1,10 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-07-06 - version 1.1.38
+* Fix - Critical error when viewing a ticket associated with a permanently deleted product.
+* Fix - Ensure all text is translated properly in the Private Link email.
+* Fix - Invoice generation when using PDF Invoices.
+
 2022-06-02 - version 1.1.37
 * Add - Class has been created to deal with block editor integration, primarily with the quantity selector on the cart page.
 * Tweak - Bump tested up to WordPress version 6.0.

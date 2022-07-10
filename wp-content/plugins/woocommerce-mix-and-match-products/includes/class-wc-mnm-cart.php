@@ -336,7 +336,7 @@ class WC_Mix_and_Match_Cart {
 
 					$parent_id = $child_product->get_parent_id();
 
-					$posted_config[ $child_product_id ]['child_item_id'] = $child_item_id;
+					$posted_config[ $child_product_id ]['child_item_id'] = $child_item->get_child_item_id();
 					$posted_config[ $child_product_id ]['mnm_child_id']  = $child_product_id;
 					$posted_config[ $child_product_id ]['product_id']    = $parent_id > 0 ? $parent_id : $child_product->get_id();
 					$posted_config[ $child_product_id ]['variation_id']  = $parent_id > 0 ? $child_product->get_id() : 0;

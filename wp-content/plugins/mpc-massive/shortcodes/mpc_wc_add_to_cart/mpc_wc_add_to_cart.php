@@ -259,7 +259,7 @@ if ( ! class_exists( 'MPC_WC_Add_To_Cart' ) ) {
 		}
 
 		/* Retrieve Button Icon */
-		function get_icon( $icon = array(), $classes_icon ) {
+		function get_icon( $icon = array(), $classes_icon = '' ) {
 			if( empty( $icon ) ) return '';
 
 			return '<i class="mpc-atc__icon mpc-transition ' . $icon[ 'class' ] . $classes_icon . '">' . $icon[ 'content' ] . '</i>';

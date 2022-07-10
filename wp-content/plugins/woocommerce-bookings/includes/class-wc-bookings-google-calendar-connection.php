@@ -212,6 +212,17 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	}
 
 	/**
+	 * Returns true if overwriting the Google Event Description
+	 * is allowed, false otherwise.
+	 *
+	 * @since 1.15.49
+	 * @return bool
+	 */
+	protected function is_event_description_overwritable() {
+		return 'yes' === $this->get_option( 'description_overwrite' );
+	}
+
+	/**
 	 * Get WC_Logger if enabled.
 	 *
 	 * @return WC_Logger|null
@@ -914,6 +925,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				/* translators: 1: log file path */
 				'description' => sprintf( __( 'Log Google Calendar events, such as API requests, inside %s', 'woocommerce-bookings' ), '<code>woocommerce/logs/' . $this->id . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt</code>' ),
 			),
+			'description_overwrite' => array(
+				'title'       => __( 'Overwrite Description', 'woocommerce-bookings' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Enable overwrite', 'woocommerce-bookings' ),
+				'default'     => 'no',
+				'description' => __( 'When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced.', 'woocommerce-bookings' ),
+			),
 		);
 	}
 
@@ -1436,13 +1454,15 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			}
 		}
 
-		$event = $this->get_event_resource( $booking_id );
+		$new_event = false;
+		$event     = $this->get_event_resource( $booking_id );
 		if ( empty( $event ) ) {
-			$event = new Google_Service_Calendar_Event();
+			$new_event = true;
+			$event     = new Google_Service_Calendar_Event();
 		}
 
-		// If the user edited the description on the Google Calendar side we want to keep that data intact.
-		if ( empty( trim( $event->getDescription() ) ) ) {
+		// Overwrite event description only if enabled in settings and for new events.
+		if ( $new_event || $this->is_event_description_overwritable() ) {
 			$event->setDescription( wp_kses_post( $description ) );
 		}
 

@@ -24,7 +24,7 @@ class WC_MNM_Product_Prices {
 	 */
 	public static function init() {
 
-		// Add price filters.
+		// Add price filters. Needs to be filtered from a plugin, this fires on plugins_loaded, so theme's functions.php will be too late.
 		if ( 'filters' === self::get_discount_method() ) {
 
 			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price' ), 99, 2 );

@@ -465,7 +465,15 @@ class WC_Bookings_Admin {
 	public function booking_display( $item_id, $item, $product ) {
 		$booking_ids = WC_Booking_Data_Store::get_booking_ids_from_order_item_id( $item_id );
 
-		wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => $booking_ids ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
+		wc_get_template(
+			'order/admin/booking-display.php',
+			array(
+				'booking_ids'       => $booking_ids,
+				'hide_item_details' => true,
+			),
+			'woocommerce-bookings',
+			WC_BOOKINGS_TEMPLATE_PATH
+		);
 	}
 
 	/**
@@ -631,28 +639,33 @@ class WC_Bookings_Admin {
 			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
 		}
 
+		if ( 'product' === $screen->id ) {
+			wp_enqueue_script( 'wc_bookings_admin_edit_bookable_product_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-bookable-product.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
+		}
+
 		$params = array(
-			'i18n_remove_person'     => esc_js( __( 'Are you sure you want to remove this person type?', 'woocommerce-bookings' ) ),
-			'nonce_unlink_person'    => wp_create_nonce( 'unlink-bookable-person' ),
-			'nonce_add_person'       => wp_create_nonce( 'add-bookable-person' ),
-			'i18n_remove_resource'   => esc_js( __( 'Are you sure you want to remove this resource?', 'woocommerce-bookings' ) ),
-			'nonce_delete_resource'  => wp_create_nonce( 'delete-bookable-resource' ),
-			'nonce_add_resource'     => wp_create_nonce( 'add-bookable-resource' ),
-			'i18n_minutes'           => esc_js( __( 'minutes', 'woocommerce-bookings' ) ),
-			'i18n_hours'             => esc_js( __( 'hours', 'woocommerce-bookings' ) ),
-			'i18n_days'              => esc_js( __( 'days', 'woocommerce-bookings' ) ),
-			'i18n_new_resource_name' => esc_js( __( 'Enter a name for the new resource', 'woocommerce-bookings' ) ),
-			'post'                   => isset( $post->ID ) ? $post->ID : '',
-			'plugin_url'             => WC()->plugin_url(),
-			'ajax_url'               => admin_url( 'admin-ajax.php' ),
-			'calendar_image'         => WC_BOOKINGS_PLUGIN_URL . '/dist/images/calendar.png',
-			'i18n_view_details'      => esc_js( __( 'View details', 'woocommerce-bookings' ) ),
-			'i18n_customer'          => esc_js( __( 'Customer', 'woocommerce-bookings' ) ),
-			'i18n_resource'          => esc_js( __( 'Resource', 'woocommerce-bookings' ) ),
-			'i18n_persons'           => esc_js( __( 'Persons', 'woocommerce-bookings' ) ),
-			'bookings_version'       => WC_BOOKINGS_VERSION,
-			'bookings_db_version'    => WC_BOOKINGS_DB_VERSION,
-			'start_of_week'          => get_option( 'start_of_week' ),
+			'i18n_remove_person'           => esc_js( __( 'Are you sure you want to remove this person type?', 'woocommerce-bookings' ) ),
+			'nonce_unlink_person'          => wp_create_nonce( 'unlink-bookable-person' ),
+			'nonce_add_person'             => wp_create_nonce( 'add-bookable-person' ),
+			'i18n_remove_resource'         => esc_js( __( 'Are you sure you want to remove this resource?', 'woocommerce-bookings' ) ),
+			'nonce_delete_resource'        => wp_create_nonce( 'delete-bookable-resource' ),
+			'nonce_add_resource'           => wp_create_nonce( 'add-bookable-resource' ),
+			'i18n_minutes'                 => esc_js( __( 'minutes', 'woocommerce-bookings' ) ),
+			'i18n_hours'                   => esc_js( __( 'hours', 'woocommerce-bookings' ) ),
+			'i18n_days'                    => esc_js( __( 'days', 'woocommerce-bookings' ) ),
+			'i18n_new_resource_name'       => esc_js( __( 'Enter a name for the new resource', 'woocommerce-bookings' ) ),
+			'post'                         => isset( $post->ID ) ? $post->ID : '',
+			'plugin_url'                   => WC()->plugin_url(),
+			'ajax_url'                     => admin_url( 'admin-ajax.php' ),
+			'calendar_image'               => WC_BOOKINGS_PLUGIN_URL . '/dist/images/calendar.png',
+			'i18n_view_details'            => esc_js( __( 'View details', 'woocommerce-bookings' ) ),
+			'i18n_customer'                => esc_js( __( 'Customer', 'woocommerce-bookings' ) ),
+			'i18n_resource'                => esc_js( __( 'Resource', 'woocommerce-bookings' ) ),
+			'i18n_persons'                 => esc_js( __( 'Persons', 'woocommerce-bookings' ) ),
+			'i18n_max_booking_overwridden' => esc_js( __( 'This setting is being overridden at the resource level.', 'woocommerce-bookings' ) ),
+			'bookings_version'             => WC_BOOKINGS_VERSION,
+			'bookings_db_version'          => WC_BOOKINGS_DB_VERSION,
+			'start_of_week'                => get_option( 'start_of_week' ),
 		);
 
 		wp_localize_script( 'wc_bookings_admin_js', 'wc_bookings_admin_js_params', $params );
@@ -673,6 +686,13 @@ class WC_Bookings_Admin {
 		);
 
 		wp_localize_script( 'wc_bookings_admin_edit_booking_js', 'wc_bookings_admin_edit_booking_params', $params );
+		
+		$params = array(
+			'wc_bookings_invalid_min_duration'  => esc_html__( 'Minimum duration needs to be less than or equal to maximum duration.', 'woocommerce-bookings' ),
+			'wc_bookings_invalid_max_duration'  => esc_html__( 'Maximum duration needs to be greater than or equal to the minimum duration.', 'woocommerce-bookings' ),
+		);
+		
+		wp_localize_script( 'wc_bookings_admin_edit_bookable_product_js', 'wc_bookings_admin_edit_booking_params', $params );
 	}
 
 	/**

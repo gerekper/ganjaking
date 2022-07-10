@@ -39,9 +39,49 @@ class WC_XR_Payment_Manager {
 			add_action( 'woocommerce_order_status_completed', array( $this, 'send_payment' ) );
 		} elseif ( 'payment_completion' === $this->settings->get_option( 'send_payments' ) ) {
 			add_action( 'woocommerce_payment_complete', array( $this, 'send_payment' ), 20 );
+
+			// if `woocommerce_payment_complete` does not trigger, decide when to create payment.
+			add_action( 'woocommerce_order_status_changed', array( $this, 'send_payment_on_order_change' ), 20, 3 );
 		}
 
 		add_filter( 'woocommerce_xero_order_payment_date', array( $this, 'cod_payment_set_payment_date_as_current_date' ), 10, 2 );
+	}
+
+	/**
+	 * Detect the payment method with order status change and create Xero payment.
+	 *
+	 * @since x.x.x
+	 * @version 1.0.0
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param string $from Old order status.
+	 * @param string $to New order status.
+	 */
+	public function send_payment_on_order_change( $order_id, $from, $to ) {
+
+		// Decide when to create a payment according to the payment method and changed order status.
+		$xero_payment_completion = array(
+			'cheque' => array( 'processing' ),
+		);
+
+		/**
+		 * Filter the order statuses according to the payment method array.
+		 *
+		 * @param array $xero_payment_completion Order statuses with their respective payment methods.
+		 *
+		 * @since x.x.x
+		 */
+		$xero_payment_completion = apply_filters( 'woocommerce_xero_payment_creation', $xero_payment_completion );
+
+		// Get the order.
+		$order = wc_get_order( $order_id );
+
+		$current_payment_method = $order->get_payment_method();
+
+		// Create a XERO payment for specified method and status.
+		if ( isset( $xero_payment_completion[ $current_payment_method ] ) && in_array( $to, $xero_payment_completion[ $current_payment_method ], true ) ) {
+			$this->send_payment( $order_id );
+		}
 	}
 
 	/**

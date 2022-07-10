@@ -367,7 +367,7 @@ jQuery(document).ready(function() {
 	/**
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
-	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') != null) {
+	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') != null && wp.data.select('core/edit-post') != null) {
 		const pm_unsubscribe = wp.data.subscribe(function() {
 			var isSavingPost = wp.data.select('core/editor').isSavingPost();
 			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();

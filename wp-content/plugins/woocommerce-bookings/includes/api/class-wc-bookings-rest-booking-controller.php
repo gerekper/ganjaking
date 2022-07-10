@@ -29,12 +29,41 @@ class WC_Bookings_REST_Booking_Controller extends WC_Bookings_REST_CRUD_Controll
 	/**
 	 * Get object.
 	 *
-	 * @param int $id Object ID.
+	 * @param int $booking_id Object ID.
 	 *
-	 * @return WC_Booking
+	 * @return WC_Booking|false
 	 */
-	protected function get_object( $id ) {
-		return new WC_Booking( $id );
+	protected function get_object( $booking_id ) {
+		$post_object = $booking_id ? get_post( $booking_id ) : false;
+
+		if ( ! $post_object || $this->post_type !== $post_object->post_type ) {
+			return false;
+		}
+
+		return new WC_Booking( $booking_id );
+	}
+
+	/**
+	 * Get objects (i.e. Bookings).
+	 *
+	 * @param array $query_args Query args.
+	 *
+	 * @return array Bookings data.
+	 */
+	protected function get_objects( $query_args ) {
+		/**
+		 * Get all public post statuses list and include a few.
+		 * This is done to include `wc-partial-payment` for now.
+		 *
+		 * Fix https://github.com/woocommerce/woocommerce-bookings/issues/3082
+		 */
+		if ( ! isset( $query_args['post_status'] ) && empty( $query_args['post_status'] ) ) {
+			$post_statuses             = array_values( get_post_stati( array( 'public' => true ) ) );
+			$include_statuses          = array( 'wc-partial-payment' );
+			$query_args['post_status'] = array_merge( $post_statuses, $include_statuses );
+		}
+
+		return parent::get_objects( $query_args );
 	}
 
 	/**

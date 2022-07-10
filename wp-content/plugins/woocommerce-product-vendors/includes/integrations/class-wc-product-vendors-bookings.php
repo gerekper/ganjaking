@@ -465,9 +465,17 @@ class WC_Product_Vendors_Bookings {
 			$product_ids = WC_Product_Vendors_Utils::get_vendor_product_ids();
 
 			$product_ids = ! empty( $product_ids ) ? $product_ids : array( '0' );
-			$query->set( 'meta_key', '_booking_product_id' );
-			$query->set( 'meta_compare', 'IN' );
-			$query->set( 'meta_value', $product_ids );
+
+			if ( 0 < count( $product_ids ) ) {
+				$meta_query = array(
+					array(
+						'key'     => '_booking_product_id',
+						'value'   => $product_ids,
+						'compare' => 'IN'
+					)
+				);
+				$query->set( 'meta_query', $meta_query );
+			}
 		}
 
 		return true;

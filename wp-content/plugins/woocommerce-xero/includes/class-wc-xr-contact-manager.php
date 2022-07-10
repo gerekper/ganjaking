@@ -65,32 +65,74 @@ class WC_XR_Contact_Manager {
 	/**
 	 * Returns a xero contact ID based on an email address if one is found
 	 * null otherwise
-	 * @param  string $email
+	 *
+	 * @param  string $email Customer email.
 	 * @return string|null
 	 */
 	public function get_id_by_email( $email ) {
+		$contact = $this->get_contact_by_email( $email, '' );
+		if ( ! empty( $contact ) && ! empty( $contact['id'] ) ) {
+			return $contact['id'];
+		}
+		return null;
+	}
 
+	/**
+	 * Returns a xero contact ID and Name based on an email address if one is found
+	 * null otherwise
+	 *
+	 * @param string $email        Customer email.
+	 * @param string $contact_name Contact/Invoice Name.
+	 * @return array|null
+	 */
+	public function get_contact_by_email( $email, $contact_name ) {
 		if ( ! $email ) {
 			return null;
 		}
 
 		$contact_request = new WC_XR_Request_Contact( $this->settings, $email );
 
-		$transient_key = 'wc_xero_contact_id_' . md5( $email );
+		$transient_key = 'wc_xero_contact_info_' . md5( $email );
 		if ( get_transient( $transient_key ) ) {
 			return get_transient( $transient_key );
 		}
 		$contact_request->do_request();
 		$xml_response = $contact_request->get_response_body_xml();
 
-		if ( 'OK' == $xml_response->Status
-		     && ! empty( $xml_response->Contacts )
-		     && $xml_response->Contacts->Contact->ContactID->__toString() ) {
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		if (
+			'OK' == $xml_response->Status &&
+			! empty( $xml_response->Contacts ) &&
+			$xml_response->Contacts->Contact->ContactID->__toString()
+		) {
+			$contact = array(
+				'id'   => $xml_response->Contacts->Contact->ContactID->__toString(),
+				'name' => $xml_response->Contacts->Contact->Name->__toString(),
+			);
 
-				$contact_id  = $xml_response->Contacts->Contact->ContactID->__toString();
-				set_transient( $transient_key, $contact_id, 31 * DAY_IN_SECONDS );
-				return $contact_id;
+			/**
+			 * Backward Compatibility.
+			 *
+			 * Xero Can have multiple contact with same email address.
+			 * Compare generated old contact name with Xero contact name in case of multiple contacts.
+			 */
+			if ( $xml_response->Contacts->Contact->count() > 1 ) {
+				foreach ( $xml_response->Contacts->Contact as $xero_contact ) {
+					$id   = $xero_contact->ContactID->__toString();
+					$name = $xero_contact->Name->__toString();
+					if ( strtolower( $name ) === strtolower( $contact_name ) ) {
+						$contact = array(
+							'id'   => $id,
+							'name' => $name,
+						);
+						break;
+					}
+				}
+			}
+			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
+			set_transient( $transient_key, $contact, 31 * DAY_IN_SECONDS );
+			return $contact;
 		}
 
 		return null;
@@ -118,14 +160,26 @@ class WC_XR_Contact_Manager {
 			$invoice_name = $billing_first_name . ' ' . $billing_last_name;
 		}
 
-		$billing_email = $old_wc ? $order->billing_email : $order->get_billing_email();
-		$contact_id = $this->get_id_by_email( $billing_email );
-		$contact_id_only = null;
+		$billing_email       = $old_wc ? $order->billing_email : $order->get_billing_email();
+		$unique_invoice_name = $invoice_name . ' (' . $billing_email . ')';
+		$xero_contact        = $this->get_contact_by_email( $billing_email, $invoice_name );
+		$contact_id_only     = null;
 
-		// See if a previous contact exists
-		if ( ! empty ( $contact_id ) ) {
-			$contact->set_id( $contact_id );
+		// See if a previous contact exists.
+		if ( ! empty( $xero_contact ) && ! empty( $xero_contact['id'] ) ) {
+			$contact->set_id( $xero_contact['id'] );
 			$contact_id_only = $contact;
+			/**
+			 * Backward Compatibility.
+			 *
+			 * Use contact name without appending email if Xero contact have name without email appended.
+			 */
+			if ( strtolower( $invoice_name ) !== strtolower( $xero_contact['name'] ) ) {
+				$invoice_name = $unique_invoice_name;
+			}
+		} else {
+			// For new contact use unique invoice name by appending email.
+			$invoice_name = $unique_invoice_name;
 		}
 
 		// Set name

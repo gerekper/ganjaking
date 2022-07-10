@@ -722,7 +722,6 @@ class WC_Product_Vendors_Store_Admin {
 	 */
 	public function add_user_column_data( $content, $column_slug, $user_id ) {
 		$vendor_data = WC_Product_Vendors_Utils::get_all_vendor_data( $user_id );
-		$vendors = '';
 
 		if ( 'vendors' === $column_slug && ! empty( $vendor_data ) ) {
 			$vendor_names = array();
@@ -731,10 +730,10 @@ class WC_Product_Vendors_Store_Admin {
 				$vendor_names[] = $data['name'];
 			}
 
-			$vendors = implode( '<br />', $vendor_names );
+			return implode( '<br />', $vendor_names );
 		}
 
-		return $vendors;
+		return $content;
 	}
 
 	/**

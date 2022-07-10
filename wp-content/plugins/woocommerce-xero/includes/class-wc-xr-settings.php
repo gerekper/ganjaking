@@ -140,7 +140,8 @@ class WC_XR_Settings {
 					'title'       => __( 'Fees Account', 'wc-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Code for Xero account to allow fees.', 'wc-xero' ),
+					/* translators: Placeholders %1$s - opening HTML <a> link tag, closing HTML </a> link tag */
+					'description' => sprintf( __( 'Code for Xero account to allow fees. This account represents the fees created by the %1$sWooCommerce Fees API%2$s.', 'wc-xero' ), '<a href="https://docs.woocommerce.com/document/add-a-surcharge-to-cart-and-checkout-uses-fees-api/" target="_blank">', '</a>' ),
 				),
 				'payment_account'     => array(
 					'title'       => __( 'Payment Account', 'wc-xero' ),
@@ -183,6 +184,16 @@ class WC_XR_Settings {
 					'default'     => 'expense',
 					'type'        => 'select',
 					'description' => __(  'Set this to correspond to your Xero shipping account\'s type.', 'wc-xero' ),
+					'options'     => array(
+						'income'  => __( 'Income / Revenue / Sales', 'wc-xero' ),
+						'expense' => __( 'Expense', 'wc-xero' ),
+					),
+				),
+				'treat_fees_as'   => array(
+					'title'       => __( 'Treat Fees As', 'wc-xero' ),
+					'default'     => 'expense',
+					'type'        => 'select',
+					'description' => __( 'Set this to correspond to your Xero fees account\'s type.', 'wc-xero' ),
 					'options'     => array(
 						'income'  => __( 'Income / Revenue / Sales', 'wc-xero' ),
 						'expense' => __( 'Expense', 'wc-xero' ),

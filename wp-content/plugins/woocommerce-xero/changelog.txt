@@ -1,5 +1,17 @@
 *** Xero Integration ***
 
+2022-07-06 - version 1.7.43
+* Add - Setting to allow control how fees tax types are handled.
+* Fix - Australia tax rates for GST Free Expences matching zero-tax-rate fees.
+* Fix - Contact information is overwritten issue by adding an email address in the contact name.
+* Fix - Payments not created automatically when orders are paid with Check.
+* Fix - Tweak: Removed Unneeded GDPR item.
+* Tweak - Bump tested up to WordPress version 6.0.
+
+2022-05-05 - version 1.7.42
+* Fix - Tweak: Clarified fees account code and added link to the docs.
+* Tweak - Send payment method title as Reference to Xero instead of payment method ID.
+
 2022-02-17 - version 1.7.41
 * Fix - Enable translations for Xero.
 * Fix - Typo on Xero settings page. .

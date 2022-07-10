@@ -612,6 +612,7 @@ class WC_Bookings_Details_Meta_Box {
 		$person_counts     = $booking->get_person_counts( 'edit' );
 		$product           = wc_get_product( $product_id );
 		$booking_types_ids = array_keys( $booking->get_person_counts( 'edit' ) );
+		$booking_order_id  = isset( $_POST['_booking_order_id'] ) ? absint( $_POST['_booking_order_id'] ) : '';
 		$product_types_ids = $product ? array_keys( $product->get_person_types() ) : array();
 		$booking_persons   = array();
 
@@ -624,7 +625,7 @@ class WC_Bookings_Details_Meta_Box {
 			'customer_id'   => isset( $_POST['_booking_customer_id'] ) ? absint( $_POST['_booking_customer_id'] ) : '',
 			'date_created'  => empty( $_POST['booking_date'] ) ? current_time( 'timestamp' ) : strtotime( $_POST['booking_date'] . ' ' . (int) $_POST['booking_date_hour'] . ':' . (int) $_POST['booking_date_minute'] . ':00' ),
 			'end'           => $end,
-			'order_id'      => isset( $_POST['_booking_order_id'] ) ? absint( $_POST['_booking_order_id'] ) : '',
+			'order_id'      => $booking_order_id,
 			'parent_id'     => absint( $_POST['_booking_parent_id'] ),
 			'person_counts' => $booking_persons,
 			'product_id'    => absint( $product_id ),
@@ -634,6 +635,25 @@ class WC_Bookings_Details_Meta_Box {
 		) );
 
 		do_action( 'woocommerce_admin_process_booking_object', $booking );
+
+		// Link booking with an order item.
+		if ( ! empty( $booking_order_id ) ) {
+			$order       = wc_get_order( $booking_order_id );
+			$order_items = $order->get_items();
+
+			foreach ( $order_items as $order_item ) {
+				$order_item_id = $order_item->get_id();
+				if ( ! $order_item_id ) {
+					throw new Exception( __( 'Error: Could not create item', 'woocommerce-bookings' ) );
+				}
+
+				// Link only if product of order item matches with booking's product.
+				$order_item_product_id = (int) wc_get_order_item_meta( $order_item_id, '_product_id' );
+				if ( absint( $product_id ) === $order_item_product_id ) {
+					$booking->set_order_item_id( $order_item_id );
+				}
+			}
+		}
 
 		$booking->save();
 

@@ -4,7 +4,7 @@ Plugin Name: Massive Addons for WPBakery Page Builder
 Plugin URI: http://codecanyon.net/item/massive-addons-for-visual-composer/14429839
 Description: Uber Extension for WPBakery Page Builder plugin.
 Author: MassivePixelCreation
-Version: 2.4.8
+Version: 2.4.8.1
 Author URI: http://codecanyon.net/user/mpc/
 Text Domain: mpc
 Domain Path: /languages/
@@ -16,7 +16,7 @@ if ( ! defined( 'MPC_MASSIVE_FULL' ) ) {
 }
 
 if ( ! defined( 'MPC_MASSIVE_VERSION' ) ) {
-	define( 'MPC_MASSIVE_VERSION', '2.4.8' );
+	define( 'MPC_MASSIVE_VERSION', '2.4.8.1' );
 }
 
 if ( ! defined( 'MPC_MASSIVE_MIN' ) ) {
@@ -359,12 +359,12 @@ if ( ! function_exists( 'mpc_backend_editor_enqueue' ) ) {
 		wp_enqueue_script( 'mpc-massive-vendor-script', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-vendor.min.js', array( 'jquery' ), MPC_MASSIVE_VERSION, true );
 		wp_enqueue_script( 'mpc-massive-script', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-scripts' . MPC_MASSIVE_MIN . '.js', array( 'jquery', 'mpc-massive-vendor-script' ), MPC_MASSIVE_VERSION, true );
 
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_ajax', admin_url( 'admin-ajax.php' ) );
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', $mpc_ma_options[ 'animations_on_mobile' ] );
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', $mpc_ma_options[ 'parallax_on_mobile' ] );
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_ajax', array( admin_url( 'admin-ajax.php' )));
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', array( $mpc_ma_options[ 'animations_on_mobile' ]));
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', array( $mpc_ma_options[ 'parallax_on_mobile' ]));
 
 		if ( isset( $mpc_ma_options[ 'scroll_to_id' ] ) ) {
-			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', $mpc_ma_options[ 'scroll_to_id' ] );
+			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', array($mpc_ma_options[ 'scroll_to_id' ]));
 		}
 	}
 }
@@ -384,11 +384,11 @@ if ( ! function_exists( 'mpc_frontend_editor_enqueue' ) ) {
 		);
 
 		wp_localize_script( 'mpc-massive-frontend-script', '_mpc_frontend', $mpc_frontend );
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', $mpc_ma_options[ 'animations_on_mobile' ] );
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', $mpc_ma_options[ 'parallax_on_mobile' ] );
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', array($mpc_ma_options[ 'animations_on_mobile' ]) );
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', array($mpc_ma_options[ 'parallax_on_mobile' ]));
 
 		if ( isset( $mpc_ma_options[ 'scroll_to_id' ] ) ) {
-			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', $mpc_ma_options[ 'scroll_to_id' ] );
+			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', array($mpc_ma_options[ 'scroll_to_id' ]));
 		}
 	}
 }
@@ -417,15 +417,15 @@ if ( ! function_exists( 'mpc_frontend_enqueue' ) ) {
 			wp_enqueue_script( 'mpc-massive-main-script', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-main' . MPC_MASSIVE_MIN . '.js', array( 'jquery', 'mpc-massive-vendor-script' ), MPC_MASSIVE_VERSION, true );
 		}
 
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_ajax', admin_url( 'admin-ajax.php' ) );
-		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', $mpc_ma_options[ 'animations_on_mobile' ] );
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_ajax', array(admin_url( 'admin-ajax.php' ) ));
+		wp_localize_script( 'mpc-massive-vendor-script', '_mpc_animations', array($mpc_ma_options[ 'animations_on_mobile' ]) );
 
 		if ( isset( $mpc_ma_options[ 'parallax_on_mobile' ] ) ) {
-			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', $mpc_ma_options[ 'parallax_on_mobile' ] );
+			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_parallax', array($mpc_ma_options[ 'parallax_on_mobile' ]) );
 		}
 
 		if ( isset( $mpc_ma_options[ 'scroll_to_id' ] ) ) {
-			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', $mpc_ma_options[ 'scroll_to_id' ] );
+			wp_localize_script( 'mpc-massive-vendor-script', '_mpc_scroll_to_id', array($mpc_ma_options[ 'scroll_to_id' ]) );
 		}
 	}
 }
@@ -915,10 +915,6 @@ if ( ! function_exists( 'mpc_add_body_classes' ) ) {
 
 		return array_merge( $classes, $new_classes );
 	}
-}
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
 }
 
 function mpc_wp_color_picker_compatibility() {

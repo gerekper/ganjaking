@@ -105,11 +105,13 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			$wp_meta_boxes['dashboard']['side']['low']       = array();
 		}
 
-		wp_add_dashboard_widget(
-			'wcpv_vendor_sales_dashboard_widget',
-			__( 'Sales Summary', 'woocommerce-product-vendors' ),
-			array( $this, 'render_sales_dashboard_widget' )
-		);
+		if ( WC_Product_Vendors_Utils::is_admin_vendor() && WC_Product_Vendors_Utils::auth_vendor_user() ) {
+			wp_add_dashboard_widget(
+				'wcpv_vendor_sales_dashboard_widget',
+				__( 'Sales Summary', 'woocommerce-product-vendors' ),
+				array( $this, 'render_sales_dashboard_widget' )
+			);
+		}
 
 		return true;
 	}

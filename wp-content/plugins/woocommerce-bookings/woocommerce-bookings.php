@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.54
+ * Version: 1.15.58
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
- * Tested up to: 5.9
+ * Tested up to: 6.0
  * WC tested up to: 6.3
  * WC requires at least: 2.6
  *
@@ -82,7 +82,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.54' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.58' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 	define( 'WC_BOOKINGS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -337,6 +337,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 			if ( is_admin() ) {
 				new WC_Bookings_Menus();
 				new WC_Bookings_Report_Dashboard();
+				new WC_Bookings_WC_Status_Dashboard();
 				new WC_Bookings_Admin();
 				new WC_Bookings_Ajax();
 				new WC_Bookings_Admin_Add_Ons();

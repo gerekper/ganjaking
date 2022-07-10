@@ -1,5 +1,42 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-07-06 - version 1.15.58
+* Fix - Booking slot remaining count does not appear if Time zone is set to 'Display visitor's local time'.
+* Fix - Bookings list API results count inconsistent.
+* Fix - Ensure that you can force delete a Booking through the REST API.
+* Fix - Fix Google Calendar event blocks off all product availability.
+* Fix - Fix/2863 "Past days" detected properly.
+* Fix - Fixes - Select date error message is shown after changes to resource selection in frontend.
+* Fix - Minimum block bookable isn't being respected in Slots API.
+* Fix - New Booking emails don't respect text saved in email settings.
+* Fix - Show display price only when base price exists.
+
+2022-05-27 - version 1.15.57
+* Add - Add WooCommerce Bookings templates override section to WooCommerce Status page.
+* Fix - Add PHP Compatibility Testing.
+* Fix - Custom links added in the `new order` email.
+* Fix - Enhancement - Introduced a new setting field to control Google event description overwrite.
+* Fix - Ensure the Person types input fields are responsive.
+* Fix - Enter a summary of all changes on this Pull Request. This will appear in the changelog if accepted.
+* Fix - Fix: Ensure we validate the minimum and maximum duration.
+* Fix - Migrate end-to-end tests from Travis CI to GitHub Actions.
+* Fix - REST API returns days that are not bookable.
+* Fix - Update composer.json to include the /languages folder in the release.
+* Tweak - Bump tested up to WordPress version 6.0.
+
+2022-05-05 - version 1.15.56
+* Add - Add wc_bookings_get_end_time_html filter to modify endtime html.
+* Fix - Add customer info for admin on pending confirmation email.
+* Fix - Bookings that last till midnight are expanded to the next day in the admin calendar.
+* Fix - Correct number of days can't be selected in some situations.
+* Fix - Fix: Duplicate product title issue in the booking order emails.
+* Fix - Fixed calendar Schedule panel's header visibility issue on scroll.
+* Fix - Store Server Time showing on front end when Timezone settings are showing visitor's local time.
+* Fix - Toggle `Max bookings per block` with `Has resources`.
+
+2022-04-26 - version 1.15.55
+* Fix - Booking Duration not being calculated automatically.
+
 2022-04-15 - version 1.15.54
 * Fix - Add confirmation before canceling a booking.
 * Fix - Added the ability to checkout bookable products with the new checkout Gutenberg block. .
@@ -17,6 +54,15 @@
 * Update - Time changed for CRON to cancel failed orders.
 
 2022-03-25 - version 1.15.53
+* Fix - Booking Time Not Available After Booking Released from Cart.
+* Fix - Booking changed to "Partially Paid" even when deposit payment failed.
+* Fix - Compatibility issue with WooCommerce Multi-Currency.
+* Fix - Inconsistency manual created bookings vs. frontend.
+* Fix - Min Block Bookable Setting "x" hours into the future does not work with day range bookings.
+* Fix - Overbooking with "Customer defined blocks of".
+* Fix - Partially booked slots not considered for new bookings.
+* Fix - Show category in API only if it has a bookable product.
+* Fix - Undefined array key "resource_id" when using 'Customer defined blocks of'.
 * Tweak - WC 6.3 compatibility.
 * Tweak - WP 5.9 compatibility.
 

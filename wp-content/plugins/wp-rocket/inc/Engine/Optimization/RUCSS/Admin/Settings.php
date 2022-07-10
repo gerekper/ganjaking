@@ -312,7 +312,7 @@ class Settings {
 	 *
 	 * @return bool
 	 */
-	private function can_display_notice(): bool {
+	private function can_display_notice( $check_enabled = true ): bool {
 		$screen = get_current_screen();
 
 		if ( ! rocket_direct_filesystem()->is_writable( rocket_get_constant( 'WP_ROCKET_USED_CSS_PATH' ) ) ) {
@@ -331,7 +331,7 @@ class Settings {
 			return false;
 		}
 
-		if ( ! $this->is_enabled() ) {
+		if ( $check_enabled && ! $this->is_enabled() ) {
 			return false;
 		}
 
@@ -474,10 +474,4 @@ class Settings {
 
 		update_option( 'wp_rocket_settings', $options );
 	}
-
-	/**
-	 * Display a notification on wrong license.
-	 *
-	 * @return void
-	 */
 }

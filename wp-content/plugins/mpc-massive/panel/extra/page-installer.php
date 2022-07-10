@@ -5,10 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* REGISTER PAGE */
 add_action( 'admin_menu', 'mpc_register_page_installer' );
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mpc_register_page_installer() {
 	add_submenu_page( 'ma-panel', __( 'Page Installer', 'mpc' ),  __( 'Page Installer', 'mpc' ), 'manage_options', 'mpc-panel-page-installer', 'mpc_panel_page_installer' );
 }

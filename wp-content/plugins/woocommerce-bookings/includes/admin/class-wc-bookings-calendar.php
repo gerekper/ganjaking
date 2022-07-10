@@ -255,7 +255,7 @@ class WC_Bookings_Calendar {
 				$booking = $event;
 				$start   = $booking->get_start();
 				$end     = $booking->get_end();
-				if ( $start >= $date_end || $end < $date_start ) {
+				if ( $start >= $date_end || $end <= $date_start ) {
 					continue;
 				}
 				$multi_day = false;

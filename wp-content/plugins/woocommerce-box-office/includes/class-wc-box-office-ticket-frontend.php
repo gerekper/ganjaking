@@ -218,7 +218,7 @@ class WC_Box_Office_Ticket_Frontend {
 			return $pdflines;
 		}
 
-		WCBO()->components->order->get_tickets_by_order( $order_id );
+		$tickets = WCBO()->components->order->get_tickets_by_order( $order_id );
 
 		if ( 0 === count( $tickets ) ) {
 			return $pdflines;

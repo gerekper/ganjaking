@@ -5,14 +5,14 @@
  * Description: Import and export products and variations straight from WordPress admin. Go to WooCommerce > CSV Import Suite to get started. Supports post fields, product data, custom post types, taxonomies, and images.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.10.46
+ * Version: 1.10.49
  * WC requires at least: 2.6
  * WC tested up to: 5.6
- * Tested up to: 5.8
+ * Tested up to: 6.0
  * Text Domain: woocommerce-product-csv-import-suite
  * Domain Path: /languages
  *
- * Copyright: © 2021 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Adapted from the WordPress post importer by the WordPress team
@@ -36,7 +36,7 @@ function woocommerce_product_csv_import_suite_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 	define( 'WC_PCSVIS_FILE', __FILE__ );
-	define( 'WC_PCSVIS_VERSION', '1.10.46' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PCSVIS_VERSION', '1.10.49' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main CSV Import class

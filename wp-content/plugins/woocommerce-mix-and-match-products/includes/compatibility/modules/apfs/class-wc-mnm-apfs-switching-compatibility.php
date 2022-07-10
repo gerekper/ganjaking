@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.0.9
  */
 
 // Exit if accessed directly.
@@ -64,6 +64,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
             /*  Subscriptions management: 'My Account > Subscriptions' actions                                                                             */
             /*-----------------------------------------------------------------------------------*/
 
+			// Change text for Mix and Match switch link.
+			add_filter( 'woocommerce_subscriptions_switch_link', array( __CLASS__, 'switch_link' ), 10, 4 );
+
 			// Don't count container child items and hidden container container/child items.
 			add_filter( 'wcs_can_items_be_removed', array( __CLASS__, 'can_remove_subscription_items' ), 10, 2 );
 
@@ -82,6 +85,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			// Add extra 'Allow Switching' options. See 'WCS_ATT_Admin::allow_switching_options'.
 			add_filter( 'woocommerce_subscriptions_allow_switching_options', array( __CLASS__, 'add_container_switching_options' ), 11 );
+
+			// Add the settings to control whether Switching is enabled and how it will behave
+			add_filter( 'woocommerce_subscription_settings', array( __CLASS__, 'add_settings' ), 20 );
 
 			// Hide "Upgrade or Downgrade" switching buttons of container line items under 'My Account > Subscriptions'.
 			add_filter( 'woocommerce_subscriptions_can_item_be_switched', array( __CLASS__, 'can_switch_container_type_item' ), 10, 3 );
@@ -518,6 +524,27 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		*/
 
 		/**
+		 * Change the switch button text for Mix and Match subscriptions.
+		 * 
+		 * @since 2.0.9
+		 *
+		 * @param string $switch_link The switch link html.
+		 * @param int $item_id The order item ID of a subscription line item
+		 * @param array $item An order line item
+		 * @param object $subscription A WC_Subscription object
+		 * @return string
+		 * 
+		 */
+		public static function switch_link( $switch_link, $item_id, $item, $subscription ) {
+
+			$switch_url  = esc_url( WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription ) );
+			$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
+			$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', $switch_url, $switch_text );
+
+			return $switch_link;
+		}
+
+		/**
 		 * Don't count container child items and hidden container container/child items.
 		 *
 		 * @param  boolean          $can
@@ -694,6 +721,32 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			);
 
 			return $data;
+		}
+
+		/**
+		 * Add Switch settings to the Subscription's settings page.
+		 *
+		 * @since 2.0.9
+		 */
+		public static function add_settings( $settings ) {
+
+			$switching_settings = array(
+					'name'     => __( 'Mix and Match Configuration Switch Button Text', 'woocommerce-subscriptions', 'woocommerce-mix-and-match-products' ),
+					'desc'     => __( 'Customize the text displayed on the button next to the mix and match product subscription on the subscriber\'s account page. The default is "Update selections", but you may wish to change this to "Change selections".', 'woocommerce-subscriptions', 'woocommerce-mix-and-match-products' ),
+					'tip'      => '',
+					'id'       => 'wc_mnm_subscription_switch_button_text',
+					'css'      => 'min-width:150px;',
+					'default'  => __( 'Update selections', 'woocommerce-mix-and-match-products' ),
+					'type'     => 'text',
+					'desc_tip' => true,
+			);
+
+			// Insert the switch settings in after the switch button text setting otherwise add them to the end.
+			if ( ! WC_Subscriptions_Admin::insert_setting_after( $settings, WC_Subscriptions_Admin::$option_prefix . '_switch_button_text', $switching_settings ) ) {
+				$settings = array_merge( $settings, array( $switching_settings ) );
+			}
+
+			return $settings;
 		}
 
 		/**

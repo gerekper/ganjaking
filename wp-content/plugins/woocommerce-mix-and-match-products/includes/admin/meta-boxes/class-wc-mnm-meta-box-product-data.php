@@ -281,13 +281,13 @@ class WC_MNM_Meta_Box_Product_Data {
 		// Per-Item Discount.
 		woocommerce_wp_text_input(
 			array(
-			'id'          => '_mnm_per_product_discount',
-			'wrapper_class' => 'show_if_per_item_pricing',
-			'label'       => __( 'Per-Item Discount (%)', 'woocommerce-mix-and-match-products' ),
-			'value'       => $mnm_product_object->get_discount( 'edit' ),
-			'description' => __( 'Discount applied to each item when in per-item pricing mode. This discount applies whenever the quantity restrictions are satisfied.', 'woocommerce-mix-and-match-products' ),
-			'desc_tip'    => true,
-			'data_type'   => 'decimal',
+				'id'            => '_mnm_per_product_discount',
+				'wrapper_class' => 'show_if_per_item_pricing',
+				'label'         => __( 'Per-Item Discount (%)', 'woocommerce-mix-and-match-products' ),
+				'value'         => $mnm_product_object->get_discount( 'edit' ),
+				'description'   => __( 'Discount applied to each item when in per-item pricing mode. This discount applies whenever the quantity restrictions are satisfied.', 'woocommerce-mix-and-match-products' ),
+				'desc_tip'      => true,
+				'data_type'     => 'decimal',
 			)
 		);
 
@@ -324,10 +324,16 @@ class WC_MNM_Meta_Box_Product_Data {
 			<?php
 
 			foreach ( $options as $key => $option ) {
+				$use_icon = isset( $option[ 'mb_display' ] ) && $option[ 'mb_display' ];
 				?>
 				<div class="layout_option wc_mnm_radio_image_option <?php echo esc_attr( $key ); ?>" >
 					<input id="layout_option_<?php echo esc_attr( $key ); ?>" type="radio" <?php checked( $key === $mnm_product_object->get_layout( 'edit' ), true ); ?> name="wc_mnm_layout" class="layout" value="<?php echo esc_attr( $key ); ?>">
-					<label for="layout_option_<?php echo esc_attr( $key ); ?>">
+					<label for="layout_option_<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $use_icon ? 'has_svg_icon' : 'has_font_icon' ); ?>" >
+					<?php if ( $use_icon ) { ?>
+
+						<img src="<?php echo esc_url( $option['image'] ); ?>" alt="<?php printf( esc_html__( 'Icon for %s', 'woocommerce-mix-and-match-products' ), ! empty( $option['label'] ) ? $option['label'] : $option );?>" />
+							
+					<?php } ?>
 						<span><?php echo esc_html( ! empty( $option['label'] ) ? $option['label'] : $option ); ?></span>
 					</label>
 					<?php if ( ! empty( $option[ 'description' ] ) ) { echo wc_help_tip( $option[ 'description' ] ); } ?>
@@ -350,10 +356,16 @@ class WC_MNM_Meta_Box_Product_Data {
 			<?php
 
 			foreach ( $options as $key => $option ) {
+				$use_icon = isset( $option[ 'mb_display' ] ) && $option[ 'mb_display' ];
 				?>
 				<div class="location_option wc_mnm_radio_image_option <?php echo esc_attr( $key ); ?>" >
 					<input id="location_option_<?php echo esc_attr( $key ); ?>" type="radio" <?php checked( $key === $mnm_product_object->get_add_to_cart_form_location( 'edit' ), true ); ?> name="wc_mnm_form_location" value="<?php echo esc_attr( $key ); ?>">
-					<label for="location_option_<?php echo esc_attr( $key ); ?>">
+					<label for="location_option_<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $use_icon ? 'has_svg_icon' : 'has_font_icon' ); ?>">
+					<?php if ( $use_icon ) { ?>
+
+						<img src="<?php echo esc_url( $option['image'] ); ?>" alt="<?php printf( esc_html__( 'Icon for %s', 'woocommerce-mix-and-match-products' ), ! empty( $option['label'] ) ? $option['label'] : $option );?>" />
+						
+					<?php } ?>
 					<span><?php echo esc_html( ! empty( $option['label'] ) ? $option['label'] : $option ); ?></span>
 					</label>	
 					<?php if ( ! empty( $option[ 'description' ] ) ) { echo wc_help_tip( $option[ 'description' ] ); } ?>

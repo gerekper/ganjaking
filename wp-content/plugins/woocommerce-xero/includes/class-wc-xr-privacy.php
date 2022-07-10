@@ -84,10 +84,6 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 							'name'  => __( 'Xero invoice id', 'wc-xero' ),
 							'value' => get_post_meta( $order->get_id(), '_xero_invoice_id', true ),
 						),
-						array(
-							'name'  => __( 'Xero currency rate', 'wc-xero' ),
-							'value' => get_post_meta( $order->get_id(), '_xero_currencyrate', true ),
-						),
 					),
 				);
 			}
@@ -146,10 +142,6 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 						array(
 							'name'  => __( 'Xero invoice id', 'wc-xero' ),
 							'value' => get_post_meta( $subscription->get_id(), '_xero_invoice_id', true ),
-						),
-						array(
-							'name'  => __( 'Xero currency rate', 'wc-xero' ),
-							'value' => get_post_meta( $subscription->get_id(), '_xero_currencyrate', true ),
 						),
 					),
 				);
@@ -238,12 +230,10 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 		foreach ( $renewal_orders as $renewal_order_id ) {
 			delete_post_meta( $renewal_order_id, '_xero_payment_id' );
 			delete_post_meta( $renewal_order_id, '_xero_invoice_id' );
-			delete_post_meta( $renewal_order_id, '_xero_currencyrate' );
 		}
 
 		delete_post_meta( $subscription_id, '_xero_payment_id' );
 		delete_post_meta( $subscription_id, '_xero_invoice_id' );
-		delete_post_meta( $subscription_id, '_xero_currencyrate' );
 
 		return array( true, false, array( __( 'Xero Subscription Data Erased.', 'wc-xero' ) ) );
 	}
@@ -255,10 +245,9 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$order_id           = $order->get_id();
-		$xero_payment_id   = get_post_meta( $order_id, '_xero_payment_id', true );
-		$xero_invoice_id   = get_post_meta( $order_id, '_xero_invoice_id', true );
-		$xero_currencyrate = get_post_meta( $order_id, '_xero_currencyrate', true );
+		$order_id        = $order->get_id();
+		$xero_payment_id = get_post_meta( $order_id, '_xero_payment_id', true );
+		$xero_invoice_id = get_post_meta( $order_id, '_xero_invoice_id', true );
 
 		if ( empty( $xero_payment_id ) && empty( $xero_invoice_id ) && empty( $xero_currencyrate ) ) {
 			return array( false, false, array() );
@@ -266,7 +255,6 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 
 		delete_post_meta( $order_id, '_xero_payment_id' );
 		delete_post_meta( $order_id, '_xero_invoice_id' );
-		delete_post_meta( $order_id, '_xero_currencyrate' );
 
 		return array( true, false, array( __( 'Xero personal data erased.', 'wc-xero' ) ) );
 	}

@@ -401,7 +401,7 @@ class WC_XR_Invoice {
 		// Reference
 		$order = $this->get_order();
 		$reference_pieces = array();
-		$payment_method = $old_wc ? $order->payment_method : $order->get_payment_method();
+		$payment_method   = $old_wc ? $order->payment_method : esc_xml( $order->get_payment_method_title() );
 		if ( ! empty( $payment_method ) ) {
 			$reference_pieces[] = $payment_method;
 		}

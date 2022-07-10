@@ -192,12 +192,36 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				$min_date = strtotime( 'today' );
 			}
 
+			// Get Minimum bookable time in the future.
+			$product_min_date  = $bookable_product->get_min_date();
+			$min_bookable_date = strtotime( "+{$product_min_date['value']} {$product_min_date['unit']}", current_time( 'timestamp' ) );
+
+			// Reset $min_date if it's before the minimum bookable date/time in the future.
+			if ( $min_date < $min_bookable_date ) {
+				$min_date = $min_bookable_date;
+			}
+
 			if ( empty( $max_date ) ) {
 				$max_date = strtotime( 'tomorrow' );
 			}
 
+			// Get Maximum bookable time in the future.
+			$product_max_date  = $bookable_product->get_max_date();
+			$max_bookable_date = strtotime( "+{$product_max_date['value']} {$product_max_date['unit']}", current_time( 'timestamp' ) );
+
+			// Reset $max_date to the next dat of the $min_date if it is smaller.
+			if ( $max_date < $min_date ) {
+				$max_date = strtotime( '+1 day', $min_date );
+			}
+
+			// Reset $max_date if it's after the maximum bookable date/time in the future.
+			if ( $max_date > $max_bookable_date ) {
+				$max_date = $max_bookable_date;
+			}
+
 			$product_resources = $bookable_product->get_resource_ids() ?: array();
 			$duration          = $bookable_product->get_duration();
+			$duration_unit     = $bookable_product->get_duration_unit();
 			$availability      = array();
 
 			$resources = empty( $product_resources ) ? array( 0 ) : $product_resources;
@@ -221,6 +245,22 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 
 					unset( $data['resources'] );
 					if ( ! $hide_unavailable || 1 <= $data['available'] ) {
+
+						/**
+						 * For the day duration, check if the required duration is available in the following days or not
+						 * For example, for 3 days duration, check if the starting day has the following 3 days available or not.
+						 * If it's available, the starting day should be considered available, otherwise not.
+						 */
+						if ( 'day' === $duration_unit ) {
+							$day_timestamp = $timestamp;
+							for ( $i = 1; $i < $duration; $i ++ ) {
+								$day_timestamp = strtotime( '+1 day', $day_timestamp );
+								if ( ! isset( $available_blocks[ $day_timestamp ] ) ) {
+									continue 2;
+								}
+							}
+						}
+
 						$availability[] = array(
 							self::DATE      => $this->get_time( $timestamp, $timezone ),
 							self::DURATION  => $duration,

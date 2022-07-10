@@ -1168,9 +1168,17 @@ jQuery.fn.wc_get_mnm_script = function() {
 		/**
 		 * Reset messages on update start.
 		 */
-		this.reset_messages = function() {
-			this.validation_messages = [];
-			this.status_messages     = [];
+		this.reset_messages = function( type ) {
+
+			if ( 'undefined' === typeof type ) {
+				this.validation_messages = [];
+				this.status_messages     = [];
+			} else if ( 'error' === type ) {
+				this.validation_messages = [];
+			} else if ( 'status' === type ) {
+				this.status_messages     = [];
+			}
+			
 		};
 
 		/**
@@ -1238,6 +1246,15 @@ jQuery.fn.wc_get_mnm_script = function() {
 					error_message = error_message.replace( '%s', min_container_size );
 				}
 
+					// Validate that a container has fewer than the maximum number of items.
+			} else if ( max_container_size > 0 && min_container_size === 0 ) {
+
+				valid_message = wc_mnm_params.i18n_valid_max_message;
+
+				if ( total_qty > max_container_size ) {
+					error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
+				}
+
 				// Validate a range.
 			} else if ( max_container_size > 0 && min_container_size > 0 ) {
 
@@ -1256,18 +1273,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 					error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
 				}
 
-				// Validate that a container has fewer than the maximum number of items.
-			} else if ( max_container_size > 0 ) {
-
-				valid_message = wc_mnm_params.i18n_valid_max_message;
-
-				if ( total_qty > max_container_size ) {
-					error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
-				}
 			}
 
 			// Add error message.
 			if ( error_message !== '' ) {
+				
 				error_message = error_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );
 				
 				this.add_message( error_message.replace( '%v', qty_message ), 'error' );

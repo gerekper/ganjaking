@@ -29,32 +29,36 @@ if ( $booking_ids ) {
 	$margin_side = is_rtl() ? 'left' : 'right';
 
 	$show_status_date = ! ( isset( $only_title ) && $only_title );
+	$show_title       = ! ( isset( $hide_item_details ) && $hide_item_details );
 
 	foreach ( $booking_ids as $booking_id ) {
 		$booking    = new WC_Booking( $booking_id );
 		$order      = $booking->get_order();
 		$plain_text = false;
 		?>
-		<div class="wc-booking-summary">
+		<div class="wc-booking-summary" style="margin-top: 1em">
 			<?php
 			foreach ( $order->get_items() as $item_id => $item ) {
 				if ( $item_id !== $booking->get_order_item_id() ) {
 					continue;
 				}
-				// Product name.
-				echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
 
-				// allow other plugins to add additional product information here.
-				do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
+				if ( $show_title ) {
+					// Product name.
+					echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
 
-				wc_display_item_meta(
-					$item,
-					array(
-						'label_before' => '<strong class="wc-item-meta-label" style="float: ' . esc_attr( $text_align ) . '; margin-' . esc_attr( $margin_side ) . ': .25em; clear: both">',
-					)
-				);
+					// allow other plugins to add additional product information here.
+					do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 
-				if ( $show_status_date  ) :
+					wc_display_item_meta(
+						$item,
+						array(
+							'label_before' => '<strong class="wc-item-meta-label" style="float: ' . esc_attr( $text_align ) . '; margin-' . esc_attr( $margin_side ) . ': .25em; clear: both">',
+						)
+					);
+				}
+
+				if ( $show_status_date ) :
 					?>
 					<strong class="wc-booking-summary-number">
 						<?php
@@ -71,11 +75,6 @@ if ( $booking_ids ) {
 				endif;
 			}
 			?>
-			<div class="wc-booking-summary-actions">
-				<?php if ( $booking_id && function_exists( 'wc_get_endpoint_url' ) && wc_get_page_id( 'myaccount' ) && 0 !== $booking->get_customer_id() ) : ?>
-					<a href="<?php echo esc_url( wc_get_endpoint_url( $endpoint, '', wc_get_page_permalink( 'myaccount' ) ) ); ?>"><?php esc_html_e( 'View my bookings &rarr;', 'woocommerce-bookings' ); ?></a>
-				<?php endif; ?>
-			</div>
 		</div>
 		<?php
 	}

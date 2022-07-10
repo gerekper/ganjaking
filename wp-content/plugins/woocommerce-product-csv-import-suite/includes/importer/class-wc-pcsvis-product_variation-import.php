@@ -304,6 +304,12 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 		wp_suspend_cache_invalidation( false );
 		clean_post_cache( $post_id );
 
+		if ( ! isset( $this->data_store ) ) {
+			$this->data_store = new WC_PCSVIS_Product_Data_Store();
+		}
+
+		$this->data_store->update_lookup( $post_id );
+
 		unset( $post );
 	}
 
@@ -351,6 +357,7 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 		WC_Product_CSV_Import_Suite::log( __( 'Parsing product variations CSV.', 'woocommerce-product-csv-import-suite' ) );
 
 		$this->parser = new WC_CSV_Parser( 'product_variation' );
+		$this->data_store = new WC_PCSVIS_Product_Data_Store();
 
 		list( $this->parsed_data, $this->raw_headers, $position ) = $this->parser->parse_data( $file, $this->delimiter, $mapping, $start_pos, $end_pos );
 

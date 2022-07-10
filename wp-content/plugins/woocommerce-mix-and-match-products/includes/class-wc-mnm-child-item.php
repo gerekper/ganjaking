@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Child Item class.
  *
  * @class    WC_MNM_Child_Item
- * @version  2.0.7
+ * @version  2.0.9
  */
 class WC_MNM_Child_Item extends WC_Data {
 
@@ -98,8 +98,8 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * magically relay method to WC_Product class if possible.
 	 */
 	public function __call( $name, $args ) {
-		if ( ! is_callable( array( $this, $name ) ) && is_callable( array( $this->product, $name ) ) ) {
-			return call_user_func_array( array( $this->product, $name ), $args );
+		if ( ! method_exists( $this, $name ) && is_callable( array( $this->get_product(), $name ) ) ) {
+			return call_user_func_array( array( $this->get_product(), $name ), $args );
 		}
 	}
 
@@ -197,12 +197,13 @@ class WC_MNM_Child_Item extends WC_Data {
 		
 			if ( $this->product ) {
 
+				// Store the item as a property on the product object.
+				$this->product->mnm_child_item = $this;
+
+				// Maybe apply discounts.
 				if ( 'props' === WC_MNM_Product_Prices::get_discount_method() ) {
 					$this->set_price_props();
 				}
-
-				// Store the item as a property on the product object.
-				$this->product->mnm_child_item = $this;
 
 			}
 
@@ -512,7 +513,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 		} elseif ( $this->has_discount() ) {
 
-			$price            = $this->is_discounted_from_regular_price() ? $this->product->get_regular_price() : $price;
+			$price            = $this->is_discounted_from_regular_price() ? $this->product->get_regular_price() : $this->product->get_price();
 			$discounted_price = WC_MNM_Product_Prices::get_discounted_price( $price, $this->get_discount() );
 
 			$this->product->set_price( $discounted_price );

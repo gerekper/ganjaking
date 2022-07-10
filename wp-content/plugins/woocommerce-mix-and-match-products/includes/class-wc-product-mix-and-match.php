@@ -2071,14 +2071,16 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 
 			self::$layout_options_data = array(
 				'tabular' => array( 
-					'label' => __( 'List', 'woocommerce-mix-and-match-products' ),
-					'description' => __( 'The allowed contents are displayed as a list.', 'woocommerce-mix-and-match-products' ),
+					'label'       => esc_html__( 'List', 'woocommerce-mix-and-match-products' ),
+					'description' => esc_html__( 'The allowed contents are displayed as a list.', 'woocommerce-mix-and-match-products' ),
 					'image'       => WC_Mix_and_Match()->plugin_url() . '/assets/images/layout-list.svg',
+					'mb_display'  => false, // In the product metabox, this icon is in the admin font. Set to true to print the svg directly.
 				),
 				'grid' => array( 
-					'label' => __( 'Grid', 'woocommerce-mix-and-match-products' ),
-					'description' => __( 'The allowed contents are displayed as a grid.', 'woocommerce-mix-and-match-products' ),
+					'label'       => esc_html__( 'Grid', 'woocommerce-mix-and-match-products' ),
+					'description' => esc_html__( 'The allowed contents are displayed as a grid.', 'woocommerce-mix-and-match-products' ),
 					'image'       => WC_Mix_and_Match()->plugin_url() . '/assets/images/layout-grid.svg',
+					'mb_display'  => false,
 				)
             );
 

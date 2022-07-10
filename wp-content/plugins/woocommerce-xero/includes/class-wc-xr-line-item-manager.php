@@ -313,7 +313,20 @@ class WC_XR_Line_Item_Manager {
 				remove_filter( 'woocommerce_get_tax_location', array( $this, 'set_tax_location' ) );
 				reset( $rates );
 				if ( ! empty( $rates ) ) {
-					$line_item->set_tax_rate( $rates[ key( $rates ) ] );
+					$tax_rate = $rates[ key( $rates ) ];
+					// Define fee flag.
+					$tax_rate['is_fee_line_item'] = true;
+					$line_item->set_tax_rate( $tax_rate );
+				} else {
+					// Fee has no tax rate -- add zero value for later Tax Exempt handle.
+					$line_item->set_tax_rate(
+						array(
+							'rate'             => 0,
+							'shipping'         => false, // Whether or not this tax rate also gets applied to shipping.
+							'compound'         => true, // Compound rates are applied on top of other tax rates.
+							'is_fee_line_item' => true, // Make sure WC_XR_Line_Item can encode this special entry properly when needed, e.g. for AU, NZ, GB.
+						)
+					);
 				}
 			}
 

@@ -1,5 +1,11 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.07.06 - version 2.0.9
+* New: Introduce subscription switching text string setting for customizing text of subscription switch link for Mix and Match products.
+* Fix: Support displaying SVG icons directly in metabox, better support for alternative layouts.
+* Fix: Reorder validation so max messages are used when min=0 and max=X.
+* Fix: Magic getter passthrough for product methods on child item object.
+
 2022.06.27 - version 2.0.8
 * Fix: Limit loop classes in OceanWP theme compat to grid layout.
 

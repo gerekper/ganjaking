@@ -1391,6 +1391,14 @@ class WC_Product_Booking_Rule_Manager {
 		try {
 
 			$datetime   = new DateTime( '@' . $timestamp );
+			$gmt_offset = get_option( 'gmt_offset' );
+
+			/**
+			 * Converting float offset to human-readable format.
+			 * For the $modifier parameter of DateTime's modify( $modifier ) function.
+			 * Example, 5.5 => 5 hours 30 minutes.
+			 */
+			$gmt_offset_string = sprintf( '%02d hours %02d minutes', (int) $gmt_offset, fmod( $gmt_offset, 1 ) * 60 );
 
 			if ( ! isset( $rrule_cache[ $rrule_cache_key ] ) ) {
 				$is_all_day = false === strpos( $range['from'], ':' );
@@ -1398,20 +1406,20 @@ class WC_Product_Booking_Rule_Manager {
 				$end        = new DateTime( $range['to'] );
 				$start->setTimezone( new DateTimeZone( 'GMT' ) );
 				$end->setTimezone( new DateTimeZone( 'GMT' ) );
-				$end->modify( get_option( 'gmt_offset' ) . ' hours' );
-				$start->modify( get_option( 'gmt_offset' ) . ' hours' );
+				$end->modify( $gmt_offset_string );
+				$start->modify( $gmt_offset_string );
 
 				$duration = $start->diff( $end, true );
 
-				$rrule  = new \RRule\RSet( $range['rrule'], $is_all_day ? $start->format( 'Y-m-d' ) : $start );
+				$rrule = new \RRule\RSet( $range['rrule'], $is_all_day ? $start->format( 'Y-m-d' ) : $start );
+
 				$rrule_cache[ $rrule_cache_key ] = array(
 					'rrule_object' => $rrule,
-					'duration' => $duration
+					'duration'     => $duration
 				);
 			} else {
-
-				$rrule = $rrule_cache[ $rrule_cache_key ]['rrule_object'];
-				$duration = $rrule_cache[ $rrule_cache_key]['duration'];
+				$rrule    = $rrule_cache[ $rrule_cache_key ]['rrule_object'];
+				$duration = $rrule_cache[ $rrule_cache_key ]['duration'];
 			}
 
 			foreach ( $rrule as $occurrence ) {

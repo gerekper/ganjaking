@@ -532,6 +532,7 @@ return array(
     'WC_Bookings_Tools' => $baseDir . '/includes/admin/class-wc-bookings-tools.php',
     'WC_Bookings_Tracks' => $baseDir . '/includes/admin/tracks/class-wc-bookings-tracks.php',
     'WC_Bookings_WC_Ajax' => $baseDir . '/includes/class-wc-bookings-wc-ajax.php',
+    'WC_Bookings_WC_Status_Dashboard' => $baseDir . '/includes/admin/class-wc-bookings-wc-status-dashboard.php',
     'WC_Data_Exception' => $baseDir . '/includes/compatibility/class-wc-data-exception.php',
     'WC_Data_Store' => $baseDir . '/includes/compatibility/class-wc-data-store.php',
     'WC_Data_Store_WP' => $baseDir . '/includes/compatibility/class-wc-data-store-wp.php',

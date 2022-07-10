@@ -198,22 +198,22 @@ class WC_Mix_and_Match_Display {
 			'i18n_valid_max_message'                    => _x( '%v You can select up to %max or add to cart to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message. %min is the container minimum. %max is the container maximum.
 			'i18n_valid_range_message'                  => _x( '%v You may select between %min and %max items or add to cart to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %s is quantity left to be selected.
+			// translators: %v is the current quantity message. %s is quantity left to be selected.
 			'i18n_qty_error'                            => _x( '%v Please select %s items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %s is quantity left to be selected.
+			// translators: %v is the current quantity message. %s is quantity left to be selected.
 			'i18n_qty_error_single'                     => _x( '%v Please select %s item to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			'i18n_empty_error'                          => _x( 'Please select at least 1 item to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_max_qty_error'                    => _x( '%v Please select between %min and %max items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_qty_error_singular'               => _x( '%v Please select at least %min item to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_qty_error'                        => _x( '%v Please select at least %min items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_max_qty_error_singular'               => _x( '%v Please select fewer than %max item to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_max_qty_error'                        => _x( '%v Please select fewer than %max items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
+			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_validation_alert'                     => _x( 'Please resolve all pending configuration issues before adding this product to your cart.', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %d is the min quantity required for an individual child item.
 			'i18n_child_item_min_qty_message'           => _x( '*Minimum %d required', '[Frontend]', 'woocommerce-mix-and-match-products' ),

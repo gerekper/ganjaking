@@ -4,10 +4,6 @@ if ( class_exists( 'MPC_Plugin_Updater' ) ) {
 	return;
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MPC_Plugin_Updater {
 	public $slug = 'mpc-massive/mpc-massive.php';
 	private $short_slug = 'mpc-massive';

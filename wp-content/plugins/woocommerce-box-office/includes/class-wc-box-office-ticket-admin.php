@@ -164,7 +164,10 @@ class WC_Box_Office_Ticket_Admin {
 		wp_nonce_field( 'woocommerce_box_office_ticket_info', 'event_ticket_meta_box_nonce' );
 
 		$ticket      = wc_box_office_get_ticket( $post );
-		$ticket_form = new WC_Box_Office_Ticket_Form( $ticket->product, wp_list_pluck( $ticket->fields, 'value' ) );
+		$ticket_form = null;
+		if ( is_a( $ticket->product, 'WC_Product' ) ) {
+			$ticket_form = new WC_Box_Office_Ticket_Form( $ticket->product, wp_list_pluck( $ticket->fields, 'value' ) );
+		}
 
 		add_filter( 'wocommerce_box_office_input_field_template_vars', array( $this, 'custom_field_wrapper' ) );
 		add_filter( 'wocommerce_box_office_option_field_template_vars', array( $this, 'custom_field_wrapper' ) );

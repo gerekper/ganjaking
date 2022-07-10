@@ -74,6 +74,9 @@ class WC_Booking_Order_Manager {
 
 		// My account Bookings section scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'my_account_scripts' ) );
+
+		// Add custom HTML after Booking table in the email.
+		add_action( 'woocommerce_email_after_order_table', array( $this, 'add_admin_calender_link' ), 10, 2 );
 	}
 
 	/**
@@ -82,10 +85,16 @@ class WC_Booking_Order_Manager {
 	public function booking_display( $item_id, $item, $order ) {
 		$booking_ids = WC_Booking_Data_Store::get_booking_ids_from_order_item_id( $item_id );
 
-		wc_get_template( 'order/booking-display.php', array(
-			'booking_ids' => $booking_ids,
-			'endpoint'    => $this->get_endpoint(),
-		), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
+		wc_get_template(
+			'order/booking-display.php',
+			array(
+				'booking_ids'       => $booking_ids,
+				'endpoint'          => $this->get_endpoint(),
+				'hide_item_details' => true,
+			),
+			'woocommerce-bookings',
+			WC_BOOKINGS_TEMPLATE_PATH
+		);
 	}
 
 	/**
@@ -844,6 +853,42 @@ class WC_Booking_Order_Manager {
 			$booking = get_wc_booking( $booking_id );
 			$booking->set_status( 'cancelled' );
 			$booking->save();
+		}
+	}
+
+	/**
+	 * Add edit order link for admin.
+	 * Add view my bookings link for customers.
+	 * Works only if order has booking(s).
+	 *
+	 * @param WC_Order $order WC_Order object.
+	 * @param bool     $sent_to_admin Whether to send email notification to admin or not.
+	 *
+	 * @since x.x.x
+	 * @return void
+	 */
+	public function add_admin_calender_link( $order, $sent_to_admin ) {
+		$booking_ids = WC_Booking_Data_Store::get_order_contains_only_bookings( $order );
+
+		// Proceed only if order has booking(s).
+		if ( ! empty( $booking_ids ) ) {
+			// For admin, display order edit page URL.
+			if ( $sent_to_admin && $order->get_order_item_totals() ) {
+				?>
+				<div class="wc-booking-summary-actions" style="margin-bottom: 30px;">
+					<a href="<?php echo esc_url( $order->get_edit_order_url() ); ?>"><?php esc_html_e( 'View order &rarr;', 'woocommerce-bookings' ); ?></a>
+					<br/>
+					<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=booking_calendar&view=month' ) ); ?>"><?php esc_html_e( 'View all orders &rarr;', 'woocommerce-bookings' ); ?></a>
+				</div>
+				<?php
+			} elseif ( function_exists( 'wc_get_endpoint_url' ) && wc_get_page_id( 'myaccount' ) ) {
+				// For customers, display 'my bookings' page URL.
+				?>
+				<div class="wc-booking-summary-actions" style="margin-bottom: 30px;">
+					<a href="<?php echo esc_url( wc_get_endpoint_url( 'bookings', '', wc_get_page_permalink( 'myaccount' ) ) ); ?>"><?php esc_html_e( 'View my bookings &rarr;', 'woocommerce-bookings' ); ?></a>
+				</div>
+				<?php
+			}
 		}
 	}
 }

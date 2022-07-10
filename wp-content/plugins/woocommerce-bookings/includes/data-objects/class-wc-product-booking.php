@@ -143,7 +143,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		if ( $original_price_suffix !== $display_price_suffix ) {
 			$price_html = "<del>{$original_price_suffix}</del><ins>{$display_price_suffix}</ins>";
 		} elseif ( $display_price ) {
-			if ( $this->has_additional_costs() || $this->get_display_cost() ) {
+			if ( $this->has_additional_costs() ) {
 				/* translators: 1: display price */
 				$price_html = sprintf( __( 'From: %s', 'woocommerce-bookings' ), wc_price( $display_price ) ) . $this->get_price_suffix();
 			} else {

@@ -307,7 +307,7 @@ if ( ! class_exists( 'MPC_WC_Product' ) ) {
 		}
 
 		/* Get Thumbnail */
-		function get_thumbnail( $post_id = null, $image_size ) {
+		function get_thumbnail( $post_id = null, $image_size = '' ) {
 			$post_id = $post_id ?: get_the_ID();
 
 			$thumbnail_id = get_post_thumbnail_id( $post_id );

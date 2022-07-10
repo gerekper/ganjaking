@@ -406,7 +406,10 @@ class WC_XR_Line_Item {
 	 */
 	protected function get_tax_exempt_type_for_base_country() {
 		$tax_rate = $this->get_tax_rate();
+
 		$is_shipping_line_item = array_key_exists( 'is_shipping_line_item', $tax_rate ) && $tax_rate['is_shipping_line_item'];
+		$is_fee_line_item      = array_key_exists( 'is_fee_line_item', $tax_rate ) && $tax_rate['is_fee_line_item'];
+
 		$base_country = WC()->countries->get_base_country();
 
 		$tax_exempt_type = 'NONE';
@@ -418,6 +421,10 @@ class WC_XR_Line_Item {
 			if ( $is_shipping_line_item ) {
 				$treat_shipping_as = $this->settings->get_option( 'treat_shipping_as' );
 				$tax_exempt_type = ( 'income' === $treat_shipping_as ) ? 'EXEMPTOUTPUT' : 'EXEMPTEXPENSES';
+			}
+			if ( $is_fee_line_item ) {
+				$treat_fees_as   = $this->settings->get_option( 'treat_fees_as' );
+				$tax_exempt_type = ( 'income' === $treat_fees_as ) ? 'EXEMPTOUTPUT' : 'EXEMPTEXPENSES';
 			}
 		}
 		return $tax_exempt_type;
@@ -445,7 +452,10 @@ class WC_XR_Line_Item {
 	 */
 	protected function get_report_tax_type_for_base_country() {
 		$tax_rate = $this->get_tax_rate();
+
 		$is_shipping_line_item = array_key_exists( 'is_shipping_line_item', $tax_rate ) && $tax_rate['is_shipping_line_item'];
+		$is_fee_line_item      = array_key_exists( 'is_fee_line_item', $tax_rate ) && $tax_rate['is_fee_line_item'];
+
 		$base_country = WC()->countries->get_base_country();
 
 		$report_tax_type = '';
@@ -454,6 +464,10 @@ class WC_XR_Line_Item {
 			if ( $is_shipping_line_item ) {
 				$treat_shipping_as = $this->settings->get_option( 'treat_shipping_as' );
 				$report_tax_type = ( 'income' === $treat_shipping_as ) ? 'OUTPUT' : 'INPUT';
+			}
+			if ( $is_fee_line_item ) {
+				$treat_fees_as   = $this->settings->get_option( 'treat_fees_as' );
+				$report_tax_type = ( 'income' === $treat_fees_as ) ? 'OUTPUT' : 'INPUT';
 			}
 		}
 

@@ -175,10 +175,12 @@ class WC_Email_New_Booking extends WC_Email {
 	 */
 	public function get_heading() {
 		if ( wc_booking_order_requires_confirmation( $this->object->get_order() ) && $this->object->get_status() == 'pending-confirmation' ) {
-			return apply_filters( 'woocommerce_email_heading_' . $this->id, $this->format_string( $this->heading_confirmation ), $this->object );
+			$heading = $this->get_option( 'heading_confirmation', $this->heading_confirmation );
 		} else {
-			return apply_filters( 'woocommerce_email_heading_' . $this->id, $this->format_string( $this->heading ), $this->object );
+			$heading = $this->get_option( 'heading', $this->heading );
 		}
+
+		return apply_filters( 'woocommerce_email_heading_' . $this->id, $this->format_string( $heading ), $this->object );
 	}
 
 	/**

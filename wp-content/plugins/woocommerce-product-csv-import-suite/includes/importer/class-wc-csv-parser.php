@@ -385,14 +385,14 @@ class WC_CSV_Parser {
 				$mode = substr( $postmeta['stock'], 0, 3 );
 
 				if ( $mode == '(+)' ) {
-					$old_stock 	= absint( WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_stock' ) );
+					$old_stock 	= (int) WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_stock' );
 					$amount 	= absint( substr( $postmeta['stock'], 3 ) );
 					$new_stock 	= $old_stock + $amount;
 					$postmeta['stock'] = $new_stock;
 				}
 
 				if ( $mode == '(-)' ) {
-					$old_stock 	= absint( WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_stock' ) );
+					$old_stock 	= (int) WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_stock' );
 					$amount 	= absint( substr( $postmeta['stock'], 3 ) );
 					$new_stock 	= $old_stock - $amount;
 					$postmeta['stock'] = $new_stock;

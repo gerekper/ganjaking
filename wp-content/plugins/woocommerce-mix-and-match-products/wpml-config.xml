@@ -1,4 +1,7 @@
-<wpml-config>    
+<wpml-config>
+	<admin-texts>
+        <key name="wc_mnm_subscription_switch_button_text" />
+    </admin-texts>
     <custom-fields>
         <custom-field action="copy">_mnm_base_price</custom-field>
         <custom-field action="copy">_mnm_base_regular_price</custom-field>

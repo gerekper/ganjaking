@@ -4,15 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae
+class ComposerStaticInit5ff9a76e1af8116698fad83cb162838e
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
@@ -682,6 +682,7 @@ class ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae
         'WC_Bookings_Tools' => __DIR__ . '/../..' . '/includes/admin/class-wc-bookings-tools.php',
         'WC_Bookings_Tracks' => __DIR__ . '/../..' . '/includes/admin/tracks/class-wc-bookings-tracks.php',
         'WC_Bookings_WC_Ajax' => __DIR__ . '/../..' . '/includes/class-wc-bookings-wc-ajax.php',
+        'WC_Bookings_WC_Status_Dashboard' => __DIR__ . '/../..' . '/includes/admin/class-wc-bookings-wc-status-dashboard.php',
         'WC_Data_Exception' => __DIR__ . '/../..' . '/includes/compatibility/class-wc-data-exception.php',
         'WC_Data_Store' => __DIR__ . '/../..' . '/includes/compatibility/class-wc-data-store.php',
         'WC_Data_Store_WP' => __DIR__ . '/../..' . '/includes/compatibility/class-wc-data-store-wp.php',
@@ -1042,10 +1043,10 @@ class ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit414ec4b6c995ec36b8b3a3461589c7ae::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5ff9a76e1af8116698fad83cb162838e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5ff9a76e1af8116698fad83cb162838e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5ff9a76e1af8116698fad83cb162838e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5ff9a76e1af8116698fad83cb162838e::$classMap;
 
         }, null, ClassLoader::class);
     }

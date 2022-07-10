@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
  * @author  Automattic
- * @version 1.10.0
+ * @version 1.15.54
  * @since   1.0.0
  */
 
@@ -84,6 +84,11 @@ if ( $booking->has_persons() ) {
 		echo esc_html( sprintf( __( '%1$s: %2$d', 'woocommerce-bookings' ), $person_type, $qty ) ) . "\n";
 	}
 }
+
+echo "Customer Information \n";
+echo wp_kses( $order->get_formatted_billing_address() ? $order->get_formatted_billing_address() : __( 'No billing address set.', 'woocommerce-bookings' ), array( 'br' => array() ) ) . "\n";
+echo esc_html( $order->get_billing_phone() ? $order->get_billing_phone() : $order->billing_phone ) . "\n";
+echo wp_kses_post( make_clickable( sanitize_email( $order->get_billing_email() ? $order->get_billing_email() : $order->billing_email ) ) ) . "\n";
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 

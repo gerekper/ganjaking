@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.0.8';
+	public $version = '2.0.9';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -60,14 +60,14 @@ class WC_Mix_and_Match {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'woocommerce-mix-and-match-products' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning this object is forbidden.', 'woocommerce-mix-and-match-products' ) );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-mix-and-match-products' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'woocommerce-mix-and-match-products' ) );
 	}
 
 	/**
