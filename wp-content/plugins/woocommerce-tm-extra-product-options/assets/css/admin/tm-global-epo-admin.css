@@ -2,6 +2,10 @@
 /* stylelint-disable selector-class-pattern */
 
 /* color skins */
+.wp-admin {
+	--tc-color: #000;
+}
+
 .admin-color-fresh {
 	--tc-color: #2271b1;
 }
@@ -36,6 +40,42 @@
 
 .admin-color-sunrise {
 	--tc-color: #dd823b;
+}
+
+.admin-color-classic-dark {
+	--tc-color: #c9356e;
+}
+
+.admin-color-aquatic {
+	--tc-color: #008763;
+}
+
+.admin-color-classic-blue {
+	--tc-color: #b26200;
+}
+
+.admin-color-classic-bright {
+	--tc-color: #cd4177;
+}
+
+.admin-color-contrast {
+	--tc-color: ##045489;
+}
+
+.admin-color-nightfall {
+	--tc-color: #0675c4;
+}
+
+.admin-color-powder-snow {
+	--tc-color: #067ed3;
+}
+
+.admin-color-sakura {
+	--tc-color: #0675c4;
+}
+
+.admin-color-sunset {
+	--tc-color: #b26200;
 }
 
 body {

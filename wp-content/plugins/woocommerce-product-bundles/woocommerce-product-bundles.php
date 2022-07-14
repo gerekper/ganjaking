@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.15.5
+* Version: 6.16.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,12 +33,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.15.5
+ * @version  6.16.0
  */
 class WC_Bundles {
 
-	public $version  = '6.15.5';
-	public $required = '3.6.0';
+	public $version  = '6.16.0';
+	public $required = '3.9.0';
 
 	/**
 	 * The single instance of the class.
@@ -349,6 +349,9 @@ class WC_Bundles {
 		// Analytics.
 		require_once( WC_PB_ABSPATH . 'includes/admin/analytics/class-wc-pb-admin-analytics.php' );
 
+		// Tracker.
+		require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-tracker.php' );
+
 		// WP-CLI includes.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-cli.php' );
@@ -426,6 +429,33 @@ class WC_Bundles {
 		return $this->plugin_version();
 	}
 
+	/**
+	 * Handle plugin activation process.
+	 *
+	 * @since  6.16.0
+	 *
+	 * @return void
+	 */
+	public function on_activation() {
+		$this->define_constants();
+		require_once  WC_PB_ABSPATH . 'includes/class-wc-pb-install.php';
+		WC_PB_Install::create_events();
+	}
+
+	/**
+	 * Handle plugin deactivation process.
+	 *
+	 * @since  1.12.0
+	 *
+	 * @return void
+	 */
+	public function on_deactivation() {
+		$this->define_constants();
+		require_once  WC_PB_ABSPATH . 'includes/class-wc-pb-install.php';
+		// Clear daily maintenance process.
+		wp_clear_scheduled_hook( 'wc_pb_daily' );
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Deprecated methods.
@@ -453,3 +483,6 @@ function WC_PB() {
 }
 
 $GLOBALS[ 'woocommerce_bundles' ] = WC_PB();
+
+register_activation_hook( __FILE__, array( WC_PB(), 'on_activation' ) );
+register_deactivation_hook( __FILE__, array( WC_PB(), 'on_deactivation' ) );

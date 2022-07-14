@@ -4212,6 +4212,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 								}
 
 								$fields[] = $value;
+
 							}
 
 							$elements_html_array[ $k0 ] = [
@@ -5076,6 +5077,35 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 		$_extra_options        = $this->extra_multiple_options;
 		$additional_currencies = THEMECOMPLETE_EPO_HELPER()->get_additional_currencies();
 
+		$price_type_options = [
+			[
+				'text'  => esc_html__( 'Fixed amount', 'woocommerce-tm-extra-product-options' ),
+				'value' => '',
+			],
+			[
+				'text'  => esc_html__( 'Percent of the original price', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'percent',
+			],
+			[
+				'text'  => esc_html__( 'Percent of the original price + options', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'percentcurrenttotal',
+			],
+			[
+				'text'  => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'math',
+			],
+			[
+				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'fixedcurrenttotal',
+			],
+		];
+
+		if ( 'multiple_selectboxmultiple_options' === $name ) {
+			unset( $price_type_options[2] );
+			unset( $price_type_options[4] );
+			sort( $price_type_options );
+		}
+
 		if ( ! $options ) {
 			$options = [
 				'title'       => [ false ],
@@ -5118,7 +5148,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			$class   = ' withupload';
 		}
 
-		$o['title']       = [
+		$o['title']      = [
 			'id'      => $name . '_title',
 			'default' => '',
 			'type'    => 'text',
@@ -5130,7 +5160,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'value' => '',
 			],
 		];
-		$o['value']       = [
+		$o['value']      = [
 			'id'      => $name . '_value',
 			'default' => '',
 			'type'    => 'text',
@@ -5141,7 +5171,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_value',
 			],
 		];
-		$o['price']       = [
+		$o['price']      = [
 			'id'      => $name . '_price',
 			'default' => '',
 			'type'    => 'text',
@@ -5152,7 +5182,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_price',
 			],
 		];
-		$o['sale_price']  = [
+		$o['sale_price'] = [
 			'id'      => $name . '_sale_price',
 			'default' => '',
 			'type'    => 'text',
@@ -5163,7 +5193,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_price',
 			],
 		];
-		$o['image']       = [
+		$o['image']      = [
 			'id'      => $name . '_image',
 			'default' => '',
 			'type'    => 'hidden',
@@ -5176,7 +5206,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'extra'   => [ [ $this, 'builder_sub_options_image_helper' ], [ $name ] ],
 			'method'  => 'builder_sub_options_image_helper',
 		];
-		$o['imagec']      = [
+		$o['imagec']     = [
 			'id'      => $name . '_imagec',
 			'default' => '',
 			'type'    => 'hidden',
@@ -5187,7 +5217,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_imagec',
 			],
 		];
-		$o['imagep']      = [
+		$o['imagep']     = [
 			'id'      => $name . '_imagep',
 			'default' => '',
 			'type'    => 'hidden',
@@ -5198,7 +5228,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_imagep',
 			],
 		];
-		$o['imagel']      = [
+		$o['imagel']     = [
 			'id'      => $name . '_imagel',
 			'default' => '',
 			'type'    => 'hidden',
@@ -5209,32 +5239,12 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'name'  => $name . '_imagel',
 			],
 		];
+
 		$o['price_type']  = [
 			'id'      => $name . '_price_type',
 			'default' => '',
 			'type'    => 'select',
-			'options' => [
-				[
-					'text'  => esc_html__( 'Fixed amount', 'woocommerce-tm-extra-product-options' ),
-					'value' => '',
-				],
-				[
-					'text'  => esc_html__( 'Percent of the original price', 'woocommerce-tm-extra-product-options' ),
-					'value' => 'percent',
-				],
-				[
-					'text'  => esc_html__( 'Percent of the original price + options', 'woocommerce-tm-extra-product-options' ),
-					'value' => 'percentcurrenttotal',
-				],
-				[
-					'text'  => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ),
-					'value' => 'math',
-				],
-				[
-					'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
-					'value' => 'fixedcurrenttotal',
-				],
-			],
+			'options' => $price_type_options,
 			'nodiv'   => 1,
 			'tags'    => [
 				'class' => 't tm_option_price_type ' . $name,

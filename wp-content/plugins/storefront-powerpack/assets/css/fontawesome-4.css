@@ -1,14 +1,16 @@
 .sp-loader:before {
   content: "\f110";
   font-family: "FontAwesome";
-  font-weight: 400; }
+  font-weight: 400;
+}
 
 .woocommerce-checkout .flex-direction-nav li:first-child a:before {
   content: "\f177";
   font-family: "FontAwesome";
-  font-weight: 400; }
-
+  font-weight: 400;
+}
 .woocommerce-checkout .flex-direction-nav li:nth-child(2) a:after {
   content: "\f178";
   font-family: "FontAwesome";
-  font-weight: 400; }
+  font-weight: 400;
+}

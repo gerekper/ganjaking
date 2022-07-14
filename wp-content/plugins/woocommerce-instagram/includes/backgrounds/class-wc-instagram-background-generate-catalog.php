@@ -116,8 +116,26 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			)
 		);
 
+		$catalog_file = $catalog->get_file( $format, 'tmp' );
+
+		// Cancel the process.
+		if ( 'canceling' === $catalog_file->get_status() ) {
+			$catalog_file->delete_context();
+			$catalog_file->set_status( '' );
+
+			delete_option( $data_option );
+
+			$this->log(
+				sprintf(
+					"Canceled the process for generating the catalog %s.\n",
+					$catalog->get_slug() . ".{$format}"
+				)
+			);
+
+			return false;
+		}
+
 		$limit         = $this->get_limit();
-		$catalog_file  = $catalog->get_file( $format, 'tmp' );
 		$catalog_items = new WC_Instagram_Product_Catalog_Items(
 			$catalog,
 			array(

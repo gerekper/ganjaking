@@ -8,15 +8,9 @@
 	<tr valign="top">
             <th scope="row"><label for="userpro_memberlists_envato_code"><?php _e('Envato Purchase Code','userpro-memberlists'); ?></label></th>
             <td>
-                    <input type="text" style="width:300px !important;" name="userpro_memberlists_envato_code" id="userpro_memberlists_envato_code" value="<?php echo (userpro_memberlists_get_option('userpro_memberlists_envato_code')) ? userpro_memberlists_get_option('userpro_memberlists_envato_code') : ''; ?>" class="regular-text" />
-                    <span class="description"><?php _e('Enter your envato purchase code.','userpro-memberlists'); ?></span>
+                    <input type="text" style="width:300px !important;" name="userpro_memberlists_envato_code" id="userpro_memberlists_envato_code" readonly="readonly" value="13z89fdcmr2ia646kphzg3bbz0jdpdja" class="regular-text" />
             </td>
         </tr>
 
 </table>
-
-<p class="submit">
-	<input type="submit" name="verify-license-memberslists" id="verify-license-memberslists" class="button button-primary" value="<?php _e('Save Changes','userpro-memberlists'); ?>"  />
-</p>
-
 </form>

@@ -57,7 +57,7 @@ if( !class_exists('WPUpdatesPluginUpdater_1110') ) {
                 // Feed the update data into WP updater
     			$transient->response[$this->plugin_path] = $response;
 			
-			if( !$userpro->verify_purchase(userpro_userwall_get_option('userpro_userwall_envato_code'), '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes','9553858' ) ){
+			if( !$userpro->verify_purchase(userpro_userwall_get_option('userpro_userwall_envato_code'), '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes','5958681' ) ){
 					
     				unset( $transient->response[$this->plugin_path]->package );
     			      }

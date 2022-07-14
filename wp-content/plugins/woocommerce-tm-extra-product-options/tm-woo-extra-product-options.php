@@ -6,8 +6,9 @@
  * Author: ThemeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 6.0
+ * Version: 6.0.5
  * Requires at least: 5.0
+ * Requires PHP: 7.4
  * Tested up to: 7.0
  * WC requires at least: 4.1
  * WC tested up to: 7.0
@@ -30,7 +31,7 @@ if ( class_exists( 'Themecomplete_Extra_Product_Options_Setup' ) ) {
 	return;
 }
 
-// Include the main Extra_Product_Options Setup class.
+// Include the main Extra Product Options Setup class.
 require_once dirname( __FILE__ ) . '/includes/class-themecomplete-extra-product-options-setup.php';
 
 /**

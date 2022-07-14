@@ -66,6 +66,8 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_Base {
 		THEMECOMPLETE_EPO_CP_WPML_Currency::instance();
 		// WooCommerce Currency Switcher (WOOCS).
 		THEMECOMPLETE_EPO_CP_WOOCS::instance();
+		// WooCommerce Currency 3rd Party plugins.
+		THEMECOMPLETE_EPO_CP_Currency_3rd_Party::instance();
 		// WPML Multilingual CMS.
 		THEMECOMPLETE_EPO_CP_WPML::instance();
 		// WooCommerce Subscriptions.

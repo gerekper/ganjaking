@@ -46,8 +46,8 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 			'stock'        => array(
 				'label' => _x( 'Stock', 'product catalogs: table column', 'woocommerce-instagram' ),
 			),
-			'download'     => array(
-				'label' => _x( 'Download', 'product catalogs: table column', 'woocommerce-instagram' ),
+			'feeds'        => array(
+				'label' => _x( 'Data feeds', 'product catalogs: table column', 'woocommerce-instagram' ),
 				'width' => '1%',
 			),
 		);
@@ -143,7 +143,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 				'target' => '_blank',
 			),
 			'copy'     => array(
-				'label'    => __( 'Copy link', 'woocommerce-instagram' ),
+				'label'    => __( 'Copy URL', 'woocommerce-instagram' ),
 				'url'      => $catalog_url,
 				'target'   => '_blank',
 				'data-tip' => __( 'Copied!', 'woocommerce-instagram' ),
@@ -239,29 +239,45 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	}
 
 	/**
-	 * Outputs the column 'download'.
+	 * Outputs the column 'feeds'.
 	 *
-	 * @since 3.0.0
+	 * @since 4.2.0
 	 *
 	 * @param int                          $row             The row index.
 	 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog.
 	 */
-	public function output_column_download( $row, $product_catalog ) {
+	public function output_column_feeds( $row, $product_catalog ) {
+		$formats = array( 'xml', 'csv' );
+
+		if ( has_filter( 'wc_instagram_product_catalog_download_formats' ) ) {
+			wc_deprecated_hook( 'wc_instagram_product_catalog_download_formats', '4.2.0', 'wc_instagram_product_catalog_feed_formats' );
+
+			/**
+			 * Filters the available formats to download a product catalog.
+			 *
+			 * @since 3.0.0
+			 * @deprecated 4.2.0
+			 *
+			 * @param array $formats The available formats.
+			 */
+			$formats = apply_filters( 'wc_instagram_product_catalog_download_formats', $formats );
+		}
+
 		/**
-		 * Filters the available formats to download a product catalog.
+		 * Filters the available data feed formats of a product catalog.
 		 *
-		 * @since 3.0.0
+		 * @since 4.2.0
 		 *
 		 * @param array $formats The available formats.
 		 */
-		$formats = apply_filters( 'wc_instagram_product_catalog_download_formats', array( 'xml', 'csv' ) );
+		$formats = apply_filters( 'wc_instagram_product_catalog_feed_formats', $formats );
 
 		foreach ( $formats as $format ) :
 			printf(
-				'<a class="button wc-instagram-product-catalog-download-%1$s help_tip" href="#" aria-label="%2$s" data-tip="%2$s">%3$s</a>',
+				'<a class="button wc-instagram-product-catalog-feed-%1$s help_tip" href="#" aria-label="%2$s" data-tip="%2$s">%3$s</a>',
 				esc_attr( $format ),
 				/* translators: %s: file format */
-				esc_attr( sprintf( _x( 'Download the product catalog in %s format', 'product catalogs: catalog download aria-label', 'woocommerce-instagram' ), strtoupper( $format ) ) ),
+				esc_attr( sprintf( _x( 'The catalog data feed in %s format', 'product catalogs: data feed aria-label', 'woocommerce-instagram' ), strtoupper( $format ) ) ),
 				esc_attr( strtoupper( $format ) )
 			);
 		endforeach;
@@ -282,5 +298,20 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 			</tr>
 		</tfoot>
 		<?php
+	}
+
+	/**
+	 * Outputs the column 'download'.
+	 *
+	 * @since 3.0.0
+	 * @deprecated 4.2.0
+	 *
+	 * @param int                          $row             The row index.
+	 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog.
+	 */
+	public function output_column_download( $row, $product_catalog ) {
+		wc_deprecated_function( __FUNCTION__, '4.2.0', 'WC_Instagram_Admin_Field_Product_Catalogs->output_column_feeds()' );
+
+		$this->output_column_feeds( $row, $product_catalog );
 	}
 }

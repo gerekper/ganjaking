@@ -65,7 +65,7 @@ final class THEMECOMPLETE_EPO_CP_Quickview {
 	 * @since 1.0
 	 */
 	public function add_compatibility() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
 		add_filter( 'woocommerce_tm_quick_view', [ $this, 'woocommerce_tm_quick_view' ], 10, 3 );
 		add_filter( 'wc_epo_get_quickview_array', [ $this, 'get_epo_quickview_array' ] );
 		add_filter( 'wc_epo_get_quickview_containers', [ $this, 'wc_epo_get_quickview_containers' ] );

@@ -150,17 +150,15 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				if ( is_numeric( $element['item_width'] ) ) {
 					$element['item_width'] .= 'px';
 				}
-				$css_string .= '.' . $litmhexcolor . ' label{display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
 				$css_string .= '.' . $tmhexcolor . ' img{display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
-				$css_string .= '.' . $tmhexcolor . ' .tmhexcolorimage{display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
+				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage{padding: 1px !important;display: inline-block !important;width:' . $element['item_width'] . ' !important;min-width:' . $element['item_width'] . ' !important;max-width:' . $element['item_width'] . ' !important;}';
 			}
 			if ( ! empty( $element['item_height'] ) ) {
 				if ( is_numeric( $element['item_height'] ) ) {
 					$element['item_height'] .= 'px';
 				}
-				$css_string .= '.' . $litmhexcolor . ' label{display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
 				$css_string .= '.' . $tmhexcolor . ' img{display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
-				$css_string .= '.' . $tmhexcolor . ' .tmhexcolorimage{display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
+				$css_string .= '.tm-extra-product-options ul.tmcp-ul-wrap .' . $tmhexcolor . ' .tmhexcolorimage{padding: 1px !important;display: inline-block !important;height:' . $element['item_height'] . ' !important;min-height:' . $element['item_height'] . ' !important;max-height:' . $element['item_height'] . ' !important;}';
 			}
 			if ( ! empty( $element['item_width'] ) || ! empty( $element['item_height'] ) ) {
 				$css_string .= '.tmhexcolorimage-li.tm-li-unique-' . $unique_indentifier . '{display: inline-block;width:auto !important;overflow:hidden;}';
@@ -229,7 +227,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 
-			} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
+			} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( isset( $args['posted_name'] ) && ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = - 1;
 			}
 		}
@@ -248,7 +246,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		$checked = false;
 
 		if ( -1 === $selected_value ) {
-			if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) {
+			if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ( ! isset( $this->post_data['quantity'] ) || ( isset( $args['posted_name'] ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( $default_value && ! THEMECOMPLETE_EPO()->is_edit_mode() ) {
 					$checked = true;
 				}
@@ -561,18 +559,12 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			$display['color'] = $color;
 		}
 
-		if ( ! empty( $changes_product_image ) ) {
-			$fieldtype            = $args['fieldtype'] . ' tm-product-image';
-			$display['fieldtype'] = $fieldtype;
+		$display['fieldtype'] = '';
+		if ( isset( $args['fieldtype'] ) ) {
+			$display['fieldtype'] = $args['fieldtype'];
 		}
-
-		if ( ! empty( $css_class ) ) {
-			if ( isset( $display['fieldtype'] ) ) {
-				$fieldtype = $display['fieldtype'] . ' ' . $css_class;
-			} else {
-				$fieldtype = $args['fieldtype'] . ' ' . $css_class;
-			}
-			$display['fieldtype'] = $fieldtype;
+		if ( ! empty( $changes_product_image ) ) {
+			$display['fieldtype'] .= ' tm-product-image';
 		}
 
 		if ( ! empty( $args['element_data_attr'] ) && is_array( $args['element_data_attr'] ) ) {

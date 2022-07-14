@@ -89,6 +89,9 @@ defined( 'ABSPATH' ) || exit;
 	if ( isset( $date_placeholder ) && ! empty( $date_placeholder ) ) {
 		$input_args['tags']['data-mask-placeholder'] = $date_placeholder;
 	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$input_args['tags']['data-no-price'] = true;
+	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
 	</label>

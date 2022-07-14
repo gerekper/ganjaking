@@ -27,8 +27,8 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 	public function display_field( $element = [], $args = [] ) {
 
 		$saved_value = '';
-		if ( isset( $element ) && THEMECOMPLETE_EPO()->is_edit_mode() && THEMECOMPLETE_EPO()->cart_edit_key ) {
-			$cart_item_key = THEMECOMPLETE_EPO()->cart_edit_key;
+		if ( isset( $element ) && ( ! empty( THEMECOMPLETE_EPO_CART()->last_added_cart_key ) || ( THEMECOMPLETE_EPO()->is_edit_mode() && THEMECOMPLETE_EPO()->cart_edit_key ) ) ) {
+			$cart_item_key = THEMECOMPLETE_EPO()->is_edit_mode() ? THEMECOMPLETE_EPO()->cart_edit_key : THEMECOMPLETE_EPO_CART()->last_added_cart_key;
 			$cart_item     = WC()->cart->get_cart_item( $cart_item_key );
 
 			if ( $cart_item ) {

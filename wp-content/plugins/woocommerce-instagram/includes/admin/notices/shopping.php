@@ -30,8 +30,8 @@ $settings_url = wc_instagram_get_settings_url( wc_instagram_is_connected() ? arr
 		<?php
 		printf(
 			'<a class="button-secondary docs" href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
-			esc_url( 'https://woocommerce.com/document/woocommerce-instagram/shoppable/' ),
-			esc_attr_x( 'View WooCommerce Instagram Shopping documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
+			esc_url( 'https://woocommerce.com/document/woocommerce-instagram/' ),
+			esc_attr_x( 'View WooCommerce Instagram documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
 			esc_html__( 'Read more', 'woocommerce-instagram' )
 		);
 		?>

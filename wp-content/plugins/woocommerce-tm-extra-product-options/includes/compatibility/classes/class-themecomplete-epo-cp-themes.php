@@ -61,7 +61,7 @@ final class THEMECOMPLETE_EPO_CP_Themes {
 			add_action( 'woodmart_after_footer', [ $this, 'woodmart_after_footer2' ], 1000 );
 			add_action( 'woodmart_before_wp_footer', [ $this, 'woodmart_after_footer' ], 998 );
 			add_action( 'woodmart_before_wp_footer', [ $this, 'woodmart_after_footer2' ], 1000 );
-			add_action( 'wp_enqueue_scripts', [ $this, 'woodmart_wp_enqueue_scripts' ], 4 );
+			add_action( 'wp_enqueue_scripts', [ $this, 'woodmart_wp_enqueue_scripts' ], 11 );
 		}
 
 	}

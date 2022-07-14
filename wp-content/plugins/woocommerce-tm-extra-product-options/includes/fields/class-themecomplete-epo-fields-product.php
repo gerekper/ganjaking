@@ -384,16 +384,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		$selected_value = '';
 		if ( isset( $args['posted_name'] ) ) {
 			$name = $args['posted_name'];
-			if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] ] ) ) {
-				$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] ];
-			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-			} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
-				$selected_value = - 1;
-			}
 		}
-
-		$selected_value = apply_filters( 'wc_epo_default_value', $selected_value, $element );
 
 		$hide_amount = empty( $element['hide_amount'] ) ? '0' : '1';
 
@@ -500,6 +491,28 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		);
 
 		foreach ( $product_id_array['posts'] as $key => $product_id ) {
+
+			$selected_value = '';
+			if ( isset( $args['posted_name'] ) ) {
+				$name = $args['posted_name'];
+				if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] ] ) ) {
+					if ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) {
+						$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ];
+					} else {
+						$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] ];
+					}
+				} elseif ( empty( $this->post_data ) && ( isset( $_REQUEST[ $name ] ) || isset( $_REQUEST[ $name . '_' . $_default_value_counter ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					if ( isset( $_REQUEST[ $name . '_' . $_default_value_counter ] ) && ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+						$selected_value = wp_unslash( $_REQUEST[ $name . '_' . $_default_value_counter ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+					} elseif ( isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+						$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+					}
+				} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) {
+					$selected_value = - 1;
+				}
+			}
+
+			$selected_value = apply_filters( 'wc_epo_default_value', $selected_value, $element );
 
 			$is_default_value = isset( $element['default_value'] )
 				?
@@ -791,7 +804,8 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					'no_change_quantity'   => $quantity_min === $quantity_max && $quantity_min && '' !== $quantity_max,
 					'quantity_min'         => $quantity_min,
 					'quantity_max'         => $quantity_max,
-					'form_prefix'          => ( isset( $_REQUEST['tc_form_prefix_assoc'] ) && isset( $_REQUEST['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) ) ? wp_unslash( $_REQUEST['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					'form_prefix'          => ( isset( $this->post_data['tc_form_prefix_assoc'] ) && isset( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) ) ? wp_unslash( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) : '',
+					'form_prefix_counter'  => isset( $this->post_data[ $this->attribute . '_counter' ] ) ? $this->post_data[ $this->attribute . '_counter' ] : '',
 				],
 				$this
 			);
@@ -813,8 +827,10 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 
 		$quantity_once = false;
 
-		foreach ( $this->field_names as $attribute ) {
+		$tmcp_post_fields         = THEMECOMPLETE_EPO_HELPER()->array_filter_key( $this->post_data );
+		$current_tmcp_post_fields = THEMECOMPLETE_EPO_HELPER()->array_intersect_key_wildcard( $tmcp_post_fields, array_flip( $this->field_names ) );
 
+		foreach ( $current_tmcp_post_fields as $attribute => $value ) {
 			if ( $this->element['required'] ) {
 				if ( ! isset( $this->epo_post_fields[ $attribute ] ) || '' === $this->epo_post_fields[ $attribute ] ) {
 					$passed    = false;

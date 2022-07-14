@@ -1,7 +1,16 @@
 ==================================
+Version 5.0.0 (11 Jul 2022)
+==================================
+ - Update: This update is for Memberlist layouts for UserPro addon plugin.
+ - Fixed bug: Fixed redirect to login page after clicking on "Already a member?".
+ - Update: Guzzle 7.4.5 - PHP HTTP client library.
+ 
+ 
+==================================
 Version 4.10.1 (30 March 2022)
 ==================================
  - Update: Support with newer PHP version and code more readable.
+
 
 ==================================
 Version 4.9.41 (08 March 2022)
@@ -10,6 +19,7 @@ Version 4.9.41 (08 March 2022)
  - Buttons: Changed alignment.
  - Icons: Added extra space.
  - Text: Changed alignment.
+ 
  
 ============================
 Version 4.9.40 (15 June 2021)

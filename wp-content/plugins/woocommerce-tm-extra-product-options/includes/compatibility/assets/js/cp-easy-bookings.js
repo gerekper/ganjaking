@@ -70,6 +70,7 @@
 			}
 
 			$.epoAPI.addFilter( 'tcAdjustTotal', adjustTotal, 10, 1 );
+			$.epoAPI.addFilter( 'tcAdjustOriginalTotal', adjustTotal, 10, 1 );
 
 			// inject options data to easy bookings ajax
 			$.ajaxPrefilter( function( options, originalOptions ) {

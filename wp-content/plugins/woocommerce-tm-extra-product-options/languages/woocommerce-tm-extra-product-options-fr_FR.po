@@ -1170,7 +1170,7 @@ msgid "Always show"
 msgstr "Toujours afficher"
 
 #: admin/views/html-tm-global-epo.php:163
-msgid "Show only with action hook"
+msgid "Show only with an action hook"
 msgstr "Afficher seulement avec les actions épinglées"
 
 #: admin/views/html-tm-global-epo.php:172
@@ -6208,7 +6208,7 @@ msgid "Base original price type according to"
 msgstr "Type de prix d’origine de base selon"
 
 #: includes/compatibility/classes/class-themecomplete-epo-cp-dpd.php:669
-msgid "Set to what those price types will base their original price on."
+msgid "Set to what price types will base their original price on."
 msgstr ""
 "Définissez à ce que ces types de prix baseront leur prix d’origine dessus."
 

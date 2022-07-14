@@ -63,6 +63,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		'include_currency'            => true,
 		'description_field'           => 'description',
 		'variation_description_field' => 'description',
+		'default_description'         => '',
 		'include_tax'                 => false,
 		'tax_location'                => array(),
 		'include_stock'               => false,
@@ -279,6 +280,18 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 */
 	public function get_variation_description_field( $context = 'view' ) {
 		return $this->get_prop( 'variation_description_field', $context );
+	}
+
+	/**
+	 * Gets the default description for products without a description.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_default_description( $context = 'view' ) {
+		return $this->get_prop( 'default_description', $context );
 	}
 
 	/**

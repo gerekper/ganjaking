@@ -91,7 +91,14 @@ if ( is_array( $options ) ) :
 				echo '</span>';
 			}
 
-			include THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-image.php';
+			wc_get_template(
+				'products/template-image.php',
+				[
+					'product_id' => $product_id,
+				],
+				THEMECOMPLETE_EPO_DISPLAY()->get_template_path(),
+				THEMECOMPLETE_EPO_DISPLAY()->get_default_path()
+			);
 
 			echo '<span class="tc-label-wrap">';
 			echo '<span class="tc-label tm-label">';

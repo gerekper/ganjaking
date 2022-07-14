@@ -67,10 +67,6 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @since 2.0.0
 	 */
 	public function product_data_panels() {
-		$post_id = get_the_ID();
-
-		$category_id = (int) get_post_meta( $post_id, '_instagram_google_product_category', true );
-
 		include 'views/html-product-data-instagram.php';
 	}
 
@@ -82,6 +78,24 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @param int $post_id The post ID.
 	 */
 	public function save_product_data( $post_id ) {
+		// Save product properties.
+		$props = array( 'brand', 'condition', 'images_option', 'google_product_category' );
+
+		foreach ( $props as $prop ) {
+			$key   = "_instagram_{$prop}";
+			$value = ( ! empty( $_POST[ $key ] ) ? wc_clean( wp_unslash( $_POST[ $key ] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+
+			if ( $value ) {
+				update_post_meta( $post_id, $key, $value );
+			} else {
+				delete_post_meta( $post_id, $key );
+			}
+		}
+
+		if ( ! wc_instagram_has_business_account() ) {
+			return;
+		}
+
 		$hashtag = ( ! empty( $_POST['_instagram_hashtag'] ) ? wc_clean( wp_unslash( $_POST['_instagram_hashtag'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		// Remove invalid characters.
@@ -120,20 +134,6 @@ class WC_Instagram_Meta_Box_Product_Data {
 		// Delete stored images on change the product hashtag or the images type.
 		if ( $delete_images ) {
 			wc_instagram_delete_product_hashtag_images( $post_id );
-		}
-
-		// Save product properties.
-		$props = array( 'brand', 'condition', 'images_option', 'google_product_category' );
-
-		foreach ( $props as $prop ) {
-			$key   = "_instagram_{$prop}";
-			$value = ( ! empty( $_POST[ $key ] ) ? wc_clean( wp_unslash( $_POST[ $key ] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
-
-			if ( $value ) {
-				update_post_meta( $post_id, $key, $value );
-			} else {
-				delete_post_meta( $post_id, $key );
-			}
 		}
 	}
 

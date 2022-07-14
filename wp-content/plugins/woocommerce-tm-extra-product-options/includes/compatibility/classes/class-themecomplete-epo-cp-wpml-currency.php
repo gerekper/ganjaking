@@ -105,7 +105,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	 *
 	 * @param string     $price The price to convert.
 	 * @param string     $type The option price type.
-	 * @param Array|null $currencies Array of currencies.
+	 * @param array|null $currencies Array of currencies.
 	 * @param boolean    $currency The currency to get the price.
 	 * @param boolean    $product_price The product price (for precent price type).
 	 * @param boolean    $tc_added_in_currency The currenct the product was added in.
@@ -163,7 +163,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	 * @param boolean     $currency The currency to get the price.
 	 * @param string      $price_type The option price type.
 	 * @param boolean     $current_currency The current currency.
-	 * @param Array|null  $price_per_currencies Array of price per currency.
+	 * @param array|null  $price_per_currencies Array of price per currency.
 	 * @param string|null $key The option key.
 	 * @param string|null $attribute The option attribute.
 	 *
@@ -290,7 +290,7 @@ final class THEMECOMPLETE_EPO_CP_WPML_Currency {
 	 *               will be taken.
 	 * @param string $from_currency The source currency. If empty, WooCommerce base
 	 *               currency will be taken.
-	 * @param Array  $currencies Array of currencies.
+	 * @param array  $currencies Array of currencies.
 	 * @param string $type The price type.
 	 * @param string $key The option key.
 	 * @param string $attribute The option attribute.

@@ -1768,4 +1768,45 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		return $value;
 	}
 
+	/**
+	 * Apply shortcodes to content
+	 *
+	 * @param string $content The content.
+	 * @since 6.0.3
+	 */
+	public function do_shortcode( $content = '' ) {
+		global $wp_embed;
+
+		if ( $wp_embed ) {
+			$content = do_shortcode( $wp_embed->run_shortcode( $content ) );
+		} else {
+			$content = do_shortcode( $content );
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Gets cached posts for a query. Results are stored against a hash of the
+	 * parameter array. If there's nothing in the cache, a fresh query is made.
+	 * https://wordpress.stackexchange.com/questions/162703/cache-get-posts
+	 *
+	 * @param array $args The parameters to pass to get_posts().
+	 *
+	 * @return array List of posts matching $args.
+	 */
+	public static function get_cached_posts( $args = [] ) {
+		$post_list_name = 'tm_get_posts' . md5( wp_json_encode( $args ) );
+
+		$post_list = wp_cache_get( $post_list_name );
+
+		if ( false === $post_list ) {
+			$post_list = get_posts( $args );
+
+			wp_cache_set( $post_list_name, $post_list );
+		}
+
+		return $post_list;
+	}
+
 }

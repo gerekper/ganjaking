@@ -47,6 +47,9 @@ defined( 'ABSPATH' ) || exit;
 	if ( ! empty( $tax_obj ) ) {
 		$input_args['tags']['data-tax-obj'] = $tax_obj;
 	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$input_args['tags']['data-no-price'] = true;
+	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
 	</label>

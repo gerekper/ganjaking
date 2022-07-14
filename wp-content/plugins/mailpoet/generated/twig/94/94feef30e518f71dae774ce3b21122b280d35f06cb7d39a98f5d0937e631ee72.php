@@ -30,6 +30,7 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
         $this->blocks = [
             'content' => [$this, 'block_content'],
             'after_javascript' => [$this, 'block_after_javascript'],
+            'after_css' => [$this, 'block_after_css'],
         ];
     }
 
@@ -51,43 +52,38 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
     {
         $macros = $this->macros;
         // line 4
-        echo "
-<div class=\"wrap\">
-  <h1 class=\"mailpoet-h1\">Automation</h1>
+        echo "<div class=\"wrap\">
+  <h1 class=\"wp-heading-inline\">Automation</h1>
 
-  <div class=\"mailpoet_notice notice notice-error\">
-    <p>
-      <strong>This is a testing page for MailPoet automation.</strong>
-    </p>
-  </div>
+  <div id=\"mailpoet_automation\"></div>
 </div>
-
-<div>
-  <a href=\"";
-        // line 16
-        echo admin_url("admin.php?page=mailpoet-automation-editor");
-        echo "\">Automation Editor</a>
-</div>
-
-<div id=\"mailpoet_automation\"></div>
-
 ";
     }
 
-    // line 23
+    // line 11
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 24
+        // line 12
         echo "  <script type=\"text/javascript\">
     var mailpoet_automation_api = ";
-        // line 25
+        // line 13
         echo json_encode(($context["api"] ?? null));
         echo ";
   </script>
   ";
-        // line 27
+        // line 15
         echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("automation.js");
+        echo "
+";
+    }
+
+    // line 18
+    public function block_after_css($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        // line 19
+        echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-automation.css");
         echo "
 ";
     }
@@ -104,7 +100,7 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
 
     public function getDebugInfo()
     {
-        return array (  87 => 27,  82 => 25,  79 => 24,  75 => 23,  65 => 16,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  83 => 19,  79 => 18,  73 => 15,  68 => 13,  65 => 12,  61 => 11,  52 => 4,  48 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

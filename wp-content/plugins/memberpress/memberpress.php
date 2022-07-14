@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Pro
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.9.38
+Version: 1.9.39
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -25,46 +25,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Also add information on how to contact you by electronic and paper mail.
 */
-
-if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
-
-define('MEPR_PLUGIN_SLUG','memberpress/memberpress.php');
-define('MEPR_PLUGIN_NAME','memberpress');
-define('MEPR_PATH',WP_PLUGIN_DIR.'/'.MEPR_PLUGIN_NAME);
-define('MEPR_IMAGES_PATH',MEPR_PATH.'/images');
-define('MEPR_CSS_PATH',MEPR_PATH.'/css');
-define('MEPR_JS_PATH',MEPR_PATH.'/js');
-define('MEPR_I18N_PATH',MEPR_PATH.'/i18n');
-define('MEPR_LIB_PATH',MEPR_PATH.'/app/lib');
-define('MEPR_INTEGRATIONS_PATH',MEPR_PATH.'/app/integrations');
-define('MEPR_INTERFACES_PATH',MEPR_PATH.'/app/lib/interfaces');
-define('MEPR_DATA_PATH',MEPR_PATH.'/app/data');
-define('MEPR_VENDOR_LIB_PATH',MEPR_PATH.'/vendor/lib');
-define('MEPR_APIS_PATH',MEPR_PATH.'/app/apis');
-define('MEPR_MODELS_PATH',MEPR_PATH.'/app/models');
-define('MEPR_CTRLS_PATH',MEPR_PATH.'/app/controllers');
-define('MEPR_GATEWAYS_PATH',MEPR_PATH.'/app/gateways');
-define('MEPR_EMAILS_PATH',MEPR_PATH.'/app/emails');
-define('MEPR_JOBS_PATH',MEPR_PATH.'/app/jobs');
-define('MEPR_VIEWS_PATH',MEPR_PATH.'/app/views');
-define('MEPR_WIDGETS_PATH',MEPR_PATH.'/app/widgets');
-define('MEPR_HELPERS_PATH',MEPR_PATH.'/app/helpers');
-
-// Make all of our URLS protocol agnostic
-$mepr_url_protocol = (is_ssl())?'https':'http'; //Can't use MeprUtils::is_ssl() here
-define('MEPR_URL',preg_replace('/^https?:/', "{$mepr_url_protocol}:", plugins_url('/'.MEPR_PLUGIN_NAME)));
-
-define('MEPR_VIEWS_URL',MEPR_URL.'/app/views');
-define('MEPR_IMAGES_URL',MEPR_URL.'/images');
-define('MEPR_CSS_URL',MEPR_URL.'/css');
-define('MEPR_JS_URL',MEPR_URL.'/js');
-define('MEPR_GATEWAYS_URL',MEPR_URL.'/app/gateways');
-define('MEPR_VENDOR_LIB_URL',MEPR_URL.'/vendor/lib');
-define('MEPR_SCRIPT_URL',site_url('/index.php?plugin=mepr'));
-define('MEPR_OPTIONS_SLUG', 'mepr_options');
-define('MEPR_EDITION', 'memberpress-pro-2');
-
-define('MEPR_MIN_PHP_VERSION', '5.6.20');
 
 update_option( 'mepr_activated', 1 );
 $mepr_options = get_option( 'mepr_options' );
@@ -417,6 +377,47 @@ set_site_transient( 'mepr_all_addons', json_encode( [
         ]
     ]
 ] ) );
+
+if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
+
+define('MEPR_PLUGIN_SLUG','memberpress/memberpress.php');
+define('MEPR_PLUGIN_NAME','memberpress');
+define('MEPR_PATH',WP_PLUGIN_DIR.'/'.MEPR_PLUGIN_NAME);
+define('MEPR_IMAGES_PATH',MEPR_PATH.'/images');
+define('MEPR_CSS_PATH',MEPR_PATH.'/css');
+define('MEPR_JS_PATH',MEPR_PATH.'/js');
+define('MEPR_I18N_PATH',MEPR_PATH.'/i18n');
+define('MEPR_LIB_PATH',MEPR_PATH.'/app/lib');
+define('MEPR_INTEGRATIONS_PATH',MEPR_PATH.'/app/integrations');
+define('MEPR_INTERFACES_PATH',MEPR_PATH.'/app/lib/interfaces');
+define('MEPR_DATA_PATH',MEPR_PATH.'/app/data');
+define('MEPR_VENDOR_LIB_PATH',MEPR_PATH.'/vendor/lib');
+define('MEPR_APIS_PATH',MEPR_PATH.'/app/apis');
+define('MEPR_MODELS_PATH',MEPR_PATH.'/app/models');
+define('MEPR_CTRLS_PATH',MEPR_PATH.'/app/controllers');
+define('MEPR_GATEWAYS_PATH',MEPR_PATH.'/app/gateways');
+define('MEPR_EMAILS_PATH',MEPR_PATH.'/app/emails');
+define('MEPR_JOBS_PATH',MEPR_PATH.'/app/jobs');
+define('MEPR_VIEWS_PATH',MEPR_PATH.'/app/views');
+define('MEPR_WIDGETS_PATH',MEPR_PATH.'/app/widgets');
+define('MEPR_HELPERS_PATH',MEPR_PATH.'/app/helpers');
+
+// Make all of our URLS protocol agnostic
+$mepr_url_protocol = (is_ssl())?'https':'http'; //Can't use MeprUtils::is_ssl() here
+define('MEPR_URL',preg_replace('/^https?:/', "{$mepr_url_protocol}:", plugins_url('/'.MEPR_PLUGIN_NAME)));
+
+define('MEPR_VIEWS_URL',MEPR_URL.'/app/views');
+define('MEPR_IMAGES_URL',MEPR_URL.'/images');
+define('MEPR_CSS_URL',MEPR_URL.'/css');
+define('MEPR_JS_URL',MEPR_URL.'/js');
+define('MEPR_GATEWAYS_URL',MEPR_URL.'/app/gateways');
+define('MEPR_VENDOR_LIB_URL',MEPR_URL.'/vendor/lib');
+define('MEPR_SCRIPT_URL',site_url('/index.php?plugin=mepr'));
+define('MEPR_OPTIONS_SLUG', 'mepr_options');
+define('MEPR_EDITION', 'memberpress-pro');
+
+define('MEPR_MIN_PHP_VERSION', '5.6.20');
+
 /**
  * Returns current plugin version.
  *

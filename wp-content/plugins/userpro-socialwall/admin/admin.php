@@ -107,7 +107,7 @@ class userpro_userwall_admin {
 			if ($code == ''){
 				echo '<div class="error"><p><strong>'.__('Please enter a purchase code.','userpro-userwall').'</strong></p></div>';
 			} else {
-				if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '9553858') ){
+				if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '5958681') ){
 					
 					echo '<div class="updated fade"><p><strong>'.__('Thanks for activating UserPro Socialwall!','userpro-userwall').'</strong></p></div>';
 				} else {

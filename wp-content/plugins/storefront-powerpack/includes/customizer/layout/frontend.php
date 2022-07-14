@@ -144,10 +144,9 @@ if ( ! class_exists( 'SP_Frontend_Layout' ) ) :
 					$width          = max( 1, get_option( 'woocommerce_thumbnail_cropping_custom_width', '4' ) );
 					$height         = max( 1, get_option( 'woocommerce_thumbnail_cropping_custom_height', '3' ) );
 					$size['height'] = absint( round( ( $size['width'] / $width ) * $height ) );
-				} else {
-					$cropping_split = explode( ':', $cropping );
-					$width          = max( 1, current( $cropping_split ) );
-					$height         = max( 1, end( $cropping_split ) );
+				} elseif ( '1:1' === $cropping ) {
+					$width          = 1;
+					$height         = 1;
 					$size['height'] = absint( round( ( $size['width'] / $width ) * $height ) );
 				}
 			}

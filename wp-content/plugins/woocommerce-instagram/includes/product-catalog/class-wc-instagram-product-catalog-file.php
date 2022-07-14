@@ -258,11 +258,22 @@ class WC_Instagram_Product_Catalog_File {
 	public function delete( $with_context = false ) {
 		$deleted = $this->delete_file( $this->get_filename() );
 
-		if ( $with_context && ! empty( $this->context ) ) {
-			$deleted = ( $this->delete_file( $this->get_filename( $this->context ) ) || $deleted );
+		if ( $with_context ) {
+			$deleted = ( $this->delete_context() || $deleted );
 		}
 
 		return $deleted;
+	}
+
+	/**
+	 * Deletes the contextual file of the catalog.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return bool
+	 */
+	public function delete_context() {
+		return ( ! empty( $this->context ) && $this->delete_file( $this->get_filename( $this->context ) ) );
 	}
 
 	/**

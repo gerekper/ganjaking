@@ -24,7 +24,6 @@
 	position: relative;
 	padding: 0 1em;
 	margin: 0 0 1.65em;
-	float: left;
 	min-height: 1px;
 	overflow: hidden;
 }
@@ -1083,7 +1082,6 @@
 
 .tm-table-wrap {
 	margin: 0;
-	padding-top: 20px;
 }
 
 .tm-settings-wrap .tm-tab .form-table {
@@ -1110,7 +1108,7 @@
 /*****************/
 .tm-sidebar-head {
 	text-align: left;
-	padding: 40px 40px 40px 40px;
+	padding: 40px 0 40px 40px;
 	border-bottom: 1px solid #e7e8f1;
 	border-image: linear-gradient(to right, transparent, #f5f7fb 6%, #e7e8f1, #f5f7fb 94%, transparent) 25 25 stretch;
 	margin-bottom: 20px;
@@ -1130,6 +1128,7 @@
 	color: #99a1b3;
 	letter-spacing: 1px;
 	font-size: 10px;
+	line-height: 10px;
 }
 
 .tm-settings-wrap .tm-box {

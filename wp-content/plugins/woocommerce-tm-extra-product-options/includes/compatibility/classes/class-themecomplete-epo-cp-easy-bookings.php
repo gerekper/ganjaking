@@ -62,7 +62,7 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 		}
 		add_filter( 'wc_epo_get_settings', [ $this, 'wc_epo_get_settings' ], 10, 1 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
-		add_filter( 'wc_epo_cart_options_prices', [ $this, 'wc_epo_cart_options_prices' ], 10, 2 );
+		add_filter( 'wc_epo_cart_options_prices_before', [ $this, 'wc_epo_cart_options_prices_before' ], 10, 2 );
 		add_filter( 'easy_booking_set_booking_price', [ $this, 'easy_booking_set_booking_price' ], 10, 2 );
 		add_filter( 'wc_epo_adjust_cart_item', [ $this, 'wc_epo_adjust_cart_item' ], 10, 1 );
 		add_filter( 'tm_epo_settings_headers', [ $this, 'tm_epo_settings_headers' ], 10, 1 );
@@ -346,7 +346,7 @@ final class THEMECOMPLETE_EPO_CP_Easy_Bookings {
 	 * @param array $cart_item The cart item.
 	 * @since 1.0
 	 */
-	public function wc_epo_cart_options_prices( $price, $cart_item ) {
+	public function wc_epo_cart_options_prices_before( $price, $cart_item ) {
 		$wc_booking_block_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_easy_bookings_block ) ? 1 : 0;
 
 		if (

@@ -275,3 +275,29 @@
 .form-row > label {
 	font-weight: 700;
 }
+
+
+.tm-att-value {
+	color: #1e8cbe;
+	font-weight: 400;
+}
+
+.tm-att-label {
+	font-weight: 300;
+	font-size: 10px;
+}
+
+.tm-att-id {
+	font-weight: 700;
+	font-size: 0.8em;
+}
+
+.tm-type,
+.tm-att-value {
+	margin-right: 1em;
+}
+
+.tm-att-label,
+.tm-att-id {
+	margin-right: 1px;
+}

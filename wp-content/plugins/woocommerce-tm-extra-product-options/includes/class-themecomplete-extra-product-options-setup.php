@@ -123,9 +123,10 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$version = get_file_data(
 			THEMECOMPLETE_EPO_PLUGIN_FILE,
 			[
-				'version'     => 'Version',
-				'wp_required' => 'Requires at least',
-				'wc_required' => 'WC requires at least',
+				'version'      => 'Version',
+				'wp_required'  => 'Requires at least',
+				'wc_required'  => 'WC requires at least',
+				'php_required' => 'Requires PHP',
 			]
 		);
 
@@ -133,6 +134,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$this->define( 'THEMECOMPLETE_EPO_VERSION', $version['version'] );
 		$this->define( 'THEMECOMPLETE_EPO_WP_VERSION', $version['wp_required'] );
 		$this->define( 'THEMECOMPLETE_EPO_WC_VERSION', $version['wc_required'] );
+		$this->define( 'THEMECOMPLETE_EPO_PHP_VERSION', $version['php_required'] );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_ID', '7908619' );
 		$this->define( 'THEMECOMPLETE_EPO_LOCAL_POST_TYPE', 'tm_product_cp' );
 		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE', 'tm_global_cp' );

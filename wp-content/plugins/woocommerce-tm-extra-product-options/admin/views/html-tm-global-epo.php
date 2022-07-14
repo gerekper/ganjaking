@@ -34,7 +34,7 @@ $args   = [
 	'order'       => 'asc',
 	'post_parent' => $post_id,
 ];
-$tmepos = get_posts( $args );
+$tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : false;
 ?>
 <div id="tc-admin-extra-product-options" class="panel wc-metaboxes-wrapper">
 	<div id="tc-admin-extra-product-options-inner">
@@ -89,7 +89,7 @@ $tmepos = get_posts( $args );
 					'orderby'     => 'title',
 					'order'       => 'asc',
 				];
-				$tmp_tmglobalprices = get_posts( $args );
+				$tmp_tmglobalprices = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 				echo '<div class="message0x0 tc-clearfix">' .
 					'<div class="message2x1">' .
 					'<label for="tm_meta_cpf_exclude"><span>' . esc_html__( 'Include additional Global forms', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
@@ -160,7 +160,7 @@ $tmepos = get_posts( $args );
 				echo '>' . esc_html__( 'Always show', 'woocommerce-tm-extra-product-options' ) . '</option>' .
 					'<option value="action" ';
 				selected( $tm_override_display, 'action', 1 );
-				echo '>' . esc_html__( 'Show only with action hook', 'woocommerce-tm-extra-product-options' ) . '</option>' .
+				echo '>' . esc_html__( 'Show only with an action hook', 'woocommerce-tm-extra-product-options' ) . '</option>' .
 					'</select>' .
 					'</div>' .
 					'</div>';

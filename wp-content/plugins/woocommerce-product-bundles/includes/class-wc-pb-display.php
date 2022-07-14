@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.15.1
+ * @version  6.16.0
  */
 class WC_PB_Display {
 
@@ -270,7 +270,7 @@ class WC_PB_Display {
 	}
 
 	/**
-	 * Enqeue js that wraps bundled table items in a div in order to apply indentation reliably.
+	 * Enqueue js that wraps bundled table items in a div in order to apply indentation reliably.
 	 * This obviously sucks but if you can find a CSS-only way to do it better that works reliably with any theme out there, drop us a line, will you?
 	 *
 	 * @return void
@@ -395,11 +395,22 @@ class WC_PB_Display {
 
 		global $product;
 
-		if ( $product->is_type( 'bundle' ) && isset( $_GET[ 'update-bundle' ] ) ) {
+		if ( isset( $_GET[ 'update-bundle' ] ) ) {
+
+			$current_product   = $product;
 			$updating_cart_key = wc_clean( $_GET[ 'update-bundle' ] );
+
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-				/* translators: %1$s: Bundle title */
-				$notice = sprintf ( __( 'You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-product-bundles' ), $product->get_title() );
+				if ( ! is_a( $current_product, 'WC_Product' ) ) {
+					$current_product = WC()->cart->cart_contents[ $updating_cart_key ][ 'data' ];
+				}
+
+				if ( is_a( $current_product, 'WC_Product' ) && $current_product->is_type( 'bundle' ) ) {
+					/* translators: %1$s: Bundle title */
+					$notice = sprintf( __( 'You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-product-bundles' ), $current_product->get_title() );
+				} else {
+					$notice = __( 'You are currently editing this bundle. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-product-bundles' );
+				}
 				wc_add_notice( $notice, 'notice' );
 			}
 		}

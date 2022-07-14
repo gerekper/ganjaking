@@ -13,7 +13,7 @@ use MailPoet\UnexpectedValueException;
 class CreateWorkflowFromTemplateController {
   /** @var WorkflowStorage */
   private $storage;
-  
+
   /** @var WorkflowBuilder */
   private $templates;
 
@@ -32,6 +32,9 @@ class CreateWorkflowFromTemplateController {
     switch ($template) {
       case 'delayed-email-after-signup':
         $workflow = $this->templates->delayedEmailAfterSignupWorkflow($name);
+        break;
+      case 'welcome-email-sequence':
+        $workflow = $this->templates->welcomeEmailSequence($name);
         break;
       default:
         throw UnexpectedValueException::create()->withMessage('Template not found.');

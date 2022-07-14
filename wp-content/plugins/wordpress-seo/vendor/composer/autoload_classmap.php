@@ -853,6 +853,7 @@ return array(
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Backwards_Compatibility' => $baseDir . '/src/integrations/front-end/backwards-compatibility.php',
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Category_Term_Description' => $baseDir . '/src/integrations/front-end/category-term-description.php',
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Comment_Link_Fixer' => $baseDir . '/src/integrations/front-end/comment-link-fixer.php',
+    'Yoast\\WP\\SEO\\Integrations\\Front_End\\Feed_Improvements' => $baseDir . '/src/integrations/front-end/feed-improvements.php',
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Force_Rewrite_Title' => $baseDir . '/src/integrations/front-end/force-rewrite-title.php',
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Handle_404' => $baseDir . '/src/integrations/front-end/handle-404.php',
     'Yoast\\WP\\SEO\\Integrations\\Front_End\\Indexing_Controls' => $baseDir . '/src/integrations/front-end/indexing-controls.php',

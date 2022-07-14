@@ -3,12 +3,6 @@
 
 	var TMEPOBOOKINGSJS;
 
-	/**
-	 * Calculate the product price
-	 *
-	 * @since  1.0
-	 * @return String
-	 */
 	function calculateProductPrice( price, totalsHolder ) {
 		var bookingPrice;
 		var form = totalsHolder.data( 'tm_for_cart' );
@@ -64,6 +58,29 @@
 				norules: 1
 			} );
 		} );
+
+		function adjustTotal( total ) {
+			var options_multiplier = 0;
+			var found = false;
+			var duration;
+
+			if ( TMEPOBOOKINGSJS.wc_booking_block_qty_multiplier === '1' ) {
+				duration = parseInt( $( 'input#wc_bookings_field_duration, input.wc_bookings_field_duration' ).first().val(), 10 );
+				if ( ! isNaN( duration ) && duration !== 0 ) {
+					options_multiplier = duration;
+					found = true;
+				}
+			}
+
+			if ( found ) {
+				total = total * options_multiplier;
+			}
+
+			return total;
+		}
+
+		$.epoAPI.addFilter( 'tcAdjustTotal', adjustTotal, 10, 1 );
+		$.epoAPI.addFilter( 'tcAdjustOriginalTotal', adjustTotal, 10, 1 );
 		$.epoAPI.addFilter( 'tc_calculate_product_price', calculateProductPrice, 10, 2 );
 		$.epoAPI.addFilter( 'tc_calculate_product_regular_price', calculateProductPrice, 10, 2 );
 	} );

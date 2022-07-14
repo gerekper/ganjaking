@@ -209,8 +209,8 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 		$slug_description = sprintf(
 			/* translators: 1: documentation link, 2: arial-label */
 			_x( 'Check the <a href="%1$s" aria-label="%2$s" target="_blank">documentation</a> to learn how to use this URL.', 'setting desc', 'woocommerce-instagram' ),
-			esc_url( 'https://woocommerce.com/document/woocommerce-instagram/shoppable/' ),
-			esc_attr_x( 'View WooCommerce Instagram Shopping documentation', 'aria-label: documentation link', 'woocommerce-instagram' )
+			esc_url( 'https://woocommerce.com/document/woocommerce-instagram/' ),
+			esc_attr_x( 'View WooCommerce Instagram documentation', 'aria-label: documentation link', 'woocommerce-instagram' )
 		);
 
 		$this->form_fields = array_merge(
@@ -385,6 +385,13 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 						'parent_short_description' => _x( 'Parent short description', 'setting option', 'woocommerce-instagram' ),
 					),
 				),
+				'default_description'         => array(
+					'title'       => _x( 'Default description', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'    => _x( 'Default product description.', 'setting desc', 'woocommerce-instagram' ),
+					'description' => _x( 'This text will be used in case the product has no description.', 'setting desc', 'woocommerce-instagram' ),
+					'type'        => 'text',
+					'placeholder' => __( 'No description.', 'woocommerce-instagram' ),
+				),
 				'include_tax'                 => array(
 					'title'       => _x( 'Include tax', 'setting title', 'woocommerce-instagram' ),
 					'label'       => _x( 'Include tax in prices.', 'setting desc', 'woocommerce-instagram' ),
@@ -467,12 +474,7 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 					'title'       => _x( 'Include stock', 'setting title', 'woocommerce-instagram' ),
 					'label'       => _x( 'Include the stock quantity.', 'setting desc', 'woocommerce-instagram' ),
 					'type'        => 'checkbox',
-					'description' => sprintf(
-						/* translators: 1: Instagram Checkout link, 2: arial-label */
-						_x( 'This option is required for <a href="%1$s" aria-label="%2$s" target="_blank">Instagram Checkout</a>.', 'setting desc', 'woocommerce-instagram' ),
-						esc_url( 'https://business.instagram.com/shopping/checkout' ),
-						esc_attr_x( 'View Instagram Checkout documentation', 'aria-label: documentation link', 'woocommerce-instagram' )
-					),
+					'description' => _x( 'This option is required for checking out on Facebook and Instagram.', 'setting desc', 'woocommerce-instagram' ),
 				),
 				'stock_quantity'              => array(
 					'type'              => 'number',

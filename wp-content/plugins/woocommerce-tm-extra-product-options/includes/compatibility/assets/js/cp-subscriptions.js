@@ -117,12 +117,6 @@
 		} );
 	}
 
-	/**
-	 * Adjust totals object
-	 *
-	 * @since  1.0
-	 * @return String
-	 */
 	function tc_adjust_tc_totals_ob( tc_totals_ob, data ) {
 		var subscription_options_total = 0;
 		var formatted_subscription_fee_total = '';

@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-07-12 - version 4.9.25
+* Tweak - WC 6.7 compatibility.
+
 2022-06-07 - version 4.9.24
 * Tweak - WC 6.6 compatibility.
 

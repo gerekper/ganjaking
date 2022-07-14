@@ -55,6 +55,17 @@
 	}
 }
 
+.woocommerce_options_panel .options_group_heading {
+	margin: 0;
+	padding: 0.75em 1em;
+	border-bottom: 1px solid #eee;
+	background-color: #fdfdfd;
+	font-size: 1em;
+}
+
+.woocommerce_options_panel .options_group_description {
+	padding: 0.5em 1em;
+}
 
 /**
  * Settings
@@ -121,7 +132,7 @@
 		}
 	}
 
-	td.download {
+	td.feeds {
 		white-space: nowrap;
 
 		.button {
@@ -145,17 +156,35 @@
 	}
 }
 
-.wc-instagram-product-catalog-download {
+.wc-instagram-product-catalog-feed {
+
+	&.wc-backbone-modal .wc-backbone-modal-content {
+		max-width: 600px;
+	}
 
 	.wc-backbone-modal-main {
 		padding-bottom: 0;
 
 		article {
+			margin-bottom: 60px;
 			padding: 2em;
 			text-align: center;
 
 			time {
 				font-weight: 600;
+			}
+
+			.data-feed-format {
+				font-weight: bold; /* stylelint-disable-line font-weight-notation */
+				text-transform: uppercase;
+			}
+		}
+
+		footer {
+
+			.wc-action-button-group {
+				display: inline-block;
+				float: left;
 			}
 		}
 	}
@@ -231,6 +260,28 @@
 			width: 100% !important;
 			max-width: 400px;
 		}
+	}
+}
+
+/**
+ * Notices.
+ */
+.wc-instagram-notice {
+	display: block;
+	padding: 1rem;
+
+	&.warning {
+		background-color: #fcf9e8;
+		border: 1px solid #dba617;
+	}
+
+	&.info {
+		background-color: #f0f6fc;
+		border: 1px solid #72aee6;
+	}
+
+	&.feature-not-available {
+		display: inline-block;
 	}
 }
 

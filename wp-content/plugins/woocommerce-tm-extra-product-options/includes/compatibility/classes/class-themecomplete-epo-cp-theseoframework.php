@@ -66,7 +66,7 @@ final class THEMECOMPLETE_EPO_CP_TheSeoFramework {
 	 * Alters archive query functionality
 	 *
 	 * @param boolean $ret What to return.
-	 * @param Object  $query The query object.
+	 * @param object  $query The query object.
 	 * @return boolean
 	 */
 	public function the_seo_framework_do_adjust_archive_query( $ret, $query ) {

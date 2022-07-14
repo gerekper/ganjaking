@@ -1,0 +1,221 @@
+<?php
+namespace Composer;
+if (!defined('ABSPATH')) exit;
+use Composer\IO\IOInterface;
+use Composer\Pcre\Preg;
+use Composer\Util\Filesystem;
+use Composer\Util\Platform;
+use Composer\Util\Silencer;
+use Symfony\Component\Finder\Finder;
+class Cache
+{
+ private static $cacheCollected = null;
+ private $io;
+ private $root;
+ private $enabled = null;
+ private $allowlist;
+ private $filesystem;
+ private $readOnly;
+ public function __construct(IOInterface $io, $cacheDir, $allowlist = 'a-z0-9.', Filesystem $filesystem = null, $readOnly = false)
+ {
+ $this->io = $io;
+ $this->root = rtrim($cacheDir, '/\\') . '/';
+ $this->allowlist = $allowlist;
+ $this->filesystem = $filesystem ?: new Filesystem();
+ $this->readOnly = (bool) $readOnly;
+ if (!self::isUsable($cacheDir)) {
+ $this->enabled = false;
+ }
+ }
+ public function setReadOnly($readOnly)
+ {
+ $this->readOnly = (bool) $readOnly;
+ }
+ public function isReadOnly()
+ {
+ return $this->readOnly;
+ }
+ public static function isUsable($path)
+ {
+ return !Preg::isMatch('{(^|[\\\\/])(\$null|nul|NUL|/dev/null)([\\\\/]|$)}', $path);
+ }
+ public function isEnabled()
+ {
+ if ($this->enabled === null) {
+ $this->enabled = true;
+ if (
+ (!is_dir($this->root) && !Silencer::call('mkdir', $this->root, 0777, true))
+ || !is_writable($this->root)
+ ) {
+ $this->io->writeError('<warning>Cannot create cache directory ' . $this->root . ', or directory is not writable. Proceeding without cache</warning>');
+ $this->enabled = false;
+ }
+ }
+ return $this->enabled;
+ }
+ public function getRoot()
+ {
+ return $this->root;
+ }
+ public function read($file)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file)) {
+ $this->io->writeError('Reading '.$this->root . $file.' from cache', true, IOInterface::DEBUG);
+ return file_get_contents($this->root . $file);
+ }
+ }
+ return false;
+ }
+ public function write($file, $contents)
+ {
+ if ($this->isEnabled() && !$this->readOnly) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ $this->io->writeError('Writing '.$this->root . $file.' into cache', true, IOInterface::DEBUG);
+ $tempFileName = $this->root . $file . uniqid('.', true) . '.tmp';
+ try {
+ return file_put_contents($tempFileName, $contents) !== false && rename($tempFileName, $this->root . $file);
+ } catch (\ErrorException $e) {
+ $this->io->writeError('<warning>Failed to write into cache: '.$e->getMessage().'</warning>', true, IOInterface::DEBUG);
+ if (Preg::isMatch('{^file_put_contents\(\): Only ([0-9]+) of ([0-9]+) bytes written}', $e->getMessage(), $m)) {
+ // Remove partial file.
+ unlink($tempFileName);
+ $message = sprintf(
+ '<warning>Writing %1$s into cache failed after %2$u of %3$u bytes written, only %4$u bytes of free space available</warning>',
+ $tempFileName,
+ $m[1],
+ $m[2],
+ @disk_free_space(dirname($tempFileName))
+ );
+ $this->io->writeError($message);
+ return false;
+ }
+ throw $e;
+ }
+ }
+ return false;
+ }
+ public function copyFrom($file, $source)
+ {
+ if ($this->isEnabled() && !$this->readOnly) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ $this->filesystem->ensureDirectoryExists(dirname($this->root . $file));
+ if (!file_exists($source)) {
+ $this->io->writeError('<error>'.$source.' does not exist, can not write into cache</error>');
+ } elseif ($this->io->isDebug()) {
+ $this->io->writeError('Writing '.$this->root . $file.' into cache from '.$source);
+ }
+ return copy($source, $this->root . $file);
+ }
+ return false;
+ }
+ public function copyTo($file, $target)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file)) {
+ try {
+ touch($this->root . $file, filemtime($this->root . $file), time());
+ } catch (\ErrorException $e) {
+ // fallback in case the above failed due to incorrect ownership
+ // see https://github.com/composer/composer/issues/4070
+ Silencer::call('touch', $this->root . $file);
+ }
+ $this->io->writeError('Reading '.$this->root . $file.' from cache', true, IOInterface::DEBUG);
+ return copy($this->root . $file, $target);
+ }
+ }
+ return false;
+ }
+ public function gcIsNecessary()
+ {
+ if (self::$cacheCollected) {
+ return false;
+ }
+ self::$cacheCollected = true;
+ if (Platform::getEnv('COMPOSER_TEST_SUITE')) {
+ return false;
+ }
+ if (PHP_VERSION_ID > 70000) {
+ return !random_int(0, 50);
+ }
+ return !mt_rand(0, 50);
+ }
+ public function remove($file)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file)) {
+ return $this->filesystem->unlink($this->root . $file);
+ }
+ }
+ return false;
+ }
+ public function clear()
+ {
+ if ($this->isEnabled()) {
+ $this->filesystem->emptyDirectory($this->root);
+ return true;
+ }
+ return false;
+ }
+ public function getAge($file)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file) && ($mtime = filemtime($this->root . $file)) !== false) {
+ return abs(time() - $mtime);
+ }
+ }
+ return false;
+ }
+ public function gc($ttl, $maxSize)
+ {
+ if ($this->isEnabled()) {
+ $expire = new \DateTime();
+ $expire->modify('-'.$ttl.' seconds');
+ $finder = $this->getFinder()->date('until '.$expire->format('Y-m-d H:i:s'));
+ foreach ($finder as $file) {
+ $this->filesystem->unlink($file->getPathname());
+ }
+ $totalSize = $this->filesystem->size($this->root);
+ if ($totalSize > $maxSize) {
+ $iterator = $this->getFinder()->sortByAccessedTime()->getIterator();
+ while ($totalSize > $maxSize && $iterator->valid()) {
+ $filepath = $iterator->current()->getPathname();
+ $totalSize -= $this->filesystem->size($filepath);
+ $this->filesystem->unlink($filepath);
+ $iterator->next();
+ }
+ }
+ self::$cacheCollected = true;
+ return true;
+ }
+ return false;
+ }
+ public function sha1($file)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file)) {
+ return sha1_file($this->root . $file);
+ }
+ }
+ return false;
+ }
+ public function sha256($file)
+ {
+ if ($this->isEnabled()) {
+ $file = Preg::replace('{[^'.$this->allowlist.']}i', '-', $file);
+ if (file_exists($this->root . $file)) {
+ return hash_file('sha256', $this->root . $file);
+ }
+ }
+ return false;
+ }
+ protected function getFinder()
+ {
+ return Finder::create()->in($this->root)->files();
+ }
+}

@@ -37,7 +37,7 @@ class WC_Instagram_Actions {
 	 * @since 4.0.0
 	 */
 	public static function init_actions() {
-		if ( ! wc_instagram_has_business_account() ) {
+		if ( ! wc_instagram_is_connected() ) {
 			return;
 		}
 

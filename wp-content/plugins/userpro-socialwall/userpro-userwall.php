@@ -98,10 +98,6 @@ class UP_userPro_userwall {
 
 	}
 
-	function UPS_userpro_activation_notices(){
-		echo '<div class="error" role="alert"><p>Attention: UserPro-SocialWall requires UserPro to be installed and activated.</p></div>';
-		return 0;
-	}
         /**
         * This filter insures users only see their own media
         */
@@ -160,8 +156,7 @@ if( in_array('userpro/index.php', $activated_plugins) ){
     $UPS = UP_userPro_userwall::instance();
 }
 else{
-    add_action('admin_notices',array($UPS , 'UPS_userpro_activation_notices'));
-    return 0;
+    $UPS = UP_userPro_userwall::instance();
 }
 
 

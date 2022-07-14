@@ -171,7 +171,7 @@ class WPSEO_WooCommerce_Schema {
 
 		// This product is the main entity of this page, so we set it as such.
 		$data['mainEntityOfPage'] = [
-			'@id' => YoastSEO()->meta->for_current_page()->canonical . Schema_IDs::WEBPAGE_HASH,
+			'@id' => YoastSEO()->meta->for_current_page()->main_schema_id,
 		];
 
 		// Now let's add this data to our overall output.

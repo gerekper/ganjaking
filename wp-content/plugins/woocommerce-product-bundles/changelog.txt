@@ -1,7 +1,15 @@
 *** WooCommerce Product Bundles ***
 
+2022.07.12 - version 6.16.0
+* Tweak - Improved support for the Min/Max Quantities 'Group of' feature.
+* Tweak - Introduced client-side min/max/default quantity validation.
+* Tweak - Introduced basic telemetry to collect data on extension usage when tracking is enabled.
+* Fix - Fixed a fatal error that was triggered from calling product functions on string.
+* Fix - Fixed a fatal error that was triggered when invalidating order cache.
+* Fix - Fixed an issue that prevented bundled item and Bundle-Sells discounts with comma separated decimals from being saved.
+
 2022.05.31 - version 6.15.5
-* Important - WooCommerce version 3.9 is now required.
+* Important - WooCommerce version 3.9+ is now required.
 * Fix - Include minified frontend script files for the new Cart and Checkout blocks integration. 
 
 2022.05.31 - version 6.15.4

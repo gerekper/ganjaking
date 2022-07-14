@@ -94,7 +94,6 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			$settings['tm_epo_dpd_enable']                      = [ 'no', $this, 'is_dpd_enabled' ];
 			$settings['tm_epo_dpd_prefix']                      = [ '', $this, 'is_dpd_enabled' ];
 			$settings['tm_epo_dpd_suffix']                      = [ '', $this, 'is_dpd_enabled' ];
-			$settings['tm_epo_dpd_original_final_total']        = [ 'no', $this, 'is_dpd_enabled' ];
 			$settings['tm_epo_dpd_enable_pricing_table']        = [ 'no', $this, 'is_dpd_enabled' ];
 			$settings['tm_epo_dpd_show_option_prices_in_order'] = [ 'no', $this, 'is_dpd_enabled' ];
 			$settings['tm_epo_dpd_string_placement']            = [ '', $this, 'is_dpd_enabled' ];
@@ -132,8 +131,11 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			if ( version_compare( RP_WCDPD_VERSION, '2.3.4', '>=' ) ) {
 				add_filter( 'woocommerce_product_get_price', [ $this, 'woocommerce_product_get_price_99999' ], 99999, 2 );
 				add_filter( 'woocommerce_product_variation_get_price', [ $this, 'woocommerce_product_get_price_99999' ], 99999, 2 );
-				add_action( 'woocommerce_before_mini_cart', [ $this, 'woocommerce_before_mini_cart' ] );
-				add_action( 'woocommerce_after_mini_cart', [ $this, 'woocommerce_after_mini_cart' ] );
+				// Using woocommerce_before_mini_cart_contents instead of woocommerce_before_mini_cart
+				// and  woocommerce_mini_cart_contents instead of woocommerce_after_mini_cart
+				// to support Elementor cart widget.
+				add_action( 'woocommerce_before_mini_cart_contents', [ $this, 'woocommerce_before_mini_cart' ] );
+				add_action( 'woocommerce_mini_cart_contents', [ $this, 'woocommerce_after_mini_cart' ] );
 				// The following filter doesn't have to be enabled for the latest version.
 				if ( version_compare( RP_WCDPD_VERSION, '2.3.9', '<' ) ) {
 					add_filter( 'rightpress_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
@@ -144,6 +146,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 			}
 		}
+
 		add_filter( 'wc_epo_adjust_price_before_calculate_totals', [ $this, 'wc_epo_adjust_price_before_calculate_totals' ] );
 		add_filter( 'woocommerce_cart_item_price', [ $this, 'cart_item_price' ], 99999, 3 );
 		add_action( 'wc_epo_order_item_meta', [ $this, 'wc_epo_order_item_meta' ], 10, 3 );
@@ -457,14 +460,13 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	public function wc_epo_template_tm_totals( $args ) {
 		$tm_epo_dpd_prefix               = $args['tm_epo_dpd_prefix'];
 		$tm_epo_dpd_suffix               = $args['tm_epo_dpd_suffix'];
-		$tm_epo_dpd_original_final_total = $args['tm_epo_dpd_original_final_total'];
 		$tm_epo_dpd_enable_pricing_table = $args['tm_epo_dpd_enable_pricing_table'];
 		$tm_epo_dpd_enable               = $args['tm_epo_dpd_enable'];
 		$tm_epo_dpd_string_placement     = $args['tm_epo_dpd_string_placement'];
 		$tm_epo_dpd_label_css_selector   = $args['tm_epo_dpd_label_css_selector'];
 		$tm_epo_dpd_original_price_base  = $args['tm_epo_dpd_original_price_base'];
 
-		echo 'data-tm-epo-dpd-enable-pricing-table="' . esc_attr( $tm_epo_dpd_enable_pricing_table ) . '" data-tm-epo-dpd-original-final-total="' . esc_attr( $tm_epo_dpd_original_final_total ) . '" data-tm-epo-dpd-prefix="' . esc_attr( $tm_epo_dpd_prefix ) . '" data-tm-epo-dpd-suffix="' . esc_attr( $tm_epo_dpd_suffix ) . '" ';
+		echo 'data-tm-epo-dpd-enable-pricing-table="' . esc_attr( $tm_epo_dpd_enable_pricing_table ) . '" data-tm-epo-dpd-prefix="' . esc_attr( $tm_epo_dpd_prefix ) . '" data-tm-epo-dpd-suffix="' . esc_attr( $tm_epo_dpd_suffix ) . '" ';
 
 		echo 'data-tm-epo-dpd-string-placement="' . esc_attr( $tm_epo_dpd_string_placement ) . '" ';
 		echo 'data-tm-epo-dpd-label-css-selector="' . esc_attr( $tm_epo_dpd_label_css_selector ) . '" ';
@@ -495,7 +497,6 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	public function wc_epo_template_args_tm_totals( $args, $product ) {
 		$args['tm_epo_dpd_suffix']               = THEMECOMPLETE_EPO()->tm_epo_dpd_suffix;
 		$args['tm_epo_dpd_prefix']               = THEMECOMPLETE_EPO()->tm_epo_dpd_prefix;
-		$args['tm_epo_dpd_original_final_total'] = THEMECOMPLETE_EPO()->tm_epo_dpd_original_final_total;
 		$args['tm_epo_dpd_enable_pricing_table'] = THEMECOMPLETE_EPO()->tm_epo_dpd_enable_pricing_table;
 		$args['tm_epo_dpd_enable']               = THEMECOMPLETE_EPO()->tm_epo_dpd_enable;
 		$args['tm_epo_dpd_string_placement']     = THEMECOMPLETE_EPO()->tm_epo_dpd_string_placement;
@@ -663,10 +664,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				],
 				'desc_tip' => false,
 			],
-
 			[
 				'title'    => esc_html__( 'Base original price type according to', 'woocommerce-tm-extra-product-options' ),
-				'desc'     => esc_html__( 'Set to what those price types will base their original price on.', 'woocommerce-tm-extra-product-options' ),
+				'desc'     => esc_html__( 'Set to what price types will base their original price on.', 'woocommerce-tm-extra-product-options' ),
 				'id'       => 'tm_epo_dpd_original_price_base',
 				'class'    => 'chosen_select',
 				'css'      => 'min-width:300px;',
@@ -678,18 +678,10 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				],
 				'desc_tip' => false,
 			],
-
 			[
 				'title'   => esc_html__( 'Enable alteration of pricing table', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check to enable the inclusion of option prices to the pricing table.', 'woocommerce-tm-extra-product-options' ) . '</span>',
 				'id'      => 'tm_epo_dpd_enable_pricing_table',
-				'default' => 'no',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Enable original final total display', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check to enable the display of the undiscounted final total', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_dpd_original_final_total',
 				'default' => 'no',
 				'type'    => 'checkbox',
 			],
@@ -869,7 +861,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 */
 	private function get_rp_wcdpd_single( $field_price, $cart_item_key, $pricing = null, $force = false ) {
 
-		if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable && ! $force ) {
+		if ( empty( $cart_item_key ) || 'no' === THEMECOMPLETE_EPO()->tm_epo_dpd_enable && ! $force ) {
 			return $field_price;
 		}
 

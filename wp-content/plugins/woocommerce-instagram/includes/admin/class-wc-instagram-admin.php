@@ -39,7 +39,7 @@ class WC_Instagram_Admin {
 		include_once 'class-wc-instagram-debug-tools.php';
 		include_once 'class-wc-instagram-admin-system-status.php';
 
-		if ( wc_instagram_has_business_account() ) {
+		if ( wc_instagram_is_connected() ) {
 			include_once 'class-wc-instagram-admin-taxonomies.php';
 			include_once 'class-wc-instagram-admin-attributes.php';
 			include_once 'meta-boxes/class-wc-instagram-meta-box-product-data.php';
@@ -171,7 +171,7 @@ class WC_Instagram_Admin {
 						'edit'   => __( 'Edit', 'woocommerce-instagram' ),
 						'save'   => __( 'Ok', 'woocommerce-instagram' ),
 						'cancel' => __( 'Cancel', 'woocommerce-instagram' ),
-						'copy'   => __( 'Copy link', 'woocommerce-instagram' ),
+						'copy'   => __( 'Copy URL', 'woocommerce-instagram' ),
 					),
 				)
 			);
@@ -209,24 +209,23 @@ class WC_Instagram_Admin {
 	 * @return array
 	 */
 	public function plugin_row_meta( $links, $file ) {
-		if ( WC_INSTAGRAM_BASENAME === $file ) {
-			$row_meta = array(
-				'docs'     => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/document/woocommerce-instagram/' ),
-					esc_attr_x( 'View WooCommerce Instagram documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
-					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-instagram' )
-				),
-				'shopping' => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/document/woocommerce-instagram/shoppable/' ),
-					esc_attr_x( 'View WooCommerce Instagram Shopping documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
-					esc_html_x( 'Shopping', 'plugin row link', 'woocommerce-instagram' )
-				),
-			);
-
-			$links = array_merge( $links, $row_meta );
+		if ( WC_INSTAGRAM_BASENAME !== $file ) {
+			return $links;
 		}
+
+		$links['docs'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
+			esc_url( 'https://woocommerce.com/document/woocommerce-instagram/' ),
+			esc_attr_x( 'View WooCommerce Instagram documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
+			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-instagram' )
+		);
+
+		$links['support'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=260061' ),
+			esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-instagram' ),
+			esc_html_x( 'Support', 'plugin row link', 'woocommerce-instagram' )
+		);
 
 		return $links;
 	}

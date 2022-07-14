@@ -1,0 +1,67 @@
+<?php
+namespace Composer\DependencyResolver;
+if (!defined('ABSPATH')) exit;
+class RuleSetIterator implements \Iterator
+{
+ protected $rules;
+ protected $types;
+ protected $currentOffset;
+ protected $currentType;
+ protected $currentTypeOffset;
+ public function __construct(array $rules)
+ {
+ $this->rules = $rules;
+ $this->types = array_keys($rules);
+ sort($this->types);
+ $this->rewind();
+ }
+ #[\ReturnTypeWillChange]
+ public function current()
+ {
+ return $this->rules[$this->currentType][$this->currentOffset];
+ }
+ #[\ReturnTypeWillChange]
+ public function key()
+ {
+ return $this->currentType;
+ }
+ #[\ReturnTypeWillChange]
+ public function next()
+ {
+ $this->currentOffset++;
+ if (!isset($this->rules[$this->currentType])) {
+ return;
+ }
+ if ($this->currentOffset >= \count($this->rules[$this->currentType])) {
+ $this->currentOffset = 0;
+ do {
+ $this->currentTypeOffset++;
+ if (!isset($this->types[$this->currentTypeOffset])) {
+ $this->currentType = -1;
+ break;
+ }
+ $this->currentType = $this->types[$this->currentTypeOffset];
+ } while (isset($this->types[$this->currentTypeOffset]) && !\count($this->rules[$this->currentType]));
+ }
+ }
+ #[\ReturnTypeWillChange]
+ public function rewind()
+ {
+ $this->currentOffset = 0;
+ $this->currentTypeOffset = -1;
+ $this->currentType = -1;
+ do {
+ $this->currentTypeOffset++;
+ if (!isset($this->types[$this->currentTypeOffset])) {
+ $this->currentType = -1;
+ break;
+ }
+ $this->currentType = $this->types[$this->currentTypeOffset];
+ } while (isset($this->types[$this->currentTypeOffset]) && !\count($this->rules[$this->currentType]));
+ }
+ #[\ReturnTypeWillChange]
+ public function valid()
+ {
+ return isset($this->rules[$this->currentType], $this->rules[$this->currentType][$this->currentOffset]);
+ }
+}

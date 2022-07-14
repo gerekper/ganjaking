@@ -68,8 +68,8 @@ final class THEMECOMPLETE_EPO_CP_Woodeposits {
 	/**
 	 * Undocumented function
 	 *
-	 * @param Array  $additional_data Data to aadd.
-	 * @param Object $product The product object.
+	 * @param array  $additional_data Data to aadd.
+	 * @param object $product The product object.
 	 * @return Array
 	 */
 	public function tm_wpp_add_product_to_cart_holder( $additional_data, $product ) {

@@ -36,9 +36,12 @@ defined( 'ABSPATH' ) || exit;
 	if ( 'yes' === $pips ) {
 		$input_args['tags']['class'] .= ' pips';
 	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$input_args['tags']['data-no-price'] = true;
+	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
-	<label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>">
+	<label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>"></label>
 	<?php
 	$input_args = [
 		'nodiv'   => 1,
@@ -62,7 +65,6 @@ defined( 'ABSPATH' ) || exit;
 	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>
-	</label>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>

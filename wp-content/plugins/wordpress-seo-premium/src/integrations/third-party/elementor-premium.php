@@ -164,25 +164,22 @@ class Elementor_Premium implements Integration_Interface {
 	 * @return array The config.
 	 */
 	protected function get_post_metabox_config() {
-		$insights_enabled         = WPSEO_Options::get( 'enable_metabox_insights', false );
 		$link_suggestions_enabled = WPSEO_Options::get( 'enable_link_suggestions', false );
 
-		$prominent_words_support = new WPSEO_Premium_Prominent_Words_Support();
-		if ( ! $prominent_words_support->is_post_type_supported( $this->get_metabox_post()->post_type ) ) {
-			$insights_enabled = false;
-		}
+		$prominent_words_support      = new WPSEO_Premium_Prominent_Words_Support();
+		$is_prominent_words_available = $prominent_words_support->is_post_type_supported( $this->get_metabox_post()->post_type );
 
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
 		return [
-			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
-			'currentObjectId'          => $this->get_metabox_post()->ID,
-			'currentObjectType'        => 'post',
-			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable' => $prominent_words_support->is_post_type_supported( $this->get_metabox_post()->post_type ),
-			'linkSuggestionsUnindexed' => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'perIndexableLimit'        => $this->per_indexable_limit( $language ),
+			'currentObjectId'           => $this->get_metabox_post()->ID,
+			'currentObjectType'         => 'post',
+			'linkSuggestionsEnabled'    => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable'  => $is_prominent_words_available,
+			'linkSuggestionsUnindexed'  => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'         => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable' => $is_prominent_words_available,
 		];
 	}
 

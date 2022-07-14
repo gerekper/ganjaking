@@ -31,12 +31,26 @@ class THEMECOMPLETE_EPO_Autoloader {
 	/**
 	 * Take a class name and turn it into a file name
 	 *
-	 * @param  string $class Class name.
+	 * @param string $class Class name.
+	 * @param bool   $no_prepend Flag to indicate not to prepend the class name.
+	 * @param bool   $no_replace Flag to indicate not to replace the class name.
 	 *
 	 * @return string
 	 */
-	private function get_file_name_from_class( $class ) {
-		return 'class-' . str_replace( '_', '-', $class ) . '.php';
+	private function get_file_name_from_class( $class, $no_prepend = false, $no_replace = false ) {
+
+		if ( $no_prepend ) {
+			$prepend = '';
+		} else {
+			$prepend = 'class-';
+		}
+
+		if ( $no_replace ) {
+			$replace = $class;
+		} else {
+			$replace = str_replace( '_', '-', $class );
+		}
+		return $prepend . str_replace( '_', '-', $class ) . '.php';
 	}
 
 	/**

@@ -37,6 +37,100 @@ jQuery( function( $ ) {
 		this.$visibility_cart_input          = this.$visibility.find( 'input.visibility_cart' );
 		this.$visibility_order_input         = this.$visibility.find( 'input.visibility_order' );
 
+		this.$min_qty                        = this.$content.find( '.quantity_min' );
+		this.$min_qty_input                  = this.$min_qty.find( 'input.item_quantity' );
+		this.$max_qty                        = this.$content.find( '.quantity_max' );
+		this.$max_qty_input                  = this.$max_qty.find( 'input.item_quantity' );
+		this.$default_qty                    = this.$content.find( '.quantity_default' );
+		this.$default_qty_input              = this.$default_qty.find( 'input.item_quantity' );
+
+		this.max_qty_prev                    = this.$max_qty_input.val();
+		this.default_qty_prev                = this.$default_qty_input.val();
+
+		this.add_error_tip = function( $target, error ) {
+
+			var offset = $target.position();
+
+			if ( $target.parent().find( '.wc_error_tip' ).length === 0 ) {
+				$target.after( '<div class="wc_error_tip">' + error + '</div>' );
+				$target.parent().find( '.wc_error_tip' )
+					.css( 'left', offset.left + $target.width() - ( $target.width() / 2 ) - ( $( '.wc_error_tip' ).width() / 2 ) )
+					.css( 'top', offset.top + $target.height() + 4 )
+					.fadeIn( '100' );
+			} else {
+				$target.parent().find( '.wc_error_tip' ).html( error );
+			}
+		};
+
+		this.remove_error_tip = function( $target ) {
+
+			$target.parent().find( '.wc_error_tip' ).fadeOut( '100', function() { $( this ).remove(); } );
+		};
+
+		this.validate_quantity = function( target, context ) {
+
+			var $input = self.$min_qty_input;
+
+			if ( 'max' === target ) {
+				$input = self.$max_qty_input;
+			} else if ( 'default' === target ) {
+				$input = self.$default_qty_input;
+			}
+
+			var qty    = $input.val(),
+			    min    = parseFloat( $input.attr( 'min' ) ),
+			    max    = parseFloat( $input.attr( 'max' ) ),
+			    step   = parseFloat( $input.attr( 'step' ) ),
+			    result = {
+			    	qty:   qty,
+			    	error: ''
+			    };
+
+			if ( min >= 0 && ( qty < min || isNaN( qty ) ) ) {
+
+				// The max field doesn't have a max value. Also when validating the max field there's no need to validate the empty string.
+				if ( 'max' !== target || qty !== '' ) {
+
+					if ( 'max' === context ) {
+						result.qty = self.max_qty_prev;
+					} else if ( 'default' === context ) {
+						result.qty = self.default_qty_prev;
+					} else {
+						result.qty = min;
+					}
+
+					result.error = wc_bundles_admin_params.i18n_qty_low_error.replace( '%s', min );
+				}
+
+				return result;
+			}
+
+			if ( max > 0 && qty > max ) {
+
+				if ( 'default' === context ) {
+					result.qty = self.default_qty_prev;
+				} else {
+					result.qty = max;
+				}
+
+				result.error = wc_bundles_admin_params.i18n_qty_high_error.replace( '%s', max );
+
+				return result;
+			}
+
+			if ( step > 0 && qty > 0 ) {
+
+				if ( qty % step ) {
+					result.qty   = step * Math.ceil( qty / step );
+					result.error = wc_bundles_admin_params.i18n_qty_step_error.replace( '%s', step );
+				}
+
+				return result;
+			}
+
+			return result;
+		};
+
 		this.priced_individually_input_changed = function() {
 			if ( self.$priced_individually_input.is( ':checked' ) ) {
 				self.$discount.show();
@@ -378,6 +472,84 @@ jQuery( function( $ ) {
 			} );
 
 		$bundled_products_container
+
+			// Validate quantities.
+			.on( 'input change', 'input.item_quantity', function( e ) {
+
+				var $input          = $( this ),
+				    $el             = $input.closest( '.wc-bundled-item' ),
+				    el_id           = $el.data( 'bundled_item_id' ),
+				    bundled_product = bundled_product_objects[ el_id ];
+
+				var changed = 'min';
+
+				if ( $input.hasClass( 'item_quantity_max' ) ) {
+					changed = 'max';
+				} else if ( $input.hasClass( 'item_quantity_default' ) ) {
+					changed = 'default';
+				}
+
+				var check = bundled_product.validate_quantity( changed, changed );
+
+				// Is there an error?
+				if ( check.error ) {
+
+					// Show an error while typing, or replace the typed value with the corrected one on blur/change.
+					if ( 'input' === event.type ) {
+
+						// Add error.
+						setTimeout( function() {
+							bundled_product.add_error_tip( $input, check.error );
+						}, 5 );
+
+					} else {
+
+						$input.val( check.qty ).change();
+					}
+
+				// Valid value?
+				} else {
+
+					// Clear existing errors.
+					bundled_product.remove_error_tip( $input );
+
+					// Update max/default inputs.
+					if ( 'change' === event.type ) {
+
+						// Check and update min/max attribute values.
+						var min = bundled_product.$min_qty_input.val(),
+						    max = bundled_product.$max_qty_input.val(),
+						    def = bundled_product.$default_qty_input.val();
+
+						bundled_product.$max_qty_input.attr( 'min', min );
+
+						// Changes to the default input should never affect the max, even if invalid.
+						if ( 'default' !== changed ) {
+
+							check = bundled_product.validate_quantity( 'max', changed );
+
+							if ( check.error ) {
+								bundled_product.$max_qty_input.val( check.qty );
+								max = check.qty;
+							}
+
+							bundled_product.max_qty_prev = max;
+						}
+
+						bundled_product.$default_qty_input.attr( 'min', min );
+						bundled_product.$default_qty_input.attr( 'max', max );
+
+						check = bundled_product.validate_quantity( 'default', changed );
+
+						if ( check.error ) {
+							bundled_product.$default_qty_input.val( check.qty );
+							def = check.qty;
+						}
+
+						bundled_product.default_qty_prev = def;
+					}
+				}
+			} )
 
 			// Click to Edit.
 			.on( 'click', 'a.edit-product', function( e ) {

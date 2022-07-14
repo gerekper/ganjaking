@@ -62,11 +62,11 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
 
 		add_filter( 'woocommerce_add_cart_item_data', [ $this, 'add_cart_item_data' ], 11, 1 );
 		add_filter( 'wc_epo_get_settings', [ $this, 'wc_epo_get_settings' ], 10, 1 );
-		add_filter( 'wc_epo_cart_options_prices', [ $this, 'wc_epo_cart_options_prices' ], 10, 2 );
+		add_filter( 'wc_epo_cart_options_prices_before', [ $this, 'wc_epo_cart_options_prices_before' ], 10, 2 );
 		add_filter( 'wc_epo_adjust_price', [ $this, 'wc_epo_adjust_price' ], 10, 2 );
 
 		add_filter( 'booking_form_calculated_booking_cost', [ $this, 'adjust_booking_cost_old' ], 10, 3 );
@@ -101,7 +101,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * This only filters on success.
 	 *
 	 * @since 5.1
-	 * @param html   $output The hml output.
+	 * @param string $output The hml output.
 	 * @param string $display_price The displayed price.
 	 * @param object $product The product object.
 	 */
@@ -372,7 +372,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * @param array $cart_item The cart item.
 	 * @since 1.0
 	 */
-	public function wc_epo_cart_options_prices( $price, $cart_item ) {
+	public function wc_epo_cart_options_prices_before( $price, $cart_item ) {
 		$wc_booking_person_qty_multiplier = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_person ) ? 1 : 0;
 		$wc_booking_block_qty_multiplier  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_bookings_block ) ? 1 : 0;
 
@@ -403,7 +403,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * Adjust the final booking cost
 	 *
 	 * @param array  $booking_cost Booking cost.
-	 * @param Object $product The product object.
+	 * @param object $product The product object.
 	 * @param array  $posted Posted data.
 	 * @since 4.9.7
 	 */
@@ -414,19 +414,19 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 		}
 		if ( isset( $_POST ) ) {
 			if ( isset( $_POST['form'] ) ) {
+				$posted = [];
+				parse_str( wp_unslash( $_POST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( isset( $cart_item_meta['associated_uniqid'] ) ) {
 					$associated_formprefix = $cart_item_meta['associated_formprefix'];
 					if ( isset( $cart_item_meta['associated_element_name'] ) && isset( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ) ) {
 						$associated_formprefix = $cart_item_meta['associated_formprefix'] . wp_unslash( $_POST[ $cart_item_meta['associated_element_name'] . '_counter' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 					}
 					if ( isset( $_POST[ 'cpf_product_price' . $associated_formprefix ] ) ) {
-						$_POST['form'][ 'cpf_product_price' . $associated_formprefix ] = $booking_cost;
+						$posted[ 'cpf_product_price' . $associated_formprefix ] = $booking_cost;
 					}
 				} else {
-					$_POST['form']['cpf_product_price'] = $booking_cost;
+					$posted['cpf_product_price'] = $booking_cost;
 				}
-				$posted = [];
-				parse_str( wp_unslash( $_POST['form'] ), $posted ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			} else {
 				if ( isset( $cart_item_meta['associated_uniqid'] ) ) {
 					$associated_formprefix = $cart_item_meta['associated_formprefix'];
@@ -464,7 +464,11 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 						$option_price += $price * array_sum( $booking_data['_persons'] );
 					}
 					if ( ! empty( $wc_booking_block_qty_multiplier ) && ! empty( $booking_data['_duration'] ) ) {
-						$option_price += $price * $booking_data['_duration'];
+						if ( empty( $option_price ) ) {
+							$option_price = $option_price * $booking_data['_duration'];
+						} else {
+							$option_price += $price * $booking_data['_duration'];
+						}
 					}
 					if ( ! $option_price ) {
 						$option_price += $price;
@@ -485,7 +489,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	 * Adjust the final booking cost
 	 *
 	 * @param array  $booking_cost Booking cost.
-	 * @param Object $booking_form Booking form object.
+	 * @param object $booking_form Booking form object.
 	 * @param array  $posted Posted data.
 	 * @since 1.0
 	 */

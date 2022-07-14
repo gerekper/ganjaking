@@ -4,7 +4,7 @@
  * Plugin URI: https://wp-rocket.me
  * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The best WordPress performance plugin.
- * Version: 3.11.4.1
+ * Version: 3.11.4.2
  * Requires at least: 5.5
  * Requires PHP: 7.1
  * Code Name: Iego
@@ -21,7 +21,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Rocket defines.
-define( 'WP_ROCKET_VERSION',               '3.11.4.1' );
+define( 'WP_ROCKET_VERSION',               '3.11.4.2' );
 define( 'WP_ROCKET_WP_VERSION',            '5.5' );
 define( 'WP_ROCKET_WP_VERSION_TESTED',     '5.9' );
 define( 'WP_ROCKET_PHP_VERSION',           '7.1' );

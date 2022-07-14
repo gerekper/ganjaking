@@ -1,4 +1,8 @@
-### 2.6.4 | 2022-06-06
+### 2.6.4.1
+- Fixed a fatal error that can occur on some hosting environments when the license is validated.
+
+
+### 2.6.4 | 2022-07-06
 - Added the [gform_cleanup_target_dir](https://docs.gravityforms.com/gform_cleanup_target_dir/) filter to support async uploads on servers with opendir() disabled.
 - Fixed an issue where the REST request to get additional pages fails on translated sites when configuring the form confirmation.
 - Fixed an accessibility issue by adding an alert role to the notice on the uninstall page.

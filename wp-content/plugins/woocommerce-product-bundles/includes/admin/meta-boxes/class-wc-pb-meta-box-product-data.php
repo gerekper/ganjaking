@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.14.1
+ * @version  6.16.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -183,6 +183,7 @@ class WC_PB_Meta_Box_Product_Data {
 				 * 'woocommerce_bundled_products_admin_contents' action.
 				 *
 				 * @since  5.8.0
+				 *
 				 * @param  WC_Product_Bundle  $product_bundle_object
 				 */
 				do_action( 'woocommerce_bundled_products_admin_contents', $product_bundle_object );
@@ -207,6 +208,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * Product bundle type-specific options.
 	 *
 	 * @param  array  $options
+	 *
 	 * @return array
 	 */
 	public static function bundle_type_options( $options ) {
@@ -366,6 +368,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * Process, verify and save bundle type product data.
 	 *
 	 * @param  WC_Product  $product
+	 *
 	 * @return void
 	 */
 	public static function process_bundle_data( $product ) {
@@ -540,6 +543,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 *
 	 * @param  array  $a
 	 * @param  array  $b
+	 *
 	 * @return int
 	 */
 	public static function menu_order_sort( $a, $b ) {
@@ -555,6 +559,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 *
 	 * @param  array  $posted_bundle_data
 	 * @param  mixed  $post_id
+	 *
 	 * @return mixed
 	 */
 	public static function process_posted_bundle_data( $posted_bundle_data, $post_id ) {
@@ -618,6 +623,8 @@ class WC_PB_Meta_Box_Product_Data {
 
 					$item_data[ 'product_id' ] = $product_id;
 					$item_data[ 'item_id' ]    = $item_id;
+					$item_data[ 'title' ]      = $product_title;
+
 
 					// Save thumbnail preferences first.
 					if ( isset( $data[ 'hide_thumbnail' ] ) ) {
@@ -743,22 +750,21 @@ class WC_PB_Meta_Box_Product_Data {
 						$item_data[ 'quantity_default' ] = $quantity_min;
 					}
 
-					// Save sale price data.
-					if ( isset( $data[ 'discount' ] ) ) {
+					// Save discount data. 0% discounts are skipped.
+					if ( isset( $data[ 'discount' ] ) && ! empty( $data[ 'discount' ] ) &&  'yes' === $item_data[ 'priced_individually' ] ) {
 
-						if ( 'yes' === $item_data[ 'priced_individually' ] && is_numeric( $data[ 'discount' ] ) ) {
+						// wc_format_decimal returns an empty string if a string input is given.
+						// Cast result to float to check that the discount value is between 0-100.
+						// Casting empty strings to float returns 0.
+						$discount = (float) wc_format_decimal( $data[ 'discount' ] );
 
-							$discount = wc_format_decimal( $data[ 'discount' ] );
-
-							if ( $discount < 0 || $discount > 100 ) {
-								/* translators: Bundled product name */
-								self::add_admin_error( sprintf( __( 'The <strong>Discount</strong> of <strong>%s</strong> was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-product-bundles' ), $item_title ) );
-								$item_data[ 'discount' ] = '';
-							} else {
-								$item_data[ 'discount' ] = $discount;
-							}
-						} else {
+						// Throw error if discount is not within the 0-100 range or if a string was passed to wc_format_decimal.
+						if ( empty( $discount ) || $discount < 0 || $discount > 100 ) {
+							/* translators: Bundled product name */
+							self::add_admin_error( sprintf( __( 'The <strong>Discount</strong> of <strong>%s</strong> was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-product-bundles' ), $item_title ) );
 							$item_data[ 'discount' ] = '';
+						} else {
+							$item_data[ 'discount' ] = $discount;
 						}
 					} else {
 						$item_data[ 'discount' ] = '';
@@ -937,6 +943,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * @param  int    $product_id
 	 * @param  array  $item_data
 	 * @param  int    $post_id
+	 *
 	 * @return void
 	 */
 	public static function bundled_product_admin_config_html( $loop, $product_id, $item_data, $post_id ) {
@@ -1078,8 +1085,9 @@ class WC_PB_Meta_Box_Product_Data {
 
 		$is_priced_individually  = isset( $item_data[ 'priced_individually' ] ) && 'yes' === $item_data[ 'priced_individually' ] ? 'yes' : '';
 		$is_shipped_individually = isset( $item_data[ 'shipped_individually' ] ) && 'yes' === $item_data[ 'shipped_individually' ] ? 'yes' : '';
-		$item_discount           = isset( $item_data[ 'discount' ] ) && (double) $item_data[ 'discount' ] > 0 ? $item_data[ 'discount' ] : '';
+		$item_discount           = isset( $item_data[ 'discount' ] ) && (float) $item_data[ 'discount' ] > 0 ? wc_format_localized_decimal( $item_data[ 'discount' ] )  : '';
 		$is_optional             = isset( $item_data[ 'optional' ] ) ? $item_data[ 'optional' ] : '';
+		$step                    = isset( $item_data[ 'step' ] ) ? $item_data[ 'step' ] : 'any';
 
 		// When adding a subscription-type product for the first time, enable "Priced Individually" by default.
 		if ( did_action( 'wp_ajax_woocommerce_add_bundled_product' ) && $is_subscription && ! isset( $item_data[ 'priced_individually' ] ) ) {
@@ -1093,11 +1101,11 @@ class WC_PB_Meta_Box_Product_Data {
 				<?php echo wc_help_tip( __( 'Check this option to mark the bundled product as optional.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
-
+		
 		<div class="quantity_min">
 			<div class="form-field">
 				<label><?php echo __( 'Min Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_min]" value="<?php echo $item_quantity; ?>" step="any" min="0" />
+				<input type="number" class="item_quantity item_quantity_min" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_min]" value="<?php echo $item_quantity; ?>" step="<?php echo $step; ?>" min="0" />
 				<?php echo wc_help_tip( __( 'The minimum quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1105,7 +1113,7 @@ class WC_PB_Meta_Box_Product_Data {
 		<div class="quantity_max">
 			<div class="form-field">
 				<label><?php echo __( 'Max Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_max]" value="<?php echo $item_quantity_max; ?>" step="any" min="0" />
+				<input type="number" class="item_quantity item_quantity_max" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_max]" value="<?php echo $item_quantity_max; ?>" step="<?php echo $step; ?>" min="<?php echo $item_quantity; ?>" />
 				<?php echo wc_help_tip( __( 'The maximum quantity of this bundled product. Leave the field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1113,7 +1121,7 @@ class WC_PB_Meta_Box_Product_Data {
 		<div class="quantity_default">
 			<div class="form-field">
 				<label><?php echo __( 'Default Quantity', 'woocommerce-product-bundles' ); ?></label>
-				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_default]" value="<?php echo $item_quantity_default; ?>" step="any" min="0" />
+				<input type="number" class="item_quantity item_quantity_default" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_default]" value="<?php echo $item_quantity_default; ?>" step="<?php echo $step; ?>" min="<?php echo $item_quantity; ?>" max="<?php echo $item_quantity_max; ?>" />
 				<?php echo wc_help_tip( __( 'The default quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
@@ -1154,6 +1162,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * @param  int    $product_id
 	 * @param  array  $item_data
 	 * @param  int    $post_id
+	 *
 	 * @return void
 	 */
 	public static function bundled_product_admin_advanced_html( $loop, $product_id, $item_data, $post_id ) {
@@ -1261,6 +1270,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * @param  int    $product_id
 	 * @param  array  $item_data
 	 * @param  int    $post_id
+	 *
 	 * @return void
 	 */
 	public static function bundled_product_admin_advanced_item_id_html( $loop, $product_id, $item_data, $post_id ) {
@@ -1410,8 +1420,20 @@ class WC_PB_Meta_Box_Product_Data {
 
 						foreach ( $bundled_items as $item_id => $item ) {
 
-							$item_availability           = '';
-							$item_data                   = $item->get_data();
+							$item_availability = '';
+
+							/**
+							 * 'woocommerce_add_bundled_product_item_data' filter.
+							 *
+							 * Use this filter to modify the bundled item data when the product is being edited.
+							 *
+							 * @param  $item_data   array
+							 * @param  $context     string
+							 * @param  $product_id  int
+							 */
+							$item_data = apply_filters( 'woocommerce_add_bundled_product_item_data', $item->get_data(), 'edit', $item->get_product_id() );
+
+							// Pass the bundled item downstream.
 							$item_data[ 'bundled_item' ] = $item;
 
 							$product            = $item->get_product();
@@ -1530,6 +1552,7 @@ class WC_PB_Meta_Box_Product_Data {
 	 * Add admin errors.
 	 *
 	 * @param  string  $error
+	 *
 	 * @return string
 	 */
 	public static function add_admin_error( $error ) {

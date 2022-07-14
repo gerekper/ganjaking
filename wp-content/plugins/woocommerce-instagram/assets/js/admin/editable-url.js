@@ -21,7 +21,7 @@
 				'edit': 'Edit',
 				'save': 'Ok',
 				'cancel': 'Cancel',
-				'copy': 'Copy link'
+				'copy': 'Copy URL'
 			}
 		};
 

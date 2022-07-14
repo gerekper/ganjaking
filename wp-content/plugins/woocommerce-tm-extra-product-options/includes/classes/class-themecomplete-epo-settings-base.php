@@ -82,18 +82,19 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 	 */
 	public function settings_options() {
 		$settings_options = [
-			'general' => [ 'tcfa tcfa-cog', esc_html__( 'General', 'woocommerce-tm-extra-product-options' ) ],
-			'display' => [ 'tcfa tcfa-tv', esc_html__( 'Display', 'woocommerce-tm-extra-product-options' ) ],
-			'cart'    => [ 'tcfa tcfa-shopping-cart', esc_html__( 'Cart', 'woocommerce-tm-extra-product-options' ) ],
-			'order'   => [ 'tcfa tcfa-truck-pickup', esc_html__( 'Order', 'woocommerce-tm-extra-product-options' ) ],
-			'string'  => [ 'tcfa tcfa-font', esc_html__( 'Strings', 'woocommerce-tm-extra-product-options' ) ],
-			'style'   => [ 'tcfa tcfa-border-style', esc_html__( 'Style', 'woocommerce-tm-extra-product-options' ) ],
-			'global'  => [ 'tcfa tcfa-globe', esc_html__( 'Global', 'woocommerce-tm-extra-product-options' ) ],
-			'upload'  => [ 'tcfa tcfa-cloud-upload-alt', esc_html__( 'Upload manager', 'woocommerce-tm-extra-product-options' ) ],
-			'code'    => [ 'tcfa tcfa-code', esc_html__( 'Custom code', 'woocommerce-tm-extra-product-options' ) ],
-			'math'    => [ 'tcfa tcfa-square-root-alt', esc_html__( 'Math Formula Constants', 'woocommerce-tm-extra-product-options' ) ],
-			'other'   => 'other',
-			'license' => [ 'tcfa tcfa-id-badge', esc_html__( 'License', 'woocommerce-tm-extra-product-options' ) ],
+			'general'  => [ 'tcfa tcfa-cog', esc_html__( 'General', 'woocommerce-tm-extra-product-options' ) ],
+			'display'  => [ 'tcfa tcfa-tv', esc_html__( 'Display', 'woocommerce-tm-extra-product-options' ) ],
+			'cart'     => [ 'tcfa tcfa-shopping-cart', esc_html__( 'Cart', 'woocommerce-tm-extra-product-options' ) ],
+			'order'    => [ 'tcfa tcfa-truck-pickup', esc_html__( 'Order', 'woocommerce-tm-extra-product-options' ) ],
+			'string'   => [ 'tcfa tcfa-font', esc_html__( 'Strings', 'woocommerce-tm-extra-product-options' ) ],
+			'style'    => [ 'tcfa tcfa-border-style', esc_html__( 'Style', 'woocommerce-tm-extra-product-options' ) ],
+			'global'   => [ 'tcfa tcfa-globe', esc_html__( 'Global', 'woocommerce-tm-extra-product-options' ) ],
+			'elements' => [ 'tcfa tcfa-shapes', esc_html__( 'Elements', 'woocommerce-tm-extra-product-options' ) ],
+			'upload'   => [ 'tcfa tcfa-cloud-upload-alt', esc_html__( 'Upload manager', 'woocommerce-tm-extra-product-options' ) ],
+			'code'     => [ 'tcfa tcfa-code', esc_html__( 'Custom code', 'woocommerce-tm-extra-product-options' ) ],
+			'math'     => [ 'tcfa tcfa-square-root-alt', esc_html__( 'Math Formula Constants', 'woocommerce-tm-extra-product-options' ) ],
+			'other'    => 'other',
+			'license'  => [ 'tcfa tcfa-id-badge', esc_html__( 'License', 'woocommerce-tm-extra-product-options' ) ],
 		];
 
 		return $settings_options;
@@ -240,6 +241,23 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'default' => 'no',
 				'type'    => 'checkbox',
 			],
+			[
+				'title'   => esc_html__( 'Enable original final total display', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to enable the display of the undiscounted final total', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_enable_original_final_total',
+				'class'   => 'tcftb',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) ?
+			[
+				'title'   => esc_html__( 'Enable options VAT display', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to display the options VAT amount above the options total', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_enable_vat_options_total',
+				'class'   => 'tcftb',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			] : [],
 			[
 				'title'   => esc_html__( 'Show Unit price on totals box', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable this to display the unit price when the totals box is visible', 'woocommerce-tm-extra-product-options' ),
@@ -1008,6 +1026,15 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'        => 'text',
 			],
 			[
+				'title'       => esc_html__( 'Options VAT total text', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Enter the Options VAT total text or leave blank for default.', 'woocommerce-tm-extra-product-options' ),
+				'id'          => 'tm_epo_vat_options_total_text',
+				'placeholder' => esc_html__( 'Options VAT amount', 'woocommerce-tm-extra-product-options' ),
+				'default'     => '',
+				'class'       => 'tcsfinaltotalbox',
+				'type'        => 'text',
+			],
+			[
 				'title'       => esc_html__( 'Fees total text', 'woocommerce-tm-extra-product-options' ),
 				'desc'        => esc_html__( 'Enter the Fees total text or leave blank for default.', 'woocommerce-tm-extra-product-options' ),
 				'id'          => 'tm_epo_fees_total_text',
@@ -1265,7 +1292,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'desc'  => '<span tabindex="0" data-menu="tcglobal1" class="tm-section-menu-item">' . esc_html__( 'General', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal2" class="tm-section-menu-item">' . esc_html__( 'Visual', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal3" class="tm-section-menu-item">' . esc_html__( 'Product page', 'woocommerce-tm-extra-product-options' ) . '</span>' .
-						'<span tabindex="0" data-menu="tcglobal4" class="tm-section-menu-item">' . esc_html__( 'Elements', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal5" class="tm-section-menu-item">' . esc_html__( 'Locale', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal6" class="tm-section-menu-item">' . esc_html__( 'Pricing', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal7" class="tm-section-menu-item">' . esc_html__( 'Strings', 'woocommerce-tm-extra-product-options' ) . '</span>' .
@@ -1346,6 +1372,19 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				],
 			],
 			[
+				'title'   => esc_html__( 'Options price mode', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the price mode for the options.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_options_price_mode',
+				'class'   => 'tcglobal6 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => 'sale',
+				'type'    => 'select',
+				'options' => [
+					'sale'    => esc_html__( 'Use sale price', 'woocommerce-tm-extra-product-options' ),
+					'regular' => esc_html__( 'Use regular price', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
 				'title'   => esc_html__( 'Reset option values after the product is added to the cart', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'This will revert the option values to the default ones after adding the product to the cart', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_reset_options_after_add',
@@ -1417,44 +1456,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'class'   => 'tcglobal5',
 				'type'    => 'text',
 			],
-
-			[
-				'title'   => esc_html__( 'Tooltip max width', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Set the max width of the tooltip that appears on the elements.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_tooltip_max_width',
-				'class'   => 'tcglobal4',
-				'default' => '340px',
-				'type'    => 'text',
-			],
-
-			[
-				'title'   => esc_html__( 'Image mode', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Set the image mode that will be used for various image related functionality.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_image_mode',
-				'class'   => 'tcglobal4 chosen_select',
-				'css'     => 'min-width:300px;',
-				'default' => 'relative',
-				'type'    => 'select',
-				'options' => [
-					''         => esc_html__( 'Absolute URL', 'woocommerce-tm-extra-product-options' ),
-					'relative' => esc_html__( 'Relative URL', 'woocommerce-tm-extra-product-options' ),
-				],
-			],
-			[
-				'title'   => esc_html__( 'Radio button undo button', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Globally override the undo button for radio buttons', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_radio_undo_button',
-				'class'   => 'tcglobal4 chosen_select',
-				'css'     => 'min-width:300px;',
-				'default' => '',
-				'type'    => 'select',
-				'options' => [
-					''        => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
-					'enable'  => esc_html__( 'Enable', 'woocommerce-tm-extra-product-options' ),
-					'disable' => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
-
-				],
-			],
 			[
 				'title'   => esc_html__( 'Required state indicator', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enter a string to indicate the required state of a field.', 'woocommerce-tm-extra-product-options' ),
@@ -1490,106 +1491,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'      => 'tm_epo_global_wc_price_suffix',
 				'default' => 'no',
 				'class'   => 'tcglobal3',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Datepicker theme', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Select the theme for the datepicker.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_datepicker_theme',
-				'class'   => 'tcglobal4 chosen_select',
-				'css'     => 'min-width:300px;',
-				'default' => '',
-				'type'    => 'select',
-				'options' => [
-					''          => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
-					'epo'       => esc_html__( 'Epo White', 'woocommerce-tm-extra-product-options' ),
-					'epo-black' => esc_html__( 'Epo Black', 'woocommerce-tm-extra-product-options' ),
-				],
-			],
-			[
-				'title'   => esc_html__( 'Datepicker size', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Select the size of the datepicker.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_datepicker_size',
-				'class'   => 'tcglobal4 chosen_select',
-				'css'     => 'min-width:300px;',
-				'default' => '',
-				'type'    => 'select',
-				'options' => [
-					''       => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
-					'small'  => esc_html__( 'Small', 'woocommerce-tm-extra-product-options' ),
-					'medium' => esc_html__( 'Medium', 'woocommerce-tm-extra-product-options' ),
-					'large'  => esc_html__( 'Large', 'woocommerce-tm-extra-product-options' ),
-				],
-			],
-			[
-				'title'   => esc_html__( 'Datepicker position', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Select the position of the datepicker.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_datepicker_position',
-				'class'   => 'tcglobal4 chosen_select',
-				'css'     => 'min-width:300px;',
-				'default' => '',
-				'type'    => 'select',
-				'options' => [
-					''       => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
-					'normal' => esc_html__( 'Normal', 'woocommerce-tm-extra-product-options' ),
-					'top'    => esc_html__( 'Top of screen', 'woocommerce-tm-extra-product-options' ),
-					'bottom' => esc_html__( 'Bottom of screen', 'woocommerce-tm-extra-product-options' ),
-				],
-			],
-			[
-				'title'   => esc_html__( 'Minimum characters for text-field and text-areas', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a value for the minimum characters the user must enter.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_min_chars',
-				'default' => '',
-				'class'   => 'tcglobal4',
-				'type'    => 'number',
-			],
-			[
-				'title'   => esc_html__( 'Maximum characters for text-field and text-areas', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a value for the minimum characters the user must enter.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_max_chars',
-				'default' => '',
-				'class'   => 'tcglobal4',
-				'type'    => 'number',
-			],
-			[
-				'title'   => esc_html__( 'Upload element inline Image preview', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enable inline preview of the image that will be uploaded.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_upload_inline_image_preview',
-				'default' => 'no',
-				'class'   => 'tcglobal4',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Scroll to the product element upon selection', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enable to scroll the viewport to the product element.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_product_element_scroll',
-				'default' => 'yes',
-				'class'   => 'tcglobal4',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Product element scroll offset', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a value for the scroll offset when selecting a choice for the product element.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_product_element_scroll_offset',
-				'default' => '-100',
-				'class'   => 'tcglobal4',
-				'type'    => 'number',
-			],
-			[
-				'title'   => esc_html__( 'Sync associated product quantity with main product quantity', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enable to have the quantities of the associated products to be a multiple of the main product quantity.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_product_element_quantity_sync',
-				'default' => 'yes',
-				'class'   => 'tcglobal4',
-				'type'    => 'checkbox',
-			],
-			[
-				'title'   => esc_html__( 'Retrieve image sizes for image replacements', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Disable this for slow servers or large amounts of images.', 'woocommerce-tm-extra-product-options' ),
-				'id'      => 'tm_epo_global_retrieve_image_sizes',
-				'default' => 'no',
-				'class'   => 'tcglobal4',
 				'type'    => 'checkbox',
 			],
 			[
@@ -1651,6 +1552,171 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'      => 'tm_epo_global_hide_product_normal_mode',
 				'default' => 'no',
 				'class'   => 'tcglobal2',
+				'type'    => 'checkbox',
+			],
+
+			[
+				'type' => 'tm_sectionend',
+				'id'   => 'epo_page_options',
+			],
+
+		];
+	}
+
+	/**
+	 * Elements settings
+	 *
+	 * @param string $setting The name of the setting.
+	 * @param string $label The label for the section.
+	 * @since 1.0
+	 */
+	public function get_setting_elements( $setting, $label ) {
+		return [
+			[
+				'type'  => 'tm_title',
+				'id'    => 'epo_page_options',
+				'desc'  => '<span tabindex="0" data-menu="tcelements1" class="tm-section-menu-item">' . esc_html__( 'General', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements2" class="tm-section-menu-item">' . esc_html__( 'Radio buttons', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements3" class="tm-section-menu-item">' . esc_html__( 'Datepicker', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements4" class="tm-section-menu-item">' . esc_html__( 'Text', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements5" class="tm-section-menu-item">' . esc_html__( 'Upload', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcelements6" class="tm-section-menu-item">' . esc_html__( 'Product', 'woocommerce-tm-extra-product-options' ) . '</span>',
+				'title' => $label,
+			],
+			[
+				'title'   => esc_html__( 'Tooltip max width', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Set the max width of the tooltip that appears on the elements.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_tooltip_max_width',
+				'class'   => 'tcelements1',
+				'default' => '340px',
+				'type'    => 'text',
+			],
+			[
+				'title'   => esc_html__( 'Image mode', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Set the image mode that will be used for various image related functionality.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_image_mode',
+				'class'   => 'tcelements1 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => 'relative',
+				'type'    => 'select',
+				'options' => [
+					''         => esc_html__( 'Absolute URL', 'woocommerce-tm-extra-product-options' ),
+					'relative' => esc_html__( 'Relative URL', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Retrieve image sizes for image replacements', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Disable this for slow servers or large amounts of images.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_retrieve_image_sizes',
+				'default' => 'no',
+				'class'   => 'tcelements1',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Radio button undo button', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Globally override the undo button for radio buttons', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_radio_undo_button',
+				'class'   => 'tcelements2 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => '',
+				'type'    => 'select',
+				'options' => [
+					''        => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
+					'enable'  => esc_html__( 'Enable', 'woocommerce-tm-extra-product-options' ),
+					'disable' => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+
+				],
+			],
+			[
+				'title'   => esc_html__( 'Datepicker theme', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the theme for the datepicker.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_datepicker_theme',
+				'class'   => 'tcelements3 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => '',
+				'type'    => 'select',
+				'options' => [
+					''          => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
+					'epo'       => esc_html__( 'Epo White', 'woocommerce-tm-extra-product-options' ),
+					'epo-black' => esc_html__( 'Epo Black', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Datepicker size', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the size of the datepicker.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_datepicker_size',
+				'class'   => 'tcglobtcelements3al4 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => '',
+				'type'    => 'select',
+				'options' => [
+					''       => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
+					'small'  => esc_html__( 'Small', 'woocommerce-tm-extra-product-options' ),
+					'medium' => esc_html__( 'Medium', 'woocommerce-tm-extra-product-options' ),
+					'large'  => esc_html__( 'Large', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Datepicker position', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the position of the datepicker.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_datepicker_position',
+				'class'   => 'tcelements3 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => '',
+				'type'    => 'select',
+				'options' => [
+					''       => esc_html__( 'Use field value', 'woocommerce-tm-extra-product-options' ),
+					'normal' => esc_html__( 'Normal', 'woocommerce-tm-extra-product-options' ),
+					'top'    => esc_html__( 'Top of screen', 'woocommerce-tm-extra-product-options' ),
+					'bottom' => esc_html__( 'Bottom of screen', 'woocommerce-tm-extra-product-options' ),
+				],
+			],
+			[
+				'title'   => esc_html__( 'Minimum characters for text-field and text-areas', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a value for the minimum characters the user must enter.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_min_chars',
+				'default' => '',
+				'class'   => 'tcelements4',
+				'type'    => 'number',
+			],
+			[
+				'title'   => esc_html__( 'Maximum characters for text-field and text-areas', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a value for the minimum characters the user must enter.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_max_chars',
+				'default' => '',
+				'class'   => 'tcelements4',
+				'type'    => 'number',
+			],
+			[
+				'title'   => esc_html__( 'Upload element inline Image preview', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable inline preview of the image that will be uploaded.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_upload_inline_image_preview',
+				'default' => 'no',
+				'class'   => 'tcelements5',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Scroll to the product element upon selection', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to scroll the viewport to the product element.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_product_element_scroll',
+				'default' => 'yes',
+				'class'   => 'tcelements6',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Product element scroll offset', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a value for the scroll offset when selecting a choice for the product element.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_product_element_scroll_offset',
+				'default' => '-100',
+				'class'   => 'tcelements6',
+				'type'    => 'number',
+			],
+			[
+				'title'   => esc_html__( 'Sync associated product quantity with main product quantity', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to have the quantities of the associated products to be a multiple of the main product quantity.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_product_element_quantity_sync',
+				'default' => 'yes',
+				'class'   => 'tcelements6',
 				'type'    => 'checkbox',
 			],
 

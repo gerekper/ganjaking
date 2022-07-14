@@ -4,7 +4,9 @@ if (!defined('ABSPATH')) exit;
 $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 return array(
+ 'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
  'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+ 'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
  'MailPoetVendor\\Attribute' => $baseDir . '/vendor-prefixed/symfony/polyfill-php80/Resources/stubs/Attribute.php',
  'MailPoetVendor\\CSS' => $baseDir . '/lib-3rd-party/CSS.php',
  'MailPoetVendor\\Carbon\\AbstractTranslator' => $baseDir . '/vendor-prefixed/nesbot/carbon/src/Carbon/AbstractTranslator.php',
@@ -1318,4 +1320,8 @@ return array(
  'MailPoetVendor\\pQuery\\XML2ArrayParser' => $baseDir . '/lib-3rd-party/pquery/gan_xml2array.php',
  'MailPoetVendor\\pQuery\\XmlNode' => $baseDir . '/lib-3rd-party/pquery/gan_node_html.php',
  'MailPoetVendor\\pQuery\\pQuery' => $baseDir . '/lib-3rd-party/pquery/pQuery.php',
+ 'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+ 'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+ 'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+ 'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
 );

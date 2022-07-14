@@ -57,10 +57,6 @@ if(!class_exists('userpro_memberlists_setup') ) :
             require_once UPML_PLUGIN_DIR.'/functions/shortcode-main.php';
             require_once(UPML_PLUGIN_DIR.'/functions/hooks-actions.php');
         }
-        else{
-            add_action( 'admin_notices', array($this, 'UPML_userpro_activation_notices') );
-            return 0;
-        }
         //include_once(UPR_PLUGIN_DIR.'functions/upml-ajax.php');		
     }
 
@@ -75,12 +71,6 @@ if(!class_exists('userpro_memberlists_setup') ) :
         define('UPML_PLUGIN_DIR',WP_PLUGIN_DIR.'/userpro-memberlist-layouts/');
 
     }	
-
-    function UPML_userpro_activation_notices(){
-            echo '<div class="error" role="alert"><p>Attention: User-Pro Memberlists requires User-Pro to be installed and activated.</p></div>';
-            deactivate_plugins( plugin_basename( __FILE__ ) );
-            return 0;
-        }
     }
 endif;
 

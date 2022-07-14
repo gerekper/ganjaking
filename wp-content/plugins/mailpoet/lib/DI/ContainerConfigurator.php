@@ -113,8 +113,10 @@ class ContainerConfigurator implements IContainerConfigurator {
       ->setPublic(true)
       ->setArgument('$container', new Reference(ContainerWrapper::class));
     $container->autowire(\MailPoet\Automation\Engine\Builder\CreateWorkflowFromTemplateController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Builder\UpdateWorkflowController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Control\ActionScheduler::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Control\StepRunner::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Control\SubjectLoader::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Control\Steps\ActionStepRunner::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Control\TriggerHandler::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Engine::class)->setPublic(true);
@@ -125,6 +127,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Automation\Engine\WordPress::class)->setPublic(true);
     // Automation - API endpoints
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Workflows\WorkflowsGetEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Engine\Endpoints\Workflows\WorkflowsPutEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\Workflows\WorkflowsCreateFromTemplateEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\System\DatabasePostEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Engine\Endpoints\System\DatabaseDeleteEndpoint::class)->setPublic(true);

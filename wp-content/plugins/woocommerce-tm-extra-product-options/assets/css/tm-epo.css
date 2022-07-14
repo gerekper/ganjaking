@@ -41,7 +41,7 @@
 .tc-container {
 	display: block;
 	width: 100%;
-	padding: 0 15px;
+	padding: 0 var(--tcgap);
 	margin: 0;
 }
 
@@ -73,15 +73,15 @@
 	-ms-flex-line-pack: start;
 	align-content: flex-start;
 
-	margin: 0 -15px;
+	margin: 0 calc(-1 * var(--tcgap));
 }
 
 .tm-extra-product-options .tc-cell,
 .tc-extra-product-options .tmcp-field-wrap label.tc-cell,
 .tc-cell {
 	position: relative;
-	padding: 0 15px;
-	margin-bottom: 15px;
+	padding: 0 var(--tcgap);
+	margin-bottom: var(--tcgap);
 	min-height: 1px;
 	overflow: visible;
 	width: 100%;
@@ -1853,7 +1853,10 @@
 	width: 100%;
 	list-style: none outside none !important;
 	position: relative;
-	-ms-flex-pack: flex-start;
+	-webkit-box-pack: start;
+	-moz-box-pack: start;
+	-ms-flex-pack: start;
+	-webkit-justify-content: flex-start;
 	justify-content: flex-start;
 	-webkit-box-align: start;
 	-moz-box-align: start;
@@ -1879,6 +1882,8 @@
 	flex-grow: 0;
 }
 
+.tc-extra-product-options .cpf-type-multiple_file_upload ul.tmcp-ul-wrap li.tmcp-field-wrap > label,
+.tc-extra-product-options .cpf-type-upload ul.tmcp-ul-wrap li.tmcp-field-wrap > label,
 .tc-extra-product-options .cpf-type-time .tmcp-field-wrap label.fullwidth,
 .tc-extra-product-options .cpf-type-date .tmcp-field-wrap label.fullwidth,
 .tc-extra-product-options .cpf-type-textfield .tmcp-field-wrap label.fullwidth,
@@ -1903,50 +1908,6 @@
 
 .tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap:last-child {
 	margin: 0;
-}
-
-.tm-extra-product-options ul.tmcp-elements.tc-text-container li.tmcp-field-wrap,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-text,
-.tm-extra-product-options ul.tmcp-elements.tc-color-container li.tmcp-field-wrap,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-color,
-.tm-extra-product-options ul.tmcp-elements.tc-images-container li.tmcp-field-wrap,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-images {
-	padding: 1em 0.25em 0;
-	text-align: center;
-}
-
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages {
-	text-align: initial;
-}
-
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .checkbox-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .checkbox-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .radio-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .radio-image {
-	width: var(--tcinlinesize) !important;
-	padding-top: var(--tcinlinesize) !important;
-}
-
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .checkbox-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .checkbox-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .radio-image,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .radio-image {
-	max-height: var(--tcinlinesize) !important;
-}
-
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tm-epo-field-label,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tm-epo-field-label,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tm-epo-field-label,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tm-epo-field-label {
-	width: auto;
-}
-
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tc-field-display,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tc-field-display,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tc-field-display,
-.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tc-field-display {
-	justify-content: flex-start;
 }
 
 .tc-totals-form {
@@ -1982,7 +1943,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-collapse {
 	border: 1px solid rgba(0, 0, 0, 0.035);
 	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.01) 50%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.01) 100%);
-	margin: 0 15px 1em 15px;
+	margin: 0 var(--tcgap) 1em var(--tcgap);
 	width: 100%;
 }
 
@@ -1992,7 +1953,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-extra-product-options .cpf-section.tc-cell.tm-owl-slider-section .tm-box .tc-row {
-	padding-bottom: 15px;
+	padding-bottom: var(--tcgap);
 }
 
 .tm-arrow {
@@ -2002,7 +1963,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	line-height: 1.5 !important;
 	margin-top: -0.75em;
 	position: absolute;
-	right: 15px;
+	right: var(--tcgap);
 	text-align: center;
 	top: 50%;
 	width: 1.5em;
@@ -2045,7 +2006,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin: 0;
 	position: relative;
 	width: 100%;
-	padding: 15px;
+	padding: var(--tcgap);
 	border: 0;
 	outline: 0;
 }
@@ -2195,7 +2156,7 @@ label.tm-epo-field-label {
 }
 
 .tm-extra-product-options .cpf-element hr.tc-cell {
-	margin: 1em 15px;
+	margin: 1em var(--tcgap);
 }
 
 .tm-extra-product-options .tm_divider {
@@ -2206,7 +2167,7 @@ label.tm-epo-field-label {
 }
 
 .tm-extra-product-options .cpf-element .tm_divider.tc-cell {
-	margin: 1em 15px;
+	margin: 1em var(--tcgap);
 }
 
 .tm-extra-product-options .tm_padding {
@@ -2214,8 +2175,8 @@ label.tm-epo-field-label {
 }
 
 .tm-extra-product-options .cpf-element .tm_padding.tc-cell {
-	margin-left: 15px;
-	margin-right: 15px;
+	margin-left: var(--tcgap);
+	margin-right: var(--tcgap);
 }
 
 /* Textarea element */
@@ -2367,7 +2328,7 @@ label.tm-epo-field-label {
 }
 
 .tm-range-picker.pips {
-	margin: 50px 15px;
+	margin: 50px var(--tcgap);
 }
 
 .tc-extra-product-options .tm-show-picker-left,
@@ -2702,8 +2663,8 @@ input.tm-show-picker-value-edit {
 }
 
 .tm-section-description {
-	padding: 15px;
-	margin: 0 -15px;
+	padding: var(--tcgap);
+	margin: 0 calc(-1 * var(--tcgap));
 }
 
 /* 4. Floatbox */
@@ -3967,6 +3928,7 @@ input.tm-show-picker-value-edit {
 }
 
 /* 9. Checkbox and Radio button */
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-radio,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-color,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-image,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-checkbox,
@@ -3980,7 +3942,10 @@ input.tm-show-picker-value-edit {
 	-ms-flex-wrap: wrap;
 	-webkit-flex-wrap: wrap;
 	flex-wrap: wrap;
-	-ms-flex-pack: flex-start !important;
+	-webkit-box-pack: start !important;
+	-moz-box-pack: start !important;
+	-ms-flex-pack: start !important;
+	-webkit-justify-content: flex-start !important;
 	justify-content: flex-start !important;
 	float: none;
 	max-width: none;
@@ -3989,6 +3954,9 @@ input.tm-show-picker-value-edit {
 	margin: 0 calc(-0.5 * var(--tcgap));
 }
 
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-radio li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-color li.tmcp-field-wrap,
+.tm-extra-product-options ul.tmcp-ul-wrap.tm-variation-ul-image li.tmcp-field-wrap,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-checkbox li.tmcp-field-wrap,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-element-ul-radio li.tmcp-field-wrap {
 	padding: calc(0.5 * var(--tcgap));
@@ -4038,13 +4006,13 @@ input.tm-show-picker-value-edit {
 
 .tm-extra-product-options .radio-image,
 .tm-extra-product-options .checkbox-image {
-	border: 2px solid transparent;
+	border: 0 solid transparent;
 	display: inline-block !important;
 	height: auto;
 	width: auto;
 	margin: auto;
 	max-width: 100%;
-	padding: 1px;
+	padding: 0;
 	pointer-events: none !important;
 	vertical-align: middle;
 }
@@ -4067,6 +4035,67 @@ input.tm-show-picker-value-edit {
 .tc-label.tm-label .radio-image-label:empty,
 .tc-label.tm-label .checkbox-image-label:empty {
 	margin-right: 0;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages {
+	text-align: initial;
+	-webkit-box-pack: start;
+	-moz-box-pack: start;
+	-ms-flex-pack: start;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .radio-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .radio-image {
+	width: var(--tcinlinesize) !important;
+	padding-top: var(--tcinlinesize) !important;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .checkbox-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .radio-image,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .radio-image {
+	max-height: var(--tcinlinesize) !important;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tm-epo-field-label,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tm-epo-field-label {
+	width: auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tc-field-display,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tc-field-display {
+	-webkit-box-pack: start;
+	-moz-box-pack: start;
+	-ms-flex-pack: start;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startcolor .tc-label-wrap,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endcolor .tc-label-wrap,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-startimages .tc-label-wrap,
+.tm-extra-product-options ul.tmcp-elements li.tmcp-field-wrap.tc-mode-endimages .tc-label-wrap {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
 }
 
 /* 10. Checkbox and Radio button custom styles */
@@ -4191,8 +4220,8 @@ input.tm-show-picker-value-edit {
 	padding: 0.5em 1em;
 }
 
-.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap.tc-mode-text label.tm-epo-field-label {
-	margin: 0 0 1em 0;
+.tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap.tc-mode-text span.tc-price-wrap {
+	margin: 0.5em 0;
 }
 
 .tm-extra-product-options ul.tmcp-ul-wrap li.tmcp-field-wrap .tc-epo-text-wrapper .tm-label {
@@ -4437,7 +4466,7 @@ li.tc-epo-element-product-holder {
 
 .tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tc-epo-element-product-li-container,
 .tm-extra-product-options .cpf-type-product-thumbnailmultiple ul.tmcp-ul-wrap.tm-element-ul-product > li.tc-epo-element-product-li-container {
-	padding: 1em 15px;
+	padding: 1em var(--tcgap);
 	max-width: 100%;
 	-ms-flex: 0 0 100%;
 	flex: 0 0 100%;
@@ -4491,8 +4520,8 @@ li.tc-epo-element-product-holder {
 }
 
 .tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap .tm-epo-reset-radio {
-	right: 15px;
-	top: 15px;
+	right: var(--tcgap);
+	top: var(--tcgap);
 }
 
 .tm-extra-product-options .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product > li.tmcp-field-wrap img.wp-post-image,
@@ -4690,6 +4719,7 @@ table.tc-epo-element-variations {
 	max-width: 70% !important;
 	height: auto !important;
 	width: auto !important;
+	display: block;
 }
 
 .woocommerce #content table.cart img.epo-upload-image,
@@ -4797,6 +4827,12 @@ td.product-name a.tm-cart-edit-options,
 	border-top: 0 none;
 }
 
+
+.woocommerce table.shop_table_responsive tr.tm-epo-cart-row td::before,
+.woocommerce-page table.shop_table_responsive tr.tm-epo-cart-row td::before {
+	display: none !important;
+}
+
 .tm-epo-cart-row-header .product-quantity,
 .tm-epo-cart-row-product .product-quantity,
 .tm-epo-cart-row .product-quantity {
@@ -4825,6 +4861,16 @@ td.product-name a.tm-cart-edit-options,
 
 .tc-associated-table-product-name {
 	font-weight: 700;
+}
+
+@media (max-width: 768px) {
+
+	.tc-epo-cart-row-total .product-remove,
+	.tc-epo-cart-row-total .product-thumbnail,
+	.tc-epo-cart-row-total .product-name,
+	.tc-epo-cart-row-total .product-price {
+		display: none !important;
+	}
 }
 
 /* 15. Various styles */
@@ -4945,103 +4991,6 @@ button.tmicon.delete:hover {
 }
 
 /* 16. Theme fixes */
-
-/* bazar theme fix */
-
-.tm-select-wrapper.select-wrapper {
-	background: #fff none repeat scroll 0 0;
-	border: 1px solid #dfdbdb;
-	margin-bottom: 9px;
-	overflow: hidden;
-	position: relative;
-}
-
-.tm-select-wrapper.select-wrapper,
-.bundled_product_summary .tm-select-wrapper .sbHolder {
-	background: #fff;
-	position: relative;
-	border: 1px solid #dfdbdb;
-	overflow: hidden;
-	margin-bottom: 9px;
-}
-
-.tm-select-wrapper .sbHolder {
-	overflow: visible;
-	padding-right: 28px;
-}
-
-.tm-select-wrapper.select-wrapper,
-.tm-select-wrapper .attribute-options {
-	overflow: visible;
-}
-
-.tm-select-wrapper.select-wrapper a.sbSelector,
-.tm-select-wrapper.select-wrapper select,
-.tm-select-wrapper .sbHolder a.sbSelector,
-.tm-select-wrapper .attribute-options select {
-	margin: 0;
-	font-size: 1em;
-}
-
-.tm-select-wrapper.select-wrapper select,
-.tm-select-wrapper .attribute-options select {
-	width: 120%;
-	background: none;
-	border: 0;
-}
-
-.tm-select-wrapper.select-wrapper .sbOptions,
-.tm-select-wrapper .sbHolder .sbOptions {
-	position: absolute;
-	left: -1px;
-	right: -1px;
-	top: 30px !important;
-	background: #fff;
-	list-style: none;
-	margin: 0;
-	padding: 8px 0 4px;
-	border: 1px solid #dfdbdb;
-	border-top: 0;
-	z-index: 100;
-	max-height: none !important;
-}
-
-.tm-select-wrapper.select-wrapper .sbOptions li {
-	margin-bottom: 0;
-}
-
-.tm-select-wrapper.select-wrapper .sbOptions li a,
-.tm-select-wrapper select option,
-.tm-select-wrapper.select-wrapper span.sbDisabled,
-.tm-select-wrapper .sbHolder .sbOptions li a,
-.tm-select-wrapper .sbHolder span.sbDisabled {
-	font-weight: 400;
-	color: #bcbbbb;
-	font-size: 14px;
-	display: block;
-	line-height: 24px;
-	padding: 0 8px;
-}
-
-.tm-select-wrapper.select-wrapper .sbOptions li a:hover,
-.tm-select-wrapper .sbHolder .sbOptions li a:hover {
-	background: #f4f4f4;
-}
-
-.tm-select-wrapper.select-wrapper .sbOptions li span.sbDisabled,
-.tm-select-wrapper .sbHolder .sbOptions li span.sbDisabled {
-	color: #ddd;
-}
-
-.tm-select-wrapper.select-wrapper .sbToggle,
-.tm-select-wrapper .sbHolder .sbToggle {
-	position: absolute;
-	right: 0;
-	top: 0;
-	height: 100%;
-	width: 29px;
-	background: url(./../../../themes/bazar/woocommerce/images/variations-dropdown-icon.png) left center no-repeat;
-}
 
 /* nielsen theme fix */
 

@@ -1984,8 +1984,14 @@
 				if ( typeof subscribe === 'function' ) {
 					sub = function() {
 						var isSavingPost;
-						var didPostSaveRequestSucceed = wp.data.select( 'core/editor' ).didPostSaveRequestSucceed();
-						var didPostSaveRequestFail = wp.data.select( 'core/editor' ).didPostSaveRequestFail();
+						var didPostSaveRequestSucceed;
+						var didPostSaveRequestFail;
+
+						if ( ! wp.data.select( 'core/editor' ) ) {
+							return;
+						}
+						didPostSaveRequestSucceed = wp.data.select( 'core/editor' ).didPostSaveRequestSucceed();
+						didPostSaveRequestFail = wp.data.select( 'core/editor' ).didPostSaveRequestFail();
 
 						if ( wp && wp.data && wp.data.select( 'core/editor' ) ) {
 							isSavingPost = wp.data.select( 'core/editor' ).isSavingPost();

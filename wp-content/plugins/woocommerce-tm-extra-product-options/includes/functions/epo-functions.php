@@ -187,7 +187,17 @@ if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 		$input = preg_replace( '/\s+/', '', $input );
 
 		// Remove locale from string.
-		$input = str_replace( $decimals, '.', $input );
+		foreach ( $decimals as $decimal ) {
+			if ( '.' !== $decimal && '' !== $decimal ) {
+				$input = preg_replace_callback(
+					'~if\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d*~',
+					function ( $m ) use ( $decimal ) {
+						return str_replace( $decimal, '.', $m[0] );
+					},
+					$input
+				);
+			}
+		}
 
 		// Trim invalid start/end characters.
 		$input = rtrim( ltrim( $input, "\t\n\r\0\x0B+*/" ), "\t\n\r\0\x0B+-*/" );

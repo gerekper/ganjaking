@@ -43,6 +43,9 @@ defined( 'ABSPATH' ) || exit;
 	if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 		$select_array['atts'] = array_merge( $select_array['atts'], $element_data_attr );
 	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$select_array['atts']['data-no-price'] = true;
+	}
 
 	$select_options = [];
 	if ( is_array( $options ) ) {

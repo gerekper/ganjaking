@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  6.12.0
+ * @version  6.16.0
  */
 class WC_PB_Install {
 
@@ -282,6 +282,9 @@ class WC_PB_Install {
 		self::maybe_prepare_db_for_upgrade();
 		self::create_tables();
 
+		// Create events.
+		self::create_events();
+
 		// if bundle type does not exist, create it.
 		if ( self::is_new_install() ) {
 			wp_insert_term( 'bundle', 'product_type' );
@@ -318,6 +321,17 @@ class WC_PB_Install {
 		$wpdb->hide_errors();
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( self::get_schema() );
+	}
+
+	/**
+	 * Schedule cron events.
+	 *
+	 * @since 6.16.0
+	 */
+	public static function create_events() {
+		if ( ! wp_next_scheduled( 'wc_pb_daily' ) ) {
+			wp_schedule_event( time() + 10, 'daily', 'wc_pb_daily' );
+		}
 	}
 
 	/**

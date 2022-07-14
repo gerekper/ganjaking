@@ -82,7 +82,7 @@ class THEMECOMPLETE_EPO_FIELDS_selectmultiple extends THEMECOMPLETE_EPO_FIELDS {
 			$selected = false;
 
 			if ( - 1 === $selected_value ) {
-				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) {
+				if ( ( THEMECOMPLETE_EPO()->is_quick_view() || ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ! isset( $this->post_data['quantity'] ) ) ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) && isset( $default_value ) ) {
 					if ( false !== $default_value ) {
 						$selected = true;
 					}

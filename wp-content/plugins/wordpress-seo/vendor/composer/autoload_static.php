@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566
+class ComposerStaticInit8e8b3ba8cda2b1469d0bee8a4cd207aa
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -868,6 +868,7 @@ class ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Backwards_Compatibility' => __DIR__ . '/../..' . '/src/integrations/front-end/backwards-compatibility.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Category_Term_Description' => __DIR__ . '/../..' . '/src/integrations/front-end/category-term-description.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Comment_Link_Fixer' => __DIR__ . '/../..' . '/src/integrations/front-end/comment-link-fixer.php',
+        'Yoast\\WP\\SEO\\Integrations\\Front_End\\Feed_Improvements' => __DIR__ . '/../..' . '/src/integrations/front-end/feed-improvements.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Force_Rewrite_Title' => __DIR__ . '/../..' . '/src/integrations/front-end/force-rewrite-title.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Handle_404' => __DIR__ . '/../..' . '/src/integrations/front-end/handle-404.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Indexing_Controls' => __DIR__ . '/../..' . '/src/integrations/front-end/indexing-controls.php',
@@ -1099,9 +1100,9 @@ class ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3f991ead80bed1d5dc3fc5b5044f3566::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8e8b3ba8cda2b1469d0bee8a4cd207aa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8e8b3ba8cda2b1469d0bee8a4cd207aa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8e8b3ba8cda2b1469d0bee8a4cd207aa::$classMap;
 
         }, null, ClassLoader::class);
     }

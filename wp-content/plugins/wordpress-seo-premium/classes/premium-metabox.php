@@ -114,14 +114,16 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return void
 	 */
 	public function send_data_to_assets() {
-		$analysis_seo = new WPSEO_Metabox_Analysis_SEO();
+		$analysis_seo     = new WPSEO_Metabox_Analysis_SEO();
+		$content_analysis = new WPSEO_Metabox_Analysis_Readability();
 
 		$data = [
-			'restApi'            => $this->get_rest_api_config(),
-			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
-			'licensedURL'        => WPSEO_Utils::get_home_url(),
-			'settingsPageUrl'    => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
-			'integrationsTabURL' => admin_url( 'admin.php?page=wpseo_dashboard#top#integrations' ),
+			'restApi'                => $this->get_rest_api_config(),
+			'seoAnalysisEnabled'     => $analysis_seo->is_enabled(),
+			'contentAnalysisEnabled' => $content_analysis->is_enabled(),
+			'licensedURL'            => WPSEO_Utils::get_home_url(),
+			'settingsPageUrl'        => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
+			'integrationsTabURL'     => admin_url( 'admin.php?page=wpseo_dashboard#top#integrations' ),
 		];
 
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {
@@ -145,27 +147,24 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return array The config.
 	 */
 	protected function get_post_metabox_config() {
-		$insights_enabled         = WPSEO_Options::get( 'enable_metabox_insights', false );
 		$link_suggestions_enabled = WPSEO_Options::get( 'enable_link_suggestions', false );
 
 		$post = $this->get_post();
 
-		$prominent_words_support = new WPSEO_Premium_Prominent_Words_Support();
-		if ( ! $prominent_words_support->is_post_type_supported( $post->post_type ) ) {
-			$insights_enabled = false;
-		}
+		$prominent_words_support      = new WPSEO_Premium_Prominent_Words_Support();
+		$is_prominent_words_available = $prominent_words_support->is_post_type_supported( $post->post_type );
 
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
 		return [
-			'insightsEnabled'             => ( $insights_enabled ) ? 'enabled' : 'disabled',
 			'currentObjectId'             => $this->get_post_ID(),
 			'currentObjectType'           => 'post',
 			'linkSuggestionsEnabled'      => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'    => $prominent_words_support->is_post_type_supported( $post->post_type ),
+			'linkSuggestionsAvailable'    => $is_prominent_words_available,
 			'linkSuggestionsUnindexed'    => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
 			'perIndexableLimit'           => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable'   => $is_prominent_words_available,
 		];
 	}
 
@@ -190,24 +189,21 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		}
 
 		$link_suggestions_enabled = WPSEO_Options::get( 'enable_link_suggestions', false );
-		$insights_enabled         = WPSEO_Options::get( 'enable_metabox_insights', false );
 
-		$prominent_words_support = new WPSEO_Premium_Prominent_Words_Support();
-		if ( ! $prominent_words_support->is_taxonomy_supported( $term->taxonomy ) ) {
-			$insights_enabled = false;
-		}
+		$prominent_words_support      = new WPSEO_Premium_Prominent_Words_Support();
+		$is_prominent_words_available = $prominent_words_support->is_taxonomy_supported( $term->taxonomy );
 
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
 		return [
-			'insightsEnabled'             => ( $insights_enabled ) ? 'enabled' : 'disabled',
 			'currentObjectId'             => $term->term_id,
 			'currentObjectType'           => 'term',
 			'linkSuggestionsEnabled'      => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'    => $prominent_words_support->is_taxonomy_supported( $term->taxonomy ),
+			'linkSuggestionsAvailable'    => $is_prominent_words_available,
 			'linkSuggestionsUnindexed'    => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
 			'perIndexableLimit'           => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable'   => $is_prominent_words_available,
 		];
 	}
 

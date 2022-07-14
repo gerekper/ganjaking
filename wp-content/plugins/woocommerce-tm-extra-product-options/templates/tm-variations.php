@@ -156,13 +156,15 @@ if (
 					$selected_value = '';
 				}
 
-				if ( isset( $_REQUEST['asscociated_name'] ) && isset( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					$asscociated_name      = wp_unslash( $_REQUEST['asscociated_name'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					$asscociated_cart_data = wp_unslash( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					$selected_value        =
-							isset( $asscociated_cart_data ) && isset( $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ] )
-								? $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ]
-								: $selected_value;
+				if ( isset( $_REQUEST['asscociated_name'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$asscociated_name = wp_unslash( $_REQUEST['asscociated_name'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					if ( isset( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						$asscociated_cart_data = wp_unslash( $_REQUEST[ 'asscociated_cart_data_' . $asscociated_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+						$selected_value        =
+								isset( $asscociated_cart_data ) && isset( $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ] )
+									? $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ]
+									: $selected_value;
+					}
 				}
 
 				$taxonomy_name = rawurldecode( sanitize_title( $name ) );

@@ -1,0 +1,13 @@
+Version 1.2 ( 15 June 2016)
+============================
+ - Enhancement : Added Tags Filter in Members Directory (Use tags_filter=1 parameter in the Members Directory shortcode)
+
+Version 1.1 ( 31 May 2016)
+============================
+ - Enhancement : Administrators can now limit the number of tags allowed for the users
+ 
+Version 1.0 ( 21 Feb 2016)
+============================
+ - Initial verision of Tags addon for userpro
+
+

@@ -64,7 +64,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILD
 
 		THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
 		THEMECOMPLETE_EPO_WPML()->remove_term_filters();
-		$templates = get_posts( $args );
+		$templates = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 		THEMECOMPLETE_EPO_WPML()->restore_term_filters();
 		THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
 

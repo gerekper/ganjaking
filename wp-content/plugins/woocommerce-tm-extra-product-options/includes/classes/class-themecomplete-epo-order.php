@@ -591,13 +591,19 @@ class THEMECOMPLETE_EPO_Order {
 							THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $epo['color'] ) ) . '{background-color:' . esc_attr( sanitize_hex_color( $epo['color'] ) ) . ';}' );
 						}
 
-						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
-							$check = wp_check_filetype( $epo['value'] );
+						if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_order && 'yes' === THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'] ) {
+							add_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
+							$check = wp_check_filetype( $original_value );
+							remove_filter( 'upload_mimes', [ THEMECOMPLETE_EPO(), 'upload_mimes_trick' ] );
 							if ( ! empty( $check['ext'] ) ) {
 								$image_exts = [ 'jpg', 'jpeg', 'jpe', 'gif', 'png' ];
 								if ( in_array( $check['ext'], $image_exts, true ) ) {
-									$display_value = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $original_value ) . '" /><span class="cpf-data-on-cart"><a download href="' . esc_url( $original_value ) . '">' . $epo['value'] . '</a></span></span>';
-									$epo['value']  = $display_value;
+									$display_value  = '<span class="cpf-img-on-order">';
+									$display_value .= '<img alt="' . esc_attr( wp_strip_all_tags( $epo['name'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' . apply_filters( 'tm_image_url', $original_value ) . '" />';
+									$avalue         = $epo['value'];
+									$display_value .= '<span class="cpf-data-on-order"><a download href="' . esc_url( $original_value ) . '">' . $avalue . '</a></span>';
+									$display_value .= '</span>';
+									$epo['value']   = $display_value;
 								}
 							}
 						}

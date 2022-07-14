@@ -52,39 +52,37 @@ class __TwigTemplate_fb71bf89a426c5b5b4c882632d479b3cffbaded39146d864b8aea902ce9
     {
         $macros = $this->macros;
         // line 4
-        echo "<div class=\"block-editor\">
-  <div id=\"mailpoet_automation_editor\" class=\"block-editor__container\"></div>
-</div>
+        echo "<div id=\"mailpoet_automation_editor\" class=\"edit-site\"></div>
 ";
     }
 
-    // line 9
+    // line 7
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 10
+        // line 8
         echo "<script type=\"text/javascript\">
   var mailpoet_automation_api = ";
-        // line 11
+        // line 9
         echo json_encode(($context["api"] ?? null));
         echo ";
   var mailpoet_automation_workflow = ";
-        // line 12
+        // line 10
         echo ((($context["workflow"] ?? null)) ? (json_encode(($context["workflow"] ?? null))) : ("undefined"));
         echo ";
 </script>
 ";
-        // line 14
+        // line 12
         echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("automation_editor.js");
         echo "
 ";
     }
 
-    // line 17
+    // line 15
     public function block_after_css($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 18
+        // line 16
         echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-automation-editor.css");
         echo "
 ";
@@ -102,7 +100,7 @@ class __TwigTemplate_fb71bf89a426c5b5b4c882632d479b3cffbaded39146d864b8aea902ce9
 
     public function getDebugInfo()
     {
-        return array (  85 => 18,  81 => 17,  75 => 14,  70 => 12,  66 => 11,  63 => 10,  59 => 9,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  83 => 16,  79 => 15,  73 => 12,  68 => 10,  64 => 9,  61 => 8,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

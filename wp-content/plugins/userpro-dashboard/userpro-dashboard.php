@@ -36,10 +36,6 @@ class UPDB{
 			$this->enqueue_scripts_styles();
 			add_action('admin_enqueue_scripts',array($this,'enqueue_admin_scripts_styles'));
 		}
-		else{
-			add_action('admin_notices',array($this , 'UPDB_activation_notices'));
-			return 0;
-		}
 	}
 
 	function updb_load_language(){
@@ -50,11 +46,6 @@ class UPDB{
 		define( 'UPDB_URL', plugin_dir_url(__FILE__ ) );
 		define( 'UPDB_PATH', plugin_dir_path(__FILE__ ) );
 
-	}
-
-	function UPDB_activation_notices(){
-		echo '<div class="error" role="alert"><p>Attention: UserPro Dashboard requires UserPro to be installed and activated.</p></div>';
-		return 0;
 	}
 
 	function include_files(){

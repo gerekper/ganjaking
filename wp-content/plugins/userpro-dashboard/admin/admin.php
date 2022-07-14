@@ -133,7 +133,7 @@ if ( ! class_exists( 'UPDBAdmin' ) ) :
 				$values['userpro_dashboard_code'] = $code;
 				update_option('userpro_db', $values);
 
-				if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '15375277') ){
+				if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '5958681') ){
 					$userpro->validate_license($code);
 					echo '<div class="updated fade"><p><strong>'.__('Thanks for activating UserPro Dashboard!','userpro-dashboard').'</strong></p></div>';
 				} else {

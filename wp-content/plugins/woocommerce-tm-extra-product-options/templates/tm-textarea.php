@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <li class="tmcp-field-wrap">
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
-	<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>"" for="<?php echo esc_attr( $id ); ?>">
+	<label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
 	<?php
 	$input_args = [
 		'nodiv'   => 1,
@@ -50,6 +50,9 @@ defined( 'ABSPATH' ) || exit;
 	}
 	if ( ! empty( $tax_obj ) ) {
 		$input_args['tags']['data-tax-obj'] = $tax_obj;
+	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$input_args['tags']['data-no-price'] = true;
 	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 	?>

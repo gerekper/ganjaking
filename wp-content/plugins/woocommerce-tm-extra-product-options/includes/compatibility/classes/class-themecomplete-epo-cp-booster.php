@@ -67,7 +67,7 @@ final class THEMECOMPLETE_EPO_CP_Booster {
 			add_filter( 'wc_epo_add_cart_item_original_price', [ $this, 'wc_epo_add_cart_item_original_price' ], PHP_INT_MAX, 2 );
 			add_filter( 'woocommerce_get_cart_item_from_session', [ $this, 'get_cart_item_addons_price_from_session' ], PHP_INT_MAX, 3 );
 			// Prices.
-			if ( define( 'WCJ_PRODUCT_GET_PRICE_FILTER' ) ) {
+			if ( defined( 'WCJ_PRODUCT_GET_PRICE_FILTER' ) ) {
 				add_filter( WCJ_PRODUCT_GET_PRICE_FILTER, [ $this, 'change_price' ], PHP_INT_MAX, 2 );
 			}
 			add_filter( 'woocommerce_product_variation_get_price', [ $this, 'change_price' ], PHP_INT_MAX, 2 );
@@ -104,7 +104,7 @@ final class THEMECOMPLETE_EPO_CP_Booster {
 	 * Alter the product price
 	 *
 	 * @param float  $price The product price.
-	 * @param Object $product The product object.
+	 * @param object $product The product object.
 	 */
 	public function change_price( $price, $product ) {
 		if ( $product->get_meta( 'epo_price', true ) !== '' ) {

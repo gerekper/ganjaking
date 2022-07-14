@@ -348,7 +348,7 @@ class THEMECOMPLETE_EPO_Scripts {
 	 * Format array for the datepicker
 	 *
 	 * WordPress stores the locale information in an array with a alphanumeric index, and
-	 * the datepicker wants a numerical index. This function replaces the index with a number
+	 * the datepicker wants a numerical index. This function replaces the index with a number.
 	 *
 	 * @param array $array_to_strip The array to strip indices from.
 	 */
@@ -505,6 +505,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'i18n_extra_fee'                              => esc_html__( 'Extra fee', 'woocommerce-tm-extra-product-options' ),
 			'i18n_unit_price'                             => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_options_unit_price_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_options_unit_price_text ) : esc_html__( 'Unit price', 'woocommerce-tm-extra-product-options' ),
 			'i18n_options_total'                          => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_options_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_options_total_text ) : esc_html__( 'Options amount', 'woocommerce-tm-extra-product-options' ),
+			'i18n_vat_options_total'                      => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_vat_options_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_vat_options_total_text ) : esc_html__( 'Options VAT amount', 'woocommerce-tm-extra-product-options' ),
 			'i18n_fees_total'                             => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_fees_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_fees_total_text ) : esc_html__( 'Fees amount', 'woocommerce-tm-extra-product-options' ),
 			'i18n_final_total'                            => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_final_total_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_final_total_text ) : esc_html__( 'Final total', 'woocommerce-tm-extra-product-options' ),
 			'i18n_prev_text'                              => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_slider_prev_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_slider_prev_text ) : esc_html__( 'Prev', 'woocommerce-tm-extra-product-options' ),
@@ -593,8 +594,8 @@ class THEMECOMPLETE_EPO_Scripts {
 			'isRTL'                                       => 'rtl' === $wp_locale->text_direction,
 			'text_direction'                              => $wp_locale->text_direction,
 			'is_rtl'                                      => is_rtl(),
-			'closeText'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_closeText ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_closeText ) : esc_html__( 'Done', 'woocommerce-tm-extra-product-options' ),
-			'currentText'                                 => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_currentText ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_currentText ) : esc_html__( 'Today', 'woocommerce-tm-extra-product-options' ),
+			'closeText'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_closetext ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_closetext ) : esc_html__( 'Done', 'woocommerce-tm-extra-product-options' ),
+			'currentText'                                 => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_currenttext ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_currenttext ) : esc_html__( 'Today', 'woocommerce-tm-extra-product-options' ),
 
 			'hourText'                                    => esc_html__( 'Hour', 'woocommerce-tm-extra-product-options' ),
 			'minuteText'                                  => esc_html__( 'Minute', 'woocommerce-tm-extra-product-options' ),
@@ -610,6 +611,8 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_fees_on_unit_price'                   => THEMECOMPLETE_EPO()->tm_epo_fees_on_unit_price,
 			'tm_epo_total_price_as_unit_price'            => THEMECOMPLETE_EPO()->tm_epo_total_price_as_unit_price,
 			'tm_epo_enable_final_total_box_all'           => THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all,
+			'tm_epo_enable_original_final_total'          => THEMECOMPLETE_EPO()->tm_epo_enable_original_final_total,
+			'tm_epo_enable_vat_options_total'             => THEMECOMPLETE_EPO()->tm_epo_enable_vat_options_total,
 			'tm_epo_change_original_price'                => THEMECOMPLETE_EPO()->tm_epo_change_original_price,
 			'tm_epo_change_variation_price'               => THEMECOMPLETE_EPO()->tm_epo_change_variation_price,
 			'tm_epo_enable_in_shop'                       => THEMECOMPLETE_EPO()->tm_epo_enable_in_shop,

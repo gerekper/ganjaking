@@ -15,6 +15,27 @@
 	}
 
 	var
+		CopyURL = {
+			copyURL: function( event ) {
+				var $target = $( event.target );
+
+				event.preventDefault();
+
+				wcClearClipboard();
+				wcSetClipboard( $target.attr( 'href' ), $target );
+			},
+
+			copyURLTip: function( event ) {
+				$( event.target ).tipTip({
+					'attribute':  'data-tip',
+					'activation': 'focus',
+					'fadeIn':     50,
+					'fadeOut':    50,
+					'delay':      0
+				}).trigger( 'focus' );
+			}
+		},
+
 		ModelAjaxSync = Backbone.Model.extend({
 			url: ajaxurl,
 
@@ -42,6 +63,7 @@
 				return {
 					id: 0,
 					name: '',
+					url: '',
 					xmlFile: {},
 					csvFile: {}
 				};
@@ -98,34 +120,15 @@
 
 		CatalogView = Backbone.View.extend({
 			events: {
-				'click .wc-instagram-product-catalog-copy': 'copyLink',
-				'aftercopy .wc-instagram-product-catalog-copy': 'copyLinkTip',
+				'click .wc-instagram-product-catalog-copy': 'copyURL',
+				'aftercopy .wc-instagram-product-catalog-copy': 'copyURLTip',
 				'click .wc-instagram-product-catalog-delete': 'delete',
-				'click .wc-instagram-product-catalog-download-xml': 'exportXML',
-				'click .wc-instagram-product-catalog-download-csv': 'exportCSV'
+				'click .wc-instagram-product-catalog-feed-xml': 'feedModal',
+				'click .wc-instagram-product-catalog-feed-csv': 'feedModal'
 			},
 
 			initialize: function() {
 				this.listenTo( this.model, 'destroy', this.remove );
-			},
-
-			copyLink: function( event ) {
-				var $target = $( event.target );
-
-				event.preventDefault();
-
-				wcClearClipboard();
-				wcSetClipboard( $target.attr( 'href' ), $target );
-			},
-
-			copyLinkTip: function( event ) {
-				$( event.target ).tipTip({
-					'attribute':  'data-tip',
-					'activation': 'focus',
-					'fadeIn':     50,
-					'fadeOut':    50,
-					'delay':      0
-				}).trigger( 'focus' );
 			},
 
 			delete: function( event ) {
@@ -138,72 +141,72 @@
 				this.model.delete( { wait: true } );
 			},
 
-			exportXML: function( event ) {
+			feedModal: function( event ) {
 				event.preventDefault();
 
-				new CatalogExportModalView({
+				new CatalogFeedModalView({
 					model: this.model,
-					format: 'xml'
-				});
-			},
-
-			exportCSV: function( event ) {
-				event.preventDefault();
-
-				new CatalogExportModalView({
-					model: this.model,
-					format: 'csv'
+					format: $( event.target ).text().toLowerCase()
 				});
 			}
 		}),
 
-		CatalogExportModalView = $.WCBackboneModal.View.extend({
+		CatalogFeedModalView = $.WCBackboneModal.View.extend({
+			refreshTimeout: false,
+
 			events: function() {
 				return _.extend( {}, $.WCBackboneModal.View.prototype.events, {
-					'click .request-update': 'requestUpdate'
+					'click .request-update': 'requestUpdate',
+					'click .cancel-update': 'cancelUpdate',
+					'click .copy-url': 'copyURL',
+					'aftercopy .copy-url': 'copyURLTip',
 				});
 			},
 
 			initialize: function( data ) {
-				var that = this;
+				var that = this, file;
 
 				this.format = data.format;
 
+				file = this.getFile();
+
 				$.WCBackboneModal.View.prototype.initialize.apply( this, [{
-					target: 'wc-instagram-product-catalog-download',
+					target: 'wc-instagram-product-catalog-feed',
 					string : {
-						format: this.format.toUpperCase(),
+						format: this.format,
+						action: this.getActionForFile( file ),
 						catalog: this.model.toJSON(),
-						file: this.getFile()
+						file: file
 					}
 				}]);
 
 				this.listenTo( this.model, 'change:' + this.format + 'File', function() {
 					that._string.file = that.model.getFile( that.format );
+
+					// Refresh every 5 seconds when processing the file or canceling the process.
+					if ( that._string.file.status ) {
+						that.refreshTimeout = setTimeout( function() {
+							that.fetchFile()
+						}, 5000 );
+					} else {
+						that.setAction( that.getActionForFile( that._string.file ) );
+					}
+
 					that.render();
 				});
 			},
 
 			render: function() {
-				var that = this;
-
 				this.$el.empty();
 
 				$.WCBackboneModal.View.prototype.render.apply( this );
-
-				// Processing file, refresh every 5 seconds.
-				if ( this._string.file.status ) {
-					setTimeout( function() {
-						that.fetchFile()
-					}, 5000 );
-				}
 			},
 
 			getFile: function() {
 				var file = this.model.getFile( this.format );
 
 				if ( _.isEmpty( file ) ) {
-					this.model.fileAction( 'fetch', this.format );
+					this.fetchFile();
 				}
 
 				return file;
@@ -213,11 +216,37 @@
 				this.model.fileAction( 'fetch', this.format );
 			},
 
+			getActionForFile: function( file ) {
+				if ( _.isEmpty( file ) ) {
+					return 'loading';
+				}
+
+				return ( file.lastModified ? 'viewing' : 'creating' );
+			},
+
+			setAction: function( action ) {
+				this._string.action = action;
+			},
+
+			doAction: function( action ) {
+				clearTimeout( this.refreshTimeout );
+
+				this.setAction( action );
+				this.render();
+			},
+
 			requestUpdate: function( event ) {
 				event.preventDefault();
 
-				this.model.setFile( this.format, { status: 'requested' } );
+				this.doAction( 'updating' );
 				this.model.fileAction( 'generate', this.format );
+			},
+
+			cancelUpdate: function( event ) {
+				event.preventDefault();
+
+				this.doAction( 'canceling' );
+				this.model.fileAction( 'cancel', this.format );
 			}
 		}),
 
@@ -247,10 +276,14 @@
 
 				return new Catalog({
 					id: urlParams.get( 'catalog_id' ),
-					name: $title.text()
+					name: $title.text(),
+					url: $( html ).find( '.wc-instagram-product-catalog-copy' ).prop( 'href' )
 				});
 			}
 		});
+
+	_.defaults( CatalogView.prototype, CopyURL );
+	_.defaults( CatalogFeedModalView.prototype, CopyURL );
 
 	$( function() {
 		new CatalogsView( {

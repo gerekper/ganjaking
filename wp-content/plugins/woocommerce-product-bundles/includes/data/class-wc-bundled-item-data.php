@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  6.15.4
+ * @version  6.16.0
  */
 
 class WC_Bundled_Item_Data {
@@ -85,7 +85,7 @@ class WC_Bundled_Item_Data {
 		'description'                           => 'strval',
 		'optional'                              => 'yes_or_no',
 		'hide_thumbnail'                        => 'yes_or_no',
-		'discount'                              => 'double_if_not_empty',
+		'discount'                              => 'format_decimal_if_not_empty',
 		'override_variations'                   => 'yes_or_no',
 		'override_default_variation_attributes' => 'yes_or_no',
 		'allowed_variations'                    => 'maybe_unserialize',
@@ -617,8 +617,8 @@ class WC_Bundled_Item_Data {
 				$meta_value = 'hidden' === $meta_value ? 'hidden' : 'visible';
 			} elseif ( 'absint_if_not_empty' === $fn ) {
 				$meta_value = '' !== $meta_value ? absint( $meta_value ) : '';
-			} elseif ( 'double_if_not_empty' === $fn ) {
-				$meta_value = '' !== $meta_value  ? doubleval( $meta_value ) : '';
+			} elseif ( 'format_decimal_if_not_empty' === $fn ) {
+				$meta_value = '' !== $meta_value ? wc_format_decimal( $meta_value ) : '';
 			} elseif ( function_exists( $fn ) ) {
 				$meta_value = $fn( $meta_value );
 			}

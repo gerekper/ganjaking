@@ -629,7 +629,7 @@ function rocket_delete_licence_data_file() {
  * Is WP a MultiSite and a subfolder install?
  *
  * @since  3.1.1
- * @author GrÃ©gory Viguier
+ * @author Grégory Viguier
  *
  * @return bool
  */
@@ -657,7 +657,7 @@ function rocket_is_subfolder_install() {
  * It can be seen like the `RewriteBase` from the .htaccess file, but without the trailing slash.
  *
  * @since  3.1.1
- * @author GrÃ©gory Viguier
+ * @author Grégory Viguier
  *
  * @return string
  */
@@ -684,7 +684,7 @@ function rocket_get_home_dirname() {
  * Get the URL of the site's root. It corresponds to the main site's home page URL.
  *
  * @since  3.1.1
- * @author GrÃ©gory Viguier
+ * @author Grégory Viguier
  *
  * @return string
  */

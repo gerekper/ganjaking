@@ -8,16 +8,24 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 $attribute_keys = array_keys( $attributes );
 
-if ( count( $attributes ) > 0 ) : ?>
+if ( count( $attributes ) > 0 ) :
+
+	$this_name = $name;
+	if ( isset( $layout_mode ) ) {
+		if ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) {
+			$this_name = $name . '_' . $option['_default_value_counter'];
+		}
+	}
+
+	?>
 	<div class="tc-epo-element-variable-product">
 		<table class="tc-epo-element-variations" cellspacing="0">
 			<tbody>
 			<?php
 			foreach ( $attributes as $attribute_name => $attribute_options ) :
-				$uniqid = uniqid( sanitize_title( $name . '_' . $attribute_name ) . '_' );
+				$uniqid = uniqid( sanitize_title( $this_name . '_' . $attribute_name ) . '_' );
 				?>
 				<tr class="tc-epo-element-variable-product-attribute">
 					<td class="label">
@@ -26,14 +34,14 @@ if ( count( $attributes ) > 0 ) : ?>
 					<td class="value">
 						<?php
 
-						$_REQUEST['asscociated_name']                 = $name;
-						$_REQUEST[ 'asscociated_cart_data_' . $name ] = isset( $cart_data ) ? $cart_data : [];
+						$_REQUEST['asscociated_name']                      = $this_name;
+						$_REQUEST[ 'asscociated_cart_data_' . $this_name ] = isset( $cart_data ) ? $cart_data : [];
 
 						$attribute_selected =
-							isset( $cart_data ) && isset( $cart_data[ $name . '_attribute_' . sanitize_title( $attribute_name ) ] )
-								? $cart_data[ $name . '_attribute_' . sanitize_title( $attribute_name ) ]
-								: ( isset( $_REQUEST[ $name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-								? wp_unslash( $_REQUEST[ $name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+							isset( $cart_data ) && isset( $cart_data[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] )
+								? $cart_data[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ]
+								: ( isset( $_REQUEST[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+								? wp_unslash( $_REQUEST[ $this_name . '_attribute_' . sanitize_title( $attribute_name ) ] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 								: false );
 						wc_dropdown_variation_attribute_options(
 							[
@@ -42,7 +50,7 @@ if ( count( $attributes ) > 0 ) : ?>
 								'attribute' => $attribute_name,
 								'product'   => $current_product,
 								'selected'  => $attribute_selected,
-								'name'      => $name . '_attribute_' . sanitize_title( $attribute_name ),
+								'name'      => $this_name . '_attribute_' . sanitize_title( $attribute_name ),
 								'id'        => $uniqid,
 							]
 						);

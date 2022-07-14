@@ -1,0 +1,18 @@
+/* Error: Undefined variable.
+ *    ,
+ * 29 |   color: $color-wordpress-grey-dark;
+ *    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   assets/css/src/components-automation-editor/_step.scss 29:10  @import
+ *   assets/css/src/mailpoet-automation-editor.scss 8:9            root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 29 \2502    color: $color-wordpress-grey-dark;\a    \2502           ^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   assets/css/src/components-automation-editor/_step.scss 29:10  @import\a   assets/css/src/mailpoet-automation-editor.scss 8:9            root stylesheet";
+}

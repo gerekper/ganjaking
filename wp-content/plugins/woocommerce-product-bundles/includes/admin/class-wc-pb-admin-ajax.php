@@ -15,12 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  6.12.3
+ * @version  6.16.0
  */
 class WC_PB_Admin_Ajax {
 
 	/**
 	 * Used by 'ajax_search_bundled_variations'.
+	 *
 	 * @var int
 	 */
 	private static $searching_variations_of;
@@ -217,18 +218,28 @@ class WC_PB_Admin_Ajax {
 
 		check_ajax_referer( 'wc_bundles_add_bundled_product', 'security' );
 
-		$loop               = isset( $_POST[ 'id' ] ) ? intval( $_POST[ 'id' ] ) : 0;
-		$post_id            = isset( $_POST[ 'post_id' ] ) ? intval( $_POST[ 'post_id' ] ) : 0;
-		$product_id         = isset( $_POST[ 'product_id' ] ) ? intval( $_POST[ 'product_id' ] ) : 0;
-		$item_id            = false;
-		$toggle             = 'open';
-		$tabs               = WC_PB_Meta_Box_Product_Data::get_bundled_product_tabs();
-		$product            = wc_get_product( $product_id );
-		$title              = $product->get_title();
-		$sku                = $product->get_sku();
-		$stock_status       = 'in_stock';
-		$item_data          = array();
-		$response           = array(
+		$loop         = isset( $_POST[ 'id' ] ) ? intval( $_POST[ 'id' ] ) : 0;
+		$post_id      = isset( $_POST[ 'post_id' ] ) ? intval( $_POST[ 'post_id' ] ) : 0;
+		$product_id   = isset( $_POST[ 'product_id' ] ) ? intval( $_POST[ 'product_id' ] ) : 0;
+		$item_id      = false;
+		$toggle       = 'open';
+		$tabs         = WC_PB_Meta_Box_Product_Data::get_bundled_product_tabs();
+		$product      = wc_get_product( $product_id );
+		$title        = $product->get_title();
+		$sku          = $product->get_sku();
+		$stock_status = 'in_stock';
+
+		/**
+		 * 'woocommerce_add_bundled_product_item_data' filter.
+		 *
+		 * Use this filter to modify the bundled item data when the product is first added.
+		 *
+		 * @param  $item_data   array
+		 * @param  $context     string
+		 * @param  $product_id  int
+		 */
+		$item_data = apply_filters( 'woocommerce_add_bundled_product_item_data', array(), 'create', $product_id );
+		$response  = array(
 			'markup'  => '',
 			'message' => ''
 		);

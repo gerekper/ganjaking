@@ -47,6 +47,7 @@ class WC_Instagram_Data_Store_Product_Catalog_CPT extends WC_Instagram_Data_Stor
 		'include_currency'            => 'include_currency',
 		'description_field'           => 'description_field',
 		'variation_description_field' => 'variation_description_field',
+		'default_description'         => 'default_description',
 		'include_tax'                 => 'include_tax',
 		'tax_location'                => 'tax_location',
 		'include_stock'               => 'include_stock',

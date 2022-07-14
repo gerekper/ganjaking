@@ -99,6 +99,7 @@ class Renderer {
       $content = $this->addMailpoetLogoContentBlock($content, $styles);
     }
 
+    $metaRobots = $preview ? '<meta name="robots" content="noindex, nofollow" />' : '';
     $content = $this->preprocessor->process($newsletter, $content, $preview, $sendingTask);
     $renderedBody = $this->renderBody($newsletter, $content);
     $renderedStyles = $this->renderStyles($styles);
@@ -107,6 +108,7 @@ class Renderer {
     $template = $this->injectContentIntoTemplate(
       (string)file_get_contents(dirname(__FILE__) . '/' . self::NEWSLETTER_TEMPLATE),
       [
+        $metaRobots,
         htmlspecialchars($subject ?: $newsletter->getSubject()),
         $renderedStyles,
         $customFontsLinks,

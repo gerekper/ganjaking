@@ -12,8 +12,27 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Extra Product Options Math class
  *
- * Supports basic math and built-in functions only (NO eval function).
- * Based on EvalMath by Miles Kaufman Copyright (C) 2005 Miles Kaufmann http://www.twmagic.com/
+ * Based on MathExecutor by Alexander Kiryukhin
+ * https://github.com/neonxp/MathExecutor
+ * Copyright (c) Alexander Kiryukhin
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is furnished
+ * to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
  * @package Extra Product Options/Classes
  * @version 6.0
@@ -21,444 +40,1645 @@ defined( 'ABSPATH' ) || exit;
 class THEMECOMPLETE_EPO_MATH {
 
 	/**
-	 * Pattern used for a valid function or variable name. Note, var and func names are case insensitive.
+	 * Available variables
 	 *
-	 * @var string
+	 * @var array<string, float|string>
 	 */
-	private static $namepat = '[a-z][a-z0-9_]*';
+	protected $variables = [];
 
 	/**
-	 * Last error.
+	 * Variable not found handler.
 	 *
-	 * @var string
+	 * @var callable|null
 	 */
-	public static $last_error = null;
+	protected $on_var_not_found = null;
 
 	/**
-	 * Variables (and constants).
+	 * Validation method that will be invoked when a variable is set using set_var.
 	 *
-	 * @var array
+	 * @var callable|null
 	 */
-	public static $v = [
-		'e'  => 2.71,
-		'pi' => 3.14,
-	];
+	protected $on_var_validation = null;
 
 	/**
-	 * User-defined functions.
+	 * Operators array (default and custom)
+	 * Operators + - * / %
+	 * Logical operators ==, !=, <, <, >=, <=, &&, ||
 	 *
-	 * @var array
+	 * @var THEMECOMPLETE_EPO_MATH_Operator[]
 	 */
-	public static $f = [
-		'int' => [
-			'args' => [ 'a' ],
-			'func' => [
-				'a',
-				[
-					'fn'       => 'floor(',
-					'fnn'      => 'floor',
-					'argcount' => 1,
-				],
-			],
-		],
-	];
+	protected $operators = [];
 
 	/**
-	 * Constants.
+	 * Array of custom functions.
 	 *
-	 * @var array
+	 * @var array<string, THEMECOMPLETE_EPO_MATH_CustomFunction>
 	 */
-	public static $vb = [ 'e', 'pi' ];
+	protected $functions = [];
 
 	/**
-	 * Built-in functions.
+	 * Token cache.
 	 *
-	 * @var array
+	 * @var array<string, THEMECOMPLETE_EPO_MATH_Token[]>
 	 */
-	public static $fb = [
-		'sin',
-		'cos',
-		'tan',
-		'asin',
-		'acos',
-		'atan',
-		'sinh',
-		'cosh',
-		'tanh',
-		'asinh',
-		'acosh',
-		'atanh',
-		'ln',
-		'log',
-		'round',
-		'ceil',
-		'floor',
-		'abs',
-		'exp',
-		'sqrt',
-	];
+	protected $cache = [];
 
 	/**
-	 * Evaluate maths string.
-	 *
-	 * @param string $expr The expression to evaluate.
-	 *
-	 * @return mixed
+	 * Class constructor.
 	 */
-	public static function evaluate( $expr ) {
-		self::$last_error = null;
-		$expr             = trim( $expr );
-		if ( ';' === substr( $expr, - 1, 1 ) ) {
-			$expr = substr( $expr, 0, strlen( $expr ) - 1 ); // strip semicolons at the end.
-		}
-		// ===============
-		// is it a variable assignment?
-		if ( preg_match( '/^\s*(' . self::$namepat . ')\s*=\s*(.+)$/', $expr, $matches ) ) {
-			// make sure we're not assigning to a constant.
-			if ( in_array( $matches[1], self::$vb ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-				return self::trigger( "cannot assign to constant '$matches[1]'" );
+	public function __construct() {
+		$this->add_defaults();
+	}
+
+	/**
+	 * When the object is cloned, set default operands and functions.
+	 */
+	public function __clone() {
+		$this->add_defaults();
+	}
+
+	/**
+	 * Add an operator.
+	 *
+	 * @param THEMECOMPLETE_EPO_MATH_Operator $operator Operator to add.
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function add_operator( THEMECOMPLETE_EPO_MATH_Operator $operator ) : self {
+		$this->operators[ $operator->operator ] = $operator;
+
+		return $this;
+	}
+
+	/**
+	 * Evaluate an expression.
+	 *
+	 * @param string $expression The expression to execute.
+	 * @param bool   $cache IF the result should be cached.
+	 *
+	 * @return int|float|string|null
+	 */
+	public static function evaluate( string $expression, bool $cache = true ) {
+		$self = new self();
+		$self->use_bcmath( 100 );
+		$self->set_division_by_zero_to_zero();
+		$result = $self->execute( $expression, $cache );
+		unset( $self );
+		return $result;
+	}
+
+	/**
+	 * Execute the expression.
+	 *
+	 * @param string $expression The expression to execute.
+	 * @param bool   $cache IF the result should be cached.
+	 *
+	 * @return int|float|string|null
+	 */
+	public function execute( string $expression, bool $cache = true ) {
+		$cache_key = $expression;
+
+		if ( ! array_key_exists( $cache_key, $this->cache ) ) {
+			$tokens = ( new THEMECOMPLETE_EPO_MATH_Tokenizer( $expression, $this->operators ) )->tokenize()->build_reverse_polish_notation();
+
+			if ( $cache ) {
+				$this->cache[ $cache_key ] = $tokens;
 			}
-			$tmp = self::pfx( self::nfx( $matches[2] ) );
-			if ( false === $tmp ) {
-				return false; // get the result and make sure it's good.
-			}
-			self::$v[ $matches[1] ] = $tmp; // if so, stick it in the variable array.
-
-			return self::$v[ $matches[1] ]; // and return the resulting value.
-			// ===============
-			// is it a function assignment?
-		} elseif ( preg_match( '/^\s*(' . self::$namepat . ')\s*\(\s*(' . self::$namepat . '(?:\s*,\s*' . self::$namepat . ')*)\s*\)\s*=\s*(.+)$/', $expr, $matches ) ) {
-			$fnn = $matches[1]; // get the function name.
-			// make sure it isn't built in.
-			if ( in_array( $matches[1], self::$fb ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-				return self::trigger( "cannot redefine built-in function '$matches[1]()'" );
-			}
-			$args  = explode( ',', preg_replace( '/\s+/', '', $matches[2] ) ); // get the arguments.
-			$stack = self::nfx( $matches[3] );
-			if ( false === $stack ) {
-				return false; // see if it can be converted to postfix.
-			}
-			$stack_size = count( $stack );
-			for ( $i = 0; $i < $stack_size; $i ++ ) { // freeze the state of the non-argument variables.
-				$token = $stack[ $i ];
-				if ( preg_match( '/^' . self::$namepat . '$/', $token ) && ! in_array( $token, $args ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-					if ( array_key_exists( $token, self::$v ) ) {
-						$stack[ $i ] = self::$v[ $token ];
-					} else {
-						return self::trigger( "undefined variable '$token' in function definition" );
-					}
-				}
-			}
-			self::$f[ $fnn ] = [
-				'args' => $args,
-				'func' => $stack,
-			];
-
-			return true;
-			// ===============
 		} else {
-			return self::pfx( self::nfx( $expr ) ); // straight up evaluation, woo.
+			$tokens = $this->cache[ $cache_key ];
 		}
+
+		$calculator = new THEMECOMPLETE_EPO_MATH_Calculator( $this->functions, $this->operators );
+
+		return $calculator->calculate( $tokens, $this->variables, $this->on_var_not_found );
 	}
 
 	/**
-	 * Convert infix to postfix notation.
+	 * Add a custom function.
 	 *
-	 * @param string $expr The expression to evaluate.
+	 * @param string        $name Name of function.
+	 * @param callable|null $function The Function to add.
 	 *
-	 * @return array|string
+	 * @return THEMECOMPLETE_EPO_MATH
 	 */
-	private static function nfx( $expr ) {
+	public function add_function( string $name, ?callable $function = null ) : self {
+		$this->functions[ $name ] = new THEMECOMPLETE_EPO_MATH_CustomFunction( $name, $function );
 
-		$index  = 0;
-		$stack  = new THEMECOMPLETE_EPO_MATH_Stack();
-		$output = []; // postfix form of expression, to be passed to pfx().
-		$expr   = trim( $expr );
+		return $this;
+	}
 
-		$ops   = [ '+', '-', '*', '/', '^', '_' ];
-		$ops_r = [
-			'+' => 0,
-			'-' => 0,
-			'*' => 0,
-			'/' => 0,
-			'^' => 1,
-		]; // right-associative operator?
-		$ops_p = [
-			'+' => 0,
-			'-' => 0,
-			'*' => 1,
-			'/' => 1,
-			'_' => 1,
-			'^' => 2,
-		]; // operator precedence.
+	/**
+	 * Get all variables.
+	 *
+	 * @return array<string, float|string>
+	 */
+	public function get_vars() : array {
+		return $this->variables;
+	}
 
-		// we use this in syntax-checking the expression
-		// and determining when a - is a negation.
-		$expecting_op = false;
-		if ( preg_match( '/[^\w\s+*^\/()\.,-]/', $expr, $matches ) ) { // make sure the characters are all good.
-			return self::trigger( "illegal character '{$matches[0]}'" );
+	/**
+	 * Get a specific var
+	 *
+	 * @param string $variable The variable to get.
+	 * @return int|float
+	 */
+	public function get_var( string $variable ) {
+		if ( ! array_key_exists( $variable, $this->variables ) ) {
+			if ( $this->on_var_not_found ) {
+				return call_user_func( $this->on_var_not_found, $variable );
+			}
+
+			return THEMECOMPLETE_EPO_MATH_Error::trigger( "Variable ({$variable}) not set", 'UnknownVariableError', 0 );
 		}
 
-		while ( 1 ) { // 1 Infinite Loop ;)
-			$op = substr( $expr, $index, 1 ); // get the first character at the current index.
+		return $this->variables[ $variable ];
+	}
 
-			// find out if we're currently at the beginning of a number/variable/function/parenthesis/operand .
-			$ex = preg_match( '/^(' . self::$namepat . '\(?|\d+(?:\.\d*)?(?:(e[+-]?)\d*)?|\.\d+|\()/', substr( $expr, $index ), $match );
-			if ( '-' === $op && ! $expecting_op ) { // is it a negation instead of a minus?
-				$stack->push( '_' ); // put a negation on the stack.
-				$index ++;
-			} elseif ( '_' === $op ) { // we have to explicitly deny this, because it's legal on the stack.
-				return self::trigger( "illegal character '_'" ); // but not in the input expression.
-				// are we putting an operator on the stack?
-			} elseif ( ( in_array( $op, $ops ) || $ex ) && $expecting_op ) { // phpcs:ignore WordPress.PHP.StrictInArray
-				if ( $ex ) { // are we expecting an operator but have a number/variable/function/opening parenthesis?
-					$op = '*';
-					$index --; // it's an implicit multiplication.
-				}
-				// heart of the algorithm.
-				while ( $stack->count > 0 && ( $o2 = $stack->last() ) && in_array( $o2, $ops ) && ( $ops_r[ $op ] ? $ops_p[ $op ] < $ops_p[ $o2 ] : $ops_p[ $op ] <= $ops_p[ $o2 ] ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition, WordPress.PHP.StrictInArray
-					$output[] = $stack->pop(); // pop stuff off the stack into the output.
-				}
-				// many thanks: https://en.wikipedia.org/wiki/Reverse_Polish_notation#The_algorithm_in_detail .
-				$stack->push( $op ); // finally put OUR operator onto the stack.
-				$index ++;
-				$expecting_op = false;
-			} elseif ( ')' === $op && $expecting_op ) { // ready to close a parenthesis?
-				// pop off the stack back to the last ( .
-				while ( '(' !== ( $o2 = $stack->pop() ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-					if ( is_null( $o2 ) ) {
-						return self::trigger( "unexpected ')'" );
-					} else {
-						$output[] = $o2;
-					}
-				}
-				if ( preg_match( '/^(' . self::$namepat . ')\($/', $stack->last( 2 ), $matches ) ) { // did we just close a function?
-					$fnn       = $matches[1]; // get the function name.
-					$arg_count = $stack->pop(); // see how many arguments there were (cleverly stored on the stack, thank you).
-					$fn        = $stack->pop();
-					$output[]  = [
-						'fn'       => $fn,
-						'fnn'      => $fnn,
-						'argcount' => $arg_count,
-					]; // send function to output.
-					// check the argument count.
-					if ( in_array( $fnn, self::$fb ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-						if ( $arg_count > 1 ) {
-							$a           = new stdClass();
-							$a->expected = 1;
-							$a->given    = $arg_count;
+	/**
+	 * Add a custom variable. To set a custom validator use set_var_validation_handler.
+	 *
+	 * @param string $variable The variable to set the value for.
+	 * @param mixed  $value The value to set the variable to.
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function set_var( string $variable, $value ) : self {
+		if ( $this->on_var_validation ) {
+			$value = call_user_func( $this->on_var_validation, $variable, $value );
+		}
 
-							return self::trigger( "wrong number of arguments '$a'" );
-						}
-					} elseif ( array_key_exists( $fnn, self::$f ) ) {
-						if ( count( self::$f[ $fnn ]['args'] ) != $arg_count ) { // phpcs:ignore WordPress.PHP.StrictComparisons
-							$a           = new stdClass();
-							$a->expected = count( self::$f[ $fnn ]['args'] );
-							$a->given    = $arg_count;
+		$this->variables[ $variable ] = $value;
 
-							return self::trigger( "wrong number of arguments '$a'" );
-						}
-					} else { // did we somehow push a non-function on the stack? this should never happen.
-						return self::trigger( 'internal error' );
+		return $this;
+	}
+
+	/**
+	 * Test to see if a variable exists
+	 *
+	 * @param string $variable The variable to test if it exists.
+	 */
+	public function var_exists( string $variable ) : bool {
+		return array_key_exists( $variable, $this->variables );
+	}
+
+	/**
+	 * Add custom variables.
+	 *
+	 * @param  array<string, float|int|string> $variables The array variables to add.
+	 * @param  bool                            $clear If we should clear previous variables.
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function set_vars( array $variables, bool $clear = true ) : self {
+		if ( $clear ) {
+			$this->remove_vars();
+		}
+
+		foreach ( $variables as $name => $value ) {
+			$this->set_var( $name, $value );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Define a method that will be invoked when a variable is not found.
+	 * The first parameter will be the variable name, and the returned value will be used as the variable value.
+	 *
+	 * @param callable $handler The handler to set.
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function set_var_not_found_handler( callable $handler ) : self {
+		$this->on_var_not_found = $handler;
+
+		return $this;
+	}
+
+	/**
+	 * Define a validation method that will be invoked when a variable is set using set_var.
+	 * The first parameter will be the variable name, and the second will be the variable value.
+	 * Set to null to disable validation.
+	 *
+	 * @param ?callable $handler The validation handler to set.
+	 *
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function set_var_validation_handler( ?callable $handler ) : self {
+		$this->on_var_validation = $handler;
+
+		return $this;
+	}
+
+	/**
+	 * Remove a custom variable.
+	 *
+	 * @param string $variable The variable to remove.
+	 *
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function remove_var( string $variable ) : self {
+		unset( $this->variables[ $variable ] );
+
+		return $this;
+	}
+
+	/**
+	 * Remove all variables and the variable not found handler
+	 *
+	 * @return THEMECOMPLETE_EPO_MATH
+	 */
+	public function remove_vars() : self {
+		$this->variables        = [];
+		$this->on_var_not_found = null;
+
+		return $this;
+	}
+
+	/**
+	 * Get all registered operators.
+	 *
+	 * @return array<THEMECOMPLETE_EPO_MATH_Operator> of operator class names
+	 */
+	public function get_operators() : array {
+		return $this->operators;
+	}
+
+	/**
+	 * Get all registered functions
+	 *
+	 * @return array<string, THEMECOMPLETE_EPO_MATH_CustomFunction> containing callback and places indexed by function name.
+	 */
+	public function get_functions() : array {
+		return $this->functions;
+	}
+
+	/**
+	 * Remove a specific operator
+	 *
+	 * @param string $operator The operator to remove.
+	 * @return array<THEMECOMPLETE_EPO_MATH_Operator> of operator class names
+	 */
+	public function remove_operator( string $operator ) : self {
+		unset( $this->operators[ $operator ] );
+
+		return $this;
+	}
+
+	/**
+	 * Set division by zero returns zero instead of throwing an error
+	 */
+	public function set_division_by_zero_to_zero() : self {
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'/',
+				false,
+				180,
+				static function( $a, $b ) {
+					return 0 == $b ? 0 : $a / $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+				}
+			)
+		);
+
+		return $this;
+	}
+
+	/**
+	 * Get cache array with tokens
+	 *
+	 * @return array<string, THEMECOMPLETE_EPO_MATH_Token[]>
+	 */
+	public function get_cache() : array {
+		return $this->cache;
+	}
+
+	/**
+	 * Clear token's cache
+	 */
+	public function clear_cache() : self {
+		$this->cache = [];
+
+		return $this;
+	}
+
+	/**
+	 * Use BCMAth fixed precision.
+	 *
+	 * @param integer $scale The precision to use.
+	 * @return self
+	 */
+	public function use_bcmath( int $scale = 2 ) : self {
+		if ( ! function_exists( 'bcscale' ) ) {
+			return $this;
+		}
+		bcscale( $scale );
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'+',
+				false,
+				170,
+				static function( $a, $b ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+					return bcadd( "{$a}", "{$b}" );
+				}
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'-',
+				false,
+				170,
+				static function( $a, $b ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+					return bcsub( "{$a}", "{$b}" );
+				}
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'uNeg',
+				false,
+				200,
+				static function( $a ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					return bcsub( '0.0', "{$a}" );
+				}
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'*',
+				false,
+				180,
+				static function( $a, $b ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+					return bcmul( "{$a}", "{$b}" );
+				}
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'/',
+				false,
+				180,
+				static function( $a, $b ) use ( $scale ) {
+					if ( 0 == $b ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Division By Zero', 'DivisionByZeroError', 0 );
 					}
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+
+					return bcdiv( "{$a}", "{$b}" );
 				}
-				$index ++;
-				// ===============
-			} elseif ( ',' === $op && $expecting_op ) { // did we just finish a function argument?
-				while ( '(' !== ( $o2 = $stack->pop() ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-					if ( is_null( $o2 ) ) {
-						return self::trigger( "unexpected ','" ); // oops, never had a ( .
-					} else {
-						$output[] = $o2; // pop the argument expression stuff and push onto the output.
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'^',
+				true,
+				220,
+				static function( $a, $b ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+					return bcpow( "{$a}", "{$b}" );
+				}
+			)
+		);
+		$this->add_operator(
+			new THEMECOMPLETE_EPO_MATH_Operator(
+				'%',
+				false,
+				180,
+				static function( $a, $b ) use ( $scale ) {
+					$a = number_format( $a, $scale, '.', '' );
+					$b = number_format( $b, $scale, '.', '' );
+					return bcmod( "{$a}", "{$b}" );
+				}
+			)
+		);
+
+		return $this;
+	}
+
+	/**
+	 * Set default operands and functions
+	 */
+	protected function add_defaults() : self {
+		foreach ( $this->default_operators() as $name => $operator ) {
+			[$callable, $priority, $is_right_assoc] = $operator;
+			$this->add_operator( new THEMECOMPLETE_EPO_MATH_Operator( $name, $is_right_assoc, $priority, $callable ) );
+		}
+
+		foreach ( $this->default_functions() as $name => $callable ) {
+			$this->add_function( $name, $callable );
+		}
+
+		$this->on_var_validation = [ $this, 'default_var_validation' ];
+		$this->variables         = $this->default_vars();
+
+		return $this;
+	}
+
+	/**
+	 * Get the default operators
+	 *
+	 * @return array<string, array{callable, int, bool}>
+	 */
+	protected function default_operators() : array {
+		return [
+			'+'    => [
+				static function( $a, $b ) {
+					return $a + $b;
+				},
+				170,
+				false,
+			],
+			'-'    => [
+				static function( $a, $b ) {
+					return $a - $b;
+				},
+				170,
+				false,
+			],
+			// unary positive token.
+			'uPos' => [
+				static function( $a ) {
+					return $a;
+				},
+				200,
+				false,
+			],
+			// unary minus token.
+			'uNeg' => [
+				static function( $a ) {
+					return 0 - $a;
+				},
+				200,
+				false,
+			],
+			'*'    => [
+				static function( $a, $b ) {
+					return $a * $b;
+				},
+				180,
+				false,
+			],
+			'/'    => [
+				static function( $a, $b ) {
+					if ( 0 == $b ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Division By Zero', 'DivisionByZeroError', 0 );
 					}
-				}
-				// make sure there was a function.
-				if ( ! preg_match( '/^(' . self::$namepat . ')\($/', $stack->last( 2 ), $matches ) ) {
-					return self::trigger( "unexpected ','" );
-				}
-				$stack->push( $stack->pop() + 1 ); // increment the argument count.
-				$stack->push( '(' ); // put the ( back on, we'll need to pop back to it again.
-				$index ++;
-				$expecting_op = false;
-				// ===============
-			} elseif ( '(' === $op && ! $expecting_op ) {
-				$stack->push( '(' ); // that was easy.
-				$index ++;
-				// ===============
-			} elseif ( $ex && ! $expecting_op ) { // do we now have a function/variable/number?
-				$expecting_op = true;
-				$val          = $match[1];
-				if ( preg_match( '/^(' . self::$namepat . ')\($/', $val, $matches ) ) { // may be func, or variable w/ implicit multiplication against parentheses...
-					// it's a func.
-					if ( in_array( $matches[1], self::$fb ) || array_key_exists( $matches[1], self::$f ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-						$stack->push( $val );
-						$stack->push( 1 );
-						$stack->push( '(' );
-						$expecting_op = false;
-					} else { // it's a var w/ implicit multiplication.
-						$val      = $matches[1];
-						$output[] = $val;
+
+					return $a / $b;
+				},
+				180,
+				false,
+			],
+			'^'    => [
+				static function( $a, $b ) {
+					return pow( $a, $b );
+				},
+				220,
+				true,
+			],
+			'%'    => [
+				static function( $a, $b ) {
+					return $a % $b;
+				},
+				180,
+				false,
+			],
+			'&&'   => [
+				static function( $a, $b ) {
+					return $a && $b;
+				},
+				100,
+				false,
+			],
+			'||'   => [
+				static function( $a, $b ) {
+					return $a || $b;
+				},
+				90,
+				false,
+			],
+			'=='   => [
+				static function( $a, $b ) {
+					return is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+				},
+				140,
+				false,
+			],
+			'!='   => [
+				static function( $a, $b ) {
+					return is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+				},
+				140,
+				false,
+			],
+			'>='   => [
+				static function( $a, $b ) {
+					return $a >= $b;
+				},
+				150,
+				false,
+			],
+			'>'    => [
+				static function( $a, $b ) {
+					return $a > $b;
+				},
+				150,
+				false,
+			],
+			'<='   => [
+				static function( $a, $b ) {
+					return $a <= $b;
+				},
+				150,
+				false,
+			],
+			'<'    => [
+				static function( $a, $b ) {
+					return $a < $b;
+				},
+				150,
+				false,
+			],
+		];
+	}
+
+	/**
+	 * Gets the default functions as an array.  Key is function name
+	 * and value is the function as a closure.
+	 *
+	 * @return array<callable>
+	 */
+	protected function default_functions() : array {
+		return [
+			'abs'      => static function( $arg ) {
+				return abs( $arg );
+			},
+			'acos'     => static function( $arg ) {
+				return acos( $arg );
+			},
+			'acosh'    => static function( $arg ) {
+				return acosh( $arg );
+			},
+			'arcsin'   => static function( $arg ) {
+				return asin( $arg );
+			},
+			'arcctg'   => static function( $arg ) {
+				return M_PI / 2 - atan( $arg );
+			},
+			'arccot'   => static function( $arg ) {
+				return M_PI / 2 - atan( $arg );
+			},
+			'arccotan' => static function( $arg ) {
+				return M_PI / 2 - atan( $arg );
+			},
+			'arcsec'   => static function( $arg ) {
+				return acos( 1 / $arg );
+			},
+			'arccosec' => static function( $arg ) {
+				return asin( 1 / $arg );
+			},
+			'arccsc'   => static function( $arg ) {
+				return asin( 1 / $arg );
+			},
+			'arccos'   => static function( $arg ) {
+				return acos( $arg );
+			},
+			'arctan'   => static function( $arg ) {
+				return atan( $arg );
+			},
+			'arctg'    => static function( $arg ) {
+				return atan( $arg );
+			},
+			'array'    => static function( ...$args ) {
+				return $args;
+			},
+			'asin'     => static function( $arg ) {
+				return asin( $arg );
+			},
+			'atan'     => static function( $arg ) {
+				return atan( $arg );
+			},
+			'atan2'    => static function( $arg1, $arg2 ) {
+				return atan2( $arg1, $arg2 );
+			},
+			'atanh'    => static function( $arg ) {
+				return atanh( $arg );
+			},
+			'atn'      => static function( $arg ) {
+				return atan( $arg );
+			},
+			'avg'      => static function( $arg1, ...$args ) {
+				if ( is_array( $arg1 ) ) {
+					if ( 0 === count( $arg1 ) ) {
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
 					}
-				} else { // it's a plain old var or num.
-					$output[] = $val;
+
+					return array_sum( $arg1 ) / count( $arg1 );
 				}
-				$index += strlen( $val );
-			} elseif ( ')' === $op ) { // miscellaneous error checking.
-				return self::trigger( "unexpected ')'" );
-			} elseif ( in_array( $op, $ops ) && ! $expecting_op ) { // phpcs:ignore WordPress.PHP.StrictInArray
-				return self::trigger( "unexpected operator '$op'" );
-			} else { // I don't even want to know what you did to get here.
-				return self::trigger( 'an unexpected error occurred' );
-			}
-			if ( strlen( $expr ) == $index ) { // phpcs:ignore WordPress.PHP.StrictComparisons
-				// did we end with an operator? bad.
-				if ( in_array( $op, $ops ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-					return self::trigger( "operator '$op' lacks operand" );
+
+				$args = [ $arg1, ...$args ];
+
+				return array_sum( $args ) / count( $args );
+			},
+			'bindec'   => static function( $arg ) {
+				return bindec( $arg );
+			},
+			'ceil'     => static function( $arg ) {
+				return ceil( $arg );
+			},
+			'cos'      => static function( $arg ) {
+				return cos( $arg );
+			},
+			'cosec'    => static function( $arg ) {
+				return 1 / sin( $arg );
+			},
+			'csc'      => static function( $arg ) {
+				return 1 / sin( $arg );
+			},
+			'cosh'     => static function( $arg ) {
+				return cosh( $arg );
+			},
+			'ctg'      => static function( $arg ) {
+				return cos( $arg ) / sin( $arg );
+			},
+			'cot'      => static function( $arg ) {
+				return cos( $arg ) / sin( $arg );},
+			'cotan'    => static function( $arg ) {
+				return cos( $arg ) / sin( $arg );
+			},
+			'cotg'     => static function( $arg ) {
+				return cos( $arg ) / sin( $arg );
+			},
+			'ctn'      => static function( $arg ) {
+				return cos( $arg ) / sin( $arg );},
+			'decbin'   => static function( $arg ) {
+				return decbin( $arg );
+			},
+			'dechex'   => static function( $arg ) {
+				return dechex( $arg );
+			},
+			'decoct'   => static function( $arg ) {
+				return decoct( $arg );
+			},
+			'deg2rad'  => static function( $arg ) {
+				return deg2rad( $arg );
+			},
+			'exp'      => static function( $arg ) {
+				return exp( $arg );
+			},
+			'expm1'    => static function( $arg ) {
+				return expm1( $arg );
+			},
+			'floor'    => static function( $arg ) {
+				return floor( $arg );
+			},
+			'int'      => static function( $arg ) {
+				return floor( $arg );
+			},
+			'fmod'     => static function( $arg1, $arg2 ) {
+				return fmod( $arg1, $arg2 );
+			},
+			'hexdec'   => static function( $arg ) {
+				return hexdec( $arg );
+			},
+			'hypot'    => static function( $arg1, $arg2 ) {
+				return hypot( $arg1, $arg2 );
+			},
+			'if'       => function( $expr, $trueval, $falseval ) {
+				if ( true === $expr || false === $expr ) {
+					$exres = $expr;
 				} else {
+					$exres = $this->execute( $expr );
+				}
+
+				if ( $exres ) {
+					return $this->execute( $trueval );
+				}
+
+				return $this->execute( $falseval );
+			},
+			'intdiv'   => static function( $arg1, $arg2 ) {
+				return intdiv( $arg1, $arg2 );
+			},
+			'ln'       => static function( $arg ) {
+				return log( $arg );
+			},
+			'lg'       => static function( $arg ) {
+				return log10( $arg );
+			},
+			'log'      => static function( $arg ) {
+				return log( $arg );
+			},
+			'log10'    => static function( $arg ) {
+				return log10( $arg );
+			},
+			'log1p'    => static function( $arg ) {
+				return log1p( $arg );
+			},
+			'max'      => static function( $arg1, ...$args ) {
+				if ( is_array( $arg1 ) && 0 === count( $arg1 ) ) {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
+				}
+
+				return max( is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ] );
+			},
+			'min'      => static function( $arg1, ...$args ) {
+				if ( is_array( $arg1 ) && 0 === count( $arg1 ) ) {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
+				}
+
+				return min( is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ] );
+			},
+			'octdec'   => static function( $arg ) {
+				return octdec( $arg );
+			},
+			'pi'       => static function() {
+				return M_PI;
+			},
+			'pow'      => static function( $arg1, $arg2 ) {
+				return $arg1 ** $arg2;
+			},
+			'rad2deg'  => static function( $arg ) {
+				return rad2deg( $arg );
+			},
+			'round'    => static function( $num, int $precision = 0 ) {
+				return round( $num, $precision );
+			},
+			'sin'      => static function( $arg ) {
+				return sin( $arg );
+			},
+			'sinh'     => static function( $arg ) {
+				return sinh( $arg );
+			},
+			'sec'      => static function( $arg ) {
+				return 1 / cos( $arg );
+			},
+			'sqrt'     => static function( $arg ) {
+				return sqrt( $arg );
+			},
+			'tan'      => static function( $arg ) {
+				return tan( $arg );
+			},
+			'tanh'     => static function( $arg ) {
+				return tanh( $arg );
+			},
+			'tn'       => static function( $arg ) {
+				return tan( $arg );
+			},
+			'tg'       => static function( $arg ) {
+				return tan( $arg );
+			},
+		];
+	}
+
+	/**
+	 * Returns the default variables names as key/value pairs
+	 *
+	 * @return array<string, float>
+	 */
+	protected function default_vars() : array {
+		return [
+			'pi' => 3.141592653589793,
+			'e'  => 2.718281828459045,
+		];
+	}
+
+	/**
+	 * Default variable validation, ensures that the value is a scalar or array.
+	 *
+	 * @param string $variable The variable to validate.
+	 * @param mixed  $value The value to validate.
+	 */
+	protected function default_var_validation( string $variable, $value ) {
+		if ( ! is_scalar( $value ) && ! is_array( $value ) && null !== $value ) {
+			$type = gettype( $value );
+
+			return THEMECOMPLETE_EPO_MATH_Error::trigger( "Variable ({$variable}) type ({$type}) is not scalar or array!", 0 );
+		}
+		return $value;
+	}
+
+}
+
+/**
+ * Math Tokenizer class
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_Tokenizer {
+
+	/**
+	 * Array of tokens.
+	 *
+	 * @var array<THEMECOMPLETE_EPO_MATH_Token>
+	 */
+	public $tokens = [];
+
+	/**
+	 * The input expression.
+	 *
+	 * @var string
+	 */
+	private $input = '';
+
+	/**
+	 * The number buffer.
+	 *
+	 * @var string
+	 */
+	private $number_buffer = '';
+
+	/**
+	 * The string buffer.
+	 *
+	 * @var string
+	 */
+	private $string_buffer = '';
+
+	/**
+	 * If negative number is allowed.
+	 *
+	 * @var boolean
+	 */
+	private $allow_negative = true;
+
+	/**
+	 * Array of operators.
+	 *
+	 * @var array<THEMECOMPLETE_EPO_MATH_Operator>
+	 */
+	private $operators = [];
+
+	/**
+	 * If the string has single quotes.
+	 *
+	 * @var boolean
+	 */
+	private $in_single_quoted_string = false;
+
+	/**
+	 * If the string has double quotes.
+	 *
+	 * @var boolean
+	 */
+	private $in_double_quoted_string = false;
+
+	/**
+	 * Tokenizer constructor.
+	 *
+	 * @param string $input Input expression.
+	 * @param array  $operators Operator array.
+	 */
+	public function __construct( string $input, array $operators ) {
+		$this->input     = $input;
+		$this->operators = $operators;
+	}
+
+	/**
+	 * Tokenize the expression.
+	 *
+	 * @return self
+	 */
+	public function tokenize() : self {
+		$is_last_char_escape = false;
+
+		foreach ( str_split( $this->input ) as $ch ) {
+			switch ( true ) {
+				case $this->in_single_quoted_string:
+					if ( '\\' === $ch ) {
+						if ( $is_last_char_escape ) {
+							$this->string_buffer .= '\\';
+							$is_last_char_escape  = false;
+						} else {
+							$is_last_char_escape = true;
+						}
+
+						continue 2;
+					} elseif ( "'" === $ch ) {
+						if ( $is_last_char_escape ) {
+							$this->string_buffer .= "'";
+							$is_last_char_escape  = false;
+						} else {
+							$this->tokens[]                = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::STRING, $this->string_buffer );
+							$this->in_single_quoted_string = false;
+							$this->string_buffer           = '';
+						}
+
+						continue 2;
+					}
+
+					if ( $is_last_char_escape ) {
+						$this->string_buffer .= '\\';
+						$is_last_char_escape  = false;
+					}
+					$this->string_buffer .= $ch;
+
+					continue 2;
+
+				case $this->in_double_quoted_string:
+					if ( '\\' === $ch ) {
+						if ( $is_last_char_escape ) {
+							$this->string_buffer .= '\\';
+							$is_last_char_escape  = false;
+						} else {
+							$is_last_char_escape = true;
+						}
+
+						continue 2;
+					} elseif ( '"' === $ch ) {
+						if ( $is_last_char_escape ) {
+							$this->string_buffer .= '"';
+							$is_last_char_escape  = false;
+						} else {
+							$this->tokens[]                = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::STRING, $this->string_buffer );
+							$this->in_double_quoted_string = false;
+							$this->string_buffer           = '';
+						}
+
+						continue 2;
+					}
+
+					if ( $is_last_char_escape ) {
+						$this->string_buffer .= '\\';
+						$is_last_char_escape  = false;
+					}
+					$this->string_buffer .= $ch;
+
+					continue 2;
+
+				case '[' === $ch:
+					$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::FUNCTION, 'array' );
+					$this->allow_negative = true;
+					$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS, '' );
+
+					continue 2;
+
+				case ' ' === $ch || "\n" === $ch || "\r" === $ch || "\t" === $ch:
+					$this->empty_number_buffer_as_literal();
+					$this->empty_str_buffer_as_variable();
+					$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::SPACE, '' );
+
+					continue 2;
+
+				case $this->is_number( $ch ):
+					if ( '' !== $this->string_buffer ) {
+						$this->string_buffer .= $ch;
+
+						continue 2;
+					}
+					$this->number_buffer .= $ch;
+					$this->allow_negative = false;
+
 					break;
-				}
-			}
-			// step the index past whitespace (pretty much turns whitespace
-			// into implicit multiplication if no operator is there).
-			while ( ' ' === substr( $expr, $index, 1 ) ) {
-				$index ++;
-			}
-		}
-		// pop everything off the stack and push onto output.
-		while ( ! is_null( $op = $stack->pop() ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-			if ( '(' === $op ) {
-				return self::trigger( "expecting ')'" ); // if there are (s on the stack, ()s were unbalanced.
-			}
-			$output[] = $op;
-		}
 
-		return $output;
+				case 'e' === strtolower( $ch ):
+					if ( strlen( $this->number_buffer ) && false !== strpos( $this->number_buffer, '.' ) ) {
+						$this->number_buffer .= 'e';
+						$this->allow_negative = false;
+
+						break;
+					}
+					// no break
+					// Intentionally fall through.
+				case $this->is_alpha( $ch ):
+					if ( strlen( $this->number_buffer ) ) {
+						$this->empty_number_buffer_as_literal();
+						$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::OPERATOR, '*' );
+					}
+					$this->allow_negative = false;
+					$this->string_buffer .= $ch;
+
+					break;
+
+				case '"' === $ch:
+					$this->in_double_quoted_string = true;
+
+					continue 2;
+
+				case "'" === $ch:
+					$this->in_single_quoted_string = true;
+
+					continue 2;
+
+				case $this->is_dot( $ch ):
+					$this->number_buffer .= $ch;
+					$this->allow_negative = false;
+
+					break;
+
+				case $this->is_lp( $ch ):
+					if ( '' !== $this->string_buffer ) {
+						$this->tokens[]      = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::FUNCTION, $this->string_buffer );
+						$this->string_buffer = '';
+					} elseif ( strlen( $this->number_buffer ) ) {
+						$this->empty_number_buffer_as_literal();
+						$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::OPERATOR, '*' );
+					}
+					$this->allow_negative = true;
+					$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS, '' );
+
+					break;
+
+				case $this->is_rp( $ch ) || ']' === $ch:
+					$this->empty_number_buffer_as_literal();
+					$this->empty_str_buffer_as_variable();
+					$this->allow_negative = false;
+					$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::RIGHTPARENTHESIS, '' );
+
+					break;
+
+				case $this->is_comma( $ch ):
+					$this->empty_number_buffer_as_literal();
+					$this->empty_str_buffer_as_variable();
+					$this->allow_negative = true;
+					$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::PARAMSEPARATOR, '' );
+
+					break;
+
+				default:
+					// special case for unary operations.
+					if ( '-' === $ch || '+' === $ch ) {
+						if ( $this->allow_negative ) {
+							$this->allow_negative = false;
+							$this->tokens[]       = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::OPERATOR, '-' === $ch ? 'uNeg' : 'uPos' );
+
+							continue 2;
+						}
+						// could be in exponent, in which case negative should be added to the number_buffer.
+						if ( $this->number_buffer && 'e' === $this->number_buffer[ strlen( $this->number_buffer ) - 1 ] ) {
+							$this->number_buffer .= $ch;
+
+							continue 2;
+						}
+					}
+					$this->empty_number_buffer_as_literal();
+					$this->empty_str_buffer_as_variable();
+
+					if ( '$' !== $ch ) {
+						if ( count( $this->tokens ) > 0 ) {
+							if ( THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $this->tokens[ count( $this->tokens ) - 1 ]->type ) {
+								$this->tokens[ count( $this->tokens ) - 1 ]->value .= $ch;
+							} else {
+								$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::OPERATOR, $ch );
+							}
+						} else {
+							$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::OPERATOR, $ch );
+						}
+					}
+					$this->allow_negative = true;
+			}
+		}
+		$this->empty_number_buffer_as_literal();
+		$this->empty_str_buffer_as_variable();
+
+		return $this;
 	}
 
 	/**
-	 * Evaluate postfix notation.
+	 * Create Reverse Polish Notation.
 	 *
-	 * @param mixed $tokens Array of tokens.
-	 * @param array $vars Array of variables.
-	 *
-	 * @return mixed
+	 * @return THEMECOMPLETE_EPO_MATH_Token[] Array of tokens in reverse polish notation
 	 */
-	private static function pfx( $tokens, $vars = [] ) {
-		if ( false == $tokens ) { // phpcs:ignore WordPress.PHP.StrictComparisons
-			return false;
-		}
-		$stack = new THEMECOMPLETE_EPO_MATH_Stack();
+	public function build_reverse_polish_notation() : array {
+		$tokens        = [];
+		$stack         = new SplStack();
+		$param_counter = new SplStack();
 
-		foreach ( $tokens as $token ) { // nice and easy.
+		foreach ( $this->tokens as $token ) {
+			switch ( $token->type ) {
+				case THEMECOMPLETE_EPO_MATH_Token::LITERAL:
+				case THEMECOMPLETE_EPO_MATH_Token::VARIABLE:
+				case THEMECOMPLETE_EPO_MATH_Token::STRING:
+					$tokens[] = $token;
 
-			// if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on.
-			if ( is_array( $token ) ) { // it's a function!
-				$fnn   = $token['fnn'];
-				$count = $token['argcount'];
-				// built-in function.
-				if ( in_array( $fnn, self::$fb ) ) { // phpcs:ignore WordPress.PHP.StrictInArray
-					$op1 = $stack->pop();
-					if ( is_null( $op1 ) ) {
-						return self::trigger( 'internal error' );
-					}
-					$fnn = preg_replace( '/^arc/', 'a', $fnn ); // for the 'arc' trig synonyms.
-					if ( 'ln' === $fnn ) {
-						$fnn = 'log';
+					if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
+						$param_counter->push( $param_counter->pop() + 1 );
 					}
 
-					$stack->push( call_user_func_array( $fnn, [ $op1 ] ) );
+					break;
 
-				} elseif ( array_key_exists( $fnn, self::$f ) ) { // user function.
-					// get args.
-					$args = [];
-					for ( $i = count( self::$f[ $fnn ]['args'] ) - 1; $i >= 0; $i -- ) {
-						$args[ self::$f[ $fnn ]['args'][ $i ] ] = $stack->pop();
-						if ( is_null( $args[ self::$f[ $fnn ]['args'][ $i ] ] ) ) {
-							return self::trigger( 'internal error' );
-						}
+				case THEMECOMPLETE_EPO_MATH_Token::FUNCTION:
+					if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
+						$param_counter->push( $param_counter->pop() + 1 );
 					}
-					$stack->push( self::pfx( self::$f[ $fnn ]['func'], $args ) );
-				}
-				// if the token is a binary operator, pop two values off the stack, do the operation, and push the result back on.
-			} elseif ( in_array( $token, [ '+', '-', '*', '/', '^' ], true ) ) {
-				$op2 = $stack->pop();
-				if ( is_null( $op2 ) ) {
-					return self::trigger( 'internal error' );
-				}
-				$op1 = $stack->pop();
-				if ( is_null( $op1 ) ) {
-					return self::trigger( 'internal error' );
-				}
-				switch ( $token ) {
-					case '+':
-						$stack->push( $op1 + $op2 );
-						break;
-					case '-':
-						$stack->push( $op1 - $op2 );
-						break;
-					case '*':
-						$stack->push( $op1 * $op2 );
-						break;
-					case '/':
-						if ( (int) 0 === (int) $op2 ) {
-							return self::trigger( 'division by zero' );
-						}
-						$stack->push( $op1 / $op2 );
-						break;
-					case '^':
-						$stack->push( pow( $op1, $op2 ) );
-						break;
-				}
-				// if the token is a unary operator, pop one value off the stack, do the operation, and push it back on.
-			} elseif ( '_' === $token ) {
-				$stack->push( - 1 * $stack->pop() );
-				// if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on.
-			} elseif ( ! preg_match( '/^([a-z]\w*)\($/', $token, $matches ) ) {
-				if ( is_numeric( $token ) ) {
 					$stack->push( $token );
-				} elseif ( array_key_exists( $token, self::$v ) ) {
-					$stack->push( self::$v[ $token ] );
-				} elseif ( array_key_exists( $token, $vars ) ) {
-					$stack->push( $vars[ $token ] );
-				} else {
-					return self::trigger( "undefined variable '$token'" );
-				}
+					$param_counter->push( 0 );
+
+					break;
+
+				case THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS:
+					$stack->push( $token );
+
+					break;
+
+				case THEMECOMPLETE_EPO_MATH_Token::PARAMSEPARATOR:
+					while ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS !== $stack->top()->type ) {
+						if ( 0 === $stack->count() ) {
+							return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+						}
+						$tokens[] = $stack->pop();
+					}
+					$param_counter->push( $param_counter->pop() + 1 );
+
+					break;
+
+				case THEMECOMPLETE_EPO_MATH_Token::OPERATOR:
+					if ( ! array_key_exists( $token->value, $this->operators ) ) {
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownOperatorError', $tokens );
+					}
+					$op1 = $this->operators[ $token->value ];
+
+					while ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $stack->top()->type ) {
+						if ( ! array_key_exists( $stack->top()->value, $this->operators ) ) {
+							return THEMECOMPLETE_EPO_MATH_Error::trigger( $stack->top()->value, 'UnknownOperatorError', $tokens );
+						}
+						$op2 = $this->operators[ $stack->top()->value ];
+
+						if ( $op2->priority >= $op1->priority ) {
+							$tokens[] = $stack->pop();
+
+							continue;
+						}
+
+						break;
+					}
+					$stack->push( $token );
+
+					break;
+
+				case THEMECOMPLETE_EPO_MATH_Token::RIGHTPARENTHESIS:
+					while ( true ) {
+						try {
+							$ctoken = $stack->pop();
+
+							if ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS === $ctoken->type ) {
+								break;
+							}
+							$tokens[] = $ctoken;
+						} catch ( RuntimeException $e ) {
+							return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+						}
+					}
+
+					if ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::FUNCTION == $stack->top()->type ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+						$f              = $stack->pop();
+						$f->param_count = $param_counter->pop();
+						$tokens[]       = $f;
+					}
+
+					break;
+
+				case THEMECOMPLETE_EPO_MATH_Token::SPACE:
+					// do nothing.
 			}
 		}
-		// when we're out of tokens, the stack should have a single element, the final result.
-		if ( (int) 1 !== (int) $stack->count ) {
-			return self::trigger( 'internal error' );
+
+		while ( 0 !== $stack->count() ) {
+			if ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS === $stack->top()->type || THEMECOMPLETE_EPO_MATH_Token::RIGHTPARENTHESIS === $stack->top()->type ) {
+				return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+			}
+
+			if ( THEMECOMPLETE_EPO_MATH_Token::SPACE === $stack->top()->type ) {
+				$stack->pop();
+
+				continue;
+			}
+			$tokens[] = $stack->pop();
 		}
 
-		return $stack->pop();
+		return $tokens;
 	}
 
 	/**
-	 * Trigger an error, but nicely, if need be.
+	 * Check if the current character is a number.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_number( string $ch ) : bool {
+		return $ch >= '0' && $ch <= '9';
+	}
+
+	/**
+	 * Check if the current character is an alpha character.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_alpha( string $ch ) : bool {
+		return $ch >= 'a' && $ch <= 'z' || $ch >= 'A' && $ch <= 'Z' || '_' === $ch;
+	}
+
+	/**
+	 * Empty tye number buffer.
+	 */
+	private function empty_number_buffer_as_literal() : void {
+		if ( strlen( $this->number_buffer ) ) {
+			$this->tokens[]      = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, $this->number_buffer );
+			$this->number_buffer = '';
+		}
+	}
+
+	/**
+	 * Check if the current character is a dot.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_dot( string $ch ) : bool {
+		return '.' === $ch;
+	}
+
+	/**
+	 * Check if the current character is a left parenthesis.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_lp( string $ch ) : bool {
+		return '(' === $ch;
+	}
+
+	/**
+	 * Check if the current character is a right parenthesis.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_rp( string $ch ) : bool {
+		return ')' === $ch;
+	}
+
+	/**
+	 * Empty the string buffer.
+	 */
+	private function empty_str_buffer_as_variable() : void {
+		if ( '' !== $this->string_buffer ) {
+			$this->tokens[]      = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::VARIABLE, $this->string_buffer );
+			$this->string_buffer = '';
+		}
+	}
+
+	/**
+	 * Check if the current character is a comma.
+	 *
+	 * @param string $ch Current character.
+	 * @return boolean
+	 */
+	private function is_comma( string $ch ) : bool {
+		return ',' === $ch;
+	}
+}
+
+/**
+ * Math Token class
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_Token {
+
+	public const LITERAL          = 'literal';
+	public const VARIABLE         = 'variable';
+	public const OPERATOR         = 'operator';
+	public const LEFTPARENTHESIS  = 'LP';
+	public const RIGHTPARENTHESIS = 'RP';
+	public const FUNCTION         = 'function';
+	public const PARAMSEPARATOR   = 'separator';
+	public const STRING           = 'string';
+	public const SPACE            = 'space';
+
+	/**
+	 * Token type.
+	 *
+	 * @var string
+	 */
+	public $type = self::LITERAL;
+
+	/**
+	 * Token value.
+	 *
+	 * @var mixed
+	 */
+	public $value;
+
+	/**
+	 * Token name.
+	 *
+	 * @var string|null
+	 */
+	public $name;
+
+	/**
+	 * Store function parameter count in stack.
+	 *
+	 * @var integer|null
+	 */
+	public $param_count = null;
+
+	/**
+	 * Token constructor.
+	 *
+	 * @param string      $type Token type.
+	 * @param mixed       $value Token value.
+	 * @param string|null $name Token name.
+	 */
+	public function __construct( string $type, $value, ?string $name = null ) {
+		$this->type  = $type;
+		$this->value = $value;
+		$this->name  = $name;
+	}
+}
+
+/**
+ * Math Operator class
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_Operator {
+
+	/**
+	 * The custom operator.
+	 *
+	 * @var string
+	 */
+	public $operator = '';
+
+	/**
+	 * If it is a right associative operator.
+	 *
+	 * @var boolean
+	 */
+	public $is_right_assoc = false;
+
+	/**
+	 * Operator priority
+	 *
+	 * @var integer
+	 */
+	public $priority = 0;
+
+	/**
+	 * The callable function.
+	 *
+	 * @var callable(SplStack)
+	 */
+	public $function;
+
+	/**
+	 * The number of parameters for the operator.
+	 *
+	 * @var integer
+	 */
+	public $places = 0;
+
+	/**
+	 * Operator constructor.
+	 *
+	 * @param string   $operator The operator.
+	 * @param boolean  $is_right_assoc If it is a right associative operator.
+	 * @param integer  $priority Operator priority.
+	 * @param callable $function Operator Function.
+	 */
+	public function __construct( string $operator, bool $is_right_assoc, int $priority, callable $function ) {
+		$this->operator       = $operator;
+		$this->is_right_assoc = $is_right_assoc;
+		$this->priority       = $priority;
+		$this->function       = $function;
+		$reflection           = new ReflectionFunction( $function );
+		$this->places         = $reflection->getNumberOfParameters();
+	}
+
+	/**
+	 * Execute expression.
+	 *
+	 * @param array<Token> $stack The array of tokens.
+	 */
+	public function execute( array &$stack ) : THEMECOMPLETE_EPO_MATH_Token {
+
+		if ( count( $stack ) < $this->places ) {
+			$stack = [];
+			return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Expression', 'IncorrectExpressionError', new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, 0 ) );
+		}
+		$args = [];
+
+		for ( $i = 0; $i < $this->places; $i++ ) {
+			array_unshift( $args, array_pop( $stack )->value );
+		}
+
+		$result = call_user_func_array( $this->function, $args );
+
+		return new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, $result );
+	}
+}
+
+/**
+ * Math Custom Function class
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_CustomFunction {
+
+	/**
+	 * The function name.
+	 *
+	 * @var string
+	 */
+	public $name = '';
+
+	/**
+	 * The callable function.
+	 *
+	 * @var callable $function
+	 */
+	public $function;
+
+	/**
+	 * The required parameters of the function.
+	 *
+	 * @var integer
+	 */
+	private $required_param_count;
+
+	/**
+	 * CustomFunction constructor.
+	 *
+	 * @param string   $name The function name.
+	 * @param callable $function The callable function.
+	 */
+	public function __construct( string $name, callable $function ) {
+		$this->name                 = $name;
+		$this->function             = $function;
+		$this->required_param_count = ( new ReflectionFunction( $function ) )->getNumberOfRequiredParameters();
+	}
+
+	/**
+	 * Execute expression.
+	 *
+	 * @param array $stack The array of tokens.
+	 * @param int   $param_count_in_stack The function paramter count.
+	 */
+	public function execute( array &$stack, int $param_count_in_stack ) : THEMECOMPLETE_EPO_MATH_Token {
+		if ( $param_count_in_stack < $this->required_param_count ) {
+			$stack = [];
+			return THEMECOMPLETE_EPO_MATH_Error::trigger( $this->name, 'IncorrectNumberOfFunctionParametersError', new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, 0 ) );
+		}
+		$args = [];
+
+		if ( $param_count_in_stack > 0 ) {
+			for ( $i = 0; $i < $param_count_in_stack; $i++ ) {
+				array_unshift( $args, array_pop( $stack )->value );
+			}
+		}
+
+		$result = call_user_func_array( $this->function, $args );
+
+		return new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, $result );
+	}
+}
+
+/**
+ * Math Calculator class
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_Calculator {
+
+	/**
+	 * Array of custom functions.
+	 *
+	 * @var array<string, CustomFunction>
+	 */
+	private $functions = [];
+
+	/**
+	 * Array of operators.
+	 *
+	 * @var array<THEMECOMPLETE_EPO_MATH_Operator>
+	 */
+	private $operators = [];
+
+	/**
+	 * Class Constructor
+	 *
+	 * @param array<string, CustomFunction>          $functions Array of custom functions.
+	 * @param array<THEMECOMPLETE_EPO_MATH_Operator> $operators Array of operators.
+	 */
+	public function __construct( array $functions, array $operators ) {
+		$this->functions = $functions;
+		$this->operators = $operators;
+	}
+
+	/**
+	 * Calculate array of tokens in reverse polish notation
+	 *
+	 * @param array<THEMECOMPLETE_EPO_MATH_Token> $tokens Array of tokens.
+	 * @param array<string, float|string>         $variables Array of variables.
+	 * @param callable|null                       $on_var_not_found Variable not found handler.
+	 *
+	 * @return int|float|string|null
+	 */
+	public function calculate( array $tokens, array $variables, ?callable $on_var_not_found = null ) {
+		/** Array of THEMECOMPLETE_EPO_MATH_Token */
+		$stack = [];
+
+		foreach ( $tokens as $token ) {
+			if ( THEMECOMPLETE_EPO_MATH_Token::LITERAL === $token->type || THEMECOMPLETE_EPO_MATH_Token::STRING === $token->type ) {
+				$stack[] = $token;
+			} elseif ( THEMECOMPLETE_EPO_MATH_Token::VARIABLE === $token->type ) {
+				$variable = $token->value;
+
+				$value = null;
+
+				if ( array_key_exists( $variable, $variables ) ) {
+					$value = $variables[ $variable ];
+				} elseif ( $on_var_not_found ) {
+					$value = call_user_func( $on_var_not_found, $variable );
+				} else {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( $variable, 'UnknownVariableError', 0 );
+				}
+
+				$stack[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, $value, $variable );
+			} elseif ( THEMECOMPLETE_EPO_MATH_Token::FUNCTION === $token->type ) {
+				if ( ! array_key_exists( $token->value, $this->functions ) ) {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownFunctionError', 0 );
+				}
+				$stack[] = $this->functions[ $token->value ]->execute( $stack, $token->param_count );
+			} elseif ( THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $token->type ) {
+				if ( ! array_key_exists( $token->value, $this->operators ) ) {
+					return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownOperatorError', 0 );
+				}
+				$stack[] = $this->operators[ $token->value ]->execute( $stack );
+			}
+		}
+		$result = array_pop( $stack );
+
+		if ( null === $result || ! empty( $stack ) ) {
+			return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Stack must be empty', 'IncorrectExpressionError', 0 );
+		}
+
+		if ( false === $result->value ) {
+			$result->value = 0;
+		}
+
+		if ( true === $result->value ) {
+			$result->value = 1;
+		}
+
+		if ( is_numeric( $result->value ) ) {
+			$result->value = (float) $result->value;
+		}
+
+		return $result->value;
+	}
+}
+
+/**
+ * Math Error class
+ *
+ * Error handling for THEMECOMPLETE_EPO_MATH.
+ *
+ * @package Extra Product Options/Classes/THEMECOMPLETE_EPO_MATH
+ * @version 6.0
+ */
+class THEMECOMPLETE_EPO_MATH_Error {
+
+	/**
+	 * Trigger an error, in a nice way.
 	 *
 	 * @param string $msg The message to output.
+	 * @param string $code The error code.
+	 * @param mixed  $return The value to return.
 	 *
 	 * @return bool
 	 */
-	private static function trigger( $msg ) {
-		self::$last_error = $msg;
+	public static function trigger( $msg, $code = '', $return = false ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			echo "\nError found in:";
 			self::debug_print_calling_function();
+			echo '<br>';
+			echo esc_html( $code );
 			echo '<br>';
 			echo esc_html( $msg );
 			echo '<br>';
 			trigger_error( esc_html( $msg ), E_USER_WARNING ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 		}
 
-		return false;
+		return $return;
 	}
 
 	/**
 	 * Prints the file name, function name, and
 	 * line number which called your function
-	 * (not this function, then one that  called
-	 * it to begin with)
+	 * (not this function, the one that called it to begin with)
 	 */
 	private static function debug_print_calling_function() {
 		$file        = 'n/a';
@@ -473,63 +1693,5 @@ class THEMECOMPLETE_EPO_MATH {
 			$func = $debug_trace[2]['function'] ? $debug_trace[2]['function'] : 'n/a';
 		}
 		echo wp_kses_post( "\n$file, $func, $line\n" );
-	}
-}
-
-/**
- * Class THEMECOMPLETE_EPO_MATH_Stack.
- */
-class THEMECOMPLETE_EPO_MATH_Stack {
-
-	/**
-	 * Stack array.
-	 *
-	 * @var array
-	 */
-	public $stack = [];
-
-	/**
-	 * Stack counter.
-	 *
-	 * @var integer
-	 */
-	public $count = 0;
-
-	/**
-	 * Push value into stack.
-	 *
-	 * @param mixed $val Value to push to the stack.
-	 */
-	public function push( $val ) {
-		$this->stack[ $this->count ] = $val;
-		$this->count ++;
-	}
-
-	/**
-	 * Pop value from stack.
-	 *
-	 * @return mixed
-	 */
-	public function pop() {
-		if ( $this->count > 0 ) {
-			$this->count --;
-
-			return $this->stack[ $this->count ];
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get last value from stack.
-	 *
-	 * @param integer $n Number to deduct.
-	 *
-	 * @return mixed
-	 */
-	public function last( $n = 1 ) {
-		$key = $this->count - $n;
-
-		return array_key_exists( $key, $this->stack ) ? $this->stack[ $key ] : null;
 	}
 }

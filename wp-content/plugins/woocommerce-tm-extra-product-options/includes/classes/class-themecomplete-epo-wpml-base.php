@@ -67,6 +67,27 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	public $remove_term_filters_done = 0;
 
 	/**
+	 * Flag to indicate the removal of the get_terms_args filter
+	 *
+	 * @var integer
+	 */
+	public $remove_get_terms_args_done = 0;
+
+	/**
+	 * Flag to indicate the removal of the get_term filter
+	 *
+	 * @var integer
+	 */
+	public $remove_get_term_done = 0;
+
+	/**
+	 * Flag to indicate the removal of the terms_clauses filter
+	 *
+	 * @var integer
+	 */
+	public $remove_terms_clauses_done = 0;
+
+	/**
 	 * The post ID to use in the taxonomy terms checklist arguments
 	 * to mark category IDs to mark as checked
 	 *
@@ -80,6 +101,20 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	 * @var integer
 	 */
 	public $removed_posts_filter = 0;
+
+	/**
+	 * Cache for is_original_product function
+	 *
+	 * @var array
+	 */
+	public $is_original_cache = [];
+
+	/**
+	 * Flag to indicate the removal of the get_terms filter
+	 *
+	 * @var integer
+	 */
+	public $remove_get_terms_done = 0;
 
 	/**
 	 * Ensures only one instance of the class is loaded or can be loaded.
@@ -340,6 +375,15 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$basetype = THEMECOMPLETE_ECO_GLOBAL_POST_TYPE;
 			}
 		}
+
+		if ( ! isset( $this->is_original_cache[ $product_id ] ) ) {
+			$this->is_original_cache[ $product_id ] = 0;
+		}
+
+		if ( 0 !== $this->is_original_cache[ $product_id ] ) {
+			return $this->is_original_cache[ $product_id ];
+		}
+
 		if ( $this->is_wpml ) {
 			global $wpdb;
 			if ( 'product' === $post_type ) {
@@ -362,8 +406,11 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$is_original = true;
 			}
 
+			$this->is_original_cache[ $product_id ] = $is_original;
+
 			return $is_original;
 		} else {
+			$this->is_original_cache[ $product_id ] = true;
 			return true;
 		}
 	}
@@ -401,9 +448,18 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	public function remove_term_filters() {
 		if ( $this->is_wpml ) {
 			// remove WPML term filters.
-			remove_filter( 'get_terms_args', [ $this->sitepress, 'get_terms_args_filter' ] );
-			remove_filter( 'get_term', [ $this->sitepress, 'get_term_adjust_id' ], 1 );
-			remove_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ] );
+			if ( false !== has_filter( 'get_terms_args', [ $this->sitepress, 'get_terms_args_filter' ] ) ) {
+				remove_filter( 'get_terms_args', [ $this->sitepress, 'get_terms_args_filter' ] );
+				$this->remove_get_terms_args_done = 1;
+			}
+			if ( false !== has_filter( 'get_term', [ $this->sitepress, 'get_term_adjust_id' ] ) ) {
+				remove_filter( 'get_term', [ $this->sitepress, 'get_term_adjust_id' ], 1 );
+				$this->remove_get_terms_done = 1;
+			}
+			if ( false !== has_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ] ) ) {
+				remove_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ] );
+				$this->remove_terms_clauses_done = 1;
+			}
 			$this->remove_term_filters_done = 1;
 		}
 	}
@@ -416,9 +472,18 @@ class THEMECOMPLETE_EPO_WPML_Base {
 	public function restore_term_filters() {
 		if ( $this->is_wpml ) {
 			// restore WPML term filters.
-			add_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ], 10, 4 );
-			add_filter( 'get_term', [ $this->sitepress, 'get_term_adjust_id' ], 1, 1 );
-			add_filter( 'get_terms_args', [ $this->sitepress, 'get_terms_args_filter' ], 10, 2 );
+			if ( 1 === $this->remove_get_terms_args_done ) {
+				add_filter( 'terms_clauses', [ $this->sitepress, 'terms_clauses' ], 10, 4 );
+				$this->remove_get_terms_args_done = 0;
+			}
+			if ( 1 === $this->remove_get_terms_done ) {
+				add_filter( 'get_term', [ $this->sitepress, 'get_term_adjust_id' ], 1, 1 );
+				$this->remove_get_terms_done = 0;
+			}
+			if ( 1 === $this->remove_terms_clauses_done ) {
+				add_filter( 'get_terms_args', [ $this->sitepress, 'get_terms_args_filter' ], 10, 2 );
+				$this->remove_terms_clauses_done = 0;
+			}
 			$this->remove_term_filters_done = 0;
 		}
 	}
@@ -781,7 +846,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 								'value'   => $tm_meta_parent_post_id,
 								'compare' => '=',
 							];
-							$other_translations   = get_posts( $args );
+							$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 							if ( ! empty( $other_translations ) && isset( $other_translations[0] ) && is_object( $other_translations[0] ) && property_exists( $other_translations[0], 'ID' ) ) {// has $key code translation.
 								$tm_meta_parent_post_id = $other_translations[0]->ID;
 								$url                    = add_query_arg( 'post', $tm_meta_parent_post_id, $url );
@@ -840,7 +905,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 						'value'   => sanitize_text_field( wp_unslash( $_GET['tmparentpostid'] ) ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						'compare' => '=',
 					];
-					$other_translations   = get_posts( $args );
+					$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 					if ( ! empty( $other_translations ) ) {
 						$url = remove_query_arg( [ 'action', 'tmaddlang', 'tmparentpostid' ], $url );
 						$url = add_query_arg(
@@ -863,7 +928,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 					'value'   => sanitize_text_field( wp_unslash( $_GET['tmparentpostid'] ) ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					'compare' => '=',
 				];
-				$other_translations   = get_posts( $args );
+				$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 				if ( ! empty( $other_translations ) ) {
 					$url = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 					$url = remove_query_arg( [ 'action', 'tmaddlang', 'tmparentpostid' ], $url );
@@ -1169,7 +1234,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 						if ( $key !== $tm_meta_lang && $key !== $is_original_lang ) {
 							$class              = 'tm-title';
 							$args['meta_query'] = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'AND', THEMECOMPLETE_EPO_WPML_LANG_META, $key, '=', 'EXISTS' ); // phpcs:ignore WordPress.DB.SlowDBQuery
-							$other_translations = get_posts( $args );
+							$other_translations = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 							$is_edit            = false;
 							if ( ! empty( $other_translations ) && isset( $other_translations[0] ) && is_object( $other_translations[0] ) && property_exists( $other_translations[0], 'ID' ) ) {// has $key code translation.
 								$class   = 'tm-title added';
@@ -1208,7 +1273,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 							'value'   => $tmparentpostid,
 							'compare' => '=',
 						];
-						$other_translations   = get_posts( $args );
+						$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 						$is_edit              = false;
 						if ( ! empty( $other_translations ) && isset( $other_translations[0] ) && is_object( $other_translations[0] ) && property_exists( $other_translations[0], 'ID' ) ) {// has $key code translation.
 							$class   = 'tm-title added';

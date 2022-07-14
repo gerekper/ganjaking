@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: UserPro (4.10.1)
+Plugin Name: UserPro (5.0.0)
 Plugin URI: http://codecanyon.net/user/DeluxeThemes/portfolio?ref=DeluxeThemes
 Description: The ultimate user profiles and community plugin for WordPress.
-Version: 4.10.1
+Version: 5.0.0
 Author: Deluxe Themes
 Author URI: http://codecanyon.net/user/DeluxeThemes/portfolio?ref=DeluxeThemes
 */

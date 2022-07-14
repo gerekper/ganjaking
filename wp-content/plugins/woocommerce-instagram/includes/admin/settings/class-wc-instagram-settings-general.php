@@ -72,19 +72,19 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 	public function init_form_fields() {
 		if ( wc_instagram_is_connected() ) {
 			$form_fields = array(
-				'account'                     => array(
+				'account'                    => array(
 					'type'        => 'account',
 					'title'       => _x( 'Connected as', 'setting title', 'woocommerce-instagram' ),
 					'desc_tip'    => _x( 'The account connected.', 'setting desc', 'woocommerce-instagram' ),
 					'no_validate' => true,
 				),
-				'page_id'                     => array(
+				'page_id'                    => array(
 					'type'     => 'select',
 					'title'    => _x( 'Facebook page', 'setting title', 'woocommerce-instagram' ),
 					'desc_tip' => _x( 'Choose the Facebook Page connected with your Instagram Business account.', 'setting desc', 'woocommerce-instagram' ),
 					'options'  => wc_instagram_get_user_pages_choices(),
 				),
-				'disconnect'                  => array(
+				'disconnect'                 => array(
 					'type'        => 'authorization',
 					'title'       => _x( 'Disconnect account', 'setting title', 'woocommerce-instagram' ),
 					'label'       => _x( 'Disconnect', 'disconnect account button', 'woocommerce-instagram' ),
@@ -93,65 +93,25 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 					'action'      => 'disconnect',
 					'no_validate' => true,
 				),
-				'product_page_section'        => array(
+				'shopping_section'           => array(
 					'type'        => 'title',
-					'title'       => _x( 'Product page', 'settings section title', 'woocommerce-instagram' ),
-					'description' => _x( 'Display product-related Instagram images on each individual product screen.', 'settings section desc', 'woocommerce-instagram' ),
+					'title'       => _x( 'Product catalogs', 'settings section title', 'woocommerce-instagram' ),
+					'description' => _x( 'Sync your products with your Commerce Manager catalogs and sell on Facebook and Instagram.', 'settings section desc', 'woocommerce-instagram' ),
 				),
-				'product_hashtag_images'      => array(
-					'type'              => 'number',
-					'title'             => _x( 'Number of images', 'setting title', 'woocommerce-instagram' ),
-					'desc_tip'          => _x( 'This sets the number of images shown on product page.', 'setting desc', 'woocommerce-instagram' ),
-					'css'               => 'width:50px;',
-					'default'           => 8,
-					'custom_attributes' => array(
-						'min'  => 1,
-						'step' => 1,
-					),
-				),
-				'product_hashtag_columns'     => array(
-					'type'              => 'number',
-					'title'             => _x( 'Number of columns', 'setting title', 'woocommerce-instagram' ),
-					'desc_tip'          => _x( 'This sets the number of columns shown on product page.', 'setting desc', 'woocommerce-instagram' ),
-					'css'               => 'width:50px;',
-					'default'           => 4,
-					'custom_attributes' => array(
-						'min'  => 1,
-						'max'  => 8,
-						'step' => 1,
-					),
-				),
-				'product_hashtag_images_type' => array(
-					'type'        => 'select',
-					'title'       => _x( 'Images to display', 'setting title', 'woocommerce-instagram' ),
-					'desc_tip'    => _x( 'Choose the images to display on product page.', 'setting desc', 'woocommerce-instagram' ),
-					'description' => _x( 'Products can overwrite this option individually.', 'product data setting desc', 'woocommerce-instagram' ),
-					'default'     => 'recent_top',
-					'options'     => array(
-						'recent_top' => _x( 'Recent images + Top images', 'setting option', 'woocommerce-instagram' ),
-						'recent'     => _x( 'Recent images', 'setting option', 'woocommerce-instagram' ),
-						'top'        => _x( 'Top images', 'setting option', 'woocommerce-instagram' ),
-					),
-				),
-				'shopping_section'            => array(
-					'type'        => 'title',
-					'title'       => _x( 'Shopping', 'settings section title', 'woocommerce-instagram' ),
-					'description' => _x( 'Settings for Instagram Shopping.', 'settings section desc', 'woocommerce-instagram' ),
-				),
-				'product_catalogs'            => array(
+				'product_catalogs'           => array(
 					'type'     => 'product_catalogs',
-					'title'    => _x( 'Product catalogs', 'setting title', 'woocommerce-instagram' ),
+					'title'    => _x( 'Catalogs', 'setting title', 'woocommerce-instagram' ),
 					'desc_tip' => _x( 'Define the product catalogs to upload to Facebook.', 'setting desc', 'woocommerce-instagram' ),
 					'value'    => wc_instagram_get_product_catalogs( array(), 'objects' ),
 				),
-				'product_catalog_permalink'   => array(
+				'product_catalog_permalink'  => array(
 					'type'        => 'text',
-					'title'       => _x( 'Product catalog permalink', 'setting title', 'woocommerce-instagram' ),
+					'title'       => _x( 'Catalog permalink', 'setting title', 'woocommerce-instagram' ),
 					'desc_tip'    => _x( 'Customize the permalink used by the product catalogs.', 'setting desc', 'woocommerce-instagram' ),
 					'description' => wc_instagram_get_product_catalog_url( 'xxx' ),
 					'default'     => 'product-catalog/',
 				),
-				'generate_catalogs_interval'  => array(
+				'generate_catalogs_interval' => array(
 					'type'              => 'number',
 					'title'             => _x( 'Update catalogs interval', 'setting title', 'woocommerce-instagram' ),
 					'desc_tip'          => _x( 'Define, in hours, how often the catalogs are updated.', 'setting desc', 'woocommerce-instagram' ),
@@ -163,6 +123,63 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 					),
 				),
 			);
+
+			$has_business_account = wc_instagram_has_business_account();
+
+			$description = _x( 'Display product-related Instagram images on each individual product screen.', 'settings section desc', 'woocommerce-instagram' );
+
+			if ( ! $has_business_account ) {
+				$description .= sprintf(
+					' <br/><br/><span class="wc-instagram-notice warning feature-not-available">%s</span>',
+					__( 'This functionality requires a Facebook Page connected to your Instagram Business account.', 'woocommerce-instagram' )
+				);
+			}
+
+			$form_fields['product_page_section'] = array(
+				'type'        => 'title',
+				'title'       => _x( 'Product images', 'settings section title', 'woocommerce-instagram' ),
+				'description' => $description,
+			);
+
+			if ( $has_business_account ) {
+				$form_fields['product_hashtag_images'] = array(
+					'type'              => 'number',
+					'title'             => _x( 'Number of images', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'          => _x( 'This sets the number of images shown on product page.', 'setting desc', 'woocommerce-instagram' ),
+					'css'               => 'width:50px;',
+					'default'           => 8,
+					'custom_attributes' => array(
+						'min'  => 1,
+						'step' => 1,
+					),
+				);
+
+				$form_fields['product_hashtag_columns'] = array(
+					'type'              => 'number',
+					'title'             => _x( 'Number of columns', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'          => _x( 'This sets the number of columns shown on product page.', 'setting desc', 'woocommerce-instagram' ),
+					'css'               => 'width:50px;',
+					'default'           => 4,
+					'custom_attributes' => array(
+						'min'  => 1,
+						'max'  => 8,
+						'step' => 1,
+					),
+				);
+
+				$form_fields['product_hashtag_images_type'] = array(
+					'type'        => 'select',
+					'title'       => _x( 'Images to display', 'setting title', 'woocommerce-instagram' ),
+					'desc_tip'    => _x( 'Choose the images to display on product page.', 'setting desc', 'woocommerce-instagram' ),
+					'description' => _x( 'Products can overwrite this option individually.', 'product data setting desc', 'woocommerce-instagram' ),
+					'default'     => 'recent_top',
+					'options'     => array(
+						'recent_top' => _x( 'Recent images + Top images', 'setting option', 'woocommerce-instagram' ),
+						'recent'     => _x( 'Recent images', 'setting option', 'woocommerce-instagram' ),
+						'top'        => _x( 'Top images', 'setting option', 'woocommerce-instagram' ),
+					),
+				);
+			}
 		} else {
 			$description = sprintf(
 				/* translators: 1: documentation link, 2: arial-label */
@@ -202,6 +219,9 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 			$hide_save_button = true;
 		}
 
+		// Forces the initialization of the form to refresh the conditional fields.
+		$this->init_form_fields();
+
 		parent::admin_options();
 	}
 
@@ -211,11 +231,6 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 	 * @since 3.0.0
 	 */
 	public function before_save() {
-		// Images type changed.
-		if ( wc_instagram_get_setting( 'product_hashtag_images_type', 'recent_top' ) !== $this->settings['product_hashtag_images_type'] ) {
-			wp_schedule_single_event( time(), 'wc_instagram_clear_product_hashtag_images_transients', array( 'images_type' => '' ) );
-		}
-
 		// Product catalogs permalink changed.
 		if ( wc_instagram_get_setting( 'product_catalog_permalink', 'product-catalog/' ) !== $this->settings['product_catalog_permalink'] ) {
 			flush_rewrite_rules();
@@ -224,6 +239,11 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 		// Product catalogs interval changed.
 		if ( wc_instagram_get_setting( 'generate_catalogs_interval', 1 ) !== $this->settings['generate_catalogs_interval'] ) {
 			WC_Instagram_Actions::clear( 'generate_catalogs' );
+		}
+
+		// Images type changed.
+		if ( isset( $this->settings['product_hashtag_images_type'] ) && wc_instagram_get_setting( 'product_hashtag_images_type', 'recent_top' ) !== $this->settings['product_hashtag_images_type'] ) {
+			wp_schedule_single_event( time(), 'wc_instagram_clear_product_hashtag_images_transients', array( 'images_type' => '' ) );
 		}
 	}
 

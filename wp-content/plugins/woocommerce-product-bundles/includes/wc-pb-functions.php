@@ -322,7 +322,10 @@ function wc_pb_get_bundled_order_item_container( $bundled_order_item, $order = f
 	} else {
 
 		// Invalidate order cache before moving to the next Composite Product in the order.
-		WC_PB_Helpers::cache_delete( 'order_' . $bundled_order_item->get_order_id() );
+		if ( is_callable( array( $bundled_order_item, 'get_order_id' ) ) ) {
+			WC_PB_Helpers::cache_delete( 'order_' . $bundled_order_item->get_order_id() );
+		}
+
 	}
 
 	return $result;

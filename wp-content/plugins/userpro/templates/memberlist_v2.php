@@ -4,7 +4,10 @@
         $member_array= array();
         $member_array['search'] = $search;
         $member_array['memberlist_default_search'] = $memberlist_default_search;
+        if(isset($_GET['searchuser']))
+		{
         $member_array['searchuser'] = $_GET['searchuser'];
+		}
         $member_array['GET'] = $_GET;
         $member_array['users'] = $users;
         $member_array['memberlist_paginate'] = $memberlist_paginate;

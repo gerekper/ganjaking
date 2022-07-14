@@ -5,6 +5,7 @@ namespace Yoast\WP\SEO\Premium\Initializers;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Helpers\Url_Helper;
 use Yoast\WP\SEO\Initializers\Initializer_Interface;
 
 /**
@@ -27,17 +28,27 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 	private $options_helper;
 
 	/**
+	 * The URL helper.
+	 *
+	 * @var Url_Helper
+	 */
+	private $url_helper;
+
+	/**
 	 * Crawl Cleanup Basic integration constructor.
 	 *
 	 * @param Current_Page_Helper $current_page_helper The current page helper.
 	 * @param Options_Helper      $options_helper      The option helper.
+	 * @param Url_Helper          $url_helper          The URL helper.
 	 */
 	public function __construct(
 		Current_Page_Helper $current_page_helper,
-		Options_Helper $options_helper
+		Options_Helper $options_helper,
+		Url_Helper $url_helper
 	) {
 		$this->current_page_helper = $current_page_helper;
 		$this->options_helper      = $options_helper;
+		$this->url_helper          = $url_helper;
 	}
 
 	/**
@@ -122,7 +133,7 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 			'Yoast SEO Premium'
 		);
 
-		\wp_safe_redirect( \trailingslashit( $this->recreate_current_url( false ) ) . \ltrim( $new_path, '/' ), 301, $message );
+		\wp_safe_redirect( \trailingslashit( $this->url_helper->recreate_current_url( false ) ) . \ltrim( $new_path, '/' ), 301, $message );
 		exit;
 	}
 
@@ -137,7 +148,7 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 			return;
 		}
 
-		$current_url = $this->recreate_current_url();
+		$current_url = $this->url_helper->recreate_current_url();
 
 		/**
 		 * Filter: 'Yoast\WP\SEO\allowlist_permalink_vars' - Allows plugins to register their own variables not to clean.
@@ -267,25 +278,5 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 			\wp_safe_redirect( $proper_url, 301, $message );
 			exit;
 		}
-	}
-
-	/**
-	 * Recreate current URL.
-	 *
-	 * @param bool $with_request_uri Whether we want the REQUEST_URI appended.
-	 *
-	 * @return string
-	 */
-	private function recreate_current_url( $with_request_uri = true ) {
-		$current_url = 'http';
-		if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ) {
-			$current_url .= 's';
-		}
-		$current_url .= '://';
-
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- We know this is scary.
-		$suffix = ( $with_request_uri ) ? $_SERVER['REQUEST_URI'] : '';
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- We know this is scary.
-		return $current_url . $_SERVER['HTTP_HOST'] . $suffix;
 	}
 }

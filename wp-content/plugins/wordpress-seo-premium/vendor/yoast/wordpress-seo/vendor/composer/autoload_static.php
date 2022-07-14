@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitffc01c61f6455512f2e894b47de2220c
+class ComposerStaticInitc50a36ad8c5cd783af4dd0094eb628d1
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -868,6 +868,7 @@ class ComposerStaticInitffc01c61f6455512f2e894b47de2220c
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Backwards_Compatibility' => __DIR__ . '/../..' . '/src/integrations/front-end/backwards-compatibility.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Category_Term_Description' => __DIR__ . '/../..' . '/src/integrations/front-end/category-term-description.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Comment_Link_Fixer' => __DIR__ . '/../..' . '/src/integrations/front-end/comment-link-fixer.php',
+        'Yoast\\WP\\SEO\\Integrations\\Front_End\\Feed_Improvements' => __DIR__ . '/../..' . '/src/integrations/front-end/feed-improvements.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Force_Rewrite_Title' => __DIR__ . '/../..' . '/src/integrations/front-end/force-rewrite-title.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Handle_404' => __DIR__ . '/../..' . '/src/integrations/front-end/handle-404.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Indexing_Controls' => __DIR__ . '/../..' . '/src/integrations/front-end/indexing-controls.php',
@@ -1099,9 +1100,9 @@ class ComposerStaticInitffc01c61f6455512f2e894b47de2220c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitffc01c61f6455512f2e894b47de2220c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitffc01c61f6455512f2e894b47de2220c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitffc01c61f6455512f2e894b47de2220c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc50a36ad8c5cd783af4dd0094eb628d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc50a36ad8c5cd783af4dd0094eb628d1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc50a36ad8c5cd783af4dd0094eb628d1::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -23,17 +23,6 @@ if ( $attributes ) {
 	}
 }
 
-// Get variations.
-$args       = [
-	'post_type'   => 'product_variation',
-	'post_status' => [ 'private', 'publish' ],
-	'numberposts' => - 1,
-	'orderby'     => 'menu_order',
-	'order'       => 'asc',
-	'post_parent' => $post_id,
-];
-$variations = get_posts( $args );
-
 // When $variation_attribute_found && $variations.
 if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 	<div id="message" class="tc-info-text">
@@ -62,11 +51,21 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 					'order'       => 'asc',
 					'post_parent' => $post_id,
 				];
-				$tmepos = get_posts( $args );
+				$tmepos = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 		}
 
 		if ( isset( $tmepos ) && $tmepos ) {
-			$loop = 0;
+			// Get variations.
+			$args       = [
+				'post_type'   => 'product_variation',
+				'post_status' => [ 'private', 'publish' ],
+				'numberposts' => - 1,
+				'orderby'     => 'menu_order',
+				'order'       => 'asc',
+				'post_parent' => $post_id,
+			];
+			$variations = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
+			$loop       = 0;
 			foreach ( $tmepos as $price ) {
 				$tmcp_id          = absint( $price->ID );
 				$tmcp_post_status = esc_attr( $price->post_status );

@@ -32,6 +32,7 @@ class WC_Instagram_AJAX {
 			'delete_product_catalog',
 			'fetch_product_catalog_file',
 			'generate_product_catalog_file',
+			'cancel_product_catalog_file',
 			'generate_product_catalog_slug',
 			'refresh_google_product_category_field',
 		);
@@ -85,6 +86,25 @@ class WC_Instagram_AJAX {
 
 		if ( ! $catalog->get_file_status( $format ) ) {
 			WC_Instagram_Product_Catalogs::generate_catalog_file( $catalog, $format );
+		}
+
+		wp_send_json_success(
+			array(
+				'file' => self::get_file_data( $catalog, $format ),
+			)
+		);
+	}
+
+	/**
+	 * Cancels the generation of the product catalog file.
+	 *
+	 * @since 4.2.0
+	 */
+	public static function cancel_product_catalog_file() {
+		list( $catalog, $format ) = self::process_catalog_file_action();
+
+		if ( in_array( $catalog->get_file_status( $format ), array( 'queued', 'processing' ), true ) ) {
+			$catalog->set_file_status( $format, 'canceling' );
 		}
 
 		wp_send_json_success(
@@ -187,20 +207,35 @@ class WC_Instagram_AJAX {
 			);
 		}
 
+		$last_checked = wc_instagram_timestamp_to_datetime( time() );
+
 		$data = array(
-			'status' => $catalog_file->get_status(),
+			'status'      => $catalog_file->get_status(),
+			'lastChecked' => self::get_datetime_data( $last_checked ),
 		);
 
 		$last_modified = $catalog_file->get_last_modified();
 
 		if ( $last_modified ) {
-			$data['lastModified'] = array(
-				'datetime' => $last_modified->date( 'c' ),
-				'i18n'     => wc_instagram_format_datetime( $last_modified ),
-			);
+			$data['lastModified'] = self::get_datetime_data( $last_modified );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Gets the datetime data.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param WC_DateTime $datetime Datetime object.
+	 * @return array
+	 */
+	protected static function get_datetime_data( $datetime ) {
+		return array(
+			'datetime' => $datetime->date( 'c' ),
+			'i18n'     => wc_instagram_format_datetime( $datetime ),
+		);
 	}
 }
 

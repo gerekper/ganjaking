@@ -132,7 +132,7 @@
 	 */
 	VariationForm.prototype.onReset = function( event ) {
 		event.preventDefault();
-		event.data.variationForm.$attributeFields.val( '' ).change();
+		event.data.variationForm.$attributeFields.val( '' ).trigger( 'change' );
 		event.data.variationForm.$form.trigger( 'tc_reset_data' );
 	};
 
@@ -241,7 +241,7 @@
 				}
 			}
 		} else {
-			form.variationId.val( '' ).change();
+			form.variationId.val( '' ).trigger( 'change' );
 			form.$form.trigger( 'update_field', [] );
 			form.$form.trigger( 'tc_update_variation_values' );
 			form.$form.trigger( 'tc_reset_data' );
@@ -295,7 +295,7 @@
 		$template_html = $template_html.replace( '/*<![CDATA[*/', '' );
 		$template_html = $template_html.replace( '/*]]>*/', '' );
 		form.$singleVariation.html( $template_html );
-		form.variationId.val( variation.variation_id ).change();
+		form.variationId.val( variation.variation_id ).trigger( 'change' );
 
 		// Hide or show qty input
 		if ( variation.is_sold_individually === 'yes' ) {
@@ -335,6 +335,9 @@
 			$qty.val( '0' ).attr( 'min', '0' ).attr( 'max', '0' );
 			$qtyWrap.hide();
 		}
+
+		$qty.trigger( 'change' );
+
 		// Reveal
 		if ( $.epoAPI.util.trim( form.$singleVariation.text() ) ) {
 			form.$singleVariation.slideDown( 200 ).trigger( 'tc_show_variation', [ variation, purchasable ] );
@@ -353,7 +356,7 @@
 		var form = event.data.variationForm;
 		var field = form.field;
 
-		form.variationId.val( '' ).change();
+		form.variationId.val( '' ).trigger( 'change' );
 		//form.$form.trigger( 'update_field', [] );
 		form.$form.find( '.wc-no-matching-variations' ).remove();
 
@@ -516,7 +519,7 @@
 				if ( selected_attr_val_valid ) {
 					current_attr_select.val( selected_attr_val );
 				} else {
-					current_attr_select.val( '' ).change();
+					current_attr_select.val( '' ).trigger( 'change' );
 				}
 			} else {
 				current_attr_select.val( '' ); // No change event to prevent infinite loop.

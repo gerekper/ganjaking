@@ -44,6 +44,12 @@ defined( 'ABSPATH' ) || exit;
 			<span class="price amount options">{{{ data.formatted_unit_price }}}</span>
 		</dd><?php do_action( 'wc_epo_template_after_unit_price' ); ?>
 		<# } #>
+		<# if (data.show_options_vat==true){ #><?php do_action( 'wc_epo_template_before_vat_options_total' ); ?>
+		<dt class="tm-vat-options-totals">{{{ data.options_vat_total }}}</dt>
+		<dd class="tm-vat-options-totals">
+			<span class="price amount options">{{{ data.formatted_vat_options_total }}}</span>
+		</dd><?php do_action( 'wc_epo_template_after_vat_options_total' ); ?>
+		<# } #>
 		<# if (data.show_options_total==true){ #><?php do_action( 'wc_epo_template_before_option_total' ); ?>
 		<dt class="tm-options-totals">{{{ data.options_total }}}</dt>
 		<dd class="tm-options-totals">

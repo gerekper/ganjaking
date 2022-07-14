@@ -482,7 +482,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		];
 
 		THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
-		$tmp_tmglobalprices = get_posts( $args );
+		$tmp_tmglobalprices = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 		THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
 		if ( $tmp_tmglobalprices ) {
 			$actions['tcline'] = esc_html__( 'Include additional Global forms', 'woocommerce-tm-extra-product-options' );
@@ -957,6 +957,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	public function preload_template_settings() {
 		// Builder meta box.
 		add_meta_box( 'tmformfieldsbuilder', esc_html__( 'Extra Product Options Form Builder', 'woocommerce-tm-extra-product-options' ), [ $this, 'tm_form_fields_builder_meta_box' ], THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE, 'normal', 'core' );
+		// Description meta box.
+		add_meta_box( 'postexcerpt', esc_html__( 'Description', 'woocommerce-tm-extra-product-options' ), [ $this, 'tm_description_meta_box' ], null, 'normal', 'core' );
 	}
 
 	/**
@@ -1065,12 +1067,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 						if ( THEMECOMPLETE_EPO_WPML()->get_default_lang() === $key ) {
 							$query = new WP_Query(
 								[
-									'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
-									'post_status' => [ 'publish', 'draft' ],
-									'numberposts' => - 1,
-									'orderby'     => 'date',
-									'order'       => 'asc',
-									'p'           => $main_post_id,
+									'post_type'      => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
+									'post_status'    => [ 'publish', 'draft' ],
+									'numberposts'    => - 1,
+									'posts_per_page' => -1,
+									'orderby'        => 'date',
+									'order'          => 'asc',
+									'p'              => $main_post_id,
 								]
 							);
 						} else {
@@ -1084,12 +1087,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 							$query = new WP_Query(
 								[
-									'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
-									'post_status' => [ 'publish', 'draft' ],
-									'numberposts' => - 1,
-									'orderby'     => 'date',
-									'order'       => 'asc',
-									'meta_query'  => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
+									'post_type'      => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
+									'post_status'    => [ 'publish', 'draft' ],
+									'numberposts'    => - 1,
+									'posts_per_page' => -1,
+									'orderby'        => 'date',
+									'order'          => 'asc',
+									'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 								]
 							);
 
@@ -1477,7 +1481,6 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			$wpml_is_original_product = true;
 			$id_for_meta              = $post->ID;
 			if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
-
 				$wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $post->ID, $post->post_type, $basetype );
 				if ( ! $wpml_is_original_product ) {
 					$id_for_meta = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post->ID, $post->post_type, $basetype ) );
@@ -1763,7 +1766,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			if ( 'delete_all' === $doaction && isset( $_REQUEST['post_status'] ) ) {
 				$post_status = preg_replace( '/[^a-z0-9_-]+/i', '', sanitize_text_field( wp_unslash( $_REQUEST['post_status'] ) ) );
 				if ( get_post_status_object( $post_status ) ) { // Check if the post status exists first.
-					$post_ids = get_posts(
+					$post_ids = THEMECOMPLETE_EPO_HELPER()->get_cached_posts(
 						[
 							'post_type'   => $post_type,
 							'post_status' => [ $post_status ],
@@ -3106,12 +3109,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 					if ( THEMECOMPLETE_EPO_WPML()->get_default_lang() === $key ) {
 						$query = new WP_Query(
 							[
-								'post_type'   => $basetype,
-								'post_status' => [ 'publish' ],
-								'numberposts' => - 1,
-								'orderby'     => 'date',
-								'order'       => 'asc',
-								'p'           => $main_post_id,
+								'post_type'      => $basetype,
+								'post_status'    => [ 'publish' ],
+								'numberposts'    => - 1,
+								'posts_per_page' => -1,
+								'orderby'        => 'date',
+								'order'          => 'asc',
+								'p'              => $main_post_id,
 							]
 						);
 					} else {
@@ -3125,12 +3129,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 						$query = new WP_Query(
 							[
-								'post_type'   => $basetype,
-								'post_status' => [ 'publish' ],
-								'numberposts' => - 1,
-								'orderby'     => 'date',
-								'order'       => 'asc',
-								'meta_query'  => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
+								'post_type'      => $basetype,
+								'post_status'    => [ 'publish' ],
+								'numberposts'    => - 1,
+								'posts_per_page' => -1,
+								'orderby'        => 'date',
+								'order'          => 'asc',
+								'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 							]
 						);
 

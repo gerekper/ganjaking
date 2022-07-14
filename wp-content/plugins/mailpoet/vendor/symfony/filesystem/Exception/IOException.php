@@ -1,0 +1,16 @@
+<?php
+namespace Symfony\Component\Filesystem\Exception;
+if (!defined('ABSPATH')) exit;
+class IOException extends \RuntimeException implements IOExceptionInterface
+{
+ private $path;
+ public function __construct(string $message, int $code = 0, \Throwable $previous = null, string $path = null)
+ {
+ $this->path = $path;
+ parent::__construct($message, $code, $previous);
+ }
+ public function getPath()
+ {
+ return $this->path;
+ }
+}

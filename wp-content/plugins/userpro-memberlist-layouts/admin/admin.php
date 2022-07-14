@@ -89,7 +89,7 @@ class userpro_memberlists_admin {
                     if ($code == ''){
                             echo '<div class="error"><p><strong>'.__('Please enter a purchase code.','userpro').'</strong></p></div>';
                     } else {
-                            if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '8943811') ){
+                            if ( $userpro->verify_purchase($code, '13z89fdcmr2ia646kphzg3bbz0jdpdja', 'DeluxeThemes', '5958681') ){
                                     echo '<div class="updated fade"><p><strong>'.__('Thanks for activating UserPro Memberlists Addon!','userpro-memberlists').'</strong></p></div>';
                             } else {
                                     echo '<div class="error"><p><strong>'.__('You have entered an invalid purchase code or the Envato API could be down at the moment.','userpro-memberlists').'</strong></p></div>';

@@ -52,6 +52,8 @@
 		'1',
 		'2',
 		'3',
+		'&&',
+		'||',
 		'*',
 		'sinh',
 		'asinh',
@@ -65,7 +67,16 @@
 		'Sigma',
 		'n',
 		'Pi',
-		'pow'
+		'pow',
+		'>',
+		'<',
+		'>=',
+		'<=',
+		'==',
+		'!=',
+		'%',
+		'min',
+		'max'
 	];
 	var show = [
 		'round',
@@ -78,6 +89,7 @@
 		'cos',
 		'tan',
 		'&pi;',
+
 		'(',
 		')',
 		'P',
@@ -88,6 +100,7 @@
 		'atan',
 		'7',
 		'8',
+
 		'9',
 		'Int',
 		'cosh',
@@ -98,6 +111,7 @@
 		'4',
 		'5',
 		'6',
+
 		'&divide;',
 		'!',
 		'tanh',
@@ -106,6 +120,8 @@
 		'1',
 		'2',
 		'3',
+		'&amp;&amp;',
+		'||',
 		'&times;',
 		'sinh',
 		'asinh',
@@ -119,19 +135,28 @@
 		'&Sigma;',
 		'n',
 		'&Pi;',
-		'pow'
+		'pow',
+		'&gt;',
+		'&lt;',
+		'&gt;=',
+		'&lt;=',
+		'==',
+		'!=',
+		'%',
+		'min',
+		'max'
 	];
 	var eva = [];
 
 	var newAr = [
 		[],
-		[ '1', '2', '3', '7', '8', '9', '4', '5', '6', '+', '-', '*', '/', '(', ')', '^', '!', 'P', 'C', 'e', '0', '.', ',', 'n', ' ' ],
-		[ 'pi', 'ln', 'Pi' ],
-		[ 'round', 'ceil', 'floor', 'abs', 'exp', 'sqrt', 'sin', 'cos', 'tan', 'Del', 'int', 'Mod', 'log', 'pow' ],
+		[ '1', '2', '3', '7', '8', '9', '4', '5', '6', '+', '-', '*', '/', '(', ')', '^', '!', 'P', 'C', 'e', '0', '.', ',', 'n', ' ', '>', '<', '%' ],
+		[ 'pi', 'ln', 'Pi', '&&', '||', '>=', '<=', '==', '!=' ],
+		[ 'round', 'ceil', 'floor', 'abs', 'exp', 'sqrt', 'sin', 'cos', 'tan', 'Del', 'int', 'Mod', 'log', 'pow', 'min', 'max' ],
 		[ 'asin', 'acos', 'atan', 'cosh', 'root', 'tanh', 'sinh' ],
 		[ 'acosh', 'atanh', 'asinh', 'Sigma' ]
 	];
-	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 14, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8 ];
+	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 14, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 9, 0, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8, 2, 2, 2, 2, 2, 2, 9, 8, 8 ];
 	/*
      0 : function with syntax function_name(Maths_exp)
      1 : numbers
@@ -141,7 +166,7 @@
      5 : closing bracket
      6 : decimal
      7 : function with syntax (Math_exp)function_name
-     8: function with syntax function_name(Math_exp1,Math_exp2)
+     8 : function with syntax function_name(Math_exp1,Math_exp2)
      9 : binary operator like +,-
      10: binary operator like P C or ^
      11: ,
@@ -235,7 +260,7 @@
 	}
 
 	TCMexp.math = {
-		isDegree: true, // mode of calculator
+		isDegree: false, // mode of calculator
 		acos: function( x ) {
 			return TCMexp.math.isDegree ? ( 180 / Math.PI ) * Math.acos( x ) : Math.acos( x );
 		},
@@ -372,6 +397,56 @@
 		},
 		toRadian: function( x ) {
 			return ( x * Math.PI ) / 180;
+		},
+		greaterthan: function( a, b ) {
+			return a > b ? 1 : 0;
+		},
+		lessthan: function( a, b ) {
+			return a < b ? 1 : 0;
+		},
+		greaterthanorequal: function( a, b ) {
+			return a >= b ? 1 : 0;
+		},
+		lessthanorequal: function( a, b ) {
+			return a <= b ? 1 : 0;
+		},
+		equals: function( a, b ) {
+			return String( a ) === String( b ) ? 1 : 0;
+		},
+		noteequals: function( a, b ) {
+			return String( a ) !== String( b ) ? 1 : 0;
+		},
+		and: function( a, b ) {
+			return a && b ? 1 : 0;
+		},
+		or: function( a, b ) {
+			return a || b ? 1 : 0;
+		},
+		min: function() {
+			var array = Array.prototype.slice.call( arguments );
+			var result;
+			if ( arguments.length === 0 ) {
+				result = 0;
+			} else {
+				result = Math.min.apply( null, array );
+				if ( isNaN( result ) ) {
+					result = 0;
+				}
+			}
+			return result;
+		},
+		max: function() {
+			var array = Array.prototype.slice.call( arguments );
+			var result;
+			if ( arguments.length === 0 ) {
+				result = 0;
+			} else {
+				result = Math.max.apply( null, array );
+				if ( isNaN( result ) ) {
+					result = 0;
+				}
+			}
+			return result;
 		}
 	};
 
@@ -414,6 +489,8 @@
 		'1',
 		'2',
 		'3',
+		TCMexp.math.and,
+		TCMexp.math.or,
 		TCMexp.math.mul,
 		TCMexp.math.sinh,
 		TCMexp.math.asinh,
@@ -427,7 +504,16 @@
 		TCMexp.math.sigma,
 		'n',
 		TCMexp.math.Pi,
-		Math.pow
+		Math.pow,
+		TCMexp.math.greaterthan,
+		TCMexp.math.lessthan,
+		TCMexp.math.greaterthanorequal,
+		TCMexp.math.lessthanorequal,
+		TCMexp.math.equals,
+		TCMexp.math.noteequals,
+		TCMexp.math.mod,
+		TCMexp.math.min,
+		TCMexp.math.max
 	];
 
 	TCMexp.prototype.formulaEval = function() {
@@ -926,7 +1012,7 @@
 			}
 		}
 		if ( stack.length > 1 ) {
-			throw new TCMexp.exception( 'Uncaught Syntax error' );
+			throw new TCMexp.Exception( 'Uncaught Syntax error' );
 		}
 		return stack[ 0 ].value > 1000000000000000 ? 'Infinity' : parseFloat( stack[ 0 ].value.toFixed( 15 ) );
 	};

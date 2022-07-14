@@ -1262,7 +1262,7 @@ msgstr "Sempre mostrar"
 
 # @ tm-extra-product-options
 #: admin/views/html-tm-global-epo.php:163
-msgid "Show only with action hook"
+msgid "Show only with an action hook"
 msgstr "Mostrar somente com gancho de ação"
 
 #: admin/views/html-tm-global-epo.php:172
@@ -6230,7 +6230,7 @@ msgid "Base original price type according to"
 msgstr ""
 
 #: includes/compatibility/classes/class-themecomplete-epo-cp-dpd.php:669
-msgid "Set to what those price types will base their original price on."
+msgid "Set to what price types will base their original price on."
 msgstr ""
 
 #: includes/compatibility/classes/class-themecomplete-epo-cp-dpd.php:676

@@ -63,7 +63,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
 		add_action( 'woocommerce_composited_product_add_to_cart', [ $this, 'tm_composited_display_support' ], 11, 3 );
 		add_filter( 'woocommerce_composite_button_behaviour', [ $this, 'tm_woocommerce_composite_button_behaviour' ], 50, 1 );
 		add_action( 'woocommerce_composite_products_remove_product_filters', [ $this, 'tm_woocommerce_composite_products_remove_product_filters' ], 99999 );
@@ -166,7 +166,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	 *
 	 * @param array  $args Array of arguments.
 	 * @param array  $cart_item The cart item.
-	 * @param Object $composite_product The composite product.
+	 * @param object $composite_product The composite product.
 	 * @since 5.0
 	 */
 	public function woocommerce_composite_cart_permalink_args( $args, $cart_item, $composite_product ) {
@@ -214,9 +214,9 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	/**
 	 * Include options in the composite product
 	 *
-	 * @param Object|boolean $product The product.
+	 * @param object|boolean $product The product.
 	 * @param string         $component_id The component id.
-	 * @param Object|null    $composite_product The composite product.
+	 * @param object|null    $composite_product The composite product.
 	 * @return void
 	 * @since 1.0
 	 */

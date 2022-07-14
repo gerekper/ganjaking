@@ -99,6 +99,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_final_total_text', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_options_unit_price_text', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_options_total_text', [ $this, 'tm_return_raw' ], 10, 3 );
+		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_vat_options_total_text', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_fees_total_text', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_reset_variation_text', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_closetext', [ $this, 'tm_return_raw' ], 10, 3 );
@@ -1455,7 +1456,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				],
 			];
 
-			$tmepos = get_posts( $args );
+			$tmepos = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 			if ( is_array( $tmepos ) && is_array( $_attributes ) && count( $tmepos ) >= count( $_attributes ) ) {
 				die( 'max' );
@@ -1500,7 +1501,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 					'order'       => 'asc',
 					'post_parent' => $post_id,
 				];
-				$variations = get_posts( $args );
+				$variations = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 				include 'views/html-tm-epo-admin.php';
 			}
@@ -1522,7 +1523,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		$attributes = themecomplete_get_attributes( $post_id );
 
 		if ( isset( $_POST['product-type'] ) || isset( $_POST['variable_sku'] ) || isset( $_POST['_sku'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$_post_id                = isset( $_POST['tmcp_post_id'] ) ? absint( wp_unslash( $_POST['tmcp_post_id'] ) ) : []; // phpcs:ignore WordPress.Security.NonceVerification
+			$_post_id                = isset( $_POST['tmcp_post_id'] ) ? wp_unslash( $_POST['tmcp_post_id'] ) : []; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$tmcp_regular_price      = isset( $_POST['tmcp_regular_price'] ) ? wp_unslash( $_POST['tmcp_regular_price'] ) : []; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$tmcp_regular_price_type = isset( $_POST['tmcp_regular_price_type'] ) ? wp_unslash( $_POST['tmcp_regular_price_type'] ) : []; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$tmcp_enabled            = isset( $_POST['tmcp_enabled'] ) ? wp_unslash( $_POST['tmcp_enabled'] ) : []; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1588,6 +1589,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 			if ( ! empty( $_post_id ) ) {
 				global $wpdb;
+				if ( ! is_array( $_post_id ) ) {
+					$_post_id = [ $_post_id ];
+				}
 				$max_loop = max( array_keys( $_post_id ) );
 				for ( $i = 0; $i <= $max_loop; $i ++ ) {
 

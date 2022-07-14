@@ -88,6 +88,8 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 			return true;
 		}
 
+		$this->php_check();
+
 		return false;
 
 	}
@@ -328,6 +330,44 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 
 	}
 
+	/**
+	 * Add notice for WordPress version
+	 *
+	 * @since 6.0.5
+	 * @static
+	 */
+	public function php_check_notice() {
+
+		echo '<div class="error fade"><p>';
+		echo sprintf(
+			/* translators: %1 open strong html tag %2 close strong html tag %3 WordPress version */
+			esc_html__( '%1$sImportant:%2$s WooCommerce TM Extra Product Options requires PHP version %3$s or later.', 'woocommerce-tm-extra-product-options' ),
+			'<strong>',
+			'</strong>',
+			esc_html( THEMECOMPLETE_EPO_PHP_VERSION )
+		);
+		echo '</p></div>' . "\n";
+
+	}
+
+	/**
+	 * Check for comaptible WordPress version
+	 *
+	 * @since 6.0.5
+	 * @static
+	 */
+	public function php_check() {
+
+		if ( function_exists( 'phpversion' ) ) {
+			if ( version_compare( phpversion(), THEMECOMPLETE_EPO_PHP_VERSION, '<' ) ) {
+				add_action( 'admin_notices', [ $this, 'php_check_notice' ] );
+				return false;
+			}
+		}
+
+		return true;
+
+	}
 	/**
 	 * Check for comaptible WordPress version
 	 *

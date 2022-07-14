@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.15.0
+ * @version  6.16.0
  */
 class WC_PB_Compatibility {
 
@@ -270,7 +270,9 @@ class WC_PB_Compatibility {
 		}
 
 		// Shipstation integration.
-		$module_paths[ 'shipstation' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-shipstation-compatibility.php';
+		if ( class_exists( 'WC_ShipStation_Integration' ) ) {
+			$module_paths[ 'shipstation' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-shipstation-compatibility.php';
+		}
 
 		// Storefront compatibility.
 		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'storefront' ) ) {

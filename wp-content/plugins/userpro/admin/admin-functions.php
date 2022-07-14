@@ -19,8 +19,7 @@
         return $output;
     }
 
-	update_option('userpro_trial', 0);
-	update_option('userpro_activated',true);
+
     function userpro_admin_bar(){
         ?>
 <div class="userpro-admin-head">
@@ -570,7 +569,7 @@
                                     </select>";
                                 }
 
-                                if (in_array($opt, array('condition_value'))){
+                                if (in_array($opt, array('condition_value'))){            
                                     $output .= '<input type="text" name="'.$k.'-'.$opt.'" id="'.$k.'-'.$opt.'" value="'.stripslashes($val).'" />';
 
                                 }

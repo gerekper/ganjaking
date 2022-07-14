@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $input_name = $name;
-if ( isset( $option ) && '' !== $option['_default_value_counter'] ) {
+if ( isset( $option ) && isset( $option['_default_value_counter'] ) && '' !== $option['_default_value_counter'] ) {
 	$input_name .= '_' . $option['_default_value_counter'];
 }
 $input_name .= '_variation_id';

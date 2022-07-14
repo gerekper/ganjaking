@@ -10,13 +10,21 @@
 defined( 'ABSPATH' ) || exit;
 
 do_action( 'wc_epo_before_product_item_container', $current_product );
+$product_permalink = $current_product->is_visible() ? $current_product->get_permalink() : '';
 
 ?>
 <div class="tc-epo-element-product-container tm-hidden" data-product_variations="<?php echo esc_attr( $product_list_available_variations[ $product_id ] ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">
 	<?php
 	if ( $show_image ) {
 		echo '<div class="tc-epo-element-product-container-left">';
-		require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-image.php';
+		wc_get_template(
+			'products/template-image.php',
+			[
+				'product_id' => $product_id,
+			],
+			THEMECOMPLETE_EPO_DISPLAY()->get_template_path(),
+			THEMECOMPLETE_EPO_DISPLAY()->get_default_path()
+		);
 		echo '</div>';
 	}
 	?>
@@ -25,7 +33,11 @@ do_action( 'wc_epo_before_product_item_container', $current_product );
 			<?php
 			if ( $show_title ) {
 				echo '<h4 class="product-title">';
-				echo esc_html( $current_product->get_name() );
+				if ( ! $product_permalink ) {
+					echo wp_kses_post( $current_product->get_name() );
+				} else {
+					echo wp_kses_post( sprintf( '<a target="_blank" href="%s">%s</a>', esc_url( $product_permalink ), $current_product->get_name() ) );
+				}
 				echo '</h4>';
 			}
 			if ( $show_price && $priced_individually ) {
@@ -42,7 +54,7 @@ do_action( 'wc_epo_before_product_item_container', $current_product );
 				echo '<div class="product-description">' . wpautop( do_shortcode( apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description, false ) ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variable.php';
-			do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'] . '.' . $option['counter'], $priced_individually, $args['discount'], $args['discount_type'], $option['counter'], $tm_element_settings['uniqid'] );
+			do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'], $priced_individually, $args['discount'], $args['discount_type'], $option['counter'], $tm_element_settings['uniqid'] );
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-availability.php';
 			require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity.php';
 

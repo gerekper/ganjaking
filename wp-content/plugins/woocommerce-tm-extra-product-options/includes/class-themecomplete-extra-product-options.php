@@ -264,6 +264,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @var bool
 	 */
+
 	public $is_associated = false;
 	/**
 	 * If associated product is priced individually
@@ -271,18 +272,28 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @var int|null
 	 */
 	public $associated_per_product_pricing = null;
+
 	/**
 	 * Associated product type
 	 *
 	 * @var int|null
 	 */
 	public $associated_type = false;
+
 	/**
 	 * The element id of the associated product
 	 *
 	 * @var int|null
 	 */
 	public $associated_element_uniqid = false;
+
+	/**
+	 * The associated product counter when adding more than one product
+	 * in the same product element.
+	 *
+	 * @var int|null
+	 */
+	public $associated_product_counter = false;
 
 	/**
 	 * The single instance of the class
@@ -441,6 +452,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$this->$key = $value;
 				}
 			}
+			$this->$key = wp_unslash( $this->$key );
 		}
 
 		if ( 'custom' === $this->tm_epo_options_placement ) {
@@ -509,6 +521,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 			$image_css            .= '}';
 			$this->tm_epo_css_code = $image_css . "\n" . $this->tm_epo_css_code;
+		}
+
+		if ( ! isset( $this->tm_epo_enable_vat_options_total ) ) {
+			$this->tm_epo_enable_vat_options_total = 'no';
 		}
 
 	}
@@ -601,6 +617,32 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			add_filter( 'wc_epo_label_in_cart', [ $this, 'wc_epo_label_in_cart' ], 10, 1 );
 		}
 
+		// Enable shortcodes on prices.
+		add_filter( 'wc_epo_apply_discount', [ $this, 'enable_shortcodes' ], 10, 3 );
+		// Enable shortcodes on various properties.
+		add_filter( 'wc_epo_enable_shortocde', [ $this, 'enable_shortcodes' ], 10, 3 );
+	}
+
+	/**
+	 * Enable shortcodes on an element property
+	 *
+	 * @param mixed   $property The option property.
+	 * @param mixed   $original_property The original option property.
+	 * @param integer $post_id The post id where the filter was used.
+	 *
+	 * @since 6.0.4
+	 */
+	public function enable_shortcodes( $property = '', $original_property = '', $post_id = 0 ) {
+
+		if ( is_array( $property ) ) {
+			foreach ( $property as $key => $value ) {
+				$property[ $key ] = do_shortcode( $value );
+			}
+		} else {
+			$property = do_shortcode( $property );
+		}
+		return $property;
+
 	}
 
 	/**
@@ -616,7 +658,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$text = $original_text;
 
 		if ( $shortcode ) {
-			$text = do_shortcode( $text );
+			$text = THEMECOMPLETE_EPO_HELPER()->do_shortcode( $text );
 		}
 
 		return $text;
@@ -631,7 +673,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 */
 	public function wc_epo_label_in_cart( $text = '' ) {
 
-		return do_shortcode( $text );
+		return THEMECOMPLETE_EPO_HELPER()->do_shortcode( $text );
 
 	}
 
@@ -729,6 +771,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 			$min_regular_price = floatval( current( $prices['regular_price'] ) ) + $min_raw;
 			$max_regular_price = floatval( end( $prices['regular_price'] ) ) + $max_raw;
+
+			// include taxes.
+			$min_regular_price = $this->tc_get_display_price( $product, $min_regular_price );
+			$max_regular_price = $this->tc_get_display_price( $product, $max_regular_price );
 
 		} else {
 
@@ -1596,7 +1642,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 				$price = apply_filters( 'woocommerce_empty_price_html', '', $product );
 
-			} elseif ( $this->tc_get_price( $product ) === 0 ) {
+			} elseif ( (float) $this->tc_get_price( $product ) === (float) 0 ) {
 				if ( $product->is_on_sale() && $this->tc_get_regular_price( $product ) ) {
 					if ( $use_from && ( $max > 0 || $max > $min ) ) {
 						$price .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( ( $min > 0 ) ? $min : 0 );
@@ -2297,6 +2343,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		if ( false !== $this->associated_element_uniqid && isset( $post_data['tc_form_prefix_assoc'] ) && isset( $post_data['tc_form_prefix_assoc'][ $this->associated_element_uniqid ] ) ) {
 			$form_prefix = $post_data['tc_form_prefix_assoc'][ $this->associated_element_uniqid ];
+			if ( is_array( $form_prefix ) ) {
+				$form_prefix = array_values( $form_prefix );
+				$form_prefix = $form_prefix[ THEMECOMPLETE_EPO()->associated_product_counter ];
+			}
 		}
 		if ( '' !== $form_prefix ) {
 			$form_prefix = str_replace( '_', '', $form_prefix );
@@ -2554,17 +2604,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		}
 
-		$locale   = localeconv();
-		$decimals = [ wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'], ',' ];
-
-		// Remove whitespace from string.
-		$formula = preg_replace( '/\s+/', '', $formula );
-
-		// Remove locale from string.
-		$formula = str_replace( $decimals, '.', $formula );
-
-		// Trim invalid start/end characters.
-		$formula = rtrim( ltrim( $formula, "\t\n\r\0\x0B+*/" ), "\t\n\r\0\x0B+-*/" );
+		$formula = themecomplete_convert_local_numbers( $formula );
 
 		// Do the math.
 		return $formula ? THEMECOMPLETE_EPO_MATH::evaluate( $formula ) : 0;
@@ -2941,8 +2981,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				case 'percentcurrenttotal':
 					$_original_price = $_price;
 					if ( false !== $cpf_product_price ) {
-						if ( '' !== $_price && isset( $post_data[ $attribute . '_hidden' ] ) ) {
-							$_price = floatval( $post_data[ $attribute . '_hidden' ] );
+						if ( '' !== $_price ) {
+							if ( isset( $post_data[ $attribute . '_hidden' ] ) ) {
+								$_price = floatval( $post_data[ $attribute . '_hidden' ] );
+							}
 							if ( isset( $post_data['tm_epo_options_static_prices'] ) ) {
 								$_price = ( floatval( $post_data['tm_epo_options_static_prices'] ) + floatval( $cpf_product_price ) ) * ( floatval( $_original_price ) / 100 );
 								if ( $attribute_quantity > 0 ) {
@@ -3207,7 +3249,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( ! $uniqid ) {
 			return false;
 		}
-
 		if ( isset( $this->visible_elements[ $array_prefix ][ $uniqid ] ) ) {
 			return $this->visible_elements[ $array_prefix ][ $uniqid ];
 		}
@@ -4063,7 +4104,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			'post_parent'      => floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) ),
 		];
 		THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
-		$tmlocalprices = get_posts( $args );
+		$tmlocalprices = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 		THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
 
 		$tm_meta_cpf_global_forms = ( isset( $this->tm_meta_cpf['global_forms'] ) && is_array( $this->tm_meta_cpf['global_forms'] ) ) ? $this->tm_meta_cpf['global_forms'] : [];
@@ -4129,12 +4170,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 			THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
 			THEMECOMPLETE_EPO_WPML()->remove_term_filters();
-			$tmp_tmglobalprices = get_posts( $args );
+			$tmp_tmglobalprices = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 			$args_tag           = $args;
 			unset( $args_tag['meta_query'] );
 			// phpcs:ignore WordPress.DB.SlowDBQuery
 			$args_tag['tax_query']  = [
-				'relation' => 'OR',
 				// Get Global options that belong to the product tag.
 				[
 					'taxonomy'         => 'product_tag',
@@ -4144,7 +4184,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'include_children' => false,
 				],
 			];
-			$tmp_tmglobalprices_tag = get_posts( $args_tag );
+			$tmp_tmglobalprices_tag = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args_tag );
 			$tmp_tmglobalprices     = array_merge( $tmp_tmglobalprices, $tmp_tmglobalprices_tag );
 			$tmp_tmglobalprices     = array_unique( $tmp_tmglobalprices, SORT_REGULAR );
 			THEMECOMPLETE_EPO_WPML()->restore_term_filters();
@@ -4240,7 +4280,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$args['meta_query']             = array_merge( $args['meta_query'], $glue ); // phpcs:ignore WordPress.DB.SlowDBQuery
 			}
 
-			$tmglobalprices_products = get_posts( $args );
+			$tmglobalprices_products = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 			if ( $tmglobalprices_products ) {
 
@@ -4326,7 +4366,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 				THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
 				THEMECOMPLETE_EPO_WPML()->remove_term_filters();
-				$tmglobalprices_products = get_posts( $args );
+				$tmglobalprices_products = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 				THEMECOMPLETE_EPO_WPML()->restore_term_filters();
 				THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
 
@@ -4385,6 +4425,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 											'post_status' => [ 'publish' ],
 											'numberposts' => - 1,
+											'posts_per_page' => -1,
 											'orderby'     => 'date',
 											'order'       => 'asc',
 											// phpcs:ignore WordPress.DB.SlowDBQuery
@@ -4460,7 +4501,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$args['meta_query']['relation'] = 'OR'; // phpcs:ignore WordPress.DB.SlowDBQuery
 					$args['meta_query']             = array_merge( $args['meta_query'], $glue ); // phpcs:ignore WordPress.DB.SlowDBQuery
 
-					$tmglobalprices_products = get_posts( $args );
+					$tmglobalprices_products = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 					// Merge Global options.
 					if ( $tmglobalprices_products ) {
@@ -4505,12 +4546,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 					$query = new WP_Query(
 						[
-							'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
-							'post_status' => [ 'publish' ],
-							'numberposts' => - 1,
-							'orderby'     => 'date',
-							'order'       => 'asc',
-							'meta_query'  => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
+							'post_type'      => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
+							'post_status'    => [ 'publish' ],
+							'numberposts'    => - 1,
+							'posts_per_page' => -1,
+							'orderby'        => 'date',
+							'order'          => 'asc',
+							'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 						]
 					);
 
@@ -4746,6 +4788,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		$variation_element_id = false;
 		$variation_section_id = false;
+
+		$enable_sales = 'sale' === $this->tm_epo_global_options_price_mode;
+
 		if ( $tmglobalprices ) {
 
 			foreach ( $tmglobalprices as $price ) {
@@ -5064,7 +5109,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										}
 
 										if ( $is_enabled && 'template' === $current_element ) {
-											$templateids            = $this->get_builder_element( $_prefix . 'templateids', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											$templateids = $this->get_builder_element( $_prefix . 'templateids', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											if ( empty( $templateids ) ) {
+												continue;
+											}
 											$templateglobalprices   = [];
 											$templateglobalprices[] = get_post( $templateids );
 											$template_elements      = $this->generate_global_epos( $templateglobalprices, $post_id, $tm_original_builder_elements, $variations_for_conditional_logic, $no_cache, $no_disabled );
@@ -5121,15 +5169,15 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											$_use_images            = $this->get_builder_element( $_prefix . 'use_images', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
 											$_use_colors            = $this->get_builder_element( $_prefix . 'use_colors', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
 											$_price                 = isset( $builder[ $current_element . '_price' ] ) ? $builder[ $current_element . '_price' ][ $current_counter ] : '';
-											$_price                 = $this->get_builder_element( $_prefix . 'price', $builder, $current_builder, $current_counter, $_price, $current_element, '', $element_uniqueid );
+											$_price                 = $this->get_builder_element( $_prefix . 'price', $builder, $current_builder, $current_counter, $_price, $current_element, 'wc_epo_option_regular_price', $element_uniqueid );
 
 											$_original_regular_price_filtered = $_price;
-											if ( isset( $builder[ $current_element . '_sale_price' ][ $current_counter ] ) && '' !== $builder[ $current_element . '_sale_price' ][ $current_counter ] ) {
+											if ( $enable_sales && isset( $builder[ $current_element . '_sale_price' ][ $current_counter ] ) && '' !== $builder[ $current_element . '_sale_price' ][ $current_counter ] ) {
 												$_price = $builder[ $current_element . '_sale_price' ][ $current_counter ];
-												$_price = $this->get_builder_element( $_prefix . 'sale_price', $builder, $current_builder, $current_counter, $_price, $current_element, '', $element_uniqueid );
+												$_price = $this->get_builder_element( $_prefix . 'sale_price', $builder, $current_builder, $current_counter, $_price, $current_element, 'wc_epo_option_sale_price', $element_uniqueid );
 											}
 
-											$_price = apply_filters( 'wc_epo_apply_discount', $_price, $_original_regular_price_filtered );
+											$_price = apply_filters( 'wc_epo_apply_discount', $_price, $_original_regular_price_filtered, $post_id );
 
 											$this_price_type = '';
 
@@ -5226,7 +5274,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																			'value'   => $original_product_id,
 																			'compare' => '=',
 																		];
-																		$other_translations   = get_posts( $args );
+																		$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 																		if ( ! empty( $other_translations ) && isset( $other_translations[0] ) && is_object( $other_translations[0] ) && property_exists( $other_translations[0], 'ID' ) ) {
 																			$this_wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $other_translations[0]->ID, $basetype );
@@ -5281,9 +5329,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 															$price_per_currencies_original[ $currency ] = [ [ wc_format_decimal( $_current_currency_price, false, true ) ] ];
 														}
 
-														if ( $_current_currency_sale_price && '' !== $_current_currency_sale_price ) {
+														$_current_currency_price          = apply_filters( 'wc_epo_option_regular_price' . $currency, $_current_currency_price, $_prefix . 'price' . $currency, $element_uniqueid );
+														$_current_currency_sale_price     = apply_filters( 'wc_epo_option_sale_price' . $currency, $_current_currency_price, $_prefix . 'sale_price' . $currency, $element_uniqueid );
+														$_original_current_currency_price = $_current_currency_price;
+
+														if ( $enable_sales && $_current_currency_sale_price && '' !== $_current_currency_sale_price ) {
 															$_current_currency_price = $_current_currency_sale_price;
 														}
+														$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
 
 														if ( 'math' === $this_price_type ) {
 															$price_per_currencies[ $currency ] = [ [ $_current_currency_price ] ];
@@ -5294,21 +5347,31 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												}
 											} else {
 												foreach ( THEMECOMPLETE_EPO_HELPER()->get_currencies() as $currency ) {
-													$mt_prefix                    = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
-													$_current_currency_price      = isset( $builder[ $current_element . '_price' . $mt_prefix ][ $current_counter ] ) ? $builder[ $current_element . '_price' . $mt_prefix ][ $current_counter ] : '';
-													$_current_currency_sale_price = isset( $builder[ $current_element . '_sale_price' . $mt_prefix ][ $current_counter ] ) ? $builder[ $current_element . '_sale_price' . $mt_prefix ][ $current_counter ] : '';
+													$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
 
-													if ( '' !== $_current_currency_price ) {
+													if ( '' === $mt_prefix ) {
+														$_current_currency_price          = $_price;
+														$_original_current_currency_price = $_current_currency_price;
+													} else {
+														$_current_currency_price          = isset( $builder[ $current_element . '_price' . $mt_prefix ][ $current_counter ] ) ? $builder[ $current_element . '_price' . $mt_prefix ][ $current_counter ] : '';
+														$_current_currency_sale_price     = isset( $builder[ $current_element . '_sale_price' . $mt_prefix ][ $current_counter ] ) ? $builder[ $current_element . '_sale_price' . $mt_prefix ][ $current_counter ] : '';
+														$_current_currency_price          = $this->get_builder_element( $_prefix . 'price' . $mt_prefix, $builder, $current_builder, $current_counter, $_current_currency_price, $current_element, 'wc_epo_option_regular_price' . $mt_prefix, $element_uniqueid );
+														$_current_currency_sale_price     = $this->get_builder_element( $_prefix . 'sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, $_current_currency_sale_price, $current_element, 'wc_epo_option_sale_price' . $mt_prefix, $element_uniqueid );
+														$_original_current_currency_price = $_current_currency_price;
+														if ( $enable_sales && $_current_currency_sale_price && '' !== $_current_currency_sale_price ) {
+															$_current_currency_price = $_current_currency_sale_price;
+														}
+														$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
+													}
+
+													if ( '' !== $_original_current_currency_price ) {
 														if ( 'math' === $this_price_type ) {
-															$price_per_currencies_original[ $currency ] = [ [ $_current_currency_price ] ];
+															$price_per_currencies_original[ $currency ] = [ [ $_original_current_currency_price ] ];
 														} else {
-															$price_per_currencies_original[ $currency ] = [ [ wc_format_decimal( $_current_currency_price, false, true ) ] ];
+															$price_per_currencies_original[ $currency ] = [ [ wc_format_decimal( $_original_current_currency_price, false, true ) ] ];
 														}
 													}
 
-													if ( $_current_currency_sale_price && '' !== $_current_currency_sale_price ) {
-														$_current_currency_price = $_current_currency_sale_price;
-													}
 													if ( '' !== $_current_currency_price ) {
 														if ( 'math' === $this_price_type ) {
 															$price_per_currencies[ $currency ] = [ [ $_current_currency_price ] ];
@@ -5396,18 +5459,18 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 												$_original_prices = $_prices;
 												$_sale_prices     = $_prices;
-												if ( isset( $builder[ 'multiple_' . $current_element . '_options_sale_price' ][ $current_counter ] ) ) {
+												if ( $enable_sales && isset( $builder[ 'multiple_' . $current_element . '_options_sale_price' ][ $current_counter ] ) ) {
 													$_sale_prices = $builder[ 'multiple_' . $current_element . '_options_sale_price' ][ $current_counter ];
 													$_sale_prices = $this->get_builder_element( 'multiple_' . $current_element . '_sale_prices', $builder, $current_builder, $current_counter, $_sale_prices, $current_element, 'wc_epo_multiple_sale_prices', $element_uniqueid );
 												}
 												$_prices = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_prices, $_sale_prices );
 
-												$_prices = apply_filters( 'wc_epo_apply_discount', $_prices, $_original_prices );
+												$_prices = apply_filters( 'wc_epo_apply_discount', $_prices, $_original_prices, $post_id );
 
 												$mt_prefix                         = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix();
-												$_current_currency_prices          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, '', $element_uniqueid );
+												$_current_currency_prices          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_prices' . $mt_prefix, $element_uniqueid );
 												$_original_current_currency_prices = $_current_currency_prices;
-												$_current_currency_sale_prices     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, '', $element_uniqueid );
+												$_current_currency_sale_prices     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_sale_prices' . $mt_prefix, $element_uniqueid );
 												$_current_currency_prices          = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_prices, $_current_currency_sale_prices );
 
 												$_values      = $this->get_builder_element( 'multiple_' . $current_element . '_options_value', $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_values', $element_uniqueid );
@@ -5505,7 +5568,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																				'value'   => $original_product_id,
 																				'compare' => '=',
 																			];
-																			$other_translations   = get_posts( $args );
+																			$other_translations   = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
 
 																			if ( ! empty( $other_translations ) && isset( $other_translations[0] ) && is_object( $other_translations[0] ) && property_exists( $other_translations[0], 'ID' ) ) {
 																				$this_wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $other_translations[0]->ID, $basetype );
@@ -5559,7 +5622,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																}
 															}
 
-															$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_current_currency_sale_price );
+															$_current_currency_price          = apply_filters( 'wc_epo_multiple_prices' . $currency, $_current_currency_price, 'multiple_' . $current_element . '_options_price' . $currency, $element_uniqueid );
+															$_current_currency_sale_price     = apply_filters( 'wc_epo_multiple_sale_prices' . $currency, $_current_currency_sale_price, 'multiple_' . $current_element . '_options_sale_price' . $currency, $element_uniqueid );
+															$_original_current_currency_price = $_current_currency_price;
+
+															if ( $enable_sales ) {
+																$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_current_currency_sale_price );
+															}
+															$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
 
 															$price_per_currencies[ $currency ] = $_current_currency_price;
 															if ( ! is_array( $price_per_currencies[ $currency ] ) ) {
@@ -5583,23 +5653,20 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														}
 													}
 												} else {
-
 													foreach ( THEMECOMPLETE_EPO_HELPER()->get_currencies() as $currency ) {
 														$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
 
-														$_current_currency_price = isset( $current_builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ] )
-															? $current_builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ]
-															: ( isset( $builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ] )
-															? $builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ]
-															: '' );
-
-														$_current_currency_sale_price = isset( $current_builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ] )
-															? $current_builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ]
-															: ( isset( $builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ] )
-															? $builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ]
-															: '' );
-
-														$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_current_currency_sale_price );
+														if ( '' === $mt_prefix ) {
+															$_current_currency_price = $_prices;
+														} else {
+															$_current_currency_price          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_prices' . $mt_prefix, $element_uniqueid );
+															$_current_currency_sale_price     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_sale_prices' . $mt_prefix, $element_uniqueid );
+															$_original_current_currency_price = $_current_currency_price;
+															if ( $enable_sales ) {
+																$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_current_currency_sale_price );
+															}
+															$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
+														}
 
 														$price_per_currencies[ $currency ] = $_current_currency_price;
 														if ( ! is_array( $price_per_currencies[ $currency ] ) ) {
@@ -5915,6 +5982,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 									} elseif ( isset( $builder[ $_prefix . 'default_value' ] ) && isset( $builder[ $_prefix . 'default_value' ][ $current_counter ] ) ) {
 										$default_value = (string) $builder[ $_prefix . 'default_value' ][ $current_counter ];
 									}
+									$default_value = apply_filters( 'wc_epo_enable_shortocde', $default_value, $default_value, $post_id );
 
 									switch ( $current_element ) {
 

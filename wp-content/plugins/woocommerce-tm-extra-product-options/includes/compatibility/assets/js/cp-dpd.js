@@ -188,10 +188,17 @@
 				}
 
 				discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty );
-				if ( ! discount[ 2 ] ) {
+				type = discount[ 1 ];
+				if ( ! discount[ 2 ] || ( type === 'fixed' || type === 'fixed__price' ) ) {
 					value = discount[ 0 ];
-					type = discount[ 1 ];
 					_dc = parseInt( TMEPOJS.currency_format_num_decimals, 10 );
+
+					if ( current_variation ) {
+						price = totalsHolder.data( 'variations' );
+						price = parseFloat( price[ current_variation ] ) || 0;
+					} else {
+						price = price = parseFloat( totalsHolder.attr( 'data-price' ) ) || 0;
+					}
 
 					switch ( type ) {
 						case 'percentage':
@@ -492,58 +499,44 @@
 		return product_price;
 	}
 
-	function getUndiscountedPrice( price, type, value, _dc ) {
-		switch ( type ) {
-			case 'percentage':
-			case 'discount__percentage':
-				price = parseFloat( ( price / ( 1 - ( value / 100 ) ) ) * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc ) * 1;
-				price = tc_round( price, _dc );
-				if ( price < 0 ) {
-					price = 0;
-				}
-				break;
+	function useUndiscountedPrice( use, element, cart, epoTotalsContainer ) {
+		var mode = epoTotalsContainer.attr( 'data-tm-epo-dpd-original-price-base' );
+		var undiscountedProductPrice = epoTotalsContainer.attr( 'data-price' );
 
-			case 'price':
-			case 'discount__amount':
-				price = price + value;
-				price = parseFloat( price * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc );
-				price = tc_round( price, _dc );
-				if ( price < 0 ) {
-					price = 0;
-				}
-				break;
+		if ( mode === 'undiscounted' && undiscountedProductPrice !== undefined ) {
+			return true;
 		}
-		return price;
+
+		return use;
 	}
 
-	function adjustOptionsOriginalTotalPrice( original_total, cartQty, elementQty, _original_total, noSyncOriginalTotal, totalsHolder ) {
-		var rules;
-		var $cart;
-		var variation_id_selector;
+	function tc_adjust_product_total_price( product_total_price, product_total_price_without_options, total_plus_fee, extraFee, total, cart_fee_options_total, totalsHolder ) {
+		var rules = totalsHolder.data( 'product-price-rules' );
+		var mainCart = totalsHolder.data( 'tm_for_cart' );
 		var qty_element;
 		var qty;
+		var variation_id_selector;
 		var current_variation;
 		var cv;
 		var discount;
-		var value;
 		var type;
-		var _dc;
-		var dpdEnabled;
+		var mainQty;
+		var dpdEnabled = totalsHolder.data( 'tm-epo-dpd-enable' ) === 'yes';
 
-		dpdEnabled = totalsHolder.data( 'tm-epo-dpd-enable' ) === 'yes';
-		if ( dpdEnabled ) {
-			rules = totalsHolder.data( 'product-price-rules' );
-			$cart = totalsHolder.data( 'tm_for_cart' );
-			variation_id_selector = 'input[name^="variation_id"]';
-			if ( $cart.find( 'input.variation_id' ).length > 0 ) {
-				variation_id_selector = 'input.variation_id';
-			}
+		if ( dpdEnabled && ( ! ( ! rules || ! mainCart || $.isEmptyObject( rules ) || $.isEmptyObject( mainCart ) ) ) ) {
 			qty_element = totalsHolder.data( 'qty_element' );
 			qty = parseFloat( qty_element.val() );
-			current_variation = $cart.find( variation_id_selector ).val();
+			variation_id_selector = totalsHolder.data( 'variationIdElement' );
+			current_variation = parseFloat( variation_id_selector.val() );
 			cv = current_variation;
 
+			if ( variation_id_selector.length > 0 && ( ! current_variation || current_variation === 0 ) ) {
+				return product_total_price;
+			}
 			if ( ! current_variation ) {
+				current_variation = 0;
+			}
+			if ( ! rules[ current_variation ] ) {
 				current_variation = 0;
 			}
 			if ( ! Number.isFinite( qty ) ) {
@@ -552,15 +545,28 @@
 				}
 			}
 
-			discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty );
-			value = discount[ 0 ];
-			type = discount[ 1 ];
-			_dc = parseInt( TMEPOJS.currency_format_num_decimals, 10 );
+			if ( TMEPOJS.tm_epo_global_product_element_quantity_sync === 'yes' && mainCart.is( $.tcAPI().associatedEpoCart ) ) {
+				mainQty = parseFloat( $( '.tc-epo-totals[data-epo-id=' + mainCart.closest( $.tcAPI().epoSelector ).data( 'epoId' ) + ']' ).data( 'qty_element' ).val() );
+				if ( ! Number.isFinite( mainQty ) ) {
+					mainQty = 1;
+				}
+				qty = qty * mainQty;
+			}
 
-			original_total = getUndiscountedPrice( original_total, type, value, _dc );
+			if ( ( rules[ current_variation ] && current_variation !== 0 ) || rules[ 0 ] ) {
+				if ( ! rules[ current_variation ] ) {
+					current_variation = 0;
+				}
+
+				discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty );
+				type = discount[ 1 ];
+				if ( type === 'fixed' || type === 'fixed__price' ) {
+					return product_total_price_without_options;
+				}
+			}
 		}
 
-		return original_total;
+		return product_total_price;
 	}
 
 	$( window ).on( 'epoEventHandlers', function( event, dataObject ) {
@@ -631,7 +637,8 @@
 		$.epoAPI.addFilter( 'tc_calculate_product_price', calculateProductPrice, 10, 2 );
 		$.epoAPI.addFilter( 'tc_apply_dpd', tc_apply_dpd, 10, 4 );
 		$.epoAPI.addFilter( 'tc_alter_product_price', alterProductPrice, 10, 4 );
-		$.epoAPI.addFilter( 'tc_adjust_options_original_total_price', adjustOptionsOriginalTotalPrice, 10, 6 );
+		$.epoAPI.addFilter( 'tc_use_undiscounted_price', useUndiscountedPrice, 10, 4 );
+		$.epoAPI.addFilter( 'tc_adjust_product_total_price', tc_adjust_product_total_price, 10, 7 );
 
 		$.fn.getDiscountObj = getDiscountObj;
 
@@ -704,99 +711,6 @@
 						}
 					}
 				}
-			}
-		} );
-
-		// Enable original final total display
-		$( window ).on( 'tc-epo-after-update', function( e, o ) {
-			var totalsHolder;
-			var tc_totals_ob;
-			var do_oft;
-			var rules;
-			var $cart;
-			var variation_id_selector;
-			var qty_element;
-			var qty;
-			var current_variation;
-			var cv;
-			var discount;
-			var value;
-			var type;
-			var _dc;
-			var original_price;
-			var price;
-			var dpdEnabled;
-			var undiscountedProductPrice;
-			var originalOptionsTotal;
-			var latePrices;
-
-			if ( o && o.data && o.epo && o.totals_holder ) {
-				totalsHolder = o.totals_holder;
-				tc_totals_ob = o.epo;
-
-				do_oft = totalsHolder.data( 'tm-epo-dpd-original-final-total' );
-
-				if ( do_oft !== 'yes' ) {
-					return;
-				}
-
-				rules = totalsHolder.data( 'product-price-rules' );
-				$cart = totalsHolder.data( 'tm_for_cart' );
-				variation_id_selector = 'input[name^="variation_id"]';
-				if ( $cart.find( 'input.variation_id' ).length > 0 ) {
-					variation_id_selector = 'input.variation_id';
-				}
-				qty_element = totalsHolder.data( 'qty_element' );
-				qty = parseFloat( qty_element.val() );
-				current_variation = $cart.find( variation_id_selector ).val();
-				cv = current_variation;
-
-				if ( ! current_variation ) {
-					current_variation = 0;
-				}
-				if ( ! Number.isFinite( qty ) ) {
-					if ( totalsHolder.attr( 'data-is-sold-individually' ) || qty_element.length === 0 ) {
-						qty = 1;
-					}
-				}
-				dpdEnabled = totalsHolder.data( 'tm-epo-dpd-enable' ) === 'yes';
-				discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty );
-				value = discount[ 0 ];
-				type = discount[ 1 ];
-				_dc = parseInt( TMEPOJS.currency_format_num_decimals, 10 );
-				if ( dpdEnabled ) {
-					original_price = tc_totals_ob.product_total_price_without_options + tc_totals_ob.options_original_total_price;
-				} else {
-					original_price = tc_totals_ob.product_total_price_without_options;
-				}
-				price = original_price;
-				original_price = tc_round( original_price, _dc );
-
-				if ( dpdEnabled ) {
-					undiscountedProductPrice = getUndiscountedPrice( tc_totals_ob.product_total_price_without_options, type, value, _dc );
-					originalOptionsTotal = getUndiscountedPrice( tc_totals_ob.options_original_total_price - tc_totals_ob.late_total_original_price, type, value, _dc );
-					latePrices = o.data.add_late_fields_prices( o.data.epo_object, undiscountedProductPrice, originalOptionsTotal, originalOptionsTotal, o.data.bundle_id, totalsHolder, 0 );
-					price = undiscountedProductPrice + originalOptionsTotal + latePrices[ 0 ];
-				} else {
-					// need to suport when Enable discounts on extra options = disable
-					if ( o.totals_holder.attr( 'data-tm-epo-dpd-price-override' ) !== '1' ) {
-						price = getUndiscountedPrice( price, type, value, _dc );
-					}
-
-					price = price + tc_totals_ob.options_original_total_price;
-				}
-
-				price = tc_round( price, _dc );
-				if ( original_price === price ) {
-					return;
-				}
-
-				price = price + tc_totals_ob.cart_fee_options_total_price;
-
-				$( '.tm-final-totals' )
-					.last()
-					.find( '.price.amount.final' )
-					.after( '<div class="price amount original"><del>' + o.data.tm_set_price( price ) + '</del></div>' );
 			}
 		} );
 	} );

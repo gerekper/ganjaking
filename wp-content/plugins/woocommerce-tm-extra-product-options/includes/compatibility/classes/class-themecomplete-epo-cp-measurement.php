@@ -65,11 +65,11 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
 
 		add_filter( 'wc_epo_add_cart_item_original_price', [ $this, 'wc_epo_add_cart_item_original_price' ], 10, 2 );
 		add_filter( 'wc_epo_option_price_correction', [ $this, 'wc_epo_option_price_correction' ], 10, 2 );
-		add_filter( 'woocommerce_tm_epo_price_on_cart', [ $this, 'woocommerce_tm_epo_price_on_cart' ], 10, 2 );
+		add_filter( 'wc_epo_price_on_cart', [ $this, 'wc_epo_price_on_cart' ], 10, 2 );
 
 	}
 
@@ -190,7 +190,7 @@ final class THEMECOMPLETE_EPO_CP_Measurement {
 	 * @param array        $cart_item The cart item.
 	 * @since 1.0
 	 */
-	public function woocommerce_tm_epo_price_on_cart( $price = '', $cart_item = [] ) {
+	public function wc_epo_price_on_cart( $price = '', $cart_item = [] ) {
 		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) {
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_quantity'] ) ) {
 				$new_quantity   = $cart_item['quantity'] / $cart_item['pricing_item_meta_data']['_quantity'];

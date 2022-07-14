@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin functions and filters.
  *
  * @class    WC_PB_BS_Admin
- * @version  6.1.5
+ * @version  6.16.0
  */
 class WC_PB_BS_Admin {
 
@@ -91,6 +91,7 @@ class WC_PB_BS_Admin {
 					'value'         => WC_PB_BS_Product::get_bundle_sells_discount( $product_object, 'edit' ),
 					'type'          => 'text',
 					'class'         => 'input-text wc_input_decimal',
+					'data_type'     => 'decimal',
 					'label'         => __( 'Bundle-sells discount', 'woocommerce-product-bundles' ),
 					'description'   => __( 'Discount to apply to bundle-sells (%). Accepts values from 0 to 100.', 'woocommerce-product-bundles' ),
 					'desc_tip'      => true
@@ -138,13 +139,10 @@ class WC_PB_BS_Admin {
 
 		if ( ! empty( $discount ) ) {
 
-			if ( is_numeric( $discount ) ) {
-				$discount = wc_format_decimal( $discount );
-			} else {
-				$discount = -1;
-			}
+			$discount = (float) wc_format_decimal( $discount );
 
-			if ( $discount < 0 || $discount > 100 ) {
+			// Throw error if discount is not within the 0-100 range or if a string was passed to wc_format_decimal.
+			if ( empty( $discount ) || $discount < 0 || $discount > 100 ) {
 				$discount = false;
 				WC_PB_Meta_Box_Product_Data::add_admin_error( __( 'Invalid bundle-sells discount value. Please enter a positive number between 0-100.', 'woocommerce-product-bundles' ) );
 			}

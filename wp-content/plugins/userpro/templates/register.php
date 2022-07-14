@@ -5,7 +5,7 @@
 
 		<div class="userpro-left"><?php echo $args["{$template}_heading"]; ?></div>
 		<?php if ($args["{$template}_side"]) { ?>
-		<div class="userpro-right"><a href="#" data-template="<?php echo $args["{$template}_side_action"]; ?>"><?php echo $args["{$template}_side"]; ?></a></div>
+			<div class="userpro-right"><a href="<?= get_permalink(userpro_get_option('login_page')) ?>" ><?php echo $args["{$template}_side"]; ?></a></div>
 		<?php } ?>
 		<div class="userpro-clear"></div>
 	</div>

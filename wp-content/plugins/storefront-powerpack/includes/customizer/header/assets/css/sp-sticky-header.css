@@ -7,22 +7,29 @@
     z-index: 1499;
     animation-duration: 1s;
     animation-fill-mode: both;
-    animation-name: fadeIn; }
+    animation-name: fadeIn;
+  }
   .sp-header-sticky.admin-bar .site-header {
-    top: 32px; }
+    top: 32px;
+  }
   .sp-fixed-width.sp-header-sticky .site-header {
     min-width: 75.998em;
     margin: 0 auto;
     left: auto;
-    right: auto; } }
-
+    right: auto;
+  }
+}
 @media screen and (max-width: 75.998em) {
   .sp-fixed-width.sp-header-sticky .site-header {
     width: 100%;
-    min-width: 0; } }
-
+    min-width: 0;
+  }
+}
 @keyframes fadeIn {
   from {
-    opacity: 0; }
+    opacity: 0;
+  }
   to {
-    opacity: 1; } }
+    opacity: 1;
+  }
+}

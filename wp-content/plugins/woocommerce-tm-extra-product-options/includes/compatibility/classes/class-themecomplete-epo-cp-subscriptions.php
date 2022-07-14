@@ -100,7 +100,7 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 		}
 
 		// Enqueue scripts.
-		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 4 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 11 );
 
 		// Add custom final total data in the JS template file.
 		add_filter( 'wc_epo_after_js_final_totals', [ $this, 'wc_epo_after_js_final_totals' ], 10 );

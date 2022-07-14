@@ -1,5 +1,21 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-07-11 - version 4.2.0
+* Feature - Added option to interrupt the process of updating a catalog data feed.
+* Tweak - Add a default description to the products without any description when generating the catalog data feeds.
+* Tweak - Selecting a Facebook Page on the settings page is no longer required for using the product catalogs.
+* Tweak - Hide the settings related to the product hashtags when there is no Facebook Page selected.
+* Tweak - Moved the product catalogs settings to an upper position in the form.
+* Tweak - Renamed the settings section 'Shopping' to 'Product catalogs'.
+* Tweak - Renamed the settings section 'Product page' to 'Product images'.
+* Tweak - Renamed the column 'Downloads' to 'Data feeds' in the product catalogs table.
+* Tweak - Redesigned the dialog content of the catalog data feeds.
+* Tweak - Removed link to the 'Shopping' doc in the plugin list.
+* Tweak - Added a link to get support in the plugin list.
+* Tweak - Tested compatibility with WC 6.7.
+* Fix - The 'Data feed' dialog stopped refreshing after the second AJAX request of the update process.
+* Dev - Deprecated filter hook `wc_instagram_product_catalog_download_formats`.
+
 2022-06-21 - version 4.1.9
 * Tweak - Reduced to 25 the number of products to process per batch when generating a catalog file.
 * Fix - Fixed the lock of the process for generating a catalog file when it's interrupted for exceeding the execution limits.

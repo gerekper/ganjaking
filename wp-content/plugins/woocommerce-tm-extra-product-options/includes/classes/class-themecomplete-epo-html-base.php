@@ -202,13 +202,13 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 			echo ' size="' . esc_attr( $select_array['size'] ) . '"';
 		}
 		if ( isset( $select_array['multiple'] ) ) {
-			echo ' multiple="multiple';
+			echo ' multiple="multiple"';
 		}
 		if ( ! empty( $select_array['disabled'] ) ) {
-			echo ' disabled="disabled';
+			echo ' disabled="disabled"';
 		}
 		if ( ! empty( $select_array['required'] ) ) {
-			echo ' required="required';
+			echo ' required="required"';
 		}
 		if ( isset( $select_array['atts'] ) && is_array( $select_array['atts'] ) ) {
 			unset( $select_array['atts']['class'] );
@@ -296,6 +296,9 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 		$tags = [];
 		if ( isset( $args['tags'] ) && is_array( $args['tags'] ) ) {
 			if ( isset( $args['type'] ) && ( 'range' === $args['type'] || 'input' === $args['type'] || 'text' === $args['type'] || 'number' === $args['type'] || 'hidden' === $args['type'] ) ) {
+				if ( ! isset( $args['default'] ) ) {
+					$args['default'] = '';
+				}
 				$args['tags']['value'] = $args['default'];
 				if ( 'number' === $args['type'] ) {
 					if ( ! isset( $args['tags']['step'] ) ) {

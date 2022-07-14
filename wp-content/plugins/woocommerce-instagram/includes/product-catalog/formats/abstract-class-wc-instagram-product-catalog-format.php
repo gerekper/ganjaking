@@ -371,9 +371,15 @@ abstract class WC_Instagram_Product_Catalog_Format {
 					$alt_prop   = ( 'description' === $desc_field ? 'short_description' : 'description' );
 				}
 
-				// Use alternative property as a fallback.
+				// Use the alternative property as a fallback.
 				if ( ! $value ) {
 					$value = $product_item->get_prop( $alt_prop );
+
+					// Use the default description.
+					if ( ! $value ) {
+						$description = $product_catalog->get_default_description();
+						$value       = ( $description ? $description : __( 'No description.', 'woocommerce-instagram' ) );
+					}
 				}
 
 				// Strip HTML tags.

@@ -7240,7 +7240,7 @@ Content-Type: text/html;
 	 */
 	public static function safe_unserialize( $string, $expected, $default = false ) {
 
-		$data = @unserialize( $string );
+		$data = is_string( $string ) ? @unserialize( $string ) : $string;
 
 		if ( is_a( $data, $expected ) ) {
 			return $data;

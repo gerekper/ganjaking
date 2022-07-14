@@ -172,6 +172,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$mode                              = isset( $_REQUEST['mode'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$layout_mode                       = sanitize_text_field( wp_unslash( $_REQUEST['layout_mode'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$product_id                        = absint( wp_unslash( $_REQUEST['product_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$parent_id                         = isset( $_REQUEST['parent_id'] ) ? absint( wp_unslash( $_REQUEST['parent_id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$product                           = wc_get_product( $product_id );
 			$product_list                      = [];
 			$product_list_available_variations = [];
@@ -181,7 +182,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$show_price       = isset( $_REQUEST['show_price'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['show_price'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$show_description = isset( $_REQUEST['show_description'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['show_description'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$show_meta        = isset( $_REQUEST['show_meta'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['show_meta'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$counter          = isset( $_REQUEST['counter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['counter'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$counter          = isset( $_REQUEST['counter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['counter'] ) ) : '0'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if ( ! empty( $product ) && is_object( $product ) ) {
 
@@ -259,6 +260,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					'discount_type'                     => $discount_type,
 					'name'                              => $name,
 					'product_id'                        => $product_id,
+					'parent_id'                         => $parent_id,
 					'product_list'                      => $product_list,
 					'product_list_available_variations' => $product_list_available_variations,
 					'show_image'                        => $show_image,
@@ -292,7 +294,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @param array $cart_item The cart item.
 	 * @since 5.0.12.4
 	 */
-	public function associated_tmcp_static_prices( $tmcp_static_prices = '', $cart_item ) {
+	public function associated_tmcp_static_prices( $tmcp_static_prices = '', $cart_item = [] ) {
 
 		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
 
@@ -352,6 +354,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$per_product_pricing = 1;
 			}
 
+			$uniqid = $uniqid . '.' . $counter;
 			$uniqid = str_replace( [ '.', ' ', '[' ], '', $uniqid );
 			$uniqid = THEMECOMPLETE_EPO_HELPER()->normalize_data( $uniqid );
 			$epo_id = $uniqid;
@@ -367,6 +370,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			THEMECOMPLETE_EPO()->is_associated                  = true;
 			THEMECOMPLETE_EPO()->associated_per_product_pricing = $per_product_pricing;
 			THEMECOMPLETE_EPO()->associated_element_uniqid      = $element_uniqid;
+			THEMECOMPLETE_EPO()->associated_product_counter     = $counter;
 			THEMECOMPLETE_EPO()->set_inline_epo( true );
 			THEMECOMPLETE_EPO_DISPLAY()->set_discount( $discount, $discount_type );
 			THEMECOMPLETE_EPO_DISPLAY()->set_epo_internal_counter( $epo_id );
@@ -380,6 +384,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			THEMECOMPLETE_EPO()->associated_per_product_pricing = null;
 			THEMECOMPLETE_EPO()->associated_type                = false;
 			THEMECOMPLETE_EPO()->associated_element_uniqid      = false;
+			THEMECOMPLETE_EPO()->associated_product_counter     = false;
 			if ( $discount_type ) {
 				$this->discount      = '';
 				$this->discount_type = '';
@@ -409,7 +414,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 						if ( isset( $cart_item_data['associated_products'] ) && ! empty( $cart_item_data['associated_products'] ) ) {
 
-							$main_product     = $cart_item_data['data'];
+							$main_product     = clone $cart_item_data['data'];
 							$main_product_qty = $cart_item_data['quantity'];
 
 							if ( $main_product->needs_shipping() ) {
@@ -473,6 +478,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 									$main_product_weight = $main_product->get_weight();
 									$assoc_weight        = (float) $main_product_weight + $associated_weight / $main_product_qty;
 									$main_product->set_weight( $assoc_weight );
+									$cart_item_data['data']->set_weight( $assoc_weight );
 									if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['data'] ) ) {
 										WC()->cart->cart_contents[ $cart_item_key ]['data']->set_weight( $assoc_weight, 'edit' );
 									}
@@ -1269,6 +1275,29 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				$associated_item_cart_data = $associated_cart_data;
 
+				$associated_data_form_prefix = $associated_data['form_prefix'];
+
+				if ( is_array( $associated_data_form_prefix ) ) {
+
+					$form_prefix_counter = $key; // failsafe.
+					if ( isset( $associated_data['form_prefix_counter'] ) ) {
+						$form_prefix_counter = $associated_data['form_prefix_counter'];
+					};
+
+					if ( '' !== $form_prefix_counter ) {
+						if ( isset( $associated_data_form_prefix[ $form_prefix_counter ] ) ) {
+							$associated_data_form_prefix = $associated_data_form_prefix[ $form_prefix_counter ];
+						}
+					} else {
+						$associated_data_form_prefix = array_values( $associated_data_form_prefix );
+						$associated_data_form_prefix = $associated_data_form_prefix[0];
+					}
+				}
+
+				if ( is_array( $associated_data_form_prefix ) ) {
+					continue; // something went wrong.
+				}
+
 				$associated_item_cart_data['associated_key']                  = $key;
 				$associated_item_cart_data['associated_required']             = $associated_data['required'];
 				$associated_item_cart_data['associated_shipped_individually'] = $associated_data['shipped_individually'];
@@ -1279,7 +1308,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$associated_item_cart_data['associated_discount']             = $associated_data['discount'];
 				$associated_item_cart_data['associated_discount_type']        = $associated_data['discount_type'];
 				$associated_item_cart_data['associated_element_name']         = $associated_data['element_name'];
-				$associated_item_cart_data['associated_formprefix']           = str_replace( [ '.', ' ', '[' ], '', $associated_data['form_prefix'] );
+				$associated_item_cart_data['associated_formprefix']           = str_replace( [ '.', ' ', '[' ], '', $associated_data_form_prefix );
 				$associated_product_id                                        = $associated_data['product_id'];
 				$variation_id = '';
 				$variations   = [];
@@ -1354,9 +1383,11 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					}
 				}
 
-				THEMECOMPLETE_EPO()->associated_element_uniqid = $associated_item_cart_data['associated_uniqid'];
-				$associated_item_cart_key                      = $this->add_associated_to_cart( $parent_id, $associated_product, $quantity, $variation_id, $variations, $associated_item_cart_data );
-				THEMECOMPLETE_EPO()->associated_element_uniqid = false;
+				THEMECOMPLETE_EPO()->associated_element_uniqid  = $associated_item_cart_data['associated_uniqid'];
+				THEMECOMPLETE_EPO()->associated_product_counter = $key;
+				$associated_item_cart_key                       = $this->add_associated_to_cart( $parent_id, $associated_product, $quantity, $variation_id, $variations, $associated_item_cart_data );
+				THEMECOMPLETE_EPO()->associated_element_uniqid  = false;
+				THEMECOMPLETE_EPO()->associated_product_counter = false;
 
 				if ( ! isset( WC()->cart->cart_contents[ $parent_cart_key ]['associated_products'] ) ) {
 					WC()->cart->cart_contents[ $parent_cart_key ]['associated_products'] = [];

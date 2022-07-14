@@ -185,6 +185,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 	 * @since 1.0
 	 */
 	public function __construct( $product_id = false, $element = false, $per_product_pricing = false, $cpf_product_price = false, $variation_id = false, $post_data = null ) {
+
 		if ( is_null( $post_data ) && isset( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$post_data = wp_unslash( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
@@ -426,6 +427,9 @@ class THEMECOMPLETE_EPO_FIELDS {
 
 			if ( 'math' === $_price_type ) {
 				$_price = THEMECOMPLETE_EPO()->get_element_price( 0, $_price_type, $this->element, $this->key, $this->per_product_pricing, $this->variation_id );
+				if ( is_array( $_price ) ) {
+					$_price = $_price['price'];
+				}
 				if ( false !== strpos( $_price, '{quantity}' ) || false !== strpos( $_price, '{product_price}' ) ) {
 					$ret['price_formula'] = $_price;
 				}
@@ -471,6 +475,9 @@ class THEMECOMPLETE_EPO_FIELDS {
 			$_price_type = THEMECOMPLETE_EPO()->get_element_price_type( '', $this->element, $this->key, $this->per_product_pricing, $this->variation_id );
 			if ( 'math' === $_price_type ) {
 				$_price = THEMECOMPLETE_EPO()->get_element_price( 0, $_price_type, $_price_type, $this->element, $this->key, $this->per_product_pricing, $this->variation_id );
+				if ( is_array( $_price ) ) {
+					$_price = $_price['price'];
+				}
 				if ( false !== strpos( $_price, '{quantity}' ) ) {
 					$ret['price_formula'] = $_price;
 				}

@@ -64,6 +64,9 @@ defined( 'ABSPATH' ) || exit;
 				$input_args['tags']['max'] = $max;
 			}
 		}
+		if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+			$input_args['tags']['data-no-price'] = true;
+		}
 		THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 		?>
 		</label>

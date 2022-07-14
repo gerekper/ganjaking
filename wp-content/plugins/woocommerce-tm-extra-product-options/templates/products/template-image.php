@@ -2,6 +2,12 @@
 /**
  * The template for displaying the product element image
  *
+ * This template can be overridden by copying it to yourtheme/tm-extra-product-options/products/template-image
+ *
+ * NOTE that we may need to update template files and you
+ * (the plugin or theme developer) will need to copy the new files
+ * to your theme or plugin to maintain compatibility.
+ *
  * @author  ThemeComplete
  * @package WooCommerce Extra Product Options/Templates/Products
  * @version 6.0

@@ -2872,6 +2872,14 @@ class THEMECOMPLETE_EPO_Display {
 			$tm_epo_final_total_box = 'disable';
 		}
 
+		$tc_form_prefix_name = 'tc_form_prefix';
+		if ( THEMECOMPLETE_EPO()->is_associated ) {
+			$tc_form_prefix_name = 'tc_form_prefix_assoc[' . THEMECOMPLETE_EPO()->associated_element_uniqid . ']';
+			if ( false !== THEMECOMPLETE_EPO()->associated_product_counter ) {
+				$tc_form_prefix_name = $tc_form_prefix_name . '[' . THEMECOMPLETE_EPO()->associated_product_counter . ']';
+			}
+		}
+
 		wc_get_template(
 			'tm-totals.php',
 			apply_filters(
@@ -2887,14 +2895,14 @@ class THEMECOMPLETE_EPO_Display {
 					'variations'               => wp_json_encode( (array) $variations ),
 
 					'is_sold_individually'     => $product->is_sold_individually(),
-					'hidden'                   => ( THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ( ( 'hide' === THEMECOMPLETE_EPO()->tm_epo_final_total_box || 'disable' === THEMECOMPLETE_EPO()->tm_epo_final_total_box || 'disable_change' === THEMECOMPLETE_EPO()->tm_epo_final_total_box ) ? ' hidden' : '' ) : ( ( 'hide' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable_change' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ' hidden' : '' ),
+					'hidden'                   => ( THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ( ( 'hide' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable_change' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ' hidden' : '' ) : ( ( 'hide' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] || 'disable_change' === THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ? ' hidden' : '' ),
 					'price_override'           => ( 'no' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
 						? 0
 						: ( ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_override_product_price )
 							? 1
 							: ( ! empty( THEMECOMPLETE_EPO()->tm_meta_cpf['price_override'] ) ? 1 : 0 ) ),
 					'form_prefix'              => $form_prefix_id,
-					'tc_form_prefix_name'      => ( THEMECOMPLETE_EPO()->is_associated ) ? 'tc_form_prefix_assoc[' . THEMECOMPLETE_EPO()->associated_element_uniqid . ']' : 'tc_form_prefix',
+					'tc_form_prefix_name'      => $tc_form_prefix_name,
 					'tc_form_prefix_class'     => ( THEMECOMPLETE_EPO()->is_associated ) ? 'tc_form_prefix_assoc' : 'tc_form_prefix',
 					'type'                     => themecomplete_get_product_type( $product ),
 					'price'                    => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $price['price'], $product ) : '' ),

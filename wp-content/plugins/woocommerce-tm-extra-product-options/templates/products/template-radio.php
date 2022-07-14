@@ -14,7 +14,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
+$saved_option = [];
 if ( is_array( $options ) ) :
 	foreach ( $options as $option_key => $option ) :
 
@@ -24,7 +24,8 @@ if ( is_array( $options ) ) :
 		$checked = false;
 		if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
 			if ( $option['selected'] === $option['current'] ) {
-				$checked = true;
+				$checked      = true;
+				$saved_option = $option;
 			}
 		}
 		?>
@@ -55,8 +56,9 @@ if ( is_array( $options ) ) :
 			if ( apply_filters( 'wc_epo_radio_print_required_attribute', true ) && isset( $required ) && ! empty( $required ) ) {
 				$input_args['tags']['required'] = true;
 			}
-			if ( isset( $option['data_type'] ) && isset( $option['_default_value_counter'] ) ) {
-				$input_args['tags']['data-type'] = $option['data_type'];
+			if ( isset( $option['counter'] ) && isset( $option['data_type'] ) ) {
+				$input_args['tags']['data-counter'] = $option['counter'];
+				$input_args['tags']['data-type']    = $option['data_type'];
 			}
 			if ( true === $checked ) {
 				$input_args['tags']['checked'] = 'checked';
@@ -95,6 +97,7 @@ endif;
 ?>
 <li class="tc-epo-element-product-li-container tm-hidden">
 <?php
+$option = $saved_option;
 require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variation.php';
 require THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-container.php';
 ?>

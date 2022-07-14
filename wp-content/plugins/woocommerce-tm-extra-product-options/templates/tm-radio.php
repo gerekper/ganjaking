@@ -64,6 +64,9 @@ defined( 'ABSPATH' ) || exit;
 	if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 		$input_args['tags'] = array_merge( $input_args['tags'], $element_data_attr );
 	}
+	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
+		$input_args['tags']['data-no-price'] = true;
+	}
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 
 	if ( ( 'image' !== $replacement_mode && 'color' !== $replacement_mode ) || ( ( 'image' === $replacement_mode || 'color' === $replacement_mode ) && 'center' !== $swatch_position ) ) {

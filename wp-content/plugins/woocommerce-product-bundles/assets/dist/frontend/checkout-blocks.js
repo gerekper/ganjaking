@@ -86,13 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 1:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["i18n"]; }());
-
-/***/ }),
-
 /***/ 22:
 /***/ (function(module, exports) {
 
@@ -105,20 +98,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
-/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
-/* harmony import */ var _woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * External dependencies
  */
 
 
-
-
-Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimentalRegisterCheckoutFilters"])('product-bundles', {
+Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__["__experimentalRegisterCheckoutFilters"])('product-bundles', {
   cartItemClass: (classlist, _ref, _ref2) => {
     let {
       bundles
@@ -129,7 +116,7 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
     } = _ref2;
 
     if (bundles) {
-      let classes = [];
+      const classes = [];
 
       if (bundles.bundled_by) {
         classes.push('is-bundled');
@@ -160,11 +147,11 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
           classes.push('is-bundled__subtotal_hidden');
         }
 
-        if (bundles.bundled_item_data.is_hidden_in_cart && 'cart' === context) {
+        if (bundles.bundled_item_data.is_hidden_in_cart && context === 'cart') {
           classes.push('is-bundled__hidden');
         }
 
-        if (bundles.bundled_item_data.is_hidden_in_summary && 'summary' === context) {
+        if (bundles.bundled_item_data.is_hidden_in_summary && context === 'summary') {
           classes.push('is-bundled__hidden');
         }
 
@@ -207,11 +194,11 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
           classes.push('is-bundle__subtotal_hidden');
         }
 
-        if (bundles.bundle_data.is_meta_hidden_in_cart && 'cart' === context) {
+        if (bundles.bundle_data.is_meta_hidden_in_cart && context === 'cart') {
           classes.push('is-bundle__meta_hidden');
         }
 
-        if (bundles.bundle_data.is_meta_hidden_in_summary && 'summary' === context) {
+        if (bundles.bundle_data.is_meta_hidden_in_summary && context === 'summary') {
           classes.push('is-bundle__meta_hidden');
         }
       }
@@ -224,13 +211,6 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
     return classlist;
   }
 });
-
-/***/ }),
-
-/***/ 26:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["priceFormat"]; }());
 
 /***/ })
 

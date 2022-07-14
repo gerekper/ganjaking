@@ -3,12 +3,12 @@
  * Plugin Name: Storefront Powerpack
  * Plugin URI: https://woocommerce.com/products/storefront-powerpack/
  * Description: Up your game with Storefront Powerpack and get access to host of neat gadgets that enable effortless customisation of your Storefront.
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.4
- * Tested up to: 5.6
- * WC tested up to: 5.1
+ * Tested up to: 6.0
+ * WC tested up to: 6.7
  * Woo: 1865835:e38ad13a5aaec7860df698cbad82c175
  *
  * Text Domain: storefront-powerpack
@@ -22,6 +22,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+define( 'STOREFRONT_POWERPACK_VERSION', '1.6.2' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main Storefront_Powerpack Class
@@ -76,7 +78,7 @@ final class Storefront_Powerpack {
 	 */
 	public function __construct() {
 		$this->token   = 'storefront-powerpack';
-		$this->version = '1.5.0';
+		$this->version = STOREFRONT_POWERPACK_VERSION;
 		$this->define_constants();
 		$this->init_hooks();
 	} // End __construct()
@@ -339,10 +341,6 @@ final class Storefront_Powerpack {
  * @since  1.0.0
  * @return object Storefront_Powerpack
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function storefront_powerpack() {
 	return Storefront_Powerpack::instance();
 } // End Storefront_Powerpack()
