@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.0.9';
+	public $version = '2.0.10';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -95,7 +95,7 @@ class WC_Mix_and_Match {
 	/*-----------------------------------------------------------------------------------*/
 	/*  Helper Functions                                                                 */
 	/*-----------------------------------------------------------------------------------*/
-	
+
 	/**
 	 * Get the plugin url.
 	 *
@@ -183,7 +183,7 @@ class WC_Mix_and_Match {
 	public function define_constants() {
 		wc_maybe_define_constant( 'WC_MNM_ABSPATH', trailingslashit( plugin_dir_path( WC_MNM_PLUGIN_FILE ) ) );
 		wc_maybe_define_constant( 'WC_MNM_VERSION', $this->version );
-		wc_maybe_define_constant( 'WC_MNM_SUPPORT_URL', $this->get_resource_url( 'ticket-form' ) );		
+		wc_maybe_define_constant( 'WC_MNM_SUPPORT_URL', $this->get_resource_url( 'ticket-form' ) );
 	}
 
 	/**
@@ -236,7 +236,7 @@ class WC_Mix_and_Match {
 
 		// Include order-again related functions.
 		require_once 'class-wc-mnm-order-again.php';
-		
+
 		// Customizer functions and hooks.
 		require_once 'customizer/class-wc-mnm-customizer.php';
 

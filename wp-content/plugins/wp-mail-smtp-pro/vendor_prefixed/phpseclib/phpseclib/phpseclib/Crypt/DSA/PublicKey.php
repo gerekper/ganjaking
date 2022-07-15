@@ -12,9 +12,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA;
 
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\DSA;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Signature\ASN1 as ASN1Signature;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
 /**
  * DSA Public Key
  *

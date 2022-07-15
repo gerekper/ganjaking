@@ -31,9 +31,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function add_hooks() {
 
-            /*-----------------------------------------------------------------------------------*/
-            /*  All types: Application layer integration                                         */
-            /*-----------------------------------------------------------------------------------*/
+			/*-----------------------------------------------------------------------------------*/
+			/*  All types: Application layer integration                                         */
+			/*-----------------------------------------------------------------------------------*/
 
 			// Hide child cart item options.
 			add_filter( 'wcsatt_show_cart_item_options', array( __CLASS__, 'hide_child_item_options' ), 10, 3 );
@@ -50,9 +50,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Pass subscription details placeholder to JS script.
 			add_filter( 'wcsatt_single_product_subscription_option_data', array( __CLASS__, 'container_subscription_option_data' ), 10, 3 );
 
-            /*-----------------------------------------------------------------------------------*/
-            /*  Cart                                                                             */
-            /*-----------------------------------------------------------------------------------*/
+			/*-----------------------------------------------------------------------------------*/
+			/*  Cart                                                                             */
+			/*-----------------------------------------------------------------------------------*/
 
 			// Add subscription details next to subtotal of per-item-priced container container cart items.
 			add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'filter_container_item_subtotal' ), 1000, 3 );
@@ -60,9 +60,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Modify container cart item options to include child item prices.
 			add_filter( 'wcsatt_cart_item_options', array( __CLASS__, 'container_item_options' ), 10, 4 );
 
-            /*-----------------------------------------------------------------------------------*/
-            /*  Subscriptions management: 'My Account > Subscriptions' actions                                                                             */
-            /*-----------------------------------------------------------------------------------*/
+			/*-----------------------------------------------------------------------------------*/
+			/*  Subscriptions management: 'My Account > Subscriptions' actions                                                                             */
+			/*-----------------------------------------------------------------------------------*/
 
 			// Change text for Mix and Match switch link.
 			add_filter( 'woocommerce_subscriptions_switch_link', array( __CLASS__, 'switch_link' ), 10, 4 );
@@ -79,9 +79,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Handle parent subscription line item re-additions under 'My Account > Subscriptions'.
 			add_action( 'wcs_user_readded_item', array( __CLASS__, 'user_readded_parent_subscription_item' ), 10, 2 );
 
-            /*-----------------------------------------------------------------------------------*/
-            /*  Subscriptions management: Switching                                              */
-            /*-----------------------------------------------------------------------------------*/
+			/*-----------------------------------------------------------------------------------*/
+			/*  Subscriptions management: Switching                                              */
+			/*-----------------------------------------------------------------------------------*/
 
 			// Add extra 'Allow Switching' options. See 'WCS_ATT_Admin::allow_switching_options'.
 			add_filter( 'woocommerce_subscriptions_allow_switching_options', array( __CLASS__, 'add_container_switching_options' ), 11 );
@@ -117,10 +117,10 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Copy switch parameters from parent item.
 			add_filter( 'wc_mnm_child_cart_item_data', array( __CLASS__, 'child_item_switch_cart_data' ), 10, 2 );
 
-            /*-----------------------------------------------------------------------------------*/
-            /*  Subscriptions management: Add products/carts to subscriptions                                                                             */
-            /*-----------------------------------------------------------------------------------*/
-            
+			/*-----------------------------------------------------------------------------------*/
+			/*  Subscriptions management: Add products/carts to subscriptions                                                                             */
+			/*-----------------------------------------------------------------------------------*/
+
 			// Modify the validation context when adding a container to an order.
 			add_action( 'wcsatt_pre_add_product_to_subscription_validation', array( __CLASS__, 'set_container_type_validation_context' ), 10 );
 
@@ -136,11 +136,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// When loading child items, always set the active container scheme on the child objects.
 			add_filter( 'wc_mnm_child_item_product', array( __CLASS__, 'set_child_item_scheme' ), 10, 2 );
 			add_action( 'wc_mnm_before_sync', array( __CLASS__, 'set_container_default_scheme' ) );
-			
 
 			// Add scheme data to runtime price cache hashes.
 			add_filter( 'wc_mnm_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
-			
 
 		}
 
@@ -381,25 +379,37 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				$subscription_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 				$force_subscription    = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
-				$dropdown_details_html = isset( $data[ 'dropdown_details_html' ] ) ? $data[ 'dropdown_details_html' ] : WCS_ATT_Product_Prices::get_price_html( $product, $subscription_scheme->get_key(), array(
+				$dropdown_details_html = isset( $data[ 'dropdown_details_html' ] ) ? $data[ 'dropdown_details_html' ] : WCS_ATT_Product_Prices::get_price_html(
+                    $product,
+                    $subscription_scheme->get_key(),
+                    array(
 					'context'      => 'dropdown',
 					'price'        => '%p',
 					'append_price' => false === $force_subscription,
 					'hide_price'   => $subscription_scheme->get_length() > 0 && false === $force_subscription // "Deliver every month for 6 months for $8.00 (10% off)" is just too confusing, isn't it?
-				) );
+                    ) 
+                );
 
 				// Base scheme defines the prompt string.
 				if ( $data[ 'subscription_scheme' ][ 'is_base' ] ) {
-					$data[ 'prompt_details_html' ] = WCS_ATT_Product_Prices::get_price_html( $product, null, array(
+					$data[ 'prompt_details_html' ] = WCS_ATT_Product_Prices::get_price_html(
+                        $product,
+                        null,
+                        array(
 						'context'    => 'prompt',
 						'base_price' => '%p'
-					) );
+                        ) 
+                    );
 				}
 
-				$data[ 'option_details_html' ] = WCS_ATT_Product_Prices::get_price_html( $product, $subscription_scheme->get_key(), array(
+				$data[ 'option_details_html' ] = WCS_ATT_Product_Prices::get_price_html(
+                    $product,
+                    $subscription_scheme->get_key(),
+                    array(
 					'context' => 1 === sizeof( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
 					'price'   => '%p'
-				) );
+                    ) 
+                );
 
 				$data[ 'option_has_price' ]           = false !== strpos( $data[ 'option_details_html' ], '%p' );
 				$data[ 'dropdown_format' ]            = ucfirst( trim( wp_kses( $dropdown_details_html, array() ) ) );
@@ -440,9 +450,12 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						$subtotal = wc_price( self::calculate_container_item_subtotal( $cart_item, $scheme->get_key() ) );
 					}
 
-					$subtotal = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
+					$subtotal = WCS_ATT_Product_Prices::get_price_string(
+                        $cart_item[ 'data' ],
+                        array(
 						'price' => $subtotal
-					) );
+                        ) 
+                    );
 				}
 
 				$subtotal = WC_Subscriptions_Switcher::add_cart_item_switch_direction( $subtotal, $cart_item, $cart_item_key );
@@ -499,10 +512,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 						$subscription_scheme_key = $subscription_scheme->get_key();
 
-						$description = WCS_ATT_Product_Prices::get_price_string( $product, array(
+						$description = WCS_ATT_Product_Prices::get_price_string(
+                            $product,
+                            array(
 							'scheme_key' => $subscription_scheme_key,
 							'price'      => wc_price( $container_price[ $subscription_scheme_key ] )
-						) );
+                            ) 
+                        );
 
 						$options[] = array(
 							'class'       => 'subscription-option',
@@ -525,7 +541,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 		/**
 		 * Change the switch button text for Mix and Match subscriptions.
-		 * 
+		 *
 		 * @since 2.0.9
 		 *
 		 * @param string $switch_link The switch link html.
@@ -533,7 +549,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 * @param array $item An order line item
 		 * @param object $subscription A WC_Subscription object
 		 * @return string
-		 * 
+		 *
 		 */
 		public static function switch_link( $switch_link, $item_id, $item, $subscription ) {
 
@@ -568,7 +584,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						if ( ! $parent_item_visible ) {
 							$subtract += 1;
 						}
-
 
 						$child_order_items = wc_mnm_get_child_order_items( $item, $subscription );
 
@@ -701,7 +716,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 		/**
 		 * Add extra 'Allow Switching' options for content switching of Mix and Match containers
-		 * 
+		 *
 		 * @See: 'WCS_ATT_Admin::allow_switching_options'.
 		 *
 		 * @param  array  $data
@@ -825,7 +840,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				} else {
 
-					$option_value = get_option( WC_Subscriptions_Admin::$option_prefix . '_allow_switching_mnm_contents', 'yes' ); 
+					$option_value = get_option( WC_Subscriptions_Admin::$option_prefix . '_allow_switching_mnm_contents', 'yes' );
 
 					if ( 'no' !== $option_value ) {
 						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
@@ -1176,7 +1191,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 		/**
 		 * When loading child item's product, always set the active container scheme on the child product.
-		 * 
+		 *
 		 * @Note - This is done differently from WCS_ATT_Integration_PB_CP::set_bundled_items_scheme() because in MNM 2.0, $child_item->get_product() returns a cached value of the product object and $child-item->product is private.
 		 * This make the product object not directly manipulatable on the `wc_mnm_get_child_items` filter the way it is on `woocommerce_bundled_items` for Product Bundles.
 		 * So we need to manipulate the product object when it initialized, on the `wc_mnm_child_item_product` filter. see WC_MNM_Child_Item::get_product()
@@ -1187,31 +1202,31 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function set_child_item_scheme( $child_product, $child_item ) {
 
-            if ( $child_product ) {
+			if ( $child_product ) {
 
-                $container = $child_item->get_container();
+				$container = $child_item->get_container();
 
-                if ( $container ) {
+				if ( $container ) {
 
-                    if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $container ) ) {
+					if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $container ) ) {
 
-                        self::set_child_product_subscription_schemes( $child_product, $container );
+						self::set_child_product_subscription_schemes( $child_product, $container );
 
-                    } else {
+					} else {
 
-                        WCS_ATT_Product_Schemes::set_subscription_schemes( $child_product, array() ); 
-                        
-                    }
-                        
-                }
+						WCS_ATT_Product_Schemes::set_subscription_schemes( $child_product, array() );
 
-            }
+					}
+
+				}
+
+			}
 
 			return $child_product;
 		}
-		
 
-		
+
+
 
 		/**
 		 * Add scheme data to runtime price cache hashes.

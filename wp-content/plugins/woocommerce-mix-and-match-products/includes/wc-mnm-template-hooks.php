@@ -41,10 +41,13 @@ if ( 'yes' === get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
 	add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_thumbnail', 20, 2 );
 	add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_section_close', 30, 2 );
 } else {
-	add_filter( 'wc_mnm_tabular_column_headers',function( $headers ) {
+	add_filter(
+        'wc_mnm_tabular_column_headers',
+        function( $headers ) {
 		unset( $headers[ 'thumbnail' ] );
 		return $headers;
-	} );
+        } 
+    );
 }
 
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_details_open', 40, 2 );

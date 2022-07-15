@@ -16,13 +16,12 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\OpenSSH as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * OpenSSH Formatted EC Key Handler
  *

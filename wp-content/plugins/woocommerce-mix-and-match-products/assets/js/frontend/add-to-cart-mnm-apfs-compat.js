@@ -26,33 +26,37 @@
 		// Scans for SATT schemes attached on the Bundle.
 		this.initialize_schemes = function() {
 
-			container.satt_schemes         = [];	
-			container.satt_scheme_one_time = false;	
-	
-			// Store data for the one-time option.	
-			var $scheme_option_one_time = satt.schemes_view.$el_option_items.filter( '.one-time-option' );	
-	
-			if ( $scheme_option_one_time.length ) {	
-				container.satt_scheme_one_time = {	
-					$el:  $scheme_option_one_time,	
-					data: $scheme_option_one_time.find( 'input' ).data( 'custom_data' )	
+			container.satt_schemes         = [];
+			container.satt_scheme_one_time = false;
+
+			// Store data for the one-time option.
+			var $scheme_option_one_time = satt.schemes_view.$el_option_items.filter( '.one-time-option' );
+
+			if ( $scheme_option_one_time.length ) {
+				container.satt_scheme_one_time = {
+					$el:  $scheme_option_one_time,
+					data: $scheme_option_one_time.find( 'input' ).data( 'custom_data' )
 				};
 			}
 
 			// Store scheme data for options that override the default prices.
 			var $scheme_options = satt.schemes_view.$el_option_items.filter( '.subscription-option' );
 
-			$scheme_options.each( function() {
+			$scheme_options.each(
+                function() {
 
-				var $scheme_option = $( this ),
-					scheme_data    = $scheme_option.find( 'input' ).data( 'custom_data' );
+                var $scheme_option = $( this ),
+                   scheme_data    = $scheme_option.find( 'input' ).data( 'custom_data' );
 
-				container.satt_schemes.push( {
-					$el:  $scheme_option,
-					data: scheme_data
-				} );
+                container.satt_schemes.push(
+                    {
+                    $el:  $scheme_option,
+                    data: scheme_data
+                    } 
+                );
 
-			} );
+                } 
+            );
 		};
 
 		// Init.
@@ -65,7 +69,7 @@
 
 				if ( container.satt_schemes.length > 0 ) {
 					container.$mnm_form.on( 'wc-mnm-updated-totals', self.update_subscription_totals );
-					if ( 'no' !== container.price_data.hide_total_on_validation_fail ) {	
+					if ( 'no' !== container.price_data.hide_total_on_validation_fail ) {
 						container.$mnm_data.on( 'wc-mnm-validation-status-changed', self.maybe_hide_subscription_options );
 					}
 				}
@@ -76,15 +80,15 @@
 			return container.satt_schemes.length === 1 && false === container.satt_scheme_one_time;
 		};
 
-		// Hide subscription options?	
-		this.maybe_hide_subscription_options = function() {	
-	
-			if ( container.passes_validation() ) {	
-				if ( ! self.has_single_forced_subscription() ) {	
-					satt.schemes_view.$el_content.slideDown( 200 );	
-				}	
+		// Hide subscription options?
+		this.maybe_hide_subscription_options = function() {
+
+			if ( container.passes_validation() ) {
+				if ( ! self.has_single_forced_subscription() ) {
+					satt.schemes_view.$el_content.slideDown( 200 );
+				}
 			} else {
-				satt.schemes_view.$el_content.slideUp( 200 );	
+				satt.schemes_view.$el_content.slideUp( 200 );
 			}
 		};
 
@@ -98,23 +102,23 @@
 			var container_price_html       = container.get_price_html(),
 				container_price_inner_html = $( container_price_html ).html();
 
-			if ( false !== container.satt_scheme_one_time ) {	
-			
-				var $one_time_price       = container.satt_scheme_one_time.$el.find( '.price.one-time-price' ),	
-					one_time_scheme_price = container.satt_scheme_one_time.data.option_details_html.replace( /%p/g, container_price_inner_html );	
-	
-				if ( $one_time_price.length ) {	
+			if ( false !== container.satt_scheme_one_time ) {
+
+				var $one_time_price       = container.satt_scheme_one_time.$el.find( '.price.one-time-price' ),
+					one_time_scheme_price = container.satt_scheme_one_time.data.option_details_html.replace( /%p/g, container_price_inner_html );
+
+				if ( $one_time_price.length ) {
 					$one_time_price.html( one_time_scheme_price ).find( 'span.total' ).remove();
 				}
-	
-				if ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) {	
-	
-					var $one_time_input = satt.schemes_view.$el_prompt.find( '.wcsatt-options-prompt-action-input[value="no"]' ),	
-						$one_time       = $one_time_input.closest( '.wcsatt-options-prompt-label' ).find( '.wcsatt-options-prompt-action' );	
-	
-					// If the one-time prompt doesn't contain anything to update, move on.	
+
+				if ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) {
+
+					var $one_time_input = satt.schemes_view.$el_prompt.find( '.wcsatt-options-prompt-action-input[value="no"]' ),
+						$one_time       = $one_time_input.closest( '.wcsatt-options-prompt-label' ).find( '.wcsatt-options-prompt-action' );
+
+					// If the one-time prompt doesn't contain anything to update, move on.
 					if ( $one_time.find( '.price' ).length > 0 ) {
-						$one_time.html( container.satt_scheme_one_time.data.prompt_details_html.replace( /%p/g, container_price_inner_html ) ).find( 'span.total' ).remove();	
+						$one_time.html( container.satt_scheme_one_time.data.prompt_details_html.replace( /%p/g, container_price_inner_html ) ).find( 'span.total' ).remove();
 					}
 				}
 			}
@@ -132,7 +136,9 @@
 			 */
 			} else {
 
-				$.each( container.satt_schemes, function( index, scheme ) {
+				$.each(
+                    container.satt_schemes,
+                    function( index, scheme ) {
 
 					// Do we need to update any prices?
 					if ( scheme.data.option_has_price || satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) {
@@ -145,8 +151,10 @@
 						if ( scheme.data.subscription_scheme.has_price_filter ) {
 
 							if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
-								
-								$.each( container.api.get_container_config( 'v2' ), function( index, data ) {
+
+								$.each(
+                                    container.api.get_container_config( 'v2' ),
+                                    function( index, data ) {
 
 									var { product_id } = data;
 
@@ -159,7 +167,8 @@
 									if( scheme_price_data.hasOwnProperty( 'addons_prices' ) ) {
 										scheme_price_data.addons_prices[ product_id ] = scheme_price_data.addons_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									}
-								} );
+                                    } 
+                                );
 
 								if ( scheme.data.discount_from_regular ) {
 									scheme_price_data.base_price = scheme_price_data.regular_price * ( 1 - scheme.data.subscription_scheme.discount / 100 );
@@ -234,7 +243,8 @@
 						$option_price.trigger( 'wcsatt-updated-mnm-price', [ scheme_price_html, scheme, container, self ] );
 					}
 
-				} );
+                    } 
+                );
 			}
 
 		};
@@ -245,8 +255,11 @@
 		}
 	};
 
-	$( 'body' ).on( 'wc-mnm-initializing', function( e, container ) {
+	$( 'body' ).on(
+        'wc-mnm-initializing',
+        function( e, container ) {
 		new MNM_Integration( container );
-	});
+        }
+    );
 
-} ) ( jQuery );
+} )( jQuery );

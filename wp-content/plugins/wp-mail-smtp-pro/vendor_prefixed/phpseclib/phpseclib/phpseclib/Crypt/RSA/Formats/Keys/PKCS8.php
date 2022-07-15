@@ -26,10 +26,10 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#8 Formatted RSA Key Handler
  *
@@ -116,7 +116,7 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     {
         $key = \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys\PKCS1::savePrivateKey($n, $e, $d, $primes, $exponents, $coefficients);
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::extractBER($key);
-        return self::wrapPrivateKey($key, [], null, $password, $options);
+        return self::wrapPrivateKey($key, [], null, $password, null, '', $options);
     }
     /**
      * Convert a public key to the appropriate format

@@ -27,8 +27,8 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer as PrimeInteger;
 /**
  * Curves over a*x^2 + y^2 = 1 + d*x^2*y^2

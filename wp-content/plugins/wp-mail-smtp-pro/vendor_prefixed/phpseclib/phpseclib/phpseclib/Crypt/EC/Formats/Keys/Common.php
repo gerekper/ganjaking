@@ -15,16 +15,15 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
 use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Prime as PrimeCurve;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Binary as BinaryCurve;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Binary as BinaryCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Prime as PrimeCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * Generic EC Key Parsing Helper functions
  *

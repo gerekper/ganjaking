@@ -14,7 +14,7 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP;
 /**
  * PHP Montgomery Modular Exponentiation Engine with interleaved multiplication
  *
@@ -36,7 +36,7 @@ abstract class MontgomeryMult extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInte
      * @param array $x
      * @param array $y
      * @param array $m
-     * @param string $class
+     * @param class-string<PHP> $class
      * @return array
      */
     public static function multiplyReduce(array $x, array $y, array $m, $class)

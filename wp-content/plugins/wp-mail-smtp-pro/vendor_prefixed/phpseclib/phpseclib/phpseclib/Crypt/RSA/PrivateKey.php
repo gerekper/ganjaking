@@ -12,16 +12,12 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\RSA;
 
-use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
-use WPMailSMTP\Vendor\phpseclib3\Exceptions\NoKeyLoadedException;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys\PSS;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * Raw RSA Key Handler
  *
@@ -199,6 +195,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPM
         $ps = \str_repeat(\chr(0), $emLen - $sLen - $this->hLen - 2);
         $db = $ps . \chr(1) . $salt;
         $dbMask = $this->mgf1($h, $emLen - $this->hLen - 1);
+        // ie. stlren($db)
         $maskedDB = $db ^ $dbMask;
         $maskedDB[0] = ~\chr(0xff << ($emBits & 7)) & $maskedDB[0];
         $em = $maskedDB . $h . \chr(0xbc);

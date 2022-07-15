@@ -33,7 +33,7 @@ class Options extends OptionsAbstract {
 				'logo_url'    => wp_mail_smtp()->assets_url . '/images/providers/aws.svg',
 				'slug'        => self::SLUG,
 				'title'       => esc_html__( 'Amazon SES', 'wp-mail-smtp-pro' ),
-				'description' => wp_kses( __( 'Amazon SES is a transactional email provider that allows you to send email via its API. We recommend this mailer for existing users of Amazon Web Services because the set-up steps are a little more complicated than other mailers.', 'wp-mail-smtp-pro' ), [ 'b' => [] ] ) . '<br><br>' .
+				'description' => wp_kses( __( 'Amazon SES is a transactional email provider that allows you to send email via its API. We recommend this mailer for existing users of Amazon Web Services because the setup steps are a little more complicated than other mailers.', 'wp-mail-smtp-pro' ), [ 'b' => [] ] ) . '<br><br>' .
 				                 // phpcs:disable
 				                 sprintf(
 					                 wp_kses( /* translators: %s - WPMailSMTP.com URL. */
@@ -46,7 +46,7 @@ class Options extends OptionsAbstract {
 							                 ),
 						                 )
 					                 ),
-					                 'https://wpmailsmtp.com/docs/how-to-set-up-the-amazon-ses-mailer-in-wp-mail-smtp/'
+					                 esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/how-to-set-up-the-amazon-ses-mailer-in-wp-mail-smtp/', 'Amazon SES documentation' ) )
 				                 ),
 								// phpcs:enable
 				'notices'     => array(

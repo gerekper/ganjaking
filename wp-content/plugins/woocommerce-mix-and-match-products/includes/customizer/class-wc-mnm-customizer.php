@@ -58,12 +58,12 @@ class WC_MNM_Customizer {
 		$script_path = 'assets/js/admin/customizer-preview' . $suffix . '.js';
 
 		wp_enqueue_script( 'wc-mnm-customizer-preview', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'customize-preview' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
-		
+
 		// Localization.
 		$localize = array(
 			'product_page'   => get_permalink( $this->get_preview_page_id() ),
 		);
-		
+
 		wp_localize_script( 'wc-mnm-customizer-preview', 'WC_MNM_CONTROLS', $localize );
 	}
 
@@ -73,14 +73,14 @@ class WC_MNM_Customizer {
 	public function customize_controls() {
 		$suffix      = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$script_path = 'assets/js/admin/customizer-controls' . $suffix . '.js';
-		
+
 		wp_enqueue_script( 'wc-mnm-customizer-controls', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'customize-controls' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ) );
 
 		// Localization.
 		$localize = array(
 			'product_page'   => get_permalink( $this->get_preview_page_id() ),
 		);
-		
+
 		wp_localize_script( 'wc-mnm-customizer-controls', 'WC_MNM_CONTROLS', $localize );
 
 	}
@@ -110,15 +110,15 @@ class WC_MNM_Customizer {
 		/**
 		 * Custom section
 		 */
-		$wp_customize->add_section( 
-			'wc_mnm', 
+		$wp_customize->add_section(
+			'wc_mnm',
 			array(
 				'title' => __( 'Mix and Match Products', 'woocommerce-mix-and-match-products' ),
 				'priority' => 21,
 				'panel' => 'woocommerce',
 			)
 		);
-	
+
 		/**
 		 * Layout
 		 */
@@ -145,14 +145,14 @@ class WC_MNM_Customizer {
 			)
 		);
 
-		// The following settings should be hidden if the theme is declaring the values.	
+		// The following settings should be hidden if the theme is declaring the values.
 		$wp_customize->add_setting(
 			'wc_mnm_number_columns',
 			array(
 				'default'              => 3,
 				'type'                 => 'option',
 				'capability'           => 'manage_woocommerce',
-				'transport'   => 'postMessage',	
+				'transport'   => 'postMessage',
 				'sanitize_callback'    => 'absint',
 				'sanitize_js_callback' => 'absint',
 			)
@@ -167,7 +167,7 @@ class WC_MNM_Customizer {
 					'label'    => __( 'Number of columns', 'woocommerce-mix-and-match-products' ),
 					'description' => __( 'How many products should be shown per row?', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
-					'settings' => 'wc_mnm_number_columns',		
+					'settings' => 'wc_mnm_number_columns',
 					'input_attrs' => array(
 						'min'  => wc_get_theme_support( 'product_grid::min_columns', 1 ),
 						'max'  => wc_get_theme_support( 'product_grid::max_columns', 6 ),
@@ -189,7 +189,7 @@ class WC_MNM_Customizer {
 				'sanitize_callback'    => array( 'KIA_Customizer_Radio_Image_Control', 'sanitize' ),
 			)
 		);
-		
+
 		$wp_customize->add_control(
 			new KIA_Customizer_Radio_Image_Control(
 				$wp_customize,
@@ -225,11 +225,10 @@ class WC_MNM_Customizer {
 					'label'    => __( 'Display thumbnail', 'woocommerce-mix-and-match-products' ),
 					'section'  => 'wc_mnm',
 					'type'     => 'kia-toggle',
-					'settings' => 'wc_mnm_display_thumbnail',	
+					'settings' => 'wc_mnm_display_thumbnail',
 				)
 			)
 		);
-
 
 		/**
 		 * Display descriptions
@@ -265,7 +264,7 @@ class WC_MNM_Customizer {
 	 *
 	 * FSE themes hide the "Customize" link in the Appearance menu. In Mix and Match we have several options that can currently
 	 * only be edited via the Customizer. For now, we are thus adding a new link for Mix and Match specific Customizer options.
-	 * 
+	 *
 	 * @since 2.0.0
 	 */
 	public function add_fse_customize_link() {
@@ -287,16 +286,18 @@ class WC_MNM_Customizer {
 
 	/**
 	 * Get recent MNM product ID.
-	 * 
+	 *
 	 * @return int
 	 */
 	private function get_preview_page_id() {
 
-		$products = wc_get_products( array(
+		$products = wc_get_products(
+            array(
 			'type' => 'mix-and-match',
 			'limit' => 1,
 			'return' => 'ids',
-		) );
+            ) 
+        );
 
 		return ! empty( $products ) ? current( $products ) : 0;
 

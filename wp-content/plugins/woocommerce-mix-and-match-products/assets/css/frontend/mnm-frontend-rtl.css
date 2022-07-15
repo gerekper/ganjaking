@@ -71,6 +71,13 @@
 .mnm_form .mnm_cart .mnm_button_wrap button.disabled {
   opacity: 0.5; }
 
+/* Tabular layout */
+.mnm_form.layout_tabular .products .product {
+  display: table-row; }
+  .mnm_form.layout_tabular .products .product .product-details {
+    display: table-cell; }
+
+/* Grid layout */
 .mnm_form.layout_grid .products.has-flex {
   display: flex;
   flex-wrap: wrap; }

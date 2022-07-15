@@ -22,9 +22,8 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves;
 
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
 use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField\Integer as BinaryInteger;
 /**
  * Curves over y^2 + x*y = x^3 + a*x^2 + b

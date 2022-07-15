@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.0
- * @version  2.0.3
+ * @version  2.0.10
  */
 
 // Exit if accessed directly.
@@ -327,7 +327,7 @@ class WC_MNM_Compatibility {
 
 		$result = WC_MNM_Helpers::cache_get( $version, $cache_key );
 		if ( null === $result ) {
-			$result = version_compare( get_option( 'wc_mix_and_match_db_version', null ), $version, '>=' );
+			$result = version_compare( get_option( 'wc_mix_and_match_db_version' ), $version, '>=' );
 			WC_MNM_Helpers::cache_set( $version, $cache_key, $result );
 		}
 		return $result;

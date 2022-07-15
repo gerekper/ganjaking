@@ -3,8 +3,10 @@
 namespace WPMailSMTP\Pro\Providers\Zoho;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\Options as PluginOptions;
+use WPMailSMTP\WP;
 
 /**
  * Class Mailer implements Zoho Mail API functionality.
@@ -286,7 +288,7 @@ class Mailer extends MailerAbstract {
 			// Upload the attachment via Zoho API.
 			$url = add_query_arg(
 				'fileName',
-				$attachment[2],
+				$this->get_attachment_file_name( $attachment ),
 				$this->root_url . 'messages/attachments'
 			);
 
@@ -355,7 +357,7 @@ class Mailer extends MailerAbstract {
 		$response = wp_safe_remote_post( $this->root_url . 'messages', $params );
 
 		DebugEvents::add_debug(
-			esc_html__( 'An email request was sent to the Zoho Mail API.' )
+			esc_html__( 'An email request was sent to the Zoho Mail API.', 'wp-mail-smtp-pro' )
 		);
 
 		$this->process_response( $response );
@@ -370,27 +372,23 @@ class Mailer extends MailerAbstract {
 	 */
 	public function get_response_error() {
 
-		$body = (array) wp_remote_retrieve_body( $this->response );
+		$error_text[] = $this->error_message;
 
-		$error_text = '';
+		if ( ! empty( $this->response ) ) {
+			$body = wp_remote_retrieve_body( $this->response );
 
-		if ( ! empty( $body['data']->errorCode ) || ! empty( $body['data']->moreInfo ) ) {
-			$error_description = isset( $body['status']->description ) ? $body['status']->description : '';
-			$error_code        = isset( $body['status']->code ) ? $body['status']->code : '';
-			$error_content     = ! empty( $body['data']->errorCode ) ? $body['data']->errorCode : $body['data']->moreInfo;
-			$error_text        = esc_html(
-				sprintf(
-					'%1$s (%2$s) - %3$s',
-					$error_description,
-					$error_code,
-					$error_content
-				)
-			);
-		} elseif ( ! empty( $this->error_message ) ) {
-			$error_text = $this->error_message;
+			if ( ! empty( $body->data->errorCode ) || ! empty( $body->data->moreInfo ) ) {
+				$message     = ! empty( $body->status->description ) ? $body->status->description : '';
+				$code        = ! empty( $body->status->code ) ? $body->status->code : '';
+				$description = ! empty( $body->data->errorCode ) ? $body->data->errorCode : $body->data->moreInfo;
+
+				$error_text[] = Helpers::format_error_message( $message, $code, $description );
+			} else {
+				$error_text[] = WP::wp_remote_get_response_error_message( $this->response );
+			}
 		}
 
-		return ! empty( $error_text ) ? $error_text : wp_json_encode( $body );
+		return implode( WP::EOL, array_map( 'esc_textarea', array_filter( $error_text ) ) );
 	}
 
 	/**

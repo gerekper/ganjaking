@@ -14,9 +14,9 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves;
 
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 class Ed448 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards
 {
     const HASH = 'shake256-912';

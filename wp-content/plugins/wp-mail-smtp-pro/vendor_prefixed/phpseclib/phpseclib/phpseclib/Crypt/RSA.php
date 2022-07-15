@@ -55,12 +55,12 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt;
 
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\AsymmetricKey;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys\PSS;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\PrivateKey;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\PublicKey;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\InconsistentSetupException;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys\PSS;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * Pure-PHP PKCS#1 compliant implementation of RSA.
  *
@@ -831,6 +831,9 @@ abstract class RSA extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Asymmetric
      */
     public function getEngine()
     {
+        if (!isset(self::$engines['PHP'])) {
+            self::useBestEngine();
+        }
         return self::$engines['OpenSSL'] && self::$defaultExponent == 65537 ? 'OpenSSL' : 'PHP';
     }
     /**

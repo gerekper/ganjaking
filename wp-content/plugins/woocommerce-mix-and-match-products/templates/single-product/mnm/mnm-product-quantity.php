@@ -26,29 +26,29 @@ global $product;
 echo wp_kses_post( $child_item->get_availability_html() );
 
 if ( ! $child_item->get_product()->is_purchasable() || ! $child_item->get_product()->is_in_stock() ) {
-    return;
+	return;
 }
 
 // Checkbox input
 if ( $child_item->get_quantity( 'step' ) === $child_item->get_quantity( 'max' ) ) { ?>
 
-    <div class="mnm-checkbox-qty">
-        <input id="<?php echo esc_attr( $input_args[ 'input_id' ] );?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() );?>" value="<?php echo esc_attr( $child_item->get_quantity( 'max' ) );?>" <?php checked( $child_item->get_quantity( 'max' ) === $child_item->get_quantity( 'value' ), true );?>/>
-        <label for="<?php echo esc_attr( $input_args[ 'input_id' ] );?>"><?php echo wp_kses_post( $input_args[ 'checkbox_label' ] );?></label>
-    </div>
+	<div class="mnm-checkbox-qty">
+		<input id="<?php echo esc_attr( $input_args[ 'input_id' ] );?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() );?>" value="<?php echo esc_attr( $child_item->get_quantity( 'max' ) );?>" <?php checked( $child_item->get_quantity( 'max' ) === $child_item->get_quantity( 'value' ), true );?>/>
+		<label for="<?php echo esc_attr( $input_args[ 'input_id' ] );?>"><?php echo wp_kses_post( $input_args[ 'checkbox_label' ] );?></label>
+	</div>
 
-    <?php
+	<?php
 
 // Default number input.
 } else {
 
-    if ( $child_item->get_quantity( 'min' ) === $child_item->get_quantity( 'max' ) ) { ?>
+	if ( $child_item->get_quantity( 'min' ) === $child_item->get_quantity( 'max' ) ) { ?>
 
-        <p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></span></p>
-        
-    <?php 
-    }
+		<p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></span></p>
+		
+	<?php
+	}
 
-    woocommerce_quantity_input( $input_args, $child_item->get_product() );
+	woocommerce_quantity_input( $input_args, $child_item->get_product() );
 
 }

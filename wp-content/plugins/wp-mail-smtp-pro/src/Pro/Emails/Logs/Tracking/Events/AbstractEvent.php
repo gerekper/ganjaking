@@ -4,6 +4,8 @@ namespace WPMailSMTP\Pro\Emails\Logs\Tracking\Events;
 
 use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
+use DateTime;
+use DateTimeZone;
 
 /**
  * Email tracking event class.
@@ -35,7 +37,7 @@ abstract class AbstractEvent implements EventInterface {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @var \DateTime
+	 * @var DateTime
 	 */
 	private $date_created;
 
@@ -89,23 +91,23 @@ abstract class AbstractEvent implements EventInterface {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @return \DateTime Event created date/time (return current date/time if property is empty).
+	 * @return DateTime Event created date/time (return current date/time if property is empty).
 	 */
 	public function get_date_created() {
 
-		if ( $this->date_created instanceof \DateTime ) {
+		if ( $this->date_created instanceof DateTime ) {
 			return $this->date_created;
 		}
 
-		$timezone = new \DateTimeZone( 'UTC' );
+		$timezone = new DateTimeZone( 'UTC' );
 		$date     = false;
 
-		if( ! empty( $this->date_created ) ) {
-			$date = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_created, $timezone );
+		if ( ! empty( $this->date_created ) ) {
+			$date = DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_created, $timezone );
 		}
 
 		if ( $date === false ) {
-			$date = new \DateTime( 'now', $timezone );
+			$date = new DateTime( 'now', $timezone );
 		}
 
 		$this->date_created = $date;
@@ -168,12 +170,12 @@ abstract class AbstractEvent implements EventInterface {
 		$aa = substr( $date_created, 0, 4 );
 
 		$valid_date = wp_checkdate( $mm, $jj, $aa, $date_created );
-		$timezone   = new \DateTimeZone( 'UTC' );
+		$timezone   = new DateTimeZone( 'UTC' );
 
 		if ( $valid_date ) {
-			$date_created = \DateTime::createFromFormat( WP::datetime_mysql_format(), $date_created, $timezone );
+			$date_created = DateTime::createFromFormat( WP::datetime_mysql_format(), $date_created, $timezone );
 		} else {
-			$date_created = new \DateTime( 'now', $timezone );
+			$date_created = new DateTime( 'now', $timezone );
 		}
 
 		$this->date_created = $date_created;
@@ -231,6 +233,16 @@ abstract class AbstractEvent implements EventInterface {
 			$this->set_id( $wpdb->insert_id );
 		}
 
+		/**
+		 * Fires after tracking event save to DB.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param AbstractEvent $event      Current event object.
+		 * @param string        $event_type Event type.
+		 */
+		do_action( 'wp_mail_smtp_pro_emails_logs_tracking_events_event_persist', $this, static::get_type() );
+
 		return $this->get_id() > 0 ? $this->get_id() : false;
 	}
 
@@ -247,9 +259,11 @@ abstract class AbstractEvent implements EventInterface {
 
 		$table = Tracking::get_events_table_name();
 
-		$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		$result = $wpdb->query(
 			$wpdb->prepare(
-				"SELECT * FROM {$table} WHERE event_type = %s AND email_log_id = %d LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM {$table} WHERE event_type = %s AND email_log_id = %d LIMIT 1",
 				sanitize_key( static::get_type() ),
 				intval( $this->get_email_log_id() )
 			)

@@ -98,7 +98,7 @@ class WC_MNM_Helpers {
 			unset( self::$cache[ $key ] );
 		}
 	}
-	
+
 	/**
 	 * Product types supported by the plugin.
 	 * You can dynamically attach these product types to Mix and Match Product.
@@ -130,7 +130,7 @@ class WC_MNM_Helpers {
 
 	/**
 	 * Format a product title incl qty.
-	 * 
+	 *
 	 * @since 1.11.4
 	 *
 	 * @param  string  $title
@@ -139,9 +139,12 @@ class WC_MNM_Helpers {
 	 */
 	public static function format_product_title( $title, $qty = '', $args = array() ) {
 
-		$args = wp_parse_args( $args, array(
+		$args = wp_parse_args(
+            $args,
+            array(
 			'title_first' => true,
-		) );
+            ) 
+        );
 
 		$title_string = $title;
 

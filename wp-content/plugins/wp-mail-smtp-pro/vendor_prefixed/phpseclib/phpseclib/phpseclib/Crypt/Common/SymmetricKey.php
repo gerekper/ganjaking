@@ -35,16 +35,16 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
 
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
-use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
 use WPMailSMTP\Vendor\phpseclib3\Exception\BadDecryptionException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\BadModeException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\InconsistentSetupException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\InsufficientSetupException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
+use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 /**
  * Base Class for all \phpseclib3\Crypt\* cipher classes
  *
@@ -1244,8 +1244,8 @@ abstract class SymmetricKey
                         $block = \substr($plaintext, $i, $block_size);
                         if (\strlen($block) > \strlen($buffer['ciphertext'])) {
                             $buffer['ciphertext'] .= $this->encryptBlock($xor);
+                            \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::increment_str($xor);
                         }
-                        \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::increment_str($xor);
                         $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::shift($buffer['ciphertext'], $block_size);
                         $ciphertext .= $block ^ $key;
                     }
@@ -1589,8 +1589,8 @@ abstract class SymmetricKey
                         $block = \substr($ciphertext, $i, $block_size);
                         if (\strlen($block) > \strlen($buffer['ciphertext'])) {
                             $buffer['ciphertext'] .= $this->encryptBlock($xor);
+                            \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::increment_str($xor);
                         }
-                        \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::increment_str($xor);
                         $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::shift($buffer['ciphertext'], $block_size);
                         $plaintext .= $block ^ $key;
                     }

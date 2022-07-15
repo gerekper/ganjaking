@@ -31,8 +31,9 @@ use WPMailSMTP\Vendor\Google\Service\Gmail\Thread;
 class UsersThreads extends \WPMailSMTP\Vendor\Google\Service\Resource
 {
     /**
-     * Immediately and permanently deletes the specified thread. This operation
-     * cannot be undone. Prefer `threads.trash` instead. (threads.delete)
+     * Immediately and permanently deletes the specified thread. Any messages that
+     * belong to the thread are also deleted. This operation cannot be undone.
+     * Prefer `threads.trash` instead. (threads.delete)
      *
      * @param string $userId The user's email address. The special value `me` can be
      * used to indicate the authenticated user.
@@ -109,7 +110,8 @@ class UsersThreads extends \WPMailSMTP\Vendor\Google\Service\Resource
         return $this->call('modify', [$params], \WPMailSMTP\Vendor\Google\Service\Gmail\Thread::class);
     }
     /**
-     * Moves the specified thread to the trash. (threads.trash)
+     * Moves the specified thread to the trash. Any messages that belong to the
+     * thread are also moved to the trash. (threads.trash)
      *
      * @param string $userId The user's email address. The special value `me` can be
      * used to indicate the authenticated user.
@@ -124,7 +126,8 @@ class UsersThreads extends \WPMailSMTP\Vendor\Google\Service\Resource
         return $this->call('trash', [$params], \WPMailSMTP\Vendor\Google\Service\Gmail\Thread::class);
     }
     /**
-     * Removes the specified thread from the trash. (threads.untrash)
+     * Removes the specified thread from the trash. Any messages that belong to the
+     * thread are also removed from the trash. (threads.untrash)
      *
      * @param string $userId The user's email address. The special value `me` can be
      * used to indicate the authenticated user.

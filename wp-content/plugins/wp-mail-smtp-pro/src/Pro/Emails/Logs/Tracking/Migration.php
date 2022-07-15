@@ -5,7 +5,7 @@ namespace WPMailSMTP\Pro\Emails\Logs\Tracking;
 use WPMailSMTP\MigrationAbstract;
 
 /**
- * Email tracking Migration Class
+ * Email tracking Migration Class.
  *
  * @since 2.9.0
  * @since 3.0.0 Extends MigrationAbstract.
@@ -70,7 +70,8 @@ class Migration extends MigrationAbstract {
 		ENGINE='InnoDB'
 		{$charset_collate};";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$result = $wpdb->query( $sql );
 
 		if ( ! empty( $wpdb->last_error ) ) {
 			update_option( self::ERROR_OPTION_NAME, $wpdb->last_error, false );
@@ -106,7 +107,8 @@ class Migration extends MigrationAbstract {
 		ENGINE='InnoDB'
 		{$charset_collate};";
 
-		$result = $wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$result = $wpdb->query( $sql );
 
 		if ( ! empty( $wpdb->last_error ) ) {
 			update_option( self::ERROR_OPTION_NAME, $wpdb->last_error, false );

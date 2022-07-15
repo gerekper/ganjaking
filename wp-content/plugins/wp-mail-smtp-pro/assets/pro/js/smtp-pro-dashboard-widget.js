@@ -1,4 +1,4 @@
-/* global wp_mail_smtp_dashboard_widget, ajaxurl, moment, Chart */
+/* global wp_mail_smtp_dashboard_widget, ajaxurl, moment, WPMailSMTPChart */
 /**
  * WP Mail SMTP Dashboard Widget function.
  *
@@ -214,7 +214,7 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 
 			ctx = el.$canvas[ 0 ].getContext( '2d' );
 
-			chart.instance = new Chart( ctx, chart.settings );
+			chart.instance = new WPMailSMTPChart( ctx, chart.settings );
 
 			chart.updateUI( wp_mail_smtp_dashboard_widget.chart_data );
 		},
@@ -256,7 +256,7 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 
 			if ( $.isEmptyObject( data ) ) {
 				graphStyle = 'line';
-				chart.updateWithEmptyData();
+				chart.updateWithDummyData();
 				chart.showEmptyDataMessage();
 			} else {
 				chart.updateData( data );
@@ -355,6 +355,44 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 				date = end.clone().subtract( i, 'days' );
 
 				chart.settings.data.labels.push( date );
+			}
+		},
+
+		/**
+		 * Update Chart.js settings with dummy data.
+		 *
+		 * @since 3.5.0
+		 */
+		updateWithDummyData: function() {
+
+			chart.settings.data.labels = [];
+
+			// Reset any existing data.
+			chart.settings.data.datasets[0].data = [];
+
+			if ( chart.settings.data.datasets.length > 1 ) {
+				chart.settings.data.datasets[1].data = [];
+			}
+			if ( chart.settings.data.datasets.length > 2 ) {
+				chart.settings.data.datasets[2].data = [];
+			}
+
+			var end = moment().startOf( 'day' );
+			var days = el.$daysSelect.val() || 7;
+			var date;
+
+			var minY = 5;
+			var maxY = 20;
+			var i;
+
+			for ( i = 1; i <= days; i++ ) {
+				date = end.clone().subtract( i, 'days' );
+
+				chart.settings.data.labels.push( date );
+				chart.settings.data.datasets[ 0 ].data.push( {
+					t: date,
+					y: Math.floor( Math.random() * ( maxY - minY + 1 ) ) + minY,
+				} );
 			}
 		},
 

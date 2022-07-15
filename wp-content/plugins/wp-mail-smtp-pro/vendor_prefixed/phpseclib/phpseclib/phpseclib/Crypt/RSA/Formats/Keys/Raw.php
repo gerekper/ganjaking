@@ -66,14 +66,12 @@ abstract class Raw
         }
         if (isset($key['primes'])) {
             $components['primes'] = $key['primes'];
-        } else {
-            if (isset($key['p']) && isset($key['q'])) {
-                $indices = [['p', 'q'], ['prime1', 'prime2']];
-                foreach ($indices as $index) {
-                    list($i0, $i1) = $index;
-                    if (isset($key[$i0]) && isset($key[$i1])) {
-                        $components['primes'] = [1 => $key[$i0], $key[$i1]];
-                    }
+        } elseif (isset($key['p']) && isset($key['q'])) {
+            $indices = [['p', 'q'], ['prime1', 'prime2']];
+            foreach ($indices as $index) {
+                list($i0, $i1) = $index;
+                if (isset($key[$i0]) && isset($key[$i1])) {
+                    $components['primes'] = [1 => $key[$i0], $key[$i1]];
                 }
             }
         }

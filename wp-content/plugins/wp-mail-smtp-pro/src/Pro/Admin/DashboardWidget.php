@@ -277,7 +277,9 @@ class DashboardWidget {
 	public function widget_content_logs_disabled() {
 
 		$enable_logs_url = wp_mail_smtp()->pro->get_logs()->get_settings_url();
-		$learn_more_url  = 'https://wpmailsmtp.com/docs/how-to-set-up-email-logging/?utm_source=WordPress&utm_medium=link&utm_campaign=plugin&utm_content=dashboardwidget';
+
+		// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
+		$learn_more_url = wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/how-to-set-up-email-logging/', [ 'medium' => 'link', 'content' => 'dashboardwidget' ] );
 
 		?>
 		<div class="wp-mail-smtp-dash-widget-block wp-mail-smtp-dash-widget-block-logs-disabled">

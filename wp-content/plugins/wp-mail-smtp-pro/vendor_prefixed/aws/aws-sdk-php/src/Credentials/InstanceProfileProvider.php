@@ -56,19 +56,23 @@ class InstanceProfileProvider
      *
      * @return PromiseInterface
      */
-    public function __invoke()
+    public function __invoke($previousCredentials = null)
     {
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () use($previousCredentials) {
             // Retrieve token or switch out of secure mode
             $token = null;
             while ($this->secureMode && \is_null($token)) {
                 try {
                     $token = (yield $this->request(self::TOKEN_PATH, 'PUT', ['x-aws-ec2-metadata-token-ttl-seconds' => 21600]));
                 } catch (\WPMailSMTP\Vendor\GuzzleHttp\Exception\TransferException $e) {
-                    if (!\method_exists($e, 'getResponse') || empty($e->getResponse()) || !\in_array($e->getResponse()->getStatusCode(), [400, 500, 502, 503, 504])) {
-                        $this->secureMode = \false;
+                    if ($this->getExceptionStatusCode($e) === 500 && $previousCredentials instanceof \WPMailSMTP\Vendor\Aws\Credentials\Credentials) {
+                        goto generateCredentials;
                     } else {
-                        $this->handleRetryableException($e, [], $this->createErrorMessage('Error retrieving metadata token'));
+                        if (!\method_exists($e, 'getResponse') || empty($e->getResponse()) || !\in_array($e->getResponse()->getStatusCode(), [400, 500, 502, 503, 504])) {
+                            $this->secureMode = \false;
+                        } else {
+                            $this->handleRetryableException($e, [], $this->createErrorMessage('Error retrieving metadata token'));
+                        }
                     }
                 }
                 $this->attempts++;
@@ -103,14 +107,27 @@ class InstanceProfileProvider
                 } catch (\WPMailSMTP\Vendor\GuzzleHttp\Exception\TransferException $e) {
                     // 401 indicates insecure flow not supported, switch to
                     // attempting secure mode for subsequent calls
-                    if (!empty($this->getExceptionStatusCode($e)) && $this->getExceptionStatusCode($e) === 401) {
-                        $this->secureMode = \true;
+                    if (($this->getExceptionStatusCode($e) === 500 || \strpos($e->getMessage(), "cURL error 28") !== \false) && $previousCredentials instanceof \WPMailSMTP\Vendor\Aws\Credentials\Credentials) {
+                        goto generateCredentials;
+                    } else {
+                        if (!empty($this->getExceptionStatusCode($e)) && $this->getExceptionStatusCode($e) === 401) {
+                            $this->secureMode = \true;
+                        }
                     }
                     $this->handleRetryableException($e, ['blacklist' => [401, 403]], $this->createErrorMessage($e->getMessage()));
                 }
                 $this->attempts++;
             }
-            (yield new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($result['AccessKeyId'], $result['SecretAccessKey'], $result['Token'], \strtotime($result['Expiration'])));
+            generateCredentials:
+            if (!isset($result)) {
+                $credentials = $previousCredentials;
+            } else {
+                $credentials = new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($result['AccessKeyId'], $result['SecretAccessKey'], $result['Token'], \strtotime($result['Expiration']));
+            }
+            if ($credentials->isExpired()) {
+                $credentials->extendExpiration();
+            }
+            (yield $credentials);
         });
     }
     /**
@@ -155,7 +172,7 @@ class InstanceProfileProvider
             $isRetryable = \false;
         }
         if ($isRetryable && $this->attempts < $this->retries) {
-            \sleep(\pow(1.2, $this->attempts));
+            \sleep((int) \pow(1.2, $this->attempts));
         } else {
             throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException($message);
         }

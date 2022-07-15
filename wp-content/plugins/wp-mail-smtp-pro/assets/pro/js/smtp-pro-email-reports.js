@@ -1,4 +1,4 @@
-/* global wp_mail_smtp, wp_mail_smtp_email_reports, moment, Chart, flatpickr */
+/* global wp_mail_smtp, wp_mail_smtp_email_reports, moment, WPMailSMTPChart, flatpickr */
 /**
  * WP Mail SMTP Email Reports function.
  *
@@ -232,7 +232,7 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 
 			ctx = el.$canvas[ 0 ].getContext( '2d' );
 
-			chart.instance = new Chart( ctx, chart.settings );
+			chart.instance = new WPMailSMTPChart( ctx, chart.settings );
 
 			chart.updateUI( wp_mail_smtp_email_reports.stats_by_date_chart_data );
 		},

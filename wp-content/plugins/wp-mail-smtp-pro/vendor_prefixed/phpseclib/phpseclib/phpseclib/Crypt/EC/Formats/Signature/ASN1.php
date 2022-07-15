@@ -17,9 +17,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Signature;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1 as Encoder;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\EcdsaSigValue;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * ASN1 Signature Handler
  *

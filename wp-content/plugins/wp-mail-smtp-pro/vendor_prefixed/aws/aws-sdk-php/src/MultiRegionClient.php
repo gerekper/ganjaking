@@ -21,6 +21,8 @@ class MultiRegionClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
     private $handlerList;
     /** @var array */
     private $aliases;
+    /** @var callable */
+    private $customHandler;
     public static function getArguments()
     {
         $args = \array_intersect_key(\WPMailSMTP\Vendor\Aws\ClientResolver::getDefaultArguments(), ['service' => \true, 'region' => \true]);
@@ -71,6 +73,9 @@ class MultiRegionClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
         $this->handlerList = new \WPMailSMTP\Vendor\Aws\HandlerList(function (\WPMailSMTP\Vendor\Aws\CommandInterface $command) {
             list($region, $args) = $this->getRegionFromArgs($command->toArray());
             $command = $this->getClientFromPool($region)->getCommand($command->getName(), $args);
+            if ($this->isUseCustomHandler()) {
+                $command->getHandlerList()->setHandler($this->customHandler);
+            }
             return $this->executeAsync($command);
         });
         $argDefinitions = static::getArguments();
@@ -138,6 +143,14 @@ class MultiRegionClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
     public function getEndpoint()
     {
         return $this->getClientFromPool()->getEndpoint();
+    }
+    public function useCustomHandler(callable $handler)
+    {
+        $this->customHandler = $handler;
+    }
+    private function isUseCustomHandler()
+    {
+        return isset($this->customHandler);
     }
     /**
      * @param string $region    Omit this argument or pass in an empty string to

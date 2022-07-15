@@ -385,7 +385,7 @@ class WC_MNM_Min_Max_Compatibility {
 
 	/**
 	 * If this is a MNM child item, don't use Group as for our minimum or initial value.
-	 * 
+	 *
 	 * @since 2.0.7
 	 *
 	 * @param boolean $use_group Whether to use group quantity as minimum. Default true.
@@ -401,7 +401,7 @@ class WC_MNM_Min_Max_Compatibility {
 		}
 		return $use_group;
 	}
-	
+
 
 	/*-----------------------------------------------------------------*/
 	/*  Deprecated    .                                                */

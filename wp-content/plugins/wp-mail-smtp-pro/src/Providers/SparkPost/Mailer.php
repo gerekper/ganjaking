@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Providers\SparkPost;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\WP;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Providers\MailerAbstract;
@@ -383,10 +384,8 @@ class Mailer extends MailerAbstract {
 				continue;
 			}
 
-			$filetype = str_replace( ';', '', trim( $attachment[4] ) );
-
 			$data[] = [
-				'name' => empty( $attachment[2] ) ? 'file-' . wp_hash( microtime() ) . '.' . $filetype : trim( $attachment[2] ),
+				'name' => $this->get_attachment_file_name( $attachment ),
 				'data' => base64_encode( $file ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 				'type' => $attachment[4],
 			];
@@ -447,39 +446,29 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @return string
 	 */
-	public function get_response_error() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function get_response_error() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh, Generic.Metrics.NestingLevel.MaxExceeded
 
-		if ( empty( $this->response ) ) {
-			return '';
-		}
+		$error_text[] = $this->error_message;
 
-		$body = wp_remote_retrieve_body( $this->response );
+		if ( ! empty( $this->response ) ) {
+			$body = wp_remote_retrieve_body( $this->response );
 
-		$error_text = [];
+			if ( ! empty( $body->errors ) && is_array( $body->errors ) ) {
+				foreach ( $body->errors as $error ) {
+					if ( ! empty( $error->message ) ) {
+						$message     = $error->message;
+						$code        = ! empty( $error->code ) ? $error->code : '';
+						$description = ! empty( $error->description ) ? $error->description : '';
 
-		if ( ! empty( $body->errors ) ) {
-			foreach ( $body->errors as $error ) {
-				$message = [];
-
-				if ( isset( $error->code ) ) {
-					$message[] = $error->code;
+						$error_text[] = Helpers::format_error_message( $message, $code, $description );
+					}
 				}
-
-				if ( isset( $error->message ) ) {
-					$message[] = $error->message;
-				}
-
-				if ( isset( $error->description ) ) {
-					$message[] = $error->description;
-				}
-
-				$error_text[] = implode( ' - ', $message );
+			} else {
+				$error_text[] = WP::wp_remote_get_response_error_message( $this->response );
 			}
-		} elseif ( ! empty( $this->error_message ) ) {
-			$error_text[] = $this->error_message;
 		}
 
-		return implode( PHP_EOL, array_map( 'esc_textarea', $error_text ) );
+		return implode( WP::EOL, array_map( 'esc_textarea', array_filter( $error_text ) ) );
 	}
 
 	/**

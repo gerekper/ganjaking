@@ -26,16 +26,16 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
+use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1 as Progenitor;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 /**
  * "PKCS1" (RFC5915) Formatted EC Key Handler
  *

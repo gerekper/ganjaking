@@ -5,6 +5,8 @@ namespace WPMailSMTP\Pro;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Admin\DashboardWidget;
+use WPMailSMTP\Pro\Alerts\Alerts;
+use WPMailSMTP\Pro\Alerts\Loader as AlertsLoader;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
@@ -101,6 +103,9 @@ class Pro {
 			$this->get_logs_export()->init();
 		}
 
+		// Initialize alerts.
+		( new Alerts() )->hooks();
+
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
 		add_filter( 'wp_mail_smtp_admin_pages_misc_tab_show_usage_tracking_setting', '__return_false' );
@@ -130,6 +135,27 @@ class Pro {
 			'wp_mail_smtp_core_get_reports',
 			function () {
 				return Reports::class;
+			}
+		);
+
+		// Fix `Options::array_merge_recursive` numeric keys array duplicates.
+		add_filter(
+			'wp_mail_smtp_options_set',
+			function ( $options ) {
+				foreach ( [ 'email', 'slack_webhook', 'twilio_sms', 'custom_webhook' ] as $alert ) {
+					if ( isset( $options[ "alert_$alert" ]['connections'] ) ) {
+						$options[ "alert_$alert" ]['connections'] = array_unique(
+							$options[ "alert_$alert" ]['connections'],
+							SORT_REGULAR
+						);
+					}
+				}
+
+				if ( isset( $options['outlook']['scopes'] ) ) {
+					$options['outlook']['scopes'] = array_unique( $options['outlook']['scopes'], SORT_REGULAR );
+				}
+
+				return $options;
 			}
 		);
 	}
@@ -408,18 +434,20 @@ class Pro {
 			esc_html__( 'Settings', 'wp-mail-smtp-pro' )
 		);
 
-		$custom['docs'] = sprintf(
-			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
-			'https://wpmailsmtp.com/docs/',
-			esc_attr__( 'Go to WPMailSMTP.com documentation page', 'wp-mail-smtp-pro' ),
-			esc_html__( 'Docs', 'wp-mail-smtp-pro' )
-		);
-
 		$custom['support'] = sprintf(
 			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
-			'https://wpmailsmtp.com/account/support/',
+			// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
+			esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/account/support/', [ 'medium' => 'all-plugins', 'content' => 'Support' ] ) ),
 			esc_attr__( 'Go to WPMailSMTP.com support page', 'wp-mail-smtp-pro' ),
 			esc_html__( 'Support', 'wp-mail-smtp-pro' )
+		);
+
+		$custom['docs'] = sprintf(
+			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
+			// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
+			esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/', [ 'medium' => 'all-plugins', 'content' => 'Documentation' ] ) ),
+			esc_attr__( 'Go to WPMailSMTP.com documentation page', 'wp-mail-smtp-pro' ),
+			esc_html__( 'Docs', 'wp-mail-smtp-pro' )
 		);
 
 		return array_merge( $custom, (array) $links );
@@ -438,12 +466,14 @@ class Pro {
 	 */
 	public function get_tasks( $tasks ) {
 
+		// phpcs:disable WPForms.PHP.BackSlash.UseShortSyntax
 		return array_merge(
 			$tasks,
 			[
 				\WPMailSMTP\Pro\Tasks\EmailLogCleanupTask::class,
 				\WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration4::class,
 				\WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration5::class,
+				\WPMailSMTP\Pro\Tasks\Logs\Sendlayer\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask::class,
@@ -451,8 +481,10 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\Logs\SparkPost\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ResendTask::class,
+				\WPMailSMTP\Pro\Tasks\NotifierTask::class,
 			]
 		);
+		// phpcs:enable WPForms.PHP.BackSlash.UseShortSyntax
 	}
 
 	/**
@@ -469,6 +501,7 @@ class Pro {
 		return array_merge(
 			$migrations,
 			[
+				Migration::class,
 				\WPMailSMTP\Pro\Emails\Logs\Migration::class,
 				\WPMailSMTP\Pro\Emails\Logs\Tracking\Migration::class,
 				\WPMailSMTP\Pro\Emails\Logs\Attachments\Migration::class,
@@ -483,8 +516,10 @@ class Pro {
 	 */
 	public function display_custom_auth_notices() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$error   = isset( $_GET['error'] ) ? sanitize_key( $_GET['error'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$success = isset( $_GET['success'] ) ? sanitize_key( $_GET['success'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$error   = isset( $_GET['error'] ) ? sanitize_key( $_GET['error'] ) : '';
+		$success = isset( $_GET['success'] ) ? sanitize_key( $_GET['success'] ) : '';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		if ( empty( $error ) && empty( $success ) ) {
 			return;
@@ -497,9 +532,23 @@ class Pro {
 		switch ( $error ) {
 			case 'microsoft_no_code':
 			case 'zoho_no_code':
+				WP::add_admin_notice(
+					esc_html__( 'There was an error while processing the authentication request. The authorization code is missing. Please try again.', 'wp-mail-smtp-pro' ),
+					WP::ADMIN_NOTICE_ERROR
+				);
+				break;
+
+			case 'microsoft_invalid_nonce':
 			case 'zoho_invalid_nonce':
 				WP::add_admin_notice(
-					esc_html__( 'There was an error while processing the authentication request. Please try again.', 'wp-mail-smtp-pro' ),
+					esc_html__( 'There was an error while processing the authentication request. The nonce is invalid. Please try again.', 'wp-mail-smtp-pro' ),
+					WP::ADMIN_NOTICE_ERROR
+				);
+				break;
+
+			case 'microsoft_unsuccessful_oauth':
+				WP::add_admin_notice(
+					esc_html__( 'There was an error while processing the authentication request. Please recheck your Client ID and Client Secret and try again.', 'wp-mail-smtp-pro' ),
 					WP::ADMIN_NOTICE_ERROR
 				);
 				break;
@@ -534,6 +583,7 @@ class Pro {
 					WP::ADMIN_NOTICE_SUCCESS
 				);
 				break;
+
 			case 'zoho_site_linked':
 				WP::add_admin_notice(
 					esc_html__( 'You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail.', 'wp-mail-smtp-pro' ),
@@ -675,6 +725,24 @@ class Pro {
 		$data['wp_mail_smtp_pro_log_retention_period']    = $options->get( 'logs', 'log_retention_period' );
 		$data['wp_mail_smtp_pro_log_entry_count']         = $this->get_logs()->is_valid_db() ? ( new EmailsCollection() )->get_count() : 0;
 		$data['wp_mail_smtp_pro_disabled_controls']       = $disabled_controls;
+
+		// Alerts usage tracking.
+		$alerts_loader = new AlertsLoader();
+
+		$enabled_alerts = array_filter(
+			array_keys( $alerts_loader->get_providers() ),
+			function ( $provider_slug ) use ( $options ) {
+				return $options->get( 'alert_' . $provider_slug, 'enabled' );
+			}
+		);
+
+		$data['wp_mail_smtp_pro_alerts_enabled'] = count( $enabled_alerts ) > 0;
+
+		foreach ( $enabled_alerts as $provider_slug ) {
+			$connections = $options->get( 'alert_' . $provider_slug, 'connections' );
+
+			$data[ 'wp_mail_smtp_pro_alerts_enabled_channel_' . $provider_slug ] = count( $connections );
+		}
 
 		return $data;
 	}

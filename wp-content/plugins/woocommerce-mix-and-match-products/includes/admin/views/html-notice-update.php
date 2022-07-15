@@ -28,7 +28,7 @@ $update_url = wp_nonce_url(
 		<a id="wc-mnm-do-update-db" href="<?php echo esc_url( $update_url ); ?>" class="wc-update-now button-primary">
 			<?php esc_html_e( 'Update Database', 'woocommerce-mix-and-match-products' ); ?>
 		</a>
-        <a href="<?php echo esc_url( WC_Mix_and_Match()->get_resource_url( 'updating' ) );?>" class="button-secondary">
+		<a href="<?php echo esc_url( WC_Mix_and_Match()->get_resource_url( 'updating' ) );?>" class="button-secondary">
 			<?php esc_html_e( 'Learn more about updates', 'woocommerce-mix-and-match-products' ); ?>
 		</a>
 	</p>

@@ -85,12 +85,7 @@ class CredentialProvider
             $defaultChain['process_config'] = self::process('profile ' . $profileName, self::getHomeDir() . '/.aws/config');
             $defaultChain['ini_config'] = self::ini('profile ' . $profileName, self::getHomeDir() . '/.aws/config');
         }
-        $shouldUseEcsCredentialsProvider = \getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI);
-        // getenv() is not thread safe - fall back to $_SERVER
-        if ($shouldUseEcsCredentialsProvider === \false) {
-            $shouldUseEcsCredentialsProvider = isset($_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI]) ? $_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI] : \false;
-        }
-        if (!empty($shouldUseEcsCredentialsProvider)) {
+        if (self::shouldUseEcs()) {
             $defaultChain['ecs'] = self::ecsCredentials($config);
         } else {
             $defaultChain['instance'] = self::instanceProfile($config);
@@ -131,12 +126,18 @@ class CredentialProvider
         if (empty($links)) {
             throw new \InvalidArgumentException('No providers in chain');
         }
-        return function () use($links) {
+        return function ($previousCreds = null) use($links) {
             /** @var callable $parent */
             $parent = \array_shift($links);
             $promise = $parent();
             while ($next = \array_shift($links)) {
-                $promise = $promise->otherwise($next);
+                if ($next instanceof \WPMailSMTP\Vendor\Aws\Credentials\InstanceProfileProvider && $previousCreds instanceof \WPMailSMTP\Vendor\Aws\Credentials\Credentials) {
+                    $promise = $promise->otherwise(function () use($next, $previousCreds) {
+                        return $next($previousCreds);
+                    });
+                } else {
+                    $promise = $promise->otherwise($next);
+                }
             }
             return $promise;
         };
@@ -176,7 +177,7 @@ class CredentialProvider
                     return $creds;
                 }
                 // Refresh the result and forward the promise.
-                return $result = $provider();
+                return $result = $provider($creds);
             })->otherwise(function ($reason) use(&$result) {
                 // Cleanup rejected promise.
                 $result = null;
@@ -624,5 +625,14 @@ class CredentialProvider
             $filename = \getenv(self::ENV_SHARED_CREDENTIALS_FILE) ?: self::getHomeDir() . '/.aws/credentials';
         }
         return $filename;
+    }
+    /**
+     * @return boolean
+     */
+    public static function shouldUseEcs()
+    {
+        //Check for relative uri. if not, then full uri.
+        //fall back to server for each as getenv is not thread-safe.
+        return !empty(\getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI)) || !empty($_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI]) || !empty(\getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_FULL_URI)) || !empty($_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_FULL_URI]);
     }
 }

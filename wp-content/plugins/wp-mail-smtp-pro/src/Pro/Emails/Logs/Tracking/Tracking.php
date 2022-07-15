@@ -7,6 +7,7 @@ use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Events;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\EventFactory;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\AbstractInjectableEvent;
+use WP_REST_Request;
 
 /**
  * Email events tracking class.
@@ -65,7 +66,6 @@ class Tracking {
 		add_action( 'rest_api_init', [ $this, 'register_rest_route' ] );
 
 		if ( $this->is_enabled ) {
-
 			// Inject tracking code to email content.
 			add_action( 'wp_mail_smtp_mailcatcher_pre_send_before', [ $this, 'inject_tracking_code' ], 20 );
 			add_action( 'wp_mail_smtp_mailcatcher_smtp_pre_send_before', [ $this, 'inject_tracking_code' ], 20 );
@@ -106,11 +106,13 @@ class Tracking {
 		$email_log_id = wp_mail_smtp()->get_pro()->get_logs()->get_current_email_id();
 
 		// Skip if there is no email log ID or email content type is not html.
-		if ( empty( $email_log_id ) || $mailcatcher->ContentType !== 'text/html' ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		if ( empty( $email_log_id ) || $mailcatcher->ContentType !== 'text/html' ) {
 			return;
 		}
 
-		$content = $mailcatcher->Body; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$content = $mailcatcher->Body;
 
 		$events = [
 			Injectable\OpenEmailEvent::class,
@@ -119,8 +121,8 @@ class Tracking {
 
 		foreach ( $events as $event_class ) {
 			$event = new $event_class( $email_log_id );
-			if ( $event->is_active() ) {
 
+			if ( $event->is_active() ) {
 				/**
 				 * Filters whether inject tracking code or not.
 				 *
@@ -137,7 +139,8 @@ class Tracking {
 			}
 		}
 
-		$mailcatcher->Body = $content; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$mailcatcher->Body = $content;
 	}
 
 	/**
@@ -147,13 +150,14 @@ class Tracking {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param \WP_REST_Request $request Request object.
+	 * @param WP_REST_Request $request Request object.
 	 *
 	 * @return mixed REST or custom response.
 	 */
 	public function handle_injectable_event( $request ) {
 
-		$data = base64_decode( $request->get_param( 'data' ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+		$data = base64_decode( $request->get_param( 'data' ) );
 
 		parse_str( $data, $args );
 
@@ -187,6 +191,15 @@ class Tracking {
 		if ( ( new Events() )->is_valid_db() && $event->is_active() ) {
 			$event->persist();
 		}
+
+		/**
+		 * Fires after tracking event was processed.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array $tracking_data The tracking data passed via the URL.
+		 */
+		do_action( 'wp_mail_smtp_pro_emails_logs_tracking_handle_injectable_event', $tracking_data );
 
 		return $event->get_response( $tracking_data );
 	}

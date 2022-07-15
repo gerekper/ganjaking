@@ -45,7 +45,7 @@ function wc_mnm_template_add_to_cart_after_summary() {
  * Add-to-cart template for Mix and Match products.
  *
  * @since  1.3.0
- * 
+ *
  * @param WC_Product_Mix_and_Match $product - Optionally call template for a specific product. Since 1.11.7
  */
 function wc_mnm_template_add_to_cart( $container = false ) {
@@ -54,8 +54,8 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 	$backup_product = $product;
 
 	if ( is_numeric( $container ) ) {
-        $container = wc_get_product( intval( $container ) );
-    }
+		$container = wc_get_product( intval( $container ) );
+	}
 
 	// Swap the global product for this specific container.
 	if ( $container ) {
@@ -315,7 +315,7 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 
 	/**
 	 * Child item thumbnail size.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $size
@@ -332,7 +332,7 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 	/**
 	 * Child item link_classes.
 	 * Some themes use different lightbox triggers.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param array $link_classes
@@ -393,7 +393,7 @@ function wc_mnm_template_child_item_title( $child_item, $product ) {
 	$max_qty = $child_item->get_quantity( 'max', $child_item->get_id() );
 
 	$qty     = 'tabular' !== $product->get_layout() && $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
-	
+
 	wc_get_template(
 		'single-product/mnm/mnm-product-title.php',
 		array(
@@ -411,8 +411,8 @@ function wc_mnm_template_child_item_title( $child_item, $product ) {
 
 /**
  * Get the MNM item product's hidden data attributes
- * 
- * @todo: eventually deprecate. All data attributes will be on the opening element. 
+ *
+ * @todo: eventually deprecate. All data attributes will be on the opening element.
  * @see: WC_MNM_Child_Item::get_data_attributes()
  * @see: grid/mnm-child-item-wrapper-open.php and table/mnm-child-item-wrapper-open.php templates
  *
@@ -425,7 +425,7 @@ function wc_mnm_template_child_item_data_details( $child_item, $product ) {
 
 	wc_get_template(
 		'single-product/mnm/mnm-item-data-attributes.php',
-        array(
+		array(
 				'child_item'        => $child_item,
 				'mnm_item'          => $child_item->get_product(), // Preserved for back-compat.
 				'mnm_item_id'       => $child_item->get_product()->get_id(), // Preserved for back-compat.
@@ -517,17 +517,19 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 
 	// Show nothing if the parent container is not purchasable.
 	if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
-        return;
-    }
+		return;
+	}
 
 	/* translators: %1$d: Quantity, %2$s: Product name. */
-	$required_text = sprintf( _x( '&times;%1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+	$required_text = sprintf(
+        _x( '&times;%1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 		$child_item->get_quantity( 'min' ),
 		wp_strip_all_tags( $child_item->get_product()->get_name() )
 	);
 
 	/* translators: %1$d: Quantity, %2$s: Product name. */
-	$checkbox_label = sprintf( _x( 'Add %1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+	$checkbox_label = sprintf(
+        _x( 'Add %1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 		$child_item->get_quantity( 'max' ),
 		wp_strip_all_tags( $child_item->get_product()->get_name() )
 	);
@@ -547,7 +549,7 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 
 	/**
 	 * Filter wc_mnm_child_item_quantity_input_args.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param array $args
@@ -703,7 +705,7 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 
 /**
  * Get the Add to Cart button.
- * 
+ *
  * @since 2.0.0
  *
  * @param obj WC_Mix_and_Match product of parent product
@@ -732,11 +734,11 @@ function wc_mnm_child_item_short_description( $child_item, $product ) {
 	global $post;
 	$backup_post = $post;
 
-    // If a variation, get the parent product. NB: Variation descriptions are post_content and so won't automatically display with the short description template.
+	// If a variation, get the parent product. NB: Variation descriptions are post_content and so won't automatically display with the short description template.
 	$_post = get_post( $child_item->get_product_id() );
 
-    // Temporarily switch global $post to our child post.
-    $post = $_post;
+	// Temporarily switch global $post to our child post.
+	$post = $_post;
 
 	woocommerce_template_single_excerpt();
 
@@ -851,7 +853,7 @@ if ( ! function_exists( 'woocommerce_template_mnm_product_quantity' ) ) {
  *
  * @since  1.8.0
  * @deprecated 2.0.0
- * 
+ *
  * @param obj $product WC_Mix_And_Match of parent product
  */
 function woocommerce_mnm_content_loop( $product ) {
@@ -863,7 +865,7 @@ function woocommerce_mnm_content_loop( $product ) {
  * The first catagory caption.
  *
  * @since 2.0.0
- * 
+ *
  * @param obj $child_item WC_MNM_Child_Item
  * @param obj $product WC_Mix_And_Match of parent product
  */
@@ -880,7 +882,7 @@ function wc_mnm_category_caption( $child_item, $product ) {
 			// Detect a change in category.
 			if ( ! in_array( $product->current_cat, $child_item->get_product()->get_category_ids() ) ) {
 				$pos = array_search( $product->current_cat, $cat_ids );
-				
+
 				$next_cat_id = array_shift( $product->remaining_cats );
 				$category    = get_term_by( 'term_id', $next_cat_id, 'product_cat' );
 
@@ -899,9 +901,7 @@ function wc_mnm_category_caption( $child_item, $product ) {
 			}
 		}
 
-
 	}
-
 
 }
 
@@ -910,7 +910,7 @@ function wc_mnm_category_caption( $child_item, $product ) {
  * Switch the category captions in the loop.
  *
  * @since 2.0.0
- * 
+ *
  * @param obj $product WC_Mix_And_Match of parent product
  */
 function wc_mnm_first_category_caption( $product ) {
@@ -926,7 +926,7 @@ function wc_mnm_first_category_caption( $product ) {
 		$category     = get_term_by( 'term_id', $first_cat_id, 'product_cat' );
 
 		if ( $category instanceof WP_Term ) {
-						
+
 			// Use the existing category title template.
 			woocommerce_template_loop_category_title( $category );
 

@@ -28,7 +28,7 @@ class WC_MNM_Core_Compatibility {
 
 	/**
 	 * Attach any hooks/filters for core WooCommerce
-	 * 
+	 *
 	 * @since 2.0.0
 	 */
 	public static function attach_hooks_and_filters() {
@@ -87,7 +87,7 @@ class WC_MNM_Core_Compatibility {
 	 * Order/Group products by category
 	 *
 	 * @since 2.0.0
-	 * 
+	 *
 	 * @param string   $orderby The GROUP BY clause of the query.
 	 * @param WP_Query $query   The WP_Query instance (passed by reference).
 	 * @return string

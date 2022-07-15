@@ -3,7 +3,7 @@
 namespace WPMailSMTP\Vendor\Aws;
 
 use WPMailSMTP\Vendor\Aws\Exception\AwsException;
-use WPMailSMTP\Vendor\GuzzleHttp\Promise;
+use WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\RejectedPromise;
 /**
@@ -63,6 +63,9 @@ class Waiter implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface
             throw new \InvalidArgumentException('The provided "before" callback is not callable.');
         }
     }
+    /**
+     * @return Coroutine
+     */
     public function promise()
     {
         return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {

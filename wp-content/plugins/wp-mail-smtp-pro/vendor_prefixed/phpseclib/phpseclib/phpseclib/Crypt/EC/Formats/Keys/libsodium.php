@@ -19,8 +19,8 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * libsodium Key Handler
  *

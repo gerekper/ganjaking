@@ -2,8 +2,11 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Providers\Mailgun;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\AbstractSubscriber;
 use WPMailSMTP\Providers\Mailgun\Mailer;
+use WP_Error;
+use WPMailSMTP\WP;
 
 /**
  * Class Subscriber.
@@ -21,7 +24,7 @@ class Subscriber extends AbstractSubscriber {
 	 */
 	const EVENTS = [
 		'delivered',
-		'permanent_fail'
+		'permanent_fail',
 	];
 
 	/**
@@ -29,7 +32,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function subscribe() {
 
@@ -69,7 +72,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function unsubscribe() {
 
@@ -120,7 +123,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return bool|\WP_Error
+	 * @return bool|WP_Error
 	 */
 	public function is_subscribed() {
 
@@ -146,7 +149,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @param string $event Event name.
 	 *
-	 * @return array|\WP_Error
+	 * @return array|WP_Error
 	 */
 	protected function get_subscribed_urls( $event ) {
 
@@ -168,12 +171,12 @@ class Subscriber extends AbstractSubscriber {
 	 * @param string $method Request method.
 	 * @param array  $params Request params.
 	 *
-	 * @return mixed|\WP_Error
+	 * @return mixed|WP_Error
 	 */
 	protected function request( $event, $method = 'GET', $params = [] ) {
 
 		// Prepare the API endpoint.
-		$endpoint = $this->provider->get_option( 'region' ) === 'EU' ? Mailer::API_BASE_EU : Mailer::API_BASE_US;
+		$endpoint  = $this->provider->get_option( 'region' ) === 'EU' ? Mailer::API_BASE_EU : Mailer::API_BASE_US;
 		$endpoint .= 'domains/' . sanitize_text_field( $this->provider->get_option( 'domain' ) ) . '/webhooks';
 
 		$args = [
@@ -216,21 +219,19 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @param array $response Response array.
 	 *
-	 * @return \WP_Error
+	 * @return WP_Error
 	 */
 	protected function get_response_error( $response ) {
 
-		$error         = new \WP_Error();
-		$body          = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code = wp_remote_retrieve_response_code( $response );
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-		if ( ! empty( $body['message'] ) ) {
-			$error->add( $response_code, $body['message'] );
+		if ( ! empty( $body->message ) ) {
+			$error_text = Helpers::format_error_message( $body->message );
 		} else {
-			$error->add( $response_code, wp_remote_retrieve_response_message( $response ) );
+			$error_text = WP::wp_remote_get_response_error_message( $response );
 		}
 
-		return $error;
+		return new WP_Error( wp_remote_retrieve_response_code( $response ), $error_text );
 	}
 
 	/**

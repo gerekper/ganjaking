@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.0
+ * @version     1.1.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -117,6 +117,9 @@ if ( ! class_exists( 'WCOPC_SC_Compatibility' ) ) {
 			<script type="text/javascript">
 				jQuery(function(){
 					jQuery(document.body).on('updated_checkout', function( e, data ){
+						if ( typeof data === 'undefined' ) {
+							return;
+						}
 						if ( data.fragments.wc_sc_receiver_detail_form ) {
 							if ( jQuery('div.gift-certificate.sc_info_box').length > 0 ) {
 								jQuery('div.gift-certificate.sc_info_box').replaceWith( data.fragments.wc_sc_receiver_detail_form );

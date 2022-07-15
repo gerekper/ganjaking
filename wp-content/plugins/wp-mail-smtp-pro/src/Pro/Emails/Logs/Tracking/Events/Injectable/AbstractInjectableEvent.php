@@ -4,6 +4,7 @@ namespace WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable;
 
 use WPMailSMTP\Helpers\Crypto;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\AbstractEvent;
+use WP_REST_Request;
 
 /**
  * Email tracking injectable event class.
@@ -16,7 +17,9 @@ abstract class AbstractInjectableEvent extends AbstractEvent {
 	/**
 	 * Tracking REST Request.
 	 *
-	 * @var \WP_REST_Request
+	 * @since 2.9.0
+	 *
+	 * @var WP_REST_Request
 	 */
 	protected $request = null;
 
@@ -56,7 +59,8 @@ abstract class AbstractInjectableEvent extends AbstractEvent {
 		$data = $this->get_tracking_url_data( $extra_data );
 		$hash = $this->generate_signature( $data );
 
-		$encoded_data = base64_encode( // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		$encoded_data = base64_encode(
 			http_build_query(
 				[
 					'data' => $data,
@@ -128,7 +132,7 @@ abstract class AbstractInjectableEvent extends AbstractEvent {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param \WP_REST_Request $request Tracking REST Request.
+	 * @param WP_REST_Request $request Tracking REST Request.
 	 */
 	public function set_request( $request ) {
 
@@ -140,7 +144,7 @@ abstract class AbstractInjectableEvent extends AbstractEvent {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @return \WP_REST_Request
+	 * @return WP_REST_Request
 	 */
 	public function get_request() {
 

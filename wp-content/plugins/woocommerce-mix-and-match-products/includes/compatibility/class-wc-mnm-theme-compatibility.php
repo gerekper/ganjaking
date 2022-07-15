@@ -65,7 +65,7 @@ class WC_MNM_Theme_Compatibility {
 					require_once 'theme-modules/class-wc-mnm-x-compatibility.php';
 					break;
 
-			}		
+			}
 		}
 
 	}

@@ -151,14 +151,14 @@ abstract class Strings
     /**
      * Create SSH2-style string
      *
+     * @param string $format
      * @param string|int|float|array|bool ...$elements
      * @access public
      * @return string
      */
-    public static function packSSH2(...$elements)
+    public static function packSSH2($format, ...$elements)
     {
-        $format = self::formatPack($elements[0]);
-        \array_shift($elements);
+        $format = self::formatPack($format);
         if (\strlen($format) != \count($elements)) {
             throw new \InvalidArgumentException('There must be as many arguments as there are characters in the $format string');
         }
@@ -353,6 +353,12 @@ abstract class Strings
      */
     public static function increment_str(&$var)
     {
+        if (\function_exists('sodium_increment')) {
+            $var = \strrev($var);
+            \sodium_increment($var);
+            $var = \strrev($var);
+            return $var;
+        }
         for ($i = 4; $i <= \strlen($var); $i += 4) {
             $temp = \substr($var, -$i, 4);
             switch ($temp) {
@@ -380,9 +386,9 @@ abstract class Strings
     /**
      * Find whether the type of a variable is string (or could be converted to one)
      *
-     * @param string|object $var
-     * @return boolean
-     * @access public
+     * @param mixed $var
+     * @return bool
+     * @psalm-assert-if-true string|\Stringable $var
      */
     public static function is_stringable($var)
     {

@@ -14,6 +14,8 @@ class EcsCredentialProvider
 {
     const SERVER_URI = 'http://169.254.170.2';
     const ENV_URI = "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI";
+    const ENV_FULL_URI = "AWS_CONTAINER_CREDENTIALS_FULL_URI";
+    const ENV_AUTH_TOKEN = "AWS_CONTAINER_AUTHORIZATION_TOKEN";
     const ENV_TIMEOUT = 'AWS_METADATA_SERVICE_TIMEOUT';
     /** @var callable */
     private $client;
@@ -44,7 +46,8 @@ class EcsCredentialProvider
     {
         $client = $this->client;
         $request = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('GET', self::getEcsUri());
-        return $client($request, ['timeout' => $this->timeout, 'proxy' => ''])->then(function (\WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $response) {
+        $headers = $this->setHeaderForAuthToken();
+        return $client($request, ['timeout' => $this->timeout, 'proxy' => '', 'headers' => $headers])->then(function (\WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $response) {
             $result = $this->decodeResult((string) $response->getBody());
             return new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($result['AccessKeyId'], $result['SecretAccessKey'], $result['Token'], \strtotime($result['Expiration']));
         })->otherwise(function ($reason) {
@@ -52,6 +55,19 @@ class EcsCredentialProvider
             $msg = $reason->getMessage();
             throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException("Error retrieving credential from ECS ({$msg})");
         });
+    }
+    private function getEcsAuthToken()
+    {
+        return \getenv(self::ENV_AUTH_TOKEN);
+    }
+    public function setHeaderForAuthToken()
+    {
+        $authToken = self::getEcsAuthToken();
+        $headers = [];
+        if (!empty($authToken)) {
+            $headers = ['Authorization' => $authToken];
+        }
+        return $headers;
     }
     /**
      * Fetch credential URI from ECS environment variable
@@ -63,6 +79,15 @@ class EcsCredentialProvider
         $credsUri = \getenv(self::ENV_URI);
         if ($credsUri === \false) {
             $credsUri = isset($_SERVER[self::ENV_URI]) ? $_SERVER[self::ENV_URI] : '';
+        }
+        if (empty($credsUri)) {
+            $credFullUri = \getenv(self::ENV_FULL_URI);
+            if ($credFullUri === \false) {
+                $credFullUri = isset($_SERVER[self::ENV_FULL_URI]) ? $_SERVER[self::ENV_FULL_URI] : '';
+            }
+            if (!empty($credFullUri)) {
+                return $credFullUri;
+            }
         }
         return self::SERVER_URI . $credsUri;
     }

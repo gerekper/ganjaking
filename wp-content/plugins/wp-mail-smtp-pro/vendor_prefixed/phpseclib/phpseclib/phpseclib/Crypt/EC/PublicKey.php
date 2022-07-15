@@ -12,17 +12,17 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC;
 
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Signature\ASN1 as ASN1Signature;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys\PKCS1;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Signature\ASN1 as ASN1Signature;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedOperationException;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * EC Public Key
  *

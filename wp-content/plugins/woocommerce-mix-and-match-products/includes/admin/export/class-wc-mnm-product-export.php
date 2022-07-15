@@ -48,7 +48,7 @@ class WC_MNM_Product_Export {
 		add_filter( 'woocommerce_product_export_product_column_wc_mnm_add_to_cart_form_location', array( __CLASS__, 'export_add_to_cart_form_location' ), 10, 2 );
 	}
 
-	
+
 	/**
 	 * Add CSV columns for exporting container data.
 	 *
@@ -80,7 +80,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * "Contents source" column content.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  mixed       $value
@@ -98,7 +98,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * "Child Category Ids" column content.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  mixed       $value
@@ -150,16 +150,16 @@ class WC_MNM_Product_Export {
 						$parent_data = $child_product->get_parent_data();
 						$parent_sku  = isset( $parent_data['sku'] ) ? $parent_data['sku'] : '';
 
-						$data[] = array( 
-                            'product_id'   => $parent_sku ? $parent_sku : 'id:' . $child_item->get_parent_id(),
-                            'variation_id' => $child_sku ? $child_sku : 'id:' . $child_item->get_variation_id(),
-                        );
+						$data[] = array(
+							'product_id'   => $parent_sku ? $parent_sku : 'id:' . $child_item->get_parent_id(),
+							'variation_id' => $child_sku ? $child_sku : 'id:' . $child_item->get_variation_id(),
+						);
 
 					} else {
-						$data[] = array( 
-                            'product_id'   => $child_sku ? $child_sku : 'id:' . $child_item->get_product_id(),
-                            'variation_id' => 0,
-                        );
+						$data[] = array(
+							'product_id'   => $child_sku ? $child_sku : 'id:' . $child_item->get_product_id(),
+							'variation_id' => 0,
+						);
 
 					}
 
@@ -239,7 +239,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * "Container Weight Cumulative" column content.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  mixed       $value
@@ -330,7 +330,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * MnM contents data column content.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  mixed       $value
@@ -344,7 +344,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * "Container shipped per product" column content.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  mixed       $value

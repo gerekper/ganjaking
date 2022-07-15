@@ -1,5 +1,14 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.07.13 - version 5.7.0
+* New: Tested up to WooCommerce 6.6.1
+* Fix: JavaScript error: Unable to access properties of undefined [Klarna]
+* Fix: Emails when having spaces next to comma won't sent out emails from 'Send store credit' tab
+* Fix: Translation in the coupon design
+* Update: New address link for feature requests
+* Update: Added 'Store credit used' detail in the response of WooCommerce REST API (v3) request for order
+* Update: POT file
+
 2022.06.16 - version 5.6.0
 * Update: Stop or ignore scanning expired coupons to improve performance
 * Update: POT file

@@ -2,7 +2,10 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Providers\SMTPcom;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\AbstractSubscriber;
+use WP_Error;
+use WPMailSMTP\WP;
 
 /**
  * Class Subscriber.
@@ -20,7 +23,7 @@ class Subscriber extends AbstractSubscriber {
 	 */
 	const EVENTS = [
 		'delivered',
-		'hard_bounced'
+		'hard_bounced',
 	];
 
 	/**
@@ -186,26 +189,21 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @param array $response Response array.
 	 *
-	 * @return \WP_Error
+	 * @return WP_Error
 	 */
 	protected function get_response_error( $response ) {
 
-		$error         = new \WP_Error();
-		$body          = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code = wp_remote_retrieve_response_code( $response );
+		$body       = json_decode( wp_remote_retrieve_body( $response ) );
+		$error_text = [];
 
-		if ( ! empty( $body['data'] ) ) {
-			$error_text = [];
-
-			foreach ( (array) $body['data'] as $error_key => $error_message ) {
-				$error_text[] = $error_key . ' - ' . $error_message;
+		if ( ! empty( $body->data ) ) {
+			foreach ( (array) $body->data as $error_key => $error_message ) {
+				$error_text[] = Helpers::format_error_message( $error_message, $error_key );
 			}
-
-			$error->add( $response_code, implode( PHP_EOL, $error_text ) );
 		} else {
-			$error->add( $response_code, wp_remote_retrieve_response_message( $response ) );
+			$error_text[] = WP::wp_remote_get_response_error_message( $response );
 		}
 
-		return $error;
+		return new WP_Error( wp_remote_retrieve_response_code( $response ), implode( WP::EOL, $error_text ) );
 	}
 }

@@ -14,7 +14,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines;
 
-use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys\PKCS8;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**

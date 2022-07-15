@@ -21,12 +21,15 @@ class NormalizerFormatter implements \WPMailSMTP\Vendor\Monolog\Formatter\Format
 {
     const SIMPLE_DATE = "Y-m-d H:i:s";
     protected $dateFormat;
+    protected $maxDepth;
     /**
      * @param string $dateFormat The format of the timestamp: one supported by DateTime::format
+     * @param int $maxDepth
      */
-    public function __construct($dateFormat = null)
+    public function __construct($dateFormat = null, $maxDepth = 9)
     {
         $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+        $this->maxDepth = $maxDepth;
         if (!\function_exists('json_encode')) {
             throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
         }
@@ -48,10 +51,24 @@ class NormalizerFormatter implements \WPMailSMTP\Vendor\Monolog\Formatter\Format
         }
         return $records;
     }
+    /**
+     * @return int
+     */
+    public function getMaxDepth()
+    {
+        return $this->maxDepth;
+    }
+    /**
+     * @param int $maxDepth
+     */
+    public function setMaxDepth($maxDepth)
+    {
+        $this->maxDepth = $maxDepth;
+    }
     protected function normalize($data, $depth = 0)
     {
-        if ($depth > 9) {
-            return 'Over 9 levels deep, aborting normalization';
+        if ($depth > $this->maxDepth) {
+            return 'Over ' . $this->maxDepth . ' levels deep, aborting normalization';
         }
         if (null === $data || \is_scalar($data)) {
             if (\is_float($data)) {

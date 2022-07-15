@@ -23,11 +23,11 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#1 Formatted RSA Key Handler
  *

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.0.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -327,7 +327,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 
 				if ( in_array( $get_page, $sc_pages, true ) || 'shop_coupon' === $get_post_type || 'wc-smart-coupons' === $get_tab ) {
 					/* translators: %s: link to submit idea for Smart Coupons on WooCommerce idea board */
-					$sc_text = sprintf( __( 'Have a feature request? Submit it on our %s.', 'woocommerce-smart-coupons' ), '<a href="' . esc_url( 'http://ideas.woocommerce.com/forums/133476-woocommerce?category_id=163716' ) . '" target="_blank" style="color: #5850EC;">idea board</a>' );
+					$sc_text = sprintf( __( 'Have a feature request? Submit it %s.', 'woocommerce-smart-coupons' ), '<a href="' . esc_url( 'https://woocommerce.com/feature-requests/smart-coupons/' ) . '" target="_blank" style="color: #5850EC;">' . __( 'here', 'woocommerce-smart-coupons' ) . '</a>' );
 				}
 			}
 

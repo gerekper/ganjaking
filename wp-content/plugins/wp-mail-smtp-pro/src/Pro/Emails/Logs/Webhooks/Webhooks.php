@@ -442,6 +442,7 @@ class Webhooks {
 	 * Get webhook provider.
 	 *
 	 * @since 3.3.0
+	 * @since 3.4.0 Added SendLayer.
 	 *
 	 * @param string $mailer_name Mailer name/slug.
 	 *
@@ -452,6 +453,7 @@ class Webhooks {
 		$provider = false;
 
 		$providers = [
+			'sendlayer'  => Providers\Sendlayer\Provider::class,
 			'mailgun'    => Providers\Mailgun\Provider::class,
 			'smtpcom'    => Providers\SMTPcom\Provider::class,
 			'sendinblue' => Providers\Sendinblue\Provider::class,

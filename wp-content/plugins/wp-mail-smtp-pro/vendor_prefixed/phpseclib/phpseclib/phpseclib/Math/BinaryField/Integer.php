@@ -21,10 +21,10 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer as Base;
+use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField;
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
+use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer as Base;
 /**
  * Binary Finite Fields
  *
@@ -49,7 +49,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Holds the PrimeField's modulo
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected static $modulo;
     /**
@@ -73,6 +73,8 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     }
     /**
      * Set the modulo for a given instance
+     * @param int $instanceID
+     * @param string $modulo
      */
     public static function setModulo($instanceID, $modulo)
     {
@@ -382,7 +384,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Returns the modulo
      *
-     * @return integer
+     * @return string
      */
     public static function getModulo($instanceID)
     {

@@ -17,6 +17,7 @@
  */
 namespace WPMailSMTP\Vendor\Google\Auth;
 
+use WPMailSMTP\Vendor\Firebase\JWT\JWT;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query;
@@ -1160,17 +1161,11 @@ class OAuth2 implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTokenInterface
      */
     private function jwtDecode($idToken, $publicKey, $allowedAlgs)
     {
-        if (\class_exists('WPMailSMTP\\Vendor\\Firebase\\JWT\\JWT')) {
-            return \WPMailSMTP\Vendor\Firebase\JWT\JWT::decode($idToken, $publicKey, $allowedAlgs);
-        }
-        return \WPMailSMTP\Vendor\JWT::decode($idToken, $publicKey, $allowedAlgs);
+        return \WPMailSMTP\Vendor\Firebase\JWT\JWT::decode($idToken, $publicKey, $allowedAlgs);
     }
     private function jwtEncode($assertion, $signingKey, $signingAlgorithm, $signingKeyId = null)
     {
-        if (\class_exists('WPMailSMTP\\Vendor\\Firebase\\JWT\\JWT')) {
-            return \WPMailSMTP\Vendor\Firebase\JWT\JWT::encode($assertion, $signingKey, $signingAlgorithm, $signingKeyId);
-        }
-        return \WPMailSMTP\Vendor\JWT::encode($assertion, $signingKey, $signingAlgorithm, $signingKeyId);
+        return \WPMailSMTP\Vendor\Firebase\JWT\JWT::encode($assertion, $signingKey, $signingAlgorithm, $signingKeyId);
     }
     /**
      * Determines if the URI is absolute based on its scheme and host or path

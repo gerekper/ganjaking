@@ -41,7 +41,7 @@ class WC_MNM_Admin_Notices {
 	 * Constructor.
 	 */
 	public static function init() {
-	
+
 		self::$notices = get_option( 'wc_mnm_admin_notices', array() );
 
 		// Handle dimissing notices.
@@ -49,12 +49,12 @@ class WC_MNM_Admin_Notices {
 
 		// Save notices.
 		add_action( 'shutdown', array( __CLASS__, 'store_notices' ) );
-		
+
 		// Show maintenance notices.
 		if ( current_user_can( 'manage_woocommerce' ) ) {
 			add_action( 'admin_print_styles', array( __CLASS__, 'add_notices' ) );
 		}
-		
+
 	}
 
 	/**
@@ -69,7 +69,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Get notices
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @return array
@@ -96,7 +96,7 @@ class WC_MNM_Admin_Notices {
 
 		if ( is_array( $force_save ) ) {
 			wc_deprecated_argument( '__FUNCTION__', '2.0.0', 'WC_MNM_Admin_Notices::add_notice() cannot be used to set a custom notice text. Use WC_Admin_Notices::add_custom_notice( $name, $notice_html ) instead.' );
-			$html = ! empty( self::$core_notices[ $name ] ) ? $name : false; 
+			$html = ! empty( self::$core_notices[ $name ] ) ? $name : false;
 			return WC_Admin_Notices::add_custom_notice( sanitize_text_field( $name ), $html );
 		}
 
@@ -110,9 +110,9 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Remove a notice from being displayed.
-	 * 
+	 *
 	 * @since 2.0.0
-	 * 
+	 *
 	 * @see WC_Admin_Notices::hide_notice() if there is a need to make a notice dismissable and store user meta. More relevant to optional notices.
 	 *
 	 * @param string $name Notice name.
@@ -129,7 +129,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * See if a notice is being shown.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $name Notice name.
@@ -141,7 +141,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Hide a notice if the GET variable is set.
-	 * 
+	 *
 	 * @since 2.0.0
 	 */
 	public static function hide_notices() {
@@ -207,23 +207,26 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Add custom notice.
-     * NB: see WC_Admin_Notices:add_custom_notice if we need to make these persistent/dismissiable.
-	 * 
+	 * NB: see WC_Admin_Notices:add_custom_notice if we need to make these persistent/dismissiable.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $name        Notice name - currently not used.
 	 * @param string $notice_html Notice HTML.
-     * @param string $notice_type Class added to notice div.
+	 * @param string $notice_type Class added to notice div.
 	 */
 	public static function add_custom_notice( $name = '', $notice_html = '', $notice_type = 'error' ) {
 
-		add_action( 'admin_notices', function() use ( $notice_html, $notice_type ) {
+		add_action(
+            'admin_notices',
+            function() use ( $notice_html, $notice_type ) {
 
 			if ( $notice_html ) {
 				include dirname( __FILE__ ) . '/views/html-notice-custom.php';
 			}
 
-		} );
+            } 
+        );
 
 	}
 
@@ -252,11 +255,11 @@ class WC_MNM_Admin_Notices {
 				}
 			}
 		} else {
-            if ( 'yes' === get_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' ) ) {
-                include dirname( __FILE__ ) . '/views/html-notice-updated-2x00.php';
-            } else {
-			    include dirname( __FILE__ ) . '/views/html-notice-updated.php';
-            }
+			if ( 'yes' === get_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' ) ) {
+				include dirname( __FILE__ ) . '/views/html-notice-updated-2x00.php';
+			} else {
+				include dirname( __FILE__ ) . '/views/html-notice-updated.php';
+			}
 		}
 
 	}
@@ -270,7 +273,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Show any stored error messages.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 */
 	public static function output_notices() {
@@ -280,7 +283,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Add a maintenance notice to be displayed.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  string  $notice_name
@@ -292,7 +295,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Remove a maintenance notice.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  string  $notice_name
@@ -302,7 +305,7 @@ class WC_MNM_Admin_Notices {
 		return self::hide_notice( $notice );
 	}
 
-	
+
 	/**
 	 * Dismisses a notice.
 	 *
@@ -346,7 +349,7 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Save errors to an option.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 */
 	public static function save_notices() {

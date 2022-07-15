@@ -40,7 +40,7 @@ use WPMailSMTP\Vendor\Aws\Exception\UnresolvedSignatureException;
  */
 class SignatureProvider
 {
-    private static $s3v4SignedServices = ['s3' => \true, 's3control' => \true];
+    private static $s3v4SignedServices = ['s3' => \true, 's3control' => \true, 's3-object-lambda' => \true];
     /**
      * Resolves and signature provider and ensures a non-null return value.
      *
@@ -106,6 +106,8 @@ class SignatureProvider
                 case 's3v4':
                 case 'v4':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region);
+                case 'v4a':
+                    return new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['use_v4a' => \true]);
                 case 'v4-unsigned-body':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region, ['unsigned-body' => 'true']) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['unsigned-body' => 'true']);
                 case 'anonymous':

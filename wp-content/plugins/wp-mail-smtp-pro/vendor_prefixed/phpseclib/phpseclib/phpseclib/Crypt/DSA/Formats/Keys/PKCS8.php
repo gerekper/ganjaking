@@ -24,11 +24,11 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#8 Formatted DSA Key Handler
  *
@@ -122,7 +122,7 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         $params = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::encodeDER($params, \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\DSAParams::MAP);
         $params = new \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Element($params);
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::encodeDER($x, \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\DSAPublicKey::MAP);
-        return self::wrapPrivateKey($key, [], $params, $password, $options);
+        return self::wrapPrivateKey($key, [], $params, $password, null, '', $options);
     }
     /**
      * Convert a public key to the appropriate format

@@ -24,17 +24,17 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS8 as Progenitor;
-use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
-use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed448;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
+use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#8 Formatted EC Key Handler
  *
@@ -181,7 +181,7 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException('Montgomery Curves are not supported');
         }
         if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards) {
-            return self::wrapPrivateKey("\4 " . $privateKey->secret, [], null, $password, $curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519 ? 'id-Ed25519' : 'id-Ed448', "\0" . $curve->encodePoint($publicKey));
+            return self::wrapPrivateKey("\4 " . $privateKey->secret, [], null, $password, $curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519 ? 'id-Ed25519' : 'id-Ed448');
         }
         $publicKey = "\4" . $publicKey[0]->toBytes() . $publicKey[1]->toBytes();
         $params = new \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Element(self::encodeParameters($curve, \false, $options));

@@ -234,7 +234,7 @@ class WC_Mix_and_Match_REST_API {
 	 * Convert child items into a REST readable array.
 	 *
 	 * @since 2.0.0
-	 * 
+	 *
 	 * @param WC_Product     $product  Product object.
 	 * @return array
 	 */
@@ -359,7 +359,7 @@ class WC_Mix_and_Match_REST_API {
 				// Validate the child product.
 				if ( ! $child_id ) {
 					$child_id      = $child_variation_id ? $child_variation_id : $child_product_id;
-				}			
+				}
 				$child_product = wc_get_product( $child_id );
 
 				// Ensure product exists when updating/creating.

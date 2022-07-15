@@ -165,7 +165,9 @@ class WC_Mix_and_Match_Display {
 			wc_deprecated_argument( 'args', '1.10.5', 'Passing args to the get_add_to_cart_parameters() method is deprecated.' );
 		}
 
-		return apply_filters( 'wc_mnm_add_to_cart_script_parameters', array(
+		return apply_filters(
+            'wc_mnm_add_to_cart_script_parameters',
+            array(
 			'addons_three_support'                      => defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0', '>=' ) ? 'yes' : 'no',
 			'i18n_total'                                => _x( 'Total:', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			'i18n_subtotal'                             => _x( 'Subtotal:', '[Frontend]', 'woocommerce-mix-and-match-products' ),
@@ -233,7 +235,8 @@ class WC_Mix_and_Match_Display {
 			'tax_display_shop'                          => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
 			'calc_taxes'                                => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 			'photoswipe_enabled'                        => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
-		) );
+            ) 
+        );
 	}
 
 
@@ -241,7 +244,7 @@ class WC_Mix_and_Match_Display {
 	/*  Cart Display                                                                     */
 	/*-----------------------------------------------------------------------------------*/
 
-	
+
 	/**
 	 * Changes the tr class of MNM content items to allow their styling.
 	 *
@@ -275,11 +278,11 @@ class WC_Mix_and_Match_Display {
 		return $class;
 	}
 
-	
+
 	/**
 	 * MnM items can't be removed individually from the cart.
 	 * This filter doesn't pass the $cart_item array for some reason.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string  $link
@@ -298,7 +301,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Adds style wrapper to child cart items.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string   $content
@@ -370,7 +373,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Modifies the cart.php formatted quantity for items in the container.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string  $quantity
@@ -390,7 +393,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Modifies the cart.php formatted html prices visibility for items in the container.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string  $price
@@ -429,7 +432,7 @@ class WC_Mix_and_Match_Display {
 	 * @since  2.1.0
 	 *
 	 * @param  array   $cart_item
-	 * @param  strong  $type Values: 'price' | 'regular_price' | 'sale_price' 
+	 * @param  strong  $type Values: 'price' | 'regular_price' | 'sale_price'
 	 * @return string
 	 */
 	public function get_container_cart_item_price_amount( $cart_item, $type = 'price' ) {
@@ -452,14 +455,14 @@ class WC_Mix_and_Match_Display {
 			$child_items_price += wc_format_decimal( (double) $child_item_price );
 		}
 
-		return $base_price + $child_items_price; 
+		return $base_price + $child_items_price;
 
 	}
 
 
 	/**
 	 * Modifies line item subtotals in the 'cart.php' & 'review-order.php' templates.
-	 * 
+	 *
 	 * @since 2.1.0
 	 *
 	 * @param  string  $subtotal
@@ -500,7 +503,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Aggregates cart item totals.
-	 * 
+	 *
 	 * @since 2.1.0
 	 *
 	 * @param  array   $cart_item
@@ -515,7 +518,7 @@ class WC_Mix_and_Match_Display {
 
 		foreach ( $child_items as $child_cart_item ) {
 			$child_item_price    = $child_cart_item[ 'line_' . $type ];
-			$child_items_price  += wc_format_decimal( (double) $child_item_price ); // Do we need extra decimals? 
+			$child_items_price  += wc_format_decimal( (double) $child_item_price ); // Do we need extra decimals?
 		}
 
 		return $base_price + $child_items_price;
@@ -524,9 +527,9 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Outputs a formatted subtotal ( @see cart_item_subtotal() ). how necessary is this one?
-	 * 
+	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @param  obj     $product   The WC_Product.
 	 * @param  string  $subtotal  Formatted subtotal.
 	 * @return string             Modified formatted subtotal.
@@ -558,7 +561,7 @@ class WC_Mix_and_Match_Display {
 		return $product_subtotal;
 	}
 
-	
+
 	/**
 	 * Rendering cart widget?
 	 *
@@ -613,9 +616,9 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Do not show mix and matched items in cart widget.
-	 * 
+	 *
 	 * @since  1.0.0
-	 * @since  2.0.5 - Renamed from cart_widget_filter. 
+	 * @since  2.0.5 - Renamed from cart_widget_filter.
 	 *
 	 * @param  bool     $show
 	 * @param  array    $cart_item
@@ -633,7 +636,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Adds content data as parent item meta (by default in the mini-cart only).
-	 * 
+	 *
 	 * @since  2.0.5
 	 *
 	 * @param  array  $data
@@ -654,7 +657,7 @@ class WC_Mix_and_Match_Display {
 	 * Get container configuration data.
 	 *
 	 * @since  2.0.5
-	 * 
+	 *
 	 * @param  array  $cart_item
 	 * @param  array  $args
 	 *
@@ -662,13 +665,16 @@ class WC_Mix_and_Match_Display {
 	 */
 	public function get_container_config_cart_item_data( $cart_item, $args = array() ) {
 
-		$args = wp_parse_args( $args, array(
+		$args = wp_parse_args(
+            $args,
+            array(
 			'aggregated' => true,
-		) );
+            ) 
+        );
 
 		$data             = array();
 		$child_cart_items = wc_mnm_get_child_cart_items( $cart_item );
-	
+
 		if ( ! empty( $child_cart_items ) ) {
 
 			$config_data = array();
@@ -690,7 +696,7 @@ class WC_Mix_and_Match_Display {
 				}
 
 			}
-		
+
 			if ( ! empty( $config_data ) ) {
 				$data[] = array(
 					'key'   => esc_html_x( 'Selections', '[Frontend]', 'woocommerce-mix-and-match-products' ),
@@ -723,7 +729,7 @@ class WC_Mix_and_Match_Display {
 
 		return $count - $subtract;
 	}
-	
+
 	/**
 	 * Add "Configuration" cart item data to container items.
 	 *
@@ -901,7 +907,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Add-to-cart template for Mix and Match products.
-	 * 
+	 *
 	 * @deprecated 1.3.0
 	 */
 	public function add_to_cart_template() {
@@ -911,7 +917,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * QuickView scripts init.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 */
 	public function quickview_support() {
@@ -956,7 +962,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Do not show mix and matched items in cart widget.
-	 * 
+	 *
 	 * @deprecated 2.0.5 - Soft deprecated.
 	 *
 	 * @param  bool     $show

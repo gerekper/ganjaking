@@ -25,5 +25,9 @@ interface PrivateKey
     //public function decrypt($ciphertext);
     public function getPublicKey();
     public function toString($type, array $options = []);
-    public function withPassword($string = \false);
+    /**
+     * @param string|false $password
+     * @return mixed
+     */
+    public function withPassword($password = \false);
 }

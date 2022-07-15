@@ -14,6 +14,7 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
 
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base;
 /**
  * PHP Barrett Modular Exponentiation Engine
@@ -44,7 +45,7 @@ abstract class Barrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Eng
      *
      * @param array $n
      * @param array $m
-     * @param string $class
+     * @param class-string<PHP> $class
      * @return array
      */
     protected static function reduce(array $n, array $m, $class)

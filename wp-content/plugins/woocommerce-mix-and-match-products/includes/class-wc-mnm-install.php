@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Install
  * @since    1.2.0
- * @version  2.0.7
+ * @version  2.0.10
  */
 
 // Exit if accessed directly.
@@ -33,13 +33,13 @@ class WC_MNM_Install {
 			'wc_mnm_update_1x10_order_item_meta',
 		),
 		'2.0.0' => array(
-            'wc_mnm_update_2x00_remove_notices',
+			'wc_mnm_update_2x00_remove_notices',
 			'wc_mnm_update_2x00_customizer_settings',
 			'wc_mnm_update_2x00_custom_tables',
 			'wc_mnm_update_2x00_order_item_meta',
 			'wc_mnm_update_2x00_category_contents_meta',
 			'wc_mnm_update_2x00_product_meta',
-		),   
+		),
 	);
 
 	/**
@@ -71,21 +71,21 @@ class WC_MNM_Install {
 		add_filter( 'product_type_selector', array( __CLASS__, 'product_selector_filter' ) );
 
 		// Get plugin and plugin DB versions.
-		self::$current_version    = get_option( 'wc_mix_and_match_version', null );
-		self::$current_db_version = get_option( 'wc_mix_and_match_db_version', null );
+		self::$current_version    = get_option( 'wc_mix_and_match_version' );
+		self::$current_db_version = get_option( 'wc_mix_and_match_db_version' );
 
 		// Install and update hooks.
 		add_action( 'init', array( __CLASS__, 'define_updating_constant' ) ); // @todo - need this?
 		add_action( 'init', array( __CLASS__, 'check_version' ) );
-        add_action( 'admin_init', array( __CLASS__, 'admin_db_update_notice' ) );
+		add_action( 'admin_init', array( __CLASS__, 'admin_db_update_notice' ) );
 
 		// Action scheduler hook.
 		add_action( 'wc_mnm_run_update_callback', array( __CLASS__, 'run_update_callback' ) );
-        add_action( 'wc_mnm_update_db_to_current_version', array( __CLASS__, 'update_db_version' ) );
+		add_action( 'wc_mnm_update_db_to_current_version', array( __CLASS__, 'update_db_version' ) );
 
 		// Handle any actions from notices.
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
-		
+
 	}
 
 	/**
@@ -131,8 +131,8 @@ class WC_MNM_Install {
 
 			if ( self::auto_update_enabled() ) {
 				self::update();
-			} else { 
-				
+			} else {
+
 				// Add 'update' notice.
 				WC_MNM_Admin_Notices::add_notice( 'update', true );
 
@@ -204,7 +204,7 @@ class WC_MNM_Install {
 		if ( ! empty( $_GET[ 'wc_mnm_update_action' ] ) ) {
 
 			$action = wc_clean( $_GET[ 'wc_mnm_update_action' ] );
-			
+
 			check_admin_referer( $action, 'wc_mnm_update_action_nonce' );
 
 			if ( is_callable( array( __CLASS__, $action ) ) ) {
@@ -233,7 +233,7 @@ class WC_MNM_Install {
 
 		// Running for the first time? Set a transient now.
 		set_transient( 'wc_mnm_installing', 'yes', MINUTE_IN_SECONDS * 10 );
-        wc_maybe_define_constant( 'WC_MNM_INSTALLING', true );
+		wc_maybe_define_constant( 'WC_MNM_INSTALLING', true );
 
 		self::remove_admin_notices();
 
@@ -247,14 +247,14 @@ class WC_MNM_Install {
 
 		// Update plugin version - once set, will not call 'install' again.
 		self::update_version();
-        self::maybe_update_db_version();
+		self::maybe_update_db_version();
 
-        delete_transient( 'wc_mnm_installing' );
-        do_action( 'woocommerce_flush_rewrite_rules' );
+		delete_transient( 'wc_mnm_installing' );
+		do_action( 'woocommerce_flush_rewrite_rules' );
 
 	}
 
-	
+
 	/**
 	 * Add new tables for 2.0.
 	 *
@@ -277,18 +277,20 @@ class WC_MNM_Install {
 
 		// Need to check if the foreign key already exists.
 		// @link https://github.com/kathyisawesome/woocommerce-mix-and-match-products/issues/426
-		$fk_result = $wpdb->get_row("SHOW CREATE TABLE {$wpdb->prefix}wc_mnm_child_items"); // WPCS: unprepared SQL ok.
+		$fk_result = $wpdb->get_row( "SHOW CREATE TABLE {$wpdb->prefix}wc_mnm_child_items" ); // WPCS: unprepared SQL ok.
 
 		// Remove 2.0 foreign keys, so we can update them with prefixed keys.
 		if ( false !== strpos( $fk_result->{'Create Table'}, "FK_CHILD_ID" ) ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
+			$wpdb->query(
+                "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
 				DROP CONSTRAINT `FK_CHILD_ID`
 				,
 				DROP CONSTRAINT `FK_PRODUCT_ID`
-			" );
+			" 
+            );
 		}
 
-		// Add 2.0.7 foreign keys using prefixes. 
+		// Add 2.0.7 foreign keys using prefixes.
 		if ( false === strpos( $fk_result->{'Create Table'}, "fk_{$wpdb->prefix}wc_mnm_child_items_container_id" ) ) {
 
 			// Add foreign key constraints to the custom table, to ensure data integrity and
@@ -297,7 +299,8 @@ class WC_MNM_Install {
 			// Note: we can't add the foreign keys in the dbDelta() call, because it doesn't
 			// support them.
 			// @link https://developer.wordpress.org/reference/functions/dbdelta/#comment-4027
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
+			$wpdb->query(
+                "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
 				-- Foreign key to parent container products. Ensures that the container_id matches
 				-- a valid product ID (post ID) and deletes the row if the parent is deleted
 				ADD CONSTRAINT `fk_{$wpdb->prefix}wc_mnm_child_items_container_id`
@@ -311,7 +314,8 @@ class WC_MNM_Install {
 					FOREIGN KEY (product_id)
 					REFERENCES {$wpdb->prefix}posts(ID)
 					ON DELETE CASCADE
-			" );	
+			" 
+            );
 		}
 
 	}
@@ -378,7 +382,7 @@ class WC_MNM_Install {
 	 * @return boolean
 	 */
 	public static function needs_db_update() {
-		return version_compare( self::$current_db_version, self::get_latest_update_version(), '<' );
+		return self::$current_db_version && version_compare( self::$current_db_version, self::get_latest_update_version(), '<' );
 	}
 
 	/**
@@ -463,8 +467,8 @@ class WC_MNM_Install {
 			}
 		}
 
-        // After the callbacks finish, update the db version to the current WC version.
-		if ( version_compare(  self::$current_db_version, self::$current_version, '<' ) &&
+		// After the callbacks finish, update the db version to the current WC version.
+		if ( version_compare( self::$current_db_version, self::$current_version, '<' ) &&
 			! WC()->queue()->get_next( 'wc_mnm_update_db_to_current_version' ) ) {
 			WC()->queue()->schedule_single(
 				time() + $loop,
@@ -495,7 +499,7 @@ class WC_MNM_Install {
 	|--------------------------------------------------------------------------
 	*/
 
-	
+
 	/**
 	 * Run the updater if triggered.
 	 *
@@ -521,10 +525,10 @@ class WC_MNM_Install {
 			'wc_mnm_db_updates'
 		);
 
-        // If scheduled, we can delete the transient.
-        if ( $result ) {
-            delete_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' );
-        }
+		// If scheduled, we can delete the transient.
+		if ( $result ) {
+			delete_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' );
+		}
 
 	}
 
@@ -536,7 +540,7 @@ class WC_MNM_Install {
 
 	/**
 	 * Init background updates.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 */
 	public static function init_background_updater() {
@@ -596,10 +600,10 @@ class WC_MNM_Install {
 		wc_deprecated_function( 'WC_MNM_Install::is_update_cli_process_running()', '2.0.0', 'No need to know if CLI is running as updates are handled by the Action Scheduler. There is no direct replacement.' );
 		return false !== get_transient( 'wc_mnm_update_cli_init' );
 	}
-	
+
 	/**
 	 * Force re-start the update cron if everything else fails.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 */
 	public static function force_update() {
@@ -607,24 +611,24 @@ class WC_MNM_Install {
 		return self::update();
 	}
 
-    /**
+	/**
 	 * Check version and run the installer if necessary.
 	 *
 	 * @since  1.10.0
-     * @deprecated 2.0.0
+	 * @deprecated 2.0.0
 	 */
 	public static function maybe_install() {
-        wc_deprecated_function( 'WC_MNM_Install::maybe_install()', '2.0.0', 'Method renamed check_version().' );
+		wc_deprecated_function( 'WC_MNM_Install::maybe_install()', '2.0.0', 'Method renamed check_version().' );
 		return self::check_version();
 	}
 
-    /**
+	/**
 	 * See if we need to show or run database updates during install.
-	 * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 */
 	public static function maybe_update() {
-        wc_deprecated_function( 'WC_MNM_Install::maybe_update()', '2.0.0', 'Method renamed admin_db_update_notice().' );
+		wc_deprecated_function( 'WC_MNM_Install::maybe_update()', '2.0.0', 'Method renamed admin_db_update_notice().' );
 		return self::admin_db_update_notice();
 	}
 

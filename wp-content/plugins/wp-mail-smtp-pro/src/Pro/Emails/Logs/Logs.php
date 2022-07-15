@@ -10,6 +10,7 @@ use WPMailSMTP\Pro\Emails\Logs\Providers\Common;
 use WPMailSMTP\Pro\Emails\Logs\Providers\SMTP;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
 use WPMailSMTP\Pro\Tasks\EmailLogCleanupTask;
+use WPMailSMTP\Pro\Tasks\Logs\Sendlayer\VerifySentStatusTask as SendlayerVerifySentStatusTask;
 use WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask as MailgunVerifySentStatusTask;
 use WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask as SendinblueVerifySentStatusTask;
 use WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask as SMTPcomVerifySentStatusTask;
@@ -1020,27 +1021,32 @@ class Logs {
 			}
 		}
 
-		if ( 'mailgun' === $mailer_name ) {
+		if ( $mailer_name === 'sendlayer' ) {
+			( new SendlayerVerifySentStatusTask() )
+				->params( $email_log_id, 1 )
+				->once( time() + SendlayerVerifySentStatusTask::SCHEDULE_TASK_IN )
+				->register();
+		} if ( $mailer_name === 'mailgun' ) {
 			( new MailgunVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
 				->once( time() + MailgunVerifySentStatusTask::SCHEDULE_TASK_IN )
 				->register();
-		} elseif ( 'sendinblue' === $mailer_name ) {
+		} elseif ( $mailer_name === 'sendinblue' ) {
 			( new SendinblueVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
 				->once( time() + SendinblueVerifySentStatusTask::SCHEDULE_TASK_IN )
 				->register();
-		} elseif ( 'smtpcom' === $mailer_name ) {
+		} elseif ( $mailer_name === 'smtpcom' ) {
 			( new SMTPcomVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
 				->once( time() + SMTPcomVerifySentStatusTask::SCHEDULE_TASK_IN )
 				->register();
-		} elseif ( 'postmark' === $mailer_name ) {
+		} elseif ( $mailer_name === 'postmark' ) {
 			( new PostmarkVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
 				->once( time() + PostmarkVerifySentStatusTask::SCHEDULE_TASK_IN )
 				->register();
-		} elseif ( 'sparkpost' === $mailer_name ) {
+		} elseif ( $mailer_name === 'sparkpost' ) {
 			( new SparkPostVerifySentStatusTask() )
 				->params( $email_log_id, 1 )
 				->once( time() + SparkPostVerifySentStatusTask::SCHEDULE_TASK_IN )

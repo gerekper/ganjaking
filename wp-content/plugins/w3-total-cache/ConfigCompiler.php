@@ -348,7 +348,6 @@ class ConfigCompiler {
 				'w3-total-cache/Extension_NewRelic_Plugin.php';
 			$file_data['extensions.active']['fragmentcache'] =
 				'w3-total-cache/Extension_FragmentCache_Plugin.php';
-
 		}
 
 		// newrelic settings - migrate to extension
@@ -419,6 +418,8 @@ class ConfigCompiler {
 			'fragmentcache', 'redis.persistent' );
 		$this->_set_if_exists( $file_data, 'fragmentcache.redis.servers',
 			'fragmentcache', 'redis.servers' );
+		$this->_set_if_exists( $file_data, 'fragmentcache.redis.verify_tls_certificates',
+			'fragmentcache', 'redis.verify_tls_certificates' );
 		$this->_set_if_exists( $file_data, 'fragmentcache.redis.password',
 			'fragmentcache', 'redis.password' );
 		$this->_set_if_exists( $file_data, 'fragmentcache.redis.dbid',

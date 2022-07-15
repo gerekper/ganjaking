@@ -11,7 +11,7 @@ class Ec2ParamBuilder extends \WPMailSMTP\Vendor\Aws\Api\Serializer\QueryParamBu
 {
     protected function queryName(\WPMailSMTP\Vendor\Aws\Api\Shape $shape, $default = null)
     {
-        return ($shape['queryName'] ?: \ucfirst($shape['locationName'])) ?: $default;
+        return ($shape['queryName'] ?: \ucfirst(@$shape['locationName'] ?: "")) ?: $default;
     }
     protected function isFlat(\WPMailSMTP\Vendor\Aws\Api\Shape $shape)
     {

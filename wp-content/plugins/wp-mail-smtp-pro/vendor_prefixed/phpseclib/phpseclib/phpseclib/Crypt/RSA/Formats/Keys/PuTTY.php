@@ -14,9 +14,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PuTTY as Progenitor;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PuTTY Formatted RSA Key Handler
  *

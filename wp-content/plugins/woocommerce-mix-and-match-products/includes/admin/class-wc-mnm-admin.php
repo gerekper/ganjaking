@@ -69,7 +69,7 @@ class WC_Mix_and_Match_Admin {
 	 * Admin init.
 	 */
 	public static function includes() {
-		
+
 		// Admin notices handling.
 		include_once __DIR__ . '/class-wc-mnm-admin-notices.php';
 
@@ -123,7 +123,7 @@ class WC_Mix_and_Match_Admin {
 		$style_path  = 'assets/css/admin/mnm-edit-order' . $suffix . '.css';
 		wp_register_style( 'wc-mnm-admin-order-style', WC_Mix_and_Match()->plugin_url() . '/' . $style_path, array( 'woocommerce_admin_styles' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $style_path ) );
 		wp_style_add_data( 'wc-mnm-admin-order-style', 'rtl', 'replace' );
-		
+
 		// RTL minified stylesheet fix.
 		if ( $suffix ) {
 			wp_style_add_data( 'wc-mnm-admin-product-panel', 'suffix', '.min' );
@@ -295,7 +295,7 @@ class WC_Mix_and_Match_Admin {
 		return $links;
 
 	}
-	
+
 
 	/**
 	 * Include the upgrade notice that will fire when 1.3.0 is released.
@@ -322,9 +322,9 @@ class WC_Mix_and_Match_Admin {
 			}
 
 			$upgrade_notice .= '<p class="wc_plugin_upgrade_notice">' . $notice . '</p>';
-			
+
 		}
-		
+
 		echo $upgrade_notice ? '</p>' . wp_kses_post( $upgrade_notice ) . '<p class="hidden">' : '';
 
 	}

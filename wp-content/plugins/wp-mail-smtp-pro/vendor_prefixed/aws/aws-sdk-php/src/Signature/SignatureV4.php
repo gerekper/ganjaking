@@ -3,6 +3,14 @@
 namespace WPMailSMTP\Vendor\Aws\Signature;
 
 use WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\Signable;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\SignatureType;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\Signing;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\SigningAlgorithm;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\SigningConfigAWS;
+use WPMailSMTP\Vendor\AWS\CRT\Auth\StaticCredentialsProvider;
+use WPMailSMTP\Vendor\AWS\CRT\HTTP\Request;
+use WPMailSMTP\Vendor\Aws\Exception\CommonRuntimeException;
 use WPMailSMTP\Vendor\Aws\Exception\CouldNotCreateChecksumException;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
@@ -22,6 +30,8 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
     protected $region;
     /** @var bool */
     private $unsigned;
+    /** @var bool */
+    private $useV4a;
     /**
      * The following headers are not signed because signing these headers
      * would potentially cause a signature mismatch when sending a request
@@ -45,6 +55,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         $this->service = $service;
         $this->region = $region;
         $this->unsigned = isset($options['unsigned-body']) ? $options['unsigned-body'] : \false;
+        $this->useV4a = isset($options['use_v4a']) && $options['use_v4a'] === \true;
     }
     /**
      * {@inheritdoc}
@@ -59,6 +70,9 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
             $parsed['headers']['X-Amz-Security-Token'] = [$token];
         }
         $service = isset($signingService) ? $signingService : $this->service;
+        if ($this->useV4a) {
+            return $this->signWithV4a($credentials, $request, $service);
+        }
         $cs = $this->createScope($sdt, $this->region, $service);
         $payload = $this->getPayload($request);
         if ($payload == self::UNSIGNED_PAYLOAD) {
@@ -285,5 +299,40 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
             $req['uri'] = $req['uri']->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($req['query']));
         }
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request($req['method'], $req['uri'], $req['headers'], $req['body'], $req['version']);
+    }
+    /**
+     * @param CredentialsInterface $credentials
+     * @param RequestInterface $request
+     * @param $signingService
+     * @return RequestInterface
+     */
+    protected function signWithV4a(\WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, $signingService)
+    {
+        if (!\extension_loaded('awscrt')) {
+            throw new \WPMailSMTP\Vendor\Aws\Exception\CommonRuntimeException("AWS Common Runtime for PHP is required to use Signature V4A" . ".  Please install it using the instructions found at" . " https://github.com/aws/aws-sdk-php/blob/master/CRT_INSTRUCTIONS.md");
+        }
+        $credentials_provider = new \WPMailSMTP\Vendor\AWS\CRT\Auth\StaticCredentialsProvider(['access_key_id' => $credentials->getAccessKeyId(), 'secret_access_key' => $credentials->getSecretKey(), 'session_token' => $credentials->getSecurityToken()]);
+        $sha = $this->getPayload($request);
+        $signingConfig = new \WPMailSMTP\Vendor\AWS\CRT\Auth\SigningConfigAWS(['algorithm' => \WPMailSMTP\Vendor\AWS\CRT\Auth\SigningAlgorithm::SIGv4_ASYMMETRIC, 'signature_type' => \WPMailSMTP\Vendor\AWS\CRT\Auth\SignatureType::HTTP_REQUEST_HEADERS, 'credentials_provider' => $credentials_provider, 'signed_body_value' => $sha, 'region' => "*", 'service' => $signingService, 'date' => \time()]);
+        $sha = $this->getPayload($request);
+        $invocationId = $request->getHeader("aws-sdk-invocation-id");
+        $retry = $request->getHeader("aws-sdk-retry");
+        $request = $request->withoutHeader("aws-sdk-invocation-id");
+        $request = $request->withoutHeader("aws-sdk-retry");
+        $http_request = new \WPMailSMTP\Vendor\AWS\CRT\HTTP\Request($request->getMethod(), (string) $request->getUri(), [], \array_map(function ($header) {
+            return $header[0];
+        }, $request->getHeaders()));
+        \WPMailSMTP\Vendor\AWS\CRT\Auth\Signing::signRequestAws(\WPMailSMTP\Vendor\AWS\CRT\Auth\Signable::fromHttpRequest($http_request), $signingConfig, function ($signing_result, $error_code) use(&$http_request) {
+            $signing_result->applyToHttpRequest($http_request);
+        });
+        $sigV4AHeaders = $http_request->headers();
+        foreach ($sigV4AHeaders->toArray() as $h => $v) {
+            $request = $request->withHeader($h, $v);
+        }
+        $request = $request->withHeader("aws-sdk-invocation-id", $invocationId);
+        $request = $request->withHeader("x-amz-content-sha256", $sha);
+        $request = $request->withHeader("aws-sdk-retry", $retry);
+        $request = $request->withHeader("x-amz-region-set", "*");
+        return $request;
     }
 }

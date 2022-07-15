@@ -2,7 +2,10 @@
 
 namespace WPMailSMTP\Pro\Providers;
 
+use WPMailSMTP\Admin\SetupWizard;
 use WPMailSMTP\Debug;
+use WPMailSMTP\Helpers\Helpers;
+use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Providers\AmazonSES\Auth as SESAuth;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
@@ -33,13 +36,15 @@ class Providers {
 	 */
 	public function init() {
 
-		add_filter( 'wp_mail_smtp_providers_loader_get_providers', array( $this, 'inject_providers' ) );
+		add_filter( 'wp_mail_smtp_providers_loader_get_providers', [ $this, 'inject_providers' ] );
 
-		add_action( 'load-index.php', array( $this, 'process_auth_code' ) );
+		add_action( 'load-index.php', [ $this, 'process_auth_code' ] );
 
-		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', array( $this, 'enqueue_assets' ) );
+		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
 
-		add_action( 'wp_ajax_wp_mail_smtp_pro_providers_ajax', array( $this, 'process_ajax' ) );
+		add_action( 'wp_ajax_wp_mail_smtp_pro_providers_ajax', [ $this, 'process_ajax' ] );
+
+		add_action( 'wp_mail_smtp_mailcatcher_pre_send_before', [ $this, 'update_php_mailer_properties' ] );
 	}
 
 	/**
@@ -67,15 +72,15 @@ class Providers {
 	 *
 	 * @since 1.5.0
 	 */
-	public function process_auth_code() {
+	public function process_auth_code() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		// Bail if the auth request is not allowed.
 		if ( ! $this->allow_auth_request() ) {
 			return;
 		}
 
-		$state = sanitize_key( $_GET['state'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$code  = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $_GET['code'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$state = sanitize_key( $_GET['state'] );
 
 		$nonce = str_replace( 'wp-mail-smtp-', '', $state );
 
@@ -89,41 +94,36 @@ class Providers {
 		if ( $is_setup_wizard_auth ) {
 			$auth->update_is_setup_wizard_auth( false );
 
-			$redirect_url = \WPMailSMTP\Admin\SetupWizard::get_site_url() . '#/step/configure_mailer/outlook';
+			$redirect_url = SetupWizard::get_site_url() . '#/step/configure_mailer/outlook';
 		}
 
+		$url = add_query_arg( 'success', 'microsoft_site_linked', $redirect_url );
+
 		if ( ! wp_verify_nonce( $nonce, $auth->state_key ) ) {
-			$url = add_query_arg(
-				'error',
-				'microsoft_no_code',
-				$redirect_url
-			);
+			$url = add_query_arg( 'error', 'microsoft_invalid_nonce', $redirect_url );
+		} elseif ( isset( $_GET['error'] ) && isset( $_GET['error_description'] ) ) {
+			$error_code    = sanitize_text_field( wp_unslash( $_GET['error'] ) );
+			$error_message = sanitize_text_field( wp_unslash( $_GET['error_description'] ) );
+
+			Debug::set( 'Mailer: Outlook' . WP::EOL . Helpers::format_error_message( $error_message, $error_code ) );
+
+			$url = add_query_arg( 'error', 'microsoft_unsuccessful_oauth', $redirect_url );
+		} elseif ( ! isset( $_GET['code'] ) ) {
+			$url = add_query_arg( 'error', 'microsoft_no_code', $redirect_url );
 		} else {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput
+			$code = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $_GET['code'] );
+
 			Debug::clear();
 			// Save the code.
 			$auth->process_auth( $code );
 			$auth->get_client( true );
 
-			if ( $is_setup_wizard_auth ) {
-				$error = Debug::get_last();
+			$error = Debug::get_last();
 
-				if ( ! empty( $error ) ) {
-					wp_safe_redirect(
-						add_query_arg(
-							'error',
-							'microsoft_unsuccessful_oauth',
-							$redirect_url
-						)
-					);
-					exit;
-				}
+			if ( ! empty( $error ) ) {
+				$url = add_query_arg( 'error', 'microsoft_unsuccessful_oauth', $redirect_url );
 			}
-
-			$url = add_query_arg(
-				'success',
-				'microsoft_site_linked',
-				$redirect_url
-			);
 		}
 
 		wp_safe_redirect( $url );
@@ -154,10 +154,8 @@ class Providers {
 		}
 
 		// We should have a required GET data.
-		if (
-			! isset( $_GET['code'] ) || // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			! isset( $_GET['state'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_GET['state'] ) ) {
 			return false;
 		}
 
@@ -370,6 +368,27 @@ class Providers {
 				wp_send_json_success( SESOptions::prepare_domain_dkim_records_notice( $domain, $dkim_tokens ) );
 
 				break;
+		}
+	}
+
+	/**
+	 * Update PHPMailer properties before email send.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param MailCatcherInterface $phpmailer The MailCatcher object.
+	 */
+	public function update_php_mailer_properties( $phpmailer ) {
+
+		$mailer = Options::init()->get( 'mail', 'mailer' );
+
+		/*
+		 * Switch mailer to "sendmail" for Amazon SES. Since we send MIME message via Amazon API,
+		 * we should avoid "mail" mailer limitations. Namely, long headers encoding.
+		 */
+		if ( $mailer === 'amazonses' ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$phpmailer->Mailer = 'sendmail';
 		}
 	}
 }

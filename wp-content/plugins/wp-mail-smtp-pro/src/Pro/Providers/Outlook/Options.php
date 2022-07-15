@@ -32,7 +32,7 @@ class Options extends OptionsAbstract {
 				'title'       => esc_html__( '365 / Outlook', 'wp-mail-smtp-pro' ),
 				'description' => sprintf(
 					wp_kses( /* translators: %s - URL to Outlook doc. */
-						__( 'Our Microsoft 365 / Outlook.com mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It\'s free, but you\'ll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Microsoft 365 / Outlook documentation</a>.', 'wp-mail-smtp-pro' ),
+						__( 'Our Microsoft 365 / Outlook.com mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It\'s free, but you\'ll need to provide a credit card to get started. The setup steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Microsoft 365 / Outlook documentation</a>.', 'wp-mail-smtp-pro' ),
 						[
 							'br' => [],
 							'a'  => [
@@ -42,7 +42,7 @@ class Options extends OptionsAbstract {
 							],
 						]
 					),
-					'https://wpmailsmtp.com/docs/how-to-set-up-the-outlook-mailer-in-wp-mail-smtp/'
+					esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/how-to-set-up-the-outlook-mailer-in-wp-mail-smtp/', 'Microsoft 365 / Outlook documentation' ) )
 				),
 				'notices'     => [
 					'educational' => wp_kses(

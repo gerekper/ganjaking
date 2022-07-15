@@ -38,7 +38,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 			add_filter( 'wcsatt_single_product_one_time_option_has_price', array( __CLASS__, 'update_one_time_price' ), 10, 2 );
 			add_filter( 'wcsatt_price_html_discount_format', array( __CLASS__, 'html_discount_format'), 10, 2 );
 
-	    }
+		}
 
 		/**
 		 * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.
@@ -114,7 +114,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 		public static function enqueue_scripts() {
 			$suffix      = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			$script_path = 'assets/js/frontend/add-to-cart-mnm-apfs-compat' . $suffix . '.js';
-	
+
 			wp_register_script( 'wc-add-to-cart-mnm-apfs', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'jquery', 'jquery-blockui', 'wc-add-to-cart-mnm', 'wcsatt-single-product' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 		}
 
@@ -165,7 +165,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 			}
 			return $discount_format;
 		}
-		
+
 	} // End class: do not remove or there will be no more guacamole for you.
 
 endif; // End class_exists check.

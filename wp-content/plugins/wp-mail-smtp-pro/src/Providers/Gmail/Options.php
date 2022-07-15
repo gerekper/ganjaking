@@ -34,7 +34,7 @@ class Options extends OptionsAbstract {
 				'title'       => esc_html__( 'Google / Gmail', 'wp-mail-smtp' ),
 				'description' => sprintf(
 					wp_kses( /* translators: %s - URL to our Gmail doc. */
-						__( 'Our Gmail mailer works with any Gmail or Google Workspace account via the Google API. You can send WordPress emails from your main email address or a Gmail alias, and it\'s more secure than connecting to Gmail using SMTP credentials. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Gmail documentation</a>.', 'wp-mail-smtp' ),
+						__( 'Our Gmail mailer works with any Gmail or Google Workspace account via the Google API. You can send WordPress emails from your main email address or a Gmail alias, and it\'s more secure than connecting to Gmail using SMTP credentials. The setup steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Gmail documentation</a>.', 'wp-mail-smtp' ),
 						[
 							'br' => [],
 							'b'  => [],
@@ -45,7 +45,7 @@ class Options extends OptionsAbstract {
 							],
 						]
 					),
-					'https://wpmailsmtp.com/docs/how-to-set-up-the-gmail-mailer-in-wp-mail-smtp/'
+					esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/how-to-set-up-the-gmail-mailer-in-wp-mail-smtp/', 'Gmail documentation' ) )
 				),
 				'notices'     => [
 					'educational' => wp_kses(
@@ -199,7 +199,7 @@ class Options extends OptionsAbstract {
 					<?php
 					printf(
 						wp_kses( /* translators: %s - URL to Google Gmail alias documentation page. */
-							__( 'If you want to use a different From Email address you can set-up a Google email alias. <a href="%s" target="_blank" rel="noopener noreferrer">Follow these instructions</a> and then select the From Email at the top of this page.', 'wp-mail-smtp' ),
+							__( 'If you want to use a different From Email address you can set up a Google email alias. <a href="%s" target="_blank" rel="noopener noreferrer">Follow these instructions</a> and then select the From Email at the top of this page.', 'wp-mail-smtp' ),
 							[
 								'a' => [
 									'href'   => [],
@@ -208,7 +208,7 @@ class Options extends OptionsAbstract {
 								],
 							]
 						),
-						'https://wpmailsmtp.com/gmail-send-from-alias-wp-mail-smtp/'
+						esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/gmail-send-from-alias-wp-mail-smtp/', 'Gmail aliases description - Follow these instructions' ) )
 					);
 					?>
 				</p>

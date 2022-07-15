@@ -54,6 +54,7 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 1.5.0
 	 * @since 2.4.0 Switch to AWS SDK.
+	 * @since 3.5.0 Switch to AWS SDK `SesV2Client`.
 	 */
 	public function send() {
 
@@ -61,16 +62,18 @@ class Mailer extends MailerAbstract {
 		$auth = new Auth();
 
 		$data = [
-			'RawMessage' => [
-				'Data' => $this->phpmailer->getSentMIMEMessage(),
+			'Content' => [
+				'Raw' => [
+					'Data' => $this->phpmailer->getSentMIMEMessage(),
+				],
 			],
 		];
 
 		try {
-			$response = $auth->get_client()->sendRawEmail( $data );
+			$response = $auth->get_client( 'v2' )->sendEmail( $data );
 
 			DebugEvents::add_debug(
-				esc_html__( 'An email request was sent to the Amazon SES API.' )
+				esc_html__( 'An email request was sent to the Amazon SES API.', 'wp-mail-smtp-pro' )
 			);
 
 			$this->process_response( $response );

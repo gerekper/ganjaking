@@ -19,9 +19,9 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\RSA\Formats\Keys;
 
 use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * Microsoft BLOB Formatted RSA Key Handler
  *
@@ -134,6 +134,7 @@ abstract class MSBLOB
         switch ($magic) {
             case self::RSA2:
                 $components['isPublicKey'] = \false;
+            // fall-through
             case self::RSA1:
                 break;
             default:

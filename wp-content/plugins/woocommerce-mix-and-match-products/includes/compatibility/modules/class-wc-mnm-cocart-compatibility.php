@@ -326,7 +326,7 @@ class WC_MNM_COCART_Compatibility {
 
 						/**
 						 * Individual item validation.
-						 * 
+						 *
 						 * @deprecated - 2.0.0
 						 *
 						 * @param bool $is_configuration_valid

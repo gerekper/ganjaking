@@ -129,6 +129,8 @@ class SettingsTab extends PageAbstract {
 					<p class="desc">
 						<?php
 						esc_html_e( 'Email content may contain personal information, such as plain text passwords. Please carefully consider before enabling this option, as it will store all sent email content to your site’s database.', 'wp-mail-smtp-pro' );
+						echo '<br>';
+						echo wp_kses( __( 'This option has to be enabled if you want to <strong>resend emails</strong> from our Email Log.', 'wp-mail-smtp-pro' ), [ 'strong' => [] ] );
 
 						if ( $this->options->is_const_defined( 'logs', 'log_email_content' ) ) {
 							echo '<br>' . $this->options->get_const_set_message( 'WPMS_LOGS_LOG_EMAIL_CONTENT' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

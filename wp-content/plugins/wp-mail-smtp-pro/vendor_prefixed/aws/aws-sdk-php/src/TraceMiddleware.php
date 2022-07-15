@@ -190,9 +190,11 @@ class TraceMiddleware
     private function flushHttpDebug(\WPMailSMTP\Vendor\Aws\CommandInterface $command)
     {
         if ($res = $command['@http']['debug']) {
-            \rewind($res);
-            $this->write(\stream_get_contents($res));
-            \fclose($res);
+            if (\is_resource($res)) {
+                \rewind($res);
+                $this->write(\stream_get_contents($res));
+                \fclose($res);
+            }
             $command['@http']['debug'] = null;
         }
     }

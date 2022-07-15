@@ -295,7 +295,7 @@ class WC_Mix_and_Match_Order {
 
 							/**
 							 * Is child item shipped individually or as part of container.
-							 * 
+							 *
 							 * @todo - replace filter with $child_item object.
 							 *
 							 * @param bool $per_product_shipping
@@ -311,7 +311,7 @@ class WC_Mix_and_Match_Order {
 
 								/**
 								 * Does the child item have weight?
-								 * 
+								 *
 								 * @todo - replace filter with $child_item object.
 								 *
 								 * @param bool $has_weight
@@ -480,7 +480,7 @@ class WC_Mix_and_Match_Order {
 				$product = wc_get_product( $item->get_product_id() );
 
 				if ( $product && $product->needs_shipping() ) {
-					
+
 					// WC_Order_Item_Product[]
 					$child_order_items = wc_mnm_get_child_order_items( $item, $items );
 

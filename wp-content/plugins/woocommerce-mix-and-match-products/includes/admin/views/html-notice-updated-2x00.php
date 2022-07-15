@@ -21,12 +21,12 @@ $cleanup_url = wp_nonce_url(
 
 	<h2><?php esc_html_e( 'WooCommerce Mix and Match Products 2.0 database update complete', 'woocommerce-mix-and-match-products' ); ?></h2>
 
-    <p><?php esc_html_e( 'Thank you for updating to the latest version! If everything has gone smoothly, you may optionally clean up the data from previous versions.', 'woocommerce-mix-and-match-products' ); ?></p>
+	<p><?php esc_html_e( 'Thank you for updating to the latest version! If everything has gone smoothly, you may optionally clean up the data from previous versions.', 'woocommerce-mix-and-match-products' ); ?></p>
 
-    <p class="submit">
-        <a href="<?php echo esc_url( $cleanup_url ); ?>" class="button-primary">
-            <?php esc_html_e( 'Clean up old data', 'woocommerce-mix-and-match-products' ); ?>
+	<p class="submit">
+		<a href="<?php echo esc_url( $cleanup_url ); ?>" class="button-primary">
+			<?php esc_html_e( 'Clean up old data', 'woocommerce-mix-and-match-products' ); ?>
 		</a>
-    </p>
+	</p>
 
 </div>

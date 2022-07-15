@@ -155,7 +155,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	/**
 	 * Get the discount - Currently inherited from the parent container.
-	 * 
+	 *
 	 * @param string $context
 	 * @return string|float
 	 */
@@ -170,7 +170,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	/**
 	 * Get priced individually - Currently inherited from the parent container.
-	 * 
+	 *
 	 * @param string $context
 	 * @return string|float
 	 */
@@ -194,7 +194,7 @@ class WC_MNM_Child_Item extends WC_Data {
 		if ( is_null( $this->product ) ) {
 
 			$this->product = wc_get_product( $this->get_variation_id() ? $this->get_variation_id() : $this->get_product_id() );
-		
+
 			if ( $this->product ) {
 
 				// Store the item as a property on the product object.
@@ -320,7 +320,7 @@ class WC_MNM_Child_Item extends WC_Data {
 			'data-price_excl_tax'    => $is_priced_per_product ? wc_get_price_excluding_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
 			'data-max_stock'         => $product->get_max_purchase_quantity(),
 		);
-	
+
 		/**
 		 * Data attributes.
 		 *
@@ -369,7 +369,7 @@ class WC_MNM_Child_Item extends WC_Data {
 				}
 
 			}
-			
+
 		}
 
 		if ( has_filter( 'woocommerce_mnm_quantity_input_' . $type ) ) {
@@ -434,7 +434,7 @@ class WC_MNM_Child_Item extends WC_Data {
 				wc_deprecated_hook( 'woocommerce_mnm_availability_html', '2.0.0', 'wc_mnm_child_item_quantity_name_prefix: note that the 2nd parameter will be a WC_MNM_Child_Item instance.' );
 				$html = apply_filters( 'woocommerce_mnm_availability_html', $html, $this->get_product() );
 			}
-	
+
 			/**
 			 * Child item availability message.
 			 *
@@ -442,7 +442,7 @@ class WC_MNM_Child_Item extends WC_Data {
 			 * @param obj WC_MNM_Child_Item $this
 			 */
 			$html = apply_filters( 'wc_mnm_child_item_availability_html', $html, $this );
-			
+
 		}
 
 		return $html;
@@ -461,7 +461,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * @param  int  $value
 	 */
 	public function set_child_item_id( $value ) {
-    	$this->set_id( absint( $value ) );
+		$this->set_id( absint( $value ) );
 	}
 
 	/**
@@ -470,7 +470,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * @param  int  $value
 	 */
 	public function set_product_id( $value ) {
-    	$this->set_prop( 'product_id', absint( $value ) );
+		$this->set_prop( 'product_id', absint( $value ) );
 	}
 
 	/**
@@ -479,7 +479,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * @param  int  $value
 	 */
 	public function set_variation_id( $value ) {
-    	$this->set_prop( 'variation_id', absint( $value ) );
+		$this->set_prop( 'variation_id', absint( $value ) );
 	}
 
 	/**
@@ -488,7 +488,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * @param  int  $value
 	 */
 	public function set_container_id( $value ) {
-    	$this->set_prop( 'container_id', absint( $value ) );
+		$this->set_prop( 'container_id', absint( $value ) );
 	}
 
 	/**
@@ -497,7 +497,7 @@ class WC_MNM_Child_Item extends WC_Data {
 	 * @param  int  $value
 	 */
 	public function set_menu_order( $value ) {
-    	$this->set_prop( 'menu_order', absint( $value ) );
+		$this->set_prop( 'menu_order', absint( $value ) );
 	}
 
 	/**
@@ -518,7 +518,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 			$this->product->set_price( $discounted_price );
 			$this->product->set_sale_price( $discounted_price );
-			
+
 		}
 
 	}
@@ -560,7 +560,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 		return $exists;
 	}
-	
+
 	/**
 	 * Child item visibility.
 	 *
@@ -600,7 +600,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	/**
 	 * Returns whether or not the item's product price is discounted.
-	 * 
+	 *
 	 * @param string $context
 	 * @return string|float
 	 */
@@ -610,7 +610,7 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	/**
 	 * Returns whether or not the item's product price is discounted from regular price or sale price.
-	 * 
+	 *
 	 * @return string|float
 	 */
 	public function is_discounted_from_regular_price() {
@@ -621,7 +621,7 @@ class WC_MNM_Child_Item extends WC_Data {
 		if ( has_filter( 'woocommerce_mnm_item_discount_from_regular' ) ) {
 			wc_deprecated_function( 'woocommerce_mnm_item_discount_from_regular', '2.0.0', 'wc_mnm_child_item_discount_from_regular, nb: 2nd parameter will now be WC_MNM_Child_Item object.' );
 			$discount_from_regular = apply_filters( 'woocommerce_mnm_item_discount_from_regular', $discount_from_regular, $this->get_container() );
-		} 
+		}
 
 		return apply_filters( 'wc_mnm_child_item_discount_from_regular', $discount_from_regular, $this );
 	}

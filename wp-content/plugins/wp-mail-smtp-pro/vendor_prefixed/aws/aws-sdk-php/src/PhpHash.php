@@ -57,7 +57,7 @@ class PhpHash implements \WPMailSMTP\Vendor\Aws\HashInterface
     private function getContext()
     {
         if (!$this->context) {
-            $key = isset($this->options['key']) ? $this->options['key'] : null;
+            $key = isset($this->options['key']) ? $this->options['key'] : '';
             $this->context = \hash_init($this->algo, $key ? \HASH_HMAC : 0, $key);
         }
         return $this->context;

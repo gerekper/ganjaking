@@ -37,10 +37,6 @@ class GuzzleHandler
             $error = ['exception' => $e, 'connection_error' => $e instanceof \WPMailSMTP\Vendor\GuzzleHttp\Exception\ConnectException, 'response' => null];
             if ($e instanceof \WPMailSMTP\Vendor\GuzzleHttp\Exception\RequestException && $e->getResponse()) {
                 $error['response'] = $e->getResponse();
-            } else {
-                if (\class_exists('Error') && $e instanceof \Error && $e->getResponse()) {
-                    $error['response'] = $e->getResponse();
-                }
             }
             return new \WPMailSMTP\Vendor\GuzzleHttp\Promise\RejectedPromise($error);
         });

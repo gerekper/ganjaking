@@ -24,9 +24,9 @@ class WC_MNM_PayPal_Payments_Compatibility {
 	 * @since 3.0.0
 	 */
 	public static function init() {
-        add_action( 'woocommerce_paypal_payments_product_supports_payment_request_button', array( __CLASS__, 'hide_request_buttons' ), 10, 2 );
+		add_action( 'woocommerce_paypal_payments_product_supports_payment_request_button', array( __CLASS__, 'hide_request_buttons' ), 10, 2 );
 	}
-    
+
 
 	/**
 	 * Hide PayPal's payment request buttons

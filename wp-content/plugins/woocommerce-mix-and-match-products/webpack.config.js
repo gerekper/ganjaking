@@ -4,7 +4,7 @@ const path                                         = require( 'path' );
 
 module.exports = {
 	...defaultConfig,
-    entry: {
+	entry: {
 		'frontend/checkout-blocks': '/assets/js/frontend/blocks/checkout/index.js',
 	},
 	output: {
@@ -14,7 +14,7 @@ module.exports = {
 	plugins: [
 		...defaultConfig.plugins.filter(
 			( plugin ) =>
-				plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
+            plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
 		),
 		new WooCommerceDependencyExtractionWebpackPlugin(),
 	],

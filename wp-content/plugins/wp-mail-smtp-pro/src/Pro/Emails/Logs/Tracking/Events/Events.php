@@ -25,8 +25,10 @@ class Events {
 		$events_table = Tracking::get_events_table_name();
 		$links_table  = Tracking::get_links_table_name();
 
-		$events_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $events_table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
-		$links_exists  = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $links_table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		$events_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $events_table ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		$links_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $links_table ) );
 
 		return $events_exists && $links_exists;
 	}
@@ -60,7 +62,7 @@ class Events {
 				$log_ids_array
 			)
 		);
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 
 		// Delete the DB rows of links connected to the provided email log ids list.
 		$links_db_table = Tracking::get_links_table_name();
@@ -72,7 +74,7 @@ class Events {
 				$log_ids_array
 			)
 		);
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 	}
 
 	/**
@@ -89,8 +91,10 @@ class Events {
 			$events_db_table = Tracking::get_events_table_name();
 			$links_db_table  = Tracking::get_links_table_name();
 
-			$wpdb->query( "TRUNCATE TABLE `$events_db_table`;" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$wpdb->query( "TRUNCATE TABLE `$links_db_table`;" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "TRUNCATE TABLE `$events_db_table`;" );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "TRUNCATE TABLE `$links_db_table`;" );
 		}
 	}
 }

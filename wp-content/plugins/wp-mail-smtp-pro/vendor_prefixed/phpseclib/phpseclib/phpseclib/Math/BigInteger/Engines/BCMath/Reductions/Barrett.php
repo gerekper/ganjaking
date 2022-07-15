@@ -58,7 +58,7 @@ abstract class Barrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Eng
      *
      * @param string $n
      * @param string $m
-     * @return array|string
+     * @return string
      */
     protected static function reduce($n, $m)
     {

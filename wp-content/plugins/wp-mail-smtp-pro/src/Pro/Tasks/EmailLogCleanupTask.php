@@ -2,6 +2,8 @@
 
 namespace WPMailSMTP\Pro\Tasks;
 
+use DateTime;
+use Exception;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Tasks\Meta;
@@ -38,10 +40,10 @@ class EmailLogCleanupTask extends Task {
 	 *
 	 * @since 2.1.0
 	 */
-	public function init() {
+	public function init() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		// Register the action handler.
-		add_action( self::ACTION, array( $this, 'process' ) );
+		add_action( self::ACTION, [ $this, 'process' ] );
 
 		// Get the retention period value from the Log settings.
 		$retention_period = Options::init()->get( 'logs', 'log_retention_period' );
@@ -67,7 +69,7 @@ class EmailLogCleanupTask extends Task {
 	 *
 	 * @param int $meta_id The Meta ID with the stored task parameters.
 	 *
-	 * @throws \Exception Exception will be logged in the Action Scheduler logs table.
+	 * @throws Exception Exception will be logged in the Action Scheduler logs table.
 	 */
 	public function process( $meta_id ) {
 
@@ -91,12 +93,19 @@ class EmailLogCleanupTask extends Task {
 			return;
 		}
 
+		// Bail if DB tables was not created.
+		if ( ! wp_mail_smtp()->get_pro()->get_logs()->is_valid_db() ) {
+			return;
+		}
+
 		$wpdb  = WP::wpdb();
 		$table = Logs::get_table_name();
-		$date  = ( new \DateTime( "- $retention_period seconds" ) )->format( WP::datetime_mysql_format() );
+		$date  = ( new DateTime( "- $retention_period seconds" ) )->format( WP::datetime_mysql_format() );
 
-		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->prepare( "DELETE FROM `$table` WHERE date_sent < %s", $date ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->prepare( "DELETE FROM `$table` WHERE date_sent < %s", $date )
 		);
 	}
 }

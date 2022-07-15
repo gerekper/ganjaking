@@ -113,7 +113,7 @@ class WC_MNM_Product_Import {
 
 	/**
 	 * Decode MNM child category items and parse relative term IDs.
-	 * 
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array                    $parsed_data
@@ -154,13 +154,13 @@ class WC_MNM_Product_Import {
 
 				foreach ( $child_data_items as $child_item_key => $child_data ) {
 
-					if ( ! empty ( $child_data['product_id' ] ) ) {
+					if ( ! empty( $child_data['product_id' ] ) ) {
 						$parsed_data['wc_mnm_child_items'][] = array(
 							'product_id'   => $importer->parse_relative_field( $child_data['product_id' ] ),
 							'variation_id' => ! empty( $child_data['variation_id' ] ) ? $importer->parse_relative_field( $child_data['variation_id' ] ) : 0,
 						);
 					}
-					
+
 				}
 			}
 		}
@@ -207,7 +207,7 @@ class WC_MNM_Product_Import {
 
 	/**
 	 * Decode MNM data items and parse relative IDs.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  array                    $parsed_data

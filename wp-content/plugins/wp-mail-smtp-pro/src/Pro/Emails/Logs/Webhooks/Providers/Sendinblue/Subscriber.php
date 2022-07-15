@@ -3,6 +3,9 @@
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Providers\Sendinblue;
 
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\AbstractSubscriber;
+use WPMailSMTP\Helpers\Helpers;
+use WPMailSMTP\WP;
+use WP_Error;
 
 /**
  * Class Subscriber.
@@ -22,7 +25,7 @@ class Subscriber extends AbstractSubscriber {
 		'delivered',
 		'hardBounce',
 		'blocked',
-		'invalid'
+		'invalid',
 	];
 
 	/**
@@ -30,7 +33,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function subscribe() {
 
@@ -51,7 +54,7 @@ class Subscriber extends AbstractSubscriber {
 		$body = [
 			'url'         => $this->provider->get_url(),
 			'events'      => $events,
-			'description' => esc_html__( 'WP Mail SMTP', 'wp-mail-smtp' ),
+			'description' => esc_html__( 'WP Mail SMTP', 'wp-mail-smtp-pro' ),
 		];
 
 		// Create subscription.
@@ -69,7 +72,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function unsubscribe() {
 
@@ -99,7 +102,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return bool|\WP_Error
+	 * @return bool|WP_Error
 	 */
 	public function is_subscribed() {
 
@@ -122,7 +125,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return array|false|\WP_Error
+	 * @return array|false|WP_Error
 	 */
 	protected function get_subscription() {
 
@@ -156,7 +159,7 @@ class Subscriber extends AbstractSubscriber {
 	 * @param array  $params     Request params.
 	 * @param array  $webhook_id Sendinblue webhooks ID.
 	 *
-	 * @return mixed|\WP_Error
+	 * @return mixed|WP_Error
 	 */
 	protected function request( $method = 'GET', $params = [], $webhook_id = false ) {
 
@@ -200,30 +203,21 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @param array $response Response array.
 	 *
-	 * @return \WP_Error
+	 * @return WP_Error
 	 */
 	protected function get_response_error( $response ) {
 
-		$error         = new \WP_Error();
-		$body          = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code = wp_remote_retrieve_response_code( $response );
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-		if ( ! empty( $body ) && ( isset( $body['message'] ) || isset( $body['code'] ) ) ) {
-			$error_text = [];
+		if ( ! empty( $body->message ) ) {
+			$message = $body->message;
+			$code    = ! empty( $body->code ) ? $body->code : '';
 
-			if ( ! empty( $body['code'] ) ) {
-				$error_text[] = $body['code'];
-			}
-
-			if ( ! empty( $body['message'] ) ) {
-				$error_text[] = $body['message'];
-			}
-
-			$error->add( $response_code, implode( ' - ', $error_text ) );
+			$error_text = Helpers::format_error_message( $message, $code );
 		} else {
-			$error->add( $response_code, wp_remote_retrieve_response_message( $response ) );
+			$error_text = WP::wp_remote_get_response_error_message( $response );
 		}
 
-		return $error;
+		return new WP_Error( wp_remote_retrieve_response_code( $response ), $error_text );
 	}
 }

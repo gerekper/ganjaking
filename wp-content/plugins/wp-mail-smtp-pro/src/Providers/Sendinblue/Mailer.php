@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Providers\Sendinblue;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\Vendor\SendinBlue\Client\ApiException;
@@ -268,14 +269,14 @@ class Mailer extends MailerAbstract {
 			}
 
 			$this->body['attachment'][] = [
-				'name'    => $attachment[2],
+				'name'    => $this->get_attachment_file_name( $attachment ),
 				'content' => base64_encode( $file ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			];
 		}
 	}
 
 	/**
-	 * @inheritDoc
+	 * Get the email body.
 	 *
 	 * @since 1.6.0
 	 *
@@ -283,7 +284,16 @@ class Mailer extends MailerAbstract {
 	 */
 	public function get_body() {
 
-		return new SendSmtpEmail( $this->body );
+		/**
+		 * Filters Sendinblue email body.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array $body Email body.
+		 */
+		$body = apply_filters( 'wp_mail_smtp_providers_sendinblue_mailer_get_body', $this->body );
+
+		return new SendSmtpEmail( $body );
 	}
 
 	/**
@@ -299,7 +309,7 @@ class Mailer extends MailerAbstract {
 			$response = $api->get_smtp_client()->sendTransacEmail( $this->get_body() );
 
 			DebugEvents::add_debug(
-				esc_html__( 'An email request was sent to the Sendinblue API.' )
+				esc_html__( 'An email request was sent to the Sendinblue API.', 'wp-mail-smtp' )
 			);
 
 			$this->process_response( $response );
@@ -307,7 +317,7 @@ class Mailer extends MailerAbstract {
 			$error = json_decode( $e->getResponseBody() );
 
 			if ( json_last_error() === JSON_ERROR_NONE && ! empty( $error ) ) {
-				$message = '[' . sanitize_key( $error->code ) . ']: ' . esc_html( $error->message );
+				$message = Helpers::format_error_message( $error->message, $error->code );
 			} else {
 				$message = $e->getMessage();
 			}

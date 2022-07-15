@@ -21,11 +21,11 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
+use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Curve25519;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Curve448;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * Montgomery Curve Private Key Handler
  *

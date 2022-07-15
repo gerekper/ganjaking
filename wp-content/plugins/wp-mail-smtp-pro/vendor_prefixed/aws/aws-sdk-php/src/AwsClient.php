@@ -199,6 +199,7 @@ class AwsClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
         $this->addEndpointDiscoveryMiddleware($config, $args);
         $this->loadAliases();
         $this->addStreamRequestPayload();
+        $this->addRecursionDetection();
         if (isset($args['with_resolved'])) {
             $args['with_resolved']($config);
         }
@@ -309,6 +310,11 @@ class AwsClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
                     $version = 'v4-unsigned-body';
                     break;
             }
+            if (isset($c['@context']['signature_version'])) {
+                if ($c['@context']['signature_version'] == 'v4a') {
+                    $version = 'v4a';
+                }
+            }
             return \WPMailSMTP\Vendor\Aws\Signature\SignatureProvider::resolve($provider, $version, $name, $region);
         };
         $this->handlerList->appendSign(\WPMailSMTP\Vendor\Aws\Middleware::signer($this->credentialProvider, $resolver), 'signer');
@@ -336,6 +342,12 @@ class AwsClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
     {
         $streamRequestPayloadMiddleware = \WPMailSMTP\Vendor\Aws\StreamRequestPayloadMiddleware::wrap($this->api);
         $this->handlerList->prependSign($streamRequestPayloadMiddleware, 'StreamRequestPayloadMiddleware');
+    }
+    private function addRecursionDetection()
+    {
+        // Add recursion detection header to requests
+        // originating in supported Lambda runtimes
+        $this->handlerList->appendBuild(\WPMailSMTP\Vendor\Aws\Middleware::recursionDetection(), 'recursion-detection');
     }
     /**
      * Returns a service model and doc model with any necessary changes

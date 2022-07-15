@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Vendor\Aws;
 
+use WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\EachPromise;
 /**
@@ -64,7 +65,7 @@ class CommandPool implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInter
         $this->each = new \WPMailSMTP\Vendor\GuzzleHttp\Promise\EachPromise($mapFn($commands), $config);
     }
     /**
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function promise()
     {

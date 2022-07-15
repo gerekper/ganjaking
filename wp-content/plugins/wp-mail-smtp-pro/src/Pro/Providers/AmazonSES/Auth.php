@@ -3,12 +3,13 @@
 namespace WPMailSMTP\Pro\Providers\AmazonSES;
 
 use WPMailSMTP\Vendor\Aws\Ses\SesClient;
+use WPMailSMTP\Vendor\Aws\SesV2\SesV2Client;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\Providers\AuthAbstract;
 
 /**
- * Class Auth
+ * Class Auth.
  *
  * @since 1.5.0
  */
@@ -82,7 +83,6 @@ class Auth extends AuthAbstract {
 		$this->options = $options->get_group( $this->mailer_slug );
 
 		$this->include_vendor_lib();
-		$this->get_client();
 	}
 
 	/**
@@ -255,16 +255,27 @@ class Auth extends AuthAbstract {
 	 *
 	 * @since 1.5.0
 	 * @since 2.4.0 Switch to official AWS SDK.
+	 * @since 3.5.0 Added `SesV2Client` client support.
 	 *
-	 * @return SesClient
+	 * @param string $version Client version.
+	 *
+	 * @return SesClient|SesV2Client
 	 */
-	public function get_client() {
+	public function get_client( $version = 'v1' ) {
 
 		// Doesn't load client twice + gives ability to overwrite.
-		if ( ! empty( $this->client ) ) {
-			return $this->client;
+		if ( ! empty( $this->client[ $version ] ) ) {
+			return $this->client[ $version ];
 		}
 
+		/**
+		 * Filters AWS SES client arguments.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param array  $args    AWS SES client arguments.
+		 * @param string $version AWS SES client version.
+		 */
 		$args = apply_filters(
 			'wp_mail_smtp_providers_auth_aws_get_client_args',
 			[
@@ -273,13 +284,14 @@ class Auth extends AuthAbstract {
 					'secret' => $this->options['client_secret'],
 				],
 				'region'      => empty( $this->options['region'] ) ? self::AWS_US_EAST_1 : self::prepare_region( $this->options['region'] ),
-				'version'     => '2010-12-01',
-			]
+				'version'     => $version === 'v1' ? '2010-12-01' : '2019-09-27',
+			],
+			$version
 		);
 
-		$this->client = new SesClient( $args );
+		$this->client[ $version ] = $version === 'v1' ? new SesClient( $args ) : new SesV2Client( $args );
 
-		return $this->client;
+		return $this->client[ $version ];
 	}
 
 	/**
@@ -320,7 +332,7 @@ class Auth extends AuthAbstract {
 
 		if ( ! empty( $identities ) ) {
 			foreach ( $identities as $identity => $attributes ) {
-				if ( ! empty( $attributes['VerificationToken'] ) ) {
+				if ( $attributes['IdentityType'] === 'DOMAIN' ) {
 					$domains[ $identity ] = $attributes;
 				} else {
 					$emails[ $identity ] = $attributes;
@@ -337,7 +349,8 @@ class Auth extends AuthAbstract {
 	 *
 	 * Array example:
 	 *      key: domain name of email address
-	 *      value: - VerificationStatus
+	 *      value: - IdentityType - DOMAIN or EMAIL_ADDRESS
+	 *             - VerificationStatus
 	 *             - VerificationToken (the TXT record value for the DNS setup) - only present for domains!
 	 *             - DkimEnabled
 	 *             - DkimVerificationStatus
@@ -351,11 +364,15 @@ class Auth extends AuthAbstract {
 	private function fetch_identities() {
 
 		try {
-			$identities_response          = $this->get_client()->listIdentities();
-			$verification_attributes      = $this->get_verification_attributes( $identities_response->get( 'Identities' ) );
-			$dkim_verification_attributes = $this->get_dkim_verification_attributes( $identities_response->get( 'Identities' ) );
+			$identities_response = $this->get_client( 'v2' )->listEmailIdentities();
+			$identities          = $identities_response->get( 'EmailIdentities' );
+			$identities_list     = array_column( $identities, 'IdentityName' );
 
-			$identities = array_merge_recursive( $verification_attributes, $dkim_verification_attributes );
+			$identities = array_merge_recursive(
+				array_combine( $identities_list, $identities ),
+				$this->get_verification_attributes( $identities_list ),
+				$this->get_dkim_verification_attributes( $identities_list )
+			);
 
 		} catch ( \Exception $e ) {
 			Debug::set( $e->getMessage() );
@@ -381,9 +398,18 @@ class Auth extends AuthAbstract {
 	 */
 	private function get_verification_attributes( $identities ) {
 
-		$response = $this->get_client()->getIdentityVerificationAttributes( [ 'Identities' => (array) $identities ] );
+		$result            = [];
+		$identities_chunks = array_chunk( (array) $identities, 100 );
 
-		return ! empty( $response->get( 'VerificationAttributes' ) ) ? $response->get( 'VerificationAttributes' ) : [];
+		foreach ( $identities_chunks as $identities_chunk ) {
+			$response = $this->get_client()->getIdentityVerificationAttributes( [ 'Identities' => $identities_chunk ] );
+
+			if ( ! empty( $response->get( 'VerificationAttributes' ) ) ) {
+				$result = array_merge( $result, $response->get( 'VerificationAttributes' ) );
+			}
+		}
+
+		return $result;
 	}
 
 	/**
@@ -397,9 +423,18 @@ class Auth extends AuthAbstract {
 	 */
 	private function get_dkim_verification_attributes( $identities ) {
 
-		$response = $this->get_client()->getIdentityDkimAttributes( [ 'Identities' => (array) $identities ] );
+		$result            = [];
+		$identities_chunks = array_chunk( (array) $identities, 100 );
 
-		return ! empty( $response->get( 'DkimAttributes' ) ) ? $response->get( 'DkimAttributes' ) : [];
+		foreach ( $identities_chunks as $identities_chunk ) {
+			$response = $this->get_client()->getIdentityDkimAttributes( [ 'Identities' => $identities_chunk ] );
+
+			if ( ! empty( $response->get( 'DkimAttributes' ) ) ) {
+				$result = array_merge( $result, $response->get( 'DkimAttributes' ) );
+			}
+		}
+
+		return $result;
 	}
 
 	/**

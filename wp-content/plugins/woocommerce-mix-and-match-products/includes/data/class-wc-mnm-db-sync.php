@@ -97,7 +97,7 @@ class WC_MNM_DB_Sync {
 				foreach ( $child_items as $child_item ) {
 					$child_item->delete();
 				}
-			
+
 			} catch ( Exception $e ) {
 				wc_get_logger()->error(
 					esc_html__( 'Error deleting Mix and Match product child items.', 'woocommerce-mix-and-match-products' ),

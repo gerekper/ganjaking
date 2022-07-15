@@ -225,11 +225,14 @@ class WC_MNM_Store_API {
 			foreach ( $child_cart_items as $child_cart_item_key => $child_cart_item ) {
 
 				// Let's cache this now, as we'll need it later.
-				WC_MNM_Helpers::cache_set( 'child_item_quantity_limits_' . $child_cart_item_key, array(
+				WC_MNM_Helpers::cache_set(
+                    'child_item_quantity_limits_' . $child_cart_item_key,
+                    array(
 					'multiple_of' => $child_cart_item['quantity'],
 					'minimum'     => $child_cart_item['quantity'],
 					'maximum'     => $child_cart_item['quantity'],
-				) );
+                    ) 
+                );
 
 			}
 		}
@@ -237,7 +240,7 @@ class WC_MNM_Store_API {
 
 	/**
 	 * Filter container cart item permalink to support cart editing.
-	 * 
+	 *
 	 * @since 2.0.7
 	 *
 	 * @param array  $item_data
@@ -264,7 +267,7 @@ class WC_MNM_Store_API {
 				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
 				$item_data[ 'short_description' ] = '<p class="wc-block-cart-item__edit"><a class="components-button wc-block-components-button wc-block-cart-item__edit-link contained" href="' . $edit_in_cart_link . '"><span class="wc-block-components-button__text">' .  _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' ) . '</span></a></p>' . $trimmed_short_description;
 			}
-	
+
 		}
 	}
 
@@ -316,7 +319,7 @@ class WC_MNM_Store_API {
 
 	}
 
-	
+
 	/**
 	 * Convert monetary values from WooCommerce to string based integers, using
 	 * the smallest unit of a currency.
@@ -410,7 +413,7 @@ class WC_MNM_Store_API {
 	 */
 	public static function validate_add_to_cart_item( $product, $request ) {
 
-		error_log("validate add to cart item ". json_encode( $request));
+		error_log( "validate add to cart item ". json_encode( $request ) );
 
 		if ( validate_container_add_to_cart( $request ) ) {
 			try {
@@ -421,7 +424,7 @@ class WC_MNM_Store_API {
 			}
 		}
 	}
-	
+
 
 
 	/**
@@ -480,7 +483,7 @@ class WC_MNM_Store_API {
 
 	/**
 	 * Filter container cart item permalink to support cart editing.
-	 * 
+	 *
 	 * @deprecated 2.0.7
 	 *
 	 * @param array  $item_data
@@ -490,5 +493,5 @@ class WC_MNM_Store_API {
 		wc_deprecated_function( 'WC_MNM_Store_API::filter_container_cart_item_permalink()', '2.0.7', 'WC_MNM_Store_API::filter_container_cart_item_short_description()' );
 		return self::filter_container_cart_item_short_description( $item_data, $cart_item );
 	}
-	
+
 }

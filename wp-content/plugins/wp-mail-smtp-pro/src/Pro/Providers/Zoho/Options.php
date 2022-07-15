@@ -62,7 +62,7 @@ class Options extends OptionsAbstract {
 						]
 					),
 					'https://www.zoho.com/mail/',
-					'https://wpmailsmtp.com/docs/how-to-set-up-the-zoho-mailer-in-wp-mail-smtp/'
+					esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/how-to-set-up-the-zoho-mailer-in-wp-mail-smtp/', 'Zoho Mail documentation' ) )
 				),
 				'php'         => '5.6',
 				'supports'    => [

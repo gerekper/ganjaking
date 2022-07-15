@@ -12,8 +12,8 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
 
-use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
 /**
  * DH Public Key
  *

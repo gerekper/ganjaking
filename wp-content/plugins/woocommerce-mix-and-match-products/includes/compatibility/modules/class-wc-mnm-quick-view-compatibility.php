@@ -26,8 +26,8 @@ class WC_MNM_Quick_View_Compatibility {
 
 		// QuickView support.
 		add_action( 'wc_quick_view_enqueue_scripts', array( __CLASS__, 'load_scripts' ) );
-		add_action( 'wc_quick_view_before_single_product', array( __CLASS__, 'attach_hooks' ) );		
-		
+		add_action( 'wc_quick_view_before_single_product', array( __CLASS__, 'attach_hooks' ) );
+
 	}
 
 	/**
@@ -50,7 +50,7 @@ class WC_MNM_Quick_View_Compatibility {
 
 	/**
 	 * Set form location prop to default in QV
-	 * 
+	 *
 	 * @param string $location
 	 * @return string
 	 */

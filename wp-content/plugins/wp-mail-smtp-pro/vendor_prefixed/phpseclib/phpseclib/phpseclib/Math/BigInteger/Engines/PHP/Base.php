@@ -70,11 +70,11 @@ abstract class Base extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engine
      * the other, a power of two - and recombine them, later.  This is the method that this modPow function uses.
      * {@link http://islab.oregonstate.edu/papers/j34monex.pdf Montgomery Reduction with Even Modulus} elaborates.
      *
-     * @param \phpseclib3\Math\BigInteger\Engines\PHP $x
-     * @param \phpseclib3\Math\BigInteger\Engines\PHP $e
-     * @param \phpseclib3\Math\BigInteger\Engines\PHP $n
+     * @param PHP $x
+     * @param PHP $e
+     * @param PHP $n
      * @param string $class
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
+     * @return PHP
      */
     protected static function powModHelper(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $x, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $e, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $n, $class)
     {

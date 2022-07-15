@@ -49,10 +49,10 @@ class WC_MNM_Legacy_Meta {
 			}
 
 			$meta = is_array( $meta ) && ! empty( $meta ) ? $meta : array();
-			
+
 			foreach ( $meta as $item_key => $item_data ) {
 				$item_data = array_merge( $item_data, array( 'container_id' => $product->get_id() ) );
-				
+
 				$legacy_item = new WC_MNM_Child_Item( $item_data, $product );
 
 				if ( $legacy_item->exists() && $legacy_item->is_visible() ) {
@@ -135,9 +135,9 @@ class WC_MNM_Legacy_Meta {
 				if ( $cat instanceof WP_Term ) {
 					$new_categories[] = $cat->term_id;
 				}
-				
+
 			}
-			
+
 		}
 
 		return $new_categories;

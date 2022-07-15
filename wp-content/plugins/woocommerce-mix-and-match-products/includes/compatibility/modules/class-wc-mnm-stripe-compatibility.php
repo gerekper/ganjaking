@@ -38,7 +38,7 @@ class WC_MNM_Stripe_Compatibility {
 	 * @return  array
 	 */
 	public static function supported_request_product_types( $types ) {
-		$types[] = 'mix-and-match';	
+		$types[] = 'mix-and-match';
 		return $types;
 	}
 
@@ -52,14 +52,14 @@ class WC_MNM_Stripe_Compatibility {
 	public static function hide_payment_request_on_product_page( $hide, $post ) {
 
 		if ( $post instanceof WP_POST && 'product' === $post->post_type ) {
-			
-			$product_type = WC_Product_Factory::get_product_type( $post->ID ); 
-			
+
+			$product_type = WC_Product_Factory::get_product_type( $post->ID );
+
 			if ( 'mix-and-match' === $product_type ) {
 				$hide = true;
 			}
-		} 
-		
+		}
+
 		return $hide;
 	}
 

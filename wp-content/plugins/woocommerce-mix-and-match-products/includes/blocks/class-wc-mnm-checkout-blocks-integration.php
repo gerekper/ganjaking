@@ -123,7 +123,7 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 
 				$inline_css   = array();
 				$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-child .wc-block-cart-item__wrap .wc-block-components-quantity-selector::before { content: "' . $quantity_indicator . '"; }';
-			
+
 				if ( 'selections' !== $meta_suffix ) {
 					$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:none; }';
 					$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:block; margin-bottom: 0.5em; font-weight: bold; }';
@@ -132,7 +132,7 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 				}
 
 				wp_add_inline_style( 'wc-mnm-checkout-blocks', implode( ' ' , $inline_css ) );
-				
+
 			}
 		);
 

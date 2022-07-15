@@ -70,15 +70,15 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      *
      * @param mixed $x integer Base-10 number or base-$base number if $base set.
      * @param int $base
+     * @return PHP
      * @see parent::__construct()
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
      */
     public function __construct($x = 0, $base = 10)
     {
-        if (!isset(static::$isValidEngine)) {
-            static::$isValidEngine = static::isValidEngine();
+        if (!isset(static::$isValidEngine[static::class])) {
+            static::$isValidEngine[static::class] = static::isValidEngine();
         }
-        if (!static::$isValidEngine) {
+        if (!static::$isValidEngine[static::class]) {
             throw new \WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException(static::class . ' is not setup correctly on this system');
         }
         $this->value = [];
@@ -248,7 +248,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * @param bool $y_negative
      * @return array
      */
-    static function subtractHelper(array $x_value, $x_negative, array $y_value, $y_negative)
+    public static function subtractHelper(array $x_value, $x_negative, array $y_value, $y_negative)
     {
         $x_size = \count($x_value);
         $y_size = \count($y_value);
@@ -413,9 +413,9 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * same.  If the remainder would be negative, the "common residue" is equal to the sum of the remainder
      * and the divisor (basically, the "common residue" is the first positive modulo).
      *
-     * @param \phpseclib3\Math\BigInteger\engines\PHP $y
-     * @return array
-     * @internal This function is based off of {@link http://www.cacr.math.uwaterloo.ca/hac/about/chap14.pdf#page=9 HAC 14.20}.
+     * @return array{static, static}
+     * @internal This function is based off of
+     *     {@link http://www.cacr.math.uwaterloo.ca/hac/about/chap14.pdf#page=9 HAC 14.20}.
      */
     protected function divideHelper(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $y)
     {
@@ -438,14 +438,14 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
             $temp = new static();
             $temp->value = [1];
             $temp->is_negative = $x_sign != $y_sign;
-            return [$this->normalize($temp), $this->normalize(static::$zero)];
+            return [$this->normalize($temp), $this->normalize(static::$zero[static::class])];
         }
         if ($diff < 0) {
             // if $x is negative, "add" $y.
             if ($x_sign) {
                 $x = $y->subtract($x);
             }
-            return [$this->normalize(static::$zero), $this->normalize($x)];
+            return [$this->normalize(static::$zero[static::class]), $this->normalize($x)];
         }
         // normalize $x and $y as described in HAC 14.23 / 14.24
         $msb = $y->value[\count($y->value) - 1];
@@ -508,7 +508,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
                 $temp_value = \array_merge($adjust, $temp_value);
             }
             $x = $x->subtract($temp);
-            if ($x->compare(static::$zero) < 0) {
+            if ($x->compare(static::$zero[static::class]) < 0) {
                 $temp_value = \array_merge($adjust, $y_value);
                 $x = $x->add($temp);
                 --$quotient_value[$q_index];
@@ -563,13 +563,14 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
             return (int) ($x / $y);
         }
         // static::BASE === 31
+        /** @var int */
         return ($x - $x % $y) / $y;
     }
-    /*
+    /**
      * Convert an array / boolean to a PHP BigInteger object
      *
      * @param array $arr
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
+     * @return static
      */
     protected function convertToObj(array $arr)
     {
@@ -584,7 +585,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * Removes leading zeros and truncates (if necessary) to maintain the appropriate precision
      *
      * @param PHP $result
-     * @return PHP
+     * @return static
      */
     protected function normalize(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $result)
     {
@@ -602,10 +603,11 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
             for ($i = 0; $i < $length; ++$i) {
                 $value[$i] = $value[$i] & $result->bitmask->value[$i];
             }
+            $value = static::trim($value);
         }
         return $result;
     }
-    /*
+    /**
      * Compares two numbers.
      *
      * @param array $x_value
@@ -637,7 +639,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
     /**
      * Absolute value.
      *
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
+     * @return PHP
      */
     public function abs()
     {
@@ -650,8 +652,8 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      *
      * Removes leading zeros
      *
-     * @param array $value
-     * @return PHP
+     * @param list<static> $value
+     * @return list<static>
      */
     protected static function trim(array $value)
     {
@@ -669,7 +671,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * Shifts BigInteger's by $shift bits, effectively dividing by 2**$shift.
      *
      * @param int $shift
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
+     * @return PHP
      */
     public function bitwise_rightShift($shift)
     {
@@ -686,7 +688,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * Shifts BigInteger's by $shift bits, effectively multiplying by 2**$shift.
      *
      * @param int $shift
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP
+     * @return PHP
      */
     public function bitwise_leftShift($shift)
     {
@@ -783,7 +785,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
     protected function powModInner(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $e, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $n)
     {
         try {
-            $class = static::$modexpEngine;
+            $class = static::$modexpEngine[static::class];
             return $class::powModHelper($this, $e, $n, static::class);
         } catch (\Exception $err) {
             return \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\DefaultEngine::powModHelper($this, $e, $n, static::class);
@@ -792,8 +794,8 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
     /**
      * Performs squaring
      *
-     * @param array $x
-     * @return array
+     * @param list<static> $x
+     * @return list<static>
      */
     protected static function square(array $x)
     {
@@ -889,7 +891,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
             return \false;
         }
         $value = $this->value;
-        foreach (static::$primes as $prime) {
+        foreach (static::PRIMES as $prime) {
             list(, $r) = self::divide_digit($value, $prime);
             if (!$r) {
                 return \count($value) == 1 && $value[0] == $prime;
@@ -902,9 +904,9 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      *
      * ie. $s = gmp_scan1($n, 0) and $r = gmp_div_q($n, gmp_pow(gmp_init('2'), $s));
      *
-     * @see self::isPrime()
      * @param PHP $r
      * @return int
+     * @see self::isPrime()
      */
     public static function scan1divide(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $r)
     {
@@ -929,21 +931,21 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      */
     protected function powHelper(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $n)
     {
-        if ($n->compare(static::$zero) == 0) {
+        if ($n->compare(static::$zero[static::class]) == 0) {
             return new static(1);
         }
         // n^0 = 1
         $temp = clone $this;
-        while (!$n->equals(static::$one)) {
+        while (!$n->equals(static::$one[static::class])) {
             $temp = $temp->multiply($this);
-            $n = $n->subtract(static::$one);
+            $n = $n->subtract(static::$one[static::class]);
         }
         return $temp;
     }
     /**
      * Is Odd?
      *
-     * @return boolean
+     * @return bool
      */
     public function isOdd()
     {
@@ -952,11 +954,11 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
     /**
      * Tests if a bit is set
      *
-     * @return boolean
+     * @return bool
      */
     public function testBit($x)
     {
-        $digit = \floor($x / static::BASE);
+        $digit = (int) \floor($x / static::BASE);
         $bit = $x % static::BASE;
         if (!isset($this->value[$digit])) {
             return \false;
@@ -966,7 +968,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
     /**
      * Is Negative?
      *
-     * @return boolean
+     * @return bool
      */
     public function isNegative()
     {
@@ -977,7 +979,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      *
      * Given $k, returns -$k
      *
-     * @return BigInteger
+     * @return static
      */
     public function negate()
     {
@@ -991,7 +993,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * Splits BigInteger's into chunks of $split bits
      *
      * @param int $split
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP[]
+     * @return list<static>
      */
     public function bitwise_split($split)
     {
@@ -1053,7 +1055,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      * Bitwise Split where $split < static::BASE
      *
      * @param int $split
-     * @return \phpseclib3\Math\BigInteger\Engines\PHP[]
+     * @return list<int>
      */
     private function bitwise_small_split($split)
     {
@@ -1075,14 +1077,12 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
                     $remaining = static::BASE;
                     $overflow = 0;
                 }
-            } else {
-                if (++$i != $len) {
-                    $tempmask = (1 << $overflow) - 1;
-                    $digit |= ($val[$i] & $tempmask) << $remaining;
-                    $val[$i] >>= $overflow;
-                    $remaining = static::BASE - $overflow;
-                    $overflow = $split <= $remaining ? 0 : $split - $remaining;
-                }
+            } elseif (++$i != $len) {
+                $tempmask = (1 << $overflow) - 1;
+                $digit |= ($val[$i] & $tempmask) << $remaining;
+                $val[$i] >>= $overflow;
+                $remaining = static::BASE - $overflow;
+                $overflow = $split <= $remaining ? 0 : $split - $remaining;
             }
             $vals[] = $digit;
         }

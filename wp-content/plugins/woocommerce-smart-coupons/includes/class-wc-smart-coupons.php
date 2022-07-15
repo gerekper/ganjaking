@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.9.0
+ * @version     4.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -157,6 +157,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'is_eligible_for_free_shipping' ), 10, 3 );
 
 			add_action( 'woocommerce_system_status_report', array( $this, 'smart_coupons_system_status_report' ), 11 );
+
+			add_action( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'rest_api_prepare_shop_order_object' ), 10, 3 );
 
 		}
 
@@ -1124,35 +1126,30 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									$descriptions[] = sprintf( __( 'Not valid for sale items', 'woocommerce-smart-coupons' ), wc_price( $data ) );
 									break;
 								case 'product_ids':
+									$get_product_names = $this->get_coupon_product_names( $data );
+									$product_names     = ( ! empty( $get_product_names ) && is_array( $get_product_names ) ) ? implode( ', ', $get_product_names ) : '';
+									/* translators: Product names */
+									$descriptions[] = sprintf( __( 'Valid for %s', 'woocommerce-smart-coupons' ), $product_names );
+									break;
 								case 'excluded_product_ids':
-									$product_names      = array();
-									$data_count         = count( $data );
-									$product_name_count = 0;
-									for ( $i = 0; $i < $data_count && $product_name_count < 2; $i++ ) {
-										$product = wc_get_product( $data[ $i ] );
-										if ( is_object( $product ) && is_callable( array( $product, 'get_name' ) ) ) {
-											$product_names[] = $product->get_name();
-											$product_name_count++;
-										}
-									}
-									/* translators: 1: Valid or Invalid 2: Product names */
-									$descriptions[] = sprintf( __( '%1$s for %2$s', 'woocommerce-smart-coupons' ), ( ( 'product_ids' === $key ) ? __( 'Valid', 'woocommerce-smart-coupons' ) : __( 'Not valid', 'woocommerce-smart-coupons' ) ), implode( ', ', $product_names ) );
+									$get_product_names = $this->get_coupon_product_names( $data );
+									$product_names     = ( ! empty( $get_product_names ) && is_array( $get_product_names ) ) ? implode( ', ', $get_product_names ) : '';
+									/* translators: Excluded product names */
+									$descriptions[] = sprintf( __( 'Not valid for %s', 'woocommerce-smart-coupons' ), $product_names );
 									break;
 								case 'product_categories':
+									$get_product_categories   = $this->get_coupon_category_names( $data );
+									$product_categories       = ( ! empty( $get_product_categories ) ) ? implode( ', ', $get_product_categories ) : '';
+									$count_product_categories = ( ! empty( $get_product_categories ) ) ? count( $get_product_categories ) : 1;
+									/* translators: 1: The category names */
+									$descriptions[] = sprintf( esc_html( _n( 'Valid for category %s', 'Valid for categories %s', $count_product_categories, 'woocommerce-smart-coupons' ) ), $product_categories );
+									break;
 								case 'excluded_product_categories':
-									if ( count( $data ) > 2 ) {
-										$data = array_slice( $data, 0, 2 );
-									}
-									$terms = get_terms(
-										array(
-											'taxonomy' => 'product_cat',
-											'include'  => $data,
-											'fields'   => 'id=>name',
-											'get'      => 'all',
-										)
-									);
-									/* translators: 1: Valid or Invalid 2: category or categories 3: Product category names */
-									$descriptions[] = sprintf( __( '%1$s for %2$s %3$s', 'woocommerce-smart-coupons' ), ( ( 'product_categories' === $key ) ? __( 'Valid', 'woocommerce-smart-coupons' ) : __( 'Not valid', 'woocommerce-smart-coupons' ) ), _n( 'category', 'categories', count( $data ), 'woocommerce-smart-coupons' ), implode( ', ', $terms ) );
+									$get_product_categories   = $this->get_coupon_category_names( $data );
+									$product_categories       = ( ! empty( $get_product_categories ) ) ? implode( ', ', $get_product_categories ) : '';
+									$count_product_categories = ( ! empty( $get_product_categories ) ) ? count( $get_product_categories ) : 1;
+									/* translators: 1: The category names excluded */
+									$descriptions[] = sprintf( esc_html( _n( 'Not valid for category %s', 'Not valid for categories %s', $count_product_categories, 'woocommerce-smart-coupons' ) ), $product_categories );
 									break;
 								case 'date_expires':
 									if ( $data instanceof WC_DateTime ) {
@@ -1182,6 +1179,84 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					'coupon_object' => $coupon,
 				)
 			);
+		}
+
+		/**
+		 * Get coupon category names.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param array $category_ids Category IDs.
+		 * @return array
+		 */
+		public function get_coupon_category_names( $category_ids = array() ) {
+			$category_names = array();
+
+			if ( empty( $category_ids ) || ! is_array( $category_ids ) ) {
+				return $category_names;
+			}
+
+			$category_name_count_restriction = (int) apply_filters(
+				'wc_sc_max_restricted_category_names',
+				2,
+				array(
+					'source' => $this,
+					'data'   => $category_ids,
+				)
+			);
+
+			if ( count( $category_ids ) > $category_name_count_restriction ) {
+				$category_ids = array_slice( $category_ids, 0, $category_name_count_restriction );
+			}
+			$category_names = get_terms(
+				array(
+					'taxonomy' => 'product_cat',
+					'include'  => $category_ids,
+					'fields'   => 'id=>name',
+					'get'      => 'all',
+				)
+			);
+
+			return array_filter( $category_names );
+		}
+
+		/**
+		 * Get coupon product's names.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param array $product_ids Product IDs.
+		 * @return array
+		 */
+		public function get_coupon_product_names( $product_ids = array() ) {
+			$product_names = array();
+
+			if ( empty( $product_ids ) || ! is_array( $product_ids ) ) {
+				return $product_names;
+			}
+
+			$data_count         = count( $product_ids );
+			$product_name_count = 0;
+
+			$product_name_count_restriction = (int) apply_filters(
+				'wc_sc_max_restricted_product_names',
+				2,
+				array(
+					'source' => $this,
+					'data'   => $product_ids,
+				)
+			);
+
+			for ( $i = 0; $i < $data_count && $product_name_count < $product_name_count_restriction; $i++ ) {
+				$product = wc_get_product( $product_ids[ $i ] );
+				if ( is_object( $product ) && is_callable( array( $product, 'get_name' ) ) ) {
+					$product_names[] = $product->get_name();
+					$product_name_count++;
+				}
+			}
+
+			return array_filter( $product_names );
+
 		}
 
 		/**
@@ -3504,7 +3579,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$emails = explode( ',', $post['customer_email'] );
 					if ( is_array( $emails ) && count( $emails ) > 0 ) {
 						for ( $j = 1; $j <= $post['no_of_coupons_to_generate']; $j++ ) {
-							$customer_emails[ $j ] = ( isset( $emails[ $j - 1 ] ) && is_email( $emails[ $j - 1 ] ) ) ? $emails[ $j - 1 ] : '';
+							$email                 = ( ! empty( $emails[ $j - 1 ] ) ) ? sanitize_email( $emails[ $j - 1 ] ) : '';
+							$customer_emails[ $j ] = ( ! empty( $email ) && is_email( $email ) ) ? $email : '';
 						}
 					}
 				}
@@ -5052,6 +5128,32 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				)
 			);
 
+		}
+
+		/**
+		 * Add total SC used in REST API shop order object.
+		 *
+		 * @since  5.7.0
+		 *
+		 * @param WP_REST_Response $response WP_REST_Response object.
+		 * @param WC_Order         $order WC_Order object.
+		 * @param WP_REST_Request  $request WP_REST_Response object.
+		 * @return WP_REST_Response
+		 */
+		public function rest_api_prepare_shop_order_object( $response = null, $order = null, $request = null ) {
+			if ( empty( $response ) || empty( $order ) ) {
+				return $response;
+			}
+
+			$sc_order_fields = WC_SC_Order_Fields::get_instance();
+
+			$total_credit_used = $sc_order_fields->get_total_credit_used_in_order( $order );
+
+			if ( is_object( $response ) && ! empty( $response->data ) && is_array( $response->data ) ) {
+				$response->data['store_credit_used'] = round( $total_credit_used, get_option( 'woocommerce_price_num_decimals', 2 ) );
+			}
+
+			return $response;
 		}
 
 

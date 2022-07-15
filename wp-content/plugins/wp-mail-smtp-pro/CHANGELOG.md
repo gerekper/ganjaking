@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.0] - 2022-07-12
+### Added:
+- Alerts for failed emails (Email, Slack, SMS, and Webhook notifications).
+- Check if `wp_mail` function is overwritten.
+- DB table (`wpmailsmtp_tasks_meta`) cleanup after scheduled actions execution. Keeps DB size small.
+
+### Changed:
+- Updated the list of conflicting plugins (added Branda and MailPoet).
+- Improved WP Site Health license check.
+- Improved Outlook mailer authorization flow error handling.
+- Updated Action Scheduler library to 3.4.2.
+- Improved Amazon SES (added support for V2 client).
+
+### Fixed:
+- SMTP.com mailer email content-encoding.
+- Amazon SES long Return-Path header encoding.
+- Dashboard widget graph when there is no email logs data.
+- Email Log retention period cleanup task DB table check.
+- Missing Sendinblue email body WP filter.
+- Chart.js library conflicts with other plugins.
+
+## [3.4.0] - 2022-04-27
+### Added:
+- New transactional mailer: SendLayer integration.
+- Support for changing From Email address in Outlook mailer (Send As, Shared Mailboxes, and Groups).
+- Support for bigger attachments in Outlook mailer.
+
+### Changed:
+- Improved Mailgun API error message extraction.
+- Standardized error messages format and improved WP remote request errors extraction.
+
+### Fixed:
+- Lite plugin uninstall actions clearing plugin options while Pro version is active.
+- Amazon SES identities verification data retrieval for more than 100 identities.
+- Hiding unrelated network admin notices on WP Mail SMTP pages.
+
 ## [3.3.0] - 2022-02-15
 ### IMPORTANT
 - Support for WordPress versions 5.1.x or lower has been discontinued. If you are using one of those versions, you MUST upgrade WordPress before installing or upgrading to WP Mail SMTP v3.3. Failure to do that will disable WP Mail SMTP functionality.

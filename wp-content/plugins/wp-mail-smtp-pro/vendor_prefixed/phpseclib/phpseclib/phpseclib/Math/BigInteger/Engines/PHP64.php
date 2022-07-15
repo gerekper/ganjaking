@@ -14,7 +14,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
 /**
  * Pure-PHP 64-bit Engine.
  *
@@ -42,43 +41,6 @@ class PHP64 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      */
     const MAX10LEN = 9;
     const MAX_DIGIT2 = 4611686018427387904;
-    /**#@-*/
-    /**
-     * Modular Exponentiation Engine
-     *
-     * @var string
-     */
-    protected static $modexpEngine;
-    /**
-     * Engine Validity Flag
-     *
-     * @var bool
-     */
-    protected static $isValidEngine;
-    /**
-     * Primes > 2 and < 1000
-     *
-     * @var array
-     */
-    protected static $primes;
-    /**
-     * BigInteger(0)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP64
-     */
-    protected static $zero;
-    /**
-     * BigInteger(1)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP64
-     */
-    protected static $one;
-    /**
-     * BigInteger(2)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP64
-     */
-    protected static $two;
     /**
      * Initialize a PHP64 BigInteger Engine instance
      *
@@ -182,7 +144,7 @@ class PHP64 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      * and the divisor (basically, the "common residue" is the first positive modulo).
      *
      * @param PHP64 $y
-     * @return PHP64
+     * @return array{PHP64, PHP64}
      */
     public function divide(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP64 $y)
     {
@@ -305,7 +267,7 @@ class PHP64 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      *
      * @param PHP64 $e
      * @param PHP64 $n
-     * @return PHP64
+     * @return PHP64|false
      */
     public function powMod(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP64 $e, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP64 $n)
     {

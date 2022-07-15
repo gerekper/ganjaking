@@ -3,7 +3,9 @@
 namespace WPMailSMTP\Pro\Providers\Outlook;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\MailCatcherInterface;
+use WPMailSMTP\Pro\Migration;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\WP;
@@ -16,14 +18,26 @@ use WPMailSMTP\WP;
 class Mailer extends MailerAbstract {
 
 	/**
+	 * Regular message max body size.
+	 * This is due to a limit of 4 MB on payload size for graph.microsoft.com endpoint.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @var int
+	 */
+	const REGULAR_MESSAGE_MAX_BODY_SIZE = 1048576 * 4; // 4 MB.
+
+	/**
+	 * Email request body.
+	 *
 	 * @since 1.5.0
 	 *
 	 * @var array
 	 */
-	protected $body = array(
-		'message'         => array(),
+	protected $body = [
+		'message'         => [],
 		'saveToSentItems' => true,
-	);
+	];
 
 	/**
 	 * Which response code from HTTP provider is considered to be successful?
@@ -42,6 +56,15 @@ class Mailer extends MailerAbstract {
 	 * @var string
 	 */
 	protected $url = 'https://graph.microsoft.com/v1.0/me/sendMail';
+
+	/**
+	 * Email attachments.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @var array PHPMailer attachments array.
+	 */
+	private $attachments = [];
 
 	/**
 	 * Mailer constructor.
@@ -161,33 +184,40 @@ class Mailer extends MailerAbstract {
 
 	/**
 	 * Define the FROM (name and email) and SENDER.
-	 * It doesn't support random email, should be the same as used for connection.
+	 * The authorized user should have permission to send an email from the defined email address.
 	 *
 	 * @see   https://docs.microsoft.com/en-us/graph/api/resources/recipient?view=graph-rest-1.0
 	 * @see   https://docs.microsoft.com/en-us/graph/outlook-send-mail-from-other-user
 	 *
 	 * @since 1.5.0
+	 * @since 3.4.0 Allow custom email address.
 	 *
-	 * @param string $email Not used.
-	 * @param string $name  Not used.
+	 * @param string $email From mail.
+	 * @param string $name  From name.
 	 */
 	public function set_from( $email, $name = '' ) {
 
-		$sender = $this->options->get( $this->mailer, 'user_details' );
+		if ( $this->is_legacy_from() ) {
+			$this->set_legacy_from();
 
-		$email_address = array(
-			'emailAddress' => array(
-				'name'    => isset( $sender['display_name'] ) ? sanitize_text_field( $sender['display_name'] ) : '',
-				'address' => isset( $sender['email'] ) ? $sender['email'] : '',
-			),
-		);
+			return;
+		}
 
-		// The FROM and SENDER parameters are defined the same way, so use above data for both.
+		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+			return;
+		}
+
+		$from['address'] = $email;
+
+		if ( ! empty( $name ) ) {
+			$from['name'] = $name;
+		}
+
 		$this->set_body_param(
-			array(
-				'from'   => $email_address,
-				'sender' => $email_address,
-			)
+			[
+				'from'   => [ 'emailAddress' => $from ],
+				'sender' => [ 'emailAddress' => $from ],
+			]
 		);
 	}
 
@@ -395,6 +425,31 @@ class Mailer extends MailerAbstract {
 			return;
 		}
 
+		$this->attachments = $attachments;
+
+		$data = $this->prepare_attachments( $attachments );
+
+		if ( ! empty( $data ) ) {
+			$this->set_body_param(
+				[
+					'hasAttachments' => true,
+					'attachments'    => $data,
+				]
+			);
+		}
+	}
+
+	/**
+	 * Prepare attachments data for Outlook API.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param array $attachments Array of attachments.
+	 *
+	 * @return array
+	 */
+	private function prepare_attachments( $attachments ) {
+
 		$data = [];
 
 		foreach ( $attachments as $attachment ) {
@@ -406,24 +461,14 @@ class Mailer extends MailerAbstract {
 
 			$data[] = [
 				'@odata.type'  => '#microsoft.graph.fileAttachment',
-				'name'         => $attachment[2],
-				'contentBytes' => base64_encode( $file ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+				'name'         => $this->get_attachment_file_name( $attachment ),
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+				'contentBytes' => base64_encode( $file ),
 				'contentType'  => $attachment[4],
 			];
 		}
 
-		if ( ! empty( $data ) ) {
-			$this->set_body_param(
-				[
-					'hasAttachments' => true,
-				]
-			);
-			$this->set_body_param(
-				[
-					'attachments' => $data,
-				]
-			);
-		}
+		return $data;
 	}
 
 	/**
@@ -438,9 +483,19 @@ class Mailer extends MailerAbstract {
 	 */
 	public function get_body() {
 
-		$body = $this->process_body_headers_unique( parent::get_body() );
+		return wp_json_encode( $this->get_body_raw() );
+	}
 
-		return wp_json_encode( $body );
+	/**
+	 * Get raw body.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return array
+	 */
+	private function get_body_raw() {
+
+		return $this->process_body_headers_unique( parent::get_body() );
 	}
 
 	/**
@@ -490,34 +545,134 @@ class Mailer extends MailerAbstract {
 	 */
 	public function send() {
 
-		$params = PluginOptions::array_merge_recursive(
-			$this->get_default_params(),
-			array(
-				'headers' => $this->get_headers(),
-				'body'    => $this->get_body(),
-			)
-		);
+		if ( $this->is_legacy_from() ) {
+			/*
+			 * Right now Outlook doesn't allow to redefine From and Sender email headers.
+			 * It always uses the email address that was used to connect to its API.
+			 * With code below we are making sure that Email Log archive and single Email Log
+			 * have the save value for From email header.
+			 */
+			$sender = $this->options->get( $this->mailer, 'user_details' );
 
-		/*
-		 * Right now Outlook doesn't allow to redefine From and Sender email headers.
-		 * It always uses the email address that was used to connect to its API.
-		 * With code below we are making sure that Email Log archive and single Email Log
-		 * have the save value for From email header.
-		 */
-		$sender = $this->options->get( $this->mailer, 'user_details' );
-
-		if ( ! empty( $sender['email'] ) ) {
-			$this->phpmailer->From   = $sender['email'];
-			$this->phpmailer->Sender = $sender['email'];
+			if ( ! empty( $sender['email'] ) ) {
+				$this->phpmailer->From   = $sender['email'];
+				$this->phpmailer->Sender = $sender['email'];
+			}
 		}
 
-		$response = wp_safe_remote_post( $this->url, $params );
+		$large_message = false;
+
+		if (
+			! empty( $this->attachments ) &&
+			Helpers::strsize( $this->get_body() ) > self::REGULAR_MESSAGE_MAX_BODY_SIZE
+		) {
+			$large_message = true;
+		}
+
+		/**
+		 * Filters whether message large.
+		 *
+		 * @since 3.4.0
+		 *
+		 * @param bool           $large_message Whether message large.
+		 * @param MailerAbstract $mailer        Mailer object.
+		 */
+		$large_message = apply_filters( 'wp_mail_smtp_pro_providers_outlook_mailer_send_large', $large_message, $this );
+
+		if ( $large_message === true ) {
+			$response = $this->send_large();
+		} else {
+			$response = $this->send_regular();
+		}
 
 		DebugEvents::add_debug(
-			esc_html__( 'An email request was sent to the Microsoft Graph API.' )
+			esc_html__( 'An email request was sent to the Microsoft Graph API.', 'wp-mail-smtp-pro' )
 		);
 
 		$this->process_response( $response );
+	}
+
+	/**
+	 * Send regular email using Microsoft Graph API.
+	 *
+	 * @see   https://docs.microsoft.com/en-us/graph/api/user-sendmail
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return array|\WP_Error
+	 */
+	private function send_regular() {
+
+		return $this->remote_request(
+			$this->url,
+			[
+				'headers' => $this->get_headers(),
+				'body'    => $this->get_body(),
+			]
+		);
+	}
+
+	/**
+	 * Send large email using Microsoft Graph API.
+	 * Upload attachments in a separate requests.
+	 *
+	 * @see   https://docs.microsoft.com/en-us/graph/api/user-post-messages
+	 * @see   https://docs.microsoft.com/en-us/graph/api/message-send
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return array|\WP_Error
+	 */
+	private function send_large() {
+
+		$body    = $this->get_body_raw();
+		$message = $body['message'];
+
+		// Attachments will be uploaded in a separate process.
+		unset( $message['hasAttachments'] );
+		unset( $message['attachments'] );
+
+		// Create draft.
+		$response = $this->remote_request(
+			'https://graph.microsoft.com/v1.0/me/messages',
+			[
+				'headers' => $this->get_headers(),
+				'body'    => wp_json_encode( $message ),
+			]
+		);
+
+		if ( wp_remote_retrieve_response_code( $response ) !== 201 ) {
+			return $response;
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( ! isset( $body['id'] ) ) {
+			return $response;
+		}
+
+		$message_id = $body['id'];
+
+		// Upload attachments.
+		$uploader = new AttachmentsUploader( $this );
+
+		foreach ( $this->attachments as $attachment ) {
+			$is_uploaded = $uploader->upload( $attachment, $message_id );
+
+			if ( is_wp_error( $is_uploaded ) ) {
+				DebugEvents::add_debug(
+					__( 'Outlook attachment upload failed.', 'wp-mail-smtp-pro' ) . WP::EOL . $is_uploaded->get_error_message()
+				);
+			}
+		}
+
+		// Send email.
+		return $this->remote_request(
+			"https://graph.microsoft.com/v1.0/me/messages/{$message_id}/send",
+			[
+				'headers' => $this->get_headers(),
+			]
+		);
 	}
 
 	/**
@@ -533,28 +688,27 @@ class Mailer extends MailerAbstract {
 	 */
 	public function get_response_error() {
 
-		$body = (array) wp_remote_retrieve_body( $this->response );
+		$error_text[] = $this->error_message;
 
-		$error_text = '';
+		if ( ! empty( $this->response ) ) {
+			$body = wp_remote_retrieve_body( $this->response );
 
-		if (
-			! empty( $body['error']->code ) &&
-			! empty( $body['error']->message )
-		) {
-			$error_text = esc_html( $body['error']->code . ': ' . $body['error']->message );
-			if ( ! empty( $body['error']->innerError->date ) ) {
-				$error_text .= "\r\n" . 'Date: ' . esc_html( $body['error']->innerError->date );
+			if ( ! empty( $body->error->message ) ) {
+				$message     = $body->error->message;
+				$code        = ! empty( $body->error->code ) ? $body->error->code : '';
+				$description = '';
+
+				if ( $code === 'ErrorAccessDenied' ) {
+					$description = esc_html__( 'Note: this issue could also be caused by hitting the total message size limit. If you are using big attachments, please remove the existing Outlook mailer connection in WP Mail SMTP settings and connect it again. We recently added support for bigger attachments, but the oAuth re-connection is required.', 'wp-mail-smtp-pro' );
+				}
+
+				$error_text[] = Helpers::format_error_message( $message, $code, $description );
+			} else {
+				$error_text[] = WP::wp_remote_get_response_error_message( $this->response );
 			}
-		} elseif ( ! empty( $this->error_message ) ) {
-			$error_text = $this->error_message;
-		} elseif ( $body === [ '' ] ) {
-			$error_text = esc_html__(
-				'Outlook did not provide any specific reason why the email failed to send. Usually this means an attachment bigger than the allowed 4MB was attached to the email.',
-				'wp-mail-smtp-pro'
-			);
 		}
 
-		return ! empty( $error_text ) ? $error_text : wp_json_encode( $body );
+		return implode( WP::EOL, array_map( 'esc_textarea', array_filter( $error_text ) ) );
 	}
 
 	/**
@@ -599,6 +753,54 @@ class Mailer extends MailerAbstract {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Whether legacy from email address should be used.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return bool
+	 */
+	private function is_legacy_from() {
+
+		/**
+		 * Filters whether to use legacy from email address.
+		 *
+		 * @since 3.4.0
+		 *
+		 * @param bool $is_legacy_from Whether to use legacy from email address.
+		 */
+		return apply_filters(
+			'wp_mail_smtp_pro_providers_outlook_mailer_is_legacy_from',
+			Migration::get_current_version() < 1
+		);
+	}
+
+	/**
+	 * Define the FROM (name and email) and SENDER.
+	 * It doesn't support random email, should be the same as used for connection.
+	 *
+	 * @since 3.4.0
+	 */
+	private function set_legacy_from() {
+
+		$sender = $this->options->get( $this->mailer, 'user_details' );
+
+		$email_address = [
+			'emailAddress' => [
+				'name'    => isset( $sender['display_name'] ) ? sanitize_text_field( $sender['display_name'] ) : '',
+				'address' => isset( $sender['email'] ) ? $sender['email'] : '',
+			],
+		];
+
+		// The FROM and SENDER parameters are defined the same way, so use above data for both.
+		$this->set_body_param(
+			[
+				'from'   => $email_address,
+				'sender' => $email_address,
+			]
+		);
 	}
 
 	/**

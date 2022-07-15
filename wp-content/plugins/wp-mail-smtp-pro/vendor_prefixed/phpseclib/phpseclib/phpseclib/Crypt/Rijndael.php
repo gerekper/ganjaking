@@ -53,12 +53,12 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt;
 
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\BlockCipher;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Exception\BadModeException;
-use WPMailSMTP\Vendor\phpseclib3\Exception\InsufficientSetupException;
-use WPMailSMTP\Vendor\phpseclib3\Exception\InconsistentSetupException;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\BlockCipher;
 use WPMailSMTP\Vendor\phpseclib3\Exception\BadDecryptionException;
+use WPMailSMTP\Vendor\phpseclib3\Exception\BadModeException;
+use WPMailSMTP\Vendor\phpseclib3\Exception\InconsistentSetupException;
+use WPMailSMTP\Vendor\phpseclib3\Exception\InsufficientSetupException;
 /**
  * Pure-PHP implementation of Rijndael.
  *

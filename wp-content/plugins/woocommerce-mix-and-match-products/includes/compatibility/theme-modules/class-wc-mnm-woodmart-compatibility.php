@@ -22,7 +22,6 @@ class WC_MNM_Woodmart_Compatibility {
 	 */
 	public static function init() {
 
-
 		// Filters the loop classes.
 		add_filter( 'wc_mnm_loop_classes', array( __CLASS__, 'loop_classes' ), 10, 2 );
 
@@ -40,7 +39,7 @@ class WC_MNM_Woodmart_Compatibility {
 	 * @return array
 	 */
 	public static function loop_classes( $classes, $product ) {
-		
+
 		$columns = wc_get_loop_prop( 'columns' );
 
 		$new_classes = array( 'elements-grid', 'wd-products-holder', 'wd-spacing-20', 'wd-quantity-enabled', 'title-line-two', 'align-items-start', 'row' );

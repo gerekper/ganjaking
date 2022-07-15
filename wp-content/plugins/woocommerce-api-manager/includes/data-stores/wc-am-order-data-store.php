@@ -556,7 +556,7 @@ class WC_AM_Order_Data_Store {
 	 *
 	 * @return int
 	 */
-	public function get_current_time_stamp( $gmt = true ) {
+	public function get_current_time_stamp( $gmt = false ) {
 		return (int) current_time( 'timestamp', $gmt );
 	}
 
@@ -642,43 +642,36 @@ class WC_AM_Order_Data_Store {
 	/**
 	 * Converted order time to an Epoch time stamp else get the current Epoch time stamp.
 	 *
+	 * Updated in version 2.3.13 to eliminate calls to get_post_meta().
+	 *
 	 * @since   2.0.1
+	 * @updated 2.3.13
 	 *
 	 * @param int|object $order_id
 	 *
-	 * @return bool|int|mixed
-	 * @version 2.1.4
+	 * @return int
 	 */
 	public function get_order_time_to_epoch_time_stamp( $order_id ) {
-		// Try get_post_meta() first before bloated Order object.
-		$date_paid = get_post_meta( $order_id, '_date_paid', true );
-		$date_paid = ! empty( $date_paid ) ? $date_paid : $this->get_meta( $order_id, '_date_paid' );
+		$order = $this->get_order_object( $order_id );
 
-		if ( ! empty( $date_paid ) ) {
-			return $date_paid;
-		} else {
-			$order = $this->get_order_object( $order_id );
+		if ( is_object( $order ) ) {
+			// $order_time = $order->get_date_created()->date( 'Y-m-d H:i:s' );
+			$order_time = gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() );
 
-			if ( is_object( $order ) ) {
-				if ( ! is_null( $order->get_date_created() ) ) {
-					$order_time = $order->get_date_created()->date( 'Y-m-d H:i:s' );
-				} else {
-					return (int) $this->get_current_time_stamp();
-				}
+			if ( ! empty( $order_time ) ) {
+				try {
+					$date = new DateTime( $order_time );
 
-				if ( ! empty( $order_time ) ) {
-					try {
-						$date = new DateTime( $order_time );
-
-						return (int) $date->format( 'U' );
-					} catch ( Exception $exception ) {
-						return (int) $this->get_current_time_stamp();
-					}
+					return (int) $date->format( 'U' );
+				} catch ( Exception $exception ) {
+					$order_time =  $this->get_current_time_stamp();
 				}
 			}
+
+			return (int) $order_time;
 		}
 
-		return false;
+		return $this->get_current_time_stamp();
 	}
 
 	/**

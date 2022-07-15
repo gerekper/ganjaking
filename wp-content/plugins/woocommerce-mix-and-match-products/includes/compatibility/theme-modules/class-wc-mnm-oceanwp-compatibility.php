@@ -66,7 +66,7 @@ class WC_MNM_OceanWP_Compatibility {
 			}
 
 		}
-	
+
 		return $classes;
 	}
 

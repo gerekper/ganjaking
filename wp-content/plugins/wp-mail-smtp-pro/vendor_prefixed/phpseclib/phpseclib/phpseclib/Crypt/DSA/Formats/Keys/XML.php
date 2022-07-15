@@ -21,8 +21,9 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
 use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * XML Formatted DSA Key Handler
  *
@@ -45,12 +46,16 @@ abstract class XML
         if (!\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::is_stringable($key)) {
             throw new \UnexpectedValueException('Key should be a string - not a ' . \gettype($key));
         }
+        if (!\class_exists('DOMDocument')) {
+            throw new \WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException('The dom extension is not setup correctly on this system');
+        }
         $use_errors = \libxml_use_internal_errors(\true);
         $dom = new \DOMDocument();
         if (\substr($key, 0, 5) != '<?xml') {
             $key = '<xml>' . $key . '</xml>';
         }
         if (!$dom->loadXML($key)) {
+            \libxml_use_internal_errors($use_errors);
             throw new \UnexpectedValueException('Key does not appear to contain XML');
         }
         $xpath = new \DOMXPath($dom);

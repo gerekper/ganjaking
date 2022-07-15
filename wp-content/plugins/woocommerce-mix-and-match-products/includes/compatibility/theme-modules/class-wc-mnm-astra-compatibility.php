@@ -57,7 +57,7 @@ class WC_MNM_Astra_Compatibility {
 
 	/**
 	 * Add theme-specific style rules to header.
-	 * 
+	 *
 	 * @deprecated 2.0.6
 	 */
 	public static function inline_styles() {
@@ -73,7 +73,7 @@ class WC_MNM_Astra_Compatibility {
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
 
 	}
-	
+
 
 } // End class.
 WC_MNM_Astra_Compatibility::init();

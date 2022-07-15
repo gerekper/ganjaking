@@ -14,7 +14,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
 /**
  * Pure-PHP 32-bit Engine.
  *
@@ -42,43 +41,6 @@ class PHP32 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      */
     const MAX10LEN = 7;
     const MAX_DIGIT2 = 4503599627370496;
-    /**#@-*/
-    /**
-     * Modular Exponentiation Engine
-     *
-     * @var string
-     */
-    protected static $modexpEngine;
-    /**
-     * Engine Validity Flag
-     *
-     * @var bool
-     */
-    protected static $isValidEngine;
-    /**
-     * Primes > 2 and < 1000
-     *
-     * @var array
-     */
-    protected static $primes;
-    /**
-     * BigInteger(0)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP32
-     */
-    protected static $zero;
-    /**
-     * BigInteger(1)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP32
-     */
-    protected static $one;
-    /**
-     * BigInteger(2)
-     *
-     * @var \phpseclib3\Math\BigInteger\Engines\PHP32
-     */
-    protected static $two;
     /**
      * Initialize a PHP32 BigInteger Engine instance
      *
@@ -178,7 +140,7 @@ class PHP32 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      * and the divisor (basically, the "common residue" is the first positive modulo).
      *
      * @param PHP32 $y
-     * @return PHP32
+     * @return array{PHP32, PHP32}
      */
     public function divide(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP32 $y)
     {

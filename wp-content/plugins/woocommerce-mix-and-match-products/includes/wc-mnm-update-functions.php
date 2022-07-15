@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Batch processing limit.
- * 
+ *
  * @since 2.0.0
  * @return int
  */
@@ -26,7 +26,7 @@ function wc_mnm_update_batch_limit() {
 
 /**
  * Data Update for Version 1.2.0.
- * 
+ *
  * @return bool True to run again, false if completed.
  */
 function wc_mnm_update_120_main() {
@@ -136,7 +136,7 @@ function wc_mnm_update_120_main() {
 	if ( $container_id ) {
 		return update_option( 'wc_mnm_update_1x2x0_last_product_id', $container_id );
 	}
-	
+
 	delete_option( 'wc_mnm_update_1x2x0_last_product_id' );
 	return false;
 
@@ -198,7 +198,7 @@ function wc_mnm_update_1x10_product_meta() {
 		foreach ( $containers as $container ) {
 
 			$container_id = intval( $container->product_id );
-			
+
 			// Fix contents array.
 			$container_data = get_post_meta( $container_id, '_mnm_data', true );
 
@@ -284,8 +284,8 @@ function wc_mnm_update_1x10_db_version() {
  * Delete old notices.
  */
 function wc_mnm_update_2x00_remove_notices() {
-    delete_option( 'wc_mnm_maintenance_notices' );
-    delete_option( 'wc_mnm_meta_box_notices' );
+	delete_option( 'wc_mnm_maintenance_notices' );
+	delete_option( 'wc_mnm_meta_box_notices' );
 }
 
 /**
@@ -297,7 +297,7 @@ function wc_mnm_update_2x00_remove_notices() {
  * see @link: https://github.com/kathyisawesome/woocommerce-mix-and-match-products/issues/371
  *
  * @since 2.0.0
- * 
+ *
  * @return bool True to run again, false if completed.
  */
 function wc_mnm_update_2x00_customizer_settings() {
@@ -320,7 +320,8 @@ function wc_mnm_update_2x00_customizer_settings() {
 	$locations   = get_option( 'wc_mnm_add_to_cart_form_location_tracker', array() );
 
 	$containers = $wpdb->get_results(
-		$wpdb->prepare( "
+		$wpdb->prepare(
+            "
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -344,7 +345,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 			$mnm_term->term_taxonomy_id,
 			$last_product_id,
 			wc_mnm_update_batch_limit()
-		)		
+		)
 	);
 
 	if ( ! empty( $containers ) ) {
@@ -373,7 +374,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 					$locations[ $location ] = array( $container_id );
 				}
 			}
-				
+
 		}
 
 		// Store values for next batch.
@@ -439,7 +440,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 	$override_ids = array_unique( $override_ids );
 	$global_ids   = array_diff( array_unique( $all_ids ), $override_ids );
 
-    // Update product IDs that are using the global layout.
+	// Update product IDs that are using the global layout.
 	if ( ! empty( $global_ids ) ) {
 		foreach( $global_ids as $id ) {
 			update_post_meta( $id, '_mnm_layout_override', 'no' );
@@ -463,7 +464,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 	update_option( 'wc_mnm_display_thumbnail', 'yes' );
 	update_option( 'wc_mnm_display_short_description', 'no' );
-	
+
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x00_customizer_last_product_id' );
 	delete_option( 'wc_mnm_layout_tracker' );
@@ -477,7 +478,7 @@ function wc_mnm_update_2x00_customizer_settings() {
  * Set packing mode.
  *
  * @since 2.0.0
- * 
+ *
  * @return bool True to run again, false if completed.
  */
 function wc_mnm_update_2x00_packing_mode() {
@@ -496,7 +497,8 @@ function wc_mnm_update_2x00_packing_mode() {
 	$last_product_id   = get_option( 'wc_mnm_update_2x00_packing_mode_last_product_id', 0 );
 
 	$containers = $wpdb->get_results(
-		$wpdb->prepare( "
+		$wpdb->prepare(
+            "
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -520,7 +522,7 @@ function wc_mnm_update_2x00_packing_mode() {
 			$mnm_term->term_taxonomy_id,
 			$last_product_id,
 			wc_mnm_update_batch_limit()
-		)		
+		)
 	);
 
 	if ( ! empty( $containers ) ) {
@@ -542,7 +544,7 @@ function wc_mnm_update_2x00_packing_mode() {
 			update_post_meta( $container_id, '_mnm_packing_mode', $packing_mode );
 			update_post_meta( $container_id, '_virtual', 'no' );
 			delete_post_meta( $container_id, '_mnm_per_product_shipping' );
-				
+
 		}
 
 		// Start the run again.
@@ -551,7 +553,7 @@ function wc_mnm_update_2x00_packing_mode() {
 		}
 
 	}
-	
+
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x00_packing_mode_last_product_id' );
 
@@ -631,7 +633,7 @@ function wc_mnm_update_2x00_custom_tables() {
 					P.ID
 				ASC
 				LIMIT %d
-			",		
+			",
 			$mnm_term->term_id,
 			$last_product_id,
 			wc_mnm_update_batch_limit()
@@ -645,8 +647,8 @@ function wc_mnm_update_2x00_custom_tables() {
 			$container_id = intval( $container->product_id );
 
 			// Load the child items with the MNM product.
-            $container_data = get_post_meta( $container_id, '_mnm_data', true );
-			
+			$container_data = get_post_meta( $container_id, '_mnm_data', true );
+
 			// Skip empty or invalid data.
 			if ( empty( $container_data ) || ! is_array( $container_data ) ) {
 				continue;
@@ -678,7 +680,7 @@ function wc_mnm_update_2x00_custom_tables() {
 
 					// Add a row for the INSERT query. This will allow to insert multiple rows at once
 					// @link https://dev.mysql.com/doc/refman/8.0/en/insert.html
-					$insert_rows[] = $wpdb->prepare('(%d, %d, %d)', $child_item_product_id, $container_id, $item_menu_order );
+					$insert_rows[] = $wpdb->prepare( '(%d, %d, %d)', $child_item_product_id, $container_id, $item_menu_order );
 					$item_menu_order++;
 				}
 
@@ -689,7 +691,7 @@ function wc_mnm_update_2x00_custom_tables() {
 				if ( false === $wpdb->query( $SQL ) ) {
 					throw new Exception( sprintf( esc_html__( 'Mix and Match child item database conversion failed for product #%d. Error: %s', 'woocommerce-mix-and-match-products' ), $container_id, $wpdb->last_error ) );
 				}
-				
+
 				// Commit the transaction. This will ensure that the items will be saved
 				wc_transaction_query( 'commit' );
 
@@ -712,8 +714,8 @@ function wc_mnm_update_2x00_custom_tables() {
 		return update_option( 'wc_mnm_update_2x00_last_product_id', $container_id );
 	}
 
-    // Set transient for clean up button.
-    set_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta', 'yes' );
+	// Set transient for clean up button.
+	set_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta', 'yes' );
 
 	delete_option( 'wc_mnm_update_2x00_last_product_id' );
 	delete_option( 'wc_mnm_update_2x00_product_ids' );
@@ -741,7 +743,8 @@ function wc_mnm_update_2x00_category_contents_meta() {
 	$last_product_id   = get_option( 'wc_mnm_update_2x00_category_ids_last_product_id', 0 );
 
 	$containers = $wpdb->get_results(
-		$wpdb->prepare( "
+		$wpdb->prepare(
+            "
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -765,7 +768,7 @@ function wc_mnm_update_2x00_category_contents_meta() {
 			$mnm_term->term_id,
 			$last_product_id,
 			wc_mnm_update_batch_limit()
-		)		
+		)
 	);
 
 	if ( ! empty( $containers ) ) {
@@ -778,23 +781,23 @@ function wc_mnm_update_2x00_category_contents_meta() {
 
 			$new_categories = array();
 			$old_categories = get_post_meta( $container_id, '_mnm_product_cat', true );
-	
+
 			if ( is_integer( $old_categories ) ) {
-	
+
 				$new_categories[] = $old_categories;
-	
+
 			} elseif ( is_array( $old_categories ) ) {
-	
+
 				foreach( $old_categories as $slug ) {
-	
+
 					$cat = get_term_by( 'slug', $slug, 'product_cat' );
-	
+
 					if ( $cat instanceof WP_Term ) {
 						$new_categories[] = $cat->term_id;
 					}
-					
+
 				}
-				
+
 			}
 
 			update_post_meta( $container_id, '_mnm_content_source', $source );
@@ -802,7 +805,7 @@ function wc_mnm_update_2x00_category_contents_meta() {
 
 			delete_post_meta( $container_id, '_mnm_use_category' );
 			delete_post_meta( $container_id, '_mnm_product_cat' );
-				
+
 		}
 
 		// Start the run again.
@@ -811,7 +814,7 @@ function wc_mnm_update_2x00_category_contents_meta() {
 		}
 
 	}
-	
+
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x00_category_ids_last_product_id' );
 
@@ -858,7 +861,7 @@ function wc_mnm_update_2x00_product_meta() {
 
 	$sql = $wpdb->prepare( $sql, $delete_keys );
 
-    if ( false === $wpdb->query( $sql ) ) {
+	if ( false === $wpdb->query( $sql ) ) {
 		wc_get_logger()->log( 'error', 'Mix and Match could not delete duplicate product meta.', array( 'source' => 'wc_mnm_db_updates' ) );
 	}
 

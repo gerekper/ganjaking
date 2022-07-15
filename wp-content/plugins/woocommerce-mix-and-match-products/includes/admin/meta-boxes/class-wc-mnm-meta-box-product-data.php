@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Product
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.0.10
  */
 
 // Exit if accessed directly.
@@ -48,7 +48,7 @@ class WC_MNM_Meta_Box_Product_Data {
 		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'container_size_options' ), 10, 2 );
 		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'allowed_contents_options' ), 20, 2 );
 		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'pricing_options' ), 30, 2 );
-		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'discount_options' ), 35, 2 );			
+		add_action( 'wc_mnm_admin_product_options', array( __CLASS__, 'discount_options' ), 35, 2 );
 
 		// Creates the panel for selecting product options.
 		add_action( 'woocommerce_product_data_panels', array( __CLASS__, 'product_data_panel' ) );
@@ -129,9 +129,9 @@ class WC_MNM_Meta_Box_Product_Data {
 
 				/**
 				 * Back compatibility filter for folks who haven't update to 2.0x DB yet.
-				 * 
+				 *
 				 * Not recommended for regular use.
-				 * 
+				 *
 				 * @param  bool $packing_mode
 				 * @param  obj WC_Product_Mix_and_Match $this
 				 */
@@ -143,7 +143,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				// The seperate plus additional physical box, uses the same icon/setting as separate.
 				if ( 'separate_plus' === $current_mode ) {
 					$current_mode = 'separate';
-				} 
+				}
 
 				foreach ( $packing_mode_options as $key => $option ) {
 					?>
@@ -162,19 +162,22 @@ class WC_MNM_Meta_Box_Product_Data {
 			<?php
 
 			// Needs physical container
-			woocommerce_wp_checkbox( array (
+			woocommerce_wp_checkbox(
+                array (
 				'id'            => 'wc_mnm_has_physical_container',
 				'class'         => 'checkbox wc_mnm_has_physical_container',
 				'wrapper_class' => 'wc_mnm_toggle show_if_packed_separately hide_if_packed_together hide_if_virtual',
 				'value'         => wc_bool_to_string( $has_physical_container ),
 				'label'         => esc_html__( 'Has physical container?', 'woocommerce-mix-and-match-products' ),
 				'description'   => '<label for = "wc_mnm_has_physical_container"></label>',
-			) );
+                ) 
+            );
 
 			if ( wc_product_weight_enabled() ) {
 
 				// Aggregated weight option.
-				woocommerce_wp_radio( array(
+				woocommerce_wp_radio(
+                    array(
 					'id'            => 'wc_mnm_weight_cumulative',
 					'wrapper_class' => 'wc_mnm_weight_cumulative_field_field show_if_packed_together hide_if_packed_separately hide_if_virtual',
 					'value'         => $mnm_product_object->is_weight_cumulative() ? 'cumulative' : '',
@@ -185,8 +188,9 @@ class WC_MNM_Meta_Box_Product_Data {
 						''            => __( 'None &mdash; Packed weight is always the same', 'woocommerce-mix-and-match-products' ),
 						'cumulative' => __( 'Cumulative &mdash; Packed weight depends on the selected child items', 'woocommerce-mix-and-match-products' ),
 					)
-				) );
-				
+                    ) 
+                );
+
 			}
 
 			?>
@@ -311,7 +315,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				'label'         => esc_html__( 'Override global layout', 'woocommerce-mix-and-match-products' ),
 				'description'   => '<label for="wc_mnm_layout_override"></label>',
 			)
-        );
+		);
 
 		// Layout option.
 		$options = WC_Product_Mix_and_Match::get_layout_options();
@@ -422,47 +426,40 @@ class WC_MNM_Meta_Box_Product_Data {
 	 */
 	public static function allowed_contents_options( $post_id, $mnm_product_object ) {
 
-		woocommerce_wp_radio( 
+		woocommerce_wp_radio(
 			array(
 				'id'      => 'wc_mnm_content_source',
 				'class'   => 'select short wc_mnm_content_source',
 				'label'   => __( 'Allowed content', 'woocommerce-mix-and-match-products' ),
 				'value'	  => 'categories' === $mnm_product_object->get_content_source( 'edit' ) ? 'categories' : 'products',
-				'options' => array( 
+				'options' => array(
 					'products'   => __( 'Select individual products', 'woocommerce-mix-and-match-products' ),
 					'categories' => __( 'Select product categories', 'woocommerce-mix-and-match-products' ),
 				)
 			)
 		);
 
-        
-        // Show warning if still need to update DB.
-        $needs_update = ! WC_MNM_Compatibility::is_db_version_gte( '2.0' );
-        if ( $needs_update ) { 
-            
-            $update_url = wp_nonce_url(
-                add_query_arg( 'wc_mnm_update_action', 'do_update_db' ),
-                'do_update_db',
-                'wc_mnm_update_action_nonce'
-            );
-            ?>
+		// Show warning if still need to update DB.
+		$needs_update = ! WC_MNM_Compatibility::is_db_version_gte( '2.0' );
+		if ( $needs_update ) {
 
-            <div id="message" class="inline notice woocommerce-message wc-mnm-notice-needs-update">
-                <p><?php printf( esc_html__( 'Before you can edit your container contents you need to %1$srun the database upgrade%2$s.', 'woocommerce-mix-and-match-products' ), '<a href="#" onclick="wcmnmScrollToNotice();">', '</a>' ); ?></p>
-            </div>
-            <script>
-            function wcmnmScrollToNotice() {
-                let upgradeButton = document.getElementById( "wc-mnm-do-update-db" );
-                if ( upgradeButton ) {
-                    upgradeButton.focus();
-                }
-                return false;
-            }
-            </script>
+			$update_url = wp_nonce_url(
+				add_query_arg( 'wc_mnm_update_action', 'do_update_db' ),
+				'do_update_db',
+				'wc_mnm_update_action_nonce'
+			);
+			?>
 
-            <?php
+			<div id="message" class="inline notice woocommerce-message wc-mnm-notice-needs-update">
+				<p><?php 
+					// translators: %1$s is a link <a href> opening tag. %2$s is the closing </a> tag.
+					printf( esc_html__( 'Before you can edit your container contents you need to %1$srun the database upgrade%2$s. Please take appropriate backups.', 'woocommerce-mix-and-match-products' ), '<a href="' . esc_url ( $update_url ) .'">', '</a>' );
+				?></p>
+			</div>
 
-        }
+			<?php
+
+		}
 
 		// Exclude all but simple and variation products.
 		$product_types = wc_get_product_types();
@@ -492,7 +489,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-mix-and-match-products' ); ?>"
 				data-action="woocommerce_json_search_products_and_variations"
 				data-exclude_type="<?php echo esc_attr( join( ",", $product_types ) ); ?>"
-                <?php echo $needs_update ? 'disabled="false"' : ''; ?>
+				<?php echo $needs_update ? 'disabled="false"' : ''; ?>
 			>
 			<?php
 			foreach ( $child_items as $child_item ) {
@@ -525,7 +522,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				data-action="woocommerce_json_search_categories"
 				data-allow_clear="true"
 				data-return_id="true"
-                <?php echo $needs_update ? 'disabled="false"' : ''; ?>
+				<?php echo $needs_update ? 'disabled="false"' : ''; ?>
 			>
 			<?php
 				foreach ( $selected_cats as $cat_id ) {
@@ -553,13 +550,13 @@ class WC_MNM_Meta_Box_Product_Data {
 	public static function pricing_options( $post_id, $mnm_product_object ) {
 
 		// Per-Item Pricing.
-		woocommerce_wp_radio( 
+		woocommerce_wp_radio(
 			array(
 				'id'      => '_mnm_per_product_pricing',
 				'class'   => 'wc_mnm_per_product_pricing',
 				'label'   => esc_html__( 'Pricing mode', 'woocommerce-mix-and-match-products' ),
 				'value'	  => $mnm_product_object->get_priced_per_product( 'edit' ) ? 'yes' : 'no',
-				'options' => array( 
+				'options' => array(
 					'no'  => esc_html__( 'Fixed &mdash; the price never changes', 'woocommerce-mix-and-match-products' ),
 					'yes' => esc_html__( 'Per-item &mdash; the price depends on the selections', 'woocommerce-mix-and-match-products' )
 				)
@@ -680,14 +677,14 @@ class WC_MNM_Meta_Box_Product_Data {
 						}
 					}
 
-					if ( $unsupported_error ) { 
+					if ( $unsupported_error ) {
 						WC_Admin_Meta_Boxes::add_error( sprintf( __( 'You have added an unsupported product type to your Mix and Match allowed contents. Please see the <a target="_blank" href="%s">documentation</a> for more details."', 'woocommerce-mix-and-match-products' ), esc_url( WC_Mix_and_Match()->get_resource_url( 'unsupported-types' ) ) ) );
 					}
 				}
 
 				// Show a notice if the user hasn't selected any items for the container.
 				if ( apply_filters( 'wc_mnm_display_empty_container_error', true, $product ) ) {
-				
+
 					if ( 'categories' === $props['content_source'] && empty( $props['child_category_ids' ] ) ) {
 						WC_Admin_Meta_Boxes::add_error( __( 'Please select at least one category to use for this Mix and Match product.', 'woocommerce-mix-and-match-products' ) );
 					} elseif ( 'products' === $props['content_source'] && empty( $child_items_data ) ) {
@@ -698,7 +695,6 @@ class WC_MNM_Meta_Box_Product_Data {
 
 				// Set child items.
 				$props['child_items'] = $child_items_data;
-
 
 				// Finally, set the properties for saving.
 				$product->set_props( $props );

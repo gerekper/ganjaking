@@ -1,5 +1,8 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.07.13 - version 2.3.13
+ * Fix: Wrong value returned for date used for API Access Expires, when this value is set, due to pre WC 3.0 database query that did not failover to post WC 3.0 database query.
+
 2022.02.19 - version 2.3.12
  * Info: Bump required PHP version to 7.2 to match latest WooCommerce PHP required version.
  * Info: Bump WooCommerce tested up to version 6.2.

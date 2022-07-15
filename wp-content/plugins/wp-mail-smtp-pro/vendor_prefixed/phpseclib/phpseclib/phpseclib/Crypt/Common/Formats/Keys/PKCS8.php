@@ -27,17 +27,17 @@
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys;
 
 use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\AES;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\DES;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RC2;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\RC4;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\AES;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\TripleDES;
-use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Exception\InsufficientSetupException;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
-use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
 /**
  * PKCS#8 Formatted Key Handler
  *
@@ -247,6 +247,9 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      */
     private static function initialize_static_variables()
     {
+        if (!isset(static::$childOIDsLoaded)) {
+            throw new \WPMailSMTP\Vendor\phpseclib3\Exception\InsufficientSetupException('This class should not be called directly');
+        }
         if (!static::$childOIDsLoaded) {
             \WPMailSMTP\Vendor\phpseclib3\File\ASN1::loadOIDs(\is_array(static::OID_NAME) ? \array_combine(static::OID_NAME, static::OID_VALUE) : [static::OID_NAME => static::OID_VALUE]);
             static::$childOIDsLoaded = \true;
@@ -462,7 +465,10 @@ abstract class PKCS8 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     protected static function wrapPrivateKey($key, $attr, $params, $password, $oid = null, $publicKey = '', array $options = [])
     {
         self::initialize_static_variables();
-        $key = ['version' => 'v1', 'privateKeyAlgorithm' => ['algorithm' => \is_string(static::OID_NAME) ? static::OID_NAME : $oid, 'parameters' => $params], 'privateKey' => $key];
+        $key = ['version' => 'v1', 'privateKeyAlgorithm' => ['algorithm' => \is_string(static::OID_NAME) ? static::OID_NAME : $oid], 'privateKey' => $key];
+        if ($oid != 'id-Ed25519' && $oid != 'id-Ed448') {
+            $key['privateKeyAlgorithm']['parameters'] = $params;
+        }
         if (!empty($attr)) {
             $key['attributes'] = $attr;
         }

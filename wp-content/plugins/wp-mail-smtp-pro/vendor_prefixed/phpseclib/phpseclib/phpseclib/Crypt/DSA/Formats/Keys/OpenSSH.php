@@ -16,10 +16,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\OpenSSH as Progenitor;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * OpenSSH Formatted DSA Key Handler
  *

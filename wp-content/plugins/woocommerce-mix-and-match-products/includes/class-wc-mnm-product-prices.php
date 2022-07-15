@@ -195,8 +195,7 @@ class WC_MNM_Product_Prices {
 			if ( $discount ) {
 				$price = self::get_discounted_price( $product->mnm_child_item->is_discounted_from_regular_price() ? $product->get_regular_price() : $price, $discount );
 			}
-		
-	
+
 		}
 		return $price;
 	}
@@ -241,7 +240,7 @@ class WC_MNM_Product_Prices {
 			if ( $discount ) {
 				$sale_price = self::get_discounted_price( $product->mnm_child_item->is_discounted_from_regular_price() || '' === $sale_price ? $product->get_regular_price() : $sale_price, $discount );
 			}
-	
+
 		}
 		return $sale_price;
 	}

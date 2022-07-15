@@ -76,7 +76,7 @@ class RateLimiter
         }
         $this->refillTokenBucket();
         if ($amount > $this->currentCapacity) {
-            \usleep(1000000 * ($amount - $this->currentCapacity) / $this->fillRate);
+            \usleep((int) (1000000 * ($amount - $this->currentCapacity) / $this->fillRate));
         }
         $this->currentCapacity -= $amount;
         return \true;

@@ -15,10 +15,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField;
-use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField\Integer;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Math\BinaryField\Integer;
+use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField;
 /**
  * Binary Finite Fields
  *
@@ -40,6 +39,8 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
      * @var int
      */
     protected $instanceID;
+    /** @var BigInteger */
+    private $randomMax;
     /**
      * Default constructor
      */
@@ -104,7 +105,7 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
      * Returns an instance of a dynamically generated PrimeFieldInteger class
      *
      * @param string $num
-     * @return object
+     * @return Integer
      */
     public function newInteger($num)
     {
@@ -113,7 +114,7 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
     /**
      * Returns an integer on the finite field between one and the prime modulo
      *
-     * @return object
+     * @return Integer
      */
     public function randomInteger()
     {
@@ -126,7 +127,7 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
     /**
      * Returns the length of the modulo in bytes
      *
-     * @return integer
+     * @return int
      */
     public function getLengthInBytes()
     {
@@ -135,7 +136,7 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
     /**
      * Returns the length of the modulo in bits
      *
-     * @return integer
+     * @return int
      */
     public function getLength()
     {
@@ -145,7 +146,7 @@ class BinaryField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
      * Converts a base-2 string to a base-256 string
      *
      * @param string $x
-     * @param integer $size 
+     * @param int|null $size
      * @return string
      */
     public static function base2ToBase256($x, $size = null)

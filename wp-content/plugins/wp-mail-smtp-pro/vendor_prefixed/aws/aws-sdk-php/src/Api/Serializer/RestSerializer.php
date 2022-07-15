@@ -104,6 +104,8 @@ abstract class RestSerializer
         if ($member->getType() === 'timestamp') {
             $timestampFormat = !empty($member['timestampFormat']) ? $member['timestampFormat'] : 'rfc822';
             $value = \WPMailSMTP\Vendor\Aws\Api\TimestampShape::format($value, $timestampFormat);
+        } elseif ($member->getType() === 'boolean') {
+            $value = $value ? 'true' : 'false';
         }
         if ($member['jsonvalue']) {
             $value = \json_encode($value);

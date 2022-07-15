@@ -22,7 +22,6 @@ class WC_MNM_Flatsome_Compatibility {
 	 */
 	public static function init() {
 
-
 		// Filters the loop classes.
 		add_filter( 'wc_mnm_loop_classes', array( __CLASS__, 'loop_classes' ), 10, 2 );
 
@@ -31,7 +30,7 @@ class WC_MNM_Flatsome_Compatibility {
 
 		// Flatsome has it's own flex layout.
 		add_filter( 'wc_mnm_grid_has_flex_layout', '__return_false' );
-		
+
 		// Wrapping divs.
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'entry_wrap_open' ), 1, 2 );
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'image_wrap_close' ), 35, 2 );

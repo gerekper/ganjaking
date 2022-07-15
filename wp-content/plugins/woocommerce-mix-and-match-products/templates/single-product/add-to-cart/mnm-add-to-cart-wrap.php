@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 
-    if ( $product->is_purchasable() ) {
+	if ( $product->is_purchasable() ) {
 		/**
 		 * wc_mnm_before_add_to_cart_button_wrap hook.
 		 */
@@ -58,13 +58,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 			</div>
 			<?php
-            /**
-             * wc_mnm_add_to_cart_button hook.
-             * @hooked wc_mnm_template_add_to_cart_button - 10
-             */
-            do_action( 'wc_mnm_add_to_cart_button', $product );
+			/**
+			 * wc_mnm_add_to_cart_button hook.
+			 * @hooked wc_mnm_template_add_to_cart_button - 10
+			 */
+			do_action( 'wc_mnm_add_to_cart_button', $product );
 
-            ?>
+			?>
 
 
 		</div>

@@ -2,8 +2,11 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Providers\SparkPost;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\AbstractSubscriber;
 use WPMailSMTP\Providers\SparkPost\Mailer;
+use WP_Error;
+use WPMailSMTP\WP;
 
 /**
  * Class Subscriber.
@@ -33,7 +36,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function subscribe() {
 
@@ -52,7 +55,7 @@ class Subscriber extends AbstractSubscriber {
 		$events = array_unique( array_merge( $events, self::EVENTS ) );
 
 		$body = [
-			'name'   => esc_html__( 'WP Mail SMTP', 'wp-mail-smtp' ),
+			'name'   => esc_html__( 'WP Mail SMTP', 'wp-mail-smtp-pro' ),
 			'target' => $this->provider->get_url(),
 			'events' => $events,
 		];
@@ -72,7 +75,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function unsubscribe() {
 
@@ -102,7 +105,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return bool|\WP_Error
+	 * @return bool|WP_Error
 	 */
 	public function is_subscribed() {
 
@@ -125,7 +128,7 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return array|false|\WP_Error
+	 * @return array|false|WP_Error
 	 */
 	protected function get_subscription() {
 
@@ -154,7 +157,7 @@ class Subscriber extends AbstractSubscriber {
 	 * @param array  $params     Request params.
 	 * @param array  $webhook_id SparkPost webhooks ID.
 	 *
-	 * @return mixed|\WP_Error
+	 * @return mixed|WP_Error
 	 */
 	protected function request( $method = 'GET', $params = [], $webhook_id = false ) {
 
@@ -198,40 +201,27 @@ class Subscriber extends AbstractSubscriber {
 	 *
 	 * @param array $response Response array.
 	 *
-	 * @return \WP_Error
+	 * @return WP_Error
 	 */
 	protected function get_response_error( $response ) {
 
-		$error         = new \WP_Error();
-		$body          = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code = wp_remote_retrieve_response_code( $response );
+		$body       = json_decode( wp_remote_retrieve_body( $response ) );
+		$error_text = [];
 
-		if ( ! empty( $body['errors'] ) ) {
-			$error_text = [];
+		if ( ! empty( $body->errors ) && is_array( $body->errors ) ) {
+			foreach ( $body->errors as $error ) {
+				if ( ! empty( $error->message ) ) {
+					$message     = $error->message;
+					$code        = ! empty( $error->code ) ? $error->code : '';
+					$description = ! empty( $error->description ) ? $error->description : '';
 
-			foreach ( $body['errors'] as $error_data ) {
-				$message = [];
-
-				if ( isset( $error_data['code'] ) ) {
-					$message[] = $error_data['code'];
+					$error_text[] = Helpers::format_error_message( $message, $code, $description );
 				}
-
-				if ( isset( $error_data['message'] ) ) {
-					$message[] = $error_data['message'];
-				}
-
-				if ( isset( $error_data['description'] ) ) {
-					$message[] = $error_data['description'];
-				}
-
-				$error_text[] = implode( ' - ', $message );
 			}
-
-			$error->add( $response_code, implode( PHP_EOL, array_map( 'sanitize_text_field', $error_text ) ) );
 		} else {
-			$error->add( $response_code, sanitize_text_field( wp_remote_retrieve_response_message( $response ) ) );
+			$error_text[] = WP::wp_remote_get_response_error_message( $response );
 		}
 
-		return $error;
+		return new WP_Error( wp_remote_retrieve_response_code( $response ), implode( WP::EOL, $error_text ) );
 	}
 }

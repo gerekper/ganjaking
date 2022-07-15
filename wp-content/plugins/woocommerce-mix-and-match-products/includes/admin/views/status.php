@@ -3,7 +3,7 @@
  * Outputs the Status section for Mix and Match.
  *
  * @package  WooCommerce Mix and Match Products/Admin
- * 
+ *
  * @version 1.3.0
  * @props to ProsPress
  */

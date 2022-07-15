@@ -93,6 +93,9 @@ class WC_AM_URL {
 	 * @see   https://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html
 	 * @see   https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html
 	 *
+	 * URL changes:
+	 * @see https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
+	 *
 	 * @since 2.1
 	 *
 	 * @param string $url

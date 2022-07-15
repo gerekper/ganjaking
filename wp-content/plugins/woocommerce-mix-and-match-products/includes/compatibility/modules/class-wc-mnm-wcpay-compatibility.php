@@ -24,7 +24,7 @@ class WC_MNM_WCPay_Compatibility {
 	public static function init() {
 		add_filter( 'wcpay_payment_request_is_product_supported', array( __CLASS__, 'hide_request_buttons' ), 10, 2 );
 	}
-   
+
 	/**
 	 * Hide payment request pay buttons
 	 *

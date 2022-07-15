@@ -4,6 +4,8 @@ namespace WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable;
 
 use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
+use DOMDocument;
+use WP_REST_Response;
 
 /**
  * Email tracking click link event class.
@@ -47,7 +49,7 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 	 */
 	public function inject( $email_content ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
-		$html_dom                = new \DOMDocument();
+		$html_dom                = new DOMDocument();
 		$old_libxml_errors_value = libxml_use_internal_errors( true );
 
 		$html = make_clickable( $email_content );
@@ -62,10 +64,12 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 		 *
 		 * @param bool $should_encode Whether email content should be encoded.
 		 */
-		$should_encode = apply_filters( 'wp_mail_smtp_pro_emails_logs_tracking_events_injectable_click_link_event_inject_encode_content', $should_encode );
+		$should_encode = apply_filters(
+			'wp_mail_smtp_pro_emails_logs_tracking_events_injectable_click_link_event_inject_encode_content',
+			$should_encode
+		);
 
 		if ( $should_encode ) {
-
 			// Include polyfill if mbstring PHP extension is not enabled.
 			if ( ! function_exists( 'mb_convert_encoding' ) ) {
 				Helpers::include_mbstring_polyfill();
@@ -73,6 +77,7 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 
 			// Convert non-ascii code into html-readable stuff.
 			$encoded_html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'auto' );
+
 			if ( $encoded_html !== false ) {
 				$html = $encoded_html;
 			}
@@ -85,7 +90,6 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 		$created_links = [];
 
 		foreach ( $links as $link ) {
-
 			$url = $link->getAttribute( 'href' );
 
 			// Skip empty, anchor or mailto links.
@@ -105,7 +109,13 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 			 * @param bool   $is_trackable Whether url is trackable or not.
 			 * @param string $url          Current url.
 			 */
-			if ( ! apply_filters( 'wp_mail_smtp_pro_emails_logs_tracking_events_injectable_click_link_event_inject_link', true, $url ) ) {
+			$is_trackable_url = apply_filters(
+				'wp_mail_smtp_pro_emails_logs_tracking_events_injectable_click_link_event_inject_link',
+				true,
+				$url
+			);
+
+			if ( ! $is_trackable_url ) {
 				continue;
 			}
 
@@ -155,6 +165,7 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 
 		// In case if images loading disabled in email, create open email event when first link in email clicked.
 		$open_event = new OpenEmailEvent( $this->get_email_log_id() );
+
 		if ( ! $open_event->was_event_already_triggered() ) {
 			$open_event->persist();
 		}
@@ -169,11 +180,11 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 	 *
 	 * @param array $event_data Event data from request.
 	 *
-	 * @return \WP_REST_Response REST response.
+	 * @return WP_REST_Response REST response.
 	 */
 	public function get_response( $event_data ) {
 
-		$response = new \WP_REST_Response();
+		$response = new WP_REST_Response();
 
 		$response->header( 'Cache-Control', 'must-revalidate, no-cache, no-store, max-age=0, no-transform' );
 		$response->header( 'Pragma', 'no-cache' );
@@ -219,6 +230,7 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 
 		$email_log_id = intval( $this->get_email_log_id() );
 
-		return $wpdb->delete( Tracking::get_links_table_name(), [ 'email_log_id' => $email_log_id ], [ '%d' ] ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->delete( Tracking::get_links_table_name(), [ 'email_log_id' => $email_log_id ], [ '%d' ] );
 	}
 }

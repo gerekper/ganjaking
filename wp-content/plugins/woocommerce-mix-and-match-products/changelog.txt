@@ -1,5 +1,11 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.07.12 - version 2.0.10
+* Fix: Fatal error in cart, undefined function esc_html__x().
+* Fix: version_compare() with null as first param is deprecated in php 8.1 #436
+* Fix: Metabox link to run upgrade, will actually run upgrade and not scroll to top. #435
+* Fix: Do not prompt upgrade routine on new installs.
+
 2022.07.06 - version 2.0.9
 * New: Introduce subscription switching text string setting for customizing text of subscription switch link for Mix and Match products.
 * Fix: Support displaying SVG icons directly in metabox, better support for alternative layouts.

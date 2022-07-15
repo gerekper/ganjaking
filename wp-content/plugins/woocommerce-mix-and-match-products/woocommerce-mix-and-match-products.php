@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Mix and Match Products
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Allow customers to choose products in any combination to fill a "container" of a specific size.
- * Version: 2.0.9
+ * Version: 2.0.10
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * Woo: 853021:e59883891b7bcd535025486721e4c09f
- * 
+ *
  * WC requires at least: 3.6.0
  * WC tested up to: 6.5.0
  * Requires at least: 4.7.0
@@ -51,7 +51,7 @@ if ( ! function_exists( 'wc_mnm_init' ) ) {
 				__( '<strong>WooCommerce Mix and Match is inactive.</strong> The WooCommerce plugin must be active and at least version %s for Mix and Match to function. Please upgrade or activate WooCommerce.', 'woocommerce-mix-and-match-products' ),
 				WC_MNM_REQUIRED_WOO
 			);
-			
+
 			WC_MNM_Admin_Notices::add_custom_notice( 'min-wc', $msg );
 
 			return false;

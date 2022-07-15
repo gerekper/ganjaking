@@ -1,7 +1,7 @@
 <?php
 /**
  * Mix and Match order item
- * 
+ *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order/Views
  *
  * @var object $item The item being displayed

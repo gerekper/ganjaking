@@ -2,6 +2,8 @@
 
 namespace WPMailSMTP;
 
+use WPMailSMTP\Helpers\Helpers;
+
 /**
  * Class WP provides WordPress shortcuts.
  *
@@ -16,7 +18,8 @@ class WP {
 	 *
 	 * @var array
 	 */
-	protected static $admin_notices = array();
+	protected static $admin_notices = [];
+
 	/**
 	 * CSS class for a success notice.
 	 *
@@ -25,6 +28,7 @@ class WP {
 	 * @var string
 	 */
 	const ADMIN_NOTICE_SUCCESS = 'notice-success';
+
 	/**
 	 * CSS class for an error notice.
 	 *
@@ -33,6 +37,7 @@ class WP {
 	 * @var string
 	 */
 	const ADMIN_NOTICE_ERROR = 'notice-error';
+
 	/**
 	 * CSS class for an info notice.
 	 *
@@ -41,6 +46,7 @@ class WP {
 	 * @var string
 	 */
 	const ADMIN_NOTICE_INFO = 'notice-info';
+
 	/**
 	 * CSS class for a warning notice.
 	 *
@@ -49,6 +55,15 @@ class WP {
 	 * @var string
 	 */
 	const ADMIN_NOTICE_WARNING = 'notice-warning';
+
+	/**
+	 * Cross-platform line break.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @var string
+	 */
+	const EOL = "\r\n";
 
 	/**
 	 * True if WP is processing an AJAX call.
@@ -512,28 +527,53 @@ class WP {
 			return $initiators_cache[ $file_path ];
 		}
 
+		$name = self::get_initiator( $file_path )['name'];
+
+		$initiators_cache[ $file_path ] = $name;
+
+		set_transient( $cache_key, $initiators_cache, HOUR_IN_SECONDS );
+
+		return $name;
+	}
+
+	/**
+	 * Get the info of the plugin/theme/wp-core function.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param string $file_path The absolute path of the function location.
+	 *
+	 * @return array
+	 */
+	public static function get_initiator( $file_path ) {
+
 		$name = self::get_initiator_plugin( $file_path );
+		$type = 'plugin';
 
 		if ( empty( $name ) ) {
 			$name = self::get_initiator_plugin( $file_path, true );
+			$type = 'mu-plugin';
 		}
 
 		if ( empty( $name ) ) {
 			$name = self::get_initiator_theme( $file_path );
+			$type = 'theme';
 		}
 
 		if ( empty( $name ) ) {
 			$name = self::get_initiator_wp_core( $file_path );
+			$type = 'wp-core';
 		}
 
 		if ( empty( $name ) ) {
 			$name = esc_html__( 'N/A', 'wp-mail-smtp' );
+			$type = 'unknown';
 		}
 
-		$initiators_cache[ $file_path ] = $name;
-		set_transient( $cache_key, $initiators_cache, HOUR_IN_SECONDS );
-
-		return $name;
+		return [
+			'name' => $name,
+			'type' => $type,
+		];
 	}
 
 	/**
@@ -699,5 +739,30 @@ class WP {
 		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
 
 		return $tz_offset;
+	}
+
+	/**
+	 * Get wp remote response error message.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param array $response Response array.
+	 */
+	public static function wp_remote_get_response_error_message( $response ) {
+
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
+
+		$body        = wp_remote_retrieve_body( $response );
+		$message     = wp_remote_retrieve_response_message( $response );
+		$code        = wp_remote_retrieve_response_code( $response );
+		$description = '';
+
+		if ( ! empty( $body ) ) {
+			$description = is_string( $body ) ? $body : wp_json_encode( $body );
+		}
+
+		return Helpers::format_error_message( $message, $code, $description );
 	}
 }

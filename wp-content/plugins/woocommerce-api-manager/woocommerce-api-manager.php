@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.3.12
+ * Version: 2.3.13
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -12,7 +12,7 @@
  * Text Domain: woocommerce-api-manager
  * Domain Path: /i18n/languages/
  * WC requires at least: 5.5
- * WC tested up to: 6.2
+ * WC tested up to: 6.7.0
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
  * Requires WP: 5.6
  * Requires PHP: 7.2
@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Constants
  */
-define( 'WC_AM_VERSION', '2.3.12' );
+define( 'WC_AM_VERSION', '2.3.13' );
 define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
 define( 'WC_AM_REQUIRED_PHP_VERSION', '7.2' );
 define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '3.1' );
@@ -466,11 +466,21 @@ final class WooCommerce_API_Manager {
 		/**
 		 * @since 2.0.16
 		 */
-		if ( class_exists( 'WC_Subscriptions' ) && self::is_wc_subscriptions_active_static() ) {
-			if ( version_compare( WC_Subscriptions::$version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
-				add_action( 'admin_notices', __CLASS__ . '::upgrade_wc_sub_am_warning' );
+		if ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) && self::is_wc_subscriptions_active_static() ) {
+            if ( class_exists( 'WC_Subscriptions' ) ) {
+	            if ( version_compare( WC_Subscriptions::$version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
+		            add_action( 'admin_notices', __CLASS__ . '::upgrade_wc_sub_am_warning' );
 
-				return;
+		            return;
+	            }
+            }
+
+			if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+				if ( version_compare( WC_subscriptions_Core_Plugin::instance()->get_plugin_version(), WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
+					add_action( 'admin_notices', __CLASS__ . '::upgrade_wc_sub_am_warning' );
+
+					return;
+				}
 			}
 		}
 
@@ -576,6 +586,10 @@ final class WooCommerce_API_Manager {
 	 */
 	public static function upgrade_wc_sub_am_warning() {
 		$wam_wc_subs_active_version = class_exists( 'WC_Subscriptions' ) ? WC_Subscriptions::$version : get_option( 'woocommerce_subscriptions_active_version' );
+
+        if ( empty( $wam_wc_subs_active_version ) ) {
+	        $wam_wc_subs_active_version = class_exists( 'WC_Subscriptions_Core_Plugin' ) ? WC_subscriptions_Core_Plugin::instance()->get_plugin_version() : '';
+        }
 
 		?>
         <div class="notice notice-error">

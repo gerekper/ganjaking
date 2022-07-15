@@ -98,8 +98,8 @@ class WC_MNM_Avada_Compatibility {
 	public static function loop_classes( $classes, $product ) {
 		$columns = wc_get_loop_prop( 'columns' );
 		return array_merge(
-            $classes,
-            array( 'products-'.$columns )
+			$classes,
+			array( 'products-'.$columns )
 		);
 	}
 

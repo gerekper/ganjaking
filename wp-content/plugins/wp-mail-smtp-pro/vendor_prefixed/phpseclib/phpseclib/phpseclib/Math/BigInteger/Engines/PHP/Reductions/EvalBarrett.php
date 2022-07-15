@@ -14,8 +14,8 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Reductions;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base;
 /**
  * PHP Dynamic Barrett Modular Exponentiation Engine
  *
@@ -231,6 +231,7 @@ abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger
                 $sum = $' . $result . '[$i] + $_' . $y . '[$i] + $carry;
                 $carry = $sum >= ' . self::float2string($class::BASE_FULL) . ';
                 $' . $result . '[$i] = $carry ? $sum - ' . self::float2string($class::BASE_FULL) . ' : $sum;
+                ++$i;
             }
             if ($carry) {
                 for (; $' . $result . '[$i] == ' . $class::MAX_DIGIT . '; ++$i) {
@@ -400,7 +401,7 @@ abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger
     private static function float2string($num)
     {
         if (!\is_float($num)) {
-            return $num;
+            return (string) $num;
         }
         if ($num < 0) {
             return '-' . self::float2string(\abs($num));

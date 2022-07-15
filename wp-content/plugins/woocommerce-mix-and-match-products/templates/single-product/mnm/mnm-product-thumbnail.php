@@ -66,7 +66,7 @@ if ( has_filter( 'wc_mnm_child_product_image_html' ) ) {
 
 /**
  * Child item image html
- * 
+ *
  * @since 2.0.0
  *
  * @param string $html

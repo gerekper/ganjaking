@@ -13,9 +13,9 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 
-use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer as Base;
-use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
+use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
+use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer as Base;
 /**
  * Prime Finite Fields
  *
@@ -28,7 +28,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Holds the PrimeField's value
      *
-     * @var \phpseclib3\Math\BigInteger
+     * @var BigInteger
      */
     protected $value;
     /**
@@ -40,29 +40,31 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Holds the PrimeField's modulo
      *
-     * @var \phpseclib3\Math\BigInteger
+     * @var array<int, BigInteger>
      */
     protected static $modulo;
     /**
      * Holds a pre-generated function to perform modulo reductions
      *
-     * @var Callable
+     * @var array<int, callable(BigInteger):BigInteger>
      */
     protected static $reduce;
     /**
      * Zero
      *
-     * @var \phpseclib3\Math\BigInteger
+     * @var BigInteger
      */
     protected static $zero;
     /**
      * Default constructor
+     *
+     * @param int $instanceID
      */
     public function __construct($instanceID, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $num = null)
     {
         $this->instanceID = $instanceID;
         if (!isset($num)) {
-            $this->value = clone static::$zero;
+            $this->value = clone static::$zero[static::class];
         } else {
             $reduce = static::$reduce[$instanceID];
             $this->value = $reduce($num);
@@ -70,6 +72,9 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     }
     /**
      * Set the modulo for a given instance
+     *
+     * @param int $instanceID
+     * @return void
      */
     public static function setModulo($instanceID, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $modulo)
     {
@@ -77,12 +82,15 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     }
     /**
      * Set the modulo for a given instance
+     *
+     * @param int $instanceID
+     * @return void
      */
     public static function setRecurringModuloFunction($instanceID, callable $function)
     {
         static::$reduce[$instanceID] = $function;
-        if (!isset(static::$zero)) {
-            static::$zero = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger();
+        if (!isset(static::$zero[static::class])) {
+            static::$zero[static::class] = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger();
         }
     }
     /**
@@ -96,7 +104,8 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Returns the modulo
      *
-     * @return integer
+     * @param int $instanceID
+     * @return BigInteger
      */
     public static function getModulo($instanceID)
     {
@@ -106,6 +115,8 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      * Tests a parameter to see if it's of the right instance
      *
      * Throws an exception if the incorrect class is being utilized
+     *
+     * @return void
      */
     public static function checkInstance(self $x, self $y)
     {
@@ -243,7 +254,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Is Odd?
      *
-     * @return boolean
+     * @return bool
      */
     public function isOdd()
     {
@@ -255,7 +266,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      * A negative number can be written as 0-12. With modulos, 0 is the same thing as the modulo
      * so 0-12 is the same thing as modulo-12
      *
-     * @return object
+     * @return static
      */
     public function negate()
     {
@@ -298,7 +309,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      * Returns the w-ary non-adjacent form (wNAF)
      *
      * @param int $w optional
-     * @return int[]
+     * @return array<int, int>
      */
     public function getNAF($w = 1)
     {
@@ -309,17 +320,17 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
         $d = $this->toBigInteger();
         $d_i = [];
         $i = 0;
-        while ($d->compare(static::$zero) > 0) {
+        while ($d->compare(static::$zero[static::class]) > 0) {
             if ($d->isOdd()) {
                 // start mods
-                $d_i[$i] = $d->testBit($w - 1) ? $d->bitwise_and($mask)->subtract($sub) : $d->bitwise_and($mask);
+                $bigInteger = $d->testBit($w - 1) ? $d->bitwise_and($mask)->subtract($sub) : $d->bitwise_and($mask);
                 // end mods
-                $d = $d->subtract($d_i[$i]);
-                $d_i[$i] = (int) $d_i[$i]->toString();
+                $d = $d->subtract($bigInteger);
+                $d_i[$i] = (int) $bigInteger->toString();
             } else {
                 $d_i[$i] = 0;
             }
-            $shift = !$d->equals(static::$zero) && $d->bitwise_and($mask)->equals(static::$zero) ? $w : 1;
+            $shift = !$d->equals(static::$zero[static::class]) && $d->bitwise_and($mask)->equals(static::$zero[static::class]) ? $w : 1;
             // $w or $w + 1?
             $d = $d->bitwise_rightShift($shift);
             while (--$shift > 0) {
@@ -332,7 +343,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      * Converts an Integer to a BigInteger
      *
-     * @return string
+     * @return BigInteger
      */
     public function toBigInteger()
     {
@@ -342,6 +353,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      *  __toString() magic method
      *
      * @access public
+     * @return string
      */
     public function __toString()
     {
@@ -351,6 +363,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      *  __debugInfo() magic method
      *
      * @access public
+     * @return array
      */
     public function __debugInfo()
     {

@@ -29,7 +29,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	*/
 
 
-    public function get_base_price() {
+	public function get_base_price() {
 		wc_deprecated_function( __METHOD__ . '()', '1.2.0', __CLASS__ . '::get_price()' );
 		return $this->get_price( 'edit' );
 	}
@@ -54,7 +54,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return $this->sync();
 	}
 
-    /**
+	/**
 	 * Contained product IDs getter.
 	 *
 	 * @since  1.2.0
@@ -83,7 +83,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	/**
 	 * Get an array of available children for the current product.
 	 *
-     * @deprecated 2.0.0
+	 * @deprecated 2.0.0
 	 * @return array
 	 */
 	public function get_available_children() {
@@ -103,11 +103,11 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 				if ( has_filter( 'woocommerce_mnm_is_child_available' ) ) {
 					$is_available = apply_filters( 'woocommerce_mnm_is_child_available', $is_available, $child, $this );
 				};
-				
+
 				if ( $is_available ) {
 					$available_children[ $child_item->get_product()->get_id() ] = $child_item->get_product();
 				}
-            }
+			}
 
 			WC_MNM_Helpers::cache_set( $this->get_id(), $available_children, 'available_child_products' );
 
@@ -128,7 +128,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 	/**
 	 * Get the product object of one of the child items.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param  int      $child_id
@@ -153,8 +153,8 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 	/**
 	 * Is child item available for inclusion in container.
-     * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 *
 	 * @param  int  $child_id
 	 * @return bool
@@ -164,10 +164,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return in_array( $child_id, $this->is_allowed_child_product( $child_id ) );
 	}
 
-    /**
+	/**
 	 * Get min/max mnm price.
-     * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 *
 	 * @param  string $min_or_max
 	 * @return mixed
@@ -177,10 +177,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return $this->get_container_price( $min_or_max, $display );
 	}
 
-    /**
+	/**
 	 * Get min/max MnM regular price.
-     * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 *
 	 * @param  string $min_or_max
 	 * @return mixed
@@ -190,10 +190,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return $this->get_container_regular_price( $min_or_max, $display );
 	}
 
-    /**
+	/**
 	 * MnM price including tax.
-     * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 *
 	 * @return mixed
 	 */
@@ -202,10 +202,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return $this->get_container_price_including_tax( $min_or_max, $qty );
 	}
 
-    /**
+	/**
 	 * Min/max MnM price excl tax.
-     * 
-     * @deprecated 2.0.0
+	 *
+	 * @deprecated 2.0.0
 	 *
 	 * @return mixed
 	 */
@@ -214,11 +214,11 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return $this->get_container_price_excluding_tax( $min_or_max, $qty );
 	}
 
-    /**
+	/**
 	 * Per-Item Shipping getter.
 	 *
 	 * @since  1.2.0
-     * @deprecated 2.0.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param  string $context
 	 * @return bool
@@ -227,7 +227,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', __CLASS__ . '::get_packing_mode()' );
 		return 'separate' === $this->get_prop( 'packing_mode', $context );
 	}
-	
+
 	/**
 	 * Contained product IDs setter.
 	 *
@@ -263,11 +263,11 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		$this->set_child_items( $new_contents );
 	}
 
-    /**
+	/**
 	 * Per-Item Shipping setter.
 	 *
 	 * @since  1.2.0
-     * @deprecated 2.0.0
+	 * @deprecated 2.0.0
 	 *
 	 * @param  string  $value
 	 */
@@ -277,12 +277,12 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		$this->set_prop( 'packing_mode', $value ? 'separate' : 'together' );
 	}
 
-	
+
 	/**
 	 * Returns whether or not the product has any child product.
 	 *
 	 * @deprecated 2.0.0
-     * 
+	 *
 	 * @return bool
 	 */
 	public function has_children() {
@@ -295,7 +295,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	 * Returns whether or not the product container has any available child items.
 	 *
 	 * @deprecated 2.0.0
-     * 
+	 *
 	 * @return bool
 	 */
 	public function has_available_children() {
@@ -303,10 +303,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 		return sizeof( $this->get_child_items() );
 	}
 
-	
+
 	/**
 	 * Returns whether or not the child products are shipped separately.
-	 * 
+	 *
 	 * @deprecated 2.0.0
 	 *
 	 * @param string $context
@@ -322,7 +322,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	 *
 	 * @since  1.4.0
 	 * @deprecated 2.0.0
-     * 
+	 *
 	 * @see WC_MNM_Child_Item
 	 *
 	 * @param WC_Product $child

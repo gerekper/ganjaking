@@ -62,7 +62,8 @@ class EventFactory {
 
 		$table = Tracking::get_events_table_name();
 
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", intval( $event_id ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", intval( $event_id ) ) );
 
 		if ( ! $row ) {
 			return false;
@@ -75,6 +76,7 @@ class EventFactory {
 		}
 
 		$event = new $class_name( $row->email_log_id );
+
 		$event->set_date_created( $row->date_created );
 
 		if ( ! empty( $row->object_id ) ) {

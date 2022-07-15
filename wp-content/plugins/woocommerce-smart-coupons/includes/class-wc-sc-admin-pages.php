@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -416,7 +416,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 
 			if ( empty( $validation_error ) ) {
 				foreach ( $emails as $email ) {
-					$email = trim( $email );
+					$email = sanitize_email( $email );
 					// Check for valid email address.
 					if ( ( ! $email || ! is_email( $email ) ) ) {
 						$validation_error = 'email_error';
