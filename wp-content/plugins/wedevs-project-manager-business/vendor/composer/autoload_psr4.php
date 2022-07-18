@@ -6,7 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'WeDevs\\PM_Pro\\Modules\\' => array($baseDir . '/modules'),
     'WeDevs\\PM_Pro\\Core\\' => array($baseDir . '/core'),
     'WeDevs\\PM_Pro\\' => array($baseDir . '/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),
+    'Http\\Message\\' => array($vendorDir . '/php-http/message-factory/src'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );

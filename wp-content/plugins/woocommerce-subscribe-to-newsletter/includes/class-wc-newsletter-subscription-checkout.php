@@ -98,17 +98,10 @@ class WC_Newsletter_Subscription_Checkout {
 			return $fields;
 		}
 
-		$value = ( 'checked' === get_option( 'woocommerce_newsletter_checkbox_status' ) ? 1 : 0 );
-		$label = get_option( 'woocommerce_newsletter_label' );
-
-		if ( ! $label ) {
-			$label = _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' );
-		}
-
 		$fields['newsletter']['subscribe_to_newsletter'] = array(
 			'type'        => 'checkbox',
-			'label'       => $label,
-			'default'     => $value,
+			'label'       => wc_newsletter_subscription_get_checkbox_label(),
+			'default'     => intval( 'checked' === get_option( 'woocommerce_newsletter_checkbox_status' ) ),
 			'label_class' => array( 'woocommerce-form__label', 'woocommerce-form__label-for-checkbox' ),
 			'input_class' => array( 'woocommerce-form__input', 'woocommerce-form__input-checkbox' ),
 		);

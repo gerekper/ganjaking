@@ -456,6 +456,14 @@ class CDN extends Abstract_Module {
 				}
 
 				$this->settings->set_setting( 'wp-smush-cdn_status', $data );
+			} elseif ( empty( $status->endpoint_url ) ) {
+				$data = $this->process_cdn_status( WP_Smush::get_instance()->api()->enable( true ) );
+
+				if ( is_wp_error( $status ) ) {
+					return $status;
+				}
+
+				$this->settings->set_setting( 'wp-smush-cdn_status', $data );
 			}
 
 			$this->schedule_cron();
@@ -932,21 +940,32 @@ class CDN extends Abstract_Module {
 		$smush = WP_Smush::get_instance();
 
 		if ( isset( $status->cdn_enabling ) && $status->cdn_enabling ) {
-			$status = $this->process_cdn_status( $smush->api()->enable() );
-
-			if ( is_wp_error( $status ) ) {
-				$code = is_numeric( $status->get_error_code() ) ? $status->get_error_code() : null;
-				wp_send_json_error(
-					array(
-						'message' => $status->get_error_message(),
-					),
-					$code
-				);
-			}
-
-			$this->settings->set_setting( 'wp-smush-cdn_status', $status );
+			$new_status = $this->process_cdn_status( $smush->api()->enable() );
+		} elseif ( wp_doing_cron() ) {
+			// Verify CDN status via Cron.
+			$new_status = $this->process_cdn_status( WP_Smush::get_instance()->api()->check() );
 		}
 
+		// For ajax.
+		if ( ! isset( $new_status ) ) {
+			// At this point we already know that $status->data is valid.
+			return wp_send_json_success( $status );
+		}
+
+		// Return in case of error.
+		if ( is_wp_error( $new_status ) ) {
+			$code = is_numeric( $new_status->get_error_code() ) ? $new_status->get_error_code() : null;
+			wp_send_json_error(
+				array(
+					'message' => $new_status->get_error_message(),
+				),
+				$code
+			);
+		}
+
+		$this->settings->set_setting( 'wp-smush-cdn_status', $status );
+
+		// For ajax.
 		if ( ! wp_doing_cron() ) {
 			// At this point we already know that $status->data is valid.
 			wp_send_json_success( $status );

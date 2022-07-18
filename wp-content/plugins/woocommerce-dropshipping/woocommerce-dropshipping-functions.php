@@ -1,12 +1,56 @@
 <?php
 
+add_action('admin_head', 'my_custom_fonts');
+function my_custom_fonts() {
+    
+    if( is_user_logged_in() ) {
+        $user = wp_get_current_user();
+        $roles = ( array ) $user->roles;
+ 
+        if($roles[0] == "dropshipper"){
+            echo '<style>
+               @media (max-width: 680px){
+            #adminmenuwrap {
+                display: block!important;
+                max-width: 56px!important;
+                width: 100%!important;
+            }
+            
+            #wpcontent{
+                padding-left: 67px!important;
+            }
+            .auto-fold #adminmenu {
+                
+                max-width: 60px!important;
+            }
+            
+            .auto-fold #adminmenu .wp-menu-name {
+                position: static!important;
+                display: none!important;
+            }
+            #collapse-menu {
+                display: block !important;
+            }
+            
+            }
+            </style>';
+        }
+    }  
+}
+
 if (!function_exists('supplier_admins_mobile_menu')) {
 
-function supplier_admins_mobile_menu() {
-  wp_enqueue_style('admin-styles', plugins_url( '/assets/css/supplier_mobile_menu.css', __FILE__ ));
-}
-add_action('admin_enqueue_scripts', 'supplier_admins_mobile_menu');
-	
+    function supplier_admins_mobile_menu() {
+        if( is_user_logged_in() ) {
+            $user = wp_get_current_user();
+            $roles = ( array ) $user->roles;
+         
+            if($roles[0] == "dropshipper"){
+                wp_enqueue_style('admin-styles', plugins_url( '/assets/css/supplier_mobile_menu.css', __FILE__ ));
+            }
+        }
+    }
+    add_action('admin_enqueue_scripts', 'supplier_admins_mobile_menu');   
 }
 
 if (!function_exists('generate_aliexpress_key')) {

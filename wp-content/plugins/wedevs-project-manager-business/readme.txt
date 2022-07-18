@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, asaquzzaman, wpasikur
 Donate Link: https://tareq.co/donate/
 Tags: project, manager, project manager, project management, todo, todo list, task, basecamp, milestone, message, file, comment, client, team, tracking, planning, lists, reporting, project management plugin for wordpress, project manager, project manager plugin for wordpress, wordpress project management
 Requires at least: 4.4
-Tested up to: 5.8.1
+Tested up to: 6.0.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -120,6 +120,21 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 13. Project Settings -> Email Settings Tab
 
 == Changelog ==
+
+= v2.6.0 - July 15, 2022 =
+
+**Update:** Compatibility with PHP-8.x
+**Update:** Added Localization/Translation support for all report and Invoice PDF.
+**Update:** Updated domPdf library to mPdf supports from PHP5.6 to 8.x.
+**Fix:** Fixed Invoice and reports are not exporting as PDF.
+**Fix:** Milestone task download error if project and milestone not selected.
+
+= v2.5.13 - March 28, 2022 =
+
+**Update:** Site Logo and Name in Task Invoice PDF
+**Fix:** Woo Project module not adding role permissions accordingly
+**Fix:** Creating default Inbox while create Woo Project
+**Fix:** Some Design issue in Invoice View More option button
 
 = v2.5.12 - Nov 11, 2021 =
 

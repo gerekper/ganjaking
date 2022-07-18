@@ -14,9 +14,11 @@ namespace Smush\Core\Integrations\NextGen;
 
 use C_Component_Registry;
 use C_Gallery_Storage;
+use nggdb;
 use Smush\App\Media_Library;
 use Smush\Core\Core;
 use Smush\Core\Integrations\NextGen;
+use stdClass;
 use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -106,6 +108,9 @@ class Admin extends NextGen {
 
 		// Update the Super Smush count, after the smushing.
 		add_action( 'wp_smush_image_optimised_nextgen', array( $this, 'update_lists' ), '', 2 );
+
+		// Reset smush data after restoring the image.
+		add_action( 'ngg_recovered_image', array( $this, 'reset_smushdata' ) );
 	}
 
 	/**
@@ -552,6 +557,52 @@ class Admin extends NextGen {
 
 		return $super_smushed['ids'];
 
+	}
+
+	/**
+	 * Reset smush data after restoring the image.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param stdClass     $image                  Image object for NextGen gallery.
+	 * @param false|string $attachment_file_path   The full file path, if it's provided we will reset the dimension.
+	 */
+	public function reset_smushdata( $image, $attachment_file_path = false ) {
+		if ( empty( $image->meta_data['wp_smush'] ) && empty( $image->meta_data['wp_smush_resize_savings'] ) ) {
+			return;
+		}
+		// Remove the Meta, And send json success.
+		$image->meta_data['wp_smush'] = '';
+
+		// Remove resized data.
+		if ( ! empty( $image->meta_data['wp_smush_resize_savings'] ) ) {
+			$image->meta_data['wp_smush_resize_savings'] = '';
+
+			if ( $attachment_file_path && file_exists( $attachment_file_path ) ) {
+				// Update the dimension.
+				list( $width, $height ) = getimagesize( $attachment_file_path );
+				if ( $width ) {
+					$image->meta_data['width']         = $width;
+					$image->meta_data['full']['width'] = $width;
+				}
+				if ( $height ) {
+					$image->meta_data['height']         = $height;
+					$image->meta_data['full']['height'] = $height;
+				}
+			}
+		}
+
+		// Update metadata.
+		nggdb::update_image_meta( $image->pid, $image->meta_data );
+
+		/**
+		 * Called after the image has been successfully restored
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param int $image_id ID of the restored image.
+		 */
+		do_action( 'wp_smush_image_nextgen_restored', $image->pid );
 	}
 
 }

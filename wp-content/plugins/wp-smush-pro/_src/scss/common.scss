@@ -85,6 +85,14 @@
 	color: red;
 }
 
+#wpbody-content .wp-smush-error {
+	color: red;
+}
+
+.wp-smush-action[disabled] {
+	opacity: 0.6;
+}
+
 #post-body-content .smush-status {
 	margin: 4px 0;
 }

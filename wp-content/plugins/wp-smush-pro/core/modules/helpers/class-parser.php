@@ -43,15 +43,7 @@ class Parser {
 	 * @since 3.5.0  Moved from __construct().
 	 */
 	public function init() {
-		if ( is_admin() || is_customize_preview() ) {
-			return;
-		}
-
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return;
-		}
-
-		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		if ( is_admin() || is_customize_preview() || wp_doing_ajax() || wp_doing_cron() ) {
 			return;
 		}
 
@@ -214,6 +206,14 @@ class Parser {
 			$new_image = WP_Smush::get_instance()->core()->mod->cdn->parse_background_image( $img_src, $new_image );
 
 			$content = str_replace( $image, $new_image, $content );
+			/**
+			 * Filter the current page content after process background images.
+			 *
+			 * @param string $content Current Page content.
+			 * @param string $image   Backround Image tag without src.
+			 * @param string $img_src Image src.
+			 */
+			$content = apply_filters( 'smush_after_process_background_images', $content, $image, $img_src );
 		}
 
 		return $content;

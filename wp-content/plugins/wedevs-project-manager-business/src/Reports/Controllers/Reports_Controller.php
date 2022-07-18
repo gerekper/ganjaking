@@ -1121,7 +1121,7 @@ class Reports_Controller {
             $all_project = empty( $results['data'] ) ? '' : $results['data'][0]['title'];
         }
 
-        $milestone_title = $milestone['title'];
+        $milestone_title = isset( $milestone['title'] ) ? $milestone['title'] : '';
 
         ob_start();
             require_once pm_pro_config('define.view_path') . '/reports/milestone-tasks.php';

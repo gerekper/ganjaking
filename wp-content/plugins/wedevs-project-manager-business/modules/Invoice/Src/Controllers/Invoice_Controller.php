@@ -346,7 +346,9 @@ class Invoice_Controller {
 
     public function get_PDF( $invoice, $options = [] ) {
         $default = [
-            'stream' => true
+            'stream'               => true,
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled'      => true,
         ];
 
         $options          = wp_parse_args( $options, $default );

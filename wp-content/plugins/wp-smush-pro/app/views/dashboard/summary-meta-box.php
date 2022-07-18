@@ -44,7 +44,7 @@ if ( ! defined( 'WPINC' ) ) {
 		</span>
 		<span class="sui-summary-detail wp-smush-savings">
 			<span class="wp-smush-stats-human"><?php echo esc_html( $human_format ); ?></span> /
-			<span class="wp-smush-stats-percent"><?php echo esc_html( $percent_optimized ); ?></span>%
+			<span class="wp-smush-stats-percent"><?php echo esc_html( $stats_percent ); ?></span>%
 		</span>
 		<span class="sui-summary-sub">
 			<?php esc_html_e( 'Total Savings', 'wp-smushit' ); ?>

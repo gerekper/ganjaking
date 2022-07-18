@@ -8,8 +8,6 @@
  * Version: 1.0
  * Author URI: https://wedevs.com
  */
-use Dompdf\Dompdf;
-
 use WeDevs\PM\Core\WP\Enqueue_Scripts as PM_Scripts;
 use WeDevs\PM_Pro\Core\WP\Enqueue_Scripts as PM_Pro_Scripts;
 

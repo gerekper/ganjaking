@@ -1198,6 +1198,7 @@ class WooCommerce_Product_Search_Indexer {
 
 		$object_types = wp_cache_get( 'object_types', self::CACHE_GROUP );
 		if ( $object_types === false ) {
+			$object_types = array();
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
 			$query = "SELECT * FROM $object_type_table";
 			$rows = $wpdb->get_results( $query );

@@ -87,23 +87,12 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 			);
 		}
 
-		if ( self::should_render( 'webp' ) ) {
+		if ( self::should_render( 'cdn' ) ) {
 			$this->add_meta_box(
-				'dashboard/webp',
-				__( 'Local WebP', 'wp-smushit' ),
-				array( $this, 'local_webp_meta_box' ),
-				array( $this, 'local_webp_meta_box_header' ),
-				null,
-				'box-dashboard-left'
-			);
-		}
-
-		if ( self::should_render( 'tools' ) ) {
-			$this->add_meta_box(
-				'dashboard/tools',
-				__( 'Tools', 'wp-smushit' ),
-				array( $this, 'tools_meta_box' ),
-				null,
+				'dashboard/cdn',
+				__( 'CDN', 'wp-smushit' ),
+				array( $this, 'cdn_meta_box' ),
+				array( $this, 'cdn_meta_box_header' ),
 				null,
 				'box-dashboard-left'
 			);
@@ -145,12 +134,12 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 			);
 		}
 
-		if ( self::should_render( 'cdn' ) ) {
+		if ( self::should_render( 'webp' ) ) {
 			$this->add_meta_box(
-				'dashboard/cdn',
-				__( 'CDN', 'wp-smushit' ),
-				array( $this, 'cdn_meta_box' ),
-				array( $this, 'cdn_meta_box_header' ),
+				'dashboard/webp',
+				__( 'Local WebP', 'wp-smushit' ),
+				array( $this, 'local_webp_meta_box' ),
+				array( $this, 'local_webp_meta_box_header' ),
 				null,
 				'box-dashboard-right'
 			);
@@ -199,6 +188,7 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 			'is_local_webp'     => $this->settings->get( 'webp_mod' ),
 			'resize_count'      => ! $resize_count ? 0 : $resize_count,
 			'total_optimized'   => $core->stats['total_images'],
+			'stats_percent'     => $core->stats['percent'] > 0 ? number_format_i18n( $core->stats['percent'], 1 ) : 0,
 			'upsell_url_cdn'    => $upsell_url_cdn,
 			'upsell_url_webp'   => $upsell_url_webp,
 			'webp_configured'   => true === WP_Smush::get_instance()->core()->mod->webp->is_configured(),

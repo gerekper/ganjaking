@@ -57,12 +57,12 @@ jQuery(function ($) {
 		smushAction,
 		action
 	) {
+		e.preventDefault();
+
 		// If disabled.
 		if ( currentButton.attr( 'disabled' ) ) {
 			return;
 		}
-
-		e.preventDefault();
 
 		// Remove Error.
 		$('.wp-smush-error').remove();
@@ -92,6 +92,8 @@ jQuery(function ($) {
 
 		// Reduce the opacity of stats and disable the click.
 		disable_links(currentButton);
+
+		const oldLabel = currentButton.html();
 
 		currentButton.html(
 			'<span class="spinner wp-smush-progress">' +
@@ -132,6 +134,10 @@ jQuery(function ($) {
 					// Show error.
 					currentButton.parent().append(r.data.error_msg);
 				}
+
+				// Reset label and disable button on error.
+				currentButton.attr('disabled', true);
+				currentButton.html( oldLabel );
 			}
 		});
 	};
@@ -370,6 +376,11 @@ jQuery(function ($) {
 						'<p>' + r.data.notice + '</p>',
 						{ type, icon: 'check-tick' }
 					);
+
+					// If there is no images and the stats is changed, reload the page.
+					if ( r.data.no_images && wp_smushit_data.count_total > 0 ) {
+						window.location.reload();
+					}
 				}
 				// Hide errors.
 				$('div.smush-final-log').hide();
@@ -684,20 +695,6 @@ jQuery(function ($) {
 	$('.wp-smush-scan').on('click', function (e) {
 		e.preventDefault();
 		runRecheck(false);
-	});
-
-	//Dismiss Welcome notice
-	//@todo: Use it for popup
-	$('#wp-smush-welcome-box .smush-dismiss-welcome').on('click', function (e) {
-		e.preventDefault();
-		const $el = $(this).parents().eq(1);
-		remove_element($el);
-
-		//Send a ajax request to save the dismissed notice option
-		const param = {
-			action: 'dismiss_welcome_notice',
-		};
-		$.post(ajaxurl, param);
 	});
 
 	//Remove Notice

@@ -1464,7 +1464,18 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><label for="cost_of_goods">Show Cost instead of Sell Price?:</label></td>
                                     </tr> 
-                                </table>
+                                </table>';
+                                
+                            echo '<p></p> 
+
+                                <table> 
+                                    <tr> 
+                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_tax_split . '  /></td> 
+
+                                        <td><label for="show_gst_supplier_email">Show GST Tax Split.</label></td>
+                                    </tr> 
+                                </table>  
+                                
                             </div>';
 
                             echo '<br/><br/> 

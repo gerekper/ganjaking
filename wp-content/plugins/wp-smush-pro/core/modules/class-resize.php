@@ -452,7 +452,7 @@ class Resize extends Abstract_Module {
 	 * @return bool
 	 */
 	private function maybe_unlink( $path, $meta ) {
-		if ( empty( $path ) ) {
+		if ( empty( $path ) || ! file_exists( $path ) ) {
 			return true;
 		}
 

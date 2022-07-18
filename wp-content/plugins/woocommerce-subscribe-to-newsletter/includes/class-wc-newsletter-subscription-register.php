@@ -36,18 +36,11 @@ class WC_Newsletter_Subscription_Register {
 			return;
 		}
 
-		$value = ( 'checked' === get_option( 'woocommerce_newsletter_checkbox_status' ) ? 1 : 0 );
-		$label = get_option( 'woocommerce_newsletter_label' );
-
-		if ( ! $label ) {
-			$label = _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' );
-		}
-
 		$fields = array(
 			'subscribe_to_newsletter' => array(
 				'type'        => 'checkbox',
-				'label'       => $label,
-				'default'     => $value,
+				'label'       => wc_newsletter_subscription_get_checkbox_label(),
+				'default'     => intval( 'checked' === get_option( 'woocommerce_newsletter_checkbox_status' ) ),
 				'class'       => array( 'woocommerce-form-row', 'woocommerce-form-row--wide' ),
 				'label_class' => array( 'woocommerce-form__label', 'woocommerce-form__label-for-checkbox' ),
 				'input_class' => array( 'woocommerce-form__input', 'woocommerce-form__input-checkbox' ),
@@ -103,12 +96,8 @@ class WC_Newsletter_Subscription_Register {
 	 */
 	public function new_user_admin_email( $email, $user ) {
 		$subscribed = get_user_meta( $user->ID, 'subscribed_on_register', true );
+		$label      = wc_newsletter_subscription_get_checkbox_label();
 		$value      = wc_newsletter_subscription_bool_to_string( 'yes' === $subscribed );
-		$label      = get_option( 'woocommerce_newsletter_label' );
-
-		if ( ! $label ) {
-			$label = _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' );
-		}
 
 		$email['message'] .= "\r\n{$label}: {$value}\r\n";
 

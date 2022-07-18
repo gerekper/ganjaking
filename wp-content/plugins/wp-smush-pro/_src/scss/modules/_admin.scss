@@ -538,8 +538,10 @@
 			margin-top: 30px;
 
 			.smush-bulk-errors {
-				overflow-y: scroll;
-            	height: 200px;
+				&.overflow-box{
+					overflow-y: scroll;
+            		height: 200px;
+				}
             	padding-left: 30px;
     			padding-right: 30px;
 

@@ -1,8 +1,7 @@
 <?php
 namespace WeDevs\PM_Pro\Modules\Invoice\Core\PDF;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Mpdf\Mpdf;
 
 class PDF {
 
@@ -17,45 +16,25 @@ class PDF {
     }
 
 	public static function generator( $html, $options = [] ) {
-		self::getInstance()->load_required_files();
-
 		return self::getInstance()->render( $html, $options );
-	}
-
-	public function load_required_files() {
-		require_once pm_pro_config('define.path') . '/libs/dompdf/vendor/autoload.php';
-		require_once pm_pro_config('define.path') . '/libs/dompdf/autoload.inc.php';
 	}
 
 	public function render( $html, $options = [] ) {
 		$default = [
-			'stream'      => true,
-			'defaultFont' => 'Helvetica'
+			'default_font' => 'Helvetica',
+			'orientation'  => 'P', // P or L
+			'output'       => 'D', // I = inline, D = download, F = local file
 		];
 
 		$options = wp_parse_args( $options, $default );
-
-		// instantiate and use the dompdf class
-		$dompdf = new Dompdf();
-		$dompdf->loadHtml( $html );
-
-		// (Optional) Setup the paper size and orientation
-		$dompdf->setPaper( 'A4', 'portrait');
-
-		foreach ( $options as $key => $value) {
-			$dompdf->set_option( $key, $value );
-		}
+		$mpdf = new Mpdf( $options );
+		$mpdf->autoScriptToLang = true;
+		$mpdf->autoLangToFont = true;
+		$mpdf->shrink_tables_to_fit = 1;
+		$mpdf->WriteHTML( $html );
 
 		// Render the HTML as PDF
-		$dompdf->render();
-
-		if ( $options['stream'] === true ) {
-			// Output the generated PDF to Browser
-			$dompdf->stream();
-		} else {
-			// Output as base64
-			return $dompdf->output();
-		}
-
+        $mpdf->output( '', $options['output'] );
+        exit;
 	}
 }

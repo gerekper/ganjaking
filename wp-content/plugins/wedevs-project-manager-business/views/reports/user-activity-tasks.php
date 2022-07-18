@@ -1,82 +1,50 @@
-<div><?php echo $date; ?></div>
+<div><?php echo esc_html( $date ); ?></div>
 <br>
 <table class="pm-list-table widefat fixed striped posts">
     <thead>
         <tr>
-            <th>
-                <?php _e( 'Project', 'pm-pro' ); ?>
-            </th>
-
-            <th>
-                <?php _e( 'Co Worker', 'pm-pro'); ?>
-            </th>
-
-            <th>
-                <?php _e( 'Total Tasks', 'pm-pro'); ?>
-            </th>
+            <td><?php esc_html_e( 'Project', 'pm-pro' ); ?></td>
+            <td><?php esc_html_e( 'Co Worker', 'pm-pro' ); ?></td>
+            <td><?php esc_html_e( 'Total Tasks', 'pm-pro' ); ?></td>
         </tr>
     </thead>
 
     <tbody>
         <tr class="even">
-            <td>
-                <?php echo $all_project; ?>
-            </td>
-
-            <td>
-                <?php echo $all_user; ?>
-            </td>
-
-            <td>
-                <?php echo $total; ?>
-            </td>
+            <td><?php echo esc_html( $all_project ); ?></td>
+            <td><?php echo esc_html( $all_user ); ?></td>
+            <td><?php echo esc_html( $total ); ?></td>
         </tr>
     </tbody>
 </table>
-
-
 
 <?php
     foreach ( $results['data'] as $key => $result ) { ?>
         <br>
         <div>
             <span style="font-weight: 600;">
-                <?php  _e( 'Project title: ', 'pm-pro'  ); ?>
+                <?php esc_html_e( 'Project title: ', 'pm-pro' ); ?>
             </span>
-            <?php echo $result['title']; ?></div>
+            <?php echo esc_html( $result['title'] ); ?></div>
         <br>
         <?php
 
         foreach ( $result['task_lists']['data'] as $key => $list_results ) { ?>
             <div>
                 <span style="font-weight: 600;">
-                    <?php  _e( 'Task List title: ', 'pm-pro'  ); ?>
+                    <?php esc_html_e( 'Task List title: ', 'pm-pro' ); ?>
                 </span>
-                <?php echo $list_results['title']; ?>
+                <?php echo esc_html( $list_results['title'] ); ?>
             </div>
 
             <table class="pm-list-table widefat fixed striped posts">
                 <thead>
                     <tr>
-                        <th>
-                            <?php _e('Tasks', 'pm-pro'); ?>
-                        </th>
-
-                        <th>
-                            <?php _e('Date Between', 'pm-pro'); ?>
-                        </th>
-
-                        <th>
-                            <?php _e('Created At', 'pm-pro'); ?>
-                        </th>
-
-                        <th>
-                            <?php _e('Tracked Time','pm-pro'); ?>
-                        </th>
-
-                        <th>
-                            <?php _e('Created By', 'pm-pro'); ?>
-                        </th>
+                        <th><?php esc_html_e( 'Tasks', 'pm-pro' ); ?></th>
+                        <th><?php esc_html_e( 'Date Between', 'pm-pro' ); ?></th>
+                        <th><?php esc_html_e( 'Created At', 'pm-pro' ); ?></th>
+                        <th><?php esc_html_e( 'Tracked Time','pm-pro' ); ?></th>
+                        <th><?php esc_html_e( 'Created By', 'pm-pro' ); ?></th>
                     </tr>
                 </thead>
 
@@ -92,35 +60,21 @@
                     } else {
                         $trackd_time = '00:00:00';
                     }
-
                     ?>
-
                     <tbody>
                         <tr class="<?php echo $key % 2 == 0 ? 'even' : 'odd'; ?>">
-                            <td>
-                                <?php echo $task['title']; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $date_between; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $created_at; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $trackd_time; ?>
-                            </td>
-
-                            <td>
-                                <?php echo $creator; ?>
-                            </td>
+                            <td><?php echo esc_html( $task['title'] ); ?></td>
+                            <td><?php echo esc_html( $date_between ); ?></td>
+                            <td><?php echo esc_html( $created_at ); ?></td>
+                            <td><?php echo esc_html( $trackd_time ); ?></td>
+                            <td><?php echo esc_html( $creator ); ?></td>
                         </tr>
-                    </tbody><?php
+                    </tbody>
+                    <?php
                 }
                 ?>
-            </table><br>
+            </table>
+            <br>
             <?php
         }
     }

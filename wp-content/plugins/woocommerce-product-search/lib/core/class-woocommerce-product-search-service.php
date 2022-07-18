@@ -2080,7 +2080,8 @@ class WooCommerce_Product_Search_Service {
 	 *
 	 * @return int hit_id if it was recorded (null otherwise, also when it was previously recorded)
 	 */
-	private static function maybe_record_hit( $search_query, $count ) {
+	public static function maybe_record_hit( $search_query, $count ) {
+
 		$hit_id = null;
 		if ( self::$maybe_record_hit ) {
 			if ( self::record_hit() ) {

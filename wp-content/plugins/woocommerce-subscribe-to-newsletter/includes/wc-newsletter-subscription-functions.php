@@ -265,13 +265,13 @@ add_action( 'wc_newsletter_subscription_failed', 'wc_newsletter_subscription_ema
 function wc_newsletter_subscription_process_widget() {
 	check_ajax_referer( 'wc_subscribe_to_newsletter_widget' );
 
-	$list_id = ( ! empty( $_POST['list_id'] ) ? wc_clean( wp_unslash( $_POST['list_id'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+	$list_id = ( ! empty( $_POST['list_id'] ) ? wc_clean( wp_unslash( $_POST['list_id'] ) ) : '' );
 
 	if ( ! $list_id ) {
 		wp_send_json_error( array( 'message' => _x( 'An unexpected error happened.', 'widget error', 'woocommerce-subscribe-to-newsletter' ) ) );
 	}
 
-	$email = ( ! empty( $_POST['newsletter_email'] ) ? wc_clean( wp_unslash( $_POST['newsletter_email'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+	$email = ( ! empty( $_POST['newsletter_email'] ) ? wc_clean( wp_unslash( $_POST['newsletter_email'] ) ) : '' );
 
 	if ( ! $email || ! is_email( $email ) ) {
 		wp_send_json_error( array( 'message' => _x( 'Please, enter a valid email address.', 'widget error', 'woocommerce-subscribe-to-newsletter' ) ) );
@@ -302,7 +302,7 @@ function wc_newsletter_subscription_process_widget() {
 	foreach ( array( 'name', 'first_name', 'last_name' ) as $key ) {
 		$field_key = "newsletter_{$key}";
 
-		$name_fields[ $key ] = ( ! empty( $_POST[ $field_key ] ) ? wc_clean( wp_unslash( $_POST[ $field_key ] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+		$name_fields[ $key ] = ( ! empty( $_POST[ $field_key ] ) ? wc_clean( wp_unslash( $_POST[ $field_key ] ) ) : '' );
 	}
 
 	// Split the name into two parts.
@@ -467,4 +467,21 @@ function wc_newsletter_subscription_get_checkout_location_choices() {
  */
 function wc_newsletter_subscription_bool_to_string( $value ) {
 	return ( wc_string_to_bool( $value ) ? __( 'Yes', 'woocommerce-subscribe-to-newsletter' ) : __( 'No', 'woocommerce-subscribe-to-newsletter' ) );
+}
+
+/**
+ * Gets the label for the subscription checkbox field.
+ *
+ * @since 3.4.0
+ *
+ * @return string
+ */
+function wc_newsletter_subscription_get_checkbox_label() {
+	$label = get_option( 'woocommerce_newsletter_label' );
+
+	if ( ! $label ) {
+		$label = _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' );
+	}
+
+	return $label;
 }

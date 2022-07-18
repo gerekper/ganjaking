@@ -217,8 +217,9 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * @param string $option_key Option key name.
 		 */
 		public function __construct( $option, $option_key ) {
+			$this->option_key = $this->get_option_key( $option_key );
 
-			$this->parse_option( $option, $option_key );
+			$this->parse_option( $option );
 
 			// disable for empty option.
 			if ( ! empty( $option ) ) {
@@ -459,9 +460,6 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 						$this->delete( $module );
 					}
 				}
-
-				// delete option.
-				delete_site_option( $this->option_key );
 			}
 		}
 
@@ -542,8 +540,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 				$this->modules[ $this->current_module ][ $level_type ] = $level;
 				$this->{$level_type}                                   = $level;
 			}
-			// Save option.
-			$this->save_option();
+
 			return $level;
 		}
 
@@ -622,11 +619,9 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 *
 		 * @access private
 		 *
-		 * @param array  $option Logger option.
-		 * @param string $option_key Option key name.
-		 * @param bool   $force Parse the option without check from the cache.
+		 * @param array $option Logger option.
 		 */
-		private function parse_option( $option, $option_key, $force = false ) {
+		private function parse_option( $option ) {
 			// Default settings.
 			$this->option = array(
 				'use_native_filesystem_api'    => true,
@@ -636,37 +631,8 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 				'add_subsite_dir'              => true,
 				'modules'                      => array(),
 			);
-			if ( $force ) {
-				$cached_option = false;
-			} else {
-				// Try to get from the cache.
-				$cached_option = get_site_option( self::get_option_key( $option_key ) );
-				if ( $cached_option ) {
-					// set option.
-					if ( ! empty( $cached_option['option'] ) ) {
-						$this->option = $cached_option['option'];
-					} else {
-						$cached_option = array();
-					}
-					// set modules.
-					if ( ! empty( $cached_option['modules'] ) ) {
-						$this->modules = $cached_option['modules'];
-					} else {
-						$cached_option = array();
-					}
-
-					// set current module.
-					if ( ! empty( $cached_option['global_module'] ) && isset( $this->modules[ $cached_option['global_module'] ] ) ) {
-						$this->current_module          = $cached_option['global_module'];
-						$this->option['global_module'] = $this->current_module;
-					} else {
-						$cached_option = array();
-					}
-				}
-			}
-
 			// Parse option, don't parse the option is empty.
-			if ( ! empty( $option ) && ( $force || ! $cached_option ) ) {
+			if ( ! empty( $option ) ) {
 				$option = wp_parse_args( $option, $this->option );
 				if ( empty( $option['modules'] ) ) {
 					// Default module.
@@ -692,8 +658,11 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 						$this->current_module = $module_slug;
 					}
 
-					$module_option = wp_parse_args( $module_option, $this->option );
-					array_walk( $module_option, array( $this, 'sanitize_option' ) );
+					if ( ! empty( $module_option ) ) {
+						$module_option = wp_parse_args( $module_option, $this->option );
+						array_walk( $module_option, array( $this, 'sanitize_option' ) );
+					}
+
 					if ( empty( $module_option['name'] ) ) {
 						$module_option['name'] = str_replace( '_', '-', $module_slug );
 					}
@@ -707,28 +676,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 					$this->current_module   = 'index';
 				}
 				$this->option['global_module'] = $this->current_module;
-
-				// Save option to DB.
-				$this->save_option();
 			}
-		}
-
-		/**
-		 * Save option.
-		 *
-		 * @access private
-		 *
-		 * @return boolean True on success, false on failure
-		 */
-		private function save_option() {
-			return update_site_option(
-				$this->option_key,
-				array(
-					'option'        => $this->option,
-					'modules'       => $this->modules,
-					'global_module' => $this->current_module,
-				)
-			);
 		}
 
 		/**
@@ -1327,6 +1275,15 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Create nonce for Ajax action 'wdev_logger_action'
+		 *
+		 * @return string The token
+		 */
+		public function create_nonce() {
+			return wp_create_nonce( $this->get_log_action_name() );
 		}
 
 	}

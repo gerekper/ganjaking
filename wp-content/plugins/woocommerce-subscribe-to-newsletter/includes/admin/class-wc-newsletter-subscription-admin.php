@@ -182,7 +182,7 @@ class WC_Newsletter_Subscription_Admin {
 			$row_meta = array(
 				'docs' => sprintf(
 					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://docs.woocommerce.com/document/newsletter-subscription/' ),
+					esc_url( 'https://woocommerce.com/document/newsletter-subscription/' ),
 					esc_attr_x( 'View WooCommerce Newsletter Subscription Documentation', 'aria-label: documentation link', 'woocommerce-subscribe-to-newsletter' ),
 					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-subscribe-to-newsletter' )
 				),

@@ -1,5 +1,9 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-07-14 - version 4.1
+* PLUGINS-1475 - Additional columns in packingslip added in latest release.
+* PLUGINS-1444 - Fix Mobile menu.
+
 2022-03-31 - version 4.0
 * PLUGINS-1251 - Add link to suppliers email notification directing to "Order list page" of the supplier's dashboard.
 * PLUGINS-1246 - Fix Other shipping and billing details have changed.

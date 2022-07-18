@@ -283,40 +283,6 @@ class Smush {
 	}
 
 	/**
-	 * Set pro savings stats if not premium user.
-	 *
-	 * For non-premium users, show expected average savings based
-	 * on the free version savings.
-	 */
-	static setProSavings() {
-		// Default values.
-		let savings =
-				wp_smushit_data.savings_percent > 0
-					? wp_smushit_data.savings_percent
-					: 0,
-			savingsBytes =
-				wp_smushit_data.savings_bytes > 0
-					? wp_smushit_data.savings_bytes
-					: 0,
-			origDiff = 2.22058824;
-
-		if ( savings > 49 ) {
-			origDiff = 1.22054412;
-		}
-
-		// Calculate Pro savings.
-		if ( savings > 0 ) {
-			savings = origDiff * savings;
-			savingsBytes = origDiff * savingsBytes;
-		}
-
-		wp_smushit_data.pro_savings = {
-			percent: WP_Smush.helpers.precise_round( savings, 1 ),
-			savings_bytes: WP_Smush.helpers.formatBytes( savingsBytes, 1 ),
-		};
-	}
-
-	/**
 	 * Get total images left to optimize.
 	 *
 	 * @see get_total_images_to_smush() in Abstract_Summary_Page class.
@@ -351,7 +317,9 @@ class Smush {
 		const totalImages = parseInt( wp_smushit_data.count_total );
 
 		if ( totalImages === totalImagesToSmush ) {
-			grade = 'sui-grade-f';
+			if ( totalImages > 0 ) {
+				grade = 'sui-grade-f';
+			}
 			percentMetric = 100;
 		} else if ( 0 < totalImages ) {
 			percentOptimized = Math.floor( ( totalImages - totalImagesToSmush ) * 100 / totalImages );
@@ -390,7 +358,6 @@ class Smush {
 	 */
 	static updateStats( scanType ) {
 		const isNextgen = 'undefined' !== typeof scanType && 'nextgen' === scanType;
-		let superSavings = 0;
 
 		// Calculate updated savings in bytes.
 		wp_smushit_data.savings_bytes = parseInt( wp_smushit_data.size_before ) - parseInt( wp_smushit_data.size_after );
@@ -416,15 +383,6 @@ class Smush {
 		if ( ! isNaN( wp_smushit_data.savings_percent ) ) {
 			jQuery( '.wp-smush-savings .wp-smush-stats-percent' )
 				.html( wp_smushit_data.savings_percent );
-		}
-
-		// Super-Smush savings.
-		if ( 'undefined' !== typeof wp_smushit_data.savings_bytes && 'undefined' !== typeof wp_smushit_data.savings_resize ) {
-			superSavings = parseInt( wp_smushit_data.savings_bytes ) - parseInt( wp_smushit_data.savings_resize );
-			if ( superSavings > 0 ) {
-				jQuery( 'li.super-smush-attachments span.smushed-savings' )
-					.html( WP_Smush.helpers.formatBytes( superSavings, 1 ) );
-			}
 		}
 
 		// Update image count.
@@ -483,8 +441,6 @@ class Smush {
 				);
 			}
 		}
-
-		Smush.setProSavings();
 	}
 
 	/**
@@ -931,7 +887,10 @@ class Smush {
 
 					// Print the error on screen.
 					self.log.find( '.smush-bulk-errors' ).append( errorMsg );
-					jQuery( '.smush-bulk-errors-actions' ).removeClass( 'sui-hidden' );
+					if ( self.errors.length > 4 ) {
+						self.log.find( '.smush-bulk-errors' ).addClass('overflow-box');
+						jQuery( '.smush-bulk-errors-actions' ).removeClass( 'sui-hidden' );
+					}
 				} else if (
 					'undefined' !== typeof res.success &&
 					res.success

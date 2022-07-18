@@ -84,7 +84,7 @@ class WC_Newsletter_Subscription_Privacy extends WC_Abstract_Privacy {
 		$provider = wc_newsletter_subscription_get_provider();
 		$info     = array(
 			'name'        => 'WooCommerce',
-			'privacy_url' => 'https://docs.woocommerce.com/document/marketplace-privacy/',
+			'privacy_url' => 'https://woocommerce.com/document/marketplace-privacy/',
 		);
 
 		if ( $provider ) {

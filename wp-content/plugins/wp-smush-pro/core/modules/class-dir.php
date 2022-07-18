@@ -72,7 +72,7 @@ class Dir extends Abstract_Module {
 		 *
 		 * This needs to be before self::should_continue so that the request from network admin is processed.
 		 */
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			if ( ! $this->scanner ) {
 				$this->scanner = new Helpers\DScanner();
 			}
@@ -143,7 +143,7 @@ class Dir extends Abstract_Module {
 	 * @return bool True/False, whether to display the Directory smush or not
 	 */
 	public static function should_continue() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_SERVER['HTTP_REFERER'] ) && preg_match( '#^' . network_admin_url() . '#i', wp_unslash( $_SERVER['HTTP_REFERER'] ) ) ) { // Input var ok.
+		if ( Settings::is_ajax_network_admin() ) {
 			return true;
 		}
 

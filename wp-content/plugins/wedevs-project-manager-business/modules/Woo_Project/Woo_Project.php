@@ -10,6 +10,7 @@
  */
 
 use WeDevs\PM\Common\Models\Meta;
+use WeDevs\PM\Project\Controllers\Project_Controller;
 use WeDevs\PM\Project\Models\Project;
 use WeDevs\PM\User\Models\User_Role;
 use WeDevs\PM_Pro\Duplicate\Controllers\Duplicate;
@@ -171,6 +172,7 @@ class Woo_Project {
     }
 
     public function create_project ( $order_id, $order_info, $setting, $client_id ) {
+        global $wpdb;
 
         $meta = Meta::firstOrCreate([
             'entity_id'     => $order_id,
@@ -185,12 +187,32 @@ class Woo_Project {
                 'description'   =>'',
             ]);
 
+            // Create list inbox when create a project.
+		    ( new Project_Controller() )->create_list_inbox( $project->id );
+
+            $role_project_id = null;
+
             if ( ! empty( intval( $project->id ) ) ) {
                 User_Role::firstOrCreate([
                     'user_id'    => $client_id,
                     'role_id'    => 3,
                     'project_id' => $project->id,
                 ]);
+
+                // Insert into role project.
+                $wpdb->insert(
+                    $wpdb->prefix . 'pm_role_project',
+                    [
+                        'role_id'    => 3,
+                        'project_id' => $project->id,
+                    ],
+                    [
+                        '%d',
+                        '%d',
+                    ]
+                );
+
+                $role_project_id = $wpdb->insert_id;
             }
 
             if ( !empty($setting['assignees']) && is_array($setting['assignees']) ){
@@ -200,6 +222,21 @@ class Woo_Project {
                         'role_id'    => $assignee['role_id'],
                         'project_id' => $project->id,
                     ]);
+
+                    // Insert into role project users.
+                    if ( ! empty( $role_project_id ) ) {
+                        $wpdb->insert(
+                            $wpdb->prefix . 'pm_role_project_users',
+                            [
+                                'role_project_id' => $role_project_id,
+                                'user_id'         => $assignee['user_id'],
+                            ],
+                            [
+                                '%d',
+                                '%d',
+                            ]
+                        );
+                    }
                 }
             }
             $meta->project_id = $project->id;
@@ -214,7 +251,7 @@ class Woo_Project {
         if( $woop == '1' )
         {
             $project = get_post($project_id) ;
-            CPM_Project::getInstance()->update_user_role( $project_id,   $project->post_author, 'client' )  ;
+            CPM_Project::getInstance()->update_user_role( $project_id, $project->post_author, 'client' )  ;
         }
     }
 

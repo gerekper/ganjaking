@@ -56,7 +56,7 @@ if ( 0 === absint( $core->total_count ) ) {
 <div class="smush-final-log sui-hidden">
 	<div class="smush-bulk-errors"></div>
 	<div class="smush-bulk-errors-actions sui-hidden">
-		<a href="<?php echo esc_url( apply_filters( 'smush_unsmushed_media_filter_url', admin_url( 'upload.php?smush-filter=unsmushed' ) ) ); ?>" class="sui-button sui-button-ghost">
+		<a href="<?php echo esc_url( apply_filters( 'smush_unsmushed_media_filter_url', admin_url( 'upload.php?mode=list&attachment-filter=post_mime_type:image&smush-filter=unsmushed' ) ) ); ?>" class="sui-button sui-button-ghost">
 			<i class="sui-icon-photo-picture" aria-hidden="true"></i>
 			<?php esc_html_e( 'View all in media library', 'wp-smushit' ); ?>
 		</a>

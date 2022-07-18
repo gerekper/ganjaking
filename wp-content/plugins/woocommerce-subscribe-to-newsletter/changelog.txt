@@ -1,5 +1,17 @@
 *** Subscribe to Newsletter Changelog ***
 
+2022-07-14 - version 3.5.0
+* Feature - New provider: ActiveCampaign.
+* Tweak - Delete Sendinblue credentials on plugin delete.
+* Tweak - Tested compatibility up to WC 6.7.
+
+2022-05-23 - version 3.4.0
+* Feature - New provider: Sendinblue.
+* Tweak - Tested compatibility with WP 6.0.
+
+2022-04-27 - version 3.3.6
+* Tweak - Tested compatibility up to WC 6.5.
+
 2022-01-05 - version 3.3.5
 * Feature - Include in the email sent to the admin whether the user was subscribed during registration.
 * Tweak - Tested compatibility with WC 6.1.

@@ -278,6 +278,7 @@
     display: block;
     overflow: hidden;
     position: relative;
+    min-height: 80vh;
 }
  .pm .metabox-holder h2.hndle {
     font-size: 14px;

@@ -86,7 +86,7 @@ trait WC_Newsletter_Subscription_Provider_API_Key {
 		 *
 		 * The dynamic portion of the hook name, $this->id, refers to the provider ID.
 		 *
-		 * @since {since}
+		 * @since 3.0.0
 		 *
 		 * @param array  $args The request arguments.
 		 * @param string $url  The request URL.

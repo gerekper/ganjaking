@@ -166,6 +166,15 @@ class S3 extends Abstract_Integration {
 		}
 	}
 
+	/**
+	 * Disable module functionality if not PRO.
+	 *
+	 * @return bool
+	 */
+	public function setting_status() {
+		return ! WP_Smush::is_pro() ? true : ! $this->enabled;
+	}
+
 	/**************************************
 	 *
 	 * OVERWRITE PARENT CLASS FUNCTIONALITY

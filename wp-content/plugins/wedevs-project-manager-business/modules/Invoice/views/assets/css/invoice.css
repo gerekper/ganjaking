@@ -1,3 +1,9 @@
+.pm-header-area {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
 .pm-table {
   width: 100%;
   margin-bottom: 18px;
@@ -383,13 +389,12 @@ ul.pm-attachments li {
 .pmi-single-invoice .pmi-single-more-sub {
   position: absolute;
   background: #000;
-  right: -22px;
   top: 44px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  box-shadow: 0 0 2px 1px #E0E0E0;
-  width: 160%;
+  box-shadow: 0 0 2px 1px #e0e0e0;
+  width: 140px;
 }
 .pmi-single-invoice .pmi-single-more-sub a {
   display: block;
@@ -401,7 +406,7 @@ ul.pm-attachments li {
 }
 .pmi-single-invoice .pmi-single-more-sub:after {
   bottom: 100%;
-  left: 50%;
+  left: 20%;
   border: solid transparent;
   content: " ";
   height: 0;
@@ -411,7 +416,6 @@ ul.pm-attachments li {
   border-color: rgba(136, 183, 213, 0);
   border-bottom-color: #000;
   border-width: 12px;
-  margin-left: -12px;
 }
 .pmi-single-invoice .pmi-clear {
   clear: both;
@@ -1205,7 +1209,6 @@ ul.pm-attachments li {
   border: 2px solid #009801;
   padding: 5px 20px;
   color: #009801;
-
 }
 
 .pm-pro-invoice-status .pm-pro-invoice-status-unpaid {
@@ -1213,7 +1216,6 @@ ul.pm-attachments li {
   border: 2px solid #cc0000;
   padding: 5px 20px;
   color: #cc0000;
-
 }
 
 .pm-pro-invoice-status .pm-pro-invoice-status-partial {

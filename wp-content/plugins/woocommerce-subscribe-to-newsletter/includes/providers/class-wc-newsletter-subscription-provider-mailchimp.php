@@ -215,7 +215,7 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 	 */
 	public function subscribe( $list, $subscriber ) {
 		$email  = $subscriber->get_email();
-		$fields = apply_filters(
+		$fields = apply_filters( // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
 			'wc_mailchimp_subscribe_vars',
 			array(
 				'FNAME' => $subscriber->get_first_name(),
@@ -265,6 +265,7 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 			/**
 			 * Filters the arguments of a Mailchimp API request.
 			 *
+			 * @since 2.3.11
 			 * @deprecated 3.0.0 Use `wc_newsletter_subscription_mailchimp_api_request_args` instead.
 			 *
 			 * @param array  $args   The request arguments.

@@ -38,9 +38,32 @@ class Avada {
 		if ( $cdn->is_active() ) {
 			$this->cdn = $cdn;
 			add_filter( 'smush_cdn_bg_image_tag', array( $this, 'replace_cdn_links' ) );
+
+			if ( defined( 'FUSION_BUILDER_PLUGIN_DIR' ) ) {
+				add_filter( 'smush_after_process_background_images', array( $this, 'smush_cdn_image_replaced' ), 10, 3 );
+			}
 		}
 	}
 
+	/**
+	 * Replace all the image src with cdn link.
+	 *
+	 * @param string $content Content of the current post.
+	 * @param string $image   Backround Image tag without src.
+	 * @param string $img_src Image src.
+	 * @return string
+	 */
+	public function smush_cdn_image_replaced( $content, $image, $img_src ) {
+		if ( $this->cdn->is_supported_path( $img_src ) ) {
+			$new_src = $this->cdn->generate_cdn_url( $img_src );
+
+			if ( $new_src ) {
+				$content = str_replace( $img_src, $new_src, $content );
+			}
+		}
+
+		return $content;
+	}
 
 	/**
 	 * Replace images from data-bg-url with CDN links.

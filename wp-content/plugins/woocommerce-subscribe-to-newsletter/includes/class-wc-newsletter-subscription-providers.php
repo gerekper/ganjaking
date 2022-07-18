@@ -31,13 +31,15 @@ class WC_Newsletter_Subscription_Providers {
 	 */
 	public static function register_providers() {
 		$providers = array(
-			'activetrail' => 'WC_Newsletter_Subscription_Provider_ActiveTrail',
-			'cmonitor'    => 'WC_Newsletter_Subscription_Provider_Campaign_Monitor',
-			'mailchimp'   => 'WC_Newsletter_Subscription_Provider_Mailchimp',
-			'mailerlite'  => 'WC_Newsletter_Subscription_Provider_Mailerlite',
-			'mailpoet'    => 'WC_Newsletter_Subscription_Provider_Mailpoet',
-			'mailpoet_3'  => 'WC_Newsletter_Subscription_Provider_Mailpoet_3',
-			'sendgrid'    => 'WC_Newsletter_Subscription_Provider_Sendgrid',
+			'activecampaign' => 'WC_Newsletter_Subscription_Provider_ActiveCampaign',
+			'activetrail'    => 'WC_Newsletter_Subscription_Provider_ActiveTrail',
+			'cmonitor'       => 'WC_Newsletter_Subscription_Provider_Campaign_Monitor',
+			'mailchimp'      => 'WC_Newsletter_Subscription_Provider_Mailchimp',
+			'mailerlite'     => 'WC_Newsletter_Subscription_Provider_Mailerlite',
+			'mailpoet'       => 'WC_Newsletter_Subscription_Provider_Mailpoet',
+			'mailpoet_3'     => 'WC_Newsletter_Subscription_Provider_Mailpoet_3',
+			'sendgrid'       => 'WC_Newsletter_Subscription_Provider_Sendgrid',
+			'sendinblue'     => 'WC_Newsletter_Subscription_Provider_Sendinblue',
 		);
 
 		/**

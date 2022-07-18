@@ -157,6 +157,10 @@ class Installer {
 				self::upgrade_3_10_0();
 			}
 
+			if ( version_compare( $version, '3.10.3', '<' ) ) {
+				self::upgrade_3_10_3();
+			}
+
 			// Create/upgrade directory smush table.
 			self::directory_smush_table();
 
@@ -282,6 +286,24 @@ class Installer {
 			}
 
 			add_site_option( 'wp-smush-show_upgrade_modal', true );
+		}
+	}
+
+	/**
+	 * Upgrade 3.10.3
+	 *
+	 * @since 3.10.3
+	 *
+	 * @return void
+	 */
+	private static function upgrade_3_10_3() {
+		delete_site_option( 'wp-smush-hide_smush_welcome' );
+		// Logger options.
+		delete_site_option( 'wdev_logger_wp-smush-pro' );
+		delete_site_option( 'wdev_logger_wp-smushit' );
+		// Clean old cronjob (missing callback).
+		if ( wp_next_scheduled( 'wdev_logger_clear_logs' ) ) {
+			wp_clear_scheduled_hook( 'wdev_logger_clear_logs' );
 		}
 	}
 }

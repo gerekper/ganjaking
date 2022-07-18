@@ -104,7 +104,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 */
 	public function get_form_fields() {
 		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->plugin_id . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->plugin_id . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -371,7 +371,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 */
 	public function sanitized_fields( $settings ) {
 		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->plugin_id . $this->id, $settings );
+		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->plugin_id . $this->id, $settings ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**

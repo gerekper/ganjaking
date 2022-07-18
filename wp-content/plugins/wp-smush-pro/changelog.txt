@@ -6,6 +6,21 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.10.3 ( 2022-07-14 ) =
+
+- Enhance: CDN activation process
+- Enhance: Improve media library image filters
+- Enhance: CDN compatibility with Avada theme
+- Enhance: Add notice about disabled folders in directory Smush module
+- Fix: Errors table UI on bulk smush page
+- Fix: Bulk smush UI when images have been removed when page was already loaded
+- Fix: Cron job of logger library not running properly
+- Fix: Remove tools meta box from dashboard page
+- Fix: Recover image from NextGen Gallery button does not reset Smush data
+- Fix: Image dimensions meta does not reset after restoring a resized image in NextGen Gallery
+- Fix: Incorrect percent of total savings on Dashboard page
+- Fix: Pro feature enable/disable toggles are clickable in free version
+
 = 3.10.2 ( 2022-06-16 ) =
 
 - Enhance: Data processing
@@ -103,4 +118,4 @@ Change Log:
 
 
 
-941105-1655388381-au
+941105-1657823682-au

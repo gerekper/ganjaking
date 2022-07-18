@@ -62,7 +62,7 @@ class Admin {
 		// Add information to privacy policy page (only during creation).
 		add_action( 'admin_init', array( $this, 'add_policy' ) );
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			$this->ajax = new Ajax();
 		}
 

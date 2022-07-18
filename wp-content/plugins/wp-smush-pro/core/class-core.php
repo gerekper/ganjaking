@@ -80,13 +80,6 @@ class Core extends Stats {
 	);
 
 	/**
-	 * Attachment IDs.
-	 *
-	 * @var array $attachments
-	 */
-	public $attachments = array();
-
-	/**
 	 * Attachment IDs which are smushed.
 	 *
 	 * @var array $smushed_attachments
@@ -224,6 +217,9 @@ class Core extends Stats {
 		new Integrations\Gravity_Forms();
 		new Integrations\Envira( $this->mod->cdn );
 		new Integrations\Avada( $this->mod->cdn );
+
+		// Register logger to schedule cronjob.
+		Helper::logger();
 	}
 
 	/**
@@ -337,8 +333,15 @@ class Core extends Stats {
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );
 
+		if ( 'toplevel_page_smush' === $current_screen->id ) {
+			$slug = 'dashboard';
+		} else {
+			$slug = explode( 'page_smush-', $current_screen->id );
+			$slug = isset( $slug[1] ) ? $slug[1] : false;
+		}
+
 		// Load the stats on selected screens only.
-		if ( false !== strpos( $current_screen->id, 'page_smush' ) ) {
+		if ( $slug && isset( WP_Smush::get_instance()->admin()->pages[ $slug ] ) && method_exists( WP_Smush::get_instance()->admin()->pages[ $slug ], 'dashboard_summary_meta_box' ) ) {
 			// Get resmush list, If we have a resmush list already, localize those IDs.
 			$resmush_ids = get_option( 'wp-smush-resmush-list' );
 			if ( $resmush_ids ) {
@@ -384,7 +387,6 @@ class Core extends Stats {
 				'savings_resize'     => '',
 				'savings_conversion' => '',
 				'savings_supersmush' => '',
-				'pro_savings'        => '',
 			);
 		}
 

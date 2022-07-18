@@ -5,7 +5,7 @@
  * Description: Premium version of WordPress Project Manager.
  * Author: weDevs
  * Author URI: https://wedevs.com
- * Version: 2.5.12
+ * Version: 2.6.0
  * Text Domain: pm-pro
  * Domain Path: /languages
  * License: GPL2

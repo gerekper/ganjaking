@@ -1,6 +1,6 @@
 # WDEV Logger #
 
-WPMUDEV Logger - A simple logger module.
+WPMU DEV Logger - A simple logger module.
 
 It's created based on Hummingbird\Core\Logger.
 This logger lib will handle the old messages based on the expected size.
@@ -131,7 +131,7 @@ function wpmudev_logger_ajax() {
 /**
  * Cleanup.
  */
-WDEV_Logger::create_from_option( $your_plugin_key_or_null )->cleanup();
+$logger->cleanup();
 
 // End.
 ```

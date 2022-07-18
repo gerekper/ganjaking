@@ -10,7 +10,6 @@ namespace Smush\Core;
 
 use stdClass;
 use WP_Query;
-use WP_Smush;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -29,7 +28,7 @@ class Stats {
 	public $stats;
 
 	/**
-	 * Smushed attachments from selected directories.
+	 * Compressed attachments from selected directories.
 	 *
 	 * @var array $dir_stats
 	 */
@@ -48,6 +47,13 @@ class Stats {
 	 * @var int $max_rows
 	 */
 	private $max_rows;
+
+	/**
+	 * Attachment IDs.
+	 *
+	 * @var array $attachments
+	 */
+	public $attachments = array();
 
 	/**
 	 * Protected init class, used in child methods instead of constructor.
@@ -116,9 +122,6 @@ class Stats {
 		if ( ! $this->super_smushed ) {
 			$this->super_smushed = count( $this->get_super_smushed_attachments() );
 		}
-
-		// Set pro savings.
-		$this->set_pro_savings();
 
 		// Get skipped attachments.
 		$this->skipped_attachments = $this->skipped_count( $force_update );
@@ -643,46 +646,6 @@ class Stats {
 	}
 
 	/**
-	 * Set pro savings stats if not premium user.
-	 *
-	 * For non-premium users, show expected average savings based
-	 * on the free version savings.
-	 */
-	public function set_pro_savings() {
-		// No need this already premium.
-		if ( WP_Smush::is_pro() ) {
-			return;
-		}
-
-		// Initialize.
-		$this->stats['pro_savings'] = array(
-			'percent' => 0,
-			'savings' => 0,
-		);
-
-		// Default values.
-		$savings       = $this->stats['percent'] > 0 ? $this->stats['percent'] : 0;
-		$savings_bytes = $this->stats['human'] > 0 ? $this->stats['bytes'] : '0';
-		$orig_diff     = 2.22058824;
-		if ( ! empty( $savings ) && $savings > 49 ) {
-			$orig_diff = 1.22054412;
-		}
-		// Calculate Pro savings.
-		if ( ! empty( $savings ) ) {
-			$savings       = $orig_diff * $savings;
-			$savings_bytes = $orig_diff * $savings_bytes;
-		}
-
-		// Set pro savings in global stats.
-		if ( $savings > 0 ) {
-			$this->stats['pro_savings'] = array(
-				'percent' => number_format_i18n( $savings, 1 ),
-				'savings' => size_format( $savings_bytes, 1 ),
-			);
-		}
-	}
-
-	/**
 	 * Smush and Resizing Stats Combined together.
 	 *
 	 * @param array $smush_stats     Smush stats.
@@ -790,7 +753,7 @@ class Stats {
 		$stats = get_option( 'smush_global_stats' );
 
 		// Remove id from global stats stored in db.
-		if ( ! $force_update && $stats && ! empty( $stats ) && isset( $stats['size_before'] ) ) {
+		if ( ! $force_update && ! empty( $stats ) && isset( $stats['size_before'] ) ) {
 			if ( isset( $stats['id'] ) ) {
 				unset( $stats['id'] );
 			}
@@ -816,7 +779,7 @@ class Stats {
 		while ( $query_next ) {
 			$global_data = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key=%s LIMIT %d, %d",
+					"SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key=%s LIMIT %d, %d",
 					Modules\Smush::$smushed_meta_key,
 					$offset,
 					$this->query_limit
@@ -970,7 +933,7 @@ class Stats {
 		}
 
 		global $wpdb;
-		$images = $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='wp-smush-ignore-bulk'" ); // Db call ok.
+		$images = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='wp-smush-ignore-bulk'" ); // Db call ok.
 		wp_cache_set( 'skipped_images', $images, 'wp-smush' );
 
 		return $images;

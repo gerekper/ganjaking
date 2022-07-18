@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.3.5\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.5.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-05T15:20:58+00:00\n"
+"POT-Creation-Date: 2022-07-14T14:39:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-subscribe-to-newsletter\n"
 
 #. Plugin Name of the plugin
@@ -119,9 +119,7 @@ msgid "Subscription Settings"
 msgstr ""
 
 #: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:115
-#: includes/class-wc-newsletter-subscription-checkout.php:105
-#: includes/class-wc-newsletter-subscription-register.php:43
-#: includes/class-wc-newsletter-subscription-register.php:110
+#: includes/wc-newsletter-subscription-functions.php:483
 msgctxt "subscription checkbox label"
 msgid "Subscribe to our newsletter"
 msgstr ""
@@ -213,12 +211,14 @@ msgid "The credentials are not valid."
 msgstr ""
 
 #: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:438
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:98
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:91
 #: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:118
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:91
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet-3.php:61
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:61
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:91
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:97
 msgid "Select a list..."
 msgstr ""
 
@@ -269,6 +269,7 @@ msgstr ""
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:169
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:160
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:150
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:193
 msgid "Total subscribers"
 msgstr ""
 
@@ -541,6 +542,54 @@ msgctxt "widget submit"
 msgid "Subscribe"
 msgstr ""
 
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:76
+msgctxt "setting title"
+msgid "ActiveCampaign API URL"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:77
+msgctxt "setting desc"
+msgid "You can obtain your API URL by logging in to your ActiveCampaign account."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:78
+msgctxt "setting desc"
+msgid "Enter your ActiveCampaign API URL"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:83
+msgctxt "setting title"
+msgid "ActiveCampaign API Key"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:84
+msgctxt "setting desc"
+msgid "You can obtain your API key by logging in to your ActiveCampaign account."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:85
+msgctxt "setting desc"
+msgid "Enter your ActiveCampaign API key"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:96
+msgctxt "setting title"
+msgid "ActiveCampaign List"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:97
+msgctxt "setting desc"
+msgid "Choose the list that contacts will subscribe to."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:176
+msgid "Total contacts"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:180
+msgid "Active contacts"
+msgstr ""
+
 #: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:76
 msgctxt "setting title"
 msgid "ActiveTrail API Key"
@@ -600,6 +649,7 @@ msgstr ""
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:90
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:60
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:90
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:96
 msgctxt "setting desc"
 msgid "Choose a list customers can subscribe to."
 msgstr ""
@@ -705,6 +755,65 @@ msgstr ""
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:89
 msgctxt "setting title"
 msgid "SendGrid List"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:76
+msgctxt "setting title"
+msgid "Sendinblue API Key"
+msgstr ""
+
+#. translators: %s: Sendinblue URL for getting the API key
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:79
+msgctxt "setting desc"
+msgid "You can obtain your API key by logging in to your <a href=\"%s\" target=\"_blank\">Sendinblue account</a>."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:82
+msgctxt "setting desc"
+msgid "Enter your Sendinblue API key"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:88
+msgid "Select an attribute..."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:95
+msgctxt "setting title"
+msgid "Sendinblue List"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:101
+msgctxt "setting title"
+msgid "First name attribute"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:102
+msgctxt "setting desc"
+msgid "Select the attribute where to store the customer's first name."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:103
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:110
+msgctxt "setting desc"
+msgid "Leave the field empty to not include this customer info."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:108
+msgctxt "setting title"
+msgid "Last name attribute"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:109
+msgctxt "setting desc"
+msgid "Select the attribute where to store the customer's last name."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:197
+msgid "Unique subscribers"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:201
+msgid "Blocked subscribers"
 msgstr ""
 
 #: includes/wc-newsletter-subscription-functions.php:254

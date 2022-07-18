@@ -23,8 +23,6 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	 * Function triggered when the page is loaded before render any content.
 	 */
 	public function on_load() {
-		// Add stats to stats box.
-		add_action( 'stats_ui_after_resize_savings', array( $this, 'pro_savings_stats' ), 15 );
 		add_action( 'stats_ui_after_resize_savings', array( $this, 'conversion_savings_stats' ), 15 );
 		add_action( 'stats_ui_after_resize_savings', array( $this, 'cdn_stats_ui' ), 20 );
 		if ( Abstract_Page::should_render( 'directory' ) ) {
@@ -114,59 +112,6 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	}
 
 	/**
-	 * Show super smush stats in stats section.
-	 *
-	 * If a pro member and super smush is enabled, show super smushed
-	 * stats else show message that encourage them to enable super smush.
-	 * If free user show the avg savings that can be achived using Pro.
-	 *
-	 * @return void
-	 */
-	public function pro_savings_stats() {
-		$core = WP_Smush::get_instance()->core();
-
-		$compression_savings = 0;
-		if ( ! empty( $core->stats ) && ! empty( $core->stats['bytes'] ) ) {
-			$compression_savings = $core->stats['bytes'] - $core->stats['resize_savings'];
-		}
-		?>
-		<li class="super-smush-attachments">
-			<span class="sui-list-label">
-				<?php esc_html_e( 'Super-Smush Savings', 'wp-smushit' ); ?>
-				<?php if ( ! $this->settings->get( 'lossy' ) ) { ?>
-					<p class="wp-smush-stats-label-message sui-hidden-sm sui-hidden-md sui-hidden-lg">
-						<?php
-						$settings_link = '#';
-						$link_class    = 'wp-smush-lossy-enable';
-						if ( Settings::can_access( 'bulk' ) && 'smush-bulk' !== $this->get_slug() ) {
-							$settings_link = $this->get_url( 'smush-bulk' ) . '#enable-lossy';
-							$link_class    = '';
-						}
-						printf( /* translators: %1$s; starting a tag, %2$s: ending a tag */
-							esc_html__( 'Compress images up to 2x more than regular smush with almost no visible drop in quality. %1$sEnable Super-Smush%2$s', 'wp-smushit' ),
-							'<a role="button" class="' . esc_attr( $link_class ) . '" href="' . esc_url( $settings_link ) . '">',
-							'</a>'
-						);
-						?>
-					</p>
-				<?php } ?>
-			</span>
-			<span class="sui-list-detail wp-smush-stats">
-				<?php if ( ! $this->settings->get( 'lossy' ) ) : ?>
-					<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
-						<?php esc_html_e( 'Enable Super-Smush', 'wp-smushit' ); ?>
-					</a>
-				<?php else : ?>
-					<span class="smushed-savings">
-						<?php echo esc_html( size_format( $compression_savings, 1 ) ); ?>
-					</span>
-				<?php endif; ?>
-			</span>
-		</li>
-		<?php
-	}
-
-	/**
 	 * Show conversion savings stats in stats section.
 	 *
 	 * Show Png to Jpg conversion savings in stats box if the
@@ -209,7 +154,7 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 
 		// This is the same calculation used for $core->remaining_count,
 		// except that we don't add the re-smushed count here.
-		$unsmushed_count = WP_Smush::get_instance()->core()->total_count - WP_Smush::get_instance()->core()->smushed_count - WP_Smush::get_instance()->core()->skipped_count;			   	   			 	 	 	 	
+		$unsmushed_count = WP_Smush::get_instance()->core()->total_count - WP_Smush::get_instance()->core()->smushed_count - WP_Smush::get_instance()->core()->skipped_count;
 		// Sometimes this number can be negative, if there are weird issues with metadata.
 		if ( $unsmushed_count > 0 ) {
 			return $images_to_resmush + $unsmushed_count;

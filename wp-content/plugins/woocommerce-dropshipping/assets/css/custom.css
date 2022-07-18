@@ -46,7 +46,7 @@
 
 /*************************  CSS for ADMIN Menu in mobile view *******************/
 @media (max-width: 680px){
-#adminmenuwrap {
+/*#adminmenuwrap {
     display: block!important;
     max-width: 56px!important;
     width: 100%!important;
@@ -61,5 +61,5 @@
 .auto-fold #adminmenu .wp-menu-name {
     position: static!important;
     display: none!important;
-}
+}*/
 }
