@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.5.0
+* Version: 8.5.1
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.4.4
+ * @version  8.5.1
  */
 class WC_Composite_Products {
 
-	public $version  = '8.5.0';
+	public $version  = '8.5.1';
 	public $required = '3.9.0';
 
 	/**
@@ -349,6 +349,9 @@ class WC_Composite_Products {
 		// Analytics.
 		require_once( WC_CP_ABSPATH . 'includes/admin/analytics/class-wc-cp-admin-analytics.php' );
 
+		// Tracker.
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-tracker.php' );
+
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {
 			$this->admin_includes();
@@ -425,6 +428,33 @@ class WC_Composite_Products {
 		}
 		return $this->plugin_version();
 	}
+
+	/**
+	 * Handle plugin activation process.
+	 *
+	 * @since  8.5.1
+	 *
+	 * @return void
+	 */
+	public function on_activation() {
+		$this->define_constants();
+		require_once  WC_CP_ABSPATH . 'includes/class-wc-cp-install.php';
+		WC_CP_Install::create_events();
+	}
+
+	/**
+	 * Handle plugin deactivation process.
+	 *
+	 * @since  8.5.1
+	 *
+	 * @return void
+	 */
+	public function on_deactivation() {
+		$this->define_constants();
+		require_once  WC_CP_ABSPATH . 'includes/class-wc-cp-install.php';
+		// Clear daily maintenance process.
+		wp_clear_scheduled_hook( 'wc_cp_daily' );
+	}
 }
 
 /**
@@ -439,3 +469,6 @@ function WC_CP() {
 }
 
 $GLOBALS[ 'woocommerce_composite_products' ] = WC_CP();
+
+register_activation_hook( __FILE__, array( WC_CP(), 'on_activation' ) );
+register_deactivation_hook( __FILE__, array( WC_CP(), 'on_deactivation' ) );

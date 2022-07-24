@@ -1,5 +1,10 @@
 *** WooCommerce Composite Products ***
 
+2022.07.21 - version 8.5.1
+* Tweak - Introduced basic telemetry to collect data on extension usage when tracking is enabled.
+* Fix - Fixed a fatal error that was triggered when invalidating order cache.
+* Fix - Fixed a fatal error that was triggered when adding a Composite with invalid configuration to a manually created order.
+
 2022.06.14 - version 8.5.0
 * Important - PHP 7.0 is now required.
 * Fix - Fixed a fatal error that was triggered by the Cart/Checkout blocks integration when the global cart object was null.

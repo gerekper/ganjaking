@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks. Not much to see here, folks!
  *
  * @class    WC_CP_Install
- * @version  8.3.0
+ * @version  8.5.1
  */
 class WC_CP_Install {
 
@@ -215,6 +215,9 @@ class WC_CP_Install {
 		// Create tables.
 		self::create_tables();
 
+		// Create events.
+		self::create_events();
+
 		if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
  			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
  		}
@@ -266,6 +269,17 @@ class WC_CP_Install {
 		$wpdb->hide_errors();
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( self::get_schema() );
+	}
+
+	/**
+	 * Schedule cron events.
+	 *
+	 * @since 8.5.1
+	 */
+	public static function create_events() {
+		if ( ! wp_next_scheduled( 'wc_cp_daily' ) ) {
+			wp_schedule_event( time() + 10, 'daily', 'wc_cp_daily' );
+		}
 	}
 
 	/**

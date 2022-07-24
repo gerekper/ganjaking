@@ -97,6 +97,15 @@ if ( ! class_exists( 'SP_API' ) ) {
 			string $json_encoded_body = ''
 		) {
 
+			// TODO: Provide a better single validation point for all input through the API to check for and prevent issues.
+			// This is UGLY, but for now the quickest way to fix + symbols in SKUs AAARRRRGH!
+			// Solution in progress - ticket open with Amazon. Suspect issue on their end.
+			// phpcs:ignore
+			$path = str_ireplace( '+', '%2b', $path );
+
+			// This is needed for the same fix in createFulfillmentOrder since it POSTs with a json body.
+			$json_encoded_body = str_ireplace( '+', '%2b', $json_encoded_body );
+
 			$url = $this->host . $path;
 
 			/** TODO: JUST FOR TESTING.
@@ -151,7 +160,7 @@ if ( ! class_exists( 'SP_API' ) ) {
 			// TODO: Consolidate all possible conditions here throughout codebase into 1 single consistent bool.
 			// TODO: This will require scrubbing the MCF ns-fba-sig code as well.
 			if ( is_wp_error( $response ) || ! is_array( $response ) ||
-				! empty( $json['error'] ) || ! empty( $json['errors'] ) || false === $json['success'] ) {
+				! empty( $json['error'] ) || ! empty( $json['errors'] ) || ( isset( $json['success'] ) && false === $json['success'] ) ) {
 				/** Keep for logging use later
 				if ( $this->ns_fba->is_debug ) {
 					// phpcs:ignore

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite order-related filters and functions.
  *
  * @class    WC_CP_Order
- * @version  8.4.0
+ * @version  8.5.1
  */
 class WC_CP_Order {
 
@@ -404,16 +404,12 @@ class WC_CP_Order {
 				$error = $e->getMessage();
 
 				if ( $error && false === $args[ 'silent' ] ) {
-					wc_add_notice( $notice, 'error' );
+					wc_add_notice( $error, 'error' );
 				}
-
-				$error_data = array( 'notices' => array(
-					'notice' => $error
-				) );
 
 				/* translators: %1$s: Error message */
 				$message        = sprintf( __( 'The submitted composite configuration could not be added to this order: %s', 'woocommerce-composite-products' ), $error );
-				$added_to_order = new WP_Error( 'woocommerce_composite_configuration_invalid', $message, $error_data );
+				$added_to_order = new WP_Error( 'woocommerce_composite_configuration_invalid', $message, $error );
 			}
 
 		} else {

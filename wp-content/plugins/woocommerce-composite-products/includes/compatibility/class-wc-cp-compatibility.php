@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.4.0
+ * @version  8.5.1
  */
 class WC_CP_Compatibility {
 
@@ -199,7 +199,9 @@ class WC_CP_Compatibility {
 		}
 
 		// Shipstation integration.
-		$module_paths[ 'shipstation' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-shipstation-compatibility.php';
+		if ( class_exists( 'WC_ShipStation_Integration' ) ) {
+			$module_paths[ 'shipstation' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-shipstation-compatibility.php';
+		}
 
 		// QuickView support.
 		if ( class_exists( 'WC_Quick_View' ) ) {

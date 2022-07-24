@@ -484,7 +484,7 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 				if ( 'yes' === $feature_blank_box ) {
 					$body['featureConstraints'][] = array(
 						'featureFulfillmentPolicy' => 'Required',
-						'featureName'              => 'BLANK_BOXES',
+						'featureName'              => 'BLANK_BOX',
 					);
 				}
 
@@ -968,7 +968,12 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 						}
 					}
 
-					$next_token = $inventory_data->payload->nextToken ?? '';
+					/**
+					 * The nextToken is reference for pagination @see https://developer-docs.amazon.com/sp-api/docs/fbainventory-api-v1-reference#pagination
+					 * The payload only returns the paymload schema @see https://developer-docs.amazon.com/sp-api/docs/fbainventory-api-v1-reference#getinventorysummariesresult .
+					 */
+					//$next_token = $inventory_data->payload->nextToken ?? '';
+					$next_token = $inventory_data->pagination->nextToken ?? '';
 					// phpcs:enable WordPress.NamingConventions.ValidVariableName
 				} while ( '' !== $next_token );
 
@@ -1078,8 +1083,14 @@ if ( ! class_exists( 'SP_Fulfillment' ) ) {
 		 */
 		private function get_formatted_string( $string_raw ) {
 			if ( ! $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_encode_convert_bypass'] ) ) {
-				return iconv( 'UTF-8', 'ASCII//TRANSLIT//IGNORE', $string_raw );
+				$string_raw = iconv( 'UTF-8', 'ASCII//TRANSLIT//IGNORE', $string_raw );
 			}
+
+			// Handle other specific cases that cause SP SPI and signature calculations to choke.
+			// We need to do these no matter what the settings are or requests could fail.
+			// Handle # symbols.
+			// TODO: Provide a better single validation point for all input through the API to check for and prevent issues.
+			$string_raw = str_ireplace( '#', 'no.', $string_raw );
 
 			return $string_raw;
 		}

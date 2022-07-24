@@ -86,13 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 2:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["i18n"]; }());
-
-/***/ }),
-
 /***/ 22:
 /***/ (function(module, exports) {
 
@@ -105,20 +98,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
-/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
-/* harmony import */ var _woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_price_format__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(22);
+/* harmony import */ var _woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * External dependencies
  */
 
 
-
-
-Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimentalRegisterCheckoutFilters"])('composite-products', {
+Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_0__["__experimentalRegisterCheckoutFilters"])('composite-products', {
   cartItemClass: (classlist, _ref, _ref2) => {
     let {
       composites
@@ -129,7 +116,7 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
     } = _ref2;
 
     if (composites) {
-      let classes = [];
+      const classes = [];
 
       if (composites.composite_parent) {
         classes.push('is-composited');
@@ -163,19 +150,19 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
 
         classes.push('is-composited__description_hidden');
 
-        if (composites.composited_item_data.is_hidden_in_cart && 'cart' === context) {
+        if (composites.composited_item_data.is_hidden_in_cart && context === 'cart') {
           classes.push('is-composited__hidden');
         }
 
-        if (composites.composited_item_data.is_hidden_in_summary && 'summary' === context) {
+        if (composites.composited_item_data.is_hidden_in_summary && context === 'summary') {
           classes.push('is-composited__hidden');
         }
 
-        if (composites.composited_item_data.is_meta_hidden_in_cart && 'cart' === context) {
+        if (composites.composited_item_data.is_meta_hidden_in_cart && context === 'cart') {
           classes.push('is-composited__meta_hidden');
         }
 
-        if (composites.composited_item_data.is_meta_hidden_in_summary && 'summary' === context) {
+        if (composites.composited_item_data.is_meta_hidden_in_summary && context === 'summary') {
           classes.push('is-composited__meta_hidden');
         }
       } else if (composites.composite_children) {
@@ -186,11 +173,11 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
           classes.push('is-composite__editable');
         }
 
-        if (composites.composite_data.is_meta_hidden_in_cart && 'cart' === context) {
+        if (composites.composite_data.is_meta_hidden_in_cart && context === 'cart') {
           classes.push('is-composite__meta_hidden');
         }
 
-        if (composites.composite_data.is_meta_hidden_in_summary && 'summary' === context) {
+        if (composites.composite_data.is_meta_hidden_in_summary && context === 'summary') {
           classes.push('is-composite__meta_hidden');
         }
 
@@ -211,13 +198,6 @@ Object(_woocommerce_blocks_checkout__WEBPACK_IMPORTED_MODULE_1__["__experimental
     return classlist;
   }
 });
-
-/***/ }),
-
-/***/ 26:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["priceFormat"]; }());
 
 /***/ })
 

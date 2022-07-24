@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.5.0\n"
+"Project-Id-Version: WooCommerce Composite Products 8.5.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-15T12:21:57+00:00\n"
+"POT-Creation-Date: 2022-07-21T11:32:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -254,7 +254,7 @@ msgid "Limit stats fields to the specified items."
 msgstr ""
 
 #: includes/admin/class-wc-cp-admin-ajax.php:477
-#: includes/admin/class-wc-cp-admin-ajax.php:903
+#: includes/admin/class-wc-cp-admin-ajax.php:901
 #: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3892
 #: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3942
 msgid "Any Variation"
@@ -265,37 +265,37 @@ msgid "The submitted configuration is invalid."
 msgstr ""
 
 #. translators: %1$s: Message, %2$s: Notice text.
-#: includes/admin/class-wc-cp-admin-ajax.php:651
+#: includes/admin/class-wc-cp-admin-ajax.php:649
 msgctxt "edit composite in order: formatted validation message"
 msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: Component ID.
-#: includes/admin/class-wc-cp-admin-ajax.php:760
+#: includes/admin/class-wc-cp-admin-ajax.php:758
 #: includes/admin/class-wc-cp-admin-order.php:142
 msgid "Component #%s"
 msgstr ""
 
 #. translators: %1$s: Component title, %2$s: Product name, %3$s: Product SKU.
-#: includes/admin/class-wc-cp-admin-ajax.php:764
+#: includes/admin/class-wc-cp-admin-ajax.php:762
 #: includes/admin/class-wc-cp-admin-order.php:160
 msgctxt "component change note format"
 msgid "%1$s: %2$s (%3$s)"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:771
+#: includes/admin/class-wc-cp-admin-ajax.php:769
 msgid "Deleted component line items: %s"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:776
+#: includes/admin/class-wc-cp-admin-ajax.php:774
 #: includes/admin/class-wc-cp-admin-order.php:170
 msgid "Added component line items: %s"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:781
+#: includes/admin/class-wc-cp-admin-ajax.php:779
 msgid "Adjusted component line items: %s"
 msgstr ""
 
@@ -1442,13 +1442,13 @@ msgstr ""
 
 #. translators: %1$s: Error message
 #: includes/api/class-wc-cp-rest-api.php:1686
-#: includes/class-wc-cp-order.php:415
+#: includes/class-wc-cp-order.php:411
 msgid "The submitted composite configuration could not be added to this order: %s"
 msgstr ""
 
 #: includes/api/class-wc-cp-rest-api.php:1691
 #: includes/class-wc-cp-cart.php:203
-#: includes/class-wc-cp-order.php:420
+#: includes/class-wc-cp-order.php:416
 msgid "A composite with this ID does not exist."
 msgstr ""
 
@@ -2120,20 +2120,20 @@ msgstr ""
 msgid "Composite product"
 msgstr ""
 
-#: includes/class-wc-cp-install.php:492
+#: includes/class-wc-cp-install.php:506
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wc-cp-install.php:493
+#: includes/class-wc-cp-install.php:507
 msgid "Support"
 msgstr ""
 
-#: includes/class-wc-cp-order.php:531
+#: includes/class-wc-cp-order.php:527
 msgctxt "component order item qty meta key"
 msgid "Qty"
 msgstr ""
 
-#: includes/class-wc-cp-order.php:537
+#: includes/class-wc-cp-order.php:533
 msgctxt "component order item SKU meta key"
 msgid "SKU"
 msgstr ""
@@ -2179,6 +2179,10 @@ msgstr ""
 #. translators: %1$s: Product title, %2$s: Stock quantity, %3$s Product quantity in cart.
 #: includes/class-wc-cp-stock-manager.php:292
 msgid "There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart)."
+msgstr ""
+
+#: includes/class-wc-cp-tracker.php:760
+msgid "Invalid key &quot;%1$s&quot; passed to get_reusable_data."
 msgstr ""
 
 #. translators: %1$s: Regular price, %2$s: Price.
@@ -2272,35 +2276,35 @@ msgstr ""
 msgid "A variation of the Stepped layout that starts with a configuration Summary. Components can be configured in any sequence."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:325
+#: includes/compatibility/class-wc-cp-compatibility.php:327
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:326
+#: includes/compatibility/class-wc-cp-compatibility.php:328
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-cp-compatibility.php:329
-#: includes/compatibility/class-wc-cp-compatibility.php:340
-#: includes/compatibility/class-wc-cp-compatibility.php:361
+#: includes/compatibility/class-wc-cp-compatibility.php:331
+#: includes/compatibility/class-wc-cp-compatibility.php:342
+#: includes/compatibility/class-wc-cp-compatibility.php:363
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:338
+#: includes/compatibility/class-wc-cp-compatibility.php:340
 msgid "Composite Products - Conditional Images"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:347
+#: includes/compatibility/class-wc-cp-compatibility.php:349
 msgid "The <strong>Conditional Components</strong> mini-extension is now part of <strong>Composite Products</strong>. Please deactivate and remove the <strong>Composite Products - Conditional Components</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:358
+#: includes/compatibility/class-wc-cp-compatibility.php:360
 #: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:176
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:359
+#: includes/compatibility/class-wc-cp-compatibility.php:361
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
@@ -2328,13 +2332,13 @@ msgid "For up-to-date pricing details, please add the product to your cart."
 msgstr ""
 
 #. translators: %1$s: Term, %2$s: Next term.
-#: includes/wc-cp-functions.php:522
+#: includes/wc-cp-functions.php:525
 msgctxt "term separator"
 msgid "%1$s&nbsp;&gt;&nbsp;%2$s"
 msgstr ""
 
 #. translators: %1$s: Term, %2$s: Next term.
-#: includes/wc-cp-functions.php:544
+#: includes/wc-cp-functions.php:547
 msgctxt "many terms separator"
 msgid "%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s"
 msgstr ""

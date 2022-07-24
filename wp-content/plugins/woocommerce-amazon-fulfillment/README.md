@@ -68,6 +68,14 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2022-07-22 - version 4.0.9
+* Patch to MAJOR UPDATE (see full details of version 4.0.0)
+* Fix issue in passing # symbol to Amazon with temporary work-around
+* Fix issue with SKUs containing + symbol with temporary work-around
+* Fix BLANK_BOX feature reference per the SP API model
+* Fix some issues with inventory sync not going past the first page of results
+* Fix php notices and error handling when API errors are returned
+
 ### 2022-06-30 - version 4.0.8
 * Patch to MAJOR UPDATE (see full details of version 4.0.0)
 * Fix issue with variation stock level not syncing
