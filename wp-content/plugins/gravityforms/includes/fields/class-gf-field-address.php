@@ -92,24 +92,29 @@ class GF_Field_Address extends GF_Field {
 
 	}
 
-	function validate( $value, $form ) {
-
-		if ( $this->isRequired ) {
-			$copy_values_option_activated = $this->enableCopyValuesOption && rgpost( 'input_' . $this->id . '_copy_values_activated' );
-			if ( $copy_values_option_activated ) {
-				// validation will occur in the source field
-				return;
-			}
-
-			$message = $this->complex_validation_message( $value, $this->get_required_inputs_ids() );
-
-			if ( $message ) {
-				$this->failed_validation  = true;
-				$message_intro            = empty( $this->errorMessage ) ? __( 'This field is required.', 'gravityforms' ) : $this->errorMessage;
-				$this->validation_message = $message_intro . ' ' . $message;
-			}
+	/**
+	 * Validates the address field inputs.
+	 *
+	 * @since 1.9
+	 * @since 2.6.5 Updated to use set_required_error().
+	 *
+	 * @param string|array $value The field value from get_value_submission().
+	 * @param array        $form  The Form Object currently being processed.
+	 *
+	 * @return void
+	 */
+	public function validate( $value, $form ) {
+		if ( ! $this->isRequired ) {
+			return;
 		}
 
+		$copy_values_option_activated = $this->enableCopyValuesOption && rgpost( 'input_' . $this->id . '_copy_values_activated' );
+		if ( $copy_values_option_activated ) {
+			// Validation will occur in the source field.
+			return;
+		}
+
+		$this->set_required_error( $value, true );
 	}
 
 	public function get_value_submission( $field_values, $get_from_post_global_var = true ) {

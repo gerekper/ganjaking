@@ -20,7 +20,7 @@ if ( ! class_exists( 'BetterDocs_Pro_Settings' ) ) :
         }
 
         public function settings( $settings ) {
-            if( ! current_user_can( 'delete_users' ) ) {
+            if( ! current_user_can( 'activate_plugins' ) ) {
                 return $settings;
             }
 

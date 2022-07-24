@@ -1,4 +1,7 @@
 *** WorldPay Changelog ***
+2022-06-30 - version 5.0.1
+ * Fix - Worldpay not showing as disabled in WooCommerce Payments Gateway list.
+
 2022-04-14 - version 5.0.0
  * Initial Blocks release.
  * Optionally include delivery address in transaction data

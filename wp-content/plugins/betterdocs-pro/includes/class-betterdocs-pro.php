@@ -76,12 +76,12 @@ class Betterdocs_Pro
 			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'betterdocs-pro';
-
+        $this->db();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+		$this->analytics_migration();
 		$this->multiple_kb = $this->get_multiple_kb();
 	}
 
@@ -137,11 +137,15 @@ class Betterdocs_Pro
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-betterdocs-pro-admin-screen.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-pro-settings.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-analytics.php';
-		require_once plugin_dir_path(dirname( __FILE__)) . 'admin/partials/class-betterdocs-post-counter.php';
 		/**
 		 * The class responsible for defining all IA actions that occur in the settings area
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-pro-instant-answer.php';
+
+        /**
+         * The class responsible for defining all IA actions that occur in the settings area
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-rest-controller.php';
 
 		/**
 		 * The functions responsible for betterdocs pro shortcodes
@@ -160,10 +164,15 @@ class Betterdocs_Pro
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/customizer.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/defaults.php';
 
-        /**
-         * The class responsible for registering widget in elementor and extend single page functionality
-         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/elementor/class-betterdocs-pro-elementor.php';
+		/**
+		 * The class responsible for registering widget in elementor and extend single page functionality
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/elementor/class-betterdocs-pro-elementor.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in rest api.
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-betterdocs-pro-rest-api.php';
 
 		$this->loader = new Betterdocs_Pro_Loader();
 	}
@@ -195,10 +204,10 @@ class Betterdocs_Pro
 	private function define_admin_hooks()
 	{
 		$plugin_admin = new Betterdocs_Pro_Admin($this->get_plugin_name(), $this->get_version());
-        $this->loader->add_filter('admin_body_class', $plugin_admin, 'body_classes');
+		$this->loader->add_filter('admin_body_class', $plugin_admin, 'body_classes');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-        new BetterDocs_Pro_Admin_Screen();
+		new BetterDocs_Pro_Admin_Screen();
 	}
 
 	/**
@@ -264,4 +273,38 @@ class Betterdocs_Pro
 		$multiple_kb = apply_filters('betterdocs_get_multiple_kb', $get_multiple_kb);
 		return $multiple_kb;
 	}
+
+    public function db() {
+        global $wpdb;
+        $table_name = $wpdb->prefix.'betterdocs_analytics';
+        if ( get_site_option( 'betterdocs_pro_db_version' ) != BETTERDOCS_PRO_DB_VERSION ) {
+            $sql = "CREATE TABLE $table_name (
+                id bigint NOT NULL AUTO_INCREMENT,
+                post_id bigint DEFAULT 0 NOT NULL,
+                impressions bigint DEFAULT 0 NOT NULL,
+                unique_visit bigint DEFAULT 0 NOT NULL,
+                happy bigint DEFAULT 0 NOT NULL,
+                sad bigint DEFAULT 0 NOT NULL,
+                normal bigint DEFAULT 0 NOT NULL,
+                created_at date DEFAULT '0000-00-00' NOT NULL,
+                PRIMARY KEY (id),
+                KEY post_id (post_id),
+                KEY impressions (impressions),
+                KEY unique_visit (unique_visit),
+                KEY happy (happy),
+                KEY sad (sad),
+                KEY normal (normal),
+                KEY created_at (created_at)
+            )";
+
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            dbDelta($sql);
+            update_option( "betterdocs_pro_db_version", BETTERDOCS_PRO_DB_VERSION );
+        }
+    }
+
+    public function analytics_migration() {
+        global $migration_Process;
+        $migration_Process = new BetterDocs_Migration_Process();
+    }
 }

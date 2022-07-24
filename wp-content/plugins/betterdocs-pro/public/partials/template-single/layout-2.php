@@ -152,7 +152,7 @@ echo '<div class="betterdocs-single-wraper betterdocs-single-bg full-wrapper bet
             if ($enable_credit == 1) {
                 echo '<div class="betterdocs-credit">
                     <p>';
-                    printf(__('Powered by ', 'betterdocs-pro').'<a href="%s" target="_blank">' . __('BetterDocs', 'betterdocs-pro') . '</a>', 'https://betteredocs.co');
+                    printf(__('Powered by ', 'betterdocs-pro').'<a href="%s" target="_blank">' . __('BetterDocs', 'betterdocs-pro') . '</a>', 'https://betterdocs.co');
                     echo '</p>
                 </div>';
             }

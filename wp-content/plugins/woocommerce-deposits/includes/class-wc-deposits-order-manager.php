@@ -1156,7 +1156,8 @@ class WC_Deposits_Order_Manager {
 			'woocommerce_order_status_pending-deposit_to_processing',
 			'woocommerce_order_status_pending-deposit_to_completed',
 			'woocommerce_order_status_pending-deposit_to_on-hold',
-			'woocommerce_order_status_scheduled-payment_to_processing'
+			'woocommerce_order_status_scheduled-payment_to_processing',
+			'woocommerce_order_status_pending_to_partial-payment',
 		) );
 		return $actions;
 	}

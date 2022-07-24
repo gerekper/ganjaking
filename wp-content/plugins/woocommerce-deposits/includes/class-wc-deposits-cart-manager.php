@@ -93,6 +93,9 @@ class WC_Deposits_Cart_Manager {
 		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 		add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'remove_add_to_cart_class' ), 10, 2 );
 
+		// TaxJar compatibility.
+		add_filter( 'taxjar_after_calculate_cart_totals', array( $this, 'adjust_cart_totals_after_taxjar' ) );
+
 		// Display correct tax when the "Display Tax Totals" setting is set to "As a single total".
 		// @see https://github.com/woocommerce/woocommerce-deposits/issues/385.
 		add_filter( 'woocommerce_cart_totals_taxes_total_html', array( $this, 'cart_totals_taxes_total_html' ) );
@@ -1655,6 +1658,26 @@ class WC_Deposits_Cart_Manager {
 		$credit_amount             = $this->get_credit_amount( null, true );
 		$deferred_discount_amount  = self::get_deferred_discount_amount();
 		return $total - ( $deposits_remaining_amount + $credit_amount ) + $deferred_discount_amount + $deferred_discount_tax;
+	}
+
+	/**
+	 * Calculates new cart totals after TaxJar totals are applied on the cart.
+	 *
+	 * @param WC_Cart $cart cart.
+	 */
+	public function adjust_cart_totals_after_taxjar( $cart ) {
+		if ( ! $this->has_deposit( $cart ) ) {
+			return;
+		}
+
+		$total_deferred_discount_tax = 0;
+
+		if ( wc_tax_enabled() && ! wc_prices_include_tax() ) {
+			$tax                         = $this->calculate_deferred_and_present_discount_tax();
+			$total_deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals() );
+		}
+
+		$cart->set_total( $cart->get_total( 'total' ) - ( $this->get_deposit_remaining_amount( null, true ) + $this->get_credit_amount( null, true ) ) + self::get_deferred_discount_amount() + $total_deferred_discount_tax );
 	}
 }
 

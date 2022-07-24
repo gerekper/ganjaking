@@ -74,7 +74,7 @@ class BetterDocs_Pro_IA {
                 }
             }
             if( ! self::DEV_MODE ) {
-                wp_enqueue_style( 
+                wp_enqueue_style(
                     'betterdocs-instant-answer', 
                     BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.css', 
                     array(),  BETTERDOCS_PRO_VERSION, 'all'
@@ -83,7 +83,7 @@ class BetterDocs_Pro_IA {
 
             wp_add_inline_style( 'betterdocs-instant-answer', $this->inline_style() );
 
-            wp_enqueue_script( 
+            wp_enqueue_script(
                 'betterdocs-instant-answer', 
                 self::DEV_MODE ? BETTERDOCS_PRO_PUBLIC_URL . 'instant-answer/lib/bundle.js' : BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.js',
                 array('wp-i18n', 'wp-element', 'wp-hooks', 'wp-util', 'wp-components'), BETTERDOCS_PRO_VERSION, true 
@@ -1421,41 +1421,63 @@ class BetterDocs_Pro_IA {
             ),
         ));
     }
+
+
+
     /**
      * Save Feedback for individual Docs
      * @param WP_REST_Request $request
      * @return void
      */
     public function save_response( WP_REST_Request $request ){
+        global $wpdb;
         $docs_id = isset( $request['id'] ) ? intval( $request['id'] ) : null;
-        if( $docs_id !== null ) {
-            $feelings = isset( $request['feelings'] ) ? $request['feelings'] : 'happy';
-            $feedback = get_post_meta( $docs_id, '_betterdocs_feelings', true );
-            $feedback_per_day = get_post_meta( $docs_id, '_betterdocs_meta_impression_per_day', true );
-            $todays_date = date( 'd-m-Y', time() );
+        $feelings = isset( $request['feelings'] ) ? $request['feelings'] : 'happy';
+        if( $docs_id !== null && get_option('betterdocs_pro_db_version') == true ) {
+            $post_id = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT *
+                    FROM {$wpdb->prefix}betterdocs_analytics
+                    WHERE created_at = %s AND post_id = %d",
+                    date('Y-m-d'),
+                    $docs_id
+                )
+            );
 
-            if( empty( $feedback_per_day )  ) {
-                $feedback_per_day = [];
-                $feedback_per_day[ $todays_date ][ $feelings ] = 1;
-                add_post_meta( $docs_id, '_betterdocs_meta_impression_per_day', $feedback_per_day );
+            if (!empty($post_id)) {
+                $feelings_increment = $post_id[0]->{$feelings} + 1;
+                $insert = $wpdb->query(
+                    $wpdb->prepare(
+                        "UPDATE {$wpdb->prefix}betterdocs_analytics 
+                    SET ".$feelings." = ". $feelings_increment ."
+                    WHERE created_at = %s AND post_id = %d",
+                        array(
+                            date('Y-m-d'),
+                            $docs_id
+                        )
+                    )
+                );
             } else {
-                if( isset( $feedback_per_day[ $todays_date ] ) ) {
-                    $impressions_data = isset( $impressions[ $todays_date ][ $feelings ] ) ? ++$impressions[ $todays_date ][ $feelings ] : 1;
-                    $feedback_per_day[ $todays_date ][ $feelings ] = $impressions_data;
-                } else {
-                    $feedback_per_day[ $todays_date ][ $feelings ] = 1;
-                }
-                update_post_meta( $docs_id, '_betterdocs_meta_impression_per_day', $feedback_per_day );
+                $insert = $wpdb->query(
+                    $wpdb->prepare(
+                        "INSERT INTO {$wpdb->prefix}betterdocs_analytics 
+                        ( post_id, ".$request['feelings'].", created_at )
+                        VALUES ( %d, %d, %s )",
+                        array(
+                            $docs_id,
+                            1,
+                            date('Y-m-d')
+                        )
+                    )
+                );
             }
 
-            $feedback = empty( $feedback ) ? array() : $feedback;
-            $feedback[ $feelings ] = ( isset( $feedback[ $feelings ] ) ? intval( $feedback[ $feelings ] ) : 0 ) + 1;
-            if( update_post_meta( $docs_id, '_betterdocs_feelings', $feedback ) ) {
-                return true;
-            }
+            if( $insert == true ) return true;
+
         }
         return false;
     }
+
     /**
      * Save Global Feedback
      * @param WP_REST_Request $request
@@ -1470,6 +1492,8 @@ class BetterDocs_Pro_IA {
         }
         return false;
     }
+
+
 
     public function send_asked_mail( WP_REST_Request $request ){
         $sanitized_data = $this->sanitize( $_POST );

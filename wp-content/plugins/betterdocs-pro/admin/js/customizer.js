@@ -884,6 +884,76 @@
         });
     });
 
+    //Popular Search Keyword Border Type
+    wp.customize( 'betterdocs_popular_search_keyword_border', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-style', to);
+        });
+    });
+
+    //Popular Search Keyword Border Color
+    wp.customize( 'betterdocs_popular_search_keyword_border_color', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-color', to);
+        });
+    });
+
+    //Popular Search Keyword Border Width Top
+    wp.customize( 'betterdocs_popular_search_keyword_border_width_top', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-top-width', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Width Right
+    wp.customize( 'betterdocs_popular_search_keyword_border_width_right', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-right-width', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Width Bottom
+    wp.customize( 'betterdocs_popular_search_keyword_border_width_bottom', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-bottom-width', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Width Left
+    wp.customize( 'betterdocs_popular_search_keyword_border_width_left', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-left-width', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Radius Left Top
+    wp.customize( 'betterdocs_popular_keyword_border_radius_left_top', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-top-left-radius', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Radius Right Top
+    wp.customize( 'betterdocs_popular_keyword_border_radius_right_top', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-top-right-radius', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Radius Left Bottom
+    wp.customize( 'betterdocs_popular_keyword_border_radius_left_bottom', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-bottom-left-radius', to + 'px');
+        });
+    });
+
+    //Popular Search Keyword Border Radius Right Bottom
+    wp.customize( 'betterdocs_popular_keyword_border_radius_right_bottom', function( value ) {
+        value.bind( function( to ) {
+            $('.betterdocs-popular-search-keyword .popular-keyword').css('border-bottom-right-radius', to + 'px');
+        });
+    });
+
     //Popular Search Font Size
     wp.customize( 'betterdocs_popular_search_font_size', function( value ) {
         value.bind( function( to ) {

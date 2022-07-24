@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.9
-Stable tag: 2.0.9
+Tested up to: 6.0
+Stable tag: 2.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,26 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.1.1 - 21/07/2022 = 
+- Fixed: Analytics Reaction graph not working properly for all time data
+- Improved: Added option to change the Heading tags for Knowledge base titles
+- Few minor bug fixes & improvements
+
+= 2.1.0 - 03/07/2022 = 
+- Revamped: BetterDocs Analytics with more key metrics and graphs
+- Few minor bug fixes & improvements
+
+= 2.0.11 - 25/05/2022 = 
+- Added WordPress 6.0 Compatibility
+- Few minor bug fixes & improvements
+
+= 2.0.10 - 19/04/2022 = 
+- Improved: Query optimization for role management
+- Improved: Added border radius option for Advanced Search Popular keywords
+- Fixed: Restricted Docs List still being visible to users from tags Archive page
+- Fixed: BetterDocs not working for multi-sites
+- Few minor bug fixes & improvements
 
 = 2.0.9 - 07/04/2022 = 
 - Fixed: Fatal error if a default WordPress user role doesn't exist

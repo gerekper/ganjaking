@@ -4,6 +4,7 @@ use ElementorPro\Modules\GlobalWidget\Documents\Widget;
 use ElementorPro\Plugin;
 use ElementorPro\Modules\ThemeBuilder as ThemeBuilder;
 use \Elementor\Group_Control_Typography as Group_Control_Typography;
+use \Elementor\Group_Control_Border as Group_Control_Border;
 
 /**
  * Working with elementor plugin
@@ -306,6 +307,44 @@ class BetterDocs_Pro_Elementor
                     'size_units' => ['px', 'em', '%'],
                     'selectors'  => [
                         '{{WRAPPER}} .betterdocs-popular-search-keyword' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                    ],
+                ]
+            );
+
+            $wp->add_group_control(
+                Group_Control_Border::get_type(),
+                [
+                    'name'       => 'advance_search_popular_search_keyword_border_type',
+                    'label'      => esc_html__('Border', 'betterdocs-pro'),
+                    'fields_options' => [
+                        'border' => [
+                            'default' => 'solid',
+                        ],
+                        'width'  => [
+                            'default' => [
+                                'top'      => '1',
+                                'right'    => '1',
+                                'bottom'   => '1',
+                                'left'     => '1',
+                                'isLinked' => false,
+                            ],
+                        ],
+                        'color'  => [
+                            'default' => '#DDDEFF',
+                        ],
+                    ],
+                    'selector'  => '{{WRAPPER}} .betterdocs-popular-search-keyword .popular-keyword'
+                ]
+            );
+
+            $wp->add_responsive_control(
+                'advance_search_popular_search_keyword_border_radius',
+                [
+                    'label'      => esc_html__('Keyword Border Radius', 'betterdocs-pro'),
+                    'type'       => Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', 'em', '%'],
+                    'selectors'  => [
+                        '{{WRAPPER}} .betterdocs-popular-search-keyword .popular-keyword' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
                     ],
                 ]
             );

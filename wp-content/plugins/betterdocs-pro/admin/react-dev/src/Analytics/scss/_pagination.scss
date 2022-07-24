@@ -1,0 +1,270 @@
+.btd-pagination-wrapper {
+  display: flex;
+  align-items: center;
+  .btd-pagination-title {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #23282d;
+    margin-right: 20px;
+  }
+}
+
+$pagination-prefix-cls: rc-pagination;
+
+.#{$pagination-prefix-cls} {
+  display: flex;
+  > *:not(:last-child) {
+    margin-right: 5px;
+  }
+  &:after {
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    content: "";
+  }
+  &-total-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+  }
+  &-item {
+    display: flex;
+    min-width: 24px;
+    height: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #23282d;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 3px;
+    padding: 5px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #e7ebf3;
+    button,
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      color: #23282d;
+      transition: none;
+    }
+    &:focus,
+    &-active,
+    &:hover {
+      background: linear-gradient(90deg, #32d978 3.09%, #20bf91 100%);
+      border-width: 0px;
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  &-jump-prev,
+  &-jump-next {
+    cursor: pointer;
+    border-radius: 3px;
+    user-select: none;
+    .#{$pagination-prefix-cls}-item-link,
+    button {
+      background: none;
+      border-color: transparent;
+      cursor: pointer;
+      &:after {
+        display: block;
+        content: "•••";
+        color: #23282d;
+        font-size: 14px;
+      }
+    }
+    &:focus,
+    &:hover {
+      background: linear-gradient(90deg, #32d978 3.09%, #20bf91 100%);
+      .#{$pagination-prefix-cls}-item-link,
+      button {
+        &:after {
+          color: #fff;
+        }
+      }
+    }
+  }
+  &-prev,
+  &-next,
+  &-jump-prev,
+  &-jump-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 24px;
+    height: 24px;
+    color: #23282d;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  &-prev,
+  &-next {
+    padding-left: 7px;
+    padding-right: 7px;
+    button {
+      cursor: pointer;
+      user-select: none;
+    }
+    .#{$pagination-prefix-cls}-item-link {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: darken(#36d692, 5%);
+      background: #fff;
+    }
+    &:focus .#{$pagination-prefix-cls}-item-link,
+    &:hover .#{$pagination-prefix-cls}-item-link {
+      background: #fff;
+      color: darken(#36d692, 5%);
+    }
+    &:focus,
+    &-active,
+    &:hover {
+      &:not([aria-disabled="true"]) {
+        background: linear-gradient(90deg, #32d978 3.09%, #20bf91 100%);
+        border-radius: 3px;
+        color: #fff;
+      }
+    }
+  }
+  &-prev button:after {
+    content: "\e900";
+    font-family: "Wpd-Icon";
+    font-size: 14px;
+    display: block;
+    transform: rotate(90deg);
+  }
+
+  &-next button:after {
+    content: "\e900";
+    font-family: "Wpd-Icon";
+    font-size: 14px;
+    display: block;
+    transform: rotate(-90deg);
+  }
+
+  &-disabled {
+    color: #a7b6c7;
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+
+  // &-slash {
+  // 	margin: 0 10px 0 5px;
+  // }
+
+  // &-options {
+  // 	display: inline-block;
+  // 	margin-left: 16px;
+  // 	vertical-align: middle;
+
+  // 	// IE11 css hack. `*::-ms-backdrop,` is a must have
+  // 	@media all and (-ms-high-contrast: none) {
+  // 	*::-ms-backdrop,
+  // 	& {
+  // 		vertical-align: top;
+  // 	}
+  // 	}
+
+  // 	&-size-changer.rc-select {
+  // 	display: inline-block;
+  // 	width: auto;
+  // 	margin-right: 8px;
+  // 	}
+
+  // 	&-quick-jumper {
+  // 	display: inline-block;
+  // 	height: 28px;
+  // 	line-height: 28px;
+  // 	vertical-align: top;
+
+  // 	input {
+  // 		width: 50px;
+  // 		margin: 0 8px;
+  // 	}
+  // 	}
+  // }
+
+  &-simple &-prev,
+  &-simple &-next {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .#{$pagination-prefix-cls}-item-link {
+      height: 24px;
+      &::after {
+        height: 24px;
+      }
+    }
+  }
+
+  // &-simple &-simple-pager {
+  // 	display: inline-block;
+  // 	height: 24px;
+  // 	margin-right: 8px;
+  // 	input {
+  // 		box-sizing: border-box;
+  // 		height: 100%;
+  // 		margin-right: 8px;
+  // 		padding: 0 6px;
+  // 		text-align: center;
+  // 		background-color: $pagination-item-input-bg;
+  // 		border: 1px solid #d9d9d9;
+  // 		outline: none;
+  // 		transition: border-color 0.3s;
+  // 		&:hover {
+  // 			border-color: $primary;
+  // 		}
+  // 	}
+  // }
+
+  // ============================ Disabled ============================
+  // &-disabled {
+  // 	cursor: not-allowed;
+  // 	.#{$pagination-prefix-cls}-item {
+  // 		background: hsv(0, 0, 96%);
+  // 		border-color: #d9d9d9;
+  // 		cursor: not-allowed;
+  // 		a {
+  // 			color: fade(#000, 25%);
+  // 			background: transparent;
+  // 			border: none;
+  // 			cursor: not-allowed;
+  // 		}
+  // 		&-active {
+  // 			background: darken($info, 5%);
+  // 			border-color: transparent;
+  // 			a {
+  // 			color: $pagination-item-disabled-color-active;
+  // 			}
+  // 		}
+  // 	}
+  // 	.#{$pagination-prefix-cls}-item-link {
+  // 		color: fade(#000, 25%);
+  // 		background: hsv(0, 0, 96%);
+  // 		border-color: #d9d9d9;
+  // 		cursor: not-allowed;
+  // 	}
+  // 	.#{$pagination-prefix-cls}-item-link-icon {
+  // 		opacity: 0;
+  // 	}
+  // 	.#{$pagination-prefix-cls}-item-ellipsis {
+  // 		opacity: 1;
+  // 	}
+  // }
+}

@@ -62,6 +62,7 @@ class Betterdocs_Pro_Admin
         add_filter('betterdocs_highlight_admin_submenu', array($this, 'highlight_admin_submenu'), 1);
 		add_filter('betterdocs_articles_args', array($this, 'docs_args'), 11, 2);
 		add_action('new_to_auto-draft', array($this, 'auto_add_category'));
+		add_filter('betterdocs_advanced_settings_sections', array( $this, 'enable_internal_kb_fields' ), 10, 1 );
 	}
 
     public function body_classes($classes)
@@ -327,6 +328,15 @@ class Betterdocs_Pro_Admin
 		}
 
 		wp_send_json_error();
+	}
+
+	public function enable_internal_kb_fields( $settings ) {
+		unset( $settings['internal_kb_section']['fields']['enable_content_restriction']['disable'] );
+		unset( $settings['internal_kb_section']['fields']['content_visibility']['disable'] );
+		unset( $settings['internal_kb_section']['fields']['restrict_template']['disable'] );
+		unset( $settings['internal_kb_section']['fields']['restrict_category']['disable'] );
+		unset( $settings['internal_kb_section']['fields']['restricted_redirect_url']['disable'] );
+		return $settings;
 	}
 
 	/**

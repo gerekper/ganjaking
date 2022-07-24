@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -361,6 +361,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				}
 			}
 
+			// Generate coupon code if post_title is empty.
+			$post_title = ( ! empty( $post['post_title'] ) ) ? $post['post_title'] : $woocommerce_smart_coupon->generate_unique_code();
+
 			$postdata = array(
 				'import_id'      => $post['post_id'],
 				'post_author'    => ( ! empty( $post['post_author'] ) ) ? absint( $post['post_author'] ) : get_current_user_id(),
@@ -368,8 +371,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'post_date_gmt'  => ( $post['post_date_gmt'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : '',
 				'post_content'   => $post['post_content'],
 				'post_excerpt'   => $post['post_excerpt'],
-				'post_title'     => $post['post_title'],
-				'post_name'      => ( $post['post_name'] ) ? $post['post_name'] : sanitize_title( $post['post_title'] ),
+				'post_title'     => $post_title,
+				'post_name'      => ( ! empty( $post['post_name'] ) ) ? $post['post_name'] : ( ! empty( $post['post_title'] ) ? sanitize_title( $post['post_title'] ) : sanitize_title( $post_title ) ),
 				'post_status'    => $post['post_status'],
 				'post_parent'    => $post_parent,
 				'menu_order'     => $post['menu_order'],

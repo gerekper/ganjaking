@@ -2022,8 +2022,7 @@ class GFFormDisplay {
 
 			//display error message if field is marked as required and the submitted value is empty
 			if ( $field->isRequired && self::is_empty( $field, $form['id'] ) ) {
-				$field->failed_validation  = true;
-				$field->validation_message = empty( $field->errorMessage ) ? __( 'This field is required.', 'gravityforms' ) : $field->errorMessage;
+				$field->set_required_error( $value );
 			} //display error if field does not allow duplicates and the submitted value already exists
 			else if ( $field->noDuplicates && RGFormsModel::is_duplicate( $form['id'], $field, $value ) ) {
 				$field->failed_validation = true;

@@ -345,7 +345,7 @@ function betterdocs_customize_css_pro() {
 			.betterdocs-popular-list.single-kb ul li svg {
 				min-width: <?php echo $output['betterdocs_doc_page_article_list_icon_font_size_2']?>px;
 			}
-		.docs-cat-list-2-items .docs-cat-title {
+		.betterdocs-categories-wrap.category-grid.pro-layout-4 .docs-cat-list-2-items .docs-cat-title {
 			font-size: <?php echo $output['betterdocs_doc_page_cat_title_font_size2'] ?>px;
 		}
 		.betterdocs-category-box.pro-layout-3 .docs-single-cat-wrap img,
@@ -401,7 +401,7 @@ function betterdocs_customize_css_pro() {
 		.betterdocs-article-reaction-links li a:hover svg path {
 			fill: <?php echo $output['betterdocs_post_reactions_icon_hover_svg_color'] ?>;
 		}
-        .betterdocs-searchform .search-submit {
+        .betterdocs-live-search .betterdocs-searchform .search-submit {
             font-size: <?php echo $output['betterdocs_new_search_button_font_size'] ?>px;
             font-weight: <?php echo $output['betterdocs_new_search_button_font_weight'] ?>;
             text-transform: <?php echo $output['betterdocs_new_search_button_text_transform'] ?>;
@@ -421,7 +421,7 @@ function betterdocs_customize_css_pro() {
 			background-color: <?php echo $output['betterdocs_search_button_background_color'] ?>;
 			color: <?php echo $output['betterdocs_search_button_text_color'] ?>;
 		}
-        .betterdocs-popular-search-keyword .popular-keyword{
+        .betterdocs-live-search .betterdocs-popular-search-keyword .popular-keyword{
             font-size: <?php echo $output['betterdocs_popular_search_font_size'] ?>px;
             background-color: <?php echo $output['betterdocs_popular_search_background_color'] ?>;
             color: <?php echo $output['betterdocs_popular_keyword_text_color'] ?>;
@@ -433,6 +433,16 @@ function betterdocs_customize_css_pro() {
             margin-bottom: <?php echo $output['betterdocs_popular_search_keyword_margin_bottom'] ?>px;
             margin-top: <?php echo $output['betterdocs_popular_search_keyword_margin_top'] ?>px;
             margin-right: <?php echo $output['betterdocs_popular_search_keyword_margin_right'] ?>px;
+			border-style: <?php echo $output['betterdocs_popular_search_keyword_border'] ?>;
+			border-color: <?php echo $output['betterdocs_popular_search_keyword_border_color']?>;
+			border-top-width: <?php echo $output['betterdocs_popular_search_keyword_border_width_top']?>px;
+			border-right-width: <?php echo $output['betterdocs_popular_search_keyword_border_width_right'] ?>px;
+			border-bottom-width: <?php echo $output['betterdocs_popular_search_keyword_border_width_bottom'] ?>px;
+			border-left-width: <?php echo $output['betterdocs_popular_search_keyword_border_width_left']?>px;
+			border-top-left-radius: <?php echo $output['betterdocs_popular_keyword_border_radius_left_top'] ?>px;
+			border-top-right-radius: <?php echo $output['betterdocs_popular_keyword_border_radius_right_top']?>px;
+			border-bottom-left-radius: <?php echo $output['betterdocs_popular_keyword_border_radius_left_bottom'] ?>px;
+			border-bottom-right-radius: <?php echo $output['betterdocs_popular_keyword_border_radius_right_bottom'] ?>px;
         }
         .betterdocs-popular-search-keyword {
             margin-top: <?php echo $output['betterdocs_popular_search_margin_top'] ?>px;

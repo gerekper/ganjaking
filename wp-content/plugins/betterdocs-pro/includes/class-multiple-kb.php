@@ -390,12 +390,12 @@ class BetterDocs_Multiple_Kb
      */
     public static function post_exists_by_slug( $post_slug, $post_type = 'docs' )
     {
-		$loop_posts = new WP_Query( array( 'post_type' => 'any', 'post_status' => 'any', 'name' => $post_slug, 'posts_per_page' => 1, 'fields' => 'all' ) );
+		$loop_posts = new WP_Query( array( 'post_type' => $post_type, 'post_status' => 'any', 'name' => $post_slug, 'posts_per_page' => 1, 'fields' => 'all' ) );
 
         return ( $loop_posts->have_posts() ? $loop_posts->posts[0] : false );
 	}
 
- 	/**
+	/**
      * Fix query vars, if they mismatched.
      *
      */
@@ -705,16 +705,7 @@ class BetterDocs_Multiple_Kb
 	{
         if ($taxonomy != 'doc_category') return $termlink;
 
-		$q_object = get_queried_object();
-		$kb_slug = '';
-
-		if ($q_object instanceof WP_Term) {
-			$kb_slug = $q_object->slug;
-		}
-
-		if (is_singular('docs')) {
-			$kb_slug = self::kb_slug();
-		}
+        $kb_slug = self::kb_slug();
 
 		if (empty($kb_slug)) {
 			$category = get_term_by('slug', $term->slug, $taxonomy, ARRAY_A);

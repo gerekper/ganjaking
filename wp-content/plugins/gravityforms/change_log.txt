@@ -1,3 +1,9 @@
+### 2.6.4.2
+- Fixed an issue which can cause providers to be registered more than one time on some hosting environments.
+- Fixed an issue where the default value of an email field with confirmation enabled does not display.
+- AF: Fixed a fatal error that can occur with PHP 8+ if an error occurs during background feed processing.
+- API: Fixed an issue where GF_Field_Time::is_value_submission_empty() could return the wrong result.
+
 ### 2.6.4.1
 - Fixed a fatal error that can occur on some hosting environments when the license is validated.
 

@@ -229,6 +229,18 @@
 				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_margin_right', true);
 				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_margin_bottom', true);
 				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_margin_left', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_color',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_width_top',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_width_right',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_width_bottom',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_width_left',true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_search_keyword_border_width', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_keyword_border_radius', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_keyword_border_radius_left_top', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_keyword_border_radius_right_top', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_keyword_border_radius_left_bottom', true);
+				customizer_conditional_setting_return_toggle_pro(setting, 'betterdocs_popular_keyword_border_radius_right_bottom', true);
 			});
 		});
 	});

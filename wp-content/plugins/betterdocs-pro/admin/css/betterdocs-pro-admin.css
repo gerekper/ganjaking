@@ -115,7 +115,9 @@
 .betterdocs-license-icon {
     position: absolute;
 }
-
+.betterdocs-analytics-notice {
+    padding-top: 10px;
+}
 /* Lock screen */
 
 .betterdocs-lockscreen{

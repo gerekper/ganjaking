@@ -167,7 +167,7 @@ $htags = implode(',', $supported_tag);
 				if ($enable_credit == 1) {
 				?>
 					<div class="betterdocs-credit">
-						<p><?php printf(__('Powered by ', 'betterdocs-pro').'<a href="%s" target="_blank">' . __('BetterDocs', 'betterdocs-pro') . '</a>', 'https://betteredocs.co'); ?></p>
+						<p><?php printf(__('Powered by ', 'betterdocs-pro').'<a href="%s" target="_blank">' . __('BetterDocs', 'betterdocs-pro') . '</a>', 'https://betterdocs.co'); ?></p>
 					</div>
 				<?php } 
 				$enable_comment = BetterDocs_DB::get_settings('enable_comment');

@@ -1,0 +1,31 @@
+{
+  "name": "react-dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/i18n": "^4.5.0",
+    "apexcharts": "^3.35.0",
+    "date-fns": "^2.28.0",
+    "moment": "^2.29.1",
+    "rc-pagination": "^3.1.15",
+    "react": "^18.1.0",
+    "react-apexcharts": "^1.4.0",
+    "react-content-loader": "^6.2.0",
+    "react-date-range": "^1.4.0",
+    "react-dates": "^21.8.0",
+    "react-tabs": "^4.0.1"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^22.2.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "mini-css-extract-plugin": "^2.6.0"
+  }
+}

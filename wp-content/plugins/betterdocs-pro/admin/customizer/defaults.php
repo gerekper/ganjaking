@@ -216,7 +216,19 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_mkb_popular_title_margin_top' => '0',
 			'betterdocs_mkb_popular_title_margin_right' => '0',
 			'betterdocs_mkb_popular_title_margin_bottom' => '0',
-			'betterdocs_mkb_popular_title_margin_left' => '0'
+			'betterdocs_mkb_popular_title_margin_left' => '0',
+			'betterdocs_popular_search_keyword_border' => 'solid',
+			'betterdocs_popular_search_keyword_border_color' => '#DDDEFF',
+			'betterdocs_popular_search_keyword_border_width' => '',
+			'betterdocs_popular_search_keyword_border_width_top' => '1',
+			'betterdocs_popular_search_keyword_border_width_right' => '1',
+			'betterdocs_popular_search_keyword_border_width_bottom' => '1',
+			'betterdocs_popular_search_keyword_border_width_left' => '1',
+			'betterdocs_popular_keyword_border_radius' => '',
+			'betterdocs_popular_keyword_border_radius_left_top' => '0',
+			'betterdocs_popular_keyword_border_radius_right_top' => '0',
+			'betterdocs_popular_keyword_border_radius_left_bottom' => '0',
+			'betterdocs_popular_keyword_border_radius_right_bottom' => '0'
 		);
 		return apply_filters( 'betterdocs_option_defaults_pro', $betterdocs_defaults_pro );
 	}

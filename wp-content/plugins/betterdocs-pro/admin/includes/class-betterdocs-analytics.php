@@ -1,13 +1,13 @@
-<?php 
+<?php
 /**
  * This class is responsible for making stats for each BetterDocs
- * 
+ *
  * @since 1.0.2
  */
 class BetterDocsPro_Analytics {
     /**
      * Get a single Instance of Analytics
-     * @var 
+     * @var
      */
     private static $_instance = null;
     /**
@@ -46,14 +46,22 @@ class BetterDocsPro_Analytics {
         add_filter( 'betterdocs_admin_menu', array( $this, 'add_analytics_menu' ), 9, 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueues' ) );
         add_action( 'betterdocs_before_settings_load', array( $this, 'add_settings' ) );
-        add_action( 'wp_ajax_betterdocs_pro_analytics', array( $this, 'clicked_analytics_data' ) );
-        add_action( 'wp_ajax_nopriv_betterdocs_pro_analytics', array( $this, 'clicked_analytics_data' ) );
         add_action( 'wp_ajax_betterdocs_analytics_calc', array( $this, 'analytics_calc' ) );
-        // add_action( 'notificationx_settings_header', array( $this, 'stats_counter' ), 11 );
-        // add_action( 'notificationx_admin_header', array( $this, 'stats_counter' ), 11 );
-        // add_action( 'notificationx_after_analytics_header', array( $this, 'stats_counter' ), 11 );
         add_action( 'manage_docs_posts_columns', array( $this, 'custom_columns' ) );
         add_action( 'manage_docs_posts_custom_column', array( $this, 'manage_custom_columns' ), 10, 2 );
+    }
+
+    public function get_views($post_id) {
+        global $wpdb;
+        $reactions = $wpdb->get_results(
+            $wpdb->prepare("
+                SELECT sum(impressions) as totalViews 
+                FROM {$wpdb->prefix}betterdocs_analytics 
+                WHERE post_id = %d",
+                $post_id
+            )
+        );
+        return $reactions[0]->totalViews;
     }
 
 	public function custom_columns( $columns ) {
@@ -63,11 +71,11 @@ class BetterDocsPro_Analytics {
 		$columns['date'] = $date_column;
 		return apply_filters('betterdocs_post_columns', $columns );
 	}
-	
+
     public function manage_custom_columns( $column, $post_id ){
 		switch ( $column ) {
             case 'betterdocs_views':
-                $views = get_post_meta( $post_id, '_betterdocs_meta_views', true );
+                $views = $this->get_views($post_id);
                 $analytics_url = admin_url( 'admin.php?page=betterdocs-analytics&betterdocs=' . $post_id . '&comparison_factor=views,feelings' );
                 echo ! empty( $views ) ? '<a href="'. $analytics_url .'">'. $views .'</a>' : 0;
 				break;
@@ -114,16 +122,13 @@ class BetterDocsPro_Analytics {
      * This method is responsible for adding analytics page frontend.
      * @return void
      */
-    public function page_outputs(){
-        $comparison_factor_list = array(
-            'views' => 'Views',
-            'feelings' => 'Feelings',
-            // 'clicks' => 'Clicks',
-            // 'ctr' => 'CTR',
-        );
-        if( file_exists( BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-display.php' ) ) {
-            return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-display.php';
-        }
+    public function page_outputs() { ?>
+        <div id="betterdocsAnalytics">
+            <div class="betterdocs-settings-wrap">
+                <?php do_action( 'betterdocs_settings_header' ); ?>
+            </div>
+        </div>
+        <?php
     }
     /**
      * This method is responsible for output the stats value in admin table
@@ -133,7 +138,7 @@ class BetterDocsPro_Analytics {
         if( empty( $idd ) ) {
             return 0;
         }
-        $output = get_post_meta( $idd, '_betterdocs_meta_views', true );
+        $output = $this->get_views($idd);
         $analytics_url = admin_url( 'admin.php?page=betterdocs-analytics&betterdocs=' . $idd . '&comparison_factor=views,feelings' );
         $format = '<a href="'. esc_url( $analytics_url ) .'">%s</a>';
         if( empty( $output ) ) {
@@ -142,92 +147,22 @@ class BetterDocsPro_Analytics {
         return sprintf( $format, $output . __(' views', 'betterdocs-pro') );
     }
 
-    public function stats_counter(){
-        global $pagenow;
-        
-        $class = '';
-        if( ! empty( $pagenow ) ) {
-            $class = 'nx-header-for-' . str_replace('.php', '', $pagenow);
-        }
-
-        global $wpdb;
-        $ids = false;
-
-        $inner_sql = "SELECT DISTINCT INNER_POSTS.ID, INNER_POSTS.post_title FROM $wpdb->posts AS INNER_POSTS INNER JOIN $wpdb->postmeta AS INNER_META ON INNER_POSTS.ID = INNER_META.post_id WHERE INNER_POSTS.post_type = '%s'";
-
-        $query = $wpdb->prepare(
-            "SELECT META.meta_key as `key`, SUM( META.meta_value ) as `value` FROM ( $inner_sql ) as POSTS INNER JOIN $wpdb->postmeta as META ON POSTS.ID = META.post_id WHERE META.meta_key IN ( '_betterdocs_meta_views', '_betterdocs_meta_clicks' ) GROUP BY META.meta_key", 
-            array(
-                'docs',
-            )
-        );
-        $results = $wpdb->get_results( $query );
-		
-        $views = $clicks = $ctr = 0;
-        if( ! empty( $results ) ) { 
-            foreach( $results as $result ) {
-                if( isset( $result->key ) && $result->key === '_betterdocs_meta_views' ) {
-                    $views = $result->value;
-                }
-                if( isset( $result->key ) && $result->key === '_betterdocs_meta_clicks' ) {
-                    $clicks = $result->value;
-                }
-            }
-        }
-
-        $ctr = $views > 0 ? number_format( ( intval( $clicks ) / intval( $views ) ) * 100, 2) : 0;
-
-        $views = self::nice_number( $views );
-        $clicks = self::nice_number( $clicks );
-
-        $views_link = admin_url( 'admin.php?page=betterdocs-analytics&comparison_factor=views' );
-        $clicks_link = admin_url( 'admin.php?page=betterdocs-analytics&comparison_factor=clicks' );
-        $ctr_link = admin_url( 'admin.php?page=betterdocs-analytics&comparison_factor=ctr' );
-        
-        if( file_exists( BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-counter.php' ) ) {
-            return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-counter.php';
-        }
-    }
-
 	public function enqueues( $hook ) {
 		if( $hook !== 'betterdocs_page_betterdocs-analytics' ) {
 			return;
         }
-        wp_enqueue_style( 
-			'betterdocs', 
-			BETTERDOCS_ADMIN_URL . 'assets/css/betterdocs-admin.min.css', 
-			array(), '1.0.1', 'all' 
+
+        $dependencies = require_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'assets/js/betterdocs-analytics.asset.php';
+
+        wp_enqueue_style(
+			'betterdocs-analytics',
+			BETTERDOCS_PRO_ADMIN_URL . 'assets/css/style-betterdocs-analytics.css',
+			array(), '2.0.0', 'all'
         );
-        wp_enqueue_style( 
-			'betterdocs-select2', 
-			BETTERDOCS_ADMIN_URL . 'assets/css/select2.min.css', 
-			array(), '1.0.1', 'all' 
-		);
-        wp_enqueue_style( 
-			'betterdocs-pro-chart', 
-			BETTERDOCS_PRO_ADMIN_URL . 'css/Chart.css', 
-			array(), '1.0.1', 'all' 
-        );
-		wp_enqueue_style( 
-			'betterdocs-pro-analytics', 
-			BETTERDOCS_PRO_ADMIN_URL . 'css/betterdocs-analytics.css', 
-			array(), '1.0.1', 'all' 
-        );
-        wp_enqueue_script( 'jquery-ui-datepicker' );
-        wp_enqueue_script( 
-			'betterdocs-select2', 
-			BETTERDOCS_ADMIN_URL . 'assets/js/select2.min.js', 
-			array( 'jquery' ), '1.0.1', true 
-		);
-		wp_enqueue_script( 
-			'betterdocs-chartjs', 
-			BETTERDOCS_PRO_ADMIN_URL . 'js/Chart.min.js', 
-			array( 'jquery' ), '1.0.1', true 
-		);
-		wp_enqueue_script( 
-			'betterdocs-pro-analytics', 
-			BETTERDOCS_PRO_ADMIN_URL . 'js/betterdocs-analytics.js', 
-			array( 'jquery', 'jquery-ui-datepicker', 'betterdocs-chartjs' ), '1.0.1', true 
+        wp_enqueue_script(
+			'betterdocs-analytics',
+			BETTERDOCS_PRO_ADMIN_URL . 'assets/js/betterdocs-analytics.js',
+			$dependencies['dependencies'], $dependencies['version'], true
         );
     }
     protected function labels( $query_vars = array() ){
@@ -257,7 +192,7 @@ class BetterDocsPro_Analytics {
     }
     protected function datasets( $query_vars = array() ){
         global $wpdb;
-	
+
         $ids = $betterdocs_all = false;
         $extra_sql_input = $extra_sql = $xTra_SQL = '';
         if( ! isset( $query_vars['betterdocs'] ) ) {
@@ -282,7 +217,7 @@ class BetterDocsPro_Analytics {
         }
 
         $sql = "SELECT D_POSTS.ID, D_POSTS.post_title, FEELINGS_IMPRESSIONS.meta_key, FEELINGS_IMPRESSIONS.meta_value  FROM ( SELECT POSTS.ID, POSTS.post_title, META.meta_key, META.meta_value FROM $wpdb->posts AS POSTS LEFT JOIN $wpdb->postmeta AS META ON ( POSTS.ID = META.post_id ) WHERE 1 = 1 AND ( META.meta_key = %s OR META.meta_key = %s ) AND POSTS.post_type = %s AND ( ( POSTS.post_status = %s ) ) ) AS FEELINGS_IMPRESSIONS RIGHT JOIN $wpdb->posts AS D_POSTS ON ( FEELINGS_IMPRESSIONS.ID = D_POSTS.ID ) $xTra_SQL";
-        
+
         $query = $wpdb->prepare(
             $sql,
             array(
@@ -293,7 +228,7 @@ class BetterDocsPro_Analytics {
             )
         );
         $results = $wpdb->get_results( $query, ARRAY_A );
-	
+
         $default_value = array(
             "fill" => false,
         );
@@ -406,7 +341,7 @@ class BetterDocsPro_Analytics {
                     }
                 }
             }
-        
+
             // FOR ALL VIEWS, FEELINGS
             if( $betterdocs_all ) {
                 array_walk_recursive( $results, function( $value, $key, $userdata ){
@@ -472,7 +407,7 @@ class BetterDocsPro_Analytics {
         return array();
     }
 
-    public function array_sum_assoc( $defaul, $new_array ) {        
+    public function array_sum_assoc( $defaul, $new_array ) {
         if( empty( $new_array ) || ! is_array( $new_array ) ) {
             return $new_array;
         }
@@ -506,7 +441,7 @@ class BetterDocsPro_Analytics {
     private function random_color_part() {
         return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
     }
-    
+
     private function random_color( $index = '' ) {
         if( ! empty( $index ) ) {
             if( isset( $this->colors[ $index ] ) ) {
@@ -538,7 +473,7 @@ class BetterDocsPro_Analytics {
                 'analytics_from' => array(
                     'type'    => 'select',
                     'label'   => __( 'Analytics From', 'betterdocs-pro' ),
-                    'options' => array( 
+                    'options' => array(
                         'everyone'         => __( 'Everyone', 'betterdocs-pro' ),
                         'guests'           => __( 'Guests Only', 'betterdocs-pro' ),
                         'registered_users' => __( 'Registered Users Only', 'betterdocs-pro' ),
@@ -570,13 +505,13 @@ class BetterDocsPro_Analytics {
     public function analytics_data() {
 
         global $user_ID, $post, $post_type;
-      
+
         $get_docs = get_posts( array( 'post_type' => 'docs', 'post_status' => 'publish') );
-        
+
         if( $post_type != 'docs' || count( $get_docs ) == 0 ) {
             return;
         }
-        
+
         if ( is_int( $post ) ) {
             $post = get_post( $post );
         }
@@ -585,14 +520,15 @@ class BetterDocsPro_Analytics {
 
         if ( ! wp_is_post_revision( $post ) && ! is_preview() ) {
             if ( is_single() ) {
+
                 $analytics_from =  BetterDocs_DB::get_settings( 'analytics_from' );
-               
+
                 $analytics_from = empty( $analytics_from ) ? 'everyone' : $analytics_from;
-        
+
                 $should_count = false;
                 /**
-                 * Inspired from WP-Postviews for 
-                 * this pece of code. 
+                 * Inspired from WP-Postviews for
+                 * this pece of code.
                  */
                 switch( $analytics_from ) {
                     case 'everyone':
@@ -609,7 +545,7 @@ class BetterDocsPro_Analytics {
                         }
                         break;
                 }
-        
+
                 if( $should_count === false ) {
                     return;
                 }
@@ -620,8 +556,8 @@ class BetterDocsPro_Analytics {
 
                 if ( $exclude_bot_analytics == 1 ) {
                     /**
-                     * Inspired from WP-Postviews for 
-                     * this piece of code. 
+                     * Inspired from WP-Postviews for
+                     * this piece of code.
                      */
                     $bots = array(
                         'Google Bot' => 'google',
@@ -661,135 +597,70 @@ class BetterDocsPro_Analytics {
                         }
                     }
                 }
-                
+
                 if( $should_count === false ) {
                     return;
                 }
-                
+
+                global $wpdb;
+
+                // find if this date data available on betterdocs_analytics
+                $result = $wpdb->get_results(
+                    $wpdb->prepare(
+                        "SELECT * from {$wpdb->prefix}betterdocs_analytics where post_id = %d and created_at = %s",
+                        array(
+                            $post_id,
+                            date("Y-m-d")
+                        )
+                    )
+                );
+
+                if (!empty($result)) {
+                    $impressions_increment = $result[0]->impressions + 1;
+                    if (isset($_COOKIE['docs_visited_'. $post->ID]) == false) {
+                        $unique_visit = $result[0]->unique_visit + 1;
+                    } else {
+                        $unique_visit = $result[0]->unique_visit;
+                    }
+                    $wpdb->query(
+                        $wpdb->prepare(
+                            "UPDATE {$wpdb->prefix}betterdocs_analytics 
+                            SET impressions = ". $impressions_increment .", unique_visit = ". $unique_visit ."
+                            WHERE created_at = %s AND post_id = %d",
+                            array(
+                                date('Y-m-d'),
+                                $post_id
+                            )
+                        )
+                    );
+                } else {
+                    $unique_visit = (isset($_COOKIE['docs_visited_'. $post->ID]) == false) ? 1 : 0;
+                    $wpdb->query(
+                        $wpdb->prepare(
+                            "INSERT INTO {$wpdb->prefix}betterdocs_analytics 
+                            ( post_id, impressions, unique_visit, created_at )
+                            VALUES ( %d, %d, %d, %s )",
+                            array(
+                                $post_id,
+                                1,
+                                $unique_visit,
+                                date('Y-m-d')
+                            )
+                        )
+                    );
+                }
+
                 $views = get_post_meta( $post_id, '_betterdocs_meta_views', true );
-             
+
                 if( $views === null ) {
                     add_post_meta( $post_id, '_betterdocs_meta_views', 1 );
                 } else {
                     update_post_meta( $post_id, '_betterdocs_meta_views', ++$views );
                 }
-                
-                /**
-                 * For Per Pop Up
-                 */
-                $impressions = get_post_meta( $post_id, '_betterdocs_meta_impression_per_day', true );
-                if( empty( $impressions )  ) {
-                    $impressions = [];
-                    $impressions[ $todays_date ]['impressions'] = 1;
-                    add_post_meta( $post_id, '_betterdocs_meta_impression_per_day', $impressions );
-                } else {
-                    if( isset( $impressions[ $todays_date ] ) ) {
-                        $impressions_data = isset( $impressions[ $todays_date ]['impressions'] ) ? ++$impressions[ $todays_date ]['impressions'] : 1;
-                        $impressions[ $todays_date ]['impressions'] = $impressions_data;
-                    } else {
-                        $impressions[ $todays_date ]['impressions'] = 1;
-                    }
-                    update_post_meta( $post_id, '_betterdocs_meta_impression_per_day', $impressions );
-                }
+
                 return true;
             } // is_single
         } // ! is not revision
-    }
-
-    public function clicked_analytics_data(){
-        /**
-         * Verify the Nonce
-         */
-        if ( ! isset( $_POST['nonce'] ) || ! isset( $_POST['id'] ) || ! wp_verify_nonce( $_POST['nonce'], 'betterdocs_pro_analytics_clicked' ) ) {
-            return;
-        }
-
-        /**
-         * Save Impressions
-         */
-        $post_id = intval( $_POST['id'] );
-        /**
-         * For Per Click Data
-         */
-        $todays_date = date( 'd-m-Y', time() );
-        if( isset( $_POST['clicked'] ) && $_POST['clicked'] == 'true' ) {
-            $clicks = get_post_meta( $post_id, '_nx_meta_clicks', true );
-            if( $clicks === null ) {
-                add_post_meta( $post_id, '_nx_meta_clicks', 1 );
-            } else {
-                update_post_meta( $post_id, '_nx_meta_clicks', ++$clicks );
-            }
-            /**
-             * For Per Pop Up Click
-             */
-            $impressions = get_post_meta( $post_id, '_betterdocs_meta_impression_per_day', true );
-            if( empty( $impressions ) ) {
-                $impressions = [];
-                $impressions[ $todays_date ][ 'clicks' ] = 1;
-                add_post_meta( $post_id, '_betterdocs_meta_impression_per_day', $impressions );
-            } else {
-                if( isset( $impressions[ $todays_date ] ) ) {
-                    $clicks_data = isset( $impressions[ $todays_date ]['clicks'] ) ? ++$impressions[ $todays_date ]['clicks'] : 1;
-                    $impressions[ $todays_date ][ 'clicks' ] = $clicks_data;
-                } else {
-                    $impressions[ $todays_date ][ 'clicks' ] = 1;
-                }
-                update_post_meta( $post_id, '_betterdocs_meta_impression_per_day', $impressions );
-            }
-            wp_die(); // die here
-        }
-
-        $views = get_post_meta( $post_id, '_betterdocs_meta_views', true );
-        if( $views === null ) {
-            add_post_meta( $post_id, '_betterdocs_meta_views', 1 );
-        } else {
-            update_post_meta( $post_id, '_betterdocs_meta_views', ++$views );
-        }
-
-    }
-
-    /**
-     * Formating Number in a Nice way
-     * @since 1.2.1
-     * @param int|string $n
-     * @return string
-     */
-    public static function nice_number( $n ) {
-        $temp_number = str_replace(",", "", $n );
-        if( ! empty( $temp_number ) ) {
-            $n = ( 0 + $temp_number );
-        } else {
-            $n = $n;
-        }
-        if( ! is_numeric( $n ) ) return 0;
-        $number = 0;
-        $suffix = '';
-        switch( true ) {
-            case $n >= 1000000000000 : 
-                $number = round( ( $n / 1000000000000 ), 1 );
-                $suffix = $n > 1000000000000 ? 'T+' : 'T';
-                break;
-            case $n >= 1000000000 : 
-                $number = round( ( $n / 1000000000 ), 1 );
-                $suffix = $n > 1000000000 ? 'B+' : 'B';
-                break;
-            case $n >= 1000000 : 
-                $number = round( ( $n / 1000000 ), 1 );
-                $suffix = $n > 1000000 ? 'M+' : 'M';
-                break;
-            case $n >= 1000 : 
-                $number = round( ( $n / 1000 ), 1 );
-                $suffix = $n > 1000 ? 'K+' : 'K';
-                break;
-            default: 
-                $number = $n;
-                break;
-        }
-        $number = number_format($number);
-        if( strpos( $number, '.') !== false && strpos( $number, '.') >= 0 ) {
-            $number = number_format($number, 1 );
-        }
-        return $number . $suffix;
     }
 }
 

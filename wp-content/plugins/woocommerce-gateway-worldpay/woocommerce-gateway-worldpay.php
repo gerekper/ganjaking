@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce WorldPay Gateway
 Plugin URI: http://woothemes.com/woocommerce/
 Description: Extends WooCommerce. Provides a WorldPay gateway for WooCommerce. Includes basic support for Subscriptions. http://www.worldpay.com.
-Version: 5.0.0
+Version: 5.0.1
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
-WC tested up to: 6.4.0
+WC tested up to: 6.7.0
 Woo: 18646:6bc48c9d12dc0c43add4b099665a80b0
 */
 
@@ -47,7 +47,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '6bc48c9d12dc0c43add4b09966
 // Defines
 define( 'WORLDPAYPLUGINPATH', plugin_dir_path( __FILE__ ) );
 define( 'WORLDPAYPLUGINURL', plugin_dir_url( __FILE__ ) );
-define( 'WORLDPAYPLUGINVERSION', '5.0.0' );
+define( 'WORLDPAYPLUGINVERSION', '5.0.1' );
 
 // Load Admin files
 if( is_admin() ) {
@@ -61,7 +61,7 @@ if( is_admin() ) {
 load_plugin_textdomain( 'woocommerce_worlday', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 // Init WorldPay Gateway after WooCommerce has loaded
-add_action('plugins_loaded', 'init_worldpay_gateway', 0);
+add_action( 'plugins_loaded', 'init_worldpay_gateway', 0 );
 
 function init_worldpay_gateway() {
 
@@ -82,6 +82,20 @@ function init_worldpay_gateway() {
 		return $methods;
 	}
 	add_filter('woocommerce_payment_gateways', 'add_worldpay_form_gateway' );
+
+	/**
+	 * Include WPG Gateway class
+	 */
+	// include('classes/worldwidepaymentgateway/wpg-class.php');
+
+	/**
+	 * Add the Gateway to WooCommerce
+	 */
+	function add_worldpay_wpg_gateway($methods) {
+		$methods[] = 'WC_Gateway_Worldwide_Payment_Gateway';
+		return $methods;
+	}
+	// add_filter('woocommerce_payment_gateways', 'add_worldpay_wpg_gateway' );
 
 	/**
 	 * Load the widget

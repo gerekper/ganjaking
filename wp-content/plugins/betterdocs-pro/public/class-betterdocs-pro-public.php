@@ -55,6 +55,7 @@ class Betterdocs_Pro_Public
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
         $this->internal_kb = $this->content_restriction();
+        add_action('shutdown', array($this, 'shutdown'));
 		add_filter('betterdocs_docs_layout_select_choices', array($this, 'customizer_docs_page_layout_choices'));
 		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
@@ -75,6 +76,7 @@ class Betterdocs_Pro_Public
             add_filter('betterdocs_kb_terms_object', array($this, 'restrict_kb'), 10, 1);
             add_filter('betterdocs_tag_tax_query', array($this, 'restrict_tax_query'), 10, 2);
             add_filter('betterdocs_live_search_tax_query', array($this, 'search_articles_args'), 10, 1);
+            add_filter('betterdocs_uncategorized_args', array( $this, 'uncategorized_docs_query' ), 10, 1 );
         }
         $live_search = BetterDocs_DB::get_settings('advance_search');
         if ($live_search == 1) {
@@ -264,6 +266,7 @@ class Betterdocs_Pro_Public
 	public function get_docs_single_template($single_template)
 	{
 		if (is_singular('docs')) {
+            setcookie('docs_visited_' . get_the_ID(), rand().get_the_ID(), time() + (86400 * 180), "/");
             $this->internal_kb_restriction();
 			$layout_select = get_theme_mod('betterdocs_single_layout_select', 'layout-1');
 			if ($layout_select === 'layout-2') {
@@ -388,20 +391,32 @@ class Betterdocs_Pro_Public
     public function popular_search_keyword()
     {
         $keywords = array();
-        $get_search_keyword = get_option( 'betterdocs_search_data' );
+        $search_table = get_option( 'betterdocs_db_version' );
         $popular_keyword_limit = BetterDocs_DB::get_settings('popular_keyword_limit');
-        if ($get_search_keyword) {
-            $search_keyword_arr = unserialize($get_search_keyword);
-            arsort($search_keyword_arr);
-            $popular_keyword_arr = array_slice($search_keyword_arr, 0, 5, true);
-            if ( $popular_keyword_arr ) {
-                foreach ($popular_keyword_arr as $key=>$value) {
+        if ($search_table == true) {
+            global $wpdb;
+            $select = "SELECT search_keyword.keyword, SUM(search_log.count) as count";
+            $join = "FROM {$wpdb->prefix}betterdocs_search_keyword as search_keyword 
+                    JOIN {$wpdb->prefix}betterdocs_search_log as search_log on search_keyword.id = search_log.keyword_id";
+            $get_search_keyword = $wpdb->get_results(
+                $wpdb->prepare("
+                        {$select}
+                        {$join}
+                        GROUP BY search_log.keyword_id
+                        ORDER BY count DESC
+                        LIMIT %d
+                    ", $popular_keyword_limit)
+            );
+
+            if ($get_search_keyword) {
+                foreach ($get_search_keyword as $key=>$value) {
                     if ($value > $popular_keyword_limit) {
-                        array_push($keywords, $key);
+                        array_push($keywords, $value->keyword);
                     }
                 }
             }
         }
+
         return $keywords;
     }
 
@@ -464,6 +479,8 @@ class Betterdocs_Pro_Public
         $search_category = $output_pro['betterdocs_category_search_toggle'];
         $search_button = $output_pro['betterdocs_search_button_toggle'];
         $popular_search = $output_pro['betterdocs_popular_search_toggle'];
+        $heading_tag = $output['betterdocs_live_search_heading_tag'];
+        $subheading_tag = $output['betterdocs_live_search_subheading_tag'];
 
         return '<div class="betterdocs-search-form-wrap">'. do_shortcode( '[betterdocs_search_form 
             placeholder="'.$search_placeholder.'" 
@@ -472,6 +489,47 @@ class Betterdocs_Pro_Public
             subheading="'.$search_subheading.'"
             category_search="'.$search_category.'"
             search_button="'.$search_button.'"
-            popular_search="'.$popular_search.'"]').'</div>';
+            popular_search="'.$popular_search.'"
+            heading_tag="'.$heading_tag.'"
+            subheading_tag="'.$subheading_tag.'"]').'</div>';
+    }
+
+    public function shutdown() {
+        global $migration_Process;
+        global $wpdb;
+
+        $queue_set = get_option('betterdocs_analytics_migration_queue_set', false);
+        if( $queue_set ) {
+            return;
+        }
+
+        $completed = get_option('betterdocs_analytics_migration', false);
+        if( $completed ) {
+            return;
+        }
+
+        $count = count($wpdb->get_results(
+            "SELECT post_id, meta_value
+		FROM {$wpdb->prefix}postmeta
+		WHERE meta_key = '_betterdocs_meta_impression_per_day'"
+        ));
+
+        $per_page = 10;
+        $total_page = ceil($count / $per_page);
+
+        for( $page = 1; $page <= $total_page; $page++ ) {
+            $offset = ($page * $per_page) - $per_page;
+            $migration_Process->push_to_queue( [
+                'count' => $count,
+                'total_page' => $total_page,
+                'page_now' => $page,
+                'per_page' => $per_page,
+                'offset' => $offset,
+            ] );
+        }
+
+        update_option('betterdocs_analytics_migration_queue_set', true);
+
+        $migration_Process->save()->dispatch();
     }
 }

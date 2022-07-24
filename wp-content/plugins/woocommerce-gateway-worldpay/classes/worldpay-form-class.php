@@ -20,7 +20,7 @@
 			$this->has_fields 					= false;
 
 			// Default values
-			$this->default_enabled				= 'yes';
+			$this->default_enabled				= 'no';
 			$this->default_title 				= __('Pay with WorldPay', 'woocommerce_worlday');
 			$this->default_description  		= __('Credit Card via WorldPay', 'woocommerce_worlday');
 			$this->default_order_button_text  	= __('Pay securely with WorldPay', 'woocommerce_worlday');
@@ -1016,7 +1016,7 @@
 				    'Cache-Control' => 'no-cache',
 				    'Content-Type' 	=> 'application/x-www-form-urlencoded; charset=utf-8'
 				);
-
+/*
 				$cancel_array = array(
 									//	'method' 		=> 'POST',
 									//	'timeout' 		=> 45,
@@ -1026,8 +1026,27 @@
 									//	'User-Agent' 	=> $_SERVER['HTTP_USER_AGENT'],
 										'body' 			=> $api_request,
 	    							);
+*/
 
-				$this->log->add( $this->id, print_r( $cancel_array, TRUE ) );
+				$args = array(
+                    'timeout'     => 150,
+                    'redirection' => 5,
+                    'httpversion' => '1.0',
+                    'user-agent'  => 'WordPress/; ' . home_url(),
+                    'blocking'    => true,
+                    'headers'     => $headers,
+                    'cookies'     => array(),
+                    'body'        => $api_request,
+                    'compress'    => false,
+                    'decompress'  => true,
+                    'sslverify'   => false,
+                    'stream'      => false,
+                    'filename'    => null
+                );
+
+
+
+				$this->log->add( $this->id, print_r( $args, TRUE ) );
 
 				$result = wp_remote_post( $curlurl, $cancel_array );
 

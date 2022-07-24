@@ -206,4 +206,16 @@ trait BetterDocs_Content_Restrictions
         }
         return $tax_query;
     }
+
+    public function uncategorized_docs_query($args) {
+        $args['tax_query'] = array( 
+            array( 
+                'taxonomy' => 'doc_category',
+                'field'    => 'term_id',
+                'terms'    => $this->get_restricted_category(),
+                'operator' => 'NOT IN',
+            ) 
+        );
+        return $args;
+    }
 }

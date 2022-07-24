@@ -31,10 +31,15 @@ class Betterdocs_Pro_Activator {
 	 */
 	public static function activate() {
 		/**
-		 * Free installer 
+		 * Free installer
 		 */
 		require_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'includes/class-betterdocs-installer.php';
 		new BetterDocs_Installer();
-	}
 
+		if( ! class_exists('BetterDocs_Role_Management') ){
+			require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-role-management.php';
+		}
+
+		BetterDocs_Role_Management::remove_caps( true );
+	}
 }

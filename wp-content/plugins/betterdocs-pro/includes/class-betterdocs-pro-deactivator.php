@@ -31,6 +31,12 @@ class Betterdocs_Pro_Deactivator {
 	 */
 	public static function deactivate() {
         flush_rewrite_rules();
+
+		if( ! class_exists('BetterDocs_Role_Management') ){
+			require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-role-management.php';
+		}
+
+		BetterDocs_Role_Management::remove_caps();
 	}
 
 }

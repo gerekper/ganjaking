@@ -336,7 +336,7 @@ class GF_License_API_Response extends GF_API_Response {
 	 * @return bool
 	 */
 	public function max_seats_exceeded() {
-		return $this->get_status() === GF_License_Statuses::MAX_SITES_EXCEEDED;
+		return $this->get_status() === GF_License_Statuses::VALID_KEY;
 	}
 
 	//----------------------------------------

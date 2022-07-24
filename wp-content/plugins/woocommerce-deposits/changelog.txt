@@ -1,5 +1,12 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-07-19 - version 1.6.0
+* Add - Pending payment to Partially Paid status transition for emails.
+
+2022-05-17 - version 1.5.11
+* Fix   - Compatibility issue with TaxJar plugin to ensure only initial deposit is needed and not full order total.
+* Tweak - Bump tested up to WordPress version 6.0.
+
 2022-04-05 - version 1.5.10
 * Enhancement - Display correct tax when the “Display Tax Totals” setting is set to “As a single total”
 * Fix         - Incorrect discount calculations for the bookable product and product add-ons

@@ -232,19 +232,7 @@ function loadPage(url, push){
 		jQuery('body').trigger('aln_reloaded');
 		return false;
 }
-/* Function removeByValue
- * params:
- * 		@val = value of elment to pop out of array
- * desc: Allows us to remove an element from a javascript array by value
- */
-Array.prototype.removeByValue = function(val) {
-    for(var i=0; i<this.length; i++) {
-        if(this[i] == val) {
-            this.splice(i, 1);
-            break;
-        }
-    }
-};
+
 function init_infinite_scroll($container){
 	//$container = jQuery('ul.products');
 

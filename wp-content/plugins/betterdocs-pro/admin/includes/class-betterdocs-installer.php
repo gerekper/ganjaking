@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This class is responsible for making Free Plugin available for pro!
  */
@@ -13,11 +13,11 @@ class BetterDocs_Installer {
 		 * Check Free NotificationX is There or not!
 		 * @since 1.1.3
 		 */
-        $plugins = get_option('active_plugins');	
+        $plugins = get_option('active_plugins');
 		if( ! isset( $plugins['betterdocs/betterdocs.php'] )) {
             if ( $this->make_betterdocs_ready() ) {
                 // redirect to plugin dashboard
-                wp_safe_redirect( "edit.php?post_type=docs&page=betterdocs-settings" );
+                wp_safe_redirect( "admin.php?page=betterdocs-settings" );
             }
         }
     }
