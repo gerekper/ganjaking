@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.3.13
+ * Version: 2.3.14
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Constants
  */
-define( 'WC_AM_VERSION', '2.3.13' );
+define( 'WC_AM_VERSION', '2.3.14' );
 define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
 define( 'WC_AM_REQUIRED_PHP_VERSION', '7.2' );
 define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '3.1' );

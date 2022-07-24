@@ -85,7 +85,7 @@ class AlertsTab extends PageAbstract {
 					<?php
 					echo wp_kses(
 						sprintf( /* translators: %s - WPMailSMTP.com Upgrade page URL. */
-							__( 'Configure at least one of these integrations to receive notifications when email fails to send from your site. Alert notifications will contain the following important data: email subject, email to address, the error message, and helpful links to help you fix the issue. <a href="%s" target="_blank" rel="noopener noreferrer">Upgrade to WP Mail SMTP Pro!</a>', 'wp-mail-smtp' ),
+							__( 'Configure at least one of these integrations to receive notifications when email fails to send from your site. Alert notifications will contain the following important data: email subject, email Send To address, the error message, and helpful links to help you fix the issue. <a href="%s" target="_blank" rel="noopener noreferrer">Upgrade to WP Mail SMTP Pro!</a>', 'wp-mail-smtp' ),
 							esc_url( $upgrade_link_url )
 						),
 						[
@@ -105,7 +105,7 @@ class AlertsTab extends PageAbstract {
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading">
 						<div class="wp-mail-smtp-setting-field">
 							<h3><?php esc_html_e( 'Email', 'wp-mail-smtp' ); ?></h3>
-							<p class="desc"><?php esc_html_e( 'Enter the email addresses (max 3) you’d like to use to receive an alert when email sending fails. Read our documentation on setting up email alerts.', 'wp-mail-smtp' ); ?></p>
+							<p class="desc"><?php esc_html_e( 'Enter the email addresses (3 max) you’d like to use to receive alerts when email sending fails. Read our documentation on setting up email alerts.', 'wp-mail-smtp' ); ?></p>
 						</div>
 					</div>
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle">
@@ -136,7 +136,7 @@ class AlertsTab extends PageAbstract {
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading">
 						<div class="wp-mail-smtp-setting-field">
 							<h3><?php esc_html_e( 'Slack', 'wp-mail-smtp' ); ?></h3>
-							<p class="desc"><?php esc_html_e( 'Paste in the Slack webhook URL you’d like to use to receive an alert when email sending fails. Read our documentation on setting up Slack alerts.', 'wp-mail-smtp' ); ?></p>
+							<p class="desc"><?php esc_html_e( 'Paste in the Slack webhook URL you’d like to use to receive alerts when email sending fails. Read our documentation on setting up Slack alerts.', 'wp-mail-smtp' ); ?></p>
 						</div>
 					</div>
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle">
@@ -216,7 +216,7 @@ class AlertsTab extends PageAbstract {
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading">
 						<div class="wp-mail-smtp-setting-field">
 							<h3><?php esc_html_e( 'Webhook', 'wp-mail-smtp' ); ?></h3>
-							<p class="desc"><?php esc_html_e( 'Paste in the webhook URL you’d like to use to receive an alert when email sending fails. Read our documentation on setting up webhook alerts.', 'wp-mail-smtp' ); ?></p>
+							<p class="desc"><?php esc_html_e( 'Paste in the webhook URL you’d like to use to receive alerts when email sending fails. Read our documentation on setting up webhook alerts.', 'wp-mail-smtp' ); ?></p>
 						</div>
 					</div>
 					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle">

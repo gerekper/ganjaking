@@ -582,7 +582,17 @@ class WC_Shipment_Tracking_Actions {
 			}
 
 			if ( $link_format ) {
-				$formatted['formatted_tracking_link'] = sprintf( $link_format, $tracking_item['tracking_number'], urlencode( wc_normalize_postcode( $postcode ) ), $country_code );
+				$values  = apply_filters( 'wc_shipment_tracking_provider_url_values', 
+					array( 
+						$tracking_item['tracking_number'], 
+						urlencode( wc_normalize_postcode( $postcode ) ), 
+						$country_code, 
+						$order_id
+					),
+					$tracking_item 
+				);
+   				array_unshift( $values, $link_format );
+				$formatted['formatted_tracking_link'] = call_user_func_array( "sprintf", $values );
 			}
 		}
 

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2021-04-27 12:23-0700\n"
-"PO-Revision-Date: 2021-04-27 12:24-0700\n"
+"POT-Creation-Date: 2022-07-13 19:59-0700\n"
+"PO-Revision-Date: 2022-07-13 19:59-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -178,11 +178,11 @@ msgstr ""
 msgid "Taking a while? Click here to run it now."
 msgstr ""
 
-#: includes/admin/wc-am-admin-notices.php:138
+#: includes/admin/wc-am-admin-notices.php:132
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/wc-am-admin-notices.php:142
+#: includes/admin/wc-am-admin-notices.php:136
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
@@ -1531,7 +1531,7 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:511
+#: woocommerce-api-manager.php:521
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must "
@@ -1539,7 +1539,7 @@ msgid ""
 "WooCommerce on the %splugin page%s once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:529
+#: woocommerce-api-manager.php:539
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s is inactive because it requires PHP version "
@@ -1547,7 +1547,7 @@ msgid ""
 "upgrade your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:566
+#: woocommerce-api-manager.php:576
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce version %s or greater, "
@@ -1556,7 +1556,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:582
+#: woocommerce-api-manager.php:596
 #, php-format
 msgid ""
 "The %sWooCommerce API Manager%s requires WooCommerce Subscriptions version "
@@ -1564,7 +1564,7 @@ msgid ""
 "installed. Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:637
+#: woocommerce-api-manager.php:651
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "

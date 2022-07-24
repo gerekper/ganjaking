@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.1] - 2022-07-14
+### Changed:
+- Removed MailPoet from the list of conflicting plugins.
+
+### Fixed:
+- PHP warning for undefined variable when using the Default (none) mailer.
+
 ## [3.5.0] - 2022-07-12
 ### Added:
 - Alerts for failed emails (Email, Slack, SMS, and Webhook notifications).

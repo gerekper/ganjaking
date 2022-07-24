@@ -7,44 +7,44 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Workflows\Step;
 use MailPoet\Automation\Engine\Workflows\Workflow;
-use MailPoet\Automation\Integrations\Core\Actions\WaitAction;
-use MailPoet\Automation\Integrations\MailPoet\Actions\SendWelcomeEmailAction;
+use MailPoet\Automation\Integrations\Core\Actions\DelayAction;
+use MailPoet\Automation\Integrations\MailPoet\Actions\SendEmailAction;
 use MailPoet\Automation\Integrations\MailPoet\Triggers\SegmentSubscribedTrigger;
 use MailPoet\Util\Security;
 
 class WorkflowBuilder {
 
-  /** @var WaitAction */
-  private $waitAction;
+  /** @var DelayAction */
+  private $delayAction;
 
   /** @var SegmentSubscribedTrigger */
   private $segmentSubscribedTrigger;
 
-  /** @var SendWelcomeEmailAction */
-  private $sendWelcomeEmailAction;
+  /** @var SendEmailAction */
+  private $sendEmailAction;
 
   public function __construct(
     SegmentSubscribedTrigger $segmentSubscribedTrigger,
-    SendWelcomeEmailAction $sendWelcomeEmailAction,
-    WaitAction $waitAction
+    SendEmailAction $sendEmailAction,
+    DelayAction $delayAction
   ) {
-    $this->waitAction = $waitAction;
+    $this->delayAction = $delayAction;
     $this->segmentSubscribedTrigger = $segmentSubscribedTrigger;
-    $this->sendWelcomeEmailAction = $sendWelcomeEmailAction;
+    $this->sendEmailAction = $sendEmailAction;
   }
 
   public function delayedEmailAfterSignupWorkflow(string $name): Workflow {
     $triggerStep = $this->segmentSubscribedTriggerStep();
 
-    $waitStep = $this->waitStep(60 * 60);
-    $triggerStep->setNextStepId($waitStep->getId());
+    $delayStep = $this->delayStep(60 * 60);
+    $triggerStep->setNextStepId($delayStep->getId());
 
     $sendEmailStep = $this->sendEmailActionStep();
-    $waitStep->setNextStepId($sendEmailStep->getId());
+    $delayStep->setNextStepId($sendEmailStep->getId());
 
     $steps = [
       $triggerStep,
-      $waitStep,
+      $delayStep,
       $sendEmailStep,
     ];
 
@@ -54,31 +54,31 @@ class WorkflowBuilder {
   public function welcomeEmailSequence(string $name): Workflow {
     $triggerStep = $this->segmentSubscribedTriggerStep();
 
-    $firstWaitStep = $this->waitStep(5 * 60);
-    $triggerStep->setNextStepId($firstWaitStep->getId());
+    $firstDelayStep = $this->delayStep(5 * 60);
+    $triggerStep->setNextStepId($firstDelayStep->getId());
 
     $sendFirstEmailStep = $this->sendEmailActionStep(1);
-    $firstWaitStep->setNextStepId($sendFirstEmailStep->getId());
+    $firstDelayStep->setNextStepId($sendFirstEmailStep->getId());
 
-    $secondWaitStep = $this->waitStep(3 * 60);
-    $sendFirstEmailStep->setNextStepId($secondWaitStep->getId());
+    $secondDelayStep = $this->delayStep(3 * 60);
+    $sendFirstEmailStep->setNextStepId($secondDelayStep->getId());
 
     $sendSecondEmailStep = $this->sendEmailActionStep(2);
-    $secondWaitStep->setNextStepId($sendSecondEmailStep->getId());
+    $secondDelayStep->setNextStepId($sendSecondEmailStep->getId());
 
     $steps = [
       $triggerStep,
-      $firstWaitStep,
+      $firstDelayStep,
       $sendFirstEmailStep,
-      $secondWaitStep,
+      $secondDelayStep,
       $sendSecondEmailStep,
     ];
 
     return new Workflow($name, $steps);
   }
 
-  private function waitStep(int $seconds): Step {
-    return new Step($this->uniqueId(), Step::TYPE_ACTION, $this->waitAction->getKey(), null, [
+  private function delayStep(int $seconds): Step {
+    return new Step($this->uniqueId(), Step::TYPE_ACTION, $this->delayAction->getKey(), null, [
       'seconds' => $seconds,
     ]);
   }
@@ -90,8 +90,8 @@ class WorkflowBuilder {
   }
 
   private function sendEmailActionStep(?int $newsletterId = null): Step {
-    return new Step($this->uniqueId(), Step::TYPE_ACTION, $this->sendWelcomeEmailAction->getKey(), null, [
-      'welcomeEmailId' => $newsletterId
+    return new Step($this->uniqueId(), Step::TYPE_ACTION, $this->sendEmailAction->getKey(), null, [
+      'email_id' => $newsletterId
     ]);
   }
 

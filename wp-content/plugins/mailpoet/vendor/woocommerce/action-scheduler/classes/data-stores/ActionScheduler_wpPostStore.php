@@ -538,6 +538,7 @@ class ActionScheduler_wpPostStore extends ActionScheduler_Store {
  if ( is_wp_error( $result ) ) {
  throw new RuntimeException( $result->get_error_message() );
  }
+ do_action( 'action_scheduler_completed_action', $action_id );
  }
  public function mark_migrated( $action_id ) {
  wp_update_post(

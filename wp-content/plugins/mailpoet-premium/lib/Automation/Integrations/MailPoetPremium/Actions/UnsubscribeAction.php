@@ -56,23 +56,16 @@ class UnsubscribeAction implements Action {
    * @param Subject[] $subjects
    */
   public function isValid(array $subjects, Step $step, Workflow $workflow): bool {
-    $subscriberSubject = $subjects['mailpoet:subscriber'] ?? null;
+    $subscriberSubjects = array_filter($subjects, function (Subject $subject) {
+      return $subject->getKey() === SubscriberSubject::KEY;
+    });
 
-    return $subscriberSubject instanceof SubscriberSubject;
+    return count($subscriberSubjects) === 1;
   }
 
   public function run(Workflow $workflow, WorkflowRun $workflowRun, Step $step): void {
-    $subscriberSubject = $workflowRun->getSubjects()['mailpoet:subscriber'] ?? null;
-    if (!$subscriberSubject instanceof SubscriberSubject) {
-      throw InvalidStateException::create()->withMessage('A mailpoet:subscriber subject is required.');
-    }
-
-    $subscriberId = $subscriberSubject->getFields()['id']->getValue();
-    $subscriber = $this->subscribersRepository->findOneById($subscriberId);
-
-    if (!$subscriber instanceof SubscriberEntity) {
-      throw InvalidStateException::create()->withMessage('Could not retrieve subscriber from the subscriber subject.');
-    }
+    $subscriberSubject = $workflowRun->requireSingleSubject(SubscriberSubject::class);
+    $subscriber = $subscriberSubject->getSubscriber();
 
     if ($subscriber->getStatus() !== SubscriberEntity::STATUS_SUBSCRIBED) {
       throw InvalidStateException::create()->withMessage(sprintf("Cannot unsubscribe subscriber ID '%s' because their status is '%s'.", $subscriber->getId(), $subscriber->getStatus()));

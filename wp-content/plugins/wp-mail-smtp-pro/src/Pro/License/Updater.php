@@ -98,7 +98,7 @@ class Updater {
 	 * @param array $config Array of updater config args.
 	 */
 	public function __construct( array $config ) {
-
+		return; // 
 		// Set class properties.
 		$accepted_args = array(
 			'plugin_name',

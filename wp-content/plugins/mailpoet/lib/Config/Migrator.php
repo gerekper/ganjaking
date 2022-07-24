@@ -75,6 +75,8 @@ class Migrator {
       'feature_flags',
       'dynamic_segment_filters',
       'user_agents',
+      'tags',
+      'subscriber_tag',
     ];
   }
 
@@ -96,6 +98,7 @@ class Migrator {
     $this->migratePurchasedInCategoryDynamicFilters();
     $this->migrateEmailActionsFilters();
     $this->updateDefaultInactiveSubscriberTimeRange();
+    $this->setDefaultValueForLoadingThirdPartyLibrariesForExistingInstalls();
     $this->disableMailPoetCronTrigger();
     return $output;
   }
@@ -639,6 +642,33 @@ class Migrator {
     return $this->sqlify(__FUNCTION__, $attributes);
   }
 
+  public function tags(): string {
+    $attributes = [
+      'id int(11) unsigned NOT NULL AUTO_INCREMENT,',
+      'name varchar(191) NOT NULL,',
+      'description text NOT NULL DEFAULT "",',
+      'created_at timestamp NULL,', // must be NULL, see comment at the top
+      'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
+      'PRIMARY KEY (id),',
+      'UNIQUE KEY name (name)',
+    ];
+    return $this->sqlify(__FUNCTION__, $attributes);
+  }
+
+  public function subscriberTag(): string {
+    $attributes = [
+      'id int(11) unsigned NOT NULL AUTO_INCREMENT,',
+      'subscriber_id int(11) unsigned NOT NULL,',
+      'tag_id int(11) unsigned NOT NULL,',
+      'created_at timestamp NULL,', // must be NULL, see comment at the top
+      'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
+      'PRIMARY KEY (id),',
+      'UNIQUE KEY subscriber_tag (subscriber_id, tag_id),',
+      'KEY tag_id (tag_id)',
+    ];
+    return $this->sqlify(__FUNCTION__, $attributes);
+  }
+
   private function sqlify($model, $attributes) {
     $table = $this->prefix . Helpers::camelCaseToUnderscore($model);
 
@@ -970,6 +1000,21 @@ class Migrator {
     if ($currentValue === 180) {
       $this->settings->set('deactivate_subscriber_after_inactive_days', 365);
       $this->settingsChangeHandler->onInactiveSubscribersIntervalChange();
+    }
+
+    return true;
+  }
+
+  private function setDefaultValueForLoadingThirdPartyLibrariesForExistingInstalls(): bool {
+    // skip the migration if the DB version is higher than 3.91.1 or is not set (a new installation)
+    if (version_compare($this->settings->get('db_version', '3.91.2'), '3.91.1', '>')) {
+      return false;
+    }
+
+    $thirdPartyScriptsEnabled = $this->settings->get('3rd_party_libs');
+    if (is_null($thirdPartyScriptsEnabled)) {
+      // keep loading 3rd party libraries for existing users so the functionality is not broken
+      $this->settings->set('3rd_party_libs.enabled', '1');
     }
 
     return true;

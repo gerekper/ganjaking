@@ -4,11 +4,6 @@ if (!defined('ABSPATH')) exit;
 $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 return array(
- 'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
- '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
- '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
- '0d59ee240a4cd96ddbb4ff164fccea4d' => $vendorDir . '/symfony/polyfill-php73/bootstrap.php',
- 'ad155f8f1cf0d418fe49e248db8c661b' => $vendorDir . '/react/promise/src/functions_include.php',
  'e65c52a9094ad098d9369d5cad5421fa' => $baseDir . '/lib/exceptions.php',
  '4407d0da6f795e11445a92772e35fd6a' => $baseDir . '/vendor-prefixed/symfony/polyfill-ctype/bootstrap.php',
  '766fdd1f275feb3306ba0045c4fcf600' => $baseDir . '/vendor-prefixed/symfony/polyfill-iconv/bootstrap.php',

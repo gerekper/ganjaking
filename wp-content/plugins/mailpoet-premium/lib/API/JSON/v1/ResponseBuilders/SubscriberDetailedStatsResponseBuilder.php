@@ -63,14 +63,11 @@ class SubscriberDetailedStatsResponseBuilder {
   private function buildNewsletter(NewsletterEntity $newsletter): array {
     $sentAt = $newsletter->getSentAt();
     $previewUrl = $this->newsletterUrl->getViewInBrowserUrl(
-      (object)[
-        'id' => $newsletter->getId(),
-        'hash' => $newsletter->getHash(),
-      ],
+      $newsletter,
       null,
       in_array($newsletter->getStatus(), [NewsletterEntity::STATUS_SENT, NewsletterEntity::STATUS_SENDING], true)
         ? $newsletter->getLatestQueue()
-        : false
+        : null
     );
     return [
       'id' => $newsletter->getId(),

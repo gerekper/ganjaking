@@ -70,6 +70,8 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
         echo "</option>
     </select>
   </div>
+{{else if isAutomationEmail}}
+
 {{else}}
 <div class=\"mailpoet_form_field mailpoet_heading_form_field\">
   <input
@@ -78,7 +80,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
     data-automation-id=\"newsletter_title\"
     value=\"{{ model.subject }}\"
     placeholder=\"";
-        // line 20
+        // line 22
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Click here to change the subject!");
         echo "\"
   />
@@ -89,7 +91,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
     class=\"mailpoet_input mailpoet_input_preheader\"
     value=\"{{ model.preheader }}\"
     placeholder=\"";
-        // line 28
+        // line 30
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Preview text (usually displayed underneath the subject line in the inbox)");
         echo "\"
     maxlength=\"250\"
@@ -112,7 +114,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
 
     public function getDebugInfo()
     {
-        return array (  90 => 28,  79 => 20,  66 => 10,  62 => 9,  58 => 8,  54 => 7,  49 => 5,  44 => 3,  40 => 2,  37 => 1,);
+        return array (  92 => 30,  81 => 22,  66 => 10,  62 => 9,  58 => 8,  54 => 7,  49 => 5,  44 => 3,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

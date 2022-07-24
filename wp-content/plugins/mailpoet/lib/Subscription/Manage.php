@@ -11,10 +11,10 @@ use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Form\Util\FieldNameObfuscator;
 use MailPoet\InvalidStateException;
 use MailPoet\Models\CustomField;
-use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\LinkTokens;
@@ -46,6 +46,9 @@ class Manage {
   /** @var WelcomeScheduler */
   private $welcomeScheduler;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
@@ -60,6 +63,7 @@ class Manage {
     SettingsController $settings,
     NewSubscriberNotificationMailer $newSubscriberNotificationMailer,
     WelcomeScheduler $welcomeScheduler,
+    SegmentsRepository $segmentsRepository,
     SubscribersRepository $subscribersRepository,
     SubscriberSegmentRepository $subscriberSegmentRepository
   ) {
@@ -70,6 +74,7 @@ class Manage {
     $this->settings = $settings;
     $this->newSubscriberNotificationMailer = $newSubscriberNotificationMailer;
     $this->welcomeScheduler = $welcomeScheduler;
+    $this->segmentsRepository = $segmentsRepository;
     $this->subscribersRepository = $subscribersRepository;
     $this->subscriberSegmentRepository = $subscriberSegmentRepository;
   }
@@ -178,7 +183,11 @@ class Manage {
     }
 
     if ($subscriber->status === SubscriberEntity::STATUS_SUBSCRIBED && $newSegmentIds) {
-      $this->newSubscriberNotificationMailer->send($subscriber, Segment::whereIn('id', $newSegmentIds)->findMany());
+      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
+      $newSegments = $this->segmentsRepository->findBy(['id' => $newSegmentIds]);
+      if ($subscriberEntity) {
+        $this->newSubscriberNotificationMailer->send($subscriberEntity, $newSegments);
+      }
       $this->welcomeScheduler->scheduleSubscriberWelcomeNotification(
         $subscriber->id,
         $newSegmentIds

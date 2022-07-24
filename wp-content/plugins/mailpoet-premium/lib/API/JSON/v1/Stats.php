@@ -85,12 +85,7 @@ class Stats extends APIEndpoint {
     }
 
     $clickedLinks = $this->statisticsClicksRepository->getClickedLinks($newsletter);
-    $previewUrl = $this->newsletterUrl->getViewInBrowserUrl(
-      (object)[
-        'id' => $newsletter->getId(),
-        'hash' => $newsletter->getHash(),
-      ]
-    );
+    $previewUrl = $this->newsletterUrl->getViewInBrowserUrl($newsletter);
 
     return $this->successResponse(
       $this->statsResponseBuilder->build(

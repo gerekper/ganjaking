@@ -18,6 +18,7 @@ class API {
 
   const RESPONSE_CODE_KEY_INVALID = 401;
   const RESPONSE_CODE_STATS_SAVED = 204;
+  const RESPONSE_CODE_CREATED = 201;
   const RESPONSE_CODE_INTERNAL_SERVER_ERROR = 500;
   const RESPONSE_CODE_BAD_GATEWAY = 502;
   const RESPONSE_CODE_TEMPORARY_UNAVAILABLE = 503;
@@ -180,6 +181,41 @@ class API {
     }
     $data = json_decode($this->wp->wpRemoteRetrieveBody($result), true);
     return is_array($data) ? $data : null;
+  }
+
+  /**
+   * Create Authorized Email Address
+   *
+   * returns ['status' => true] if done or an array of error messages ['error' => $errorBody, 'status' => false]
+   * @param string $emailAddress
+   * @return array
+   */
+  public function createAuthorizedEmailAddress(string $emailAddress): array {
+    $body = ['email' => $emailAddress];
+    $result = $this->request(
+      $this->urlAuthorizedEmailAddresses,
+      $body
+    );
+
+    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
+    $isSuccess = $code === self::RESPONSE_CODE_CREATED;
+
+    if (!$isSuccess) {
+      $errorBody = $this->wp->wpRemoteRetrieveBody($result);
+      $logData = [
+        'code' => $code,
+        'error' => is_wp_error($result) ? $result->get_error_message() : $errorBody,
+      ];
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error('CreateAuthorizedEmailAddress API call failed.', $logData);
+
+      $errorResponseData = json_decode($errorBody, true);
+      $fallbackError = sprintf($this->wp->__('An error has happened while performing a request, the server has responded with response code %d'), $code);
+
+      $errorData = is_array($errorResponseData) && isset($errorResponseData['error']) ? $errorResponseData['error'] : $fallbackError;
+      return ['error' => $errorData, 'status' => false];
+    }
+
+    return ['status' => $isSuccess];
   }
 
   public function setKey($apiKey) {

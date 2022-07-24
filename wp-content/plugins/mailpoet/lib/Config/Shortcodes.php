@@ -21,7 +21,6 @@ use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscription\Pages;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class Shortcodes {
   /** @var Pages */
@@ -42,9 +41,6 @@ class Shortcodes {
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
-  /** @var EntityManager */
-  private $entityManager;
-
   /** @var Date */
   private $dateCategory;
 
@@ -64,7 +60,6 @@ class Shortcodes {
     SubscribersRepository $subscribersRepository,
     NewsletterUrl $newsletterUrl,
     NewslettersRepository $newslettersRepository,
-    EntityManager $entityManager,
     Date $dateCategory,
     Link $linkCategory,
     Newsletter $newsletterCategory,
@@ -76,7 +71,6 @@ class Shortcodes {
     $this->subscribersRepository = $subscribersRepository;
     $this->newsletterUrl = $newsletterUrl;
     $this->newslettersRepository = $newslettersRepository;
-    $this->entityManager = $entityManager;
     $this->dateCategory = $dateCategory;
     $this->linkCategory = $linkCategory;
     $this->newsletterCategory = $newsletterCategory;
@@ -175,7 +169,6 @@ class Shortcodes {
     $newsletters = $this->newslettersRepository->getArchives($segmentIds);
 
     $subscriber = $this->subscribersRepository->getCurrentWPUser();
-    $subscriber = $subscriber ? Subscriber::findOne($subscriber->getId()) : null;
 
     if (empty($newsletters)) {
       return $this->wp->applyFilters(
@@ -219,7 +212,7 @@ class Shortcodes {
     );
   }
 
-  public function renderArchiveSubject(NewsletterEntity $newsletter, $subscriber, SendingQueueEntity $queue) {
+  public function renderArchiveSubject(NewsletterEntity $newsletter, ?SubscriberEntity $subscriber, ?SendingQueueEntity $queue) {
     $previewUrl = $this->newsletterUrl->getViewInBrowserUrl($newsletter, $subscriber, $queue);
     /**
      * An ugly workaround to make sure state is not shared via NewsletterShortcodes service
@@ -233,19 +226,13 @@ class Shortcodes {
       $this->subscriberCategory,
       $this->wp
     );
+
     $shortcodeProcessor->setNewsletter($newsletter);
-
-    if (is_object($subscriber) && !is_a($subscriber, SubscriberEntity::class) && !empty($subscriber->id)) {
-      $subscriberEntity = $this->entityManager->find(SubscriberEntity::class, $subscriber->id);
-    } else {
-      $subscriberEntity = new SubscriberEntity();
-    }
-
-    $shortcodeProcessor->setSubscriber($subscriberEntity);
+    $shortcodeProcessor->setSubscriber($subscriber ?? new SubscriberEntity());
     $shortcodeProcessor->setQueue($queue);
     return '<a href="' . esc_attr($previewUrl) . '" target="_blank" title="'
       . esc_attr(__('Preview in a new tab', 'mailpoet')) . '">'
-      . esc_attr((string)$shortcodeProcessor->replace($queue->getNewsletterRenderedSubject())) .
+      . esc_attr((string)$shortcodeProcessor->replace($queue ? $queue->getNewsletterRenderedSubject() : '')) .
       '</a>';
   }
 }

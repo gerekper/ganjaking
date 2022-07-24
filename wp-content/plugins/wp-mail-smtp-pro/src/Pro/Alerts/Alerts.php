@@ -64,6 +64,7 @@ class Alerts {
 		// Bail if any of alerts channels is not enabled or it's a test email.
 		if (
 			! $this->is_enabled() ||
+			$mail_mailer === 'mail' ||
 			$mailcatcher->is_test_email() ||
 			$mailcatcher->is_setup_wizard_test_email()
 		) {

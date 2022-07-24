@@ -87,8 +87,8 @@ abstract class ActionScheduler {
  } else {
  return;
  }
- if ( file_exists( "{$dir}{$class}.php" ) ) {
- include( "{$dir}{$class}.php" );
+ if ( file_exists( $dir . "{$class}.php" ) ) {
+ include( $dir . "{$class}.php" );
  return;
  }
  }

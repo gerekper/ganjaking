@@ -157,7 +157,7 @@ class WC_Store_Credit_Admin_Settings extends WC_Settings_Page {
 	 * @return string
 	 */
 	public function sanitize_cart_notice( $value ) {
-		if ( ! empty( $value ) && ! preg_match( '\[link].+\[/link]', $value ) ) {
+		if ( ! empty( $value ) && ! preg_match( '/\[link].+\[\/link]/', $value ) ) {
 			$value  = str_replace( array( '[link]', '[/link]' ), '', $value );
 			$value .= ' [link]' . __( 'View coupons', 'woocommerce-store-credit' ) . '[/link]';
 		}

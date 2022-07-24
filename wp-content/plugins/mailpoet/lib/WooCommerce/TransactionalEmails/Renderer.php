@@ -5,7 +5,7 @@ namespace MailPoet\WooCommerce\TransactionalEmails;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\Newsletter;
+use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Newsletter\Renderer\Renderer as NewsletterRenderer;
 use MailPoetVendor\csstidy;
 use MailPoetVendor\csstidy_print;
@@ -35,7 +35,7 @@ class Renderer {
     $this->renderer = $renderer;
   }
 
-  public function render(Newsletter $newsletter, ?string $subject = null) {
+  public function render(NewsletterEntity $newsletter, ?string $subject = null) {
     $renderedHtml = $this->renderer->renderAsPreview($newsletter, 'html', $subject);
     $headingText = $subject ?? '';
     $renderedHtml = str_replace(ContentPreprocessor::WC_HEADING_PLACEHOLDER, $headingText, $renderedHtml);

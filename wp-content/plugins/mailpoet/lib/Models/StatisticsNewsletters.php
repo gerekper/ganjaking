@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\StatisticsOpenEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 /**
@@ -40,7 +41,7 @@ class StatisticsNewsletters extends Model {
     );
   }
 
-  public static function getAllForSubscriber(Subscriber $subscriber) {
+  public static function getAllForSubscriber(SubscriberEntity $subscriber) {
     $entityManager = ContainerWrapper::getInstance()->get(EntityManager::class);
 
     return static::tableAlias('statistics')
@@ -58,7 +59,7 @@ class StatisticsNewsletters extends Model {
         'statistics.newsletter_id = opens.newsletter_id AND statistics.subscriber_id = opens.subscriber_id',
         'opens'
       )
-      ->where('statistics.subscriber_id', $subscriber->id())
+      ->where('statistics.subscriber_id', $subscriber->getId())
       ->orderByAsc('newsletter_id');
   }
 }

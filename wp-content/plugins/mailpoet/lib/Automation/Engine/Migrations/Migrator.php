@@ -17,11 +17,13 @@ class Migrator {
 
   public function __construct() {
     global $wpdb;
-    $this->prefix = $wpdb->prefix . 'mailpoet_automation_';
+    $this->prefix = $wpdb->prefix . 'mailpoet_';
     $this->wpdb = $wpdb;
   }
 
   public function createSchema(): void {
+    $this->removeOldSchema();
+
     $this->runQuery("
       CREATE TABLE {$this->prefix}workflows (
         id int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -51,6 +53,7 @@ class Migrator {
   }
 
   public function deleteSchema(): void {
+    $this->removeOldSchema();
     $this->runQuery("DROP TABLE IF EXISTS {$this->prefix}workflows");
     $this->runQuery("DROP TABLE IF EXISTS {$this->prefix}workflow_runs");
 
@@ -70,8 +73,14 @@ class Migrator {
   }
 
   public function hasSchema(): bool {
-    $pattern = $this->wpdb->esc_like($this->prefix) . '%';
+    $pattern = $this->wpdb->esc_like("{$this->prefix}workflows") . '%';
     return $this->runQuery("SHOW TABLES LIKE '$pattern'") > 0;
+  }
+
+  private function removeOldSchema(): void {
+    $oldPrefix = $this->wpdb->prefix . 'mailpoet_automation_';
+    $this->runQuery("DROP TABLE IF EXISTS {$oldPrefix}workflows");
+    $this->runQuery("DROP TABLE IF EXISTS {$oldPrefix}workflow_runs");
   }
 
   private function runQuery(string $query): int {

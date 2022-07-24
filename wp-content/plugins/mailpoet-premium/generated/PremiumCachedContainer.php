@@ -313,7 +313,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getUserRegistrationTriggerService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\UserRegistrationTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\UserRegistrationTrigger(($this->services['MailPoet\\Automation\\Integrations\\MailPoet\\Subjects\\SubscriberSubject'] ?? $this->getSubscriberSubjectService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\UserRegistrationTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\UserRegistrationTrigger(($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
     }
 
     /**

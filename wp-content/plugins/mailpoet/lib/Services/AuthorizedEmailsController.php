@@ -16,6 +16,12 @@ use MailPoet\Settings\SettingsController;
 class AuthorizedEmailsController {
   const AUTHORIZED_EMAIL_ADDRESSES_ERROR_SETTING = 'authorized_emails_addresses_check';
 
+  const AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_AUTHORIZED = 'authorized';
+  const AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_PENDING = 'pending';
+  const AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_ALL = 'all';
+  const AUTHORIZED_EMAIL_ERROR_ALREADY_AUTHORIZED = 'Email address is already authorized';
+  const AUTHORIZED_EMAIL_ERROR_PENDING_CONFIRMATION = 'Email address is pending confirmation';
+
   /** @var Bridge */
   private $bridge;
 
@@ -42,7 +48,7 @@ class AuthorizedEmailsController {
   }
 
   public function setFromEmailAddress(string $address) {
-    $authorizedEmails = array_map('strtolower', $this->bridge->getAuthorizedEmailAddresses() ?: []);
+    $authorizedEmails = $this->bridge->getAuthorizedEmailAddresses() ?: [];
     $isAuthorized = $this->validateAuthorizedEmail($authorizedEmails, $address);
     if (!$isAuthorized) {
       throw new \InvalidArgumentException("Email address '$address' is not authorized");
@@ -59,6 +65,41 @@ class AuthorizedEmailsController {
     }
     $this->newslettersRepository->flush();
     $this->settings->set(self::AUTHORIZED_EMAIL_ADDRESSES_ERROR_SETTING, null);
+  }
+
+  public function getAllAuthorizedEmailAddress(): array {
+    return $this->bridge->getAuthorizedEmailAddresses(self::AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_ALL);
+  }
+
+  public function createAuthorizedEmailAddress(string $email): array {
+    $allEmails = $this->getAllAuthorizedEmailAddress();
+
+    $authorizedEmails = isset($allEmails[self::AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_AUTHORIZED]) ? $allEmails[self::AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_AUTHORIZED] : [];
+    $isAuthorized = $this->validateAuthorizedEmail($authorizedEmails, $email);
+
+    if ($isAuthorized) {
+      throw new \InvalidArgumentException(self::AUTHORIZED_EMAIL_ERROR_ALREADY_AUTHORIZED);
+    }
+
+    $pendingEmails = isset($allEmails[self::AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_PENDING]) ? $allEmails[self::AUTHORIZED_EMAIL_ADDRESSES_API_TYPE_PENDING] : [];
+    $isPending = $this->validateAuthorizedEmail($pendingEmails, $email);
+
+    if ($isPending) {
+      throw new \InvalidArgumentException(self::AUTHORIZED_EMAIL_ERROR_PENDING_CONFIRMATION);
+    }
+
+    $finalData = $this->bridge->createAuthorizedEmailAddress($email);
+
+    if ($finalData && isset($finalData['error'])) {
+      throw new \InvalidArgumentException($finalData['error']);
+    }
+
+    return $finalData;
+  }
+
+  public function isEmailAddressAuthorized(string $email): bool {
+    $authorizedEmails = $this->bridge->getAuthorizedEmailAddresses() ?: [];
+    return $this->validateAuthorizedEmail($authorizedEmails, $email);
   }
 
   public function checkAuthorizedEmailAddresses() {
@@ -158,7 +199,8 @@ class AuthorizedEmailsController {
     }
   }
 
-  private function validateAuthorizedEmail($authorizedEmails, $email) {
-    return in_array(strtolower($email), $authorizedEmails, true);
+  private function validateAuthorizedEmail($authorizedEmails = [], $email = '') {
+    $lowercaseAuthorizedEmails = array_map('strtolower', $authorizedEmails);
+    return in_array(strtolower($email), $lowercaseAuthorizedEmails, true);
   }
 }

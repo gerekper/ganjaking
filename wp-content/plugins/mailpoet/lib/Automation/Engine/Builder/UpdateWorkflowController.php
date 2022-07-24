@@ -30,9 +30,20 @@ class UpdateWorkflowController {
       throw Exceptions::workflowNotFound($id);
     }
 
+    $changed = false;
+
+    if (array_key_exists('name', $data)) {
+      $workflow->setName($data['name']);
+      $changed = true;
+    }
+
     if (array_key_exists('status', $data)) {
       $this->checkWorkflowStatus($data['status']);
       $workflow->setStatus($data['status']);
+      $changed = true;
+    }
+
+    if ($changed) {
       $this->storage->updateWorkflow($workflow);
     }
 

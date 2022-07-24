@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div id="woocommerce-order-items">
+<div id="wc_am_items">
     <thead>
     <div class="woocommerce_order_items_wrapper wc-order-items-editable">
         <table id="activations-table" cellpadding="0" cellspacing="0" class="woocommerce_order_items">

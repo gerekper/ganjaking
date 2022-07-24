@@ -24,28 +24,31 @@ if ( ! class_exists( 'WP_Async_Request' ) ) {
  if ( property_exists( $this, 'query_args' ) ) {
  return $this->query_args;
  }
- return array(
+ $args = array(
  'action' => $this->identifier,
  'nonce' => wp_create_nonce( $this->identifier ),
  );
+ return apply_filters( $this->identifier . '_query_args', $args );
  }
  protected function get_query_url() {
  if ( property_exists( $this, 'query_url' ) ) {
  return $this->query_url;
  }
- return admin_url( 'admin-ajax.php' );
+ $url = admin_url( 'admin-ajax.php' );
+ return apply_filters( $this->identifier . '_query_url', $url );
  }
  protected function get_post_args() {
  if ( property_exists( $this, 'post_args' ) ) {
  return $this->post_args;
  }
- return array(
+ $args = array(
  'timeout' => 0.01,
  'blocking' => false,
  'body' => $this->data,
  'cookies' => $_COOKIE,
  'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
  );
+ return apply_filters( $this->identifier . '_post_args', $args );
  }
  public function maybe_handle() {
  // Don't lock up other requests while processing

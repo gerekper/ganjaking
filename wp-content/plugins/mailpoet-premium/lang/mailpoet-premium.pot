@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailPoet 3 Premium (New) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 Premium (New) 3.91.0\n"
+"Project-Id-Version: MailPoet 3 Premium (New) 3.92.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-06-22 11:16:30+00:00\n"
+"POT-Creation-Date: 2022-07-19 09:21:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 
 #: lib/API/JSON/v1/Bounces.php:39 lib/API/JSON/v1/Stats.php:70
-#: lib/API/JSON/v1/Stats.php:108
+#: lib/API/JSON/v1/Stats.php:103
 msgid "This newsletter does not exist."
 msgstr ""
 
 #: lib/API/JSON/v1/Bounces.php:46 lib/API/JSON/v1/Stats.php:79
-#: lib/API/JSON/v1/Stats.php:115
+#: lib/API/JSON/v1/Stats.php:110
 msgid "This newsletter is not sent yet."
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php:32
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php:26
 msgid "WP user registration"
 msgstr ""
 

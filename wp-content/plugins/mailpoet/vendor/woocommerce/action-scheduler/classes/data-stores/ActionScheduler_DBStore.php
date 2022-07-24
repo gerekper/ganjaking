@@ -268,7 +268,7 @@ class ActionScheduler_DBStore extends ActionScheduler_Store {
  array( '%s' ),
  array( '%d' )
  );
- if ( empty( $updated ) ) {
+ if ( false === $updated ) {
  throw new \InvalidArgumentException( sprintf( __( 'Unidentified action %s', 'action-scheduler' ), $action_id ) );
  }
  do_action( 'action_scheduler_canceled_action', $action_id );
@@ -471,6 +471,7 @@ class ActionScheduler_DBStore extends ActionScheduler_Store {
  if ( empty( $updated ) ) {
  throw new \InvalidArgumentException( sprintf( __( 'Unidentified action %s', 'action-scheduler' ), $action_id ) ); //phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
  }
+ do_action( 'action_scheduler_completed_action', $action_id );
  }
  public function get_status( $action_id ) {
  global $wpdb;

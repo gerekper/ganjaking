@@ -6,16 +6,20 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\PageRenderer;
+use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\Cache\TransientCache;
 use MailPoet\Config\Installer;
 use MailPoet\Config\ServicesChecker;
+use MailPoet\CustomFields\CustomFieldsRepository;
+use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\TagEntity;
 use MailPoet\Form\Block;
 use MailPoet\Listing\PageLimit;
-use MailPoet\Models\CustomField;
 use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
+use MailPoet\Tags\TagRepository;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\Util\License\License;
 use MailPoet\WP\Functions as WPFunctions;
@@ -43,8 +47,17 @@ class Subscribers {
   /** @var SegmentsSimpleListRepository */
   private $segmentsListRepository;
 
+  /** @var TagRepository */
+  private $tagRepository;
+
   /** @var TransientCache */
   private $transientCache;
+
+  /** @var CustomFieldsRepository */
+  private $customFieldsRepository;
+
+  /** @var CustomFieldsResponseBuilder */
+  private $customFieldsResponseBuilder;
 
   /** @var TrackingConfig */
   private $trackingConfig;
@@ -57,7 +70,10 @@ class Subscribers {
     ServicesChecker $servicesChecker,
     Block\Date $dateBlock,
     SegmentsSimpleListRepository $segmentsListRepository,
+    TagRepository $tagRepository,
     TransientCache $transientCache,
+    CustomFieldsRepository $customFieldsRepository,
+    CustomFieldsResponseBuilder $customFieldsResponseBuilder,
     TrackingConfig $trackingConfig
   ) {
     $this->pageRenderer = $pageRenderer;
@@ -67,7 +83,10 @@ class Subscribers {
     $this->dateBlock = $dateBlock;
     $this->servicesChecker = $servicesChecker;
     $this->segmentsListRepository = $segmentsListRepository;
+    $this->tagRepository = $tagRepository;
     $this->transientCache = $transientCache;
+    $this->customFieldsRepository = $customFieldsRepository;
+    $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
     $this->trackingConfig = $trackingConfig;
   }
 
@@ -80,8 +99,15 @@ class Subscribers {
     $data['items_per_page'] = $this->listingPageLimit->getLimitPerPage('subscribers');
     $data['segments'] = $this->segmentsListRepository->getListWithSubscribedSubscribersCounts();
 
-    $data['custom_fields'] = array_map(function($field) {
-      $field['params'] = unserialize($field['params']);
+    $data['tags'] = array_map(function (TagEntity $tag): array {
+      return [
+        'id' => $tag->getId(),
+        'name' => $tag->getName(),
+      ];
+    }, $this->tagRepository->findAll());
+
+    $data['custom_fields'] = array_map(function(CustomFieldEntity $customField): array {
+      $field = $this->customFieldsResponseBuilder->build($customField);
 
       if (!empty($field['params']['values'])) {
         $values = [];
@@ -92,7 +118,7 @@ class Subscribers {
         $field['params']['values'] = $values;
       }
       return $field;
-    }, CustomField::findArray());
+    }, $this->customFieldsRepository->findAll());
 
     $data['date_formats'] = $this->dateBlock->getDateFormats();
     $data['month_names'] = $this->dateBlock->getMonthNames();

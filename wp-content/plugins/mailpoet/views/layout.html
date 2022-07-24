@@ -35,17 +35,15 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   <!-- Set FROM address modal React root -->
   <div id="mailpoet_set_from_address_modal"></div>
 
+  <!-- Set Authorize sender email React root -->
+  <div id="mailpoet_authorize_sender_email_modal"></div>
+
   <!-- title block -->
   <% block title %><% endblock %>
   <!-- content block -->
   <% block content %><% endblock %>
 </div>
 <% endblock %>
-
-<!-- stylesheets -->
-<%= stylesheet(
-  'mailpoet-plugin.css'
-)%>
 
 <%= do_action('mailpoet_styles_admin_after') %>
 
@@ -125,12 +123,19 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   'reviewRequestRateUsNow': _x('Rate us now', 'Review our plugin on WordPress.org.'),
   'reviewRequestNotNow': __('Not now'),
 
+  'authorizeSenderEmailModalTitle': __('Authorizing your email address: [senderEmail]', 'mailpoet'),
+  'authorizeSenderEmailModalDescription': __('Check your inbox now to confirm your email address. Please find the email with the subject: [bold]"email address to authorize"[/bold]', 'mailpoet'),
+  'authorizeSenderEmailMessageSuccess': __('The email address has been authorized. You can now send emails using this address with MailPoet.', 'mailpoet'),
+  'authorizeSenderEmailMessageError': __('An error occured when performing the request. Please try again later', 'mailpoet'),
+
   'sent': __('Sent'),
   'notSentYet': __('Not sent yet!'),
 
   'allSendingPausedHeader': __('All sending is currently paused!'),
   'allSendingPausedBody': __('Your [link]API key[/link] to send with MailPoet is invalid.'),
   'allSendingPausedLink': __('Purchase a key'),
+
+  'topBarLogoTitle': __('Back to section root'),
 
   'close': __('Close'),
   'today': __('Today'),

@@ -1,5 +1,9 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.07.14 - version 2.3.14
+ * Fix: Changed conflicting CSS ID for API Activations metabox.
+ * Fix: Removed CSS previously added to fix WP 3.8 that now causes misaligned checkboxes on Dashboard > Updates screen.
+
 2022.07.13 - version 2.3.13
  * Fix: Wrong value returned for date used for API Access Expires, when this value is set, due to pre WC 3.0 database query that did not failover to post WC 3.0 database query.
 

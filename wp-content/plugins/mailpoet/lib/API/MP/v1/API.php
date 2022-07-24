@@ -27,6 +27,9 @@ class API {
   /** @var CustomFields */
   private $customFields;
 
+  /** @var Segments */
+  private $segments;
+
   /** @var Subscribers */
   private $subscribers;
 
@@ -36,11 +39,13 @@ class API {
   public function __construct(
     RequiredCustomFieldValidator $requiredCustomFieldValidator,
     CustomFields $customFields,
+    Segments $segments,
     Subscribers $subscribers,
     Changelog $changelog
   ) {
     $this->requiredCustomFieldValidator = $requiredCustomFieldValidator;
     $this->customFields = $customFields;
+    $this->segments = $segments;
     $this->subscribers = $subscribers;
     $this->changelog = $changelog;
   }
@@ -119,9 +124,8 @@ class API {
     return $subscriber->withCustomFields()->withSubscriptions()->asArray();
   }
 
-  public function getLists() {
-    return Segment::where('type', Segment::TYPE_DEFAULT)
-      ->findArray();
+  public function getLists(): array {
+    return $this->segments->getAll();
   }
 
   public function addSubscriber(array $subscriber, $listIds = [], $options = []) {
