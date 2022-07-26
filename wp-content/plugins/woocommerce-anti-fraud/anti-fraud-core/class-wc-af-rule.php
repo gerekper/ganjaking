@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-if ( ! interface_exists( 'WC_AF_iRule' ) ) {
-	interface WC_AF_iRule {
+if ( ! interface_exists( 'WC_AF_IRule' ) ) {
+	interface WC_AF_IRule {
 
 		/**
 		 * Check if the current rule finds a risk in order. The method must return a boolean.
@@ -21,7 +21,7 @@ if ( ! interface_exists( 'WC_AF_iRule' ) ) {
 }
 
 if ( ! class_exists( 'WC_AF_Rule' ) ) {
-	abstract class WC_AF_Rule implements WC_AF_iRule {
+	abstract class WC_AF_Rule implements WC_AF_IRule {
 
 		private $id;
 		private $label;

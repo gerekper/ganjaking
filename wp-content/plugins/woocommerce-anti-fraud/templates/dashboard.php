@@ -165,7 +165,7 @@ for ($i = 6; $i > 0; $i--) {
 
 <div class="dash-row">
 
-<h1 style="text-align:center;font-size:50px;color:white;line-height: 1.2em;">Anti Fraud Dashboard</h1> 
+<h1 style="text-align:center;font-size:50px;color:white;line-height: 1.2em;"><?php echo  esc_html__('Anti Fraud Dashboard', 'woocommerce-anti-fraud'); ?></h1> 
 
 </div>
 
@@ -175,25 +175,25 @@ for ($i = 6; $i > 0; $i--) {
 
 	<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/cart.svg'; ?>">   
 
-		<h2><?php echo esc_attr($number_of_orders); ?></h2>Orders Detected</div> 
+		<h2><?php echo esc_attr($number_of_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo  esc_html__('Orders Detected', 'woocommerce-anti-fraud'); ?></div> 
 
 	<div class="metric-box metric-style2">
 
 		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/low-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_low_risk_orders); ?></h2>Low Risk</div>
+		<h2><?php echo esc_attr($number_of_low_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Low Risk', 'woocommerce-anti-fraud'); ?></div>
 
 	<div class="metric-box metric-style3">
 
 		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/med-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_medium_risk_orders); ?></h2>Medium Risk</div>
+		<h2><?php echo esc_attr($number_of_medium_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Medium Risk', 'woocommerce-anti-fraud'); ?></div>
 
 	<div class="metric-box metric-style4">
 
 		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/high-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_high_risk_orders); ?></h2>Needs Attention</div>
+		<h2><?php echo esc_attr($number_of_high_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Needs Attention', 'woocommerce-anti-fraud'); ?></div>
 
 </div>
 
@@ -205,7 +205,8 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="dash-section-50 bar-chart">
 
-		<h2 style="color:white">Recent Order Data</h2>
+
+		<h2 style="color:white"><?php echo esc_html__('Recent Order Data', 'woocommerce-anti-fraud'); ?></h2>
 
 		<div class="chart-wrapper">
 
@@ -219,27 +220,15 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="dash-section-50 dash-stats">
 
-		<h2 style="color:white;">Last 24 Hours Update</h2>
+		<h2 style="color:white;"><?php echo esc_html__('Last 24 Hours Update', 'woocommerce-anti-fraud'); ?></h2>
 
 <div class="blurb">
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url( plugin_dir_url(__FILE__) . 'icons/totaol.svg'); ?>"><h3>Total Transaction Amount</h3>
+<img src="<?php echo esc_url( plugin_dir_url(__FILE__) . 'icons/totaol.svg'); ?>"><h3><?php echo esc_html__('Total Transaction Amount', 'woocommerce-anti-fraud'); ?></h3>
 
-	<div class="blurb-content"><span><?php echo esc_attr($currency . $total_transaction_amt24); ?></span></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/hash.svg'); ?>"><h3>Total Number of Orders</h3>
-
-	<div class="blurb-content"><?php echo esc_attr($total_orders); ?></div>
+	<div class="blurb-content"><span><?php echo esc_attr($currency . $total_transaction_amt24, 'woocommerce-anti-fraud'); ?></span></div>
 
 </div>
 
@@ -249,21 +238,9 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/med-risk.svg'); ?>"><h3>Medium Risk Orders</h3>
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/hash.svg'); ?>"><h3><?php echo esc_html__('Total Number of Orders', 'woocommerce-anti-fraud'); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_medium_risk_orders24); ?></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/high-risk.svg'); ?>"><h3>High-Risk Orders on Hold</h3>
-
-	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_hold24); ?></div>
+	<div class="blurb-content"><?php echo esc_attr($total_orders, 'woocommerce-anti-fraud'); ?></div>
 
 </div>
 
@@ -273,21 +250,9 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/orders-cancelled.svg'); ?>"><h3>Fraudulent Orders Cancelled</h3>
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/med-risk.svg'); ?>"><h3><?php echo esc_html__('Medium Risk Orders', 'woocommerce-anti-fraud'); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_cancelled24); ?></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/money-risk.svg'); ?>"><h3>High-Risk Net Transaction</h3>
-
-	<div class="blurb-content"><?php echo esc_attr($currency . $high_risk_transaction_amt24); ?></div>
+	<div class="blurb-content"><?php echo esc_attr($number_of_medium_risk_orders24, 'woocommerce-anti-fraud'); ?></div>
 
 </div>
 
@@ -297,9 +262,9 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/emails-blocked.svg'); ?>"><h3>Emails Blocked</h3>
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/high-risk.svg'); ?>"><h3><?php echo esc_html__('High-Risk Orders on Hold', 'woocommerce-anti-fraud'); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr(count($block_emails)); ?></div>
+	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_hold24, 'woocommerce-anti-fraud'); ?></div>
 
 </div>
 
@@ -309,9 +274,45 @@ for ($i = 6; $i > 0; $i--) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/paypal.svg'); ?>"><h3>Paypal Verification Required</h3>
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/orders-cancelled.svg'); ?>"><h3><?php echo esc_html__('Fraudulent Orders Cancelled', 'woocommerce-anti-fraud'); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_paypal_verification_orders); ?></div>
+	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_cancelled24, 'woocommerce-anti-fraud'); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/money-risk.svg'); ?>"><h3><?php echo esc_html__('High-Risk Net Transaction', 'woocommerce-anti-fraud'); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr($currency . $high_risk_transaction_amt24, 'woocommerce-anti-fraud'); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/emails-blocked.svg'); ?>"><h3><?php echo esc_html__('Emails Blocked', 'woocommerce-anti-fraud'); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr(count($block_emails), 'woocommerce-anti-fraud'); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/paypal.svg'); ?>"><h3><?php echo esc_html__('Paypal Verification', 'woocommerce-anti-fraud'); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr($number_of_paypal_verification_orders, 'woocommerce-anti-fraud'); ?></div>
 
 </div>
 
@@ -337,11 +338,11 @@ for ($i = 6; $i > 0; $i--) {
 
 	<th></th>
 
-	<th>Name</th>
+	<th><?php echo esc_html__('Name', 'woocommerce-anti-fraud'); ?></th>
 
-	<th><?php echo esc_attr($currency); ?> Spent</th>
+	<th><?php echo esc_attr($currency, 'woocommerce-anti-fraud'); ?><?php echo esc_html__('Spent', 'woocommerce-anti-fraud'); ?></th>
 
-	<th>Status</th>
+	<th><?php echo esc_html__('Status', 'woocommerce-anti-fraud'); ?></th>
 
   </tr>
 
@@ -411,11 +412,11 @@ if (! empty($result)) {
 
 	<td><div class="table-icon <?php echo esc_attr($risk_score_class); ?>"></div></td>
 
-	<td><?php echo esc_attr($billing_first_name) . ' ' . esc_attr($billing_last_name); ?></td>
+	<td><?php echo esc_attr($billing_first_name, 'woocommerce-anti-fraud') . ' ' . esc_attr($billing_last_name, 'woocommerce-anti-fraud'); ?></td>
 
-	<td><?php echo esc_attr(get_woocommerce_currency_symbol($order_currency)) . esc_attr($order_total); ?></td>
+	<td><?php echo esc_attr(get_woocommerce_currency_symbol($order_currency), 'woocommerce-anti-fraud') . esc_attr($order_total, 'woocommerce-anti-fraud'); ?></td>
 
-	<td><?php echo esc_attr($recent_order_status); ?></td>
+	<td><?php echo esc_attr($recent_order_status, 'woocommerce-anti-fraud'); ?></td>
 
   </tr>
 		<?php
@@ -435,7 +436,7 @@ if (! empty($result)) {
 
 <div class="dash-section-50 pie-chart">
 
-	<h2 style="color:white">Orders Breakdown</h2>
+	<h2 style="color:white"><?php echo esc_html__('Orders Breakdown', 'woocommerce-anti-fraud'); ?></h2>
 
 	<div class="chart-wrapper">
 

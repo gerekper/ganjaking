@@ -32,6 +32,12 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 		global $wpdb;
 		$risk = false;
 
+		/**
+		 * Checking WC Statuses
+		 * 
+		 * @since  1.0.0
+		 * 
+		 */
 		$statuses = "'wc-" . implode("','wc", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed') )) . "'";
 
 		Af_Logger::debug('first order rule status ' . print_r($statuses, true));
@@ -44,6 +50,11 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 
 			Af_Logger::debug('first order amount: ' . print_r($order_amount, true));
 			
+			/**
+			 * Checking WC Statuses
+			 * 
+			 * @since  1.0.0
+			 */
 			$statuses = "'wc-" . implode("','wc", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed', 'processing', 'pending','on-hold') )) . "'";
 
 		Af_Logger::debug('first order rule status 1 ' . print_r($statuses, true));

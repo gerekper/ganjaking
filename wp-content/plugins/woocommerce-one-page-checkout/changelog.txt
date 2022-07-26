@@ -1,5 +1,13 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2022-07-26 - version 1.9.5
+* Fix - Prevent errors showing up when the global $post variable is not available.
+
+2022-05-17 - version 1.9.4
+* Fix - Fix: Prevent layout shift of product table using a fixed width of the table cells.
+* Tweak - WC 6.4 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2022-03-08 - version 1.9.3
 * Fix - Compatibility fix for composer v2.2.0.
 * Fix - Fix issues with editing product quantity in numeric text input.

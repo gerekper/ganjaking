@@ -14,7 +14,17 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_order_avg_amount_check');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_order_avg_amount_weight');
 		
-		parent::__construct( 'high_value', sprintf( 'Order has a total higher than %s times the average order.', apply_filters( 'wc_af_high_value_multiplier', $this->rule_weight ) ), 15 );
+		parent::__construct( 
+			'high_value', 
+			sprintf( 
+				'Order has a total higher than %s times the average order.', 
+				/**
+				 * Get value multiplier risk in shop
+				 *
+				 * @since  1.0.0
+				 */
+				apply_filters( 'wc_af_high_value_multiplier', $this->rule_weight ) 
+			), 15 );
 	}
 
 	/**
@@ -34,6 +44,11 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 		// Default risk is false
 		$risk = false;
 
+		/**
+		 * Status values for query
+		 *
+		 * @since  1.0.0
+		 */
 		$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed', 'processing', 'on-hold') )) . "'";
 
 		Af_Logger::debug('high value status ' . print_r($statuses, true));
@@ -47,7 +62,12 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 
 		Af_Logger::debug('Average order total : ' . print_r($avg_order_total, true));
 
-		// Check if the order total is higher than 2 times the average order total
+		/** 
+		 * Check if the order total is higher than 2 times the average order total
+		 *
+		 * @since  1.0.0
+		 * 
+		 */
 		if ( ( $avg_order_total > 0 ) && $order->get_total() > ( $avg_order_total * apply_filters( 'wc_af_high_value_multiplier', get_option('wc_settings_anti_fraud_avg_amount_multiplier') ) ) ) {
 			$risk = true;
 		}

@@ -38,7 +38,7 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 			if ( '' != $score_points ) {
 
 				// The label
-				echo '<span class="mb-score-label" style="color:' . esc_attr($meta['color']) . '">' . esc_attr( WC_AF_Score_Helper::invert_score( $score_points ) ) . ' % ' . esc_attr($meta['label']) . '</span>' . PHP_EOL;
+				echo '<span class="mb-score-label" style="color:' . esc_attr($meta['color']) . '">' . esc_attr( WC_AF_Score_Helper::invert_score( $score_points ) ) . ' % ' . esc_attr__($meta['label'], 'woocommerce-anti-fraud') . '</span>' . PHP_EOL;
 
 				// Circle points
 				$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
@@ -98,14 +98,25 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 					$order = wc_get_order( $order_id );
 				}
 
+				if (isset($_GET['cancel_schedule_anti_fraud']) && WC_AF_Score_Helper::is_fraud_check_queued($order_id)) {
+
+					// Schedule fraud check
+					$score_helper = new WC_AF_Score_Helper();
+					$score_helper->cancel_schedule_fraud_check($order_id);
+
+					// Refetch order
+					$order = wc_get_order($order_id);
+				}
+
 				// Check if we're currently waiting for an audit
 				if ( WC_AF_Score_Helper::is_fraud_check_queued( $order_id ) ) {
 
 					echo '<p>' . esc_html__( 'This order is currently in queue for a fraud check.', 'woocommerce-anti-fraud' ) . '</p>' . PHP_EOL;
+					echo '<p><a href="' . esc_url(admin_url('post.php?post=' . sanitize_text_field($_GET['post']) . '&action=edit&cancel_schedule_anti_fraud=1')) . '" class="button button-danger">' . esc_html__('Cancel fraud check queue', 'woocommerce-anti-fraud') . '</a></p>' . PHP_EOL;
 
 				} else {
 					// No score found and order not scheduled for fraud check
-					echo '<p>' . esc_attr($meta['label']) . '</p>' . PHP_EOL;
+					echo '<p>' . esc_attr($meta['label'], 'woocommerce-anti-fraud') . '</p>' . PHP_EOL;
 					echo '<p><a href="' . esc_url( admin_url( 'post.php?post=' . sanitize_text_field( $_GET['post'] ) . '&action=edit&schedule_anti_fraud=1' )) . '" class="button button-primary">' . esc_html__( 'Calculate Fraud Risk', 'woocommerce-anti-fraud' ) . '</a></p>' . PHP_EOL;
 				}
 

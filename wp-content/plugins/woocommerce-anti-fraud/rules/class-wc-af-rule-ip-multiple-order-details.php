@@ -62,6 +62,17 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 			return false;
 		}
 
+		$is_subscriptions_order = false;
+
+		if (class_exists('WC_Subscriptions_Plugin')) {
+			$is_subscriptions_order = wcs_order_contains_subscription($order, 'renewal');
+		}
+		Af_Logger::debug('is_subscriptions_renewal_order : ' . print_r($is_subscriptions_order, true));
+		if ($is_subscriptions_order) {
+			return false;
+		}
+
+
 		// Calculate the new datetime
 		$dt = new DateTime( $order_date );
 		$dt->modify( '-' . $this->time_span . 'days' );

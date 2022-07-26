@@ -33,22 +33,26 @@
  */
 .selected button.add_to_cart_button,
 .selected a.add_to_cart_button {
-	opacity: 0.5;
-}
-.selected button.add_to_cart_button span,
-.selected a.add_to_cart_button span {
 	display: none;
-}
-.selected button.add_to_cart_button:hover,
-.selected a.add_to_cart_button:hover {
-	opacity: 1;
 }
 .selected button.add_to_cart_button::after,
 .selected a.add_to_cart_button::after {
 	content: attr(data-opc_remove_text);
 }
+
+#opc-product-selection .shop_table td.product-thumbnail {
+	width: 40%;
+}
+#opc-product-selection .shop_table td.product-name,
+#opc-product-selection .shop_table td.product-price {
+	width: 15%;
+}
+#opc-product-selection .shop_table td.product-quantity {
+	width: 30%;
+}
+
 /* Center add to cart input on product table */
-.opc-product-selection .shop_table td.product-quantity {
+#opc-product-selection .shop_table td.product-quantity {
 	text-align: center;
 }
 /* Display label inline with radio button on product list */

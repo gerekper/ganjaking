@@ -29,6 +29,12 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 	public function is_risk( WC_Order $order ) {
 		
 		Af_Logger::debug('Checking temporary email rule');
+		
+		/**
+		 * Check email domains for risk
+		 * 
+		 * @since  1.0.0
+		 */
 		$temp_email_domains = apply_filters( 'wc_af_temporary_email_domains', array(
 			'guerrillamail.com',
 			'guerrillamailblock.com',

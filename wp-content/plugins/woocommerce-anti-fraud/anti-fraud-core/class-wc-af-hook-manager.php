@@ -100,7 +100,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			global $post_type;
 
 			// Check post type
-			if ( 'shop_order' == $post_type ) {
+			if ( 'shop_order' == $post_type || 'shop_subscription' == $post_type ) {
 
 				// Enqueue scripts
 				wp_enqueue_script( 'knob' );
@@ -242,7 +242,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				// Af_Logger::debug('order Meta : ' . print_r($meta, true));
 
 				// Display span
-				echo "<span class='wc-af-score tips' style='color:" . esc_attr($meta['color']) . "' data-tip='" . esc_attr($meta['label']) . "'>&nbsp;</span>";
+				echo "<span class='wc-af-score tips' style='color:" . esc_attr($meta['color']) . "' data-tip='" . esc_attr($meta['label'], 'woocommerce-anti-fraud') . "'>&nbsp;</span>";
 
 			}
 
@@ -290,11 +290,11 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 
 			$schedules['wc_af_further_attempt'] = array(
 					'interval'  => 86400*get_option('wc_settings_anti_fraud_time_paypal_attempts'),
-					'display'   => __( 'Antifraud paypal verification', 'textdomain' )
+					'display'   => __( 'Antifraud paypal verification', 'woocommerce-anti-fraud' )
 			);
 			$schedules['wp_af_every_hour'] = array(  // For fraud risk score check
 				'interval'  => 60*60,
-				'display'   => __( 'Check pending order fraud risk score', 'textdomain' )
+				'display'   => __( 'Check pending order fraud risk score', 'woocommerce-anti-fraud' )
 			);
 			return $schedules;
 		}

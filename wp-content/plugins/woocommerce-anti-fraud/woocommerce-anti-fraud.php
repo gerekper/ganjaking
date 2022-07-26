@@ -1,13 +1,16 @@
 <?php
+
 /**
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.3
+ * Version: 4.4
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
+ * Text Domain: woocommerce-anti-fraud
+ * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 6.3
+ * WC tested up to: 6.7
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -25,14 +28,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Copyright (c) 2017 OPMC Australia Pty Ltd.
-*/
+ */
 
 /**
  * Required functions
  */
 
 function add_the_theme_page() {
-	add_menu_page('Anti-Fraud', 'Anti-Fraud', 'manage_options', 'theme-options', 'page_content', 'dashicons-book-alt');
+	add_menu_page(
+		__( 'Anti Fraud', 'woocommerce-anti-fraud' ), 
+		__( 'Anti Fraud', 'woocommerce-anti-fraud' ), 
+		'manage_options', 
+		'theme-options', 
+		'page_content', 
+		'dashicons-book-alt'
+	);
 }
 add_action('admin_menu', 'add_the_theme_page');
 function page_content() {
@@ -46,6 +56,22 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	 * Plugin updates
 	 */
 	woothemes_queue_update( plugin_basename( __FILE__ ), '955da0ce83ea5a44fc268eb185e46c41', '500217' );
+
+function af_load_langauge() {
+
+
+	
+	$path = dirname( plugin_basename(__FILE__)) . '/languages';
+	$result = load_plugin_textdomain( dirname( plugin_basename(__FILE__)), false, $path );
+	// var_dump($result);die;
+	// if (!$result) {
+	//     $locale = apply_filters('plugin_locale', get_locale(), dirname( plugin_basename(__FILE__)));
+	//     die("Could not find $path/" . dirname( plugin_basename(__FILE__)) . "-$locale.mo.");
+	// }
+
+
+}
+add_action('init', 'af_load_langauge');
 
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -93,7 +119,7 @@ function wc_antifraud_plugin_links( $links ) {
 	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_antifraud_plugin_links' );
 
 
-	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.5' );
+	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '4.4.0' );
 	define( 'WOOCOMMERCE_ANTI_FRAUD_PLUGIN_URL', plugin_dir_url(__FILE__) );
 
 class WooCommerce_Anti_Fraud {
@@ -143,6 +169,7 @@ class WooCommerce_Anti_Fraud {
 		register_activation_hook( __FILE__, array($this,'deactivate_events_on_active_plugin' ) );
 
 		register_deactivation_hook( __FILE__, array($this,'deactivate_events' ) );
+		add_action('plugins_loaded', array($this, 'plugin_load_td') );
 		add_action( 'admin_init', array( $this, 'admin_scripts' ) );
 		add_action('admin_enqueue_scripts', array( $this, 'switch_onoff') );
 
@@ -167,6 +194,11 @@ class WooCommerce_Anti_Fraud {
 		
 		add_action('wp_enqueue_scripts', array($this, 'wc_af_captcha_script'), 9999);
 		add_action('login_enqueue_scripts', array($this, 'wc_af_captcha_script'), 9999);
+	}
+
+
+	public function plugin_load_td() {
+		
 	}
 
 	public function check_for_card_error( $order_id) {
@@ -409,9 +441,9 @@ $loop->the_post();
 			if ($orderemail == $single) {
 				?>
 				<p class="form-field form-field-wide">
-					<?php echo '<h3 style="color:red;"><strong>' . esc_html__( 'This email id is blocked' ) . '</strong></h3>'; ?>
+					<?php echo '<h3 style="color:red;"><strong>' . esc_html__( 'This email id is blocked', 'woocommerce-anti-fraud' ) . '</strong></h3>'; ?>
 				</p>
-				<p class="form-field form-field-wide"><button type="button" class="button unblock-email" data-email="<?php echo esc_html__($orderemail); ?>">Unblock</button></p>
+				<p class="form-field form-field-wide"><button type="button" class="button unblock-email" data-email="<?php echo esc_html__($orderemail); ?>"><?php echo esc_html__('Unblock', 'woocommerce-anti-fraud'); ?></button></p>
 				<?php
 			}
 		}
@@ -465,8 +497,9 @@ $loop->the_post();
 	 */
 	private function init() {
 		require_once( dirname( __FILE__ ) . '/includes/class-wc-af-logger.php' );
+
 		// Load plugin textdomain
-		load_plugin_textdomain( 'woocommerce-anti-fraud', false, plugin_dir_path( self::get_plugin_file() ) . 'languages/' );
+		// load_plugin_textdomain( 'woocommerce-anti-fraud', false, plugin_dir_path( self::get_plugin_file() ) . 'languages/' );
 
 		// Setup the autoloader
 		self::setup_autoloader();
@@ -488,10 +521,19 @@ $loop->the_post();
 		// }
 		if ( 'yes' == $wc_af_maxmind_factors_setting ) {
 			WC_AF_Rules::get()->add_rule( new WC_AF_Rule_MinFraud_Factors() );
+			if (!empty($maxmind_user) && !empty($maxmind_license_key)) {
+				WC_AF_Rules::get()->add_rule(new WC_AF_Rule_Ip_Location());
+			}
 		} elseif ( 'yes' == $wc_af_maxmind_insights_setting) {
 			WC_AF_Rules::get()->add_rule(new WC_AF_Rule_MinFraud_Insights());
+			if (!empty($maxmind_user) && !empty($maxmind_license_key)) {
+				WC_AF_Rules::get()->add_rule(new WC_AF_Rule_Ip_Location());
+			}
 		} elseif ( 'yes' == $maxmind_settings ) {
 			WC_AF_Rules::get()->add_rule(new WC_AF_Rule_MinFraud());
+			if (!empty($maxmind_user) && !empty($maxmind_license_key)) {
+				WC_AF_Rules::get()->add_rule(new WC_AF_Rule_Ip_Location());
+			}
 		}
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Country() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Billing_Matches_Shipping() );
@@ -501,9 +543,9 @@ $loop->the_post();
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_International_Order() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_High_Value() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_High_Amount() );
-		if ( !empty( $maxmind_user ) && !empty( $maxmind_license_key ) ) {
-			WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Location() );
-		}
+		// if ( !empty( $maxmind_user ) && !empty( $maxmind_license_key ) ) {
+		// 	WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Location() );
+		// }
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order_Processing() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Multiple_Order_Details() );
@@ -707,7 +749,7 @@ $loop->the_post();
 		?>
 			
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-			<label for="reg_captcha"><?php echo esc_html__('Captcha', 'recaptcha-for-woocommerce'); ?>&nbsp;<span class="required">*</span></label>
+			<label for="reg_captcha"><?php echo esc_html__('Captcha', 'woocommerce-anti-fraud'); ?>&nbsp;<span class="required">*</span></label>
 			<div id="wc-af-recaptcha-checkout" name="g-recaptcha" class="g-recaptcha" data-sitekey="<?php echo esc_attr($wc_af_recaptcha_site_key); ?>" data-theme="light" data-size="normal"></div>
 			<!--<a href="javascript:wcAfCaptcha=grecaptcha.reset(wcAfCaptcha);">Refresh</a>-->
 			</p>
@@ -722,7 +764,7 @@ $loop->the_post();
 						clearInterval(<?php echo esc_html__($intval); ?>);
 						var $n = jQuery.noConflict();
 							   
-							$n("#place_order").attr("title", "<?php echo esc_html__('Recaptcha is a required field.', 'recaptcha-for-woocommerce'); ?>");
+							$n("#place_order").attr("title", "<?php echo esc_html__('Recaptcha is a required field.', 'woocommerce-anti-fraud'); ?>");
 							
 						   if (typeof (grecaptcha.render) !== 'undefined' && wcAfCaptcha === null) {
 
@@ -753,8 +795,17 @@ $loop->the_post();
 	
 	public function wc_af_captcha_script() {
 
-		wp_register_script('wc-af-re-captcha', 'https://www.google.com/recaptcha/api.js', array(), '1.0');
-		wp_enqueue_script('wc-af-re-captcha');
+		$wc_af_enable_recaptcha_checkout = get_option('wc_af_enable_recaptcha_checkout');
+
+		$wc_af_recaptcha_site_key = get_option('wc_af_recaptcha_site_key');
+
+		$wc_af_recaptcha_secret_key = get_option('wc_af_recaptcha_secret_key');
+
+		if ('yes' == $wc_af_enable_recaptcha_checkout && !empty($wc_af_recaptcha_site_key) && !empty($wc_af_recaptcha_secret_key) && is_checkout()) {
+
+			wp_register_script('wc-af-re-captcha', 'https://www.google.com/recaptcha/api.js', array(), '1.0');
+			wp_enqueue_script('wc-af-re-captcha');
+		}
 	}
 	
 	public function wc_af_validate_captcha( $fields, $validation_errors) {
@@ -800,7 +851,7 @@ $loop->the_post();
 						// If reCAPTCHA response is valid 
 						if (!$responseData->success) {
 	
-							$validation_errors->add('g-recaptcha_error', __('Invalid recaptcha.', 'recaptcha-for-woocommerce'));
+							$validation_errors->add('g-recaptcha_error', __('Invalid recaptcha.', 'woocommerce-anti-fraud'));
 														
 						} else {
 													
@@ -812,14 +863,14 @@ $loop->the_post();
 												
 					} else {
 
-						$validation_errors->add('g-recaptcha_error', __('Could not get response from recaptcha server.', 'recaptcha-for-woocommerce'));
+						$validation_errors->add('g-recaptcha_error', __('Could not get response from recaptcha server.', 'woocommerce-anti-fraud'));
 					}
 				} else {
 
-					$validation_errors->add('g-recaptcha_error', __('Recaptcha is a required field.', 'recaptcha-for-woocommerce'));
+					$validation_errors->add('g-recaptcha_error', __('Recaptcha is a required field.', 'woocommerce-anti-fraud'));
 				}
 			} else {
-				$validation_errors->add('g-recaptcha_error', __('Could not verify request.', 'recaptcha-for-woocommerce'));
+				$validation_errors->add('g-recaptcha_error', __('Could not verify request.', 'woocommerce-anti-fraud'));
 			}
 		}
 				
@@ -861,6 +912,8 @@ function misha_validate_fname_lname( $fields, $errors ) {
 			$wc_af_whitelist_user_roles = array();
 		}
 
+		$is_whitelisted_roles = false;
+
 		if ('' != $email_whitelist) {
 			$whitelist = explode( "\n", $email_whitelist );
 			if ( is_array( $whitelist ) && count( $whitelist ) > 0 ) {
@@ -883,8 +936,8 @@ function misha_validate_fname_lname( $fields, $errors ) {
 			// Af_Logger::debug('blocked_email : '. print_r($array_mail,true));
 			foreach ($array_mail as $single) {
 				if ($_POST[ 'billing_email' ] == $single) {
-					echo 'This email id is blocked.';
-					$errors->add( 'validation', 'This email id is blocked.' );
+					echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');
+					$errors->add( 'validation', __('This email id is blocked.', 'woocommerce-anti-fraud') );
 				}
 			}
 		}
@@ -894,7 +947,7 @@ function misha_validate_fname_lname( $fields, $errors ) {
 		$array_ipaddress = explode(',', $blocked_ipaddress);
 		foreach ($array_ipaddress as $singles) {
 			if ($userip == $singles) {
-				$errors->add( 'validation', 'This IP Address is blocked.' );
+				$errors->add( 'validation', __('This IP Address is blocked.', 'woocommerce-anti-fraud') );
 			}
 		}
 	}
@@ -962,7 +1015,10 @@ function max_order_same_ip( $fields, $errors) {
 		// Af_Logger::debug('Orders : '. print_r($orders_count, true));
 		Af_Logger::debug('Order Count : ' . count($orders_count_ip));
 		if (count($orders_count_ip) >= $max_orders || count($order_count_user) >= $max_orders) {
-			$errors->add( 'validation', 'You have reached maximum number of allowed orders in ' . $time_stamp . ' hours. Please try again later.' );
+			$errors->add( 'validation',
+			  /* translators: %s: order time span */
+			 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $time_stamp )
+			 );
 		}
 	}
 }
@@ -1003,7 +1059,7 @@ function wh_pre_paymentcall( $order_id, $errors ) {
 		if ( null !== get_option('wc_af_pre_payment_message') ) {
 			$pre_payment_block_message = get_option('wc_af_pre_payment_message');
 		} else {
-			$pre_payment_block_message = 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.';
+			$pre_payment_block_message = __( 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.', 'woocommerce-anti-fraud' );
 		}
 
 		$high_risk = get_option('wc_settings_anti_fraud_higher_risk_threshold');

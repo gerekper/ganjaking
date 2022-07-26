@@ -1,187 +1,1066 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Anti Fraud\n"
-"POT-Creation-Date: 2014-09-08 17:24+0100\n"
-"PO-Revision-Date: 2014-09-08 17:24+0100\n"
-"Last-Translator: Barry Kooij <barry@cageworks.nl>\n"
-"Language-Team: WooThemes <i18n@woothemes.com>\n"
-"Language: en\n"
+"POT-Creation-Date: 2022-07-05 17:08+0530\n"
+"PO-Revision-Date: 2022-07-05 17:09+0530\n"
+"Last-Translator: \n"
+"Language-Team: OPMC Team\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n\n"
-"X-Poedit-SearchPath-0: ../.\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: woo-includes\n"
+"X-Poedit-SearchPathExcluded-3: assets\n"
 
-#: .././anti-fraud-core/class-wc-af-admin-email.php:20
+#: anti-fraud-core/class-wc-af-admin-email.php:20
 msgid "Anti Fraud - Admin Notice"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-admin-email.php:21
+#: anti-fraud-core/class-wc-af-admin-email.php:21
 msgid "Admin notification about an order."
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-admin-email.php:41
-#: .././anti-fraud-core/class-wc-af-admin-email.php:42
-msgid "Fraud notification of order #{order_id}"
+#: anti-fraud-core/class-wc-af-admin-email.php:41
+#: anti-fraud-core/class-wc-af-admin-email.php:42
+msgid "Fraud notification for order #{order_id}"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-hook-manager.php:124
-msgid "Waiting for Fraud Check"
+#: anti-fraud-core/class-wc-af-hook-manager.php:293
+msgid "Antifraud paypal verification"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-meta-box.php:13
-msgid "Fraud Risk"
+#: anti-fraud-core/class-wc-af-hook-manager.php:297
+msgid "Check pending order fraud risk score"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-meta-box.php:83
-msgid "This order is currently in queue for fraud check."
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-meta-box.php:88
-msgid "Calculate Fraud Score"
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:24
-msgid "No fraud check done"
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:28
-msgid "Low Risk"
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:33
-msgid "Medium Risk"
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:36
-msgid "High Risk"
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:67
-msgid "Fraud Check required."
-msgstr ""
-
-#: .././anti-fraud-core/class-wc-af-score-helper.php:172
+#: anti-fraud-core/class-wc-af-hook-manager.php:331
+#: anti-fraud-core/class-wc-af-score-helper.php:564
+#: anti-fraud-core/class-wc-af-score-helper.php:566
+#: anti-fraud-core/class-wc-af-score-helper.php:569
+#: anti-fraud-core/class-wc-af-score-helper.php:614
+#: anti-fraud-core/class-wc-af-score-helper.php:616
+#: anti-fraud-core/class-wc-af-score-helper.php:619
 msgid "Fraud check done."
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:31
-msgid "Fraud detection automated actions"
+#: anti-fraud-core/class-wc-af-meta-box.php:13
+msgid "Fraud Risk"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:37
-msgid "Cancel score"
+#: anti-fraud-core/class-wc-af-meta-box.php:80
+msgid "Hide details"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:40
-msgid ""
-"Orders with a score lower than this number will be automatically cancelled. "
-"Select 0 to disable."
+#: anti-fraud-core/class-wc-af-meta-box.php:80
+msgid "Show fraud risk details"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:45
-msgid "Hold score"
+#: anti-fraud-core/class-wc-af-meta-box.php:114
+msgid "This order is currently in queue for a fraud check."
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:48
-msgid ""
-"Orders with a score lower than this number will be automatically set on "
-"hold. Select 0 to disable."
+#: anti-fraud-core/class-wc-af-meta-box.php:115
+msgid "Cancel fraud check queue"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:53
-msgid "Email score"
+#: anti-fraud-core/class-wc-af-meta-box.php:120
+msgid "Calculate Fraud Risk"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:56
-msgid ""
-"An admin email notification will be sent if an orders scores lower than this "
-"number. Select 0 to disable."
+#: anti-fraud-core/class-wc-af-paypal-email.php:19
+msgid "Anti Fraud - PayPal verification"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:61
-msgid "Whitelist"
+#: anti-fraud-core/class-wc-af-paypal-email.php:20
+msgid "Notice about PayPal verification."
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:63
-msgid ""
-"Above automated actions don't apply on orders from email addresses entered "
-"here. Enter one email address per line."
+#: anti-fraud-core/class-wc-af-paypal-email.php:41
+msgid "PayPal Verification notification of order #{order_id}"
 msgstr ""
 
-#: .././anti-fraud-core/class-wc-af-settings.php:128
+#: anti-fraud-core/class-wc-af-score-helper.php:25
+msgid "No fraud checking has been done on this order yet."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:29
+msgid "Low Risk"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:39
+msgid "Medium Risk"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:43
+msgid "High Risk"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:174
+#: woocommerce-anti-fraud.php:1017
+msgid "Order fraud checks skipped due to whitelisted email."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:362
+msgid "User Email is Whitelisted."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:377
+msgid " User Role is Whitelisted."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:477
+msgid "Max order limit reched from same IP."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-score-helper.php:523
+msgid "Max Order Limit between time reached. Setting as On-Hold"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:40
+#: includes/class-wc-af-privacy.php:12
 msgid "Anti Fraud"
 msgstr ""
 
-#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:3
-#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:5
-#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:4
-#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:6
-#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:3
-#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:5
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:3
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:5
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:3
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:5
-#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:3
-#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:5
-#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:4
-#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:6
-msgid "Hello World"
+#: anti-fraud-core/class-wc-af-settings.php:64
+#: anti-fraud-core/class-wc-af-settings.php:651
+msgid "General Settings"
 msgstr ""
 
-#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:20
-#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:21
-#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:20
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:20
-#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:20
-#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:20
-#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:3
-#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:8
-#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:16
-#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:21
-#, php-format
-msgid "%d apple"
+#: anti-fraud-core/class-wc-af-settings.php:65
+msgid "Rules"
 msgstr ""
 
-#: .././node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
-#: .././node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
-msgid "Exclude"
+#: anti-fraud-core/class-wc-af-settings.php:66
+msgid "Blacklist Settings"
 msgstr ""
 
-#: .././node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
-msgid "Include"
+#: anti-fraud-core/class-wc-af-settings.php:67
+#: anti-fraud-core/class-wc-af-settings.php:541
+msgid "Paypal Settings"
 msgstr ""
 
-#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
-#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
-#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
-msgid "String"
+#: anti-fraud-core/class-wc-af-settings.php:68
+msgid "MinFraud Settings"
 msgstr ""
 
-#: .././templates/af-admin-notice.php:16
-#, php-format
-msgid "An order with ID #%s scored a fraud score of %s."
+#: anti-fraud-core/class-wc-af-settings.php:69
+msgid "MinFraud Insights Settings"
 msgstr ""
 
-#: .././templates/af-admin-notice.php:17
-#: .././templates/plain/af-admin-notice.php:14
-#, php-format
-msgid "%sClick here to view the order.%s."
+#: anti-fraud-core/class-wc-af-settings.php:70
+msgid "MinFraud Factors Settings"
 msgstr ""
 
-#: .././templates/plain/af-admin-notice.php:13
-#, php-format
-msgid "Hi there. Order with ID #%s scored a fraud score of %s."
+#: anti-fraud-core/class-wc-af-settings.php:71
+msgid "Re-Captcha"
 msgstr ""
 
-#: .././woocommerce-anti-fraud.php:107
+#: anti-fraud-core/class-wc-af-settings.php:72
+msgid "Need Support?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:148
+#: anti-fraud-core/class-wc-af-settings.php:243
+#: anti-fraud-core/class-wc-af-settings.php:313
+msgid "MaxMind minFraud Settings"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:150
+#: anti-fraud-core/class-wc-af-settings.php:245
+#: anti-fraud-core/class-wc-af-settings.php:315
+msgid ""
+"MaxMind minFraud is a paid, external service that uses machine learning to "
+"detect potential fraud transactions.  By using minFraud you can potentially "
+"detect more fraudulent transactions.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:155
+#: anti-fraud-core/class-wc-af-settings.php:249
+#: anti-fraud-core/class-wc-af-settings.php:319
+#: anti-fraud-core/class-wc-af-settings.php:547
+msgid "Enable/Disable"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:158
+msgid "Enable MaxMind minFraud Integration"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:163
+msgid "Device Tracking"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:166
+msgid ""
+"Detect if a person uses the same device but changes proxies while they are "
+"placing multiple orders from your website"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:172
+msgid "MaxMind Account ID"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:174
+msgid ""
+"Enter your MaxMind account ID here.  If you don&apos;t have an account, "
+"please sign up at <a href=\"https://maxmind.com\">https://maxmind.com</a>."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:179
+msgid "MaxMind License Key"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:181
+msgid "Enter the license key provided by MaxMind here."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:192
+#: anti-fraud-core/class-wc-af-settings.php:262
+#: anti-fraud-core/class-wc-af-settings.php:332
+msgid "Threshold Settings"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:199
+msgid "Threshold minFraud Risk Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:201
+#: anti-fraud-core/class-wc-af-settings.php:271
+#: anti-fraud-core/class-wc-af-settings.php:341
+msgid ""
+"If the risk score returned by the minFraud system exceeds this number, the "
+"transaction will be considered potentially fraudulent and will contribute to "
+"the overall fraud score calculation.  If the risk score from minFraud is "
+"lower than this threshold, it will not contribute to the overall fraud score."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:214
+msgid "minFraud Rule Weight"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:217
+#: anti-fraud-core/class-wc-af-settings.php:287
+#: anti-fraud-core/class-wc-af-settings.php:357
+msgid ""
+"If the minFraud risk score exceeds the threshold set above, this weight will "
+"be applied to the overall risk score.  By adjusting this, you can balance "
+"the minFraud value against the other rules-based calculations in the plugin."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:252
+msgid "Enable MaxMind minFraud Insights Integration"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:269
+msgid "Threshold minFraud Insights Risk Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:284
+msgid "minFraud Insights Rule Weight"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:322
+msgid "Enable MaxMind minFraud Factors Integration"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:339
+msgid "Threshold minFraud Factors Risk Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:354
+msgid "minFraud Factors Rule Weight"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:384
+msgid "Support for the Anti-Fraud Plugin"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:390
+msgid "Facing an Issue with the plugin?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:391
+msgid "Contact Our Support"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:393
+msgid ""
+"If you have any issues or feedback about Anti-Fraud plugin, we would loveo "
+"here from you!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:399
+msgid "Love our Plugin?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:401
+msgid "Leave Us a Review!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:403
+msgid "Your positive reviews are always encouraging!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:424
+msgid "Google Re-Captcha Settings"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:426
+msgid ""
+"Click <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank"
+"\">here</a> to know more.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:430
+msgid "Site Key"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:433
+msgid "Enter Site Key"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:438
+msgid "Secret Key"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:441
+msgid "Enter Secret Key"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:446
+msgid "Enable Re-Captcha"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:450
+msgid "Enable Re-Captcha on checkout page<br/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:470
+msgid "Blacklist"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:472
+msgid ""
+"WooCommerce Anti-Fraud allows you to create a list of email addresses as "
+"well as a list of IP addresses that will always be marked as potential fraud "
+"transactions."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:477
+msgid "Email Blacklist"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:481
+msgid "Enable the email blacklist function"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:486
+msgid "Automatic Blacklisting"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:490
+msgid ""
+"Add email addresses of orders reported with a high risk of fraud to "
+"blacklist automatically"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:495
+msgid "Blocked Email Addresses"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:497
+msgid ""
+"The email addresses listed in the text area below will be considered unsafe:"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:506
+msgid "IP Blacklist"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:510
+msgid "Enable the IP blacklist function"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:515
+msgid "Blocked IP Adresses"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:517
+msgid ""
+"The IP addresses listed in the text area below will be considered unsafe:"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:543
+msgid ""
+"These settings are specific to Paypal Payment Gateway. This means, when the "
+"customer use their Paypal account for making payment for their orders, then "
+"these rules come into action.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:551
+msgid "Select to enable Paypal verification"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:556
+msgid "Block Downloads"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:560
+msgid "Prevent digital downloads if verification failed or still processing"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:565
+msgid "Verification Retry"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:567
+msgid ""
+"Number of days that have to pass before sending another email if the order "
+"is still waiting for verification"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:578
+msgid "Auto Cancellation Days"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:580
+msgid ""
+"Orders that are not verified within the given number of days will be "
+"automatically cancelled"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:591
+msgid "Paypal verified addresses"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:593
+msgid "Verified email addresses"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:603
+msgid "Email Template"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:605
+msgid ""
+"Configure the email template below. The following tags can be embedded in "
+"the template fields:<br/><br/><b>{site_title}</b> - replaced with the "
+"Wordpress Site Title<br/><b>{site_email}</b> - replaced with the Wordpress "
+"site admin email address"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:611
+msgid "Email Type"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:614
+msgid "HTML"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:615
+msgid "Text-Only"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:617
+msgid "Emails can be sent either as plain text or HTML"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:624
+msgid "Email Subject"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:625
+msgid "The subject of the email that will be sent to the purchaser"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:628
+msgid "[{site_title}] Confirm your PayPal email address"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:632
+msgid "Email body"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:634
+msgid ""
+"Enter the body of the email to be sent to the purchaser in the text area "
+"below:"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:637
+msgid ""
+"Hi!We have received your order on {site_title}, but to complete we have to "
+"verify your PayPal email address.If you havent made or authorized any "
+"purchase, please, contact PayPal support service immediately,and email us to "
+"{site_email} for having your money back."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:653
+msgid ""
+"General behaviours of the Anti Fraud plugin are configured on this page.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:657
+msgid "Pre-Payment Checking"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:661
+msgid ""
+"Perform the fraud check before payment<br/><br/><i>If this is enabled, the "
+"fraud check will be done on the order checkout page i.e. immediately before "
+"the actual payment. If the calculated fraud score violates any of the other "
+"rules enabled in the Anti Fraud settings, the customer will not be allowed "
+"to place this order.</i>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:666
+msgid "Pre-Payment Checking Notification Message"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:669 woocommerce-anti-fraud.php:1029
+msgid ""
+"Website Administrator does not allow you to place this order. Please contact "
+"our support team. Sorry for any inconvenience."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:671
+msgid "Add a custom message for blocked users on Pre Payment Check"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:675
+msgid "Enable Update Order Status"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:679
+msgid ""
+"Update order status according the fraud score.<br/><br/><i>If this is "
+"enabled, the order status will be updated as Fraud Score value's status. </i>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:683
+msgid "Enable Payment Method Whitelisting"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:690
+msgid "Whitelisted Payment Methods"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:693
+msgid ""
+"List of payment methods those will be whitelisted i.e. will not be "
+"considered for Cancel Order Score and On-Hold Order Score evaluation for "
+"each order."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:698
+msgid "Enable User Roles Whitelisting"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:705
+msgid "User Roles"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:709
+msgid "Select roles"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:713
+msgid "Send Admin Email"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:717
+msgid ""
+"Send a notification mail to the site admin showing the outcome of anti-fraud "
+"checks."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:721
+msgid "Cancel Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:724
+msgid ""
+"Orders with a score equal to or greater than this number will be "
+"automatically cancelled. Select 0 to disable."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:730
+msgid "On-hold Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:733
+msgid ""
+"Orders with a score equal to or greater than this number will be "
+"automatically set on hold. Select 0 to disable."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:739
+msgid "Email Notification Score"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:742
+msgid ""
+"An admin email notification will be sent if an orders scores equal to or "
+"greater than this number. Select 0 to disable."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:749
+msgid "Additional Recipients"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:752
+msgid ""
+"To send email notifications to additional addresses, enter them, separated "
+"by commas, above."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:757
+msgid "Email Whitelist"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:759
+msgid ""
+"Email addresses listed below will not be subject to fraud checks. Enter one "
+"email address per line."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:770
+msgid "Settings for risk thresholds"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:772
+msgid ""
+"There are three risk thresholds.  Low, Medium and High.   In this section "
+"you can define where the boundary point between those thresholds.   The "
+"maximum risk score is 100, the minimum is 0.<br/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:777
+msgid "Medium Risk threshold"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:789
+msgid "High Risk threshold"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:801
+msgid "Enable debug logging"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:833
+msgid "General Rules"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:835
+msgid ""
+"Each rule that is matched will add the configured &quot;Rule Weight&quot; "
+"value to the overall fraud score.  In this section you can configure general "
+"fraud detection rules.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:839
+msgid "Is Customer's First Order?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:843
+msgid "Check if it is the customer&apos;s first purchase on your site"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:847
+#: anti-fraud-core/class-wc-af-settings.php:869
+#: anti-fraud-core/class-wc-af-settings.php:890
+#: anti-fraud-core/class-wc-af-settings.php:911
+#: anti-fraud-core/class-wc-af-settings.php:934
+#: anti-fraud-core/class-wc-af-settings.php:955
+#: anti-fraud-core/class-wc-af-settings.php:988
+#: anti-fraud-core/class-wc-af-settings.php:1021
+#: anti-fraud-core/class-wc-af-settings.php:1057
+#: anti-fraud-core/class-wc-af-settings.php:1087
+#: anti-fraud-core/class-wc-af-settings.php:1130
+#: anti-fraud-core/class-wc-af-settings.php:1159
+#: anti-fraud-core/class-wc-af-settings.php:1201
+msgid "Rule Weight"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:850
+#: anti-fraud-core/class-wc-af-settings.php:872
+#: anti-fraud-core/class-wc-af-settings.php:893
+#: anti-fraud-core/class-wc-af-settings.php:914
+#: anti-fraud-core/class-wc-af-settings.php:958
+#: anti-fraud-core/class-wc-af-settings.php:1024
+#: anti-fraud-core/class-wc-af-settings.php:1060
+#: anti-fraud-core/class-wc-af-settings.php:1133
+#: anti-fraud-core/class-wc-af-settings.php:1162
+msgid "<br/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:861
+msgid "Re-Check First Orders in Processing State?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:865
+msgid "Perform first order check again once order is in Processing state"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:882
+msgid "Does IP Address Match Location?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:886
+msgid ""
+"Confirm that the customer&apos;s location matches the location given by "
+"their IP address <br/> <strong>Required: MinFraud settings should be active "
+"for this rule. </strong>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:903
+msgid "Are Billing and Shipping Addresses Same?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:907
+msgid "Confirm billing and shipping addresses are the same."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:924
+msgid "Enable phone number and billing country check"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:928
+msgid ""
+"If you enable this rule, then it is highly recommended that you use a "
+"separate Phone Number Validation plugin to make sure your customers specify "
+"a correct international phone number format on the checkout page. Else, this "
+"rule will treat an invalid phone number as a risk."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:937
+msgid "Weight of the single rule in the total calculation of risk."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:947
+msgid "Customer behind Proxy or VPN?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:951
+msgid "Check if the customer is behind either a proxy or a VPN"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:968
+msgid "Same IP but Different Customer Addresses?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:972
+msgid ""
+"Check if multiple orders with different billing or shipping addresses have "
+"originated from the same IP address"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:976
+msgid "Time span (days) to check"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:978
+msgid ""
+"The number of days in the past to check IP addresses and physical addresses"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:991
+#: anti-fraud-core/class-wc-af-settings.php:1090
+msgid "<br/><hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1006
+msgid "Origin Domains and Countries"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1008
+msgid ""
+"International orders tend to have a higher fraud-risk than order that "
+"originate in your home country.  Merchants often find that certain origin "
+"countries or email domains have a higher potential for fraud.  Settings to "
+"help manage these risks are in this section."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1013
+msgid "Is International Order?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1017
+msgid ""
+"Check if the order originates from outside of your store&apos;s home country."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1034
+msgid "Is suspicious email domain?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1038
+msgid ""
+"Check if customer&apos;s email address originates from any high-risk domain "
+"listed below"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1042
+msgid "High-risk domains"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1044
+msgid "Enter any email origin domains you consider to be high-risk below:"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1051
+msgid "API Key for quickemailverification.com"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1053
+msgid ""
+"You can use quickemailverification.com to get more accurate results for "
+"false email domain related checks"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1071
+msgid "Is order from high-risk country?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1075
+msgid ""
+"Check if order originates from any country in the high-risk countries list "
+"below:"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1079
+msgid "Define unsafe countries"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1104
+msgid "Order Amounts and Attempts"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1106
+msgid ""
+"The rules in this section are triggered based on defined order amounts and "
+"by counting attempted orders.   Orders with unusually high values, or "
+"customers who make an excessive number of transactions in a short period are "
+"more likely to be fraudulent.<hr/>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1110
+msgid "Order amount above average?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1114
+msgid ""
+"Check if order significantly exceeds the average order amount for your site"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1118
+msgid "Average multiplier"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1120
+msgid ""
+"The amount over the average transaction value that will trigger the rule "
+"(expressed as a multiplier)."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1143
+msgid "Order exceeds maximum?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1147
+msgid ""
+"Confirm the total amount of the order does not exceed the maxmimum "
+"configured below"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1151
+msgid "Amount limit ($)"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1153
+msgid "Total maximum order amount accepted."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1172
+msgid "Too many order attempts?"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1176
+msgid ""
+"Check if customer attempts to make a purchase too many times within the time "
+"period configured below"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1181
+msgid "Time span to check"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1183
+msgid "Time span (hours) to check"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1189
+msgid "Maximum number of orders per time span"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1191
+msgid ""
+"Maximum number of orders that a user can make in the specified time span"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1204
+msgid "</br>"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1214
+msgid "Limit Order between time"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1218
+msgid "Limit the number orders to be placed during the given timeframe."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1222
+msgid "Start Time "
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1224
+msgid "Start time limit order between."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1230
+msgid "End Time "
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1232
+msgid "End time limit order between."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1238
+msgid "Allowed Orders"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1240
+msgid "Allowed numbers of order between."
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1402
+msgid "Your Account Id or License Key could not be authenticated!!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1417
+msgid "Great, authenticated successfully!!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1559
+msgid "Your Quickemailverification API Key could not be authenticated!!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1574
+msgid "Great, Quickemailverification authenticated successfully!!"
+msgstr ""
+
+#: anti-fraud-core/class-wc-af-settings.php:1589
+msgid ""
+"Great, Quickemailverification authenticated successfully but you don't have "
+"enough credit to use this service."
+msgstr ""
+
+#: includes/class-wc-af-privacy.php:21
 #, php-format
 msgid ""
-"Please install and activate %sWooCommerce%s in order for the WooCommerce "
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: templates/af-admin-notice.php:25
+#, php-format
+msgid "An order with ID #%1$s scored a Risk Score of %2$s."
+msgstr ""
+
+#: templates/af-admin-notice.php:31 templates/plain/af-admin-notice.php:14
+#: templates/plain/af-paypal-notice.php:14
+#, php-format
+msgid "%1$sClick here to view the order.%2$s."
+msgstr ""
+
+#: templates/af-paypal-notice.php:26
+#, php-format
+msgid "%1$sClick here to verify the order.%2$s."
+msgstr ""
+
+#: templates/plain/af-admin-notice.php:12
+#, php-format
+msgid "Hi there. Order with ID #%1$s scored a Risk Score of %2$s."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:88
+msgid "Settings"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:89
+msgid "Docs"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:414
+msgid "This email id is blocked"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:416
+msgid "Unblock"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:455
+#, php-format
+msgid ""
+"Please install and activate %1$sWooCommerce%2$s in order for the WooCommerce "
 "Anti Fraud extension to work!"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:553
+msgid "PayPal Verification Done."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:721
+msgid "Captcha"
+msgstr ""
+
+#: woocommerce-anti-fraud.php:736 woocommerce-anti-fraud.php:839
+msgid "Recaptcha is a required field."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:823
+msgid "Invalid recaptcha."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:835
+msgid "Could not get response from recaptcha server."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:842
+msgid "Could not verify request."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:906 woocommerce-anti-fraud.php:907
+msgid "This email id is blocked."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:917
+msgid "This IP Address is blocked."
+msgstr ""
+
+#: woocommerce-anti-fraud.php:987
+#, php-format
+msgid ""
+"You have reached maximum number of allowed orders in %d hours. Please try "
+"again later."
 msgstr ""

@@ -33,6 +33,11 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 		
 		Af_Logger::debug('Checking free email rule');
 		$domains = explode( ',', $this->free_email );
+		/**
+		 * Check free email risk
+		 *
+		 * @since  1.0.0
+		 */
 		$free_email_domains = apply_filters( 'wc_af_temporary_email_domains', $domains );
 		
 		// Default risk is false

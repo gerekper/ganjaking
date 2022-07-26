@@ -15,4 +15,9 @@ printf( esc_html__( '%1$sClick here to view the order.%2$s.', 'woocommerce-anti-
 
 echo "\n****************************************************\n\n";
 
+/**
+ * Get email footer text
+ *
+ * @since  1.0.0
+ */
 echo esc_html__(apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ));

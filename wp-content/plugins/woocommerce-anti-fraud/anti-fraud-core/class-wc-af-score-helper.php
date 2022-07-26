@@ -92,6 +92,25 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		}
 
 		/**
+		 * Cancel scheduled fruad check 
+		 * 
+		 * @param $order_id
+		 */
+		public function cancel_schedule_fraud_check( $order_id) {
+			// Try to get the Anti Fraud score
+			$score = get_post_meta($order_id, 'wc_af_score', true);
+
+			if ($this->is_fraud_check_queued($order_id)) {
+				wp_clear_scheduled_hook('wc-af-check', array('order_id' => $order_id));
+				
+				// Get the order
+				$order = wc_get_order($order_id);
+				update_post_meta($order_id, '_wc_af_waiting', false);
+			}
+			
+		}
+
+		/**
 		 * Returns a flag indicating if a fraud check has been queued but not yet completed
 		 *
 		 * @param $order_id
@@ -517,6 +536,8 @@ $loop->the_post();
 			 * @api array $new_status The new status
 			 * @api int      $order_id Order ID
 			 * @api WC_Order $order    the Order
+			 * 
+			 * @since 1.0.0
 			 */
 			$new_status = apply_filters( 'wc_anti_fraud_new_order_status', $new_status, $order_id, $order );
 			Af_Logger::debug('wc_anti_fraud_new_order_status  ' . $new_status);
@@ -529,6 +550,8 @@ $loop->the_post();
 				 * Filter: 'wc_anti_fraud_skip_order_statuses' - Skip status change for these statuses
 				 *
 				 * @api array $statuses List of statuses to skip changes for
+				 * 
+				 * @since 1.0.0
 				 */
 				$skip_status_change = apply_filters( 'wc_anti_fraud_skip_order_statuses', array( 'cancelled' ) );
 				
@@ -558,9 +581,6 @@ $loop->the_post();
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
 				} else {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 				}
@@ -578,9 +598,6 @@ $loop->the_post();
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
 				} else {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 				}
@@ -629,9 +646,6 @@ $loop->the_post();
 			// This is unfortunately needed in the current WooCommerce email setup
 			if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 				include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-			} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
-				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-				include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
 			} else {
 				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 			}

@@ -10,7 +10,14 @@ if ( !defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 ?>
 
-<?php do_action( 'woocommerce_email_header', $email_heading ); ?>
+<?php 
+	/**
+	 * Email header
+	 *
+	 * @since  1.0.0
+	 */
+	do_action( 'woocommerce_email_header', $email_heading ); 
+?>
 
 	<p>
 		<?php 
@@ -25,4 +32,11 @@ if ( !defined( 'ABSPATH' ) ) {
 		?>
 	</p>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php 
+	/**
+	 * Email footer
+	 *
+	 * @since  1.0.0
+	 */
+	do_action( 'woocommerce_email_footer' ); 
+?>

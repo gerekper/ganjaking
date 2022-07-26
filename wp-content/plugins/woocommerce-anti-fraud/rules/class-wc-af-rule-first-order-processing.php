@@ -33,6 +33,11 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 		global $wpdb;
 		$risk = false;
 
+		/**
+		 * Status values for query
+		 *
+		 * @since  1.0.0
+		 */
 		$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing') )) . "'";
 		
 		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
@@ -43,6 +48,11 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 
 			Af_Logger::debug('order AMount : ' . print_r($order_amount, true));
 			
+			/**
+			 * Status values for query
+			 *
+			 * @since  1.0.0
+			 */	
 			$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing', 'pending','on-hold') )) . "'";
 			
 		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)

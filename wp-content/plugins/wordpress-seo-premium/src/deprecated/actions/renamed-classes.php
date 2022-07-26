@@ -91,6 +91,6 @@ class Zapier_Action extends New_Zapier_Action {
 	) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 16.1', '\Yoast\WP\SEO\Premium\Actions\Zapier_Action' );
 
-		parent::__construct( $options_helper, $zapier_helper, $indexable_repository );
+		parent::__construct( $zapier_helper, $indexable_repository );
 	}
 }

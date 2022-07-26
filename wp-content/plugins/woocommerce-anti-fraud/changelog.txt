@@ -1,5 +1,15 @@
 *** WooCommerce Anti Fraud ***
 
+2022-07-26 - version 4.4
+* PLUGINS-1582 - Add cancel fraud queue check and reschedule.
+* PLUGINS-1279 - Fix JavaScript files still being loaded even the reCaptcha option is disabled.
+* PLUGINS-934 - Exception on subscription orders.
+* PLUGINS-1116 - Preserve saved settings on plugin deactivation and update.
+* PLUGINS-1515 - Advise customers GeoIP Location is using Maxmind.
+
+2022-05-11 - version 4.3.1
+* PLUGINS-1559 - Emogrifier package reference removal.
+
 2022-04-11 - version 4.3
 * PLUGINS-1283 - Fix issue Maxmind are getting twice request per order.
 * PLUGINS-1165 - Order number restriction option during certain timeframe.

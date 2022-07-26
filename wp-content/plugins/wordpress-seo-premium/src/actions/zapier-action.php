@@ -12,13 +12,6 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
 class Zapier_Action {
 
 	/**
-	 * Instance of the Options_Helper.
-	 *
-	 * @var Options_Helper
-	 */
-	protected $options_helper;
-
-	/**
 	 * The Zapier helper.
 	 *
 	 * @var Zapier_Helper
@@ -35,16 +28,13 @@ class Zapier_Action {
 	/**
 	 * Zapier_Action constructor.
 	 *
-	 * @param Options_Helper       $options_helper       The Options Helper.
 	 * @param Zapier_Helper        $zapier_helper        The Zapier helper.
 	 * @param Indexable_Repository $indexable_repository The Indexable repository.
 	 */
 	public function __construct(
-		Options_Helper $options_helper,
 		Zapier_Helper $zapier_helper,
 		Indexable_Repository $indexable_repository
 	) {
-		$this->options_helper       = $options_helper;
 		$this->zapier_helper        = $zapier_helper;
 		$this->indexable_repository = $indexable_repository;
 	}
@@ -173,6 +163,47 @@ class Zapier_Action {
 		return (object) [
 			'data'   => $zapier_data,
 			'status' => 200,
+		];
+	}
+
+	/**
+	 * Checks if Zapier is connected.
+	 *
+	 * @return object The response object.
+	 */
+	public function is_connected() {
+		return (object) [
+			'data'   => [
+				'is_connected' => $this->zapier_helper->is_connected(),
+			],
+			'status' => 200,
+		];
+	}
+
+	/**
+	 * Resets the API key in the DB.
+	 *
+	 * @param string $api_key The API key to be reset.
+	 *
+	 * @return object The response object.
+	 */
+	public function reset_api_key( $api_key ) {
+		if ( ! $this->zapier_helper->is_valid_api_key( $api_key ) ) {
+			return (object) [
+				'data'    => [],
+				'message' => 'The API key does not match.',
+				'status'  => 500,
+			];
+		}
+
+		$this->zapier_helper->reset_api_key_and_subscription();
+		$new_api_key = $this->zapier_helper->get_or_generate_zapier_api_key();
+
+		return (object) [
+			'data'    => [
+				'zapier_api_key' => $new_api_key,
+			],
+			'status'  => 200,
 		];
 	}
 }

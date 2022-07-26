@@ -20,6 +20,7 @@ use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
+use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
 
 /**
  * Elementor integration class for Yoast SEO Premium.
@@ -111,6 +112,9 @@ class Elementor_Premium implements Integration_Interface {
 		$social_previews->enqueue_assets();
 		$custom_fields = new WPSEO_Custom_Fields_Plugin();
 		$custom_fields->enqueue();
+
+		$replacement_variables = new Replacement_Variables_Integration();
+		$replacement_variables->enqueue_assets();
 	}
 
 	// Below is mostly copied from `premium-metabox.php`.
