@@ -26,6 +26,7 @@ class Controller_Settings {
 	const OPTION_DELETE_ON_DEACTIVATION = 'delete-deactivation';
 	const OPTION_PREFIX_REQUIRED_2FA_ROLE = 'required-2fa-role';
 	const OPTION_ENABLE_WOOCOMMERCE_INTEGRATION = 'enable-woocommerce-integration';
+	const OPTION_ENABLE_LOGIN_HISTORY_COLUMNS = 'enable-login-history-columns';
 	
 	//Internal
 	const OPTION_GLOBAL_NOTICES = 'global-notices';
@@ -87,7 +88,8 @@ class Controller_Settings {
 			self::OPTION_RECAPTCHA_THRESHOLD => array('value' => 0.5, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
 			self::OPTION_LAST_SECRET_REFRESH => array('value' => 0, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
 			self::OPTION_DELETE_ON_DEACTIVATION => array('value' => false, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
-			self::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION => array('value' => false, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false)
+			self::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION => array('value' => false, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false),
+			self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS => array('value' => true, 'autoload' => Model_Settings::AUTOLOAD_YES, 'allowOverwrite' => false)
 		));
 	}
 	
@@ -126,7 +128,14 @@ class Controller_Settings {
 	}
 	
 	public function get_array($key, $default = array()) {
-		return (array) @json_decode($this->get($key, $default), true);
+		$value = $this->get($key, null);
+		if (is_string($value)) {
+			$value = @json_decode($value, true);
+		}
+		else {
+			$value = null;
+		}
+		return is_array($value) ? $value : $default;
 	}
 	
 	public function remove($key) {
@@ -152,6 +161,8 @@ class Controller_Settings {
 			case self::OPTION_CAPTCHA_TEST_MODE:
 			case self::OPTION_DISMISSED_FRESH_INSTALL_MODAL:
 			case self::OPTION_DELETE_ON_DEACTIVATION:
+			case self::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION:
+			case self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS:
 				return true;
 				
 			//Int
@@ -249,6 +260,8 @@ class Controller_Settings {
 			case self::OPTION_CAPTCHA_TEST_MODE:
 			case self::OPTION_DISMISSED_FRESH_INSTALL_MODAL:
 			case self::OPTION_DELETE_ON_DEACTIVATION:
+			case self::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION:
+			case self::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS:
 				return $this->_truthy_to_bool($value);
 				
 			//Int
@@ -416,7 +429,11 @@ class Controller_Settings {
 	public function disable_ntp_cron() {
 		$this->set(self::OPTION_NTP_FAILURE_COUNT, -1);
 	}
-	
+
+	public function are_login_history_columns_enabled() {
+		return Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_ENABLE_LOGIN_HISTORY_COLUMNS, true);
+	}
+
 	/**
 	 * Utility
 	 */

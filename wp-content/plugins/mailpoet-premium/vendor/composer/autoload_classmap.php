@@ -36,6 +36,7 @@ return array(
     'MailPoet\\Premium\\Newsletter\\Stats\\Bounces' => $baseDir . '/lib/Newsletter/Stats/Bounces.php',
     'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => $baseDir . '/lib/Newsletter/Stats/PurchasedProducts.php',
     'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => $baseDir . '/lib/Newsletter/Stats/SubscriberEngagement.php',
+    'MailPoet\\Premium\\Segments\\DynamicSegments\\Filters\\SubscriberTag' => $baseDir . '/lib/Segments/DynamicSegments/Filters/SubscriberTag.php',
     'MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations' => $baseDir . '/lib/Segments/DynamicSegments/SegmentCombinations.php',
     'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStats' => $baseDir . '/lib/Subscriber/Stats/SubscriberNewsletterStats.php',
     'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => $baseDir . '/lib/Subscriber/Stats/SubscriberNewsletterStatsRepository.php',

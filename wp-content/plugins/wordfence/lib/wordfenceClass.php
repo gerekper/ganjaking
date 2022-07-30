@@ -191,8 +191,9 @@ class wordfence {
 		global $wpdb;
 		$version = $wpdb->get_var("SELECT VERSION()");
 		wfConfig::set('dbVersion', $version);
-		
-		$api = new wfAPI(wfConfig::get('apiKey'), wfUtils::getWPVersion());
+
+		$apiKey = wfConfig::get('apiKey');
+		$api = new wfAPI($apiKey, wfUtils::getWPVersion());
 		try {
 			$keyType = wfLicense::KEY_TYPE_FREE;
 			$keyData = $api->call('ping_api_key', array(), array('supportHash' => wfConfig::get('supportHash', ''), 'whitelistHash' => wfConfig::get('whitelistHash', ''), 'tldlistHash' => wfConfig::get('tldlistHash', '')));
@@ -265,7 +266,12 @@ class wordfence {
 			}
 
 			if (isset($keyData['_keyNoLongerValid']) && $keyData['_keyNoLongerValid'] == 1) {
-				self::alert(__("The Wordfence Premium License in use on this site has been removed from your account.", 'wordfence'), __("The license you were using has been removed from your account. Please reach out to billing@wordfence.com or create a Premium support case at https://support.wordfence.com/support/tickets for more information. Our staff is happy to help.", 'wordfence'), false);
+				if (wfConfig::get('keyDeletedNotice') !== $apiKey) {
+					$keyDeletedNoticeSent = self::alert(__("The Wordfence Premium License in use on this site has been removed from your account.", 'wordfence'), __("The license you were using has been removed from your account. Please reach out to billing@wordfence.com or create a Premium support case at https://support.wordfence.com/support/tickets for more information. Our staff is happy to help.", 'wordfence'), false);
+					if ($keyDeletedNoticeSent) {
+						wfConfig::set('keyDeletedNotice', $apiKey);
+					}
+				}
 			}
 
 			wfConfig::set('keyType', $keyType);
@@ -440,12 +446,7 @@ SQL
 		}
 
 		$wpdb->query("DELETE FROM $configTable WHERE `name` = 'emailedIssuesList' AND LENGTH(`val`) > 2 * 1024 * 1024");
-		wfConfig::set('keyType', 'KEY_TYPE_PAID_CURRENT');
-        wfConfig::set('keyExpDays', '365');
 		wfConfig::setDefaults(); //If not set
-		wfConfig::set('isPaid', '1');
-        wfConfig::set('keyType', 'KEY_TYPE_PAID_CURRENT');
-        wfConfig::set('keyExpDays', '365');
 
 		$restOfSite = wfConfig::get('cbl_restOfSiteBlocked', 'notset');
 		if($restOfSite == 'notset'){
@@ -1056,6 +1057,20 @@ SQL
 		foreach ($tables as $t) {
 			$schema->drop($t);
 		}
+
+		//7.5.10
+		$knownFilesTable = wfDB::networkTable('wfKnownFileList');
+		$wordpressPathColumn = $wpdb->get_row($wpdb->prepare("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s AND COLUMN_NAME = 'wordpress_path'", $knownFilesTable));
+		if ($wordpressPathColumn === null) {
+			$wpdb->query("DELETE FROM `{$knownFilesTable}`");
+			$wpdb->query("ALTER TABLE `{$knownFilesTable}` ADD COLUMN wordpress_path TEXT NOT NULL");
+		}
+
+		$realPathColumn = $wpdb->get_row($wpdb->prepare("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = %s AND COLUMN_NAME = 'real_path'", $fileModsTable));
+		if ($realPathColumn === null) {
+			$wpdb->query("DELETE FROM `{$fileModsTable}`");
+			$wpdb->query("ALTER TABLE `{$fileModsTable}` ADD COLUMN real_path TEXT NOT NULL AFTER filename");
+		}
 		
 		//---- enable legacy 2fa if applicable
 		if (wfConfig::get('isPaid') && (wfCredentialsController::hasOld2FARecords() || version_compare(phpversion(), '5.3', '<'))) {
@@ -1665,7 +1680,7 @@ SQL
 		}
 		
 		if ($enforceStrongPasswds && !wordfence::isStrongPasswd($password, $username)) {
-			$errors->add('pass', __('Please choose a stronger password. Try including numbers, symbols, and a mix of upper and lowercase letters and remove common words.', 'wordfence'));
+			$errors->add('pass', __('Please choose a stronger password. Use at least 12 characters, and include numbers, symbols, and a mix of upper and lowercase letters. Do not use common words or sequences of letters or numbers.', 'wordfence'));
 			return $errors;
 		}
 		
@@ -1698,28 +1713,53 @@ SQL
 		return $errors;
 	}
 	public static function isStrongPasswd($passwd, $username ) {
-		$strength = 0;
-		if(strlen( trim( $passwd ) ) < 5)
+		$passwd = trim($passwd);
+		$lowerPasswd = strtolower($passwd);
+		$passwdLength = strlen($lowerPasswd);
+		if ($passwdLength < 12)
 			return false;
-		if(strtolower( $passwd ) == strtolower( $username ) )
+		if ($lowerPasswd == strtolower( $username ) )
 			return false;
-		if(preg_match('/(?:password|passwd|mypass|wordpress)/i', $passwd)){
+		if (preg_match('/(?:password|passwd|mypass|wordpress)/i', $passwd))
 			return false;
+		if (preg_match('/(.)\1{2,}/', $lowerPasswd)) //Disallow any character repeated 3 or more times
+			return false;
+		/*
+		 * Check for ordered sequences of at least 4 characters for alphabetic sequences and 3 characters for other sequences, ignoring case
+		 * Examples:
+		 *	- 321
+		 *	- abcd
+		 *	- abab
+		 */
+		$last = null;
+		$sequenceLength = 1;
+		$alphabetic = true;
+		for ($i = 0; $i < $passwdLength; $i++) {
+			$current = ord($lowerPasswd[$i]);
+			if ($last !== null) {
+				if (abs($current - $last) === 1) {
+					$alphabetic &= ctype_alpha($lowerPasswd[$i]);
+					if (++$sequenceLength > ($alphabetic ? 3 : 2))
+						return false;
+				}
+				else {
+					$sequenceLength = 1;
+					$alphabetic = true;
+				}
+			}
+			$last = $current;
 		}
-		if($num = preg_match_all( "/\d/", $passwd, $matches) ){
-			$strength += ((int)$num * 10);
+		$characterTypes = array(
+			'/[a-z]/',
+			'/[A-Z]/',
+			'/[0-9]/',
+			'/[^a-zA-Z0-9]/'
+		);
+		foreach ($characterTypes as $type) {
+			if (!preg_match($type, $passwd))
+				return false;
 		}
-		if ( preg_match( "/[a-z]/", $passwd ) )
-			$strength += 26;
-		if ( preg_match( "/[A-Z]/", $passwd ) )
-			$strength += 26;
-		if ($num = preg_match_all( "/[^a-zA-Z0-9]/", $passwd, $matches)){
-			$strength += (31 * (int)$num);
-
-		}
-		if($strength > 60){
-			return true;
-		}
+		return true;
 	}
 	public static function lostPasswordPost($errors = null, $user = null) {
 		$IP = wfUtils::getIP();
@@ -1750,7 +1790,13 @@ SQL
 		}
 
 		if ($user === false && wfConfig::get('loginSec_maskLoginErrors')) {
-			wp_safe_redirect(!empty($_REQUEST['redirect_to'])?$_REQUEST['redirect_to']:'wp-login.php?checkemail=confirm');
+			if (self::hasWoocommerce() && isset($_POST['wc_reset_password'], $_POST['user_login'])) {
+				$redirectUrl = add_query_arg('reset-link-sent', 'true', wc_get_account_endpoint_url('lost-password'));
+			}
+			else {
+				$redirectUrl = !empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : 'wp-login.php?checkemail=confirm';
+			}
+			wp_safe_redirect($redirectUrl);
 			exit;
 		}
 
@@ -1762,7 +1808,11 @@ SQL
 			), $alertCallback);
 
 		}
-		if(wfConfig::get('loginSecurityEnabled')){
+
+		// do not count password reset attempts if there is a user logged in with the edit_users capability
+		// because they're probably using the "send password reset" feature in the WP admin and therefore we shouldn't
+		// be locking them out!
+		if(wfConfig::get('loginSecurityEnabled') && !current_user_can( 'edit_users' ) ){
 			$tKey = self::getForgotPasswordFailureCountTransient($IP);
 			$forgotAttempts = get_transient($tKey);
 			if($forgotAttempts){
@@ -2058,14 +2108,10 @@ SQL
 		}
 
 		// Sync the WAF data with the database.
-		$updateCountries = false;
 		if (!WFWAF_SUBDIRECTORY_INSTALL && $waf = wfWAF::getInstance()) {
 			$homeurl = wfUtils::wpHomeURL();
 			$siteurl = wfUtils::wpSiteURL();
-			wfConfig::set('isPaid', 1);
-			wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
-			wfConfig::set('premiumNextRenew', time()+31536000);
-
+			
 			//Sync the GeoIP database if needed
 			$destination = WFWAF_LOG_PATH . '/GeoLite2-Country.mmdb';
 			if (!file_exists($destination) || wfConfig::get('needsGeoIPSync')) {
@@ -2130,7 +2176,6 @@ SQL
 									}
 									
 									if (hash_equals($shash, $dhash)) {
-										$updateCountries = true;
 										wfConfig::remove('needsGeoIPSync');
 										delete_transient('wfSyncGeoIPActive');
 									}
@@ -2147,47 +2192,7 @@ SQL
 					}
 				}
 			}
-
-			if (!$updateCountries && version_compare(phpversion(), '5.4.0', '>=')) {
-				$previousVersionHash = wfConfig::get('geoIPVersionHash', '');
-				$geoIPVersion = wfUtils::geoIPVersion();
-				if (is_array($geoIPVersion)) {
-					$geoIPVersion = implode(',', $geoIPVersion);
-				}
-				$geoIPVersionHash = hash('sha256', $geoIPVersion);
-				$updateCountries = ($geoIPVersion !== null && $previousVersionHash != $geoIPVersionHash);
-			}
 			
-			if ($updateCountries) { // Fix the data in the country column
-				$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 7 day)) / 86400)';
-				switch (wfConfig::get('email_summary_interval', 'weekly')) {
-					case 'daily':
-						$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 day)) / 86400)';
-						break;
-					case 'monthly':
-						$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 month)) / 86400)';
-						break;
-				}
-				
-				$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
-				$ip_results = $wpdb->get_results("SELECT DISTINCT countryCode, IP FROM `{$table_wfBlockedIPLog}` WHERE unixday >= {$intervalSQL} GROUP BY IP ORDER BY unixday DESC LIMIT 500");
-				if ($ip_results) {
-					foreach ($ip_results as $ip_row) {
-						$country = wfUtils::IP2Country(wfUtils::inet_ntop($ip_row->IP));
-						if ($country != $ip_row->countryCode) {
-							$wpdb->query($wpdb->prepare("UPDATE `{$table_wfBlockedIPLog}` SET countryCode = %s WHERE IP = %s", $country, $ip_row->IP));
-						}
-					}
-				}
-				
-				$geoIPVersion = wfUtils::geoIPVersion();
-				if (is_array($geoIPVersion)) {
-					$geoIPVersion = implode(',', $geoIPVersion);
-				}
-				$geoIPVersionHash = hash('sha256', $geoIPVersion);
-				wfConfig::set('geoIPVersionHash', $geoIPVersionHash);
-			}
-						
 			try {
 				$sapi = @php_sapi_name();
 				if ($sapi != "cli") {
@@ -4643,7 +4648,7 @@ SQL
 			$sitePath = trim($components['path'], '/');
 		}
 		
-		$homePath = get_home_path();
+		$homePath = wfUtils::getHomePath();
 		$file = $issue['data']['file'];
 		$localFile = ABSPATH . '/' . $file; //The scanner uses ABSPATH as its base rather than get_home_path()
 		$localFile = realpath($localFile);
@@ -4712,10 +4717,15 @@ HTACCESS;
 		$val = trim($_POST['val']);
 		$val = preg_replace('/[^a-zA-Z0-9\.\-:]+/', '', $val);
 		$api = new wfAPI(wfConfig::get('apiKey'), wfUtils::getWPVersion());
-		$result = $api->call('whois', array(), array(
-			'val' => $val,
-			));
-		return array('ok' => 1, 'result' => $result['result']);
+		try {
+			$result = $api->call('whois', array(), array(
+				'val' => $val,
+				));
+			return array('ok' => 1, 'result' => $result['result']);
+		}
+		catch (wfAPICallErrorResponseException $e) {
+			return array('ok' => 0);
+		}
 	}
 	public static function ajax_recentTraffic_callback(){
 		$ip = trim($_POST['ip']);
@@ -5027,6 +5037,21 @@ HTACCESS;
 		wfConfig::set('alertEmails', $email);
 		return array('ok' => 1, 'email' => $email);
 	}
+	private static function resolveLocalFile($issue) {
+		$data = $issue['data'];
+		if (array_key_exists('realFile', $data)) {
+			return $data['realFile'];
+		}
+		else {
+			$file = $issue['data']['file'];
+			$localFile = ABSPATH . '/' . $file;
+			$localFile = realpath($localFile);
+			if (strpos($localFile, ABSPATH) !== 0) {
+				return null;
+			}
+			return $localFile;
+		}
+	}
 	public static function ajax_bulkOperation_callback() {
 		$op = sanitize_text_field($_POST['op']);
 		if ($op == 'del' || $op == 'repair') {
@@ -5040,12 +5065,9 @@ HTACCESS;
 				foreach ($issues['new'] as $i) {
 					if ($op == 'del' && @$i['data']['canDelete']) {
 						$file = $i['data']['file'];
-						$localFile = ABSPATH . '/' . $file;
-						$localFile = realpath($localFile);
-						if (strpos($localFile, ABSPATH) !== 0) {
+						$localFile = self::resolveLocalFile($i);
+						if ($localFile === null)
 							continue;
-						}
-						
 						if ($localFile === ABSPATH . 'wp-config.php') {
 							$errors[] = esc_html__('Deleting an infected wp-config.php file must be done outside of Wordfence. The wp-config.php file contains your database credentials, which you will need to restore normal site operations. Your site will NOT function once the wp-config.php file has been deleted.', 'wordfence');
 						}
@@ -5061,12 +5083,9 @@ HTACCESS;
 					}
 					else if ($op == 'repair' && @$i['data']['canFix']) {
 						$file = $i['data']['file'];
-						$localFile = ABSPATH . '/' . $file;
-						$localFile = realpath($localFile);
-						if (strpos($localFile, ABSPATH) !== 0) {
+						$localFile = self::resolveLocalFile($i);
+						if ($localFile === null)
 							continue;
-						}
-						
 						$result = array();
 						if (isset($i['data']) && is_array($i['data']) && isset($i['data']['file']) && isset($i['data']['cType']) && ( //Basics
 								$i['data']['cType'] == 'core' || //Core file
@@ -5165,12 +5184,11 @@ HTACCESS;
 			return array('errorMsg' => __('Could not delete file because that issue does not appear to be a file related issue.', 'wordfence'));
 		}
 		$file = $issue['data']['file'];
-		$localFile = ABSPATH . '/' . $file;
-		$localFile = realpath($localFile);
-		if(strpos($localFile, ABSPATH) !== 0){
+		$localFile = self::resolveLocalFile($issue);
+		if($localFile === null){
 			return array('errorMsg' => __('An invalid file was requested for deletion.', 'wordfence'));
 		}
-		if ($localFile === ABSPATH . 'wp-config.php') {
+		if ($file === 'wp-config.php') {
 			return array(
 				'errorMsg' => __('Deleting an infected wp-config.php file must be done outside of Wordfence. The wp-config.php file contains your database credentials, which you will need to restore normal site operations. Your site will NOT function once the wp-config.php file has been deleted.', 'wordfence')
 			);
@@ -5315,7 +5333,12 @@ HTACCESS;
 		if(preg_match('/\.\./', $file)){
 			return array('errorMsg' => __("An invalid file was specified for repair.", 'wordfence'));
 		}
-		$localFile = rtrim(ABSPATH, '/') . '/' . preg_replace('/^[\.\/]+/', '', $file);
+		if (array_key_exists('realFile', $dat)) {
+			$localFile = $dat['realFile'];
+		}
+		else {
+			$localFile = rtrim(ABSPATH, '/') . '/' . preg_replace('/^[\.\/]+/', '', $file);
+		}
 		if ($wp_filesystem->put_contents($localFile, $result['fileContent'])) {
 			$wfIssues->updateIssue($issueID, 'delete');
 			$counts = $wfIssues->getIssueCounts();
@@ -5693,6 +5716,19 @@ HTML;
 		return ($a['ctime'] < $b['ctime']) ? -1 : 1;
 	}
 
+	private static function checkRealFileParameters() {
+		if (array_key_exists('realFile', $_GET)) {
+			$realFile = stripslashes($_GET['realFile']);
+			$token = array_key_exists('realFileToken', $_GET) ? $_GET['realFileToken'] : '';
+			if (!wfIssues::verifyRealFileToken($token, $realFile)) {
+				esc_html_e('This link has expired. Refresh the scan results page and try again.', 'wordfence');
+				exit(0);
+			}
+			return $realFile;
+		}
+		return null;
+	}
+
 	public static function wfFunc_viewOption() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -5712,7 +5748,9 @@ HTML;
 			_e("File access blocked. (WORDFENCE_DISABLE_FILE_VIEWER is true)", 'wordfence');
 			exit();
 		}
-		$localFile = ABSPATH . preg_replace('/^(?:\.\.|[\/]+)/', '', sanitize_text_field($_GET['file']));
+		$localFile = self::checkRealFileParameters();
+		if ($localFile === null)
+			$localFile = ABSPATH . preg_replace('/^(?:\.\.|[\/]+)/', '', sanitize_text_field($_GET['file']));
 		if(strpos($localFile, '..') !== false){
 			_e("Invalid file requested. (Relative paths not allowed)", 'wordfence');
 			exit();
@@ -5746,6 +5784,7 @@ HTML;
 		require(dirname(__FILE__) . '/wfViewResult.php');
 		exit(0);
 	}
+
 	public static function wfFunc_diff(){
 		wfUtils::doNotCache();
 		if (WORDFENCE_DISABLE_FILE_VIEWER) {
@@ -5766,8 +5805,19 @@ HTML;
 			exit(0);
 		}
 
-		$localFile = realpath(ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $_GET['file']));
+		$localFile = self::checkRealFileParameters();
+		if ($localFile === null) {
+			$localFile = realpath(ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $_GET['file']));
+		}
+		if (empty($localFile)) {
+			esc_html_e('Empty file path provided', 'wordfence');
+			exit(0);
+		}
 		$localContents = file_get_contents($localFile);
+		if ($localContents === false) {
+			esc_html_e('Unable to read file contents', 'wordfence');
+			exit(0);
+		}
 		if($localContents == $result['fileContent']){
 			$diffResult = '';
 		} else {
@@ -5790,7 +5840,9 @@ HTML;
 			esc_html_e("File access blocked. (WORDFENCE_DISABLE_FILE_VIEWER is true)", 'wordfence');
 			exit();
 		}
-		$localFile = ABSPATH . preg_replace('/^(?:\.\.|[\/]+)/', '', sanitize_text_field($_GET['file']));
+		$localFile = self::checkRealFileParameters();
+		if ($localFile === null)
+			$localFile = ABSPATH . preg_replace('/^(?:\.\.|[\/]+)/', '', sanitize_text_field($_GET['file']));
 		if (strpos($localFile, '..') !== false) {
 			esc_html_e("Invalid file requested. (Relative paths not allowed)", 'wordfence');
 			exit();
@@ -6671,8 +6723,8 @@ HTML;
 	}
 	
 	public static function admin_menus_80() {
-		if (wfCentral::isSupported()) {
-			add_submenu_page('', __('Wordfence Central', 'wordfence'), __('Wordfence Central', 'wordfence'), 'activate_plugins', 'WordfenceCentral', 'wordfence::menu_wordfence_central');
+		if (wfCentral::isSupported() && self::isPage('WordfenceCentral')) {
+			add_submenu_page('Wordfence', __('Wordfence Central', 'wordfence'), __('Wordfence Central', 'wordfence'), 'activate_plugins', 'WordfenceCentral', 'wordfence::menu_wordfence_central');
 		}
 	}
 
@@ -6697,6 +6749,10 @@ HTML;
 		}
 		add_submenu_page("Wordfence", $message, "<strong id=\"wfMenuCallout\" style=\"color: #FCB214;\">" . $message . "</strong>", "activate_plugins", $slug, 'wordfence::_menu_noop');
 		add_filter('clean_url', 'wordfence::_patchWordfenceSubmenuCallout', 10, 3);
+	}
+
+	private static function isPage($page) {
+		return array_key_exists('page', $_GET) && $_GET['page'] === $page;
 	}
 	
 	public static function _patchWordfenceSubmenuCallout($url, $original_url, $_context){
@@ -7141,7 +7197,7 @@ HTML
 	public static function alert($subject, $alertMsg, $IP) {
 		wfConfig::inc('totalAlertsSent');
 		$emails = wfConfig::getAlertEmails();
-		if (sizeof($emails) < 1) { return; }
+		if (sizeof($emails) < 1) { return false; }
 
 		$IPMsg = "";
 		if ($IP) {
@@ -7189,7 +7245,7 @@ HTML
 				$totalSent += isset($sendArr[$i]) ? $sendArr[$i] : 0;
 			}
 			if($totalSent >= $sendMax){
-				return;
+				return false;
 			}
 			$sendArr[$minuteTime] = isset($sendArr[$minuteTime]) ? $sendArr[$minuteTime] + 1 : 1;
 			wfConfig::set_ser('alertFreqTrack', $sendArr);
@@ -7201,7 +7257,7 @@ HTML
 			$lastHashDat = explode(':', $lastHash); //[time, hash]
 			if(time() - $lastHashDat[0] < 3600){
 				if($lastHashDat[1] == $hash){
-					return; //Don't send because this email is identical to the previous email which was sent within the last hour.
+					return false; //Don't send because this email is identical to the previous email which was sent within the last hour.
 				}
 			}
 		}
@@ -7210,6 +7266,7 @@ HTML
 			$uniqueContent = $content . "\n\n" . sprintf(/* translators: WordPress admin panel URL. */ __('No longer an administrator for this site? Click here to stop receiving security alerts: %s', 'wordfence'), wfUtils::getSiteBaseURL() . '?_wfsf=removeAlertEmail&jwt=' . wfUtils::generateJWT(array('email' => $email)));
 			wp_mail($email, $subject, $uniqueContent);
 		}
+		return true;
 	}
 	public static function getLog(){
 		if(! self::$wfLog){
@@ -7992,7 +8049,7 @@ SQL
 		
 		$currentAutoPrependFile = ini_get('auto_prepend_file');
 		$currentAutoPrepend = null;
-		if (isset($_POST['currentAutoPrepend']) && !WF_IS_WP_ENGINE && !WF_IS_PRESSABLE) {
+		if (isset($_POST['currentAutoPrepend']) && !WF_IS_WP_ENGINE && !WF_IS_PRESSABLE && !WF_IS_FLYWHEEL) {
 			$currentAutoPrepend = $_POST['currentAutoPrepend'];
 		}
 		
@@ -9004,7 +9061,7 @@ SQL
 	}
 
 	public static function getWAFBootstrapPath() {
-		if (WF_IS_PRESSABLE) {
+		if (WF_IS_PRESSABLE || WF_IS_FLYWHEEL) {
 			return WP_CONTENT_DIR . '/wordfence-waf.php';
 		}
 		return ABSPATH . 'wordfence-waf.php';
@@ -9104,7 +9161,7 @@ if (file_exists(__DIR__.%1$s)) {
 	 */
 	public static function requestFilesystemCredentials($adminURL, $homePath = null, $relaxedFileOwnership = true, $output = true) {
 		if ($homePath === null) {
-			$homePath = get_home_path();
+			$homePath = wfUtils::getHomePath();
 		}
 
 		if (!$output) { ob_start(); }
@@ -9393,6 +9450,10 @@ if (file_exists(__DIR__.%1$s)) {
 		$hasRun = true;
 		add_action('shutdown', 'wfCentral::requestConfigurationSync');
 	}
+
+	public static function hasWoocommerce() {
+		return class_exists('woocommerce');
+	}
 }
 
 
@@ -9437,7 +9498,7 @@ class wfWAFAutoPrependHelper {
 			return true;
 		}
 		
-		$htaccessPath = get_home_path() . '.htaccess';
+		$htaccessPath = wfUtils::getHomePath() . '.htaccess';
 		if (file_exists($htaccessPath)) {
 			$htaccessContent = file_get_contents($htaccessPath);
 			$regex = '/# Wordfence WAF.*?# END Wordfence WAF/is';
@@ -9461,7 +9522,7 @@ class wfWAFAutoPrependHelper {
 	 * @return bool
 	 */
 	public static function fixHtaccessMod_php() {
-		$htaccessPath = get_home_path() . '.htaccess';
+		$htaccessPath = wfUtils::getHomePath() . '.htaccess';
 		if (file_exists($htaccessPath)) {
 			$htaccessContent = file_get_contents($htaccessPath);
 			$regex = '/# Wordfence WAF.*?# END Wordfence WAF/is';
@@ -9769,13 +9830,13 @@ auto_prepend_file = '%s'
 	}
 
 	public function getHtaccessPath() {
-		return get_home_path() . '.htaccess';
+		return wfUtils::getHomePath() . '.htaccess';
 	}
 
 	public function getUserIniPath() {
 		$userIni = ini_get('user_ini.filename');
 		if ($userIni) {
-			return get_home_path() . $userIni;
+			return wfUtils::getHomePath() . $userIni;
 		}
 		return false;
 	}

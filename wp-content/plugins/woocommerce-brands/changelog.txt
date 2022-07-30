@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2022-07-27 - version 1.6.35
+* Fix - Coupons logic for variable products.
+* Tweak - WC 6.8 compatibility.
+
 2022-07-06 - version 1.6.34
 * Tweak - WC 6.7 compatibility.
 

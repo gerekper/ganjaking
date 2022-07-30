@@ -608,12 +608,18 @@ class wfIssues {
 		foreach($ret as $status => &$issueList){
 			for($i = 0; $i < sizeof($issueList); $i++){
 				if ($issueList[$i]['type'] == 'file' || $issueList[$i]['type'] == 'knownfile') {
-					$localFile = $issueList[$i]['data']['file'];
-					if ($localFile != '.htaccess' && $localFile != $userIni) {
-						$localFile = ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $localFile);
+					if (array_key_exists('realFile', $issueList[$i]['data'])) {
+						$localFile = $issueList[$i]['data']['realFile'];
+						$issueList[$i]['data']['realFileToken'] = self::generateRealFileToken($localFile);
 					}
 					else {
-						$localFile = ABSPATH . '/' . $localFile;
+						$localFile = $issueList[$i]['data']['file'];
+						if ($localFile != '.htaccess' && $localFile != $userIni) {
+							$localFile = ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $localFile);
+						}
+						else {
+							$localFile = ABSPATH . '/' . $localFile;
+						}
 					}
 					
 					if(file_exists($localFile)){
@@ -746,5 +752,19 @@ class wfIssues {
 	 */
 	public function getIssuesTable() {
 		return $this->issuesTable;
+	}
+
+	private static function getRealFileTokenKey($realFile) {
+		return 'wf-real-file-' . base64_encode($realFile);
+	}
+
+	private static function generateRealFileToken($realFile) {
+		$key = self::getRealFileTokenKey($realFile);
+		return wp_create_nonce($key);
+	}
+
+	public static function verifyRealFileToken($token, $realFile) {
+		$key = self::getRealFileTokenKey($realFile);
+		return wp_verify_nonce($token, $key);
 	}
 }

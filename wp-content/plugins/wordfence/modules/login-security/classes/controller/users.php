@@ -494,7 +494,7 @@ class Controller_Users {
 			$columns['wfls_2fa_status'] = esc_html__('2FA Status', 'wordfence-2fa');
 		}
 		
-		if (Controller_Permissions::shared()->can_manage_settings(wp_get_current_user())) {
+		if (Controller_Settings::shared()->are_login_history_columns_enabled() && Controller_Permissions::shared()->can_manage_settings(wp_get_current_user())) {
 			$columns['wfls_last_login'] = esc_html__('Last Login', 'wordfence-2fa');
 			if (Controller_CAPTCHA::shared()->enabled()) {
 				$columns['wfls_last_captcha'] = esc_html__('Last CAPTCHA', 'wordfence-2fa');
@@ -518,7 +518,7 @@ class Controller_Users {
 						$value = wp_kses(__('Inactive<small class="wfls-sub-status">(Grace Period)</small>', 'wordfence-2fa'), array('small'=>array('class'=>array())));
 					}
 					elseif (($requires2fa && !$has2fa)) {
-						$value = wp_kses($inGracePeriod === null ? __('Locked Out<small class="wfls-sub-status">(Grace Period Disabled)</small>') : __('Locked Out<small class="wfls-sub-status">(Grace Period Exceeded)</small>', 'wordfence-2fa'), array('small'=>array('class'=>array())));
+						$value = wp_kses($inGracePeriod === null ? __('Locked Out<small class="wfls-sub-status">(Grace Period Disabled)</small>', 'wordfence-2fa') : __('Locked Out<small class="wfls-sub-status">(Grace Period Exceeded)</small>', 'wordfence-2fa'), array('small'=>array('class'=>array())));
 					}
 					else {
 						$value = esc_html__('Inactive', 'wordfence-2fa');

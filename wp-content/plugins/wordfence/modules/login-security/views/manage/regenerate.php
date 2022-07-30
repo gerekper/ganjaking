@@ -21,10 +21,10 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 <script type="text/x-jquery-template" id="wfls-tmpl-recovery-prompt">
 	<?php
 	echo \WordfenceLS\Model_View::create('common/modal-prompt', array(
-		'title' => __('Generate New Recovery Codes', 'wordfence'),
-		'message' => __('Are you sure you want to generate new recovery codes? Any remaining unused codes will be disabled.'),
-		'primaryButton' => array('id' => 'wfls-recovery-prompt-cancel', 'label' => __('Cancel', 'wordfence'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wfls-recovery-prompt-confirm', 'label' => __('Generate', 'wordfence'), 'link' => '#')),
+		'title' => __('Generate New Recovery Codes', 'wordfence-2fa'),
+		'message' => __('Are you sure you want to generate new recovery codes? Any remaining unused codes will be disabled.', 'wordfence-2fa'),
+		'primaryButton' => array('id' => 'wfls-recovery-prompt-cancel', 'label' => __('Cancel', 'wordfence-2fa'), 'link' => '#'),
+		'secondaryButtons' => array(array('id' => 'wfls-recovery-prompt-confirm', 'label' => __('Generate', 'wordfence-2fa'), 'link' => '#')),
 	))->render();
 	?>
 </script>

@@ -184,6 +184,40 @@ class wfWAFUtils {
 		return is_array($data) ? array_map('wfWAFUtils::_json_decode_object_helper', $data) : $data;
 	}
 
+	public static function json_encode_limited($data, $limit, $truncatable) {
+		$json = self::json_encode($data);
+		$size = strlen($json);
+		if ($size > $limit) {
+			$json = null;
+			$minimalData = $data;
+			foreach ($minimalData as $key => &$value) {
+				if (in_array($key, $truncatable)) {
+					$value = '';
+				}
+			}
+			$minimumSize = strlen(self::json_encode($minimalData));
+			if ($minimumSize <= $limit) {
+				$excess = $size - $limit;
+				foreach ($truncatable as $field) {
+					if (!array_key_exists($field, $data))
+						continue;
+					$value = $data[$field];
+					if (is_string($value)) {
+						$originalLength = strlen($value);
+						$truncatedLength = max(0, $originalLength - $excess);
+						$excess -= ($originalLength - $truncatedLength);
+						$data[$field] = substr($value, 0, $truncatedLength);
+					}
+					if ($excess === 0) {
+						$json = self::json_encode($data);
+						break;
+					}
+				}
+			}
+		}
+		return $json;
+	}
+
 	/**
 	 * Compare two strings in constant time. It can leak the length of a string.
 	 *
@@ -713,7 +747,7 @@ class wfWAFUtils {
 
 	public static function doNotCache() {
 		header("Pragma: no-cache");
-		header("Cache-Control: no-cache, must-revalidate, private");
+		header("Cache-Control: no-cache, must-revalidate, private, max-age=0");
 		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); //In the past
 		if (!defined('DONOTCACHEPAGE')) { define('DONOTCACHEPAGE', true); }
 		if (!defined('DONOTCACHEDB')) { define('DONOTCACHEDB', true); }
@@ -1191,5 +1225,10 @@ class wfWAFUtils {
 		}
 		return true;
 	}
+
+	public static function isVersionBelow($target, $compared) {
+		return $compared === null || version_compare($compared, $target, '<');
+	}
+
 }
 }

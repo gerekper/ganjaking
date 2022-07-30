@@ -26,10 +26,10 @@ if ($ownUser->ID == $user->ID) {
 <script type="text/x-jquery-template" id="wfls-tmpl-deactivate-prompt">
 	<?php
 	echo \WordfenceLS\Model_View::create('common/modal-prompt', array(
-		'title' => __('Deactivate 2FA', 'wordfence'),
-		'message' => __('Are you sure you want to deactivate two-factor authentication?'),
-		'primaryButton' => array('id' => 'wfls-deactivate-prompt-cancel', 'label' => __('Cancel', 'wordfence'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wfls-deactivate-prompt-confirm', 'label' => __('Deactivate', 'wordfence'), 'link' => '#')),
+		'title' => __('Deactivate 2FA', 'wordfence-2fa'),
+		'message' => __('Are you sure you want to deactivate two-factor authentication?', 'wordfence-2fa'),
+		'primaryButton' => array('id' => 'wfls-deactivate-prompt-cancel', 'label' => __('Cancel', 'wordfence-2fa'), 'link' => '#'),
+		'secondaryButtons' => array(array('id' => 'wfls-deactivate-prompt-confirm', 'label' => __('Deactivate', 'wordfence-2fa'), 'link' => '#')),
 	))->render();
 	?>
 </script>

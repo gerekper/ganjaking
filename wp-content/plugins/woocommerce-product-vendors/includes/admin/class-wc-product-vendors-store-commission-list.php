@@ -470,10 +470,10 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 				return sprintf( '<span class="wcpv-order-status-%s">%s</span>', esc_attr( $order->get_status() ), $formated_order_status );
 
 			case 'order_date' :
-				if ( $item->order_date ) {
-					return WC_Product_Vendors_Utils::format_date( sanitize_text_field( $item->order_date ) );
+				$post = get_post( absint( $item->order_id ) );
+				if ( isset( $post->post_date_gmt ) ) {
+					return WC_Product_Vendors_Utils::format_date( $post->post_date_gmt, wc_timezone_string() );
 				}
-
 				return __( 'N/A', 'woocommerce-product-vendors' );
 
 			case 'vendor_name' :
@@ -576,7 +576,8 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 				}
 
 				if ( is_object( $product ) && $product->get_sku() ) {
-					$sku = sprintf( __( '%1$s %2$s: %s', 'woocommerce-product-vendors' ), '<br />', 'SKU', $product->get_sku() );
+					// translators: %s - Product SKU.
+					$sku = '<br />' . sprintf( __( 'SKU: %s', 'woocommerce-product-vendors' ), $product->get_sku() );
 				}
 
 				$refunded_quantity = $order->get_qty_refunded_for_item( intval( $item->order_item_id ) );

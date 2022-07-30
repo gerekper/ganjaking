@@ -125,6 +125,10 @@ class WC_Product_Vendors_Registration {
 					$errors['username'] = __( 'Username is a required field.', 'woocommerce-product-vendors' );
 				}
 
+				if ( ! validate_username( $form_items['username'] ) ) {
+					$errors['username'] = __( 'Please enter a valid username.', 'woocommerce-product-vendors' );
+				}
+
 				if ( ! empty( $form_items['username'] ) && username_exists( $form_items['username'] ) ) {
 					$errors['username'] = __( 'Please choose a different username.', 'woocommerce-product-vendors' );
 				}
@@ -206,7 +210,7 @@ class WC_Product_Vendors_Registration {
 			$vendor_data['per_product_shipping'] = 'yes';
 			$vendor_data['commission_type']      = 'percentage';
 			$vendor_data['description']          = $form_items['vendor_description'];
-			$vendor_data['email']                = $form_items['email'];
+			$vendor_data['email']                = $user->user_email;
 
 			// If the description should be shown publicly, then copy it to the vendor profile.
 			// Otherwise it will only be shown to the store admin.

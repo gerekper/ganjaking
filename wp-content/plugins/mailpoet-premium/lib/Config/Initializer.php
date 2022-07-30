@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Premium\Config\Hooks as ConfigHooks;
+use MailPoet\Premium\Segments\DynamicSegments\Filters\SubscriberTag;
 use MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -25,6 +26,9 @@ class Initializer {
   /** @var SegmentCombinations */
   private $segmentCombinations;
 
+  /** @var SubscriberTag */
+  private $subscriberTag;
+
   /** @var Automation */
   private $automation;
 
@@ -34,11 +38,13 @@ class Initializer {
     WPFunctions $wp,
     ConfigHooks $hooks,
     SegmentCombinations $segmentCombinations,
+    SubscriberTag $subscriberTag,
     Automation $automation
   ) {
     $this->wp = $wp;
     $this->hooks = $hooks;
     $this->segmentCombinations = $segmentCombinations;
+    $this->subscriberTag = $subscriberTag;
     $this->automation = $automation;
   }
 
@@ -71,6 +77,7 @@ class Initializer {
 
     $this->setupStatsPages();
     $this->setupSegmentCombinations();
+    $this->setupSegmentFilters();
 
      $this->hooks->init();
      $this->automation->init();
@@ -113,6 +120,13 @@ class Initializer {
     $this->wp->addAction(
       'mailpoet_segments_translations_after',
       [$this, 'dynamicSegmentCombinations']
+    );
+  }
+
+  public function setupSegmentFilters(): void {
+    $this->wp->addAction(
+      'mailpoet_dynamic_segments_filter_subscriber_tag_apply',
+      [$this->subscriberTag, 'apply'], 10, 2
     );
   }
 

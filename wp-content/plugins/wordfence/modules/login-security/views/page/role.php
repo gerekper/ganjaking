@@ -2,7 +2,7 @@
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 ?>
 <?php if (is_multisite()): ?>
-	<p><em>(<?php esc_html_e('This page only shows users and roles on the main site of this network', 'wordfence') ?>)</em></p>
+	<p><em>(<?php esc_html_e('This page only shows users and roles on the main site of this network', 'wordfence-2fa') ?>)</em></p>
 <?php endif ?>
 <div class="wfls-block wfls-always-active wfls-flex-item-full-width wfls-add-bottom">
 	<?php if ($requiredAt === false): ?>
@@ -32,7 +32,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 					<?php if ($user->required_at): ?>
 					<?php echo esc_html(\WordfenceLS\Controller_Time::format_local_time('F j, Y g:i A', $user->required_at)) ?>
 					<?php else: ?>
-					<?php esc_html_e('N/A', 'wordfence'); ?>
+					<?php esc_html_e('N/A', 'wordfence-2fa'); ?>
 					<?php endif ?>
 				</td>
 			</tr>
@@ -43,7 +43,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 				<?php if ($page > 1): ?>
 					<a href="<?php echo esc_attr(add_query_arg($pageKey, $page-1) . "#$stateKey") ?>"><span class="dashicons dashicons-arrow-left-alt2"></span></a>
 				<?php endif ?>
-				<strong class="wfls-page-indicator"><?php esc_html_e('Page ') ?><?php echo (int) $page ?></strong>
+				<strong class="wfls-page-indicator"><?php esc_html_e('Page ', 'wordfence-2fa') ?><?php echo (int) $page ?></strong>
 				<?php if (!$lastPage): ?>
 					<a href="<?php echo esc_attr(add_query_arg($pageKey, $page+1) . "#$stateKey") ?>"><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 				<?php endif ?>

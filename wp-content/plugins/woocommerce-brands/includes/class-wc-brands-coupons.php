@@ -48,7 +48,7 @@ class WC_Brands_Coupons {
 		$items = $discounts->get_items();
 
 		foreach ( $items as $item ) {
-			$product_brands = $this->get_product_brands( $item->product->get_id() );
+			$product_brands = $this->get_product_brands( $this->get_product_id( $item->product ) );
 
 			if ( ! empty( array_intersect( $product_brands, $coupon->included_brands ) ) ) {
 				$included_brands_match = true;
@@ -92,7 +92,7 @@ class WC_Brands_Coupons {
 	public function is_valid_for_product( $valid, $product, $coupon ) {
 		$this->set_brand_settings_on_coupon( $coupon );
 
-		$product_id     = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
+		$product_id     = $this->get_product_id( $product );
 		$product_brands = $this->get_product_brands( $product_id );
 
 		// Check if coupon has a brand requirement and if this product has that brand attached.
@@ -163,6 +163,16 @@ class WC_Brands_Coupons {
 		$coupon->included_brands = $included_brands;
 		$coupon->excluded_brands = $excluded_brands;
 	}
+
+    /**
+     * Returns the product (or variant) ID.
+     *
+     * @param  WC_Product $product WC Product Object
+     * @return int Product ID
+     */
+    private function get_product_id( $product ) {
+        return $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
+    }
 
 }
 

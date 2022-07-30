@@ -347,6 +347,15 @@ class wfLog {
 		return $results;
 	}
 
+	private function processActionDescription($description) {
+		switch ($description) {
+		case wfWAFIPBlocksController::WFWAF_BLOCK_UAREFIPRANGE:
+			return __('UA/Hostname/Referrer/IP Range not allowed', 'wordfence');
+		default:
+			return $description;
+		}
+	}
+
 	/**
 	 * @param string $type
 	 * @param array $results
@@ -370,6 +379,8 @@ class wfLog {
 			$res['blocked'] = false;
 			$res['rangeBlocked'] = false;
 			$res['ipRangeID'] = -1;
+			if (array_key_exists('actionDescription', $res))
+				$res['actionDescription'] = $this->processActionDescription($res['actionDescription']);
 			
 			$ipBlock = wfBlock::findIPBlock($res['IP']);
 			if ($ipBlock !== false) {
@@ -1021,6 +1032,8 @@ class wfUserIPRange {
 	}
 
 	protected function _sanitizeIPRange($ip_string) {
+		if (!is_string($ip_string))
+			return null;
 		$ip_string = preg_replace('/\s/', '', $ip_string); //Strip whitespace
 		$ip_string = preg_replace('/[\\x{2013}-\\x{2015}]/u', '-', $ip_string); //Non-hyphen dashes to hyphen
 		$ip_string = strtolower($ip_string);
@@ -1282,6 +1295,9 @@ class wfRequestModel extends wfModel {
 					$actionData[$key] = base64_decode($actionData[$key]);
 				}
 			}
+		}
+		else {
+			$actionData = array();
 		}
 		return $actionData;
 	}
@@ -1982,7 +1998,7 @@ class wfErrorLogHandler {
 		if ($errorLogs === null) {
 			$searchPaths = array(ABSPATH, ABSPATH . 'wp-admin', ABSPATH . 'wp-content');
 			
-			$homePath = get_home_path();
+			$homePath = wfUtils::getHomePath();
 			if (!in_array($homePath, $searchPaths)) {
 				$searchPaths[] = $homePath;
 			}

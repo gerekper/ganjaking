@@ -1,0 +1,13 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_woocompare_button_text" />
+        <key name="yith_woocompare_table_text" />
+        <key name="yith_woocompare_button_text_added" />
+        <key name="yith_woocompare_socials_title" />
+        <key name="yith_woocompare_socials_text" />
+        <key name="yith-woocompare-categories-filter-title" />
+        <key name="yith-woocompare-share-title" />
+        <key name="yith-woocompare-related-title" />
+        <key name="yith_woocompare_label_clear_all_table" />
+    </admin-texts>
+</wpml-config>

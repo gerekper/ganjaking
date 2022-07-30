@@ -16,7 +16,7 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 		</div>
 		<div class="wf-modal-content">
 		<?php
-		if (WF_IS_WP_ENGINE || WF_IS_PRESSABLE) {
+		if (WF_IS_WP_ENGINE || WF_IS_PRESSABLE || WF_IS_FLYWHEEL) {
 			$currentAutoPrependFile = wordfence::getWAFBootstrapPath();
 		} else {
 			$currentAutoPrependFile = ini_get('auto_prepend_file');

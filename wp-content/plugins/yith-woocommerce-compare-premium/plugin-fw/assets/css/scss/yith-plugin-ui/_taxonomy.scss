@@ -1,0 +1,52 @@
+/**
+ * YITH Plugin UI - Taxonomy Style
+ */
+
+.yith-plugin-ui.yith-plugin-ui--taxonomy-type, .yith-plugin-ui--taxonomy-type {
+
+  // List
+
+  #col-container {
+    display: flex;
+  }
+
+  #col-left {
+    padding: 20px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-right: 15px;
+  }
+
+  #col-right {
+    flex: 1;
+  }
+
+  h2 {
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    background: transparent;
+  }
+
+  // Edit Tax
+  .wrap h1 {
+    color: #2a8db0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .yith-plugin-ui.yith-plugin-ui--taxonomy-type {
+    #col-container {
+      display: block;
+    }
+
+    #col-left, #col-right {
+      float: none;
+      width: 100%;
+    }
+  }
+}
+

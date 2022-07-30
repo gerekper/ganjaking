@@ -71,6 +71,7 @@ class ContainerConfigurator implements IContainerConfigurator {
       ->setFactory([__CLASS__, 'createRenderer']);
     // Segments
     $container->autowire(\MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Segments\DynamicSegments\Filters\SubscriberTag::class)->setPublic(true);
     // Stats
     $container->autowire(\MailPoet\Premium\Newsletter\Stats\Bounces::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Newsletter\Stats\PurchasedProducts::class);

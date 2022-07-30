@@ -12,7 +12,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 			</div>
 		</div>
 		<div class="wfls-block-header-action wfls-block-header-action-text wfls-nowrap wfls-padding-add-right-responsive">
-			<a href="users.php"><?php esc_html_e('Manage Users', 'wordfence'); ?></a>
+			<a href="users.php"><?php esc_html_e('Manage Users', 'wordfence-2fa'); ?></a>
 		</div>
 	</div>
 	<div class="wfls-block-content wfls-padding-no-left wfls-padding-no-right">

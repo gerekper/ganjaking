@@ -6,7 +6,6 @@ class wordfenceHash {
 	private $startTime = false;
 
 	//Begin serialized vars
-	public $striplen = 0;
 	public $totalFiles = 0;
 	public $totalDirs = 0;
 	public $totalData = 0; //To do a sanity check, don't use 'du' because it gets sparse files wrong and reports blocks used on disk. Use : find . -type f -ls | awk '{total += $7} END {print total}'
@@ -22,8 +21,7 @@ class wordfenceHash {
 	private $haveIssues = array();
 	private $status = array();
 	private $possibleMalware = array();
-	private $path = false;
-	private $only = false;
+	private $scannedFiles;
 	private $totalForks = 0;
 	private $alertedOnUnknownWordPressVersion = false;
 	private $foldersEntered = array();
@@ -33,9 +31,9 @@ class wordfenceHash {
 	private $indexSize = 0;
 	private $currentIndex = 0;
 	private $coalescingIssues = array();
+	private $pathMap = array();
 
 	/**
-	 * @param string $striplen
 	 * @param string $path
 	 * @param array $only
 	 * @param array $themes
@@ -43,10 +41,8 @@ class wordfenceHash {
 	 * @param wfScanEngine $engine
 	 * @throws Exception
 	 */
-	public function __construct($striplen, $path, $only, $themes, $plugins, $engine, $malwarePrefixesHash, $coreHashesHash, $scanMode) {
-		$this->striplen = $striplen;
-		$this->path = $path;
-		$this->only = $only;
+	public function __construct($scannedFiles, $engine, $malwarePrefixesHash, $coreHashesHash, $scanMode) {
+		$this->scannedFiles = $scannedFiles;
 		$this->engine = $engine;
 
 		$this->startTime = microtime(true);
@@ -131,12 +127,6 @@ class wordfenceHash {
 			wfIssues::statusEnd($coreHashesStatus, wfIssues::STATUS_SUCCESS);
 		}
 
-		if($this->path[strlen($this->path) - 1] != '/'){
-			$this->path .= '/';
-		}
-		if(! is_readable($path)){
-			throw new Exception(sprintf(__("Could not read directory %s to do scan.", 'wordfence'), $this->path));
-		}
 		$this->haveIssues = array(
 			'core' => wfIssues::STATUS_SECURE,
 			'coreUnknown' => wfIssues::STATUS_SECURE,
@@ -171,7 +161,7 @@ class wordfenceHash {
 		}
 	}
 	public function __sleep(){
-		return array('striplen', 'totalFiles', 'totalDirs', 'totalData', 'stoppedOnFile', 'coreEnabled', 'pluginsEnabled', 'themesEnabled', 'malwareEnabled', 'coreUnknownEnabled', 'knownFiles', 'haveIssues', 'status', 'possibleMalware', 'path', 'only', 'totalForks', 'alertedOnUnknownWordPressVersion', 'foldersProcessed', 'suspectedFiles', 'indexed', 'indexSize', 'currentIndex', 'foldersEntered', 'coalescingIssues');
+		return array('totalFiles', 'totalDirs', 'totalData', 'stoppedOnFile', 'coreEnabled', 'pluginsEnabled', 'themesEnabled', 'malwareEnabled', 'coreUnknownEnabled', 'knownFiles', 'haveIssues', 'status', 'possibleMalware', 'scannedFiles', 'totalForks', 'alertedOnUnknownWordPressVersion', 'foldersProcessed', 'suspectedFiles', 'indexed', 'indexSize', 'currentIndex', 'coalescingIssues', 'pathMap');
 	}
 	public function __wakeup(){
 		$this->db = new wfDB();
@@ -193,30 +183,15 @@ class wordfenceHash {
 	public function getSuspectedFiles() {
 		return array_keys($this->suspectedFiles);
 	}
-	public function run($engine){ //base path and 'only' is a list of files and dirs in the base that are the only ones that should be processed. Everything else in base is ignored. If only is empty then everything is processed.
+	public function run($engine) {
 		if($this->totalForks > 1000){
 			throw new Exception(sprintf(/* translators: File path. */ __("Wordfence file scanner detected a possible infinite loop. Exiting on file: %s", 'wordfence'), $this->stoppedOnFile));
 		}
 		$this->engine = $engine;
-		wordfence::status(4, 'info', __("Indexing files for scanning", 'wordfence'));
 		if (!$this->indexed) {
 			$start = microtime(true);
 			$indexedFiles = array();
-			
-			if (count($this->only) > 0) {
-				$files = $this->only; //These are absolute paths
-			}
-			else { //This code path generally should not get hit
-				$rawFiles = scandir($this->path);
-				$files = array();
-				foreach ($rawFiles as $file) {
-					if ($file == '.' || $file == '..') { continue; }
-					$fullFile = rtrim($this->path, '/') . '/' . $file;
-					$files[] = $fullFile;
-				}
-			}
-			
-			foreach ($files as $file) {
+			foreach ($this->scannedFiles as $file) {
 				$this->_dirIndex($file, $indexedFiles);
 			}
 			$this->_serviceIndexQueue($indexedFiles, true);
@@ -227,7 +202,7 @@ class wordfenceHash {
 			wordfence::status(4, 'info', sprintf(/* translators: Time in seconds. */ __("Index time: %s", 'wordfence'), ($end - $start)));
 		}
 		
-		$this->_checkForTimeout('');
+		$this->_checkForTimeout();
 		
 		wordfence::status(4, 'info', __("Beginning file hashing", 'wordfence'));
 		while ($file = $this->_nextFile()) {
@@ -258,12 +233,13 @@ class wordfenceHash {
 					$added = $this->engine->addIssue(
 						'file',
 						wfIssues::SEVERITY_CRITICAL,
-						$this->path . $file, 
+						$file,
 						$md5,
 						sprintf(/* translators: File path. */ __('This file is suspected malware: %s', 'wordfence'), $file),
 						sprintf(/* translators: Malware name/title. */ __("This file's signature matches a known malware file. The title of the malware is '%s'. Immediately inspect this file using the 'View' option below and consider deleting it from your server.", 'wordfence'), $name),
 						array(
 							'file' => $file,
+							'realFile' => array_key_exists($file, $this->pathMap) ? $this->pathMap[$file] : null,
 							'cType' => 'unknown',
 							'canDiff' => false,
 							'canFix' => false,
@@ -279,31 +255,34 @@ class wordfenceHash {
 		if($this->malwareEnabled){ wfIssues::statusEnd($this->status['malware'], $this->haveIssues['malware']); $this->engine->scanController()->completeStage(wfScanner::STAGE_MALWARE_SCAN, $this->haveIssues['malware']); }
 		unset($this->knownFiles); $this->knownFiles = false;
 	}
-	private function _dirIndex($path, &$indexedFiles) {
-		if (substr($path, -3, 3) == '/..' || substr($path, -2, 2) == '/.') {
+	private function _dirIndex($file, &$indexedFiles) {
+		$realPath = $file->getRealPath();
+		//Applies to files and dirs
+		if (!is_readable($realPath))
 			return;
-		}
-		if (!is_readable($path)) { return; } //Applies to files and dirs
-		if (!$this->_shouldProcessPath($path)) { return; }
-		if (is_dir($path)) {
-			$realPath = realpath($path);
-			if (!$this->stoppedOnFile && isset($this->foldersEntered[$realPath])) { //Not resuming and already entered this path
+		if (!$this->_shouldProcessFile($file))
+			return;
+		if (is_dir($realPath)) {
+			if (isset($this->foldersEntered[$realPath]))
 				return;
-			}
 			
-			$this->foldersEntered[$realPath] = 1;
+			$this->foldersEntered[$file->getRealPath()] = 1;
 			
 			$this->totalDirs++;
-			if ($path[strlen($path) - 1] != '/') {
-				$path .= '/';
-			}
-			$cont = scandir($path);
-			for ($i = 0; $i < sizeof($cont); $i++) {
-				if ($cont[$i] == '.' || $cont[$i] == '..') { continue; }
-				$file = $path . $cont[$i];
-				if (is_file($file)) {
-					$relativeFile = substr($file, $this->striplen);
-					if ($this->stoppedOnFile && $relativeFile != $this->stoppedOnFile) {
+			foreach (wfFileUtils::getContents($realPath) as $child) {
+				if (wfFileUtils::isCurrentOrParentDirectory($child)) {
+					continue;
+				}
+				try {
+					$child = $file->createChild($child);
+				}
+				catch (wfInvalidPathException $e) {
+					wordfence::status(4, 'info', sprintf(__("Ignoring invalid scan file child: %s", 'wordfence'), $e->getPath()));
+					continue;
+				}
+				if (is_file($child->getRealPath())) {
+					$relativeFile = $child->getWordpressPath();
+					if ($this->stoppedOnFile && $child->getRealPath() != $this->stoppedOnFile) {
 						continue;
 					}
 					
@@ -312,19 +291,17 @@ class wordfenceHash {
 						$this->suspectedFiles[$relativeFile] = 1;
 					}
 					
-					$this->_checkForTimeout($file, $indexedFiles);
-					if ($this->_shouldHashFile($file)) {
-						$resolvedFile = realpath($file);
-						if ($resolvedFile) {
-							$indexedFiles[] = substr($resolvedFile, $this->striplen);
-						}
+					$this->_checkForTimeout($child, $indexedFiles);
+					if ($this->_shouldHashFile($child)) {
+						$indexedFiles[] = $child;
 					}
 					else {
-						wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), $file));
+						wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), (string) $child));
 					}
 					$this->_serviceIndexQueue($indexedFiles);
-				} else if (is_dir($file)) {
-					$this->_dirIndex($file, $indexedFiles);
+				}
+				elseif (is_dir($child->getRealPath())) {
+					$this->_dirIndex($child, $indexedFiles);
 				}
 			}
 			
@@ -332,9 +309,9 @@ class wordfenceHash {
 			unset($this->foldersEntered[$realPath]);
 		}
 		else {
-			if (is_file($path)) {
-				$relativeFile = substr($path, $this->striplen);
-				if ($this->stoppedOnFile && $relativeFile != $this->stoppedOnFile) {
+			if (is_file($realPath)) {
+				$relativeFile = $file->getWordpressPath();
+				if ($this->stoppedOnFile && $realPath != $this->stoppedOnFile) {
 					return;
 				}
 				
@@ -343,35 +320,39 @@ class wordfenceHash {
 					$this->suspectedFiles[$relativeFile] = 1;
 				}
 				
-				$this->_checkForTimeout($path, $indexedFiles);
-				if ($this->_shouldHashFile($path)) {
-					$indexedFiles[] = substr($path, $this->striplen);
+				$this->_checkForTimeout($file, $indexedFiles);
+				if ($this->_shouldHashFile($file)) {
+					$indexedFiles[] = $file;
 				}
 				else {
-					wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), $path));
+					wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping unneeded hash: %s", 'wordfence'), (string) $file));
 				}
 				$this->_serviceIndexQueue($indexedFiles);
 			}
 		}
 	}
 	private function _serviceIndexQueue(&$indexedFiles, $final = false) {
-		$payload = array();
+		$files = array();
 		if (count($indexedFiles) > 500) {
-			$payload = array_splice($indexedFiles, 0, 500);
+			$files = array_splice($indexedFiles, 0, 500);
 		}
 		else if ($final) {
-			$payload = $indexedFiles;
+			$files = $indexedFiles;
 			$indexedFiles = array();
 		}
-		
-		$payload = array_filter($payload); //Strip empty strings -- these are symlinks to files outside of the site root (ABSPATH)
-		
-		if (count($payload) > 0) {
+
+		$fileCount = count($files);
+		if ($fileCount > 0) {
+			$payload = array();
+			foreach ($files as $file) {
+				$payload[] = (string) $file;
+				$payload[] = $file->getWordpressPath();
+			}
 			global $wpdb;
 			$table_wfKnownFileList = wfDB::networkTable('wfKnownFileList');
-			$query = substr("INSERT INTO {$table_wfKnownFileList} (path) VALUES " . str_repeat("('%s'), ", count($payload)), 0, -2);
+			$query = substr("INSERT INTO {$table_wfKnownFileList} (path, wordpress_path) VALUES " . str_repeat("('%s', '%s'), ", count($files)), 0, -2);
 			$wpdb->query($wpdb->prepare($query, $payload));
-			$this->indexSize += count($payload);
+			$this->indexSize += $fileCount;
 			wordfence::status(2, 'info', sprintf(/* translators: Number of files. */ __("%d files indexed", 'wordfence'), $this->indexSize));
 		}
 	}
@@ -380,7 +361,13 @@ class wordfenceHash {
 		if (count($files) == 0) {
 			global $wpdb;
 			$table_wfKnownFileList = wfDB::networkTable('wfKnownFileList');
-			$files = $wpdb->get_col($wpdb->prepare("SELECT path FROM {$table_wfKnownFileList} WHERE id > %d ORDER BY id ASC LIMIT 500", $this->currentIndex));
+			$rows = $wpdb->get_results($wpdb->prepare("SELECT path, wordpress_path FROM {$table_wfKnownFileList} WHERE id > %d ORDER BY id ASC LIMIT 500", $this->currentIndex));
+			$files = array_map(
+				function ($row) {
+					return new wfScanFile($row->path, $row->wordpress_path);
+				},
+				$rows
+			);
 		}
 		
 		$file = null;
@@ -395,15 +382,15 @@ class wordfenceHash {
 		if ($file === null) {
 			return null;
 		}
-		return ABSPATH . $file;
+		return $file;
 	}
-	private function _checkForTimeout($path, $indexQueue = false) {
-		$file = substr($path, $this->striplen);
-		if ((!$this->stoppedOnFile) && $this->engine->shouldFork()) { //max X seconds but don't allow fork if we're looking for the file we stopped on. Search mode is VERY fast.
+	private function _checkForTimeout($file = null, $indexQueue = false) {
+		$realPath = $file ? $file->getRealPath() : null;
+		if (($this->stoppedOnFile !== $realPath) && $this->engine->shouldFork()) { //max X seconds but don't allow fork if we're looking for the file we stopped on. Search mode is VERY fast.
 			if ($indexQueue !== false) {
 				$this->_serviceIndexQueue($indexQueue, true);
-				$this->stoppedOnFile = $file;
-				wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Forking during indexing: %s", 'wordfence'), $path));
+				$this->stoppedOnFile = $realPath;
+				wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Forking during indexing: %s", 'wordfence'), (string) $file));
 			}
 			else {
 				wordfence::status(4, 'info', sprintf(/* translators: PHP max execution time. */ __("Calling fork() from wordfenceHash with maxExecTime: %s", 'wordfence'), $this->engine->maxExecTime));
@@ -412,25 +399,24 @@ class wordfenceHash {
 			//exits
 		}
 		
-		if ($this->stoppedOnFile && $file != $this->stoppedOnFile && $indexQueue !== false) {
+		if ($this->stoppedOnFile && $realPath != $this->stoppedOnFile && $indexQueue !== false) {
 			return;
 		}
-		else if ($this->stoppedOnFile && $file == $this->stoppedOnFile) {
+		else if ($this->stoppedOnFile && $realPath == $this->stoppedOnFile) {
 			$this->stoppedOnFile = false; //Continue indexing
 		}
 	}
-	private function _shouldProcessPath($path) {
-		$file = substr($path, $this->striplen);
+	private function _shouldProcessFile($file) {
 		$excludePatterns = wordfenceScanner::getExcludeFilePattern(wordfenceScanner::EXCLUSION_PATTERNS_USER);
 		if ($excludePatterns) {
 			foreach ($excludePatterns as $pattern) {
-				if (preg_match($pattern, $file)) {
+				if (preg_match($pattern, $file->getWordpressPath())) {
 					return false;
 				}
 			}
 		}
 		
-		$realPath = realpath($path);
+		$realPath = $file->getRealPath();
 		if ($realPath === '/') {
 			return false;
 		}
@@ -440,61 +426,63 @@ class wordfenceHash {
 		
 		return true;
 	}
-	private function processFile($realFile) {
-		$file = substr($realFile, $this->striplen);
-		
-		if (wfUtils::fileTooBig($realFile)) {
-			wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping file larger than max size: %s", 'wordfence'), $realFile));
+	private function processFile($file) {
+		$realPath = $file->getRealPath();
+		$wordpressPath = $file->getWordpressPath();
+		if (wfUtils::fileTooBig($realPath)) {
+			wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Skipping file larger than max size: %s", 'wordfence'), $realPath));
 			return;
 		}
 		
 		if (function_exists('memory_get_usage')) {
-			wordfence::status(4, 'info', sprintf(/* translators: 1. File path. 2. Memory in bytes. */ __('Scanning: %1$s (Mem:%2$s)', 'wordfence'), $realFile, sprintf('%.1fM', memory_get_usage(true) / (1024 * 1024))));
+			wordfence::status(4, 'info', sprintf(/* translators: 1. File path. 2. Memory in bytes. */ __('Scanning: %1$s (Mem:%2$s)', 'wordfence'), $realPath, sprintf('%.1fM', memory_get_usage(true) / (1024 * 1024))));
 		}
 		else {
-			wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Scanning: %s", 'wordfence'), $realFile));
+			wordfence::status(4, 'info', sprintf(/* translators: File path. */ __("Scanning: %s", 'wordfence'), $realPath));
 		}
 		
-		wfUtils::beginProcessingFile($file);
-		$wfHash = self::hashFile($realFile);
+		wfUtils::beginProcessingFile($wordpressPath);
+		$wfHash = self::hashFile($realPath);
 		$this->engine->scanController()->incrementSummaryItem(wfScanner::SUMMARY_SCANNED_FILES);
 		if ($wfHash) {
 			$md5 = strtoupper($wfHash[0]);
 			$shac = strtoupper($wfHash[1]);
 			$knownFile = 0;
 			if($this->malwareEnabled && $this->isMalwarePrefix($md5)){
-				$this->possibleMalware[] = array($file, $md5);
+				$this->possibleMalware[] = array($wordpressPath, $md5);
+				$this->pathMap[$wordpressPath] = $realPath;
 			}
 
 			$knownFileExclude = wordfenceScanner::getExcludeFilePattern(wordfenceScanner::EXCLUSION_PATTERNS_KNOWN_FILES);
 			$allowKnownFileScan = true;
 			if ($knownFileExclude) {
 				foreach ($knownFileExclude as $pattern) {
-					if (preg_match($pattern, $realFile)) {
+					if (preg_match($pattern, $realPath)) {
 						$allowKnownFileScan = false;
 					}
 				}
 			}
 
 			if ($allowKnownFileScan) {
-				if (isset($this->knownFiles['core'][$file])) {
-					if (strtoupper($this->knownFiles['core'][$file]) == $shac) {
+				if (isset($this->knownFiles['core'][$wordpressPath])) {
+					if (strtoupper($this->knownFiles['core'][$wordpressPath]) == $shac) {
 						$knownFile = 1;
 					}
 					else {
 						if ($this->coreEnabled) {
-							$localFile = ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $file);
+							$localFile = ABSPATH . '/' . preg_replace('/^[\.\/]+/', '', $wordpressPath);
 							$fileContents = @file_get_contents($localFile);
 							if ($fileContents && (!preg_match('/<\?' . 'php[\r\n\s\t]*\/\/[\r\n\s\t]*Silence is golden\.[\r\n\s\t]*(?:\?>)?[\r\n\s\t]*$/s', $fileContents))) {
 								$this->engine->addPendingIssue(
 									'knownfile',
 									wfIssues::SEVERITY_HIGH,
-									'coreModified' . $file,
-									'coreModified' . $file . $md5,
-									sprintf(/* translators: File path. */ __('WordPress core file modified: %s', 'wordfence'), $file),
+									'coreModified' . $wordpressPath,
+									'coreModified' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('WordPress core file modified: %s', 'wordfence'), $wordpressPath),
 									__("This WordPress core file has been modified and differs from the original file distributed with this version of WordPress.", 'wordfence'),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'core',
 										'canDiff' => true,
 										'canFix' => true,
@@ -506,28 +494,28 @@ class wordfenceHash {
 						}
 					}
 				}
-				else if (isset($this->knownFiles['plugins'][$file])) {
-					if (in_array($shac, $this->knownFiles['plugins'][$file])) {
+				else if (isset($this->knownFiles['plugins'][$wordpressPath])) {
+					if (in_array($shac, $this->knownFiles['plugins'][$wordpressPath])) {
 						$knownFile = 1;
 					}
 					else {
 						if ($this->pluginsEnabled) {
 							$options = $this->engine->scanController()->scanOptions();
 							$shouldGenerateIssue = true;
-							if (!$options['scansEnabled_highSense'] && preg_match('~/readme\.(?:txt|md)$~i', $file)) { //Don't generate issues for changed readme files unless high sensitivity is on
+							if (!$options['scansEnabled_highSense'] && preg_match('~/readme\.(?:txt|md)$~i', $wordpressPath)) { //Don't generate issues for changed readme files unless high sensitivity is on
 								$shouldGenerateIssue = false;
 							}
 							
 							if ($shouldGenerateIssue) {
-								$itemName = $this->knownFiles['plugins'][$file][0];
-								$itemVersion = $this->knownFiles['plugins'][$file][1];
-								$cKey = $this->knownFiles['plugins'][$file][2];
+								$itemName = $this->knownFiles['plugins'][$wordpressPath][0];
+								$itemVersion = $this->knownFiles['plugins'][$wordpressPath][1];
+								$cKey = $this->knownFiles['plugins'][$wordpressPath][2];
 								$this->engine->addPendingIssue(
 									'knownfile',
 									wfIssues::SEVERITY_MEDIUM,
-									'modifiedplugin' . $file,
-									'modifiedplugin' . $file . $md5,
-									sprintf(/* translators: File path. */ __('Modified plugin file: %s', 'wordfence'), $file),
+									'modifiedplugin' . $wordpressPath,
+									'modifiedplugin' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('Modified plugin file: %s', 'wordfence'), $wordpressPath),
 									sprintf(
 										/* translators: 1. Plugin name. 2. Plugin version. 3. Support URL. */
 										__('This file belongs to plugin "%1$s" version "%2$s" and has been modified from the file that is distributed by WordPress.org for this version. Please use the link to see how the file has changed. If you have modified this file yourself, you can safely ignore this warning. If you see a lot of changed files in a plugin that have been made by the author, then try uninstalling and reinstalling the plugin to force an upgrade. Doing this is a workaround for plugin authors who don\'t manage their code correctly. <a href="%3$s" target="_blank" rel="noopener noreferrer">Learn More<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>', 'wordfence'),
@@ -536,7 +524,8 @@ class wordfenceHash {
 										wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_MODIFIED_PLUGIN)
 									),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'plugin',
 										'canDiff' => true,
 										'canFix' => true,
@@ -552,28 +541,28 @@ class wordfenceHash {
 
 					}
 				}
-				else if (isset($this->knownFiles['themes'][$file])) {
-					if (in_array($shac, $this->knownFiles['themes'][$file])) {
+				else if (isset($this->knownFiles['themes'][$wordpressPath])) {
+					if (in_array($shac, $this->knownFiles['themes'][$wordpressPath])) {
 						$knownFile = 1;
 					}
 					else {
 						if ($this->themesEnabled) {
 							$options = $this->engine->scanController()->scanOptions();
 							$shouldGenerateIssue = true;
-							if (!$options['scansEnabled_highSense'] && preg_match('~/readme\.(?:txt|md)$~i', $file)) { //Don't generate issues for changed readme files unless high sensitivity is on
+							if (!$options['scansEnabled_highSense'] && preg_match('~/readme\.(?:txt|md)$~i', $wordpressPath)) { //Don't generate issues for changed readme files unless high sensitivity is on
 								$shouldGenerateIssue = false;
 							}
 							
 							if ($shouldGenerateIssue) {
-								$itemName = $this->knownFiles['themes'][$file][0];
-								$itemVersion = $this->knownFiles['themes'][$file][1];
-								$cKey = $this->knownFiles['themes'][$file][2];
+								$itemName = $this->knownFiles['themes'][$wordpressPath][0];
+								$itemVersion = $this->knownFiles['themes'][$wordpressPath][1];
+								$cKey = $this->knownFiles['themes'][$wordpressPath][2];
 								$this->engine->addPendingIssue(
 									'knownfile',
 									wfIssues::SEVERITY_MEDIUM,
-									'modifiedtheme' . $file,
-									'modifiedtheme' . $file . $md5,
-									sprintf(/* translators: File path. */ __('Modified theme file: %s', 'wordfence'), $file),
+									'modifiedtheme' . $wordpressPath,
+									'modifiedtheme' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('Modified theme file: %s', 'wordfence'), $wordpressPath),
 									sprintf(
 										/* translators: 1. Plugin name. 2. Plugin version. 3. Support URL. */
 										__('This file belongs to theme "%1$s" version "%2$s" and has been modified from the original distribution. It is common for site owners to modify their theme files, so if you have modified this file yourself you can safely ignore this warning. <a href="%3$s" target="_blank" rel="noopener noreferrer">Learn More<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>', 'wordfence'),
@@ -582,7 +571,8 @@ class wordfenceHash {
 										wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_MODIFIED_THEME)
 									),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'theme',
 										'canDiff' => true,
 										'canFix' => true,
@@ -602,17 +592,18 @@ class wordfenceHash {
 					$restrictedWordPressFolders = array(ABSPATH . 'wp-admin/', ABSPATH . WPINC . '/');
 					$added = false;
 					foreach ($restrictedWordPressFolders as $path) {
-						if (strpos($realFile, $path) === 0) {
+						if (strpos($realPath, $path) === 0) {
 							if ($this->isPreviousCoreFile($shac)) {
 								$added = $this->engine->addIssue(
 									'knownfile',
 									wfIssues::SEVERITY_LOW,
-									'coreUnknown' . $file,
-									'coreUnknown' . $file . $md5,
-									sprintf(/* translators: File path. */ __('Old WordPress core file not removed during update: %s', 'wordfence'), $file),
+									'coreUnknown' . $wordpressPath,
+									'coreUnknown' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('Old WordPress core file not removed during update: %s', 'wordfence'), $wordpressPath),
 									__('This file is in a WordPress core location but is from an older version of WordPress and not used with your current version. Hosting or permissions issues can cause these files to get left behind when WordPress is updated and they should be removed if possible.', 'wordfence'),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'core',
 										'canDiff' => false,
 										'canFix' => false,
@@ -620,16 +611,17 @@ class wordfenceHash {
 									)
 								);
 							}
-							else if (preg_match('#/php\.ini$#', $file)) {
+							else if (preg_match('#/php\.ini$#', $wordpressPath)) {
 								$this->engine->addPendingIssue(
 									'knownfile',
 									wfIssues::SEVERITY_HIGH,
-									'coreUnknown' . $file,
-									'coreUnknown' . $file . $md5,
-									sprintf(/* translators: File path. */ __('Unknown file in WordPress core: %s', 'wordfence'), $file),
+									'coreUnknown' . $wordpressPath,
+									'coreUnknown' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('Unknown file in WordPress core: %s', 'wordfence'), $wordpressPath),
 									__('This file is in a WordPress core location but is not distributed with this version of WordPress. This scan often includes files left over from a previous WordPress version, but it may also find files added by another plugin, files added by your host, or malicious files added by an attacker.', 'wordfence'),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'core',
 										'canDiff' => false,
 										'canFix' => false,
@@ -644,12 +636,13 @@ class wordfenceHash {
 								$added = $this->engine->addIssue(
 									'knownfile',
 									wfIssues::SEVERITY_HIGH,
-									'coreUnknown' . $file,
-									'coreUnknown' . $file . $md5,
-									sprintf(/* translators: File path. */ __('Unknown file in WordPress core: %s', 'wordfence'), $file),
+									'coreUnknown' . $wordpressPath,
+									'coreUnknown' . $wordpressPath . $md5,
+									sprintf(/* translators: File path. */ __('Unknown file in WordPress core: %s', 'wordfence'), $wordpressPath),
 									sprintf(/* translators: Support URL. */ __('This file is in a WordPress core location but is not distributed with this version of WordPress. This scan often includes files left over from a previous WordPress version, but it may also find files added by another plugin, files added by your host, or malicious files added by an attacker. <a href="%s" target="_blank" rel="noopener noreferrer">Learn More<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>', 'wordfence'), wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_UNKNOWN_FILE_CORE)),
 									array(
-										'file' => $file,
+										'file' => $wordpressPath,
+										'realFile' => $realPath,
 										'cType' => 'core',
 										'canDiff' => false,
 										'canFix' => false,
@@ -668,10 +661,10 @@ class wordfenceHash {
 			// we could split this into files whose path we recognize and file's whose path we recognize AND who have a valid sig.
 			// But because we want to scan files whose sig we don't recognize, regardless of known path or not, we only need one "knownFile" field.
 			$fileModsTable = wfDB::networkTable('wfFileMods');
-			$this->db->queryWrite("INSERT INTO {$fileModsTable} (filename, filenameMD5, knownFile, oldMD5, newMD5, SHAC) VALUES ('%s', UNHEX(MD5('%s')), %d, '', UNHEX('%s'), UNHEX('%s')) ON DUPLICATE KEY UPDATE newMD5 = UNHEX('%s'), SHAC = UNHEX('%s'), knownFile = %d", $file, $file, $knownFile, $md5, $shac, $md5, $shac, $knownFile);
+			$this->db->queryWrite("INSERT INTO {$fileModsTable} (filename, real_path, filenameMD5, knownFile, oldMD5, newMD5, SHAC) VALUES ('%s', '%s', UNHEX(MD5('%s')), %d, '', UNHEX('%s'), UNHEX('%s')) ON DUPLICATE KEY UPDATE newMD5 = UNHEX('%s'), SHAC = UNHEX('%s'), knownFile = %d", $wordpressPath, $realPath, $wordpressPath, $knownFile, $md5, $shac, $md5, $shac, $knownFile);
 
 			$this->totalFiles++;
-			$this->totalData += @filesize($realFile); //We already checked if file overflows int in the fileTooBig routine above
+			$this->totalData += @filesize($realPath); //We already checked if file overflows int in the fileTooBig routine above
 			if($this->totalFiles % 100 === 0){
 				wordfence::status(2, 'info', sprintf(
 					/* translators: 1. Number of files. 2. Data in bytes. */
@@ -681,7 +674,7 @@ class wordfenceHash {
 				));
 			}
 		} else {
-			//wordfence::status(2, 'error', "Could not gen hash for file (probably because we don't have permission to access the file): $realFile");
+			//wordfence::status(2, 'error', "Could not gen hash for file (probably because we don't have permission to access the file): $realPath");
 		}
 		wfUtils::endProcessingFile();
 	}
@@ -787,13 +780,13 @@ class wordfenceHash {
 		$shac = hash_final($sha256Context, false);
 		return array($md5, $shac);
 	}
-	private function _shouldHashFile($fullPath) {
-		$file = substr($fullPath, $this->striplen);
+	private function _shouldHashFile($file) {
+		$wordpressPath = $file->getWordpressPath();
 
 		//Core File, return true
-		if ((isset($this->knownFiles['core']) && isset($this->knownFiles['core'][$file])) ||
-			(isset($this->knownFiles['plugins']) && isset($this->knownFiles['plugins'][$file])) ||
-			(isset($this->knownFiles['themes']) && isset($this->knownFiles['themes'][$file]))) {
+		if ((isset($this->knownFiles['core']) && isset($this->knownFiles['core'][$wordpressPath])) ||
+			(isset($this->knownFiles['plugins']) && isset($this->knownFiles['plugins'][$wordpressPath])) ||
+			(isset($this->knownFiles['themes']) && isset($this->knownFiles['themes'][$wordpressPath]))) {
 			return true;
 		}
 		
@@ -801,7 +794,7 @@ class wordfenceHash {
 		$excludePatterns = wordfenceScanner::getExcludeFilePattern(wordfenceScanner::EXCLUSION_PATTERNS_USER | wordfenceScanner::EXCLUSION_PATTERNS_MALWARE); 
 		if ($excludePatterns) {
 			foreach ($excludePatterns as $pattern) {
-				if (preg_match($pattern, $file)) {
+				if (preg_match($pattern, $wordpressPath)) {
 					return false;
 				}
 			}
@@ -811,7 +804,7 @@ class wordfenceHash {
 		if ($this->coreUnknownEnabled && !$this->alertedOnUnknownWordPressVersion) {
 			$restrictedWordPressFolders = array(ABSPATH . 'wp-admin/', ABSPATH . WPINC . '/');
 			foreach ($restrictedWordPressFolders as $path) {
-				if (strpos($fullPath, $path) === 0) {
+				if (strpos($file->getRealPath(), $path) === 0) {
 					return true;
 				}
 			}
@@ -819,19 +812,19 @@ class wordfenceHash {
 		
 		//Determine treatment
 		$fileExt = '';
-		if (preg_match('/\.([a-zA-Z\d\-]{1,7})$/', $file, $matches)) {
+		if (preg_match('/\.([a-zA-Z\d\-]{1,7})$/', $wordpressPath, $matches)) {
 			$fileExt = strtolower($matches[1]);
 		}
 		$isPHP = false;
-		if (preg_match('/\.(?:php(?:\d+)?|phtml)(\.|$)/i', $file)) {
+		if (preg_match('/\.(?:php(?:\d+)?|phtml)(\.|$)/i', $wordpressPath)) {
 			$isPHP = true;
 		}
 		$isHTML = false;
-		if (preg_match('/\.(?:html?)(\.|$)/i', $file)) {
+		if (preg_match('/\.(?:html?)(\.|$)/i', $wordpressPath)) {
 			$isHTML = true;
 		}
 		$isJS = false;
-		if (preg_match('/\.(?:js|svg)(\.|$)/i', $file)) {
+		if (preg_match('/\.(?:js|svg)(\.|$)/i', $wordpressPath)) {
 			$isJS = true;
 		}
 		

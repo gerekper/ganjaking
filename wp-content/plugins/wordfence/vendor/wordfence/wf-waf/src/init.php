@@ -1,7 +1,7 @@
 <?php
 if (defined('WFWAF_VERSION')) { exit(); }
 
-define('WFWAF_VERSION', '1.0.4');
+define('WFWAF_VERSION', '1.0.5');
 define('WFWAF_PATH', dirname(__FILE__) . '/');
 define('WFWAF_LIB_PATH', WFWAF_PATH . 'lib/');
 define('WFWAF_VIEW_PATH', WFWAF_PATH . 'views/');
@@ -19,6 +19,7 @@ require_once WFWAF_LIB_PATH . 'waf.php';
 require_once WFWAF_LIB_PATH . 'utils.php';
 require_once WFWAF_LIB_PATH . 'i18n.php';
 require_once WFWAF_LIB_PATH . 'xmlrpc.php';
+require_once WFWAF_LIB_PATH . 'shutdown.php';
 
 require_once WFWAF_LIB_PATH . 'storage.php';
 require_once WFWAF_LIB_PATH . 'storage/file.php';

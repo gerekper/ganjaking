@@ -1678,7 +1678,7 @@ class wfUtils {
 	}
 	public static function doNotCache(){
 		header("Pragma: no-cache");
-		header("Cache-Control: no-cache, must-revalidate, private");
+		header("Cache-Control: no-cache, must-revalidate, private, max-age=0");
 		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); //In the past
 		if(! defined('DONOTCACHEPAGE')){ define('DONOTCACHEPAGE', true); }
 		if(! defined('DONOTCACHEDB')){ define('DONOTCACHEDB', true); }
@@ -1855,24 +1855,30 @@ class wfUtils {
 	 * @param string $host
 	 * @return array
 	 */
-	public static function resolveDomainName($host) {
-		// Fallback if this function is not available
+	public static function resolveDomainName($host, $ipVersion = null) {
 		if (!function_exists('dns_get_record')) {
-			return gethostbynamel($host);
-		}
-
-		$ips = array_merge((array) @dns_get_record($host, DNS_AAAA), (array) @dns_get_record($host, DNS_A));
-		$return = array();
-
-		foreach ($ips as $record) {
-			if ($record['type'] === 'A') {
-				$return[] = $record['ip'];
+			if ($ipVersion === 4 || $ipVersion === null) {
+				$ips = gethostbynamel($host);
+				if ($ips !== false)
+					return $ips;
 			}
-			if ($record['type'] === 'AAAA') {
-				$return[] = $record['ipv6'];
+			return array();
+		}
+		$recordTypes = array();
+		if ($ipVersion === 4 || $ipVersion === null)
+			$recordTypes[DNS_A] = 'ip';
+		if ($ipVersion === 6 || $ipVersion === null)
+			$recordTypes[DNS_AAAA] = 'ipv6';
+		$ips = array();
+		foreach ($recordTypes as $type => $key) {
+			$records = @dns_get_record($host, $type);
+			if ($records !== false) {
+				foreach ($records as $record) {
+					$ips[] = $record[$key];
+				}
 			}
 		}
-		return $return;
+		return $ips;
 	}
 
 	/**
@@ -3079,6 +3085,29 @@ class wfUtils {
 		));
 	}
 
+	public static function getHomePath() {
+		if (!function_exists('get_home_path')) {
+			include_once(ABSPATH . 'wp-admin/includes/file.php');
+		}
+		if (WF_IS_FLYWHEEL)
+			return trailingslashit($_SERVER['DOCUMENT_ROOT']);
+		return get_home_path();
+	}
+
+	public static function includeOnceIfPresent($path) {
+		if (file_exists($path)) {
+			@include_once($path);
+			return @include_once($path); //Calling `include_once` for an already included file will return true
+		}
+		return false;
+	}
+
+	public static function isCurlSupported() {
+		if (self::includeOnceIfPresent(ABSPATH . 'wp-includes/class-wp-http-curl.php'))
+			return WP_Http_Curl::test();
+		return false;
+	}
+
 }
 
 // GeoIP lib uses these as well
@@ -3111,21 +3140,25 @@ class wfWebServerInfo {
 	public static function createFromEnvironment() {
 		$serverInfo = new self;
 		$sapi = php_sapi_name();
-		if (stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== false) {
-			$serverInfo->setSoftware(self::APACHE);
-			$serverInfo->setSoftwareName('apache');
+		if (WF_IS_FLYWHEEL) {
+			$serverInfo->setSoftware(self::NGINX);
+			$serverInfo->setSoftwareName('Flywheel');
 		}
-		if (stripos($_SERVER['SERVER_SOFTWARE'], 'litespeed') !== false || $sapi == 'litespeed') {
-			$serverInfo->setSoftware(self::LITESPEED);
-			$serverInfo->setSoftwareName('litespeed');
+		else if (strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false || strpos($_SERVER['SERVER_SOFTWARE'], 'ExpressionDevServer') !== false) {
+			$serverInfo->setSoftware(self::IIS);
+			$serverInfo->setSoftwareName('iis');
 		}
-		if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false) {
+		else if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false) {
 			$serverInfo->setSoftware(self::NGINX);
 			$serverInfo->setSoftwareName('nginx');
 		}
-		if (strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false || strpos($_SERVER['SERVER_SOFTWARE'], 'ExpressionDevServer') !== false) {
-			$serverInfo->setSoftware(self::IIS);
-			$serverInfo->setSoftwareName('iis');
+		else if (stripos($_SERVER['SERVER_SOFTWARE'], 'litespeed') !== false || $sapi == 'litespeed') {
+			$serverInfo->setSoftware(self::LITESPEED);
+			$serverInfo->setSoftwareName('litespeed');
+		}
+		else if (stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== false) {
+			$serverInfo->setSoftware(self::APACHE);
+			$serverInfo->setSoftwareName('apache');
 		}
 
 		$serverInfo->setHandler($sapi);

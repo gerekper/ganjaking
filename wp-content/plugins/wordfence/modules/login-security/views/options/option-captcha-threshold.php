@@ -45,7 +45,7 @@ $selectOptions = array(
 			<li class="wfls-option-spacer"></li>
 			<li>
 				<canvas id="wfls-recaptcha-score-history"></canvas>
-				<div class="wfls-center"><a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence'); ?></a></div>
+				<div class="wfls-center"><a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence-2fa'); ?></a></div>
 			</li>
 		</ul>
 	</li>

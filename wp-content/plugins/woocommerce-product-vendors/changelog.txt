@@ -1,5 +1,17 @@
 *** Product Vendors Changelog ***
 
+2022-07-28 - version 2.1.63
+* Fix - Add proper username validation for vendor registration.
+* Fix - Ensure the vendor email is properly added to the vendor account when using an existing user.
+* Fix - Incorrectly accessed billing_email value.
+* Fix: Vendor order email notification for deposit orders.
+* Fixed - Ensure WooCommerce Subscriptions renewal order emails get sent to vendors.
+* Fixed: Product SKU not showing on vendor commission list issue.
+* Fixed: Timestamp mismatch between commission list and order details page in wp-admin.
+* Fixed: Timestamp mismatch between order list and order details page in Vendor dashboard.
+* Tweak - Added new custom hooks to the vendor order details page.
+* Tweak - WC 6.7.0 compatibility.
+
 2022-07-06 - version 2.1.62
 * Add - Implement support for automatic translation files delivery.
 

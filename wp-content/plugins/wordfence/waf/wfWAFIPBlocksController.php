@@ -1,6 +1,8 @@
 <?php
 if (!defined('WFWAF_RUN_COMPLETE')) {
 
+require_once __DIR__ . '/../vendor/wordfence/wf-waf/src/lib/shutdown.php';
+
 class wfWAFIPBlocksController
 {
 	const WFWAF_BLOCK_UAREFIPRANGE = 'UA/Referrer/IP Range not allowed';
@@ -41,7 +43,7 @@ class wfWAFIPBlocksController
 		static $willSynchronize = false;
 		if (!$willSynchronize) {
 			$willSynchronize = true;
-			register_shutdown_function('wfWAFIPBlocksController::synchronizeConfigSettings');
+			wfShutdownRegistry::getDefaultInstance()->register('wfWAFIPBlocksController::synchronizeConfigSettings');
 		}
 	}
 	

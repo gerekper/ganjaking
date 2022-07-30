@@ -122,8 +122,8 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	echo \WordfenceLS\Model_View::create('common/modal-prompt', array(
 		'title' => __('Download Recovery Codes', 'wordfence-2fa'),
 		'message' => __('Reminder: If you lose access to your authenticator device, you can use recovery codes to log in. If you have not saved a copy of your recovery codes, we recommend downloading them now.', 'wordfence-2fa'),
-		'primaryButton' => array('id' => 'wfls-recovery-skipped-download', 'label' => __('Download', 'wordfence'), 'link' => '#'),
-		'secondaryButtons' => array(array('id' => 'wfls-recovery-skipped-skip', 'label' => __('Skip', 'wordfence'), 'link' => '#')),
+		'primaryButton' => array('id' => 'wfls-recovery-skipped-download', 'label' => __('Download', 'wordfence-2fa'), 'link' => '#'),
+		'secondaryButtons' => array(array('id' => 'wfls-recovery-skipped-skip', 'label' => __('Skip', 'wordfence-2fa'), 'link' => '#')),
 	))->render();
 	?>
 </script>

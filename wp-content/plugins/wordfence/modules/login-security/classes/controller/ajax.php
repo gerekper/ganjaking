@@ -183,7 +183,7 @@ class Controller_AJAX {
 			}
 		}
 		if (empty($username) || empty($password)) {
-			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: A username and password must be provided. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())))));
+			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: A username and password must be provided. <a href="%s" title="Password Lost and Found">Lost your password</a>?', 'wordfence-2fa'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())))));
 		}
 		
 		$legacy2FAActive = Controller_WordfenceLS::shared()->legacy_2fa_active();
@@ -231,7 +231,7 @@ class Controller_AJAX {
 			$reset = false;
 			foreach ($user->get_error_codes() as $code) {
 				if ($code == 'invalid_username' || $code == 'invalid_email' || $code == 'incorrect_password' || $code == 'authentication_failed') {
-					$errors[] = wp_kses(sprintf(__('<strong>ERROR</strong>: The username or password you entered is incorrect. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())));
+					$errors[] = wp_kses(sprintf(__('<strong>ERROR</strong>: The username or password you entered is incorrect. <a href="%s" title="Password Lost and Found">Lost your password</a>?', 'wordfence-2fa'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())));
 				}
 				else {
 					if ($code == 'wfls_twofactor_invalid') {
@@ -263,7 +263,7 @@ class Controller_AJAX {
 			}
 		}
 		
-		self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: The username or password you entered is incorrect. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())))));
+		self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: The username or password you entered is incorrect. <a href="%s" title="Password Lost and Found">Lost your password</a>?', 'wordfence-2fa'), wp_lostpassword_url()), array('strong'=>array(), 'a'=>array('href'=>array(), 'title'=>array())))));
 	}
 	
 	public function _ajax_register_support_callback() {
@@ -278,7 +278,7 @@ class Controller_AJAX {
 			$email === null ||
 			!isset($_POST['wfls-message']) || !is_string($_POST['wfls-message']) ||
 			!isset($_POST['wfls-message-nonce']) || !is_string($_POST['wfls-message-nonce'])) {
-			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.')), array('strong'=>array()))));
+			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.', 'wordfence-2fa')), array('strong'=>array()))));
 		}
 		
 		$email = sanitize_email($email);
@@ -289,7 +289,7 @@ class Controller_AJAX {
 		$nonce = $_POST['wfls-message-nonce'];
 
 		if ((isset($_POST['user_login']) && empty($login)) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || empty($message)) {
-			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.')), array('strong'=>array()))));
+			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.', 'wordfence-2fa')), array('strong'=>array()))));
 		}
 		
 		$jwt = Model_JWT::decode_jwt($_POST['wfls-message-nonce']);
@@ -297,30 +297,30 @@ class Controller_AJAX {
 			$decryptedIP = Model_Symmetric::decrypt($jwt->payload['ip']);
 			$decryptedScore = Model_Symmetric::decrypt($jwt->payload['score']);
 			if ($decryptedIP === false || $decryptedScore === false || Model_IP::inet_pton($decryptedIP) !== Model_IP::inet_pton(Model_Request::current()->ip())) { //JWT IP and the current request's IP don't match, refuse the message
-				self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.')), array('strong'=>array()))));
+				self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.', 'wordfence-2fa')), array('strong'=>array()))));
 			}
 			
 			$identifier = bin2hex(Model_IP::inet_pton($decryptedIP));
 			$tokenBucket = new Model_TokenBucket('rate:' . $identifier, 2, 1 / (6 * Model_TokenBucket::HOUR)); //Maximum of two requests, refilling at a rate of one per six hours
 			if (!$tokenBucket->consume(1)) {
-				self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. You have exceeded the maximum number of messages that may be sent at this time. Please try again later.')), array('strong'=>array()))));
+				self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. You have exceeded the maximum number of messages that may be sent at this time. Please try again later.', 'wordfence-2fa')), array('strong'=>array()))));
 			}
 			
 			$email = array(
 				'to'      => get_site_option('admin_email'),
-				'subject' => __('Blocked User Registration Contact Form', 'wordfence-ls'),
-				'body'    => sprintf(__("A visitor blocked from registration sent the following message.\n\n----------------------------------------\n\nIP: %s\nUsername: %s\nEmail: %s\nreCAPTCHA Score: %f\n\n----------------------------------------\n\n%s", 'wordfence-ls'), $decryptedIP, $login, $email, $decryptedScore, $message),
+				'subject' => __('Blocked User Registration Contact Form', 'wordfence-2fa'),
+				'body'    => sprintf(__("A visitor blocked from registration sent the following message.\n\n----------------------------------------\n\nIP: %s\nUsername: %s\nEmail: %s\nreCAPTCHA Score: %f\n\n----------------------------------------\n\n%s", 'wordfence-2fa'), $decryptedIP, $login, $email, $decryptedScore, $message),
 				'headers' => '',
 			);
 			$success = wp_mail($email['to'], $email['subject'], $email['body'], $email['headers']);
 			if ($success) {
-				self::send_json(array('message' => wp_kses(sprintf(__('<strong>MESSAGE SENT</strong>: Your message was sent to the site owner.')), array('strong'=>array()))));
+				self::send_json(array('message' => wp_kses(sprintf(__('<strong>MESSAGE SENT</strong>: Your message was sent to the site owner.', 'wordfence-2fa')), array('strong'=>array()))));
 			}
 			
-			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: An error occurred while sending the message. Please try again.')), array('strong'=>array()))));
+			self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: An error occurred while sending the message. Please try again.', 'wordfence-2fa')), array('strong'=>array()))));
 		}
 		
-		self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.')), array('strong'=>array()))));
+		self::send_json(array('error' => wp_kses(sprintf(__('<strong>ERROR</strong>: Unable to send message. Please refresh the page and try again.', 'wordfence-2fa')), array('strong'=>array()))));
 	}
 	
 	public function _ajax_activate_callback() {
@@ -445,7 +445,7 @@ class Controller_AJAX {
 		}
 		
 		self::send_json(array(
-			'error' => esc_html__('No configuration changes were provided to save.', 'wordfence'),
+			'error' => esc_html__('No configuration changes were provided to save.', 'wordfence-2fa'),
 		));
 	}
 	
@@ -560,7 +560,7 @@ class Controller_AJAX {
 		if ($userId !== 0 && Controller_Notices::shared()->dismiss_persistent_notice($userId, $noticeId))
 			self::send_json(array('success' => true));
 		self::send_json(array(
-			'error' => esc_html__('Unable to dismiss notice', 'wordfence')
+			'error' => esc_html__('Unable to dismiss notice', 'wordfence-2fa')
 		));
 	}
 }

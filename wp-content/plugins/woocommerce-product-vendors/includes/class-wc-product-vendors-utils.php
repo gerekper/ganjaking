@@ -639,6 +639,9 @@ class WC_Product_Vendors_Utils {
 
 			$datetime->setTimezone( new DateTimeZone( $tz ) );
 			$string_localtime = $datetime->format( $format );
+		} elseif ( $tz && preg_match( '/^UTC[-+]/', $tz ) ) {
+			$offset           = (float) str_replace( 'UTC', '', $tz );
+			$string_localtime = gmdate( $format, strtotime( $string ) + ( $offset * HOUR_IN_SECONDS ) );
 		} else {
 			if ( ! preg_match( '#([0-9]{1,4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})#', $string, $matches ) ) {
 				return date( $format, 0 );

@@ -30,6 +30,20 @@ class WC_Product_Vendors_Order_Email_To_Vendor extends WC_Email {
 		add_action( 'woocommerce_order_status_failed_to_completed_notification', array( $this, 'trigger' ) );
 		add_action( 'woocommerce_order_status_failed_to_on-hold_notification', array( $this, 'trigger' ) );
 
+		// Add notification for deposits orders.
+		add_action( 'woocommerce_order_status_pending_to_partial-payment_notification', array( $this, 'trigger' ) );
+
+		// Subscriptions renewal order.
+		add_action( 'woocommerce_order_status_pending_to_processing_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_pending_to_completed_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_pending_to_on-hold_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_failed_to_processing_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_failed_to_completed_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_failed_to_on-hold_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_cancelled_to_processing_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_cancelled_to_completed_renewal_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_order_status_cancelled_to_on-hold_renewal_notification', array( $this, 'trigger' ) );
+
 		// Call parent constructor
 		parent::__construct();
 

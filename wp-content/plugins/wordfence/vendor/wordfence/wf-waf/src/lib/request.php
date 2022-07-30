@@ -46,6 +46,122 @@ interface wfWAFRequestInterface {
 
 }
 
+abstract class wfCookieRedactor {
+
+	const REDACTION_MESSAGE = '[redacted]';
+
+	public abstract function redact(&$name, &$value);
+
+	public static function load() {
+		$patterns = null;
+		$waf = wfWAF::getInstance();
+		if ($waf !== null) {
+			$patterns = $waf->getCookieRedactionPatterns();
+		}
+		if ($patterns === null) {
+			return new wfGlobalCookieRedactor();
+		}
+		else {
+			return new wfPatternCookieRedactor($waf->getCookieRedactionPatterns());
+		}
+	}
+
+	public static function loadFromWaf() {
+		return new self($patterns);
+	}
+
+	public static function getEncodedRedactionMessage() {
+		static $encoded = null;
+		if ($encoded === null)
+			$encoded = urlencode(self::REDACTION_MESSAGE);
+		return $encoded;
+	}
+
+}
+
+class wfGlobalCookieRedactor extends wfCookieRedactor {
+
+	public function redact(&$name, &$value) {
+		$name = self::getEncodedRedactionMessage();
+		$value = self::REDACTION_MESSAGE;
+	}
+
+}
+
+class wfPatternCookieRedactor extends wfCookieRedactor {
+
+	private $patterns;
+
+	public function __construct($patterns) {
+		$this->patterns = $patterns;
+	}
+
+	private static function replaceName($matches) {
+		if (count($matches) < 2)
+			return self::getEncodedRedactionMessage();
+		$name = $matches[0][0];
+		$redacted = array();
+		$position = 0;
+		for ($i = 1; $i < count($matches); $i++) {
+			$retained = $matches[$i][0];
+			$retainedStart = $matches[$i][1];
+			$retainedLength = strlen($retained);
+			if ($retainedStart > $position)
+				$redacted[] = self::getEncodedRedactionMessage();
+			$redacted[] = $retained;
+			$position = $retainedStart + $retainedLength;
+		}
+		if ($position < strlen($name))
+			$redacted []= self::getEncodedRedactionMessage();
+		return implode('', $redacted);
+	}
+
+	/**
+	 * TODO: Remove this fallback support for PHP versions earlier than 7.4 is no longer required
+	 */
+	private static function replaceNameFallback($matches) {
+		$completeMatch = array_shift($matches);
+		$completeRetained = implode('', $matches);
+		if ($completeMatch === $completeRetained)
+			return $completeRetained;
+		$matches[] = '';
+		return implode(self::getEncodedRedactionMessage(), $matches);
+	}
+
+	public function redact(&$name, &$value) {
+		$pregOffsetCaptureSupported = version_compare(PHP_VERSION, '7.4.0', '>=');
+		$nameCallback = array($this, $pregOffsetCaptureSupported ? 'replaceName' : 'replaceNameFallback');
+		foreach ($this->patterns as $namePattern => $valuePatterns) {
+			if ($pregOffsetCaptureSupported) {
+				$nameRedacted = preg_replace_callback($namePattern, $nameCallback, $name, 1, $matchCount, PREG_OFFSET_CAPTURE);
+			}
+			else {
+				$nameRedacted = preg_replace_callback($namePattern, $nameCallback, $name, 1, $matchCount);
+			}
+			if ($matchCount === 1 && $nameRedacted !== null) {
+				$name = $nameRedacted;
+				if ($valuePatterns === null)
+					return;
+				if (is_string($valuePatterns))
+					$valuePatterns = array($valuePatterns);
+				if (is_array($valuePatterns)) {
+					$valueMatched = false;
+					foreach ($valuePatterns as $valuePattern) {
+						if (preg_match($valuePattern, $value) === 1) {
+							$valueMatched = true;
+							break;
+						}
+					}
+					if (!$valueMatched)
+						return;
+				}
+				$value = self::REDACTION_MESSAGE;
+				break;
+			}
+		}
+	}
+
+}
 
 class wfWAFRequest implements wfWAFRequestInterface {
 
@@ -461,12 +577,14 @@ class wfWAFRequest implements wfWAFRequestInterface {
 	 * @param string|null $baseKey The base key used when recursing.
 	 * @return string
 	 */
-	public function getCookieString($cookies = null, $baseKey = null, $preventRedaction = false) {
+	public function getCookieString($cookies = null, $baseKey = null, $preventRedaction = false, $redactor = null) {
 		if ($cookies == null) {
 			$cookies = $this->getCookies();
 		}
 		$isAssoc = (array_keys($cookies) !== range(0, count($cookies) - 1));
 		$cookieString = '';
+		if ($redactor === null)
+			$redactor = wfCookieRedactor::load();
 		foreach ($cookies as $cookieName => $cookieValue) {
 			$resolvedName = $cookieName;
 			if ($baseKey !== null) {
@@ -483,9 +601,8 @@ class wfWAFRequest implements wfWAFRequestInterface {
 				$cookieString .= $nestedCookies;
 			}
 			else {
-				if (strpos($resolvedName, 'wordpress_') === 0 && !$preventRedaction) {
-					$cookieValue = '[redacted]';
-				}
+				if (!$preventRedaction)
+					$redactor->redact($resolvedName, $cookieValue);
 				
 				$cookieString .= $resolvedName . '=' . urlencode($cookieValue) . '; ';
 			}

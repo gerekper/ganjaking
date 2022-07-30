@@ -187,11 +187,8 @@ class wfCache {
 		return false;
 	}
 	public static function getHtaccessPath(){
-		if (!function_exists('get_home_path')) {
-			include_once(ABSPATH . 'wp-admin/includes/file.php');
-		}
 
-		$homePath = get_home_path();
+		$homePath = wfUtils::getHomePath();
 		$htaccessFile = $homePath.'.htaccess';
 		return $htaccessFile;
 	}

@@ -330,7 +330,14 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 			'fulfillment_status'      => __( 'Fulfillment Status', 'woocommerce-product-vendors' ),
 		);
 
-		return $columns;
+		/**
+		 * Filters the order list table columns in Vendor dashboard
+		 *
+		 * @since 2.1.62
+		 *
+		 * @param array $columns Order list table columns.
+		 */
+		return apply_filters( 'wcpv_manage_vendor_shop_order_posts_columns', $columns );
 	}
 
 	/**
@@ -377,9 +384,12 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				return sprintf( '<span class="wcpv-order-status-%s">%s</span>', esc_attr( $raw_status ), $order_status );
 
 			case 'order_date' :
-				$timezone = ! empty( $this->vendor_data['timezone'] ) ? sanitize_text_field( $this->vendor_data['timezone'] ) : '';
-
-				return WC_Product_Vendors_Utils::format_date( sanitize_text_field( $item->order_date ), $timezone );
+				$post = get_post( absint( $item->order_id ) );
+				if ( isset( $post->post_date_gmt ) ) {
+					$timezone = ! empty( $this->vendor_data['timezone'] ) ? sanitize_text_field( $this->vendor_data['timezone'] ) : '';
+					return WC_Product_Vendors_Utils::format_date( $post->post_date_gmt, $timezone );
+				}
+				return __( 'N/A', 'woocommerce-product-vendors' );
 
 			case 'shipping_address' :
 				if ( ! is_a( $order, 'WC_ORDER' ) ) {
@@ -553,7 +563,16 @@ class WC_Product_Vendors_Vendor_Orders_List extends WP_List_Table {
 				return $status;
 
 			default :
-				return print_r( $item, true );
+				/**
+				 * Filters the order list-table custom column content in vendor dashboard.
+				 *
+				 * @since 2.1.62
+				 *
+				 * @param string column content.
+				 * @param string $column_name Column name.
+				 * @param int    $order_id    Order ID.
+				 */
+				return apply_filters( 'wcpv_manage_vendor_shop_order_posts_custom_column', print_r( $item, true ), $column_name, absint( $item->order_id ) );
 		}
 	}
 

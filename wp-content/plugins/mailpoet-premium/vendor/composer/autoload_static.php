@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit610302569621c8baf618a3eba218f890
+class ComposerStaticInitbf19baedee04c6f1585b262352ac6a3a
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -56,6 +56,7 @@ class ComposerStaticInit610302569621c8baf618a3eba218f890
         'MailPoet\\Premium\\Newsletter\\Stats\\Bounces' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/Bounces.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/PurchasedProducts.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/SubscriberEngagement.php',
+        'MailPoet\\Premium\\Segments\\DynamicSegments\\Filters\\SubscriberTag' => __DIR__ . '/../..' . '/lib/Segments/DynamicSegments/Filters/SubscriberTag.php',
         'MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations' => __DIR__ . '/../..' . '/lib/Segments/DynamicSegments/SegmentCombinations.php',
         'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStats' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStats.php',
         'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStatsRepository.php',
@@ -64,9 +65,9 @@ class ComposerStaticInit610302569621c8baf618a3eba218f890
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit610302569621c8baf618a3eba218f890::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit610302569621c8baf618a3eba218f890::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit610302569621c8baf618a3eba218f890::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbf19baedee04c6f1585b262352ac6a3a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbf19baedee04c6f1585b262352ac6a3a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbf19baedee04c6f1585b262352ac6a3a::$classMap;
 
         }, null, ClassLoader::class);
     }

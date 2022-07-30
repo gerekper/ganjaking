@@ -15,6 +15,16 @@ if ( ! $shipping_method ) {
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 			<div id="postbox-container-1" class="postbox-container">
+				<?php
+				/**
+				 * Fires before the order notes box of vendor order details page.
+				 *
+				 * @since 2.1.62
+				 *
+				 * @param WC_Order $order WC_Order object.
+				 */
+				do_action( 'wcpv_vendor_order_detail_before_order_notes', $order );
+				?>
 				<div id="woocommerce-order-notes" class="postbox">
 					<div class="inside">
 						<h2><?php esc_html_e( 'Order Notes', 'woocommerce-product-vendors' ); ?></h2>

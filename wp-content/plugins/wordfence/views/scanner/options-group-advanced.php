@@ -49,6 +49,21 @@ if (!isset($collapseable)) {
 						))->render();
 						?>
 					</li>
+					<li>
+						<?php
+							echo wfView::create('options/option-toggled', array(
+								'optionName' => 'scan_force_ipv4_start',
+								'enabledValue' => 1,
+								'disabledValue' => 0,
+								'value' => wfConfig::get('scan_force_ipv4_start') ? 1 : 0,
+								'title' => __('Use only IPv4 to start scans', 'wordfence'),
+								'subtitle' =>  __('This option requires cURL. (This may have no effect on some old PHP or cURL versions.)', 'wordfence'),
+								'helpLink' => null,
+								'premium' => false,
+								'disabled' => !wfUtils::isCurlSupported()
+							))->render();
+						?>
+					</li>
 				</ul>
 			</div>
 		</div>

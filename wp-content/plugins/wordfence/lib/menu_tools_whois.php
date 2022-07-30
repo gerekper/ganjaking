@@ -102,14 +102,14 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 		}, function(res) {
 			whoisButton.removeAttr('disabled')
 				.attr('value', <?php echo json_encode(__('Look up IP or Domain', 'wordfence')) ?>);
-			if (res.ok) {
-				var whoisHTML = WFAD.completeWhois(res, true);
-				console.log(whoisHTML);
-				jQuery('#wfrawhtml').html(jQuery('#wfWhoisBlock').tmpl({
-					ip: val,
-					whois: whoisHTML
-				}));
-			}
+			var whoisHTML = WFAD.completeWhois(res, true);
+			var content = jQuery('#wfWhoisBlock').tmpl({
+				ip: val,
+				whois: whoisHTML
+			});
+			if (!res.ok)
+				content.addClass('failed');
+			jQuery('#wfrawhtml').html(content);
 		});
 	}
 </script>

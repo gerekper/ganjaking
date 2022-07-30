@@ -49,6 +49,9 @@ if (!isset($collapseable)) {
 										else if (wfLicense::current()->isExpired()) {
 											echo esc_html(sprintf(__('%s License Expired', 'wordfence'), wfLicense::current()->getTypeLabel(false)));
 										}
+										else if (wfLicense::current()->getKeyType() === wfLicense::KEY_TYPE_PAID_DELETED) {
+											esc_html_e('Premium License Deactivated', 'wordfence');
+										}
 										else {
 											echo esc_html(sprintf(__('%s License Active', 'wordfence'), wfLicense::current()->getTypeLabel()));
 										}
@@ -63,6 +66,9 @@ if (!isset($collapseable)) {
 										<?php elseif (wfLicense::current()->isPaidAndCurrent()): ?>
 											<a href="https://www.wordfence.com/gnl1optMngKys/licenses/" target="_blank" rel="noopener noreferrer" class=""><?php echo esc_html_e('Click here to manage your Wordfence licenses', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a>
 										<?php else: ?>
+											<?php if (wfLicense::current()->getKeyType() === wfLicense::KEY_TYPE_PAID_DELETED): ?>
+												<a href="#" class="wf-btn wf-btn-default wf-btn-callout-subtle wf-downgrade-license" role="button"><?php esc_html_e('Remove Invalid License', 'wordfence'); ?></a>&nbsp;&nbsp;
+											<?php endif ?>
 											<a href="https://www.wordfence.com/gnl1optUpgrade/products/pricing/" target="_blank" rel="noopener noreferrer" class="wf-btn wf-btn-primary wf-btn-callout-subtle"><?php esc_html_e('Upgrade to Premium', 'wordfence'); ?><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a>
 										<?php endif ?>
 										<a href="#" class="wf-btn wf-btn-primary wf-btn-callout-subtle" style="display: none;" id="wf-install-license" role="button"><?php esc_html_e('Install License', 'wordfence'); ?></a>
@@ -139,6 +145,11 @@ if (!isset($collapseable)) {
 									})(jQuery);
 								</script>
 							</li>
+							<?php if (wfLicense::current()->getKeyType() === wfLicense::KEY_TYPE_PAID_DELETED): ?>
+							<li>
+								<p><?php echo wp_kses(__('This was a premium license key, but it is no longer valid, so premium features are disabled. You can either remove the invalid key and continue using Wordfence\'s free features, or enter a new premium key to upgrade. If you have questions, contact <a href="mailto:billing@wordfence.com">billing@wordfence.com</a>.', 'wordfence'), array('a' => array('href' => array()))) ?></p>
+							</li>
+							<?php endif ?>
 						</ul>
 					</li>
 				</ul>

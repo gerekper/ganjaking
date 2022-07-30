@@ -57,7 +57,7 @@ switch ($action) {
 								<div class="wf-block-content wf-padding-add-top wf-padding-add-bottom">
 									<?php
 									if (isset($_GET['nonce']) && wp_verify_nonce($_GET['nonce'], 'wp-ajax')) {
-										if (wordfence::requestFilesystemCredentials($filesystemCredentialsAdminURL, get_home_path(), true, true)) {
+										if (wordfence::requestFilesystemCredentials($filesystemCredentialsAdminURL, wfUtils::getHomePath(), true, true)) {
 											call_user_func_array($callback, isset($callbackArgs) && is_array($callbackArgs) ? $callbackArgs : array());
 										}
 										//else - outputs credentials form

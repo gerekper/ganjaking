@@ -51,7 +51,7 @@ foreach ($options as $option) {
 	<li class="wfls-2fa-grace-period-container">
 		<label for="wfls-2fa-grace-period" class="wfls-primary-label"><?php esc_html_e('Grace Period', 'wordfence-2fa') ?></label>
 		<input id="wfls-2fa-grace-period" type="text" pattern="[0-9]+" value="<?php echo (int)$gracePeriod; ?>" class="wfls-option-input wfls-option-input-required" name="<?php echo esc_html(Controller_Settings::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD) ?>" maxlength="2">
-		<label for="wfls-2fa-grace-period"><?php esc_html_e('days') ?></label>
+		<label for="wfls-2fa-grace-period"><?php esc_html_e('days', 'wordfence-2fa') ?></label>
 		<div id="wfls-grace-period-zero-warning" style="display: none;">
 			<strong><?php esc_html_e('Setting the grace period to 0 will prevent users in roles where 2FA is required, including newly created users, from logging in if they have not already enabled two-factor authentication.', 'wordfence-2fa') ?></strong>
 			<a href="<?php echo esc_attr(\WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_ROLES)) ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'wordfence-2fa') ?></a>
@@ -65,8 +65,8 @@ foreach ($options as $option) {
 			<option value="<?php echo esc_attr($role) ?>"><?php echo esc_html($label) ?></option>
 			<?php endforeach ?>
 		</select>
-		<button class="wfls-btn wfls-btn-default wfls-btn-sm" id="wfls-send-grace-period-notification"><?php esc_html_e('Notify') ?></button>
-		<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA.') ?></small>
+		<button class="wfls-btn wfls-btn-default wfls-btn-sm" id="wfls-send-grace-period-notification"><?php esc_html_e('Notify', 'wordfence-2fa') ?></button>
+		<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA.', 'wordfence-2fa') ?></small>
 	</li>
 	<?php endif ?>
 </ul>
