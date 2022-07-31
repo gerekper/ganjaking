@@ -154,6 +154,65 @@ class WCS_ATT_Order {
 		return $scheme_key;
 	}
 
+	/**
+	 * Returns a summary of the products included in an order/subscription.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param  WC_Order|int  $order
+	 * @param  array         $args
+	 * @return string|array
+	 */
+	public static function get_contents_summary( $order, $args = array() ) {
+
+		$default_args = array(
+			'return' => 'html', // Available options: html, array.
+		);
+
+		$args         = wp_parse_args( $args, $default_args );
+		$output       = 'html' === $args[ 'return' ] ? '' : array();
+		$return_array = is_array( $output );
+		$order        = is_a( $order, 'WC_Order' ) ? $order : wc_get_order( $order );
+		if ( ! $order ) {
+			return $output;
+		}
+
+		$items = $order->get_items();
+		if ( empty( $items ) ) {
+			return $output;
+		}
+
+		if ( ! $return_array ) {
+			$output = '<ul>';
+		}
+
+		foreach ( $items as $order_item ) {
+
+			if ( ! apply_filters( 'woocommerce_order_item_visible', true, $order_item ) ) {
+				continue;
+			}
+
+			$product    = $order_item->get_product();
+			$is_visible = $product && $product->is_visible();
+			$item_name  = apply_filters( 'woocommerce_order_item_name', $order_item->get_name(), $order_item, $is_visible );
+
+			/* translators: %1$s product name, %2$s quantity */
+			$row        = sprintf( _x( '%1$s&nbsp;&times;&nbsp;%2$s', 'Order overview product row', 'woocommerce-all-products-for-subscriptions' ), $item_name, $order_item->get_quantity() );
+
+			if ( $return_array ) {
+				$output[] = $row;
+			} else {
+				$output .= '<li class="' . esc_attr( apply_filters( 'woocommerce_order_item_class', 'wcsatt_order_summary_list_item', $order_item, $order ) ) . '">' . $row . '</li>';
+			}
+		}
+
+		if ( ! $return_array ) {
+			$output .= '</ul>';
+		}
+
+		return $output;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Hooks

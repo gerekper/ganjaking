@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC Core compatibility functions.
  *
  * @class    WCS_ATT_Core_Compatibility
- * @version  3.2.0
+ * @version  3.3.2
  */
 class WCS_ATT_Core_Compatibility {
 
@@ -62,6 +62,43 @@ class WCS_ATT_Core_Compatibility {
 	 * @var    string
 	 */
 	private static $subscriptions_template_dir = '';
+
+	/**
+	 * Current REST request.
+	 *
+	 * @since  3.3.2
+	 * @var    WP_REST_Request
+	 */
+	private static $request;
+
+	/**
+	 * Constructor.
+	 */
+	public static function init() {
+		// Save current rest request. Is there a better way to get it?
+		add_filter( 'rest_pre_dispatch', array( __CLASS__, 'save_rest_request' ), 10, 3 );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Callbacks.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Saves the current rest request.
+	 *
+	 * @since  3.3.2
+	 *
+	 * @param  mixed            $result
+	 * @param  WP_REST_Server   $server
+	 * @param  WP_REST_Request  $request
+	 * @return mixed
+	 */
+	public static function save_rest_request( $result, $server, $request ) {
+		self::$request = $request;
+		return $result;
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -141,6 +178,12 @@ class WCS_ATT_Core_Compatibility {
 		return self::$is_wp_version_gte[ $version ];
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Utilities.
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Returns true if the WC Admin feature is installed and enabled.
 	 *
@@ -188,12 +231,6 @@ class WCS_ATT_Core_Compatibility {
 		return self::$subscriptions_template_dir;
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Helpers.
-	|--------------------------------------------------------------------------
-	*/
-
 	/**
 	 * Wrapper for 'get_parent_id' with fallback to 'get_id'.
 	 *
@@ -239,6 +276,50 @@ class WCS_ATT_Core_Compatibility {
 		}
 
 		return $screen_id;
+	}
+
+
+	/**
+	 * Whether this is a Store/REST API request.
+	 *
+	 * @since  3.3.2
+	 *
+	 * @return boolean
+	 */
+	public static function is_api_request() {
+		return self::is_store_api_request() || self::is_rest_api_request();
+	}
+
+	/**
+	 * Returns the current Store/REST API request or false.
+	 *
+	 * @since  3.3.2
+	 *
+	 * @return WP_REST_Request|false
+	 */
+	public static function get_api_request() {
+		return self::$request instanceof WP_REST_Request ? self::$request : false;
+	}
+
+	/**
+	 * Whether this is a Store API request.
+	 *
+	 * @since  3.3.2
+	 *
+	 * @param  string  $route
+	 * @return boolean
+	 */
+	public static function is_store_api_request( $route = '' ) {
+
+		$request = self::get_api_request();
+
+		if ( false !== $request && strpos( $request->get_route(), 'wc/store' ) !== false ) {
+			if ( '' === $route || strpos( $request->get_route(), $route ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/*

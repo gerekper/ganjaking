@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with AfterPay.
  *
  * @class    WCS_ATT_Integration_AfterPay
- * @version  3.1.30
+ * @version  3.3.2
  */
 class WCS_ATT_Integration_AfterPay {
 
@@ -60,10 +60,10 @@ class WCS_ATT_Integration_AfterPay {
 		/**
 		 * Retrieve hooks set by users in the AfterPay settings.
 		 */
-		self::$single_product_page_hook          = $settings[ 'product-pages-hook' ];
-		self::$single_product_page_hook_priority = $settings[ 'product-pages-priority' ];
-		self::$category_page_hook                = $settings[ 'category-pages-hook' ];
-		self::$category_page_hook_priority       = $settings[ 'category-pages-priority' ];
+		self::$single_product_page_hook          = ! empty( $settings[ 'product-pages-hook' ] ) ? $settings[ 'product-pages-hook' ] : self::$single_product_page_hook;
+		self::$single_product_page_hook_priority = ! empty( $settings[ 'product-pages-priority' ] ) ? $settings[ 'product-pages-priority' ] : self::$single_product_page_hook_priority;
+		self::$category_page_hook                = ! empty( $settings[ 'category-pages-hook' ] ) ? $settings[ 'category-pages-hook' ] : self::$category_page_hook;
+		self::$category_page_hook_priority       = ! empty ( $settings[ 'category-pages-priority' ] ) ? $settings[ 'category-pages-priority' ] : self::$category_page_hook_priority;
 
 		/**
 		 * Hooks for AfterPay support.

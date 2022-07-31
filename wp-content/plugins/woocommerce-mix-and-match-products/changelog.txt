@@ -1,5 +1,19 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.07.25 - version 2.1.0
+* Update: Tested up to WooCommerce 6.7.0.
+* New: Filter woocommerce_subscriptions_switch_link_text in Subs 4.5.0
+* New: Add `wc_mnm_editing_container_in_order_configuration` filter.
+* Fix: Add validation to editing container configuration in order admin.
+* Fix: Only apply switch link changes to Mix and Match products.
+* Fix: Quantity input display when min=max. #438.
+* Fix: Fatal error in admin notices - WC_MNM_Install does not exist when WooCommerce is not active.
+* Fix: One Page Checkout compatibility with full-width display. #441.
+* Tweak: Make reset link behaves more like "clear".
+* Tweak: Remove duplicate value attribute from add to cart button.
+* Tweak: Add alt class to reset button.
+* Dev: Add support for changing frontend validation messages based on context.
+
 2022.07.12 - version 2.0.10
 * Fix: Fatal error in cart, undefined function esc_html__x().
 * Fix: version_compare() with null as first param is deprecated in php 8.1 #436

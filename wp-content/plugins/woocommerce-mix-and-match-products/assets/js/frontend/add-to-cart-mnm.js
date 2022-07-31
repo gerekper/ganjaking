@@ -198,6 +198,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.update_mnm_timer   = false;
 		this.update_price_timer = false;
 
+		this.validation_context  = 'undefined' !== data.$mnm_data.data( 'context' ) ?  data.$mnm_data.data( 'context' ) : 'cart';
 		this.validation_messages = [];
 		this.status_messages     = [];
 
@@ -1260,7 +1261,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			// Validation.
 			if ( min_container_size === max_container_size ) {
 
-				valid_message = wc_mnm_params.i18n_valid_fixed_message;
+				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] : wc_mnm_params.i18n_valid_fixed_message;
 
 				if ( total_qty !== min_container_size ) {
 					error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
@@ -1270,7 +1271,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 					// Validate that a container has fewer than the maximum number of items.
 			} else if ( max_container_size > 0 && min_container_size === 0 ) {
 
-				valid_message = wc_mnm_params.i18n_valid_max_message;
+				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] : wc_mnm_params.i18n_valid_max_message;
 
 				if ( total_qty > max_container_size ) {
 					error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
@@ -1279,8 +1280,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 				// Validate a range.
 			} else if ( max_container_size > 0 && min_container_size > 0 ) {
 
-				valid_message = wc_mnm_params.i18n_valid_range_message;
-
+				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] : wc_mnm_params.i18n_valid_range_message;
+	
 				if ( total_qty < min_container_size || total_qty > max_container_size ) {
 					error_message = wc_mnm_params.i18n_min_max_qty_error;
 				}
@@ -1288,7 +1289,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				// Validate that a container has minimum number of items.
 			} else if ( min_container_size >= 0 ) {
 
-				valid_message = wc_mnm_params.i18n_valid_min_message;
+				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] : wc_mnm_params.i18n_valid_min_message;
 
 				if ( total_qty < min_container_size ) {
 					error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
@@ -1409,8 +1410,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		};
 
 		this.get_original_quantity = function() {
-			var original_quantity;
-			original_quantity = this.$mnm_item_data.data( 'original_quantity' );
+			var original_quantity = this.$mnm_item_data.data( 'original_quantity' );
 			return original_quantity ? parseInt( original_quantity, 10 ) : 0;
 		};
 
@@ -1463,11 +1463,9 @@ jQuery.fn.wc_get_mnm_script = function() {
 			this.child_item_timer = setTimeout(
                 function() {
 				$msg_html.hide();
-                },
-                2000 
-            );
-
-			// Reset the quantity input.
+			}, 2000 );
+           
+			// Get the quantity from various types of inputs.
 			switch ( type ) {
 				case 'checkbox':
 					this.$mnm_item_qty.prop( 'checked', this.$mnm_item_qty.val() && new_qty === parseInt( this.$mnm_item_qty.val() ) );
@@ -1490,29 +1488,32 @@ jQuery.fn.wc_get_mnm_script = function() {
 				type = 'checkbox';
 			} else if ( this.$mnm_item_qty.is( 'select' ) ) {
 				type = 'select';
+			} else if ( this.$mnm_item_qty.is( ':hidden' ) ) {
+				type = 'hidden';
 			}
 
 			return type;
 		};
 
+		// Reset behaves more like "clear".
 		this.reset = function() {
 
-			var original_value = this.get_original_quantity(),
-				type           = this.get_type(),
-				is_checked;
+			var type = this.get_type();
 
 			switch ( type ) {
 				case 'checkbox':
-					is_checked = original_value === parseInt( this.$mnm_item_qty.val(), 10 );
-					this.$mnm_item_qty.prop( 'checked', is_checked );
+					this.$mnm_item_qty.prop( 'checked', false );
 				break;
 				case 'select':
-					original_value = 0 !== typeof original_value ? original_value : this.$mnm_item_qty.children( ':first-child' ).val();
-					this.$mnm_item_qty.val( original_value );
+					this.$mnm_item_qty.val( this.$mnm_item_qty.children( ':first-child' ).val() );
+				break;
+				case 'hidden':
+					// Intentionally do nothing on hidden inputs. Min=max=value and does not change.
 				break;
 				default:
-					original_value = original_value !== '' ? parseInt( original_value, 10 ) : '';
-					this.$mnm_item_qty.val( original_value );
+					var min = parseFloat( this.$mnm_item_qty.attr( 'min' ) );
+						min = min > 0 ? min : '';
+					this.$mnm_item_qty.val( min );
 			}
 		};
 

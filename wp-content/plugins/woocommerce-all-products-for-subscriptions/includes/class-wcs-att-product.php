@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product
- * @version  3.2.1
+ * @version  3.4.0
  */
 class WCS_ATT_Product {
 
@@ -170,21 +170,34 @@ class WCS_ATT_Product {
 			break;
 			case 'subscription_management_add_to_subscription':
 
-				$option_value         = get_option( 'wcsatt_add_product_to_subscription', 'off' );
+				$is_feature_supported = $product->is_purchasable() && self::supports_feature( $product, 'subscription_schemes' ) && false === $product->is_type( 'mix-and-match' );
+
+			break;
+			case 'subscription_management_add_to_subscription_product_single':
+
 				$is_feature_supported = false;
+				$option_value         = get_option( 'wcsatt_add_product_to_subscription', 'off' );
 
 				if ( 'off' !== $option_value ) {
+					$is_feature_supported = self::supports_feature( $product, 'subscription_management_add_to_subscription' );
+				}
 
-					$is_feature_supported = self::supports_feature( $product, 'subscription_schemes' ) && false === $product->is_type( 'mix-and-match' ) && $product->is_purchasable();
+				if ( $is_feature_supported && 'matching_schemes' === $option_value ) {
+					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product, 'product' ) );
+				}
 
-					/**
-					 * Important: Products with subscription schemes are matched to existing subscriptions with the same billing schedule as the chosen one.
-					 * This behavior can be customized using the 'wcsatt_subscriptions_matching_product' filter - see 'WCS_ATT_Manage_Add_Product::load_matching_subscriptions'.
-					 */
+			break;
+			case 'subscription_management_add_to_subscription_product_cart':
 
-					if ( 'matching_schemes' === $option_value ) {
-						$is_feature_supported = $is_feature_supported && self::supports_feature( $product, 'subscription_scheme_options_product_single' );
-					}
+				$is_feature_supported = false;
+				$option_value         = get_option( 'wcsatt_add_cart_to_subscription', 'off' );
+
+				if ( 'off' !== $option_value ) {
+					$is_feature_supported = self::supports_feature( $product, 'subscription_management_add_to_subscription' );
+				}
+
+				if ( $is_feature_supported && 'plans_only' === $option_value ) {
+					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product, 'product' ) ) || ! empty( WCS_ATT_Cart::get_cart_subscription_schemes( 'raw' ) );
 				}
 
 			break;

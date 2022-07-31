@@ -197,7 +197,7 @@
 
 			<?php } ?>
 
-			<?php if( $order_info['options']['payment_method'] == '1') { ?>
+			<?php if( $order_info['options']['shipping'] == '1') { ?>
 
 							<tr>
 
@@ -1016,6 +1016,8 @@
 
                 $order_billing_address_2 = get_post_meta($order_info['id'], '_billing_address_2', true);
 
+                $order_billing_company = get_post_meta($order_info['id'], '_billing_company', true);
+
                 $order_billing_city = get_post_meta($order_info['id'], '_billing_city', true);
 
                 $order_billing_state = get_post_meta($order_info['id'], '_billing_state', true);
@@ -1037,6 +1039,8 @@
                 $order_shipping_address_1 = get_post_meta($order_info['id'], '_shipping_address_1', true);
 
                 $order_shipping_address_2 = get_post_meta($order_info['id'], '_shipping_address_2', true);
+
+                $order_shipping_company = get_post_meta($order_info['id'], '_shipping_company', true);
 
                 $order_shipping_city = get_post_meta($order_info['id'], '_shipping_city', true);
 
@@ -1068,11 +1072,11 @@
 
                 if (!empty($order_billing_address_2)) {
 
-                        $fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name .' <br/>'. $order_billing_address_1 . ', ' . $order_billing_address_2 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
+                    $fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name .' <br/>'. $order_billing_company .' <br/>'. $order_billing_address_1 . ', <br/>' . $order_billing_address_2 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
 
                 } else {
 
-                        $fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name .' <br/>'. $order_billing_address_1 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
+                    $fullBillAddress = $order_billing_first_name . ' ' . $order_billing_last_name .' <br/>'. $order_billing_company .' <br/>'. $order_billing_address_1 . ' <br/>' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_billing_country;
 
                 }
 
@@ -1080,11 +1084,11 @@
 
                 if (!empty($order_shipping_address_2)) {
 
-                        $fullShipAddress = $order_shipping_first_name . ' ' . $order_shipping_last_name .' <br/>'. $order_shipping_address_1 . ', ' . $order_shipping_address_2 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
+                         $fullShipAddress = $order_shipping_first_name . ' ' . $order_shipping_last_name .' <br/>'. $order_shipping_company .' <br/>'. $order_shipping_address_1 . ', <br/>' . $order_shipping_address_2 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
 
                 } else {
 
-                        $fullShipAddress = $order_shipping_first_name . ' ' . $order_shipping_last_name .' <br/>'. $order_shipping_address_1 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
+                        $fullShipAddress = $order_shipping_first_name . ' ' . $order_shipping_last_name .' <br/>'. $order_shipping_company .' <br/>'. $order_shipping_address_1 . ' <br/>' . $order_shipping_city . ' ' . $order_shipping_state . ' ' . $order_shipping_postcode . ' <br/>' . $order_shipping_country;
 
                 }
 				

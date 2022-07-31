@@ -3,7 +3,7 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * @since    2.0.0
+ * @since    2.1.0
  */
 
 // Exit if accessed directly.
@@ -358,7 +358,9 @@ class WC_MNM_Child_Item extends WC_Data {
 			$child_id   = $this->get_product()->get_id();
 			$input_name = $this->get_input_name( false );
 
-			if ( isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ) {
+			if ( $this->get_quantity( 'min' ) === $this->get_quantity( 'max' ) ) {
+				$qty = $this->get_quantity( 'min' );
+			} else if ( isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ) {
 				$qty = intval( $_REQUEST[ $input_name ][ $child_id ] );
 			} else {
 				$qty = apply_filters( 'wc_mnm_child_item_quantity_input_default_value', '', $this, $this->get_container() );

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
- * @version  1.10.4
+ * @version  2.1.0
  */
 
 // Exit if accessed directly.
@@ -27,7 +27,7 @@ class WC_MNM_OPC_Compatibility {
 	}
 
 	/**
-	 * OPC Single-product bundle-type add-to-cart template.
+	 * OPC Single-product mix and match add-to-cart template.
 	 *
 	 * @param  int  $opc_post_id
 	 * @return void
@@ -39,13 +39,44 @@ class WC_MNM_OPC_Compatibility {
 		// Enqueue script.
 		wp_enqueue_script( 'wc-add-to-cart-mnm' );
 
+		if ( doing_action( 'wcopc_mix-and-match_add_to_cart' ) ) {
+			// If after_summary location, switch default
+			if ( 'after_summary' === $product->get_add_to_cart_form_location() ) {
+				// Single product template for Mix and Match. Form location: After summary.
+				remove_action( 'woocommerce_after_single_product_summary', 'wc_mnm_template_add_to_cart_after_summary', -1000 );
+				add_action( 'woocommerce_after_single_product_summary', array( __CLASS__, 'opc_add_to_cart_after_summary' ), -1000 );
+				return;
+			}
+		}
+
 		ob_start();
 
 		// Load the add to cart template.
 		wc_mnm_template_add_to_cart( $product );
 
-		echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );
+		echo str_replace( array( '<form','</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() );
 
+	}
+
+	/**
+	 * OPC Single-product mix and match type "after_summary" add-to-cart template.
+	 *
+	 * @param  int  $opc_post_id
+	 * @return void
+	 */
+	public static function opc_add_to_cart_after_summary() {
+		add_filter( 'woocommerce_product_single_add_to_cart_text', array( 'PP_One_Page_Checkout', 'modify_single_add_to_cart_text' ) );
+
+		global $product;
+
+		ob_start();
+
+		// Load the after summary add to cart template.
+		wc_mnm_template_add_to_cart_after_summary( $product );
+
+		echo str_replace( array( '<form','</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() );
+
+		remove_filter( 'woocommerce_product_single_add_to_cart_text', array( 'PP_One_Page_Checkout', 'modify_single_add_to_cart_text' ) );
 	}
 
 	/**
@@ -65,6 +96,8 @@ class WC_MNM_OPC_Compatibility {
 
 		return $allow;
 	}
+
+
 }
 
 WC_MNM_OPC_Compatibility::init();

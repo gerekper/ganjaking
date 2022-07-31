@@ -82,7 +82,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
 		global $product;
 
-		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription' ) ) {
+		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription_product_single' ) ) {
 			return;
 		}
 
@@ -144,29 +144,13 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 	 */
 	public static function matching_subscriptions_template( $subscriptions, $product, $scheme ) {
 
-		add_action( 'woocommerce_my_subscriptions_actions', array( __CLASS__, 'button_template' ) );
-
 		wp_nonce_field( 'wcsatt_add_product_to_subscription', 'wcsatt_nonce_' . $product->get_id() );
 
 		wc_get_template( 'single-product/product-add-to-subscription-list.php', array(
 			'subscriptions' => $subscriptions,
 			'product'       => $product,
 			'scheme'        => $scheme,
-			'user_id'       => get_current_user_id()
-		), false, WCS_ATT()->plugin_path() . '/templates/' );
-
-		remove_action( 'woocommerce_my_subscriptions_actions', array( __CLASS__, 'button_template' ) );
-	}
-
-	/**
-	 * 'Add to subscription' view -- 'Add' button template.
-	 *
-	 * @param  WC_Subscription  $subscription
-	 */
-	public static function button_template( $subscription ) {
-
-		wc_get_template( 'single-product/product-add-to-subscription-button.php', array(
-			'subscription_id' => $subscription->get_id()
+			'user_id'       => get_current_user_id(),
 		), false, WCS_ATT()->plugin_path() . '/templates/' );
 	}
 
@@ -203,7 +187,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 		}
 
 		// Keep the sneaky folks out.
-		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription' ) ) {
+		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription_product_single' ) ) {
 			wp_send_json( $failure );
 		}
 
@@ -337,7 +321,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 		$args                = array_diff_key( self::$add_to_subscription_args, array( 'product' => 1 ) );
 
 		// Keep the sneaky folks out.
-		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription' ) ) {
+		if ( ! WCS_ATT_Product::supports_feature( $product, 'subscription_management_add_to_subscription_product_single' ) ) {
 			return;
 		}
 
@@ -454,5 +438,15 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 		}
 
 		return false;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Deprecated
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function button_template( $subscription ) {
+		_deprecated_function( __METHOD__ . '()', '3.4.0' );
 	}
 }

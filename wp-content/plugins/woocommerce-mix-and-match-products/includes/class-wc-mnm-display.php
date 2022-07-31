@@ -223,6 +223,14 @@ class WC_Mix_and_Match_Display {
 			'i18n_child_item_max_qty_message'           => _x( '*Maximum %d allowed', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %d is the max quantity allowed for an individual child item.
 			'i18n_child_item_max_container_qty_message' => _x( '*Container limited to %d', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			// translators: %v is the current quantity message.
+			'i18n_edit_valid_fixed_message'                  => _x( '%v Update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			// translators: %v is the current quantity message.
+			'i18n_edit_valid_min_message'                    => _x( '%v You can select more or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			// translators: %v is the current quantity message. %max is the container maximum.
+			'i18n_edit_valid_max_message'                    => _x( '%v You can select up to %max or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			// translators: %v is the current quantity message. %min is the container minimum. %max is the container maximum.
+			'i18n_edit_valid_range_message'                  => _x( '%v You may select between %min and %max items or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
 			'currency_symbol'                           => get_woocommerce_currency_symbol(),
 			'currency_position'                         => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
 			'currency_format_num_decimals'              => absint( wc_get_price_decimals() ),

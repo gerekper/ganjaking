@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.2.2
+ * @version  3.2.3
  */
 class WCS_ATT_Display_Product {
 
@@ -656,13 +656,8 @@ class WCS_ATT_Display_Product {
 		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) && $product->is_purchasable() && $product->is_in_stock() ) {
 
 			$button_text = __( 'Select options', 'woocommerce' );
-			$bypass      = false;
 
-			if ( $product->is_type( 'bundle' ) && $product->requires_input() ) {
-				$bypass = true;
-			}
-
-			if ( ! $bypass && WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
+			if ( ! $product->has_options() && WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
 				$button_text = get_option( WC_Subscriptions_Admin::$option_prefix . '_add_to_cart_button_text', __( 'Sign up', 'woocommerce-all-products-for-subscriptions' ) );
 			}
 

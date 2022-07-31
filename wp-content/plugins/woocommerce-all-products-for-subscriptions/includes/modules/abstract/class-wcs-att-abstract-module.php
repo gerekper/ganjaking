@@ -50,7 +50,7 @@ abstract class WCS_ATT_Abstract_Module {
 	 *
 	 * @return void
 	 */
-	protected function initialize_modules() {
+	public function initialize_modules() {
 
 		$modules = array();
 

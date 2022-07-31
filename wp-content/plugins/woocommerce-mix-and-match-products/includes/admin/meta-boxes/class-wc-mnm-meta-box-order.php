@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Mix and Match edit-order functions and filters.
  *
  * @class    WC_MNM_Meta_Box_Order
- * @version  1.7.0
+ * @version  2.1.0
  */
 class WC_MNM_Meta_Box_Order {
 
@@ -164,19 +164,12 @@ class WC_MNM_Meta_Box_Order {
 
 					// Already configured?
 					$is_configured = wc_mnm_is_container_order_item( $item, self::$order );
+					$button_text   = $is_configured ? esc_html__( 'Edit', 'woocommerce-mix-and-match-products' ) : esc_html__( 'Configure', 'woocommerce-mix-and-match-products' );
 
 					?>
 					<div class="configure_container_order_item">
 						<button class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
-												  <?php
-
-						if ( $is_configured ) {
-							esc_html_e( 'Edit', 'woocommerce-mix-and-match-products' );
-						} else {
-							esc_html_e( 'Configure', 'woocommerce-mix-and-match-products' );
-						}
-
-						?>
+							<?php echo esc_html( $button_text ); ?>
 						</button>
 					</div>
 					<?php
@@ -203,12 +196,10 @@ class WC_MNM_Meta_Box_Order {
 								</button>
 							</header>
 							<article>
-								<form action="" method="post">
-								</form>
 							</article>
 							<footer>
 								<div class="inner">
-									<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Done', 'woocommerce-mix-and-match-products' ); ?></button>
+									<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Update', 'woocommerce-mix-and-match-products' ); ?></button>
 								</div>
 							</footer>
 						</section>

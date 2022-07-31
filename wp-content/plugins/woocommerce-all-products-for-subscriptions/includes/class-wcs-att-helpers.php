@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Helpers class
  *
- * @package  WooCommerce Product Bundles
  * @package  WooCommerce All Products For Subscriptions
  */
 

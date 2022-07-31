@@ -1008,7 +1008,10 @@ class GFFormDisplay {
 				$form_string .= self::get_validation_errors_markup( $form, $submitted_values, $show_summary );
 			}
 
-			if ( $display_title || $display_description ) {
+			$required_indicator_type = rgar( $form, 'requiredIndicator', 'text' );
+			$display_required_legend = GFCommon::has_required_field( $form ) && ! GFCommon::is_legacy_markup_enabled( $form ) && 'text' !== $required_indicator_type;
+
+			if ( ( $display_title || $display_description ) || $display_required_legend ) {
 				$gform_title_open  = GFCommon::is_legacy_markup_enabled( $form ) ? '<h3 class="gform_title">' : '<h2 class="gform_title">';
 				$gform_title_close = GFCommon::is_legacy_markup_enabled( $form ) ? '</h3>' : '</h2>';
 
@@ -1023,8 +1026,7 @@ class GFFormDisplay {
                             <span class='gform_description'>" . rgar( $form, 'description' ) . '</span>';
 				}
 
-				$required_indicator_type = rgar( $form, 'requiredIndicator', 'text' );
-				if ( GFCommon::has_required_field( $form ) && ! GFCommon::is_legacy_markup_enabled( $form ) && 'text' !== $required_indicator_type ) {
+				if ( $display_required_legend ) {
 					/**
 					 * Modify the legend displayed at the bottom of the form header which explains how required fields are indicated.
 					 *

@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 3.2.0
+ * @version 3.4.0
  */
 
 // Exit if accessed directly.
@@ -19,10 +19,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( empty( $subscriptions ) ) {
 	_e( 'No matching subscriptions found.', 'woocommerce-all-products-for-subscriptions' );
 } else {
-	wc_get_template( 'myaccount/my-subscriptions.php', array(
-		'subscriptions' => $subscriptions,
-		'user_id'       => $user_id,
-		'current_page'  => 1,
-		'max_num_pages' => 1
-	), '', WCS_ATT_Core_Compatibility::get_subscriptions_template_directory() );
+	?><div class="woocommerce_account_subscriptions">
+
+		<?php if ( ! empty( $subscriptions ) ) : ?>
+		<table class="my_account_subscriptions woocommerce-orders-table woocommerce-MyAccount-subscriptions shop_table shop_table_responsive woocommerce-orders-table--subscriptions">
+
+			<thead>
+				<tr>
+					<th class="subscription-id order-number woocommerce-orders-table__header woocommerce-orders-table__header-order-number woocommerce-orders-table__header-subscription-id"><span class="nobr"><?php esc_html_e( 'Subscription', 'woocommerce-subscriptions' ); ?></span></th>
+					<th class="subscription-products-overview woocommerce-orders-table__header woocommerce-orders-table__header-products-overview woocommerce-orders-table__header-products-overview"><span class="nobr"><?php esc_html_e( 'Products', 'woocommerce-subscriptions' ); ?></span></th>
+					<th class="subscription-next-payment order-date woocommerce-orders-table__header woocommerce-orders-table__header-order-date woocommerce-orders-table__header-subscription-next-payment"><span class="nobr"><?php echo esc_html_x( 'Next payment', 'table heading', 'woocommerce-subscriptions' ); ?></span></th>
+					<th class="subscription-total order-total woocommerce-orders-table__header woocommerce-orders-table__header-order-total woocommerce-orders-table__header-subscription-total"><span class="nobr"><?php echo esc_html_x( 'Total', 'table heading', 'woocommerce-subscriptions' ); ?></span></th>
+					<th class="subscription-actions order-actions woocommerce-orders-table__header woocommerce-orders-table__header-order-actions woocommerce-orders-table__header-subscription-actions">&nbsp;</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<?php foreach ( $subscriptions as $subscription_id => $subscription ) : ?>
+					<tr class="order woocommerce-orders-table__row woocommerce-orders-table__row--status-<?php echo esc_attr( $subscription->get_status() ); ?>">
+						<td class="subscription-id order-number woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-id woocommerce-orders-table__cell-order-number" data-title="<?php esc_attr_e( 'ID', 'woocommerce-all-products-for-subscriptions' ); ?>">
+							<a href="<?php echo esc_url( $subscription->get_view_order_url() ); ?>"><?php echo esc_html( sprintf( _x( '#%s', 'hash before order number', 'woocommerce-all-products-for-subscriptions' ), $subscription->get_order_number() ) ); ?></a>
+							<?php do_action( 'woocommerce_my_subscriptions_after_subscription_id', $subscription ); ?>
+						</td>
+						<td class="subscription-total order-total woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-products-overview" data-title="<?php echo esc_attr_x( 'Products', 'Used in data attribute. Escaped', 'woocommerce-all-products-for-subscriptions' ); ?>">
+							<?php echo WCS_ATT_Order::get_contents_summary( $subscription ); ?>
+						</td>
+						<td class="subscription-next-payment order-date woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-next-payment woocommerce-orders-table__cell-order-date" data-title="<?php echo esc_attr_x( 'Next Payment', 'table heading', 'woocommerce-all-products-for-subscriptions' ); ?>">
+
+							<?php echo esc_attr( $subscription->get_date_to_display( 'next_payment' ) ); ?>
+
+							<?php if ( ! $subscription->is_manual() && $subscription->has_status( 'active' ) && $subscription->get_time( 'next_payment' ) > 0 ) : ?>
+							<br/>
+							<small>
+								<?php echo esc_attr( $subscription->get_payment_method_to_display( 'customer' ) ); ?>
+							</small>
+							<?php endif; ?>
+
+						</td>
+						<td class="subscription-total order-total woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-total woocommerce-orders-table__cell-order-total" data-title="<?php echo esc_attr_x( 'Total', 'Used in data attribute. Escaped', 'woocommerce-all-products-for-subscriptions' ); ?>">
+							<?php echo wp_kses_post( $subscription->get_formatted_order_total() ); ?>
+						</td>
+						<td class="subscription-actions order-actions woocommerce-orders-table__cell woocommerce-orders-table__cell-subscription-actions woocommerce-orders-table__cell-order-actions">
+							<?php do_action( 'woocommerce_wcsatt_add_to_subscription_actions', $subscription, $context ); ?>
+							<button type="submit" class="wcsatt-add-to-subscription-button button add alt" name="<?php echo 'cart' === $context ? 'add-cart-to-subscription' : 'add-to-subscription'; ?>" value="<?php echo $subscription_id; ?>"><?php _e( 'Add to subscription', 'woocommerce-all-products-for-subscriptions' ); ?></button>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<?php endif; ?>
+	</div><?php
 }

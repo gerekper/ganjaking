@@ -61,10 +61,7 @@ class WC_MNM_Admin_Notices {
 	 * Store  notices to DB.
 	 */
 	public static function store_notices() {
-		// is_new_install() cannot run in the init() "constructor" as product type tax is registered on INIT.
-		if ( ! WC_MNM_Install::is_new_install() || ! wc_is_running_from_async_action_scheduler() ) {
-			update_option( 'wc_mnm_admin_notices', self::get_notices() );
-		}
+		update_option( 'wc_mnm_admin_notices', self::get_notices() );
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.0.0
+ * @version  2.1.0
  */
 
 // Exit if accessed directly.
@@ -1682,10 +1682,12 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 
 	/**
 	 * Get the data attributes
-	 *
+	 * 
+	 * @param array $args
 	 * @return string
 	 */
-	public function get_data_attributes() {
+	public function get_data_attributes( $args = array() ) {
+
 		$attributes = array(
 			'per_product_pricing' => $this->is_priced_per_product() ? 'true'        :  'false',
 			'container_id'        => $this->get_id(),
@@ -1695,6 +1697,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 			'base_regular_price'  => wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ),
 			'price_data'          => json_encode( $this->get_container_price_data() ),
 			'input_name'          => wc_mnm_get_child_input_name( $this->get_id() ),
+			'context'             => is_admin() ? 'edit' : 'add-to-cart',
 		);
 
 		/**
@@ -1703,7 +1706,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 		 * @param  array $attributes
 		 * @param  obj WC_Product_Mix_and_Match $this
 		 */
-		$attributes = (array) apply_filters( 'wc_mnm_container_data_attributes', $attributes, $this );
+		$attributes = (array) apply_filters( 'wc_mnm_container_data_attributes', wp_parse_args( $args, $attributes ), $this );
 
 		$data = '';
 

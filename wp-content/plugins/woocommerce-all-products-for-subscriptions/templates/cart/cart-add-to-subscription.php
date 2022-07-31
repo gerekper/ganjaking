@@ -23,7 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="wcsatt-add-cart-to-subscription-action-wrapper">
 			<label class="wcsatt-add-cart-to-subscription-action-label">
 				<input class="wcsatt-add-cart-to-subscription-action-input" type="checkbox" name="add-to-subscription-checked" value="yes" <?php checked( $is_checked, true ); ?> />
-				<span class="wcsatt-add-cart-to-subscription-action"><?php _e( 'Add this cart to an existing subscription?', 'woocommerce-all-products-for-subscriptions' ); ?></span>
+				<span class="wcsatt-add-cart-to-subscription-action">
+					<?php
+						if ( 'checkout-display' === $context ) {
+							esc_html_e( 'Add your cart to an existing subscription?', 'woocommerce-all-products-for-subscriptions' );
+						} else {
+							esc_html_e( 'Add this cart to an existing subscription?', 'woocommerce-all-products-for-subscriptions' );
+						}
+					?>
+				</span>
 			</label>
 		</p>
 		<div class="wcsatt-add-cart-to-subscription-options <?php echo $force_responsive ? 'wcsatt-add-cart-to-subscription-table-wrapper' : ''; ?>" <?php echo $is_checked ? '' : 'style="display:none;"'; ?> >

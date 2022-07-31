@@ -1,5 +1,8 @@
 *** WooCommerce Drip Changelog ***
 
+2022-07-27 - version 1.2.32
+* Tweak - WC 6.8 compatibility.
+
 2022-07-06 - version 1.2.31
 * Tweak - WC 6.7 compatibility.
 

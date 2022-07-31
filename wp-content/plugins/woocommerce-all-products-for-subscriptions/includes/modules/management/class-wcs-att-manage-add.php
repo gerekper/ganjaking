@@ -113,12 +113,129 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 	}
 
 	/**
-	 * Gets all active subscriptions of the current user matching a scheme.
+	 * Get matching cart scheme, if all cart items share the same scheme. Returns false otherwise.
 	 *
-	 * @param  WCS_ATT_Scheme  $scheme
+	 * @since  3.4.0
+	 *
+	 * @return array|null An array of WCS_ATT_Scheme objects that are common on the cart contents, null for all subscriptions.
+	 */
+	public static function get_schemes_matching_cart() {
+
+		// Check for empty cart.
+		if ( empty( WC()->cart->cart_contents ) ) {
+			return array();
+		}
+
+		$add_cart_to_subscription_setting = get_option( 'wcsatt_add_cart_to_subscription', 'off' );
+		$cart_subscription_schemes        = WCS_ATT_Cart::get_cart_subscription_schemes( 'raw' );
+		$intersection                     = null;
+
+		foreach ( WC()->cart->cart_contents as $cart_item ) {
+
+			if ( ! WCS_ATT_Cart::is_supported( $cart_item ) ) {
+				// Block the intersection.
+				$intersection = array();
+				break;
+			}
+
+			if ( ! WCS_ATT_Product::supports_feature( $cart_item[ 'data' ], 'subscription_management_add_to_subscription_product_cart' ) ) {
+				// Block the intersection.
+				$intersection = array();
+				break;
+			}
+
+			if ( isset( $cart_item[ 'subscription_renewal' ] ) || isset( $cart_item[ 'subscription_initial_payment' ] ) || isset( $cart_item[ 'subscription_resubscribe' ] ) || isset( $cart_item[ 'subscription_switch' ] ) ) {
+				// Block the intersection.
+				$intersection = array();
+				break;
+			}
+
+			$schemes_for_match = array();
+			$current_scheme    = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ], 'object' );
+
+			// Product has a selected plan.
+			if ( is_a( $current_scheme, 'WCS_ATT_Scheme' ) ) {
+
+				$schemes_for_match = array( $current_scheme->get_key() => $current_scheme );
+
+			} elseif ( empty( $current_scheme ) ) {
+
+				// The current plan might be null but product plans might still exist (this may happen if the currently selected plan gets deleted by the admin).
+				$available_schemes = WCS_ATT_Cart::get_subscription_schemes( $cart_item, 'product' );
+
+				// If the product has plans, contribute those.
+				if ( $available_schemes ) {
+					$schemes_for_match = $available_schemes;
+				} else {
+
+					$schemes_for_match = null;
+
+					// If cart subscription plans exist, we use them to limit the subscriptions on offer here.
+					if ( ! empty( $cart_subscription_schemes ) ) {
+						$schemes_for_match = $cart_subscription_schemes;
+					}
+
+					/**
+					 *
+					 * Hook `wcsatt_add_cart_to_subscription_schemes_matching_schemeless_cart_item`.
+					 *
+					 * @since  3.4.0
+					 *
+					 * Use this filter to limit the plans contributed by this otherwise plan-less cart items.
+					 * For example you may prefer to always return null, or an empty array.
+					 *
+					 * @param  null|array  $schemes
+					 * @param  array       $cart_item
+					 */
+					$schemes_for_match = apply_filters( 'wcsatt_add_cart_to_subscription_schemes_matching_schemeless_cart_item', $schemes_for_match, $cart_item );
+
+					// Can be added to any subscription - not contributing in the intersection?
+					if ( is_null( $schemes_for_match ) ) {
+						continue;
+					}
+				}
+			}
+
+			// Handle first-time iteration and intersect keys on all others.
+			if ( is_null( $intersection ) ) {
+				$intersection = $schemes_for_match;
+			} else {
+				$intersection = array_intersect_key( $schemes_for_match, $intersection );
+			}
+
+			if ( is_array( $intersection ) && empty( $intersection ) ) {
+				break;
+			}
+		}
+
+		/**
+		 * Hook `wcsatt_add_cart_to_subscription_schemes_matching_cart`.
+		 *
+		 * @since 3.4.0
+		 *
+		 * Filter the available options for adding a cart to an existing subscription.
+		 *
+		 * @param  array|null  $intersection
+		 * @return array|null
+		 */
+		return apply_filters( 'wcsatt_add_cart_to_subscription_schemes_matching_cart', $intersection );
+	}
+
+	/**
+	 * Gets all active subscriptions of the current user matching a set of schemes.
+	 *
+	 * @param  array|null  $schemes
 	 * @return array
 	 */
-	public static function get_matching_subscriptions( $scheme ) {
+	public static function get_matching_subscriptions( $schemes ) {
+
+		// Transform input param into array for backwards compatibility.
+		if ( is_a( $schemes, 'WCS_ATT_Scheme' ) ) {
+			$schemes = array( $schemes->get_key() => $schemes );
+		}
+
+		// Filter them by period + interval.
+		$matching_subscriptions = array();
 
 		// Get all subscriptions of the current user.
 		$subscriptions = wcs_get_subscriptions( array(
@@ -127,20 +244,28 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 			'customer_id'            => get_current_user_id()
 		) );
 
-		// Filter them by period + interval. PHP 5.2 be damned.
-		$matching_subscriptions = array();
+		if ( empty( $subscriptions ) ) {
+			return $matching_subscriptions;
+		}
 
-		if ( ! empty( $subscriptions ) ) {
-			foreach ( $subscriptions as $subscription_id => $subscription ) {
+		foreach ( $subscriptions as $subscription_id => $subscription ) {
 
-				if ( is_object( $scheme ) && ! $scheme->matches_subscription( $subscription ) ) {
-					continue;
+			if ( ! $subscription->payment_method_supports( 'subscription_amount_changes' ) ) {
+				continue;
+			}
+
+			// If null, include all supported account subscriptions.
+			if ( is_array( $schemes ) && ! empty( $schemes ) ) {
+
+				foreach ( $schemes as $scheme_key => $scheme ) {
+
+					if ( $scheme->matches_subscription( $subscription ) ) {
+						$matching_subscriptions[ $subscription_id ] = $subscription;
+						break;
+					}
 				}
 
-				if ( ! $subscription->payment_method_supports( 'subscription_amount_changes' ) ) {
-					continue;
-				}
-
+			} else {
 				$matching_subscriptions[ $subscription_id ] = $subscription;
 			}
 		}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.2.1
+ * @version  3.3.0
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -192,10 +192,10 @@ class WCS_ATT_Integration_PB_CP {
 		 */
 
 		// Add subscription details next to price of per-item-priced bundle-type container cart items.
-		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'filter_container_item_price' ), 1000, 3 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'filter_container_item_price' ), 999, 3 );
 
 		// Add subscription details next to subtotal of per-item-priced bundle-type container cart items.
-		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'filter_container_item_subtotal' ), 1000, 3 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'filter_container_item_subtotal' ), 999, 3 );
 
 		// Modify bundle container cart item options to include child item prices.
 		add_filter( 'wcsatt_cart_item_options', array( __CLASS__, 'container_item_options' ), 10, 4 );
@@ -598,9 +598,46 @@ class WCS_ATT_Integration_PB_CP {
 		$display_prices_incl_tax = '' === $tax ? WCS_ATT_Display_Cart::display_prices_including_tax() : ( 'incl' === $tax );
 
 		if ( ! $display_prices_incl_tax ) {
-			$subtotal = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
+			$subtotal = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ), 'qty' => $cart_item[ 'quantity' ] ) );
 		} else {
-			$subtotal = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
+			$subtotal = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ), 'qty' => $cart_item[ 'quantity' ] ) );
+		}
+
+		$child_items = self::get_bundle_type_cart_items( $cart_item );
+		$child_items = function_exists( 'wc_cp_is_composite_container_cart_item' ) && wc_cp_is_composite_container_cart_item( $cart_item ) ? wc_cp_get_composited_cart_items( $cart_item, false, false, true ) : self::get_bundle_type_cart_items( $cart_item );
+
+		if ( ! empty( $child_items ) ) {
+
+			foreach ( $child_items as $child_key => $child_item ) {
+
+				if ( ! $display_prices_incl_tax ) {
+					$subtotal += wc_get_price_excluding_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_item[ 'quantity' ] ) );
+				} else {
+					$subtotal += wc_get_price_including_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_item[ 'quantity' ] ) );
+				}
+			}
+		}
+
+		return $subtotal;
+	}
+
+	/**
+	 * Calculates bundle container item prices.
+	 *
+	 * @param  array   $cart_item
+	 * @param  string  $scheme_key
+	 * @param  string  $tax
+	 * @return double
+	 */
+	private static function calculate_container_item_price( $cart_item, $scheme_key, $tax = '' ) {
+
+		$product                 = $cart_item[ 'data' ];
+		$display_prices_incl_tax = '' === $tax ? WCS_ATT_Display_Cart::display_prices_including_tax() : ( 'incl' === $tax );
+
+		if ( ! $display_prices_incl_tax ) {
+			$price = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
+		} else {
+			$price = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
 		}
 
 		$child_items = self::get_bundle_type_cart_items( $cart_item );
@@ -613,14 +650,14 @@ class WCS_ATT_Integration_PB_CP {
 				$child_qty = ceil( $child_item[ 'quantity' ] / $cart_item[ 'quantity' ] );
 
 				if ( ! $display_prices_incl_tax ) {
-					$subtotal += wc_get_price_excluding_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
+					$price += wc_get_price_excluding_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
 				} else {
-					$subtotal += wc_get_price_including_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
+					$price += wc_get_price_including_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
 				}
 			}
 		}
 
-		return $subtotal;
+		return $price;
 	}
 
 	/**
@@ -941,11 +978,15 @@ class WCS_ATT_Integration_PB_CP {
 			 * PB/CP has done something here, so unless APFS is adding plan options next to the cart item, the billing schedule might be missing.
 			 * See 'WCS_ATT_Display_Cart::show_cart_item_subscription_options'
 			 */
-			} elseif ( false === strpos( $price, 'subscription-details' ) && has_filter( 'woocommerce_cart_item_price', array( 'WCS_ATT_Display_Cart', 'show_cart_item_subscription_options' ), 1000 ) ) {
+			}
 
-				$price = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
-					'price' => $price
-				) );
+			if ( $scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ], 'object' ) ) {
+
+				if ( false === strpos( $price, 'subscription-details' ) && has_filter( 'woocommerce_cart_item_price', array( 'WCS_ATT_Display_Cart', 'show_cart_item_subscription_options' ), 1000 ) ) {
+					$price = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
+						'price' => $price
+					) );
+				}
 			}
 		}
 
@@ -976,10 +1017,6 @@ class WCS_ATT_Integration_PB_CP {
 			}
 
 			if ( $scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ], 'object' ) ) {
-
-				if ( $scheme->is_synced() ) {
-					$subtotal = wc_price( self::calculate_container_item_subtotal( $cart_item, $scheme->get_key() ) );
-				}
 
 				if ( false === strpos( $subtotal, 'subscription-details' ) ) {
 					$subtotal = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
@@ -1023,7 +1060,7 @@ class WCS_ATT_Integration_PB_CP {
 
 				foreach ( $scheme_keys as $scheme_key ) {
 					$price_key                  = WCS_ATT_Product_Schemes::stringify_subscription_scheme_key( $scheme_key );
-					$bundle_price[ $price_key ] = self::calculate_container_item_subtotal( $cart_item, $scheme_key );
+					$bundle_price[ $price_key ] = self::calculate_container_item_price( $cart_item, $scheme_key );
 				}
 
 				$options = array();

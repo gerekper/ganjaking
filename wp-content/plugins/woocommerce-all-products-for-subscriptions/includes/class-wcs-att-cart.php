@@ -55,7 +55,7 @@ class WCS_ATT_Cart {
 
 	/*
 	|--------------------------------------------------------------------------
-	| API
+	| Cart item methods
 	|--------------------------------------------------------------------------
 	*/
 
@@ -73,11 +73,11 @@ class WCS_ATT_Cart {
 	}
 
 	/**
-	 * Returns the active subscription scheme key of a cart item, or false if the cart item is a one-time purchase.
+	 * Returns the subscription scheme key (to apply) of a cart item, or false if the cart item is a one-time purchase.
 	 *
 	 * @since  2.0.0
 	 *
-	 * @return string
+	 * @return string|null|false
 	 */
 	public static function get_subscription_scheme( $cart_item ) {
 
@@ -108,6 +108,68 @@ class WCS_ATT_Cart {
 
 		return $posted_subscription_scheme_key;
 	}
+
+	/**
+	 * Equivalent of 'WC_Cart::get_product_price' that utilizes 'WCS_ATT_Product_Prices::get_price' instead of 'WC_Product::get_price'.
+	 *
+	 * @since  2.0.0
+	 *
+	 * @param  WC_Product  $product
+	 * @param  string      $scheme_key
+	 * @return string
+	 */
+	public static function get_product_price( $cart_item, $scheme_key = '' ) {
+
+		$product = $cart_item[ 'data' ];
+
+		if ( ! WCS_ATT_Display_Cart::display_prices_including_tax() ) {
+			$product_price = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
+		} else {
+			$product_price = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
+		}
+
+		return apply_filters( 'wcsatt_cart_product_price', wc_price( $product_price ), $cart_item );
+	}
+
+	/**
+	 * Applies a saved subscription key to a cart item.
+	 * @see 'WCS_ATT_Product_Schemes::set_subscription_scheme'.
+	 *
+	 * @since  2.0.0
+	 *
+	 * @param  array  $cart_item
+	 * @return array
+	 */
+	public static function apply_subscription_scheme( $cart_item ) {
+
+		if ( self::is_supported( $cart_item ) ) {
+
+			$scheme_to_apply = self::get_subscription_scheme( $cart_item );
+
+			if ( null !== $scheme_to_apply ) {
+
+				// Attempt to apply scheme.
+				WCS_ATT_Product_Schemes::set_subscription_scheme( $cart_item[ 'data' ], $scheme_to_apply );
+
+				// Grab the applied scheme.
+				$applied_scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ] );
+
+				// If the scheme was not applied sucessfully, then it was probably deleted, or something fishy happened.
+				if ( $scheme_to_apply !== $applied_scheme ) {
+					// In this case, simply ensure that no scheme is set on the object and handle the mismatch later.
+					WCS_ATT_Product_Schemes::set_subscription_scheme( $cart_item[ 'data' ], null );
+				}
+			}
+		}
+
+		return apply_filters( 'wcsatt_cart_item', $cart_item );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Cart methods
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Returns cart-level subscription schemes, available only if there are no cart-items with product-level subscription schemes.
@@ -147,7 +209,7 @@ class WCS_ATT_Cart {
 			return false;
 		}
 
-		if ( ! is_object( $context ) && in_array( $context, array( 'cart', 'display', 'cart-display' ) ) ) {
+		if ( ! is_object( $context ) && in_array( $context, array( 'cart', 'display', 'cart-display', 'checkout-display' ) ) ) {
 			// Last chance to turn off or otherwise modify cart level plans.
 			$cart_level_schemes = apply_filters( 'wcsatt_cart_subscription_schemes', $cart_level_schemes, $context );
 		}
@@ -171,7 +233,7 @@ class WCS_ATT_Cart {
 				return false;
 			}
 
-		} elseif ( in_array( $context, array( 'cart', 'display', 'cart-display' ) ) ) {
+		} elseif ( in_array( $context, array( 'cart', 'display', 'cart-display', 'checkout-display' ) ) ) {
 
 			foreach ( WC()->cart->cart_contents as $cart_item ) {
 
@@ -191,7 +253,7 @@ class WCS_ATT_Cart {
 				}
 
 				// When getting cart subscription schemes for display, do not return anything when renewing/resubscribing.
-				if ( in_array( $context, array( 'display', 'cart-display' ) ) ) {
+				if ( in_array( $context, array( 'display', 'cart-display', 'checkout-display' ) ) ) {
 					if ( isset( $cart_item[ 'subscription_renewal' ] ) || isset( $cart_item[ 'subscription_initial_payment' ] ) || isset( $cart_item[ 'subscription_resubscribe' ] ) ) {
 						return false;
 					}
@@ -210,8 +272,7 @@ class WCS_ATT_Cart {
 	 * @return string|false|null
 	 */
 	public static function get_cart_subscription_scheme() {
-
-		return WC()->session->get( 'wcsatt-active-scheme', null );
+		return WC()->session->get( 'wcsatt-active-scheme', false );
 	}
 
 	/**
@@ -246,28 +307,6 @@ class WCS_ATT_Cart {
 	public static function set_cart_subscription_scheme( $scheme_key ) {
 
 		WC()->session->set( 'wcsatt-active-scheme', $scheme_key );
-	}
-
-	/**
-	 * Equivalent of 'WC_Cart::get_product_price' that utilizes 'WCS_ATT_Product_Prices::get_price' instead of 'WC_Product::get_price'.
-	 *
-	 * @since  2.0.0
-	 *
-	 * @param  WC_Product  $product
-	 * @param  string      $scheme_key
-	 * @return string
-	 */
-	public static function get_product_price( $cart_item, $scheme_key = '' ) {
-
-		$product = $cart_item[ 'data' ];
-
-		if ( ! WCS_ATT_Display_Cart::display_prices_including_tax() ) {
-			$product_price = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
-		} else {
-			$product_price = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
-		}
-
-		return apply_filters( 'wcsatt_cart_product_price', wc_price( $product_price ), $cart_item );
 	}
 
 	/**
@@ -325,40 +364,6 @@ class WCS_ATT_Cart {
 		}
 
 		return $cart_item;
-	}
-
-	/**
-	 * Applies a saved subscription key to a cart item.
-	 * @see 'WCS_ATT_Product_Schemes::set_subscription_scheme'.
-	 *
-	 * @since  2.0.0
-	 *
-	 * @param  array  $cart_item
-	 * @return array
-	 */
-	public static function apply_subscription_scheme( $cart_item ) {
-
-		if ( self::is_supported( $cart_item ) ) {
-
-			$scheme_to_apply = self::get_subscription_scheme( $cart_item );
-
-			if ( null !== $scheme_to_apply ) {
-
-				// Attempt to apply scheme.
-				WCS_ATT_Product_Schemes::set_subscription_scheme( $cart_item[ 'data' ], $scheme_to_apply );
-
-				// Grab the applied scheme.
-				$applied_scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ] );
-
-				// If the scheme was not applied sucessfully, then it was probably deleted, or something fishy happened.
-				if ( $scheme_to_apply !== $applied_scheme ) {
-					// In this case, simply ensure that no scheme is set on the object and handle the mismatch later.
-					WCS_ATT_Product_Schemes::set_subscription_scheme( $cart_item[ 'data' ], null );
-				}
-			}
-		}
-
-		return apply_filters( 'wcsatt_cart_item', $cart_item );
 	}
 
 	/**
@@ -509,29 +514,12 @@ class WCS_ATT_Cart {
 
 		/*
 		 * Currently a cart item can only have product-level or cart-level schemes, not both - @see 'WCS_ATT_Cart::get_cart_subscription_schemes'.
-		 * Note that if there are no cart-level schemes on display, we shouldn't apply any cart-level scheme in the background.
+		 * Note that if there are no cart-level schemes to display, we shouldn't apply any cart-level scheme in the background.
 		 */
 		if ( ! empty( $cart_level_schemes ) && self::get_cart_subscription_schemes( 'cart-display' ) ) {
 
 			// Read active cart scheme from session.
 			$scheme_key_to_apply = self::get_cart_subscription_scheme();
-
-			if ( null === $scheme_key_to_apply ) {
-
-				// Default to subscription.
-				if ( apply_filters( 'wcsatt_enable_cart_subscription_by_default', false ) ) {
-
-					$default_scheme      = current( $cart_level_schemes );
-					$scheme_key_to_apply = $default_scheme->get_key();
-
-				// Default to one-time.
-				} else {
-					$scheme_key_to_apply = false;
-				}
-
-				// Save in session.
-				self::set_cart_subscription_scheme( $scheme_key_to_apply );
-			}
 
 		} else {
 
@@ -574,7 +562,7 @@ class WCS_ATT_Cart {
 
 				if ( null !== $posted_subscription_scheme_key ) {
 
-					$existing_subscription_scheme_key = isset( $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] ) ? $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] : null;
+					$existing_subscription_scheme_key = self::get_subscription_scheme( $cart_item );
 
 					if ( $posted_subscription_scheme_key !== $existing_subscription_scheme_key ) {
 						WC()->cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
@@ -629,66 +617,65 @@ class WCS_ATT_Cart {
 	}
 
 	/**
+	 * Validates the subscription schemes applied on a cart item.
+	 *
+	 * @since  3.3.2
+	 *
+	 * @return array
+	 */
+	public static function validate_applied_subscription_scheme( $cart_item ) {
+
+		$scheme_to_apply = self::get_subscription_scheme( $cart_item );
+		$applied_scheme  = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ] );
+
+		// Handle mismatch. Remember that when renewing we are deleting all scheme data from the object and letting WCS handle everything.
+		if ( $scheme_to_apply !== $applied_scheme ) {
+
+			$error              = '';
+			$available_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $cart_item[ 'data' ] );
+			$has_forced_schemes = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $cart_item[ 'data' ] );
+
+			// The product was purchased as a subscription...
+			if ( $scheme_to_apply ) {
+
+				// ...and the purchased scheme does not exist anymore...
+				if ( ! in_array( $scheme_to_apply, $available_schemes ) ) {
+					$error = sprintf( __( 'The &quot;%1$s&quot; subscription plan that you originally signed up for is no longer available.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() );
+				// ...or a dev misbehaved and deserves some bad karma.
+				} else {
+					$error = sprintf( __( 'The &quot;%s&quot; subscription plan that you originally signed up for has changed. Please remove the product from your cart and try again.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() );
+				}
+
+			// ... or the product wasn't purchased as a subscription although it should...
+			} elseif ( false === $scheme_to_apply && $has_forced_schemes ) {
+				$error = sprintf( __( '&quot;%1$s&quot; is only available for purchase on subscription.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() );
+			// ...or a dev did something very fishy (perhaps it was you).
+			} else {
+				$error = sprintf( __( 'The &quot;%s&quot; subscription plan that you originally signed up for has changed. Please remove the product from your cart and try again.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() );
+			}
+
+			return new WP_Error( 'wcsatt_subscription_plan_invalid', $error );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Validates the subscription schemes applied on cart items.
 	 */
 	public static function check_applied_subscription_schemes() {
 
+		// Store API cart item validation is done via 'wooocommerce_store_api_validate_cart_item'.
+		if ( WCS_ATT_Core_Compatibility::is_store_api_request() ) {
+			return;
+		}
+
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 
-			$scheme_to_apply = self::get_subscription_scheme( $cart_item );
-			$applied_scheme  = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ] );
+			$result = self::validate_applied_subscription_scheme( $cart_item );
 
-			// Handle mismatch. Remember that when renewing we are deleting all scheme data from the object and letting WCS handle everything.
-			if ( $scheme_to_apply !== $applied_scheme ) {
-
-				$available_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $cart_item[ 'data' ] );
-				$has_forced_schemes = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $cart_item[ 'data' ] );
-				$has_scheme_options = count( $available_schemes ) > 1 || ( 1 === count( $available_schemes ) && false === $has_forced_schemes );
-
-				// The product was purchased as a subscription...
-				if ( $scheme_to_apply ) {
-
-					// ...and the purchased scheme does not exist anymore...
-					if ( ! in_array( $scheme_to_apply, $available_schemes ) ) {
-
-						// If options exist, request a change.
-						if ( $has_scheme_options ) {
-							$prompt = __( 'Please choose a new subscription plan.', 'woocommerce-all-products-for-subscriptions' );
-						// If not, show a blocking notice. Later on, we can add a button here to provide an opportunity to the user to resolve the problem.
-						} else {
-							$prompt = '';
-						}
-
-						wc_add_notice( sprintf( __( 'The &quot;%1$s&quot; subscription that you signed up for is no longer available. %2$s', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name(), $prompt ), 'error' );
-
-					// ...or a dev misbehaved and deserves some bad karma.
-					} else {
-
-						error_log( sprintf( 'Incorrect subscription scheme applied to cart item %s (%s). Scheme to apply: "%s". Applied scheme: "%s".', $cart_item_key, $cart_item[ 'data' ]->get_name(), var_export( $scheme_to_apply, true ), var_export( $applied_scheme, true ) ) );
-
-						wc_add_notice( sprintf( __( 'The &quot;%s&quot; subscription that you signed up for has changed. Please remove the product from your cart and try again.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() ), 'error' );
-					}
-
-				// ... or the product wasn't purchased as a subscription although it should...
-				} elseif ( false === $scheme_to_apply && $has_forced_schemes ) {
-
-					// If multiple options exist, request a change.
-					if ( $has_scheme_options ) {
-						$prompt = __( 'Please choose a plan to proceed.', 'woocommerce-all-products-for-subscriptions' );
-					// If not, show a blocking notice. Later on, we can add a button here to provide an opportunity to the user to resolve the problem.
-					} else {
-						$prompt = '';
-					}
-
-					wc_add_notice( sprintf( __( '&quot;%1$s&quot; is only available with a subscription plan. %2$s', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name(), $prompt ), 'error' );
-
-				// ...or a dev did something very fishy (perhaps it was you).
-				} else {
-
-					error_log( sprintf( 'Incorrect subscription scheme applied to cart item %s (%s). Scheme to apply: "%s". Applied scheme: "%s".', $cart_item_key, $cart_item[ 'data' ]->get_name(), var_export( $scheme_to_apply, true ), var_export( $applied_scheme, true ) ) );
-
-					wc_add_notice( sprintf( __( 'The &quot;%s&quot; subscription that you signed up for has changed. Please remove the product from your cart and try again.', 'woocommerce-all-products-for-subscriptions' ), $cart_item[ 'data' ]->get_name() ), 'error' );
-				}
+			if ( is_wp_error( $result ) ) {
+				wc_add_notice( $result->get_error_message(), 'error' );
 			}
 		}
 	}

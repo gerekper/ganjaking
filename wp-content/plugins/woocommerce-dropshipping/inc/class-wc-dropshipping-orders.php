@@ -19,6 +19,9 @@ class WC_Dropshipping_Orders {
 		add_action( 'woocommerce_email_order_meta', array($this, 'add_tracking_info_customer_email'), 10, 3 );
 		add_filter( 'woocommerce_order_item_get_formatted_meta_data', array($this,'order_item_get_formatted_meta_data'), 10, 1 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'store_product_meta' ) );
+		/* Filter by Supplier */ 
+		add_action( 'restrict_manage_posts', array( $this, 'admin_shop_order_by_supplier_meta_filter' ) );
+		add_action( 'pre_get_posts', array( $this, 'process_admin_shop_order_supplier_by_filter' ), 99, 1);
 	}
 	
 	public function order_item_get_formatted_meta_data($formatted_meta){
@@ -692,7 +695,7 @@ class WC_Dropshipping_Orders {
 				}
 			}
 			$message .= '<div style="background-color: '.( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#ccc' ).';">'.$html.'</div>';
-			if($order->get_status() != 'completed' || $order->get_status() != 'cancelled') {
+			if($order->get_status() == 'processing') {
 				if($complete_url == '1') {
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
 			    	<tr><td style="text-align: center;">'.sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping'  ),"" ).'<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'">'.sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping'  ),"" ).'</a></td></tr></table>';
@@ -916,5 +919,73 @@ class WC_Dropshipping_Orders {
 				}
 			}
 		}
+	}
+
+	// Custom function where metakeys / labels pairs are defined
+	public function get_supplier_taxonomy_terms(){
+	    $taxonomy = 'dropship_supplier';
+	    $options  = array();
+
+	    foreach ( get_terms( array('taxonomy' => 'dropship_supplier' ) ) as $term ) {
+	        $options[$term->name] = $term->name;
+	    }
+	    return $options;
+	}
+
+	// Add a dropdown to filter orders by Supplier
+	public function admin_shop_order_by_supplier_meta_filter(){
+	    global $pagenow, $typenow;
+
+	    if( 'shop_order' === $typenow && 'edit.php' === $pagenow ) {
+	        $domain    = 'woocommerce-dropshipping';
+	        $filter_id = 'by_supplier';
+	        $current   = isset($_GET[$filter_id])? $_GET[$filter_id] : '';
+
+	        echo '<select name="'.$filter_id.'">
+	        <option value="">' . __('Filter by Supplier', $domain) . '</option>';
+
+	        $options = $this->get_supplier_taxonomy_terms();
+
+	        foreach ( $options as $key => $label ) {
+	            printf( '<option value="%s"%s>%s</option>', $key,
+	                $key === $current ? '" selected="selected"' : '', $label );
+	        }
+	        echo '</select>';
+	    }
+	}
+	
+	public function process_admin_shop_order_supplier_by_filter( $query ) {
+	    global $pagenow, $post_type, $wpdb;
+
+	    $filter_id = 'by_supplier';
+	    $taxonomy  = 'dropship_supplier';
+
+	    // Get all orderIDs in which the product name occurs
+	    if ( $query->is_admin && $pagenow === 'edit.php' && $post_type === 'shop_order' && isset( $_GET[$filter_id] ) && $_GET[$filter_id] != '' ) {
+	    	
+	    	$order_ids = $wpdb->get_col("
+	        SELECT order_items.order_id
+	        FROM {$wpdb->prefix}woocommerce_order_items as order_items
+	        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+	        LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+	        WHERE posts.post_type = 'shop_order'
+	        AND order_items.order_item_type = 'line_item'
+	        AND order_item_meta.meta_value='{$_GET[$filter_id]}'" );
+	   
+	       if (!empty($order_ids)) {
+   			// Set the new "meta query"
+		        $query->set( 'post__in', $order_ids );
+
+		        // Set "posts per page"
+		        $query->set( 'posts_per_page', -1 );
+
+		        // Set "paged"
+		        $query->set( 'paged', ( get_query_var('paged') ? get_query_var('paged') : 1 ) );
+
+		   	} else {
+		   		
+		   			$query->set( 'post__in', array(0));
+		   	}
+	    }
 	}
 }

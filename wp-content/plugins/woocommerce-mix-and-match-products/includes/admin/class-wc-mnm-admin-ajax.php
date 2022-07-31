@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_MNM_Admin_Ajax
- * @version  1.7.0
+ * @version  2.1.0
  */
 class WC_MNM_Admin_Ajax {
 
@@ -45,9 +45,7 @@ class WC_MNM_Admin_Ajax {
 	/**
 	 * True when displaying content in an edit-composite order item modal.
 	 *
-	 * @since  3.14.0
-	 *
-	 * @return void
+	 * @return bool
 	 */
 	public static function is_container_edit_request() {
 		return doing_action( 'wp_ajax_woocommerce_edit_container_in_order' );
@@ -55,50 +53,22 @@ class WC_MNM_Admin_Ajax {
 
 	/**
 	 * Form content used to populate "Configure/Edit" container order item modals.
-	 *
-	 * @since  5.8.0
-	 *
-	 * @return void
 	 */
 	public static function ajax_container_order_item_form() {
 
+		$result = self::can_edit_container();
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result->get_error_message() );
+		}
+
 		global $product;
 
-		$failure = array(
-			'result' => 'failure'
-		);
-
-		if ( ! check_ajax_referer( 'wc_edit_container', 'security', false ) ) {
-			wp_send_json( $failure );
-		}
-
-		if ( empty( $_POST['order_id'] ) || empty( $_POST['item_id'] ) ) {
-			wp_send_json( $failure );
-		}
-
-		$order   = wc_get_order( wc_clean( $_POST['order_id'] ) );
-		$item_id = absint( wc_clean( $_POST['item_id'] ) );
-
-		if ( ! ( $order instanceof WC_Order ) ) {
-			wp_send_json( $failure );
-		}
-
-		$item = $order->get_item( $item_id );
-
-		if ( ! ( $item instanceof WC_Order_Item ) ) {
-			wp_send_json( $failure );
-		}
-
-		$product = $item->get_product();
-
-		if ( ! $product->has_child_items() ) {
-			wp_send_json( $failure );
-		}
-
-		$child_items = $product->get_child_items();
+		// Populate $order, $product, and $order_item variables.
+		extract( $result );
 
 		// Initialize form state based on the actual configuration of the container.
-		$configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $order );
+		$configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $order_item, $order );
 
 		if ( ! empty( $configuration ) ) {
 			$_REQUEST = array_merge( $_REQUEST, WC_Mix_and_Match()->cart->rebuild_posted_container_form_data( $configuration, $product ) );
@@ -113,69 +83,43 @@ class WC_MNM_Admin_Ajax {
 		// Manually include theme hooks/functions.
 		WC_Mix_and_Match()->theme_includes();
 
+		// Prepare child items.
+		$child_items = $product->get_child_items();
+
 		ob_start();
 		include( 'meta-boxes/views/html-mnm-container-edit-form.php' );
 		$html = ob_get_clean();
 
-		$response = array(
-			'result' => 'success',
-			'html'   => $html
-		);
-
-		wp_send_json( $response );
+		wp_send_json_success( $html );
 	}
 
 	/**
 	 * Validates edited/configured containers and returns updated order items.
-	 *
-	 * @since  5.8.0
-	 *
-	 * @return void
 	 */
 	public static function ajax_edit_container_in_order() {
 
-		$failure = array(
-			'result' => 'failure'
-		);
+		$result = self::can_edit_container();
 
-		if ( ! current_user_can( 'edit_shop_orders' ) ) {
-			wp_send_json( $failure );
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result->get_error_message() );
 		}
 
-		if ( ! check_ajax_referer( 'wc_edit_container', 'security', false ) ) {
-			wp_send_json( $failure );
-		}
+		// Populate $order, $product, and $order_item variables.
+		extract( $result );
 
-		if ( empty( $_POST['order_id'] ) || empty( $_POST['item_id'] ) ) {
-			wp_send_json( $failure );
-		}
+		$current_configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $order_item, $order );
 
-		$order   = wc_get_order( wc_clean( $_POST['order_id'] ) );
-		$item_id = absint( wc_clean( $_POST['item_id'] ) );
-
-		if ( ! ( $order instanceof WC_Order ) ) {
-			wp_send_json( $failure );
-		}
-
-		$item = $order->get_item( $item_id );
-
-		if ( ! ( $item instanceof WC_Order_Item ) ) {
-			wp_send_json( $failure );
-		}
-
-		$product = $item->get_product();
-
-		if ( ! ( $product instanceof WC_Product_Mix_and_Match ) ) {
-			wp_send_json( $failure );
-		}
-
-		if ( ! empty( $_POST['fields'] ) ) {
-			parse_str( $_POST['fields'], $posted_form_fields );
-			$_POST = array_merge( $_POST, $posted_form_fields );
-		}
-
-		$posted_configuration  = WC_Mix_and_Match()->cart->get_posted_container_configuration( $product );
-		$current_configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $order );
+		/**
+		 * 'wc_mnm_editing_container_in_order_configuration' filter.
+		 *
+		 * Use this filter to modify the posted configuration.
+		 *
+		 * @param  $config     array
+		 * @param  $product    WC_Product_Mix_and_Match
+		 * @param  $order_item WC_Order_Item
+		 * @param  $order      WC_Order
+		 */
+		$posted_configuration = apply_filters( 'wc_mnm_editing_container_in_order_configuration', WC_Mix_and_Match()->cart->get_posted_container_configuration( $product ), $product, $order_item, $order );
 
 		// Compare posted against current configuration.
 		if ( $posted_configuration !== $current_configuration ) {
@@ -183,9 +127,9 @@ class WC_MNM_Admin_Ajax {
 			$added_to_order = WC_Mix_and_Match()->order->add_container_to_order(
 				$product,
 				$order,
-				$item->get_quantity(),
+				$order_item->get_quantity(),
 				array(
-				'configuration' => $posted_configuration
+					'configuration' => $posted_configuration
 				)
 			);
 
@@ -196,9 +140,9 @@ class WC_MNM_Admin_Ajax {
 				$data    = $added_to_order->get_error_data( 'wc_mnm_container_configuration_invalid' );
 
 				$notice = '';
-				if ( isset( $data['notices'] ) ) {
-					$notices = current( $data['notices'] );
-					$notice = isset( $notices['notice'] ) ? html_entity_decode( $notices['notice'] ) : '';
+				if ( isset( $data[ 'notices' ] ) ) {
+					$notices = current( $data[ 'notices' ] );
+					$notice = isset( $notices[ 'notice' ] ) ? html_entity_decode( $notices[ 'notice' ] ) : '';
 				}
 
 				if ( $notice ) {
@@ -210,40 +154,33 @@ class WC_MNM_Admin_Ajax {
 					);
 				}
 
-				$response = array(
-					'result' => 'failure',
-					'error'  => $message
-				);
+				wp_send_json_error( $message );
 
-				wp_send_json( $response );
-
-				// Remove old items.
+				// Adjust stock and remove old items.
 			} else {
 
-				if ( has_action( 'wc_mnm_editing_container_in_order' ) ) {
+				$new_container_item = $order->get_item( $added_to_order );
 
-					$new_container_item = $order->get_item( $added_to_order );
+				/**
+				 * 'wc_mnm_editing_container_in_order' action.
+				 *
+				 * @since  1.7.0
+				 *
+				 * @param  WC_Order_Item_Product  $new_order_item
+				 * @param  WC_Order_Item_Product  $order_item
+				 * @param  WC_Order               $order
+				 */
+				do_action( 'wc_mnm_editing_container_in_order', $new_container_item, $order_item, $order );
 
-					/**
-					 * 'wc_mnm_editing_container_in_order' action.
-					 *
-					 * @since  1.7.0
-					 *
-					 * @param  WC_Order_Item_Product  $new_item
-					 * @param  WC_Order_Item_Product  $old_item
-					 */
-					do_action( 'wc_mnm_editing_container_in_order', $new_container_item, $item, $order );
-				}
-
-				$items_to_remove = array( $item ) + wc_mnm_get_child_order_items( $item, $order );
+				$items_to_remove = array( $order_item ) + wc_mnm_get_child_order_items( $order_item, $order );
 				$pre_stock_map   = array();
 
 				foreach ( $items_to_remove as $remove_item ) {
 
 					$changed_stock = wc_maybe_adjust_line_item_product_stock( $remove_item, 0 );
-					if ( $changed_stock && isset( $changed_stock['from'] ) ) {
+					if ( $changed_stock && isset( $changed_stock[ 'from' ] ) ) {
 						$child_item_id                   = $remove_item->get_id();
-						$pre_stock_map[ $child_item_id ] = $changed_stock['from'];
+						$pre_stock_map[ $child_item_id ] = $changed_stock[ 'from' ];
 					}
 
 					$order->remove_item( $remove_item->get_id() );
@@ -251,6 +188,7 @@ class WC_MNM_Admin_Ajax {
 				}
 
 				$child_order_items = wc_mnm_get_child_order_items( $order->get_item( $added_to_order ), $order );
+
 				foreach ( $child_order_items as $order_item_id => $order_item ) {
 					$product = $order_item->get_product();
 					$qty     = $order_item->get_quantity();
@@ -272,13 +210,13 @@ class WC_MNM_Admin_Ajax {
 
 				unset( $pre_stock_map );
 
-				if ( isset( $_POST['country'], $_POST['state'], $_POST['postcode'], $_POST['city'] ) ) {
+				if ( isset( $_POST[ 'country' ], $_POST[ 'state' ], $_POST[ 'postcode' ], $_POST[ 'city' ] ) ) {
 
 					$calculate_tax_args = array(
-						'country'  => strtoupper( wc_clean( $_POST['country'] ) ),
-						'state'    => strtoupper( wc_clean( $_POST['state'] ) ),
-						'postcode' => strtoupper( wc_clean( $_POST['postcode'] ) ),
-						'city'     => strtoupper( wc_clean( $_POST['city'] ) ),
+						'country'  => strtoupper( wc_clean( $_POST[ 'country' ] ) ),
+						'state'    => strtoupper( wc_clean( $_POST[ 'state' ] ) ),
+						'postcode' => strtoupper( wc_clean( $_POST[ 'postcode' ] ) ),
+						'city'     => strtoupper( wc_clean( $_POST[ 'city' ] ) ),
 					);
 
 					$order->calculate_taxes( $calculate_tax_args );
@@ -292,21 +230,92 @@ class WC_MNM_Admin_Ajax {
 
 		ob_start();
 		include( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-items.php' );
-		$html = ob_get_clean();
+		$items_html = ob_get_clean();
 
 		// Update order notes.
 		ob_start();
 		$notes = wc_get_order_notes( array( 'order_id' => $order->get_id() ) );
 		include( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-notes.php' );
 		$notes_html = ob_get_clean();
-		$response = array(
-			'result'     => 'success',
-			'html'       => $html,
-			'notes_html' => $notes_html
+
+		wp_send_json_success(
+			array(
+				'html'       => $items_html,
+				'notes_html' => $notes_html,
+			)
 		);
-
-		wp_send_json( $response );
 	}
-}
 
+	/**
+	 * Validates user can edit this product.
+	 *
+	 * @return mixed - If editable will return an array. Otherwise, will return json error.
+	 */
+	protected static function can_edit_container() {
+
+		try {
+
+			if ( ! check_ajax_referer( 'wc_mnm_edit_container', 'security', false ) ) {
+				$error = esc_html__( 'Security failure', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			if ( empty( $_POST[ 'order_id' ] ) || empty( $_POST[ 'item_id' ] ) ) {
+				$error = esc_html__( 'Missing order ID or item ID', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			$order   = wc_get_order( wc_clean( $_POST[ 'order_id' ] ) );
+			$item_id = absint( wc_clean( $_POST[ 'item_id' ] ) );
+
+			if ( ! ( $order instanceof WC_Order ) ) {
+				$error = esc_html__( 'Not a valid order', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			if ( ! current_user_can( 'edit_shop_orders' ) ) {
+				if ( 'shop_subscription' === $order->get_type() ) {
+					$error = esc_html__( 'You do not have authority to edit this order', 'woocommerce-mix-and-match-products' );
+				} else {
+					$error = esc_html__( 'You do not have authority to edit this subscription', 'woocommerce-mix-and-match-products' );
+				}
+				throw new Exception( $error );
+			}
+
+			$order_item = $order->get_item( $item_id );
+
+			if ( ! ( $order_item instanceof WC_Order_Item ) ) {
+				$error = esc_html__( 'Not a valid order item', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			$product = $order_item->get_product();
+
+			if ( ! ( $product instanceof WC_Product_Mix_and_Match ) ) {
+				$error = esc_html__( 'Product is not mix and match type and so cannot be edited', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			if ( ! $product->has_child_items() ) {
+				$error = esc_html__( 'Container product does not have any available child items', 'woocommerce-mix-and-match-products' );
+				throw new Exception( $error );
+			}
+
+			return array (
+				'product'    => $product,
+				'order'      => $order,
+				'order_item' => $order_item,
+			);
+
+		} catch ( Exception $e ) {
+
+			// translators: %s is the validation error message.
+			$error = sprintf( esc_html__( 'Cannot edit this mix and match container. Reason: %s.', 'woocommerce-mix-and-match-products' ), $e->getMessage() );
+
+			return new WP_Error( 'mnm_edit_failure', $error );
+
+		}
+	}
+
+}
 WC_MNM_Admin_Ajax::init();

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
- * @version  2.0.0
+ * @version  2.1.0
  */
 
 // Exit if accessed directly.
@@ -114,7 +114,7 @@ class WC_Mix_and_Match_Admin {
 		wp_register_script( 'wc-mnm-admin-product-panel',WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-product-meta-boxes', 'wc-enhanced-select' ),  WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 
 		$script_path = 'assets/js/admin/meta-boxes-order' . $suffix . '.js';
-		wp_register_script( 'wc-mnm-admin-order-panel', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-order-meta-boxes' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
+		wp_register_script( 'wc-mnm-admin-order-panel', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-order-meta-boxes', 'wc-add-to-cart-mnm' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 
 		$style_path  = 'assets/css/admin/mnm-edit-product' . $suffix . '.css';
 		wp_register_style( 'wc-mnm-admin-product-panel', WC_Mix_and_Match()->plugin_url() . '/assets/css/admin/mnm-edit-product.css', array( 'woocommerce_admin_styles' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $style_path ) );
@@ -146,11 +146,14 @@ class WC_Mix_and_Match_Admin {
 
 			if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 
+				// Load front end validation scripts.
+				wc_mix_and_match()->display->frontend_scripts();
+
 				wp_enqueue_style( 'wc-mnm-admin-order-style' );
 				wp_enqueue_script( 'wc-mnm-admin-order-panel' );
 
 				$params = array(
-					'edit_container_nonce'     => wp_create_nonce( 'wc_edit_container' ),
+					'edit_container_nonce'     => wp_create_nonce( 'wc_mnm_edit_container' ),
 					'i18n_configure'        => __( 'Configure', 'woocommerce-mix-and-match-products' ),
 					'i18n_edit'             => __( 'Edit', 'woocommerce-mix-and-match-products' ),
 					'i18n_form_error'       => __( 'Failed to initialize form. If this issue persists, please reload the page and try again.', 'woocommerce-mix-and-match-products' ),

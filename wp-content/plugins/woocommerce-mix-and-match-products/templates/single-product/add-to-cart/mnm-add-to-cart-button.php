@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   2.0.0
- * @version 2.0.3
+ * @version 2.1.0
  */
 
 // Exit if accessed directly.
@@ -50,7 +50,7 @@ do_action( 'woocommerce_after_add_to_cart_quantity' );
 ?>
 
 
-<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button mnm_add_to_cart_button button alt" value="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
+<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button mnm_add_to_cart_button button alt" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
 
 <?php
 /**

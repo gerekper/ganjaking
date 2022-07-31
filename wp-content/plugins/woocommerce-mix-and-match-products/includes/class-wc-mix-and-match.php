@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.0.10';
+	public $version = '2.1.0';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -131,13 +131,14 @@ class WC_Mix_and_Match {
 	 * @since 2.0.0
 	 *
 	 * @param  string  $file
+	 * @param  string  $version - A version number, handy for mini-extensions to make use of this method.
 	 * @return string
 	 */
-	public function get_file_version( $file ) {
+	public function get_file_version( $file, $version = '' ) {
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( $file ) ) {
 			return filemtime( $file );
 		}
-		return $this->version;
+		return $version ? $version : $this->version;
 	}
 
 	/*-----------------------------------------------------------------------------------*/

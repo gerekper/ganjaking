@@ -43,11 +43,15 @@
       height: auto; }
     .wc-backbone-modal table.mnm_child_products td.product-details {
       padding-left: 1em; }
+      .wc-backbone-modal table.mnm_child_products td.product-details .woocommerce-loop-product__title {
+        margin: 0; }
+      .wc-backbone-modal table.mnm_child_products td.product-details .price {
+        margin: 0; }
       .wc-backbone-modal table.mnm_child_products td.product-details dl.variation {
         font-size: 85%;
         list-style: none outside; }
         .wc-backbone-modal table.mnm_child_products td.product-details dl.variation:last-child {
-          marging-bottom: 0; }
+          margin-bottom: 0; }
         .wc-backbone-modal table.mnm_child_products td.product-details dl.variation dt {
           float: left;
           clear: both;

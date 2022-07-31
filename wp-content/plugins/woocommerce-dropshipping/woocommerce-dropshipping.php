@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.1
+ * Version: 4.2
 
  * Author: OPMC Australia Pty Ltd
 

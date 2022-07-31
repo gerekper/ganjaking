@@ -73,9 +73,9 @@ class WCS_ATT_Display_Ajax {
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( ! empty( $cart_item[ 'wcsatt_data' ] ) ) {
 				// Save scheme key on cart item.
-				$cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
+				WC()->cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
 				// Apply scheme.
-				WCS_ATT_Cart::apply_subscription_scheme( $cart_item );
+				WCS_ATT_Cart::apply_subscription_scheme( WC()->cart->cart_contents[ $cart_item_key ] );
 			}
 		}
 

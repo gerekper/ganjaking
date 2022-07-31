@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.1.0
  */
 
 // Exit if accessed directly.
@@ -30,7 +30,7 @@ if ( ! $child_item->get_product()->is_purchasable() || ! $child_item->get_produc
 }
 
 // Checkbox input
-if ( $child_item->get_quantity( 'step' ) === $child_item->get_quantity( 'max' ) ) { ?>
+if ( $child_item->get_quantity( 'step' ) === $child_item->get_quantity( 'max' ) && $child_item->get_quantity( 'min' ) !== $child_item->get_quantity( 'max' ) ) { ?>
 
 	<div class="mnm-checkbox-qty">
 		<input id="<?php echo esc_attr( $input_args[ 'input_id' ] );?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() );?>" value="<?php echo esc_attr( $child_item->get_quantity( 'max' ) );?>" <?php checked( $child_item->get_quantity( 'max' ) === $child_item->get_quantity( 'value' ), true );?>/>

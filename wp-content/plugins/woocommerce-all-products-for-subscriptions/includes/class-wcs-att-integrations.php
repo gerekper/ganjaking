@@ -21,14 +21,35 @@ class WCS_ATT_Integrations {
 
 	/**
 	 * Min required plugin versions to check.
+	 *
 	 * @var array
 	 */
 	private static $required = array();
 
 	/**
+	 * Cache block based cart detection result.
+	 *
+	 * @since  3.3.0
+	 * @var    array
+	 */
+	private static $is_block_based_cart = null;
+
+	/**
 	 * Initialize.
 	 */
 	public static function init() {
+
+		self::$required = array(
+			'cp'     => '6.2.0',
+			'pb'     => '6.2.0',
+			'addons' => '3.0.14',
+			'blocks' => '7.2.0'
+		);
+
+		// Cart/Checkout Block support.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), self::$required[ 'blocks' ] ) >= 0 ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-blocks.php' );
+		}
 
 		// Product Bundles and Composite Products support.
 		if ( class_exists( 'WC_Bundles' ) || class_exists( 'WC_Composite_Products' ) || class_exists( 'WC_Mix_and_Match' ) ) {
@@ -37,7 +58,7 @@ class WCS_ATT_Integrations {
 		}
 
 		// Product Add-Ons support.
-		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0.14' ) >= 0 ) {
+		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, self::$required[ 'addons' ] ) >= 0 ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pao.php' );
 			WCS_ATT_Integration_PAO::init();
 		}
@@ -54,7 +75,7 @@ class WCS_ATT_Integrations {
 		}
 
 		// Square compatibility.
-		if (  class_exists( 'WooCommerce\Square\Plugin' ) ) {
+		if ( class_exists( 'WooCommerce\Square\Plugin' ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-square.php' );
 		}
 
@@ -73,13 +94,6 @@ class WCS_ATT_Integrations {
 		if ( class_exists( 'WC_Payments' ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-wc-payments.php' );
 		}
-
-		// Define dependencies.
-		self::$required = array(
-			'cp'     => '6.2.0',
-			'pb'     => '6.2.0',
-			'addons' => '3.0.14',
-		);
 
 		if ( is_admin() ) {
 			// Check plugin min versions.
@@ -143,6 +157,34 @@ class WCS_ATT_Integrations {
 				WCS_ATT_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'addons_lt_' . $required_version, 'type' => 'native' ) );
 			}
 		}
+	}
+
+	/**
+	 * Whether the cart page contains the cart block.
+	 *
+	 * @since  3.3.0
+	 *
+	 * @param  string  $route
+	 * @return boolean
+	 */
+	public static function is_block_based_cart() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Package' ) ) {
+			return false;
+		}
+
+		if ( is_null( self::$is_block_based_cart ) ) {
+
+			self::$is_block_based_cart = false;
+
+			$checkout_block_data = class_exists( 'WC_Blocks_Utils' ) ? WC_Blocks_Utils::get_blocks_from_page( 'woocommerce/cart', 'cart' ) : false;
+
+			if ( ! empty( $checkout_block_data ) ) {
+				self::$is_block_based_cart = true;
+			}
+		}
+
+		return self::$is_block_based_cart;
 	}
 
 	/*

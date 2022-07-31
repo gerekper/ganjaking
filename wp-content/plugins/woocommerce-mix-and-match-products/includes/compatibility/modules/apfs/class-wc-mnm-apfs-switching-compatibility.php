@@ -65,7 +65,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			/*-----------------------------------------------------------------------------------*/
 
 			// Change text for Mix and Match switch link.
-			add_filter( 'woocommerce_subscriptions_switch_link', array( __CLASS__, 'switch_link' ), 10, 4 );
+			if ( version_compare( WC_Subscriptions::$version, '4.5.0', '>=' ) ) {
+				add_filter( 'woocommerce_subscriptions_switch_link_text', array( __CLASS__, 'switch_link_text' ), 10, 4 );
+			} else {
+				add_filter( 'woocommerce_subscriptions_switch_link', array( __CLASS__, 'switch_link' ), 10, 4 );
+			}
 
 			// Don't count container child items and hidden container container/child items.
 			add_filter( 'wcs_can_items_be_removed', array( __CLASS__, 'can_remove_subscription_items' ), 10, 2 );
@@ -542,6 +546,30 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		/**
 		 * Change the switch button text for Mix and Match subscriptions.
 		 *
+		 * @since 2.1.0
+		 *
+		 * @param string $switch_link_text The switch link html.
+		 * @param int $item_id The order item ID of a subscription line item
+		 * @param array $item An order line item
+		 * @param object $subscription A WC_Subscription object
+		 * @return string
+		 *
+		 */
+		public static function switch_link_text( $switch_link_text, $item_id, $item, $subscription ) {
+
+			$product = $item->get_product();
+
+			if ( $product->is_type( 'mix-and-match' ) ) {
+				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
+				$switch_link_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
+			}
+
+			return $switch_link_text;
+		}
+	
+		/**
+		 * Change the switch button text for Mix and Match subscriptions.
+		 *
 		 * @since 2.0.9
 		 *
 		 * @param string $switch_link The switch link html.
@@ -553,9 +581,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function switch_link( $switch_link, $item_id, $item, $subscription ) {
 
-			$switch_url  = esc_url( WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription ) );
-			$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
-			$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', $switch_url, $switch_text );
+			$product = $item->get_product();
+
+			if ( $product->is_type( 'mix-and-match' ) ) {
+				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
+				$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
+				$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', esc_url( $switch_url ), esc_html( $switch_text ) );
+			}
 
 			return $switch_link;
 		}

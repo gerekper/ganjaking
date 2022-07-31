@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.2.2
+* Version: 3.4.1
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -12,20 +12,18 @@
 * Text Domain: woocommerce-all-products-for-subscriptions
 * Domain Path: /languages/
 *
-* Requires PHP: 5.6
+* Requires PHP: 7.0
 *
 * Requires at least: 4.4
-* Tested up to: 5.9
+* Tested up to: 6.0
 *
 * WC requires at least: 3.3
-* WC tested up to: 6.3
+* WC tested up to: 6.8
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 *
 * @package  WooCommerce All Products For Subscriptions
-* @author   SomewhereWarm
-* @since    2.2.0
 */
 
 // Exit if accessed directly.
@@ -42,18 +40,18 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.2.2
+ * @version  3.4.1
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.2.2';
+	const VERSION = '3.4.1';
 
 	/* Required WC version. */
-	const REQ_WC_VERSION = '3.3.0';
+	const REQ_WC_VERSION = '3.9.0';
 
 	/* Required WC version. */
-	const REQ_WCS_VERSION = '2.3.0';
+	const REQ_WCS_VERSION = '3.0.0';
 
 	/* Required WC Payments version. */
 	const REQ_WCPAY_VERSION = '3.2.0';
@@ -234,8 +232,8 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		}
 
 		// PHP version check.
-		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
-			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-all-products-for-subscriptions' ), '5.6.20', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
+		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
+			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-all-products-for-subscriptions' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' );
 			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -255,8 +253,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		}
 
 		// Add init hooks.
-		add_action( 'init', array( $this, 'init_textdomain' ) );
-		add_action( 'admin_init', array( $this, 'activate' ) );
+		add_action( 'init', array( $this, 'init_plugin' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 4 );
 
 		$this->includes();
@@ -282,6 +279,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		// Classes.
 		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-core-compatibility.php' );
 		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-integrations.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-tracker.php' );
 		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-helpers.php' );
 		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-scheme.php' );
 		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-product.php' );
@@ -316,7 +314,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 *
 	 * @return void
 	 */
-	protected function register_modules() {
+	public function register_modules() {
 		$modules = array();
 
 		/*
@@ -360,6 +358,18 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	}
 
 	/**
+	 * Initialize plugin.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return void
+	 */
+	public function init_plugin() {
+		$this->init_textdomain();
+		$this->activate();
+	}
+
+	/**
 	 * Load textdomain.
 	 *
 	 * @return void
@@ -378,9 +388,23 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		$version = get_option( 'apfs_version', false );
 
 		if ( ! $version ) {
+
+			if ( ! class_exists( 'WCS_ATT_Admin_Notices' ) ) {
+				require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
+			}
+
 			WCS_ATT_Admin_Notices::add_maintenance_notice( 'welcome' );
 			add_option( 'apfs_version', self::VERSION );
+
 		} elseif ( version_compare( $version, self::VERSION, '<' ) ) {
+
+			// If adding carts to subscriptions is allowed and cart plans do not exist when updating to version 3.4.0, turn off the feature for backwards compatibility.
+			if ( version_compare( $version, '3.4.0', '<' ) ) {
+				if ( 'off' !== get_option( 'wcsatt_add_cart_to_subscription', 'off' ) && empty( WCS_ATT_Cart::get_cart_subscription_schemes( 'raw' ) ) ) {
+					update_option( 'wcsatt_add_cart_to_subscription', 'off' );
+				}
+			}
+
 			update_option( 'apfs_version', self::VERSION );
 		}
 	}

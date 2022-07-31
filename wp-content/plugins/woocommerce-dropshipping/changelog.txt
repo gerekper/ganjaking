@@ -1,5 +1,12 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-07-28 - version 4.2
+* PLUGINS-1233 - Add a filter by supplier in order page.
+* PLUGINS-1423 - Show company name in Shipping Address of Packingslip.
+* PLUGINS-1348 - Fix missing selected data in Packing slips.
+* PLUGINS-1354 - Fix mark order as ship option in supplier's mail doesn't work.
+* PLUGINS-1458 - Fix wrong textdomain in supplier's email notification.
+
 2022-07-14 - version 4.1
 * PLUGINS-1475 - Additional columns in packingslip added in latest release.
 * PLUGINS-1444 - Fix Mobile menu.

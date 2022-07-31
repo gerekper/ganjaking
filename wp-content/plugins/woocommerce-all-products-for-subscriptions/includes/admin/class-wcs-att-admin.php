@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  3.2.1
+ * @version  3.3.1
  */
 class WCS_ATT_Admin {
 
@@ -270,27 +270,29 @@ class WCS_ATT_Admin {
 	 */
 	public static function add_settings( $settings ) {
 
-		// Insert before miscellaneous settings.
-		$misc_section_start = wp_list_filter( $settings, array( 'id' => 'woocommerce_subscriptions_miscellaneous', 'type' => 'title' ) );
+		$settings_to_add = array();
 
-		$settings_to_add = array(
-			array(
-				'name' => __( 'Subscribe to Cart', 'woocommerce-all-products-for-subscriptions' ),
-				'type' => 'title',
-				'desc' => __( 'Allow customers to purchase the contents of their cart on subscription.', 'woocommerce-all-products-for-subscriptions' ),
-				'id'   => 'wcsatt_subscribe_to_cart_options'
-			),
-			array(
-				'name' => __( 'Cart Subscription Plans', 'woocommerce-all-products-for-subscriptions' ),
-				'desc' => __( 'Subscription plans offered on the cart page.', 'woocommerce-all-products-for-subscriptions' ),
-				'id'   => 'wcsatt_subscribe_to_cart_schemes',
-				'type' => 'subscription_schemes'
-			),
-			array(
-				'type' => 'sectionend',
-				'id'   => 'wcsatt_subscribe_to_cart_options'
-			),
-		);
+		if ( ! WCS_ATT_Integrations::is_block_based_cart() ) {
+
+			$settings_to_add = array_merge( $settings_to_add, array(
+				array(
+					'name' => __( 'Subscribe to Cart', 'woocommerce-all-products-for-subscriptions' ),
+					'type' => 'title',
+					'desc' => __( 'Allow customers to purchase the contents of their cart on subscription.', 'woocommerce-all-products-for-subscriptions' ),
+					'id'   => 'wcsatt_subscribe_to_cart_options'
+				),
+				array(
+					'name' => __( 'Cart Subscription Plans', 'woocommerce-all-products-for-subscriptions' ),
+					'desc' => __( 'Subscription plans offered on the cart page.', 'woocommerce-all-products-for-subscriptions' ),
+					'id'   => 'wcsatt_subscribe_to_cart_schemes',
+					'type' => 'subscription_schemes'
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'wcsatt_subscribe_to_cart_options'
+				),
+			) );
+		}
 
 		if ( WCS_ATT()->is_module_registered( 'manage' ) ) {
 
@@ -298,40 +300,57 @@ class WCS_ATT_Admin {
 				array(
 					'name' => __( 'Add to Subscription', 'woocommerce-all-products-for-subscriptions' ),
 					'type' => 'title',
-					'desc' => __( 'Allow customers to add products and/or entire carts to their existing subscriptions.', 'woocommerce-all-products-for-subscriptions' ),
+					'desc' => WCS_ATT_Integrations::is_block_based_cart() ? __( 'Allow customers to add products to their existing subscriptions.', 'woocommerce-all-products-for-subscriptions' ) : __( 'Allow customers to add individual products and/or entire carts to their existing subscriptions.', 'woocommerce-all-products-for-subscriptions' ),
 					'id'   => 'wcsatt_add_to_subscription_options'
 				),
 				array(
 					'name'     => __( 'Products', 'woocommerce-all-products-for-subscriptions' ),
-					'desc'     => __( 'Allow customers to add products to existing subscriptions.', 'woocommerce-all-products-for-subscriptions' ),
+					'desc'     => __( 'Allow customers to add individual products to existing subscriptions.', 'woocommerce-all-products-for-subscriptions' ),
 					'id'       => 'wcsatt_add_product_to_subscription',
 					'type'     => 'select',
 					'options'  => array(
-						'off'              => _x( 'Off', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
-						'matching_schemes' => _x( 'On For Products With Subscription Plans', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
-						'on'               => _x( 'On', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+						'off'              => _x( 'Disabled', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+						'matching_schemes' => _x( 'Enabled for products with Subscription Plans', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+						'on'               => _x( 'Enabled', 'adding a product to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
 					),
 					'desc_tip' => true
-				),
-				array(
-					'name'     => __( 'Carts', 'woocommerce-all-products-for-subscriptions' ),
-					'desc'     => __( 'Allow customers to add their cart to an existing subscription.', 'woocommerce-all-products-for-subscriptions' ),
-					'id'       => 'wcsatt_add_cart_to_subscription',
-					'type'     => 'select',
-					'options'  => array(
-						'off' => _x( 'Off', 'adding a cart to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
-						'on'  => _x( 'On', 'adding a cart to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
-					),
-					'desc_tip' => true
-				),
+				)
+			) );
+
+			if ( ! WCS_ATT_Integrations::is_block_based_cart() ) {
+
+				$settings_to_add = array_merge( $settings_to_add, array(
+					array(
+						'name'     => __( 'Cart Contents', 'woocommerce-all-products-for-subscriptions' ),
+						'desc'     => __( 'Allow customers to add their cart contents to an existing subscription.', 'woocommerce-all-products-for-subscriptions' ),
+						'id'       => 'wcsatt_add_cart_to_subscription',
+						'type'     => 'select',
+						'options'  => array(
+							'off'        => _x( 'Disabled', 'adding a cart to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+							'plans_only' => _x( 'Enabled when cart contents have Subscription Plans', 'adding a cart to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+							'on'         => _x( 'Enabled', 'adding a cart to an existing subscription', 'woocommerce-all-products-for-subscriptions' ),
+						),
+						'desc_tip' => true
+					)
+				) );
+			}
+
+			$settings_to_add = array_merge( $settings_to_add, array(
 				array(
 					'type' => 'sectionend',
 					'id'   => 'wcsatt_add_to_subscription_options'
 				)
 			) );
+
 		}
 
-		array_splice( $settings, key( $misc_section_start ), 0, $settings_to_add );
+		if ( ! empty( $settings_to_add ) ) {
+
+			// Insert before miscellaneous settings.
+			$misc_section_start = wp_list_filter( $settings, array( 'id' => 'woocommerce_subscriptions_miscellaneous', 'type' => 'title' ) );
+
+			array_splice( $settings, key( $misc_section_start ), 0, $settings_to_add );
+		}
 
 		return $settings;
 	}

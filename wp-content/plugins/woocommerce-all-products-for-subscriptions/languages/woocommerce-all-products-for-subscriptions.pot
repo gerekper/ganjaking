@@ -2,76 +2,91 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 3.2.0\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 3.4.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2022-01-17 09:14:59+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: English (US) <support@somewherewarm.com>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-07-28T13:29:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"language-team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Domain: woocommerce-all-products-for-subscriptions\n"
 
-#: includes/admin/class-wcs-att-admin-notices.php:278
+#. Plugin Name of the plugin
+msgid "WooCommerce All Products For Subscriptions"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things."
+msgstr ""
+
+#. Author of the plugin
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://somewherewarm.com/"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin-notices.php:277
 msgid "Ready to make your products available on subscription?"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:279
+#: includes/admin/class-wcs-att-admin-notices.php:278
 msgid "Thank you for installing All Products for WooCommerce Subscriptions."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:279
+#: includes/admin/class-wcs-att-admin-notices.php:278
 msgid "Let's start by adding some subscription plans to an existing product."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:283
+#: includes/admin/class-wcs-att-admin-notices.php:281
+msgctxt "onboarding button text"
+msgid "Let's go!"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin-notices.php:282
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:355
+#: includes/admin/class-wcs-att-admin-notices.php:354
 msgid "Awesome &ndash; this product is now available on subscription!"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:356
-msgid ""
-"Did you know that you can also use <strong>All Products for WooCommerce "
-"Subscriptions</strong> to offer subscription options on the cart "
-"page?</br>For details, check out the <a href=\"%1$s\">documentation</a>. "
-"Then, configure cart subscription plans <a href=\"%2$s\">here</a>."
+#: includes/admin/class-wcs-att-admin-notices.php:355
+msgid "Did you know that you can also use <strong>All Products for WooCommerce Subscriptions</strong> to offer subscription options on the cart page?</br>For details, check out the <a href=\"%1$s\">documentation</a>. Then, configure cart subscription plans <a href=\"%2$s\">here</a>."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:390
+#: includes/admin/class-wcs-att-admin-notices.php:389
 msgid "Awesome &ndash; you just made your first product available on subscription!"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:391
-msgid ""
-"Did you know that you can also offer subscription options <strong>on the "
-"cart page</strong>? For details, check out the All Products for WooCommerce "
-"Subscriptions documentation, or go ahead and add some cart subscription "
-"plans now."
+#: includes/admin/class-wcs-att-admin-notices.php:390
+msgid "Did you know that you can also offer subscription options <strong>on the cart page</strong>? For details, check out the All Products for WooCommerce Subscriptions documentation, or go ahead and add some cart subscription plans now."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:406
+#: includes/admin/class-wcs-att-admin-notices.php:405
 #: includes/admin/views/html-admin-page-status-report.php:17
 msgid "All Products for WooCommerce Subscriptions"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:419
+#: includes/admin/class-wcs-att-admin-notices.php:418
 msgid "Add Cart Plans"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin-notices.php:427
+#: includes/admin/class-wcs-att-admin-notices.php:426
 msgid "Learn More"
 msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:167
-msgid ""
-"The installed version of <strong>All Products for WooCommerce "
-"Subscriptions</strong> is not compatible with the <code>selectSW</code> "
-"library found on your system. Please update All Products for WooCommerce "
-"Subscriptions to the latest version."
+msgid "The installed version of <strong>All Products for WooCommerce Subscriptions</strong> is not compatible with the <code>selectSW</code> library found on your system. Please update All Products for WooCommerce Subscriptions to the latest version."
 msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:225
@@ -83,76 +98,109 @@ msgstr ""
 msgid "Add Plan"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:278
+#: includes/admin/class-wcs-att-admin.php:279
 msgid "Subscribe to Cart"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:280
+#: includes/admin/class-wcs-att-admin.php:281
 msgid "Allow customers to purchase the contents of their cart on subscription."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:284
+#: includes/admin/class-wcs-att-admin.php:285
 msgid "Cart Subscription Plans"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:285
+#: includes/admin/class-wcs-att-admin.php:286
 msgid "Subscription plans offered on the cart page."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:299
+#: includes/admin/class-wcs-att-admin.php:301
 msgid "Add to Subscription"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:301
-msgid ""
-"Allow customers to add products and/or entire carts to their existing "
-"subscriptions."
+#: includes/admin/class-wcs-att-admin.php:303
+msgid "Allow customers to add products to their existing subscriptions."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:305
+#: includes/admin/class-wcs-att-admin.php:303
+msgid "Allow customers to add individual products and/or entire carts to their existing subscriptions."
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:307
 msgid "Products"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:306
-msgid "Allow customers to add products to existing subscriptions."
+#: includes/admin/class-wcs-att-admin.php:308
+msgid "Allow customers to add individual products to existing subscriptions."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:317
-msgid "Carts"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:318
-msgid "Allow customers to add their cart to an existing subscription."
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:419
-#: includes/class-wcs-att-sync.php:170 includes/class-wcs-att-sync.php:193
+#: includes/admin/class-wcs-att-admin.php:312
+msgctxt "adding a product to an existing subscription"
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:420
+#: includes/admin/class-wcs-att-admin.php:313
+msgctxt "adding a product to an existing subscription"
+msgid "Enabled for products with Subscription Plans"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:314
+msgctxt "adding a product to an existing subscription"
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:324
+msgid "Cart Contents"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:325
+msgid "Allow customers to add their cart contents to an existing subscription."
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:329
+msgctxt "adding a cart to an existing subscription"
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:330
+msgctxt "adding a cart to an existing subscription"
+msgid "Enabled when cart contents have Subscription Plans"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:331
+msgctxt "adding a cart to an existing subscription"
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:438
+#: includes/class-wcs-att-sync.php:170
+#: includes/class-wcs-att-sync.php:193
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/class-wcs-att-admin.php:439
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:330
 msgid "Inherit from product"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:421
+#: includes/admin/class-wcs-att-admin.php:440
 msgid "Inherit from chosen variation"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:422
+#: includes/admin/class-wcs-att-admin.php:441
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:331
 msgid "Override product"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:423
+#: includes/admin/class-wcs-att-admin.php:442
 msgid "Override all variations"
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:424
+#: includes/admin/class-wcs-att-admin.php:443
 msgid "Discount to apply to the product when this plan is selected."
 msgstr ""
 
-#: includes/admin/class-wcs-att-admin.php:425
+#: includes/admin/class-wcs-att-admin.php:444
 msgid "Discount to apply to the chosen variation when this plan is selected."
 msgstr ""
 
@@ -167,9 +215,7 @@ msgid "One-time purchase"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:97
-msgid ""
-"Enable this option to allow one-time purchases of this product. Applicable "
-"when at least one Subscription Plan has been added below."
+msgid "Enable this option to allow one-time purchases of this product. Applicable when at least one Subscription Plan has been added below."
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:104
@@ -185,10 +231,7 @@ msgid "Title"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:116
-msgid ""
-"Text/html to display above the available purchase plan options. Supports "
-"html and shortcodes. Applicable when at least one Subscription Plan has "
-"been added below."
+msgid "Text/html to display above the available purchase plan options. Supports html and shortcodes. Applicable when at least one Subscription Plan has been added below."
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:117
@@ -212,14 +255,6 @@ msgstr ""
 msgid "Interval"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:246
-msgid "Subscription interval"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:252
-msgid "Subscription period"
-msgstr ""
-
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:259
 msgid "Choose the subscription billing interval and period."
 msgstr ""
@@ -234,14 +269,6 @@ msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:327
 msgid "Price"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:345
-msgid "Regular Price"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:355
-msgid "Sale Price"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:368
@@ -271,96 +298,78 @@ msgid "Template overrides"
 msgstr ""
 
 #: includes/admin/views/html-admin-page-status-report.php:23
-msgid ""
-"Shows any files overriding the default All Products for WooCommerce "
-"Subscriptions templates."
+msgid "Shows any files overriding the default All Products for WooCommerce Subscriptions templates."
 msgstr ""
 
+#. Translators: %1$s: Template name, %2$s: Template version, %3$s: Core version.
 #: includes/admin/views/html-admin-page-status-report.php:40
-#. Translators: %1$s: Template name, %2$s: Template version, %3$s: Core
-#. version.
 msgid "%1$s version %2$s (out of date)"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:656
-msgid "Please choose a new subscription plan."
+#: includes/class-wcs-att-cart.php:643
+msgid "The &quot;%1$s&quot; subscription plan that you originally signed up for is no longer available."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:662
-msgid ""
-"The &quot;%1$s&quot; subscription that you signed up for is no longer "
-"available. %2$s"
+#: includes/class-wcs-att-cart.php:646
+#: includes/class-wcs-att-cart.php:654
+msgid "The &quot;%s&quot; subscription plan that you originally signed up for has changed. Please remove the product from your cart and try again."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:669 includes/class-wcs-att-cart.php:690
-msgid ""
-"The &quot;%s&quot; subscription that you signed up for has changed. Please "
-"remove the product from your cart and try again."
-msgstr ""
-
-#: includes/class-wcs-att-cart.php:677
-msgid "Please choose a plan to proceed."
-msgstr ""
-
-#: includes/class-wcs-att-cart.php:683
-msgid "&quot;%1$s&quot; is only available with a subscription plan. %2$s"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
+#: includes/class-wcs-att-cart.php:651
+msgid "&quot;%1$s&quot; is only available for purchase on subscription."
 msgstr ""
 
 #: includes/class-wcs-att-display.php:69
-msgid ""
-"Failed to update your cart. If this issue persists, please re-load the page "
-"and try again."
+msgid "Failed to update your cart. If this issue persists, please re-load the page and try again."
 msgstr ""
 
-#: includes/class-wcs-att-display.php:70 includes/class-wcs-att-display.php:81
-msgid ""
-"Failed to load matching subscriptions. If this issue persists, please "
-"re-load the page and try again."
-msgstr ""
-
-#: includes/class-wcs-att-integrations.php:108
-msgid "Product Bundles"
-msgstr ""
-
-#: includes/class-wcs-att-integrations.php:109
-msgid "WooCommerce Product Bundles"
-msgstr ""
-
-#: includes/class-wcs-att-integrations.php:111
-#: includes/class-wcs-att-integrations.php:125
-#: includes/class-wcs-att-integrations.php:141
-msgid ""
-"The installed version of <strong>%1$s</strong> is not supported by "
-"<strong>All Products for WooCommerce Subscriptions</strong>. Please update "
-"<a href=\"%2$s\" target=\"_blank\">%3$s</a> to version "
-"<strong>%4$s</strong> or higher."
+#: includes/class-wcs-att-display.php:70
+#: includes/class-wcs-att-display.php:81
+msgid "Failed to load matching subscriptions. If this issue persists, please re-load the page and try again."
 msgstr ""
 
 #: includes/class-wcs-att-integrations.php:122
-msgid "Composite Products"
+msgid "Product Bundles"
 msgstr ""
 
 #: includes/class-wcs-att-integrations.php:123
+msgid "WooCommerce Product Bundles"
+msgstr ""
+
+#: includes/class-wcs-att-integrations.php:125
+#: includes/class-wcs-att-integrations.php:139
+#: includes/class-wcs-att-integrations.php:155
+msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>All Products for WooCommerce Subscriptions</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
+msgstr ""
+
+#: includes/class-wcs-att-integrations.php:136
+msgid "Composite Products"
+msgstr ""
+
+#: includes/class-wcs-att-integrations.php:137
 msgid "WooCommerce Composite Products"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:138
+#: includes/class-wcs-att-integrations.php:152
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:139
+#: includes/class-wcs-att-integrations.php:153
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/class-wcs-att-order.php:306
+#. translators: %1$s product name, %2$s quantity
+#: includes/class-wcs-att-order.php:200
+msgctxt "Order overview product row"
+msgid "%1$s&nbsp;&times;&nbsp;%2$s"
+msgstr ""
+
+#: includes/class-wcs-att-order.php:365
 msgid "plan"
 msgstr ""
 
-#: includes/class-wcs-att-sync.php:155 includes/class-wcs-att-sync.php:167
+#: includes/class-wcs-att-sync.php:155
+#: includes/class-wcs-att-sync.php:167
 msgid "Synchronization"
 msgstr ""
 
@@ -368,9 +377,61 @@ msgstr ""
 msgid "%s each year"
 msgstr ""
 
+#: includes/display/class-wcs-att-display-cart.php:122
+msgctxt "cart item subscription selection - negative response"
+msgid "one time"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-cart.php:233
+msgctxt "cart subscription selection - negative response"
+msgid "One-time purchase"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-cart.php:262
+msgctxt "cart option discount"
+msgid "%s&#37;"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-cart.php:263
+msgctxt "discounted cart sub option price html"
+msgid "%1$s &mdash; save %2$s"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-cart.php:267
+msgctxt "physical cart subscription selection - positive response"
+msgid "Deliver %s"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-cart.php:269
+msgctxt "virtual cart subscription selection - positive response"
+msgid "Renew %s"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:101
+msgctxt "product subscription selection - negative response"
+msgid "one time"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:105
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:891
+msgctxt "product subscription selection - negative response"
+msgid "%s one time"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:270
+msgctxt "Subscribe call-to-action - checkbox"
+msgid "Choose a subscription plan"
+msgstr ""
+
 #: includes/display/class-wcs-att-display-product.php:296
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:853
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:890
 msgid "One-time for %s"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:385
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:936
+msgctxt "discounted dropdown option price"
+msgid "%1$s (%2$s off)"
 msgstr ""
 
 #: includes/display/class-wcs-att-display-product.php:412
@@ -394,333 +455,92 @@ msgid "Choose a subscription plan:"
 msgstr ""
 
 #: includes/display/class-wcs-att-display-product.php:507
-#: includes/display/class-wcs-att-display-product.php:666
+#: includes/display/class-wcs-att-display-product.php:661
 msgid "Sign up"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:658
-msgid "Select options"
-msgstr ""
-
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1245
-msgid "Between Product Bundle Configurations"
-msgstr ""
-
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1259
-msgid "Between Composite Product Configurations"
-msgstr ""
-
-#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:282
-#: includes/modules/management/add/class-wcs-att-manage-add-product.php:285
-msgid ""
-"Subscription #%d cannot be edited. Please get in touch with us for "
-"assistance."
-msgstr ""
-
-#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:312
-msgid ""
-"Your cart cannot be added to subscription #%d. Please get in touch with us "
-"for assistance."
-msgstr ""
-
-#: includes/modules/management/add/class-wcs-att-manage-add-product.php:433
-msgid "&quot;%s&quot; is out of stock."
-msgstr ""
-
-#: includes/modules/management/add/class-wcs-att-manage-add-product.php:439
-#. translators: 1: product name 2: quantity in stock
-msgid "&quot;%1$s&quot; does not have enough stock (%2$s remaining)."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-add.php:197
-msgid ""
-"There was a problem adding \"%1$s\" to subscription %2$s. Please get in "
-"touch with us for assistance."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-add.php:234
-msgid "Action failed. Please get in touch with us for assistance."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-add.php:446
-msgid "There was a problem adding \"%1$s\" to subscription %2$s."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-add.php:483
-msgid "You have successfully added \"%1$s\" to subscription %2$s."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-add.php:485
-msgid "You have successfully added the contents of your cart to subscription %s."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-switch.php:411
-msgid ""
-"Switching product options is not allowed. You may only switch to a "
-"different subscription plan."
-msgstr ""
-
-#: includes/modules/management/class-wcs-att-manage-switch.php:419
-msgid "Switching to a different subscription plan is not allowed."
-msgstr ""
-
-#: includes/product/class-wcs-att-product-prices.php:352
-#: includes/product/class-wcs-att-product-prices.php:357
-msgid "up to"
-msgstr ""
-
-#: includes/product/class-wcs-att-product-prices.php:357
-msgid "subscribe and save %1$s%2$s"
-msgstr ""
-
-#: includes/product/class-wcs-att-product-prices.php:399
-msgid " <span class=\"wcsatt-dash\">&mdash;</span> or %s"
-msgid_plural " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/product/class-wcs-att-product-prices.php:401
-msgid " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription"
-msgid_plural " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/cart/cart-add-to-subscription-button.php:20
-#: templates/single-product/product-add-to-subscription-button.php:20
-msgid "Add"
-msgstr ""
-
-#: templates/cart/cart-add-to-subscription-list.php:20
-#: templates/single-product/product-add-to-subscription-list.php:20
-msgid "No matching subscriptions found."
-msgstr ""
-
-#: templates/cart/cart-add-to-subscription.php:22
-msgid "&mdash; or &mdash;"
-msgstr ""
-
-#: templates/cart/cart-add-to-subscription.php:26
-msgid "Add this cart to an existing subscription?"
-msgstr ""
-
-#: templates/cart/cart-subscription-options.php:20
-msgid "Purchase plan"
-msgstr ""
-
-#: templates/single-product/product-add-to-subscription.php:23
-msgid "Add to an existing subscription?"
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:106
-#: woocommerce-all-products-for-subscriptions.php:115
-msgid "Foul!"
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:211
-msgid ""
-"All Products for WooCommerce Subscriptions requires at least <a "
-"href=\"%1$s\" target=\"_blank\">WooCommerce Subscriptions</a> version "
-"<strong>%2$s</strong>."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:219
-msgid ""
-"All Products for WooCommerce Subscriptions requires at least <a "
-"href=\"%1$s\" target=\"_blank\">WooCommerce Payments</a> version "
-"<strong>%2$s</strong>."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:222
-msgid ""
-"All Products for WooCommerce Subscriptions requires Subscriptions to be "
-"enabled in the <strong>WooCommerce Payments</strong> <a href=\"%1$s\" "
-"target=\"_blank\">settings</a>."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:227
-msgid ""
-"All Products for WooCommerce Subscriptions requires at least <a "
-"href=\"%1$s\" target=\"_blank\">WooCommerce Payments</a> version "
-"<strong>%2$s</strong> or <a href=\"%3$s\" target=\"_blank\">WooCommerce "
-"Subscriptions</a> version <strong>%4$s</strong>."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:238
-msgid ""
-"All Products for WooCommerce Subscriptions requires at least PHP "
-"<strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:246
-msgid ""
-"All Products for WooCommerce Subscriptions requires at least WooCommerce "
-"version <strong>%1$s</strong>. %2$s"
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:248
-msgid "Please install and activate WooCommerce."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:250
-msgid "Please update WooCommerce."
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:442
-msgid "Documentation"
-msgstr ""
-
-#: woocommerce-all-products-for-subscriptions.php:443
-msgid "Support"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce All Products For Subscriptions"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Make existing products available on subscription, and give customers the "
-"freedom to add products to their existing subscriptions. WooCommerce "
-"Subscriptions add-on formerly known as Subscribe All The Things."
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://somewherewarm.com/"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin-notices.php:282
-msgctxt "onboarding button text"
-msgid "Let's go!"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:310
-msgctxt "adding a product to an existing subscription"
-msgid "Off"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:311
-msgctxt "adding a product to an existing subscription"
-msgid "On For Products With Subscription Plans"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:312
-msgctxt "adding a product to an existing subscription"
-msgid "On"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:322
-msgctxt "adding a cart to an existing subscription"
-msgid "Off"
-msgstr ""
-
-#: includes/admin/class-wcs-att-admin.php:323
-msgctxt "adding a cart to an existing subscription"
-msgid "On"
-msgstr ""
-
-#: includes/class-wcs-att-sync.php:175
-msgctxt "input field placeholder for day field for annual subscriptions"
-msgid "Day"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:122
-msgctxt "cart item subscription selection - negative response"
-msgid "one time"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:232
-msgctxt "cart subscription selection - negative response"
-msgid "One-time purchase"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:261
-msgctxt "cart option discount"
-msgid "%s&#37;"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:262
-msgctxt "discounted cart sub option price html"
-msgid "%1$s &mdash; save %2$s"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:266
-msgctxt "physical cart subscription selection - positive response"
-msgid "Deliver %s"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-cart.php:268
-msgctxt "virtual cart subscription selection - positive response"
-msgid "Renew %s"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-product.php:101
-msgctxt "product subscription selection - negative response"
-msgid "one time"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-product.php:105
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:854
-msgctxt "product subscription selection - negative response"
-msgid "%s one time"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-product.php:270
-msgctxt "Subscribe call-to-action - checkbox"
-msgid "Choose a subscription plan"
-msgstr ""
-
-#: includes/display/class-wcs-att-display-product.php:385
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:899
-msgctxt "discounted dropdown option price"
-msgid "%1$s (%2$s off)"
-msgstr ""
-
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:899
-#: includes/product/class-wcs-att-product-prices.php:586
-#: includes/product/class-wcs-att-product-prices.php:594
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:936
+#: includes/product/class-wcs-att-product-prices.php:592
+#: includes/product/class-wcs-att-product-prices.php:600
 msgctxt "dropdown option discount"
 msgid "%s%%"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:901
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:938
 msgctxt "dropdown option sale price"
 msgid "%1$s (was %2$s)"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1161
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1198
 msgctxt "used in order note"
-msgid ""
-"\"%1$s\" (Product ID: #%2$d) removal triggered by \"%3$s\" via the My "
-"Account page."
+msgid "\"%1$s\" (Product ID: #%2$d) removal triggered by \"%3$s\" via the My Account page."
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1216
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1253
 msgctxt "used in order note"
-msgid ""
-"\"%1$s\" (Product ID: #%2$d) removal un-done by \"%3$s\" via the My Account "
-"page."
+msgid "\"%1$s\" (Product ID: #%2$d) removal un-done by \"%3$s\" via the My Account page."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:377
-msgctxt "used in order note"
-msgid ""
-"Customer increased the quantity of \"%1$s\" (Product ID: #%2$d) from %3$s "
-"to %4$s."
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1282
+msgid "Between Product Bundle Configurations"
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:456
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1296
+msgid "Between Composite Product Configurations"
+msgstr ""
+
+#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:248
+#: includes/modules/management/add/class-wcs-att-manage-add-product.php:269
+msgid "Subscription #%d cannot be edited. Please get in touch with us for assistance."
+msgstr ""
+
+#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:278
+msgid "Your cart cannot be added to subscription #%d. Please get in touch with us for assistance."
+msgstr ""
+
+#: includes/modules/management/add/class-wcs-att-manage-add-product.php:417
+msgid "&quot;%s&quot; is out of stock."
+msgstr ""
+
+#. translators: 1: product name 2: quantity in stock
+#: includes/modules/management/add/class-wcs-att-manage-add-product.php:423
+msgid "&quot;%1$s&quot; does not have enough stock (%2$s remaining)."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:320
+#: includes/modules/management/class-wcs-att-manage-add.php:375
+msgctxt "link to subscription"
+msgid "<a href=\"%1$s\">#%2$s</a>"
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:322
+msgid "There was a problem adding \"%1$s\" to subscription %2$s. Please get in touch with us for assistance."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:359
+msgid "Action failed. Please get in touch with us for assistance."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:502
+msgctxt "used in order note"
+msgid "Customer increased the quantity of \"%1$s\" (Product ID: #%2$d) from %3$s to %4$s."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:571
+msgid "There was a problem adding \"%1$s\" to subscription %2$s."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:581
 msgctxt "used in order note"
 msgid "Customer added \"%1$s\" (Product ID: #%2$d)."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:195
-#: includes/modules/management/class-wcs-att-manage-add.php:250
-msgctxt "link to subscription"
-msgid "<a href=\"%1$s\">#%2$s</a>"
+#: includes/modules/management/class-wcs-att-manage-add.php:608
+msgid "You have successfully added \"%1$s\" to subscription %2$s."
+msgstr ""
+
+#: includes/modules/management/class-wcs-att-manage-add.php:610
+msgid "You have successfully added the contents of your cart to subscription %s."
 msgstr ""
 
 #: includes/product/class-wcs-att-product-prices.php:116
@@ -749,7 +569,7 @@ msgid "<span class=\"for\">for</span> "
 msgstr ""
 
 #: includes/product/class-wcs-att-product-prices.php:122
-#: includes/product/class-wcs-att-product-prices.php:393
+#: includes/product/class-wcs-att-product-prices.php:399
 msgctxt "subscription \"from\" price string"
 msgid "<span class=\"from\">from</span> "
 msgstr ""
@@ -776,33 +596,151 @@ msgstr ""
 
 #: includes/product/class-wcs-att-product-prices.php:220
 #: includes/product/class-wcs-att-product-prices.php:282
-#: includes/product/class-wcs-att-product-prices.php:393
+#: includes/product/class-wcs-att-product-prices.php:399
 msgctxt "Price range: from"
 msgid "%1$s%2$s"
 msgstr ""
 
-#: includes/product/class-wcs-att-product-prices.php:351
-#: includes/product/class-wcs-att-product-prices.php:356
+#: includes/product/class-wcs-att-product-prices.php:357
+#: includes/product/class-wcs-att-product-prices.php:362
 msgctxt "subscribe and save discount"
 msgid "%s&#37;"
 msgstr ""
 
 #: includes/product/class-wcs-att-product-prices.php:358
+#: includes/product/class-wcs-att-product-prices.php:363
+msgid "up to"
+msgstr ""
+
+#: includes/product/class-wcs-att-product-prices.php:363
+msgid "subscribe and save %1$s%2$s"
+msgstr ""
+
+#: includes/product/class-wcs-att-product-prices.php:364
 msgctxt "subscribe and save suffix format"
 msgid " <span class=\"wcsatt-dash\">&mdash;</span> or %s"
 msgstr ""
 
-#: includes/product/class-wcs-att-product-prices.php:391
+#: includes/product/class-wcs-att-product-prices.php:397
 msgctxt "Price range: starting at"
 msgid "%1$s%2$s"
 msgstr ""
 
-#: includes/product/class-wcs-att-product-prices.php:391
+#: includes/product/class-wcs-att-product-prices.php:397
 msgctxt "subscriptions \"starting at\" price string"
 msgid "<span class=\"from\">from</span> "
 msgstr ""
 
-#: includes/product/class-wcs-att-product-prices.php:418
+#: includes/product/class-wcs-att-product-prices.php:405
+msgid " <span class=\"wcsatt-dash\">&mdash;</span> or %s"
+msgid_plural " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/product/class-wcs-att-product-prices.php:407
+msgid " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription"
+msgid_plural " <span class=\"wcsatt-dash\">&mdash;</span> available on subscription"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/product/class-wcs-att-product-prices.php:424
 msgctxt "product sub options price html suffix"
 msgid "%1$s%2$s"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:20
+msgid "No matching subscriptions found."
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:40
+msgid "ID"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:41
+msgctxt "hash before order number"
+msgid "#%s"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:44
+msgctxt "Used in data attribute. Escaped"
+msgid "Products"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:47
+msgctxt "table heading"
+msgid "Next Payment"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:59
+msgctxt "Used in data attribute. Escaped"
+msgid "Total"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription-list.php:64
+msgid "Add to subscription"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription.php:22
+msgid "&mdash; or &mdash;"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription.php:29
+msgid "Add your cart to an existing subscription?"
+msgstr ""
+
+#: templates/cart/cart-add-to-subscription.php:31
+msgid "Add this cart to an existing subscription?"
+msgstr ""
+
+#: templates/cart/cart-subscription-options.php:20
+msgid "Purchase plan"
+msgstr ""
+
+#: templates/single-product/product-add-to-subscription.php:23
+msgid "Add to an existing subscription?"
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:104
+#: woocommerce-all-products-for-subscriptions.php:113
+msgid "Foul!"
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:209
+msgid "All Products for WooCommerce Subscriptions requires at least <a href=\"%1$s\" target=\"_blank\">WooCommerce Subscriptions</a> version <strong>%2$s</strong>."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:217
+msgid "All Products for WooCommerce Subscriptions requires at least <a href=\"%1$s\" target=\"_blank\">WooCommerce Payments</a> version <strong>%2$s</strong>."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:220
+msgid "All Products for WooCommerce Subscriptions requires Subscriptions to be enabled in the <strong>WooCommerce Payments</strong> <a href=\"%1$s\" target=\"_blank\">settings</a>."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:225
+msgid "All Products for WooCommerce Subscriptions requires at least <a href=\"%1$s\" target=\"_blank\">WooCommerce Payments</a> version <strong>%2$s</strong> or <a href=\"%3$s\" target=\"_blank\">WooCommerce Subscriptions</a> version <strong>%4$s</strong>."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:236
+msgid "All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:244
+msgid "All Products for WooCommerce Subscriptions requires at least WooCommerce version <strong>%1$s</strong>. %2$s"
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:246
+msgid "Please install and activate WooCommerce."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:248
+msgid "Please update WooCommerce."
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:466
+msgid "Documentation"
+msgstr ""
+
+#: woocommerce-all-products-for-subscriptions.php:467
+msgid "Support"
 msgstr ""

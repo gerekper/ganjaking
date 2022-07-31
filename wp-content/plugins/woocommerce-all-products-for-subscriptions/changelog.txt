@@ -1,5 +1,26 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.07.28 - version 3.4.1
+* Fix - Prevented a fatal error complaining about the 'WCS_ATT_Admin_Notices' class in new installations.
+* Tweak - Minor telemetry data point adjustments.
+
+2022.07.26 - version 3.4.0
+* Important - WooCommerce 3.9+, PHP 7.0+ and Subscriptions 3.0+ are now required.
+* Important - The ability to add cart contents to existing subscriptions is now independent from Cart Plans. Choosing a Cart Plan is no longer required to add cart contents to an existing subscription.
+* Important - Updated add-to-subscription list templates to include subscription contents.
+* Feature - Adding cart contents to existing subscriptions is now possible on the shortcode-based checkout page, as well.
+* Tweak - Introduced a new 'Settings > Subscriptions > Add to Subscription > Cart Contents > Enabled when cart contents have Subscription Plans' option.
+* Tweak - Improved cart validation when using the block based checkout or Store API.
+* Fix - Fixed a fatal error triggered when AfterPay settings were left empty.
+
+2022.05.04 - version 3.3.1
+* Tweak - Hide 'Cart Plans' and 'Add to Subscription > Carts' settings when using the Cart block.
+
+2022.05.04 - version 3.3.0
+* Fix - Added support for the new Cart and Checkout blocks in WooCommerce Blocks.
+* Fix - Restored missing billing details in bundle/composite containers with plans.
+* Fix - Fixed an issue that prevented the 'Select Options' button from showing up for configurable products in Shop Archives.
+
 2022.03.24 - version 3.2.2
 * Fix - Ensure that HTML prompts are saved and rendered correctly.
 
