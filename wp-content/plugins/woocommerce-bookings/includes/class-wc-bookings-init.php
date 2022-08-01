@@ -23,6 +23,9 @@ class WC_Bookings_Init {
 
 		// Dynamically add new bookings' capabilities for roles with deprecated manage_bookings cap.
 		add_filter( 'user_has_cap', array( $this, 'add_new_booking_caps' ), 10, 4 );
+
+		// Create action schedules or custom migration functions.
+		add_action( 'init', array( $this, 'booking_migrations' ), 10 );
 	}
 
 	/**
@@ -45,8 +48,8 @@ class WC_Bookings_Init {
 		register_post_type( 'bookable_resource',
 			apply_filters( 'woocommerce_register_post_type_bookable_resource',
 				array(
-					'label'  => __( 'Resources', 'woocommerce-bookings' ),
-					'labels' => array(
+					'label'               => __( 'Resources', 'woocommerce-bookings' ),
+					'labels'              => array(
 						'name'               => __( 'Bookable resources', 'woocommerce-bookings' ),
 						'singular_name'      => __( 'Bookable resource', 'woocommerce-bookings' ),
 						'add_new'            => __( 'Add Resource', 'woocommerce-bookings' ),
@@ -63,21 +66,21 @@ class WC_Bookings_Init {
 						'menu_name'          => _x( 'Resources', 'Admin menu name', 'woocommerce-bookings' ),
 						'all_items'          => __( 'Resources', 'woocommerce-bookings' ),
 					),
-					'description'                        => __( 'Bookable resources are bookable within a bookings product.', 'woocommerce-bookings' ),
-					'public'                             => false,
-					'show_ui'                            => true,
-					'capability_type'                    => 'bookable_resource',
-					'map_meta_cap'                       => true,
-					'publicly_queryable'                 => false,
-					'exclude_from_search'                => true,
-					'show_in_menu'                       => true,
-					'hierarchical'                       => false,
-					'show_in_nav_menus'                  => false,
-					'rewrite'                            => false,
-					'query_var'                          => false,
-					'supports'                           => array( 'title' ),
-					'has_archive'                        => false,
-					'show_in_menu'                       => 'edit.php?post_type=wc_booking',
+					'description'         => __( 'Bookable resources are bookable within a bookings product.', 'woocommerce-bookings' ),
+					'public'              => false,
+					'show_ui'             => true,
+					'capability_type'     => 'bookable_resource',
+					'map_meta_cap'        => true,
+					'publicly_queryable'  => false,
+					'exclude_from_search' => true,
+					'show_in_menu'        => true,
+					'hierarchical'        => false,
+					'show_in_nav_menus'   => false,
+					'rewrite'             => false,
+					'query_var'           => false,
+					'supports'            => array( 'title' ),
+					'has_archive'         => false,
+					'show_in_menu'        => 'edit.php?post_type=wc_booking',
 				)
 			)
 		);
@@ -85,8 +88,8 @@ class WC_Bookings_Init {
 		register_post_type( 'wc_booking',
 			apply_filters( 'woocommerce_register_post_type_wc_booking',
 				array(
-					'label'                      => __( 'Booking', 'woocommerce-bookings' ),
-					'labels'                     => array(
+					'label'               => __( 'Booking', 'woocommerce-bookings' ),
+					'labels'              => array(
 						'name'               => __( 'Bookings', 'woocommerce-bookings' ),
 						'singular_name'      => __( 'Booking', 'woocommerce-bookings' ),
 						'add_new'            => __( 'Add Booking', 'woocommerce-bookings' ),
@@ -103,21 +106,21 @@ class WC_Bookings_Init {
 						'menu_name'          => _x( 'Bookings', 'Admin menu name', 'woocommerce-bookings' ),
 						'all_items'          => __( 'All Bookings', 'woocommerce-bookings' ),
 					),
-					'description'                => __( 'This is where bookings are stored.', 'woocommerce-bookings' ),
-					'public'                     => false,
-					'show_ui'                    => true,
-					'capability_type'            => 'wc_booking',
-					'map_meta_cap'               => true,
-					'publicly_queryable'         => false,
-					'exclude_from_search'        => true,
-					'show_in_menu'               => true,
-					'hierarchical'               => false,
-					'show_in_nav_menus'          => false,
-					'rewrite'                    => false,
-					'query_var'                  => false,
-					'supports'                   => array( '' ),
-					'has_archive'                => false,
-					'menu_icon'                  => 'dashicons-calendar-alt',
+					'description'         => __( 'This is where bookings are stored.', 'woocommerce-bookings' ),
+					'public'              => false,
+					'show_ui'             => true,
+					'capability_type'     => 'wc_booking',
+					'map_meta_cap'        => true,
+					'publicly_queryable'  => false,
+					'exclude_from_search' => true,
+					'show_in_menu'        => true,
+					'hierarchical'        => false,
+					'show_in_nav_menus'   => false,
+					'rewrite'             => false,
+					'query_var'           => false,
+					'supports'            => array( '' ),
+					'has_archive'         => false,
+					'menu_icon'           => 'dashicons-calendar-alt',
 				)
 			)
 		);
@@ -202,7 +205,8 @@ class WC_Bookings_Init {
 	/**
 	 * Register data stores for bookings.
 	 *
-	 * @param  array  $data_stores
+	 * @param array $data_stores
+	 *
 	 * @return array
 	 */
 	public function register_data_stores( $data_stores = array() ) {
@@ -211,6 +215,7 @@ class WC_Bookings_Init {
 		$data_stores['product-booking-resource']    = 'WC_Product_Booking_Resource_Data_Store_CPT';
 		$data_stores['product-booking-person-type'] = 'WC_Product_Booking_Person_Type_Data_Store_CPT';
 		$data_stores['booking-global-availability'] = 'WC_Global_Availability_Data_Store';
+
 		return $data_stores;
 	}
 
@@ -228,7 +233,7 @@ class WC_Bookings_Init {
 	 * @since 1.15.42
 	 */
 	public function booking_shared_dependencies() {
-		if ( version_compare( get_bloginfo( 'version' ), '5.0.0' , '<' ) ) {
+		if ( version_compare( get_bloginfo( 'version' ), '5.0.0', '<' ) ) {
 			wp_register_script( 'wc-bookings-moment', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-with-locales.js', array(), WC_BOOKINGS_VERSION, true );
 			wp_register_script( 'wc-bookings-moment-timezone', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-timezone-with-data.js', array(), WC_BOOKINGS_VERSION, true );
 			wp_register_script( 'wc-bookings-date', false, array( 'wc-bookings-moment', 'wc-bookings-moment-timezone' ) );
@@ -241,7 +246,7 @@ class WC_Bookings_Init {
 	 * Add a custom payment gateway
 	 * This gateway works with bookings that require confirmation.
 	 * It's only needed on the front-end so we make sure we hide
-	 * that gateway in the admin, as it has no options to configure. 
+	 * that gateway in the admin, as it has no options to configure.
 	 */
 	public function include_gateway( $gateways ) {
 		$page = isset( $_GET['page'] ) ? wc_clean( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -257,10 +262,10 @@ class WC_Bookings_Init {
 	/**
 	 * Adds all bookings capabilities to roles with deprecated manage_bookings cap.
 	 *
-	 * @param array        $allcaps An array of all the user's capabilities.
-	 * @param array|string $caps    Actual capabilities for meta capability.
-	 * @param array        $args    Optional parameters passed to has_cap(), typically object ID.
-	 * @param WP_User      $user    The user object.
+	 * @param array $allcaps An array of all the user's capabilities.
+	 * @param array|string $caps Actual capabilities for meta capability.
+	 * @param array $args Optional parameters passed to has_cap(), typically object ID.
+	 * @param WP_User $user The user object.
 	 *
 	 * @return array
 	 */
@@ -280,5 +285,30 @@ class WC_Bookings_Init {
 		}
 
 		return $allcaps;
+	}
+
+	/**
+	 * Handle all action schedules and custom migrations for the plugin.
+	 */
+	public function booking_migrations() {
+		// Handle migration for issue-2966.
+		$this->booking_migration_2966();
+	}
+
+	/**
+	 * Update all booking products.
+	 * For https://github.com/woocommerce/woocommerce-bookings/issues/2966
+	 */
+	public function booking_migration_2966() {
+		$migration_done = (int) get_option( 'migration_2966_done' );
+
+		// Return if products are already updated.
+		if ( $migration_done ) {
+			return;
+		}
+
+		// Update products.
+		wc_update_product_lookup_tables_column( 'min_max_price' );
+		add_option( 'migration_2966_done', 1 );
 	}
 }

@@ -881,7 +881,7 @@ class WC_Booking_Order_Manager {
 					<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=booking_calendar&view=month' ) ); ?>"><?php esc_html_e( 'View all orders &rarr;', 'woocommerce-bookings' ); ?></a>
 				</div>
 				<?php
-			} elseif ( function_exists( 'wc_get_endpoint_url' ) && wc_get_page_id( 'myaccount' ) ) {
+			} elseif ( function_exists( 'wc_get_endpoint_url' ) && wc_get_page_id( 'myaccount' ) && $order->get_customer_id() ) {
 				// For customers, display 'my bookings' page URL.
 				?>
 				<div class="wc-booking-summary-actions" style="margin-bottom: 30px;">

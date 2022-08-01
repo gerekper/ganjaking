@@ -63,6 +63,8 @@ class WC_Booking_Cron_Manager {
 		}
 
 		// Delete transient of this booking product to free up the slots.
-		WC_Bookings_Cache::delete_booking_slots_transient( $booking->get_product_id() );
+		if ( $booking ) {
+			WC_Bookings_Cache::delete_booking_slots_transient( $booking->get_product_id() );
+		}
 	}
 }

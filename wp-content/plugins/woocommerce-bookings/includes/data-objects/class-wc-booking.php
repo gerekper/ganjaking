@@ -217,6 +217,9 @@ class WC_Booking extends WC_Bookings_Data {
 			$this->status_transition();
 		}
 
+		// Mark the confirmed bookings' order as complete if the total is zero.
+		$this->mark_confirmed_order_complete_when_total_zero();
+
 		$this->schedule_events();
 		return $this->get_id();
 	}
@@ -252,6 +255,49 @@ class WC_Booking extends WC_Bookings_Data {
 			// This has ran, so reset status transition variable.
 			$this->status_transitioned = false;
 		}
+	}
+
+	/**
+	 * Mark the confirmed bookings' order as complete if the total is zero.
+	 *
+	 * @since x.x.x
+	 */
+	public function mark_confirmed_order_complete_when_total_zero() {
+		$order = $this->get_order();
+
+		// Return if order not found.
+		if ( ! $order ) {
+			return;
+		}
+
+		$order_total = (float) $order->get_total();
+
+		// Handle orders that have a zero total, like free orders.
+		if ( 0.0 !== $order_total ) {
+			return;
+		}
+
+		$booking_ids = WC_Booking_Data_Store::get_booking_ids_from_order_id( $order->get_id() );
+
+		// Don't proceed and mark order as complete if any of the linked booking are not confirmed yet.
+		foreach ( $booking_ids as $booking_id ) {
+			$booking = new WC_Booking( $booking_id );
+			if ( 'confirmed' !== $booking->get_status() ) {
+				return;
+			}
+		}
+
+		/**
+		 * Filter to update the order status when all bookings are confirmed when total is zero.
+		 *
+		 * @param string 'completed' The order status.
+		 * @param WC_Order $order
+		 *
+		 * @since x.x.x
+		 */
+		$status = apply_filters( 'woocommerce_bookings_zero_order_status', 'completed', $order );
+
+		$order->update_status( $status );
 	}
 
 	/**
@@ -1192,9 +1238,14 @@ class WC_Booking extends WC_Bookings_Data {
 	 */
 	public function is_active() {
 		$booking_status = $this->get_status();
+		$order_id       = WC_Booking_Data_Store::get_booking_order_id( $this->get_id() );
 
-		$order_id = WC_Booking_Data_Store::get_booking_order_id( $this->get_id() );
-		$order    = wc_get_order( $order_id );
+		// Check only booking status if no order associated with booking (eg: manually created booking without order).
+		if ( 0 === $order_id && 'cancelled' !== $booking_status ) {
+			return true;
+		}
+
+		$order = wc_get_order( $order_id );
 
 		// Dangling booking, probably not a valid one.
 		if ( ! is_a( $order, 'WC_Order' ) ) {

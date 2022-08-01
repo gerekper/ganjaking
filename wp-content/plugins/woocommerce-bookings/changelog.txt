@@ -1,5 +1,20 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-07-28 - version 1.15.59
+* Add - A filter `woocommerce_bookings_zero_order_status` to handle order status with zero total when bookings are confimred.
+* Fix - "View My Bookings" link showing in customer emails even when they are guest customers.
+* Fix - Bookings Table is not Responsive at FE.
+* Fix - Bookings status not shown on small & medium screens.
+* Fix - Ensure screen options work properly on mobile views.
+* Fix - Free bookings that require confirmation are given the Pending Payment status.
+* Fix - Make sure reminder emails get sent for manually created bookings without an associated order.
+* Fix - Sorting booking products by price.
+* Fix - WooCommerce Bookings triggers daily fatal errors.
+* Fix: Block picker visibility when resource is changed.
+* Tweak - WC 6.7.0 compatibility.
+* Update - Admin Bookings table layout has been upgraded.
+* Update - Limit the hourly duration to a maximum of up to 24.
+
 2022-07-06 - version 1.15.58
 * Fix - Booking slot remaining count does not appear if Time zone is set to 'Display visitor's local time'.
 * Fix - Bookings list API results count inconsistent.

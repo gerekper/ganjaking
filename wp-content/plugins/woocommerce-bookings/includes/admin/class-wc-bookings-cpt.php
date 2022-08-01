@@ -14,7 +14,7 @@ class WC_Bookings_CPT {
 		add_filter( 'enter_title_here', array( $this, 'enter_title_here' ), 1, 2 );
 
 		// Admin Columns
-		add_filter( 'manage_edit-' . $this->type . '_columns', array( $this, 'edit_columns' ) );
+		add_filter( 'manage_' . $this->type . '_posts_columns', array( $this, 'edit_columns' ) );
 		add_action( 'manage_' . $this->type . '_posts_custom_column', array( $this, 'custom_columns' ), 2, 2 );
 		add_filter( 'manage_edit-' . $this->type . '_sortable_columns', array( $this, 'custom_columns_sort' ) );
 		add_filter( 'request', array( $this, 'custom_columns_orderby' ) );
@@ -166,8 +166,8 @@ class WC_Bookings_CPT {
 		unset( $existing_columns['comments'], $existing_columns['title'], $existing_columns['date'] );
 
 		$columns                    = array();
-		$columns['booking_status']  = '<span class="status_head tips" data-tip="' . wc_sanitize_tooltip( __( 'Status', 'woocommerce-bookings' ) ) . '">' . esc_attr__( 'Status', 'woocommerce-bookings' ) . '</span>';
 		$columns['booking_id']      = __( 'ID', 'woocommerce-bookings' );
+		$columns['booking_status']  = '<span class="status_head tips" data-tip="' . wc_sanitize_tooltip( __( 'Status', 'woocommerce-bookings' ) ) . '">' . esc_attr__( 'Status', 'woocommerce-bookings' ) . '</span>';
 		$columns['booked_product']  = __( 'Booked Product', 'woocommerce-bookings' );
 		$columns['num_of_persons']  = __( '# of Persons', 'woocommerce-bookings' );
 		$columns['customer']        = __( 'Booked By', 'woocommerce-bookings' );

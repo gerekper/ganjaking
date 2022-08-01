@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Give Products 1.1.19\n"
+"Project-Id-Version: WooCommerce Give Products 1.1.20\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-give-products\n"
-"POT-Creation-Date: 2022-07-06 14:42:56+00:00\n"
+"POT-Creation-Date: 2022-07-29 18:25:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: node-wp-i18n 1.2.3\n"
 
 #: includes/class-wc-give-products-privacy.php:12
-#: woocommerce-give-products.php:152 woocommerce-give-products.php:173
+#: woocommerce-give-products.php:153 woocommerce-give-products.php:174
 msgid "Give Products"
 msgstr ""
 
@@ -140,53 +140,53 @@ msgstr ""
 msgid "Your details"
 msgstr ""
 
-#: woocommerce-give-products.php:174
+#: woocommerce-give-products.php:175
 msgid ""
 "<b>Select a user</b> by typing their display name, email address or user ID "
 "here:"
 msgstr ""
 
-#: woocommerce-give-products.php:179 woocommerce-give-products.php:192
+#: woocommerce-give-products.php:180 woocommerce-give-products.php:193
 msgid "Search for a user"
 msgstr ""
 
-#: woocommerce-give-products.php:196
+#: woocommerce-give-products.php:197
 msgid ""
 "<b>Select products</b> by typing in their names, variation details or IDs "
 "here (you can select as many products as you like):"
 msgstr ""
 
-#: woocommerce-give-products.php:200 woocommerce-give-products.php:217
+#: woocommerce-give-products.php:201 woocommerce-give-products.php:218
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: woocommerce-give-products.php:223
+#: woocommerce-give-products.php:224
 msgid "Give product(s)"
 msgstr ""
 
-#: woocommerce-give-products.php:418
+#: woocommerce-give-products.php:419
 msgid "This order was gifted."
 msgstr ""
 
-#: woocommerce-give-products.php:484
+#: woocommerce-give-products.php:485
 #. translators: 1: display name 2: order url 3: order id
 msgid "Product(s) given to %1$s in <a href=\"%2$s\">order %3$s</a>."
 msgstr ""
 
-#: woocommerce-give-products.php:489
+#: woocommerce-give-products.php:490
 msgid "Make sure you select both a user to receive the gift and a product to give."
 msgstr ""
 
-#: woocommerce-give-products.php:493
+#: woocommerce-give-products.php:494
 msgid "Processing error - please try again."
 msgstr ""
 
-#: woocommerce-give-products.php:513
+#: woocommerce-give-products.php:514
 #. translators: 1: blog info name
 msgid "The products in this order were given to you by %s."
 msgstr ""
 
-#: woocommerce-give-products.php:534
+#: woocommerce-give-products.php:535
 msgid "This order was given free of charge"
 msgstr ""
 

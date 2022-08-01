@@ -30,7 +30,18 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 	echo esc_html( sprintf( __( 'Hello %s', 'woocommerce-bookings' ), ( is_callable( array( $booking->get_order(), 'get_billing_first_name' ) ) ? $booking->get_order()->get_billing_first_name() : $booking->get_order()->billing_first_name ) ) );
 	?>
 	</p>
-<?php endif; ?>
+<?php else:
+	$customer = $booking->customer_id ? get_user_by( 'id', $booking->customer_id ) : false;
+	if ( $customer && isset( $customer->user_firstname ) ): ?>
+		<p>
+		<?php
+		/* translators: 1: customer first name */
+		echo esc_html( sprintf( __( 'Hello %s', 'woocommerce-bookings' ), $customer->user_firstname ) );
+		?>
+		</p>
+		<?php
+	endif;
+endif; ?>
 
 <p>
 <?php

@@ -172,7 +172,7 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
 			parent::update_post_meta( $product, $force );
 		}
-
+		$updated_props = array();
 		foreach ( $this->booking_meta_key_to_props as $key => $prop ) {
 			if ( is_callable( array( $product, "get_$prop" ) ) ) {
 
@@ -183,11 +183,15 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				} else {
 					update_post_meta( $product->get_id(), $key, $product->{ "get_$prop" }( 'edit' ) );
 				}
+				$updated_props[] = $prop;
 			}
 		}
 
 		$this->update_resources( $product );
 		$this->update_person_types( $product );
+		if ( method_exists( $this, 'update_lookup_table' ) && array_intersect( $updated_props, array( 'price', 'average_rating', 'tax_status', 'tax_class' ) ) ) {
+			$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
+		}
 	}
 
 	/**

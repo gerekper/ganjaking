@@ -41,7 +41,7 @@ class WC_Email_Booking_Reminder extends WC_Email {
 		if ( $booking_id ) {
 			$this->object = get_wc_booking( $booking_id );
 
-			if ( ! is_object( $this->object ) || ! $this->object->get_order() ) {
+			if ( ! is_object( $this->object ) ) {
 				return;
 			}
 

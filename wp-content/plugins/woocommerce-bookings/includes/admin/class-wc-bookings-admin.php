@@ -283,6 +283,12 @@ class WC_Bookings_Admin {
 			return;
 		}
 
+		// Limit hourly duration up to 24.
+		$default_date_availability = filter_input( INPUT_POST, '_wc_booking_default_date_availability', FILTER_SANITIZE_STRING );
+		$duration_unit             = filter_input( INPUT_POST, '_wc_booking_duration_unit', FILTER_SANITIZE_STRING );
+		$duration                  = filter_input( INPUT_POST, '_wc_booking_duration', FILTER_SANITIZE_NUMBER_INT );
+		$duration                  = 'hour' === $duration_unit && 24 < $duration && 'non-available' === $default_date_availability ? 24 : $duration;
+
 		$resources = $this->get_posted_resources( $product );
 		$product->set_props( array(
 			'apply_adjacent_buffer'      => isset( $_POST['_wc_booking_apply_adjacent_buffer'] ),
@@ -294,11 +300,11 @@ class WC_Bookings_Admin {
 			'cancel_limit'               => wc_clean( $_POST['_wc_booking_cancel_limit'] ),
 			'check_start_block_only'     => 'start' === $_POST['_wc_booking_check_availability_against'],
 			'cost'                       => wc_clean( $_POST['_wc_booking_cost'] ),
-			'default_date_availability'  => wc_clean( $_POST['_wc_booking_default_date_availability'] ),
+			'default_date_availability'  => wc_clean( $default_date_availability ),
 			'display_cost'               => wc_clean( $_POST['_wc_display_cost'] ),
 			'duration_type'              => wc_clean( $_POST['_wc_booking_duration_type'] ),
-			'duration_unit'              => wc_clean( $_POST['_wc_booking_duration_unit'] ),
-			'duration'                   => wc_clean( $_POST['_wc_booking_duration'] ),
+			'duration_unit'              => wc_clean( $duration_unit ),
+			'duration'                   => wc_clean( $duration ),
 			'enable_range_picker'        => isset( $_POST['_wc_booking_enable_range_picker'] ),
 			'first_block_time'           => wc_clean( $_POST['_wc_booking_first_block_time'] ),
 			'has_person_cost_multiplier' => isset( $_POST['_wc_booking_person_cost_multiplier'] ),
@@ -319,7 +325,7 @@ class WC_Bookings_Admin {
 			'pricing'                    => $this->get_posted_pricing(),
 			'qty'                        => wc_clean( $_POST['_wc_booking_qty'] ),
 			'requires_confirmation'      => isset( $_POST['_wc_booking_requires_confirmation'] ),
-			'resource_label'              => wc_clean( $_POST['_wc_booking_resource_label'] ),
+			'resource_label'             => wc_clean( $_POST['_wc_booking_resource_label'] ),
 			'resource_base_costs'        => wp_list_pluck( $resources, 'base_cost' ),
 			'resource_block_costs'       => wp_list_pluck( $resources, 'block_cost' ),
 			'resource_ids'               => array_keys( $resources ),
@@ -644,28 +650,30 @@ class WC_Bookings_Admin {
 		}
 
 		$params = array(
-			'i18n_remove_person'           => esc_js( __( 'Are you sure you want to remove this person type?', 'woocommerce-bookings' ) ),
-			'nonce_unlink_person'          => wp_create_nonce( 'unlink-bookable-person' ),
-			'nonce_add_person'             => wp_create_nonce( 'add-bookable-person' ),
-			'i18n_remove_resource'         => esc_js( __( 'Are you sure you want to remove this resource?', 'woocommerce-bookings' ) ),
-			'nonce_delete_resource'        => wp_create_nonce( 'delete-bookable-resource' ),
-			'nonce_add_resource'           => wp_create_nonce( 'add-bookable-resource' ),
-			'i18n_minutes'                 => esc_js( __( 'minutes', 'woocommerce-bookings' ) ),
-			'i18n_hours'                   => esc_js( __( 'hours', 'woocommerce-bookings' ) ),
-			'i18n_days'                    => esc_js( __( 'days', 'woocommerce-bookings' ) ),
-			'i18n_new_resource_name'       => esc_js( __( 'Enter a name for the new resource', 'woocommerce-bookings' ) ),
-			'post'                         => isset( $post->ID ) ? $post->ID : '',
-			'plugin_url'                   => WC()->plugin_url(),
-			'ajax_url'                     => admin_url( 'admin-ajax.php' ),
-			'calendar_image'               => WC_BOOKINGS_PLUGIN_URL . '/dist/images/calendar.png',
-			'i18n_view_details'            => esc_js( __( 'View details', 'woocommerce-bookings' ) ),
-			'i18n_customer'                => esc_js( __( 'Customer', 'woocommerce-bookings' ) ),
-			'i18n_resource'                => esc_js( __( 'Resource', 'woocommerce-bookings' ) ),
-			'i18n_persons'                 => esc_js( __( 'Persons', 'woocommerce-bookings' ) ),
-			'i18n_max_booking_overwridden' => esc_js( __( 'This setting is being overridden at the resource level.', 'woocommerce-bookings' ) ),
-			'bookings_version'             => WC_BOOKINGS_VERSION,
-			'bookings_db_version'          => WC_BOOKINGS_DB_VERSION,
-			'start_of_week'                => get_option( 'start_of_week' ),
+			'i18n_remove_person'            => esc_js( __( 'Are you sure you want to remove this person type?', 'woocommerce-bookings' ) ),
+			'nonce_unlink_person'           => wp_create_nonce( 'unlink-bookable-person' ),
+			'nonce_add_person'              => wp_create_nonce( 'add-bookable-person' ),
+			'i18n_remove_resource'          => esc_js( __( 'Are you sure you want to remove this resource?', 'woocommerce-bookings' ) ),
+			'nonce_delete_resource'         => wp_create_nonce( 'delete-bookable-resource' ),
+			'nonce_add_resource'            => wp_create_nonce( 'add-bookable-resource' ),
+			'i18n_minutes'                  => esc_js( __( 'minutes', 'woocommerce-bookings' ) ),
+			'i18n_hours'                    => esc_js( __( 'hours', 'woocommerce-bookings' ) ),
+			'i18n_days'                     => esc_js( __( 'days', 'woocommerce-bookings' ) ),
+			'i18n_new_resource_name'        => esc_js( __( 'Enter a name for the new resource', 'woocommerce-bookings' ) ),
+			'post'                          => isset( $post->ID ) ? $post->ID : '',
+			'plugin_url'                    => WC()->plugin_url(),
+			'ajax_url'                      => admin_url( 'admin-ajax.php' ),
+			'calendar_image'                => WC_BOOKINGS_PLUGIN_URL . '/dist/images/calendar.png',
+			'i18n_view_details'             => esc_js( __( 'View details', 'woocommerce-bookings' ) ),
+			'i18n_customer'                 => esc_js( __( 'Customer', 'woocommerce-bookings' ) ),
+			'i18n_resource'                 => esc_js( __( 'Resource', 'woocommerce-bookings' ) ),
+			'i18n_persons'                  => esc_js( __( 'Persons', 'woocommerce-bookings' ) ),
+			'i18n_max_booking_overwridden'  => esc_js( __( 'This setting is being overridden at the resource level.', 'woocommerce-bookings' ) ),
+			'i18n_limited_hours'            => esc_js( __( 'A duration greater than 24 hours is not allowed when Availability is "not-available by default".', 'woocommerce-bookings' ) ),
+			'i18n_limited_hours_in_gen_tab' => esc_js( __( 'The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is "not-available by default".', 'woocommerce-bookings' ) ),
+			'bookings_version'              => WC_BOOKINGS_VERSION,
+			'bookings_db_version'           => WC_BOOKINGS_DB_VERSION,
+			'start_of_week'                 => get_option( 'start_of_week' ),
 		);
 
 		wp_localize_script( 'wc_bookings_admin_js', 'wc_bookings_admin_js_params', $params );

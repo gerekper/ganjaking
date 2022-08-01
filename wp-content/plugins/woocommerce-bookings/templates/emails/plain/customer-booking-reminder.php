@@ -25,6 +25,11 @@ echo '= ' . esc_html( $email_heading ) . " =\n\n";
 if ( $booking->get_order() ) {
 	/* translators: 1: billing first name */
 	echo esc_html( sprintf( __( 'Hello %s', 'woocommerce-bookings' ), ( is_callable( array( $booking->get_order(), 'get_billing_first_name' ) ) ? $booking->get_order()->get_billing_first_name() : $booking->get_order()->billing_first_name ) ) ) . "\n\n";
+} else {
+	$customer = $booking->customer_id ? get_user_by( 'id', $booking->customer_id ) : false;
+	if ( $customer && isset( $customer->user_firstname ) ) {
+		echo esc_html( sprintf( __( 'Hello %s', 'woocommerce-bookings' ), $customer->user_firstname ) ) . "\n\n";
+	}
 }
 
 /* translators: 1: booking start date */
