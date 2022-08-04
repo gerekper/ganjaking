@@ -181,13 +181,13 @@ class woocommerce_msrp_frontend {
 		if ( 'percentage' === $type ) {
 			if ( $savings[0] === $savings[1] ) {
 				return sprintf(
-				// translators: %1$d%% is the saving amount which may be a financial amount, or a percentage.
+				// translators: %1$d%% is the saving amount which is a percentage.
 					__( 'You save %1$d%%', 'woocommerce_msrp' ),
 					$savings[0]
 				);
 			} else {
 				return sprintf(
-				// translators: %1$d%% is the saving amount which may be a financial amount, or a percentage.
+				// translators: %1$d%% is the saving amount is a percentage.
 					__( 'You save up to %1$d%%', 'woocommerce_msrp' ),
 					$savings[1]
 				);
@@ -196,7 +196,7 @@ class woocommerce_msrp_frontend {
 		if ( 'amount' === $type ) {
 			if ( $savings[0] === $savings[1] ) {
 				return sprintf(
-				// translators: %s is the saving amount which may be a financial amount, or a percentage.
+				// translators: %s is the saving amount which is a financial amount.
 					__( 'You save %s', 'woocommerce_msrp' ),
 					wc_price( $savings[0] )
 				);
@@ -341,19 +341,21 @@ class woocommerce_msrp_frontend {
 			// Grab the child's MSRP price.
 			// FIXME - "CRUD" way of doing this is ....?
 			$msrp = get_post_meta( $child_id, '_msrp', true );
-			// Skip it if it doesn't have one.
+			// Skip it if it doesn't have one
 			if ( false === $msrp || '' === $msrp ) {
 				continue;
 			}
+			// ... or if the product does not have a price.
+			$child_product       = wc_get_product( $child_id );
+			$child_product_price = $child_product->get_price();
+			if ( false === $child_product_price || '' === $child_product_price ) {
+				continue;
+			}
 
-			$child_product = wc_get_product( $child_id );
 			// Adjust MSRP for input/display preferences
 			$msrp = wc_get_price_to_display( $child_product, [ 'price' => $msrp ] );
 			// Grab the child's price.
-			$selling_price = wc_get_price_to_display(
-				$child_product,
-				[ 'price' => $child_product->get_price() ]
-			);
+			$selling_price = wc_get_price_to_display( $child_product, [ 'price' => $child_product_price ] );
 
 			// Calculate the saving.
 			if ( 'amount' === $type ) {

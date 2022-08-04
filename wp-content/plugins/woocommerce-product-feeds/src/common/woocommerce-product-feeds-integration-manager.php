@@ -2,6 +2,9 @@
 
 use Pimple\Container;
 
+/**
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ */
 class WoocommerceProductFeedsIntegrationManager {
 
 	/**

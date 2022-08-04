@@ -241,10 +241,10 @@ function rocket_get_ignored_parameters() {
  * @since 2.0
  *
  * @param bool $force Force the static uris to be reverted to null.
- *
+ * @param bool $show_safe_content show sensitive uris.
  * @return string A pipe separated list of rejected uri.
  */
-function get_rocket_cache_reject_uri( $force = false ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+function get_rocket_cache_reject_uri( $force = false, $show_safe_content = true ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 	static $uris;
 	global $wp_rewrite;
 
@@ -255,7 +255,8 @@ function get_rocket_cache_reject_uri( $force = false ) { // phpcs:ignore WordPre
 		return $uris;
 	}
 
-	$uris              = (array) get_rocket_option( 'cache_reject_uri', [] );
+	$uris = (array) get_rocket_option( 'cache_reject_uri', [] );
+
 	$home_root         = rocket_get_home_dirname();
 	$home_root_escaped = preg_quote( $home_root, '/' ); // The site is not at the domain root, it's in a folder.
 	$home_root_len     = strlen( $home_root );
@@ -289,8 +290,9 @@ function get_rocket_cache_reject_uri( $force = false ) { // phpcs:ignore WordPre
 	 * @since 2.1
 	 *
 	 * @param array $uris List of rejected uri
+	 * @param bool $show_safe_content show sensitive uris.
 	*/
-	$uris = apply_filters( 'rocket_cache_reject_uri', $uris );
+	$uris = apply_filters( 'rocket_cache_reject_uri', $uris, $show_safe_content );
 	$uris = array_filter( $uris );
 
 	if ( ! $uris ) {
@@ -629,7 +631,7 @@ function rocket_delete_licence_data_file() {
  * Is WP a MultiSite and a subfolder install?
  *
  * @since  3.1.1
- * @author Grégory Viguier
+ * @author GrÃ©gory Viguier
  *
  * @return bool
  */
@@ -657,7 +659,7 @@ function rocket_is_subfolder_install() {
  * It can be seen like the `RewriteBase` from the .htaccess file, but without the trailing slash.
  *
  * @since  3.1.1
- * @author Grégory Viguier
+ * @author GrÃ©gory Viguier
  *
  * @return string
  */
@@ -684,7 +686,7 @@ function rocket_get_home_dirname() {
  * Get the URL of the site's root. It corresponds to the main site's home page URL.
  *
  * @since  3.1.1
- * @author Grégory Viguier
+ * @author GrÃ©gory Viguier
  *
  * @return string
  */

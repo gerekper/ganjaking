@@ -1,5 +1,9 @@
 *** WooCommerce Order Status Manager Changelog ***
 
+2022.08.01 - version 1.13.4
+ * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.11.16 - version 1.13.3
  * Fix - Improve compatibility with WooCommerce Subscriptions, so orders that transition from 'on-hold' to a paid order status have the associated subscription activated
 

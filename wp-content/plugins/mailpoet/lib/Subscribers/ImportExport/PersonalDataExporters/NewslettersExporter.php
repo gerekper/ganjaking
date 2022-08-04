@@ -6,10 +6,11 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Models\StatisticsNewsletters;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
 use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\Subscribers\SubscribersRepository;
+use MailPoet\WP\DateTime;
 use MailPoet\WP\Functions as WPFunctions;
 
 class NewslettersExporter {
@@ -25,14 +26,19 @@ class NewslettersExporter {
   /*** @var NewslettersRepository */
   private $newslettersRepository;
 
+  /*** @var NewsletterStatisticsRepository */
+  private $newsletterStatisticsRepository;
+
   public function __construct(
     NewsletterUrl $newsletterUrl,
     SubscribersRepository $subscribersRepository,
-    NewslettersRepository $newslettersRepository
+    NewslettersRepository $newslettersRepository,
+    NewsletterStatisticsRepository $newsletterStatisticsRepository
   ) {
     $this->newsletterUrl = $newsletterUrl;
     $this->subscribersRepository = $subscribersRepository;
     $this->newslettersRepository = $newslettersRepository;
+    $this->newsletterStatisticsRepository = $newsletterStatisticsRepository;
   }
 
   public function export($email, $page = 1) {
@@ -48,10 +54,11 @@ class NewslettersExporter {
 
     $result = [];
 
-    $statistics = StatisticsNewsletters::getAllForSubscriber($subscriber)
-      ->limit(self::LIMIT)
-      ->offset(self::LIMIT * ($page - 1))
-      ->findArray();
+    $statistics = $this->newsletterStatisticsRepository->getAllForSubscriber(
+      $subscriber,
+      self::LIMIT,
+      self::LIMIT * ($page - 1)
+    );
 
     $newsletters = $this->loadNewsletters($statistics);
 
@@ -70,16 +77,18 @@ class NewslettersExporter {
     ];
     $newsletterData[] = [
       'name' => WPFunctions::get()->__('Sent at', 'mailpoet'),
-      'value' => $statisticsRow['sent_at'],
+      'value' => $statisticsRow['sent_at']
+        ? $statisticsRow['sent_at']->format(DateTime::DEFAULT_DATE_TIME_FORMAT)
+        : '',
     ];
-    if (isset($statisticsRow['opened_at'])) {
+    if (!empty($statisticsRow['opened_at'])) {
       $newsletterData[] = [
         'name' => WPFunctions::get()->__('Opened', 'mailpoet'),
         'value' => 'Yes',
       ];
       $newsletterData[] = [
         'name' => WPFunctions::get()->__('Opened at', 'mailpoet'),
-        'value' => $statisticsRow['opened_at'],
+        'value' => $statisticsRow['opened_at']->format(DateTime::DEFAULT_DATE_TIME_FORMAT),
       ];
     } else {
       $newsletterData[] = [

@@ -1,3 +1,6 @@
+### 2.6.4.4
+- Fixed an issue which causes some {today} merge tags from displaying the correct value.
+
 ### 2.6.4.3
 - Fixed an issue for non-legacy forms where the required field legend is not displaying if form title or description aren't enabled.
 

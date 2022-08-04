@@ -5,11 +5,12 @@
             <h3>Support</h3>
             <hr>
             <ul class="ul-disc">
-                <li><a href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">Set up guide</a></li>
-                <li><a href="https://woocommerce.com/document/google-product-feed-setting-product-data/">Setting product data</a>
+                <li><a target="_black" rel="noreferrer noopener" href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/"><?php _e( 'Set up guide', 'woocommerce_gpf' ); ?></a></li>
+                <li><a target="_black" rel="noreferrer noopener" href="https://woocommerce.com/document/google-product-feed-setting-product-data/"><?php _e( 'Setting product data', 'woocommerce_gpf' ); ?></a>
                 </li>
-                <li><a href="https://woocommerce.com/document/google-product-feed-feed-generation-options/">Feed generation options</a></li>
-                <li><a href="https://woocommerce.com/document/google-product-feed-customizations/">Customizations</a></li>
+                <li><a target="_black" rel="noreferrer noopener" href="https://woocommerce.com/document/google-product-feed-feed-generation-options/"><?php _e( 'Feed generation options', 'woocommerce_gpf' ); ?></a></li>
+                <li><a target="_black" rel="noreferrer noopener" href="https://woocommerce.com/document/google-product-feed-customizations/"><?php _e( 'Customizations', 'woocommerce_gpf' ); ?></a></li>
+                <li><a target="_black" rel="noreferrer noopener" href="https://woocommerce.com/feature-requests/google-product-feed/"><?php _e( 'Feature requests', 'woocommerce_gpf' ); ?></a></li>
             </ul>
             <br>
             <center>

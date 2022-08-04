@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Order Status Manager Order Statuses class
@@ -756,7 +756,7 @@ class WC_Order_Status_Manager_Order_Statuses {
 		}
 
 		// Add admin notice
-		if ( $num_updated && is_admin() && ! is_ajax() ) {
+		if ( $num_updated && is_admin() && ! wp_doing_ajax() ) {
 
 			/* translators: Placeholders: %d is the number of orders changed, %1$s is the old order status, %2$s is the new order status  */
 			$message = sprintf( _n(

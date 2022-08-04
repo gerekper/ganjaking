@@ -556,6 +556,17 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
     /**
      * {@inheritDoc}
      */
+    public function getOptionsAsArray(): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOptionsAsArray', []);
+
+        return parent::getOptionsAsArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getOptionValue(string $name)
     {
 

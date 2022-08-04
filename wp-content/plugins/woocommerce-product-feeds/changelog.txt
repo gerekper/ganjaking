@@ -1,5 +1,10 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.08.01 - version 10.7.4
+* New: WooCommerce 6.8 compatibility
+* New: Submit feature requests from the extension pages
+* Changes: Improved support links
+
 2022.07.04 - version 10.7.3
 * New: Support for per-variation product identifiers from Yoast WooCommerce SEO
 

@@ -178,18 +178,41 @@ class WoocommerceGpfAdmin {
 			],
 			admin_url( 'admin.php' )
 		);
-		$links[]      = sprintf(
-			'<a href="%s">%s</a>',
-			esc_attr( $settings_url ),
-			__( 'Settings', 'woocommerce_gpf' )
+		array_unshift(
+			$links,
+			sprintf(
+				'<a href="https://woocommerce.com/products/google-product-feed/#comments">%s</a>',
+				__( 'Review', 'woocommerce_gpf' )
+			)
 		);
-		$links[]      = sprintf(
-			'<a href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">%s</a>',
-			__( 'Set up guide', 'woocommerce_gpf' )
+		array_unshift(
+			$links,
+			sprintf(
+				'<a href="https://woocommerce.com/feature-requests/google-product-feed/">%s</a>',
+				__( 'Feature requests', 'woocommerce_gpf' )
+			)
 		);
-		$links[]      = sprintf(
-			'<a href="https://woocommerce.com/document/google-product-feed-troubleshooting/">%s</a>',
-			__( 'Troubleshooting', 'woocommerce_gpf' )
+		array_unshift(
+			$links,
+			sprintf(
+				'<a href="https://woocommerce.com/document/google-product-feed-troubleshooting/">%s</a>',
+				__( 'Troubleshooting', 'woocommerce_gpf' )
+			)
+		);
+		array_unshift(
+			$links,
+			sprintf(
+				'<a href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">%s</a>',
+				__( 'Docs', 'woocommerce_gpf' )
+			)
+		);
+		array_unshift(
+			$links,
+			sprintf(
+				'<a href="%s">%s</a>',
+				esc_attr( $settings_url ),
+				__( 'Settings', 'woocommerce_gpf' )
+			)
 		);
 
 		return $links;

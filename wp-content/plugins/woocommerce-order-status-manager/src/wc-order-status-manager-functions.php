@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-order-status-manager/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -32,23 +32,28 @@ defined( 'ABSPATH' ) or exit;
  */
 function wc_order_status_manager_get_order_status_posts( $args = array() ) {
 
-	$defaults = array(
+	$args = wp_parse_args( $args, array(
 		'post_type'        => 'wc_order_status',
 		'post_status'      => 'publish',
 		'posts_per_page'   => -1,
 		'suppress_filters' => false,
 		'orderby'          => 'menu_order',
 		'order'            => 'ASC',
-	);
+	) );
 
-	$posts = wp_cache_get( 'wc_order_status_manager_order_status_posts' );
+	// to ensure same args in different order don't result in different cache keys
+	ksort($args);
 
-	if ( ! $posts ) {
+	$cacheKey = md5( 'wc_order_status_manager_order_status_posts_' . json_encode( $args ) );
 
-		$posts = get_posts( wp_parse_args( $args, $defaults ) );
+	$posts = wp_cache_get( $cacheKey );
+
+	if ( false === $posts ) {
+
+		$posts = get_posts( $args );
 
 		// expire cache after 1 second to avoid potential issues with persistent caching
-		wp_cache_set( 'wc_order_status_manager_order_status_posts', $posts, null, 1 );
+		wp_cache_set( $cacheKey, $posts, null, 1 );
 	}
 
 	return $posts;

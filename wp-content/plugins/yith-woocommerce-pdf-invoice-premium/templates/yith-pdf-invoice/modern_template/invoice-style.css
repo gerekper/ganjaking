@@ -1,0 +1,181 @@
+/** Body section */
+body {
+	font-family: 'dejavusanscondensed';
+	color: #000;
+	font-size: 14px;
+	margin: 0px;
+	padding: 0;
+}
+
+div.modern-template{
+	background:white;
+	padding: 20px;
+	height: 100%;
+}
+
+/** Header section */
+.ywpi-document-header{
+	width: 100%;
+}
+.company-logo-section{
+	float:left;
+	width: 50%;
+}
+.invoice-values{
+	float:right;
+	width: 30%;
+	padding: 10px 10px 0px 10px;
+	margin-right: -20px;
+}
+
+.invoice-data-content .ywpi-invoice-number, .invoice-data-content .ywpi-order-number{
+	font-weight: bold;
+}
+
+.invoice-data-content table tr td.left-content, .invoice-data-content table tr td.right-content{
+	font-size: 13px;
+}
+
+.right-content {
+	text-align: right;
+}
+
+img.ywpi-company-logo {
+	max-height: 100px;
+}
+
+/** Document data (Customer details) */
+.ywpi-document-data{
+	margin-top: 40px;
+	width: 100%;
+}
+div.customer-details-title{
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+/** Invoice details */
+
+table.invoice-details,
+table.credit-note-details {
+	border-collapse: collapse;
+	margin-top: 40px;
+	padding-top: 15px;
+	width: 100%;
+}
+
+.invoice-details thead th,
+.invoice-details thead,
+.invoice-details thead tr,
+.credit-note-details thead th,
+.credit-note-details thead,
+.credit-note-details thead tr {
+	background-color: #619DDA;
+	border: 0;
+	color: white;
+	text-align: left;
+	padding: 15px 15px;
+}
+table.invoice-details th{
+	text-transform: uppercase;
+	font-size: 13px;
+}
+table.invoice-details tr td {
+	text-align: left;
+	padding: 15px 15px;
+}
+
+table.invoice-details td.column-credit-note-amount {
+	width: 80px;
+	text-align: right;
+}
+
+img.product-image{
+	width: 55px;
+}
+
+.column-picture{
+	max-width: 50px;
+	width: 50px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.column-product{
+	line-height:1.75;
+}
+span.ywpi-sku-text, .product-short-description{
+	font-size: 11px;
+}
+.invoice-weight, .invoice-dimensions{
+	font-weight: bold;
+}
+
+/** Invoice totals */
+.document-totals{
+	width: 100%;
+	margin-top: 20px;
+}
+.document-totals .right-content{
+	padding-right: 15px;
+}
+table.invoice-totals{
+	margin-right: 0px;
+	margin-left: auto;
+	padding: 20px 20px 20px 20px;
+	width: 50%;
+}
+tr.invoice-details-subtotal .column-product{
+	font-weight: bold;
+}
+tr.invoice-details-total td{
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+/** Notes section */
+.document-notes-section{
+	margin-right: 0px;
+	margin-left: auto;
+	padding: 20px 20px 20px 20px;
+	width: 43%;
+}
+.ywpi-section-notes {
+	padding: 10px;
+	margin-top: 30px;
+	background-color: #f3f3f3;
+}
+.ywpi-section-notes .notes{
+	font-size: 13px;
+}
+.ywpi_notes_separator{
+	margin-top: 5px;
+	height: 1px;
+}
+
+/** Footer section */
+#footer table {
+	width: 100%;
+	text-align: center;
+}
+#footer table td.footer-message{
+	font-size:13px;
+}
+.footer-separator{
+	width: 17px;
+	height: 5px;
+}
+
+/** Delivery notes */
+.delivery {
+	clear: both;
+	margin-bottom: 50px;
+	min-height: 70px;
+	background-color: #f3f3f3;
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+.ywcdd-delivery-info-content div{
+	font-size: 13px;
+	line-height: 2;
+}

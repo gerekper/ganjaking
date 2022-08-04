@@ -194,6 +194,17 @@ class NewsletterOptionEntity extends \MailPoet\Entities\NewsletterOptionEntity i
     /**
      * {@inheritDoc}
      */
+    public function getName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
+
+        return parent::getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setValue($value)
     {
 

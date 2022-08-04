@@ -1,5 +1,17 @@
 *** WooCommerce MSRP Pricing ***
 
+2022.08.01 - version 3.4.8
+* New: WooCommerce compatibility up to 6.8
+
+2022.05.25 - version 3.4.7
+* Fix: Fix issue where an error could be thrown is some variations had no prices set
+
+2022.05.10 - version 3.4.6
+* Change: WooCommerce compatibility up to 6.5
+
+2022.04.13 - version 3.4.5
+* Change: WooCommerce compatibility up to 6.4
+
 2022.01.03 - version 3.4.4
 * Change: WooCommerce compatibility up to 6.3
 

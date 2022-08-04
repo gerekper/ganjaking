@@ -1,0 +1,296 @@
+body {
+	font-family: 'dejavusanscondensed';
+	color: #000;
+	font-size: 14px;
+	margin: 0px;
+	padding: 0;
+}
+
+.invoice-document {
+	margin: 0;
+	padding: 0;
+}
+
+/* Section: general */
+
+/* end */
+
+/* Section: document title */
+.ywpi-document-title {
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 25px;
+}
+
+/* end */
+
+/* Section: company details and customer */
+.company-header {
+	padding-top: 15px;
+	margin-bottom: 10px;
+}
+
+.ywpi-company-details,
+.ywpi-customer-details {
+	width: 50%;
+	float: left;
+	display: inline-block;
+	line-height: normal;
+	vertical-align: top;
+	font-size: 13px;
+}
+
+.customer-details-title{
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.ywpi-company-content,
+.ywpi-customer-content {
+	padding: 10px;
+}
+
+.company-name,
+.customer-title {
+	font-weight: bold;
+	font-size: 18px;
+	color: #414141;
+	margin: 8px 0;
+}
+
+.company-logo-section {
+	float: right;
+	width: 30%;
+	text-align: right;
+}
+
+.invoice-from-title,
+.invoice-to-title {
+	font-size: 12px;
+}
+
+img.ywpi-company-logo {
+	max-height: 100px;
+}
+
+.ywpi-customer-details {
+	float: left;
+	width: 50%;
+	margin-top: 10px;
+}
+
+.column-product{
+	line-height:1.75;
+}
+
+/* end */
+
+/* Invoice data */
+
+
+.invoice-data-content table {
+	width: 100%;
+}
+
+.invoice-data-content .ywpi-invoice-number {
+	font-size: 14px;
+	height: 150px;
+}
+
+.invoice-data-content .ywpi-invoice-number td {
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.invoice-data-content .ywpi-invoice-number-value {
+	padding-top: 30px;
+	margin-top: 30px;
+	background-color: black;
+}
+
+.ywpi-document-data {
+	padding-top: 10px;
+	border-top: 2px solid #CBCBCB;
+
+}
+
+.invoice-values {
+	float: right;
+	background-color: #eef6ff;
+	width: 250px;
+	display: inline-block;
+	padding: 10px;
+}
+
+.ywpi-invoice-number {
+	color: #414141;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.ywpi-invoice-number .ywpi-invoice-number-value {
+	margin: 10px 0;
+}
+
+.left-content {
+	width: 50%;
+	/*float: left;*/
+}
+
+.right-content {
+	width: 50%;
+	text-align: right;
+}
+
+/* end */
+
+/* Section: order content */
+.product-image {
+	width: 55px;
+	height: 55px;
+	vertical-align: middle;
+}
+
+table.invoice-details,
+table.credit-note-details {
+	border-collapse: collapse;
+	margin-top: 15px;
+	padding-top: 15px;
+	width: 100%;
+}
+
+.invoice-details thead th,
+.invoice-details thead,
+.invoice-details thead tr,
+.credit-note-details thead th,
+.credit-note-details thead,
+.credit-note-details thead tr {
+	background-color: #619DDA;
+	border: 0;
+	color: white;
+	text-align: left;
+	padding: 15px 15px;
+}
+
+table.invoice-details tr td {
+	text-align: left;
+	padding: 15px 15px;
+}
+
+table.invoice-details td.column-credit-note-amount {
+	width: 80px;
+	text-align: right;
+}
+
+table.invoice-details td.column-picture {
+	width: 50px;
+	padding: 12px;
+}
+
+span.ywpi-sku-text, .product-short-description{
+	font-size: 11px;
+}
+
+.invoice-weight, .invoice-dimensions{
+	font-weight: bold;
+}
+
+.credit-note-details .column-amount {
+	width: 80px;
+	text-align: right;
+	padding: 5px;
+}
+table.credit-note-product-table .column-refund-total{
+	text-align: right;
+}
+.ywpi-price-labeled{
+	text-decoration:line-through;
+}
+
+/* end */
+
+/* Section: totals */
+.document-totals {
+	margin-top: 25px;
+	float: right;
+	width: 350px;
+	text-align: right;
+}
+
+.document-totals table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.document-totals table td {
+	padding: 6px 5px;
+	width: 50%;
+}
+
+.document-totals .invoice-details-total td {
+	background-color: #eef6ff;
+}
+.document-totals .right-content{
+	padding-right: 15px;
+}
+
+table.invoice-totals tr.invoice-details-subtotal td {
+	font-weight: bold;
+}
+
+table.invoice-totals tr.invoice-details-total td {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+/* end */
+
+/* Section: notes and footer */
+#footer table {
+	width: 100%;
+}
+
+#footer table td {
+	text-align: center;
+}
+
+.ywpi-section-notes {
+	padding-top: 10px;
+	padding-left: 10px;
+	margin-top: 50px;
+	background-color: #f3f3f3;
+}
+
+.notes {
+	clear: both;
+	min-height: 70px;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+.notes span {
+	display: block;
+}
+
+span.notes-title {
+	font-weight: bold;
+}
+
+/** Delivery notes */
+.delivery {
+	clear: both;
+	margin-bottom: 50px;
+	min-height: 70px;
+	background-color: #f3f3f3;
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+.ywcdd-delivery-info-content div{
+	font-size: 13px;
+	line-height: 2;
+}
+
+/* end */

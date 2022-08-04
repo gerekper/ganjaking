@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailPoet 3 (New) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 (New) 3.93.0\n"
+"Project-Id-Version: MailPoet 3 (New) 3.93.1\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-07-25 13:54:09+00:00\n"
+"POT-Creation-Date: 2022-08-02 11:25:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: lib/API/JSON/v1/DynamicSegments.php:121 lib/API/JSON/v1/ImportExport.php:110
 #: lib/API/JSON/v1/Segments.php:126 lib/Models/CustomField.php:27
-#: lib/Models/NewsletterOptionField.php:18 lib/Models/Segment.php:29
+#: lib/Models/NewsletterOptionField.php:24 lib/Models/Segment.php:29
 #: views/form/templatesLegacy/settings/field_form.hbs:53
 #: views/subscribers/importExport/import/step_data_manipulation.html:14
 msgid "Please specify a name."
@@ -456,7 +456,7 @@ msgstr ""
 #: lib/API/MP/v1/CustomFields.php:27
 #: lib/Form/Templates/Templates/InitialForm.php:22
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:54
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:40
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:71
 #: views/form/editor.html:165 views/help.html:70
 #: views/newsletter/editor.html:1124 views/newsletter/editor.html:1125
 #: views/segments.html:130 views/subscription/manage_subscription.html:9
@@ -626,12 +626,16 @@ msgstr ""
 msgid "Please contact our technical support for assistance."
 msgstr ""
 
-#: lib/Automation/Engine/Exceptions.php:47
+#: lib/Automation/Engine/Exceptions.php:48
 msgid "Method not allowed."
 msgstr ""
 
-#: lib/Automation/Engine/Exceptions.php:53
+#: lib/Automation/Engine/Exceptions.php:54
 msgid "No JSON body passed."
+msgstr ""
+
+#: lib/Automation/Engine/Exceptions.php:120
+msgid "Workflow structure modification not supported."
 msgstr ""
 
 #: lib/Automation/Integrations/Core/Actions/DelayAction.php:27
@@ -747,16 +751,25 @@ msgstr ""
 msgid "MailPoet version update is in progress, please refresh the page in a minute."
 msgstr ""
 
-#: lib/Config/Capabilities.php:80 lib/Config/Menu.php:536
+#: lib/Config/Capabilities.php:80 lib/Config/Menu.php:538
 #: lib/Config/PrivacyPolicy.php:12
 msgid "MailPoet"
 msgstr ""
 
-#: lib/Config/Hooks.php:376
+#: lib/Config/Hooks.php:377
 msgid "MailPoet Newsletter"
 msgstr ""
 
-#: lib/Config/Initializer.php:169
+#: lib/Config/Hooks.php:429
+msgid "View MailPoet settings"
+msgstr ""
+
+#: lib/Config/Hooks.php:429 lib/Config/Menu.php:328 lib/Config/Menu.php:329
+#: views/mp2migration.html:14 views/newsletters.html:156 views/settings.html:36
+msgid "Settings"
+msgstr ""
+
+#: lib/Config/Initializer.php:174
 msgid "Unable to connect to the database (the database is unable to open a file or folder), the connection is likely not configured correctly. Please read our [link] Knowledge Base article [/link] for steps how to resolve it."
 msgstr ""
 
@@ -846,101 +859,96 @@ msgstr[1] ""
 msgid "Settings imported"
 msgstr ""
 
-#: lib/Config/Menu.php:146 lib/Config/Menu.php:147 views/newsletters.html:89
+#: lib/Config/Menu.php:148 lib/Config/Menu.php:149 views/newsletters.html:89
 msgid "Emails"
 msgstr ""
 
-#: lib/Config/Menu.php:159
+#: lib/Config/Menu.php:161
 msgctxt "newsletters per page (screen options)"
 msgid "Number of newsletters per page"
 msgstr ""
 
-#: lib/Config/Menu.php:171 lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
+#: lib/Config/Menu.php:173 lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
 #: views/newsletter/editor.html:364 views/newsletters.html:91
 #: views/newsletters.html:231
 msgid "Newsletter"
 msgstr ""
 
-#: lib/Config/Menu.php:172 views/newsletter/editor.html:328
+#: lib/Config/Menu.php:174 views/newsletter/editor.html:328
 msgid "Newsletter Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:184 lib/Config/Menu.php:185 views/forms.html:47
+#: lib/Config/Menu.php:186 lib/Config/Menu.php:187 views/forms.html:47
 #: views/mp2migration.html:13
 msgid "Forms"
 msgstr ""
 
-#: lib/Config/Menu.php:197
+#: lib/Config/Menu.php:199
 msgctxt "forms per page (screen options)"
 msgid "Number of forms per page"
 msgstr ""
 
-#: lib/Config/Menu.php:209 lib/Config/Menu.php:210
+#: lib/Config/Menu.php:211 lib/Config/Menu.php:212
 msgid "Form Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:229 lib/Config/Menu.php:230
+#: lib/Config/Menu.php:231 lib/Config/Menu.php:232
 msgid "Select Form Template"
 msgstr ""
 
-#: lib/Config/Menu.php:250 lib/Config/Menu.php:251
+#: lib/Config/Menu.php:252 lib/Config/Menu.php:253
 #: views/subscribers/subscribers.html:40
 msgid "Subscribers"
 msgstr ""
 
-#: lib/Config/Menu.php:263
+#: lib/Config/Menu.php:265
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: lib/Config/Menu.php:275 lib/Config/Menu.php:276
+#: lib/Config/Menu.php:277 lib/Config/Menu.php:278
 #: views/subscribers/importExport/import.html:6
 #: views/subscribers/importExport/import.html:101
 #: views/subscribers/subscribers.html:141
 msgid "Import"
 msgstr ""
 
-#: lib/Config/Menu.php:288 lib/Config/Menu.php:289
+#: lib/Config/Menu.php:290 lib/Config/Menu.php:291
 #: views/subscribers/importExport/export.html:6
 #: views/subscribers/importExport/export.html:80
 #: views/subscribers/subscribers.html:142
 msgid "Export"
 msgstr ""
 
-#: lib/Config/Menu.php:301 lib/Config/Menu.php:302 views/forms.html:81
+#: lib/Config/Menu.php:303 lib/Config/Menu.php:304 views/forms.html:81
 #: views/newsletters.html:155 views/newsletters.html:296 views/segments.html:51
 #: views/subscribers/subscribers.html:101
 msgid "Lists"
 msgstr ""
 
-#: lib/Config/Menu.php:314
+#: lib/Config/Menu.php:316
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: lib/Config/Menu.php:326 lib/Config/Menu.php:327 views/mp2migration.html:14
-#: views/newsletters.html:156 views/settings.html:36
-msgid "Settings"
-msgstr ""
-
-#: lib/Config/Menu.php:339 lib/Config/Menu.php:340
+#: lib/Config/Menu.php:341 lib/Config/Menu.php:342
 msgid "Help"
 msgstr ""
 
-#: lib/Config/Menu.php:353 lib/Config/Menu.php:354 views/newsletters.html:431
+#: lib/Config/Menu.php:355 lib/Config/Menu.php:356 views/newsletters.html:431
 #: views/segments.html:261 views/subscribers/subscribers.html:150
 msgid "Upgrade"
 msgstr ""
 
-#: lib/Config/Menu.php:366 lib/Config/Menu.php:367
+#: lib/Config/Menu.php:368 lib/Config/Menu.php:369
 msgid "Welcome Wizard"
 msgstr ""
 
-#: lib/Config/Menu.php:379 lib/Config/Menu.php:380
+#: lib/Config/Menu.php:381 lib/Config/Menu.php:382
 msgid "WooCommerce Setup"
 msgstr ""
 
-#: lib/Config/Menu.php:392
+#: lib/Config/Menu.php:394
 msgid "Migration"
 msgstr ""
 
@@ -948,24 +956,24 @@ msgstr ""
 msgid "MailPoet Subscribers"
 msgstr ""
 
-#: lib/Config/PersonalDataExporters.php:24
+#: lib/Config/PersonalDataExporters.php:43
 msgid "MailPoet Lists"
 msgstr ""
 
-#: lib/Config/PersonalDataExporters.php:32
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:22
+#: lib/Config/PersonalDataExporters.php:51
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:49
 msgid "MailPoet Subscriber Data"
 msgstr ""
 
-#: lib/Config/PersonalDataExporters.php:41
+#: lib/Config/PersonalDataExporters.php:60
 msgid "MailPoet Emails"
 msgstr ""
 
-#: lib/Config/PersonalDataExporters.php:49
+#: lib/Config/PersonalDataExporters.php:68
 msgid "MailPoet Email Clicks"
 msgstr ""
 
-#: lib/Config/PersonalDataExporters.php:57
+#: lib/Config/PersonalDataExporters.php:76
 msgid "MailPoet Email Opens"
 msgstr ""
 
@@ -2237,11 +2245,15 @@ msgstr ""
 msgid "Your License Key for MailPoet is expiring! Don't forget to [link]renew your license[/link] by %s to keep enjoying automatic updates and Premium support."
 msgstr ""
 
-#: lib/Config/Shortcodes.php:153
+#: lib/Config/Shortcodes.php:106
+msgid "Please note that mailpoet_archive_email_subject no longer runs and that the list of parameters of the new filter is different."
+msgstr ""
+
+#: lib/Config/Shortcodes.php:164
 msgid "Oops! There are no newsletters to display."
 msgstr ""
 
-#: lib/Config/Shortcodes.php:211
+#: lib/Config/Shortcodes.php:227
 msgid "Preview in a new tab"
 msgstr ""
 
@@ -2265,7 +2277,7 @@ msgstr ""
 msgid "Daemon does not set correctly."
 msgstr ""
 
-#: lib/Cron/Workers/SendingQueue/Migration.php:61
+#: lib/Cron/Workers/SendingQueue/Migration.php:78
 msgid "Your sending queue data is being migrated to allow better performance, sending is paused while the migration is in progress and will resume automatically upon completion. This may take a few minutes."
 msgstr ""
 
@@ -3327,7 +3339,7 @@ msgstr ""
 msgid "Your subscription is currently [link]pending approval[/link]. You’ll soon be able to send once our team reviews your account. In the meantime, you can send previews to your authorized emails."
 msgstr ""
 
-#: lib/Models/CustomField.php:30 lib/Models/Newsletter.php:65
+#: lib/Models/CustomField.php:30 lib/Models/Newsletter.php:66
 #: views/form/templatesLegacy/settings/field_form.hbs:16
 msgid "Please specify a type."
 msgstr ""
@@ -3337,15 +3349,15 @@ msgstr ""
 msgid "Another record already exists. Please specify a different \"%1$s\"."
 msgstr ""
 
-#: lib/Models/Newsletter.php:161
+#: lib/Models/Newsletter.php:162
 msgid "This is an empty email without any content and it cannot be sent. Please update [link]the email[/link]."
 msgstr ""
 
-#: lib/Models/Newsletter.php:334
+#: lib/Models/Newsletter.php:341
 msgid "Deleted list"
 msgstr ""
 
-#: lib/Models/NewsletterOptionField.php:21
+#: lib/Models/NewsletterOptionField.php:27
 msgid "Please specify a newsletter type."
 msgstr ""
 
@@ -3466,12 +3478,12 @@ msgid "Subscriber"
 msgstr ""
 
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:22
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:32
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:63
 msgid "First Name"
 msgstr ""
 
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:26
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:36
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:67
 msgid "Last Name"
 msgstr ""
 
@@ -3734,7 +3746,7 @@ msgstr ""
 
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterClicksExporter.php:14
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterOpensExporter.php:14
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:65
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:72
 #: views/settings.html:110
 msgid "Email subject"
 msgstr ""
@@ -3749,7 +3761,7 @@ msgstr ""
 
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterClicksExporter.php:29
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterOpensExporter.php:25
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:105
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:143
 #: views/segments.html:240 views/subscribers/subscribers.html:160
 msgid "Unknown"
 msgstr ""
@@ -3771,21 +3783,21 @@ msgstr ""
 msgid "MailPoet Emails Opens"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:69
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:76
 msgid "Sent at"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:74
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:83
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:92
 #: views/subscribers/subscribers.html:129
 msgid "Opened"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:78
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:87
 msgid "Opened at"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:84
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:93
 #: views/form/templatesLegacy/settings/date_default.hbs:20
 #: views/form/templatesLegacy/settings/label_within.hbs:8
 #: views/form/templatesLegacy/settings/required.hbs:17
@@ -3811,70 +3823,70 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:89
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:98
 msgid "Email preview"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:98
+#: lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:107
 msgid "MailPoet Emails Sent"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:32
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:57
 msgid "List name"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:36
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:61
 msgid "Subscription status"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:40
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:65
 msgid "Timestamp of the subscription (or last change of the subscription status)"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:45
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SegmentsExporter.php:70
 msgid "MailPoet Mailing Lists"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:44
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:75
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:182 views/forms.html:65
 #: views/help.html:50 views/newsletters.html:152
 #: views/subscribers/subscribers.html:82 views/subscribers/subscribers.html:100
 msgid "Status"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:50
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:81
 msgid "Subscribed IP"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:56
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:87
 msgid "Confirmed IP"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:61
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:92
 msgid "Created at"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:76
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:108
 msgid "Subscriber's subscription source"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:95
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:133
 msgid "Subscriber information synchronized via WP user sync"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:97
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:135
 msgid "Subscription via a MailPoet subscription form"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:99
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:137
 msgid "Added by a 3rd party via MailPoet 3 API"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:101
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:139
 msgid "Created by the administrator"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:103
+#: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:141
 msgid "Imported by the administrator"
 msgstr ""
 
@@ -10747,126 +10759,118 @@ msgctxt "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoe
 msgid "And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide."
 msgstr ""
 
-#: views/welcome_wizard.html:36
+#: views/welcome_wizard.html:35
 msgid "Welcome! Let’s get you started on the right foot."
 msgstr ""
 
-#: views/welcome_wizard.html:37
+#: views/welcome_wizard.html:36
 msgid "Who is the sender of the emails you’ll be creating with MailPoet?"
 msgstr ""
 
-#: views/welcome_wizard.html:38
+#: views/welcome_wizard.html:37
 msgid "We have a few things to tell you before you begin to ensure you have a good experience."
 msgstr ""
 
-#: views/welcome_wizard.html:39
+#: views/welcome_wizard.html:38
 msgid "Help MailPoet improve with anonymous usage tracking."
 msgstr ""
 
-#: views/welcome_wizard.html:40
+#: views/welcome_wizard.html:39
 msgid "Data we don’t gather:"
 msgstr ""
 
-#: views/welcome_wizard.html:41
+#: views/welcome_wizard.html:40
 msgid "Do you want to share anonymous data and help us improve the plugin? We appreciate your help!"
 msgstr ""
 
-#: views/welcome_wizard.html:42
+#: views/welcome_wizard.html:41
 msgid "This requires loading 3rd-party libraries enabled."
 msgstr ""
 
-#: views/welcome_wizard.html:43
+#: views/welcome_wizard.html:42
 msgid "Note"
 msgstr ""
 
-#: views/welcome_wizard.html:44
+#: views/welcome_wizard.html:43
 msgid "This needs to be enabled if you want to be able to contact support."
 msgstr ""
 
-#: views/welcome_wizard.html:45
+#: views/welcome_wizard.html:44
 msgid "Important"
 msgstr ""
 
-#: views/welcome_wizard.html:46
+#: views/welcome_wizard.html:45
 msgid "Do you want to enable loading 3rd-party libraries, like Google Fonts (used in Form Editor) and HelpScout (used for support)?"
 msgstr ""
 
-#: views/welcome_wizard.html:47
+#: views/welcome_wizard.html:46
 msgid "Read more about libraries we use."
 msgstr ""
 
-#: views/welcome_wizard.html:48
+#: views/welcome_wizard.html:47
 msgid "Gathering usage data allows us to make MailPoet better — the way you use MailPoet will be considered as we evaluate new features, judge the quality of an update, or determine if an improvement makes sense."
 msgstr ""
 
-#: views/welcome_wizard.html:49
+#: views/welcome_wizard.html:48
 msgid "Any personal data"
 msgstr ""
 
-#: views/welcome_wizard.html:50
+#: views/welcome_wizard.html:49
 msgid "Email addresses"
 msgstr ""
 
-#: views/welcome_wizard.html:51
+#: views/welcome_wizard.html:50
 msgid "Login and passwords"
 msgstr ""
 
-#: views/welcome_wizard.html:52
+#: views/welcome_wizard.html:51
 msgid "Content of your emails"
 msgstr ""
 
-#: views/welcome_wizard.html:53
+#: views/welcome_wizard.html:52
 msgid "Open and click rates"
 msgstr ""
 
-#: views/welcome_wizard.html:54
+#: views/welcome_wizard.html:53
 msgid "Read more about what we collect."
 msgstr ""
 
-#: views/welcome_wizard.html:55
-msgid "Sign up to our 4-part email course"
-msgstr ""
-
-#: views/welcome_wizard.html:56
-msgid "A must for every beginner (in English only)"
-msgstr ""
-
-#: views/welcome_wizard.html:57
+#: views/welcome_wizard.html:54
 msgctxt "A label on a button"
 msgid "See video guide"
 msgstr ""
 
-#: views/welcome_wizard.html:58
+#: views/welcome_wizard.html:55
 msgctxt "A label on a skip button"
 msgid "Skip"
 msgstr ""
 
-#: views/welcome_wizard.html:59
+#: views/welcome_wizard.html:56
 msgctxt "A label on a skip button"
 msgid "Finish later"
 msgstr ""
 
-#: views/welcome_wizard.html:60
+#: views/welcome_wizard.html:57
 msgctxt "A form field label"
 msgid "From Address"
 msgstr ""
 
-#: views/welcome_wizard.html:61
+#: views/welcome_wizard.html:58
 msgctxt "A form field label"
 msgid "Reply-to Address"
 msgstr ""
 
-#: views/welcome_wizard.html:62
+#: views/welcome_wizard.html:59
 msgctxt "A form field label"
 msgid "From Name"
 msgstr ""
 
-#: views/welcome_wizard.html:63
+#: views/welcome_wizard.html:60
 msgctxt "A label on a button"
 msgid "Next"
 msgstr ""
 
-#: views/welcome_wizard.html:64
+#: views/welcome_wizard.html:61
 msgctxt "A label on a button"
 msgid "Continue"
 msgstr ""

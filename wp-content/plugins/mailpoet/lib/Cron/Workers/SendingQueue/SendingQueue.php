@@ -13,6 +13,7 @@ use MailPoet\Cron\Workers\SendingQueue\Tasks\Newsletter as NewsletterTask;
 use MailPoet\Cron\Workers\StatsNotifications\Scheduler as StatsNotificationsScheduler;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\MailerLog;
@@ -25,6 +26,7 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\SubscribersFinder;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Tasks\Sending as SendingTask;
 use MailPoet\Tasks\Subscribers\BatchIterator;
 use MailPoet\WP\Functions as WPFunctions;
@@ -72,6 +74,9 @@ class SendingQueue {
   /** @var ScheduledTasksRepository */
   private $scheduledTasksRepository;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     SendingErrorHandler $errorHandler,
     SendingThrottlingHandler $throttlingHandler,
@@ -85,6 +90,7 @@ class SendingQueue {
     Links $links,
     ScheduledTasksRepository $scheduledTasksRepository,
     MailerTask $mailerTask,
+    SubscribersRepository $subscribersRepository,
     $newsletterTask = false
   ) {
     $this->errorHandler = $errorHandler;
@@ -101,6 +107,7 @@ class SendingQueue {
     $this->cronHelper = $cronHelper;
     $this->links = $links;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function process($timer = false) {
@@ -140,10 +147,16 @@ class SendingQueue {
       'sending queue processing',
       ['task_id' => $queue->taskId]
     );
+
     $newsletter = $this->newsletterTask->getNewsletterFromQueue($queue);
     if (!$newsletter) {
       return;
     }
+    $newsletterEntity = $this->newslettersRepository->findOneById($newsletter->id);
+    if (!$newsletterEntity) {
+      return;
+    }
+
     // pre-process newsletter (render, replace shortcodes/links, etc.)
     $newsletter = $this->newsletterTask->preProcessNewsletter($newsletter, $queue);
     if (!$newsletter) {
@@ -156,11 +169,7 @@ class SendingQueue {
     }
     // clone the original object to be used for processing
     $_newsletter = (object)$newsletter->asArray();
-    $options = $newsletter->options()->findMany();
-    if (!empty($options)) {
-      $options = array_column($options, 'value', 'name');
-    }
-    $_newsletter->options = $options;
+    $_newsletter->options = $newsletterEntity->getOptionsAsArray();
     // configure mailer
     $this->mailerTask->configureMailer($newsletter);
     // get newsletter segments
@@ -276,7 +285,14 @@ class SendingQueue {
       $preparedSubscribersIds[] = $subscriber->id;
       // create personalized instant unsubsribe link
       $unsubscribeUrls[] = $this->links->getUnsubscribeUrl($queue, $subscriber->id);
-      $metas[] = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletter, $subscriber);
+
+      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
+      if ($subscriberEntity instanceof SubscriberEntity) {
+        $metas[] = $this->mailerMetaInfo->getNewsletterMetaInfo($newsletter, $subscriberEntity);
+      } else {
+        $metas[] = [];
+      }
+
       // keep track of values for statistics purposes
       $statistics[] = [
         'newsletter_id' => $newsletter->id,

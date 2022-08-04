@@ -16,6 +16,8 @@ class WoocommerceProductFeedsWoocommerceAdditionalVariationImages {
 	 * @param $image_style
 	 *
 	 * @return void
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function get_images( $images, $specific_product, $general_product, $image_style ) {
 		// Do nothing unless this is a variation.
