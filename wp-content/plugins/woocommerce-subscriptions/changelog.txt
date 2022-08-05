@@ -1,5 +1,9 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2022-08-04 - version 4.5.0
+* Dev: Add missing `woocommerce_subscriptions_switch_link_text` and `woocommerce_subscriptions_switch_link_classes` filters for finer control of switch link. PR#4382
+* Fix: Update subscription address when changed with renewals on block checkout.
+
 2022-06-07 - version 4.4.0
 * Fix - Fatal Error caused in rare cases where quantity is zero during renewal.
 

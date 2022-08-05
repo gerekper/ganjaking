@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -976,16 +976,16 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				$product_type = ( is_object( $product ) && is_callable( array( $product, 'get_type' ) ) ) ? $product->get_type() : '';
 				$product_id   = ( in_array( $product_type, array( 'variable', 'variable-subscription', 'variation', 'subscription_variation' ), true ) ) ? ( ( is_object( $product ) && is_callable( array( $product, 'get_parent_id' ) ) ) ? $product->get_parent_id() : 0 ) : ( ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0 );
 				$qty          = ( is_callable( array( $values, 'get_quantity' ) ) ) ? $values->get_quantity() : 1;
-				$qty          = ( ! empty( $qty ) ) ? $qty : 1;
+				$qty          = ( ! empty( $qty ) ) ? absint( $qty ) : 1;
 
 				// Check if selling store credit at less price is enabled.
 				if ( 'yes' === $sell_sc_at_less_price ) {
 					// For gift certificate of any amount.
 					if ( isset( $values->legacy_values['credit_amount'] ) && ! empty( $values->legacy_values['credit_amount'] ) ) {
-						$product_price = $values->legacy_values['credit_amount'] * $qty;
+						$product_price = floatval( $values->legacy_values['credit_amount'] ) * $qty;
 					} else {
 						// For gift certificate of fixed price.
-						$product_price = ( is_callable( array( $product, 'get_regular_price' ) ) ) ? $product->get_regular_price() * $qty : 0;
+						$product_price = ( is_callable( array( $product, 'get_regular_price' ) ) ) ? floatval( $product->get_regular_price() ) * $qty : 0;
 					}
 				} else {
 					$subtotal      = ( is_callable( array( $values, 'get_subtotal' ) ) ) ? $values->get_subtotal() : 0;

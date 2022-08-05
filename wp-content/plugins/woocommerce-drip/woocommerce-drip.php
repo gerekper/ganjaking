@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Drip
  * Plugin URI: https://woocommerce.com/products/woocommerce-drip/
  * Description: Integrate your WooCommerce store and customers with your Drip account.
- * Version: 1.2.32
+ * Version: 1.2.33
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * License: GPL-2.0+
@@ -45,7 +45,7 @@ function woocommerce_drip_init() {
 	}
 
 	if ( ! class_exists( 'WC_Drip' ) ) {
-		define( 'WC_DRIP_VERSION', '1.2.32' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_DRIP_VERSION', '1.2.33' ); // WRCS: DEFINED_VERSION.
 
 		/**
 		 * WC_Drip Class

@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.08.03 - version 5.9.0
+* New: Tested up to WooCommerce 6.7.0
+* Fix: Incorrect discount calculation when using settings 'Max discount' & 'Limit Usage to X items' together in a percentage discount coupon
+* Fix: Product quantity based restrictions fields causing coupons to not apply on empty cart
+* Fix: Uncaught TypeError: Unsupported operand types: int * string
+* Update: POT file
+
 2022.07.20 - version 5.8.0
 * New: Tested up to WordPress 6.0.1
 * Update: Generate new coupon code if post_title is empty during CSV import

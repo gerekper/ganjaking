@@ -1,5 +1,9 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2022-08-03 - version 3.7.0
+* Fix   - `Multiple Shipping` column is blank in "Customer / Order / CSV Export" plugin.
+* Tweak - Transition version numbering to WordPress versioning.
+
 2022-06-20 - version 3.6.42
 * Fix   - Multiple address display incorrectly in plain text email.
 * Fix   - Updating status of single package.

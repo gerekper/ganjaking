@@ -122,4 +122,18 @@ class WC_Instagram_Product_Catalog_Item_Variation extends WC_Instagram_Product_C
 
 		return ( $parent ? $parent->get_short_description() : '' );
 	}
+
+	/**
+	 * Gets the product category IDs.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return array
+	 */
+	public function get_category_ids() {
+		// Variations don't have category IDs.
+		$parent = $this->get_parent();
+
+		return ( $parent ? $parent->get_category_ids() : array() );
+	}
 }

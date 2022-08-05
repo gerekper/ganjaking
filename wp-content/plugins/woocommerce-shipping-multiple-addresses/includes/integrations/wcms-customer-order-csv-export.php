@@ -62,14 +62,15 @@ class WC_MS_Customer_Order_Csv_Export {
 	/**
 	 * Adds the corresponding package address to each line item.
 	 *
-	 * @param array $order_data
-	 * @param array $item
+	 * @param array $order_data array of order data.
+	 * @param array $item array of item data.
+	 *
 	 * @return array
 	 *
 	 * @since 3.6.11
 	 */
 	public function sv_wc_csv_export_add_package_multiple_address( $order_data, $item ) {
-		$order_id = $order_data[ 'order_id' ];
+		$order_id = $order_data['order_id'];
 		$order    = wc_get_order( $order_id );
 
 		if ( ! $order ) {
@@ -78,19 +79,26 @@ class WC_MS_Customer_Order_Csv_Export {
 
 		$shipping_addresses = $order->get_meta( '_shipping_addresses' );
 
-		if ( empty( $shipping_addresses[0] ) ) {
+		if ( empty( $shipping_addresses ) ) {
 			return $order_data;
 		}
 
 		$packages = $order->get_meta( '_wcms_packages' );
-		$package  = $this->find_package( $packages, $item[ 'cart_key' ] );
+		$package  = $this->find_package( $packages, $item['cart_key'] );
 		$address  = wcms_get_address( $package['destination'] );
 
-		$address = implode( '|', array_map( function( $key, $value ) {
-			return sprintf( '%s:%s', $key, $value );
-		}, array_keys( $address ), $address ) );
+		$address = implode(
+			'|',
+			array_map(
+				function( $key, $value ) {
+					return sprintf( '%s:%s', $key, $value );
+				},
+				array_keys( $address ),
+				$address
+			)
+		);
 
-		$order_data[ 'wcms' ] = $address;
+		$order_data['wcms'] = $address;
 
 		return $order_data;
 	}

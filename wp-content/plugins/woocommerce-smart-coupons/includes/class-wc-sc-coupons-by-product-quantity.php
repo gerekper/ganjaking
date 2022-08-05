@@ -6,7 +6,7 @@
  * @author      StoreApps
  * @package     woocommerce-smart-coupons/includes
  * @since       5.0.0
- * @version     1.2.0
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -81,23 +81,22 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 		 * @param WC_Coupon $coupon The coupon object.
 		 */
 		public function usage_restriction( $coupon_id = 0, $coupon = null ) {
-			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+			if ( ! is_a( $coupon, 'WC_Coupon' ) || empty( $coupon_id ) ) {
 				return;
 			}
-			$product_quantity_restrictions = array();
-			if ( ! empty( $coupon_id ) ) {
-				$product_quantity_restrictions = is_callable( array( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_product_quantity_restrictions' ) : '';
-				if ( empty( $product_quantity_restrictions ) ) {
-					$product_quantity_restrictions = get_post_meta( $coupon_id, 'wc_sc_product_quantity_restrictions', true );
-				}
 
-				if ( ! is_array( $product_quantity_restrictions ) ) {
-					$product_quantity_restrictions = array();
-				}
+			$product_quantity_restrictions = is_callable( array( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_product_quantity_restrictions' ) : '';
+			if ( empty( $product_quantity_restrictions ) ) {
+				$product_quantity_restrictions = get_post_meta( $coupon_id, 'wc_sc_product_quantity_restrictions', true );
 			}
-			$cart_min_quantity                  = isset( $product_quantity_restrictions['values']['cart']['min'] ) ? $product_quantity_restrictions['values']['cart']['min'] : '';
-			$cart_max_quantity                  = isset( $product_quantity_restrictions['values']['cart']['max'] ) ? $product_quantity_restrictions['values']['cart']['max'] : '';
-			$product_quantity_restrictions_type = isset( $product_quantity_restrictions['type'] ) ? $product_quantity_restrictions['type'] : 'cart';
+
+			if ( ! is_array( $product_quantity_restrictions ) ) {
+				$product_quantity_restrictions = array();
+			}
+
+			$cart_min_quantity                  = ! empty( $product_quantity_restrictions['values']['cart']['min'] ) ? intval( $product_quantity_restrictions['values']['cart']['min'] ) : '';
+			$cart_max_quantity                  = ! empty( $product_quantity_restrictions['values']['cart']['max'] ) ? intval( $product_quantity_restrictions['values']['cart']['max'] ) : '';
+			$product_quantity_restrictions_type = ! empty( $product_quantity_restrictions['type'] ) ? $product_quantity_restrictions['type'] : 'cart';
 			?>
 			<div class="options_group smart-coupons-field">
 				<h3 class="smart-coupons-field" style="padding-left: 10px;"><?php echo esc_html__( 'Product quantity based restrictions', 'woocommerce-smart-coupons' ); ?></h3>
@@ -125,7 +124,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 				</p>
 				<div class=" wc_sc_product_quantity" style="<?php echo isset( $product_quantity_restrictions['type'] ) && ( 'product' === $product_quantity_restrictions['type'] ) ? '' : 'display: none;'; ?>">
 					<?php
-					$product_quantities = isset( $product_quantity_restrictions['values']['product'] ) ? $product_quantity_restrictions['values']['product'] : array();
+					$product_quantities = ! empty( $product_quantity_restrictions['values']['product'] ) ? $product_quantity_restrictions['values']['product'] : array();
 					if ( ! empty( $product_quantities ) ) {
 						$display_label = true;
 						foreach ( $product_quantities as $product_id => $value ) {
@@ -133,8 +132,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 								$product = wc_get_product( $product_id );
 								if ( ! empty( $product ) && is_object( $product ) ) {
 									$product_name         = is_callable( array( $product, 'get_name' ) ) ? $product->get_name() : '';
-									$product_max_quantity = isset( $value['max'] ) ? $value['max'] : '';
-									$product_min_quantity = isset( $value['min'] ) ? $value['min'] : '';
+									$product_max_quantity = ! empty( $value['max'] ) ? intval( $value['max'] ) : '';
+									$product_min_quantity = ! empty( $value['min'] ) ? intval( $value['min'] ) : '';
 									?>
 									<p class="form-field" data-index="<?php echo esc_attr( $product_id ); ?>">
 										<?php if ( true === $display_label ) { ?>
@@ -165,14 +164,14 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 				</div>
 				<div class=" wc_sc_category_quantity" style="<?php echo isset( $product_quantity_restrictions['type'] ) && ( 'product' === $product_quantity_restrictions['type'] ) ? '' : 'display: none;'; ?>">
 					<?php
-					$product_category_quantities = isset( $product_quantity_restrictions['values']['product_category'] ) ? $product_quantity_restrictions['values']['product_category'] : array();
+					$product_category_quantities = ! empty( $product_quantity_restrictions['values']['product_category'] ) ? $product_quantity_restrictions['values']['product_category'] : array();
 					if ( ! empty( $product_category_quantities ) ) {
 						$i = 0;
 						foreach ( $product_category_quantities as $category_id => $value ) {
 							if ( 0 !== $category_id ) {
 								$term = get_term_by( 'id', $category_id, 'product_cat', ARRAY_A );
 								if ( ! empty( $term ) && is_array( $term ) ) {
-									$category_name = isset( $term['name'] ) ? $term['name'] : '';
+									$category_name = ! empty( $term['name'] ) ? $term['name'] : '';
 									?>
 									<p class="form-field" data-index="<?php echo esc_attr( $category_id ); ?>">
 										<?php if ( 0 === $i ) { ?>
@@ -180,8 +179,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 										<?php } ?>
 										<span>
 											<input type="text" name="wc_sc_product_quantity_restrictions[values][product_category][<?php echo esc_attr( $category_id ); ?>][category_id]" placeholder="<?php echo esc_attr( $category_id ); ?>" value="<?php echo esc_attr( $category_name ); ?>" disabled>
-											<input type="number" name="wc_sc_product_quantity_restrictions[values][product_category][<?php echo esc_attr( $category_id ); ?>][min]" class="product_min_quantity_field" placeholder="<?php echo esc_attr__( 'No minimum', 'woocommerce-smart-coupons' ); ?>" value="<?php echo esc_attr( isset( $value['min'] ) ? $value['min'] : '' ); ?>" min="0">
-											<input type="hidden" name="wc_sc_product_quantity_restrictions[values][product_category][<?php echo esc_attr( $category_id ); ?>][max]" class="product_max_quantity_field" placeholder="<?php echo esc_attr__( 'No maximum', 'woocommerce-smart-coupons' ); ?>" value="<?php echo esc_attr( isset( $value['max'] ) ? $value['max'] : '' ); ?>" min="0">
+											<input type="number" name="wc_sc_product_quantity_restrictions[values][product_category][<?php echo esc_attr( $category_id ); ?>][min]" class="product_min_quantity_field" placeholder="<?php echo esc_attr__( 'No minimum', 'woocommerce-smart-coupons' ); ?>" value="<?php echo esc_attr( ! empty( $value['min'] ) ? intval( $value['min'] ) : '' ); ?>" min="0">
+											<input type="hidden" name="wc_sc_product_quantity_restrictions[values][product_category][<?php echo esc_attr( $category_id ); ?>][max]" class="product_max_quantity_field" placeholder="<?php echo esc_attr__( 'No maximum', 'woocommerce-smart-coupons' ); ?>" value="<?php echo esc_attr( ! empty( $value['max'] ) ? intval( $value['max'] ) : '' ); ?>" min="0">
 										</span>
 									</p>
 									<?php
@@ -433,15 +432,19 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 			if ( ! empty( $product_quantity_restrictions ) ) {
 				foreach ( $product_quantity_restrictions as $restriction_key => $restrictions ) {
 					if ( 'values' === $restriction_key ) {
+						// Max quantity feature not included for product quantity.
 						foreach ( $restrictions['product'] as $id => $restriction ) {
+							$id = absint( $id );
 							if ( 0 !== $id && isset( $product_quantity_restrictions['values']['product'][ $id ]['max'] ) ) {
-								$product_quantity_restrictions['values']['product'][ $id ]['max'] = isset( $restriction['min'] ) ? $restriction['min'] : '';
+								$product_quantity_restrictions['values']['product'][ $id ]['max'] = ! empty( $restriction['min'] ) ? intval( $restriction['min'] ) : '';
 							}
 						}
 
+						// Max quantity feature not included for product category quantity.
 						foreach ( $restrictions['product_category'] as $id => $restriction ) {
+							$id = absint( $id );
 							if ( 0 !== $id && isset( $product_quantity_restrictions['values']['product_category'][ $id ]['max'] ) ) {
-								$product_quantity_restrictions['values']['product_category'][ $id ]['max'] = isset( $restriction['min'] ) ? $restriction['min'] : '';
+								$product_quantity_restrictions['values']['product_category'][ $id ]['max'] = ! empty( $restriction['min'] ) ? intval( $restriction['min'] ) : '';
 							}
 						}
 					}
@@ -482,10 +485,25 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 			}
 
 			$items_to_validate = array();
+			$cart_quantity     = 0;
 
 			if ( is_callable( array( $wc_discounts, 'get_items_to_validate' ) ) ) {
 				$items_to_validate = $wc_discounts->get_items_to_validate();
 			} else {
+				return $valid;
+			}
+
+			if ( ! empty( $items_to_validate ) ) {
+				foreach ( $items_to_validate as $key => $cart_content ) {
+					$cart_item      = ! empty( $cart_content->object ) ? $cart_content->object : array();
+					$cart_quantity += ! empty( $cart_item['quantity'] ) ? intval( $cart_item['quantity'] ) : 0;
+				}
+			} else {
+				return $valid;
+			}
+
+			// If the cart quantity is empty the rule will not work.
+			if ( $cart_quantity <= 0 ) {
 				return $valid;
 			}
 
@@ -501,24 +519,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 
 				switch ( $type ) {
 					case 'cart':
-						$min           = ! empty( $product_quantity_restrictions['values']['cart']['min'] ) ? $product_quantity_restrictions['values']['cart']['min'] : 0;
-						$max           = ! empty( $product_quantity_restrictions['values']['cart']['max'] ) ? $product_quantity_restrictions['values']['cart']['max'] : 0;
-						$cart_quantity = 0;
-						$messages      = array(
+						$min      = ! empty( $product_quantity_restrictions['values']['cart']['min'] ) ? intval( $product_quantity_restrictions['values']['cart']['min'] ) : 0;
+						$max      = ! empty( $product_quantity_restrictions['values']['cart']['max'] ) ? intval( $product_quantity_restrictions['values']['cart']['max'] ) : 0;
+						$messages = array(
 							__( 'Your cart does not meet the quantity requirement.', 'woocommerce-smart-coupons' ),
 						);
-
-						if ( ! empty( $items_to_validate ) ) {
-							foreach ( $items_to_validate as $key => $cart_content ) {
-								$cart_item      = ! empty( $cart_content->object ) ? $cart_content->object : array();
-								$quantity       = ! empty( $cart_item['quantity'] ) ? $cart_item['quantity'] : 1;
-								$cart_quantity += $quantity;
-							}
-						}
-
-						if ( $cart_quantity <= 0 ) {
-							throw new Exception( implode( ' ', $messages ) );
-						}
 
 						if ( empty( $min ) && empty( $max ) ) {
 							return $valid;
@@ -584,10 +589,10 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 					if ( 0 === $id ) {
 						continue;
 					}
-					$min_quantity            = isset( $restriction['min'] ) ? $restriction['min'] : 0;
-					$max_quantity            = isset( $restriction['max'] ) ? $restriction['max'] : 0;
+					$min_quantity            = ! empty( $restriction['min'] ) ? intval( $restriction['min'] ) : 0;
+					$max_quantity            = ! empty( $restriction['max'] ) ? intval( $restriction['max'] ) : 0;
 					$cart_product_quantities = $this->cart_product_quantities( $items_to_validate );
-					$product_quantity        = isset( $cart_product_quantities[ $id ] ) ? $cart_product_quantities[ $id ] : 1;
+					$product_quantity        = ! empty( $cart_product_quantities[ $id ] ) ? intval( $cart_product_quantities[ $id ] ) : 1;
 
 					if ( empty( $min_quantity ) && empty( $max_quantity ) ) {
 						$status[] = 'empty';
@@ -641,12 +646,12 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 				$items_to_validate                  = ! empty( $params['items_to_validate'] ) ? $params['items_to_validate'] : array();
 				$cart_product_categories_quantities = $this->cart_product_categories_quantities( $items_to_validate );
 				foreach ( $product_category_quantity_restrictions as $id => $restriction ) {
-					$min_quantity = ! empty( $restriction['min'] ) ? $restriction['min'] : '';
-					$max_quantity = ! empty( $restriction['max'] ) ? $restriction['max'] : '';
+					$min_quantity = ! empty( $restriction['min'] ) ? intval( $restriction['min'] ) : '';
+					$max_quantity = ! empty( $restriction['max'] ) ? intval( $restriction['max'] ) : '';
 					if ( 0 === $id ) {
 						continue;
 					}
-					$category_quantity = isset( $cart_product_categories_quantities[ $id ] ) ? $cart_product_categories_quantities[ $id ] : 0;
+					$category_quantity = ! empty( $cart_product_categories_quantities[ $id ] ) ? intval( $cart_product_categories_quantities[ $id ] ) : 0;
 
 					if ( empty( $min_quantity ) && empty( $max_quantity ) ) {
 						$status[] = 'empty';
@@ -697,9 +702,9 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 			$cart_product_quantities = array();
 			foreach ( $cart_contents as $key => $cart_content ) {
 				$cart_item    = ! empty( $cart_content->object ) ? $cart_content->object : array();
-				$quantity     = ! empty( $cart_item['quantity'] ) ? $cart_item['quantity'] : 1;
-				$product_id   = ! empty( $cart_item['product_id'] ) ? $cart_item['product_id'] : 0;
-				$variation_id = ! empty( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : 0;
+				$quantity     = ! empty( $cart_item['quantity'] ) ? intval( $cart_item['quantity'] ) : 1;
+				$product_id   = ! empty( $cart_item['product_id'] ) ? intval( $cart_item['product_id'] ) : 0;
+				$variation_id = ! empty( $cart_item['variation_id'] ) ? intval( $cart_item['variation_id'] ) : 0;
 				if ( ! empty( $variation_id ) ) {
 					if ( isset( $cart_product_quantities[ $variation_id ] ) ) {
 						$cart_product_quantities[ $variation_id ] = $cart_product_quantities[ $variation_id ] + $quantity;
@@ -731,7 +736,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Quantity' ) ) {
 			foreach ( $cart_contents as $key => $cart_content ) {
 				$cart_item = ! empty( $cart_content->object ) ? $cart_content->object : array();
 				$product   = ! empty( $cart_item['data'] ) ? $cart_item['data'] : array();
-				$quantity  = ! empty( $cart_item['quantity'] ) ? $cart_item['quantity'] : 1;
+				$quantity  = ! empty( $cart_item['quantity'] ) ? intval( $cart_item['quantity'] ) : 1;
 
 				if ( is_object( $product ) && is_callable( array( $product, 'get_category_ids' ) ) ) {
 					$product_variation = ( is_callable( array( $product, 'is_type' ) ) ) ? $product->is_type( 'variation' ) : false;

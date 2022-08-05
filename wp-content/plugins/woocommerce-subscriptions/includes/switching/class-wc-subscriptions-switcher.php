@@ -48,15 +48,7 @@ class WC_Subscriptions_Switcher {
 		add_action( 'woocommerce_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 2 );
 
 		// Same as above for WooCommerce Blocks.
-		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) ) {
-			if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
-				add_action( 'woocommerce_store_api_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
-			} elseif ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '6.3.0', '>=' ) ) {
-				add_action( 'woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
-			} else {
-				add_action( '__experimental_woocommerce_blocks_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
-			}
-		}
+		add_action( 'woocommerce_store_api_checkout_order_processed', array( __CLASS__, 'process_checkout' ), 50, 1 );
 
 		// When creating an order, add meta if it's for switching a subscription
 		add_action( 'woocommerce_checkout_update_order_meta', array( __CLASS__, 'add_order_meta' ), 10, 2 );
@@ -559,9 +551,11 @@ class WC_Subscriptions_Switcher {
 			return;
 		}
 
-		$switch_url  = esc_url( self::get_switch_url( $item_id, $item, $subscription ) );
-		$switch_text = get_option( WC_Subscriptions_Admin::$option_prefix . '_switch_button_text', __( 'Upgrade or Downgrade', 'woocommerce-subscriptions' ) );
-		$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', $switch_url, $switch_text );
+		$switch_url     = esc_url( self::get_switch_url( $item_id, $item, $subscription ) );
+		$switch_text    = apply_filters( 'woocommerce_subscriptions_switch_link_text', get_option( WC_Subscriptions_Admin::$option_prefix . '_switch_button_text', __( 'Upgrade or Downgrade', 'woocommerce-subscriptions' ) ), $item_id, $item, $subscription );
+		$switch_classes = apply_filters( 'woocommerce_subscriptions_switch_link_classes', array( 'wcs-switch-link', 'button' ), $item_id, $item, $subscription );
+
+		$switch_link    = sprintf( '<a href="%s" class="%s">%s</a>', $switch_url, implode( ' ', (array) $switch_classes ), $switch_text );
 
 		echo wp_kses( apply_filters( 'woocommerce_subscriptions_switch_link', $switch_link, $item_id, $item, $subscription ), array( 'a' => array( 'href' => array(), 'title' => array(), 'class' => array() ) ) ); // phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 	}

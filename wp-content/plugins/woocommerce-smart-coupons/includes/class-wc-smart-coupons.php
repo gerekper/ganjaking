@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.0.0
+ * @version     4.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2189,18 +2189,27 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 				if ( $coupon->is_valid() && $coupon->is_type( 'percent' ) ) {
 					if ( $this->is_wc_gte_30() ) {
-						$coupon_id = $coupon->get_id();
+						$coupon_id = ( is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
 					} else {
 						$coupon_id = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 					}
+
+					if ( empty( $coupon_id ) ) {
+						return $discount;
+					}
+
 					$max_discount = get_post_meta( $coupon_id, 'wc_sc_max_discount', true );
-					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) && is_array( $cart_item ) && ! empty( $cart_item ) ) {
-						$inc_tax                      = wc_prices_include_tax();
-						$coupon_product_ids           = $coupon->get_product_ids();
-						$coupon_excluded_product_ids  = $coupon->get_excluded_product_ids();
-						$coupon_category_ids          = $coupon->get_product_categories();
-						$coupon_excluded_category_ids = $coupon->get_excluded_product_categories();
+
+					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
+
+						$coupon_product_ids           = ( is_callable( array( $coupon, 'get_product_ids' ) ) ) ? $coupon->get_product_ids() : array();
+						$coupon_excluded_product_ids  = ( is_callable( array( $coupon, 'get_excluded_product_ids' ) ) ) ? $coupon->get_excluded_product_ids() : array();
+						$coupon_category_ids          = ( is_callable( array( $coupon, 'get_product_categories' ) ) ) ? $coupon->get_product_categories() : array();
+						$coupon_excluded_category_ids = ( is_callable( array( $coupon, 'get_excluded_product_categories' ) ) ) ? $coupon->get_excluded_product_categories() : array();
 						$cart_items_subtotal          = 0;
+						$cart_contents_count          = 0;
+						$max_discount_name            = 'wc_sc_max_discount_data';
+						$inc_tax                      = wc_prices_include_tax();
 						$is_restricted                = count( $coupon_product_ids ) > 0 || count( $coupon_excluded_product_ids ) > 0 || count( $coupon_category_ids ) > 0 || count( $coupon_excluded_category_ids ) > 0;
 						$is_restricted                = apply_filters(
 							'wc_sc_is_coupon_restriction_available',
@@ -2214,105 +2223,132 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 								'coupon_object'      => $coupon,
 							)
 						);
-						$max_discount_session_start   = false;
-						$max_discount_session         = WC()->session->get( 'wc_sc_max_discount_session' );
-						if ( empty( $max_discount_session ) || ! is_array( $max_discount_session ) ) {
-							$max_discount_session = array();
-						}
-						if ( empty( $max_discount_session[ $coupon_id ] ) || ! is_array( $max_discount_session[ $coupon_id ] ) ) {
-							$max_discount_session[ $coupon_id ]           = array();
-							$max_discount_session_start                   = true;
-							$max_discount_session[ $coupon_id ]['amount'] = $max_discount;
-							$max_discount_session[ $coupon_id ]['count']  = $this->get_cart_contents_count();
-						}
 
-						if ( true === $is_restricted ) {
-							if ( class_exists( 'WC_Discounts' ) && isset( WC()->cart ) ) {
-								$wc_cart           = WC()->cart;
-								$wc_discounts      = new WC_Discounts( $wc_cart );
-								$items_to_validate = array();
-								if ( is_callable( array( $wc_discounts, 'get_items_to_validate' ) ) ) {
-									$items_to_validate = $wc_discounts->get_items_to_validate();
-								} elseif ( is_callable( array( $wc_discounts, 'get_items' ) ) ) {
-									$items_to_validate = $wc_discounts->get_items();
-								} elseif ( isset( $wc_discounts->items ) && is_array( $wc_discounts->items ) ) {
-									$items_to_validate = $wc_discounts->items;
-								}
-								if ( ! empty( $items_to_validate ) && is_array( $items_to_validate ) ) {
-									$valid_product_count = 0;
-									foreach ( $items_to_validate as $item ) {
-										$item_to_apply = clone $item; // Clone the item so changes to wc_discounts item do not affect the originals.
+						if ( is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
+                            $order       = $wc_cart_or_order_object = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;  // phpcs:ignore
+							$wc_order_id = ( is_callable( array( $cart_item, 'get_order_id' ) ) ) ? $cart_item->get_order_id() : 0;
+							if ( empty( $wc_order_id ) ) {
+								return $discount;
+							}
+							$order_line_items = array();
+							if ( is_a( $order, 'WC_Order' ) ) {
+								$cart_items_subtotal = ( is_callable( array( $order, 'get_subtotal' ) ) ) ? $order->get_subtotal() : 0;
+								$order_line_items    = ( is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items() : array();
+							}
 
-										if ( 0 === $wc_discounts->get_discounted_price_in_cents( $item_to_apply ) || 0 >= $item_to_apply->quantity ) {
-											continue;
-										}
-
-										if ( ! $coupon->is_valid_for_product( $item_to_apply->product, $item_to_apply->object ) && ! $coupon->is_valid_for_cart() ) {
-											continue;
-										}
-
-										// Increment if the product is not a bundled product.
-										$valid_product_count = ( isset( $item_to_apply->object['stamp'] ) && isset( $item_to_apply->object['bundled_by'] ) ) ? $valid_product_count : $valid_product_count + 1;
-
-										if ( true === $inc_tax ) {
-											$cart_items_subtotal += $item_to_apply->object['line_subtotal'] + $item_to_apply->object['line_subtotal_tax'];
-										} else {
-											$cart_items_subtotal += $item_to_apply->object['line_subtotal'];
-										}
-									}
-
-									if ( true === $max_discount_session_start ) {
-										$max_discount_session[ $coupon_id ]['count'] = $valid_product_count;
-									}
+							$max_discount_name = 'wc_sc_max_discount_data_for_' . $wc_order_id;
+							if ( ! empty( $order_line_items ) ) {
+								foreach ( $order_line_items as $order_line_item ) {
+									$cart_contents_count++;
 								}
 							}
+
+							$max_discount_data = function_exists( 'get_transient' ) ? get_transient( $max_discount_name ) : array();
 						} else {
+							$wc_cart      = $wc_cart_or_order_object = ! empty( WC()->cart ) ? WC()->cart : null; // phpcs:ignore
+							$wc_session = ! empty( WC()->session ) ? WC()->session : null;
+							if ( ! is_a( $wc_cart, 'WC_Cart' ) ) {
+								return $discount;
+							}
 							if ( true === $inc_tax ) {
-								$cart_items_subtotal = WC()->cart->subtotal;
+								$cart_items_subtotal = ! empty( $wc_cart->subtotal ) ? $wc_cart->subtotal : 0;
 							} else {
-								$cart_items_subtotal = WC()->cart->subtotal_ex_tax;
+								$cart_items_subtotal = ! empty( $wc_cart->subtotal_ex_tax ) ? $wc_cart->subtotal_ex_tax : 0;
+							}
+
+							$max_discount_data = ( ! empty( $wc_session ) && is_a( $wc_session, 'WC_Session' ) && is_callable( array( $wc_session, 'get' ) ) ) ? $wc_session->get( $max_discount_name ) : array();
+
+							$cart_contents_count = $this->get_cart_contents_count();
+						}
+
+						$is_update_valid_item_count = false;
+
+						if ( empty( $max_discount_data ) || ! is_array( $max_discount_data ) ) {
+							$max_discount_data = array();
+						}
+
+						if ( empty( $max_discount_data[ $coupon_id ] ) || ! is_array( $max_discount_data[ $coupon_id ] ) ) {
+							$max_discount_data[ $coupon_id ]           = array();
+							$is_update_valid_item_count                = true;
+							$max_discount_data[ $coupon_id ]['amount'] = $max_discount;
+							$max_discount_data[ $coupon_id ]['count']  = $cart_contents_count;
+						}
+
+						if ( true === $is_restricted && class_exists( 'WC_Discounts' ) && ! empty( $wc_cart_or_order_object ) ) {
+
+							$wc_discounts      = new WC_Discounts( $wc_cart_or_order_object );
+							$items_to_validate = array();
+
+							if ( is_callable( array( $wc_discounts, 'get_items_to_validate' ) ) ) {
+								$items_to_validate = $wc_discounts->get_items_to_validate();
+							} elseif ( is_callable( array( $wc_discounts, 'get_items' ) ) ) {
+								$items_to_validate = $wc_discounts->get_items();
+							} elseif ( ! empty( $wc_discounts->items ) && is_array( $wc_discounts->items ) ) {
+								$items_to_validate = $wc_discounts->items;
+							}
+
+							if ( is_array( $items_to_validate ) ) {
+								$valid_product_count = 0;
+								foreach ( $items_to_validate as $item ) {
+									$item_to_apply          = clone $item; // Clone the item so changes to wc_discounts item do not affect the originals.
+									$valid_product_quantity = ( ! empty( $item_to_apply->quantity ) ) ? intval( $item_to_apply->quantity ) : 0;
+									$product                = ( ! empty( $item_to_apply->product ) ) ? $item_to_apply->product : null;
+									$item_to_apply_object   = ( ! empty( $item_to_apply->object ) ) ? $item_to_apply->object : null;
+
+									if ( 0 === $wc_discounts->get_discounted_price_in_cents( $item_to_apply ) || 0 >= $valid_product_quantity ) {
+										continue;
+									}
+
+									if ( ! $coupon->is_valid_for_product( $product, $item_to_apply_object ) && ! $coupon->is_valid_for_cart() ) {
+										continue;
+									}
+
+									// Increment if the product is not a bundled product.
+									$valid_product_count = ( isset( $item_to_apply_object['stamp'] ) && isset( $item_to_apply_object['bundled_by'] ) ) ? $valid_product_count : $valid_product_count + 1;
+									$line_subtotal       = ! empty( $item_to_apply_object['line_subtotal'] ) ? intval( $item_to_apply_object['line_subtotal'] ) : 0;
+									if ( true === $inc_tax ) {
+										$line_subtotal_tax    = ! empty( $item_to_apply_object['line_subtotal_tax'] ) ? intval( $item_to_apply_object['line_subtotal_tax'] ) : 0;
+										$cart_items_subtotal += $line_subtotal + $line_subtotal_tax;
+									} else {
+										$cart_items_subtotal += $line_subtotal;
+									}
+								}
+
+								if ( true === $is_update_valid_item_count ) {
+									$max_discount_data[ $coupon_id ]['count'] = $valid_product_count;
+								}
 							}
 						}
 
 						if ( 0 !== $cart_items_subtotal ) {
-							$cart_item_qty = isset( $cart_item['quantity'] ) ? $cart_item['quantity'] : 1;
 
-							if ( true === $inc_tax ) {
-								$discount_percent = ( wc_get_price_including_tax( $cart_item['data'] ) * $cart_item_qty ) / $cart_items_subtotal;
-							} else {
-								$discount_percent = ( wc_get_price_excluding_tax( $cart_item['data'] ) * $cart_item_qty ) / $cart_items_subtotal;
+							$max_discount = ! empty( $max_discount_data[ $coupon_id ]['amount'] ) ? $max_discount_data[ $coupon_id ]['amount'] : 0;
+							if ( $max_discount < 0 ) {
+								$max_discount = 0;
 							}
 
-							$discount_percent = round( $discount_percent, 4 ); // A percentage value should always be rounded with 4 decimal point.
+							$discount = min( $max_discount, $discount );
 
-							if ( $this->is_wc_gte_32() ) {
-								$max_discount_amount = ( $max_discount * $discount_percent );
-							} else {
-								$max_discount_amount = ( $max_discount * $discount_percent ) / $cart_item_qty;
+							if ( ! empty( $max_discount ) ) {
+								$max_discount_data[ $coupon_id ]['amount'] -= $discount;
 							}
 
-							$max_discount_amount = wc_round_discount( $max_discount_amount, wc_get_price_decimals() );
+							$max_discount_data[ $coupon_id ]['count']--;
 
-							$is_round_max_discount = $max_discount_amount < $discount;
-
-							$discount                                      = min( $max_discount_amount, $discount );
-							$max_discount_session[ $coupon_id ]['amount'] -= $discount;
-							$max_discount_session[ $coupon_id ]['count']--;
-
-							if ( 0 === $max_discount_session[ $coupon_id ]['count'] ) {
-								if ( ! empty( $max_discount_session[ $coupon_id ]['amount'] ) && true === $is_round_max_discount ) {
-									$discount += $max_discount_session[ $coupon_id ]['amount'];
+							if ( 0 >= $max_discount_data[ $coupon_id ]['count'] ) {
+								unset( $max_discount_data[ $coupon_id ] );
+							}
+							if ( 'wc_sc_max_discount_data' === $max_discount_name ) {
+								if ( ! empty( $wc_session ) && is_a( $wc_session, 'WC_Session' ) && is_callable( array( $wc_session, 'set' ) ) ) {
+									$wc_session->set( $max_discount_name, $max_discount_data );
 								}
-								unset( $max_discount_session[ $coupon_id ] );
+							} elseif ( function_exists( 'set_transient' ) ) {
+								set_transient( $max_discount_name, $max_discount_data, DAY_IN_SECONDS );
 							}
-
-							WC()->session->set( 'wc_sc_max_discount_session', $max_discount_session );
-
 						}
 					}
 				}
 			}
-
 			return $discount;
 		}
 

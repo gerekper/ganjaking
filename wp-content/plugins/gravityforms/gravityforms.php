@@ -2,8 +2,9 @@
 /*
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.6.4.4
+Version: 2.6.4.5
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -236,7 +237,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.4.4';
+	public static $version = '2.6.4.5';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2348,6 +2349,7 @@ class GFForms {
 		}
 
 		if ( ! $valid_key ) {
+			return;
 			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
 		}
 
@@ -7116,3 +7118,5 @@ if ( ! function_exists( 'gf_has_action' ) ) {
 		return gf_has_filters( $action, $function_to_check );
 	}
 }
+/* Anti-Leecher Identifier */
+/* Credited By BABIATO-FORUM */

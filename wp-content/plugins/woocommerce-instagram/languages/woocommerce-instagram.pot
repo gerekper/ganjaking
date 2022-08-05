@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 4.2.0\n"
+"Project-Id-Version: WooCommerce Instagram 4.3.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-07T16:00:10+00:00\n"
+"POT-Creation-Date: 2022-08-03T14:47:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-instagram\n"
@@ -246,22 +246,27 @@ msgstr ""
 
 #: includes/admin/class-wc-instagram-debug-tools.php:35
 msgctxt "debug tool title"
-msgid "Instagram image transients"
+msgid "Clear Instagram images"
 msgstr ""
 
 #: includes/admin/class-wc-instagram-debug-tools.php:36
 msgctxt "debug tool button"
-msgid "Clear transients"
+msgid "Clear"
 msgstr ""
 
 #: includes/admin/class-wc-instagram-debug-tools.php:37
 msgctxt "debug tool desc"
-msgid "This tool will clear the Instagram image transients cache. Images displayed on products pages will be refreshed immediately."
+msgid "This tool will delete all cached Instagram images. Images displayed on products pages will be refreshed immediately."
 msgstr ""
 
 #: includes/admin/class-wc-instagram-debug-tools.php:53
 msgctxt "debug tool notice"
 msgid "Instagram image transients cleared successfully."
+msgstr ""
+
+#: includes/admin/class-wc-instagram-debug-tools.php:65
+msgctxt "debug tool notice"
+msgid "Instagram images cleared successfully."
 msgstr ""
 
 #: includes/admin/fields/class-wc-instagram-admin-field-google-product-category.php:117
@@ -1097,7 +1102,7 @@ msgid "This text will be used in case the product has no description."
 msgstr ""
 
 #: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:393
-#: includes/product-catalog/formats/abstract-class-wc-instagram-product-catalog-format.php:381
+#: includes/product-catalog/formats/abstract-class-wc-instagram-product-catalog-format.php:382
 msgid "No description."
 msgstr ""
 
@@ -1420,32 +1425,32 @@ msgstr ""
 msgid "You do not have permission to delete the catalog."
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:371
+#: includes/wc-instagram-product-functions.php:385
 msgctxt "product condition"
 msgid "New"
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:372
+#: includes/wc-instagram-product-functions.php:386
 msgctxt "product condition"
 msgid "Refurbished"
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:373
+#: includes/wc-instagram-product-functions.php:387
 msgctxt "product condition"
 msgid "Used"
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:374
+#: includes/wc-instagram-product-functions.php:388
 msgctxt "product condition"
 msgid "Used like new"
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:375
+#: includes/wc-instagram-product-functions.php:389
 msgctxt "product condition"
 msgid "Used good"
 msgstr ""
 
-#: includes/wc-instagram-product-functions.php:376
+#: includes/wc-instagram-product-functions.php:390
 msgctxt "product condition"
 msgid "Used fair"
 msgstr ""

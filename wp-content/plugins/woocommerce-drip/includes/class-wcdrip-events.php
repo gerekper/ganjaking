@@ -69,8 +69,10 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 		 * @since   1.1.0
 		 */
 		public function new_order( $order_id ) {
-			if ( 1 == get_post_meta( $order_id, '_wcdrip_tracked', true ) ) {
-				return false;
+			$order = wc_get_order( $order_id );
+
+			if ( ! $order || (bool) $order->get_meta( '_wcdrip_tracked' ) ) {
+				return;
 			}
 
 			$wrapper = wcdrip_get_settings();
@@ -87,9 +89,6 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 			} else {
 				$event_sale_name = apply_filters( 'wcdrip_action_order', __( 'Purchase', 'woocommerce-drip' ) );
 			}
-
-			// Order Variable
-			$order = wc_get_order( $order_id );
 
 			$billing_email = $order->get_billing_email();
 
@@ -173,7 +172,8 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 			}
 
 			wcdrip_log( sprintf( '%s: Mark order ID %s as tracked', __METHOD__, $order_id ) );
-			update_post_meta( $order_id, '_wcdrip_tracked', 1 );
+			$order->update_meta_data( '_wcdrip_tracked', 1 );
+			$order->save();
 		}
 
 

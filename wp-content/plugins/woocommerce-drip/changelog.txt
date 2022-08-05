@@ -1,5 +1,8 @@
 *** WooCommerce Drip Changelog ***
 
+2022-08-03 - version 1.2.33
+* Fix - Custom Order Table Compatibility.
+
 2022-07-27 - version 1.2.32
 * Tweak - WC 6.8 compatibility.
 

@@ -5242,7 +5242,7 @@ Content-Type: text/html;
 		$gf_vars['endsWith']               = esc_html__( 'ends with', 'gravityforms' );
 		$gf_vars['emptyChoice']            = wp_strip_all_tags( __( 'Empty (no choices selected)', 'gravityforms' ) );
 
-		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesnâ€™t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
+		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesn’t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
 		$gf_vars['thisConfirmation']                 = esc_html__( 'Use this confirmation if', 'gravityforms' );
 		$gf_vars['thisNotification']                 = esc_html__( 'Send this notification if', 'gravityforms' );
 		$gf_vars['confirmationSave']                 = esc_html__( 'Save', 'gravityforms' );

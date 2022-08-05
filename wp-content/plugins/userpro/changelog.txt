@@ -1,4 +1,10 @@
 ==================================
+Version 5.0.1 (03 Aug 2022)
+==================================
+ - Fixed bug: Fixed "Forgot your password?" and "Already a member?" forms design issues.
+ 
+ 
+==================================
 Version 5.0.0 (11 Jul 2022)
 ==================================
  - Update: This update is for Memberlist layouts for UserPro addon plugin.

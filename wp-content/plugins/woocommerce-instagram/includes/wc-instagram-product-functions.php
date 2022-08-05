@@ -296,6 +296,20 @@ function wc_instagram_update_product_hashtag_images( $product_id ) {
 }
 
 /**
+ * Deletes the hashtag images for all products.
+ *
+ * @since 4.3.0
+ *
+ * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
+ */
+function wc_instagram_delete_all_products_hashtag_images() {
+	global $wpdb;
+
+	// Delete product hashtag images.
+	$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key = '_instagram_hashtag_images';" );
+}
+
+/**
  * Deletes the hashtag images for the specified product.
  *
  * @since 2.0.0

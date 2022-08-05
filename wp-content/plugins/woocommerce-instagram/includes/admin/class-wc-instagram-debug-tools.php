@@ -31,11 +31,11 @@ class WC_Instagram_Debug_Tools {
 	 * @return array
 	 */
 	public function add_debug_tools( $tools ) {
-		$tools['wc_instagram_clear_image_transients'] = array(
-			'name'     => _x( 'Instagram image transients', 'debug tool title', 'woocommerce-instagram' ),
-			'button'   => _x( 'Clear transients', 'debug tool button', 'woocommerce-instagram' ),
-			'desc'     => _x( 'This tool will clear the Instagram image transients cache. Images displayed on products pages will be refreshed immediately.', 'debug tool desc', 'woocommerce-instagram' ),
-			'callback' => array( $this, 'clear_image_transients' ),
+		$tools['wc_instagram_clear_images'] = array(
+			'name'     => _x( 'Clear Instagram images', 'debug tool title', 'woocommerce-instagram' ),
+			'button'   => _x( 'Clear', 'debug tool button', 'woocommerce-instagram' ),
+			'desc'     => _x( 'This tool will delete all cached Instagram images. Images displayed on products pages will be refreshed immediately.', 'debug tool desc', 'woocommerce-instagram' ),
+			'callback' => array( $this, 'clear_images' ),
 		);
 
 		return $tools;
@@ -51,6 +51,18 @@ class WC_Instagram_Debug_Tools {
 		wc_instagram_clear_hashtag_media_transients();
 
 		return _x( 'Instagram image transients cleared successfully.', 'debug tool notice', 'woocommerce-instagram' );
+	}
+
+	/**
+	 * Clear Instagram images.
+	 *
+	 * @since 4.3.0
+	 */
+	public function clear_images() {
+		$this->clear_image_transients();
+		wc_instagram_delete_all_products_hashtag_images();
+
+		return _x( 'Instagram images cleared successfully.', 'debug tool notice', 'woocommerce-instagram' );
 	}
 }
 

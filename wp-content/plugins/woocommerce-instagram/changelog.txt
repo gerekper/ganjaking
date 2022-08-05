@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-08-03 - version 4.3.0
+* Feature - Include the WooCommerce product categories in the catalog data feeds.
+* Feature - Added tool for clearing all cached Instagram images used in the product hashtags.
+* Tweak - Tested compatibility with WC 6.8.
+
 2022-07-11 - version 4.2.0
 * Feature - Added option to interrupt the process of updating a catalog data feed.
 * Tweak - Add a default description to the products without any description when generating the catalog data feeds.

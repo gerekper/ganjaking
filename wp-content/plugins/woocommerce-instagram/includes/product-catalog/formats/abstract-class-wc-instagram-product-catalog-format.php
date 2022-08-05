@@ -214,6 +214,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			'brand'                     => 'esc_html',
 			'additional_image_link'     => 'esc_url',
 			'google_product_category'   => 'esc_attr',
+			'product_type'              => 'esc_attr',
 		);
 
 		if ( ! $this->product_catalog->get_include_variations() ) {
@@ -402,6 +403,31 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				} else {
 					$value = ( $product->is_on_backorder() ? $this->product_catalog->get_backorder_stock_quantity() : $this->product_catalog->get_stock_quantity() );
 				}
+				break;
+			case 'product_type':
+				$category_ids    = $product_item->get_prop( 'category_ids' );
+				$category_labels = array();
+
+				foreach ( $category_ids as $category_id ) {
+					// Get parent category IDs.
+					$parents = get_ancestors( $category_id, 'product_cat', 'taxonomy' );
+
+					// Prepend the current category ID.
+					array_unshift( $parents, $category_id );
+
+					// Reverse the category IDs to process their labels from the top to the bottom.
+					$term_ids = array_reverse( $parents );
+
+					foreach ( $term_ids as $term_id ) {
+						$term = get_term( $term_id, 'product_cat' );
+
+						if ( $term instanceof WP_Term ) {
+							$category_labels[] = $term->name;
+						}
+					}
+				}
+
+				$value = implode( ' > ', $category_labels );
 				break;
 			default:
 				$value = $product_item->get_google_attribute( $prop );
