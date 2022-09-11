@@ -13,6 +13,7 @@ class evoau_frontend{
 	public $message, $link, $lang;
 
 	function __construct(){
+		add_filter('evo_cal_gen_options', array($this, 'load_options'));
 		$this->evoau_opt = get_option('evcal_options_evoau_1');
 		$this->evoau_opt_2 = get_option('evcal_options_evoau_2');
 
@@ -34,6 +35,11 @@ class evoau_frontend{
 		// functions
 		$this->functions = new evoau_functions($this->evoau_opt);
 
+	}
+	public function load_options($A){
+		$A['evoau_1'] = 'evcal_options_evoau_1';
+		$A['evoau_2'] = 'evcal_options_evoau_2';
+		return $A;
 	}
 	function extra_tax($array){
 		$array['evoau']='event_users';
@@ -221,6 +227,8 @@ class evoau_frontend{
 				'event_html'=>array('** Additional HTML Field', 'evoau_html', 'html'),
 				'event_access'=>array(
 					'Event Access Password','_evoau_accesscode','text','','','', '** Event Access Password'),
+				'event_timezone'=>array(
+					'Event Timezone','_evo_tz','timezone'),
 			);
 
 			// additional edit only form fields
@@ -422,10 +430,16 @@ class evoau_frontend{
 						// save repeating data for the event
 							if( isset($_POST['evcal_repeat']) && $_POST['evcal_repeat']=='yes' 
 								&& isset($_POST['evcal_rep_freq'])
-							){
+							){	
+
+								$_POST['repeat_intervals'][0]= array(0=>$proper_time['unix_start'], $proper_time['unix_end']);
+
 								$repeat_intervals = eventon_get_repeat_intervals($proper_time['unix_start'],$proper_time['unix_end'] );
+								
 								if ( !empty($repeat_intervals) ){
-									asort($repeat_intervals);
+									
+									//asort($repeat_intervals);
+									
 									$this->create_custom_fields($created_event_id, 'repeat_intervals', $repeat_intervals);
 
 									// other repeat data
@@ -596,9 +610,17 @@ class evoau_frontend{
 										delete_post_thumbnail($created_event_id);
 								}
 
+								// set allowed file types
+								$allowed_file_types = array("image/jpeg", "image/jpg", "image/png",'application/pdf');
+
+
 								if( !empty( $_FILES ) && !empty($_FILES[$__var_name]) && 'POST' == $_SERVER['REQUEST_METHOD']  ){
 
-									if ($_FILES[$__var_name]['error'] !== UPLOAD_ERR_OK) __return_false();
+									// check file type 
+									if( ! in_array( $_FILES[ $__var_name ]['type'] , $allowed_file_types )) continue;
+
+									if ($_FILES[$__var_name]['error'] !== UPLOAD_ERR_OK) 
+										continue;
 
 									// file size limit
 									
@@ -660,15 +682,23 @@ class evoau_frontend{
 					}
 
 				// Save user interaction fields
-					if($saved_fields && in_array('user_interaction', $saved_fields) || (!empty($this->evoau_opt['evoau_ux']) && $this->evoau_opt['evoau_ux']=='yes') ){
-						if(isset($_POST['uinter']) ){
+					if(
+						$saved_fields && in_array('user_interaction', $saved_fields) || 
+						(!empty($this->evoau_opt['evoau_ux']) && $this->evoau_opt['evoau_ux']=='yes') 
+					){
+							
+						$default_ux = $this->evoau_opt['evoau_ux_val'];
+						$ux_val = isset($_POST['uinter'])? $_POST['uinter']: $default_ux;
+
+						if( $ux_val){
 							// only for external links
-							if($_POST['uinter']==2){ // open as external links
+							if($ux_val==2){ // open as external links
 								if(!empty($_POST['_evcal_exlink_target']))
 									$this->create_custom_fields($created_event_id, '_evcal_exlink_target', $_POST['_evcal_exlink_target']);
 								if(!empty($_POST['evcal_exlink']))
 									$this->create_custom_fields($created_event_id, 'evcal_exlink', $_POST['evcal_exlink']);
-							}elseif($_POST['uinter']==4){// open as single events
+
+							}elseif($ux_val==4){// open as single events
 								$exlink = get_permalink($created_event_id);
 								$this->create_custom_fields($created_event_id, 'evcal_exlink', $exlink);
 							}
@@ -696,8 +726,7 @@ class evoau_frontend{
 						'yes':'no';
 					$this->create_custom_fields($created_event_id, 'evcal_gmap_gen', $googleMapsVal);
 				
-				// save location as taxonomy
-						
+				// save location as taxonomy						
 					// from terms list or existing term
 					if( !empty($_POST['evoau_location_select'])){
 						$term_id = (int)$_POST['evoau_location_select'];
@@ -709,8 +738,7 @@ class evoau_frontend{
 						$this->set_new_term($_POST['evcal_location_name'], 'event_location', $created_event_id);
 					}		
 
-				// save organizer as taxonomy
-					
+				// save organizer as taxonomy					
 					// from terms list or existing term
 					if( !empty($_POST['evoau_organizer_select'])){
 						$term_id = (int)$_POST['evoau_organizer_select'];
@@ -729,7 +757,7 @@ class evoau_frontend{
 						}
 
 				// save edata 
-					$EVENT->save_eprops();
+					$EVENT->save_eprops('_edata');
 
 
 				// PLUGGABLE eventon addon intergration
@@ -1084,3 +1112,7 @@ class evoau_frontend{
 			return ob_get_clean();
 		}
 }
+
+
+
+

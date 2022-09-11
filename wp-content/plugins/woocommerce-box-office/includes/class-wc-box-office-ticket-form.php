@@ -95,7 +95,8 @@ class WC_Box_Office_Ticket_Form {
 			$this->_multiple_tickets_js();
 		}
 
-		$customer = $this->_get_customer_data();
+		$customer            = $this->_get_customer_data();
+		$required_checkboxes = array();
 
 		foreach ( $this->fields as $field_key => $field ) {
 			if ( is_string( $field['options'] ) && ! empty( $field['options'] ) ) {
@@ -134,8 +135,16 @@ class WC_Box_Office_Ticket_Form {
 				case 'checkbox':
 					$vars = $this->_option_field_to_template_vars( $field_key, $field );
 					$this->_load_field_template( 'checkbox', $vars );
+					if ( 'yes' === $field['required'] ) {
+						$required_checkboxes[] = $field_key;
+					}
 					break;
 			}
+		}
+
+		// Enqueue Ticket form JS to handle checkbox group required.
+		if ( ! empty( $required_checkboxes ) ) {
+			$this->ticket_form_js( $required_checkboxes, $args );
 		}
 	}
 
@@ -220,6 +229,35 @@ class WC_Box_Office_Ticket_Form {
 		) );
 
 		wp_localize_script( 'wc-box-office-multiple-tickets', 'ticketFormParams', $params );
+	}
+
+	/**
+	 * Enqueue JS script to handle checkbox group required.
+	 *
+	 * @param array $required_checkboxes Field key for required checkboxes.
+	 * @param array $args                Ticket form related parameters.
+	 * @see   https://github.com/woocommerce/woocommerce-box-office/issues/105
+	 */
+	private function ticket_form_js( $required_checkboxes, $args ) {
+		$suffix = WCBO()->script_suffix;
+		wp_enqueue_script(
+			'wc-box-office-ticket-form',
+			WCBO()->assets_url . 'js/ticket-form' . $suffix . '.js',
+			array( 'jquery' ),
+			WCBO()->_version,
+			true
+		);
+
+		wp_localize_script(
+			'wc-box-office-ticket-form',
+			'wcBOTicketFormParams',
+			array(
+				'requiredCheckboxes'    => $required_checkboxes,
+				'fieldPrefix'           => $args['field_name_prefix'],
+				'multipleTickets'       => $args['multiple_tickets'],
+				'checkboxValidationMsg' => esc_attr__( 'Please check at least one box to proceed.', 'woocommerce-box-office' ),
+			)
+		);
 	}
 
 	/**

@@ -6,13 +6,13 @@
  *  @package Ultimate iHover
  */
 
-if ( ! class_exists( 'ULT_IHover' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_IHover' ) ) {
 	/**
 	 * Function that initializes Ultimate iHover Module
 	 *
-	 * @class ULT_IHover
+	 * @class Ultimate_VC_Addons_IHover
 	 */
-	class ULT_IHover {
+	class Ultimate_VC_Addons_IHover {
 		/**
 		 * Constructor function that constructs default values for the Ultimate iHover module.
 		 *
@@ -37,13 +37,13 @@ if ( ! class_exists( 'ULT_IHover' ) ) {
 		 */
 		public function ult_ihover_callback( $atts, $content = null ) {
 			/*	global variables */
-			global $glob_gutter_width, $glob_thumb_height_width, $glob_ihover_shape;
+			global $uavc_glob_gutter_width, $uavc_glob_thumb_height_width, $uavc_glob_ihover_shape;
 
-			$glob_gutter_width       = '';
-			$glob_thumb_height_width = '';
-			$glob_ihover_shape       = '';
-			$output                  = '';
-				$ult_ihover_setting  = shortcode_atts(
+			$uavc_glob_gutter_width       = '';
+			$uavc_glob_thumb_height_width = '';
+			$uavc_glob_ihover_shape       = '';
+			$output                       = '';
+				$ult_ihover_setting       = shortcode_atts(
 					array(
 						'thumb_shape'            => 'circle',
 						'el_class'               => '',
@@ -55,23 +55,23 @@ if ( ! class_exists( 'ULT_IHover' ) ) {
 					),
 					$atts
 				);
-			$vc_version              = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
-			$is_vc_49_plus           = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
+			$vc_version                   = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
+			$is_vc_49_plus                = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
 
 			// Shape.
 			$shape = '';
 			if ( '' != $ult_ihover_setting['thumb_shape'] ) :
-				$glob_ihover_shape = $ult_ihover_setting['thumb_shape'];
-				$shape             = ' data-shape="' . $ult_ihover_setting['thumb_shape'] . '" ';
+				$uavc_glob_ihover_shape = $ult_ihover_setting['thumb_shape'];
+				$shape                  = ' data-shape="' . $ult_ihover_setting['thumb_shape'] . '" ';
 			endif;
 
 			// Height/Width.
 			$width  = '';
 			$height = '';
 			if ( '' != $ult_ihover_setting['thumb_height_width'] ) :
-				$glob_thumb_height_width = $ult_ihover_setting['thumb_height_width'];
-				$width                   = ' data-width="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
-				$height                  = ' data-height="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
+				$uavc_glob_thumb_height_width = $ult_ihover_setting['thumb_height_width'];
+				$width                        = ' data-width="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
+				$height                       = ' data-height="' . esc_attr( $ult_ihover_setting['thumb_height_width'] ) . '" ';
 			endif;
 
 			// Responsive Height/Width.
@@ -84,7 +84,7 @@ if ( ! class_exists( 'ULT_IHover' ) ) {
 
 			// Gutter Width.
 			if ( '' != $ult_ihover_setting['gutter_width'] ) :
-				$glob_gutter_width = $ult_ihover_setting['gutter_width'];
+				$uavc_glob_gutter_width = $ult_ihover_setting['gutter_width'];
 			endif;
 
 			// Extra Class.
@@ -113,10 +113,7 @@ if ( ! class_exists( 'ULT_IHover' ) ) {
 		 * @access public
 		 */
 		public function ult_ihover_item_callback( $atts, $content = null ) {
-			global $glob_gutter_width, $glob_thumb_height_width, $glob_ihover_shape;
-			global $glob_gutter_width;
-			global $glob_thumb_height_width;
-			global $glob_ihover_effectdirection;
+			global $uavc_glob_gutter_width, $uavc_glob_thumb_height_width, $uavc_glob_ihover_shape;
 
 			// Item.
 			$title_responsive_font_line_height = '';
@@ -240,9 +237,9 @@ endif;
 			$height_width = '';
 			$img_width    = '';
 			$img_width    = '';
-			if ( '' != $glob_thumb_height_width ) {
-				$height_width .= 'height: ' . $glob_thumb_height_width . 'px; ';
-				$height_width .= 'width: ' . $glob_thumb_height_width . 'px; ';
+			if ( '' != $uavc_glob_thumb_height_width ) {
+				$height_width .= 'height: ' . $uavc_glob_thumb_height_width . 'px; ';
+				$height_width .= 'width: ' . $uavc_glob_thumb_height_width . 'px; ';
 			}
 
 			$effect = '';
@@ -308,8 +305,8 @@ endif;
 			}
 
 			$gutter_margin = '';
-			if ( '' != $glob_gutter_width ) {
-				$gutter_margin = 'margin: ' . ( $glob_gutter_width / 2 ) . 'px';
+			if ( '' != $uavc_glob_gutter_width ) {
+				$gutter_margin = 'margin: ' . ( $uavc_glob_gutter_width / 2 ) . 'px';
 			}
 
 			$heading_block     = '';
@@ -365,10 +362,10 @@ endif;
 			$height_widthe20 = '';
 			$img_width       = '';
 			$img_width       = '';
-			if ( '' != $glob_thumb_height_width && 'effect20' == $effect ) {
-				$glob_thumb_height_width = $glob_thumb_height_width;
-				$height_widthe20        .= 'height: ' . $glob_thumb_height_width . 'px; ';
-				$height_widthe20        .= 'width: ' . $glob_thumb_height_width . 'px; ';
+			if ( '' != $uavc_glob_thumb_height_width && 'effect20' == $effect ) {
+				$uavc_glob_thumb_height_width = $uavc_glob_thumb_height_width;
+				$height_widthe20             .= 'height: ' . $uavc_glob_thumb_height_width . 'px; ';
+				$height_widthe20             .= 'width: ' . $uavc_glob_thumb_height_width . 'px; ';
 			}
 
 			switch ( $effect ) {
@@ -1095,13 +1092,13 @@ endif;
 		 */
 		public function ult_ihover_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult_ihover_css', 'ihover' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_ihover_css', 'ihover' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult_ihover_js', 'ihover', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_ihover_js', 'ihover', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 		}
 	}
 	// Finally initialize code.
-	new ULT_IHover();
+	new Ultimate_VC_Addons_IHover();
 
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ult_Ihover' ) ) {
 		/**

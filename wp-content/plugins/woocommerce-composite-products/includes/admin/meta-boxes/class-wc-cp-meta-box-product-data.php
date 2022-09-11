@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.2.0
+ * @version  8.5.2
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -1816,7 +1816,7 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function component_config_discount( $id, $data, $product_id ) {
 
-		$discount = isset( $data[ 'discount' ] ) ? $data[ 'discount' ] : '';
+		$discount = isset( $data[ 'discount' ] ) && (float) $data[ 'discount' ] > 0 ? wc_format_localized_decimal( $data[ 'discount' ] )  : '';
 
 		?>
 		<div class="group_discount">
@@ -2851,28 +2851,24 @@ class WC_CP_Meta_Box_Product_Data {
 				}
 
 				/*
-				 * Save discount data.
+				 * Save discount data. 0% discounts are skipped.
 				 */
 
-				if ( isset( $post_data[ 'discount' ] ) ) {
+				if ( isset( $post_data[ 'discount' ] ) && ! empty( $post_data[ 'discount' ] )  ) {
 
-					if ( is_numeric( $post_data[ 'discount' ] ) ) {
+					// wc_format_decimal returns an empty string if a string input is given.
+					// Cast result to float to check that the discount value is between 0-100.
+					// Casting empty strings to float returns 0.
+					$discount = (float) wc_format_decimal( $post_data[ 'discount' ] );
 
-						$discount = wc_format_decimal( $post_data[ 'discount' ] );
-
-						if ( $discount < 0 || $discount > 100 ) {
-
-							/* translators: Product title. */
-							$error = sprintf( __( 'The <strong>Discount</strong> value you entered for "%s" was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-composite-products' ), strip_tags( wp_unslash( $post_data[ 'title' ] ) ) );
-							self::add_notice( $error, 'error' );
-
-							$composite_data[ $group_id ][ 'discount' ] = '';
-
-						} else {
-							$composite_data[ $group_id ][ 'discount' ] = $discount;
-						}
-					} else {
+					// Throw error if discount is not within the 0-100 range or if a string was passed to wc_format_decimal.
+					if ( empty( $discount ) || $discount < 0 || $discount > 100 ) {
+						/* translators: Product title. */
+						$error = sprintf( __( 'The <strong>Discount</strong> value you entered for "%s" was not valid and has been reset. Please enter a positive number between 0-100.', 'woocommerce-composite-products' ), strip_tags( wp_unslash( $post_data[ 'title' ] ) ) );
+						self::add_notice( $error, 'error' );
 						$composite_data[ $group_id ][ 'discount' ] = '';
+					} else {
+						$composite_data[ $group_id ][ 'discount' ] = $discount;
 					}
 				} else {
 					$composite_data[ $group_id ][ 'discount' ] = '';

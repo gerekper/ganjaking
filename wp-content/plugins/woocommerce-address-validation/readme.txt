@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 5.2
-Tested up to: 5.8.1
+Tested up to: 6.0.1
 Requires PHP: 7.0
 
 Adds Address Validation and Lookup to WooCommerce via PostCodeAnywhere, SmartyStreets and more!

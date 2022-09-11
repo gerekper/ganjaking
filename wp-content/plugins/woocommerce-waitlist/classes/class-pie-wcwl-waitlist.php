@@ -310,7 +310,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 		 * @return void
 		 */
 		public function maybe_login_customer( $user_id ) {
-			if ( 'wcwl_process_user_waitlist_request' === $_POST['action'] && 'yes' === get_option( 'woocommerce_waitlist_auto_login' ) ) {
+			if ( 'yes' === get_option( 'woocommerce_waitlist_auto_login' ) && isset( $_POST['action'] ) && 'wcwl_process_user_waitlist_request' === $_POST['action'] ) {
 				wp_set_auth_cookie( $user_id );
 			}
 		}
@@ -570,7 +570,10 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 			if ( $this->user_has_been_emailed( $email ) ) {
 				return false;
 			}
-			if ( 'publish' !== get_post_status( $this->product_id ) ) {
+			if ( ! in_array( get_post_status( $this->product_id ), ['publish', 'private'] ) ) {
+				return false;
+			}
+			if ( WooCommerce_Waitlist_Plugin::is_variation( $this->product ) && ! in_array( get_post_status( $this->product->get_parent_id() ), ['publish', 'private'] ) ) {
 				return false;
 			}
 			$timeout = apply_filters( 'wcwl_notification_limit_time', 10 );

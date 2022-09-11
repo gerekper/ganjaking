@@ -298,6 +298,7 @@ to{background-position:0 0}
 .sp-socialprofiles-style-1 .sp-sp-vimeo{color:#2fb1e3 !important}
 .sp-socialprofiles-style-1 .sp-sp-weibo{color:#ce282b !important}
 .sp-socialprofiles-style-1 .sp-sp-whatsapp{color:#38af48 !important}
+.sp-socialprofiles-style-1 .sp-sp-tiktok{color:#fe2c55 !important}
 .sp-socialprofiles-style-1 .sp-sp-imdb{color:#f5c517 !important}
 .sp-socialprofiles-style-1 .sp-sp-linkedin{color:#0073b1 !important}
 .sp-socialprofiles-style-1 .sp-sp-pinterest{color:#e60023 !important}
@@ -320,6 +321,7 @@ to{background-position:0 0}
 .sp-sp-vimeo{background:#2fb1e3;text-decoration:none}
 .sp-sp-weibo{background:#ce282b;text-decoration:none}
 .sp-sp-whatsapp{background:#38af48;text-decoration:none}
+.sp-sp-tiktok{background:#fe2c55;text-decoration:none}
 .sp-sp-linkedin{background:#0073b1;text-decoration:none}
 .sp-sp-pinterest{background:#e60023;text-decoration:none}
 .sp-sp-youtube{background:red;text-decoration:none}
@@ -546,6 +548,10 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-postcontent h1,.sp-postcontent h2,.sp-postcontent h3,.sp-postcontent h4,.sp-postcontent h5,.sp-postcontent h6{margin-bottom:10px}
 .sp-postcontent table{background-color:#f8f8f8}
 .sp-postcontent table td,.sp-postcontent table th{padding:10px}
+.sp-postcontent{clear:both}
+.sp-postcontent .alignright{float:right;padding:0 0 0 15px}
+.sp-postcontent .alignleft{float:left;padding:0 15px 0 0}
+.sp-postcontent .aligncenter{display:block;margin-left:auto;margin-right:auto}
 .sp-menu-cart-wrapper .sp-menu-cart-item-count{top:-.4em;right:-.9em;position:absolute;padding-left:.5em;padding-right:.5em;padding-top:.25em;padding-bottom:.25em;line-height:1;font-weight:600;justify-content:center;align-items:center;display:inline-flex;border-radius:9999px}
 .sp-posts-single-block a,.sp-posts-single-block a:hover{text-decoration:none}
 .sp-posts-single-block{overflow:hidden}
@@ -567,19 +573,13 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-add-to-cart-wrapper form.variations_form table{border-collapse:collapse;background-color:inherit;margin:10px 0;min-width:240px;width:100%}
 .sp-not-found{text-align:center;margin:80px 20px;font-size:32px}
 .sp-mobile-view .sp-nav-wrapper li .sp-navmenu-list-items-divider{display:none}
-.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li{display:inline-flex !important;display:-webkit-inline-box !important;margin:0}
-.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li a{padding:10px 10px}
-.sp-product-data-tabs-wrapper .woocommerce-tabs ul li.active a{box-shadow:none}
-.sp-product-data-tabs-wrapper .woocommerce-tabs #tab-reviews #submit{float:none}
-.sp-additional-information-wrapper .woocommerce-product-attributes.shop_attributes{width:100%;border-collapse:collapse;background-color:unset}
-.sp-additional-information-wrapper .woocommerce-product-attributes.shop_attributes th,.sp-additional-information-wrapper .woocommerce-product-attributes.shop_attributes td{border:1px solid #000;padding:10px}
-.sp-upsells-wrapper .up-sells ul.products,.sp-product-related-wrapper .related ul.products{list-style:none}
-.sp-upsells-wrapper .up-sells .onsale,.sp-product-related-wrapper .related .onsale{min-width:50px !important;min-height:50px !important;font-size:13px}
-.sp-product-rating-wrapper .woocommerce.woocommerce-product-rating{margin:0;align-items:center;display:flex}
-.wc-tabs li{background:#f8f8f8;padding:6px}
-.wc-tabs li.active{background:#f7f6f7}
-.wc-tabs{margin-bottom:10px}
-.woocommerce-order-details h2,.woocommerce-customer-details h2{margin-bottom:10px}
-.nav-menu-bar li.separator:last-child{display:none}
+.sp-tabbedlayout-horizontal{display:flex;flex-direction:column}
+.sp-tabbedlayout-horizontal ul li a{border-width:1px;border-color:rgb(222 226 230 / 60%);border-bottom-style:none;cursor:pointer;padding:3px 16px;border-bottom:0}
+.sp-tabbedlayout-horizontal ul li a.sp-active-tab{border-width:1px;border-color:#dee2e6;border-bottom-style:none;background:#dee2e6}
+.sp-tabbedlayout-horizontal .tab-content-area{border:1px solid rgb(222 226 230 / 60%);padding:5px 10px}
+.sp-tabbedlayout-vertical{display:flex;flex-direction:row}
+.sp-tabbedlayout-vertical ul li a{border-width:1px;border-color:rgb(222 226 230 / 60%);cursor:pointer;padding:3px 16px;border-right:0}
+.sp-tabbedlayout-vertical ul li a.sp-active-tab{border-width:1px;border-color:#dee2e6;background:#eee}
+.sp-tabbedlayout-vertical .tab-content-area{border:1px solid rgb(222 226 230 / 60%);padding:5px 10px;flex-grow:1}
 @media(min-width:640px){.sm\:sp-flex{display:flex}
 }

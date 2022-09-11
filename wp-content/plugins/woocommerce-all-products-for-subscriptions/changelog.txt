@@ -1,5 +1,23 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.08.31 - version 4.0.0
+* Important - Cart Subscription Plans are no longer supported. If you previously offered Cart Subscription Plans in your store, be aware that these plans are now still inherited by all products in your catalog as Global Subscription Plans.
+* Important - Dropped the 'Default to' option. All products with optional plans now default to the one-time purchase option. To customize this from now on, please use the 'wcsatt_default_subscription_scheme_key' filter.
+* Important - Dropped the 'Layout' option. All products now default to the 'Grouped' layout. For backwards compatibility, the option is still visible in products with custom plans (until recently referred to as Product Subscription Plans). To customize this from now on, please use the 'wcsatt_subscription_options_layout' filter.
+* Important - Subscription plans added to individual products are now exported and imported JSON-encoded.
+* Feature - Introduced Global Subscription Plans as a quick way to make your products available on subscription in bulk.
+* Feature - Added the ability to restrict Global Subscription Plans to specific product categories.
+* Feature - Introduced a new 'Sell on subscription?' option under 'Product Data > Subscriptions'. Use this option to override your global plan settings. Handy if you need to specify custom plans for individual products, or make specific products available for one-time purchase only.
+* Tweak - Minor styling adjustments to the 'My Account - Subscription Switch' button.
+* Tweak - Stop prompting customers to 'Select options' when a product is optionally available on subscription. The extension will now only prompt customers to 'Choose plan' when one-time purchases are disallowed and multiple plans are on offer.
+
+2022.08.15 - version 3.4.2
+* Fix - Fixed an issue that prevented plan discounts with comma separated decimals from being saved.
+* Fix - Fixed an issue with 404 errors on frontend assets in some managed server configurations.
+* Fix - Fixed an issue that prevented the selection of cart plans when adding carts to existing subscriptions is disabled.
+* Fix - Fixed an issue that prevented cart contents from being added to existing subscriptions when cart plans are not in use.
+* Tweak - Minor styling adjustments to the 'My Account - Subscription Switch' button.
+
 2022.07.28 - version 3.4.1
 * Fix - Prevented a fatal error complaining about the 'WCS_ATT_Admin_Notices' class in new installations.
 * Tweak - Minor telemetry data point adjustments.

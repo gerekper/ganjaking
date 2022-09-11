@@ -43,7 +43,8 @@ class UDP_Google_Http_Request
   protected $baseComponent = null;
   protected $path;
   protected $postBody;
-  protected $userAgent;
+  // UpdraftPlus tweak: added default value to prevent type notices
+  protected $userAgent = '';
   protected $canGzip = null;
 
   protected $responseHttpCode;

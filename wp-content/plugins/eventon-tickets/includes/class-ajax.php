@@ -21,11 +21,14 @@ class evo_tix_ajax{
 			'evoTX_ajax_09'=>'wc_cart_updates',
 			'evotx_add_to_cart'=>'evotx_add_to_cart',
 			'evotx_standalone_form'=>'evotx_standalone_form',
+			'evotx_my_account_ticket'=>'evotx_my_account_ticket',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
+
+		$this->help = new evo_helper();
 	}
 
 	// Add event ticket to cart custom AJAX
@@ -34,14 +37,14 @@ class evo_tix_ajax{
 			if( !isset($_POST['data'])) return false;
 
 			// validate nonce
+			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
 			
-			
-			$DATA = $_POST['data'];
+			$DATA = $post_data['data'];
 			$event_data = $DATA['event_data'];
-			$DATA['qty'] = $qty = (int)$_POST['qty'];
+			$DATA['qty'] = $qty = (int)$post_data['qty'];
 
 			// name your price
-			if(isset($_POST['nyp'])) $DATA['nyp'] = sanitize_text_field( $_POST['nyp']);
+			if(isset($post_data['nyp'])) $DATA['nyp'] = sanitize_text_field( $post_data['nyp']);
 
 			$event_id = $event_data['eid'];
 			$wcid = $event_data['wcid'];
@@ -57,7 +60,10 @@ class evo_tix_ajax{
 
 	// standalone form
 		function evotx_standalone_form(){
-			$event_id = $_POST['eid'];
+
+			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
+
+			$event_id = $post_data['eid'];
 
 			$EVENT = new EVO_Event( $event_id);
 
@@ -69,7 +75,7 @@ class evo_tix_ajax{
 			);
 
 			$object = (object)array(
-				'repeat_interval'=> (int)$_POST['ri'],
+				'repeat_interval'=> (int)$post_data['ri'],
 				'event_id'=> $event_id,
 				'epmv'=> $EVENT->get_data()
 			);
@@ -85,23 +91,55 @@ class evo_tix_ajax{
 			exit;
 		}
 
+	// my account ticket view
+		public function evotx_my_account_ticket(){
+			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
+			$ticket_number = $post_data['tn'];
+
+			if( function_exists( 'EVOQR' ) ){
+				$ticket_number = EVOQR()->checkin->decrypt_ticket_number( $ticket_number );
+			}
+			
+			$TIX = new EVO_Evo_Tix_CPT( $ticket_number );
+
+			$email_body_arguments = array(
+				'orderid'=>$TIX->get_order_id(),
+				'tickets'=> array($ticket_number), 
+				'customer'=>'Test',
+				'email'=>'yes'
+			);
+
+			$email = new evotx_email();
+			$html = $email->get_ticket_email_body($email_body_arguments);
+
+			$return_content = array(
+				'status'=>'good',
+				'html'=> $html,
+			);
+			
+			echo json_encode($return_content);		
+			exit;
+
+		}
+
 	// for evo-tix post page and from event edit page
 		function evoTX_checkin_(){
-			global $evotx;
+			
+			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
 
-			$ticketNumber = $_POST['tid'];
+			$ticketNumber = $post_data['tid'];
 			$msg = '';
 
 			// split ticket number
 			$tixNum = explode('-', $ticketNumber);
-			$OrderComplete = $evotx->functions->is_order_complete($tixNum[1]);
-			$CheckinLang = $evotx->functions->get_statuses_lang(); // get both check status lang
+			$OrderComplete = EVOTX()->functions->is_order_complete($tixNum[1]);
+			$CheckinLang = EVOTX()->functions->get_statuses_lang(); // get both check status lang
 
 			// order is not complete
 			if($OrderComplete){
 				$tixID = $tixNum[0];
 
-				$current_status = $_POST['status'];
+				$current_status = $post_data['status'];
 
 				$evotx_tix = new evotx_tix();
 
@@ -112,7 +150,7 @@ class evo_tix_ajax{
 
 			}else{
 				$msg = 'Order not completed';
-				$newTixStaus = $_POST['status'];
+				$newTixStaus = $post_data['status'];
 			}			
 
 			$return_content = array(

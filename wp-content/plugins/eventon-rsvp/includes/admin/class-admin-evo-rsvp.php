@@ -47,13 +47,17 @@ class EVORS_evo_rsvp_cpt{
 		    if ( $search_term != '' ) {
 
 		    	// if searching by ticket ID
-		    	if( strpos($search_term, '-')){
+		    	if( strpos($search_term, '-') !== false){
 		    		$ticket_no = explode('-', $search_term);
 		    		$query->query_vars['p'] = (int)$ticket_no[0];
-		    	}
+		    	
+		    	}elseif(strpos($search_term, '#') !== false){
+		    		
+		    		$query->query_vars['page_id'] = str_replace('#', '', $search_term);
+		    	
+		    	}else{
 
-		    	// if searching by event name
-		    	else{
+		    		// if searching by event name
 
 		    		$event_ids = $this->_get_eventid_by_name( $search_term );
 		    				    		
@@ -77,6 +81,7 @@ class EVORS_evo_rsvp_cpt{
 		 
 			        $query->set( 'meta_query', $meta_query );
 		    	}
+
 
 		    };
 		}

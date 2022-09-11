@@ -1,8 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 2.6.13 
- * @updated 3.1.5
+ * @version 4.1.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -26,6 +25,7 @@ class EVO_Event extends EVO_Data_Store{
 	public $post_name = '';
 
 	public $duration;
+	public $vir_duration = false; // duration till virtual end time
 	public $start_unix_raw;
 	public $start_unix;
 
@@ -90,7 +90,7 @@ class EVO_Event extends EVO_Data_Store{
 			
 			//$event_link = htmlentities($event_link, ENT_QUOTES | ENT_HTML5);
 
-			return $event_link;
+			return apply_filters('evo_event_permalink',$event_link, $this);
 		}
 
 		function get_ux_link(){
@@ -137,6 +137,11 @@ class EVO_Event extends EVO_Data_Store{
 				$this->start_unix = $this->start_unix_raw = $this->_year_month_long_filter( (int)$start ,'start');
 				$this->end_unix = $this->_year_month_long_filter( (int)$end, 'end');
 				$this->duration = (int)$this->end_unix - (int)$this->start_unix;
+
+				// if virtual end time set
+				if($vir_end = $this->is_virtual_end() ){
+					$this->vir_duration = (int)$vir_end - (int)$start;
+				}
 
 
 				// return unix offset of event time from utc 0
@@ -188,12 +193,13 @@ class EVO_Event extends EVO_Data_Store{
 
 
 		// current and future
-		function is_current_event( $cutoff='end', $current_time = ''){
+		function is_current_event( $cutoff='end', $current_time = '', $utc = false){
 			if(empty($current_time)){
 				$current_time = EVO()->calendar->get_current_time();
 			}
 
-			$event_time = $cutoff == 'end' ?  $this->start_unix + $this->duration : $this->start_unix ;
+			$event_start_time = ($utc) ? $this->start_unix: $this->start_unix_raw;
+			$event_time = $cutoff == 'end' ?  $event_start_time + $this->duration : $event_start_time;
 			return $event_time > $current_time? true: false;
 		}		
 		
@@ -231,9 +237,9 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 		// @+2.8
-		function is_event_in_date_range($S=0, $E=0, $start='' ,$end='' ){
+		function is_event_in_date_range($S=0, $E=0, $start='' ,$end='' , $utc = false){
 			if(empty($start) && empty($end) ){
-				$start = $this->start_unix;
+				$start = ($utc) ? $this->start_unix: $this->start_unix_raw;
 				$end = $start + $this->duration;
 			}
 			return EVO()->calendar->shell->is_in_range( $S, $E, $start, $end);
@@ -245,6 +251,13 @@ class EVO_Event extends EVO_Data_Store{
 			$t = $this->start_unix - $CT;
 
 			return ($t<=0) ? false: $t;
+		}
+
+		public function is_virtual_end(){
+			if( !$this->check_yn('_evo_virtual_endtime')) return false;
+			$vir_end = $this->get_prop('_evo_virtual_erow');
+			if( !$vir_end) return false;
+			return $vir_end;		
 		}
 
 	// DATE TIME
@@ -412,14 +425,27 @@ class EVO_Event extends EVO_Data_Store{
 				'end_dst'=> false,
 			);			
 		}
+		// return none adjusted event times
+		// added @4.0.6
+		function get_non_adjusted_times(){			
+			$start = $this->start_unix_raw;
+
+			return $new_times = array(
+				'start'=> $start, 
+				'start_dst'=> false,
+				'end'=> $start + $this->duration,
+				'end_dst'=> false,
+			);			
+		}
 
 		// return readable evo translated date time for unix
-		// added 3.0.3
+		// added 3.0.3 / updated 4.0.7
 		function get_readable_formatted_date($unix, $format='', $check_all_day = false){			
 
+			$datetime = new evo_datetime();
 			if($this->is_all_day() && $check_all_day){
 
-				return eventon_get_lang_formatted_timestr(
+				return $datetime->__get_lang_formatted_timestr(
 					EVO()->calendar->date_format, 
 					eventon_get_formatted_time( $unix )
 				). 
@@ -429,15 +455,17 @@ class EVO_Event extends EVO_Data_Store{
 
 				if(empty($format)) $format = EVO()->calendar->date_format.' '.EVO()->calendar->time_format;
 
-				return eventon_get_lang_formatted_timestr(
+				return $datetime->__get_lang_formatted_timestr(
 					$format, 
 					eventon_get_formatted_time( $unix )
 				);
 			}
 		}
 
+		// updated 4.0.7
 		private function date($dateformat, $array){	
-			return eventon_get_lang_formatted_timestr($dateformat, $array);
+			$datetime = new evo_datetime();
+			return $datetime->__get_lang_formatted_timestr($dateformat, $array);
 		}
 
 		function get_addto_googlecal_link($location_name='', $location_address=''){
@@ -447,8 +475,11 @@ class EVO_Event extends EVO_Data_Store{
 			$format =  $this->is_all_day() ? 'Ymd' : 'Ymd\THi';
 			$format_e =  $this->is_all_day() ? '' : '00Z';
 
+			// modify end unix for google cal
+			$modified_end_unix = $this->is_all_day() ? $event_times['end'] + 86400: $event_times['end'];
+
 			$start = date_i18n( $format , $event_times['start'] ). $format_e;
-			$end = date_i18n( $format , $event_times['end'] ). $format_e;
+			$end = date_i18n( $format , $modified_end_unix ). $format_e;
 				
 			if( !empty($location_name)) $location_name = urlencode($location_name);
 			if( !empty($location_address)) $location_address = urlencode($location_address);
@@ -510,9 +541,8 @@ class EVO_Event extends EVO_Data_Store{
 			$repeats = $this->get_repeats();
 			if(!$repeats) return false;
 
-			date_default_timezone_set('UTC');	
-			$current_time = current_time('timestamp');
-
+			$current_time = EVO()->calendar->current_time0;
+			
 			$return = false;
 			
 			foreach($repeats as $index=>$repeat){
@@ -546,6 +576,101 @@ class EVO_Event extends EVO_Data_Store{
 				if($index == $key)	return $repeat;						
 			}
 			return false;
+		}
+
+		// return the repeat header html
+		// added @version 4.1.2
+		function get_repeat_header_html(){
+			if( !$this->is_repeating_event() ) return false;			
+
+			$repeat_count = $this->get_repeats_count();
+
+			// if there is only one time range in the repeats that means there are no repeats
+			if($repeat_count == 0) return false;
+			
+			$date = new evo_datetime();
+
+			$ev_vals = $this->get_data();
+			$ri = $this->ri;
+
+			global $EVOLANG;
+
+			ob_start();
+
+			// show relative repeat instance 
+				$title_adds = '';
+				if( $this->check_yn('_evo_rep_series')){
+					$title_adds = '- ' . evo_lang('Event').' '. ($ri +1) . ' / '. 
+					($this->get_repeats_count() +1);				
+				}
+
+			echo "<div class='evose_repeat_header'><p><span class='title'>".
+				evo_lang('This is a repeating event'). $title_adds . "</span>";
+			echo "<span class='ri_nav'>";
+
+			// previous link
+			if($ri>0){ 
+
+				$prev_unixs = $this->is_repeat_index_exists( $ri -1 );
+
+				if($prev_unixs && isset($prev_unixs[0]) && $prev_unixs[0] > 0){
+
+					$prev_unix = (int)$prev_unixs[0];
+
+					$text = '';
+
+					if($this->is_year_long()){
+						$text = date('Y', $prev_unix);
+					}elseif( $this->is_month_long() ){
+						$text = $date->get_readable_formatted_date( $prev_unix, 'F, Y');
+					}elseif($this->is_all_day()){
+						$text = $date->get_readable_formatted_date( $prev_unix, EVO()->calendar->date_format);						
+					}else{
+						$text = $date->get_readable_formatted_date( $prev_unix );
+					}
+
+
+					$prev_link = $this->get_permalink( ($ri-1), $this->L);
+					
+					echo "<a href='{$prev_link}' class='prev' title='{$text}'><b class='fa fa-angle-left'></b><em>{$text}</em></a>";
+				}				
+
+			}
+
+			// next link 
+			if($ri<$repeat_count){
+				$ri = (int)$ri;
+
+				$next_unixs = $this->is_repeat_index_exists( $ri +1 );
+
+				if($next_unixs && isset($next_unixs[0])){
+
+					$next_unix = (int)$next_unixs[0];
+
+					$text = '';
+
+					if($this->is_year_long()){
+						$text = date('Y', $next_unix);
+					}elseif( $this->is_month_long() ){
+						$text = $date->get_readable_formatted_date( $next_unix, 'F, Y');
+					}elseif($this->is_all_day()){
+						$text = $date->get_readable_formatted_date( $next_unix, EVO()->calendar->date_format);
+					}else{
+						$text = $date->get_readable_formatted_date( $next_unix );
+					}
+
+					//print_r($next); 
+					$next_link = $this->get_permalink( ($ri+1), EVO()->lang );
+
+					echo "<a href='{$next_link}' class='next' title='{$text}'><em>{$text}</em><b class='fa fa-angle-right'></b></a>";
+
+				}				
+				
+			}
+			
+			echo "</span><span class='clear'></span></p></div>";
+
+			return ob_get_clean();
 		}
 
 	// Taxonomy @+2.8.1 @~2.8.5
@@ -668,10 +793,17 @@ class EVO_Event extends EVO_Data_Store{
 		function is_virtual(){
 			if(!$this->check_yn('_virtual') ) return false;
 
-			$R = false;	
-			if( $this->get_virtual_url() ) $R = true;
-			return $R;
+			if( !$this->is_virtual_data_ready()) return false;
+			return true;
 		}
+		// checks whether required virtual information is present -- @version 4.0.6
+		public function is_virtual_data_ready(){
+			$good = true;
+
+			if( !$this->get_virtual_url() && !$this->get_prop('_vir_embed')) $good = false;
+			return $good;
+		}
+
 		// if the event is virtual and physical
 		function is_virtual_hybrid(){
 			$AM = $this->get_attendance_mode();
@@ -853,7 +985,7 @@ class EVO_Event extends EVO_Data_Store{
 			$F = $this->get_meta($field);
 			return $F? $F: null; 
 		}
-		// return a sent value of the field is empty
+		// return a sent value of the field if empty
 		function get_prop_val($field, $val){
 			$F = $this->get_meta($field);
 			return $F? $F: $val; 
@@ -955,6 +1087,16 @@ class EVO_Event extends EVO_Data_Store{
 				return false;
 			}
 		}
+		public function get_location_name(){
+			$location_term = wp_get_post_terms($this->ID, 'event_location', array('fields'=>'names'));
+			
+			if ( $location_term && ! is_wp_error( $location_term ) && is_array($location_term) ){
+
+				return $location_term[0];
+			}else{
+				return false;
+			}
+		}
 
 	// Organizer
 		function get_organizer_term_id($type='id'){ // @+2.8
@@ -977,14 +1119,15 @@ class EVO_Event extends EVO_Data_Store{
 				$R['organizer_name'] = $O_term->name;
 				$R['organizer_description'] = $O_term->description;
 
+				$organizer_meta = $this->get_organizer_social_meta_array();
+				$organizer_meta['organizer_img_id'] = 'evo_org_img';
+				$organizer_meta['organizer_contact'] = 'evcal_org_contact';
+				$organizer_meta['organizer_address'] = 'evcal_org_address';
+				$organizer_meta['organizer_link'] = 'evcal_org_exlink';
+				$organizer_meta['organizer_link_target'] = '_evocal_org_exlink_target';
+
 				// meta values
-				foreach(array(
-					'organizer_img_id'=>'evo_org_img',
-					'organizer_contact'=>'evcal_org_contact',
-					'organizer_address'=>'evcal_org_address',
-					'organizer_link'=>'evcal_org_exlink',
-					'organizer_link_target'=>'_evocal_org_exlink_target',
-				) as $I=>$key){	
+				foreach($organizer_meta as $I=>$key){	
 					$K = is_integer($I)? $key: $I;				
 					$R[$K] = (empty($org_term_meta[$key]))? '': $org_term_meta[$key];
 				}
@@ -993,6 +1136,14 @@ class EVO_Event extends EVO_Data_Store{
 			}else{
 				return false;
 			}
+		}
+		function get_organizer_social_meta_array(){
+			return apply_filters('evo_organizer_archive_page_social', array(
+					'twitter'=>'evcal_org_tw',
+					'facebook'=>'evcal_org_fb',
+					'linkedin'=>'evcal_org_ln',
+					'youtube'=>'evcal_org_yt'
+				));
 		}
 
 	// Event color
@@ -1063,6 +1214,68 @@ class EVO_Event extends EVO_Data_Store{
 				'valueL'=> $this->get_prop("_evcal_ec_f".$index."a1_cusL"),
 				'target'=> $this->get_prop("_evcal_ec_f".$index."_onw"),
 			), $this, $index);
+		}
+
+	// Single event JSON data
+		function get_event_data_for_gmap( ){
+
+			$evopt1 = EVO()->calendar->evopt1;
+
+			$sin_event_evodata = apply_filters('evosin_evodata_vals',array(
+				'mapformat'=> ((!empty($evopt1['evcal_gmap_format'])) ? $evopt1['evcal_gmap_format']:'roadmap'),
+				'mapzoom'=> ( ( !empty($evopt1['evcal_gmap_zoomlevel']) ) ? $evopt1['evcal_gmap_zoomlevel']:'12' ),
+				'mapscroll'=> ( !evo_settings_val('evcal_gmap_scroll' ,$evopt1)?'true':'false'),
+				'evc_open'=>'yes',
+				'mapiconurl'=> ( !empty($evopt1['evo_gmap_iconurl'])? $evopt1['evo_gmap_iconurl']:''),
+				'maps_load'=> (!EVO()->calendar->google_maps_load ? 'yes':'no'),
+			));
+			return  $sin_event_evodata ;
+		}
+
+	// event field dynamic tag processing
+	// added v 4.0.3
+		public function process_dynamic_tags($VV){
+			if( strpos($VV, '{') !== false){
+
+				$DTT = new evo_datetime();
+
+				if( strpos($VV, '{startdate}') !== false ){
+					$VV = str_replace('{startdate}', 
+						$DTT->get_readable_formatted_date( $this->start_unix, EVO()->calendar->date_format ),
+						$VV );
+				}
+				if( strpos($VV, '{enddate}') !== false ){
+					$VV = str_replace('{enddate}', 
+						$DTT->get_readable_formatted_date( $this->end_unix, EVO()->calendar->date_format ),
+						$VV );
+				}
+				if( strpos($VV, '{SD}') !== false ){
+					$VV = str_replace('{SD}', 
+						$DTT->get_readable_formatted_date( $this->start_unix, EVO()->calendar->date_format ),
+						$VV );
+				}
+				if( strpos($VV, '{ED}') !== false ){
+					$VV = str_replace('{ED}', 
+						$DTT->get_readable_formatted_date( $this->end_unix, EVO()->calendar->date_format ),
+						$VV );
+				}
+				if( strpos($VV, '{eventid}') !== false ){
+					$VV = str_replace('{eventid}', 
+						$this->ID,
+						$VV );
+				}
+				if( strpos($VV, '{startunix}') !== false ){
+					$VV = str_replace('{startunix}', 
+						$this->start_unix,
+						$VV );
+				}if( strpos($VV, '{endunix}') !== false ){
+					$VV = str_replace('{endunix}', 
+						$this->end_unix,
+						$VV );
+				}
+			}
+
+			return $VV;
 		}
 
 	// supportive

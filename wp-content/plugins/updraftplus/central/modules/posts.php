@@ -245,6 +245,28 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			$data['tags'] = $tags['data'];
 		}
 
+		global $post;
+		$context = class_exists('WP_Block_Editor_Context') ? new WP_Block_Editor_Context(array('post' => $post)) : $post;
+
+		// Load block patterns from w.org.
+		if (function_exists('_load_remote_block_patterns')) _load_remote_block_patterns();
+		if (function_exists('_load_remote_featured_patterns')) _load_remote_featured_patterns();
+
+		$block_types = class_exists('WP_Block_Type_Registry') ? WP_Block_Type_Registry::get_instance()->get_all_registered() : array();
+		$block_patterns = class_exists('WP_Block_Patterns_Registry') ? WP_Block_Patterns_Registry::get_instance()->get_all_registered() : array();
+		$block_pattern_categories = class_exists('WP_Block_Pattern_Categories_Registry') ? WP_Block_Pattern_Categories_Registry::get_instance()->get_all_registered() : array();
+		$block_styles = class_exists('WP_Block_Styles_Registry') ? WP_Block_Styles_Registry::get_instance()->get_all_registered() : array();
+
+		$block_data = array(
+			'block_categories' => get_block_categories($context),
+			'block_definitions' => get_block_editor_server_block_settings(),
+			'block_types' => $block_types,
+			'block_patterns' => $block_patterns,
+			'block_pattern_categories' => $block_pattern_categories,
+			'block_styles' => $block_styles
+		);
+		$data = array_merge($data, $block_data);
+
 		return array(
 			'preloaded' => json_encode($data)
 		);
@@ -255,7 +277,7 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 	 *
 	 * @param string $style   CSS file path
 	 * @param int    $timeout The user-defined timeout from UpdraftCentral
-	 * @return string
+	 * @return array
 	 */
 	protected function extract_css_content($style, $timeout) {
 
@@ -282,7 +304,58 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			}
 		}
 
-		return $this->filter_url($content);
+		return $this->extract_custom_fonts($this->filter_url($content));
+	}
+
+	/**
+	 * Extract custom fonts defined within the css content. Basically,
+	 * separating custom font (@font-face) rules from the Style/css content.
+	 *
+	 * @param string $content Style content
+	 * @return array
+	 */
+	protected function extract_custom_fonts($content) {
+		$fonts = array();
+		while ($start = strpos($content, '@font-face')) {
+			$end = strpos($content, '}', $start) + 1;
+			$length = $end - $start;
+
+			$font = substr($content, $start, $length);
+			$fonts[]= $this->update_font_src($font);
+
+			$content = str_replace($font, '', $content);
+		}
+
+		return array(
+			'content' => $content,
+			'fonts' => $fonts
+		);
+	}
+
+	/**
+	 * Updates the font URL to point to the UpdraftCentral "load_font" action
+	 *
+	 * @param string $font Font-face definition/content
+	 * @return string
+	 */
+	protected function update_font_src($font) {
+		$start = strpos($font, 'src:') + 4;
+		$end = strpos($font, ';', $start);
+		$length = $end - $start;
+
+		$src = trim(substr($font, $start, $length));
+		$temp = explode(' ', $src);
+		preg_match('/^url\((.*)\)$/i', $temp[0], $matches);
+
+		$url = '';
+		if (!empty($matches)) {
+			$url = trim(trim($matches[1], "'"), '"');
+			if (strlen($url)) {
+				$font_url = 'CENTRAL_URL/?udcentral_action=load_font&font='.urlencode($url);
+				$font = str_replace($url, $font_url, $font);
+			}
+		}
+		return $font;
 	}
 
 	/**
@@ -344,6 +417,62 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 	}
 
 	/**
+	 * Retrieves block editor assets for iframe.
+	 *
+	 * @return string
+	 */
+	protected function get_iframed_editor_assets() {
+		$script_handles = array();
+		$style_handles  = array(
+			'wp-block-editor',
+			'wp-block-library',
+			'wp-block-library-theme',
+			'wp-edit-blocks',
+		);
+
+		if (class_exists('WP_Block_Type_Registry')) {
+			$block_registry = WP_Block_Type_Registry::get_instance();
+			foreach ($block_registry->get_all_registered() as $block_type) {
+				if (!empty($block_type->style)) {
+					$style_handles[] = $block_type->style;
+				}
+
+				if (!empty($block_type->editor_style)) {
+					$style_handles[] = $block_type->editor_style;
+				}
+
+				if (!empty($block_type->script)) {
+					$script_handles[] = $block_type->script;
+				}
+			}
+		}
+
+		$style_handles = array_unique($style_handles);
+		$done = wp_styles()->done;
+
+		ob_start();
+		// We do not need reset styles for the iframed editor.
+		wp_styles()->done = array('wp-reset-editor-styles');
+		wp_styles()->do_items($style_handles);
+		wp_styles()->done = $done;
+		$styles = ob_get_clean();
+
+		$script_handles = array_unique($script_handles);
+		$done = wp_scripts()->done;
+
+		ob_start();
+		wp_scripts()->done = array();
+		wp_scripts()->do_items($script_handles);
+		wp_scripts()->done = $done;
+		$scripts = ob_get_clean();
+
+		return wp_json_encode(array(
+			'styles' => $styles,
+			'scripts' => $scripts,
+		));
+	}
+
+	/**
 	 * Retrieve the editor styles/assets to be use by UpdraftCentral when editing a post
 	 *
 	 * @param int $timeout The user-defined timeout from UpdraftCentral
@@ -352,14 +481,17 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 	protected function get_editor_styles($timeout) {
 		global $editor_styles, $wp_styles;
 		$editing_styles = $loaded = array();
+		$fonts = '';
 
 		$required = array('css/dist/editor/style.css', 'css/dist/block-library/style.css', 'css/dist/block-library/theme.css');
 		foreach ($required as $style) {
-			$editing_styles[] = array('css' => $this->extract_css_content($style, $timeout), 'inline' => '');
+			$result = $this->extract_css_content($style, $timeout);
+			if (!empty($result['fonts'])) $fonts .= implode('', $result['fonts']);
+			$editing_styles[] = array('css' => $result['content'], 'inline' => '');
 		};
 
-		do_action('enqueue_block_editor_assets');
 		do_action('enqueue_block_assets');
+		do_action('enqueue_block_editor_assets');
 		do_action('wp_enqueue_scripts');
 
 		// Checking for editor styles support since styles may vary from theme to theme
@@ -367,7 +499,9 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			foreach ($editor_styles as $style) {
 				if (false !== array_search($style, $loaded)) continue;
 
-				$editing_styles[] = array('css' => $this->extract_css_content($style, $timeout), 'inline' => '');
+				$result = $this->extract_css_content($style, $timeout);
+				if (!empty($result['fonts'])) $fonts .= implode('', $result['fonts']);
+				$editing_styles[] = array('css' => $result['content'], 'inline' => '');
 				$loaded[] = $style;
 			}
 		}
@@ -377,10 +511,18 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 				$style = $wp_styles->registered[$handle]->src;
 				if (false !== array_search($style, $loaded)) continue;
 	
-				$inline = $wp_styles->print_inline_style($handle, false);
+				$result = $this->extract_css_content($style, $timeout);
+				if (!empty($result['fonts'])) $fonts .= implode('', $result['fonts']);
+
+				$inline_style = $wp_styles->print_inline_style($handle, false);
+				if ($inline_style) {
+					$inline_result = $this->extract_custom_fonts($inline_style);
+					if (!empty($inline_result['fonts'])) $fonts .= implode('', $inline_result['fonts']);
+				}
+
 				$editing_styles[] = array(
-					'css' => $this->extract_css_content($style, $timeout),
-					'inline' => (!$inline) ? '' : $inline
+					'css' => $result['content'],
+					'inline' => (!$inline_style) ? '' : $inline_result['content']
 				);
 				$loaded[] = $style;
 			}
@@ -388,7 +530,9 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 
 		// Introduced in 5.9.0
 		if (function_exists('wp_get_global_stylesheet')) {
-			$editing_styles[] = array('css' => wp_get_global_stylesheet(), 'inline' => '');
+			$result = $this->extract_custom_fonts(wp_get_global_stylesheet());
+			if (!empty($result['fonts'])) $fonts .= implode('', $result['fonts']);
+			$editing_styles[] = array('css' => $result['content'], 'inline' => '');
 		}
 
 		// Introduced in 5.8.0
@@ -402,9 +546,71 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			//
 			// N.B. Leave the 'css' property empty. It is used for downward compatibility.
 			$editing_styles[] = array('editor_css' => $settings['styles'], 'inline' => '', 'css' => '');
+
+			// Get editor assets (e.g. styles) for iframe, mostly used for previewing blocks and patterns
+			$editing_styles[] = array('editor_assets' => $this->get_iframed_editor_assets(), 'inline' => '', 'css' => '');
 		}
 
-		$editing_styles[] = array('css' => $this->extract_css_content('/style.css', $timeout), 'inline' => '');
+		$result = $this->extract_css_content('/style.css', $timeout);
+		if (!empty($result['fonts'])) $fonts .= implode('', $result['fonts']);
+
+		$editing_styles[] = array('css' => $result['content'], 'inline' => '');
+		if (strlen($fonts)) {
+			$editing_styles[] = array('font_css' => $fonts, 'inline' => '', 'css' => '');
+		}
+
+		// These styles are used if the "no theme styles" options is triggered or on
+		// themes without their own editor styles.
+		$default_editor_styles_file = ABSPATH.WPINC.'/css/dist/block-editor/default-editor-styles.css';
+		if (file_exists($default_editor_styles_file)) {
+			$editing_styles[] = array('default_editor_css' => file_get_contents($default_editor_styles_file), 'inline' => '', 'css' => '');
+		}
+
+		// Extract fonts from theme.json if the current theme supports it
+		$resolver = ABSPATH.WPINC.'/class-wp-theme-json-resolver.php';
+		if (!class_exists('WP_Theme_JSON_Resolver') && file_exists($resolver)) {
+			require_once($resolver);
+		}
+
+		if (class_exists('WP_Theme_JSON_Resolver') && WP_Theme_JSON_Resolver::theme_has_support()) {
+			$theme_json = ABSPATH.WPINC.'/class-wp-theme-json.php';
+			if (!class_exists('WP_Theme_JSON') && file_exists($theme_json)) require_once($theme_json);
+
+			$theme_json_instance = WP_Theme_JSON_Resolver::get_theme_data();
+			if ($theme_json_instance) {
+				$settings = $theme_json_instance->get_settings();
+				$theme_fonts = '';
+				
+				if (isset($settings['typography']) && isset($settings['typography']['fontFamilies'])) {
+					$font_families = $settings['typography']['fontFamilies'];
+					if (isset($font_families['theme'])) {
+						foreach ($font_families['theme'] as $theme) {
+							if (isset($theme['fontFace'])) {
+								foreach ($theme['fontFace'] as $font) {
+									$theme_fonts .= '@font-face {';
+									$keys = array_keys($font);
+
+									foreach ($keys as $key) {
+										if (false !== stripos($key, 'font')) {
+											$prop = 'font-'.strtolower(str_replace('font', '', $key));
+											$theme_fonts .= $prop.': '.$font[$key].';';
+										} elseif (false !== stripos($key, 'src')) {
+											foreach ($font['src'] as $src_file) {
+												$url = trailingslashit(get_stylesheet_directory_uri()).str_replace('file:./', '', $src_file);
+												$theme_fonts .= 'src: url(CENTRAL_URL/?udcentral_action=load_font&font='.urlencode($url).');';
+											}
+										}
+									}
+									$theme_fonts .= '}';
+								}
+							}
+						}
+					}
+				}
+				$editing_styles[] = array('theme_json_fonts' => $theme_fonts, 'inline' => '', 'css' => '');
+			}
+		}
+
 		return $editing_styles;
 	}
 
@@ -749,6 +955,35 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 	}
 
 	/**
+	 * Take over the current editing of the post
+	 *
+	 * @param array	$params	An array of data that serves as parameters for the given request
+	 * @return array
+	 */
+	public function take_over($params) {
+
+		$error = $this->_validate_capabilities(array('edit_'.$this->post_type.'s'));
+		if (!empty($error)) return $error;
+
+		$result = array('lock_acquired' => false);
+		if (!empty($params['post_id'])) {
+			if (!function_exists('wp_set_post_lock')) {
+				require_once ABSPATH.'wp-admin/includes/post.php';
+			}
+			$lock = wp_set_post_lock($params['post_id']);
+
+			if (!empty($lock)) {
+				$result = array(
+					'lock_acquired' => true,
+					'details' => $lock
+				);
+			}
+		}
+
+		return $this->_response($result);
+	}
+
+	/**
 	 * Retrieves the underlying data for the given post. Some extra information are
 	 * passed along that will be consumed by the editor in UpdraftCentral
 	 *
@@ -809,6 +1044,19 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 				}
 			}
 
+			$editor = null;
+			$editor_id = wp_check_post_lock($post->ID);
+			if ($editor_id) {
+				$editor = get_userdata($editor_id);
+				if (!$editor) {
+					// The user with lock does not exist. This can happen if you created a backup or clone
+					// where you excluded the users table during the proces and you restore this backup to
+					// a different site or the user was deleted or removed more recently. Thus, we will
+					// release the lock so that other users with the right permission can edit the post.
+					delete_post_meta($post->ID, '_edit_lock');
+				}
+			}
+
 			$response = array(
 				'post' => $encode ? json_encode($post) : $post,
 				'misc' => array(
@@ -840,7 +1088,12 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 					'post_thumbnail_id' => get_post_thumbnail_id($post->ID),
 					'can_publish_posts' => current_user_can($post_type_obj->cap->publish_posts),
 					'can_edit_others_posts' => current_user_can($post_type_obj->cap->edit_others_posts),
-					'can_unfiltered_html' => current_user_can('unfiltered_html')
+					'can_unfiltered_html' => current_user_can('unfiltered_html'),
+					'is_edited' => $editor ? 1 : 0,
+					'editor_id' => $editor_id,
+					'editor' => $editor,
+					'edited_by_id' => $editor ? $editor->ID : 0,
+					'edited_by_display_name' => $editor ? $editor->display_name : '',
 				)
 			);
 
@@ -1109,6 +1362,43 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 	}
 
 	/**
+	 * Pre-validates data before running the save process
+	 *
+	 * @param WP_Post $post	  The post object to validate
+	 * @param array	  $params An array of data that serves as parameters for the given request
+	 *
+	 * @return array|void
+	 */
+	private function pre_validation($post, $params) {
+		if (empty($post) || empty($params)) return;
+
+		if (!empty($params['password'])) {
+			if (!empty($params['sticky'])) {
+				return $this->_generic_error_response('post_save_failed', array(
+					'message' => __('A post can not be sticky and have a password.'),
+					'args' => $params
+				));
+			}
+
+			if (!isset($params['sticky']) && is_sticky($post->ID)) {
+				return $this->_generic_error_response('post_save_failed', array(
+					'message' => __('A sticky post can not be password protected.'),
+					'args' => $params
+				));
+			}
+		}
+
+		if (!empty($params['sticky'])) {
+			if (!isset($params['password']) && post_password_required($post->ID)) {
+				return $this->_generic_error_response('post_save_failed', array(
+					'message' => __('A password protected post can not be set to sticky.'),
+					'args' => $params
+				));
+			}
+		}
+	}
+
+	/**
 	 * Saves or updates post/page information based from the submitted data
 	 *
 	 * @param array	$params	An array of data that serves as parameters for the given request
@@ -1129,6 +1419,16 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 
 		if (!empty($params['id']) || !empty($params['new'])) {
 			$args = array();
+
+			if (!empty($params['id'])) {
+				$post = get_post($params['id']);
+				if (!empty($post)) {
+					$result = $this->pre_validation($post, $params);
+					if (isset($result['response']) && 'rpcerror' == $result['response']) {
+						return $result;
+					}
+				}
+			}
 
 			// post_content
 			if (!empty($params['content']))
@@ -1189,6 +1489,14 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 						break;
 					default:
 						break;
+				}
+			} else {
+				if (!empty($params['password'])) {
+					$args['post_status'] = 'publish';
+					$args['post_password'] = $params['password'];
+				} elseif (isset($params['password']) && '' == $params['password']) {
+					$args['post_status'] = 'publish';
+					$args['post_password'] = '';
 				}
 			}
 

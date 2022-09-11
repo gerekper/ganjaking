@@ -249,7 +249,7 @@ class WC_MNM_Admin_Ajax {
 	/**
 	 * Validates user can edit this product.
 	 *
-	 * @return mixed - If editable will return an array. Otherwise, will return json error.
+	 * @return mixed - If editable will return an array. Otherwise, will return WP_Error.
 	 */
 	protected static function can_edit_container() {
 

@@ -46,11 +46,6 @@ class evo_settings_settings{
 						'type'=>'yesno',
 						'name'=>__('Remove eventon generator meta data from website header','eventon'), 
 						'legend'=>__('Remove the meta data eventon place on your website header with eventon version number for debugging purposes','eventon')),
-
-					array('id'=>'evo_donot_delete',
-						'type'=>'yesno',
-						'name'=>__('Do not delete eventon settings & data when EventON is uninstalled','eventon'), 
-						'legend'=>__('Setting this will retain your eventON settings and event post data when you uninstall eventON from this website. When eventON is reinstalled and activated all the eventON settings and event data will stay as it was before.','eventon')),
 					
 					array('id'=>'evo_rtl',
 						'type'=>'yesno',
@@ -83,7 +78,7 @@ class evo_settings_settings{
 						'legend'=>__('This will disable html special character dencoding for all ics downloaded files for events','eventon')
 					),
 					
-					array('type'=>'sub_section_open','name'=>__('Autonomus Functions' ,'eventon')),
+					array('type'=>'sub_section_open','name'=>__('Autonomous Functions' ,'eventon')),
 
 						array('id'=>'evcal_move_trash','type'=>'yesno','name'=>__('Auto move events to trash when the event date is past','eventon'), 'legend'=>__('This will move events to trash when the event end date is past current date. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
 						array('id'=>'evcal_mark_completed','type'=>'yesno','name'=>__('Set all past events as completed','eventon'), 'legend'=>__('This will set all the past events as completed. This action is performed daily via cron jobs. This will not be performed on repeat, month/year long events.','eventon')),
@@ -136,7 +131,14 @@ class evo_settings_settings{
 
 					array('type'=>'sub_section_close'),
 					
+					array('type'=>'sub_section_open','name'=>__('Settings & Data Management' ,'eventon')),
 
+						array('id'=>'evo_delete_settings',
+							'type'=>'yesno',
+							'name'=>__('Delete eventon settings & data when EventON is uninstalled','eventon'), 
+							'legend'=>__('Enabling this will DELETE eventON settings and event post data when you uninstall eventON from this website. By default eventON settings and data are not deleted from database (when plugin is uninstalled)','eventon')),
+
+					array('type'=>'sub_section_close'),
 					
 										
 					array('type'=>'sub_section_open','name'=>__('Additional EventON Settings' ,'eventon')),
@@ -185,7 +187,10 @@ class evo_settings_settings{
 					),
 					array('id'=>'evcal_cal_gmap_api','type'=>'end_afterstatement'),
 					
-					array('id'=>'evo_gmap_api_key','type'=>'text','name'=>__('Google maps API Key (Required)','eventon').' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">'. __('How to get API Key','eventon').'</a>',
+					
+					array('id'=>'evo_gmap_api_key','type'=>'text','name'=>__('Google maps API Key (Required)','eventon').
+						' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">'. __('How to get an API Key','eventon').'</a> / ' .
+						' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key#restrict_key" target="_blank">'. __('Find out how to restrict this API key','eventon').'</a>',
 						'legend'=>__('Not required with Gmap API V3, but typing a google maps API key will append the key and will enable monitoring map loading activity from google.','eventon'),
 						'afterstatement'=>'evcal_cal_gmap_api'),
 					array('id'=>'evcal_gmap_scroll','type'=>'yesno',
@@ -259,7 +264,7 @@ class evo_settings_settings{
 							'legend'=>__('Setting this will apply the above set default timezone to all the events unless a different timezone is set via event','eventon')
 						),
 						array('id'=>'evo_utcoff','type'=>'yesno',
-							'name'=>__('Use UTC offset time globally on calendars','eventon').' '.__('(BETA)','eventon'), 
+							'name'=>__('Use UTC offset time globally on calendars','eventon'), 
 							'legend'=>__('This will use UTC time for calculating current live events and use event times on UTC0 conversion. This feature is in beta development stage.','eventon')
 						),
 					array('type'=>'sub_section_close'),
@@ -392,33 +397,55 @@ class evo_settings_settings{
 			// event top
 			,array(
 				'id'=>'evcal_004aa',
-				'name'=>__('EventTop Settings (EventTop is an event row on calendar)','eventon'),
+				'name'=>__('EventTop Settings (EventTop is the event row on calendar)','eventon'),
 				'tab_name'=>__('EventTop','eventon'),
 				'icon'=>'columns',
 				'fields'=>array(
-					array('id'=>'evcal_top_fields', 'type'=>'checkboxes','name'=>__('Additional data fields for eventTop: <i>(NOTE: <b>Event Name</b> and <b>Event Date</b> are default fields)</i>','eventon'),
-							'options'=> apply_filters('eventon_eventop_fields', $this->eventtop_settings()),
+					array('type'=>'sub_section_open','name'=>__('EventTop Designer {BETA}','eventon')),
+					array('type'=>'note','name'=>__('NOTE: Please note this feature is still in beta stage. Be adviced you may experience some styles conflicts while we iron out everything.','eventon')),
+					array('id'=>'evcal__note','type'=>'customcode','code'=>$this->eventtop_meta_fields()),
+					array('type'=>'sub_section_close'),
+
+					array('id'=>'evcal_top_fields', 'type'=>'checkboxes','name'=>__('EventTop Main Day block fields','eventon'),
+							'options'=> apply_filters('eventon_eventop_dayblock_fields', $this->eventtop_dayblock_settings()),
+					),
+					array('id'=>'evotop_location','type'=>'dropdown',
+						'name'=>__('Select Event Top location display data','eventon'),
+						'legend'=>'Set which event location information you would like to show in location data field',
+						'options'=>array(
+							'location'=>'Location Address',					
+							'locationame'=>'Location Name',					
+							'both'=>'Both',
+						),'default'=>'both',		
 					),
 					array('id'=>'evo_widget_eventtop','type'=>'yesno','name'=>__('Display all these fields in widget as well','eventon'),'legend'=>__('By default only few of the data is shown in eventtop in order to make that calendar look nice on a widget where space is limited.','eventon')),
 					array('id'=>'evcal_eventtop','type'=>'note','name'=>__('NOTE: Lot of these fields are NOT available in Tile layout. Reason: we dont want to potentially break the tile layout and over-crowd the clean design aspect of tile boxes.','eventon')),
-
-					
-					
+										
 					array('id'=>'evo_eventtop_customfield_icons','type'=>'yesno','name'=>__('Show event custom meta data icons on eventtop','eventon'),'legend'=>__('This will show event custom meta data icons next to custom data fields on eventtop, if those custom data fields are set to show on eventtop above and if they have data and icons set.','eventon')),
-
-					
-
+				
 					array('id'=>'evo_showeditevent','type'=>'yesno','name'=>__('Show edit event button for each event','eventon'),'legend'=> __('This will show an edit event button on eventTop - only for admin - that will open in a new window edit event page. Works only for lightbox and slideDown interaction methods.','eventon')),
 
 					array('id'=>'evo_eventtop_progress_hide','type'=>'yesno','name'=>__('Hide live event progress bar with time remaining','eventon'),'legend'=>__('Enabling this will hide the live event progress bar on event top','eventon')),
 					array('id'=>'evo_hide_live','type'=>'yesno','name'=>__('Hide blinking "Live Now" icon from event top for current events','eventon'),'legend'=> __('This will hide the blinking live now icon, when events are live at current time.','eventon')),
 
+					array('id'=>'evo_eventtop_style_def','type'=>'dropdown',
+						'name'=>__('Select Default Calendar EventTop Style','eventon'),
+						'legend'=>'This will set this as the default eventTop style, if not set via shortcode var eventtop_style',
+						'options'=>array(
+							'_2'=>'Colorful with gap between events',					
+							'_1'=>'Colorful EventTop',					
+							'_3'=>'Colorful event date bubbles',
+							'_0'=>'Clear with left border colors',
+							'_4'=>'Clear with left border colors and gaps',
+						),'default'=>'_2',		
+					),
 					array('id'=>'evo_etop_tags', 'type'=>'checkboxes',
 						'name'=>__('Select below EventTop tags to HIDE (Tags you selected below will be hidden from view on frontend.)','eventon'),
 						'options'=> apply_filters('eventon_eventop_tags', $this->eventtop_tags()),
 					),
 				)
 			)
+
 			// event card
 			,array(
 				'id'=>'evcal_004a',
@@ -462,6 +489,8 @@ class evo_settings_settings{
 						),
 					array('type'=>'sub_section_close'),
 
+					
+
 					// Other EventCard Settings
 					array('type'=>'sub_section_open','name'=>__('Other EventCard Settings','eventon')),
 																
@@ -480,7 +509,6 @@ class evo_settings_settings{
 					array('type'=>'sub_section_close'),
 				)
 			),
-
 			array(
 				'id'=>'evcal_004b',
 				'name'=>__('Event Card Layout Designer','eventon'),
@@ -488,16 +516,7 @@ class evo_settings_settings{
 				'icon'=>'pencil-ruler',
 				'fields'=>array(
 					array('id'=>'evcal__note','type'=>'customcode','code'=>$this->eventcard_meta_fields()),
-					/*
-					array('id'=>'evo_EVC_arrange',
-						'type'=>'rearrange',
-						'fields_array'=>$this->rearrange_code(),
-						'order_var'=> 'evoCard_order',
-						'selected_var'=> 'evoCard_hide',
-						'title'=>__('Order of EventCard Data Boxes','eventon'),
-						'notes'=>__('Fields selected below will show in eventcard, and can be moved around to your desired order.','eventon')
-					),
-					*/
+					
 				)
 			),
 
@@ -699,7 +718,7 @@ class evo_settings_settings{
 						);
 			$data[] = array('id'=>'evosm_loggedin','type'=>'yesno',
 				'name'=>__('Restrict single event pages to logged-in users only','eventon'), 
-				'legend'=>__('Settings this will restrict single events page content to logged-in users to your site','eventon')
+				'legend'=>__('Setting this will allow only logged-in users to access this page. Otherwise will be redirected to login page link set via eventON custom login page','eventon')
 			);
 
 			$data[] = array('id'=>'evosm_comments_hide',
@@ -715,6 +734,7 @@ class evo_settings_settings{
 						'white'=>'Clean White',
 					)
 				);
+
 
 			$data[] = array('type'=>'sub_section_close');
 
@@ -859,45 +879,83 @@ class evo_settings_settings{
 			return  ob_get_clean();
 		}
 
-		function eventtop_settings(){
-			
-			$num = evo_calculate_cmd_count($this->evcal_opt[1]);
-			$_add_tax_count = evo_get_ett_count($this->evcal_opt[1]);
-			$_tax_names_array = evo_get_ettNames($this->evcal_opt[1]);
-			
-			$arr = array(
-				'time'=>__('Event Time (to and from)','eventon'),
-				'location'=>__('Event Location Address','eventon'),
-				'locationame'=>__('Event Location Name','eventon'),				
-			);
-
-			// additional taxonomies
-			for($n=1; $n<= $_add_tax_count; $n++){
-				$__tax_fields = 'eventtype'.($n==1?'':$n);
-				$__tax_name = $_tax_names_array[$n];
-				$arr[$__tax_fields]=__($__tax_name.' (Category #'.$n.')','eventon');
-			}
-
-
-			$arr['tags']=__('Event Tags','eventon');
+		function eventtop_dayblock_settings(){
+						
+			$arr = array();
 			$arr['dayname']=__('Event Day Name','eventon');
 			$arr['eventyear']=__('Event Start Year','eventon');
-			$arr['eventendyear']=__('Event End Year (If different than start year)','eventon');
-			$arr['organizer']=__('Event Organizer','eventon');
-
-			// add custom fields
-			for($x=1; $x < ($num+1); $x++){
-				if(!empty($this->evcal_opt[1]['evcal_af_'.$x])  && $this->evcal_opt[1]['evcal_af_'.$x]=='yes' && !empty($this->evcal_opt[1]['evcal_ec_f'.$x.'a1']) ){
-
-					// disable textarea fields
-					if( $this->evcal_opt[1]['evcal_ec_f'.$x.'a2'] != 'textarea'){
-						$arr['cmd'.$x] = $this->evcal_opt[1]['evcal_ec_f'.$x.'a1'] .' ('. __('Field Type','eventon') .': '. $this->evcal_opt[1]['evcal_ec_f'.$x.'a2'].')';	
-					}
-									
-				}else{ break;}
-			}
+			$arr['eventendyear']=__('Event End Year (If different than start year)','eventon');			
 
 			return $arr;
+		}
+
+		// html eventtop designer
+		function eventtop_meta_fields(){
+			ob_start();
+			$saved_eventtop_fields = isset($this->evcal_opt[1]['evcal_top_fields']) ? 
+				$this->evcal_opt[1]['evcal_top_fields']: array();
+
+
+			// event top layout
+			$evo_etl = isset($this->evcal_opt[1]['evo_etl']) ? 
+				 json_decode( html_entity_decode($this->evcal_opt[1]['evo_etl'] ), true): 
+				 array();
+
+			$cal_help = new evo_cal_help();
+			$eventtop_fields = $cal_help->get_eventtop_fields_array();
+			//print_r($eventtop_fields);
+
+			?>
+			<div class='evotop_designer' >
+				<div class='evotop_design_holder'>
+				<?php 
+					foreach($eventtop_fields['layout'] as $cs => $cdata){
+
+						echo "<div class='evotop_design_col ". ($cs == 'c0'? 'fw':'') ."' data-c='{$cs}'>";
+						$field_num = 1;
+						foreach($cdata as $ind=>$fields){
+							if( !isset($fields['f'])) continue;
+							if( $fields['f'] == 'undefined') continue;
+
+							$name = $eventtop_fields['all'][ $fields['f'] ];
+							
+							echo "<span class='evotop_design_field' data-f='{$fields['f']}' data-num='{$field_num}'>
+							<em>{$name}</em>
+								<span class='ectd_act'><i class='fa fa-minus-circle'></i></span>
+							</span>";
+							$field_num++;
+						}
+
+						echo "<span class='evotop_add_field_trig'><b>+</b></span>";
+						echo "</div>";
+					}
+
+					$unused_fields = array_diff($eventtop_fields['alla'] , $eventtop_fields['used']);
+
+				?>
+				</div>
+
+				<input type='hidden' id='evotop_fields' value='<?php echo json_encode($evo_etl);?>' name='evo_etl'/>
+				
+				<div id='evotop_field_selector' class=''>
+					<h4 style='margin:0 0 10px'><?php _e('Unused Event Top Fields','eventon');?></h4>
+					<div id='evotop_field_selector_f'>
+						<?php
+						if( is_array($unused_fields) && count($unused_fields)>0){
+							foreach($unused_fields as $ff){
+								echo "<span data-f='{$ff}'>". $eventtop_fields['all'][$ff] ."</span>";
+							}
+						}
+						?>
+					</div>
+					<p class='nothing' style='<?php echo count($unused_fields) > 0 ? "display:none":'';?>'><?php _e('You are using all the available fields','eventon');?>!</p>
+					<span style='margin-top:10px' id='evotop_field_selector_c' class='evo_admin_btn btn_triad'><?php _e('Cancel','eventon');?></span>
+				</div>
+			</div>
+			
+			<?php 
+
+			return ob_get_clean();
 		}
 
 		public function eventtop_tags(){
@@ -1026,6 +1084,8 @@ class evo_settings_settings{
 
 						$L = ( array_key_exists('L1', $boxes)) ? ' L':'';
 						$CC = '';
+
+						//echo count($boxes);
 						
 						foreach($boxes as $B=>$DD){
 							if( !isset($DD['n'])) continue;
@@ -1039,6 +1099,7 @@ class evo_settings_settings{
 							if( !isset( $event_card_fields[$N][1] )) continue;
 							
 
+							// stacked boxes begin container
 							if( $B == 'L1' || $B == 'R1') $CC .= "<span class='ecd_row_box_h'>";
 
 							// if display the color reset button
@@ -1055,7 +1116,9 @@ class evo_settings_settings{
 								<span class='ecdad_act'><i class='fa fa-minus-circle'></i></span>
 								</span>";
 
-							if( $B == 'L2' || $B == 'R2') $CC .= "</span>";
+							// stacked boxes close container
+							if( count($boxes) == 3 && ( $B == 'L2' || $B == 'R2')) $CC .= "</span>";
+							if( count($boxes) == 4 && ( $B == 'L3' || $B == 'R3')) $CC .= "</span>";
 						}
 
 						if( empty($CC)) continue;
@@ -1077,9 +1140,14 @@ class evo_settings_settings{
 					<span class='ecd_add_rows onethird' data-c='3'><b></b><b></b><b></b></span>	
 					<span class='ecd_add_rows halfL' data-hc='2' data-hl='L' data-c='1'><em><b></b><b></b></em><b></b></span>	
 					<span class='ecd_add_rows halfR' data-hc='2' data-hl='R' data-c='1'><b></b><em><b></b><b></b></em></span>	
+
+					<span class='ecd_add_rows halfL' data-hc='3' data-hl='L' data-c='1'>
+						<em><b></b><b></b><b></b></em><b></b></span>	
+
+					<span class='ecd_add_rows halfR' data-hc='3' data-hl='R' data-c='1'><b></b><em><b></b><b></b><b></b></em></span>	
 				</p>
 				<div id='evo_card_field_selector' class=''>
-					<h4 style='margin:0 0 10px'>Unused Event Card Fields</h4>
+					<h4 style='margin:0 0 10px'><?php _e('Unused Event Card Fields','eventon');?></h4>
 					<div id='evo_card_field_selector_f'>
 						<?php
 						if( is_array($unused_fields) && count($unused_fields)>0){
@@ -1090,8 +1158,8 @@ class evo_settings_settings{
 						}
 						?>
 					</div>
-					<p class='nothing' style='<?php echo count($unused_fields) > 0 ? "display:none":'';?>'>You are using all the available fields!</p>
-					<span style='margin-top:10px' id='evo_card_field_selector_c' class='evo_admin_btn btn_triad'>Cancel</span>
+					<p class='nothing' style='<?php echo count($unused_fields) > 0 ? "display:none":'';?>'><?php _e('You are using all the available fields','eventon');?>!</p>
+					<span style='margin-top:10px' id='evo_card_field_selector_c' class='evo_admin_btn btn_triad'><?php _e('Cancel','eventon');?></span>
 				</div>
 
 
@@ -1126,6 +1194,10 @@ class evo_settings_settings{
 						__('Once new data field is activated go to <b>myEventon> Settings> EventCard</b> and rearrange the order of this new field and save changes for it to show on front-end. Custom field types Textarea is not supported for showing on eventtop.','eventon').'<br/>'.
 						__('If you change field name for custom fields make sure it is updated in <b>myEventon > Language</b> as well.','eventon').
 						'<br/>(* '. __('Required values','eventon'). ')'
+				),
+				array('id'=>'evcal__note','type'=>'note',
+					'name'=> '<b>'. __('NOTE','eventon'). ': </b>'. 
+						__('Meta data field support dynamic values via event edit page. {startdate} {enddate} {eventid} {startunix} {endunix}.','eventon')
 				),
 				
 				array('id'=>'evcal_cmf_count','type'=>'dropdown','name'=>__('Number of Additional Custom Data Fields','eventon'), 'options'=>$__additions_009_a, 'default'=>3),);
@@ -1245,8 +1317,7 @@ class evo_settings_settings{
 		}
 
 	function content_shortcodes(){
-		global $eventon;
-
+		
 		ob_start();
 		?>
 			<p><?php _e('Use the "Generate shortcode" button to open lightbox shortcode generator to create your desired calendar shortcode.','eventon');?></p><br/>
@@ -1263,7 +1334,7 @@ class evo_settings_settings{
 		<?php
 
 		// throw shortcode popup codes
-		$eventon->evo_admin->eventon_shortcode_pop_content();
+		EVO()->evo_admin->eventon_shortcode_pop_content();
 
 		return ob_get_clean();
 		

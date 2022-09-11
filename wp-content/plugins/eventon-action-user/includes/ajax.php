@@ -146,7 +146,8 @@ class evoau_ajax{
 
 			echo json_encode(array(
 				'status'=>'good',
-				'html'=>$form_html
+				'html'=>$form_html,
+				'd'=>'tt3'
 			)); exit;
 		}
 		function event_get_form(){

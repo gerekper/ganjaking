@@ -80,7 +80,7 @@
 		</div>
 		<div class='evoau_manager_event'>
 			<p style='margin-bottom:10px'><a class='evoau evoau_back_btn'><i class='fa fa-angle-left'></i> <?php echo evo_lang_e('Back to my events');?></a></p>
-			<div class='evoau_manager_event_content'></div>
+			<div class='evoau_manager_event_content trig_evo_loading'></div>
 		</div>
 		<div class='clear'></div>
 		</div>
@@ -93,3 +93,4 @@
 	}
 ?>
 </div><!--#evoau_event_manager-->
+

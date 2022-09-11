@@ -5,7 +5,7 @@ namespace MailPoet\Automation\Integrations\MailPoet\Subjects;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Automation\Engine\Workflows\Field;
+use MailPoet\Automation\Engine\Data\Field;
 use MailPoet\Automation\Engine\Workflows\Subject;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\InvalidStateException;
@@ -63,7 +63,8 @@ class SegmentSubject implements Subject {
     $id = $args['segment_id'];
     $this->segment = $this->segmentsRepository->findOneById($args['segment_id']);
     if (!$this->segment) {
-      throw NotFoundException::create()->withMessage(__(sprintf("Segment with ID '%s' not found.", $id), 'mailpoet'));
+      // translators: %d is the ID.
+      throw NotFoundException::create()->withMessage(sprintf(__("Segment with ID '%d' not found.", 'mailpoet'), $id));
     }
   }
 

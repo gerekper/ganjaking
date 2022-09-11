@@ -34,7 +34,31 @@
     cursor:pointer;
 }
 .evoau_delete_trigger span:hover{background-color:#32bbfd}
-.evoau_manager_event_rows{border:1px solid #E2E2E2;border-radius:12px;overflow:hidden}
+.evoau_manager_event_rows, .evoau_manager_continer{border:1px solid #E2E2E2;border-radius:12px;overflow:hidden}
+
+.evoau_manager_continer h4{
+    font-weight: 900; font-size:20px;
+    color: #585858;
+    font-family: 'roboto';
+    padding: 10px 0;
+}
+
+.evoau_manager_continer .evoau_tile{
+    background-color: #eaeaea;
+    padding: 15px;
+    border-radius: 10px; margin-bottom:10px;
+}
+.evoauem_section_subtitle b{margin-right:10px;}
+.evoau_information_bubble{
+    border: 1px solid #888;
+    padding: 3px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    display:inline-block;margin-right:10px; 
+}
+.evorsau_icon_button{margin-right:10px; cursor: pointer;opacity: 0.5;}
+.evorsau_icon_button:hover{opacity: 1;}
+
 .evcal_btn.evoau, .evoau_submission_form.loginneeded .evcal_btn{
 	border-radius: 4px;
 	border: none;
@@ -56,7 +80,7 @@
 	position:relative
 }
 a.evoau_back_btn, .evoau_paginations{
-	text-decoration:none;
+	text-decoration:none!important;
 	box-shadow:none;
 	position:relative;
 	padding:10px 0;
@@ -76,7 +100,8 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     font-size: 16px;
     position: relative;
     padding-top: 5px;
-    margin-right:10px
+    margin-right:10px;
+    box-sizing:border-box;
 }
 .evoau_back_btn:hover i, .evoau_paginations:hover i{background-color:#808080}
 .evoau_back_btn:hover i:before, .evoau_paginations:hover i:before{color:#fff}
@@ -87,8 +112,13 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
 	box-shadow:none; -webkit-box-shadow:none;
 }
 .eventon_actionuser_eventslist .evoau_manager_row{
-	padding:10px 15px; margin: 0;
-	border-bottom:1px solid #E2E2E2; position:relative;
+	padding: 10px 15px;
+    margin: 0;
+    position: relative;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #e8e8e8;
+    margin: 10px;
 }
 .eventon_actionuser_eventslist .evoau_manager_row.past{background-color:#f7f7f7}
 .eventon_actionuser_eventslist .evoau_manager_row:last-child{border:none}
@@ -166,7 +196,10 @@ a.evoau_back_btn:hover, .evoau_paginations:hover{
     margin-top: -20px;
     opacity: 0.5;
     text-decoration:none!important;
+    box-sizing:border-box;
 }
+.eventon_actionuser_eventslist a.deleteEvent.disa{opacity:0.2;cursor:default;}
+.eventon_actionuser_eventslist a.deleteEvent.disa:hover{color: #333;background-color:transparent}
 .eventon_actionuser_eventslist a.deleteEvent{
 	right:70px;
 }
@@ -178,7 +211,6 @@ h3.evoauem_del_msg{padding: 4px 12px; border-radius: 5px; text-transform: upperc
 p.evoau_outter_shell{
 	padding:20px; border-radius:5px; border:1px solid #d6d6d6;
 }
-.evoau_sub_formfield{border-left:4px solid #c1c1c1;}
 /*#eventon_form .evoau_table .evoau_sub_formfield .row{border:none; padding:0}*/
 .evoau_table p.minor_notice{ font-size:14px; background-color:#f5dfdf; padding:5px 10px}
 
@@ -250,14 +282,23 @@ p.evoau_outter_shell{
 .edit_special{background-color:#f7f7f7;}
 #eventon_form .evoau_table .edit_special .row{border-color:#e8e8e8}
 .evoauem_section_subtitle{
-    padding:10px 0; margin:0px;
-    border-bottom:1px solid #afafaf;
-    font-size:18px;
+    padding:10px 0; margin:0px; font-size:18px;
 }
 /* Pagination */
 .evoau_manager_pagination{  padding-top:10px;    display: flex;   justify-content: space-between;}
 .evoau_manager_pagination .evoau_paginations.next i{margin-right:0px; margin-left:10px}
 
+/* signin */
+.evoau_manager_event_content i.signin{
+    margin-left: 10px;
+    background-color: #8bc34a;
+    padding: 5px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+}
+.evoau_manager_event_content input{    border: none;box-shadow: 0px 0px 15px #e4e4e4;border-radius: 25px;padding: 4px 15px;background-color: #fff;}
+.evoau_manager_event_content input:focus{outline:none}
 
 @media (max-width: 480px){
 	.eventon_actionuser_eventslist .editEvent, .eventon_actionuser_eventslist .deleteEvent{

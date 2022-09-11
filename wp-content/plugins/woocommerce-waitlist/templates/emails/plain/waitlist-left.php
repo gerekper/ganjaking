@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo _x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' );
+echo esc_html_x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' );
 echo "\n\n";
 printf( __( 'You have been sent this email because your email address was removed from a waitlist for %1$s at %2$s. ', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'name' ) ) );
 echo "\n\n";
-printf( __( 'If this is an error you can add yourself back to the waitlist here: %s.', 'woocommerce-waitlist' ), esc_attr( $product_link ) );
+printf( __( 'If this is an error you can add yourself back to the waitlist here: %s.', 'woocommerce-waitlist' ), esc_url( $product_link ) );
 echo "\n\n";
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

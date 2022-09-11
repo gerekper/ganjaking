@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Measurement Price Calculator Cart Class
@@ -512,6 +512,7 @@ class WC_Price_Calculator_Cart {
 	 * Display any user-input product data in the cart
 	 *
 	 * @since 3.0
+	 *
 	 * @param array $data array of name/display pairs of data to display in the cart
 	 * @param array $item associative array of a cart item (product)
 	 * @return array of name/display pairs of data to display in the cart
@@ -532,7 +533,15 @@ class WC_Price_Calculator_Cart {
 			}
 		}
 
-		return $data;
+		/**
+		 * Filters measurement product data in cart.
+		 *
+		 * @since 3.20.2
+		 *
+		 * @param array $data product data
+		 * @param array $item cart item
+		 */
+		return apply_filters( 'wc_measurement_price_calculator_display_in_cart', $data, $item );
 	}
 
 
@@ -551,12 +560,24 @@ class WC_Price_Calculator_Cart {
 	 */
 	public function set_order_item_meta( $item, $cart_item_key, $values ) {
 
+		/**
+		 * Flags if any measurement data should be set for an order item.
+		 *
+		 * @since 3.20.2
+		 *
+		 * @param bool $set_order_item_meta default true
+		 * @param \WC_Order_Item_Product $item product item object
+		 * @param string $cart_item_key cart item key
+		 * @param array $values posted checkout values
+		 */
+		$set_order_item_meta = (bool) apply_filters( 'wc_measurement_price_calculator_set_order_item_meta', true, $item, $cart_item_key, $values );
+
 		// pricing calculator item?
-		if ( isset( $values['pricing_item_meta_data'] ) ) {
+		if ( $set_order_item_meta && isset( $values['pricing_item_meta_data'] ) ) {
 
 			$display_data = $this->humanize_cart_item_data( $values, $values['pricing_item_meta_data'] );
 
-			// set any user-input fields to the order item meta data (which can be displayed on the frontend)
+			// set any user-input fields to the order item metadata (which can be displayed on the frontend)
 			foreach ( $display_data as $name => $value ) {
 				$item->add_meta_data( $name, $value );
 			}

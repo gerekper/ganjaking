@@ -13,11 +13,10 @@ class EVOICS_admin{
 	public $evo_opt;
 
 	function __construct(){
-		global $evoics;
 		add_action('admin_init', array($this, 'admin_scripts'));
 		
 		// settings link in plugins page
-		add_filter("plugin_action_links_".$evoics->plugin_slug, array($this,'eventon_plugin_links' ));
+		add_filter("plugin_action_links_". EVOICS()->plugin_slug, array($this,'eventon_plugin_links' ));
 		add_action( 'admin_menu', array( $this, 'menu' ),9);
 
 		$evo_opt = get_option('evcal_options_evcal_1');
@@ -35,6 +34,13 @@ class EVOICS_admin{
 	/**	ICS settings content	 */
 		function page_content(){
 			require_once('class-settings.php');
+			$SET = new EVOICS_settings();
+			$SET->content();
+
+			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings.php' );
+			$this->settings = new EVO_Settings();
+			$this->settings->register_ss();
+			$this->settings->load_styles_scripts();
 		}
 
 	// Styles and scripts for the page

@@ -19,3 +19,9 @@
 }
 
 #tp_svg_gradients {   visibility: hidden; position: absolute; z-index: 0; top:0px; left:0px; pointer-events: none}
+
+#slider-174-slide-423-layer-26 svg{
+	border: solid 1px red !important;
+	/* display: none; */
+	transform: rotate(0deg);
+}

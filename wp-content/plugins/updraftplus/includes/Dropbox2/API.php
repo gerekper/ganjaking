@@ -27,12 +27,6 @@ class UpdraftPlus_Dropbox_API {
     private $root;
     
     /**
-     * Format of the API response
-     * @var string
-     */
-    private $responseFormat = 'php';
-    
-    /**
      * JSONP callback
      * @var string
      */
@@ -233,10 +227,6 @@ class UpdraftPlus_Dropbox_API {
      * @return boolean          - a boolean to indicate success or failure
      */
     public function download($file, $outFile = null, $options = array()) {
-        // Only allow php response format for this call
-        if ($this->responseFormat !== 'php') {
-            throw new Exception('This method only supports the `php` response format');
-        }
 
         if ($outFile) {
             $this->OAuth->setOutFile($outFile);
@@ -344,32 +334,7 @@ class UpdraftPlus_Dropbox_API {
      */
     private function fetch($method, $url, $call, array $params = array()) {
         // Make the API call via the consumer
-        $response = $this->OAuth->fetch($method, $url, $call, $params);
-        
-        // Format the response and return
-        switch ($this->responseFormat) {
-            case 'json':
-                return json_encode($response);
-            case 'jsonp':
-                $response = json_encode($response);
-                return $this->callback . '(' . $response . ')';
-            default:
-                return $response;
-        }
-    }
-    
-    /**
-     * Set the API response format
-     * @param string $format One of php, json or jsonp
-     * @return void
-     */
-    public function setResponseFormat($format) {
-        $format = strtolower($format);
-        if (!in_array($format, array('php', 'json', 'jsonp'))) {
-            throw new Exception("Expected a format of php, json or jsonp, got '$format'");
-        } else {
-            $this->responseFormat = $format;
-        }
+        return $this->OAuth->fetch($method, $url, $call, $params);
     }
     
     /**

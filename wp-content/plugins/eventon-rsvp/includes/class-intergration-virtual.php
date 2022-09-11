@@ -98,6 +98,10 @@ class EVORS_Virtual_Events extends evors_front{
 // FRONT
 	public function initial_setup($EV){
 
+		$this->rsvp_go = false;
+		$this->can_rsvp_now = false;
+		$this->user_has_rsvped = false;
+
 		// check if rsvp enabled for this event
 		if( !$EV->EVENT->check_yn('evors_rsvp')) return;
 

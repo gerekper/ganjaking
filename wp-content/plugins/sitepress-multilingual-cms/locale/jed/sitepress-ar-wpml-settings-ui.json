@@ -1,0 +1,47 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "You can choose which posts to translate from the <strong>Translation Management Dashboard</strong>.": [
+            "يمكنك اختيار المقالات التي ترغب في ترجمتها من خلال <strong>لوحة أدوات إدارة الترجمة</strong>."
+         ],
+         "Yes, translate all of these posts automatically": [
+            "نعم، قم بترجمة كل تلك المقالات آليًا"
+         ],
+         "No, I want to translate some of these posts, but not all": [
+            "لا، أرغب في ترجمة بعض هذه المقالات، وليس جميعها"
+         ],
+         "You must use the Advanced Translation Editor if you want to translate your content automatically.": [
+            "يجب عليك استخدام محرر الترجمة المتقدم إذا كنت تريد ترجمة المحتوى الخاص بك تلقائيًا."
+         ],
+         "Synchronize translators and translation managers with ATE": [
+            "مزامنة المترجمين ومديري الترجمة مع ATE"
+         ],
+         "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
+            "يرجى المحاولة مرة أخرى خلال بضع دقائق. إذا استمرت المشكلة، يرجى الاتصال بـ %sدعم WPML%s."
+         ],
+         "Save": [
+            "حفظ"
+         ],
+         "Please confirm this translation setting": [
+            "يُرجى تأكيد إعداد الترجمة هذا"
+         ],
+         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate the <NumberOfItems /> existing items.": [
+            "تم ضبط موقعك على ترجمة كل المحتوى آليًا. عند تجعل المحتوى <PostTypesNames /> قابلًا للترجمة، سيقوم WPML آليًا بترجمة <NumberOfItems /> العناصر الحالية."
+         ],
+         "Are you OK with paying for this?": [
+            "هل أنت موافق على الدفع للحصول على هذا؟"
+         ],
+         "Cancel": [
+            "الغ"
+         ],
+         "Make translatable": [
+            "جعله قابلًا للترجمة"
+         ]
+      }
+   }
+}

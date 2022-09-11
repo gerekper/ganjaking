@@ -44,7 +44,7 @@ class WoocommercePrfGoogleReviewProductInfo {
 
 			return $product_info;
 		}
-		$product_info = $this->get_product_info_simple( $wc_product );
+		$product_info = $this->get_product_info_simple( $wc_product, true );
 		$this->cache->store( $wc_product->get_id(), 'googlereview', serialize( $product_info ) );
 
 		return $product_info;
@@ -71,11 +71,12 @@ class WoocommercePrfGoogleReviewProductInfo {
 	/**
 	 * Generate product info for a simple product.
 	 *
-	 * @param $wc_product
+	 * @param WC_Product $wc_product
+	 * @param bool $include_internal_ids
 	 *
 	 * @return array
 	 */
-	protected function get_product_info_simple( $wc_product ) {
+	protected function get_product_info_simple( $wc_product, $include_internal_ids = true ) {
 
 		if ( empty( $wc_product ) ) {
 			return [];
@@ -102,26 +103,28 @@ class WoocommercePrfGoogleReviewProductInfo {
 		];
 
 		if ( ! empty( $gpf_feed_item->additional_elements['gtin'] ) ) {
-			$product_info['gtins'] = isset( $gpf_feed_item->additional_elements['gtin'] ) ?
-				$gpf_feed_item->additional_elements['gtin'] :
-				[];
+			$product_info['gtins'] = $gpf_feed_item->additional_elements['gtin'];
 		}
 		if ( ! empty( $gpf_feed_item->additional_elements['mpn'] ) ) {
-			$product_info['mpns'] = isset( $gpf_feed_item->additional_elements['mpn'] ) ?
-				$gpf_feed_item->additional_elements['mpn'] :
-				[];
+			$product_info['mpns'] = $gpf_feed_item->additional_elements['mpn'];
 		}
 		if ( ! empty( $gpf_feed_item->additional_elements['brand'] ) ) {
-			$product_info['brands'] = isset( $gpf_feed_item->additional_elements['brand'] ) ?
-				$gpf_feed_item->additional_elements['brand'] :
-				[];
+			$product_info['brands'] = $gpf_feed_item->additional_elements['brand'];
 		}
 		if ( ! empty( $gpf_feed_item->sku ) ) {
-			$product_info['skus'] = isset( $gpf_feed_item->sku ) ?
-				[ $gpf_feed_item->sku ] :
-				[];
+			$product_info['skus'][] = $gpf_feed_item->sku;
 		}
-		$product_info['skus'][] = 'woocommerce_gpf_' . $wc_product->get_id();
+		// We're done if internal IDs aren't requested as a fallback.
+		if ( ! $include_internal_ids ) {
+			return $product_info;
+		}
+
+		// Internal IDs are requested as a fallback, add them if necessary.
+		if ( empty( $product_info['gtins'] ) &&
+			 ( empty( $product_info['mpns'] ) || empty( $product_info['brands'] ) )
+		) {
+			$product_info['skus'][] = $gpf_feed_item->guid;
+		}
 
 		return $product_info;
 	}
@@ -142,22 +145,23 @@ class WoocommercePrfGoogleReviewProductInfo {
 			'excluded' => [],
 		];
 
+		// Get the information for all the child variations.
 		$child_ids = $wc_product->get_children();
 		foreach ( $child_ids as $child_id ) {
-			$child_info           = $this->get_product_info_simple( wc_get_product( $child_id ) );
-			$child_info['skus'][] = 'woocommerce_gpf_' . $child_id;
-			$product_info         = array_merge_recursive( $product_info, $child_info );
-			$product_info         = array_map( 'array_unique', $product_info );
+			$child_info   = $this->get_product_info_simple( wc_get_product( $child_id ), true );
+			$product_info = array_merge_recursive( $product_info, $child_info );
+			$product_info = array_map( 'array_unique', $product_info );
 		}
 
-		$parent_info  = $this->get_product_info_simple( $wc_product );
+		// Get the parent product information, and merge in.
+		$parent_info  = $this->get_product_info_simple( $wc_product, false );
 		$product_info = array_merge_recursive( $product_info, $parent_info );
 		// The excluded flag on the parent should override child values if set, not be merged with.
 		if ( true === $parent_info['excluded'] ) {
 			$product_info['excluded'] = [ true ];
 		}
-		$product_info['skus'][] = 'woocommerce_gpf_' . $wc_product->get_id();
-		$product_info           = array_map( 'array_unique', $product_info );
+		$product_info = array_map( 'array_unique', $product_info );
+
 		// If any variants are not excluded, then the product as a whole won't be excluded.
 		if ( in_array( false, $product_info['excluded'], true ) ) {
 			$product_info['excluded'] = false;

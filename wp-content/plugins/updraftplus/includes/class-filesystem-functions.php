@@ -499,6 +499,10 @@ class UpdraftPlus_Filesystem_Functions {
 		if (class_exists('ZipArchive', false) && apply_filters('unzip_file_use_ziparchive', true)) {
 			$result = self::unzip_file_go($file, $to, $needed_dirs, 'ziparchive', $starting_index, $folders_to_include);
 			if (true === $result || (is_wp_error($result) && 'incompatible_archive' != $result->get_error_code())) return $result;
+			if (is_wp_error($result)) {
+				global $updraftplus;
+				$updraftplus->log("ZipArchive returned an error (will try again with PclZip): ".$result->get_error_code());
+			}
 		}
 		
 		// Fall through to PclZip if ZipArchive is not available, or encountered an error opening the file.
@@ -630,6 +634,8 @@ class UpdraftPlus_Filesystem_Functions {
 		$uncompressed_size = 0;
 
 		$num_files = $z->numFiles;
+
+		if (false === $num_files) return new WP_Error('incompatible_archive', __('Incompatible Archive.'), array($method.'_error' => $z->last_error));
 		
 		for ($i = $starting_index; $i < $num_files; $i++) {
 			if (!$info = $z->statIndex($i)) {

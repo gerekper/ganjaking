@@ -1,5 +1,8 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-08-09 - version 1.6.1
+* Tweak - Bump tested up to WooCommerce version 6.8.
+
 2022-07-19 - version 1.6.0
 * Add - Pending payment to Partially Paid status transition for emails.
 

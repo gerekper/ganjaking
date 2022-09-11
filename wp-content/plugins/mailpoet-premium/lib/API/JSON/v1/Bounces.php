@@ -39,14 +39,14 @@ class Bounces extends APIEndpoint {
       : null;
     if (!$newsletter instanceof NewsletterEntity) {
       return $this->errorResponse([
-        APIError::NOT_FOUND => WPFunctions::get()->__('This newsletter does not exist.', 'mailpoet-premium'),
+        APIError::NOT_FOUND => __('This newsletter does not exist.', 'mailpoet-premium'),
       ]);
     }
 
     if (!$this->isNewsletterSent($newsletter)) {
       return $this->errorResponse(
         [
-          APIError::NOT_FOUND => WPFunctions::get()->__('This newsletter is not sent yet.', 'mailpoet-premium'),
+          APIError::NOT_FOUND => __('This newsletter is not sent yet.', 'mailpoet-premium'),
         ]
       );
     }

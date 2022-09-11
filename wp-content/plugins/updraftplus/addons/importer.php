@@ -144,6 +144,8 @@ class UpdraftPlus_Addons_Importer {
 						// Don't put this in the for loop, or the magic __get() method gets called every time the loop goes round
 						$numfiles = $zip->numFiles;
 
+						if (false === $numfiles) $updraftplus->log("foreign_gettime(): could not read any files from the zip: (".basename($entry).") Zip error: (".$zip->last_error.")");
+
 						$latest_mtime = -1;
 
 						for ($i=0; $i < $numfiles; $i++) {

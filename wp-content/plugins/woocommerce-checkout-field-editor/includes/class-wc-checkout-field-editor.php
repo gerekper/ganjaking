@@ -1,9 +1,8 @@
 <?php
 
+use Automattic\WooCommerce\Admin\Features\Features;
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
-use Automattic\WooCommerce\Admin\Features\Features;
-
 
 /**
  * WC_Checkout_Field_Editor class.
@@ -897,7 +896,7 @@ class WC_Checkout_Field_Editor {
 	 *
 	 * @param mixed $a
 	 * @param mixed $b
-	 * @return void
+	 * @return int
 	 */
 	public function sort_fields( $a, $b ) {
 		$order_text = version_compare( WC_VERSION, '3.0.0', '<' ) ? 'order' : 'priority';
@@ -912,12 +911,16 @@ class WC_Checkout_Field_Editor {
 	/**
 	 * Save_data function.
 	 *
-	 * @param mixed $id
+	 * @param mixed $order_id
 	 * @param mixed $posted
 	 * @return void
 	 */
 	public function save_data( $order_id, $posted ) {
 		$types = array( 'billing', 'shipping', 'additional' );
+
+		if ( WC_CRUD_SUPPORT ) {
+			$order = wc_get_order( $order_id );
+		}
 
 		foreach ( $types as $type ) {
 			$fields = $this->get_fields( $type );
@@ -931,10 +934,14 @@ class WC_Checkout_Field_Editor {
 					$value = wc_clean( $posted[ $name ] );
 
 					if ( $value ) {
-						update_post_meta( $order_id, $name, $value );
+						WC_CRUD_SUPPORT ? $order->update_meta_data( $name, $value ) : update_post_meta( $order_id, $name, $value );
 					}
 				}
 			}
+		}
+
+		if ( WC_CRUD_SUPPORT ) {
+			$order->save();
 		}
 	}
 
@@ -943,7 +950,7 @@ class WC_Checkout_Field_Editor {
 	 *
 	 * @since 1.5.35
 	 * @param array $fields Default fields.
-	 * @return $fields Modified fields.
+	 * @return array $fields Modified fields.
 	 */
 	public function set_default_address_field( $fields ) {
 		remove_filter( 'woocommerce_default_address_fields', array( $this, 'set_default_address_field' ) );

@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo _x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' ) . "\n\n";
+echo esc_html_x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' ) . "\n\n";
 
-printf( __( 'Please click the link below to confirm your email address and be added to the waitlist for %1$s at %2$s.', 'woocommerce-waitlist' ), $product_title, get_bloginfo( 'title' ) );
+printf( __( 'Please click the link below to confirm your email address and be added to the waitlist for %1$s at %2$s.', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'title' ) ) );
 echo "\n\n";
 $link = add_query_arg( array(
 	'wcwl_user_optin' => esc_attr( $email ),
@@ -28,7 +28,7 @@ $link = add_query_arg( array(
 	'key'             => $key,
 	'lang'            => $lang,
 ), $product_link );
-echo esc_attr( $product_link );
+echo esc_url( $link );
 echo "\n\n";
 _e( 'If you did not make this request please ignore this email.', 'woocommerce-waitlist' );
 echo "\n\n";

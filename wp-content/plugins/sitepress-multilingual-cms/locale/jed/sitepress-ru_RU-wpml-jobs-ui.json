@@ -1,0 +1,383 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Draft — Pending review": [
+            "Черновик — Ожидает проверки"
+         ],
+         "Complete": [
+            "Закончен"
+         ],
+         "Insufficient funds": [
+            "Недостаточно средств"
+         ],
+         "Start batch sync": [
+            "Начать пакетную синхронизацию"
+         ],
+         "Cancel job": [
+            "Отменить заказ"
+         ],
+         "Start downloading XLIFF file": [
+            "Начать загрузку XLIFF-файла"
+         ],
+         "Edit": [
+            "Изменить"
+         ],
+         "Get translation": [
+            "Получить перевод"
+         ],
+         "Resign": [
+            "Отказаться"
+         ],
+         "Review": [
+            "Проверка"
+         ],
+         "Translate": [
+            "Перевести"
+         ],
+         "Take and Translate": [
+            "Взять и перевести"
+         ],
+         "View": [
+            "Просмотреть"
+         ],
+         "Delete Translations": [
+            "Удалить переводы"
+         ],
+         "Keep Translations as Draft": [
+            "Сохранить переводы как черновики"
+         ],
+         "Never mind. I want to review these translations.": [
+            "Неважно. Я хочу проверить эти переводы."
+         ],
+         "Cancel": [
+            "Отменить"
+         ],
+         "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
+            "Это приведет к удалению выбранных заказов из очереди переводов без их публикации. Что вы хотели бы сделать с переводами?"
+         ],
+         "Cancel Translation Review": [
+            "Отменить проверку перевода"
+         ],
+         "Bulk actions": [
+            "Пакетная обработка"
+         ],
+         "Apply": [
+            "Применить"
+         ],
+         "Actions applied to multiple translation jobs can take a few seconds. Please do not leave the page.": [
+            "Действия, применяемые к нескольким заказам на перевод, могут занять несколько секунд. Пожалуйста, не покидайте страницу."
+         ],
+         "Actions applied to multiple translation jobs can take a few minutes. Please do not leave the page.": [
+            "Действия, применяемые к нескольким заказам на перевод, могут занять несколько минут. Пожалуйста, не покидайте страницу."
+         ],
+         "Select translator": [
+            "Выбрать переводчика"
+         ],
+         "Assign": [
+            "Назначить"
+         ],
+         "In progress": [
+            "Выполняется"
+         ],
+         "Translation ready to download": [
+            "Перевод готов к загрузке"
+         ],
+         "Completed": [
+            "Завершено"
+         ],
+         "Published — Pending review": [
+            "Опубликовано — Ожидает проверки"
+         ],
+         "Needs update": [
+            "Необходимо обновление"
+         ],
+         "Cancelled": [
+            "Отменен"
+         ],
+         "Needs translation": [
+            "Требуется перевод"
+         ],
+         "View original": [
+            "Просмотр исходника"
+         ],
+         "(no title)": [
+            "(без заголовка)"
+         ],
+         "TP ID: %d": [
+            "Идентификатор ПП: %d"
+         ],
+         "Reset": [
+            "Перезагрузить"
+         ],
+         "Filter": [
+            "Фильтр"
+         ],
+         "Title (%s)": [
+            "Заголовок (%s)"
+         ],
+         "Type (%s)": [
+            "Тип (%s)"
+         ],
+         "Language (%s)": [
+            "Язык (%s)"
+         ],
+         "Batch name (%s)": [
+            "Название пакета (%s)"
+         ],
+         "Status (%s)": [
+            "Состояние (%s)"
+         ],
+         "Translated by (%s)": [
+            "Переведено (%s)"
+         ],
+         "Sent date (%s)": [
+            "Дата отправки (%s)"
+         ],
+         "Deadline (%s)": [
+            "Срок (%s)"
+         ],
+         "Clear all filters": [
+            "Очистить все фильтры"
+         ],
+         "Any Translation Service": [
+            "Любой службой переводов"
+         ],
+         "Any WordPress Translator": [
+            "Любой переводчик WordPress"
+         ],
+         "ID (%s)": [
+            "Идентификатор (%s)"
+         ],
+         "From": [
+            "С"
+         ],
+         "To": [
+            "на"
+         ],
+         "Anyone": [
+            "Любым лицом"
+         ],
+         "Include jobs from translation services": [
+            "Включить заказы от переводческих служб"
+         ],
+         "All types": [
+            "Все типы"
+         ],
+         "Select visible columns": [
+            "Выбрать видимые столбцы"
+         ],
+         "The bulk action is running...": [
+            "Запущено пакетное действие..."
+         ],
+         "Export all jobs to XLIFF 1.0": [
+            "Экспорт всех заказов в XLIFF 1.0"
+         ],
+         "Export all filtered jobs to XLIFF 1.0": [
+            "Экспорт всех отфильтрованных заказов в XLIFF 1.0"
+         ],
+         "Export all jobs to XLIFF 1.1": [
+            "Экспорт всех заказов в XLIFF 1.1"
+         ],
+         "Export all filtered jobs to XLIFF 1.1": [
+            "Экспорт всех отфильтрованных заказов в XLIFF 1.1"
+         ],
+         "Export all jobs to XLIFF 1.2": [
+            "Экспорт всех заказов в XLIFF 1.2"
+         ],
+         "Export all filtered jobs to XLIFF 1.2": [
+            "Экспорт всех отфильтрованных заказов в XLIFF 1.2"
+         ],
+         "Export": [
+            "Экспортировать"
+         ],
+         "Select File": [
+            "Выбрать файл"
+         ],
+         ".xliff .zip": [
+            ".xliff .zip"
+         ],
+         "Importing": [
+            "Импортируется"
+         ],
+         "Import": [
+            "импорт"
+         ],
+         "Import / Export XLIFF": [
+            "Импорт / Экспорт XLIFF"
+         ],
+         "Actions": [
+            "Действия"
+         ],
+         "Batch name": [
+            "Имя пакета"
+         ],
+         "Title": [
+            "Заголовок"
+         ],
+         "Approve translation reviews": [
+            "Одобрить проверки перевода"
+         ],
+         "Cancel jobs": [
+            "Отменить заказы"
+         ],
+         "Cancel translation reviews": [
+            "Отменить проверки перевода"
+         ],
+         "Export to XLIFF %s": [
+            "Экспорт в XLIFF %s"
+         ],
+         "Get translations": [
+            "Получить переводы"
+         ],
+         "This action does not apply to any of the selected translation jobs": [
+            "Это действие не распространяется ни на один из выбранных заказов на перевод"
+         ],
+         "Translations has been downloaded": [
+            "Переводы загружены"
+         ],
+         "Translation has been downloaded": [
+            "Перевод загружен"
+         ],
+         "Translations could not be downloaded": [
+            "Невозможно загрузить переводы"
+         ],
+         "Translation could not be downloaded": [
+            "Невозможно загрузить перевод"
+         ],
+         "Approving translations reviews failed!": [
+            "Не удалось одобрить проверки перевода!"
+         ],
+         "Failed approving translations for the following posts: ": [
+            "Не удалось одобрить переводы следующих записей: "
+         ],
+         "Translations reviews approved successfully!": [
+            "Проверки перевода успешно одобрены!"
+         ],
+         "No valid jobs selected to approve translations reviews!": [
+            "Не выбраны действующие заказы для одобрения проверок перевода!"
+         ],
+         "The translator has been assigned to the job": [
+            "Переводчик был назначен для этого заказа"
+         ],
+         "The translator could not be assigned to the job": [
+            "Невозможно назначить переводчика для этого заказа"
+         ],
+         "The jobs have been cancelled": [
+            "Заказы отменены"
+         ],
+         "The job has been cancelled": [
+            "Заказ отменен"
+         ],
+         "The jobs could not be cancelled": [
+            "Невозможно отменить заказы"
+         ],
+         "The job could not be cancelled": [
+            "Невозможно отменить заказ"
+         ],
+         "Translation reviews have been canceled": [
+            "Проверки перевода отменены"
+         ],
+         "Translation review has been canceled": [
+            "Проверка перевода отменена"
+         ],
+         "Translation reviews could not be canceled": [
+            "Невозможно отменить проверки перевода"
+         ],
+         "Translation review could not be canceled": [
+            "Невозможно отменить проверку перевода"
+         ],
+         "Sent on": [
+            "Отправлено"
+         ],
+         "Deadline": [
+            "Крайний срок"
+         ],
+         "Status": [
+            "Состояние"
+         ],
+         "Pending review": [
+            "Ожидает проверки"
+         ],
+         "ID": [
+            "Идентификатор"
+         ],
+         "Type": [
+            "Тип"
+         ],
+         "Languages": [
+            "Языки"
+         ],
+         "Translated by": [
+            "Переводчик"
+         ],
+         "Download XLIFF file couldn't be finished": [
+            "Невозможно завершить загрузку XLIFF-файла"
+         ],
+         "Could not load jobs for export": [
+            "Невозможно загрузить заказы для экспорта"
+         ],
+         "The export to XLIFF failed": [
+            "Не удалось экспортировать в XLIFF"
+         ],
+         "Imported %d jobs": [
+            "Импортированы заказы: %d"
+         ],
+         "Imported one job": [
+            "Импортирован один заказ"
+         ],
+         "Could not import any job": [
+            "Невозможно импортировать ни одного заказа"
+         ],
+         "Import failed!": [
+            "Не удалось импортировать!"
+         ],
+         "Loading translations queue": [
+            "Загрузка очереди переводов"
+         ],
+         "Loading translation jobs": [
+            "Загрузка заказов на перевод"
+         ],
+         "Jobs could not be loaded": [
+            "Невозможно загрузить заказы"
+         ],
+         "Specify some jobs to resign": [
+            "Укажите заказы, от которых отказываетесь"
+         ],
+         "We could not resign jobs: %s": [
+            "Нам не удалось освободить вас от заказов: %s"
+         ],
+         "Resigned from jobs": [
+            "Отказались от заказов"
+         ],
+         "Resigned from job": [
+            "Отказались от заказа"
+         ],
+         "Failed to resign from jobs": [
+            "Не удалось отказаться от заказов"
+         ],
+         "The Advanced Editor jobs synchronization": [
+            "Синхронизация заказов расширенного редактора"
+         ],
+         "The Advanced Editor jobs synchronization has failed": [
+            "Не удалось синхронизировать заказы расширенного редактора"
+         ],
+         "Synchronization with the Professional Translation service has failed": [
+            "Не удалось синхронизироваться со службой профессионального перевода"
+         ],
+         "The Professional Translations jobs synchronization": [
+            "Синхронизация заказов профессионального перевода"
+         ],
+         "Batch sync finished successfully!": [
+            "Пакетная синхронизация успешно завершена!"
+         ],
+         "Batch sync couldn't be finished": [
+            "Невозможно завершить пакетную синхронизацию"
+         ]
+      }
+   }
+}

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\CSV_Export\Admin\Automations;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Export_Formats_Helper;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

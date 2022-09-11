@@ -1,7 +1,7 @@
 <?php
 /**
  * Email Template: Cancel event
- * @version 0.1
+ * @version 1.3.7
  *
  * You can edit this template by copying this file to 
  * ../wp-content/themes/yourtheme/eventon/subscriber/

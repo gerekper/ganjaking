@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Measurement Price Calculator Admin
@@ -42,7 +42,7 @@ function wc_measurement_price_calculator_admin_init() {
 	global $pagenow;
 
 	// on the product new/edit page
-	if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow || is_ajax() ) {
+	if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow || wp_doing_ajax() ) {
 
 		include_once( wc_measurement_price_calculator()->get_plugin_path() . '/src/admin/post-types/writepanels/writepanels-init.php' );
 	}

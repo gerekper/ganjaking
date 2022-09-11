@@ -191,8 +191,9 @@ class wfConfig {
 		//Set as default only, not included automatically in the settings import/export or options page saving
 		'defaultsOnly' => array(
 			"apiKey" => array('value' => "", 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
-			'keyType' => array('value' => wfLicense::KEY_TYPE_FREE, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
+			'keyType' => array('value' => wfLicense::KEY_TYPE_PAID_CURRENT, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'isPaid' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
+			'keyExpDays' => array('value' => 365, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'hasKeyConflict' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'betaThreatDefenseFeed' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'timeoffset_wf_updated' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),

@@ -1,5 +1,11 @@
 Countdown (CD) addon for EventON Plugin
 ====================================
+v 1.0 (2022-7-20)
+REQ: EventON 4.1 compatibility
+
+v 0.17 (2021-8-2)
+ADDED: countdown timer colors on tiles in appearance settings
+
 v 0.16 (2021-5-4)
 FIXED: eventcard text translations
 

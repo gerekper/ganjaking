@@ -345,7 +345,7 @@ class TableEditor
         do_action('ninja_table_update_row_data_' . $provider, $values, $rowId, $tableId);
     }
 
-    public function updateRowDefaultTable($values, $rowId = false, $tableId)
+    public function updateRowDefaultTable($values, $rowId, $tableId)
     {
         $columns = ninja_table_get_table_columns($tableId, 'admin');
         $allColumnArray = array();

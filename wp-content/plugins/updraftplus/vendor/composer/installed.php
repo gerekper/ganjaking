@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1bda79a54c31f58b8575abc79af98601637c4d67',
+        'reference' => 'ca39f489dcd013abfb567f9e57443820a4075d0d',
         'name' => 'updraftplus/updraftplus',
         'dev' => false,
     ),
@@ -221,12 +221,12 @@
             'dev_requirement' => false,
         ),
         'guzzlehttp/promises' => array(
-            'pretty_version' => '1.5.1',
-            'version' => '1.5.1.0',
+            'pretty_version' => '1.5.2',
+            'version' => '1.5.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/promises',
             'aliases' => array(),
-            'reference' => 'fe752aedc9fd8fcca3fe7ad05d419d32998a06da',
+            'reference' => 'b94b2807d85443f9719887892882d0329d1e2598',
             'dev_requirement' => false,
         ),
         'guzzlehttp/psr7' => array(
@@ -385,7 +385,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1bda79a54c31f58b8575abc79af98601637c4d67',
+            'reference' => 'ca39f489dcd013abfb567f9e57443820a4075d0d',
             'dev_requirement' => false,
         ),
         'vakata/jstree' => array(

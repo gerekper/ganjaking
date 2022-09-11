@@ -1,7 +1,7 @@
 <?php
 /** 
  * Eventcard virtual event html content
- * @version 3.1
+ * @version 4.0.6
  */
 
 	
@@ -26,8 +26,13 @@ class EVO_Event_Virtual{
 		$this->vir_type = $this->EVENT->virtual_type();
 
 		$moderator = $this->EVENT->get_prop('_mod');
-		$this->_is_user_moderator = ( $this->current_user && $moderator !== false && $this->current_user->ID == $moderator )? true: false;
-
+		if($moderator){
+			if( $this->current_user && $this->current_user->ID == $moderator ) 
+				$this->_is_user_moderator = true;
+		}else{
+			if( current_user_can('administrator')) $this->_is_user_moderator = true;
+		}
+		
 		do_action('evo_vir_initial_setup', $this);
 
 	}
@@ -120,8 +125,9 @@ class EVO_Event_Virtual{
 			}else{
 				echo "<div class='evo_vir_access'>
 					<p class='evo_vir_access_title'><span style='display:block'>".  evo_lang('You are the moderator of this event. Access the live stream') ."</span></p>					
-					<p class='evo_vir_access_actions'><span class='evo_vir_access_actions_in'>
-					<a target='_blank' href='". $EVENT->virtual_url() ."' class='evcal_btn'>". evo_lang('Join the Event Now') ."</a>";					
+					<p class='evo_vir_access_actions'><span class='evo_vir_access_actions_in'>";
+					if( $EVENT->virtual_url())
+						echo "<a target='_blank' href='". $EVENT->virtual_url() ."' class='evcal_btn'>". evo_lang('Join the Event Now') ."</a>";					
 				
 				if($virtual_pass = $EVENT->get_virtual_pass() )
 					echo "<span class='evo_vir_pass'>". evo_lang('Password'). ' <b>' . $virtual_pass ."</b></span>";
@@ -237,7 +243,8 @@ class EVO_Event_Virtual{
 					echo "<div class='evo_vir_access'>
 						<p class='evo_vir_access_title'><span>". evo_lang('Join the live stream') ."</span></p>					
 						<p class='evo_vir_access_actions'>
-						<span class='evo_vir_access_actions_in'><a target='_blank' href='". $EVENT->virtual_url() ."' class='evcal_btn'>". evo_lang('Join the Event Now') ."</a>";					
+						<span class='evo_vir_access_actions_in'>";
+						if($EVENT->virtual_url()) echo "<a target='_blank' href='". $EVENT->virtual_url() ."' class='evcal_btn'>". evo_lang('Join the Event Now') ."</a>";					
 					
 					if($virtual_pass)
 						echo "<span class='evo_vir_pass'>". evo_lang('Password'). ' <b>' . $virtual_pass ."</b></span>";

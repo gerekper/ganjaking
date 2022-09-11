@@ -6,6 +6,7 @@
  */
 
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 
 /**
@@ -67,8 +68,10 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	public static function are_content_endpoints_available() {
 		if ( function_exists( 'rest_get_server' ) ) {
 			$namespaces = rest_get_server()->get_namespaces();
+
 			return in_array( 'wp/v2', $namespaces, true );
 		}
+
 		return false;
 	}
 
@@ -114,16 +117,57 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return void
 	 */
 	public function send_data_to_assets() {
-		$analysis_seo     = new WPSEO_Metabox_Analysis_SEO();
-		$content_analysis = new WPSEO_Metabox_Analysis_Readability();
+		$analysis_seo                = new WPSEO_Metabox_Analysis_SEO();
+		$content_analysis            = new WPSEO_Metabox_Analysis_Readability();
+		$analysis_inclusive_language = \YoastSEOPremium()->classes->get( Inclusive_Language_Analysis_Initializer::class );
+		$assets_manager              = new WPSEO_Admin_Asset_Manager();
 
 		$data = [
-			'restApi'                => $this->get_rest_api_config(),
-			'seoAnalysisEnabled'     => $analysis_seo->is_enabled(),
-			'contentAnalysisEnabled' => $content_analysis->is_enabled(),
-			'licensedURL'            => WPSEO_Utils::get_home_url(),
-			'settingsPageUrl'        => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
-			'integrationsTabURL'     => admin_url( 'admin.php?page=wpseo_dashboard#top#integrations' ),
+			'restApi'                         => $this->get_rest_api_config(),
+			'seoAnalysisEnabled'              => $analysis_seo->is_enabled(),
+			'contentAnalysisEnabled'          => $content_analysis->is_enabled(),
+			'licensedURL'                     => WPSEO_Utils::get_home_url(),
+			'settingsPageUrl'                 => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
+			'integrationsTabURL'              => admin_url( 'admin.php?page=wpseo_integrations' ),
+			'inclusiveLanguageScoreLabels'    => [
+				'na'   => sprintf(
+				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
+					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
+					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
+					'</a>',
+					'<strong>' . __( 'Not available', 'wordpress-seo-premium' ) . '</strong>'
+				),
+				'bad'  => sprintf(
+				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
+					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
+					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
+					'</a>',
+					'<strong>' . __( 'Needs improvement', 'wordpress-seo-premium' ) . '</strong>'
+				),
+				'ok'   => sprintf(
+				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
+					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
+					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
+					'</a>',
+					'<strong>' . __( 'OK', 'wordpress-seo-premium' ) . '</strong>'
+				),
+				'good' => sprintf(
+				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
+					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
+					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
+					'</a>',
+					'<strong>' . __( 'Good', 'wordpress-seo-premium' ) . '</strong>'
+				),
+			],
+			'commonsScriptUrl'                => \plugins_url(
+				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
+			'inclusiveLanguageScriptUrl'      => \plugins_url(
+				'assets/js/dist/register-inclusive-language-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
+			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
 		];
 
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {
@@ -157,14 +201,15 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
+
 		return [
-			'currentObjectId'             => $this->get_post_ID(),
-			'currentObjectType'           => 'post',
-			'linkSuggestionsEnabled'      => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'    => $is_prominent_words_available,
-			'linkSuggestionsUnindexed'    => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'perIndexableLimit'           => $this->per_indexable_limit( $language ),
-			'isProminentWordsAvailable'   => $is_prominent_words_available,
+			'currentObjectId'                 => $this->get_post_ID(),
+			'currentObjectType'               => 'post',
+			'linkSuggestionsEnabled'          => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable'        => $is_prominent_words_available,
+			'linkSuggestionsUnindexed'        => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'               => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable'       => $is_prominent_words_available,
 		];
 	}
 
@@ -197,13 +242,13 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
 		return [
-			'currentObjectId'             => $term->term_id,
-			'currentObjectType'           => 'term',
-			'linkSuggestionsEnabled'      => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'    => $is_prominent_words_available,
-			'linkSuggestionsUnindexed'    => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'perIndexableLimit'           => $this->per_indexable_limit( $language ),
-			'isProminentWordsAvailable'   => $is_prominent_words_available,
+			'currentObjectId'           => $term->term_id,
+			'currentObjectType'         => 'term',
+			'linkSuggestionsEnabled'    => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable'  => $is_prominent_words_available,
+			'linkSuggestionsUnindexed'  => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'         => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable' => $is_prominent_words_available,
 		];
 	}
 

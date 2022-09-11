@@ -88,7 +88,7 @@ class WCAM_Background_API_Resource_Activations_Updater extends WP_Background_Pro
 	 *
 	 * @param mixed $item Queue item to iterate over.
 	 *
-	 * @return mixed
+	 * @return false
 	 */
 	protected function task( $item ) {
 		if ( ! is_array( $item ) && ! isset( $item[ 'product_id' ] ) ) {

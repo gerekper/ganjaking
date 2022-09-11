@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WCS_ATT_Admin_Notices
- * @version  3.1.23
+ * @version  4.0.0
  */
 class WCS_ATT_Admin_Notices {
 
@@ -48,7 +48,8 @@ class WCS_ATT_Admin_Notices {
 	 * @var array
 	 */
 	private static $maintenance_notice_types = array(
-		'welcome' => 'welcome_notice'
+		'welcome' => 'welcome_notice',
+		'v4'      => 'v4_notice'
 	);
 
 	/**
@@ -274,160 +275,77 @@ class WCS_ATT_Admin_Notices {
 		ob_start();
 
 		?>
-		<h2 class="sw-welcome-title"><?php esc_attr_e( 'Ready to make your products available on subscription?', 'woocommerce-all-products-for-subscriptions' ); ?></h2>
-		<p class="sw-welcome-text"></span><?php esc_attr_e( 'Thank you for installing All Products for WooCommerce Subscriptions.', 'woocommerce-all-products-for-subscriptions' ); ?><br/><?php esc_attr_e( 'Let\'s start by adding some subscription plans to an existing product.', 'woocommerce-all-products-for-subscriptions' ); ?></p>
-		<div class="sw-expanding-button-container">
-			<div class="sw-expanding-button sw-expanding-button--large sw-select2-autoinit">
-				<span class="sw-title"><?php echo _x( 'Let\'s go!', 'onboarding button text', 'woocommerce-all-products-for-subscriptions' ); ?></span>
-				<select class="sw-select2-search--products" id="satt_product_search" name="satt_product" data-swtheme="apfs" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce-all-products-for-subscriptions' ); ?>" data-action="woocommerce_json_search_satt_onboarding" multiple="multiple" data-limit="200">
-					<option></option>
-				</select>
-			</div><?php
-		?></div><?php
+		<p class="sw-welcome-text">
+			<?php
+				/* translators: onboarding url */
+				echo wp_kses_post( sprintf( __( 'Thank you for installing <strong>All Products for WooCommerce Subscriptions</strong>. Ready to make your products available on subscription? <a href="%s">Add some global subscription plans to get started</a>.<br/>You can limit these plans to specific product categories &mdash; or, if you need more flexibility, it is possible to add custom subscription plans to individual products.', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ) );
+			?>
+		</p>
+		<?php
 
 		$notice = ob_get_clean();
 
 		self::add_dismissible_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'welcome' ) );
-
-		wp_enqueue_style( 'woocommerce_admin_styles' );
-		wp_enqueue_script( 'wc-enhanced-select' );
-		wc_enqueue_js( '
-
-			// Initialize selectWoo.
-			jQuery( document.body ).trigger( "wc-enhanced-select-init" );
-
-			var focus_timer,
-				link    = "' . admin_url( 'post.php?post=%p&action=edit&wcsatt_onboarding=1' ) . '",
-				$button = jQuery( ".wcsatt_notice" ).find( ".sw-expanding-button-container" ),
-				$select = jQuery( ".wcsatt_notice" ).find( "select" ),
-				$body   = jQuery( document.body );
-
-			$button.on( "click", function( e ) {
-
-				e.stopPropagation();
-
-				clearTimeout( focus_timer );
-
-				var $this  = jQuery( this ),
-					$input = $this.find( ".select2-search__field" );
-
-				$this.addClass( "sw-expanding-button-container--open" );
-
-				focus_timer = setTimeout( function() {
-					$input.focus();
-				}, 700 );
-
-				$select.one( "change", function() {
-
-					$this.find( ".select2-container" ).hide();
-					$this.removeClass( "sw-expanding-button-container--open" );
-					$this.addClass( "sw-expanding-button-container--closed" );
-
-					setTimeout( function() {
-						window.location.href = link.replace( "%p", $select.val() );
-					}, 500 );
-				} );
-
-			} );
-
-			$body.on( "click", ".select2-container", function( e ) {
-				e.stopPropagation();
-			} );
-
-			$body.on( "click", function() {
-				$button.removeClass( "sw-expanding-button-container--open" );
-			} );
-
-		' );
 	}
 
 	/**
-	 * Add 'cart onboarding' notice.
+	 * Add global plans onboarding notice.
 	 */
-	public static function add_cart_plans_onboarding_notice() {
+	public static function add_global_plans_onboarding_notice() {
+
+		$global_schemes_data = get_option( 'wcsatt_subscribe_to_cart_schemes', array() );
+
+		if ( ! empty( $global_schemes_data ) ) {
+			return;
+		}
 
 		$settings_link = WC_Subscriptions_Admin::settings_tab_url();
 
 		ob_start();
 
 		?>
-		<p><?php _e( 'Awesome &ndash; this product is now available on subscription!', 'woocommerce-all-products-for-subscriptions' ); ?></p>
-		<p class="onboarding-details"><?php echo sprintf( __( 'Did you know that you can also use <strong>All Products for WooCommerce Subscriptions</strong> to offer subscription options on the cart page?</br>For details, check out the <a href="%1$s">documentation</a>. Then, configure cart subscription plans <a href="%2$s">here</a>.', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT::DOCS_URL, $settings_link ); ?></p>
+		<p>
+			<?php _e( 'Awesome &ndash; this product is now available on subscription!', 'woocommerce-all-products-for-subscriptions' ); ?>
+			<?php echo sprintf( __( 'Did you know that you can also <a href="%s">add subscription plans to your products in bulk</a>?', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ); ?>
+		</p>
 		<?php
 
 		$notice = ob_get_clean();
 
-		self::add_notice( $notice, array( 'type' => 'native' ), true );
+		self::add_notice( $notice, array( 'type' => 'info' ), true );
 	}
 
 	/**
-	 * Add 'cart onboarding' admin note.
-	 *
-	 * @since 3.1.5
+	 * Add v4 update notice.
 	 */
-	public static function add_cart_plans_onboarding_admin_note() {
+	public static function v4_notice() {
 
-		if ( ! WCS_ATT_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
+		$screen          = get_current_screen();
+		$screen_id       = $screen ? $screen->id : '';
+		$show_on_screens = array(
+			'dashboard',
+			'plugins',
+		);
+
+		// Maintenance notices should only show on the main dashboard, and on the plugins screen.
+		if ( ! in_array( $screen_id, $show_on_screens, true ) ) {
 			return;
 		}
-
-		$note_class = false;
-
-		if ( class_exists( 'Automattic\WooCommerce\Admin\Notes\Note' ) ) {
-			$note_class = 'Automattic\WooCommerce\Admin\Notes\Note';
-		} elseif ( class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note' ) ) {
-			$note_class = 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note';
-		} else {
-			return;
-		}
-
-		$settings_link = WC_Subscriptions_Admin::settings_tab_url();
 
 		ob_start();
 
 		?>
-		<p><?php _e( 'Awesome &ndash; you just made your first product available on subscription!', 'woocommerce-all-products-for-subscriptions' ); ?></p>
-		<p><?php _e( 'Did you know that you can also offer subscription options <strong>on the cart page</strong>? For details, check out the All Products for WooCommerce Subscriptions documentation, or go ahead and add some cart subscription plans now.', 'woocommerce-all-products-for-subscriptions' ); ?></p>
+		<p>
+			<?php
+				/* translators: onboarding url */
+				echo wp_kses_post( sprintf( __( '<strong>All Products for WooCommerce Subscriptions</strong> no longer supports Cart Subscription Plans. Your existing Cart Subscription Plans have been migrated to <a href="%s">Global Subscription Plans</a> &mdash; a quick, new way to add subscription plans to your existing products in bulk.', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ) );
+			?>
+		</p>
 		<?php
 
-		$notice_content = ob_get_clean();
-		$note_name      = 'wcsatt_first_product_note';
+		$notice = ob_get_clean();
 
-		// First, see if we've already created this kind of note so we don't do it again.
-		$data_store = WC_Data_Store::load( 'admin-note' );
-		$note_ids   = $data_store->get_notes_with_name( $note_name );
-		if ( ! empty( $note_ids ) ) {
-			return;
-		}
-
-		// Otherwise, add the note.
-		$note = new $note_class();
-		$note->set_title( __( 'All Products for WooCommerce Subscriptions', 'woocommerce-all-products-for-subscriptions' ) );
-		$note->set_content( $notice_content );
-
-		$note->set_type( $note_class::E_WC_ADMIN_NOTE_INFORMATIONAL );
-
-		if ( ! method_exists( $note, 'set_image' ) ) {
-			$note->set_icon( 'scheduled' );
-		}
-
-		$note->set_name( $note_name );
-
-		$note->add_action(
-			'settings',
-			__( 'Add Cart Plans', 'woocommerce-all-products-for-subscriptions' ),
-			$settings_link,
-			$note_class::E_WC_ADMIN_NOTE_ACTIONED,
-			true
-		);
-
-		$note->add_action(
-			'settings',
-			__( 'Learn More', 'woocommerce-all-products-for-subscriptions' ),
-			WCS_ATT::DOCS_URL
-		);
-
-		$note->save();
+		self::add_dismissible_notice( $notice, array( 'type' => 'warning', 'dismiss_class' => 'v4_notice' ) );
 	}
 
 	/**

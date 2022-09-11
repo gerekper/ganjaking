@@ -1,6 +1,6 @@
 /** 
  * Admin view post functions
- * @version  1.7
+ * @version  2.0
  */
 jQuery(document).ready(function($){
 
@@ -217,32 +217,54 @@ jQuery(document).ready(function($){
 		});
 
 	// Sales insight
-	$('body').on('click','.visualdata',function(){
-		OBJ = $(this);
-		var ajaxdataa = { };
-			ajaxdataa['action']= OBJ.data('action');
-			ajaxdataa['event_id']= OBJ.data('eid');
+		$('body').on('click','.visualdata',function(){
+			OBJ = $(this);
+			var ajaxdataa = { };
+				ajaxdataa['action']= OBJ.data('action');
+				ajaxdataa['event_id']= OBJ.data('eid');
 
-		LIGHTBOX = $('body').find('.'+OBJ.data('popc'));
+			LIGHTBOX = $('body').find('.'+OBJ.data('popc'));
 
-		$.ajax({
-			beforeSend: function(){
-				text = OBJ.attr('title'); // pass button title attr as title for lightbox
-				LIGHTBOX.find('.ajde_lightbox_title').html( text );
-			},
-			type: 'POST',
-			url:evotx_admin_ajax_script.ajaxurl,
-			data: ajaxdataa,
-			dataType:'json',
-			success:function(data){
-				if(data.status=='good'){						
-					LIGHTBOX.find('.ajde_popup_text').html( data.content);
-				}else{}
-			},complete:function(){
-				LIGHTBOX.find('.ajde_popup_text').removeClass( 'loading');
-			}
-		});	
-	});
+			$.ajax({
+				beforeSend: function(){
+					text = OBJ.attr('title'); // pass button title attr as title for lightbox
+					LIGHTBOX.find('.ajde_lightbox_title').html( text );
+				},
+				type: 'POST',
+				url:evotx_admin_ajax_script.ajaxurl,
+				data: ajaxdataa,
+				dataType:'json',
+				success:function(data){
+					if(data.status=='good'){						
+						LIGHTBOX.find('.ajde_popup_text').html( data.content);
+					}else{}
+				},complete:function(){
+					LIGHTBOX.find('.ajde_popup_text').removeClass( 'loading');
+				}
+			});	
+		});
 
+	// Sync evo tix post data
+		$('body').on('click','#evotix_sync_with_order', function(){
+			var obj = $(this);			
+			
+			var data_arg = {
+				action: 'evotx_sync_with_order',
+				oid: obj.data('oid'),
+			};
+			$.ajax({
+				beforeSend: function(){
+					obj.siblings('span').html( '...' );
+				},
+				type: 'POST',
+				url:evotx_admin_ajax_script.ajaxurl,
+				data: data_arg,
+				dataType:'json',
+				success:function(data){
+					obj.siblings('span').html( data.message );
+				}
+			});
+		
+		});
 // SUPPORTIVE
 });

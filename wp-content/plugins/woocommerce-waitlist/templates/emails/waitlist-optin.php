@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p><?php echo _x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
+<p><?php echo esc_html_x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
 
 <p>
 	<?php
-	printf( __( 'Please click the link below to confirm your email address and be added to the waitlist for %1$s at %2$s.', 'woocommerce-waitlist' ), $product_title, get_bloginfo( 'name' ) );
+	printf( __( 'Please click the link below to confirm your email address and be added to the waitlist for %1$s at %2$s.', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'name' ) ) );
 	?>
 </p>
 <p>
@@ -34,7 +34,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 		'key'             => $key,
 		'lang'            => $lang,
 	), $product_link );
-	print( '<a href="' . $link . '">' . $product_link . '</a>' );
+	print( '<a href="' . esc_url( $link ) . '">' . esc_html( $product_link ) . '</a>' );
 	?>
 <p>
 	<?php _e( 'If you did not make this request please ignore this email.', 'woocommerce-waitlist' ); ?>

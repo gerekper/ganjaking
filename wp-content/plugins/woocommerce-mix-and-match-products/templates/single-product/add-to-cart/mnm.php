@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.1.2
  */
 
 // Exit if accessed directly.
@@ -29,7 +29,7 @@ global $product;
 do_action( 'woocommerce_before_add_to_cart_form' );
 ?>
 
-<form class="mnm_form cart cart_group <?php echo esc_attr( $classes ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
+<form class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
 
 	<?php
 

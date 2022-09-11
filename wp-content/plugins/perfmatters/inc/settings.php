@@ -373,11 +373,17 @@ function perfmatters_settings() {
             'id' => 'autosave_interval',
             'input' => 'select',
             'options' => array(
-                ''    => __('1 Minute', 'perfmatters') . ' (' . __('Default', 'perfmatters') . ')',
-                '120' => sprintf(__('%s Minutes', 'perfmatters'), '2'),
-                '180' => sprintf(__('%s Minutes', 'perfmatters'), '3'),
-                '240' => sprintf(__('%s Minutes', 'perfmatters'), '4'),
-                '300' => sprintf(__('%s Minutes', 'perfmatters'), '5')
+                ''      => '1 ' . __('Minute', 'perfmatters') . ' (' . __('Default', 'perfmatters') . ')',
+                '86400' => __('Disable Autosave Interval', 'perfmatters'),
+                '120'   => '2 ' . __('Minutes', 'perfmatters'),
+                '180'   => '3 ' . __('Minutes', 'perfmatters'),
+                '240'   => '4 ' . __('Minutes', 'perfmatters'),
+                '300'   => '5 ' . __('Minutes', 'perfmatters'),
+                '600'   => '10 ' . __('Minutes', 'perfmatters'),
+                '900'   => '15 ' . __('Minutes', 'perfmatters'),
+                '1200'  => '20 ' . __('Minutes', 'perfmatters'),
+                '1500'  => '25 ' . __('Minutes', 'perfmatters'),
+                '1800'  => '30 ' . __('Minutes', 'perfmatters')
             ),
             'tooltip' => __('Controls how often WordPress will auto save posts and pages while editing.', 'perfmatters')
         )
@@ -593,7 +599,7 @@ function perfmatters_settings() {
             'section' => 'assets',
             'input' => 'select',
             'options' => array(
-                '' => __('Only Delay Specified Scripts', 'perfmatters'),
+                '' => __('Only Delay Specified Scripts', 'perfmatters') . ' (' . __('Default', 'perfmatters') . ')',
                 'all' => __('Delay All Scripts', 'perfmatters')
             ),
             'tooltip' => __('Choose the method used to delay scripts.', 'perfmatters'),
@@ -682,7 +688,7 @@ function perfmatters_settings() {
             'section' => 'assets',
             'input' => 'select',
             'options' => array(
-                '' => __('Inline', 'perfmatters'),
+                '' => __('Inline', 'perfmatters') . ' (' . __('Default', 'perfmatters') . ')',
                 'file' => __('File', 'perfmatters')
             ),
             'tooltip' => __('Choose how the used CSS will be included.', 'perfmatters'),
@@ -702,7 +708,7 @@ function perfmatters_settings() {
             'section' => 'assets',
             'input' => 'select',
             'options' => array(
-                '' => __('Delay', 'perfmatters'),
+                '' => __('Delay', 'perfmatters') . ' (' . __('Default', 'perfmatters') . ')',
                 'async' => __('Async', 'perfmatters'),
                 'remove' => __('Remove', 'perfmatters')
             ),
@@ -860,7 +866,7 @@ function perfmatters_settings() {
             'section' => 'preload',
             'input' => 'select',
             'options' => array(
-                '' => '0',
+                '' => '0' . ' (' . __('Default', 'perfmatters') . ')',
                 '1' => '1',
                 '2' => '2',
                 '3' => '3',
@@ -933,7 +939,7 @@ function perfmatters_settings() {
             'id' => 'exclude_leading_images',
             'input' => 'select',
             'options' => array(
-                '' => '0',
+                '' => '0' . ' (' . __('Default', 'perfmatters') . ')',
                 '1' => '1',
                 '2' => '2',
                 '3' => '3',

@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_Gradient_Param
+ * Class Ultimate_VC_Addons_Gradient_Param
  *
- * @package Ultimate_Gradient_Param.
+ * @package Ultimate_VC_Addons_Gradient_Param.
  */
 
-if ( ! class_exists( 'Ultimate_Gradient_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Gradient_Param' ) ) {
 	/**
-	 * Class Ultimate_Gradient_Param
+	 * Class Ultimate_VC_Addons_Gradient_Param
 	 *
-	 * @class Ultimate_Gradient_Param.
+	 * @class Ultimate_VC_Addons_Gradient_Param.
 	 */
-	class Ultimate_Gradient_Param {
+	class Ultimate_VC_Addons_Gradient_Param {
 		/**
 		 * Initiator.
 		 */
@@ -249,6 +249,6 @@ if ( ! class_exists( 'Ultimate_Gradient_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_Gradient_Param' ) ) {
-	$ultimate_gradient_param = new Ultimate_Gradient_Param();
+if ( class_exists( 'Ultimate_VC_Addons_Gradient_Param' ) ) {
+	$ultimate_gradient_param = new Ultimate_VC_Addons_Gradient_Param();
 }

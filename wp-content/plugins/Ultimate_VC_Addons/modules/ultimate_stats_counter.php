@@ -6,13 +6,13 @@
  *  @package Stats Counter
  */
 
-if ( ! class_exists( 'AIO_Stats_Counter' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Stats_Counter' ) ) {
 	/**
 	 * Function that initializes Stats Counter Module
 	 *
-	 * @class AIO_Stats_Counter
+	 * @class Ultimate_VC_Addons_Stats_Counter
 	 */
-	class AIO_Stats_Counter {
+	class Ultimate_VC_Addons_Stats_Counter {
 
 		/**
 		 * Constructor function that constructs default values for the Stats Counter module.
@@ -32,9 +32,9 @@ if ( ! class_exists( 'AIO_Stats_Counter' ) ) {
 		 * @method register_counter_assets
 		 */
 		public function register_counter_assets() {
-			Ultimate_VC_Addons::ultimate_register_script( 'ult-stats-counter-js', 'countUp', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-stats-counter-js', 'countUp', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-stats-counter-style', 'stats-counter' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-stats-counter-style', 'stats-counter' );
 		}
 		/**
 		 * Function that initializes settings of Stats Counter Module.
@@ -780,8 +780,8 @@ if ( ! class_exists( 'AIO_Stats_Counter' ) ) {
 		}
 	}
 }
-if ( class_exists( 'AIO_Stats_Counter' ) ) {
-	$aio_stats_counter = new AIO_Stats_Counter();
+if ( class_exists( 'Ultimate_VC_Addons_Stats_Counter' ) ) {
+	$aio_stats_counter = new Ultimate_VC_Addons_Stats_Counter();
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Stat_Counter' ) ) {
 	/**

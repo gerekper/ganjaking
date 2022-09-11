@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.3.2
+ * Version: 2.3.3
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
  * Developer URI: https://pie.co.de/
  * Woo: 122144:55d9643a241ecf5ad501808c0787483f
  * WC requires at least: 3.0.0
- * WC tested up to: 5.5.2
+ * WC tested up to: 6.8.0
  * Requires at least: 4.2.0
- * Tested up to: 5.8.0
+ * Tested up to: 6.0.1
  * Text Domain: woocommerce-waitlist
  * Domain Path: /assets/languages/
  * License: GNU General Public License v3.0
@@ -254,11 +254,11 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 */
 		public function perform_api_mailout_stock_status( $product_id, $stock_status ) {
 			$product = wc_get_product( $product_id );
-			if ( ! $product || 'publish' !== get_post_status( $product->get_id() ) ) {
+			if ( ! $product ) {
 				return;
 			}
 			if ( 'instock' === $stock_status || $product->is_in_stock() ) {
-				if ( self::is_variation( $product ) && 'publish' !== get_post_status( $product->get_parent_id() ) ) {
+				if ( self::is_variation( $product ) ) {
 					return;
 				}
 				$this->do_mailout( $product );
@@ -275,15 +275,12 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 */
 		public function perform_api_mailout_stock( $product ) {
 			$product = wc_get_product( $product );
-			if ( ! $product || 'publish' !== get_post_status( $product->get_id() ) ) {
+			if ( ! $product ) {
 				return;
 			}
 			if ( self::is_variable( $product ) && $product->managing_stock() ) {
 				$this->handle_variable_mailout( $product );
 			} elseif ( $product->is_in_stock() ) {
-				if ( self::is_variation( $product ) && 'publish' !== get_post_status( $product->get_parent_id() ) ) {
-					return;
-				}
 				$this->do_mailout( $product );
 			}
 		}
@@ -315,8 +312,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				empty( $updated_props ) ||
 				'bundled_items_stock_status' !== $updated_props[0] ||
 				is_null( $product->get_stock_status() ) ||
-				! $product->is_in_stock() ||
-				'publish' !== get_post_status( $product->get_id() ) ) {
+				! $product->is_in_stock() ) {
 					return;
 			}
 			$this->do_mailout( $product );
@@ -329,7 +325,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 */
 		public function update_stock_status( $product ) {
 			$stock = $product->get_stock_quantity();
-			if ( ! $stock || 'publish' !== get_post_status( $product->get_id() ) || ( self::is_variation( $product ) && 'publish' !== get_post_status( $product->get_parent_id() ) ) ) {
+			if ( ! $stock || ! in_array( get_post_status( $product->get_id() ), ['publish', 'private'] ) ) {
 				$stock = 0;
 			}
 			update_post_meta( $product->get_id(), 'wcwl_stock_level', $stock );
@@ -354,7 +350,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				return;
 			}
 			$product = wc_get_product( $post_id );
-			if ( $product && $product->is_in_stock() && 'publish' === get_post_status( $product->get_id() ) ) {
+			if ( $product && $product->is_in_stock() ) {
 				$this->do_mailout( $product );
 			}
 		}
@@ -371,7 +367,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				return;
 			}
 			$ticket = wc_get_product( $ticket->ID );
-			if ( $ticket && $ticket->is_in_stock() && 'publish' === get_post_status( $ticket->ID ) ) {
+			if ( $ticket && $ticket->is_in_stock() ) {
 				$this->do_mailout( $ticket );
 			}
 		}
@@ -387,7 +383,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @todo figure clever way to force mailout on post transition, maybe a refactor needed to avoid stock requirements here
 		 */
 		public function perform_api_mailout_on_publish( $new_status, $old_status, $post ) {
-			if ( 'publish' !== $old_status && 'publish' === $new_status ) {
+			if ( ! in_array( $old_status, ['publish', 'private'] ) && in_array( $new_status, ['publish', 'private'] ) ) {
 				$product = wc_get_product( $post );
 				if ( $product && self::is_variable( $product ) ) {
 					foreach ( $product->get_available_variations() as $variation ) {
@@ -486,6 +482,9 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @return boolean
 		 */
 		public function stock_level_has_broken_threshold( $product, $stock_level_required ) {
+			if ( ( self::is_simple( $product ) || $product->is_type( 'bundle' ) ) && ! $product->get_manage_stock() ) {
+				return true;
+			}
 			if ( self::is_variation( $product ) && 'parent' === $product->get_manage_stock() ) {
 				$previous_stock_level = (int) get_post_meta( $product->get_parent_id(), 'wcwl_stock_level', true );
 			} else {
@@ -600,7 +599,8 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 */
 		public static function get_waitlist_products_for_user( $user ) {
 			global $wpdb;
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = '" . WCWL_SLUG . "' AND (meta_value LIKE '%i:{$user->ID};%' OR meta_value LIKE '%{$user->user_email}%')", OBJECT );
+			$statement = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = %s AND (meta_value LIKE '%%i:%d;%%' OR meta_value LIKE '%%%s%%')", array( WCWL_SLUG, $user->ID, $user->user_email ) );
+			$results = $wpdb->get_results( $statement, OBJECT );
 			$results = self::return_products_user_is_registered_on( $results, $user );
 			return $results;
 		}
@@ -642,9 +642,9 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				return array();
 			}
 			global $wpdb;
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = 'wcwl_waitlist_archive' AND (meta_value LIKE '%i:{$user->ID};i:{$user->ID};%' OR meta_value LIKE '%{$user->user_email}%')", OBJECT );
+			$statement = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = 'wcwl_waitlist_archive' AND (meta_value LIKE '%%i:%d;i:%d;%%' OR meta_value LIKE '%%%s%%')", array( $user->ID, $user->ID, $user->user_email ) );
 
-			return $results;
+			return $wpdb->get_results( $statement, OBJECT );
 		}
 
 		/**
@@ -689,6 +689,24 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			);
 
 			return get_posts( $args );
+		}
+
+		/**
+		 * Return all product posts with a waitlist entry in the database
+		 *
+		 * @return array all product posts.
+		 * @since  1.7.0
+		 */
+		public static function return_all_waitlist_archive_product_ids() {
+			global $wpdb;
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE (meta_key = '" . WCWL_SLUG . "' AND meta_value NOT LIKE '' AND meta_value NOT LIKE 'a:0:{}' ) OR (meta_key = 'wcwl_waitlist_archive' AND meta_value NOT LIKE '' AND meta_value NOT LIKE 'a:0:{}' )", OBJECT );
+
+			$product_ids = array();
+			foreach ( $results as $product ) {
+				$product_ids[] = intval( $product->post_id );
+			}
+
+			return array_unique( $product_ids );
 		}
 
 		/**

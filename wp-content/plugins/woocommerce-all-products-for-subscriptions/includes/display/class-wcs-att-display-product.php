@@ -289,7 +289,7 @@ class WCS_ATT_Display_Product {
 				if ( 'radio' === $prompt_type ) {
 
 					$subscription_cta        = WCS_ATT_Product_Prices::get_price_html( $product, null, $prompt_html_args );
-					$one_time_cta            = __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' );
+					$one_time_cta            = __( 'Purchase one time', 'woocommerce-all-products-for-subscriptions' );
 					$once_time_cta_has_price = apply_filters( 'wcsatt_single_product_one_time_cta_has_price', false, $product, $parent_product );
 
 					if ( $once_time_cta_has_price ) {
@@ -433,7 +433,12 @@ class WCS_ATT_Display_Product {
 	 */
 	public static function get_subscription_options_prompt_text( $product ) {
 
-		$text           = $product->get_meta( '_wcsatt_subscription_prompt', true );
+		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product, 'local' ) ) {
+			$text = $product->get_meta( '_wcsatt_subscription_prompt', true );
+		} else {
+			$text = get_option( 'wcsatt_subscribe_to_cart_prompt', false );
+		}
+
 		$allow_one_time = false === WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
 
 		/*
@@ -472,9 +477,23 @@ class WCS_ATT_Display_Product {
 	 */
 	public static function get_subscription_options_layout( $product ) {
 
-		$layout = $product->get_meta( '_wcsatt_layout', true );
+		$layout = 'grouped';
 
-		return in_array( $layout, array( 'flat', 'grouped' ) ) ? $layout : 'flat';
+		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product, 'local' ) ) {
+
+			$layout = $product->get_meta( '_wcsatt_layout', true );
+			$layout = in_array( $layout, array( 'flat', 'grouped' ) ) ? $layout : 'grouped';
+		}
+
+		/**
+		 * Filter plan options template.
+		 *
+		 * @since  4.0.0
+		 *
+		 * @param  string      $layout
+		 * @param  WC_Product  $product
+		 */
+		return apply_filters( 'wcsatt_subscription_options_layout', $layout, $product );
 	}
 
 	/**
@@ -643,6 +662,31 @@ class WCS_ATT_Display_Product {
 	}
 
 	/**
+	 * Whether to prompt users to choose a plan in the catalog.
+	 *
+	 * @since  4.0.0
+	 *
+	 * @param  WC_Product  $product
+	 */
+	public static function prompt_plan_selection_in_catalog( $product ) {
+
+		if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
+			return false;
+		}
+
+		$prompt = false;
+
+		if ( ! $product->has_options() && WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) ) {
+			// Modify button/text if one-time purchases are not allowed and the product has multiple plans.
+			if ( WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) && count( WCS_ATT_Product_Schemes::get_subscription_schemes( $product ) ) > 1 ) {
+				$prompt = true;
+			}
+		}
+
+		return apply_filters( 'wcsatt_prompt_plan_selection_in_catalog', $prompt, $product );
+	}
+
+	/**
 	 * Changes the shop add-to-cart button text when a product has subscription options.
 	 *
 	 * @since  2.0.0
@@ -653,15 +697,12 @@ class WCS_ATT_Display_Product {
 	 */
 	public static function add_to_cart_text( $button_text, $product ) {
 
-		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) && $product->is_purchasable() && $product->is_in_stock() ) {
+		if ( self::prompt_plan_selection_in_catalog( $product ) ) {
 
-			$button_text = __( 'Select options', 'woocommerce' );
+			$button_text = apply_filters( 'wcsatt_add_to_cart_text', __( 'Select plan', 'woocommerce-all-products-for-subscriptions' ), $product );
 
-			if ( ! $product->has_options() && WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
-				$button_text = get_option( WC_Subscriptions_Admin::$option_prefix . '_add_to_cart_button_text', __( 'Sign up', 'woocommerce-all-products-for-subscriptions' ) );
-			}
-
-			$button_text = apply_filters( 'wcsatt_add_to_cart_text', $button_text, $product );
+		} elseif ( ! $product->has_options() && WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) && WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
+			$button_text = apply_filters( 'wcsatt_add_to_cart_text', get_option( WC_Subscriptions_Admin::$option_prefix . '_add_to_cart_button_text', __( 'Sign up', 'woocommerce-all-products-for-subscriptions' ) ), $product );
 		}
 
 		return $button_text;
@@ -678,13 +719,8 @@ class WCS_ATT_Display_Product {
 	 */
 	public static function add_to_cart_url( $url, $product ) {
 
-		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) && $product->is_purchasable() && $product->is_in_stock() ) {
-
-			if ( ! WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
-				$url = $product->get_permalink();
-			}
-
-			$url = apply_filters( 'wcsatt_add_to_cart_url', $url, $product );
+		if ( self::prompt_plan_selection_in_catalog( $product ) ) {
+			$url = apply_filters( 'wcsatt_add_to_cart_url', $product->get_permalink(), $product );
 		}
 
 		return $url;
@@ -702,16 +738,8 @@ class WCS_ATT_Display_Product {
 	 */
 	public static function supports_ajax_add_to_cart( $supports, $feature, $product ) {
 
-		if ( 'ajax_add_to_cart' === $feature ) {
-
-			if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) ) {
-
-				if ( ! WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product ) ) {
-					$supports = false;
-				}
-
-				$supports = apply_filters( 'wcsatt_product_supports_ajax_add_to_cart', $supports, $product );
-			}
+		if ( 'ajax_add_to_cart' === $feature && self::prompt_plan_selection_in_catalog( $product ) ) {
+			$supports = apply_filters( 'wcsatt_product_supports_ajax_add_to_cart', false, $product );
 		}
 
 		return $supports;

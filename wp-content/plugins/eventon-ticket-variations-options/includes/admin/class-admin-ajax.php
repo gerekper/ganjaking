@@ -1,7 +1,7 @@
 <?php 
 /**
  * Admin Ajax
- * @version 0.1
+ * @version 1.0.1
  */
 class evovo_admin_ajax{
 	public function __construct(){
@@ -302,6 +302,10 @@ class evovo_admin_ajax{
 
 		// if vo_id passed override with that
 		$json = $HELP->recursive_sanitize_array_fields($_POST['json']);
+
+		$vo_parent_type = isset($json['parent_type']) ? $json['parent_type']: 'event';
+		$vo_parent_id = isset($json['parent_id']) ? $json['parent_id']: '';
+
 		if(!empty($json['vo_id'])) $vo_data['vo_id'] = (int)$json['vo_id'] ;
 
 		// combine other vo_data with new one
@@ -322,14 +326,14 @@ class evovo_admin_ajax{
 
 	
 		// save the VO data only if requested
-		if($save){			
-			$result = $VO->save_item( $vo_data['vo_id'], $vo_data);
-		} 
+			if($save){			
+				$result = $VO->save_item( $vo_data['vo_id'], $vo_data);
+			} 
 
 		// if adding variation, disable manage ticket stock and remove stock
 		if( $vo_data['method'] == 'variation'){
 			global $product;
-			$product = wc_get_product($vo_data['wcid']);
+			$product = wc_get_product( (int)$vo_data['wcid']);
 			if(!is_bool($product)){
 				$product->set_manage_stock(false);
 				$product->set_stock_quantity('');
@@ -339,13 +343,13 @@ class evovo_admin_ajax{
 
 		do_action('evovo_save_vo_before_echo', $vo_data, $EVENT, $json);		
 
-		$html = $VO->get_all_vos_html('', 'event');
 
 		echo json_encode(array(
-			'html'=>	$html, 
+			'html'=>	$VO->get_all_vos_html( $vo_parent_id , $vo_parent_type, false, $all_vo_data), 
 			'status'=>	'good',
 			'msg'=>	($json['type'] == 'edit')?__('Successfully Updated!','evovo'):__('Successfully Added!','evovo'),
-			'data'=> $vo_data
+			'data'=> $vo_data,
+			'all_vo_data'=> $all_vo_data
 		)); exit;
 	}
 
@@ -407,15 +411,19 @@ class evovo_admin_ajax{
 	function delete_item(){
 		$json = $_POST['json'];
 
-		$EVENT = new EVO_Event($json['event_id']);
-		$VO = new EVOVO_Var_opts( $EVENT, $json['wcid'], $json['method'] );
+		$vo_method = $json['method'];
+		$vo_id = (int)$json['vo_id'];
 
-		$result = $VO->delete_item( $json['vo_id'] );
+		$EVENT = new EVO_Event($json['event_id']);
+		$VO = new EVOVO_Var_opts( $EVENT, $json['wcid'], $vo_method );
+
+		$result = $VO->delete_item( $vo_id );
+
 
 		echo json_encode(array(
 			'status'=>	$result?'good':'bad',
 			'msg'=>	__('Successfully Deleted!','evovo'),
-			'd'=> $VO->dataset
+			'd'=> $VO->dataset,
 		)); exit;
 	}
 }

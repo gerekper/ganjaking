@@ -2,9 +2,10 @@
 /**
  * Backwards compat.
  *
- *
  * @since 1.4.16
+ * @package woocommerce-deposits
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

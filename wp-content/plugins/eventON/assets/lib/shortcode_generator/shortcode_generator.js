@@ -1,6 +1,6 @@
 /**
  * Shortcode Generator
- * @version 2.8.10
+ * @version 4.0.6
  */
 jQuery(document).ready(function($){
 
@@ -8,6 +8,7 @@ jQuery(document).ready(function($){
 
 	var data = {
 		type: '',
+		other_id: '',
 		sc: 'add_eventon',		
 		base:'add_eventon',
 		vars: {}
@@ -21,18 +22,21 @@ jQuery(document).ready(function($){
 
 
 	// trigger actions
-		$('body').on('evo_open_shortcode_generator',function(event, sc, type){
+		$('body').on('evo_open_shortcode_generator',function(event, sc, type, other_id){
 			$('body').trigger('evo_open_admin_lightbox',['eventon_shortcode']); 
+
 
 			//reset 
 			reset_sc();
 
 			_process_sc( sc );			
 			data.type = type;
+			data.other_id = other_id;
 			goto_inside_step();
 		});
 
 		function _process_sc(sc){	
+
 
 			sc = sc.replace('[','');
 			sc = sc.replace(']','');
@@ -44,6 +48,7 @@ jQuery(document).ready(function($){
 				return;
 			}
 
+
 			$.each(s1, function(f,v){
 
 				if( f == 0){
@@ -53,7 +58,8 @@ jQuery(document).ready(function($){
 					var s2 = v.split('=');
 
 					if( v === undefined || v == '') return;
-					if( s2[0] == 'undefined' || s2[0] === undefined) return;
+					if( s2[0] == undefined || s2[0] === undefined) return;
+					if( s2[1] == undefined ) return;
 
 					var vv = s2[1].replace(/"/g,'');
 					vv = vv.replace("'",'');

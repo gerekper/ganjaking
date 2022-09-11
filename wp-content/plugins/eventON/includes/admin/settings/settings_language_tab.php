@@ -16,7 +16,7 @@ class evo_settings_lang{
 	function __construct($evcal_opt)	{
 		$this->evcal_opt = $evcal_opt;
 		$this->evopt = get_option('evcal_options_evcal_1');
-		$this->lang_version = (!empty($_GET['lang']))? $_GET['lang']: 'L1';
+		$this->lang_version = (!empty($_GET['lang']))? sanitize_text_field($_GET['lang']): 'L1';
 		
 		$evo_opt_lang = get_option('evcal_options_evcal_2');
 		$this->lang_options = (!empty($evo_opt_lang[$this->lang_version]))? $evo_opt_lang[$this->lang_version]:null;
@@ -35,6 +35,13 @@ class evo_settings_lang{
 					<?php echo $this->_section_lang_selection();?>
 
 					<p style='padding-bottom:15px;'><i><?php _e('Please use the below fields to type in custom language text that will be used to replace the default language text on the front-end of the calendar.','eventon')?><br/><?php _e('NOTE: When editing duplicate text strings, all the other matching text strings will also change to new text string.','eventon');?></i></p>
+
+					<?php /*
+					<div class='evo_lang_search'>
+						<p><input type='text' class='evo_lang_search_in' placeholder='<?php _e('Search by text string.','eventon');?>'/></p>
+					</div>	
+					*/?>
+
 					<?php
 						echo $this->interpret_array( apply_filters('eventon_settings_lang_tab_content',$this->language_variables_array()) );
 					?>
@@ -56,19 +63,21 @@ class evo_settings_lang{
 			<h3><?php _e('Export & Import Translations','eventon');?></h3>
 			<p><i><?php _e('NOTE: Make sure to save changes after importing. This will import/export the current selected language ONLY. Export using vars will associate text strings with field variable names whereas using text will associate them with text string for the field.','eventon');?></i></p>
 
-			<div id="import_box" style='display:none'>
-				<span id="close">X</span>
-				<form id="file-form" action="" method="POST" data-link='<?php echo AJDE_EVCAL_PATH;?> '>
-					<input type="file" id="file-select" name="photos[]" multiple accept=".csv" />
-					<button type="submit" id="upload-button"><?php _e('Upload','eventon');?></button>
-				</form>
-				<p class="msg" style='display:none'><?php _e('File Uploading','eventon');?></p>
-			</div>
-			<p>
-				<a id='evo_lang_import' data-t='var' class='evo_lang_import_btn evo_admin_btn btn_prime'><?php _e('Import','eventon');?></a> 
+			
+			<div class='evo_data_upload_holder' style="position: relative;">
+				<?php 
+				EVO()->elements->print_import_box_html(array(
+					'box_id'=>'evo_language_upload',
+					'title'=>__('Upload CSV Lanague File Form'),
+					'message'=>__('NOTE: You can only upload language data as .csv file'),
+					'file_type'=>'.csv',
+				));
+				?>	
+
+				<a id='evo_lang_import' data-t='var' class='evo_data_upload_trigger evo_admin_btn btn_prime'><?php _e('Import','eventon');?></a> 
 				<a id='evo_lang_export' data-t='var' class='evo_lang_export_btn evo_admin_btn btn_prime'><?php _e('Export Using Vars','eventon');?></a>
 				<a id='evo_lang_export_txt' data-t='txt' class='evo_lang_export_btn evo_admin_btn btn_prime'><?php _e('Export Using Text','eventon');?></a>
-			</p>
+			</div>
 		</div>
 
 		
@@ -108,8 +117,18 @@ class evo_settings_lang{
 				$legend = (!empty($item['legend']))?  $item['legend']: '';
 				$placeholder = (!empty($item['placeholder']))?  $item['placeholder']: $legend;
 
+				
+
 
 				switch($item_type){
+					case 'section':
+						extract($item);
+						$output .= "<div class='evoLANG_section_header evo_settings_toghead {$id}'>{$name}</div><div class='evo_settings_togbox'>";
+
+						$output .= $this->interpret_array( $fields );						
+
+						$output .= "</div>";
+					break;
 					case 'togheader':
 						$output .= "<div class='evoLANG_section_header evo_settings_toghead'>{$item['name']}</div><div class='evo_settings_togbox'>";
 					break;
@@ -211,7 +230,7 @@ class evo_settings_lang{
 
 					array('label'=>'No Events','name'=>'evcal_lang_noeve',),
 					array('label'=>'No Events on The List at This Time','var'=>1),
-					array('label'=>'All Day','name'=>'evcal_lang_allday',),
+					array('label'=>'All Day','name'=>'evcal_lang_allday'),
 					array('label'=>'Year Around Event','name'=>'evcal_lang_yrrnd'),
 					array('label'=>'Month Long Event','name'=>'evcal_lang_mntlng'),
 					array('label'=>'Events','name'=>'evcal_lang_events',),
@@ -261,16 +280,20 @@ class evo_settings_lang{
 					array('label'=>'Collection of Events','var'=>'1'),
 				array('type'=>'togend'),
 
-				array('type'=>'togheader','name'=>__('Health Guidelines','eventon')),
-					array('label'=>'Health Guidelines for this Event','var'=>1),	
-					array('label'=>'Masks Required','var'=>1),	
-					array('label'=>'Temperature Checked At Entrance','var'=>1),
-					array('label'=>'Physical Distance Maintained','var'=>1),		
-					array('label'=>'Event Area Sanitized','var'=>1),		
-					array('label'=>'Outdoor Event','var'=>1),		
-					array('label'=>'Vaccination Required','var'=>1),		
-					array('label'=>'Other Health Guidelines','var'=>1),		
-				array('type'=>'togend'),
+				array('type'=>'section',
+					'id'=>'healthcare_guidelines',
+					'name'=> __('Health Guidelines','eventon'),
+					'fields'=> apply_filters('evo_lang_values_healthcare_guidelines', array(
+						array('label'=>'Health Guidelines for this Event','var'=>1),	
+						array('label'=>'Masks Required','var'=>1),	
+						array('label'=>'Temperature Checked At Entrance','var'=>1),
+						array('label'=>'Physical Distance Maintained','var'=>1),		
+						array('label'=>'Event Area Sanitized','var'=>1),		
+						array('label'=>'Outdoor Event','var'=>1),		
+						array('label'=>'Vaccination Required','var'=>1),		
+						array('label'=>'Other Health Guidelines','var'=>1),	
+					))
+				),
 
 				array('type'=>'togheader','name'=>__('Now Calendar','eventon')),
 					array('label'=>'Events Happening Now','var'=>1),	
@@ -279,10 +302,16 @@ class evo_settings_lang{
 					array('label'=>'Time Left','var'=>1),		
 					array('label'=>'Event Completed','var'=>1),			
 				array('type'=>'togend'),
+				
 				array('type'=>'togheader','name'=>__('Schedule View','eventon')),
 					array('label'=>'Schedule','var'=>1),	
 					array('label'=>'Until','var'=>1),	
 					array('label'=>'From','var'=>1),	
+				array('type'=>'togend'),
+
+				array('type'=>'togheader','name'=>__('Other','eventon')),
+					array('label'=>'List','var'=>1),	
+					array('label'=>'Tiles','var'=>1),	
 				array('type'=>'togend'),
 			);
 
@@ -503,7 +532,7 @@ class evo_settings_lang{
 					if(!empty($terms)){
 						foreach($terms as $term){
 							$var = 'evolang_'.'event_type'.$ab.'_'.$term->term_id;
-							$termitem[$var]=(!empty($this->lang_options[$var]))?  $this->lang_options[$var]: $term->name;
+							$termitem[$var] = (!empty($this->lang_options[$var]))?  $this->lang_options[$var]: $term->name;
 						}
 					}
 					if(!empty($termitem)){

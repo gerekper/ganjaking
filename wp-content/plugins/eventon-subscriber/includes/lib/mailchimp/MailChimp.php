@@ -39,14 +39,17 @@ class MailChimp
     public function __construct($api_key, $api_endpoint = null)
     {
         if (!function_exists('curl_init') || !function_exists('curl_setopt')) {
-            throw new \Exception("cURL support is required, but can't be found.");
+            echo '<div class="notice error"><p>'. __("cURL support is required, but can't be found.") .'</p></div>';
+            return; 
         }
 
         $this->api_key = $api_key;
 
         if ($api_endpoint === null) {
             if (strpos($this->api_key, '-') === false) {
-                throw new \Exception("Invalid MailChimp API key supplied.");
+                echo '<div class="notice error"><p>'. __("Invalid MailChimp API key supplied.") .'</p></div>';
+                return; 
+                //echo new \Exception("Invalid MailChimp API key supplied.");
             }
             list(, $data_center) = explode('-', $this->api_key);
             $this->api_endpoint = str_replace('<dc>', $data_center, $this->api_endpoint);

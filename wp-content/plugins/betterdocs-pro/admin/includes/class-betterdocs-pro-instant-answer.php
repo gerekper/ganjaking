@@ -89,7 +89,7 @@ class BetterDocs_Pro_IA {
                 array('wp-i18n', 'wp-element', 'wp-hooks', 'wp-util', 'wp-components'), BETTERDOCS_PRO_VERSION, true 
             );
             $enable_instant_answer = BetterDocs_DB::get_settings('enable_disable');
-            if($enable_instant_answer == 1) {
+            if ( $enable_instant_answer == 1 ) {
                 wp_localize_script('betterdocs-instant-answer', 'betterdocs', $this->jsObject( $this->bdocs_settings ));
             }
         }
@@ -1200,7 +1200,7 @@ class BetterDocs_Pro_IA {
 
         if( ! empty( $_docs ) ) {
             foreach( $_docs as $doc ) {
-                $docs[ $doc->ID ] = $doc->post_title;
+                $docs[ $doc->ID ] = esc_html($doc->post_title);
             }
         }
 
@@ -1232,7 +1232,7 @@ class BetterDocs_Pro_IA {
         if($allpages ) {
             $page_list[ 'all' ] = 'All';
             foreach( $allpages as $page ) {
-                $page_list[ $page->ID ] = $page->post_title;
+                $page_list[ $page->ID ] = esc_html($page->post_title);
             }
         }
         return $page_list;
@@ -1582,7 +1582,7 @@ class BetterDocs_Pro_IA {
                 if( $key === 'email' ) {
                     $sanitized_data[ $key ] = sanitize_email( $data );
                 } else {
-                    $sanitized_data[ $key ] = sanitize_text_field( stripslashes($data) );
+                    $sanitized_data[ $key ] = esc_html( stripslashes($data) );
                 }
             }
             

@@ -21,9 +21,7 @@ class EVOFC_Ajax{
 
 			if($SC['calendar_type'] != 'fullcal') return $SC;
 
-			if($mo1st == 'yes'){
-				$SC['fixed_day'] = 1;
-			}
+			if(!empty($mo1st) && $mo1st == 'yes')	$SC['fixed_day'] = 1;
 
 			return $SC;
 		}

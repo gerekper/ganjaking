@@ -1,6 +1,7 @@
 <?php
 /* EventON Shortcode Generator
 * @version 2.9
+* use: EVO()->shortcode_gen
 */
 
 class EVO_Shortcode_Generator{

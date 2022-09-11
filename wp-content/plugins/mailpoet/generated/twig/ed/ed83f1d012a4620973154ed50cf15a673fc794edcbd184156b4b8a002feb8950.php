@@ -64,10 +64,6 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
         // line 7
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["finish_wizard_url"] ?? null), "html", null, true);
         echo "';
-  var mailpoet_settings = ";
-        // line 8
-        echo json_encode(($context["settings"] ?? null));
-        echo ";
 </script>
 
 <div id=\"mailpoet-wizard-container\"></div>
@@ -75,12 +71,12 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
 ";
     }
 
-    // line 15
+    // line 14
     public function block_translations($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 16
-        $this->loadTemplate("woocommerce_setup_translations.html", "woocommerce_setup.html", 16)->display($context);
+        // line 15
+        $this->loadTemplate("woocommerce_setup_translations.html", "woocommerce_setup.html", 15)->display($context);
     }
 
     public function getTemplateName()
@@ -95,7 +91,7 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
 
     public function getDebugInfo()
     {
-        return array (  80 => 16,  76 => 15,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  76 => 15,  72 => 14,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

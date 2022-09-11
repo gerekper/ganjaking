@@ -5,11 +5,11 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Step;
+use MailPoet\Automation\Engine\Data\Workflow;
+use MailPoet\Automation\Engine\Data\WorkflowRun;
 use MailPoet\Automation\Engine\Workflows\Action;
-use MailPoet\Automation\Engine\Workflows\Step;
 use MailPoet\Automation\Engine\Workflows\Subject;
-use MailPoet\Automation\Engine\Workflows\Workflow;
-use MailPoet\Automation\Engine\Workflows\WorkflowRun;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
@@ -18,6 +18,8 @@ use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoet\Subscribers\SubscribersRepository;
+use MailPoet\Validator\Builder;
+use MailPoet\Validator\Schema\ObjectSchema;
 
 class UnsubscribeAction implements Action {
   /** @var SubscriberSegmentRepository */
@@ -50,6 +52,10 @@ class UnsubscribeAction implements Action {
 
   public function getName(): string {
     return __('Unsubscribe', 'mailpoet');
+  }
+
+  public function getArgsSchema(): ObjectSchema {
+    return Builder::object();
   }
 
   /**

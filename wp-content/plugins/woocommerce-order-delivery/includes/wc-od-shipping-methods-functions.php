@@ -21,57 +21,59 @@ function wc_od_get_shipping_method( $the_method ) {
 }
 
 /**
- * Gets the rates of the specified `Table Rate Shipping` method.
+ * Gets whether the shipping method has rates.
  *
- * @since 1.6.0
+ * @since 2.2.0
  *
  * @param mixed $the_method Shipping method object or instance ID.
- * @return array|bool An array with the rates. False on failure.
+ * @return bool
  */
-function wc_od_get_shipping_table_rates( $the_method ) {
+function wc_od_shipping_method_has_rates( $the_method ) {
 	$shipping_method = wc_od_get_shipping_method( $the_method );
 
-	return ( $shipping_method instanceof WC_Shipping_Table_Rate ? $shipping_method->get_normalized_shipping_rates() : false );
-}
-
-/**
- * Gets the shipping table rate by field.
- *
- * @since 1.6.0
- *
- * @param mixed  $the_method Shipping method object or instance ID.
- * @param string $field      The field key.
- * @param mixed  $value      The field value.
- * @return array|bool An array with the rate data. False on failure.
- */
-function wc_od_get_shipping_table_rate_by_field( $the_method, $field, $value ) {
-	$rates = wc_od_get_shipping_table_rates( $the_method );
-
-	$rate = false;
-
-	if ( ! empty( $rates ) ) {
-		$values = wp_list_pluck( $rates, $field );
-		$index  = array_search( $value, $values ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-
-		if ( false !== $index ) {
-			$rate = $rates[ $index ];
-		}
+	if ( ! $shipping_method ) {
+		return false;
 	}
 
-	return $rate;
+	/**
+	 * Filters whether the shipping method has rates.
+	 *
+	 * The dynamic portion of the hook name refers to the shipping method ID.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param bool               $has_rates       True if the shipping method has rates. False otherwise.
+	 * @param WC_Shipping_Method $shipping_method Shipping method object.
+	 */
+	return apply_filters( "wc_od_{$shipping_method->id}_shipping_method_has_rates", false, $shipping_method );
 }
 
 /**
- * Gets the shipping table rate by ID.
+ * Gets the rate IDs for the specified shipping method.
  *
- * @since 1.6.0
+ * @since 2.2.0
  *
  * @param mixed $the_method Shipping method object or instance ID.
- * @param int   $rate_id    The rate ID.
- * @return array|bool An array with the rate data. False on failure.
+ * @return array
  */
-function wc_od_get_shipping_table_rate_by_id( $the_method, $rate_id ) {
-	return wc_od_get_shipping_table_rate_by_field( $the_method, 'rate_id', $rate_id );
+function wc_od_get_shipping_method_rate_ids( $the_method ) {
+	$shipping_method = wc_od_get_shipping_method( $the_method );
+
+	if ( ! $shipping_method || ! wc_od_shipping_method_has_rates( $shipping_method ) ) {
+		return array();
+	}
+
+	/**
+	 * Filters the rate IDs of a shipping method.
+	 *
+	 * The dynamic portion of the hook name refers to the shipping method ID.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array              $rate_ids        An array with the rate IDs.
+	 * @param WC_Shipping_Method $shipping_method Shipping method object.
+	 */
+	return apply_filters( "wc_od_{$shipping_method->id}_shipping_method_rate_ids", array(), $shipping_method );
 }
 
 /**
@@ -82,65 +84,14 @@ function wc_od_get_shipping_table_rate_by_id( $the_method, $rate_id ) {
  * @return array An array with the choices.
  */
 function wc_od_get_shipping_methods_choices() {
-	$choices = array();
-
-	$zones        = WC_Shipping_Zones::get_zones();
-	$default_zone = WC_Shipping_Zones::get_zone( 0 );
-
-	// Add the default shipping zone.
-	if ( $default_zone ) {
-		$zones[0] = array(
-			'zone_id'          => 0,
-			'shipping_methods' => $default_zone->get_shipping_methods(),
-		);
-	}
-
-	foreach ( $zones as $zone ) {
-		// Skip empty zones.
-		if ( empty( $zone['shipping_methods'] ) ) {
-			continue;
-		}
-
-		$zone_id = "zone:{$zone['zone_id']}";
-
-		// Add the shipping zone.
-		$choices[ $zone_id ] = wc_od_shipping_method_choice_label( $zone_id );
-
-		// Add the shipping methods of the current zone.
-		foreach ( $zone['shipping_methods'] as $method_id => $method ) {
-			if ( ! wc_string_to_bool( $method->enabled ) ) {
-				continue;
-			}
-
-			$value = wc_od_shipping_method_choice_value( $method );
-			$label = '&nbsp;&nbsp; ' . wc_od_shipping_method_choice_label( $value );
-
-			$choices[ $value ] = $label;
-
-			// Also add the table rates as options.
-			if ( 'table_rate' === $method->id ) {
-				$rates = wc_od_get_shipping_table_rates( $method );
-
-				if ( ! empty( $rates ) ) {
-					foreach ( $rates as $rate ) {
-						$rate_value = $value . ':' . $rate['rate_id'];
-						$label      = '&nbsp;&nbsp;&nbsp;&nbsp; ' . wc_od_shipping_method_choice_label( $rate_value );
-
-						$choices[ $rate_value ] = $label;
-					}
-				}
-			}
-		}
-	}
-
 	/**
-	 * Filters the shipping methods choices to use them in a select field.
+	 * Filters the shipping methods choices for a select field.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param array $choices The choices.
+	 * @param array $choices The shipping methods choices.
 	 */
-	return apply_filters( 'wc_od_get_shipping_methods_choices', $choices );
+	return apply_filters( 'wc_od_get_shipping_methods_choices', WC_OD_Shipping_Methods_Selector::get_options() );
 }
 
 /**
@@ -152,11 +103,7 @@ function wc_od_get_shipping_methods_choices() {
  * @return string
  */
 function wc_od_shipping_method_choice_value( $method ) {
-	if ( ! $method instanceof WC_Shipping_Method ) {
-		return '';
-	}
-
-	return ( $method->id . ':' . $method->instance_id );
+	return WC_OD_Shipping_Methods_Selector::get_option_value_for_method( $method );
 }
 
 /**
@@ -168,57 +115,7 @@ function wc_od_shipping_method_choice_value( $method ) {
  * @return string
  */
 function wc_od_shipping_method_choice_label( $choice_id ) {
-	$parts = explode( ':', $choice_id );
-
-	if ( 2 > count( $parts ) ) {
-		return '';
-	}
-
-	$title = '';
-
-	// Sanitize zone_id/instance_id.
-	$parts[1] = (int) $parts[1];
-
-	if ( 'zone' === $parts[0] ) {
-		$zone  = WC_Shipping_Zones::get_zone( $parts[1] );
-		$title = ': ' . __( 'All shipping methods', 'woocommerce-order-delivery' );
-	} else {
-		$zone   = WC_Shipping_Zones::get_zone_by( 'instance_id', $parts[1] );
-		$method = WC_Shipping_Zones::get_shipping_method( $parts[1] );
-
-		if ( $method ) {
-			$title = ' — ' . ( $method->title ? $method->title : $method->method_title );
-		}
-
-		// Table rate shipping.
-		if ( 'table_rate' === $parts[0] ) {
-			$rate_id = ( isset( $parts[2] ) ? intval( $parts[2] ) : 0 );
-
-			if ( $rate_id ) {
-				$rate = wc_od_get_shipping_table_rate_by_id( $method, $rate_id );
-
-				if ( $rate ) {
-					/* translators: %d: Rate ID of the table rate shipping */
-					$rate_label = ( ! empty( $rate['rate_label'] ) ? $rate['rate_label'] : sprintf( _x( 'Rate %d', 'table rate shipping label', 'woocommerce-order-delivery' ), $rate_id ) );
-
-					$title .= " - {$rate_label}";
-				}
-			} else {
-				$title .= ': ' . __( 'All rates', 'woocommerce-order-delivery' );
-			}
-		}
-	}
-
-	$label = '';
-
-	if ( $zone && $title ) {
-		// Name for the default zone.
-		if ( 0 === $zone->get_id() ) {
-			$zone->set_zone_name( _x( 'Other locations', 'label for the default shipping zone', 'woocommerce-order-delivery' ) );
-		}
-
-		$label = $zone->get_zone_name() . $title;
-	}
+	$label = WC_OD_Shipping_Methods_Selector::get_option_label( $choice_id );
 
 	/**
 	 * Filters the label used to display the shipping method choice.
@@ -243,33 +140,30 @@ function wc_od_shipping_method_choice_label( $choice_id ) {
 function wc_od_expand_shipping_methods( $shipping_methods ) {
 	$expanded_methods = array();
 
-	foreach ( $shipping_methods as $index => $shipping_method ) {
+	foreach ( $shipping_methods as $shipping_method ) {
+		$parts = explode( ':', $shipping_method );
+
+		if ( 2 > count( $parts ) ) {
+			continue;
+		}
+
 		// Replace the zone by all its shipping methods.
-		if ( 0 === strpos( $shipping_method, 'zone' ) ) {
-			$zone_id = (int) str_replace( 'zone:', '', $shipping_method );
-			$zone    = WC_Shipping_Zones::get_zone( $zone_id );
+		if ( 'zone' === $parts[0] ) {
+			$zone = WC_Shipping_Zones::get_zone( $parts[1] );
 
 			if ( $zone ) {
-				$zone_methods = $zone->get_shipping_methods( true );
+				$methods = $zone->get_shipping_methods( true );
 
-				foreach ( $zone_methods as $method ) {
+				foreach ( $methods as $method ) {
 					$expanded_methods[] = wc_od_shipping_method_choice_value( $method );
 				}
 			}
-		} elseif ( 0 === strpos( $shipping_method, 'table_rate' ) ) {
-			$parts = preg_split( '/:/', $shipping_method );
+		} elseif ( 2 === count( $parts ) && wc_od_shipping_method_has_rates( $parts[1] ) ) {
+			// Replace the shipping method by all its rates.
+			$rate_ids = wc_od_get_shipping_method_rate_ids( $parts[1] );
 
-			// Replace the table rate shipping method by all its rates.
-			if ( 2 === count( $parts ) ) {
-				$rates = wc_od_get_shipping_table_rates( $parts[1] );
-
-				if ( ! empty( $rates ) ) {
-					foreach ( $rates as $rate ) {
-						$expanded_methods[] = "{$shipping_method}:{$rate['rate_id']}";
-					}
-				}
-			} else {
-				$expanded_methods[] = $shipping_method;
+			foreach ( $rate_ids as $rate_id ) {
+				$expanded_methods[] = "{$shipping_method}:{$rate_id}";
 			}
 		} else {
 			$expanded_methods[] = $shipping_method;
@@ -403,54 +297,33 @@ function wc_od_get_order_shipping_method( $the_order ) {
 		return false;
 	}
 
-	/*
-	 * Since WC 3.4, the method `WC_Order_Item_Shipping_Data_Store->read` parses the 'method_id' meta and it removes
-	 * the 'rate_id' part from the 'table_rate' shipping methods (table_rate:1:2 => table_rate:1).
-	 * So, we have to fetch the original value directly from the db.
-	 */
-	$shipping_item_id = key( $shipping_items );
-	$method_id        = get_metadata( 'order_item', $shipping_item_id, 'method_id', true );
-
-	if ( ! $method_id ) {
-		return false;
-	}
-
-	$shipping_method = $method_id;
-
-	// Maybe add the 'instance_id' to the shipping method.
-	if ( ! strstr( $method_id, ':' ) ) {
-		$instance_id = ( isset( $shipping_item['instance_id'] ) ? $shipping_item['instance_id'] : null );
-
-		if ( $instance_id || 0 === $instance_id ) {
-			$shipping_method .= ":{$instance_id}";
-		}
-	}
-
-	/*
-	 * Look for the 'rate_id' of the 'table_rate' shipping method.
-	 * This info is not stored in the 'WC_Order_Item_Shipping' object meta data.
-	 */
-	if ( false !== strpos( $shipping_method, 'table_rate' ) ) {
-		$parts = preg_split( '/:/', $shipping_method );
-
-		if ( 2 === count( $parts ) ) {
-			$rate = wc_od_get_shipping_table_rate_by_field( $parts[1], 'rate_label', $shipping_item['method_title'] );
-
-			if ( ! empty( $rate ) && ! empty( $rate['rate_id'] ) ) {
-				$shipping_method .= ":{$rate['rate_id']}";
-			}
-		}
-	}
+	$value = $shipping_item->get_method_id() . ':' . $shipping_item->get_instance_id();
 
 	/**
-	 * Filters the first shipping method used in the specified order.
+	 * Filters the value of the order shipping method.
 	 *
-	 * @since 1.6.0
+	 * @since 2.2.0
 	 *
-	 * @param string   $shipping_method The shipping method.
-	 * @param WC_Order $order           The order object.
+	 * @param string                 $value         The shipping method value.
+	 * @param WC_Order_Item_Shipping $shipping_item Order item shipping object.
+	 * @param WC_Order               $order         Order object.
 	 */
-	$shipping_method = apply_filters( 'wc_od_get_order_shipping_method', $shipping_method, $order );
+	$shipping_method = apply_filters( 'wc_od_order_shipping_method_value', $value, $shipping_item, $order );
+
+	if ( has_filter( 'wc_od_get_order_shipping_method' ) ) {
+		wc_deprecated_hook( 'wc_od_get_order_shipping_method', '2.2.0', 'wc_od_order_shipping_method_value' );
+
+		/**
+		 * Filters the first shipping method used in the specified order.
+		 *
+		 * @since 1.6.0
+		 * @deprecated 2.2.0
+		 *
+		 * @param string   $shipping_method The shipping method.
+		 * @param WC_Order $order           The order object.
+		 */
+		$shipping_method = apply_filters( 'wc_od_get_order_shipping_method', $shipping_method, $order );
+	}
 
 	// Cache the result.
 	wp_cache_set( $cache_key, $shipping_method, 'shipping_methods' );

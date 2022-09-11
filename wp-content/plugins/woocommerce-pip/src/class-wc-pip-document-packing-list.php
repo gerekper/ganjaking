@@ -18,13 +18,13 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * PIP Packing List class
@@ -610,7 +610,6 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 		/** This filter is documented in src/class-wc-pip-document-invoice.php */
 		return apply_filters( 'wc_pip_document_table_footer', $rows, $this->type, $this->order_id );
 	}
-
 
 
 	/**

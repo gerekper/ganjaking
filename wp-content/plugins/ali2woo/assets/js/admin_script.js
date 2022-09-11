@@ -226,7 +226,7 @@ function a2w_update_product_prices(product_id, shipping_cost, variations) {
         jQuery(product).find('.variants-table [data-id="' + v.id + '"] .price').val(v.calc_price)
         jQuery(product).find('.variants-table [data-id="' + v.id + '"] .regular_price').val(v.calc_regular_price)
     });
-    if(shipping_cost){
+    if(shipping_cost !== undefined && shipping_cost !== null) {   
         jQuery(product).find('.external-shipping').html(jQuery(product).find('.external-shipping').attr('data-currency') + shipping_cost);
         jQuery(product).find('.external-shipping').attr('data-value', shipping_cost);
     }
@@ -2094,6 +2094,66 @@ var Utils = new Utils();
 
             return false
         });
+
+
+        //nav tabs
+        $('.nav-tabs li:not(.active) a[rel]').on('click', function(){
+            var $link = $(this),
+                $tabs = $link.closest('.nav-tabs'),
+                $row = $tabs.closest('.row'),
+                rel = $link.attr('rel'),
+                $contents = $('.tabs-content', $row),
+                $content = $('.tabs-content[rel="'+rel+'"]', $row),
+                $li = $link.closest('li');
+
+            if (!$content.length) {
+                return;
+            }
+
+            $tabs.find('li').removeClass('active');
+            $li.addClass('active');
+
+            $contents.removeClass('active');
+            $content.addClass('active');
+
+            return false;
+        })
+
+        //dropdown
+        $('[data-toggle="dropdown"]').on('click', function(){
+            var $btn = $(this),
+                $dropdown = $btn.next('.dropdown-menu'),
+                $parent = $btn.parent();
+
+            if (!$dropdown.length || !$parent.length) {
+                return;
+            }
+
+            $parent.toggleClass('open');
+
+            return false;
+        })
+
+        $('.dropdown-menu').on('click', function(){
+            var $dropdown = $(this),
+                $parent = $dropdown.parent();
+
+            setTimeout(function(){
+                $parent.removeClass('open');
+            }, 100);
+        });
+
+        $(document).on('click', function(e){
+            var $target = $(e.target),
+                $parent = $target.parent();
+
+            if (!$parent.lendth) {
+                $('.btn-group.open').removeClass('open');
+            }
+        })
+
+        //tooltip
+        $('')
     });
 
 })(jQuery, window, document);

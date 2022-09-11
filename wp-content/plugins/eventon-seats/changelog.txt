@@ -1,5 +1,23 @@
 ﻿Event Seats (ST) addon for EventON Plugin
 ====================================
+v 1.0.12 (2022-2-2)
+ADDED: reset map button for seat map
+ADDED: need saved notice on seat map editor
+FIXED: background color select not working
+FIXED: zoom in and zoom out firing multiple times after window resized
+
+v 1.0.11 (2021-1-4)
+ADDED: compatibility with QR code addon to show seat info in checkin page
+
+v 1.0.10 (2020-11-4)
+ADDED: ability for increment input fields to type manually
+ADDED: ability to maintain seat status when duplicating an event
+FIXED: duplicate events to copy seat map as well
+FIXED: compatibility with variations addon 0.9
+FIXED: available seats stock sync with woocommerce product stock
+FIXED: unassigned seating section duplication adjusting sold out
+FIXED: duplicate events not resetting sold out on unassigned seats
+
 v 1.0.9 (2020-8-25)
 ADDED: Missing seat number information to additional ticket information at checkout
 ADDED: 1000x800 map area and pluggable filter to add more sizes

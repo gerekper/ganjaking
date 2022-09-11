@@ -7,12 +7,11 @@
  *	@Author: AJDE
  *	@EventON
  *	@version: 2.6.14
- *	@u 3.0.3
  */	
 	
-	global $eventon;
 
-	get_header();
+	evo_get_page_header();
+
 
 	$tax = get_query_var( 'taxonomy' );
 	$term = get_query_var( 'term' );
@@ -85,6 +84,8 @@
 
 					$map_type = EVO()->cal->get_prop('evcal_gmap_format');
 						if(!$map_type) $map_type = 'roadmap';
+
+					$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
 				?>
 					<div id='evo_locationcard_gmap' class="evo_location_map" data-address='<?php echo $location_address;?>' data-latlng='<?php echo $location_latlan;?>' data-location_type='<?php echo $location_type;?>'data-zoom='<?php echo $zoomlevel;?>' data-scroll='<?php echo EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes';?>' data-mty='<?php echo $map_type;?>'></div>
 				<?php endif;?>
@@ -93,7 +94,7 @@
 				
 				<?php 
 					$shortcode = apply_filters('evo_tax_archieve_page_shortcode', 
-						'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes"]', 
+						'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes" eventtop_style="'. $eventtop_style.'"]', 
 						$tax,
 						$term->term_id
 					);
@@ -104,10 +105,15 @@
 		</div>
 	</div>
 
-	<?php get_sidebar(); ?>
+	<?php evo_get_page_sidebar(); ?>
 
 </div>
 
 <?php	do_action('eventon_after_main_content'); ?>
 
-<?php get_footer(); ?>
+<?php 
+
+	evo_get_page_footer();
+
+
+?>

@@ -18,11 +18,49 @@ class evoaup_admin{
 		add_filter('evoau_save_settings_optionvals', array($this,'save_settings'), 10, 2);
 
 		add_action( 'add_meta_boxes', array($this, 'meta_boxes') );
+		add_action('evoau_assigninfo_display', array($this, 'assigninfo_display'),10,2);
 
 		include_once('class-lang.php');
 
+		// User profile
+		add_action('evoau_user_profile_info', array($this,'user_info'),10,1);
+
 	}
-	// meta boxes
+
+
+	// user profile
+		function user_info($user){
+
+			$FNC = new evoaup_fnc();
+
+			$data = $FNC->have_valid_event_submissions();
+			//print_r($data );
+
+			if(!$data) return;
+			extract($data);
+
+
+			if($submission_format =='level_based'){
+				?>
+				<tr>
+					<th><label><?php _e('Paid Event Submissions Available');?></label></th>
+					<td>
+						<span style='display:block'><b style='padding: 3px 10px;background-color: #a9a9a9;border-radius: 12px;color: #fff;'><?php echo $allcount;?>x</b> <?php _e('Total Event Submission');?></span></br>
+						<?php
+						$submission_levels = $FNC->get_submission_levels();
+						
+						foreach($submission_data as $index=>$c){
+							echo "<span style='margin-right:10px;' ><b style='padding: 3px 10px;background-color: #cccccc;border-radius: 12px;color: #fff;'>".$c."x</b> ". $submission_levels[ $index ]['name'].  "</span>";
+						}
+						?>
+					</td>
+				</tr><?php
+			}else{
+
+			}
+		}
+
+	// SCRIPT
 		function admin_scripts(){
 			global $eventon_aup;
 
@@ -38,30 +76,49 @@ class evoaup_admin{
 				)
 			);
 		}
+
+	// meta boxes
+		// actionUser meta box additions
+		function assigninfo_display($eid, $EVENT){
+			$SL = $EVENT->get_prop('_evoaup_submission_level');
+
+			if(!$SL) return;
+
+			$fnc = new evoaup_fnc();
+			$submission_level_data = $fnc->get_submission_level_data($SL);
+			if(!isset($submission_level_data['name'])) return;
+
+			$color = isset($submission_level_data['color'])? '#'.$submission_level_data['color']: false;
+
+			echo "<div class='evoau_assign_users' style='margin-top:10px'><p>". __('Event submitted using submission level')." <span style='background-color:{$color};color:#fff;font-size:11px;border-radius: 5px;padding: 1px 5px;'>". $submission_level_data['name'] ."</span></p></div>";
+		}
 		function meta_boxes(){
 			global $post;
 
 			$_order_type = get_post_meta($post->ID, '_order_type',true);
 
 			if($_order_type == 'evo_submission' || $_order_type == 'evotix'){
-				$submission_data = get_post_meta($post->ID, '_submission_data',true);
 
-				if(empty($submission_data)) return; 
+				if($post->post_status != 'wc-completed') return;
+				$submission_data = get_post_meta($post->ID, '_submission_data',true);
+				$submission_count = get_post_meta($post->ID, '_submission_count',true);
+
+				if(empty($submission_data) && empty($submission_count)) return; 
 				add_meta_box('evoaup_box',__('Order Details','eventon'), array($this,'metabox_content'),'shop_order', 'side', 'default');
 			}
 		}
 
-
+		// order post
 		function metabox_content(){
 			global $post;
 
 			echo "<style type='text/css'>
 				.evoaup_event_submission_data{margin:-7px -12px -12px -12px; padding:0px;}
-				.evoaup_order_metabox{background-color:#ffe8c6;padding:5px 15px 15px}
+				.evoaup_order_metabox{background-color:#fed583;padding:15px; }
 				.evoaup_order_metabox p{margin:0; position: relative}
-				.evoaup_order_metabox p.evosup_submissions_left{height:45px;}
-				.evoaup_order_metabox input{ width:80px; border:none; background-color:#f5b87a; border-radius: 5px;color:#fff; font-weight:900; font-size:24px;text-align:right; padding:5px 10px; position:absolute;font-family:'open sans'; }
-				.evoaup_order_metabox em{font-size:18px; padding-left:90px; display:block; padding-top:8px}
+				.evoaup_order_metabox p.evosup_submissions_left{height:45px; display:flex}
+				.evoaup_order_metabox input{ width:80px; border:none; background-color:#ffffff94; border-radius: 25px; font-weight:900; font-size:24px;text-align:center; padding:5px 10px; font-family:'open sans'; }
+				.evoaup_order_metabox em{font-size:18px; padding-left:10px; display:block; padding-top:8px}
 				.evoaup_submitted_events{margin: 0; background-color:#f4d6a9; padding:15px;border-top:1px solid #eac388}
 				.evoaup_submitted_events p{margin:0; padding-bottom:5px;}
 			</style>";
@@ -79,7 +136,7 @@ class evoaup_admin{
 				$submission_levels = $fnc->get_submission_levels();
 			?>
 				<div class='evoaup_order_metabox'>
-					<h3>Event Submissions Remaining</h3>
+					<p style='padding-bottom: 10px'><?php _e('Event Submissions Remaining','evoaup');?></p>
 				<?php
 				foreach($submission_data as $level=>$count){
 					$level_data = isset($submission_levels[$level])? $submission_levels[$level]: false;
@@ -100,7 +157,7 @@ class evoaup_admin{
 			}else{// old method
 			?>
 				<div class='evoaup_order_metabox'>
-					<h3>Event Submissions Remaining</h3>
+					<p style='padding-bottom: 10px'><?php _e('Event Submissions Remaining','evoaup');?></p>
 					<p class="evosup_submissions_left">
 						<input type="text" name='_submission_count' value='<?php echo $submissions_left;?>'/>
 						<em><?php _e('General','eventon')?></em>
@@ -133,8 +190,12 @@ class evoaup_admin{
 			if (defined('DOING_AJAX') && DOING_AJAX) return;
 			if($post->post_type!='shop_order')	return;
 
-			$count = empty($_POST['_submission_count'])? 0: $_POST['_submission_count'];
-			update_post_meta($post_id, '_submission_count', $count);
+			// update submission count on the order
+			if(isset($_POST['_submission_count'])){
+				$count = empty($_POST['_submission_count'])? 0: $_POST['_submission_count'];
+				update_post_meta($post_id, '_submission_count', $count);
+			}
+			
 			if(isset($_POST['_submission_data'])) update_post_meta($post_id, '_submission_data', $_POST['_submission_data']);
 		}
 
@@ -257,27 +318,28 @@ class evoaup_admin{
 			$array[] = array(
 				'id'=>'evoAU6',
 				'name'=>'Paid Submissions Settings',
-				'tab_name'=>'Paid Submissions','icon'=>'dollar',
+				'tab_name'=>'Paid Submissions','icon'=>'dollar-sign',
 				'fields'=>array(
 					array(
 						'id'=>'evoaup_create_product',
 						'type'=>'yesno',
-						'name'=>__('Activate paid submissions','eventon') 
+						'name'=>__('Activate paid submissions','evoaup') 
 					),
 					array('id'=>'evoaup_product_id',
 						'type'=>'customcode',
 						'code'=> $this->customCode() 
 					),
+
 					array('id'=>'evoaup_submission_page',
 						'type'=>'text',
-						'name'=>__('URL for event submission form page','eventon'), 
-						'legend'=>'Type the direct link where you have included the event submission form where customers can submit their paid events submissions. If provided this link will be used to redirect customers on order complete details page.',
+						'name'=>__('URL for event submission form page','evoaup'), 
+						'legend'=> __('Type the direct link where you have included the event submission form where customers can submit their paid events submissions. If provided this link will be used to redirect customers on order complete details page.','evoaup'),
 						'default'=>'eg. http://www.google.com' 
 					),
 					array(
 						'id'=>'evoaup_note',
 						'type'=>'note',
-						'name'=>__('Note: If guest checkout is allowed for woocommerce, checking out with event submissions in cart will automatically require customers to create accounts, as an account is required to track their purchased event submissions','eventon') 
+						'name'=>__('Note: If guest checkout is allowed for woocommerce, checking out with event submissions in cart will automatically require customers to create accounts, as an account is required to track their purchased event submissions','evoaup') 
 					),
 			));
 			return $array;
@@ -290,9 +352,17 @@ class evoaup_admin{
 
 			$ppmv = false;
 			if($product_id){
-				$ppmv = get_post_meta($product_id);
-				//print_r($ppmv);
+				// check if wc product is published
+				$HELP = new evo_helper();
+
+				if($HELP->post_exist( $product_id )){
+					$ppmv = get_post_meta($product_id);
+				}else{
+					$product_id = false;
+				}
 			}
+
+
 
 			ob_start();
 
@@ -348,11 +418,7 @@ class evoaup_admin{
 			
 			echo "<p>".__('Default Price per one event submission (This will be used if submission levels are not created)','eventon'). ' ('.$wc_currency_sim.')</p>';
 			echo "<p><span class='nfe_f_width'><input type='text' name='evoaup_price' value='".($ppmv && !empty($ppmv['_regular_price']) ? $ppmv['_regular_price'][0]:'')."' placeholder='eg. 10.00'/></span></p>";
-			echo "<em class='hr_line'></em>";
 			
-			//echo "<p>".__('Set total maximum allowed submissions','eventon'). '<span class="ajdeToolTip L fa"><em>Maximum event submissions allowed for all user submissions combined.</em></span></p>';
-			//echo "<p><span class='nfe_f_width'><input type='text' name='_stock' value='".($ppmv && !empty($ppmv['_stock'])? $ppmv['_stock'][0]:'')."' /></span></p>";
-			//echo "<em class='hr_line'></em>";
 
 			echo '<input type="hidden" name="evoaup_product_id" value="'.$product_id.'"/>';
 			return ob_get_clean();
@@ -377,7 +443,7 @@ class evoaup_admin{
 				}
 			}
 
-			update_post_meta(1900,'aaaa',$debug);
+			//update_post_meta(1900,'aaaa',$debug);
 
 			return $options;
 		}
@@ -385,12 +451,12 @@ class evoaup_admin{
 	// Woocommerce
 		function add_new_woocommerce_product(){
 			$user_ID = get_current_user_id();
-			$sku = 'sku_'.rand(2000,4000);
-			$event_title = 'Paid Event Submission';
+			//$sku = 'sku_'.rand(2000,4000);
+			$event_title =  'Paid Event Submission';
 			
 			$post = array(
 				'post_author' => $user_ID,
-				'post_content' => "Event Submission",
+				'post_content' =>  "Event Submission",
 				'post_status' => "publish",
 				'post_title' => $event_title,
 				'post_type' => "product"
@@ -413,16 +479,18 @@ class evoaup_admin{
 			function save_product_meta_values($woo_post_id){
 
 				$sku = 'sku_'.rand(2000,4000);
-
 				update_post_meta($woo_post_id, '_sku',  $sku);
-				// price
-					$price = !empty($_POST['evoaup_price'])? str_replace('$','',$_POST['evoaup_price']):'0.00';
+
+				$_product_type = 'evo-submission';
+				$price = !empty($_POST['evoaup_price'])? str_replace('$','',$_POST['evoaup_price']):'0.00';
+				
+				// price					
 					if($price){
 						update_post_meta($woo_post_id, '_price', $price );
 						update_post_meta($woo_post_id, '_regular_price', $price );
 					}
 
-				update_post_meta($woo_post_id, '_producttype', 'evo_submission');
+				update_post_meta($woo_post_id, '_producttype', $_product_type );
 				update_post_meta($woo_post_id, '_visibility', 'hidden');
 
 				$WC_product = wc_get_product($woo_post_id);
@@ -447,16 +515,18 @@ class evoaup_admin{
 
 		// create and assign woocommerce product category for foodpress items
 			function assign_woo_cat($post_id){
+				//defaults
+				$term_name = 'Evo_submission';
+				$term_slug = 'evo-submission';
+
 				// check if term exist
-				$terms = term_exists('Evo_submission', 'product_cat');
+				$terms = term_exists( $term_name, 'product_cat');
 				if(!empty($terms) && $terms !== 0 && $terms !== null){
 					wp_set_post_terms( $post_id, $terms, 'product_cat' );
 				}else{
 					// create term
 					$new_termid = wp_insert_term(
-					  	'Evo_submission', // the term 
-					  	'product_cat',
-					  	array(	'slug'=>'evo-submission')
+					  	$term_name, 'product_cat',	array(	'slug'=>$term_slug)
 					);
 
 					// assign term to woo product

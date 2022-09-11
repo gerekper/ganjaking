@@ -1,11 +1,16 @@
 /* 
 Shortcode Generator 
-@version 2.9
+@version 4.0.6
 */
-    .ajde_popup_text input.ajdePOSH_input, 
-    .ajde_popup_text input.ajdePOSH_input[type="text"]
+    .ajde_admin_lightbox.eventon_shortcode{opacity: 0; visibility: hidden;}
+    .ajde_admin_lightbox.show.eventon_shortcode {    opacity: 1; visibility: visible;}
+
+    .ajde_popup .ajde_popup_text input.ajdePOSH_input, 
+    .ajde_popup .ajde_popup_text input.ajdePOSH_input[type="text"]
+    .ajde_popup .ajde_popup_text input[type="text"], 
+    .ajde_popup .ajde_popup_text textarea
     {
-        width: 200px; margin-right: 5px;        
+        width: 200px; margin-right: 10px;        
     }
 
     .ajde_popup.eventon_shortcode{width:600px   }
@@ -128,7 +133,7 @@ Shortcode Generator
         position: relative;
         background-color: transparent;
         color: #444;
-        width: 100%;
+        width: 100%;display: flex;align-items: center;
         line-height: 28px;
     }
     .fieldline.note p.label{line-height: 1.3; padding:5px; opacity: 0.5}

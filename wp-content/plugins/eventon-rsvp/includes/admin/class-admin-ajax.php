@@ -217,8 +217,7 @@ class evors_admin_ajax{
 
 	// resend confirmation
 		function evoRS_admin_resend_emails(){
-			global $eventon_rs;
-
+			
 			$rsvp_id = $_POST['rsvp_id'];			
 			$rsvp_pmv = get_post_custom($rsvp_id);
 			$T = isset($_POST['T'])? $_POST['T']: 'confirmation';
@@ -231,7 +230,7 @@ class evors_admin_ajax{
 			$args['rsvp'] = (!empty($rsvp_pmv['rsvp']))?$rsvp_pmv['rsvp'][0]:null;
 			$args['repeat_interval'] = (!empty($rsvp_pmv['repeat_interval']))?$rsvp_pmv['repeat_interval'][0]:0;
 
-			$send_mail = $eventon_rs->email->send_email($args, $T);
+			$send_mail = EVORS()->email->send_email($args, $T);
 
 			$return_content = array(
 				'status'=>'0',
@@ -245,21 +244,37 @@ class evors_admin_ajax{
 	// send custom emails
 		function evoRS_admin_custom_confirmation(){
 			
-			$rsvp_id = $_POST['rsvp_id'];			
+			$rsvp_id = sanitize_text_field($_POST['rsvp_id']);			
+			$type = isset($_POST['type']) ? sanitize_text_field($_POST['type']): 'confirmation';
+
+			if( !isset($_POST['email'])){
+				echo json_encode(array(
+					'status'=>'bad',
+					'result'=>'Missing email'
+				));exit;
+			} 
+
+
+			$RR = new EVO_RSVP_CPT( $rsvp_id);	
+
 			$rsvp_pmv = get_post_custom($rsvp_id);
 
 			$args['rsvp_id'] = $rsvp_id;
-			$args['first_name'] = (!empty($rsvp_pmv['first_name']))?$rsvp_pmv['first_name'][0]:null;
-			$args['last_name'] = (!empty($rsvp_pmv['last_name']))?$rsvp_pmv['last_name'][0]:null;
-			$args['email'] = $_POST['email'];
-			$args['e_id'] = (!empty($rsvp_pmv['e_id']))?$rsvp_pmv['e_id'][0]:null;
-			$args['rsvp'] = (!empty($rsvp_pmv['rsvp']))?$rsvp_pmv['rsvp'][0]:null;
-			$args['repeat_interval'] = (!empty($rsvp_pmv['repeat_interval']))?$rsvp_pmv['repeat_interval'][0]:0;
+			$args['first_name'] = $RR->first_name();
+			$args['last_name'] = $RR->last_name();
+			$args['email'] = sanitize_text_field( $_POST['email'] );
+			$args['e_id'] = $RR->event_id();
+			$args['rsvp'] = $RR->get_rsvp_status();
+			$args['repeat_interval'] = $RR->repeat_interval();
+			$args['method'] = 'manual';
 
 			$args['return_details']= true;
+			
+
+			$args['attachments']= $RR->get_attachments();
 
 
-			$send_mail = EVORS()->email->send_email($args);
+			$send_mail = EVORS()->email->send_email($args, $type);
 
 			$return_content = array(
 				'status'=>'0',

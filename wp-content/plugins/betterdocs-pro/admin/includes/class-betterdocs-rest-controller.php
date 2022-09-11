@@ -23,6 +23,8 @@ class BetterDocs_REST_Controller {
             'methods'   => [ 'GET' ],
             'callback'  => function () {
                 return array(
+                    'betterdocs_dir_url' => BETTERDOCS_PRO_URL,
+                    'betterdocs_rest_url' => get_rest_url(),
                     'betterdocs_version' => BETTERDOCS_VERSION,
                     'betterdocs_pro_version' => BETTERDOCS_PRO_VERSION
                 );
@@ -164,6 +166,7 @@ class BetterDocs_REST_Controller {
                 $wpdb->prepare("
                     {$select}
                     {$join}
+                    WHERE count > 0
                     GROUP BY search_log.keyword_id
                 ")
             ));
@@ -190,6 +193,7 @@ class BetterDocs_REST_Controller {
                 $wpdb->prepare("
                     {$select}
                     {$join}
+                    WHERE count > 0
                     GROUP BY search_log.keyword_id
                     {$paging}
                 ")
@@ -220,6 +224,23 @@ class BetterDocs_REST_Controller {
                     FROM {$wpdb->prefix}betterdocs_search_log as search_log"
                 )
             );
+        } else if ( !empty( $type ) && $type == 'totalCount') {
+            $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '".$start_date."' AND '".$end_date."')" : "";
+
+            $totalSearch = $wpdb->get_results(
+                $wpdb->prepare("SELECT sum(count + not_found_count) as totalSearch,
+                    sum(count) as totalFound,
+                    sum(not_found_count) as totalNotFound
+                    FROM {$wpdb->prefix}betterdocs_search_log 
+                    {$where}"
+                )
+            );
+
+            return [
+                'totalSearch' => $totalSearch[0]->totalSearch,
+                'totalFound' => $totalSearch[0]->totalFound,
+                'totalNotFound' => $totalSearch[0]->totalNotFound
+            ];
         }
 
 
@@ -237,6 +258,7 @@ class BetterDocs_REST_Controller {
         $type = $params->get_param('type');
         $start_date = ($params->get_param('start_date')) ? $params->get_param('start_date') : '';
         $end_date = ($params->get_param('end_date')) ? $params->get_param('end_date') : '';
+        $post_id = ($params->get_param('post_id')) ? $params->get_param('post_id') : '';
 
         $select = "SELECT analytics.post_id, docs.post_title, SUM(analytics.happy) as happy, SUM(analytics.sad) as sad, SUM(analytics.normal) as normal, analytics.created_at";
         $from = "FROM {$wpdb->prefix}betterdocs_analytics AS analytics";
@@ -296,7 +318,7 @@ class BetterDocs_REST_Controller {
             foreach ($docs as $key=>$value) {
                 $docs_arr[$key] = [
                     'post_id' => $value->post_id,
-                    'post_title' => $value->post_title,
+                    'post_title' => esc_html($value->post_title),
                     'happy' => $value->happy,
                     'normal' => $value->normal,
                     'sad' => $value->sad,
@@ -311,12 +333,32 @@ class BetterDocs_REST_Controller {
                 ],
                 'docs' => $docs_arr
             ];
+        } else if (!empty($type) && $type == 'overview' && $start_date && $end_date && $post_id) {
+            return $wpdb->get_results(
+                $wpdb->prepare("
+                    SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date 
+                    FROM {$wpdb->prefix}betterdocs_analytics
+                    WHERE (post_id='".$post_id."' AND created_at BETWEEN '".$start_date."' AND '".$end_date."')
+                    GROUP BY created_at
+                    ORDER BY created_at DESC
+                ")
+            );
         } else if (!empty($type) && $type == 'overview' && $start_date && $end_date) {
             return $wpdb->get_results(
                 $wpdb->prepare("
-                    SELECT sum(impressions) as views, sum(happy + sad + normal) as reactions, created_at as date 
+                    SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date 
                     FROM {$wpdb->prefix}betterdocs_analytics
                     WHERE (created_at BETWEEN '".$start_date."' AND '".$end_date."')
+                    GROUP BY created_at
+                    ORDER BY created_at DESC
+                ")
+            );
+        } else if (!empty($type) && $type == 'overview' && $post_id) {
+            return $wpdb->get_results(
+                $wpdb->prepare("
+                    SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date 
+                    FROM {$wpdb->prefix}betterdocs_analytics
+                    WHERE post_id='".$post_id."'
                     GROUP BY created_at
                     ORDER BY created_at DESC
                 ")
@@ -324,41 +366,64 @@ class BetterDocs_REST_Controller {
         } else if (!empty($type) && $type == 'overview') {
             return $wpdb->get_results(
                 $wpdb->prepare("
-                    SELECT sum(impressions) as views, sum(happy + sad + normal) as reactions, created_at as date 
+                    SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date 
                     FROM {$wpdb->prefix}betterdocs_analytics
                     GROUP BY created_at
                     ORDER BY created_at DESC
                 ")
             );
         } else if (!empty($type) && $type == 'totalCount') {
-            $totalViews = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(impressions) as totalViews FROM {$wpdb->prefix}betterdocs_analytics")
+            $where = '';
+            if ( $start_date && $end_date && $post_id ) {
+                $where = "WHERE post_id='".$post_id."' AND (created_at BETWEEN '".$start_date."' AND '".$end_date."')";
+            } else if ( $start_date && $end_date ) {
+                $where = "WHERE (created_at BETWEEN '".$start_date."' AND '".$end_date."')";
+            } else if ( $post_id ) {
+                $where = "WHERE post_id='".$post_id."'";
+            }
+
+            $analytics = $wpdb->get_results(
+                $wpdb->prepare("SELECT sum(impressions) as totalViews,
+                    sum(unique_visit) as totalUniqueViews,
+                    sum(happy + sad + normal) as totalReactions,
+                    sum(happy) as totalHappy,
+                    sum(normal) as totalNormal,
+                    sum(sad) as totalSad
+                    FROM {$wpdb->prefix}betterdocs_analytics
+                    {$where}"
+                )
             );
-            $totalSearch = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(count) as totalSearch FROM {$wpdb->prefix}betterdocs_search_log")
-            );
-            $totalReactions = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(happy + sad + normal) as totalReactions FROM {$wpdb->prefix}betterdocs_analytics")
-            );
-            $totalHappy = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(happy) as totalHappy FROM {$wpdb->prefix}betterdocs_analytics")
-            );
-            $totalNormal = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(normal) as totalNormal FROM {$wpdb->prefix}betterdocs_analytics")
-            );
-            $totalSad = $wpdb->get_results(
-                $wpdb->prepare("SELECT sum(sad) as totalSad FROM {$wpdb->prefix}betterdocs_analytics")
-            );
-            return [
-                'totalViews' => $totalViews[0]->totalViews,
-                'totalSearch' => $totalSearch[0]->totalSearch,
-                'totalReactions' => $totalReactions[0]->totalReactions,
-                'totalHappy' => $totalHappy[0]->totalHappy,
-                'totalNormal' => $totalNormal[0]->totalNormal,
-                'totalSad' => $totalSad[0]->totalSad,
+
+            $totalCount = [
+                'totalViews' => $analytics[0]->totalViews,
+                'totalUniqueViews' => $analytics[0]->totalUniqueViews,
+                'totalReactions' => $analytics[0]->totalReactions,
+                'totalHappy' => $analytics[0]->totalHappy,
+                'totalNormal' => $analytics[0]->totalNormal,
+                'totalSad' => $analytics[0]->totalSad
             ];
-        } else if ($start_date && $end_date) {
-            $select = "SELECT sum(analytics.impressions) as impressions, sum(analytics.happy) as happy, sum(analytics.sad) as sad, sum(analytics.normal) as normal, analytics.created_at";
+
+            if ( empty( $post_id ) ) {
+                $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '".$start_date."' AND '".$end_date."')" : "";
+
+                $totalSearch = $wpdb->get_results(
+                    $wpdb->prepare("SELECT sum(count + not_found_count) as totalSearch,
+                        sum(count) as totalFound,
+                        sum(not_found_count) as totalNotFound
+                        FROM {$wpdb->prefix}betterdocs_search_log 
+                        {$where}"
+                    )
+                );
+
+                $totalCount['totalSearch'] = $totalSearch[0]->totalSearch;
+                $totalCount['totalFound'] = $totalSearch[0]->totalFound;
+                $totalCount['totalNotFound'] = $totalSearch[0]->totalNotFound;
+            }
+
+            return $totalCount;
+
+        } else if ( $start_date && $end_date ) {
+            $select = "SELECT post_id, sum(analytics.impressions) as impressions, sum(analytics.unique_visit) as unique_visit, sum(analytics.happy) as happy, sum(analytics.sad) as sad, sum(analytics.normal) as normal, analytics.created_at";
             return $wpdb->get_results(
                 $wpdb->prepare(
                     "{$select}
@@ -387,7 +452,7 @@ class BetterDocs_REST_Controller {
 
         global $wpdb;
 
-        $select = "SELECT DISTINCT {$wpdb->prefix}terms.name, {$wpdb->prefix}terms.slug, SUM({$wpdb->prefix}betterdocs_analytics.impressions) as total_view, SUM({$wpdb->prefix}betterdocs_analytics.happy + {$wpdb->prefix}betterdocs_analytics.sad + {$wpdb->prefix}betterdocs_analytics.normal) as total_reactions";
+        $select = "SELECT DISTINCT {$wpdb->prefix}terms.name, {$wpdb->prefix}terms.slug, SUM({$wpdb->prefix}betterdocs_analytics.impressions) as total_view, SUM({$wpdb->prefix}betterdocs_analytics.unique_visit) as total_unique_visit, SUM({$wpdb->prefix}betterdocs_analytics.happy + {$wpdb->prefix}betterdocs_analytics.sad + {$wpdb->prefix}betterdocs_analytics.normal) as total_reactions";
         $join = "JOIN {$wpdb->prefix}term_relationships on {$wpdb->prefix}postmeta.post_id = {$wpdb->prefix}term_relationships.object_id
                 JOIN {$wpdb->prefix}betterdocs_analytics on {$wpdb->prefix}term_relationships.object_id = {$wpdb->prefix}betterdocs_analytics.post_id
                 JOIN {$wpdb->prefix}terms on {$wpdb->prefix}term_relationships.term_taxonomy_id = {$wpdb->prefix}terms.term_id
@@ -428,7 +493,7 @@ class BetterDocs_REST_Controller {
 
     public function leading_docs( $params ) {
         global $wpdb;
-        $select = "SELECT docs.ID, docs.post_author, docs.post_title, SUM(analytics.impressions) as total_views, SUM(analytics.happy + analytics.sad + analytics.normal) as total_reactions";
+        $select = "SELECT docs.ID, docs.post_author, docs.post_title, SUM(analytics.impressions) as total_views, SUM(analytics.unique_visit) as total_unique_visit, SUM(analytics.happy + analytics.sad + analytics.normal) as total_reactions";
         $join = "FROM {$wpdb->prefix}posts as docs 
                 JOIN {$wpdb->prefix}betterdocs_analytics as analytics on docs.ID = analytics.post_id";
 
@@ -482,11 +547,15 @@ class BetterDocs_REST_Controller {
         }
 
         if ( isset( $request->post_title ) ) {
-            $prepared_post->title = $request->post_title;
+            $prepared_post->title = esc_html($request->post_title);
         }
 
         if ( isset( $request->total_views ) ) {
             $prepared_post->total_views = $request->total_views;
+        }
+
+        if ( isset( $request->total_unique_visit ) ) {
+            $prepared_post->total_unique_visit = $request->total_unique_visit;
         }
 
         if ( isset( $request->total_reactions ) ) {

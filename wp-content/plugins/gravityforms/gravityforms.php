@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.6.4.5
+Version: 2.6.6.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -37,7 +37,7 @@ use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 // If you hardcode a Gravity Forms License Key here, it will automatically populate on activation.
-$gf_license_key = '';
+$gf_license_key = '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP';
 
 //-- OR ---//
 
@@ -237,7 +237,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.4.5';
+	public static $version = '2.6.6.1';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2376,8 +2376,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'> 
-					jQuery('#$slug-update').prev('tr').addClass('update'); 
+				<script type='text/javascript'>
+					jQuery('#$slug-update').prev('tr').addClass('update');
 				</script>
 				";
 		}
@@ -2471,7 +2471,11 @@ class GFForms {
 			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
 		);
 
-		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
+		$version_info = GFCommon::get_version_info();
+		$params       = GFCommon::get_remote_request_params();
+		$params       .= '&v_requested=' . urlencode( rgar( $version_info, 'version' ) );
+
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', $params, $options );
 
 		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
 			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
@@ -6205,7 +6209,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );             	
+				} );
 			} );
 		</script>";
 

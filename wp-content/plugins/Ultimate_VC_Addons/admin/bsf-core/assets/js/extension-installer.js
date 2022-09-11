@@ -84,7 +84,7 @@
 		 */
 		_installError: function( event, response ) {
 			var $card = $( '.bsf-extension-' + response.slug + ' .bsf-extension-start-install-content')
-			$card.html( '<h2>' + wp.updates.l10n.installFailedShort + '</h2>' );
+			$card.html( '<h2>' + response.errorMessage + '</h2>' );
 		},
 
 		/**

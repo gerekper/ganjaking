@@ -1,5 +1,25 @@
 QR Code (QR) addon for EventON Plugin
 ====================================
+v 2.0 (2021-1-4)
+ADDED: other checkin page colors into appearance settings
+ADDED: enter new ticket ID button on success page
+ADDED: get_page_data() to pass on ticket meta data from tickets addon
+ADDED: qr code images hidden on media library page
+ADDED: new qr code images be moved to ../uploads/evo_qr_codes folder
+FIXED: encrypted ticket number to show encrypted even for refunded order items
+UPDATED: increased default qr code image size to 200px
+UPDATED: checking page styles
+REQ: EventON 4.0
+
+v 1.1.8 (2021-6-7)
+FIXED: tickets checking not working
+UPDATED: styles for the front end look
+
+v 1.1.7 (2021-5-20)
+ADDED: checking page color options to appearance settings
+FIXED: qr code showing on WC emails when order is not completed
+FIXED: invalid ticket numbers being able to pass through
+
 v 1.1.6 (2019-9-6)
 FIXED: PDFer rsvp PDF file filter update
 FIXED: RSVP qrcode email object error

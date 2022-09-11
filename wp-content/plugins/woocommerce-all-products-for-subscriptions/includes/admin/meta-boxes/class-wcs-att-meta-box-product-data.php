@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for SATT-enabled product types.
  *
  * @class    WCS_ATT_Meta_Box_Product_Data
- * @version  3.2.2
+ * @version  3.4.2
  */
 class WCS_ATT_Meta_Box_Product_Data {
 
@@ -83,102 +83,52 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 		global $post, $product_object;
 
-		$subscription_schemes = $product_object->get_meta( '_wcsatt_schemes', true );
+		$schemes_disabled         = 'yes' === $product_object->get_meta( '_wcsatt_disabled', true );
+		$has_subscription_schemes = ! $schemes_disabled && WCS_ATT_Product_Schemes::has_subscription_schemes( $product_object, 'local' );
 
-		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $subscription_schemes ) ? 'planless onboarding' : ''; ?>" style="display:none;">
-			<div class="options_group general_scheme_options"><?php
+		if ( $schemes_disabled ) {
+			$global_schemes_status = 'disable';
+		} elseif ( $has_subscription_schemes ) {
+			$global_schemes_status = 'override';
+		} else {
+			$global_schemes_status = 'inherit';
+		}
 
-				// Subscription Status.
-				woocommerce_wp_checkbox( array(
-					'id'          => '_wcsatt_allow_one_off',
-					'label'       => __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' ),
-					'value'       => 'yes' === $product_object->get_meta( '_wcsatt_force_subscription', true ) ? 'no' : 'yes',
-					'desc_tip'    => true,
-					'description' => __( 'Enable this option to allow one-time purchases of this product. Applicable when at least one Subscription Plan has been added below.', 'woocommerce-all-products-for-subscriptions' )
-				) );
+		$classes = 'status_' . $global_schemes_status;
+
+		if ( ! $has_subscription_schemes ) {
+			$classes .= ' planless onboarding';
+		}
+
+		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo $classes; ?>" style="display:none;">
+
+			<div class="options_group global_scheme_options"><?php
 
 				// Default Status.
 				woocommerce_wp_select( array(
-					'id'            => '_wcsatt_default_status',
-					'wrapper_class' => 'wcsatt_default_status',
-					'label'         => __( 'Default to', 'woocommerce-all-products-for-subscriptions' ),
-					'description'   => '',
+					'id'            => '_wcsatt_schemes_status',
+					'wrapper_class' => 'wcsatt_schemes_status',
+					'value'         => $global_schemes_status,
+					'label'         => __( 'Sell on subscription?', 'woocommerce-all-products-for-subscriptions' ),
+					'description'   => sprintf( __( 'Use this option to override your <a href="%s">global subscription plan settings</a>. Handy if you need to specify custom plans for this product, or make it available for one-time purchase only.', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT()->get_resource_url( 'global-plan-settings' ) ),
 					'options'       => array(
-						'one-time'     => __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' ),
-						'subscription' => __( 'Subscription plan', 'woocommerce-all-products-for-subscriptions' ),
+						'inherit'  => __( 'Use global subscription plans', 'woocommerce-all-products-for-subscriptions' ),
+						'override' => __( 'Add custom subscription plans', 'woocommerce-all-products-for-subscriptions' ),
+						'disable'  => __( 'Sell one-time only', 'woocommerce-all-products-for-subscriptions' ),
 					)
 				) );
-
-				// Subscription Prompt.
-				woocommerce_wp_textarea_input( array(
-					'id'          => '_wcsatt_subscription_prompt',
-					'label'       => __( 'Title', 'woocommerce-all-products-for-subscriptions' ),
-					'description' => __( 'Text/html to display above the available purchase plan options. Supports html and shortcodes. Applicable when at least one Subscription Plan has been added below.', 'woocommerce-all-products-for-subscriptions' ),
-					'placeholder' => __( 'e.g. "Choose a subscription plan"', 'woocommerce-all-products-for-subscriptions' ),
-					'desc_tip'    => true
-				) );
-
-				// Plans layout.
-				$current_layout = $product_object->get_meta( '_wcsatt_layout', true );
-				$current_layout = in_array( $current_layout, array( 'flat', 'grouped' ) ) ? $current_layout : 'flat';
-
-				// Available layouts.
-				$layouts = array(
-					'flat'           => array(
-						'title'       => 'Flat',
-						'description' => 'Renders all options as radio buttons.',
-						'value'       => 'flat',
-						'class'       => 'flat',
-						'checked'     => 'flat' === $current_layout
-					),
-					'grouped'        => array(
-						'title'       => 'Grouped',
-						'description' => 'Renders a pair of radio buttons to prompt users to subscribe, or make a one-time purchase. Groups the available Subscription Plans in a drop-down menu.',
-						'value'       => 'grouped',
-						'class'       => 'grouped',
-						'checked'     => 'grouped' === $current_layout
-					)
-				);
-
-				?>
-				<div class="wcsatt_default_layout form-field _wcsatt_layout_field">
-					<label for="_wcsatt_layout">Layout</label>
-					<ul class="wcsatt_image_select__container">
-						<?php
-						foreach ( $layouts as $layout ) {
-							$classes = array( $layout[ 'class' ] );
-							if ( ! empty( $layout[ 'checked' ] ) ) {
-								$classes[] = 'selected';
-							}
-						?>
-						<li class="<?php echo implode( ' ', $classes ); ?>" >
-							<input type="radio"<?php echo $layout[ 'checked' ] ? ' checked' : '' ?> name="_wcsatt_layout" id="_wcsatt_layout" value="<?php echo $layout[ 'value' ] ?>">
-							<?php echo wc_help_tip( '<strong>' . $layout[ 'title' ] . '</strong> &ndash; ' . $layout[ 'description' ] ); ?>
-						</li>
-						<?php } ?>
-					</ul>
-
-				</div>
-				<div class="wp-clearfix"></div>
-				<?php
-
-				if ( isset( $_GET[ 'wcsatt_onboarding' ] ) ) {
-					woocommerce_wp_hidden_input( array(
-						'id'    => '_wcsatt_onboarding',
-						'value' => 1
-					) );
-				}
 
 			?></div>
 			<div class="hr-section hr-section-schemes"><?php echo __( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></div>
 			<div class="options_group subscription_schemes wc-metaboxes ui-sortable" data-count=""><?php
 
-				if ( ! empty ( $subscription_schemes ) ) {
+				if ( $has_subscription_schemes ) {
 
-					$i = 0;
+					$scheme_meta = $product_object->get_meta( '_wcsatt_schemes', true );
+					$i           = 0;
 
-					foreach ( $subscription_schemes as $subscription_scheme ) {
-						do_action( 'wcsatt_subscription_scheme', $i, $subscription_scheme, $post->ID );
+					foreach ( $scheme_meta as $scheme ) {
+						do_action( 'wcsatt_subscription_scheme', $i, $scheme, $post->ID );
 						$i++;
 					}
 
@@ -187,15 +137,86 @@ class WCS_ATT_Meta_Box_Product_Data {
 				?><div class="apfs_boarding__schemes">
 					<div class="apfs_boarding__schemes__message">
 						<h3><?php _e( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ); ?></h3>
-						<p><?php _e( 'Want to make this product available on subscription?', 'woocommerce-all-products-for-subscriptions' ); ?>
-						<br/><?php _e( 'Add some subscription plans to get started!', 'woocommerce-all-products-for-subscriptions' ); ?>
+						<p><?php _e( 'Add some custom subscription plans to this product.', 'woocommerce-all-products-for-subscriptions' ); ?>
+						<br/><?php _e( 'These plans will override your global subscription plans.', 'woocommerce-all-products-for-subscriptions' ); ?>
 						</p>
 					</div>
 				</div>
 			</div>
-			<p class="subscription_schemes_add_wrapper">
+			<div class="options_group subscription_schemes_add_wrapper">
 				<button type="button" class="button add_subscription_scheme"><?php _e( 'Add Plan', 'woocommerce-all-products-for-subscriptions' ); ?></button>
-			</p>
+			</div>
+			<div class="hr-section hr-section-schemes-settings"><?php echo __( 'Advanced Settings', 'woocommerce-all-products-for-subscriptions' ); ?></div>
+			<div class="options_group additional_scheme_options"><?php
+
+				// Subscription Status.
+				woocommerce_wp_checkbox( array(
+					'id'          => '_wcsatt_allow_one_off',
+					'label'       => __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' ),
+					'value'       => 'yes' === $product_object->get_meta( '_wcsatt_force_subscription', true ) ? 'no' : 'yes',
+					'desc_tip'    => true,
+					'description' => __( 'Disable this option if you want to prevent one-time purchases of this product.', 'woocommerce-all-products-for-subscriptions' )
+				) );
+
+				// Subscription Prompt.
+				woocommerce_wp_textarea_input( array(
+					'id'          => '_wcsatt_subscription_prompt',
+					'label'       => __( 'Prompt text', 'woocommerce-all-products-for-subscriptions' ),
+					'description' => __( 'Optional text/html to display above the available purchase plan options. Supports html and shortcodes.', 'woocommerce-all-products-for-subscriptions' ),
+					'placeholder' => __( 'e.g. "Choose a purchase plan:"', 'woocommerce-all-products-for-subscriptions' ),
+					'desc_tip'    => true
+				) );
+
+				$has_layout_meta = $product_object->meta_exists( '_wcsatt_layout' );
+
+				// Backwards compatibility: Display layout option if meta exists already.
+				if ( $has_layout_meta ) {
+
+					// Plans layout.
+					$current_layout = $product_object->get_meta( '_wcsatt_layout', true );
+					$current_layout = in_array( $current_layout, array( 'flat', 'grouped' ) ) ? $current_layout : 'flat';
+
+					// Available layouts.
+					$layouts = array(
+						'flat'           => array(
+							'title'       => __( 'Flat', 'woocommerce-all-products-for-subscriptions' ),
+							'description' => __( 'Renders all plan options as radio buttons.', 'woocommerce-all-products-for-subscriptions' ),
+							'value'       => 'flat',
+							'class'       => 'flat',
+							'checked'     => 'flat' === $current_layout
+						),
+						'grouped'        => array(
+							'title'       => __( 'Grouped', 'woocommerce-all-products-for-subscriptions' ),
+							'description' => __( 'Renders a pair of radio buttons to prompt users to subscribe, or make a one-time purchase. Groups the available plan options in a drop-down menu.', 'woocommerce-all-products-for-subscriptions' ),
+							'value'       => 'grouped',
+							'class'       => 'grouped',
+							'checked'     => 'grouped' === $current_layout
+						)
+					);
+
+					?>
+					<div class="wcsatt_default_layout form-field _wcsatt_layout_field">
+						<label for="_wcsatt_layout"><?php _e( 'Options layout', 'woocommerce-all-products-for-subscriptions' ) ?></label>
+						<ul class="wcsatt_image_select__container">
+							<?php
+							foreach ( $layouts as $layout ) {
+								$classes = array( $layout[ 'class' ] );
+								if ( ! empty( $layout[ 'checked' ] ) ) {
+									$classes[] = 'selected';
+								}
+							?>
+							<li class="<?php echo implode( ' ', $classes ); ?>" >
+								<input type="radio"<?php echo $layout[ 'checked' ] ? ' checked' : '' ?> name="_wcsatt_layout" id="_wcsatt_layout" value="<?php echo $layout[ 'value' ] ?>">
+								<?php echo wc_help_tip( '<strong>' . $layout[ 'title' ] . '</strong> &ndash; ' . $layout[ 'description' ] ); ?>
+							</li>
+							<?php } ?>
+						</ul>
+
+					</div><?php
+				}
+
+				?><div class="wp-clearfix"></div>
+			</div>
 		</div><?php
 	}
 
@@ -316,7 +337,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 			$subscription_pricing_method = ! empty( $scheme_data[ 'subscription_pricing_method' ] ) ? $scheme_data[ 'subscription_pricing_method' ] : 'inherit';
 			$subscription_regular_price  = isset( $scheme_data[ 'subscription_regular_price' ] ) ? $scheme_data[ 'subscription_regular_price' ] : '';
 			$subscription_sale_price     = isset( $scheme_data[ 'subscription_sale_price' ] ) ? $scheme_data[ 'subscription_sale_price' ] : '';
-			$subscription_discount       = isset( $scheme_data[ 'subscription_discount' ] ) ? $scheme_data[ 'subscription_discount' ] : '';
+			$subscription_discount       = isset( $scheme_data[ 'subscription_discount' ] ) && (float) $scheme_data[ 'subscription_discount' ] > 0 ? wc_format_localized_decimal( $scheme_data[ 'subscription_discount' ] ) : '';
 		}
 
 		// Subscription Price Override Method.
@@ -416,98 +437,109 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_schemes' ) ) {
 
-			$schemes = array();
+			$global_schemes_status = isset( $_POST[ '_wcsatt_schemes_status' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_schemes_status' ] ) ) : 'inherit';
+			$schemes               = array();
 
 			// Process scheme options.
-			if ( isset( $_POST[ 'wcsatt_schemes' ] ) ) {
+			if ( 'override' === $global_schemes_status ) {
 
-				$posted_schemes = stripslashes_deep( wc_clean( $_POST[ 'wcsatt_schemes' ] ) );
+				if ( isset( $_POST[ 'wcsatt_schemes' ] ) ) {
 
-				foreach ( $posted_schemes as $posted_scheme ) {
+					$posted_schemes = stripslashes_deep( wc_clean( $_POST[ 'wcsatt_schemes' ] ) );
 
-					// Format subscription prices.
-					if ( isset( $posted_scheme[ 'subscription_regular_price' ] ) ) {
-						$posted_scheme[ 'subscription_regular_price' ] = ( $posted_scheme[ 'subscription_regular_price'] === '' ) ? '' : wc_format_decimal( $posted_scheme[ 'subscription_regular_price' ] );
-					}
+					foreach ( $posted_schemes as $posted_scheme ) {
 
-					if ( isset( $posted_scheme[ 'subscription_sale_price' ] ) ) {
-						$posted_scheme[ 'subscription_sale_price' ] = ( $posted_scheme[ 'subscription_sale_price'] === '' ) ? '' : wc_format_decimal( $posted_scheme[ 'subscription_sale_price' ] );
-					}
+						// Format subscription prices.
+						if ( isset( $posted_scheme[ 'subscription_regular_price' ] ) ) {
+							$posted_scheme[ 'subscription_regular_price' ] = ( $posted_scheme[ 'subscription_regular_price'] === '' ) ? '' : wc_format_decimal( $posted_scheme[ 'subscription_regular_price' ] );
+						}
 
-					if ( '' !== $posted_scheme[ 'subscription_sale_price' ] ) {
-						$posted_scheme[ 'subscription_price' ] = $posted_scheme[ 'subscription_sale_price' ];
-					} else {
-						$posted_scheme[ 'subscription_price' ] = ( $posted_scheme[ 'subscription_regular_price' ] === '' ) ? '' : $posted_scheme[ 'subscription_regular_price' ];
-					}
+						if ( isset( $posted_scheme[ 'subscription_sale_price' ] ) ) {
+							$posted_scheme[ 'subscription_sale_price' ] = ( $posted_scheme[ 'subscription_sale_price'] === '' ) ? '' : wc_format_decimal( $posted_scheme[ 'subscription_sale_price' ] );
+						}
 
-					// Format subscription discount.
-					if ( isset( $posted_scheme[ 'subscription_discount' ] ) ) {
+						if ( '' !== $posted_scheme[ 'subscription_sale_price' ] ) {
+							$posted_scheme[ 'subscription_price' ] = $posted_scheme[ 'subscription_sale_price' ];
+						} else {
+							$posted_scheme[ 'subscription_price' ] = ( $posted_scheme[ 'subscription_regular_price' ] === '' ) ? '' : $posted_scheme[ 'subscription_regular_price' ];
+						}
 
-						if ( is_numeric( $posted_scheme[ 'subscription_discount' ] ) ) {
+						// Save discount data. 0% discounts are skipped.
+						if ( isset( $posted_scheme[ 'subscription_discount' ] ) && ! empty( $posted_scheme[ 'subscription_discount' ] )  ) {
 
+							// wc_format_decimal returns an empty string if a string input is given.
+							// Cast result to float to check that the discount value is between 0-100.
+							// Casting empty strings to float returns 0.
 							$discount = (float) wc_format_decimal( $posted_scheme[ 'subscription_discount' ] );
 
-							if ( $discount < 0 || $discount > 100 ) {
-
+							// Throw error if discount is not within the 0-100 range or if a string was passed to wc_format_decimal.
+							if ( empty( $discount ) || $discount < 0 || $discount > 100 ) {
 								WC_Admin_Meta_Boxes::add_error( __( 'Please enter positive subscription discount values, between 0-100.', 'woocommerce-all-products-for-subscriptions' ) );
 								$posted_scheme[ 'subscription_discount' ] = '';
-
 							} else {
 								$posted_scheme[ 'subscription_discount' ] = $discount;
 							}
 						} else {
 							$posted_scheme[ 'subscription_discount' ] = '';
 						}
-					} else {
-						$posted_scheme[ 'subscription_discount' ] = '';
-					}
 
-					// Validate price override method.
-					if ( isset( $posted_scheme[ 'subscription_pricing_method' ] ) && $posted_scheme[ 'subscription_pricing_method' ] === 'override' ) {
-						if ( $posted_scheme[ 'subscription_price' ] === '' && $posted_scheme[ 'subscription_regular_price' ] === '' ) {
+						// Validate price override method.
+						if ( isset( $posted_scheme[ 'subscription_pricing_method' ] ) && $posted_scheme[ 'subscription_pricing_method' ] === 'override' ) {
+							if ( $posted_scheme[ 'subscription_price' ] === '' && $posted_scheme[ 'subscription_regular_price' ] === '' ) {
+								$posted_scheme[ 'subscription_pricing_method' ] = 'inherit';
+							}
+						} else {
 							$posted_scheme[ 'subscription_pricing_method' ] = 'inherit';
 						}
-					} else {
-						$posted_scheme[ 'subscription_pricing_method' ] = 'inherit';
+
+						/**
+						 * Allow third parties to add custom data to schemes.
+						 *
+						 * @since  2.1.0
+						 *
+						 * @param  array       $posted_scheme
+						 * @param  WC_Product  $product
+						 */
+						$posted_scheme = apply_filters( 'wcsatt_processed_scheme_data', $posted_scheme, $product );
+
+						// Don't store multiple schemes with the same billing schedule.
+						$scheme_key = $posted_scheme[ 'subscription_period_interval' ] . '_' . $posted_scheme[ 'subscription_period' ] . '_' . $posted_scheme[ 'subscription_length' ];
+
+						if ( isset( $schemes[ $scheme_key ] ) ) {
+							continue;
+						}
+
+						$schemes[ $scheme_key ] = $posted_scheme;
 					}
 
-					/**
-					 * Allow third parties to add custom data to schemes.
-					 *
-					 * @since  2.1.0
-					 *
-					 * @param  array       $posted_scheme
-					 * @param  WC_Product  $product
-					 */
-					$posted_scheme = apply_filters( 'wcsatt_processed_scheme_data', $posted_scheme, $product );
+					if ( WCS_ATT_Admin_Notices::is_maintenance_notice_visible( 'welcome' ) ) {
 
-					// Don't store multiple schemes with the same billing schedule.
-					$scheme_key = $posted_scheme[ 'subscription_period_interval' ] . '_' . $posted_scheme[ 'subscription_period' ] . '_' . $posted_scheme[ 'subscription_length' ];
+						// Clear onboarding "welcome" notice.
+		 				WCS_ATT_Admin_Notices::remove_maintenance_notice( 'welcome' );
 
-					if ( isset( $schemes[ $scheme_key ] ) ) {
-						continue;
-					}
-
-					$schemes[ $scheme_key ] = $posted_scheme;
+		 				if ( ! empty( $schemes ) ) {
+		 					// Let user know about global plans (once!).
+		 					WCS_ATT_Admin_Notices::add_global_plans_onboarding_notice();
+		 				}
+		 			}
 				}
 
-				if ( isset( $_POST[ '_wcsatt_onboarding' ] ) ) {
+				if ( empty( $schemes ) ) {
+					$global_schemes_status = 'disable';
+					WC_Admin_Meta_Boxes::add_error( __( 'To make this product available on subscription, you must add at least one custom subscription plan when overriding the global plan settings. You did not add any plans, or a server error prevented them from being saved. This product is now available for one-time purchase only.', 'woocommerce-all-products-for-subscriptions' ) );
+				}
 
-					// Clear onboarding "welcome" notice.
-	 				WCS_ATT_Admin_Notices::remove_dismissible_notice( 'welcome' );
+			}
 
-	 				if ( ! empty( $schemes ) ) {
-	 					// Add onboarding "cart-plans" notice (one-time).
-	 					WCS_ATT_Core_Compatibility::is_wc_admin_enabled() ? WCS_ATT_Admin_Notices::add_cart_plans_onboarding_admin_note() : WCS_ATT_Admin_Notices::add_cart_plans_onboarding_notice();
-	 				}
-	 			}
+			if ( 'disable' === $global_schemes_status ) {
+				$schemes = array();
+				$product->update_meta_data( '_wcsatt_disabled', 'yes' );
+			} else {
+				$product->delete_meta_data( '_wcsatt_disabled' );
 			}
 
 			// Process one-time shipping option.
 			$one_time_shipping = isset( $_POST[ '_subscription_one_time_shipping' ] ) ? 'yes' : 'no';
-
-			// Process default status option.
-			$default_status = ! empty( $schemes ) && isset( $_POST[ '_wcsatt_default_status' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_default_status' ] ) ) : 'one-time';
 
 			// Process force-sub status.
 			$force_subscription = ! empty( $schemes ) && ! isset( $_POST[ '_wcsatt_allow_one_off' ] ) ? 'yes' : 'no';
@@ -516,7 +548,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 			$prompt = ! empty( $schemes ) && ! empty( $_POST[ '_wcsatt_subscription_prompt' ] ) ? wp_kses_post( wp_unslash(  $_POST[ '_wcsatt_subscription_prompt' ] ) ) : false;
 
 			// Process layout.
-			$layout = isset( $_POST[ '_wcsatt_layout' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_layout' ] ) ) : 'flat';
+			$layout = isset( $_POST[ '_wcsatt_layout' ] ) ? wc_clean( wp_unslash( $_POST[ '_wcsatt_layout' ] ) ) : false;
 
 			/*
 			 * Add/update meta.
@@ -540,14 +572,13 @@ class WCS_ATT_Meta_Box_Product_Data {
 			// Save one-time shipping option.
 			$product->update_meta_data( '_subscription_one_time_shipping', $one_time_shipping );
 
-			// Save default status.
-			$product->update_meta_data( '_wcsatt_default_status', $default_status );
-
 			// Save force-sub status.
 			$product->update_meta_data( '_wcsatt_force_subscription', $force_subscription );
 
 			// Save layout.
-			$product->update_meta_data( '_wcsatt_layout', $layout );
+			if ( $layout ) {
+				$product->update_meta_data( '_wcsatt_layout', $layout );
+			}
 
 			// Save prompt.
 			if ( false === $prompt ) {

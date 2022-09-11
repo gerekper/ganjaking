@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/addons/event-lists-items
  Description: Create custom eventON category lists and item boxes
  Author: Ashan Jay
- Version: 0.10
+ Version: 0.12
  Author URI: http://www.ashanjay.com/
- Requires at least: 4.0
- Tested up to: 5.2
+ Requires at least: 5.0
+ Tested up to: 5.6
  */
 
 class EVO_lists{
 	
-	public $version='0.10';
-	public $eventon_version = '2.9';
+	public $version='0.12';
+	public $eventon_version = '3.0.7';
 	public $name = 'Event Lists & Items';
 	public $id = 'EVOLI';
 			

@@ -5,8 +5,8 @@ namespace MailPoet\Premium\Automation\Engine\Workflows;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Exceptions\InvalidStateException;
-use MailPoet\Automation\Engine\Workflows\Step;
 use MailPoet\Automation\Engine\Workflows\Subject;
 
 class ConditionalStep extends Step {

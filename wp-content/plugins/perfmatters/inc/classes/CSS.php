@@ -20,9 +20,7 @@ class CSS
     public static function init()
     {
         if(!empty(Config::$options['assets']['remove_unused_css'])) {
-            //if(!empty(apply_filters('perfmatters_remove_unused_css', true))) {
-                add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CSS', 'remove_unused_css'));
-            //}
+            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CSS', 'remove_unused_css'));
             add_action('wp_ajax_perfmatters_clear_post_used_css', array('Perfmatters\CSS', 'clear_post_used_css'));
         }
     }
@@ -84,12 +82,22 @@ class CSS
                 }
 
                 //exclude entire stylesheets
+                $stylesheet_exclusions = array(
+                    'dashicons.min.css', //core
+                    '/uploads/elementor/css/post-', //elementor
+                    'animations.min.css',
+                    'woocommerce-mobile.min.css', //woocommerce
+                    'woocommerce-smallscreen.css',
+                    '/uploads/oxygen/css/' //oxygen
+                );
                 if(!empty(Config::$options['assets']['rucss_excluded_stylesheets'])) {
-                    foreach(Config::$options['assets']['rucss_excluded_stylesheets'] as $exclude) {
-                        if(strpos($stylesheet[1], $exclude) !== false) {
-                            unset($stylesheets[$key]);
-                            continue 2;
-                        }
+                    $stylesheet_exclusions = array_merge($stylesheet_exclusions, Config::$options['assets']['rucss_excluded_stylesheets']);
+                }
+                $stylesheet_exclusions = apply_filters('perfmatters_rucss_excluded_stylesheets', $stylesheet_exclusions);
+                foreach($stylesheet_exclusions as $exclude) {
+                    if(strpos($stylesheet[1], $exclude) !== false) {
+                        unset($stylesheets[$key]);
+                        continue 2;
                     }
                 }
 
@@ -97,7 +105,7 @@ class CSS
                 if(!$used_css_exists) {
 
                     //get local stylesheet path
-                    $url = str_replace(trailingslashit(site_url()), '', explode('?', $stylesheet[1])[0]);
+                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', site_url())), '', explode('?', $stylesheet[1])[0]);
                     $file = str_replace('/wp-content', '/', WP_CONTENT_DIR) . $url;
 
                     //make sure local file exists
@@ -153,8 +161,13 @@ class CSS
 
             //delay stylesheet script
             if(empty(Config::$options['assets']['rucss_stylesheet_behavior'])) {
-                $script = '<script type="text/javascript" id="perfmatters-delayed-styles-js">!function(){const e=["keydown","mousemove","wheel","touchmove","touchstart","touchend"];function t(){document.querySelectorAll("link[data-pmdelayedstyle]").forEach(function(e){e.setAttribute("href",e.getAttribute("data-pmdelayedstyle"))}),e.forEach(function(e){window.removeEventListener(e,t,{passive:!0})})}e.forEach(function(e){window.addEventListener(e,t,{passive:!0})})}();</script>';
-                $html = str_replace('</body>', $script . '</body>', $html);
+
+                $delay_check = !empty(apply_filters('perfmatters_delay_js', !empty(Config::$options['assets']['delay_js']))) && !Utilities::get_post_meta('perfmatters_exclude_delay_js');
+
+                if(!$delay_check || empty(Config::$options['assets']['delay_js_behavior'])) {
+                    $script = '<script type="text/javascript" id="perfmatters-delayed-styles-js">!function(){const e=["keydown","mousemove","wheel","touchmove","touchstart","touchend"];function t(){document.querySelectorAll("link[data-pmdelayedstyle]").forEach(function(e){e.setAttribute("href",e.getAttribute("data-pmdelayedstyle"))}),e.forEach(function(e){window.removeEventListener(e,t,{passive:!0})})}e.forEach(function(e){window.addEventListener(e,t,{passive:!0})})}();</script>';
+                    $html = str_replace('</body>', $script . '</body>', $html);
+                }
             }
         }
 
@@ -249,9 +262,14 @@ class CSS
 
     //get excluded selectors
     private static function get_excluded_selectors() {
-        self::$excluded_selectors = array();
+        self::$excluded_selectors = array(
+            '.wp-embed-responsive', //core
+            '.wp-block-embed',
+            '.wp-block-embed__wrapper',
+            '.elementor-nav-menu' //elementor
+        );
         if(!empty(Config::$options['assets']['rucss_excluded_selectors'])) {
-            self::$excluded_selectors = Config::$options['assets']['rucss_excluded_selectors'];
+            self::$excluded_selectors = array_merge(self::$excluded_selectors, Config::$options['assets']['rucss_excluded_selectors']);
         }
         self::$excluded_selectors = apply_filters('perfmatters_rucss_excluded_selectors', self::$excluded_selectors);
     }

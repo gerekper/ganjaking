@@ -19,6 +19,7 @@ class evo_fc_shortcode{
 	function __construct(){
 		add_shortcode('add_eventon_fc', array($this,'EVOFC_calendar'));	
 		add_filter('eventon_shortcode_popup',array($this,'shortcode_structure'), 11, 1);
+		add_filter('eventon_shortcode_defaults',array($this,  'add_shortcode_defaults'), 10, 1);	
 	}
 
 	// SC
@@ -67,7 +68,29 @@ class evo_fc_shortcode{
 								'1'=>'Focus to Events',
 								'2'=>'Lightbox Events List'
 							))
+						),
+						array(
+							'name'=>'Date hover information',
+							'type'=>'select',
+							'guide'=>'Select what information you want to display on the calendar when hover over calendar dates',
+							'var'=>'hover',
+							'default'=>'number',
+							'options'=>apply_filters('evofc_date_hover', array('number'=>'Number of Events','numname'=>'Events + First 3 Names'))
 						),array(
+							'name'=>'FullCal Style',
+							'type'=>'select',
+							'guide'=>'Select different fullcal grid styles from available options.',
+							'var'=>'style',
+							'default'=>'0',
+							'options'=>apply_filters('evofc_grid_styles', 
+								array(
+									'def'=>'Default',
+									'nobox'=>'No Date Outline',
+									'names'=>'2 Event Names',
+									)
+								)
+						),
+						array(
 							'name'=>'Show events next to grid*',
 							'type'=>'YN',
 							'guide'=>'Only works when month grid interaction is set to default. The events list will show as 50% width column on right side of month grid.',
@@ -127,27 +150,8 @@ class evo_fc_shortcode{
 							'guide'=>'Boxes with more events will have darker color than boxes with fewer events.',
 							'var'=>'heat',
 							'default'=>'no'
-						),array(
-							'name'=>'Date hover information',
-							'type'=>'select',
-							'guide'=>'Select what information you want to display on the calendar when hover over calendar dates',
-							'var'=>'hover',
-							'default'=>'number',
-							'options'=>apply_filters('evofc_date_hover', array('number'=>'Number of Events','numname'=>'Events + First 3 Names'))
-						),array(
-							'name'=>'FullCal Style',
-							'type'=>'select',
-							'guide'=>'Select different fullcal grid styles from available options.',
-							'var'=>'style',
-							'default'=>'0',
-							'options'=>apply_filters('evofc_grid_styles', 
-								array(
-									'def'=>'Default',
-									'nobox'=>'No Date Outline',
-									'names'=>'2 Event Names',
-									)
-								)
-						)
+						),
+
 					))
 
 				)

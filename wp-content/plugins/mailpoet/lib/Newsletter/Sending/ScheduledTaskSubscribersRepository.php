@@ -10,6 +10,7 @@ use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\InvalidStateException;
+use MailPoetVendor\Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends Repository<ScheduledTaskSubscriberEntity>
@@ -55,5 +56,39 @@ class ScheduledTaskSubscribersRepository extends Repository {
     $taskSubscriber->setFailed($failed);
     $this->flush();
     return $taskSubscriber;
+  }
+
+  public function countSubscriberIdsBatchForTask(int $taskId, int $lastProcessedSubscriberId): int {
+    $queryBuilder = $this->getBaseSubscribersIdsBatchForTaskQuery($taskId, $lastProcessedSubscriberId);
+    $countSubscribers = $queryBuilder
+      ->select('count(sts.subscriber)')
+      ->getQuery()
+      ->getSingleScalarResult();
+
+    return intval($countSubscribers);
+  }
+
+  public function getSubscriberIdsBatchForTask(int $taskId, int $lastProcessedSubscriberId, int $limit): array {
+    $queryBuilder = $this->getBaseSubscribersIdsBatchForTaskQuery($taskId, $lastProcessedSubscriberId);
+    $subscribersIds = $queryBuilder
+      ->select('IDENTITY(sts.subscriber) AS subscriber_id')
+      ->orderBy('sts.subscriber', 'asc')
+      ->setMaxResults($limit)
+      ->getQuery()
+      ->getSingleColumnResult();
+
+    return $subscribersIds;
+  }
+
+  private function getBaseSubscribersIdsBatchForTaskQuery(int $taskId, int $lastProcessedSubscriberId): QueryBuilder {
+    return $this->entityManager
+      ->createQueryBuilder()
+      ->from(ScheduledTaskSubscriberEntity::class, 'sts')
+      ->andWhere('sts.task = :taskId')
+      ->andWhere('sts.subscriber > :lastProcessedSubscriberId')
+      ->andWhere('sts.processed = :status')
+      ->setParameter('taskId', $taskId)
+      ->setParameter('lastProcessedSubscriberId', $lastProcessedSubscriberId)
+      ->setParameter('status', ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED);
   }
 }

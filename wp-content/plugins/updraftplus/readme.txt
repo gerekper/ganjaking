@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 6.0
-Stable tag: 1.22.14
+Stable tag: 1.22.21
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -169,6 +169,60 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
 
+= 1.22.21 - 09/Sep/2022 =
+
+* FIX: Infinite recursions/loops appeared to happen in restoration during the search-replace operation especially when some tables had a circular reference in their serialised data
+* FIX: Prevent PclZip from restoring empty/corrupt archives
+* FIX: Zip file sizes had ceased to be recorded in the backup history
+* FIX: Fix fatal error when loading the "Advanced Tools" section for UpdraftCentral
+* TWEAK: Log intermediate unzip errors before proceeding with different method
+
+= 1.22.20 - 05/Sep/2022 =
+
+* FEATURE: Restore the "upload immediately after creation" feature that was turned off whilst misbehaviour was investigated; fixes have been applied.
+* FIX: Prevent premature removal of zip manifest files
+* TWEAK: Improve the Handlebars template of the OpenStack (Swift) remote storage by taking PHP code out of it
+* TWEAK: Do not run out-of-place "SET @@GLOBAL.GTID_PURGED" statements upon restore
+
+= 1.22.19 - 29/Aug/2022 =
+
+* TWEAK: The "upload immediately after creation" feature has been disabled whilst reports of incorrect behaviour are investigated
+* TWEAK: Replace require_once to include_once and use the UpdraftCentral path constant when loading the UpdraftCentral host class.
+* TWEAK: Modify the "overdue crons" message for greater clarity
+
+= 1.22.18 - 26/Aug/2022 =
+
+* TWEAK: Suppress pre-loading of phpseclib libraries, which has exposed fatal-error inducing bugs in a handful of unmaintained third-party plugins and themes
+* TWEAK: Increase the number of conditions for which attempts to access an S3 bucket will result in more logging
+
+= 1.22.17 - 23/Aug/2022 =
+
+* FIX: Ensure jobdata is saved before attempting a partial cloud upload, preventing potential omission of an archive
+* FEATURE: Restore the "upload immediately after creation" feature that was turned off in 1.22.16 whilst misbehaviour was investigated
+* TWEAK: Add log information as to why DB stored routines couldn't be included in the backup if that should be so
+* TWEAK: Declare some implicity-declared class variables to avoid warnings in PHP 8.2
+
+= 1.22.15 - 22/Aug/2022 =
+
+* FEATURE: Each archive created will now be uploaded immediately directly after creation, to save disk space (prior behaviour was to first create all archives)
+* FIX: Improve parsing of HTTP response code header with generic S3 providers to avoid incorrectly interpreting status code
+* FIX: When an S3 service returns a RequestTimeTooSkewed error, make sure this is passed up to the user and not lost
+* FIX: Do not prematurely trigger upload_complete message when performing immediate file upload during clone operation
+* FIX: Database views don't get restored or are not restored correctly when in atomic mode
+* FIX: After sending email reports, other emails that follow used the same From address/name taken from the previous email
+* FIX: Database views don't get included in the backup
+* TWEAK: Improve the Handlebars template of the Microsoft Azure remote storage by taking PHP code out of it (Premium)
+* TWEAK: Update WebDAV library used for WebDAV remote storage (Premium) - N.B. This now requires PHP 5.5+.
+* TWEAK: Improve the Handlebars template of the Google Cloud remote storage by taking PHP code out of it (Premium)
+* TWEAK: Improve the Handlebars template of the Microsoft OneDrive remote storage by taking PHP code out of it (Premium)
+* TWEAK: Detect and break absurdly-future locks
+* TWEAK: Restrict the CSS scope for our jQuery to prevent conflicts
+* TWEAK: Work around consequences of a backup history save failure
+* TWEAK: Add a twice-daily cron to clear temporary files so that they are cleared even in the absence of new backups beginning and prior backup completion failure
+* TWEAK: Tweak UpdraftCentral abstraction classes
+* TWEAK: Separate custom font rules when retrieving styles from remote sites
+* TWEAK: Prevent PHP deprecation notice when using Google libraries on PHP 8.1+
+* TWEAK: Simplify Dropbox SDK by removing unused "response format" code
 
 = 1.22.14 - 07/Jul/2022 =
 
@@ -1551,4 +1605,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.22.14: Various tweaks and fixes, the ability to select a charset when restoring via WP-CLI. See changelog for full details. A recommended update for all.
+* 1.22.21: Various tweaks and fixes. See changelog for full details. A recommended update for all.

@@ -5,7 +5,7 @@
  * @author 		EventON
  * @category 	Admin
  * @package 	Eventon/Admin
- * @version     0.3
+ * @version     4.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -16,18 +16,18 @@ function eventon_admin_help_tab_content() {
 
 	ob_start();
 ?>
-<p><b>EventON WP Event Calendar General Information.</b></p>
-<p><a class='evo_admin_btn btn_prime' href='<?php echo get_admin_url();?>index.php?page=evo-getting-started'>Getting started guide to eventON</a></p>
-<p>All the updated documentation for eventON can be found from our <a class='evo_admin_btn btn_triad'href='http://www.myeventon.com/documentation/'>online documentation library.</a></p>
+<p><b><?php _e('EventON WP Event Calendar General Information.','eventon');?></b></p>
+<p><a class='evo_admin_btn btn_prime' href='<?php echo get_admin_url();?>index.php?page=evo-getting-started'><?php _e('Getting started guide to eventON','eventon');?></a></p>
+<p><?php _e('All the updated documentation for eventON can be found from our','eventon');?> <a class='evo_admin_btn btn_triad'href='http://www.myeventon.com/documentation/'><?php _e('online documentation library.','eventon');?></a></p>
 <?php
 	$content = ob_get_clean();
 
 	ob_start();
 ?>
-<p><b>Support for EventON Calendar</b></p>
-<p>We provide support for issues directly related to eventON calendar via our <a href='http://helpdesk.ashanjay.com' target='_blank' class='evo_admin_btn btn_triad'>HelpDesk</a> EventON valid purchase code is required to access helpdesk if eventON came bundled with your theme.</p>
-<p>Before creating a ticket, please check the troubleshooter guide that can very well help you solve your issue by trying our common solutions.</p>
-<p>Please check out our <a href='http://www.myeventon.com/documentation/check-eventon-working/' class='evo_admin_btn btn_triad' target='_blank' >troubleshooter guide to eventon</a></p>
+<p><b><?php _e('Support for EventON Calendar','eventon');?></b></p>
+<p><?php _e('We provide support for issues directly related to eventON calendar via our','eventon');?> <a href='http://helpdesk.ashanjay.com' target='_blank' class='evo_admin_btn btn_triad'><?php _e('HelpDesk','eventon');?></a> <?php _e('EventON valid purchase code is required to access helpdesk if eventON came bundled with your theme.','eventon');?></p>
+<p><?php _e('Before creating a ticket, please check the troubleshooter guide that can very well help you solve your issue by trying our common solutions.','eventon');?></p>
+<p><?php _e('Please check out our','eventon');?> <a href='http://www.myeventon.com/documentation/check-eventon-working/' class='evo_admin_btn btn_triad' target='_blank' ><?php _e('troubleshooter guide to eventon','eventon');?></a></p>
 <?php
 	$support = ob_get_clean();
 

@@ -302,6 +302,8 @@ class EVOICS_Fnc{
 	}
 
 	function process_fetched_data($ics_data){
+
+		//print_r($ics_data);
 		// defaults
 			$ics_data['evcal_allday'] ='no';
 			
@@ -384,6 +386,13 @@ class EVOICS_Fnc{
 			if($event_start_time_val == '12:00:am' && $event_end_time_val =='12:00:am' && !$alldayADJ)
 				$ics_data['evcal_allday'] = 'yes';
 
+
+		// adjust all day event end date back once date
+			if($ics_data['evcal_allday'] == 'yes'){
+				$dt->modify('-1 day');
+
+				$event_end_date_val = $dt->format('m/d/Y');
+			}
 		
 		$ics_data['event_start_date'] = $event_start_date_val;
 		$ics_data['event_start_time'] = $event_start_time_val;

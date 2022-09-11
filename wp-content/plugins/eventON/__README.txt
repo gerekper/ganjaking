@@ -3,16 +3,16 @@ Contributors: Ashan Jay
 Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
-Requires at least: 5.0
-Tested up to: 5.8.1
-Stable tag: 4.0.1
+Requires at least: 5.5
+Tested up to: 6.0.2
+Stable tag: 4.1.3
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
 
 == Description ==
 
-For almost 10 years, EventON has been powering event calendars around the world for small and large organizations. EventON comes packed with various features that empowers you to present to your audience in a way that is easily capturable. 
+For more than 10 years, EventON has been powering event calendars around the world for small and large organizations. EventON comes packed with various features that empowers you to present to your audience in a way that is easily capturable. 
 
 Once activated you can easily set up a comprehensive event calendar with features like:
 
@@ -52,6 +52,138 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.1.3 (2022-9-8) =
+ADDED: organizer social link to display in eventcard as well
+FIXED: single event page not loading the scripts
+FIXED: google fonts not loading on admin pages
+FIXED: login access restriction to single event page not working
+FIXED: widget block arrow styles
+FIXED: Custom time format on eventcard to honor am pm value set in eventon language
+UPDATED: event edit page styles
+
+= 4.1.2 (2022-9-1) = 
+ADDED: evo_event_permalink pluggable filter for event link
+ADDED: google doc link on how to restrict API key
+FIXED: array undefined error missed conditions
+FIXED: mobile layout issues
+FIXED: event edit time display in UTC timezone
+FIXED: happening now live calendar time incorrections
+FIXED: custom meta data icon not showing on eventtop
+FIXED: schedule view all day events text not translated
+FIXED: schedule view all day events not showing time as all day
+FIXED: schedule view responsive layout
+FIXED: live now event image not showing
+FIXED: when event starts they stop appearing in the calendar currenttime > site time
+FIXED: live now calendar upcoming event countdown time error
+FIXED: widgets admin area error
+FIXED: elementor register controls() error
+FIXED: Restrict single event page to loggedin users not working
+UPDATED: moment.js to version 2.29.4
+
+= 4.1.1 (2022-7-11) = 
+FIXED: array undefined error
+FIXED: Event tag types not showing without tags active
+FIXED: Location map not working
+FIXED: custom meta data field not showing in eventtop
+UPDATED: POT file
+
+= 4.1 (2022-7-5) = 
+ADDED: pluggable filter evo_lang_values_healthcare_guidelines for language values
+ADDED: settings for single event page only for logged in users
+ADDED: support for hourly repeat mode
+ADDED: link to single event from anywhere on your site using shortcode [eventon_anywhere id='' repeat_interval='']
+ADDED: Ability to show current repeat instance relative to others in repeat event title
+ADDED: eventtop designer to customize eventtop layout
+ADDED: Basis for support for all webhook systems like zapier and ifttt
+FIXED: download all events as ICS from settings give error
+FIXED: featured event image stretching out in safari
+FIXED: add to google cal all day events end date incorrect
+FIXED: view switcher text strings missing in translate
+FIXED: multi data types lightbox save not working
+FIXED: tiles style lightbox eventtop to honor eventtop_styles 
+FIXED: postponed events showing progress bar
+FIXED: eventcard and eventtop time incorrectly showing
+FIXED: ICS download event not showing correct time
+FIXED: {startdate} dynamic tags not translating
+FIXED: generate_time_() $data_array initial definition
+FIXED: _vir_url formating special characters from virtual URL
+FIXED: Use UTC offset time globally on calendars showing events in incorrect months
+FIXED: search box not responding to eventtop_styles shortcode value
+UPDATED: new function to datetime class __get_lang_formatted_timestr()
+
+= 4.0.6 (2022-4-5) = 
+ADDED: support for eventon element color picker with input field
+ADDED: Tabbed view support into shortcode generator using shortcode [add_eventon_tabs]
+FIXED: virtual moderator not saved showing user as moderator
+FIXED: event type taxonomy archive page error
+FIXED: multiple eventON gutenberg blocks not working properly on same page
+FIXED: quick edit time pm value save as am
+FIXED: text error for healthcare guide
+FIXED: repeat events link not sharing correct on social share
+FIXED: search not passing correct $_POST values for sanitizing
+FIXED: schedule view showing end time for hide end time
+FIXED: virtual event HTML content getting stripped of tags
+FIXED: hide end time still shows on edit all events page
+FIXED: eventcard location text not all caps
+FIXED: Google fonts not loading in backend 
+FIXED: ICS add to calendar all day events saving as different date
+FIXED: all day events saving adjust set times
+UPDATED: virtual stream url is optional now
+
+= 4.0.5 (2022-3-1) =
+FIXED: end time was saving as end hour
+FIXED: syntax error on class-meta_boxes-health.php 74
+UPDATED: Do not delete eventon settings changed to not delete by default
+UPDATED: POT file
+
+= 4.0.4 (2022-2-28) = 
+FIXED: 12am/pm changing the date to next day
+FIXED: event end time minutes not saving correctly
+FIXED: Undefined variable $unix_vir_end 
+
+= 4.0.3 (2022-2-24) =
+ADDED: evo_helper->sanitize_array()
+ADDED: download all events as ICS to include event url in description field
+ADDED: pluggable filters to expand healthcare data
+ADDED: select2 dropdown for virtual event moderator field
+ADDED: Option to set virtual event end time (BETA)
+ADDED: ability to hide next events in live now calendar
+FIXED: repeat event all day showing time
+FIXED: tiles with ux_val=3a causing eventcard to not load
+FIXED: colorful eventtop text color in appearance
+FIXED: font family missing some classes for secondary font
+FIXED: repeat events settings not showing with translations
+FIXED: event custom meta field dynamic data link value not working
+FIXED: gutenberg editor not updating in real time
+FIXED: widget area layout issues via block based widgets
+FIXED: js > evo_cal_get_basic_eventdata() passing event name as html
+UPDATED: backender placeholder font color for input field
+UPDATED: virtual event eventtop tag to be shown based on event attendance mode
+UPDATED: virtual event settings configuration for event edit moved to separate lightbox
+UPDATED: backend lightbox styles and functions
+
+= 4.0.2 (2021-11-11) = 
+ADDED: ability to set default eventtop_style for calendars via settings
+ADDED: related events to be sortable and draggable
+ADDED: support for dynamic values for custom meta data for event
+ADDED: 3:1 event card row for event card designer
+FIXED: archieve pages showing events as white all
+FIXED: eventon settings menu access to non admin roles using manage_eventon
+FIXED: tiles with 4 in a row responsiveness
+FIXED: featured image as direct image not showing extra images
+FIXED: live now calendar not loading with featured images
+FIXED: smaller screen content cut off
+FIXED: JS evo_append_lb() function to support CAL value and set lightbox color
+FIXED: eventon Settings zoom tooltip thanks @OvereatersAnonymous
+FIXED: recursive_sanitize_array_fields() sanitation thank you @jamiolee
+FIXED: lightbox event countdown timer not active
+FIXED: lightbox eventtop color not syncing with rest of the calendar
+FIXED: cancel event text not showing on non list events
+FIXED: event card cell responsiveness
+FIXED: quick edit to hide event time for month/year long events
+FIXED: in mobile screen event data box content to spread evenly
+UPDATED: Lightbox close button to stay sticky on top while scroll
+
 = 4.0.1 (2021-10-13) =
 ADDED: eventtop_style='4' clean eventtop with gaps
 ADDED: legacy tile detail under image with clean style using tile_style='2'

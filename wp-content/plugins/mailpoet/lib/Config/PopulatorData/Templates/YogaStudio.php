@@ -18,7 +18,7 @@ class YogaStudio {
 
   public function get() {
     return [
-      'name' => WPFunctions::get()->__("Yoga Studio", 'mailpoet'),
+      'name' => __("Yoga Studio", 'mailpoet'),
       'categories' => json_encode(['standard', 'all']),
       'readonly' => 1,
       'thumbnail' => $this->getThumbnail(),
@@ -698,7 +698,7 @@ class YogaStudio {
                 'blocks' => [
                   0 => [
                     'type' => 'footer',
-                    'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a></p><p><a href="[link:subscription_manage_url]">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a></p>',
+                    'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.__("Unsubscribe", 'mailpoet').'</a></p><p><a href="[link:subscription_manage_url]">'.__("Manage your subscription", 'mailpoet').'</a></p>',
                     'styles' => [
                       'block' => [
                         'backgroundColor' => 'transparent',

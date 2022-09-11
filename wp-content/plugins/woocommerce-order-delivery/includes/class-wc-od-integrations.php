@@ -37,9 +37,12 @@ class WC_OD_Integrations {
 	 */
 	public function register_integrations() {
 		$integrations = array(
-			'WC_OD_Integration_Ship_Multiple',
+			'WC_OD_Integration_Local_Pickup_Plus',
 			'WC_OD_Integration_PIP',
 			'WC_OD_Integration_PDF_Invoices_Packing_Slips',
+			'WC_OD_Integration_Ship_Multiple',
+			'WC_OD_Integration_Subscriptions',
+			'WC_OD_Integration_Table_Rate_Shipping',
 		);
 
 		/**

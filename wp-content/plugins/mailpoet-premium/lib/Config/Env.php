@@ -11,6 +11,7 @@ use MailPoet\WP\Functions as WPFunctions;
 class Env {
   public static $version;
   public static $pluginName;
+  public static $pluginPath;
   public static $file;
   public static $path;
   public static $viewsPath;
@@ -27,6 +28,7 @@ class Env {
     self::$file = $file;
     self::$path = dirname(self::$file);
     self::$pluginName = 'mailpoet-premium';
+    self::$pluginPath = 'mailpoet-premium/mailpoet-premium.php';
     self::$viewsPath = self::$path . '/views';
     self::$assetsPath = self::$path . '/assets';
 

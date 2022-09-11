@@ -84,6 +84,10 @@ function nt_parse_button_column($url, $column)
     if (isset($column['relAttributes'])) {
         $relAttributes = implode(" ",$column['relAttributes']);
     }
+    $forceDownload = '';
+    if (isset($column['force_download']) && $column['force_download']) {
+        $forceDownload = 'download';
+    }
 
-    return '<a '.$atts.' class="nt_btn '.$extraClass.'" style="'.$styles.'" rel="'.$relAttributes.'" href="'.$url.'">'.$btnText.'</a>';
+    return '<a '.$atts.' '.$forceDownload.' class="nt_btn '.$extraClass.'" style="'.$styles.'" rel="'.$relAttributes.'" href="'.$url.'">'.$btnText.'</a>';
 }

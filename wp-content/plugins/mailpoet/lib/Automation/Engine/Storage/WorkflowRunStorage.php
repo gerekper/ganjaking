@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\Control\SubjectLoader;
+use MailPoet\Automation\Engine\Data\WorkflowRun;
 use MailPoet\Automation\Engine\Exceptions;
 use MailPoet\Automation\Engine\Utils\Json;
-use MailPoet\Automation\Engine\Workflows\WorkflowRun;
 use wpdb;
 
 class WorkflowRunStorage {

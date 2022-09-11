@@ -1,5 +1,42 @@
 ActionUser (AU) addon for EventON Plugin
 ====================================
+v 2.2.9 (2022-2-3)
+FIXED: form_action hidden value not passed on to page causing errors
+
+v 2.2.8 (2021-10-27)
+FIXED: event manager edit option not showing up
+
+v 2.2.7 (2021-9-6)
+ADDED: evoau_form_before action to pass atts values
+FIXED: form styles
+FIXED: javascript error on form undefined line 798
+FIXED: disable deleting still running script
+FIXED: delete and editing assigned events permission logic errors
+
+v 2.2.6 (2021-7-6)
+ADDED: form event image to only allow images and pdf files for upload
+FIXED: minor styles changes
+FIXED: language translations
+FIXED: custom repeats date not resetting after adding
+FIXED: default timezone value applied to submission form auto
+FIXED: undefined order_revert()
+FIXED: custom repeats first instance getting deleted on save
+
+v 2.2.5 (2021-2-18)
+FIXED: Missing translatable string
+UPDATED: use evo_login_url() for submission form
+UPDATED: event manager layout design and styles
+COMPATIBILITY: eventON 3.1
+
+v 2.2.4 (2020-12-16)
+ADDED: Missing language text fields for virtual event fields
+ADDED: date picker text color to appearance settings
+ADDED: support for event timezone field
+FIXED: date picker colors not working
+FIXED: default user interaction field values not working
+FIXED: selected user interaction feld not showing in edit form
+UPDATED: submission form styles
+
 v 2.2.3 (2020-10-26)
 ADDED: additional virtual event fields 
 ADDED: health guidelines fields

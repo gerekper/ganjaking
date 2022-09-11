@@ -9,10 +9,9 @@ jQuery(document).ready(function($){
 
 		var obj = this;	
 		
-
 		function run_timer(){	
-			var until_ = parseInt(obj.attr('data-et'));
 			
+			var until_ = parseInt(obj.attr('data-et'));			
 			var lang = $.parseJSON(obj.attr('data-timetx'));
 
 			// for lightbox event cards

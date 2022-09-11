@@ -84,6 +84,7 @@ abstract class UpdraftPlus_BackupModule {
 			'method_id' => $this->get_id(),
 			'_instance_id' => $this->_instance_id,
 			'method_display_name' => $updraftplus->backup_methods[$this->get_id()],
+			'admin_page_url' => UpdraftPlus_Options::admin_page_url(),
 		);
 	}
 
@@ -116,6 +117,7 @@ abstract class UpdraftPlus_BackupModule {
 			'div' => array(
 				'class' => array(),
 			),
+			'kbd' => array(),
 		);
 	}
 
@@ -776,6 +778,37 @@ abstract class UpdraftPlus_BackupModule {
 		$updraftplus->log("$prefix: $line", $level, $uniq_id, $skip_dblog);
 	}
 
+	/**
+	 * Log appropriate messages for a multi-delete response.
+	 *
+	 * @param Array $files
+	 * @param Array $responses - using the same keys as $files
+	 *
+	 * @return Boolean - true if no errors were found, otherwise false
+	 */
+	protected function process_multi_delete_responses($files, $responses) {
+		global $updraftplus;
+		$ret = true;
+		if (is_array($responses)) {
+			foreach ($responses as $key => $response) {
+				if ('success' == $response) {
+					$updraftplus->log("$files[$key]: Delete succeeded");
+				} elseif (is_array($response)) {
+					$ret = false;
+					if (isset($response['error']) && isset($response['error']['code']) && isset($response['error']['message'])) {
+						$updraftplus->log("Delete failed for file: $files[$key] with error code: ".$response['error']['code']." message: ".$response['error']['message']);
+					} else {
+						$updraftplus->log("Delete failed for file: $files[$key]");
+					}
+				}
+			}
+		} elseif (!$responses) {
+			$ret = false;
+			$updraftplus->log("Delete failed for files: ".implode($files));
+		}
+		return $ret;
+	}
+	
 	/**
 	 * This function will build and return the remote storage instance label
 	 *

@@ -22,7 +22,7 @@ jQuery(
 
 		// Hide/Show contents fields.
 		$( '.wc_mnm_content_source' ).on(
-            'change',
+			'change',
 			function() {
 
 				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
@@ -45,7 +45,7 @@ jQuery(
 
 		// Hide/Show Layout fields.
 		$( '#wc_mnm_layout_override' ).on(
-            'change',
+			'change',
 			function() {
 
 				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
@@ -61,25 +61,25 @@ jQuery(
 
 		// Hide/Show Per-Item pricing related fields.
 		$( '.wc_mnm_per_product_pricing' ).on(
-            'change',
+			'change',
 			function() {
 
-			var $nyp = $( '#_nyp' ).closest( 'label' ).hide();
+				var $nyp = $( '#_nyp' ).closest( 'label' ).hide();
 
-			if ( 'yes' === this.value ) {
-				$nyp.hide();
-				$( '#mnm_product_data .show_if_per_item_pricing' ).show();
-			} else {
-				$nyp.show();
-				$( '#mnm_product_data .show_if_per_item_pricing' ).hide();
-			}
+				if ( 'yes' === this.value ) {
+					$nyp.hide();
+					$( '#mnm_product_data .show_if_per_item_pricing' ).show();
+				} else {
+					$nyp.show();
+					$( '#mnm_product_data .show_if_per_item_pricing' ).hide();
+				}
 
 			}
 		);
 
 		// Hide/Show shipping related fields.
 		$( '.mnm_packing_options .packing_mode' ).on(
-            'change',
+			'change',
 			function() {
 
 				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
@@ -93,7 +93,7 @@ jQuery(
 						$( '#shipping_product_data .show_if_packed_separately' ).show();
 						$( '#shipping_product_data .hide_if_packed_separately' ).hide();
 
-						// Trigger when packed separately is selected
+						// Trigger when packed separately is selected.
 						$( '.mnm_packing_options .wc_mnm_has_physical_container' ).trigger( 'change' );
 					} else {
 						$( '#shipping_product_data .show_if_virtual' ).show();
@@ -107,7 +107,7 @@ jQuery(
 
 		// Hide/Show shipping fields when packed separately fields.
 		$( '.mnm_packing_options .wc_mnm_has_physical_container' ).on(
-            'change',
+			'change',
 			function() {
 
 				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
@@ -147,10 +147,10 @@ jQuery(
 			}
 		);
 
-		if ( $.isFunction( $.fn.selectWoo ) ) {
+		if ( typeof $.fn.selectWoo === 'function' ) {
 
 			// Duplicated Ajax category search box since Woo does not yet support saving cat IDs.
-			// @see: https://github.com/woocommerce/woocommerce/pull/32743
+			// @see: https://github.com/woocommerce/woocommerce/pull/32743.
 			var getEnhancedSelectFormatString = function() {
 				return {
 					'language': {
@@ -197,48 +197,48 @@ jQuery(
 			};
 
 			var select2_args = $.extend(
-                {
-				allowClear        : $( this ).data( 'allow_clear' ) ? true : false,
-				placeholder       : $( this ).data( 'placeholder' ),
-				minimumInputLength: $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : 3,
-				escapeMarkup      : function( m ) {
-					return m;
+				{
+					allowClear        : $( this ).data( 'allow_clear' ) ? true : false,
+					placeholder       : $( this ).data( 'placeholder' ),
+					minimumInputLength: $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : 3,
+					escapeMarkup      : function( m ) {
+						return m;
+					},
+					ajax: {
+						url:         wc_enhanced_select_params.ajax_url,
+						dataType:    'json',
+						delay:       250,
+						data:        function( params ) {
+							return {
+								term:     params.term,
+								action:   'woocommerce_json_search_categories',
+								security: wc_enhanced_select_params.search_categories_nonce
+							};
+						},
+						processResults: function( data ) {
+							var terms = [];
+							if ( data ) {
+								$.each(
+									data,
+									function( id, term ) {
+										terms.push(
+											{
+												id:   term.term_id,
+												text: term.formatted_name
+											}
+										);
+									}
+								);
+							}
+							return {
+								results: terms
+							};
+						},
+						cache: true
+					}
 				},
-				ajax: {
-					url:         wc_enhanced_select_params.ajax_url,
-					dataType:    'json',
-					delay:       250,
-					data:        function( params ) {
-						return {
-							term:     params.term,
-							action:   'woocommerce_json_search_categories',
-							security: wc_enhanced_select_params.search_categories_nonce
-						};
-					},
-					processResults: function( data ) {
-						var terms = [];
-						if ( data ) {
-							$.each(
-                                data,
-                                function( id, term ) {
-								terms.push(
-                                    {
-									id:   term.term_id,
-									text: term.formatted_name
-                                    }
-                                );
-                                }
-                            );
-						}
-						return {
-							results: terms
-						};
-					},
-					cache: true
-				}
-                },
-                getEnhancedSelectFormatString() 
-            );
+				getEnhancedSelectFormatString()
+			);
 
 			$( '#mnm_allowed_categories' ).selectWoo( select2_args ).addClass( 'enhanced' );
 
@@ -249,22 +249,22 @@ jQuery(
 				var $list   = $select.next( '.select2-container' ).find( 'ul.select2-selection__rendered' );
 
 				$list.sortable(
-                    {
-					placeholder : 'ui-state-highlight select2-selection__choice',
-					forcePlaceholderSize: true,
-					items       : 'li:not(.select2-search__field)',
-					tolerance   : 'pointer',
-					stop: function() {
-						$( $list.find( '.select2-selection__choice' ).get().reverse() ).each(
-                            function() {
-                            var id     = $( this ).data( 'data' ).id;
-                            var option = $select.find( 'option[value="' + id + '"]' )[0];
-                            $select.prepend( option );
-                            } 
-                        );
+					{
+						placeholder : 'ui-state-highlight select2-selection__choice',
+						forcePlaceholderSize: true,
+						items       : 'li:not(.select2-search__field)',
+						tolerance   : 'pointer',
+						stop: function() {
+							$( $list.find( '.select2-selection__choice' ).get().reverse() ).each(
+								function() {
+									var id     = $( this ).data( 'data' ).id;
+									var option = $select.find( 'option[value="' + id + '"]' )[0];
+									$select.prepend( option );
+								}
+							);
+						}
 					}
-                    }
-                );
+				);
 			}
 		}
 

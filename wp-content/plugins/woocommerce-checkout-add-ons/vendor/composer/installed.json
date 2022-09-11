@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "skyverge/wc-plugin-framework",
-            "version": "5.10.6",
-            "version_normalized": "5.10.6.0",
+            "version": "5.10.12",
+            "version_normalized": "5.10.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/skyverge/wc-plugin-framework.git",
-                "reference": "8d55d7dcf18f9d9b282f7b595ab01797f398f1d6"
+                "reference": "0c79b5799955c59e644caf1da222c20c982eba06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skyverge/wc-plugin-framework/zipball/8d55d7dcf18f9d9b282f7b595ab01797f398f1d6",
-                "reference": "8d55d7dcf18f9d9b282f7b595ab01797f398f1d6",
+                "url": "https://api.github.com/repos/skyverge/wc-plugin-framework/zipball/0c79b5799955c59e644caf1da222c20c982eba06",
+                "reference": "0c79b5799955c59e644caf1da222c20c982eba06",
                 "shasum": ""
             },
             "require-dev": {
@@ -22,12 +22,12 @@
                 "lucatume/wp-browser": "3.0.5",
                 "phpcompatibility/php-compatibility": "9.3.5"
             },
-            "time": "2021-03-12T12:33:19+00:00",
+            "time": "2022-01-14T03:01:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "description": "The official SkyVerge WooCommerce plugin framework",
             "support": {
-                "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.10.6",
+                "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.10.12",
                 "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
             },
             "install-path": "../skyverge/wc-plugin-framework"

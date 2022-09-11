@@ -6,39 +6,26 @@
  * Description: Adds a product documents element to WooCommerce product pages
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.0
+ * Version: 1.13.1
  * Text Domain: woocommerce-product-documents
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package   WC-Product-Documents
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2022, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 238848:bc35cf9f51c735e4d6b2befe8ab048bb
- * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC requires at least: 3.9.4
+ * WC tested up to: 6.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), 'bc35cf9f51c735e4d6b2befe8ab048bb', '238848' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * WooCommerce Product Documents loader.
@@ -55,10 +42,10 @@ class WC_Product_Documents_Loader {
 	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.5.0';
+	const FRAMEWORK_VERSION = '5.10.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Product Documents';

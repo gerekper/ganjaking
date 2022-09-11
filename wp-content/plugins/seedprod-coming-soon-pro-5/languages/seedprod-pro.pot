@@ -16,734 +16,928 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/admin-bar-menu.php:49, build/seedprod-coming-soon-pro-5/app/admin-bar-menu.php:49
+#: app/admin-bar-menu.php:49
 msgid "Coming Soon Mode Active"
 msgstr ""
 
-#: app/admin-bar-menu.php:51, build/seedprod-coming-soon-pro-5/app/admin-bar-menu.php:51
+#: app/admin-bar-menu.php:51
 msgid "Maintenance Mode Active"
 msgstr ""
 
-#: app/admin-bar-menu.php:53, build/seedprod-coming-soon-pro-5/app/admin-bar-menu.php:53
+#: app/admin-bar-menu.php:53
 msgid "Theme Preview Mode Active"
 msgstr ""
 
 #. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org coming-soon plugin review
-#. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org coming-soon plugin review
-#: app/bootstrap.php:419, build/seedprod-coming-soon-pro-5/app/bootstrap.php:419
+#: app/bootstrap.php:456
 msgid "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
 msgstr ""
 
-#: app/class-seedprod-review.php:100, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:100
+#: app/class-seedprod-review.php:100
 msgid "Are you enjoying SeedProd?"
 msgstr ""
 
-#: app/class-seedprod-review.php:102, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:102
+#: app/class-seedprod-review.php:102
 msgid "Yes"
 msgstr ""
 
-#: app/class-seedprod-review.php:103, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:103
+#: app/class-seedprod-review.php:103
 msgid "Not Really"
 msgstr ""
 
-#: app/class-seedprod-review.php:107, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:107
+#: app/class-seedprod-review.php:107
 msgid "We're sorry to hear you aren't enjoying SeedProd. We would love a chance to improve. Could you take a minute and let us know what we can do better?"
 msgstr ""
 
-#: app/class-seedprod-review.php:109, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:109
+#: app/class-seedprod-review.php:109
 msgid "Give Feedback"
 msgstr ""
 
-#: app/class-seedprod-review.php:110, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:110
+#: app/class-seedprod-review.php:110
 msgid "No thanks"
 msgstr ""
 
-#: app/class-seedprod-review.php:114, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:114
+#: app/class-seedprod-review.php:114
 msgid "That’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: app/class-seedprod-review.php:115, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:115
+#: app/class-seedprod-review.php:115
 msgid "~ John Turner<br>Co-Founder of SeedProd"
 msgstr ""
 
-#: app/class-seedprod-review.php:117, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:117
+#: app/class-seedprod-review.php:117
 msgid "Ok, you deserve it"
 msgstr ""
 
-#: app/class-seedprod-review.php:118, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:118
+#: app/class-seedprod-review.php:118
 msgid "Nope, maybe later"
 msgstr ""
 
-#: app/class-seedprod-review.php:119, build/seedprod-coming-soon-pro-5/app/class-seedprod-review.php:119
+#: app/class-seedprod-review.php:119
 msgid "I already did"
 msgstr ""
 
-#: app/class-updater.php:325, app/license.php:157, build/seedprod-coming-soon-pro-5/app/class-updater.php:325, build/seedprod-coming-soon-pro-5/app/license.php:157
+#: app/class-updater.php:325, app/license.php:157
 msgid "Invalid License Key."
 msgstr ""
 
-#: app/edit_with_seedprod.php:239, build/seedprod-coming-soon-pro-5/app/edit_with_seedprod.php:239
+#: app/edit_with_seedprod.php:239
 msgid "Edit with SeedProd"
 msgstr ""
 
-#: app/edit_with_seedprod.php:240, build/seedprod-coming-soon-pro-5/app/edit_with_seedprod.php:240
+#: app/edit_with_seedprod.php:240
 msgid "Switch Back to WordPress Editor"
 msgstr ""
 
-#: app/functions-addons.php:105, build/seedprod-coming-soon-pro-5/app/functions-addons.php:105
+#: app/functions-addons.php:105
 msgid "Plugin deactivated."
 msgstr ""
 
-#: app/functions-addons.php:107, build/seedprod-coming-soon-pro-5/app/functions-addons.php:107
+#: app/functions-addons.php:107
 msgid "Addon deactivated."
 msgstr ""
 
-#: app/functions-addons.php:111, build/seedprod-coming-soon-pro-5/app/functions-addons.php:111
+#: app/functions-addons.php:111
 msgid "Could not deactivate the addon. Please deactivate from the Plugins page."
 msgstr ""
 
-#: app/functions-addons.php:125, build/seedprod-coming-soon-pro-5/app/functions-addons.php:125
+#: app/functions-addons.php:125
 msgid "Could not activate addon. Please check user permissions."
 msgstr ""
 
-#: app/functions-addons.php:139, build/seedprod-coming-soon-pro-5/app/functions-addons.php:139
+#: app/functions-addons.php:139
 msgid "Plugin activated."
 msgstr ""
 
-#: app/functions-addons.php:141, build/seedprod-coming-soon-pro-5/app/functions-addons.php:141
+#: app/functions-addons.php:141
 msgid "Addon activated."
 msgstr ""
 
-#: app/functions-addons.php:146, build/seedprod-coming-soon-pro-5/app/functions-addons.php:146
+#: app/functions-addons.php:146
 msgid "Could not activate addon. Please activate from the Plugins page."
 msgstr ""
 
-#: app/functions-addons.php:149, build/seedprod-coming-soon-pro-5/app/functions-addons.php:149
+#: app/functions-addons.php:149
 msgid "Could not activate addon. Please refresh page and try again."
 msgstr ""
 
-#: app/functions-addons.php:203, app/functions-addons.php:272, build/seedprod-coming-soon-pro-5/app/functions-addons.php:203, build/seedprod-coming-soon-pro-5/app/functions-addons.php:272
+#: app/functions-addons.php:203, app/functions-addons.php:272
 msgid "Active"
 msgstr ""
 
-#: app/functions-addons.php:208, app/functions-addons.php:277, build/seedprod-coming-soon-pro-5/app/functions-addons.php:208, build/seedprod-coming-soon-pro-5/app/functions-addons.php:277
+#: app/functions-addons.php:208, app/functions-addons.php:277
 msgid "Inactive"
 msgstr ""
 
-#: app/functions-addons.php:214, app/functions-addons.php:283, build/seedprod-coming-soon-pro-5/app/functions-addons.php:214, build/seedprod-coming-soon-pro-5/app/functions-addons.php:283
+#: app/functions-addons.php:214, app/functions-addons.php:283
 msgid "Not Installed"
 msgstr ""
 
-#: app/functions-utils.php:52, build/seedprod-coming-soon-pro-5/app/functions-utils.php:52
+#: app/functions-seedprod-gallery.php:94
+msgid "All"
+msgstr ""
+
+#: app/functions-utils.php:52
 msgid "SuperAdmin"
 msgstr ""
 
-#: app/functions-utils.php:54, build/seedprod-coming-soon-pro-5/app/functions-utils.php:54
+#: app/functions-utils.php:54
 msgid "Anyone Logged In"
 msgstr ""
 
-#: app/functions-utils.php:115, build/seedprod-coming-soon-pro-5/app/functions-utils.php:115
+#: app/functions-utils.php:115
 msgid "Column"
 msgstr ""
 
-#: app/functions-utils.php:133, build/seedprod-coming-soon-pro-5/app/functions-utils.php:133
+#: app/functions-utils.php:133
 msgid "Headline"
 msgstr ""
 
-#: app/functions-utils.php:145, build/seedprod-coming-soon-pro-5/app/functions-utils.php:145
+#: app/functions-utils.php:145, languages/seedprod-pro.php:41
 msgid "Text"
 msgstr ""
 
-#: app/functions-utils.php:153, build/seedprod-coming-soon-pro-5/app/functions-utils.php:153
+#: app/functions-utils.php:153
 msgid "List"
 msgstr ""
 
-#: app/functions-utils.php:161, build/seedprod-coming-soon-pro-5/app/functions-utils.php:161
+#: app/functions-utils.php:161
 msgid "Button"
 msgstr ""
 
-#: app/functions-utils.php:169, build/seedprod-coming-soon-pro-5/app/functions-utils.php:169
+#: app/functions-utils.php:169
 msgid "Image"
 msgstr ""
 
-#: app/functions-utils.php:177, build/seedprod-coming-soon-pro-5/app/functions-utils.php:177
+#: app/functions-utils.php:177
 msgid "Video"
 msgstr ""
 
-#: app/functions-utils.php:185, build/seedprod-coming-soon-pro-5/app/functions-utils.php:185
+#: app/functions-utils.php:185, languages/seedprod-pro.php:65
 msgid "Divider"
 msgstr ""
 
-#: app/functions-utils.php:194, build/seedprod-coming-soon-pro-5/app/functions-utils.php:194
+#: app/functions-utils.php:194
 msgid "Spacer"
 msgstr ""
 
-#: app/functions-utils.php:203, build/seedprod-coming-soon-pro-5/app/functions-utils.php:203
+#: app/functions-utils.php:203
 msgid "Giveaway"
 msgstr ""
 
-#: app/functions-utils.php:214, build/seedprod-coming-soon-pro-5/app/functions-utils.php:214
+#: app/functions-utils.php:214
 msgid "Contact Form"
 msgstr ""
 
-#: app/functions-utils.php:223, build/seedprod-coming-soon-pro-5/app/functions-utils.php:223
+#: app/functions-utils.php:223
 msgid "Optin Form"
 msgstr ""
 
-#: app/functions-utils.php:232, build/seedprod-coming-soon-pro-5/app/functions-utils.php:232
+#: app/functions-utils.php:232
+msgid "Tabs"
+msgstr ""
+
+#: app/functions-utils.php:241
 msgid "Countdown"
 msgstr ""
 
-#: app/functions-utils.php:241, build/seedprod-coming-soon-pro-5/app/functions-utils.php:241
+#: app/functions-utils.php:250
 msgid "Social Profiles"
 msgstr ""
 
-#: app/functions-utils.php:249, build/seedprod-coming-soon-pro-5/app/functions-utils.php:249
+#: app/functions-utils.php:258
 msgid "Social Sharing"
 msgstr ""
 
-#: app/functions-utils.php:258, build/seedprod-coming-soon-pro-5/app/functions-utils.php:258
+#: app/functions-utils.php:267
 msgid "Animated Headline"
 msgstr ""
 
-#: app/functions-utils.php:268, build/seedprod-coming-soon-pro-5/app/functions-utils.php:268
+#: app/functions-utils.php:277
 msgid "Progress Bar"
 msgstr ""
 
-#: app/functions-utils.php:277, build/seedprod-coming-soon-pro-5/app/functions-utils.php:277
+#: app/functions-utils.php:286
 msgid "Icon"
 msgstr ""
 
-#: app/functions-utils.php:286, build/seedprod-coming-soon-pro-5/app/functions-utils.php:286
+#: app/functions-utils.php:295
 msgid "Testimonials"
 msgstr ""
 
-#: app/functions-utils.php:296, build/seedprod-coming-soon-pro-5/app/functions-utils.php:296
+#: app/functions-utils.php:305
 msgid "Image Carousel"
 msgstr ""
 
-#: app/functions-utils.php:309, build/seedprod-coming-soon-pro-5/app/functions-utils.php:309
+#: app/functions-utils.php:318
 msgid "Image Box"
 msgstr ""
 
-#: app/functions-utils.php:319, build/seedprod-coming-soon-pro-5/app/functions-utils.php:319
+#: app/functions-utils.php:328
 msgid "Icon Box"
 msgstr ""
 
-#: app/functions-utils.php:329, build/seedprod-coming-soon-pro-5/app/functions-utils.php:329
+#: app/functions-utils.php:338
 msgid "Nav Menu"
 msgstr ""
 
-#: app/functions-utils.php:337, build/seedprod-coming-soon-pro-5/app/functions-utils.php:337
+#: app/functions-utils.php:346
 msgid "Pricing Table"
 msgstr ""
 
-#: app/functions-utils.php:349, build/seedprod-coming-soon-pro-5/app/functions-utils.php:349
+#: app/functions-utils.php:358
 msgid "Anchor"
 msgstr ""
 
-#: app/functions-utils.php:358, build/seedprod-coming-soon-pro-5/app/functions-utils.php:358
+#: app/functions-utils.php:367
 msgid "Star Rating"
 msgstr ""
 
-#: app/functions-utils.php:367, build/seedprod-coming-soon-pro-5/app/functions-utils.php:367
+#: app/functions-utils.php:376
 msgid "Accordion"
 msgstr ""
 
-#: app/functions-utils.php:376, build/seedprod-coming-soon-pro-5/app/functions-utils.php:376
+#: app/functions-utils.php:385
 msgid "Shortcode"
 msgstr ""
 
-#: app/functions-utils.php:385, build/seedprod-coming-soon-pro-5/app/functions-utils.php:385
+#: app/functions-utils.php:394
 msgid "Login Form"
 msgstr ""
 
-#: app/functions-utils.php:395, build/seedprod-coming-soon-pro-5/app/functions-utils.php:395
+#: app/functions-utils.php:404
 msgid "Google Maps"
 msgstr ""
 
-#: app/functions-utils.php:405, build/seedprod-coming-soon-pro-5/app/functions-utils.php:405
+#: app/functions-utils.php:414
 msgid "Search Form"
 msgstr ""
 
-#: app/functions-utils.php:415, build/seedprod-coming-soon-pro-5/app/functions-utils.php:415
+#: app/functions-utils.php:424
 msgid "Facebook Like"
 msgstr ""
 
-#: app/functions-utils.php:429, build/seedprod-coming-soon-pro-5/app/functions-utils.php:429
+#: app/functions-utils.php:438
 msgid "Facebook Comments"
 msgstr ""
 
-#: app/functions-utils.php:441, build/seedprod-coming-soon-pro-5/app/functions-utils.php:441
+#: app/functions-utils.php:450
 msgid "Facebook Page"
 msgstr ""
 
-#: app/functions-utils.php:453, build/seedprod-coming-soon-pro-5/app/functions-utils.php:453
+#: app/functions-utils.php:462
 msgid "Facebook Embed"
 msgstr ""
 
-#: app/functions-utils.php:466, build/seedprod-coming-soon-pro-5/app/functions-utils.php:466
+#: app/functions-utils.php:475
 msgid "Twitter Embed Tweet"
 msgstr ""
 
-#: app/functions-utils.php:478, build/seedprod-coming-soon-pro-5/app/functions-utils.php:478
+#: app/functions-utils.php:487
 msgid "Twitter Embed Timeline"
 msgstr ""
 
-#: app/functions-utils.php:490, build/seedprod-coming-soon-pro-5/app/functions-utils.php:490
+#: app/functions-utils.php:499
 msgid "Twitter Tweet Button"
 msgstr ""
 
-#: app/functions-utils.php:502, build/seedprod-coming-soon-pro-5/app/functions-utils.php:502
+#: app/functions-utils.php:511
 msgid "Twitter Follow Button"
 msgstr ""
 
-#: app/functions-utils.php:514, build/seedprod-coming-soon-pro-5/app/functions-utils.php:514
+#: app/functions-utils.php:523
 msgid "Custom HTML"
 msgstr ""
 
-#: app/functions-utils.php:523, app/functions-utils.php:835, build/seedprod-coming-soon-pro-5/app/functions-utils.php:523, build/seedprod-coming-soon-pro-5/app/functions-utils.php:835
+#: app/functions-utils.php:532, app/functions-utils.php:868
 msgid "Add To Cart"
 msgstr ""
 
-#: app/functions-utils.php:533, build/seedprod-coming-soon-pro-5/app/functions-utils.php:533
+#: app/functions-utils.php:542
 msgid "Checkout"
 msgstr ""
 
-#: app/functions-utils.php:545, build/seedprod-coming-soon-pro-5/app/functions-utils.php:545
+#: app/functions-utils.php:554
 msgid "Cart"
 msgstr ""
 
-#: app/functions-utils.php:558, build/seedprod-coming-soon-pro-5/app/functions-utils.php:558
+#: app/functions-utils.php:567
 msgid "Products Grid"
 msgstr ""
 
-#: app/functions-utils.php:570, build/seedprod-coming-soon-pro-5/app/functions-utils.php:570
+#: app/functions-utils.php:579
 msgid "Recent Products"
 msgstr ""
 
-#: app/functions-utils.php:581, build/seedprod-coming-soon-pro-5/app/functions-utils.php:581
+#: app/functions-utils.php:590
 msgid "Sale Products"
 msgstr ""
 
-#: app/functions-utils.php:592, build/seedprod-coming-soon-pro-5/app/functions-utils.php:592
+#: app/functions-utils.php:601
 msgid "Best Selling Products"
 msgstr ""
 
-#: app/functions-utils.php:601, build/seedprod-coming-soon-pro-5/app/functions-utils.php:601
+#: app/functions-utils.php:610
 msgid "Featured Products"
 msgstr ""
 
-#: app/functions-utils.php:610, build/seedprod-coming-soon-pro-5/app/functions-utils.php:610
+#: app/functions-utils.php:619
 msgid "Top Rated Products"
 msgstr ""
 
-#: app/functions-utils.php:620, app/functions-utils.php:631, app/functions-utils.php:2290, build/seedprod-coming-soon-pro-5/app/functions-utils.php:620, build/seedprod-coming-soon-pro-5/app/functions-utils.php:631, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2290
+#: app/functions-utils.php:629, app/functions-utils.php:640, app/functions-utils.php:2323
 msgid "Posts"
 msgstr ""
 
-#: app/functions-utils.php:644, build/seedprod-coming-soon-pro-5/app/functions-utils.php:644
+#: app/functions-utils.php:653
 msgid "Post Title"
 msgstr ""
 
-#: app/functions-utils.php:656, build/seedprod-coming-soon-pro-5/app/functions-utils.php:656
+#: app/functions-utils.php:665
 msgid "Post Content"
 msgstr ""
 
-#: app/functions-utils.php:668, build/seedprod-coming-soon-pro-5/app/functions-utils.php:668
+#: app/functions-utils.php:677
 msgid "Post Excerpt"
 msgstr ""
 
-#: app/functions-utils.php:680, build/seedprod-coming-soon-pro-5/app/functions-utils.php:680
+#: app/functions-utils.php:689
 msgid "Featured Image"
 msgstr ""
 
-#: app/functions-utils.php:692, build/seedprod-coming-soon-pro-5/app/functions-utils.php:692
+#: app/functions-utils.php:701
 msgid "Author Box"
 msgstr ""
 
-#: app/functions-utils.php:704, build/seedprod-coming-soon-pro-5/app/functions-utils.php:704
+#: app/functions-utils.php:713
 msgid "Post Comments"
 msgstr ""
 
-#: app/functions-utils.php:716, build/seedprod-coming-soon-pro-5/app/functions-utils.php:716
+#: app/functions-utils.php:725
 msgid "Post Navigation"
 msgstr ""
 
-#: app/functions-utils.php:729, build/seedprod-coming-soon-pro-5/app/functions-utils.php:729
+#: app/functions-utils.php:738
 msgid "Post Info"
 msgstr ""
 
-#: app/functions-utils.php:741, build/seedprod-coming-soon-pro-5/app/functions-utils.php:741
+#: app/functions-utils.php:750
 msgid "Archive Title"
 msgstr ""
 
-#: app/functions-utils.php:763, build/seedprod-coming-soon-pro-5/app/functions-utils.php:763
+#: app/functions-utils.php:772
 msgid "Site Logo"
 msgstr ""
 
-#: app/functions-utils.php:776, app/functions-utils.php:989, build/seedprod-coming-soon-pro-5/app/functions-utils.php:776, build/seedprod-coming-soon-pro-5/app/functions-utils.php:989
+#: app/functions-utils.php:785, app/functions-utils.php:1022
 msgid "Template Parts"
 msgstr ""
 
-#: app/functions-utils.php:788, build/seedprod-coming-soon-pro-5/app/functions-utils.php:788
+#: app/functions-utils.php:797
+msgid "Advanced Gallery"
+msgstr ""
+
+#: app/functions-utils.php:809
+msgid "Gallery"
+msgstr ""
+
+#: app/functions-utils.php:821
 msgid "Menu Cart"
 msgstr ""
 
-#: app/functions-utils.php:800, build/seedprod-coming-soon-pro-5/app/functions-utils.php:800
+#: app/functions-utils.php:833
 msgid "Product Title"
 msgstr ""
 
-#: app/functions-utils.php:811, build/seedprod-coming-soon-pro-5/app/functions-utils.php:811
+#: app/functions-utils.php:844
 msgid "Product Featured Image"
 msgstr ""
 
-#: app/functions-utils.php:823, build/seedprod-coming-soon-pro-5/app/functions-utils.php:823
+#: app/functions-utils.php:856
 msgid "Product Price"
 msgstr ""
 
-#: app/functions-utils.php:844, build/seedprod-coming-soon-pro-5/app/functions-utils.php:844
+#: app/functions-utils.php:877
 msgid "Product Meta"
 msgstr ""
 
-#: app/functions-utils.php:856, build/seedprod-coming-soon-pro-5/app/functions-utils.php:856
+#: app/functions-utils.php:889
 msgid "Product Content"
 msgstr ""
 
-#: app/functions-utils.php:865, build/seedprod-coming-soon-pro-5/app/functions-utils.php:865
+#: app/functions-utils.php:898
 msgid "Short Description"
 msgstr ""
 
-#: app/functions-utils.php:877, build/seedprod-coming-soon-pro-5/app/functions-utils.php:877
+#: app/functions-utils.php:910
 msgid "Additional Information"
 msgstr ""
 
-#: app/functions-utils.php:889, build/seedprod-coming-soon-pro-5/app/functions-utils.php:889
+#: app/functions-utils.php:922
 msgid "Products Related"
 msgstr ""
 
-#: app/functions-utils.php:901, build/seedprod-coming-soon-pro-5/app/functions-utils.php:901
+#: app/functions-utils.php:934
 msgid "Upsells"
 msgstr ""
 
-#: app/functions-utils.php:911, build/seedprod-coming-soon-pro-5/app/functions-utils.php:911
+#: app/functions-utils.php:944
 msgid "Product Rating"
 msgstr ""
 
-#: app/functions-utils.php:923, build/seedprod-coming-soon-pro-5/app/functions-utils.php:923
+#: app/functions-utils.php:956
 msgid "Product Stock"
 msgstr ""
 
-#: app/functions-utils.php:935, build/seedprod-coming-soon-pro-5/app/functions-utils.php:935
+#: app/functions-utils.php:968
 msgid "Archive Products"
 msgstr ""
 
-#: app/functions-utils.php:947, build/seedprod-coming-soon-pro-5/app/functions-utils.php:947
+#: app/functions-utils.php:980
 msgid "Product Data Tabs"
 msgstr ""
 
-#: app/functions-utils.php:1030, build/seedprod-coming-soon-pro-5/app/functions-utils.php:1030
+#: app/functions-utils.php:1063
 msgid "Select Time"
 msgstr ""
 
-#: app/functions-utils.php:2247, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2247
+#: app/functions-utils.php:2280
 msgid "Post Type"
 msgstr ""
 
-#: app/functions-utils.php:2255, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2255
+#: app/functions-utils.php:2288
 msgid "Entire Site"
 msgstr ""
 
-#: app/functions-utils.php:2259, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2259
+#: app/functions-utils.php:2292
 msgid "Front Page"
 msgstr ""
 
-#: app/functions-utils.php:2263, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2263
+#: app/functions-utils.php:2296
 msgid "Blog Page"
 msgstr ""
 
-#: app/functions-utils.php:2267, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2267
+#: app/functions-utils.php:2300
 msgid "Pages"
 msgstr ""
 
-#: app/functions-utils.php:2271, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2271
+#: app/functions-utils.php:2304
 msgid "Pages and Posts"
 msgstr ""
 
-#: app/functions-utils.php:2275, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2275
+#: app/functions-utils.php:2308
 msgid "Is Child of"
 msgstr ""
 
-#: app/functions-utils.php:2279, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2279
+#: app/functions-utils.php:2312
 msgid "Is Attachment"
 msgstr ""
 
-#: app/functions-utils.php:2283, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2283
+#: app/functions-utils.php:2316
 msgid "Is 404"
 msgstr ""
 
-#: app/functions-utils.php:2294, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2294
+#: app/functions-utils.php:2327
 msgid "Has Category"
 msgstr ""
 
-#: app/functions-utils.php:2298, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2298
+#: app/functions-utils.php:2331
 msgid "Has Tag"
 msgstr ""
 
-#: app/functions-utils.php:2306, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2306
+#: app/functions-utils.php:2339
 msgid "All Archives"
 msgstr ""
 
-#: app/functions-utils.php:2310, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2310
+#: app/functions-utils.php:2343
 msgid "Date Archives"
 msgstr ""
 
-#: app/functions-utils.php:2314, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2314
+#: app/functions-utils.php:2347
 msgid "Search Results"
 msgstr ""
 
-#: app/functions-utils.php:2319, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2319
+#: app/functions-utils.php:2352
 msgid "Post Type Archive"
 msgstr ""
 
-#: app/functions-utils.php:2350, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2350
+#: app/functions-utils.php:2383
 msgid "Product Page"
 msgstr ""
 
-#: app/functions-utils.php:2354, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2354
+#: app/functions-utils.php:2387
 msgid "Product Category"
 msgstr ""
 
-#: app/functions-utils.php:2358, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2358
+#: app/functions-utils.php:2391
 msgid "Product Tag"
 msgstr ""
 
-#: app/functions-utils.php:2362, build/seedprod-coming-soon-pro-5/app/functions-utils.php:2362
+#: app/functions-utils.php:2395
 msgid "Shop Page"
 msgstr ""
 
-#: app/license.php:17, build/seedprod-coming-soon-pro-5/app/license.php:17
+#: app/license.php:17
 msgid "The minimum required version of PHP to run this plugin is PHP Version 5.3.3. Please contact your hosting company and ask them to upgrade this site's php verison."
 msgstr ""
 
-#: app/license.php:17, build/seedprod-coming-soon-pro-5/app/license.php:17
+#: app/license.php:17
 msgid "Upgrade PHP"
 msgstr ""
 
 #. translators: 1. License name.
-#. translators: 1. License name.
-#: app/license.php:152, build/seedprod-coming-soon-pro-5/app/license.php:152
+#: app/license.php:152
 msgid "You currently have the <strong>%s</strong> license."
 msgstr ""
 
-#: app/license.php:234, build/seedprod-coming-soon-pro-5/app/license.php:234
+#: app/license.php:234
 msgid "License Key is Required."
 msgstr ""
 
-#: app/license.php:279, build/seedprod-coming-soon-pro-5/app/license.php:279
+#: app/license.php:279
 msgid "There was an issue deactivating this license. Please log into the members area to deactivate."
 msgstr ""
 
-#: app/lpage.php:193, app/lpage.php:195, app/setup-wizard.php:197, app/setup-wizard.php:199, build/seedprod-coming-soon-pro-5/app/lpage.php:193, build/seedprod-coming-soon-pro-5/app/lpage.php:195, build/seedprod-coming-soon-pro-5/app/setup-wizard.php:197, build/seedprod-coming-soon-pro-5/app/setup-wizard.php:199
+#: app/lpage.php:193, app/lpage.php:195, app/setup-wizard.php:197, app/setup-wizard.php:199
 msgid "New Page"
 msgstr ""
 
-#: app/lpage.php:928, build/seedprod-coming-soon-pro-5/app/lpage.php:928
+#: app/lpage.php:929
 msgid "Starts in"
 msgstr ""
 
-#: app/lpage.php:930, build/seedprod-coming-soon-pro-5/app/lpage.php:930
+#: app/lpage.php:931
 msgid "Ended"
 msgstr ""
 
-#: app/lpage.php:1091, app/theme-templates.php:807, build/seedprod-coming-soon-pro-5/app/lpage.php:1091, build/seedprod-coming-soon-pro-5/app/theme-templates.php:807
+#: app/lpage.php:1092, app/theme-templates.php:807
 msgid "<br><br>Please enter a valid license key to access the themes. You can still proceed to create a page with the default theme.<br> <a class='seedprod_no_themes' href='?theme=0'>Click to continue &#8594;</a>"
 msgstr ""
 
-#: app/render-404.php:85, build/seedprod-coming-soon-pro-5/app/render-404.php:85
+#: app/render-404.php:85
 msgid "Your 404 page needs to be setup."
 msgstr ""
 
-#: app/render-csp-mm.php:588, app/backwards/cspv5-functions.php:601, build/seedprod-coming-soon-pro-5/app/render-csp-mm.php:588, build/seedprod-coming-soon-pro-5/app/backwards/cspv5-functions.php:601
+#: app/render-csp-mm.php:588, app/backwards/cspv5-functions.php:601
 msgid "Please create your Maintenance Page in the plugin settings."
 msgstr ""
 
-#: app/render-csp-mm.php:600, app/backwards/cspv5-functions.php:617, build/seedprod-coming-soon-pro-5/app/render-csp-mm.php:600, build/seedprod-coming-soon-pro-5/app/backwards/cspv5-functions.php:617
+#: app/render-csp-mm.php:600, app/backwards/cspv5-functions.php:617
 msgid "Please create enter your redirect url in the plugin settings."
 msgstr ""
 
-#: app/render-csp-mm.php:605, app/backwards/cspv5-functions.php:622, build/seedprod-coming-soon-pro-5/app/render-csp-mm.php:605, build/seedprod-coming-soon-pro-5/app/backwards/cspv5-functions.php:622
+#: app/render-csp-mm.php:605, app/backwards/cspv5-functions.php:622
 msgid "Please create your Coming Soon Page in the plugin settings."
 msgstr ""
 
-#: app/render-theme-template.php:616, build/seedprod-coming-soon-pro-5/app/render-theme-template.php:616
+#: app/render-theme-template.php:613
 msgid "404 - Page Not Found"
 msgstr ""
 
-#: app/render-theme-template.php:619, build/seedprod-coming-soon-pro-5/app/render-theme-template.php:619
+#: app/render-theme-template.php:616
 msgid "No Template Found"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:292, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:292
+#: app/render-woocommerce-template-tags.php:292
 msgid "N/A"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:295, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:295
+#: app/render-woocommerce-template-tags.php:295
 msgid "Categories"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:295, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:295
+#: app/render-woocommerce-template-tags.php:295
 msgid "Category"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:298, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:298
+#: app/render-woocommerce-template-tags.php:298
 msgid "Tags"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:298, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:298
+#: app/render-woocommerce-template-tags.php:298
 msgid "Tag"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:305, build/seedprod-coming-soon-pro-5/app/render-woocommerce-template-tags.php:305
+#: app/render-woocommerce-template-tags.php:305
 msgid "SKU"
 msgstr ""
 
-#: app/routes.php:51, app/routes.php:52, build/seedprod-coming-soon-pro-5/app/routes.php:51, build/seedprod-coming-soon-pro-5/app/routes.php:52
+#: app/routes.php:51, app/routes.php:52
 msgid "Landing Pages"
 msgstr ""
 
-#: app/routes.php:60, app/routes.php:61, build/seedprod-coming-soon-pro-5/app/routes.php:60, build/seedprod-coming-soon-pro-5/app/routes.php:61
+#: app/routes.php:60, app/routes.php:61
 msgid "Theme Builder"
 msgstr ""
 
-#: app/routes.php:69, app/routes.php:70, build/seedprod-coming-soon-pro-5/app/routes.php:69, build/seedprod-coming-soon-pro-5/app/routes.php:70
+#: app/routes.php:69, app/routes.php:70
 msgid "Setup"
 msgstr ""
 
-#: app/routes.php:79, app/routes.php:80, app/routes.php:162, app/routes.php:163, build/seedprod-coming-soon-pro-5/app/routes.php:79, build/seedprod-coming-soon-pro-5/app/routes.php:80, build/seedprod-coming-soon-pro-5/app/routes.php:162, build/seedprod-coming-soon-pro-5/app/routes.php:163
+#: app/routes.php:79, app/routes.php:80, app/routes.php:161, app/routes.php:162
 msgid "Templates"
 msgstr ""
 
-#: app/routes.php:89, app/routes.php:90, build/seedprod-coming-soon-pro-5/app/routes.php:89, build/seedprod-coming-soon-pro-5/app/routes.php:90
+#: app/routes.php:89, app/routes.php:90
 msgid "Subscribers"
 msgstr ""
 
-#: app/routes.php:98, app/routes.php:99, build/seedprod-coming-soon-pro-5/app/routes.php:98, build/seedprod-coming-soon-pro-5/app/routes.php:99
+#: app/routes.php:98, app/routes.php:99, languages/seedprod-pro.php:11
 msgid "Settings"
 msgstr ""
 
-#: app/routes.php:107, app/routes.php:108, build/seedprod-coming-soon-pro-5/app/routes.php:107, build/seedprod-coming-soon-pro-5/app/routes.php:108
+#: app/routes.php:107, app/routes.php:108
 msgid "Growth Tools"
 msgstr ""
 
-#: app/routes.php:116, app/routes.php:117, build/seedprod-coming-soon-pro-5/app/routes.php:116, build/seedprod-coming-soon-pro-5/app/routes.php:117
+#: app/routes.php:116, app/routes.php:117
 msgid "About Us"
 msgstr ""
 
-#: app/routes.php:125, app/routes.php:126, build/seedprod-coming-soon-pro-5/app/routes.php:125, build/seedprod-coming-soon-pro-5/app/routes.php:126
+#: app/routes.php:125, app/routes.php:126
 msgid "Request a Feature"
 msgstr ""
 
-#: app/routes.php:135, app/routes.php:136, build/seedprod-coming-soon-pro-5/app/routes.php:135, build/seedprod-coming-soon-pro-5/app/routes.php:136
+#: app/routes.php:135, app/routes.php:136
 msgid "Import / Export"
 msgstr ""
 
-#: app/routes.php:146, app/routes.php:147, build/seedprod-coming-soon-pro-5/app/routes.php:146, build/seedprod-coming-soon-pro-5/app/routes.php:147
+#: app/routes.php:146, app/routes.php:147
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: app/routes.php:171, app/routes.php:172, build/seedprod-coming-soon-pro-5/app/routes.php:171, build/seedprod-coming-soon-pro-5/app/routes.php:172
+#: app/routes.php:170, app/routes.php:171
 msgid "Builder"
 msgstr ""
 
-#: app/routes.php:180, app/routes.php:181, build/seedprod-coming-soon-pro-5/app/routes.php:180, build/seedprod-coming-soon-pro-5/app/routes.php:181
+#: app/routes.php:179, app/routes.php:180
 msgid "Import/Export"
 msgstr ""
 
-#: app/routes.php:189, app/routes.php:190, build/seedprod-coming-soon-pro-5/app/routes.php:189, build/seedprod-coming-soon-pro-5/app/routes.php:190
+#: app/routes.php:188, app/routes.php:189
 msgid "Debug"
 msgstr ""
 
-#: app/settings.php:67, build/seedprod-coming-soon-pro-5/app/settings.php:67
+#: app/settings.php:67
 msgid "Settings Updated"
 msgstr ""
 
-#: app/settings.php:72, build/seedprod-coming-soon-pro-5/app/settings.php:72
+#: app/settings.php:72
 msgid "Error Updating Settings"
 msgstr ""
 
-#: app/settings.php:121, build/seedprod-coming-soon-pro-5/app/settings.php:121
+#: app/settings.php:121
 msgid "App Settings Updated"
 msgstr ""
 
-#: app/settings.php:127, build/seedprod-coming-soon-pro-5/app/settings.php:127
+#: app/settings.php:127
 msgid "Error Updating App Settings"
 msgstr ""
 
-#: app/theme-templates.php:585, build/seedprod-coming-soon-pro-5/app/theme-templates.php:585
+#: app/theme-templates.php:585
 msgid "Global CSS"
 msgstr ""
 
-#: app/theme-templates.php:663, build/seedprod-coming-soon-pro-5/app/theme-templates.php:663
+#: app/theme-templates.php:663
 msgid "You're using the <a href=\"%s\">SeedProd</a> Theme to build your web site, which disables the WordPress theme system."
 msgstr ""
 
-#: app/theme-templates.php:934, build/seedprod-coming-soon-pro-5/app/theme-templates.php:934
+#: app/theme-templates.php:934
 msgid "This page was auto-generated and is a placeholder page for the SeedProd theme. To manage the contents of this page please visit SeedProd > Theme Builder in the left menu in WordPress. "
 msgstr ""
 
-#: app/includes/skin.php:82, app/includes/skin53.php:82, build/seedprod-coming-soon-pro-5/app/includes/skin.php:82, build/seedprod-coming-soon-pro-5/app/includes/skin53.php:82
+#: languages/seedprod-pro.php:5
+msgid "Content"
+msgstr ""
+
+#: languages/seedprod-pro.php:8
+msgid "Advanced"
+msgstr ""
+
+#: languages/seedprod-pro.php:14
+msgid "Add New Item"
+msgstr ""
+
+#: languages/seedprod-pro.php:17
+msgid "Font Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:20
+msgid "Space Between"
+msgstr ""
+
+#: languages/seedprod-pro.php:23
+msgid "Align"
+msgstr ""
+
+#: languages/seedprod-pro.php:26
+msgid "Advanced Styles"
+msgstr ""
+
+#: languages/seedprod-pro.php:29
+msgid "List Layout"
+msgstr ""
+
+#: languages/seedprod-pro.php:32
+msgid "Vertical"
+msgstr ""
+
+#: languages/seedprod-pro.php:35
+msgid "Horizontal"
+msgstr ""
+
+#: languages/seedprod-pro.php:38
+msgid "Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:44
+msgid "URL Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:47
+msgid "Open In New Window"
+msgstr ""
+
+#: languages/seedprod-pro.php:50
+msgid "Add \"No Follow\""
+msgstr ""
+
+#: languages/seedprod-pro.php:53
+msgid "Mobile Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:56
+msgid "On"
+msgstr ""
+
+#: languages/seedprod-pro.php:59
+msgid "Off"
+msgstr ""
+
+#: languages/seedprod-pro.php:62
+msgid "Hover Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:68
+msgid "Menu Type"
+msgstr ""
+
+#: languages/seedprod-pro.php:71
+msgid "Simple"
+msgstr ""
+
+#: languages/seedprod-pro.php:74
+msgid "WordPress Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:77
+msgid "Sub Menu Background Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:80
+msgid "Sub Menu Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:83
+msgid "Sub Menu Line Height"
+msgstr ""
+
+#: languages/seedprod-pro.php:86
+msgid "Sub Menu Border Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:89
+msgid "Sub Menu Border Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:92
+msgid "Sub Menu Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:95
+msgid "Sub Menu Hover Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:98
+msgid "Sub Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:101
+msgid "Text Shadow"
+msgstr ""
+
+#: languages/seedprod-pro.php:104
+msgid "None"
+msgstr ""
+
+#: languages/seedprod-pro.php:107
+msgid "Hairline"
+msgstr ""
+
+#: languages/seedprod-pro.php:110
+msgid "Small"
+msgstr ""
+
+#: languages/seedprod-pro.php:113
+msgid "Medium"
+msgstr ""
+
+#: languages/seedprod-pro.php:116
+msgid "Large"
+msgstr ""
+
+#: languages/seedprod-pro.php:119
+msgid "X Large"
+msgstr ""
+
+#: languages/seedprod-pro.php:122
+msgid "2X Large"
+msgstr ""
+
+#: languages/seedprod-pro.php:125
+msgid "Menus"
+msgstr ""
+
+#: languages/seedprod-pro.php:128
+msgid "Go to the"
+msgstr ""
+
+#: languages/seedprod-pro.php:131
+msgid "Menus Screen"
+msgstr ""
+
+#: languages/seedprod-pro.php:134
+msgid "to manage your menus"
+msgstr ""
+
+#: languages/seedprod-pro.php:137
+msgid "There are no menus in your site."
+msgstr ""
+
+#: languages/seedprod-pro.php:140
+msgid "Gallery Not Available"
+msgstr ""
+
+#: languages/seedprod-pro.php:143
+msgid "Please add gallery images."
+msgstr ""
+
+#: languages/seedprod-pro.php:146
+msgid "Loading Gallery Preview"
+msgstr ""
+
+#: app/includes/skin.php:82, app/includes/skin53.php:82
 msgid "There was an error installing the addon. Please try again."
 msgstr ""
 
-#: app/includes/tracking.php:194, build/seedprod-coming-soon-pro-5/app/includes/tracking.php:194
+#: app/includes/tracking.php:194
 msgid "Once Weekly"
 msgstr ""
 
-#: app/includes/upgrade.php:11, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:11
+#: app/includes/upgrade.php:11
 msgid "You are not allowed to install plugins."
 msgstr ""
 
-#: app/includes/upgrade.php:24, app/includes/upgrade.php:157, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:24, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:157
+#: app/includes/upgrade.php:24, app/includes/upgrade.php:157
 msgid "You are not licensed."
 msgstr ""
 
-#: app/includes/upgrade.php:43, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:43
+#: app/includes/upgrade.php:43
 msgid "Pro version is already installed."
 msgstr ""
 
-#: app/includes/upgrade.php:88, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:88
+#: app/includes/upgrade.php:88
 msgid "Could not install upgrade. Please download from seedprod.com and install manually."
 msgstr ""
 
-#: app/includes/upgrade.php:120, app/includes/upgrade.php:126, app/includes/upgrade.php:177, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:120, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:126, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:177
+#: app/includes/upgrade.php:120, app/includes/upgrade.php:126, app/includes/upgrade.php:177
 msgid "Plugin installed & activated."
 msgstr ""
 
-#: app/includes/upgrade.php:181, build/seedprod-coming-soon-pro-5/app/includes/upgrade.php:181
+#: app/includes/upgrade.php:181
 msgid "Pro version installed but needs to be activated from the Plugins page inside your WordPress admin."
 msgstr ""
 
-#: resources/theme-template-views/comments.php:26, build/seedprod-coming-soon-pro-5/resources/theme-template-views/comments.php:26
+#: resources/theme-template-views/comments.php:26
 msgid "Comment navigation"
 msgstr ""
 
-#: resources/theme-template-views/comments.php:27, build/seedprod-coming-soon-pro-5/resources/theme-template-views/comments.php:27
+#: resources/theme-template-views/comments.php:27
 msgid "&larr; Older Comments"
 msgstr ""
 
-#: resources/theme-template-views/comments.php:28, build/seedprod-coming-soon-pro-5/resources/theme-template-views/comments.php:28
+#: resources/theme-template-views/comments.php:28
 msgid "Newer Comments &rarr;"
 msgstr ""
 
-#: resources/theme-template-views/comments.php:33, build/seedprod-coming-soon-pro-5/resources/theme-template-views/comments.php:33
+#: resources/theme-template-views/comments.php:33
 msgid "Comments are closed."
 msgstr ""
 
-#: resources/views/debug.php:1, build/seedprod-coming-soon-pro-5/resources/views/debug.php:1
+#: resources/views/debug.php:1
 msgid "System Information"
 msgstr ""
 
-#: resources/views/debug.php:27, build/seedprod-coming-soon-pro-5/resources/views/debug.php:27
+#: resources/views/debug.php:27
 msgid "Debug Tools"
 msgstr ""

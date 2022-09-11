@@ -7,16 +7,15 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Uninstaller
- * @version     2.6.8
+ * @version     4.0.5
  */
 if(defined( 'WP_UNINSTALL_PLUGIN' )){
 	$evo_opt = get_option('evcal_options_evcal_1');
 
 
-	// If options have been stored, and 'evo_donot_delete' is equal to 'yes' - exit.
-	if(!empty($evo_opt['evo_donot_delete']) && $evo_opt['evo_donot_delete']=='yes'){
-		// DO not delete any eventON items
-	}else{
+	// If options have been stored, and 'evo_delete_settings' is equal to 'yes' delete
+	if(!empty($evo_opt['evo_delete_settings']) && $evo_opt['evo_delete_settings']=='yes'){
+
 		global $wpdb, $wp_roles;
 
 		// Delete pages

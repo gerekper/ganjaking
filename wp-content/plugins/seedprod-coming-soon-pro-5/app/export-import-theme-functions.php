@@ -125,7 +125,7 @@ function seedprod_pro_theme_import_json( $json_content = null ) {
 						if ( 1 === count( $conditions ) && 'include' === $conditions[0]->condition && 'is_page(x)' === $conditions[0]->type && ! empty( $conditions[0]->value ) && ! is_numeric( $conditions[0]->value ) ) {
 							// check if slug exists.
 							$slug_tablename = $wpdb->prefix . 'posts';
-							$sql            = "SELECT id FROM $slug_tablename WHERE post_name = %s AND post_type = 'page'";
+							$sql            = "SELECT id FROM $slug_tablename WHERE post_name = %s AND post_type = 'page' AND post_status != 'trash'";
                             $safe_sql        = $wpdb->prepare($sql, $conditions[0]->value); // phpcs:ignore
                         $this_slug_exist = $wpdb->get_var($safe_sql);// phpcs:ignore
 							if ( empty( $this_slug_exist ) ) {
@@ -137,26 +137,33 @@ function seedprod_pro_theme_import_json( $json_content = null ) {
 									'post_status'  => 'publish',
 									'post_type'    => 'page',
 								);
-								$new_page_id = wp_insert_post( $page_details );
-								if(!empty($new_page_id)){
-									// add meta
-									update_post_meta( $new_page_id, '_seedprod_edited_with_seedprod', true );
-									// reinsert settings because wp_insert screws up json.
-									$post_content_filtered_new_page = $v1['post_content_filtered'];
-									global $wpdb;
-									$tablename     = $wpdb->prefix . 'posts';
-									$sql           = "UPDATE $tablename SET post_content_filtered = %s,post_content = %s WHERE id = %d";
-									$safe_sql      = $wpdb->prepare( $sql, $post_content_filtered_new_page,$new_post_content, $new_page_id ); // phpcs:ignore 
-									$update_result_new_page = $wpdb->get_var( $safe_sql ); // phpcs:ignore
-									// update import array map with new id
-									foreach ( $import_page_array as $k5 => $v5 ) {
-										if($v5['id'] == $id){
-											$import_page_array[$k5]['id'] = $new_page_id;
-										}
-									}
-									
-									// remove template page
-									wp_delete_post($id, true);
+								$seedprod_remove_page_template = apply_filters( 'seedprod_remove_page_template', true );
+                                if ($seedprod_remove_page_template) {
+                                    $new_page_id = wp_insert_post($page_details);
+                                    if (!empty($new_page_id)) {
+                                        // add meta
+                                        update_post_meta($new_page_id, '_seedprod_edited_with_seedprod', true);
+                                        // reinsert settings because wp_insert screws up json.
+                                        $post_content_filtered_new_page = $v1['post_content_filtered'];
+                                        global $wpdb;
+                                        $tablename     = $wpdb->prefix . 'posts';
+                                        $sql           = "UPDATE $tablename SET post_content_filtered = %s,post_content = %s WHERE id = %d";
+                                        $safe_sql      = $wpdb->prepare($sql, $post_content_filtered_new_page, $new_post_content, $new_page_id); // phpcs:ignore
+                                    $update_result_new_page = $wpdb->get_var($safe_sql); // phpcs:ignore
+                                    // update import array map with new id
+                                    foreach ($import_page_array as $k5 => $v5) {
+                                        if ($v5['id'] == $id) {
+                                            $import_page_array[$k5]['id'] = $new_page_id;
+                                        }
+                                    }
+                                    
+                                    // remove template page
+                                    wp_delete_post($id, true);
+                                     
+                                    }
+                                }else{
+									// add place holder page.
+									wp_insert_post($page_details);
 								}
 
 							}
@@ -266,6 +273,16 @@ function seedprod_pro_landing_import_json( $json_content = null ) {
 	foreach ( $imports as $k1 => $v1 ) {
 
 		$meta = $v1['meta'];
+		$new_meta = array();
+
+		// clean meta and get new meta.
+		foreach($meta as $mk => $mv){
+			if(substr($mk, 0, 9 ) === "_seedprod" && $mk != '_seedprod_page_uuid'){
+				$new_meta[$mk] = $mv[0];
+			}
+		}
+		$new_meta['_seedprod_page_uuid'] = wp_generate_uuid4();
+
 
 		$data = array(
 			'comment_status' => 'closed',
@@ -274,11 +291,7 @@ function seedprod_pro_landing_import_json( $json_content = null ) {
 			'post_status'    => $v1['post_status'],
 			'post_title'     => $v1['post_title'],
 			'post_type'      => $v1['post_type'],
-			'meta_input'     => array(
-				'_seedprod_page'               => true,
-				'_seedprod_page_uuid'          => wp_generate_uuid4(),
-				'_seedprod_page_template_type' => $meta->_seedprod_page_template_type[0],
-			),
+			'meta_input'     => $new_meta,
 		);
 
 		$id = wp_insert_post(
@@ -845,6 +858,9 @@ function seedprod_pro_import_theme_files() {
 		if ( ! current_user_can( apply_filters( 'seedprod_import_export', 'edit_others_posts' ) ) ) {
 			wp_send_json_error();
 		}
+
+		// set script timeout longer
+		set_time_limit(60);
 
 		$url = wp_nonce_url( 'admin.php?page=seedprod_pro_import_theme_files', 'seedprod_import_theme_files' );
 		if ( false === ( $creds = request_filesystem_credentials( $url, '', false, false, null ) ) ) { // phpcs:ignore

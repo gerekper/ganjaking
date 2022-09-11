@@ -38,7 +38,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 	<tbody>
 		<tr>
 			<th scope="row" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Booked Product', 'woocommerce-bookings' ); ?></th>
-			<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ] ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
+			<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ], 'sent_to_admin' => false ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
 		</tr>
 		<tr>
 			<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php esc_html_e( 'Booking ID', 'woocommerce-bookings' ); ?></th>

@@ -4,16 +4,16 @@
  *
  * @Module: Category Grid Layout
  * @Since: 1.0
- *  @package WooComposer
+ *  @package Ultimate_VC_Addons_WooComposer
  */
 
-if ( ! class_exists( 'WooComposer_Cat_Grid' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Grid' ) ) {
 	/**
-	 * Class that initializes WooComposer Cat Grid
+	 * Class that initializes Ultimate_VC_Addons_WooComposer Cat Grid
 	 *
-	 * @class WooComposer_Cat_Grid
+	 * @class Ultimate_VC_Addons_WooComposer_Cat_Grid
 	 */
-	class WooComposer_Cat_Grid {
+	class Ultimate_VC_Addons_WooComposer_Cat_Grid {
 		/**
 		 * Constructor function that constructs Cat Grid View.
 		 *
@@ -465,6 +465,6 @@ if ( ! class_exists( 'WooComposer_Cat_Grid' ) ) {
 			return '<div class="woocommerce columns-' . $ult_woocomposer_cat_grid_shortcode['columns'] . '">' . ob_get_clean() . '</div>';
 		}//end woocomposer_grid_shortcode()
 
-	} /* end class WooComposer_Cat_Grid */
-	new WooComposer_Cat_Grid();
+	} /* end class Ultimate_VC_Addons_WooComposer_Cat_Grid */
+	new Ultimate_VC_Addons_WooComposer_Cat_Grid();
 }

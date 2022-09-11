@@ -1,5 +1,12 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-08-24 - version 1.15.61
+* Tweak - Deprecated "woocommerce_bookings_process_cost_rules_override_block" filter hook.
+* Tweak - WC 6.8.0 compatibility.
+
+2022-08-10 - version 1.15.60
+* Fix - The View booking link does not exist on the edit order page.
+
 2022-07-28 - version 1.15.59
 * Add - A filter `woocommerce_bookings_zero_order_status` to handle order status with zero total when bookings are confimred.
 * Fix - "View My Bookings" link showing in customer emails even when they are guest customers.

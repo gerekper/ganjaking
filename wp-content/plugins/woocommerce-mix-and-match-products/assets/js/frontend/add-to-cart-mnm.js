@@ -802,7 +802,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				if ( this.$mnm_message.length > 0 ) {
 					this.$mnm_message.remove();
 				}
-				this.$mnm_price.after( '<div class="mnm_message"><div class="woocommerce-info"><ul class="msg mnm_message_content"></ul></div></div>' );
+				this.$mnm_price.after( '<div class="mnm_message"><div class="woocommerce-info"><ul class="msg mnm_message_content" aria-live="polite"></ul></div></div>' );
 				this.$mnm_message         = this.$mnm_data.find( '.mnm_message' );
 				this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
 			}
@@ -1430,12 +1430,13 @@ jQuery.fn.wc_get_mnm_script = function() {
 			prev_qty       = this.get_prev_quantity(),
 			min            = parseFloat( this.$mnm_item_qty.attr( 'min' ) ),
 			max            = parseFloat( this.$mnm_item_qty.attr( 'max' ) ),
+			step           = parseFloat( this.$mnm_item_qty.attr( 'step' ) ),
 			container_max  = container.api.get_max_container_size(),
 			container_size = container.api.get_container_size(),
 			potential_size = container_size + ( current_qty - prev_qty );
 
 			if ( ! $msg_html.length ) {
-				this.$item_qty_div.append( '<div class="wc_mnm_child_item_error" />' );
+				this.$item_qty_div.append( '<div class="wc_mnm_child_item_error" aria-live="polite" />' );
 				$msg_html = this.$item_qty_div.find( '.wc_mnm_child_item_error' );
 			}
 
@@ -1454,15 +1455,18 @@ jQuery.fn.wc_get_mnm_script = function() {
 			} else if ( max > 0 && current_qty > max ) {
 				new_qty = max;
 				msg = wc_mnm_params.i18n_child_item_max_qty_message.replace( '%d', max );
+			} else if ( step > 1 && current_qty % step ) {
+				new_qty = current_qty - ( current_qty % step );
+				msg = wc_mnm_params.i18n_child_item_step_qty_message.replace( '%d', step );
 			}
 
 			if ( msg ) {
-				$msg_html.html( msg ).show();
+				$msg_html.html( '<span>' + msg + '</span>' ).addClass( 'show' );
 			}
 
 			this.child_item_timer = setTimeout(
                 function() {
-				$msg_html.hide();
+				$msg_html.removeClass( 'show' );
 			}, 2000 );
            
 			// Get the quantity from various types of inputs.

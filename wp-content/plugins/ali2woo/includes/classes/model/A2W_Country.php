@@ -18,7 +18,7 @@ if (!class_exists('A2W_Country')) {
             if (empty(self::$countries)) {
                 unload_textdomain('woocommerce');
                 self::$countries = apply_filters('woocommerce_countries', include WC()->plugin_path() . '/i18n/countries.php');
-                if (apply_filters('woocommerce_sort_countries', true)) {
+                if (apply_filters('woocommerce_sort_countries', true) && function_exists('wc_asort_by_locale')) {
                     wc_asort_by_locale(self::$countries);
                 }
                 $locale = determine_locale();

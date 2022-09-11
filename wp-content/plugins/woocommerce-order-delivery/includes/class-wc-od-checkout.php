@@ -59,7 +59,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			add_filter( 'woocommerce_checkout_get_value', array( $this, 'checkout_get_value' ), 10, 2 );
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'checkout_fragments' ) );
 			add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
-			add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_order_review' ) );
+			add_action( 'woocommerce_before_calculate_totals', array( $this, 'before_calculate_totals' ) );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'cart_calculate_fees' ) );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
 			add_action( 'woocommerce_checkout_create_order_fee_item', array( $this, 'create_order_fee_item' ), 10, 2 );
@@ -324,6 +324,25 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		}
 
 		/**
+		 * Performs actions before calculating the cart totals.
+		 *
+		 * When calling the hook `woocommerce_checkout_update_order_review`, the session, customer, and cart data
+		 * haven't been updated yet. So, we use this hook instead for validating the delivery details.
+		 *
+		 * @since 2.2.1
+		 */
+		public function before_calculate_totals() {
+			// Hook not triggered inside the method `WC_Ajax::update_order_review()`.
+			if ( ! isset( $_REQUEST['security'] ) || ! wp_verify_nonce( wp_unslash( $_REQUEST['security'] ), 'update-order-review' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				return;
+			}
+
+			$posted_data = ( isset( $_POST['post_data'] ) ? wp_unslash( $_POST['post_data'] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+			$this->update_order_review( $posted_data );
+		}
+
+		/**
 		 * Updates the order review during checkout.
 		 *
 		 * @since 2.0.0
@@ -337,12 +356,24 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$delivery_date       = '';
 			$delivery_time_frame = '';
 
+			// Validates the delivery date.
 			if ( ! empty( $data['delivery_date'] ) ) {
-				$delivery_date = wc_od_localize_date( $data['delivery_date'], 'Y-m-d' );
+				$value = wc_od_localize_date( $data['delivery_date'], 'Y-m-d' );
+
+				// The delivery days statuses haven't been processed with the shipping method.
+				$args = $this->get_delivery_date_args();
+				unset( $args['delivery_days'] );
+
+				if ( wc_od_validate_delivery_date( $value, $args, 'checkout' ) ) {
+					$delivery_date = $value;
+				}
 			}
 
 			if ( $delivery_date ) {
-				// When the customer changes the delivery date, the submitted time frame might not be available.
+				/*
+				 * When the customer changes the delivery date or the shipping method,
+				 * the submitted time frame might not be available.
+				 */
 				$time_frames = $this->get_time_frames_for_date( $delivery_date );
 				$count       = count( $time_frames );
 
@@ -633,8 +664,15 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @param array $field The field data.
 		 */
 		public function validate_delivery_date( $value, $field ) {
-			// Validation: Invalid date.
-			if ( $value && ! wc_od_validate_delivery_date( $value, $this->get_delivery_date_args(), 'checkout' ) ) {
+			if ( ! $value ) {
+				return;
+			}
+
+			// The delivery days statuses haven't been processed with the shipping method.
+			$args = $this->get_delivery_date_args();
+			unset( $args['delivery_days'] );
+
+			if ( ! wc_od_validate_delivery_date( $value, $args, 'checkout' ) ) {
 				/* translators: %s: field label */
 				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
 			}

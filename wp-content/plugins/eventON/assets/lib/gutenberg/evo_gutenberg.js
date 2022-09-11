@@ -1,36 +1,9 @@
 /**
 EventON Gutenberg Blocks
-@version 2.8.10
+@version 4.0.6
 **/
 
 jQuery(document).ready(function($){ 
-
-
-// update existing blocks
-/*
-function addSpacerAttributes(settings, name) {
-    if (typeof settings.attributes !== 'undefined') {
-        if (name == 'core/spacer') {
-            settings.attributes = Object.assign(settings.attributes, {
-                backgroundColor: {
-                    type: 'string',
-                },
-                customBackgroundColor: {
-                    type: 'string'
-                }
-            });
-        }
-    }
-    return settings;
-}
- 
-wp.hooks.addFilter(
-    'blocks.registerBlockType',
-    'awp/spacer-background-attribute',
-    addSpacerAttributes
-);
-*/
-
 
 
 // svg icon
@@ -66,6 +39,7 @@ wp.hooks.addFilter(
             },
         },
         attributes: {
+            blockId: {type:'string'},
             shortcode: { type: 'string',  default: '[add_eventon]'  },
             visible: {  type: 'boolean', default: true  },
         },
@@ -73,74 +47,79 @@ wp.hooks.addFilter(
             const {
                 content,
                 applyStyles,
-                alignment,
+                alignment                
             } = props.attributes;
-            var setAttributes = props.setAttributes;
+            
+            const {clientId , setAttributes } = props;
+            const blockId = props.blockId;
+            
+            if(!blockId || blockId === undefined ) setAttributes( { blockId: clientId } );
+            
             var ATTR = props.attributes;
-
-            function onChangeVal(NA){     setAttributes( NA);    }
-                
+                            
             // when shortcode gen values saved
-            $('body').on('evo_shortcode_generator_saved',function(event, code, data){  
-                if( data.type == 'block')  ATTR.shortcode = code;
-            });
-
-            // click on eventon block SG button
-            $('body').on('click','.evo_gb_shortcode_gen',function(){
-                var sc = ATTR.shortcode;
-                $('body').trigger('evo_open_shortcode_generator', [sc, 'block'] );
-            });
-
+                $('body').on('evo_shortcode_generator_saved',function(event, code, data){  
+                    if( data.type == 'block' && data.other_id == ATTR.blockId){                       
+                        setAttributes( { shortcode : code});
+                    }  
+                });
+            
             return [
-            el(
-                BlockControls, {key:'controls'},
-                el('div', {className:'evotoolbar components-toolbar'},
-                    el('p',
-                        {
-                            className:'evo_gb_shortcode_gen',
-                            'data-sc': ATTR.shortcode,
-                            sc: ATTR.shortcode,
-                            style:{margin:'0',fontSize:'14px',lineHeight:'1',display:'flex',alignItems:'center',padding:'5px',cursor:'pointer',width:'190px',justifyContent:'center'}
-                        },
-                        '[ Shortcode Generator ]'
+                // block button > open shortcode generator
+                el(
+                    BlockControls, {key:'controls'},
+                    el('div', {className:'evotoolbar components-toolbar'},
+                        el('p',
+                            {
+                                className:'evo_gb_shortcode_gen',
+                                'data-sc': ATTR.shortcode,
+                                sc: ATTR.shortcode,
+                                style:{margin:'0',fontSize:'14px',lineHeight:'1',display:'flex',alignItems:'center',padding:'5px',cursor:'pointer',width:'190px',justifyContent:'center'},
+                                onClick: function(item){
+                                    $('body').trigger('evo_open_shortcode_generator', 
+                                        [ATTR.shortcode, 'block', ATTR.blockId] );
+                                }
+                            },
+                            '[ Shortcode Generator ]'
+                        )
                     )
-                )
-            ),
-            // inspector controls
-            el(
-                InspectorControls, {key:'controls'},
-                el(components.PanelBody,
-                    {   title:'Shortcode Controls',  initialOpen: true,   },
-                    el(
-                        components.TextareaControl,{
-                            label:'Editable Calendar Shortcode',
-                            help:'You may have to re-select eventON block to see updated shortcode.',
-                            value: ATTR.shortcode,
-                            onChange: (value) => {
-                                setAttributes( { shortcode : value});
+                ),
+                // inspector controls
+                el(
+                    InspectorControls, {key:'controls'},
+                    el(components.PanelBody,
+                        {   title:'Shortcode Controls',  initialOpen: true,   },
+                        el(
+                            components.TextareaControl,{
+                                label:'Editable Calendar Shortcode',
+                                help:'You may have to re-select eventON block to see updated shortcode.',
+                                value: ATTR.shortcode,
+                                onChange: (value) => {
+                                    setAttributes( { shortcode : value}); 
+                                }
                             }
+                        ),
+                    ),   
+                ),
+                // inside block
+                el(
+                    'div',{
+                        id:'evo_main',
+                        className:'evo_main_cal_block',
+                    },
+                    el('span',{},'EventON Calendar'),
+                    el('span',{
+                        className:'evogb_show_sc',
+                        onClick: function(item){
+                            //$(item.target).siblings('.evogb_sc_code').html( ATTR.shortcode ).toggle();
+                            $(item.target).siblings('.evogb_sc_code').toggle();
                         }
-                    ),
-                ),   
-            ),
-            // inside block
-            el(
-                'div',{
-                    id:'evo_main',
-                    className:'evo_main_cal_block',
-                },
-                el('span',{},'EventON Calendar'),
-                el('span',{
-                    className:'evogb_show_sc',
-                    onClick: function(){
-                        $('body').find('.evogb_sc_code').html( ATTR.shortcode ).toggle();
-                    }
-                },'Show Shortcode'),
-                el('span',{
-                    style:{display:'none'},
-                    className:'evogb_sc_code',
-                },''),
-            ),
+                    },'Show Shortcode'),
+                    el('span',{
+                        style:{display:'none'},
+                        className:'evogb_sc_code'
+                    },ATTR.shortcode),
+                ),
             ];
             //return el( 'p', { style: blockStyle }, 'Basic EventON Calendar' );
         },

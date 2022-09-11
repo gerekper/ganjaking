@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Exporter support.
  *
  * @class    WCS_ATT_Product_Export
- * @version  2.2.5
+ * @version  4.0.0
  */
 class WCS_ATT_Product_Export {
 
@@ -25,7 +25,7 @@ class WCS_ATT_Product_Export {
 	public static function init() {
 
 		// Export Subscription schemes.
-		add_filter( 'woocommerce_product_export_meta_value', array( __CLASS__, 'export_meta_data' ), 10, 4 );
+		add_filter( 'woocommerce_product_export_meta_value', array( __CLASS__, 'export_subscription_schemes' ), 10, 4 );
 	}
 
 	/**
@@ -37,11 +37,11 @@ class WCS_ATT_Product_Export {
 	 * @param  array         $row
 	 * @return string        $meta_value
 	 */
-	public static function export_meta_data( $meta_value, $meta, $product, $row ) {
+	public static function export_subscription_schemes( $meta_value, $meta, $product, $row ) {
 
 		if ( '_wcsatt_schemes' === $meta->key ) {
 			if ( ! empty( $meta_value ) ) {
-				$meta_value = serialize( $meta_value );
+				$meta_value = json_encode( maybe_unserialize( $meta_value ) );
 			}
 		}
 

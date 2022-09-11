@@ -309,7 +309,7 @@ class WC_Product_Booking_Rule_Manager {
 			$modifier       = $fields['modifier'];
 			$base_cost      = apply_filters( 'woocommerce_bookings_process_cost_rules_base_cost', $fields['base_cost'], $fields, $key );
 			$base_modifier  = $fields['base_modifier'];
-			$override_block = apply_filters( 'woocommerce_bookings_process_cost_rules_override_block', ( isset( $fields['override_block'] ) ? $fields['override_block'] : '' ), $fields, $key );
+			$override_block = apply_filters_deprecated( 'woocommerce_bookings_process_cost_rules_override_block', array( ( isset( $fields['override_block'] ) ? $fields['override_block'] : '' ), $fields, $key ), '1.15.61' );
 
 			$cost_array = array(
 				'base'     => array( $base_modifier, $base_cost ),

@@ -3,6 +3,7 @@
  * @version 1.1.2
  */
 
+
 body.evocheckin{
 	height: 100%;
 	width: 100%;
@@ -10,59 +11,88 @@ body.evocheckin{
     overflow: initial;
     background-color: #636363;
 }
-.evo_checkin_page.no{
-	background-color: #db6e58;
-}
+.evochecking_inpage{padding:20px;}
+.evo_checkin_page.no{	background-color: #ff5c5c;}
 .evo_checkin_page{
 	height: 100%;
 	width: 100%;
-	background-color: #84b069;
+	background-color: #7ab954;
 	position: relative;
 	text-align: center;
-	color: #fff;
-	padding-bottom: 300px;
-	padding-top: 100px;
+	color: #fff; border-radius: 20px;
+	padding:200px 30px;
 }
 .evo_checkin_page.already_checked{background-color:#4695bb }
 .evo_checkin_page.refunded{background-color:#7d7d7d }
 .evo_checkin_page.already_checked.yes p.sign, .evo_checkin_page.refunded p.sign{
 	background: none;	
 }
-.evo_checkin_page.already_checked p.sign:before,
-.evo_checkin_page.refunded p.sign:before
-{
-	content:"!";
-	color: #fff;
-	    text-align: center;
-    font-size: 140px;
-    font-weight: bold;
-    line-height: 190px;
-}
 .evo_checkin_page >*{
 	font-family: 'open sans', 'arial';
-	margin: 0; padding: 0;
-	text-align: center;
-	
+	margin: 0; padding: 0;text-align: center;	
 }
 .evo_checkin_page h2.tix_id{
 	padding: 30px 0;
-	text-transform: uppercase;
-	color:#fff;
-	font-weight: bold;
-	font-size: 42px;
+	text-transform: uppercase;	color:#fff;
+	font-weight: bold;font-size: 42px;
 }
 
-.evo_checkin_page.no p.sign{background: url(checkin_no.png) center center no-repeat;}
-.evo_checkin_page.yes p.sign{background: url(checkin_yes.png) center center no-repeat;}
-.evo_checkin_page p.sign{
-	width: 225px;
-	height: 225px;
-	border:12px solid #fff;
-	border-radius:50%;
-	margin: 0px auto 40px;
-	padding: 0;
-	position: relative;
-}
+/* symbol */
+	:root {
+	  --borderWidth: 15px;
+	  --height: 100px;
+	  --width: 50px;
+	  --borderColor: #ffffff;
+	}
+
+	.evo_checkin_page p.sign{	
+		width: 225px;
+		height: 225px;
+		border:12px solid #fff;
+		border-radius:50%;
+		margin: 0px auto 40px;
+		padding: 30px 0 0;position: relative;
+	}
+	.evo_checkin_page.yes p.sign i{
+		display: inline-block;
+		transform: rotate(45deg);
+	  	height: var(--height);
+	 	width: var(--width);
+	  	border-bottom: var(--borderWidth) solid var(--borderColor);
+	  	border-right: var(--borderWidth) solid var(--borderColor);
+	}
+	.evo_checkin_page.no p.sign i{
+		position: absolute;top: 50px;left: 90px;
+	}
+	.evo_checkin_page.no p.sign i:before,
+	.evo_checkin_page.no p.sign i:after{
+		position: absolute;
+		  left: 0;
+		  content: ' ';
+		  height: 100px;
+		  width: 20px;
+		  background-color: #fff;
+	}
+	.evo_checkin_page.no p.sign i:before{transform: rotate(45deg);}
+	.evo_checkin_page.no p.sign i:after{transform: rotate(-45deg);}
+
+	.evo_checkin_page.already_checked p.sign:before,
+	.evo_checkin_page.refunded p.sign:before
+	{
+		content:"!";
+		color: #fff;
+		    text-align: center;
+	    font-size: 140px;
+	    font-weight: bold;
+	    line-height: 190px;
+	}
+	.evo_checkin_page.already_checked p.sign i,
+	.evo_checkin_page.refunded p.sign i
+	{display: none}
+	.evo_checkin_page.already_checked p.sign,
+	.evo_checkin_page.refunded p.sign{padding:0;}
+
+/* headers and texts */
 .evo_checkin_page h4{
 	font-size: 30px;
 	font-weight: 700;
@@ -84,12 +114,14 @@ body.evocheckin{
 .evo_checkin_page .btn{
 	display: inline-block;
 	border:1px solid #fff;
-	border-radius:4px;
-	padding:4px 7px;
+	border-radius:25px;
+	padding:4px 20px;
 	color: #fff;
 	text-transform: uppercase;
 	opacity: 0.7;
 	box-shadow: none;
+	margin:0 5px 5px;
+	font-size: 14px;
 }
 .evo_checkin_page .evpqr_content{
 	max-width: 600px;
@@ -103,7 +135,7 @@ body.evocheckin{
 }
 .evo_checkin_page .evpqr_content label{display: block;}
 .evo_checkin_page .evpqr_content input{
-	border-radius: 5px; margin-right: 5px;
+	border-radius: 25px; margin-right: 5px;
 	border: none;
     box-shadow: none;
     padding: 10px;
@@ -114,7 +146,7 @@ body.evocheckin{
 .evo_checkin_page .evpqr_content button{
 	box-sizing: border-box;
     line-height: 16px;
-    padding: 12px 20px 11px;
+    padding: 12px 20px 11px!important;
 }
 .evo_checkin_page .evpqr_content input,
 .evo_checkin_page .evpqr_content label{
@@ -126,9 +158,19 @@ body.evocheckin{
 .evo_checkin_page .evoqr_other_tickets.refunded{background-color:#ff6f6f }
 
 /*-- Responsive --*/
-@media (max-width: 480px){
-	.evo_checkin_page {
-		padding: 20px;
+@media (max-width: 500px){
+	:root {
+	  --borderWidth: 15px;
+	  --height: 70px;
+	  --width: 40px;
+	  --borderColor: #ffffff;
+	}
+
+	.evo_checkin_page.no p.sign i{top:25px; left:65px;}
+
+	.evo_checkin_page{padding:70px 30px;}
+	.evo_checkin_page.already_checked p.sign:before, .evo_checkin_page.refunded p.sign:before{
+		font-size: 120px; font-weight: bold;line-height: 150px;
 	}
 	.evo_checkin_page p.sign{
 		width: 170px;

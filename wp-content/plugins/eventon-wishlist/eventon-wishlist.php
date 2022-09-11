@@ -3,17 +3,17 @@
  * Plugin Name: EventON - Wishlist
  * Plugin URI: http://www.myeventon.com/event-map
  * Description: Add events to wishlist
- * Version: 0.8
+ * Version: 1.0
  * Author: AshanJay
  * Author URI: http://www.ashanjay.com
  * Requires at least: 5.0
- * Tested up to: 5.4.1
+ * Tested up to: 6.0
  */ 
 class evowi{	
 	
 	// Versions
-	public $version='0.8';
-	public $eventon_version = '2.8';
+	public $version='1.0';
+	public $eventon_version = '4.0';
 	public $name = 'Event Wishlist';
 	
 	public $addon_data = array();
@@ -88,8 +88,10 @@ class evowi{
 			
 			include_once( 'includes/class-functions.php' );
 			include_once( 'includes/class-frontend.php' );			
+			include_once( 'includes/class-wishlist_manager.php' );			
 
 			$this->front = new evowi_frontend();
+			$this->manager = new EVOWI_Wishlist_Manager();
 			
 			if ( is_admin() ){			
 				include_once( 'includes/admin/admin_init.php' );

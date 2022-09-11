@@ -836,7 +836,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		if(isset($_POST['permalink-manager-edit-uri-element-slug']) && isset($_POST['native_slug']) && ($_POST['native_slug'] !== $_POST['permalink-manager-edit-uri-element-slug'])) {
 
 			// Make sure that '_wp_old_slug' is saved
-			if(!empty($_POST['post_name'])) {
+			if(!empty($_POST['post_name']) || (isset($_POST['action']) && $_POST['action'] == 'pm_save_permalink')) {
 				$post_before = $post;
 
 				 // Clone the instance of WP_Post object

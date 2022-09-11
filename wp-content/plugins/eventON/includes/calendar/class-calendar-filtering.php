@@ -1,6 +1,7 @@
 <?php
 /**
 * Calendar Filtering
+* @version 4.1.2
 */
 
 class EVO_Cal_Filering{
@@ -563,7 +564,7 @@ class EVO_Cal_Filering{
 			}
 
 			// event count filter
-			if( $filter_type=='event_count'){
+			if( $filter_type=='event_count' || $filter_type =='all' ){
 				
 				// make sure event count is only run for one month
 				if(isset($SC['number_of_months']) && $SC['number_of_months'] >1) return $event_list;
@@ -588,6 +589,8 @@ class EVO_Cal_Filering{
 					}					
 				}
 			}
+
+			// event 
 
 			//print_r($event_list);
 
@@ -662,7 +665,6 @@ class EVO_Cal_Filering{
 						$events[]=$event;
 					}
 				}
-
 				// move featured events to top
 				return array_merge($ml_events,$events);
 			}

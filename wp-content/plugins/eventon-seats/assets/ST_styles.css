@@ -194,6 +194,9 @@ body .evorow.evoloading{position: relative;}
     -ms-user-select: none; 
     position: relative;
 }
+.evost_view_control span.fit{
+	font-size: 12px; margin-right: 10px;
+}
 .evost_seat_legends .evost_seat_legends_box{display: none;}
 .evost_seat_legends .evost_seat_legends_box span{
     display: block;

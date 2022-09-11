@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $product_id = Pie_WCWL_Custom_Tab::$product->get_id(); ?>
 
 <div id="wcwl_waitlist_data" class="panel woocommerce_options_panel">
-		<div class="wcwl_body_wrap" data-product-id="<?php echo $product_id ?>">
+		<div class="wcwl_body_wrap" data-product-id="<?php echo esc_attr( $product_id ); ?>">
 			<?php
 			include apply_filters( 'wcwl_include_path_admin_panel_tabs', Pie_WCWL_Custom_Tab::$component_path . 'panel-tabs.php' );
 			include apply_filters( 'wcwl_include_path_admin_panel_waitlist_tab', Pie_WCWL_Custom_Tab::$component_path . 'panel-waitlist.php' );

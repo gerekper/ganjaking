@@ -36,9 +36,11 @@
 		<div class='eventon entry-content'>
 			<div class="evo_location_tax evotax_term_details" style='background-image:url(<?php echo $img_url;?>)'>
 				<?php if($img_url):?><div class="location_circle" style='background-image:url(<?php echo $img_url;?>)'></div><?php endif;?>
-				<h2 class="location_name"><span><?php echo $term->name;?></span></h2>
-				
-				<div class='location_description'><?php echo category_description();?></div>
+				<h2 class="location_name"><span><?php echo $term->name;?></span></h2>				
+			</div>
+
+			<div class='evo_tax_details'>
+				<?php echo category_description();?>
 			</div>
 			
 			<h3 class="location_subtitle evotax_term_subtitle"><?php evo_lang_e('Events by this speaker');?></h3>

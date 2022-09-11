@@ -23,6 +23,14 @@ class UpdraftPlus_Admin {
 
 	private $storage_service_with_partial_settings;
 
+	private $storage_module_option_errors = '';
+	
+	private $no_settings_warning = false;
+	
+	private $restore_in_progress_jobdata = array();
+	
+	private $entities_to_restore = array();
+
 	/**
 	 * Constructor
 	 */
@@ -1335,9 +1343,16 @@ class UpdraftPlus_Admin {
 		$this->show_admin_warning('<strong>'.__('Notice', 'updraftplus').':</strong> '.__('UpdraftPlus\'s debug mode is on. You may see debugging notices on this page not just from UpdraftPlus, but from any other plugin installed. Please try to make sure that the notice you are seeing is from UpdraftPlus before you raise a support request.', 'updraftplus').'</a>');
 	}
 
+	/**
+	 * Return an admin warning notice
+	 *
+	 * @param Integer $howmany
+	 *
+	 * @return String
+	 */
 	public function show_admin_warning_overdue_crons($howmany) {
 		$ret = '<div class="updraftmessage updated"><p>';
-		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue. Unless this is a development site, this probably means that the scheduler in your WordPress install is not working.', 'updraftplus'), $howmany).' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/scheduler-wordpress-installation-working/").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
+		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue. Unless this is a development site, this means that the scheduler in your WordPress install is not working properly.', 'updraftplus'), $howmany).' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/scheduler-wordpress-installation-working/").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
 		$ret .= '</p></div>';
 		return $ret;
 	}
@@ -3995,6 +4010,7 @@ class UpdraftPlus_Admin {
 	
 	/**
 	 * Returns html for a storage method using the parameters passed in, this version of the method is compatible with multi storage options
+	 * DEV NOTE: please don't use this method in a handlebars template, but write the HTML code directly in the template. Also, this method might be no longer available in future releases
 	 *
 	 * @param  string $classes  a list of classes to be used when
 	 * @param  string $header   the table header content

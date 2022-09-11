@@ -502,8 +502,8 @@ class WC_XR_Line_Item {
 	 * Search an array of (active) tax rates from Xero for the one that matches the given label and rate in WooCommerce
 	 *
 	 * @param array        $tax_rates       An array of tax rates retrieved from Xero.
-	 * @param array        $label_to_find   The name of the rate to find (i.e. the Tax Name from WooCommerce > Settings > Tax > Standard Rates).
-	 * @param array        $rate_to_find    The rate (in percent) to find.
+	 * @param string       $label_to_find   The name of the rate to find (i.e. the Tax Name from WooCommerce > Settings > Tax > Standard Rates).
+	 * @param float        $rate_to_find    The rate (in percent) to find.
 	 * @param string       $report_tax_type The reporting tax type e.g. OUTPUT, INPUT.
 	 * @param WC_XR_Logger $logger          Instance of WC_XR_Logger.
 	 *
@@ -519,6 +519,29 @@ class WC_XR_Line_Item {
 			if ( abs( $rate_to_find - $tax_rate['effective_rate'] ) <= 0.0001 && $report_tax_type === $tax_rate['report_tax_type'] ) {
 				$logger->write( " - Found match: Name ({$tax_rate['name']}), Rate ({$tax_rate[ 'effective_rate' ]}), TaxType ({$tax_rate[ 'tax_type' ]}) ReportTaxType ({$tax_rate[ 'report_tax_type' ]})" );
 				$matches[] = $tax_rate;
+			}
+		}
+
+		/**
+		 * Check for exact label match for Zero tax rate
+		 * Only search for exact label match IF.
+		 *  - Tax rate is Zero.
+		 *  - No matches found by Rate && ReportTaxType.
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-xero/issues/266.
+		 */
+		if ( empty( $matches ) && $rate_to_find <= 0 ) {
+			$zero_tax_type = false;
+			$logger->write( 'No tax rates found for given Rate and ReportTaxType. Searching zero tax rates by exact label match' );
+			foreach ( $tax_rates as $tax_rate ) {
+				if ( abs( $rate_to_find - $tax_rate['effective_rate'] ) <= 0.0001 && strcasecmp( $tax_rate['name'], $label_to_find ) === 0 ) {
+					$logger->write( " - Found Zero tax rate match: Name ({$tax_rate['name']}), Rate ({$tax_rate['effective_rate']}), TaxType ({$tax_rate['tax_type']}) ReportTaxType ({$tax_rate['report_tax_type']})" );
+					$zero_tax_type = $tax_rate['tax_type'];
+					break;
+				}
+			}
+			if ( false !== $zero_tax_type ) {
+				return $zero_tax_type;
 			}
 		}
 

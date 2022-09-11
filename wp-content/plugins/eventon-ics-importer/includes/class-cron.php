@@ -5,6 +5,8 @@
 
 class evoics_cron extends evo_cron{
 
+	public $options = array();
+
 	public function __construct(){
 		$this->options = get_option('evcal_options_evoics_1');
 
@@ -17,7 +19,11 @@ class evoics_cron extends evo_cron{
 		$cron_hook = 'evoics_schedule_action';
 		$timestamp = wp_next_scheduled( $cron_hook );
 
+		if( !is_array($this->options) || !isset($this->options['evoics_import_type'])) return false;
+
 		$time = $this->options['evoics_import_type'];
+
+		
 		$schedule_frequency = str_replace('schedule_', '', $time);
 
 		// if schedule is not set

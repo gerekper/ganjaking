@@ -8,16 +8,24 @@
  *
  *	@Author: AJDE
  *	@EventON
- *	@version: 2.8.6
+ *	@version: 4.1.3
  */
 
-?>
+
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}	
+
+do_action('eventon_before_header');
 	
-<?php	
+
+get_header('events');
+
 
 // you can also pass a lang value in below function to create fixed lang single event page.
 // this value will be overriden by language corresponding events
-do_action('eventon_before_main_content','');
+do_action('eventon_before_main_content');
 
 ?>	
 <div id='main'>
@@ -28,22 +36,11 @@ do_action('eventon_before_main_content','');
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-					<div class="entry-content">
-
-					<?php	
-						do_action('eventon_single_content');
-					?>		
-					</div><!-- .entry-content -->
-
-					<footer class="entry-meta">
-						<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
-					</footer><!-- .entry-meta -->
-				</article><!-- #post -->
+				<?php evo_get_template_part('content','single-event');?>
+				
 			<?php endwhile; ?>	
 
-		<?php	do_action('eventon_single_sidebar');	?>
+		<?php	do_action('eventon_single_sidebar');	// DEP ?>
 
 		<?php	do_action('eventon_single_after_loop');	?>
 
@@ -51,4 +48,7 @@ do_action('eventon_before_main_content','');
 
 </div>	
 
-<?php 	do_action('eventon_after_main_content'); ?>
+<?php 	do_action('eventon_after_main_content'); 
+
+
+get_footer('events');

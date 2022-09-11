@@ -277,6 +277,7 @@ jQuery(document).ready(function($){
 				action: 'the_ajax_evors_a6',
 				email: _email,
 				rsvp_id: obj.data('rsvpid'),
+				type: obj.parent().find('select').val()
 			};
 
 			if( _email===undefined || _email=='' ){

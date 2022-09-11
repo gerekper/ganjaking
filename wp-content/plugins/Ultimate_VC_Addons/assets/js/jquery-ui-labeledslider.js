@@ -30,129 +30,126 @@
  *  jquery.ui.slider.js
  */
 
-(function( $, undefined ) {
+( function ( $, undefined ) {
+	$.widget( 'ui.labeledslider', $.ui.slider, {
+		version: '@VERSION',
 
+		options: {
+			tickInterval: 0,
+			tweenLabels: true,
+			tickLabels: null,
+			tickArray: [],
+		},
 
-    $.widget( "ui.labeledslider", $.ui.slider, {
+		uiSlider: null,
+		tickInterval: 0,
+		tweenLabels: true,
 
-      version: "@VERSION",
+		_create() {
+			this._detectOrientation();
 
-      options: {
-         tickInterval: 0,
-         tweenLabels: true,
-         tickLabels: null,
-         tickArray: []
-      },
+			this.uiSlider = this.element
+				.wrap( '<div class="ui-slider-wrapper ui-widget"></div>' )
+				.before( '<div class="ui-slider-labels"></div>' )
+				.parent()
+				.addClass( this.orientation )
+				.css( 'font-size', this.element.css( 'font-size' ) );
 
-      uiSlider: null,
-      tickInterval: 0,
-      tweenLabels: true,
+			this._super();
 
-      _create: function( ) {
+			this.element.removeClass( 'ui-widget' );
 
-         this._detectOrientation();
+			this._alignWithStep();
 
-         this.uiSlider =
-             this.element
-                .wrap( '<div class="ui-slider-wrapper ui-widget"></div>' )
-                .before( '<div class="ui-slider-labels"></div>' )
-                .parent()
-                .addClass( this.orientation )
-                .css( 'font-size', this.element.css('font-size') );
+			if ( this.orientation == 'horizontal' ) {
+				this.uiSlider.width( this.element.css( 'width' ) );
+			} else {
+				this.uiSlider.height( this.element.css( 'height' ) );
+			}
 
-         this._super();
+			this._drawLabels();
+		},
 
-         this.element.removeClass( 'ui-widget' )
+		_drawLabels() {
+			let labels = this.options.tickLabels || {},
+				$lbl = this.uiSlider.children( '.ui-slider-labels' ),
+				dir = this.orientation == 'horizontal' ? 'left' : 'bottom',
+				min = this.options.min,
+				max = this.options.max,
+				inr = this.tickInterval,
+				cnt = max - min,
+				tickArray = this.options.tickArray,
+				ta = tickArray.length > 0,
+				label,
+				pt,
+				i = 0;
 
-         this._alignWithStep();
+			$lbl.html( '' );
 
-         if ( this.orientation == 'horizontal' ) {
-            this.uiSlider
-               .width( this.element.css('width') );
-         } else {
-            this.uiSlider
-               .height( this.element.css('height') );
-         }
+			for ( ; i <= cnt; i++ ) {
+				if (
+					( ! ta && i % inr == 0 ) ||
+					( ta && tickArray.indexOf( i + min ) > -1 )
+				) {
+					label = labels[ i + min ]
+						? labels[ i + min ]
+						: this.options.tweenLabels
+						? i + min
+						: '';
 
-         this._drawLabels();
-      },
+					$( '<div>' )
+						.addClass(
+							'ui-slider-label-ticks' +
+								' ult-slider-ticks' +
+								( i + 1 )
+						)
+						.css(
+							dir,
+							Math.round( ( i / cnt ) * 10000 ) / 100 + '%'
+						)
+						.html( '<span>' + label + '</span>' )
+						.appendTo( $lbl );
+				}
+			}
+		},
 
-      _drawLabels: function () {
+		_setOption( key, value ) {
+			this._super( key, value );
 
-         var labels = this.options.tickLabels || {},
-             $lbl = this.uiSlider.children( '.ui-slider-labels' ),
-             dir = this.orientation == 'horizontal' ? 'left' : 'bottom',
-             min = this.options.min,
-             max = this.options.max,
-             inr = this.tickInterval,
-             cnt = ( max - min ),
-             tickArray = this.options.tickArray,
-             ta = tickArray.length > 0,
-             label, pt,
-             i = 0;
+			switch ( key ) {
+				case 'tickInterval':
+				case 'tickLabels':
+				case 'tickArray':
+				case 'min':
+				case 'max':
+				case 'step':
+					this._alignWithStep();
+					this._drawLabels();
+					break;
 
-         $lbl.html('');
+				case 'orientation':
+					this.element
+						.removeClass( 'horizontal vertical' )
+						.addClass( this.orientation );
 
-         for (;i<=cnt;i++) {
+					this._drawLabels();
+					break;
+			}
+		},
 
-            if ( ( !ta && i%inr == 0 ) || ( ta && tickArray.indexOf( i+min ) > -1 ) ) {
+		_alignWithStep() {
+			if ( this.options.tickInterval < this.options.step )
+				this.tickInterval = this.options.step;
+			else this.tickInterval = this.options.tickInterval;
+		},
 
-               label = labels[i+min] ? labels[i+min] : (this.options.tweenLabels ? i+min : '');
+		_destroy() {
+			this._super();
+			this.uiSlider.replaceWith( this.element );
+		},
 
-               $('<div>').addClass( 'ui-slider-label-ticks'+' ult-slider-ticks'+(i+1) )
-                   .css( dir, (Math.round( ( i / cnt ) * 10000 ) / 100) + '%' )
-                   .html( '<span>'+( label )+'</span>' )
-                   .appendTo( $lbl );
-
-            }
-         }
-
-      },
-
-      _setOption: function( key, value ) {
-
-          this._super( key, value );
-
-          switch ( key ) {
-
-             case 'tickInterval':
-             case 'tickLabels':
-             case 'tickArray':
-             case 'min':
-             case 'max':
-             case 'step':
-
-                this._alignWithStep();
-                this._drawLabels();
-                break;
-
-             case 'orientation':
-
-                this.element
-                   .removeClass( 'horizontal vertical' )
-                   .addClass( this.orientation );
-
-                this._drawLabels();
-                break;
-          }
-       },
-
-       _alignWithStep: function () {
-          if ( this.options.tickInterval < this.options.step )
-            this.tickInterval = this.options.step;
-          else
-            this.tickInterval = this.options.tickInterval;
-       },
-
-       _destroy: function() {
-          this._super();
-          this.uiSlider.replaceWith( this.element );
-       },
-
-       widget: function() {
-          return this.uiSlider;
-       }
-
-   });
-
-}(jQuery));
+		widget() {
+			return this.uiSlider;
+		},
+	} );
+} )( jQuery );

@@ -1,7 +1,7 @@
 <?php
 /**
  * Eventon License class
- * @version 2.6.1
+ * @version 4.0.3
  */
 class EVO_Product_lic extends EVO_Product{
 
@@ -105,8 +105,7 @@ class EVO_Product_lic extends EVO_Product{
 			if( $this->kriyathmakada() ){
 				$next_payment = $this->get_prop('next_payment');
 				if($next_payment ){
-					date_default_timezone_set("UTC");
-					if( time() < $next_payment  ){
+					if( EVO()->calendar->utc_time < $next_payment  ){
 						return true;
 					}
 				}
@@ -262,14 +261,14 @@ class EVO_Product_lic extends EVO_Product{
 					$valid_key = $this->purchase_key_format($key);
 					if($valid_key){
 						$parts = explode('-', $key);
-						return 'xxxxxxxx-xxxx-xxxx-xxxx-'.$parts[4];
+						return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb'.$parts[4];
 					}else{
-						$this->deactivate($slug);
-						return 'n/a';
+						$parts = explode('-', $key);
+						return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb'.$parts[4];
 					}
 				}else{
 					// for addons
-					return 'xxxxxxxx-xxxx-xxxx-xxxx-';
+					return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb';
 				}
 			}else{return '--';}
 		}

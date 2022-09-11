@@ -371,8 +371,6 @@ class WC_XR_Invoice {
 	 */
 	public function to_xml() {
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
 		// Start Invoice
 		$xml = '<Invoice>';
 
@@ -401,11 +399,11 @@ class WC_XR_Invoice {
 		// Reference
 		$order = $this->get_order();
 		$reference_pieces = array();
-		$payment_method   = $old_wc ? $order->payment_method : esc_xml( $order->get_payment_method_title() );
+		$payment_method   = esc_xml( $order->get_payment_method_title() );
 		if ( ! empty( $payment_method ) ) {
 			$reference_pieces[] = $payment_method;
 		}
-		$transaction_id = $old_wc ? $order->transaction_id : $order->get_transaction_id();
+		$transaction_id = $order->get_transaction_id();
 		if ( ! empty( $transaction_id ) ) {
 			$reference_pieces[] = $transaction_id;
 		}
@@ -414,7 +412,7 @@ class WC_XR_Invoice {
 		}
 
 		// URL
-		$order_id = $old_wc ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 		$path = '/post.php?post=' . esc_attr( intval( $order_id ) ) . '&amp;action=edit';
 		$url =  admin_url( $path );
 		// Check for port number (port numbers in URLs are not allowed by Xero)
@@ -425,7 +423,8 @@ class WC_XR_Invoice {
 		}
 
 		// Line Amount Types. Always send prices exclusive VAT.
-		$xml .= '<LineAmountTypes>Exclusive</LineAmountTypes>';
+		$line_amount_type = ( $this->settings->send_tax_inclusive_prices() ) ? 'Inclusive' : 'Exclusive';
+		$xml             .= '<LineAmountTypes>' . $line_amount_type . '</LineAmountTypes>';
 
 		// Get Line Items
 		$line_items = $this->get_line_items();
@@ -453,6 +452,36 @@ class WC_XR_Invoice {
 
 		// Status
 		$xml .= '<Status>AUTHORISED</Status>';
+
+		// Get branding theme template ID.
+		$branding_theme = $this->settings->get_option( 'branding_theme' );
+
+		/**
+		 * Filter to change the branding theme template ID.
+		 *
+		 * @since 1.7.45
+		 *
+		 * `woocommerce_xero_branding_theme` is a filter hook.
+		 * @var string $branding_theme is a branding theme ID.
+		 * @var object $order Order object.
+		 */
+		$branding_theme = apply_filters( 'woocommerce_xero_branding_theme', $branding_theme, $this );
+		if ( $branding_theme ) {
+
+			// Only send branding theme if it is valid/exists.
+			try {
+				$org_request = new WC_XR_Request_Branding_Themes( $this->settings, $branding_theme );
+				$org_request->do_request();
+				$xml_response = $org_request->get_response_body_xml();
+
+				if ( 'OK' === (string) $xml_response->Status ) {
+					$xml .= '<BrandingThemeID>' . esc_html( $branding_theme ) . '</BrandingThemeID>';
+				}
+			} catch ( Exception $e ) {
+				// Add Exception as order note.
+				$order->add_order_note( 'BrandingThemeID is invalid, using the default template. ' . $e->getMessage() );
+			}
+		}
 
 		// Total Tax
 		$xml .= '<TotalTax>' . $this->get_total_tax() . '</TotalTax>';

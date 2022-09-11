@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON-SS/classes
- * @version     0.7
+ * @version     1.0.5
  */
 class evoss_front{
 	
@@ -42,7 +42,7 @@ class evoss_front{
 		}
 
 	
-	// frontend box
+	// frontend box - SPEAKER
 		function frontend_box($object, $helpers, $EVENT){
 			$event_id = $EVENT->ID;
 
@@ -55,7 +55,7 @@ class evoss_front{
 
 			ob_start();
 			$opt = $this->evopt2;
-			echo  "<div class='evo_metarow_speaker evorow evcal_evdata_row bordb evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$event_id."'>
+			echo  "<div id='evo_speaker' class='evo_metarow_speaker evorow evcal_evdata_row bordb evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$event_id."'>
 					<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__evospk_001', 'fa-coffee',$helpers['evOPT'] )."'></i></span>
 					<div class='evcal_evdata_cell'>";
 				echo "<h3 class='evo_h3'>".eventon_get_custom_language($opt, 'evoss_001','Speakers for this event')."</h3>";
@@ -85,11 +85,12 @@ class evoss_front{
 										<?php 
 											// title
 											if(!empty($termmeta['evo_speaker_title']))
-												echo "<p class='evo_speaker_title'>".$termmeta['evo_speaker_title'].'</p>';
+												echo "<p class='evo_speaker_title'>".  stripslashes( $termmeta['evo_speaker_title'] ) .'</p>';
 
 											// description
-											if(!empty($speaker->description))
-												echo "<p class='evo_speaker_desc'>".$speaker->description.'</p>';
+											if(!empty($speaker->description)){
+												echo "<div class='evo_speaker_desc'>". apply_filters('the_content',$speaker->description) .'</div>';
+											}
 
 											$social = $other = false;
 											foreach(EVOSS()->functions->speaker_fields() as $key=>$val){
@@ -98,12 +99,15 @@ class evoss_front{
 
 												if(empty($termmeta[$key])) continue;
 
+												// social media link
 												if(in_array($key, array('evoss_fb','evoss_tw','evoss_ln','evoss_ig'))){
 													$social.="<a target='_blank' href='".$termmeta[$key]."' class='fa fa-".strtolower($val[1])."'></a>";
-												}else{// all other extra fields
+												
+												// all other extra fields
+												}else{
 
 													$field_val = ($key=='evoss_url')? "<a target='_blank' href='". $termmeta[$key] ."'>".$termmeta[$key]."</a>": $termmeta[$key];
-													$other.= "<p class='{$key} extra'><em>".$val[1].'</em> '.$field_val.'</p>';
+													$other.= "<p class='{$key} extra'><em>". $val[1]  .'</em> '.$field_val.'</p>';
 												}												
 											}
 
@@ -117,7 +121,7 @@ class evoss_front{
 								</div><!-- hidden section-->
 							
 							<?php if(!empty($termmeta['evo_speaker_title'])):?>
-								<p class='evospk_job_title'><?php echo $termmeta['evo_speaker_title'];?></p>
+								<p class='evospk_job_title'><?php echo stripslashes(  $termmeta['evo_speaker_title'] );?></p>
 							<?php endif;?>
 							
 						</li>					
@@ -142,8 +146,10 @@ class evoss_front{
 
 			$have_content = false;
 
+			$EVO_DT = new evo_datetime();
+
 			ob_start();
-			echo  "<div class='evo_metarow_schedule evorow evcal_evdata_row bordb evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$EVENT->ID."'>
+			echo  "<div id='evo_schedule' class='evo_metarow_schedule evorow evcal_evdata_row bordb evcal_evrow_sm".$helpers['end_row_class']."' data-event_id='".$EVENT->ID."'>
 					<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__evosch_001', 'fa-calendar-check-o',$helpers['evOPT'] )."'></i></span>
 					<div class='evcal_evdata_cell'>";
 				echo "<h3 class='evo_h3'>".eventon_get_custom_language($opt, 'evoss_002','Schedule')."</h3>";				
@@ -157,6 +163,8 @@ class evoss_front{
 
 					//ksort($blocks);
 					$block_count = 1;
+					$day_count = 0;
+
 
 					for($v=1; $v<=100; $v++){
 					//foreach($blocks as $day_=>$block){
@@ -170,8 +178,9 @@ class evoss_front{
 						// day count number strip from saved blocks array
 						$day = (int)substr($day_, 1);
 
-						if(isset($block[0])) 
+						if(isset($block[0]) ){ 
 							$nav .= "<li class='".( $block_count==1?'evoss_show':'')."' data-day='{$day}' title='".$block[0]."'>".eventon_get_custom_language($opt,'evoss_003','Day')." ".$day."</li>";
+						}
 							
 						//$content .= "<li><p class='evosch_day'>Day {$day}</p>";
 						$content .= "<ul class='evosch_oneday_schedule ".($block_count==1?'evoss_show':'')." evosch_date_{$day}'>";
@@ -191,12 +200,15 @@ class evoss_front{
 
 								$inside = '';
 								if($dd ){
-									$inside = $dd->format( get_option( 'date_format' ) );
+									//$inside = $dd->format( get_option( 'date_format' ) );
+									$inside = $EVO_DT->get_readable_formatted_date( 
+										$dd->format('U'), EVO()->calendar->date_format
+									);
 								}else{
 									$inside = $block[0];
 								}
 
-								$content .= "<li class='date'>". $inside . "</li>";
+								$content .= "<li class='date'>". $inside  .  "</li>";
 							}
 
 							$content .= "<li>";
@@ -226,13 +238,15 @@ class evoss_front{
 						$content .= "</ul>";
 						$content .= "</li>";
 						$block_count++;
+						$day_count++;
 					}
 
 					// build nav					
-					if(!empty($nav)):
+					if(!empty($content)):
 						$have_content = true;
 						echo "<ul class='evosch_blocks_list'>";
-						echo "<ul class='evosch_nav'>".$nav."</ul>". $content;
+						if( $day_count>1) echo "<ul class='evosch_nav'>".$nav."</ul>";
+						echo $content;
 						echo "</ul>";
 					endif;
 				}

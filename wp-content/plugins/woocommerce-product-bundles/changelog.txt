@@ -1,5 +1,11 @@
 *** WooCommerce Product Bundles ***
 
+2022.08.29 - version 6.16.1
+* Important - The Min/Max Quantities integration requires Min/Max Quantities v3+.
+* Fix - Fixed fatal error that was triggered when trying to add a Bundle with invalid configuration to an order.
+* Tweak - Ensure that the Min/Max Quantities integration code affecting bundled item variations runs only in Product Bundles context.
+* Tweak - Update the bundled item step in the cart/checkout block based on the container's item quantity.
+
 2022.07.12 - version 6.16.0
 * Tweak - Improved support for the Min/Max Quantities 'Group of' feature.
 * Tweak - Introduced client-side min/max/default quantity validation.

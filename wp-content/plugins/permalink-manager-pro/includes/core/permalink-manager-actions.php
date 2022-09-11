@@ -413,6 +413,13 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');
 		}
 
+		// Check if the nonce field is correct
+		$nonce = sanitize_key($_GET['_wpnonce']);
+		if(!wp_verify_nonce($nonce, 'permalink-manager')) {
+			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');
+			return;
+		}
+
 		switch($field_name) {
 			case 'uris' :
 				$option_name = 'permalink-manager-uris';

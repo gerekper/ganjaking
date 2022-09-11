@@ -16,15 +16,31 @@ class Woocommerce_Subscriptions_Compat extends WC_XR_Invoice_Manager {
 		$this->settings = $settings;
 
 		add_filter( 'wcs_new_order_created', array( $this, 'order_created' ), 10, 3 );
+		add_filter( 'wcs_renewal_order_created', array( $this, 'renewal_order_created' ), 10 );
 	}
 
 	public function order_created( $order, $subscription, $type ) {
 		$option = $this->settings->get_option( 'send_invoices' );
 
-		if ( 'creation' === $option ) {
-			$this->send_invoice( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->id : $order->get_id() );
+		if ( 'creation' === $option && 'renewal_order' !== $type ) {
+			$this->send_invoice( $order->get_id() );
 		}
 
 		return $order;
+	}
+
+	/**
+	 * Send Invoice to Xero for Subscription renewal order (If send invoices on order creation is selected).
+	 *
+	 * @param WC_Order $renewal_order Subscription renewal order.
+	 */
+	public function renewal_order_created( $renewal_order ) {
+		$option = $this->settings->get_option( 'send_invoices' );
+
+		if ( 'creation' === $option ) {
+			$this->send_invoice( $renewal_order->get_id() );
+		}
+
+		return $renewal_order;
 	}
 }

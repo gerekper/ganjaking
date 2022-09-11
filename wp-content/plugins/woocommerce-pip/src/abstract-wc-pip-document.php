@@ -18,13 +18,13 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * PIP Document abstract class
@@ -2328,44 +2328,6 @@ abstract class WC_PIP_Document {
 	 */
 	public function force_itemized_tax_total_display() {
 		return 'itemized';
-	}
-
-
-	/**
-	 * Handles deprecated properties.
-	 *
-	 * @since 3.8.2
-	 * @deprecated
-	 *
-	 * TODO remove deprecated methods by the next major version or 12 months after deprecation {FN 2020-02-19}
-	 *
-	 * @param string $property property name
-	 * @return mixed
-	 */
-	public function __get( $property ) {
-
-		$deprecated = __CLASS__ . '::$' . $property . ' property';
-
-		switch ( $property ) {
-
-			case 'items' :
-				// TODO remove this by version 4.0.0 or February 2021 {FN 2020-02-19}
-				wc_deprecated_function( $deprecated, '3.8.2', __CLASS__ . '::$order->get_items() method' );
-				return $this->order instanceof \WC_Order ? $this->order->get_items() : [];
-
-			case 'refunds' :
-				// TODO remove this by version 4.0.0 or February 2021 {FN 2020-02-19}
-				wc_deprecated_function( $deprecated, '3.8.2', __CLASS__ . '::$order->get_refunds() method' );
-				return $this->order instanceof \WC_Order ? $this->order->get_refunds() : [];
-
-			case 'has_refunds' :
-				// TODO remove this by version 4.0.0 or February 2021 {FN 2020-02-19}
-				wc_deprecated_function( $deprecated, '3.8.2', __CLASS__ . '::$may_have_refunds property' );
-				return $this->may_have_refunds;
-
-			default :
-				return null;
-		}
 	}
 
 

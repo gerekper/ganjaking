@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getFeedbackChartData } from "../../function";
+import { useQuery } from "@tanstack/react-query";
+import { getFeedbackChartData, formatDataForChart } from "../../function";
 import moment from "moment";
 import Checkbox from "../utilities/Checkbox";
 import DatePicker from "../utilities/DatePicker";
@@ -9,10 +10,8 @@ import ChartLoader from "../utilities/ChartLoader";
 import { ReactComponent as EmptyDataIcon } from "../../images/empty-data.svg";
 
 const ChartWrapper = () => {
-  const [feedback, setFeedback] = useState([]);
   const [filteredFeedback, setFilteredFeedback] = useState({});
   const [dateRange, setDateRange] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   // this is for setting the filter up of the chart ["happy", "neutral", "unhappy"]
   const [filterState, setFilterState] = useState([
@@ -21,67 +20,34 @@ const ChartWrapper = () => {
       label: "Happy",
       checked: true,
       color: "#36D692",
+      enabled: true,
     },
     {
       id: "normal",
       label: "Neutral",
       checked: true,
       color: "#FF8A1E",
+      enabled: true,
     },
     {
       id: "sad",
       label: "Unhappy",
       checked: true,
       color: "#F01919",
+      enabled: true,
     },
   ]);
 
   // this is for getting the chart data
-  useEffect(() => {
-    if (dateRange == -1) {
-      setIsLoading(true);
-      getFeedbackChartData()
-        .then((res) => {
-          setFeedback(res);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
-    } else if (dateRange && Object.entries(dateRange).length) {
-      let start_date = moment(dateRange?.start).format("YYYY-MM-DD"),
-        end_date = moment(dateRange?.end).format("YYYY-MM-DD");
-      setIsLoading(true);
-      getFeedbackChartData(start_date, end_date)
-        .then((res) => {
-          setFeedback(res);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
-    }
-  }, [dateRange]);
+  const feedbackData = useQuery(
+    ["feedbackChartData", dateRange],
+    getFeedbackChartData
+  );
 
   // this is for set the filtered feedback value
   useEffect(() => {
-    const feedbackDataForChart = {};
-    if (feedback && feedback?.length) {
-      feedbackDataForChart.labels = feedback
-        .map((obj) => moment(obj.created_at).format("MMM D YYYY"))
-        .reverse();
-      feedbackDataForChart.colors = filterState
-        .filter((item) => item.checked)
-        .map((item) => item.color);
-      feedbackDataForChart.count = filterState
-        .filter((item) => item.checked)
-        .map((item) => {
-          return {
-            name: item.label,
-            data: feedback
-              .map((data) => data.hasOwnProperty(item.id) && data[item.id])
-              .reverse(),
-          };
-        });
-    }
-    setFilteredFeedback(feedbackDataForChart);
-  }, [feedback, filterState, dateRange]);
+    setFilteredFeedback(formatDataForChart(feedbackData?.data, filterState));
+  }, [feedbackData?.data, filterState]);
 
   // this function is for handle filter state
   const handleFilterState = (index, checked) => {
@@ -112,7 +78,7 @@ const ChartWrapper = () => {
       </div>
       <div className="btd-chart-wrapper">
         <div className="btd-chart">
-          {!isLoading ? (
+          {!feedbackData?.isLoading ? (
             <>
               {filteredFeedback &&
               filteredFeedback?.labels &&
@@ -127,6 +93,10 @@ const ChartWrapper = () => {
                       toolbar: {
                         // show: false,
                         offsetY: -5,
+                        tools: {
+                          download: `<img src="${betterdocs.dir_url}admin/assets/img/download.svg" width="14">`,
+                          reset: `<img src="${betterdocs.dir_url}admin/assets/img/house.svg" width="14">`,
+                        },
                       },
                     },
                     tooltip: {
@@ -200,7 +170,7 @@ const ChartWrapper = () => {
             </>
           )}
         </div>
-        <AllReaction data={feedback} dateRange={dateRange} />
+        <AllReaction dateRange={dateRange} />
       </div>
     </div>
   );

@@ -188,7 +188,7 @@ class RsPanoramaSlideFront extends RevSliderFunctions {
 		$type = $this->get_val($bg, 'type', 'trans');
 		if(!($type === 'image' || $type === 'external')) return;
 		
-		$image = $this->get_val($bg, 'image', '');
+		$image = $this->get_val($bg, ($type === 'external' ?  'externalSrc' : 'image'), '');
 		if(empty($image)) return;
 
 		

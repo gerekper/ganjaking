@@ -1,9 +1,13 @@
 /*
  * EventON Back end scripts for general backend of wordpress
- * @version 3.1
+ * @version 4.1
  */
+
+
 jQuery(document).ready(function($){	
-	
+
+
+
 // color picker
 	if( $.isFunction($.fn.ColorPicker) ) { 
 		$('body').on('click','.colorselector',function(){
@@ -17,17 +21,16 @@ jQuery(document).ready(function($){
 					CIRCLE = $('body').find('.colorpicker_on');
 					CIRCLE.css({'backgroundColor': '#' + hex}).attr({'title': '#' + hex, 'hex':hex});
 
-					obj_input = CIRCLE.siblings('input.backender_colorpicker');	
+					obj_input = CIRCLE.siblings('input.evocolorp_val');	
 					obj_input.attr({'value':hex});
 					
 					$('body').trigger('evo_color_select_changed',[ hex, rgb]);
 				},	
 				onSubmit: function(hsb, hex, rgb, el) {
-					var obj_input = $(el).siblings('input.backender_colorpicker');
+					var obj_input = $(el).siblings('input.evocolorp_val');
 
 					if($(el).hasClass('rgb')){
 						$(el).siblings('input.rgb').attr({'value':rgb.r+','+rgb.g+','+rgb.b});
-						//console.log(rgb);
 					}
 
 					obj_input.attr({'value':hex});
@@ -61,17 +64,16 @@ jQuery(document).ready(function($){
 				CIRCLE = $('body').find('.colorpicker_on');
 				CIRCLE.css({'backgroundColor': '#' + hex}).attr({'title': '#' + hex, 'hex':hex});
 
-				obj_input = CIRCLE.siblings('input.backender_colorpicker');	
+				obj_input = CIRCLE.siblings('input.evocolorp_val');	
 				obj_input.attr({'value':hex});
 
 				$('body').trigger('evo_color_select_changed',[hex, rgb]);
 			},	
 			onSubmit: function(hsb, hex, rgb, el) {
-				var obj_input = $(el).siblings('input.backender_colorpicker');
+				var obj_input = $(el).siblings('input.evocolorp_val');
 
 				if($(el).hasClass('rgb')){
 					$(el).siblings('input.rgb').attr({'value':rgb.r+','+rgb.g+','+rgb.b});
-					//console.log(rgb);
 				}
 
 				obj_input.attr({'value':hex});
@@ -186,8 +188,6 @@ jQuery(document).ready(function($){
 		
 	});
 
-
-
 // LIGHTBOX function 
 	// lightbox hide
 		$('body').on('click',' .ajde_close_pop_trig',function(){
@@ -216,21 +216,38 @@ jQuery(document).ready(function($){
 		});
 		
 	// trigger hide popup
-		$('body').on('evoadmin_lightbox_hide',function(event, lightboxclass){
+		$('body').on('evoadmin_lightbox_hide',function(event, lightboxclass, delay){
 			lightboxELM = $('.ajde_admin_lightbox.'+lightboxclass);
-			hide_popupwindowbox( lightboxELM );
+			hide_popupwindowbox( lightboxELM , delay);
 		});
-		function hide_popupwindowbox( lightboxELM ){
+		function hide_popupwindowbox( lightboxELM , delay){
 			if(! lightboxELM.hasClass('show')) return false;
 			Close = (lightboxELM.parent().find('.ajde_admin_lightbox.show').length == 1)? true: false;
 
-			lightboxELM.removeClass('show');
+			// if set to remove the lightbox HTML from dom
+			var remove_from_DOM = ( lightboxELM.find('.ajde_close_pop_btn').hasClass('remove_from_DOM') )? true:false;
+
+			// hide delays
+			var hide_delay = (delay === null || delay == '' || delay === undefined) ?  500 : parseInt(delay);
+
+			if( hide_delay > 500){
+				setTimeout( function(){ 
+					lightboxELM.removeClass('show');
+				}, ( hide_delay - 500  ) );
+			}else{
+				lightboxELM.removeClass('show');
+			}
+			
 			setTimeout( function(){ 
 				if(Close){
 					$('body').removeClass('evo_overflow');
 					$('html').removeClass('evo_overflow');
 				}
-			}, 300);			
+				// remove lightbox HTML from DOM
+				if( remove_from_DOM){
+					lightboxELM.remove();
+				}
+			}, hide_delay);			
 		}
 
 	// OPEN POPUP BOX		
@@ -238,6 +255,30 @@ jQuery(document).ready(function($){
 			$('body').on('click','.ajde_popup_trig', function(){			
 				ajde_popup_open( $(this));
 			});
+
+	// Loading animations
+		$('body').on('evo_show_loading_animation', function(event, lb_class, animation_type){
+			show_loading_animation(lb_class, animation_type);
+		});
+		function show_loading_animation(lb_class, animation_type){
+			LB = $('.ajde_admin_lightbox.'+lb_class).eq(0);
+
+			var _animation_type = (animation_type !='' && animation_type !== undefined) ? 
+				animation_type: 'initial';
+
+			if( _animation_type == 'initial')
+				LB.find('.ajde_popup_text').html('<div class="evo_loading_bar_holder"><div class="evo_loading_bar wid_40 hi_50"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar wid_25"></div></div>');
+
+			if( _animation_type == 'saving')
+				LB.find('.ajde_popup_text').addClass('loading');
+		}
+		$('body').on('evo_hide_loading_animation', function(event, lb_class){
+			hide_loading_aniation(lb_class);
+		});
+		function hide_loading_aniation( lb_class){
+			LB = $('.ajde_admin_lightbox.'+lb_class).eq(0);
+			LB.find('.ajde_popup_text').removeClass('loading');
+		}
 
 	// popup open
 		// 2.6.9
@@ -259,17 +300,36 @@ jQuery(document).ready(function($){
 			$('body').addClass('evo_overflow');
 			$('html').addClass('evo_overflow');
 		}
-		function ajde_popup_open(obj){
+		// @version 4.1
+		$('body').on('evo_open_dynamic_admin_lightbox', function(event, obj, obj_data){
+			ajde_popup_open(obj, obj_data);
+		});
+
+		function ajde_popup_open(obj, obj_data){
+
+			OD = obj_data !== undefined ? obj_data : obj.data();
+
 			var popc = obj.data('popc');
 
 			// check if specific lightbox requested
-			var LIGHTBOX = (typeof popc !== 'undefined' && popc !== false)?
-				$('.ajde_admin_lightbox.'+popc).eq(0):$('.ajde_admin_lightbox.regular').eq(0);
+			var LIGHTBOX = ('popc' in OD && OD.popc !== false && OD.popc != '')?
+				$('.ajde_admin_lightbox.'+ OD.popc).eq(0):$('.ajde_admin_lightbox.regular').eq(0);
+
+			// create lightbox HTML and add to page
+			if( OD.popc == 'print_lightbox'){
+				lightbox_class_name = OD.lb_cl_nm;
+				lightbox_size = 'lb_sz' in OD ? OD.lb_sz: '';
+				$('.ajde_admin_lightboxes').append('<div id="" class="ajde_admin_lightbox '+lightbox_class_name+'"><div class="evo_content_in"><div class="evo_content_inin"><div class="ajde_popup '+lightbox_class_name+' '+lightbox_size+'"><div class="ajde_header"><a class="ajde_backbtn" style="display:none"><i class="fa fa-angle-left"></i></a><p id="ajde_title" class="ajde_lightbox_title"></p><a class="ajde_close_pop_btn remove_from_DOM">X</a></div><div class="ajde_popup_text"></div><p class="message"></p></div></div></div></div>');
+
+				show_loading_animation( lightbox_class_name );
+
+				LIGHTBOX = $('.ajde_admin_lightbox.'+lightbox_class_name);
+			}
 
 			var POPUP = LIGHTBOX.find('.ajde_popup');
 
 			// alter lightbox title
-			if( obj.data('t') !== undefined){
+			if( obj.data('t') !== undefined){				
 				LIGHTBOX.find('.ajde_lightbox_title').html( obj.data('t') );
 			}
 			
@@ -331,12 +391,12 @@ jQuery(document).ready(function($){
 			POPUP.find('.message').removeClass('bad good').hide();
 
 			// open lightbox
-			LIGHTBOX.addClass('show');	
-			$('body').addClass('evo_overflow');
-			$('html').addClass('evo_overflow');
+			setTimeout( function(){ 
+				LIGHTBOX.addClass('show');	
+				$('body').addClass('evo_overflow');
+				$('html').addClass('evo_overflow');
+			},300);
 
-			// $('html, body').animate({scrollTop:0}, 700);
-			// $('#ajde_popup_bg').fadeIn();
 		}
 	
 	// popup lightbox functions
@@ -378,264 +438,185 @@ jQuery(document).ready(function($){
 		}
 
 // Event Singular tax term form create new or edit form
-		$('body').on('click','.evo_tax_term_form',function(){
-			OBJ = $(this);
-			PAR = OBJ.closest('.evo_singular_tax_for_event');
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_get_event_tax_term_section';
-				ajaxdataa['type']= OBJ.data('type');
-				ajaxdataa['tax']=  PAR.data('tax');
-				ajaxdataa['eventid']=  PAR.data('eventid');
-				ajaxdataa['termid']=  OBJ.data('id');
+	$('body').on('click','.evo_tax_term_form',function(){
+		OBJ = $(this);
+		PAR = OBJ.closest('.evo_singular_tax_for_event');
+		var ajaxdataa = { };
+			ajaxdataa['action']='eventon_get_event_tax_term_section';
+			ajaxdataa['type']= OBJ.data('type');
+			ajaxdataa['tax']=  PAR.data('tax');
+			ajaxdataa['eventid']=  PAR.data('eventid');
+			ajaxdataa['termid']=  OBJ.data('id');
 
-			$.ajax({
-				beforeSend: function(){
-					text = OBJ.data('type')=='new'?  evo_admin_ajax_handle.add_new_item: evo_admin_ajax_handle.edit_item;
-					$('.evo_term_lightbox').find('.ajde_lightbox_title').html( text );
-					$('.evo_term_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						$('.evo_term_lightbox').find('.ajde_popup_text').html( data.content);
-					}else{}
-				},complete:function(){
-					$('.evo_term_lightbox').find('.ajde_popup_text').removeClass( 'loading');
+		$.ajax({
+			beforeSend: function(){	},
+			type: 'POST',
+			url:evo_admin_ajax_handle.ajaxurl,
+			data: ajaxdataa,
+			dataType:'json',
+			success:function(data){
+				if(data.status=='good'){						
+					$('.evo_config_term').find('.ajde_popup_text').html( data.content);
+				}else{}
+			},complete:function(){}
+		});	
+	});
+	
+	// get term list
+	$('body').on('click','.evo_tax_term_list',function(){
+		OBJ = $(this);
+		PAR = OBJ.closest('.evo_singular_tax_for_event');
+		var ajaxdataa = { };
+			ajaxdataa['action']='eventon_event_tax_list';
+			ajaxdataa['tax']=  PAR.data('tax');
+			ajaxdataa['eventid']=  PAR.data('eventid');
+			ajaxdataa['termid']=  OBJ.data('id');
+
+		$.ajax({
+			beforeSend: function(){},
+			type: 'POST',
+			url:evo_admin_ajax_handle.ajaxurl,
+			data: ajaxdataa,
+			dataType:'json',
+			success:function(data){
+				if(data.status=='good'){						
+					$('.evo_config_term').find('.ajde_popup_text').html( data.content);
+					$('.evo_config_term').find('select.field').select2();						
 				}
-			});	
-		});
-		
-		// get term list
-		$('body').on('click','.evo_tax_term_list',function(){
-			OBJ = $(this);
-			PAR = OBJ.closest('.evo_singular_tax_for_event');
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_event_tax_list';
-				ajaxdataa['tax']=  PAR.data('tax');
-				ajaxdataa['eventid']=  PAR.data('eventid');
-				ajaxdataa['termid']=  OBJ.data('id');
+			},complete:function(){}
+		});	
+	});
 
-			$.ajax({
-				beforeSend: function(){
-					$('.evo_term_lightbox').find('.ajde_lightbox_title').html( evo_admin_ajax_handle.select_from_list);
-					$('.evo_term_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						$('.evo_term_lightbox').find('.ajde_popup_text').html( data.content);
-						$('.evo_term_lightbox').find('select.field').select2();						
-					}
-				},complete:function(){
-					$('.evo_term_lightbox').find('.ajde_popup_text').removeClass( 'loading');
-				}
-			});	
-		});
+	// save changes
+	$('body').on('click','.evo_term_submit',function(){
+		OBJ = $(this);
+		PAR = OBJ.closest('.evo_tax_entry');
+		var ajaxdataa = { };
+			ajaxdataa['action']='eventon_event_tax_save_changes';
+			ajaxdataa['tax']=  PAR.data('tax');
+			ajaxdataa['eventid']=  PAR.data('eventid');
+			ajaxdataa['type']=  PAR.data('type');
 
-		// save changes
-		$('body').on('click','.evo_term_submit',function(){
-			OBJ = $(this);
-			PAR = OBJ.closest('.evo_tax_entry');
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_event_tax_save_changes';
-				ajaxdataa['tax']=  PAR.data('tax');
-				ajaxdataa['eventid']=  PAR.data('eventid');
-				ajaxdataa['type']=  PAR.data('type');
-
-			PAR.find('.field').each(function(){
-				if($(this).val() != ''){
-					ajaxdataa[ $(this).attr('name')]=  $(this).val();
-				}
-			});
-
-			$.ajax({
-				beforeSend: function(){
-					$('.evo_term_lightbox').find('.ajde_lightbox_title').html( evo_admin_ajax_handle.select_from_list);
-					$('.evo_term_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						$('.evo_term_lightbox').find('.message').html( data.content).show();
-						$('.evo_singular_tax_for_event.'+PAR.data('tax')).html(data.htmldata);
-					}
-				},complete:function(){
-					setTimeout(function () {
-					   $('.ajde_close_pop_btn').trigger('click');
-					}, 2000);					
-					$('.evo_term_lightbox').find('.ajde_popup_text').removeClass( 'loading');
-
-					// when setting event location
-					if(PAR.data('tax') == 'event_location'){
-						var inp = $('body').find('input[name="evcal_gmap_gen"]');
-						if( inp.val() == 'no') inp.siblings('span').trigger('click');
-					}
-				}
-			});	
+		PAR.find('.field').each(function(){
+			if($(this).val() != ''){
+				ajaxdataa[ $(this).attr('name')]=  $(this).val();
+			}
 		});
 
-		// remove location
-		$('body').on('click','.evo_tax_remove',function(){
-			OBJ = $(this);
-			PAR = OBJ.closest('.evo_singular_tax_for_event');
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_event_tax_remove';
-				ajaxdataa['tax']=  PAR.data('tax');
-				ajaxdataa['eventid']=  PAR.data('eventid');
-				ajaxdataa['termid']=  OBJ.data('id');
-
-			$.ajax({
-				beforeSend: function(){
-					PAR.addClass( 'loading');
-				},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						PAR.html(data.htmldata);
-					}
-				},complete:function(){
-					PAR.removeClass( 'loading');
+		$.ajax({
+			beforeSend: function(){
+				$('.evo_config_term').find('.ajde_lightbox_title').html( evo_admin_ajax_handle.select_from_list);
+				$('.evo_config_term').find('.ajde_popup_text').addClass( 'loading');
+			},
+			type: 'POST',
+			url:evo_admin_ajax_handle.ajaxurl,
+			data: ajaxdataa,
+			dataType:'json',
+			success:function(data){
+				if(data.status=='good'){		
+					$('body').trigger('ajde_lightbox_show_msg',[ data.content, 'evo_config_term','good',true]);				
+					$('.evo_singular_tax_for_event.'+PAR.data('tax')).html(data.htmldata);
 				}
-			});	
-		});
+			},complete:function(){
+				setTimeout(function () {
+				   $('.ajde_close_pop_btn').trigger('click');
+				}, 2000);					
+				$('.evo_config_term').find('.ajde_popup_text').removeClass( 'loading');
 
-// Related Events
-		$('body').
-		on('click','.evo_rel_events',function(){
-			OBJ = $(this);
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_rel_event_list';
-				ajaxdataa['eventid']=  OBJ.data('eventid');
-				ajaxdataa['EVs']=  OBJ.siblings('.evo_rel_events_sel_list').val();
-
-			$.ajax({
-				beforeSend: function(){
-					$('.evo_term_lightbox').find('.ajde_lightbox_title').html( evo_admin_ajax_handle.select_from_list);
-					$('.evo_term_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						$('.evo_term_lightbox').find('.ajde_popup_text').html( data.content);
-						$('.evo_term_lightbox').find('select.field').select2();						
-					}
-				},complete:function(){
-					$('.evo_term_lightbox').find('.ajde_popup_text').removeClass( 'loading');
+				// when setting event location
+				if(PAR.data('tax') == 'event_location'){
+					var inp = $('body').find('input[name="evcal_gmap_gen"]');
+					if( inp.val() == 'no') inp.siblings('span').trigger('click');
 				}
-			});	
-		})
-		.on('click','span.rel_event', function(){
-			O = $(this);
-			O.toggleClass('select');
-		})
+			}
+		});	
+	});
 
-		// save related event select
-		.on('click','.evo_save_rel_events', function(){
+	// remove location
+	$('body').on('click','.evo_tax_remove',function(){
+		OBJ = $(this);
+		PAR = OBJ.closest('.evo_singular_tax_for_event');
+		var ajaxdataa = { };
+			ajaxdataa['action']='eventon_event_tax_remove';
+			ajaxdataa['tax']=  PAR.data('tax');
+			ajaxdataa['eventid']=  PAR.data('eventid');
+			ajaxdataa['termid']=  OBJ.data('id');
 
-			EV = {};
-			HTML = '';
+		$.ajax({
+			beforeSend: function(){
+				PAR.addClass( 'loading');
+			},
+			type: 'POST',
+			url:evo_admin_ajax_handle.ajaxurl,
+			data: ajaxdataa,
+			dataType:'json',
+			success:function(data){
+				if(data.status=='good'){						
+					PAR.html(data.htmldata);
+				}
+			},complete:function(){
+				PAR.removeClass( 'loading');
+			}
+		});	
+	});
 
-			$(this).closest('.evo_rel_events_form').find('.rel_event.select').each(function(){
-				var O = $(this);
-				EV[O.data('id')] = O.data('n');
-				HTML += "<span class='l' data-id='"+ O.data('id') +"'><span class='t'>" + O.data('t') +"</span><span class='n'>"+ O.data('n') + "</span><i>X</i></span>";
-			});
-
-			BOX = $('body').find('.evo_rel_events_box');
-
-			BOX.find('.ev_rel_events_list').html( HTML );
-			BOX.find('.evo_rel_events_sel_list').val( JSON.stringify(EV) );
-
-			$('.evo_term_lightbox').find('.message').html( 'Saved related events').show();
-			setTimeout(function () {
-			   $('.ajde_close_pop_btn').trigger('click');
-			}, 2000);	
-		})
-		// remove related events
-		.on('click','.ev_rel_events_list i',function(){
-			var rel_box = $(this).closest('.evo_rel_events_box');
-
-			$(this).closest('.l').remove();
-
-			EV = {};
-			rel_box.find('span.l').each(function(){
-				EV[ $(this).data('id') ] = $(this).find('.n').html();
-			});
-			rel_box.find('.evo_rel_events_sel_list').val( JSON.stringify( EV ));
-		})
-		;
 
 // Upload custom images to eventon custom image meta fields
-		var file_frame,
-			BOX;	
-	  
-	    $('body').on('click','.custom_upload_image_button',function(event) {
-	    	var obj = jQuery(this);
-	    	BOX = obj.closest('.evo_metafield_image');
+	var file_frame,
+		BOX;	
+  
+    $('body').on('click','.custom_upload_image_button',function(event) {
+    	var obj = jQuery(this);
+    	BOX = obj.closest('.evo_metafield_image');
 
-	    	IMG_URL = '';
+    	IMG_URL = '';
 
-	    	// choose image
-	    	if(obj.hasClass('chooseimg')){
+    	// choose image
+    	if(obj.hasClass('chooseimg')){
 
-	    		event.preventDefault();
+    		event.preventDefault();
 
-				// If the media frame already exists, reopen it.
-				if ( file_frame ) {
-					file_frame.open();
-					return;
-				}
-				// Create the media frame.
-				file_frame = wp.media.frames.downloadable_file = wp.media({
-					title: 'Choose an Image',
-					button: {text: 'Use Image',},
-					multiple: false
-				});
-
-				// When an image is selected, run a callback.
-				file_frame.on( 'select', function() {
-					attachment = file_frame.state().get('selection').first().toJSON();
-
-					BOX.find('.evo_meta_img').val( attachment.id );
-					BOX.find('.image_src img').attr('src', attachment.url ).fadeIn();
-					var old_text = obj.attr('value');
-					var new_text = obj.data('txt');
-
-					obj.attr({'value': new_text, 'data-txt': old_text, 'class': 'custom_upload_image_button button removeimg'});
-				});
-
-				// Finally, open the modal.
+			// If the media frame already exists, reopen it.
+			if ( file_frame ) {
 				file_frame.open();
-
-			}else{
-				
-				BOX.find('.evo_meta_img').val( '' );
-		  		BOX.find('.image_src img').fadeOut(function(){
-		  			$(this).attr('src', '' );
-		  		});
-		  		var old_text = obj.attr('value');
-				var new_text = obj.attr('data-txt');
-
-				obj.attr({'value': new_text, 'data-txt': old_text, 'class': 'custom_upload_image_button button chooseimg'});
-
-				return false;
+				return;
 			}
-	    });  
+			// Create the media frame.
+			file_frame = wp.media.frames.downloadable_file = wp.media({
+				title: 'Choose an Image',
+				button: {text: 'Use Image',},
+				multiple: false
+			});
+
+			// When an image is selected, run a callback.
+			file_frame.on( 'select', function() {
+				attachment = file_frame.state().get('selection').first().toJSON();
+
+				BOX.find('.evo_meta_img').val( attachment.id );
+				BOX.find('.image_src img').attr('src', attachment.url ).fadeIn();
+				var old_text = obj.attr('value');
+				var new_text = obj.data('txt');
+
+				obj.attr({'value': new_text, 'data-txt': old_text, 'class': 'custom_upload_image_button button removeimg'});
+			});
+
+			// Finally, open the modal.
+			file_frame.open();
+
+		}else{
+			
+			BOX.find('.evo_meta_img').val( '' );
+	  		BOX.find('.image_src img').fadeOut(function(){
+	  			$(this).attr('src', '' );
+	  		});
+	  		var old_text = obj.attr('value');
+			var new_text = obj.attr('data-txt');
+
+			obj.attr({'value': new_text, 'data-txt': old_text, 'class': 'custom_upload_image_button button chooseimg'});
+
+			return false;
+		}
+    });  
 
 // Add new tag field clearing after
 	$('#addtag #submit').click(function () {
@@ -667,17 +648,17 @@ jQuery(document).ready(function($){
 			ajaxdataa['eventid']=  OBJ.data('eventid');
 
 		$.ajax({
-			beforeSend:function(){	$('.evomdt_new').find('.ajde_popup_text').addClass('evoloading');},
+			beforeSend:function(){	},
 			type: 'POST',
 			url:evo_admin_ajax_handle.ajaxurl,
 			data: ajaxdataa,
 			dataType:'json',
 			success:function(data){
 				if(data.status=='good'){
-					$('.evomdt_new').find('.ajde_popup_text').html( data.content);
+					$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
 				}else{}
 			},
-			complete:function(){	$('.evomdt_new').find('.ajde_popup_text').removeClass('evoloading');}
+			complete:function(){}
 		});			
 	});
 
@@ -692,17 +673,17 @@ jQuery(document).ready(function($){
 				ajaxdataa['termid']=  OBJ.parent().data('termid');
 
 			$.ajax({
-				beforeSend:function(){	$('.evomdt_new').find('.ajde_popup_text').addClass('evoloading');},
+				beforeSend:function(){	},
 				type: 'POST',
 				url:evo_admin_ajax_handle.ajaxurl,
 				data: ajaxdataa,
 				dataType:'json',
 				success:function(data){
 					if(data.status=='good'){
-						$('.evomdt_new').find('.ajde_popup_text').html( data.content);
+						$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
 					}else{}
 				},
-				complete:function(){	$('.evomdt_new').find('.ajde_popup_text').removeClass('evoloading');}
+				complete:function(){	}
 			});			
 		});
 
@@ -732,8 +713,8 @@ jQuery(document).ready(function($){
 		});
 
 	// submit mdt form
-		$('.ajde_admin_lightbox').on('click','.evomdt_new_mdt_submit',function(){
-			console.log('t');
+		$('body').on('click','.evomdt_new_mdt_submit',function(){
+			
 			OBJ = $(this);
 			FORM = OBJ.closest('.ev_admin_form');
 			BOX = OBJ.closest('.ajde_popup_text');
@@ -760,14 +741,14 @@ jQuery(document).ready(function($){
 					success:function(data){
 						if(data.status=='good'){
 							$('.'+ ajaxdataa['tax']+'_display_list').html(data.content);
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evomdt_new']);
+							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evo_mdt_lb']);
 						}else{	}
 					},
 					complete:function(){ BOX.removeClass('loading');	}
 				});	
 			}else{
 				msg = 'Required Fields Missing!';
-				$('body').trigger('ajde_lightbox_show_msg',[ msg,'evomdt_new','bad']);
+				$('body').trigger('ajde_lightbox_show_msg',[ msg,'evo_mdt_lb','bad']);
 			}		
 		});
 	// select from list
@@ -786,7 +767,7 @@ jQuery(document).ready(function($){
 				dataType:'json',
 				success:function(data){
 					if(data.status=='good'){
-						$('.evomdt_list').find('.ajde_popup_text').html( data.content);
+						$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
 					}else{	}
 				},complete:function(){		}
 			});			
@@ -820,7 +801,7 @@ jQuery(document).ready(function($){
 				success:function(data){
 					if(data.status=='good'){
 						$('.'+ ajaxdataa['tax']+'_display_list').html(data.content);
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evomdt_list']);
+							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evo_mdt_lb']);
 					}else{
 
 					}
@@ -900,66 +881,145 @@ jQuery(document).ready(function($){
 			obj.css({'background':'url('+styleVAL+') center center no-repeat','display':'block','height':'150px','margin-top':'10px','max-width':'600px'});
 			obj.parent().css({'opacity':'1'});
 		});
+	
 	// Export settings
-		$('body').on('click','#evo_settings_import',function(event){
-			event.preventDefault();
-			OBJ = $(this);
+		$('body').on('evo_data_uploader_submitted', function(event, reader_event, msg_elm, upload_box){
 
-			OBJ.parent().siblings('.import_box').fadeIn();
+			if( $(upload_box).data('id') != 'evo_settings_upload') return;
 
-			var form = document.getElementById('evo_settings_import_form');
-			var fileSelect = document.getElementById('file-select');
-			var box = $('#import_box');
-			msg = box.find('.msg');
-			msg.hide();
-
-			$('#evo_settings_import_form').submit(function(event) {
-			  	event.preventDefault();
-			  	// Update button text.
-			  	msg.html('Processing.').slideDown();
-
-			  	var data = null;
-			  	var files = fileSelect.files;
-			  	var file = fileSelect.files[0];
-
-			  	//console.log(file);
-			  	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-			      	alert('The File APIs are not fully supported in this browser.');
-			      	return;
-			    }
-
-			  	if( file.name.indexOf('.json') == -1 ){
-			  		msg.html('Only accept JSON file format.');
-			  	}else{
-			  		var reader = new FileReader();
-				  	reader.readAsText(file);
-		            reader.onload = function(event) {
-		                var jsonData = event.target.result ;
-
-		                // console.log(jsonData);
-		                // console.log( $.parseJSON( jsonData) );
-		             
-		                $.ajax({
-							beforeSend: function(){	},
-							type: 'POST',
-							url:evo_admin_ajax_handle.ajaxurl,
-							data: {	
-								action:'eventon_import_settings',
-								nonce: evo_admin_ajax_handle.postnonce,
-								jsondata: $.parseJSON( jsonData)
-							},
-							dataType:'json',
-							success:function(data){
-								msg.html(data.msg);
-							},complete:function(){	}
-						});
-		            };
-		            reader.onerror = function() {
-		            	msg.html('Unable to read file.');
-		            };
-			  	}
+			var jsonData = reader_event.target.result ;
+         
+            $.ajax({
+				beforeSend: function(){	},
+				type: 'POST',
+				url:evo_admin_ajax_handle.ajaxurl,
+				data: {	
+					action:'eventon_import_settings',
+					nonce: evo_admin_ajax_handle.postnonce,
+					jsondata: $.parseJSON( jsonData)
+				},
+				dataType:'json',
+				success:function(data){
+					msg_elm.html(data.msg);
+				},complete:function(){	}
 			});
 		});
+
+	
+		
+// Event Top Designer @version 4.1
+	$.fn.evotop_designer = function (options){
+		var designer = $(this);
+		var fields = $(designer).find('.evotop_design_col');
+		var selector = $(designer).find('#evotop_field_selector');
+		
+		var init = function(){
+			interactions();
+			field_selector();
+
+			if( fields.length> 0 ){
+				fields.sortable({
+					update: function(e, ul){
+						run_row_numbering();
+					}
+				});
+			}			
+		}
+
+		var interactions = function(){	
+			// remove a box
+				$(designer).on('click','.ectd_act .fa-minus-circle',function(){
+					var box = $(this).closest('.evotop_design_field');
+					
+					add_item_to_selector( box.data('f') , box.find('em').html() );
+
+					box.remove();
+					run_row_numbering();	
+				});				
+		}
+
+		
+		var field_selector = function(){
+			// add a field
+			$(designer).on('click','.evotop_add_field_trig', function(){
+				$(designer).find('.adding_field').removeClass('adding_field');
+				$(this).parent().addClass('adding_field');
+				selector.addClass('focus');
+			});
+
+			// selector > designer
+			$('#evotop_field_selector_f').on('click','span',function(){
+				if( !selector.hasClass('focus') ) return;
+
+				var this_field = $(this).data('f');
+
+				var html = "<span class='evotop_design_field' data-f='"+ this_field +"'><em>"+ $(this).html() +"</em><span class='ectd_act'><i class='fa fa-minus-circle'></i></span></span>";
+				html += "<span class='evotop_add_field_trig'><b>+</b></span>";
+
+				var box = $(designer).find('.adding_field');
+
+				// append to the adding fields column
+				box.find('.evotop_add_field_trig').remove();
+				box.append( html ).removeClass('adding_field');
+
+				// remove from selector and hide selector, show no fields message if
+				$(this).remove();
+
+				if( $('#evotop_field_selector_f').find('span').length == 0){
+					selector.find('.nothing').show();
+				}
+				selector.removeClass('focus');
+
+				// load new fields
+				run_row_numbering();
+			});
+
+			// cancel selector
+			$('#evotop_field_selector_c').on('click',function(){
+				selector.removeClass('focus');
+				$(designer).find('.adding_field').removeClass('adding_field');
+			});
+		}
+
+		var add_item_to_selector = function(f, n){
+			var HH = $('#evotop_field_selector_f').html();
+			HH +=  "<span data-f='"+ f +"'>"+ n +"</span>";
+			$('#evotop_field_selector_f').html( HH );
+			
+			// check if selector content to be shown
+			if( $('#evotop_field_selector_f').html() == ''){
+				selector.find('.nothing').show();
+			}else{
+				selector.find('.nothing').hide();
+			}
+		}
+		
+		var run_row_numbering = function(){
+			
+			var etl = {};
+
+			var def_color = designer.data('dc');
+
+			$(designer).find('.evotop_design_col').each(function(){
+				col_key = $(this).data('c');
+				etl[ col_key ] = {};
+				var count = 1;
+				$(this).find('.evotop_design_field').each(function(){
+					if( $(this).data('f') === undefined ) return;
+					etl[ col_key ][ count ] = {
+						'f': $(this).data('f'),
+						'v': 'y'
+					};
+					count++;
+				});				
+			});
+
+			$('#evotop_fields').val( JSON.stringify(etl) );
+		}
+
+		init();
+	}
+	$('.evotop_designer').evotop_designer();
 
 // settings event card designer
 // EventON v4.0
@@ -1283,6 +1343,31 @@ jQuery(document).ready(function($){
 			$(this).next('.evo_settings_togbox').toggle();
 			$(this).toggleClass('open');
 		});
+
+	// search 
+		$('.evo_lang_search_in').on('change keyup paste',function(){
+			var searchval = $(this).val();
+
+			$('#evcal_2').find('.eventon_cl_input').each(function(){
+				line = $(this).closest('.eventon_custom_lang_line ');
+				box = $(this).closest('.evo_settings_togbox');
+				bar = box.siblings('.evo_settings_toghead');
+
+				if( searchval == ''){
+					line.show();
+				}else{
+					line.hide();
+					var thistext = $(this).data('n');
+					if( thistext.indexOf( searchval ) != -1 ){
+						line.show();
+						box.toggle();
+						bar.toggleClass('open');
+					}
+					console.log(thistext+' '+searchval);
+				}
+			});
+		});
+
 	// export language
 		$('body').on('click','.evo_lang_export_btn', function(){
 			string = {};
@@ -1302,8 +1387,7 @@ jQuery(document).ready(function($){
 					if( field === undefined) field = $(this).attr('name');
 					csvData.push( field +','+ $(this).val());
 				});
-			}
-			
+			}			
 
 			var output = csvData.join('\n');
 		  	var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(output);
@@ -1316,64 +1400,28 @@ jQuery(document).ready(function($){
 		});
 
 	// import language
-		$('body').on('click','#evo_lang_import',function(){
-			$('#import_box').fadeIn();
+		$('body').on('evo_data_uploader_submitted', function(event, reader_event, msg_elm, upload_box){
 
-			var form = document.getElementById('file-form');
-			var fileSelect = document.getElementById('file-select');
-			var uploadButton = document.getElementById('upload-button');
-			var box = $('#import_box');
-			msg = box.find('.msg');
-			msg.hide();
+			if( $(upload_box).data('id') != 'evo_language_upload') return;
 
-			$('#file-form').submit(function(event) {
-				  	event.preventDefault();
-				  	// Update button text.
-				  	
-				  	msg.html('Processing.').slideDown();
+			var csvData = reader_event.target.result;
 
-				  	var data = null;
-				  	var files = fileSelect.files;
-				  	var file = fileSelect.files[0];
+            var allTextLines = csvData.split(/\r\n|\n/);
+            //console.log(allTextLines[0]);
+            for (var i=0; i<allTextLines.length; i++) {
+            	var data = allTextLines[i].split(',');
 
-				  	//console.log(file);
-				  	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-				      	alert('The File APIs are not fully supported in this browser.');
-				      	return;
-				    }
+            	// update new values
 
-				  	if( file.name.indexOf('.csv') == -1 ){
-				  		msg.html('Incorrect file format.');
-				  	}else{
-				  		var reader = new FileReader();
-					  	reader.readAsText(file);
-			            reader.onload = function(event) {
-			                var csvData = event.target.result;
+            	$('#evcal_2').find('input[name="'+data[0]+'"]').val(data[1]); // for vars
+            	$('#evcal_2').find('input[for="'+data[0]+'"]').val(data[1]); // for text strings
+            	
+            	msg_elm.html('Updating language values.');   
+        	}
 
-			                var allTextLines = csvData.split(/\r\n|\n/);
-			                //console.log(allTextLines[0]);
-			                for (var i=0; i<allTextLines.length; i++) {
-			                	var data = allTextLines[i].split(',');
-
-			                	// update new values
-
-			                	$('#evcal_2').find('input[name="'+data[0]+'"]').val(data[1]); // for vars
-			                	$('#evcal_2').find('input[for="'+data[0]+'"]').val(data[1]); // for text strings
-			                	
-			                	msg.html('Updating language values.');   
-				        	}
-
-				        	msg.html('Language fields updated. Please save changes.');   
-			            };
-			            reader.onerror = function() {
-			            	msg.html('Unable to read file.');
-			            };
-				  	}
-			});
+        	msg_elm.html('Language fields updated. Please save changes.');   
 		});
-		$('body').on('click','#import_box #close',function(){
-			$('#import_box').fadeOut();
-		});
+		
 		
 
 		function processData(allText) {

@@ -41,7 +41,9 @@ class EVO_Lightboxes{
 						<div class="evo_content_in">													
 							<div class="evo_content_inin">
 								<div class="evo_lightbox_content">
-									<a class='evolbclose <?php echo !empty($lb['CLclosebtn'])? $lb['CLclosebtn']:'';?>'>X</a>
+									<div class='evo_lb_closer'>
+										<a class='evolbclose <?php echo !empty($lb['CLclosebtn'])? $lb['CLclosebtn']:'';?>'>X</a>
+									</div>
 									<div class='evo_lightbox_body <?php echo !empty($lb['CLin'])? $lb['CLin']:'';?>'><?php echo !empty($lb['content'])? $lb['content']:'';?> </div>
 								</div>
 							</div>							

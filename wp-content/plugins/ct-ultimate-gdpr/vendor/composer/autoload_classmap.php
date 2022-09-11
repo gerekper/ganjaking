@@ -15,6 +15,7 @@ return array(
     'CT_Ultimate_GDPR_Controller_Data_Access' => $baseDir . '/includes/controller/controller-data-access.php',
     'CT_Ultimate_GDPR_Controller_Forgotten' => $baseDir . '/includes/controller/controller-forgotten.php',
     'CT_Ultimate_GDPR_Controller_Interface' => $baseDir . '/includes/controller/controller-interface.php',
+    'CT_Ultimate_GDPR_Controller_Optimization' => $baseDir . '/includes/controller/controller-optimization.php',
     'CT_Ultimate_GDPR_Controller_Plugins' => $baseDir . '/includes/controller/controller-plugins.php',
     'CT_Ultimate_GDPR_Controller_Policy' => $baseDir . '/includes/controller/controller-policy.php',
     'CT_Ultimate_GDPR_Controller_Pseudonymization' => $baseDir . '/includes/controller/controller-pseudonymization.php',

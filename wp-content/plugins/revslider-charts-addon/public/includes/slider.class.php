@@ -25,6 +25,8 @@ class RsChartsSliderFront extends RevSliderFunctions {
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
 		add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
 		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
+		add_action('revslider_export_html_write_footer', array($this, 'write_export_footer'), 10, 1);
+		add_filter('revslider_export_html_file_inclusion', array($this, 'add_addon_files'), 10, 2);
 		
 	}
 	
@@ -81,7 +83,38 @@ class RsChartsSliderFront extends RevSliderFunctions {
 		
 		return $enabled;
 	}
-	
+
+	public function write_export_footer($export){
+		$output = $export->slider_output;
+		$array = $this->add_html_script_additions(array(), $output);
+		$toload = $this->get_val($array, 'toload', array());
+		if(!empty($toload)){
+			foreach($toload as $script){
+				echo $script;
+			}
+		}
+	}
+
+	public function add_addon_files($html, $export){
+		$output = $export->slider_output;
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $html;
+
+		$_jsPathMin = file_exists(RS_CHARTS_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		if(!$export->usepcl){
+			$export->zip->addFile(RS_CHARTS_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js');
+			$export->zip->addFile(RS_CHARTS_PLUGIN_PATH . 'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css');
+		}else{
+			$export->pclzip->add(RS_CHARTS_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, RS_CHARTS_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
+			$export->pclzip->add(RS_CHARTS_PLUGIN_PATH.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', PCLZIP_OPT_REMOVE_PATH, RS_CHARTS_PLUGIN_PATH.'public/assets/css/', PCLZIP_OPT_ADD_PATH, 'css/');
+		}
+
+		$html = str_replace($this->pluginUrl.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css', $html);
+		$html = str_replace(array($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', $this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . '.js', $html);
+		
+		return $html;
+	}
+
 	/*private function isEnabled($slider){
 		$settings = $slider->get_params();
 		if(empty($settings)) return false;
@@ -128,7 +161,8 @@ class RsChartsSliderFront extends RevSliderFunctions {
 			$addOn = $this->isEnabled($output);
 			if(empty($addOn)) return $return;
 		}else{
-			if($output->ajax_loaded !== true) return $return;
+			$me = $output->get_markup_export();
+			if($me !== true && $output->ajax_loaded !== true) return $return;
 			
 			$addOn = $this->isEnabled($output->slider);
 			if(empty($addOn)) return $return;
@@ -158,7 +192,8 @@ class RsChartsSliderFront extends RevSliderFunctions {
 	}
 	
 	public function check_if_ajax_loaded($r, $output){
-		if($output->ajax_loaded !== true) return $r;
+		$me = $output->get_markup_export();
+		if($me !== true && $output->ajax_loaded !== true) return $r;
 		
 		$addOn = $this->isEnabled($output->slider);
 		if(empty($addOn)) return $r;

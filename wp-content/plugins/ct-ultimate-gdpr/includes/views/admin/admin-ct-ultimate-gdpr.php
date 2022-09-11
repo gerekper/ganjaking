@@ -40,6 +40,9 @@
         <a href="<?php echo admin_url( 'admin.php?page=ct-ultimate-gdpr-plugins' ); ?>" class="nav-tab">
 			<?php echo esc_html__( 'Compatibility', 'ct-ultimate-gdpr' ); ?>
         </a>
+        <a href="<?php echo admin_url( 'admin.php?page=ct-ultimate-gdpr-optimization' ); ?>" class="nav-tab">
+			<?php echo esc_html__( 'Optimization', 'ct-ultimate-gdpr' ); ?>
+        </a>
     </h2>
     <!-- END TABS ( cc ) -->
 

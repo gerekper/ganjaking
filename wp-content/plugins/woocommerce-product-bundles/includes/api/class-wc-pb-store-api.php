@@ -17,7 +17,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 /**
  * Extends the store public API with bundle related data for each bundle parent and child item.
  *
- * @version 6.16.0
+ * @version 6.16.1
  */
 class WC_PB_Store_API {
 
@@ -445,10 +445,7 @@ class WC_PB_Store_API {
 		$min  = $bundled_item_quantity_limits[ 'minimum' ];
 		$max  = $bundled_item_quantity_limits[ 'maximum' ];
 
-		if ( $min > $step ) {
-			$item_data[ 'quantity_limits' ]->multiple_of = $min;
-		}
-
+		$item_data[ 'quantity_limits' ]->multiple_of = $step * $bundled_item_quantity_limits[ 'multiple_of' ];
 		$item_data[ 'quantity_limits' ]->minimum     = $min;
 
 		if ( $max ) {

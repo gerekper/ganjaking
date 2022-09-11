@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-documents/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Product Documents main plugin class.
@@ -34,7 +34,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.13.0';
+	const VERSION = '1.13.1';
 
 	/** @var WC_Product_Documents single instance of this plugin */
 	protected static $instance;
@@ -78,7 +78,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Product_Documents\Lifecycle( $this );
 	}
@@ -110,7 +110,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	public function register_widgets() {
 
 		// load widget
-		require_once( $this->get_plugin_path() . '/includes/widgets/class-wc-product-documents-widget-documents.php' );
+		require_once( $this->get_plugin_path() . '/src/widgets/class-wc-product-documents-widget-documents.php' );
 
 		// register widget
 		register_widget( 'WC_Product_Documents_Widget_Documents' );
@@ -129,7 +129,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	 */
 	public function product_documents_shortcode( $atts ) {
 
-		require_once( $this->get_plugin_path() . '/includes/shortcodes/class-wc-product-documents-shortcode.php' );
+		require_once( $this->get_plugin_path() . '/src/shortcodes/class-wc-product-documents-shortcode.php' );
 
 		return \WC_Shortcodes::shortcode_wrapper( array( 'WC_Product_Documents_Shortcode', 'output' ), $atts );
 	}
@@ -149,7 +149,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	 */
 	public function product_documents_shortcode_list( $atts ) {
 
-		require_once( $this->get_plugin_path() . '/includes/shortcodes/class-wc-product-documents-shortcode-list.php' );
+		require_once( $this->get_plugin_path() . '/src/shortcodes/class-wc-product-documents-shortcode-list.php' );
 
 		return \WC_Shortcodes::shortcode_wrapper( array( 'WC_Product_Documents_List_Shortcode', 'output' ), $atts );
 	}
@@ -163,11 +163,11 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	private function includes() {
 
 		// include template & helper functions
-		require_once( $this->get_plugin_path() . '/includes/wc-product-documents-template.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-product-documents-template.php' );
 		// include main objects
-		require_once( $this->get_plugin_path() . '/includes/class-wc-product-documents-collection.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-product-documents-collection.php' );
 
-		if ( is_admin()  && ! is_ajax() ) {
+		if ( is_admin()  && ! wp_doing_ajax() ) {
 			// include admin classes
 			$this->admin_includes();
 		}
@@ -181,7 +181,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	 */
 	private function admin_includes() {
 
-		$this->admin = $this->load_class( '/includes/admin/class-wc-product-documents-admin.php', 'WC_Product_Documents_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-product-documents-admin.php', 'WC_Product_Documents_Admin' );
 	}
 
 
@@ -261,7 +261,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 	 */
 	public function get_settings_url( $_ = null ) {
 
-		return admin_url( 'admin.php?page=wc-settings&tab=products&section=display' );
+		return admin_url( 'admin.php?page=wc-settings&tab=products' );
 	}
 
 

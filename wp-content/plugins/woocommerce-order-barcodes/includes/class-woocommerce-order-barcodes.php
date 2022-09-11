@@ -110,47 +110,47 @@ class WooCommerce_Order_Barcodes {
 		$this->_version = $version;
 		$this->_token = 'woocommerce_order_barcodes';
 
-		// Set global variables
+		// Set global variables.
 		$this->file = $file;
 		$this->dir = dirname( $this->file );
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $this->file ) ) );
 		$this->script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		// Apply plugin settings
+		// Apply plugin settings.
 		$this->barcode_enable = get_option( 'wc_order_barcodes_enable', 'yes' );
 		$this->barcode_type = get_option( 'wc_order_barcodes_type', 'code128' );
 		$this->barcode_colours = get_option( 'wc_order_barcodes_colours', array( 'foreground' => '#000000' ) );
 
-		// Register JS
+		// Register JS.
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_assets' ) );
 
 		// Add barcode to order complete email
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'get_email_barcode' ), 1, 1 );
 
-		// Display barcode on order details page
+		// Display barcode on order details page.
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'get_display_barcode' ), 1, 1 );
 
-		// Display barcode on order edit screen
+		// Display barcode on order edit screen.
 		add_action( 'add_meta_boxes', array( $this, 'add_order_metabox' ), 30 );
 
-		// Generate and save barcode as order meta
+		// Generate and save barcode as order meta.
 		add_action( 'woocommerce_new_order', array( $this, 'generate_barcode' ), 1, 1 );
 		add_action( 'woocommerce_resume_order', array( $this, 'generate_barcode' ), 1, 1 );
 
-		// Save barcode from order edit screen
+		// Save barcode from order edit screen.
 		add_action( 'wp_ajax_save_barcode', array( $this, 'save_barcode' ) );
 		add_action( 'wp_ajax_nopriv_save_barcode', array( $this, 'save_barcode' ) );
 
 		// Add shortcode for barcode scanner
 		add_shortcode( 'scan_barcode', array( $this, 'barcode_scan_form' ) );
 
-		// Process barcode input/scan
+		// Process barcode input/scan.
 		add_action( 'wp_ajax_scan_barcode', array( $this, 'scan_barcode' ) );
 		add_action( 'wp_ajax_nopriv_scan_barcode', array( $this, 'scan_barcode' ) );
 
-		// Add check in status drop down to order edit screen
+		// Add check in status drop down to order edit screen.
 		add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'checkin_status_edit_field' ), 10, 1 );
 		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'checkin_status_edit_save' ), 40, 2 );
 
@@ -165,6 +165,8 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		add_action( 'init', array( $this, 'get_barcode_image' ), 10, 0 );
+		add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'modify_get_orders_query' ), 10, 2 );
+		add_filter( 'woocommerce_debug_tools', array( $this, 'add_new_tools_action' ), 10, 1 );
 	}
 
 	/**
@@ -910,6 +912,61 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		return array( 0, 0, 0 ); // Default black.
+	}
+
+	/**
+	 * Add new tools action button.
+	 *
+	 * @param array $tools List of tools action.
+	 *
+	 * @result array
+	 */
+	public function add_new_tools_action( $tools ) {
+		$tools['generate_barcode_orders'] = array(
+			'name'     => esc_html__( 'Generate Barcodes', 'woocommerce-order-barcodes' ),
+			'button'   => esc_html__( 'Generate!', 'woocommerce-order-barcodes' ),
+			'desc'     => esc_html__( 'Generate the barcode for existing orders.', 'woocommerce-order-barcodes' ),
+			'callback' => array( $this, 'generate_barcode_for_existing_orders' ),
+		);
+
+		return $tools;
+	}
+
+	/**
+	 * Generate barcode for existing orders.
+	 */
+	public function generate_barcode_for_existing_orders() {
+		$result = wc_get_orders(
+			array(
+				'barcode_not_exists' => true,
+				'limit'              => -1,
+			)
+		);
+
+		if ( ! empty( $result ) ) {
+			foreach ( $result as $order ) {
+				$this->generate_barcode( $order->get_id() );
+			}
+		}
+	}
+
+	/**
+	 * Modify the wc_get_orders query.
+	 *
+	 * @param array $query WC Order query.
+	 * @param array $query_vars Query variable.
+	 *
+	 * @return array
+	 */
+	public function modify_get_orders_query( $query, $query_vars ) {
+		if ( ! empty( $query_vars['barcode_not_exists'] ) ) {
+			$query['meta_query'][] = array(
+				'key'     => '_barcode_text',
+				'compare' => 'NOT EXISTS',
+			);
+		}
+
+		return $query;
 	}
 
 	/**

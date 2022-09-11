@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.3.0
+ * @version  8.5.2
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -191,11 +191,18 @@ class WC_CP_Component implements ArrayAccess {
 	/**
 	 * Get the component discount, if applicable.
 	 *
-	 * @return boolean
+	 * @return mixed   If numeric value is set, then return float. If discount is not set, return empty string.
 	 */
 	public function get_discount() {
 		$data = $this->get_data();
-		return apply_filters( 'woocommerce_composite_component_discount', ! empty( $data[ 'discount' ] ) ? floatval( $data[ 'discount' ] ) : '', $this );
+
+		/**
+		 * 'woocommerce_composite_component_discount' filter.
+		 *
+		 * @param  mixed            $discount
+		 * @param  WC_CP_Component  $this
+		 */
+		return apply_filters( 'woocommerce_composite_component_discount', ! empty( $data[ 'discount' ] ) ? (float) $data[ 'discount' ] : '', $this );
 	}
 
 	/**

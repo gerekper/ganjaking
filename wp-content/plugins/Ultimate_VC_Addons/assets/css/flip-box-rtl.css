@@ -144,9 +144,9 @@
     backface-visibility: hidden;
 }
 .flip-box-wrap .horizontal_flip_left .ifb-back {
-    -webkit-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
@@ -156,9 +156,9 @@
     transform: rotateY(0deg)
 }
 .flip-box-wrap .horizontal_flip_left .ifb-hover .ifb-front {
-    -webkit-transform: rotateY(180deg);
-    -ms-transform: rotateY(180deg);
-    transform: rotateY(180deg)
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg)
 }
 .flip-box-wrap .horizontal_flip_right .ifb-front {
     -webkit-transform: rotateY(0deg);
@@ -166,9 +166,9 @@
     transform: rotateY(0deg)
 }
 .flip-box-wrap .horizontal_flip_right .ifb-back {
-    -webkit-transform: rotateY(180deg);
-    -ms-transform: rotateY(180deg);
-    transform: rotateY(180deg)
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg)
 }
 .flip-box-wrap .horizontal_flip_right .ifb-hover .ifb-back {
     -webkit-transform: rotateY(0deg);
@@ -176,9 +176,9 @@
     transform: rotateY(0deg)
 }
 .flip-box-wrap .horizontal_flip_right .ifb-hover .ifb-front {
-    -webkit-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    transform: rotateY(-180deg)
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg)
 }
 .flip-box-wrap .vertical_flip_bottom .ifb-hover .ifb-back,
 .flip-box-wrap .vertical_flip_top .ifb-hover .ifb-back {
@@ -253,16 +253,16 @@
     -ms-transform-origin: 100%;
     -webkit-transform-origin: 100%;
     transform-origin: 100%;
-    -webkit-transform: rotatey(-270deg);
-    -ms-transform: rotatey(-270deg);
-    transform: rotatey(-270deg);
+    -webkit-transform: rotatey(270deg);
+    -ms-transform: rotatey(270deg);
+    transform: rotatey(270deg);
     -webkit-backface-visibility: visible;
     backface-visibility: visible
 }
 .rtl .flip_left .ifb-back {
-    -webkit-transform: rotatey(270deg);
-    -ms-transform: rotatey(270deg);
-    transform: rotatey(270deg);
+    -webkit-transform: rotatey(-270deg);
+    -ms-transform: rotatey(-270deg);
+    transform: rotatey(-270deg);
 }
 .flip_left .ifb-hover .ifb-back {
     -webkit-transform: rotatey(0deg);
@@ -270,24 +270,24 @@
     transform: rotatey(0deg)
 }
 .rtl .flip_left .ifb-hover .ifb-back {
-    -webkit-transform: rotatey(-0deg);
-    -ms-transform: rotatey(-0deg);
-    transform: rotatey(-0deg)
+    -webkit-transform: rotatey(0deg);
+    -ms-transform: rotatey(0deg);
+    transform: rotatey(0deg)
 }
 .flip_right .ifb-back {
     -webkit-transform-origin: 0%;
     -ms-transform-origin: 0%;
     transform-origin: 0%;
-    -webkit-transform: rotatey(270deg);
-    -ms-transform: rotatey(270deg);
-    transform: rotatey(270deg);
+    -webkit-transform: rotatey(-270deg);
+    -ms-transform: rotatey(-270deg);
+    transform: rotatey(-270deg);
     -webkit-backface-visibility: visible;
     backface-visibility: visible
 }
 .rtl .flip_right .ifb-back {
-   -webkit-transform: rotatey(-270deg);
-    -ms-transform: rotatey(-270deg);
-    transform: rotatey(-270deg);
+   -webkit-transform: rotatey(270deg);
+    -ms-transform: rotatey(270deg);
+    transform: rotatey(270deg);
 }
 .flip_right .ifb-hover .ifb-back {
     -webkit-transform: rotatey(0deg);
@@ -295,9 +295,9 @@
     transform: rotatey(0deg)
 }
 .rtl .flip_right .ifb-hover .ifb-back {
-    -webkit-transform: rotatey(-0deg);
-    -ms-transform: rotatey(-0deg);
-    transform: rotatey(-0deg)
+    -webkit-transform: rotatey(0deg);
+    -ms-transform: rotatey(0deg);
+    transform: rotatey(0deg)
 }
 .flip_top .ifb-back {
     -webkit-transform-origin: 100% 0;
@@ -363,14 +363,14 @@
     left: 100%
 }
 .rtl .vertical_door_flip .ifb-hover .v_door.ifb-front-1 {
-    -webkit-transform: rotatey(270deg);
-    -ms-transform: rotatey(270deg);
-    transform: rotatey(270deg)
-}
-.vertical_door_flip .ifb-hover .v_door.ifb-front-1 {
     -webkit-transform: rotatey(-270deg);
     -ms-transform: rotatey(-270deg);
     transform: rotatey(-270deg)
+}
+.vertical_door_flip .ifb-hover .v_door.ifb-front-1 {
+    -webkit-transform: rotatey(270deg);
+    -ms-transform: rotatey(270deg);
+    transform: rotatey(270deg)
 }
 .vertical_door_flip .v_door.ifb-front-1 {
     -webkit-transform-origin: 100% 100%;
@@ -378,14 +378,14 @@
     transform-origin: 100% 100%
 }
 .vertical_door_flip .ifb-hover .v_door.ifb-front-2 {
-    -webkit-transform: rotatey(270deg);
-    -ms-transform: rotatey(270deg);
-    transform: rotatey(270deg)
-}
-.rtl .vertical_door_flip .ifb-hover .v_door.ifb-front-2 {
     -webkit-transform: rotatey(-270deg);
     -ms-transform: rotatey(-270deg);
     transform: rotatey(-270deg)
+}
+.rtl .vertical_door_flip .ifb-hover .v_door.ifb-front-2 {
+    -webkit-transform: rotatey(270deg);
+    -ms-transform: rotatey(270deg);
+    transform: rotatey(270deg)
 }
 .vertical_door_flip .v_door.ifb-multiple-front.ifb-front-2 {
     left: 0;
@@ -429,14 +429,14 @@
     -webkit-transform-origin: 100% 100%;
     -ms-transform-origin: 100% 100%;
     transform-origin: 100% 100%;
-    -webkit-transform: rotatey(-270deg);
-    -ms-transform: rotatey(-270deg);
-    transform: rotatey(-270deg)
-}
-.rtl .reverse_vertical_door_flip .rv_door.ifb-multiple-back.ifb-back-1 {
     -webkit-transform: rotatey(270deg);
     -ms-transform: rotatey(270deg);
     transform: rotatey(270deg)
+}
+.rtl .reverse_vertical_door_flip .rv_door.ifb-multiple-back.ifb-back-1 {
+    -webkit-transform: rotatey(-270deg);
+    -ms-transform: rotatey(-270deg);
+    transform: rotatey(-270deg)
 }
 .reverse_vertical_door_flip .rv_door.ifb-multiple-back.ifb-back-2 {
     left: 0;
@@ -444,14 +444,14 @@
     -webkit-transform-origin: 0% 0;
     -ms-transform-origin: 0% 0;
     transform-origin: 0% 0;
-    -webkit-transform: rotatey(270deg);
-    -ms-transform: rotatey(270deg);
-    transform: rotatey(270deg)
-}
-.rtl .reverse_vertical_door_flip .rv_door.ifb-multiple-back.ifb-back-2 {
     -webkit-transform: rotatey(-270deg);
     -ms-transform: rotatey(-270deg);
     transform: rotatey(-270deg)
+}
+.rtl .reverse_vertical_door_flip .rv_door.ifb-multiple-back.ifb-back-2 {
+    -webkit-transform: rotatey(270deg);
+    -ms-transform: rotatey(270deg);
+    transform: rotatey(270deg)
 }
 .reverse_vertical_door_flip .ifb-hover .rv_door.ifb-multiple-back.ifb-back-1,
 .reverse_vertical_door_flip .ifb-hover .rv_door.ifb-multiple-back.ifb-back-2 {
@@ -631,9 +631,9 @@
     left: 100%
 }
 .style_9 .new_style_9.ifb-multiple-back.ifb-back-1 {
-    -webkit-transform: rotateY(180deg);
-    -ms-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+    -webkit-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
     -webkit-transform-origin: 0% 0;
     -ms-transform-origin: 0% 0;
     transform-origin: 0% 0
@@ -645,24 +645,24 @@
     left: 100%
 }
 .style_9 .ifb-door-hover .new_style_9.ifb-multiple-front.ifb-front-2 {
-    -webkit-transform: rotateY(-40deg);
-    -ms-transform: rotateY(-40deg);
-    transform: rotateY(-40deg)
+    -webkit-transform: rotateY(40deg);
+    -ms-transform: rotateY(40deg);
+    transform: rotateY(40deg)
 }
 .style_9 .ifb-door-hover .new_style_9.ifb-multiple-back.ifb-back-1 {
-    -webkit-transform: rotateY(140deg);
-    -ms-transform: rotateY(140deg);
-    transform: rotateY(140deg)
-}
-.style_9 .ifb-door-right-open .new_style_9.ifb-multiple-front.ifb-front-2 {
-    -webkit-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    transform: rotateY(-180deg)
-}
-.style_9 .ifb-door-right-open.ifb-door-hover .new_style_9.ifb-multiple-front.ifb-front-2 {
     -webkit-transform: rotateY(-140deg);
     -ms-transform: rotateY(-140deg);
     transform: rotateY(-140deg)
+}
+.style_9 .ifb-door-right-open .new_style_9.ifb-multiple-front.ifb-front-2 {
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg)
+}
+.style_9 .ifb-door-right-open.ifb-door-hover .new_style_9.ifb-multiple-front.ifb-front-2 {
+    -webkit-transform: rotateY(140deg);
+    -ms-transform: rotateY(140deg);
+    transform: rotateY(140deg)
 }
 .style_9 .ifb-door-right-open .new_style_9.ifb-multiple-back.ifb-back-1 {
     -webkit-transform: rotateY(0deg);
@@ -670,9 +670,9 @@
     transform: rotateY(0deg)
 }
 .style_9 .ifb-door-right-open.ifb-door-hover .new_style_9.ifb-multiple-back.ifb-back-1 {
-    -webkit-transform: rotateY(40deg);
-    -ms-transform: rotateY(40deg);
-    transform: rotateY(40deg)
+    -webkit-transform: rotateY(-40deg);
+    -ms-transform: rotateY(-40deg);
+    transform: rotateY(-40deg)
 }
 .flip-box-wrap .ifb-back,
 .flip-box-wrap .ifb-front {

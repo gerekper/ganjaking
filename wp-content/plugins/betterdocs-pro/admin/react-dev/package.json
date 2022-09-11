@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query": "^4.0.9",
     "@wordpress/i18n": "^4.5.0",
     "apexcharts": "^3.35.0",
     "date-fns": "^2.28.0",

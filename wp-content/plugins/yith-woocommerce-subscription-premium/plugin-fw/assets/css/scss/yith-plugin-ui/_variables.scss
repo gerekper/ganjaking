@@ -1,0 +1,121 @@
+/**
+ * YITH CSS Variables
+ */
+
+$content_bg: #ffffff; // Content Background.
+$content_text: #3c434a; // Content Text.
+
+$primary: #00799f; // Primary color, for buttons
+$primary_hover: #0094c4; // Primary hover color, for buttons
+$primary_focus: #bddce6; // Primary focus color, for buttons
+$primary_text: #ffffff; // Text on primary color bg
+
+$delete: #c41d04; // color for delete buttons
+$delete_hover: lighten($delete, 5%); // color for delete buttons - hover
+$delete_text: #ffffff; // Text on delete buttons
+$delete_focus: #f0d2cd; // Delete focus color, for buttons
+
+// Outline is used to stylize Secondary buttons.
+$outline_text: #0087b3; // outline button - text color
+$outline_border: #0094c4; // outline button - border color
+$outline_bg: rgba(255, 255, 255, 0); // outline button - background color
+$outline_bg_hover: rgba(157, 198, 205, .2); // outline button - background color on hover
+$outline_border_hover: #007ba3; // outline button - border color on hover
+$outline_focus: #dfeef2; // Outline focus color, for buttons
+
+$delete_outline_text: $delete; // Delete-outline button - text color
+$delete_outline_border: $delete; // Delete-outline button - border color
+$delete_outline_bg: rgba(205, 157, 157, 0); // Delete-outline button - background color
+$delete_outline_bg_hover: rgba(232, 184, 184, 0.15); // Delete-outline button - background color on hover
+$delete_outline_border_hover: #db2b11; // Delete-outline button - border color on hover
+$delete_outline_focus: #ffe9e7; // Delete-outline focus color, for buttons
+
+$update: #94aa09; // Update button - background
+$update_hover: darken($update, 5%); // Update button - hover
+$update_text: #ffffff; // Text on update button background
+$update_focus: #e7eccc; // Text on update button background
+
+$accent: #98aa36;
+
+$light_bg: #f5fafc;
+$light_border_color: #d7e3e7;
+$light_shadow: rgba(145, 191, 227, 0.11);
+$light_accent: #0073aa;
+
+$success: #98aa36;
+$success_light: lighten($success, 30%);
+$success_lighter: lighten($success, 43%);
+$success_lightest: lighten($success, 50%);
+
+
+$table_row_highlight: #f0f6fb;
+$table_row_striped: #f6f7f7;
+$table_border_light: #eff0f0;
+
+$field_border_color: #d8d8d8;
+$field_border_weight: 1px;
+$field_border: $field_border_weight solid $field_border_color;
+
+$link: #0079b0; // Link Color.
+
+// Extra variables: these will be not converted to CSS Variables
+$wp_menu_size: 160px;
+$wp_menu_folded_size: 36px;
+$wp_menu_mobile_size: 190px;
+$wp_top_bar_size: 32px;
+$wp_top_bar_mobile_size: 46px;
+
+// export vars as CSS vars
+:root {
+  --yith-content-bg: #{$content_bg};
+  --yith-content-text: #{$content_text};
+  --yith-primary: #{$primary};
+  --yith-primary-hover: #{$primary_hover};
+  --yith-primary-focus: #{$primary_focus};
+  --yith-primary-text: #{$primary_text};
+
+  --yith-delete: #{$delete};
+  --yith-delete-hover: #{$delete_hover};
+  --yith-delete-text: #{$delete_text};
+  --yith-delete-focus: #{$delete_focus};
+
+  --yith-update: #{$update};
+  --yith-update-hover: #{$update_hover};
+  --yith-update-text: #{$update_text};
+  --yith-update-focus: #{$update_focus};
+
+  --yith-outline-text: #{$outline_text};
+  --yith-outline-border: #{$outline_border};
+  --yith-outline-bg: #{$outline_bg};
+  --yith-outline-bg-hover: #{$outline_bg_hover};
+  --yith-outline-border-hover: #{$outline_border_hover};
+  --yith-outline-focus: #{$outline_focus};
+
+  --yith-delete-outline-text: #{$delete_outline_text};
+  --yith-delete-outline-border: #{$delete_outline_border};
+  --yith-delete-outline-bg: #{$delete_outline_bg};
+  --yith-delete-outline-bg-hover: #{$delete_outline_bg_hover};
+  --yith-delete-outline-border-hover: #{$delete_outline_border_hover};
+  --yith-delete-outline-focus: #{$delete_outline_focus};
+
+  --yith-accent: #{$accent};
+
+  --yith-light-bg: #{$light_bg};
+  --yith-light-border-color: #{$light_border_color};
+  --yith-light-shadow: #{$light_shadow};
+  --yith-light-accent: #{$light_accent};
+
+  --yith-success: #{$success};
+  --yith-success-light: #{$success_light};
+  --yith-success-lighter: #{$success_lighter};
+  --yith-success-lightest: #{$success_lightest};
+
+  --yith-table-row-highlight: #{$table_row_highlight};
+  --yith-table-row-striped: #{$table_row_striped};
+  --yith-table-border-light: #{$table_border_light};
+
+  --yith-field-border-color: #{$field_border_color};
+  --yith-field-border-weight: #{$field_border_color};
+  --yith-field-border: #{$field_border};
+  --yith-link: #{$link};
+}

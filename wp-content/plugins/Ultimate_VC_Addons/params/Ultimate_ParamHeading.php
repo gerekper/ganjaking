@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_ParamHeading_Param
+ * Class Ultimate_VC_Addons_ParamHeading_Param
  *
- * @package Ultimate_ParamHeading_Param.
+ * @package Ultimate_VC_Addons_ParamHeading_Param.
  */
 
-if ( ! class_exists( 'Ultimate_ParamHeading_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_ParamHeading_Param' ) ) {
 	/**
-	 * Class Ultimate_ParamHeading_Param
+	 * Class Ultimate_VC_Addons_ParamHeading_Param
 	 *
-	 * @class Ultimate_ParamHeading_Param.
+	 * @class Ultimate_VC_Addons_ParamHeading_Param.
 	 */
-	class Ultimate_ParamHeading_Param {
+	class Ultimate_VC_Addons_ParamHeading_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -45,6 +45,6 @@ if ( ! class_exists( 'Ultimate_ParamHeading_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_ParamHeading_Param' ) ) {
-	$ultimate_paramheading_param = new Ultimate_ParamHeading_Param();
+if ( class_exists( 'Ultimate_VC_Addons_ParamHeading_Param' ) ) {
+	$ultimate_paramheading_param = new Ultimate_VC_Addons_ParamHeading_Param();
 }

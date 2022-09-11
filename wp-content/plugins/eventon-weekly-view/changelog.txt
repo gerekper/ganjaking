@@ -1,5 +1,10 @@
 Weekly View (WV) addon for EventON Plugin
 ====================================
+v 2.0 (2021-10-25)
+ADDED: preloader animation for week grid
+ADDED: compatibility with cal_init_nonajax='yes'
+UPDATED: calendar week styles and layout
+
 v 1.1.5 (2021-8-17)
 FIXED: fixed week shortcode on multiple times on same page issue
 

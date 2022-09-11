@@ -61,7 +61,7 @@ class Evo_Cal_Schedule{
 			// text string
 			$A['txt']['until'] = evo_lang('Until' );
 			$A['txt']['from'] = evo_lang('From' );
-			$A['txt']['all_day'] = evo_lang('All Day' );
+			$A['txt']['all_day'] = evo_lang_get('evcal_lang_allday','All Day');
 		}
 		return $A;
 	}

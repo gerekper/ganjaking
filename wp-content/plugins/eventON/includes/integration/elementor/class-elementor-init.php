@@ -25,12 +25,8 @@ class EVO_Elementor{
 
     // Loading eventON parts to editor
     function editor_header(){
-
-        global $ajde;
-        include_once( AJDE_EVCAL_PATH.'/ajde/ajde-wp-admin.php');
-        $ajde->wp_admin = new ajde_wp_admin();
-
-        $ajde->register_scripts();
+    
+        EVO()->evo_admin->wp_admin_scripts_styles();       
 
         $this->scripts();
     }

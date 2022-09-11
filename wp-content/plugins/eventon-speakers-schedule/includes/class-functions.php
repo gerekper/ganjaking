@@ -65,7 +65,7 @@ class evoss_functions{
 
 		echo "<p class='evo_tax_term' data-termid='{$termID}' title='".__('Click to edit','eventon')."'>";
 		echo ($img_url)? "<b><img src='{$img_url[0]}'/></b>":'';
-		echo "<span>". $speakerTerm->name. (!empty($termmeta['evo_speaker_title'])? '<em>'.$termmeta['evo_speaker_title'].'</em>':'')."</span>";
+		echo "<span>". $speakerTerm->name. (!empty($termmeta['evo_speaker_title'])? '<em>'. stripslashes( $termmeta['evo_speaker_title'] ) .'</em>':'')."</span>";
 		echo "<i TITLE='".__('Click to Remove','eventon')."'>X</i>";
 		echo "</p>";
 

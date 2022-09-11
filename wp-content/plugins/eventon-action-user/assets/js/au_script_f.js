@@ -92,7 +92,7 @@ jQuery(document).ready(function($){
         	$(window).scrollTop( t);
         	
         	LISTWIDTH = (LIST.width())*-1;
-        	MOVER.animate({'margin-left': LISTWIDTH});
+        	MOVER.animate({'margin-left': LISTWIDTH},200);
         	LIST.removeClass('evoloading');
 		});
 
@@ -102,6 +102,10 @@ jQuery(document).ready(function($){
 			event.preventDefault();
 
 			OBJ = $(this);
+
+			// stop deleting on disabled
+			if( OBJ.data('s') == 'disable') return;
+			
 			MANAGER = $(this).closest('.evoau_manager');
 			BOX = MANAGER.find('.evoau_delete_trigger');
 
@@ -143,9 +147,8 @@ jQuery(document).ready(function($){
 			MANAGER = $(this).closest('.evoau_manager');
 			MANAGER.find('.evoau_manager_event_list').animate({
 				'margin-left':0
-			},function(){
+			},100,function(){
 				MANAGER.find('.evoau_manager_event_content').html('');
-
 				load_manager_events( MANAGER, 'none');			
 			});
 		});
@@ -357,8 +360,11 @@ jQuery(document).ready(function($){
 								$('ul.evo_custom_repeat_list').append(html);
 
 								// reset the date time picker fields
-									new_rp.find('.datepickerstartdate').val('');
-									new_rp.find('.datepickerenddate').val('');
+
+									new_rp.find('.datepickerstartdate').val('').datepicker('option','maxDate',null);
+									new_rp.find('.datepickerenddate').val('').datepicker('option','minDate',null);
+
+									//console.log(new_rp.find('.datepickerstartdate').val());
 							}else{
 								$('.evo_repeat_interval_button').find('span').fadeIn().html(' All fields are required!').delay(2000).fadeOut();
 							}
@@ -789,8 +795,8 @@ jQuery(document).ready(function($){
 		    }
 
 		    // date field
-		    FORM.find('.datepickerstartdate').datepicker( "option", "maxDate", null );
-		    FORM.find( ".datepickerenddate" ).datepicker( "option", "minDate", null );
+		    form.find('.datepickerstartdate').datepicker( "option", "maxDate", null );
+		    form.find( ".datepickerenddate" ).datepicker( "option", "minDate", null );
 
 			// repeat information
 			$('#evcal_allday').addClass('NO').siblings('input').val('no');
@@ -843,7 +849,8 @@ jQuery(document).ready(function($){
             totalPrice = price.toFixed(PF.numDec); // number of decimals
             htmlPrice = totalPrice.toString().replace('.', PF.decSep);
 
-            if(PF.thoSep.length > 0) {
+
+            if('thoSep' in PF && PF.thoSep.length > 0) {
                 htmlPrice = _addThousandSep(htmlPrice, PF.thoSep);
             }
             if(PF.curPos == 'right') {

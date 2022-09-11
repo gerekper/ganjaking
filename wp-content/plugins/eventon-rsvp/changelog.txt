@@ -1,5 +1,26 @@
 ﻿RSVP (RS) addon for EventON Plugin
 ====================================
+v 2.7.6 (2021-11-23)
+FIXED: various conditional functions that govern RSVPability
+
+v 2.7.5 (2021-11-19)
+FIXED: backend searching by rsvp id not working
+FIXED: close rsvp X minutes before start not working with settings
+FIXED: assigned user not added to email field. Thank you @uofsta
+FIXED: when to close RSVP = Never not working correct set via settings
+UPDATED: Minor styles update
+
+v 2.7.4 (2021-8-9)
+FIXED: admin notification to send attached files in email
+FIXED: admin notification not sending through
+
+v 2.7.3 (2021-6-9)
+FIXED: disable sending new user password option not working
+FIXED: RSVP confirmation add to calendar not working
+FIXED: virtual event infor not showing on slide down card
+FIXED: RSVP form color corrections
+FIXED: in eventcard RSVP form styles
+
 v 2.7.2 (2021-3-18)
 FIXED: undefined relocalize_event_data() error when rsvping
 FIXED: unverified nonce issue on submission

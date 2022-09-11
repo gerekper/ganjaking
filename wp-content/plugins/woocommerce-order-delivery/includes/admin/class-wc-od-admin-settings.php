@@ -366,7 +366,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						'desc'              => __( 'The minimum number of days it takes you to process an order.', 'woocommerce-order-delivery' ),
 						'type'              => 'number',
 						'default'           => WC_OD()->settings()->get_default( 'min_working_days' ),
-						'css'               => 'width:50px;',
+						'css'               => 'width:70px;',
 						'desc_tip'          => true,
 						'custom_attributes' => array(
 							'min'  => 0,
@@ -451,7 +451,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						'desc'              => __( 'Maximum days that the customer can choose from, starting on the current date, to receive the order.', 'woocommerce-order-delivery' ),
 						'type'              => 'number',
 						'default'           => WC_OD()->settings()->get_default( 'max_delivery_days' ),
-						'css'               => 'width:50px;',
+						'css'               => 'width:70px;',
 						'desc_tip'          => true,
 						'custom_attributes' => array(
 							'min'  => 0,

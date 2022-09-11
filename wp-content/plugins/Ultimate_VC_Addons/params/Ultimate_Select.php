@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_Select_Param
+ * Class Ultimate_VC_Addons_Select_Param
  *
- * @package Ultimate_Select_Param.
+ * @package Ultimate_VC_Addons_Select_Param.
  */
 
-if ( ! class_exists( 'Ultimate_Select_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Select_Param' ) ) {
 	/**
-	 * Class Ultimate_Select_Param
+	 * Class Ultimate_VC_Addons_Select_Param
 	 *
-	 * @class Ultimate_Select_Param.
+	 * @class Ultimate_VC_Addons_Select_Param.
 	 */
-	class Ultimate_Select_Param {
+	class Ultimate_VC_Addons_Select_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -71,6 +71,6 @@ if ( ! class_exists( 'Ultimate_Select_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_Select_Param' ) ) {
-	$ultimate_select_param = new Ultimate_Select_Param();
+if ( class_exists( 'Ultimate_VC_Addons_Select_Param' ) ) {
+	$ultimate_select_param = new Ultimate_VC_Addons_Select_Param();
 }

@@ -88,6 +88,22 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 			);
 			?>			
 		</div>
+		<div class='evo_date_time_virtual_end_row ' style='display:<?php echo $EVENT->check_yn('_evo_virtual_endtime')?'block':'none';?>'>
+			<p class='evo_event_time_label'><?php _e('Virtual Visible Event End','eventon')?></p>
+			<?php
+
+			EVO()->elements->print_date_time_selector(
+				array(
+					'date_format_hidden'=>'Y/m/d',
+					'minute_increment'=> $minIncre,
+					'date_format'=> $wp_date_format,
+					'time_format'=> $wp_time_format,
+					'unix'=> $EVENT->get_prop('_evo_virtual_erow'),
+					'type'=>'vir',
+				)
+			);
+			?>			
+		</div>
 	</div>
 
 <!-- how time look on frontend -->
@@ -149,6 +165,13 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 	// date time related yes no values
 		echo EVO()->elements->process_multiple_elements(
 			array(
+			array(
+				'type'=>'yesno_btn',
+				'label'=> __('Enable virtual visible event end time [Beta]', 'eventon'), 
+				'id'=> '_evo_virtual_endtime',
+				'value'=> $EVENT->get_prop('_evo_virtual_endtime'),	
+				'tooltip'=> __('Enabling this will allow you to set a virtual event time for this event, that will be visible on frontend, while actual event end time will be used to calculate how long the event is visible on the calendar.','eventon'),
+			),
 			array(
 				'type'=>'yesno_btn',
 				'label'=> __('Hide End Time from calendar', 'eventon'), 
@@ -217,6 +240,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		// repeat frequency array
 		$repeat_freq= apply_filters('evo_repeat_intervals', array(
 			__('daily','eventon') =>__('days','eventon'),
+			__('hourly','eventon') =>__('hours','eventon'),
 			__('weekly','eventon') =>__('weeks','eventon'),
 			__('monthly','eventon') =>__('months','eventon'),
 			__('yearly','eventon') =>__('years','eventon'),
@@ -227,6 +251,8 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 		
 	?>
 	<div id='evo_editevent_repeatevents' class='evcalr_2 evo_edit_field_box' style='display:<?php echo $display ?>'>
+
+		<?php do_action('evo_eventedit_repeat_metabox_top', $EVENT);?>
 		
 		<!-- REPEAT SERIES -->
 		<div class='repeat_series'>
@@ -260,8 +286,16 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 						'id'=> '_evcal_rep_series_clickable',
 						'value'=> $EVENT->get_prop('_evcal_rep_series_clickable')
 					),
+					array(
+						'type'=>'yesno_btn',
+						'label'=> __('Show current instance relative to other repeats','eventon'),
+						'id'=> '_evo_rep_series',
+						'tooltip'=> __('This will show the the current repeat instance of this event relative to rest of the repeats  eg. Event 1 / 5'),
+						'value'=> $EVENT->get_prop('_evo_rep_series')
+					),
 				array('type'=>'end_afterstatement'),
 				)
+				
 			);
 		?>
 
@@ -283,6 +317,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 						'select_option_class'=>'evo_repeat_type_val',
 						'options'=> apply_filters('evo_repeat_intervals_ly', array(
 							'daily'=>__('Daily','eventon'),
+							'hourly'=>__('Hourly','eventon'),
 							'weekly'=>__('Weekly','eventon'),
 							'monthly'=>__('Monthly','eventon'),
 							'yearly'=>__('Yearly','eventon'),
@@ -490,26 +525,34 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 				if($important_msg_for_repeats)	echo "<p><i style='opacity:0.7'>".$important_msg_for_repeats."</i></p>";
 
 
-				//print_r(unserialize($ev_vals['aaa'][0]));					
-				date_default_timezone_set('UTC');	
-
 				echo "<p id='no_repeats' style='display:none;opacity:0.7'>There are no additional custom repeats!</p>";
 
 				echo "<ul class='evo_custom_repeat_list'>";
 				$count =0;
 				if(!empty($ev_vals['repeat_intervals'])){								
+					
+					$DD = new DateTime( null, EVO()->calendar->timezone0);
+
 					$repeat_times = (unserialize($ev_vals['repeat_intervals'][0]));
 					
 					// datre format sting to display for repeats
 					$date_format_string = $wp_date_format.' '.( $hr24? 'G:i':'h:ia');
 					
 					foreach($repeat_times as $rt){
-						$startUNIX = (int)$rt[0];
-						$endUNIX = (int)$rt[1];
-						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'block').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<span>'.__('from','eventon').'</span> '.date($date_format_string,$startUNIX).' <span class="e">End</span> '.date($date_format_string,$endUNIX).'<em alt="Delete">x</em>
-						<input type="hidden" name="repeat_intervals['.$count.'][0]" value="'.$startUNIX.'"/><input type="hidden" name="repeat_intervals['.$count.'][1]" value="'.$endUNIX.'"/></li>';
+						
+						$DD->setTimestamp((int)$rt[0]);
+						$start_unix = $DD->format('U');
+						$start_dt = $DD->format($date_format_string);
+
+						$DD->setTimestamp((int)$rt[1]);
+						$end_unix = $DD->format('U');
+						$end_dt = $DD->format($date_format_string);
+
+
+						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'block').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<span>'.__('from','eventon').'</span> '. $start_dt .' <span class="e">End</span> '. $end_dt .'<em alt="Delete">x</em>
+						<input type="hidden" name="repeat_intervals['.$count.'][0]" value="'.$start_unix.'"/><input type="hidden" name="repeat_intervals['.$count.'][1]" value="'.$end_unix.'"/></li>';
 						$count++;
-					}								
+					}										
 				}
 				echo "</ul>";
 				echo ( !empty($ev_vals['repeat_intervals']))? 

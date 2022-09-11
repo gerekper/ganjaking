@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  6.16.0
+ * @version  6.16.1
  */
 class WC_PB_Min_Max_Compatibility {
 
@@ -110,13 +110,9 @@ class WC_PB_Min_Max_Compatibility {
 
 		if ( $group_of_quantity ) {
 
-			$adjusted_min_quantity     = self::adjust_min_quantity( $item_data[ 'quantity_min' ], $group_of_quantity );
-			$adjusted_default_quantity = self::adjust_min_quantity( $item_data[ 'quantity_default' ], $group_of_quantity );
-			$adjusted_max_quantity     = self::adjust_max_quantity( $item_data[ 'quantity_max' ], $group_of_quantity );
-
-			if ( ! empty( $adjusted_max_quantity ) && $adjusted_max_quantity < $adjusted_min_quantity ) {
-				$adjusted_max_quantity = $adjusted_min_quantity;
-			}
+			$adjusted_min_quantity     = WC_Min_Max_Quantities::adjust_min_quantity( $item_data[ 'quantity_min' ], $group_of_quantity );
+			$adjusted_default_quantity = WC_Min_Max_Quantities::adjust_min_quantity( $item_data[ 'quantity_default' ], $group_of_quantity );
+			$adjusted_max_quantity     = WC_Min_Max_Quantities::adjust_max_quantity( $item_data[ 'quantity_max' ], $group_of_quantity, $adjusted_min_quantity );
 
 			if ( $item_data[ 'quantity_min' ] !== $adjusted_min_quantity ) {
 
@@ -193,9 +189,9 @@ class WC_PB_Min_Max_Compatibility {
 				$default_quantity = (int) $item_data[ 'quantity_default' ];
 				$max_quantity     = (int) $item_data[ 'quantity_max' ];
 
-				$adjusted_min_quantity     = self::adjust_min_quantity( $min_quantity, $group_of_quantity );
-				$adjusted_default_quantity = self::adjust_min_quantity( $default_quantity, $group_of_quantity );
-				$adjusted_max_quantity     = self::adjust_max_quantity( $max_quantity, $group_of_quantity );
+				$adjusted_min_quantity     = WC_Min_Max_Quantities::adjust_min_quantity( $min_quantity, $group_of_quantity );
+				$adjusted_default_quantity = WC_Min_Max_Quantities::adjust_min_quantity( $default_quantity, $group_of_quantity );
+				$adjusted_max_quantity     = WC_Min_Max_Quantities::adjust_max_quantity( $max_quantity, $group_of_quantity );
 
 				if ( $min_quantity !== $adjusted_min_quantity ) {
 					/* translators: %1$s: Bundled product name, %2$s: Group of quantity */
@@ -334,13 +330,8 @@ class WC_PB_Min_Max_Compatibility {
 					$group_of_qty = self::get_bundled_item_group_of_qty( self::$bundled_item );
 				}
 
-				if ( $group_of_qty > 1 ) {
-					if ( $min_qty > $group_of_qty ) {
-						$modulo  = $min_qty % $group_of_qty;
-						$min_qty = $modulo ? $min_qty + $modulo : $min_qty;
-					} elseif ( $min_qty > 0 ) {
-						$min_qty = max( $min_qty, $group_of_qty );
-					}
+				if ( $group_of_qty ) {
+					$min_qty = WC_Min_Max_Quantities::adjust_min_quantity( $min_qty, $group_of_qty );
 				}
 
 				$input_qty = max( $input_qty, $min_qty );
@@ -348,6 +339,10 @@ class WC_PB_Min_Max_Compatibility {
 			} else {
 				// Cart context.
 				$group_of_qty = self::get_bundled_item_group_of_qty( $product->wc_mmq_bundled_item ) * $product->container_quantity;
+
+				if ( $group_of_qty ) {
+					$min_qty = WC_Min_Max_Quantities::adjust_min_quantity( $min_qty, $group_of_qty );
+				}
 			}
 
 			if ( empty( $max_qty ) || $max_qty >= $min_qty ) {
@@ -375,6 +370,10 @@ class WC_PB_Min_Max_Compatibility {
 	 * @return array
 	 */
 	public static function bundled_variation_data( $variation_data, $bundled_product, $bundled_variation ) {
+
+		if ( ! isset( $variation_data[ 'is_bundled' ] ) ) {
+			return $variation_data;
+		}
 
 		if ( $bundled_variation->get_meta( 'min_max_rules', true ) ) {
 			$group_of_quantity = $bundled_variation->get_meta( 'variation_group_of_quantity', true );
@@ -466,7 +465,7 @@ class WC_PB_Min_Max_Compatibility {
 		$group_of_quantity = self::get_bundled_item_group_of_qty( $bundled_item );
 
 		if ( $group_of_quantity ) {
-			$qty = self::adjust_min_quantity( $qty, $group_of_quantity );
+			$qty = WC_Min_Max_Quantities::adjust_min_quantity( $qty, $group_of_quantity );
 		}
 
 		return $qty;
@@ -488,7 +487,7 @@ class WC_PB_Min_Max_Compatibility {
 		$group_of_quantity = self::get_bundled_item_group_of_qty( $bundled_item );
 
 		if ( $group_of_quantity ) {
-			$qty = self::adjust_max_quantity( $qty, $group_of_quantity );
+			$qty = WC_Min_Max_Quantities::adjust_max_quantity( $qty, $group_of_quantity );
 		}
 
 		return $qty;
@@ -497,74 +496,6 @@ class WC_PB_Min_Max_Compatibility {
 	/*
 	 * Helpers.
 	 */
-
-	/**
-	 * Filter Min bundled item Quantity based on "Group of" option on runtime.
-	 *
-	 * @since 6.16.0
-	 *
-	 * @param  mixed  $min_quantity
-	 * @param  mixed  $group_of_quantity
-	 *
-	 * @return int
-	 */
-	public static function adjust_min_quantity( $min_quantity, $group_of_quantity ) {
-
-		// Zero min quantity is always allowed. Customers shouldn't have to purchase a bundled item when its min quantity is zero.
-		if ( ! $min_quantity ) {
-			return $min_quantity;
-		}
-
-		if ( $min_quantity < $group_of_quantity ) {
-
-			// If Group of = 2 and Quantity Min = 1, set Quantity Min to 2.
-			$min_quantity = $group_of_quantity;
-
-		} elseif ( $min_quantity > $group_of_quantity ) {
-			$remainder = $min_quantity / $group_of_quantity;
-
-			// If Group of = 2 and Quantity Min = 5, set Quantity Min to 2 * ceil( 5/2 ) = 6.
-			// If Group of = 4 and Quantity Min = 5, set Quantity Min to 4 * ceil( 5/4 ) = 8.
-			if ( $remainder ) {
-				$min_quantity = $group_of_quantity * ceil( $remainder );
-			}
-		}
-
-		return (int) $min_quantity;
-	}
-
-	/**
-	 * Filter Max bundled item Quantity based on "Group of" option on runtime.
-	 *
-	 * @since 6.16.0
-	 *
-	 * @param  mixed  $max_quantity
-	 * @param  mixed  $group_of_quantity
-	 *
-	 * @return int
-	 */
-	public static function adjust_max_quantity( $max_quantity, $group_of_quantity ) {
-
-		// Return early for infinite max quantities.
-		if ( empty( $max_quantity ) ) {
-			return $max_quantity;
-		}
-
-		if ( $max_quantity > $group_of_quantity ) {
-			$remainder = $max_quantity / $group_of_quantity;
-
-			// If Group of = 4 and Quantity Max = 5, set Quantity Max to 4 * floor( 5/4 ) = 4.
-			// If Group of = 4 and Quantity Max = 9, set Quantity Max to 4 * floor( 9/4 ) = 8.
-			if ( $remainder ) {
-				$max_quantity = $group_of_quantity * floor( $remainder );
-			}
-		} elseif( $max_quantity < $group_of_quantity ) {
-			// If Group of = 2 and Quantity Max = 1, set Quantity Max to 2.
-			$max_quantity = $group_of_quantity;
-		}
-
-		return (int) $max_quantity;
-	}
 
 	/**
 	 * Returns the "Group of" quantity of a bundled item.

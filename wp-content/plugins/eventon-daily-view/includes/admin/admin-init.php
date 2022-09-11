@@ -31,41 +31,38 @@ class EVODV_admin{
 	// appearance settings
 		function evoDV_appearance_settings($array){	
 			$new[] = array('id'=>'evoDV','type'=>'hiddensection_open','name'=>'DailyView Styles','display'=>'none');
-			$new[] = array('id'=>'evoDV','type'=>'fontation','name'=>'Date Number Font Color',
+			$new[] = array('id'=>'evoDV','type'=>'fontation',
+				'name'=>'Date Number Text Colors',
 				'variations'=>array(
 					array('id'=>'evoDV_1', 'name'=>'Default','type'=>'color', 'default'=>'e8e8e8'),
 					array('id'=>'evoDV_2', 'name'=>'Default (Hover)','type'=>'color', 'default'=>'d4d4d4'),
 					array('id'=>'evoDV_3', 'name'=>'Days with events','type'=>'color', 'default'=>'d5c3ac'),
-					array('id'=>'evoDV_4', 'name'=>'Days with events (Hover)','type'=>'color', 'default'=>'d5c3ac')
-					,array('id'=>'evoDV_5', 'name'=>'Focus Day','type'=>'color', 'default'=>'a4a4a4'),
-					array('id'=>'evoDV_6', 'name'=>'Focus Day (Hover)','type'=>'color', 'default'=>'a4a4a4'),					
+					array('id'=>'evoDV_4', 'name'=>'Days with events (Hover)','type'=>'color', 'default'=>'d5c3ac'),
+					array('id'=>'evoDV_5', 'name'=>'Focus Day','type'=>'color', 'default'=>'ffffff')
 				)
 			);
-			$new[] = array('id'=>'evoDV','type'=>'fontation','name'=>'Date Number Box Color',
+			$new[] = array(
+				'id'=>'evoDV','type'=>'fontation',
+				'name'=>'Date Number Box Background Colors',
 				'variations'=>array(
-					array('id'=>'evoDV_1b', 'name'=>'Default','type'=>'color', 'default'=>'ffffff'),
-					array('id'=>'evoDV_2b', 'name'=>'Default (Hover)','type'=>'color', 'default'=>'fbfbfb'),
-					array('id'=>'evoDV_3b', 'name'=>'Days with events','type'=>'color', 'default'=>'ffffff'),
-					array('id'=>'evoDV_4b', 'name'=>'Days with events (Hover)','type'=>'color', 'default'=>'fbfbfb')
-					,array('id'=>'evoDV_5b', 'name'=>'Focus Day','type'=>'color', 'default'=>'f7f7f7'),
-					array('id'=>'evoDV_6b', 'name'=>'Focus Day (Hover)','type'=>'color', 'default'=>'f7f7f7'),	
-					array('id'=>'evoDV_7b', 'name'=>'Focus Day (Border Color)','type'=>'color', 'default'=>'747474'),
-					array('id'=>'evoDV_7c', 'name'=>'Today (Color)','type'=>'color', 'default'=>'ffb677'),
+					array('id'=>'evoDV_2b', 'name'=>'Default (Hover)','type'=>'color', 'default'=>'e8e8e8'),
+					array('id'=>'evoDV_5b', 'name'=>'Focus Day','type'=>'color', 'default'=>'636363'),
+					array('id'=>'evoDV_7c', 'name'=>'Today (Color)','type'=>'color', 'default'=>'ec754b'),
 				)
 			);
 			$new[] = array('id'=>'evoDV','type'=>'fontation','name'=>'Current Date Box',
 				'variations'=>array(
-					array('id'=>'evoDV_8', 'name'=>'Background Color','type'=>'color', 'default'=>'f5b87a'),
+					array('id'=>'evoDV_8', 'name'=>'Background Color','type'=>'color', 'default'=>'fed582'),
 					array('id'=>'evoDV_8b', 'name'=>'Font Color','type'=>'color', 'default'=>'ffffff'),							
 				)
 			);
 			$new[] = array('id'=>'evoDV','type'=>'fontation','name'=>'Day Stripe',
 				'variations'=>array(
+					array('id'=>'evodv_ds_1', 'name'=>'Background Color','type'=>'color', 'default'=>'f5f5f5'),
 					array('id'=>'evoDV_9', 'name'=>'Arrow Color','type'=>'color', 'default'=>'c3bebe'),
-					array('id'=>'evoDV_9a', 'name'=>'Arrow Background Color','type'=>'color', 'default'=>'f7f7f7'),
+					array('id'=>'evoDV_9a', 'name'=>'Arrow Background Color','type'=>'color', 'default'=>'e8e8e8'),
 					array('id'=>'evoDV_9b', 'name'=>'Arrow Color (hover)','type'=>'color', 'default'=>'ffffff'),
-					array('id'=>'evoDV_9c', 'name'=>'Arrow Background Color (hover)','type'=>'color', 'default'=>'e0e0e0'),
-					//array('id'=>'evoDV_9c', 'name'=>'Gradient Background color','type'=>'color', 'default'=>'ffffff'),
+					array('id'=>'evoDV_9c', 'name'=>'Arrow Background Color (hover)','type'=>'color', 'default'=>'e8e8e8'),
 				)
 			);
 			$new[] = array('id'=>'evoDV','type'=>'hiddensection_close','name'=>'DailyView Styles');
@@ -75,77 +72,51 @@ class EVODV_admin{
 
 	// styles
 		function evoDV_dynamic_styles($_existen){
-			$new= array(
-									
+			$new= array(	
 				array(
-					'item'=>'.eventon_daily_list .evcal_arrows',
-					'css'=>'color:#$', 'var'=>'evoDV_9','default'=>'919191'					
-				),array(
-					'item'=>'.eventon_daily_list .evcal_arrows:hover',
-					'css'=>'color:#$', 'var'=>'evoDV_9b','default'=>'919191'					
-				),array(
-					'item'=>'.eventon_daily_in .evo_day',
+					'item'=>'.ajde_evcal_calendar .eventon_daily_list',
+					'css'=>'background-color:#$', 'var'=>'evodv_ds_1','default'=>'f5f5f5'
+				),
+				array(
+					'item'=>'.ajde_evcal_calendar.evoDV .eventon_daily_in .evo_day:hover',
 					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_1b','default'=>'ffffff'),
-						array('css'=>'color:#$', 'var'=>'evoDV_1','default'=>'e8e8e8')
+						array('css'=>'background-color:#$', 'var'=>'evoDV_2b','default'=>'e8e8e8'),
 					)						
-				),array(
-					'item'=>'.eventon_daily_in .evo_day:hover',
-					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_2b','default'=>'fbfbfb'),
-						array('css'=>'color:#$', 'var'=>'evoDV_2','default'=>'d4d4d4')
-					)						
-				),array(
-					'item'=>'.eventon_daily_in .evo_day.has_events',
-					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_3b','default'=>'ffffff'),
-						array('css'=>'color:#$', 'var'=>'evoDV_3','default'=>'d5c3ac')
-					)						
-				),array(
-					'item'=>'.eventon_daily_in .evo_day.has_events:hover',
-					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_4b','default'=>'fbfbfb'),
-						array('css'=>'color:#$', 'var'=>'evoDV_4','default'=>'d5c3ac')
-					)						
-				),array(
-					'item'=>'.eventon_daily_in .evo_day.on_focus',
+				),
+				array(
+					'item'=>'.ajde_evcal_calendar.evoDV .eventon_daily_in .evo_day.on_focus',
 					'multicss'=>array(			
-						array('css'=>'background-color:#$', 'var'=>'evoDV_5b','default'=>'f7f7f7'),	
-						array('css'=>'color:#$', 'var'=>'evoDV_5','default'=>'a4a4a4'),
-						array('css'=>'border-color:#$', 'var'=>'evoDV_7b','default'=>'747474'),
-					)						
-				),array(
-					'item'=>'.evo_day.on_focus:hover',
-					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_6b','default'=>'f7f7f7'),
-						array('css'=>'color:#$', 'var'=>'evoDV_6','default'=>'a4a4a4')
+						array('css'=>'background-color:#$', 'var'=>'evoDV_5b','default'=>'636363'),	
+						array('css'=>'color:#$', 'var'=>'evoDV_5','default'=>'ffffff'),
 					)						
 				),
 				array(
 					'item'=>'.ajde_evcal_calendar .evodv_current_day',
 					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_8','default'=>'d5c3ac'),
+						array('css'=>'background-color:#$', 'var'=>'evoDV_8','default'=>'fed582'),
 						array('css'=>'color:#$', 'var'=>'evoDV_8b','default'=>'ffffff'),
 					)	
 				),
 				array(
 					'item'=>'.ajde_evcal_calendar .evodv_current_day p, .ajde_evcal_calendar .evodv_current_day p.evodv_daynum b',
 					'css'=>'color:#$', 'var'=>'evoDV_8b','default'=>'ffffff'
-				),array(
+				),
+				array(
 					'item'=>'.eventon_daily_in .evodv_action',
 					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_9a','default'=>'f7f7f7'),
+						array('css'=>'background-color:#$', 'var'=>'evoDV_9a','default'=>'e8e8e8'),
 						array('css'=>'color:#$', 'var'=>'evoDV_9','default'=>'c3bebe'),
 					)	
 				),array(
 					'item'=>'.eventon_daily_in .evodv_action:hover',
 					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evoDV_9c','default'=>'e0e0e0'),
+						array('css'=>'background-color:#$', 'var'=>'evoDV_9c','default'=>'e8e8e8'),
 						array('css'=>'color:#$', 'var'=>'evoDV_9b','default'=>'ffffff'),
 					)	
-				),array(
-					'item'=>'.eventon_daily_in .evo_day.today',
-					'css'=>'color:#$', 'var'=>'evoDV_7c','default'=>'ffb677'
+				),
+				array(
+					'item'=>'.eventon_daily_in .evo_day.today .evo_day_num',
+					'css'=>'color:#$', 'var'=>'evoDV_7c','default'=>'ec754b'
 				)
 			);
 			

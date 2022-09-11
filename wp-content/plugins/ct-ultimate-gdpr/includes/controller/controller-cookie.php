@@ -563,7 +563,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				// 	break;
 				// case $level_5:
 				// 	if( empty(array_diff( $consent_id, $level_5)) ) $consent_level = 5;
-					break;
+					//break;
 				case $id_5:
 					if( empty(array_diff( $consent_id, $id_5)) ) $consent_level = 2;
 					break;
@@ -650,16 +650,19 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		}
 
 		$cookies_grouped = $this->get_cookies_to_block();
+
 		foreach ( $cookies_grouped as $group => $cookies ) {
 
 			if ( $group > $consent_level ) {
+				
+				if(is_array($cookies)) {
+					$this->delete_cookies( array_combine( $cookies, $cookies ) );
 
-				$this->delete_cookies( array_combine( $cookies, $cookies ) );
-
+				}
 			}
-
+			
 		}
-
+		 
 	}
 
 	/**
@@ -726,8 +729,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		$template = $this->get_option( 'cookie_use_group_popup' ) ? 'cookie-group-popup' : 'cookie-popup';
 		
 		$options = array_merge( $this->get_default_options(), $this->options );
+		
 		// 1173
-		ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
+		if($this->is_cookie_single_popup_enabled()) {
+			ct_ultimate_gdpr_locate_template('cookie-single-popup', true, $options);
+		} else {
+			ct_ultimate_gdpr_locate_template('cookie-group-popup', true, $options);
+		}
 
 	}
 
@@ -742,6 +750,20 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
             return true;
         }
     }
+
+	/**
+     * Check cookie single popup enabled
+     *
+     * @return bool
+     */
+	public function is_cookie_single_popup_enabled() {
+		if($this->get_option( 'cookie_single_popup' ) ) {
+            return true;
+        } else {
+			return false;
+		}
+	}
+
 
     /**
      * Check cookie reset consent is enabled
@@ -804,6 +826,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	 * @return mixed
 	 */
 	public function get_cookies_to_block( $level = 0 ) {
+
 		$cookies_to_block = apply_filters( 'ct_ultimate_gdpr_cookie_get_cookies_to_block', array(
             CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL    => array(),
             CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY    => array(),
@@ -813,24 +836,20 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
             CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA => array()
 		) );
 	
-
-
-		$cookies_names = array();
+		$cookies_names = [];
 
 		// checking for group cookies
 		if ( $level < 6 ) {
 
 			foreach ( $cookies_to_block as $cookie_level => $cookie_group ) {
-
 				if ( $cookie_level > $level ) {
 					$cookies_names = array_merge( $cookies_names, $cookie_group );
 				}
-
 			}
 			$cookies_to_block = $cookies_names;
 		}
-
-		// checking granular cookie
+		
+		// checking for granular cookies
 		if ( $level > 5 ) {
 
 			$levels = CT_Ultimate_GDPR_Model_Group::$level_id;
@@ -845,37 +864,23 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			}
 
 			$tmp = [ CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL, 5, 6, 7, 8 ];
-			$map_cookie = array_map($this->map_cookie, $tmp, $cookies_to_block);
+			$mapCookie = array_map(array($this, 'map_cookie'), $tmp, $cookies_to_block);
 
-			foreach ( $map_cookie as $cookie_level => $cookie_group ) {
-				
-				if(empty($cookie_group[1])) {
-					continue;
+			foreach ( $mapCookie as $cookie_level => $cookie_group ) {
+				foreach($cookie_group as $k => $v) {
+					if( count($v) == 0 || in_array($k, $level_id ) ) {
+						continue;
+					}
+					$cookie_arr[] = array_unique($v);
 				}
-				$cookie_arr[] = $cookie_group[1];
-	
-				if( in_array( $cookie_group[0], $level_id ) ) {
-					$cookie_accept[] = $cookie_group[1];
-				}
-			}
+			} 
 
 			foreach($cookie_arr as $k => $v) {
-			
-				foreach($cookie_accept as $a => $b) {
-					if(in_array( $v[0], $b) ) {
-						unset($cookie_arr[$k], $v);
-					}
-				}				 	
-			}
-
-			$cookies = array_values( $cookie_arr );
-
-			foreach($cookies as $k => $v) {
-				$cookies_names =  array_merge( $cookies_names, $v );	
+				$cookies_names = array_unique( array_merge( $cookies_names, $v ) );
 			}
 			$cookies_to_block = $cookies_names;
 		}
-	 
+
 		return apply_filters( 'ct_ultimate_gdpr_cookie_cookies_to_block', $cookies_to_block, $level );
 	}
 
@@ -1554,6 +1559,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'ct-ultimate-gdpr-cookie' // Page
 		);
 
+		add_settings_section(
+			'ct-ultimate-gdpr-cookie_tab-2_section-8', // ID
+			esc_html__( 'My account disclaimer', 'ct-ultimate-gdpr' ), // Title
+			null, // callback
+			'ct-ultimate-gdpr-cookie' // Page
+		);
+
 //      * Cookie section - advanced tab */
 
 		add_settings_section(
@@ -1578,14 +1590,23 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'ct-ultimate-gdpr-cookie' // Page
 		);
 
+		
 		add_settings_section(
 			'ct-ultimate-gdpr-cookie_tab-3_section-3', // ID
-			esc_html__( 'Lists of features', 'ct-ultimate-gdpr' ), // Title
-			null, // callback
+			esc_html__( 'Lists of features for groups', 'ct-ultimate-gdpr' ), // Title
+			//null, // callback
+			array($this, 'hideIndividualCookieSection'),
 			'ct-ultimate-gdpr-cookie' // Page
 		);
-
-
+		
+		add_settings_section(
+			'ct-ultimate-gdpr-cookie_tab-3_section-7', // ID
+			esc_html__( 'Lists of features for individual', 'ct-ultimate-gdpr' ), // Title
+			//null, // callback
+			array($this, 'hideGroupCookieSection'),
+			'ct-ultimate-gdpr-cookie' // Page
+		);
+		
 		add_settings_section(
 			'ct-ultimate-gdpr-cookie_tab-3_section-5', // ID
 			esc_html__( 'Labels', 'ct-ultimate-gdpr' ), // Title
@@ -1598,15 +1619,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			esc_html__( 'Additional settings', 'ct-ultimate-gdpr' ), // Title
 			null, // callback
 			'ct-ultimate-gdpr-cookie' // Page
-		);
-
-		add_settings_section(
-			'ct-ultimate-gdpr-cookie_tab-2_section-8', // ID
-			esc_html__( 'My account disclaimer', 'ct-ultimate-gdpr' ), // Title
-			null, // callback
-			'ct-ultimate-gdpr-cookie' // Page
-		);
-
+		);	
 
 		/* Cookie section fields */
 
@@ -2025,7 +2038,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 			add_settings_field(
 				'cookie_single_popup',
-				esc_html__( 'Block cookie individually (Italian GDPR)', 'ct-ultimate-gdpr' ),
+				esc_html__( 'Block each cookie group individually', 'ct-ultimate-gdpr' ),
 				array( $this, 'render_field_cookie_single_popup' ),
 				'ct-ultimate-gdpr-cookie',
 				'ct-ultimate-gdpr-cookie_tab-3_section-1'
@@ -2339,6 +2352,41 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				'ct-ultimate-gdpr-cookie',
 				'ct-ultimate-gdpr-cookie_tab-3_section-6'
 			);
+
+
+			//TAB 3 - SECTION 7 - LIST OF FEATURES INDIVIDUAL
+			add_settings_field(
+				'cookie_group_popup_features_wills_group_2_individual',
+				esc_html__( 'List of features available for Essential level (semicolon separated)', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_group_popup_features_available_group_2_individual' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-7'
+			);
+
+			add_settings_field(
+				'cookie_group_popup_features_wills_group_3_individual',
+				esc_html__( 'List of features available for Functionality level (semicolon separated)', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_group_popup_features_available_group_3_individual' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-7'
+			);
+ 
+			add_settings_field(
+				'cookie_group_popup_features_wills_group_4_individual',
+				esc_html__( 'List of features available for Analytics level (semicolon separated)', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_group_popup_features_available_group_4_individual' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-7'
+			);
+
+			add_settings_field(
+				'cookie_group_popup_features_wills_group_5_individual',
+				esc_html__( 'List of features available for Advertising level (semicolon separated)', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_group_popup_features_available_group_5_individual' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-7'
+			);
+
 		}
 	}
 
@@ -2592,6 +2640,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		echo '</select>';
 	}
 
+	public function hideIndividualCookieSection() {
+		echo '<div class="list-before-individual"></div>';
+	}
+
+	public function hideGroupCookieSection() {
+		echo '<div class="list-before-group"></div>';
+	}
 	/**
 	 *
 	 */
@@ -3337,6 +3392,25 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	/**
 	 *
 	 */
+	public function render_field_cookie_group_popup_features_available_group_2_individual() {
+
+		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_2_individual', $this->get_default_options() );
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		$value      = $admin->get_option_value_escaped( $field_name, false );
+		$value      = $value !== false ? $value : $default;
+
+		printf(
+			"<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='5' cols='100'>%s</textarea>",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$value
+		);
+	}
+
+	/**
+	 *
+	 */
 	public function render_field_cookie_group_popup_features_nonavailable_group_3() {
 
 		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_nonavailable_group_3', $this->get_default_options() );
@@ -3359,6 +3433,25 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	public function render_field_cookie_group_popup_features_available_group_3() {
 
 		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_3', $this->get_default_options() );
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		$value      = $admin->get_option_value_escaped( $field_name, false );
+		$value      = $value !== false ? $value : $default;
+
+		printf(
+			"<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='5' cols='100'>%s</textarea>",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$value
+		);
+	}
+
+	/**
+	 *
+	 */
+	public function render_field_cookie_group_popup_features_available_group_3_individual() {
+
+		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_3_individual', $this->get_default_options() );
 		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
 		$field_name = $admin->get_field_name( __FUNCTION__ );
 		$value      = $admin->get_option_value_escaped( $field_name, false );
@@ -3413,6 +3506,25 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 	/**
 	 *
 	 */
+	public function render_field_cookie_group_popup_features_available_group_4_individual() {
+
+		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_4_individual', $this->get_default_options() );
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		$value      = $admin->get_option_value_escaped( $field_name, false );
+		$value      = $value !== false ? $value : $default;
+
+		printf(
+			"<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='5' cols='100'>%s</textarea>",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$value
+		);
+	}
+
+	/**
+	 *
+	 */
 	public function render_field_cookie_group_popup_features_available_group_5() {
 
 		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_5', $this->get_default_options() );
@@ -3427,6 +3539,26 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			$admin->get_field_name_prefixed( $field_name ),
 			$value
 		);
+	}
+
+	/**
+	 *
+	 */
+	public function render_field_cookie_group_popup_features_available_group_5_individual() {
+
+		$default    = ct_ultimate_gdpr_get_value( 'cookie_group_popup_features_available_group_5_individual', $this->get_default_options() );
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		$value      = $admin->get_option_value_escaped( $field_name, false );
+		$value      = $value !== false ? $value : $default;
+
+		printf(
+			"<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='5' cols='100'>%s</textarea>",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$value
+		);
+
 	}
 
 	/**
@@ -4168,6 +4300,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'cookie_box_style'                                 => "modern",
 			'cookie_cookies_group_after_accept'                => 5,
 			'cookie_display_all'                               => true,
+			'cookie_single_popup'							   => true,
 			'cookie_reset_consent'                             => false,
 			'cookie_style'                                     => '',
 			'cookie_expire'                                    => 31536000,
@@ -4213,6 +4346,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'cookie_group_popup_features_nonavailable_group_4' => esc_html__( "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location", 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_features_available_group_5'    => esc_html__( "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location", 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_features_nonavailable_group_5' => esc_html__( "Remember your login details", 'ct-ultimate-gdpr' ),
+			'cookie_group_popup_features_available_group_2_individual' => esc_html__( "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;", 'ct-ultimate-gdpr' ),
+			'cookie_group_popup_features_available_group_3_individual' => esc_html__( "Functionality: Remember social media settings; Functionality: Remember selected region and country;", 'ct-ultimate-gdpr' ),
+			'cookie_group_popup_features_available_group_4_individual' => esc_html__( "Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;", 'ct-ultimate-gdpr' ),
+			'cookie_group_popup_features_available_group_5_individual' => esc_html__( "Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;", 'ct-ultimate-gdpr' ),
 			'cookie_modal_header_color'                        => "#595959",
 			'cookie_modal_text_color'                          => "#797979",
 			'cookie_modal_skin'                                => "default",
@@ -6332,5 +6469,12 @@ Reklame: Samle inn personlig identifiserbar informasjon som navn og sted;',
 		update_option( 'ct_gdpr_check_last_cookies_scan', $date );
 
     }
+
+	// public function checkField() {
+	// 	var_dump(get_option('cookie_single_popup'));
+		// if( empty($this->ctOptimization['cookie_single_popup'])) {
+		// 	return 'opt_disable';
+		// }
+	// }
  
 }

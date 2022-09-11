@@ -41,7 +41,7 @@ class evost_meta_boxes{
 							'attr'=>array('afterstatement'=>'evotx_seat_chart')
 						)); ?>
 						<input type='hidden' name='_enable_seat_chart' value="<?php echo $_enable_seat_chart;?>"/>
-						<label for='_enable_seat_chart'><?php _e('Enable seat charts for this event','evost'); echo $eventon->throw_guide( __('This will allow you to create seat charts with custom prices per seat to allow customers to buy seat of their choice.','evost'),'',false)?></label>
+						<label for='_enable_seat_chart'><?php _e('Enable Event Seating for this event','evost'); echo $eventon->throw_guide( __('This will allow you to create seat charts with custom prices per seat to allow customers to buy seat of their choice.','evost'),'',false)?></label>
 					</p>
 				</td></tr>
 				<tr class='innersection' id='evotx_seat_chart' style='display:<?php echo evo_meta_yesno($epmv,'_enable_seat_chart','yes','','none' );?>'>
@@ -49,7 +49,7 @@ class evost_meta_boxes{
 					<td style='padding:5px 25px;' colspan='2'>
 						<div style='padding:5px 0 9px'>
 							<p><?php _e('Set up seat chart with sections', 'evost'); ?></p>
-							<a class='button_evo ajde_popup_trig evost_open_seat_map_editor' data-eid='<?php echo $eventid;?>' data-product_id='<?php echo $wooproduct_id;?>' data-popc='evost_lightbox'><?php _e('Open Seat Map Editor');?></a>
+							<a class='button_evo ajde_popup_trig evost_open_seat_map_editor' data-eid='<?php echo $eventid;?>' data-product_id='<?php echo $wooproduct_id;?>' data-popc='evost_lightbox' style='    background-color: #007cba;width: 100%;box-sizing: border-box;text-align: center; padding: 10px;'><?php _e('Open Seat Map Editor');?></a>
 
 							<p class='yesno_leg_line ' style='margin-top:10px;'>
 								<?php 
@@ -75,7 +75,6 @@ class evost_meta_boxes{
 					<td style='padding:5px 25px;' colspan='2'>
 						<p><i><?php echo  (!is_bool($show_content) ) ? $show_content: __('NOTE: Seat Charts are only available for simple ticket product with no repeat instances at the moment. The event ticket basic information must be saved first before adding seat charts.', 'evost'); ?></i></p>
 					</td>
-
 				</tr>
 				<?php
 			endif;

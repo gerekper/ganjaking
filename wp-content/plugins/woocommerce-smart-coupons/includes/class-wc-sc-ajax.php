@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -326,11 +326,11 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 
 						if ( $this->is_wc_gte_30() ) {
 							$discount_type = $coupon->get_discount_type();
-							$coupon_amount = $coupon->get_amount();
 						} else {
 							$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
-							$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						}
+
+						$coupon_amount = $this->get_amount( $coupon );
 
 						switch ( $discount_type ) {
 
@@ -357,7 +357,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 							case 'percent':
 								$coupon_type   = ( $this->is_wc_gte_30() ) ? __( 'Discount', 'woocommerce-smart-coupons' ) : __( 'Cart Discount', 'woocommerce-smart-coupons' );
 								$coupon_amount = $coupon_amount . '%';
-								$max_discount  = get_post_meta( $post->ID, 'wc_sc_max_discount', true );
+								$max_discount  = $this->get_post_meta( $post->ID, 'wc_sc_max_discount', true );
 								if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
 									/* translators: %s: Maximum coupon discount amount */
 									$coupon_type .= ' ' . sprintf( __( 'upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount ) );

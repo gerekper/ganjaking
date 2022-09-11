@@ -76,6 +76,22 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 	wp_enqueue_script( 'wc-add-to-cart-mnm' );
 	wp_enqueue_style( 'wc-mnm-frontend' );
 
+	$classes = array( 
+		'mnm_form',
+		'cart',
+		'cart_group',
+		'layout_' . $product->get_layout(),
+	);
+
+	/**
+	 * Form classes.
+	 *
+	 * @param array - The classes that will print in the <form> tag.
+	 * @param obj $product WC_Mix_And_Match of parent product
+	 * @since  2.1.2
+	 */
+	$classes = apply_filters( 'wc_mnm_form_classes', $classes, $product );
+
 	// Load the add to cart template.
 	wc_get_template(
 		'single-product/add-to-cart/mnm.php',
@@ -83,7 +99,7 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 			'container'          => $product,
 			'min_container_size' => $product->get_min_container_size(),
 			'max_container_size' => $product->get_max_container_size(),
-			'classes'            => 'layout_' . $product->get_layout()
+			'classes'            => $classes
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'

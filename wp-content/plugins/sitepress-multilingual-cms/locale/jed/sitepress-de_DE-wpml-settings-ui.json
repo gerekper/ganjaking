@@ -1,0 +1,47 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "You can choose which posts to translate from the <strong>Translation Management Dashboard</strong>.": [
+            "Sie können vom <strong>Übersetzungsmanagement-Dashboard</strong> aus auswählen, welche Beiträge übersetzt werden sollen."
+         ],
+         "Yes, translate all of these posts automatically": [
+            "Ja, all diese Beiträge automatisch übersetzen"
+         ],
+         "No, I want to translate some of these posts, but not all": [
+            "Nein, ich möchte einige dieser Beiträge übersetzen, aber nicht alle"
+         ],
+         "You must use the Advanced Translation Editor if you want to translate your content automatically.": [
+            "Sie müssen den Advanced Translation Editor verwenden, wenn Sie Ihre Inhalte automatisch übersetzen möchten."
+         ],
+         "Synchronize translators and translation managers with ATE": [
+            "Synchronisieren Sie Übersetzer und Übersetzungsmanager mit ATE"
+         ],
+         "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
+            "Bitte versuchen Sie es in ein paar Minuten erneut. Wenn das Problem weiterhin besteht, wenden Sie sich bitte an den %sWPML-Support%s."
+         ],
+         "Save": [
+            "Speichern"
+         ],
+         "Please confirm this translation setting": [
+            "Bitte bestätigen Sie diese Übersetzungseinstellung"
+         ],
+         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate the <NumberOfItems /> existing items.": [
+            "Ihre Website ist so eingestellt, dass alle Inhalte automatisch übersetzt werden. Wenn Sie <PostTypesNames /> übersetzbar machen, wird WPML die <NumberOfItems /> vorhandenen Elemente automatisch übersetzen."
+         ],
+         "Are you OK with paying for this?": [
+            "Ist es für Sie OK, dafür zu bezahlen?"
+         ],
+         "Cancel": [
+            "Abbrechen"
+         ],
+         "Make translatable": [
+            "Übersetzbar machen"
+         ]
+      }
+   }
+}

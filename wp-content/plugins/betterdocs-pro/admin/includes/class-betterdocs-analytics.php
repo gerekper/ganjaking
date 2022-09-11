@@ -148,7 +148,7 @@ class BetterDocsPro_Analytics {
     }
 
 	public function enqueues( $hook ) {
-		if( $hook !== 'betterdocs_page_betterdocs-analytics' ) {
+		if ( $hook !== 'betterdocs_page_betterdocs-analytics' ) {
 			return;
         }
 
@@ -159,10 +159,22 @@ class BetterDocsPro_Analytics {
 			BETTERDOCS_PRO_ADMIN_URL . 'assets/css/style-betterdocs-analytics.css',
 			array(), '2.0.0', 'all'
         );
+
         wp_enqueue_script(
 			'betterdocs-analytics',
 			BETTERDOCS_PRO_ADMIN_URL . 'assets/js/betterdocs-analytics.js',
 			$dependencies['dependencies'], $dependencies['version'], true
+        );
+
+        wp_localize_script(
+            'betterdocs-analytics',
+            'betterdocs',
+            array(
+                'dir_url' => BETTERDOCS_PRO_URL,
+                'rest_url' => get_rest_url(),
+                'free_version' => BETTERDOCS_VERSION,
+                'pro_version' => BETTERDOCS_PRO_VERSION
+            )
         );
     }
     protected function labels( $query_vars = array() ){

@@ -79,7 +79,7 @@ class Services extends APIEndpoint {
 
     if (!$key) {
       return $this->badRequest([
-        APIError::BAD_REQUEST => $this->wp->__('Please specify a key.', 'mailpoet'),
+        APIError::BAD_REQUEST => __('Please specify a key.', 'mailpoet'),
       ]);
     }
 
@@ -106,10 +106,11 @@ class Services extends APIEndpoint {
 
     $successMessage = null;
     if ($state == Bridge::KEY_VALID) {
-      $successMessage = $this->wp->__('Your MailPoet Sending Service key has been successfully validated', 'mailpoet');
+      $successMessage = __('Your MailPoet Sending Service key has been successfully validated', 'mailpoet');
     } elseif ($state == Bridge::KEY_EXPIRING) {
       $successMessage = sprintf(
-        $this->wp->__('Your MailPoet Sending Service key expires on %s!', 'mailpoet'),
+        // translators: %s is the expiration date.
+        __('Your MailPoet Sending Service key expires on %s!', 'mailpoet'),
         $this->dateTime->formatDate(strtotime($result['data']['expire_at']))
       );
     }
@@ -124,17 +125,18 @@ class Services extends APIEndpoint {
 
     switch ($state) {
       case Bridge::KEY_INVALID:
-        $error = $this->wp->__('Your key is not valid for the MailPoet Sending Service', 'mailpoet');
+        $error = __('Your key is not valid for the MailPoet Sending Service', 'mailpoet');
         break;
       case Bridge::KEY_ALREADY_USED:
-        $error = $this->wp->__('Your MailPoet Sending Service key is already used on another site', 'mailpoet');
+        $error = __('Your MailPoet Sending Service key is already used on another site', 'mailpoet');
         break;
       default:
         $code = !empty($result['code']) ? $result['code'] : Bridge::CHECK_ERROR_UNKNOWN;
-        $errorMessage = $this->wp->__('Error validating MailPoet Sending Service key, please try again later (%s).', 'mailpoet');
+        // translators: %s is the error message.
+        $errorMessage = __('Error validating MailPoet Sending Service key, please try again later (%s).', 'mailpoet');
         // If site runs on localhost
         if (1 === preg_match("/^(http|https)\:\/\/(localhost|127\.0\.0\.1)/", $this->wp->siteUrl())) {
-          $errorMessage .= ' ' . $this->wp->__("Note that it doesn't work on localhost.", 'mailpoet');
+          $errorMessage .= ' ' . __("Note that it doesn't work on localhost.", 'mailpoet');
         }
         $error = sprintf(
           $errorMessage,
@@ -151,7 +153,7 @@ class Services extends APIEndpoint {
 
     if (!$key) {
       return $this->badRequest([
-        APIError::BAD_REQUEST => $this->wp->__('Please specify a key.', 'mailpoet'),
+        APIError::BAD_REQUEST => __('Please specify a key.', 'mailpoet'),
       ]);
     }
 
@@ -168,10 +170,11 @@ class Services extends APIEndpoint {
 
     $successMessage = null;
     if ($state == Bridge::KEY_VALID) {
-      $successMessage = $this->wp->__('Your Premium key has been successfully validated', 'mailpoet');
+      $successMessage = __('Your Premium key has been successfully validated', 'mailpoet');
     } elseif ($state == Bridge::KEY_EXPIRING) {
       $successMessage = sprintf(
-        $this->wp->__('Your Premium key expires on %s', 'mailpoet'),
+        // translators: %s is the expiration date.
+        __('Your Premium key expires on %s', 'mailpoet'),
         $this->dateTime->formatDate(strtotime($result['data']['expire_at']))
       );
     }
@@ -189,15 +192,16 @@ class Services extends APIEndpoint {
 
     switch ($state) {
       case Bridge::KEY_INVALID:
-        $error = $this->wp->__('Your key is not valid for MailPoet Premium', 'mailpoet');
+        $error = __('Your key is not valid for MailPoet Premium', 'mailpoet');
         break;
       case Bridge::KEY_ALREADY_USED:
-        $error = $this->wp->__('Your Premium key is already used on another site', 'mailpoet');
+        $error = __('Your Premium key is already used on another site', 'mailpoet');
         break;
       default:
         $code = !empty($result['code']) ? $result['code'] : Bridge::CHECK_ERROR_UNKNOWN;
         $error = sprintf(
-          $this->wp->__('Error validating Premium key, please try again later (%s)', 'mailpoet'),
+          // translators: %s is the error message.
+          __('Error validating Premium key, please try again later (%s)', 'mailpoet'),
           $this->getErrorDescriptionByCode($code)
         );
         break;
@@ -241,6 +245,7 @@ class Services extends APIEndpoint {
       return $this->createBadRequest(__('Sender email address is not set.', 'mailpoet'));
     }
     if (!in_array($fromEmail, $authorizedEmails, true)) {
+      // translators: %s is the email address, which is not authorized.
       return $this->createBadRequest(sprintf(__("Sender email address '%s' is not authorized.", 'mailpoet'), $fromEmail));
     }
 
@@ -260,12 +265,13 @@ class Services extends APIEndpoint {
   private function getErrorDescriptionByCode($code) {
     switch ($code) {
       case Bridge::CHECK_ERROR_UNAVAILABLE:
-        $text = $this->wp->__('Service unavailable', 'mailpoet');
+        $text = __('Service unavailable', 'mailpoet');
         break;
       case Bridge::CHECK_ERROR_UNKNOWN:
-        $text = $this->wp->__('Contact your hosting support to check the connection between your host and https://bridge.mailpoet.com', 'mailpoet');
+        $text = __('Contact your hosting support to check the connection between your host and https://bridge.mailpoet.com', 'mailpoet');
         break;
       default:
+        // translators: %s is the code.
         $text = sprintf(_x('code: %s', 'Error code (inside parentheses)', 'mailpoet'), $code);
         break;
     }

@@ -32,6 +32,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Required for simple/variable products
 		 */
 		public function process_user_waitlist_request() {
+			wcwl_switch_locale();
 			$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
 			$this->verify_product( $product_id );
 			$products = isset( $_POST['products'] ) && is_array( $_POST['products'] ) ? $_POST['products'] : array();
@@ -142,6 +143,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Process ajax request for user removing themselves from a waitlist on account pages
 		 */
 		public function remove_user_from_waitlist() {
+			wcwl_switch_locale();
 			ob_start();
 			$notice_type = 'success';
 			$message     = '';
@@ -181,6 +183,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Process ajax request for user removing themselves from all archives on account pages
 		 */
 		public function remove_user_from_archives() {
+			wcwl_switch_locale();
 			ob_start();
 			$notice_type = 'success';
 			$message     = apply_filters( 'wcwl_account_removed_archives_message', __( 'You have been removed from all waitlist archives.', 'woocommerce-waitlist' ) );

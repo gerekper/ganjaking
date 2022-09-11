@@ -1401,6 +1401,52 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
+	 * Get all API Resource Order IDs with rows that contain a specific Product ID.
+	 *
+	 * @since 2.4.1
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array|bool
+	 */
+	public function get_all_order_ids_with_rows_containing_product_id( $product_id ) {
+		global $wpdb;
+
+		$order_ids = $wpdb->get_col( $wpdb->prepare( "
+			SELECT order_id
+			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			WHERE product_id = %d
+			ORDER BY order_id
+			DESC
+		", $product_id ) );
+
+		return ! empty( $order_ids ) ? $order_ids : false;
+	}
+
+	/**
+	 * Return true if has Product ID and Order ID.
+	 *
+	 * @since 2.4.3
+	 *
+	 * @param $product_id
+	 * @param $order_id
+	 *
+	 * @return bool
+	 */
+	public function has_product_id_and_order_id( $product_id, $order_id ) {
+		global $wpdb;
+
+		$has_order_id = $wpdb->get_var( $wpdb->prepare( "
+			SELECT order_id
+			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			WHERE product_id = %d
+			AND order_id = %d
+		", $product_id, $order_id ) );
+
+		return ! empty( $has_order_id );
+	}
+
+	/**
 	 * Return order_id.
 	 *
 	 * @since 2.1
@@ -1491,6 +1537,37 @@ class WC_AM_API_Resource_Data_Store {
 		$result = $wpdb->get_row( $wpdb->prepare( $sql, $args ) );
 
 		return ! empty( $result ) ? true : false;
+	}
+
+	/**
+	 * Return the Access Expires value or false.
+	 *
+	 * @since 2.4
+	 *
+	 * @param int $sub_id
+	 *
+	 * @return bool
+	 */
+	public function has_access_expires_set( $order_id ) {
+		global $wpdb;
+
+		$sub_id = 0;
+
+		$sql = "
+			SELECT access_expires
+			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			WHERE order_id = %d
+			AND sub_id = %d
+		";
+
+		$args = array(
+			$order_id,
+			$sub_id
+		);
+
+		$result = $wpdb->get_var( $wpdb->prepare( $sql, $args ) );
+
+		return $this->is_access_expires_set( $result );
 	}
 
 	/**
@@ -1596,15 +1673,17 @@ class WC_AM_API_Resource_Data_Store {
 	 * @param object $resource
 	 */
 	public function delete_inactive_resource_cache( $resource ) {
-		WC_AM_SMART_CACHE()->delete_cache( array(
-			                                   'admin_resources' => array(
-				                                   'order_id'      => $resource->order_id,
-				                                   'sub_parent_id' => ! empty( $resource->sub_parent_id ) ? $resource->sub_parent_id : $resource->order_id,
-				                                   'api_key'       => $resource->master_api_key,
-				                                   'product_id'    => $resource->product_id,
-				                                   'user_id'       => $resource->user_id
-			                                   )
-		                                   ), true );
+		$array = array(
+			'admin_resources' => array(
+				'order_id'      => $resource->order_id,
+				'sub_parent_id' => ! empty( $resource->sub_parent_id ) ? $resource->sub_parent_id : $resource->order_id,
+				'api_key'       => $resource->master_api_key,
+				'product_id'    => $resource->product_id,
+				'user_id'       => $resource->user_id
+			)
+		);
+
+		WC_AM_SMART_CACHE()->delete_cache( $array, true );
 	}
 
 	/**

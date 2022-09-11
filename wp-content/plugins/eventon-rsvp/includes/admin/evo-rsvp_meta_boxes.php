@@ -92,20 +92,27 @@ class evors_meta_boxes{
 		<div class='evoRS_resend_conf'>
 			<div class='evoRS_rc_in'>				
 				<?php if($RR->get_rsvp_type()=='normal'):?>
-					<p><i><?php echo sprintf(__('Re-send <b>customer confirmation</b> email again to %s.','evors'),$RR->email());?></i></p>
+					<p><i><?php echo sprintf(__('Re-send <b>Customer Confirmation</b> email again to %s.','evors'),$RR->email());?></i></p>
 					<a class='button evors_resend_email' data-rsvpid='<?php echo $RR->ID;?>' data-t='confirmation'><?php _e('Re-send Email','evors');?></a> 
 				<?php endif;?>
 
-				<p><i><?php echo sprintf(__('Re-send <b>admin notification</b> email to %s.','evors'),$__notification_to_email);?></i></p>
+				<p><i><?php echo sprintf(__('Re-send <b>Admin Notification</b> email to %s.','evors'),$__notification_to_email);?></i></p>
 				<a class='button evors_resend_email' data-rsvpid='<?php echo $RR->ID;?>' data-t='notification'><?php _e('Re-send Email','evors');?></a>
 				<p class='message' style='display:none'><?php _e('Email resend action performed!','evors');?></p>
 			</div>
 		</div>
+		
 		<?php if($RR->get_rsvp_type()=='normal'):?>
 		<div class='evoRS_resend_conf'>
 			<div class='evoRS_rc_in'>
-				<p><i><?php _e('Send RSVP <b>confirmation email</b> to other email addresses using below fields. <br/>NOTE: you can send to multiple email address separated by commas.','evors');?></i></p>
+				<p><i><?php _e('Send RSVP Emails to other email addresses using below fields. <br/>NOTE: you can send to multiple email address separated by commas.','evors');?></i></p>
 				<p class='field'><input type='text' placeholder='Comma separated email addresses' style="width:100%" /></p>
+				<p class='field'>
+					<select name='type'>
+						<option value='confirmation'><?php _e('Confirmation Email','evors');?></option>
+						<option value='notification'><?php _e('Admin Notification Email','evors');?></option>
+					</select>
+					</p>
 				<a id='evoRS_custom_email' class='button' data-rsvpid='<?php echo $RR->ID;?>' data-empty='<?php _e('Email field can not be empty!','evors');?>' ><?php _e('Send Email','evors');?></a>
 				<p class='message' style='display:none'><?php _e('Email send action performed!','evors');?></p>
 			</div>

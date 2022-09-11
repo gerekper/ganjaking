@@ -716,7 +716,6 @@ if (!class_exists('A2W_Utils')) {
                     $product['shipping_default_method'] = $default_method;
                 }
 
-                $product['shipping_cost'] = 0;
                 foreach ($items as $item) {
                     if ($item['serviceName'] == $product['shipping_default_method']) {
                         $product['shipping_cost'] = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];

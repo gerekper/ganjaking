@@ -28,7 +28,7 @@ class BetterDocs_Pro_Elementor
      */
     public static function init()
     {
-        add_action('elementor/widgets/widgets_registered', [__CLASS__, 'register_widgets']);
+        add_action('elementor/widgets/register', [__CLASS__, 'register_widgets']);
         add_action('betterdocs/elementor/widgets/advanced-search/switcher', [__CLASS__,'betterdocs_advance_search'], 10, 1);
         add_action('betterdocs/elementor/widgets/advanced-search/controllers', [__CLASS__,'betterdocs_advance_search_controls'], 10, 1);
         if (is_plugin_active('elementor-pro/elementor-pro.php')) {
@@ -65,7 +65,7 @@ class BetterDocs_Pro_Elementor
     {
         foreach (self::get_widget_list() as $value) {
             if (class_exists($value)) {
-                $widgets_manager->register_widget_type(new $value);
+                $widgets_manager->register(new $value);
             }
         }
     }

@@ -17,14 +17,14 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons;
 
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations\WC_Subscriptions_Integration;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Admin;
@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.5.6';
+	const VERSION = '2.5.7';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';

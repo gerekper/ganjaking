@@ -8,25 +8,21 @@ class EVO_Seats_QR{
 		add_filter('evoqr_data_output',array($this, 'seat_data'), 10,4);
 	}
 
-	function seat_data($output, $tixid, $id_type, $ticket_meta_data){
+	function seat_data($output, $ticket_number, $id_type, $ticket_meta_data){
 
 		if( $id_type != 'evo-tix') return $output;
-		if(empty($ticket_meta_data['Seat-Number'])) return $output;
+		if( empty($ticket_meta_data)) return $output;		
+		if(	!isset($ticket_meta_data['oD'])) return $output;
+		if(	!isset($ticket_meta_data['oD']['seat_number'])) return $output;
 
-		$seat_number = $ticket_meta_data['Seat-Number'][0];
-
-		if(!$seat_number) return $output;
+		$seat_number = $ticket_meta_data['oD']['seat_number'];
 
 		$evotix = new evotx_tix();
-		$wcid = $evotix->get_product_id_by_ticketnumber($tixid);
+		$wcid = $evotix->get_product_id_by_ticketnumber($ticket_number);
 
-		$seat_id 	= 	isset($ticket_meta_data['seat_id']) ? $ticket_meta_data['seat_id'][0]: false;
-		$event_id 	= 	isset($ticket_meta_data['_eventid']) ? $ticket_meta_data['_eventid'][0]: false;
-		$seat_slug 	= 	isset($ticket_meta_data['_evost_seat_slug']) ? $ticket_meta_data['_evost_seat_slug'][0]: false;
+		$event_id 	= 	isset($ticket_meta_data['event_id']) ? $ticket_meta_data['event_id']: false;
+		$seat_slug 	= 	isset($ticket_meta_data['oDD']['seat_slug']) ? $ticket_meta_data['oDD']['seat_slug']: false;
 		
-
-		// compatibility with old seat slug
-		if(empty($seat_slug)) $seat_slug = $seat_id;
 		
 		$SEAT = new EVOST_Seats_Seat($event_id, $wcid, $seat_slug);
 		$readable_seat = $SEAT->get_readable_seat_number();

@@ -30,7 +30,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 		<?php if ( $booking->get_product() ) : ?>
 			<tr>
 				<th scope="row" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Booked Product', 'woocommerce-bookings' ); ?></th>
-				<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ] ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
+				<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ], 'sent_to_admin' => true ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
 			</tr>
 		<?php endif; ?>
 		<tr>

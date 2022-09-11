@@ -19,7 +19,7 @@ class Hotels {
 
   public function get() {
     return [
-      'name' => WPFunctions::get()->__("Hotels", 'mailpoet'),
+      'name' => __("Hotels", 'mailpoet'),
       'categories' => json_encode(['standard', 'all']),
       'readonly' => 1,
       'thumbnail' => $this->getThumbnail(),
@@ -1032,7 +1032,7 @@ class Hotels {
                               2 =>
                                  [
                                   'type' => 'footer',
-                                  'text' => '<p><span style="color: #ffc600;"><a href="[link:subscription_unsubscribe_url]" style="color: #ffc600;">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]" style="color: #ffc600;">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a></span><br /><span style="color: #ffffff;">'.WPFunctions::get()->__("Add your postal address here!", 'mailpoet').'</span></p>',
+                                  'text' => '<p><span style="color: #ffc600;"><a href="[link:subscription_unsubscribe_url]" style="color: #ffc600;">'.__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]" style="color: #ffc600;">'.__("Manage your subscription", 'mailpoet').'</a></span><br /><span style="color: #ffffff;">'.__("Add your postal address here!", 'mailpoet').'</span></p>',
                                   'styles' =>
                                      [
                                       'block' =>
@@ -1265,7 +1265,7 @@ class Hotels {
              ],
           'footer' =>
              [
-              'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a><br />'.WPFunctions::get()->__("Add your postal address here!", 'mailpoet').'</p>',
+              'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.__("Manage your subscription", 'mailpoet').'</a><br />'.__("Add your postal address here!", 'mailpoet').'</p>',
               'styles' =>
                  [
                   'block' =>
@@ -1390,7 +1390,7 @@ class Hotels {
              ],
           'header' =>
              [
-              'text' => '<a href="[link:newsletter_view_in_browser_url]">'.WPFunctions::get()->__("View this in your browser.", 'mailpoet').'</a>',
+              'text' => '<a href="[link:newsletter_view_in_browser_url]">'.__("View this in your browser.", 'mailpoet').'</a>',
               'styles' =>
                  [
                   'block' =>

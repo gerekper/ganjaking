@@ -134,11 +134,12 @@ $attr_array  = array(
 <div
     id="ct-ultimate-gdpr-age-popup"
     class="<?php echo ct_gdpr_set_class_attr($class_array); ?>"
-    <?php if ($options['age_box_style'] == 'none') : ?>
+    <?php if ($options['age_box_style'] != 'none') : ?>
         style="<?php if ($options['age_box_shape'] == 'rounded') echo 'border-radius: 8px'; ?>; background-color: <?php echo esc_attr($options['age_background_color']); ?>; color: <?php echo esc_attr($options['age_text_color']); ?>;
         <?php echo ct_gdpr_set_class_attr($attr_array); ?>
         <?php echo $ct_gdpr_get_box_bg_array['img']; ?>"
     <?php else : ?>
+    
         style="<?php echo ct_gdpr_set_class_attr($attr_array); ?>"
     <?php endif; ?>
 >
@@ -181,11 +182,18 @@ $attr_array  = array(
                 id="ct-ultimate-gdpr-age-accept"
                 class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
                 <?php if ($options['age_box_style'] == 'none') : ?>
-                    style="<?php if ($options['age_button_shape'] == 'rounded') echo 'border-radius: 25px'; ?>; background-color: <?php echo esc_attr($options['age_button_bg_color']); ?>; color: <?php echo esc_attr($options['age_button_text_color']); ?>;"
+                    style="
+                        <?php if ($options['age_button_shape'] == 'rounded') { echo 'border-radius: 25px'; }?>; 
+                        background-color: <?php echo esc_attr($options['age_button_bg_color']); ?>; 
+                        color: <?php echo esc_attr($options['age_button_text_color']); ?>;"
+                <?php else: ?>
+                    style="<?php if ($options['age_button_shape'] == 'rounded'){ echo 'border-radius: 25px'; }?>"
                 <?php endif; ?>
             >
-                <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
+                   
+             <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
             </a>
+            
 			
             <!--<button
                 id="ct-ultimate-gdpr-age-accept"

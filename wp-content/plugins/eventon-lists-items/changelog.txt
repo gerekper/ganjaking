@@ -1,5 +1,17 @@
 ﻿Event Lists & Items (LI) addon for EventON Plugin
 ====================================
+v 0.12 (2021-1-19)
+ADDED: shortcode option to show empty terms using show_empty
+FIXED: minor code error
+FIXED: google map code loading method
+FIXED: RTL text alignments
+FIXED: load eventon scripts using new function load_evo_scripts_styles()
+FIXED: use get_terms() to retrieve terms for taxonomies
+
+v 0.11 (2020-8-27)
+FIXED: Minor styles on the front end
+FIXED: description showing twice for items
+
 v 0.10 (2020-8-7)
 ADDED: compatibility with speakers addon to show speaker image and descripion in list
 FIXED: font awesome icon compatibilty

@@ -1,5 +1,10 @@
 *** WooCommerce Product Reviews Pro Changelog ***
 
+2022.08.15 - version 1.17.5
+ * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
+ * Dev - Ensure compatibility with WooCommerce 6.7 native core product reviews page
+ + Misc - Require WooCommerce 3.9.4 or newer
+
 2021.03.30 - version 1.17.4
  * Fix - When filtering reviews by star rating and comments are paginated, ensure to display all reviews matching the chosen rating
 

@@ -274,7 +274,10 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 	?>; color: <?php echo esc_attr( $accept_color );
 	?>;">
         <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal" class="close-modal-text">
-			<?php echo $options['cookie_close_text_modal']; ?> <i class="fa fa-times"></i>
+			<?php echo $options['cookie_close_text_modal']; ?> 
+			<?php if($btn_settings == 'text_icon_'): ?>
+				<i class="fa fa-times"></i>
+			<?php endif; ?>
 		</a>
 	</div>
     <?php } ?>

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart support.
  *
  * @class    WCS_ATT_Cart
- * @version  3.2.1
+ * @version  4.0.0
  */
 class WCS_ATT_Cart {
 
@@ -167,163 +167,6 @@ class WCS_ATT_Cart {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Cart methods
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Returns cart-level subscription schemes, available only if there are no cart-items with product-level subscription schemes.
-	 * Subscription options defined at product-level and "legacy" subscription-type products "block" the display of cart-level subscription options.
-	 *
-	 * Must be called after all cart session data has been loaded.
-	 *
-	 * @since  2.0.0
-	 *
-	 * @param  string|WC_Product  $context  Function call context.
-	 * @return array|boolean
-	 */
-	public static function get_cart_subscription_schemes( $context = 'cart' ) {
-
-		$cart_level_schemes     = array();
-		$cart_level_scheme_meta = get_option( 'wcsatt_subscribe_to_cart_schemes', array() );
-
-		if ( empty( $cart_level_scheme_meta ) ) {
-			return false;
-		}
-
-		foreach ( $cart_level_scheme_meta as $scheme_meta ) {
-
-			$scheme     = new WCS_ATT_Scheme( array( 'data' => $scheme_meta, 'context' => 'cart' ) );
-			$scheme_key = $scheme->get_key();
-
-			if ( ! isset( $cart_level_schemes[ $scheme_key ] ) ) {
-				$cart_level_schemes[ $scheme_key ] = $scheme;
-			}
-		}
-
-		if ( 'raw' === $context ) {
-			return $cart_level_schemes;
-		}
-
-		if ( ! self::supports_cart_subscription_schemes( $context ) ) {
-			return false;
-		}
-
-		if ( ! is_object( $context ) && in_array( $context, array( 'cart', 'display', 'cart-display', 'checkout-display' ) ) ) {
-			// Last chance to turn off or otherwise modify cart level plans.
-			$cart_level_schemes = apply_filters( 'wcsatt_cart_subscription_schemes', $cart_level_schemes, $context );
-		}
-
-		return $cart_level_schemes;
-	}
-
-	/**
-	 * Whether cart-level subscription schemes are supported.
-	 *
-	 * @since  3.1.19
-	 *
-	 * @return boolean
-	 */
-	public static function supports_cart_subscription_schemes( $context ) {
-
-		if ( $context instanceof WC_Product ) {
-
-			// Unsupported product type?
-			if ( ! self::is_supported( $context ) ) {
-				return false;
-			}
-
-		} elseif ( in_array( $context, array( 'cart', 'display', 'cart-display', 'checkout-display' ) ) ) {
-
-			foreach ( WC()->cart->cart_contents as $cart_item ) {
-
-				// Unsupported product type?
-				if ( ! self::is_supported( $cart_item ) ) {
-					return false;
-				}
-
-				// Has subscription schemes defined at product level?
-				if ( $product_level_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $cart_item[ 'data' ], 'product' ) ) {
-					return false;
-				}
-
-				// Is a legacy subscription product?
-				if ( WCS_ATT_Product::is_subscription_product_type( $cart_item[ 'data' ] ) ) {
-					return false;
-				}
-
-				// When getting cart subscription schemes for display, do not return anything when renewing/resubscribing.
-				if ( in_array( $context, array( 'display', 'cart-display', 'checkout-display' ) ) ) {
-					if ( isset( $cart_item[ 'subscription_renewal' ] ) || isset( $cart_item[ 'subscription_initial_payment' ] ) || isset( $cart_item[ 'subscription_resubscribe' ] ) ) {
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Returns the active cart-level subscription scheme id, or false if none is set.
-	 *
-	 * @since  2.0.0
-	 *
-	 * @return string|false|null
-	 */
-	public static function get_cart_subscription_scheme() {
-		return WC()->session->get( 'wcsatt-active-scheme', false );
-	}
-
-	/**
-	 * Get the posted cart subscription scheme.
-	 *
-	 * @since  2.1.0
-	 *
-	 * @return string
-	 */
-	public static function get_posted_cart_subscription_scheme() {
-
-		$posted_subscription_scheme_key = null;
-
-		if ( isset( $_POST[ 'subscription_scheme' ] ) ) {
-			$posted_subscription_scheme_key = wc_clean( $_POST[ 'subscription_scheme' ] );
-		}
-
-		if ( ! is_null( $posted_subscription_scheme_key ) ) {
-			$posted_subscription_scheme_key = WCS_ATT_Product_Schemes::parse_subscription_scheme_key( $posted_subscription_scheme_key );
-		}
-
-		return $posted_subscription_scheme_key;
-	}
-
-	/**
-	 * Returns the active cart-level subscription scheme id, or false if none is set.
-	 *
-	 * @since  2.0.0
-	 *
-	 * @param  string|false  $scheme_key
-	 */
-	public static function set_cart_subscription_scheme( $scheme_key ) {
-
-		WC()->session->set( 'wcsatt-active-scheme', $scheme_key );
-	}
-
-	/**
-	 * Reset stored cart subscription scheme when the cart is empty.
-	 *
-	 * @since  2.1.0
-	 *
-	 * @return void
-	 */
-	public static function maybe_reset_cart_subscription_scheme() {
-		if ( ! WC()->cart->get_cart_contents_count() ) {
-			self::set_cart_subscription_scheme( false );
-		}
-	}
-
-	/*
-	|--------------------------------------------------------------------------
 	| Hooks
 	|--------------------------------------------------------------------------
 	*/
@@ -374,12 +217,6 @@ class WCS_ATT_Cart {
 	 */
 	public static function apply_subscription_schemes( $cart ) {
 
-		/*
-		 * Can we attach cart-level schemes to the products contained in this cart?
-		 * @see 'WCS_ATT_Cart::get_cart_subscription_schemes'.
-		 */
-		$cart_level_schemes = self::get_cart_subscription_schemes();
-
 		foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
 
 			if ( ! self::is_supported( $cart_item ) ) {
@@ -421,25 +258,9 @@ class WCS_ATT_Cart {
 				// Set schemes to the product object.
 				WCS_ATT_Product_Schemes::set_subscription_schemes( $cart->cart_contents[ $cart_item_key ][ 'data' ], $cart_item[ 'add_product_to_subscription_schemes' ] );
 
-			} elseif ( ! empty( $cart_level_schemes ) ) {
-
-				// If subscription schemes are available at cart-level, set them on the product object.
-				WCS_ATT_Product_Schemes::set_subscription_schemes( $cart->cart_contents[ $cart_item_key ][ 'data' ], $cart_level_schemes );
-
-				$cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'is_cart_subscription_scheme' ] = true;
 			}
 
 			if ( ! WCS_ATT_Product_Schemes::has_subscription_schemes( $cart->cart_contents[ $cart_item_key ][ 'data' ] ) ) {
-
-				// Item previously had a cart plan active but no cart plans are available for this cart?
-				if ( empty( $cart_level_schemes ) && ! empty( $cart_item[ 'wcsatt_data' ][ 'is_cart_subscription_scheme' ] ) && isset( $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] ) && $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] !== null ) {
-
-					// Are there any cart plans at all?
-					if ( false === $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] || ( ( $cart_level_schemes_raw = self::get_cart_subscription_schemes( 'raw' ) ) && isset( $cart_level_schemes_raw[ $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] ] ) ) ) {
-						$cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = null;
-					}
-				}
-
 				continue;
 			}
 
@@ -496,9 +317,6 @@ class WCS_ATT_Cart {
 			 */
 			do_action( 'wcsatt_applied_cart_item_subscription_scheme', $cart_item, $cart_item_key );
 		}
-
-		// If the cart is empty, reset the cart-level scheme stored in session data.
-		self::maybe_reset_cart_subscription_scheme();
 	}
 
 	/**
@@ -510,29 +328,15 @@ class WCS_ATT_Cart {
 	 */
 	private static function get_subscription_scheme_to_apply( $cart_item ) {
 
-		$cart_level_schemes = self::get_subscription_schemes( $cart_item, 'cart' );
+		$scheme_key_to_apply = $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ];
 
-		/*
-		 * Currently a cart item can only have product-level or cart-level schemes, not both - @see 'WCS_ATT_Cart::get_cart_subscription_schemes'.
-		 * Note that if there are no cart-level schemes to display, we shouldn't apply any cart-level scheme in the background.
-		 */
-		if ( ! empty( $cart_level_schemes ) && self::get_cart_subscription_schemes( 'cart-display' ) ) {
-
-			// Read active cart scheme from session.
-			$scheme_key_to_apply = self::get_cart_subscription_scheme();
-
-		} else {
-
-			$scheme_key_to_apply = $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ];
-
-			if ( null === $scheme_key_to_apply ) {
-				if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $cart_item[ 'data' ] ) ) {
-					$scheme_key_to_apply = WCS_ATT_Product_Schemes::get_default_subscription_scheme( $cart_item[ 'data' ] );
-				}
+		if ( null === $scheme_key_to_apply ) {
+			if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $cart_item[ 'data' ] ) ) {
+				$scheme_key_to_apply = WCS_ATT_Product_Schemes::get_default_subscription_scheme( $cart_item[ 'data' ] );
 			}
 		}
 
-		return apply_filters( 'wcsatt_set_subscription_scheme_id', $scheme_key_to_apply, $cart_item, $cart_level_schemes );
+		return apply_filters( 'wcsatt_set_subscription_scheme_id', $scheme_key_to_apply, $cart_item, false );
 	}
 
 	/**
@@ -710,6 +514,85 @@ class WCS_ATT_Cart {
 	| Deprecated
 	|--------------------------------------------------------------------------
 	*/
+
+	/**
+	 * Returns cart-level subscription schemes, available only if there are no cart-items with product-level subscription schemes.
+	 * Subscription options defined at product-level and "legacy" subscription-type products "block" the display of cart-level subscription options.
+	 *
+	 * Must be called after all cart session data has been loaded.
+	 *
+	 * @since 2.0.0
+	 * @deprecated 4.0.0
+	 *
+	 * @param  string|WC_Product  $context  Function call context.
+	 * @return array|boolean
+	 */
+	public static function get_cart_subscription_schemes( $context = 'cart' ) {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+		return false;
+	}
+
+	/**
+	 * Whether cart-level subscription schemes are supported.
+	 *
+	 * @since 3.1.19
+	 * @deprecated 4.0.0
+	 *
+	 * @return boolean
+	 */
+	public static function supports_cart_subscription_schemes( $context ) {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+		return false;
+	}
+
+	/**
+	 * Returns the active cart-level subscription scheme id, or false if none is set.
+	 *
+	 * @since 2.0.0
+	 * @deprecated 4.0.0
+	 *
+	 * @return string|false|null
+	 */
+	public static function get_cart_subscription_scheme() {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+		return false;	}
+
+	/**
+	 * Get the posted cart subscription scheme.
+	 *
+	 * @since 2.1.0
+	 * @deprecated 4.0.0
+	 *
+	 * @return string
+	 */
+	public static function get_posted_cart_subscription_scheme() {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+		return null;
+	}
+
+	/**
+	 * Returns the active cart-level subscription scheme id, or false if none is set.
+	 *
+	 * @since 2.0.0
+	 * @deprecated 4.0.0
+	 *
+	 * @param  string|false  $scheme_key
+	 */
+	public static function set_cart_subscription_scheme( $scheme_key ) {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+	}
+
+	/**
+	 * Reset stored cart subscription scheme when the cart is empty.
+	 *
+	 * @since 2.1.0
+	 * @deprecated 4.0.0
+	 *
+	 * @return void
+	 */
+	public static function maybe_reset_cart_subscription_scheme() {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+	}
 
 	/**
 	 * Ajax handler for saving the subscription scheme chosen at cart-level.

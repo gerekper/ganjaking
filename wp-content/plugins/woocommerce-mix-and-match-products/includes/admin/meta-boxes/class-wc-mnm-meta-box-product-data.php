@@ -229,7 +229,8 @@ class WC_MNM_Meta_Box_Product_Data {
 		$tabs['mnm_options'] = array(
 			'label'  => __( 'Mix and Match', 'woocommerce-mix-and-match-products' ),
 			'target' => 'mnm_product_data',
-			'class'  => array( 'show_if_mix-and-match', 'mnm_product_tab', 'mnm_product_options' )
+			'class'  => array( 'show_if_mix-and-match', 'mnm_product_tab', 'mnm_product_options' ),
+			'priority' => 45,
 		);
 
 		$tabs['inventory']['class'][] = 'show_if_mix-and-match'; // Cannot add same to shipping tab as it hide shipping on simple products. Use JS instead.
@@ -469,7 +470,7 @@ class WC_MNM_Meta_Box_Product_Data {
 
 		?>
 
-		<p id="mnm_allowed_contents_options" class="form-field wc_mnm_source_products_field show_if_source_products">
+		<p class="form-field wc_mnm_source_products_field show_if_source_products">
 			<label for="mnm_allowed_contents"><?php _e( 'Select products', 'woocommerce-mix-and-match-products' ); ?></label>
 
 			<?php

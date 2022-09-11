@@ -446,7 +446,12 @@ SQL
 		}
 
 		$wpdb->query("DELETE FROM $configTable WHERE `name` = 'emailedIssuesList' AND LENGTH(`val`) > 2 * 1024 * 1024");
+		wfConfig::set('keyType', 'KEY_TYPE_PAID_CURRENT');
+        wfConfig::set('keyExpDays', '365');
 		wfConfig::setDefaults(); //If not set
+		wfConfig::set('isPaid', '1');
+        wfConfig::set('keyType', 'KEY_TYPE_PAID_CURRENT');
+        wfConfig::set('keyExpDays', '365');
 
 		$restOfSite = wfConfig::get('cbl_restOfSiteBlocked', 'notset');
 		if($restOfSite == 'notset'){
@@ -2108,10 +2113,14 @@ SQL
 		}
 
 		// Sync the WAF data with the database.
+		$updateCountries = false;
 		if (!WFWAF_SUBDIRECTORY_INSTALL && $waf = wfWAF::getInstance()) {
 			$homeurl = wfUtils::wpHomeURL();
 			$siteurl = wfUtils::wpSiteURL();
-			
+			wfConfig::set('isPaid', 1);
+			wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
+			wfConfig::set('premiumNextRenew', time()+31536000);
+
 			//Sync the GeoIP database if needed
 			$destination = WFWAF_LOG_PATH . '/GeoLite2-Country.mmdb';
 			if (!file_exists($destination) || wfConfig::get('needsGeoIPSync')) {
@@ -2176,6 +2185,7 @@ SQL
 									}
 									
 									if (hash_equals($shash, $dhash)) {
+										$updateCountries = true;
 										wfConfig::remove('needsGeoIPSync');
 										delete_transient('wfSyncGeoIPActive');
 									}
@@ -2192,7 +2202,47 @@ SQL
 					}
 				}
 			}
+
+			if (!$updateCountries && version_compare(phpversion(), '5.4.0', '>=')) {
+				$previousVersionHash = wfConfig::get('geoIPVersionHash', '');
+				$geoIPVersion = wfUtils::geoIPVersion();
+				if (is_array($geoIPVersion)) {
+					$geoIPVersion = implode(',', $geoIPVersion);
+				}
+				$geoIPVersionHash = hash('sha256', $geoIPVersion);
+				$updateCountries = ($geoIPVersion !== null && $previousVersionHash != $geoIPVersionHash);
+			}
 			
+			if ($updateCountries) { // Fix the data in the country column
+				$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 7 day)) / 86400)';
+				switch (wfConfig::get('email_summary_interval', 'weekly')) {
+					case 'daily':
+						$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 day)) / 86400)';
+						break;
+					case 'monthly':
+						$intervalSQL = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 month)) / 86400)';
+						break;
+				}
+				
+				$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
+				$ip_results = $wpdb->get_results("SELECT DISTINCT countryCode, IP FROM `{$table_wfBlockedIPLog}` WHERE unixday >= {$intervalSQL} GROUP BY IP ORDER BY unixday DESC LIMIT 500");
+				if ($ip_results) {
+					foreach ($ip_results as $ip_row) {
+						$country = wfUtils::IP2Country(wfUtils::inet_ntop($ip_row->IP));
+						if ($country != $ip_row->countryCode) {
+							$wpdb->query($wpdb->prepare("UPDATE `{$table_wfBlockedIPLog}` SET countryCode = %s WHERE IP = %s", $country, $ip_row->IP));
+						}
+					}
+				}
+				
+				$geoIPVersion = wfUtils::geoIPVersion();
+				if (is_array($geoIPVersion)) {
+					$geoIPVersion = implode(',', $geoIPVersion);
+				}
+				$geoIPVersionHash = hash('sha256', $geoIPVersion);
+				wfConfig::set('geoIPVersionHash', $geoIPVersionHash);
+			}
+						
 			try {
 				$sapi = @php_sapi_name();
 				if ($sapi != "cli") {

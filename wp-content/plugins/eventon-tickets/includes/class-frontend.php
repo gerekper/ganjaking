@@ -42,8 +42,10 @@ class evotx_front{
 		add_shortcode('evotx_btn', array($this,'ticket_button'));
 		add_filter('evo_frontend_lightbox', array($this, 'ligthbox'),10,1);
 
+		//print_r( get_post_meta(1,'aa',true));
 
 	}
+
 
 	// template redirect
 		function template_redirect(){
@@ -54,7 +56,7 @@ class evotx_front{
 				if($event_id) {
 					$event_url = get_permalink($event_id);
 					if($event_url !== false) {
-						wp_redirect($event_url);
+						wp_redirect($event_url, 301);
 						exit();
 					}
 				}
@@ -223,7 +225,12 @@ class evotx_front{
 	// FRONT END event card inclusion
 		function frontend_box($object, $helpers, $EVENT){
 
-						
+			// debug
+			//print_r( get_post_meta(1,'aa', true));
+			//print_r( get_post_meta(1,'aa2', true));
+			//print_r( get_post_meta(3825,'_tixholders', true));
+
+			
 			// globals
 				// pass global evo lang to ticket extensions - which use AJAX to load content
 				if(!isset($GLOBALS['EVOLANG'])) $GLOBALS['EVOLANG'] = evo_get_current_lang(); 
@@ -483,49 +490,6 @@ class evotx_front{
 					'phone'=>array('text',eventon_get_custom_language($opt, 'evoTX_inq_04a','Phone Number')),		
 					'message'=>array('textarea',eventon_get_custom_language($opt, 'evoTX_inq_04','Question'))
 				));
-			}
-
-		// Guest list
-		// @updated 1.7 -- deprecating replaced in event ticket class
-			function guest_list($event_id, $repeat_interval=0){
-				
-				$EA = new EVOTX_Attendees();
-				$TH = $EA->get_tickets_for_event($event_id);
-				$total_tickets = 0;
-				$output = '';
-
-				if(!$TH || count($TH)<1) return false;
-
-				ob_start();
-				$cnt = 0;
-				$guests = array();
-
-				//print_r($TH);
-				foreach($TH as $tn=>$td){
-
-					// validate
-					if(empty($td['name'])) continue;
-					if(trim($td['name']) =='') continue;
-
-					// check for RI
-					if($td['ri'] != $repeat_interval) continue;
-					if(in_array($td['name'], $guests)) continue;
-
-					// skip refunded tickets
-					if($td['s'] == 'refunded') continue;
-					if($td['oS'] != 'completed') continue;
-
-					$guests[] = $td['name'];
-					echo apply_filters('evotx_guestlist_guest',"<span class='fullname' data-name='".$td['name']."' >". $td['name'] ."</span>", $td);
-					$cnt++;
-
-				}
-				$output = ob_get_clean();			
-
-				return array(
-					'guests'=>	$output,
-					'count'=>	$cnt
-				);
 			}
 
 		// event card inclusion functions

@@ -91,8 +91,8 @@ class WC_Advanced_Notifications {
 		add_action( 'woocommerce_low_stock_notification', array( $this, 'low_stock' ), 1, 2 );
 		add_action( 'woocommerce_no_stock_notification', array( $this, 'out_of_stock' ), 1, 2 );
 		add_action( 'woocommerce_product_on_backorder_notification', array( $this, 'backorder' ), 1, 2 );
-		add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'refund' ) );
-		add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'refund' ) );
+		add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'full_refund' ) );
+		add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'partial_refund' ) );
 	}
 
 	/**
@@ -559,12 +559,39 @@ class WC_Advanced_Notifications {
 	}
 
 	/**
-	 * refund function.
+	 * Fully refund function.
+	 *
+	 * @param int $order_id ID of the order.
 	 *
 	 * @access public
 	 * @return void
 	 */
-	public function refund( $order_id ) {
+	public function full_refund( $order_id ) {
+		$this->refund( $order_id, false );
+	}
+
+	/**
+	 * Partial refund function.
+	 *
+	 * @param int $order_id ID of the order.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function partial_refund( $order_id ) {
+		$this->refund( $order_id, true );
+	}
+
+	/**
+	 * refund function.
+	 *
+	 * @param int  $order_id ID of the order.
+	 * @param bool $is_partial flag to check if the current refund is partial refund or not.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function refund( $order_id, $is_partial = false ) {
 		global $wpdb;
 
 		$order = new WC_Order( $order_id );
@@ -576,9 +603,14 @@ class WC_Advanced_Notifications {
 
 			// Prepare email.
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-			$email_heading = __( 'Customer Refund', 'woocommerce-advanced-notifications' );
 
-			$subject = apply_filters( 'woocommerce_email_subject_refund', sprintf( __( '[%s] Order Refund (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order, null );
+			if ( $is_partial ) {
+				$subject       = apply_filters( 'woocommerce_email_subject_refund', sprintf( __( '[%s] Partial Order Refund (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order, null );
+				$email_heading = __( 'Customer Partial Refund', 'woocommerce-advanced-notifications' );
+			} else {
+				$subject       = apply_filters( 'woocommerce_email_subject_refund', sprintf( __( '[%s] Order Refund (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order, null );
+				$email_heading = __( 'Customer Refund', 'woocommerce-advanced-notifications' );
+			}
 
 			foreach ( $notifications as $notification ) {
 
@@ -595,6 +627,7 @@ class WC_Advanced_Notifications {
 						'order'               => $order,
 						'email_heading'       => $email_heading,
 						'recipient_name'      => $notification->recipient_name,
+						'partial_refund'      => $is_partial,
 						'show_totals'         => $notification->notification_totals,
 						'show_prices'         => $notification->notification_prices,
 						'show_all_items'      => $notification->notification_include_all_items,

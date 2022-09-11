@@ -36,6 +36,9 @@ class evorsi_admin{
 
 	// scripts and styles
 		function scripts(){
+
+			EVO()->frontend->load_default_evo_scripts();
+
 			wp_enqueue_script( 'evorsi_admin_script',EVORSI()->assets_path.'admin.js','',EVORSI()->version);
 			wp_enqueue_style( 'evorsi_admin_style',EVORSI()->assets_path.'admin.css','',EVORSI()->version);
 			wp_localize_script( 

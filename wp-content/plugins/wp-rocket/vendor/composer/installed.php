@@ -13,21 +13,21 @@
   array (
     'composer/installers' => 
     array (
-      'pretty_version' => 'v2.1.1',
-      'version' => '2.1.1.0',
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'af93ba6e52236418f07a278033eba6959ee5b983',
+      'reference' => 'c29dc4b93137acb82734f672c37e029dfbd95b35',
     ),
     'monolog/monolog' => 
     array (
-      'pretty_version' => '1.27.1',
-      'version' => '1.27.1.0',
+      'pretty_version' => '2.8.0',
+      'version' => '2.8.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '904713c5929655dc9b97288b69cfeedad610c9a1',
+      'reference' => '720488632c590286b88b80e62aa3d3d551ad4a50',
     ),
     'psr/log' => 
     array (
@@ -42,7 +42,7 @@
     array (
       'provided' => 
       array (
-        0 => '1.0.0',
+        0 => '1.0.0 || 2.0.0 || 3.0.0',
       ),
     ),
     'wp-media/wp-rocket' => 

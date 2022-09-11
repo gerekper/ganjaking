@@ -4,17 +4,17 @@
  Plugin URI: http://www.myeventon.com/
  Description: Checkin customers with QR Code
  Author: Ashan Jay
- Version: 1.1.6
+ Version: 2.0
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 5.1
+ Tested up to: 5.8.2
  */
 
 class EventON_qr{
 	
-	public $version='1.1.6';
-	public $eventon_version = '2.7';
-	public $evotx_version = '1.7';
+	public $version='2.0';
+	public $eventon_version = '4.0';
+	public $evotx_version = '2.0';
 	public $evors_version = '2.6';
 	public $name = 'QR Code';
 			

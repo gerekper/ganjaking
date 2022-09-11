@@ -35,15 +35,16 @@
     margin-top: -2px;
 }
 .evoaup_submission_levels p.none{padding: 6px 10px;margin: 0;}
-.evoaup_submission_levels li em:hover{
-	    opacity: 1;
-    color: #3d3d3d;
-    background-color: #fff;
-}
-.evoaup_submission_levels{
-	border-radius: 5px;
-	border:1px solid #cecece;
-}
+.evoaup_submission_levels li em:hover{ opacity: 1; color: #3d3d3d;background-color: #fff;}
+.evoaup_submission_levels{border-radius: 5px;border:1px solid #cecece;}
 .evoaup_submission_levels li:last-child{border:none;}
 .evoaup_submission_form{padding: 30px;}
-.evoaup_submission_form .checkbox_row{display: block;}
+.evoaup_submission_form .checkbox_row{display: block;padding-bottom: 5px;}
+.evoaup_submission_form .evoaup_color span{
+    display: inline-block;
+    background-color: #808080;
+    height: 30px;
+    width: 50px;
+    border-radius: 25px;
+    cursor: pointer;
+}

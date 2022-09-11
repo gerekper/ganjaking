@@ -59,4 +59,11 @@ foreach ( $subscriptions as $subscription_id ) {
 	}
 }
 
+/**
+ * Show user-defined additional content - this is set in each email's settings.
+ */
+if ( $additional_content ) {
+	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
+}
+
 do_action( 'woocommerce_email_footer', $email );

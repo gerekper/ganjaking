@@ -4,16 +4,16 @@
  * Plugin URI: http://www.myeventon.com/
  * Description: Powerful eventON user control and event submission manager
  * Author: Ashan Jay
- * Version: 2.2.3
+ * Version: 2.2.9
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 4.0
- * Tested up to: 5.5.1
+ * Requires at least: 5.0
+ * Tested up to: 5.9
  */
 
 class eventon_au{
 	
-	public $version='2.2.3';
-	public $eventon_version = '3.0';
+	public $version='2.2.9';
+	public $eventon_version = '4.0';
 	public $name = 'ActionUser';
 
 	public $addon_data = array();

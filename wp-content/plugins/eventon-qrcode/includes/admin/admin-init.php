@@ -22,6 +22,10 @@ class evoqr_admin{
 		// posts and pages
 		add_action('post_submitbox_misc_actions', array($this, 'post_meta_box'),10,1);
 		add_filter('display_post_states', array($this,'post_state'),10,2);
+
+		// appearance styles
+		add_filter( 'eventon_appearance_add', array($this,'appearance_settings') , 10, 1);
+		add_filter( 'eventon_inline_styles_array',array($this,'dynamic_styles') , 1, 1);	
 	}
 
 	// INIT
@@ -46,6 +50,58 @@ class evoqr_admin{
 				$cal->set_prop('eventon_checkin_page_id', $page_id);
 			}
 			
+		}
+
+	// styles
+		function appearance_settings($array){
+			$new[] = array('id'=>'evoqr','type'=>'hiddensection_open','name'=>'QR Checking Styles','display'=>'none');
+			$new[] = array('id'=>'evoqr','type'=>'fontation','name'=>'Checking Page Colors',
+				'variations'=>array(
+					array('id'=>'evoqr_1', 'name'=>'Default Page Color','type'=>'color', 'default'=>'7ab954'),
+					array('id'=>'evoqr_1a', 'name'=>'Default Font Color','type'=>'color', 'default'=>'ffffff'),
+					array('id'=>'evoqr_2', 'name'=>'Invalid Page Color','type'=>'color', 'default'=>'ff5c5c'),
+					array('id'=>'evoqr_2a', 'name'=>'Invalid Font Color','type'=>'color', 'default'=>'ffffff'),
+					array('id'=>'evoqr_3', 'name'=>'Already Checked Page Color','type'=>'color', 'default'=>'25b8ff'),
+					array('id'=>'evoqr_3a', 'name'=>'Already Checked Font Color','type'=>'color', 'default'=>'ffffff'),
+					array('id'=>'evoqr_4', 'name'=>'Refunded Page Color','type'=>'color', 'default'=>'7d7d7d'),
+					array('id'=>'evoqr_4a', 'name'=>'Refunded Font Color','type'=>'color', 'default'=>'ffffff'),
+				)
+			);
+			$new[] = array('id'=>'evoqr','type'=>'hiddensection_close');
+
+			return array_merge($array, $new);
+		}
+
+		function dynamic_styles($_existen){
+			$new= array(
+				array(
+					'item'=>'.evo_checkin_page',
+					'multicss'=>array(
+						array('css'=>'background-color:#$', 'var'=>'evoqr_1','default'=>'7ab954'),
+						array('css'=>'color:#$', 'var'=>'evoqr_1a','default'=>'ffffff')
+					)						
+				),
+				array(
+					'item'=>'.evo_checkin_page.no',
+					'multicss'=>array(
+						array('css'=>'background-color:#$', 'var'=>'evoqr_2','default'=>'ff5c5c'),
+						array('css'=>'color:#$', 'var'=>'evoqr_2a','default'=>'ffffff')
+					)						
+				),array(
+					'item'=>'.evo_checkin_page.already_checked',
+					'multicss'=>array(
+						array('css'=>'background-color:#$', 'var'=>'evoqr_3','default'=>'25b8ff'),
+						array('css'=>'color:#$', 'var'=>'evoqr_3a','default'=>'ffffff')
+					)						
+				),array(
+					'item'=>'.evo_checkin_page.refunded',
+					'multicss'=>array(
+						array('css'=>'background-color:#$', 'var'=>'evoqr_4','default'=>'7d7d7d'),
+						array('css'=>'color:#$', 'var'=>'evoqr_4a','default'=>'ffffff')
+					)						
+				)
+			);
+			return (is_array($_existen))? array_merge($_existen, $new): $_existen;
 		}
 
 	// post meta box notices
@@ -128,14 +184,17 @@ class evoqr_admin{
 						'name'=>__('NOTE: If you want to use a custom page as a checking page. Create a page, add shortcode [evo_checking_page] save and select that page as checking page from above menu.','eventon'),
 					),
 					array('id'=>'evoqr_encrypt_dis','type'=>'yesno',
-						'name'=>__('Disable encrypted ticket numbers on ticket'),
+						'name'=>__('Disable encrypted ticket numbers on ticket','evoqr'),
 					),
-					array('id'=>'evoqr_mode','type'=>'dropdown','name'=>'QR code scanning Mode',
+					array('id'=>'evoqr_mode','type'=>'dropdown','name'=>__('QR code scanning Mode','evoqr'),
 						'options'=>array(
-							'def'=>'Using QR Code scanner app (Default)',
-							'gun'=>'QR Code scanner gun',
+							'def'=> __('Using QR Code scanner app (Default)','evoqr'),
+							'gun'=> __('QR Code scanner gun','evoqr'),
 						),
-						'legend'=>'If you select scanner gun as scanning mode, you will be able to go to checkin page, login with permissions and click on input field and scan QR codes which will submit upon scan complete.',
+						'legend'=>__('If you select scanner gun as scanning mode, you will be able to go to checkin page, login with permissions and click on input field and scan QR codes which will submit upon scan complete.','evoqr'),
+					),
+					array('id'=>'evoqr_show_in_media','type'=>'yesno',
+						'name'=>__('Show QR Code Images in Media Page','evoqr'),
 					),
 				)
 				));

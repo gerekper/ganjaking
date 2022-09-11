@@ -8,25 +8,24 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'resources/data-templates/basic-page.php
 global $wpdb;
 
 // look for mixed content and mis configured WordPress sites.
-$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$seedprod_builder_url =  wp_parse_url($actual_link);
-$mixed_content = false;
-if($seedprod_builder_url !== false){
-	if(!empty($seedprod_builder_url['scheme'] && $seedprod_builder_url['scheme'] == 'https' )){
-		$sp_home_url = get_option('home');
-		$sp_home_url_parsed = wp_parse_url($sp_home_url);
-		$sp_site_url = get_option('siteurl');
-		$sp_site_url_parsed = wp_parse_url($sp_site_url);
+$actual_link          = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$seedprod_builder_url = wp_parse_url( $actual_link );
+$mixed_content        = false;
+if ( false !== $seedprod_builder_url ) {
+	if ( ! empty( $seedprod_builder_url['scheme'] && $seedprod_builder_url['scheme'] == 'https' ) ) {
+		$sp_home_url        = get_option( 'home' );
+		$sp_home_url_parsed = wp_parse_url( $sp_home_url );
+		$sp_site_url        = get_option( 'siteurl' );
+		$sp_site_url_parsed = wp_parse_url( $sp_site_url );
 
-		if(!empty($sp_home_url_parsed['scheme']) && $sp_home_url_parsed['scheme'] == 'http'){
+		if ( ! empty( $sp_home_url_parsed['scheme'] ) && $sp_home_url_parsed['scheme'] == 'http' ) {
 			$mixed_content = true;
 		}
-		
-		if(!empty($site_url_parsed['scheme']) && $site_url_parsed['scheme'] == 'http'){
+
+		if ( ! empty( $site_url_parsed['scheme'] ) && $site_url_parsed['scheme'] == 'http' ) {
 			$mixed_content = true;
 		}
 	}
-
 }
 
 
@@ -120,11 +119,11 @@ $tablename = $wpdb->prefix . 'posts';
 $sql       = "SELECT * FROM $tablename WHERE id = %d";
 $safe_sql  = $wpdb->prepare( $sql, absint( $global_css_page_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 $sp_page   = $wpdb->get_row( $safe_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-if (!empty($sp_page)) {
-    if ($sp_page->post_content_filtered) {
-        $global_css_settings  = json_decode($sp_page->post_content_filtered, true);
-        $global_css_docuement = $global_css_settings;
-    }
+if ( ! empty( $sp_page ) ) {
+	if ( $sp_page->post_content_filtered ) {
+		$global_css_settings  = json_decode( $sp_page->post_content_filtered, true );
+		$global_css_docuement = $global_css_settings;
+	}
 }
 if ( ! empty( $global_css_settings['document'] ) ) {
 	$global_css_settings = $global_css_settings['document'];
@@ -177,10 +176,10 @@ if ( $dismiss_bottombar_cta ) {
 
 
 // Email integration logic
-$seedprod_api_token    = get_option( 'seedprod_api_token' );
-$seedprod_user_id      = get_option( 'seedprod_user_id' );
-$seedprod_site_token   = get_option( 'seedprod_token' );
-if(empty($seedprod_site_token)){
+$seedprod_api_token  = get_option( 'seedprod_api_token' );
+$seedprod_user_id    = get_option( 'seedprod_user_id' );
+$seedprod_site_token = get_option( 'seedprod_token' );
+if ( empty( $seedprod_site_token ) ) {
 	$seedprod_site_token = wp_generate_uuid4();
 	update_option( 'seedprod_token', $seedprod_site_token );
 }
@@ -524,6 +523,9 @@ $seedprod_data = array(
 	} else {
 		$seedprod_data['wc_active'] = false;
 	}
+
+	// Get translations
+	$seedprod_data['translations_pro'] = seedprod_pro_get_jed_locale_data( 'seedprod-pro' );
 
 	echo wp_json_encode( $seedprod_data );
 	?>

@@ -154,7 +154,7 @@ class EVO_Int_General{
 	public function jitsi_save(){
 
 		$help = new evo_helper();
-		$PP = $help->recursive_sanitize_array_fields( $_POST);
+		$PP = $help->sanitize_array( $_POST);
 
 		$E = new EVO_Event( $PP['event_id']);
 		$E->localize_edata('_evojitsi');

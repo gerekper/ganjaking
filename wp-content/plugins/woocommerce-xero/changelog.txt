@@ -1,5 +1,26 @@
 *** Xero Integration ***
 
+2022-08-24 - version 1.7.46
+* Add - A new setting to select a Xero Branded Theme template to attach with invoices is introduced.
+* Fix - Localization to use 'woocommerce-xero'.
+* Fix - Zero tax rate labels not matching issue.
+* Tweak - Bump WC tested up to version to 6.7.
+* Tweak - Bump minimum PHP version to 7.0.
+* Tweak - Bump minimum WC version to 6.0.
+* Tweak - Bump minimum WP version to 5.6.
+* Tweak - WC 6.8.0 compatibility.
+
+2022-08-23 - version 1.7.45
+* Create generate-zip.yml.
+* Notice added for **Sales**, **Shipping**, **Fees**, **Payment** and **Rounding** account number input if saved as empty.
+* Tweak - WC 6.8.0 compatibility.
+
+2022-08-12 - version 1.7.44
+* Added - Support for sending invoice prices inclusive of tax.
+* Enter a summary of all changes on this Pull Request. This will appear in the changelog if accepted.
+* Fixed: Compatibility issues of Subscription renewal order with Sequential Order Numbers Pro.
+* Tweak - Improved error detection for response code 401, 403 and 429.
+
 2022-07-06 - version 1.7.43
 * Add - Setting to allow control how fees tax types are handled.
 * Fix - Australia tax rates for GST Free Expences matching zero-tax-rate fees.

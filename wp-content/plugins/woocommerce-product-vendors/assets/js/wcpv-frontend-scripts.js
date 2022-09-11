@@ -44,7 +44,7 @@ jQuery( document ).ready( function( $ ) {
 
 					}
 
-					$( 'html, body' ).scrollTop( topOfForm.top - 50 );
+					form.prev().get(0).scrollIntoView( { block: 'center' } );
 				});
 			});
 		}

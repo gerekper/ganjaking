@@ -88,6 +88,7 @@ class evobo_ajax{
 					$_price = $BLOCKS->get_item_price();
 					$base_price = apply_filters('evobo_base_price',  $_price, $BLOCKS);
 
+
 				// capacity
 					$_cap = $BLOCKS->get_item_prop('capacity') - $blocks_in_cart;
 					$capacity = apply_filters('evobo_base_capacity', $_cap, $BLOCKS );

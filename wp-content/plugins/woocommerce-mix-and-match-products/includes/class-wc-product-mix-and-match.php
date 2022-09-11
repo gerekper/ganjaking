@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.1.0
+ * @version  2.1.2
  */
 
 // Exit if accessed directly.
@@ -1598,13 +1598,22 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 
 			$container_price_data = array();
 
+			$raw_container_price_min         = $this->get_container_price( 'min', true );
+			$raw_container_price_max         = $this->get_container_price( 'max', true );
+			$raw_container_regular_price_min = $this->get_container_regular_price( 'min', true );
+			$raw_container_regular_price_max = $this->get_container_regular_price( 'max', true );
+
 			$container_price_data['per_product_pricing']         = $this->is_priced_per_product() ? 'yes' : 'no';
 
-			$container_price_data['raw_container_min_price']     = wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_price() ) );
-			$container_price_data['raw_container_regular_price'] = wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_regular_price() ) );
-			$container_price_data['raw_container_price']         = wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_price() ) );
-			$container_price_data['raw_container_regular_price'] = wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_regular_price() ) );
+			$container_price_data['raw_container_price_min']         = (double) $raw_container_price_min;
+			$container_price_data['raw_container_price_max']         = '' === $raw_container_price_max ? '' : (double) $raw_container_price_max;
 
+			// Deprecated data keys.
+			$container_price_data['raw_container_min_price']         = $container_price_data['raw_container_price_min'];
+			$container_price_data['raw_container_price']             = $container_price_data['raw_container_price_max'];
+			$container_price_data['raw_container_min_regular_price'] = (double) $raw_container_regular_price_min;
+			$container_price_data['raw_container_regular_price']     = '' === $raw_container_regular_price_max ? '' : (double) $raw_container_regular_price_max;
+			
 			$container_price_data['price_string']                = '%s';
 			$container_price_data['is_purchasable']              = $this->is_purchasable() ? 'yes' : 'no';
 			$container_price_data['is_in_stock']                 = $this->is_in_stock() ? 'yes' : 'no';
@@ -1622,8 +1631,8 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 
 			$container_price_data['is_sold_individually']        = array();
 
-			$container_price_data['base_price']                  = wc_get_price_to_display( $this, array( 'price' => $this->get_price() ) );
-			$container_price_data['base_regular_price']          = wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) );
+			$container_price_data['base_price']                  = $this->get_price();
+			$container_price_data['base_regular_price']          = $this->get_regular_price();
 			$container_price_data['base_price_tax']              = WC_MNM_Product_Prices::get_tax_ratios( $this );
 
 			$container_price_data['price']                       = $container_price_data['base_price'];

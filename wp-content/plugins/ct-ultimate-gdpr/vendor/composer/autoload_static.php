@@ -38,6 +38,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Controller_Data_Access' => __DIR__ . '/../..' . '/includes/controller/controller-data-access.php',
         'CT_Ultimate_GDPR_Controller_Forgotten' => __DIR__ . '/../..' . '/includes/controller/controller-forgotten.php',
         'CT_Ultimate_GDPR_Controller_Interface' => __DIR__ . '/../..' . '/includes/controller/controller-interface.php',
+        'CT_Ultimate_GDPR_Controller_Optimization' => __DIR__ . '/../..' . '/includes/controller/controller-optimization.php',
         'CT_Ultimate_GDPR_Controller_Plugins' => __DIR__ . '/../..' . '/includes/controller/controller-plugins.php',
         'CT_Ultimate_GDPR_Controller_Policy' => __DIR__ . '/../..' . '/includes/controller/controller-policy.php',
         'CT_Ultimate_GDPR_Controller_Pseudonymization' => __DIR__ . '/../..' . '/includes/controller/controller-pseudonymization.php',

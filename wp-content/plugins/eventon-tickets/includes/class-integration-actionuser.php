@@ -337,20 +337,22 @@ class evotx_actionuser{
 								echo $__woo_currencySYM . ' '. evo_meta($woometa, '_regular_price');
 							}
 							?></span>
-						<?php if(evo_check_yn($woometa,'_manage_stock')):?>
+						<?php 
+						// ticket stock status
+						if(evo_check_yn($woometa,'_manage_stock')):?>
 							<?php
 								if($product_type == 'simple'):
 									$tix_inStock = EVOTX()->functions->event_has_tickets($EPMV, $woometa, 0);
 							?>
 								<p><b><?php evo_lang_e('Tickets in stock');?></b>
-									<span><?php echo  $tix_inStock;?></span></p>
+									<span><?php echo  evo_lang($tix_inStock);?></span></p>
 							<?php endif;?>
 						<?php endif;?>
 						</p>
 						<p style='<?php echo $_sty_1;?>'><b><?php evo_lang_e('Ticket Type');?>:</b> <i><?php echo $product_type;?></i></p>
 						<p style='<?php echo $_sty_1;?>'><b><?php evo_lang_e('SKU');?>:</b> <i><?php echo evo_meta($woometa, '_sku');?></i></p>
 						<?php if(evo_check_yn($woometa,'_manage_stock')):?>
-							<p style='<?php echo $_sty_1;?>'><b><?php evo_lang_e('Stock Status');?>:</b> <i><?php echo evo_meta($woometa, '_stock_status');?></i></p>
+							<p style='<?php echo $_sty_1;?>'><b><?php evo_lang_e('Stock Status');?>:</b> <i><?php echo evo_lang(evo_meta($woometa, '_stock_status'));?></i></p>
 						<?php endif;?>
 					</div>
 				</div>
@@ -401,13 +403,16 @@ class evotx_actionuser{
 		}
 
 		public function event_manager_delete_btn($html, $EVENT){
+
+			if(empty($html)) return $html;
 			
 			// get tickets sold
 			$wc_ticket_product_id = $EVENT->get_prop('tx_woocommerce_product_id');
 
 			if($wc_ticket_product_id){
 				$sold = get_post_meta( $wc_ticket_product_id, 'total_sales',true);
-				if($sold>0) return "<a class='fa fa-trash deleteEvent disa' data-s='disable'></a>";
+				
+				if($sold>0) return "<a class='fa fa-trash deleteEvent disa' data-s='disable' title='". evo_lang('Cannot delete because there are sales on this event') ."'></a>";
 			}
 
 			return $html;
@@ -439,6 +444,7 @@ class evotx_actionuser{
 					array('label'=>'Attendees','var'=>'1'),				
 					array('label'=>'Confirmed Attendance','var'=>'1'),				
 					array('label'=>'This is a non-simple WC Ticket, must contact admin to make further edits!','var'=>'1'),				
+					array('label'=>'Cannot delete because there are sales on this event','var'=>'1'),				
 				array('type'=>'togend'),
 			);
 			return array_merge($array, $newarray);

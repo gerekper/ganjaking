@@ -615,16 +615,16 @@ function wc_get_custom_checkout_fields( $order, $types = array( 'billing', 'ship
  * @param array  $types Field types to retrieve.
  */
 function wc_get_custom_fields_for_admin_order( $order, $types ) {
-	$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 	$fields   = wc_get_custom_checkout_fields( $order, $types );
 	$html     = '<div class="address custom_checkout_fields">';
 	$found    = false;
 
 	// Loop through all custom fields to see if it should be added.
 	foreach ( $fields as $name => $options ) {
-		if ( isset( $options['display_options'] ) && in_array( 'view_order', $options['display_options'], true ) && '' !== get_post_meta( $order_id, $name, true ) ) {
+		$field_value = WC_CRUD_SUPPORT ? $order->get_meta( $name ) : get_post_meta( $order->id, $name, true );
+		if ( isset( $options['display_options'] ) && in_array( 'view_order', $options['display_options'], true ) && '' !== $field_value ) {
 			$found = true;
-			$html .= '<p><strong>' . esc_attr( $options['label'] ) . ':</strong>' . get_post_meta( $order_id, $name, true ) . '</p>';
+			$html .= '<p><strong>' . esc_attr( $options['label'] ) . ':</strong>' . $field_value . '</p>';
 		}
 	}
 
@@ -680,8 +680,7 @@ function wc_checkout_fields_dequeue_address_i18n() {
  * @return string
  */
 function wc_get_checkout_field_value( $order, $name, $options ) {
-	$order_id    = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-	$field_value = get_post_meta( $order_id, $name, true );
+	$field_value = WC_CRUD_SUPPORT ? $order->get_meta( $name ) : get_post_meta( $order->id, $name, true );
 
 	if ( array_key_exists( $field_value, $options['options'] ) ) {
 		$field_value = $options['options'][ $field_value ];

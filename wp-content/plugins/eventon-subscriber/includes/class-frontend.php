@@ -562,6 +562,7 @@ class evosb_front{
 
 						//pretty terms view
 						$pretty_terms = $_term_checked;
+						
 						if($_term_checked!='all' && $_term_checked!='none' && !empty($thisterms)){
 							$pretty_terms='';
 							foreach($terms as $term){
@@ -576,8 +577,9 @@ class evosb_front{
 						if( $_term_checked == 'all') $pretty_terms = $_text_all;
 
 					?>
-						<div class="evoETT_section">
-							<p class='categories' data-name='<?php echo $tax;?>'><?php echo $taxname;?> <span value='<?php echo $_term_checked;?>' data-name='<?php echo $tax;?>' class='field'><?php echo $pretty_terms;?></span>
+						<div class="evoETT_section" d='tt'>
+							<p class='categories' data-name='<?php echo $tax;?>'><?php echo $taxname;?> 
+								<span value='<?php echo $_term_checked;?>' data-name='<?php echo $tax;?>' class='field'><?php echo $pretty_terms;?></span>
 								<input type="hidden" name='<?php echo $tax;?>' value='<?php echo $_term_checked;?>'/>
 							</p>
 							<p class="cat_selection" style='display:none'>
@@ -605,13 +607,7 @@ class evosb_front{
 					endif;
 				}
 		
-	// get language text translated
-		function lang_get($var, $default, $lang=''){
-			$lang = !empty($this->lang)? $this->lang: 
-				(!empty($lang)? $lang: 'L1');
-
-			return evo_lang_get($var, $default, $lang );
-		}
+	
 	// Subscriber on front-end calendar footer
 		function sub_to_footer($args){			
 			// shortcode variable rss passed as yes
@@ -752,9 +748,12 @@ class evosb_front{
 			ob_start();
 				$_text_all = $this->lang_get('evcal_lang_all','All');
 
+				//echo evo_lang_get('evcal_lang_all','All').'yy'. $_text_all;
+
 			?>
-				<div class="evoETT_section">
-					<p class='categories' data-name='<?php echo $tax;?>'><?php echo $tax_name;?><span value='all' data-name='<?php echo $tax;?>' class=''><?php echo $_text_all;?></span>
+				<div class="evoETT_section" >
+					<p class='categories' data-name='<?php echo $tax;?>'><?php echo $tax_name;?>
+						<span value='all' data-name='<?php echo $tax;?>' class=''><?php echo $_text_all;?></span>
 						<input class='evosub_cat_vals field' type="hidden" name='<?php echo $tax;?>' data-name='<?php echo $tax;?>' value='all'/>
 					</p>
 					<p class="cat_selection" style='display:none'>
@@ -854,6 +853,15 @@ class evosb_front{
 			global $wpdb;
 			$val = $wpdb->get_row("SELECT ID FROM " . $wpdb->prefix.'posts' . " WHERE post_type='evo-subscriber' AND post_status='publish' AND post_title = '" . $email . "'", 'ARRAY_N');			
 			return (null !== $val)? $val[0]: false;
+		}
+
+	// SUPPORT
+		// get language text translated
+		function lang_get($var, $default, $lang=''){
+			$lang = !empty($this->lang)? $this->lang: 
+				(!empty($lang)? $lang: 'L1');
+
+			return evo_lang_get($var, $default, $lang );
 		}
 
 	// front end styles and scripts

@@ -275,6 +275,8 @@ a[x-apple-data-detectors] { color: inherit !important;   text-decoration: none !
 .rs-forceoverflow rs-slides,
 .rs-forceoverflow rs-slide { overflow:visible !important}
 
+.rs-parallax-hidden-of rs-slide { overflow:hidden !important}
+
 .tp-simpleresponsive img,
 rs-module img{
 	max-width:none !important;

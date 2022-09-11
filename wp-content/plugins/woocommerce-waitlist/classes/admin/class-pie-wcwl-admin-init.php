@@ -149,8 +149,8 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 			global $current_user;
 			$usermeta = get_user_meta( $current_user->ID, '_' . WCWL_SLUG, true );
 			if ( ! isset( $usermeta[ 'ignore_' . $type ] ) || ! $usermeta[ 'ignore_' . $type ] ) {
-				echo '<div class="' . $status . '"><p>';
-				echo apply_filters( 'wcwl_{$type}_nag_text', sprintf( $this->{$type}, '<a href="' . $link . '">', '</a>' ) ) . ' | <a href="' . esc_url( add_query_arg( 'ignore_' . $type, true ) ) . '">' . apply_filters( 'wcwl_dismiss_nag_text', $this->dismiss_nag_text ) . '</a>';
+				echo '<div class="' . esc_attr( $status ) . '"><p>';
+				echo apply_filters( 'wcwl_{$type}_nag_text', sprintf( $this->{$type}, '<a href="' . esc_url( $link ) . '">', '</a>' ) ) . ' | <a href="' . esc_url( add_query_arg( 'ignore_' . $type, true ) ) . '">' . apply_filters( 'wcwl_dismiss_nag_text', $this->dismiss_nag_text ) . '</a>';
 				echo '</p></div>';
 			}
 		}

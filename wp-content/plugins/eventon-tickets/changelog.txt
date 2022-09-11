@@ -1,5 +1,54 @@
 Tickets (TX) addon for EventON Plugin
 ====================================
+v 2.0.2 (2022-2-16)
+FIXED: partial refund not recording correctly
+FIXED: event meta box notice
+FIXED: additional attendee names not recording correctly and showing
+FIXED: EVO_Evo_Tix_CPT object to load props if empty
+
+v 2.0.1 (2022-1-20)
+FIXED: larger price numbers getting formatted incorrectly
+FIXED: ticket holder email and name not passing into ticket data
+
+v 2.0 (2022-1-4)
+ADDED: other tickets in same order links in ticket edit page
+ADDED: when failed order completed, update order item ids with ticket post
+ADDED: Sync with woocommerce order button for event tickets post edit page
+ADDED: event ticket post edit page to show other tickets in same order
+ADDED: Event Tickets page into Woocommerce My account page for customer
+ADDED: Customers can view their ticket easily from WC My Account page via ajax ticket view
+ADDED: new central ticket holder data function to class-attendees.php
+FIXED: empty event location in cart showing blank box
+UPDATED: admin ticket view design and various other minor admin layouts
+UPDATED: ticket confirmation email layout design
+COMPATIBILITY: Woocommerce 6.0
+
+v 1.9.6 (2021-11-9)
+FIXED: actionUser event manager showing delete event button for events with tickets
+FIXED: missing wc notice translations
+FIXED: inaccurate sprintf translation strings
+FIXED: email attendees repeat instance filter
+FIXED: thousand separator ' not escaping correct
+
+v 1.9.5 (2021-7-2)
+FIXED: evotx_add_cart_item_meta filter return with cart keys to not add again
+FIXED: ticket holder with same name not counting towards ticket count
+FIXED: View attendee event time sorted in order
+FIXED: compatibility with woocommerce 5.5
+
+v 1.9.4 (2021-5-27)
+FIXED: non permission attendee list download blocked
+FIXED: minor virtual event guest count hide not working
+FIXED: name your price decimal separator , not working
+
+v 1.9.3 (2021-4-29)
+FIXED: my account text translation
+FIXED: virtual event information error on eventcard
+FIXED: has_user_purchased_tickets() function causing errors for some
+FIXED: event location not showing in the cart
+FIXED: ticket saving create duplicate wc products
+FIXED: confirmation email and thank you page not passing lang values
+
 v 1.9.2 (2021-3-18)
 FIXED: compatibility with eventON 3.1.1 utc offset times
 FIXED: name your price still able to add to cart

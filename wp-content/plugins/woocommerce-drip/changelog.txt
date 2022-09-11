@@ -1,5 +1,10 @@
 *** WooCommerce Drip Changelog ***
 
+2022-09-02 - version 1.2.34
+* Dev - Add branch-labels GH workflow.
+* Dev - GH release config and the new PR template.
+* Tweak - WC 6.9 compatibility.
+
 2022-08-03 - version 1.2.33
 * Fix - Custom Order Table Compatibility.
 

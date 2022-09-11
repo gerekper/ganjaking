@@ -13,7 +13,7 @@
  * @category  HTTP
  * @package   HTTP_Request2
  * @author    Alexey Borzov <avb@php.net>
- * @copyright 2008-2014 Alexey Borzov <avb@php.net>
+ * @copyright 2008-2022 Alexey Borzov <avb@php.net>
  * @license   http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
  * @link      http://pear.php.net/package/HTTP_Request2
  */
@@ -30,34 +30,53 @@ require_once 'PEAR/Exception.php';
  * @package  HTTP_Request2
  * @author   Alexey Borzov <avb@php.net>
  * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
+ * @version  Release: 2.5.1
  * @link     http://pear.php.net/package/HTTP_Request2
  * @link     http://pear.php.net/pepr/pepr-proposal-show.php?id=132
  */
 class HTTP_Request2_Exception extends PEAR_Exception
 {
-    /** An invalid argument was passed to a method */
+    /**
+     * An invalid argument was passed to a method
+     */
     const INVALID_ARGUMENT   = 1;
-    /** Some required value was not available */
+    /**
+     * Some required value was not available
+     */
     const MISSING_VALUE      = 2;
-    /** Request cannot be processed due to errors in PHP configuration */
+    /**
+     * Request cannot be processed due to errors in PHP configuration
+     */
     const MISCONFIGURATION   = 3;
-    /** Error reading the local file */
+    /**
+     * Error reading the local file
+     */
     const READ_ERROR         = 4;
 
-    /** Server returned a response that does not conform to HTTP protocol */
+    /**
+     * Server returned a response that does not conform to HTTP protocol
+     */
     const MALFORMED_RESPONSE = 10;
-    /** Failure decoding Content-Encoding or Transfer-Encoding of response */
+    /**
+     * Failure decoding Content-Encoding or Transfer-Encoding of response
+     */
     const DECODE_ERROR       = 20;
-    /** Operation timed out */
+    /**
+     * Operation timed out
+     */
     const TIMEOUT            = 30;
-    /** Number of redirects exceeded 'max_redirects' configuration parameter */
+    /**
+     * Number of redirects exceeded 'max_redirects' configuration parameter
+     */
     const TOO_MANY_REDIRECTS = 40;
-    /** Redirect to a protocol other than http(s):// */
+    /**
+     * Redirect to a protocol other than http(s)://
+     */
     const NON_HTTP_REDIRECT  = 50;
 
     /**
      * Native error code
+     *
      * @var int
      */
     private $_nativeCode;
@@ -90,70 +109,10 @@ class HTTP_Request2_Exception extends PEAR_Exception
     }
 }
 
-/**
- * Exception thrown in case of missing features
- *
- * @category HTTP
- * @package  HTTP_Request2
- * @author   Alexey Borzov <avb@php.net>
- * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
- * @link     http://pear.php.net/package/HTTP_Request2
- */
-class HTTP_Request2_NotImplementedException extends HTTP_Request2_Exception
-{
-}
+// backwards compatibility, include the child exceptions if installed with PEAR installer
+require_once 'HTTP/Request2/ConnectionException.php';
+require_once 'HTTP/Request2/LogicException.php';
+require_once 'HTTP/Request2/MessageException.php';
+require_once 'HTTP/Request2/NotImplementedException.php';
 
-/**
- * Exception that represents error in the program logic
- *
- * This exception usually implies a programmer's error, like passing invalid
- * data to methods or trying to use PHP extensions that weren't installed or
- * enabled. Usually exceptions of this kind will be thrown before request even
- * starts.
- *
- * The exception will usually contain a package error code.
- *
- * @category HTTP
- * @package  HTTP_Request2
- * @author   Alexey Borzov <avb@php.net>
- * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
- * @link     http://pear.php.net/package/HTTP_Request2
- */
-class HTTP_Request2_LogicException extends HTTP_Request2_Exception
-{
-}
-
-/**
- * Exception thrown when connection to a web or proxy server fails
- *
- * The exception will not contain a package error code, but will contain
- * native error code, as returned by stream_socket_client() or curl_errno().
- *
- * @category HTTP
- * @package  HTTP_Request2
- * @author   Alexey Borzov <avb@php.net>
- * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
- * @link     http://pear.php.net/package/HTTP_Request2
- */
-class HTTP_Request2_ConnectionException extends HTTP_Request2_Exception
-{
-}
-
-/**
- * Exception thrown when sending or receiving HTTP message fails
- *
- * The exception may contain both package error code and native error code.
- *
- * @category HTTP
- * @package  HTTP_Request2
- * @author   Alexey Borzov <avb@php.net>
- * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
- * @link     http://pear.php.net/package/HTTP_Request2
- */
-class HTTP_Request2_MessageException extends HTTP_Request2_Exception
-{
-}
+?>

@@ -1,5 +1,17 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.08.11 - version 2.1.2
+* New: Child item step validation on the front-end.
+* Fix: Quantity input should default to child minimum if one exists.
+* Fix: Add aria-live="polite" on status message.
+* Fix: Apply Flatsome compatibility classes only in grid layout.
+* Tweak: Animate toast-style error notices for individual child items.
+* Tweak: Add query_id parameter to wc_get_products() params when querying child items by category.
+
+2022.08.09 - version 2.1.1
+* Fix: Double-application of taxes in front-end status price display.
+* Fix: Replace deprecated jQuery.isFunction()
+
 2022.07.25 - version 2.1.0
 * Update: Tested up to WooCommerce 6.7.0.
 * New: Filter woocommerce_subscriptions_switch_link_text in Subs 4.5.0

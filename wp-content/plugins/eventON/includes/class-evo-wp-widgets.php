@@ -52,7 +52,6 @@ class EvcalWidget extends WP_Widget{
 		}
 	
 	function form($instance) {
-		global $eventon;
 				
 		$instance = $this->widget_values($instance); 
 		extract($instance);
@@ -289,7 +288,6 @@ class EvcalWidget extends WP_Widget{
 
 
 		function form($instance) {
-			global $eventon;
 
 			extract($instance);
 
@@ -297,7 +295,7 @@ class EvcalWidget extends WP_Widget{
 			$evo_shortcodeW = (!empty($evo_shortcodeW))? $evo_shortcodeW: null;
 			// HTML
 
-			if(is_admin())	$eventon->evo_admin->eventon_shortcode_pop_content();
+			if(is_admin())	EVO()->evo_admin->eventon_shortcode_pop_content();
 
 			?>
 			<div id='eventon_widget_settings' class='eventon_widget_settings'>
@@ -313,7 +311,11 @@ class EvcalWidget extends WP_Widget{
 					<a id='evo_shortcode_btn' class='ajde_popup_trig evo_admin_btn btn_prime' data-popc='eventon_shortcode' title='<?php _e('eventON Shortcode generator','eventon');?>' href='#' style='margin:20px 0;text-align:center; display:block'>[ Shortcode Generator ]</a>
 
 					<i style='opacity:0.5'><?php _e('NOTE: Page need to be refreshed after adding the widget, for the shortcode generator to function.','eventon');?></i></p>
-				<p class='evo_widget_textarea'><textarea name="<?php echo $this->get_field_name('evo_shortcodeW'); ?>" id="<?php echo $this->get_field_id('evo_shortcodeW'); ?>"><?php echo esc_attr($evo_shortcodeW); ?></textarea><br/><label><?php _e('EventOn Calendar Shortcode','eventon');?><?php $eventon->throw_guide('Use the Eventon Shortcode Generator to create a shortcode based on your requirements, and paste it in here.','L');?></label></p>
+				<p class='evo_widget_textarea'><textarea name="<?php echo $this->get_field_name('evo_shortcodeW'); ?>" id="<?php echo $this->get_field_id('evo_shortcodeW'); ?>"><?php echo esc_attr($evo_shortcodeW); ?></textarea><br/><label><?php _e('EventOn Calendar Shortcode','eventon');?><?php 
+
+					EVO()->elements->tooltips('Use the Eventon Shortcode Generator to create a shortcode based on your requirements, and paste it in here.','L');
+
+				?></label></p>
 			
 			</div>
 			<?php
@@ -331,7 +333,6 @@ class EvcalWidget extends WP_Widget{
 
 		// CONTENT
 			public function widget($args, $instance) {
-				global $eventon;
 						
 				// extract widget specific variables
 				extract($args, EXTR_SKIP);		
@@ -381,8 +382,7 @@ class EvcalWidget extends WP_Widget{
 		}
 
 		function form($instance) {
-			global $eventon;
-
+			
 			extract($instance);
 
 			$evo_title = (!empty($evo_title))? $evo_title: null;
@@ -421,7 +421,6 @@ class EvcalWidget extends WP_Widget{
 
 		// The actuval widget
 			public function widget($args, $instance) {
-				global $eventon;
 						
 				// extract widget specific variables
 				extract($args, EXTR_SKIP);	
@@ -465,8 +464,7 @@ class EvcalWidget extends WP_Widget{
 		}
 
 		function form($instance) {
-			global $eventon;
-
+			
 			extract($instance);
 
 			$evo_title = (!empty($evo_title))? $evo_title: null;
@@ -505,7 +503,6 @@ class EvcalWidget extends WP_Widget{
 
 		// The actuval widget
 			public function widget($args, $instance) {
-				global $eventon;
 						
 				// extract widget specific variables
 				extract($args, EXTR_SKIP);	

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.1
- * @version     1.2.1
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/emails/
  */
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 		/**
 		 * Determine if the email should actually be sent and setup email merge variables
 		 *
-		 * @param array $args Email arguements.
+		 * @param array $args Email arguments.
 		 */
 		public function trigger( $args = array() ) {
 
@@ -338,6 +338,9 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 				return '';
 			}
 
+			$order_id = isset( $this->email_args['order_id'] ) ? $this->email_args['order_id'] : 0;
+			$order    = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+
 			$discount_type = isset( $this->email_args['discount_type'] ) ? $this->email_args['discount_type'] : '';
 			$is_gift       = isset( $this->email_args['is_gift'] ) ? $this->email_args['is_gift'] : '';
 
@@ -381,6 +384,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 			switch ( $discount_type ) {
 
 				case 'smart_coupon':
+					$amount = $woocommerce_smart_coupon->read_price( $amount, true, $order );
 					/* translators: %s coupon amount */
 					$coupon_value = sprintf( __( 'worth %2$s ', 'woocommerce-smart-coupons' ), $smart_coupon_type, wc_price( $amount ) );
 					break;
@@ -420,7 +424,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 					}
 
 					$max_discount_text = '';
-					$max_discount      = get_post_meta( $_coupon_id, 'wc_sc_max_discount', true );
+					$max_discount      = $woocommerce_smart_coupon->get_post_meta( $_coupon_id, 'wc_sc_max_discount', true, true, $order );
 					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
 						/* translators: %s: Maximum coupon discount amount */
 						$max_discount_text = sprintf( __( ' upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount ) );

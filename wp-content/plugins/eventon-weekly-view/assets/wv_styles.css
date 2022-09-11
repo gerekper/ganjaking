@@ -43,10 +43,12 @@
 	}	
 	.EVOWV_dates .evowv_this_weekbtn{
 		text-transform: uppercase;
-		background-color: transparent;
+		background-color: #fff;
 	    border: 1px solid #e2e0e2;
 	    color: #b7b7b7;
 	    margin-right: 8px;
+	        display: inline-flex;
+    	align-items: center;
 	}
 	.EVOWV_content{margin-bottom:10px;}
 
@@ -79,9 +81,9 @@
 			overflow: hidden;
 			position: relative;
 			margin: 0px;	
-			height: 90px;
-			border-right: 1px solid #f1f1f1;
-			border-radius: 5px;
+			height: 120px;
+			border-right: 1px solid #dedede;
+			border-radius: 10px;
 		}	
 		.EVOWV_dates .evowv_arrow.disable i, .EVOWV_dates .evowv_arrow.disable:hover i{opacity: 0.3!important; cursor: default;
 			color: #fff;
@@ -100,35 +102,34 @@
 		background: transparent;
 	}
 	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day .evowv_daybox{
+		display: flex; flex-direction: column;align-items: center;
 		cursor: pointer;
-		background: #fbfbfb;
-		border:1px solid #f1f1f1;
+		background: #f1f1f1;
+		border:1px solid #dedede;
 		border-right:none;
-		color:#949494;
+		color:#737373;
 		line-height: 100%;
-		padding:15px 0 20px;
-		height: 90px;
+		padding:15px 0 0;
+		height: 120px;
 	}
-	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .evowv_daybox{padding: 0}
+	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .evowv_daybox{padding-top: 5px}
 	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .mo_name{
 		text-transform: uppercase;
-	    font-size: 10px; font-weight: bold;
-	    background-color: #f3f3f3;
-	    margin-bottom: 5px;
-	    padding: 3px;
+	    font-size: 10px; padding: 5px;
+	}
+	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.newmo .mo_name em{
+		    font-style: normal;
+	    background-color: #f79191;
+	    padding: 2px 8px;
+	    border-radius: 10px;
+	    /* margin-top: 3px; */
+	    display: inline-block;
+	    color: #fff;
 	}
 	.ajde_evcal_calendar .EVOWV_grid .evo_wv_day .evowv_daybox:hover{background-color:#f7f7f7 }
 	
-	.evoWV.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.today:before{
-		content: "";
-		background-color: #f79191;
-		height: 4px;display: block;
-		position: absolute;
-		width: 100%;
-	    top: 0px;
-	    margin: 0;
-	    border-radius: 0px;
-	}
+	.evoWV.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.today .day_num{    background-color: #f79191;
+    color: #fff;	}
 	.evoWV.ajde_evcal_calendar .EVOWV_grid .evo_wv_day.focus .evowv_daybox{	background-color: #f79191; color:#ffffff;}
 
 	.EVOWV_grid .evo_wv_day span{
@@ -147,11 +148,14 @@
 	}
 	.EVOWV_grid .evo_wv_day span.day_num{
 		font-size: 24px;
+		background-color: #fff;color:#949494;
+	    border-radius: 8px;margin-bottom: 5px;
+	    padding: 8px;
 	}
 	.EVOWV_grid .evo_wv_day span.day_name{
 		font-weight:300;
 		text-transform: uppercase;	
-		font-size: 12px;
+		font-size: 12px;margin-bottom: 5px;
 	}
 	.evoWV em.evo_time{display: none;}
 /* Events per day */
@@ -195,24 +199,31 @@
 		right: 0px; left:auto;
 	}
 
+/* ajax before load */
+	.evoWV .evo_ajax_load_events{}
+	.evoWV .evo_ajax_load_events span.d{width: 270px;}
+	.evoWV .evo_ajax_load_events span.w{height: 90px;margin-bottom: 10px;}
+
 /* week style = table */
 	.EVOWV_content.wk_1 .EVOWV_grid{
-		display: table;
-		height: 10px; width:100%;
+		display: flex;
+		height: auto; width:100%;
 		overflow: visible;
-		border: 1px solid #f1f1f1;
+		border: 1px solid #dedede;
 		border-right: none;
 	}
 	.EVOWV_content.wk_1 .evo_wv_day .evowv_daybox{
-		height: 80px;
+		height: 120px;
 		border:none;
-		border-bottom:1px solid #f1f1f1;
+		border-bottom:1px solid #dedede;
 	}
 	.EVOWV_content.wk_1 .evo_wv_day{
-		width: 14.28%; height:100%;
-		border-right: 1px solid #f1f1f1;
+		width: 14.28%; height: auto;
+		border-right: 1px solid #dedede;
 		padding:0px;
 	}
+	.EVOWV_content.wk_1 .evo_wv_day:first-child{border-radius: 10px 0 0; overflow:hidden;}
+	.EVOWV_content.wk_1 .evo_wv_day:last-child{border-radius: 0 10px 0 0; overflow:hidden;}
 	.EVOWV_content.wk_1 .evowv_col_events{
 		text-align: left;
 		padding:0px;
@@ -220,7 +231,7 @@
 	.EVOWV_content.wk_1 .evowv_col_events .event{
 		padding:20px 10px; 
 		display:block;
-		font-size: 11px;
+		font-size: 14px;
 		line-height: 1.3;
 		margin:0px;		
 		cursor: pointer;

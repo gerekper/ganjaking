@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/address-validation/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Address Validation main plugin class.
@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.8.1';
+	const VERSION = '2.8.2';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -128,7 +128,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 		// load providers
 		$this->handler = $this->load_class( '/src/class-wc-address-validation-handler.php', 'WC_Address_Validation_Handler' );
 
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 
 			// admin handler
 			$this->admin = $this->load_class( '/src/admin/class-wc-address-validation-admin.php', 'WC_Address_Validation_Admin' );

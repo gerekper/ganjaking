@@ -1,5 +1,9 @@
 <?php
-	$evcal_date_format = eventon_get_time_format('24');
+	
+	// get time format
+	$wp_time_format = get_option('time_format');
+	$evcal_date_format = '12h';
+	$evcal_date_format =  (strpos($wp_time_format, 'H')!==false)?'24h':'12h';
 
 	global $ajde;
 
@@ -12,13 +16,16 @@
 			<div id="eventon-fields" class="inline-edit-col">
 			<input type='hidden' name='_evo_date_format' value=''/>
 			<input type='hidden' name='_evo_time_format' value=''/>
+
+			<p class='evo_longer_events_notice' style="display: none"><?php _e('This event is either month or year long event. Start and end date will determine the event month and year.','eventon');?></p>
+
 			<label>
 			    <span class="title"><?php _e( 'Start Date', 'eventon' ); ?></span>
 			    <span class="input-text-wrap">
 					<input type="text" name="evcal_start_date" class="text" placeholder="<?php _e( 'Event Start Date', 'eventon' ); ?>" value="">
 				</span>
 			</label>	
-			<label>
+			<label class='evo_event_start_time'>
 			    <span class="title"><?php _e( 'Start Time', 'eventon' ); ?></span>
 			    <span class="input-text-wrap">
 					<span class='input_time'>
@@ -45,7 +52,7 @@
 					<input type="text" name="evcal_end_date" class="text" placeholder="<?php _e( 'Event End Date', 'eventon' ); ?>" value="">
 				</span>
 			</label>	
-			<label>
+			<label class='evo_event_end_time'>
 			    <span class="title"><?php _e( 'End Time', 'eventon' ); ?></span>
 			    <span class="input-text-wrap">
 					<span class='input_time'>
@@ -88,6 +95,14 @@
 					'evo_span_hidden_end'=> array(
 						'type'=>'yesno',
 						'label'=>__('Span the event until hidden end time','eventon')
+					),
+					'_evo_month_long'=> array(
+						'type'=>'yesno',
+						'label'=>__('Month Long Event - Show this event for the entire start event Month','eventon')
+					),	
+					'evo_year_long'=> array(
+						'type'=>'yesno',
+						'label'=>__('Year Long Event - Show this event for the entire start event Year','eventon')
 					),								
 					'_featured'=> array(
 						'type'=>'yesno',

@@ -106,8 +106,8 @@ class evo_datetime{
 
 				return array(
 					// this didnt work on tickets addon
-					'start_'=> eventon_get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_s),
-					'end_'=> eventon_get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_e),
+					'start_'=> $this->__get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_s),
+					'end_'=> $this->__get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_e),
 
 					'start'=> date_i18n($date_format.' h:i:a',$intervals[$repeat_interval][0]),
 					'end'=> date_i18n($date_format.' h:i:a',$intervals[$repeat_interval][1]),
@@ -126,8 +126,8 @@ class evo_datetime{
 				return array(
 					'start'=> $start,
 					'end'=> $end,
-					'start_'=> eventon_get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_s),
-					'end_'=> eventon_get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_e),
+					'start_'=> $this->__get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_s),
+					'end_'=> $this->__get_lang_formatted_timestr($date_format.' '.$wp_time_format, $formatted_unix_e),
 				);
 			}
 		}
@@ -138,7 +138,7 @@ class evo_datetime{
 
 			if(empty($format)) $format = EVO()->calendar->date_format.' '.EVO()->calendar->time_format;
 
-			return eventon_get_lang_formatted_timestr(
+			return $this->__get_lang_formatted_timestr(
 				$format, 
 				eventon_get_formatted_time( $unix )
 			);
@@ -232,15 +232,31 @@ class evo_datetime{
 
 	// return datetime string for a given format using date-time data array
 		public function date($dateformat, $array){	
-			return eventon_get_lang_formatted_timestr($dateformat, $array);
+			return $this->__get_lang_formatted_timestr($dateformat, $array);
 			
-			/*$items = str_split($dateformat);
-			$newtime = '';
-			foreach($items as $item){
-				$newtime .= (array_key_exists($item, $array))? $array[$item]: $item;
-			}
-			return $newtime;*/
 		} 
+
+	// return event date/time in given date format using date item array
+	// added v4.0.7
+		function __get_lang_formatted_timestr($dateform, $datearray){
+			$time = str_split($dateform);
+			$newtime = '';
+			$count = 0;
+			foreach($time as $timestr){
+				// check previous chractor
+					if( strpos($time[ $count], '\\') !== false ){ 
+						//echo $timestr;
+						$newtime .='';
+					}elseif($count!= 0 &&  strpos($time[ $count-1 ], '\\') !== false ){
+						$newtime .= $timestr;
+					}else{
+						$newtime .= (is_array($datearray) && array_key_exists($timestr, $datearray))? $datearray[$timestr]: $timestr;
+					}
+				
+				$count ++;
+			}
+			return $newtime;
+		}
 
 	// eventon version of converted date time 
 	// also filter for proper all day text
@@ -274,8 +290,7 @@ class evo_datetime{
 		}
 
 		function get_local_unix_now(){
-			$this->set_timezone();
-			return time();
+			return EVO()->calendar->utc_time;
 		}
 		function set_timezone(){
 			$tzstring = $this->get_timezone_str();

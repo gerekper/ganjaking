@@ -21,7 +21,7 @@
 		$__styles_button = "font-size:14px; background-color:#".( !empty($evo_options['evcal_gen_btn_bgc'])? $evo_options['evcal_gen_btn_bgc']: "237ebd")."; color:#".( !empty($evo_options['evcal_gen_btn_fc'])? $evo_options['evcal_gen_btn_fc']: "ffffff")."; padding: 5px 15px; text-decoration:none; border-radius:20px; display:inline-block; box-shadow:none; text-transform:uppercase; font-size:12px;";
 	// styles
 		$styles = array(
-			'000'=>'color:#474747; background-color:#fafafa; border:8px solid #cccccc; text-transform:uppercase;',
+			'000'=>'color:#262626; background-color:#fff; border-top:5px solid #e6e7e8;border-bottom:5px solid #e6e7e8; text-transform:uppercase;',
 			'001'=>"color:#5e5e5e; font-size:18px; font-style:italic; font-family: 'open sans',helvetica; padding:0px; margin:0px; text-transform:none",
 			'002'=>"font-size:30px; font-family: helvetica; padding:0px; margin:0px; font-weight:bold; line-height:38px;",
 			'003'=>"color:#1a77bf; font-size:16px; font-style:italic; font-family: 'open sans',helvetica; padding:0px; margin:0px; font-weight:bold; line-height:100%;",
@@ -46,7 +46,7 @@
 			'wbbw'=>'word-break:break-word',
 		);
 ?>
-<table width='100%' style='width:100%; margin:0;font-family:"open sans",Helvetica;' cellspacing='0' cellpadding='0'>
+<table class='evotx_ticket' width='100%' style='width:100%; margin:0;font-family:"open sans",Helvetica;' cellspacing='0' cellpadding='0'>
 <?php 
 $count = 1;
 
@@ -87,6 +87,10 @@ foreach($args['tickets'] as $ticket_number):
 
 		$TIX_CPT = new EVO_Evo_Tix_CPT($ticket_item_id);
 		$repeat_interval = $TIX_CPT->get_repeat_interval();
+
+	// adjust the evo lang value based on item language @+ 1.9.3		
+		$lang = $TIX_CPT->get_order_item_lang();
+		evo_set_global_lang($lang);
 
 
 	$EVENT = new EVO_Event( $event_id,'', $repeat_interval);
@@ -144,7 +148,7 @@ foreach($args['tickets'] as $ticket_number):
 				admin_url(). 'admin-ajax.php?action=eventon_ics_download&event_id='. $event_id . '&ri='. $repeat_interval
 				,$event_id, $e_pmv);
 			?>
-			<tr ><td class='add_to_cal' colspan='3' style='padding:20px 20px 15px'>
+			<tr class='evotx_add_to_cal'><td class='add_to_cal' colspan='3' style='padding:20px 20px 15px'>
 				<p style="<?php echo $styles['102'].$styles['pb10'];?>"><a style='<?php echo $__styles_button;?> border-radius:5px' href='<?php echo $add_to_cal_link;?>' target='_blank'><?php echo evo_lang_get( 'evcal_evcard_addics', 'Add to calendar','',$eo2);?></a></p>		
 			</td></tr>
 		<?php endif;	?>
@@ -190,7 +194,7 @@ foreach($args['tickets'] as $ticket_number):
 		</tr>
 		<!-- ticket data -->
 		<tr>			
-			<td style="<?php echo $styles['100'];?> border-right:1px solid #e0e0e0;" >	
+			<td colspan='2' style="<?php echo $styles['100'];?>" >	
 				<div style=''>
 					<p style="<?php echo $styles['003'].$styles['pb5'];?>"><?php echo $eventTime;?></p>
 					<p style="<?php echo $styles['004'].$styles['pb5'];?>"><?php echo evo_lang_get( 'evotxem_002', 'Date','',$eo2);?></p>
@@ -199,7 +203,7 @@ foreach($args['tickets'] as $ticket_number):
 					foreach(apply_filters('evotx_confirmation_email_data_ar', array(
 						array(
 							'data'=>	$_this_ticket['n'],
-							'label'=>	evo_lang_get( 'evoTX_004', 'Ticket Holder\'s Name','',$eo2),
+							'label'=>	evo_lang_get( 'evoTX_004', 'Primary Ticket Holder','',$eo2),
 							'type'=>	'normal'
 						),array(
 							'data'=>	$location,
@@ -220,7 +224,11 @@ foreach($args['tickets'] as $ticket_number):
 					}
 			?>
 			</td>
-			<td style='padding:10px; text-align:center;'>
+		</tr>
+
+		<!-- ticket number and extra-->
+		<tr>
+			<td colspan='2' style="<?php echo $styles['100'];?> border-top:1px solid #e0e0e0;">
 				<?php
 
 				$encrypt_TN = base64_encode($ticket_number);

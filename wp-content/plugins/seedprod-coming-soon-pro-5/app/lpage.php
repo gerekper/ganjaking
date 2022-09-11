@@ -668,6 +668,7 @@ function seedprod_pro_save_lpage() {
 			$check_post_type = json_decode( stripslashes( $settings ) );
 			if ( 'post' == $check_post_type->page_type ) {
 				update_post_meta( $lpage_id, '_seedprod_edited_with_seedprod', '1' );
+				delete_post_meta( $lpage_id, '_seedprod_page' );
 			} else {
 				update_post_meta( $lpage_id, '_seedprod_page', '1' );
 			}

@@ -46,8 +46,9 @@ class evobo_admin{
 
 	// Appearance
 		function appearance_settings($array){			
-			$new[] = array('id'=>'evobo','type'=>'hiddensection_open','name'=>'Booking Styles', 'display'=>'none');
-			$new[] = array('id'=>'evobo','type'=>'fontation','name'=>'Date circles ',
+			$new[] = array('id'=>'evobo','type'=>'hiddensection_open',
+				'name'=>__('Booking Styles','evobo'), 'display'=>'none');
+			$new[] = array('id'=>'evobo','type'=>'fontation','name'=>__('Date circles ','evobo'),
 				'variations'=>array(
 					array('id'=>'evobo1', 'name'=>'Days with slots - Background color','type'=>'color', 'default'=>'82da95'),
 					array('id'=>'evobo2', 'name'=>'Days with slots - Text Color','type'=>'color', 'default'=>'ffffff'),
@@ -55,7 +56,7 @@ class evobo_admin{
 					array('id'=>'evobo4', 'name'=>'Date hover - Background Color','type'=>'color', 'default'=>'f3f3f3'),
 				)
 			);
-			$new[] = array('id'=>'evors','type'=>'fontation','name'=>'Time slots',
+			$new[] = array('id'=>'evors','type'=>'fontation','name'=>__('Time slots','evobo'),
 				'variations'=>array(
 					array('id'=>'evobo5', 'name'=>'Default background color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evobo5b', 'name'=>'Default text color','type'=>'color', 'default'=>'6b6b6b'),
@@ -63,13 +64,13 @@ class evobo_admin{
 					array('id'=>'evobo6b', 'name'=>'Selected text color','type'=>'color', 'default'=>'ffffff'),
 				)
 			);
-			$new[] = array('id'=>'evors','type'=>'fontation','name'=>'Today Button',
+			$new[] = array('id'=>'evors','type'=>'fontation','name'=>__('Today Button','evobo'),
 				'variations'=>array(
 					array('id'=>'evobo8a', 'name'=>'background color','type'=>'color', 'default'=>'cecece'),
 					array('id'=>'evobo8b', 'name'=>'text color','type'=>'color', 'default'=>'ffffff'),
 				)
 			);
-			$new[] = array('id'=>'evors','type'=>'fontation','name'=>'Booking Calendar',
+			$new[] = array('id'=>'evors','type'=>'fontation','name'=>__('Booking Calendar','evobo'),
 				'variations'=>array(
 					array('id'=>'evobo9a', 'name'=>'Background color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evobo9b', 'name'=>'Month header text color','type'=>'color', 'default'=>'808080'),

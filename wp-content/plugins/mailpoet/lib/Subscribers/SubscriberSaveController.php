@@ -249,7 +249,8 @@ class SubscriberSaveController {
   private function verifyEmailIsUnique(string $email): void {
     $existingSubscriber = $this->subscribersRepository->findOneBy(['email' => $email]);
     if ($existingSubscriber) {
-      $exceptionMessage = __(sprintf('A subscriber with E-mail "%s" already exists.', $email), 'mailpoet');
+      // translators: %s is email address which already exists.
+      $exceptionMessage = sprintf(__('A subscriber with E-mail "%s" already exists.', 'mailpoet'), $email);
       throw new ConflictException($exceptionMessage);
     }
   }

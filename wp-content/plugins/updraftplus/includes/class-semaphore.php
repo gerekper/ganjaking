@@ -211,6 +211,14 @@ class UpdraftPlus_Semaphore {
 			return true;
 		}
 
+		// Check if lock is greater that 24 hours
+		$last_lock_time = strtotime(UpdraftPlus_Options::get_updraft_option('updraftplus_last_lock_time_'.$this->lock_name, $current_time));
+		$next_day = strtotime($current_time.' +1 day');
+		if ($last_lock_time > $next_day) {
+			$this->lock_broke = true;
+			return true;
+		}
+
 		return false;
 	}
 } // End UpdraftPlus_Semaphore

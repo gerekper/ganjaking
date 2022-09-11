@@ -1,0 +1,383 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Draft — Pending review": [
+            "טיוטה — בהמתנה לבדיקה"
+         ],
+         "Complete": [
+            "הושלם"
+         ],
+         "Insufficient funds": [
+            "אין מספיק כסף"
+         ],
+         "Start batch sync": [
+            "התחל סנכרון באצווה"
+         ],
+         "Cancel job": [
+            "בטל עבודה"
+         ],
+         "Start downloading XLIFF file": [
+            "התחל להוריד את קובץ XLIFF"
+         ],
+         "Edit": [
+            "ערוך"
+         ],
+         "Get translation": [
+            "קבל תרגום"
+         ],
+         "Resign": [
+            "התפטר"
+         ],
+         "Review": [
+            "בדוק"
+         ],
+         "Translate": [
+            "תרגם"
+         ],
+         "Take and Translate": [
+            "קח ותרגם"
+         ],
+         "View": [
+            "צפה"
+         ],
+         "Delete Translations": [
+            "מחק תרגומים"
+         ],
+         "Keep Translations as Draft": [
+            "שמור תרגומים כטיוטה"
+         ],
+         "Never mind. I want to review these translations.": [
+            "לא משנה. אני רוצה לבדוק את התרגומים האלה."
+         ],
+         "Cancel": [
+            "בטל"
+         ],
+         "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
+            "פעולה זו תסיר את העבודות שנבחרו מהתור לתרגום מבלי לפרסם אותן. מה תרצה לעשות עם התרגומים?"
+         ],
+         "Cancel Translation Review": [
+            "בטל בדיקת תרגום"
+         ],
+         "Bulk actions": [
+            "פעולות בצובר"
+         ],
+         "Apply": [
+            "החל"
+         ],
+         "Actions applied to multiple translation jobs can take a few seconds. Please do not leave the page.": [
+            "פעולות המוחלות על מספר עבודות תרגום יכולות להימשך מספר שניות. נא לא לצאת מהעמוד."
+         ],
+         "Actions applied to multiple translation jobs can take a few minutes. Please do not leave the page.": [
+            "פעולות המוחלות על מספר עבודות תרגום יכולות להימשך מספר דקות. נא לא לצאת מהעמוד."
+         ],
+         "Select translator": [
+            "בחר מתרגם"
+         ],
+         "Assign": [
+            "הקצה"
+         ],
+         "In progress": [
+            "מתבצע"
+         ],
+         "Translation ready to download": [
+            "התרגום מוכן להורדה"
+         ],
+         "Completed": [
+            "הושלמה"
+         ],
+         "Published — Pending review": [
+            "פורסם — בהמתנה לבדיקה"
+         ],
+         "Needs update": [
+            "זקוק לעדכון"
+         ],
+         "Cancelled": [
+            "בוטל"
+         ],
+         "Needs translation": [
+            "זקוק לתרגום"
+         ],
+         "View original": [
+            "צפה במקור"
+         ],
+         "(no title)": [
+            "(ללא כותרת)"
+         ],
+         "TP ID: %d": [
+            "מזהה TP: %d"
+         ],
+         "Reset": [
+            "אפס"
+         ],
+         "Filter": [
+            "מסנן"
+         ],
+         "Title (%s)": [
+            "כותרת (%s)"
+         ],
+         "Type (%s)": [
+            "סוג (%s)"
+         ],
+         "Language (%s)": [
+            "שפה (%s)"
+         ],
+         "Batch name (%s)": [
+            "שם אצווה (%s)"
+         ],
+         "Status (%s)": [
+            "מצב (%s)"
+         ],
+         "Translated by (%s)": [
+            "תורגם על ידי (%s)"
+         ],
+         "Sent date (%s)": [
+            "תאריך שליחה (%s)"
+         ],
+         "Deadline (%s)": [
+            "מועד אחרון (%s)"
+         ],
+         "Clear all filters": [
+            "נקה את כל המסננים"
+         ],
+         "Any Translation Service": [
+            "כל שירות תרגום"
+         ],
+         "Any WordPress Translator": [
+            "כל מתרגם WordPress"
+         ],
+         "ID (%s)": [
+            "מזהה (%s)"
+         ],
+         "From": [
+            "מ-"
+         ],
+         "To": [
+            "ל-"
+         ],
+         "Anyone": [
+            "כל אחד"
+         ],
+         "Include jobs from translation services": [
+            "כלול עבודות משירותי תרגום"
+         ],
+         "All types": [
+            "כל הסוגים"
+         ],
+         "Select visible columns": [
+            "בחר עמודות גלויות"
+         ],
+         "The bulk action is running...": [
+            "הפעולה בצובר בהרצה..."
+         ],
+         "Export all jobs to XLIFF 1.0": [
+            "ייצא את כל העבודות ל-XLIFF 1.0"
+         ],
+         "Export all filtered jobs to XLIFF 1.0": [
+            "ייצא את כל העבודות המסוננות ל-XLIFF 1.0"
+         ],
+         "Export all jobs to XLIFF 1.1": [
+            "ייצא את כל העבודות ל-XLIFF 1.1"
+         ],
+         "Export all filtered jobs to XLIFF 1.1": [
+            "ייצא את כל העבודות המסוננות ל-XLIFF 1.1"
+         ],
+         "Export all jobs to XLIFF 1.2": [
+            "ייצא את כל העבודות ל-XLIFF 1.2"
+         ],
+         "Export all filtered jobs to XLIFF 1.2": [
+            "ייצא את כל העבודות המסוננות ל-XLIFF 1.2"
+         ],
+         "Export": [
+            "ייצוא"
+         ],
+         "Select File": [
+            "בחר קובץ"
+         ],
+         ".xliff .zip": [
+            ".xliff .zip"
+         ],
+         "Importing": [
+            "מייבא"
+         ],
+         "Import": [
+            "ייבוא"
+         ],
+         "Import / Export XLIFF": [
+            "ייבא/ייצא XLIFF"
+         ],
+         "Actions": [
+            "פעולות"
+         ],
+         "Batch name": [
+            "שם אגד"
+         ],
+         "Title": [
+            "כותרת"
+         ],
+         "Approve translation reviews": [
+            "אשר בדיקות תרגום"
+         ],
+         "Cancel jobs": [
+            "בטל עבודות"
+         ],
+         "Cancel translation reviews": [
+            "בטל בדיקות תרגום"
+         ],
+         "Export to XLIFF %s": [
+            "ייצא ל-XLIFF %s"
+         ],
+         "Get translations": [
+            "קבל תרגומים"
+         ],
+         "This action does not apply to any of the selected translation jobs": [
+            "פעולה זו אינה חלה על אף אחת מעבודות התרגום שנבחרו"
+         ],
+         "Translations has been downloaded": [
+            "תרגומים הורדו"
+         ],
+         "Translation has been downloaded": [
+            "תרגום הורד"
+         ],
+         "Translations could not be downloaded": [
+            "לא ניתן להוריד תרגומים"
+         ],
+         "Translation could not be downloaded": [
+            "לא ניתן להוריד תרגום"
+         ],
+         "Approving translations reviews failed!": [
+            "אישור בדיקות תרגומים נכשל!"
+         ],
+         "Failed approving translations for the following posts: ": [
+            "נכשל אישור התרגומים לפוסטים הבאים: "
+         ],
+         "Translations reviews approved successfully!": [
+            "בדיקות תרגומים אושרו בהצלחה!"
+         ],
+         "No valid jobs selected to approve translations reviews!": [
+            "לא נבחרו עבודות חוקיות לאישור בדיקות תרגומים!"
+         ],
+         "The translator has been assigned to the job": [
+            "המתרגם הוקצה לעבודה"
+         ],
+         "The translator could not be assigned to the job": [
+            "לא ניתן להקצות את המתרגם לעבודה"
+         ],
+         "The jobs have been cancelled": [
+            "העבודות בוטלו"
+         ],
+         "The job has been cancelled": [
+            "העבודה בוטלה"
+         ],
+         "The jobs could not be cancelled": [
+            "לא ניתן לבטל את העבודות"
+         ],
+         "The job could not be cancelled": [
+            "לא ניתן לבטל את העבודה"
+         ],
+         "Translation reviews have been canceled": [
+            "בדיקות תרגום בוטלו"
+         ],
+         "Translation review has been canceled": [
+            "בדיקת תרגום בוטלה"
+         ],
+         "Translation reviews could not be canceled": [
+            "לא ניתן לבטל את בדיקות התרגום"
+         ],
+         "Translation review could not be canceled": [
+            "לא ניתן לבטל את בדיקת התרגום"
+         ],
+         "Sent on": [
+            "נשלח ב-"
+         ],
+         "Deadline": [
+            "תאריך יעד"
+         ],
+         "Status": [
+            "מצב"
+         ],
+         "Pending review": [
+            "ממתין לבדיקה"
+         ],
+         "ID": [
+            "מזהה"
+         ],
+         "Type": [
+            "סוג"
+         ],
+         "Languages": [
+            "שפות"
+         ],
+         "Translated by": [
+            "תורגם על-ידי"
+         ],
+         "Download XLIFF file couldn't be finished": [
+            "לא ניתן לסיים הורדת קובץ XLIFF"
+         ],
+         "Could not load jobs for export": [
+            "לא ניתן לטעון עבודות לייצוא"
+         ],
+         "The export to XLIFF failed": [
+            "הייצוא אל XLIFF נכשל"
+         ],
+         "Imported %d jobs": [
+            "יובאו %d עבודות"
+         ],
+         "Imported one job": [
+            "יובאה עבודה אחת"
+         ],
+         "Could not import any job": [
+            "לא ניתן לייבא אף עבודה"
+         ],
+         "Import failed!": [
+            "הייבוא נכשל!"
+         ],
+         "Loading translations queue": [
+            "טוען תור לתרגום"
+         ],
+         "Loading translation jobs": [
+            "טוען עבודות תרגום"
+         ],
+         "Jobs could not be loaded": [
+            "לא ניתן לטעון עבודות"
+         ],
+         "Specify some jobs to resign": [
+            "ציין מאילו עבודות להתפטר"
+         ],
+         "We could not resign jobs: %s": [
+            "לא יכולנו להתפטר מהעבודות: %s"
+         ],
+         "Resigned from jobs": [
+            "בוצעה התפטרות מעבודות"
+         ],
+         "Resigned from job": [
+            "בוצעה התפטרות מעבודה"
+         ],
+         "Failed to resign from jobs": [
+            "התפטרות מעבודות נכשלה"
+         ],
+         "The Advanced Editor jobs synchronization": [
+            "סנכרון עבודות בעורך המתקדם"
+         ],
+         "The Advanced Editor jobs synchronization has failed": [
+            "סנכרון העבודות בעורך המתקדם נכשל"
+         ],
+         "Synchronization with the Professional Translation service has failed": [
+            "הסנכרון עם שירות התרגום המקצועי נכשל"
+         ],
+         "The Professional Translations jobs synchronization": [
+            "סנכרון עבודות תרגום מקצועי"
+         ],
+         "Batch sync finished successfully!": [
+            "סנכרון באצווה הסתיים בהצלחה!"
+         ],
+         "Batch sync couldn't be finished": [
+            "לא ניתן לסיים סנכרון באצווה"
+         ]
+      }
+   }
+}

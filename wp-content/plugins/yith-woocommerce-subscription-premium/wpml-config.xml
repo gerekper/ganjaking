@@ -1,0 +1,57 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywsbs_add_to_cart_label" />
+        <key name="ywsbs_show_trial_period_text" />
+        <key name="ywsbs_show_fee_text" />
+        <key name="ywsbs_place_order_label" />
+        <key name="ywsbs_show_trial_period_text_on_cart" />
+        <key name="ywsbs_total_subscription_length_text" />
+        <key name="ywsbs_show_next_billing_date_text" />
+        <key name="ywsbs_show_next_billing_date_text_for_trial" />
+        <key name="ywsbs_text_pause_subscription_dropdown" />
+        <key name="ywsbs_text_resume_subscription_dropdown" />
+        <key name="ywsbs_text_cancel_subscription_dropdown" />
+        <key name="ywsbs_text_pause_subscription_modal" />
+        <key name="ywsbs_text_pause_subscription_button" />
+        <key name="ywsbs_text_resume_subscription_modal" />
+        <key name="ywsbs_text_resume_subscription_button" />
+        <key name="ywsbs_text_resume_subscription_close_button" />
+        <key name="ywsbs_text_cancel_subscription_modal" />
+        <key name="ywsbs_text_cancel_subscription_button" />
+        <key name="ywsbs_text_close_modal" />
+        <key name="ywsbs_text_switch_plan" />
+        <key name="ywsbs_text_buy_new_plan" />
+        <key name="ywsbs_text_new_plan_on_cart" />
+    </admin-texts>
+    <custom-fields>
+        <custom-field action="copy">_ywsbs_can_be_cancelled</custom-field>
+        <custom-field action="copy">_ywsbs_delivery_sync_delivery_schedules</custom-field>
+        <custom-field action="copy">_ywsbs_enable_fee</custom-field>
+        <custom-field action="copy">_ywsbs_enable_limit</custom-field>
+        <custom-field action="copy">_ywsbs_enable_max_length</custom-field>
+        <custom-field action="copy">_ywsbs_enable_pause</custom-field>
+        <custom-field action="copy">_ywsbs_enable_trial</custom-field>
+        <custom-field action="copy">_ywsbs_fee</custom-field>
+        <custom-field action="copy">_ywsbs_limit</custom-field>
+        <custom-field action="copy">_ywsbs_max_length</custom-field>
+        <custom-field action="copy">_ywsbs_max_pause</custom-field>
+        <custom-field action="copy">_ywsbs_limit</custom-field>
+        <custom-field action="copy">_ywsbs_max_pause_duration</custom-field>
+        <custom-field action="copy">_ywsbs_limit</custom-field>
+        <custom-field action="copy">_ywsbs_one_time_shipping</custom-field>
+        <custom-field action="copy">_ywsbs_order_version</custom-field>
+        <custom-field action="copy">_ywsbs_override_cancellation_settings</custom-field>
+        <custom-field action="copy">_ywsbs_override_delivery_schedule</custom-field>
+        <custom-field action="copy">_ywsbs_override_pause_settings</custom-field>
+        <custom-field action="copy">_ywsbs_price_is_per</custom-field>
+        <custom-field action="copy">_ywsbs_price_time_option</custom-field>
+        <custom-field action="copy">_ywsbs_subscription</custom-field>
+        <custom-field action="copy">_ywsbs_synchronize_info</custom-field>
+        <custom-field action="copy">_ywsbs_trial_per</custom-field>
+        <custom-field action="copy">_ywsbs_trial_time_option</custom-field>
+        <custom-field action="copy">_ywsbs_prorate_fee</custom-field>
+        <custom-field action="copy">_ywsbs_prorate_recurring_payment</custom-field>
+        <custom-field action="copy">_ywsbs_switchable</custom-field>
+        <custom-field action="copy">_ywsbs_switchable_priority</custom-field>
+    </custom-fields>
+</wpml-config>

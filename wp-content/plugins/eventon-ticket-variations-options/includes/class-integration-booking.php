@@ -202,10 +202,11 @@ class EVOVO_BO{
 				$html = $VO->get_all_vos_html( $booking_index, 'booking',true, $all_vo_data);
 
 				echo json_encode( array(
-					'html'=>	$html, 
-					'msg'=> 	'New Booking block variation created!',
-					'status'=>	'good',
-					'all_vo_data' => 	$all_vo_data
+					'html'			=> $html, 
+					'msg'			=> 'New Booking block variation created!',
+					'status'		=> 'good',
+					'all_vo_data' 	=> $all_vo_data,
+					'data'			=> $vo_data
 				));exit;	
 
 				// this will stop from vo ajax completing			

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BetterDocsAnalytics from "./Analytics";
 
 const BetterDocsApp = () => {
@@ -10,7 +11,11 @@ const BetterDocsApp = () => {
   );
 };
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
-  <BetterDocsApp />,
+  <QueryClientProvider client={queryClient}>
+    <BetterDocsApp />
+  </QueryClientProvider>,
   document.getElementById("betterdocsAnalytics")
 );

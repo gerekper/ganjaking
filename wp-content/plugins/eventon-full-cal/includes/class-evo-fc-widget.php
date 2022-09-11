@@ -132,25 +132,43 @@ class evoFC_Widget extends WP_Widget{
 			'event_type'=> $event_type,
 		);		
 		
-		// BEFORE
-			if(has_action('eventonFC_before_widget')){
-				do_action('eventonFC_before_widget');
-			}else{	echo $before_widget;	}
+
+		$CONTENT = '';
+
 		
 		// widget title
 		if(!empty($instance['ev_fc_title']) ){
-			echo "<h3 class='widget-title'>".$instance['ev_fc_title']."</h3>";
+			$CONTENT = "<h3 class='widget-title'>".$instance['ev_fc_title']."</h3>";
 		}
 		
 		// GET calendar content
-		$content = EVOFC()->frontend->getCAL($args);		
-		
-		echo "<div id='evcal_widget' class='evo_fc_widget'>".$content."</div>";
+		$CONTENT .= EVOFC()->frontend->getCAL($args);	
+
+		global $pagenow;
+
+		// backend rendering of widget
+		if( !empty($pagenow) && $pagenow == 'widgets.php'){
+
+			echo "[ EventON FullCal Calendar Widget ]";
+			echo "<style type='text/css'>.evo_lightboxes{display:none!important}</style>";
+			return;
+
+		}else{
+
+			// BEFORE
+			if(has_action('eventonFC_before_widget')){
+				do_action('eventonFC_before_widget');
+			}else{	echo $before_widget;	}		
+
+			echo "<div id='evcal_widget' class='evo_fc_widget evo_widget'>".$CONTENT."</div>";
 			
-		// AFTER
+			// AFTER
 			if(has_action('eventonFC_after_widget')){
 				do_action('eventonFC_after_widget');
-			}else{	echo $after_widget;	}		
+			}else{	echo $after_widget;	}
+		}
+		
+				
 	}
 }
  

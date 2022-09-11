@@ -557,8 +557,9 @@ class NinjaTableUpdateChecker
         if (!$licenseKey) {
             $licenseKey = get_option($this->get_var('license_key'));
         }
+
         if ($licenseKey) {
-            $renewUrl = $this->get_var('store_url') . '/checkout/?edd_license_key=' . $licenseKey . '&download_id=' . $this->get_var('item_id');
+            $renewUrl = $this->get_var('store_site') . '/checkout/?edd_license_key=' . $licenseKey . '&download_id=' . $this->get_var('item_id');
         } else {
             $renewUrl = $this->get_var('purchase_url');
         }

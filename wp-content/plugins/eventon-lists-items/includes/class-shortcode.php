@@ -53,7 +53,8 @@ class evoli_shortcode{
 				'sep_month'=>'no',
 				'it_hide_desc'=>'no',
 				'el_type'=>'ue',
-				'li_layout'=>'def'
+				'li_layout'=>'def',
+				'show_empty'=>'no',
 			));			
 		}
 
@@ -127,6 +128,13 @@ class evoli_shortcode{
 								'type'=>'YN',
 								'var'=>'sep_month',
 								'guide'=>'For list of categories, you can use this to separate events by months',
+								'default'=>'no',							
+							),
+							array(
+								'name'=>'Show empty terms in the list',
+								'type'=>'YN',
+								'var'=>'show_empty',
+								'guide'=>'This will show terms for category, that do not have events assigned to.',
 								'default'=>'no',							
 							),
 							array(

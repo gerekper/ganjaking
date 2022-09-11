@@ -241,7 +241,17 @@ class WC_Store_Credit_Product_Addons {
 			}
 		}
 
-		if ( ! empty( $_POST['store_credit_custom_amount'] ) && $product->allow_custom_amount() ) {
+		if ( ! $product->allow_custom_amount() ) {
+			return true;
+		}
+
+		// Validate custom credit amount.
+		if ( empty( $_POST['store_credit_custom_amount'] ) && 0 >= $product->get_credit_amount() ) {
+			wc_add_notice( __( 'Please, enter a credit amount.', 'woocommerce-store-credit' ), 'error' );
+			return false;
+		}
+
+		if ( ! empty( $_POST['store_credit_custom_amount'] ) ) {
 			$amount = (float) wc_format_decimal( wp_unslash( $_POST['store_credit_custom_amount'] ) );
 
 			if ( $amount <= 0 ) {

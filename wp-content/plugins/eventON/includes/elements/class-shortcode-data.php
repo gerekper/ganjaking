@@ -309,6 +309,41 @@ class EVO_Shortcode_Data{
 					)
 				),
 
+				// event from anywhere
+				array(
+					'id'=>'eventon_anywhere',
+					'name'=>__('Single Event from Anywhere [Beta]','eventon'),
+					'code'=>'eventon_anywhere',
+					'variables'=>array(						
+						array(
+							'name'=>__('Call to action text','eventon'),
+							'type'=>'text','var'=>'cta_text',
+							'guide'=>__('The text that will call to load event details when clicked on','eventon'),
+							'placeholder'=>__('eg. click to see event details','eventon'),							
+						),array(
+							'name'=>'Event ID',
+							'type'=>'select','var'=>'id',
+							'placeholder'=>'eg. 234',	
+							'options'=>	$this->get_event_ids()		
+						),array(
+							'name'=>'Repeat Interval ID',
+							'type'=>'text','var'=>'repeat_interval',
+							'guide'=>'Enter the repeat interval instance ID of the event you want to show from the repeating events series (the number at the end of the single event URL)  eg. 3. This is only for repeating events',
+							'placeholder'=>'eg. 4',							
+						),array(
+							'name'=>'User click on Event Box',
+							'type'=>'select',
+							'guide'=>'What to do when user click on event box. NOTE: Show expended eventCard will be overridden if opening lightbox',
+							'var'=>'ev_uxval',
+							'options'=>array(
+								'4'=>'Go to Event Page',
+								'3'=>'Open event as Lightbox',
+							),
+							'default'=>'4'
+						)						
+					)
+				),
+
 				array(
 					'id'=>'s_NOW',
 					'name'=>__('Live Now Calendar View','eventon'),
@@ -325,10 +360,19 @@ class EVO_Shortcode_Data{
 							'guide'=>'This will hide the happening now events, but will show coming up next.',
 							'var'=>'hide_now',
 							'default'=>'no'
+						),array(
+							'name'=>'Hide coming up next section',
+							'type'=>'YN',
+							'guide'=>'This will hide the coming up next section.',
+							'var'=>'hide_next',
+							'default'=>'no'
 						)
 						
 					)
 				),
+
+				
+
 				array(
 					'id'=>'evosv',
 					'name'=>__('Schedule View','eventon'),
@@ -338,12 +382,38 @@ class EVO_Shortcode_Data{
 						$this->shortcode_default_field('etc_override'),
 						$this->shortcode_default_field('UIX'),	
 					)
+				),array(
+					'id'=>'evotv',
+					'name'=>__('Tabbed View [Beta]','eventon'),
+					'code'=>'add_eventon_tabs',
+					'variables'=>$this->tab_array_content()
 				)
 			));
 			
 			return $shortcode_guide_array;
 		}
 
+	public function tab_array_content(){
+
+		$return = array();
+		$return[] = array('name'=>__('IMPORTANT: Make sure tab shortcode does not include [ or ]. Eg. add_eventon','eventon'),
+							'placeholder'=>'eg. Main Calendar','type'=>'note');
+
+		for($x=1; $x<=5; $x++){
+			$return[] = array(
+				'name'=>__('Tab Name','eventon').' #'.$x,
+				'placeholder'=>'eg. Main','type'=>'text',
+				'var'=>'tab'.$x,'default'=>'Tab Name'
+			);
+			$return[] = array(
+				'name'=>__('Tab Shortcode','eventon').' #'.$x,
+				'placeholder'=>'eg. add_eventon','type'=>'text',
+				'var'=>'tab'.$x.'shortcode','default'=>'add_eventon'
+			);
+		}
+		return $return;
+		
+	}
 	public function shortcode_default_field($A){
 		return $this->fields->get_fields($A);
 	}

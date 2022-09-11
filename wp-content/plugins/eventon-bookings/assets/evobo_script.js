@@ -1,6 +1,6 @@
 /**
  * frontend script 
- * @version 0.1
+ * @version 1.3.2
  */
 jQuery(document).ready(function($){
 
@@ -12,11 +12,13 @@ jQuery(document).ready(function($){
 
             if( typeof data ==='object') return false;
 
-            if( data !== undefined && data && data != ''){      
+            if( data !== undefined && data && data != ''){     
                 
                 if(data.indexOf('action=eventon_init_load') != -1)   load_evobo_calendar();
                 if(data.indexOf('action=the_ajax_hook') != -1)   load_evobo_calendar();
                 if(data.indexOf('action=new_week') != -1)   load_evobo_calendar();
+                if(data.indexOf('action=eventon_load_single_eventcard_content') != -1)   
+                    load_evobo_calendar();
             }
         });
   

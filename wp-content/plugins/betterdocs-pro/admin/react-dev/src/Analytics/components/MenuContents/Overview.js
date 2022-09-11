@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, forwardRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { __ } from "@wordpress/i18n";
 import NestedMenu from "../utilities/NestedMenu";
 import LeadingDocs from "../Overview/LeadingDocs";
@@ -8,19 +9,15 @@ import ChartWrapper from "../Overview/ChartWrapper";
 import { getSettingOptions, Tooltip } from "../../function";
 import { ReactComponent as Info } from "../../images/info.svg";
 
-const Overview = () => {
-  const [setting, setSetting] = useState(undefined);
+const Overview = forwardRef((props, mainComponentRef) => {
+  const [postDetails, setPostDetails] = useState(undefined);
 
-  useEffect(() => {
-    getSettingOptions()
-      .then((res) => setSetting(res))
-      .catch((err) => console.log(err));
-  }, []);
+  const setting = useQuery(["pluginSetting"], getSettingOptions);
 
   return (
     <div className="betterdocs-analytics-overview">
-      <ChartWrapper />
-      {setting ? (
+      <ChartWrapper postDetails={postDetails} setPostDetails={setPostDetails} />
+      {setting?.data ? (
         <NestedMenu
           tabWrapperClass="betterdocs-analytics-nested-tab-wrapper"
           tabListClass="betterdocs-analytics-nested-tab-menu"
@@ -41,7 +38,12 @@ const Overview = () => {
                   Leading Docs
                 </>
               ),
-              content: <LeadingDocs />,
+              content: (
+                <LeadingDocs
+                  setPostDetails={setPostDetails}
+                  ref={mainComponentRef}
+                />
+              ),
               enable: true,
             },
             {
@@ -74,7 +76,7 @@ const Overview = () => {
                 </>
               ),
               content: <LeadingKnowledgeBase />,
-              enable: setting?.multiple_kb != "off" ? true : false,
+              enable: setting?.data?.multiple_kb != "off" ? true : false,
             },
           ]}
         />
@@ -83,6 +85,6 @@ const Overview = () => {
       )}
     </div>
   );
-};
+});
 
 export default Overview;

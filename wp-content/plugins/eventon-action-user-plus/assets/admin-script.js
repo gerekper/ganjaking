@@ -46,6 +46,31 @@ jQuery(document).ready(function($){
 				}
 			});	
 		});
+
+	// form interaction
+		// color picker
+			$('body').on('click','.evoaup_color_i',function(){
+				var O = $(this);
+				$(this).ColorPicker({		
+					color: O.css("background-color"),
+					onShow: function (colpkr){
+						$(this).addClass('open');
+					},
+					onChange:function(hsb, hex, rgb,el){
+						set_hex_values(hex,O);
+					},onSubmit: function(hsb, hex, rgb, el) {
+						set_hex_values(hex, O);
+						$(el).ColorPickerHide();
+					}		
+				});
+				if( !$(this).hasClass('open')){
+					$(this).trigger('click');
+				}
+			});
+			function set_hex_values(hex, O){
+				$(O).css({'background-color':'#'+hex});
+				$(O).siblings('input').val( hex);
+			}
 	
 	// save new form
 		$('body').on('click','.evoaup_form_submission',function(){

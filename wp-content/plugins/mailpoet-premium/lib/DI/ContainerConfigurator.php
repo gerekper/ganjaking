@@ -45,6 +45,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\WP\Functions::class);
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder::class);
 
     // API
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Bounces::class)->setPublic(true);
@@ -60,6 +61,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPostEndpoint::class)->setPublic(true);
     // Automation - MailPoet Premium integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumWorkflowTemplates::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\UserRegistrationTrigger::class)->setPublic(true);
     // Config

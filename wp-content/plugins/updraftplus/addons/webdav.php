@@ -6,6 +6,7 @@ Description: Allows UpdraftPlus to backup to WebDAV servers
 Version: 3.0
 Shop: /shop/webdav/
 Include: includes/PEAR
+RequiresPHP: 5.5
 */
 // @codingStandardsIgnoreEnd
 
@@ -21,6 +22,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 // In PHP 5.2, the instantiation of the class has to be after it is defined, if the class is extending a class from another file. Hence, that has been moved to the end of this file.
 
 if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) define('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT', 33); // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase
 
 class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 	

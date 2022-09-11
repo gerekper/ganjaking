@@ -1,0 +1,226 @@
+.wp-block-yith-ywsbs-plans {
+    display: flex;
+    width: 100%;
+    align-content: space-between;
+    align-items: flex-end;
+}
+
+.wp-block-yith-ywsbs-plan {
+    flex: 1;
+    /* padding: 20px 20px 45px 20px; */
+    height: auto;
+    box-sizing: border-box;
+    display: inline-table;
+}
+
+.wp-block-yith-ywsbs-plan {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.plan-title {
+    padding-top: 25px;
+}
+
+h2.ywsbs-plan__title {
+    padding: 20px 0;
+}
+
+.wp-block-yith-ywsbs-plan .subtitlePlan {
+    text-align: center;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.wp-block-yith-ywsbs-plan .subtitlePlan.with-separator:after {
+    content: '';
+    width: 30px;
+    height: 10px;
+    border-bottom: 2px solid #000;
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+
+}
+
+.wp-block-yith-ywsbs-plans.ywsbs-plans.plans-2 .wp-block-yith-ywsbs-plan {
+    max-width: calc(100% / 2 - 20px);
+}
+
+.wp-block-yith-ywsbs-plans.ywsbs-plans.plans-3 .wp-block-yith-ywsbs-plan {
+    max-width: calc(100% / 3 - 20px);
+    margin: 0 20px;
+}
+
+.wp-block-yith-ywsbs-plans.ywsbs-plans.plans-4 .wp-block-yith-ywsbs-plan {
+    max-width: calc(100% / 4 - 20px);
+}
+
+.wp-block-yith-ywsbs-plans.ywsbs-plans.plans-5 .wp-block-yith-ywsbs-plan {
+    max-width: calc(100% / 5 - 20px);
+}
+
+.wp-block-yith-ywsbs-plans.ywsbs-plans.plans-6 .wp-block-yith-ywsbs-plan {
+    max-width: calc(100% / 6 - 20px);
+}
+
+.wp-block-yith-ywsbs-plan {
+    padding: 0 0 45px 0;
+}
+
+.wp-block-yith-ywsbs-plan ul,
+.wp-block-yith-ywsbs-plan p {
+    padding: 0 45px;
+    line-height: 1.7em;
+}
+
+.wp-block-yith-ywsbs-plan ul li {
+    margin: 0 20px;
+}
+
+.wp-block-yith-ywsbs-plan .wp-block-button,
+.wp-block-yith-ywsbs-plan .wp-block-image {
+    text-align: center;
+}
+
+.wp-block-yith-ywsbs-plan .wp-block-image img {
+    margin: 0 auto;
+}
+
+.wp-block-yith-ywsbs-plan .wp-block-button {
+    padding-top: 20px;
+}
+
+.ywsbs-plan__price {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.ywsbs-price__content {
+    position: relative;
+}
+
+.wp-block-yith-ywsbs-price {
+    text-align: center;
+}
+
+.is-style-on-top .ywsbs-plan__price-billing {
+    position: absolute;
+    top: 17px;
+    margin-left: 4px;
+}
+
+.is-style-on-bottom .ywsbs-plan__price-billing {
+    position: relative;
+    display: block;
+    margin: 0;
+    top: 0;
+}
+
+
+/**
+HOVER Effects
+ */
+.wp-block-yith-ywsbs-plan {
+    transition: 1s ease;
+}
+
+.wp-block-yith-ywsbs-plan.shrink:hover {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+    transition: 1s ease;
+}
+
+.wp-block-yith-ywsbs-plan.grow:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.wp-block-yith-ywsbs-plan.float:hover {
+    -webkit-transform: translateY(-25px);
+    transform: translateY(-25px);
+}
+
+.wp-block-yith-ywsbs-plan.sink:hover {
+    -webkit-transform: translateY(25px);
+    transform: translateY(25px);
+}
+
+a.wp-block-button__link:hover {
+    filter: brightness(0);
+    transition: all 0.3s linear;
+}
+
+a.wp-block-button__link:hover {
+    filter: brightness(1.3);
+}
+
+.ywsbs-plan__trial, .ywsbs-plan__fee {
+    line-height: 2em;
+}
+
+.wp-block-yith-ywsbs-plan .ywsbs-price {
+    padding: 20px;
+}
+
+/**
+YITH Proteo
+ */
+.theme-yith-proteo .entry-content .wp-block-yith-ywsbs-plan ul li {
+    font-size: 1em;
+}
+
+.theme-yith-proteo .wp-block-yith-ywsbs-plans .wp-block-button__link {
+    padding: 0.9375rem 2.8125rem;
+}
+
+.wp-block-yith-ywsbs-plan {
+    overflow: hidden
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .wp-block-yith-ywsbs-plans {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: flex-start;
+        grid-row-gap: 30px;
+    }
+
+    .wp-block-yith-ywsbs-plan {
+        width: 95%;
+        max-width: 100% !important;
+
+    }
+}
+
+@media (max-width: 768px) {
+    .wp-block-yith-ywsbs-plans {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        grid-row-gap: 30px;
+    }
+
+    .wp-block-yith-ywsbs-plan {
+        width: 90%;
+        max-width: 100% !important;
+
+    }
+}
+
+@media (max-width: 425px) {
+    .wp-block-yith-ywsbs-plans {
+        display: block;
+
+    }
+
+    .wp-block-yith-ywsbs-plan {
+        width: 100%;
+        max-width: 90% !important;
+        margin-bottom: 40px !important;
+        display: block;
+    }
+}

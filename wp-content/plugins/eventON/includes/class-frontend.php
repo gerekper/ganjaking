@@ -3,7 +3,7 @@
  * evo_frontend class for front and backend.
  *
  * @class 		evo_frontend
- * @version		3.0.7
+ * @version		4.1.2
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -76,8 +76,6 @@ class evo_frontend {
 			add_filter(	'heartbeat_received', array($this, 'heartbeat'),10,2);
 			add_filter(	'heartbeat_nopriv_received', array($this, 'heartbeat_nopriv'),10,2);
 			add_filter( 'heartbeat_settings', array($this,'wp_heartbeat_settings') );
-
-			
 	
 		//_eventon_debug_eventon_get_repeat_intervals( 1611964800, 1612047600);		
 	}
@@ -117,7 +115,6 @@ class evo_frontend {
 	// styles and scripts
 		public function register_scripts() {
 
-
 			$evo_opt= $this->evo_options;	
 						
 			wp_register_script('evo_handlebars',plugins_url(EVENTON_BASE) . '/assets/js/lib/handlebars.js', array('jquery'), EVO()->version, true ); // 2.6.8
@@ -133,6 +130,7 @@ class evo_frontend {
 			wp_register_script('evo_mouse', EVO()->assets_path. 'js/lib/jquery.mousewheel.min.js', array('jquery'),EVO()->version,true );//2.2.24
 			wp_register_script('evcal_functions', EVO()->assets_path. 'js/eventon_functions.js', array('jquery'), EVO()->version ,true );// 2.2.22
 			wp_register_script('evcal_ajax_handle', EVO()->assets_path. 'js/eventon_script.js', array('jquery'), EVO()->version ,true );
+
 
 			// TRUMBO editor
 			wp_register_script( 'evo_wyg_editor',EVO()->assets_path.'lib/trumbowyg/trumbowyg.min.js','', EVO()->version, true );
@@ -198,9 +196,10 @@ class evo_frontend {
 
 			// LOAD custom google fonts for skins	
 			if( evo_settings_val( 'evo_googlefonts', $this->evo_options, true)){
+				
 				//$gfonts = (is_ssl())? 'https://fonts.googleapis.com/css?family=Oswald:400,300|Open+Sans:400,300': 'http://fonts.googleapis.com/css?family=Oswald:400,300|Open+Sans:400,300';	
-				$gfonts="//fonts.googleapis.com/css?family=Oswald:400,300|Open+Sans:700,400,400i|Roboto:700,400";				
-				wp_register_style( 'evcal_google_fonts', $gfonts, '', '', 'screen' );
+				//$gfonts="//fonts.googleapis.com/css?family=Open+Sans:700,400,400i|Roboto:700,400";											
+				wp_register_style( 'evcal_google_fonts', $this->google_fonts(), array(), EVO()->version);
 			}
 			
 			
@@ -219,6 +218,29 @@ class evo_frontend {
 
 			// pluggable
 				do_action('evo_register_other_styles_scripts');
+		}
+
+		// google fonts
+		public function google_fonts(){
+			$google_fonts = apply_filters(
+				'evo_google_font_families',
+				array(
+					//'Montserrat' => 'Montserrat:400,700',
+					//'noto-sans' => 'Noto+Sans:400,400italic,700',
+					'open-sans' => 'Open+Sans:400,400italic,700',
+					'Roboto' => 'Roboto:400,700,900',
+					//'league-spartan' => 'League+Spartan:400,700',
+				)
+			);
+
+			$query_args = array(
+				'family' => implode( '|', $google_fonts ),
+				'subset' => rawurlencode( 'latin,latin-ext' ),
+			);
+
+			$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+
+			return $fonts_url;
 		}
 		
 		public function register_evo_dynamic_styles(){
@@ -516,9 +538,7 @@ class evo_frontend {
 	// Side bars
 		// create a single event sidebar
 		function register_se_sidebar(){			
-			$opt = $this->evo_options;
-
-			if(!empty($opt['evosm_1']) && $opt['evosm_1'] =='yes'){
+			if(EVO()->cal->check_yn('evosm_1','evcal_1') ){
 				register_sidebar(array(
 				  'name' => __( 'Single Event Sidebar' ),
 				  'id' => 'evose_sidebar',

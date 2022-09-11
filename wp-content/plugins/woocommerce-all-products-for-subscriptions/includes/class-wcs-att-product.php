@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product
- * @version  3.4.0
+ * @version  4.0.0
  */
 class WCS_ATT_Product {
 
@@ -132,7 +132,7 @@ class WCS_ATT_Product {
 			case 'subscription_scheme_options_product_cart':
 
 				if ( isset( $args[ 'cart_item' ] ) && isset( $args[ 'cart_item_key' ] ) ) {
-					$subscription_schemes = WCS_ATT_Cart::get_subscription_schemes( $args[ 'cart_item' ], 'product' );
+					$subscription_schemes = WCS_ATT_Cart::get_subscription_schemes( $args[ 'cart_item' ] );
 					$is_feature_supported = apply_filters( 'wcsatt_show_cart_item_options', ! empty( $subscription_schemes ), $args[ 'cart_item' ], $args[ 'cart_item_key' ] );
 				}
 
@@ -183,7 +183,7 @@ class WCS_ATT_Product {
 				}
 
 				if ( $is_feature_supported && 'matching_schemes' === $option_value ) {
-					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product, 'product' ) );
+					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product ) );
 				}
 
 			break;
@@ -197,7 +197,7 @@ class WCS_ATT_Product {
 				}
 
 				if ( $is_feature_supported && 'plans_only' === $option_value ) {
-					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product, 'product' ) ) || ! empty( WCS_ATT_Cart::get_cart_subscription_schemes( 'raw' ) );
+					$is_feature_supported = ! empty( WCS_ATT_Product_Schemes::get_subscription_schemes( $product ) );
 				}
 
 			break;

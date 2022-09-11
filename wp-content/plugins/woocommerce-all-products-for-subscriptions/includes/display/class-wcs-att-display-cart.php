@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart template modifications.
  *
  * @class    WCS_ATT_Display_Cart
- * @version  3.1.15
+ * @version  4.0.0
  */
 class WCS_ATT_Display_Cart {
 
@@ -36,9 +36,6 @@ class WCS_ATT_Display_Cart {
 	 * Hook-in.
 	 */
 	private static function add_hooks() {
-
-		// Displays a "Subscribe to Cart" section in the cart.
-		add_action( 'woocommerce_before_cart_totals', array( __CLASS__, 'show_cart_subscription_options' ) );
 
 		// Use radio buttons to mark a cart item as a one-time sale or as a subscription.
 		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'show_cart_item_subscription_options' ), 1000, 3 );
@@ -99,7 +96,7 @@ class WCS_ATT_Display_Cart {
 			return $price;
 		}
 
-		$subscription_schemes           = WCS_ATT_Cart::get_subscription_schemes( $cart_item, 'product' );
+		$subscription_schemes           = WCS_ATT_Cart::get_subscription_schemes( $cart_item );
 		$active_subscription_scheme_key = WCS_ATT_Product_Schemes::get_subscription_scheme( $product );
 		$force_subscription             = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
 		$price_filter_exists            = WCS_ATT_Product_Schemes::price_filter_exists( $subscription_schemes );
@@ -210,95 +207,6 @@ class WCS_ATT_Display_Cart {
 		return $price;
 	}
 
-	/**
-	 * Show a "Subscribe to Cart" section in the cart.
-	 * Visible only when all cart items have a common 'cart/order' subscription scheme.
-	 *
-	 * @since  2.1.0
-	 *
-	 * @return void
-	 */
-	public static function show_cart_subscription_options() {
-
-		// Show cart/order level options only if all cart items share a common cart/order level subscription scheme.
-		$context = is_checkout() ? 'checkout-display' : 'cart-display';
-		if ( $subscription_schemes = WCS_ATT_Cart::get_cart_subscription_schemes( $context ) ) {
-
-			$active_scheme_key = WCS_ATT_Cart::get_cart_subscription_scheme();
-			$options           = array();
-
-			$options[] = array(
-				'class'       => 'one-time-option',
-				'value'       => WCS_ATT_Product_Schemes::stringify_subscription_scheme_key( false ),
-				'description' => _x( 'One-time purchase', 'cart subscription selection - negative response', 'woocommerce-all-products-for-subscriptions' ),
-				'selected'    => $active_scheme_key === false,
-			);
-
-			// Create a dummy product.
-			$dummy_product = new WC_Product( 0 );
-
-			// Set the cart-level schemes on it.
-			WCS_ATT_Product_Schemes::set_subscription_schemes( $dummy_product, $subscription_schemes );
-
-			// Generate option descriptions.
-			foreach ( $subscription_schemes as $subscription_scheme ) {
-
-				$subscription_scheme_key = $subscription_scheme->get_key();
-
-				WCS_ATT_Product_Schemes::set_subscription_scheme( $dummy_product, $subscription_scheme_key );
-
-				$price_string_args = array(
-					'price'              => '',
-					'subscription_price' => true
-				);
-
-				if ( false === $subscription_scheme->is_synced() ) {
-					$price_string_args[ 'subscription_price' ] = false;
-				}
-
-				$option_price_html = WCS_ATT_Product_Prices::get_price_string( $dummy_product, $price_string_args );
-
-				if ( $discount = $subscription_scheme->get_discount() ) {
-					$option_discount_html = '<span class="wcsatt-sub-discount">' . sprintf( _x( '%s&#37;', 'cart option discount', 'woocommerce-all-products-for-subscriptions' ), round( $discount, WCS_ATT_Product_Prices::get_formatted_discount_precision() ) ) . '</span>';
-					$option_price_html    = sprintf( _x( '%1$s &mdash; save %2$s', 'discounted cart sub option price html', 'woocommerce-all-products-for-subscriptions' ), $option_price_html, $option_discount_html );
-				}
-
-				if ( WC()->cart->needs_shipping() ) {
-					$option_description_format = _x( 'Deliver %s', 'physical cart subscription selection - positive response', 'woocommerce-all-products-for-subscriptions' );
-				} else {
-					$option_description_format = _x( 'Renew %s', 'virtual cart subscription selection - positive response', 'woocommerce-all-products-for-subscriptions' );
-				}
-
-				$description = sprintf( $option_description_format, $option_price_html );
-
-				$options[] = array(
-					'class'       => 'subscription-option',
-					'value'       => $subscription_scheme_key,
-					'description' => $description,
-					'selected'    => $active_scheme_key === $subscription_scheme_key,
-				);
-			}
-
-			/**
-			 * 'wcsatt_cart_options' filter.
-			 *
-			 * @since  2.1.0
-			 *
-			 * @param  array  $options
-			 * @param  array  $subscription_schemes
-			 */
-			$options = apply_filters( 'wcsatt_cart_options', $options, $subscription_schemes );
-
-			if ( empty( $options ) ) {
-				return;
-			}
-
-			wc_get_template( 'cart/cart-subscription-options.php', array(
-				'options' => $options,
-			), false, WCS_ATT()->plugin_path() . '/templates/' );
-		}
-	}
-
 	/*
 	|--------------------------------------------------------------------------
 	| Deprecated
@@ -307,6 +215,21 @@ class WCS_ATT_Display_Cart {
 
 	/**
 	 * Show a "Subscribe to Cart" section in the cart.
+	 * Visible only when all cart items have a common 'cart/order' subscription scheme.
+	 *
+	 * @since 2.1.0
+	 * @deprecated 4.0.0
+	 *
+	 * @return void
+	 */
+	public static function show_cart_subscription_options() {
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
+	}
+
+	/**
+	 * Show a "Subscribe to Cart" section in the cart.
+	 *
+	 * @deprecated 2.1.0
 	 *
 	 * @return void
 	 */

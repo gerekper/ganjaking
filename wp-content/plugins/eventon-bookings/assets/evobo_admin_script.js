@@ -1,6 +1,6 @@
 /**
  * Admin Script
- * @version  0.1
+ * @version  1.3.2
  */
 jQuery(document).ready(function($){
 
@@ -384,7 +384,10 @@ jQuery(document).ready(function($){
 			ajaxdataa['wcid'] = ds.wcid;
 			
 			$.ajax({
-				beforeSend: function(){ $('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');	},
+				beforeSend: function(){ 
+					$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');	
+					$('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');	
+				},
 				url:	evobo_admin_ajax_script.ajaxurl,
 				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 				success:function(data){
@@ -393,9 +396,13 @@ jQuery(document).ready(function($){
 					}else{
 						$('body').find('.evoboE_slots').html('');
 					}
+					
 					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox','good', true, true]);
+					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox_2','good', true, true]);
+				
 				},complete:function(){ 	
 					$('.evobo_lightbox').find('.ajde_popup_text').removeClass( 'loading');
+					$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');
 				}
 			});
 		}
@@ -436,9 +443,9 @@ jQuery(document).ready(function($){
 
 		if( new_stock >0){
 			$('body').find('.evobo_add_block_form').find('input[name="capacity"]').val( new_stock );
+			$('body').find('.evobo_form').find('input[name="capacity"]').val( new_stock );
 		}
 
-		console.log(new_stock);
 	});
 
 // Seating integration

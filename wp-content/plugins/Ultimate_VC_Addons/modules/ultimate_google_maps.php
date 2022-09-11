@@ -6,13 +6,13 @@
  *  @package Ultimate Google Maps
  */
 
-if ( ! class_exists( 'Ultimate_Google_Maps' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 	/**
 	 * Function that initializes Ultimate Google Maps Module
 	 *
-	 * @class Ultimate_Google_Maps
+	 * @class Ultimate_VC_Addons_Google_Maps
 	 */
-	class Ultimate_Google_Maps {
+	class Ultimate_VC_Addons_Google_Maps {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Google Maps module.
 		 *
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Ultimate_Google_Maps' ) ) {
 				);
 				$api        = esc_url( add_query_arg( $arr_params, $api ) );
 			}
-			wp_register_script( 'googleapis', $api, null, null, false ); // PHPCS:ignore:WordPress.WP.EnqueuedResourceParameters.MissingVersion
+			wp_register_script( 'ultimate-vc-addons-googleapis', $api, null, null, false ); // PHPCS:ignore:WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		}
 		/**
 		 * Function that initializes settings of Ultimate Google Maps Module.
@@ -682,7 +682,7 @@ if ( ! class_exists( 'Ultimate_Google_Maps' ) ) {
 			return $output;
 		}
 	}
-	new Ultimate_Google_Maps();
+	new Ultimate_VC_Addons_Google_Maps();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Google_Map' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

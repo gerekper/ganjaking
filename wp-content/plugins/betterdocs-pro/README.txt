@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 6.0
-Stable tag: 2.1.1
+Stable tag: 2.1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,20 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.1.4 - 22/08/2022 = 
+
+- Improved: Added Individual docs Analytics
+- Improved: Added "Views" tab for Analytics
+- Few minor bug fixes & improvements
+
+= 2.1.3 - 11/08/2022 = 
+
+- Fixed: Elementor Deprecated functions error
+- Few minor bug fixes & improvements
+
+= 2.1.2 - 08/08/2022 = 
+- Fixed: Sanitized some missing strings
 
 = 2.1.1 - 21/07/2022 = 
 - Fixed: Analytics Reaction graph not working properly for all time data

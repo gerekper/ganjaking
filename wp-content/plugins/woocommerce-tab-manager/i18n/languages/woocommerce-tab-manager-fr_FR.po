@@ -304,71 +304,71 @@ msgstr ""
 msgid "WooCommerce Tab Manager"
 msgstr "Outil de modification de l'onglet"
 
-#: includes/class-wc-tab-manager-search.php:285
+#: src/class-wc-tab-manager-search.php:285
 msgid "Include tab content in search results?"
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:314
+#: src/class-wc-tab-manager-search.php:314
 msgid "Any tab layout"
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:317
+#: src/class-wc-tab-manager-search.php:317
 msgid "Default layout"
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:320
+#: src/class-wc-tab-manager-search.php:320
 msgid "Custom layout"
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:926
+#: src/class-wc-tab-manager-search.php:926
 msgid ""
 "Hey there, Tab Manager has a nifty new search feature. If you'd like to take "
 "advantage of this you'll need to update your products and tabs (you only "
 "need to do this once)."
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:929
+#: src/class-wc-tab-manager-search.php:929
 msgid ""
 "It looks like you recently installed the Relevanssi plugin. If you'd like to "
 "use the new Tab Manager search feature with Relevanssi, you'll need to "
 "update your products and tabs so they can be indexed."
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:936
+#: src/class-wc-tab-manager-search.php:936
 msgid "Go to the update page."
 msgstr ""
 
-#: includes/class-wc-tab-manager-search.php:938
+#: src/class-wc-tab-manager-search.php:938
 msgid "OK, don't remind me again."
 msgstr ""
 
 #
 #
 #
-#: includes/class-wc-tab-manager-settings.php:87
+#: src/class-wc-tab-manager-settings.php:87
 #, fuzzy
 msgid "Search Settings"
 msgstr "Rechercher les'onglets"
 
-#: includes/class-wc-tab-manager-settings.php:95
+#: src/class-wc-tab-manager-settings.php:95
 msgid "Include product tab content in search"
 msgstr ""
 
-#: includes/class-wc-tab-manager-settings.php:99
+#: src/class-wc-tab-manager-settings.php:99
 msgid ""
 "Enable to include custom tab content (and global tab content if enabled) in "
 "site search."
 msgstr ""
 
-#: includes/class-wc-tab-manager-settings.php:121
+#: src/class-wc-tab-manager-settings.php:121
 msgid "Update Products & Tabs"
 msgstr ""
 
-#: includes/class-wc-tab-manager-settings.php:128
+#: src/class-wc-tab-manager-settings.php:128
 msgid "Update"
 msgstr ""
 
-#: includes/class-wc-tab-manager-settings.php:134
+#: src/class-wc-tab-manager-settings.php:134
 msgid ""
 "This update will allow your product tab content to show up in your site’s "
 "search results, making it easier for customers to find products whose tabs "
@@ -533,7 +533,7 @@ msgstr ""
 #
 #
 #
-#: includes/class-wc-tab-manager-settings.php:62
+#: src/class-wc-tab-manager-settings.php:62
 #, fuzzy
 msgctxt "Custom WooCommerce settings section"
 msgid "Tab Manager"

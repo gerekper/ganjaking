@@ -1,5 +1,21 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.09.04 - version 2.4.3
+ * Tweak: Add boolean parameter to refresh_cache_by_order_id() method in SmartCache class.
+ * Add: Add constant WC_AM_PLUGIN_FILE before plugin object instantiated.
+ * Add: WC_AM_Background_Process class to improve background processing of large batches.
+ * Fix: Delete API Resource data from SmartCache bfore updating Access Expires values for all API Resources, so current values can be displayed immediately.
+
+2022.08.30 - version 2.4.1
+ * Tweak: Faster SmartCache entry deletions for faster cache updates.
+ * Tweak: Narrow focus for Access Expires value updates to improve update speed for all API Resources.
+ * Fix: Access Expires value not updating for all API Resources that are variations of Non WC Subscription variable products.
+ * Fix: Corrected TypeError for WC_AM_Format->empty() method that can also test objects. Error surfaced in PHP 8.1 testing.
+
+2022.08.26 - version 2.4
+ * Feature: The Access Expires Product edit screen for Non WC Subscription products will propagate a new value to all related API Resources.
+ * Feature: The Access Expires value in the Order > API Resources meta box can now be edited to increase the Access Expire time per Non WC Subscription products.
+
 2022.07.14 - version 2.3.14
  * Fix: Changed conflicting CSS ID for API Activations metabox.
  * Fix: Removed CSS previously added to fix WP 3.8 that now causes misaligned checkboxes on Dashboard > Updates screen.

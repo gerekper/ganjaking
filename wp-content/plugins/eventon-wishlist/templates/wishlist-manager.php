@@ -7,6 +7,10 @@
  * You can copy this template file and place it in ...wp-content/themes/<--your-theme-name->/eventon/wishlist/ folder 
  * and edit that file to customize this template.
  */
+
+	
+
+
 	
 	echo "<h2>".evo_lang('My Wishlist Events')."</h2>";
 	

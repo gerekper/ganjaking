@@ -1,5 +1,22 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-09-01 - version 2.2.1
+* Tweak - Tested compatibility with WC 6.9.
+* Fix - Fixed delivery date validation during checkout after selecting a shipping method that invalidates the previously entered date.
+* Fix - Fixed issue that caused the delivery fee not to be updated after changing the shipping method or address at checkout.
+
+2022-08-29 - version 2.2.0
+* Feature - Added compatibility with 'Local Pickup Plus'.
+* Tweak - Hide the delivery fields at checkout when selecting the 'Local Pickup Plus' shipping method.
+* Tweak - Hide the setting 'Enable for local pickup' when the 'Local Pickup Plus' shipping method is available.
+* Tweak - Optimized the shipping methods selector field.
+* Tweak - Increased the width of the numeric setting fields to avoid the latest digits being hidden.
+* Tweak - Tested compatibility up to WC 6.8.
+* Dev - Initialize the compatibility with 'WooCommerce Subscriptions' as a plugin integration.
+* Dev - Handle the compatibility with 'WooCommerce Table Rate Shipping' from a plugin integration.
+* Dev - Deprecated functions related to the plugin 'WooCommerce Table Rate Shipping'.
+* Dev - Deprecated filter hook `wc_od_get_order_shipping_method`.
+
 2022-06-01 - version 2.1.0
 * Tweak - Better handling of shipping methods with different rates based on cart conditions.
 * Tweak - Improved performance when validating if a shipping method is applicable to a Delivery Range, Delivery Day, or Time frame.

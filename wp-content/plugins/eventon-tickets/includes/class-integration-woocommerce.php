@@ -1,7 +1,7 @@
 <?php
 /**
  * Ticket Integration with Woocommerce
- * @version 1.8
+ * @version 2.0
  */
 
 class EVOTX_WC{
@@ -13,6 +13,10 @@ class EVOTX_WC{
 
 		$this->opt2 = EVOTX()->opt2;
 		$this->eotx = get_option('evcal_options_evcal_tx');
+
+		include_once('class-integration-woocommerce_myaccount.php');
+
+		new EVOTX_WC_my_account();
 
 
 		// Register ticket item data in Cart
@@ -84,7 +88,7 @@ class EVOTX_WC{
 				array('old'=>'on-hold','new'=>'refunded'),
 			) as $status){
 				add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
-					array($this, 'restock_stock_from_orderid'), 10,1);
+					array($this, 'restock_stock_from_orderid'), 10,2);
 			}
 
 			// when orders are cancelled
@@ -94,7 +98,7 @@ class EVOTX_WC{
 				array('old'=>'on-hold','new'=>'cancelled'),
 				array('old'=>'pending','new'=>'cancelled'),
 			) as $status){
-				add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], array($this, 'restock_cancelled_orders'), 10,1);
+				add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], array($this, 'restock_cancelled_orders'), 10,2);
 			}
 
 			// when orders failed
@@ -105,8 +109,16 @@ class EVOTX_WC{
 				array('old'=>'pending','new'=>'failed'),
 			) as $status){
 				add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
-					array($this, 'restock_failed_orders'), 10,1);
+					array($this, 'restock_failed_orders'), 10,2);
 			}
+
+			// when failed orders get processed again
+				foreach(array(
+					array('old'=>'failed','new'=>'completed'),
+				) as $status){
+					add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
+						array($this, 're_process_order_items'), 10,2);
+				}
 
 			// when refunded orders were repurchased or completed
 			foreach(array(
@@ -114,7 +126,7 @@ class EVOTX_WC{
 				array('old'=>'refunded','new'=>'completed'),
 			) as $status){
 				add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
-					array($this, 'reduce_stock_from_orderid'), 10,1);
+					array($this, 'reduce_stock_from_orderid'), 10,2);
 			}
 
 			add_action('woocommerce_order_refunded', array($this, 'order_refunded'), 10, 2);
@@ -148,6 +160,7 @@ class EVOTX_WC{
 
 	// CART INIT
 		// add ticket item data from AJAX to session
+		// deprecating
 			function add_item_data($cart_item_data,$product_id){	        
 		        
 		        if( !empty($_REQUEST['add-to-cart']) &&	$_REQUEST['add-to-cart'] == $product_id && 
@@ -222,9 +235,12 @@ class EVOTX_WC{
 				$data[$cart_item_key] = array();
 			}
 
+			if( !is_array($cart_item_data)) $cart_item_data = array();
+
 			// add quantity to cart item data
 			if(isset($DATA['qty'])) $cart_item_data['quantity'] = $DATA['qty'];
-			if(isset($DATA['event_data']) && isset($DATA['event_data']['wcid'])) $cart_item_data['wcid'] = $DATA['event_data']['wcid'];
+			if(isset($DATA['event_data']) && isset($DATA['event_data']['wcid'])) 
+				$cart_item_data['wcid'] = $DATA['event_data']['wcid'];
 
 			$data[$cart_item_key] = $cart_item_data;
 
@@ -275,15 +291,17 @@ class EVOTX_WC{
 	        	$event_name = sprintf( '<a href="%s">%s</a>', esc_url( $EVENT->get_permalink() ), get_the_title($EVENT->ID) );
 	        			        	
 	            $return_string = $event_name;
-	            $return_string .= "<p><span class='item_meta_data'>";
+	            $return_string .= "<p class='evotx_item_meta_data_p'><span class='item_meta_data'>";
 
 
 	            // show other ticket item meta data in cart
 	            	foreach( apply_filters('evotx_ticket_item_meta_data', array(
-	            		'event_time' => array($this->langX('Event Time','evoTX_005a'), $ticket_time ),
+	            		'event_time' => array($this->lang('Event Time'), $ticket_time ),
 	            		'event_location' => (isset($values['evotx_elocation'])? array($this->langX('Event Location','evoTX_005c'), stripslashes($values['evotx_elocation']) ):''),
 	            	), $values, $EVENT) as $field=>$val){
 	            		if(empty($val)) continue;
+	            		if(!isset($val[1])) continue;
+	            		if(empty($val[1])) continue;
 	            		$return_string .= '<span class="item_meta_data_'.$field.'"><b>'. $val[0]."</b> " . $val[1]. "</span>";
 	            	}
 	            		            
@@ -367,7 +385,8 @@ class EVOTX_WC{
 						// if tickets disabled for events
 						if(!$E->check_yn('evotx_tix')){
 							WC()->cart->remove_cart_item($cart_item_key);
-							wc_add_notice( 'TIcket is no longer for sale!' );
+							wc_add_notice( __('Ticket is no longer for sale!','evotx') );
+						
 						}else{
 
 							// check for stop selling tickets validation
@@ -379,12 +398,12 @@ class EVOTX_WC{
 							if(!$stock || $stop_selling){
 								
 								WC()->cart->remove_cart_item($cart_item_key);
-								wc_add_notice( 'Ticket removed from cart, no longer available in stock!', 'error' );
+								wc_add_notice( __('Ticket removed from cart, no longer available in stock!','evotx'), 'error' );
 
 							}elseif( $stock < $cart_item['quantity']){
 								// if quantity is more than stock update quantity and refresh total
 								WC()->cart->set_quantity($cart_item_key, $stock, true);
-								wc_add_notice( 'Ticket quantity adjusted to stock levels!' );
+								wc_add_notice( __('Ticket quantity adjusted to stock levels!','evotx') );
 							}
 						}
 						
@@ -473,11 +492,9 @@ class EVOTX_WC{
 		// create associate evo-tix post when order is completed
 			function create_evo_tickets($order_id){
 				$ET = new evotx_tix();
-				$ET->create_tickets_for_order($order_id);
-
-				
-			
+				$ET->create_tickets_for_order($order_id);			
 			}
+
 		// alter event orders when checkout order is processed
 			function alter_event_orders($order_id){
 				global $evotx;			
@@ -489,7 +506,7 @@ class EVOTX_WC{
 				$order_id = $order->get_id();
 				$this->adjust_ticket_var_stock($order_id,'reduce');
 			}
-			function restock_stock_from_orderid($order_id){
+			function restock_stock_from_orderid($order_id, $order){
 				$this->adjust_ticket_var_stock($order_id,'restock');
 			}
 			function reduce_stock_from_orderid($order_id){
@@ -505,14 +522,14 @@ class EVOTX_WC{
 			function restock_cancelled_orders($order_id){
 				$this->adjust_ticket_var_stock($order_id,'restock','cancelled');
 			}
-			function restock_failed_orders($order_id){
+			function restock_failed_orders($order_id, $order){
 				$this->adjust_ticket_var_stock($order_id,'restock','failed');
 			}
 
 		// Adjust ticket stock
 		// this will not run for cancelled or failed orders
-			function adjust_ticket_var_stock($order_id, $type='reduce', $stage='def'){
-				$order = new WC_Order( $order_id );	
+			function adjust_ticket_var_stock($order_id, $type='reduce', $stage='def', $order=''){
+				$order = !empty($order) ? $order : new WC_Order( $order_id );	
 
 				if(sizeof( $order->get_items() ) <= 0) return false;
 
@@ -569,16 +586,18 @@ class EVOTX_WC{
 				    					// adjust product stock
 				    					$new_quantity = wc_update_product_stock($_product, $qty, 'increase' );	
 				    					
-				    					$order->add_order_note( sprintf(
-				    						__( 'Event: %s ticket capacity increased from %s to %s.', 'woocommerce' ), 
-				    						$TIX_EVENT->get_title(), $old_stock, $new_quantity) );
+				    					$order->add_order_note( __(sprintf(
+				    						'Event: %s ticket capacity increased from %s to %s.',  
+				    						$TIX_EVENT->get_title(), $old_stock, $new_quantity
+				    					),'evotx' ) 
+				    					);
 				    				}
 
 				    			// NOTICE
-									$order->add_order_note( sprintf( 
-										__( 'Event: (%s) repeat instance capacity changed by %s.', 'evotx' ), 
+									$order->add_order_note( __(sprintf( 
+										'Event: (%s) repeat instance capacity changed by %s.', 
 										$TIX_EVENT->get_title(), $qty_adjust 
-									));
+									), 'evotx' ));
 
 								if($type=='reduce') $stock_reduced = true;
 				    		// none repeating capacity activated events
@@ -592,13 +611,13 @@ class EVOTX_WC{
 									
 									if(!empty($new_quantity)){
 										if($type == 'reduce'){
-											$order->add_order_note( sprintf( 
-												__( 'Event: (%s) ticket capacity reduced from %s to %s.', 'woocommerce' ), 
-												$TIX_EVENT->get_title(), $old_stock, $new_quantity) );
+											$order->add_order_note( __(sprintf( 
+												'Event: (%s) ticket capacity reduced from %s to %s.',  
+												$TIX_EVENT->get_title(), $old_stock, $new_quantity),'evotx') );
 										}else{
-											$order->add_order_note( sprintf( 
-												__( 'Event: (%s) ticket capacity increased from %s to %s.', 'woocommerce' ), 
-												$TIX_EVENT->get_title(), $old_stock, $new_quantity) );
+											$order->add_order_note( __(sprintf( 
+												'Event: (%s) ticket capacity increased from %s to %s.', 
+												$TIX_EVENT->get_title(), $old_stock, $new_quantity),'evotx') );
 				 						}
 									}
 								}							
@@ -611,6 +630,14 @@ class EVOTX_WC{
 
 			    $stock_reduced = ($type=='reduce')? true:false;
 			    update_post_meta($order_id, 'evo_stock_reduced',($stock_reduced?'yes':'no'));				
+			}
+
+		// re process order with order items for tickets
+		// Added : 
+			public function re_process_order_items($order_id, $order){
+
+				$TIXS = new evotx_tix();
+				$TIXS->re_process_order_items( $order_id, $order);
 			}
 
 	// ADDITIONAL ORDER FILEDS
@@ -703,7 +730,7 @@ class EVOTX_WC{
 		        	$output.= "<div class='evotx_ticket_additional_info'><p class='evo_event_information'>";
 		        	$output .= "<span style='display:block'><b>". evo_lang('Event Name').':</b> '. get_the_title($event_id) . $variation_text."</span>";
 		        	
-		        	$output .= "<span style='display:block'><b>". evo_lang_get('evoTX_005a','Event Time').':</b> '.apply_filters('evotx_cart_add_field_eventtime', $event_time, $values) ."</span>";
+		        	$output .= "<span style='display:block'><b>". evo_lang('Event Time').':</b> '.apply_filters('evotx_cart_add_field_eventtime', $event_time, $values) ."</span>";
 
 		        	$output = apply_filters('evotx_checkout_addnames_other_vars', $output, $values, $EVENT);
 		        	
@@ -839,13 +866,15 @@ class EVOTX_WC{
 
 		function save_extra_checkout_fields( $order_id ){
 			if( !empty( $_POST['tixholders'] ) ) {
+				// additional ticket holder information
 		    	update_post_meta( $order_id, '_tixholders',  $_POST['tixholders']  );
 		    	do_action('evotx_checkout_fields_saving', $order_id);
 		    }
 		}
 
-		
+		// ticket holder information is displayed on order received page, and wc emails		
 		function display_orderdetails($order){
+
 			$TA = new EVOTX_Attendees();
 			$ticket_holders = $TA->_get_tickets_for_order($order->get_id(), 'event');
 			
@@ -873,12 +902,40 @@ class EVOTX_WC{
 		}
 
 	// THANK YOU PAGE
-		// show ticket in frontend customer account pages
+		// show ticket in frontend customer account page, order received page
 		public function wc_order_tix($order_id){
 			
 			$order = new WC_Order( $order_id );
 
 			if(EVOTX()->functions->does_order_have_tickets($order_id)){
+
+				/*
+				$TA = new EVOTX_Attendees();
+				$ticket_holders = $TA->_get_tickets_for_order($order_id, 'event');
+				
+				if(!$ticket_holders) return $order;	
+
+				?>	
+					<section class='eventon-ticket-holder-details'>
+						<h2><?php evo_lang_e( 'Ticket Holder Details' ); ?></h2>
+						<div class="ticketholder_details">
+							<?php 
+							foreach($ticket_holders as $e=>$dd){
+								
+								foreach($dd as $tn=>$nm){ 
+									echo $TA->__display_one_ticket_data($tn, $nm, array(
+										'inlineStyles'=>true,
+										'showExtra'=>false								
+									));
+								}
+								
+			        		}?>					
+						</div>
+					</section>
+				<?php 
+				*/
+				
+				do_action('evotx_checkout_fields_display_orderdetails', $order);
 
 				?><section class='eventon-ticket-details wc_order_details'><?php
 				
@@ -927,7 +984,7 @@ class EVOTX_WC{
 					?>
 					<h2><?php echo evo_lang_get('evoTX_014','Your event Tickets','',EVOTX()->opt2);?></h2>
 					<p><?php evo_lang_e('Once the order is processed your event tickets will show here or at my account!');?></p>
-					<p><a href='<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>' class='evcal_btn'>My Account</a></p>
+					<p><a href='<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>' class='evcal_btn'><?php evo_lang_e('My Account');?></a></p>
 					<?php
 				}	
 
@@ -946,7 +1003,8 @@ class EVOTX_WC{
 			return apply_filters('evotx_hidden_order_itemmeta', $array);
 		}
 
-		// when order is refunded partially change ticket number status
+	// when order is refunded partially change ticket number status
+	// Updated 2.0
 		function order_refunded($order_id, $refund_id){
 
 			if(empty($order_id)) return false;
@@ -956,55 +1014,93 @@ class EVOTX_WC{
 
 			if ( count( $items ) <= 0 ) return false;
 
-			if($items){
-				$ET = new evotx_tix();
-				$EA = new EVOTX_Attendees();
+			$order_status = $order->get_status();
 
-				// each event for which tickets were purchased in the order
-				foreach ($items as $item_id => $item) {	
-					$event_id = get_post_meta( $item['product_id'], '_eventid', true); 
-					if(empty($event_id)) continue;	
+			//$ET = new evotx_tix();
+			$EA = new EVOTX_Attendees();
 
-					$total_qty = $item->get_quantity();
-					$refunded_qty = ($order->get_qty_refunded_for_item($item_id)*-1);
-					$non_refunded = $total_qty - $refunded_qty;
+			$DD = '';
 
-					// restock tickets
+			$tickets_for_order = $EA->get_tickets_for_order($order_id);
+
+			// save order_item_id => refunded ticket count
+			$refunded_tickets = array();
+
+			foreach($tickets_for_order as $ticket_number => $ticket_data){
+
+				$TIX = new EVO_Evo_Tix_CPT( $ticket_number );
+
+				
+				// if the whole order was refunded = mark every ticket as refunded
+				if( $order->get_status() == 'refunded'){
+
+					$TIX->refund();
+
+				}else{
+
 					
+					if(!isset($ticket_data['oDD']['_order_item_id'])) continue;
 
-					// get tickets for this event in the order item
-					$TH = $EA->get_tickets_for_order($order_id);
+					$order_item_id = (int)$ticket_data['oDD']['_order_item_id'];
+					$refunded_qty = -1 * $order->get_qty_refunded_for_item($order_item_id);
+
 					
-					$count = 1;
-					foreach($TH as $tn=>$td){
+					// order item id associated to this ticket was refunded
+					if( $refunded_qty ){
+						
+						if(isset($refunded_tickets[ $order_item_id]) ){
 
-						if($count > $non_refunded){
-							$ET->change_ticket_number_status('refunded',$tn);
+							// total refunded order items is less than already marked as refunded tickets
+							if( $refunded_tickets[ $order_item_id] < $refunded_qty ){
+								$DD .= $ticket_number.'/';
+								$DD .= $refunded_qty.'/';
+								$refunded_tickets[ $order_item_id] = $refunded_tickets[ $order_item_id] + 1;
+								
+								$TIX->refund();
+
+							}else{
+								$DD .= $ticket_number.'/';
+								// set other tickets to ticket status
+								$TIX->restock();
+							}							
+
+						// not marked as refunded
 						}else{
-							$ET->change_ticket_number_status('check-in',$tn);
+							$refunded_tickets[ $order_item_id] = 1;
+							
+							$TIX->refund();
 						}
-						$count++;
-					}
 
+					}
 				}
 			}
+
+			update_post_meta(1, 'aa', $DD);
+
 
 		}
 
 	// FORMAT ticekt item meta date
 		function ordermeta_display($output, $obj){
-			$output = str_replace('Event Time', $this->langX('Event Time','evoTX_005a'), $output);
+			$output = str_replace('Event Time', $this->lang('Event Time'), $output);
 			$output = str_replace('Event Location', $this->langX('Event Location','evoTX_005c'), $output);
 			return $output;
 		}
 		function order_item_meta($html, $item, $args){
+			//print_r($item);
+
+			// set the language for order item
+				$lang = $item->get_meta('_evo_lang');
+				$lang = $lang ? $lang : 'L1';
+				if( EVO()->lang != $lang) evo_set_global_lang($lang);
+
 			$html = $this->_format_ticket_item_meta($html);							
 			return $html;
 		}
 
 		function _format_ticket_item_meta($html){
 			foreach(apply_filters('evotx_order_item_meta_slug_replace',array(
-				'Event-Time'=>$this->langX('Event Time','evoTX_005a'),
+				'Event-Time'=>$this->lang('Event Time'),
 				'Event-Location'=>$this->langX('Event Location','evoTX_005c'),
 			)) as $slug=>$name){
 
@@ -1041,10 +1137,12 @@ class EVOTX_WC{
 			foreach($array as $index=>$field){
 				if( isset($field['label'])){
 					if( strpos($field['label'], 'Event-Time') !== false){
-						$updated_array[$index]['label'] = str_replace('Event-Time', $this->langX('Event Time','evoTX_005a') , $field['label']);						
+						$updated_array[$index]['label'] = str_replace('Event-Time', 
+							$this->lang('Event Time') , $field['label']);						
 					}
 					if( strpos($field['label'], 'Event-Location') !== false){
-						$updated_array[$index]['label'] = str_replace('Event-Location', $this->langX('Event Location','evoTX_005a') , $field['label']);						
+						$updated_array[$index]['label'] = str_replace('Event-Location', 
+							$this->langX('Event Location','evoTX_005c') , $field['label']);						
 					}
 				}
 			}

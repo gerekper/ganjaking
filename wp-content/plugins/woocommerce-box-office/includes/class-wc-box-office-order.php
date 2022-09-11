@@ -108,9 +108,38 @@ class WC_Box_Office_Order {
 		}
 
 		// Get all tickets related to the order.
-		$tickets = $this->get_tickets_by_order( $order_id );
+		$tickets         = $this->get_tickets_by_order( $order_id );
+		$order           = wc_get_order( $order_id );
+		$billing_address = $order->get_address( 'billing' );
+		$ticket_fields   = wc_box_office_get_product_ticket_fields( (int) $ticket_meta['product_id'] );
 
 		foreach ( $ticket_meta['fields'] as $index => $fields ) {
+
+			/**
+			 * Populate values from billing information if autofill is enabled on ticket field.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-box-office/issues/318
+			 */
+			foreach ( $fields as $field_key => $field_value ) {
+				$field_option = $ticket_fields[ $field_key ];
+				$autofill     = str_replace( 'billing_', '', $field_option['autofill'] );
+				if (
+					empty( $field_value ) &&
+					'none' !== $field_option['autofill'] &&
+					isset( $billing_address[ $autofill ] ) &&
+					! empty( $billing_address[ $autofill ] )
+				) {
+					// For Radio, Select and Checkbox fields, only populate value it is if available in given options.
+					if ( in_array( $field_option['type'], array( 'radio', 'select', 'checkbox' ), true ) && ! empty( $field_option['options'] ) ) {
+						if ( in_array( $billing_address[ $autofill ], explode( ',', $field_option['options'] ), true ) ) {
+							$fields[ $field_key ] = $billing_address[ $autofill ];
+						}
+					} else {
+						$fields[ $field_key ] = $billing_address[ $autofill ];
+					}
+				}
+			}
+
 		 	// Check if a ticket was already created at some point, and trash it (since it will be re-created)
 			foreach ( $tickets as $ticket ) {
 				$ticket = new WC_Box_Office_Ticket( $ticket );
@@ -495,7 +524,7 @@ class WC_Box_Office_Order {
 
 		$has_ticket_product = false;
 		foreach ( $order->get_items() as $item ) {
-			$product = $order->get_product_from_item( $item );
+			$product = $item->get_product();
 			if ( wc_box_office_is_product_ticket( $product ) ) {
 				$has_ticket_product = true;
 				break;

@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 /**
  * Cost of Goods Admin Orders Class
@@ -188,8 +188,8 @@ class WC_COG_Admin_Orders {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param \WC_Order_Item|array
-	 * @param int|null item ID
+	 * @param \WC_Order_Item|array $item
+	 * @param int|null $item_id
 	 * @return null|string
 	 */
 	protected function get_total_cost_refunded_for_item( $item, $item_id = null ) {
@@ -204,10 +204,12 @@ class WC_COG_Admin_Orders {
 
 			foreach ( $order->get_refunds() as $refund ) {
 
+				/* @var \WC_Order_Item $refunded_item */
 				foreach ( $refund->get_items() as $refunded_item ) {
 
 					if ( absint( $refunded_item->get_meta( '_refunded_item_id' ) ) === $item->get_id() ) {
-						$total += $refunded_item->get_meta( '_wc_cog_item_total_cost' );
+						$total_cost = $refunded_item->get_meta( '_wc_cog_item_total_cost' );
+						$total += is_numeric( $total_cost ) ? (float) $total_cost : 0;
 					}
 				}
 			}
@@ -225,9 +227,7 @@ class WC_COG_Admin_Orders {
 			", $item_id ) );
 		}
 
-		$total = str_replace( '-', '', (string) $total );
-
-		return $total;
+		return str_replace( '-', '', (string) $total );
 	}
 
 

@@ -2,10 +2,6 @@
   background-color: #f7f8fa;
   #wpbody-content {
     margin-top: 10px;
-    // padding-left: 10px;
-    // padding-right: 10px;
-    // padding-top: 10px;
-    // box-sizing: border-box;
     .notice {
       margin: 5px 20px 15px 0;
     }
@@ -262,6 +258,7 @@
           }
           &:first-child {
             border-top-left-radius: 5px;
+            width: 50%;
           }
           &:last-child {
             border-top-right-radius: 5px;
@@ -278,6 +275,38 @@
           font-weight: 400;
           font-size: 15px;
           border: 1px solid darken(#e7ebf3, 2%);
+          .BtdTableItemTitleWrap {
+            display: flex;
+            align-items: center;
+            .BtdButtonGroup {
+              margin-left: auto;
+              display: inline-flex;
+              gap: 12px;
+              button,
+              a {
+                color: #23282d;
+                text-decoration: none;
+                display: inline-flex;
+                padding: 0;
+                background: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                box-shadow: none;
+                svg {
+                  height: 14px;
+                  fill: #b3b8c1;
+                  transition: fill 100ms ease-in-out;
+                }
+                &:hover {
+                  text-decoration: underline;
+                  svg {
+                    fill: #36d692;
+                  }
+                }
+              }
+            }
+          }
           a {
             color: #23282d;
             text-decoration: none;
@@ -538,6 +567,38 @@
 
 .btd-chart-section {
   margin-bottom: 60px;
+  .btd-post-details {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    .btd-post-details-heading{
+      margin: 0;
+      margin-right: 20px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #23282d;
+    }
+    .btd-post-details-title {
+      font-size: 14px;
+      font-weight: normal;
+      color: #23282d;
+      background-color: #F1FFF9;
+      border: 1px solid #15c7a4;
+      padding: 8px 14px;
+      border-radius: 20px;
+      .btd-post-details-reset-button  {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        margin-left: 3px;
+        svg{
+          height: 10px;
+          fill: #f01919;
+          transition: fill 100ms ease-in-out;
+        }
+      }
+    }
+  }
   .btd-chart-filter {
     display: flex;
     flex-wrap: wrap;
@@ -578,6 +639,14 @@
         .apexcharts-toolbar {
           padding-right: 15px;
           gap: 10px;
+          > *:not(.apexcharts-menu) {
+            display: flex;
+            img {
+              &:hover {
+                filter: brightness(30%);
+              }
+            }
+          }
         }
       }
     }
@@ -587,7 +656,7 @@
         max-width: 320px;
         min-height: 100%;
         display: grid;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: auto;
         grid-row-gap: 20px;
         .btd-chart-counter {
           background: #ffffff;
@@ -684,7 +753,7 @@
         max-width: 320px;
         min-height: 100%;
         display: grid;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: auto;
         grid-row-gap: 20px;
         .btd-chart-counter {
           background: #ffffff;
@@ -952,19 +1021,18 @@
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 180px;
+    width: auto;
     padding-bottom: 10px;
     visibility: hidden;
     opacity: 0;
     transition: all 0.1s ease-in-out;
     .btd-tooltip-content-inner {
       width: 100%;
-      padding: 15px;
+      padding: 10px;
       background: #eef2f9;
       border: 1px solid #e6eaf3;
       border-radius: 5px;
       color: #666b78;
-      box-shadow: 0px 18px 35px rgba(0, 1, 35, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -972,6 +1040,8 @@
       box-sizing: border-box;
       font-size: 14px;
       font-weight: 400;
+      white-space: nowrap ;
+      line-height: 1;
     }
     &:before {
       content: "";

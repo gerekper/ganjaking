@@ -1,10 +1,11 @@
 <?php
 /**
  * Elementor Integration
- * @version 2.9
+ * @version 4.1.2
  */
 
 namespace Elementor;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class EVO_Elementor_Wig extends Widget_Base {
@@ -30,7 +31,8 @@ class EVO_Elementor_Wig extends Widget_Base {
       return 'eicon-coding evoIcon';
    }
 
-   protected function _register_controls() {
+
+   protected function register_controls() {
 
       $this->start_controls_section(
          'section',

@@ -130,8 +130,9 @@
 
 			// default values
 			defaults = {
-				increment: 0.1,
-				minScale:1
+				increment: 0.05,
+				minScale:1,
+				type: ''
 			}
 			var opt = $.extend({}, defaults, opt);
 			clicking = false;
@@ -144,10 +145,11 @@
 			control = l.parent().siblings('.evost_map_information').find('.evost_view_control');
 			zI = control.find('.zoomin');
 			zO = control.find('.zoomout');
+			fit = control.find('.fit');
 
 
 			// initial size adjustment
-				OUT = l.parent();
+				OUT = l.parent();				
 				MAPSEC = l.closest('.evost_inline_seat_map');
 
 				// set width small to get actual space available 
@@ -163,7 +165,8 @@
 
 				MtranslateX = l.position().left *-1;
 				l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
-				
+							
+
 			// window resized
 				$(window).resize(function(){					
 
@@ -174,84 +177,113 @@
 					l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
 
 				}); 
-			// panning				
-				l.mousedown(function(e){
-					clicking = true;
-					clickedX = e.clientX;
-					clickedY = e.clientY;
-					_cal_matrix();
-				});
-
-				$('body').mouseup(function(e){
-					clicking = false;
-					_cal_matrix();// save new map locations					
-				});
-
-				l.mousemove(function(e){
-					if(clicking){
-						e.preventDefault();
-
-						var O = $(this);
-						offset = O.offset();
-						
-						IntTranslateX = offset.left;
-						translateX =  MtranslateX + (e.clientX - clickedX);
-
-						IntTranslateY = offset.top;
-						translateY = MtranslateY+ e.clientY - clickedY;
-
-						O.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+translateX+','+translateY+')');
-					}
-				});
-
-				// mobile
-					l.bind('touchstart',function(e){
+			
+			
+			if( !(l.hasClass('pro'))){
+				// panning				
+					l.mousedown(function(e){
 						clicking = true;
-						clickedX = (e.originalEvent.touches[0].pageX);
-						clickedY = (e.originalEvent.touches[0].pageY);
+						clickedX = e.clientX;
+						clickedY = e.clientY;
 						_cal_matrix();
 					});
-					$('body').bind('touchend',function(e){
+
+					$('body').mouseup(function(e){
 						clicking = false;
-						_cal_matrix();// save new map locations
-						
+						_cal_matrix();// save new map locations					
 					});
-					l.bind('touchmove',function(e){
+
+					l.mousemove(function(e){
 						if(clicking){
 							e.preventDefault();
 
-							var off = l.offset();
-
-							mouseX = (e.originalEvent.touches[0].pageX);
-							mouseY = (e.originalEvent.touches[0].pageY);
+							var O = $(this);
+							offset = O.offset();
 							
-							IntTranslateX =  (off !== undefined && 'left' in off) ? off.left:0;
-							translateX =  MtranslateX + (mouseX - clickedX);
+							IntTranslateX = offset.left;
+							translateX =  MtranslateX + (e.clientX - clickedX);
 
-							IntTranslateY = (off !== undefined && 'top' in off) ? off.top: 0;
-							translateY = MtranslateY+ mouseY - clickedY;
+							IntTranslateY = offset.top;
+							translateY = MtranslateY+ e.clientY - clickedY;
 
-							l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+translateX+','+translateY+')');
+							O.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+translateX+','+translateY+')');
 						}
 					});
 
-			// zooming
-				zI.on('click',function(){
-					MscaleXY = MscaleXY + opt.increment;
-					opt.l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
-					//console.log(opt.increment+' '+MscaleXY);
+					// mobile
+						l.bind('touchstart',function(e){
+							clicking = true;
+							clickedX = (e.originalEvent.touches[0].pageX);
+							clickedY = (e.originalEvent.touches[0].pageY);
+							_cal_matrix();
+						});
+						$('body').bind('touchend',function(e){
+							clicking = false;
+							_cal_matrix();// save new map locations
+							
+						});
+						l.bind('touchmove',function(e){
+							if(clicking){
+								e.preventDefault();
 
-				});
-				zO.on('click',function(){
-					MscaleXY = MscaleXY - opt.increment;
+								var off = l.offset();
 
-					// min max
-						if(MscaleXY < opt.minScale) MscaleXY = opt.minScale;
+								mouseX = (e.originalEvent.touches[0].pageX);
+								mouseY = (e.originalEvent.touches[0].pageY);
+								
+								IntTranslateX =  (off !== undefined && 'left' in off) ? off.left:0;
+								translateX =  MtranslateX + (mouseX - clickedX);
 
-					opt.l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
-				});
+								IntTranslateY = (off !== undefined && 'top' in off) ? off.top: 0;
+								translateY = MtranslateY+ mouseY - clickedY;
 
-				//console.log(opt.increment);
+								l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+translateX+','+translateY+')');
+							}
+						});
+
+				// zooming
+					zI.on('click',function(e){
+						
+						MscaleXY = MscaleXY + opt.increment;
+						opt.l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
+						//console.log(opt.increment+' '+MscaleXY);
+
+					});
+					zO.on('click',function(){
+						MscaleXY = MscaleXY - opt.increment;
+
+						// min max
+							if(MscaleXY < opt.minScale) MscaleXY = opt.minScale;
+
+						opt.l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
+					});
+
+				// reset fit map
+					fit.on('click', function(){
+						MscaleXY = 1;
+						MtranslateX = MtranslateY = 0;
+
+						// set width small to get actual space available 
+						OUT.width(200);
+						OUT.width( MAPSEC.width()-3 );
+
+						MscaleXY = (OUT.width() >l.width()) ? 1: ( OUT.width()/ l.width() ) ;
+					
+						l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
+						l.css('transform-origin', '50% 50% 0');
+
+						opt.minScale = (OUT.width() / l.width() )-0.5;
+
+						MtranslateX = l.position().left *-1;
+						l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
+					});
+			}
+
+							
+
+			// mark the map as being processed for interaction
+				l.addClass('pro');
+
 
 			// supportive
 				function _cal_matrix(){
@@ -281,6 +313,8 @@
 			var opt = $.extend({}, defaults, opt);
 			
 			c = $(this);
+
+			//console.log( opt);
 
 			j = opt.json;
 			//incart = opt.incart;// array of seats in cart for this event
@@ -324,6 +358,7 @@
 		                ? options.fn(this)
 		                : options.inverse(this);
 				});
+
 			
 			if( temp_part === undefined){
 				template = Handlebars.compile( temp );

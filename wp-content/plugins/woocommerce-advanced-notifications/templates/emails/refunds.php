@@ -8,9 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // allowed tags for escaping
 $allowed_tags = array(
-	'span' => array(),
-	'div'  => array(),
-	'p'    => array(),
+	'span'  => array(),
+	'div'   => array(),
+	'p'     => array(),
+	'del'   => array(),
+	'ins'   => array(),
+	'small' => array(),
+	'i'     => array(),
 );
 
 $text_align = is_rtl() ? 'right' : 'left';
@@ -18,7 +22,15 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 <p><?php printf( __( 'Hi %s,', 'woocommerce-advanced-notifications' ), esc_html( $recipient_name ) ); ?></p>
 
-<p><?php printf( __( 'Order #%s has been refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></p>
+<p>
+	<?php 
+	if ( $partial_refund ) {
+		printf( __( 'Order #%s has been partially refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); 
+	} else {
+		printf( __( 'Order #%s has been refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); 
+	}
+	?>
+</p>
 
 <h2>
 	<?php 
@@ -117,10 +129,24 @@ $text_align = is_rtl() ? 'right' : 'left';
 					// allow other plugins to add additional product information here
 					do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 				?></td>
-				<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" <?php if ( ! $show_prices ) : ?>colspan="2"<?php endif; ?>><?php echo esc_html( $item['qty'] ) ;?></td>
+				<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" <?php if ( ! $show_prices ) : ?>colspan="2"<?php endif; ?>>
+					<?php
+					$qty          = is_a( $item, 'WC_Order_Item' ) ? $item->get_quantity() : $item['qty'];
+					$refunded_qty = $order->get_qty_refunded_for_item( $item_id );
+
+					if ( $refunded_qty ) {
+						$qty_display = '<del>' . esc_html( $qty ) . '</del> <ins>' . esc_html( $qty - ( $refunded_qty * -1 ) ) . '</ins>';
+					} else {
+						$qty_display = esc_html( $qty );
+					}
+					echo wp_kses_post( apply_filters( 'woocommerce_email_order_item_quantity', $qty_display, $item ) );
+					?>
+				</td>
 
 				<?php if ( $show_prices ) : ?>
-					<td style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo wp_kses( $order->get_formatted_line_subtotal( $item ), $allowed_tags ); ?></td>
+					<td style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+						<?php echo wp_kses( $order->get_formatted_line_subtotal( $item ), $allowed_tags ); ?>
+					</td>
 				<?php endif; ?>
 			</tr>
 
@@ -135,10 +161,12 @@ $text_align = is_rtl() ? 'right' : 'left';
 				$i = 0;
 				foreach ( $totals as $total ) {
 					$i++;
-					?><tr>
+					?>
+					<tr>
 						<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left;"><?php echo esc_html( $total['label'] ); ?></th>
 						<td style="text-align:left;border: 1px solid #eee;"><?php echo wp_kses( $total['value'], $allowed_tags ); ?></td>
-					</tr><?php
+					</tr>
+					<?php
 				}
 			} else {
 				// Only show the total for displayed items

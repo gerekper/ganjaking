@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
+/**
+ * SRE version of WC_Email to be registered in WC.
+ */
 class WC_SRE_Sales_Report_Email extends WC_Email {
 
 	/**
@@ -13,6 +16,12 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 	 */
 	private $rows = array();
 
+	/**
+	 * The constructor
+	 *
+	 * @access public
+	 * @since  1.0.0
+	 */
 	public function __construct() {
 
 		// WC_Email basic properties
@@ -23,6 +32,8 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 		// Parent Constructor
 		parent::__construct();
 
+		// Set recipients
+		$this->recipient = WC_SRE_Options::get_recipients();
 	}
 
 	/**
@@ -52,9 +63,6 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 		// Subject & heading
 		$this->subject = __( 'Sales Report of {site_title}', 'woocommerce-sales-report-email' );
 		$this->heading = __( 'Your {interval} report of {site_title}', 'woocommerce-sales-report-email' );
-
-		// Set recipients
-		$this->recipient = WC_SRE_Options::get_recipients();
 
 		// Set the template base path
 		$this->template_base = plugin_dir_path( WooCommerce_Sales_Report_Email::get_plugin_file() ) . 'templates/';
@@ -249,16 +257,16 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 	 * @return void
 	 */
 	public function init_form_fields() {
-	
+
 		$send_time_array = array();
-		
+
 		for ( $hour = 0; $hour < 24; $hour++ ) {
 			for ( $min = 0; $min < 60; $min = $min + 15 ) {
 				$this_time = date( 'H:i', strtotime( "2015-01-01 $hour:$min" ) );
 				$send_time_array[ $this_time ] = $this_time;
 			}
 		}
-		
+
 		$this->form_fields = array(
 			'enabled'        => array(
 				'title'      => __( 'Enable/Disable', 'woocommerce' ),
@@ -291,7 +299,7 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 				'default' 	  => '03:00',
 				'options'     => $send_time_array
 			),
-			
+
 			'email_type' => array(
 				'title' 		=> __( 'Email type', 'woocommerce' ),
 				'type' 			=> 'select',
@@ -306,5 +314,5 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 			)
 		);
 	}
-		
+
 }

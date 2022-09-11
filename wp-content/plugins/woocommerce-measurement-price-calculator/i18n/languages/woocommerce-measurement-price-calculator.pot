@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Measurement Price Calculator 3.20.1\n"
+"Project-Id-Version: WooCommerce Measurement Price Calculator 3.20.2\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-09-23 04:40:21+00:00\n"
+"POT-Creation-Date: 2022-08-15 09:49:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -946,35 +946,35 @@ msgid ""
 "store for assistance."
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1175
+#: src/class-wc-price-calculator-cart.php:1196
 msgid "Overage Estimate (%s)"
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1190
+#: src/class-wc-price-calculator-cart.php:1211
 #: templates/single-product/price-calculator.php:45
 #. translators: Placeholders: %1$s - measurement label, %2$s - measurement unit
 #. label
 msgid "Total %1$s (%2$s)"
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1192
+#: src/class-wc-price-calculator-cart.php:1213
 #: templates/single-product/price-calculator.php:47
 #. translators: Placeholders: %s - measurement label
 msgid "Total %s"
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1201
+#: src/class-wc-price-calculator-cart.php:1222
 #. translators: Placeholders: %1$s - measurement label, %2$s - measurement unit
 #. label
 msgid "Overage %1$s (%2$s)"
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1203
+#: src/class-wc-price-calculator-cart.php:1224
 #. translators: Placeholders: %s - measurement label
 msgid "Overage %s"
 msgstr ""
 
-#: src/class-wc-price-calculator-cart.php:1215
+#: src/class-wc-price-calculator-cart.php:1236
 msgid "Overage Cost (%s%%)"
 msgstr ""
 

@@ -4,7 +4,7 @@
  */
 jQuery(document).ready(function($){	
 
-	// open the subscription form
+	// open the speaker lightbox
 		$('body').on('click','.evospk_img_box',function(e){
 			OBJ = $(this);
 			$('.evoss_lightbox').addClass('show');

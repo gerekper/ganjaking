@@ -1,7 +1,7 @@
 <?php
 /**
  * Search Capabilities of events through out eventon
- * @version 2.6.6
+ * @version 4.1
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -18,8 +18,6 @@ class evo_search{
 		add_filter('evo_cal_above_header_content', array($this, 'header_search_bar'), 10, 2);
 		add_action('evo_cal_footer', array($this, 'remove_search_bar'), 10);
 
-		//shortcodes
-		add_filter('eventon_shortcode_defaults', array($this,'add_shortcode_defaults'), 10, 1);	
 
 		// include events in search
 		add_action( 'pre_get_posts', array($this,'include_events_search'),10,1 );
@@ -29,84 +27,78 @@ class evo_search{
 	}
 
 // shortcode content
-		function search_content($atts){
-			ob_start(); 
+	function search_content($atts){
+		ob_start(); 
 
-			// enqueue required eventon scripts
-			EVO()->frontend->load_evo_scripts_styles();
+		// enqueue required eventon scripts
+		EVO()->frontend->load_evo_scripts_styles();
+		
+
+		$defaults = array(
+			'event_type'=>'all',
+			'event_type_2'=>'all',
+			'number_of_months'=>12,
+			'search_all'=>'no',
+			'hide_mult_occur'=>'yes',
+			'lang'=>'L1',
+		);
+
+
+		$sc_data = is_array($atts) ? array_merge($defaults, $atts): $defaults;
+		EVO()->lang = $sc_data['lang'];
+		
 			
-
-			$defaults = array(
-				'event_type'=>'all',
-				'event_type_2'=>'all',
-				'number_of_months'=>12,
-				'search_all'=>'no',
-				'hide_mult_occur'=>'yes',
-				'lang'=>'L1',
-			);
-
-
-			$new_data = is_array($atts) ? array_merge($defaults, $atts): $defaults;
-			EVO()->lang = $new_data['lang'];
-
-			$data = '';
-			foreach($defaults as $def=>$val){
-				$val = !empty($atts[$def])? $atts[$def]: $val;
-				if(empty($val)) continue;
-				$data .= 'data-'.$def .'="' . ($val) .'"';
-			}
-				
-			?>
-			<div id='evo_search' class='EVOSR_section '>
-				<div class="evo_search_entry">
-					<p class='evosr_search_box' >
-						<input type="text" placeholder='<?php echo evo_lang_get('evoSR_001a','Search Calendar Events');?>' data-role="none">
-						<a class='evo_do_search'><i class="fa fa-search"></i></a>
-						<span class="evosr_blur"></span>
-						<span class="evosr_blur_process"></span>
-						<span class="evosr_blur_text"><?php echo evo_lang_get('evoSR_002','Searching');?></span>
-						<span style="display:none" class='data' <?php echo $data;?>></span>
-					</p>
-					<p class='evosr_msg' style='display:none'><?php echo evo_lang_get('evoSR_003','What do you want to search for?');?></p>
-				</div>
-				<p class="evo_search_results_count" style='display:none'><span>10</span> <?php echo evo_lang_get('evoSR_004','Event(s) found');?></p>
-				<div class="evo_search_results"></div>
+		?>
+		<div id='evo_search' class='EVOSR_section '>
+			<div class="evo_search_entry">
+				<p class='evosr_search_box' >
+					<input type="text" placeholder='<?php echo evo_lang_get('evoSR_001a','Search Calendar Events');?>' data-role="none">
+					<a class='evo_do_search'><i class="fa fa-search"></i></a>
+					<span class="evosr_blur"></span>
+					<span class="evosr_blur_process"></span>
+					<span class="evosr_blur_text"><?php echo evo_lang_get('evoSR_002','Searching');?></span>
+					<span style="display:none" class='data' data-sc='<?php echo json_encode($sc_data);?>'></span>
+				</p>
+				<p class='evosr_msg' style='display:none'><?php echo evo_lang_get('evoSR_003','What do you want to search for?');?></p>
 			</div>
-			<?php
-			return ob_get_clean();
-		}
+			<p class="evo_search_results_count" style='display:none'><span>10</span> <?php echo evo_lang_get('evoSR_004','Event(s) found');?></p>
+			<div class="evo_search_results"></div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
 
-		function add_shortcode_options($shortcode_array){
-			global $evo_shortcode_box;
-				
-				$new_shortcode_array = array(
-					array(
-						'id'=>'s_SR',
-						'name'=>__('Search Box','eventon'),
-						'code'=>'add_eventon_search',
-						'variables'=>array(
-							array(
-								'name'=>'<i>'.__('NOTE: This will allow you to drop an interactive event search field that allow users to search through all current events. You can further filter search results with below options.','eventon') .'</i>',
-								'type'=>'note',							
-							),
-							$evo_shortcode_box->shortcode_default_field('event_type'),
-							$evo_shortcode_box->shortcode_default_field('event_type_2'),
-							$evo_shortcode_box->shortcode_default_field('lang'),
-							$evo_shortcode_box->shortcode_default_field('number_of_months'),
-							$evo_shortcode_box->shortcode_default_field('hide_mult_occur'),
-							array(
-								'name'=>__('Search all events (past and current)','eventon'),
-								'type'=>'YN',
-								'guide'=>__('Setting this will disregard number of months value and will search in all the events.','eventon'),
-								'default'=>'no',
-								'var'=>'search_all',
-							)
+	function add_shortcode_options($shortcode_array){
+		global $evo_shortcode_box;
+			
+			$new_shortcode_array = array(
+				array(
+					'id'=>'s_SR',
+					'name'=>__('Search Box','eventon'),
+					'code'=>'add_eventon_search',
+					'variables'=>array(
+						array(
+							'name'=>'<i>'.__('NOTE: This will allow you to drop an interactive event search field that allow users to search through all current events. You can further filter search results with below options.','eventon') .'</i>',
+							'type'=>'note',							
+						),
+						$evo_shortcode_box->shortcode_default_field('event_type'),
+						$evo_shortcode_box->shortcode_default_field('event_type_2'),
+						$evo_shortcode_box->shortcode_default_field('lang'),
+						$evo_shortcode_box->shortcode_default_field('number_of_months'),
+						$evo_shortcode_box->shortcode_default_field('hide_mult_occur'),
+						array(
+							'name'=>__('Search all events (past and current)','eventon'),
+							'type'=>'YN',
+							'guide'=>__('Setting this will disregard number of months value and will search in all the events.','eventon'),
+							'default'=>'no',
+							'var'=>'search_all', 
 						)
 					)
-				);
+				)
+			);
 
-				return array_merge($shortcode_array, $new_shortcode_array);
-		}
+			return array_merge($shortcode_array, $new_shortcode_array);
+	}
 
 // frotnend
 	function list_searcheable_acf(){
@@ -280,14 +272,6 @@ class evo_search{
 		function remove_search_bar(){
 			//remove_filter('evo_cal_above_header_btn',array($this, 'header_search_button'));
 			//remove_filter('evo_cal_above_header_content',array($this, 'header_search_bar'));
-		}
-
-	//shortcode defaults
-		function add_shortcode_defaults($arr){
-			return array_merge($arr, array(
-				'search'=>'',
-				'search_all'=>'no',
-			));		
 		}
 
 

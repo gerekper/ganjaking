@@ -1,7 +1,6 @@
 /**
  * Javascript code that is associated with the front end of the calendar
- * version: 2.6.16
- * updated: 3.0.5
+ * @version 4.1.1
  */
 
 jQuery(document).ready(function($){
@@ -61,8 +60,10 @@ jQuery(document).ready(function($){
 
 		var live_now_cal = function(){
 			$(el).find('.evo_img_time').each(function(){
-				_html = $(this).closest('a.desc_trig').find('em.evcal_time')[0].outerHTML;
-				$(this).html( _html );
+				if( $(this).closest('a.desc_trig').find('em.evcal_time').length ){
+					_html = $(this).closest('a.desc_trig').find('em.evcal_time')[0].outerHTML;
+					$(this).html( _html );
+				}				
 			});
 		}
 
@@ -142,6 +143,7 @@ jQuery(document).ready(function($){
 
 		init_run_gmap_openevc();
 		fullheight_img_reset();	
+
 
 		init_load_cal_data();
 
@@ -558,6 +560,8 @@ jQuery(document).ready(function($){
 
 		var has_events = false;
 
+
+
 		// go through each day in month
 		for(var x=1; x<= days_in_month; x++){
 			var SU = parseInt(SC.focus_start_date_range) + ( (x-1) * 86400);
@@ -575,6 +579,7 @@ jQuery(document).ready(function($){
 				ED = $(elm).evo_cal_get_basic_eventdata();
 				if( !ED) return;
 
+
 				var inrange = CAL.evo_is_in_range({
 					'S': SU,	'E': EU,	'start': ED.event_start_unix,
 					'end':ED.event_end_unix
@@ -588,15 +593,27 @@ jQuery(document).ready(function($){
 				m = moment.unix( start ).utc();
 				me = moment.unix( end ).utc();
 
+				var all_day = $(elm).find('a.desc_trig').hasClass('allday') ? true: false;
+
 				// get event time
 				// all day
-				if( start <= SU){
-					if( end >= EU) ED['t'] = _txt4;
-					if( end < EU ) ED['t'] = _txt2+' ' + me.format( time_format);		
-				}else if(start > SU){
-					if( end >= EU)  ED['t'] = _txt3+' '+ m.format( time_format);
-					if( end < EU ) ED['t'] = m.format( time_format) +' - '+ me.format( time_format);
-				}			
+				if( all_day ){
+					ED['t'] = _txt4;
+				}else{
+					if( start <= SU ){
+						if( end >= EU) ED['t'] = _txt4;
+						if( end < EU ) ED['t'] = _txt2+' ' + me.format( time_format);		
+					}else if(start > SU){
+						if( end >= EU)  ED['t'] = _txt3+' '+ m.format( time_format);
+						if( end < EU ) ED['t'] = m.format( time_format) +' - '+ me.format( time_format);
+					}	
+				}
+						
+
+				// hide end time
+				if( ED.hide_et == 'y'){
+					ED['t'] = m.format( time_format);
+				}
 
 				events[index] = ED;
 			});			
@@ -845,7 +862,7 @@ jQuery(document).ready(function($){
 					
 					// trigger action to hook in at this stage
 						$('body').trigger('lightbox_event_closing', [lightboxELM]);
-				}, 500);
+				}, 100);
 			}
 
 		// when lightbox open triggered
@@ -898,114 +915,17 @@ jQuery(document).ready(function($){
 			if(ux_val=='3' || ux_val == '3a'){
 				event.preventDefault();
 
-				// set elements
-				EVO_LIGHTBOX = $('.evo_lightbox.eventcard');
-				LIGHTBOX_body = EVO_LIGHTBOX.find('.evo_lightbox_body');
-
-
 				repeat_interval = parseInt(obj.closest('.eventon_list_event').data('ri'));
 				repeat_interval = (repeat_interval)? repeat_interval: '0';
 
+				SC['repeat_interval'] = repeat_interval;
+				SC['ux_val'] = ux_val;
+				SC['evortl'] = event_list.hasClass('evortl')? 'yes':'no';
+				SC['event_id'] = parseInt(event_id);
+				SC['ajax_eventtop_show_content'] = true;
+
+				eventon_open_event_lightbox( SC , obj, CAL);
 				
-				// resets
-					EVO_LIGHTBOX.find('.evo_pop_body').show();
-					fullheight_img_reset();
-					LIGHTBOX_body.html('');
-
-				// RTL
-					if(event_list.hasClass('evortl')){	
-						EVO_LIGHTBOX.find('.evo_popin').addClass('evortl');	
-						EVO_LIGHTBOX.addClass('evortl');
-					}
-
-					
-				// AJAX via lightbox
-				if(ux_val == '3a'){
-
-					var new_content = '';
-					new_content += '<div class="evo_cardlb" style="padding:10px 10px 0 10px">';
-					new_content += '<div style="margin-bottom:20px; width:100%; height:200px" class="evo_preloading"></div>';
-					const box = '<div style="display:flex;justify-content: space-between;margin-bottom:10px"><div style="width:40px;height:40px; margin-right:20px" class="evo_preloading"></div> <div style="flex:1 0 auto"> <div class="evo_preloading" style="width:70%; height:20px; margin-bottom:10px"></div><div class="evo_preloading" style="width:100%; height:80px; margin-bottom:10px"></div>  </div> </div>';
-					new_content += box + box + box;
-					new_content += '</div>';
-
-					LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>')
-					LIGHTBOX_body.append( new_content );
-
-					LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+event_id +'_'+ repeat_interval);
-
-
-					var data_arg = {};
-					data_arg['event_id'] = parseInt( event_id);
-					data_arg['ri'] = repeat_interval;
-					data_arg['SC'] = SC;
-					data_arg['action'] = 'eventon_load_single_eventcard_content';
-
-
-					var ra = true;
-
-					// load event content via ajax
-					if(ra){
-						$.ajax({
-							beforeSend: function(){},
-							type: 'POST',
-							url:the_ajax_script.ajaxurl,
-							data: data_arg,
-							dataType:'json',
-							success:function(data){
-
-								if(data. status == 'good'){
-									LIGHTBOX_body.html( data.html );
-
-									LIGHTBOX_body.find('.evo_eventtop')
-										.evoGenmaps({ 
-											'fnt':2 ,
-											'cal':cal,											
-										});
-										
-									fullheight_img_reset(); 
-
-									// trigger 
-									if( obj.data('runjs'))	$('body').trigger('evo_load_single_event_content',[ event_id, obj]);
-
-									LIGHTBOX_body.evo_local_time();
-									
-								}
-
-							},complete:function(){
-								$('body').trigger('evo_single_event_load_end');
-							}
-						});
-					}
-
-				}else{
-
-					var content = obj.closest('.eventon_list_event').find('.event_description').html();
-					var _content = $(content).not('.evcal_close');
-					
-					LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>').append(_content);
-					LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+event_id +'_'+ repeat_interval);
-
-					LIGHTBOX_body.find('.evopop_top').evoGenmaps({	'fnt':2 ,'cal':cal });
-				}
-				
-				
-				
-				EVO_LIGHTBOX.addClass('show');
-				$('body').trigger('evolightbox_show');
-				
-				fullheight_img_reset();    // added second reset
-
-				// update border color
-					bgcolor = $('.evo_pop_body').find('.evcal_cblock').attr('data-bgcolor');
-					$('.evo_pop_body').find('.evopop_top').css({'border-left':'3px solid '+bgcolor});
-
-				// trigger 
-				if( obj.data('runjs')){
-					$('body').trigger('evo_load_single_event_content',[ event_id, obj]);
-				}
-				
-				$('body').trigger('evolightbox_end');
 				return false;
 
 			// open in single events page 
@@ -1116,7 +1036,168 @@ jQuery(document).ready(function($){
 					return false;
 				}
 			}
-		});		
+		});	
+
+		// open event as lightbox
+		function eventon_open_event_lightbox( data,obj, CAL){
+			// set elements
+			EVO_LIGHTBOX = $('.evo_lightbox.eventcard');
+			LIGHTBOX_body = EVO_LIGHTBOX.find('.evo_lightbox_body');
+
+			// resets
+				EVO_LIGHTBOX.find('.evo_pop_body').show();
+				fullheight_img_reset();
+				LIGHTBOX_body.html('');
+
+			// RTL
+				if( data.evortl =='yes'){	
+					EVO_LIGHTBOX.find('.evo_popin').addClass('evortl');	
+					EVO_LIGHTBOX.addClass('evortl');
+				}
+
+				
+			// AJAX via lightbox
+			if(data.ux_val == '3a'){
+
+				var new_content = '';
+				new_content += '<div class="evo_cardlb" style="padding:10px 10px 0 10px">';
+				new_content += '<div style="margin-bottom:20px; width:100%; height:200px" class="evo_preloading"></div>';
+				const box = '<div style="display:flex;justify-content: space-between;margin-bottom:10px"><div style="width:40px;height:40px; margin-right:20px" class="evo_preloading"></div> <div style="flex:1 0 auto"> <div class="evo_preloading" style="width:70%; height:20px; margin-bottom:10px"></div><div class="evo_preloading" style="width:100%; height:80px; margin-bottom:10px"></div>  </div> </div>';
+				new_content += box + box + box;
+				new_content += '</div>';
+
+				// eventtop initial content
+				if( data.ajax_eventtop_show_content){
+					LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>');
+				}else{
+					LIGHTBOX_body.append('<div class="evopop_top"></div>')
+				}
+				
+				LIGHTBOX_body.append( new_content );
+
+				LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval);
+
+
+				var data_arg = {};
+				data_arg['event_id'] = data.event_id;
+				data_arg['ri'] = data.repeat_interval;
+				data_arg['SC'] = data;
+				data_arg['action'] = 'eventon_load_single_eventcard_content';
+
+				
+				//reset view to match
+					if( data_arg.SC.tile_style == '2') data_arg.SC.eventtop_style = '0';
+					data_arg.SC.tile_style = '0';
+					data_arg.SC.tile_bg = '0';
+					data_arg.SC.tiles = 'no';
+
+
+				var ra = true;
+
+				// load event content via ajax
+				if(ra){
+					$.ajax({
+						beforeSend: function(){},
+						type: 'POST',
+						url:the_ajax_script.ajaxurl,
+						data: data_arg,
+						dataType:'json',
+						success:function(data){
+
+							if(data. status == 'good'){
+								LIGHTBOX_body.html( data.html );
+
+								LIGHTBOX_body.find('.evo_eventtop')
+									.evoGenmaps({ 
+										'fnt':2 ,
+										'SC': data,
+										'cal': CAL,											
+									});
+									
+								fullheight_img_reset(); 
+
+								// trigger 
+								if( obj.data('runjs'))	$('body').trigger('evo_load_single_event_content',[ data.event_id, obj]);
+
+								LIGHTBOX_body.evo_local_time();
+								
+							}
+
+						},complete:function(){
+							$('body').trigger('evo_single_event_load_end');
+						}
+					});
+				}
+
+			}else{
+
+				var content = obj.closest('.eventon_list_event').find('.event_description').html();
+				var _content = $(content).not('.evcal_close');
+
+				const cancel_class = ( obj.hasClass('cancel_event')) ? ' cancel_event':'';
+				
+				LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>').append(_content);
+				LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval + cancel_class);
+
+				LIGHTBOX_body.find('.evopop_top').attr('data-text', obj.data('text') );
+				LIGHTBOX_body.find('.evopop_top')
+					.evoGenmaps({	'fnt':2 ,'cal':CAL });
+			}
+			
+			
+			
+			EVO_LIGHTBOX.addClass('show');
+			$('body').trigger('evolightbox_show');
+			
+			fullheight_img_reset();    // added second reset
+
+			// update border color and eventtop color
+				bgcolor = $('.evo_pop_body').find('.evcal_cblock').data('bgcolor');
+
+				// if tiles and eventtop style set to clean
+				var show_lightbox_color = data.tiles == 'yes' && ( data.eventtop_style == '0' || data.eventtop_style == '4') ? false: true;
+				
+				if( (CAL && CAL.hasClass('color') && show_lightbox_color) ||
+					(!CAL && show_lightbox_color)
+
+				){
+					LIGHTBOX_body.addClass('color');
+					LIGHTBOX_body.find('.evopop_top').css({'background-color':bgcolor});
+				}else{
+					LIGHTBOX_body.find('.evopop_top').css({'border-left':'3px solid '+bgcolor});
+				}
+
+			// trigger 
+			if( obj.data('runjs')){
+				$('body').trigger('evo_load_single_event_content',[ data.event_id, obj]);
+			}
+			
+			// countdown
+			EVO_LIGHTBOX.find('.evo_countdowner').each(function(){
+				obj.removeClass('evo_cd_on');
+				obj.evo_countdown();
+			});
+
+			$('body').trigger('evolightbox_end');
+		}	
+
+	// load eventon event anywhere via lightbox ajax
+		$('body').on('click','.eventon_anywhere.evoajax', function(event){
+			var obj = $(this);
+			var data = obj.data('sc');
+
+			if( data.ev_uxval == '4') return;
+
+			event.preventDefault();
+
+			data['evortl'] = 'no';
+			data['event_id'] = data.id;
+			data['ux_val'] = '3a';
+			data['ajax_eventtop_show_content'] = false;
+
+			console.log(data);
+			eventon_open_event_lightbox( data, obj, false);
+		});
 
 		// call to run google maps on load
 			function init_run_gmap_openevc(delay){
@@ -1149,7 +1230,7 @@ jQuery(document).ready(function($){
 		$('.ajde_evcal_calendar.bub').on('mouseover','.eventon_list_event', function(){
 			O = $(this);
 			LIST = O.closest('.eventon_events_list');
-			title = O.find('.evcal_event_title').html();
+			title = O.find('.evoet_dayblock').data('bub');
 
 			p = O.position();
 
@@ -1283,6 +1364,8 @@ jQuery(document).ready(function($){
 
 			$(this).parent().find('.evo_tab').removeClass('selected');
 			$(this).addClass('selected');
+
+			$('body').trigger('evo_tabs_newtab_selected',[ $(this)]);
 		});
 
 	// layout view changer - legacy
@@ -1677,17 +1760,22 @@ jQuery(document).ready(function($){
 			
 			// show more/less event details
 				.on('click','.evobtn_details_show_more',function(){		
-					control_more_less( $(this));		
+					control_more_less( $(this));	
 				})
 			// refresh now calendar
 				.on('runajax_refresh_now_cal',function(e, OBJ, nonce){
+
+					const section = OBJ.closest('.evo_eventon_live_now_section');
+					const CAL = section.find('.ajde_evcal_calendar').eq(0);
+
 					var dataA = {
 						action: 'eventon_refresh_now_cal',
 						nonce: nonce,
-						other: OBJ.data()
+						other: OBJ.data(),
+						SC: CAL.evo_shortcode_data()
 					};
 
-					const section = OBJ.closest('.evo_eventon_live_now_section');
+					
 
 					$.ajax({
 						beforeSend: function(){
@@ -1872,6 +1960,7 @@ jQuery(document).ready(function($){
 			var current_text = obj.find('.ev_more_text').html();
 			var changeTo_text = obj.find('.ev_more_text').attr('data-txt');
 			const cell = obj.closest('.evcal_evdata_cell');
+
 				
 			// show more
 			if(content =='less'){			
@@ -2205,7 +2294,7 @@ jQuery(document).ready(function($){
 			}
 
 
-			SC = Evosearch.find('span.data').evo_item_shortcodes();
+			SC = Evosearch.find('span.data').data('sc');
 
 			
 			var data_arg = {

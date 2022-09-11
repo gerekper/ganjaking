@@ -1,0 +1,45 @@
+/************************
+    Order editor page
+ *************************/
+
+.ywsbs-order-label {
+    background: #e1edf7;
+    color: #2683aa;
+    display: inline-block;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 10px;
+    clear: both;
+    margin-bottom: 5px;
+}
+
+h2.woocommerce-order-data__heading {
+    display: inline-block;
+}
+
+p.woocommerce-order-data__meta.order_number {
+    margin-top: 5px;
+}
+
+.related_subscription table {
+    border: 0
+}
+.related_subscription a,
+.related_subscription table th {
+    font-weight:600;
+}
+
+.related_subscription a{
+    font-size:14px;
+}
+
+.related_subscription span.status {
+    background-color:#ccc;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight:500;
+    font-size:11px;
+}

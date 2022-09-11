@@ -1,5 +1,12 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2022.08.24 - version 5.3.5
+ * Fix - Improve Background Job Handler compatibility with newer WooCommerce versions while processing a job queue
+
+2022.08.15 - version 5.3.4
+ * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or greater
+
 2021.09.08 - version 5.3.3
  * Misc - Harden some SQL usages
  * Misc - Remove legacy woo-includes functions

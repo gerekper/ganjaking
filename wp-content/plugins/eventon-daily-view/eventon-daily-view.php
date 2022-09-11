@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/addons/daily-view/
  Description: Adds the capabilities to create a calendar with horizontally scrollable list of days of the month right below month title and sort bar. Read the guide for more information on how to use this addon.
  Author: Ashan Jay
- Version: 1.0.12
+ Version: 2.0.5
  Author URI: http://www.ashanjay.com/
  Requires at least: 4.0
- Tested up to: 5.4
+ Tested up to: 6.0
  */
  
 class EventON_daily_view{
 	
-	public $version='1.0.12';
-	public $eventon_version = '2.8';
+	public $version='2.0.5';
+	public $eventon_version = '4.0.6';
 	public $name = 'DailyView';
 		
 	public $is_running_dv =false;

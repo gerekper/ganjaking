@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -188,7 +188,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 										$global_coupon_option_name
 									)
 								);
-								$global_coupons = $this->get_coupon_options( $global_coupon_option_name );
+								$global_coupons = $this->sc_get_option( $global_coupon_option_name );
 							}
 						}
 					}

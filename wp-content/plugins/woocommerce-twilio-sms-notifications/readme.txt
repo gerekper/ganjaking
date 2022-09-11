@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 5.2
-Tested up to: 5.8.2
+Tested up to: 6.0.1
 Requires PHP: 7.0
 
 Send SMS order notifications to admins and customers for your WooCommerce store. Powered by Twilio :)

@@ -5,13 +5,13 @@
  *  @package Ultimate Animation
  */
 
-if ( ! class_exists( 'AIO_Ultimate_Exp_Section' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Exp_Section' ) ) {
 	/**
 	 * Function that initializes Expandable Section Module
 	 *
-	 * @AIO_Ultimate_Exp_Section
+	 * @Ultimate_VC_Addons_Exp_Section
 	 */
-	class AIO_Ultimate_Exp_Section {
+	class Ultimate_VC_Addons_Exp_Section {
 		/**
 		 * Constructor function that constructs default values for the Expandable Section module.
 		 *
@@ -33,9 +33,9 @@ if ( ! class_exists( 'AIO_Ultimate_Exp_Section' ) ) {
 		 */
 		public function ultimate_exp_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'style_ultimate_expsection', 'expandable-section' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-style_ultimate_expsection', 'expandable-section' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'jquery_ultimate_expsection', 'expandable-section', false, array( 'jquery', 'jquery_ui' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery_ultimate_expsection', 'expandable-section', false, array( 'jquery', 'jquery_ui' ), ULTIMATE_VERSION, false );
 
 			Ultimate_VC_Addons::ultimate_register_script( 'jquery_ui', 'jquery-ui', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
@@ -1143,9 +1143,9 @@ if ( ! class_exists( 'AIO_Ultimate_Exp_Section' ) ) {
 
 	}
 }
-if ( class_exists( 'AIO_Ultimate_Exp_Section' ) ) {
+if ( class_exists( 'Ultimate_VC_Addons_Exp_Section' ) ) {
 
-	$AIO_Ultimate_Exp_Section = new AIO_Ultimate_Exp_Section(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+	$AIO_Ultimate_Exp_Section = new Ultimate_VC_Addons_Exp_Section(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 
 }
 

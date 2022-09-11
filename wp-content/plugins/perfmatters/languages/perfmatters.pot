@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Perfmatters\n"
-"POT-Creation-Date: 2022-06-16 16:20-0700\n"
-"PO-Revision-Date: 2022-06-16 16:19-0700\n"
+"POT-Creation-Date: 2022-09-05 17:06-0700\n"
+"PO-Revision-Date: 2022-09-05 17:06-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,44 +20,38 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
 
 #. translators: the plugin name.
-#: inc/Perfmatters_Plugin_Updater.php:224
-#: inc/classes/EDD_SL_Plugin_Updater.php:225
+#: EDD_SL_Plugin_Updater.php:257
 #, php-format
 msgid "There is a new version of %1$s available."
 msgstr ""
 
-#: inc/Perfmatters_Plugin_Updater.php:230
-#: inc/classes/EDD_SL_Plugin_Updater.php:231
+#: EDD_SL_Plugin_Updater.php:263
 msgid "Contact your network administrator to install the update."
 msgstr ""
 
 #. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
-#: inc/Perfmatters_Plugin_Updater.php:235
-#: inc/classes/EDD_SL_Plugin_Updater.php:236
+#: EDD_SL_Plugin_Updater.php:268
 #, php-format
 msgid "%1$sView version %2$s details%3$s."
 msgstr ""
 
-#: inc/Perfmatters_Plugin_Updater.php:243
-#: inc/classes/EDD_SL_Plugin_Updater.php:244
+#: EDD_SL_Plugin_Updater.php:276
 #, php-format
 msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
 msgstr ""
 
-#: inc/Perfmatters_Plugin_Updater.php:254
-#: inc/classes/EDD_SL_Plugin_Updater.php:255
+#: EDD_SL_Plugin_Updater.php:287
 msgid "Update now."
 msgstr ""
 
-#: inc/Perfmatters_Plugin_Updater.php:486
-#: inc/classes/EDD_SL_Plugin_Updater.php:487
+#: EDD_SL_Plugin_Updater.php:519
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: inc/Perfmatters_Plugin_Updater.php:486
-#: inc/classes/EDD_SL_Plugin_Updater.php:487
+#: EDD_SL_Plugin_Updater.php:519
 msgid "Error"
 msgstr ""
 
@@ -65,19 +59,19 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: inc/admin.php:25 inc/settings.php:501
+#: inc/admin.php:25 inc/settings.php:507
 msgid "Assets"
 msgstr ""
 
-#: inc/admin.php:26 inc/settings.php:821
+#: inc/admin.php:26 inc/settings.php:827
 msgid "Preloading"
 msgstr ""
 
-#: inc/admin.php:27 inc/classes/Meta.php:121 inc/settings.php:907
+#: inc/admin.php:27 inc/classes/Meta.php:121 inc/settings.php:913
 msgid "Lazy Loading"
 msgstr ""
 
-#: inc/admin.php:28 inc/settings.php:1089
+#: inc/admin.php:28 inc/settings.php:1095
 msgid "Fonts"
 msgstr ""
 
@@ -89,11 +83,11 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: inc/admin.php:80 inc/settings.php:1452
+#: inc/admin.php:80 inc/settings.php:1458
 msgid "Plugin"
 msgstr ""
 
-#: inc/admin.php:81 inc/settings.php:1550
+#: inc/admin.php:81 inc/settings.php:1556
 msgid "Database"
 msgstr ""
 
@@ -129,15 +123,15 @@ msgstr ""
 msgid "Auto Drafts"
 msgstr ""
 
-#: inc/classes/DatabaseOptimizer.php:208 inc/settings.php:1585
+#: inc/classes/DatabaseOptimizer.php:208 inc/settings.php:1591
 msgid "Trashed Posts"
 msgstr ""
 
-#: inc/classes/DatabaseOptimizer.php:209 inc/settings.php:1600
+#: inc/classes/DatabaseOptimizer.php:209 inc/settings.php:1606
 msgid "Spam Comments"
 msgstr ""
 
-#: inc/classes/DatabaseOptimizer.php:210 inc/settings.php:1615
+#: inc/classes/DatabaseOptimizer.php:210 inc/settings.php:1621
 msgid "Trashed Comments"
 msgstr ""
 
@@ -149,11 +143,11 @@ msgstr ""
 msgid "Transients"
 msgstr ""
 
-#: inc/classes/DatabaseOptimizer.php:213 inc/settings.php:1660
+#: inc/classes/DatabaseOptimizer.php:213 inc/settings.php:1666
 msgid "Tables"
 msgstr ""
 
-#: inc/classes/Meta.php:70 inc/settings.php:751 inc/settings.php:759
+#: inc/classes/Meta.php:70 inc/settings.php:757 inc/settings.php:765
 msgid "Clear Used CSS"
 msgstr ""
 
@@ -161,7 +155,7 @@ msgstr ""
 msgid "Defer JavaScript"
 msgstr ""
 
-#: inc/classes/Meta.php:113 inc/settings.php:572
+#: inc/classes/Meta.php:113 inc/settings.php:578
 msgid "Delay JavaScript"
 msgstr ""
 
@@ -178,82 +172,82 @@ msgstr ""
 msgid "No feed available, please visit the <a href='%s'>homepage</a>!"
 msgstr ""
 
-#: inc/functions.php:169
+#: inc/functions.php:170
 msgid "Sorry, you do not have permission to make REST API requests."
 msgstr ""
 
-#: inc/functions.php:305 inc/functions.php:398 inc/functions.php:403
+#: inc/functions.php:306 inc/functions.php:399 inc/functions.php:404
 msgid "Comments are disabled."
 msgstr ""
 
-#: inc/functions.php:605 inc/functions.php:625 inc/functions.php:1271
+#: inc/functions.php:606 inc/functions.php:626 inc/functions.php:1278
 #: inc/functions_script_manager.php:1498 inc/functions_script_manager.php:1506
 msgid "Perfmatters Warning"
 msgstr ""
 
-#: inc/functions.php:606
+#: inc/functions.php:607
 msgid ""
 "WP_POST_REVISIONS is already enabled somewhere else on your site. We suggest "
 "only enabling this feature in one place."
 msgstr ""
 
-#: inc/functions.php:626
+#: inc/functions.php:627
 msgid ""
 "AUTOSAVE_INTERVAL is already enabled somewhere else on your site. We suggest "
 "only enabling this feature in one place."
 msgstr ""
 
-#: inc/functions.php:1009 inc/settings.php:436
+#: inc/functions.php:1016 inc/settings.php:442
 msgid "This has been disabled."
 msgstr ""
 
-#: inc/functions.php:1272
+#: inc/functions.php:1279
 msgid "Local Analytics is enabled but no Tracking ID is set."
 msgstr ""
 
-#: inc/functions.php:1394
+#: inc/functions.php:1401
 msgid "Used CSS cleared."
 msgstr ""
 
-#: inc/functions.php:1409
+#: inc/functions.php:1416
 msgid "Local fonts cleared."
 msgstr ""
 
-#: inc/functions.php:1430
+#: inc/functions.php:1437
 msgid "Successfully restored default options."
 msgstr ""
 
-#: inc/functions.php:1439
+#: inc/functions.php:1446
 msgid "No meta options selected."
 msgstr ""
 
-#: inc/functions.php:1459
+#: inc/functions.php:1466
 msgid "Meta options purged."
 msgstr ""
 
-#: inc/functions.php:1462
+#: inc/functions.php:1469
 msgid "Meta options not purged."
 msgstr ""
 
-#: inc/functions.php:1496
+#: inc/functions.php:1503
 msgid "No import file given."
 msgstr ""
 
-#: inc/functions.php:1504
+#: inc/functions.php:1511
 msgid "Please upload a valid .json file."
 msgstr ""
 
-#: inc/functions.php:1519
+#: inc/functions.php:1526
 msgid "Successfully imported Perfmatters settings."
 msgstr ""
 
-#: inc/functions_lazy_load.php:447
+#: inc/functions_lazy_load.php:490
 msgid "video"
 msgstr ""
 
 #: inc/functions_script_manager.php:49 inc/functions_script_manager.php:61
-#: inc/functions_script_manager.php:102 inc/script_manager.php:144
-#: inc/script_manager.php:190 inc/settings.php:506
+#: inc/functions_script_manager.php:102 inc/script_manager.php:169
+#: inc/script_manager.php:215 inc/settings.php:512
 msgid "Script Manager"
 msgstr ""
 
@@ -261,7 +255,7 @@ msgstr ""
 msgid "Close Script Manager"
 msgstr ""
 
-#: inc/functions_script_manager.php:132 inc/script_manager.php:476
+#: inc/functions_script_manager.php:132 inc/script_manager.php:414
 msgid "Save"
 msgstr ""
 
@@ -289,11 +283,11 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: inc/functions_script_manager.php:302 inc/script_manager.php:272
+#: inc/functions_script_manager.php:302
 msgid "Script"
 msgstr ""
 
-#: inc/functions_script_manager.php:303 inc/script_manager.php:271
+#: inc/functions_script_manager.php:303
 msgid "Type"
 msgstr ""
 
@@ -319,7 +313,7 @@ msgstr ""
 msgid "Required by"
 msgstr ""
 
-#: inc/functions_script_manager.php:485 inc/script_manager.php:392
+#: inc/functions_script_manager.php:485 inc/script_manager.php:330
 msgid "MU Mode"
 msgstr ""
 
@@ -331,7 +325,7 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
-#: inc/functions_script_manager.php:516 inc/settings.php:1703
+#: inc/functions_script_manager.php:516 inc/settings.php:1709
 msgid "Disabled"
 msgstr ""
 
@@ -340,7 +334,7 @@ msgid "Everywhere"
 msgstr ""
 
 #: inc/functions_script_manager.php:548 inc/functions_script_manager.php:714
-#: inc/settings.php:417
+#: inc/settings.php:423
 msgid "404 Template"
 msgstr ""
 
@@ -355,8 +349,9 @@ msgstr ""
 #: inc/functions_script_manager.php:653 inc/functions_script_manager.php:665
 #: inc/functions_script_manager.php:818 inc/functions_script_manager.php:830
 #: inc/settings.php:309 inc/settings.php:328 inc/settings.php:348
-#: inc/settings.php:376 inc/settings.php:416 inc/settings.php:1281
-#: inc/settings.php:1300
+#: inc/settings.php:376 inc/settings.php:422 inc/settings.php:602
+#: inc/settings.php:691 inc/settings.php:711 inc/settings.php:869
+#: inc/settings.php:942 inc/settings.php:1287 inc/settings.php:1306
 msgid "Default"
 msgstr ""
 
@@ -373,12 +368,12 @@ msgid "Devices"
 msgstr ""
 
 #: inc/functions_script_manager.php:666 inc/functions_script_manager.php:831
-#: inc/settings.php:1973
+#: inc/settings.php:1979
 msgid "Desktop"
 msgstr ""
 
 #: inc/functions_script_manager.php:667 inc/functions_script_manager.php:832
-#: inc/settings.php:1974
+#: inc/settings.php:1980
 msgid "Mobile"
 msgstr ""
 
@@ -390,21 +385,21 @@ msgstr ""
 msgid "Exceptions"
 msgstr ""
 
-#: inc/functions_script_manager.php:1499 inc/script_manager.php:417
+#: inc/functions_script_manager.php:1499 inc/script_manager.php:355
 msgid "MU plugin version mismatch."
 msgstr ""
 
 #: inc/functions_script_manager.php:1499 inc/functions_script_manager.php:1507
-#: inc/script_manager.php:169 inc/script_manager.php:388
-#: inc/script_manager.php:400 inc/settings.php:2187
+#: inc/script_manager.php:194 inc/script_manager.php:326
+#: inc/script_manager.php:338 inc/settings.php:2193
 msgid "View Documentation"
 msgstr ""
 
-#: inc/functions_script_manager.php:1507 inc/script_manager.php:426
+#: inc/functions_script_manager.php:1507 inc/script_manager.php:364
 msgid "MU plugin file not found."
 msgstr ""
 
-#: inc/license.php:64 perfmatters.php:172
+#: inc/license.php:64 perfmatters.php:173
 msgid "License"
 msgstr ""
 
@@ -482,11 +477,11 @@ msgstr ""
 msgid "Choose a subsite that you want to pull default settings from."
 msgstr ""
 
-#: inc/network.php:44 inc/settings.php:1459
+#: inc/network.php:44 inc/settings.php:1465
 msgid "Clean Uninstall"
 msgstr ""
 
-#: inc/network.php:51 inc/settings.php:1466
+#: inc/network.php:51 inc/settings.php:1472
 msgid ""
 "When enabled, this will cause all Perfmatters options data to be removed "
 "from your database when the plugin is uninstalled."
@@ -558,130 +553,134 @@ msgid ""
 "all subsites."
 msgstr ""
 
-#: inc/script_manager.php:145 inc/script_manager.php:258
+#: inc/script_manager.php:170 inc/script_manager_global.php:6
 msgid "Global View"
 msgstr ""
 
-#: inc/script_manager.php:146 inc/script_manager.php:347 perfmatters.php:191
+#: inc/script_manager.php:171 inc/script_manager.php:285 perfmatters.php:192
 msgid "Settings"
 msgstr ""
 
-#: inc/script_manager.php:168
+#: inc/script_manager.php:193
 msgid ""
 "We recommend testing Script Manager changes on a staging/dev site first, as "
 "you could break your site's appearance."
 msgstr ""
 
-#: inc/script_manager.php:175
+#: inc/script_manager.php:200
 msgid ""
 "You are in Testing Mode. Changes will only be visible to logged-in admins."
 msgstr ""
 
-#: inc/script_manager.php:191
+#: inc/script_manager.php:216
 msgid "Manage scripts loading on the current page."
 msgstr ""
 
-#: inc/script_manager.php:215
+#: inc/script_manager.php:240
 msgid "Total size"
 msgstr ""
 
-#: inc/script_manager.php:243
+#: inc/script_manager.php:268
 msgid "The Script Manager does not support AMP pages."
 msgstr ""
 
-#: inc/script_manager.php:246
+#: inc/script_manager.php:271
 msgid "Loading Scripts"
 msgstr ""
 
-#: inc/script_manager.php:259
-msgid ""
-"This is a visual representation of the Script Manager configuration across "
-"your entire site."
-msgstr ""
-
-#: inc/script_manager.php:273
-msgid "Setting"
-msgstr ""
-
-#: inc/script_manager.php:338
-msgid "You don't have any scripts disabled yet."
-msgstr ""
-
-#: inc/script_manager.php:348
+#: inc/script_manager.php:286
 msgid "View and manage all of your Script Manager settings."
 msgstr ""
 
-#: inc/script_manager.php:359
+#: inc/script_manager.php:297
 msgid "Display Archives"
 msgstr ""
 
-#: inc/script_manager.php:366
+#: inc/script_manager.php:304
 msgid ""
 "Add WordPress archives to your Script Manager selection options. Archive "
 "posts will no longer be grouped with their post type."
 msgstr ""
 
-#: inc/script_manager.php:370
+#: inc/script_manager.php:308
 msgid "Display Dependencies"
 msgstr ""
 
-#: inc/script_manager.php:377
+#: inc/script_manager.php:315
 msgid "Show dependencies for each script."
 msgstr ""
 
-#: inc/script_manager.php:381
+#: inc/script_manager.php:319
 msgid "Testing Mode"
 msgstr ""
 
-#: inc/script_manager.php:388
+#: inc/script_manager.php:326
 msgid "Restrict your Script Manager configuration to logged-in admins only."
 msgstr ""
 
-#: inc/script_manager.php:400
+#: inc/script_manager.php:338
 msgid ""
 "Must-use (MU) mode requires elevated permissions and a file to be copied "
 "into the mu-plugins directory. This gives you more control and the ability "
 "to disable plugin queries, inline CSS, etc."
 msgstr ""
 
-#: inc/script_manager.php:402
+#: inc/script_manager.php:340
 msgid "Warning"
 msgstr ""
 
-#: inc/script_manager.php:402
+#: inc/script_manager.php:340
 msgid ""
 "Any previous plugin-level disables will now disable the entire plugin. "
 "Please review your existing Script Manager configuration before enabling "
 "this option."
 msgstr ""
 
-#: inc/script_manager.php:421
+#: inc/script_manager.php:359
 msgid "MU plugin installed."
 msgstr ""
 
-#: inc/script_manager.php:436
+#: inc/script_manager.php:374
 msgid "Hide Disclaimer"
 msgstr ""
 
-#: inc/script_manager.php:443
+#: inc/script_manager.php:381
 msgid "Hide the disclaimer message box across all Script Manager views."
 msgstr ""
 
-#: inc/script_manager.php:447 inc/script_manager.php:451
+#: inc/script_manager.php:385 inc/script_manager.php:389
 msgid "Reset Script Manager"
 msgstr ""
 
-#: inc/script_manager.php:454
+#: inc/script_manager.php:392
 msgid "Remove and reset all of your existing Script Manager settings."
 msgstr ""
 
-#: inc/script_manager.php:496
+#: inc/script_manager.php:434
 msgid ""
 "Are you sure? This will remove and reset all of your existing Script Manager "
 "settings and cannot be undone!"
 msgstr ""
 
-#: inc/settings.php:13 perfmatters.php:167
+#: inc/script_manager_global.php:7
+msgid ""
+"This is a visual representation of the Script Manager configuration across "
+"your entire site."
+msgstr ""
+
+#: inc/script_manager_global.php:40
+msgid "Handle"
+msgstr ""
+
+#: inc/script_manager_global.php:41
+msgid "Setting"
+msgstr ""
+
+#: inc/script_manager_global.php:129
+msgid "You don't have any scripts disabled yet."
+msgstr ""
+
+#: inc/settings.php:13 perfmatters.php:168
 msgid "Options"
 msgstr ""
 
@@ -932,871 +931,875 @@ msgid "Autosave Interval"
 msgstr ""
 
 #: inc/settings.php:376
-msgid "1 Minute"
+msgid "Minute"
 msgstr ""
 
-#: inc/settings.php:377 inc/settings.php:378 inc/settings.php:379
-#: inc/settings.php:380
-#, php-format
-msgid "%s Minutes"
+#: inc/settings.php:377
+msgid "Disable Autosave Interval"
 msgstr ""
 
-#: inc/settings.php:382
+#: inc/settings.php:378 inc/settings.php:379 inc/settings.php:380
+#: inc/settings.php:381 inc/settings.php:382 inc/settings.php:383
+#: inc/settings.php:384 inc/settings.php:385 inc/settings.php:386
+msgid "Minutes"
+msgstr ""
+
+#: inc/settings.php:388
 msgid ""
 "Controls how often WordPress will auto save posts and pages while editing."
 msgstr ""
 
-#: inc/settings.php:387
+#: inc/settings.php:393
 msgid "Login URL"
 msgstr ""
 
-#: inc/settings.php:392
+#: inc/settings.php:398
 msgid "Custom Login URL"
 msgstr ""
 
-#: inc/settings.php:401
+#: inc/settings.php:407
 msgid ""
 "When set, this will change your WordPress login URL (slug) to the provided "
 "string and will block wp-admin and wp-login endpoints from being directly "
 "accessed."
 msgstr ""
 
-#: inc/settings.php:408
+#: inc/settings.php:414
 msgid "Disabled Behavior"
 msgstr ""
 
-#: inc/settings.php:416 inc/settings.php:428
+#: inc/settings.php:422 inc/settings.php:434
 msgid "Message"
 msgstr ""
 
-#: inc/settings.php:418
+#: inc/settings.php:424
 msgid "Home URL"
 msgstr ""
 
-#: inc/settings.php:421
+#: inc/settings.php:427
 msgid "Change what happens when an original login endpoint is visited."
 msgstr ""
 
-#: inc/settings.php:437
+#: inc/settings.php:443
 msgid "Change the disabled message that is displayed."
 msgstr ""
 
-#: inc/settings.php:449
+#: inc/settings.php:455
 msgid "Disable Scripts"
 msgstr ""
 
-#: inc/settings.php:455
+#: inc/settings.php:461
 msgid ""
 "Disables WooCommerce scripts and styles except on product, cart, and "
 "checkout pages."
 msgstr ""
 
-#: inc/settings.php:462
+#: inc/settings.php:468
 msgid "Disable Cart Fragmentation"
 msgstr ""
 
-#: inc/settings.php:468
+#: inc/settings.php:474
 msgid "Completely disables WooCommerce cart fragmentation script."
 msgstr ""
 
-#: inc/settings.php:475
+#: inc/settings.php:481
 msgid "Disable Status Meta Box"
 msgstr ""
 
-#: inc/settings.php:481
+#: inc/settings.php:487
 msgid "Disables WooCommerce status meta box from the WP Admin Dashboard."
 msgstr ""
 
-#: inc/settings.php:488
+#: inc/settings.php:494
 msgid "Disable Widgets"
 msgstr ""
 
-#: inc/settings.php:494
+#: inc/settings.php:500
 msgid "Disables all WooCommerce widgets."
 msgstr ""
 
-#: inc/settings.php:513
+#: inc/settings.php:519
 msgid ""
 "Enables the Perfmatters Script Manager, which gives you the ability to "
 "disable CSS and JS files on a page by page basis."
 msgstr ""
 
-#: inc/settings.php:518
+#: inc/settings.php:524
 msgid "JavaScript"
 msgstr ""
 
-#: inc/settings.php:523
+#: inc/settings.php:529
 msgid "Defer Javascript"
 msgstr ""
 
-#: inc/settings.php:530
+#: inc/settings.php:536
 msgid "Add the defer attribute to your JavaScript files."
 msgstr ""
 
-#: inc/settings.php:538
+#: inc/settings.php:544
 msgid "Include jQuery"
 msgstr ""
 
-#: inc/settings.php:545
+#: inc/settings.php:551
 msgid ""
 "Many plugins and themes require jQuery. We recommend either testing jQuery "
 "deferral separately or leaving this option turned off."
 msgstr ""
 
-#: inc/settings.php:546
+#: inc/settings.php:552
 msgid ""
 "Allow jQuery core to be deferred. We recommend testing this separately or "
 "leaving it off."
 msgstr ""
 
-#: inc/settings.php:554
+#: inc/settings.php:560
 msgid "Exclude from Deferral"
 msgstr ""
 
-#: inc/settings.php:564
+#: inc/settings.php:570
 msgid ""
 "Exclude specific JavaScript files from deferral. Exclude a file by adding "
 "the source URL (example.js). Format: one per line"
 msgstr ""
 
-#: inc/settings.php:579
+#: inc/settings.php:585
 msgid "Delay JavaScript from loading until user interaction."
 msgstr ""
 
-#: inc/settings.php:587
+#: inc/settings.php:593
 msgid "Delay Behavior"
 msgstr ""
 
-#: inc/settings.php:596
+#: inc/settings.php:602
 msgid "Only Delay Specified Scripts"
 msgstr ""
 
-#: inc/settings.php:597
+#: inc/settings.php:603
 msgid "Delay All Scripts"
 msgstr ""
 
-#: inc/settings.php:599
+#: inc/settings.php:605
 msgid "Choose the method used to delay scripts."
 msgstr ""
 
-#: inc/settings.php:607
+#: inc/settings.php:613
 msgid "Delayed Scripts"
 msgstr ""
 
-#: inc/settings.php:617
+#: inc/settings.php:623
 msgid ""
 "Delay specific JavaScript files by adding the source URL (example.js), or "
 "delay an inline script by adding a unique string from that script. Format: "
 "one per line"
 msgstr ""
 
-#: inc/settings.php:625
+#: inc/settings.php:631
 msgid "Excluded from Delay"
 msgstr ""
 
-#: inc/settings.php:635
+#: inc/settings.php:641
 msgid ""
 "Exclude specific JavaScript files from delay by adding the source URL "
 "(example.js), or exclude an inline script by adding a unique string from "
 "that script. Format: one per line"
 msgstr ""
 
-#: inc/settings.php:643
+#: inc/settings.php:649
 msgid "Delay Timeout"
 msgstr ""
 
-#: inc/settings.php:650
+#: inc/settings.php:656
 msgid ""
 "Load delayed scripts after a set amount of time if no user interaction has "
 "been detected."
 msgstr ""
 
-#: inc/settings.php:656
+#: inc/settings.php:662
 msgid "CSS"
 msgstr ""
 
-#: inc/settings.php:661
+#: inc/settings.php:667
 msgid "Remove Unused CSS"
 msgstr ""
 
-#: inc/settings.php:668
+#: inc/settings.php:674
 msgid ""
 "Remove unused CSS from your stylesheets and print out used CSS inline in the "
 "header."
 msgstr ""
 
-#: inc/settings.php:676
+#: inc/settings.php:682
 msgid "Used CSS Method"
 msgstr ""
 
-#: inc/settings.php:685
+#: inc/settings.php:691
 msgid "Inline"
 msgstr ""
 
-#: inc/settings.php:686
+#: inc/settings.php:692
 msgid "File"
 msgstr ""
 
-#: inc/settings.php:688
+#: inc/settings.php:694
 msgid "Choose how the used CSS will be included."
 msgstr ""
 
-#: inc/settings.php:696
+#: inc/settings.php:702
 msgid "Stylesheet Behavior"
 msgstr ""
 
-#: inc/settings.php:705
+#: inc/settings.php:711
 msgid "Delay"
 msgstr ""
 
-#: inc/settings.php:706
+#: inc/settings.php:712
 msgid "Async"
 msgstr ""
 
-#: inc/settings.php:707 inc/settings.php:1946 inc/settings.php:2051
+#: inc/settings.php:713 inc/settings.php:1952 inc/settings.php:2057
 msgid "Remove"
 msgstr ""
 
-#: inc/settings.php:709
+#: inc/settings.php:715
 msgid "Choose how the original stylesheets (unused CSS) will be included."
 msgstr ""
 
-#: inc/settings.php:717
+#: inc/settings.php:723
 msgid "Excluded Stylesheets"
 msgstr ""
 
-#: inc/settings.php:726
+#: inc/settings.php:732
 msgid ""
 "Exclude specific stylesheets from unused CSS removal by adding a unique "
 "portion of the source URL (example.css). Format: one per line"
 msgstr ""
 
-#: inc/settings.php:734
+#: inc/settings.php:740
 msgid "Excluded Selectors"
 msgstr ""
 
-#: inc/settings.php:743
+#: inc/settings.php:749
 msgid ""
 "Exclude specific CSS selectors from being removed by adding the element ID, "
 "class name, etc. (#id, .class). Format: one per line"
 msgstr ""
 
-#: inc/settings.php:761
+#: inc/settings.php:767
 msgid "Remove all existing unused CSS files that have been generated."
 msgstr ""
 
-#: inc/settings.php:766
+#: inc/settings.php:772
 msgid "Code"
 msgstr ""
 
-#: inc/settings.php:771
+#: inc/settings.php:777
 msgid "Add Header Code"
 msgstr ""
 
-#: inc/settings.php:780
+#: inc/settings.php:786
 msgid ""
 "Code added here will be printed in the head section on every page of your "
 "website."
 msgstr ""
 
-#: inc/settings.php:789
+#: inc/settings.php:795
 msgid "Add Body Code"
 msgstr ""
 
-#: inc/settings.php:798
+#: inc/settings.php:804
 msgid ""
 "Code added here will be printed below the opening body tag on every page of "
 "your website."
 msgstr ""
 
-#: inc/settings.php:806
+#: inc/settings.php:812
 msgid "Add Footer Code"
 msgstr ""
 
-#: inc/settings.php:815
+#: inc/settings.php:821
 msgid ""
 "Code added here will be printed above the closing body tag on every page of "
 "your website."
 msgstr ""
 
-#: inc/settings.php:826
+#: inc/settings.php:832
 msgid "Enable Instant Page"
 msgstr ""
 
-#: inc/settings.php:833
+#: inc/settings.php:839
 msgid ""
 "Automatically prefetch URLs in the background after a user hovers over a "
 "link. This results in almost instantaneous load times and improves the user "
 "experience."
 msgstr ""
 
-#: inc/settings.php:840
+#: inc/settings.php:846
 msgid "Preload"
 msgstr ""
 
-#: inc/settings.php:847
+#: inc/settings.php:853
 msgid ""
 "Preload allows you to specify resources (such as fonts or CSS) needed right "
 "away during a page load. This helps fix render-blocking resource warnings. "
 "Format: https://example.com/font.woff2"
 msgstr ""
 
-#: inc/settings.php:854
+#: inc/settings.php:860
 msgid "Preload Critical Images"
 msgstr ""
 
-#: inc/settings.php:870
+#: inc/settings.php:876
 msgid ""
 "Automatically preload leading images to help decrease Largest Contentful "
 "Paint (LCP)."
 msgstr ""
 
-#: inc/settings.php:877
+#: inc/settings.php:883
 msgid "Preconnect"
 msgstr ""
 
-#: inc/settings.php:884
+#: inc/settings.php:890
 msgid ""
 "Preconnect allows the browser to set up early connections before an HTTP "
 "request, eliminating roundtrip latency and saving time for users. Format: "
 "https://example.com"
 msgstr ""
 
-#: inc/settings.php:891
+#: inc/settings.php:897
 msgid "DNS Prefetch"
 msgstr ""
 
-#: inc/settings.php:901
+#: inc/settings.php:907
 msgid ""
 "Resolve domain names before a user clicks. Format: //example.com (one per "
 "line)"
 msgstr ""
 
-#: inc/settings.php:912
+#: inc/settings.php:918
 msgid "Images"
 msgstr ""
 
-#: inc/settings.php:919
+#: inc/settings.php:925
 msgid "Enable lazy loading on images."
 msgstr ""
 
-#: inc/settings.php:927
+#: inc/settings.php:933
 msgid "Exclude Leading Images"
 msgstr ""
 
-#: inc/settings.php:943
+#: inc/settings.php:949
 msgid "Exclude a certain number of images starting from the top of the page."
 msgstr ""
 
-#: inc/settings.php:951
+#: inc/settings.php:957
 msgid "iFrames and Videos"
 msgstr ""
 
-#: inc/settings.php:958
+#: inc/settings.php:964
 msgid "Enable lazy loading on iframes and videos."
 msgstr ""
 
-#: inc/settings.php:966
+#: inc/settings.php:972
 msgid "YouTube Preview Thumbnails"
 msgstr ""
 
-#: inc/settings.php:973
+#: inc/settings.php:979
 msgid ""
 "Swap out YouTube iFrames with preview thumbnails. The original iFrame is "
 "loaded when the thumbnail is clicked."
 msgstr ""
 
-#: inc/settings.php:981
+#: inc/settings.php:987
 msgid "Exclude from Lazy Loading"
 msgstr ""
 
-#: inc/settings.php:991
+#: inc/settings.php:997
 msgid ""
 "Exclude specific elements from lazy loading. Exclude an element by adding "
 "the source URL (example.png) or by adding any unique portion of its "
 "attribute string (class=\"example\"). Format: one per line"
 msgstr ""
 
-#: inc/settings.php:998
+#: inc/settings.php:1004
 msgid "Threshold"
 msgstr ""
 
-#: inc/settings.php:1008
+#: inc/settings.php:1014
 msgid ""
 "Extend the lazy loading threshold allowing images to load before they are "
 "visible in the viewport."
 msgstr ""
 
-#: inc/settings.php:1015
+#: inc/settings.php:1021
 msgid "DOM Monitoring"
 msgstr ""
 
-#: inc/settings.php:1022
+#: inc/settings.php:1028
 msgid ""
 "Watch for changes in the DOM and dynamically lazy load newly added elements."
 msgstr ""
 
-#: inc/settings.php:1029
+#: inc/settings.php:1035
 msgid "Add Missing Image Dimensions"
 msgstr ""
 
-#: inc/settings.php:1036
+#: inc/settings.php:1042
 msgid "Add missing width and height attributes to images."
 msgstr ""
 
-#: inc/settings.php:1043
+#: inc/settings.php:1049
 msgid "Fade In"
 msgstr ""
 
-#: inc/settings.php:1050
+#: inc/settings.php:1056
 msgid "Add fade in effect when images are loaded in."
 msgstr ""
 
-#: inc/settings.php:1057
+#: inc/settings.php:1063
 msgid "CSS Background Images"
 msgstr ""
 
-#: inc/settings.php:1064
+#: inc/settings.php:1070
 msgid "Allow lazy loading of background images coming from (CSS) stylesheets."
 msgstr ""
 
-#: inc/settings.php:1072
+#: inc/settings.php:1078
 msgid "Background Selectors"
 msgstr ""
 
-#: inc/settings.php:1082
+#: inc/settings.php:1088
 msgid ""
 "Lazy load a CSS background image by adding a unique selector (ID or class) "
 "found on the element that the background image has been applied to. Format: "
 "one per line"
 msgstr ""
 
-#: inc/settings.php:1094
+#: inc/settings.php:1100
 msgid "Disable Google Fonts"
 msgstr ""
 
-#: inc/settings.php:1102
+#: inc/settings.php:1108
 msgid ""
 "Removes any instances of Google Fonts being loaded across your entire site."
 msgstr ""
 
-#: inc/settings.php:1109
+#: inc/settings.php:1115
 msgid "Display Swap"
 msgstr ""
 
-#: inc/settings.php:1117
+#: inc/settings.php:1123
 msgid "Add the font-display swap property to your Google Fonts."
 msgstr ""
 
-#: inc/settings.php:1124
+#: inc/settings.php:1130
 msgid "Local Google Fonts"
 msgstr ""
 
-#: inc/settings.php:1132
+#: inc/settings.php:1138
 msgid "Host Google Font files locally on your server or CDN."
 msgstr ""
 
-#: inc/settings.php:1139 inc/settings.php:1191 inc/settings.php:1374
+#: inc/settings.php:1145 inc/settings.php:1197 inc/settings.php:1380
 msgid "CDN URL"
 msgstr ""
 
-#: inc/settings.php:1149
+#: inc/settings.php:1155
 msgid ""
 "Use your CDN URL when referencing Google Font files inside a parent "
 "stylesheet. Example: https://cdn.example.com"
 msgstr ""
 
-#: inc/settings.php:1156 inc/settings.php:1164
+#: inc/settings.php:1162 inc/settings.php:1170
 msgid "Clear Local Fonts"
 msgstr ""
 
-#: inc/settings.php:1166
+#: inc/settings.php:1172
 msgid "Remove all existing local Google Font files and stylesheets."
 msgstr ""
 
-#: inc/settings.php:1177
+#: inc/settings.php:1183
 msgid "Enable CDN Rewrite"
 msgstr ""
 
-#: inc/settings.php:1184
+#: inc/settings.php:1190
 msgid ""
 "Enables rewriting of your site URLs with your CDN URLs which can be "
 "configured below."
 msgstr ""
 
-#: inc/settings.php:1200
+#: inc/settings.php:1206
 msgid ""
 "Enter your CDN URL without the trailing backslash. Example: https://cdn."
 "example.com"
 msgstr ""
 
-#: inc/settings.php:1207
+#: inc/settings.php:1213
 msgid "Included Directories"
 msgstr ""
 
-#: inc/settings.php:1216
+#: inc/settings.php:1222
 msgid ""
 "Enter any directories you would like to be included in CDN rewriting, "
 "separated by commas (,). Default: wp-content,wp-includes"
 msgstr ""
 
-#: inc/settings.php:1223
+#: inc/settings.php:1229
 msgid "CDN Exclusions"
 msgstr ""
 
-#: inc/settings.php:1232
+#: inc/settings.php:1238
 msgid ""
 "Enter any directories or file extensions you would like to be excluded from "
 "CDN rewriting, separated by commas (,). Default: .php"
 msgstr ""
 
-#: inc/settings.php:1238
+#: inc/settings.php:1244
 msgid "Google Analytics"
 msgstr ""
 
-#: inc/settings.php:1243
+#: inc/settings.php:1249
 msgid "Enable Local Analytics"
 msgstr ""
 
-#: inc/settings.php:1250
+#: inc/settings.php:1256
 msgid "Enable syncing of the Google Analytics script to your own server."
 msgstr ""
 
-#: inc/settings.php:1257
+#: inc/settings.php:1263
 msgid "Tracking ID"
 msgstr ""
 
-#: inc/settings.php:1265
+#: inc/settings.php:1271
 msgid "Input your Google Analytics tracking or measurement ID."
 msgstr ""
 
-#: inc/settings.php:1272
+#: inc/settings.php:1278
 msgid "Tracking Code Position"
 msgstr ""
 
-#: inc/settings.php:1281
+#: inc/settings.php:1287
 msgid "Header"
 msgstr ""
 
-#: inc/settings.php:1282
+#: inc/settings.php:1288
 msgid "Footer"
 msgstr ""
 
-#: inc/settings.php:1284
+#: inc/settings.php:1290
 msgid ""
 "Load your analytics script in the header (default) or footer of your site. "
 "Default: Header"
 msgstr ""
 
-#: inc/settings.php:1291
+#: inc/settings.php:1297
 msgid "Script Type"
 msgstr ""
 
-#: inc/settings.php:1303
+#: inc/settings.php:1309
 msgid "Minimal"
 msgstr ""
 
-#: inc/settings.php:1304
+#: inc/settings.php:1310
 msgid "Minimal Inline"
 msgstr ""
 
-#: inc/settings.php:1307
+#: inc/settings.php:1313
 msgid "Choose which script method you would like to use."
 msgstr ""
 
-#: inc/settings.php:1314
+#: inc/settings.php:1320
 msgid "Disable Display Features"
 msgstr ""
 
-#: inc/settings.php:1322
+#: inc/settings.php:1328
 msgid "Disable remarketing and advertising which generates a 2nd HTTP request."
 msgstr ""
 
-#: inc/settings.php:1329
+#: inc/settings.php:1335
 msgid "Anonymize IP"
 msgstr ""
 
-#: inc/settings.php:1337
+#: inc/settings.php:1343
 msgid ""
 "Shorten visitor IP to comply with privacy restrictions in some countries."
 msgstr ""
 
-#: inc/settings.php:1344
+#: inc/settings.php:1350
 msgid "Track Logged In Admins"
 msgstr ""
 
-#: inc/settings.php:1351
+#: inc/settings.php:1357
 msgid "Include logged-in WordPress admins in your Google Analytics reports."
 msgstr ""
 
-#: inc/settings.php:1358
+#: inc/settings.php:1364
 msgid "Adjusted Bounce Rate"
 msgstr ""
 
-#: inc/settings.php:1367
+#: inc/settings.php:1373
 msgid ""
 "Set a timeout limit in seconds to better evaluate the quality of your "
 "traffic. (1-100)"
 msgstr ""
 
-#: inc/settings.php:1384
+#: inc/settings.php:1390
 msgid ""
 "Use your CDN URL when referencing analytics.js from inside gtag.js. Example: "
 "https://cdn.example.com"
 msgstr ""
 
-#: inc/settings.php:1391
+#: inc/settings.php:1397
 msgid "Use MonsterInsights"
 msgstr ""
 
-#: inc/settings.php:1399
+#: inc/settings.php:1405
 msgid ""
 "Allows MonsterInsights to manage your Google Analytics while still using the "
 "locally hosted gtag.js file generated by Perfmatters."
 msgstr ""
 
-#: inc/settings.php:1406
+#: inc/settings.php:1412
 msgid "Enable AMP Support"
 msgstr ""
 
-#: inc/settings.php:1414
+#: inc/settings.php:1420
 msgid ""
 "Enable support for analytics tracking on AMP sites. This is not a local "
 "script, but a native AMP script."
 msgstr ""
 
-#: inc/settings.php:1421
+#: inc/settings.php:1427
 msgid "Dual Tracking"
 msgstr ""
 
-#: inc/settings.php:1429
+#: inc/settings.php:1435
 msgid "Run Google Analytics 4 and Universal Analytics simultaneously."
 msgstr ""
 
-#: inc/settings.php:1436
+#: inc/settings.php:1442
 msgid "Measurement ID"
 msgstr ""
 
-#: inc/settings.php:1445
+#: inc/settings.php:1451
 msgid "Input your Google Analytics 4 measurement ID."
 msgstr ""
 
-#: inc/settings.php:1475
+#: inc/settings.php:1481
 msgid "Accessibility Mode"
 msgstr ""
 
-#: inc/settings.php:1483
+#: inc/settings.php:1489
 msgid ""
 "Disable the use of visual UI elements in the plugin settings such as "
 "checkbox toggles and hovering tooltips."
 msgstr ""
 
-#: inc/settings.php:1490 inc/settings.php:1497
+#: inc/settings.php:1496 inc/settings.php:1503
 msgid "Restore Default Options"
 msgstr ""
 
-#: inc/settings.php:1498
+#: inc/settings.php:1504
 msgid ""
 "Are you sure? This will remove all existing plugin options and restore them "
 "to their default states."
 msgstr ""
 
-#: inc/settings.php:1500
+#: inc/settings.php:1506
 msgid "Restore all plugin options to their default settings."
 msgstr ""
 
-#: inc/settings.php:1507 inc/settings.php:1515 inc/settings.php:2072
+#: inc/settings.php:1513 inc/settings.php:1521 inc/settings.php:2078
 msgid "Purge Meta Options"
 msgstr ""
 
-#: inc/settings.php:1516
+#: inc/settings.php:1522
 msgid ""
 "Are you sure? This will delete all existing Perfmatters meta options for all "
 "posts from the database."
 msgstr ""
 
-#: inc/settings.php:1517
+#: inc/settings.php:1523
 msgid ""
 "Permanently delete all existing Perfmatters meta options from your database."
 msgstr ""
 
-#: inc/settings.php:1524
+#: inc/settings.php:1530
 msgid "Export Settings"
 msgstr ""
 
-#: inc/settings.php:1531
+#: inc/settings.php:1537
 msgid "Export Plugin Settings"
 msgstr ""
 
-#: inc/settings.php:1533
+#: inc/settings.php:1539
 msgid ""
 "Export your Perfmatters settings for this site as a .json file. This lets "
 "you easily import the configuration into another site."
 msgstr ""
 
-#: inc/settings.php:1540
+#: inc/settings.php:1546
 msgid "Import Settings"
 msgstr ""
 
-#: inc/settings.php:1545
+#: inc/settings.php:1551
 msgid "Import Perfmatters settings from an exported .json file."
 msgstr ""
 
-#: inc/settings.php:1555
+#: inc/settings.php:1561
 msgid "Post Revisions"
 msgstr ""
 
-#: inc/settings.php:1563
+#: inc/settings.php:1569
 msgid ""
 "Include post revisions in your database optimization. This also includes "
 "revisions for pages and custom post types."
 msgstr ""
 
-#: inc/settings.php:1570
+#: inc/settings.php:1576
 msgid "Post Auto-Drafts"
 msgstr ""
 
-#: inc/settings.php:1578
+#: inc/settings.php:1584
 msgid ""
 "Include post auto-drafts in your database optimization. This also includes "
 "auto-drafts for pages and custom post types."
 msgstr ""
 
-#: inc/settings.php:1593
+#: inc/settings.php:1599
 msgid ""
 "Include trashed posts in your database optimization. This also includes "
 "trashed pages and custom post types."
 msgstr ""
 
-#: inc/settings.php:1608
+#: inc/settings.php:1614
 msgid "Include spam comments in your database optimization."
 msgstr ""
 
-#: inc/settings.php:1623
+#: inc/settings.php:1629
 msgid "Include trashed comments in your database optimization."
 msgstr ""
 
-#: inc/settings.php:1630
+#: inc/settings.php:1636
 msgid "Expired Transients"
 msgstr ""
 
-#: inc/settings.php:1638
+#: inc/settings.php:1644
 msgid "Include expired transients in your database optimization."
 msgstr ""
 
-#: inc/settings.php:1645
+#: inc/settings.php:1651
 msgid "All Transients"
 msgstr ""
 
-#: inc/settings.php:1653
+#: inc/settings.php:1659
 msgid "Include all transients in your database optimization."
 msgstr ""
 
-#: inc/settings.php:1668
+#: inc/settings.php:1674
 msgid "Include tables in your database optimization."
 msgstr ""
 
-#: inc/settings.php:1675
+#: inc/settings.php:1681
 msgid "Optimize Database"
 msgstr ""
 
-#: inc/settings.php:1682
+#: inc/settings.php:1688
 msgid "Optimize Now"
 msgstr ""
 
-#: inc/settings.php:1685
+#: inc/settings.php:1691
 msgid ""
 "This will make permanent changes that cannot be reverted! Are you sure you "
 "want to proceed with optimization?"
 msgstr ""
 
-#: inc/settings.php:1686
+#: inc/settings.php:1692
 msgid ""
 "Run a one-time optimization of your WordPress database based on the selected "
 "options above. This process runs in the background."
 msgstr ""
 
-#: inc/settings.php:1693
+#: inc/settings.php:1699
 msgid "Scheduled Optimization"
 msgstr ""
 
-#: inc/settings.php:1704
+#: inc/settings.php:1710
 msgid "Daily"
 msgstr ""
 
-#: inc/settings.php:1705
+#: inc/settings.php:1711
 msgid "Weekly"
 msgstr ""
 
-#: inc/settings.php:1706
+#: inc/settings.php:1712
 msgid "Monthly"
 msgstr ""
 
-#: inc/settings.php:1708
+#: inc/settings.php:1714
 msgid ""
 "Schedule a routine optimization of your WordPress database based on the "
 "selected options above. This process runs in the background and starts "
 "immediately after saving."
 msgstr ""
 
-#: inc/settings.php:1931 inc/settings.php:2025
+#: inc/settings.php:1937 inc/settings.php:2031
 msgid "Add New"
 msgstr ""
 
-#: inc/settings.php:1965
+#: inc/settings.php:1971
 msgid "Select Type"
 msgstr ""
 
-#: inc/settings.php:1972
+#: inc/settings.php:1978
 msgid "All Devices"
 msgstr ""
 
-#: inc/settings.php:1977
+#: inc/settings.php:1983
 msgid "Location"
 msgstr ""
 
-#: inc/settings.php:2085
+#: inc/settings.php:2091
 msgid "Import Plugin Settings"
 msgstr ""
 
-#: inc/settings.php:2165
+#: inc/settings.php:2171
 #, php-format
 msgid "Click %s to view documentation."
 msgstr ""
 
-#: inc/settings.php:2208
+#: inc/settings.php:2214
 msgid "Revisions Found"
 msgstr ""
 
-#: inc/settings.php:2212
+#: inc/settings.php:2218
 msgid "Auto-Drafts Found"
 msgstr ""
 
-#: inc/settings.php:2216
+#: inc/settings.php:2222
 msgid "Trashed Posts Found"
 msgstr ""
 
-#: inc/settings.php:2220
+#: inc/settings.php:2226
 msgid "Spam Comments Found"
 msgstr ""
 
-#: inc/settings.php:2224
+#: inc/settings.php:2230
 msgid "Trashed Comments Found"
 msgstr ""
 
-#: inc/settings.php:2229
+#: inc/settings.php:2235
 msgid "Expired Transients Found"
 msgstr ""
 
-#: inc/settings.php:2233
+#: inc/settings.php:2239
 msgid "Transients Found"
 msgstr ""
 
-#: inc/settings.php:2237
+#: inc/settings.php:2243
 msgid "Unoptimized Tables Found"
 msgstr ""
 
-#: inc/settings.php:2241
+#: inc/settings.php:2247
 msgid ""
 "Setting a new schedule will run the database optimization process "
 "immediately after saving your changes."
@@ -1866,19 +1869,19 @@ msgstr ""
 msgid "How do I host Google Analytics locally?"
 msgstr ""
 
-#: perfmatters.php:136 perfmatters.php:175
+#: perfmatters.php:137 perfmatters.php:176
 msgid "Support"
 msgstr ""
 
-#: perfmatters.php:164
+#: perfmatters.php:165
 msgid "Network"
 msgstr ""
 
-#: perfmatters.php:168
+#: perfmatters.php:169
 msgid "Tools"
 msgstr ""
 
-#: perfmatters.php:179
+#: perfmatters.php:180
 msgid "Speed Up Guide"
 msgstr ""
 

@@ -6,13 +6,13 @@
  *  @package Ultimate Video Banner
  */
 
-if ( ! class_exists( 'Ultimate_Video_Banner' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Video_Banner' ) ) {
 	/**
 	 * Function that initializes Ultimate Heading Module
 	 *
-	 * @class Ultimate_Video_Banner
+	 * @class Ultimate_VC_Addons_Video_Banner
 	 */
-	class Ultimate_Video_Banner {
+	class Ultimate_VC_Addons_Video_Banner {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Heading module.
 		 *
@@ -32,9 +32,9 @@ if ( ! class_exists( 'Ultimate_Video_Banner' ) ) {
 		 */
 		public function register_video_banner_assets() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-video-banner-style', 'video-banner' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-video-banner-style', 'video-banner' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-video-banner-script', 'video-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-video-banner-script', 'video-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 * Function that initializes settings of Ultimate Heading Module.
@@ -302,49 +302,49 @@ if ( ! class_exists( 'Ultimate_Video_Banner' ) ) {
 			}
 
 			/* ---- main heading styles ---- */
-			$title_style_inline = '';
+			$uavc_title_style_inline = '';
 			if ( '' != $ult_vb_settings['title_font_family'] ) {
 				$ult_vb_settings['title_font_family'] = get_ultimate_font_family( $ult_vb_settings['title_font_family'] );
 				if ( $ult_vb_settings['title_font_family'] ) {
-					$title_style_inline .= 'font-family:\'' . $ult_vb_settings['title_font_family'] . '\';';
+					$uavc_title_style_inline .= 'font-family:\'' . $ult_vb_settings['title_font_family'] . '\';';
 				}
 			}
 			// main heading font style.
-			$title_style_inline .= get_ultimate_font_style( $ult_vb_settings['title_font_style'] );
+			$uavc_title_style_inline .= get_ultimate_font_style( $ult_vb_settings['title_font_style'] );
 			// attach font size if set.
 			if ( '' != $ult_vb_settings['title_font_size'] ) {
-				$title_style_inline .= 'font-size:' . $ult_vb_settings['title_font_size'] . 'px;';
+				$uavc_title_style_inline .= 'font-size:' . $ult_vb_settings['title_font_size'] . 'px;';
 			}
 			// attach font color if set.
 			if ( '' != $ult_vb_settings['title_color'] ) {
-				$title_style_inline .= 'color:' . $ult_vb_settings['title_color'] . ';';
+				$uavc_title_style_inline .= 'color:' . $ult_vb_settings['title_color'] . ';';
 			}
 			// line height.
 			if ( '' != $ult_vb_settings['title_line_height'] ) {
-				$title_style_inline .= 'line-height:' . $ult_vb_settings['title_line_height'] . 'px;';
+				$uavc_title_style_inline .= 'line-height:' . $ult_vb_settings['title_line_height'] . 'px;';
 			}
 
 			/* ---- description styles ---- */
-			$desc_style_inline = '';
+			$uavc_desc_style_inline = '';
 			if ( '' != $ult_vb_settings['desc_font_family'] ) {
 				$ult_vb_settings['desc_font_family'] = get_ultimate_font_family( $ult_vb_settings['desc_font_family'] );
 				if ( $ult_vb_settings['desc_font_family'] ) {
-					$desc_style_inline .= 'font-family:\'' . $ult_vb_settings['desc_font_family'] . '\';';
+					$uavc_desc_style_inline .= 'font-family:\'' . $ult_vb_settings['desc_font_family'] . '\';';
 				}
 			}
 			// desc font style.
-			$desc_style_inline .= get_ultimate_font_style( $ult_vb_settings['desc_font_style'] );
+			$uavc_desc_style_inline .= get_ultimate_font_style( $ult_vb_settings['desc_font_style'] );
 			// attach font size if set.
 			if ( '' != $ult_vb_settings['desc_font_size'] ) {
-				$desc_style_inline .= 'font-size:' . $ult_vb_settings['desc_font_size'] . 'px;';
+				$uavc_desc_style_inline .= 'font-size:' . $ult_vb_settings['desc_font_size'] . 'px;';
 			}
 			// attach font color if set.
 			if ( '' != $ult_vb_settings['desc_color'] ) {
-				$desc_style_inline .= 'color:' . $ult_vb_settings['desc_color'] . ';';
+				$uavc_desc_style_inline .= 'color:' . $ult_vb_settings['desc_color'] . ';';
 			}
 			// line height.
 			if ( '' != $ult_vb_settings['desc_line_height'] ) {
-				$desc_style_inline .= 'line-height:' . $ult_vb_settings['desc_line_height'] . 'px;';
+				$uavc_desc_style_inline .= 'line-height:' . $ult_vb_settings['desc_line_height'] . 'px;';
 			}
 
 			if ( '' != $ult_vb_settings['video_banner_placeholder'] ) {
@@ -375,10 +375,10 @@ if ( ! class_exists( 'Ultimate_Video_Banner' ) ) {
 			if ( '' != $ult_vb_settings['video_banner_title'] || '' != $content ) :
 				$output .= '<div class="ult-video-banner-desc">';
 				if ( '' != $ult_vb_settings['video_banner_title'] ) :
-					$output .= '<h2 class="ult-video-banner-title" style="' . esc_attr( $title_style_inline ) . '">' . __( $ult_vb_settings['video_banner_title'], 'ultimate_vc' ) . '</h2>'; // PHPCS:ignore:WordPress.WP.I18n.NonSingularStringLiteralText
+					$output .= '<h2 class="ult-video-banner-title" style="' . esc_attr( $uavc_title_style_inline ) . '">' . __( $ult_vb_settings['video_banner_title'], 'ultimate_vc' ) . '</h2>'; // PHPCS:ignore:WordPress.WP.I18n.NonSingularStringLiteralText
 					endif;
 				if ( '' != $ult_vb_settings['video_banner_content'] ) :
-					$output .= '<div class="ult-video-banner-content" style="' . esc_attr( $desc_style_inline ) . '">' . __( $ult_vb_settings['video_banner_content'], 'ultimate_vc' ) . '</div>'; // PHPCS:ignore:WordPress.WP.I18n.NonSingularStringLiteralText
+					$output .= '<div class="ult-video-banner-content" style="' . esc_attr( $uavc_desc_style_inline ) . '">' . __( $ult_vb_settings['video_banner_content'], 'ultimate_vc' ) . '</div>'; // PHPCS:ignore:WordPress.WP.I18n.NonSingularStringLiteralText
 						endif;
 					$output .= '</div>';
 				endif;
@@ -388,7 +388,7 @@ if ( ! class_exists( 'Ultimate_Video_Banner' ) ) {
 		}
 	}
 }
-$ultimate_video_banner = new Ultimate_Video_Banner();
+$ultimate_video_banner = new Ultimate_VC_Addons_Video_Banner();
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Video_Banner' ) ) {
 	/**
 	 * Function that checks if the class is exists or not.

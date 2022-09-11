@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Delivery 2.1.0\n"
+"Project-Id-Version: WooCommerce Order Delivery 2.2.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-01T14:13:17+00:00\n"
+"POT-Creation-Date: 2022-09-01T13:25:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-order-delivery\n"
@@ -833,14 +833,14 @@ msgctxt "checkout field label"
 msgid "Time frame"
 msgstr ""
 
-#: includes/class-wc-od-checkout.php:455
+#: includes/class-wc-od-checkout.php:486
 #: includes/wc-od-functions.php:314
 msgid "Shipping and delivery"
 msgstr ""
 
 #. translators: %s: field label
-#: includes/class-wc-od-checkout.php:639
-#: includes/class-wc-od-checkout.php:654
+#: includes/class-wc-od-checkout.php:677
+#: includes/class-wc-od-checkout.php:692
 #: includes/subscriptions/class-wc-od-subscription-delivery.php:388
 #: includes/subscriptions/class-wc-od-subscription-delivery.php:408
 msgid "%s is not valid."
@@ -877,6 +877,20 @@ msgstr ""
 #: includes/class-wc-od-requirements.php:72
 msgctxt "admin notice"
 msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:180
+#: includes/traits/trait-wc-od-settings-shipping-methods.php:32
+msgid "All shipping methods"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:211
+msgid "All rates"
+msgstr ""
+
+#: includes/class-wc-od-shipping-methods-selector.php:227
+msgctxt "label for the default shipping zone"
+msgid "Other locations"
 msgstr ""
 
 #: includes/data-stores/class-wc-od-data-store-delivery-range.php:100
@@ -929,6 +943,17 @@ msgstr ""
 msgid "New subscription delivery note"
 msgstr ""
 
+#. translators: %s: woocommerce subscription version
+#: includes/integrations/class-wc-od-integration-subscriptions.php:59
+msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce Subscriptions %s or higher."
+msgstr ""
+
+#. translators: %d: Rate ID of the table rate shipping
+#: includes/integrations/class-wc-od-integration-table-rate-shipping.php:71
+msgctxt "table rate shipping label"
+msgid "Rate %d"
+msgstr ""
+
 #: includes/subscriptions/class-wc-od-subscription-admin.php:57
 msgctxt "meta box title"
 msgid "Next order delivery"
@@ -978,12 +1003,7 @@ msgstr ""
 msgid "It will avoid the customer postponing a subscription order to the next billing interval (weekly, monthly… )."
 msgstr ""
 
-#. translators: %s: woocommerce subscription version
-#: includes/subscriptions/class-wc-od-subscriptions.php:24
-msgid "<strong>WooCommerce Order Delivery</strong> requires WooCommerce Subscriptions %s or higher."
-msgstr ""
-
-#: includes/subscriptions/class-wc-od-subscriptions.php:168
+#: includes/subscriptions/class-wc-od-subscriptions.php:148
 msgid "Delivery date not found for the next order."
 msgstr ""
 
@@ -1060,11 +1080,6 @@ msgstr ""
 msgid "Shipping methods"
 msgstr ""
 
-#: includes/traits/trait-wc-od-settings-shipping-methods.php:32
-#: includes/wc-od-shipping-methods-functions.php:184
-msgid "All shipping methods"
-msgstr ""
-
 #: includes/traits/trait-wc-od-settings-shipping-methods.php:33
 #: includes/traits/trait-wc-od-settings-shipping-methods.php:38
 msgid "All shipping methods, except&hellip;"
@@ -1092,21 +1107,6 @@ msgstr ""
 #: includes/wc-od-functions.php:626
 msgctxt "field label"
 msgid "Delivery Date"
-msgstr ""
-
-#. translators: %d: Rate ID of the table rate shipping
-#: includes/wc-od-shipping-methods-functions.php:202
-msgctxt "table rate shipping label"
-msgid "Rate %d"
-msgstr ""
-
-#: includes/wc-od-shipping-methods-functions.php:207
-msgid "All rates"
-msgstr ""
-
-#: includes/wc-od-shipping-methods-functions.php:217
-msgctxt "label for the default shipping zone"
-msgid "Other locations"
 msgstr ""
 
 #: includes/wc-od-time-frames-functions.php:51

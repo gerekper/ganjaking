@@ -5,13 +5,13 @@
  *  @package Ultimate CountDown
  */
 
-if ( ! class_exists( 'Ultimate_CountDown' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_CountDown' ) ) {
 		/**
 		 * Function that initializes Ultimate CountDown Module
 		 *
-		 * @class Ultimate_CountDown
+		 * @class Ultimate_VC_Addons_CountDown
 		 */
-	class Ultimate_CountDown {
+	class Ultimate_VC_Addons_CountDown {
 				/**
 				 * Constructor function that constructs default values for the Ultimate CountDown module.
 				 *
@@ -33,11 +33,11 @@ if ( ! class_exists( 'Ultimate_CountDown' ) ) {
 		 */
 		public function count_down_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult-countdown-dependent', 'countdown-dependent', false, array( 'jquery' ), ULTIMATE_VERSION, false );
-			Ultimate_VC_Addons::ultimate_register_script( 'jquery.timecircle', 'countdown', false, array( 'jquery' ), ULTIMATE_VERSION, false );
-			Ultimate_VC_Addons::ultimate_register_script( 'jquery.countdown', 'count-timer', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-countdown-dependent', 'countdown-dependent', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery.timecircle', 'countdown', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery.countdown', 'count-timer', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-countdown', 'countdown' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-countdown', 'countdown' );
 		}
 				/**
 				 * Function for button admin script
@@ -51,9 +51,9 @@ if ( ! class_exists( 'Ultimate_CountDown' ) ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
 
-					Ultimate_VC_Addons::ultimate_register_style( 'ult-colorpicker-style', UAVC_URL . 'admin/css/bootstrap-datetimepicker-admin.css', true );
+					Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-colorpicker-style', UAVC_URL . 'admin/css/bootstrap-datetimepicker-admin.css', true );
 
-					wp_enqueue_style( 'ult-colorpicker-style' );
+					wp_enqueue_style( 'ultimate-vc-addons-colorpicker-style' );
 				}
 			}
 		}
@@ -677,7 +677,7 @@ if ( ! class_exists( 'Ultimate_CountDown' ) ) {
 		}
 	}
 	// instantiate the class.
-	$ult_countdown = new Ultimate_CountDown();
+	$ult_countdown = new Ultimate_VC_Addons_CountDown();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ult_Countdown' ) ) {
 				/**
 				 * Function that initializes Ultimate Countdown Module

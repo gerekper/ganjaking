@@ -241,8 +241,12 @@ class Populator {
     }
 
     // set default sender info based on current user
+    $currentUserName = $currentUser->display_name ?: ''; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    // parse current user name if an email is used
+    $senderName = explode('@', $currentUserName);
+    $senderName = reset($senderName);
     $defaultSender = [
-      'name' => $currentUser->display_name ?: '', // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      'name' => $senderName,
       'address' => $currentUser->user_email ?: '', // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     ];
     $savedSender = $this->settings->fetch('sender', []);
@@ -305,8 +309,8 @@ class Populator {
     }
 
     $woocommerceOptinOnCheckout = $this->settings->fetch('woocommerce.optin_on_checkout');
-    $legacyLabelText = $this->wp->_x('Yes, I would like to be added to your mailing list', "default email opt-in message displayed on checkout page for ecommerce websites", 'mailpoet');
-    $currentLabelText = $this->wp->_x('I would like to receive exclusive emails with discounts and product information', "default email opt-in message displayed on checkout page for ecommerce websites", 'mailpoet');
+    $legacyLabelText = _x('Yes, I would like to be added to your mailing list', "default email opt-in message displayed on checkout page for ecommerce websites", 'mailpoet');
+    $currentLabelText = _x('I would like to receive exclusive emails with discounts and product information', "default email opt-in message displayed on checkout page for ecommerce websites", 'mailpoet');
     if (empty($woocommerceOptinOnCheckout)) {
       $this->settings->set('woocommerce.optin_on_checkout', [
         'enabled' => empty($settingsDbVersion), // enable on new installs only
@@ -370,9 +374,9 @@ class Populator {
     if (!$defaultSegment instanceof Segment) {
       $defaultSegment = Segment::create();
       $newList = [
-        'name' => $this->wp->__('Newsletter mailing list', 'mailpoet'),
+        'name' => __('Newsletter mailing list', 'mailpoet'),
         'description' =>
-          $this->wp->__('This list is automatically created when you install MailPoet.', 'mailpoet'),
+          __('This list is automatically created when you install MailPoet.', 'mailpoet'),
       ];
       $defaultSegment->hydrate($newList);
       $defaultSegment->save();
@@ -470,7 +474,14 @@ class Populator {
         'name' => 'afterTimeType',
         'newsletter_type' => NewsletterEntity::TYPE_RE_ENGAGEMENT,
       ],
-
+      [
+        'name' => 'workflowId',
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
+      ],
+      [
+        'name' => 'workflowStepId',
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
+      ],
     ];
 
     return [

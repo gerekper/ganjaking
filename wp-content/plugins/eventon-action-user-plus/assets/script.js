@@ -4,21 +4,6 @@
  */
 jQuery(document).ready(function($){
 
-// increase and reduce quantity
-    $('body').on('click','.evoaup_qty_change', function(event){
-        OBJ = $(this);
-        QTY = parseInt(OBJ.siblings('em').html());
-        MAX = OBJ.siblings('input').attr('max');
-
-        (OBJ.hasClass('plu'))?  QTY++: QTY--;
-
-        QTY =(QTY==0)? 1: QTY;
-        QTY = (MAX!='' && QTY > MAX)? MAX: QTY;
-
-        OBJ.siblings('em').html(QTY);
-        OBJ.siblings('input').val(QTY);
-    });
-
 // Select submission level
     $('body').on('click','.evoaup_purchase_form .evoaup_slevel',function(){
         FORM = $(this).closest('.evoaup_purchase_form');
@@ -33,7 +18,10 @@ jQuery(document).ready(function($){
         OBJ = $(this);
         LEVEL = OBJ.closest('.evoaup_slevel'); 
         FORM = LEVEL.parent();       
+        var type = OBJ.data('type');
         var ajaxdataa = {};
+
+        if(type != 'paidev') return false;
         
         ajaxdataa['action'] = 'evoaup_add_cart';
         ajaxdataa['wcid'] = OBJ.data('wcid');
@@ -64,7 +52,6 @@ jQuery(document).ready(function($){
                 FORM.removeClass( 'evoloading');
             }
         });
-
     });
 
 // Get submission form
@@ -77,6 +64,7 @@ jQuery(document).ready(function($){
         ajaxdataa['wcid'] = OBJ.data('wcid');
         ajaxdataa['level'] = OBJ.data('level');
         ajaxdataa['sformat'] = OBJ.data('sformat');
+        ajaxdataa['d'] = SECTION.find('.evoau_form_atts').data('d');
 
         $.ajax({
             beforeSend: function(){ 
@@ -103,44 +91,6 @@ jQuery(document).ready(function($){
             }
         });
      });
-
-
-   /* $('body').on('click','.evoaup_add_to_cart', function(event){
-
-        event.preventDefault();
-        OBJ = $(this);
-        SECTION = OBJ.closest('.evoaup_section');
-        
-        var sold_individually = OBJ.data('si');
-        var qty = (sold_individually=='yes')? 1: OBJ.parent().find('input[name=quantity]').val();
-        var product_id = OBJ.attr('data-product_id');
-
-        $.ajax({
-            type: 'POST',
-            url: '?add-to-cart='+product_id+'&quantity='+qty,
-            beforeSend: function(){ 
-            	SECTION.addClass('loading');
-            },
-            success: function(response, textStatus, jqXHR){
-                // Show success message
-                SECTION.find('.evoaup_purchase_form').hide();
-                SECTION.find('.evoaup_success').slideDown();
-            }, complete: function(){
-            	SECTION.removeClass('loading');
-                var delay = setTimeout(function(){
-                    
-                }, 1000);
-                
-                // if need to be redirected to cart after adding
-                    //if(evotx_object.redirect_to_cart=='yes'){
-                    //    window.location.href = evotx_object.cart_url;
-                    //}
-            }   
-        });
-        
-        return false;
-    });
-*/
 
 // Update mini cart content
     function update_wc_cart(){

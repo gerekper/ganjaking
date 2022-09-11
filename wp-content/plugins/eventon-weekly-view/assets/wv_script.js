@@ -5,10 +5,12 @@
 jQuery(document).ready(function($){
 
 	var SC = '';
-	
+
+
 	// INIT AJAX - success
 		$('body').on('evo_init_ajax_success_each_cal', function(event, data, calid, v){
 			CAL = $('body').find('#'+ calid);
+
 			if(!CAL.hasClass('evoWV')) return;
 			populate_calendar( CAL );
 		});
@@ -17,6 +19,12 @@ jQuery(document).ready(function($){
 		var wv_range_format = {
 			0: 'MM D', 1: 'MM D, YYYY'
 		};
+
+		$('body').on('evo_init_ajax_success',function(event, data){
+			$('body').find('.ajde_evcal_calendar.noiajx.evoWV').each(function(){
+				populate_calendar( $(this) );
+			});
+		});
 
 	// DRAW
 		function populate_calendar( CAL){
@@ -29,6 +37,7 @@ jQuery(document).ready(function($){
 
 			//JSON = CAL.find('.evo_cal_events').data('events');
 			SC = CAL.evo_shortcode_data();
+
 
 			// grid style
 			if( SC.week_style == '1')	CAL.find('#evcal_list').addClass('evo_hide');
@@ -45,7 +54,6 @@ jQuery(document).ready(function($){
 
 			var month = M.get('month')+1;
 			for(x=1; x<=7; x++){
-
 				template_data['days'][x] = {};
 
 				template_data['days'][x]['newmo'] = (month != (M.get('month')+1)? M.get('month')+1:'no' );
@@ -57,15 +65,14 @@ jQuery(document).ready(function($){
 				template_data['days'][x]['DN'] = M.day();
 				template_data['days'][x]['today'] = (now.format('YYYY M D') == M.format('YYYY M D')? 'today':'');
 				
-
-				M.add(1,'d');
-					
+				M.add(1,'d');					
 			}
 
 			template_data['table_style'] = SC.table_style;
 			template_data['week_style'] = SC.week_style;
 			template_data['fixed_week'] = SC.fixed_week;
 			template_data['disable_week_switch'] = SC.disable_week_switch;
+
 				
 			_HTML = CAL.evo_HB_process_template({
 				TD:template_data, part:'evowv_week'
@@ -96,6 +103,9 @@ jQuery(document).ready(function($){
 				_txt = CAL.evo_get_txt({V:'this_week'});
 				CAL.find('.EVOWV_dates').prepend('<a class="evowv_this_weekbtn evcal_btn" data-week_incre="'+incre+'">'+_txt+'</a>');
 			}
+
+			// remove pre laoder section
+			CAL.find('.evowv_pre_loader').remove();
 		}
 
 		function _get_unix_of_now_week_start(){
@@ -117,11 +127,71 @@ jQuery(document).ready(function($){
 		function populate_events_into_weekgrid( CAL){
 			var eJSON = CAL.find('.evo_cal_events').data('events');
 			var grid = CAL.find('.EVOWV_grid');
+			var cal_events = CAL.find('.eventon_list_event');
 
+			// run for each day in the week
 			grid.find('.evo_wv_day').each(function(index){	
 				var O = $(this);	
 				time_format = CAL.evo_get_global({S1:'cal_def',S2:'wp_time_format'});
 
+				EC = 0;
+				// each event in the events list
+				cal_events.each(function(index, elm){
+					var ED = $(elm).evo_cal_get_basic_eventdata();
+					if(!ED) return;
+
+					SU = parseInt(O.data('su'));	
+					EU = SU+86399;
+
+					var inrange = CAL.evo_is_in_range({
+						'S': SU,	'E': EU,	'start': ED.event_start_unix,'end':ED.event_end_unix
+					});
+
+					if(inrange){
+						EC++;
+						O.addClass('has_events');
+
+						// table style week
+						if( SC.week_style == '1'){
+ 
+							style = SC.table_style =='0'? 'border-color':'background-color';
+
+							// calculate display time
+							_time = '';			
+		
+							// all day events
+							if( 
+								(ED.event_start_unix <= SU || ED.event_start_unix <= SU +1) && EU <= ED.event_end_unix 
+							){
+								_time = CAL.evo_get_txt({V:'all_day'});
+							}else{
+								m = moment.unix( ED.event_start_unix ).utc();
+								me = moment.unix( ED.event_end_unix ).utc();
+
+								_time += (SU <= ED.event_start_unix && ED.event_start_unix <= EU ) ? 	m.format( time_format ): '';
+								_time += ' - ';
+								_time += ( ED.event_end_unix < EU) ? me.format( time_format) : '';
+							}
+
+							O.find(".evowv_col_events")
+								.append("<span class='event evowv_tb_event' data-ec='"+ ED.uID +"' style='"+style+":"+ ED.hex_color +"' data-uxval='"+ ED.ux_val +"'><span class='time'>"+ _time +"</span>"+ ED.event_title +"</span>");
+						}else{
+							if( EC<4){
+								O.find('span.day_events').append("<em class='dayTag' style='background-color:"+ ED.hex_color +"' title='"+ ED.event_title +"'></em>");
+							}
+						}
+					}
+				});
+
+				if( EC>3 && SC.week_style != '1'){
+					O.find('span.day_events').append("<em class='dayTag more' title='+"+ EC+"'></em>")
+						.addClass('has_more_events');
+				}
+				if( EC == 0) O.addClass('noE');
+
+				return;
+
+				/* legacy since 2.0
 				EC = 0;
 				$.each(eJSON, function(ie, ev){
 					SU = parseInt(O.data('su'));	
@@ -138,6 +208,7 @@ jQuery(document).ready(function($){
 						O.addClass('has_events');
 
 
+						// table style week
 						if( SC.week_style == '1'){
  
 							style = SC.table_style =='0'? 'border-color':'background-color';
@@ -179,6 +250,7 @@ jQuery(document).ready(function($){
 						.addClass('has_more_events');
 				}
 				if( EC == 0) O.addClass('noE');
+				*/
 
 			});
 		}
@@ -236,6 +308,7 @@ jQuery(document).ready(function($){
 
 		// week switcher week list
 		function get_week_switcher_weeks( SU , CAL){
+
 			var S = moment.unix( SU).utc();
 			var E = moment.unix( SU).utc().add(1,'w').subtract(1,'s');
 
@@ -245,6 +318,7 @@ jQuery(document).ready(function($){
 
 			_HTML = '';
 			for(x=1; x<=5; x++){
+
 				now = (SU == S.unix())? 'thisweek':'';
 				incre = parseInt((S.unix() - iSU)/604800);				
 
@@ -302,12 +376,62 @@ jQuery(document).ready(function($){
 
 				CAL.find('.'+e_cl).find('.desc_trig').trigger('click');
 			})
+
 		// calendar view switching
-			.on('evo_vSW_clicked',function(event, OBJ, CAL){
-				if(!(OBJ.hasClass('evowv'))) return;			
-				CAL.evo_update_cal_sc({F:'calendar_type', V: 'weekly'});
+			.on('evo_vSW_clicked',function(event, OBJ, CAL, DD){
+				if(!(OBJ.hasClass('evowv'))) return;	
+
+				var SC = CAL.evo_shortcode_data();
+				var DATA = OBJ.data('d');
+
+				// calculate week date range using shortcode dates					
+					DD.setUTCDate( SC.fixed_day ); // adjust date to fixed date
+
+					var sow = DATA.sow;
+					var today_day = DD.getUTCDay();
+
+					var dayDif = _in_ws = '';
+
+					if( sow >1) dayDif = today_day -( sow-1);
+					if( today_day > sow ) dayDif = today_day - sow;
+					if( today_day == sow ) dayDif = 0;
+					if( sow > today_day) dayDif = 7 - sow;
+
+					if(dayDif != 0) DD.setDate( DD.getDate() - dayDif );
+					
+					CAL.evo_update_cal_sc({
+						F:'focus_start_date_range', 
+						V: Math.floor(DD.getTime()/1000)
+					});
+
+					_in_ws = Math.floor(DD.getTime()/1000);
+
+					// end date
+					DD.setSeconds( DD.getSeconds() + (7*24*3600) -1  );
+
+					CAL.evo_update_cal_sc({
+						F:'focus_end_date_range', 
+						V: Math.floor(DD.getTime()/1000)
+					});
+
+				CAL.evo_update_cal_sc({F:'fixed_day', V: SC.fixed_day });
+				CAL.evo_update_cal_sc({F:'calendar_type',V: 'weekly'});				
+				CAL.evo_update_cal_sc({F:'_in_ws',V: _in_ws });
+				CAL.evo_update_cal_sc({F:'disable_week_switch',V: 'no'});
+				CAL.evo_update_cal_sc({F:'table_style',V: '0'});
+				CAL.evo_update_cal_sc({F:'week_style',V: '0'});
+
 				populate_calendar( CAL);
+
+				// process calendar events in new range
+				CAL.evo_cal_events_in_range({
+					S: CAL.evo_get_sc_val({'F':'focus_start_date_range'}),
+					E: CAL.evo_get_sc_val({'F':'focus_end_date_range'}),
+					showEV:true,
+					showEVL:true
+				});
 			})
+
 		// move to this week
 			.on('click','.evowv_this_weekbtn',function(){
 				CAL = $(this).closest('.ajde_evcal_calendar');
@@ -342,7 +466,7 @@ jQuery(document).ready(function($){
 					EU = SU + 86399;
 				}	
 
-				console.log( SU+' '+EU);
+				//console.log( SU+' '+EU);
 
 				// get events from evnet list
 					R = CAL.evo_cal_events_in_range({
@@ -362,11 +486,12 @@ jQuery(document).ready(function($){
 	
 	
 	// Week range selection
-		$('.evoWV').on('mouseover', '.EVOWV_change', function(){
+		$('body')
+		.on('mouseover', '.EVOWV_change', function(){
 			CAL = $(this).closest('.ajde_evcal_calendar');
 			CAL.find('.EVOWV_ranger').show();
-		});
-		$('.evoWV').on('mouseleave','.EVOWV_ranger', function(){
+		})
+		.on('mouseleave','.EVOWV_ranger', function(){
 			// reset the switcher to fixed_week
 			CAL = $(this).closest('.ajde_evcal_calendar');
 			SU = CAL.find('.EVOWV_thisdates_range').data('su');
@@ -375,8 +500,8 @@ jQuery(document).ready(function($){
 
 			CAL.find('.EVOWV_date_ranges').html( _HTML );
 			$(this).hide();
-		});
-		$('.evoWV').on('click','.EVOWV_range_mover',function(){
+		})
+		.on('click','.EVOWV_range_mover',function(){
 			var OBJ = $(this),
 			UL = OBJ.siblings('.EVOWV_ranger_handle').find('ul');
 			CAL = $(this).closest('.ajde_evcal_calendar');
@@ -411,7 +536,7 @@ jQuery(document).ready(function($){
 			}			
 		});
 	// click on side arrows
-		$('.evoWV').on('click', '.evowv_arrow', function(event){
+		$('body').on('click', '.evowv_arrow', function(event){
 			var CAL = $(this).closest('.ajde_evcal_calendar');
 				
 			// new week increment
@@ -424,7 +549,7 @@ jQuery(document).ready(function($){
 		});	
 
 	// click on a new range
-		$('.evoWV').on('click','.EVOWV_date_ranges li',function(){
+		$('body').on('click','.EVOWV_date_ranges li',function(){
 			var CAL = $(this).closest('.ajde_evcal_calendar');			
 			week_incre = parseInt($(this).data('week_incre'));
 			new_week(CAL, week_incre, 'wv_newweek');

@@ -1,7 +1,7 @@
 <?php
 /**
  * FullCal front-end
- * @version 	1.1.2
+ * @version 	2.0
  */
 
 class evofc_frontend{
@@ -15,7 +15,11 @@ class evofc_frontend{
 		add_action( 'init', array( $this, 'register_styles_scripts' ) ,15);	
 		add_action( 'wp_footer', array( $this, 'print_fc_scripts' ) ,15);
 
+		add_filter('eventon_events_list_classnames', array($this, 'event_list_classnames'), 10, 2);
+		add_filter('eventon_cal_class', array($this, 'cal_classes'), 10, 2);
+
 		// evo ajax
+		add_action('eventon_below_sorts', array($this, 'add_loading'), 10, 2);
 		add_action('evo_ajax_cal_before', array($this, 'evo_init_ajax_before'), 10, 1);
 		add_filter('evo_global_data', array($this, 'global_data'), 10, 1);
 		add_filter('evo_init_ajax_data', array($this, 'init_ajax_data'), 10, 2);	
@@ -23,7 +27,7 @@ class evofc_frontend{
 		// Widget		
 		add_action( 'widgets_init', array( $this, 'register_widgets' ) );	
 
-		add_action('evo_cal_view_switcher_end', array($this, 'view_switcher'),10,1);
+		add_action('evo_view_switcher_items', array($this, 'view_switch_item'),15,2);
 	}
 
 	// MAIN CAL
@@ -52,6 +56,27 @@ class evofc_frontend{
 			remove_filter('eventon_shortcode_defaults', array(EVOFC()->shortcodes,'add_shortcode_defaults'));
 
 			return $O;
+		}
+
+	// Cal Class names
+		public function event_list_classnames($A, $args){
+			if($args['calendar_type'] != 'fullcal') return $A;				
+			return $A;		
+		}
+		public function cal_classes($A, $args){
+			if($args['calendar_type'] != 'fullcal') return $A;
+			return $A;	
+		}
+	// loading animation inclusion
+		function add_loading($content, $args){
+
+			if($args['calendar_type'] != 'fullcal') return;
+
+			?>
+			<div class='evo_ajax_load_events evofc_pre_loader'>
+				<span ></span>
+			</div>
+			<?php
 		}
 		
 	// BEFORE INIT CAL
@@ -90,7 +115,13 @@ class evofc_frontend{
 		}
 		function init_ajax_data($A, $G){
 			if(isset($G['calendars']) && in_array('EVOFC', $G['calendars'])){
-				ob_start(); ?><div class='evofc_month_grid evoADDS eventon_fullcal' style='display:none' data-d=''>
+				ob_start(); 
+
+				$data_args = array(
+					'heat_c'=> EVO()->cal->get_prop('evofc_heat','evcal_1')
+				);
+				?>
+				<div class='evofc_month_grid evoADDS eventon_fullcal' style='display:none' data-d='<?php echo json_encode($data_args);?>'>
 					<div class='evoFC_tip' style='display:none'></div>
 					<div class='evofc_title_tip' style='display:none'>
 						<span class='evofc_ttle_cnt'>3</span><ul class='evofc_ttle_events'><li style='border-left-color:#FBAD61'>Event Name</li></ul>
@@ -101,28 +132,37 @@ class evofc_frontend{
 				$A['temp']['evofc_base'] = ob_get_clean();
 
 				ob_start();?><div class='evofc_month m_{{month}}'>
-					<div class='eventon_fc_daynames'>{{#each day_names}}<p class='evofc_day_name evo_fc_day' data-d='{{@key}}'>{{this}}</p>{{/each}}<div class='clear'></div></div>
+					<div class='eventon_fc_daynames'>{{#each day_names}}<p class='evofc_day_name evo_fc_day' data-d='{{@key}}'>{{this}}</p>{{/each}}</div>
 					<div class='eventon_fc_days'>
 						{{{forAdds blanks "<p class='evo_fc_day evo_fc_empty'>-</p>"}}}
 						{{#each days}}
-							<p class='evofc_day evo_fc_day {{cls}} d_{{@key}}' data-su='{{su}}' data-d='{{@key}}'>{{@key}}<span></span></p>
+							<p class='evofc_day evo_fc_day {{cls}} d_{{@key}}' data-su='{{su}}' data-d='{{@key}}'>
+								<span class='evo_day_in'>{{@key}}<span class='day_evs'></span></span>
+							</p>
 						{{/each}}
-					<div class='clear'></div></div></div><?php 
+					</div></div><?php 
 				$A['temp']['evofc_grid'] = ob_get_clean();
 
 				$A['txt']['more'] = eventon_get_custom_language('', 'evo_lang_more','More' );
 			}
 			return $A;
 		}
-
-		
-
-	// Other Additions
-		function view_switcher($A){
-			if($A['view_switcher'] == 'yes'){
+	
+	// Other Additions		
+		public function view_switch_item( $A, $args){
+			if($args['view_switcher'] == 'yes'){
 				EVOFC()->load_script = true;
-				echo "<span class='evo_vSW evofc ". ($A['calendar_type']=='fullcal'?'focus':'')."'>Month</span>";
+
+				$DATA = array();
+				$DATA['focus_start_date_range'] = $args['focus_start_date_range'];
+				$DATA['focus_end_date_range'] = $args['focus_end_date_range'];
+
+				$DATA['c'] = 'evoFC'. ( isset($args['nexttogrid']) && $args['nexttogrid'] =='yes' ? ' evoFC_nextto':'');
+
+				$A['evofc'] = array($DATA, 'fullcal', evo_lang('Month'));
 			}
+
+			return $A;
 		}
 
 

@@ -385,7 +385,7 @@ jQuery(document).ready(function($){
 
 				// load Json data					
 				JDATA = OBJ.parent().siblings('.evors_jdata').data('j');
-				console.log(JDATA);
+				
 
 				show_rsvp_form(OBJ, '','update');
 			});
@@ -397,6 +397,8 @@ jQuery(document).ready(function($){
 
 			ROW = OBJ.closest('.evo_metarow_rsvp');
 			if(OBJ.closest('.evo_metarow_rsvp').length) load_json_to_local( OBJ);
+
+			
 
 			if(JDATA){
 				$.each(JDATA, function(index, val){

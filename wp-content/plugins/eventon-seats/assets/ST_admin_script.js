@@ -9,8 +9,8 @@ jQuery(document).ready(function($){
 	lb1 = $('.evost_lightbox');
 	lb2 = $('.evost_lightbox_secondary');
 	json_map_data = '';
-	map_temp = '';
-	local_attendees = ''; temp_attendees = '';
+	var map_temp = '';
+	var local_attendees = ''; var temp_attendees = '';
 
 	// LOAD seat map editor HTML view
 		$('.evost_open_seat_map_editor').on('click',function(){
@@ -41,6 +41,48 @@ jQuery(document).ready(function($){
 				},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
 			});
 		});
+
+	// when changes made the seat map
+		$('body').on('seatmap_changed', function(){
+			$('body').find('.evosteditor_footer').addClass('needsave');
+		});
+		$('body').on('seatmap_saved', function(){
+			$('body').find('.evosteditor_footer').removeClass('needsave');
+		});
+
+
+	// re-load seat editor with new seat map data
+		$('body').on('change', '.evost_trig_new_map',function(){
+			
+			OBJ = $(this);
+
+			const map_header = $('body').find('.evosteditor_header');
+
+			var ajaxdataa = {};
+			ajaxdataa['action']='evost_get_seat_map_data';
+			ajaxdataa['j'] = map_header.data('j');
+			ajaxdataa['type'] = OBJ.data('type');
+			ajaxdataa['cid'] = OBJ.val();
+			
+			$.ajax({
+				beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
+				url:	evost_admin_ajax_script.ajaxurl,
+				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
+				success:function(data){
+					if(data.status=='good'){
+						//localize
+						json_map_data = data.j;
+						
+						temp_attendees = data.temp_attendees;
+						local_attendees = data.attendees;
+
+						$('.evost_lightbox').find('.ajde_popup_text').html( data.content );
+						$('body').trigger('evost_draw_seat_map');
+						$('body').trigger('evost_process_settings');						
+					}else{}
+				},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
+			});
+		});	
 
 	// OPEN FORMS
 		$('body').on('evost_open_form', function(event, type, method, OBJ){
@@ -179,6 +221,8 @@ jQuery(document).ready(function($){
 				}
 			});
 		});
+
+
 	
 	// SUBMIT FORM
 		$('body').on('click','.evost_save_form',function(){
@@ -649,6 +693,7 @@ jQuery(document).ready(function($){
 			ajaxdataa['action']='evost_editor_save_changes';
 			ajaxdataa['data'] = hj;
 			ajaxdataa['s'] = s;
+			if( $('body').find('.evobost_block_id').length>0) ajaxdataa['block_id'] = $('body').find('.evobost_block_id').val();
 			
 			$.ajax({
 				beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
@@ -658,7 +703,10 @@ jQuery(document).ready(function($){
 					if(data.status=='good'){
 						show_lb_msg(data.msg,'good','ed');
 					}else{}
-				},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
+				},complete:function(){ 
+					$('.evost_lightbox .ajde_popup_text').removeClass('loading');
+					$('body').trigger('seatmap_saved');
+				}
 			});
 
 		});	
@@ -819,6 +867,7 @@ jQuery(document).ready(function($){
 				colorPickMulti($(this));
 			});
 			function colorPickMulti(cp){
+				
 				$(cp).ColorPicker({
 					onBeforeShow: function(){
 						//$(this).ColorPickerSetColor( $(this).attr('hex'));
@@ -853,6 +902,10 @@ jQuery(document).ready(function($){
 			    }).bind('click',function(){
 					$(this).addClass('colorpicker_on');
 				});
+
+				if( !EE.hasClass('clrO')){
+					EE.trigger('click').addClass('clrO');
+				}
 			}
 
 	// SUPPORTIVE
@@ -861,15 +914,24 @@ jQuery(document).ready(function($){
 		function draggableStuff(){
 			$('.evost_section.editing').draggable({
 				disabled: false,
-				containment: $('.evosteditor_content')
+				containment: $('.evosteditor_content'),
+				stop: function(event, ui){
+					$('body').trigger('seatmap_changed');
+				}
 			});
 			$('.evost_section.editing.type_una').resizable({
 				disabled: false,
-				containment: $('.evosteditor_content')
+				containment: $('.evosteditor_content'),
+				stop: function(event, ui){
+					$('body').trigger('seatmap_changed');
+				}
 			});
 			$('.evost_section.editing.type_aoi').resizable({
 				disabled: false,
-				containment: $('.evosteditor_content')
+				containment: $('.evosteditor_content'),
+				stop: function(event, ui){
+					$('body').trigger('seatmap_changed');
+				}
 			});
 		}
 		function disableInteractStuff(){

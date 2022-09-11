@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create a full grid calendar with a month view of eventON events.
  Author: Ashan Jay
- Version: 1.1.13
+ Version: 2.0.3
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 5.7
+ Tested up to: 5.9
  */
  
 class EventON_full_cal{
 	
-	public $version='1.1.13';
-	public $eventon_version = '3.1';
+	public $version='2.0.3';
+	public $eventon_version = '4.0.2';
 	public $name = 'FullCal';
 		
 	public $is_running_fc =false;

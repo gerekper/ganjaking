@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Splash Popup
  * Plugin URI: https://woocommerce.com/products/woocommerce-splash-popup/
  * Description: Allows store owners to display a lightbox popup on their web site containing page content based on whether the user is logged in or not, and whether the user is a customer or not. Once hidden the popup remains hidden via cookie.
- * Version: 1.3.0
+ * Version: 1.4.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
- * Tested up to: 5.6
+ * Tested up to: 6.0.1
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Woo: 187449:fa19ddbd06f96ba55e651d56418259be
- * WC tested up to: 5.0
+ * WC tested up to: 6.8.0
  * WC requires at least: 2.6
  *
  * @package woocommerce-splash-popup
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_SPLASH_POPUP_VERSION', '1.3.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SPLASH_POPUP_VERSION', '1.4.1' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_splash_popup_init' );
@@ -300,14 +300,10 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		public function get_content_id() {
 			$content_id = '';
 			// Customer orders query.
-			$customer_orders = get_posts(
+			$customer_orders = wc_get_orders(
 				array(
-					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-					'meta_key'    => '_customer_user',
-					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-					'meta_value'  => get_current_user_id(),
-					'post_type'   => 'shop_order',
-					'post_status' => array( 'wc-processing', 'wc-completed' ),
+					'customer_id'  => get_current_user_id(),
+					'status' => array( 'wc-processing', 'wc-completed' ),
 				)
 			);
 

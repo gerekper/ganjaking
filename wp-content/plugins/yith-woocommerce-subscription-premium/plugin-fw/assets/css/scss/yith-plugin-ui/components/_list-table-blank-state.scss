@@ -1,0 +1,25 @@
+.yith-plugin-fw__list-table-blank-state {
+  padding: 30px 30px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 30px;
+  }
+
+  img.yith-plugin-fw__list-table-blank-state__icon {
+    width: 100px;
+    margin: 0 auto 30px;
+  }
+
+  i.yith-plugin-fw__list-table-blank-state__icon {
+    font-size: 65px;
+    margin: 0 auto 30px;
+  }
+
+  .yith-plugin-fw__list-table-blank-state__message {
+    font-size: 1.4em;
+    line-height: 1.5;
+  }
+}

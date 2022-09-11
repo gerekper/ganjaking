@@ -22,6 +22,7 @@ return array(
     'MailPoet\\Premium\\Automation\\Engine\\Workflows\\ConditionalStep' => $baseDir . '/lib/Automation/Engine/Workflows/ConditionalStep.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
+    'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumWorkflowTemplates' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php',
     'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\UserRegistrationTrigger' => $baseDir . '/lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php',
     'MailPoet\\Premium\\Config\\Automation' => $baseDir . '/lib/Config/Automation.php',
     'MailPoet\\Premium\\Config\\Env' => $baseDir . '/lib/Config/Env.php',

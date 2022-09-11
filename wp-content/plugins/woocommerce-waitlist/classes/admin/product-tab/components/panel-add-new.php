@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php _e( 'Add new user', 'woocommerce-waitlist' ); ?>
 	</button>
 	<div class="wcwl_add_user_content">
-		<input type="email" placeholder="<?php _e( 'Email Address', 'woocommerce-waitlist' ); ?>" class="wcwl_email" name="wcwl_email_<?php echo $product_id; ?>"/>
-		<button type="button" class="button wcwl_email_add_user" data-nonce="<?php echo wp_create_nonce( 'wcwl-add-user-nonce' ); ?>">
+		<input type="email" placeholder="<?php _e( 'Email Address', 'woocommerce-waitlist' ); ?>" class="wcwl_email" name="wcwl_email_<?php echo esc_attr( $product_id ); ?>"/>
+		<button type="button" class="button wcwl_email_add_user" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wcwl-add-user-nonce' ) ); ?>">
 			<?php _e( 'Add', 'woocommerce-waitlist' ); ?>
 		</button>
 		<button type="button" class="button wcwl_back">

@@ -1,5 +1,21 @@
 Variations & Options (EVOVO) addon for EventON Plugin
 ====================================
+v 1.0.2 (2022-2-18)
+FIXED: price options as separate ticket minor add to cart error
+FIXED: booking variation deleted still shows up after saving changes
+
+v 1.0.1 (2022-1-26)
+FIXED: price options sold as separate not adding more than one
+FIXED: variations sold as separate ticket issues
+FIXED: minor booking block integration issues
+
+v 1.0 (2021-1-4)
+ADDED: variation data passed on to attendee data array view_attendee_list_data()
+ADDED: compatibility with QR code addon to show variation data in checking page
+
+v 0.11 (2021-10-4)
+FIXED: previous variation event data passing on to non variation events
+
 v.0.10 (2021-6-22)
 ADDED: Single Variations to be able to sell as separate tickets
 FIXED: booking varitaions are still showing even after disabled

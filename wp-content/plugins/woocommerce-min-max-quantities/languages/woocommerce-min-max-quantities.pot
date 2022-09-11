@@ -1,15 +1,15 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Min/Max Quantities 2.4.24\n"
+"Project-Id-Version: WooCommerce Min/Max Quantities 3.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-min-max-quantities\n"
-"POT-Creation-Date: 2021-07-02 08:46:19+00:00\n"
+"POT-Creation-Date: 2022-08-25 18:58:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -50,53 +50,53 @@ msgstr ""
 msgid "The maximum allowed value of items in an order."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:126
-#: includes/class-wc-min-max-quantities-admin.php:329
+#: includes/class-wc-min-max-quantities-admin.php:142
+#: includes/class-wc-min-max-quantities-admin.php:447
 msgid "Minimum quantity"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:126
+#: includes/class-wc-min-max-quantities-admin.php:142
 msgid ""
 "Enter a quantity to prevent the user buying this product if they have fewer "
 "than the allowed quantity in their cart"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:128
-#: includes/class-wc-min-max-quantities-admin.php:334
+#: includes/class-wc-min-max-quantities-admin.php:144
+#: includes/class-wc-min-max-quantities-admin.php:452
 msgid "Maximum quantity"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:128
+#: includes/class-wc-min-max-quantities-admin.php:144
 msgid ""
 "Enter a quantity to prevent the user buying this product if they have more "
 "than the allowed quantity in their cart"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:130
-#: includes/class-wc-min-max-quantities-admin.php:339
-#: includes/class-wc-min-max-quantities-admin.php:364
-#: includes/class-wc-min-max-quantities-admin.php:385
+#: includes/class-wc-min-max-quantities-admin.php:146
+#: includes/class-wc-min-max-quantities-admin.php:457
+#: includes/class-wc-min-max-quantities-admin.php:482
+#: includes/class-wc-min-max-quantities-admin.php:503
 msgid "Group of..."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:130
+#: includes/class-wc-min-max-quantities-admin.php:146
 msgid "Enter a quantity to only allow this product to be purchased in groups of X"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:132
+#: includes/class-wc-min-max-quantities-admin.php:148
 msgid "Combine variations"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:132
+#: includes/class-wc-min-max-quantities-admin.php:148
 msgid "Combine all variations together when checking the min/max rules above."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:134
-#: includes/class-wc-min-max-quantities-admin.php:344
+#: includes/class-wc-min-max-quantities-admin.php:150
+#: includes/class-wc-min-max-quantities-admin.php:462
 msgid "Order rules: Do not count"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:134
+#: includes/class-wc-min-max-quantities-admin.php:150
 msgid ""
 "Don't count this product against your minimum order quantity/value rules. "
 "See the <a "
@@ -104,12 +104,12 @@ msgid ""
 "target=\"_blank\">documentation</a> for full details."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:136
-#: includes/class-wc-min-max-quantities-admin.php:346
+#: includes/class-wc-min-max-quantities-admin.php:152
+#: includes/class-wc-min-max-quantities-admin.php:464
 msgid "Order rules: Exclude"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:136
+#: includes/class-wc-min-max-quantities-admin.php:152
 msgid ""
 "Exclude this product from minimum order quantity/value rules. If this is "
 "the only item in the cart, rules will not apply. See the <a "
@@ -117,95 +117,169 @@ msgid ""
 "target=\"_blank\">documentation</a> for full details."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:138
+#: includes/class-wc-min-max-quantities-admin.php:154
 msgid "Category rules: Exclude"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:138
-#: includes/class-wc-min-max-quantities-admin.php:348
+#: includes/class-wc-min-max-quantities-admin.php:154
+#: includes/class-wc-min-max-quantities-admin.php:466
 msgid ""
 "Exclude this product from category group-of-quantity rules. This product "
 "will not be counted towards category groups."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:297
+#: includes/class-wc-min-max-quantities-admin.php:226
+#: includes/class-wc-min-max-quantities-admin.php:353
+#. translators: %1$s: Product name, %2$d: Group of quantity, %3$d: Invalid min
+#. quantity, %4$d: Adjusted min quantity
+msgid ""
+"The <strong>Minimum Quantity</strong> of <strong>%1$s</strong> must be a "
+"multiple of <strong>%2$d</strong>. Its value has been adjusted from "
+"<strong>%3$d</strong> to <strong>%4$d</strong>."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:242
+#. translators: %1$s: Product name, %2$d: Group of quantity, %3$d: Invalid max
+#. quantity, %4$d: Adjusted max quantity
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%1$s</strong> must be a "
+"multiple of <strong>%2$d</strong>. Its value has been adjusted from "
+"<strong>%3$d</strong> to <strong>%4$d</strong>."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:260
+#: includes/class-wc-min-max-quantities-admin.php:384
+#. translators: Product name
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%s</strong> was not valid "
+"and has been adjusted. Please enter a positive integer equal to or higher "
+"than <strong>Minimum Quantity</strong>, or leave the <strong>Maximum "
+"Quantity</strong> field empty for an unlimited maximum quantity."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:366
+#. translators: %1$s: Product name, %2$d: Group of quantity, %3$d: Invalid max
+#. quantity, %4$d: Adjusted max quantity
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%s</strong> must be a "
+"multiple of <strong>%d</strong>. Its value has been adjusted from "
+"<strong>%3$d</strong> to <strong>%4$d</strong>."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:415
 msgid "Min/Max Rules"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:297
+#: includes/class-wc-min-max-quantities-admin.php:415
 msgid "Enable this option to override min/max settings at variation level"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:344
+#: includes/class-wc-min-max-quantities-admin.php:462
 msgid "Don't count this product against your minimum order quantity/value rules."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:346
+#: includes/class-wc-min-max-quantities-admin.php:464
 msgid ""
 "Exclude this product from minimum order quantity/value rules. If this is "
 "the only item in the cart, rules will not apply."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:348
+#: includes/class-wc-min-max-quantities-admin.php:466
 msgid "Category group-of rules: Exclude"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:366
-#: includes/class-wc-min-max-quantities-admin.php:388
+#: includes/class-wc-min-max-quantities-admin.php:484
+#: includes/class-wc-min-max-quantities-admin.php:506
 msgid ""
 "Enter a quantity to only allow products in this category to be purchased in "
 "groups of X"
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:424
+#: includes/class-wc-min-max-quantities-admin.php:542
 msgid "Purchasable in..."
 msgstr ""
 
-#: includes/class-wc-min-max-quantities-admin.php:446
+#: includes/class-wc-min-max-quantities-admin.php:564
 msgid "Groups of"
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:164
+#: includes/class-wc-min-max-quantities-admin.php:598
+#. translators: %1$s: Product name, %2$s: Group of quantity
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%1$s</strong> must be a "
+"positive integer equal to or higher than <strong>Minimum Quantity</strong>. "
+"Please adjust its value and save your changes."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:610
+#: includes/class-wc-min-max-quantities-admin.php:648
+#. translators: %1$s: Product name, %2$s: Group of quantity
+#. translators: %1$s: Variation name, %2$s: Group of quantity
+msgid ""
+"The <strong>Minimum Quantity</strong> of <strong>%s</strong> must be a "
+"multiple of <strong>%d</strong>. Please adjust its value and save your "
+"changes."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:616
+#: includes/class-wc-min-max-quantities-admin.php:654
+#. translators: %1$s: Product name, %2$s: Group of quantity
+#. translators: %1$s: Variation name, %2$s: Group of quantity
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%s</strong> must be a "
+"multiple of <strong>%d</strong>. Please adjust its value and save your "
+"changes."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:637
+#. translators: %1$s: Product name, %2$s: Group of quantity
+msgid ""
+"The <strong>Maximum Quantity</strong> of <strong>%s</strong> must be a "
+"positive integer equal to or higher than <strong>Minimum Quantity</strong>. "
+"Please adjust its value and save your changes."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:181
 #. translators: %s is the WooCommerce link.
 msgid ""
 "Min/Max Quantities requires the WooCommerce plugin to be installed and "
 "active. You can download %s here."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:434
-#: woocommerce-min-max-quantities.php:730
+#: woocommerce-min-max-quantities.php:450
+#: woocommerce-min-max-quantities.php:906
 msgid "excludes "
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:439
+#: woocommerce-min-max-quantities.php:455
 #. translators: %d: Minimum amount of items in the cart
 msgid ""
 "The minimum required items in cart is %d. Please increase the quantity in "
 "your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:447
+#: woocommerce-min-max-quantities.php:461
 #. translators: %d: Maximum amount of items in the cart
 msgid ""
 "The maximum allowed order quantity is %d. Please decrease the quantity in "
 "your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:456
+#: woocommerce-min-max-quantities.php:470
 #. translators: %s: Minimum order value
 msgid ""
 "The minimum required order value is %s. Please increase the quantity in "
 "your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:463
+#: woocommerce-min-max-quantities.php:477
 #. translators: %s: Maximum order value
 msgid ""
 "The maximum allowed order value is %s. Please decrease the quantity in your "
 "cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:493
+#: woocommerce-min-max-quantities.php:507
 #. translators: %1$s: Category name, %2$s: Comma separated list of product
 #. names, %3$d: Group amount
 msgid ""
@@ -213,58 +287,94 @@ msgid ""
 "in groups of %3$d. Please add or remove the items to continue."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:531
+#: woocommerce-min-max-quantities.php:560
 msgid "Available on backorder"
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:536
+#: woocommerce-min-max-quantities.php:565
 msgid "Out of stock"
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:564
+#: woocommerce-min-max-quantities.php:603
 #. translators: %1$s: Product name, %2$s: Minimum order quantity
 msgid ""
-"The minimum required order quantity for %1$s is %2$s. Please increase the "
+"The minimum required order quantity of %1$s is %2$s. Please increase the "
 "quantity in your cart or add additional variation of this product."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:567
+#: woocommerce-min-max-quantities.php:611
 #. translators: %1$s: Product name, %2$s: Minimum order quantity
 msgid ""
-"The minimum required order quantity for %1$s is %2$s. Please increase the "
+"The quantity of %1$s has been increased to %2$s, which is the minimum "
+"required order quantity."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:614
+#. translators: %1$s: Product name, %2$s: Minimum order quantity
+msgid ""
+"The minimum required order quantity of %1$s is %2$s. Please increase the "
 "quantity in your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:572
+#: woocommerce-min-max-quantities.php:624
 #. translators: %1$s: Product name, %2$s: Maximum order quantity
 msgid ""
-"The maximum allowed quantity for %1$s is %2$s. Please decrease the quantity "
+"The maximum allowed quantity of %1$s is %2$s. Please decrease the quantity "
 "in your cart or remove additional variation of this product."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:575
+#: woocommerce-min-max-quantities.php:632
 #. translators: %1$s: Product name, %2$s: Maximum order quantity
 msgid ""
-"The maximum allowed quantity for %1$s is %2$s. Please decrease the quantity "
+"The quantity of %1$s has been decreased to %2$s, which is the maximum "
+"allowed order quantity."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:635
+#. translators: %1$s: Product name, %2$s: Maximum order quantity
+msgid ""
+"The maximum allowed quantity of %1$s is %2$s. Please decrease the quantity "
 "in your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:581
+#: woocommerce-min-max-quantities.php:647
+#. translators: %1$s: Product name, %2$d: Group amount
+msgid ""
+"The quantity of %1$s has been adjusted, as it must be bought in groups of "
+"%2$d."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:650
 #. translators: %1$s: Product name, %2$d: Group amount
 msgid ""
 "%1$s must be bought in groups of %2$d. Please increase or decrease the "
 "quantity to continue."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:666
+#: woocommerce-min-max-quantities.php:750
+#. translators: %1$s: Product name, %2$d: Group of quantity
+msgid "\"%1$s\" can only be bought in groups of %2$d."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:774
+#. translators: %1$s: Product name, %2$d: Minimum Quantity
+msgid "The minimum required quantity for \"%1$s\" is %2$d."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:800
+#. translators: %1$s: Product name, %2$d: Maximum quantity
+msgid "The maximum allowed quantity for \"%1$s\" is %2$d."
+msgstr ""
+
+#: woocommerce-min-max-quantities.php:842
 #. translators: %1$s: Product name, %2$d: Maximum quantity, %3$s: Currenty
 #. quantity
 msgid ""
-"The maximum allowed quantity for %1$s is %2$d (you currently have %3$s in "
+"The maximum allowed quantity of %1$s is %2$d (you currently have %3$s in "
 "your cart). Please decrease the quantity in your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:671
+#: woocommerce-min-max-quantities.php:847
 #. translators: %1$s: Product name, %2$d: Maximum quantity, %3$s: Currenty
 #. quantity, %4$s: Cart link
 msgid ""
@@ -274,29 +384,29 @@ msgid ""
 "wc-forward\">View cart</a>"
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:686
+#: woocommerce-min-max-quantities.php:862
 #. translators: %1$s: Product name, %2$d: Minimum quantity, %3$s: Currenty
 #. quantity
 msgid ""
-"The minimum required quantity for %1$s is %2$d (you currently have %3$s in "
+"The minimum required quantity of %1$s is %2$d (you currently have %3$s in "
 "your cart). Please increase the quantity in your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:735
+#: woocommerce-min-max-quantities.php:911
 #. translators: %d: Maximum quantity in cart
 msgid ""
 "The maximum allowed items in cart is %d. Please decrease the quantity in "
 "your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:738
+#: woocommerce-min-max-quantities.php:914
 #. translators: %1$d: Maximum quanity, %2$d: Current quantity
 msgid ""
 "The maximum allowed items in cart is %1$d (you currently have %2$d in your "
 "cart). Please decrease the quantity in your cart."
 msgstr ""
 
-#: woocommerce-min-max-quantities.php:742
+#: woocommerce-min-max-quantities.php:918
 #. translators: %1$d: Maximum quanity, %2$d: Current quantity, %3$s: Cart link
 msgid ""
 "The maximum allowed items in cart is %1$d (you currently have %2$d in your "

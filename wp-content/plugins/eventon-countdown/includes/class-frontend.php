@@ -1,9 +1,9 @@
 <?php
 /** 
- * Frontend Class for Subscriber
+ * Frontend Class for countdown
  *
  * @author 		AJDE
- * @version     0.1
+ * @version     1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -24,68 +24,60 @@ class evocd_front{
 
 		//add_action( 'wp_head', array( $this, 'print_scripts' ) ,15);
 
-		add_filter('eventon_eventtop_one', array($this, 'eventop'), 10, 3);
 		add_filter('evo_eventtop_adds', array($this, 'eventtop_adds'), 10, 1);
-		add_filter('eventon_eventtop_evocd', array($this, 'eventtop_content'), 10, 2);
+		add_filter('eventon_eventtop_evocd', array($this, 'eventtop_content'), 10, 3);
 
 		
 	}
 
 	// event top inclusion
-		public function eventop($array, $pmv, $vals){
-			$array['evocd'] = array(
-				'vals'=>$vals,
-				'pmv'=>$pmv,
-			);
-			return $array;
-		}
-		public function eventtop_content($object, $helpers){
+		public function eventtop_content($OT, $object,  $EVENT){
 			
 			// countdown is hidden via shortcode
 			if(!empty( EVO()->evo_generator->shortcode_args['hide_countdown']) &&  EVO()->evo_generator->shortcode_args['hide_countdown']=='yes')
-				return;
+				return $OT;
 
 			$output = '';
 			
 			// countdown is disabled
-			if(empty($object->pmv['_evocd_countdown']) || (!empty($object->pmv['_evocd_countdown']) && $object->pmv['_evocd_countdown'][0]=='no'))
-				return;
+			if( !$EVENT->check_yn('_evocd_countdown') )	return $OT;
 
 			date_default_timezone_set('UTC');
 			$rightnow =current_time('timestamp');
 			
 			// ending time
-				$endat = (empty($object->pmv['_evocd_countdown_end']) || (!empty($object->pmv['_evocd_countdown_end']) && $object->pmv['_evocd_countdown_end'][0]=='end'))? 'end':'start';
+				$endat = $EVENT->get_prop('_evocd_countdown_end') == 'end'? 'end':'start';
 
-			$endtime = ($endat=='end')? $object->pmv['evcal_erow'][0] : $object->pmv['evcal_srow'][0];
+			$endtime = ($endat=='end')? $EVENT->get_end_time() : $EVENT->get_start_time();
 			$repeat_num = 0;
 
 			// Repeating events
-			if(!empty($object->pmv['evcal_repeat']) && $object->pmv['evcal_repeat'][0]=='yes'){
-				$repeat_intervals = (!empty($object->pmv['repeat_intervals']))?
-					unserialize($object->pmv['repeat_intervals'][0]): false;
+			if($EVENT->is_repeating_event()){
+				$repeat_intervals = $EVENT->get_repeats();
+
+				$this_ri = $object->ri;
 				
 				$endtime = ($endat=='end')? 
-					(($repeat_intervals && !empty($object->vals['ri']))? 
-					$repeat_intervals[$object->vals['ri']][1]:$endtime):
-					(($repeat_intervals && !empty($object->vals['ri']))? 
-					$repeat_intervals[$object->vals['ri']][0]:$endtime);
+					(($repeat_intervals && !empty($this_ri))? 
+					$repeat_intervals[$this_ri][1]:$endtime):
+					(($repeat_intervals && !empty($this_ri))? 
+					$repeat_intervals[$this_ri][0]:$endtime);
 
-				$repeat_num =$object->vals['ri'];
+				$repeat_num = $this_ri;
 			}
 
 			// when event expire
-			$ex_ux = (!empty($object->pmv['_evocd_countdown_ux']))? $object->pmv['_evocd_countdown_ux'][0]:'0';
+			$ex_ux = $EVENT->get_prop_val('_evocd_countdown_ux','0');
 
 			$different = $endtime - $rightnow;
 
 			// If custom offset time is set
-				$offset = (!empty($object->pmv['_evocd_custom_time']))? (int)$object->pmv['_evocd_custom_time'][0]:0;
+				$offset = ($EVENT->get_prop('_evocd_custom_time'))? (int)$EVENT->get_prop('_evocd_custom_time'):0;
 
 				$different = $different - ($offset*60);
 
 			// hook for expiration action
-				if($different<0) do_action('ecocd_timer_expired', $ex_ux,$object->pmv );
+				if($different<0) do_action('ecocd_timer_expired', $ex_ux,$object->evvals );
 
 			// pass time data values to calendar
 				$time_json = json_encode(array(
@@ -99,16 +91,14 @@ class evocd_front{
 				));
 
 			// text translations
-				$_evocd_tx1 = !empty($object->pmv['_evocd_tx1'])? $object->pmv['_evocd_tx1'][0]:
-					evo_lang('This event ends in..');
-				$_evocd_tx2 = !empty($object->pmv['_evocd_tx2'])? $object->pmv['_evocd_tx2'][0]:
-					evo_lang('Time has ran out! Better luck next time!');
+				$_evocd_tx1 = $EVENT->get_prop_val( '_evocd_tx1', evo_lang('This event ends in..') );
+				$_evocd_tx2 = $EVENT->get_prop_val('_evocd_tx2', evo_lang('Time has ran out! Better luck next time!') );
 
 
 			if($different>0){
-				$unique_id = 'event_cd_'.$object->vals['eventid'].'_'.$repeat_num.'_'.(rand(1,10));
+				$unique_id = 'event_cd_'.$EVENT->ID.'_'.$repeat_num.'_'.(rand(1,10));
 
-				$output .= "<span class='evocd_timer'>";
+				$output .= "<span class='evocd_timer evoet_b1'>";
 					$output .= "<span class='evocd_text' data-ex_tx='". $_evocd_tx2 ."'>". $_evocd_tx1 ."</span>";
 					$output .= "<span id='".$unique_id."' class='evocd_time' data-et='".$different."' data-ex_ux='{$ex_ux}' data-timetx='".$time_json."'>";
 						//$output .= '<span id="noDays" class="countdown is-countdown"><span class="countdown-row countdown-show3">
@@ -122,7 +112,7 @@ class evocd_front{
 				</span>";
 
 			}else{
-				$output .= "<span class='evocd_timer'>";
+				$output .= "<span class='evocd_timer evoet_b1'>";
 				$output .= "<span class='evocd_text timeexpired' data-ex_tx='". $_evocd_tx2 ."'>". $_evocd_tx2 ."</span></span>";
 			}
 
@@ -131,7 +121,7 @@ class evocd_front{
 
 		// event card inclusion functions		
 			function eventtop_adds($array){
-				$array[] = 'evocd';
+				$array['evocd'] = __('Countdown Timer','evocd');
 				return $array;
 			}
 

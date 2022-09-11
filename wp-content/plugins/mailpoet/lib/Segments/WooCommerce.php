@@ -191,6 +191,7 @@ class WooCommerce {
       $this->updateGlobalStatus();
     }
 
+    $this->subscribersRepository->invalidateTotalSubscribersCache();
     return $lastCheckedOrderId;
   }
 

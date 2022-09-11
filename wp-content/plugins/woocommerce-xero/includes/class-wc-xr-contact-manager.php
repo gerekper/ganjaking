@@ -30,35 +30,33 @@ class WC_XR_Contact_Manager {
 		// Setup address object
 		$address = new WC_XR_Address();
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
-		// Set line 1
-		$billing_address_1 = $old_wc ? $order->billing_address_1 : $order->get_billing_address_1();
+		// Set line 1.
+		$billing_address_1 = $order->get_billing_address_1();
 		$address->set_line_1( $billing_address_1 );
 
-		// Set city
-		$billing_city = $old_wc ? $order->billing_city : $order->get_billing_city();
+		// Set city.
+		$billing_city = $order->get_billing_city();
 		$address->set_city( $billing_city );
 
-		// Set region
-		$billing_state = $old_wc ? $order->billing_state : $order->get_billing_state();
+		// Set region.
+		$billing_state = $order->get_billing_state();
 		$address->set_region( $billing_state );
 
-		// Set postal code
-		$billing_postcode = $old_wc ? $order->billing_postcode : $order->get_billing_postcode();
+		// Set postal code.
+		$billing_postcode = $order->get_billing_postcode();
 		$address->set_postal_code( $billing_postcode );
 
-		// Set country
-		$billing_country = $old_wc ? $order->billing_country : $order->get_billing_country();
+		// Set country.
+		$billing_country = $order->get_billing_country();
 		$address->set_country( $billing_country );
 
-		// Set line 2
-		$billing_address_2 = $old_wc ? $order->billing_address_2 : $order->get_billing_address_2();
+		// Set line 2.
+		$billing_address_2 = $order->get_billing_address_2();
 		if ( strlen( $billing_address_2 ) > 0 ) {
 			$address->set_line_2( $billing_address_2 );
 		}
 
-		// Return address object
+		// Return address object.
 		return $address;
 	}
 
@@ -147,11 +145,9 @@ class WC_XR_Contact_Manager {
 		// Setup Contact object
 		$contact = new WC_XR_Contact();
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
-		$billing_company    = $old_wc ? $order->billing_company : $order->get_billing_company();
-		$billing_first_name = $old_wc ? $order->billing_first_name : $order->get_billing_first_name();
-		$billing_last_name  = $old_wc ? $order->billing_last_name : $order->get_billing_last_name();
+		$billing_company    = $order->get_billing_company();
+		$billing_first_name = $order->get_billing_first_name();
+		$billing_last_name  = $order->get_billing_last_name();
 
 		// Set Invoice name
 		if ( apply_filters('woocommerce_xero_use_company_name', true ) && strlen( $billing_company ) > 0 ) {
@@ -160,7 +156,7 @@ class WC_XR_Contact_Manager {
 			$invoice_name = $billing_first_name . ' ' . $billing_last_name;
 		}
 
-		$billing_email       = $old_wc ? $order->billing_email : $order->get_billing_email();
+		$billing_email       = $order->get_billing_email();
 		$unique_invoice_name = $invoice_name . ' (' . $billing_email . ')';
 		$xero_contact        = $this->get_contact_by_email( $billing_email, $invoice_name );
 		$contact_id_only     = null;
@@ -198,7 +194,7 @@ class WC_XR_Contact_Manager {
 		$contact->set_addresses( array( $this->get_address_by_order( $order ) ) );
 
 		// Set phone
-		$billing_phone = $old_wc ? $order->billing_phone : $order->get_billing_phone();
+		$billing_phone = $order->get_billing_phone();
 		$contact->set_phones( array( new WC_XR_Phone( $billing_phone ) ) );
 
 		// Set VAT/Tax Number.

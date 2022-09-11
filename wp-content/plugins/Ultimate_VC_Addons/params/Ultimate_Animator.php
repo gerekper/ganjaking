@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_Animator_Param
+ * Class Ultimate_VC_Addons_Animator_Param
  *
- * @package Ultimate_Animator_Param.
+ * @package Ultimate_VC_Addons_Animator_Param.
  */
 
-if ( ! class_exists( 'Ultimate_Animator_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Animator_Param' ) ) {
 	/**
-	 * Class Ultimate_Animator_Param
+	 * Class Ultimate_VC_Addons_Animator_Param
 	 *
-	 * @class Ultimate_Animator_Param.
+	 * @class Ultimate_VC_Addons_Animator_Param.
 	 */
-	class Ultimate_Animator_Param {
+	class Ultimate_VC_Addons_Animator_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -39,6 +39,10 @@ if ( ! class_exists( 'Ultimate_Animator_Param' ) ) {
 			$json         = ultimate_get_animation_json();
 			$jsoniterator = json_decode( $json, true );
 
+			$width_float_style = 'width: 45%; float: left;';
+			$anim_prev_1       = 'padding: 8px; width: 45%; float: left; text-align: center; margin-left: 15px;';
+			$anim_prev_2       = 'padding: 15px; background: #1C8FCF; color: #FFF;';
+
 			$animators = '<select name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $param_name ) . ' ' . esc_attr( $type ) . ' ' . esc_attr( $class ) . '">';
 
 			foreach ( $jsoniterator as $key => $val ) {
@@ -64,10 +68,10 @@ if ( ! class_exists( 'Ultimate_Animator_Param' ) ) {
 			$animators .= '<select>';
 
 			$output  = '';
-			$output .= '<div class="select_anim" style="width: 45%; float: left;">';
+			$output .= '<div class="select_anim" style="' . esc_attr( $width_float_style ) . '">';
 			$output .= $animators;
 			$output .= '</div>';
-			$output .= '<div class="anim_prev" style=" padding: 8px; width: 45%; float: left; text-align: center; margin-left: 15px;"> <span id="animate-me" style="padding: 15px; background: #1C8FCF; color: #FFF;">Animation Preview</span></div>';
+			$output .= '<div class="anim_prev" style="' . esc_attr( $anim_prev_1 ) . '"> <span id="animate-me" style="' . esc_attr( $anim_prev_2 ) . '">Animation Preview</span></div>';
 			$output .= '<script type="text/javascript">
 					jQuery(document).ready(function(){
 						var animator = jQuery(".' . esc_attr( $param_name ) . '");
@@ -85,6 +89,6 @@ if ( ! class_exists( 'Ultimate_Animator_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_Animator_Param' ) ) {
-	$ultimate_animator_param = new Ultimate_Animator_Param();
+if ( class_exists( 'Ultimate_VC_Addons_Animator_Param' ) ) {
+	$ultimate_animator_param = new Ultimate_VC_Addons_Animator_Param();
 }

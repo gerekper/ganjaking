@@ -7,18 +7,10 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin
- * @version     1.1
+ * @version     4.0.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-/** Prevent non-admin access to backend */
-	function eventon_prevent_admin_access() {
-		if ( get_option('eventon_lock_down_admin') == 'yes' && ! is_ajax() && ! ( current_user_can('edit_posts') || current_user_can('manage_eventon') ) ) {
-			//wp_safe_redirect(get_permalink(woocommerce_get_page_id('myaccount')));
-			exit;
-		}
-	}
 
 
 // @since 2.2.24
@@ -59,23 +51,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	}
 
 
-// HEX code to RGB
-	function eventon_hex2rgb($hex) {
-	   $hex = str_replace("#", "", $hex);
-
-	   if(strlen($hex) == 3) {
-	      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-	      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-	      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
-	   } else {
-	      $r = hexdec(substr($hex,0,2));
-	      $g = hexdec(substr($hex,2,2));
-	      $b = hexdec(substr($hex,4,2));
-	   }
-	   $rgb = array($r, $g, $b);
-	   //return implode(",", $rgb); // returns the rgb values separated by commas
-	   return $rgb[0].','.$rgb[1].','.$rgb[0]; // returns an array with the rgb values
-	}
 
 // create backend pages
 // @updated 2.6.1
@@ -111,100 +86,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	    return $page_id;
 	}
 
-// save event functions
-	// @version 2.4.7
-
-	
-	// Save location and organizer taxonomy values
-		function evoadmin_save_event_tax_termmeta($post_id){
-			$taxs = apply_filters('evo_event_tax_save_values',array(
-				'event_location'=>array(
-					'select'=>'evcal_location_name_select',
-					'name'=>'evcal_location_name',
-					'id'=>'evo_location_tax_id',
-					'fields'=>array(
-						'evcal_location_link',
-						'location_address',
-						'evo_loc_img'
-					)
-				),
-				'event_organizer'=> array(
-					'select'=>'evcal_organizer_name_select',
-					'name'=>'evcal_organizer',
-					'id'=>'evo_organizer_tax_id',
-					'fields'=>array(
-						'evcal_org_contact',
-						'evcal_org_address',
-						'evo_org_img',
-						'evcal_org_exlink',
-						'_evocal_org_exlink_target'
-					)
-				)
-			));
-
-			// each taxonomy
-			foreach($taxs as $tax=>$data){
-				$taxtermID = false;
-				// tax name chosen from the list
-				if(isset($_POST[ $data['select'] ]) && isset($_POST[ $data['name']  ]) && 
-					$_POST[ $data['select'] ] == $_POST[ $data['name']  ]){
-					if(!empty($_POST[ $data['id']  ])){
-						$taxtermID = (int)$_POST[ $data['id']  ];
-					}					
-				}elseif(isset($_POST[ $data['name'] ])){ // create new term
-					$term_name = esc_attr(stripslashes($_POST[ $data['name'] ]));
-					$term = term_exists( $term_name, $tax );
-					if($term !== 0 && $term !== null){
-						$taxtermID = (int)$term['term_id'];
-						wp_set_object_terms( $post_id, $taxtermID, $tax );
-					}else{
-						// create slug from location name
-							$trans = array(" "=>'-', ","=>'');
-							$term_slug= strtr($term_name, $trans);
-
-						// create wp term
-						$new_term_ = wp_insert_term( $term_name, $tax , array('slug'=>$term_slug) );
-
-						if(!is_wp_error($new_term_)){
-							$taxtermID = (int)$new_term_['term_id'];
-						}		
-					}
-				}
-
-				// update term meta and assign term to event
-					if($taxtermID){
-						$term_meta = array();
-						foreach( $data['fields'] as $field){
-							do_action('evo_tax_save_each_field', $field);
-							if($field=='location_address'){
-								if(isset($_POST['evcal_location']))
-									$latlon = eventon_get_latlon_from_address($_POST['evcal_location']);
-
-								// longitude
-								$term_meta['location_lon'] = (!empty($_POST['evcal_lon']))?$_POST['evcal_lon']:
-									(!empty($latlon['lng'])? floatval($latlon['lng']): null);
-
-								// latitude
-								$term_meta['location_lat'] = (!empty($_POST['evcal_lat']))?$_POST['evcal_lat']:
-									(!empty($latlon['lat'])? floatval($latlon['lat']): null);
-
-								$term_meta['location_address' ] = (isset($_POST[ 'evcal_location' ]))?$_POST[ 'evcal_location' ]:null;
-
-								continue;
-							}
-							$term_meta[ $field ] = (isset($_POST[ $field ]))?
-								str_replace('"', "'", $_POST[ $field ]):null; 
-						}
-
-						// save meta values
-							evo_save_term_metas($tax, $taxtermID, $term_meta);
-						// assign term to event & replace
-							wp_set_object_terms( $post_id, $taxtermID, $tax , false);	
-					}
-			} // endforeach
-
-		}
-
 // get converted unix time for saving event date time using $_POST
 	function evoadmin_get_unix_time_fromt_post($post_id=''){
 		// field names that pertains only to event date information
@@ -217,7 +98,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				'evcal_end_time_hour',
 				'evcal_end_time_min',
 				'evcal_et_ampm',
-				'evcal_allday'
+				'evcal_allday',
+				'event_vir_date_x',
+				'_vir_hour',
+				'_vir_minute',
+				'_vir_ampm'
 				)
 			);
 
@@ -231,6 +116,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				'_end_hour'=>'evcal_end_time_hour',
 				'_end_minute'=>'evcal_end_time_min',
 				'_end_ampm'=>'evcal_et_ampm',
+				
+				'event_vir_date_x'=>'event_vir_date_x',
+				'_vir_hour'=> '_vir_hour',
+				'_vir_minute'=>'_vir_minute',
+				'_vir_ampm'=> '_vir_ampm'
 			);
 
 			foreach($D as $ff=>$vv){

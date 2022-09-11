@@ -5,13 +5,13 @@ namespace MailPoet\Automation\Engine\Control;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\WorkflowRun;
 use MailPoet\Automation\Engine\Exceptions;
 use MailPoet\Automation\Engine\Hooks;
 use MailPoet\Automation\Engine\Storage\WorkflowRunStorage;
 use MailPoet\Automation\Engine\Storage\WorkflowStorage;
 use MailPoet\Automation\Engine\WordPress;
 use MailPoet\Automation\Engine\Workflows\Trigger;
-use MailPoet\Automation\Engine\Workflows\WorkflowRun;
 
 class TriggerHandler {
   /** @var ActionScheduler */
@@ -62,7 +62,7 @@ class TriggerHandler {
         $loadedSubjects[] = $this->subjectLoader->loadSubject($subject['key'], $subject['args']);
       }
 
-      $workflowRun = new WorkflowRun($workflow->getId(), $trigger->getKey(), $loadedSubjects);
+      $workflowRun = new WorkflowRun($workflow->getId(), $workflow->getVersionId(), $trigger->getKey(), $loadedSubjects);
       $workflowRunId = $this->workflowRunStorage->createWorkflowRun($workflowRun);
 
       $this->actionScheduler->enqueue(Hooks::WORKFLOW_STEP, [

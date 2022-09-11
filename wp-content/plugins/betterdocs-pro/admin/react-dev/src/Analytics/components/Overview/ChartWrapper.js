@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { getOverviewChartData, getSearchChartData } from "../../function";
-import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getOverviewChartData,
+  getSearchChartData,
+  formatDataForChart,
+} from "../../function";
 import Checkbox from "../utilities/Checkbox";
 import DatePicker from "../utilities/DatePicker";
 import ReactApexChart from "react-apexcharts";
 import AllOverview from "./AllOverview";
 import ChartLoader from "../utilities/ChartLoader";
 import { ReactComponent as EmptyDataIcon } from "../../images/empty-data.svg";
+import {ReactComponent as CloseIcon} from "../../images/close.svg";
 
-const ChartWrapper = () => {
-  const [overviewData, setOverviewData] = useState(undefined);
-  const [searchData, setSearchData] = useState(undefined);
+const ChartWrapper = ({ postDetails, setPostDetails }) => {
   const [overview, setOverview] = useState([]);
   const [filteredOverview, setFilteredOverview] = useState({});
   const [dateRange, setDateRange] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [postID, setPostID] = useState(undefined);
 
   // this is for setting the filter up of the chart ["views", "reactions"]
   const [filterState, setFilterState] = useState([
@@ -23,66 +26,59 @@ const ChartWrapper = () => {
       label: "Views",
       checked: true,
       color: "#36D692",
+      enabled: true,
     },
     {
       id: "reactions",
       label: "Reacts",
       checked: true,
       color: "#5A6BFF",
+      enabled: true,
     },
     {
       id: "search_count",
       label: "Searches",
       checked: true,
       color: "#ff8a1e",
+      enabled: true,
     },
   ]);
 
   // this is for getting the chart data
+  const overviewData = useQuery(
+    ["overviewChartData", dateRange, postID],
+    getOverviewChartData
+  );
+
+  // this is for getting the chart data
+  const searchData = useQuery(
+    ["searchChartData", dateRange],
+    getSearchChartData
+  );
+
+  // this is for getting the post id
   useEffect(() => {
-    if (dateRange == -1) {
-      setIsLoading(true);
-      getOverviewChartData()
-        .then((res) => {
-          setOverviewData(res);
-        })
-        .catch((err) => console.log(err));
-      getSearchChartData()
-        .then((res) => {
-          setSearchData(res);
-        })
-        .catch((err) => console.log(err));
-    } else if (dateRange && Object.entries(dateRange).length) {
-      let start_date = moment(dateRange?.start).format("YYYY-MM-DD"),
-        end_date = moment(dateRange?.end).format("YYYY-MM-DD");
-      setIsLoading(true);
-      getOverviewChartData(start_date, end_date)
-        .then((res) => {
-          setOverviewData(res);
-        })
-        .catch((err) => console.log(err));
-      getSearchChartData(start_date, end_date)
-        .then((res) => {
-          setSearchData(res);
-        })
-        .catch((err) => console.log(err));
+    if (postDetails) {
+      setPostID(postDetails?.ID);
+    } else {
+      setPostID(undefined);
     }
-  }, [dateRange]);
+  }, [postDetails]);
 
   // this is for create the chart data in real formet
   useEffect(() => {
-    if (overviewData && searchData) {
-      let mergedOverview = overviewData.map((item) => {
+    if (overviewData?.data && searchData?.data) {
+      let mergedOverview = overviewData?.data.map((item) => {
         return {
           date: item?.date || item?.search_date,
           views: item?.views || "0",
+          unique_visit: item?.unique_visit || "0",
           reactions: item?.reactions || "0",
           search_count: item?.search_count || "0",
           search_not_found_count: item?.search_not_found_count || "0",
         };
       });
-
-      searchData.map((item) => {
+      searchData?.data.map((item) => {
         let index = mergedOverview.findIndex(
           (d) => d?.date == item?.search_date
         );
@@ -96,6 +92,7 @@ const ChartWrapper = () => {
             {
               date: item?.date || item?.search_date,
               views: item?.views || "0",
+              unique_visit: item?.unique_visit || "0",
               reactions: item?.reactions || "0",
               search_count: item?.search_count || "0",
               search_not_found_count: item?.search_not_found_count || "0",
@@ -108,33 +105,34 @@ const ChartWrapper = () => {
           .sort((a, b) => new Date(a?.date) - new Date(b?.date))
           .reverse()
       );
-      setIsLoading(false);
     }
-  }, [overviewData, searchData]);
+  }, [overviewData?.data, searchData?.data]);
 
   // this is for set the filtered overview value
   useEffect(() => {
-    const overviewDataForChart = {};
-    if (overview && overview?.length) {
-      overviewDataForChart.labels = overview
-        .map((obj) => moment(obj.date).format("MMM D YYYY"))
-        .reverse();
-      overviewDataForChart.colors = filterState
-        .filter((item) => item.checked)
-        .map((item) => item.color);
-      overviewDataForChart.count = filterState
-        .filter((item) => item.checked)
-        .map((item) => {
-          return {
-            name: item.label,
-            data: overview
-              .map((data) => data.hasOwnProperty(item.id) && data[item.id])
-              .reverse(),
-          };
-        });
-    }
-    setFilteredOverview(overviewDataForChart);
-  }, [overview, filterState, dateRange]);
+    setFilteredOverview(formatDataForChart(overview, filterState));
+  }, [overview, filterState]);
+
+  useEffect(() => {
+    setFilterState(
+      filterState.map((item) => {
+        if (item.id == "search_count") {
+          if (postID) {
+            return {
+              ...item,
+              enabled: false,
+            };
+          } else {
+            return {
+              ...item,
+              enabled: true,
+            };
+          }
+        }
+        return item;
+      })
+    );
+  }, [postID]);
 
   // this function is for handle filter state
   const handleFilterState = (index, checked) => {
@@ -149,30 +147,52 @@ const ChartWrapper = () => {
 
   return (
     <div className="btd-chart-section">
+      {postDetails ? (
+        <div className="btd-post-details">
+          <span className="btd-post-details-heading">
+            <b>Currently showing Analytics for : </b>
+          </span>
+          <span className="btd-post-details-title">
+            <span>{postDetails.title}</span>
+            <button
+                className="btd-post-details-reset-button"
+                onClick={() => setPostDetails(undefined)}
+            >
+              <CloseIcon />
+            </button>
+          </span>
+        </div>
+      ) : (
+        ""
+      )}
       <div className="btd-chart-filter">
         <div className="btd-chart-data-filter">
           {filterState &&
-            filterState.map((item, index) => (
-              <Checkbox
-                text={item?.label}
-                checked={item?.checked}
-                key={Math.random()}
-                onChange={() => handleFilterState(index, !item?.checked)}
-              />
-            ))}
+            filterState.map((item, index) =>
+              item?.enabled ? (
+                <Checkbox
+                  text={item?.label}
+                  checked={item?.checked}
+                  key={Math.random()}
+                  onChange={() => handleFilterState(index, !item?.checked)}
+                />
+              ) : (
+                ""
+              )
+            )}
         </div>
         <DatePicker setDateRange={setDateRange} />
       </div>
       <div className="btd-chart-wrapper">
         <div className="btd-chart">
-          {!isLoading ? (
+          {!overviewData?.isLoading && !searchData?.isLoading ? (
             <>
               {filteredOverview &&
               filteredOverview?.labels &&
               filteredOverview?.labels?.length ? (
                 <ReactApexChart
                   type="area"
-                  height={435}
+                  height={postDetails ? 335 : 435}
                   className={"btd-chart-content"}
                   options={{
                     chart: {
@@ -180,6 +200,10 @@ const ChartWrapper = () => {
                       toolbar: {
                         // show: false,
                         offsetY: -5,
+                        tools: {
+                          download: `<img src="${betterdocs.dir_url}admin/assets/img/download.svg" width="14">`,
+                          reset: `<img src="${betterdocs.dir_url}admin/assets/img/house.svg" width="14">`,
+                        },
                       },
                     },
                     tooltip: {
@@ -253,7 +277,7 @@ const ChartWrapper = () => {
             </>
           )}
         </div>
-        <AllOverview data={overview} dateRange={dateRange} />
+        <AllOverview dateRange={dateRange} postID={postID} />
       </div>
     </div>
   );

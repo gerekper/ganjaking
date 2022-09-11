@@ -4,15 +4,15 @@
  Plugin URI: http://www.myeventon.com/
  Description: Subscribe to all calendar events
  Author: Ashan Jay
- Version: 1.3.6
+ Version: 1.3.8
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 5.5
+ Tested up to: 5.8.3
  */
 
  class eventon_sb{
- 	public $version='1.3.6';
-	public $eventon_version = '3.0';
+ 	public $version='1.3.8';
+	public $eventon_version = '4.0';
 	public $name = 'Subscriber';
 	public $id = 'EVOSB';
 

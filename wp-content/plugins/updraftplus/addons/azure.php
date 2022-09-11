@@ -581,13 +581,8 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		global $updraftplus_admin;
-
-		$classes = $this->get_css_classes(false);
-		
 		?>
-		<tr class="<?php echo $classes . ' ' . 'azure_pre_config_container';?>">
+		<tr class="{{get_template_css_classes false}} azure_pre_config_container">
 			<td colspan="2">
 				<?php
 					/*$site_host = parse_url(network_site_url(), PHP_URL_HOST);
@@ -598,14 +593,10 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 						$callback_text = '<p>'.htmlspecialchars(__('You must add the following as the authorised redirect URI in your Azure console (under "API Settings") when asked','updraftplus')).': <kbd>'.UpdraftPlus_Options::admin_page_url().'</kbd></p>';
 					}*/
 				?>
-				<img width="434" src="<?php echo UPDRAFTPLUS_URL;?>/images/azure.png">
-				<?php
-					if (!class_exists('SimpleXMLElement')) {
-						$updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'Azure', 'php-xml - SimpleXMLElement'), 'azure', true);
-					}
-				?>
-				<p><a href="https://account.live.com/developers/applications/create" target="_blank"><?php echo esc_html__('Create Azure credentials in your Azure developer console.', 'updraftplus');?></a></p>
-				<p><a href="https://updraftplus.com/faqs/microsoft-azure-setup-guide/" target="_blank"><?php echo esc_html__('For longer help, including screenshots, follow this link.', 'updraftplus');?></a></p>
+				<img width="434" src="{{storage_image_url}}">
+				{{{simplexmlelement_existence_label}}}
+				<p><a href="https://account.live.com/developers/applications/create" target="_blank">{{credentials_creation_link_text}}</a></p>
+				<p><a href="https://updraftplus.com/faqs/microsoft-azure-setup-guide/" target="_blank">{{configuration_helper_link_text}}</a></p>
 			</td>
 		</tr>
 
@@ -613,45 +604,76 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 	}
 	
 	/**
-	 * Get the partial configuration template
+	 * Get the configuration template
 	 *
-	 * @return String - the partial template, ready for substitutions to be carried out
+	 * @return String - the template, ready for substitutions to be carried out
 	 */
-	public function do_get_configuration_template() {
-		global $updraftplus_admin;
-		$classes = $this->get_css_classes();
-		$template_str = '';
-		$template_str .= '
-			<tr class="'.$classes.'">
-				<th>'.sprintf(esc_html__('%s Account Name', 'updraftplus'), esc_html__('Azure', 'updraftplus')).':</th>
-				<td><input title="'.esc_html__('This is not your Azure login - see the instructions if needing more guidance.', 'updraftplus').'" data-updraft_settings_test="account_name" type="text" autocomplete="off" '.$this->output_settings_field_name_and_id('account_name', true).' value="{{account_name}}" class="updraft_input--wide" /><br><em>'.esc_html__('This is not your Azure login - see the instructions if needing more guidance.', 'updraftplus').'</em></td>
-			</tr>
-			<tr class="'.$classes.'">
-				<th>'.sprintf(esc_html__('%s Key', 'updraftplus'), esc_html__('Azure', 'updraftplus')).':</th>
-				<td><input data-updraft_settings_test="key" type="'. apply_filters('updraftplus_admin_secret_field_type', 'password').'" autocomplete="off" class="updraft_input--wide" '.$this->output_settings_field_name_and_id('key', true).' value="{{key}}" /></td>
-			</tr>';
-		$template_str .= $updraftplus_admin->get_storagemethod_row_multi_configuration_template(
-			$classes,
-			sprintf(esc_html__('%s Container', 'updraftplus'), esc_html__('Azure', 'updraftplus')).':',
-			'<input data-updraft_settings_test="container" title="'.esc_attr(sprintf(__('Enter the path of the %s you wish to use here.', 'updraftplus'), 'container').' '.sprintf(__('If the %s does not already exist, then it will be created.'), 'container')).'" type="text" class="updraft_input--wide" '.$this->output_settings_field_name_and_id('container', true).' value="{{container}}"><br><a href="https://azure.microsoft.com/en-gb/documentation/articles/storage-php-how-to-use-blobs/" target="_blank"><em>'.__("See Microsoft's guidelines on container naming by following this link.", 'updraftplus').'</a></em>'
-		);
-		$template_str .= $updraftplus_admin->get_storagemethod_row_multi_configuration_template(
-			$classes,
-			sprintf(esc_html__('%s Prefix', 'updraftplus'), esc_html__('Azure', 'updraftplus')).' <em>('.esc_html__('optional', 'updraftplus').')</em>:',
-			'<input title="'.esc_attr(sprintf(__('You can enter the path of any %s virtual folder you wish to use here.', 'updraftplus'), 'Azure').' '.sprintf(__('If you leave it blank, then the backup will be placed in the root of your %s', 'updraftplus').'.', esc_html__('container', 'updraftplus'))).'" data-updraft_settings_test="directory" type="text" class="updraft_input--wide" '.$this->output_settings_field_name_and_id('directory', true).' value="{{directory}}">'
-		);
-		$template_str .= '<tr class="'.$classes.'">
-			<th>'.__('Azure Account', 'updraftplus').':</th>
+	public function get_configuration_template() {
+		ob_start();
+		?>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_account_name_label}}:</th>
+			<td><input title="{{input_account_name_title}}" data-updraft_settings_test="account_name" type="text" autocomplete="off" id="{{get_template_input_attribute_value "id" "account_name"}}" name="{{get_template_input_attribute_value "name" "account_name"}}" value="{{account_name}}" class="updraft_input--wide udc-wd-600" /><br><em>{{input_account_name_title}}</em></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_key_label}}:</th>
+			<td><input data-updraft_settings_test="key" type="{{input_key_type}}" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "key"}}" name="{{get_template_input_attribute_value "name" "key"}}" value="{{key}}" /></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_container_label}}:</th>
+			<td><input data-updraft_settings_test="container" title="" type="text" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "container"}}" name="{{get_template_input_attribute_value "name" "container"}}" value="{{container}}"><br><a href="https://azure.microsoft.com/en-gb/documentation/articles/storage-php-how-to-use-blobs/" target="_blank"><em>{{input_container_link_text}}</a></em></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{{input_prefix_label}}}:</th>
+			<td><input title="{{input_prefix_title}}" data-updraft_settings_test="directory" type="text" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "directory"}}" name="{{get_template_input_attribute_value "name" "directory"}}" value="{{directory}}"></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_endpoint_label}}:</th>
 			<td>
-				<select data-updraft_settings_test="endpoint" '.$this->output_settings_field_name_and_id('endpoint', true).' style="width: 140px">
-					<option {{#ifeq "blob.core.windows.net" endpoint}}selected="selected"{{/ifeq}} value="blob.core.windows.net">'.__('Azure Global', 'updraftplus').'</option>
-					<option {{#ifeq "blob.core.cloudapi.de" endpoint}}selected="selected"{{/ifeq}} value="blob.core.cloudapi.de">'.__('Azure Germany', 'updraftplus').'</option>
-					<option {{#ifeq "blob.core.usgovcloudapi.net" endpoint}}selected="selected"{{/ifeq}} value="blob.core.usgovcloudapi.net">'.__('Azure Government', 'updraftplus').'</option>
-					<option {{#ifeq "blob.core.chinacloudapi.cn" endpoint}}selected="selected"{{/ifeq}} value="core.chinacloudapi.cn">'.__('Azure China', 'updraftplus').'</option>
+				<select data-updraft_settings_test="endpoint" id="{{get_template_input_attribute_value "id" "endpoint"}}" name="{{get_template_input_attribute_value "name" "endpoint"}}" style="width: 140px" class="updraft_input--wide udc-wd-600">
+					{{#each input_endpoint_option_labels}}
+						<option {{#ifeq ../endpoint @key}}selected="selected"{{/ifeq}} value="{{@key}}">{{this}}</option>
+					{{/each}}
 				</select>
 			</td>
-		</tr>';
-		return $template_str;
+		</tr>
+		{{{get_template_test_button_html "Azure"}}}
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus_admin;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/azure.png',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_azure_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'Azure', 'php-xml - SimpleXMLElement'), 'azure', false), $this->allowed_html_for_content_sanitisation()) : '',
+			'credentials_creation_link_text' => __('Create Azure credentials in your Azure developer console.', 'updraftplus'),
+			'configuration_helper_link_text' => __('For more detailed instructions, follow this link.', 'updraftplus'),
+			'input_account_name_label' => sprintf(__('%s Account Name', 'updraftplus'), __('Azure', 'updraftplus')),
+			'input_account_name_title' => __('This is not your Azure login - see the instructions if needing more guidance.', 'updraftplus'),
+			'input_key_label' => sprintf(__('%s Key', 'updraftplus'), __('Azure', 'updraftplus')),
+			'input_key_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_container_label' => sprintf(__('%s Container', 'updraftplus'), __('Azure', 'updraftplus')),
+			'input_container_title' => sprintf(__('Enter the path of the %s you wish to use here.', 'updraftplus'), 'container').' '.sprintf(__('If the %s does not already exist, then it will be created.'), 'container'),
+			'input_container_link_text' => __("See Microsoft's guidelines on container naming by following this link.", 'updraftplus'),
+			'input_prefix_label' => wp_kses(sprintf(__('%s Prefix', 'updraftplus'), __('Azure', 'updraftplus')).' <em>('.__('optional', 'updraftplus').')</em>', $this->allowed_html_for_content_sanitisation()),
+			'input_prefix_title' => sprintf(__('You can enter the path of any %s virtual folder you wish to use here.', 'updraftplus'), 'Azure').' '.sprintf(__('If you leave it blank, then the backup will be placed in the root of your %s', 'updraftplus').'.', __('container', 'updraftplus')),
+			'input_endpoint_label' => __('Azure Account', 'updraftplus'),
+			'input_endpoint_option_labels' => array(
+				'blob.core.windows.net' => __('Azure Global', 'updraftplus'),
+				'blob.core.cloudapi.de' => __('Azure Germany', 'updraftplus'),
+				'blob.core.usgovcloudapi.net' => __('Azure Government', 'updraftplus'),
+				'blob.core.chinacloudapi.cn' => __('Azure China', 'updraftplus'),
+			),
+			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), 'Azure'),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 	
 	/**

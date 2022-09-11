@@ -55,23 +55,23 @@ class WC_XR_Settings {
 		$this->settings = array(
 			// OAuth data.
 			'client_id'     => array(
-				'title'       => __( 'Client ID', 'wc-xero' ),
+				'title'       => __( 'Client ID', 'woocommerce-xero' ),
 				'default'     => '',
 				'type'        => 'text_oauth',
-				'description' => __( 'OAuth Credential retrieved from <a href="https://developer.xero.com/myapps/" target="_blank">Xero Developer My Apps Centre</a>.', 'wc-xero' ),
+				'description' => __( 'OAuth Credential retrieved from <a href="https://developer.xero.com/myapps/" target="_blank">Xero Developer My Apps Centre</a>.', 'woocommerce-xero' ),
 			),
 			'client_secret' => array(
-				'title'       => __( 'Client Secret', 'wc-xero' ),
+				'title'       => __( 'Client Secret', 'woocommerce-xero' ),
 				'default'     => '',
 				'type'        => 'text',
-				'description' => __( 'OAuth Credential retrieved from <a href="https://developer.xero.com/myapps/" target="_blank">Xero Developer My Apps Centre</a>.', 'wc-xero' ),
+				'description' => __( 'OAuth Credential retrieved from <a href="https://developer.xero.com/myapps/" target="_blank">Xero Developer My Apps Centre</a>.', 'woocommerce-xero' ),
 			),
 			// Connect to Xero button.
 			'oauth_20'      => array(
-				'title'       => __( 'Authenticate', 'wc-xero' ),
+				'title'       => __( 'Authenticate', 'woocommerce-xero' ),
 				'default'     => '',
 				'type'        => 'oauth',
-				'description' => __( 'Use this button to authenticate your Xero integration', 'wc-xero' ),
+				'description' => __( 'Use this button to authenticate your Xero integration', 'woocommerce-xero' ),
 			)
 		);
 
@@ -81,153 +81,173 @@ class WC_XR_Settings {
 				array(
 					// API keys.
 					'consumer_key'        => array(
-						'title'       => __( 'Consumer Key', 'wc-xero' ),
+						'title'       => __( 'Consumer Key', 'woocommerce-xero' ),
 						'default'     => '',
 						'type'        => 'text',
-						'description' => __(  'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'wc-xero' ),
+						'description' => __(  'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'woocommerce-xero' ),
 					),
 					'consumer_secret'     => array(
-						'title'       => __( 'Consumer Secret', 'wc-xero' ),
+						'title'       => __( 'Consumer Secret', 'woocommerce-xero' ),
 						'default'     => '',
 						'type'        => 'text',
-						'description' => __( 'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'wc-xero' ),
+						'description' => __( 'OAuth Credential retrieved from <a href="http://api.xero.com" target="_blank">Xero Developer Centre</a>.', 'woocommerce-xero' ),
 					),
 					// SSH key files.
 					'public_key_content'  => array(
-						'title'       => __( 'Public Key', 'wc-xero' ),
+						'title'       => __( 'Public Key', 'woocommerce-xero' ),
 						'default'     => '',
 						'type'        => 'key_file',
 						'key_type'    => 'public',
 						'file_ext'    => '.cer',
-						'description' => __( 'Public key file created to authenticate this site with Xero.', 'wc-xero' ),
+						'description' => __( 'Public key file created to authenticate this site with Xero.', 'woocommerce-xero' ),
 					),
 					'private_key_content' => array(
-						'title'       => __( 'Private Key', 'wc-xero' ),
+						'title'       => __( 'Private Key', 'woocommerce-xero' ),
 						'default'     => '',
 						'type'        => 'key_file',
 						'key_type'    => 'private',
 						'file_ext'     => '.pem',
-						'description' => __( 'Private key file created to authenticate this site with Xero.', 'wc-xero' ),
+						'description' => __( 'Private key file created to authenticate this site with Xero.', 'woocommerce-xero' ),
 					),
 				)
 			);
+		}
+
+		// Prepare branding theme list items.
+		$branding_themes_list     = array();
+		$branding_themes_list[''] = __( 'Select', 'woocommerce-xero' );
+		$branding_themes          = get_option( 'xero_branding_themes' );
+		if ( $branding_themes ) {
+			$branding_themes_list = array_merge( $branding_themes_list, $branding_themes );
 		}
 
 		$this->settings = array_merge(
 			$this->settings,
 			array(
 				// Invoice Prefix.
-				'invoice_prefix'      => array(
-					'title'       => __( 'Invoice Prefix', 'wc-xero' ),
+				'invoice_prefix'           => array(
+					'title'       => __( 'Invoice Prefix', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Allow you to prefix all your invoices.', 'wc-xero' ),
+					'description' => __( 'Allow you to prefix all your invoices.', 'woocommerce-xero' ),
 				),
 				// Accounts.
-				'sales_account'       => array(
-					'title'       => __( 'Sales Account', 'wc-xero' ),
+				'sales_account'            => array(
+					'title'       => __( 'Sales Account', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Code for Xero account to track sales.', 'wc-xero' ),
+					'description' => __( 'Code for Xero account to track sales.', 'woocommerce-xero' ),
+					'mandatory'   => true,
 				),
-				'shipping_account'    => array(
-					'title'       => __( 'Shipping Account', 'wc-xero' ),
+				'shipping_account'         => array(
+					'title'       => __( 'Shipping Account', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Code for Xero account to track shipping charges.', 'wc-xero' ),
+					'description' => __( 'Code for Xero account to track shipping charges.', 'woocommerce-xero' ),
+					'mandatory'   => true,
 				),
-				'fees_account'        => array(
-					'title'       => __( 'Fees Account', 'wc-xero' ),
+				'fees_account'             => array(
+					'title'       => __( 'Fees Account', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
 					/* translators: Placeholders %1$s - opening HTML <a> link tag, closing HTML </a> link tag */
-					'description' => sprintf( __( 'Code for Xero account to allow fees. This account represents the fees created by the %1$sWooCommerce Fees API%2$s.', 'wc-xero' ), '<a href="https://docs.woocommerce.com/document/add-a-surcharge-to-cart-and-checkout-uses-fees-api/" target="_blank">', '</a>' ),
+					'description' => sprintf( __( 'Code for Xero account to allow fees. This account represents the fees created by the %1$sWooCommerce Fees API%2$s.', 'woocommerce-xero' ), '<a href="https://docs.woocommerce.com/document/add-a-surcharge-to-cart-and-checkout-uses-fees-api/" target="_blank">', '</a>' ),
+					'mandatory'   => true,
 				),
-				'payment_account'     => array(
-					'title'       => __( 'Payment Account', 'wc-xero' ),
+				'payment_account'          => array(
+					'title'       => __( 'Payment Account', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Code for Xero account to track payments received.', 'wc-xero' ),
+					'description' => __( 'Code for Xero account to track payments received.', 'woocommerce-xero' ),
+					'mandatory'   => true,
 				),
-				'rounding_account'    => array(
-					'title'       => __( 'Rounding Account', 'wc-xero' ),
+				'rounding_account'         => array(
+					'title'       => __( 'Rounding Account', 'woocommerce-xero' ),
 					'default'     => '',
 					'type'        => 'text',
-					'description' => __(  'Code for Xero account to allow an adjustment entry for rounding.', 'wc-xero' ),
+					'description' => __( 'Code for Xero account to allow an adjustment entry for rounding.', 'woocommerce-xero' ),
+					'mandatory'   => true,
 				),
 				// Misc settings
-				'send_invoices'       => array(
-					'title'       => __( 'Send Invoices', 'wc-xero' ),
+				'send_invoices'            => array(
+					'title'       => __( 'Send Invoices', 'woocommerce-xero' ),
 					'default'     => 'manual',
 					'type'        => 'select',
-					'description' => __(  'Send Invoices manually (from the order\'s action menu), on creation (when the order is created), or on completion (when order status is changed to completed).', 'wc-xero' ),
+					'description' => __( 'Send Invoices manually (from the order\'s action menu), on creation (when the order is created), or on completion (when order status is changed to completed).', 'woocommerce-xero' ),
 					'options'     => array(
-						'manual'             => __( 'Manually', 'wc-xero' ),
-						'creation'           => __( 'On Order Creation', 'wc-xero' ),
-						'payment_completion' => __( 'On Payment Completion', 'wc-xero' ),
-						'on'                 => __( 'On Order Completion', 'wc-xero' ),
+						'manual'             => __( 'Manually', 'woocommerce-xero' ),
+						'creation'           => __( 'On Order Creation', 'woocommerce-xero' ),
+						'payment_completion' => __( 'On Payment Completion', 'woocommerce-xero' ),
+						'on'                 => __( 'On Order Completion', 'woocommerce-xero' ),
 					),
 				),
-				'send_payments'       => array(
-					'title'       => __( 'Send Payments', 'wc-xero' ),
+				'send_payments'            => array(
+					'title'       => __( 'Send Payments', 'woocommerce-xero' ),
 					'default'     => 'off',
 					'type'        => 'select',
-					'description' => __(  'Send Payments manually or automatically when order is completed. This may need to be turned off if you sync via a separate integration such as PayPal.', 'wc-xero' ),
+					'description' => __( 'Send Payments manually or automatically when order is completed. This may need to be turned off if you sync via a separate integration such as PayPal.', 'woocommerce-xero' ),
 					'options'     => array(
-						'manual' => __( 'Manually', 'wc-xero' ),
-						'payment_completion' => __( 'On Payment Completion', 'wc-xero' ),
-						'on'  => __( 'On Order Completion', 'wc-xero' ),
+						'manual'             => __( 'Manually', 'woocommerce-xero' ),
+						'payment_completion' => __( 'On Payment Completion', 'woocommerce-xero' ),
+						'on'                 => __( 'On Order Completion', 'woocommerce-xero' ),
 					),
 				),
-				'treat_shipping_as'   => array(
-					'title'       => __( 'Treat Shipping As', 'wc-xero' ),
+				'treat_shipping_as'        => array(
+					'title'       => __( 'Treat Shipping As', 'woocommerce-xero' ),
 					'default'     => 'expense',
 					'type'        => 'select',
-					'description' => __(  'Set this to correspond to your Xero shipping account\'s type.', 'wc-xero' ),
+					'description' => __( 'Set this to correspond to your Xero shipping account\'s type.', 'woocommerce-xero' ),
 					'options'     => array(
-						'income'  => __( 'Income / Revenue / Sales', 'wc-xero' ),
-						'expense' => __( 'Expense', 'wc-xero' ),
+						'income'  => __( 'Income / Revenue / Sales', 'woocommerce-xero' ),
+						'expense' => __( 'Expense', 'woocommerce-xero' ),
 					),
 				),
-				'treat_fees_as'   => array(
-					'title'       => __( 'Treat Fees As', 'wc-xero' ),
+				'treat_fees_as'            => array(
+					'title'       => __( 'Treat Fees As', 'woocommerce-xero' ),
 					'default'     => 'expense',
 					'type'        => 'select',
-					'description' => __( 'Set this to correspond to your Xero fees account\'s type.', 'wc-xero' ),
+					'description' => __( 'Set this to correspond to your Xero fees account\'s type.', 'woocommerce-xero' ),
 					'options'     => array(
-						'income'  => __( 'Income / Revenue / Sales', 'wc-xero' ),
-						'expense' => __( 'Expense', 'wc-xero' ),
+						'income'  => __( 'Income / Revenue / Sales', 'woocommerce-xero' ),
+						'expense' => __( 'Expense', 'woocommerce-xero' ),
 					),
 				),
-				'match_zero_vat_tax_rates'       => array(
-					'title'       => __( 'Match zero value tax rates', 'wc-xero' ),
-					'default'     => 'off',
-					'type'        => 'checkbox',
-					'description' => __( 'If the integration is having trouble matching up your tax exempt line items with a tax exempt Xero tax rate, enable this and follow the <a href="https://docs.woocommerce.com/document/xero/#line-items-without-vat-applied-appear-as-zero-rated-ec-services-in-xero-invoices" target="_blank">instructions to force match the WooCommerce tax exempt rates to Xero tax exempt rates.</a>', 'wc-xero' ),
+				'branding_theme'           => array(
+					'title'       => __( 'Xero Branding theme', 'woocommerce-xero' ),
+					'default'     => '',
+					'type'        => 'select',
+					'description' => __( 'Set a default branding theme for Xero invoices. Refresh the page to see updated list.', 'woocommerce-xero' ),
+					'options'     => $branding_themes_list,
 				),
-				'four_decimals'       => array(
-					'title'       => __( 'Four Decimal Places', 'wc-xero' ),
+				'match_zero_vat_tax_rates' => array(
+					'title'       => __( 'Match zero value tax rates', 'woocommerce-xero' ),
 					'default'     => 'off',
 					'type'        => 'checkbox',
-					'description' => __( 'Use four decimal places for unit prices instead of two.', 'wc-xero' ),
+					'description' => __( 'If the integration is having trouble matching up your tax exempt line items with a tax exempt Xero tax rate, enable this and follow the <a href="https://docs.woocommerce.com/document/xero/#line-items-without-vat-applied-appear-as-zero-rated-ec-services-in-xero-invoices" target="_blank">instructions to force match the WooCommerce tax exempt rates to Xero tax exempt rates.</a>', 'woocommerce-xero' ),
 				),
-				'export_zero_amount'  => array(
-					'title'       => __( 'Orders with zero total', 'wc-xero' ),
+				'four_decimals'            => array(
+					'title'       => __( 'Four Decimal Places', 'woocommerce-xero' ),
 					'default'     => 'off',
 					'type'        => 'checkbox',
-					'description' => __(  'Export orders with zero total.', 'wc-xero' ),
+					'description' => __( 'Use four decimal places for unit prices instead of two.', 'woocommerce-xero' ),
 				),
-				'send_inventory'      => array(
-					'title'       => __( 'Send Inventory Items', 'wc-xero' ),
+				'export_zero_amount'       => array(
+					'title'       => __( 'Orders with zero total', 'woocommerce-xero' ),
 					'default'     => 'off',
 					'type'        => 'checkbox',
-					'description' => __( 'Send Item Code field with invoices. If this is enabled then each product must have a SKU defined and be setup as an <a href="https://central.xero.com/s/article/Add-an-inventory-item" target="_blank">inventory item</a> in Xero.', 'wc-xero' ),
+					'description' => __( 'Export orders with zero total.', 'woocommerce-xero' ),
 				),
-				'debug'               => array(
-					'title'       => __( 'Debug', 'wc-xero' ),
+				'send_inventory'           => array(
+					'title'       => __( 'Send Inventory Items', 'woocommerce-xero' ),
 					'default'     => 'off',
 					'type'        => 'checkbox',
-					'description' => __( 'Enable logging. Log file is located at: /wc-logs/. <br> <strong>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.</strong>', 'wc-xero' ),
+					'description' => __( 'Send Item Code field with invoices. If this is enabled then each product must have a SKU defined and be setup as an <a href="https://central.xero.com/s/article/Add-an-inventory-item" target="_blank">inventory item</a> in Xero.', 'woocommerce-xero' ),
+				),
+				'debug'                    => array(
+					'title'       => __( 'Debug', 'woocommerce-xero' ),
+					'default'     => 'off',
+					'type'        => 'checkbox',
+					'description' => __( 'Enable logging. Log file is located at: /wc-logs/. <br> <strong>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.</strong>', 'woocommerce-xero' ),
 				),
 			)
 		);
@@ -300,7 +320,7 @@ class WC_XR_Settings {
 						}
 					}
 				} else {
-				    // Just delete the option, since the file it's pointing to does not exist.
+					// Just delete the option, since the file it's pointing to does not exist.
 					delete_option( $old_key_name );
 				}
 			}
@@ -346,7 +366,7 @@ class WC_XR_Settings {
 		if ( ! empty ( $upload_info ) ) {
 			$format = get_option( 'time_format' ) . ', ' . get_option( 'date_format' );
 			$upload_date_time =  date_i18n( $format, $upload_info['upload_timestamp'] );
-			return sprintf( __( 'Using %s uploaded at %s', 'wc-xero' ), $upload_info['upload_filename'], $upload_date_time );
+			return sprintf( __( 'Using %s uploaded at %s', 'woocommerce-xero' ), $upload_info['upload_filename'], $upload_date_time );
 		}
 		return '';
 	}
@@ -399,7 +419,7 @@ class WC_XR_Settings {
 				! isset( $_POST['wc_xero_disconnect_nonce'] )
 				|| ! wp_verify_nonce( $_POST['wc_xero_disconnect_nonce'], 'wc_xero_disconnect' )
 			) {
-				echo '<div>' . esc_html__( 'Nonce verification failed!', 'wc-xero' ) . '</div>';
+				echo '<div>' . esc_html__( 'Nonce verification failed!', 'woocommerce-xero' ) . '</div>';
 				exit;
 			} else {
 				WC_XR_OAuth20::get_instance()->clear_connection_status();
@@ -473,7 +493,7 @@ class WC_XR_Settings {
 	public function register_settings() {
 
 		// Add section
-		add_settings_section( 'wc_xero_settings', __( 'Xero Settings', 'wc-xero' ), array(
+		add_settings_section( 'wc_xero_settings', __( 'Xero Settings', 'woocommerce-xero' ), array(
 			$this,
 			'settings_intro'
 		), 'woocommerce_xero' );
@@ -496,6 +516,40 @@ class WC_XR_Settings {
 
 		}
 
+		// Check if API is ready.
+		$client_id     = get_option( 'wc_xero_client_id', '' );
+		$client_secret = get_option( 'wc_xero_client_secret', '' );
+		$xero_oauth    = WC_XR_OAuth20::get_instance( $client_id, $client_secret );
+
+		// Update Branding Themes, only on the Xero settings page.
+		if ( $xero_oauth->is_api_ready() && 'Xero' === get_admin_page_title() ) {
+			$this->update_branding_themes();
+		}
+	}
+
+	/**
+	 * Get Xero branding themes from API and store in the database.
+	 */
+	private function update_branding_themes() {
+		try {
+			// Make a call.
+			$org_request = new WC_XR_Request_Branding_Themes( new static() );
+			$org_request->do_request();
+			$xml_response = $org_request->get_response_body_xml();
+
+			$branding_themes = array();
+			if ( 'OK' === (string) $xml_response->Status ) {
+				if ( isset( $xml_response->BrandingThemes->BrandingTheme ) ) {
+					foreach ( $xml_response->BrandingThemes->BrandingTheme as $branding_theme ) {
+						$branding_themes[ (string) esc_html( $branding_theme->BrandingThemeID ) ] = (string) esc_html( $branding_theme->Name );
+					}
+				}
+			}
+
+			update_option( 'xero_branding_themes', $branding_themes );
+		} catch ( \Exception $e ) {
+			wp_die( $e->getMessage() );
+		}
 	}
 
 	/**
@@ -504,7 +558,7 @@ class WC_XR_Settings {
 	 * @return void
 	 */
 	public function add_menu_item() {
-		$sub_menu_page = add_submenu_page( 'woocommerce', __( 'Xero', 'wc-xero' ), __( 'Xero', 'wc-xero' ), 'manage_woocommerce', 'woocommerce_xero', array(
+		$sub_menu_page = add_submenu_page( 'woocommerce', __( 'Xero', 'woocommerce-xero' ), __( 'Xero', 'woocommerce-xero' ), 'manage_woocommerce', 'woocommerce_xero', array(
 			$this,
 			'options_page'
 		) );
@@ -531,7 +585,7 @@ class WC_XR_Settings {
 		Menu::add_setting_item(
 			array(
 				'id'         => 'woocommerce_xero',
-				'title'      => __( 'Xero', 'wc-xero' ),
+				'title'      => __( 'Xero', 'woocommerce-xero' ),
 				'capability' => 'manage_woocommerce',
 				'url'        => 'woocommerce_xero',
 			)
@@ -553,8 +607,8 @@ class WC_XR_Settings {
 	public function add_menu_item_oauth() {
 		$sub_menu_page = add_submenu_page(
 			null,
-			__( 'Xero OAuth', 'wc-xero' ),
-			__( 'Xero OAuth', 'wc-xero' ),
+			__( 'Xero OAuth', 'woocommerce-xero' ),
+			__( 'Xero OAuth', 'woocommerce-xero' ),
 			'manage_woocommerce',
 			'woocommerce_xero_oauth',
 			array(
@@ -584,7 +638,7 @@ class WC_XR_Settings {
 			?>
 			<div class="wrap woocommerce">
 			<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-					<h2><?php _e( 'Xero OAuth', 'wc-xero' ); ?></h2>
+					<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 					Something went wrong - token not received!
 			</div>
 			<?php
@@ -593,7 +647,7 @@ class WC_XR_Settings {
 			?>
 			<div class="wrap woocommerce">
 			<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-					<h2><?php _e( 'Xero OAuth', 'wc-xero' ); ?></h2>
+					<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 					Something went wrong - previous state is different. CSRF prevention.
 			</div>
 			<?php
@@ -612,7 +666,7 @@ class WC_XR_Settings {
 					?>
 					<div class="wrap woocommerce">
 					<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-							<h2><?php _e( 'Xero OAuth', 'wc-xero' ); ?></h2>
+							<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 							Callback failed:<br/>
 							<?php var_dump( $e ); ?>
 					</div>
@@ -632,14 +686,30 @@ class WC_XR_Settings {
 		<div class="wrap woocommerce">
 			<form method="post" id="mainform" enctype="multipart/form-data" action="options.php">
 				<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-				<h2><?php _e( 'Xero for WooCommerce', 'wc-xero' ); ?></h2>
+				<h2><?php _e( 'Xero for WooCommerce', 'woocommerce-xero' ); ?></h2>
 
 				<?php
 				if ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'true' ) ) {
-					echo '<div id="message" class="updated fade"><p><strong>' . __( 'Your settings have been saved.', 'wc-xero' ) . '</strong></p></div>';
+					echo '<div id="message" class="updated fade"><p><strong>' . __( 'Your settings have been saved.', 'woocommerce-xero' ) . '</strong></p></div>';
 
+					// Show errors if missing any mandatory fields.
+					$mandatory_fields = array();
+					foreach ( $this->settings as $key => $field ) {
+						if ( isset( $field['mandatory'] ) && $field['mandatory'] && ! get_option( 'wc_xero_' . $key ) ) {
+							$mandatory_fields[ $key ] = $field['title'];
+						}
+					}
+
+					if ( count( $mandatory_fields ) ) {
+						echo '<div id="message" class="error fade">
+							<p>
+								<strong>' . esc_html__( 'Missing required fields', 'woocommerce-xero' ) . ': </strong>
+								<i>' . implode( '</i>, <i>', array_map( 'esc_html', $mandatory_fields ) ) . '</i>
+							</p>
+						</div>';
+					}
 				} else if ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'false' ) ) {
-					echo '<div id="message" class="error fade"><p><strong>' . __( 'There was an error saving your settings.', 'wc-xero' ) . '</strong></p></div>';
+					echo '<div id="message" class="error fade"><p><strong>' . __( 'There was an error saving your settings.', 'woocommerce-xero' ) . '</strong></p></div>';
 				}
 				?>
 
@@ -648,14 +718,14 @@ class WC_XR_Settings {
 				<p class="submit"><input type="submit" class="button-primary" value="Save"/></p>
 			</form>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
 	 * Settings intro
 	 */
 	public function settings_intro() {
-		echo '<p>' . __( 'Settings for your Xero account including security keys and default account numbers.<br/> <strong>All</strong> text fields are required for the integration to work properly.', 'wc-xero' ) . '</p>';
+		echo '<p>' . __( 'Settings for your Xero account including security keys and default account numbers.<br/> <strong>All</strong> text fields are required for the integration to work properly.', 'woocommerce-xero' ) . '</p>';
 	}
 
 	/**
@@ -678,7 +748,7 @@ class WC_XR_Settings {
 		if ( ! empty( $key_content ) ) {
 			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #4AB915; color: #fff; font-weight: bold;">' . esc_html( $this->get_upload_info_string( $input_name ) ) . '</span></p>';
 		} else {
-			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #bc0b0b; color: #fff; font-weight: bold;">' . __( 'Key not set', 'wc-xero' ) . '</span></p>';
+			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #bc0b0b; color: #fff; font-weight: bold;">' . __( 'Key not set', 'woocommerce-xero' ) . '</span></p>';
 		}
 	}
 
@@ -716,7 +786,7 @@ class WC_XR_Settings {
 				<form method="post">
 					<button class="wc-xero-oauth-disconnect-button" type="submit" name="disconnect_from_xero" value="xero-disconnect">
 					<?php wp_nonce_field( 'wc_xero_disconnect', 'wc_xero_disconnect_nonce' ); ?>
-					<?php echo esc_html__( 'Disconnect from Xero', 'wc-xero' ); ?>
+					<?php echo esc_html__( 'Disconnect from Xero', 'woocommerce-xero' ); ?>
 					</button>
 				</form>
 			</div>
@@ -724,11 +794,11 @@ class WC_XR_Settings {
 		} elseif ( $data_complete ) {
 			echo '<div class="wc-xero-oauth-data-complete">';
 			// Redirect the user to the authorization URL.
-			echo '<span data-xero-sso data-href="' . $authorization_url . '" data-label="' . esc_html__( 'Sign in with Xero', 'wc-xero' ) . '"></span>';
+			echo '<span data-xero-sso data-href="' . $authorization_url . '" data-label="' . esc_html__( 'Sign in with Xero', 'woocommerce-xero' ) . '"></span>';
 			echo '<script src="https://edge.xero.com/platform/sso/xero-sso.js" async defer></script>';
 			echo '</div>';
 		} else {
-			echo '<span><b>' . esc_html( __( 'Please fill in the Client id and the Client Secret fields first and save before continuing.', 'wc-xero' ) ) . '</b></span><br/>';
+			echo '<span><b>' . esc_html( __( 'Please fill in the Client id and the Client Secret fields first and save before continuing.', 'woocommerce-xero' ) ) . '</b></span><br/>';
 		}
 
 		if ( $data_complete ) {
@@ -754,7 +824,7 @@ class WC_XR_Settings {
 	public function input_text_oauth( $args ) {
 		require_once( 'class-wc-xr-oauth20.php' );
 		$this->input_text( $args );
-		echo '<p>' . _e( 'Please use the following url as your redirect url when creating a Xero application:', 'wc-xero' ) . '</p>';
+		echo '<p>' . _e( 'Please use the following url as your redirect url when creating a Xero application:', 'woocommerce-xero' ) . '</p>';
 		echo WC_XR_OAuth20::build_redirect_uri();
 		echo '<br/></br>';
 	}
@@ -913,10 +983,10 @@ class WC_XR_Settings {
 					$filename = basename( $key_file_path );
 					?>
 					<div class="notice notice-warning">
-						<p><?php echo esc_html( sprintf( __( 'Xero has securely saved the contents of key file %s to the database and no longer requires it.', 'wc-xero' ), $key_file_path ) ); ?></p>
+						<p><?php echo esc_html( sprintf( __( 'Xero has securely saved the contents of key file %s to the database and no longer requires it.', 'woocommerce-xero' ), $key_file_path ) ); ?></p>
 						<form method="post">
 							<button type="submit" name="delete_key_file" value="<?php echo esc_attr( $key_name ); ?>">
-								<?php echo esc_html( sprintf( __( 'Delete %s', 'wc-xero' ), $filename ) ); ?>
+								<?php echo esc_html( sprintf( __( 'Delete %s', 'woocommerce-xero' ), $filename ) ); ?>
 							</button>
 						</form>
 					</div>
@@ -931,7 +1001,7 @@ class WC_XR_Settings {
 					?>
 					<div class="error">
 						<p>
-							<?php echo esc_html( sprintf( __( 'Xero could not delete %s. Check permissions and try again.', 'wc-xero' ), $key_file_path ) ); ?>
+							<?php echo esc_html( sprintf( __( 'Xero could not delete %s. Check permissions and try again.', 'woocommerce-xero' ), $key_file_path ) ); ?>
 						</p>
 					</div>
 					<?php
@@ -939,7 +1009,7 @@ class WC_XR_Settings {
 					?>
 					<div class="updated">
 						<p>
-							<?php echo esc_html( sprintf( __( 'Xero successfully deleted %s.', 'wc-xero' ), $key_file_path ) ); ?>
+							<?php echo esc_html( sprintf( __( 'Xero successfully deleted %s.', 'woocommerce-xero' ), $key_file_path ) ); ?>
 						</p>
 					</div>
 					<?php
@@ -959,11 +1029,25 @@ class WC_XR_Settings {
 		if ( current_user_can( 'manage_options' ) && ! WC_XR_OAuth20::can_use_oauth20() && $this->oauth10_setup_params_exist() ) {
 			?>
 			<div class="notice notice-warning">
-				<p><?php echo esc_html( __( 'Xero authentication using keys is in the process of being deprecated and new private apps can no longer be created.', 'wc-xero' ) ); ?></br>
-				<?php echo esc_html( __( 'Please use new flow and the button available in Xero settings to authorize your application.', 'wc-xero' ) ); ?></p>
+				<p><?php echo esc_html( __( 'Xero authentication using keys is in the process of being deprecated and new private apps can no longer be created.', 'woocommerce-xero' ) ); ?></br>
+				<?php echo esc_html( __( 'Please use new flow and the button available in Xero settings to authorize your application.', 'woocommerce-xero' ) ); ?></p>
 				<?php echo '<a href="' . admin_url( 'admin.php?page=woocommerce_xero' ) . '">Go to Xero settings page.</a>'; ?></br>
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Need to send tax inclusive prices to Xero?.
+	 *
+	 * @since 1.7.42
+	 *
+	 * @return boolean
+	 */
+	public function send_tax_inclusive_prices() {
+		/**
+		 * Filters the behavior of send tax inclusive prices to Xero.
+		 */
+		return apply_filters( 'woocommerce_xero_send_tax_inclusive_prices', wc_prices_include_tax() );
 	}
 }

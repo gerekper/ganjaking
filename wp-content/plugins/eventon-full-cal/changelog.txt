@@ -1,5 +1,32 @@
 Full Cal (FC) addon for EventON Plugin
 ====================================
+v 2.0.3 (2022-2-2)
+ADDED: js trigger evofc_calendar_populated
+FIXED: Show edit event button for each event effecting event title
+FIXED: heat map custom color not working
+FIXED: mo1st with grid_ux=2 open lightbox on switching months
+FIXED: some events showing above the date number
+UPDATED: calendar grid events to have event ID with repeat index as well
+
+v 2.0.2 (2021-12-3)
+FIXED: widget days not visible
+FIXED: load full month no on view switcher still loading all month events
+FIXED: legacy widget rendering content badly on backend
+
+v 2.0.1 (2021-11-23)
+FIXED: several style issues 
+FIXED: heat map not loading after filter
+FIXED: names turn into dots on mobile
+
+v 2.0 (2021-11-16)
+ADDED: loading animation for grid
+ADDED: compatibility with cal_init_nonajax='yes'
+ADDED: compatibility with view switcher
+FIXED: grid top row hover event names getting cut off
+FIXED: load_fullmonth=yes not working
+FIXED: today date box bar color not able to change via appearance
+UPDATED: Grid design layout
+
 v 1.1.13 (2021-3-18)
 FIXED: days misaignments
 

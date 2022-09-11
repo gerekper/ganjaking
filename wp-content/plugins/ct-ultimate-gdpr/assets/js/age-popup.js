@@ -109,19 +109,19 @@ jQuery(document).ready(function ($) {
             // for ages below 13, redirect to my account for user to be able to enter guard data
             if (ct_ultimate_gdpr_age.my_account_page_url) {
                 jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', true);
-                setInterval(function() { window.location.href = ct_ultimate_gdpr_age.my_account_page_url; }, 1000);
+                setTimeout(function() { window.location.href = ct_ultimate_gdpr_age.my_account_page_url; }, 1000);
             }
 
             // do not hide popup
             return;
 
         } 
-        
+  
         // redirect to terms/privacy if active
         if (ct_ultimate_gdpr_age.scheduled_redirect) {
-
+            
             jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', true);
-            setInterval(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
+            setTimeout(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
         }
 
         hidePopup()
@@ -152,10 +152,10 @@ jQuery(document).ready(function ($) {
     }
 
     function scheduledRedirect() {
-    
+
         // always redirect if scheduled_redirect is not empty
         if (ct_ultimate_gdpr_age.scheduled_redirect && ct_ultimate_gdpr_age.scheduled_redirect !== ct_ultimate_gdpr_age.my_account_page_url) {
-            setInterval(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
+            setTimeout(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
         }
     }
 

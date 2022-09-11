@@ -18,8 +18,10 @@ class EVO_Gutenberg{
 			wp_register_script(
 		        'evo-'. $this->blockname,
 		        EVO()->assets_path. 'lib/gutenberg/evo_gutenberg.js',
-		        array( 'wp-blocks', 'wp-element','wp-editor' )
+		        array( 'wp-blocks', 'wp-element' )
 		    );
+
+		    //array( 'wp-blocks', 'wp-element','wp-editor' )
 
 		    wp_localize_script(
 		    	'evo-'. $this->blockname,

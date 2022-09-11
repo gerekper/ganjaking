@@ -1,5 +1,9 @@
 *** Changelog ***
 
+2022-08-15 version 2.37
+
+* Improvements on security for nonce checking
+
 2022-06-30 version 2.36
 
 * Fixed review captcha not working on some clients

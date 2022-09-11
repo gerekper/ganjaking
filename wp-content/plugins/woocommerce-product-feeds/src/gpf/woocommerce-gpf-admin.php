@@ -560,7 +560,7 @@ class WoocommerceGpfAdmin {
 			}
 			$variables                      = $this->default_field_variables( $key, $loop_idx );
 			$variables['field_description'] = esc_html( $fieldinfo['desc'] );
-			$variables['field_defaults']    = '<br>';
+			$variables['field_defaults']    = '';
 			$placeholder                    = '';
 			if ( isset( $fieldinfo['can_prepopulate'] ) && ! empty( $this->settings['product_prepopulate'][ $key ] ) ) {
 				$prepopulate_vars             = array();
@@ -1494,6 +1494,13 @@ class WoocommerceGpfAdmin {
 				if ( $taxonomy ) {
 					// Translators: %s is the name of the taxonomy
 					$descriptor = sprintf( __( '<em>%s</em> taxonomy', 'woo_gpf' ), $taxonomy->labels->singular_name );
+				}
+				break;
+			case 'taxhierarchy':
+				$taxonomy = get_taxonomy( $value );
+				if ( $taxonomy ) {
+					// Translators: %s is the name of the taxonomy
+					$descriptor = sprintf( __( '<em>%s</em> taxonomy (full hierarchy)', 'woo_gpf' ), $taxonomy->labels->singular_name );
 				}
 				break;
 			case 'field':

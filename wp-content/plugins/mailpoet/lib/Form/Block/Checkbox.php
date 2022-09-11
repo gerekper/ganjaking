@@ -35,7 +35,8 @@ class Checkbox {
     $fieldName = 'data[' . $this->rendererHelper->getFieldName($block) . ']';
     $fieldValidation = $this->rendererHelper->getInputValidation($block, [], $formId);
 
-    $html .= $this->rendererHelper->renderLabel($block, $formSettings);
+    $html .= '<fieldset>';
+    $html .= $this->rendererHelper->renderLegend($block, $formSettings);
 
     $options = (!empty($block['params']['values'])
       ? $block['params']['values']
@@ -72,6 +73,8 @@ class Checkbox {
 
       $html .= '</label>';
     }
+
+    $html .= '</fieldset>';
 
     $html .= '<span class="mailpoet_error_' . $this->wp->escAttr($block['id']) . ($formId ? '_' . $formId : '') . '"></span>';
 

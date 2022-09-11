@@ -20,6 +20,7 @@ class EVOAUP_Lang{
 					array('label'=>'Purchase event submissions using the below section. After purchased, please revisit this page to submit your purchased events.','var'=>1),
 					array('label'=>'Price Per Event Submission','var'=>1),
 					array('label'=>'Price','var'=>1),
+					array('label'=>'Total Price','var'=>1),
 					array('label'=>'Number of Event Submissions included','var'=>1),
 					array('label'=>'Unlimited','var'=>1),
 					array('label'=>'Event','var'=>1),

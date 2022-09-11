@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Subscription scheme object. May extend the WC_Data class or handle CRUD in the future, if schemes are moved out of meta.
  *
  * @class    WCS_ATT_Scheme
- * @version  3.2.1
+ * @version  3.4.2
  */
 class WCS_ATT_Scheme implements ArrayAccess {
 
@@ -254,7 +254,13 @@ class WCS_ATT_Scheme implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function get_discount() {
-		return 'inherit' === $this->get_pricing_mode() ? $this->data[ 'discount' ] : false;
+		$discount = false;
+
+		if ( 'inherit' === $this->get_pricing_mode() ) {
+			$discount = ! empty( $this->data[ 'discount' ] ) ? (float) $this->data[ 'discount' ] : false;
+		}
+
+		return $discount;
 	}
 
 	/**

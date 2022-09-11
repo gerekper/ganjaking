@@ -307,4 +307,31 @@ class Betterdocs_Pro
         global $migration_Process;
         $migration_Process = new BetterDocs_Migration_Process();
     }
+
+    /**
+     * validate html tag
+     * @param $tag
+     * @return mixed|string
+     */
+    public static function validate_html_tag( $tag ){
+        $allowed_tags = [
+            'article',
+            'aside',
+            'div',
+            'footer',
+            'h1',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+            'header',
+            'main',
+            'nav',
+            'p',
+            'section',
+            'span',
+        ];
+        return in_array( strtolower( $tag ), $allowed_tags ) ? $tag : 'div';
+    }
 }

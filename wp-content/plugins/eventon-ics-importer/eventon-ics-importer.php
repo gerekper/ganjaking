@@ -4,16 +4,16 @@
  Plugin URI: http://plugins.ashanjay.com/event-calendar/
  Description: Import events from a .ICS file into eventON system
  Author: Ashan Jay
- Version: 1.1.3
+ Version: 1.1.4
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 5.5.3
+ Tested up to: 5.8
  */
 
 class EVOICS_import{	
 	
-	public $version='1.1.3';
-	public $eventon_version = '3.0';
+	public $version='1.1.4';
+	public $eventon_version = '4.0';
 	public $name = 'ICS Importer';
 	
 	public $addon_data = array();

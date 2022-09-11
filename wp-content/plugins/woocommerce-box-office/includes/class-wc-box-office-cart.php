@@ -33,6 +33,13 @@ class WC_Box_Office_Cart {
 		}
 
 		add_filter( 'woocommerce_add_to_cart_sold_individually_found_in_cart', array( $this, 'filter_sold_individually_found_in_cart' ), 10, 5 );
+
+		/**
+		 * Required ticket fields validation.
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-box-office/issues/263
+		 */
+		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_required_ticket_fields' ), 10, 2 );
 	}
 
 	/**
@@ -323,5 +330,74 @@ class WC_Box_Office_Cart {
 		}
 
 		return $found_in_cart;
+	}
+
+	/**
+	 * Validate required ticket fields.
+	 *
+	 * @param  bool $passed     Validation.
+	 * @param  int  $product_id Product ID.
+	 * @return bool
+	 */
+	public function validate_required_ticket_fields( $passed, $product_id ) {
+		// Check only if ticketing is enabled on product.
+		if ( ! wc_box_office_is_product_ticket( $product_id ) ) {
+			return $passed;
+		}
+
+		$product     = wc_get_product( $product_id );
+		$ticket_form = new WC_Box_Office_Ticket_Form( $product );
+		if ( empty( $product ) || empty( $ticket_form ) || empty( $ticket_form->fields ) ) {
+			return $passed;
+		}
+
+		$required_fields = array_filter(
+			$ticket_form->fields,
+			function( $field ) {
+				return ( isset( $field['required'] ) && 'yes' === $field['required'] );
+			}
+		);
+
+		// Check at least 1 required field is there.
+		if ( empty( $required_fields ) ) {
+			return $passed;
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Missing
+		$posted_data = isset( $_POST['ticket_fields'] ) ? wc_clean( $_POST['ticket_fields'] ) : array();
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$quantity = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 0;
+
+		// Check for each ticket.
+		for ( $i = 0; $i < $quantity; $i++ ) {
+			if ( isset( $posted_data[ $i ] ) && ! empty( $posted_data[ $i ] ) ) {
+				$data = $posted_data[ $i ];
+				foreach ( $required_fields as $key => $value ) {
+					if ( ! isset( $data[ $key ] ) || empty( $data[ $key ] ) ) {
+						$passed = false;
+						wc_add_notice(
+							sprintf(
+								// translators: %s - Ticket field label.
+								esc_html__( '%s is a required field and can not be empty.', 'woocommerce-box-office' ),
+								esc_html( $value['label'] )
+							),
+							'error'
+						);
+						break 2;
+					}
+				}
+			} else {
+				// Handle case where all fields are blank.
+				$passed = false;
+				wc_add_notice(
+					esc_html__( 'Please enter all required fields.', 'woocommerce-box-office' ),
+					'error'
+				);
+				break;
+			}
+		}
+
+		return $passed;
 	}
 }

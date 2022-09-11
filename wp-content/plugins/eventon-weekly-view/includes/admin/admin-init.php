@@ -47,9 +47,9 @@ class evowv_admin{
 			$new[] = array('id'=>'evoWV','type'=>'hiddensection_open','name'=>'WeeklyView Styles','display'=>'none');
 			$new[] = array('id'=>'evoWV','type'=>'fontation','name'=>'Date Box',
 				'variations'=>array(
-					array('id'=>'evowv_4c', 'name'=>'Date Box Background Color','type'=>'color', 'default'=>'fbfbfb'),
-					array('id'=>'evowv_4d', 'name'=>'Date Box Text Color','type'=>'color', 'default'=>'949494'),
-					array('id'=>'evowv_4e', 'name'=>'Date Box Border Color','type'=>'color', 'default'=>'f1f1f1'),
+					array('id'=>'evowv_4c', 'name'=>'Date Box Background Color','type'=>'color', 'default'=>'f1f1f1'),
+					array('id'=>'evowv_4d', 'name'=>'Date Box Text Color','type'=>'color', 'default'=>'737373'),
+					array('id'=>'evowv_4e', 'name'=>'Date Box Border Color','type'=>'color', 'default'=>'dedede'),
 				)
 			);
 			$new[] = array('id'=>'evoWV','type'=>'fontation','name'=>'Focused Date Box',
@@ -122,13 +122,13 @@ class evowv_admin{
 				),array(
 					'item'=>'.ajde_evcal_calendar .EVOWV_content .EVOWV_grid .evo_wv_day .evowv_daybox',
 					'multicss'=>array(
-						array('css'=>'background-color:#$', 'var'=>'evowv_4c','default'=>'fbfbfb'),
-						array('css'=>'color:#$', 'var'=>'evowv_4d','default'=>'949494'),
-						array('css'=>'border-color:#$', 'var'=>'evowv_4e','default'=>'f1f1f1')
+						array('css'=>'background-color:#$', 'var'=>'evowv_4c','default'=>'f1f1f1'),
+						array('css'=>'color:#$', 'var'=>'evowv_4d','default'=>'737373'),
+						array('css'=>'border-color:#$', 'var'=>'evowv_4e','default'=>'dedede')
 					)						
 				),
 				array(
-					'item'=>'.evoWV_days.wk_style_1 .evowv_table, .evoWV_days.wk_style_1 .day_col, .evoWV_days .eventon_wv_days',
+					'item'=>'.evoWV_days.wk_style_1 .evowv_table, .evoWV_days.wk_style_1 .day_col, .evoWV_days .eventon_wv_days, .EVOWV_grid',
 					'css'=>'border-color:#$', 'var'=>'evowv_4e','default'=>'f1f1f1'			
 				),
 				array(

@@ -20,7 +20,11 @@ class evotx_helper{
 			$sym = $symbol? html_entity_decode(get_woocommerce_currency_symbol($currency)):'';
 
 			$negative = $price < 0;
+
+			// remove commas in price
+			$price = str_replace(',', '', $price);
 			$price = floatval($negative? $price *-1: $price);
+
 			$price = apply_filters( 'formatted_woocommerce_price', number_format( $price, $decimals, $decimal_separator, $thousand_separator ), $price, $decimals, $decimal_separator, $thousand_separator );
 
 			
@@ -61,6 +65,9 @@ class evotx_helper{
 	// HTML Price 
 	// @updated: 1.7.3
 		function base_price_html($price, $unqiue_class='', $striked_price = '', $label_additions='', $is_name_yp=false){
+
+			if(empty($price)) $price = 0;
+
 
 			$strike_  = (!empty($striked_price) && $striked_price != $price)? "<span class='strikethrough' style='text-decoration: line-through'>". $this->convert_to_currency($striked_price).'</span> ':'';
 
@@ -198,7 +205,7 @@ class evotx_helper{
 		function get_price_format_data(){
 			return array(
 				'currencySymbol'=>get_woocommerce_currency_symbol(),
-				'thoSep'=> get_option('woocommerce_price_thousand_sep'),
+				'thoSep'=> htmlentities( get_option('woocommerce_price_thousand_sep'), ENT_QUOTES ),
 				'curPos'=> get_option('woocommerce_currency_pos'),
 				'decSep'=> get_option('woocommerce_price_decimal_sep'),
 				'numDec'=> get_option('woocommerce_price_num_decimals')

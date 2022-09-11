@@ -14,13 +14,13 @@
  * @version 1.9.0
  */
 $user_email  = $user ? $user->user_email : ''; ?>
-<input type="hidden" class="wcwl_oos_product wcwl_nojs" name="wcwl_<?php echo $product_id; ?>" />
+<input type="hidden" class="wcwl_oos_product wcwl_nojs" name="wcwl_<?php echo esc_attr( $product_id ); ?>" />
 <?php // Don't display anything else if users are required to register (unnecessary clutter)
 if ( 'yes' == get_option( 'woocommerce_waitlist_registration_needed' ) && ! $user_email ) {
 	return;
 }
 ?>
-<label for="wcwl_checked_<?php echo $product_id; ?>" class="woocommerce_waitlist_label wcwl_nojs" >
-	<?php echo $button_text; ?>
-	<input name="wcwl_checked_<?php echo $product_id; ?>" id="wcwl_checked_<?php echo $product_id; ?>" class="wcwl_checkbox wcwl_nojs" type="checkbox" <?php echo $checked; ?> data-product-id="<?php echo $product_id; ?>" data-wpml-lang="<?php echo $lang; ?>"/>
+<label for="wcwl_checked_<?php echo esc_attr( $product_id ); ?>" class="woocommerce_waitlist_label wcwl_nojs" >
+	<?php echo esc_html( $button_text ); ?>
+	<input name="wcwl_checked_<?php echo esc_attr( $product_id ); ?>" id="wcwl_checked_<?php echo esc_attr( $product_id ); ?>" class="wcwl_checkbox wcwl_nojs" type="checkbox" <?php echo esc_attr( $checked ); ?> data-product-id="<?php echo esc_attr( $product_id ); ?>" data-wpml-lang="<?php echo esc_attr( $lang ); ?>"/>
 </label>

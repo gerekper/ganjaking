@@ -1,16 +1,14 @@
 /**
  * Main javascript for fullCal addon for eventon
  * @version 0.10
- * @updated 1.1.2  
+ * @updated 2.0.2
  */
 jQuery(document).ready(function($){	
 	//init();	
 
 	$.fn.evo_fullcal = function(){
 		el = this;
-
-		var B = $(this).evo_cal_functions({return:'load_shortcodes'});
-		
+		var B = $(this).evo_cal_functions({return:'load_shortcodes'});		
 	};
 
 
@@ -30,27 +28,36 @@ jQuery(document).ready(function($){
 			draw_fullcal( CAL ,'init');
 
 			// load only fixed day events
-			if(SC.load_fullmonth=='no')	load_correct_events( CAL, 'init');
+			//if(SC.load_fullmonth=='no')	load_correct_events( CAL, 'init');
 		});
 
-		// after running for each cal 
-		$('body').on('evo_init_ajax_success', function(event, data){
-			$('body').find('.ajde_evcal_calendar.evoFC').each(function(){
-				//CAL = $(this);
-				//SC = CAL.evo_shortcode_data();
-				//draw_fullcal( CAL ,'replace');
-				//load_correct_events( CAL, 'init');
-			});			
+		$('body').on('evo_init_ajax_success',function(event, data){
+			$('body').find('.ajde_evcal_calendar.noiajx.evoFC').each(function(){
+				draw_fullcal( $(this), 'init' );
+
+				populate_grid_boxes_with_events( $(this) ,'init_ajax');
+			});
 		});
+		// COMPLETE
+		$('body').on('evo_main_ajax_complete', function(event, CAL, ajaxtype, data , data_arg){		
+			var SC = data_arg.shortcode;
+			if(  SC.calendar_type == 'fullcal'){
+					populate_grid_boxes_with_events( CAL ,'main_ajax_complete');
+			}
+		});	
 		
 
 	// DRAW FullCal grid
 		function draw_fullcal( CAL, type){
 
+
 			BUS = $('#evo_global_data').data('d');
 			var eJSON = CAL.find('.evo_cal_events').data('events');
 			SC = CAL.evo_shortcode_data();
 			var template_data = {};
+
+
+			//console.log(SC);
 
 
 			days_in_month = CAL.evo_day_in_month({M: SC.fixed_month, Y: SC.fixed_year});
@@ -92,11 +99,15 @@ jQuery(document).ready(function($){
 			var row = 1;
 			var calrows = Math.ceil( (boxes+days_in_month)/7);
 			var boxsin_lastrow = (boxes+days_in_month)%7;
+
 			
 			for(var x=1; x<= days_in_month; x++){
 				boxcount++;
 
 				_class_adds = '';
+
+				_class_adds += ' '+boxcount;
+
 				if(x == M.date() && SC.fixed_month == (M.month()+1) && SC.fixed_year == M.year()) _class_adds += ' today';
 				if(x == SC.fixed_day ) _class_adds += ' on_focus';
 				if(x > (days_in_month-7)) _class_adds += ' bb';
@@ -117,6 +128,12 @@ jQuery(document).ready(function($){
 					row++;
 				}
 
+				// right bottom box
+				if( boxcount %7 == 0 && row == calrows && boxsin_lastrow != 0) _class_adds += ' rb';
+				
+				// bottom left box
+				if( boxcount  == 29 && row == calrows) _class_adds += ' lb';
+
 				template_data['days'][x] = {};
 				template_data['days'][x]['cls'] = _class_adds;
 				template_data['days'][x]['su'] = SU;
@@ -131,6 +148,7 @@ jQuery(document).ready(function($){
 			// replace or insert HTML
 			if(type == 'replace'){
 				return _html_grid;
+			
 			}else{
 				_html_base = get_evo_temp_processed_html( template_data , 'evofc_base');				
 
@@ -140,8 +158,11 @@ jQuery(document).ready(function($){
 			}
 			CAL.find('.evofc_month_grid').fadeIn();
 
+			// remove pre laoder section
+			CAL.find('.evofc_pre_loader').remove();
 
-			if( type != 'replace') populate_grid_boxes_with_events( CAL );
+
+			if( type != 'replace') populate_grid_boxes_with_events( CAL , type);
 		}	
 			function get_evo_temp_processed_html( template_data, part){
 				BUS = $('#evo_global_data').data('d');
@@ -150,10 +171,11 @@ jQuery(document).ready(function($){
 			}
 
 		// populate the grid boxes with events JSON
-		function populate_grid_boxes_with_events(CAL){
+		function populate_grid_boxes_with_events(CAL, type){
 			var eJSON = CAL.find('.evo_cal_events').data('events');
 			grid = CAL.find('.evofc_month_grid');
 			SC = CAL.evo_shortcode_data();
+			var cal_events = CAL.find('.eventon_list_event');
 			
 			var _txt_more = CAL.evo_get_txt({V:'more'});
 
@@ -163,120 +185,160 @@ jQuery(document).ready(function($){
 				O = $(this);
 
 				EC = 0;
-				O_span = O.find('span');
+				O_span = O.find('span.day_evs');
 				O_span.html('');
 				O.removeClass('has_events');
 
-				// EACH EVENT
-				$.each(eJSON, function(ie, ev){
+				//Each event loaded in the calendar
+				cal_events.each(function(index, elm){
+					var ED = $(elm).evo_cal_get_basic_eventdata();
+					if(!ED) return;
+
+					//console.log(ED);
+
 					SU = parseInt(O.data('su'));
-					EU = SU+86399;				
+					EU = SU+86399;	
+
+					var evS = ED.event_start_unix,
+						evE = ED.event_end_unix;
+
 					var inrange = CAL.evo_is_in_range({
-						'S': SU,
-						'E': EU,
-						'start': ev.event_start_unix,
-						'end':ev.event_end_unix
-					});
-					if(inrange){
-						EC++;
-						O.addClass('has_events');
-						O.removeClass('noE');
+						'S': SU,	'E': EU,	'start': evS,'end':evE
+					});					
 
-						// Names in the grid
-						if( SC.style == 'names'){
-							if(EC <3){
-								_color = parseInt( ev.hex_color, 16) > 0xffffff/2 ? '#000':'#fff';
+					if(!inrange) return;
 
-								var _day_class = '';
+					_color = parseInt( ED.hex_color, 16) > 0xffffff/2 ? '#000':'#fff';
 
-								if(ev.event_start_unix < SU && SU < ev.event_end_unix && ev.event_end_unix <=EU) _day_class = 'muld_e';
-								if(ev.event_start_unix < SU && EU < ev.event_end_unix ) _day_class = 'muld_m';
-								if(SU <= ev.event_start_unix && EU < ev.event_end_unix ) _day_class = 'muld_s';
+					EC++;
+					O.addClass('has_events');
+					O.removeClass('noE');
 
-								if(ev.event_start_unix < SU && O.hasClass('d_1')) _day_class += ' strpr';
+					// Names in the grid
+					if( SC.style == 'names'){
+						if(EC <3){							
 
-								var _html_title = ev.event_title;
-								// hide title for inside dates
-								if( (_day_class == 'muld_m' || _day_class == 'muld_e') && !(O.prev().hasClass('lstdw')) && !(O.hasClass('d_1')) 
-								){	
-									//_html_title = '';	
-								}
+							var _day_class = '';
 
-								var _content = "<i class='"+ ev._ID+" "+_day_class+"' style='background-color:#"+ ev.hex_color +"; color:"+_color+"' title='"+ ev.event_title +"'>"+ _html_title +"</i>";
+							if(evS < SU && SU < evE && evE <=EU) _day_class = 'muld_e';
+							if(evS < SU && EU < evE ) _day_class = 'muld_m';
+							if(SU <= evS && EU < evE ) _day_class = 'muld_s';
 
-								// if previous date has same event
-								if(O.prev().find('i.'+ ev._ID).length>0){
-									prev_ind = O.prev().find('i.'+ ev._ID).index();
-									if( prev_ind == 0){
-										O_span.prepend( _content);	
-									}else{// prev ind = 1
-										if( O_span.find('i').length==0){
-											var prev_i = O.prev().find('i.'+ ev._ID);
-											O.prev().find('span').prepend( prev_i);
-										}
-										O_span.append( _content);											
-									}
+							if(evS < SU && O.hasClass('d_1')) _day_class += ' strpr';
+
+
+							var _content = "<i class='"+ ED.uID +" "+_day_class+"' style='background-color:"+ ED.hex_color +"; color:"+_color+"' title='"+ ED.event_title +"'>"+ ED.event_title +"</i>";
+
+							// if previous date has same event
+							if(O.prev().find('i.'+ ED.uID ).length>0){
+								prev_ind = O.prev().find('i.'+ ED.uID).index();
+								if( prev_ind == 0){
+									O_span.prepend( _content);	
 								}else{
-									O_span.append( _content);	
+								// prev ind = 1
+									if( O_span.find('i').length==0){
+										var prev_i = O.prev().find('i.'+ ED.uID);
+										O.prev().find('span.day_evs').prepend( prev_i);
+									}
+									O_span.append( _content);											
 								}
 							}else{
-								if(O.find('b').length == 0) O.find('span').append( "<b>+ "+_txt_more+"</b>");
-							}					
-						}else{
-							if(EC >=5 ){
-								O_span.html( "<b>"+EC+" "+_txt_more+"</b>");
-							}else{
-								O_span.append( "<i title='"+ ev.event_title +"'></i>");	
+								O_span.append( _content);	
 							}
+						}else{
+							if(O.find('b').length == 0) O.find('span.day_evs').append( "<b>+ "+_txt_more+"</b>");
+						}					
+					}else{
+						if(EC >=5 ){
+							O_span.html( "<b>"+EC+" "+_txt_more+"</b>");
+						}else{
+
+							title = ED.event_title;
+							title2 = title.split('<i');
+
+							//console.log(ED);
+							O_span.append( "<i class='"+ ED.uID +"' style='background-color:"+ ED.hex_color +"; color:"+_color+"' title='"+ title2[0] +"'></i>");	
 						}
-						if( EC> max_events) max_events = EC;
 					}
+					if( EC> max_events) max_events = EC;
+
 				});
 
 				if( EC == 0) O.addClass('noE');
 				days[index] = EC;
-				
 			});
 
 			// heat map coloring
 			if( SC.heat =='yes'){
+				grid_data = grid.data('d');
+				color = 'heat_c' in grid_data && grid_data.heat_c ? grid_data.heat_c : '4ccdea';
+
 				grid.find('.evofc_day').each(function(index){
 					events = days[index];						
 					opacity = ( events/ max_events).toFixed(2) ;
-					color = '206177';
-					if(events>0) $(this).css({'background-color':'#206177','opacity':opacity});					
+					
+					
+					if(events>0){
+						if( $(this).find('em.hm').length> 0){
+							$(this).find('em.hm').css({
+								'background-color': '#'+ color,
+								'opacity': opacity
+							});	
+						}else{
+							$(this).append('<em class="hm" style="'+ 'background-color:#'+ color +'; opacity:'+ opacity +'"></em>');	
+						}											
+					}else{
+						$(this).find('em.hm').remove();
+					}				
 				});
 			}
 
+
+			if(SC.load_fullmonth=='no') load_correct_events( CAL, type);
+
+
+			// trigger
+			$('body').trigger('evofc_calendar_populated',[ CAL , type]);
+
 		}
+
 	
 		
 	// GENERAL Interactions
 		// fix ratios for resizing the calendar size
 			$( window ).resize(function() {	$('body').trigger('evofc_resize_cal_grid');	});
 		// CLICK on a day
-			if(is_mobile()){
+			/*if(is_mobile()){
 				if(is_android()){
 					$('body').on( 'click','.evofc_day',function(){	clickon_day($(this));	});	
+					console.log('e');	
 				}else{
 					$('body').on( 'tap','.evofc_day',function(){	clickon_day($(this));	});	
-				}			
+					console.log('e');	
+				}				
 			}else{
-				$('body').on( 'click','.evofc_day',function(){	clickon_day($(this));	});			
+				$('body').on( 'click','.evofc_day',function(){	clickon_day($(this));	});	
+				console.log('e');		
 			}
+			*/
+
+			$('body').on( 'click','.evofc_day',function(){	clickon_day($(this));	});	
+
 			function clickon_day(obj){
 				if( obj.hasClass('evo_fc_empty')) return;
-				
+
 				CAL = obj.closest('.ajde_evcal_calendar');
 				SC = CAL.evo_shortcode_data();
 				CAL.evo_update_cal_sc({		F:'fixed_day', V:obj.data('d')	});
 			
-				load_correct_events( CAL );
+				load_correct_events( CAL ,'click');
 			}
 
 		// load correct events in event list based on fixed day
 		function load_correct_events(CAL, type){
 			SC = CAL.evo_shortcode_data();
+
+			//console.log(type);
 
 			if(type == 'init' && SC.grid_ux==2) return;
 			
@@ -289,20 +351,12 @@ jQuery(document).ready(function($){
 			sunix = parseInt(box_obj.data('su'));
 			eunix = sunix + 86399;
 
-			eJSON = CAL.find('.evo_cal_events').data('events');
-			// if load full month to calendar
-			if(type == 'init' && SC.load_fullmonth=='yes'){
-				
-				R = eJSON;
-
-			}else{
-				// get events from evnet list
+			// get events from calendar
 				R = CAL.evo_cal_events_in_range({
 					S: sunix,
 					E: eunix,
 					closeEC: (SC.evc_open=='yes'? false:true)
 				});
-			}			
 			
 			// grid interaction
 				if( SC.grid_ux == 1){
@@ -319,18 +373,19 @@ jQuery(document).ready(function($){
 			}
 
 			// load events in lightbox
-			if(SC.grid_ux==2 && type != 'init') {
+			if(SC.grid_ux==2 && type != 'init' && type != 'main_ajax_complete') {
+
 				$('.evofc_lightbox').evo_prepare_lb();	
 
 				if( 'count' in R && R.count > 0){
-					$('.evofc_lightbox').evo_append_lb({C: R.html});
+					$('.evofc_lightbox').evo_append_lb({C: R.html, CAL: CAL});
 				}else{
-					$('.evofc_lightbox').evo_append_lb({C: inside_content });
+					$('.evofc_lightbox').evo_append_lb({C: inside_content, CAL: CAL });
 				}			
 				
 				$('.evofc_lightbox').evo_show_lb({calid: CAL.attr('id')});
-
 				$('.evofc_lightbox').find('.eventon_list_event').show();
+
 			}else{
 				eList = CAL.find('#evcal_list');
 				if(R.count == 0){
@@ -350,18 +405,28 @@ jQuery(document).ready(function($){
 				}
 				CAL.find('#evcal_list').removeClass('evo_hide').show();
 			}
+
+
+			// trigger
+			$('body').trigger('evofc_calendar_events_loaded',[ CAL , type]);
 		}
 		
 	// BODY GEN
 		$('body')
 			// calendar view switching
+			.on('evo_vSW_clicked_before_ajax',function(event, O, CAL, DD, reload_cal_data){
+				if(!(O.hasClass('evofc'))) return;
+				var SC = CAL.evo_shortcode_data();
+
+				CAL.evo_update_cal_sc({F:'calendar_type', V: 'fullcal'});
+
+			})
 			.on('evo_vSW_clicked',function(event, OBJ, CAL){
 				if(!(OBJ.hasClass('evofc'))) return;
 
 				CAL.evo_update_cal_sc({F:'calendar_type', V: 'fullcal'});
-				CAL = OBJ.closest('.ajde_evcal_calendar');
 
-				draw_fullcal( CAL );
+				draw_fullcal( CAL );				
 
 			})
 			// resize fullcal grid
@@ -383,6 +448,7 @@ jQuery(document).ready(function($){
 					CAL = O.closest('.ajde_evcal_calendar');
 					SC = CAL.evo_shortcode_data();
 					_fc_grid_O = CAL.find('.evofc_month_grid');
+					const box_index = O.index();
 
 					SU = parseInt(O.data('su'));
 					R = CAL.evo_cal_events_in_range({S: SU, E: SU+86399, hide:false});
@@ -415,7 +481,8 @@ jQuery(document).ready(function($){
 							width = $('.eventon_fullcal').width();
 							var dayh = CAL.find('.eventon_fc_daynames').height();
 
-							BOXCOUNT = O.data('cnt');
+							var _TOP = (offs.top + dayh - TITLETIP_HEIGHT);
+
 
 							if( O.offset().left < ( _fc_grid_O.offset().left + _fc_grid_O.width() - (O.width()*4) ) ){
 								titletip.removeClass('lefter');
@@ -427,8 +494,17 @@ jQuery(document).ready(function($){
 								rightOFF = width- offs.left ;	
 							}
 
+							// top row boxes
+							if( box_index <8){
+								titletip.addClass('topper');
+								console.log(O.outerHeight());
+								_TOP += O.outerHeight();
+							}else{
+								titletip.removeClass('topper');
+							}
+
 							titletip.css({
-								top: (offs.top+dayh - TITLETIP_HEIGHT), 
+								top: _TOP, 
 								left:leftOff, 
 								right:rightOFF
 							})
@@ -537,17 +613,21 @@ jQuery(document).ready(function($){
 				
 				// animate the month grid
 				if(data_arg.direction =='none' && ajaxtype != 'today'){
-					populate_grid_boxes_with_events( CAL );
+					
+					populate_grid_boxes_with_events( CAL ,'noanimate');
 					load_correct_events( CAL ,'init');
 					strip.attr({'data-multiplier':'0'});
+				
 				}else{
+
 					strip.delay(100).animate({'margin-left':super_margin+'px'}, 500, 'easeOutQuint',function(){
 						strip.find('.focus').siblings().remove();
 						strip.css({'margin-left':'0'});
 						strip.attr({'data-multiplier':'0'});
 						
 						// load correct events and populate the new grid
-						populate_grid_boxes_with_events( CAL );
+						populate_grid_boxes_with_events( CAL , 'init');
+
 
 						if(SC.load_fullmonth=='no')	load_correct_events( CAL, 'init');
 					});

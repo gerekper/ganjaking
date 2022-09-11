@@ -62,7 +62,7 @@ class evors_front{
 
 		// event top above title
 		add_filter('eventon_eventtop_abovetitle', array($this,'eventtop_above_title'),10, 3);
-		add_filter('evo_cal_eventtop_attrs', array($this,'event_attrs'),10, 1);
+		add_filter('evo_cal_eventtop_attrs', array($this,'event_attrs'),10, 2);
 
 		//print_r( get_post_meta(1,'aaa'));
 
@@ -152,7 +152,7 @@ class evors_front{
 				$emeta = get_post_custom($this->event_id);
 
 			// check if RSVP info is ok to show
-				if(!$RSVP->can_rsvp() || $RSVP->close_rsvp_beforex() ) return;
+				if( !$RSVP->can_user_rsvp() ) return;
 
 
 			$lang = $this->get_local_lang();
@@ -195,23 +195,29 @@ class evors_front{
 
 
 					// Initial values
-						$closeRSVPbeforeX = $RSVP->close_rsvp_beforex();
-						$can_still_rsvp = $RSVP->can_rsvp();
-						$lang = $this->get_local_lang();
+					$lang = $this->get_local_lang();
 
 
-					if($RSVP->has_space_to_rsvp()){
-
-						// if loggedin user have not rsvp-ed yet
-						if(!$user_rsvp_status && !$closeRSVPbeforeX && $can_still_rsvp){
+					// if user can still RSVP
+					if( $RSVP->can_user_rsvp() ){
+						// user has rsvped
+						if( $user_rsvp_status){
+							$TEXT = evo_lang('You have already RSVP-ed', $lang);
+							$output .="<span class='evors_rsvpiable'>{$TEXT}: <em class='evors_rsvped_status_user'>".$this->get_rsvp_status($user_rsvp_status)."</em></span>";
+						}else{
 							$TEXT = eventon_get_custom_language($this->opt2, 'evoRSL_001','RSVP Now', $lang);
 							$output .=  "<span class='evors_rsvpiable' data-eid='{$RSVP->event->ID}' data-ri='{$RSVP->ri}'data-uid='{$this_user_id}' data-lang='{$lang}'>". $this->get_rsvp_choices($this->opt2, $this->optRS).'<b >'.$TEXT."</b ></span>";
-						}else{
-						// user has rsvp-ed already
+						}
+					// RSVP is closed
+					}else{
+						// if user has rsvped -> show his choise
+						if( $user_rsvp_status){
 							$TEXT = evo_lang('You have already RSVP-ed', $lang);
 							$output .="<span class='evors_rsvpiable'>{$TEXT}: <em class='evors_rsvped_status_user'>".$this->get_rsvp_status($user_rsvp_status)."</em></span>";
 						}
 					}
+
+					
 				}
 			}
 			return $output;
@@ -298,35 +304,40 @@ class evors_front{
 
 		// ABOVE title - event over tag
 			function eventtop_above_title($var, $object, $EVENT){
-				$epmv = $object->evvals;
-
+				
 				$RSVP = $this->RSVP;
 
 				// dismiss if set in ticket settings not to show sold out tag on eventtop
-				if(!empty($this->optRS['evors_eventop_soldout_hide']) && $this->optRS['evors_eventop_soldout_hide']=='yes') return $var;
-
+				if( EVO()->cal->check_yn('evors_eventop_soldout_hide','evcal_rs'))  return $var;
+				
 				// Initial Check
 				if(!$this->RSVP->is_rsvp_active()) return $var;
 				
 				$output = $var;
 
-				// if the event is over
-				if(!$RSVP->can_rsvp() ){
-					if( $EVENT->is_past_event()) 
+				// can not RSVP 
+				if(!$RSVP->can_user_rsvp() ){
+					// past event
+					if( $EVENT->is_past_event()){
 						$output = $var."<span class='eventover'>".evo_lang('Event Over', '',$this->opt2)."</span>";
-				// if there are no more spaces left to rsvp
-				}elseif(!$RSVP->has_space_to_rsvp()){
-					$output = $var."<span class='eventover nomore_spaces'>".evo_lang('No more spaces left', '',$this->opt2)."</span>";
+					} 
+						
+					// if there are no more spaces left to rsvp
+					if( !$RSVP->has_space_to_rsvp() ){
+						$output = $var."<span class='eventover nomore_spaces'>".evo_lang('No more spaces left', '',$this->opt2)."</span>";
+					}
 				}
 
 				return apply_filters('evors_eventtop_above_title', $output,$var, $EVENT);
 			}
 
 		// event attrs
-			public function event_attrs($attr){
+			public function event_attrs($attr, $EVENT){
 				
 				if(!$this->RSVP->is_rsvp_active()) return $attr;
-				if(!$this->RSVP->can_rsvp() ){
+				
+				// user can not RSVP and event is past
+				if( !$this->RSVP->can_user_rsvp() && $EVENT->is_past_event() ){
 					$attr['class'] = $attr['class'].' event_over';
 				}
 
@@ -468,7 +479,7 @@ class evors_front{
 					// whether current user have rsvped
 					$current_user_rsvped = $RR? $RR->get_rsvp_status(): false;
 
-					$can_newuser_rsvp = $RSVP->can_user_rsvp();
+					$can_user_rsvp = $RSVP->can_user_rsvp();
 
 					ob_start();
 
@@ -480,9 +491,8 @@ class evors_front{
 
 					
 					// there are RSVP spots remaining OR user loggedin
-						if( $can_newuser_rsvp || (!$can_newuser_rsvp && $current_user_rsvped)){	
-							if( $RSVP->event->is_future_event() )
-								echo "<p class='evors_section evors_user_text'><span>". apply_filters('evors_evc_user_rsvp_txt', $_user_txt,$RSVP, $RR) ."</span></p>";
+						if( $can_user_rsvp || (!$can_user_rsvp && $current_user_rsvped)){	
+							echo "<p class='evors_section evors_user_text'><span>". apply_filters('evors_evc_user_rsvp_txt', $_user_txt,$RSVP, $RR) ."</span></p>";
 
 							echo "<div class='evoRS_status_option_selection'>";
 							echo $this->_get_evc_html_rsvpoption($RR, $RSVP);							
@@ -618,7 +628,7 @@ class evors_front{
 					echo "</p>";
 
 				// user havent rsvped yet
-				}elseif(!$RSVP->close_rsvp_beforex() && $RSVP->can_rsvp()){
+				}else{
 
 					// count for rsvp options
 					$countARR = array();

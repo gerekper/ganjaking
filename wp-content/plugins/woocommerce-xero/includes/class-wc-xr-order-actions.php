@@ -47,8 +47,8 @@ class WC_XR_Order_Actions {
 			$actions = array();
 		}
 
-		$actions['xero_manual_invoice'] = __( 'Send Invoice to Xero', 'wc-xero' );
-		$actions['xero_manual_payment'] = __( 'Send Payment to Xero', 'wc-xero' );
+		$actions['xero_manual_invoice'] = __( 'Send Invoice to Xero', 'woocommerce-xero' );
+		$actions['xero_manual_payment'] = __( 'Send Payment to Xero', 'woocommerce-xero' );
 
 		return $actions;
 	}
@@ -66,7 +66,7 @@ class WC_XR_Order_Actions {
 		$invoice_manager = new WC_XR_Invoice_Manager( $this->settings );
 
 		// Send Invoice
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 		$invoice_manager->send_invoice( $order_id );
 
 		return true;
@@ -82,15 +82,15 @@ class WC_XR_Order_Actions {
 	public function manual_payment( $order ) {
 
 		if( 0 == $order->get_total() ) {
-			$order->add_order_note( __( 'Xero invoice amount is zero, no payment necessary.', 'wc-xero' ) );
+			$order->add_order_note( __( 'Xero invoice amount is zero, no payment necessary.', 'woocommerce-xero' ) );
 			return false;
-		} 
+		}
 
-		// Payment Manager
+		// Payment Manager.
 		$payment_manager = new WC_XR_Payment_Manager( $this->settings );
 
-		// Send Payment
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		// Send Payment.
+		$order_id = $order->get_id();
 		$payment_manager->send_payment( $order_id );
 
 		return true;

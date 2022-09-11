@@ -31,11 +31,10 @@ class evoem_admin{
 			'type'=>'dropdown',
 			'name'=>'Map marker type',
 			'options'=>array(
-				'dynamic'=>'Dynamic number-ed markers',
 				'default'=>'Default Google Markers',
 				'custom'=>'Custom map marker icon (Only if set above)'
 			),
-			'legend'=>'If you have problems with dynamic marker, swtiching to default marker should resolve. Dynamic map markers may take longer to load.'
+			'legend'=>'Custom marker URL must be set above for custom markers to work.'
 		);
 		$array[1]['fields'][] = array(
 			'id'=>'evomap_map_style', 

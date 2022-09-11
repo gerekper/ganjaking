@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2020, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 use SkyVerge\WooCommerce\CSV_Import_Suite\Background_Fix_Coupons_Usage_Count;
 
 defined( 'ABSPATH' ) or exit;
@@ -35,7 +35,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '3.10.2';
+	const VERSION = '3.10.4';
 
 	/** @var WC_CSV_Import_Suite single instance of this plugin */
 	protected static $instance;
@@ -92,7 +92,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\CSV_Import_Suite\Lifecycle( $this );
 	}
@@ -142,24 +142,24 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 	public function includes() {
 
 		// background job handler to add usage_count meta to coupons that don't have a value defined
-		require_once( $this->get_plugin_path() . '/includes/Background_Fix_Coupons_Usage_Count.php' );
+		require_once( $this->get_plugin_path() . '/src/Background_Fix_Coupons_Usage_Count.php' );
 
 		if ( 'yes' !== get_option( 'wc_csv_import_suite_coupons_usage_count_fixed', 'no' ) ) {
 			$this->background_fix_coupons_usage_count = new Background_Fix_Coupons_Usage_Count();
 		}
 
-		$this->background_import = $this->load_class( '/includes/class-wc-csv-import-suite-background-import.php', 'WC_CSV_Import_Suite_Background_Import' );
-		$this->importers         = $this->load_class( '/includes/class-wc-csv-import-suite-importers.php', 'WC_CSV_Import_Suite_Importers' );
+		$this->background_import = $this->load_class( '/src/class-wc-csv-import-suite-background-import.php', 'WC_CSV_Import_Suite_Background_Import' );
+		$this->importers         = $this->load_class( '/src/class-wc-csv-import-suite-importers.php', 'WC_CSV_Import_Suite_Importers' );
 
 		if ( is_admin() ) {
-			$this->admin = $this->load_class( '/includes/admin/class-wc-csv-import-suite-admin.php', 'WC_CSV_Import_Suite_Admin' );
+			$this->admin = $this->load_class( '/src/admin/class-wc-csv-import-suite-admin.php', 'WC_CSV_Import_Suite_Admin' );
 		}
 
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 
-			require_once( $this->get_plugin_path() . '/includes/class-wc-csv-import-suite-parser.php' );
+			require_once( $this->get_plugin_path() . '/src/class-wc-csv-import-suite-parser.php' );
 
-			$this->ajax = $this->load_class( '/includes/class-wc-csv-import-suite-ajax.php', 'WC_CSV_Import_Suite_AJAX' );
+			$this->ajax = $this->load_class( '/src/class-wc-csv-import-suite-ajax.php', 'WC_CSV_Import_Suite_AJAX' );
 		}
 	}
 

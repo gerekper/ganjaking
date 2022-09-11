@@ -30,11 +30,30 @@ jQuery.extend(true,_R, {
 			prepareLayers(id,_.key);
 			if (_R[id].chartStaticAdded == false) {				
 				prepareLayers(id,'static');
+				if (_R.isSafari11()) {
+					_R[id].calcResponsiveLayerHooks = _R[id].calcResponsiveLayerHooks==undefined ? [] : _R[id].calcResponsiveLayerHooks;
+					_R[id].calcResponsiveLayerHooks.push(function(o) {
+						var r;					
+						if (o._.chart!==undefined && o._._incolumn) {
+							r = { POBJ:{width:"100%"}, LOBJ:{width:"100%"}, LPOBJ:{width:"100%"}};
+							requestAnimationFrame(function() {
+								tpGS.gsap.set(o.L.find('svg'), {width:"98%"});
+								requestAnimationFrame(function() {
+									tpGS.gsap.set(o.L.find('svg'), {width:"100%"});											
+								});
+							});
+						}						
+						return r;	
+					});
+				}
 				_R[id].chartStaticAdded=true;
 			}
 		});	
 		listenToLayerChanges(id);
 	},	
+	chartDoubleDraw : function() {
+
+	},
 	/*
 	DRAW AND UPDATE CHARTS
 	 */
@@ -452,13 +471,15 @@ jQuery.extend(true,_R, {
 			var chart = _R.chartsCache['chart_'+id];
 			chart.pt = chart.svg.createSVGPoint();
 			_R.isFireFoxC = _R.isFireFoxC || (jQuery.fn.revolution===undefined || jQuery.fn.revolution.isFirefox ===undefined ? true : jQuery.fn.revolution.isFirefox());
-			chart.svg.addEventListener('mousemove',function(e) {			
-				
+			chart.svg.addEventListener('mousemove',function(e) {	
+				var scale = _R.isSafari11() ? tpGS.gsap.getProperty(chart.svg.parentNode, 'scale') : 1;
+				scale = scale==NaN || scale===undefined  ? 1 : scale;
 				chart.pt.x = e.clientX;
 				chart.pt.y = e.clientY;
-				var res = chart.pt.matrixTransform(chart.svg.getScreenCTM().inverse()),
+				var ctm = chart.svg.getScreenCTM().scale(scale),
+					inverse = ctm.inverse(),
+					res = chart.pt.matrixTransform(inverse),
 					over = _R.isFireFoxC ? !(res.x<chart.box.l || res.x>chart.box.r) : !(res.x<chart.box.l || res.x>chart.box.r || res.y<chart.box.t || res.y>chart.box.b);
-
 				
 				tpGS.gsap.to(chart.antexts,0.2, { opacity:(over ? 1 : 0)});
 				
@@ -467,8 +488,7 @@ jQuery.extend(true,_R, {
 				if (chart.ml!==undefined ) tpGS.gsap.to(chart.ml,0.2,{opacity:(over ? 1 : 0),attr:{x1:res.x,x2:res.x}});
 				var tx = tpGS.gsap.utils.snap(chart.xp,res.x),
 					xi = chart.xp.indexOf(tx);
-								
-
+												
 				for (var i=0;i<chart.antexts.length;i++) {						
 					tpGS.gsap.to(chart.antexts[i],0.2,{x:chart.antexts[i].id==="chart_value_marker" ? res.x : chart.xp[xi], y:chart.antexts[i].id==="chart_value_marker" ? chart.box.b : chart.yp[i][xi]});
 					chart.antexts[i].childNodes[1].textContent = chart.vals[i][xi];
@@ -613,7 +633,7 @@ listenToLayerChanges = function(id) {
 }
 //Support Defer and Async and Footer Loads
 window.RS_MODULES = window.RS_MODULES || {};
-window.RS_MODULES.charts = {loaded:true, version:'3.0.2'};
+window.RS_MODULES.charts = {loaded:true, version:'3.0.5'};
 if (window.RS_MODULES.checkMinimal) window.RS_MODULES.checkMinimal();
 
 })();

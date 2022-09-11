@@ -78,7 +78,7 @@ class RsChartsSlideFront extends RevSliderFunctions {
 		$subtype = $this->get_val($layer, 'subtype', '');
 		if(!$subtype || $subtype !== 'charts') return;
 				
-		$addOn = $this->get_val($layer, ['addOns', 'revslider-' . $this->title . '-addon'], false);
+		$addOn = $this->get_val($layer, array('addOns', 'revslider-' . $this->title . '-addon'), false);
 		if(!$addOn) return;
 					
 		$settings = $this->get_val($addOn, 'settings', array());			
@@ -99,6 +99,7 @@ class RsChartsSlideFront extends RevSliderFunctions {
 		foreach($arrayfields as $field) {
 			$arrays[$field] = $this->get_val($addOn, $field, array());
 		}
+		$arrays = apply_filters('revslider_charts_modify_layer_data', $arrays, $slider, $slide, $layer, $this);
 
 		$removed = 0;
 

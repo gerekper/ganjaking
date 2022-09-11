@@ -23,7 +23,7 @@ class NewsletterBlank13Column {
 
   public function get() {
     return [
-      'name' => WPFunctions::get()->__("Newsletter: Blank 1:3 Column", 'mailpoet'),
+      'name' => __("Newsletter: Blank 1:3 Column", 'mailpoet'),
       'categories' => json_encode(['standard', 'blank']),
       'readonly' => 1,
       'thumbnail' => $this->getThumbnail(),
@@ -62,7 +62,7 @@ class NewsletterBlank13Column {
                 "blocks" => [
                   [
                     "type" => "header",
-                    "text" => '<a href="[link:newsletter_view_in_browser_url]">'.WPFunctions::get()->__("View this in your browser.", 'mailpoet').'</a>',
+                    "text" => '<a href="[link:newsletter_view_in_browser_url]">'.__("View this in your browser.", 'mailpoet').'</a>',
                     "styles" => [
                       "block" => [
                         "backgroundColor" => "transparent",
@@ -114,7 +114,7 @@ class NewsletterBlank13Column {
                     "type" => "image",
                     "link" => "",
                     "src" => $this->template_image_url . "/fake-logo.png",
-                    "alt" => WPFunctions::get()->__("Fake logo", 'mailpoet'),
+                    "alt" => __("Fake logo", 'mailpoet'),
                     "fullWidth" => false,
                     "width" => "598px",
                     "height" => "71px",
@@ -126,7 +126,7 @@ class NewsletterBlank13Column {
                   ],
                   [
                     "type" => "text",
-                    "text" => WPFunctions::get()->__("<h1 style=\"text-align: center;\"><strong>Let's Get Started! </strong></h1>\n<p>&nbsp;</p>\n<p>It's time to design your newsletter! In the right sidebar, you'll find four menu items that will help you customize your newsletter:</p>\n<ol>\n<li>Content</li>\n<li>Columns</li>\n<li>Styles</li>\n<li>Preview</li>\n</ol>", 'mailpoet'),
+                    "text" => __("<h1 style=\"text-align: center;\"><strong>Let's Get Started! </strong></h1>\n<p>&nbsp;</p>\n<p>It's time to design your newsletter! In the right sidebar, you'll find four menu items that will help you customize your newsletter:</p>\n<ol>\n<li>Content</li>\n<li>Columns</li>\n<li>Styles</li>\n<li>Preview</li>\n</ol>", 'mailpoet'),
                   ],
                   [
                     "type" => "divider",
@@ -164,11 +164,11 @@ class NewsletterBlank13Column {
                 "blocks" => [
                   [
                     "type" => "text",
-                    "text" => '<h3>' . WPFunctions::get()->__('This template...', 'mailpoet') . '</h3>',
+                    "text" => '<h3>' . __('This template...', 'mailpoet') . '</h3>',
                   ],
                   [
                     "type" => "text",
-                    "text" => '<p>' . WPFunctions::get()->__('In the right sidebar, you can add layout blocks to your newsletter.', 'mailpoet') . '</p>',
+                    "text" => '<p>' . __('In the right sidebar, you can add layout blocks to your newsletter.', 'mailpoet') . '</p>',
                   ],
                 ],
               ],
@@ -183,11 +183,11 @@ class NewsletterBlank13Column {
                 "blocks" => [
                   [
                     "type" => "text",
-                    "text" => '<h3>' . WPFunctions::get()->__('... has a...', 'mailpoet') . '</h3>',
+                    "text" => '<h3>' . __('... has a...', 'mailpoet') . '</h3>',
                   ],
                   [
                     "type" => "text",
-                    "text" => WPFunctions::get()->__("<p>You have the choice of:</p>\n<ul>\n<li>1 column</li>\n<li>2 columns</li>\n<li>3 columns</li>\n</ul>", 'mailpoet'),
+                    "text" => __("<p>You have the choice of:</p>\n<ul>\n<li>1 column</li>\n<li>2 columns</li>\n<li>3 columns</li>\n</ul>", 'mailpoet'),
                   ],
                 ],
               ],
@@ -202,11 +202,11 @@ class NewsletterBlank13Column {
                 "blocks" => [
                   [
                     "type" => "text",
-                    "text" => '<h3>' . WPFunctions::get()->__('3-column layout.', 'mailpoet') . '</h3>',
+                    "text" => '<h3>' . __('3-column layout.', 'mailpoet') . '</h3>',
                   ],
                   [
                     "type" => "text",
-                    "text" => '<p>' . WPFunctions::get()->__('You can add as many layout blocks as you want!', 'mailpoet') . '</p>',
+                    "text" => '<p>' . __('You can add as many layout blocks as you want!', 'mailpoet') . '</p>',
                   ],
                   [
                     "type" => "text",
@@ -284,7 +284,7 @@ class NewsletterBlank13Column {
                   ],
                   [
                     "type" => "footer",
-                    "text" => '<p><a href="[link:subscription_unsubscribe_url]">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a><br />'.WPFunctions::get()->__("Add your postal address here!", 'mailpoet').'</p>',
+                    "text" => '<p><a href="[link:subscription_unsubscribe_url]">'.__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.__("Manage your subscription", 'mailpoet').'</a><br />'.__("Add your postal address here!", 'mailpoet').'</p>',
                     "styles" => [
                       "block" => [
                         "backgroundColor" => "transparent",

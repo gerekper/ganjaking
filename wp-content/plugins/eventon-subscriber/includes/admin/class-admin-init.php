@@ -74,6 +74,9 @@ class evosb_admin{
 			global $post;
 
 			$event_pmv = (!empty($post))? get_post_custom($post->ID):null;
+			
+
+
 			$is_repeating_event = (!empty($event_pmv['evcal_repeat']) && $event_pmv['evcal_repeat'][0]=='yes')? true:false;
 			$_evosb_send_mail = (!empty($event_pmv['_evosb_send_mail']))?
 				$event_pmv['_evosb_send_mail'][0]:null;
@@ -164,7 +167,9 @@ class evosb_admin{
 						'name'=>'General Subscriber Settings',
 						'tab_name'=>'General',
 						'fields'=>array(	
-							array('id'=>'evosb_2_002','type'=>'yesno','name'=>'Process as NO event types when no event types for an event is selected','legend'=>'When sending new event emails- if the event does not have any event type categories selected, process this as no categories selected as oppose to ALL Selected. Subscribers who have subscribed to either none or all will get email in respective case.',),
+							array('id'=>'evosb_2_002','type'=>'yesno',
+								'name'=> __('Process as NO event types when no event types for an event is selected','evosb'),
+								'legend'=>'When sending new event emails- if the event does not have any event type categories selected, process this as no categories selected as oppose to ALL Selected. Subscribers who have subscribed to either none or all will get email in respective case.',),
 
 							array('id'=>'evosb_draft','type'=>'yesno','name'=>'Save subscribers as draft','legend'=>'This will save susbcribers as draft posts and need to be published to send emails.',),
 
@@ -216,8 +221,8 @@ class evosb_admin{
 							array('id'=>'evcal_sub','type'=>'subheader','name'=>'New Event Email Settings'),
 								array('id'=>'evosb_autosend','type'=>'yesno',
 									'name'=>'Auto notify subscribers of new event, when the event is published',
-									'legend'=>'This will auto send new event email when event is published without having to set individually on event edit page and will override individual event edit page Email to subscribers value.',),
-								array('id'=>'evosb_more_link','type'=>'text','name'=>'Custom "More Information" link for new event email','legend'=>'You can use this to put a link to a different page that would be used for "More Information" button in the new event email'),
+									'legend'=>'This will auto send new event email when event is published without having to set individually on event edit page. This can be overridden by event edit page and disabling email subscribers button.',),
+								array('id'=>'evosb_more_link','type'=>'text','name'=>'Custom "More Information" link for new event email. Use complete url with http://','legend'=>'You can use this to put a link to a different page that would be used for "More Information" button in the new event email'),
 
 								array('id'=>'evosb_cancel_notif','type'=>'yesno',
 									'name'=>'Auto notify subscribers of event cancellation',
@@ -282,7 +287,6 @@ class evosb_admin{
 			</div>
 			<div class='evo_diag'>
 				<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/><br/>
-				<a target='_blank' href='http://www.myeventon.com/support/'><img src='<?php echo AJDE_EVCAL_URL;?>/assets/images/myeventon_resources.png'/></a>
 			</div>
 			
 			</form>	
@@ -394,9 +398,13 @@ class evosb_admin{
 			// send new event email
 				$send_new_event_email = true;
 
+				// check if set to send email via event edit page
 				if((!empty($_REQUEST['_evosb_send_mail']) && $_REQUEST['_evosb_send_mail']=='no')) $send_new_event_email = false;
+				
+				/*
 				$evosb_autosend = (!empty(EVOSB()->frontend->evoOpt_sb['evosb_autosend']) && EVOSB()->frontend->evoOpt_sb['evosb_autosend']=='yes')? true: false;
 				if($evosb_autosend) $send_new_event_email = true;
+				*/
 
 				if($EVENT->check_yn('_evosb_email_sent')) 	$send_new_event_email = false;
 
@@ -454,6 +462,7 @@ class evosb_admin{
 						'args'=>	array(
 								'event-name'=>$EVENT->get_title(),
 								'e_id'=>$post_id,
+								'EVENT'=> $EVENT
 							)
 						)
 					);
@@ -564,16 +573,31 @@ class evosb_admin{
 
 	// get event data for emails
 		function get_event_data($event_id, $event_pmv){
-			$location = (!empty($_POST['evcal_location_name'])? $_POST['evcal_location_name'].': ': null).(!empty($_POST['evcal_location'])? $_POST['evcal_location']:null);
+
+			$EVENT = new EVO_Event($event_id, $event_pmv);
+
+			// location
+			$LD = $EVENT->get_location_data();
+			$location = '';			
+			if($LD){
+				if( isset($LD['location_name'])) $location = $LD['location_name'];
+				if( isset($LD['location_address'])) $location .= ': '. $LD['location_address'];
+			}
+
+			// organizer
+			$organizer = '';
+			$OD = $EVENT->get_organizer_data();
+			if($OD){
+				$organizer = $OD['organizer_name'];
+			}
+			
 			
 			// Date and time
 				$datetime = new evo_datetime();
 				$correct_unix = $datetime->get_correct_event_repeat_time($event_pmv, 0);
 				$time_string = $datetime->get_formatted_smart_time($correct_unix['start'], $correct_unix['end'],$event_pmv);
 
-			//organizer
-			$organizer = (!empty($_POST['evcal_organizer'])? $_POST['evcal_organizer']:'');
-
+			
 			//content
 			$content = (!empty($_POST['content']))? $_POST['content']:'';
 			if(!empty($content)){				
@@ -583,8 +607,8 @@ class evosb_admin{
 			}
 
 			// cancellation reason
-			$_cancel_reason = (!empty($_POST['_cancel_reason']) && isset($_POST['content'])) ? 
-				$_POST['content']:'';
+				$_cancel_reason = '';
+				if(isset($_POST['_cancel_reason'])) $_cancel_reason = $_POST['_cancel_reason'];
 
 			// event image
 				$image_src = '';
@@ -664,6 +688,7 @@ class evosb_admin{
 						array('label'=>'Subscriber Manager','var'=>'1'),
 
 						array('label'=>'Successfully verified your subscription!','var'=>'1'),
+						array('label'=>'Successfully subscribed back to system!','var'=>'1'),
 						array('label'=>'Subscription Already Verified!','var'=>'1',),
 						array('label'=>'Email address does not have a match in our database!','var'=>'1',),
 						array('label'=>'Verification code did not match to database for the subscription!','var'=>'1',),

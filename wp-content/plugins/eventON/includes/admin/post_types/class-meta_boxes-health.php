@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Edit Meta box Health Guidance
- * @3.0
+ * @4.0.3
  */
 
 ?>
@@ -27,6 +27,7 @@
 			$EVENT->localize_edata('_edata');
 			
 			echo EVO()->elements->process_multiple_elements(
+				apply_filters('evo_healthcaredata_eventedit',
 				array(
 					array(
 						'type'=>'yesno_btn',
@@ -35,7 +36,7 @@
 						'value'=> $EVENT->get_eprop("_health_mask"),
 					),array(
 						'type'=>'yesno_btn',
-						'label'=> __('Temperate will be checked at entrance', 'eventon'),
+						'label'=> __('Temperature will be checked at entrance', 'eventon'),
 						'id'=> '_edata[_health_temp]',
 						'value'=> $EVENT->get_eprop("_health_temp"),
 					),array(
@@ -58,16 +59,23 @@
 						'label'=> __('Vaccination Required', 'eventon'),
 						'id'=> '_edata[_health_vac]',
 						'value'=> $EVENT->get_eprop("_health_vac"),
-					),array(
-						'type'=>'textarea',
-						'name'=> __('Other additional health guidelines', 'eventon'),
-						'id'=> '_edata[_health_other]',
-						'value'=> $EVENT->get_eprop("_health_other"),
 					),
+				), $EVENT
+				)
+			);
+
+			echo EVO()->elements->get_element(
+				array(
+					'type'=>'textarea',
+					'name'=> __('Other additional health guidelines', 'eventon'),
+					'id'=> '_edata[_health_other]',
+					'value'=> $EVENT->get_eprop("_health_other"),
 				)
 			);
 
 			?>
+
+			<p class='evo_elm_row'><a href='https://docs.myeventon.com/documentations/how-to-add-additional-healthcare-guidelines/' class='' target="_blank"><?php _e('Learn how to expand the healthcare guidelines','eventon');?></a></p>
 		
 		</div>
 	</div>									

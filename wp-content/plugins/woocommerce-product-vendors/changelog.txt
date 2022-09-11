@@ -1,5 +1,15 @@
 *** Product Vendors Changelog ***
 
+2022-08-23 - version 2.1.65
+* Fix: Vendor registration confirmation message is outside viewport.
+* Tweak - WC 6.8.0 compatibility.
+
+2022-08-10 - version 2.1.64
+* Fix - Ensure Vendors can edit their attachment details.
+* Fix - Fixed return type of get_product_commission.
+* Fix: Video not playing on vendor profile.
+* Fixed: Product counts removal regex for vendor dashboard.
+
 2022-07-28 - version 2.1.63
 * Fix - Add proper username validation for vendor registration.
 * Fix - Ensure the vendor email is properly added to the vendor account when using an existing user.

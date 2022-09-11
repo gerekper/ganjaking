@@ -481,12 +481,13 @@
 	.evoTX_wc .evoAddToCart.button{margin-top: 10px;}
 
 /* order details in my account */
-	.evotx_event_tickets_section .add_to_cal{padding: 0!important;}
-	.evotx_event_tickets_section{    padding: 25px;
-    	background-color: #f1f1f1;
-    	border-radius: 5px;}
-    .evotx_event_tickets_section_in{    padding: 10px;background-color: #fff; border-radius: 10px;}
-    .woocommerce-order .eventon-ticket-details{margin-bottom: 20px}
+	.evotx_event_tickets_section{ }
+    .evotx_event_tickets_section_in{ background-color: #fff; border-radius: 10px;}
+    .woocommerce-order .eventon-ticket-details{margin-bottom: 20px;
+    	background-color: #e7e7e7;
+	    border-radius: 15px;
+	    padding: 20px;
+    }
 	.evotx_event_tickets_section table td{	padding: 0;	}
 	.evotx_event_tickets_section table tr{border:none;}
 	.evotx_event_tickets_section table table,
@@ -497,6 +498,32 @@
 		display: flex; flex-direction: column;
 	}
 	.woocommerce-view-order .evotx_event_tickets_section table{}
+	.evotx_event_tickets_section table.evotx_ticket{
+		background-color: #e6e7e8;
+	    padding: 10px;
+	    border-radius: 10px;
+	}
+	.evotx_event_tickets_section table.evotx_ticket td{background-color: #fff}
+
+	.evotx_event{
+		background-color: #efefef;
+	    margin-bottom: 10px;
+	    padding: 20px;
+	    border-radius: 15px;
+	}
+	.evotx_event.past{background-color: #ddd;}
+	.evotx_event .evotx_event_tickets .evotx_tb span.evotx_view_ticket
+		{cursor: pointer; display: inline-block;margin: 0 5px 5px 0}
+	.evotx_ticket .evotx_view_ticket:hover{opacity: 0.7}
+	.evotx_event .evotx_event_tickets{display: table; width: 100%;}
+	.evotx_event .evotx_event_tickets .evotx_tb{display: table-row; }
+	.evotx_event .evotx_event_tickets .evotx_tb.evotx_tb_head{font-weight: bold; }
+	.evotx_event .evotx_event_tickets .evotx_tb span{display: table-cell; }
+	.evotx_event .evotx_event_tickets .evotx_tb span.tx_status,
+	.evotx_event .evotx_event_tickets .evotx_tb span.tx_o_status
+	{text-transform: capitalize;}
+
+	.evotx_lightbox .evotx_ticket td{padding:0;}
 
 /* products addon */
 	.evoTX_wc_section .product-addon{
@@ -558,14 +585,17 @@
 		display: inline-block;
 	}
 	.eventon_list_event .evotx_orderonline_add_cart .single_variation p.stock.out-of-stock,
-	.evo_lightbox_content .evotx_orderonline_add_cart .single_variation p.stock.out-of-stock{background-color:#f58358 }
+	.evo_lightbox_content .evotx_orderonline_add_cart .single_variation p.stock.out-of-stock
+	{background-color:#f58358 }
 
 /* order details after checkout */
 	.woocommerce-order-details .evo_event_ticket_item .wc-item-meta li{
-		border-bottom:1px solid #e6e6e6;
-		display:flex; 
-		padding: 5px 0;
-		font-size: 12px; font-style: italic;
+		    display: flex;
+	    padding: 5px 10px;
+	    font-style: italic;
+	    background-color: #e7e7e7;
+	    border-radius: 10px;
+	    margin-bottom: 5px;
 	}
 	.woocommerce-order-details .evo_event_ticket_item .wc-item-meta li strong{flex-basis:30%;}
 	.woocommerce-order-details .evo_event_ticket_item .wc-item-meta li:before, .woocommerce-order-details .evo_event_ticket_item .wc-item-meta li:after{content:none;}
@@ -574,15 +604,30 @@
 	.shop_table .cart_item.evo_event_ticket_item .item_meta_data,
 	.shop_table .cart_item.evo_event_ticket_item .variation
 	{display: block; font-style: italic;}
-	.shop_table .cart_item.evo_event_ticket_item .item_meta_data span{font-size: 14px;}
+	.shop_table .cart_item.evo_event_ticket_item .item_meta_data span{font-size: 14px;
+		    background-color: #f1f1f1;
+	    display: flex;
+	    flex-direction: column;
+	    padding: 5px 10px;
+	    border-radius: 10px;
+	    margin-top: 5px;
+	}
 	.shop_table .cart_item.evo_event_ticket_item .item_meta_data span b, 
 	.shop_table .cart_item.evo_event_ticket_item .variation dt
-	{display: block;border-bottom:1px solid #e6e6e6;}
+	{display: block;font-weight: bold; font-style: normal;}
+	.shop_table .cart_item.evo_event_ticket_item .evotx_item_meta_data_p{margin-bottom: 5px;}
 
 	form.woocommerce-checkout .evotx_checkout_additional_names .evotx_ticket_additional_info{
 		margin-bottom: 20px;
 	    border-bottom: 1px solid #e6e6e6;
 	    padding-bottom: 10px;
+	}
+
+	.shop_table .cart_item.evo_event_ticket_item .evotx_itemmeta_secondary{
+		background-color: #e0e0e0;
+	    border-radius: 8px;
+	    padding: 3px 10px;
+	    border: none;justify-content: space-between;
 	}
 	
 /* Responsive */
@@ -617,7 +662,7 @@
 	.event_tix_attendee_list .evotxVA_ticket:last-child{border:none;}
 	.evotxVA_ticket .evotxVA_data{width: 100%; padding-left: 20px;}
 	.evotxVA_ticket .evotxVA_data span b{font-size: 14px; font-weight: bold;}
-	.evotxVA_ticket .evotxVA_tn{font-weight: bold; font-size: 15px;opacity: 0.6;width: 150px;}
+	.evotxVA_ticket .evotxVA_tn{font-weight: bold; font-size: 18px;width: 150px;}
 	.evotxVA_ticket .etxva_tag, .evotxVA_ticket .evotx_status{
 		display: inline-block;
 		border-radius: 20px;
@@ -637,15 +682,23 @@
 	.evotxVA_ticket .etxva_tag.evotx_status.checked, .evotxVA_ticket .evotx_status.checked{background-color:#85b74a; color:#fff; }
 	.evotxVA_ticket .etxva_tag.completed{background-color:#5fc7be; color:#fff; }
 	.evotxVA_ticket .etxva_main{display: block;padding-bottom: 5px;}
-	.evotxVA_ticket .etxva_other span{font-size: 12px;margin-right: 10px;opacity: 0.7;        display: block;}
+	.evotxVA_ticket .etxva_other span{font-size: 14px;margin-right: 10px;opacity: 0.7;        display: block;}
 	.evotxVA_ticket .etxva_other span em{text-transform: capitalize;}
 
 /* actionUser event manager */
 	
 
 /* ticket holders */
+	.eventon-ticket-holder-details{margin-bottom: 20px;}
+	.eventon-ticket-holder-details div, 
 	.shop_table.ticketholder_details td{padding: 0;}
-	.shop_table.ticketholder_details .evotxVA_ticket{padding: 10px;border-bottom: 1px solid #eaeaea}
+	.eventon-ticket-holder-details .evotxVA_ticket, 
+	.shop_table.ticketholder_details .evotxVA_ticket{
+		padding: 20px;
+		background-color: #e7e7e7;
+	    border-radius: 15px;
+	    margin-bottom: 5px;}
+	.eventon-ticket-holder-details .evotxVA_ticket.refunded,
 	.shop_table.ticketholder_details .evotxVA_ticket.refunded{
 		background-color: #ff6f6f;
     	color: #fff;

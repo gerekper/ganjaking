@@ -1,5 +1,9 @@
 *** Table Rate Shipping Changelog ***
 
+2022-09-06 - version 3.0.41
+* Fix   - Remove unnecessary files from plugin zip file.
+* Tweak - WC 6.8 compatibility.
+
 2022-06-21 - version 3.0.40
 * Fix - Make sure the woocommerce_table_rate_package_row_base_price filter is always called.
 

@@ -37,7 +37,7 @@ class BlockRendererHelper {
       $rules['required'] = true;
       $rules['minlength'] = ModelValidator::EMAIL_MIN_LENGTH;
       $rules['maxlength'] = ModelValidator::EMAIL_MAX_LENGTH;
-      $rules['error-message'] = __('Please specify a valid email address.', 'mailpoet');
+      $rules['type-message'] = __('This value should be a valid email.', 'mailpoet');
     }
 
     if (($blockId === 'first_name') || ($blockId === 'last_name')) {
@@ -61,6 +61,7 @@ class BlockRendererHelper {
 
     if (!empty($block['params']['required'])) {
       $rules['required'] = true;
+      $rules['errors-container'] = '.mailpoet_error_' . $blockId . '_' . $formId;
       $rules['required-message'] = __('This field is required.', 'mailpoet');
     }
 
@@ -151,6 +152,37 @@ class BlockRendererHelper {
       }
 
       $html .= '</label>';
+    }
+    return $html;
+  }
+
+  public function renderLegend(array $block, array $formSettings): string {
+    $html = '';
+
+    if (
+      isset($block['params']['hide_label'])
+      && $block['params']['hide_label']
+    ) {
+      return $html;
+    }
+
+    if (
+      isset($block['params']['label'])
+      && strlen(trim($block['params']['label'])) > 0
+    ) {
+      // Use _label suffix for backward compatibility
+      $labelClass = 'class="mailpoet_' . $block['type'] . '_label" ';
+      $html .= '<legend '
+        . $labelClass
+        . $this->renderFontStyle($formSettings, $block['styles'] ?? [])
+        . '>';
+      $html .= htmlspecialchars($block['params']['label']);
+
+      if (isset($block['params']['required']) && $block['params']['required']) {
+        $html .= ' <span class="mailpoet_required">*</span>';
+      }
+
+      $html .= '</legend>';
     }
     return $html;
   }

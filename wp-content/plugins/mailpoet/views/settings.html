@@ -6,17 +6,14 @@
   <script type="text/javascript">
     <% autoescape 'js' %>
       var mailpoet_authorized_emails = <%= json_encode(authorized_emails) %>;
-      var mailpoet_woocommerce_active = <%= json_encode(is_woocommerce_active == true) %>;
+      var mailpoet_verified_sender_domains = <%= json_encode(verified_sender_domains) %>;
+      var mailpoet_all_sender_domains = <%= json_encode(all_sender_domains) %>;
       var mailpoet_members_plugin_active = <%= json_encode(is_members_plugin_active == true) %>;
-      var mailpoet_is_new_user = <%= json_encode(is_new_user == true) %>;
       var mailpoet_settings = <%= json_encode(settings) %>;
       var mailpoet_segments = <%= json_encode(segments) %>;
       var mailpoet_pages = <%= json_encode(pages) %>;
       var mailpoet_mss_key_valid = <%= json_encode(mss_key_valid) %>;
       var mailpoet_premium_key_valid = <%= json_encode(premium_key_valid) %>;
-      var mailpoet_premium_plugin_installed = <%= json_encode(premium_plugin_installed) %>;
-      var mailpoet_premium_plugin_download_url = <%= json_encode(premium_plugin_download_url) %>;
-      var mailpoet_premium_plugin_activation_url = <%= json_encode(premium_plugin_activation_url) %>;
       var mailpoet_paths = <%= json_encode(paths) %>;
       var mailpoet_built_in_captcha_supported = <%= json_encode(built_in_captcha_supported == true) %>;
       var mailpoet_free_plan_url = "<%= add_referral_id('https://www.mailpoet.com/free-plan') %>";
@@ -102,6 +99,7 @@
     'invalidEmail': __('Invalid email address'),
     'youNeedToAuthorizeTheEmail': __('You need to authorize the email address [email] to be able to send with it.'),
     'authorizeMyEmail': __('Authorize my email address'),
+    'authorizeSenderDomain': __('Email violates Sender Domain’s DMARC policy. Please set up [link]sender authentication[/link].'),
 
     'enableSignupConfTitle': __('Enable sign-up confirmation'),
     'enableSignupConfDescription': __("If you enable this option, your subscribers will first receive a confirmation email after they subscribe. Once they confirm their subscription (via this email), they will be marked as 'confirmed' and will begin to receive your email newsletters."),
@@ -120,8 +118,9 @@
     'readMore': _x('Read more.', 'support article link label'),
     'taskCron': __('Newsletter task scheduler (cron)'),
     'taskCronDescription': __('Select what will activate your newsletter queue.'),
-    'websiteVisitors': __('Visitors to your website (recommended)'),
+    'websiteVisitors': __('Visitors to your website'),
     'serverCron': __("Server side cron (Linux cron)"),
+    'actionSchedulerCron': __("WordPress built-in cron (recommended)"),
     'addCommandToCrontab': __("To use this option please add this command to your crontab:"),
     'withFrequency': __("With the frequency of running it every minute:"),
     'rolesTitle': __('Roles and capabilities'),

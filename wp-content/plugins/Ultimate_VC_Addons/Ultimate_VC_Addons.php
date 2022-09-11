@@ -4,7 +4,7 @@
  * Plugin URI: https://brainstormforce.com/demos/ultimate/
  * Author: Brainstorm Force
  * Author URI: https://www.brainstormforce.com
- * Version: 3.19.9
+ * Version: 3.19.12
  * Description: Includes WPBakery Page Builder premium addon elements like Icon, Info Box, Interactive Banner, Flip Box, * Info List & Counter. Best of all - provides A Font Icon Manager allowing users to upload / delete custom icon fonts.
  * Text Domain: ultimate_vc
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ if ( ! defined( '__ULTIMATE_ROOT__' ) ) {
 }
 
 if ( ! defined( 'ULTIMATE_VERSION' ) ) {
-	define( 'ULTIMATE_VERSION', '3.19.9' );
+	define( 'ULTIMATE_VERSION', '3.19.12' );
 }
 
 if ( ! defined( 'ULTIMATE_URL' ) ) {
@@ -496,8 +496,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 		public function front_modal_menu() {
 			$ultimate_modal_menu = bsf_get_option( 'ultimate_modal_menu' );
 			if ( 'enable' === $ultimate_modal_menu ) {
-				wp_enqueue_style( 'ultimate-modal' );
-				wp_enqueue_script( 'ultimate-modal-all' );
+				wp_enqueue_style( 'ultimate-vc-addons-modal' );
+				wp_enqueue_script( 'ultimate-vc-addons-modal-all' );
 
 			}
 		}
@@ -522,7 +522,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			}
 
 			// activate addons one by one from modules directory.
-			$ultimate_modules   = get_option( 'ultimate_modules' );
+			$ultimate_modules = get_option( 'ultimate_modules' );
+
 			$ultimate_modules[] = 'ultimate_just_icon';
 			$ultimate_modules[] = 'ultimate_functions';
 			$ultimate_modules[] = 'ultimate_icon_manager';
@@ -569,11 +570,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_enqueue_style( 'ult-animate', $this->assets_css . 'animate.css', null, ULTIMATE_VERSION );
-					wp_enqueue_style( 'aio-icon-manager', $this->admin_css . 'icon-manager.css', null, ULTIMATE_VERSION );
+					wp_enqueue_style( 'ultimate-vc-addons-animate', $this->assets_css . 'animate.css', null, ULTIMATE_VERSION );
+					wp_enqueue_style( 'ultimate-vc-addons-icon-manager', $this->admin_css . 'icon-manager.css', null, ULTIMATE_VERSION );
 				}
 				if ( wp_script_is( 'vc_inline_custom_view_js', 'enqueued' ) ) {
-					wp_enqueue_script( 'vc-inline-editor', $this->assets_js . 'vc-inline-editor.js', array( 'vc_inline_custom_view_js' ), ULTIMATE_VERSION, true );
+					wp_enqueue_script( 'ultimate-vc-addons-inline-editor', $this->assets_js . 'vc-inline-editor.js', array( 'vc_inline_custom_view_js' ), ULTIMATE_VERSION, true );
 				}
 				$fonts = get_option( 'smile_fonts' );
 				if ( is_array( $fonts ) ) {
@@ -812,18 +813,18 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 			$ultimate_smooth_scroll_compatible = get_option( 'ultimate_smooth_scroll_compatible' );
 
 			// register js.
-			wp_register_script( 'ultimate-script', UAVC_URL . 'assets/min-js/ultimate.min.js', array( 'jquery', 'jquery-ui-core' ), ULTIMATE_VERSION, false );
-			wp_register_script( 'ultimate-appear', $js_path . 'jquery-appear' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_register_script( 'ultimate-custom', $js_path . 'custom' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_register_script( 'ultimate-vc-params', $js_path . 'ultimate-params' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-script', UAVC_URL . 'assets/min-js/ultimate.min.js', array( 'jquery', 'jquery-ui-core' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-appear', $js_path . 'jquery-appear' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-custom', $js_path . 'custom' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-params', $js_path . 'ultimate-params' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 			if ( 'enable' === $ultimate_smooth_scroll_compatible ) {
 				$smooth_scroll = 'SmoothScroll-compatible.min.js';
 			} else {
 				$smooth_scroll = 'SmoothScroll.min.js';
 			}
-			wp_register_script( 'ultimate-smooth-scroll', UAVC_URL . 'assets/min-js/' . $smooth_scroll, array( 'jquery' ), ULTIMATE_VERSION, true );
-			wp_register_script( 'ultimate-modernizr', $js_path . 'modernizr-custom' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_register_script( 'ultimate-tooltip', $js_path . 'tooltip' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-smooth-scroll', UAVC_URL . 'assets/min-js/' . $smooth_scroll, array( 'jquery' ), ULTIMATE_VERSION, true );
+			wp_register_script( 'ultimate-vc-addons-modernizr', $js_path . 'modernizr-custom' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-tooltip', $js_path . 'tooltip' . $ext . '.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 
 			// register css.
 
@@ -833,11 +834,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 				$cssext = '';
 			}
 
-			self::ultimate_register_style( 'ultimate-animate', 'animate' );
-			self::ultimate_register_style( 'ult_hotspot_rtl_css', UAVC_URL . 'assets/min-css/rtl-common' . $ext . '.css', true );
-			self::ultimate_register_style( 'ultimate-style', 'style' );
-			self::ultimate_register_style( 'ultimate-style-min', UAVC_URL . 'assets/min-css/ultimate.min' . $cssext . '.css', true );
-			self::ultimate_register_style( 'ultimate-tooltip', 'tooltip' );
+			self::ultimate_register_style( 'ultimate-vc-addons-animate', 'animate' );
+			self::ultimate_register_style( 'ultimate-vc-addons_hotspot_rtl_css', UAVC_URL . 'assets/min-css/rtl-common' . $ext . '.css', true );
+			self::ultimate_register_style( 'ultimate-vc-addons-style', 'style' );
+			self::ultimate_register_style( 'ultimate-vc-addons-style-min', UAVC_URL . 'assets/min-css/ultimate.min' . $cssext . '.css', true );
+			self::ultimate_register_style( 'ultimate-vc-addons-tooltip', 'tooltip' );
 
 			$ultimate_smooth_scroll = get_option( 'ultimate_smooth_scroll' );
 			if ( 'enable' == $ultimate_smooth_scroll || 'enable' === $ultimate_smooth_scroll_compatible ) {
@@ -846,15 +847,15 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					'step'  => ( isset( $ultimate_smooth_scroll_options['step'] ) && '' != $ultimate_smooth_scroll_options['step'] ) ? (int) $ultimate_smooth_scroll_options['step'] : 80,
 					'speed' => ( isset( $ultimate_smooth_scroll_options['speed'] ) && '' != $ultimate_smooth_scroll_options['speed'] ) ? (int) $ultimate_smooth_scroll_options['speed'] : 480,
 				);
-				wp_enqueue_script( 'ultimate-smooth-scroll' );
+				wp_enqueue_script( 'ultimate-vc-addons-smooth-scroll' );
 				if ( 'enable' == $ultimate_smooth_scroll ) {
-					wp_localize_script( 'ultimate-smooth-scroll', 'php_vars', $options );
+					wp_localize_script( 'ultimate-vc-addons-smooth-scroll', 'php_vars', $options );
 				}
 			}
 
 			if ( function_exists( 'vc_is_editor' ) ) {
 				if ( vc_is_editor() ) {
-					wp_enqueue_style( 'vc-fronteditor', UAVC_URL . 'assets/min-css/vc-fronteditor.min.css', null, ULTIMATE_VERSION );
+					wp_enqueue_style( 'ultimate-vc-addons-fronteditor', UAVC_URL . 'assets/min-css/vc-fronteditor.min.css', null, ULTIMATE_VERSION );
 				}
 			}
 			$fonts = get_option( 'smile_fonts' );
@@ -871,7 +872,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 
 			$ultimate_global_scripts = bsf_get_option( 'ultimate_global_scripts' );
 			if ( 'enable' === $ultimate_global_scripts ) {
-				wp_enqueue_script( 'ultimate-modernizr' );
+				wp_enqueue_script( 'ultimate-vc-addons-modernizr' );
 				wp_enqueue_script( 'jquery_ui' );
 				wp_enqueue_script( 'masonry' );
 				if ( defined( 'DISABLE_ULTIMATE_GOOGLE_MAP_API' ) && ( true == DISABLE_ULTIMATE_GOOGLE_MAP_API || 'true' == DISABLE_ULTIMATE_GOOGLE_MAP_API ) ) {
@@ -880,29 +881,29 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					$load_map_api = true;
 				}
 				if ( $load_map_api ) {
-					wp_enqueue_script( 'googleapis' );
+					wp_enqueue_script( 'ultimate-vc-addons-googleapis' );
 				}
 				/* Range Slider Dependecy */
 				wp_enqueue_script( 'jquery-ui-mouse' );
 				wp_enqueue_script( 'jquery-ui-widget' );
 				wp_enqueue_script( 'jquery-ui-slider' );
-				wp_enqueue_script( 'ult_range_tick' );
+				wp_enqueue_script( 'ultimate-vc-addons_range_tick' );
 				/* Range Slider Dependecy */
-				wp_enqueue_script( 'ultimate-script' );
-				wp_enqueue_script( 'ultimate-modal-all' );
-				wp_enqueue_script( 'jquery.shake', $js_path . 'jparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
-				wp_enqueue_script( 'jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
+				wp_enqueue_script( 'ultimate-vc-addons-script' );
+				wp_enqueue_script( 'ultimate-vc-addons-modal-all' );
+				wp_enqueue_script( 'ultimate-vc-addons-jquery.shake', $js_path . 'jparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
+				wp_enqueue_script( 'ultimate-vc-addons-jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
 
-				wp_enqueue_style( 'ultimate-style-min' );
+				wp_enqueue_style( 'ultimate-vc-addons-style-min' );
 				if ( is_rtl() ) {
-					wp_enqueue_style( 'ult_hotspot_rtl_css' );
+					wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 				}
-				wp_enqueue_style( 'ult-icons' );
-				wp_enqueue_style( 'ultimate-vidcons', UAVC_URL . 'assets/fonts/vidcons.css', null, ULTIMATE_VERSION );
-				wp_enqueue_script( 'ultimate-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
-				wp_enqueue_script( 'jquery.ytplayer', $js_path . 'mb-YTPlayer' . $ext . '.js', null, ULTIMATE_VERSION, false );
+				wp_enqueue_style( 'ultimate-vc-addons-icons' );
+				wp_enqueue_style( 'ultimate-vc-addons-vidcons', UAVC_URL . 'assets/fonts/vidcons.css', null, ULTIMATE_VERSION );
+				wp_enqueue_script( 'ultimate-vc-addons-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
+				wp_enqueue_script( 'ultimate-vc-addons-jquery.ytplayer', $js_path . 'mb-YTPlayer' . $ext . '.js', null, ULTIMATE_VERSION, false );
 
-				$ultimate_google_font_manager = new Ultimate_Google_Font_Manager();
+				$ultimate_google_font_manager = new Ultimate_VC_Addons_Google_Font_Manager();
 				$ultimate_google_font_manager->enqueue_selected_ultimate_google_fonts();
 
 				return false;
@@ -936,7 +937,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 							stripos( $post_content, '[swatch_container' )
 							|| stripos( $post_content, '[ultimate_modal' )
 					) {
-						wp_enqueue_script( 'ultimate-modernizr' );
+						wp_enqueue_script( 'ultimate-vc-addons-modernizr' );
 					}
 
 					if ( stripos( $post_content, '[ultimate_exp_section' ) ||
@@ -959,7 +960,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 							$load_map_api = true;
 						}
 						if ( $load_map_api ) {
-							wp_enqueue_script( 'googleapis' );
+							wp_enqueue_script( 'ultimate-vc-addons-googleapis' );
 						}
 					}
 
@@ -967,18 +968,18 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 						wp_enqueue_script( 'jquery-ui-mouse' );
 						wp_enqueue_script( 'jquery-ui-widget' );
 						wp_enqueue_script( 'jquery-ui-slider' );
-						wp_enqueue_script( 'ult_range_tick' );
-						wp_enqueue_script( 'ult_ui_touch_punch' );
+						wp_enqueue_script( 'ultimate-vc-addons_range_tick' );
+						wp_enqueue_script( 'ultimate-vc-addons_ui_touch_punch' );
 					}
 
-					wp_enqueue_script( 'ultimate-script' );
-					wp_enqueue_script( 'ultimate-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
+					wp_enqueue_script( 'ultimate-vc-addons-script' );
+					wp_enqueue_script( 'ultimate-vc-addons-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
 
 					if ( stripos( $post_content, '[ultimate_modal' ) ) {
-							wp_enqueue_script( 'ultimate-modal-all' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-all' );
 					}
 				} elseif ( 'disable' == $ultimate_js || false == $ultimate_js ) {
-					wp_enqueue_script( 'ultimate-vc-params' );
+					wp_enqueue_script( 'ultimate-vc-addons-params' );
 
 					if (
 						stripos( $post_content, '[ultimate_spacer' )
@@ -987,7 +988,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 						|| stripos( $post_content, '[ultimate_icon_list' )
 
 					) {
-						wp_enqueue_script( 'ultimate-custom' );
+						wp_enqueue_script( 'ultimate-vc-addons-custom' );
 					}
 					if (
 						stripos( $post_content, '[just_icon' )
@@ -1003,37 +1004,37 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 						|| stripos( $post_content, '[ultimate_pricing' )
 						|| stripos( $post_content, '[ultimate_icons' )
 					) {
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'ultimate-custom' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-custom' );
 					}
 					if ( stripos( $post_content, '[ultimate_heading' ) ) {
-						wp_enqueue_script( 'ultimate-headings-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-headings-script' );
 					}
 					if ( stripos( $post_content, '[ultimate_video' ) ) {
-						wp_enqueue_script( 'ultimate-videos-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-videos-script' );
 					}
 					if ( stripos( $post_content, '[ultimate_ribbon' ) ) {
-						wp_enqueue_script( 'ultimate-ribbons-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-ribbons-script' );
 					}
 					if ( stripos( $post_content, '[ultimate_dual_color' ) ) {
-						wp_enqueue_script( 'ultimate-dual-colors-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-dual-colors-script' );
 					}
 					if ( stripos( $post_content, '[ultimate_carousel' ) ) {
-						wp_enqueue_script( 'ult-slick' );
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'ult-slick-custom' );
+						wp_enqueue_script( 'ultimate-vc-addons-slick' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-slick-custom' );
 					}
 					if ( stripos( $post_content, '[ult_countdown' ) ) {
-						wp_enqueue_script( 'ult-countdown-dependent' );
-						wp_enqueue_script( 'jquery.timecircle' );
-						wp_enqueue_script( 'jquery.countdown' );
+						wp_enqueue_script( 'ultimate-vc-addons-countdown-dependent' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery.timecircle' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery.countdown' );
 					}
 					if ( stripos( $post_content, '[icon_timeline' ) ) {
 						wp_enqueue_script( 'masonry' );
 					}
 					if ( stripos( $post_content, '[ultimate_info_banner' ) ) {
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'utl-info-banner-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-info-banner-script' );
 					}
 					if ( stripos( $post_content, '[ultimate_google_map' ) ) {
 						if ( defined( 'DISABLE_ULTIMATE_GOOGLE_MAP_API' ) && ( true == DISABLE_ULTIMATE_GOOGLE_MAP_API || 'true' == DISABLE_ULTIMATE_GOOGLE_MAP_API ) ) {
@@ -1042,201 +1043,201 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 							$load_map_api = true;
 						}
 						if ( $load_map_api ) {
-							wp_enqueue_script( 'googleapis' );
+							wp_enqueue_script( 'ultimate-vc-addons-googleapis' );
 						}
 					}
 					if ( stripos( $post_content, '[swatch_container' ) ) {
-						wp_enqueue_script( 'ultimate-modernizr' );
-						wp_enqueue_script( 'swatchbook-js' );
+						wp_enqueue_script( 'ultimate-vc-addons--modernizr' );
+						wp_enqueue_script( 'ultimate-vc-addons-swatchbook-js' );
 					}
 					if ( stripos( $post_content, '[ult_ihover' ) ) {
-						wp_enqueue_script( 'ult_ihover_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_ihover_js' );
 					}
 					if ( stripos( $post_content, '[ult_hotspot' ) ) {
-						wp_enqueue_script( 'ult_hotspot_tooltipster_js' );
-						wp_enqueue_script( 'ult_hotspot_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_hotspot_tooltipster_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_hotspot_js' );
 					}
 					if ( stripos( $post_content, '[ult_content_box' ) ) {
-						wp_enqueue_script( 'ult_content_box_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_content_box_js' );
 					}
 					if ( stripos( $post_content, '[bsf-info-box' ) ) {
-						wp_enqueue_script( 'info_box_js' );
+						wp_enqueue_script( 'ultimate-vc-addons-info_box_js' );
 					}
 					if ( stripos( $post_content, '[icon_counter' ) ) {
-						wp_enqueue_script( 'flip_box_js' );
+						wp_enqueue_script( 'ultimate-vc-addons-flip_box_js' );
 					}
 					if ( stripos( $post_content, '[ultimate_ctation' ) ) {
-						wp_enqueue_script( 'utl-ctaction-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-ctaction-script' );
 					}
 					if ( stripos( $post_content, '[stat_counter' ) ) {
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'ult-stats-counter-js' );
-						wp_enqueue_script( 'ultimate-custom' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-stats-counter-js' );
+						wp_enqueue_script( 'ultimate-vc-addons-custom' );
 						array_push( $dependancy, 'stats-counter-js' );
 					}
 					if ( stripos( $post_content, '[ultimate_video_banner' ) ) {
-						wp_enqueue_script( 'ultimate-video-banner-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-video-banner-script' );
 					}
 					if ( stripos( $post_content, '[ult_dualbutton' ) ) {
-						wp_enqueue_script( 'jquery.dualbtn' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery.dualbtn' );
 
 					}
 					if ( stripos( $post_content, '[ult_createlink' ) ) {
-						wp_enqueue_script( 'jquery.ult_cllink' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery.ult_cllink' );
 					}
 					if ( stripos( $post_content, '[ultimate_img_separator' ) ) {
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'ult-easy-separator-script' );
-						wp_enqueue_script( 'ultimate-custom' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-easy-separator-script' );
+						wp_enqueue_script( 'ultimate-vc-addons-custom' );
 					}
 
 					if ( stripos( $post_content, '[ult_tab_element' ) ) {
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'ult_tabs_rotate' );
-						wp_enqueue_script( 'ult_tabs_acordian_js' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons_tabs_rotate' );
+						wp_enqueue_script( 'ultimate-vc-addons_tabs_acordian_js' );
 					}
 					if ( stripos( $post_content, '[ultimate_exp_section' ) ) {
 						wp_enqueue_script( 'jquery_ui' );
-						wp_enqueue_script( 'jquery_ultimate_expsection' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery_ultimate_expsection' );
 					}
 
 					if ( stripos( $post_content, '[info_circle' ) ) {
-						wp_enqueue_script( 'jquery_ui' );
-						wp_enqueue_script( 'ultimate-appear' );
-						wp_enqueue_script( 'info-circle' );
+						wp_enqueue_script( 'ultimate-vc-addons-jquery_ui' );
+						wp_enqueue_script( 'ultimate-vc-addons-appear' );
+						wp_enqueue_script( 'ultimate-vc-addons-info-circle' );
 					}
 
 					if ( stripos( $post_content, '[ultimate_modal' ) ) {
-						wp_enqueue_script( 'ultimate-modernizr' );
+						wp_enqueue_script( 'ultimate-vc-addons-modernizr' );
 						if ( true == $bsf_dev_mode || 'true' == $bsf_dev_mode ) {
-							wp_enqueue_script( 'ultimate-modal-customizer' );
-							wp_enqueue_script( 'ultimate-modal-classie' );
-							wp_enqueue_script( 'ultimate-modal-froogaloop2' );
-							wp_enqueue_script( 'ultimate-modal-snap-svg' );
-							wp_enqueue_script( 'ultimate-modal' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-customizer' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-classie' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-froogaloop2' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-snap-svg' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal' );
 						} else {
-							wp_enqueue_script( 'ultimate-modal-all' );
+							wp_enqueue_script( 'ultimate-vc-addons-modal-all' );
 						}
 					}
 
 					if ( stripos( $post_content, '[ult_sticky_section' ) ) {
-						wp_enqueue_script( 'ult_sticky_js' );
-						wp_enqueue_script( 'ult_sticky_section_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_sticky_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_sticky_section_js' );
 					}
 
 					if ( stripos( $post_content, '[ult_team' ) ) {
-						wp_enqueue_script( 'ultimate-team' );
+						wp_enqueue_script( 'ultimate-vc-addons-team' );
 					}
 
 					if ( stripos( $post_content, '[ult_range_slider' ) ) {
 						wp_enqueue_script( 'jquery-ui-mouse' );
 						wp_enqueue_script( 'jquery-ui-widget' );
 						wp_enqueue_script( 'jquery-ui-slider' );
-						wp_enqueue_script( 'ult_range_tick' );
-						wp_enqueue_script( 'ult_range_slider_js' );
-						wp_enqueue_script( 'ult_ui_touch_punch' );
+						wp_enqueue_script( 'ultimate-vc-addons_range_tick' );
+						wp_enqueue_script( 'ultimate-vc-addons_range_slider_js' );
+						wp_enqueue_script( 'ultimate-vc-addons_ui_touch_punch' );
 					}
 				}
 
 				$ultimate_css = get_option( 'ultimate_css' );
 
 				if ( 'enable' == $ultimate_css ) {
-					wp_enqueue_style( 'ultimate-style-min' );
+					wp_enqueue_style( 'ultimate-vc-addons-style-min' );
 					if ( is_rtl() ) {
-						wp_enqueue_style( 'ult_hotspot_rtl_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 					}
 					if ( stripos( $post_content, '[ultimate_carousel' ) ) {
-						wp_enqueue_style( 'ult-icons' );
+						wp_enqueue_style( 'ultimate-vc-addons-icons' );
 					}
 				} else {
 
 					$ib_2_found = false;
 					$ib_found   = false;
 
-					wp_enqueue_style( 'ultimate-style' );
+					wp_enqueue_style( 'ultimate-vc-addons-style' );
 
 					if ( stripos( $post_content, '[ult_animation_block' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
 					}
 					if ( stripos( $post_content, '[icon_counter' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ult-flip-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-flip-style' );
 					}
 					if ( stripos( $post_content, '[ult_countdown' ) ) {
-						wp_enqueue_style( 'ult-countdown' );
+						wp_enqueue_style( 'ultimate-vc-addons-countdown' );
 					}
 					if ( stripos( $post_content, '[ultimate_icon_list' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-tooltip' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-tooltip' );
 					}
 					if ( stripos( $post_content, '[ultimate_carousel' ) ) {
-						wp_enqueue_style( 'ult-slick' );
-						wp_enqueue_style( 'ult-icons' );
-						wp_enqueue_style( 'ultimate-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-slick' );
+						wp_enqueue_style( 'ultimate-vc-addons-icons' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
 					}
 					if ( stripos( $post_content, '[ultimate_fancytext' ) ) {
-						wp_enqueue_style( 'ultimate-fancytext-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-fancytext-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_ctation' ) ) {
-						wp_enqueue_style( 'utl-ctaction-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-ctaction-style' );
 					}
 					if ( stripos( $post_content, '[ult_buttons' ) ) {
-						wp_enqueue_style( 'ult-btn' );
+						wp_enqueue_style( 'ultimate-vc-addons-btn' );
 					}
 					if ( stripos( $post_content, '[ultimate_heading' ) ) {
-						wp_enqueue_style( 'ultimate-headings-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-headings-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_video' ) ) {
-						wp_enqueue_style( 'ultimate-videos-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-videos-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_ribbon' ) ) {
-						wp_enqueue_style( 'ultimate-ribbons-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-ribbons-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_dual_color' ) ) {
-						wp_enqueue_style( 'ultimate-dual-colors-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-dual-colors-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_icons' ) || stripos( $post_content, '[single_icon' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-tooltip' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-tooltip' );
 					}
 					if ( stripos( $post_content, '[ult_ihover' ) ) {
-						wp_enqueue_style( 'ult_ihover_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_ihover_css' );
 						if ( is_rtl() ) {
-							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+							wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 						}
 					}
 					if ( stripos( $post_content, '[ult_hotspot' ) ) {
-						wp_enqueue_style( 'ult_hotspot_css' );
-						wp_enqueue_style( 'ult_hotspot_tooltipster_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_hotspot_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_hotspot_tooltipster_css' );
 						if ( is_rtl() ) {
-							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+							wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 						}
 					}
 					if ( stripos( $post_content, '[ult_content_box' ) ) {
-						wp_enqueue_style( 'ult_content_box_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_content_box_css' );
 					}
 					if ( stripos( $post_content, '[bsf-info-box' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'info-box-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-info-box-style' );
 					}
 					if ( stripos( $post_content, '[info_circle' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'info-circle' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-info-circle' );
 					}
 					if ( stripos( $post_content, '[ultimate_info_banner' ) ) {
-						wp_enqueue_style( 'utl-info-banner-style' );
-						wp_enqueue_style( 'ultimate-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-info-banner-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
 					}
 					if ( stripos( $post_content, '[icon_timeline' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-timeline-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-timeline-style' );
 						if ( is_rtl() ) {
-							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+							wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 						}
 					}
 					if ( stripos( $post_content, '[just_icon' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-tooltip' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-tooltip' );
 					}
 
 					if ( stripos( $post_content, '[interactive_banner_2' ) ) {
@@ -1251,69 +1252,69 @@ if ( ! class_exists( 'Ultimate_VC_Addons' ) ) {
 					}
 
 					if ( $ib_found && ! $ib_2_found ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ult-interactive-banner' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-interactive-banner' );
 					} elseif ( ! $ib_found && $ib_2_found ) {
-						wp_enqueue_style( 'ult-ib2-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-ib2-style' );
 					} elseif ( $ib_found && $ib_2_found ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ult-interactive-banner' );
-						wp_enqueue_style( 'ult-ib2-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-interactive-banner' );
+						wp_enqueue_style( 'ultimate-vc-addons-ib2-style' );
 					}
 
 					if ( stripos( $post_content, '[info_list' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
 						if ( is_rtl() ) {
-							wp_enqueue_style( 'ult_hotspot_rtl_css' );
+							wp_enqueue_style( 'ultimate-vc-addons_hotspot_rtl_css' );
 						}
 					}
 					if ( stripos( $post_content, '[ultimate_modal' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-modal' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-modal' );
 					}
 					if ( stripos( $post_content, '[ultimate_info_table' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-pricing' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-pricing' );
 					}
 					if ( stripos( $post_content, '[ultimate_pricing' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ultimate-pricing' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-pricing' );
 					}
 					if ( stripos( $post_content, '[swatch_container' ) ) {
-						wp_enqueue_style( 'swatchbook-css' );
+						wp_enqueue_style( 'ultimate-vc-addons-swatchbook-css' );
 					}
 					if ( stripos( $post_content, '[stat_counter' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ult-stats-counter-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-stats-counter-style' );
 					}
 					if ( stripos( $post_content, '[ultimate_video_banner' ) ) {
-						wp_enqueue_style( 'ultimate-video-banner-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-video-banner-style' );
 					}
 					if ( stripos( $post_content, '[ult_dualbutton' ) ) {
-						wp_enqueue_style( 'ult-dualbutton' );
+						wp_enqueue_style( 'ultimate-vc-addons-dualbutton' );
 					}
 					if ( stripos( $post_content, '[ult_createlink' ) ) {
-						wp_enqueue_style( 'ult_cllink' );
+						wp_enqueue_style( 'ultimate-vc-addons_cllink' );
 					}
 					if ( stripos( $post_content, '[ultimate_img_separator' ) ) {
-						wp_enqueue_style( 'ultimate-animate' );
-						wp_enqueue_style( 'ult-easy-separator-style' );
+						wp_enqueue_style( 'ultimate-vc-addons-animate' );
+						wp_enqueue_style( 'ultimate-vc-addons-easy-separator-style' );
 					}
 					if ( stripos( $post_content, '[ult_tab_element' ) ) {
-						wp_enqueue_style( 'ult_tabs' );
-						wp_enqueue_style( 'ult_tabs_acordian' );
+						wp_enqueue_style( 'ultimate-vc-addons_tabs' );
+						wp_enqueue_style( 'ultimate-vc-addons_tabs_acordian' );
 					}
 					if ( stripos( $post_content, '[ultimate_exp_section' ) ) {
-						wp_enqueue_style( 'style_ultimate_expsection' );
+						wp_enqueue_style( 'ultimate-vc-addons-style_ultimate_expsection' );
 					}
 					if ( stripos( $post_content, '[ult_sticky_section' ) ) {
-						wp_enqueue_style( 'ult_sticky_section_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_sticky_section_css' );
 					}
 					if ( stripos( $post_content, '[ult_team' ) ) {
-						wp_enqueue_style( 'ultimate-team' );
+						wp_enqueue_style( 'ultimate-vc-addons-team' );
 					}
 					if ( stripos( $post_content, '[ult_range_slider' ) ) {
-						wp_enqueue_style( 'ult_range_slider_css' );
+						wp_enqueue_style( 'ultimate-vc-addons_range_slider_css' );
 					}
 				}
 			}

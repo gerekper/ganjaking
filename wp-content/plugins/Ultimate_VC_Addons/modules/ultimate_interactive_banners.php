@@ -3,16 +3,16 @@
  * Add-on Name: Interactive Banners for WPBakery Page Builder
  * Add-on URI: http://dev.brainstormforce.com
  *
- * @package AIO_Interactive_Banners
+ * @package Ultimate_VC_Addons_Interactive_Banners
  */
 
-if ( ! class_exists( 'AIO_Interactive_Banners' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
 	/**
-	 * Class AIO_Interactive_Banners.
+	 * Class Ultimate_VC_Addons_Interactive_Banners.
 	 *
-	 * @class AIO_Interactive_Banners
+	 * @class Ultimate_VC_Addons_Interactive_Banners
 	 */
-	class AIO_Interactive_Banners {
+	class Ultimate_VC_Addons_Interactive_Banners {
 		/**
 		 * Constructor function that constructs default values for the Ultimate_Info_Table.
 		 *
@@ -31,7 +31,7 @@ if ( ! class_exists( 'AIO_Interactive_Banners' ) ) {
 		 * @method register_ib_banner_assets
 		 */
 		public function register_ib_banner_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-interactive-banner', 'interactive-styles' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-interactive-banner', 'interactive-styles' );
 		}
 		/**
 		 *  Init function.
@@ -643,8 +643,8 @@ if ( ! class_exists( 'AIO_Interactive_Banners' ) ) {
 		}
 	}
 }
-if ( class_exists( 'AIO_Interactive_Banners' ) ) {
-	$aio_interactive_banners = new AIO_Interactive_Banners();
+if ( class_exists( 'Ultimate_VC_Addons_Interactive_Banners' ) ) {
+	$aio_interactive_banners = new Ultimate_VC_Addons_Interactive_Banners();
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Interactive_Banner' ) ) {
 	/**

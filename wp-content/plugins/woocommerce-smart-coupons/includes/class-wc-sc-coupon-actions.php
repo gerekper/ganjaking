@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -163,7 +163,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 								$discount_type = ( ! empty( $product_data['discount_type'] ) ) ? $product_data['discount_type'] : 'percent';
 								switch ( $discount_type ) {
 									case 'flat':
-										$discount = $discount_amount;
+										$discount = $this->convert_price( $discount_amount );
 										break;
 
 									case 'percent':

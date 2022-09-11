@@ -4,14 +4,14 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create a week view of events for EventON Calendar
  Author: Ashan Jay
- Version: 1.1.5
+ Version: 2.0
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
  Tested up to: 5.8
  */
 class eventon_weeklyview{	
-	public $version='1.1.5';
-	public $eventon_version = '3.0';
+	public $version='2.0';
+	public $eventon_version = '4.0';
 	public $name = 'WeeklyView';
 
 	public $addon_data = array();

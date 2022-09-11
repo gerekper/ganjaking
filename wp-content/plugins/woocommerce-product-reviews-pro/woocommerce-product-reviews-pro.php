@@ -6,11 +6,11 @@
  * Description: Extend WooCommerce product reviews to add video, photo, comment, and question contribution types, as well as review filtering, voting, and flagging.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.17.4
+ * Version: 1.17.5
  * Text Domain: woocommerce-product-reviews-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2015-2022, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,28 +18,15 @@
  * @package   WC-Product-Reviews-Pro
  * @author    SkyVerge
  * @category  Reviews
- * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 570800:43662c2508f9242c6ba1da8c535510a0
- * WC requires at least: 3.5
- * WC tested up to: 5.1.0
+ * WC requires at least: 3.9.4
+ * WC tested up to: 6.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '43662c2508f9242c6ba1da8c535510a0', '570800' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * The plugin loader class.
@@ -56,10 +43,10 @@ class WC_Product_Reviews_Pro_Loader {
 	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.6';
+	const FRAMEWORK_VERSION = '5.10.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Product Reviews Pro';

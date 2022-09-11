@@ -5,13 +5,13 @@
  *  @package Ultimate Dual Button
  */
 
-if ( ! class_exists( 'AIO_Dual_Button' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Dual_Button' ) ) {
 	/**
 	 * Function that initializes Ultimate Dual Button Module
 	 *
-	 * @class AIO_Dual_Button
+	 * @class Ultimate_VC_Addons_Dual_Button
 	 */
-	class AIO_Dual_Button {
+	class Ultimate_VC_Addons_Dual_Button {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Animation module.
 		 *
@@ -36,8 +36,8 @@ if ( ! class_exists( 'AIO_Dual_Button' ) ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_register_script( 'jquery_dualbtn_new', UAVC_URL . 'admin/js/dualbtnbackend.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-					wp_enqueue_script( 'jquery_dualbtn_new' );
+					wp_register_script( 'ultimate-vc-addons-jquery_dualbtn_new', UAVC_URL . 'admin/js/dualbtnbackend.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+					wp_enqueue_script( 'ultimate-vc-addons-jquery_dualbtn_new' );
 				}
 			}
 		}
@@ -49,9 +49,9 @@ if ( ! class_exists( 'AIO_Dual_Button' ) ) {
 		 */
 		public function dualbutton_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-dualbutton', 'dual-button' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-dualbutton', 'dual-button' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'jquery.dualbtn', 'dual-button', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery.dualbtn', 'dual-button', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
 			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
 				$params = wp_parse_url( $_SERVER['HTTP_REFERER'] );
@@ -63,10 +63,10 @@ if ( ! class_exists( 'AIO_Dual_Button' ) ) {
 				}
 
 				if ( $vc_is_inline ) {
-					Ultimate_VC_Addons::ultimate_register_style( 'ult-dualbutton', 'dual-button' );
-					wp_enqueue_style( 'ult-dualbutton' );
-					Ultimate_VC_Addons::ultimate_register_script( 'jquery.dualbtn', 'dual-button', false, array( 'jquery' ), ULTIMATE_VERSION, false );
-					wp_enqueue_script( 'jquery.dualbtn' );
+					Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-dualbutton', 'dual-button' );
+					wp_enqueue_style( 'ultimate-vc-addons-dualbutton' );
+					Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery.dualbtn', 'dual-button', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+					wp_enqueue_script( 'ultimate-vc-addons-jquery.dualbtn' );
 				}
 			}
 		}
@@ -1695,8 +1695,8 @@ if ( ! class_exists( 'AIO_Dual_Button' ) ) {
 
 	}
 }
-if ( class_exists( 'AIO_Dual_Button' ) ) {
-	$AIO_Dual_Button = new AIO_Dual_Button(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+if ( class_exists( 'Ultimate_VC_Addons_Dual_Button' ) ) {
+	$AIO_Dual_Button = new Ultimate_VC_Addons_Dual_Button(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 
 
 }

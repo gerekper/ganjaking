@@ -532,15 +532,15 @@
 
 			$replace 	= array( ' ', "/", "'",'"', "--" );
 			$clean_up	= array( ',' );
-			$filename	= $settings['pdf_filename'];
+			$filename	= $pdf->get_option( 'pdf_filename' );
 
 			if ( $filename == '' ) {
 				$filename	= get_bloginfo('name') . '-' . $order_id;
 			} else {
 
-				$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $settings['pdf_date_format'] );
+				$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $pdf->get_option( 'pdf_date_format' ) );
 
-				$filename	= str_replace( '{{company}}',		$settings['pdf_company_name'] , $filename );
+				$filename	= str_replace( '{{company}}',		$pdf->get_option( 'pdf_company_name' ) , $filename );
 				$filename	= str_replace( '{{invoicedate}}', 	$invoice_date, $filename );
 				$filename	= str_replace( '{{invoicenumber}}',	( $pdf->get_woocommerce_pdf_invoice_num( $order_id ) ? $pdf->get_woocommerce_pdf_invoice_num( $order_id ) : $order_id ) , $filename );
 				$filename	= str_replace( '{{ordernumber}}', 	$order->get_order_number(), $filename );
@@ -716,10 +716,10 @@
 			$content = str_replace(	'[[PDFORDERENUM]]', 						self::get_invoice_display_order_number( $order ), 							$content );
 
 			$content = str_replace(	'[[PDFINVOICEDATEHEADING]]', 				self::get_pdf_template_invoice_date_text( $order ), 	 					$content );
-			$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ), 	$content );
+			$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice', self::get_option( 'pdf_date_format' ) ), 	$content );
 
 			$content = str_replace(	'[[PDFORDERDATEHEADING]]', 					self::get_pdf_template_order_date_text( $order ), 	 						$content );
-			$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order', $settings['pdf_date_format'] ), 		$content );
+			$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order', self::get_option( 'pdf_date_format' ) ), 		$content );
 			
 			$content = str_replace(	'[[PDFINVOICE_BILLINGDETAILS_HEADING]]',	self::get_pdf_billing_details_heading( $order ), 	 						$content );
 			$content = str_replace(	'[[PDFBILLINGADDRESS]]', 					self::get_invoice_billing_address( $order ),  								$content );
@@ -808,8 +808,10 @@
 
 			$fontfamily = apply_filters( 'pdf_invoice_default_font_family', '"DejaVu Sans", "DejaVu Sans Mono", "DejaVu", sans-serif, monospace', $order_id );
 
-			if( isset($settings['pdf_font']) && $settings['pdf_font'] != "" && $settings['pdf_font'] != "Default" ) {
-				$fontfamily = '"' . $settings['pdf_font'] . '"';
+			$use_stored_logo = self::get_option( 'store_logo_file' );
+
+			if( self::get_option( 'pdf_font' ) != "" && self::get_option( 'pdf_font' ) != "Default" ) {
+				$fontfamily = '"' . self::get_option( 'pdf_font' ) . '"';
 			}
 
 			return apply_filters( 'pdf_invoice_display_font_family', $fontfamily, $order_id );
@@ -824,7 +826,7 @@
 		 */
 		public static function get_text_direction( $order_id, $settings ) {
 
-			if( isset( $settings['pdf_rtl'] ) && $settings['pdf_rtl'] == 'true' ) {
+			if( self::get_option( 'pdf_rtl' ) == 'true' ) {
 				$rtl = ' dir="rtl"';
 			} else {
 				$rtl = '';
@@ -846,7 +848,7 @@
 
 			$currency_font_css = '';
 
-			if( isset( $settings['pdf_currency_font'] ) && $settings['pdf_currency_font'] != "" && $settings['pdf_currency_font'] != "false" ) {
+			if( self::get_option( 'pdf_currency_font' ) != "" && self::get_option( 'pdf_currency_font' ) != "false" ) {
 
 				/*
 					Adding your own font family.
@@ -855,7 +857,7 @@
 						return "DejaVu Sans";
 					}
 				*/
-				$font = apply_filters( 'pdf_invoice_currency_symbol_font_family', $settings['pdf_currency_font'], $order_id );
+				$font = apply_filters( 'pdf_invoice_currency_symbol_font_family', self::get_option( 'pdf_currency_font' ), $order_id );
 
 				$currency_font_css =    'span.woocommerce-Price-currencySymbol {
 									      font-family: "' . $font . '";
@@ -888,7 +890,7 @@
 		 */
 		public static function get_pdf_logo( $order_id, $settings ) {
 
-			$use_stored_logo = isset( $settings['store_logo_file'] ) ? $settings['store_logo_file'] : 'true';
+			$use_stored_logo = self::get_option( 'store_logo_file' );
 
 			// Get the logo from the order meta
 			$pdflogo = get_post_meta( $order_id,'_pdf_logo_file',TRUE );
@@ -901,12 +903,12 @@
 
 			// If there is no logo stored in the order then get the logo from the settings
 			if ( !isset( $pdflogo ) || $pdflogo == '' || $use_stored_logo == 'false' || !$stored_logo_exists ) {
-				$pdflogo = $settings['logo_file'];
+				$pdflogo = self::get_option( 'logo_file' );
 			}
 
 			if ( $pdflogo && $pdflogo != '' ) {
 
-			if( isset($settings['enable_remote']) && $settings['enable_remote'] == 'false' ) {
+			if( self::get_option( 'enable_remote' ) == 'false' ) {
 					// Replace the URL with the file structure
 					// Required whn the Remote Logo option is set to "no"
 					$wp_upload_dir 	= wp_upload_dir();
@@ -915,7 +917,7 @@
 
 				$logo = '<img src="' . $pdflogo . '" />';				
 			} else {
-				$logo = '<h1>' . get_bloginfo('name') . '</h1>';	
+				$logo = '<div class="pdf_invoice_blog_title">' . get_bloginfo('name') . '</div>';	
 			}
 
 			return apply_filters( 'pdf_invoice_display_logo', $logo, $order_id );
@@ -933,7 +935,7 @@
 			$pdfcompanyname = get_post_meta( $order_id,'_pdf_company_name',TRUE );
 
 			if ( !isset( $pdfcompanyname ) || $pdfcompanyname == '' ) {
-				$pdfcompanyname = $settings['pdf_company_name'];
+				$pdfcompanyname = self::get_option( 'pdf_company_name' );
 				$pdfcompanyname = isset( $pdfcompanyname ) && strlen( $pdfcompanyname ) != 0 ? $pdfcompanyname : "";
 				$pdfcompanyname = __( $pdfcompanyname, 'woocommerce-pdf-invoice' );
 			}
@@ -952,7 +954,7 @@
 			$pdf_company_details = nl2br( get_post_meta( $order_id,'_pdf_company_details',TRUE ) );
 
 			if ( !isset( $pdf_company_detailspdf_company_details ) || $pdf_company_details == '' ) {
-				$pdf_company_details = $settings['pdf_company_details'];
+				$pdf_company_details = self::get_option( 'pdf_company_details' );
 				$pdf_company_details = isset( $pdf_company_details ) && strlen( $pdf_company_details ) != 0 ? $pdf_company_details : "";
 				$pdf_company_details = nl2br( __( $pdf_company_details, 'woocommerce-pdf-invoice' ) );
 			}
@@ -971,7 +973,7 @@
 			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
-				$pdf_registered_name = $settings['pdf_registered_name'];
+				$pdf_registered_name = self::get_option( 'pdf_registered_name' );
 				$pdf_registered_name = isset( $pdf_registered_name ) && strlen( $pdf_registered_name ) != 0 ? $pdf_registered_name : "";
 				$pdf_registered_name = __( $pdf_registered_name, 'woocommerce-pdf-invoice' );
 			}
@@ -990,7 +992,7 @@
 			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
-				$pdf_registered_address = $settings['pdf_registered_address'];
+				$pdf_registered_address = self::get_option( 'pdf_registered_address' );
 				$pdf_registered_address = isset( $pdf_registered_address ) && strlen( $pdf_registered_address ) != 0 ? $pdf_registered_address : "";
 				$pdf_registered_address = __( $pdf_registered_address, 'woocommerce-pdf-invoice' );
 			}
@@ -1009,7 +1011,7 @@
 			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
-				$pdf_company_number = $settings['pdf_company_number'];
+				$pdf_company_number = self::get_option( 'pdf_company_number' );
 				$pdf_company_number = isset( $pdf_company_number ) && strlen( $pdf_company_number ) != 0 ? $pdf_company_number : "";
 				$pdf_company_number = __( $pdf_company_number, 'woocommerce-pdf-invoice' );
 			}
@@ -1028,7 +1030,7 @@
 			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
-				$pdf_tax_number = $settings['pdf_tax_number'];
+				$pdf_tax_number = self::get_option( 'pdf_tax_number' );
 				$pdf_tax_number = isset( $pdf_tax_number ) && strlen( $pdf_tax_number ) != 0 ? $pdf_tax_number : "";
 				$pdf_tax_number = __( $pdf_tax_number, 'woocommerce-pdf-invoice' );
 			}
@@ -1051,9 +1053,9 @@
 			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
-				$pdf_registered_name = $settings['pdf_registered_name'];
+				$pdf_registered_name = self::get_option( 'pdf_registered_name' );
 				$pdf_registered_name = isset( $pdf_registered_name ) && strlen( $pdf_registered_name ) != 0 ? $pdf_registered_name : "";
-				$pdf_registered_name    = __( $settings['pdf_registered_name'], 'woocommerce-pdf-invoice' );
+				$pdf_registered_name = __( $pdf_registered_name, 'woocommerce-pdf-invoice' );
 			}
 
 			$pdf_registered_name = apply_filters( 'pdf_invoice_display_registeredname', $pdf_registered_name, $order_id );
@@ -1080,7 +1082,7 @@
 			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
-				$pdf_registered_address = $settings['pdf_registered_address'];
+				$pdf_registered_address = self::get_option( 'pdf_registered_address' );
 				$pdf_registered_address = isset( $pdf_registered_address ) && strlen( $pdf_registered_address ) != 0 ? $pdf_registered_address : "";
 				$pdf_registered_address    = __( $pdf_registered_address, 'woocommerce-pdf-invoice' );
 			}
@@ -1109,7 +1111,7 @@
 			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
-				$pdf_company_number = $settings['pdf_company_number'];
+				$pdf_company_number = self::get_option( 'pdf_company_number' );
 				$pdf_company_number = isset( $pdf_company_number ) && strlen( $pdf_company_number ) != 0 ? $pdf_company_number : "";
 				$pdf_company_number    = __( $pdf_company_number, 'woocommerce-pdf-invoice' );
 			}
@@ -1138,9 +1140,9 @@
 			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
-				$pdf_tax_number = $settings['pdf_tax_number'];
+				$pdf_tax_number = self::get_option( 'pdf_tax_number' );
 				$pdf_tax_number = isset( $pdf_tax_number ) && strlen( $pdf_tax_number ) != 0 ? $pdf_tax_number : "";
-				$pdf_tax_number    = __( $settings['pdf_tax_number'], 'woocommerce-pdf-invoice' );
+				$pdf_tax_number = __( $pdf_tax_number, 'woocommerce-pdf-invoice' );
 			}
 
 			$pdf_tax_number = apply_filters( 'pdf_invoice_display_tax_number', $pdf_tax_number, $order_id );
@@ -1374,7 +1376,7 @@
 				return '';
 			} else {
 
-				$tracking_output = '<tr><td colspan="4"><h3>[[PDFSHIPMENTTRACKINGTITLE]]</h3>[[PDFSHIPMENTTRACKINGNUMBERS]]</td></tr>';
+				$tracking_output = '<tr><td colspan="4"><div class="pdf_invoice_heading_title">[[PDFSHIPMENTTRACKINGTITLE]]</div>[[PDFSHIPMENTTRACKINGNUMBERS]]</td></tr>';
 
 				$tracking_output = apply_filters( 'pdf_invoice_shipment_tracking_output', $tracking_output, $order_id );
 
@@ -1462,16 +1464,16 @@
 			$headers =  '<table class="shop_table orderdetails" width="100%">' . 
 						'<thead>' .
 						'<tr class="pdf_table_row pdf_table_row_title">' .
-						'<th colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title"><h2>' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</h2></th>' .
+						'<td colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</td>' .
 						'</tr>' .
 						'<tr class="pdf_table_row pdf_table_row_heading">' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="5%" valign="top" align="right">'  . esc_html__( 'Qty', 'woocommerce-pdf-invoice' ) 		. '</th>' .						
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="50%" valign="top" align="left">'  . esc_html__( 'Product', 'woocommerce-pdf-invoice' ) 	. '</th>' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Price Ex', 'woocommerce-pdf-invoice' ) 	. '</th>' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Total Ex.', 'woocommerce-pdf-invoice' ) 	. '</th>' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="7%" valign="top" align="right">'  . esc_html__( 'Tax', 'woocommerce-pdf-invoice' ) 		. '</th>' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Price Inc', 'woocommerce-pdf-invoice' ) 	. '</th>' .
-						'<th class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Total Inc', 'woocommerce-pdf-invoice' ) 	. '</th>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="5%" valign="top" align="right">'  . esc_html__( 'Qty', 'woocommerce-pdf-invoice' ) 		. '</td>' .						
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="50%" valign="top" align="left">'  . esc_html__( 'Product', 'woocommerce-pdf-invoice' ) 	. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Price Ex', 'woocommerce-pdf-invoice' ) 	. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="9%" valign="top" align="right">'  . esc_html__( 'Total Ex.', 'woocommerce-pdf-invoice' ) 	. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="7%" valign="top" align="right">'  . esc_html__( 'Tax', 'woocommerce-pdf-invoice' ) 		. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Price Inc', 'woocommerce-pdf-invoice' ) 	. '</td>' .
+						'<td class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">' . esc_html__( 'Total Inc', 'woocommerce-pdf-invoice' ) 	. '</td>' .
 						'</tr>' .
 						'</thead>' .
 						'</table>';
@@ -1492,7 +1494,7 @@
 			$headers =  '<table class="shop_table orderdetails" width="100%">' . 
 						'<thead>' .
 						'<tr class="pdf_table_row pdf_table_row_title">' .
-						'<th colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title"><h2>' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</h2></th>' .
+						'<th colspan="7" align="left" class="pdf_table_cell pdf_table_cell_title pdf_orderdetails_header">' . esc_html__('Order Details', 'woocommerce-pdf-invoice') . '</th>' .
 						'</tr>' .
 						'<tr class="pdf_table_row pdf_table_row_heading">' .
 						'<th class="pdf_table_cell pdf_table_cell_heading" width="10%" valign="top" align="right">'  . esc_html__( 'Qty', 'woocommerce-pdf-invoice' ) 		. '</th>' .						
@@ -2269,7 +2271,7 @@
 			$output 		= '';
 			
 			if( $customer_note ) {
-				$output = '<h3>' . __('Note:', 'woocommerce-pdf-invoice') . '</h3>' . wpautop( wptexturize( $customer_note ) );
+				$output = '<div class="pdf_order_notes_title">' . __('Note:', 'woocommerce-pdf-invoice') . '</div>' . wpautop( wptexturize( $customer_note ) );
 				$output = apply_filters( 'pdf_template_order_notes' , $output, $order_id );
 			}
 			return $output;
@@ -2287,9 +2289,9 @@
 			$output = '';
 
 			$output = 	'<tr class="pdf_order_totals_subtotal_row pdfordertotals_row">' .
-						'<td align="right" class="pdf_order_totals_subtotal_label pdfordertotals_cell">' .
-						'<strong>' . __('Subtotal', 'woocommerce-pdf-invoice') . '</strong></td>' .
-						'<td align="right" class="pdf_order_totals_subtotal_value pdfordertotals_cell"><strong>' . $order->get_subtotal_to_display() . '</strong></td>' .
+						'<td align="right" class="pdf_order_totals_subtotal_label pdfordertotals_cell pdf_order_totals_total_label">' .
+						'' . __('Subtotal', 'woocommerce-pdf-invoice') . '</td>' .
+						'<td align="right" class="pdf_order_totals_subtotal_value pdfordertotals_cell pdf_order_totals_value">' . $order->get_subtotal_to_display() . '</td>' .
 						'</tr>' ;
 			$output = apply_filters( 'pdf_template_order_subtotal' , $output, $order_id );
 			return $output;
@@ -2306,9 +2308,9 @@
 			$output = '';
 			
 			$output = 	'<tr class="pdf_order_totals_shipping_row pdfordertotals_row">' .
-						'<td align="right" class="pdf_order_totals_shipping_label pdfordertotals_cell">' .
-						'<strong>' . __('Shipping', 'woocommerce-pdf-invoice') . '</strong></td>' .
-						'<td align="right" class="pdf_order_totals_shipping_value pdfordertotals_cell"><strong>' . $order->get_shipping_to_display() . '</strong></td>' .
+						'<td align="right" class="pdf_order_totals_shipping_label pdfordertotals_cell pdf_order_totals_total_label">' .
+						'' . __('Shipping', 'woocommerce-pdf-invoice') . '</td>' .
+						'<td align="right" class="pdf_order_totals_shipping_value pdfordertotals_cell pdf_order_totals_value">' . $order->get_shipping_to_display() . '</td>' .
 						'</tr>' ;
 			
 			$output = apply_filters( 'pdf_template_order_shipping' , $output, $order_id );
@@ -2335,9 +2337,9 @@
 					}
 
 					$output .= 	'<tr class="pdf_order_totals_fees_row pdfordertotals_row">' .
-								'<td align="right" class="pdf_order_totals_fees_label pdfordertotals_cell">' .
-								'<strong>' . $fee->get_name() . '</strong></td>' .
-								'<td align="right" class="pdf_order_totals_fees_value pdfordertotals_cell"><strong>' . wc_price( 'excl' === $tax_display ? $fee->get_total() : $fee->get_total() + $fee->get_total_tax(), array( 'currency' => $order->get_currency() ) ) . '</strong></td>' .
+								'<td align="right" class="pdf_order_totals_fees_label pdfordertotals_cell pdf_order_totals_total_label">' .
+								'' . $fee->get_name() . '</td>' .
+								'<td align="right" class="pdf_order_totals_fees_value pdfordertotals_cell pdf_order_totals_value">' . wc_price( 'excl' === $tax_display ? $fee->get_total() : $fee->get_total() + $fee->get_total_tax(), array( 'currency' => $order->get_currency() ) ) . '</td>' .
 								'</tr>' ;
 				}
 			}
@@ -2368,7 +2370,7 @@
 				
 				$coupons_list = implode( ", ", $used_coupons ); 
 
-				$output .= '<br /><strong>' . __('Coupons used', 'woocommerce-pdf-invoice') . ' (' . $coupons_count . ') :</strong>' . $coupons_list;
+				$output .= '<br />' . __('Coupons used', 'woocommerce-pdf-invoice') . ' (' . $coupons_count . ') :' . $coupons_list;
 			
 			} // endif get_used_coupons
 
@@ -2390,13 +2392,12 @@
 
 			$output 	= '';
 			$negative 	= apply_filters( 'get_pdf_order_discount_negative', '-', $order );
-			$coupons  	= apply_filters( 'get_pdf_order_discount_coupons_used', '<strong>' . esc_html__('Discount:', 'woocommerce-pdf-invoice') . '</strong>' . $this->pdf_coupons_used( $order_id ) . '</td>', $order );
+			$coupons  	= apply_filters( 'get_pdf_order_discount_coupons_used', esc_html__('Discount:', 'woocommerce-pdf-invoice') . $this->pdf_coupons_used( $order_id ), $order );
 
 			if ( $order_discount > 0 ) {
 				$output .=  '<tr class="pdf_order_totals_discount_row pdfordertotals_row">' .
-							'<td align="right" valign="top" class="pdf_order_totals_discount_label pdfordertotals_cell">' .
-							$coupons .
-							'<td align="right" valign="top" class="pdf_order_totals_discount_value pdfordertotals_cell"><strong>' . $negative . wc_price( $order_discount ). '</strong></td>' .
+							'<td align="right" valign="top" class="pdf_order_totals_discount_label pdfordertotals_cell pdf_order_totals_total_label">' . $coupons . '</td>' .
+							'<td align="right" valign="top" class="pdf_order_totals_discount_value pdfordertotals_cell pdf_order_totals_value">' . $negative . wc_price( $order_discount ). '</td>' .
 							'</tr>' ;
 			}
 			
@@ -2422,16 +2423,16 @@
 
 					foreach ( $tax_items as $tax_item ) {
 						$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
-									'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . esc_html( $tax_item->label ) . '</td>' .
-									'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . wc_price( $tax_item->amount ) . '</td>' .
+									'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell pdf_order_totals_total_label">' . esc_html( $tax_item->label ) . '</td>' .
+									'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell pdf_order_totals_value">' . wc_price( $tax_item->amount ) . '</td>' .
 									'</tr>' ;
 					}
 
 					$total_tax = wc_price( $order->get_total_tax() );
 
 					$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
-								'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . __('Total Tax', 'woocommerce-pdf-invoice') . '</td>' .
-								'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . $total_tax . '</td>' .
+								'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell pdf_order_totals_total_label">' . __('Total Tax', 'woocommerce-pdf-invoice') . '</td>' .
+								'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell pdf_order_totals_value">' . $total_tax . '</td>' .
 								'</tr>' ;
 
 				} else {
@@ -2439,8 +2440,8 @@
 					foreach ( $tax_items as $tax_item ) {
 
 						$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
-									'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . esc_html( $tax_item->label ) . '</td>' .
-									'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . wc_price( $tax_item->amount ) . '</td>' .
+									'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell pdf_order_totals_total_label">' . esc_html( $tax_item->label ) . '</td>' .
+									'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell pdf_order_totals_value">' . wc_price( $tax_item->amount ) . '</td>' .
 									'</tr>' ;
 					}
 
@@ -2465,9 +2466,9 @@
 			$order = new WC_Order( $order_id );
 
 			$output =  	'<tr class="pdf_order_totals_total_row pdfordertotals_row">' .
-						'<td align="right" class="pdf_order_totals_total_label pdfordertotals_cell">' .
-						'<strong>' . __('Grand Total', 'woocommerce-pdf-invoice') . '</strong></td>' .
-						'<td align="right" class="pdf_order_totals_total_value pdfordertotals_cell"><strong>' . wc_price( $order->get_total() ) . '</strong></td>' .
+						'<td align="right" class="pdf_order_totals_total_label pdfordertotals_cell pdf_order_totals_total_label">' .
+						'' . __('Grand Total', 'woocommerce-pdf-invoice') . '</td>' .
+						'<td align="right" class="pdf_order_totals_total_value pdfordertotals_cell pdf_order_totals_value">' . wc_price( $order->get_total() ) . '</td>' .
 						'</tr>' ;
 			$output = apply_filters( 'pdf_template_order_total' , $output, $order_id );
 
@@ -2501,9 +2502,9 @@
 				} else {
 
 					$output .=  '<tr class="pdfordertotals_row">' .
-								'<td align="right" class="pdfordertotals_cell">' .
-								'<strong>' . $value['label'] . '</strong></td>' .
-								'<td align="right" class="pdfordertotals_cell"><strong>' . $value['value'] . '</strong></td>' .
+								'<td align="right" class="pdfordertotals_cell pdf_order_totals_total_label">' .
+								'' . $value['label'] . '</td>' .
+								'<td align="right" class="pdfordertotals_cell pdf_order_totals_value">' . $value['value'] . '</td>' .
 								'</tr>' ;
 				}
 
@@ -2512,9 +2513,9 @@
 			if( $order->get_total_refunded() > 0 ) {
 
 				$output .=  '<tr class="pdfordertotals_row">' .
-							'<td align="right" class="pdfordertotals_cell">' .
-							'<strong>Amount Refunded:</strong></td>' .
-							'<td align="right" class="pdfordertotals_cell"><strong>' . wc_price( $order->get_total_refunded(), array( 'currency' => $order_currency ) ) . '</strong></td>' .
+							'<td align="right" class="pdfordertotals_cell pdfordertotals_title_cell">' .
+							'Amount Refunded:</td>' .
+							'<td align="right" class="pdfordertotals_cell pdfordertotals_value_cell">' . wc_price( $order->get_total_refunded(), array( 'currency' => $order_currency ) ) . '</td>' .
 							'</tr>' ;
 							
 			}
@@ -3099,6 +3100,17 @@
 			return false;
 
 		}
+
+		public static function get_option( $option ) {
+
+            $settings 	= get_option('woocommerce_pdf_invoice_settings');
+            $defaults 	= WooCommerce_PDF_Invoice_Defaults::$defaults;
+
+            $option 	= isset( $settings[$option] ) ? $settings[$option] : $defaults[$option];
+
+            return $option;
+
+        }
 
     }
 

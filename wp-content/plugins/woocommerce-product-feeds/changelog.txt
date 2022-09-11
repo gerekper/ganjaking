@@ -1,5 +1,11 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.08.24 - version 10.7.5
+* Change: WooCommerce 6.9 compatibility
+* Change: Internal IDs are only added to the product review feed if there are no other identifiers
+* Fix: Resolve some minor layout quirks and excess spacing on admin screens
+* Fix: Admin screen didn't show default value when set to a taxonomy full-hierarchy pre-population
+
 2022.08.01 - version 10.7.4
 * New: WooCommerce 6.8 compatibility
 * New: Submit feature requests from the extension pages

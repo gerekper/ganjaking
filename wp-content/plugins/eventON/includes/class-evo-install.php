@@ -26,6 +26,7 @@ class evo_install {
 		//add_action('init', array( __CLASS__, 'check_version'),5);
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ), 5 );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
+		add_filter( 'cron_schedules', array( __CLASS__, 'cron_schedules' ) );
 	}
 
 	// check eventon version and run the updater if required
@@ -47,6 +48,21 @@ class evo_install {
 			self::create_cron_jobs();
 		}
 
+	// CRON
+	// add more cron schedules
+		static function cron_schedules($schedules){
+			 if(!isset($schedules["weekly"])){
+		        $schedules["weekly"] = array(
+		            'interval' => 60*60*24*7,
+		            'display' => __('Once every week','eventon'));
+		    }
+		    if(!isset($schedules["3days"])){
+		        $schedules["3days"] = array(
+		            'interval' => 60*60*24*3,
+		            'display' => __('Every three days','eventon'));
+		    }
+		    return $schedules;
+		}
 
 	// create cron jobs after clearning them
 	// Will run on all admin pages

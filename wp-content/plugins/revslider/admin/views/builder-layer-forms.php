@@ -276,7 +276,7 @@ if(!defined('ABSPATH')) exit();
 				</div>
 			</div>
 			<!-- LAYER VIDEO POSTER CONTENT  -->
-			<div id="form_layercontent_content_videooverlay" class="form_inner open _shfv_ _shfa_">
+			<div id="form_layercontent_content_videooverlay" class="form_inner open _shfv_">
 				<div class="form_inner_header"><i class="material-icons">filter_hdr</i><?php _e('Overlay', 'revslider');?></div>
 				<div class="collapsable">
 					<div class="_nsfa_">

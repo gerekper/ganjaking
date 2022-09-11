@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Social Login Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.11.1';
+	const VERSION = '2.11.2';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -194,12 +194,12 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 		}
 
 		// admin includes
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			$this->admin_includes();
 		}
 
 		// ajax includes
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			$this->ajax = $this->load_class( '/src/AJAX.php', '\\SkyVerge\\WooCommerce\\Social_Login\\AJAX' );
 		}
 

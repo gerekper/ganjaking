@@ -68,7 +68,7 @@ jQuery(function( $ ) {
 	$.WC_OD_Calendar.prototype = {
 
 		_init : function() {
-			var self = this;
+			var self = this, uiDialogInteraction;
 
 			this._bindEvents();
 
@@ -99,10 +99,10 @@ jQuery(function( $ ) {
 							}
 						},
 						success: function( eventsData ) {
-							var events = [];
+							var events = [], event, index;
 
-							for ( var index in eventsData ) {
-								var event = self.getEventObject( eventsData[ index ] );
+							for ( index in eventsData ) {
+								event = self.getEventObject( eventsData[ index ] );
 								events.push( event );
 							}
 							$calendarContent.unblock();
@@ -144,7 +144,7 @@ jQuery(function( $ ) {
 
 			// Fix select2 interaction inside the jQuery UI Dialog.
 			if ( $.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction ) {
-				var uiDialogInteraction = $.ui.dialog.prototype._allowInteraction;
+				uiDialogInteraction = $.ui.dialog.prototype._allowInteraction;
 
 				$.ui.dialog.prototype._allowInteraction = function( event ) {
 					return ( $( event.target ).closest( '.select2-dropdown' ).length || uiDialogInteraction( event ) );
@@ -241,9 +241,10 @@ jQuery(function( $ ) {
 		},
 		editEvent: function( eventData ) {
 			var self = this,
-				eventObject = this.getEventObject( eventData );
+				eventObject = this.getEventObject( eventData ),
+				property;
 
-			for ( var property in eventObject ) {
+			for ( property in eventObject ) {
 				if ( eventObject.hasOwnProperty( property ) ) {
 					this.currentEvent[property] = eventObject[property];
 				}
@@ -333,16 +334,16 @@ jQuery(function( $ ) {
 			var $deleteLink = this.$modal.find( '.actions .delete' );
 			this.modalAction = action;
 			this.$modal.dialog( 'option', 'title', this.options.modalTexts[action] );
-			( 'edit' === action ) ? $deleteLink.show() : $deleteLink.hide();
+
+			$deleteLink.toggle( 'edit' === action );
 		},
 		getTooltipContent: function( eventObject ) {
 			var eventData = this.getEventData( eventObject ),
 				content = this.options.eventTooltipContent,
 				properties = content.match( /{{.+}}/g ),
-				property,
-				propertyValue;
+				index, property, propertyValue;
 
-			for ( var index in properties ) {
+			for ( index in properties ) {
 				property = properties[ index ].replace( '{{', '' ).replace( '}}', '' );
 				if ( ! eventData.hasOwnProperty( property ) || null === eventData[property] || undefined === eventData[property] ) {
 					propertyValue = '-';

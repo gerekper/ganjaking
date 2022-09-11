@@ -1,6 +1,6 @@
 /**
  * Javascript: Slider for eventon
- * @version  2.0
+ * @version  2.0.4
  */
 jQuery(document).ready(function($){
 	
@@ -26,6 +26,7 @@ jQuery(document).ready(function($){
 			var slider_move_distance = 0;
 			var all_slides_w = 0;
 			var slider_h = 0;
+			var cal_width = CAL.width();
 
 			// slides visible 
 				slides_visible = ('slides_visible' in SC)? SC.slides_visible: 1;
@@ -47,29 +48,37 @@ jQuery(document).ready(function($){
 				}
 
 			slider_w = OUTTER.width();
+			slider_w = cal_width;
+
 
 			// colorize events
-				EL.find('.eventon_list_event').each(function(){
+				EL.find('.eventon_list_event').each(function(index){
 					var el = $(this);
 
 					var c = el.data('colr');
 					el.css('background-color', c);					
-					if(!el.parent().hasClass('slide')) el.wrap('<div class="slide"></div>');
+					if(!el.parent().hasClass('slide')) el.wrap('<div class="slide" data-index="' + index +'"></div>');
 					if(!_hex_is_light( c )) el.addClass('sldark');
 				});
-
+			
 			// slide width setting
+				var cur_slide_index = parseInt(EL.data('slideindex'));
+				if( cur_slide_index === undefined || !cur_slide_index ) cur_slide_index = 0;
+
 				// all verticals
 				if( SC.slider_type == 'vertical'){
 					EL.fadeIn().data('slideindex',0);
 
-					CAL.find('.evo_slider_slide_out').height(0);
+					OUTTER.height(0);
 
 					for (var i = 0; i < slides_visible; i++) {
-						slider_h += CAL.find('.slide').eq( i ).height();
+						this_height = CAL.find('.slide').eq( i ).height();
+						if( this_height == 0) return;
+
+						slider_h += parseInt(this_height);
 					}		
 
-					CAL.find('.evo_slider_slide_out').height( slider_h );
+					OUTTER.height(slider_h);
 				
 				// all horizontals
 				}else{
@@ -79,32 +88,43 @@ jQuery(document).ready(function($){
 					// slides visible
 					if( SC.slider_type == 'micro'){
 						slv = parseInt( slider_w/ 120);
-						slides_visible = SC.slides_visible = slv;
+						slides_visible = slv;
 					}else if( SC.slider_type == 'mini'){
 						slv = parseInt( slider_w/ 200);
-						slides_visible = SC.slides_visible = slv;
+						slides_visible = slv;
+					
 					}else if( SC.slider_type == 'multi'){
-						if( slider_w < 400)	slides_visible = SC.slides_visible = 1;
-						if( slider_w > 401 && slider_w < 600)	slides_visible = SC.slides_visible = 2;
-						if( slider_w > 601 && slider_w < 800)	slides_visible = SC.slides_visible = 3;
-						if( slider_w > 801 ) slides_visible = SC.slides_visible = 4;
+						// set default slide visible count to 4 for multi slide
+						if( SC.slides_visible == 1) SC.slides_visible = slides_visible = 4;
+						if( slider_w < 400 && SC.slides_visible > 1)	
+							slides_visible =  1;
+						if( slider_w > 401 && slider_w < 600 && SC.slides_visible > 2)	
+							slides_visible =  2;
+						if( slider_w > 601 && slider_w < 800 && SC.slides_visible > 3)	
+							slides_visible =  3;
+						if( slider_w > 801 && slider_w < 1000 && SC.slides_visible > 4) 
+							slides_visible =  4;
 					}
 
-					var cur_slide_index = parseInt(EL.data('slideindex'));
-					if( cur_slide_index === undefined || !cur_slide_index ) cur_slide_index = 0;
+					//console.log(slider_w);
+					//console.log(slides_visible);
 					
-					one_slide_w = (slider_w/ slides_visible);
+
+					
+					
+					one_slide_w = parseInt(slider_w/ slides_visible);
 					slider_move_distance = one_slide_w;		
 
-					all_slides_w = slides * one_slide_w;
+					all_slides_w = ( slides +2) * one_slide_w + 1;
+					//console.log(all_slides_w);
 
+					visible_width = one_slide_w * slides_visible;
 
 					EL.width( all_slides_w ).fadeIn().data('slideindex', cur_slide_index);
-					CAL.find('.slide').width( one_slide_w);
+					CAL.find('.slide').width( one_slide_w );
+					OUTTER.width(visible_width);
 
-					// focus slider into the correct slide index
-					go_to_slide_index( cur_slide_index , CAL, true);
-				}		
+				}						
 
 			// slider control dots 
 				var dots_html = '';
@@ -116,6 +136,25 @@ jQuery(document).ready(function($){
 					}	
 
 					CAL.find('.evoslider_dots').html( dots_html);		
+				}
+
+			// slide looping
+				if( SC.slide_loop == 'yes'){
+					if(EL.find('.dup').length ==0 ){
+						first_slide = EL.find('.slide').clone().first();
+						last_slide = EL.find('.slide').clone().last();
+
+						last_slide.addClass('dup').removeClass('slide');
+						first_slide.addClass('dup').removeClass('slide');
+
+						EL.prepend( last_slide );
+						EL.append( first_slide );
+						console.log('dd');
+
+						go_to_slide_index( cur_slide_index +1 , CAL, true, false);
+					}					
+				}else{
+					go_to_slide_index( cur_slide_index , CAL, true, true, true);
 				}
 
 			// set slider data for interaction
@@ -215,6 +254,7 @@ jQuery(document).ready(function($){
 						cur_slide_index - 1;
 				}
 
+
 				if( new_slide_index<0) new_slide_index = 0;
 				go_to_slide_index(new_slide_index, $el);
 				
@@ -260,7 +300,8 @@ jQuery(document).ready(function($){
 		});
 
 // go into a focused slide
-	function go_to_slide_index(new_slide_index, CAL, instant = false){
+	function go_to_slide_index(new_slide_index, CAL, instant = false, move_dots = true, initial_call = false){
+		
 		var slider = CAL.find('.evo_slider_slide_out');
 		var SC = CAL.evo_shortcode_data();
 		var EL = CAL.find('.eventon_events_list');
@@ -273,19 +314,28 @@ jQuery(document).ready(function($){
 		var cur_mart = parseFloat(EL.css('margin-top') );
 		var cur_slider_height = slider.height();
 
+		//console.log(all_slides);
+
 
 		// vertical
 		if( SC.slider_type == 'vertical' ){
 			new_slider_h = 0;
-			for (var i = new_slide_index; i < (new_slide_index + slides_visible); i++) {
-				new_slider_h += CAL.find('.slide').eq( i ).height();
+			
+			if( !initial_call){
+				for (var i = new_slide_index; i < (new_slide_index + slides_visible); i++) {
+					new_slider_h += CAL.find('.slide').eq( i ).height();
+				}
+				slider.animate({height: new_slider_h });
 			}
+			
+			
 
 			for (var i = 0; i < (new_slide_index ); i++) {
 				new_mart += CAL.find('.slide').eq( i ).height();
 			}
 			new_mart = -1*new_mart;						
-			slider.animate({height: new_slider_h });
+			
+		
 		// horizontal
 		}else{
 			var slider_move_distance = EL.data('slider_move_distance');
@@ -304,8 +354,11 @@ jQuery(document).ready(function($){
 		}
 
 		// set dot focus
-		CAL.find('.evosl_footer .evosl_dot').removeClass('f');
-		CAL.find('.evosl_footer .evosl_dot').eq( new_slide_index ).addClass('f');
+		if( move_dots){
+			CAL.find('.evosl_footer .evosl_dot').removeClass('f');
+			CAL.find('.evosl_footer .evosl_dot').eq( new_slide_index ).addClass('f');
+		}
+		
 
 		EL.data('slideindex', new_slide_index);
 		if( instant){

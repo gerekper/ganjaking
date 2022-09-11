@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailPoet 3 Premium (New) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 Premium (New) 3.93.0\n"
+"Project-Id-Version: MailPoet 3 Premium (New) 3.96.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-07-25 14:43:29+00:00\n"
+"POT-Creation-Date: 2022-08-29 15:33:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,52 +35,71 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:49
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:51
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php:26
+#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:37
+msgid "Welcome email sequence"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:52
+msgid "Advanced welcome email sequence"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php:28
 msgid "WP user registration"
 msgstr ""
 
-#: lib/Config/Hooks.php:40
+#: lib/Config/Hooks.php:45
 msgid "[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]"
 msgstr ""
 
-#: lib/Config/Renderer.php:108
-msgid "Failed to render template \"%s\". Please ensure the template cache folder \"%s\" exists and has write permissions. Terminated with error: \"%s\""
+#: lib/Config/Hooks.php:68
+msgid "View MailPoet settings"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:331
+#: lib/Config/Hooks.php:68
+msgid "Settings"
+msgstr ""
+
+#. translators: %1$s is the name of the template, %2$s the path to the cache
+#. folder and %3$s the error message.
+
+#: lib/Config/Renderer.php:108
+msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:330
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:363
+#: lib/Newsletter/Stats/SubscriberEngagement.php:362
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:368
+#: lib/Newsletter/Stats/SubscriberEngagement.php:367
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:373
+#: lib/Newsletter/Stats/SubscriberEngagement.php:372
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:378
+#: lib/Newsletter/Stats/SubscriberEngagement.php:377
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:387
+#: lib/Newsletter/Stats/SubscriberEngagement.php:386
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:398
+#: lib/Newsletter/Stats/SubscriberEngagement.php:397
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""
@@ -93,15 +112,17 @@ msgstr ""
 msgid "MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin."
 msgstr ""
 
-#: mailpoet_initializer.php:75
+#. translators: %s is the MailPoet version.
+
+#: mailpoet_initializer.php:76
 msgid "You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium."
 msgstr ""
 
-#: mailpoet_initializer.php:89
+#: mailpoet_initializer.php:90
 msgid "You have an older version of the Premium plugin. The features have been disabled in order not to break MailPoet. Please update it in the Plugins page now."
 msgstr ""
 
-#: mailpoet_initializer.php:91
+#: mailpoet_initializer.php:92
 msgid "Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version."
 msgstr ""
 

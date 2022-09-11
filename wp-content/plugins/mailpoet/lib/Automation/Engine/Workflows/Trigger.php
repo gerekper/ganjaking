@@ -5,10 +5,6 @@ namespace MailPoet\Automation\Engine\Workflows;
 if (!defined('ABSPATH')) exit;
 
 
-interface Trigger {
-  public function getKey(): string;
-
-  public function getName(): string;
-
+interface Trigger extends Step {
   public function registerHooks(): void;
 }

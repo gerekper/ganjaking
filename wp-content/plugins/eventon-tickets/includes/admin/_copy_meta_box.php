@@ -101,7 +101,7 @@ class Evo_Tx_Meta_Boxes{
 						echo EVO()->elements->get_element(
 							array(
 								'type'=>'notice',
-								'name'=> sprintf(__('Ticket price (%s)','eventon'), $__woo_currencySYM ) . ': '. $the_product->get_price_html() ? $the_product->get_price_html() : '<span class="na">&ndash;</span>' . "<a href='". get_edit_post_link($woo_product_id) ."
+								'name'=> __(sprintf('Ticket price (%s)', $__woo_currencySYM ),'eventon') . ': '. $the_product->get_price_html() ? $the_product->get_price_html() : '<span class="na">&ndash;</span>' . "<a href='". get_edit_post_link($woo_product_id) ."
 								' style='color:#fff'>".__('Edit Price Variations')."</a>",
 							)
 						);
@@ -111,14 +111,14 @@ class Evo_Tx_Meta_Boxes{
 							array(
 								array(
 									'type'=>'text',
-									'name'=> sprintf(__('Ticket price (%s) (Required*)','eventon'), $__woo_currencySYM ),
+									'name'=> __(sprintf('Ticket price (%s) (Required*)', $__woo_currencySYM ),'eventon'),
 									'tooltip'=>'Ticket price is required for tickets product to add to cart otherwise it will return an undefined error.',
 									'id'=>'_regular_price',
 									'value'=> $EVENT->get_wc_prop('_regular_price')
 								),
 								array(
 									'type'=>'text',
-									'name'=> sprintf(__('Sale price (%s)','eventon'), $__woo_currencySYM ),
+									'name'=> __(sprintf('Sale price (%s)', $__woo_currencySYM ),'eventon'),
 									'id'=>'_sale_price',
 									'value'=> $EVENT->get_wc_prop('_sale_price')
 								)

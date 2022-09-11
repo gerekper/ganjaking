@@ -26,19 +26,64 @@ class EVODV_ajax{
 
 				// switching month in oneday style
 				$direction = $_POST['direction'];
+				$switch_type = 'month';
+
 
 				// if derection present = chaning months
 				if($direction != 'none' && !empty($fixed_month) && !empty($fixed_year) ){
 					// month and year already adjusted
 					$number_days_in_month = EVODV()->frontend->days_in_month( $fixed_month, $fixed_year);
-					if($mo1st == 'yes'){
-						$fixed_day = 1;
-					}else{
+					
+					if( $dv_scroll_style =='continuous'){
+
 						if( $fixed_day > $number_days_in_month){
 							$fixed_day = $number_days_in_month;
 						}
-					}												
+
+						// if switching month to previous -> go to end of prev month
+						if( $switch_type == 'month' ){
+							if($direction == 'prev')	$fixed_day = $number_days_in_month;
+							if($direction == 'next')	$fixed_day = 1;
+						}
+
+						// last day of prev month, when clicked from ay strip arrows
+						if( $direction == 'prev' && $fixed_day == 1){
+							$fixed_day = $number_days_in_month;
+						}
+
+					}elseif( $dv_scroll_style == 'firstday'){
+						$fixed_day = 1;
+
+					}elseif( $dv_scroll_style == 'lastday'){
+						$fixed_day = $number_days_in_month;
+						
+					// legacy
+					}else{
+						if($mo1st == 'yes'){
+							$fixed_day = 1;
+						}else{
+							if( $fixed_day > $number_days_in_month){
+								$fixed_day = $number_days_in_month;
+							}
+
+							if( !empty($dv_scroll_type) && $dv_scroll_type == 'arrow') $switch_type =  'arrow';
+
+							// if switching month to previous -> go to end of prev month
+							if( $switch_type == 'month' && $direction == 'prev') $fixed_day = $number_days_in_month;
+
+							// last day of prev month, when clicked from ay strip arrows
+							if( $direction == 'prev' && $fixed_day == 1){
+								$fixed_day = $number_days_in_month;
+							} 
+						}	
+					}
+
+
+					
+
 				}
+
+				
 
 				$DD = new DateTime();
 				$DD->setTimezone( EVO()->calendar->timezone0 );

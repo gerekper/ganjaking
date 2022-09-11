@@ -18,7 +18,7 @@
  *
  * @package   WC-Chase-Paymentech/Templates
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -92,7 +92,7 @@ defined( 'ABSPATH' ) or exit;
 
 						<div class="wc-chase-paymentech-new-payment-method-form js-wc-chase-paymentech-new-payment-method-form" <?php echo ( $tokens ? 'style="display:none;"' : '' ); ?>>
 
-							<?php if ( $tokenization_allowed || $tokenization_forced ) : ?>
+							<?php if ( $tokenization_allowed && ! $tokenization_forced ) : ?>
 								<p class="form-row">
 									<input name="wc-chase-paymentech-tokenize-payment-method" id="wc-chase-paymentech-tokenize-payment-method" class="js-wc-chase-paymentech-tokenize-payment-method" type="checkbox" value="true" style="width:auto;" <?php checked( $should_tokenize_payment_method ); ?> />
 									<label for="wc-chase-paymentech-tokenize-payment-method" style="display:inline;"><?php echo wp_kses_post( apply_filters( 'wc_gateway_chase_paymentech_tokenize_payment_method_text', __( "Securely Save Card to Account", 'woocommerce-gateway-chase-paymentech' ) ) ); ?></label>

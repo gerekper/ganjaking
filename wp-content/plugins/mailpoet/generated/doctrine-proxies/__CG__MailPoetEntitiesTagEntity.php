@@ -70,10 +70,10 @@ class TagEntity extends \MailPoet\Entities\TagEntity implements \MailPoetVendor\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'description', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'description', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'subscriberTags', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'description', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'description', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'subscriberTags', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\TagEntity' . "\0" . 'updatedAt'];
     }
 
     /**

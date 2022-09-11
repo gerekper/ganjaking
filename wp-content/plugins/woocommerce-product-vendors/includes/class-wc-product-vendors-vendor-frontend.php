@@ -180,6 +180,29 @@ class WC_Product_Vendors_Vendor_Frontend {
 	}
 
 	/**
+	 * Add supported tag in profile section
+	 * 
+	 * @return array
+	 */
+	public function kses_allowed_html( $allowed_tags, $context ) {
+		$tags       = array( 'video', 'audio', 'source' );
+		$attributes = array( 'class', 'id', 'aria-*', 'style', 'role', 'data-*', 'src', 'width', 'height', 'preload', 'controls', 'muted' );
+
+		// Assign true to attributes
+		$tag_attributes = array();
+		foreach ( $attributes as $attribute ) {
+			$tag_attributes[ $attribute ] = true;
+		}
+
+		// Assign attributes to tags
+		foreach ( $tags as $tag ) {
+			$allowed_tags[ $tag ] = $tag_attributes;
+		}
+
+		return $allowed_tags;
+	}
+
+	/**
 	 * Displays the vendor logo and profile
 	 *
 	 * @access public
@@ -214,8 +237,9 @@ class WC_Product_Vendors_Vendor_Frontend {
 
 			// profile
 			if ( ! empty( $vendor_data['profile'] ) && 'yes' === get_option( 'wcpv_vendor_settings_vendor_display_profile', 'yes' ) ) {
-
+				add_filter( 'wp_kses_allowed_html', array( $this, 'kses_allowed_html' ), 10, 2 );
 				echo '<div class="wcpv-vendor-profile entry-summary">' . wpautop( wp_kses_post( do_shortcode( $vendor_data['profile'] ) ) ) . '</div>' . PHP_EOL;
+				remove_filter( 'wp_kses_allowed_html', array( $this, 'kses_allowed_html' ) );
 			}
 		}
 

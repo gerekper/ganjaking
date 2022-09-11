@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.1
- * @version     1.2.1
+ * @version     1.2.2
  *
  * @package     woocommerce-smart-coupons/includes/emails/
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WC_SC_Combined_Email_Coupon' ) ) {
 		/**
 		 * Determine if the email should actually be sent and setup email merge variables
 		 *
-		 * @param array $args Email arguements.
+		 * @param array $args Email arguments.
 		 */
 		public function trigger( $args = array() ) {
 

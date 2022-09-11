@@ -3,8 +3,7 @@
  * Helper functions to be used by eventon or its addons
  * front-end only
  *
- * @version 0.7
- * @updated  3.0.8
+ * @version 4.0.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -215,6 +214,21 @@ class evo_helper{
 			$this->tooltips($content, $position='',true);
 		}
 
+	// date time ICS
+		public function get_ics_format_from_unix($unix, $separate = true){
+			$enviro = new EVO_Environment();
+
+			$unix = $unix - $enviro->get_UTC_offset();
+
+			if( !$separate) return $unix;
+
+
+			$new_timeT = date("Ymd", $unix);
+			$new_timeZ = date("Hi", $unix);
+
+			return $new_timeT.'T'.$new_timeZ.'00Z';
+		}
+
 	// template locator
 	// pass: paths array, file name, default template with full path and file
 		function template_locator($paths, $file, $template){
@@ -312,27 +326,33 @@ class evo_helper{
 		}
 
 	// sanitization
+		// @+ 4.0.3
+		public function sanitize_array($array){
+			return $this->recursive_sanitize_array_fields($array);
+		}
 		public function recursive_sanitize_array_fields($array){
 			if(is_array($array)){
+				$new_array = array();
 				foreach ( $array as $key => $value ) {
 		        	if ( is_array( $value ) ) {
-		            	$value = $this->recursive_sanitize_array_fields($value);
+		        		$key = sanitize_title($key);
+		            	$new_array[ $key ] = $this->recursive_sanitize_array_fields($value);
 		        	}
 		        	else {
-		            	$value = sanitize_text_field( $value );
+		            	$new_array[ $key ] = sanitize_text_field( $value );
 		        	}
 	    		}
+
+	    		return $new_array;
 	    	}else{
 	    		return sanitize_text_field( $array );	    		
 	    	}
-
-	    	return $array;
 		}	
 
 		// check ajax submissions for sanitation and nonce verification
 		// @+3.1
 		public function process_post($array, $nonce_key='', $nonce_code='', $filter = true){
-			$array = $this->recursive_sanitize_array_fields( $array);
+			$array = $this->sanitize_array( $array);
 
 			if( !empty($nonce_key) && !empty($nonce_code)){
 
@@ -343,10 +363,11 @@ class evo_helper{
 			return $array;
 		}	
 
-	// convert array to data element values - 3.1
+	// convert array to data element values - 3.1 / U 4.1
 		public function array_to_html_data($array){
 			$html = '';
 			foreach($array as $k=>$v){
+				if( is_array($v)) $v = htmlspecialchars( json_encode($v), ENT_QUOTES);
 				$html .= 'data-'. $k .'="'. $v .'" ';
 			}
 			return $html;

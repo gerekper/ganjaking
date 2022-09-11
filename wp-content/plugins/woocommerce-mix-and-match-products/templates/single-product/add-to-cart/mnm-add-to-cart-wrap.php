@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 2.0.3
+ * @version 2.1.2
  */
 
 // Exit if accessed directly.
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="mnm_price" style="display:none;"></p>
 
 			<div class="mnm_message woocommerce-message" style="display:none;">
-				<ul class="msg mnm_message_content">
+				<ul class="msg mnm_message_content" aria-live="polite">
 					<li><?php echo wc_mnm_get_quantity_message( $product ); ?></li>
 				</ul>
 			</div>

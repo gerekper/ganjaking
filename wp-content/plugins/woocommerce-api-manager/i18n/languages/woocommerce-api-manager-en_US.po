@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2022-07-13 19:59-0700\n"
-"PO-Revision-Date: 2022-07-13 19:59-0700\n"
+"POT-Creation-Date: 2022-08-26 01:10-0700\n"
+"PO-Revision-Date: 2022-08-26 01:10-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -46,7 +46,7 @@ msgid "Object"
 msgstr ""
 
 #: includes/admin/meta-boxes/html-order-api-activations.php:32
-#: includes/wc-am-order-admin.php:45
+#: includes/wc-am-order-admin.php:44
 #: templates/emails/api-keys-order-complete.php:36
 #: templates/myaccount/api-keys.php:53
 #, fuzzy
@@ -883,58 +883,58 @@ msgstr ""
 msgid "Support"
 msgstr "Support"
 
-#: includes/wc-am-order-admin.php:49
+#: includes/wc-am-order-admin.php:48
 #, fuzzy
 msgid "API Resources"
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:53
+#: includes/wc-am-order-admin.php:52
 #, fuzzy
 msgid "API Resource Activations"
 msgstr "Activations"
 
-#: includes/wc-am-order-admin.php:69 includes/wc-am-order-admin.php:107
-#: includes/wc-am-order-admin.php:216
+#: includes/wc-am-order-admin.php:68 includes/wc-am-order-admin.php:106
+#: includes/wc-am-order-admin.php:215
 #, fuzzy
 msgid "Contains no API Product."
 msgstr "Vous n'avez pas de clés API."
 
-#: includes/wc-am-order-admin.php:92 includes/wc-am-order-admin.php:150
-#: includes/wc-am-order-admin.php:200
+#: includes/wc-am-order-admin.php:91 includes/wc-am-order-admin.php:149
+#: includes/wc-am-order-admin.php:199
 msgid "No API resources for this order."
 msgstr ""
 
-#: includes/wc-am-order-admin.php:227 includes/wc-am-order-admin.php:295
+#: includes/wc-am-order-admin.php:226 includes/wc-am-order-admin.php:294
 #, fuzzy
 msgid "No activations yet."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:239
+#: includes/wc-am-order-admin.php:238
 #, fuzzy
 msgid "Are you sure you want to delete this activation?"
 msgstr "Etes-vous certain de vouloir supprimer cette activation ?"
 
-#: includes/wc-am-order-admin.php:395
+#: includes/wc-am-order-admin.php:429
 #, fuzzy
 msgid "Contains API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:395
+#: includes/wc-am-order-admin.php:429
 #, fuzzy
 msgid "API Product"
 msgstr "Clé de licence API :"
 
-#: includes/wc-am-order-admin.php:415
+#: includes/wc-am-order-admin.php:449
 #, fuzzy
 msgid "Has activations."
 msgstr "Encore aucune activation"
 
-#: includes/wc-am-order-admin.php:417
+#: includes/wc-am-order-admin.php:451
 #, fuzzy
 msgid "No activations."
 msgstr "Activations"
 
-#: includes/wc-am-order.php:582
+#: includes/wc-am-order.php:607
 msgid "Cancelled API Products update job."
 msgstr ""
 
@@ -1116,8 +1116,9 @@ msgstr ""
 
 #: includes/wc-am-product-admin.php:477 includes/wc-am-product-admin.php:840
 msgid ""
-"Enter the number of days before API access expires, or leave blank to never "
-"expire."
+"Caution: Changing this value will cause all existing API Resources/purchases "
+"to recalculate using this new value. Enter the number of days before API "
+"access expires, or leave blank to never expire."
 msgstr ""
 
 #: includes/wc-am-product-admin.php:508

@@ -7,11 +7,19 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-28T23:49:01+00:00\n"
-"PO-Revision-Date: 2022-06-01 11:54:03+0000\n"
+"POT-Creation-Date: 2022-08-24T18:17:59+00:00\n"
+"PO-Revision-Date: 2022-08-03 13:54:03+0000\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/admin/class-wc-bookings-admin.php:673
+msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "Bokningen varaktighet måste vara satt till 24 timmar, eftersom en längre varaktighet än 24 timmar inte tillåts när tillgängligheten är \"ej tillgängliga som standard\"."
+
+#: includes/admin/class-wc-bookings-admin.php:672
+msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "En längre varaktighet än 24 timmar tillåts inte när tillgängligheten är \"ej tillgängliga som standard\"."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:933
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
@@ -41,11 +49,11 @@ msgstr "Den här sektionen visar alla filer som åsidosätter WooCommerce Bookin
 msgid "WooCommerce Bookings template overrides"
 msgstr "Åsidosättanden av WooCommerce Bookings-mallar"
 
-#: includes/admin/class-wc-bookings-admin.php:692
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "Maximal varaktighet måste vara längre än eller lika med den minsta varaktigheten."
 
-#: includes/admin/class-wc-bookings-admin.php:691
+#: includes/admin/class-wc-bookings-admin.php:699
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "Minsta varaktighet måste vara mindre än eller lika med maximal varaktighet."
 
@@ -53,7 +61,7 @@ msgstr "Minsta varaktighet måste vara mindre än eller lika med maximal varakti
 msgid "Customer Information"
 msgstr "Kundinformation"
 
-#: includes/admin/class-wc-bookings-admin.php:665
+#: includes/admin/class-wc-bookings-admin.php:671
 msgid "This setting is being overridden at the resource level."
 msgstr "Denna inställning åsidosätts på resursnivå."
 
@@ -104,12 +112,12 @@ msgstr "Borttagningsinställningar"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Datumet ska vara i formatet åååå-mm-dd och får inte vara tomt."
 
-#: includes/admin/class-wc-bookings-admin.php:685
+#: includes/admin/class-wc-bookings-admin.php:693
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "Startdatumet kan inte vara ett senare datum än slutdatumet."
 
-#: includes/admin/class-wc-bookings-admin.php:684
+#: includes/admin/class-wc-bookings-admin.php:692
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "\"Start- och slutdatum\" ska vara i formatet åååå-mm-dd och får inte vara tomt."
 
@@ -224,12 +232,12 @@ msgstr "i tidszon: %s"
 msgid "View my bookings &rarr;"
 msgstr "Visa mina bokningar &rarr;"
 
-#: templates/order/admin/booking-display.php:82
+#: templates/order/admin/booking-display.php:83
 msgid "View booking &rarr;"
 msgstr "Visa bokning &rarr;"
 
 #. translators: 1: booking id
-#: templates/order/admin/booking-display.php:64
+#: templates/order/admin/booking-display.php:65
 #: templates/order/booking-display.php:66
 msgid "Booking #%s"
 msgstr "Bokning #%s"
@@ -238,15 +246,15 @@ msgstr "Bokning #%s"
 msgid "My Bookings"
 msgstr "Mina bokningar"
 
-#: templates/myaccount/bookings.php:108
+#: templates/myaccount/bookings.php:110
 msgid "No bookings available yet."
 msgstr "Inga bokningar tillgängliga ännu."
 
-#: templates/myaccount/bookings.php:106
+#: templates/myaccount/bookings.php:108
 msgid "Go Shop"
 msgstr "Gå till butik"
 
-#: templates/myaccount/bookings.php:79
+#: templates/myaccount/bookings.php:81
 #: templates/myaccount/my-bookings.php:62
 msgid "Cancel"
 msgstr "Avbryt"
@@ -257,7 +265,7 @@ msgid "Booked"
 msgstr "Bokad"
 
 #. translators: 1: booking start date
-#: templates/emails/plain/customer-booking-reminder.php:31
+#: templates/emails/plain/customer-booking-reminder.php:36
 msgid "This is a reminder that your booking will take place on %1$s. The details of your booking are shown below."
 msgstr "Detta är en påminnelse om att din bokning startar den %1$s. Detaljerna för din bokning visas nedan."
 
@@ -282,7 +290,7 @@ msgstr "Ordernummer: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:53
 #: templates/emails/plain/customer-booking-notification.php:50
 #: templates/emails/plain/customer-booking-pending-confirmation.php:55
-#: templates/emails/plain/customer-booking-reminder.php:54
+#: templates/emails/plain/customer-booking-reminder.php:59
 msgid "Time Zone: %s"
 msgstr "Tidszon: %s"
 
@@ -293,7 +301,7 @@ msgstr "Tidszon: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:49
 #: templates/emails/plain/customer-booking-notification.php:46
 #: templates/emails/plain/customer-booking-pending-confirmation.php:51
-#: templates/emails/plain/customer-booking-reminder.php:50
+#: templates/emails/plain/customer-booking-reminder.php:55
 msgid "Booking End Date: %s"
 msgstr "Bokningens slutdatum: %s"
 
@@ -304,7 +312,7 @@ msgstr "Bokningens slutdatum: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:47
 #: templates/emails/plain/customer-booking-notification.php:44
 #: templates/emails/plain/customer-booking-pending-confirmation.php:49
-#: templates/emails/plain/customer-booking-reminder.php:48
+#: templates/emails/plain/customer-booking-reminder.php:53
 msgid "Booking Start Date: %s"
 msgstr "Bokning startdatum: %s"
 
@@ -315,7 +323,7 @@ msgstr "Bokning startdatum: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:43
 #: templates/emails/plain/customer-booking-notification.php:40
 #: templates/emails/plain/customer-booking-pending-confirmation.php:45
-#: templates/emails/plain/customer-booking-reminder.php:44
+#: templates/emails/plain/customer-booking-reminder.php:49
 msgid "Booking Type: %s"
 msgstr "Bokningstyp: %s"
 
@@ -326,7 +334,7 @@ msgstr "Bokningstyp: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:37
 #: templates/emails/plain/customer-booking-notification.php:34
 #: templates/emails/plain/customer-booking-pending-confirmation.php:39
-#: templates/emails/plain/customer-booking-reminder.php:38
+#: templates/emails/plain/customer-booking-reminder.php:43
 msgid "Booking ID: %s"
 msgstr "Boknings ID: %s"
 
@@ -335,7 +343,7 @@ msgstr "Boknings ID: %s"
 #: templates/emails/plain/customer-booking-cancelled.php:35
 #: templates/emails/plain/customer-booking-confirmed.php:35
 #: templates/emails/plain/customer-booking-notification.php:32
-#: templates/emails/plain/customer-booking-reminder.php:36
+#: templates/emails/plain/customer-booking-reminder.php:41
 msgid "Booked: %s"
 msgstr "Bokade: %s"
 
@@ -344,7 +352,7 @@ msgid "The following booking has been cancelled by the customer. The details of 
 msgstr "Följande bokning har avbrutits av kunden. Detaljerna för den avbokade bokningen finns nedan."
 
 #. translators: 1: booking start date
-#: templates/emails/customer-booking-reminder.php:38
+#: templates/emails/customer-booking-reminder.php:49
 msgid "This is a reminder that your booking will take place on %1$s."
 msgstr "Detta är en påminnelse om att din bokning startar den %1$s."
 
@@ -388,14 +396,17 @@ msgid "We are sorry to say that your booking could not be confirmed and has been
 msgstr "Vi beklagar att din bokning inte kunde bekräftas och har avbrutits. Detaljerna för den avbokade bokningen finns nedan."
 
 #. translators: 1: billing first name
+#. translators: 1: customer first name
 #: templates/emails/customer-booking-cancelled.php:30
 #: templates/emails/customer-booking-confirmed.php:30
 #: templates/emails/customer-booking-pending-confirmation.php:30
 #: templates/emails/customer-booking-reminder.php:30
+#: templates/emails/customer-booking-reminder.php:39
 #: templates/emails/plain/customer-booking-cancelled.php:27
 #: templates/emails/plain/customer-booking-confirmed.php:27
 #: templates/emails/plain/customer-booking-pending-confirmation.php:27
 #: templates/emails/plain/customer-booking-reminder.php:27
+#: templates/emails/plain/customer-booking-reminder.php:31
 msgid "Hello %s"
 msgstr "Hej %s"
 
@@ -429,7 +440,7 @@ msgstr "Du kan visa och redigera denna bokning i adminpanelen här: %s"
 #: templates/emails/customer-booking-confirmed.php:63
 #: templates/emails/customer-booking-notification.php:54
 #: templates/emails/customer-booking-pending-confirmation.php:63
-#: templates/emails/customer-booking-reminder.php:68
+#: templates/emails/customer-booking-reminder.php:79
 msgid "Booking End Date"
 msgstr "Boknings slutdatum"
 
@@ -439,7 +450,7 @@ msgstr "Boknings slutdatum"
 #: templates/emails/customer-booking-confirmed.php:59
 #: templates/emails/customer-booking-notification.php:50
 #: templates/emails/customer-booking-pending-confirmation.php:59
-#: templates/emails/customer-booking-reminder.php:64
+#: templates/emails/customer-booking-reminder.php:75
 msgid "Booking Start Date"
 msgstr "Bokningens startdatum"
 
@@ -599,7 +610,7 @@ msgstr "Obetald"
 #: templates/emails/customer-booking-confirmed.php:68
 #: templates/emails/customer-booking-notification.php:59
 #: templates/emails/customer-booking-pending-confirmation.php:68
-#: templates/emails/customer-booking-reminder.php:73
+#: templates/emails/customer-booking-reminder.php:84
 msgid "Time Zone"
 msgstr "Tidszon"
 
@@ -698,7 +709,7 @@ msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {or
 msgstr "[{blogname}] Ny bokning for {product_title} (Order {order_number}) - {order_date}"
 
 #: includes/emails/class-wc-email-new-booking.php:29
-#: templates/order/admin/booking-display.php:78
+#: templates/order/admin/booking-display.php:79
 msgid "Confirm booking"
 msgstr "Bekräfta bokning"
 
@@ -1011,18 +1022,18 @@ msgid "Check Availability"
 msgstr "Kontrollera tillgänglighet"
 
 #. translators: 1: guest name
-#: includes/data-objects/class-wc-booking.php:936
+#: includes/data-objects/class-wc-booking.php:982
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
 msgstr "%s (Gäst)"
 
 #. translators: 1: booking id 2: old status 3: new status
-#: includes/data-objects/class-wc-booking.php:284
+#: includes/data-objects/class-wc-booking.php:330
 msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
 msgstr "Statusen för bokning #%1$d ändrades från \"%2$s\" till \"%3$s\""
 
-#: includes/data-objects/class-wc-booking.php:230
-#: includes/data-objects/class-wc-booking.php:1101
+#: includes/data-objects/class-wc-booking.php:233
+#: includes/data-objects/class-wc-booking.php:1147
 msgid "Was In Cart"
 msgstr "Var i varukorg"
 
@@ -1102,191 +1113,191 @@ msgid "Enable Bookings Timezone Calculation"
 msgstr "Aktivera tidszonsberäkning för bokningar"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:189
+#: includes/class-wc-bookings-init.php:192
 msgid "In Cart <span class=\"count\">(%s)</span>"
 msgid_plural "In Cart <span class=\"count\">(%s)</span>"
 msgstr[0] "I varukorg <span class=\"count\">(%s)</span>"
 msgstr[1] "I varukorg <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:183
+#: includes/class-wc-bookings-init.php:186
 msgctxt "woocommerce-bookings"
 msgid "In Cart"
 msgstr "I varukorg"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:180
+#: includes/class-wc-bookings-init.php:183
 msgid "Cancelled <span class=\"count\">(%s)</span>"
 msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
 msgstr[0] "Avbruten <span class=\"count\">(%s)</span>"
 msgstr[1] "Avbrutna <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:174
+#: includes/class-wc-bookings-init.php:177
 msgctxt "woocommerce-bookings"
 msgid "Cancelled"
 msgstr "Avbruten"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:171
+#: includes/class-wc-bookings-init.php:174
 msgid "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgstr[0] "Väntar på bekräftelse <span class=\"count\">(%s)</span>"
 msgstr[1] "Väntar på bekräftelser <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:165
+#: includes/class-wc-bookings-init.php:168
 msgctxt "woocommerce-bookings"
 msgid "Pending Confirmation"
 msgstr "Väntar på bekräftelse"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:162
+#: includes/class-wc-bookings-init.php:165
 msgid "Un-paid <span class=\"count\">(%s)</span>"
 msgid_plural "Un-paid <span class=\"count\">(%s)</span>"
 msgstr[0] "Obetald <span class=\"count\">(%s)</span>"
 msgstr[1] "Obetalda <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:156
+#: includes/class-wc-bookings-init.php:159
 msgctxt "woocommerce-bookings"
 msgid "Un-paid"
 msgstr "Obetald"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:153
+#: includes/class-wc-bookings-init.php:156
 msgid "Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "Bekräftad <span class=\"count\">(%s)</span>"
 msgstr[1] "Bekräftade <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:147
+#: includes/class-wc-bookings-init.php:150
 msgctxt "woocommerce-bookings"
 msgid "Confirmed"
 msgstr "Bekräftad"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:144
+#: includes/class-wc-bookings-init.php:147
 msgid "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "Betald och bekräftad <span class=\"count\">(%s)</span>"
 msgstr[1] "Betalda och bekräftade <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:138
+#: includes/class-wc-bookings-init.php:141
 msgctxt "woocommerce-bookings"
 msgid "Paid &amp; Confirmed"
 msgstr "Betald och bekräftad"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:135
+#: includes/class-wc-bookings-init.php:138
 msgid "Complete <span class=\"count\">(%s)</span>"
 msgid_plural "Complete <span class=\"count\">(%s)</span>"
 msgstr[0] "Slutförd <span class=\"count\">(%s)</span>"
 msgstr[1] "Slutförda <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:129
+#: includes/class-wc-bookings-init.php:132
 msgctxt "woocommerce-bookings"
 msgid "Complete"
 msgstr "Klar"
 
-#: includes/class-wc-bookings-init.php:106
+#: includes/class-wc-bookings-init.php:109
 msgid "This is where bookings are stored."
 msgstr "Det är här bokningar lagras."
 
-#: includes/class-wc-bookings-init.php:104
+#: includes/class-wc-bookings-init.php:107
 msgid "All Bookings"
 msgstr "Alla bokningar"
 
-#: includes/class-wc-bookings-init.php:103
+#: includes/class-wc-bookings-init.php:106
 msgctxt "Admin menu name"
 msgid "Bookings"
 msgstr "Bokningar"
 
-#: includes/class-wc-bookings-init.php:102
+#: includes/class-wc-bookings-init.php:105
 msgid "Parent Bookings"
 msgstr "Förälder bokningar"
 
-#: includes/class-wc-bookings-init.php:101
+#: includes/class-wc-bookings-init.php:104
 msgid "No Bookings found in trash"
 msgstr "Inga bokningar funna i papperskorgen"
 
-#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:103
 msgid "No Bookings found"
 msgstr "Inga bokningar funna"
 
-#: includes/class-wc-bookings-init.php:99
+#: includes/class-wc-bookings-init.php:102
 msgid "Search Bookings"
 msgstr "Sök bokningar"
 
-#: includes/class-wc-bookings-init.php:97
-#: includes/class-wc-bookings-init.php:98
+#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:101
 msgid "View Booking"
 msgstr "Se bokning"
 
-#: includes/class-wc-bookings-init.php:96
+#: includes/class-wc-bookings-init.php:99
 #: includes/emails/class-wc-email-new-booking.php:25
 msgid "New Booking"
 msgstr "Ny bokning"
 
-#: includes/class-wc-bookings-init.php:95
+#: includes/class-wc-bookings-init.php:98
 msgid "Edit Booking"
 msgstr "Redigera bokning"
 
-#: includes/class-wc-bookings-init.php:93
+#: includes/class-wc-bookings-init.php:96
 msgid "Add New Booking"
 msgstr "Lägg till ny bokning"
 
-#: includes/class-wc-bookings-init.php:66
+#: includes/class-wc-bookings-init.php:69
 msgid "Bookable resources are bookable within a bookings product."
 msgstr "Bokningsbara resurser kan bokas inom en bokningsprodukt."
 
-#: includes/class-wc-bookings-init.php:63
+#: includes/class-wc-bookings-init.php:66
 msgctxt "Admin menu name"
 msgid "Resources"
 msgstr "Resurser"
 
-#: includes/class-wc-bookings-init.php:62
+#: includes/class-wc-bookings-init.php:65
 msgid "Parent Resources"
 msgstr "Överordnade resurser"
 
-#: includes/class-wc-bookings-init.php:61
+#: includes/class-wc-bookings-init.php:64
 msgid "No Resource found in trash"
 msgstr "Inga resurs hittades i papperskorgen"
 
-#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:63
 msgid "No Resource found"
 msgstr "Ingen resurs hittad"
 
-#: includes/class-wc-bookings-init.php:59
+#: includes/class-wc-bookings-init.php:62
 msgid "Search Resource"
 msgstr "Sök resurs"
 
-#: includes/class-wc-bookings-init.php:57
-#: includes/class-wc-bookings-init.php:58
+#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:61
 msgid "View Resource"
 msgstr "Visa resurs"
 
-#: includes/class-wc-bookings-init.php:56
+#: includes/class-wc-bookings-init.php:59
 msgid "New Resource"
 msgstr "Ny resurs"
 
-#: includes/class-wc-bookings-init.php:55
+#: includes/class-wc-bookings-init.php:58
 msgid "Edit Resource"
 msgstr "Redigera resurs"
 
-#: includes/class-wc-bookings-init.php:53
+#: includes/class-wc-bookings-init.php:56
 msgid "Add New Resource"
 msgstr "Lägg till ny resurs"
 
-#: includes/class-wc-bookings-init.php:52
+#: includes/class-wc-bookings-init.php:55
 msgid "Add Resource"
 msgstr "Lägg till resurs"
 
-#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:54
 msgid "Bookable resource"
 msgstr "Bokningsbar resurs"
 
-#: includes/class-wc-bookings-init.php:50
+#: includes/class-wc-bookings-init.php:53
 msgid "Bookable resources"
 msgstr "Bokningsbara resurser"
 
-#: includes/class-wc-bookings-init.php:35
+#: includes/class-wc-bookings-init.php:38
 msgid "Person Type"
 msgstr "Persontyp"
 
@@ -1300,8 +1311,8 @@ msgid "Bookings from %s"
 msgstr "Bokningar från %s"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1470
-#: includes/class-wc-bookings-init.php:88
 #: includes/class-wc-bookings-init.php:91
+#: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr "Bokning"
 
@@ -1318,7 +1329,7 @@ msgstr "OBS! Den här händelsen kan inte redigeras i Google Kalender. Om du beh
 #: templates/emails/customer-booking-confirmed.php:54
 #: templates/emails/customer-booking-notification.php:45
 #: templates/emails/customer-booking-pending-confirmation.php:54
-#: templates/emails/customer-booking-reminder.php:59
+#: templates/emails/customer-booking-reminder.php:70
 msgid "Booking Type"
 msgstr "Bokningstyp"
 
@@ -1329,7 +1340,7 @@ msgstr "Bokningstyp"
 #: templates/emails/customer-booking-confirmed.php:44
 #: templates/emails/customer-booking-notification.php:35
 #: templates/emails/customer-booking-pending-confirmation.php:44
-#: templates/emails/customer-booking-reminder.php:49
+#: templates/emails/customer-booking-reminder.php:60
 msgid "Booking ID"
 msgstr "Boknings ID"
 
@@ -1480,7 +1491,7 @@ msgstr "Alla bokningars start- och sluttider visas i följande tidszon, förutom
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
-#: includes/class-wc-bookings-init.php:90
+#: includes/class-wc-bookings-init.php:93
 #: woocommerce-bookings.php:197
 msgid "Bookings"
 msgstr "Bokningar"
@@ -1654,7 +1665,7 @@ msgid "This date is unavailable"
 msgstr "Detta datum är inte tillgänglig"
 
 #: includes/booking-form/class-wc-booking-form.php:36
-#: templates/myaccount/bookings.php:91
+#: templates/myaccount/bookings.php:93
 msgid "Previous"
 msgstr "Föregående"
 
@@ -1998,7 +2009,7 @@ msgstr "Du kan skicka ett e-postmeddelande till alla kunder som har en %1$sframt
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
-#: templates/myaccount/bookings.php:95
+#: templates/myaccount/bookings.php:97
 msgid "Next"
 msgstr "Nästa"
 
@@ -3000,7 +3011,7 @@ msgstr "Kalender"
 #: includes/admin/views/html-create-booking-page-2.php:7
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
-#: includes/class-wc-bookings-init.php:92
+#: includes/class-wc-bookings-init.php:95
 #: woocommerce-bookings.php:166
 msgid "Add Booking"
 msgstr "Lägg till bokning"
@@ -3252,17 +3263,17 @@ msgstr "Antal personer"
 #: templates/emails/customer-booking-confirmed.php:40
 #: templates/emails/customer-booking-notification.php:31
 #: templates/emails/customer-booking-pending-confirmation.php:40
-#: templates/emails/customer-booking-reminder.php:45
+#: templates/emails/customer-booking-reminder.php:56
 msgid "Booked Product"
 msgstr "Bokad produkt"
 
-#: includes/admin/class-wc-bookings-cpt.php:170
+#: includes/admin/class-wc-bookings-cpt.php:169
 #: templates/myaccount/bookings.php:39
 #: templates/myaccount/my-bookings.php:30
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-wc-bookings-cpt.php:169
+#: includes/admin/class-wc-bookings-cpt.php:170
 #: templates/myaccount/bookings.php:44
 #: templates/myaccount/my-bookings.php:35
 msgid "Status"
@@ -3322,7 +3333,7 @@ msgstr "Bokad av"
 #: templates/emails/plain/customer-booking-confirmed.php:64
 #: templates/emails/plain/customer-booking-notification.php:61
 #: templates/emails/plain/customer-booking-pending-confirmation.php:66
-#: templates/emails/plain/customer-booking-reminder.php:65
+#: templates/emails/plain/customer-booking-reminder.php:70
 msgid "%1$s: %2$d"
 msgstr "%1$s: %2$d"
 
@@ -3336,14 +3347,14 @@ msgstr "%1$s: %2$d"
 #: templates/emails/customer-booking-confirmed.php:79
 #: templates/emails/customer-booking-notification.php:70
 #: templates/emails/customer-booking-pending-confirmation.php:79
-#: templates/emails/customer-booking-reminder.php:84
+#: templates/emails/customer-booking-reminder.php:95
 #: templates/emails/plain/admin-booking-cancelled.php:60
 #: templates/emails/plain/admin-new-booking.php:82
 #: templates/emails/plain/customer-booking-cancelled.php:65
 #: templates/emails/plain/customer-booking-confirmed.php:62
 #: templates/emails/plain/customer-booking-notification.php:59
 #: templates/emails/plain/customer-booking-pending-confirmation.php:64
-#: templates/emails/plain/customer-booking-reminder.php:63
+#: templates/emails/plain/customer-booking-reminder.php:68
 msgid "Person(s)"
 msgstr "Person(er)"
 
@@ -3408,88 +3419,88 @@ msgstr "Det gick inte att lägga till resursen"
 msgid "The resource has already been linked to this product"
 msgstr "Resursen har redan länkats till den här produkten"
 
-#: includes/admin/class-wc-bookings-admin.php:716
+#: includes/admin/class-wc-bookings-admin.php:724
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "Aktivera detta om produkten har flera bokningsbara resurser, exempelvis rumstyper eller instruktörer."
 
-#: includes/admin/class-wc-bookings-admin.php:715
+#: includes/admin/class-wc-bookings-admin.php:723
 msgid "Has resources"
 msgstr "Har resurser"
 
-#: includes/admin/class-wc-bookings-admin.php:709
+#: includes/admin/class-wc-bookings-admin.php:717
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "Aktivera detta om produkten kan bokas av en kunds definierat antal personer."
 
-#: includes/admin/class-wc-bookings-admin.php:708
+#: includes/admin/class-wc-bookings-admin.php:716
 msgid "Has persons"
 msgstr "Har personer"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:669
 msgid "Resource"
 msgstr "Resurs"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:668
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "Kund"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "View details"
 msgstr "Visa detaljer"
 
-#: includes/admin/class-wc-bookings-admin.php:656
+#: includes/admin/class-wc-bookings-admin.php:662
 msgid "Enter a name for the new resource"
 msgstr "Ange ett namn för den nya resursen"
 
-#: includes/admin/class-wc-bookings-admin.php:655
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "days"
 msgstr "dagar"
 
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:660
 msgid "hours"
 msgstr "timmar"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:659
 msgid "minutes"
 msgstr "minuter"
 
-#: includes/admin/class-wc-bookings-admin.php:650
+#: includes/admin/class-wc-bookings-admin.php:656
 msgid "Are you sure you want to remove this resource?"
 msgstr "Säker att du vill radera denna resurs?"
 
-#: includes/admin/class-wc-bookings-admin.php:647
+#: includes/admin/class-wc-bookings-admin.php:653
 msgid "Are you sure you want to remove this person type?"
 msgstr "Säker att du vill radera persontypen?"
 
-#: includes/admin/class-wc-bookings-admin.php:549
+#: includes/admin/class-wc-bookings-admin.php:555
 #: includes/class-wc-booking-privacy.php:78
 msgid "Bookable product"
 msgstr "Bokningsbarprodukt"
 
-#: includes/admin/class-wc-bookings-admin.php:455
+#: includes/admin/class-wc-bookings-admin.php:461
 msgid "Booking submitted."
 msgstr "Bokning skickad."
 
-#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:460
 msgid "Booking saved."
 msgstr "Bokning sparad."
 
-#: includes/admin/class-wc-bookings-admin.php:450
+#: includes/admin/class-wc-bookings-admin.php:456
 msgid "Custom field deleted."
 msgstr "Anpassat fält borttaget."
 
-#: includes/admin/class-wc-bookings-admin.php:449
+#: includes/admin/class-wc-bookings-admin.php:455
 msgid "Custom field updated."
 msgstr "Anpassat fält uppdaterat."
 
-#: includes/admin/class-wc-bookings-admin.php:448
-#: includes/admin/class-wc-bookings-admin.php:451
-#: includes/admin/class-wc-bookings-admin.php:453
+#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:457
+#: includes/admin/class-wc-bookings-admin.php:459
 msgid "Booking updated."
 msgstr "Bokning uppdaterad."
 
-#: includes/admin/class-wc-bookings-admin.php:374
-#: includes/admin/class-wc-bookings-admin.php:664
+#: includes/admin/class-wc-bookings-admin.php:380
+#: includes/admin/class-wc-bookings-admin.php:670
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1423
@@ -3497,23 +3508,23 @@ msgstr "Bokning uppdaterad."
 msgid "Persons"
 msgstr "Personer"
 
-#: includes/admin/class-wc-bookings-admin.php:367
+#: includes/admin/class-wc-bookings-admin.php:373
 #: includes/admin/views/html-booking-tab.php:3
 msgid "Costs"
 msgstr "Kostnad"
 
-#: includes/admin/class-wc-bookings-admin.php:360
+#: includes/admin/class-wc-bookings-admin.php:366
 #: includes/admin/class-wc-bookings-products-export.php:32
 #: includes/admin/class-wc-bookings-products-import.php:33
 #: includes/admin/views/html-booking-tab.php:2
 msgid "Availability"
 msgstr "Tillgänglighet"
 
-#: includes/admin/class-wc-bookings-admin.php:353
+#: includes/admin/class-wc-bookings-admin.php:359
 #: includes/admin/views/html-booking-resources.php:36
 #: includes/admin/views/html-booking-tab.php:1
-#: includes/class-wc-bookings-init.php:48
-#: includes/class-wc-bookings-init.php:64
+#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:67
 msgid "Resources"
 msgstr "Resurser"
 
@@ -3601,8 +3612,8 @@ msgid "Resource details"
 msgstr "Resursdetaljer"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:98
-#: includes/class-wc-bookings-init.php:54
-#: includes/class-wc-bookings-init.php:94
+#: includes/class-wc-bookings-init.php:57
+#: includes/class-wc-bookings-init.php:97
 msgid "Edit"
 msgstr "Redigera"
 

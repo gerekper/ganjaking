@@ -16,19 +16,19 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action( 'woocommerce_email_header', $email_heading, $email );?>
 
-<p><?php echo _x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
+<p><?php echo esc_html_x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
 
 <p>
 	<?php
-	printf( __( '%1$s is now back in stock at %2$s. ', 'woocommerce-waitlist' ), $product_title, get_bloginfo( 'name' ) );
+	printf( __( '%1$s is now back in stock at %2$s. ', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'name' ) ) );
 	_e( 'You have been sent this email because your email address was registered on a waitlist for this product.', 'woocommerce-waitlist' );
 	?>
 </p>
 <?php $product_link_name = strtok( $product_link, '?' ); ?>
 <p>
-	<?php printf( __( 'If you would like to purchase %1$s please visit the following link: %2$s', 'woocommerce-waitlist' ), $product_title, '<a href="' . $product_link . '">' . $product_link_name . '</a>' ); ?>
+	<?php printf( __( 'If you would like to purchase %1$s please visit the following link: %2$s', 'woocommerce-waitlist' ), esc_html( $product_title ), '<a href="' . esc_url( $product_link ) . '">' . esc_html( $product_link_name ) . '</a>' ); ?>
 </p>
 
 <?php if ( WooCommerce_Waitlist_Plugin::persistent_waitlists_are_disabled( $product_id ) && ! $triggered_manually ) {
@@ -40,6 +40,6 @@ if ( get_option( 'woocommerce_waitlist_archive_on' ) && ! email_exists( $email )
     'product_id'       => absint( $product_id ),
 		'key'              => $key,
 	), get_permalink( $product_id ) );
-	printf( __( 'To disassociate your email address with this product please click %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . $remove_link . '">', '</a>' );
+	printf( __( 'To disassociate your email address with this product please click %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . esc_url( $remove_link ) . '">', '</a>' );
 }
 do_action( 'woocommerce_email_footer', $email ); ?>

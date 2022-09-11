@@ -151,10 +151,9 @@ function seedprod_pro_create_menus() {
 		);
 		// add class
 		add_action( 'admin_footer', 'seedprod_pro_upgrade_link_class' );
-		function seedprod_pro_upgrade_link_class(){
+		function seedprod_pro_upgrade_link_class() {
 			echo "<script>jQuery(function($) { $('#sp-lite-admin-menu__upgrade').parent().parent().addClass('sp-lite-admin-menu__upgrade_wrapper')});</script>";
 		}
-
 	}
 
 	add_submenu_page(
@@ -355,7 +354,7 @@ function seedprod_pro_redirect_to_site() {
 		exit();
 	}
 
-	//  about us page
+	// about us page
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_about_us' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		wp_safe_redirect( 'admin.php?page=seedprod_pro#/aboutus' );
 		exit();
@@ -406,7 +405,7 @@ function seedprod_pro_render_shortcode() {
 			do_action( 'wp_print_footer_scripts' );
 			do_action( 'wp_footer' );
 			$content = do_shortcode( $shortcode );
-			//$content = do_shortcode( $content );
+			// $content = do_shortcode( $content );
 			echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
@@ -619,9 +618,14 @@ if ( defined( 'DOING_AJAX' ) ) {
 	add_action( 'wp_ajax_seedprod_pro_get_woocommerce_product_attribute_terms', 'seedprod_pro_get_woocommerce_product_attribute_terms' );
 
 	
-	//Subscribe Callback
+	// Subscribe Callback
 	add_action( 'wp_ajax_seedprod_pro_subscribe_callback', 'seedprod_pro_subscribe_callback' );
 	add_action( 'wp_ajax_nopriv_seedprod_pro_subscribe_callback', 'seedprod_pro_subscribe_callback' );
+	
+
+	
+	add_action( 'wp_ajax_seedprod_pro_render_gallery_shortcode', 'seedprod_pro_render_gallery_shortcode' );
+	add_action( 'wp_ajax_seedprod_pro_render_basic_gallery_shortcode', 'seedprod_pro_render_basic_gallery_shortcode' );
 	
 
 	
@@ -704,9 +708,9 @@ function seedprod_pro_get_widget_wpresults() {
 		if ( ! current_user_can( apply_filters( 'seedprod_builder_preview_render_capability', 'edit_others_posts' ) ) ) {
 			wp_send_json_error();
 		}
-		//print_r($_REQUEST);
+		// print_r($_REQUEST);
 		$block_type = filter_input( INPUT_GET, 'block_type' );
-		//print_r($block_type);
+		// print_r($block_type);
 
 		$widget_name = str_replace( 'wpwidgetblock-', '', $block_type );
 
@@ -733,7 +737,7 @@ function seedprod_pro_get_widget_wpresults() {
 		the_widget( $widget_name, $instance );
 
 		die( '' );
-		//return $widget_name;
+		// return $widget_name;
 
 	}
 
@@ -745,19 +749,18 @@ add_action( 'login_head', 'seedprod_pro_redirect_login_page' );
 
 
 // Make RafflePress Discoverable
-if ('pro' === SEEDPROD_PRO_BUILD) {
-    add_filter('install_plugins_table_api_args_featured', 'seedprod_pro_featured_plugins_tab');
+if ( 'pro' === SEEDPROD_PRO_BUILD ) {
+	add_filter( 'install_plugins_table_api_args_featured', 'seedprod_pro_featured_plugins_tab' );
 }
 /**
  * Helper function for adding plugins to featured list
  *
  * @return array
  */
-function seedprod_pro_featured_plugins_tab($args)
-{
-add_filter('plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3);
+function seedprod_pro_featured_plugins_tab( $args ) {
+	add_filter( 'plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3 );
 
-return $args;
+	return $args;
 } // featured_plugins_tab
 
 
@@ -766,13 +769,12 @@ return $args;
  *
  * @return object
  */
-function seedprod_pro_plugins_api_result($res, $action, $args)
-{
-remove_filter('plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3);
+function seedprod_pro_plugins_api_result( $res, $action, $args ) {
+	remove_filter( 'plugins_api_result', 'seedprod_pro_plugins_api_result', 10, 3 );
 
-$res = seedprod_pro_add_plugin_featured('rafflepress', $res);
+	$res = seedprod_pro_add_plugin_featured( 'rafflepress', $res );
 
-return $res;
+	return $res;
 } // plugins_api_result
 
 /**
@@ -780,16 +782,15 @@ return $res;
  *
  * @return object
  */
-function seedprod_pro_add_plugin_featured($plugin_slug, $res)
-{
-// check if plugin is already on the list
-if (!empty($res->plugins) && is_array($res->plugins)) {
-	foreach ($res->plugins as $plugin) {
-	if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
-		return $res;
+function seedprod_pro_add_plugin_featured( $plugin_slug, $res ) {
+	// check if plugin is already on the list
+	if ( ! empty( $res->plugins ) && is_array( $res->plugins ) ) {
+		foreach ( $res->plugins as $plugin ) {
+			if ( is_object( $plugin ) && ! empty( $plugin->slug ) && $plugin->slug == $plugin_slug ) {
+				return $res;
+			}
+		} // foreach
 	}
-	} // foreach
-}
 
 if ($plugin_info = get_transient('seedprod-plugin-info-' . $plugin_slug)) {
 	array_splice($res->plugins,4,0,array($plugin_info));

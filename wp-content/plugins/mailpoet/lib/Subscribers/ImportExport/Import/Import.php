@@ -515,6 +515,8 @@ class Import {
       }
     }
     if (empty($createdOrUpdatedSubscribers)) return null;
+
+    $this->subscriberRepository->invalidateTotalSubscribersCache();
     $createdOrUpdatedSubscribersIds = array_column($createdOrUpdatedSubscribers, 'id');
     if ($subscribersCustomFields) {
       $this->createOrUpdateCustomFields(
@@ -591,7 +593,9 @@ class Import {
    * @return array
    */
   public function synchronizeWPUsers(array $wpUsers): array {
-    return array_map([$this->wpSegment, 'synchronizeUser'], $wpUsers);
+    $users = array_map([$this->wpSegment, 'synchronizeUser'], $wpUsers);
+    $this->subscriberRepository->invalidateTotalSubscribersCache();
+    return $users;
   }
 
   public function addSubscribersToSegments(array $subscribersIds, array $segmentsIds): void {

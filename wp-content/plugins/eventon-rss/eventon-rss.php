@@ -4,45 +4,53 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create RSS feed of all events
  Author: Ashan Jay
- Version: 0.3
+ Version: 1.1.3
  Author URI: http://www.ashanjay.com/
- Requires at least: 3.8
- Tested up to: 4.2.2
+ Requires at least: 5.0
+ Tested up to: 5.8
 
  */
 
  class eventon_rss{
- 	public $version='0.3';
-	public $eventon_version = '2.3';
+ 	public $version='1.1.3';
+	public $eventon_version = '3.1';
 	public $name = 'RSS Feed';
 
 	public $rss_slug;
 	public $print_scripts_on = false;
 
- 	// Construct
-	public function __construct(){
-		$this->super_init();
-		add_action('plugins_loaded', array($this, 'plugin_init'));
-	}
+ 	
+ 	// Instanace
+		protected static $_instance = null;
+		public static function instance() {
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
+			return self::$_instance;
+		}
+		public function __construct(){
+			$this->super_init();
+			add_action('plugins_loaded', array($this, 'plugin_init'));
+		}
 
 	function plugin_init(){
-		if(class_exists('EventON')){
-			include_once( 'includes/admin/class-admin_check.php' );
-			$this->check = new addon_check($this->addon_data);
-			$check = $this->check->initial_check();
-			
-			if($check){
-				// initiate eventon addon
-				$this->addon = new evo_addon($this->addon_data);				
-				add_action( 'init', array( $this, 'init' ), 0 );
-			}
-		}else{
-			add_action('admin_notices', array($this, '_eventon_warning'));
+		// check if eventon exists with addon class
+		if( !isset($GLOBALS['eventon']) || !class_exists('evo_addons') ){
+			add_action('admin_notices', array($this, 'notice'));
+			return false;			
+		}			
+		
+		$this->addon = new evo_addons($this->addon_data);
+
+		if($this->addon->evo_version_check()){
+			add_action( 'init', array( $this, 'init' ), 0 );
+			add_filter("plugin_action_links_".$this->plugin_slug, array($this,'eventon_plugin_links' ));
 		}
 	}
-	function _eventon_warning(){
-		?><div class="message error"><p><?php _e('EventON is required for this addon to work properly.', 'eventon'); ?></p></div><?php
-	}
+		public function notice(){
+			?><div class="message error"><p><?php printf(__('EventON %s is NOT active! - '), $this->name); 
+	        	echo "You do not have EventON main plugin, which is REQUIRED.";?></p></div><?php
+		}
 	
 	// SUPER init
 		function super_init(){
@@ -64,8 +72,6 @@
 
 	// INITIATE please
 		function init(){				
-			// Activation
-			$this->activate();		
 			
 			// Deactivation
 			register_deactivation_hook( __FILE__, array($this,'deactivate'));
@@ -75,7 +81,6 @@
 
 			// RUN addon updater only in dedicated pages
 			if ( is_admin() ){
-				$this->addon->updater();
 				include_once($this->plugin_path.'/includes/admin/admin-init.php');
 			}
 
@@ -84,13 +89,14 @@
 	
 		}
 	
+	// Supportive
+		function eventon_plugin_links($links){
+			$settings_link = '<a href="admin.php?page=eventon#eventon_rss">Settings</a>'; 
+			array_unshift($links, $settings_link); 
+	 		return $links; 	
+		}
 	
  	// ACTIVATION			
-		function activate(){
-			// add actionUser addon to eventon addons list
-			$this->addon->activate();
-		}		
-	
 		// Deactivate addon
 		function deactivate(){
 			$this->addon->remove_addon();
@@ -99,4 +105,5 @@
  }
 
 // Initiate this addon within the plugin
-$GLOBALS['eventon_rss'] = new eventon_rss();
+function EVORSS(){ return eventon_rss::instance();}
+$GLOBALS['eventon_rss'] = EVORSS();

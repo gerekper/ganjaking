@@ -43,7 +43,16 @@
 	.evost_lightbox_secondary .ajde_popup_text .yesno_row .ajdeToolTip{
 		pointer-events: auto
 	}
-	  
+
+/* General */
+	.evost_hide{display: none} 
+	.evosteditor_footer .evosteditor_btn_msg{display: none}
+	.evosteditor_footer.needsave .evosteditor_btn_msg{display: inline-block;}
+	.evosteditor_footer.needsave .evost_save_seating_changes{position: relative;}
+	.evosteditor_footer.needsave .evost_save_seating_changes:after{
+		
+	}
+
 
 /* header */
 	.evosteditor_header, .evosteditor_content, .evosteditor_footer{
@@ -112,7 +121,8 @@
 	.evosteditor_header .secondary{display:flex;}
 	.evosteditor_header .evost_settings_btn i{font-size: 24px;}
 	.evosteditor_header .evost_settings_btn:hover{color: #fff;background-color: transparent;}
-	.stages{background-color: #98ce8f; color:#fff; padding: 3px 10px;position: relative;margin-right: 20px;
+	.stages{background-color: #5c5c5c; color:#fff; 
+		padding: 3px 10px;position: relative;margin-right: 30px;
 		max-width: 100px
 	}
 	.stages.primary_stage b{
@@ -131,7 +141,7 @@
 	    height: 0;
 	    border-style: solid;
 	    border-width: 22px 0 22px 15px;
-	    border-color: transparent transparent transparent #98ce8f;
+	    border-color: transparent transparent transparent #5c5c5c;
 	    position: absolute;
 	    top: 0;
 	    right: -15px;
@@ -394,26 +404,11 @@
 	.evost_editor_form .icon_select .icon_area span.select{background-color: #dedede}
 	.evost_editor_form .icon_select .selected_icons{display: flex; padding: 10px 0;}
 	.evost_editor_form .icon_select .selected_icons i{font-size: 28px;padding:0px 15px 5px 5px}
-	.evost_editor_form .number_change span{
-		border:1px solid #ddd;
-		border-radius: 20px;
-		display:flex; align-items:center;
-		overflow: hidden;
-		margin-top: 5px;
-	}
-	.evost_editor_form .number_change span em{
-		text-align: center;
-	    font-size: 24px;
-	    flex-grow: 1;
-	    cursor: pointer;
-	    color:#d2d2d2; background-color: #f7f7f7;
-	    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
-	    -moz-user-select: none; /* mozilla browsers */
-	    -khtml-user-select: none; /* webkit (konqueror) browsers */
-	    -ms-user-select: none;
-	}
-	.evost_editor_form .number_change span em:hover{background-color:#f3c991; color:#fff; }
-	.evost_editor_form .number_change span i{flex-grow:3; border-right:1px solid #ddd; border-left:1px solid #ddd; text-align: center; line-height: 33px; font-style: normal; padding-right: 1px;}
+	
+	.evost_editor_form .number_change .evo_field_plusminus_container{background-color: #f5f5f5;
+    padding: 5px;    width: fit-content;}
+    .evost_editor_form .number_change .evo_field_plusminus_container input:focus{background-color: transparent;}
+	
 
 	/* old */
 	.evost_forms h3{

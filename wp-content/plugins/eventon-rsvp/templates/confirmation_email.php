@@ -127,12 +127,13 @@
 
 				<?php
 				// customer password
-
-				if( !EVO()->cal->check_yn('evors_reg_user','evcal_rs') && !EVO()->cal->check_yn('evors_disable_user_pass') && isset($args['password'])){
-					?>
-					<p style='<?php echo $__styles_04;?>'><?php evo_lang_e('Your temporary password')?></p>
-					<p style='<?php echo $__styles_03;?> padding-bottom:10px;'><?php echo $args['password'];?></p>
-					<?php
+				if( isset($args['password']) ){
+					if( !EVO()->cal->check_yn('evors_reg_user','evcal_rs') || !EVO()->cal->check_yn('evors_disable_user_pass')){
+						?>
+						<p style='<?php echo $__styles_04;?>'><?php evo_lang_e('Your temporary password')?></p>
+						<p style='<?php echo $__styles_03;?> padding-bottom:10px;'><?php echo $args['password'];?></p>
+						<?php
+					}
 				}
 
 				?>
@@ -143,7 +144,7 @@
 					$adjusted_event_times = $EVENT->get_utc_adjusted_times();
 					$location = !empty($location) ? '&amp;loca='. stripcslashes($location): '' ;
 				?>
-				<p><a style='<?php echo $__styles_button;?>' href='<?php echo admin_url();?>admin-ajax.php?action=eventon_ics_download&<?php echo $RSVP->event_id();?>=<?php echo $EVENT->ID;?>&sunix=<?php echo $adjusted_event_times['start'];?>&eunix=<?php echo $adjusted_event_times['end'] . $location;?>' target='_blank'><?php echo EVORS()->lang('evcal_evcard_addics', 'Add to calendar', $lang);?></a></p>
+				<p><a style='<?php echo $__styles_button;?>' href='<?php echo admin_url();?>admin-ajax.php?action=eventon_ics_download&event_id=<?php echo $EVENT->ID;?>&ri=<?php echo $EVENT->ri;?><?php echo $location;?>' target='_blank'><?php echo EVORS()->lang('evcal_evcard_addics', 'Add to calendar', $lang);?></a></p>
 			</div>
 		</td>
 	</tr>

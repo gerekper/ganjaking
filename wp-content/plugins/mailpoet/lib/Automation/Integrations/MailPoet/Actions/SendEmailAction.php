@@ -5,11 +5,11 @@ namespace MailPoet\Automation\Integrations\MailPoet\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Step;
+use MailPoet\Automation\Engine\Data\Workflow;
+use MailPoet\Automation\Engine\Data\WorkflowRun;
 use MailPoet\Automation\Engine\Workflows\Action;
-use MailPoet\Automation\Engine\Workflows\Step;
 use MailPoet\Automation\Engine\Workflows\Subject;
-use MailPoet\Automation\Engine\Workflows\Workflow;
-use MailPoet\Automation\Engine\Workflows\WorkflowRun;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SegmentSubject;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\NewsletterEntity;
@@ -18,10 +18,16 @@ use MailPoet\InvalidStateException;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Scheduler\AutomationEmailScheduler;
 use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscriberSegmentRepository;
+use MailPoet\Validator\Builder;
+use MailPoet\Validator\Schema\ObjectSchema;
 use Throwable;
 
 class SendEmailAction implements Action {
+  /** @var SettingsController */
+  private $settings;
+
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
@@ -35,11 +41,13 @@ class SendEmailAction implements Action {
   private $automationEmailScheduler;
 
   public function __construct(
+    SettingsController $settings,
     NewslettersRepository $newslettersRepository,
     ScheduledTasksRepository $scheduledTasksRepository,
     SubscriberSegmentRepository $subscriberSegmentRepository,
     AutomationEmailScheduler $automationEmailScheduler
   ) {
+    $this->settings = $settings;
     $this->newslettersRepository = $newslettersRepository;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
     $this->subscriberSegmentRepository = $subscriberSegmentRepository;
@@ -52,6 +60,19 @@ class SendEmailAction implements Action {
 
   public function getName(): string {
     return __('Send email', 'mailpoet');
+  }
+
+  public function getArgsSchema(): ObjectSchema {
+    return Builder::object([
+      'subject' => Builder::string()->default(__('Subject', 'mailpoet')),
+      'preheader' => Builder::string(),
+      'sender_name' => Builder::string()->default($this->settings->get('sender.name')),
+      'sender_address' => Builder::string()->default($this->settings->get('sender.address')),
+      'reply_to_name' => Builder::string()->default($this->settings->get('reply_to.name')),
+      'reply_to_address' => Builder::string()->default($this->settings->get('reply_to.address')),
+      'ga_campaign' => Builder::string(),
+      'name' => Builder::string()->default(__('Send email', 'mailpoet')),
+    ]);
   }
 
   public function isValid(array $subjects, Step $step, Workflow $workflow): bool {
@@ -102,6 +123,23 @@ class SendEmailAction implements Action {
     } catch (Throwable $e) {
       throw InvalidStateException::create()->withMessage('Could not create sending task.');
     }
+  }
+
+  public function saveEmailSettings(Step $step): void {
+    $args = $step->getArgs();
+    if (!isset($args['email_id'])) {
+      return;
+    }
+
+    $email = $this->getEmailForStep($step);
+    $email->setSubject($args['subject'] ?? '');
+    $email->setPreheader($args['preheader'] ?? '');
+    $email->setSenderName($args['sender_name'] ?? '');
+    $email->setSenderAddress($args['sender_address'] ?? '');
+    $email->setReplyToName($args['reply_to_name'] ?? '');
+    $email->setReplyToAddress($args['reply_to_address'] ?? '');
+    $email->setGaCampaign($args['ga_campaign'] ?? '');
+    $this->newslettersRepository->flush();
   }
 
   private function getEmailForStep(Step $step): NewsletterEntity {

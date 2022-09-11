@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\SubscriberError;
-use MailPoet\WP\Functions as WPFunctions;
 
 class SendGridMapper {
   use BlacklistErrorMapperTrait;
@@ -19,7 +18,8 @@ class SendGridMapper {
   public function getErrorFromResponse($response, $subscriber) {
     $response = (!empty($response['errors'][0])) ?
       $response['errors'][0] :
-      sprintf(WPFunctions::get()->__('%s has returned an unknown error.', 'mailpoet'), Mailer::METHOD_SENDGRID);
+      // translators: %s is the name of the method.
+      sprintf(__('%s has returned an unknown error.', 'mailpoet'), Mailer::METHOD_SENDGRID);
 
     $level = MailerError::LEVEL_HARD;
     if (strpos($response, 'Invalid email address') === 0) {

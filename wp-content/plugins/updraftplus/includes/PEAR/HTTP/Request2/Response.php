@@ -13,7 +13,7 @@
  * @category  HTTP
  * @package   HTTP_Request2
  * @author    Alexey Borzov <avb@php.net>
- * @copyright 2008-2014 Alexey Borzov <avb@php.net>
+ * @copyright 2008-2022 Alexey Borzov <avb@php.net>
  * @license   http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
  * @link      http://pear.php.net/package/HTTP_Request2
  */
@@ -47,7 +47,7 @@ require_once 'HTTP/Request2/Exception.php';
  * @package  HTTP_Request2
  * @author   Alexey Borzov <avb@php.net>
  * @license  http://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
- * @version  Release: 2.2.1
+ * @version  Release: 2.5.1
  * @link     http://pear.php.net/package/HTTP_Request2
  * @link     http://tools.ietf.org/html/rfc2616#section-6
  */
@@ -55,12 +55,14 @@ class HTTP_Request2_Response
 {
     /**
      * HTTP protocol version (e.g. 1.0, 1.1)
-     * @var  string
+     *
+     * @var string
      */
     protected $version;
 
     /**
      * Status code
+     *
      * @var  integer
      * @link http://tools.ietf.org/html/rfc2616#section-6.1.1
      */
@@ -68,6 +70,7 @@ class HTTP_Request2_Response
 
     /**
      * Reason phrase
+     *
      * @var  string
      * @link http://tools.ietf.org/html/rfc2616#section-6.1.1
      */
@@ -75,34 +78,38 @@ class HTTP_Request2_Response
 
     /**
      * Effective URL (may be different from original request URL in case of redirects)
-     * @var  string
+     *
+     * @var string
      */
     protected $effectiveUrl;
 
     /**
      * Associative array of response headers
-     * @var  array
+     *
+     * @var array
      */
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * Cookies set in the response
-     * @var  array
+     *
+     * @var array
      */
-    protected $cookies = array();
+    protected $cookies = [];
 
     /**
      * Name of last header processed by parseHederLine()
      *
      * Used to handle the headers that span multiple lines
      *
-     * @var  string
+     * @var string
      */
     protected $lastHeader = null;
 
     /**
      * Response body
-     * @var  string
+     *
+     * @var string
      */
     protected $body = '';
 
@@ -112,7 +119,7 @@ class HTTP_Request2_Response
      * cURL provides the decoded body to the callback; if we are reading from
      * socket the body is still gzipped / deflated
      *
-     * @var  bool
+     * @var bool
      */
     protected $bodyEncoded;
 
@@ -122,7 +129,7 @@ class HTTP_Request2_Response
      * @var  array
      * @link http://tools.ietf.org/html/rfc2616#section-10
      */
-    protected static $phrases = array(
+    protected static $phrases = [
 
         // 1xx: Informational - Request received, continuing process
         100 => 'Continue',
@@ -179,7 +186,7 @@ class HTTP_Request2_Response
         505 => 'HTTP Version Not Supported',
         509 => 'Bandwidth Limit Exceeded',
 
-    );
+    ];
 
     /**
      * Returns the default reason phrase for the given code or all reason phrases
@@ -207,7 +214,7 @@ class HTTP_Request2_Response
      * @param bool   $bodyEncoded  Whether body is still encoded by Content-Encoding
      * @param string $effectiveUrl Effective URL of the response
      *
-     * @throws   HTTP_Request2_MessageException if status line is invalid according to spec
+     * @throws HTTP_Request2_MessageException if status line is invalid according to spec
      */
     public function __construct($statusLine, $bodyEncoded = true, $effectiveUrl = null)
     {
@@ -233,6 +240,8 @@ class HTTP_Request2_Response
      * empty string in the end.
      *
      * @param string $headerLine Line from HTTP response
+     *
+     * @return void
      */
     public function parseHeaderLine($headerLine)
     {
@@ -243,7 +252,7 @@ class HTTP_Request2_Response
             if (!empty($this->headers['set-cookie'])) {
                 $cookies = is_array($this->headers['set-cookie'])?
                            $this->headers['set-cookie']:
-                           array($this->headers['set-cookie']);
+                           [$this->headers['set-cookie']];
                 foreach ($cookies as $cookieString) {
                     $this->parseCookie($cookieString);
                 }
@@ -263,7 +272,7 @@ class HTTP_Request2_Response
                 $this->headers[$name] = $value;
             } else {
                 if (!is_array($this->headers[$name])) {
-                    $this->headers[$name] = array($this->headers[$name]);
+                    $this->headers[$name] = [$this->headers[$name]];
                 }
                 $this->headers[$name][] = $value;
             }
@@ -285,16 +294,18 @@ class HTTP_Request2_Response
      *
      * @param string $cookieString value of Set-Cookie header
      *
-     * @link     http://web.archive.org/web/20080331104521/http://cgi.netscape.com/newsref/std/cookie_spec.html
+     * @return void
+     *
+     * @link http://web.archive.org/web/20080331104521/http://cgi.netscape.com/newsref/std/cookie_spec.html
      */
     protected function parseCookie($cookieString)
     {
-        $cookie = array(
+        $cookie = [
             'expires' => null,
             'domain'  => null,
             'path'    => null,
             'secure'  => false
-        );
+        ];
 
         if (!strpos($cookieString, ';')) {
             // Only a name=value pair
@@ -335,6 +346,8 @@ class HTTP_Request2_Response
      * Appends a string to the response body
      *
      * @param string $bodyChunk part of response body
+     *
+     * @return void
      */
     public function appendBody($bodyChunk)
     {
@@ -357,7 +370,7 @@ class HTTP_Request2_Response
     /**
      * Returns the status code
      *
-     * @return   integer
+     * @return integer
      */
     public function getStatus()
     {
@@ -367,7 +380,7 @@ class HTTP_Request2_Response
     /**
      * Returns the reason phrase
      *
-     * @return   string
+     * @return string
      */
     public function getReasonPhrase()
     {
@@ -377,11 +390,11 @@ class HTTP_Request2_Response
     /**
      * Whether response is a redirect that can be automatically handled by HTTP_Request2
      *
-     * @return   bool
+     * @return bool
      */
     public function isRedirect()
     {
-        return in_array($this->code, array(300, 301, 302, 303, 307))
+        return in_array($this->code, [300, 301, 302, 303, 307])
                && isset($this->headers['location']);
     }
 
@@ -390,7 +403,7 @@ class HTTP_Request2_Response
      *
      * @param string $headerName Name of header to return
      *
-     * @return   string|array    Value of $headerName header (null if header is
+     * @return string|array    Value of $headerName header (null if header is
      *                           not present), array of all response headers if
      *                           $headerName is null
      */
@@ -407,7 +420,7 @@ class HTTP_Request2_Response
     /**
      * Returns cookies set in response
      *
-     * @return   array
+     * @return array
      */
     public function getCookies()
     {
@@ -417,13 +430,13 @@ class HTTP_Request2_Response
     /**
      * Returns the body of the response
      *
-     * @return   string
-     * @throws   HTTP_Request2_Exception if body cannot be decoded
+     * @return string
+     * @throws HTTP_Request2_Exception if body cannot be decoded
      */
     public function getBody()
     {
         if (0 == strlen($this->body) || !$this->bodyEncoded
-            || !in_array(strtolower($this->getHeader('content-encoding')), array('gzip', 'deflate'))
+            || !in_array(strtolower($this->getHeader('content-encoding') ?: ''), ['gzip', 'deflate'])
         ) {
             return $this->body;
 
@@ -436,28 +449,23 @@ class HTTP_Request2_Response
             try {
                 switch (strtolower($this->getHeader('content-encoding'))) {
                 case 'gzip':
-                    $decoded = self::decodeGzip($this->body);
+                    return self::decodeGzip($this->body);
                     break;
                 case 'deflate':
-                    $decoded = self::decodeDeflate($this->body);
+                    return self::decodeDeflate($this->body);
                 }
-            } catch (Exception $e) {
+            } finally { // phpcs:ignore PHPCompatibility.Keywords.NewKeywords.t_finallyFound
+                if (!empty($oldEncoding)) {
+                    mb_internal_encoding($oldEncoding);
+                }
             }
-
-            if (!empty($oldEncoding)) {
-                mb_internal_encoding($oldEncoding);
-            }
-            if (!empty($e)) {
-                throw $e;
-            }
-            return $decoded;
         }
     }
 
     /**
      * Get the HTTP version of the response
      *
-     * @return   string
+     * @return string
      */
     public function getVersion()
     {
@@ -465,32 +473,46 @@ class HTTP_Request2_Response
     }
 
     /**
-     * Decodes the message-body encoded by gzip
+     * Checks whether data starts with GZIP format identification bytes from RFC 1952
      *
-     * The real decoding work is done by gzinflate() built-in function, this
-     * method only parses the header and checks data for compliance with
-     * RFC 1952
+     * @param string $data gzip-encoded (presumably) data
      *
-     * @param string $data gzip-encoded data
-     *
-     * @return   string  decoded data
-     * @throws   HTTP_Request2_LogicException
-     * @throws   HTTP_Request2_MessageException
-     * @link     http://tools.ietf.org/html/rfc1952
+     * @return bool
      */
-    public static function decodeGzip($data)
+    public static function hasGzipIdentification($data)
     {
-        $length = strlen($data);
-        // If it doesn't look like gzip-encoded data, don't bother
-        if (18 > $length || strcmp(substr($data, 0, 2), "\x1f\x8b")) {
-            return $data;
-        }
-        if (!function_exists('gzinflate')) {
-            throw new HTTP_Request2_LogicException(
-                'Unable to decode body: gzip extension not available',
-                HTTP_Request2_Exception::MISCONFIGURATION
+        return 0 === strcmp(substr($data, 0, 2), "\x1f\x8b");
+    }
+
+    /**
+     * Tries to parse GZIP format header in the given string
+     *
+     * If the header conforms to RFC 1952, its length is returned. If any
+     * sanity check fails, HTTP_Request2_MessageException is thrown.
+     *
+     * Note: This function might be usable outside of HTTP_Request2 so it might
+     * be good idea to be moved to some common package. (Delian Krustev)
+     *
+     * @param string  $data         Either the complete response body or
+     *                              the leading part of it
+     * @param boolean $dataComplete Whether $data contains complete response body
+     *
+     * @return int  gzip header length in bytes
+     * @throws HTTP_Request2_MessageException
+     * @link   http://tools.ietf.org/html/rfc1952
+     */
+    public static function parseGzipHeader($data, $dataComplete = false)
+    {
+        // if data is complete, trailing 8 bytes should be present for size and crc32
+        $length = strlen($data) - ($dataComplete ? 8 : 0);
+
+        if ($length < 10 || !self::hasGzipIdentification($data)) {
+            throw new HTTP_Request2_MessageException(
+                'The data does not seem to contain a valid gzip header',
+                HTTP_Request2_Exception::DECODE_ERROR
             );
         }
+
         $method = ord(substr($data, 2, 1));
         if (8 != $method) {
             throw new HTTP_Request2_MessageException(
@@ -510,14 +532,14 @@ class HTTP_Request2_Response
         $headerLength = 10;
         // extra fields, need to skip 'em
         if ($flags & 4) {
-            if ($length - $headerLength - 2 < 8) {
+            if ($length - $headerLength - 2 < 0) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
                 );
             }
             $extraLength = unpack('v', substr($data, 10, 2));
-            if ($length - $headerLength - 2 - $extraLength[1] < 8) {
+            if ($length - $headerLength - 2 - $extraLength[1] < 0) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
@@ -527,14 +549,16 @@ class HTTP_Request2_Response
         }
         // file name, need to skip that
         if ($flags & 8) {
-            if ($length - $headerLength - 1 < 8) {
+            if ($length - $headerLength - 1 < 0) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
                 );
             }
             $filenameLength = strpos(substr($data, $headerLength), chr(0));
-            if (false === $filenameLength || $length - $headerLength - $filenameLength - 1 < 8) {
+            if (false === $filenameLength
+                || $length - $headerLength - $filenameLength - 1 < 0
+            ) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
@@ -544,14 +568,16 @@ class HTTP_Request2_Response
         }
         // comment, need to skip that also
         if ($flags & 16) {
-            if ($length - $headerLength - 1 < 8) {
+            if ($length - $headerLength - 1 < 0) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
                 );
             }
             $commentLength = strpos(substr($data, $headerLength), chr(0));
-            if (false === $commentLength || $length - $headerLength - $commentLength - 1 < 8) {
+            if (false === $commentLength
+                || $length - $headerLength - $commentLength - 1 < 0
+            ) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
@@ -561,7 +587,7 @@ class HTTP_Request2_Response
         }
         // have a CRC for header. let's check
         if ($flags & 2) {
-            if ($length - $headerLength - 2 < 8) {
+            if ($length - $headerLength - 2 < 0) {
                 throw new HTTP_Request2_MessageException(
                     'Error parsing gzip header: data too short',
                     HTTP_Request2_Exception::DECODE_ERROR
@@ -577,12 +603,43 @@ class HTTP_Request2_Response
             }
             $headerLength += 2;
         }
+        return $headerLength;
+    }
+
+    /**
+     * Decodes the message-body encoded by gzip
+     *
+     * The real decoding work is done by gzinflate() built-in function, this
+     * method only parses the header and checks data for compliance with
+     * RFC 1952
+     *
+     * @param string $data gzip-encoded data
+     *
+     * @return string  decoded data
+     * @throws HTTP_Request2_LogicException
+     * @throws HTTP_Request2_MessageException
+     * @link   http://tools.ietf.org/html/rfc1952
+     */
+    public static function decodeGzip($data)
+    {
+        // If it doesn't look like gzip-encoded data, don't bother
+        if (!self::hasGzipIdentification($data)) {
+            return $data;
+        }
+        if (!function_exists('gzinflate')) {
+            throw new HTTP_Request2_LogicException(
+                'Unable to decode body: gzip extension not available',
+                HTTP_Request2_Exception::MISCONFIGURATION
+            );
+        }
+
         // unpacked data CRC and size at the end of encoded data
         $tmp = unpack('V2', substr($data, -8));
         $dataCrc  = $tmp[1];
         $dataSize = $tmp[2];
 
-        // finally, call the gzinflate() function
+        $headerLength = self::parseGzipHeader($data, true);
+
         // don't pass $dataSize to gzinflate, see bugs #13135, #14370
         $unpacked = gzinflate(substr($data, $headerLength, -8));
         if (false === $unpacked) {
@@ -590,13 +647,17 @@ class HTTP_Request2_Response
                 'gzinflate() call failed',
                 HTTP_Request2_Exception::DECODE_ERROR
             );
-        } elseif ($dataSize != strlen($unpacked)) {
+
+            // GZIP stores the size of the compressed data in bytes modulo
+            // 2^32. To accommodate large file transfers, apply this to the
+            // observed data size. This allows file downloads above 4 GiB.
+        } elseif ((0xffffffff & $dataSize) !== (0xffffffff & strlen($unpacked))) {
             throw new HTTP_Request2_MessageException(
                 'Data size check failed',
                 HTTP_Request2_Exception::DECODE_ERROR
             );
-        } elseif ((0xffffffff & $dataCrc) != (0xffffffff & crc32($unpacked))) {
-            throw new HTTP_Request2_Exception(
+        } elseif ((0xffffffff & $dataCrc) !== (0xffffffff & crc32($unpacked))) {
+            throw new HTTP_Request2_MessageException(
                 'Data CRC check failed',
                 HTTP_Request2_Exception::DECODE_ERROR
             );
@@ -609,8 +670,8 @@ class HTTP_Request2_Response
      *
      * @param string $data deflate-encoded data
      *
-     * @return   string  decoded data
-     * @throws   HTTP_Request2_LogicException
+     * @return string  decoded data
+     * @throws HTTP_Request2_LogicException
      */
     public static function decodeDeflate($data)
     {

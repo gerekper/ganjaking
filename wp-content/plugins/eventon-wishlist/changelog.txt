@@ -1,5 +1,15 @@
 Wishlist for EventON Plugin
 ====================================
+v 1.0 (2022-6-6)
+FIXED: wishlist manager not loading
+FIXED: colored eventtop wishlist visibility
+FIXED: wishlist button clickable area expanded
+UPDATED: shortcode generator to support etc_override for wishlist manager
+UPDATED: styles update to overall layout
+
+v 0.9 (2021-5-24)
+FIXED: saving wishlist manager code not working on backend
+
 v 0.8 (2020-5-5)
 ADDED: shortcode option to show past only, future only events in wishlist manager
 ADDED: shortcode option to set number of months for wishlist manager

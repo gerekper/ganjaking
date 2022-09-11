@@ -1,6 +1,6 @@
 /**
- * AJDE Backender scripts
- * @version  1.5.4
+ * EventON Settings scripts
+ * @version  4.1
  */
 jQuery(document).ready(function($){
 
@@ -23,6 +23,70 @@ jQuery(document).ready(function($){
 		}
 	}
 
+// Settings
+	// webhooks
+		$.fn.evo_webhooks = function (options){
+
+			var init = function(){
+				interaction();
+			}
+			var interaction = function(){
+				$('body').on('click','.save_webhook_config',function(){
+					var FORM = $(this).closest('form'),
+					dataajax = {},
+					LB = $('.evo_webhook_settings.ajde_admin_lightbox');
+					
+					FORM.ajaxSubmit({
+						beforeSubmit: function(){	
+							$('body').trigger('evo_show_loading_animation',['evo_webhook_settings','saving']);	
+						},
+						dataType: 	'json',
+						url: 		the_ajax_script.ajaxurl,
+						type: 	'POST',
+						success:function(data){
+							if( data.status == 'good'){
+								$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'evo_webhook_settings','good',true]);
+								$('body').find('#evowhs_container').html( data.html );
+							}else{
+								$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'evo_webhook_settings','bad']);
+							}
+						},
+						complete:function(){
+							$('body').trigger('evo_hide_loading_animation',['evo_webhook_settings']);
+						}
+					});
+				});
+
+				// delete
+				$('body').on('click','.evowh_del',function(){
+					wh_id = $(this).closest('p').data('id');
+					
+					var dataajax = {};
+					dataajax['id']= $(this).closest('p').data('id');
+					dataajax['action']= 'evo_webhook_delete';
+
+					$.ajax({
+						beforeSend: function(){ },
+						url:	the_ajax_script.ajaxurl,
+						data: 	dataajax,	dataType:'json', type: 	'POST',
+						success:function(data){
+							if( data.status == 'good'){
+								$('body').find('#evowhs_container').html( data.html );
+							}else{
+
+							}
+						},
+						complete:function(){ 
+						}
+					});
+				});
+
+			}
+			init();
+		}
+		$('#ajde_customization').evo_webhooks();
+
+// Other
 	// colpase menu
 		$('.ajde-collapse-menu').on('click', function(){
 			if($(this).hasClass('close')){

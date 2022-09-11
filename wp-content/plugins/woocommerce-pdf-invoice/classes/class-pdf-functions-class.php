@@ -20,6 +20,7 @@
 	    	if ( extension_loaded('iconv') && extension_loaded('mbstring') ) {					
 				
 				// Add PDF Invoice Email
+				add_action( 'init',array( $this, 'pdf_invoice_email_init' ) );
 				add_action( 'admin_init', array( $this, 'pdf_invoice_email_admin_init' ) );
 				
 				// Create Invoice actions
@@ -113,6 +114,9 @@
 
 			if( in_array( $order->get_status(), $order_status_array ) ) {
 				WC_pdf_functions::woocommerce_completed_order_create_invoice( $order_id );
+
+				// Maybe send PDF_Invoice_Admin_PDF_Invoice when invoice is created
+				// WC_pdf_functions::maybe_send_admin_email_on_creation( $order_id );
 			}
 
 		}
@@ -249,8 +253,16 @@
 				// Set Invoice Meta
 				WC_pdf_functions::set_invoice_meta( $order_id );
 
+				apply_filters( 'maybe_filter_woocommerce_completed_order_create_invoice', $order_id );
+
+				// Create Attachments
+				$attachement = add_filter( 'woocommerce_email_attachments', array( 'WC_send_pdf', 'pdf_attachment' ), 10, 3 );
+
+				// Maybe send PDF_Invoice_Admin_PDF_Invoice when invoice is created
+				WC_pdf_functions::maybe_send_admin_email_on_creation( $order_id );
+
 				// Return Attachments
-				return add_filter( 'woocommerce_email_attachments', array( 'WC_send_pdf', 'pdf_attachment' ), 10, 3 );
+				return $attachement;
 
 			}
 
@@ -289,7 +301,7 @@
 
 			// Make sure the variable are cleared
 			$invoice 		 = NULL;
-			$current_invoice = NULL;
+			$current_invoice = 0;
 			$next_invoice 	 = 1; 
 
 			$invoice_count 	 = 0;
@@ -448,15 +460,17 @@
 				// Get the invoice options
 				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-				if ( $settings['pdf_date'] == 'invoice' ) {
+				$pdf_date = self::get_option( 'pdf_date' );
+
+				if ( $pdf_date == 'invoice' ) {
 					$invoice_date = get_post_meta( $order_id, '_wc_pdf_invoice_created_date', TRUE ) ? get_post_meta( $order_id, '_wc_pdf_invoice_created_date', TRUE ) : $order->get_date_created();
-				} elseif ( $settings['pdf_date'] == 'completed' ) {
+				} elseif ( $pdf_date == 'completed' ) {
 					$invoice_date = $order->get_date_completed();
 				} else {
 					$invoice_date = $order->get_date_created();
 				}
 
-				$invoice_date = wc_format_datetime( $invoice_date, $settings['pdf_date_format'] );
+				$invoice_date = wc_format_datetime( $invoice_date, self::get_option( 'pdf_date_format' ) ); 
 
 				return apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $invoice_date, $order_id );
 
@@ -518,11 +532,13 @@
 		static function create_display_invoice_number( $order_id ) { 
 
 			// Get the invoice options
-			$settings 		= get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-			if ( $settings['pdf_date'] == 'invoice' ) {
+			$pdf_date = self::get_option( 'pdf_date' );
+
+			if ( $pdf_date == 'invoice' ) {
 				$date_required = 'invoice';
-			} else if ( $settings['pdf_date'] == 'completed' ) {
+			} else if ( $pdf_date == 'completed' ) {
 				$date_required = 'completed';
 			} else {
 				$date_required = 'order';
@@ -531,7 +547,7 @@
 			// Get the Invoice Number
 			$invoice_number = get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE );
 			// Get the Invoice Date
-			$invoice_date = WC_send_pdf::get_woocommerce_pdf_date( $order_id, $date_required, false, 'invoice', $settings['pdf_date_format'] );
+			$invoice_date = WC_send_pdf::get_woocommerce_pdf_date( $order_id, $date_required, false, 'invoice', self::get_option( 'pdf_date_format' ) );
 
 			// pattern substitution
 			$replacements = array(
@@ -569,14 +585,16 @@
 
 			$replacements = apply_filters( 'woocommerce_pdf_invoice_create_display_invoice_number_replacements', $replacements, $order_id, $invoice_number, $invoice_date );
 			
-			$invoice_prefix = esc_html( $settings['pdf_prefix'] );
+			$invoice_prefix = esc_html( self::get_option( 'pdf_prefix' ) );
 			$invoice_prefix = str_replace( array_keys( $replacements ), $replacements, $invoice_prefix );
 
-			$invoice_suffix = esc_html( $settings['pdf_sufix'] );
+			$invoice_suffix = esc_html( self::get_option( 'pdf_sufix' ) );
 			$invoice_suffix = str_replace( array_keys( $replacements ), $replacements, $invoice_suffix );
+
+			$padding = self::get_option( 'padding' );
 				
 			// Add number padding if necessary
-			if ( '' != $settings['padding'] ) {
+			if ( '' != $padding ) {
 				$invnum 	= $invoice_prefix . str_pad($invoice_number, strlen($settings['padding']), "0", STR_PAD_LEFT) . $invoice_suffix;
 			} else {
 				$invnum 	= $invoice_prefix . $invoice_number . $invoice_suffix;
@@ -808,20 +826,38 @@
 		 }
 
 		/**
+		 * [pdf_invoice_email_init description]
+		 * @return [type] [description]
+		 */
+		 function pdf_invoice_email_init() {
+			// Add PDF Invoice Email for resending invoice
+			add_filter( 'woocommerce_email_classes', array( $this, 'add_email_class' ) );
+			add_filter( 'woocommerce_email_actions', array( $this, 'add_email' ) );
+		}
+
+		/**
 		 * [pdf_invoice_email_admin_init description]
 		 * @return [type] [description]
 		 */
 		function pdf_invoice_email_admin_init() {
 			// Add PDF Invoice Email for resending invoice
-			add_filter( 'woocommerce_email_classes', array( $this, 'add_email_class' ) );
-			add_filter( 'woocommerce_email_actions', array( $this, 'add_email' ) );
-			add_action( 'pdf_invoice_send_emails', array( $this, 'trigger_email_action' ) );
+			add_filter( 'woocommerce_email_classes', array( $this, 'add_admin_email_class' ) );
+			add_filter( 'woocommerce_email_actions', array( $this, 'add_admin_email' ) );
+			add_action( 'pdf_invoice_send_emails', array( $this, 'trigger_admin_email_action' ) );
 		}
 
 	    /**
 	     * add_pdf_invoices_email
 	     */
 	    function add_email_class( $emails ) {
+	    	$emails['PDF_Invoice_Admin_PDF_Invoice'] = include 'class-pdf-email-admin-invoice.php';
+	    	return $emails;
+	    }
+
+	    /**
+	     * add_pdf_invoices_email
+	     */
+	    function add_admin_email_class( $emails ) {
 	    	$emails['PDF_Invoice_Customer_PDF_Invoice'] = include 'class-pdf-email-customer-invoice.php';
 	    	return $emails;
 	    }
@@ -831,17 +867,27 @@
 	     * @param [type] $emails [description]
 	     */
 	    function add_email( $emails ) {
+	    	$emails[] = 'woocommerce_admin_pdf_invoice';
+
+	    	return $emails;
+	    }
+
+	    /**
+	     * [add_email description]
+	     * @param [type] $emails [description]
+	     */
+	    function add_admin_email( $emails ) {
 	    	$emails[] = 'woocommerce_customer_pdf_invoice';
 
 	    	return $emails;
 	    }
 
 	    /**
-	     * [trigger_email_action description]
+	     * [trigger_admin_email_action description]
 	     * @param  [type] $order_id [description]
 	     * @return [type]           [description]
 	     */
-	    function trigger_email_action( $order_id ) {
+	    function trigger_admin_email_action( $order_id ) {
 
 	    	if ( isset( $order_id ) && !empty( $order_id ) ) {
 	            WC_Emails::instance();
@@ -1536,6 +1582,25 @@
             $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
             $logger->log->add( $id, print_r( $tolog, TRUE ) );
             $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+
+        }
+
+        /**
+         * { item_description }
+         */
+        public static function maybe_send_admin_email_on_creation( $order_id ) {
+        	$order = new WC_Order( $order_id );
+        	WC()->mailer()->emails['PDF_Invoice_Admin_PDF_Invoice']->trigger( $order_id, $order );
+        }
+
+        public static function get_option( $option ) {
+
+            $settings 	= get_option('woocommerce_pdf_invoice_settings');
+            $defaults 	= WooCommerce_PDF_Invoice_Defaults::$defaults;
+
+            $option 	= isset( $settings[$option] ) ? $settings[$option] : $defaults[$option];
+
+            return $option;
 
         }
 

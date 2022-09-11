@@ -1,5 +1,10 @@
 ICS Importer for EventON Plugin
 ====================================
+v 1.1.4 (2020-10-22)
+FIXED: all day events end day importing as one day past
+FIXED: validate the cron schedule passed values
+FIXED: Compatibility with eventON 4.0
+
 v 1.1.3 (2020-11-4)
 FIXED: compatibility with eventON 3.0
 FIXED: PHP new version compatibility issue with icalParser.php

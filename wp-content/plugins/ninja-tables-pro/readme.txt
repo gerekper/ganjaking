@@ -5,7 +5,7 @@ Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, w
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
 Tested up to: 6.0
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 
 == Description ==
 
@@ -28,6 +28,20 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.2.1 (Date: August 8, 2022) =
+* Fixes array_combine issue for google sheets
+* Fixes php 8 required parameter deprecated notice
+* Fixes woocommerce product stock status issue
+* Fixes custom filter select gt & lt number
+* Fixes frontend editing apply & add new popup issue
+* Fixes file loading issue
+* Added download attribute in button
+* Added filter_selects multiple value for same filter
+* Added google-csv, csv & fluent-form chunk loader
+* Added th class in responsive breakpoint
+* Added fluentform payment details
+* Updated plugin docs help documentation
 
 =4.2.0 (Date: June 22, 2022) =
 - Adds drag and drop table builder icon

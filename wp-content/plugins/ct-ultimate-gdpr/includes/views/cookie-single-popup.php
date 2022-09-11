@@ -242,8 +242,11 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 
 		<?=$popup_btn_wrap_open_tag?>
 		<?=$btn_wrapper?>
-		<div id="ct-ultimate-gdpr-cookie-accept" class="cookie-buttons" style="border-color: <?=esc_attr( $accept_border_color )?>; background-color: <?=esc_attr( $accept_bg_color )?>; color: <?=esc_attr( $accept_color )?>;">
-			<?=$accept_btn_content?>
+		<div id="ct-ultimate-gdpr-cookie-accept" class="cookie-buttons" 
+		style="border-color: <?=esc_attr( $accept_border_color )?>; 
+		background-color: <?=esc_attr( $accept_bg_color )?>; 
+		color: <?=esc_attr( $accept_color )?>;">
+		<?=$accept_btn_content?>
 		</div>
 		
 		<?php 
@@ -255,7 +258,11 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 		?>
 		<div id="ct_ultimate-gdpr-cookie-reject" class="cookie-buttons" style="border-color: <?=esc_attr( $accept_border_color )?>; background-color: <?=esc_attr( $accept_bg_color )?>; color: <?=esc_attr( $accept_color )?>;">
 			<a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal" class="close-modal-text">
-				<?=$options['cookie_close_text_modal']; ?> <i class="fa fa-times"></i>
+				<?=$options['cookie_close_text_modal']; ?>
+				 <?php if($btn_settings == 'text_icon_'): ?>
+				 <i class="fa fa-times"></i>
+				 <?php endif; ?>
+
 			</a>
 		</div>
 		<?php } ?>
@@ -375,7 +382,7 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 <div id="ct-ultimate-gdpr-cookie-modal" class="<?=esc_attr($group_class) . esc_attr( $cookie_modal_type ); ?>">
 		
 	<!-- Modal content -->
-    <div class="ct-ultimate-gdpr-cookie-modal-content <?=esc_attr($cookie_modal_skin); ?>">
+    <div class="ct-ultimate-gdpr-cookie-modal-content <?=esc_attr($cookie_modal_skin); ?> ct-ultimate-gdpr-cookie-modal-content-single">
 		
 		<?php
 		if ( ! $cookie_modal_type == ' ct-ultimate-gdpr-cookie-modal-compact ct-ultimate-gdpr-cookie-modal-compact-light-blue'
@@ -402,257 +409,152 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 			<?php
 			else:
 				ct_ultimate_gdpr_locate_template('cookie-group-popup-header-content', true, $options);
-			endif; ?>
+			endif; ?>		
 
-			<form action="#" id="ct-ultimate-gdpr-cookie-modal-single-form">
-				<ul class="ct-ultimate-gdpr-cookie-modal-single">
+			<form action="#" class="ct-ultimate-gdpr-cookie-modal-single" >
+				<ul>
+				<?php if (empty($options['cookie_group_popup_hide_level_1'])) : ?>
+					<li><label for="cookie0">
+						<img class="ct-svg" src="<?php echo esc_url( $block_icon )?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?>">
+						</label>
+						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?></span>
+						<input type="radio" name="radio-group" id="cookie0" value="1" class="ct-ultimate-gdpr-cookie-modal-single-item"  
+							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 1)?>/></li>
+				<?php endif; ?>
+				<?php if (empty($options['cookie_group_popup_hide_level_2'])) : ?>
+					<li><label for="cookie5">
+						<img class="ct-svg" src="<?php echo esc_url( $ess_icon)?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?>">
+						</label>
+						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?></span>
+						<input type="checkbox" name="radio-group" id="cookie5" value="5" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 5)?> /></li>
+				<?php endif; ?>
+				<?php if (empty($options['cookie_group_popup_hide_level_3'])) : ?>
+					<li><label for="cookie6">
+						<img class="ct-svg" src="<?php echo esc_url( $func_icon)?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?>">
+						</label>
+						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?></span>
+						<input type="checkbox" name="radio-group"  id="cookie6" value="6" class="ct-ultimate-gdpr-cookie-modal-single-item"
+						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 6)?>/></li>
+				<?php endif; ?>
+				<?php if (empty($options['cookie_group_popup_hide_level_4'])) : ?>
+					<li><label for="cookie7">
+						<img class="ct-svg" src="<?php echo esc_url( $ana_icon )?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?>">
+						</label>
+						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?></span>
+						<input type="checkbox" name="radio-group"  id="cookie7" value="7" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 7)?>/></li>
+				<?php endif; ?>
+				<?php if (empty($options['cookie_group_popup_hide_level_5'])) : ?>
+					<li><label for="cookie8">
+						<img class="ct-svg" src="<?php echo esc_url( $adv_icon ) ?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?>">
+						</label>
+						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?></span>
+						<input type="checkbox" name="radio-group"  id="cookie8" value="8" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 8)?>/></li>
 
-					<li class="ct-ultimate-gdpr-cookie-modal-single-item jscookie1 <?php 
-							echo (CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 1) === "checked") ? "ct-ultimate-gdpr-cookie-modal-single-item--active" : "";?>">						
-						<div>
-							<img class="ct-svg" src="<?php echo esc_url( $block_icon )?>" alt="Block all">
-						</div>			
-						
-						<label for="cookie0"><?php echo __('Block all', 'ct-ultimate-gdpr');?></label>
-
-						<input type="radio" name="radio-group" id="cookie0" value="1" class="ct-ultimate-gdpr-cookie-modal-single-item--input" <?php echo CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 1)?>/>
-			
-					</li>
-
-					<li class="ct-ultimate-gdpr-cookie-modal-single-item jscookie5 <?php 
-							echo (CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 5) === "checked") ? "ct-ultimate-gdpr-cookie-modal-single-item--active" : "";?>">
-						<div>
-							<img class="ct-svg" src="<?php echo esc_url($ess_icon) ?>" alt="Essentials">
-						</div>
-						
-						<label for="cookie5"><?php echo __('Essentials', 'ct-ultimate-gdpr');?></label>
-
-						<input type="checkbox" name="radio-group" id="cookie5" value="5" class="ct-ultimate-gdpr-cookie-modal-single-item--input" 
-						<?php echo CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 5)?> />
-
-					</li>
-					<li class="ct-ultimate-gdpr-cookie-modal-single-item jscookie6 <?php 
-							echo (CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 6) === "checked") ? "ct-ultimate-gdpr-cookie-modal-single-item--active" : "";?>">
-						<div>
-							<img class="ct-svg" src="<?php echo esc_url( $func_icon)?>" alt="Functionality">
-						</div>
-						
-						<label for="cookie6"><?php echo __('Functionality', 'ct-ultimate-gdpr');?></label>
-
-						<input type="checkbox" name="radio-group"  id="cookie6" value="6" class="ct-ultimate-gdpr-cookie-modal-single-item--input" 
-						<?php echo CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 6)?>/>
-
-					</li>
-					<li class="ct-ultimate-gdpr-cookie-modal-single-item jscookie7 <?php 
-							echo (CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 7) === "checked") ? "ct-ultimate-gdpr-cookie-modal-single-item--active" : "";?>">
-						<div>
-							<img class="ct-svg" src="<?php echo esc_url( $ana_icon )?>" alt="Analytics">
-						</div>
-						
-						<label for="cookie7"><?php echo __('Analytics', 'ct-ultimate-gdpr');?></label>
-
-						<input type="checkbox" name="radio-group"  id="cookie7" value="7" class="ct-ultimate-gdpr-cookie-modal-single-item--input" 
-						<?php echo CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 7)?>/>
-					</li>
-
-					<li class="ct-ultimate-gdpr-cookie-modal-single-item jscookie8 <?php 
-							echo (CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 8) === "checked") ? "ct-ultimate-gdpr-cookie-modal-single-item--active" : "";?>">
-						<div>
-							<img class="ct-svg" src="<?php echo esc_url( $adv_icon ) ?>" alt="Advertising">
-						</div>
-						
-						<label for="cookie8"><?php echo __('Advertising', 'ct-ultimate-gdpr');?></label>
-
-						<input type="checkbox" name="radio-group"  id="cookie8" value="8" class="ct-ultimate-gdpr-cookie-modal-single-item--input" 
-						<?php echo CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 8)?>/>
-					</li>
 				</ul>
+				<?php endif; ?>
 			</form>
 
 			<div class="ct-ultimate-gdpr-cookie-modal-single-wrap">
-				<div class="ct-ultimate-gdpr-cookie-modal-slider-inner-wrap">
-					
-				<div class="ct-ultimate-gdpr-cookie-modal-single-wrap--title">
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-						<h4 style="color: <?php echo esc_attr($options['cookie_modal_header_color']); ?>;"><?php echo esc_html(ct_ultimate_gdpr_get_value("cookie_group_popup_label_will", $options, __('This website will:', 'ct-ultimate-gdpr'))); ?></h4></div>
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-						<h4 style="color: <?php echo esc_attr($options['cookie_modal_header_color']); ?>;"><?php echo esc_html(ct_ultimate_gdpr_get_value("cookie_group_popup_label_wont", $options, __("This website wont't:", 'ct-ultimate-gdpr'))); ?></h4>
-					</div>
-				</div> <!-- //end title -->
-
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-info cookie5">
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
+				<div class="ct-ultimate-gdpr-cookie-modal-single-wrap__inner">
+                   
+					<div class="ct-ultimate-gdpr-cookie-modal-single-wrap__inner--title">
+						<div class="title-block">			
+							<h4 style="color: <?php echo esc_attr($options['cookie_modal_header_color']); ?>;"><?php echo esc_html(ct_ultimate_gdpr_get_value("cookie_group_popup_label_will", $options, __('This website will:', 'ct-ultimate-gdpr'))); ?></h4></div>
 						
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-									$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_2", $options, "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;");
-									$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-									foreach ($features as $feature) :
-										echo "<li>" . esc_html($feature) . "</li>";
-									endforeach;
-								?>
-
-							</ul>
-						</div>
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-									$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_nonavailable_group_2", $options, "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;");
-									$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-									foreach ($features as $feature) :
-
-										echo "<li>" . esc_html($feature) . "</li>";
-
-									endforeach;
-
-								?>
-
-							</ul>
+						<div class="title-block">			
+							<h4 style="color: <?php echo esc_attr($options['cookie_modal_header_color']); ?>;"><?php echo esc_html(ct_ultimate_gdpr_get_value("cookie_group_popup_label_wont", $options, __("This website wont't:", 'ct-ultimate-gdpr'))); ?></h4>
 						</div>
 						<div class="ct-clearfix"></div>
-					</div> <!-- //end cookie5 --> 
+					</div> <!-- //end title -->
+					<?php
 
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-info cookie6">
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
+						$ess_option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_2_individual", $options);
+						$essentials = array_filter(array_map('trim', explode(';', $ess_option_string)));
+
+						$func_option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_3_individual", $options);
+						$functionalities = array_filter(array_map('trim', explode(';', $func_option_string)));
+
+						$ana_option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_4_individual", $options);
+						$analytics = array_filter(array_map('trim', explode(';', $ana_option_string)));
+
+						$adv_option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_5_individual", $options);
+						$advertisings = array_filter(array_map('trim', explode(';', $adv_option_string)));
+
+
+					?>
+					<div class="ct-ultimate-gdpr-cookie-modal-single-wrap__inner--info">
+						<div class="ct-ultimate-gdpr-cookie-modal-single__info--desc" id="desc-left">
+							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able" style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
 							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
+							<?php if(!empty($essentials)) : ?>
+								<?php foreach ($essentials as $essential) : ?>
+								
+									<li class="essentials"> <?php echo esc_html($essential); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
 
-								<?php
+							<?php if(!empty($functionalities)) : ?>
+								<?php foreach ($functionalities as $functionality) : ?>
+									<li class="functionality"> <?php echo esc_html($functionality); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							
+							<?php if(!empty($analytics)) : ?>
+								<?php foreach ($analytics as $analytic) : ?>
+									<li class="analytics"> <?php echo esc_html($analytic); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
 
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_3", $options, "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
+							<?php if(!empty($advertisings)) : ?>
+								<?php foreach ($advertisings as $advertising) : ?>
+									<li class="advertising"> <?php echo esc_html($advertising); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							
+								
 							</ul>
 						</div>
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
+						<div class="ct-ultimate-gdpr-cookie-modal-single__info--desc" id="desc-right">
+							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able" style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
+							<li><?php echo esc_html__('Remember your login details', 'ct-ultimate-gdpr'); ?></li>
+							<?php if(!empty($essentials)) : ?>
+								<?php foreach ($essentials as $essential) : ?>
+									<li class="essentials"> <?php echo esc_html($essential); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+
+							<?php if(!empty($functionalities)) : ?>
+								<?php foreach ($functionalities as $functionality) : ?>
+									<li class="functionality"> <?php echo esc_html($functionality); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
 							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
+							<?php if(!empty($analytics)) : ?>
+								<?php foreach ($analytics as $analytic) : ?>
+									<li class="analytics"> <?php echo esc_html($analytic); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
 
-								<?php
-
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_nonavailable_group_3", $options, "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
-							</ul>
-						</div>
-						<div class="ct-clearfix"></div>
-					</div> <!-- //end cookie6 -->
-
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-info cookie7">
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_4", $options, "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
-							</ul>
-						</div>
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_nonavailable_group_4", $options, "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
-							</ul>
+							<?php if(!empty($advertisings)) : ?>
+								<?php foreach ($advertisings as $advertising) : ?>
+									<li class="advertising"> <?php echo esc_html($advertising); ?></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+									
+									
+						    </ul>
 						</div>
 						<div class="ct-clearfix"></div>
-					</div> <!-- //end cookie7 -->
+					</div>
+ 
 
-					<div class="ct-ultimate-gdpr-cookie-modal-slider-info cookie8">
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_5", $options, "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
-							</ul>
-						</div>
-						<div class="ct-ultimate-gdpr-cookie-modal-slider-desc">
-							
-							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able"
-								style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-
-								<?php
-
-								$option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_nonavailable_group_5", $options, "Remember your login details");
-								$features = array_filter(array_map('trim', explode(';', $option_string)));
-
-								foreach ($features as $feature) :
-
-									echo "<li>" . esc_html($feature) . "</li>";
-
-								endforeach;
-
-								?>
-
-							</ul>
-						</div>
-						<div class="ct-clearfix"></div>
-					</div> <!-- //end cookie8 -->
-					
-				</div>
+				</div>	
 			</div>
+			
+			
 			<div class="ct-ultimate-gdpr-cookie-modal-btn save">
                 <a href="#"><?php echo esc_html(ct_ultimate_gdpr_get_value('cookie_group_popup_label_save', $options, esc_html__('Save & Close', 'ct-ultimate-gdpr'), false)); ?></a>
             </div>

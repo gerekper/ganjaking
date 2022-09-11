@@ -333,7 +333,8 @@
 	#evorsvp_form p.terms a:hover{text-decoration: underline;}
 
 /* inCard form */
-	.evcal_eventcard .evors_incard_form{position: relative; margin:0 -25px 0 -65px; display: none;padding: 45px;	}
+	.evcal_eventcard .evors_incard_form{position: relative; display: none;padding: 45px;    border-radius: 10px;
+    margin: 10px 0;}
 	.evcal_eventcard .evors_incard_form.show{display: block;}
 	
 	/* close button */
@@ -387,7 +388,7 @@
 /* lightbox form */
 	.evors_lightbox .evo_lightbox_body.evo_lightbox_body.error{background-color: #CF7A64}
 	.evors_lightbox .evo_lightbox_body{
-		background-color: #5ab535;
+		background-color: #6dc56b;
 		border-radius: 12px;
 		color:#fff;
 		padding: 30px;
@@ -511,7 +512,7 @@
 		}
 
 		#evorsvp_form .form_row input.captcha{ width: 70px; text-align: center;}
-		#evorsvp_form .form_row input.evors_rsvp_count{width: 50px; text-align: center;	}
+		#evorsvp_form .form_row input.evors_rsvp_count{width: 100px; text-align: center;	}
 		#evorsvp_form .form_row.additional_field label, 
 		#evorsvp_form .form_row.count label{
 			display: block;
@@ -550,7 +551,7 @@
 		border-radius: 20px;
 		border-bottom: none;
 		background-color: #fff;
-		color: #a4d690;
+		color: #6dc56b;
 	}
 	#evorsvp_form a.evors_submit:hover,
 	#evorsvp_form #change_rsvp_form:hover,
@@ -687,7 +688,7 @@
 		/* border: 1px solid #ededed; */
 	}
 	.evcal_evdata_row .evors_stat_data .remaining_count em{
-		background-color: #8ace88;
+		background-color: #6dc56b;
 	    padding: 0px 10px;
 	    color: #FFF;
 	    border-radius: 25px;
@@ -708,7 +709,10 @@
 	.evors_remaining_spots p{margin: 0; padding: 0;}
 	.evors_section.evors_subtext p,.evors_section.evors_mincap p{margin: 0;}
 
-	.evors_change_rsvp.evors_section{padding: 10px 0 12px; margin-top: 15px;border-top: 1px solid #e8e8e8;border-bottom: none; padding-bottom: 0;}
+	.evors_change_rsvp.evors_section{
+		 margin-top: 15px;  background-color: #e6e6e6;
+    padding: 10px 15px;
+    border-radius: 10px;}
 	.evors_change_rsvp span.change{font-size: 13px;border-radius: 20px;margin-left: 10px;}
 	.evors_loginnow_btn{margin-left: 10px;}
 	.evcal_evdata_row .evors_checkmark.fa{
@@ -1077,6 +1081,8 @@
 			display: block;
 		}
 		.evcal_evdata_row p.evors_whos_coming_title span{display: inline-block;margin-left: 0; margin-top: 5px;}
+		.evors_change_rsvp {text-align: center;}
+		.evors_change_rsvp .evors_change_rsvp_trig{margin:5px;}
 	}
 	@media (max-width: 480px){
 		#evors_lightbox .evo_lightbox_content{width: 100%;margin: 0;}

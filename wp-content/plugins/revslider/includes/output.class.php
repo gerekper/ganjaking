@@ -2554,13 +2554,13 @@ class RevSliderOutput extends RevSliderFunctions {
 		
 		if($rs_material_icons_css !== false) return '';
 		if(empty($layers)) return '';
-		
+		$gs = $this->get_global_settings();
+
 		foreach($layers as $layer){
 			$text = $this->get_val($layer, 'text', '');
 			$text_toggle = $this->get_val($layer, array('toggle', 'text'), '');
 			if(strpos($text, 'material-icons') !== false || strpos($text_toggle, 'material-icons') !== false){
-				$gs = $this->get_global_settings();
-				if($this->get_val($gs, 'fontdownload', 'off') === 'off'){
+				if(in_array($this->get_val($gs, 'fontdownload', 'off'), array('preload', 'off'))){
 					$font_face = "@font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -4379,7 +4379,7 @@ rs-module .material-icons {
 				}
 
 				// If iC (instanc Click) is available, we must write it ! 
-				if ($v['n'] === 'iC') $idle = 'false';
+				if($v['n'] === 'iC') $idle = 'false';
 
 				if(is_array($hover)) $hover = implode(',', $hover);
 				if(is_array($idle)) $idle = implode(',', $idle);
@@ -4389,6 +4389,13 @@ rs-module .material-icons {
 				if((string)$nv !== (string)$v['d'] || (string)$hover !== (string)($idle)){
 					$_frames['frame_hover']['base'][$v['n']] = $this->transform_frame_vals($nv);
 				}
+			}
+
+			//remove borders if styling is set to none
+			if(!isset($_frames['frame_hover']['base']['bos']) || $_frames['frame_hover']['base']['bos'] === 'none'){
+				if(isset($_frames['frame_hover']['base']['bow'])) unset($_frames['frame_hover']['base']['bow']);
+				if(isset($_frames['frame_hover']['base']['boc'])) unset($_frames['frame_hover']['base']['boc']);
+				if(isset($_frames['frame_hover']['base']['bos'])) unset($_frames['frame_hover']['base']['bos']);
 			}
 		}
 
@@ -6083,7 +6090,7 @@ rs-module .material-icons {
 			}
 			$anim .= ($duration === '') ? '' : 'ms:'.$duration.';';
 			$anim .= $this->get_html_slide_anim_rotation();
-			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', false, 'adpr', false);
+			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', true, 'adpr', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'd', 15, 'd', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'e', 'basic', 'e', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'p', 'none', 'p', false);
@@ -6117,7 +6124,7 @@ rs-module .material-icons {
 		}else{ /*CANVAS*/
 			/* Animate Defaults */
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'eng', 'animateCore', 'eng', false);
-			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', false, 'adpr', false);
+			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', true, 'adpr', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'd', 15, 'd', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'e', 'basic', 'e', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'speed', 1000, 'ms', false);
@@ -7980,8 +7987,6 @@ rs-module .material-icons {
 		$br = $s->get_param(array('carousel', 'borderRadius'), 0);
 		$pt = $s->get_param(array('carousel', 'paddingTop'), 0);
 		$pb = $s->get_param(array('carousel', 'paddingBottom'), 0);
-		$csd = $s->get_param(array('carousel', 'scaleDown'), 50);
-		$csd = ($csd > 100) ? 100 : $csd;
 		
 		if($ease !== 'power3.inOut') $c['easing'] = $ease;
 		if(!in_array($speed, array(800, '800', '800ms'), true)) $c['speed'] = $speed;
@@ -8006,6 +8011,8 @@ rs-module .material-icons {
 		}
 		
 		if($cs === true){
+			$csd = $s->get_param(array('carousel', 'scaleDown'), 50);
+			$csd = (intval(str_replace('%', '', $csd)) > 100) ? 100 : $csd;
 			$vs = $s->get_param(array('carousel', 'varyScale'), false);
 			$os = $s->get_param(array('carousel', 'offsetScale'), false);
 			$c['minScale'] = $csd;

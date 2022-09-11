@@ -1,6 +1,6 @@
 /**
  * EventON elements
- * version: 3.0.8
+ * version: 4.0.3
  */
 jQuery(document).ready(function($){
 
@@ -49,6 +49,10 @@ jQuery(document).ready(function($){
 			obj.closest('.evo_elm_row').next().hide();
 		}
 	});
+
+// select2 dropdown field - 4.0.3
+	if ( $.isFunction($.fn.select2) )  $('.ajdebe_dropdown.evo_select2').select2();
+
 // self hosted tooltips
 // deprecating
 	$('body').find('.ajdethistooltip').each(function(){
@@ -290,6 +294,61 @@ jQuery(document).ready(function($){
 		min += parseInt(P.find('._minute').val() );
 
 		P.find('input').val( min );
+	});
+
+// Upload data files
+// @version 4.0.2
+	$('body').on('click','.evo_data_upload_trigger',function(event){
+		event.preventDefault();
+		OBJ = $(this);
+
+		const upload_box = OBJ.closest('.evo_data_upload_holder').find('.evo_data_upload_window');
+
+		// show form
+		upload_box.show();
+
+		const msg_elm = upload_box.find('.msg');
+		const form = upload_box.find('form');
+		var fileSelect = upload_box.find('input');
+		const acceptable_file_type = fileSelect.data('file_type');
+		msg_elm.hide();
+
+		// when form submitted
+		$(form).submit(function(event){
+			event.preventDefault();
+			msg_elm.html('Processing').show();
+
+			var files = fileSelect.prop('files');
+
+			if( !files ){
+			 	msg_elm.html('Missing File.'); return;
+			}
+			
+			var file = files[0];
+
+			if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+		      	alert('The File APIs are not fully supported in this browser.');
+		      	return;
+		    }
+
+		    if( file.name.indexOf( acceptable_file_type ) == -1 ){
+		  		msg_elm.html('Only accept '+acceptable_file_type+' file format.');
+		  	}else{
+		  		var reader = new FileReader();
+			  	reader.readAsText(file);
+
+	            reader.onload = function(reader_event) {
+	            	$('body').trigger('evo_data_uploader_submitted', [reader_event, msg_elm, upload_box]);
+	            };
+	            reader.onerror = function() {
+	            	msg_elm.html('Unable to read file.');
+	            };
+	        }			
+		});
+	});
+	// close upload window
+	$('body').on('click','.evo_data_upload_window_close',function(){
+		$(this).parent().hide();
 	});
 
 // lightbox select

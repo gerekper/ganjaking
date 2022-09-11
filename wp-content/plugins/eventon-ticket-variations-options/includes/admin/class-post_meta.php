@@ -56,24 +56,26 @@ class evovo_meta_boxes{
 							?>		
 						</div>
 						
-						<p class='yesno_leg_line ' >
-							<?php echo eventon_html_yesnobtn(array(
-								'id'=>		'_evovo_var_sep_sold',
-								'var'=>		$EVENT->get_prop('_evovo_var_sep_sold'), 
-								'input'=>	true,
-								'label'=>	__('Sell Variations as separate ticket (Only when you have single variation type)','evovo'),
-								'guide'=>	__('This will allow customers to add each variation type to cart as separate tickets, this is only available when there is only single variation type. When this is enabled price options will not display.','evovo')
-							)); ?>
-						</p>
-						<p class='yesno_leg_line ' >
-							<?php echo eventon_html_yesnobtn(array(
-								'id'=>		'_evovo_po_sep_sold',
-								'var'=>		evo_meta_yesno($epmv, '_evovo_po_sep_sold'), 
-								'input'=>	true,
-								'label'=>	__('Sell Price Options as Separate Tickets','evovo'),
-								'guide'=>	__('This will enable you to sell price options as separate tickets instead of a single ticket. Variations will be disabled when this is active.','evovo')
-							)); ?>
-						</p>
+						<?php if(!$EVENT->check_yn('_evobo_activate')):?>
+							<p class='yesno_leg_line ' >
+								<?php echo eventon_html_yesnobtn(array(
+									'id'=>		'_evovo_var_sep_sold',
+									'var'=>		$EVENT->get_prop('_evovo_var_sep_sold'), 
+									'input'=>	true,
+									'label'=>	__('Sell Variations as separate ticket (Only when you have single variation type)','evovo'),
+									'guide'=>	__('This will allow customers to add each variation type to cart as separate tickets, this is only available when there is only single variation type. When this is enabled price options will not display.','evovo')
+								)); ?>
+							</p>
+							<p class='yesno_leg_line ' >
+								<?php echo eventon_html_yesnobtn(array(
+									'id'=>		'_evovo_po_sep_sold',
+									'var'=>		evo_meta_yesno($epmv, '_evovo_po_sep_sold'), 
+									'input'=>	true,
+									'label'=>	__('Sell Price Options as Separate Tickets','evovo'),
+									'guide'=>	__('This will enable you to sell price options as separate tickets instead of a single ticket. Variations will be disabled when this is active.','evovo')
+								)); ?>
+							</p>
+						<?php endif;?>
 						<p class='yesno_leg_line ' >
 							<?php echo eventon_html_yesnobtn(array(
 								'id'=>		'_evovo_v_hide_sold',

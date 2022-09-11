@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     2.9
+ * @version     4.1
  */
 
 class evo_ajax{
@@ -51,7 +51,7 @@ class evo_ajax{
 		}
 		function init_load($return = false){
 			// get global cals on init
-			global $EVOAJAX;		
+			global $EVOAJAX;	
 
 			// init load calendar events
 			$CALS = array();
@@ -59,7 +59,7 @@ class evo_ajax{
 				foreach($_POST['cals'] as $calid=>$CD){
 					if(!isset( $CD['sc'])) continue;
 
-					$SC = $this->helper->recursive_sanitize_array_fields( $CD['sc'] );
+					$SC = $this->helper->sanitize_array( $CD['sc'] );
 
 					$CALS[$calid]['sc'] = $SC;
 
@@ -73,12 +73,12 @@ class evo_ajax{
 					//print_r($$CD);
 					$CALS[$calid]['json'] = $E['data'];
 					$CALS[$calid]['html'] = $E['html'];
-					$CALS[$calid]['debug'] = date('Y-m-d H:i', $CD['sc']['focus_start_date_range']).'-'.date('Y-m-d H:i', $CD['sc']['focus_end_date_range']);
+					//$CALS[$calid]['debug'] = date('Y-m-d H:i', $CD['sc']['focus_start_date_range']).'-'.date('Y-m-d H:i', $CD['sc']['focus_end_date_range']);
 				}
 			}
 
 			$global = isset($_POST['global'])? 
-				$this->helper->recursive_sanitize_array_fields( $_POST['global'] ): array();
+				$this->helper->sanitize_array( $_POST['global'] ): array();
 
 			$R =  apply_filters('evo_init_ajax_data', array(
 				'cal_def'=> EVO()->calendar->helper->get_calendar_defaults(),
@@ -107,7 +107,7 @@ class evo_ajax{
 	// General ajax call - added 3.1
 		public function gen_trig_ajax(){
 
-			$PP = $this->helper->recursive_sanitize_array_fields( $_POST );
+			$PP = $this->helper->sanitize_array( $_POST );
 
 			if(!wp_verify_nonce($PP['nn'], 'eventon_nonce')) {echo 'Evo Nonce Failed!'; exit;}
 		
@@ -121,7 +121,7 @@ class evo_ajax{
 			$shortcode_args = $focused_month_num = $focused_year = '';
 			$status = 'GOOD';
 
-			$SC = isset($_POST['shortcode']) ? $this->helper->recursive_sanitize_array_fields( $_POST['shortcode'] ): array();
+			$SC = isset($_POST['shortcode']) ? $this->helper->sanitize_array( $_POST['shortcode'] ): array();
 			$ajaxtype = isset($_POST['ajaxtype'])? sanitize_text_field( $_POST['ajaxtype'] ): '';
 
 			extract($SC);
@@ -210,18 +210,26 @@ class evo_ajax{
 
 	// AJAX Events data
 		function ajax_events_data(){
-			$SC = isset($_POST['shortcode']) ? $_POST['shortcode']: array();
+			$postdata = $this->helper->sanitize_array( $_POST );
+
+			$SC = isset($postdata['shortcode']) ? $postdata['shortcode']: array();
 			EVO()->calendar->shortcode_args = $SC;
 		}
 
 	// Now Calendar
 		public function refresh_now_cal(){
 
-			$calnow = new Evo_Calendar_Now();
-			
-			$defA = isset($_POST['defA']) ? $_POST['defA'] : array();
+			$PP = $this->helper->sanitize_array( $_POST );
 
-			$calnow->process_a( $defA );
+			$calnow = new Evo_Calendar_Now();
+
+			$SC = isset($PP['SC']) ? $PP['SC']: array();
+			
+			$defA = isset($PP['defA']) ? $PP['defA'] : array();
+
+			$args = array_merge($defA, $SC);
+
+			$calnow->process_a( $args );
 
 			ob_start();
 			$calnow->get_body( true );
@@ -236,8 +244,7 @@ class evo_ajax{
 	// refresh elements
 		public function refresh_elm(){
 
-			$HELP = new evo_helper();
-			$PP = $HELP->recursive_sanitize_array_fields( $_POST );
+			$PP = $this->helper->sanitize_array( $_POST );
 
 			echo json_encode($this->get_refresh_elm_data( $PP )); exit;			
 		}
@@ -276,7 +283,8 @@ class evo_ajax{
 		}
 
 	// record moderator joined for virtual events
-		public function record_mod_joined(){
+		public function record_mod_joined(){			
+
 			if(!isset($_POST['eid'])) return false;
 			if(!isset($_POST['ri'])) return false;
 			if(!isset($_POST['nonce'])) return false;
@@ -284,10 +292,12 @@ class evo_ajax{
 
 			if(!wp_verify_nonce($_POST['nonce'], 'eventon_nonce')) {echo 'nonce failed'; exit;}
 
-			$EVENT = new EVO_Event( (int)$_POST['eid'], (int)$_POST['eid'] );
+			$postdata = $this->helper->sanitize_array( $_POST );
+
+			$EVENT = new EVO_Event( (int)$postdata['eid'], (int)$postdata['eid'] );
 
 			// joined in or left
-			$joined = ($_POST['joined'] == 'yes') ? 'in': 'left';
+			$joined = ($postdata['joined'] == 'yes') ? 'in': 'left';
 
 			$EVENT->record_mod_joined($joined);
 
@@ -308,7 +318,9 @@ class evo_ajax{
 
 			if(!wp_verify_nonce($_POST['nonce'], 'eventon_nonce')) {echo 'nonce failed'; exit;} // nonce verification
 
-			$EVENT = new EVO_Event($_POST['eid']);
+			$postdata = $this->helper->sanitize_array( $_POST );
+			
+			$EVENT = new EVO_Event($postdata['eid']);
 			echo json_encode(
 				apply_filters('evo_single_event_content_data',array(), $EVENT)
 			);exit;
@@ -317,13 +329,15 @@ class evo_ajax{
 	// load single eventcard content
 	// @ 2.9.2
 		public function load_single_eventcard_content(){
-			$event_id = (int) $_POST['event_id'];
-			$ri = (int) $_POST['ri'];
-			
-			$SC = isset($_POST['SC']) ? $_POST['SC'] : array();
-			$lang = isset($SC['lang'])? $SC['lang']:'L1';
+			$postdata = $this->helper->sanitize_array( $_POST );
+
+			$event_id = (int) $postdata['event_id'];
+			$ri = (int) $postdata['ri'];
 
 			$SC = array();
+			
+			$SC = isset($postdata['SC']) ? $postdata['SC'] : array();
+			$lang = isset($SC['lang'])? $SC['lang']:'L1';
 
 			$SC['show_exp_evc'] = 'yes';
 
@@ -378,16 +392,12 @@ class evo_ajax{
 					$content = strip_tags($content);
 					$content = str_replace(']]>', ']]&gt;', $content);
 					$summary = wp_trim_words($content, 50, '[..]');
-					//$summary = substr($content, 0, 500).' [..]';
-				}			
-							
+				}		
 			
 			$uid = uniqid();
-			//$description = $the_event->post_content;
-			
-			//ob_clean();
 
 			// start and end time
+				//$dDATA = $EVENT->get_non_adjusted_times();
 				$dDATA = $EVENT->get_utc_adjusted_times();
 
 				$format =  $EVENT->is_all_day() ? 'Ymd' : 'Ymd\THi';
@@ -403,26 +413,6 @@ class evo_ajax{
 						
 			header("Content-Type: text/Calendar; charset=utf-8");
 			header("Content-Disposition: inline; filename={$slug}.ics");
-
-			/*
-				// DAY LIGHT SAVING
-				echo "BEGIN:VTIMEZONE\r\n";
-				echo "TZID:". get_option('timezone_string'). "\r\n";
-				echo "LAST-MODIFIED:". $this->sanitize_unix( $time ) . "\r\n";
-				echo "BEGIN:STANDARD\r\n";
-				echo "DTSTART:".$year."1104T020000\r\n";
-				echo "TZOFFSETFROM:-0400\r\n";
-				echo "TZOFFSETTO:-0500\r\n";
-				echo "TZNAME:EST\r\n";
-				echo "END:STANDARD\r\n";
-				echo "BEGIN:DAYLIGHT\r\n";
-				echo "DTSTART:".$year."0311T020000\r\n";
-				echo "TZOFFSETFROM:-0500\r\n";
-				echo "TZOFFSETTO:-0400\r\n";
-				echo "TZNAME:EDT\r\n";
-				echo "END:DAYLIGHT\r\n";
-				echo "END:VTIMEZONE\r\n";
-			*/
 
 
 			echo "BEGIN:VCALENDAR\r\n";
@@ -457,29 +447,50 @@ class evo_ajax{
 			echo "END:VEVENT\n";
 			echo "END:VCALENDAR";
 			exit;
-		}
-		// 8932480932T0302Z format
-		function sanitize_unix($unix){
-			$t = explode('Z', $unix);
-			$u = explode('T', $t[0]);
 
-			$a = (int)$u[0];
-			$b = isset($u[1]) ? (int)$u[1]:0;
+			/*
+				// DAY LIGHT SAVING
+				echo "BEGIN:VTIMEZONE\r\n";
+				echo "TZID:". get_option('timezone_string'). "\r\n";
+				echo "LAST-MODIFIED:". $this->sanitize_unix( $time ) . "\r\n";
+				echo "BEGIN:STANDARD\r\n";
+				echo "DTSTART:".$year."1104T020000\r\n";
+				echo "TZOFFSETFROM:-0400\r\n";
+				echo "TZOFFSETTO:-0500\r\n";
+				echo "TZNAME:EST\r\n";
+				echo "END:STANDARD\r\n";
+				echo "BEGIN:DAYLIGHT\r\n";
+				echo "DTSTART:".$year."0311T020000\r\n";
+				echo "TZOFFSETFROM:-0500\r\n";
+				echo "TZOFFSETTO:-0400\r\n";
+				echo "TZNAME:EDT\r\n";
+				echo "END:DAYLIGHT\r\n";
+				echo "END:VTIMEZONE\r\n";
+			*/
 
-			if(strlen($a)<6) $a = sprintf('%06d', $a);
-			if(strlen($b)<6) $b = sprintf('%06d', $b);
+		}
+			// 8932480932T0302Z format
+			function sanitize_unix($unix){
+				$t = explode('Z', $unix);
+				$u = explode('T', $t[0]);
 
-			return $a.'T'. $b .'Z';
-		}
-		function esc_ical_text( $text='' ) {
-			
-		    $text = str_replace("\\", "", $text);
-		    $text = str_replace("\r", "\r\n ", $text);
-		    $text = str_replace("\n", "\r\n ", $text);
-		    $text = str_replace(",", "\, ", $text);
-		    $text = EVO()->calendar->helper->htmlspecialchars_decode($text);
-		    return $text;
-		}
+				$a = (int)$u[0];
+				$b = isset($u[1]) ? (int)$u[1]:0;
+
+				if(strlen($a)<6) $a = sprintf('%06d', $a);
+				if(strlen($b)<6) $b = sprintf('%06d', $b);
+
+				return $a.'T'. $b .'Z';
+			}
+			function esc_ical_text( $text='' ) {
+				
+			    $text = str_replace("\\", "", $text);
+			    $text = str_replace("\r", "\r\n ", $text);
+			    $text = str_replace("\n", "\r\n ", $text);
+			    $text = str_replace(",", "\, ", $text);
+			    $text = EVO()->calendar->helper->htmlspecialchars_decode($text);
+			    return $text;
+			}
 
 	// download all event data as ICS
 		function export_events_ics(){
@@ -501,12 +512,19 @@ class evo_ajax{
 				echo "CALSCALE:GREGORIAN\n";
 				echo "METHOD:PUBLISH\n";
 
+				// EACH EVENT
 				foreach($events as $event_id=>$event){
-					$location = $summary = '';
+
+					$event_name = $description = EVO()->calendar->helper->htmlspecialchars_decode($event['name']);
+					$location =  '';
 
 					if(!empty($event['details'])){
-						$summary = wp_trim_words($event['details'], 50, '[..]');
+						$content = strip_tags($event['details']);
+						$content = str_replace(']]>', ']]&gt;', $content);
+						$description = wp_trim_words($content, 50, '[..]');
 					}
+
+					$description = $this->esc_ical_text($description) ."\\n" . !empty( $event['permalink'] ) ? $event['permalink']:'';					
 
 					// location 
 						$Locterms = wp_get_object_terms( $event_id, 'event_location' );
@@ -521,14 +539,15 @@ class evo_ajax{
 						$location = (!empty($location_name)? $location_name:'').' '. (!empty($locationAddress)? $locationAddress:'');
 
 					$uid = uniqid();
+
 					echo "BEGIN:VEVENT\n";
 					echo "UID:{$uid}\n"; // required by Outlok
 					echo "DTSTAMP:".date_i18n('Ymd').'T'.date_i18n('His')."\n"; // required by Outlook
-					echo "DTSTART:" . evo_get_adjusted_utc($event['start']) ."\n"; 
-					echo "DTEND:" . evo_get_adjusted_utc($event['end']) ."\n";
+					echo "DTSTART:" . $this->helper->get_ics_format_from_unix($event['start']) ."\n"; 
+					echo "DTEND:" . $this->helper->get_ics_format_from_unix($event['end']) ."\n";
 					if(!empty($location)) echo "LOCATION:". $this->esc_ical_text($location) ."\n";
-					echo "SUMMARY:". EVO()->calendar->helper->htmlspecialchars_decode($event['name'])."\n";
-					if(!empty($summary)) echo "DESCRIPTION: ".$this->esc_ical_text($summary)."\n";
+					echo "SUMMARY:". $event_name ."\n";
+					if(!empty($description)) echo "DESCRIPTION: ". $description ."\n";
 					echo "END:VEVENT\n";
 
 					// repeating instances
@@ -540,11 +559,11 @@ class evo_ajax{
 								echo "BEGIN:VEVENT\n";
 								echo "UID:{$uid}\n"; // required by Outlok
 								echo "DTSTAMP:".date_i18n('Ymd').'T'.date_i18n('His')."\n"; // required by Outlook
-								echo "DTSTART:" . evo_get_adjusted_utc($repeats[0]) ."\n"; 
-								echo "DTEND:" . evo_get_adjusted_utc($repeats[1]) ."\n";
+								echo "DTSTART:" . $this->helper->get_ics_format_from_unix($repeats[0]) ."\n"; 
+								echo "DTEND:" . $this->helper->get_ics_format_from_unix($repeats[1]) ."\n";
 								if(!empty($location)) echo "LOCATION:". $this->esc_ical_text($location) ."\n";
-								echo "SUMMARY:". EVO()->calendar->helper->htmlspecialchars_decode($event['name'])."\n";
-								if(!empty($summary)) echo "DESCRIPTION: ".$this->esc_ical_text($summary)."\n";
+								echo "SUMMARY:". $event_name ."\n";
+								if(!empty($summary)) echo "DESCRIPTION: ". $description ."\n";
 								echo "END:VEVENT\n";
 							}
 						}
@@ -570,9 +589,12 @@ class evo_ajax{
 
 	// Search results for ajax search of events from search box
 	function search_evo_events(){
-		$searchfor = sanitize_text_field($_POST['search']);
-		$shortcode = $_POST['shortcode'];
+		
+		$postdata = $this->helper->sanitize_array( $_POST );
 
+		$searchfor = isset($postdata['search']) ? $postdata['search'] :'';
+		$shortcode = isset($postdata['shortcode']) ? $postdata['shortcode']: array();
+	
 		$searchfor = str_replace("\'",'', $searchfor);
 
 		// if search all events regardless of date

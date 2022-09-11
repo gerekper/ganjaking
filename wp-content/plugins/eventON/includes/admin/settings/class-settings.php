@@ -199,7 +199,7 @@ class EVO_Settings{
 					if($focus_tab=='evcal_2'){						
 						
 						$new_lang_opt = array();
-						$_lang_version = (!empty($_GET['lang']))? $_GET['lang']: 'L1';
+						$_lang_version = (!empty($_GET['lang']))? sanitize_text_field($_GET['lang']): 'L1';
 
 						// process duplicates
 						foreach($evcal_options as $F=>$V){
@@ -372,7 +372,7 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 						// code
 						$rightside.= "<p class='acus_line faicon'>
 							<i class='fa ".$field_value."'></i>
-							<input name='".$field['id']."' class='backender_colorpicker' type='hidden' value='".$field_value."' /></p>";
+							<input name='".$field['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$field_value."' /></p>";
 						$rightside.= "<div class='clear'></div></div>";
 					break;
 
@@ -471,7 +471,7 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 
 						$rightside.= "<p class='acus_line color'>
 							<em><span class='colorselector{$__em_class}' style='background-color:#".$hex_color."' hex='".$hex_color."' title='".$hex_color."'></span>
-							<input name='".$field['id']."' class='backender_colorpicker' type='hidden' value='".$hex_color_val."' default='".$field['default']."'/>";
+							<input name='".$field['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$hex_color_val."' default='".$field['default']."'/>";
 						if(!empty($field['rgbid'])){
 							$rightside .= "<input name='".$field['rgbid']."' class='rgb' type='hidden' value='".$rgb_color_val."' />";
 						}
@@ -497,7 +497,7 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 									// code
 									$rightside.= "<p class='acus_line color'>
 										<em><span id='{$variation['id']}' class='colorselector ".( ($_has_title)? 'hastitle': '')."' style='background-color:#".$hex_color."' hex='".$hex_color."' title='".$hex_color."' alt='".$title."'></span>
-										<input name='".$variation['id']."' class='backender_colorpicker' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
+										<input name='".$variation['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
 
 								break;
 
@@ -558,7 +558,7 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 
 							$rightside.= "<p class='acus_line color'>
 							<em data-name='".__($variation['name'],$textdomain)."'><span id='{$variation['id']}' class='colorselector' style='background-color:#".$hex_color."' hex='".$hex_color."' title='".$hex_color."'></span>
-							<input name='".$variation['id']."' class='backender_colorpicker' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
+							<input name='".$variation['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
 						}
 
 						$rightside.= "<div class='clear'></div><p class='multicolor_alt'></p></div>";

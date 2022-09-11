@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo _x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' );
+echo esc_html_x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' );
 echo "\n\n";
 printf( __( 'You have been sent this email because your email address was registered on a waitlist for %1$s at %2$s. ', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'name' ) ) );
 echo "\n\n";
@@ -26,6 +26,6 @@ $product_link = apply_filters( 'wcwl_product_link_joined_email', add_query_arg( 
 	'product_id'       => absint( $product_id ),
 	'key'              => $key,
 ), $product_link ) );
-printf( __( 'If you would like to remove your email address from the waitlist you can do so by clicking here: %s.', 'woocommerce-waitlist' ), esc_attr( $product_link ) );
+printf( __( 'If you would like to remove your email address from the waitlist you can do so by clicking here: %s.', 'woocommerce-waitlist' ), esc_url( $product_link ) );
 echo "\n\n";
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

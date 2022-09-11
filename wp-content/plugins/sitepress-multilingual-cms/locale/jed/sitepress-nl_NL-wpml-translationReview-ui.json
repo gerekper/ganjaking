@@ -1,0 +1,56 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Accepted": [
+            "Goedgekeurd"
+         ],
+         "Approved!": [
+            "Goedgekeurd!"
+         ],
+         "Loading the next translation for review...": [
+            "Laadt de volgende vertaling voor controle..."
+         ],
+         "Back": [
+            "Terug"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "Schakel deze optie uit om niet automatisch de volgende vertaling te laden na het voltooien van deze review."
+         ],
+         "Turn on to automatically load the next translation after finishing this review.": [
+            "Schakel deze optie in om automatisch de volgende vertaling te laden na het voltooien van deze review."
+         ],
+         "Edit": [
+            "Bewerken"
+         ],
+         "Edit translation": [
+            "Vertaling bewerken"
+         ],
+         "There was an error in applying translation.": [
+            "Er was een fout bij het aanvragen van de vertaling."
+         ],
+         "Please wait, applying translation..": [
+            "Even geduld, vertaling aanvragen..."
+         ],
+         "Next review": [
+            "Volgende review"
+         ],
+         "Publish this translation": [
+            "Publiceer deze vertaling"
+         ],
+         "Accept this translation": [
+            "Accepteer deze vertaling"
+         ],
+         "Published!": [
+            "Gepubliceerd!"
+         ],
+         "Reviewing the next translation...": [
+            "De volgende vertaling controleren..."
+         ]
+      }
+   }
+}

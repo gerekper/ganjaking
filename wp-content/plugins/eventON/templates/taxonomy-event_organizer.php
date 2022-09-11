@@ -102,8 +102,11 @@
 				<h3 class="evotax_term_subtitle organizer_subtitle"><?php evo_lang_e('Events by this organizer');?></h3>
 			
 				<?php 
+
+					$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
+
 					$shortcode = apply_filters('evo_tax_archieve_page_shortcode', 
-						'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes"]', 
+						'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes" eventtop_style="'. $eventtop_style.'"]', 
 						$tax,
 						$term->term_id
 					);

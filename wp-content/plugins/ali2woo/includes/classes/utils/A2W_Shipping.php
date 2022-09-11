@@ -194,7 +194,7 @@ if (!class_exists('A2W_Shipping')) {
                                         <input
                                                 class="a2w-placeholder-value form-control" type="text"
                                                 readonly value="<?php echo esc_attr( "{{$key}}" ); ?>">
-                                                <span class="glyphicon glyphicon-copy form-control-feedback a2w-placeholder-value-copy"></span>
+                                            <span class="dashicons dashicons-admin-page form-control-feedback a2w-placeholder-value-copy"></span>
                                     </div> 
                     </div>   
                             </td>

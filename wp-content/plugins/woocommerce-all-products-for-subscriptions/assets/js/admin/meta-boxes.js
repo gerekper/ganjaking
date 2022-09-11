@@ -2,9 +2,9 @@
 jQuery( function( $ ) {
 
 	var $wcsatt_data_tab        = $( '#wcsatt_data' ),
-		$wcsatt_options_wrapper = $wcsatt_data_tab.find( '.general_scheme_options' ),
+		$wcsatt_status          = $wcsatt_data_tab.find( 'select#_wcsatt_schemes_status' ),
+		$wcsatt_options_wrapper = $wcsatt_data_tab.find( '.additional_scheme_options' ),
 		$wcsatt_options_one_off = $wcsatt_options_wrapper.find( 'input#_wcsatt_allow_one_off' ),
-		$wcsatt_options_default = $wcsatt_options_wrapper.find( 'select#_wcsatt_default_status' ),
 		$wcsatt_options_layout  = $wcsatt_options_wrapper.find( '.wcsatt_image_select__container' ),
 		$wcsatt_options_prompt  = $wcsatt_options_wrapper.find( 'textarea#_wcsatt_subscription_prompt' ),
 		$wcsatt_schemes_wrapper = $wcsatt_data_tab.find( '.subscription_schemes' ),
@@ -190,14 +190,12 @@ jQuery( function( $ ) {
 		if ( $wcsatt_schemes.length > 0 ) {
 
 			$wcsatt_options_one_off.prop( 'disabled', false );
-			$wcsatt_options_default.prop( 'disabled', false );
 			$wcsatt_options_prompt.prop( 'disabled', false );
 
 		} else {
 
 			$wcsatt_options_one_off.prop( 'checked', true ).trigger( 'change' );
 			$wcsatt_options_one_off.prop( 'disabled', true );
-			$wcsatt_options_default.prop( 'disabled', true );
 			$wcsatt_options_prompt.prop( 'disabled', true );
 		}
 
@@ -456,6 +454,12 @@ jQuery( function( $ ) {
 
 		} ).trigger( 'change' );
 
+	// Update classes on status change.
+	$wcsatt_status
+
+		.on( 'change', function() {
+			$wcsatt_data_tab.removeClass( 'status_inherit status_disable status_override' ).addClass( 'status_' + $( this ).val() );
+		} );
 
 	// NYP compatibility.
 	$( '#_nyp' )

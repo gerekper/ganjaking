@@ -1164,125 +1164,142 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		global $updraftplus_admin;
-
-		$classes = $this->get_css_classes(false);
-		
 		?>
-		<tr class="<?php echo $classes . ' ' . 'onedrive_pre_config_container';?>">
+		<tr class="{{get_template_css_classes false}} onedrive_pre_config_container">
 			<td colspan="2">
-				<img src="<?php echo UPDRAFTPLUS_URL;?>/images/onedrive.png">
-				
+				<img src="{{storage_image_url}}">
 				{{#unless use_master}}
 				{{#if is_ip_host}}
 				{{!-- Of course, there are other things that are effectively 127.0.0.1. This is just to help. --}}
 				<p>
 					<strong>
-						<?php
-						echo htmlspecialchars(sprintf(__('This site uses a URL which is either non-HTTPS, or is localhost or 127.0.0.1 URL. As such, you must use the main %s %s App to authenticate with your account.', 'updraftplus'), 'UpdraftPlus', 'OneDrive'));
-						?>
+						{{ip_host_label}}
 					</strong>
 				</p>
 				<br>
 				{{else}}
 				<p>
-					<?php
-					echo htmlspecialchars(__('You must add the following as the authorized redirect URI in your OneDrive console (under "API Settings") when asked', 'updraftplus')).': <kbd>'.UpdraftPlus_Options::admin_page_url().'</kbd>';
-					?>
+					{{{non_ip_host_label}}}
 				</p>
 				<br>
 				{{/if}}
 				<p>
 					<a href="https://account.live.com/developers/applications/create" target="_blank">
-						<?php
-						_e('Create OneDrive credentials in your OneDrive developer console.', 'updraftplus');
-						?>
+						{{developer_console_link_text}}
 					</a>
 				</p>
 				<p>
 					<a href="https://updraftplus.com/microsoft-onedrive-setup-guide/" target="_blank">
-						<?php
-						_e('For longer help, including screenshots, follow this link.', 'updraftplus');
-						?>
+						{{setup_guide_link_text}}
 					</a>
 				</p>
 				<br>
 				{{/unless}}
 			
-				<?php $updraftplus_admin->curl_check('OneDrive', true, 'onedrive', true); ?>
+				{{{curl_existence_label}}}
 				<p>
-					<?php echo sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-microsoft-onedrive-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'OneDrive');?>
+					{{{privacy_policy}}}
 				</p>
 			</td>
 		</tr>
-
 		<?php
 	}
 
 	/**
-	 * Get the partial configuration template
+	 * Get the configuration template
 	 *
-	 * @return String - the partial template, ready for substitutions to be carried out which is appended before test button in template
+	 * @return String - the template, ready for substitutions to be carried out
 	 */
-	public function do_get_configuration_template() {
-		$classes = $this->get_css_classes();
+	public function get_configuration_template() {
 		ob_start();
 		?>
 		{{#unless use_master}}
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('OneDrive', 'updraftplus').' '.__('Client ID', 'updraftplus'); ?>:</th>
-			<td><input type="text" autocomplete="off" <?php $this->output_settings_field_name_and_id('clientid');?> value="{{clientid}}" class="updraft_input--wide" /><br><em><?php echo htmlspecialchars(__('If OneDrive later shows you the message "unauthorized_client", then you did not enter a valid client ID here.', 'updraftplus'));?></em></td>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_client_id_label}}:</th>
+			<td><input type="text" autocomplete="off" id="{{get_template_input_attribute_value "id" "clientid"}}" name="{{get_template_input_attribute_value "name" "clientid"}}" value="{{clientid}}" class="updraft_input--wide" /><br><em>{{input_client_id_title}}</em></td>
 		</tr>
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('OneDrive', 'updraftplus').' '.__('Client Secret', 'updraftplus'); ?>:</th>
-			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" <?php $this->output_settings_field_name_and_id('secret');?> value="{{secret}}" class="updraft_input--wide" /></td>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_client_secret_label}}:</th>
+			<td><input type="{{input_client_secret_type}}" id="{{get_template_input_attribute_value "id" "secret"}}" name="{{get_template_input_attribute_value "name" "secret"}}" value="{{secret}}" class="updraft_input--wide" /></td>
 		</tr>
 		{{/unless}}
-		<tr class="<?php echo $classes;?>">
-			<th><?php echo 'OneDrive '.__('folder', 'updraftplus');?></th>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_folder_label}}</th>
 			<td>
-				<input title="<?php echo esc_attr(sprintf(__('Enter the path of the %s folder you wish to use here.', 'updraftplus'), 'OneDrive').' '.__('If the folder does not already exist, then it will be created.').' '.sprintf(__('e.g. %s', 'updraftplus'), 'MyBackups/WorkWebsite.').' '.sprintf(__('If you leave it blank, then the backup will be placed in the root of your %s', 'updraftplus'), 'OneDrive account').' '.sprintf(__('N.B. %s is not case-sensitive.', 'updraftplus'), 'OneDrive'));?>" type="text" <?php $this->output_settings_field_name_and_id('folder');?> value="{{folder}}" class="updraft_input--wide updraftplus_onedrive_folder_input">
+				<input title="{{input_folder_title}}" type="text" id="{{get_template_input_attribute_value "id" "folder"}}" name="{{get_template_input_attribute_value "name" "folder"}}" value="{{folder}}" class="updraft_input--wide updraftplus_onedrive_folder_input">
 			</td>
 		</tr>
 		{{#if use_master}}
-		<tr class="<?php echo $classes;?>">
-			<th><?php _e('Account type', 'updraftplus');?></th>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_endpoint_label}}</th>
 			<td>
-				<select style="width: 180px" <?php $this->output_settings_field_name_and_id('endpoint_tld');?> >
-					<option {{#ifeq "com" endpoint_tld}}selected="selected"{{/ifeq}} value="com"><?php echo __('OneDrive International', 'updraftplus');?></option>
-					<option {{#ifeq "de" endpoint_tld}}selected="selected"{{/ifeq}} value="de"><?php echo __('OneDrive Germany', 'updraftplus');?></option>
+				<select style="width: 180px" id="{{get_template_input_attribute_value "id" "endpoint_tld"}}" name="{{get_template_input_attribute_value "name" "endpoint_tld"}}">
+					{{#each input_endpoint_option_labels}}
+						<option {{#ifeq ../endpoint_tld @key}}selected="selected"{{/ifeq}} value="{{@key}}">{{this}}</option>
+					{{/each}}
 				</select>
 			</td>
 		</tr>
 		{{/if}}
-		<tr class="<?php echo $classes;?>">
+		<tr class="{{get_template_css_classes true}}">
 			<th>
-				<?php
-				echo sprintf(__('Authenticate with %s', 'updraftplus'), 'OneDrive')
-				?>
+				{{authentication_label}}
 			</th>
 			<td>
 				<p>
 					{{#if is_already_authenticated}}
-					<?php
-						echo "<strong>".__('(You appear to be already authenticated).', 'updraftplus').'</strong>';
-						$this->get_deauthentication_link();
-					?>
+					<strong>{{authentication_already_authenticated_label}}</strong>
+					<a class="updraft_deauthlink" href="{{admin_page_url}}?action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=deauth&nonce={{deauthentication_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{deauthentication_link_text}}</a>
 					{{/if}}
 					{{#if ownername_sentence}}
 						{{ownername_sentence}}
 					{{/if}}
 				</p>
-				<?php
-					echo '<p>';
-					$this->get_authentication_link();
-					echo '</p>';
-				?>
+				<p>
+				{{account_warning_label}}
+				<a class="updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{{authentication_link_text}}}</a>
+				</p>
 			</td>
 		</tr>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/onedrive.png',
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check('OneDrive', true, 'onedrive hide-in-udc', false), $this->allowed_html_for_content_sanitisation()),
+			'privacy_policy' => wp_kses(sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-microsoft-onedrive-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'OneDrive'), $this->allowed_html_for_content_sanitisation()),
+			'developer_console_link_text' => __('Create OneDrive credentials in your OneDrive developer console.', 'updraftplus'),
+			'setup_guide_link_text' => __('For more detailed instructions, follow this link.', 'updraftplus'),
+			'ip_host_label' => sprintf(__('This site uses a URL which is either non-HTTPS, or is localhost or 127.0.0.1 URL. As such, you must use the main %s %s App to authenticate with your account.', 'updraftplus'), 'UpdraftPlus', 'OneDrive'),
+			'non_ip_host_label' => wp_kses(__('You must add the following as the authorized redirect URI in your OneDrive console (under "API Settings") when asked', 'updraftplus').': <kbd>'.UpdraftPlus_Options::admin_page_url().'</kbd>', $this->allowed_html_for_content_sanitisation()),
+			'input_client_id_label' => __('OneDrive', 'updraftplus').' '.__('Client ID', 'updraftplus'),
+			'input_client_id_title' => __('If OneDrive later shows you the message "unauthorized_client", then you did not enter a valid client ID here.', 'updraftplus'),
+			'input_client_secret_label' => __('OneDrive', 'updraftplus').' '.__('Client Secret', 'updraftplus'),
+			'input_client_secret_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_folder_label' => 'OneDrive '.__('folder', 'updraftplus'),
+			'input_folder_title' => sprintf(__('Enter the path of the %s folder you wish to use here.', 'updraftplus'), 'OneDrive').' '.__('If the folder does not already exist, then it will be created.').' '.sprintf(__('e.g. %s', 'updraftplus'), 'MyBackups/WorkWebsite.').' '.sprintf(__('If you leave it blank, then the backup will be placed in the root of your %s', 'updraftplus'), 'OneDrive account').' '.sprintf(__('N.B. %s is not case-sensitive.', 'updraftplus'), 'OneDrive'),
+			'input_endpoint_label' => __('Account type', 'updraftplus'),
+			'input_endpoint_option_labels' => array(
+				'com' => __('OneDrive International', 'updraftplus'),
+				'de' => __('OneDrive Germany', 'updraftplus'),
+			),
+			'authentication_label' => sprintf(__('Authenticate with %s', 'updraftplus'), 'OneDrive'),
+			'authentication_already_authenticated_label' => __('(You appear to be already authenticated).', 'updraftplus'),
+			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
+			'account_warning_label' => __('Ensure you are logged into the correct account before continuing.', 'updraftplus'),
+			'authentication_link_text' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 
 	/**
@@ -1292,10 +1309,10 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	 * @return array - Modified handerbar template options
 	 */
 	protected function do_transform_options_for_template($opts) {
-		$opts['use_master'] = $this->use_master($opts);
+		$opts['use_master'] = (bool) apply_filters('updraftplus_onedrive_use_master', $this->use_master($opts));
 		$site_host = parse_url(network_site_url(), PHP_URL_HOST);
 		$site_scheme = parse_url(network_site_url(), PHP_URL_SCHEME);
-		$opts['is_ip_host'] = ('127.0.0.1' == $site_host || '::1' == $site_host || 'localhost' == $site_host || 'https' != $site_scheme);
+		$opts['is_ip_host'] = (bool) apply_filters('updraftplus_onedrive_is_ip_host', ('127.0.0.1' == $site_host || '::1' == $site_host || 'localhost' == $site_host || 'https' != $site_scheme));
 		$opts['folder'] = (empty($opts['folder'])) ? '' : untrailingslashit($opts['folder']);
 		$opts['endpoint_tld'] = (empty($opts['endpoint_tld'])) ? 'com' : untrailingslashit($opts['endpoint_tld']);
 		$opts['clientid'] = (empty($opts['clientid']) || $opts['use_master']) ? '' : $opts['clientid'];

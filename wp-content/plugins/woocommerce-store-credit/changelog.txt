@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2022-08-29 - version 4.2.2
+* Tweak - Don't allow adding to the cart Store Credit products with zero credit amount.
+* Tweak - The custom credit amount field is required when adding to the cart a Store Credit product without a default credit amount.
+* Tweak - Tested compatibility with WC 6.8.
+
 2022-07-19 - version 4.2.1
 * Fix - Fixed error when customizing the link text in the 'Cart notice' setting.
 

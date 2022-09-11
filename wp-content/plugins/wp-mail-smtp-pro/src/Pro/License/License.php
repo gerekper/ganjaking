@@ -184,9 +184,7 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-		//	<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
-		//		<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
-		//	</button>
+		
 
 			<?php
 			// Offer option to deactivate the key.
@@ -283,9 +281,8 @@ class License {
 	 *
 	 * @return bool
 	 */
-	public function verify_key( $key = '', $ajax = true ) {
+	public function verify_key( $key = '', $ajax = false ) {
 
-		/** 
 		if ( empty( $key ) ) {
 			return false;
 		}
@@ -318,20 +315,18 @@ class License {
 				return false;
 			}
 		}
-		*/
-		$options = Options::init(); // 
-		$all_opt = $options->get_all(); // 
-		$license_type = 'Pro';
-		$verify = 'success'; // 
+
 		$success = isset( $verify->success ) ? $verify->success : esc_html__( 'Congratulations! This site is now receiving automatic updates.', 'wp-mail-smtp-pro' );
 
 		$this->success[] = $success;
 
+		$license_type = isset( $verify->type ) ? $verify->type : $all_opt['license']['type'];
+
 		// Otherwise, our request has been done successfully. Update the option and set the success message.
 		$data = [
 			'license' => [
-				'key'         => 'GPL001122334455AA6677BB8899CC000', // 
-				'type'        => 'Pro', // 
+				'key'         => $key,
+				'type'        => $license_type,
 				'is_expired'  => false,
 				'is_disabled' => false,
 				'is_invalid'  => false,
@@ -417,7 +412,7 @@ class License {
 		$all_opt['license']['is_invalid'] = false;
 		$options->set( $all_opt );
 		return;
-		$validate = 'success'; // 
+		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();
 		$all_opt  = $options->get_all();
 
@@ -434,7 +429,7 @@ class License {
 				}
 			}
 
-			//return false;
+			return false;
 		}
 
 		// If a key or author error is returned, the license no longer exists or the user has been deleted, so reset license.
@@ -499,7 +494,7 @@ class License {
 		// Otherwise, our check has returned successfully. Set the transient and update our license type and flags.
 		$data = [
 			'license' => [
-				'type'        => 'Pro',
+				'type'        => $license_type,
 				'is_expired'  => false,
 				'is_disabled' => false,
 				'is_invalid'  => false,
@@ -574,7 +569,7 @@ class License {
 
 		$raw_settings            = $options->get_all_raw();
 		$raw_settings['license'] = [
-			'key'  => 'Pro',
+			'key'  => '',
 			'type' => 'lite',
 		];
 
@@ -700,7 +695,6 @@ class License {
 	 */
 	public function perform_remote_request( $action, $body = [], $headers = [], $return_format = 'json' ) {
 
-		return true ? 'valid' : true; // 
 		// Request query parameters.
 		$query_params = wp_parse_args(
 			$body,

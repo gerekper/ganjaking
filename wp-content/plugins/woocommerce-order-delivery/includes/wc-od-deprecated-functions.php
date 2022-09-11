@@ -81,3 +81,75 @@ function wc_od_day_range_field( $field ) {
 	<?php endif; ?>
 	<?php
 }
+
+/**
+ * Displays an admin notice when the minimum requirements are not satisfied for the Subscriptions extension.
+ *
+ * @since 1.4.1
+ * @@deprecated 2.2.0
+ */
+function wc_od_subscriptions_requirements_notice() {
+	wc_deprecated_function( __FUNCTION__, '2.2.0', 'WC_OD_Integration_Subscriptions::requirements_notice()' );
+
+	WC_OD_Integration_Subscriptions::requirements_notice();
+}
+
+/**
+ * Gets the rates of the specified `Table Rate Shipping` method.
+ *
+ * @since 1.6.0
+ * @deprecated 2.2.0
+ *
+ * @param mixed $the_method Shipping method object or instance ID.
+ * @return array|bool An array with the rates. False on failure.
+ */
+function wc_od_get_shipping_table_rates( $the_method ) {
+	wc_deprecated_function( __FUNCTION__, '2.2.0', 'WC_OD_Integration_Table_Rate_Shipping::get_rates()' );
+
+	$shipping_method = wc_od_get_shipping_method( $the_method );
+
+	if ( ! $shipping_method instanceof WC_Shipping_Table_Rate ) {
+		return false;
+	}
+
+	return WC_OD_Integration_Table_Rate_Shipping::get_rates( $shipping_method );
+}
+
+/**
+ * Gets the shipping table rate by field.
+ *
+ * @since 1.6.0
+ * @deprecated 2.2.0
+ *
+ * @param mixed  $the_method Shipping method object or instance ID.
+ * @param string $field      The field key.
+ * @param mixed  $value      The field value.
+ * @return array|bool An array with the rate data. False on failure.
+ */
+function wc_od_get_shipping_table_rate_by_field( $the_method, $field, $value ) {
+	wc_deprecated_function( __FUNCTION__, '2.2.0', 'WC_OD_Integration_Table_Rate_Shipping::get_rate_by_field()' );
+
+	$shipping_method = wc_od_get_shipping_method( $the_method );
+
+	if ( ! $shipping_method instanceof WC_Shipping_Table_Rate ) {
+		return false;
+	}
+
+	return WC_OD_Integration_Table_Rate_Shipping::get_rate_by_field( $shipping_method, $field, $value );
+}
+
+/**
+ * Gets the shipping table rate by ID.
+ *
+ * @since 1.6.0
+ * @deprecated 2.2.0
+ *
+ * @param mixed $the_method Shipping method object or instance ID.
+ * @param int   $rate_id    The rate ID.
+ * @return array|bool An array with the rate data. False on failure.
+ */
+function wc_od_get_shipping_table_rate_by_id( $the_method, $rate_id ) {
+	wc_deprecated_function( __FUNCTION__, '2.2.0', 'WC_OD_Integration_Table_Rate_Shipping::get_rate_by_id()' );
+
+	return wc_od_get_shipping_table_rate_by_field( $the_method, 'rate_id', $rate_id );
+}

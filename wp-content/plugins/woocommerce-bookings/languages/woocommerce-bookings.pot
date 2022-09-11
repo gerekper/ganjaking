@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Bookings 1.15.59\n"
+"Project-Id-Version: WooCommerce Bookings 1.15.61\n"
 "Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-28T23:48:43+00:00\n"
+"POT-Creation-Date: 2022-08-24T18:17:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-bookings\n"
@@ -3164,7 +3164,7 @@ msgid "New booking"
 msgstr ""
 
 #: includes/emails/class-wc-email-new-booking.php:29
-#: templates/order/admin/booking-display.php:78
+#: templates/order/admin/booking-display.php:79
 msgid "Confirm booking"
 msgstr ""
 
@@ -3620,12 +3620,12 @@ msgid "My Bookings"
 msgstr ""
 
 #. translators: 1: booking id
-#: templates/order/admin/booking-display.php:64
+#: templates/order/admin/booking-display.php:65
 #: templates/order/booking-display.php:66
 msgid "Booking #%s"
 msgstr ""
 
-#: templates/order/admin/booking-display.php:82
+#: templates/order/admin/booking-display.php:83
 msgid "View booking &rarr;"
 msgstr ""
 

@@ -549,6 +549,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 
 	/**
 	 * Get the pre configuration template
+	 * DEVELOPER NOTES: Please don't use/call this method anymore as it is currently used by OpenStack and Cloudfiles(Rackspace) storage, and it's consider to be removed in future versions. Once OpenStack and Cloudfiles templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @return String - the template
 	 */
@@ -587,6 +588,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 
 	/**
 	 * Get the configuration template
+	 * DEVELOPER NOTES: Please don't use/call this method anymore as it is currently used by OpenStack and Cloudfiles(Rackspace) storage, and it's consider to be removed in future versions. Once OpenStack and Cloudfiles templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @return String - the template, ready for substitutions to be carried out
 	 */

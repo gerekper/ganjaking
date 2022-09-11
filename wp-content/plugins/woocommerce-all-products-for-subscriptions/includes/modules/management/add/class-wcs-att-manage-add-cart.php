@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Cart
- * @version  3.1.33
+ * @version  4.0.0
  */
 class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 
@@ -249,32 +249,25 @@ class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 			return;
 		}
 
+		// Extract the scheme details from the subscription and create a dummy scheme.
+		$subscription_scheme_obj = new WCS_ATT_Scheme( array(
+			'context' => 'product',
+			'data'    => array(
+				'subscription_period'          => $subscription->get_billing_period(),
+				'subscription_period_interval' => $subscription->get_billing_interval()
+			)
+		) );
+
+		$subscription_scheme_key = $subscription_scheme_obj->get_key();
 		$available_schemes       = WCS_ATT_Manage_Add::get_schemes_matching_cart();
-		$subscription_scheme_key = $posted_data[ 'subscription_scheme' ];
-		$subscription_scheme_obj = isset( $available_schemes[ $subscription_scheme_key ] ) ? $available_schemes[ $subscription_scheme_key ] : false;
 
-		if ( empty( $subscription_scheme_obj ) ) {
-
-			// Extract the scheme details from the subscription and create a dummy scheme.
-			$subscription_scheme_obj = new WCS_ATT_Scheme( array(
-				'context' => 'product',
-				'data'    => array(
-					'subscription_period'          => $subscription->get_billing_period(),
-					'subscription_period_interval' => $subscription->get_billing_interval()
-				)
-			) );
-
-			$subscription_scheme_key = $subscription_scheme_obj->get_key();
-
-			// Apply the dummy scheme to all cart items.
-			foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
-
-				WCS_ATT_Product_Schemes::set_subscription_schemes( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], array( $subscription_scheme_key => $subscription_scheme_obj ) );
-				WCS_ATT_Product_Schemes::set_subscription_scheme( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], $subscription_scheme_key );
-			}
+		// Apply the dummy scheme to all cart items.
+		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
+			WCS_ATT_Product_Schemes::set_subscription_schemes( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], array( $subscription_scheme_key => $subscription_scheme_obj ) );
+			WCS_ATT_Product_Schemes::set_subscription_scheme( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], $subscription_scheme_key );
 		}
 
-		if ( ! $subscription_scheme_obj || ! WC_Subscriptions_Cart::cart_contains_subscription() || ! $subscription_scheme_obj->matches_subscription( $subscription ) ) {
+		if ( ! isset( $available_schemes[ $subscription_scheme_key ] ) || ! WC_Subscriptions_Cart::cart_contains_subscription() || ! $subscription_scheme_obj->matches_subscription( $subscription ) ) {
 			wc_add_notice( sprintf( __( 'Your cart cannot be added to subscription #%d. Please get in touch with us for assistance.', 'woocommerce-all-products-for-subscriptions' ), $subscription_id ), 'error' );
 			return;
 		}

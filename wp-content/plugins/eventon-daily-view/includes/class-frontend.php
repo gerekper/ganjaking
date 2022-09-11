@@ -24,12 +24,24 @@ class evodv_frontend{
 		add_filter('evo_global_data', array($this, 'global_data'), 10, 1);
 		add_filter('evo_init_ajax_data', array($this, 'init_ajax_data'), 10, 2);	
 
+		add_action('eventon_below_sorts', array($this, 'add_loading'), 10, 2);
+
 		add_action('evo_ajax_cal_before', array($this, 'evo_init_ajax_before'), 10, 1);
-		add_action('evo_cal_view_switcher_end', array($this, 'view_switcher'),10,1);
+		add_action('evo_view_switcher_items', array($this, 'view_switcher'),10,2);
 
 	}
 
+	// CAL loading
+		public function add_loading($content, $args){
 
+			if($args['calendar_type'] != 'daily') return;
+			?>
+			<div class='evo_ajax_load_events evodv_pre_loader'>
+				<?php echo ($args['dv_view_style']!= 'def') ? "<span style='height: 230px'></span>":'';?>
+				<?php echo ($args['dv_view_style']!= 'oneday') ? "<span style='height: 100px'></span>":'';?>
+			</div>
+			<?php
+		}
 
 	// MAIN CAL
 		function getCAL($atts){
@@ -95,6 +107,7 @@ class evodv_frontend{
 		}
 		function init_ajax_data($A, $global){
 			if(isset($global['calendars']) && in_array('EVODV', $global['calendars'])){
+				
 				ob_start();
 				?><div class='evodv_CD evoADDS evodv_current_day dv_vs_{{dv_view_style}}' style='display:none'>
 					<p class='evodv_dayname'>{{fixed_day_name}}</p>
@@ -103,24 +116,17 @@ class evodv_frontend{
 				</div><?php
 				$A['temp']['evodv_cd'] = ob_get_clean();
 
+				
 				ob_start();?>
-				<div class='evodv_DL evoADDS eventon_daily_list {{#Cal_def_check hide_arrows}}dvlist_noarrows{{/Cal_def_check}}' style='display:none'>
+				<div class='evodv_DL evoADDS eventon_daily_list {{#Cal_def_check hide_arrows}}dvlist_noarrows{{/Cal_def_check}} dv_vs_{{dv_view_style}}' style='display:none'>
 					<div class='eventon_dv_outter'>
 						<span class='evodv_action prev'></span>
 						<div class='eventon_daily_in' data-left='' style='width:{{width}}px; margin-left:{{marginLeft}}px'>
 							{{#each days}}
-							<p class="evo_dv_day evo_day {{#ifEQ fc 'yes'}}on_focus{{/ifEQ}}" data-date='{{@key}}' data-events='{{COUNT e}}' data-unix='{{su}}'>
+							<p class="evo_dv_day evo_day {{evo_dv_day_classes}}" data-date='{{@key}}' data-events='{{COUNT e}}' data-unix='{{su}}'>
 								<span class='evo_day_name'>{{GetDMnames dn "d3"}}</span>
 								<span class='evo_day_num'>{{@key}}</span>
-								<span class='evoday_events'>
-									{{#CountlimitLess e "3"}}
-										<em class='evodv_spot more' data-title='{{COUNT e}} {{BUStxt "events"}}'></em>
-									{{else}}
-										{{#each e}}
-										<em class='evodv_spot' data-title='{{GetEvV this "event_title" ../../calid}}' data-eid='{{this}}' style='background-color:#{{GetEvProp this "evcal_event_color" ../../calid}}'></em>
-										{{/each}}
-									{{/CountlimitLess}}
-								</span>
+								<span class='evoday_events'></span>
 							</p>
 							{{/each}}
 						</div>
@@ -158,6 +164,10 @@ class evodv_frontend{
 			// month and year
 			if($month_incre != 0){
 				if( strpos($month_incre, '+') === false  && strpos($month_incre, '-') === false) $month_incre = '+'.$month_incre;
+
+				if( strpos($month_incre, '+') !== false) $month_incre = '+'. (int)$month_incre;
+				if( strpos($month_incre, '-') !== false) $month_incre = '-'. (int)$month_incre;
+
 				$DD->modify($month_incre.'month');
 			}
 
@@ -178,7 +188,7 @@ class evodv_frontend{
 			$SC['fixed_year'] = $DD->format('Y');
 			
 			if($type == 'day'){
-				$SC['focus_end_date_range'] = $DD->format('U') + 86400;
+				$SC['focus_end_date_range'] = $DD->format('U') + 86399;
 			}else{
 				$DD->modify('last day of this month');	
 				$DD->setTime(23,59,59);			
@@ -190,11 +200,18 @@ class evodv_frontend{
 		}
 
 	// Other Additions
-		function view_switcher($A){
-			if($A['view_switcher'] == 'yes'){
+		function view_switcher($A, $args){
+			if($args['view_switcher'] == 'yes'){
+				$DATA = array();
+
+				$DATA['c'] = 'evoDV';
+				$DATA['el_visibility'] = 'hide_events';
+
 				EVODV()->load_script = true;
-				echo "<span class='evo_vSW evodv ". ($A['calendar_type']=='daily'?'focus':'')."'>Day</span>";
+				$A['evodv'] = array($DATA, 'daily', evo_lang('Day'));
 			}
+
+			return $A;
 		}
 
 	// STYLES

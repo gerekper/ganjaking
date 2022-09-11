@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  6.16.0
+ * @version  6.16.1
  */
 class WC_PB_Admin_Ajax {
 
@@ -430,13 +430,11 @@ class WC_PB_Admin_Ajax {
 			if ( is_wp_error( $added_to_order ) ) {
 
 				$message = __( 'The submitted configuration is invalid.', 'woocommerce-product-bundles' );
-				$data    = $added_to_order->get_error_data();
-				$notice  = isset( $data[ 'notices' ] ) ? current( $data[ 'notices' ] ) : '';
+				$notice  = $added_to_order->get_error_data();
 
 				if ( $notice ) {
-					$notice_text = WC_PB_Core_Compatibility::is_wc_version_gte( '3.9' ) ? $notice[ 'notice' ] : $notice;
 					/* translators: %1$s: error, %2$s: reason */
-					$message     = sprintf( _x( '%1$s %2$s', 'edit bundle in order: formatted validation message', 'woocommerce-product-bundles' ), $message, html_entity_decode( $notice_text ) );
+					$message = sprintf( _x( '%1$s %2$s', 'edit bundle in order: formatted validation message', 'woocommerce-product-bundles' ), $message, html_entity_decode( $notice ) );
 				}
 
 				$response = array(

@@ -1,16 +1,18 @@
-<?php
+<?php //phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Plugin Name: WooCommerce Xero Integration
  * Plugin URI: https://woocommerce.com/products/xero/
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.43
- * Text Domain: wc-xero
+ * Version: 1.7.46
+ * Text Domain: woocommerce-xero
  * Domain Path: /languages/
+ * Requires at least: 5.6
  * Tested up to: 6.0
- * WC tested up to: 6.2
- * WC requires at least: 2.6
+ * Requires PHP: 7.0
+ * WC tested up to: 6.8.0
+ * WC requires at least: 6.0
  *
  * Copyright 2019 WooCommerce
  *
@@ -39,7 +41,7 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.43' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.46' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main plugin class.
@@ -68,7 +70,7 @@ class WC_Xero {
 		$this->setup_autoloader();
 
 		// Load textdomain.
-		load_plugin_textdomain( 'wc-xero', false, dirname( plugin_basename( self::get_plugin_file() ) ) . '/languages' );
+		load_plugin_textdomain( 'woocommerce-xero', false, dirname( plugin_basename( self::get_plugin_file() ) ) . '/languages' );
 
 		// Setup Settings.
 		$settings = new WC_XR_Settings();
@@ -131,7 +133,7 @@ class WC_Xero {
 	 */
 	public function notice_wc_required() {
 		/* translators: %s: WooCommerce link */
-		echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Xero Integration requires %s to be installed and active.', 'wc-xero' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Xero Integration requires %s to be installed and active.', 'woocommerce-xero' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -144,9 +146,9 @@ class WC_Xero {
 	public function plugin_links( $links ) {
 
 		$plugin_links = array(
-			'<a href="' . admin_url( 'admin.php?page=woocommerce_xero' ) . '">' . __( 'Settings', 'wc-xero' ) . '</a>',
-			'<a href="https://woocommerce.com/support/">' . __( 'Support', 'wc-xero' ) . '</a>',
-			'<a href="https://docs.woocommerce.com/document/xero/">' . __( 'Documentation', 'wc-xero' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=woocommerce_xero' ) . '">' . __( 'Settings', 'woocommerce-xero' ) . '</a>',
+			'<a href="https://woocommerce.com/support/">' . __( 'Support', 'woocommerce-xero' ) . '</a>',
+			'<a href="https://docs.woocommerce.com/document/xero/">' . __( 'Documentation', 'woocommerce-xero' ) . '</a>',
 		);
 
 		return array_merge( $plugin_links, $links );

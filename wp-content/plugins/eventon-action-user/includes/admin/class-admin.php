@@ -80,7 +80,7 @@ class evoau_admin{
 			$new[] = array('id'=>'evoau','type'=>'hiddensection_open','name'=>'ActionUser Styles','display'=>'none');
 			$new[] = array('id'=>'evoau','type'=>'fontation','name'=>'Submit Button',
 				'variations'=>array(
-					array('id'=>'evoau_1', 'name'=>'Background Color','type'=>'color', 'default'=>'237ebd'),
+					array('id'=>'evoau_1', 'name'=>'Background Color','type'=>'color', 'default'=>'52b4e4'),
 					array('id'=>'evoau_2', 'name'=>'Text Color','type'=>'color', 'default'=>'ffffff')
 				)
 			);
@@ -94,15 +94,18 @@ class evoau_admin{
 			);
 			$new[] = array('id'=>'evoau_a1','type'=>'fontation','name'=>'Location & Organizer Buttons',
 				'variations'=>array(
-					array('id'=>'evoau_lo1', 'name'=>'Background Color','type'=>'color', 'default'=>'237ebd'),
+					array('id'=>'evoau_lo1', 'name'=>'Background Color','type'=>'color', 'default'=>'52b4e4'),
 					array('id'=>'evoau_lo2', 'name'=>'Font Color','type'=>'color', 'default'=>'ffffff'),
 				)
 			);
 			$new[] = array('id'=>'evoau_a1','type'=>'fontation','name'=>'Date Time Picker',
 				'variations'=>array(
 					array('id'=>'evoau_dtp1', 'name'=>'Date Background Color','type'=>'color', 'default'=>'f5c485'),
+					array('id'=>'evoau_dtp1c', 'name'=>'Date Text Color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evoau_dtp2', 'name'=>'Time Background Color','type'=>'color', 'default'=>'f9d29f'),
+					array('id'=>'evoau_dtp2c', 'name'=>'Time Text Color','type'=>'color', 'default'=>'717171'),
 					array('id'=>'evoau_dtp3', 'name'=>'AM/PM Background Color','type'=>'color', 'default'=>'ffebd1'),
+					array('id'=>'evoau_dtp3c', 'name'=>'AM/PM Text Color','type'=>'color', 'default'=>'717171'),
 				)
 			);
 			$new[] = array('id'=>'evoau','type'=>'hiddensection_close','name'=>'ActionUser Styles');
@@ -112,22 +115,22 @@ class evoau_admin{
 			function dynamic_styles($_existen){
 				$new= array(
 					array(
-						'item'=>'.evoau_submission_form .submit_row input',
+						'item'=>'.evoau_submission_form .submit_row input, .evoau_submission_form .evcal_btn',
 						'multicss'=>array(
 							array('css'=>'color:#$', 'var'=>'evcal_gen_btn_fc',	'default'=>'ffffff'),
-							array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgc',	'default'=>'237ebd')
+							array('css'=>'background:#$', 'var'=>'evcal_gen_btn_bgc',	'default'=>'52b4e4')
 						)
 					),array(
 						'item'=>'.evoau_submission_form .submit_row input:hover',
 						'multicss'=>array(
 							array('css'=>'color:#$', 'var'=>'evcal_gen_btn_fcx',	'default'=>'fff'),
-							array('css'=>'background-color:#$', 'var'=>'evcal_gen_btn_bgcx',	'default'=>'237ebd')
+							array('css'=>'background-color:#$', 'var'=>'evcal_gen_btn_bgcx',	'default'=>'52b4e4')
 						)
 					),array(
 						'item'=>'.evoau_submission_form #evoau_form p #evoau_submit, body a.evoAU_form_trigger_btn, body .evoau_submission_form .msub_row a, body .evcal_btn.evoau, body .evoau_submission_form.loginneeded .evcal_btn',
 						'multicss'=>array(
 							array('css'=>'color:#$', 'var'=>'evoau_2',	'default'=>'ffffff'),
-							array('css'=>'background-color:#$', 'var'=>'evoau_1',	'default'=>'237ebd')
+							array('css'=>'background-color:#$', 'var'=>'evoau_1',	'default'=>'52b4e4')
 						)
 					),
 					array(
@@ -141,7 +144,7 @@ class evoau_admin{
 						'item'=>'body #evoau_form .row .enterNew',
 						'multicss'=>array(
 							array('css'=>'color:#$', 'var'=>'evoau_lo2',	'default'=>'ffffff'),
-							array('css'=>'background-color:#$', 'var'=>'evoau_lo1',	'default'=>'237ebd')
+							array('css'=>'background-color:#$', 'var'=>'evoau_lo1',	'default'=>'52b4e4')
 						)
 					),
 					array(
@@ -152,9 +155,25 @@ class evoau_admin{
 						'item'=>'body .evoau_submission_form p label',
 						'css'=>'color:#$', 'var'=>'evoau_a2',	'default'=>'808080'
 					),
-					array('item'=>'.evoau_submission_form .row p input.evoau_dpicker','css'=>'background-color:#$', 'var'=>'evoau_dtp1',	'default'=>'f5c485'),
-					array('item'=>'.evoau_submission_form .evoau_time_edit .time_select select','css'=>'background-color:#$', 'var'=>'evoau_dtp2',	'default'=>'f9d29f'),
-					array('item'=>'.evoau_submission_form .evoau_time_edit .time_select select.ampm_sel','css'=>'background-color:#$', 'var'=>'evoau_dtp3',	'default'=>'ffebd1'),
+					array(
+						'item'=>'.evoau_submission_form .row p .evo_date_time_select input.evoau_dpicker',
+						'multicss'=> array(
+							array('css'=>'background-color:#$', 'var'=>'evoau_dtp1',	'default'=>'f5c485'),
+							array('css'=>'color:#$', 'var'=>'evoau_dtp1c',	'default'=>'ffffff'),
+						)
+					),
+					array('item'=>'.evoau_submission_form .evo_date_time_select .evoau_time_edit .time_select select',
+						'multicss'=> array(
+							array('css'=>'background-color:#$', 'var'=>'evoau_dtp2',	'default'=>'f9d29f'),
+							array('css'=>'color:#$', 'var'=>'evoau_dtp2c',	'default'=>'717171'),
+						)
+					),
+					array('item'=>'.evoau_submission_form .evo_date_time_select .evoau_time_edit .time_select select.ampm_sel',
+						'multicss'=> array(
+							array('css'=>'background-color:#$', 'var'=>'evoau_dtp3',	'default'=>'ffebd1'),
+							array('css'=>'color:#$', 'var'=>'evoau_dtp3c',	'default'=>'717171'),
+						)
+					),
 				);
 
 				return (is_array($_existen))? array_merge($_existen, $new): $_existen;
@@ -411,7 +430,7 @@ class evoau_admin{
 				
 				<?php do_action('evoau_assigninfo_display', $p_id, $EVENT);?>
 				
-				<p><a class='button ajde_popup_trig evoau_load_lightbox_content' data-eventid='<?php echo $p_id;?>' data-popc='evoau_lightbox_assign' ><?php _e('Manage Assigned Users','eventon');?></a></p>
+				<p style='margin-top:10px'><a class='button ajde_popup_trig evoau_load_lightbox_content' data-eventid='<?php echo $p_id;?>' data-popc='evoau_lightbox_assign' ><?php _e('Manage Assigned Users','eventon');?></a></p>
 					
 				<?php 
 					// if submitters name present

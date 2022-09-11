@@ -56,9 +56,9 @@ class evo_admin {
 
 		global $pagenow, $typenow, $wpdb, $post;	
 
-		$postType = !empty($_GET['post_type'])? $_GET['post_type']: false;
+		$postType = !empty($_GET['post_type'])? sanitize_text_field($_GET['post_type']): false;
 	   
-	    if(!$postType && !empty($_GET['post']))  $postType = get_post_type($_GET['post']);
+	    if(!$postType && !empty($_GET['post']))  $postType = get_post_type( sanitize_text_field($_GET['post']) );
 			
 		// EVENT POSTS
 		if ( $postType && $postType == "ajde_events" ) {	
@@ -95,7 +95,8 @@ class evo_admin {
 			include_once(  AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings.php' );
 			$this->settings = new EVO_Settings();
 
-			if($pagenow =='admin.php' && isset($_GET['page']) && ($_GET['page']=='eventon' || $_GET['page']=='action_user')){
+			if($pagenow =='admin.php' && isset($_GET['page']) && ($_GET['page']=='eventon' || $_GET['page']=='action_user')
+			){
 				
 				$this->settings->register_ss();
 				$this->settings->load_styles_scripts();
@@ -152,7 +153,7 @@ class evo_admin {
 		
 		
 		// add submenus to the eventon menu
-		add_submenu_page('eventon', __('EventON - Event Calendar','eventon'), __('Settings','eventon'), 'manage_options', 'eventon' );
+		add_submenu_page('eventon', __('EventON - Event Calendar','eventon'), __('Settings','eventon'), 'manage_eventon', 'eventon' );
 		add_submenu_page( 'eventon', 'Language', __('Language','eventon') , 'manage_eventon', 'admin.php?page=eventon&tab=evcal_2', '' );
 		add_submenu_page( 'eventon', 'Styles', __('Styles','eventon') , 'manage_eventon', 'admin.php?page=eventon&tab=evcal_3', '' );
 		add_submenu_page( 'eventon', 'Addons & Licenses', __('Addons & Licenses','eventon') , 'manage_eventon', 'admin.php?page=eventon&tab=evcal_4', '' );
@@ -207,7 +208,7 @@ class evo_admin {
 			if ( $typenow == 'post' && ! empty( $_GET['post'] ) ) {
 				$typenow = $post->post_type;
 			} elseif ( empty( $typenow ) && ! empty( $_GET['post'] ) ) {
-		        $post = get_post( $_GET['post'] );
+		        $post = get_post( sanitize_text_field($_GET['post']) );
 		        $typenow = $post->post_type;
 		    }
 			
@@ -238,8 +239,9 @@ class evo_admin {
 			global $pagenow, $wp_version;
 
 			if($pagenow == 'term.php')	wp_enqueue_media();
+
 			
-			wp_enqueue_script('evo_wp_admin',AJDE_EVCAL_URL.'/assets/js/admin/wp_admin.js',array('jquery'), EVO()->version,true);
+			wp_enqueue_script('evo_wp_admin',AJDE_EVCAL_URL.'/assets/js/admin/wp_admin.js',array('jquery','jquery-form'), EVO()->version,true);
 			wp_localize_script( 
 				'evo_wp_admin', 
 				'evo_admin_ajax_handle', 
@@ -277,7 +279,7 @@ class evo_admin {
 			}
 			
 			// ALL wp-admin
-			wp_register_style('evo_font_icons',AJDE_EVCAL_URL.'/assets/fonts/font-awesome.css',array(), EVO()->version);
+			wp_register_style('evo_font_icons',AJDE_EVCAL_URL.'/assets/fonts/all.css',array(), EVO()->version);
 			wp_enqueue_style( 'evo_font_icons' );
 
 			// wp-admin styles
@@ -292,6 +294,9 @@ class evo_admin {
 			if($wp_version<3.8)
 				wp_enqueue_style( 'newwp',AJDE_EVCAL_URL.'/assets/css/admin/wp_old.css',array(), EVO()->version);
 
+			// fonts
+			wp_enqueue_style( 'evcal_google_fonts' );
+			
 			EVO()->elements->enqueue();
 
 			do_action('evo_admin_all_wp_admin_scripts');
@@ -408,7 +413,6 @@ class evo_admin {
 
 		    // Add a callback to add our button to the TinyMCE toolbar
 		    add_filter('mce_buttons', array($this,'eventon_add_tinymce_button'));
-
 		}
 	}
 	//This callback registers our plug-in
@@ -433,7 +437,7 @@ class evo_admin {
 		if ( $typenow == 'post' && ! empty( $_GET['post'] ) ) {
 			$typenow = $post->post_type;
 		} elseif ( empty( $typenow ) && ! empty( $_GET['post'] ) ) {
-	        $post = get_post( $_GET['post'] );
+	        $post = get_post( sanitize_text_field($_GET['post']) );
 	        $typenow = $post->post_type;
 	    }
 		
@@ -462,6 +466,7 @@ class evo_admin {
 			'title'=> __('Shortcode Generator','eventon'),			
 			//'subtitle'=>'Select option to customize shortcode variable values'
 		));
+
 	}
 
 // Supporting functions

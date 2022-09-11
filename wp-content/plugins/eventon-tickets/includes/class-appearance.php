@@ -15,15 +15,16 @@ class evotx_appearance{
 		}
 	}
 	function evotx_appearance_settings($array){			
-		$new[] = array('id'=>'evotx','type'=>'hiddensection_open','name'=>'Tickets Styles','display'=>'none');
-		$new[] = array('id'=>'evotx','type'=>'fontation','name'=>'Success Notification',
+		$new[] = array('id'=>'evotx','type'=>'hiddensection_open',
+			'name'=>__('Tickets Styles','evotx') ,'display'=>'none');
+		$new[] = array('id'=>'evotx','type'=>'fontation','name'=> __('Success Notification','evotx'),
 			'variations'=>array(
-				array('id'=>'evotx_1', 'name'=>'Text Color','type'=>'color', 'default'=>'ffffff'),
-				array('id'=>'evotx_2', 'name'=>'Background Color','type'=>'color', 'default'=>'93d48c'),
-				array('id'=>'evotx_3', 'name'=>'Checkout button background color','type'=>'color', 'default'=>'237ebd'),
-				array('id'=>'evotx_4', 'name'=>'Checkout button text Color','type'=>'color', 'default'=>'ffffff'),
-				array('id'=>'evotx_5', 'name'=>'View Cart button background color','type'=>'color', 'default'=>'237ebd'),
-				array('id'=>'evotx_6', 'name'=>'View Cart button text color','type'=>'color', 'default'=>'ffffff'),
+				array('id'=>'evotx_1', 'name'=>__('Text Color','evotx'),'type'=>'color', 'default'=>'ffffff'),
+				array('id'=>'evotx_2', 'name'=>__('Background Color','evotx'),'type'=>'color', 'default'=>'93d48c'),
+				array('id'=>'evotx_3', 'name'=>__('Checkout button background color','evotx'),'type'=>'color', 'default'=>'237ebd'),
+				array('id'=>'evotx_4', 'name'=>__('Checkout button text Color','evotx'),'type'=>'color', 'default'=>'ffffff'),
+				array('id'=>'evotx_5', 'name'=>__('View Cart button background color','evotx'),'type'=>'color', 'default'=>'237ebd'),
+				array('id'=>'evotx_6', 'name'=>__('View Cart button text color','evotx'),'type'=>'color', 'default'=>'ffffff'),
 			)
 		);
 		$new[] = array('id'=>'evotx','type'=>'hiddensection_close',);

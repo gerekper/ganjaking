@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add
- * @version  3.2.1
+ * @version  4.0.0
  */
 class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 
@@ -82,17 +82,15 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 		} elseif ( 'cart' === $context ) {
 
 			$posted_data = array(
-				'subscription_id'     => false,
-				'subscription_scheme' => false
+				'subscription_id' => false
 			);
 
 			if ( ! empty( $_REQUEST[ 'add-to-subscription-checked' ] ) ) {
 
 				if ( ! empty( $_REQUEST[ 'add-cart-to-subscription' ] ) && is_numeric( $_REQUEST[ 'add-cart-to-subscription' ] ) ) {
 
-					$posted_data[ 'nonce' ]               = ! empty( $_REQUEST[ 'wcsatt_nonce' ] ) ? wc_clean( $_REQUEST[ 'wcsatt_nonce' ] ) : '';
-					$posted_data[ 'subscription_id' ]     = absint( $_REQUEST[ 'add-cart-to-subscription' ] );
-					$posted_data[ 'subscription_scheme' ] = WCS_ATT_Cart::get_cart_subscription_scheme();
+					$posted_data[ 'nonce' ]           = ! empty( $_REQUEST[ 'wcsatt_nonce' ] ) ? wc_clean( $_REQUEST[ 'wcsatt_nonce' ] ) : '';
+					$posted_data[ 'subscription_id' ] = absint( $_REQUEST[ 'add-cart-to-subscription' ] );
 				}
 			}
 
@@ -127,7 +125,6 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 		}
 
 		$add_cart_to_subscription_setting = get_option( 'wcsatt_add_cart_to_subscription', 'off' );
-		$cart_subscription_schemes        = WCS_ATT_Cart::get_cart_subscription_schemes( 'raw' );
 		$intersection                     = null;
 
 		foreach ( WC()->cart->cart_contents as $cart_item ) {
@@ -161,7 +158,7 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 			} elseif ( empty( $current_scheme ) ) {
 
 				// The current plan might be null but product plans might still exist (this may happen if the currently selected plan gets deleted by the admin).
-				$available_schemes = WCS_ATT_Cart::get_subscription_schemes( $cart_item, 'product' );
+				$available_schemes = WCS_ATT_Cart::get_subscription_schemes( $cart_item );
 
 				// If the product has plans, contribute those.
 				if ( $available_schemes ) {
@@ -169,11 +166,6 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 				} else {
 
 					$schemes_for_match = null;
-
-					// If cart subscription plans exist, we use them to limit the subscriptions on offer here.
-					if ( ! empty( $cart_subscription_schemes ) ) {
-						$schemes_for_match = $cart_subscription_schemes;
-					}
 
 					/**
 					 *

@@ -1,10 +1,10 @@
 === WooCommerce Waitlist ===
 Requires at least: 4.2.0
-Tested up to: 5.8.0
+Tested up to: 6.0.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0.0
-WC tested up to: 5.5.2
+WC tested up to: 6.8.0
 
 This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
 
@@ -45,19 +45,30 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2022.08.15 - Version 2.3.3
+Fix: Users not always logged in correctly after account created
+Fix: Waitlist not updating for private products
+Fix: SQL optimised for custom exporter
+Added: Filter around shortcode depending on product type
+Added: Security improvements
+Added: Variable products excluded from account template (in case of accidentally joining parent waitlist)
+
+2021.12.17
+* Fix: Added function to switch locale during AJAX calls to avoid inconsistency when a logged in user has a different locale than the one globally set
+
 2021.11.05 - version 2.3.2
-Fix: Some specific setups for variations were not sending out Mailouts incorrectly
+* Fix: Some specific setups for variations were not sending out Mailouts incorrectly
 
 2021.11.03 - version 2.3.1
-Fix: version meta update running query unnecessarily
-Fix: mailouts not always sending for parent product bundles
+* Fix: version meta update running query unnecessarily
+* Fix: mailouts not always sending for parent product bundles
 
 2021.08.02 - version 2.3.0
-Added: Import/export options for waitlist data within WooCommerce's product exporter
-Added: Waitlist elements will now show by default within Elementor template
-Added: Option for double opt-in (via email) for non-registered users when joining waitlist
-Added: Filter to disable showing waitlist within Elementor template (wcwl_add_waitlist_for_elementor)
-Added: minimal styling to button on archive page to avoid overlap
+* Added: Import/export options for waitlist data within WooCommerce's product exporter
+* Added: Waitlist elements will now show by default within Elementor template
+* Added: Option for double opt-in (via email) for non-registered users when joining waitlist
+* Added: Filter to disable showing waitlist within Elementor template (wcwl_add_waitlist_for_elementor)
+* Added: minimal styling to button on archive page to avoid overlap
 
 2021.07.28
 * Added: Filter for disabling waitlist for products by default

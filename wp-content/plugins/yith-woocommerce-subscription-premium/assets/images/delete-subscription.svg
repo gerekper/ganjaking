@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="74.517" height="70.447" viewBox="0 0 74.517 70.447">
+  <g id="Group_13" data-name="Group 13" transform="translate(-988 -643)">
+    <g id="usersub" transform="translate(988.5 643.5)">
+      <g id="Group_11" data-name="Group 11" transform="translate(0.5 24.039)">
+        <path id="Path_17" data-name="Path 17" d="M313.073,310.426a10.932,10.932,0,1,1-10.916-10.916,10.932,10.932,0,0,1,10.916,10.916Z" transform="translate(-279.097 -299.51)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="2"/>
+        <path id="Path_18" data-name="Path 18" d="M329.741,336.26a23.06,23.06,0,0,0-46.121,0Z" transform="translate(-283.62 -291.352)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="2"/>
+      </g>
+      <g id="Group_12" data-name="Group 12" transform="translate(26.146 0.5)">
+        <path id="Path_19" data-name="Path 19" d="M16.57,20.161V.5H63.441V32.354H30.31" transform="translate(-16.57 -0.5)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="2"/>
+        <path id="Path_20" data-name="Path 20" d="M42.031,28.088H26.28l1.883-7.628H40.148Z" transform="translate(-10.784 11.394)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="2"/>
+        <line id="Line_23" data-name="Line 23" x2="23.252" transform="translate(11.746 39.482)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="2"/>
+      </g>
+    </g>
+    <g id="baseline-delete_outline-24px" transform="translate(1027 649)">
+      <path id="Path_226" data-name="Path 226" d="M6,16.333A1.862,1.862,0,0,0,8,18h8a1.862,1.862,0,0,0,2-1.667v-10H6ZM8,8h8v8.333H8Zm7.5-4.167L14.5,3h-5l-1,.833H5V5.5H19V3.833Z"/>
+      <path id="Path_227" data-name="Path 227" d="M0,0H24V21H0Z" fill="none"/>
+    </g>
+  </g>
+</svg>

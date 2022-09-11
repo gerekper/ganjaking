@@ -75,6 +75,7 @@ function mailpoet_premium_check_mailpoet_version() {
 // Display MailPoet free version error notice
 function mailpoet_premium_free_version_required_notice() {
   $notice = sprintf(
+    // translators: %s is the MailPoet version.
     __('You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium.', 'mailpoet-premium'),
     MAILPOET_VERSION_REQUIRED
   );

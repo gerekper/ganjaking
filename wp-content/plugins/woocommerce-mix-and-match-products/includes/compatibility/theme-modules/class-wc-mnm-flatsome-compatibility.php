@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.7
- * @version  2.0.7
+ * @version  2.1.2
  */
 
 // Exit if accessed directly.
@@ -49,9 +49,12 @@ class WC_MNM_Flatsome_Compatibility {
 	 * @return array
 	 */
 	public static function loop_classes( $classes, $product ) {
-		$columns = wc_get_loop_prop( 'columns' );
-		$new_classes = explode( ' ', flatsome_product_row_classes( $columns ) );
-		return array_merge( $classes, $new_classes );
+		if ( 'grid' === $product->get_layout() ) {
+			$columns = wc_get_loop_prop( 'columns' );
+			$new_classes = explode( ' ', flatsome_product_row_classes( $columns ) );
+			$classes = array_merge( $classes, $new_classes );
+		}
+		return $classes;
 	}
 
 	/**
@@ -62,8 +65,11 @@ class WC_MNM_Flatsome_Compatibility {
 	 * @return array
 	 */
 	public static function child_item_classes( $classes, $product ) {
-		$new_classes = array( 'product-small', 'col' );
-		return array_merge( $classes, $new_classes );
+		if ( 'grid' === $product->get_layout() ) {
+			$new_classes = array( 'product-small', 'col' );
+			$classes = array_merge( $classes, $new_classes );
+		}
+		return $classes;
 	}
 
 	/**

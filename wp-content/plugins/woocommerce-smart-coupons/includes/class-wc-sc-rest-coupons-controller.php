@@ -6,7 +6,7 @@
  *
  * @author      StoreApps
  * @since       4.10.0
- * @version     1.1.0
+ * @version     1.1.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -45,7 +45,7 @@ if ( ! class_exists( 'WC_SC_REST_Coupons_Controller' ) ) {
 		protected $post_type = 'shop_coupon';
 
 		/**
-		 * Consturctor
+		 * Constructor
 		 */
 		public function __construct() {
 			add_filter( "woocommerce_rest_prepare_{$this->post_type}_object", array( $this, 'handle_response_data' ), 99, 3 );

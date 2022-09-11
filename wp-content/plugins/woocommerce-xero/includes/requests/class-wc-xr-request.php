@@ -349,7 +349,7 @@ abstract class WC_XR_Request {
 		}
 
 		// Do the request.
-		$this->response = wp_remote_request( 
+		$this->response = wp_remote_request(
 			$this->get_url(),
 			array(
 				'method'     => $this->get_method(),
@@ -383,6 +383,15 @@ abstract class WC_XR_Request {
 
 			// Throw new exception.
 			throw new Exception( sprintf( 'Request failed due OAuth error: %s | %s', $oauth_error['oauth_problem'], $oauth_advise ) );
+		}
+
+		// Check for 401 (Unauthorized), 403 (Forbidden) and 429 (too many requests) error
+		$response_code = wp_remote_retrieve_response_code( $this->response);
+		if ( in_array( $response_code, array( 401, 403, 429 ), true ) ) {
+			$response_message = wp_remote_retrieve_response_message( $this->response );
+
+			// Throw new exception.
+			throw new Exception( sprintf( __( 'Xero request failed due to error: %d (%s)', 'woocommerce-xero' ), absint( $response_code ), esc_attr( $response_message ) ) );
 		}
 
 		return true;

@@ -1,4 +1,4 @@
-<div id="chrome-notify" class="panel panel-default small-padding margin-top">   
+<div id="chrome-notify" class="panel panel-chrome panel-default small-padding margin-top">
     <div class="panel-body">
         <div class="container-flex flex-between"> 
             <div class="container-flex">

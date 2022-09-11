@@ -14,6 +14,7 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 		public function init() {
 			$this->setup_text_strings();
 			add_action( 'wp_ajax_wcwl_get_products', array( $this, 'get_all_products_ajax' ) );
+			add_action( 'wp_ajax_wcwl_get_products_with_waitlist_or_archive', array( $this, 'wcwl_get_products_with_waitlist_or_archive_ajax' ) );
 			add_action( 'wp_ajax_wcwl_update_counts', array( $this, 'update_waitlist_counts_ajax' ) );
 			add_action( 'wp_ajax_wcwl_update_meta', array( $this, 'update_waitlist_meta_ajax' ) );
 			add_action( 'wp_ajax_wcwl_add_user_to_waitlist', array( $this, 'process_add_user_request_ajax' ) );
@@ -34,6 +35,17 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 				wp_send_json_error( $this->nonce_not_verified_text );
 			}
 			$products = WooCommerce_Waitlist_Plugin::return_all_product_ids();
+			wp_send_json_success( $products );
+		}
+
+		/**
+		 * Return all product IDs with waitlist/archive data
+		 */
+		public function wcwl_get_products_with_waitlist_or_archive_ajax() {
+			if ( ! wp_verify_nonce( $_POST['wcwl_get_products'], 'wcwl-ajax-get-products-nonce' ) ) {
+				wp_send_json_error( $this->nonce_not_verified_text );
+			}
+			$products = WooCommerce_Waitlist_Plugin::return_all_waitlist_archive_product_ids();
 			wp_send_json_success( $products );
 		}
 

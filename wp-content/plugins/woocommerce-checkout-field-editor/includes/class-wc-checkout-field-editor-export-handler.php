@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Checkout_Field_Editor_Export_Handler {
 
-	/** @var checkout fields */
+	/** @var array checkout fields */
 	private $fields;
 
 
@@ -94,7 +94,7 @@ class WC_Checkout_Field_Editor_Export_Handler {
 		$one_row_per_item = $this->is_one_row_per_item( $csv_generator );
 
 		foreach ( $this->fields as $name => $options ) {
-			$field_data[ $name ] = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), $name, true );
+			$field_data[ $name ] = WC_CRUD_SUPPORT ? $order->get_meta( $name ) : get_post_meta( $order->id, $name, true );
 		}
 
 		if ( $one_row_per_item ) {
@@ -164,7 +164,6 @@ class WC_Checkout_Field_Editor_Export_Handler {
 	 * @return array modified array of order data to be exported
 	 */
 	public function add_fields_to_xml_export_order_list_format( $order_format, $order ) {
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 		$export_format = get_option( 'wc_customer_order_xml_export_suite_orders_format', 'legacy' );
 
 		// add a <CheckoutFields> tag for new formats to hold all custom fields
@@ -174,18 +173,16 @@ class WC_Checkout_Field_Editor_Export_Handler {
 
 		foreach ( $this->get_fields() as $name => $options ) {
 
+			$field_value = WC_CRUD_SUPPORT ? $order->get_meta( $name ) : get_post_meta( $order->id, $name, true );
+
 			if ( 'legacy' === $export_format ) {
-
 				// add all fields as tags for backwards compat
-				$order_format[ $name ] = get_post_meta( $order_id, $name, true );
-
+				$order_format[ $name ] = $field_value;
 			} else {
-
 				// only add custom fields for new formats
 				if ( $options['custom'] ) {
-					$order_format['CheckoutFields'][ $name ] = get_post_meta( $order_id, $name, true );
+					$order_format['CheckoutFields'][ $name ] = $field_value;
 				}
-
 			}
 		}
 

@@ -20,11 +20,11 @@
 
         <div id="a2w-import-content"<?php if (!$serach_query && count($product_list) === 0): ?> style="display:none;"<?php endif; ?>>
             <div id="a2w-import-filter">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="grid grid_default grid_import-filter">
+                    <div class="grid__col">
                         <h3><?php _e('Import List', 'ali2woo'); ?></h3>
                     </div>
-                    <div class="col-md-6">
+                    <div class="grid__col grid__col_to-right">
                         <form method="GET" action="<?php echo admin_url('admin.php'); ?>">
                             <input type="hidden" name="page" value="a2w_import"/>
                             <table class="float-right">
@@ -44,8 +44,8 @@
             </div>
 
             <div id="a2w-import-actions">
-                <div class="row">
-                    <div class="col-lg-5 col-md-12 space-top">
+                <div class="grid grid_default grid_import-actions">
+                    <div class="grid__col">
                         <div class="container-flex" style="height: 32px;">
                             <div class="margin-right">
                                 <input type="checkbox" class="check-all form-control"><span class="space-small-left"><strong><?php _e('Select All Products', 'ali2woo'); ?></strong></span>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-md-12 space-top align-right">
+                    <div class="grid__col grid__col_to-right">
                         <a href="#" class="btn btn-default link_category_all"><?php _e('Link All products to category', 'ali2woo'); ?></a>
                         <a href="<?php echo admin_url('admin.php?page=' . $_REQUEST['page']) . '&action=delete_all'; ?>" class="btn btn-danger margin-small-left delete_all"><?php _e('Remove All Products', 'ali2woo'); ?></a>
                         <button type="button" class="btn btn-success no-outline btn-icon-left margin-small-left push_all">
@@ -69,7 +69,6 @@
                             <span class="btn-icon-wrap add"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add"></use></svg></span><?php _e('Push All Products to Shop', 'ali2woo'); ?>
                         </button>
                     </div>
-
                 </div>
             </div>
 
@@ -82,10 +81,9 @@
             <div class="a2w-product-import-list">
                 <?php foreach ($product_list as $ind => $product): ?>
                     
-
                     <div class='row space-top'>
                         <div class='col-xs-12'>                            
-                            <div class='product<?php echo !empty($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
+                            <div class='product<?php echo isset($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
                                 <div class="a2w-row">
                                     <ul class="nav nav-tabs">
                                         <li class="select darker-background"><span class="for-checkbox"><input type="checkbox" class="form-control" value="<?php echo $product['import_id']; ?>"></span></li>
@@ -127,14 +125,14 @@
                                             </div>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3 col-xs-4">
+                                    <div class="grid grid_default grid_product-info">
+                                        <div class="grid__col grid__col_image">
                                             <div class="product-img">
                                                 <img class="border-img lazy" src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" data-id="<?php echo md5($product['thumb']);?>" data-original="<?php echo isset($product['tmp_edit_images'][md5($product['thumb'])]['attachment_url']) ? $product['tmp_edit_images'][md5($product['thumb'])]['attachment_url'] : a2w_image_url($product['thumb']); ?>" alt="<?php echo $product['title']; ?>">
                                                 <?php if (isset($product['is_affiliate']) && $product['is_affiliate']): ?><div class="affiliate-icon"></div><?php endif; ?>
                                             </div>
                                         </div>
-                                        <div class="col-md-9 col-xs-8">
+                                        <div class="grid__col">
                                             <div class="container-flex">
                                                 <div class="mr10 no-shrink ali-supplier"></div>
                                                 <h3>
@@ -151,45 +149,82 @@
                                                     </div>
                                                 </div>
                                             <?php endif;?>
-                                            <div class="row product-edit">
-                                                <div class="col-md-12 input-block">
-                                                    <label><?php _e('Change name', 'ali2woo'); ?>:</label><input type="text" class="form-control title" maxlength="255" value="<?php echo $product['title']; ?>">
-                                                </div>
-                                                <div>
-                                                    <div class="col-md-4 input-block js-choosen-parent">
-                                                        <label><?php _e('SKU', 'ali2woo'); ?>:</label>
-                                                        <input type="text" class="form-control sku" maxlength="255" value="<?php echo empty($product['sku'])?$product['id']:$product['sku']; ?>"/>
+                                            <div class="product-edit">
+                                                <div class="grid grid_form grid_3">
+                                                    <div class="grid__col grid__col_fill">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('Change name', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <input type="text" class="field__input form-control title" maxlength="255" value="<?php echo $product['title']; ?>">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4 input-block js-choosen-parent">
-                                                        <label><?php _e('Status', 'ali2woo'); ?>:</label>
-                                                        <select class="form-control select2 status" data-placeholder="<?php _e('Choose Status', 'ali2woo'); ?>">
-                                                            <option value="publish" <?php if ($product['product_status'] == "publish"): ?>selected="selected"<?php endif; ?>><?php _e('Publish'); ?></option>
-                                                            <option value="draft" <?php if ($product['product_status'] == "draft"): ?>selected="selected"<?php endif; ?>><?php _e('Draft'); ?></option>
-                                                        </select>
+                                                    <div class="grid__col">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('SKU', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <input type="text" class="field__input form-control sku" maxlength="255" value="<?php echo empty($product['sku'])?$product['id']:$product['sku']; ?>"/>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4 input-block js-choosen-parent">
-                                                        <label><?php _e('Type', 'ali2woo'); ?>:</label>
-                                                        <select class="form-control select2 type" data-placeholder="<?php _e('Choose Type', 'ali2woo'); ?>">
-                                                            <option value="simple" <?php if ($product['product_type'] == "simple"): ?>selected="selected"<?php endif; ?>><?php _ex('Simple/Variable Product', 'Setting option', 'ali2woo'); ?></option>
-                                                            <option value="external" <?php if ($product['product_type'] == "external"): ?>selected="selected"<?php endif; ?>><?php _ex('External/Affiliate Product', 'Setting option', 'ali2woo'); ?></option>
-                                                        </select>
+                                                    <div class="grid__col">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('Status', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <select class="field__input form-control select2 status" data-placeholder="<?php _e('Choose Status', 'ali2woo'); ?>">
+                                                                    <option value="publish" <?php if ($product['product_status'] == "publish"): ?>selected="selected"<?php endif; ?>><?php _e('Publish'); ?></option>
+                                                                    <option value="draft" <?php if ($product['product_status'] == "draft"): ?>selected="selected"<?php endif; ?>><?php _e('Draft'); ?></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4 input-block js-build-wrapper">
-                                                        <div><label><?php _e('Categories', 'ali2woo'); ?>:</label></div>
-                                                        <select class="form-control select2 categories" data-placeholder="<?php _e('Choose Categories', 'ali2woo'); ?>" multiple="multiple">
-                                                            <option></option>
-                                                            <?php foreach ($categories as $c): ?>
-                                                                <option value="<?php echo $c['term_id']; ?>"<?php if (in_array($c['term_id'], $product['categories'])): ?> selected="selected"<?php endif; ?>><?php echo str_repeat('- ', $c['level'] - 1) . $c['name']; ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                    <div class="grid__col">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('Type', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <select class="field__input form-control select2 type" data-placeholder="<?php _e('Choose Type', 'ali2woo'); ?>">
+                                                                    <option value="simple" <?php if ($product['product_type'] == "simple"): ?>selected="selected"<?php endif; ?>><?php _ex('Simple/Variable Product', 'Setting option', 'ali2woo'); ?></option>
+                                                                    <option value="external" <?php if ($product['product_type'] == "external"): ?>selected="selected"<?php endif; ?>><?php _ex('External/Affiliate Product', 'Setting option', 'ali2woo'); ?></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4 input-block js-choosen-parent">
-                                                        <div><label><?php _e('Tags', 'ali2woo'); ?>:</label></div>
-                                                        <select name="tags" class="form-control select2-tags tags" data-placeholder="<?php _e('Enter Tags', 'ali2woo'); ?>" multiple="multiple">
-                                                            <?php foreach ($product['tags'] as $tag): ?>
-                                                                <option value="<?php echo $tag; ?>" selected="selected"><?php echo $tag; ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                    <div class="grid__col">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('Categories', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <select class="field__input form-control select2 categories" data-placeholder="<?php _e('Choose Categories', 'ali2woo'); ?>" multiple="multiple">
+                                                                    <option></option>
+                                                                    <?php foreach ($categories as $c): ?>
+                                                                        <option value="<?php echo $c['term_id']; ?>"<?php if (in_array($c['term_id'], $product['categories'])): ?> selected="selected"<?php endif; ?>><?php echo str_repeat('- ', $c['level'] - 1) . $c['name']; ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid__col">
+                                                        <div class="field field_default">
+                                                            <label for="" class="field__label">
+                                                                <?php _e('Tags', 'ali2woo'); ?>:
+                                                            </label>
+                                                            <div class="field__input-wrap">
+                                                                <select name="tags" class="field__input form-control select2-tags tags" data-placeholder="<?php _e('Enter Tags', 'ali2woo'); ?>" multiple="multiple">
+                                                                    <?php foreach ($product['tags'] as $tag): ?>
+                                                                        <option value="<?php echo $tag; ?>" selected="selected"><?php echo $tag; ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -396,7 +431,7 @@
                                                             <td data-attr-id="<?php echo explode(":", $av)[0]; ?>"><input type="text" class="form-control attr" data-id="<?php echo $av; ?>" value="<?php echo isset($var['attributes_names'][$j]) ? $var['attributes_names'][$j] : ''; ?>"></td>
                                                         <?php endforeach; ?>
                                                         <td style="white-space: nowrap;" class="external-price" data-value="<?php echo $var['price']; ?>"><?php echo $localizator->getLocaleCurr($var['currency']); ?><?php echo $var['price']; ?></td>
-                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="<?php echo !empty($product['shipping_cost'])?floatval($product['shipping_cost']):"0"?>" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>"><?php echo !empty($product['shipping_cost'])?$localizator->getLocaleCurr($var['currency']).floatval($product['shipping_cost']):"N/A"?></td>
+                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="<?php echo isset($product['shipping_cost'])?floatval($product['shipping_cost']):"0"?>" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>"><?php echo isset($product['shipping_cost'])?$localizator->getLocaleCurr($var['currency']).floatval($product['shipping_cost']):"N/A"?></td>
                                                         <td>
                                                             <input type="text" class="form-control price" value="<?php echo $var['calc_price']; ?>">
                                                         </td>
@@ -424,9 +459,9 @@
                                                 <input type="checkbox" id="check-all-gallery-image-id-<?php echo $product['import_id'];?>" class="check-all-block-image form-control" checked="checked">
                                                 <label for="check-all-gallery-image-id-<?php echo $product['import_id'];?>"><?php _e('Gallery images', 'ali2woo'); ?></label>
                                             </div>
-                                            <div class="row gallery_images">
+                                            <div class="grid grid_default grid_4 gallery_images">
                                                 <?php foreach ($product['gallery_images'] as $img_id => $image): ?>
-                                                    <div class="col-xs-3">
+                                                    <div class="grid__col">
                                                         <div id="<?php echo $img_id; ?>" class="image<?php if (!in_array($img_id, $product['skip_images'])): ?> selected<?php endif; ?>">
                                                             <img class="lazy-in-container" src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" data-id="<?php echo $img_id;?>" data-original="<?php echo isset($product['tmp_edit_images'][$img_id]['attachment_url']) ? $product['tmp_edit_images'][$img_id]['attachment_url'] : a2w_image_url($image); ?>"/>
                                                             <div class="icon-selected-box align-center"><svg class="icon-selected"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-selected"></use></svg></div>
@@ -446,9 +481,9 @@
                                                 <input type="checkbox" id="check-all-variant-image-id-<?php echo $product['import_id'];?>" class="check-all-block-image form-control" checked="checked">
                                                 <label for="check-all-variant-image-id-<?php echo $product['import_id'];?>"><?php _e('Variations images', 'ali2woo'); ?></label>
                                             </div>
-                                            <div class="row variant_images">
+                                            <div class="grid grid_default grid_4 variant_images">
                                                 <?php foreach ($product['variant_images'] as $img_id => $image): ?>
-                                                    <div class="col-xs-3">
+                                                    <div class="grid__col">
                                                         <div id="<?php echo $img_id; ?>" class="image<?php if (!in_array($img_id, $product['skip_images'])): ?> selected<?php endif; ?>">
                                                             <img class="lazy-in-container" src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" data-id="<?php echo $img_id;?>" data-original="<?php echo isset($product['tmp_edit_images'][$img_id]['attachment_url']) ? $product['tmp_edit_images'][$img_id]['attachment_url'] : a2w_image_url($image); ?>"/>
                                                             <div class="icon-selected-box align-center"><svg class="icon-selected"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-selected"></use></svg></div>
@@ -470,10 +505,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="row description_images">
+                                            <div class="grid grid_default grid_4 description_images">
                                                 <?php foreach ($product['description_images'] as $img_id => $image): ?>
                                                     <?php if (!isset($product['tmp_move_images'][$img_id])): ?>
-                                                        <div class="col-xs-3">
+                                                        <div class="grid__col">
                                                             <div id="<?php echo $img_id; ?>" class="image<?php if (!in_array($img_id, $product['skip_images'])): ?> selected<?php endif; ?>">
                                                                 <img class="lazy-in-container" src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" data-id="<?php echo $img_id;?>" data-original="<?php echo isset($product['tmp_edit_images'][$img_id]['attachment_url']) ? $product['tmp_edit_images'][$img_id]['attachment_url'] : a2w_image_url($image); ?>"/>
                                                                 <div class="icon-selected-box align-center"><svg class="icon-selected"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-selected"></use></svg></div>
@@ -550,7 +585,7 @@
                         return query;
                     }
                 }});
-            $('.dropdown-toggle').dropdown();
+            //$('.dropdown-toggle').dropdown();
             $(".set-category-dialog .select2").select2({width: '100%'});
 
             $('.product .nav-tabs a').click(function () {

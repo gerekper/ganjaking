@@ -17,30 +17,30 @@ if ( ! is_email( $email ) ) {
 	}
 }
 ?>
-<tr class="wcwl_user_row" data-user-id="<?php echo $email; ?>">
+<tr class="wcwl_user_row" data-user-id="<?php echo esc_attr( $email ); ?>">
 	<?php if ( $email ) { ?>
 		<td>
-			<input class="wcwl_user_checkbox" type="checkbox" name="wcwl_user_checkbox" value="<?php echo $email; ?>" data-user-email="<?php echo $email; ?>" data-date-added="<?php echo $date; ?>"/>
+			<input class="wcwl_user_checkbox" type="checkbox" name="wcwl_user_checkbox" value="<?php echo esc_attr( $email ); ?>" data-user-email="<?php echo esc_attr( $email ); ?>" data-date-added="<?php echo esc_attr( $date ); ?>"/>
 		</td>
 		<td>
 			<strong>
 				<?php
 				if ( isset( $user->ID ) ) {
 					?>
-					<a title="<?php esc_attr_e( __( 'View User Profile', 'woocommerce-waitlist' ) ); ?>" href="<?php echo get_edit_user_link( $user->ID ); ?>">
+					<a title="<?php esc_attr_e( __( 'View User Profile', 'woocommerce-waitlist' ) ); ?>" href="<?php echo esc_url( get_edit_user_link( $user->ID ) ); ?>">
 					<?php
 				}
-				echo $email;
+				echo esc_html( $email );
 				?>
 					</a>
 				<?php
 					echo Pie_WCWL_Custom_Tab::get_user_language_flag( $email, $product_id );
 				?>
-					<?php
+				<?php
 					if ( isset( $errors[ $email ] ) ) {
-						echo '<span class="dashicons dashicons-warning"><span>' . $errors[ $email ] . '</span></span>';
+						echo '<span class="dashicons dashicons-warning"><span>' . esc_html( $errors[ $email ] ) . '</span></span>';
 					}
-					?>
+				?>
 			</strong>
 		</td>
 		<td>
@@ -48,7 +48,7 @@ if ( ! is_email( $email ) ) {
 		</td>
 	<?php } else { ?>
 		<td>
-			<input class="wcwl_user_checkbox" type="checkbox" name="wcwl_user_checkbox wcwl_removed_user" value="0" data-user-email="0" data-date-added="<?php echo $date; ?>"/>
+			<input class="wcwl_user_checkbox" type="checkbox" name="wcwl_user_checkbox wcwl_removed_user" value="0" data-user-email="0" data-date-added="<?php echo esc_attr( $date ); ?>"/>
 		</td>
 		<td>
 			<strong><?php _e( 'User removed themselves', 'woocommerce-waitlist' ); ?></strong>

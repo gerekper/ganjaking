@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 4.2.1\n"
+"Project-Id-Version: WooCommerce Store Credit 4.2.2\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-19T11:14:40+00:00\n"
+"POT-Creation-Date: 2022-08-29T13:40:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: woocommerce-store-credit\n"
@@ -782,26 +782,30 @@ msgstr ""
 msgid "\"%s\" is a required field."
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:248
+#: includes/class-wc-store-credit-product-addons.php:250
+msgid "Please, enter a credit amount."
+msgstr ""
+
+#: includes/class-wc-store-credit-product-addons.php:258
 msgid "The credit amount is not valid."
 msgstr ""
 
 #. translators: %s: minimum amount
-#: includes/class-wc-store-credit-product-addons.php:256
+#: includes/class-wc-store-credit-product-addons.php:266
 msgid "The minimum credit amount is %s."
 msgstr ""
 
 #. translators: %s: maximum amount
-#: includes/class-wc-store-credit-product-addons.php:264
+#: includes/class-wc-store-credit-product-addons.php:274
 msgid "The maximum credit amount is %s."
 msgstr ""
 
 #. translators: %s: amount step
-#: includes/class-wc-store-credit-product-addons.php:273
+#: includes/class-wc-store-credit-product-addons.php:283
 msgid "The credit amount has an interval of %s."
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:393
+#: includes/class-wc-store-credit-product-addons.php:403
 msgid "Credit amount"
 msgstr ""
 

@@ -149,6 +149,23 @@ class WC_AM_Format {
 	}
 
 	/**
+	 * Takes an Epoch/Unix timestamp and converts it into a localized string formated date for a calendar.
+	 *
+	 * @since 2.4
+	 *
+	 * @param int $timestamp
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function unix_timestamp_to_calendar_date_i18n( $timestamp ) {
+		$timestamp_site  = $this->date_to_time( get_date_from_gmt( gmdate( 'Y-m-d', $timestamp ) ) );
+		$date_to_display = date_i18n( 'Y-m-d', $timestamp_site );
+
+		return $date_to_display;
+	}
+
+	/**
 	 * Wrapper for wp_json_encode() if WP version is < 4.1.
 	 *
 	 * @since 2.1.2
@@ -169,7 +186,8 @@ class WC_AM_Format {
 	 * Returns FALSE if var exists and has a non-empty, non-zero value. Otherwise returns TRUE.
 	 * Works with Objects, which the core empty() PHP function does not.
 	 *
-	 * @since 2.2.1
+	 * @since   2.2.1
+	 * @updated 2.4.1
 	 *
 	 * @param $var
 	 *
@@ -177,10 +195,18 @@ class WC_AM_Format {
 	 */
 	public function empty( $var ) {
 		/*
+		 * @since 2.2.1
 		 * Why the @? Ironically, an empty object will cause the warning:
 		 * json_decode() expects parameter 1 to be string, object given in ...
+		 *
+		 * // return is_object( $var ) ? empty( @json_decode( $var, true ) ) : empty( $var );
+		 *
+		 * @updated 2.4.1
+		 * PHP 8.1 started throwing error
+		 * CRITICAL Uncaught TypeError: json_decode(): Argument #1 ($json) must be of type string, stdClass given in ...
+		 * If is_object == true then cast $var to (array) before checking with empty() function.
 		 */
-		return is_object( $var ) ? empty( @json_decode( $var, true ) ) : empty( $var );
+		return is_object( $var ) ? empty( (array) $var ) : empty( $var );
 	}
 
 }

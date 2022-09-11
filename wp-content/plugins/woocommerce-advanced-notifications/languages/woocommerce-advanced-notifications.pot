@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.3.0\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.3.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2022-07-04 08:34:00+00:00\n"
+"POT-Creation-Date: 2022-09-06 18:03:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,7 +215,7 @@ msgstr ""
 #: includes/class-wc-advanced-notifications.php:476
 #: includes/class-wc-advanced-notifications.php:542
 #: templates/emails/new-order-plain.php:7 templates/emails/new-order.php:19
-#: templates/emails/refunds-plain.php:7 templates/emails/refunds.php:19
+#: templates/emails/refunds-plain.php:7 templates/emails/refunds.php:23
 msgid "Hi %s,"
 msgstr ""
 
@@ -247,12 +247,20 @@ msgstr ""
 msgid "%s units of %s have been backordered in order #%s."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:579
-msgid "Customer Refund"
+#: includes/class-wc-advanced-notifications.php:608
+msgid "[%s] Partial Order Refund (%s)"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:581
+#: includes/class-wc-advanced-notifications.php:609
+msgid "Customer Partial Refund"
+msgstr ""
+
+#: includes/class-wc-advanced-notifications.php:611
 msgid "[%s] Order Refund (%s)"
+msgstr ""
+
+#: includes/class-wc-advanced-notifications.php:612
+msgid "Customer Refund"
 msgstr ""
 
 #: includes/views/admin-screen-edit.php:3
@@ -425,7 +433,7 @@ msgid "jS F Y"
 msgstr ""
 
 #: templates/emails/new-order-plain.php:119 templates/emails/new-order.php:154
-#: templates/emails/refunds-plain.php:114 templates/emails/refunds.php:147
+#: templates/emails/refunds-plain.php:114 templates/emails/refunds.php:175
 msgid "Total"
 msgstr ""
 
@@ -434,23 +442,23 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: templates/emails/new-order.php:38 templates/emails/refunds.php:35
+#: templates/emails/new-order.php:38 templates/emails/refunds.php:47
 msgid "Order #%s"
 msgstr ""
 
-#: templates/emails/new-order.php:51 templates/emails/refunds.php:44
+#: templates/emails/new-order.php:51 templates/emails/refunds.php:56
 msgid "Product"
 msgstr ""
 
-#: templates/emails/new-order.php:52 templates/emails/refunds.php:45
+#: templates/emails/new-order.php:52 templates/emails/refunds.php:57
 msgid "Quantity"
 msgstr ""
 
-#: templates/emails/new-order.php:54 templates/emails/refunds.php:47
+#: templates/emails/new-order.php:54 templates/emails/refunds.php:59
 msgid "Price"
 msgstr ""
 
-#: templates/emails/new-order.php:163 templates/emails/refunds.php:156
+#: templates/emails/new-order.php:163 templates/emails/refunds.php:184
 msgid "Note:"
 msgstr ""
 
@@ -458,7 +466,11 @@ msgstr ""
 msgid "Order: %s has been refunded."
 msgstr ""
 
-#: templates/emails/refunds.php:21
+#: templates/emails/refunds.php:28
+msgid "Order #%s has been partially refunded."
+msgstr ""
+
+#: templates/emails/refunds.php:30
 msgid "Order #%s has been refunded."
 msgstr ""
 

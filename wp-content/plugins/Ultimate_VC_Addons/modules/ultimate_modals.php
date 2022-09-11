@@ -6,13 +6,13 @@
  * @package Ultimate Modals.
  */
 
-if ( ! class_exists( 'Ultimate_Modals' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Modals' ) ) {
 	/**
-	 * Class Ultimate_Modals.
+	 * Class Ultimate_VC_Addons_Modals.
 	 *
-	 * @class Ultimate_Modals
+	 * @class Ultimate_VC_Addons_Modals
 	 */
-	class Ultimate_Modals {
+	class Ultimate_VC_Addons_Modals {
 		/**
 		 * Constructor function that constructs default values for the Ultimate_Info_Table.
 		 *
@@ -38,19 +38,19 @@ if ( ! class_exists( 'Ultimate_Modals' ) ) {
 				$js_path  = UAVC_URL . 'assets/js/';
 				$css_path = UAVC_URL . 'assets/css/';
 				$ext      = '';
-				wp_register_script( 'ultimate-modal-customizer', $js_path . 'modernizr-custom.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-				wp_register_script( 'ultimate-modal-classie', $js_path . 'classie.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-				wp_register_script( 'ultimate-modal-froogaloop2', $js_path . 'froogaloop2-min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-				wp_register_script( 'ultimate-modal-snap-svg', $js_path . 'snap-svg.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-				wp_register_script( 'ultimate-modal', $js_path . 'modal.js', array( 'jquery', 'ultimate-modal-customizer', 'ultimate-modal-classie', 'ultimate-modal-froogaloop2', 'ultimate-modal-snap-svg' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ultimate-vc-addons-modal-customizer', $js_path . 'modernizr-custom.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ultimate-vc-addons-modal-classie', $js_path . 'classie.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ultimate-vc-addons-modal-froogaloop2', $js_path . 'froogaloop2-min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ultimate-vc-addons-modal-snap-svg', $js_path . 'snap-svg.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ultimate-vc-addons-modal', $js_path . 'modal.js', array( 'jquery', 'ultimate-vc-addons-modal-customizer', 'ultimate-vc-addons-modal-classie', 'ultimate-vc-addons-modal-froogaloop2', 'ultimate-vc-addons-modal-snap-svg' ), ULTIMATE_VERSION, false );
 			} else {
 				$js_path  = '../assets/min-js/';
 				$css_path = '../assets/min-css/';
 				$ext      = '.min';
 			}
-			wp_register_script( 'ultimate-modal-all', UAVC_URL . 'assets/min-js/modal-all.min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_register_script( 'ultimate-vc-addons-modal-all', UAVC_URL . 'assets/min-js/modal-all.min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-modal', 'modal' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-modal', 'modal' );
 		}
 		/**
 		 *  Is medium device.
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Ultimate_Modals' ) ) {
 			$ult_modal_box_settings['overlay_bg_opacity'] = ( $ult_modal_box_settings['overlay_bg_opacity'] / 100 );
 			if ( '' !== $ult_modal_box_settings['overlay_bg_color'] ) {
 				if ( strlen( $ult_modal_box_settings['overlay_bg_color'] ) <= 7 ) {
-					$overlay_bg = ultimate_hex2rgb( $ult_modal_box_settings['overlay_bg_color'], $ult_modal_box_settings['overlay_bg_opacity'] );
+					$overlay_bg = uavc_hex2rgb( $ult_modal_box_settings['overlay_bg_color'], $ult_modal_box_settings['overlay_bg_opacity'] );
 				} else {
 					$overlay_bg = $ult_modal_box_settings['overlay_bg_color'];
 				}
@@ -475,11 +475,11 @@ if ( ! class_exists( 'Ultimate_Modals' ) ) {
 			}
 
 			if ( '' != $ult_modal_box_settings['img_size'] && 'popup-edge-top-right' == $ult_modal_box_settings['close_icon_position'] ) {
-				$img_edge_position = 'top:-' . ( $ult_modal_box_settings['img_size'] / 2 + $custom_padding_img ) . 'px;right:-' . ( $ult_modal_box_settings['img_size'] / 2 + $custom_padding_img ) . 'px;';
+				$img_edge_position = 'top:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;right:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;';
 			}
 
 			if ( '' != $ult_modal_box_settings['img_size'] && 'popup-edge-top-left' == $ult_modal_box_settings['close_icon_position'] ) {
-				$img_edge_position = 'top:-' . ( $ult_modal_box_settings['img_size'] / 2 + $custom_padding_img ) . 'px;left:-' . ( $ult_modal_box_settings['img_size'] / 2 + $custom_padding_img ) . 'px;';
+				$img_edge_position = 'top:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;left:-' . ( (int)$ult_modal_box_settings['img_size'] / 2 + (int)$custom_padding_img ) . 'px;';
 			}
 
 			if ( 'popup-top-right' == $ult_modal_box_settings['close_icon_position'] || 'popup-top-left' == $ult_modal_box_settings['close_icon_position']
@@ -1360,8 +1360,8 @@ if ( ! class_exists( 'Ultimate_Modals' ) ) {
 	}//end class
 }
 
-if ( class_exists( 'Ultimate_Modals' ) ) {
-	$ultimate_modals = new Ultimate_Modals();
+if ( class_exists( 'Ultimate_VC_Addons_Modals' ) ) {
+	$ultimate_modals = new Ultimate_VC_Addons_Modals();
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Modal' ) ) {
 	/**

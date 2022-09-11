@@ -5,9 +5,9 @@ namespace MailPoet\Premium\Automation\Engine\Builder;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Step;
+use MailPoet\Automation\Engine\Data\Workflow;
 use MailPoet\Automation\Engine\Storage\WorkflowStorage;
-use MailPoet\Automation\Engine\Workflows\Step;
-use MailPoet\Automation\Engine\Workflows\Workflow;
 
 class CreateWorkflowController {
   /** @var WorkflowStorage */
@@ -31,7 +31,7 @@ class CreateWorkflowController {
         $step['args'] ?? []
       );
     }
-    $workflow = new Workflow($data['name'], $steps);
+    $workflow = new Workflow($data['name'], $steps, wp_get_current_user());
 
     $this->storage->createWorkflow($workflow);
     return $workflow;

@@ -6,13 +6,13 @@
  *  @package Pricing Tables
  */
 
-if ( ! class_exists( 'Ultimate_Pricing_Table' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Pricing_Table' ) ) {
 	/**
 	 * Function that initializes Pricing Tables Module
 	 *
-	 * @class Ultimate_Pricing_Table
+	 * @class Ultimate_VC_Addons_Pricing_Table
 	 */
-	class Ultimate_Pricing_Table {
+	class Ultimate_VC_Addons_Pricing_Table {
 		/**
 		 * Constructor function that constructs default values for the Pricing Tables module.
 		 *
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Ultimate_Pricing_Table' ) ) {
 		 * @method price_table_assets
 		 */
 		public function price_table_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-pricing', 'pricing' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-pricing', 'pricing' );
 		}
 		/**
 		 * Function that initializes settings of Pricing Tables Module.
@@ -656,8 +656,8 @@ if ( ! class_exists( 'Ultimate_Pricing_Table' ) ) {
 			}
 			return $output;
 		}
-	} // class Ultimate_Pricing_Table.
-	new Ultimate_Pricing_Table();
+	} // class Ultimate_VC_Addons_Pricing_Table.
+	new Ultimate_VC_Addons_Pricing_Table();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Pricing' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

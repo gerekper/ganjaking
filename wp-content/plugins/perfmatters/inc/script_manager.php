@@ -83,6 +83,31 @@ if(isset($_POST['pmsm_global_trash'])) {
 	}
 }
 
+//global refresh
+if(isset($_POST['pmsm_global_refresh'])) {
+
+	$refresh = explode("|", $_POST['pmsm_global_refresh']);
+
+	if(count($refresh) == 3) {
+		list($category, $type, $script) = $refresh;
+
+		$options = get_option('perfmatters_script_manager');
+
+		$current = $options[$category][$type][$script]['current'] ?? array();
+
+		foreach($current as $key => $post_id) {
+			if(!get_post_status($post_id)) {
+				unset($options[$category][$type][$script]['current'][$key]);
+			}
+		}
+
+		//clean up the options array before saving
+		perfmatters_script_manager_filter_options($options);
+
+		update_option('perfmatters_script_manager', $options);
+	}
+}
+
 //load script manager settings
 global $perfmatters_script_manager_settings;
 $perfmatters_script_manager_settings = get_option('perfmatters_script_manager_settings');
@@ -123,7 +148,7 @@ include('script_manager_css.php');
 remove_all_shortcodes();
 
 //wrapper
-echo "<div id='perfmatters-script-manager-wrapper' " . (isset($_GET['perfmatters']) ? "style='display: flex;'" : "") . ">";
+echo "<div id='perfmatters-script-manager-wrapper'>";
 
 	//header
 	echo "<div id='perfmatters-script-manager-header'>";
@@ -250,94 +275,7 @@ echo "<div id='perfmatters-script-manager-wrapper' " . (isset($_GET['perfmatters
 					}
 					//global view tab
 					elseif($pmsm_tab == 'global') {
-
-						echo "<input type='hidden' name='tab' value='global' />";
-
-						//title bar
-						echo "<div class='perfmatters-script-manager-title-bar'>";
-							echo "<h1>" . __('Global View', 'perfmatters') . "</h1>";
-							echo "<p>" . __('This is a visual representation of the Script Manager configuration across your entire site.', 'perfmatters') . "</p>";
-						echo "</div>";
-						
-						//global scripts display
-						if(!empty($perfmatters_script_manager_options)) {
-							foreach($perfmatters_script_manager_options as $category => $types) {
-								echo "<h3>" . $category . "</h3>";
-								if(!empty($types)) {
-									echo "<div class='perfmatters-script-manager-section'>";
-										echo "<table>";
-											echo "<thead>";
-												echo "<tr>";
-													echo "<th>" . __('Type', 'perfmatters') . "</th>";
-													echo "<th>" . __('Script', 'perfmatters') . "</th>";
-													echo "<th>" . __('Setting', 'perfmatters') . "</th>";
-													echo "<th style='width: 20px;'></th>";
-												echo "</tr>";
-											echo "</thead>";
-											echo "<tbody>";
-												foreach($types as $type => $scripts) {
-													if(!empty($scripts)) {
-														foreach($scripts as $script => $details) {
-															if(!empty($details)) {
-																foreach($details as $detail => $values) {
-																	echo "<tr>";
-																		echo "<td><span style='font-weight: bold;'>" . $type . "</span></td>";
-																		echo "<td><span style='font-weight: bold;'>" . $script . "</span></td>";
-																		echo "<td>";
-																			echo "<span style='font-weight: bold;'>" . $detail . "</span>";
-																			if($detail == "current" || $detail == "post_types") {
-																				if(!empty($values)) {
-																					echo " (";
-																					$valueString = "";
-																					foreach($values as $key => $value) {
-																						if($detail == "current") {
-																							if((int)$value !== 0) {
-																								if($value == 'pmsm-404') {
-																									$valueString.= '404, ';
-																								}
-																								else {
-																									$valueString.= "<a href='" . get_permalink($value) . "' target='_blank'>" . $value . "</a>, ";
-																								}
-																							}
-																							else {
-																								$valueString.= "<a href='" . get_home_url() . "' target='_blank'>homepage</a>, ";
-																							}
-																						}
-																						elseif($detail == "post_types") {
-																							$valueString.= $value . ", ";
-																						}
-																					}
-																					echo rtrim($valueString, ", ");
-																					echo ")";
-																				}
-																			}
-																			elseif($detail == "user_status") {
-																				echo " (" . $values . ")";
-																			}
-																		echo "</td>";
-																		echo "<td>";
-																			echo "<button class='pmsm-action-button' name='pmsm_global_trash' value='" . $category . "|" . $type . "|" . $script . "|" . $detail . "' onClick=\"return confirm('Are you sure you want to delete this option?');\">";
-																				echo "<span class='dashicons dashicons-trash'></span>";
-																			echo "</button>";
-
-																		echo "</td>";
-																	echo "</tr>";
-																}
-															}
-														}
-													}
-												}
-											echo "</tbody>";
-										echo "</table>";
-									echo "</div>";
-								}
-							}
-						}
-						else {
-							echo "<div class='perfmatters-script-manager-section'>";
-								echo "<p style='padding: 20px; text-align: center;'>" . __("You don't have any scripts disabled yet.") . "</p>";
-							echo "</div>";
-						}
+						include('script_manager_global.php');
 					}
 					//settings tab
 					elseif($pmsm_tab == 'settings') {

@@ -37,10 +37,12 @@ class evors_email{
   			//update_post_meta(1,'aaa',$this->get_email_data($args, $type ));
   			//print_r( $this->get_email_data($args, $type ));
 
+  			
+  			$email_data = $this->get_email_data($args, $type );
+  			//print_r($email_data);
+
   			// send email
-  			return EVORS()->helper->send_email(
-  				$this->get_email_data($args, $type )
-  			);
+  			return EVORS()->helper->send_email( $email_data );
 			
 		}
 
@@ -56,11 +58,17 @@ class evors_email{
 			$email_data['args'] = $args;
 			$email_data['type'] = $type;
 
+			// attachment processing
+				if(isset($args['attachments'])){
+					$email_data['attachments'] = $args['attachments'];
+					unset($email_data['args']['attachments']);
+				}
+
 			// From email
 				$to_email = isset($args['email'])? $args['email'] : '';
 				if(isset($args['rsvp_id'])){
 					$RR = new EVO_RSVP_CPT( $args['rsvp_id']);
-					$to_email = $RR->email();
+					if(empty($to_email)) $to_email = $RR->email();
 					$event_id = $RR->event_id();
 				}
 
@@ -122,40 +130,53 @@ class evors_email{
 				
 				// admin notification
 				case 'notification': 
-					$__to_email = (!empty($this->optRS['evors_notfiemailto']) )?
-						htmlspecialchars_decode ($this->optRS['evors_notfiemailto'])
-						:get_bloginfo('admin_email');
 
-					// additional emails to receive email notification
+					$_other_to = '';
+					$__to_email = '';
+
+					// if manual sending notification use that to email
+					if( isset($args['method']) && $args['method'] == 'manual'){
+						$__to_email = $to_email;
+					}
+
+					if(empty($__to_email)){
+						// pre get value
 						$event_pmv = get_post_custom( $event_id );
 
-					// post author to be included
-						$notify_event_author = evo_check_yn($event_pmv, 'evors_notify_event_author');
-						if($notify_event_author){
-							$post_author_id = get_post_field( 'post_author', $args['e_id'] );
+						$__to_email = (!empty($this->optRS['evors_notfiemailto']) )?
+							htmlspecialchars_decode ($this->optRS['evors_notfiemailto'])
+							:get_bloginfo('admin_email');
+						
 
-							if(!empty($post_author_id)) 
-								$author_email = get_the_author_meta( 'user_email' , $post_author_id);
+						// post author to be included
+							$notify_event_author = evo_check_yn($event_pmv, 'evors_notify_event_author');
+							
+							if($notify_event_author){
+								$post_author_id = get_post_field( 'post_author', $args['e_id'] );
 
-							if($author_email)
-								$__to_email .','. $author_email;
-						}	
+								if(!empty($post_author_id)) 
+									$author_email = get_the_author_meta( 'user_email' , $post_author_id);
 
-					// other email addresses mentioned in event edit page
-						$_other_to = evo_var_val($event_pmv, 'evors_add_emails');
+								if($author_email) $__to_email .= ','. $author_email;
+							}	
 
+						// other email addresses mentioned in event edit page
+							$other_emails = evo_var_val($event_pmv, 'evors_add_emails');
+							if(!empty($other_emails)) $_other_to = ','. $other_emails;
+					}
+				
 
-					$email_data['to'] = $__to_email.','.$_other_to;
+					$email_data['to'] = $__to_email . $_other_to;
 
 					if(!empty($args['emailtype']) && $args['emailtype']=='update'){							
 						$text = (!empty($this->optRS['evors_notfiesubjest_update']))? $this->optRS['evors_notfiesubjest_update']: 'Update RSVP Notification';
 					}else{
 						$text = (!empty($this->optRS['evors_notfiesubjest']))? $this->optRS['evors_notfiesubjest']: 'New RSVP Notification';
-					}
+					}					
 
 					$email_data['subject'] ='[#'.$args['rsvp_id'].'] '.$text;
 					$filename = 'notification_email';
-					$headers = 'From: '.$from_email. "\r\n";					
+					$headers = 'From: '.$from_email. "\r\n";				
 
 				break;
 			}

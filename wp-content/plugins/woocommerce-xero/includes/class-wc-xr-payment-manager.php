@@ -94,21 +94,19 @@ class WC_XR_Payment_Manager {
 	public function send_payment( $order_id ) {
 		do_action( 'wc_xero_send_payment', $order_id );
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
 		// Get the order.
 		$order = wc_get_order( $order_id );
 
 		// Check for an invoice first.
-		$invoice_id = $old_wc ? get_post_meta( $order_id, '_xero_invoice_id', true ) : $order->get_meta( '_xero_invoice_id', true );
+		$invoice_id = $order->get_meta( '_xero_invoice_id', true );
 
 		if ( ! $invoice_id ) {
-			$order->add_order_note( __( 'Xero Payment not created: Invoice has not been sent.', 'wc-xero' ) );
+			$order->add_order_note( __( 'Xero Payment not created: Invoice has not been sent.', 'woocommerce-xero' ) );
 			return false;
 		}
 
 		if( 0 == $order->get_total() ) {
-			$order->add_order_note( __( 'Xero Invoice amount is zero, no payment necessary.', 'wc-xero' ) );
+			$order->add_order_note( __( 'Xero Invoice amount is zero, no payment necessary.', 'woocommerce-xero' ) );
 			return false;
 		} 
 
@@ -134,12 +132,8 @@ class WC_XR_Payment_Manager {
 
 				// Add post meta.
 				$payment_id = (string) $xml_response->Payments->Payment[0]->PaymentID;
-				if ( $old_wc ) {
-					update_post_meta( $order_id, '_xero_payment_id', $payment_id );
-				} else {
-					$order->update_meta_data( '_xero_payment_id', $payment_id );
-					$order->save_meta_data();
-				}
+				$order->update_meta_data( '_xero_payment_id', $payment_id );
+				$order->save_meta_data();
 
 				// Write logger.
 				$logger->write( 'XERO RESPONSE:' . "\n" . $payment_request->get_response_body() );
@@ -147,7 +141,7 @@ class WC_XR_Payment_Manager {
 				// Add order note.
 				$order->add_order_note( sprintf(
 					/* translators: Payment ID from Xero. */
-					__( 'Xero Payment created. Payment ID: %s', 'wc-xero' ),
+					__( 'Xero Payment created. Payment ID: %s', 'woocommerce-xero' ),
 					(string) $xml_response->Payments->Payment[0]->PaymentID
 				) );
 
@@ -160,7 +154,7 @@ class WC_XR_Payment_Manager {
 				$error_num = (string) $xml_response->ErrorNumber;
 				$error_msg = (string) $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message;
 				$order->add_order_note( sprintf(
-					__( 'ERROR creating Xero payment. ErrorNumber: %1$s | Error Message: %2$s', 'wc-xero' ),
+					__( 'ERROR creating Xero payment. ErrorNumber: %1$s | Error Message: %2$s', 'woocommerce-xero' ),
 					$error_num,
 					$error_msg
 				) );
@@ -188,17 +182,15 @@ class WC_XR_Payment_Manager {
 	 * @return WC_XR_Payment
 	 */
 	public function get_payment_by_order( $order ) {
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
 		// Get the XERO invoice ID.
-		$order_id = $old_wc ? $order->id : $order->get_id();
-		$invoice_id = $old_wc ? get_post_meta( $order_id, '_xero_invoice_id', true ) : $order->get_meta( '_xero_invoice_id', true );
+		$order_id   = $order->get_id();
+		$invoice_id = $order->get_meta( '_xero_invoice_id', true );
 
 		// Get the XERO currency rate.
-		$currency_rate = $old_wc ? get_post_meta( $order_id, '_xero_currencyrate', true ) : $order->get_meta( '_xero_currencyrate', true );
+		$currency_rate = $order->get_meta( '_xero_currencyrate', true );
 
 		// Date time object of order data.
-		$order_date = $old_wc ? $order->order_date : $order->get_date_created()->date( 'Y-m-d H:i:s' );
+		$order_date = $order->get_date_created()->date( 'Y-m-d H:i:s' );
 		$date_parts = explode( ' ', $order_date );
 		$order_ymd = $date_parts[0];
 
@@ -220,7 +212,7 @@ class WC_XR_Payment_Manager {
 		$payment->set_currency_rate( $currency_rate );
 
 		// Set the amount.
-		$order_total = $old_wc ? $order->order_total : $order->get_total();
+		$order_total = $order->get_total();
 		$payment->set_amount( $order_total );
 
 		return $payment;
@@ -239,7 +231,7 @@ class WC_XR_Payment_Manager {
 	 * @return string Date.
 	 */
 	public function cod_payment_set_payment_date_as_current_date( $order_date, $order ) {
-		$payment_method = version_compare( WC_VERSION, '3.0', '<' ) ? $order->payment_method : $order->get_payment_method();
+		$payment_method = $order->get_payment_method();
 		if ( 'cod' !== $payment_method ) {
 			return $order_date;
 		}

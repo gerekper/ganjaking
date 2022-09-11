@@ -1,5 +1,12 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-08-08 - version 1.1.39
+* Fixed - Deprecation notice.
+* Fixed: Add better validation for required ticket fields.
+* Fixed: Ensure that auto-fill works as expected for guest users.
+* Fixed: Ensure when a checkbox field is required the validation doesn't require all options to be checked.
+* Tweak - WC 6.7.0 compatibility.
+
 2022-07-06 - version 1.1.38
 * Fix - Critical error when viewing a ticket associated with a permanently deleted product.
 * Fix - Ensure all text is translated properly in the Private Link email.

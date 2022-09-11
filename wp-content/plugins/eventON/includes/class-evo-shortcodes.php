@@ -3,7 +3,7 @@
  * EVO_Shortcodes class.
  *
  * @class 		EVO_Shortcodes
- * @version		2.4
+ * @version		4.1
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -22,6 +22,7 @@ class EVO_Shortcodes {
 		add_shortcode('add_single_eventon', array($this,'single_event_box'));	
 		add_shortcode('add_eventon_now', array($this,'eventon_now'));	
 		add_shortcode('add_eventon_sv', array($this,'schedule_view'));	
+		add_shortcode('eventon_anywhere', array($this,'eventon_anywhere_event'));	
 		add_shortcode('test_eventon_shortcode', array($this,'test_shortcode'));	
 	}	
 	
@@ -91,7 +92,10 @@ class EVO_Shortcodes {
 			for($x=1; $x<=4; $x++){
 				if(empty($args['tab'.$x]) || empty($args['tab'.$x.'shortcode'])) continue;
 
-				echo "<p class='evo_tab ". ($x==1? 'selected':'')."' data-tab='tab_".'tab'.$x."'>".$args['tab'.$x]."</p>";
+				// if the shortcode contain map
+				$map_class = $args['tab'.$x.'shortcode'] =='add_eventon_evmap' ? ' map':'';
+
+				echo "<p class='evo_tab ". ($x==1? 'selected':''). $map_class. "' data-tab='tab_".'tab'.$x."'>".$args['tab'.$x]."</p>";
 			}
 			echo "</span></div>";
 
@@ -99,7 +103,7 @@ class EVO_Shortcodes {
 			for($x=1; $x<=4; $x++){
 				if(empty($args['tab'.$x]) || empty($args['tab'.$x.'shortcode'])) continue;
 
-				echo "<div class='evo_tab_section ". ($x==1?'visible':'') ." tab_".'tab'.$x."'>";
+				echo "<div class='evo_tab_section ". ($x==1?'visible':'hidden') ." tab_".'tab'.$x."'>";
 				$shortcode = '['. $args['tab'.$x.'shortcode'] . ']';
 				
 				echo do_shortcode($shortcode);
@@ -108,7 +112,6 @@ class EVO_Shortcodes {
 			echo "</div>";
 			return ob_get_clean();
 		}
-
 	
 
 	// single events
@@ -222,5 +225,49 @@ class EVO_Shortcodes {
 				'repeat_interval'=>0,
 				'ext_url'=>''
 			));			
+		}
+
+	// load single event anywhere from a shortcode
+		public function shortcode_defaults_eventon_anywhere($arr){
+			return array_merge($arr, array(
+				'id'=>0,
+				'cta_text'=>'Click here',
+				'ev_uxval'=>4,
+				'repeat_interval'=>0,
+			));
+		}
+		public function eventon_anywhere_event($atts){
+			EVO()->frontend->load_evo_scripts_styles();		
+			
+			add_filter('eventon_shortcode_defaults', array($this,'shortcode_defaults_eventon_anywhere'), 10, 1);
+			
+			EVO()->calendar->process_arguments( $atts);	
+			$args = EVO()->calendar->shortcode_args;
+			extract($args);
+
+			// intial checks
+				if(empty($args['id'])) return false; // when the id value was not passed
+								
+			$EVENT = new EVO_Event($id, '', $repeat_interval);
+
+			// open event as single event page
+				if( $ev_uxval == 4){
+					ob_start();
+
+					echo "<a href='".$EVENT->get_permalink() ."' class='eventon_anywhere event_{$id}_{$repeat_interval}'>{$cta_text}</a> ";
+
+					return ob_get_clean();
+				}
+
+			// open as ajax lightbox
+				if( $ev_uxval == 3){
+					ob_start();
+
+					echo "<a data-sc='". json_encode( $args ) ."' href='".$EVENT->get_permalink() ."' class='eventon_anywhere evoajax event_{$id}_{$repeat_interval}'>{$cta_text}</a> ";
+
+					return ob_get_clean();
+				}
+
+					
 		}
 }

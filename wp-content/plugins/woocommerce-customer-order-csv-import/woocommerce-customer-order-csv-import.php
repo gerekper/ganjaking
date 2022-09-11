@@ -6,11 +6,11 @@
  * Description: Import customers, coupons and orders straight from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.10.2
+ * Version: 3.10.4
  * Text Domain: woocommerce-csv-import-suite
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,28 +18,15 @@
  * @package   WC-CSV-Import-Suite
  * @author    SkyVerge
  * @category  Importer
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2012-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18709:eb00ca8317a0f64dbe185c995e5ea3df
- * WC requires at least: 3.5
- * WC tested up to: 5.1.0
+ * WC requires at least: 3.9.4
+ * WC tested up to: 6.8.2
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), 'eb00ca8317a0f64dbe185c995e5ea3df', '18709' );
-
-// WC active check/is admin
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * WooCommerce Customer/Order/Coupon CSV Import Suite loader.
@@ -56,10 +43,10 @@ class WC_CSV_Import_Suite_Loader {
 	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.6';
+	const FRAMEWORK_VERSION = '5.10.13';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Customer/Order/Coupon CSV Import Suite';

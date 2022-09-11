@@ -26,27 +26,27 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 pb20">
+        <div class="grid grid_default grid_3">
+            <div class="grid__col pb20">
                 <strong><?php esc_html_e('Phrase', 'ali2woo');?></strong>
             </div>
-            <div class="col-md-8 pb20">
+            <div class="grid__col pb20">
                 <strong><?php esc_html_e('Replacement', 'ali2woo');?></strong>
             </div>
         </div>
         <?php foreach ($phrases as $ind => $phrase): ?>
-            <div class="row">
-                <div class="col-md-4">
+            <div class="grid grid_default grid_3 row">
+                <div class="grid__col">
                     <div class="form-group input-block no-margin">
                         <input type="text" value="<?php echo $phrase->phrase; ?>" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo');?>" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="grid__col">
                     <div class="form-group input-block no-margin">
                         <input type="text" value="<?php echo $phrase->phrase_replace; ?>" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="grid__col">
                     <button class="btn btn--transparent delete">
                         <svg class="icon-cross">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use>
@@ -55,18 +55,18 @@
                 </div>
             </div>
         <?php endforeach;?>
-        <div class="row">
-            <div class="col-md-4">
+        <div class="grid grid_default grid_3 row">
+            <div class="grid__col">
                 <div class="form-group input-block no-margin">
                     <input type="text" class="form-control small-input a2w_phrase" placeholder="<?php esc_html_e('some phrase or word', 'ali2woo');?>" />
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="grid__col">
                 <div class="form-group input-block no-margin">
                     <input type="text" class="form-control small-input a2w_phrase_replace" placeholder="<?php esc_html_e('sreplacement or empty', 'ali2woo');?>" />
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="grid__col">
                 <button class="btn btn--transparent delete" style="display:none;">
                     <svg class="icon-cross">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use>

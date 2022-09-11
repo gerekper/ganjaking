@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 
 /*
  * Plugin Name: MailPoet 3 (New)
- * Version: 3.93.1
+ * Version: 3.96.1
  * Plugin URI: http://www.mailpoet.com
  * Description: Create and send newsletters, post notifications and welcome emails from your WordPress.
  * Author: MailPoet
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPlugin = [
-  'version' => '3.93.1',
+  'version' => '3.96.1',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
@@ -85,7 +85,7 @@ function mailpoet_php_version_notice() {
   );
   $noticeP2 = str_replace('[/link]', '</a>', $noticeP2);
 
-  $noticeP3 = __('If you can’t upgrade the PHP version, [link]install this version[/link] of MailPoet. Remember to not update MailPoet ever again!', 'mailpoet');
+  $noticeP3 = __('If you canâ€™t upgrade the PHP version, [link]install this version[/link] of MailPoet. Remember to not update MailPoet ever again!', 'mailpoet');
   $noticeP3 = str_replace(
     '[link]',
     '<a href="https://downloads.wordpress.org/plugin/mailpoet.3.74.3.zip" target="_blank">',

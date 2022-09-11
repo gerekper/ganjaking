@@ -218,7 +218,14 @@ class EVO_post_types{
 					'menu_position' 		=> 15, 
 					'has_archive' 			=> true,
 					'taxonomies'			=> array('post_tag'),
-					'exclude_from_search'	=> apply_filters('evo_cpt_search_visibility',true)
+					'exclude_from_search'	=> apply_filters('evo_cpt_search_visibility',true),
+					'template'				=>array(
+						array(
+							'core/pattern', array(
+								'slug' => 'ajde_events/blocks'
+							)
+						)
+					)
 				)
 			)
 		);

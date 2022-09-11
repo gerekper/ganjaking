@@ -3,6 +3,11 @@
  * @version 0.3
  */
 
+ :root{
+ 	--evo-border-color: #e0e0e0;
+ 	--evo-font-1:'Open sans';
+ }
+
 /* hide location and organizer tag boxes */
 	#tagsdiv-event_location, #tagsdiv-event_organizer{display: none;}
 
@@ -116,7 +121,7 @@
 		font-style:italic; color:#b4b0b0; display: flex;
 		background-color: transparent;padding: 0px;
 	}
-	#evcal_dates, .evcal_row_dark{
+	.evcal_row_dark{
 		background-color:#f9f9f9;
 		padding:20px;
 		position:relative;
@@ -237,7 +242,8 @@
 		background: #efefef;
 		margin:15px -25px -15px;
 	}	
-	.evo_editevent_repeat_field, .evo_elm_row.evo_editevent_repeat_field{display: flex;align-items: center;flex-wrap: wrap;padding-bottom: 10px;}
+	.evo_editevent_repeat_field, .evo_elm_row.evo_editevent_repeat_field{
+		gap:10px;display: flex;align-items: center;flex-wrap: wrap;padding-bottom: 10px;}
 	.evo_elm_row.evo_editevent_repeat_field .evo_field_plusminus_container{    margin: 0; padding: 5px;}
 
 	/* weekly */
@@ -343,6 +349,12 @@
 		padding: 5px 25px;
 		border-bottom: 1px solid #e8e8e8;
 	}
+	.postbox .eventon_mb	.eventon_settings_table .innersection td{
+		background-color: #e8e8e8;
+		padding: 20px;    	
+    	border-top: 1px solid #d6d6d6; border-left: none;
+    	border-color: #d6d6d6;
+	} 
 	.eventon_settings_table .yesno_leg_line{padding-top: 5px;padding-bottom: 8px;}
 	.eventon_settings_table input{width: 100%;}
 
@@ -547,13 +559,12 @@
 /* ui v3 */
 	.fcw{color:#fff}
 	#evo_mb, .eventon_mb{
-		background-color: #e2e2e2;
-	    padding: 5px;
-	    border-radius: 10px;
+		background-color: #fff;
+		border: 1px solid var(--evo-border-color);
 	}	
-	.evomb_header:hover p{color:#000;}
-	.evomb_header:hover:after{
-		content: "\f142";
+	.evomb_header:hover{background-color: #f0f0f0}
+	.evomb_header:after{
+		content: "\f343";
 		height: 20px;
 		width: 14px;
 		display: block;
@@ -561,12 +572,12 @@
 		position: absolute;
 		right: 15px;
 		top: 13px;
-		font: 400 20px/1 dashicons;
+		font: 400 16px/1 dashicons;
 		-webkit-font-smoothing: antialiased;
   		-moz-osx-font-smoothing: grayscale;
   		text-decoration: none!important;
 	}
-	.evomb_header.closed:hover:after{content: "\f140";}
+	.evomb_header.closed:after{content: "\f347";}
 	.evomb_header:hover .evomb_icon{opacity:1}
 	.evomb_header{
 		padding:10px;
@@ -574,16 +585,18 @@
 		height:25px;
 		cursor:pointer;
 		box-sizing:content-box;
+		border-bottom: 1px solid var(--evo-border-color);
+		background-color: #fafafa;
 	}
 	.evomb_icon{display:block;position:absolute; margin-top: 2px;background-repeat:no-repeat;}
 	.evomb_icon.evII{background-position:top center;}
 	.evomb_icon.evII i{color: #8C8C8C;font-size: 18px;}
 	.evomb_header p{
-		padding-left:40px;
+		padding-left:40px; font-weight: 700;
 		margin:0;
 		padding-top:3px;
 		color:#4e4d4d;
-		font:13px 'open sans'
+		font:13px var(--evo-font-1)
 	}
 	.evomb_header span.visibility_type{
 		float: right;
@@ -592,8 +605,8 @@
 		font-style: italic;
 	}
 	.evomb_body{
-		background-color:#f9f9f9;
-		color:#808080; border-radius: 10px;
+		border-bottom: 1px solid var(--evo-border-color);
+		color:#808080; 
 		padding:15px 25px;
 		font:13px 'open sans';
 	}
@@ -602,12 +615,11 @@
 	#evo_mb .evomb_body p.yesno_row.single_main_yesno_field label{margin-bottom: 0}
 	.evomb_body p{	margin:0; padding-bottom:5px;	}
 	#evo_mb input, #evo_mb textarea{
-		border-radius: 4px;
 		padding:3px 6px 4px;
 		margin-bottom: 5px;
-		background-color: #fff; width:100%;
+		width:100%;
 	}
-	.evomb_body p.evo_notice{
+	.evomb_body p.evo_notice, .ajde_popup_text .evo_notice{
 		background-color: #ff7837;
 	    color: #fff;
 	    padding: 3px 15px;
@@ -620,10 +632,6 @@
 	.evomb_body textarea,
 	select.evo_select_field, 
 	.evo_metafield_image input[type=button]{
-		-webkit-box-shadow: 0px 0 2px #b7b7b7;
-		box-shadow:0px 0 2px #b7b7b7;
-		border:none;
-		border-radius: 4px;
 		line-height: 130%
 	}	
 	#evo_mb label{margin-bottom: 10px;display: block;cursor: default;color: #5a5a5a;}
@@ -631,7 +639,6 @@
 
 /* event status */
 	.event_status_settings textarea{width: 100%;}	
-	.event_status_settings .values._status{background-color: #e8e8e8}
 
 /*-- third party meta fields */
 	.evoThirdparty_meta .evcal_db_data{padding-left:75px;}	

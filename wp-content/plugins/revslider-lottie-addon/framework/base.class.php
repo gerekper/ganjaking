@@ -192,6 +192,7 @@ class RsAddOnLottieBase {
 
 				'renderer' => __('Renderer Settings', $_textdomain),
 				'type' => __('Renderer', $_textdomain),
+				'maxdpr' => __('Max DPR', $_textdomain),
 				'size' => __('Lottie Size', $_textdomain),
 				'progressiveLoad' => __('Progressive Load', $_textdomain),
 				'hideTransparent' => __('Hide on transparent', $_textdomain),	
@@ -678,6 +679,28 @@ class RsAddOnLottieBase {
 						'menu' => "#module_layers_trigger, #gst_layer_revslider-lottie-addon", 
 						'scrollTo' => '#form_layerinner_revslider-lottie-addon', 
 						'focus' => "*[data-r='addOns.revslider-lottie-addon.renderer.type']"
+						
+					)
+					
+				),
+
+				'renderer_maxdpr' => array(
+					
+					'buttonTitle' => __('Lottie Max DPR', 'revslider-lottie-addon'), 
+					'title' => __('Max DPR', 'revslider-lottie-addon'),
+					'helpPath' => 'addOns.revslider-lottie-addon.renderer.maxdpr', 
+					'keywords' => array('addon', 'addons', 'lottie', 'lottie addon', 'lottie dpr', 'lottie max dpr'), 
+					'description' => __("Sets maximum device pixel ratio setting for canvas renderer. Set value to low number to improve performance on high DPI devices by reducing quality.", 'revslider-lottie-addon'), 
+					'helpStyle' => 'normal', 
+					'article' => 'http://docs.themepunch.com/slider-revolution/lottie-addon/', 
+					'video' => false,
+					'section' => 'Layer Settings -> Lottie',
+					'highlight' => array(
+						
+						'dependencies' => array('layerselected::shape{{lottie}}'), 
+						'menu' => "#module_layers_trigger, #gst_layer_revslider-lottie-addon", 
+						'scrollTo' => '#form_layerinner_revslider-lottie-addon', 
+						'focus' => "*[data-r='addOns.revslider-lottie-addon.renderer.maxdpr']"
 						
 					)
 					

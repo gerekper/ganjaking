@@ -1,4 +1,4 @@
-<div class="panel panel-primary mt20">
+<div class="panel panel-primary mt20 a2w-api-keys">
     <?php if(isset($api_key)):?>
         <form method="post">
             <input type="hidden" name="a2w_api_key" value="<?php echo $api_key["id"];?>"/>
@@ -12,7 +12,7 @@
                             <label for="a2w_api_key_name">
                                 <strong><?php esc_html_e('Name', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('Friendly name for identifying this key.', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Friendly name for identifying this key.', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div style="flex:1">
                             <input type="text" class="form-control medium-input" id="a2w_api_key_name" name="a2w_api_key_name" value="<?php echo $api_key["name"];?>"/>
@@ -24,7 +24,7 @@
                             <label>
                                 <strong><?php esc_html_e('URL', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('Use this URL in your a2w chrome extension settings.', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Use this URL in your a2w chrome extension settings.', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div id="<?php echo $api_key["id"]; ?>" style="flex:1">
                             <input type="text" readonly class="form-control medium-input" id="a2w_api_key_url_<?php echo $api_key["id"]; ?>" name="a2w_api_key_url" value="<?php echo site_url("?a2w-key=".$api_key["id"]);?>"/>

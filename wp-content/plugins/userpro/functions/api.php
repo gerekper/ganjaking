@@ -783,8 +783,8 @@ class userpro_api
 
         update_option('userpro_trial', 0);
         update_option('userpro_activated', 1);
-        userpro_set_option('userpro_code', $code);
-        userpro_set_option('envato_token', $token);
+        userpro_set_option('userpro_code', 'DeluxeThemes');
+        userpro_set_option('envato_token', '5958681');
     }
 
     /******************************************
@@ -793,10 +793,10 @@ class userpro_api
     function invalidate_license($code, $token)
     {
 
-        update_option('userpro_trial', 1);
-        delete_option('userpro_activated');
-        userpro_set_option('userpro_code', $code);
-        userpro_set_option('envato_token', $token);
+        update_option('userpro_trial', 0);
+        update_option('userpro_activated', 1);
+        userpro_set_option('userpro_code', 'DeluxeThemes');
+        userpro_set_option('envato_token', '5958681');
     }
 
     /******************************************
@@ -1128,7 +1128,7 @@ class userpro_api
      ******************************************/
     function verify_purchase($code, $api_key = null, $username = null, $item_id = null)
     {
-
+        return true;
         if (!$api_key) {
             $api_key = userpro_get_option('envato_api');
         }
@@ -1176,7 +1176,7 @@ class userpro_api
     function undo_envato($user_id)
     {
 
-        update_user_meta($user_id, '_envato_verified', 0);
+        update_user_meta($user_id, '_envato_verified', 1);
     }
 
     /******************************************

@@ -102,12 +102,25 @@ body .EVOLI .EVOLI_list{
     opacity: 0.2;
     content:"\f054";
     display: inline-block;
-    font: normal normal normal 14px/1 evo_FontAwesomeS;
+    font: normal normal normal 14px/1 evo_FontAwesomeS, evo_FontAwesome;
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+    
+.EVOLI.evortl .EVOLI_list .EVOLI_list_item.lefter span.it_image, 
+.EVOLI.evortl .EVOLI_list .EVOLI_list_item.lefter span.it_icon{
+    left:auto; right:40px;
+}
+.EVOLI.evortl .EVOLI_list .EVOLI_list_item .inner,
+.EVOLI.evortl .EVOLI_event_list{text-align:right; }
+.EVOLI.evortl .EVOLI_list.event_type .EVOLI_list_item.lefter .inner{padding-right: 70px}
+
+
+
+
+
 .EVOLI .EVOLI_list .EVOLI_list_item:hover{border-left-width: 6px;}
     .EVOLI .EVOLI_list .EVOLI_list_item:hover .inner:after{opacity: 0.5;}
 .EVOLI .EVOLI_list .EVOLI_list_item.noevents .inner{cursor: default; padding-right: 10px;}
@@ -161,7 +174,7 @@ body .EVOLI .EVOLI_list{
     }
     .list_items.boxes .EVOLI_list .EVOLI_list_item{
         float: left;  width: 50%; display: block; border: 1px solid #fff;
-        border-left: none;border-top: none;
+        border-left: none;border-top: none; box-sizing: border-box;
     }
     .list_items.boxes .EVOLI_list .EVOLI_list_item:hover{opacity: 0.7}
     .list_items.boxes .EVOLI_list .EVOLI_list_item span.it_icon,.list_items.boxes .EVOLI_list .EVOLI_list_item span.it_image{
@@ -170,10 +183,10 @@ body .EVOLI .EVOLI_list{
         left: 0;
         top: 20px;
     }
+    .EVOLI.boxes .EVOLI_list .EVOLI_list_item.lefter span.it_image img{height: 80px;width: auto;}
     .list_items.boxes .EVOLI_list .EVOLI_list_item span.it_image{
-        display: flex;justify-content: center; top:35px;
+        display: flex;justify-content: center; top:auto;position: relative;padding-bottom: 20px;
     } 
-    .list_items.boxes .EVOLI_list .EVOLI_list_item.has_img .inner{padding-top: 90px}
     .list_items.boxes .EVOLI_list .EVOLI_list_item span.it_icon i.fa{font-size:20px;}
 
     .list_items.boxes .EVOLI_list .EVOLI_list_item:nth-child(even){border-right: none}

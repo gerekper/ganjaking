@@ -242,12 +242,13 @@ class IcalParser {
 		$key = false;
 		$middle = null;
 		$value = null;
+		$timezone = null;
 
 		if ($matches) {
 			$key = $matches[1];
 			$middle = $matches[2];
 			$value = $matches[3];
-			$timezone = null;
+			
 
 			if ($key === 'X-WR-TIMEZONE' || $key === 'TZID') {
 				if (preg_match('#(\w+/\w+)$#i', $value, $matches)) {
@@ -255,6 +256,7 @@ class IcalParser {
 				}
 				$value = $this->toTimezone($value);
 				$this->timezone = new DateTimeZone($value);
+
 			}
 
 			// have some middle part ?
@@ -278,18 +280,26 @@ class IcalParser {
 			}
 		}
 
+		$datetime_timezone = $timezone ?: $this->timezone;
+
 		// process simple dates with timezone
 		if (in_array($key, ['DTSTAMP', 'LAST-MODIFIED', 'CREATED', 'DTSTART', 'DTEND'], true)) {
 			try {
-				$value = new DateTime($value, ($timezone ?: $this->timezone));
+				$value = new DateTime($value, $datetime_timezone);
 			} catch (Exception $e) {
 				$value = null;
 			}
+
+			// modify timezone with ics timezone
+			if( !empty( $this->timezone))
+				$value->setTimezone( $this->timezone );
+
+
 		} elseif (in_array($key, ['EXDATE', 'RDATE'])) {
 			$values = [];
 			foreach (explode(',', $value) as $singleValue) {
 				try {
-					$values[] = new DateTime($singleValue, ($timezone ?: $this->timezone));
+					$values[] = new DateTime($singleValue, $datetime_timezone);
 				} catch (Exception $e) {
 					// pass
 				}
@@ -307,7 +317,7 @@ class IcalParser {
 			foreach ($matches as $match) {
 				if (in_array($match['key'], ['UNTIL'])) {
 					try {
-						$value[$match['key']] = new DateTime($match['value'], ($timezone ?: $this->timezone));
+						$value[$match['key']] = new DateTime($match['value'], $datetime_timezone);
 					} catch (Exception $e) {
 						$value[$match['key']] = $match['value'];
 					}

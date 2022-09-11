@@ -1,5 +1,17 @@
 *** WooCommerce Chase Paymentech Gateway Changelog ***
 
+2022.08.15 - version 1.16.3
+ * Fix - Ensure that Auth/Capture orders placed while Certification Mode is enabled aren't placed on hold
+ * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or greater
+
+2021.11.18 - version 1.16.2
+ * Fix - Ensure WooCommerce Subscriptions or Pre-Orders are active before calling their methods while forcing tokenization
+ * Misc - Remove legacy woo-includes folder
+
+2021.03.18 - version 1.16.1
+ * Fix - Force tokenization when paying for an order containing a subscription or pre-order
+
 2020.12.16 - version 1.16.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

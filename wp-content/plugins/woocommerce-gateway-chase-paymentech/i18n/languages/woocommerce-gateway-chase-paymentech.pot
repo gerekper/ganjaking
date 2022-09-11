@@ -1,15 +1,15 @@
-# Copyright (C) 2020 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Chase Paymentech Gateway 1.16.0\n"
+"Project-Id-Version: WooCommerce Chase Paymentech Gateway 1.16.3\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-12-16 08:07:50+00:00\n"
+"POT-Creation-Date: 2022-08-15 08:24:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -30,301 +30,301 @@ msgstr ""
 msgid "WooCommerce Chase Paymentech Gateway"
 msgstr ""
 
-#: includes/Capture.php:54
+#: src/Capture.php:54
 msgid "Orbital Certification Capture Charge Test Results:"
 msgstr ""
 
-#: includes/Capture.php:60 includes/class-wc-gateway-chase-paymentech.php:1424
+#: src/Capture.php:60 src/class-wc-gateway-chase-paymentech.php:1433
 msgid "Customer Profile ID"
 msgstr ""
 
-#: includes/Capture.php:65
-#: includes/class-wc-chase-paymentech-certification-handler.php:247
+#: src/Capture.php:65
+#: src/class-wc-chase-paymentech-certification-handler.php:248
 msgid "Auth Code"
 msgstr ""
 
-#: includes/Capture.php:70
-#: includes/class-wc-chase-paymentech-certification-handler.php:255
+#: src/Capture.php:70
+#: src/class-wc-chase-paymentech-certification-handler.php:256
 msgid "TxRefNum"
 msgstr ""
 
-#: includes/api/class-wc-orbital-gateway-api-new-order-response.php:59
+#: src/api/class-wc-orbital-gateway-api-new-order-response.php:59
 #. translators: Placeholders: %1$s - profile status code, %2$s - profile status
 #. message
 msgid "Profile Management Status: %1$s - %2$s"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:98
+#: src/class-wc-chase-paymentech-certification-handler.php:98
 msgid "Orbital Certification Mode"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:100
+#: src/class-wc-chase-paymentech-certification-handler.php:100
 msgid "Please fill in the test case details below:"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:114
+#: src/class-wc-chase-paymentech-certification-handler.php:114
 msgid "Transaction Type"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:116
+#: src/class-wc-chase-paymentech-certification-handler.php:116
 msgid "Auth Only"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:117
+#: src/class-wc-chase-paymentech-certification-handler.php:117
 msgid "Auth/Capture"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:122
+#: src/class-wc-chase-paymentech-certification-handler.php:122
 msgid "Test Amount"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:127
+#: src/class-wc-chase-paymentech-certification-handler.php:127
 msgid "Test Label"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:221
+#: src/class-wc-chase-paymentech-certification-handler.php:222
 msgid "N/A"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:226
-#: includes/class-wc-chase-paymentech-certification-handler.php:394
+#: src/class-wc-chase-paymentech-certification-handler.php:227
+#: src/class-wc-chase-paymentech-certification-handler.php:395
 msgid "Test Case"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:227
+#: src/class-wc-chase-paymentech-certification-handler.php:228
 msgid "Date &amp; Time"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:232
+#: src/class-wc-chase-paymentech-certification-handler.php:233
 msgid "Customer Profile ID / Ref Number"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:237
+#: src/class-wc-chase-paymentech-certification-handler.php:238
 msgid "Decline Code"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:242
+#: src/class-wc-chase-paymentech-certification-handler.php:243
 msgid "Decline Message"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:251
+#: src/class-wc-chase-paymentech-certification-handler.php:252
 msgid "Order ID"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:260
+#: src/class-wc-chase-paymentech-certification-handler.php:261
 msgid ""
 "Please copy the relevant test results below into your Orbital Test Cases "
 "document:"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:271
+#: src/class-wc-chase-paymentech-certification-handler.php:272
 msgid "Next Test"
 msgstr ""
 
-#: includes/class-wc-chase-paymentech-certification-handler.php:330
+#: src/class-wc-chase-paymentech-certification-handler.php:331
 msgid "Customer Ref #"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:120
+#: src/class-wc-gateway-chase-paymentech.php:120
 msgid "Chase Paymentech"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:121
+#: src/class-wc-gateway-chase-paymentech.php:121
 msgid ""
 "Allow customers to securely pay using their credit cards with Chase "
 "Paymentech."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:137
+#: src/class-wc-gateway-chase-paymentech.php:137
 msgid "Production"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:137
+#: src/class-wc-gateway-chase-paymentech.php:137
 msgid "Test"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:221
-#: includes/class-wc-gateway-chase-paymentech.php:228
+#: src/class-wc-gateway-chase-paymentech.php:221
+#: src/class-wc-gateway-chase-paymentech.php:228
 msgid "Secure Account ID"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:224
+#: src/class-wc-gateway-chase-paymentech.php:224
 msgid "Your Orbital Gateway production Hosted Payment account ID, provided by Chase"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:231
+#: src/class-wc-gateway-chase-paymentech.php:231
 msgid "Your Orbital Gateway test Hosted Payment account ID, provided by Chase"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:235
-#: includes/class-wc-gateway-chase-paymentech.php:242
+#: src/class-wc-gateway-chase-paymentech.php:235
+#: src/class-wc-gateway-chase-paymentech.php:242
 msgid "Secure API Token"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:238
+#: src/class-wc-gateway-chase-paymentech.php:238
 msgid ""
 "Your Hosted Secure API Token, provided by Chase. Set this only if your "
 "merchant account is configured to use Order Abstraction."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:245
+#: src/class-wc-gateway-chase-paymentech.php:245
 msgid ""
 "Your optional Hosted Secure API Token, provided by Chase. Set this only if "
 "Chase requires you to use Order Abstraction."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:249
-#: includes/class-wc-gateway-chase-paymentech.php:256
+#: src/class-wc-gateway-chase-paymentech.php:249
+#: src/class-wc-gateway-chase-paymentech.php:256
 msgid "User Name"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:252
+#: src/class-wc-gateway-chase-paymentech.php:252
 msgid ""
 "Optional Orbital Connection production username set up on Orbital Gateway.  "
 "Required only for admin capturing authorized charges, or tokenization "
 "transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:259
+#: src/class-wc-gateway-chase-paymentech.php:259
 msgid ""
 "Optional Orbital Connection test username set up on Orbital Gateway.  "
 "Required only for admin capturing authorized charges, or tokenization "
 "transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:263
-#: includes/class-wc-gateway-chase-paymentech.php:270
+#: src/class-wc-gateway-chase-paymentech.php:263
+#: src/class-wc-gateway-chase-paymentech.php:270
 msgid "Password"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:266
+#: src/class-wc-gateway-chase-paymentech.php:266
 msgid ""
 "Optional Orbital Connection production password used in conjunction with "
 "Orbital Username.  Required only for admin capturing authorized charges, or "
 "tokenization transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:273
+#: src/class-wc-gateway-chase-paymentech.php:273
 msgid ""
 "Optional Orbital Connection test password used in conjunction with Orbital "
 "Username.  Required only for admin capturing authorized charges, or "
 "tokenization transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:277
-#: includes/class-wc-gateway-chase-paymentech.php:284
+#: src/class-wc-gateway-chase-paymentech.php:277
+#: src/class-wc-gateway-chase-paymentech.php:284
 msgid "Merchant ID"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:280
+#: src/class-wc-gateway-chase-paymentech.php:280
 msgid ""
 "Optional 12-digit gateway merchant production account number assigned by "
 "Chase Paymentech.  Required only for admin capturing authorized charges, or "
 "tokenization transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:287
+#: src/class-wc-gateway-chase-paymentech.php:287
 msgid ""
 "Optional 12-digit gateway merchant test account number assigned by Chase "
 "Paymentech.  Required only for admin capturing authorized charges, or "
 "tokenization transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:291
-#: includes/class-wc-gateway-chase-paymentech.php:298
+#: src/class-wc-gateway-chase-paymentech.php:291
+#: src/class-wc-gateway-chase-paymentech.php:298
 msgid "Terminal ID"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:294
-#: includes/class-wc-gateway-chase-paymentech.php:301
+#: src/class-wc-gateway-chase-paymentech.php:294
+#: src/class-wc-gateway-chase-paymentech.php:301
 msgid ""
 "Optional 3-digit merchant terminal ID assigned by Chase Paymentech: between "
 "001 and 999; typically 001.  Required only for admin capturing authorized "
 "charges, or tokenization transactions"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:309
+#: src/class-wc-gateway-chase-paymentech.php:309
 msgid "Pay Form Style URL"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:311
+#: src/class-wc-gateway-chase-paymentech.php:311
 msgid ""
 "Optional URL to a CSS stylesheet to be used to style the pay form.  URL "
 "must be on this server, over https."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:315
+#: src/class-wc-gateway-chase-paymentech.php:315
 msgid "Certification Mode"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:316
+#: src/class-wc-gateway-chase-paymentech.php:316
 msgid "Enable built-in tools to assist with Chase's Orbital Certification process"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:317
+#: src/class-wc-gateway-chase-paymentech.php:317
 msgid ""
 "Only enable while working through the Orbital Certification Test Cases. "
 "%1$sLearn more &raquo;%2$s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:360
+#: src/class-wc-gateway-chase-paymentech.php:360
 msgid "Require Card Verification"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:361
+#: src/class-wc-gateway-chase-paymentech.php:361
 msgid "Require the Card Security Code (CV2)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:422
+#: src/class-wc-gateway-chase-paymentech.php:422
 msgid "Card number is missing or invalid"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:423
+#: src/class-wc-gateway-chase-paymentech.php:423
 msgid "Card security code does not match card"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:424
+#: src/class-wc-gateway-chase-paymentech.php:424
 msgid ""
 "An error occurred with your payment, please try again or try another "
 "payment method"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:426
+#: src/class-wc-gateway-chase-paymentech.php:426
 #. translators: Placeholders: %1$s - <strong>, %2$s - </strong>
 msgid ""
 "The %1$sCard Security Code%2$s (also known as \"CVC\" or \"CVV\") is the "
 "last 3 digits on the back of your credit card.  (Amex: 4 digits on front)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:656
+#: src/class-wc-gateway-chase-paymentech.php:660
 msgid "%1$sTest Amount%2$s is a required field."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:767
+#: src/class-wc-gateway-chase-paymentech.php:771
 msgid "Oops, something went wrong. Please use a different payment method."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:974
+#: src/class-wc-gateway-chase-paymentech.php:978
 msgid "IPN: Response missing or empty!"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:996
+#: src/class-wc-gateway-chase-paymentech.php:1000
 msgid "IPN: Order id missing or empty!"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1003
+#: src/class-wc-gateway-chase-paymentech.php:1007
 msgid "IPN: Order %s not found!"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1009
+#: src/class-wc-gateway-chase-paymentech.php:1013
 msgid "IPN: Returned session ID does not match session ID saved to Order"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1015
+#: src/class-wc-gateway-chase-paymentech.php:1019
 msgid "Order %s is already paid for."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1039
+#: src/class-wc-gateway-chase-paymentech.php:1043
 #. translators: Placeholders: %1$s - payment method title, %2$s - type of
 #. transaction, either an authorization or charge, %3$s - card type name, %4$s
 #. - last 4 digits of card, %5$s - card expiration date MM/YY, %6$s -
@@ -332,51 +332,51 @@ msgstr ""
 msgid "%1$s %2$s Approved: %3$s ending in %4$s (expires %5$s) (Transaction ID %6$s)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1053
+#: src/class-wc-gateway-chase-paymentech.php:1057
 #. translators: Placeholders: %1$s - payment method title, %2$s - card type
 #. name, %3$s - last 4 digits of card, %4$s - card expiration date MM/YY
 msgid "%1$s Payment Method Tokenized: %2$s ending in %3$s (expires %4$s)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1065
+#: src/class-wc-gateway-chase-paymentech.php:1069
 #. translators: Placeholders: %1$s - error message, %2$s - status code
 msgid "Profile management error: %1$s (%2$s)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1098
-#: includes/class-wc-gateway-chase-paymentech.php:1153
+#: src/class-wc-gateway-chase-paymentech.php:1102
+#: src/class-wc-gateway-chase-paymentech.php:1157
 msgid "Status Code: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1125
+#: src/class-wc-gateway-chase-paymentech.php:1129
 msgid "IPN user session not found"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1137
+#: src/class-wc-gateway-chase-paymentech.php:1141
 msgid "Nice! New payment method added: %1$s ending in %2$s (expires %3$s)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1163
+#: src/class-wc-gateway-chase-paymentech.php:1167
 msgid "Add Payment Method failure. %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1165
+#: src/class-wc-gateway-chase-paymentech.php:1169
 msgid "Payment method could not be added."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1286
+#: src/class-wc-gateway-chase-paymentech.php:1295
 msgid "Error Codes: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1290
+#: src/class-wc-gateway-chase-paymentech.php:1299
 msgid "Gateway Code: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1295
+#: src/class-wc-gateway-chase-paymentech.php:1304
 msgid "Gateway Message: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1364
+#: src/class-wc-gateway-chase-paymentech.php:1373
 msgid ""
 "Request Time (s): %s\n"
 "Request Method: %s\n"
@@ -386,32 +386,32 @@ msgid ""
 "Request Body: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1376
+#: src/class-wc-gateway-chase-paymentech.php:1385
 msgid ""
 "Response Code: %s\n"
 "Response Body: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1390
+#: src/class-wc-gateway-chase-paymentech.php:1399
 msgid ""
 "Request URI: %s\n"
 "Request Params: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1402
+#: src/class-wc-gateway-chase-paymentech.php:1411
 msgid "Response Body: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1448
+#: src/class-wc-gateway-chase-paymentech.php:1457
 msgid "Customer Profile ID must be numeric."
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1489
+#: src/class-wc-gateway-chase-paymentech.php:1498
 #. translators: Placeholders: %1$s - payment method title, %2$s - error message
 msgid "%1$s Payment Failed (%2$s)"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:1508
+#: src/class-wc-gateway-chase-paymentech.php:1517
 msgid "An error occurred, please try again or try an alternate form of payment."
 msgstr ""
 
@@ -465,14 +465,14 @@ msgstr ""
 msgid "http://www.woocommerce.com/"
 msgstr ""
 
-#: includes/api/class-wc-orbital-gateway-api-request.php:422
-#: includes/class-wc-chase-paymentech-certification-handler.php:251
-#: includes/class-wc-gateway-chase-paymentech.php:871
+#: src/api/class-wc-orbital-gateway-api-request.php:422
+#: src/class-wc-chase-paymentech-certification-handler.php:252
+#: src/class-wc-gateway-chase-paymentech.php:875
 msgctxt "hash before order number"
 msgid "#"
 msgstr ""
 
-#: includes/class-wc-gateway-chase-paymentech.php:339
+#: src/class-wc-gateway-chase-paymentech.php:339
 msgctxt "Supports tokenization"
 msgid ""
 "Allow customers to securely save their payment details for future checkout. "

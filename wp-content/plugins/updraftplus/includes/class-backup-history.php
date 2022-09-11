@@ -218,15 +218,40 @@ class UpdraftPlus_Backup_History {
 	 */
 	public static function save_history($backup_history, $use_cache = true) {
 		
-		global $updraftplus;
+		global $updraftplus, $wpdb;
 
 		// This data is constructed at run-time from the other keys; we do not wish to save redundant data
 		foreach ($backup_history as $btime => $bdata) {
 			unset($backup_history[$btime]['incremental_sets']);
 		}
-		
+
+		$wpdb_previous_last_error = $wpdb->last_error;
+
 		// Explicitly set autoload to 'no', as the backup history can get quite big.
 		$changed = UpdraftPlus_Options::update_updraft_option('updraft_backup_history', $backup_history, $use_cache, 'no');
+
+		if (!$changed && '' !== $wpdb->last_error && $wpdb_previous_last_error != $wpdb->last_error) {
+			// if an error occured, there is a possibility if this error is caused by invalid characters found in 'label'
+			foreach ($backup_history as $btime => $bdata) {
+				if (isset($bdata['label'])) {
+					// try removing invalid characters from 'label'
+					if (method_exists($wpdb, 'strip_invalid_text_for_column')) {
+						$backup_history[$btime]['label'] = $wpdb->strip_invalid_text_for_column($wpdb->options, 'option_value', $backup_history[$btime]['label']);
+					} else {
+
+						// This replacement, may of course, drop parts of the label. This is judged to be better than dropping it all - and WPDB::strip_invalid_text_for_column() exists on WP 4.2+.
+						$backup_history[$btime]['label'] = preg_replace('/[^a-z0-9-_ ]/i', '', $backup_history[$btime]['label']);
+					}
+
+					if ('' === $backup_history[$btime]['label']) {
+						unset($backup_history[$btime]['label']);
+					}
+				}
+			}
+
+			// try to save it again
+			$changed = UpdraftPlus_Options::update_updraft_option('updraft_backup_history', $backup_history, $use_cache, 'no');
+		}
 
 		if (!$changed) {
 		

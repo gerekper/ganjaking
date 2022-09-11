@@ -26,7 +26,6 @@ function query_db($wp_args){
 	));
 
 	if( count($ev)>0){
-		date_default_timezone_set('UTC');
 
 		//shortcode driven hide_past value OR hide past events value set via settings
 			$sc_hide_past = $hide_past == 'yes'? true:false;
@@ -37,30 +36,28 @@ function query_db($wp_args){
 		// override past event cut-off
 			if(!empty($SC['pec'])){
 
+				// current date
 				if( $SC['pec']=='cd'){
-					// this is based on local time
-					$current_time = strtotime( date("m/j/Y", current_time('timestamp')) );
+					
+					$current_time = strtotime( date("m/j/Y", $this->current_time0) );
 				}else{
 					// this is based on UTC time zone
-					$current_time = current_time('timestamp');
+					$current_time = $this->current_time0;
 				}
 
 			}else{
 				// Define option values for the front-end
 				$cur_time_basis = (!empty($this->evopt1['evcal_past_ev']) )? $this->evopt1['evcal_past_ev'] : null;
 
-				//date_default_timezone_set($tzstring);
 				if($_settings_hide_past && $cur_time_basis=='today_date'){
 					// this is based on local time
-					$current_time = strtotime( date("m/j/Y", current_time('timestamp')) );
+					$current_time = strtotime( date("m/j/Y", $this->current_time0) );
 				}else{
 					// this is based on UTC time zone
-					$current_time = current_time('timestamp');
+					$current_time = $this->current_time0;
 				}
 			}
 			
-
-
 			$this->current_time = $current_time;
 
 		// current year month
@@ -160,87 +157,7 @@ function query_db($wp_args){
 
 					}// endforeeach
 
-
-				// does not have repeat intervals saved
-				}else{// OLD WAY --- each repeating instance	OLD WAY - DEP v2.8
-
-					$__run_occurance_check = (($this->is_upcoming_list && $this->_hide_mult_occur) || $hide_mult_occur=='yes')? true:false;
-
-					$frequency = $EVENT->get_prop_val('evcal_rep_freq',1);
-					$repeat_gap_num = $EVENT->get_prop_val('evcal_rep_gap',1);
-					$repeat_num = $EVENT->get_prop_val('evcal_rep_num',1);
-					
-					for($x=0; $x<=($repeat_num); $x++){
-
-						$feature='no';
-
-						$repeat_multiplier = ((int)$repeat_gap_num) * $x;
-
-						// Get repeat terms for different frequencies
-						switch($frequency){
-							// Additional frequency filters
-							case has_filter("eventon_event_frequency_{$frequency}"):
-								$terms = apply_filters("eventon_event_frequency_{$frequency}", $repeat_multiplier);
-								$term = $terms['term'];
-								$term_ar = $terms['term_ar'];
-							break;
-							case 'yearly':
-								$term = 'year';	$term_ar = 'ry';
-								$feature = ($_is_featured!='no')?'yes':'no';
-							break;
-
-							// MONTHLY
-							case 'monthly':
-
-								$term = 'month';	$term_ar = 'rm';
-								$feature = ($_is_featured!='no')?'yes':'no';
-
-							break;
-							case 'weekly':
-								$term = 'week';	$term_ar = 'rw';
-
-							break;
-							default: $term = $term_ar = ''; break;
-						}
-
-						$E_start_unix = strtotime('+'.$repeat_multiplier.' '.$term, $row_start);
-						$E_end_unix = strtotime('+'.$repeat_multiplier.' '.$term, $row_end);
-
-						// check if only featured events to show
-						if( (($only_ft && $_is_featured=='yes') || !$only_ft) && ( $hide_ft && $_is_featured=='no' || !$hide_ft)){
-
-							$future_event = eventon_is_future_event($current_time, $E_start_unix, $E_end_unix, $evcal_cal_hide_past, $hide_past_by);
-							$fe = ( (!empty($this->shortcode_args['el_type']))? true: $future_event );
-
-							$me = eventon_is_event_in_daterange($E_start_unix,$E_end_unix, $focus_month_beg_range,$focus_month_end_range, $this->shortcode_args);
-							$event_past = eventon_is_event_past($current_time, $E_start_unix, $E_end_unix, $hide_past_by)?'yes':'no';
-
-
-							if($fe && $me){
-								if($__run_occurance_check && !in_array($p_id, $this->events_processed) ||!$__run_occurance_check){
-
-									$event_list_array[] = array(
-										'event_id' => $p_id,
-										'event_start_unix'=> (int)$E_start_unix,
-										'event_end_unix'=> (int)$E_end_unix,
-										'event_title'=>get_the_title(),
-										'event_color'=>$evcal_event_color_n,
-										'event_type'=>$term_ar,
-										'event_past'=>$event_past,
-										'event_pmv'=>$ev_vals,
-										'event_repeat_interval'=>'0'
-									);
-
-									if($feature!='no'){
-										$featured_events[]=$p_id;
-									}
-								}
-								$this->events_processed[]=$p_id;
-							}
-						}
-					} // end for statement
-
-				} 
+				}
 			}else{ // Non recurring event
 				
 

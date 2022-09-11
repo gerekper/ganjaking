@@ -29,10 +29,11 @@ class WCS_ATT_Product_Schemes {
 	 * Determines if the product can be purchased on a recurring basis.
 	 *
 	 * @param  WC_Product  $product  Product object to check.
+	 * @param  string      $context  Context/origin of schemes.
 	 * @return boolean               Result of check.
 	 */
-	public static function has_subscription_schemes( $product ) {
-		return count( self::get_subscription_schemes( $product ) ) > 0;
+	public static function has_subscription_schemes( $product, $context = 'any' ) {
+		return count( self::get_subscription_schemes( $product, $context ) ) > 0;
 	}
 
 	/**
@@ -51,7 +52,7 @@ class WCS_ATT_Product_Schemes {
 
 		if ( '' === $forced ) {
 
-			// If not explicitly set on object, fall back to runtime parent.
+			// Defined by parent?
 			if ( $parent = WCS_ATT_Product::get_runtime_meta( $product, 'parent_product' ) ) {
 
 				if ( self::has_forced_subscription_scheme( $parent ) ) {
@@ -61,13 +62,17 @@ class WCS_ATT_Product_Schemes {
 			// Otherwise, fall back to DB.
 			} else {
 
-				$forced = $product->get_meta( '_wcsatt_force_subscription', true );
+				// Only products with local plans can be force-sold on subscription.
+				if ( self::has_subscription_schemes( $product, 'local' ) ) {
 
-				// Attempt to get meta from parent if undefined on variation.
-				if ( '' === $forced && $product->is_type( 'variation' ) ) {
+					$forced = $product->get_meta( '_wcsatt_force_subscription', true );
 
-					$parent = wc_get_product( $product->get_parent_id() );
-					$forced = is_object( $parent ) ? $parent->get_meta( '_wcsatt_force_subscription', true ) : '';
+					// Attempt to get meta from parent if undefined on variation.
+					if ( '' === $forced && $product->is_type( 'variation' ) ) {
+
+						$parent = wc_get_product( $product->get_parent_id() );
+						$forced = is_object( $parent ) ? $parent->get_meta( '_wcsatt_force_subscription', true ) : '';
+					}
 				}
 			}
 
@@ -110,7 +115,7 @@ class WCS_ATT_Product_Schemes {
 	 * Returns all subscription schemes associated with a product.
 	 *
 	 * @param  WC_Product  $product  Product object.
-	 * @param  string      $context  Context of schemes. Values: 'cart', 'product', 'any'.
+	 * @param  string      $context  Context of schemes, based on origin. Values: 'local', 'global'.
 	 * @return array
 	 */
 	public static function get_subscription_schemes( $product, $context = 'any' ) {
@@ -125,31 +130,72 @@ class WCS_ATT_Product_Schemes {
 
 			$schemes = array();
 
-			// If not explicitly set on object, fall back to runtime parent.
+			// Defined by parent?
 			if ( $parent = WCS_ATT_Product::get_runtime_meta( $product, 'parent_product' ) ) {
 
 				$schemes = self::get_subscription_schemes( $parent, $context );
 
-			// Otherwise, initialize with product-level schemes in DB.
+			// Otherwise, read data from DB.
 			} else {
 
-				$product_schemes_meta = $product->get_meta( '_wcsatt_schemes', true );
+				$disable_schemes = $product->get_meta( '_wcsatt_disabled', true );
+				$schemes_data    = false;
+				$origin          = 'local';
 
-				if ( empty( $product_schemes_meta ) || ! is_array( $product_schemes_meta ) ) {
-					$product_schemes_meta = '';
+				if ( empty( $disable_schemes ) && $product->is_type( 'variation' ) ) {
+
+					$parent          = wc_get_product( $product->get_parent_id() );
+					$disable_schemes = is_object( $parent ) ? $parent->get_meta( '_wcsatt_disabled', true ) : 'no';
 				}
 
-				// Attempt to get schemes from parent if undefined on variation.
-				if ( '' === $product_schemes_meta && $product->is_type( 'variation' ) ) {
+				if ( 'yes' !== $disable_schemes ) {
 
-					$parent               = wc_get_product( $product->get_parent_id() );
-					$product_schemes_meta = is_object( $parent ) ? $parent->get_meta( '_wcsatt_schemes', true ) : array();
+					$schemes_data = $product->get_meta( '_wcsatt_schemes', true );
+
+					if ( empty( $schemes_data ) || ! is_array( $schemes_data ) ) {
+						$schemes_data = false;
+					}
+
+					// Attempt to read schemes from parent meta if undefined on variation.
+					if ( false === $schemes_data && $product->is_type( 'variation' ) ) {
+
+						if ( ! is_object( $parent ) ) {
+							$parent = wc_get_product( $product->get_parent_id() );
+						}
+
+						$schemes_data = is_object( $parent ) ? $parent->get_meta( '_wcsatt_schemes', true ) : array();
+					}
+
+					if ( empty( $schemes_data ) || ! is_array( $schemes_data ) ) {
+						$schemes_data = false;
+					}
+
+					// Check if global schemes exist.
+					if ( false === $schemes_data ) {
+
+						$global_schemes_data = get_option( 'wcsatt_subscribe_to_cart_schemes', array() );
+
+						if ( ! empty( $global_schemes_data ) && is_array( $global_schemes_data ) ) {
+
+							$global_schemes_cats = get_option( 'wcsatt_subscribe_to_cart_categories', array() );
+
+							$schemes_data = $global_schemes_data;
+							$origin       = 'global';
+
+							if ( ! empty( $global_schemes_cats ) && is_array( $global_schemes_cats ) ) {
+								// Product category not eligible?
+								if ( empty( array_intersect( $product->get_category_ids(), $global_schemes_cats ) ) ) {
+									$schemes_data = false;
+								}
+							}
+						}
+					}
 				}
 
-				if ( ! empty( $product_schemes_meta ) ) {
-					foreach ( $product_schemes_meta as $scheme_meta ) {
+				if ( ! empty( $schemes_data ) && is_array( $schemes_data ) ) {
+					foreach ( $schemes_data as $scheme_meta ) {
 
-						$scheme     = new WCS_ATT_Scheme( array( 'data' => $scheme_meta, 'context' => 'product' ) );
+						$scheme     = new WCS_ATT_Scheme( array( 'data' => $scheme_meta, 'context' => $origin ) );
 						$scheme_key = $scheme->get_key();
 
 						if ( ! isset( $schemes[ $scheme_key ] ) ) {
@@ -164,7 +210,7 @@ class WCS_ATT_Product_Schemes {
 			WCS_ATT_Product::set_runtime_meta( $product, 'subscription_schemes', $schemes );
 		}
 
-		if ( 'any' !== $context ) {
+		if ( ! in_array( $context, array( 'any', 'product' ) ) ) {
 			$schemes = self::filter_by_context( $schemes, $context );
 		}
 
@@ -274,24 +320,9 @@ class WCS_ATT_Product_Schemes {
 
 				$default_scheme     = current( $schemes );
 				$default_scheme_key = $default_scheme->get_key();
-
-			} else {
-
-				$default_status = $product->get_meta( '_wcsatt_default_status', true );
-
-				// Attempt to get meta from parent if undefined on variation.
-				if ( '' === $default_status && $product->is_type( 'variation' ) ) {
-
-					$parent         = wc_get_product( $product->get_parent_id() );
-					$default_status = is_object( $parent ) ? $parent->get_meta( '_wcsatt_default_status', true ) : '';
-				}
-
-				if ( 'subscription' === $default_status ) {
-
-					$default_scheme     = current( $schemes );
-					$default_scheme_key = $default_scheme->get_key();
-				}
 			}
+
+			$default_scheme_key = apply_filters( 'wcsatt_default_subscription_scheme_key', $default_scheme_key, $product );
 
 			WCS_ATT_Product::set_runtime_meta( $product, 'default_subscription_scheme_key', $default_scheme_key );
 

@@ -18,7 +18,7 @@ class TakeAHike {
 
   public function get() {
     return [
-      'name' => WPFunctions::get()->__("Take a Hike", 'mailpoet'),
+      'name' => __("Take a Hike", 'mailpoet'),
       'categories' => json_encode(['standard', 'all']),
       'readonly' => 1,
       'thumbnail' => $this->getThumbnail(),
@@ -647,7 +647,7 @@ class TakeAHike {
                 'blocks' => [
                   0 => [
                     'type' => 'footer',
-                    'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a></p>',
+                    'text' => '<p><a href="[link:subscription_unsubscribe_url]">'.__("Unsubscribe", 'mailpoet').'</a> | <a href="[link:subscription_manage_url]">'.__("Manage your subscription", 'mailpoet').'</a></p>',
                     'styles' => [
                       'block' => [
                         'backgroundColor' => 'transparent',
@@ -677,7 +677,7 @@ class TakeAHike {
                 'blocks' => [
                   0 => [
                     'type' => 'footer',
-                    'text' => '<p>'.WPFunctions::get()->__("Add your postal address here!", 'mailpoet').'</p>',
+                    'text' => '<p>'.__("Add your postal address here!", 'mailpoet').'</p>',
                     'styles' => [
                       'block' => [
                         'backgroundColor' => 'transparent',

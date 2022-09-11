@@ -75,6 +75,11 @@
 
 					this.copyValuesFromPreviousElement( i );
 				}
+
+				// Handle checkbox group required for each ticket.
+				if ( 'function' === typeof wcBOCheckboxesRequired ) {
+					wcBOCheckboxesRequired( i );
+				}
 			}
 
 			// Remove old posted values.

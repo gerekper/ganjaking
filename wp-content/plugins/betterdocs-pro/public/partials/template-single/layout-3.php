@@ -76,7 +76,9 @@ $htags = implode(',', $supported_tag);
 							<?php
 							if ( is_single() ) {
                                 $output = betterdocs_generate_output();
-								the_title( '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">', '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>' );
+                                echo '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">';
+                                echo esc_html(get_the_title());
+                                echo '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>';
 							}
 							?>
 						</div>

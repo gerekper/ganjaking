@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCommerce Xero Integration package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Xero Integration 1.7.43\n"
+"Project-Id-Version: WooCommerce Xero Integration 1.7.46\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-xero\n"
-"POT-Creation-Date: 2022-07-06 19:51:49+00:00\n"
+"POT-Creation-Date: 2022-08-24 17:23:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,25 +72,25 @@ msgstr ""
 msgid "Xero invoice amount is zero, no payment necessary."
 msgstr ""
 
-#: includes/class-wc-xr-payment-manager.php:106
+#: includes/class-wc-xr-payment-manager.php:104
 msgid "Xero Payment not created: Invoice has not been sent."
 msgstr ""
 
-#: includes/class-wc-xr-payment-manager.php:111
+#: includes/class-wc-xr-payment-manager.php:109
 msgid "Xero Invoice amount is zero, no payment necessary."
 msgstr ""
 
-#: includes/class-wc-xr-payment-manager.php:150
+#: includes/class-wc-xr-payment-manager.php:144
 #. translators: Payment ID from Xero.
 msgid "Xero Payment created. Payment ID: %s"
 msgstr ""
 
-#: includes/class-wc-xr-payment-manager.php:163
+#: includes/class-wc-xr-payment-manager.php:157
 msgid "ERROR creating Xero payment. ErrorNumber: %1$s | Error Message: %2$s"
 msgstr ""
 
-#: includes/class-wc-xr-privacy.php:12 includes/class-wc-xr-settings.php:507
-#: includes/class-wc-xr-settings.php:534
+#: includes/class-wc-xr-privacy.php:12 includes/class-wc-xr-settings.php:561
+#: includes/class-wc-xr-settings.php:588
 msgid "Xero"
 msgstr ""
 
@@ -195,35 +195,39 @@ msgstr ""
 msgid "Private key file created to authenticate this site with Xero."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:121
+#: includes/class-wc-xr-settings.php:118
+msgid "Select"
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:129
 msgid "Invoice Prefix"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:124
+#: includes/class-wc-xr-settings.php:132
 msgid "Allow you to prefix all your invoices."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:128
+#: includes/class-wc-xr-settings.php:136
 msgid "Sales Account"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:131
+#: includes/class-wc-xr-settings.php:139
 msgid "Code for Xero account to track sales."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:134
+#: includes/class-wc-xr-settings.php:143
 msgid "Shipping Account"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:137
+#: includes/class-wc-xr-settings.php:146
 msgid "Code for Xero account to track shipping charges."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:140
+#: includes/class-wc-xr-settings.php:150
 msgid "Fees Account"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:144
+#: includes/class-wc-xr-settings.php:154
 #. translators: Placeholders %1$s - opening HTML <a> link tag, closing HTML
 #. </a> link tag
 msgid ""
@@ -231,88 +235,98 @@ msgid ""
 "created by the %1$sWooCommerce Fees API%2$s."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:147
+#: includes/class-wc-xr-settings.php:158
 msgid "Payment Account"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:150
+#: includes/class-wc-xr-settings.php:161
 msgid "Code for Xero account to track payments received."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:153
+#: includes/class-wc-xr-settings.php:165
 msgid "Rounding Account"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:156
+#: includes/class-wc-xr-settings.php:168
 msgid "Code for Xero account to allow an adjustment entry for rounding."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:160
+#: includes/class-wc-xr-settings.php:173
 msgid "Send Invoices"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:163
+#: includes/class-wc-xr-settings.php:176
 msgid ""
 "Send Invoices manually (from the order's action menu), on creation (when "
 "the order is created), or on completion (when order status is changed to "
 "completed)."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:165 includes/class-wc-xr-settings.php:177
+#: includes/class-wc-xr-settings.php:178 includes/class-wc-xr-settings.php:190
 msgid "Manually"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:166
+#: includes/class-wc-xr-settings.php:179
 msgid "On Order Creation"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:167 includes/class-wc-xr-settings.php:178
+#: includes/class-wc-xr-settings.php:180 includes/class-wc-xr-settings.php:191
 msgid "On Payment Completion"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:168 includes/class-wc-xr-settings.php:179
+#: includes/class-wc-xr-settings.php:181 includes/class-wc-xr-settings.php:192
 msgid "On Order Completion"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:172
+#: includes/class-wc-xr-settings.php:185
 msgid "Send Payments"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:175
+#: includes/class-wc-xr-settings.php:188
 msgid ""
 "Send Payments manually or automatically when order is completed. This may "
 "need to be turned off if you sync via a separate integration such as PayPal."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:183
+#: includes/class-wc-xr-settings.php:196
 msgid "Treat Shipping As"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:186
+#: includes/class-wc-xr-settings.php:199
 msgid "Set this to correspond to your Xero shipping account's type."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:188 includes/class-wc-xr-settings.php:198
+#: includes/class-wc-xr-settings.php:201 includes/class-wc-xr-settings.php:211
 msgid "Income / Revenue / Sales"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:189 includes/class-wc-xr-settings.php:199
+#: includes/class-wc-xr-settings.php:202 includes/class-wc-xr-settings.php:212
 msgid "Expense"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:193
+#: includes/class-wc-xr-settings.php:206
 msgid "Treat Fees As"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:196
+#: includes/class-wc-xr-settings.php:209
 msgid "Set this to correspond to your Xero fees account's type."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:203
+#: includes/class-wc-xr-settings.php:216
+msgid "Xero Branding theme"
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:219
+msgid ""
+"Set a default branding theme for Xero invoices. Refresh the page to see "
+"updated list."
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:223
 msgid "Match zero value tax rates"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:206
+#: includes/class-wc-xr-settings.php:226
 msgid ""
 "If the integration is having trouble matching up your tax exempt line items "
 "with a tax exempt Xero tax rate, enable this and follow the <a "
@@ -322,27 +336,27 @@ msgid ""
 "rates to Xero tax exempt rates.</a>"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:209
+#: includes/class-wc-xr-settings.php:229
 msgid "Four Decimal Places"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:212
+#: includes/class-wc-xr-settings.php:232
 msgid "Use four decimal places for unit prices instead of two."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:215
+#: includes/class-wc-xr-settings.php:235
 msgid "Orders with zero total"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:218
+#: includes/class-wc-xr-settings.php:238
 msgid "Export orders with zero total."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:221
+#: includes/class-wc-xr-settings.php:241
 msgid "Send Inventory Items"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:224
+#: includes/class-wc-xr-settings.php:244
 msgid ""
 "Send Item Code field with invoices. If this is enabled then each product "
 "must have a SKU defined and be setup as an <a "
@@ -350,106 +364,114 @@ msgid ""
 "target=\"_blank\">inventory item</a> in Xero."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:227
+#: includes/class-wc-xr-settings.php:247
 msgid "Debug"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:230
+#: includes/class-wc-xr-settings.php:250
 msgid ""
 "Enable logging. Log file is located at: /wc-logs/. <br> <strong>Note: this "
 "may log personal information. We recommend using this for debugging "
 "purposes only and deleting the logs when finished.</strong>"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:349
+#: includes/class-wc-xr-settings.php:369
 msgid "Using %s uploaded at %s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:402
+#: includes/class-wc-xr-settings.php:422
 msgid "Nonce verification failed!"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:476
+#: includes/class-wc-xr-settings.php:496
 msgid "Xero Settings"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:556 includes/class-wc-xr-settings.php:557
-#: includes/class-wc-xr-settings.php:587 includes/class-wc-xr-settings.php:596
-#: includes/class-wc-xr-settings.php:615
+#: includes/class-wc-xr-settings.php:610 includes/class-wc-xr-settings.php:611
+#: includes/class-wc-xr-settings.php:641 includes/class-wc-xr-settings.php:650
+#: includes/class-wc-xr-settings.php:669
 msgid "Xero OAuth"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:635
+#: includes/class-wc-xr-settings.php:689
 msgid "Xero for WooCommerce"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:639
+#: includes/class-wc-xr-settings.php:693
 msgid "Your settings have been saved."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:642
+#: includes/class-wc-xr-settings.php:706
+msgid "Missing required fields"
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:712
 msgid "There was an error saving your settings."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:658
+#: includes/class-wc-xr-settings.php:728
 msgid ""
 "Settings for your Xero account including security keys and default account "
 "numbers.<br/> <strong>All</strong> text fields are required for the "
 "integration to work properly."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:681
+#: includes/class-wc-xr-settings.php:751
 msgid "Key not set"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:719
+#: includes/class-wc-xr-settings.php:789
 msgid "Disconnect from Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:727
+#: includes/class-wc-xr-settings.php:797
 msgid "Sign in with Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:731
+#: includes/class-wc-xr-settings.php:801
 msgid ""
 "Please fill in the Client id and the Client Secret fields first and save "
 "before continuing."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:757
+#: includes/class-wc-xr-settings.php:827
 msgid ""
 "Please use the following url as your redirect url when creating a Xero "
 "application:"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:916
+#: includes/class-wc-xr-settings.php:986
 msgid ""
 "Xero has securely saved the contents of key file %s to the database and no "
 "longer requires it."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:919
+#: includes/class-wc-xr-settings.php:989
 msgid "Delete %s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:934
+#: includes/class-wc-xr-settings.php:1004
 msgid "Xero could not delete %s. Check permissions and try again."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:942
+#: includes/class-wc-xr-settings.php:1012
 msgid "Xero successfully deleted %s."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:962
+#: includes/class-wc-xr-settings.php:1032
 msgid ""
 "Xero authentication using keys is in the process of being deprecated and "
 "new private apps can no longer be created."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:963
+#: includes/class-wc-xr-settings.php:1033
 msgid ""
 "Please use new flow and the button available in Xero settings to authorize "
 "your application."
+msgstr ""
+
+#: includes/requests/class-wc-xr-request.php:394
+msgid "Xero request failed due to error: %d (%s)"
 msgstr ""
 
 #: vendor/autoload_packages.php:159
@@ -458,20 +480,20 @@ msgstr ""
 msgid "Not all plugins have loaded yet but we requested the class %s"
 msgstr ""
 
-#: woocommerce-xero.php:134
+#: woocommerce-xero.php:136
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Xero Integration requires %s to be installed and active."
 msgstr ""
 
-#: woocommerce-xero.php:147
+#: woocommerce-xero.php:149
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-xero.php:148
+#: woocommerce-xero.php:150
 msgid "Support"
 msgstr ""
 
-#: woocommerce-xero.php:149
+#: woocommerce-xero.php:151
 msgid "Documentation"
 msgstr ""
 

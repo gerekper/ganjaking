@@ -3,7 +3,7 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * @since    2.1.0
+ * @since    2.0.0
  */
 
 // Exit if accessed directly.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Child Item class.
  *
  * @class    WC_MNM_Child_Item
- * @version  2.0.9
+ * @version  2.1.2
  */
 class WC_MNM_Child_Item extends WC_Data {
 
@@ -363,7 +363,8 @@ class WC_MNM_Child_Item extends WC_Data {
 			} else if ( isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ) {
 				$qty = intval( $_REQUEST[ $input_name ][ $child_id ] );
 			} else {
-				$qty = apply_filters( 'wc_mnm_child_item_quantity_input_default_value', '', $this, $this->get_container() );
+				$qty = $this->get_quantity( 'min' ) ? $this->get_quantity( 'min' ) : '';
+				$qty = apply_filters( 'wc_mnm_child_item_quantity_input_default_value', $qty, $this, $this->get_container() );
 
 				if ( has_filter( 'woocommerce_mnm_quantity_input' ) ) {
 					wc_deprecated_hook( 'woocommerce_mnm_quantity_input', '2.0.0', 'wc_mnm_child_item_quantity_input_$type: note that the 2nd parameter will be a WC_MNM_Child_Item instance.' );
@@ -384,7 +385,7 @@ class WC_MNM_Child_Item extends WC_Data {
 		 *
 		 * @param  int $qty Quantity.
 		 * @param  obj WC_MNM_Child_Item $this
-		 * @param  obj WC_Product_Mix_and_Match $this
+		 * @param  obj WC_Product_Mix_and_Match $container
 		 */
 		$qty = apply_filters( 'wc_mnm_child_item_quantity_input_' . $type, $qty, $this, $this->get_container() );
 

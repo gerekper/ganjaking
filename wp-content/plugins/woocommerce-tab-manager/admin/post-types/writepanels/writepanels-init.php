@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/tab-manager/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -29,7 +29,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /** Product data Tab panel */
 include_once( wc_tab_manager()->get_plugin_path() . '/admin/post-types/writepanels/writepanel-product_data-tabs.php' );

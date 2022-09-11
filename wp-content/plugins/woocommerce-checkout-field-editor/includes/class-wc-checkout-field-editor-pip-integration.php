@@ -93,7 +93,7 @@ class WC_Checkout_Field_Editor_PIP_Integration {
 
 		// Loop through all custom fields to see if it should be added
 		foreach ( $fields as $name => $options ) {
-			$custom_field = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), $name, true );
+			$custom_field = WC_CRUD_SUPPORT ? $order->get_meta( $name ) : get_post_meta( $order->id, $name, true );
 
 			if ( ! empty( $custom_field ) ) {
 				$html .= '<dt>' . esc_html( $options['label'] ) . ':</dt>';

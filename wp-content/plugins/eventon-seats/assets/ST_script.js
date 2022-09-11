@@ -1,6 +1,6 @@
 /**
  * Javascript: Seating charts for eventon
- * @version  0.1
+ * @version  1.0.12
  */
 jQuery(document).ready(function($){	
 
@@ -56,7 +56,7 @@ jQuery(document).ready(function($){
 	      		if( M.find('.evost_seat_selection').length>0){
 
 		      		LAYOUT = $(this).find('.evost_seat_layout');		      				      		
-		      		LAYOUT.evostMapInteraction();
+		      		LAYOUT.evostMapInteraction({type:'resize'});
 		      	}
 
 	      	});

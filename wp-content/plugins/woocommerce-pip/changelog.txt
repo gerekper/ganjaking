@@ -1,5 +1,9 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2022.08.15 - version 3.11.5
+ * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.09.23 - version 3.11.4
  * Fix - Correct differences in tax rounding between line items and the order total when rounding tax at subtotal
 

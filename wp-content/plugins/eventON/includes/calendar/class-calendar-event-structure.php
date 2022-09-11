@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar single event's html structure 
-* @version 3.0.7
+* @version 4.1.3
 */
 
 class EVO_Cal_Event_Structure{
@@ -25,114 +25,174 @@ class EVO_Cal_Event_Structure{
 	}
 
 
-	// HTML EventTop
-	function get_event_top($array, $EventData, $eventtop_fields, $evOPT, $evOPT2){
-			
-		$EVENT = $this->EVENT;
+// HTML EventTop
+	function get_eventtop_item_html($field, $object, $eventtop_fields = ''){
+		extract($object);
+		$object = (object) $object;
 		$SC = EVO()->calendar->shortcode_args;
+		$EVENT = $this->EVENT;
+
+		$eventtop_used_fields = $eventtop_fields['used'];
+
+		
 		$OT = '';
-		$_additions = apply_filters('evo_eventtop_adds' , array());
+		switch($field){
+			case 'ft_img':
+				if( empty($object->img_url_med)) return $OT; 
 
-		$is_array_eventtop_fields = is_array($eventtop_fields)? true:false;
+				$url = apply_filters('eventon_eventtop_image_url', $object->img_url_med);
 
-		extract($EventData);
+				$time_vals = ( $object->show_time) ? '<span class="evo_img_time"></span>':'';
 
-		if(!is_array($array)) return $OT;
+				$OT.= "<span class='ev_ftImg' data-img='".(!empty($object->img_src)? $object->img_src: '')."' data-thumb='".$url."' style='background-image:url(\"".$url."\")' >{$time_vals}</span>";
+			break;
 
-		EVO()->cal->set_cur('evcal_1');
+			case 'day_block':
+
+				if(!empty($eventtop_day_block) && !$eventtop_day_block) break;
+				if(!is_array( $object->start_date_data )) break;
+
+				// if event hide_et_dn
+				if( isset($SC['hide_et_dn']) && $SC['hide_et_dn'] == 'yes') break;
+
+				// day block data adjustments
+				$day_block_data = isset($eventtop_fields['day_block']) && is_array($eventtop_fields['day_block']) ? $eventtop_fields['day_block']: array();
+
+				$show_start_year = ( in_array('eventyear',$day_block_data) || 
+					(isset($SC['eventtop_style']) && $SC['eventtop_style'] == 3 && $object->year_long) 
+					?'yes':'no');
+				$show_end_year = in_array('eventendyear',$day_block_data) ?'yes':'no';
+
+				// bubbles event title passing
+				$data_add = ( $SC['eventtop_style'] == '3') ? apply_filters('eventon_eventtop_maintitle',$this->EVENT->get_title() ) : '';
+				
+				$OT.="<span class='evoet_dayblock evcal_cblock ".( $object->year_long?'yrl ':null).( $object->month_long?'mnl ':null)."' data-bgcolor='".$color."' data-smon='".$object->start_date_data['F']."' data-syr='".$object->start_date_data['Y']."' data-bub='{$data_add}'>";
+				
+				// include dayname if allowed via settings
+				$daynameS = $daynameE = '';
+				if( is_array($day_block_data) && in_array('dayname', $day_block_data)){
+					$daynameS = (!empty($event_date_html['start']['day'])? $event_date_html['start']['day']:'');
+					$daynameE = (!empty($event_date_html['end']['day'])? $event_date_html['end']['day']:'');
+				}
+
+				$time_data = apply_filters('evo_eventtop_dates', array(
+					'start'=>array(
+						'year'=> 	($show_start_year=='yes'? $event_date_html['start']['year']:''),	
+						'day'=>		$daynameS,
+						'date'=> 	(!empty($event_date_html['start']['date'])?$event_date_html['start']['date']:''),
+						'month'=>  	(!empty($event_date_html['start']['month'])?$event_date_html['start']['month']:''),
+						'time'=>  	(!empty($event_date_html['start']['time'])?$event_date_html['start']['time']:''),
+					),
+					'end'=>array(
+						'year'=> 	(($show_end_year=='yes' && !empty($event_date_html['end']['year']) )? $event_date_html['end']['year']:''),	
+						'day'=>		$daynameE,
+						'date'=> 	(!empty($event_date_html['end']['date'])?$event_date_html['end']['date']:''),
+						'month'=> 	(!empty($event_date_html['end']['month'])? $event_date_html['end']['month']:''),
+						'time'=> 	(!empty($event_date_html['end']['time'])? $event_date_html['end']['time']:''),
+					),
+				), $show_start_year, $object );
 
 
-		foreach($array as $element =>$elm){
-
-			if(!is_array($elm)) continue;
-
-
-			// convert to an object
-			$object = new stdClass();
-			foreach ($elm as $key => $value){
-				$object->$key = $value;
-			}
-
-			$boxname = (in_array($element, $_additions))? $element: null;
-
-			switch($element){
-				case has_filter("eventon_eventtop_{$boxname}"):
-					$helpers = array(
-						'evOPT'=>$evOPT,
-						'evoOPT2'=>$evOPT2,
-					);
-
-					$OT.= apply_filters("eventon_eventtop_{$boxname}", $object, $helpers, $EVENT);	
-				break;
-				case 'ft_img':
-					$url = !empty($object->url_med)? $object->url_med: $object->url;
-					//$url = !empty($object->url_full)? $object->url_full[0]: $url;
-					$url = apply_filters('eventon_eventtop_image_url', $url);
-
-					$time_vals = ( $object->show_time) ? '<span class="evo_img_time"></span>':'';
-
-					$OT.= "<span class='ev_ftImg' data-img='".(!empty($object->url_full)? $object->url_full: '')."' data-thumb='".$url."' style='background-image:url(\"".$url."\")' >{$time_vals}</span>";
-				break;
-				case 'day_block':
-
-					if(!empty($object->include) && !$object->include) break;
-					if(!is_array( $object->start )) break;
-
-					// if event hide_et_dn
-					if( isset($SC['hide_et_dn']) && $SC['hide_et_dn'] == 'yes') break;
-					
-					$OT.="<span class='evcal_cblock ".( $year_long?'yrl ':null).( $month_long?'mnl ':null)."' data-bgcolor='".$color."' data-smon='".$object->start['F']."' data-syr='".$object->start['Y']."'>";
-					
-					// include dayname if allowed via settings
-					$daynameS = $daynameE = '';
-					if( is_array($eventtop_fields) && in_array('dayname', $eventtop_fields)){
-						$daynameS = (!empty($object->html['start']['day'])? $object->html['start']['day']:'');
-						$daynameE = (!empty($object->html['end']['day'])? $object->html['end']['day']:'');
+				$class_add = '';
+				foreach($time_data as $type=>$data){					
+					$end_content = '';
+					foreach($data as $field=>$value){
+						if(empty($value)) continue;
+						$end_content .= "<em class='{$field}'>{$value}</em>";
 					}
 
-					$time_data = apply_filters('evo_eventtop_dates', array(
-						'start'=>array(
-							'year'=> 	($object->show_start_year=='yes'? $object->html['start']['year']:''),	
-							'day'=>		$daynameS,
-							'date'=> 	(!empty($object->html['start']['date'])?$object->html['start']['date']:''),
-							'month'=>  	(!empty($object->html['start']['month'])?$object->html['start']['month']:''),
-							'time'=>  	(!empty($object->html['start']['time'])?$object->html['start']['time']:''),
-						),
-						'end'=>array(
-							'year'=> 	(($object->show_end_year=='yes' && !empty($object->html['end']['year']) )? $object->html['end']['year']:''),	
-							'day'=>		$daynameE,
-							'date'=> 	(!empty($object->html['end']['date'])?$object->html['end']['date']:''),
-							'month'=> 	(!empty($object->html['end']['month'])? $object->html['end']['month']:''),
-							'time'=> 	(!empty($object->html['end']['time'])? $object->html['end']['time']:''),
-						),
-					), $object->show_start_year, $object );
-
-					$class_add = '';
-					foreach($time_data as $type=>$data){					
-						$end_content = '';
-						foreach($data as $field=>$value){
-							if(empty($value)) continue;
-							$end_content .= "<em class='{$field}'>{$value}</em>";
-						}
-
-						if($type == 'end' && empty($data['year']) && empty($data['month']) && empty($data['date']) && !empty($data['time'])){
-							$class_add = 'only_time';
-						}
-						if(empty($end_content)) continue;
-						$OT .= "<span class='evo_{$type} {$class_add}'>";
-						$OT .= $end_content;
-						$OT .= "</span>";
+					if($type == 'end' && empty($data['year']) && empty($data['month']) && empty($data['date']) && !empty($data['time'])){
+						$class_add = 'only_time';
 					}
-								
+					if(empty($end_content)) continue;
+					$OT .= "<span class='evo_{$type} {$class_add}'>";
+					$OT .= $end_content;
 					$OT .= "</span>";
+				}
 
-				break;
-
-				// title section of the event top
-				case 'titles':
-					$show_widget_eventtops = (!empty($evOPT['evo_widget_eventtop']) && $evOPT['evo_widget_eventtop']=='yes')? '':'hide_eventtopdata ';
+				// crystal clear style
+				if( $SC['eventtop_style'] == '5'){
 					
-					// location attributes
+					$OT .= "<span class='evo_ett_break'></span><span class='evo_eventcolor_circle'><i style='background-color:{$object->color}'></i></span>";
+				}
+							
+				$OT .= "</span>";
+
+			break;
+
+			case 'tags':
+				// above title inserts
+				if( isset($SC['hide_et_tags']) && $SC['hide_et_tags'] == 'yes') return $OT;
+
+				$OT.= "<span class='evoet_tags evo_above_title'>";
+					
+					// live now virtual event
+					if($EVENT && $EVENT->is_virtual() && !$EVENT->is_cancelled() && $EVENT->is_event_live_now() && !EVO()->cal->check_yn('evo_hide_live') ){
+						$OT.= "<span class='evo_live_now' title='".( evo_lang('Live Now')  )."'>". EVO()->elements->get_icon('live') ."</span>";
+					}
+
+
+					// get set to hide event top tags
+					$eventtop_hidden_tags = isset($evOPT['evo_etop_tags']) ? $evOPT['evo_etop_tags'] : array();
+
+					$OT .= apply_filters("eventon_eventtop_abovetitle", '', $object, $EVENT, $eventtop_hidden_tags);
+
+					$eventtop_tags = apply_filters('eventon_eventtop_abovetitle_tags', array());
+
+					// status
+					if( $_status && $_status != 'scheduled'){
+						$eventtop_tags['status'] = array(
+							$EVENT->get_event_status_lang(),
+							$_status
+						);
+					}
+
+					// featured
+					if(!empty($featured) && $featured){
+						$eventtop_tags['featured'] = array(evo_lang('Featured')	);
+					}
+
+					// virtual
+					if( $EVENT && $EVENT->get_attendance_mode() != 'offline' ){
+						if( $EVENT->is_mixed_attendance()){
+							$eventtop_tags['virtual_physical'] = 
+								array(evo_lang('Virtual/ Physical Event'), 'vir'	);
+						}else{
+							$eventtop_tags['virtual'] = array(evo_lang('Virtual Event'), 'vir'	);
+						}							
+					}
+
+					
+					// print the event top tags
+					foreach($eventtop_tags as $ff=>$vv){
+						if(in_array($ff, $eventtop_hidden_tags)) continue;
+
+						$v1 = isset($vv[1]) ? ' '.$vv[1]:'';
+						$OT.= "<span class='evo_event_headers {$ff}{$v1}'>". $vv[0] . "</span>";
+					}
+
+
+
+				$OT.="</span>";
+			break;
+
+			case 'title':
+				// event edit button
+					$editBTN = '';
+					// settings enabled - 4.0
+					if( EVO()->cal->check_yn('evo_showeditevent','evcal_1')){
+						$__go = false;
+						// if user is admin of the site
+						if( current_user_can('manage_options') ) $__go = true;
+
+						if( $__go){
+							$editBTN = apply_filters('eventon_event_title_editbtn',
+								"<i href='".get_edit_post_link($this->EVENT->ID)."' class='editEventBtnET fa fa-pencil'></i>", $this->EVENT);
+						}
+					}
+				$OT.= "<span class='evoet_title evcal_desc2 evcal_event_title' itemprop='name'>". apply_filters('eventon_eventtop_maintitle',$this->EVENT->get_title() ) . $editBTN."</span>";
+
+				// location attributes
 					$event_location_variables = '';
 					if(!empty($location_name) && (!empty($location_address) || !empty($location_latlng))){
 						$LL = !empty($location_latlng)? $location_latlng:false;
@@ -146,297 +206,295 @@ class EVO_Cal_Event_Structure{
 						if( $LL){
 							$event_location_variables .= ' data-latlng="'.$LL.'"';
 						}
+
+						$OT.= "<span class='event_location_attrs' {$event_location_variables}></span>";
 					}
 
-					$OT.= "<span class='evcal_desc evo_info ".$show_widget_eventtops. ( $year_long?'yrl ':null).( $month_long?'mnl ':null)."' {$event_location_variables} >";
+			break;
+			case 'subtitle':				
+				// below title inserts
+				$OT.= "<span class='evoet_subtitle evo_below_title'>";
+					if($ST = $this->EVENT->get_subtitle()){
+						$OT.= "<span class='evcal_event_subtitle' >" . apply_filters('eventon_eventtop_subtitle' , $ST) ."</span>";
+					}
+
+					// event status reason 
+					if( $reason = $this->EVENT->get_status_reason()){
+						$OT.= '<span class="status_reason">'. $reason .'</span>';
+					}
+
+				$OT.="</span>";
+			break;
+			case 'time':
+
+				if( isset($SC['hide_et_tl']) && $SC['hide_et_tl'] == 'yes') return $OT;
+
+				$OT.= "<span class='evoet_time_expand level_3'>";
+				
+				// time
+				$timezone_text = (!empty($object->timezone)? ' <em class="evo_etop_timezone">'.$object->timezone. '</em>':null);
+
+				$tzo = $tzo_box = '';
+				$event_timezone_key = $EVENT->get_timezone_key();
+
+				// show local time
+				if( $event_timezone_key && EVO()->cal->check_yn('evo_show_localtime','evcal_1') ){
+
+					extract( $this->timezone_data);
+					$help = new evo_helper();
 					
+					
+					if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
 
+						$GMT_text = $help->get_timezone_gmt( $event_timezone_key, $EVENT->start_unix);
 
-					// above title inserts
-					if( isset($SC['hide_et_tags']) && $SC['hide_et_tags'] == 'yes'): else:
+						$timezone_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
+					}
 
-					$OT.= "<span class='evo_above_title'>";
-						
-						// live now virtual event
-						if($EVENT && $EVENT->is_virtual() && !$EVENT->is_cancelled() && $EVENT->is_event_live_now() && !EVO()->cal->check_yn('evo_hide_live') ){
-							$OT.= "<span class='evo_live_now' title='".( evo_lang('Live Now')  )."'>". EVO()->elements->get_icon('live') ."</span>";
-						}
+					// event utc offset
+					$tzo = $help->get_timezone_offset( $event_timezone_key, $EVENT->start_unix);
 
+					$tzo_box = "<em class='evcal_tz_time evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$event_start_unix}-{$event_end_unix}' ><i class='fa fa-globe-americas'></i> <b>{$__t}</b></em>";							
+				}
 
-						// get set to hide event top tags
-						$eventtop_hidden_tags = isset($evOPT['evo_etop_tags']) ? $evOPT['evo_etop_tags'] : array();
+				$OT.= "<em class='evcal_time evo_tz_time'>". apply_filters('evoeventtop_belowtitle_datetime', $object->event_date_html['html_fromto'], $object->event_date_html, $object) . $timezone_text ."</em> ";
 
-						$OT .= apply_filters("eventon_eventtop_abovetitle", '', $object, $EVENT, $eventtop_hidden_tags);
+				// local time
+				if( $event_timezone_key) $OT.= $tzo_box;
 
-						$eventtop_tags = apply_filters('eventon_eventtop_abovetitle_tags', array());
+				// manual timezone text
+				if( !$event_timezone_key) $OT.= "<em class='evcal_local_time' data-s='{$event_start_unix}' data-e='{$event_end_unix}' data-tz='". $EVENT->get_prop('_evo_tz') ."'></em>";
+			
+				$OT.= "</span>";
 
-						// status
-						if( $_status && $_status != 'scheduled'){
-							$eventtop_tags['status'] = array(
-								$EVENT->get_event_status_lang(),
-								$_status
-							);
-						}
+			break;
 
-						// featured
-						if(!empty($featured) && $featured){
-							$eventtop_tags['featured'] = array(evo_lang('Featured')	);
-						}
+			case 'location':
 
-						// virtual
-						if( $EVENT && $EVENT->is_virtual() ){
-							if( $EVENT->is_mixed_attendance()){
-								$eventtop_tags['virtual_physical'] = 
-									array(evo_lang('Virtual/ Physical Event'), 'vir'	);
-							}else{
-								$eventtop_tags['virtual'] = array(evo_lang('Virtual Event'), 'vir'	);
-							}
-							
-						}
+				// hide via shortcode
+				if( isset($SC['hide_et_tl']) && $SC['hide_et_tl'] == 'yes') return $OT;
 
-							
-						foreach($eventtop_tags as $ff=>$vv){
+				$eventtop_location_data = $eventtop_fields['location'];
+				
 
-							if(in_array($ff, $eventtop_hidden_tags)) continue;
+				// location name				
+				$LOCname = ( ('locationame' == $eventtop_location_data || $eventtop_location_data == 'both') && !empty($location_name) )? $location_name: false;
 
-							$v1 = isset($vv[1]) ? ' '.$vv[1]:'';
-							$OT.= "<span class='evo_event_headers {$ff}{$v1}'>". $vv[0] . "</span>";
-						}
+				// location address
+				$LOCadd = ( ( 'location' == $eventtop_location_data || $eventtop_location_data =='both') && !empty($location_address))? stripslashes($location_address): false;
 
+				if($LOCname || $LOCadd){
+					$OT.= "<span class='evoet_location level_3'>";
+					$OT.= '<em class="evcal_location" '.( !empty($location_latlng)? ' data-latlng="'.$location_latlng.'"':null ).' data-add_str="'.$LOCadd.'">'.($LOCname? '<em class="event_location_name">'.$LOCname.'</em>':'').
+						( ($LOCname && $LOCadd)?', ':'').
+						$LOCadd.'</em>';
+					$OT.= "</span>";
+				}				
 
+			break;
+			case 'organizer':
+				if( in_array('organizer',$eventtop_used_fields) && !empty($organizer) && isset($organizer->name)){
+					
+					$OT.="<span class='evcal_oganizer level_4'>
+						<em><i>".( eventon_get_custom_language( '','evcal_evcard_org', 'Event Organized By')  ).':</i></em>
+						<em>'.$organizer->name."</em>
+						</span>";
+				}
 
+			break;
+			case 'eventtags':
+				// event tags
+				
+					$event_tags = wp_get_post_tags($this->EVENT->ID);
+					if(!$event_tags) return $OT;
+
+					$OT.="<span class='evo_event_tags level_4'>
+						<em><i>".eventon_get_custom_language( '','evo_lang_eventtags', 'Event Tags')."</i></em>";
+
+					$count = count($event_tags);
+					$i = 1;
+					foreach($event_tags as $tag){
+						$OT.="<em data-tagid='{$tag->term_id}'>{$tag->name}".( ($count==$i)?'':',')."</em>";
+						$i++;
+					}
 					$OT.="</span>";
-
-					endif;
-
-					// event edit button
-						$editBTN = '';
-						// settings enabled - 4.0
-						if( EVO()->cal->check_yn('evo_showeditevent','evcal_1')){
-							$__go = false;
-							// if user is admin of the site
-							if( current_user_can('manage_options') ) $__go = true;
-
-							if( $__go){
-								$editBTN = apply_filters('eventon_event_title_editbtn',
-									"<i href='".get_edit_post_link($EVENT->ID)."' class='editEventBtnET fa fa-pencil'></i>", $EVENT);
-							}
-						}
-						
-							
+			break;
+			
+			case 'progress_bar':
+				
+				// event progress bar
+				if( !EVO()->cal->check_yn('evo_eventtop_progress_hide','evcal_1')  && $EVENT->is_event_live_now() && !$EVENT->is_cancelled()
+					&& !$EVENT->echeck_yn('hide_progress')
+					&& $EVENT->get_event_status() != 'postponed'
+				){
 					
-					$OT.= "<span class='evcal_desc2 evcal_event_title' itemprop='name'>". apply_filters('eventon_eventtop_maintitle',$EVENT->get_title() ) . $editBTN."</span>";
+
+					$livenow_bar_sc = isset($SC['livenow_bar']) ? $SC['livenow_bar'] : 'yes';
 					
-					// below title inserts
-					$OT.= "<span class='evo_below_title'>";
-						if($ST = $EVENT->get_subtitle()){
-							$OT.= "<span class='evcal_event_subtitle' >" . apply_filters('eventon_eventtop_subtitle' , $ST) ."</span>";
-						}
+					// check if shortcode livenow_bar is set to hide live bar
+					if($livenow_bar_sc != 'yes') return $OT;
 
-						// event status reason 
-						if( $reason = $EVENT->get_status_reason()){
-							$OT.= '<span class="status_reason">'. $reason .'</span>';
-						}
+					$OT.= "<span class='evoet_progress_bar evo_event_progress ' >";
 
-					$OT.="</span>";
-				break;
+					//$OT.= "<span class='evo_ep_pre'>". evo_lang('Live Now') ."</span>";
 
-				case 'belowtitle':
+					$now =  EVO()->calendar->utc_time;
+					$duration = $EVENT->duration;
+					$end_utc = $EVENT->get_end_time( true);
+					$gap = $end_utc - $now; // how far event has progressed
 
-					if(!$object->include) break;
+					$perc = $duration == 0? 0: ($duration - $gap) / $duration;
+					$perc = (int)( $perc*100);
+					if( $perc > 100) $perc = 100;
 
-
-					if( isset($SC['hide_et_tl']) && $SC['hide_et_tl'] == 'yes'):else:
-
-						$OT.= "<span class='evcal_desc_info' >";
-
-						// time
-						if($is_array_eventtop_fields && in_array('time', $eventtop_fields) && isset($object->html)){
-							$timezone_text = (!empty($object->timezone)? ' <em class="evo_etop_timezone">'.$object->timezone. '</em>':null);
-
-							//print_r($object);
-							$tzo = $tzo_box = '';
-
-							if( !empty($object->_evo_tz) && EVO()->cal->check_yn('evo_show_localtime','evcal_1')){
-
-								extract( $this->timezone_data);
-								$help = new evo_helper();
-								
-								
-								if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
-
-									$GMT_text = $help->get_timezone_gmt( $object->_evo_tz, $EVENT->start_unix);
-
-									$timezone_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
-								}
-
-								// event utc offset
-								$tzo = $help->get_timezone_offset( $object->_evo_tz, $EVENT->start_unix);
-
-								$tzo_box = "<em class='evcal_tz_time evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$object->event_times}' ><i class='fa fa-globe-americas'></i> <b>{$__t}</b></em>";							
-							}
-
-							$OT.= "<em class='evcal_time evo_tz_time'>". apply_filters('evoeventtop_belowtitle_datetime', $object->html['html_fromto'], $object->html, $object) . $timezone_text ."</em> ";
-
-							// local time
-							if( !empty($object->_evo_tz)){
-								$OT.= $tzo_box;
-							}
-
-							// manual timezone text
-							if( empty($object->_evo_tz)) $OT.= "<em class='evcal_local_time' data-s='{$event_start_unix}' data-e='{$event_end_unix}' data-tz='". $EVENT->get_prop('_evo_tz') ."'></em>";
-						}
-						
-						
-						// location information
-						if($is_array_eventtop_fields){
-							// location name
-							$LOCname = (in_array('locationame',$eventtop_fields) && !empty($location_name) )? $location_name: false;
-
-							// location address
-							$LOCadd = (in_array('location',$eventtop_fields) && !empty($location_address))? stripslashes($location_address): false;
-
-							if($LOCname || $LOCadd){
-								$OT.= '<em class="evcal_location" '.( !empty($location_latlng)? ' data-latlng="'.$location_latlng.'"':null ).' data-add_str="'.$LOCadd.'">'.($LOCname? '<em class="event_location_name">'.$LOCname.'</em>':'').
-									( ($LOCname && $LOCadd)?', ':'').
-									$LOCadd.'</em>';
-							}
-						}
-
-						$OT.="</span>";
-					endif;
-
-
-					if( isset($SC['hide_et_extra']) && $SC['hide_et_extra'] == 'yes'):else:
-					$OT.="<span class='evcal_desc3'>";
-
-					//organizer
-						if($object->fields_ && in_array('organizer',$object->fields) && !empty($organizer) && isset($organizer->name)){
-							$OT.="<span class='evcal_oganizer'>
-								<em><i>".( eventon_get_custom_language( $evOPT2,'evcal_evcard_org', 'Event Organized By')  ).':</i></em>
-								<em>'.$organizer->name."</em>
-								</span>";
-						}
-					//event type
-					if($object->tax)
-						$OT.= $object->tax;
-
-					// event tags
-					if($is_array_eventtop_fields && in_array('tags',$eventtop_fields) && !empty($object->tags) ){
-						$OT.="<span class='evo_event_tags'>
-							<em><i>".eventon_get_custom_language( $evOPT2,'evo_lang_eventtags', 'Event Tags')."</i></em>";
-
-						$count = count($object->tags);
-						$i = 1;
-						foreach($object->tags as $tag){
-							$OT.="<em data-tagid='{$tag->term_id}'>{$tag->name}".( ($count==$i)?'':',')."</em>";
-							$i++;
-						}
-						$OT.="</span>";
+					// action on expire							
+					$exp_act = $nonce = '';
+					if( isset($SC['cal_now']) && $SC['cal_now'] == 'yes'){
+						$exp_act = 'runajax_refresh_now_cal';
+						$nonce = wp_create_nonce('evo_calendar_now');
 					}
 
-					// custom fields
-					if(!empty($object->cmf_data) && is_array($object->cmf_data) && count($object->cmf_data)>0){
+					
+					$OT.= "<span class='evo_epbar_o'><span class='evo_ep_bar'><b style='width:{$perc}%'></b></span></span>";
+					$OT.= "<span class='evo_ep_time evo_countdowner' data-gap='{$gap}' data-dur='{$duration}' data-exp_act='". $exp_act ."' data-n='{$nonce}' data-ds='".evo_lang('Days')."' data-d='".evo_lang('Day')."' data-t='". evo_lang('Time Left')."'></span>";
 
-						foreach($object->cmf_data as $f=>$v){
+					$OT.= "</span>";
 
-							// user loggedin visibility restriction
-							if( !empty($v['login_needed_message']) ) continue;
+				}
+			
+			case has_filter("eventon_eventtop_{$field}"):
+				//echo $field;
+				$helpers = array(
+					'evOPT'=>	EVO()->calendar->evopt1,
+					'evoOPT2'=> EVO()->calendar->evopt2,
+				);
 
-							// user role restriction validation
-							if( ($v['visibility_type'] =='admin' && !current_user_can( 'manage_options' ) ) ||
-								($v['visibility_type'] =='loggedin' && !is_user_logged_in() && empty($v['login_needed_message']))
-							) continue;
-
-							// make sure this is custom field is set to show on eventtop
-							if($is_array_eventtop_fields && in_array('cmd'.$f, $eventtop_fields) 
-							&& !empty($v['value']) ){
+				$OT.= apply_filters("eventon_eventtop_{$field}", '', $object, $EVENT, $helpers);	
+			break;
+		}
 
 
-								// custom icon
-								$icon_string = '';
-								if( !empty($v['imgurl']) && !empty($evOPT['evo_eventtop_customfield_icons']) && $evOPT['evo_eventtop_customfield_icons']=='yes'){
-									$icon_string ='<i class="fa '. $v['imgurl'] .'"></i>'; 
-								}
+		// custom meta fields
+		if( strpos($field, 'cmd') !== false){
+			if(!empty($object->cmf_data) && is_array($object->cmf_data) && count($object->cmf_data)>0){
 
-								if( $v['type'] == 'button'){									
-									$OT.= "<span><em class='evcal_cmd evocmd_button' data-href='". ($v['valueL'] ). "' data-target='". ($v['_target']). "'>" . $icon_string .$v['value']."</em></span>";
-								
-								}elseif( $v['type'] == 'textarea'){
+				if( !isset($object->cmf_data[ $field ])) return $OT;
+				$OT = $this->get_eventtop_cmf_html( $object->cmf_data[ $field ]);
 
-								}else{	
-
-									$OT.= "<span><em class='evcal_cmd'>". $icon_string . "<i>".  $v['field_name'].':</i></em><em>'. $v['value'] ."</em>
-										</span>";									
-								}
-
-							}
-
-						}
-					}
-
-					// event progress bar
-						if( !EVO()->cal->check_yn('evo_eventtop_progress_hide','evcal_1')  && $EVENT->is_event_live_now() && !$EVENT->is_cancelled()
-							&& !$EVENT->echeck_yn('hide_progress')
-						){
-							
-
-							$livenow_bar_sc = isset($SC['livenow_bar']) ? $SC['livenow_bar'] : 'yes';
-							
-							// check if shortcode livenow_bar is set to hide live bar
-							if($livenow_bar_sc == 'yes'):
-
-							$OT.= "<span class='evo_event_progress' >";
-
-							//$OT.= "<span class='evo_ep_pre'>". evo_lang('Live Now') ."</span>";
-
-							$now =  EVO()->calendar->utc_time;
-							$duration = $EVENT->duration;
-							$end_utc = $EVENT->get_end_time( true);
-							$gap = $end_utc - $now; // how far event has progressed
-
-							$perc = $duration == 0? 0: ($duration - $gap) / $duration;
-							$perc = (int)( $perc*100);
-							if( $perc > 100) $perc = 100;
-
-							// action on expire							
-							$exp_act = $nonce = '';
-							if( isset($SC['cal_now']) && $SC['cal_now'] == 'yes'){
-								$exp_act = 'runajax_refresh_now_cal';
-								$nonce = wp_create_nonce('evo_calendar_now');
-							}
-
-							
-							$OT.= "<span class='evo_epbar_o'><span class='evo_ep_bar'><b style='width:{$perc}%'></b></span></span>";
-							$OT.= "<span class='evo_ep_time evo_countdowner' data-gap='{$gap}' data-dur='{$duration}' data-exp_act='". $exp_act ."' data-n='{$nonce}' data-ds='".evo_lang('Days')."' data-d='".evo_lang('Day')."' data-t='". evo_lang('Time Left')."'></span>";
-
-							$OT.= "</span>";
-
-							endif;
-
-						}
-
-					endif;
-
-				break;
-
-				case 'close1':
-					$OT.="</span>";// span.evcal_desc3
-				break;
-
-				case 'close2':
-					$OT.= "</span>";// span.evcal_desc 
-					$OT.="<em class='clear'></em>";
-				break;
 			}
-		}	
+		}
+
+		// event type taxonomy
+		if(strpos($field, 'eventtype') !== false){
+			$OT .= $this->get_eventtop_types($field, $object);
+		}
 
 		return $OT;
 	}
 
+	// HTML for various event top blocks
+		function get_eventtop_types($tax_field, $object){
+			$OT = '';
 
+			if( empty($object->$tax_field)) return $OT;
 
-	// EvnetCard HTML
+			$tax_data = $object->$tax_field;
+			if( !isset( $tax_data['terms'] )) return $OT;
+
+			$OT .="<span class='evoet_eventtypes level_4 evcal_event_types ett{$tax_data['tax_index']}'><em><i>{$tax_data['tax_name']}:</i></em>";
+
+			foreach($tax_data['terms'] as $term_id=>$TD){
+				$OT .="<em data-filter='{$TD['s']}'>".$TD['i']. $TD['tn'] . $TD['add'] ."</em>";
+			}
+			$OT .="</span>";
+
+			
+			return $OT;
+		}
+
+		function get_eventtop_cmf_html($v){
+			$OT = $icon_string = '';
+			if( empty($v['value'])) return $OT;
+
+			// user loggedin visibility restriction
+			if( !empty($v['login_needed_message']) ) return $OT;
+
+			// user role restriction validation
+			if( ($v['visibility_type'] =='admin' && !current_user_can( 'manage_options' ) ) ||
+				($v['visibility_type'] =='loggedin' && !is_user_logged_in() && empty($v['login_needed_message']))
+			) return $OT;
+			
+			// custom icon
+			if( !empty($v['imgurl']) && EVO()->cal->check_yn('evo_eventtop_customfield_icons','evcal_1') ){
+				$icon_string ='<i class="fa '. $v['imgurl'] .'"></i>'; 
+			}
+
+			if( $v['type'] == 'button'){									
+				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd evocmd_button' data-href='". ($v['valueL'] ). "' data-target='". ($v['_target']). "'>" . $icon_string .$v['value']."</em></span>";
+			
+			}elseif( $v['type'] == 'textarea'){
+
+			}else{	
+				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd'>". $icon_string . "<i>".  $v['field_name'].':</i></em><em>'. $v['value'] ."</em>
+					</span>";									
+			}
+
+			return $OT;
+		}
+
+	function get_event_top($EventData, $eventtop_fields){
+			
+		$EVENT = $this->EVENT;
+		$SC = EVO()->calendar->shortcode_args;
+		$OT = '';		
+		
+		$evOPT = EVO()->calendar->evopt1;
+		$evOPT2 = EVO()->calendar->evopt2;
+
+		extract($EventData);
+
+		EVO()->cal->set_cur('evcal_1');
+
+		// open for pluggability 
+			$eventtop_fields = apply_filters('evoet_data_structure', $eventtop_fields, $EventData, $EVENT);
+
+			$layout = $eventtop_fields['layout'];
+			//print_r($layout);
+
+		// for each column in eventtop
+			for($x = 0; $x<5; $x++){
+				if(!isset( $layout['c'.$x] )) continue;
+
+				$additional_class = '';
+				if( $x == '3'){
+					$show_widget_eventtops = (!empty($evOPT['evo_widget_eventtop']) && $evOPT['evo_widget_eventtop']=='yes')? '':' hide_eventtopdata ';
+					$additional_class .= 'evcal_desc'. $show_widget_eventtops;
+				} 
+
+				$inner_content = '';
+				
+				if( is_array( $layout['c'.$x] ) && isset( $layout['c'.$x]) ){
+
+					foreach( $layout['c'.$x] as $field){
+						// eventtop bubbles
+						//if( $SC['eventtop_style'] == '3' && $field['f'] != 'day_block') continue;
+
+						$inner_content .= $this->get_eventtop_item_html( $field['f'], $EventData, $eventtop_fields);
+					}
+				}
+
+				if( empty($inner_content)) continue;
+
+				$OT.= "<span class='evoet_c{$x} evoet_cx {$additional_class}'>";
+				$OT .= $inner_content;
+
+				$OT .= "</span>";
+			}		
+
+		return $OT;
+	}
+
+// EvnetCard HTML
 	function get_event_card($array, $EventData, $evOPT, $evoOPT2, $ep_fields = ''){
 		// INIT
 			$EVENT = $this->EVENT;
@@ -475,6 +533,7 @@ class EVO_Cal_Event_Structure{
 		foreach( $eventcard_fields as $R=>$boxes){
 			
 			$CC = '';
+			$box_count = 0;
 			
 			$opened = false;
 
@@ -512,17 +571,26 @@ class EVO_Cal_Event_Structure{
 				$CC .= "<div class='evocard_box {$NN}' data-c='". $color ."' 
 					style='". (!empty($color) ? "background-color:#{$color}":'') ."'>". $BCC . "</div>";
 
-				if( $B == 'L2' || $B == 'R2' && $opened){
-					$CC .= "</div>"; $opened = false;
+				// stacked boxes close container
+				if( $opened){
+					if( (count($boxes) == 3 && ($B == 'L2' || $B == 'R2') ) ||
+						( count($boxes) == 4 && ($B == 'L3' || $B == 'R3') ) ){
+						$CC .= "</div>"; $opened = false;
+					}
 				}
+				$box_count++;
 			}
 
 			if( $opened ) $CC .= "</div>";
 			if( empty($CC)) continue;
 
-			$L = ( array_key_exists('L1', $boxes)) ? ' L':'';
+			$row_class = array('evocard_row');
+			if($box_count>1) $row_class[] ='bx'.$box_count;
+			if($box_count>1) $row_class[] ='bx';
+			if( array_key_exists('L1', $boxes)) $row_class[] = 'L';
+			if($i == $rows)  $row_class[] = 'lastrow';
 
-			echo "<div class='evocard_row". ( $i == $rows ? ' lastrow':'') ."{$L}'>";
+			echo "<div class='". implode(' ', $row_class) ."'>";
 			echo $CC;
 			echo "</div>";
 			$i++;
@@ -533,7 +601,7 @@ class EVO_Cal_Event_Structure{
 		return ob_get_clean();		
 	}	
 
-	// return box HTML content using box field name
+// return box HTML content using box field name
 	function get_eventcard_box_content($box_name, $box_data, $EVENT, $EventData){
 
 		$OT = '';
@@ -542,6 +610,8 @@ class EVO_Cal_Event_Structure{
 		$object = $box_data;
 		$end_row_class = $end = '';
 		$ED = $EventData;
+
+		//print_r($EventData);
 
 		extract($EventData);
 
@@ -558,7 +628,8 @@ class EVO_Cal_Event_Structure{
 							'end_row_class'=> '','end'=>'',
 						);
 
-						$OT.= apply_filters("eventon_eventCard_{$box_name}", $object, $helpers, $EVENT);							
+						$OT.= apply_filters("eventon_eventCard_{$box_name}", $object, $helpers, $EVENT);
+						
 					break;
 					
 				// Event Details
@@ -702,6 +773,8 @@ class EVO_Cal_Event_Structure{
 							// allow for custom date time format passing to repeat event times
 							$repeat_start_time_format = apply_filters('evo_eventcard_repeatseries_start_dtformat','');
 							$repeat_end_time_format = apply_filters('evo_eventcard_repeatseries_end_dtformat','');
+
+
 							
 							foreach($object->future_intervals as $key=>$interval){
 								$OT .= "<span data-repeat='{$key}' data-l='". $EVENT->get_permalink($key,$EVENT->l) ."' class='evo_repeat_series_date'>"; 
@@ -712,7 +785,16 @@ class EVO_Cal_Event_Structure{
 								}elseif( $EVENT->is_month_long()){
 
 									$OT .= $EVENT->get_readable_formatted_date( $interval[0], 'F, Y');
-									
+
+								}elseif( $EVENT->is_all_day()){
+									$OT .= $EVENT->get_readable_formatted_date( $interval[0], EVO()->calendar->date_format);
+
+									// show end time
+									if( $object->showendtime && !empty($interval[1])){
+
+										$OT .= ' - '.$EVENT->get_readable_formatted_date( $interval[1], EVO()->calendar->date_format);
+									}
+
 								}else{
 
 									$OT .= $EVENT->get_readable_formatted_date( $interval[0], $repeat_start_time_format);
@@ -864,6 +946,15 @@ class EVO_Cal_Event_Structure{
 										"<span class='evo_card_organizer_address'>". stripslashes($organizer_address). "</span>":null)."
 										</p>";
 
+									// organizer social share
+										$org_social = '';
+										foreach($EVENT->get_organizer_social_meta_array() as $key=>$val){
+											if( !empty($EventData[$key]))
+												$org_social .= "<a href='". urldecode( $EventData[$key] ) . "'><i class='fa fa-{$key}'></i></a>";
+										}
+										if( !empty($org_social)) 
+											$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
+
 									$OT .= apply_filters('evo_organizer_event_card', $org_data, $ED, $organizer_term_id);
 
 									$OT .= "</div><div class='clear'></div>							
@@ -995,8 +1086,7 @@ class EVO_Cal_Event_Structure{
 												</a>";
 										}
 
-										krsort($rel_events);
-
+										//krsort($rel_events);
 										foreach($rel_events as $html){
 											echo $html;
 										}
@@ -1040,14 +1130,14 @@ class EVO_Cal_Event_Structure{
 									<div class='evo_card_health_boxes'>
 									<?php
 
-									foreach(array(
+									foreach(apply_filters('evo_healthcaredata_frontend', array(
 										'_health_mask'=> array('svg','mask', evo_lang('Masks Required')),
 										'_health_temp'=> array('i','thermometer-half', evo_lang('Temperature Checked At Entrance')),
 										'_health_pdis'=> array('svg','distance', evo_lang('Physical Distance Maintained')),
 										'_health_san'=> array('i','clinic-medical', evo_lang('Event Area Sanitized')),
 										'_health_out'=> array('i','tree', evo_lang('Outdoor Event')),
 										'_health_vac'=> array('i','syringe', evo_lang('Vaccination Required')),
-									) as $k=>$v){
+									), $EVENT) as $k=>$v){
 
 										if(!$EVENT->echeck_yn( $k )) continue;
 										
@@ -1099,7 +1189,7 @@ class EVO_Cal_Event_Structure{
 							<div class='evo_metarow_paypal evorow evcal_evdata_row evo_paypal'>
 								<span class='evcal_evdata_icons'><i class='fa <?php echo get_eventON_icon('evcal__fai_007', 'fa-ticket',$evOPT );?>'></i></span>
 								<div class='evcal_evdata_cell'>
-									<p style='padding-bottom:5px;'><?php echo $text;?></p>
+									<p class='evcal_evdata_cell_title' style='padding-bottom:5px;'><?php echo $text;?></p>
 									<form target="_blank" name="_xclick" action="https://www.paypal.com/us/cgi-bin/webscr" method="post">
 										<input type="hidden" name="cmd" value="_xclick">
 										<input type="hidden" name="business" value="<?php echo $email;?>">
@@ -1137,9 +1227,7 @@ class EVO_Cal_Event_Structure{
 							$event_permalink = get_permalink($event_id);
 
 							// Link to event
-								$permalink_connector = (strpos($event_permalink, '?')!== false)? '&':'?';
-								$permalink = (!empty($object->__repeatInterval) && $object->__repeatInterval>0)? 
-									$event_permalink.$permalink_connector.'ri='.$object->__repeatInterval: $event_permalink;
+								$permalink = $EVENT->get_permalink();
 								$encodeURL = EVO()->cal->check_yn('evosm_diencode','evcal_1') ? $permalink:  urlencode($permalink);
 
 							// thumbnail
@@ -1178,6 +1266,7 @@ class EVO_Cal_Event_Structure{
 
 			// for custom meta data fields
 				if(!empty($object->x) && $box_name == 'customfield'.$object->x){
+					
 					$i18n_name = eventon_get_custom_language($evoOPT2,'evcal_cmd_'.$object->x , $evOPT['evcal_ec_f'.$object->x.'a1']);
 
 					// user role restriction access validation
@@ -1185,6 +1274,12 @@ class EVO_Cal_Event_Structure{
 						($object->visibility_type=='admin' && !current_user_can( 'manage_options' ) ) ||
 						($object->visibility_type=='loggedin' && !is_user_logged_in() && empty($object->login_needed_message))
 					){}else{
+
+						// value processing with passed on {}
+						$VV = $object->value;
+
+						$VV = $EVENT->process_dynamic_tags( $VV );					
+
 
 						$OT .="<div class='evo_metarow_cusF{$object->x} evorow evcal_evdata_row evcal_evrow_sm '>
 								<span class='evcal_evdata_icons'><i class='fa ".$object->imgurl."'></i></span>
@@ -1196,11 +1291,14 @@ class EVO_Cal_Event_Structure{
 								$OT .="<div class='evo_custom_content evo_data_val'>". $object->login_needed_message . "</div>";
 							}else{
 								if($object->type=='button'){
+
+									$link = $EVENT->process_dynamic_tags( $object->valueL );			
+
 									$_target = (!empty($object->_target) && $object->_target=='yes')? 'target="_blank"':null;
-									$OT .="<a href='".$object->valueL."' {$_target} class='evcal_btn evo_cusmeta_btn'>".$object->value."</a>";
+									$OT .="<a href='". $link ."' {$_target} class='evcal_btn evo_cusmeta_btn'>". $VV ."</a>";
 								}else{
 									$OT .="<div class='evo_custom_content evo_data_val'>". 
-									(  EVO()->frontend->filter_evo_content($object->value) )."</div>";
+									(  EVO()->frontend->filter_evo_content( $VV ) )."</div>";
 								}
 							}
 						
@@ -1211,202 +1309,205 @@ class EVO_Cal_Event_Structure{
 		return $OT;
 	}
 
-	// SEO Schema data
-		function get_schema($EventData, $_eventcard){
-			extract($EventData);
-			$EVENT = $this->EVENT;
 
-			//print_r($EventData);
+// SEO Schema data
+	function get_schema($EventData, $_eventcard){
+		extract($EventData);
+		$EVENT = $this->EVENT;
 
-			$__scheme_data = '<div class="evo_event_schema" style="display:none" >';
+		//print_r($EventData);
 
-			$tz = strpos($this->timezone, '-') === false? '+'. $this->timezone : $this->timezone;
+		$__scheme_data = '<div class="evo_event_schema" style="display:none" >';
+
+		$tz = strpos($this->timezone, '-') === false? '+'. $this->timezone : $this->timezone;
 
 
-			// Start time 
-				$_schema_starttime = $_schema_endtime = '';
-				if(is_array($start_date_data))
-					$_schema_starttime = $start_date_data['Y'].'-'.$start_date_data['n'].'-'.$start_date_data['j'].( !$EVENT->is_all_day()? 'T'.$start_date_data['H'].':'.$start_date_data['i']. $tz. ':00' :'');
-				if(is_array($end_date_data))
-					$_schema_endtime = $end_date_data['Y'].'-'.$end_date_data['n'].'-'.$end_date_data['j']. ( !$EVENT->is_all_day()? 'T'.$end_date_data['H'].':'.$end_date_data['i'].$tz. ':00':'');
+		// Start time 
+			$_schema_starttime = $_schema_endtime = '';
+			if(is_array($start_date_data))
+				$_schema_starttime = $start_date_data['Y'].'-'.$start_date_data['n'].'-'.$start_date_data['j'].( !$EVENT->is_all_day()? 'T'.$start_date_data['H'].':'.$start_date_data['i']. $tz. ':00' :'');
+			if(is_array($end_date_data))
+				$_schema_endtime = $end_date_data['Y'].'-'.$end_date_data['n'].'-'.$end_date_data['j']. ( !$EVENT->is_all_day()? 'T'.$end_date_data['H'].':'.$end_date_data['i'].$tz. ':00':'');
 
-			// Event Status
-				$ES = array(
-					'cancelled'=>'https://schema.org/EventCancelled',
-					'movedonline'=>'https://schema.org/EventMovedOnline',
-					'postponed'=>'https://schema.org/EventPostponed',
-					'rescheduled'=>'https://schema.org/EventRescheduled',
-				);
+		// Event Status
+			$ES = array(
+				'cancelled'=>'https://schema.org/EventCancelled',
+				'movedonline'=>'https://schema.org/EventMovedOnline',
+				'postponed'=>'https://schema.org/EventPostponed',
+				'rescheduled'=>'https://schema.org/EventRescheduled',
+			);
 
-				$_ES = isset($ES[$_status])? $ES[$_status]: 'https://schema.org/EventScheduled';
+			$_ES = isset($ES[$_status])? $ES[$_status]: 'https://schema.org/EventScheduled';
 
+		
+		// Event details				
+			$__schema_desc = !empty($event_excerpt_txt)? $event_excerpt_txt : (isset($EVENT->post_title)? '"'.$EVENT->post_title.'"':'');
 			
-			// Event details				
-				$__schema_desc = !empty($event_excerpt_txt)? $event_excerpt_txt : (isset($EVENT->post_title)? '"'.$EVENT->post_title.'"':'');
-				if(!empty($event_details)) $__schema_desc = $event_details;
-				$__schema_desc = str_replace("'","'", $__schema_desc);
-				$__schema_desc = str_replace('"',"'", $__schema_desc);
-				$__schema_desc = preg_replace( "/\r|\n/", " ", $__schema_desc );
-
-			// attendence mode
-				$AM = ucfirst( $EVENT->get_attendance_mode() );
-				$_AM = 'https://schema.org/'. $AM .'EventAttendanceMode';
+			if(!empty($event_details)) $__schema_desc = $event_details;
 			
-			if(!empty($schema) && $schema){	
-				// for each schema custom values
-				foreach(apply_filters('evo_event_schema',array(
-					'url'=>array(
-						'type'=>'a',
-						'attr'=>'href',
-						'attrcontent'=> $EVENT->get_permalink()
-					),					
-					'image'=>array(
-						'type'=>'meta',
-						'content'=> (!empty($img_src) &&!empty($img_src)? $img_src:'')
-					),					
-					'startDate'=>array(
-						'type'=>'meta',
-						'content'=> $_schema_starttime
-					),
-					'endDate'=>array(
-						'type'=>'meta',
-						'content'=> $_schema_endtime
-					),
-					'eventStatus'=>array(
-						'type'=>'meta',
-						'content'=>  $_ES
-					),
-				),$EVENT, $EVENT->ID) as $key=>$value){
-					$__scheme_data .= "<".(!empty($value['type'])?$value['type']:'meta') ." itemprop='{$key}' ".(!empty($value['content'])? 'content="'.$value['content'].'"':'') ." ". ( !empty($value['attr'])? $value['attr']."='". $value['attrcontent']."'":'');
+			$__schema_desc = str_replace("'","'", $__schema_desc);
+			$__schema_desc = str_replace('"',"'", $__schema_desc);
+			$__schema_desc = preg_replace( "/\r|\n/", " ", $__schema_desc );
 
-					if(!empty($value['itemtype'])) $__scheme_data .= ' itemscope itemtype="'.$value['itemtype'].'"';
-					
-					$__scheme_data .= ($value['type'] =='meta')? "/>": ">";
-					$__scheme_data .= (!empty($value['html'])?$value['html']:'');
-					$__scheme_data .= (isset($value['type']) && $value['type'] == 'meta')? '': 
-						( isset($value['type'])? "</".$value['type'] .">" :'' ); 
-				}
+		// attendence mode
+			$AM = ucfirst( $EVENT->get_attendance_mode() );
+			$_AM = 'https://schema.org/'. $AM .'EventAttendanceMode';
+		
+		if(!empty($schema) && $schema){	
+			// for each schema custom values
+			foreach(apply_filters('evo_event_schema',array(
+				'url'=>array(
+					'type'=>'a',
+					'attr'=>'href',
+					'attrcontent'=> $EVENT->get_permalink()
+				),					
+				'image'=>array(
+					'type'=>'meta',
+					'content'=> (!empty($img_src) &&!empty($img_src)? $img_src:'')
+				),					
+				'startDate'=>array(
+					'type'=>'meta',
+					'content'=> $_schema_starttime
+				),
+				'endDate'=>array(
+					'type'=>'meta',
+					'content'=> $_schema_endtime
+				),
+				'eventStatus'=>array(
+					'type'=>'meta',
+					'content'=>  $_ES
+				),
+			),$EVENT, $EVENT->ID) as $key=>$value){
+				$__scheme_data .= "<".(!empty($value['type'])?$value['type']:'meta') ." itemprop='{$key}' ".(!empty($value['content'])? 'content="'.$value['content'].'"':'') ." ". ( !empty($value['attr'])? $value['attr']."='". $value['attrcontent']."'":'');
+
+				if(!empty($value['itemtype'])) $__scheme_data .= ' itemscope itemtype="'.$value['itemtype'].'"';
 				
-				// location data
-					if( !empty($location_type) && $location_type =='virtual'){
-						$__scheme_data .= '<item style="display:none" itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation">';
-						if(!empty($location_link)) $__scheme_data .= '<span itemprop="url">'.$location_link.'</span>';
-						$__scheme_data .= "</item>";
-
-						//$_AM = 'https://schema.org/OnlineEventAttendanceMode';
-						
-					}
-
-					if(!empty($location_address)){
-
-						$__scheme_data .= '<item style="display:none" itemprop="location" itemscope itemtype="http://schema.org/Place">'. ( !empty($location_name)? '<span itemprop="name">'.$location_name.'</span>':'').'<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><item itemprop="streetAddress">'. stripslashes($location_address) .'</item></span></item>';					}
-
-					$__scheme_data .= '<item style="display:none" itemprop="eventAttendanceMode" itemscope itemtype="'.$_AM.'"></item>';
-
-				// offer data
-					if( $EVENT->get_prop('_seo_offer_price') && $EVENT->get_prop('_seo_offer_currency')){
-						$__scheme_data .= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					        <div class="event-price" itemprop="price" content="'.$EVENT->get_prop('_seo_offer_price').'">'.$EVENT->get_prop('_seo_offer_price').'</div>
-					        <meta itemprop="priceCurrency" content="'.$EVENT->get_prop('_seo_offer_currency').'">
-					        <meta itemprop="url" content="'.$EVENT->get_permalink().'">
-					        <meta itemprop="availability" content="http://schema.org/InStock">
-					        <meta itemprop="validFrom" content="'.$_schema_starttime.'">
-					    </div>';
-					}
-
-			    // organizer data
-				    if(!empty($organizer) && isset($organizer->name)){
-					    $__scheme_data .= '<div itemprop="organizer" itemscope="" itemtype="http://schema.org/Organization">
-					    	<meta itemprop="name" content="'.$organizer->name.'">
-					    	'. (!empty($organizer_link)? '<meta itemprop="url" content="'.$organizer_link.'">':'').
-					    '</div>';
-					}
-
-				// performer data using organizer data
-					if( $EVENT->get_prop('evo_event_org_as_perf') && !empty($organizer) && isset($organizer->name)){
-						 $__scheme_data .= '<div itemprop="performer" itemscope="" itemtype="http://schema.org/Person">
-					    	<meta itemprop="name" content="'.$organizer->name.'">
-					    </div>';
-					}
-			}else{
-				$__scheme_data .= '<a href="'.$event_permalink.'"></a>';
+				$__scheme_data .= ($value['type'] =='meta')? "/>": ">";
+				$__scheme_data .= (!empty($value['html'])?$value['html']:'');
+				$__scheme_data .= (isset($value['type']) && $value['type'] == 'meta')? '': 
+					( isset($value['type'])? "</".$value['type'] .">" :'' ); 
 			}
+			
+			// location data
+				if( !empty($location_type) && $location_type =='virtual'){
+					$__scheme_data .= '<item style="display:none" itemprop="location" itemscope itemtype="http://schema.org/VirtualLocation">';
+					if(!empty($location_link)) $__scheme_data .= '<span itemprop="url">'.$location_link.'</span>';
+					$__scheme_data .= "</item>";
 
-			// JSON LD
-			if(!empty($schema_jsonld) && $schema_jsonld){
-				$__scheme_data .= '<script type="application/ld+json">';				
-
-				// event status
-				$_schema_eventstatus = ',"eventStatus":"'. $_ES .'"';
-
-				// location
-					$_schema_location = ''; 
+					//$_AM = 'https://schema.org/OnlineEventAttendanceMode';
 					
-					if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address)){
-						$_schema_location .= ',"location":';
-					}
+				}
 
-					if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address))
-						$_schema_location .= '[';
+				if(!empty($location_address)){
 
-					if(!empty($location_type) && $location_type == 'virtual'){
-						$_schema_location .= '{"@type":"VirtualLocation"';
-						if(!empty($location_link)) $_schema_location .= ',"url":"'.$location_link.'"';
-						$_schema_location .= '}';
-					}
-					if(!empty($location_address)){
+					$__scheme_data .= '<item style="display:none" itemprop="location" itemscope itemtype="http://schema.org/Place">'. ( !empty($location_name)? '<span itemprop="name">'.$location_name.'</span>':'').'<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><item itemprop="streetAddress">'. stripslashes($location_address) .'</item></span></item>';					}
 
-						if(!empty($location_type) && $location_type == 'virtual')
-							$_schema_location .= ',';
+				$__scheme_data .= '<item style="display:none" itemprop="eventAttendanceMode" itemscope itemtype="'.$_AM.'"></item>';
 
-						$_name = !empty($location_name)? '"name":"'.$location_name.'",':'';
-						$location_name = str_replace('"', "", $location_name);
-						$_schema_location .= '{"@type":"Place",'.$_name.'"address":{"@type": "PostalAddress","streetAddress":"'. str_replace("\,",",", stripslashes($location_address) ).'"}}';
-					}
-					if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address)){
-						$_schema_location .= ']';
-					}
+			// offer data
+				if( $EVENT->get_prop('_seo_offer_price') && $EVENT->get_prop('_seo_offer_currency')){
+					$__scheme_data .= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				        <div class="event-price" itemprop="price" content="'.$EVENT->get_prop('_seo_offer_price').'">'.$EVENT->get_prop('_seo_offer_price').'</div>
+				        <meta itemprop="priceCurrency" content="'.$EVENT->get_prop('_seo_offer_currency').'">
+				        <meta itemprop="url" content="'.$EVENT->get_permalink().'">
+				        <meta itemprop="availability" content="http://schema.org/InStock">
+				        <meta itemprop="validFrom" content="'.$_schema_starttime.'">
+				    </div>';
+				}
 
-				// organizer 
-					$_schema_performer = $_schema_organizer = '';
-					if(!empty($organizer) && isset($organizer->name)){
-						$_schema_organizer = ',"organizer":{"@type":"Organization","name":"'.$organizer->name.'"'. 
-							( !empty($organizer_link)? ',"url":"'.$organizer_link.'"':'').
-							'}';				
-					}
+		    // organizer data
+			    if(!empty($organizer) && isset($organizer->name)){
+				    $__scheme_data .= '<div itemprop="organizer" itemscope="" itemtype="http://schema.org/Organization">
+				    	<meta itemprop="name" content="'.$organizer->name.'">
+				    	'. (!empty($organizer_link)? '<meta itemprop="url" content="'.$organizer_link.'">':'').
+				    '</div>';
+				}
 
-				// perfomer data using organizer
-					if( $EVENT->get_prop('evo_event_org_as_perf') && !empty($organizer) && isset($organizer->name) ){
-						$_schema_performer = ',"performer":{"@type":"Person","name":"'.$organizer->name.'"}';
-					}
-
-				// offers field
-					$_schema_offers = '';
-					if( $EVENT->get_prop('_seo_offer_price') && $EVENT->get_prop('_seo_offer_currency')){
-						$_schema_offers = ',"offers":{"@type":"Offer","price":"'. $EVENT->get_prop('_seo_offer_price') .'","priceCurrency":"'.$EVENT->get_prop('_seo_offer_currency').'","availability":"http://schema.org/InStock","validFrom":"'.$_schema_starttime.'","url":"'.$EVENT->get_permalink().'"}';
-					}
-
-				$__scheme_data .= 
-					'{"@context": "http://schema.org","@type": "Event",
-					"@id": "event_'. $EVENT->get_event_uniqid().'",
-					"eventAttendanceMode":"'. $_AM .'",
-					"name": '.(isset($EVENT->post_title)? '"'.htmlspecialchars( $EVENT->post_title, ENT_QUOTES ) .'"' :'').',
-					"url": "'. $EVENT->get_permalink() .'",
-					"startDate": "'.$_schema_starttime.'",
-					"endDate": "'.$_schema_endtime.'",
-					"image":'.(!empty($img_src) &&!empty($img_src)? '"'.$img_src.'"':'""').', 
-					"description":"'.$__schema_desc.'"'.
-				  	$_schema_location.
-				  	$_schema_organizer.
-				  	$_schema_performer.
-				  	$_schema_offers.
-				  	$_schema_eventstatus.
-				  	apply_filters('eventon_event_json_schema_adds', '', $EVENT, $EVENT->ID).
-				'}';
-				$__scheme_data .= "</script>";
-			}
-			$__scheme_data .= "</div>";
-
-			return $__scheme_data;
+			// performer data using organizer data
+				if( $EVENT->get_prop('evo_event_org_as_perf') && !empty($organizer) && isset($organizer->name)){
+					 $__scheme_data .= '<div itemprop="performer" itemscope="" itemtype="http://schema.org/Person">
+				    	<meta itemprop="name" content="'.$organizer->name.'">
+				    </div>';
+				}
+		}else{
+			$__scheme_data .= '<a href="'.$event_permalink.'"></a>';
 		}
+
+		// JSON LD
+		if(!empty($schema_jsonld) && $schema_jsonld){
+			$__scheme_data .= '<script type="application/ld+json">';				
+
+			// event status
+			$_schema_eventstatus = ',"eventStatus":"'. $_ES .'"';
+
+			// location
+				$_schema_location = ''; 
+				
+				if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address)){
+					$_schema_location .= ',"location":';
+				}
+
+				if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address))
+					$_schema_location .= '[';
+
+				if(!empty($location_type) && $location_type == 'virtual'){
+					$_schema_location .= '{"@type":"VirtualLocation"';
+					if(!empty($location_link)) $_schema_location .= ',"url":"'.$location_link.'"';
+					$_schema_location .= '}';
+				}
+				if(!empty($location_address)){
+
+					if(!empty($location_type) && $location_type == 'virtual')
+						$_schema_location .= ',';
+
+					$_name = !empty($location_name)? '"name":"'.$location_name.'",':'';
+					$location_name = str_replace('"', "", $location_name);
+					$_schema_location .= '{"@type":"Place",'.$_name.'"address":{"@type": "PostalAddress","streetAddress":"'. str_replace("\,",",", stripslashes($location_address) ).'"}}';
+				}
+				if(!empty($location_type) && $location_type == 'virtual' || !empty($location_address)){
+					$_schema_location .= ']';
+				}
+
+			// organizer 
+				$_schema_performer = $_schema_organizer = '';
+				if(!empty($organizer) && isset($organizer->name)){
+					$_schema_organizer = ',"organizer":{"@type":"Organization","name":"'.$organizer->name.'"'. 
+						( !empty($organizer_link)? ',"url":"'.$organizer_link.'"':'').
+						'}';				
+				}
+
+			// perfomer data using organizer
+				if( $EVENT->get_prop('evo_event_org_as_perf') && !empty($organizer) && isset($organizer->name) ){
+					$_schema_performer = ',"performer":{"@type":"Person","name":"'.$organizer->name.'"}';
+				}
+
+			// offers field
+				$_schema_offers = '';
+				if( $EVENT->get_prop('_seo_offer_price') && $EVENT->get_prop('_seo_offer_currency')){
+					$_schema_offers = ',"offers":{"@type":"Offer","price":"'. $EVENT->get_prop('_seo_offer_price') .'","priceCurrency":"'.$EVENT->get_prop('_seo_offer_currency').'","availability":"http://schema.org/InStock","validFrom":"'.$_schema_starttime.'","url":"'.$EVENT->get_permalink().'"}';
+				}
+
+			$__scheme_data .= 
+				'{"@context": "http://schema.org","@type": "Event",
+				"@id": "event_'. $EVENT->get_event_uniqid().'",
+				"eventAttendanceMode":"'. $_AM .'",
+				"name": '.(isset($EVENT->post_title)? '"'.htmlspecialchars( $EVENT->post_title, ENT_QUOTES ) .'"' :'').',
+				"url": "'. $EVENT->get_permalink() .'",
+				"startDate": "'.$_schema_starttime.'",
+				"endDate": "'.$_schema_endtime.'",
+				"image":'.(!empty($img_src) &&!empty($img_src)? '"'.$img_src.'"':'""').', 
+				"description":"'.$__schema_desc.'"'.
+			  	$_schema_location.
+			  	$_schema_organizer.
+			  	$_schema_performer.
+			  	$_schema_offers.
+			  	$_schema_eventstatus.
+			  	apply_filters('eventon_event_json_schema_adds', '', $EVENT, $EVENT->ID).
+			'}';
+			$__scheme_data .= "</script>";
+		}
+		$__scheme_data .= "</div>";
+
+		return $__scheme_data;
+	}
 }

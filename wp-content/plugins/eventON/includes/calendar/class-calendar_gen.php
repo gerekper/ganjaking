@@ -2,7 +2,7 @@
 /**
  * Calendar Data Generator, Calendar Options
  * @version 2.6.14
- * @updated 2.8
+ * @updated 4.1
 
  * called using EVO()->cal
  */

@@ -160,6 +160,7 @@ class RsLottieSlideFront extends RevSliderFunctions {
 			$size = $this->get_val($renderer, 'size', "cover");
 			$progressiveLoad = $this->get_val($renderer, 'progressiveLoad', false);
 			$hideTransparent = $this->get_val($renderer, 'hideTransparent', false);
+			$maxdpr = $this->get_val($renderer, 'maxdpr', 3);
 			
 			$interType = $this->get_val($interaction, 'type', "disabled");
 			$lerp = $this->get_val($interaction, 'lerp', 0);
@@ -185,6 +186,7 @@ class RsLottieSlideFront extends RevSliderFunctions {
 			$options["size"] = $size;
 			$options["progressiveLoad"] = $progressiveLoad;
 			$options["hideTransparent"] = $hideTransparent;
+			$options["maxdpr"] = $maxdpr;
 
 			$options["interType"] = $interType;
 			$options["lerp"] = $lerp;

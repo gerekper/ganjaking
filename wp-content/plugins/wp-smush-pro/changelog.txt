@@ -6,6 +6,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.11.0 ( 2022-08-11 ) =
+- New: Smush all image sizes in parallel for improved performance
+- Improvement: Code improvements
+
 = 3.10.3 ( 2022-07-14 ) =
 
 - Enhance: CDN activation process
@@ -118,4 +122,4 @@ Change Log:
 
 
 
-941105-1657823682-au
+941105-1660239714-au

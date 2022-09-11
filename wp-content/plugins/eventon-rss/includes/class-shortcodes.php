@@ -10,9 +10,11 @@ class evorss_shortcode{
 		add_filter('eventon_calhead_shortcode_args', array($this, 'calhead_args'), 10, 2);
 		add_filter('eventon_shortcode_defaults',array($this,  'add_shortcode_defaults'), 10, 1);
 		add_filter('eventon_basiccal_shortcodebox',array($this, 'add_fields_to_eventon_basic_cal'), 10, 1);
+		add_filter('eventon_basiclist_shortcodebox',array($this, 'add_fields_to_eventon_basic_cal'), 10, 1);
 	}
 
 	function calhead_args($array, $arg=''){
+		
 		if(!empty($arg['rss']))
 			$array['rss'] = $arg['rss'];
 		return $array;

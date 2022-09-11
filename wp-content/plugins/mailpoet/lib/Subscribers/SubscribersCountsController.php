@@ -10,6 +10,7 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\InvalidStateException;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\SegmentSubscribersRepository;
+use MailPoet\Tags\TagRepository;
 
 class SubscribersCountsController {
   /** @var SegmentsRepository */
@@ -18,18 +19,23 @@ class SubscribersCountsController {
   /** @var SegmentSubscribersRepository */
   private $segmentSubscribersRepository;
 
+  /** @var TagRepository */
+  private $tagRepository;
+
   /** @var TransientCache */
   private $transientCache;
 
   public function __construct(
     SegmentsRepository $segmentsRepository,
     SegmentSubscribersRepository $segmentSubscribersRepository,
+    TagRepository $subscriberTagRepository,
     TransientCache $transientCache
   ) {
 
     $this->segmentSubscribersRepository = $segmentSubscribersRepository;
     $this->transientCache = $transientCache;
     $this->segmentsRepository = $segmentsRepository;
+    $this->tagRepository = $subscriberTagRepository;
   }
 
   public function getSubscribersWithoutSegmentStatisticsCount(): array {
@@ -109,5 +115,12 @@ class SubscribersCountsController {
         $this->transientCache->invalidateItem(TransientCache::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY, $id);
       }
     }
+  }
+
+  /**
+   * @return array<int, array{id: int, name: string, subscribersCount: int}>
+   */
+  public function getTagsStatisticsCount(?string $status, bool $isDeleted): array {
+    return $this->tagRepository->getSubscriberStatisticsCount($status, $isDeleted);
   }
 }

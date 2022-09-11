@@ -1,0 +1,56 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Accepted": [
+            "התקבלה"
+         ],
+         "Approved!": [
+            "אושר!"
+         ],
+         "Loading the next translation for review...": [
+            "טוען את התרגום הבא לבדיקה..."
+         ],
+         "Back": [
+            "חזרה"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "כבה כדי לא לטעון אוטומטית את התרגום הבא לאחר סיום בדיקה זו."
+         ],
+         "Turn on to automatically load the next translation after finishing this review.": [
+            "הפעל כדי לטעון אוטומטית את התרגום הבא לאחר סיום בדיקה זו."
+         ],
+         "Edit": [
+            "ערוך"
+         ],
+         "Edit translation": [
+            "ערוך תרגום"
+         ],
+         "There was an error in applying translation.": [
+            "אירעה שגיאה בהחלת התרגום."
+         ],
+         "Please wait, applying translation..": [
+            "המתן, מחיל את התרגום."
+         ],
+         "Next review": [
+            "לבדיקה הבאה"
+         ],
+         "Publish this translation": [
+            "פרסם תרגום זה"
+         ],
+         "Accept this translation": [
+            "קבל תרגום זה"
+         ],
+         "Published!": [
+            "פורסם!"
+         ],
+         "Reviewing the next translation...": [
+            "בדיקת התרגום הבא."
+         ]
+      }
+   }
+}

@@ -331,7 +331,7 @@ class WebP extends Abstract_Module {
 		if ( 0 === strpos( $upload['basedir'], ABSPATH ) ) {
 			// Environments like Flywheel have an ABSPATH that's not used in the paths.
 			$root_path_base = ABSPATH;
-		} elseif ( isset( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ) {
+		} elseif ( ! empty( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ) {
 			/**
 			 * This gets called when scanning for uncompressed images.
 			 * When ran from certain contexts, $_SERVER['DOCUMENT_ROOT'] might not be set.

@@ -326,7 +326,15 @@
 	.customization_right_in .backender_yn_sec .nfe_f_width input, 
 	.customization_right_in .backender_yn_sec .nfe_f_width textarea
 	{background-color: #e8e8e8}
+	.customization_right_in .evo_settings_subsection .backender_yn_sec input,
+	.customization_right_in .evo_settings_subsection .backender_yn_sec textarea
+	{background-color: #fff}
 
+	#ajde_customization input::-webkit-input-placeholder{color:#b5b5b5;}
+	#ajde_customization input::-moz-placeholder{color:#b5b5b5;}
+	#ajde_customization input:-ms-input-placeholder{color:#b5b5b5;}
+	#ajde_customization input:-moz-placeholder{color:#b5b5b5;}
+	
 
 	#ajde_customization .ajdebe_dropdown{padding-right: 25px;margin-left: 5px;}
 	#ajde_customization .ajdebe_dropdown:focus,
@@ -511,6 +519,26 @@
 		box-shadow:0px 0px 20px -5px #00000038;
 		margin-bottom:20px;
 	}
+
+/* webhook styles */
+	#evowhs_container{
+		background-color: #fff;
+	    border-radius: 8px;
+	    box-shadow: 0px 3px 10px -5px #0000004f;
+	    margin-bottom: 10px;
+	}
+	#evowhs_container p{
+		display: flex;
+	    width: 100%;
+	    justify-content: space-between;
+	    flex-wrap: wrap;
+	    padding: 5px 10px;
+	    box-sizing: border-box;
+	    border-bottom: 1px solid #e4e4e4;
+	}
+	#evowhs_container p span:first-child{flex-basis: 100px}
+	#evowhs_container p i{cursor: pointer;margin-left: 10px;}
+	#evowhs_container p em i:hover{opacity: 0.7}
 
 /*-- customization styles --*/
 	.customization_right_in p.color{line-height: 170%;}

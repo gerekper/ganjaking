@@ -41,6 +41,8 @@ class WC_XR_Line_Item_Manager {
 			$sales_account = $this->settings->get_option( 'sales_account' );
 			// Check we need to send sku's
 			$send_inventory = ( ( 'on' === $this->settings->get_option( 'send_inventory' ) ) ? true : false );
+			// Check if need to send prices inclusive of tax.
+			$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
 
 			// Add order items as line items
 			foreach ( $items as $item ) {
@@ -80,28 +82,28 @@ class WC_XR_Line_Item_Manager {
 				}
 
 				// Send Discount?
-				$item_without_discounts = $order->get_item_subtotal( $item, false, false );
+				$item_without_discounts = $order->get_item_subtotal( $item, $prices_inc_tax, false );
 
 				// Invoice decimal precision.
 				$precision     = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
-				$item_discount = round( ( $item->get_subtotal() - $item->get_total() ), $precision );
+				$item_discount = round( ( $order->get_line_subtotal( $item, $prices_inc_tax, false ) - $order->get_line_total( $item, $prices_inc_tax, false ) ), $precision );
 				if ( 0.001 < abs( $item_discount ) ) {
 					$line_item->set_discount_amount( $item_discount );
 				}
 
-				// Set the Unit Amount
+				// Set the Unit Amount.
 				$line_item->set_unit_amount( $item_without_discounts );
 
-				// Quantity
+				// Quantity.
 				$line_item->set_quantity( $item['qty'] );
 
-				// Line Amount
-				$line_item->set_line_amount( $item['line_subtotal'] );
+				// Line Amount.
+				$line_item->set_line_amount( $order->get_line_subtotal( $item, $prices_inc_tax, false ) );
 
-				// Tax Amount
+				// Tax Amount.
 				$line_item->set_tax_amount( $item['line_tax'] );
 
-				// Tax Rate
+				// Tax Rate.
 				$item_tax_status   = $product ? $product->get_tax_status() : 'taxable';
 				if ( 'taxable' === $item_tax_status ) {
 					add_filter( 'woocommerce_get_tax_location', array( $this, 'set_tax_location' ), 10, 2 );
@@ -170,13 +172,11 @@ class WC_XR_Line_Item_Manager {
 			$tax_based_on = 'base';
 		}
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
-		/* 
+		/*
 		 * Check if there is a shipping country set(it will be empty for orders with all virtual items).
 		 * If it is empty, calculate tax based on the billing address to ensure tax rates are returned.
 		 */
-		$shipping_country = $old_wc ? $this->order->shipping_country : $this->order->get_shipping_country();
+		$shipping_country = $this->order->get_shipping_country();
 
 		if ( 'base' === $tax_based_on ) {
 			$country  = WC()->countries->get_base_country();
@@ -184,15 +184,15 @@ class WC_XR_Line_Item_Manager {
 			$postcode = WC()->countries->get_base_postcode();
 			$city     = WC()->countries->get_base_city();
 		} elseif ( 'billing' === $tax_based_on || ! $shipping_country ) {
-			$country  = $old_wc ? $this->order->billing_country : $this->order->get_billing_country();
-			$state    = $old_wc ? $this->order->billing_state : $this->order->get_billing_state();
-			$postcode = $old_wc ? $this->order->billing_postcode : $this->order->get_billing_postcode();
-			$city     = $old_wc ? $this->order->billing_city : $this->order->get_billing_city();
+			$country  = $this->order->get_billing_country();
+			$state    = $this->order->get_billing_state();
+			$postcode = $this->order->get_billing_postcode();
+			$city     = $this->order->get_billing_city();
 		} else {
-			$country  = $old_wc ? $this->order->shipping_country : $this->order->get_shipping_country();
-			$state    = $old_wc ? $this->order->shipping_state : $this->order->get_shipping_state();
-			$postcode = $old_wc ? $this->order->shipping_postcode : $this->order->get_shipping_postcode();
-			$city     = $old_wc ? $this->order->shipping_city : $this->order->get_shipping_city();
+			$country  = $this->order->get_shipping_country();
+			$state    = $this->order->get_shipping_state();
+			$postcode = $this->order->get_shipping_postcode();
+			$city     = $this->order->get_shipping_city();
 		}
 
 		return array( $country, $state, $postcode, $city );
@@ -208,9 +208,11 @@ class WC_XR_Line_Item_Manager {
 	 * @return WC_XR_Line_Item
 	 */
 	public function build_shipping( $order ) {
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
+		$order_shipping = $order->get_shipping_total();
 
-		$order_shipping = $old_wc ? $order->order_shipping : $order->get_shipping_total();
+		// Check if need to send prices inclusive of tax.
+		$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
+
 		if ( $order_shipping > 0 ) {
 
 			$shipping_items = $order->get_items( 'shipping' );
@@ -229,7 +231,11 @@ class WC_XR_Line_Item_Manager {
 				$line_item->set_account_code( $this->settings->get_option( 'shipping_account' ) );
 
 				// Shipping cost.
-				$line_item->set_unit_amount( $item->get_total() );
+				$unit_amount = $item->get_total();
+				if ( $prices_inc_tax ) {
+					$unit_amount += $item->get_total_tax();
+				}
+				$line_item->set_unit_amount( $unit_amount );
 
 				// Shipping tax.
 				$shipping_taxes     = $item->get_taxes();
@@ -275,6 +281,9 @@ class WC_XR_Line_Item_Manager {
 			return $line_items;
 		}
 
+		// Check if need to send prices inclusive of tax.
+		$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
+
 		// Add order items as line items.
 		foreach ( $items as $fee ) {
 
@@ -294,7 +303,11 @@ class WC_XR_Line_Item_Manager {
 			}
 
 			// Set the Unit Amount.
-			$line_item->set_unit_amount( $fee->get_total() );
+			$unit_amount = $fee->get_total();
+			if ( $prices_inc_tax ) {
+				$unit_amount += $fee->get_total_tax();
+			}
+			$line_item->set_unit_amount( $unit_amount );
 
 			// Set line amount.
 			$line_item->set_line_amount( $fee->get_total() );
@@ -355,6 +368,8 @@ class WC_XR_Line_Item_Manager {
 
 		// Invoice precision
 		$precision = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
+		// Check if need to send prices inclusive of tax.
+		$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
 
 		// Get a sum of the amount and tax of all line items
 		if ( count( $line_items ) > 0 ) {
@@ -362,7 +377,11 @@ class WC_XR_Line_Item_Manager {
 			foreach ( $line_items as $line_item ) {
 				$line_val    = round( $line_item->get_unit_amount(), $precision ) * $line_item->get_quantity() - $line_item->get_discount_amount();
 				$line_tax    = round( $line_item->get_tax_amount(), $precision );
-				$line_total += $line_val + $line_tax ;
+				if ( $prices_inc_tax ) {
+					$line_total += $line_val;
+				} else {
+					$line_total += $line_val + $line_tax;
+				}
 			}
 		}
 

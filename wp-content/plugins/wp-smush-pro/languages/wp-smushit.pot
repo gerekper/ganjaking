@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.10.3\n"
+"Project-Id-Version: Smush Pro 3.11.0\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-14T12:34:21+00:00\n"
+"POT-Creation-Date: 2022-08-11T08:18:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wp-smushit\n"
@@ -266,7 +266,7 @@ msgstr ""
 #: core/integrations/nextgen/class-admin.php:126
 #: core/integrations/nextgen/class-admin.php:128
 #: core/integrations/nextgen/class-admin.php:315
-#: wp-smush.php:386
+#: wp-smush.php:395
 msgid "Smush"
 msgstr ""
 
@@ -2371,12 +2371,12 @@ msgstr ""
 msgid "Invalid API service."
 msgstr ""
 
-#: core/api/class-request.php:300
-msgid "[WPMUDEV API] Skipped sync due to API error exponential backoff."
-msgstr ""
-
 #: core/api/class-smush-api.php:51
 msgid "Unable to check status on staging."
+msgstr ""
+
+#: core/api/class-smush-api.php:99
+msgid "[WPMUDEV API] Skipped sync due to API error exponential backoff."
 msgstr ""
 
 #. translators: %d - image ID
@@ -3101,87 +3101,85 @@ msgstr ""
 msgid "Note: It’s not always easy to make this happen, fix up what you can."
 msgstr ""
 
-#: core/modules/class-smush.php:262
+#: core/modules/class-smush.php:267
 msgid "File path is empty"
 msgstr ""
 
 #. translators: %s: file path
-#: core/modules/class-smush.php:266
+#: core/modules/class-smush.php:271
 msgid "Could not find %s"
 msgstr ""
 
 #. translators: %s: directory name
-#: core/modules/class-smush.php:270
+#: core/modules/class-smush.php:275
 msgid "%s is not writable"
 msgstr ""
 
 #. translators: %1$s: image size, %2$s: image name
-#: core/modules/class-smush.php:281
+#: core/modules/class-smush.php:286
 msgid "Skipped (%1$s), image not found"
 msgstr ""
 
 #. translators: %1$s: image size, %2$s: image name
-#: core/modules/class-smush.php:285
+#: core/modules/class-smush.php:290
 msgid "Skipped (%1$s), size limit exceeded"
 msgstr ""
 
-#: core/modules/class-smush.php:309
-msgid "Unknown API error"
-msgstr ""
-
-#: core/modules/class-smush.php:417
+#: core/modules/class-smush.php:518
 msgid "Skipped due to a timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. define('WP_SMUSH_TIMEOUT', 150);"
 msgstr ""
 
-#. translators: %s error message
-#: core/modules/class-smush.php:421
+#: core/modules/class-smush.php:523
 msgid "Error posting to API: %s"
 msgstr ""
 
-#. translators: %1$s: response code, %2$s error message
-#: core/modules/class-smush.php:430
+#: core/modules/class-smush.php:530
 msgid "Error posting to API: %1$s %2$s"
 msgstr ""
 
-#: core/modules/class-smush.php:446
-msgid "Smush data corrupted, try again."
-msgstr ""
-
-#: core/modules/class-smush.php:471
+#: core/modules/class-smush.php:542
 msgid "Image couldn't be smushed"
 msgstr ""
 
-#: core/modules/class-smush.php:831
+#: core/modules/class-smush.php:548
+msgid "Unknown API error"
+msgstr ""
+
+#: core/modules/class-smush.php:559
+msgid "Smush data corrupted, try again."
+msgstr ""
+
+#: core/modules/class-smush.php:908
 msgid "No attachment ID was received."
 msgstr ""
 
 #. translators: %d - attachment ID
-#: core/modules/class-smush.php:837
+#: core/modules/class-smush.php:914
 msgid "attachment ID: %d"
 msgstr ""
 
-#: core/modules/class-smush.php:845
+#: core/modules/class-smush.php:922
 msgid "Skip ignored file."
 msgstr ""
 
-#: core/modules/class-smush.php:849
-#: core/modules/class-smush.php:909
+#: core/modules/class-smush.php:926
+#: core/modules/class-smush.php:986
 msgid "Skip animated file."
 msgstr ""
 
-#: core/modules/class-smush.php:858
+#: core/modules/class-smush.php:935
 msgid "File processing is in progress."
 msgstr ""
 
-#: core/modules/class-smush.php:873
+#: core/modules/class-smush.php:950
 msgid "No file data found in image meta"
 msgstr ""
 
-#: core/modules/class-smush.php:892
+#: core/modules/class-smush.php:969
 msgid "Skipped with wp_smush_image filter"
 msgstr ""
 
-#: core/modules/class-smush.php:902
+#: core/modules/class-smush.php:979
 msgid "Image not found."
 msgstr ""
 
@@ -3229,7 +3227,7 @@ msgstr ""
 msgid "We were unable to automatically remove the rules. We recommend trying to remove the rules manually. If you don’t have access to the .htaccess file to remove it manually, please consult with your hosting provider to change the configuration on the server."
 msgstr ""
 
-#: wp-smush.php:370
+#: wp-smush.php:379
 msgid "Get Fast!"
 msgstr ""
 

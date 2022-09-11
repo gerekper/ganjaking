@@ -801,7 +801,8 @@ class UpdraftPlus_S3_Compat {
 	 * Get a bucket's location
 	 *
 	 * @param string $bucket Bucket name
-	 * @return string | false
+	 *
+	 * @return String | Boolean - A boolean result will be false, indicating failure.
 	 */
 	public function getBucketLocation($bucket) {
 		try {

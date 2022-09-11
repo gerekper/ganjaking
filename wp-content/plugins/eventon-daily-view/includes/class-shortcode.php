@@ -34,10 +34,11 @@ class evo_dv_shortcode{
 					'fixed_day'=>0,
 					'day_incre'=>0,
 					'hide_sort_options'=>'no',
-					'hide_date_box'=>'no',
 					'mo1st'=>'',
 					'header_title'=>'',
-					'dv_view_style'=>'def'
+					'dv_view_style'=>'def',
+					'dv_scroll_type'=>'',
+					'dv_scroll_style'=>'def',
 				));	
 			}
 
@@ -57,8 +58,10 @@ class evo_dv_shortcode{
 							'name'=>'View Style',
 							'type'=>'select',
 							'options'=>array(
-								'def'=>'With month strip',
-								'oneday'=>'Just one day'
+								'def'=>'Month strip + Day box',
+								'defless'=>'Month strip only',
+								'oneday'=>'One day events',
+								'onedayplus'=>'One day events + Day box',
 							),
 							'var'=>'dv_view_style',
 							'default'=>'def'
@@ -92,16 +95,23 @@ class evo_dv_shortcode{
 						$evo_shortcode_box->shortcode_default_field('lang'),						
 						$evo_shortcode_box->shortcode_default_field('jumper'),
 						array(
-							'name'=>'Switch to first of month',
+							'name'=>'Day scrolling style at start & end of month',
+							'type'=>'select',
+							'options'=>array(
+								'def'=>'Default, using previous methods',
+								'continuous'=>'Continuous scrolling',
+								'firstday'=>'Always go to 1st of month',
+								'lastday'=>'Always go to last day of month',
+							),
+							'var'=>'dv_scroll_style',
+							'default'=>'def',
+							'guide'=>'Define how to scroll to next or previous date at the end and start of the month. Continuous scrolling will go from 31 > 1 and 1 to 31. This will override Switch to first of month value.',
+						),
+						array(
+							'name'=>'Switch to first of month (Deprecating)',
 							'type'=>'YN',
-							'guide'=>'Yes = when switching month focus day will go to 1st of new month',
+							'guide'=>'Yes = when switching month focus day will go to 1st of new month. This is deprecating. Please use Day scrolling type instead.',
 							'var'=>'mo1st',
-							'default'=>'no'
-						),array(
-							'name'=>'Hide Focus Date Section',
-							'type'=>'YN',
-							'guide'=>'Yes = will hide the focus date section above the days stripe on the calendar',
-							'var'=>'hide_date_box',
 							'default'=>'no'
 						)
 					)

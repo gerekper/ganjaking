@@ -321,7 +321,7 @@ class UpdraftPlus_S3 {
 	 *
 	 * @return void
 	 */
-	private function __triggerError($message, $file, $line, $code = 0) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::_responseHeaderCallback" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
+	private function __triggerError($message, $file, $line, $code = 0) {// phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore -- Method name "UpdraftPlus_S3Request::__triggerError" is discouraged; PHP has reserved all method names with a double underscore prefix for future use.
 		if ($this->useExceptions) {
 			throw new UpdraftPlus_S3Exception($message, $file, $line, $code);
 		} else {
@@ -1080,7 +1080,8 @@ class UpdraftPlus_S3 {
 	 *
 	 * @param string $bucket Bucket name
 	 *
-	 * @return string | false
+	 * @return String | Boolean - A boolean result will be false, indicating failure.
+	 * 
 	 */
 	public function getBucketLocation($bucket) {
 		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', $this->endpoint, $this->use_dns_bucket_name, $this);
@@ -1896,8 +1897,8 @@ final class UpdraftPlus_S3Request {
 	 */
 	private function _responseHeaderCallback($curl, $data) {
 		if (($strlen = strlen($data)) <= 2) return $strlen;
-		if ('HTTP' == substr($data, 0, 4)) {
-			$this->response->code = (int)substr($data, 9, 3);
+		if (preg_match('#^HTTP/\S+ (\d\d\d)#', $data, $matches)) {
+			$this->response->code = (int)$matches[1];
 		} else {
 			$data = trim($data);
 			if (false === strpos($data, ': ')) return $strlen;

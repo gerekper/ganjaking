@@ -112,7 +112,7 @@ class EVO_Welcome_Page {
 	
 	// TABS for the welcome screen
 		public function tabs(){
-			$selected = isset( $_GET['page'] ) ? $_GET['page'] : 'evo-about';
+			$selected = isset( $_GET['page'] ) ? sanitize_text_field($_GET['page']) : 'evo-about';
 			?>
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab <?php echo $selected == 'evo-about' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'evo-about' ), 'index.php' ) ) ); ?>">
@@ -211,7 +211,6 @@ class EVO_Welcome_Page {
 	
 	// Output the about screen.
 		public function about_screen() {
-			global $eventon;
 			?>		
 			<div class='evo_welcome_page'>	
 				<div class="wrap about-wrap eventon-welcome-box">
@@ -232,7 +231,7 @@ class EVO_Welcome_Page {
 							else
 								$message = __( 'Thank you for purchasing EventON ver ', 'eventon' );
 								
-							printf( __( '%s%s', 'eventon' ), $message,	$eventon->version );
+							printf( __( '%s%s', 'eventon' ), $message,	EVO()->version );
 						?></p>			
 						<p class='h4'><?php 
 							if(!empty($_GET['evo-updated']))
@@ -351,7 +350,6 @@ class EVO_Welcome_Page {
 
 	/** Sends user to the welcome page on first activation	 */
 		public function welcome() {
-			global $eventon;
 			// Bail if no activation redirect transient is set
 		    if ( ! get_transient( '_evo_activation_redirect' )  )
 				return;
@@ -375,7 +373,7 @@ class EVO_Welcome_Page {
 			wp_safe_redirect( admin_url( 'index.php?page=evo-about' ) );
 
 			// update dynamic styles file for eventon
-			$eventon->evo_admin->generate_dynamic_styles_file();			
+			EVO()->evo_admin->generate_dynamic_styles_file();			
 			
 			exit;
 		}	

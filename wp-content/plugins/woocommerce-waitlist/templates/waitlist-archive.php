@@ -33,19 +33,19 @@ $button_text = wcwl_get_button_text( $context );
 	?>
 		<div class="wcwl_notice woocommerce-message">
 			<div aria-live="polite">
-				<p><?php echo $notice; ?></p>
+				<p><?php echo esc_html( $notice ); ?></p>
 			</div>
 			<button type="button" class="wcwl_notice_dismiss">
-				<span class="screen-reader-text"><?php echo $dismiss_notification_text; ?></span>
+				<span class="screen-reader-text"><?php echo esc_html( $dismiss_notification_text ); ?></span>
 			</button>
 		</div>
 	<?php } ?>
 		<div class="wcwl_email_elements wcwl_hide">
-			<label for="wcwl_email_<?php echo $product_id; ?>" class="wcwl_email_label wcwl_visually_hidden"><?php echo $email_address_label_text; ?></label>
-			<input type="email" value="<?php echo $user_email; ?>" id="wcwl_email_<?php echo $product_id; ?>" name="wcwl_email" class="wcwl_email" placeholder="<?php echo $email_address_placeholder_text; ?>" <?php if ( $user_email ) { echo 'disabled'; } ?>/>
+			<label for="wcwl_email_<?php echo esc_attr( $product_id ); ?>" class="wcwl_email_label wcwl_visually_hidden"><?php echo esc_html( $email_address_label_text ); ?></label>
+			<input type="email" value="<?php echo esc_attr( $user_email ); ?>" id="wcwl_email_<?php echo esc_attr( $product_id ); ?>" name="wcwl_email" class="wcwl_email" placeholder="<?php echo esc_attr( $email_address_placeholder_text ); ?>" <?php if ( $user_email ) { echo 'disabled'; } ?>/>
 		</div>
-		<a class="wcwl_control" rel="nofollow" href="<?php echo $url; ?>" data-nonce="<?php echo wp_create_nonce( 'wcwl-ajax-process-user-request-nonce' ); ?>" data-product-id="<?php echo $product_id; ?>" data-context="<?php echo $context; ?>" data-wpml-lang="<?php echo $lang; ?>">
-			<button type="button" class="woocommerce_waitlist button"><?php echo $button_text; ?></button>
+		<a class="wcwl_control" rel="nofollow" href="<?php echo esc_url( $url ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wcwl-ajax-process-user-request-nonce' ) ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-context="<?php echo esc_attr( $context ); ?>" data-wpml-lang="<?php echo esc_attr( $lang ); ?>">
+			<button type="button" class="woocommerce_waitlist button"><?php echo esc_html( $button_text ); ?></button>
 			<div aria-live="polite" class="wcwl_visually_hidden"></div>
 			<div class="spinner"></div>
 		</a>

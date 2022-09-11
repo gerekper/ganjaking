@@ -3,7 +3,7 @@ Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.6
 Tested up to: 6.0
-Stable tag: 3.93.1
+Stable tag: 3.96.1
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -218,6 +218,34 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.96.1 - 2022-08-31 =
+* Fixed: the settings page renders blank in some cases.
+
+= 3.96.0 - 2022-08-29 =
+* Improved: don't show spacer after last item in breadcrumbs;
+* Improved: don't require a list to save email draft.
+
+= 3.95.1 - 2022-08-22 =
+* Added: UTM parameters on the MailPoet logo when sending with a free MailPoet plan;
+* Added: button to play video tutorial in email editor;
+* Added: new SMTP filters;
+* Improved: validate sender email immediately on the send page when using MailPoet Sending Service;
+* Improved: share System Info data when contacting MailPoet Support from the plugin;
+* Fixed: wrong position of tags autocomplete.
+
+= 3.95.0 - 2022-08-15 =
+* Added: the domain verification process can be performed in the plugin;
+* Updated: Gutenberg dependencies;
+* Fixed: emails are labeled as "Preview" on System Status page;
+* Removed support for migration data from MailPoet2.
+
+= 3.94.0 - 2022-08-08 =
+* Added: filter subscribers by a tag;
+* Added: new WordPress cron task scheduler method;
+* Improved: tooltip content when hovering over list name;
+* Improved: extract name from email when used as first name in welcome wizard;
+* Improved: radio buttons and checkboxes accessibility in forms.
 
 = 3.93.1 - 2022-08-02 =
 * Added: link to MailPoet settings from Plugins page;

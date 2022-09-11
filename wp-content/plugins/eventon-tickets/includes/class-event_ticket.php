@@ -78,26 +78,40 @@ class evotx_event extends EVO_Event{
 		// hook for ticket addons
 		$plug = apply_filters('evotx_add_ticket_to_cart_before',false, $this,$DATA);
 		if($plug !== false){	return $plug;	}
+
+
+		// load location information
+			$loc_data = $this->get_location_data();
+			$location_name = isset($loc_data) && isset($loc_data['location_name']) ? $loc_data['location_name']: '';
 		
 		// gather cart item data before adding to cart
 			$_cart_item_data_array = array(
 					'evotx_event_id_wc'			=> $this->ID,
 					'evotx_repeat_interval_wc'	=> $this->ri,
+					'evotx_elocation'			=> $location_name,
 					'evotx_lang'				=> (isset($event_data['l'])? $event_data['l']: 'L1')
 				);
 
 			// name your price
 			if( isset($DATA['nyp'])) $_cart_item_data_array['evotx_yprice'] = $DATA['nyp'];
+			
 			$cart_item_data = apply_filters('evotx_add_cart_item_meta', $_cart_item_data_array, $this, $default_ticket_price, $DATA);
 
+			//print_r($cart_item_data);
 
+			
 		// Add ticket to cart
-			$cart_item_keys = WC()->cart->add_to_cart(
-				$this->wcid,
-				apply_filters('evotx_add_cart_item_qty',$qty, $this, $default_ticket_price, $DATA),
-				0,array(),
-				$cart_item_data
-			);
+			if( is_array($cart_item_data)  ){
+				$cart_item_keys = WC()->cart->add_to_cart(
+					$this->wcid,
+					apply_filters('evotx_add_cart_item_qty',$qty, $this, $default_ticket_price, $DATA),
+					0,array(),
+					$cart_item_data
+				);
+			// if filter pass cart item keys
+			}else{
+				$cart_item_keys = $cart_item_data;
+			}
 
 			if($cart_item_keys){
 
@@ -108,7 +122,7 @@ class evotx_event extends EVO_Event{
 
 
 		// Successfully added to cart
-		if($cart_item_keys!== false){
+		if($cart_item_keys !== false){
 			$tx_help = new evotx_helper();
 			$output = $tx_help->add_to_cart_html();
 			$msg = evo_lang('Ticket added to cart successfully!');
@@ -124,7 +138,7 @@ class evotx_event extends EVO_Event{
 			'status'=> $status,
 			'html'=>$output,
 			't'=>$DATA
-		), $this, $DATA));
+		), $this, $DATA));exit;
 
 	}
 
@@ -293,9 +307,9 @@ class evotx_event extends EVO_Event{
 			foreach($TT->posts as $P){
 
 				$order_id = get_post_meta($P->ID, '_orderid',true);
-				$order = wc_get_order( $order_id );
-
-				if($order->get_status() != 'completed') continue;
+				$order_st = get_post_status( $order_id);
+				
+				if($order_st != 'wc-completed') continue;
 
 				$bought = true;
 			}
@@ -395,6 +409,7 @@ class evotx_event extends EVO_Event{
 
 		ob_start();
 		$cnt = $checked_count = 0;
+		$tix_holders = array();
 		$guests = array();
 
 		//print_r($TH);
@@ -406,7 +421,7 @@ class evotx_event extends EVO_Event{
 
 			// check for RI
 			if($td['ri'] != $this->ri) continue;
-			if(in_array($td['name'], $guests)) continue;
+			//if(in_array($td['name'], $guests)) continue;
 
 			// skip refunded tickets
 			if($td['s'] == 'refunded') continue;
@@ -415,11 +430,19 @@ class evotx_event extends EVO_Event{
 			// get checked count
 			if($td['s']== 'checked')  $checked_count++;
 
-			$guests[] = $td['name'];
-			echo apply_filters('evotx_guestlist_guest',"<span class='fullname' data-name='".$td['name']."' >". $td['name'] ."</span>", $td);
+			$tix_holders[ $td['name'] ] = array_key_exists( $td['name'] , $tix_holders) ? 
+				$tix_holders[ $td['name'] ] + 1 : 1;		
+			
 			$cnt++;
-
 		}
+
+
+		foreach($tix_holders as $name=>$count){
+			$guests[] = $name;
+			echo apply_filters('evotx_guestlist_guest',"<span class='fullname' data-name='".$name."' >". $name . ( $count >1 ? ' ('. $count .')':'') . "</span>", $td);
+		}
+
+
 		$output = ob_get_clean();			
 
 		return array(

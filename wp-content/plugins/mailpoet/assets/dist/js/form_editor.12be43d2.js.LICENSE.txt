@@ -1,0 +1,15 @@
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*! https://mths.be/punycode v1.3.2 by @mathias */
+
+/*! js-cookie v3.0.1 | MIT */
+
+//!! Deliberately using an API that's deprecated in node.js because
+
+//!! Discussion: github.com/node-browser-compat/atob/pull/9
+
+//!! this file is for browsers and we expect them to cope with it.

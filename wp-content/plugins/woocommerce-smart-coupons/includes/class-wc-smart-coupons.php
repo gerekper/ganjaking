@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.1.0
+ * @version     4.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -209,6 +209,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'compat/class-wcopc-sc-compatibility.php';
 			include_once 'compat/class-wcs-sc-compatibility.php';
 			include_once 'compat/class-wc-sc-wmc-compatibility.php';
+			include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
 
 			include_once 'class-wc-sc-admin-welcome.php';
 			include_once 'class-wc-sc-background-coupon-importer.php';
@@ -533,6 +534,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			if ( 'yes' === $is_send_email && 'yes' === $combine_emails ) {
 				WC()->mailer();
 
+				$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+
 				$is_gift = '';
 				if ( ! empty( $order_id ) ) {
 					$is_gift = get_post_meta( $order_id, 'is_gift', true );
@@ -543,7 +546,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$message_from_sender = ( ! empty( $receiver_details[0]['message'] ) ) ? $receiver_details[0]['message'] : '';
 
 					$coupon        = new WC_Coupon( $coupon_code );
-					$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+					$coupon_amount = $this->get_amount( $coupon, true, $order );
 					$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 					$coupon_data   = $this->get_coupon_meta_data( $coupon );
 
@@ -652,14 +655,14 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( is_a( $coupon, 'WC_Coupon' ) && is_a( $order, 'WC_Order' ) ) {
 					$sc_disable_email_restriction = get_post_meta( $parent_id, 'sc_disable_email_restriction', true );
 					if ( $this->is_wc_gte_30() ) {
-						$coupon_amount = $coupon->get_amount();
 						$discount_type = $coupon->get_discount_type();
 						$coupon_code   = $coupon->get_code();
 					} else {
-						$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						$coupon_code   = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 					}
+
+					$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 					$coupon_details = array(
 						$receiver_email => array(
@@ -1010,19 +1013,25 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @return array $coupon_data Associative array containing formatted coupon data.
 		 */
 		public function get_coupon_meta_data( $coupon ) {
-			global $store_credit_label;
+			global $store_credit_label, $post;
+
+			$order = null;
+
+			if ( ! empty( $post->post_type ) && 'shop_order' === $post->post_type && ! empty( $post->ID ) ) {
+				$order = wc_get_order( $post->ID );
+			}
 
 			$all_discount_types = wc_get_coupon_types();
 
 			if ( $this->is_wc_gte_30() ) {
 				$coupon_id     = ( ! empty( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
-				$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
 				$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 			} else {
 				$coupon_id     = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
-				$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 				$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 			}
+
+			$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 			$coupon_data = array();
 			switch ( $discount_type ) {
@@ -1049,7 +1058,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				case 'percent':
 					$coupon_data['coupon_type']   = ( $this->is_wc_gte_30() ) ? __( 'Discount', 'woocommerce-smart-coupons' ) : __( 'Cart Discount', 'woocommerce-smart-coupons' );
 					$coupon_data['coupon_amount'] = $coupon_amount . '%';
-					$max_discount                 = get_post_meta( $coupon_id, 'wc_sc_max_discount', true );
+					$max_discount                 = $this->get_post_meta( $coupon_id, 'wc_sc_max_discount', true, true, $order );
 					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
 						/* translators: %s: Maximum coupon discount amount */
 						$coupon_data['coupon_type'] .= ' ' . sprintf( __( ' upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount ) );
@@ -1902,8 +1911,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 						if ( 'smart_coupon' === $discount_type ) {
 							$total                      = $order->get_total();
-							$discount_amount            = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : wc_get_order_item_meta( $item_id, 'discount_amount', true );
-							$smart_coupons_contribution = get_post_meta( $order_id, 'smart_coupons_contribution', true );
+							$discount_amount            = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $this->get_order_item_meta( $item_id, 'discount_amount', true, true );
+							$smart_coupons_contribution = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
 							$smart_coupons_contribution = ! empty( $smart_coupons_contribution ) ? $smart_coupons_contribution : array();
 
 							if ( ! empty( $smart_coupons_contribution ) && count( $smart_coupons_contribution ) > 0 && array_key_exists( $coupon_code, $smart_coupons_contribution ) ) {
@@ -1925,7 +1934,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 							$smart_coupons_contribution[ $coupon_code ] = $discount;
 
-							update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution );
+							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true );
 
 						}
 					}
@@ -1948,14 +1957,15 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function sc_order_get_discount_amount( $total, $coupon, $order ) {
 			$discount = 0;
 
-			if ( $coupon instanceof WC_Coupon && $order instanceof WC_Order ) {
-				$coupon_amount             = $coupon->get_amount();
+			if ( is_a( $coupon, 'WC_Coupon' ) && is_a( $order, 'WC_Order' ) ) {
 				$discount_type             = $coupon->get_discount_type();
 				$coupon_code               = $coupon->get_code();
 				$coupon_product_ids        = $coupon->get_product_ids();
 				$coupon_product_categories = $coupon->get_product_categories();
 
 				if ( 'smart_coupon' === $discount_type ) {
+
+					$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 					$calculated_total = $total;
 
@@ -2198,7 +2208,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						return $discount;
 					}
 
-					$max_discount = get_post_meta( $coupon_id, 'wc_sc_max_discount', true );
+					$order = ( is_a( $cart_item, 'WC_Order_Item' ) && is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;
+
+					$max_discount = $this->get_post_meta( $coupon_id, 'wc_sc_max_discount', true, true, $order );
 
 					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
 
@@ -2225,7 +2237,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						);
 
 						if ( is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
-                            $order       = $wc_cart_or_order_object = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;  // phpcs:ignore
+							$order = $wc_cart_or_order_object = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;  // phpcs:ignore
 							$wc_order_id = ( is_callable( array( $cart_item, 'get_order_id' ) ) ) ? $cart_item->get_order_id() : 0;
 							if ( empty( $wc_order_id ) ) {
 								return $discount;
@@ -2428,21 +2440,21 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			$discount = 0;
 
-			if ( $coupon instanceof WC_Coupon ) {
+			if ( is_a( $coupon, 'WC_Coupon' ) ) {
 
 				if ( $coupon->is_valid() && $coupon->is_type( 'smart_coupon' ) ) {
 
 					if ( $this->is_wc_gte_30() ) {
-						$coupon_amount             = $coupon->get_amount();
 						$coupon_code               = $coupon->get_code();
 						$coupon_product_ids        = $coupon->get_product_ids();
 						$coupon_product_categories = $coupon->get_product_categories();
 					} else {
-						$coupon_amount             = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						$coupon_code               = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 						$coupon_product_ids        = ( ! empty( $coupon->product_ids ) ) ? $coupon->product_ids : array();
 						$coupon_product_categories = ( ! empty( $coupon->product_categories ) ) ? $coupon->product_categories : array();
 					}
+
+					$coupon_amount = $this->get_amount( $coupon, true );
 
 					$calculated_total = $total;
 
@@ -2642,7 +2654,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$_coupon       = new WC_Coupon( $code );
 					$discount_type = ( is_object( $_coupon ) && is_callable( array( $_coupon, 'get_discount_type' ) ) ) ? $_coupon->get_discount_type() : '';
 					if ( ! empty( $discount_type ) && 'smart_coupon' === $discount_type ) {
-						$discount         = ( is_object( $_coupon ) && is_callable( array( $_coupon, 'get_amount' ) ) ) ? $_coupon->get_amount() : 0;
+						$discount         = $this->get_amount( $_coupon, true, $order );
 						$applied_discount = min( $total, $discount );
 						if ( $this->is_wc_gte_30() ) {
 							$coupon->set_discount( $applied_discount );
@@ -2729,14 +2741,14 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function is_smart_coupon_valid( $valid, $coupon, $discounts = null ) {
 
 			if ( $this->is_wc_gte_30() ) {
-				$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
 				$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 				$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
 			} else {
-				$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 				$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 				$coupon_code   = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 			}
+
+			$coupon_amount = $this->get_amount( $coupon, true );
 
 			if ( 'smart_coupon' !== $discount_type ) {
 				return $valid;
@@ -3183,6 +3195,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			global $smart_coupon_codes;
 
+			$order = null;
+
 			if ( $this->is_wc_gte_30() ) {
 				$coupon_id                          = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
 				$is_free_shipping                   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_free_shipping' ) ) ) ? ( ( $coupon->get_free_shipping() ) ? 'yes' : 'no' ) : '';
@@ -3228,6 +3242,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 
 			if ( ! empty( $order_id ) ) {
+				$order                 = ( function_exists( 'wc_get_order' ) ) ? wc_get_order( $order_id ) : null;
 				$receivers_messages    = get_post_meta( $order_id, 'gift_receiver_message', true );
 				$schedule_gift_sending = get_post_meta( $order_id, 'wc_sc_schedule_gift_sending', true );
 				$sending_timestamps    = get_post_meta( $order_id, 'gift_sending_timestamp', true );
@@ -3298,7 +3313,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				update_post_meta( $smart_coupon_id, 'discount_type', $type );
 
 				if ( 'smart_coupon' === $type ) {
-					update_post_meta( $smart_coupon_id, 'wc_sc_original_amount', $amount );
+					$this->update_post_meta( $smart_coupon_id, 'wc_sc_original_amount', $amount, true, $order );
 				}
 
 				update_post_meta( $smart_coupon_id, 'coupon_amount', $amount );
@@ -3349,9 +3364,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$sc_restrict_to_new_user = get_post_meta( $coupon_id, 'sc_restrict_to_new_user', true );
 				update_post_meta( $smart_coupon_id, 'sc_restrict_to_new_user', $sc_restrict_to_new_user );
 
-				$wc_sc_max_discount = get_post_meta( $coupon_id, 'wc_sc_max_discount', true );
+				$wc_sc_max_discount = $this->get_post_meta( $coupon_id, 'wc_sc_max_discount', true, true, $order );
 				if ( ! empty( $wc_sc_max_discount ) ) {
-					update_post_meta( $smart_coupon_id, 'wc_sc_max_discount', $wc_sc_max_discount );
+					$this->update_post_meta( $smart_coupon_id, 'wc_sc_max_discount', $wc_sc_max_discount, true, $order );
 				}
 
 				if ( $this->is_wc_gte_32() ) {
@@ -4983,7 +4998,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 					if ( 'smart_coupon' === $discount_type ) {
 						$has_smart_coupon      = true;
-						$coupon_usable_amount += ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : '';
+						$coupon_usable_amount += $this->get_amount( $coupon, true );
 						if ( in_array( $free_shipping_condition, array( 'coupon', 'either', 'both' ), true ) ) {
 							$coupon_is_valid          = ( is_object( $coupon ) && is_callable( array( $coupon, 'is_valid' ) ) ) ? $coupon->is_valid() : '';
 							$coupon_get_free_shipping = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_free_shipping' ) ) ) ? $coupon->get_free_shipping() : '';
@@ -5169,7 +5184,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		/**
 		 * Add total SC used in REST API shop order object.
 		 *
-		 * @since  5.7.0
+		 * @since 5.7.0
 		 *
 		 * @param WP_REST_Response $response WP_REST_Response object.
 		 * @param WC_Order         $order WC_Order object.
@@ -5192,6 +5207,657 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			return $response;
 		}
 
+		/**
+		 * Function to get coupon amount considering currency
+		 *
+		 * @param WC_Coupon $coupon The coupon object.
+		 * @param boolean   $convert Whether to convert or not.
+		 * @param WC_Order  $order The order object.
+		 *
+		 * @throws Exception If $coupon is not an object of WC_Coupon.
+		 * @return float
+		 */
+		public function get_amount( $coupon = null, $convert = false, $order = null ) {
+			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$error = __( '$coupon is not an object of WC_Coupon', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$coupon is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $coupon ) ) ? var_dump( $coupon ) : print_r( gettype( $coupon ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( $this->is_wc_gte_30() ) {
+				$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+				$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+			} else {
+				$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
+				$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
+			}
+			return $coupon_amount;
+		}
+
+		/**
+		 * Maybe convert price read from database to current currency
+		 *
+		 * @param integer  $price The price to be converted.
+		 * @param boolean  $convert Whether to convert or not.
+		 * @param WC_Order $order The order object.
+		 * @return float $price The converted price.
+		 */
+		public function read_price( $price = 0, $convert = false, $order = null ) {
+			if ( true === $convert ) {
+				$order_currency = '';
+				if ( is_a( $order, 'WC_Order' ) ) {
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+				}
+				$current_currency = ( ! empty( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
+				$base_currency    = get_option( 'woocommerce_currency' );
+				if ( $base_currency !== $current_currency ) {
+					$price = $this->convert_price( $price, $current_currency, $base_currency );
+				}
+				$price = apply_filters(
+					'wc_sc_read_price',
+					$price,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'order_obj'           => $order,
+					)
+				);
+			}
+			return $price;
+		}
+
+		/**
+		 * Maybe convert price to base currency before saving to the database
+		 *
+		 * @param integer  $price The price to be converted.
+		 * @param boolean  $convert Whether to convert or not.
+		 * @param WC_Order $order The order object.
+		 * @return float $price The converted price.
+		 */
+		public function write_price( $price = 0, $convert = false, $order = null ) {
+			if ( true === $convert ) {
+				$order_currency = '';
+				if ( is_a( $order, 'WC_Order' ) ) {
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+				}
+				$current_currency = ( ! empty( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
+				$base_currency    = get_option( 'woocommerce_currency' );
+				if ( $base_currency !== $current_currency ) {
+					$price = $this->convert_price( $price, $base_currency, $current_currency );
+				}
+				$price = apply_filters(
+					'wc_sc_write_price',
+					$price,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'order_obj'           => $order,
+					)
+				);
+			}
+			return $price;
+		}
+
+		/**
+		 * Get post meta considering currency
+		 *
+		 * @param integer  $post_id The post id.
+		 * @param string   $meta_key The meta key.
+		 * @param boolean  $single Whether to get single value or not.
+		 * @param boolean  $convert Whether to convert or not.
+		 * @param WC_Order $order The order object.
+		 *
+		 * @throws Exception If Some values not passed for $post_id & $meta_key.
+		 * @return mixed
+		 */
+		public function get_post_meta( $post_id = 0, $meta_key = '', $single = false, $convert = false, $order = null ) {
+			if ( empty( $post_id ) || empty( $meta_key ) ) {
+				$error = __( 'Some values required for $post_id & $meta_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$post_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $post_id ) ) ? var_dump( $post_id ) : print_r( gettype( $post_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$meta_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $meta_key ) ) ? var_dump( $meta_key ) : print_r( gettype( $meta_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			$meta_value = get_post_meta( $post_id, $meta_key, $single );
+			if ( in_array( $meta_key, array( 'coupon_amount', 'smart_coupons_contribution', 'wc_sc_max_discount', 'wc_sc_original_amount', 'sc_called_credit_details', '_order_discount', '_order_total' ), true ) ) {
+				$order_currency = null;
+				$post_type      = ( function_exists( 'get_post_type' ) ) ? get_post_type( $post_id ) : '';
+				if ( ! is_a( $order, 'WC_Order' ) && ! empty( $post_type ) && 'shop_order' === $post_type ) {
+					$order = ( ! empty( $post_id ) ) ? wc_get_order( $post_id ) : null;
+				}
+				if ( is_a( $order, 'WC_Order' ) ) {
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+				}
+				if ( true === $convert ) {
+					$current_currency = ( ! is_null( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
+					$base_currency    = get_option( 'woocommerce_currency' );
+					if ( $base_currency !== $current_currency ) {
+						$meta_value = $this->convert_price( $meta_value, $current_currency, $base_currency );
+					}
+				}
+				return apply_filters(
+					'wc_sc_after_get_post_meta',
+					$meta_value,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'post_id'             => $post_id,
+						'meta_key'            => $meta_key, // phpcs:ignore
+						'order_obj'           => $order,
+					)
+				);
+			}
+			return $meta_value;
+		}
+
+		/**
+		 * Update post meta considering currency
+		 *
+		 * @param integer  $post_id The post id.
+		 * @param string   $meta_key The meta key.
+		 * @param string   $meta_value The meta value.
+		 * @param boolean  $convert Whether to convert or not.
+		 * @param WC_Order $order The order object.
+		 *
+		 * @throws Exception If Some values not passed for $post_id & $meta_key.
+		 */
+		public function update_post_meta( $post_id = 0, $meta_key = '', $meta_value = '', $convert = false, $order = null ) {
+			if ( empty( $post_id ) || empty( $meta_key ) ) {
+				$error = __( 'Some values required for $post_id & $meta_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$post_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $post_id ) ) ? var_dump( $post_id ) : print_r( gettype( $post_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$meta_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $meta_key ) ) ? var_dump( $meta_key ) : print_r( gettype( $meta_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( in_array( $meta_key, array( 'coupon_amount', 'smart_coupons_contribution', 'wc_sc_max_discount', 'wc_sc_original_amount', 'sc_called_credit_details', '_order_discount', '_order_total' ), true ) ) {
+				$order_currency = null;
+				$post_type      = ( function_exists( 'get_post_type' ) ) ? get_post_type( $post_id ) : '';
+				if ( ! is_a( $order, 'WC_Order' ) && ! empty( $post_type ) && 'shop_order' === $post_type ) {
+					$order = ( ! empty( $post_id ) ) ? wc_get_order( $post_id ) : null;
+				}
+				if ( is_a( $order, 'WC_Order' ) ) {
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+				}
+				if ( true === $convert ) {
+					$current_currency = ( ! is_null( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
+					$base_currency    = get_option( 'woocommerce_currency' );
+					if ( $base_currency !== $current_currency ) {
+						$meta_value = $this->convert_price( $meta_value, $base_currency, $current_currency );
+					}
+				}
+				$meta_value = apply_filters(
+					'wc_sc_before_update_post_meta',
+					$meta_value,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'post_id'             => $post_id,
+						'meta_key'            => $meta_key, // phpcs:ignore
+						'order_obj'           => $order,
+					)
+				);
+			}
+			update_post_meta( $post_id, $meta_key, $meta_value );
+		}
+
+		/**
+		 * Get value from WooCommerce session
+		 *
+		 * @param string  $key The key.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If $key is not passed.
+		 * @return mixed
+		 */
+		public function get_session( $key = '', $convert = false ) {
+			if ( empty( $key ) ) {
+				$error = __( '$key is required', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $key ) ) ? var_dump( $key ) : print_r( gettype( $key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( ! is_callable( 'WC' ) || ! is_object( WC() ) || ! is_object( WC()->session ) || ! is_callable( array( WC()->session, 'get' ) ) ) {
+				return null;
+			}
+			$value = WC()->session->get( $key );
+			if ( 'credit_called' !== $key ) {
+				return $value;
+			}
+			if ( true === $convert ) {
+				$current_currency = get_woocommerce_currency();
+				$base_currency    = get_option( 'woocommerce_currency' );
+				if ( $base_currency !== $current_currency ) {
+					if ( ! empty( $value ) ) {
+						if ( is_scalar( $value ) ) {
+							$value = $this->convert_price( $value, $current_currency, $base_currency );
+						} elseif ( is_array( $value ) ) {
+							array_walk(
+								$value,
+								array( $this, 'array_convert_price' ),
+								array(
+									'to_currency'   => $current_currency,
+									'from_currency' => $base_currency,
+								)
+							);
+						}
+					}
+				}
+			}
+			return apply_filters(
+				'wc_sc_after_get_session',
+				$value,
+				array(
+					'source'              => $this,
+					'currency_conversion' => $convert,
+					'key'                 => $key,
+				)
+			);
+		}
+
+		/**
+		 * Save a value in WooCommerce session
+		 *
+		 * @param string  $key The key.
+		 * @param string  $value The value.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If $key is not passed.
+		 */
+		public function set_session( $key = '', $value = '', $convert = false ) {
+			if ( empty( $key ) ) {
+				$error = __( '$key is required', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $key ) ) ? var_dump( $key ) : print_r( gettype( $key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( ! is_callable( 'WC' ) || ! is_object( WC() ) || ! is_object( WC()->session ) || ! is_callable( array( WC()->session, 'set' ) ) ) {
+				return;
+			}
+			if ( 'credit_called' !== $key ) {
+				return;
+			}
+			if ( true === $convert ) {
+				$current_currency = get_woocommerce_currency();
+				$base_currency    = get_option( 'woocommerce_currency' );
+				if ( $base_currency !== $current_currency ) {
+					if ( ! empty( $value ) ) {
+						if ( is_scalar( $value ) ) {
+							$value = $this->convert_price( $value, $base_currency, $current_currency );
+						} elseif ( is_array( $value ) ) {
+							array_walk(
+								$value,
+								array( $this, 'array_convert_price' ),
+								array(
+									'to_currency'   => $base_currency,
+									'from_currency' => $current_currency,
+								)
+							);
+						}
+					}
+				}
+			}
+			$value = apply_filters(
+				'wc_sc_before_set_session',
+				$value,
+				array(
+					'source'              => $this,
+					'currency_conversion' => $convert,
+					'key'                 => $key,
+				)
+			);
+			WC()->session->set( $key, $value );
+		}
+
+		/**
+		 * Get order item meta considering currency
+		 *
+		 * @param integer $item_id The order item id.
+		 * @param string  $item_key The order item key.
+		 * @param boolean $single Whether to get single value or not.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If Some values not passed for $item_id & $item_key.
+		 * @return mixed
+		 */
+		public function get_order_item_meta( $item_id = 0, $item_key = '', $single = false, $convert = false ) {
+			if ( empty( $item_id ) || empty( $item_key ) ) {
+				$error = __( 'Some values required for $item_id & $item_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			$item_value = wc_get_order_item_meta( $item_id, $item_key, $single );
+			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				if ( $this->is_wc_gte_30() ) {
+					$order_id = ( ! empty( $item_id ) ) ? wc_get_order_id_by_order_item_id( $item_id ) : 0;
+				} else {
+					$order_id = ( ! empty( $item_id ) ) ? $this->get_order_id_by_order_item_id_wclt30( $item_id ) : 0;
+				}
+				$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+				$item  = ( is_object( $order ) && is_callable( array( $order, 'get_item' ) ) ) ? $order->get_item( $item_id ) : null;
+				if ( true === $convert ) {
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+					if ( ! empty( $order_currency ) ) {
+						$base_currency = get_option( 'woocommerce_currency' );
+						$item_value    = $this->convert_price( $item_value, $order_currency, $base_currency );
+					}
+				}
+				return apply_filters(
+					'wc_sc_after_get_order_item_meta',
+					$item_value,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'order_item_obj'      => $item,
+						'order_item_id'       => $item_id,
+						'order_item_key'      => $item_key,
+					)
+				);
+			}
+			return $item_value;
+		}
+
+		/**
+		 * Add order item meta considering currency
+		 *
+		 * @param integer $item_id The order item id.
+		 * @param string  $item_key The order item key.
+		 * @param string  $item_value The order item value.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If Some values not passed for $item_id & $item_key.
+		 */
+		public function add_order_item_meta( $item_id = 0, $item_key = '', $item_value = '', $convert = false ) {
+			if ( empty( $item_id ) || empty( $item_key ) ) {
+				$error = __( 'Some values required for $item_id & $item_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( ! in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				return;
+			}
+			$item_value = $this->get_item_value( $item_id, $item_value, $convert );
+			if ( $this->is_wc_gte_30() ) {
+				wc_add_order_item_meta( $item_id, $item_key, $item_value );
+			} else {
+				woocommerce_add_order_item_meta( $item_id, $item_key, $item_value );
+			}
+		}
+
+		/**
+		 * Update order item meta considering currency
+		 *
+		 * @param integer $item_id The order item id.
+		 * @param string  $item_key The order item key.
+		 * @param string  $item_value The order item value.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If Some values not passed for $item_id & $item_key.
+		 */
+		public function update_order_item_meta( $item_id = 0, $item_key = '', $item_value = '', $convert = false ) {
+			if ( empty( $item_id ) || empty( $item_key ) ) {
+				$error = __( 'Some values required for $item_id & $item_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( ! in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				return;
+			}
+			$item_value = $this->get_item_value( $item_id, $item_value, $convert );
+			wc_update_order_item_meta( $item_id, $item_key, $item_value );
+		}
+
+		/**
+		 * Delete order item meta
+		 *
+		 * @param integer $item_id The order item id.
+		 * @param string  $item_key The order item key.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If Some values not passed for $item_id & $item_key.
+		 */
+		public function delete_order_item_meta( $item_id = 0, $item_key = '', $convert = false ) {
+			if ( empty( $item_id ) || empty( $item_key ) ) {
+				$error = __( 'Some values required for $item_id & $item_key', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				esc_html_e( '$item_key is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_key ) ) ? var_dump( $item_key ) : print_r( gettype( $item_key ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( ! in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				return;
+			}
+			if ( $this->is_wc_gte_30() ) {
+				wc_delete_order_item_meta( $item_id, $item_key );
+			} else {
+				woocommerce_delete_order_item_meta( $item_id, $item_key );
+			}
+		}
+
+		/**
+		 * Get order item meta
+		 *
+		 * @param WC_Order_item $item The order item object.
+		 * @param string        $item_key The order item meta key.
+		 * @param boolean       $convert Whether to convert or not.
+		 *
+		 * @throws Exception If $item is not an object of WC_Order_Item.
+		 * @return mixed
+		 */
+		public function get_meta( $item = null, $item_key = '', $convert = false ) {
+			if ( ! is_a( $item, 'WC_Order_Item' ) ) {
+				$error = __( '$item is not an object of WC_Order_Item', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item ) ) ? var_dump( $item ) : print_r( gettype( $item ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			$item_value = ( is_callable( array( $item, 'get_meta' ) ) ) ? $item->get_meta( $item_key ) : ( ( ! empty( $item[ $item_key ] ) ) ? $item[ $item_key ] : '' );
+			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				$item_id = ( is_callable( array( $item, 'get_id' ) ) ) ? $item->get_id() : 0;
+				if ( true === $convert ) {
+					$order = ( is_callable( array( $item, 'get_order' ) ) ) ? $item->get_order() : null;
+					if ( $this->is_wc_gte_30() ) {
+						$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : ''; // phpcs:ignore
+					} else {
+						$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+					}
+					if ( ! empty( $order_currency ) ) {
+						$base_currency = get_option( 'woocommerce_currency' );
+						$item_value    = $this->convert_price( $item_value, $order_currency, $base_currency );
+					}
+				}
+				return apply_filters(
+					'wc_sc_after_get_order_item_meta',
+					$item_value,
+					array(
+						'source'              => $this,
+						'currency_conversion' => $convert,
+						'order_item_obj'      => $item,
+						'order_item_id'       => $item_id,
+						'order_item_key'      => $item_key,
+					)
+				);
+			}
+			return $item_value;
+		}
+
+		/**
+		 * Update order item meta considering currency
+		 *
+		 * @param WC_Order_item $item The order item object.
+		 * @param string        $item_key The order item meta key.
+		 * @param string        $item_value The order item value.
+		 * @param boolean       $convert Whether to convert or not.
+		 *
+		 * @throws Exception If $item is not an object of WC_Order_Item.
+		 */
+		public function update_meta_data( &$item = null, $item_key = '', $item_value = '', $convert = false ) {
+			if ( ! is_a( $item, 'WC_Order_Item' ) ) {
+				$error = __( '$item is not an object of WC_Order_Item', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item ) ) ? var_dump( $item ) : print_r( gettype( $item ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
+				$item_id    = ( is_callable( array( $item, 'get_id' ) ) ) ? $item->get_id() : 0;
+				$item_value = $this->get_item_value( $item_id, $item_value, $convert );
+				if ( is_callable( array( $item, 'update_meta_data' ) ) ) {
+					$item->update_meta_data( $item_key, $item_value );
+				} else {
+					$item[ $item_key ] = $item_value;
+				}
+			}
+		}
+
+		/**
+		 * Check & convert price
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param float  $price The price need to be converted.
+		 * @param string $to_currency The price will be converted to this currency.
+		 * @param string $from_currency The price will be converted from this currency.
+		 * @return float
+		 */
+		public function convert_price( $price = 0, $to_currency = null, $from_currency = null ) {
+			if ( ! class_exists( 'WC_SC_Aelia_CS_Compatibility' ) ) {
+				include_once 'compat/class-wc-sc-aelia-cs-compatibility.php';
+			}
+			return WC_SC_Aelia_CS_Compatibility::get_instance()->convert_price( $price, $to_currency, $from_currency );
+		}
+
+		/**
+		 * Callback function for array_walk to apply convert price on each element of array
+		 *
+		 * @param mixed $value The array element.
+		 * @param mixed $key The array key.
+		 * @param array $args The additional arguments.
+		 */
+		public function array_convert_price( &$value = null, $key = null, $args = null ) {
+			if ( ! is_null( $value ) && ! is_null( $key ) && ! is_null( $args ) ) {
+				$to_currency   = ( ! empty( $args['to_currency'] ) ) ? $args['to_currency'] : '';
+				$from_currency = ( ! empty( $args['from_currency'] ) ) ? $args['from_currency'] : '';
+				if ( ! empty( $to_currency ) && ! empty( $from_currency ) ) {
+					$value = $this->convert_price( $value, $to_currency, $from_currency );
+				}
+			}
+		}
+
+		/**
+		 * Get item value for saving/updating in DB considering currency
+		 *
+		 * @param integer $item_id The order item id.
+		 * @param string  $item_value The item value.
+		 * @param boolean $convert Whether to convert or not.
+		 *
+		 * @throws Exception If $item is not passed.
+		 * @return mixed
+		 */
+		public function get_item_value( $item_id = 0, $item_value = '', $convert = false ) {
+			if ( empty( $item_id ) ) {
+				$error = __( '$item_id is required', 'woocommerce-smart-coupons' );
+				ob_start();
+				esc_html_e( '$item_id is: ', 'woocommerce-smart-coupons' ) . ( is_scalar( $item_id ) ) ? var_dump( $item_id ) : print_r( gettype( $item_id ) ) . print_r( "\r\n" ); // phpcs:ignore
+				debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+				$this->log( 'error', print_r( $error, true ) . ' ' . __FILE__ . ' ' . __LINE__ . print_r( "\r\n" . ob_get_clean(), true ) ); // phpcs:ignore
+				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
+			}
+			if ( $this->is_wc_gte_30() ) {
+				$order_id = ( ! empty( $item_id ) ) ? wc_get_order_id_by_order_item_id( $item_id ) : 0;
+			} else {
+				$order_id = ( ! empty( $item_id ) ) ? $this->get_order_id_by_order_item_id_wclt30( $item_id ) : 0;
+			}
+			$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+			if ( true === $convert ) {
+				if ( $this->is_wc_gte_30() ) {
+					$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_currency' ) ) ) ? $order->get_currency() : '';  // phpcs:ignore
+				} else {
+					$order_currency = ( is_object( $order ) && is_callable( array( $order, 'get_order_currency' ) ) ) ? $order->get_order_currency() : ''; // phpcs:ignore
+				}
+				if ( ! empty( $order_currency ) ) {
+					$base_currency = get_option( 'woocommerce_currency' );
+					if ( $base_currency !== $order_currency ) {
+						$item_value = $this->convert_price( $item_value, $base_currency, $order_currency );
+					}
+				}
+			}
+			return apply_filters(
+				'wc_sc_before_update_order_item_meta',
+				$item_value,
+				array(
+					'source'              => $this,
+					'currency_conversion' => $convert,
+					'order_obj'           => $order,
+					'order_item_id'       => $item_id,
+				)
+			);
+
+		}
+
+		/**
+		 * Get order id by order item id for WooCommerce version lower than 3.0.0
+		 *
+		 * @param integer $item_id The order item id.
+		 * @return mixed
+		 */
+		public function get_order_id_by_order_item_id_wclt30( $item_id = 0 ) {
+			global $wpdb;
+			return $wpdb->get_var( // phpcs:ignore
+				$wpdb->prepare(
+					"SELECT order_id
+						FROM {$wpdb->prefix}woocommerce_order_items
+						WHERE order_item_id = %d",
+					absint( $item_id )
+				)
+			);
+		}
 
 	}//end class
 

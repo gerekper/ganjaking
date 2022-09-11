@@ -12,7 +12,6 @@ use MailPoet\Util\Helpers;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\Util\License\License;
 use MailPoet\WP\DateTime;
-use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WP\Notice as WPNotice;
 
 class ServicesChecker {
@@ -65,7 +64,8 @@ class ServicesChecker {
         $dateTime = new DateTime();
         $date = $dateTime->formatDate(strtotime($mssKey['data']['expire_at']));
         $error = Helpers::replaceLinkTags(
-          WPFunctions::get()->__("Your newsletters are awesome! Don't forget to [link]upgrade your MailPoet email plan[/link] by %s to keep sending them to your subscribers.", 'mailpoet'),
+          // translators: %s is a date.
+          __("Your newsletters are awesome! Don't forget to [link]upgrade your MailPoet email plan[/link] by %s to keep sending them to your subscribers.", 'mailpoet'),
           'https://account.mailpoet.com?s=' . $this->subscribersFeature->getSubscribersCount(),
           ['target' => '_blank']
         );

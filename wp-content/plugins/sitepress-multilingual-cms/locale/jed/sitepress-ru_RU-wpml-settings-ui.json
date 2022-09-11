@@ -1,0 +1,47 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "You can choose which posts to translate from the <strong>Translation Management Dashboard</strong>.": [
+            "Записи на перевод можно выбрать в <strong>Консоли управления переводами</strong>."
+         ],
+         "Yes, translate all of these posts automatically": [
+            "Да, перевести все эти записи автоматически"
+         ],
+         "No, I want to translate some of these posts, but not all": [
+            "Нет, я хочу перевести только отдельные записи, а не все"
+         ],
+         "You must use the Advanced Translation Editor if you want to translate your content automatically.": [
+            "Вы должны использовать расширенный редактор перевода, если хотите автоматически переводить свой контент."
+         ],
+         "Synchronize translators and translation managers with ATE": [
+            "Синхронизируйте переводчиков и менеджеров по переводу с ATE"
+         ],
+         "Please try again in a few minutes. If the problem persists, please contact %sWPML support%s.": [
+            "Пожалуйста, повторите попытку через несколько минут. Если проблема не устранена, обратитесь в %sподдержку WPML%s."
+         ],
+         "Save": [
+            "Сохранить"
+         ],
+         "Please confirm this translation setting": [
+            "Подтвердите настройку перевода"
+         ],
+         "Your site is set to translate all content automatically. When you make <PostTypesNames /> translatable, WPML will automatically translate the <NumberOfItems /> existing items.": [
+            "Ваш сайт настроен на автоматический перевод всего контента. При подготовке <PostTypesNames/> к переводу WPML автоматически переведет <NumberOfItems/> существующих элементов."
+         ],
+         "Are you OK with paying for this?": [
+            "Вы согласны заплатить за это?"
+         ],
+         "Cancel": [
+            "Отменить"
+         ],
+         "Make translatable": [
+            "Подготовить к переводу"
+         ]
+      }
+   }
+}

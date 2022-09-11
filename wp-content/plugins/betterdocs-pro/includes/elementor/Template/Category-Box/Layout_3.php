@@ -17,7 +17,7 @@ if($settings['show_icon']){
 }
     echo '<div class="title-count">';
 if( $settings['show_title'] ) {
-    echo '<'.$settings['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$settings['title_tag'].'>';
+    echo '<'.BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']).' class="docs-cat-title">' . $term->name . '</'.BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']).'>';
 }
 
 if ($settings['listview-show-description'] == true) {

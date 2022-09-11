@@ -113,6 +113,7 @@ class WCSG_Email_Customer_New_Account extends WC_Email {
 				'sent_to_admin'          => false,
 				'plain_text'             => false,
 				'email'                  => $this,
+				'additional_content'     => $this->get_additional_content(),
 			),
 			'',
 			$this->template_base
@@ -137,6 +138,7 @@ class WCSG_Email_Customer_New_Account extends WC_Email {
 				'sent_to_admin'          => false,
 				'plain_text'             => true,
 				'email'                  => $this,
+				'additional_content'     => $this->get_additional_content(),
 			),
 			'',
 			$this->template_base

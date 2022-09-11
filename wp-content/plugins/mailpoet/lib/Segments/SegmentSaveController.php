@@ -45,6 +45,7 @@ class SegmentSaveController {
    */
   public function duplicate(SegmentEntity $segmentEntity): SegmentEntity {
     $duplicate = clone $segmentEntity;
+    // translators: %s is the name of the segment
     $duplicate->setName(sprintf(__('Copy of %s', 'mailpoet'), $segmentEntity->getName()));
 
     $this->segmentsRepository->verifyNameIsUnique($duplicate->getName(), $duplicate->getId());

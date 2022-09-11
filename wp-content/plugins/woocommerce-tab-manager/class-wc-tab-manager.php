@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/tab-manager/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use \SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use \SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Tab Manager main class.
@@ -34,7 +34,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '1.14.1';
+	const VERSION = '1.14.2';
 
 	/** @var \WC_Tab_Manager single instance of this plugin */
 	protected static $instance;
@@ -95,7 +95,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Tab_Manager\Lifecycle( $this );
 	}
@@ -129,12 +129,12 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 			$this->admin_includes();
 		}
 
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			$this->ajax_includes();
 		}
 
 		if ( ! class_exists( 'WC_Tab_Manager_Search' ) ) {
-			$this->search = $this->load_class( '/includes/class-wc-tab-manager-search.php', 'WC_Tab_Manager_Search' );
+			$this->search = $this->load_class( '/src/class-wc-tab-manager-search.php', 'WC_Tab_Manager_Search' );
 		}
 	}
 
@@ -161,7 +161,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 		// custom WooCommerce settings
 		if ( ! class_exists( 'WC_Tab_Manager_Settings' ) ) {
-			$this->wc_settings = $this->load_class( '/includes/class-wc-tab-manager-settings.php', 'WC_Tab_Manager_Settings' );
+			$this->wc_settings = $this->load_class( '/src/class-wc-tab-manager-settings.php', 'WC_Tab_Manager_Settings' );
 		}
 	}
 
@@ -174,7 +174,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 	private function ajax_includes() {
 
 		if ( ! class_exists( 'WC_Tab_Manager_Ajax_Events' ) ) {
-			$this->wc_settings = $this->load_class( '/includes/class-wc-tab-manager-ajax-events.php', 'WC_Tab_Manager_Ajax_Events' );
+			$this->wc_settings = $this->load_class( '/src/class-wc-tab-manager-ajax-events.php', 'WC_Tab_Manager_Ajax_Events' );
 		}
 	}
 

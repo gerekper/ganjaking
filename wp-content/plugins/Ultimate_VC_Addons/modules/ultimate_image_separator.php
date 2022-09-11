@@ -6,13 +6,13 @@
  *  @package Image Separator
  */
 
-if ( ! class_exists( 'Ultimate_Image_Separator' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Image_Separator' ) ) {
 	/**
 	 * Function that initializes Image Separator Module
 	 *
-	 * @class Ultimate_Image_Separator
+	 * @class Ultimate_VC_Addons_Image_Separator
 	 */
-	class Ultimate_Image_Separator {
+	class Ultimate_VC_Addons_Image_Separator {
 		/**
 		 * Constructor function that constructs default values for the Image Separator module.
 		 *
@@ -31,9 +31,9 @@ if ( ! class_exists( 'Ultimate_Image_Separator' ) ) {
 		 * @method register_easy_separator_assets
 		 */
 		public function register_easy_separator_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-easy-separator-style', 'image-separator' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-easy-separator-style', 'image-separator' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult-easy-separator-script', 'image-separator', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-easy-separator-script', 'image-separator', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 * Function that initializes settings of Image Separator Module.
@@ -342,11 +342,11 @@ if ( ! class_exists( 'Ultimate_Image_Separator' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_Image_Separator' ) ) {
+if ( class_exists( 'Ultimate_VC_Addons_Image_Separator' ) ) {
 	/**
 	* Function that checks if the class is exists or not.
 	*/
-	$ultimate_image_separator = new Ultimate_Image_Separator();
+	$ultimate_image_separator = new Ultimate_VC_Addons_Image_Separator();
 }
 
 

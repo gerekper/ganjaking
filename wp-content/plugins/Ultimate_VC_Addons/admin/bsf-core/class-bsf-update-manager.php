@@ -324,7 +324,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				$hashtime_date = new DateTime( 'now', new DateTimeZone( $timezone ) );
 				$hash          = 'file=' . $download_file . '&hashtime=' . strtotime( $hashtime_date->format( 'd-m-Y h:i:s a' ) ) . '&timezone=' . $timezone;
 
-				$get_path      = 'http://downloads.brainstormforce.com/';
+				$get_path      = 'https://downloads.brainstormforce.com/';
 				$download_path = rtrim( $get_path, '/' ) . '/download.php?' . $hash . '&base=ignore';
 
 				return $download_path;

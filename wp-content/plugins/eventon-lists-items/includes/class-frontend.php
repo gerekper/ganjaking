@@ -29,7 +29,9 @@ class evoli_front{
 		function get_list_items($args){
 			
 			$args = EVO()->calendar->process_arguments( $args);	
+			
 			$this->load_required_evo_scripts();
+			
 			extract($args);
 
 			$content = '';
@@ -44,13 +46,21 @@ class evoli_front{
 			$list_type = $args['li_type'];
 			$tax_name = $this->get_translated_tax_name($category_type);
 
-			
+			$rtl = EVO()->cal->check_yn('evo_rtl','evcal_1');
+			$rtl_on = $rtl? 'evortl':'';
+
 			// list 
 			if($list_type== 'li'){
-				$terms = get_categories(array('taxonomy'=>$category_type));
+				
+				$terms = get_terms(
+					array(
+						'taxonomy'=>$category_type,
+						'hide_empty'=> (!empty($show_empty) && $show_empty == 'yes')? false:true,
+					)
+				);				
 
 				if($terms){	
-					$content .= "<div class='EVOLI list_items ". ( $args['li_layout']) ."'>";
+					$content .= "<div class='EVOLI list_items {$rtl_on} ". ( $args['li_layout']) ."'>";
 					if(!empty($args['li_title'])) $content .= "<h1 class='evoli_title'>".$args['li_title'].'</h1>';
 
 					$content .= "<div class='EVOLI_container ". ($args['sep_month']=='yes'?'sepm':'')."'>";
@@ -130,22 +140,20 @@ class evoli_front{
 				case 'event_location':
 					//$term_meta = get_option('taxonomy_'.$term->term_id);
 					$term_meta = evo_get_term_meta( 'event_location', $term->term_id );
-					if(!empty($term->description) && $args['it_hide_desc']!='yes')
-						$additional .= "<p class='description'>".$term->description."</p>";
+					
 					if(!empty($term_meta['location_address']))
 						$additional .= '<p class="address">'.$term_meta['location_address'].'</p>';
 
 					if(!empty($term_meta['evo_loc_img'])){
 						$img = wp_get_attachment_image_src($term_meta['evo_loc_img'], 'thumbnail');
-						$ITleft = '<span class="it_image"><img src="'.$img[0].'"/></span>';
+						if($img && is_array($img)) $ITleft = '<span class="it_image"><img src="'.$img[0].'"/></span>';
 					}
 				break;
 				case 'event_organizer':
 					//$term_meta = get_option('taxonomy_'.$term->term_id);
 					$term_meta = evo_get_term_meta( 'event_organizer', $term->term_id );
-					if(!empty($term->description) && $args['it_hide_desc']!='yes')
-						$additional .= "<p class='description'>".$term->description."</p>";
 					
+
 					if(!empty($term_meta['evcal_org_contact']))
 						$additional .= '<p class="contact">'.$term_meta['evcal_org_contact'].'</p>';
 
@@ -157,7 +165,7 @@ class evoli_front{
 
 					if(!empty($term_meta['evo_org_img'])){
 						$img = wp_get_attachment_image_src($term_meta['evo_org_img'], 'thumbnail');
-						$ITleft = '<span class="it_image"><img src="'.$img[0].'"/></span>';
+						if($img && isset($img[0]))$ITleft = '<span class="it_image"><img src="'.$img[0].'"/></span>';
 					}
 				break;
 				case 'event_type':	
@@ -168,8 +176,7 @@ class evoli_front{
 					}
 					if(!empty($term_meta['et_color']))
 						$term_color = $term_meta['et_color'];
-					if(!empty($term->description) && $args['it_hide_desc']!='yes')
-						$additional .= "<p class='description'>".$term->description."</p>";
+					
 					
 				break;
 			}
@@ -329,12 +336,8 @@ class evoli_front{
 		function print_styles(){	wp_enqueue_style( 'evoli_styles');	}
 
 		// Load required eventon scripts
-		function load_required_evo_scripts(){
-			
-			wp_enqueue_script('evcal_gmaps');
-			wp_enqueue_script('eventon_gmaps');
-			wp_enqueue_script('eventon_init_gmaps');
-			EVO()->frontend->load_default_evo_scripts();
+		function load_required_evo_scripts(){			
+			EVO()->frontend->load_evo_scripts_styles();
 		}
 
 	// SUPPORT functions

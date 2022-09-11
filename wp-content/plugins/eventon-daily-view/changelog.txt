@@ -1,5 +1,34 @@
 Daily View (DV) addon for EventON Plugin
 ====================================
+v 2.0.5 (2022-6-1)
+ADDED: new shortcode parameter dv_scroll_style to set various scrolling styles
+
+v 2.0.4 (2022-5-10)
+FIXED: prev month via arrow moving to first of month instead of continuous
+FIXED: day stripe mobile swipe function interaction corrections
+
+v 2.0.3 (2022-2-16)
+FIXED: event dots more than 3 not appearing
+
+v 2.0.2 (2022-2-4)
+FIXED: day strip arrows switching month instead of scrolling
+FIXED: day strip previous day arrow switching to end of month date
+
+v 2.0.1 (2021-12-22)
+FIXED: clicking on date strip not loading events
+FIXED: all month events loading on load
+
+v 2.0 (2021-12-13)
+ADDED: compatibility with cal_init_nonajax='yes'
+ADDED: loading animation for grid
+FIXED: one day view showing the next all day event
+FIXED: prev day button not switching to last day of month
+FIXED: day strip showing all day events on previous date
+FIXED: all day events showing dash for end time
+UPDATED: Calendar styles
+UPDATED: dv_view_style shortcode value to change calendar view styles
+UPDATED: EventON 4.0 view switcher compatibility
+
 v 1.0.12 (2020-6-22)
 FIXED: font awesome arrow correct
 FIXED: minor arrow misalignment issues

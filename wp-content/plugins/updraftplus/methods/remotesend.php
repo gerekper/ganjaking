@@ -280,6 +280,9 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 
 		if (!$remote_sent) return;
 
+		// If this is a partial upload then don't send the upload complete signal
+		if ('partialclouduploading' == $updraftplus->jobdata_get('jobstatus')) return;
+
 		// ensure options have been loaded
 		$this->options = $this->get_options();
 
@@ -457,7 +460,7 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 
 		// check that we don't already have the needed information
 		if (is_array($opts) && !empty($opts['url']) && !empty($opts['name_indicator']) && !empty($opts['key'])) return $opts;
-
+		$current_stage = $updraftplus->jobdata_get('jobstatus');
 		$updraftplus->jobdata_set('jobstatus', 'clonepolling');
 		$clone_id = $updraftplus->jobdata_get('clone_id');
 		$clone_url = $updraftplus->jobdata_get('clone_url');
@@ -501,7 +504,7 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 		$remotesites[] = $clone_key;
 		UpdraftPlus_Options::update_updraft_option('updraft_remotesites', $remotesites);
 
-		$updraftplus->jobdata_set_multi('clone_url', $clone_url, 'clone_key', $clone_key, 'remotesend_info', $clone_key, 'jobstatus', 'clouduploading');
+		$updraftplus->jobdata_set_multi('clone_url', $clone_url, 'clone_key', $clone_key, 'remotesend_info', $clone_key, 'jobstatus', $current_stage);
 
 		return $clone_key;
 	}

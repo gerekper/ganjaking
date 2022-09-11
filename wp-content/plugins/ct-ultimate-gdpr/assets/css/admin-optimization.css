@@ -1,0 +1,11 @@
+.opt_disable > td > .ct-ultimate-gdpr-checkbox-switch {
+    pointer-events:none;
+}
+.opt_disable > td > .ct-ultimate-gdpr-checkbox-switch span.on.label,
+.opt_disable > td > .ct-ultimate-gdpr-checkbox-switch span.off.label {
+    background:#bbb !important
+}
+.opt_disable > td > .ct-ultimate-gdpr-checkbox-switch span.switch {
+    background:#7aabbf !important;
+    border-color:#7aabbf !important
+}

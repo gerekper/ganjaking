@@ -9,7 +9,7 @@ class UpdraftCentral_Listener {
 
 	public $udrpc_version;
 
-	private $ud = null;
+	private $host = null;
 
 	private $receivers = array();
 
@@ -30,10 +30,11 @@ class UpdraftCentral_Listener {
 	 * @param Array $command_classes - commands
 	 */
 	public function __construct($keys = array(), $command_classes = array()) {
-		global $updraftplus, $updraftcentral_host_plugin;
-		$this->ud = $updraftplus;
+		global $updraftcentral_host_plugin;
+		$this->host = $updraftcentral_host_plugin;
+
 		// It seems impossible for this condition to result in a return; but it seems Plesk can do something odd within the control panel that causes a problem - see HS#6276
-		if (!is_a($this->ud, 'UpdraftPlus')) return;
+		if (!is_a($this->host, 'UpdraftCentral_Host')) return;
 
 		$this->command_classes = $command_classes;
 		
@@ -41,7 +42,7 @@ class UpdraftCentral_Listener {
 			// publickey_remote isn't necessarily set yet, depending on the key exchange method
 			if (!is_array($key) || empty($key['extra_info']) || empty($key['publickey_remote'])) continue;
 			$indicator = $name_hash.'.central.updraftplus.com';
-			$ud_rpc = $this->ud->get_udrpc($indicator);
+			$ud_rpc = $this->host->get_udrpc($indicator);
 			$this->udrpc_version = $ud_rpc->version;
 			
 			// Only turn this on if you are comfortable with potentially anything appearing in your PHP error log
@@ -97,7 +98,34 @@ class UpdraftCentral_Listener {
 		
 		add_filter('udrpc_action', array($this, 'udrpc_action'), 10, 5);
 		add_filter('updraftcentral_get_command_info', array($this, 'updraftcentral_get_command_info'), 10, 2);
+		add_filter('updraftcentral_get_updraftplus_status', array($this, 'get_updraftplus_status'), 10, 1);
 
+	}
+
+	/**
+	 * Retrieves the UpdraftPlus plugin status whether it has been installed or activated
+	 *
+	 * @param mixed $data Default data to return
+	 * @return array
+	 */
+	public function get_updraftplus_status($data) {
+
+		// Handle cases of users who rename their plugin folders
+		if (class_exists('UpdraftPlus')) {
+			$data['is_updraftplus_installed'] = true;
+			$data['is_updraftplus_active'] = true;
+		} else {
+			if (!function_exists('get_plugins')) require_once(ABSPATH.'wp-admin/includes/plugin.php');
+			$plugins = get_plugins();
+			$key = 'updraftplus/updraftplus.php';
+
+			if (array_key_exists($key, $plugins)) {
+				$data['is_updraftplus_installed'] = true;
+				if (is_plugin_active($key)) $data['is_updraftplus_active'] = true;
+			}
+		}
+
+		return $data;
 	}
 
 	/**
@@ -113,6 +141,10 @@ class UpdraftCentral_Listener {
 		$class_prefix = $matches[1];
 		$command = $matches[2];
 		
+		// Other plugins might have registered the filter rather later so we need to make
+		// sure that we get all the commands intended for UpdraftCentral.
+		$this->command_classes = apply_filters('updraftcentral_remotecontrol_command_classes', $this->command_classes);
+
 		// We only handle some commands - the others, we let something else deal with
 		if (!isset($this->command_classes[$class_prefix])) return $response;
 
@@ -180,10 +212,24 @@ class UpdraftCentral_Listener {
 			if (!defined('UPDRAFTCENTRAL_COMMAND')) define('UPDRAFTCENTRAL_COMMAND', $command);
 			
 			$this->initialise_listener_error_handling();
-	
+
+			// UpdraftCentral needs this extra information especially now that the UpdraftCentral
+			// libraries can be totally embedded in other plugins (e.g. WP-Optimize, etc.) thus,
+			// that makes the UpdraftPlus plugin optional.
+			//
+			// This will give UpdraftCentral a proper way of disabling the backup feature
+			// for this site if the UpdraftPlus plugin is currently not installed or activated.  
+			$extra = apply_filters('updraftcentral_get_updraftplus_status', array(
+				'is_updraftplus_installed' => false,
+				'is_updraftplus_active' => false
+			));
+
 			$command_info = apply_filters('updraftcentral_get_command_info', false, $command);
-			if (!$command_info) return $response;
-	
+			if (!$command_info) {
+				if (isset($response['data']) && is_array($response['data'])) $response['data']['extra'] = $extra;
+				return $response;
+			}
+
 			$class_prefix = $command_info['class_prefix'];
 			$command = $command_info['command'];
 			$command_php_class = $command_info['command_php_class'];
@@ -220,6 +266,10 @@ class UpdraftCentral_Listener {
 			if (is_callable(array($command_class, '_post_action'))) call_user_func(array($command_class, '_post_action'), $command, $data, $extra_info);
 	
 			do_action('updraftcentral_listener_post_udrpc_action', $command, $command_class, $data, $extra_info);
+
+			if (isset($msg['data']) && is_array($msg['data'])) {
+				$msg['data']['extra'] = $extra;
+			}
 					
 			return $this->return_rpc_message($msg);
 		} catch (Exception $e) {
@@ -243,8 +293,8 @@ class UpdraftCentral_Listener {
 	private function initialise_listener_error_handling() {
 		global $updraftcentral_host_plugin;
 
-		$this->ud->error_reporting_stop_when_logged = true;
-		set_error_handler(array($this->ud, 'php_error'), E_ALL & ~E_STRICT);
+		$this->host->error_reporting_stop_when_logged = true;
+		set_error_handler(array($this->host, 'php_error'), E_ALL & ~E_STRICT);
 		$this->php_events = array();
 		@ob_start();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Might be a bigger picture that I am missing but do we need to silence errors here?
 		add_filter($updraftcentral_host_plugin->get_logline_filter(), array($this, 'updraftcentral_logline'), 10, 4);
@@ -260,7 +310,7 @@ class UpdraftCentral_Listener {
 
 	public function return_rpc_message($msg) {
 		if (is_array($msg) && isset($msg['response']) && 'error' == $msg['response']) {
-			$this->ud->log('Unexpected response code in remote communications: '.serialize($msg));
+			$this->host->log('Unexpected response code in remote communications: '.serialize($msg));
 		}
 		
 		$caught_output = @ob_get_contents();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Might be a bigger picture that I am missing but do we need to silence errors here?

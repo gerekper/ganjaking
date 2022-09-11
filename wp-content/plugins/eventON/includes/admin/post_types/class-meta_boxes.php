@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/ajde_events
- * @version     2.5.3
+ * @version     4.0.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -26,8 +26,8 @@ class evo_event_metaboxes{
 			global $post;
 
 			// get post type
-			$postType = !empty($_GET['post_type'])? $_GET['post_type']: false;	   
-	   		if(!$postType && !empty($_GET['post']))   	$postType = get_post_type($_GET['post']);
+			$postType = !empty($_GET['post_type'])? sanitize_text_field($_GET['post_type']): false;	   
+	   		if(!$postType && !empty($_GET['post']))   	$postType = get_post_type( sanitize_text_field($_GET['post']));
 
 	   		if( !$postType) return false;
 	   		if( $postType != 'ajde_events' ) return false;
@@ -149,22 +149,28 @@ class evo_event_metaboxes{
 				if(isset($translated_tax_name[ $tax_name])){
 					$tax_name = $translated_tax_name[ $tax_name];
 				}	
+
+				$text_select_different = sprintf(__('Select different %s from list','eventon'),  $tax_name);
+				$text_create_new = sprintf(__('Create a new %s','eventon'),$tax_name);
+				$text_edit = sprintf(__('Edit %s','eventon'),$tax_name);
 			?>
 				<p class='evo_selected_tax_term'><em><?php echo $tax_name;?>:</em> <span><?php echo $event_tax_term[0]->name;?></span> 
-					<i class='fa fa-pencil evo_tax_term_form ajde_popup_trig' data-popc='evo_term_lightbox' data-type='edit' data-id='<?php echo $event_tax_term[0]->term_id;?>' title='<?php _e('Edit','eventon');?>'></i> 
+					<i class='fa fa-pencil evo_tax_term_form ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-type='edit' data-id='<?php echo $event_tax_term[0]->term_id;?>' title='<?php echo $text_edit;?>' data-t="<?php echo $text_edit;?>"></i> 
 					<i class='fa fa-times evo_tax_remove' data-type='delete' data-id='<?php echo $event_tax_term[0]->term_id;?>' title='<?php _e('Delete','eventon');?>'></i>
 				</p>
 				<p class='evo_selected_tax_actions'>
-					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-popc='evo_term_lightbox' data-eventid='<?php echo $eventid;?>' data-id='<?php echo $event_tax_term[0]->term_id;?>'><?php printf(__('Select different %s from list','eventon'),  $tax_name);?></a>
-					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='evo_term_lightbox' data-type='new' ><?php printf(__('Create a new %s','eventon'),$tax_name);?></a>
+					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-lb_cl_nm='evo_config_term' data-popc='print_lightbox' data-eventid='<?php echo $eventid;?>' data-id='<?php echo $event_tax_term[0]->term_id;?>' data-t="<?php echo $text_select_different;?>"><?php echo $text_select_different;?></a>
+					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-type='new' data-t="<?php echo $text_create_new;?>"><?php echo $text_create_new;?></a>
 				</p>
 				
 				<?php
 			}else{
+				$text_select_different = sprintf(__('Select different %s from list','eventon'),  $tax_name);
+				$text_create_new = sprintf(__('Create a new %s','eventon'),$tax_name);
 				?>
 				<p class='evo_selected_tax_actions'>
-					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-popc='evo_term_lightbox' data-eventid='<?php echo $eventid;?>'><?php printf(__('Select a %s from list','eventon'), $tax_name);?></a>
-					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='evo_term_lightbox' data-eventid='<?php echo $eventid;?>' data-type='new' data-tax='event_location'><?php printf(__('Create a new %s','eventon'),$tax_name);?></a>
+					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-eventid='<?php echo $eventid;?>' data-t="<?php echo $text_select_different;?>"><?php echo $text_select_different;?></a>
+					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-eventid='<?php echo $eventid;?>' data-type='new' data-tax='event_location' data-t="<?php echo $text_create_new;?>"><?php echo $text_create_new;?></a>
 				</p>
 				<?php
 			}
@@ -454,41 +460,9 @@ class evo_event_metaboxes{
 							break;
 
 							case 'ev_releated':
-								echo "<div class='evcal_data_block_style1'>
-								<div class='evcal_db_data evo_rel_events_box'>
-									<input type='hidden' class='evo_rel_events_sel_list' name='ev_releated' value='". ( $EVENT->get_prop('ev_releated'))."' />";
-
-									if($EVENT->is_repeating_event()){
-										echo "<p>".__('NOTE: You can not select a repeat instance of this event as related event.','eventon').'</p>';
-									}
-									?>
-									<span class='ev_rel_events_list'><?php
-										if($EVENT->get_prop('ev_releated')){
-											$D = json_decode($EVENT->get_prop('ev_releated'), true);
-
-											$rel_events = array();
-
-											foreach($D as $I=>$N){
-												$id = explode('-', $I);
-												$EE = new EVO_Event($id[0]);
-												$x = isset($id[1])? $id[1]:'0';
-												$time = $EE->get_formatted_smart_time($x);
-												
-												$rel_events[ $I.'.'. $EE->get_start_time() ] =  "<span class='l' data-id='{$I}'><span class='t'>{$time}</span><span class='n'>{$N}</span><i>X</i></span>";
-											}
-
-											krsort($rel_events);
-
-											foreach($rel_events as $html){
-												echo $html;
-											}
-											
-										}
-									?></span>
-									<span class='evo_btn ajde_popup_trig evo_rel_events' data-popc="evo_term_lightbox" data-eventid='<?php echo $EVENT->ID;?>'><?php _e('Add related event','eventon');?></span>
-
-								<?php echo "</div></div>";
+								include_once 'class-meta_boxes-related.php';								
 							break;
+							
 							case 'ev_seo':
 								echo "<div class='evo_meta_elements'>";
 									echo EVO()->elements->process_multiple_elements(
@@ -742,7 +716,7 @@ class evo_event_metaboxes{
 									$__saved_field_link = (!empty($ev_vals["_evcal_ec_f".$x."a1_cusL"]) )? $ev_vals["_evcal_ec_f".$x."a1_cusL"][0]:null ;
 
 									echo "<input type='text' id='".$__field_id."' name='_evcal_ec_f".$x."a1_cus' ";
-									echo 'value="'. $__saved_field_value.'"';						
+									echo 'value="'. addslashes($__saved_field_value ) .'"';						
 									echo "style='width:100%' placeholder='".__('Button Text','eventon')."' title='Button Text'/>";
 
 									echo "<input type='text' id='_evcal_ec_f".$x."a1_cusL' name='_evcal_ec_f".$x."a1_cusL' ";
@@ -794,6 +768,7 @@ class evo_event_metaboxes{
 			global $ajde;
 			
 			// Lightbox
+			// deprecating
 			EVO()->lightbox->admin_lightbox_content(array(
 				'class'=>'evo_term_lightbox', 
 				'content'=>"<p class='evo_lightbox_loading'></p>",
@@ -892,7 +867,7 @@ class evo_event_metaboxes{
 			$_allowed = array( 'post-new.php', 'post.php' );
 			if(!in_array($pagenow, $_allowed)) return;
 
-			$this->EVENT = new EVO_Event($post_id);
+			$this->EVENT = $EVENT = new EVO_Event($post_id);
 						
 			// $_POST FIELDS array
 				$fields_ar =apply_filters('eventon_event_metafields', array(
@@ -905,6 +880,7 @@ class evo_event_metaboxes{
 					'evcal_lmlink_target','_evcal_exlink_target','_evcal_exlink_option',
 					'evo_hide_endtime','evo_span_hidden_end','evo_year_long','_evo_month_long',
 					'evo_evcrd_field_org','evo_event_org_as_perf','evo_event_timezone',
+					'_evo_virtual_endtime',
 
 					'evo_exclude_ev',				
 					'ev_releated',				
@@ -963,11 +939,14 @@ class evo_event_metaboxes{
 					}
 				}
 
+			// save virtual end time
+				if( isset($proper_time['unix_vir_end']) && !empty($proper_time['unix_vir_end'])){
+					$EVENT->set_meta( '_evo_virtual_erow', $proper_time['unix_vir_end']);
+				}
+
 			// save previous start date for reschedule events
 				if( isset($_POST['_status']) && $_POST['_status'] == 'rescheduled' && isset($_POST['event_prev_date_x'])
 				){
-
-					date_default_timezone_set('UTC');	
 
 					$date = $_POST['event_prev_date_x'];
 
@@ -1034,9 +1013,6 @@ class evo_event_metaboxes{
 					if(empty($_POST['_evo_lang']))
 						update_post_meta( $post_id, '_evo_lang','L1');
 			
-			// save location and organizer taxonomy data for the event
-			// deprecated since 2.5.3
-				//evoadmin_save_event_tax_termmeta($post_id);
 						
 			// (---) hook for addons
 			do_action('eventon_save_meta', $fields_ar, $post_id, $this->EVENT);

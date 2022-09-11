@@ -1,7 +1,21 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 3.0.8
+ * @version 4.0.6
+
+Items //
+print_date_time_selector
+print_time_selector
+yesno_btn
+get_icon
+tooltips
+icons
+start_table_header
+
+register_shortcode_generator_styles_scripts
+enqueue_shortcode_generator
+load_colorpicker
+register_colorpicker
  */
 
 class EVO_General_Elements{	
@@ -34,6 +48,7 @@ class EVO_General_Elements{
 			'nesting'=>'', // pass nesting class name
 			'row_style'=> '',// pass styles 
 			'content'=> '', 'field_after_content'=>'', 'field_before_content'=>'',
+			'support_input'=>false
 
 		), $A);
 		extract($A);
@@ -109,12 +124,21 @@ class EVO_General_Elements{
 
 			// color picker field
 			case 'colorpicker':
+
+				$vis_input_field = !empty($support_input) && $support_input ? true: false;
+
 				echo "<div class='evo_elm_row {$id}' style='{$row_style}'>";
 
 				echo"<p class='evo_field_label'>".$name.$legend_code. "</p>";
-				echo "<p class='evo_field_container'>";
-				echo "<em class='evo_elm_color' style='background-color:#{$value}'></em>
-				<input class='evo_elm_hex' type='hidden' name='{$id}' value='{$value}'/>";
+				echo "<p class='evo_field_container ". ( $vis_input_field? 'visi':'') ."'>";
+				echo "<em class='evo_elm_color' style='background-color:#{$value}'></em>";
+
+				if($vis_input_field ):
+					echo "<input class='evo_elm_hex' type='text' name='{$id}' value='{$value}'/>";
+				else:
+					echo "<input class='evo_elm_hex' type='hidden' name='{$id}' value='{$value}'/>";
+				endif;
+				
 				//echo "<input class='evo_elm_rgb' type='hidden' name='{$rgb_field_name}' value='{$rgb_num}'/>";
 
 				echo "</p></div>";
@@ -264,9 +288,7 @@ class EVO_General_Elements{
 			case 'dropdown':					
 						
 				echo "<p class='evo_elm_row evo_elm_select {$id} {$row_class}' style='{$row_style}'>";
-
 				echo "<label>$name $legend_code</label>"; 
-
 				echo "<select class='ajdebe_dropdown' name='".$id."'>";
 
 				if(is_array($options)){
@@ -283,7 +305,29 @@ class EVO_General_Elements{
 					}
 				echo "</p>";						
 			break;
+			// DROP Down select field -- select2
+			case 'dropdownS2':					
+						
+				echo "<p class='evo_elm_row evo_elm_select {$id} {$row_class}' style='{$row_style}'>";
+				echo "<label>$name $legend_code</label>"; 
+				echo "<select class='ajdebe_dropdown evo_select2' name='".$id."' style='width:100%'>";
 
+				if(is_array($options)){
+					$dropdown_opt = !empty($value)? $value: (!empty($default)? $default :'');		
+					foreach($options as $option=>$option_val){
+						echo"<option name='".$id."' value='".$option."' "
+						.  ( ($option == $dropdown_opt)? 'selected=\"selected\"':null)  .">".$option_val."</option>";
+					}	
+				}					
+				echo  "</select>";
+					// legend for under the field
+					if(!empty( $legend )){
+						echo "<br/><i style='opacity:0.6'>".$legend."</i>";
+					}
+				echo "</p>";						
+			break;
+
+			// YES NO
 			case 'yesno':						
 				if(empty( $value) ) $value = 'no';
 				echo "<p class='evo_elm_row yesno_row {$id} {$row_class}' style='{$row_style}'>".$this->yesno_btn(array(
@@ -365,11 +409,16 @@ class EVO_General_Elements{
 
 		// processings
 		$unix = !empty($unix)? (int)$unix : current_time('timestamp');
-		$date_val = date( $date_format, $unix);
-		$date_val_x = date( $date_format_hidden, $unix);
-		$hour = date( ($hr24? 'H':'h'), $unix);
-		$minute = date( 'i', $unix);
-		$ampm = date( 'a', $unix);
+		
+		$DD =  new DateTime();
+		$DD->setTimezone( EVO()->calendar->timezone0 );
+		$DD->setTimestamp( $unix);
+
+		$date_val = $DD->format( $date_format );
+		$date_val_x = $DD->format(  $date_format_hidden );
+		$hour = $DD->format( ($hr24? 'H':'h') );
+		$minute = $DD->format( 'i');
+		$ampm = $DD->format( 'a');
 
 		echo "<span class='evo_date_time_select {$type}' data-id='{$rand}' data-unix='{$unix}'> ";
 			
@@ -610,7 +659,6 @@ class EVO_General_Elements{
 		return $nesting_start.'<span id="'.$args['id'].'" class="evo_elm ajde_yn_btn '.($no? 'NO':null).''.(($args['abs']=='yes')? ' absolute':null).'" '.$_attr.'><span class="btn_inner" style=""><span class="catchHandle"></span></span></span>'.$input.$label.$nesting_end;
 	}
 
-
 // SVG icons
 	public function get_icon($name){
 		if( $name == 'live'){
@@ -618,9 +666,9 @@ class EVO_General_Elements{
 		}
 	}
 
-// Tool Tips updated 3.1.7
+// Tool Tips updated 4.0.2
 // central tooltip generating function
-	function tooltips($content, $position='', $echo = false, $handleClass= false){
+	function tooltips($content, $position='', $echo = false, $handleClass= false, $class = ''){
 		// tool tip position
 			if(!empty($position)){
 				$L = ' L';
@@ -633,7 +681,7 @@ class EVO_General_Elements{
 				$L = null;
 			}
 
-		$output = "<span class='ajdeToolTip{$L} fa". ($handleClass? ' handle':'')."' data-d='{$content}' data-handle='{$handleClass}'></span>";
+		$output = "<span class='ajdeToolTip{$L} fa". ($handleClass? ' handle':'')." {$class}' data-d='{$content}' data-handle='{$handleClass}'></span>";
 
 		if(!$echo)
 			return $output;			
@@ -667,6 +715,36 @@ class EVO_General_Elements{
 	function get_font_icons_data(){
 		include_once( AJDE_EVCAL_PATH.'/assets/fonts/fa_fonts.php' );
 		return $font_;
+	}
+
+// Import box +@version 4.0.2
+	function print_import_box_html($args){
+		$defaults = array(
+			'box_id'=>'',
+			'title'=>'',
+			'message'=>'',
+			'file_type'=>'.csv',
+			'button_label'=> __('Upload','eventon')
+		);
+		$args = !empty($args)? array_merge($defaults, $args): $defaults;
+
+		extract($args);
+
+		?>
+		<div class='evo_data_upload_window' data-id="<?php echo $box_id;?>" id='import_box' style='display:none'>
+			<span id="close" class='evo_data_upload_window_close'>X</span>
+			<form id="evo_settings_import_form" action="" method="POST" data-link='<?php echo AJDE_EVCAL_PATH;?> '>
+					
+				<h3 style='padding-bottom: 10px'><?php echo $title;?></h3>
+				<p ><i><?php echo $message;?></i></p>
+				
+				<input style='padding: 10px 0'type="file" id="file-select" name="settings[]" multiple="" accept="<?php echo $file_type;?>" data-file_type='<?php echo $file_type;?>'>
+				
+				<button type="submit" id="upload_settings_button" class='evo_admin_btn btn_prime'><?php echo $button_label;?></button>
+			</form>
+			<p class="msg" style='display:none'><?php _e('File Uploading','eventon');?></p>
+		</div>
+		<?php
 	}
 
 // wp Admin Tables

@@ -1,5 +1,27 @@
 ActionUser Plus (AUP) addon for EventON Plugin
 ====================================
+v 1.1.2 (2021-8-30)
+FIXED: redirect after submission not working for paid events
+FIXED: form headers using a global value
+FIXED: evoaup_get_submission_form() error on lightbox code
+
+v 1.1.1 (2021-7-20)
+FIXED: woocommerce associate product exist validation
+FIXED: form header and subheader not passing into paid submission form
+
+v 1.1 (2020-5-21)
+ADDED: submission level color
+ADDED: User profile to show all paid submission counts
+ADDED: Level based submission level into submission form
+ADDED: Submission level information on edit submitted event action user meta box
+FIXED: Supported event fields not saving in settings
+FIXED: login link not using the saved eventon global login link
+FIXED: settings icon compatibility with new font awesome
+FIXED: empty levels to not show in submission form
+FIXED: if no level fields are selected to not show any extra fields in form
+UPDATED: submission counts box in order page
+UPDATED: front end submission level design 
+
 v 1.0.3 (2019-11-12)
 FIXED: Missing notice function in main class
 FIXED: event submissions purchased with ticket not creditting submissions

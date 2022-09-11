@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		if( $_REQUEST['action'] != 'duplicate_event') return;
 
 		// Get the original page
-		$id = (isset($_GET['post']) ? $_GET['post'] : $_POST['post']);
+		$id = (isset($_GET['post']) ? sanitize_text_field($_GET['post']) : $_POST['post']);
 		check_admin_referer( 'eventon-duplicate-event_' . $id );
 		$post = eventon_get_event_to_duplicate($id);
 

@@ -29,76 +29,73 @@ jQuery(document).ready(function($){
          },
 
          ajax_update_shipping_method_in_cart_item : function(id, tariff_code, country){
-     
             var data = {'action': 'a2w_update_shipping_method_in_cart_item','id':id, 'value': tariff_code, 'calc_shipping_country' : country};
            
-               $.ajax({
-                   url : a2w_ali_ship_data.ajaxurl,
-                   type : 'POST',
-                   data : data,
-                   tryCount : 0,
-                   retryLimit : 3, 
-                   success : function (response) {
-                  
-                       if (response == ''){
-                            this.tryCount++;
-                            if (this.tryCount <= this.retryLimit) {
-                                //try again
-                                $.ajax(this);
-                                return false;
-                            }
-                            console.log('Something is wrong with your server');            
-                            return false;     
-                       }
-                                                  
-                        var json = jQuery.parseJSON(response);
-                        
-                        if (json.state){
-                       
-                            if (json.state == "ok"){
-                                //for cart
-                                if ($('.woocommerce-shipping-calculator').length > 0){
-                                    $('.woocommerce-shipping-calculator').submit(); 
-                                }
-                                else {
-                                    //for checkout
-                                    $( document.body ).trigger( 'update_checkout' );                           
-                                }                                                       
-                            }
-                            
-                            if (json.state == "error"){
-                                //just reserved for error 
-                            }
-                    
-                        
-                        }
-                    
-                   },                
-                   error : function(xhr, textStatus, errorThrown ) {
-                        if (textStatus == 'timeout') {
-                            this.tryCount++;
-                            if (this.tryCount <= this.retryLimit) {
-                                //try again
-                                $.ajax(this);
-                                return false;
-                            }            
+            $.ajax({
+                url : a2w_ali_ship_data.ajaxurl,
+                type : 'POST',
+                data : data,
+                tryCount : 0,
+                retryLimit : 3, 
+                success : function (response) {
+                
+                    if (response == ''){
+                        this.tryCount++;
+                        if (this.tryCount <= this.retryLimit) {
+                            //try again
+                            $.ajax(this);
                             return false;
                         }
-                        if (xhr.status == 500) {
-                            //handle error
-                        } else {
-                            //handle error
+                        console.log('Something is wrong with your server');            
+                        return false;     
+                    }
+                                                
+                    var json = jQuery.parseJSON(response);
+                    
+                    if (json.state){
+                    
+                        if (json.state == "ok"){
+                            //for cart
+                            if ($('.woocommerce-shipping-calculator').length > 0){
+                                $('.woocommerce-shipping-calculator').submit(); 
+                            }
+                            else {
+                                //for checkout
+                                $('#a2w_shipping_modal_'+id).dialog('destroy');
+                                $( document.body ).trigger( 'update_checkout' );                           
+                            }                                                       
                         }
-                   }
-              });    
+                        
+                        if (json.state == "error"){
+                            //just reserved for error 
+                        }
+                    }
+                
+                },                
+                error : function(xhr, textStatus, errorThrown ) {
+                    if (textStatus == 'timeout') {
+                        this.tryCount++;
+                        if (this.tryCount <= this.retryLimit) {
+                            //try again
+                            $.ajax(this);
+                            return false;
+                        }            
+                        return false;
+                    }
+                    if (xhr.status == 500) {
+                        //handle error
+                    } else {
+                        //handle error
+                    }
+                }
+            });    
          },
     };
    
     //popup js
     var a2w_popup_shipping_js = {
         
-        apply_shipping_method : function(country_node, item_id){
-          
+        apply_shipping_method : function(country_node, item_id){          
             var shipping_wrap_node = $('#a2w_shipping_wrap_'+item_id);
               
             var init_method_value = shipping_wrap_node.find('.a2w_shipping_method_field').val();
@@ -148,7 +145,7 @@ jQuery(document).ready(function($){
 
     
 
-         /*   var min_price = shipping_data.formated_price,
+            /*   var min_price = shipping_data.formated_price,
             country_label = country_node.find("option:selected").text(),
             method_label = shipping_data.method_label;*/
 
@@ -212,7 +209,6 @@ jQuery(document).ready(function($){
             
 
             const tmp_data = { item_id, product_id, country, 'shipping': items, default_method,  shipping_info};
-            
             shipping_wrap_node.data('shipping-info',tmp_data);
 
             var shipping_table_node = shipping_modal_node.find('.shipping-table');
@@ -353,7 +349,7 @@ jQuery(document).ready(function($){
     }
  
     //init popus on page load
-  //  a2w_popup_shipping_js.init(country_node, false);
+    //  a2w_popup_shipping_js.init(country_node, false);
 
 
     //open popup on click
@@ -363,76 +359,75 @@ jQuery(document).ready(function($){
         function(){
 
             var shipping_wrap_node = $(this).parents('.a2w_shipping_wrap');
-            var item_id = shipping_wrap_node.find('.item_id').val();   
+            var item_id = shipping_wrap_node.find('.item_id').val();
       
-
-            shipping_modal_node = $('#a2w_shipping_modal_'+item_id);
-    
+            var shipping_modal_node = $('#a2w_shipping_modal_'+item_id);
+            
             shipping_modal_node.dialog({
-                    'modal': true,
-                    'resizable': false,
-                    'closeText': "close",
-                    'classes': {
-                        "ui-dialog": "ali2woo-ui-dialog"
-                    },
-                    beforeClose: function( event, ui ) {
+                'modal': true,
+                'resizable': false,
+                'closeText': "close",
+                'classes': {
+                    "ui-dialog": "ali2woo-ui-dialog"
+                },
+                beforeClose: function( event, ui ) {
 
-                        var shipping_wrap_node = $('#a2w_shipping_wrap_'+item_id);
-                        var shipping_modal_node = $('#a2w_shipping_modal_'+item_id);
+                    var shipping_wrap_node = $('#a2w_shipping_wrap_'+item_id);
+                    var shipping_modal_node = $('#a2w_shipping_modal_'+item_id);
 
-                        var shipping_data = shipping_wrap_node.data('shipping-info');
+                    var shipping_data = shipping_wrap_node.data('shipping-info');
 
-                        if (typeof shipping_data == "undefined"){
-                            shipping_data = { item_id : false, product_id : false, country :  false, 'shipping': false, default_method : false,  shipping_info : false};
-                        }
+                    if (typeof shipping_data == "undefined"){
+                        shipping_data = { item_id : false, product_id : false, country :  false, 'shipping': false, default_method : false,  shipping_info : false};
+                    }
 
-                        shipping_table_node = shipping_modal_node.find('.shipping-table');   
- 
-                        $radios = shipping_modal_node.find("input[name='a2w_shipping_method_popup_field_"+item_id+"']");
+                    shipping_table_node = shipping_modal_node.find('.shipping-table');   
 
-                        if (shipping_table_node.is(":hidden") || $radios.length < 1){
-                            shipping_data.default_method = false;
-                            shipping_wrap_node.data('shipping-info', shipping_data);
-                            return;
-                        } 
+                    $radios = shipping_modal_node.find("input[name='a2w_shipping_method_popup_field_"+item_id+"']");
 
-                        //remember popup data
-                       var selected_method = $radios.parent().find(':checked').val();
+                    if (shipping_table_node.is(":hidden") || $radios.length < 1){
+                        shipping_data.default_method = false;
+                        shipping_wrap_node.data('shipping-info', shipping_data);
+                        return;
+                    } 
 
-                       var selected_row_dom =  $radios.parent().find(':checked').parent().parent();
+                    //remember popup data
+                    var selected_method = $radios.parent().find(':checked').val();
 
-                        shipping_data.default_method = selected_method;
-                 
-                        shipping_data.formated_price = selected_row_dom.find('.a2w-div-table-col').eq(2).html();
-                        shipping_data.tracking = selected_row_dom.find('.a2w-div-table-col').eq(3).html();
-                        shipping_data.method_label = selected_row_dom.find('.a2w-div-table-col').eq(4).html();
+                    var selected_row_dom =  $radios.parent().find(':checked').parent().parent();
 
-                        shipping_wrap_node.data('shipping-info',shipping_data);
+                    shipping_data.default_method = selected_method;
+                
+                    shipping_data.formated_price = selected_row_dom.find('.a2w-div-table-col').eq(2).html();
+                    shipping_data.tracking = selected_row_dom.find('.a2w-div-table-col').eq(3).html();
+                    shipping_data.method_label = selected_row_dom.find('.a2w-div-table-col').eq(4).html();
 
-                    },
-                    close : function(){
-                        
-                    },
-                    'buttons': [
-                        {
-                        'text': a2w_ali_ship_data.lang.apply,
-                        'icon': "ui-icon-heart",
-                        'click': function() {
+                    shipping_wrap_node.data('shipping-info',shipping_data);
 
-                            //get country again, because need to have the actual country value
-                            var country_node = a2w_shipping_api.get_country_node();
-
-                            $( this ).dialog( "close" );
-                            a2w_popup_shipping_js.apply_shipping_method(country_node, item_id, false);                           
-                        }
+                },
+                close : function(){
                     
-                        // Uncommenting the following line would hide the text,
-                        // resulting in the label being used as a tooltip
-                        //showText: false
-                        }
-                    ],
-             
-                });   
+                },
+                'buttons': [
+                    {
+                    'text': a2w_ali_ship_data.lang.apply,
+                    'icon': "ui-icon-heart",
+                    'click': function() {
+
+                        //get country again, because need to have the actual country value
+                        var country_node = a2w_shipping_api.get_country_node();
+
+                        $( this ).dialog( "close" );
+                        a2w_popup_shipping_js.apply_shipping_method(country_node, item_id, false);                           
+                    }
+                
+                    // Uncommenting the following line would hide the text,
+                    // resulting in the label being used as a tooltip
+                    //showText: false
+                    }
+                ],
+            
+            });
         }
     );
 

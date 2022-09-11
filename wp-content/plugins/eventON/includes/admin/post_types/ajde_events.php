@@ -81,7 +81,7 @@ class evo_ajde_events{
 			global $typenow;
 
 			if ($typenow=='ajde_events'){
-	           	$event_date_type = (isset($_GET['event_date_type'])? $_GET['event_date_type']:null);
+	           	$event_date_type = (isset($_GET['event_date_type'])? sanitize_text_field($_GET['event_date_type']):null);
 				?>
 				<select name="event_date_type">
 					<option value="all"><?php _e('Past and Future Events','eventon');?></option>
@@ -89,7 +89,7 @@ class evo_ajde_events{
 					<option value="live" <?php echo ($event_date_type=='live')?"selected='selected'":'';?>><?php _e('Current Events','eventon');?></option>
 				</select>
 				<?php
-				$ev_month = (isset($_GET['ev_month'])? $_GET['ev_month']:null);
+				$ev_month = (isset($_GET['ev_month'])? sanitize_text_field($_GET['ev_month']):null);
 				?>
 				<select name="ev_month">
 					<option value="all"><?php _e('All Months','eventon');?></option>
@@ -362,10 +362,15 @@ class evo_ajde_events{
 				break;		
 				
 				case "event_end_date":	
+
+					if( $EVENT->is_hide_endtime()){
+						echo "--";
+						break;
+					}
 					
-					if(evo_check_yn($pmv, 'evo_year_long')){
+					if($EVENT->is_year_long()){
 						echo date('Y', $pmv['evcal_srow'][0]);
-					}elseif(evo_check_yn($pmv, '_evo_month_long')){
+					}elseif( $EVENT->is_month_long() ){
 						echo date_i18n('F, Y', $pmv['evcal_srow'][0]);
 					}else{
 						if(!empty($pmv['evcal_erow'])){	
@@ -443,7 +448,8 @@ class evo_ajde_events{
 				'evo_access_control_location',
 				'evo_evcrd_field_org',
 				'_evo_date_format',
-				'_evo_time_format'
+				'_evo_time_format',
+				'_evo_month_long','evo_year_long'
 			) as $F=>$V){
 				$_V = ($F == '_ev_status')? $F: $V;		
 				$R[$_V] = $EV->get_prop($V);
@@ -542,7 +548,7 @@ class evo_ajde_events{
 			if ( $post->post_type != 'ajde_events' ) return;
 
 			if ( isset( $_GET['post'] ) ) {
-				$notifyUrl = wp_nonce_url( admin_url( "admin.php?action=duplicate_event&post=" . absint( $_GET['post'] ) ), 'eventon-duplicate-event_' . $_GET['post'] );
+				$notifyUrl = wp_nonce_url( admin_url( "admin.php?action=duplicate_event&post=" . absint( $_GET['post'] ) ), 'eventon-duplicate-event_' . sanitize_text_field( $_GET['post']) );
 				?>
 				<div class="misc-pub-section" >
 					<div id="duplicate-action"><a class="submitduplicate duplication button" href="<?php echo esc_url( $notifyUrl ); ?>"><?php _e( 'Duplicate this event', 'eventon' ); ?></a></div>

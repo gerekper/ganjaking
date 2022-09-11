@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_3;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_12;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_3\\SV_WC_Payment_Gateway' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_12\\SV_WC_Payment_Gateway' ) ) :
 
 
 /**
@@ -460,7 +460,7 @@ abstract class SV_WC_Payment_Gateway extends \WC_Payment_Gateway {
 		}
 
 		$handle           = 'sv-wc-payment-gateway-payment-form';
-		$versioned_handle = $handle . '-v5_10_3';
+		$versioned_handle = $handle . '-v5_10_12';
 
 		// Frontend JS
 		wp_enqueue_script( $versioned_handle, $this->get_plugin()->get_payment_gateway_framework_assets_url() . '/dist/frontend/' . $handle . '.js', array( 'jquery-payment' ), SV_WC_Plugin::VERSION, true );
@@ -663,7 +663,7 @@ abstract class SV_WC_Payment_Gateway extends \WC_Payment_Gateway {
 		}
 
 		// only load on the frontend and AJAX
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			return;
 		}
 
@@ -777,7 +777,7 @@ abstract class SV_WC_Payment_Gateway extends \WC_Payment_Gateway {
 	 */
 	public function payment_fields() {
 
-		if ( $this->supports_payment_form() ) {
+		if ( $this->get_payment_form_instance() && is_callable( [ $this->get_payment_form_instance(), 'render' ] ) && $this->supports_payment_form() ) {
 
 			$this->get_payment_form_instance()->render();
 
@@ -1303,12 +1303,12 @@ abstract class SV_WC_Payment_Gateway extends \WC_Payment_Gateway {
 
 		// add "detailed customer decline messages" option if the feature is supported
 		if ( $this->supports( self::FEATURE_DETAILED_CUSTOMER_DECLINE_MESSAGES ) ) {
-			$this->form_fields['enable_customer_decline_messages'] = array(
+			$this->form_fields['enable_customer_decline_messages'] = [
 				'title'   => esc_html__( 'Detailed Decline Messages', 'woocommerce-plugin-framework' ),
 				'type'    => 'checkbox',
 				'label'   => esc_html__( 'Check to enable detailed decline messages to the customer during checkout when possible, rather than a generic decline message.', 'woocommerce-plugin-framework' ),
-				'default' => 'no',
-			);
+				'default' => 'yes',
+			];
 		}
 
 		// debug mode
@@ -3588,7 +3588,7 @@ abstract class SV_WC_Payment_Gateway extends \WC_Payment_Gateway {
 		}
 
 		// add debug message to woocommerce->errors/messages if checkout or both is enabled, the admin/Ajax check ensures capture charge transactions aren't logged as notices to the front end
-		if ( ( $this->debug_checkout() || ( 'error' === $type && $this->is_test_environment() ) ) && ( ! is_admin() || is_ajax() ) ) {
+		if ( ( $this->debug_checkout() || ( 'error' === $type && $this->is_test_environment() ) ) && ( ! is_admin() || wp_doing_ajax() ) ) {
 
 			if ( 'message' === $type ) {
 

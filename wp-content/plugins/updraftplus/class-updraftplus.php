@@ -55,6 +55,8 @@ class UpdraftPlus {
 	// Used to schedule resumption attempts beyond the tenth, if needed
 	public $current_resumption;
 
+	public $last_successful_resumption;
+
 	public $newresumption_scheduled = false;
 	
 	public $resumption_scheduled_for_cleanup = false;
@@ -73,7 +75,17 @@ class UpdraftPlus {
 	public $no_checkin_last_time;
 	
 	private $removed_autoloaders = array();
+
+	private $no_deprecation_warnings = false;
+
+	private $backup_is_already_complete = false;
 	
+	private $error_count_before_cloud_backup = 0;
+
+	private $semaphore;
+	
+	private $backup_semaphore;
+	 
 	/**
 	 * Class constructor
 	 */
@@ -161,6 +173,13 @@ class UpdraftPlus {
 		if ('update-core.php' == $pagenow) {
 			// added filter here instead of admin.php because the  jetpack_just_in_time_msgs filter applied in init hook
 			add_filter('jetpack_just_in_time_msgs', '__return_false', 20);
+		}
+
+		// Cron to clean temporary files even in the absence of a new backup job beginning
+		add_action('updraftplus_clean_temporary_files', 'UpdraftPlus_Filesystem_Functions::clean_temporary_files', 10);
+
+		if (!wp_next_scheduled('updraftplus_clean_temporary_files')) {
+			wp_schedule_event(time(), 'twicedaily', 'updraftplus_clean_temporary_files');
 		}
 	}
 
@@ -722,10 +741,8 @@ class UpdraftPlus {
 		add_action('updraftcentral_listener_pre_udrpc_action', array($this, 'updraftcentral_listener_pre_udrpc_action'));
 		add_action('updraftcentral_listener_post_udrpc_action', array($this, 'updraftcentral_listener_post_udrpc_action'));
 
-		if (file_exists(UPDRAFTPLUS_DIR.'/central/bootstrap.php')) {
-			if (file_exists(UPDRAFTPLUS_DIR.'/central/factory.php')) include_once(UPDRAFTPLUS_DIR.'/central/factory.php');
-			include_once(UPDRAFTPLUS_DIR.'/central/bootstrap.php');
-		}
+		add_filter('updraftcentral_host_plugins', array($this, 'attach_updraftcentral_host'));
+		if (file_exists(UPDRAFTPLUS_DIR.'/central/factory.php')) include_once(UPDRAFTPLUS_DIR.'/central/factory.php');
 
 		$load_classes = array();
 
@@ -741,6 +758,19 @@ class UpdraftPlus {
 			if (!class_exists($class)) include_once(UPDRAFTPLUS_DIR.'/'.$relative_path);
 		}
 		
+	}
+
+	/**
+	 * Attach this updraftplus plugin as host of the UpdraftCentral libraries
+	 * (e.g. "central" folder)
+	 *
+	 * @param array $hosts List of plugins having the "central" library integrated into them
+	 *
+	 * @return array
+	 */
+	public function attach_updraftcentral_host($hosts) {
+		$hosts[] = 'updraftplus';
+		return $hosts;
 	}
 	
 	/**
@@ -904,7 +934,7 @@ class UpdraftPlus {
 				// Return to the end of the file
 				$read_recent = fread($handle, $bytes_back);
 				// Move to end of file - ought to be redundant
-				if (false !== strpos($read_recent, ') The backup apparently succeeded') && false !== strpos($read_recent, 'and is now complete')) {
+				if ((false !== strpos($read_recent, ') The backup apparently succeeded') || false !== strpos($read_recent, ') The backup succeeded')) && false !== strpos($read_recent, 'and is now complete')) {
 					$backup_is_already_complete = true;
 				}
 			}
@@ -3800,8 +3830,9 @@ class UpdraftPlus {
 						$headers[] = "X-UpdraftPlus-Backup-ID: ".$this->nonce;
 						$from_email = apply_filters('updraftplus_email_from_header', $this->get_email_from_header());
 						$from_name = apply_filters('updraftplus_email_from_name_header', $this->get_email_from_name_header());
+						$use_wp_from_name_filter = '' === $from_email;
 						// Notice that we don't use the 'wp_mail_from' filter, but only the 'From:' header to set sender name and sender email address, the reason behind it is that some SMTP plugins override the "wp_mail()" function and they do anything they want inside their own "wp_mail()" function, including not to call the php_mailer filter nor the wp_mail_from and wp_mail_from_name filters, but since the function signature remain the same as the WP one, so they may evaluate and do something with the header parameter
-						if ('' !== $from_email) {
+						if (!$use_wp_from_name_filter) {
 							$headers[] = sprintf('From: %s <%s>', $from_name, $from_email);
 						} else {
 							add_filter('wp_mail_from_name', array($this, 'get_email_from_name_header'), 9);
@@ -3809,6 +3840,7 @@ class UpdraftPlus {
 						add_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
 						wp_mail(trim($sendmail_addr), $subject, $body, $headers, is_array($this->attachments) ? $this->attachments : array());
 						remove_action('wp_mail_failed', array($this, 'log_email_delivery_failure'));
+						if ($use_wp_from_name_filter) remove_filter('wp_mail_from_name', array($this, 'get_email_from_name_header'), 9);
 					} catch (Exception $e) {
 						$this->log("Exception occurred when sending mail (".get_class($e)."): ".$e->getMessage());
 					}
@@ -4233,10 +4265,6 @@ class UpdraftPlus {
 			if (realpath($fullpath)) {
 				$deleted = unlink($fullpath);
 				$this->log($log.(($deleted) ? 'OK' : 'failed'));
-				if (file_exists($fullpath.'.list.tmp')) {
-					$this->log("Deleting zip manifest ({$file}.list.tmp)");
-					unlink($fullpath.'.list.tmp');
-				}
 				return $deleted;
 			}
 		} else {

@@ -6,13 +6,13 @@
  *  @package Sticky Section
  */
 
-if ( ! class_exists( 'Ultimate_Sticky_Section' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Sticky_Section' ) ) {
 	/**
 	 * Function that initializes Sticky Section Module.
 	 *
-	 * @class Ultimate_Sticky_Section
+	 * @class Ultimate_VC_Addons_Sticky_Section
 	 */
-	class Ultimate_Sticky_Section {
+	class Ultimate_VC_Addons_Sticky_Section {
 		/**
 		 * Constructor function that constructs default values for the Sticky Section module.
 		 *
@@ -356,11 +356,11 @@ if ( ! class_exists( 'Ultimate_Sticky_Section' ) ) {
 		 */
 		public function ult_sticky_section_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult_sticky_js', 'fixto', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_sticky_js', 'fixto', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult_sticky_section_js', 'sticky-section', false, array( 'ult_sticky_js' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_sticky_section_js', 'sticky-section', false, array( 'ultimate-vc-addons_sticky_js' ), ULTIMATE_VERSION, true );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult_sticky_section_css', 'sticky-section' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_sticky_section_css', 'sticky-section' );
 
 		}//end ult_sticky_section_scripts()
 
@@ -369,7 +369,7 @@ if ( ! class_exists( 'Ultimate_Sticky_Section' ) ) {
 
 
 	// Instantiate the class.
-	new Ultimate_Sticky_Section();
+	new Ultimate_VC_Addons_Sticky_Section();
 
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ult_Sticky_Section' ) ) {
 		/**

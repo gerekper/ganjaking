@@ -2,11 +2,12 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations;
 
+use WP_Admin_Bar;
 use WPSEO_Metabox_Analysis_Readability;
 use WPSEO_Metabox_Analysis_SEO;
 use WPSEO_Options;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
-use Yoast\WP\SEO\Conditionals\Front_End_Inspector_Conditional;
+use Yoast\WP\SEO\Helpers\Robots_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 
 /**
@@ -15,10 +16,33 @@ use Yoast\WP\SEO\Integrations\Integration_Interface;
 class Frontend_Inspector implements Integration_Interface {
 
 	/**
+	 * The identifier used for the frontend inspector submenu.
+	 *
+	 * @var string
+	 */
+	const FRONTEND_INSPECTOR_SUBMENU_IDENTIFIER = 'wpseo-frontend-inspector';
+
+	/**
+	 * Holds the Robots_Helper.
+	 *
+	 * @var Robots_Helper
+	 */
+	protected $robots_helper;
+
+	/**
+	 * Constructs a Frontend_Inspector.
+	 *
+	 * @param Robots_Helper $robots_helper The Robots_Helper.
+	 */
+	public function __construct( Robots_Helper $robots_helper ) {
+		$this->robots_helper = $robots_helper;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public static function get_conditionals() {
-		return [ Front_End_Conditional::class, Front_End_Inspector_Conditional::class ];
+		return [ Front_End_Conditional::class ];
 	}
 
 	/**
@@ -26,6 +50,34 @@ class Frontend_Inspector implements Integration_Interface {
 	 */
 	public function register_hooks() {
 		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ], 11 );
+		\add_action( 'wpseo_add_adminbar_submenu', [ $this, 'add_frontend_inspector_submenu' ], 10, 2 );
+	}
+
+	/**
+	 * Adds the frontend inspector submenu.
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar    The admin bar.
+	 * @param string       $menu_identifier The menu identifier.
+	 *
+	 * @return void
+	 */
+	public function add_frontend_inspector_submenu( WP_Admin_Bar $wp_admin_bar, $menu_identifier ) {
+		if ( ! \is_admin() ) {
+			$menu_args = [
+				'parent' => $menu_identifier,
+				'id'     => self::FRONTEND_INSPECTOR_SUBMENU_IDENTIFIER,
+				'title'  => sprintf(
+					'%1$s <span class="yoast-badge yoast-beta-badge">%2$s</span>',
+					__( 'Front-end SEO inspector', 'wordpress-seo-premium' ),
+					__( 'Beta', 'wordpress-seo-premium' )
+				),
+				'href'   => '#wpseo-frontend-inspector',
+				'meta'   => [
+					'tabindex' => '0',
+				],
+			];
+			$wp_admin_bar->add_menu( $menu_args );
+		}
 	}
 
 	/**
@@ -83,7 +135,9 @@ class Frontend_Inspector implements Integration_Interface {
 			'wpseoScriptData',
 			[
 				'frontendInspector' => [
+					'isIndexable'           => $this->robots_helper->is_indexable( $indexable ),
 					'indexable'             => [
+						'is_robots_noindex'           => $indexable->is_robots_noindex,
 						'primary_focus_keyword'       => $indexable->primary_focus_keyword,
 						'primary_focus_keyword_score' => $indexable->primary_focus_keyword_score,
 						'readability_score'           => $indexable->readability_score,

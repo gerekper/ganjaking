@@ -1,5 +1,21 @@
 Event Slider (SL) addon for EventON Plugin
 ====================================
+v 2.0.5 (2021-12-3)
+FIXED: mini slider flex style issues
+FIXED: mini slider image support
+FIXED: default multi slider visible slide count to 4
+FIXED: vertical slider getting cropped
+FIXED: vertical slider with 1 slide not working
+
+v 2.0.4 (2021-11-1)
+FIXED: last slider not visible
+FIXED: slider not responsie
+FIXED: slider styles on mini slider
+
+v 2.0.3 (2021-8-19)
+FIXED: slider styles for image
+FIXED: slider width issue
+
 v 2.0.2 (2021-1-8)
 FIXED: complete slider not clickable due to style issue
 FIXED: missing slide function

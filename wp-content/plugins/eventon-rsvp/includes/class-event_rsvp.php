@@ -546,54 +546,69 @@ class EVORS_Event{
 			EVO()->cal->set_cur('evcal_rs');
 			
 			// if only loggedin users
-			if( EVO()->cal->check_yn('evors_onlylogu') ){
+				if( EVO()->cal->check_yn('evors_onlylogu') ){
 
-				// user is not loggedin
-				if( !is_user_logged_in() ) return false;
+					// user is not loggedin
+					if( !is_user_logged_in() ) return false;
 
-				$roles = EVO()->cal->get_prop('evors_rsvp_roles');
+					$roles = EVO()->cal->get_prop('evors_rsvp_roles');
 
-				// if specific user roles were not set but user is loggedin 
-				if($roles){
-					$user = wp_get_current_user();
-					
-					foreach($user->roles as $role){
-						if(in_array($role, $roles)){
-							$can_user_rsvp = true;
+					// if specific user roles were not set but user is loggedin 
+					if($roles){
+						$user = wp_get_current_user();
+						
+						foreach($user->roles as $role){
+							if(in_array($role, $roles)){
+								$can_user_rsvp = true;
+							}
 						}
+
+						if(!$can_user_rsvp) return false;
+					}				
+				}		
+
+			// if the event is cancelled then dont allow rsvping
+				if($this->event->is_cancelled()) return false;
+
+			// first check if rsvp capacity is met
+				if( !$this->has_space_to_rsvp() ) return false;
+
+			// init values
+				$close_when_settings = EVO()->cal->get_prop('evors_close_time');	
+				$close_when_event = $this->event->get_prop('evors_close_time');
+				$current_time = EVO()->calendar->get_current_time();		
+
+			// if event is past and not allowed to rsvp to past				
+				if( $close_when_settings == 'never' ){
+
+					if( !$close_when_event) return true;
+
+				}else{
+
+					if( $this->event->is_past_event()) return false;
+
+					// close RSVP based on time
+					$close_when = $close_when_settings ? $close_when_settings : 'start';
+					$close_time = $this->event->get_event_time( $close_when );
+
+
+					// if close x minutes before start
+					if( $close_when_event ){
+						$start = $this->event->get_event_time( 'start' );
+						$close_time = $start - ( (int)$close_when_event * 60 );
 					}
 
-					if(!$can_user_rsvp) return false;
-				}				
-			}			
+					// check time is past
+					if( $current_time > $close_time )return false;
 
-			// allow rsvpign to past events
-				$allow_rsvp_past = EVO()->cal->check_yn('evors_allow_past') || EVO()->cal->get_prop('evors_close_time') == 'never' ? true: false;
-
-			// if event is past and not allowed to rsvp to past
-				if( $this->event->is_past_event() && !$allow_rsvp_past) return false;
-
-			// check when to close rsvp from settings
-				$current_time = EVO()->calendar->get_current_time();
-				$close_when = EVO()->cal->get_prop('evors_close_time');
-				$close_when = $close_when ? $close_when : 'start';
-
-				$close_time = $this->event->get_event_time( $close_when );
-
-				// if close x minutes before start
-				if( $x_mins = $this->event->get_prop('evors_close_time') && $close_when == 'start'){
-					$close_time = $close_time - ( (int)$x_mins * 60 );
 				}
 
-				// check time is past
-				if( $current_time > $close_time )return false;
-
-			// whether rsvp capacity is met
-				if( !$this->has_space_to_rsvp() ) return false;
+			
 
 			return true;
 		}
 		// whether users can still RSVP
+		// deprecate
 		function can_rsvp(){
 
 			// if the event is cancelled then dont allow rsvping
@@ -601,17 +616,22 @@ class EVORS_Event{
 
 			$end_time = $this->event->get_end_time(true);
 
-			// if event is past or not allowed to rsvp to past events
-			if( EVO()->calendar->get_current_time() <= $end_time || ( evo_settings_check_yn($this->opt_rs, 'evors_allow_past')) ){}else{return false;}
+			// if event is past and not allowed to rsvp to past events
+			if( EVO()->cal->get_prop('evors_close_time') != 'never' && EVO()->calendar->get_current_time() <= $end_time){
+				return false;
+			}
+			
 
 			// if rsvp is set to close X min before expiration
 			return ($this->close_rsvp_beforex())? false:true;
 		}
-		// check if rsvping is closed x minuted before event start time
+
+		// check if rsvping is closed x minutes before event start time
 		function close_rsvp_beforex(){
 			$current_time = EVO()->calendar->get_current_time();
 			// check if close RSVP X minuted before is set
 			$close_time = $this->event->get_prop('evors_close_time');
+			if(!$close_time) return false;
 
 			$closeRSVP = $close_time? (int)$close_time*60: false;
 
@@ -704,7 +724,11 @@ class EVORS_Event{
 						
 						// save file uploads
 						if( $field_type && $field_type == 'file'){
-							$this->process_uploads($RR, $x);
+							$url = $this->process_uploads($RR, $x);
+
+							// append the attachment file url for admin notification email attachment
+							if($url) $args['attachments'][] = $url;
+						//save field value
 						}else{
 							$RR->set_prop( 'evors_addf'.$x.'_1', $value);
 						}
@@ -788,7 +812,11 @@ class EVORS_Event{
 				// Admin Notification email
 				$args['notice_title'] = evo_lang('New RSVP');
 				$args['notice_message'] = evo_lang('You have received a new RSVP');
-				EVORS()->email->send_email( apply_filters('evors_admin_notification_args',$args),'notification');
+
+				EVORS()->email->send_email( 
+					apply_filters('evors_admin_notification_args',$args, $RR),
+					'notification'
+				);
 
 			$status = $created_rsvp_id;
 
@@ -934,6 +962,10 @@ class EVORS_Event{
 
 			// save the attachment ID 
 			$RR->set_prop( 'evors_addf'.$x.'_1', $attachmentId);
+
+			$url = wp_get_attachment_url( $attachmentId );
+
+			return !$url? false : $url;
 		}
 	}
 

@@ -9,15 +9,15 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	 *
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Xero', 'wc-xero' ) );
+		parent::__construct( __( 'Xero', 'woocommerce-xero' ) );
 
-		$this->add_exporter( 'woocommerce-xero-order-data', __( 'WooCommerce Xero Order Data', 'wc-xero' ), array( $this, 'order_data_exporter' ) );
+		$this->add_exporter( 'woocommerce-xero-order-data', __( 'WooCommerce Xero Order Data', 'woocommerce-xero' ), array( $this, 'order_data_exporter' ) );
 
 		if ( function_exists( 'wcs_get_subscriptions' ) ) {
-			$this->add_exporter( 'woocommerce-xero-subscriptions-data', __( 'WooCommerce Xero Subscriptions Data', 'wc-xero' ), array( $this, 'subscriptions_data_exporter' ) );
+			$this->add_exporter( 'woocommerce-xero-subscriptions-data', __( 'WooCommerce Xero Subscriptions Data', 'woocommerce-xero' ), array( $this, 'subscriptions_data_exporter' ) );
 		}
 
-		$this->add_eraser( 'woocommerce-xero-order-data', __( 'WooCommerce Xero Data', 'wc-xero' ), array( $this, 'order_data_eraser' ) );
+		$this->add_eraser( 'woocommerce-xero-order-data', __( 'WooCommerce Xero Data', 'woocommerce-xero' ), array( $this, 'order_data_eraser' ) );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	 *
 	 */
 	public function get_privacy_message() {
-		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'wc-xero' ), 'https://docs.woocommerce.com/document/marketplace-privacy/#woocommerce-xero' ) );
+		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-xero' ), 'https://docs.woocommerce.com/document/marketplace-privacy/#woocommerce-xero' ) );
 	}
 
 	/**
@@ -73,15 +73,15 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 			foreach ( $orders as $order ) {
 				$data_to_export[] = array(
 					'group_id'    => 'woocommerce_orders',
-					'group_label' => __( 'Orders', 'wc-xero' ),
+					'group_label' => __( 'Orders', 'woocommerce-xero' ),
 					'item_id'     => 'order-' . $order->get_id(),
 					'data'        => array(
 						array(
-							'name'  => __( 'Xero payment id', 'wc-xero' ),
+							'name'  => __( 'Xero payment id', 'woocommerce-xero' ),
 							'value' => get_post_meta( $order->get_id(), '_xero_payment_id', true ),
 						),
 						array(
-							'name'  => __( 'Xero invoice id', 'wc-xero' ),
+							'name'  => __( 'Xero invoice id', 'woocommerce-xero' ),
 							'value' => get_post_meta( $order->get_id(), '_xero_invoice_id', true ),
 						),
 					),
@@ -132,15 +132,15 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 			foreach ( $subscriptions as $subscription ) {
 				$data_to_export[] = array(
 					'group_id'    => 'woocommerce_subscriptions',
-					'group_label' => __( 'Subscriptions', 'wc-xero' ),
+					'group_label' => __( 'Subscriptions', 'woocommerce-xero' ),
 					'item_id'     => 'subscription-' . $subscription->get_id(),
 					'data'        => array(
 						array(
-							'name'  => __( 'Xero payment id', 'wc-xero' ),
+							'name'  => __( 'Xero payment id', 'woocommerce-xero' ),
 							'value' => get_post_meta( $subscription->get_id(), '_xero_payment_id', true ),
 						),
 						array(
-							'name'  => __( 'Xero invoice id', 'wc-xero' ),
+							'name'  => __( 'Xero invoice id', 'woocommerce-xero' ),
 							'value' => get_post_meta( $subscription->get_id(), '_xero_invoice_id', true ),
 						),
 					),
@@ -235,7 +235,7 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 		delete_post_meta( $subscription_id, '_xero_payment_id' );
 		delete_post_meta( $subscription_id, '_xero_invoice_id' );
 
-		return array( true, false, array( __( 'Xero Subscription Data Erased.', 'wc-xero' ) ) );
+		return array( true, false, array( __( 'Xero Subscription Data Erased.', 'woocommerce-xero' ) ) );
 	}
 
 	/**
@@ -256,6 +256,6 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 		delete_post_meta( $order_id, '_xero_payment_id' );
 		delete_post_meta( $order_id, '_xero_invoice_id' );
 
-		return array( true, false, array( __( 'Xero personal data erased.', 'wc-xero' ) ) );
+		return array( true, false, array( __( 'Xero personal data erased.', 'woocommerce-xero' ) ) );
 	}
 }

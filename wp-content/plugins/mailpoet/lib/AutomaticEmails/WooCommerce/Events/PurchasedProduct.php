@@ -73,10 +73,12 @@ class PurchasedProduct {
   public function getEventDetails() {
     return [
       'slug' => self::SLUG,
-      'title' => WPFunctions::get()->__('Purchased This Product', 'mailpoet'),
-      'description' => WPFunctions::get()->__('Let MailPoet send an email to customers who purchase a specific product for the first time.', 'mailpoet'),
-      'listingScheduleDisplayText' => WPFunctions::get()->__('Email sent when a customer buys product: %s', 'mailpoet'),
-      'listingScheduleDisplayTextPlural' => WPFunctions::get()->__('Email sent when a customer buys products: %s', 'mailpoet'),
+      'title' => __('Purchased This Product', 'mailpoet'),
+      'description' => __('Let MailPoet send an email to customers who purchase a specific product for the first time.', 'mailpoet'),
+      // translators: %s is the name of the product.
+      'listingScheduleDisplayText' => __('Email sent when a customer buys product: %s', 'mailpoet'),
+      // translators: %s is the name of the products.
+      'listingScheduleDisplayTextPlural' => __('Email sent when a customer buys products: %s', 'mailpoet'),
       'options' => [
         'multiple' => true,
         'endpoint' => 'products',

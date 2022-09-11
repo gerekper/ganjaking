@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 /**
  * WooCommerce Cost of Goods main plugin class.
@@ -36,7 +36,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.11.1';
+	const VERSION = '2.11.3';
 
 	/** @var WC_COG single instance of this plugin */
 	protected static $instance;

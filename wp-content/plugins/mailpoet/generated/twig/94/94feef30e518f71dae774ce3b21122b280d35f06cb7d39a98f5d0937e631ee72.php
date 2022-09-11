@@ -54,7 +54,7 @@ class __TwigTemplate_5c71d57f60a0f5a4fc5d48d80259463fe103c80202fce3a75da88803acd
         // line 4
         echo "<div class=\"wrap\">
   <h1 class=\"wp-heading-inline\">Automation</h1>
-
+  <div id=\"mailpoet_notices\"></div>
   <div id=\"mailpoet_automation\"></div>
 </div>
 ";

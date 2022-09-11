@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/rsvp-invitees
  * Description: Send event RSVPs only to invitees
  * Author: Ashan Jay
- * Version: 0.4
+ * Version: 0.5
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 4.0
- * Tested up to: 5.3
+ * Requires at least: 5.0
+ * Tested up to: 5.8
  *  
  * Text Domain: evorsi
  * Domain Path: /lang/
@@ -16,9 +16,9 @@
 
 class evorsi{
 	
-	public $version='0.4';
-	public $eventon_version = '2.8';
-	public $evors_version = '2.6.3';
+	public $version='0.5';
+	public $eventon_version = '3.1';
+	public $evors_version = '2.7.3';
 	public $name = 'RSVP Invitees';
 	public $id = 'EVORSI';
 

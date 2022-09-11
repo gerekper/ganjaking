@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.1.2
  */
 
 // Exit if accessed directly.
@@ -440,6 +440,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$args = apply_filters(
                 'wc_mnm_query_products_by_categories_args',
 				array(
+					'query_id'             => 'wc_mnm_query_child_items_by_category',
 					'type'                 => WC_Mix_and_Match_Helpers::get_supported_product_types(),
 					'category_id'          => (array) $cat_ids,
 					'orderby'              => 'title',

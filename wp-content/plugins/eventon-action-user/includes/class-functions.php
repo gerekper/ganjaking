@@ -1,10 +1,12 @@
 <?php
 /**
  * ActionUser front and back end functions
- * @version  2.0.14
+ * @version  2.2.5
  */
 class evoau_functions{
-	public function __construct(){	}
+	public function __construct(){
+		EVO()->cal->load_more('evoau_1');
+	}
 
 	// event manager related		
 		// Can a event be editable
@@ -29,67 +31,78 @@ class evoau_functions{
 			}
 		// can user edit event
 			function can_currentuser_edit_event($event_id, $epmv=''){
-				$opt = get_option('evcal_options_evoau_1');
-				// if editing disabled 
+				
+				// if editing disabled via event
 				if( !$this->can_edit_event($event_id, $epmv) ) return false;
+
+				// if editting disabled from settings
+				if( !EVO()->cal->check_yn('evo_auem_editing','evoau_1')) return false;
 
 
 				global $current_user;
 				$event_author = get_post_field ('post_author', $event_id);
 
-				// if user have permission to edit events
-				if( current_user_can('edit_others_eventons', $event_id) ){
-					//echo '1';
-					return true;
 				
-				// if user is post author
-				}elseif($event_author == $current_user->ID){
+				// user made event
+				if( $event_author == $current_user->ID ){
 
-					// check if user has permission to edit his published events
+					// user has permission to edit his published events
 					return current_user_can('edit_published_eventons')? true: false;
 
-				// if user is assigned to event and assigned user can edit events	
-				}elseif(					
-					evo_settings_check_yn($opt, 'evoau_assigned_editing') &&
-					$this->user_assigned_toevent($event_id, $current_user->ID )
-				){
-					//echo '3';
-					return true;
+				// others event	
+				}else{
+
+					//user assigned to event
+					if( $this->user_assigned_toevent($event_id, $current_user->ID ) ){
+						if( !EVO()->cal->check_yn('evoau_assigned_editing','evoau_1')) return false;
+						return true;
+					}else{
+
+						// if he can edit others events via permissions
+						return ( current_user_can('edit_others_eventons', $event_id) ) ? true: false;
+					}
 				}
 
-				// if the user is admin
+
+
+				// if the user is admin// override everything
 				if(current_user_can('manage_eventon')){
 					return true;
 				}
 				return false;
 			}
 
-		// can user delete events
-			function can_currentuser_delete_event($event_id){
+		// can user delete events in event manager
+			function can_currentuser_delete_event($EVENT){
 				$opt = get_option('evcal_options_evoau_1');
-				// if deleting disabled 
+				
+				// if deleting disabled via settings
 				if( !evo_settings_check_yn($opt,'evo_auem_deleting') ) return false;
 
 				global $current_user;
-				$event_author = get_post_field ('post_author', $event_id);
-				
-				// if user have permission to delete events
-				// /if( current_user_can('delete_post', $event_id) ){
-				if( current_user_can('delete_others_eventons', $event_id) ){
-					return true;
+				$event_author = get_post_field ('post_author', $EVENT->ID);
 
-				// if user is the post author 
-				}elseif( $event_author == $current_user->ID ){
-					return true;
-				
-				// if user is assigned to event and assigned users can delete events
-				}elseif(
-					evo_settings_check_yn($opt, 'evoau_assigned_deleting') &&
-					$this->user_assigned_toevent($event_id, $current_user->ID )
-				){
-					return true;
+				// user made event
+				if( $event_author == $current_user->ID){
+
+					// user has permission to delete his published events
+					return current_user_can('delete_published_eventons')? true: false;
+
+				// others event	
+				}else{
+
+					//user assigned to event
+					if( $this->user_assigned_toevent($EVENT->ID, $current_user->ID ) ){
+						return ( !EVO()->cal->check_yn('evoau_assigned_deleting','evoau_1')) ? false:true;
+					}else{
+
+						// if he can edit others events via permissions
+						return ( current_user_can('delete_others_eventons', $EVENT->ID) ) ? true: false;
+					}
 				}
 
+				
+				
 			}
 
 		// check if the user ID is assigned to event
@@ -229,11 +242,16 @@ class evoau_functions{
 				// edit button html
 					$edit_html = (!$can_user_edit_event)? '':
 						"<a class='fa fa-pencil editEvent' data-eid='{$event_id}' data-sformat='{$EVENT_SUBMISSION_FORMAT}'></a>";
+
+					$edit_html = apply_filters('evoau_event_manager_edit_btn', $edit_html, $EVENT);
+				
 				
 				// delete button html
-					$delete_html = (!$this->can_currentuser_delete_event($event_id, $ePmv))?
+					$delete_html = (!$this->can_currentuser_delete_event($EVENT))?
 						'':"<a class='fa fa-trash deleteEvent' data-eid='{$event_id}'></a>";
+					$delete_html = apply_filters('evoau_event_manager_delete_btn', $delete_html, $EVENT);
 
+				
 				$DateTime = $EVENT->get_formatted_smart_time();
 				
 				// if event is featured
@@ -255,11 +273,11 @@ class evoau_functions{
 
 						echo "<em class='event_poststatus status_{$data[1]}' title='".evo_lang('Status')."'>". evo_lang($data[1])."</em>";
 						echo ($EVENT->is_repeating_event() ? "<em class='tag'>". evo_lang('Repeating Event')."</em>":""); 
-						do_action('evoau_manager_row_title', $event_id, $ePmv );
+						do_action('evoau_manager_row_title', $EVENT );
 				echo "</span>";
 
 				// pluggable
-				do_action('evoau_manager_row', $event_id, $ePmv, $can_user_edit_event );
+				do_action('evoau_manager_row', $EVENT,  $can_user_edit_event);
 
 				echo "</div>";
 				return ob_get_clean();

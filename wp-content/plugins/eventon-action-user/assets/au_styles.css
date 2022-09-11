@@ -60,6 +60,7 @@
 			-moz-transition: background-color 1s 0s;
 			transition: background-color 1s 0s;
 	}	
+	.evo_lightbox_body .evoau_submission_form{border:none;}
 	.evoau_submission_form form{margin:0;font-size: 13px; }
 	.evoau_lightbox.evo_lightbox .evo_lightbox_body{background-color: #fff}
 	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-datepicker th, .ui-datepicker .ui-datepicker-title{
@@ -92,7 +93,6 @@
 	.evoau_submission_form .inner {width: 100%;}
 	.evoau_submission_form p .fullwidth{	width: 100%;}
 	
-	.evoau_submission_form .evoau_sh_row{border-top: 1px solid #e8e8e8}
 	.evoau_submission_form .evoau_sh_row p.evoau_sh_label {padding:10px 20px;margin:0;}
 	.evoau_submission_form .evoau_sh_row p.evoau_sh_label span{margin-left: 15px;}
 	/* date */
@@ -152,7 +152,7 @@
 	.evoau_submission_form .formBtnS{
 		border:none;
 		color: #ffffff;
-		background: #237ebd;
+		background: #52b4e4;
 		text-transform: uppercase;
 		text-decoration: none;
 		border-radius: 20px;
@@ -183,9 +183,11 @@
 		float: none;
 		margin-right: 5px;
 		padding: 7px 10px;
+		background-color: #fff;
 	}
 	.evoau_submission_form p.evo_field_container input{width: 100%}
-	.evoau_submission_form p select{-webkit-appearance: none; -moz-appearance: none;appearance: none;}
+	.evoau_submission_form p select{-webkit-appearance: none; -moz-appearance: none;
+		appearance: none; padding:6px 20px!important;}
 	.evoau_submission_form p input:focus, 
 	.evoau_submission_form p textarea:focus, 
 	.evoau_submission_form p select:focus{outline:none;} 
@@ -211,35 +213,34 @@
 		text-decoration: none;
 		border-radius: 20px;
 		border:none;
-		color: #ffffff;background: #237ebd;line-height: 1;
+		color: #ffffff;background: #52b4e4;line-height: 1;
 	}
 	.evoau_submission_form.loginneeded .evcal_btn{display: inline-block;}
 	.evoau_submission_form .evoau_table{margin: 0 -20px;}
-	.evoau_submission_form .evoau_table .submit_row.row{padding-top: 15px;}
+	.evoau_submission_form .evoau_table .submit_row.row{padding-top: 15px;background-color: transparent;}
 	.evoau_submission_form .evoau_table .submit_row.row:hover{background-color: transparent;}	
 	.evoau_submission_form .evoau_table .row.err{border-left:5px solid #FA938B;background-color: #FFF7F7}
 	.evoau_submission_form .evoau_table .row.err:hover{background-color: #FFEDEB}
-	.evoau_submission_form .evoau_table .row.evoau_sub_formfield {
-		padding: 10px 15px 15px;background-color: #efefef
-	}
-	.evoau_submission_form .evoau_table .row.evoau_sub_formfield .row{border-top-color: #d6d6d6}
-	.evoau_submission_form .evoau_table .row.evoau_sub_child_formfield {
-		padding: 10px 15px 15px;background-color: #e0e0e0; border-radius: 10px;
-	}
-	.evoau_submission_form .evoau_table .row.evoau_sub_child_formfield .row{padding:10px 0;}
+	
 	.evoau_submission_form .evoau_table .row.evoau_sub_child_formfield .sub_child_title{font-size: 16px;}
 	.evoau_submission_form .evoau_table .row{
 		padding: 8px 15px;
-		border-top: 1px solid #e8e8e8;
+		background-color: #f3f3f3;
 		margin: 0; display:block;
 		box-sizing: border-box;
+		margin:0 10px 10px;
+		border-radius: 12px;
 	}
-	.evoau_submission_form .evoau_table .row .row:first-of-type{border-top:none;}
+	.evoau_submission_form .row_2{background-color: #e8e8e8}
+	.evoau_submission_form .row .row{margin:0 0 10px; background-color:#e8e8e8 }
+	.evoau_submission_form .row .row .row{margin:0 0 10px; background-color:#dadada }
+
 	.evoau_submission_form .evoau_table .row p{margin: 0;padding-bottom: 4px; display: block!important}
-	.evoau_submission_form .evoau_table .row.learnmove p.checkbox_field{position: relative;}
-	.evoau_submission_form .evoau_table .row.learnmove p.checkbox_field input{position: absolute; top: 5px;}
-	.evoau_submission_form .evoau_table .row.learnmove p.checkbox_field label{padding-left: 25px;	}
-	.evoau_submission_form .evoau_table .row p.label, .evoau_submission_form .evoau_table .row p label{text-align: left;}
+	.evoau_submission_form .evoau_table .row p.checkbox_field{position: relative;}
+	.evoau_submission_form .evoau_table .row p.checkbox_field input{position: absolute; top: 5px;}
+	.evoau_submission_form .evoau_table .row p.checkbox_field label{padding-left: 25px;	}
+	.evoau_submission_form .evoau_table .row p.label, 
+	.evoau_submission_form .evoau_table .row p label{text-align: left;box-sizing: border-box;}
 	.evoau_submission_form .evoau_table #evoau_repeat_data p label, .evoau_submission_form .evoau_table #evoau_repeat_data p input{
 		display: inline-block;
 	}
@@ -250,6 +251,7 @@
 	.evoau_submission_form .submit_row input{
 		text-transform: uppercase;
 	}
+	.edit_special{background-color: #c7c7c7; padding:10px 0 1px; margin-bottom: 10px;}
 	.evoau_selectmul{
 		width: 100%;
 		font-size: 13px;
@@ -259,23 +261,27 @@
 	}
 	.evoau_cat_select_field{width: 100%;overflow-y:auto;max-height: 140px;}
 	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field span{
-		display: block;border-bottom: 1px solid #F2F2F2; padding:7px 10px;
+		padding: 7px 10px;
+	    background-color: #f3f3f3;
+	    margin: 5px;
+	    border-radius: 12px;
+	    display: flex;
+	    justify-content: left;
+	    align-items: center;
 	}
-	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field{border-radius: 5px;padding:0;}	
+	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field{border-radius: 10px;padding:0;}	
 	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field input{padding:0;margin-right: 7px;}	
 
 	/* repeat data section */
-		.evoau_submission_form #evoau_repeat_data{padding-top: 10px;background-color: #fbfbfb;}
 		.evoau_submission_form .repeat_type{
 			border-radius: 20px;
 		    overflow: hidden;
 		    display: inline-block;
 		}
 		.evoau_submission_form .repeat_type .evo_repeat_type_val{
-			background-color: #e6e6e6;
+			background-color: #d8d8d8;
 		    padding: 5px 15px;
 		    font-size: 14px;
-		    border: 1px solid #fff;
 		    border-right: none;
 		    cursor: pointer;
 		    display: inline-block;
@@ -491,7 +497,8 @@
 	{padding-bottom: 0px}
 
 /* event Manager */
-	.evoau_manager_event{position: relative;}
+	.evoau_manager_event{position: relative;    font-size: 14px;
+    color: #313131;}
 
 /* lightbox form */
 	html{overflow-y:initial;}

@@ -80,6 +80,7 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 		return $j;
 	}
 
+
 	// return an array of seats in cart for this event
 		function _get_cart_seats_for_events($reset_user_seats = true){
 

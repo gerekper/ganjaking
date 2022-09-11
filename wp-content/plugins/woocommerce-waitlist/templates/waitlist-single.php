@@ -27,25 +27,25 @@
 		$join_button_text = wcwl_get_button_text( 'join' );
 		?>
 		<div class="wcwl_intro">
-			<p><?php echo $intro; ?></p>
+			<p><?php echo esc_html( $intro ); ?></p>
 		</div>
 		<div class="wcwl_notice woocommerce-message">
 			<div aria-live="polite">
-				<p><?php echo $notice; ?></p>
+				<p><?php echo esc_html( $notice ); ?></p>
 			</div>
 			<button type="button" class="wcwl_notice_dismiss">
-				<span class="screen-reader-text"><?php echo $dismiss_notification_text; ?></span>
+				<span class="screen-reader-text"><?php echo esc_html( $dismiss_notification_text ); ?></span>
 			</button>
 		</div>
 		<?php if ( $opt_in && ! $on_waitlist ) { ?>
 			<div class="wcwl_optin">
-				<input type="checkbox" name="wcwl_optin_<?php echo $product_id; ?>" id="wcwl_optin_<?php echo $product_id; ?>">
-				<label for="wcwl_optin_<?php echo $product_id; ?>"><?php echo $opt_in_text; ?></label>
+				<input type="checkbox" name="wcwl_optin_<?php echo esc_attr( $product_id ); ?>" id="wcwl_optin_<?php echo esc_attr( $product_id ); ?>">
+				<label for="wcwl_optin_<?php echo esc_attr( $product_id ); ?>"><?php echo esc_html( $opt_in_text ); ?></label>
 			</div>
 		<?php } ?>
-		<div class="wcwl_email_elements <?php echo $email_class; ?>">
-			<label for="wcwl_email_<?php echo $product_id; ?>" class="wcwl_email_label wcwl_visually_hidden"><?php echo $email_address_label_text; ?></label>
-			<input type="email" value="<?php echo $user_email; ?>" id="wcwl_email_<?php echo $product_id; ?>" name="wcwl_email" class="wcwl_email" placeholder="<?php echo $email_address_placeholder_text; ?>"
+		<div class="wcwl_email_elements <?php echo esc_attr( $email_class ); ?>">
+			<label for="wcwl_email_<?php echo esc_attr( $product_id ); ?>" class="wcwl_email_label wcwl_visually_hidden"><?php echo esc_html( $email_address_label_text ); ?></label>
+			<input type="email" value="<?php echo esc_attr( $user_email ); ?>" id="wcwl_email_<?php echo esc_attr( $product_id ); ?>" name="wcwl_email" class="wcwl_email" placeholder="<?php echo esc_attr( $email_address_placeholder_text ); ?>"
 			<?php
 			if ( $user_email ) {
 				echo 'disabled'; }
@@ -58,11 +58,11 @@
 			$join_button_text = wcwl_get_button_text( 'confirm' );
 		}
 		?>
-		<input type="hidden" name="wcwl_join_button_text" value="<?php echo $join_button_text; ?>"/>
-		<input type="hidden" name="wcwl_leave_button_text" value="<?php echo wcwl_get_button_text( 'leave' ); ?>"/>
-		<a rel="nofollow" class="wcwl_control" href="<?php echo $url; ?>" data-nonce="<?php echo wp_create_nonce( 'wcwl-ajax-process-user-request-nonce' ); ?>" data-product-id="<?php echo $product_id; ?>" data-context="<?php echo $context; ?>" data-wpml-lang="<?php echo $lang; ?>">
+		<input type="hidden" name="wcwl_join_button_text" value="<?php echo esc_attr( $join_button_text ); ?>"/>
+		<input type="hidden" name="wcwl_leave_button_text" value="<?php echo esc_attr( wcwl_get_button_text( 'leave' ) ); ?>"/>
+		<a rel="nofollow" class="wcwl_control" href="<?php echo esc_url( $url ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wcwl-ajax-process-user-request-nonce' ) ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-context="<?php echo esc_attr( $context ); ?>" data-wpml-lang="<?php echo esc_attr( $lang ); ?>">
 			<button type="button" class="woocommerce_waitlist button">
-				<?php echo wcwl_get_button_text( $context ); ?>
+				<?php echo esc_html( wcwl_get_button_text( $context ) ); ?>
 			</button>
 			<div aria-live="polite" class="wcwl_visually_hidden"></div>
 			<div class="spinner"></div>

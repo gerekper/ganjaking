@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order hooks for saving/restoring the subscription state of a product to/from order item data.
  *
  * @class    WCS_ATT_Order
- * @version  3.1.24
+ * @version  4.0.0
  */
 class WCS_ATT_Order {
 
@@ -267,21 +267,6 @@ class WCS_ATT_Order {
 
 		if ( $product && null !== ( $scheme_key = self::get_subscription_scheme( $order_item, array( 'product' => $product ) ) ) ) {
 			$scheme_set = WCS_ATT_Product_Schemes::set_subscription_scheme( $product, $scheme_key );
-		}
-
-		// Scheme originally existed but not applied successfuly? It could mean that product schemes may have changed, or that this product was purchased with a cart plan.
-		if ( false === $scheme_set && $scheme_key ) {
-			// Applying a coupon?
-			if ( doing_action( 'wp_ajax_woocommerce_add_coupon_discount' ) || wcs_is_subscription( $order_item->get_order_id() ) ) {
-
-				// Validate our theory and apply cart level schemes.
-				$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-
-				if ( empty( $subscription_schemes ) && ( $cart_subscription_schemes = WCS_ATT_Cart::get_cart_subscription_schemes( $product ) ) ) {
-					WCS_ATT_Product_Schemes::set_subscription_schemes( $product, $cart_subscription_schemes );
-					WCS_ATT_Product_Schemes::set_subscription_scheme( $product, $scheme_key );
-				}
-			}
 		}
 
 		return $product;

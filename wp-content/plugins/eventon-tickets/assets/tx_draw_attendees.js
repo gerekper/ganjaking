@@ -20,8 +20,7 @@
                     : options.inverse(this);
 			});
 			Handlebars.registerHelper("noDash", function(input) {
-			    O = input.replace("-", " ");
-			    O = input.replace("_", " ");
+			    O = input.replace(/_/g, " ");
 			    return O;
 			});
 			Handlebars.registerHelper("urlE", function(input) {	
@@ -87,6 +86,7 @@
 					'oS':'order_status'
 				};
 
+
 				HTML = '';
 				//HTML = '<span class="evotx_search"><input type="text"/><i class="fa fa-search"></i></span>'
 				HTML += '<span class="main_filters">';
@@ -95,11 +95,23 @@
 					_HTML = '';
 					_HTML += "<span class='"+K+" "+ (V.display == 'none'? 'other':'') +"' ><select name='"+K+"' data-oD='"+ (V.oD?true:false ) +"' data-f='"+K+"'>";
 
-					$.each( V, function(ind,D){
-						if(ind == 'display') return true;
-						if(ind == 'oD') return true;
-						_HTML += "<option value='"+D+"'>"+D+"</option>";
-					});
+					// event time
+					if( K == 'event_time' && 'filter_vals' in opt && 'event_time' in opt.filter_vals){
+
+						_HTML += "<option value='"+ V[0] +"'>"+V[0]+"</option>";
+
+						$.each( opt.filter_vals.event_time, function(ff,vv){
+							_HTML += "<option value='"+ff+"'>"+ff+"</option>";
+						});	
+
+					}else{
+						$.each( V, function(ind,D){
+							if(ind == 'display') return true;
+							if(ind == 'oD') return true;
+							_HTML += "<option value='"+D+"'>"+D+"</option>";
+						});
+					}
+					
 					K = __hasVal(NAMES, K)? NAMES[K]: K;
 					K = K.replace("_",' ');
 					_HTML += "</select><em>"+K+"</em></span>";

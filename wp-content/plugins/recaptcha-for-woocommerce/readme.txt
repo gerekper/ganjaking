@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:6.6
-Version:2.36
-Stable tag:2.36
+Tested up to:6.0
+Version:2.37
+Stable tag:2.37
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,11 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.37 =
+
+* Improvements on security for nonce checking
+
 
 = 2.36 =
 

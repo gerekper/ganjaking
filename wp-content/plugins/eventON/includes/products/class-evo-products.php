@@ -1,7 +1,7 @@
 <?php
 /** 
  * All EventON products class
- * @version 0.1
+ * @version 4.0.3
  */
 
 class evo_prods{
@@ -245,16 +245,14 @@ class evo_prods{
 			$last_checked =  get_option('_evo_prods_last_check');
 			if(empty($last_checked)) true;
 
-			date_default_timezone_set("UTC"); 
-			$now = current_time('timestamp');
+			$now = EVO()->calendar->utc_time;
 
 			// last checked was 20 hours ago
 			if( ($last_checked + (60*60*20)) <= $now ) return true;
 			return false;
 		}
 		function save_last_checked(){
-			date_default_timezone_set("UTC"); 
-			update_option('_evo_prods_last_check', current_time('timestamp'));
+			update_option('_evo_prods_last_check', EVO()->calendar->utc_time );
 		}
 
 	// forcefully debug remote data to check if connections are able to make through
@@ -281,8 +279,7 @@ class evo_prods{
 	}
 
 	function get_time_now(){
-		date_default_timezone_set("UTC"); 
-		return time();
+		return EVO()->calendar->utc_time;
 	}
 }
 

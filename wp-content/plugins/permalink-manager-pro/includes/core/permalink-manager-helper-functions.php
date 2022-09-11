@@ -546,6 +546,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$sanitize_slugs = (!empty($permalink_manager_options['general']['disable_slug_sanitization'])) ? false : true;
 		}
 
+		// Allow to filter the slug before it is sanitized
+		$str = apply_filters('permalink_manager_pre_sanitize_title', $str, $keep_percent_sign, $force_lowercase, $sanitize_slugs);
+
 		// Remove accents & entities
 		$clean = (empty($permalink_manager_options['general']['keep_accents'])) ? remove_accents($str) : $str;
 		$clean = str_replace(array('&lt', '&gt', '&amp'), '', $clean);

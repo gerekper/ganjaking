@@ -862,7 +862,7 @@ class WC_Product_Vendors_Utils {
 		}
 
 		// else return no commission
-		return 0;
+		return array( 'commission' => false, 'type' => false );
 	}
 
 	/**

@@ -16,12 +16,10 @@ class EVOICS_settings{
 		$this->fnc = EVOICS()->fnc;
 		$this->options = EVOICS()->fnc->options;	
 		
-		echo $this->content();
 	}
 	function content(){
-		global $eventon;
 
-		$eventon->load_ajde_backender();
+		EVO()->load_ajde_backender();
 
 		// Settings Tabs array
 		$tabs = array(
@@ -48,7 +46,7 @@ class EVOICS_settings{
 				}	
 			}
 		?>
-		<div class="wrap" id='evoics_settings'>
+		<div class="wrap" id='evcal_settings'>
 			<div id='eventon'><div id="icon-themes" class="icon32"></div></div>
 			<h1><?php _e('Settings for Importing Events','eventon');?> </h1>
 			<h2 class='nav-tab-wrapper' id='meta_tabs'>
@@ -153,8 +151,7 @@ class EVOICS_settings{
 				</div>
 				</div>
 				<div class='evo_diag'>
-					<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/><br/>
-					<a target='_blank' href='http://www.myeventon.com/support/'><img src='<?php echo AJDE_EVCAL_URL;?>/assets/images/myeventon_resources.png'/></a>
+					<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/>
 				</div>
 				</form>
 				<?php
@@ -332,7 +329,8 @@ class EVOICS_settings{
 			}		
 						
 			//print_r($events);
-			
+
+
 			$COUNT = count($events);
 			
 			
@@ -350,6 +348,14 @@ class EVOICS_settings{
 			echo "<h2>".__('Verify Processed Events & Import','eventon')."</h2>";
 			echo "<p>".__('Please look through the events processed from the uploaded ICS file and select the ones you want to import into your website calendar.','eventon'). '<br/>Processed <b>'.$COUNT.'</b> items total.'."</p>";
 
+			// timeone passed
+				if( isset($events[0]['DTSTART'])){
+					$date = $events[0]['DTSTART'];
+					//print_r($date);
+
+					echo "<p>Timezone for Imported Events: <b>". $date->format('e') .'</b>';
+				}
+			
 
 			echo "<div class='evoics_data_section'>
 
@@ -398,7 +404,6 @@ class EVOICS_settings{
 				)
 			);
 
-		 	//print_r($events);
 			
 			$process_events = $this->fnc->process_fetched_events($events);
 			//print_r($process_events);
@@ -525,4 +530,3 @@ class EVOICS_settings{
 			
 
 }
-new EVOICS_settings();

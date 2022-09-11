@@ -487,6 +487,7 @@ class WC_pdf_admin_functions {
 
 		// Starting Invoice Number stored in PDF Invoice settings
 		$starting_invoice_number		 = isset( $woocommerce_pdf_invoice_settings['start_number'] ) ? $woocommerce_pdf_invoice_settings['start_number'] : 0;
+
 		// Set the last invice number to 0 prior to checking the database for any invoice nmbers stored in orders.
 		$last_invoice_number			 = 0;
 
@@ -509,6 +510,7 @@ class WC_pdf_admin_functions {
 
 		// Update WordPress Options table
 		update_option( 'woocommerce_pdf_invoice_current_invoice', $next_invoice_number );
+
 		// Update PDF Invoice Settings
 		$woocommerce_pdf_invoice_settings['pdf_next_number'] = $next_invoice_number;
 		update_option( 'woocommerce_pdf_invoice_settings', $woocommerce_pdf_invoice_settings );
@@ -731,6 +733,13 @@ class WC_pdf_admin_functions {
 			'default'       => 'no',
 		);
 
+		$woocommerce_email_settings_attach_yes = array(
+			'title'         => __( 'Attach PDF Invoice to this email', 'woocommerce-pdf-invoice' ),
+			'lable'   		=> __( 'Attach PDF Invoice to this email if an invoice is available?', 'woocommerce-pdf-invoice' ),
+			'type'          => 'checkbox',
+			'default'       => 'yes',
+		);
+
 		$woocommerce_email_settings_template = array(
 			'title'         => __( 'Choose PDF Invoice tempate for this email.', 'woocommerce-pdf-invoice' ),
 			'lable'   		=> __( 'Set the invoice template to use for the PDF attached to this email. Defaults to template', 'woocommerce-pdf-invoice' ),
@@ -740,9 +749,16 @@ class WC_pdf_admin_functions {
 		);
 		
 		if( in_array( $object->id, $email_ids ) ) {
-			// Add the field to the settings 
-			$object->form_fields['pdf_invoice_attach_pdf_invoice'] = $woocommerce_email_settings_attach;
-			$object->form_fields['pdf_invoice_template_pdf_invoice'] = $woocommerce_email_settings_template;
+			// Add the field to the settings
+
+			if( $object->id == 'pdf_admin_invoice' || $object->id == 'pdf_customer_invoice' ) {
+				$object->form_fields['pdf_invoice_attach_pdf_invoice'] = $woocommerce_email_settings_attach_yes;
+				$object->form_fields['pdf_invoice_template_pdf_invoice'] = $woocommerce_email_settings_template;
+			} else {
+				$object->form_fields['pdf_invoice_attach_pdf_invoice'] = $woocommerce_email_settings_attach;
+				$object->form_fields['pdf_invoice_template_pdf_invoice'] = $woocommerce_email_settings_template;				
+			}
+
 		}
 		
 	}

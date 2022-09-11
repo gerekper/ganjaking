@@ -2,12 +2,12 @@
 /**
  * Plugin Name: WooCommerce Checkout Field Editor
  * Plugin URI: https://woocommerce.com/products/woocommerce-checkout-field-editor/
- * Description: Add, remove and modifiy fields shown on your WooCommerce checkout page.
- * Version: 1.7.2
+ * Description: Add, remove and modify fields shown on your WooCommerce checkout page.
+ * Version: 1.7.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Tested up to: 5.9
- * WC tested up to: 6.1
+ * Tested up to: 6.0
+ * WC tested up to: 6.8
  * WC requires at least: 2.6
  *
  * Text Domain: woocommerce-checkout-field-editor
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.7.2' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.7.4' ); // WRCS: DEFINED_VERSION.
 define( 'WC_CHECKOUT_FIELD_EDITOR_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Plugin init hook.
@@ -51,6 +51,9 @@ function wc_checkout_fields_load() {
 		add_action( 'admin_notices', 'wc_checkout_fields_woocommerce_deactivated' );
 		return;
 	}
+
+	// For reference https://woocommerce.com/document/developing-using-woocommerce-crud-objects/
+	define( 'WC_CRUD_SUPPORT', version_compare( WC_VERSION, '3.0', '>=' ) );
 
 	require_once WC_CHECKOUT_FIELD_EDITOR_PATH . '/includes/wc-checkout-field-functions.php';
 	require_once WC_CHECKOUT_FIELD_EDITOR_PATH . '/includes/class-wc-checkout-field-editor-tracks.php';

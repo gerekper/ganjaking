@@ -6,7 +6,7 @@
  *
  * @package WooCommerce Mix and Match Products/Compatibility
  * @since   1.10.0
- * @version 2.0.0
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -87,7 +87,7 @@ class WC_MNM_COCART_Compatibility {
 	 * @param  string $product_type      - The product type.
 	 * @return bool
 	 */
-	public static function add_to_cart_validation( $passed_validation, $product_id, $quantity, $variation_id = '', $variation = array(), $cart_item_data = array(), $product_type ) {
+	public static function add_to_cart_validation( $passed_validation, $product_id, $quantity, $variation_id = '', $variation = array(), $cart_item_data = array(), $product_type = '' ) {
 		try {
 			if ( 'mix-and-match' === $product_type ) {
 				$product = wc_get_product( $product_id );

@@ -157,11 +157,11 @@ class evorsvp_admin{
 			);
 			$new[] = array('id'=>'evors','type'=>'fontation','name'=>'RSVP Form',
 				'variations'=>array(
-					array('id'=>'evoRS_4', 'name'=>'Background Color','type'=>'color', 'default'=>'a4d690'),
+					array('id'=>'evoRS_4', 'name'=>'Background Color','type'=>'color', 'default'=>'6dc56b'),
 					array('id'=>'evoRS_5', 'name'=>'Font Color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evoRS_7', 'name'=>'Button Color','type'=>'color', 'default'=>'ffffff'),	
-					array('id'=>'evoRS_8', 'name'=>'Button Text Color','type'=>'color', 'default'=>'a4d690'),		
-					array('id'=>'evoRS_8z', 'name'=>'Selected RSVP option button font color','type'=>'color', 'default'=>'a4d690'),		
+					array('id'=>'evoRS_8', 'name'=>'Button Text Color','type'=>'color', 'default'=>'6dc56b'),		
+					array('id'=>'evoRS_8z', 'name'=>'Selected RSVP option button font color','type'=>'color', 'default'=>'6dc56b'),		
 					array('id'=>'evoRS_8y', 'name'=>'Terms & conditions text color','type'=>'color', 'default'=>'ffffff'),		
 				)
 			);
@@ -173,7 +173,7 @@ class evorsvp_admin{
 			);
 			$new[] = array('id'=>'evors','type'=>'fontation','name'=>'RSVP Form Submit Button',
 				'variations'=>array(
-					array('id'=>'evoRS_12', 'name'=>'Font Color','type'=>'color', 'default'=>'a4d690'),
+					array('id'=>'evoRS_12', 'name'=>'Font Color','type'=>'color', 'default'=>'6dc56b'),
 					array('id'=>'evoRS_12H', 'name'=>'Background Color','type'=>'color', 'default'=>'ffffff'),
 				)
 			);
@@ -199,7 +199,7 @@ class evorsvp_admin{
 				array(
 					'item'=>'#evorsvp_form #submit_rsvp_form',
 					'multicss'=>array(
-						array('css'=>'color:#$', 'var'=>'evoRS_12',	'default'=>'a4d690'),
+						array('css'=>'color:#$', 'var'=>'evoRS_12',	'default'=>'6dc56b'),
 						array('css'=>'background-color:#$', 'var'=>'evoRS_12H',	'default'=>'ffffff'),
 					)
 				),
@@ -237,11 +237,11 @@ class evorsvp_admin{
 					'item'=>'#evorsvp_form a.submit_rsvp_form',
 					'multicss'=>array(
 						array('css'=>'background-color:#$', 'var'=>'evoRS_7',	'default'=>'ffffff'),
-						array('css'=>'color:#$', 'var'=>'evoRS_8',	'default'=>'a4d690'),
+						array('css'=>'color:#$', 'var'=>'evoRS_8',	'default'=>'6dc56b'),
 					)
 				),array(
 					'item'=>'.evo_lightbox_body #evorsvp_form .rsvp_status span.set',
-					'css'=>'color:#$', 'var'=>'evoRS_8z',	'default'=>'a4d690'
+					'css'=>'color:#$', 'var'=>'evoRS_8z',	'default'=>'6dc56b'
 				),array(
 					'item'=>'#evorsvp_form p.terms a',
 					'css'=>'color:#$', 'var'=>'evoRS_8y',	'default'=>'ffffff'
@@ -274,7 +274,7 @@ class evorsvp_admin{
 					'css'=>'color:#$', 'var'=>'evoRS_5',	'default'=>'ffffff'
 				),array(
 					'item'=>'.evors_lightbox .evo_lightbox_body.evo_lightbox_body, .evors_incard_form',
-					'css'=>'background-color:#$', 'var'=>'evoRS_4',	'default'=>'5ab535'
+					'css'=>'background-color:#$', 'var'=>'evoRS_4',	'default'=>'6dc56b'
 				),array(
 					'item'=>'.evoRS_status_option_selection span:hover, body .eventon_list_event .evcal_list_a .evors_eventtop_rsvp span:hover',
 					'css'=>'background-color:#$', 'var'=>'evoRS_3',	'default'=>'ffffff'

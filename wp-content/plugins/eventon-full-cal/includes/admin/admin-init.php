@@ -28,7 +28,7 @@ class evofc_admin{
 				array('id'=>'evofc_2b', 'name'=>'Default (Hover)','type'=>'color', 'default'=>'fbfbfb'),
 				array('id'=>'evofc_3b', 'name'=>'Days with events','type'=>'color', 'default'=>'ffffff'),
 				array('id'=>'evofc_4b', 'name'=>'Days with events (Hover)','type'=>'color', 'default'=>'F5F5F5')
-				,array('id'=>'evofc_5b', 'name'=>'Focus Day','type'=>'color', 'default'=>'FFF3E7'),
+				,array('id'=>'evofc_5b', 'name'=>'Focus Day','type'=>'color', 'default'=>'ededed'),
 				array('id'=>'evofc_6b', 'name'=>'Focus Day (Hover)','type'=>'color', 'default'=>'fbfbfb')
 			)
 		);
@@ -40,13 +40,18 @@ class evofc_admin{
 		);
 		$new[] = array('id'=>'evofc','type'=>'fontation','name'=>'Today Box Bar Color',
 			'variations'=>array(
-				array('id'=>'evofc_tbbc','type'=>'color', 'default'=>'ef9a93')
+				array('id'=>'evofc_tbbc','type'=>'color', 'default'=>'ffcb55')
 			)
 		);
 		$new[] = array('id'=>'evofc','type'=>'fontation','name'=>'Date Hover Tooltip',
 			'variations'=>array(
 				array('id'=>'evofc_8', 'name'=>'Background-color','type'=>'color', 'default'=>'808080'),
 				array('id'=>'evofc_9', 'name'=>'Font Color','type'=>'color', 'default'=>'f7f7f7'),
+			)
+		);
+		$new[] = array('id'=>'evofc','type'=>'fontation','name'=>'Heat map base color',
+			'variations'=>array(
+				array('id'=>'evofc_heat','type'=>'color', 'default'=>'4ccdea')
 			)
 		);
 		$new[] = array('id'=>'evofc','type'=>'hiddensection_close','name'=>'FullCal Styles');
@@ -83,7 +88,7 @@ class evofc_admin{
 			),array(
 				'item'=>'.eventon_fullcal .eventon_fc_days .evo_fc_day.on_focus',
 				'multicss'=>array(
-					array('css'=>'background-color:#$', 'var'=>'evofc_5b','default'=>'FFF3E7'),
+					array('css'=>'background-color:#$', 'var'=>'evofc_5b','default'=>'ededed'),
 					array('css'=>'color:#$', 'var'=>'evofc_5','default'=>'d4d4d4')
 				)						
 			),array(
@@ -100,8 +105,8 @@ class evofc_admin{
 				'item'=>'.eventon_fc_daynames .evo_fc_day:hover',
 				'css'=>'color:#$', 'var'=>'evofc_7b',	'default'=>'d4d4d4'
 			),array(
-				'item'=>'.eventon_fc_days .evo_fc_day.today:before',
-				'css'=>'background-color:#$', 'var'=>'evofc_tbbc',	'default'=>'ef9a93'
+				'item'=>'.evofc_month_grid .eventon_fc_days .evo_fc_day.today:before',
+				'css'=>'background-color:#$', 'var'=>'evofc_tbbc',	'default'=>'ffcb55'
 			)
 			,array(
 				'item'=>'.evofc_title_tip, .evoFC_tip',

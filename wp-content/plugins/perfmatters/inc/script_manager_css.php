@@ -7,7 +7,7 @@ html, body {
 	z-index: 2147483647;
 }
 #perfmatters-script-manager-wrapper {
-	display: none;
+	display: flex;
 	position: fixed;
 	z-index: 2147483646;
 	top: 32px;
@@ -644,6 +644,12 @@ html, body {
 #pmsm-global-form .perfmatters-script-manager-section tbody tr:hover td {
 	background: #EDF3F9;
 }
+.pmsm-action-button {
+	visibility: hidden;
+}
+#pmsm-global-form .perfmatters-script-manager-section tbody tr:hover .pmsm-action-button {
+	visibility: visible;
+}
 .pmsm-action-button, .pmsm-action-button:hover, .pmsm-action-button:focus, .pmsm-action-button:active {
 	background: none;
 	border: none;
@@ -658,6 +664,15 @@ html, body {
 }
 .pmsm-action-button:hover .dashicons-trash {
 	color: #c14552;
+}
+.pmsm-action-button .dashicons-update {
+	color: orange;
+}
+.pmsm-action-button:hover .dashicons-update {
+	color: darkorange;
+}
+#pmsm-global-form table td {
+	word-wrap: break-word;
 }
 /*Settings View*/
 #script-manager-settings table th {

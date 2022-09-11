@@ -5,8 +5,6 @@ namespace MailPoet\Mailer;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\WP\Functions as WPFunctions;
-
 class MailerError {
   const OPERATION_CONNECT = 'connect';
   const OPERATION_SEND = 'send';
@@ -104,9 +102,9 @@ class MailerError {
     $message .= $this->message ? ' ' : '';
 
     if (count($this->subscribersErrors) === 1) {
-      $message .= WPFunctions::get()->__('Unprocessed subscriber:', 'mailpoet') . ' ';
+      $message .= __('Unprocessed subscriber:', 'mailpoet') . ' ';
     } else {
-      $message .= WPFunctions::get()->__('Unprocessed subscribers:', 'mailpoet') . ' ';
+      $message .= __('Unprocessed subscribers:', 'mailpoet') . ' ';
     }
 
     $message .= implode(

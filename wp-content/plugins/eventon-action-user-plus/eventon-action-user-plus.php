@@ -4,17 +4,17 @@
  * Plugin URI: http://www.myeventon.com/addons/action-user-plus
  * Description: Extends actionUser addon even further
  * Author: Ashan Jay
- * Version: 1.0.3
+ * Version: 1.1.2
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 4.0
- * Tested up to: 5.2
+ * Requires at least: 5.0
+ * Tested up to: 5.8
  */
 
 class eventon_aup{
 	
-	public $version='1.0.3';
-	public $eventon_version = '2.7';
-	public $evoau_min_version = '2.1.1';
+	public $version='1.1.2';
+	public $eventon_version = '3.0';
+	public $evoau_min_version = '2.2.7';
 	public $name = 'Action User Plus';
 
 	public $addon_data = array();
@@ -95,7 +95,6 @@ class eventon_aup{
 
 			// RUN addon updater only in dedicated pages
 			if ( is_admin() ){
-				$this->addon->updater();				
 				include_once( 'includes/admin/class-admin.php' );
 				$this->admin = new evoaup_admin();	
 			}			
@@ -130,7 +129,7 @@ class eventon_aup{
 
 	// Secondary
 		function eventon_plugin_links($links){
-			$settings_link = '<a href="admin.php?page=page=action_user#evoAU6">Settings</a>'; 
+			$settings_link = '<a href="admin.php?page=action_user#evoAU6">Settings</a>'; 
 			array_unshift($links, $settings_link); 
 	 		return $links; 	
 		}

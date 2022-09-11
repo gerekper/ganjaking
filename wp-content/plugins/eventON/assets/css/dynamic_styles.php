@@ -2,8 +2,7 @@
 /**
  * dynamic styles for front end
  *
- * @version		0.2
- * @updated 	2.2.24
+ * @updated 	4.0.3
  * @package		eventon/Styles
  * @author 		AJDE
  */
@@ -31,9 +30,9 @@
 				body .ajde_evcal_calendar h4.evo_h4, 
 				.evo_content_in h4.evo_h4,
 				.evo_metarow_ICS .evcal_evdata_cell p a,
-				.eventon_events_list .eventon_list_event .evcal_desc span.evcal_desc2, 
-				.eventon_list_event .evcal_desc span.evcal_event_title,
-				.evcal_desc span.evcal_desc2,	
+				.eventon_events_list .eventon_list_event .evoet_cx span.evcal_desc2, 
+				.eventon_list_event .evoet_cx span.evcal_event_title,
+				.evoet_cx span.evcal_desc2,	
 				.evo_metarow_ICS .evcal_evdata_cell p a, 
 				.evo_metarow_learnMICS .evcal_col50 .evcal_evdata_cell p a,
 				.eventon_list_event .evo_metarow_locImg p.evoLOCtxt .evo_loc_text_title,		
@@ -46,18 +45,23 @@
 				.ajde_evcal_calendar .eventon_events_list .evcal_month_line p,
 				.eventon_events_list .eventon_list_event .evcal_cblock,			
 				.ajde_evcal_calendar .evcal_month_line,
-				.eventon_event .event_excerpt_in h3'),
+				.eventon_event .event_excerpt_in h3,
+				.ajde_evcal_calendar .evo_footer_nav p.evo_month_title,
+				.evo_eventon_live_now_section h3,
+				.evo_tab_view .evo_tabs p.evo_tab,
+				.evo_metarow_virtual .evo_live_now_tag'),
 			'css'=>'font-family:$', 
+			'type'=>'font_name',
 			'var'=>'evcal_font_fam',	
 			'default'=>"roboto, 'arial narrow'"
 		),
 		array(
 			'item'=>apply_filters('evo_styles_secondary_font',
 				'.ajde_evcal_calendar .eventon_events_list p,
-				.eventon_events_list .eventon_list_event .evcal_desc span, 
-				.evo_pop_body .evcal_desc span,
-				.eventon_events_list .eventon_list_event .evcal_desc span.evcal_event_subtitle, 
-				.evo_pop_body .evcal_desc span.evcal_event_subtitle,
+				.eventon_events_list .eventon_list_event .evoet_cx span, 
+				.evo_pop_body .evoet_cx span,
+				.eventon_events_list .eventon_list_event .evoet_cx span.evcal_event_subtitle, 
+				.evo_pop_body .evoet_cx span.evcal_event_subtitle,
 				.ajde_evcal_calendar .eventon_list_event .event_description .evcal_btn, 
 				.evo_pop_body .evcal_btn, .evcal_btn,
 				.eventon_events_list .eventon_list_event .cancel_event .evo_event_headers, 
@@ -72,7 +76,7 @@
 				.evo_elms em.evo_tooltip_box,
 				.evo_cal_above span,
 				.ajde_evcal_calendar .calendar_header .evo_j_dates .legend,
-				.eventon_sort_line p, .eventon_filter_line p'),
+				.eventon_sort_line p, .eventon_filter_line p, .evcal_evdata_row'),
 			'css'=>'font-family:$', 
 			'var'=>'evcal_font_fam_secondary',	
 			'default'=>"'open sans', 'arial narrow'"
@@ -84,10 +88,10 @@
 			'item'=>'.ajde_evcal_calendar .evo_sort_btn:hover',
 			'css'=>'color:#$', 'var'=>'evcal__sotH',	'default'=>'d8d8d8'
 		),array(
-			'item'=>'#evcal_list .eventon_list_event .evcal_desc em,  .evo_lightboxes .evcal_desc em',
+			'item'=>'#evcal_list .eventon_list_event .evoet_cx em,  .evo_lightboxes .evoet_cx em',
 			'css'=>'color:#$', 'var'=>'evcal__fc6',	'default'=>'8c8c8c'
 		),array(
-			'item'=>'#evcal_list .eventon_list_event .evcal_desc em a',
+			'item'=>'#evcal_list .eventon_list_event .evoet_cx em a',
 			'css'=>'color:#$', 'var'=>'evcal__fc7',	'default'=>'c8c8c8'
 		),
 
@@ -211,7 +215,7 @@
 		)
 			/* featured events tag */
 			,array(
-				'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span.featured, .evo_pop_body .evcal_desc span.evo_above_title span.featured',
+				'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.featured, .evo_pop_body .evoet_cx span.evo_above_title span.featured',
 				'multicss'=>array(
 					array('css'=>'color:#$', 'var'=>'fs_eventtop_featured_2',	'default'=>'ffffff'),
 					array('css'=>'background-color:#$', 'var'=>'fs_eventtop_featured_1',	'default'=>'ffcb55')
@@ -227,6 +231,35 @@
 				'css'=>'background-color:#$', 'var'=>'evoeventtop_live2',	'default'=>'9a9a9a'
 			)
 
+		// colorful eventtop text color			
+			,array(
+				'item'=>'.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evcal_cblock, .ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evcal_event_title, 
+				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evcal_event_subtitle, 
+				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx em, 
+				.ajde_evcal_calendar.color #evcal_list .eventon_list_event .eventon_list_event .evoet_cx .evcal_desc_info, 
+				.ajde_evcal_calendar.color .eventon_events_list .eventon_list_event .evcal_cblock em.evo_day, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_below_title .status_reason, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_tz_time .evo_tz, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig i, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig b, 
+				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 em i, 
+				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 .evo_ep_pre, 
+				.ajde_evcal_calendar.color .evoet_cx .evcal_desc3 .evo_ep_time, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig:hover i, 
+				.ajde_evcal_calendar.color .evoet_cx .evo_mytime.tzo_trig:hover b, 
+				.evo_lightboxes .color.eventon_list_event .evoet_cx .evo_below_title .status_reason, 
+				.evo_lightboxes .color.eventon_list_event .evcal_cblock, 
+				.evo_lightboxes .color.eventon_list_event .evoet_cx span.evcal_event_title,
+				 .evo_lightboxes .color.eventon_list_event .evoet_cx span.evcal_event_subtitle, 
+				 .evo_lightboxes .color.eventon_list_event .evoet_cx em, 
+				 .evo_lightboxes .color.eventon_list_event .evoet_cx .evcal_desc_info, 
+				 .evo_lightboxes .color.eventon_list_event .evcal_cblock em.evo_day, 
+				 .evo_lightboxes .color.eventon_list_event .evoet_cx .evo_tz_time > *,
+				  .evo_lightboxes .color.eventon_list_event .evoet_cx .evo_mytime.tzo_trig i,
+				  .evo_lightboxes .color.eventon_list_event .evoet_cx .evo_mytime.tzo_trig b',
+				'css'=>'color:#$', 'var'=>'evcal__colorful_text',	'default'=>'ffffff',
+			)
+
 		// close button for eventcard
 		,array(
 			'item'=>'.event_description .evcal_close',
@@ -237,45 +270,41 @@
 		)
 
 		// close button on the lightbox
-		,array(
-			'item'=>'.evo_lightboxes .evopopclose, .evo_lightboxes .evolbclose',
-			'css'=>'background-color:#$', 'var'=>'evo_color_lb_1',	'default'=>'000000'
-		),array(
-			'item'=>'.evo_lightboxes .evopopclose:hover, .evo_lightboxes .evolbclose:hover',
-			'css'=>'background-color:#$', 'var'=>'evo_color_lb_3',	'default'=>'cfcfcf'
-		),array(
-			'item'=>'.evo_lightboxes .evolbclose:before, .evo_lightboxes .evolbclose:after',
-			'css'=>'background-color:#$', 'var'=>'evo_color_lb_2',	'default'=>'666666'
-		),array(
-			'item'=>'.evo_lightboxes .evolbclose:hover:before, .evo_lightboxes .evolbclose:hover:after',
-			'css'=>'background-color:#$', 'var'=>'evo_color_lb_4',	'default'=>'666666'
-		)
+			,array(
+				'item'=>'.evo_lightboxes .evopopclose, .evo_lightboxes .evolbclose',
+				'css'=>'background-color:#$', 'var'=>'evo_color_lb_1',	'default'=>'000000'
+			),array(
+				'item'=>'.evo_lightboxes .evopopclose:hover, .evo_lightboxes .evolbclose:hover',
+				'css'=>'background-color:#$', 'var'=>'evo_color_lb_3',	'default'=>'cfcfcf'
+			),array(
+				'item'=>'.evo_lightboxes .evolbclose:before, .evo_lightboxes .evolbclose:after',
+				'css'=>'background-color:#$', 'var'=>'evo_color_lb_2',	'default'=>'666666'
+			),array(
+				'item'=>'.evo_lightboxes .evolbclose:hover:before, .evo_lightboxes .evolbclose:hover:after',
+				'css'=>'background-color:#$', 'var'=>'evo_color_lb_4',	'default'=>'666666'
+			)
 
 		// get directions section
-		,array(
-			'item'=>'#evcal_list .evorow.getdirections, .evo_pop_body .evorow.getdirections',
-			'css'=>'background-color:#$', 'var'=>'evcal_getdir_001',	'default'=>'ffffff'
-		),array(
-			'item'=>'#evcal_list .evorow.getdirections .evoInput, .evo_pop_body .evorow.getdirections .evoInput',
-			'css'=>'color:#$', 'var'=>'evcal_getdir_002',	'default'=>'888888'
-		),array(
-			'item'=>'#evcal_list .evorow.getdirections .evcalicon_9 i, .evo_pop_body .evorow.getdirections .evcalicon_9 i',
-			'css'=>'color:#$', 'var'=>'evcal_getdir_003',	'default'=>'858585'
-		)
+			,array(
+				'item'=>'#evcal_list .evorow.getdirections, .evo_pop_body .evorow.getdirections',
+				'css'=>'background-color:#$', 'var'=>'evcal_getdir_001',	'default'=>'ffffff'
+			),array(
+				'item'=>'#evcal_list .evorow.getdirections .evoInput, .evo_pop_body .evorow.getdirections .evoInput',
+				'css'=>'color:#$', 'var'=>'evcal_getdir_002',	'default'=>'888888'
+			),array(
+				'item'=>'#evcal_list .evorow.getdirections .evcalicon_9 i, .evo_pop_body .evorow.getdirections .evcalicon_9 i',
+				'css'=>'color:#$', 'var'=>'evcal_getdir_003',	'default'=>'858585'
+			)
 
 		,array(
 			'name'=>'Event title color',
-			'item'=>'#evcal_list .eventon_list_event .evcal_desc span.evcal_event_title,
-				.evo_lightboxes .evo_pop_body .evcal_desc span.evcal_desc2',
+			'item'=>'.ajde_evcal_calendar.clean #evcal_list.eventon_events_list .eventon_list_event p .evoet_cx span.evcal_event_title,
+				.evo_lightboxes .evo_pop_body .evoet_cx span.evcal_desc2',
 			'css'=>'color:#$', 'var'=>'evcal__fc3',	'default'=>'6B6B6B'
 		),array(
-			'name'=>'Event title color (boxy)',
-			'item'=>'.ajde_evcal_calendar.boxy #evcal_list .eventon_list_event .evcal_desc span.evcal_event_title',
-			'css'=>'color:#$', 'var'=>'evcal__fc3box',	'default'=>'ffffff'
-		),array(
 			'name'=>'Event sub title color',
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evcal_event_subtitle, 
-				.evo_lightboxes .evo_pop_body .evcal_desc span.evcal_event_subtitle',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evcal_event_subtitle, 
+				.evo_lightboxes .evo_pop_body .evoet_cx span.evcal_event_subtitle',
 			'css'=>'color:#$', 'var'=>'evcal__fc3st',	'default'=>'6B6B6B'
 		),array(
 			'item'=>'.fp_popup_option i',
@@ -359,14 +388,14 @@
 			'css'=>'border-color:#$', 'var'=>'evcal__jm01AH','default'=>'e2e2e2'
 		)
 		,array(
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span, .evo_pop_body .evcal_desc span.evo_above_title span',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span, .evo_pop_body .evoet_cx span.evo_above_title span',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_tag_2','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_tag_1','default'=>'F79191'),			
 			)			
 		),
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span.canceled, .evo_pop_body .evcal_desc span.evo_above_title span.canceled',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.canceled, .evo_pop_body .evoet_cx span.evo_above_title span.canceled',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'evcal__cancel_event_2','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'evcal__cancel_event_1','default'=>'F79191'),
@@ -374,7 +403,7 @@
 		),
 		// postponed
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span.postponed, .evo_pop_body .evcal_desc span.evo_above_title span.postponed',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.postponed, .evo_pop_body .evoet_cx span.evo_above_title span.postponed',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_1b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_1a','default'=>'e3784b'),
@@ -382,7 +411,7 @@
 		),		
 		// moved online
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span.movedonline, .evo_pop_body .evcal_desc span.evo_above_title span.movedonline',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.movedonline, .evo_pop_body .evoet_cx span.evo_above_title span.movedonline',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_2b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_2a','default'=>'6edccd'),
@@ -390,7 +419,7 @@
 		),
 		// rescheduled
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .evcal_desc span.evo_above_title span.rescheduled, .evo_pop_body .evcal_desc span.evo_above_title span.rescheduled',
+			'item'=>'.eventon_events_list .eventon_list_event .evoet_cx span.evo_above_title span.rescheduled, .evo_pop_body .evoet_cx span.evo_above_title span.rescheduled',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'fs_eventtop_est_3b','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'fs_eventtop_est_3a','default'=>'67ef78'),
@@ -399,8 +428,8 @@
 
 		// cancel event eventtop lines		
 		array(
-			'item'=>'.eventon_events_list .eventon_list_event .cancel_event.evcal_list_a',
-			'css'=>'background-color:#$!important', 'var'=>'evcal__cancel_event_4x','default'=>'464646',
+			'item'=>'.ajde_evcal_calendar .eventon_events_list .eventon_list_event .cancel_event.evcal_list_a, .evo_lightbox_body.eventon_list_event.cancel_event .evopop_top',
+			'css'=>'background-color:#$', 'var'=>'evcal__cancel_event_4x','default'=>'464646',
 		),array(
 			'item'=>'.eventon_events_list .eventon_list_event .cancel_event.evcal_list_a:before',
 			'css'=>'color:#$', 'var'=>'evcal__cancel_event_4x','default'=>'333333',
@@ -415,7 +444,7 @@
 		),
 		/* event top */
 		array(
-			'item'=>'.evcal_desc .evcal_desc3 em.evocmd_button, #evcal_list .evcal_desc .evcal_desc3 em.evocmd_button',
+			'item'=>'.evoet_cx .evcal_desc3 em.evocmd_button, #evcal_list .evoet_cx .evcal_desc3 em.evocmd_button',
 			'multicss'=>array(
 				array('css'=>'color:#$', 'var'=>'evoeventtop_cmd_btnA','default'=>'ffffff'),
 				array('css'=>'background-color:#$', 'var'=>'evoeventtop_cmd_btn','default'=>'237dbd'),			
@@ -481,22 +510,22 @@
 
 		// timezone
 			array(
-				'item'=>'.eventon_list_event .evcal_desc em.evo_mytime.tzo_trig i
+				'item'=>'.eventon_list_event .evoet_cx em.evo_mytime.tzo_trig i
 				',
 				'css'=>'color:#$', 'var'=>'evo_tzoa','default'=>'2eb4dc'
 			),
 			array(
-				'item'=>'.eventon_list_event .evcal_desc em.evo_mytime,
-				.eventon_list_event .evcal_desc em.evo_mytime.tzo_trig:hover,
-				.eventon_list_event .evcal_desc em.evo_mytime,
+				'item'=>'.eventon_list_event .evoet_cx em.evo_mytime,
+				.eventon_list_event .evoet_cx em.evo_mytime.tzo_trig:hover,
+				.eventon_list_event .evoet_cx em.evo_mytime,
 				.eventon_list_event .evcal_evdata_cell .evo_mytime,
 				.eventon_list_event .evcal_evdata_cell .evo_mytime.tzo_trig',
 				'css'=>'background-color:#$', 'var'=>'evo_tzoa','default'=>'2eb4dc'
 			),
 			array(
-				'item'=>'.eventon_list_event .evcal_desc em.evo_mytime >*, 
+				'item'=>'.eventon_list_event .evoet_cx em.evo_mytime >*, 
 				.eventon_list_event .evcal_evdata_cell .evo_mytime >*,
-				.eventon_list_event .evcal_desc em.evo_mytime.tzo_trig:hover >*',
+				.eventon_list_event .evoet_cx em.evo_mytime.tzo_trig:hover >*',
 				'css'=>'color:#$', 'var'=>'evo_tzob','default'=>'ffffff'
 			),
 		// repeat header
@@ -599,7 +628,7 @@
 						
 						echo $css.';';
 					}else{
-						$css_val  = (!empty($opt[ $sin_CSS['var'] ] ))? $opt[ $sin_CSS['var'] ] : $sin_CSS['default'];
+						$css_val  = (!empty($opt[ $sin_CSS['var'] ] ))? $opt[ $sin_CSS['var'] ] : $sin_CSS['default'];						
 						$css = str_replace('$',$css_val,$sin_CSS['css'] );
 						echo $css.';';
 					}
@@ -608,6 +637,8 @@
 				echo '}';
 			}else{
 				$css_val  = (!empty($opt[ $sa['var'] ] ))? $opt[ $sa['var'] ] : $sa['default'];
+				$css_val = html_entity_decode($css_val);
+				$css_val = str_replace('&#039;',"'",$css_val );
 				$css = str_replace('$',$css_val,$sa['css'] );
 				echo $sa['item'].'{'.$css.'}';
 			}
@@ -619,11 +650,6 @@
 	echo (!empty($opt['evo_ftimgheight']))?
 			".evcal_evdata_img{height:".$opt['evo_ftimgheight']."px}":null ;
 		
-		if(!empty($opt['evcal__fc6'])){
-			echo "#evcal_widget .eventon_events_list .eventon_list_event .evcal_desc .evcal_desc_info em{
-				color:#". $opt['evcal__fc6']."
-			}";
-		}
 		
 		// featured event styles
 		if(!empty($opt['evo_fte_override']) && $opt['evo_fte_override']=='yes'){

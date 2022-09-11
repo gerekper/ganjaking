@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Pricing calculator inventory handling
@@ -94,7 +94,7 @@ class WC_Price_Calculator_Inventory {
 			add_filter( 'woocommerce_backordered_item_meta_name', array( $this, 'get_backordered_item_meta_name' ), 20, 1 );
 		}
 
-		if ( is_admin() || is_ajax() ) {
+		if ( is_admin() || wp_doing_ajax() ) {
 			add_filter( 'woocommerce_reduce_order_stock_quantity',  array( $this, 'admin_manage_order_stock' ), 10, 2 );
 			add_filter( 'woocommerce_restore_order_stock_quantity', array( $this, 'admin_manage_order_stock' ), 10, 2 );
 		}

@@ -65,7 +65,10 @@ class evosl_front{
 			// Full event featured image using tiles for slide style
 				if( $args['slider_type'] == 'multi' && $args['slide_style'] == 'imgleft') 
 					$args['slide_style'] = 'imgtop';
-				if( $args['slider_type'] == 'mini') $args['slide_style'] = 'def';
+
+				if( $args['slider_type'] == 'mini' && $args['slide_style'] == 'imgtop'){
+					$args['slide_style'] = 'def';
+				} 
 
 				if($args['slide_style'] == 'imgbg' || $args['slide_style'] == 'imgtop' || $args['slide_style'] == 'imgleft'){
 					//add_filter('evo_cal_eventtop_in_attrs', array($this, 'remove_event_padding_style'), 10, 1);
@@ -76,6 +79,7 @@ class evosl_front{
 						$args['tile_style'] = '1';
 					}
 				}
+
 				
 			// CUT OFF time calculation
 				//fixed time list

@@ -790,7 +790,6 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			$bucket_name = $bmatches[1];
 			$bucket_path = $bmatches[2]."/";
 		}
-
 		
 		list($storage, $config, $bucket_exists, $region) = $this->get_bucket_access($storage, $config, $bucket_name, $bucket_path);// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- The value is passed back from get_bucket_access
 
@@ -1089,13 +1088,27 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 			}
 			try {
 				$region = @$storage->getBucketLocation($bucket);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-
+				
 				// We want to distinguish between an empty region (null), and an exception or missing bucket (false)
 				if (empty($region) && false !== $region) $region = null;
 			} catch (Exception $e) {
 				$region = false;
-		
-				// On this 'first try', we trap this particular condition. So, whatever S3 network call it happens on, we'll eventually get it here on the resumption.
+				
+				// This is not ideal, but helps with detection/trapping of other "permanent" conditions
+				// All these codes are likely to indicate things that we want to be logged, rather than suppressing logging until the final method used to get a bucket location
+				$curl_error_codes = array(1, 2, 3, 4, 5, 6, 7, 8, 16, 23, 26, 27, 28, 33, 35, 41, 43, 47, 48, 49, 53, 54, 55, 56, 58, 59, 60, 61, 66, 77, 81, 82, 83, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99);
+				if (UpdraftPlus_Options::get_updraft_option('updraft_debug_mode') || (preg_match('/\[(\d+)\]/', $e->getMessage(), $matches) && in_array($matches[1], $curl_error_codes))) {
+					global $updraftplus;
+					$updraftplus->log("get_bucket_access(): getBucketLocation exception (".get_class($e)."): ".$e->getMessage());
+				}
+
+				// On this 'first try', we trap these particular conditions. So, whatever S3 network call it happens on, we'll eventually get it here on the resumption.
+				
+				if (false !== strpos($e->getMessage(), '[RequestTimeTooSkewed]')) {
+					$this->s3_exception = $e;
+					return array($storage, $config, false, false);
+				}
+				
 				// TODO: If this is a credentials test, then $config/$new_config may get wrongly populated with saved instead of test values here
 				if (false !== strpos($e->getMessage(), 'The provided token has expired')) {
 				

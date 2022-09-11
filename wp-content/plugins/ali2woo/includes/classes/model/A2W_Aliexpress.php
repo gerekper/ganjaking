@@ -737,8 +737,7 @@ if (!class_exists('A2W_Aliexpress')) {
                         }
                     } else{
                         a2w_error_log('plase order error: '.print_r($body, true));
-                        $message = isset($body['msg']) ? $body['msg'] : __('Aliexpress error', 'ali2woo');
-                        $result = A2W_ResultBuilder::buildError($message);
+                        $result = A2W_ResultBuilder::buildError(A2W_AliexpressError::message($body));
                     }
                 } else {
                     $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);

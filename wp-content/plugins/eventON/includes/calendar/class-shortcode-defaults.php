@@ -110,14 +110,23 @@ class EVO_Calendar_Shortcode_Defaults extends evo_cal_shell{
 				'event_parts'=>'no',
 				'ep_fields'=>'',
 
-				'social_share'=>'no' // social share the calendar
+				'social_share'=>'no', // social share the calendar
+
+				'search'=>'',
+				'search_all'=>'no',
 			);
 
 			// each event type category
 			foreach($this->get_all_event_tax() as $ety=>$ett){
 				if(empty($ett)) continue;
 				$args[$ett] ='all';
-			}		
+			}	
+
+
+			// override eventtop_style with default set via settings
+			if( $S = EVO()->cal->get_prop('evo_eventtop_style_def','evcal_1')){
+				$args['eventtop_style'] = str_replace('_', '', $S);				
+			}	
 
 			// append certain site option values to SC
 			$values = array(

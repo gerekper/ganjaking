@@ -137,11 +137,12 @@ class WC_Mix_and_Match_Display {
 		wp_enqueue_style( 'wc-mnm-frontend', WC_Mix_and_Match()->plugin_url() . '/' . $style_path, array(), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $style_path ) );
 		wp_style_add_data( 'wc-mnm-frontend', 'rtl', 'replace' );
 
-		wp_register_script( 'wc-add-to-cart-mnm', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'jquery', 'jquery-blockui' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 		if ( $suffix ) {
 			wp_style_add_data( 'wc-mnm-frontend', 'suffix', '.min' );
 		}
 
+		wp_register_script( 'wc-add-to-cart-mnm', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'jquery', 'jquery-blockui' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
+		
 		/**
 		 * Javascript strings.
 		 *
@@ -218,11 +219,13 @@ class WC_Mix_and_Match_Display {
 			// translators: %v is the current quantity message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_validation_alert'                     => _x( 'Please resolve all pending configuration issues before adding this product to your cart.', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %d is the min quantity required for an individual child item.
-			'i18n_child_item_min_qty_message'           => _x( '*Minimum %d required', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			'i18n_child_item_min_qty_message'           => _x( 'Minimum %d required', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %d is the max quantity allowed for an individual child item.
-			'i18n_child_item_max_qty_message'           => _x( '*Maximum %d allowed', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			'i18n_child_item_max_qty_message'           => _x( 'Maximum %d allowed', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			// translators: %d is the step quantity allowed for an individual child item.
+			'i18n_child_item_step_qty_message'           => _x( 'Must be a multiple of %d', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %d is the max quantity allowed for an individual child item.
-			'i18n_child_item_max_container_qty_message' => _x( '*Container limited to %d', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			'i18n_child_item_max_container_qty_message' => _x( 'Container limited to %d', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message.
 			'i18n_edit_valid_fixed_message'                  => _x( '%v Update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message.

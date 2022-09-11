@@ -39,7 +39,7 @@ class AutomaticEmails extends APIEndpoint {
     if (!$query || !$filter || !$emailSlug || !$eventSlug) {
       return $this->errorResponse(
         [
-          APIError::BAD_REQUEST => WPFunctions::get()->__('Improperly formatted request.', 'mailpoet'),
+          APIError::BAD_REQUEST => __('Improperly formatted request.', 'mailpoet'),
         ]
       );
     }
@@ -51,7 +51,7 @@ class AutomaticEmails extends APIEndpoint {
       $this->successResponse($this->wp->applyFilters($eventFilter, $query)) :
       $this->errorResponse(
         [
-          APIError::BAD_REQUEST => WPFunctions::get()->__('Automatic email event filter does not exist.', 'mailpoet'),
+          APIError::BAD_REQUEST => __('Automatic email event filter does not exist.', 'mailpoet'),
         ]
       );
   }
@@ -63,7 +63,7 @@ class AutomaticEmails extends APIEndpoint {
     if (!$emailSlug || !$eventSlug) {
       return $this->errorResponse(
         [
-          APIError::BAD_REQUEST => WPFunctions::get()->__('Improperly formatted request.', 'mailpoet'),
+          APIError::BAD_REQUEST => __('Improperly formatted request.', 'mailpoet'),
         ]
       );
     }
@@ -74,7 +74,7 @@ class AutomaticEmails extends APIEndpoint {
     if (!$event) {
       return $this->errorResponse(
         [
-          APIError::BAD_REQUEST => WPFunctions::get()->__('Automatic email event does not exist.', 'mailpoet'),
+          APIError::BAD_REQUEST => __('Automatic email event does not exist.', 'mailpoet'),
         ]
       );
     }

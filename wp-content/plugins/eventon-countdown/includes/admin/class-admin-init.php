@@ -198,9 +198,17 @@ class evocd_admin{
 			$new[] = array('id'=>'evocd','type'=>'hiddensection_open','name'=>'CountDown Styles','display'=>'none');
 			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time boxes',
 				'variations'=>array(
-					array('id'=>'evocd_1', 'name'=>'Box font color','type'=>'color', 'default'=>'6b6b6b'),
+					array('id'=>'evocd_1', 'name'=>'General Time font color','type'=>'color', 'default'=>'6b6b6b'),
 					array('id'=>'evocd_3', 'name'=>'Seconds Color','type'=>'color', 'default'=>'cccccc'),					
 					array('id'=>'evocd_4', 'name'=>'Time amount text color','type'=>'color', 'default'=>'ABABAB'),					
+				)
+			);
+			$new[] = array('id'=>'evocd','type'=>'fontation','name'=>'Time boxes on Tile',
+				'variations'=>array(
+					array('id'=>'evocd_1t', 'name'=>'General Time font color','type'=>'color', 'default'=>'6b6b6b'),
+					array('id'=>'evocd_3t', 'name'=>'Seconds Color','type'=>'color', 'default'=>'cccccc'),					
+					array('id'=>'evocd_4t', 'name'=>'Time amount text color','type'=>'color', 'default'=>'ABABAB'),					
+					array('id'=>'evocd_5t', 'name'=>'Countdown title text color','type'=>'color', 'default'=>'ABABAB'),					
 				)
 			);
 			$new[] = array('id'=>'evocd_0','type'=>'fontation','name'=>'Countdown title text color',
@@ -219,6 +227,20 @@ class evocd_admin{
 		}
 		function dynamic_styles($_existen){
 			$new= array(
+				array(
+					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount',
+					'css'=>'color:#$', 'var'=>'evocd_1t','default'=>'6b6b6b'					
+				),
+				array(
+					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show3 span:nth-child(3) .countdown-amount, body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-show4 span:nth-child(4) .countdown-amount',
+					'css'=>'color:#$', 'var'=>'evocd_3t','default'=>'cccccc'					
+				),array(
+					'item'=>'.boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-period',
+					'css'=>'color:#$', 'var'=>'evocd_4t','default'=>'ABABAB'					
+				),array(
+					'item'=>'body .boxy .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_text',
+					'css'=>'color:#$', 'var'=>'evocd_5t','default'=>'ABABAB'					
+				),
 				array(
 					'item'=>'body .eventon_events_list .eventon_list_event .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount, body .evo_pop_body .evcal_desc span.evocd_timer span.evocd_time .countdown-section .countdown-amount',
 					'multicss'=>array(

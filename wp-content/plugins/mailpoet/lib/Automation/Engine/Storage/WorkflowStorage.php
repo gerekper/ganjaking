@@ -5,51 +5,89 @@ namespace MailPoet\Automation\Engine\Storage;
 if (!defined('ABSPATH')) exit;
 
 
+use DateTimeImmutable;
+use MailPoet\Automation\Engine\Data\Workflow;
 use MailPoet\Automation\Engine\Exceptions;
 use MailPoet\Automation\Engine\Utils\Json;
 use MailPoet\Automation\Engine\Workflows\Trigger;
-use MailPoet\Automation\Engine\Workflows\Workflow;
 use wpdb;
 
 class WorkflowStorage {
   /** @var string */
-  private $table;
+  private $workflowTable;
+  /** @var string */
+  private $versionsTable;
 
   /** @var wpdb */
   private $wpdb;
 
   public function __construct() {
     global $wpdb;
-    $this->table = $wpdb->prefix . 'mailpoet_workflows';
+    $this->workflowTable = $wpdb->prefix . 'mailpoet_workflows';
+    $this->versionsTable = $wpdb->prefix . 'mailpoet_workflow_versions';
     $this->wpdb = $wpdb;
   }
 
   public function createWorkflow(Workflow $workflow): int {
-    $result = $this->wpdb->insert($this->table, $workflow->toArray());
+    $result = $this->wpdb->insert($this->workflowTable, $this->getWorkflowHeaderData($workflow));
     if (!$result) {
       throw Exceptions::databaseError($this->wpdb->last_error);
     }
-    return $this->wpdb->insert_id;
+    $id = (int)$this->wpdb->insert_id;
+    $this->insertWorkflowVersion($id, $workflow);
+    return $id;
   }
 
   public function updateWorkflow(Workflow $workflow): void {
-    $result = $this->wpdb->update($this->table, $workflow->toArray(), ['id' => $workflow->getId()]);
+    $oldRecord = $this->getWorkflow($workflow->getId());
+    if ($oldRecord && $oldRecord->equals($workflow)) {
+      return;
+    }
+    $result = $this->wpdb->update($this->workflowTable, $this->getWorkflowHeaderData($workflow), ['id' => $workflow->getId()]);
     if ($result === false) {
       throw Exceptions::databaseError($this->wpdb->last_error);
     }
+    $this->insertWorkflowVersion($workflow->getId(), $workflow);
   }
 
-  public function getWorkflow(int $id): ?Workflow {
-    $table = esc_sql($this->table);
-    $query = (string)$this->wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id);
+  public function getWorkflow(int $workflowId, int $versionId = null): ?Workflow {
+    $workflowTable = esc_sql($this->workflowTable);
+    $versionTable = esc_sql($this->versionsTable);
+
+    $query = !$versionId ? (string)$this->wpdb->prepare("
+      SELECT workflow.*, version.id AS version_id, version.steps, version.trigger_keys
+      FROM $workflowTable as workflow, $versionTable as version
+      WHERE version.workflow_id = workflow.id AND workflow.id = %d
+      ORDER BY version.id DESC
+      LIMIT 0,1;",
+      $workflowId
+    ) : (string)$this->wpdb->prepare("
+      SELECT workflow.*, version.id AS version_id, version.steps, version.trigger_keys
+      FROM $workflowTable as workflow, $versionTable as version
+      WHERE version.workflow_id = workflow.id AND version.id = %d",
+      $versionId
+    );
     $data = $this->wpdb->get_row($query, ARRAY_A);
     return $data ? Workflow::fromArray((array)$data) : null;
   }
 
   /** @return Workflow[] */
-  public function getWorkflows(): array {
-    $table = esc_sql($this->table);
-    $query = "SELECT * FROM $table ORDER BY id DESC";
+  public function getWorkflows(array $status = null): array {
+    $workflowTable = esc_sql($this->workflowTable);
+    $versionTable = esc_sql($this->versionsTable);
+    $query = $status ?
+      (string)$this->wpdb->prepare("
+        SELECT workflow.*, version.id AS version_id, version.steps, version.trigger_keys
+        FROM $workflowTable AS workflow INNER JOIN $versionTable as version ON (version.workflow_id=workflow.id)
+        WHERE version.id = (SELECT Max(id) FROM $versionTable WHERE workflow_id= version.workflow_id) AND workflow.status IN (%s)
+        ORDER BY workflow.id DESC",
+        implode(",", $status)
+      ) :
+      "SELECT workflow.*, version.id AS version_id, version.steps, version.trigger_keys
+      FROM $workflowTable AS workflow INNER JOIN $versionTable as version ON (version.workflow_id=workflow.id)
+      WHERE version.id = (SELECT Max(id) FROM $versionTable WHERE workflow_id= version.workflow_id)
+      ORDER BY workflow.id DESC;";
+
     $data = $this->wpdb->get_results($query, ARRAY_A);
     return array_map(function (array $workflowData) {
       return Workflow::fromArray($workflowData);
@@ -58,9 +96,13 @@ class WorkflowStorage {
 
   /** @return string[] */
   public function getActiveTriggerKeys(): array {
-    $table = esc_sql($this->table);
-    $query = (string)$this->wpdb->prepare(
-        "SELECT DISTINCT trigger_keys FROM $table WHERE status = %s",
+    $workflowTable = esc_sql($this->workflowTable);
+    $versionTable = esc_sql($this->versionsTable);
+    $query = (string)$this->wpdb->prepare("
+      SELECT DISTINCT version.trigger_keys
+      FROM $workflowTable AS workflow, $versionTable as version
+      WHERE workflow.status = %s AND workflow.id=version.workflow_id
+      ORDER BY version.id DESC",
         Workflow::STATUS_ACTIVE
     );
     $result = $this->wpdb->get_col($query);
@@ -76,9 +118,12 @@ class WorkflowStorage {
 
   /** @return Workflow[] */
   public function getActiveWorkflowsByTrigger(Trigger $trigger): array {
-    $table = esc_sql($this->table);
-    $query = (string)$this->wpdb->prepare(
-        "SELECT * FROM $table WHERE status = %s AND trigger_keys LIKE %s",
+    $workflowTable = esc_sql($this->workflowTable);
+    $versionTable = esc_sql($this->versionsTable);
+    $query = (string)$this->wpdb->prepare("
+      SELECT workflow.*, version.id AS version_id, version.steps, version.trigger_keys
+      FROM $workflowTable AS workflow INNER JOIN $versionTable as version ON (version.workflow_id=workflow.id)
+      WHERE workflow.status = %s AND version.trigger_keys LIKE %s AND version.id = (SELECT Max(id) FROM $versionTable WHERE workflow_id= version.workflow_id)",
         Workflow::STATUS_ACTIVE,
         '%' . $this->wpdb->esc_like($trigger->getKey()) . '%'
     );
@@ -87,5 +132,28 @@ class WorkflowStorage {
     return array_map(function (array $workflowData) {
       return Workflow::fromArray($workflowData);
     }, (array)$data);
+  }
+
+  private function getWorkflowHeaderData(Workflow $workflow): array {
+    $workflowHeader = $workflow->toArray();
+    unset($workflowHeader['steps']);
+    unset($workflowHeader['trigger_keys']);
+    return $workflowHeader;
+  }
+
+  private function insertWorkflowVersion(int $workflowId, Workflow $workflow): void {
+
+    $dateString = (new DateTimeImmutable())->format(DateTimeImmutable::W3C);
+    $data = [
+      'workflow_id' => $workflowId,
+      'steps' => $workflow->toArray()['steps'],
+      'trigger_keys' => $workflow->toArray()['trigger_keys'],
+      'created_at' => $dateString,
+      'updated_at' => $dateString,
+    ];
+    $result = $this->wpdb->insert($this->versionsTable, $data);
+    if (!$result) {
+      throw Exceptions::databaseError($this->wpdb->last_error);
+    }
   }
 }

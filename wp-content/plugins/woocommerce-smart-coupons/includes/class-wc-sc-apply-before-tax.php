@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -39,7 +39,6 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * @var $sc_api_credit_left
 		 */
 		private $sc_api_credit_left = array();
-		/**
 
 		/**
 		 * Remaining total to apply credit
@@ -142,11 +141,11 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 
 					if ( 'smart_coupon' === $discount_type ) {
 						$sc_include_tax             = $this->is_store_credit_include_tax();
-						$smart_coupons_contribution = get_post_meta( $order_id, 'smart_coupons_contribution', true );
+						$smart_coupons_contribution = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
 						$smart_coupons_contribution = ( ! empty( $smart_coupons_contribution ) ) ? $smart_coupons_contribution : array();
 
-						$discount_amount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : wc_get_order_item_meta( $item_id, 'discount_amount', true );
-						$discount_amount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : wc_get_order_item_meta( $item_id, 'discount_amount_tax', true );
+						$discount_amount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $this->get_order_item_meta( $item_id, 'discount_amount', true, true );
+						$discount_amount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : $this->get_order_item_meta( $item_id, 'discount_amount_tax', true, true );
 
 						if ( is_array( $smart_coupons_contribution ) && count( $smart_coupons_contribution ) > 0 && array_key_exists( $coupon_code, $smart_coupons_contribution ) ) {
 							// If store credit discount is inclusive of tax then remove discount given tax from Smart Coupons' contribution.
@@ -173,7 +172,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 								$smart_coupons_contribution[ $coupon_code ] = $discount_amount;
 							}
 						} else {
-							$coupon_amount       = $coupon->get_amount();
+							$coupon_amount       = $this->get_amount( $coupon, true, $order );
 							$coupon_product_ids  = $coupon->get_product_ids();
 							$coupon_category_ids = $coupon->get_product_categories();
 
@@ -231,7 +230,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 
 							$smart_coupons_contribution[ $coupon_code ] = $store_credit_used;
 
-							update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution );
+							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true );
 						}
 
 						$order->sc_total_credit_used = $smart_coupons_contribution;
@@ -372,8 +371,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				return $discount;
 			}
 
-			$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
-			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+			$coupon_code = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
 
 			if ( is_object( $cart_item ) && is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
 				$product_id           = ( is_callable( array( $cart_item, 'get_product_id' ) ) ) ? $cart_item->get_product_id() : 0;
@@ -382,6 +380,9 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				$item_id              = ( is_callable( array( $cart_item, 'get_id' ) ) ) ? $cart_item->get_id() : 0;
 				$product_subtotal     = ( is_callable( array( $cart_item, 'get_subtotal' ) ) ) ? $cart_item->get_subtotal() : 0;
 				$product_subtotal_tax = ( is_callable( array( $cart_item, 'get_subtotal_tax' ) ) ) ? $cart_item->get_subtotal_tax() : 0;
+				$order                = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;
+
+				$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 				if ( ! empty( $this->sc_api_credit_left[ $item_id ][ $variation_id ] ) ) {
 					return $this->sc_api_credit_left[ $item_id ][ $variation_id ] / $quantity;
@@ -423,6 +424,8 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				}
 				return $discount;
 			}
+
+			$coupon_amount = $this->get_amount( $coupon, true );
 
 			$product  = isset( $cart_item['data'] ) ? $cart_item['data'] : array();
 			$quantity = $cart_item['quantity'];
@@ -550,7 +553,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		}
 
 		/**
-		 * Function to calulate discount amount for an item
+		 * Function to calculate discount amount for an item
 		 *
 		 * @param  float $discounting_amount Amount the coupon is being applied to.
 		 * @param  int   $quantity Item quantity.

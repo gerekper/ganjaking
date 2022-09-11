@@ -155,7 +155,7 @@ class GoogleSheetProvider
                 $newRow[] = $innerHTML;
             }
 
-            if(array_filter($newRow)) {
+            if(array_filter($newRow) && (count($newRow) === count($validColumns))) {
                 $result[] = array_combine($validColumns, $newRow);
             }
 

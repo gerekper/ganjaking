@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Twig;
-use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Twig\Extension\DebugExtension;
 use MailPoetVendor\Twig\Lexer as TwigLexer;
 use MailPoetVendor\Twig\Loader\FilesystemLoader as TwigFileSystem;
@@ -106,7 +105,8 @@ class Renderer {
       return $this->renderer->render($template, $context);
     } catch (\RuntimeException $e) {
       throw new \Exception(sprintf(
-        WPFunctions::get()->__('Failed to render template "%s". Please ensure the template cache folder "%s" exists and has write permissions. Terminated with error: "%s"'),
+        // translators: %1$s is the name of the render, %2$s the folder path, %3$s the error message.
+        __('Failed to render template "%1$s". Please ensure the template cache folder "%2$s" exists and has write permissions. Terminated with error: "%3$s"', 'mailpoet'),
         $template,
         $this->cachePath,
         $e->getMessage()

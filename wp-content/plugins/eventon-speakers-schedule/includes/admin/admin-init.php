@@ -94,7 +94,8 @@ class EVOSS_admin{
 			switch ($column_name) {
 			    case 'speaker_details': 			    	
 			    	$termmeta = evo_get_term_meta('event_speaker',$termID, $this->opt);
-			    	$out = !empty($termmeta['evo_speaker_title'])? $termmeta['evo_speaker_title']:'-';
+			    	$out = !empty($termmeta['evo_speaker_title'])? 
+			    		stripslashes( $termmeta['evo_speaker_title']) :'-';
 			    break;
 			}
 			return $out;    
@@ -134,7 +135,8 @@ class EVOSS_admin{
 				<tr class="form-field">
 					<th scope="row" valign="top"><label for="termmeta[<?php echo $field;?>]"><?php echo $var[1]; ?></label></th>
 					<td>
-						<input type="text" name="termmeta[<?php echo $field;?>]" id="termmeta[<?php echo $field;?>]" value="<?php echo !empty( $termmeta[$field] ) ? esc_attr( $termmeta[$field] ) : ''; ?>">
+						<input type="text" name="termmeta[<?php echo $field;?>]" id="termmeta[<?php echo $field;?>]" value="<?php echo !empty( $termmeta[$field] ) ? 
+							stripslashes( esc_attr( $termmeta[$field] ) ): ''; ?>">
 						<?php if(!empty($var[2])):?><p class="description"><?php echo $var[2]; ?></p><?php endif;?>
 					</td>
 				</tr>

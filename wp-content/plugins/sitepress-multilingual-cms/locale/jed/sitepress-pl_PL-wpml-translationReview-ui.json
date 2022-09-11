@@ -1,0 +1,56 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "lang": "en"
+         },
+         "Accepted": [
+            "Zaakceptowano"
+         ],
+         "Approved!": [
+            "Zatwierdzone!"
+         ],
+         "Loading the next translation for review...": [
+            "Trwa ładowanie kolejnego tłumaczenie do sprawdzenia."
+         ],
+         "Back": [
+            "Wstecz"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "Wyłącz, aby nie ładować automatycznie następnego tłumaczenia po zakończeniu tej recenzji."
+         ],
+         "Turn on to automatically load the next translation after finishing this review.": [
+            "Włącz, by po zakończeniu sprawdzania automatycznie wczytać następne tłumaczenie."
+         ],
+         "Edit": [
+            "Edycja"
+         ],
+         "Edit translation": [
+            "Edytuj tłumaczenie"
+         ],
+         "There was an error in applying translation.": [
+            "Wystąpił błąd w trakcie wdrażania tego tłumaczenia."
+         ],
+         "Please wait, applying translation..": [
+            "Poczekaj, trwa wdrażanie tłumaczenia."
+         ],
+         "Next review": [
+            "Następna recenzja"
+         ],
+         "Publish this translation": [
+            "Opublikuj to tłumaczenie"
+         ],
+         "Accept this translation": [
+            "Zaakceptuj to tłumaczenie"
+         ],
+         "Published!": [
+            "Opublikowany!"
+         ],
+         "Reviewing the next translation...": [
+            "Trwa sprawdzanie kolejnego tłumaczenia."
+         ]
+      }
+   }
+}

@@ -2771,9 +2771,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
-		$key_info["is_active"] = true;
 
-		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2788,7 +2786,6 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
-		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -3022,7 +3019,6 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";
@@ -3172,7 +3168,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_selection_value( $value ) {
-		
+
 		if ( is_null( $value ) ) {
 			return $value;
 		}
@@ -3180,7 +3176,7 @@ Content-Type: text/html;
 		if ( ! is_array( $value ) ) {
 			$value = explode( '|', $value );
 		}
-		
+
 		return $value[0];
 
 	}
@@ -5242,7 +5238,7 @@ Content-Type: text/html;
 		$gf_vars['endsWith']               = esc_html__( 'ends with', 'gravityforms' );
 		$gf_vars['emptyChoice']            = wp_strip_all_tags( __( 'Empty (no choices selected)', 'gravityforms' ) );
 
-		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesn’t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
+		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesnâ€™t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
 		$gf_vars['thisConfirmation']                 = esc_html__( 'Use this confirmation if', 'gravityforms' );
 		$gf_vars['thisNotification']                 = esc_html__( 'Send this notification if', 'gravityforms' );
 		$gf_vars['confirmationSave']                 = esc_html__( 'Save', 'gravityforms' );
@@ -5296,15 +5292,15 @@ Content-Type: text/html;
 			$gf_vars['idString'] = __( 'ID: ', 'gravityforms' );
 		}
 
-		$prefixes = array_unique( array_filter( array(
-			__( 'Mr.', 'gravityforms' ),
-			__( 'Mrs.', 'gravityforms' ),
-			__( 'Miss', 'gravityforms' ),
-			__( 'Ms.', 'gravityforms' ),
-			__( 'Dr.', 'gravityforms' ),
-			__( 'Prof.', 'gravityforms' ),
-			__( 'Rev.', 'gravityforms' ),
-		) ) );
+		/*
+		 * Translators: This string is a list of name prefixes/honorifics.  If the language you are translating into
+		 * doesn't have equivalents, just provide a list with as many or few prefixes as your language has.
+		 */
+		$prefixes_string = __( 'Mr., Mrs., Miss, Ms., Mx., Dr., Prof., Rev.', 'gravityforms' );
+		$prefixes_array  = explode( ', ', $prefixes_string );
+
+		$prefixes = array_unique( array_filter( $prefixes_array ) );
+
 		sort( $prefixes );
 
 		$gf_vars['nameFieldDefaultPrefixes'] = array();

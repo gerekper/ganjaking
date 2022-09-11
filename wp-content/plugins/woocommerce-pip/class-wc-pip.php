@@ -18,13 +18,13 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Print Invoices/Packing Lists main plugin class.
@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.11.4';
+	const VERSION = '3.11.5';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;
@@ -165,7 +165,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 		}
 
 		// ajax
-		if ( is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			$this->ajax = $this->load_class( '/src/class-wc-pip-ajax.php', 'WC_PIP_Ajax' );
 		}
 

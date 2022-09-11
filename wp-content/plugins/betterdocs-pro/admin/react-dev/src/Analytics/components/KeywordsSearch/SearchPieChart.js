@@ -1,38 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { isWhatPercentOf } from "../../function";
+import { useQuery } from "@tanstack/react-query";
+import { getTotalDataCount, isWhatPercentOf } from "../../function";
 import ReactApexChart from "react-apexcharts";
 import PieChartLoader from "../utilities/PieChartLoader";
 import { ReactComponent as EmptyDataIcon } from "../../images/empty-data.svg";
 
-const SearchPieChart = ({ data, isLoading }) => {
-  const [chartData, setChartData] = useState({});
-
+const SearchPieChart = ({ dateRange }) => {
   // this is for getting the chart data
-  useEffect(() => {
-    data && data.length
-      ? setChartData(
-          data?.reduce((previousValue, currentValue) => {
-            return {
-              search_count:
-                parseInt(previousValue?.search_count) +
-                parseInt(currentValue?.search_count),
-              search_found:
-                parseInt(previousValue?.search_found) +
-                parseInt(currentValue?.search_found),
-              search_not_found_count:
-                parseInt(previousValue?.search_not_found_count) +
-                parseInt(currentValue?.search_not_found_count),
-            };
-          })
-        )
-      : setChartData({});
-  }, [data]);
+  const currentTotalCount = useQuery(
+    ["totalDataCount", dateRange, undefined],
+    getTotalDataCount
+  );
 
   return (
     <div className="btd-chart-counter-wrapper btd-chart-counter-formet-3">
-      {!isLoading ? (
+      {!currentTotalCount?.isLoading ? (
         <>
-          {chartData && Object.entries(chartData).length ? (
+          {currentTotalCount?.data &&
+          (currentTotalCount?.data?.totalFound ||
+            currentTotalCount?.data?.totalNotFound) ? (
             <>
               <div className="bdt-chart-counter-pie-chart">
                 <ReactApexChart
@@ -77,8 +62,16 @@ const SearchPieChart = ({ data, isLoading }) => {
                     },
                   }}
                   series={[
-                    parseInt(chartData?.search_found),
-                    parseInt(chartData?.search_not_found_count),
+                    parseInt(
+                      currentTotalCount?.data?.totalFound == null
+                        ? "0"
+                        : currentTotalCount?.data?.totalFound
+                    ),
+                    parseInt(
+                      currentTotalCount?.data?.totalNotFound == null
+                        ? "0"
+                        : currentTotalCount?.data?.totalNotFound
+                    ),
                   ]}
                 />
               </div>
@@ -88,16 +81,32 @@ const SearchPieChart = ({ data, isLoading }) => {
                   <p className="text green">
                     Result Found{" "}
                     {isWhatPercentOf(
-                      parseInt(chartData?.search_found),
-                      parseInt(chartData?.search_count)
+                      parseInt(
+                        currentTotalCount?.data?.totalFound == null
+                          ? "0"
+                          : currentTotalCount?.data?.totalFound
+                      ),
+                      parseInt(
+                        currentTotalCount?.data?.totalSearch == null
+                          ? "0"
+                          : currentTotalCount?.data?.totalSearch
+                      )
                     ).toFixed(1)}
                     %
                   </p>
                   <p className="text blue">
                     No Result Found{" "}
                     {isWhatPercentOf(
-                      parseInt(chartData?.search_not_found_count),
-                      parseInt(chartData?.search_count)
+                      parseInt(
+                        currentTotalCount?.data?.totalNotFound == null
+                          ? "0"
+                          : currentTotalCount?.data?.totalNotFound
+                      ),
+                      parseInt(
+                        currentTotalCount?.data?.totalSearch == null
+                          ? "0"
+                          : currentTotalCount?.data?.totalSearch
+                      )
                     ).toFixed(1)}
                     %
                   </p>

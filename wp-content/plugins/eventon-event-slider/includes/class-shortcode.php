@@ -87,14 +87,14 @@ class evosl_shortcode{
 							'var'=>'slider_type',
 							'options'=>array(
 								'def'=>'Default: Single Event',
-								'multi'=>'Multi-Events Horizontal Scroll',								
+								'multi'=>'Multi-Events Horizontal Scroll',							
 								'mini'=>'Mini Multi-Events Horizontal Scroll',
 								'micro'=>'Micro Multi-Events Horizontal Scroll',
 								'vertical'=>'Vertical Scroll',
 							)
 						),array(
-							'name'=>'Slides visible at once (Vertical Slider only)',
-							'guide'=>'How many vertical slides to show at once',
+							'name'=>'Slides visible at once time',
+							'guide'=>'How many slides to be visible at once. This number may be reduced when on smaller screens.',
 							'type'=>'select',
 							'var'=>'slides_visible',
 							'options'=>array(
@@ -108,6 +108,7 @@ class evosl_shortcode{
 							'name'=>'Slide Display Style',
 							'type'=>'select',
 							'var'=>'slide_style',
+							'guide'=>'Mini slider does not support image above data ',
 							'options'=>array(
 								'def'=>'Default: Just event data',
 								'imgbg'=>'Event Image as background',

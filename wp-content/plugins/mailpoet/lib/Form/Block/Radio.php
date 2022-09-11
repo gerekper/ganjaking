@@ -35,7 +35,8 @@ class Radio {
     $fieldName = 'data[' . $this->rendererHelper->getFieldName($block) . ']';
     $fieldValidation = $this->rendererHelper->getInputValidation($block, [], $formId);
 
-    $html .= $this->rendererHelper->renderLabel($block, $formSettings);
+    $html .= '<fieldset>';
+    $html .= $this->rendererHelper->renderLegend($block, $formSettings);
 
     $options = (!empty($block['params']['values'])
       ? $block['params']['values']
@@ -75,6 +76,8 @@ class Radio {
       $html .= ' /> ' . $this->wp->escAttr($label);
       $html .= '</label>';
     }
+
+    $html .= '</fieldset>';
 
     $html .= '<span class="mailpoet_error_' . $block['id'] . ($formId ? '_' . $formId : '') . '"></span>';
 

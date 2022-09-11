@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -444,14 +444,14 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 					}
 					$coupon = new WC_Coupon( $code );
 					if ( $this->is_wc_gte_30() ) {
-						$coupon_amount = $coupon->get_amount();
 						$discount_type = $coupon->get_discount_type();
 						$coupon_code   = $coupon->get_code();
 					} else {
-						$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						$coupon_code   = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 					}
+
+					$coupon_amount = $this->get_amount( $coupon, true, $order );
 
 					if ( 'smart_coupon' === $discount_type && $coupon_amount > 0 ) {
 						$store_credit_balance .= '<li><strong>' . $coupon_code . '</strong> &mdash; ' . wc_price( $coupon_amount ) . '</li>';

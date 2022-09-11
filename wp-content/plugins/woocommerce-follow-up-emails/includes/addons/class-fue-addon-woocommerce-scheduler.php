@@ -37,7 +37,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 		add_action( 'woocommerce_order_status_completed', array( $this, 'queue_download_reminders' ) );
 		add_action( 'woocommerce_download_product', array( $this, 'remove_queued_download_reminders' ), 10, 6 );
 		add_action( 'woocommerce_download_product', array( $this, 'file_downloaded' ), 10, 6 );
-		add_action( 'woocommerce_process_product_file_download_paths_grant_access_to_new_file', array( $this, 'downloadable_file_added' ), 100, 4 );
+		add_filter( 'woocommerce_downloadable_file_permission', array( $this, 'downloadable_file_added' ), 100, 3 );
 
 		// coupons
 		add_action( 'woocommerce_new_order_item', array( $this, 'queue_coupon_emails' ), 10, 4 );
@@ -458,49 +458,51 @@ class FUE_Addon_Woocommerce_Scheduler {
 	/**
 	 * Queue drip emails after files have been added to a product
 	 *
-	 * @param bool $grant_access
-	 * @param string $download_id
-	 * @param int $product_id
-	 * @param WC_Order $order
-	 * @return bool
+	 * @param WC_Customer_Download $download
+	 * @param WC_Product           $product
+	 * @param WC_Order             $order
+	 *
+	 * @return WC_Customer_Download
 	 */
-	public static function downloadable_file_added( $grant_access, $download_id, $product_id, $order ) {
+	public static function downloadable_file_added( WC_Customer_Download $download, WC_Product $product, WC_Order $order ) {
+		$categories = self::get_product_category_ids( $product );
 
-		if ( $grant_access ) {
-			$categories = wp_get_post_terms( $product_id, 'product_cat', array( 'fields' => 'ids' ) );
-
-			$emails = fue_get_emails( 'storewide', FUE_Email::STATUS_ACTIVE, array(
+		$emails = fue_get_emails(
+			'storewide',
+			FUE_Email::STATUS_ACTIVE,
+			array(
 				'meta_query' => array(
 					array(
-						'key'       => '_interval_type',
-						'value'     => 'downloadable_file_added',
+						'key'   => '_interval_type',
+						'value' => 'downloadable_file_added',
 					),
 				),
-			) );
+			)
+		);
 
-			foreach ( $emails as $email ) {
+		foreach ( $emails as $email ) {
+			$email_product_id  = (int) $email->product_id;
+			$email_category_id = (int) $email->category_id;
 
-				if ( $email->product_id > 0 && $email->product_id != $product_id ) {
-					continue;
-				} elseif ( $email->category_id > 0 && ! in_array( $email->category_id, $categories ) ) {
-					continue;
-				}
-
-				$insert = array(
-					'user_id'       => WC_FUE_Compatibility::get_order_prop( $order, 'customer_user' ),
-					'user_email'    => WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ),
-					'product_id'    => $product_id,
-					'order_id'      => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
-					'meta'          => array(
-						'download_id'   => $download_id,
-					),
-				);
-				FUE_Sending_Scheduler::queue_email( $insert, $email, true );
-
+			if ( $email_product_id > 0 && $email_product_id !== $product->get_id() ) {
+				continue;
+			} elseif ( $email_category_id > 0 && ! in_array( $email_category_id, $categories, true ) ) {
+				continue;
 			}
-}
 
-		return $grant_access;
+			$values = array(
+				'user_id'    => WC_FUE_Compatibility::get_order_prop( $order, 'customer_user' ),
+				'user_email' => WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ),
+				'product_id' => $product->get_id(),
+				'order_id'   => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
+				'meta'       => array(
+					'download_id' => $download->get_download_id(),
+				),
+			);
+			FUE_Sending_Scheduler::queue_email( $values, $email, true );
+		}
+
+		return $download;
 	}
 
 	/**
@@ -882,6 +884,25 @@ class FUE_Addon_Woocommerce_Scheduler {
 		}
 
 		return $email_created;
+	}
+
+	/**
+	 * Gets the product category ids for the given WooCommerce product.
+	 *
+	 * @param WC_Product $product The WooCommerce product object.
+	 *
+	 * @return int[]
+	 *
+	 * @since 4.9.27
+	 */
+	protected static function get_product_category_ids( WC_Product $product ) {
+		if ( $product->is_type( 'variation' ) ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+
+			return $parent->get_category_ids();
+		}
+
+		return $product->get_category_ids();
 	}
 
 	/**

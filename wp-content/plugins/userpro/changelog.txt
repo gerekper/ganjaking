@@ -1,17 +1,24 @@
 ==================================
+Version 5.1.0 (09 Aug 2022)
+==================================
+ - Update: Increased datepicker date range.
+ - Fixed bug: Fixed "Change your Password" forms design issues.
+ 
+ 
+==================================
 Version 5.0.1 (03 Aug 2022)
 ==================================
  - Fixed bug: Fixed "Forgot your password?" and "Already a member?" forms design issues.
- 
- 
+
+
 ==================================
 Version 5.0.0 (11 Jul 2022)
 ==================================
  - Update: This update is for Memberlist layouts for UserPro addon plugin.
  - Fixed bug: Fixed redirect to login page after clicking on "Already a member?".
  - Update: Guzzle 7.4.5 - PHP HTTP client library.
- 
- 
+
+
 ==================================
 Version 4.10.1 (30 March 2022)
 ==================================

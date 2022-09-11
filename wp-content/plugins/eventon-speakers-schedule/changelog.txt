@@ -1,5 +1,16 @@
 ﻿Event Speakers and schedule (SS) addon for EventON Plugin
 ====================================
+v 1.0.5 (2022-1-28)
+FIXED: quotation marks on speaker title
+
+v 1.0.4 (2021-12-27)
+ADDED: speaker and schedule anchor IDs on the event card boxes
+FIXED: if only one day in schedule not show day number
+FIXED: lightbox window speaker description not formatting content
+FIXED: speakers page formatting
+FIXED: schedule date month not translated
+UPDATED: POT file
+
 v 1.0.3 (2020-10-26)
 FIXED: image url not validated for loading
 FIXED: speaker flex wrap style - thanks Patrick R.

@@ -30,6 +30,7 @@ jQuery(document).ready(function($){
         QTY = SECTION.find('input[name=quantity]').val();
         sin_price = SECTION.find('p.price.tx_price_line span.value').data('sp');
         price_extra = 0;
+
         sin_price = parseFloat(sin_price);
 
         // include sin price additions
@@ -39,11 +40,18 @@ jQuery(document).ready(function($){
                 if( $(this).hasClass('nyp')) return;
 
                 DATA = SECTION.find('p.price.tx_price_line input').data('prices');
+               
                 if(DATA === undefined) return;
+
                 price_muli = 0;
                 price_extra = 0;
                 if( Object.keys(DATA).length>0){
                     $.each(DATA, function(index, val){
+
+                        if( val === undefined) return;
+                        if( !('price') in val) return;
+                        if( val.price === undefined) return;
+
                         p =  parseFloat(val.price);
                         p = p * parseInt( val.qty);
 
@@ -62,6 +70,7 @@ jQuery(document).ready(function($){
 
         new_price = sin_price * QTY;   
         new_price += price_extra;
+
 
         // formating          
         new_price = get_format_price( new_price, SECTION);
@@ -112,7 +121,11 @@ jQuery(document).ready(function($){
         if(OBJ.closest('.evotx_quantity').hasClass('one')) return;
 
         QTY = parseInt(OBJ.siblings('em').html());
-        MAX = OBJ.siblings('input').data('max');        
+        MAX = OBJ.siblings('input').data('max');  
+
+        // plug
+        $('body').trigger('evotx_before_qty_changed',[ MAX, OBJ]);
+
         if(!MAX) MAX = OBJ.siblings('input').attr('max');
            
 
@@ -287,9 +300,12 @@ jQuery(document).ready(function($){
 
         var raw_new = $(this).val();
 
+        $(this).parent().data('sp', raw_new);
+
         var new_price = Number(raw_new.replace(/[^0-9.-]+/g,""));
         //var new_price = parseFloat( raw_new );
-        $(this).parent().data('sp', new_price);
+
+        
         var min_nyp = parseFloat($(this).data('minnyp'));
         
         // min price higher than 0
@@ -613,6 +629,33 @@ jQuery(document).ready(function($){
         $('body').on('mouseout','.evotx_whos_coming span', function(){
             $(this).html( $(this).attr('data-intials')).removeClass('hover');
         });
+
+// My account view ticket
+    $('body').on('click','.evotx_view_ticket',function(){
+        LIGHTBOX = $('.evotx_lightbox');
+        LIGHTBOX.addClass('show');
+        $('body').trigger('evolightbox_show');
+
+
+        // get form html
+        var ajaxdataa = {};
+        
+        ajaxdataa['action'] = 'evotx_my_account_ticket';
+        ajaxdataa['tn'] = $(this).data('tn');
+        $.ajax({
+            beforeSend: function(){ 
+                LIGHTBOX.find('.evo_lightbox_body').addClass('evoloading')
+                    .html('<p class="loading_content"></p>');
+            },                  
+            url:    evotx_object.ajaxurl,
+            data:   ajaxdataa,  dataType:'json', type:  'POST',
+            success:function(data){
+                LIGHTBOX.find('.evo_lightbox_body').html( data.html );                
+            },complete:function(){ 
+                LIGHTBOX.find('.evo_lightbox_body').removeClass('evoloading');
+            }
+        });
+    });
 	
 // ActionUser event manager
     // show ticket stats for events

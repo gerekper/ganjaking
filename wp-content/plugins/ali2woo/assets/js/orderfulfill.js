@@ -30,7 +30,7 @@ jQuery(function($) {
 
         $(".modal-overlay.modal-fulfillment .modal-content .modal-body").load(ajaxurl, { 'action': 'a2w_load_fulfillment_orders', ids }, function() {
             $(".modal-overlay.modal-fulfillment .modal-content .loader").remove();
-            if($('.modal-fulfillment [data-order_id]').length == 0){
+            if($('.modal-fulfillment .single-order-wrap[data-order_id]').length == 0){
            
                 $("#fulfillment-auto").attr('disabled', 'disabled');
             
@@ -42,7 +42,7 @@ jQuery(function($) {
     }
 
     function update_order_items(order_id) { 
-        const order = $('[data-order_id="' + order_id + '"]')
+        const order = $('.single-order-wrap[data-order_id="' + order_id + '"]')
         const shiping_to_country = $(order).attr('data-shiping_to_country')
         const data = { 'action': 'a2w_update_fulfillment_shipping', order_id, shiping_to_country, items : [] }
         $(order).find('[data-order_item_id]').each(function () { 
@@ -191,17 +191,17 @@ jQuery(function($) {
     $(document.body).on("change", ".modal-fulfillment select.js_field-state", change_state)
 
     $(document).on("change", ".modal-fulfillment .current-shipping-company", function () { 
-        update_order_items($(this).parents('[data-order_id]').attr('data-order_id'))        
+        update_order_items($(this).parents('.single-order-wrap[data-order_id]').attr('data-order_id'))        
     })
 
     $(document).on("click", ".modal-fulfillment .remove-item", function () {
-        const order = $(this).parents('[data-order_id]')        
+        const order = $(this).parents('.single-order-wrap[data-order_id]')        
         $(this).parents('[data-order_item_id]').remove() 
         if ($(order).find('[data-order_item_id]').length > 0) {
             update_order_items($(order).attr('data-order_id'))
         } else {
             $(order).remove()
-            if ($('.modal-fulfillment  [data-order_id]').length === 0) { 
+            if ($('.modal-fulfillment .single-order-wrap[data-order_id]').length === 0) { 
                 $(".modal-overlay.modal-fulfillment").removeClass('opened');
             }
         }
@@ -213,7 +213,7 @@ jQuery(function($) {
         $("#fulfillment-auto").addClass('loading')
         $("#fulfillment-chrome").attr('disabled', 'disabled');
         const orders_to_plase = []
-        $('[data-order_id]').each(function () {
+        $('.single-order-wrap[data-order_id]').each(function () {
             const items = []
             $(this).find('[data-order_item_id]').each(function () {
                 items.push($(this).attr('data-order_item_id'))            
@@ -222,7 +222,7 @@ jQuery(function($) {
         })
 
         const on_place_order = function (order_id, response_state, response_message, state, json = undefined) { 
-            const order = $('[data-order_id="' + order_id + '"]')
+            const order = $('.single-order-wrap[data-order_id="' + order_id + '"]')
             $(order).find('.order-message').text('');
             $(order).find('.item-message').text('');
             if (response_state == 'error') {
@@ -264,7 +264,7 @@ jQuery(function($) {
 
     $(document).on("click", "#fulfillment-chrome", function () {
         const ids = []
-        $('[data-order_id]').each(function () { ids.push($(this).attr('data-order_id')) })
+        $('.single-order-wrap[data-order_id]').each(function () { ids.push($(this).attr('data-order_id')) })
         const order_item_ids = []
         $('[data-order_item_id]').each(function () { order_item_ids.push($(this).attr('data-order_item_id')) })
         $(".modal-overlay.modal-fulfillment").removeClass('opened');

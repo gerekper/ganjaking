@@ -10,6 +10,7 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Util\License\Features\Subscribers;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Carbon\CarbonImmutable;
@@ -44,10 +45,7 @@ class SubscribersRepository extends Repository {
     return SubscriberEntity::class;
   }
 
-  /**
-   * @return int
-   */
-  public function getTotalSubscribers() {
+  public function getTotalSubscribers(): int {
     $query = $this->entityManager
       ->createQueryBuilder()
       ->select('count(n.id)')
@@ -60,6 +58,10 @@ class SubscribersRepository extends Repository {
       ])
       ->getQuery();
     return (int)$query->getSingleScalarResult();
+  }
+
+  public function invalidateTotalSubscribersCache(): void {
+    $this->wp->deleteTransient(Subscribers::SUBSCRIBERS_COUNT_CACHE_KEY);
   }
 
   public function findBySegment(int $segmentId): array {
@@ -119,6 +121,7 @@ class SubscribersRepository extends Repository {
       ->setParameter('ids', $ids)
       ->getQuery()->execute();
 
+    $this->invalidateTotalSubscribersCache();
     return count($ids);
   }
 
@@ -138,6 +141,7 @@ class SubscribersRepository extends Repository {
       ->setParameter('ids', $ids)
       ->getQuery()->execute();
 
+    $this->invalidateTotalSubscribersCache();
     return count($ids);
   }
 
@@ -174,6 +178,7 @@ class SubscribersRepository extends Repository {
         ->getQuery()->execute();
     });
 
+    $this->invalidateTotalSubscribersCache();
     return $count;
   }
 
@@ -285,6 +290,7 @@ class SubscribersRepository extends Repository {
       ->setParameter('ids', $ids)
       ->getQuery()->execute();
 
+    $this->invalidateTotalSubscribersCache();
     return count($ids);
   }
 
@@ -364,5 +370,15 @@ class SubscribersRepository extends Repository {
       ->setParameter('ids', $ids)
       ->getQuery()
       ->getArrayResult();
+  }
+
+  public function getMaxSubscriberId(): int {
+    $maxSubscriberId = $this->entityManager->createQueryBuilder()
+      ->select('MAX(s.id)')
+      ->from(SubscriberEntity::class, 's')
+      ->getQuery()
+      ->getSingleScalarResult();
+
+    return is_int($maxSubscriberId) ? $maxSubscriberId : 0;
   }
 }

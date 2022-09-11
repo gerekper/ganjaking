@@ -21,6 +21,7 @@ class WC_Product_Vendors_Roles_Caps {
 		add_filter( 'user_row_actions', array( $this, 'user_row_actions' ), 10, 2 );
 		add_action( 'admin_action_approve_vendor', array( $this, 'approve_vendor_handler' ) );
 		add_action( 'admin_notices', array( $this, 'vendor_approved_notice' ) );
+		add_filter( 'user_has_cap', array( $this, 'vendor_allow_edit_attachment' ), 10, 4 );
 	}
 
 	/**
@@ -397,5 +398,39 @@ class WC_Product_Vendors_Roles_Caps {
 			</p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Allow Vendors to edit attachment details.
+	 *
+	 * @param array   $allcaps All capabilities.
+	 * @param array   $caps    Capabilities.
+	 * @param array   $args    Arguments.
+	 * @param WP_User $user    The user object.
+	 *
+	 * @return array The filtered array of all capabilities.
+	 */
+	public function vendor_allow_edit_attachment( $allcaps, $caps, $args, $user ) {
+		// Allow edit only to vendor users, edit_post requested capability and users who can't edit others posts.
+		if (
+			! WC_Product_Vendors_Utils::is_vendor( $user->ID ) ||
+			! isset( $caps[0], $args[2] ) ||
+			'edit_post' !== $args[0] ||
+			( isset( $allcaps['edit_others_posts'] ) && $allcaps['edit_others_posts'] )
+		) {
+			return $allcaps;
+		}
+
+		$post = get_post( $args[2] );
+		if ( ! empty( $post ) && 'attachment' === $post->post_type ) {
+			$vendor_id   = WC_Product_Vendors_Utils::get_logged_in_vendor();
+			$post_vendor = absint( get_post_meta( $post->ID, '_wcpv_vendor', true ) );
+			// Only allow if the user is the post author or post is attached to logged-in vendor.
+			if ( $vendor_id === $post_vendor || $args[1] === $post->post_author ) {
+				$allcaps[ $caps[0] ] = true;
+			}
+		}
+
+		return $allcaps;
 	}
 }

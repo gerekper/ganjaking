@@ -6,13 +6,13 @@
  *  @package Ultimate Video
  */
 
-if ( ! class_exists( 'Ultimate_Videos' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Videos' ) ) {
 	/**
 	 * Function that initializes Ultimate Video Module
 	 *
-	 * @class Ultimate_Videos
+	 * @class Ultimate_VC_Addons_Videos
 	 */
-	class Ultimate_Videos {
+	class Ultimate_VC_Addons_Videos {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Heading module.
 		 *
@@ -32,9 +32,9 @@ if ( ! class_exists( 'Ultimate_Videos' ) ) {
 		 * @method register_videos_module_assets
 		 */
 		public function register_videos_module_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-videos-style', 'video_module' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-videos-style', 'video_module' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-videos-script', 'video_module', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-videos-script', 'video_module', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}//end register_videos_module_assets()
 
 		/**
@@ -1213,7 +1213,7 @@ if ( ! class_exists( 'Ultimate_Videos' ) ) {
 
 		}//end ultimate_videos_module_shortcode()
 	}//end class
-	new Ultimate_Videos();
+	new Ultimate_VC_Addons_Videos();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Video' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

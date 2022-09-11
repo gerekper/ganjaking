@@ -1,5 +1,13 @@
 Events Map for EventON Plugin
 ====================================
+v 1.4.7 (2021-4-15)
+FIXED: after search map not refreshing
+
+v 1.4.6 (2021-3-18)
+FIXED: undefined showing for missing location address
+UPDATED: Map styles and layouts
+REMOVED: custom map markers not working
+
 v 1.4.5 (2019-11-12)
 FIXED: Map height set via shortcode not working
 UPDATED: Code to remove redundant codes that are deprecated

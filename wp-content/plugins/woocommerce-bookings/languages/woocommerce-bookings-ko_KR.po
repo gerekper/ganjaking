@@ -7,11 +7,19 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-28T23:49:01+00:00\n"
-"PO-Revision-Date: 2022-06-02 09:54:04+0000\n"
+"POT-Creation-Date: 2022-08-24T18:17:59+00:00\n"
+"PO-Revision-Date: 2022-08-03 15:54:04+0000\n"
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/admin/class-wc-bookings-admin.php:673
+msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "이용 가능 여부가 \"기본적으로 이용할 수 없음\"이면 24시간을 초과하는 기간은 허용되지 않으므로 예약 기간이 24로 설정되었습니다."
+
+#: includes/admin/class-wc-bookings-admin.php:672
+msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "이용 가능 여부가 \"기본적으로 이용할 수 없음\"이면 24시간을 초과하는 기간은 허용되지 않습니다."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:933
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
@@ -41,11 +49,11 @@ msgstr "이 섹션에는 기본 WooCommerce Bookings 템플릿 페이지를 재�
 msgid "WooCommerce Bookings template overrides"
 msgstr "WooCommerce Bookings 템플릿 재정의"
 
-#: includes/admin/class-wc-bookings-admin.php:692
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "최대 기간은 최소 기간 이상이어야 합니다."
 
-#: includes/admin/class-wc-bookings-admin.php:691
+#: includes/admin/class-wc-bookings-admin.php:699
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "최소 기간은 최대 기간 이하여야 합니다."
 
@@ -53,7 +61,7 @@ msgstr "최소 기간은 최대 기간 이하여야 합니다."
 msgid "Customer Information"
 msgstr "고객 정보"
 
-#: includes/admin/class-wc-bookings-admin.php:665
+#: includes/admin/class-wc-bookings-admin.php:671
 msgid "This setting is being overridden at the resource level."
 msgstr "이 설정은 리소스 수준에서 재정의되고 있습니다."
 
@@ -104,12 +112,12 @@ msgstr "삭제 기본 설정"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "날짜는 yyyy-mm-dd 형식이어야 하며 비워 둘 수 없습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:685
+#: includes/admin/class-wc-bookings-admin.php:693
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "시작 날짜는 종료 날짜 이후일 수 없습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:684
+#: includes/admin/class-wc-bookings-admin.php:692
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "\"날짜 및 종료 날짜\"는 yyyy-mm-dd 형식이어야 하며 비워 둘 수 없습니다."
 
@@ -224,12 +232,12 @@ msgstr "시간대: %s"
 msgid "View my bookings &rarr;"
 msgstr "내 예약 보기 &rarr;"
 
-#: templates/order/admin/booking-display.php:82
+#: templates/order/admin/booking-display.php:83
 msgid "View booking &rarr;"
 msgstr "예약 보기 &rarr;"
 
 #. translators: 1: booking id
-#: templates/order/admin/booking-display.php:64
+#: templates/order/admin/booking-display.php:65
 #: templates/order/booking-display.php:66
 msgid "Booking #%s"
 msgstr "예약 #%s"
@@ -238,15 +246,15 @@ msgstr "예약 #%s"
 msgid "My Bookings"
 msgstr "내 예약"
 
-#: templates/myaccount/bookings.php:108
+#: templates/myaccount/bookings.php:110
 msgid "No bookings available yet."
 msgstr "아직 이용 가능한 예약이 없습니다."
 
-#: templates/myaccount/bookings.php:106
+#: templates/myaccount/bookings.php:108
 msgid "Go Shop"
 msgstr "쇼핑 시작"
 
-#: templates/myaccount/bookings.php:79
+#: templates/myaccount/bookings.php:81
 #: templates/myaccount/my-bookings.php:62
 msgid "Cancel"
 msgstr "취소"
@@ -257,7 +265,7 @@ msgid "Booked"
 msgstr "예약됨"
 
 #. translators: 1: booking start date
-#: templates/emails/plain/customer-booking-reminder.php:31
+#: templates/emails/plain/customer-booking-reminder.php:36
 msgid "This is a reminder that your booking will take place on %1$s. The details of your booking are shown below."
 msgstr "%1$s에 예약되었음을 알려드립니다. 예약 상세 정보는 아래와 같습니다."
 
@@ -282,7 +290,7 @@ msgstr "주문 번호: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:53
 #: templates/emails/plain/customer-booking-notification.php:50
 #: templates/emails/plain/customer-booking-pending-confirmation.php:55
-#: templates/emails/plain/customer-booking-reminder.php:54
+#: templates/emails/plain/customer-booking-reminder.php:59
 msgid "Time Zone: %s"
 msgstr "시간대: %s"
 
@@ -293,7 +301,7 @@ msgstr "시간대: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:49
 #: templates/emails/plain/customer-booking-notification.php:46
 #: templates/emails/plain/customer-booking-pending-confirmation.php:51
-#: templates/emails/plain/customer-booking-reminder.php:50
+#: templates/emails/plain/customer-booking-reminder.php:55
 msgid "Booking End Date: %s"
 msgstr "예약 종료일: %s"
 
@@ -304,7 +312,7 @@ msgstr "예약 종료일: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:47
 #: templates/emails/plain/customer-booking-notification.php:44
 #: templates/emails/plain/customer-booking-pending-confirmation.php:49
-#: templates/emails/plain/customer-booking-reminder.php:48
+#: templates/emails/plain/customer-booking-reminder.php:53
 msgid "Booking Start Date: %s"
 msgstr "예약 시작일: %s"
 
@@ -315,7 +323,7 @@ msgstr "예약 시작일: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:43
 #: templates/emails/plain/customer-booking-notification.php:40
 #: templates/emails/plain/customer-booking-pending-confirmation.php:45
-#: templates/emails/plain/customer-booking-reminder.php:44
+#: templates/emails/plain/customer-booking-reminder.php:49
 msgid "Booking Type: %s"
 msgstr "예약 유형: %s"
 
@@ -326,7 +334,7 @@ msgstr "예약 유형: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:37
 #: templates/emails/plain/customer-booking-notification.php:34
 #: templates/emails/plain/customer-booking-pending-confirmation.php:39
-#: templates/emails/plain/customer-booking-reminder.php:38
+#: templates/emails/plain/customer-booking-reminder.php:43
 msgid "Booking ID: %s"
 msgstr "예약 ID: %s"
 
@@ -335,7 +343,7 @@ msgstr "예약 ID: %s"
 #: templates/emails/plain/customer-booking-cancelled.php:35
 #: templates/emails/plain/customer-booking-confirmed.php:35
 #: templates/emails/plain/customer-booking-notification.php:32
-#: templates/emails/plain/customer-booking-reminder.php:36
+#: templates/emails/plain/customer-booking-reminder.php:41
 msgid "Booked: %s"
 msgstr "예약됨: %s"
 
@@ -344,7 +352,7 @@ msgid "The following booking has been cancelled by the customer. The details of 
 msgstr "고객이 다음 예약을 취소했습니다. 취소된 예약의 상세 정보는 아래에서 찾을 수 있습니다."
 
 #. translators: 1: booking start date
-#: templates/emails/customer-booking-reminder.php:38
+#: templates/emails/customer-booking-reminder.php:49
 msgid "This is a reminder that your booking will take place on %1$s."
 msgstr "%1$s에 예약되었음을 알려드립니다."
 
@@ -388,14 +396,17 @@ msgid "We are sorry to say that your booking could not be confirmed and has been
 msgstr "죄송하지만, 예약을 확인할 수 없어 취소되었습니다. 취소된 예약의 상세 정보는 아래에서 찾을 수 있습니다."
 
 #. translators: 1: billing first name
+#. translators: 1: customer first name
 #: templates/emails/customer-booking-cancelled.php:30
 #: templates/emails/customer-booking-confirmed.php:30
 #: templates/emails/customer-booking-pending-confirmation.php:30
 #: templates/emails/customer-booking-reminder.php:30
+#: templates/emails/customer-booking-reminder.php:39
 #: templates/emails/plain/customer-booking-cancelled.php:27
 #: templates/emails/plain/customer-booking-confirmed.php:27
 #: templates/emails/plain/customer-booking-pending-confirmation.php:27
 #: templates/emails/plain/customer-booking-reminder.php:27
+#: templates/emails/plain/customer-booking-reminder.php:31
 msgid "Hello %s"
 msgstr "안녕하세요? %s"
 
@@ -429,7 +440,7 @@ msgstr "다음 대시보드에서 이 예약을 보고 편집할 수 있습니�
 #: templates/emails/customer-booking-confirmed.php:63
 #: templates/emails/customer-booking-notification.php:54
 #: templates/emails/customer-booking-pending-confirmation.php:63
-#: templates/emails/customer-booking-reminder.php:68
+#: templates/emails/customer-booking-reminder.php:79
 msgid "Booking End Date"
 msgstr "예약 종료일"
 
@@ -439,7 +450,7 @@ msgstr "예약 종료일"
 #: templates/emails/customer-booking-confirmed.php:59
 #: templates/emails/customer-booking-notification.php:50
 #: templates/emails/customer-booking-pending-confirmation.php:59
-#: templates/emails/customer-booking-reminder.php:64
+#: templates/emails/customer-booking-reminder.php:75
 msgid "Booking Start Date"
 msgstr "예약 시작일"
 
@@ -594,7 +605,7 @@ msgstr "미결제"
 #: templates/emails/customer-booking-confirmed.php:68
 #: templates/emails/customer-booking-notification.php:59
 #: templates/emails/customer-booking-pending-confirmation.php:68
-#: templates/emails/customer-booking-reminder.php:73
+#: templates/emails/customer-booking-reminder.php:84
 msgid "Time Zone"
 msgstr "시간대"
 
@@ -692,7 +703,7 @@ msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {or
 msgstr "[{blogname}] {product_title}(주문 {order_number})에 대한 새 예약 - {order_date}"
 
 #: includes/emails/class-wc-email-new-booking.php:29
-#: templates/order/admin/booking-display.php:78
+#: templates/order/admin/booking-display.php:79
 msgid "Confirm booking"
 msgstr "예약 확인"
 
@@ -1003,18 +1014,18 @@ msgid "Check Availability"
 msgstr "이용 가능 여부 확인"
 
 #. translators: 1: guest name
-#: includes/data-objects/class-wc-booking.php:936
+#: includes/data-objects/class-wc-booking.php:982
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
 msgstr "%s(비회원)"
 
 #. translators: 1: booking id 2: old status 3: new status
-#: includes/data-objects/class-wc-booking.php:284
+#: includes/data-objects/class-wc-booking.php:330
 msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
 msgstr "예약 #%1$d의 상태가 \"%2$s\"에서 \"%3$s\"(으)로 변경됨"
 
-#: includes/data-objects/class-wc-booking.php:230
-#: includes/data-objects/class-wc-booking.php:1101
+#: includes/data-objects/class-wc-booking.php:233
+#: includes/data-objects/class-wc-booking.php:1147
 msgid "Was In Cart"
 msgstr "장바구니에 이미 있음"
 
@@ -1094,184 +1105,184 @@ msgid "Enable Bookings Timezone Calculation"
 msgstr "예약 시간대 계산 활성화"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:189
+#: includes/class-wc-bookings-init.php:192
 msgid "In Cart <span class=\"count\">(%s)</span>"
 msgid_plural "In Cart <span class=\"count\">(%s)</span>"
 msgstr[0] "장바구니<span class=\"count\">(%s개)</span>"
 
-#: includes/class-wc-bookings-init.php:183
+#: includes/class-wc-bookings-init.php:186
 msgctxt "woocommerce-bookings"
 msgid "In Cart"
 msgstr "장바구니"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:180
+#: includes/class-wc-bookings-init.php:183
 msgid "Cancelled <span class=\"count\">(%s)</span>"
 msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
 msgstr[0] "취소 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:174
+#: includes/class-wc-bookings-init.php:177
 msgctxt "woocommerce-bookings"
 msgid "Cancelled"
 msgstr "취소됨"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:171
+#: includes/class-wc-bookings-init.php:174
 msgid "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgstr[0] "취소 대기 중<span class=\"count\">(%s개)</span>"
 
-#: includes/class-wc-bookings-init.php:165
+#: includes/class-wc-bookings-init.php:168
 msgctxt "woocommerce-bookings"
 msgid "Pending Confirmation"
 msgstr "확인 대기 중"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:162
+#: includes/class-wc-bookings-init.php:165
 msgid "Un-paid <span class=\"count\">(%s)</span>"
 msgid_plural "Un-paid <span class=\"count\">(%s)</span>"
 msgstr[0] "결제 안 됨<span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:156
+#: includes/class-wc-bookings-init.php:159
 msgctxt "woocommerce-bookings"
 msgid "Un-paid"
 msgstr "결제 안 됨"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:153
+#: includes/class-wc-bookings-init.php:156
 msgid "Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "확인 됨 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:147
+#: includes/class-wc-bookings-init.php:150
 msgctxt "woocommerce-bookings"
 msgid "Confirmed"
 msgstr "확인됨"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:144
+#: includes/class-wc-bookings-init.php:147
 msgid "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "결제 및 확인됨<span class=\"count\">(%s개)</span>"
 
-#: includes/class-wc-bookings-init.php:138
+#: includes/class-wc-bookings-init.php:141
 msgctxt "woocommerce-bookings"
 msgid "Paid &amp; Confirmed"
 msgstr "결제 및 확인됨"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:135
+#: includes/class-wc-bookings-init.php:138
 msgid "Complete <span class=\"count\">(%s)</span>"
 msgid_plural "Complete <span class=\"count\">(%s)</span>"
 msgstr[0] "완료<span class=\"count\">(%s개)</span>"
 
-#: includes/class-wc-bookings-init.php:129
+#: includes/class-wc-bookings-init.php:132
 msgctxt "woocommerce-bookings"
 msgid "Complete"
 msgstr "수강완료"
 
-#: includes/class-wc-bookings-init.php:106
+#: includes/class-wc-bookings-init.php:109
 msgid "This is where bookings are stored."
 msgstr "예약 내역이 저장되는 위치입니다."
 
-#: includes/class-wc-bookings-init.php:104
+#: includes/class-wc-bookings-init.php:107
 msgid "All Bookings"
 msgstr "모든 예약"
 
-#: includes/class-wc-bookings-init.php:103
+#: includes/class-wc-bookings-init.php:106
 msgctxt "Admin menu name"
 msgid "Bookings"
 msgstr "예약"
 
-#: includes/class-wc-bookings-init.php:102
+#: includes/class-wc-bookings-init.php:105
 msgid "Parent Bookings"
 msgstr "상위 예약"
 
-#: includes/class-wc-bookings-init.php:101
+#: includes/class-wc-bookings-init.php:104
 msgid "No Bookings found in trash"
 msgstr "휴지통에 예약 없음"
 
-#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:103
 msgid "No Bookings found"
 msgstr "예약 없음"
 
-#: includes/class-wc-bookings-init.php:99
+#: includes/class-wc-bookings-init.php:102
 msgid "Search Bookings"
 msgstr "예약 검색"
 
-#: includes/class-wc-bookings-init.php:97
-#: includes/class-wc-bookings-init.php:98
+#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:101
 msgid "View Booking"
 msgstr "예약 보기"
 
-#: includes/class-wc-bookings-init.php:96
+#: includes/class-wc-bookings-init.php:99
 #: includes/emails/class-wc-email-new-booking.php:25
 msgid "New Booking"
 msgstr "새 예약"
 
-#: includes/class-wc-bookings-init.php:95
+#: includes/class-wc-bookings-init.php:98
 msgid "Edit Booking"
 msgstr "예약 편집"
 
-#: includes/class-wc-bookings-init.php:93
+#: includes/class-wc-bookings-init.php:96
 msgid "Add New Booking"
 msgstr "새 예약 추가"
 
-#: includes/class-wc-bookings-init.php:66
+#: includes/class-wc-bookings-init.php:69
 msgid "Bookable resources are bookable within a bookings product."
 msgstr "예약 가능 리소스는 예약 상품 내에서 예약 가능합니다."
 
-#: includes/class-wc-bookings-init.php:63
+#: includes/class-wc-bookings-init.php:66
 msgctxt "Admin menu name"
 msgid "Resources"
 msgstr "리소스"
 
-#: includes/class-wc-bookings-init.php:62
+#: includes/class-wc-bookings-init.php:65
 msgid "Parent Resources"
 msgstr "상위 리소스"
 
-#: includes/class-wc-bookings-init.php:61
+#: includes/class-wc-bookings-init.php:64
 msgid "No Resource found in trash"
 msgstr "휴지통에 리소스 없음"
 
-#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:63
 msgid "No Resource found"
 msgstr "리소스 없음"
 
-#: includes/class-wc-bookings-init.php:59
+#: includes/class-wc-bookings-init.php:62
 msgid "Search Resource"
 msgstr "리소스 검색"
 
-#: includes/class-wc-bookings-init.php:57
-#: includes/class-wc-bookings-init.php:58
+#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:61
 msgid "View Resource"
 msgstr "리소스 보기"
 
-#: includes/class-wc-bookings-init.php:56
+#: includes/class-wc-bookings-init.php:59
 msgid "New Resource"
 msgstr "새 리소스"
 
-#: includes/class-wc-bookings-init.php:55
+#: includes/class-wc-bookings-init.php:58
 msgid "Edit Resource"
 msgstr "리소스 편집"
 
-#: includes/class-wc-bookings-init.php:53
+#: includes/class-wc-bookings-init.php:56
 msgid "Add New Resource"
 msgstr "새 리소스 추가"
 
-#: includes/class-wc-bookings-init.php:52
+#: includes/class-wc-bookings-init.php:55
 msgid "Add Resource"
 msgstr "리소스 추가"
 
-#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:54
 msgid "Bookable resource"
 msgstr "예약 가능 리소스"
 
-#: includes/class-wc-bookings-init.php:50
+#: includes/class-wc-bookings-init.php:53
 msgid "Bookable resources"
 msgstr "예약 가능 리소스"
 
-#: includes/class-wc-bookings-init.php:35
+#: includes/class-wc-bookings-init.php:38
 msgid "Person Type"
 msgstr "인원 유형"
 
@@ -1285,8 +1296,8 @@ msgid "Bookings from %s"
 msgstr "다음에서 예약: %s"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1470
-#: includes/class-wc-bookings-init.php:88
 #: includes/class-wc-bookings-init.php:91
+#: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr "예약"
 
@@ -1303,7 +1314,7 @@ msgstr "참고: 이 이벤트는 Google 캘린더에서 편집할 수 없습니�
 #: templates/emails/customer-booking-confirmed.php:54
 #: templates/emails/customer-booking-notification.php:45
 #: templates/emails/customer-booking-pending-confirmation.php:54
-#: templates/emails/customer-booking-reminder.php:59
+#: templates/emails/customer-booking-reminder.php:70
 msgid "Booking Type"
 msgstr "예약 유형"
 
@@ -1314,7 +1325,7 @@ msgstr "예약 유형"
 #: templates/emails/customer-booking-confirmed.php:44
 #: templates/emails/customer-booking-notification.php:35
 #: templates/emails/customer-booking-pending-confirmation.php:44
-#: templates/emails/customer-booking-reminder.php:49
+#: templates/emails/customer-booking-reminder.php:60
 msgid "Booking ID"
 msgstr "예약 ID"
 
@@ -1465,7 +1476,7 @@ msgstr "별도로 명시되지 않은 한, 모든 예약 시간 및 종료 시�
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
-#: includes/class-wc-bookings-init.php:90
+#: includes/class-wc-bookings-init.php:93
 #: woocommerce-bookings.php:197
 msgid "Bookings"
 msgstr "예약"
@@ -1634,7 +1645,7 @@ msgid "This date is unavailable"
 msgstr "이 날짜를 이용할 수 없습니다."
 
 #: includes/booking-form/class-wc-booking-form.php:36
-#: templates/myaccount/bookings.php:91
+#: templates/myaccount/bookings.php:93
 msgid "Previous"
 msgstr "이전"
 
@@ -1978,7 +1989,7 @@ msgstr "특정 상품을 %1$s사전에%2$s 예약한 모든 고객에게 이메�
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
-#: templates/myaccount/bookings.php:95
+#: templates/myaccount/bookings.php:97
 msgid "Next"
 msgstr "다음"
 
@@ -2978,7 +2989,7 @@ msgstr "달력"
 #: includes/admin/views/html-create-booking-page-2.php:7
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
-#: includes/class-wc-bookings-init.php:92
+#: includes/class-wc-bookings-init.php:95
 #: woocommerce-bookings.php:166
 msgid "Add Booking"
 msgstr "예약 추가"
@@ -3230,17 +3241,17 @@ msgstr "인원수"
 #: templates/emails/customer-booking-confirmed.php:40
 #: templates/emails/customer-booking-notification.php:31
 #: templates/emails/customer-booking-pending-confirmation.php:40
-#: templates/emails/customer-booking-reminder.php:45
+#: templates/emails/customer-booking-reminder.php:56
 msgid "Booked Product"
 msgstr "예약한 상품"
 
-#: includes/admin/class-wc-bookings-cpt.php:170
+#: includes/admin/class-wc-bookings-cpt.php:169
 #: templates/myaccount/bookings.php:39
 #: templates/myaccount/my-bookings.php:30
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-wc-bookings-cpt.php:169
+#: includes/admin/class-wc-bookings-cpt.php:170
 #: templates/myaccount/bookings.php:44
 #: templates/myaccount/my-bookings.php:35
 msgid "Status"
@@ -3299,7 +3310,7 @@ msgstr "예약자"
 #: templates/emails/plain/customer-booking-confirmed.php:64
 #: templates/emails/plain/customer-booking-notification.php:61
 #: templates/emails/plain/customer-booking-pending-confirmation.php:66
-#: templates/emails/plain/customer-booking-reminder.php:65
+#: templates/emails/plain/customer-booking-reminder.php:70
 msgid "%1$s: %2$d"
 msgstr "%1$s: %2$d"
 
@@ -3313,14 +3324,14 @@ msgstr "%1$s: %2$d"
 #: templates/emails/customer-booking-confirmed.php:79
 #: templates/emails/customer-booking-notification.php:70
 #: templates/emails/customer-booking-pending-confirmation.php:79
-#: templates/emails/customer-booking-reminder.php:84
+#: templates/emails/customer-booking-reminder.php:95
 #: templates/emails/plain/admin-booking-cancelled.php:60
 #: templates/emails/plain/admin-new-booking.php:82
 #: templates/emails/plain/customer-booking-cancelled.php:65
 #: templates/emails/plain/customer-booking-confirmed.php:62
 #: templates/emails/plain/customer-booking-notification.php:59
 #: templates/emails/plain/customer-booking-pending-confirmation.php:64
-#: templates/emails/plain/customer-booking-reminder.php:63
+#: templates/emails/plain/customer-booking-reminder.php:68
 msgid "Person(s)"
 msgstr "인원"
 
@@ -3385,88 +3396,88 @@ msgstr "리소스를 추가할 수 없음"
 msgid "The resource has already been linked to this product"
 msgstr "리소스가 이 상품에 이미 연결되어 있습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:716
+#: includes/admin/class-wc-bookings-admin.php:724
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "이 예약 가능 상품에 여러 개의 예약 가능 리소스(예: 객실 유형 또는 강사)가 있는 경우 활성화합니다."
 
-#: includes/admin/class-wc-bookings-admin.php:715
+#: includes/admin/class-wc-bookings-admin.php:723
 msgid "Has resources"
 msgstr "리소스 있음"
 
-#: includes/admin/class-wc-bookings-admin.php:709
+#: includes/admin/class-wc-bookings-admin.php:717
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "이 예약 가능 상품을 고객이 정의한 인원수로 예약할 수 있는 경우 활성화합니다."
 
-#: includes/admin/class-wc-bookings-admin.php:708
+#: includes/admin/class-wc-bookings-admin.php:716
 msgid "Has persons"
 msgstr "인원 있음"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:669
 msgid "Resource"
 msgstr "리소스"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:668
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "고객"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "View details"
 msgstr "상세 보기"
 
-#: includes/admin/class-wc-bookings-admin.php:656
+#: includes/admin/class-wc-bookings-admin.php:662
 msgid "Enter a name for the new resource"
 msgstr "새 리소스 이름 입력"
 
-#: includes/admin/class-wc-bookings-admin.php:655
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "days"
 msgstr "일"
 
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:660
 msgid "hours"
 msgstr "시간"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:659
 msgid "minutes"
 msgstr "분"
 
-#: includes/admin/class-wc-bookings-admin.php:650
+#: includes/admin/class-wc-bookings-admin.php:656
 msgid "Are you sure you want to remove this resource?"
 msgstr "이 리소스를 제거하시겠어요?"
 
-#: includes/admin/class-wc-bookings-admin.php:647
+#: includes/admin/class-wc-bookings-admin.php:653
 msgid "Are you sure you want to remove this person type?"
 msgstr "이 인원 유형을 제거하시겠어요?"
 
-#: includes/admin/class-wc-bookings-admin.php:549
+#: includes/admin/class-wc-bookings-admin.php:555
 #: includes/class-wc-booking-privacy.php:78
 msgid "Bookable product"
 msgstr "예약 가능한 상품"
 
-#: includes/admin/class-wc-bookings-admin.php:455
+#: includes/admin/class-wc-bookings-admin.php:461
 msgid "Booking submitted."
 msgstr "예약이 제출되었습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:460
 msgid "Booking saved."
 msgstr "예약이 저장되었습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:450
+#: includes/admin/class-wc-bookings-admin.php:456
 msgid "Custom field deleted."
 msgstr "사용자정의 필드 삭제됨."
 
-#: includes/admin/class-wc-bookings-admin.php:449
+#: includes/admin/class-wc-bookings-admin.php:455
 msgid "Custom field updated."
 msgstr "사용자 정의 필드 업데이트됨."
 
-#: includes/admin/class-wc-bookings-admin.php:448
-#: includes/admin/class-wc-bookings-admin.php:451
-#: includes/admin/class-wc-bookings-admin.php:453
+#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:457
+#: includes/admin/class-wc-bookings-admin.php:459
 msgid "Booking updated."
 msgstr "예약이 업데이트되었습니다."
 
-#: includes/admin/class-wc-bookings-admin.php:374
-#: includes/admin/class-wc-bookings-admin.php:664
+#: includes/admin/class-wc-bookings-admin.php:380
+#: includes/admin/class-wc-bookings-admin.php:670
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1423
@@ -3474,23 +3485,23 @@ msgstr "예약이 업데이트되었습니다."
 msgid "Persons"
 msgstr "인원"
 
-#: includes/admin/class-wc-bookings-admin.php:367
+#: includes/admin/class-wc-bookings-admin.php:373
 #: includes/admin/views/html-booking-tab.php:3
 msgid "Costs"
 msgstr "비용"
 
-#: includes/admin/class-wc-bookings-admin.php:360
+#: includes/admin/class-wc-bookings-admin.php:366
 #: includes/admin/class-wc-bookings-products-export.php:32
 #: includes/admin/class-wc-bookings-products-import.php:33
 #: includes/admin/views/html-booking-tab.php:2
 msgid "Availability"
 msgstr "허용 범위"
 
-#: includes/admin/class-wc-bookings-admin.php:353
+#: includes/admin/class-wc-bookings-admin.php:359
 #: includes/admin/views/html-booking-resources.php:36
 #: includes/admin/views/html-booking-tab.php:1
-#: includes/class-wc-bookings-init.php:48
-#: includes/class-wc-bookings-init.php:64
+#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:67
 msgid "Resources"
 msgstr "더 알아보기"
 
@@ -3578,8 +3589,8 @@ msgid "Resource details"
 msgstr "리소스 상세 정보"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:98
-#: includes/class-wc-bookings-init.php:54
-#: includes/class-wc-bookings-init.php:94
+#: includes/class-wc-bookings-init.php:57
+#: includes/class-wc-bookings-init.php:97
 msgid "Edit"
 msgstr "편집"
 

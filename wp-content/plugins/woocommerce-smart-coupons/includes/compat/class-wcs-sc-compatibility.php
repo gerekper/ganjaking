@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.1
+ * @version     1.8.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -153,12 +153,11 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 					foreach ( $coupon_used_in_original_order as $coupon_code ) {
 						$coupon = new WC_Coupon( $coupon_code );
 						if ( $this->is_wc_gte_30() ) {
-							$coupon_amount = $coupon->get_amount();
 							$discount_type = $coupon->get_discount_type();
 						} else {
-							$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 							$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						}
+						$coupon_amount = $this->get_amount( $coupon, true, $original_order );
 						if ( ! empty( $discount_type ) && 'smart_coupon' === $discount_type && ! empty( $coupon_amount ) ) {
 							if ( $coupon_amount >= $renewal_total ) {
 								$subscription->set_payment_method( '' );
@@ -278,7 +277,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				return $renewal_order;
 			}
 
-			$sc_called_credit_details = get_post_meta( $renewal_order_id, 'sc_called_credit_details', true );
+			$sc_called_credit_details = $this->get_post_meta( $renewal_order_id, 'sc_called_credit_details', true, true, $renewal_order );
 			if ( empty( $sc_called_credit_details ) ) {
 				return $renewal_order;
 			}
@@ -354,7 +353,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				}
 			}
 
-			update_post_meta( $renewal_order_id, 'sc_called_credit_details', $sc_called_credit_details );
+			$this->update_post_meta( $renewal_order_id, 'sc_called_credit_details', $sc_called_credit_details, true, $renewal_order );
 			return $renewal_order;
 		}
 
@@ -449,7 +448,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 					if ( 'smart_coupon' === $discount_type ) {
 
-						$smart_coupon_credit_used = get_post_meta( $order_id, 'smart_coupons_contribution', true );
+						$smart_coupon_credit_used = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
 
 						$cart_smart_coupon_credit_used = WC()->cart->smart_coupon_credit_used;
 
@@ -468,7 +467,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						}
 
 						if ( $update ) {
-							update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used );
+							$this->update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupon_credit_used, true );
 						}
 					}
 				}
@@ -649,16 +648,16 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				foreach ( $all_coupons as $coupon_code ) {
 					$coupon = new WC_Coupon( $coupon_code );
 					if ( $this->is_wc_gte_30() ) {
-						$coupon_amount       = $coupon->get_amount();
 						$discount_type       = $coupon->get_discount_type();
 						$coupon_product_ids  = $coupon->get_product_ids();
 						$coupon_category_ids = $coupon->get_product_categories();
 					} else {
-						$coupon_amount       = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						$discount_type       = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						$coupon_product_ids  = ( ! empty( $coupon->product_ids ) ) ? $coupon->product_ids : array();
 						$coupon_category_ids = ( ! empty( $coupon->product_categories ) ) ? $coupon->product_categories : array();
 					}
+
+					$coupon_amount = $this->get_amount( $coupon, true, $renewal_order );
 
 					if ( ! empty( $discount_type ) && 'smart_coupon' === $discount_type && ! empty( $coupon_amount ) ) {
 						if ( 'yes' !== $pay_from_credit_of_original_order && in_array( $coupon_code, $coupon_used_in_original_order, true ) ) {
@@ -717,8 +716,8 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						$discount = min( $renewal_order_total, $coupon_amount );
 						if ( $discount > 0 ) {
 							$new_order_total = $renewal_order_total - $discount;
-							update_post_meta( $renewal_order_id, '_order_total', $new_order_total );
-							update_post_meta( $renewal_order_id, '_order_discount', $discount );
+							$this->update_post_meta( $renewal_order_id, '_order_total', $new_order_total, true, $renewal_order );
+							$this->update_post_meta( $renewal_order_id, '_order_discount', $discount, true, $renewal_order );
 							if ( $new_order_total <= floatval( 0 ) ) {
 								update_post_meta( $renewal_order_id, '_renewal_paid_by_smart_coupon', 'yes' );
 							}
@@ -741,7 +740,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 					}
 				}
 				if ( ! empty( $smart_coupons_contribution ) ) {
-					update_post_meta( $renewal_order_id, 'smart_coupons_contribution', $smart_coupons_contribution );
+					$this->update_post_meta( $renewal_order_id, 'smart_coupons_contribution', $smart_coupons_contribution, true );
 					$renewal_order->sc_total_credit_used = $smart_coupons_contribution;
 				}
 			}
@@ -1178,8 +1177,11 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		 * @return bool whether passed version is greater than or equal to current version of WooCommerce Subscription
 		 */
 		public static function is_wcs_gte( $version = null ) {
-			if ( null === $version ) {
+			if ( is_null( $version ) ) {
 				return false;
+			}
+			if ( version_compare( $version, '4.0.0', '>=' ) && class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+				return true;
 			}
 			if ( ! class_exists( 'WC_Subscriptions' ) || empty( WC_Subscriptions::$version ) ) {
 				return false;

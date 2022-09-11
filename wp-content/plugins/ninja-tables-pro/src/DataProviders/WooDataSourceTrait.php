@@ -191,13 +191,17 @@ trait WooDataSourceTrait
 
             return ob_get_clean();
         } elseif ($type == 'product_stock_status') {
-            if ($product->is_in_stock()) {
-                return 'In stock';
-            } elseif ($product->managing_stock() || !$product->is_in_stock()) {
-                return 'Out of stock';
+
+            if ($product->get_stock_status() === 'outofstock') {
+                return 'Out of Stock';
+            } else if ($product->get_stock_status() === 'onbackorder') {
+                return 'On Backorder';
+            } else if ($product->get_stock_status() === 'instock') {
+                return 'In Stock';
             }
 
-            return '';
+            return ucwords($product->get_stock_status());
+
         } elseif ($type == 'product_sku') {
             return $product->get_sku();
         }

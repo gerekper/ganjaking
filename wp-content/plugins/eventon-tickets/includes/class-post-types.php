@@ -20,7 +20,8 @@ class evotx_post_types{
 	// create new post type
 		function register_tix_post_type(){
 
-			$labels = eventon_get_proper_labels('Event Ticket','Event Tickets');
+			$labels = eventon_get_proper_labels( __('Event Ticket','evotx'), __('Event Tickets','evotx') );
+			
 			register_post_type('evo-tix', 
 				apply_filters( 'eventon_register_post_type_tix',
 					array(

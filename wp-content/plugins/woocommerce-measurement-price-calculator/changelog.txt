@@ -1,5 +1,10 @@
 *** WooCommerce Measurement Price Calculator Changelog ***
 
+2022.08.15 - version 3.20.2
+ * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+ * Dev - Add hooks to allow product data to be filtered before display
+
 2021.09.23 - version 3.20.1
  * Fix - Address some PHP notices when handling measurement products without pricing rules in newer PHP versions
  * Fix - Address an issue where a "rounding necessary" error occurs when adding a product to cart under certain configurations

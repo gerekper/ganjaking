@@ -1,4 +1,7 @@
 <?php
+update_option( 'revslider-valid', 'true' );
+update_option( 'revslider-code', '79EC684E-B95B-BD82-2FA1-B06B7A2631B5' );
+update_option( 'revslider-temp-active-notice', 'false' );
 /*
 Plugin Name: Slider Revolution
 Plugin URI: https://www.sliderrevolution.com/
@@ -7,22 +10,18 @@ Author: ThemePunch
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.5.25
+Version: 6.5.31
 Author URI: https://themepunch.com/
 */
 
 // If this file is called directly, abort.
 if(!defined('WPINC')){ die; }
 
-update_option( 'revslider-valid', 'true' );
-update_option( 'revslider-code', '79EC684E-B95B-BD82-2FA1-B06B7A2631B5' );
-update_option( 'revslider-temp-active-notice', 'false' );
-
 if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.5.25');
+define('RS_REVISION',			'6.5.31');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);

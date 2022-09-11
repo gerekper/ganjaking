@@ -34,27 +34,27 @@ msgstr ""
 msgid "WooCommerce Product Reviews Pro"
 msgstr "WooCommerce Product Reviews Pro"
 
-#: includes/Lifecycle.php:100 includes/Lifecycle.php:177
-#: includes/admin/class-wc-product-reviews-pro-admin.php:715
+#: src/Lifecycle.php:100 src/Lifecycle.php:177
+#: src/admin/class-wc-product-reviews-pro-admin.php:715
 msgid "Admin"
 msgstr "Администратор"
 
-#: includes/Lifecycle.php:101 includes/Lifecycle.php:178
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:337
+#: src/Lifecycle.php:101 src/Lifecycle.php:178
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:337
 msgid "Vendor"
 msgstr "Продавец"
 
 #. translators: Placeholders: %1$s - plugin name, %2$s - error message(s)
-#: includes/Lifecycle.php:126
+#: src/Lifecycle.php:126
 msgid "Error activating and installing %1$s: %2$s"
 msgstr "Ошибка при активации и установке %1$s: %2$s"
 
-#: includes/Lifecycle.php:129
+#: src/Lifecycle.php:129
 msgid "&laquo; Go Back"
 msgstr "&laquo; Назад"
 
 #. translators: Placeholders: %s contribution flagged n times
-#: includes/admin/class-wc-product-reviews-pro-admin.php:159
+#: src/admin/class-wc-product-reviews-pro-admin.php:159
 msgid ""
 "Flagged <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
 "span>"
@@ -71,138 +71,138 @@ msgstr[2] ""
 "Отмеченные <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
 "span>"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:213
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1017
+#: src/admin/class-wc-product-reviews-pro-admin.php:213
+#: src/admin/class-wc-product-reviews-pro-admin.php:1017
 #: templates/myaccount/contribution-list.php:56
 #: templates/myaccount/contribution-list.php:132
 msgid "Type"
 msgstr "Тип"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:214
+#: src/admin/class-wc-product-reviews-pro-admin.php:214
 msgid "Votes"
 msgstr "Голоса"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:261
-#: includes/admin/class-wc-reviews-list-table.php:69
-#: includes/admin/class-wc-reviews-list-table.php:552
-#: includes/class-wc-product-reviews-pro-contribution-type.php:65
-#: includes/class-wc-product-reviews-pro-contribution-type.php:572
+#: src/admin/class-wc-product-reviews-pro-admin.php:261
+#: src/admin/class-wc-reviews-list-table.php:69
+#: src/admin/class-wc-reviews-list-table.php:552
+#: src/class-wc-product-reviews-pro-contribution-type.php:65
+#: src/class-wc-product-reviews-pro-contribution-type.php:572
 msgid "Review"
 msgstr "Отзыв"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:261
-#: includes/class-wc-product-reviews-pro-contribution-type.php:82
-#: includes/class-wc-product-reviews-pro-contribution-type.php:718
+#: src/admin/class-wc-product-reviews-pro-admin.php:261
+#: src/class-wc-product-reviews-pro-contribution-type.php:82
+#: src/class-wc-product-reviews-pro-contribution-type.php:718
 #: templates/myaccount/contribution-list.php:103
 msgid "Comment"
 msgstr "Комментарий"
 
 #. translators: Placeholders: %1$s - Contribution type (CSS class), %2$s -
 #. Contribution type name
-#: includes/admin/class-wc-product-reviews-pro-admin.php:269
+#: src/admin/class-wc-product-reviews-pro-admin.php:269
 msgid "attached"
 msgstr "прикреплено"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:276
+#: src/admin/class-wc-product-reviews-pro-admin.php:276
 msgid "Positive votes"
 msgstr "Положительные голоса"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:277
+#: src/admin/class-wc-product-reviews-pro-admin.php:277
 msgid "Negative votes"
 msgstr "Отрицательные голоса"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:318
+#: src/admin/class-wc-product-reviews-pro-admin.php:318
 msgid ""
 "Are you sure you want to remove this flag? This action cannot be undone."
 msgstr ""
 "Вы уверены, что хотите удалить эту жалобу? Это действие не может быть "
 "отменено."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:319
+#: src/admin/class-wc-product-reviews-pro-admin.php:319
 msgid ""
 "Are you sure you want to remove these flags? This action cannot be undone."
 msgstr ""
 "Вы уверены, что хотите удалить эти жалобы? Это действие не может быть "
 "отменено."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:320
+#: src/admin/class-wc-product-reviews-pro-admin.php:320
 msgid "Are you sure you want to remove the attachment from this contribution?"
 msgstr "Вы уверены, что хотите удалить вложение из этого Отзыва?"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:321
+#: src/admin/class-wc-product-reviews-pro-admin.php:321
 msgid "There was an error removing the attachment. Please try again later."
 msgstr "Возникла ошибка при удалении вложения. Пожалуйста, попробуйте позже."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:362
+#: src/admin/class-wc-product-reviews-pro-admin.php:362
 msgid "All contribution types"
 msgstr "Все типы Отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:405
+#: src/admin/class-wc-product-reviews-pro-admin.php:405
 msgid "All media"
 msgstr "Все медиа"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:406
-#: includes/class-wc-product-reviews-pro-contribution-type.php:73
-#: includes/class-wc-product-reviews-pro-contribution-type.php:732
+#: src/admin/class-wc-product-reviews-pro-admin.php:406
+#: src/class-wc-product-reviews-pro-contribution-type.php:73
+#: src/class-wc-product-reviews-pro-contribution-type.php:732
 msgid "Photo"
 msgstr "Фото"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:407
-#: includes/class-wc-product-reviews-pro-contribution-type.php:77
-#: includes/class-wc-product-reviews-pro-contribution-type.php:733
+#: src/admin/class-wc-product-reviews-pro-admin.php:407
+#: src/class-wc-product-reviews-pro-contribution-type.php:77
+#: src/class-wc-product-reviews-pro-contribution-type.php:733
 msgid "Video"
 msgstr "Видео"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:535
+#: src/admin/class-wc-product-reviews-pro-admin.php:535
 msgid "Oops, no comment with this ID."
 msgstr "Комментария с таким ID не найдено."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:535
+#: src/admin/class-wc-product-reviews-pro-admin.php:535
 msgid "Go back"
 msgstr "Назад"
 
 #. translators: Placeholders: %s count of contributions flagged
-#: includes/admin/class-wc-product-reviews-pro-admin.php:615
+#: src/admin/class-wc-product-reviews-pro-admin.php:615
 msgid "%s contribution flagged"
 msgid_plural "%s contributions flagged"
 msgstr[0] "%s отзыв отмечен"
 msgstr[1] "%s отзыва отмечено"
 msgstr[2] "%s отзывов отмечено"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:673
+#: src/admin/class-wc-product-reviews-pro-admin.php:673
 msgid "Contributions types"
 msgstr "Типы отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:674
+#: src/admin/class-wc-product-reviews-pro-admin.php:674
 msgid "Select which contribution types to enable"
 msgstr "Выберите, какие типы отзывов Вы хотите включить"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:682
+#: src/admin/class-wc-product-reviews-pro-admin.php:682
 msgid "Enable all contribution types"
 msgstr "Включить все типы отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:683
+#: src/admin/class-wc-product-reviews-pro-admin.php:683
 msgid "Enable specific contribution types only"
 msgstr "Включить определённые типы отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:687
+#: src/admin/class-wc-product-reviews-pro-admin.php:687
 msgid "Specific contribution types"
 msgstr "Определённые типы отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:697
+#: src/admin/class-wc-product-reviews-pro-admin.php:697
 msgid "Admins can always reply"
 msgstr "Администратор всегда может отвечать"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:698
+#: src/admin/class-wc-product-reviews-pro-admin.php:698
 msgid ""
 "Allow administrators and shop managers to leave replies to contributions"
 msgstr "Разрешить Администраторам и Менеджерам Магазина отвечать на Отзывы"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:703
+#: src/admin/class-wc-product-reviews-pro-admin.php:703
 msgid "Allow Attachments"
 msgstr "Разрешить вложения"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:704
+#: src/admin/class-wc-product-reviews-pro-admin.php:704
 msgid ""
 "Enable to allow customers to add photo and video attachments as part of a "
 "review or question"
@@ -210,16 +210,16 @@ msgstr ""
 "Включите, чтобы разрешить пользователям добавлять фото и видео к отзывам и "
 "вопросам"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:710
+#: src/admin/class-wc-product-reviews-pro-admin.php:710
 msgid "Admin badges"
 msgstr "Метка Администратора"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:712
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:334
+#: src/admin/class-wc-product-reviews-pro-admin.php:712
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:334
 msgid "Leave blank to disable badges."
 msgstr "Оставьте это поле пустым, чтобы отключить метки."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:713
+#: src/admin/class-wc-product-reviews-pro-admin.php:713
 msgid ""
 "Enter the text to use on badges displayed on admin and shop manager "
 "contributions."
@@ -227,1033 +227,1033 @@ msgstr ""
 "Введите текст, который будет отображаться на всех ответах и отзывах от "
 "Администраторов и Менеджеров магазина."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:718
+#: src/admin/class-wc-product-reviews-pro-admin.php:718
 msgid "Sorting order"
 msgstr "Порядок сортировки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:719
+#: src/admin/class-wc-product-reviews-pro-admin.php:719
 msgid "Choose how contributions are sorted on product pages"
 msgstr "Выберите, как отзывы будут отсортированы на странице продукта"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:727
+#: src/admin/class-wc-product-reviews-pro-admin.php:727
 msgid "Most helpful first"
 msgstr "Сперва полезные"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:728
+#: src/admin/class-wc-product-reviews-pro-admin.php:728
 msgid "Newest first"
 msgstr "Сперва новейшие"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:732
+#: src/admin/class-wc-product-reviews-pro-admin.php:732
 msgid "Minimum word count"
 msgstr "Минимальное количество слов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:733
+#: src/admin/class-wc-product-reviews-pro-admin.php:733
 msgid ""
 "Users need to enter at least this amount of words when posting a contribution"
 msgstr ""
 "Пользователь должен ввести минимальное количество слов, чтобы оставить отзыв"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:738
+#: src/admin/class-wc-product-reviews-pro-admin.php:738
 msgid "Maximum word count"
 msgstr "Максимальное количество слов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:739
+#: src/admin/class-wc-product-reviews-pro-admin.php:739
 msgid "Maximum number of words users can enter when posting a contribution"
 msgstr "Максимально допустимое количество слов для отзыва"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:744
+#: src/admin/class-wc-product-reviews-pro-admin.php:744
 msgid "Threshold for publication"
 msgstr "Начальный лимит для публикации"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:745
+#: src/admin/class-wc-product-reviews-pro-admin.php:745
 msgid ""
 "Show contributions to public only after a minimum amount of submission is met"
 msgstr ""
 "Показывать отзывы и комментарии только когда наберётся минимальное количество"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:755
+#: src/admin/class-wc-product-reviews-pro-admin.php:755
 msgid "Flagged contributions"
 msgstr "Отмеченные отзывы"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:756
+#: src/admin/class-wc-product-reviews-pro-admin.php:756
 msgid ""
 "Change publication status should a contribution be flagged as inappropriate"
 msgstr "Изменять статус публикации, если поступила жалоба"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:763
+#: src/admin/class-wc-product-reviews-pro-admin.php:763
 msgid "Keep published"
 msgstr "Оставлять опубликованным"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:764
+#: src/admin/class-wc-product-reviews-pro-admin.php:764
 msgid "Set to pending approval when flagged by a registered customer"
 msgstr ""
 "Переключить на \"ожидает одобрения\" при жалобе от зарегистрированного "
 "Покупателя"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:765
+#: src/admin/class-wc-product-reviews-pro-admin.php:765
 msgid "Set to pending approval when flagged by anyone"
 msgstr "Переключить на \"ожидает одобрения\" при жалобе от всех"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:769
+#: src/admin/class-wc-product-reviews-pro-admin.php:769
 msgid "Moderation"
 msgstr "Модерация"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:770
+#: src/admin/class-wc-product-reviews-pro-admin.php:770
 msgid "Contributions must be manually approved"
 msgstr "Отзывы должны быть одобрены вручную"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:816
-#: includes/admin/class-wc-reviews-list-table.php:68
-#: includes/admin/class-wc-reviews.php:87
-#: includes/admin/views/html-report-product-reviews.php:13
-#: includes/class-wc-product-reviews-pro-contribution-type.php:65
+#: src/admin/class-wc-product-reviews-pro-admin.php:816
+#: src/admin/class-wc-reviews-list-table.php:68
+#: src/admin/class-wc-reviews.php:87
+#: src/admin/views/html-report-product-reviews.php:13
+#: src/class-wc-product-reviews-pro-contribution-type.php:65
 msgid "Reviews"
 msgstr "Отзывы"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:819
+#: src/admin/class-wc-product-reviews-pro-admin.php:819
 msgid "Most Reviews"
 msgstr "Больше всего Отзывов"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:825
-#: includes/admin/views/html-report-product-reviews.php:14
+#: src/admin/class-wc-product-reviews-pro-admin.php:825
+#: src/admin/views/html-report-product-reviews.php:14
 msgid "Highest Rating"
 msgstr "Наивысший рейтинг"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:831
-#: includes/admin/views/html-report-product-reviews.php:15
+#: src/admin/class-wc-product-reviews-pro-admin.php:831
+#: src/admin/views/html-report-product-reviews.php:15
 msgid "Lowest Rating"
 msgstr "Самый низкий рейтинг"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:903
-#: includes/class-wc-product-reviews-pro-contribution-type.php:713
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:766
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:51
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:51
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:51
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:51
+#: src/admin/class-wc-product-reviews-pro-admin.php:903
+#: src/class-wc-product-reviews-pro-contribution-type.php:713
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:766
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:51
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:51
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:51
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:51
 #: templates/emails/plain/review-update-confirmation.php:77
 #: templates/emails/review-update-confirmation.php:90
 msgid "Title"
 msgstr "Заголовок"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:906
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:812
+#: src/admin/class-wc-product-reviews-pro-admin.php:906
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:812
 msgid "Stats"
 msgstr "Статистика"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:907
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:819
+#: src/admin/class-wc-product-reviews-pro-admin.php:907
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:819
 msgid "Flags"
 msgstr "Отметки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:910
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:803
+#: src/admin/class-wc-product-reviews-pro-admin.php:910
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:803
 msgid "Attached media"
 msgstr "Вложения"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1021
-#: includes/admin/class-wc-reviews-list-table.php:553
-#: includes/admin/views/html-report-product-reviews.php:12
+#: src/admin/class-wc-product-reviews-pro-admin.php:1021
+#: src/admin/class-wc-reviews-list-table.php:553
+#: src/admin/views/html-report-product-reviews.php:12
 msgid "Product"
 msgstr "Продукт"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1025
+#: src/admin/class-wc-product-reviews-pro-admin.php:1025
 msgid "Upvotes"
 msgstr "Лайки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1029
+#: src/admin/class-wc-product-reviews-pro-admin.php:1029
 msgid "Downvotes"
 msgstr "Дизлайки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1033
+#: src/admin/class-wc-product-reviews-pro-admin.php:1033
 msgid "Active Flags"
 msgstr "Активные отметки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1056
+#: src/admin/class-wc-product-reviews-pro-admin.php:1056
 msgid "Qualifiers"
 msgstr "Категории"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1099
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1199
+#: src/admin/class-wc-product-reviews-pro-admin.php:1099
+#: src/admin/class-wc-product-reviews-pro-admin.php:1199
 msgid "Bulk Actions"
 msgstr "Множественные действия"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1100
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1163
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1200
+#: src/admin/class-wc-product-reviews-pro-admin.php:1100
+#: src/admin/class-wc-product-reviews-pro-admin.php:1163
+#: src/admin/class-wc-product-reviews-pro-admin.php:1200
 msgid "Resolve"
 msgstr "Разрешить"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1101
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1170
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1201
-#: includes/admin/class-wc-reviews-list-table.php:841
+#: src/admin/class-wc-product-reviews-pro-admin.php:1101
+#: src/admin/class-wc-product-reviews-pro-admin.php:1170
+#: src/admin/class-wc-product-reviews-pro-admin.php:1201
+#: src/admin/class-wc-reviews-list-table.php:841
 msgid "Delete"
 msgstr "Удалить"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1103
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1203
+#: src/admin/class-wc-product-reviews-pro-admin.php:1103
+#: src/admin/class-wc-product-reviews-pro-admin.php:1203
 msgid "Apply"
 msgstr "Применить"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1110
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1189
+#: src/admin/class-wc-product-reviews-pro-admin.php:1110
+#: src/admin/class-wc-product-reviews-pro-admin.php:1189
 msgid "Flagged by"
 msgstr "Жалоба от"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1111
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1190
+#: src/admin/class-wc-product-reviews-pro-admin.php:1111
+#: src/admin/class-wc-product-reviews-pro-admin.php:1190
 msgid "Reason"
 msgstr "Причина"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1112
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1191
-#: includes/admin/views/html-report-product-reviews.php:17
+#: src/admin/class-wc-product-reviews-pro-admin.php:1112
+#: src/admin/class-wc-product-reviews-pro-admin.php:1191
+#: src/admin/views/html-report-product-reviews.php:17
 #: templates/myaccount/contribution-list.php:186
 msgid "Actions"
 msgstr "Действия"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1139
+#: src/admin/class-wc-product-reviews-pro-admin.php:1139
 msgid "Guest"
 msgstr "Гость"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1151
+#: src/admin/class-wc-product-reviews-pro-admin.php:1151
 msgid "No flag reasons given"
 msgstr "Не причины отметки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1181
+#: src/admin/class-wc-product-reviews-pro-admin.php:1181
 msgid "No one has flagged this contribution for removal."
 msgstr "Еще никто не отметил этот Отзыв для удаления."
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1239
+#: src/admin/class-wc-product-reviews-pro-admin.php:1239
 msgid "View Source"
 msgstr "Просмотреть Оригинал"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1243
+#: src/admin/class-wc-product-reviews-pro-admin.php:1243
 msgid "Edit attachment"
 msgstr "Редактировать вложение"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1245
+#: src/admin/class-wc-product-reviews-pro-admin.php:1245
 msgid "Remove attachment"
 msgstr "Удалить вложение"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1268
+#: src/admin/class-wc-product-reviews-pro-admin.php:1268
 msgid "Attachment has been removed"
 msgstr "Вложение удалено"
 
-#: includes/admin/class-wc-reviews-list-table.php:213
+#: src/admin/class-wc-reviews-list-table.php:213
 msgid "All ratings"
 msgstr "Все рейтинги"
 
-#: includes/admin/class-wc-reviews-list-table.php:214
-#: includes/class-wc-product-reviews-pro-contribution-type.php:552
+#: src/admin/class-wc-reviews-list-table.php:214
+#: src/class-wc-product-reviews-pro-contribution-type.php:552
 msgid "Perfect"
 msgstr "Превосходно"
 
-#: includes/admin/class-wc-reviews-list-table.php:215
-#: includes/class-wc-product-reviews-pro-contribution-type.php:553
+#: src/admin/class-wc-reviews-list-table.php:215
+#: src/class-wc-product-reviews-pro-contribution-type.php:553
 msgid "Good"
 msgstr "Хорошо"
 
-#: includes/admin/class-wc-reviews-list-table.php:216
-#: includes/class-wc-product-reviews-pro-contribution-type.php:554
+#: src/admin/class-wc-reviews-list-table.php:216
+#: src/class-wc-product-reviews-pro-contribution-type.php:554
 msgid "Average"
 msgstr "Средне"
 
-#: includes/admin/class-wc-reviews-list-table.php:217
-#: includes/class-wc-product-reviews-pro-contribution-type.php:555
+#: src/admin/class-wc-reviews-list-table.php:217
+#: src/class-wc-product-reviews-pro-contribution-type.php:555
 msgid "Mediocre"
 msgstr "Скучно"
 
-#: includes/admin/class-wc-reviews-list-table.php:218
-#: includes/class-wc-product-reviews-pro-contribution-type.php:556
+#: src/admin/class-wc-reviews-list-table.php:218
+#: src/class-wc-product-reviews-pro-contribution-type.php:556
 msgid "Poor"
 msgstr "Плохо"
 
-#: includes/admin/class-wc-reviews-list-table.php:245
+#: src/admin/class-wc-reviews-list-table.php:245
 msgid "Search for a product&hellip;"
 msgstr "Искать продукт&hellip;"
 
-#: includes/admin/class-wc-reviews-list-table.php:339
+#: src/admin/class-wc-reviews-list-table.php:339
 msgid "No reviews awaiting moderation."
 msgstr "Нет отзывов ожидающих модерации."
 
-#: includes/admin/class-wc-reviews-list-table.php:341
+#: src/admin/class-wc-reviews-list-table.php:341
 msgid "No reviews found."
 msgstr "Отзывов не найдено."
 
-#: includes/admin/class-wc-reviews-list-table.php:448
-#: includes/admin/class-wc-reviews-list-table.php:826
+#: src/admin/class-wc-reviews-list-table.php:448
+#: src/admin/class-wc-reviews-list-table.php:826
 msgid "Unapprove"
 msgstr "Не одобрять"
 
-#: includes/admin/class-wc-reviews-list-table.php:452
-#: includes/admin/class-wc-reviews-list-table.php:823
+#: src/admin/class-wc-reviews-list-table.php:452
+#: src/admin/class-wc-reviews-list-table.php:823
 msgid "Approve"
 msgstr "Одобрить"
 
-#: includes/admin/class-wc-reviews-list-table.php:460
-#: includes/admin/class-wc-reviews-list-table.php:838
+#: src/admin/class-wc-reviews-list-table.php:460
+#: src/admin/class-wc-reviews-list-table.php:838
 msgid "Restore"
 msgstr "Восстановить"
 
-#: includes/admin/class-wc-reviews-list-table.php:466
+#: src/admin/class-wc-reviews-list-table.php:466
 msgid "Delete Permanently"
 msgstr "Удалить навсегда"
 
-#: includes/admin/class-wc-reviews-list-table.php:468
+#: src/admin/class-wc-reviews-list-table.php:468
 msgid "Move to Trash"
 msgstr "Переместить в корзину"
 
-#: includes/admin/class-wc-reviews-list-table.php:505
+#: src/admin/class-wc-reviews-list-table.php:505
 msgid "Empty Spam"
 msgstr "Отчистить спам"
 
-#: includes/admin/class-wc-reviews-list-table.php:505
+#: src/admin/class-wc-reviews-list-table.php:505
 msgid "Empty Trash"
 msgstr "Отчистить корзину"
 
-#: includes/admin/class-wc-reviews-list-table.php:551
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:599
+#: src/admin/class-wc-reviews-list-table.php:551
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:599
 msgid "Author"
 msgstr "Автор"
 
-#: includes/admin/class-wc-reviews-list-table.php:646
+#: src/admin/class-wc-reviews-list-table.php:646
 msgid "Select comment"
 msgstr "Выбрать комментарий"
 
 #. translators: Placeholders: %1$s opening <a> link tag, %2$s comment date,
 #. %3$s comment time, %4$s closing <a> link tag
-#: includes/admin/class-wc-reviews-list-table.php:745
+#: src/admin/class-wc-reviews-list-table.php:745
 msgid "On %1$s%2$s at %3$s%4$s"
 msgstr "В %1$s%2$s в %3$s%4$s"
 
 #. translators: Placeholder %d - rating (e.g. 'Rated 4 out of 5')
-#: includes/admin/class-wc-reviews-list-table.php:758
+#: src/admin/class-wc-reviews-list-table.php:758
 #: templates/single-product/contributions/contribution-review-legacy.php:60
 msgid "Rated %d out of 5"
 msgstr "Оценено на %d из 5"
 
 #. translators: Placeholder %d - rating (e.g. '4 out of 5')
-#: includes/admin/class-wc-reviews-list-table.php:760
+#: src/admin/class-wc-reviews-list-table.php:760
 msgid "%d out of 5"
 msgstr "%d из 5"
 
-#: includes/admin/class-wc-reviews-list-table.php:775
+#: src/admin/class-wc-reviews-list-table.php:775
 msgid "show more"
 msgstr "показать больше"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:822
+#: src/admin/class-wc-reviews-list-table.php:822
 msgid "Approve this %s"
 msgstr "Одобрить этот %s"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:825
+#: src/admin/class-wc-reviews-list-table.php:825
 msgid "Unapprove this %s"
 msgstr "Не одобрять этот %s"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:828
+#: src/admin/class-wc-reviews-list-table.php:828
 msgid "Mark this %s as spam"
 msgstr "Отметить этот %s как спам"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:834
+#: src/admin/class-wc-reviews-list-table.php:834
 msgid "Move this %s to the trash"
 msgstr "Переместить этот %s в корзину"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:837
+#: src/admin/class-wc-reviews-list-table.php:837
 msgid "Restore %s from trash"
 msgstr "Восстановить %s из корзины"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:840
+#: src/admin/class-wc-reviews-list-table.php:840
 msgid "Delete this %s permanently"
 msgstr "Удалить этот %s навсегда"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:843
+#: src/admin/class-wc-reviews-list-table.php:843
 msgid "Edit this %s"
 msgstr "Редактировать этот %s"
 
-#: includes/admin/class-wc-reviews-list-table.php:844
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1114
+#: src/admin/class-wc-reviews-list-table.php:844
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1114
 msgid "Edit"
 msgstr "Редактировать"
 
 #. translators: Placeholder: %s contribution type name
-#: includes/admin/class-wc-reviews-list-table.php:846
+#: src/admin/class-wc-reviews-list-table.php:846
 msgid "Reply to this %s"
 msgstr "Ответить на этот %s"
 
-#: includes/admin/class-wc-reviews-list-table.php:847
+#: src/admin/class-wc-reviews-list-table.php:847
 msgid "Reply"
 msgstr "Ответить"
 
-#: includes/admin/class-wc-reviews-list-table.php:968
+#: src/admin/class-wc-reviews-list-table.php:968
 msgid "%1$sReview by %2$s%3$s"
 msgstr "%1$sОценён пользователем %2$s%3$s"
 
 #. translators: Placeholder: %s - product title
-#: includes/admin/class-wc-reviews.php:92
+#: src/admin/class-wc-reviews.php:92
 msgid "Reviews for %s"
 msgstr "Отзыв на %s"
 
-#: includes/admin/class-wc-reviews.php:223
+#: src/admin/class-wc-reviews.php:223
 msgid "Search reviews"
 msgstr "Искать Отзыв"
 
-#: includes/admin/class-wc-reviews.php:257
+#: src/admin/class-wc-reviews.php:257
 msgid "%s comment approved"
 msgid_plural "%s comments approved"
 msgstr[0] "%s комментарий одобрен"
 msgstr[1] "%s комментария одобрено"
 msgstr[2] "%s комментариев одобрено"
 
-#: includes/admin/class-wc-reviews.php:262
+#: src/admin/class-wc-reviews.php:262
 msgid "%s comment marked as spam."
 msgid_plural "%s comments marked as spam."
 msgstr[0] "%s комментарий помечен как спам."
 msgstr[1] "%s комментария помечено как спам."
 msgstr[2] "%s комментариев помечено как спам."
 
-#: includes/admin/class-wc-reviews.php:262
-#: includes/admin/class-wc-reviews.php:271
+#: src/admin/class-wc-reviews.php:262
+#: src/admin/class-wc-reviews.php:271
 msgid "Undo"
 msgstr "Отменить"
 
-#: includes/admin/class-wc-reviews.php:266
+#: src/admin/class-wc-reviews.php:266
 msgid "%s comment restored from the spam"
 msgid_plural "%s comments restored from the spam"
 msgstr[0] "%s комментарий восстановлен из спама"
 msgstr[1] "%s комментария восстановлено из спама"
 msgstr[2] "%s комментариев восстановлено из спама"
 
-#: includes/admin/class-wc-reviews.php:271
+#: src/admin/class-wc-reviews.php:271
 msgid "%s comment moved to the Trash."
 msgid_plural "%s comments moved to the Trash."
 msgstr[0] "%s комментарий перемещён в Корзину."
 msgstr[1] "%s комментария перемещено в Корзину."
 msgstr[2] "%s комментариев перемещено в Корзину."
 
-#: includes/admin/class-wc-reviews.php:275
+#: src/admin/class-wc-reviews.php:275
 msgid "%s comment restored from the Trash"
 msgid_plural "%s comments restored from the Trash"
 msgstr[0] "%s комментарий восстановлен из Корзины"
 msgstr[1] "%s комментария восстановлено из Корзины"
 msgstr[2] "%s комментариев восстановлено из Корзины"
 
-#: includes/admin/class-wc-reviews.php:279
+#: src/admin/class-wc-reviews.php:279
 msgid "%s comment permanently deleted"
 msgid_plural "%s comments permanently deleted"
 msgstr[0] "%s комментарий удалён навсегда"
 msgstr[1] "%s комментария удалёно навсегда"
 msgstr[2] "%s комментариев удалёно навсегда"
 
-#: includes/admin/class-wc-reviews.php:285
+#: src/admin/class-wc-reviews.php:285
 msgid "This comment is already approved."
 msgstr "Этот комментарий уже одобрен."
 
-#: includes/admin/class-wc-reviews.php:285
-#: includes/admin/class-wc-reviews.php:291
+#: src/admin/class-wc-reviews.php:285
+#: src/admin/class-wc-reviews.php:291
 msgid "Edit comment"
 msgstr "Редактировать комментарий"
 
-#: includes/admin/class-wc-reviews.php:288
+#: src/admin/class-wc-reviews.php:288
 msgid "This comment is already in the Trash."
 msgstr "Этот комментарий уже в Корзине."
 
-#: includes/admin/class-wc-reviews.php:288
+#: src/admin/class-wc-reviews.php:288
 msgid "View Trash"
 msgstr "Просмотреть Корзину"
 
-#: includes/admin/class-wc-reviews.php:291
+#: src/admin/class-wc-reviews.php:291
 msgid "This comment is already marked as spam."
 msgstr "Этот комментарий уже отмечен как спам."
 
-#: includes/admin/class-wc-reviews.php:322
+#: src/admin/class-wc-reviews.php:322
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/admin/class-wc-reviews.php:364
-#: includes/class-wc-product-reviews-pro-contribution-type.php:442
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:580
+#: src/admin/class-wc-reviews.php:364
+#: src/class-wc-product-reviews-pro-contribution-type.php:442
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:580
 msgid "Edit Review"
 msgstr "Редактировать Отзыв"
 
-#: includes/admin/class-wc-reviews.php:368
-#: includes/class-wc-product-reviews-pro-contribution-type.php:485
+#: src/admin/class-wc-reviews.php:368
+#: src/class-wc-product-reviews-pro-contribution-type.php:485
 msgid "Moderate Review"
 msgstr "Модерировать Отзыв"
 
-#: includes/admin/views/html-report-product-reviews.php:16
+#: src/admin/views/html-report-product-reviews.php:16
 msgid "Average Rating"
 msgstr "Средний рейтинг"
 
-#: includes/admin/views/html-report-product-reviews.php:34
+#: src/admin/views/html-report-product-reviews.php:34
 msgid "View Product"
 msgstr "Просмотреть Продукт"
 
-#: includes/admin/views/html-report-product-reviews.php:37
+#: src/admin/views/html-report-product-reviews.php:37
 msgid "View Reviews"
 msgstr "Смотреть Отзывы"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:115
-#: includes/class-wc-product-reviews-pro-emails.php:242
+#: src/class-wc-product-reviews-pro-ajax.php:115
+#: src/class-wc-product-reviews-pro-emails.php:242
 msgid "You have taken too long, please go back and try again."
 msgstr ""
 "Прошло слишком много времени. Пожалуйста, вернитесь на предыдущую страницу и "
 "попробуйте снова."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:138
+#: src/class-wc-product-reviews-pro-ajax.php:138
 msgid "You need to be logged in to vote."
 msgstr "Необходимо авторизоваться, чтобы проголосовать."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:146
-#: includes/class-wc-product-reviews-pro-ajax.php:195
-#: includes/class-wc-product-reviews-pro-ajax.php:248
-#: includes/class-wc-product-reviews-pro-ajax.php:491
-#: includes/class-wc-product-reviews-pro-ajax.php:661
-#: includes/class-wc-product-reviews-pro-ajax.php:773
-#: includes/class-wc-product-reviews-pro-ajax.php:873
-#: includes/class-wc-product-reviews-pro-ajax.php:925
-#: includes/class-wc-product-reviews-pro-ajax.php:1027
+#: src/class-wc-product-reviews-pro-ajax.php:146
+#: src/class-wc-product-reviews-pro-ajax.php:195
+#: src/class-wc-product-reviews-pro-ajax.php:248
+#: src/class-wc-product-reviews-pro-ajax.php:491
+#: src/class-wc-product-reviews-pro-ajax.php:661
+#: src/class-wc-product-reviews-pro-ajax.php:773
+#: src/class-wc-product-reviews-pro-ajax.php:873
+#: src/class-wc-product-reviews-pro-ajax.php:925
+#: src/class-wc-product-reviews-pro-ajax.php:1027
 msgid "Invalid request."
 msgstr "Ошибка."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:156
-#: includes/class-wc-product-reviews-pro-ajax.php:204
-#: includes/class-wc-product-reviews-pro-ajax.php:256
-#: includes/class-wc-product-reviews-pro-ajax.php:500
+#: src/class-wc-product-reviews-pro-ajax.php:156
+#: src/class-wc-product-reviews-pro-ajax.php:204
+#: src/class-wc-product-reviews-pro-ajax.php:256
+#: src/class-wc-product-reviews-pro-ajax.php:500
 msgid "Invalid request. Contribution not found."
 msgstr "Ошибка. Отзыв не найден."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:168
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:538
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1050
+#: src/class-wc-product-reviews-pro-ajax.php:168
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:538
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:1050
 msgid "Could not cast your vote. Please try again later."
 msgstr "Ваш голос не может быть засчитан. Пожалуйста, попробуйте позже."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:174
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1045
+#: src/class-wc-product-reviews-pro-ajax.php:174
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:1045
 msgid "Vote has been cast. Thanks!"
 msgstr "Голос засчитан, спасибо!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:216
-#: includes/class-wc-product-reviews-pro-ajax.php:1055
+#: src/class-wc-product-reviews-pro-ajax.php:216
+#: src/class-wc-product-reviews-pro-ajax.php:1055
 msgid "You'll be notified when there are replies."
 msgstr "Вы получите уведомление, когда кто-нибудь добавит ответ."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:220
+#: src/class-wc-product-reviews-pro-ajax.php:220
 msgid "You are no longer following replies."
 msgstr "Вы больше не следите за ответами."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:229
-#: includes/class-wc-product-reviews-pro-ajax.php:1059
-#: includes/class-wc-product-reviews-pro-emails.php:221
-#: includes/class-wc-product-reviews-pro-emails.php:251
-#: includes/class-wc-product-reviews-pro-emails.php:261
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:537
+#: src/class-wc-product-reviews-pro-ajax.php:229
+#: src/class-wc-product-reviews-pro-ajax.php:1059
+#: src/class-wc-product-reviews-pro-emails.php:221
+#: src/class-wc-product-reviews-pro-emails.php:251
+#: src/class-wc-product-reviews-pro-emails.php:261
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:537
 msgid "An error occurred. Your request could not be processed."
 msgstr "Возникла ошибка, из-за чего Ваш запрос не может быть обработан."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:268
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:536
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1002
+#: src/class-wc-product-reviews-pro-ajax.php:268
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:536
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:1002
 msgid "Could not flag contribution. Please try again later."
 msgstr "Невозможно отметить данный отзыв. Пожалуйста, попробуйте позже."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:273
+#: src/class-wc-product-reviews-pro-ajax.php:273
 msgid "Contribution has been flagged. Thanks!"
 msgstr "Отзыв был отмечен для модерации, спасибо!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:389
+#: src/class-wc-product-reviews-pro-ajax.php:389
 msgid "Error"
 msgstr "Ошибка"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:521
+#: src/class-wc-product-reviews-pro-ajax.php:521
 msgid "Attachment successfully removed."
 msgstr "Вложение успешно удалено."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:668
-#: includes/class-wc-product-reviews-pro-ajax.php:735
-#: includes/class-wc-product-reviews-pro-ajax.php:780
-#: includes/class-wc-product-reviews-pro-ajax.php:865
-#: includes/class-wc-product-reviews-pro-ajax.php:932
+#: src/class-wc-product-reviews-pro-ajax.php:668
+#: src/class-wc-product-reviews-pro-ajax.php:735
+#: src/class-wc-product-reviews-pro-ajax.php:780
+#: src/class-wc-product-reviews-pro-ajax.php:865
+#: src/class-wc-product-reviews-pro-ajax.php:932
 msgid "Invalid request. Product not found."
 msgstr "Ошибка. Товар не найден."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:676
-#: includes/class-wc-product-reviews-pro-ajax.php:682
-#: includes/class-wc-product-reviews-pro-ajax.php:788
+#: src/class-wc-product-reviews-pro-ajax.php:676
+#: src/class-wc-product-reviews-pro-ajax.php:682
+#: src/class-wc-product-reviews-pro-ajax.php:788
 msgid "Invalid request. Review not found."
 msgstr "Ошибка. Отзыв не найден."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:750
+#: src/class-wc-product-reviews-pro-ajax.php:750
 msgid "Invalid request. No review found."
 msgstr "Ошибка. Отзыва не найдено."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:795
+#: src/class-wc-product-reviews-pro-ajax.php:795
 msgid "Invalid request. Review content can't be empty."
 msgstr "Ошибка. Содержание отзыва не может быть пустым."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:812
+#: src/class-wc-product-reviews-pro-ajax.php:812
 msgid "You did not make any changes to your review!"
 msgstr "Вы не сделали никаких изменений в отзыве!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:842
+#: src/class-wc-product-reviews-pro-ajax.php:842
 msgid "Review updated!"
 msgstr "Отзыв обновлён!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:846
+#: src/class-wc-product-reviews-pro-ajax.php:846
 msgid "Something went wrong. Please try again!"
 msgstr "Что-то пошло не так. Пожалуйста, попробуйте снова!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:900
+#: src/class-wc-product-reviews-pro-ajax.php:900
 msgid ""
 "Whoops, looks like you've already reviewed this product! Please contact the "
 "store if you’d like to update your review."
 msgstr "Похоже, что Вы уже оставили отзыв на этот продукт."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:971
+#: src/class-wc-product-reviews-pro-ajax.php:971
 msgid "Invalid request. File is not updated."
 msgstr "Ошибка. Файл не был загружен."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1004
+#: src/class-wc-product-reviews-pro-ajax.php:1004
 msgid "Confirmation mail sent!"
 msgstr "Email-письмо с подтверждением отправлено!"
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1008
+#: src/class-wc-product-reviews-pro-ajax.php:1008
 msgid "Something went wrong. Please try again."
 msgstr "Что-то пошло не так. Попробуйте снова."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1034
+#: src/class-wc-product-reviews-pro-ajax.php:1034
 msgid "Email is required."
 msgstr "Необходим email-адрес."
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1043
+#: src/class-wc-product-reviews-pro-ajax.php:1043
 msgid "An account is already registered with your email address. Please login."
 msgstr ""
 "Аккаунт с таким email-адресом уже зарегистрирован. Пожалуйста авторизуйтесь."
 
 #. translators: Placeholder: %s - IP address of the visitor in parenthesis
-#: includes/class-wc-product-reviews-pro-contribution-flag.php:252
+#: src/class-wc-product-reviews-pro-contribution-flag.php:252
 msgid "Visitor %s"
 msgstr "Посетитель %s"
 
-#: includes/class-wc-product-reviews-pro-contribution-flag.php:260
+#: src/class-wc-product-reviews-pro-contribution-flag.php:260
 msgid "Customer"
 msgstr "Клиент"
 
 #. translators: Placeholder: %s - customer's profile edit screen URL in
 #. parenthesis
-#: includes/class-wc-product-reviews-pro-contribution-flag.php:263
+#: src/class-wc-product-reviews-pro-contribution-flag.php:263
 msgid "Customer %s"
 msgstr "Клиент %s"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:69
+#: src/class-wc-product-reviews-pro-contribution-type.php:69
 msgid "Questions"
 msgstr "Вопросы"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:69
-#: includes/class-wc-product-reviews-pro-contribution-type.php:587
+#: src/class-wc-product-reviews-pro-contribution-type.php:69
+#: src/class-wc-product-reviews-pro-contribution-type.php:587
 #: templates/single-product/contributions/contribution-question-legacy.php:50
 #: templates/single-product/contributions/contribution-question.php:48
 msgid "Question"
 msgstr "Вопрос"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:73
+#: src/class-wc-product-reviews-pro-contribution-type.php:73
 msgid "Photos"
 msgstr "Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:77
+#: src/class-wc-product-reviews-pro-contribution-type.php:77
 msgid "Videos"
 msgstr "Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:82
+#: src/class-wc-product-reviews-pro-contribution-type.php:82
 msgid "Comments"
 msgstr "Комментарии"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:117
+#: src/class-wc-product-reviews-pro-contribution-type.php:117
 msgid "Update my Review"
 msgstr "Обновить мой Отзыв"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:119
+#: src/class-wc-product-reviews-pro-contribution-type.php:119
 msgid "Leave a Review"
 msgstr "Оставить Отзыв"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:125
+#: src/class-wc-product-reviews-pro-contribution-type.php:125
 msgid "Ask a Question"
 msgstr "Задать Вопрос"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:129
+#: src/class-wc-product-reviews-pro-contribution-type.php:129
 msgid "Post a Photo"
 msgstr "Опубликовать Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:133
+#: src/class-wc-product-reviews-pro-contribution-type.php:133
 msgid "Post a Video"
 msgstr "Опубликовать Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:165
+#: src/class-wc-product-reviews-pro-contribution-type.php:165
 msgid "One review with a %2$d-star rating"
 msgid_plural "%1$d reviews with a %2$d-star rating"
 msgstr[0] "%1$d отзыв с рейтингом %2$d"
 msgstr[1] "%1$d отзыва с рейтингом %2$d"
 msgstr[2] "%1$d отзывов с рейтингом %2$d"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:167
+#: src/class-wc-product-reviews-pro-contribution-type.php:167
 msgid "One review"
 msgid_plural "%d reviews"
 msgstr[0] "%d отзыв"
 msgstr[1] "%d отзыва"
 msgstr[2] "%d отзывов"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:173
+#: src/class-wc-product-reviews-pro-contribution-type.php:173
 msgid "One question"
 msgid_plural "%d questions"
 msgstr[0] "%d вопрос"
 msgstr[1] "%d вопроса"
 msgstr[2] "%d вопросов"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:177
+#: src/class-wc-product-reviews-pro-contribution-type.php:177
 msgid "One photo"
 msgid_plural "%d photos"
 msgstr[0] "%d фото"
 msgstr[1] "%d фото"
 msgstr[2] "%d фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:181
+#: src/class-wc-product-reviews-pro-contribution-type.php:181
 msgid "One video"
 msgid_plural "%d videos"
 msgstr[0] "%d видео"
 msgstr[1] "%d видео"
 msgstr[2] "%d видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:210
+#: src/class-wc-product-reviews-pro-contribution-type.php:210
 msgid "Reviews (%d)"
 msgstr "Отзывы (%d)"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:214
+#: src/class-wc-product-reviews-pro-contribution-type.php:214
 msgid "Questions (%d)"
 msgstr "Вопросы (%d)"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:218
+#: src/class-wc-product-reviews-pro-contribution-type.php:218
 msgid "Photos (%d)"
 msgstr "Фото (%d)"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:222
+#: src/class-wc-product-reviews-pro-contribution-type.php:222
 msgid "Videos (%d)"
 msgstr "Видео (%d)"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:226
+#: src/class-wc-product-reviews-pro-contribution-type.php:226
 msgid "Discussion (%d)"
 msgstr "Обсуждения (%d)"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:255
+#: src/class-wc-product-reviews-pro-contribution-type.php:255
 msgid "Show all reviews"
 msgstr "Показать все Отзывы"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:259
+#: src/class-wc-product-reviews-pro-contribution-type.php:259
 msgid "Show all questions"
 msgstr "Показать все Вопросы"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:263
+#: src/class-wc-product-reviews-pro-contribution-type.php:263
 msgid "Show all photos"
 msgstr "Показать все Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:267
+#: src/class-wc-product-reviews-pro-contribution-type.php:267
 msgid "Show all videos"
 msgstr "Показать все Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:296
+#: src/class-wc-product-reviews-pro-contribution-type.php:296
 msgid "Show my reviews"
 msgstr "Показать мои Отзывы"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:300
+#: src/class-wc-product-reviews-pro-contribution-type.php:300
 msgid "Show my questions"
 msgstr "Показать мои Вопросы"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:304
+#: src/class-wc-product-reviews-pro-contribution-type.php:304
 msgid "Show my photos"
 msgstr "Показать мои Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:308
+#: src/class-wc-product-reviews-pro-contribution-type.php:308
 msgid "Show my videos"
 msgstr "Показать мои Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:335
+#: src/class-wc-product-reviews-pro-contribution-type.php:335
 msgid "Save Review"
 msgstr "Сохранить Отзыв"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:339
+#: src/class-wc-product-reviews-pro-contribution-type.php:339
 msgid "Save Question"
 msgstr "Сохранить Вопрос"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:343
+#: src/class-wc-product-reviews-pro-contribution-type.php:343
 msgid "Save Photo"
 msgstr "Сохранить Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:347
+#: src/class-wc-product-reviews-pro-contribution-type.php:347
 msgid "Save Video"
 msgstr "Сохранить Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:351
+#: src/class-wc-product-reviews-pro-contribution-type.php:351
 msgid "Save %s"
 msgstr "Сохранить %s"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:374
-#: includes/class-wc-product-reviews-pro-contribution-type.php:395
+#: src/class-wc-product-reviews-pro-contribution-type.php:374
+#: src/class-wc-product-reviews-pro-contribution-type.php:395
 msgid "There are no reviews yet"
 msgstr "Отзывов еще нет"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:384
+#: src/class-wc-product-reviews-pro-contribution-type.php:384
 msgid "There are no helpful reviews yet"
 msgstr "Ни один Отзыв не был отмечен полезным"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:387
+#: src/class-wc-product-reviews-pro-contribution-type.php:387
 msgid "There are no helpful positive reviews yet"
 msgstr "Ни один положительный Отзыв не был отмечен полезным"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:389
+#: src/class-wc-product-reviews-pro-contribution-type.php:389
 msgid "There are no helpful negative reviews yet"
 msgstr "Ни один негативный Отзыв не был отмечен полезным"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:393
+#: src/class-wc-product-reviews-pro-contribution-type.php:393
 msgid " There are no reviews with a %d-star rating yet"
 msgstr " Еще нет Отзывов с рейтингом %d"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:403
+#: src/class-wc-product-reviews-pro-contribution-type.php:403
 msgid "There are no unanswered questions"
 msgstr "Нет вопросов без ответа"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:405
+#: src/class-wc-product-reviews-pro-contribution-type.php:405
 msgid "There are no questions yet"
 msgstr "Вопросов пока нет"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:411
+#: src/class-wc-product-reviews-pro-contribution-type.php:411
 msgid "There are no photos yet"
 msgstr "Фото пока нет"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:415
+#: src/class-wc-product-reviews-pro-contribution-type.php:415
 msgid "There are no videos yet"
 msgstr "Видео пока нет"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:446
+#: src/class-wc-product-reviews-pro-contribution-type.php:446
 msgid "Edit Question"
 msgstr "Редактировать Вопрос"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:450
+#: src/class-wc-product-reviews-pro-contribution-type.php:450
 msgid "Edit Photo"
 msgstr "Редактировать Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:454
+#: src/class-wc-product-reviews-pro-contribution-type.php:454
 msgid "Edit Video"
 msgstr "Редактировать Видео"
 
 #. translators: Placeholder: %s - contribution type (e.g. review, photo,
 #. video...)
-#: includes/class-wc-product-reviews-pro-contribution-type.php:458
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1113
+#: src/class-wc-product-reviews-pro-contribution-type.php:458
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1113
 msgid "Edit %s"
 msgstr "Редактировать Вопрос %s"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:489
+#: src/class-wc-product-reviews-pro-contribution-type.php:489
 msgid "Moderate Question"
 msgstr "Модерировать Вопрос"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:493
+#: src/class-wc-product-reviews-pro-contribution-type.php:493
 msgid "Moderate Photo"
 msgstr "Модерировать Фото"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:497
+#: src/class-wc-product-reviews-pro-contribution-type.php:497
 msgid "Moderate Video"
 msgstr "Модерировать Видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:501
+#: src/class-wc-product-reviews-pro-contribution-type.php:501
 msgid "Moderate %s"
 msgstr "Модерировать %s"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:537
+#: src/class-wc-product-reviews-pro-contribution-type.php:537
 msgid "Change your recent rating"
 msgstr "Изменить Ваш недавний рейтинг"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:541
+#: src/class-wc-product-reviews-pro-contribution-type.php:541
 msgid "How would you rate this product?"
 msgstr "Как Вы оцениваете этот продукт?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:569
+#: src/class-wc-product-reviews-pro-contribution-type.php:569
 msgid "What is the title of your review?"
 msgstr "Какой будет заголовок у Вашего отзыва?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:590
+#: src/class-wc-product-reviews-pro-contribution-type.php:590
 msgid "What is your question?"
 msgstr "Какой у Вас вопрос?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:597
+#: src/class-wc-product-reviews-pro-contribution-type.php:597
 msgid "What is the title of your photo?"
 msgstr "Какое название у Вашей фотографии?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:600
-#: includes/class-wc-product-reviews-pro-contribution-type.php:628
+#: src/class-wc-product-reviews-pro-contribution-type.php:600
+#: src/class-wc-product-reviews-pro-contribution-type.php:628
 msgid "Description"
 msgstr "Описание"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:603
+#: src/class-wc-product-reviews-pro-contribution-type.php:603
 msgid "Your photo's description"
 msgstr "Описание фотографии"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:625
+#: src/class-wc-product-reviews-pro-contribution-type.php:625
 msgid "What is the title of your video?"
 msgstr "Какое название у Вашего видео?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:631
+#: src/class-wc-product-reviews-pro-contribution-type.php:631
 msgid "Your video's description"
 msgstr "Описание видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:657
+#: src/class-wc-product-reviews-pro-contribution-type.php:657
 msgid "What is your comment?"
 msgstr "Напишите Ваш комментарий."
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:719
+#: src/class-wc-product-reviews-pro-contribution-type.php:719
 msgid "Tell us what you think of this product..."
 msgstr "Расскажите, что Вы думаете об этом продукте?"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:729
+#: src/class-wc-product-reviews-pro-contribution-type.php:729
 msgid "Attach a photo or video"
 msgstr "Прикрепить фото или видео"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:739
+#: src/class-wc-product-reviews-pro-contribution-type.php:739
 msgid "Enter a URL"
 msgstr "Введите URL"
 
-#: includes/class-wc-product-reviews-pro-contribution-type.php:746
+#: src/class-wc-product-reviews-pro-contribution-type.php:746
 msgid "Choose a file"
 msgstr "Выберите файл"
 
-#: includes/class-wc-product-reviews-pro-emails.php:219
+#: src/class-wc-product-reviews-pro-emails.php:219
 msgid ""
 "You will be no longer receiving email notifications for comments on the "
 "review you had subscribed to."
 msgstr ""
 "Вы больше не будете получать email-уведомления о комментариях к этому отзыву."
 
-#: includes/class-wc-product-reviews-pro-emails.php:259
+#: src/class-wc-product-reviews-pro-emails.php:259
 msgid "Review updated successfully!"
 msgstr "Отзыв успешно обновлён!"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:69
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:69
 msgid "Search Review Qualifiers"
 msgstr "Искать Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:70
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:70
 msgid "All Review Qualifiers"
 msgstr "Все Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:71
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:71
 msgid "Edit Review Qualifier"
 msgstr "Редактировать Категорию Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:72
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:72
 msgid "View Review Qualifier"
 msgstr "Смотреть Категорию Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:73
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:73
 msgid "Update Review Qualifier"
 msgstr "Обновить Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:74
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:74
 msgid "Add New Review Qualifier"
 msgstr "Добавить новую Категорию Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:75
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:75
 msgid "New Review Qualifier Name"
 msgstr "Название новой Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:76
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:76
 msgid "Separate qualifiers with commas"
 msgstr "Разделить категории запятыми"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:77
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:77
 msgid "Add or remove review qualifiers"
 msgstr "Добавить или удалить категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:78
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:78
 msgid "Choose from the most used review qualifiers"
 msgstr "Выберите среди самых используемых категорий отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:79
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:79
 msgid "No review qualifiers found."
 msgstr "Категорий отзывов не найдено."
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:80
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:80
 msgid "Review Qualifiers"
 msgstr "Искать Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:81
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:81
 msgid "Most used Qualifiers"
 msgstr "Самые используемые Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:118
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:138
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:118
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:138
 msgid "List review qualifier options above (1 per line)."
 msgstr "Укажите опции Категории Отзывов (1 на строку)."
 
-#: includes/contributions/abstract-wc-contribution.php:591
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1429
+#: src/contributions/abstract-wc-contribution.php:591
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:1429
 msgid "You must be logged in to vote"
 msgstr "Вы должны быть Авторизованы, чтобы проголосовать"
 
-#: includes/contributions/abstract-wc-contribution.php:598
+#: src/contributions/abstract-wc-contribution.php:598
 msgid "You can't vote for yourself"
 msgstr "Вы не можете голосовать за собственный Отзыв"
 
-#: includes/contributions/abstract-wc-contribution.php:776
+#: src/contributions/abstract-wc-contribution.php:776
 msgid "You have already flagged this contribution"
 msgstr "Вы уже пожаловались на этот отзыв"
 
-#: includes/contributions/abstract-wc-contribution.php:781
+#: src/contributions/abstract-wc-contribution.php:781
 msgid "You can't flag your own contributions!"
 msgstr "Вы не можете пожаловаться на собственный отзыв!"
 
-#: includes/contributions/abstract-wc-contribution.php:857
+#: src/contributions/abstract-wc-contribution.php:857
 msgid "An error occurred. Please try again."
 msgstr "Ошибка. Попробуйте снова."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:53
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:53
 msgid "Flagged Contribution"
 msgstr "Отмеченные отзывы"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:54
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:54
 msgid ""
 "Notifies the admin when a contribution is flagged for removal by a customer."
 msgstr "Уведомляет Администратора, когда отзыв или комментарий получил жалобу."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:61
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:61
 msgid "A {contribution_type} on {site_title} has been flagged for removal!"
 msgstr "{contribution_type} на сайте {site_title} был отмечен к удалению!"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:62
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:62
 msgid "A {contribution_type} for {product_name} was marked as inappropriate."
 msgstr "{contribution_type} к {product_name} был отмечен как недопустимый."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:221
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:221
 msgid "Recipients"
 msgstr "Получатели"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:222
+#: src/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:222
 msgid ""
 "The recipients that will be notified whenever a contribution is flagged for "
 "removal."
 msgstr ""
 "Получатели, которые получат уведомление об удалении или жалобе на отзыв."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:56
+#: src/emails/class-wc-product-reviews-pro-emails-new-comment.php:56
 msgid "Contribution reply"
 msgstr "Ответ"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:57
+#: src/emails/class-wc-product-reviews-pro-emails-new-comment.php:57
 msgid ""
 "Email users that wish to be notified whenever there is a new comment on a "
 "product contribution they subscribed to."
@@ -1261,19 +1261,19 @@ msgstr ""
 "Уведомлять через email Пользователей, которые хотят получать уведомления о "
 "новых комментариях на отзывы, на которые они подписаны."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:62
+#: src/emails/class-wc-product-reviews-pro-emails-new-comment.php:62
 msgid "New reply posted on a {product_name} {contribution_type}"
 msgstr "Новый ответ опубликован для {product_name} {contribution_type}"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:63
+#: src/emails/class-wc-product-reviews-pro-emails-new-comment.php:63
 msgid "A reply has been added to a {contribution_type} on {site_title}"
 msgstr "Был добавлен ответ к {contribution_type} на сайте {site_title}"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:53
+#: src/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:53
 msgid "Review Update Confirmation"
 msgstr "Подтверждение изменения Отзыва"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:54
+#: src/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:54
 msgid ""
 "Email users when they try to leave a review with an email tied to a "
 "registered user."
@@ -1281,83 +1281,83 @@ msgstr ""
 "Уведомлять Пользователей через email, когда они пытаются оставить Отзыв с "
 "email-адреса, уже привязанного к зарегистрированному пользователю."
 
-#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:59
+#: src/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:59
 msgid "Review update confirmation needed on a {product_name}"
 msgstr "Необходимо Подтверждение изменения отзыва для {product_name}"
 
-#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:60
+#: src/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:60
 msgid "A review update confirmation needed on a {product_name} on {site_title}"
 msgstr ""
 "Необходимо Подтверждение изменения отзыва для {product_name} на сайте "
 "{site_title}"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:529
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:529
 msgid "Loading..."
 msgstr "Загрузка…"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:530
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:530
 msgid "Attach a photo"
 msgstr "Прикрепить фото"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:531
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:531
 msgid "Attach a video"
 msgstr "Прикрепить видео"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:532
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:532
 msgid "Rather attach photo from another website?"
 msgstr "Или прикрепить фото с другого сайта?"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:533
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:533
 msgid "Rather attach photo from your computer?"
 msgstr "Или прикрепить фото с Вашего компьютера?"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:534
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:534
 msgid "Rather attach video from another website?"
 msgstr "Или прикрепить видео с другого сайта?"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:535
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:535
 msgid "Rather attach video from your computer?"
 msgstr "Или прикрепить видео с Вашего компьютера?"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:539
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:539
 msgid "%1$d out of %2$d people found this helpful"
 msgstr "%1$d из %2$d считают это полезным"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:541
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:541
 msgid "Please attach a file."
 msgstr "Пожалуйста, прикрепите файл."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:542
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:542
 msgid "This is a required field."
 msgstr "Это обязательное поле."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:543
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:543
 msgid "Please enter at least %d words."
 msgstr "Пожалуйста, введите как минимум %d слов."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:544
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:544
 msgid "Please enter less than %d words."
 msgstr "Пожалуйста, введите меньше %d слов."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:545
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:545
 msgid "Only jpg, png, gif, bmp and tiff files, please"
 msgstr "Принимаются только файлы типа jpg, png, gif, bmp и tiff"
 
 #. translators: Placeholders: %s Size of file in human readable format (e.g.
 #. 2M, 200Kb, etc.)
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:547
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:547
 msgid "File is too large. Size must be less than %s."
 msgstr "Файл слишком большой. Размер должен быть меньше %s."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:548
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:548
 msgid "An error occurred, please try again."
 msgstr "Возникла ошибка. Пожалуйста, попробуйте снова."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:549
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:549
 msgid "Remove Attachment"
 msgstr "Удалить вложение"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:551
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:551
 msgid ""
 "Hold up -- it looks like you've already left a review for this product. You "
 "can update your existing review instead."
@@ -1365,7 +1365,7 @@ msgstr ""
 "Погодите-ка... Вы уже оставили Отзыв на этот продукт, поэтому лучше обновите "
 "его."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:551
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:551
 msgid ""
 "Please click \"OK\" to send a confirmation email to update your existing "
 "review, or \"Cancel\" to go back."
@@ -1373,109 +1373,109 @@ msgstr ""
 "Нажмите \"OK\", чтобы отправить email-письмо с подтверждением для обновления "
 "отзыва, или \"Отменить\", чтобы вернуться назад."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:579
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:579
 msgid "required"
 msgstr "обязательно"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:725
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:725
 msgid "%s is a required field."
 msgstr "%s - обязательное поле."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:736
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:736
 msgid "is not a valid email address."
 msgstr "- недопустимый email-адрес."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:746
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:746
 msgid "Please rate the product."
 msgstr "Пожалуйста, оцените продукт."
 
 #. translators: Placeholders: %s - error description
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:786
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:786
 msgid "Unable to upload file: %s"
 msgstr "Невозможно прикрепить файл: %s"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:797
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:797
 msgid "Only photo uploads are supported at the moment"
 msgstr "В данный момент поддерживается только загрузка фотографий"
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:807
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:807
 msgid "Please attach a photo."
 msgstr "Пожалуйста, прикрепите фото."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:830
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:830
 msgid "Thank you! Your contribution has been received and is being reviewed."
 msgstr "Спасибо! Ваш отзыв успешно отправлен и сейчас проходит модерацию."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:832
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:832
 msgid "Thank you! Your contribution has been received."
 msgstr "Спасибо! Ваш отзыв успешно добавлен."
 
-#: includes/frontend/class-wc-product-reviews-pro-frontend.php:997
+#: src/frontend/class-wc-product-reviews-pro-frontend.php:997
 msgid "Contribution was flagged. Thanks!"
 msgstr "Жалоба успешно отправлена, спасибо!"
 
 #. translators: Placeholders: %s contribution type name (e.g. 'My Reviews' or
 #. 'My Contributions')
-#: includes/frontend/class-wc-product-reviews-pro-my-account-contributions.php:67
+#: src/frontend/class-wc-product-reviews-pro-my-account-contributions.php:67
 msgid "My %s"
 msgstr "Мои %s"
 
-#: includes/functions/wc-product-reviews-pro-functions-template.php:303
+#: src/functions/wc-product-reviews-pro-functions-template.php:303
 msgid "What others are saying"
 msgstr "Что говорят другие:"
 
-#: includes/functions/wc-product-reviews-pro-functions-template.php:328
+#: src/functions/wc-product-reviews-pro-functions-template.php:328
 msgid "There are no contributions yet."
 msgstr "Отзывов пока нет."
 
-#: includes/functions/wc-product-reviews-pro-functions-template.php:346
+#: src/functions/wc-product-reviews-pro-functions-template.php:346
 msgid "Contributions"
 msgstr "Отзывы"
 
 #. translators: Placeholder: %s - contribution type (plural)
-#: includes/functions/wc-product-reviews-pro-functions-template.php:368
+#: src/functions/wc-product-reviews-pro-functions-template.php:368
 msgid ""
 "We are accepting %s for this product, and will display them when we get a "
 "few more!"
 msgstr ""
 "Мы принимаем %s на этот продукт и покажем их, когда соберём чуть больше!"
 
-#: includes/functions/wc-product-reviews-pro-functions-template.php:518
+#: src/functions/wc-product-reviews-pro-functions-template.php:518
 msgid "contributions"
 msgstr "отзывы"
 
 #. translators: Placeholder: %s - enabled contributions name, e.g.,
 #. "contributions" or "reviews"
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:84
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:84
 msgid "Show buttons on product %s"
 msgstr "Показать кнопки для продукта %s"
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:93
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:93
 msgid "Yes"
 msgstr "Да"
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:151
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:151
 msgid "Copied URL - ready to share!"
 msgstr "Ссылка скопирована - можно делиться!"
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:237
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:240
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:237
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:240
 msgid "Click to share on %s"
 msgstr "Нажмите, чтобы поделиться в %s"
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:241
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:241
 msgid " (Opens in new window)"
 msgstr " (Откроется в новом окне)"
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:254
+#: src/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:254
 msgid "Click to copy link"
 msgstr "Нажмите, чтобы скопировать ссылку"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:332
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:332
 msgid "Vendor badges"
 msgstr "Бейджи продавцов"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:335
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:335
 msgid ""
 "Enter the text to use on badges displayed on vendor admin and vendor manager "
 "contributions."
@@ -1483,20 +1483,20 @@ msgstr ""
 "Введите текст, который будет отображаться на всех ответах и отзывах от "
 "Администраторов магазина и Менеджеров магазина."
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:368
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:368
 msgid "Product Reviews"
 msgstr "Отзывы на Товары"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:375
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:375
 msgid "New Contributions"
 msgstr "Новые Отзывы"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:384
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:406
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:384
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:406
 msgid "Enable notifications"
 msgstr "Email-уведомления"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:387
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:387
 msgid ""
 "Receive email notifications whenever an administrator is notified of new "
 "contributions placed for one of the products you manage."
@@ -1504,11 +1504,11 @@ msgstr ""
 "Получать email-уведомления, когда администратор будет уведомлён о новых "
 "отзывах для Ваших продуктов."
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:397
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:397
 msgid "Flagged Contributions"
 msgstr "Отмеченные Отзывы"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:409
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:409
 msgid ""
 "Receive email notifications whenever someone flags a contribution to one of "
 "the products you manage as inappropriate."
@@ -1518,42 +1518,42 @@ msgstr ""
 
 #. translators: Placeholders: %1$s - reviews screen title (usually "Reviews"),
 #. %2$s vendor name
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:536
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:536
 msgid "%1$s (Vendor: \"%2$s\")"
 msgstr "%1$s (Продавец: «%2$s»)"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:590
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:590
 msgid "Permalink:"
 msgstr "Ссылка:"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:620
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:620
 msgid "Email:"
 msgstr "Email:"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:635
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:635
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:682
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:682
 msgid "Status"
 msgstr "Статус"
 
 #. translators: Placeholder: %s - date and time of publication
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:720
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:720
 msgid "Submitted on: %s"
 msgstr "Отправлено для: %s"
 
 #. translators: Placeholder: %s - product the contribution comment is placed
 #. for
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:733
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:733
 msgid "In response to: %s"
 msgstr "В ответ на: %s"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:749
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:749
 msgid "Update"
 msgstr "Обновить"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:784
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:784
 #: templates/emails/plain/review-update-confirmation.php:76
 #: templates/emails/review-update-confirmation.php:85
 #: templates/myaccount/contribution-list.php:68
@@ -1561,92 +1561,92 @@ msgstr "Обновить"
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:892
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:892
 msgid "Search for a vendor&hellip;"
 msgstr "Искать продавца&hellip;"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1336
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1336
 msgid "Product Vendor"
 msgstr "Продавец"
 
 #. translators: Placeholder: %s - product vendor's profile edit screen URL in
 #. parenthesis
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1339
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1339
 msgid "Product Vendor %s"
 msgstr "Продавец %s"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:44
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:44
 msgid ""
 "Display a list of most recent photo contributions from Product Reviews Pro "
 "on your site."
 msgstr ""
 "Отображать список недавних фотографий из Product Reviews Pro на Вашем сайте."
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:46
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:46
 msgid "WooCommerce Product Reviews Pro: Photos"
 msgstr "WooCommerce Product Reviews Pro: Фото"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:50
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:50
 msgid "Recent Photos"
 msgstr "Недавние фото"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:59
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:59
 msgid "Number of photo contributions to show"
 msgstr "Количество фото-отзывов для отображения"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:44
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:44
 msgid ""
 "Display a list of most recent questions from Product Reviews Pro on your "
 "site."
 msgstr ""
 "Отображать список недавних вопросов из Product Reviews Pro на Вашем сайте."
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:46
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:46
 msgid "WooCommerce Product Reviews Pro: Questions"
 msgstr "WooCommerce Product Reviews Pro: Вопросы"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:50
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:50
 msgid "Recent Questions"
 msgstr "Недавние Вопосы"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:59
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:59
 msgid "Number of questions to show"
 msgstr "Количество вопросов для отображения"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:44
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:44
 msgid ""
 "Display a list of most recent reviews from Product Reviews Pro on your site."
 msgstr ""
 "Отображать список недавних отзывов из Product Reviews Pro на Вашем сайте."
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:46
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:46
 msgid "WooCommerce Product Reviews Pro: Reviews"
 msgstr "WooCommerce Product Reviews Pro: Отзывы"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:50
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:50
 msgid "Recent Reviews"
 msgstr "Недавние Отзывы"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:59
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:59
 msgid "Number of reviews to show"
 msgstr "Количество отзывов для отображения"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:44
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:44
 msgid ""
 "Display a list of most recent video contributions from Product Reviews Pro "
 "on your site."
 msgstr ""
 "Отображать список недавних видео из Product Reviews Pro на Вашем сайте."
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:46
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:46
 msgid "WooCommerce Product Reviews Pro: Videos"
 msgstr "WooCommerce Product Reviews Pro: Видео"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:50
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:50
 msgid "Recent Videos"
 msgstr "Недавние видео"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:59
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:59
 msgid "Number of video contributions to show"
 msgstr "Количество видео для отображения"
 
@@ -2041,18 +2041,18 @@ msgstr "SkyVerge"
 msgid "http://www.woocommerce.com"
 msgstr "http://www.woocommerce.com"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:215
+#: src/admin/class-wc-product-reviews-pro-admin.php:215
 msgctxt "number of times contribution has been flagged"
 msgid "Flags"
 msgstr "Отметки"
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:644
+#: src/admin/class-wc-product-reviews-pro-admin.php:644
 msgctxt "[contribution type] by [author name]"
 msgid "%1$s by %2$s"
 msgstr "%1$s от пользователя %2$s"
 
 #. translators: Placeholder: %s total contributions, singular not used
-#: includes/admin/class-wc-reviews-list-table.php:354
+#: src/admin/class-wc-reviews-list-table.php:354
 msgctxt "comments"
 msgid "All <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
 msgid_plural ""
@@ -2065,7 +2065,7 @@ msgstr[2] ""
 "Все <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
 
 #. translators: Placeholder: %s count of pending contributions
-#: includes/admin/class-wc-reviews-list-table.php:356
+#: src/admin/class-wc-reviews-list-table.php:356
 msgctxt "Reviews"
 msgid ""
 "Pending <span class=\"count\">(<span class=\"pending-count\">%s</span>)</"
@@ -2084,7 +2084,7 @@ msgstr[2] ""
 "span>"
 
 #. translators: Placeholder: %s Approved contributions, singular not used
-#: includes/admin/class-wc-reviews-list-table.php:358
+#: src/admin/class-wc-reviews-list-table.php:358
 msgctxt "Reviews"
 msgid ""
 "Approved <span class=\"count\">(<span class=\"approved-count\">%s</span>)</"
@@ -2099,7 +2099,7 @@ msgstr[2] ""
 "Одобренные <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
 
 #. translators: Placeholder: %s count of spam contributions, singular not used
-#: includes/admin/class-wc-reviews-list-table.php:360
+#: src/admin/class-wc-reviews-list-table.php:360
 msgctxt "Reviews"
 msgid ""
 "Spam <span class=\"count\">(<span class=\"spam-count\">%s</span>)</span>"
@@ -2114,7 +2114,7 @@ msgstr[2] ""
 
 #. translators: Placeholder: %s count of trashed contributions, singular not
 #. used
-#: includes/admin/class-wc-reviews-list-table.php:362
+#: src/admin/class-wc-reviews-list-table.php:362
 msgctxt "Reviews"
 msgid ""
 "Trash <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
@@ -2127,86 +2127,86 @@ msgstr[1] ""
 msgstr[2] ""
 "Корзина <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
 
-#: includes/admin/class-wc-reviews-list-table.php:456
+#: src/admin/class-wc-reviews-list-table.php:456
 msgctxt "comment"
 msgid "Mark as Spam"
 msgstr "Отметить как спам"
 
-#: includes/admin/class-wc-reviews-list-table.php:462
+#: src/admin/class-wc-reviews-list-table.php:462
 msgctxt "comment"
 msgid "Not Spam"
 msgstr "Не спам"
 
-#: includes/admin/class-wc-reviews-list-table.php:498
+#: src/admin/class-wc-reviews-list-table.php:498
 msgctxt "verb"
 msgid "Filter"
 msgstr "Фильтр"
 
-#: includes/admin/class-wc-reviews-list-table.php:554
+#: src/admin/class-wc-reviews-list-table.php:554
 msgctxt "Review parent item"
 msgid "Parent"
 msgstr "Родительский элемент"
 
-#: includes/admin/class-wc-reviews-list-table.php:829
+#: src/admin/class-wc-reviews-list-table.php:829
 msgctxt "Mark as spam"
 msgid "Spam"
 msgstr "Спам"
 
-#: includes/admin/class-wc-reviews-list-table.php:832
+#: src/admin/class-wc-reviews-list-table.php:832
 msgctxt "Mark as not spam"
 msgid "Not spam"
 msgstr "Не спам"
 
-#: includes/admin/class-wc-reviews-list-table.php:835
+#: src/admin/class-wc-reviews-list-table.php:835
 msgctxt "Verb"
 msgid "Trash"
 msgstr "В корзину"
 
-#: includes/admin/class-wc-reviews.php:194
+#: src/admin/class-wc-reviews.php:194
 msgctxt "reviews per page (screen options)"
 msgid "Reviews"
 msgstr "Отзывы"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:67
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:67
 msgctxt "taxonomy general name"
 msgid "Review Qualifiers"
 msgstr "Категории Отзывов"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:68
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:68
 msgctxt "taxonomy singular name"
 msgid "Review Qualifier"
 msgstr "Категория Отзыва"
 
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:116
-#: includes/class-wc-product-reviews-pro-review-qualifiers.php:136
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:116
+#: src/class-wc-product-reviews-pro-review-qualifiers.php:136
 msgctxt "Review qualifier options"
 msgid "Options"
 msgstr "Опции"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:605
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:605
 msgctxt "Comment author name"
 msgid "Name:"
 msgstr "Имя:"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:696
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:696
 msgctxt "Set comment to approved status"
 msgid "Approved"
 msgstr "Одобрен"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:697
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:697
 msgctxt "Set comment to pending approval status"
 msgid "Pending"
 msgstr "Ожидает одобрения"
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:698
+#: src/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:698
 msgctxt "Mark comment as spam"
 msgid "Spam"
 msgstr "Спам"
 
-#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:155
-#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:140
-#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:156
-#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:155
+#: src/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:155
+#: src/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:140
+#: src/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:156
+#: src/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:155
 msgctxt "by comment author"
 msgid "by %1$s"
 msgstr "от %1$s"

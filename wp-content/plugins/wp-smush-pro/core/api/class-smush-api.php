@@ -51,14 +51,15 @@ class Smush_API extends Abstract_API {
 			return new WP_Error( '503', __( 'Unable to check status on staging.', 'wp-smushit' ) );
 		}
 
-		return $this->request->get(
-			"check/{$this->api_key}",
-			array(
-				'api_key' => $this->api_key,
-				'domain'  => $this->request->get_this_site(),
-			),
-			$manual
-		);
+		return $this->backoff_sync( function () {
+			return $this->request->get(
+				"check/{$this->api_key}",
+				array(
+					'api_key' => $this->api_key,
+					'domain'  => $this->request->get_this_site(),
+				)
+			);
+		}, $manual );
 	}
 
 	/**
@@ -71,14 +72,47 @@ class Smush_API extends Abstract_API {
 	 * @return mixed|WP_Error
 	 */
 	public function enable( $manual = false ) {
-		return $this->request->post(
-			'cdn',
-			array(
-				'api_key' => $this->api_key,
-				'domain'  => $this->request->get_this_site(),
-			),
-			$manual
-		);
+		return $this->backoff_sync( function () {
+			return $this->request->post(
+				'cdn',
+				array(
+					'api_key' => $this->api_key,
+					'domain'  => $this->request->get_this_site(),
+				)
+			);
+		}, $manual );
 	}
 
+	private function backoff_sync( $operation, $manual ) {
+		$defaults = array(
+			'time'  => time(),
+			'fails' => 0,
+		);
+
+		$last_run = get_site_option( 'wp-smush-last_run_sync', $defaults );
+
+		$backoff = min( pow( 5, $last_run['fails'] ), HOUR_IN_SECONDS ); // Exponential 5, 25, 125, 625, 3125, 3600 max.
+		if ( $last_run['fails'] && $last_run['time'] > ( time() - $backoff ) && ! $manual ) {
+			$last_run['time'] = time();
+			update_site_option( 'wp-smush-last_run_sync', $last_run );
+
+			return new WP_Error( 'api-backoff', __( '[WPMUDEV API] Skipped sync due to API error exponential backoff.', 'wp-smushit' ) );
+		}
+
+		$response = call_user_func( $operation );
+
+		$last_run['time'] = time();
+
+		// Clear the API backoff if it's a manual scan or the API call was a success.
+		if ( $manual || ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) ) {
+			$last_run['fails'] = 0;
+		} else {
+			// For network errors, perform exponential backoff.
+			$last_run['fails'] = $last_run['fails'] + 1;
+		}
+
+		update_site_option( 'wp-smush-last_run_sync', $last_run );
+
+		return $response;
+	}
 }

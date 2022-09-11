@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.3.14
+ * Version: 2.4.3
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
@@ -12,7 +12,7 @@
  * Text Domain: woocommerce-api-manager
  * Domain Path: /i18n/languages/
  * WC requires at least: 5.5
- * WC tested up to: 6.7.0
+ * WC tested up to: 6.8.2
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
  * Requires WP: 5.6
  * Requires PHP: 7.2
@@ -35,10 +35,25 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Constants
  */
-define( 'WC_AM_VERSION', '2.3.14' );
-define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
-define( 'WC_AM_REQUIRED_PHP_VERSION', '7.2' );
-define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '3.1' );
+if ( ! defined( 'WC_AM_VERSION' ) ) {
+	define( 'WC_AM_VERSION', '2.4.3' );
+}
+
+if ( ! defined( 'WC_AM_WC_MIN_REQUIRED_VERSION' ) ) {
+	define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
+}
+
+if ( ! defined( 'WC_AM_REQUIRED_PHP_VERSION' ) ) {
+	define( 'WC_AM_REQUIRED_PHP_VERSION', '7.2' );
+}
+
+if ( ! defined( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION' ) ) {
+	define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '3.1' );
+}
+
+if ( ! defined( 'WC_AM_PLUGIN_FILE' ) ) {
+	define( 'WC_AM_PLUGIN_FILE', __FILE__ );
+}
 
 /**
  * Required functions.

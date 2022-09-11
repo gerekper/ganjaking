@@ -287,7 +287,7 @@
     .evo_elm_color{display: block;height: 35px;width: 60px!important; border-radius: 25px; background-color: #888}
 /* Select in a row */
     p.evo_row_select {display: flex;align-items: center;}
-    p.evo_row_select span.values{background-color: #ffffff;display: flex;padding: 0;
+    p.evo_row_select span.values{background-color: #e8e8e8;display: flex;padding: 0;
         border-radius: 20px;overflow: hidden;padding:5px;flex-wrap: wrap;}
     
     p.evo_row_select span span:hover{ color: #9c9c9c;}
@@ -346,7 +346,7 @@
         border-color: transparent #3a4652 transparent  transparent;
         left:auto;right:0px;
     }
-
+    .ajdeToolTip.free:before{content:none;}
     .ajdeToolTip:before{
         content: "?";
         font-style: normal;
@@ -398,6 +398,8 @@
     .evo_meta_elements .evo_elm_row .evo_field_container >* {width: 100%; box-sizing: border-box;}
     .evo_meta_elements .evo_elm_row.evo_elm_notice{padding-bottom: 8px;}
     .evo_meta_elements .evo_elm_row.yesno_row{padding-bottom: 15px;}
+    .evo_meta_elements .evo_elm_row .evo_field_container.visi{display: flex;}
+    .evo_meta_elements .evo_elm_row .evo_field_container.visi .evo_elm_color{margin-right: 10px}
 
 /* general meta boxes */
     .evo_elm_row.yesno_row{display: flex; padding:5px 0;}

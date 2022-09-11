@@ -1,5 +1,8 @@
 *** WooCommerce Subscriptions Gifting Changelog ***
 
+2022-08-18 - version 2.5.0
+ * Fix: Include additional content in new initial order and new recipient account emails.
+
 2022-05-31 - version 2.4.0
  * Dev: Updates the WordPress tested up to version to 6.0.
  * Dev: Removes the readme.txt file.

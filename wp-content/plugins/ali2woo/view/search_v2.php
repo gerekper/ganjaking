@@ -25,46 +25,52 @@
             </div>
             <div class="search-panel-body">
                 <div class="search-panel-simple">
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-9">
-                            <div class="input-group">
-                                <input class="form-control" type="text" name="a2w_keywords" id="a2w_keywords" placeholder="<?php _e('Enter Keywords', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['keywords']) ? $filter['keywords'] : ""); ?>">
-                                <select id="a2w_category" class="form-control" name="a2w_category" aria-invalid="false">
-                                    <?php foreach ($categories as $cat): ?>
-                                        <option value="<?php echo $cat['id']; ?>" <?php if (isset($filter['category']) && $filter['category'] == $cat['id']): ?>selected="selected"<?php endif;?>><?php if (intval($cat['level']) > 1): ?> - <?php endif;?><?php echo $cat['name']; ?></option>
-                                    <?php endforeach;?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-4">
-                            <div class="search-panel-buttons">
-                                <button class="btn btn-info no-outline" id="a2w-do-filter" type="button"><?php _ex('Search', 'Button', 'ali2woo');?></button>
-                                <button class="btn btn-link no-outline" id="search-trigger" type="button"><?php _ex('Advance', 'Button', 'ali2woo');?></button>
-                            </div>
-                        </div>
+                    <div class="search-panel-inputs">
+                        <input class="form-control" type="text" name="a2w_keywords" id="a2w_keywords" placeholder="<?php _e('Enter Keywords', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['keywords']) ? $filter['keywords'] : ""); ?>">
+                        <select id="a2w_category" class="form-control" name="a2w_category" aria-invalid="false">
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo $cat['id']; ?>" <?php if (isset($filter['category']) && $filter['category'] == $cat['id']): ?>selected="selected"<?php endif;?>><?php if (intval($cat['level']) > 1): ?> - <?php endif;?><?php echo $cat['name']; ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <div class="search-panel-buttons">
+                        <button class="btn btn-info no-outline" id="a2w-do-filter" type="button"><?php _ex('Search', 'Button', 'ali2woo');?></button>
+                        <button class="btn btn-link no-outline" id="search-trigger" type="button"><?php _ex('Advance', 'Button', 'ali2woo');?></button>
                     </div>
                 </div>
                 <div class="search-panel-advanced" <?php if ($adv_search): ?>style="display: block;"<?php endif;?>>
                     <div class="search-panel-row">
                         <div class="search-panel-col">
                             <label><?php _e('Price', 'ali2woo');?></label>
-                            <input type="text" class="form-control" name="a2w_min_price" placeholder="<?php _e('Price from', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['min_price']) ? $filter['min_price'] : ""); ?>">
-                            <input type="text" class="form-control" name="a2w_max_price" placeholder="<?php _e('Price to', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['max_price']) ? $filter['max_price'] : ""); ?>">
+                            <div class="container-flex flex-wrap container-flex_fill container-flex_p20">
+                                <div class="opt">
+                                    <input type="text" class="form-control" name="a2w_min_price" placeholder="<?php _e('Price from', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['min_price']) ? $filter['min_price'] : ""); ?>">
+                                </div>
+                                <div class="opt">
+                                    <input type="text" class="form-control" name="a2w_max_price" placeholder="<?php _e('Price to', 'ali2woo');?>" value="<?php echo esc_attr(isset($filter['max_price']) ? $filter['max_price'] : ""); ?>">
+                                </div>
+                            </div>
                         </div>
                         <div class="search-panel-col size-2-3">
                             <label><?php _e("Special filters", 'ali2woo');?></label>
                             <div class="container-flex flex-wrap">
                                 <div class="opt">
-                                    <label for="a2w_freeshipping"><?php _e("Free shipping", 'ali2woo');?></label>
-                                    <input type="checkbox" class="form-control" id="a2w_freeshipping" name="a2w_freeshipping" value="1" <?php if (isset($filter['freeshipping'])): ?>checked<?php endif;?>/>
+                                    <div class="label">
+                                        <input type="checkbox" class="form-control" id="a2w_freeshipping" name="a2w_freeshipping" value="1" <?php if (isset($filter['freeshipping'])): ?>checked<?php endif;?>/>
+                                        <label for="a2w_freeshipping"><?php _e("Free shipping", 'ali2woo');?></label>
+                                    </div>
                                 </div>
                                 <div class="opt">
-                                    <label for="a2w_return"><?php _e("Free return", 'ali2woo');?></label>
-                                    <input type="checkbox" class="form-control" id="a2w_return" name="a2w_return" value="1" <?php if (isset($filter['return'])): ?>checked<?php endif;?>/>
+                                    <div class="label label_h32">
+                                        <input type="checkbox" class="form-control" id="a2w_return" name="a2w_return" value="1" <?php if (isset($filter['return'])): ?>checked<?php endif;?>/>
+                                        <label for="a2w_return"><?php _e("Free return", 'ali2woo');?></label>
+                                    </div>
                                 </div>
                                 <div class="opt">
-                                    <label for="a2w_popular"><?php _e("Popular products", 'ali2woo');?></label>
-                                    <input type="checkbox" class="form-control" id="a2w_popular" name="a2w_popular" value="1" <?php if (isset($filter['popular'])): ?>checked<?php endif;?>/>
+                                    <div class="label label_h32">
+                                        <input type="checkbox" class="form-control" id="a2w_popular" name="a2w_popular" value="1" <?php if (isset($filter['popular'])): ?>checked<?php endif;?>/>
+                                        <label for="a2w_popular"><?php _e("Popular products", 'ali2woo');?></label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -141,13 +147,13 @@
                     <p><?php esc_html_e('products not found', 'ali2woo');?></p>
                 <?php else: ?>
                     <?php $row_ind = 0;
-$ind = 0;?>
+                    $ind = 0;?>
                     <?php foreach ($load_products_result['products'] as $product): ?>
                         <?php
-if ($row_ind == 0) {
-    echo '<div class="search-result__row">';
-}
-?>
+                        if ($row_ind == 0) {
+                            echo '<div class="search-result__row">';
+                        }
+                        ?>
                         
                         <article class="product-card<?php if ($product['post_id'] || $product['import_id']): ?> product-card--added<?php endif;?>" data-id="<?php echo $product['id'] ?>">
                             <div class="product-card__img"><a href="<?php echo $product['affiliate_url'] ?>" target="_blank"><img src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" class="lazy" data-original="<?php echo !empty($product['thumb']) ? $product['thumb'] : ""; ?>" alt="#"></a>

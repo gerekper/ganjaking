@@ -216,8 +216,9 @@ class evotx_tix_cpt{
 						
 						//$ticket_holder
 
-						echo "<strong><a class='row-title' href='". get_edit_post_link( $post->ID ) ."'>#".$ET->get_prop('_ticket_number')."</a></strong> by ".$name." ".$ET->get_prop('email');
+						echo "<strong><a class='row-title evotix_admin_tixnum' href='". get_edit_post_link( $post->ID ) ."'>#".$ET->get_prop('_ticket_number')."</a></strong> by ".$name." ".$ET->get_prop('email');
 						echo "</span>";
+					// legacy
 					}else{
 						$edit_link = get_edit_post_link( $post->ID );
 						$cost = $ET->get_prop('cost');
@@ -281,10 +282,10 @@ class evotx_tix_cpt{
 							}						
 					}					
 
-					echo "<p class='evotx_status_list {$order_status}'><em class='lite'>".__('Order','evotx').":</em> <span class='evotx_wcorderstatus {$order_status}'>".$order_status ."</span></p>";
+					echo "<p class='evotx_status_list {$order_status}'><span class='evotx_wcorderstatus {$order_status}' title='".__('Order Status','evotx')."'>".$order_status ."</span></p>";
 
 					if( $order_status == 'completed'){
-						echo "<p class='evotx_status_list {$_checked_class}'><em class='lite'>".__('Ticket','evotx').":</em> <span class='evotx_status {$_checked_class}'>".$display."</span></p>";	
+						echo "<p class='evotx_status_list {$_checked_class}'><span class='evotx_status {$_checked_class}' title='".__('Ticket Status','evotx')."'>".$display."</span></p>";	
 					}	
 
 				break;

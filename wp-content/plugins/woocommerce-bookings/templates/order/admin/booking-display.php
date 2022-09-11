@@ -26,6 +26,7 @@ if ( $booking_ids ) {
 	$text_align  = is_rtl() ? 'right' : 'left';
 	$margin_side = is_rtl() ? 'left' : 'right';
 
+	$sent_to_admin    = isset( $sent_to_admin ) && $sent_to_admin;
 	$show_status_date = ! ( isset( $only_title ) && $only_title );
 	$show_title       = ! ( isset( $hide_item_details ) && $hide_item_details );
 
@@ -78,7 +79,7 @@ if ( $booking_ids ) {
 					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-ajax.php?action=wc-booking-confirm&booking_id=' . $booking_id ), 'wc-booking-confirm' ) ); ?>"><?php esc_html_e( 'Confirm booking', 'woocommerce-bookings' ); ?></a>
 				<?php endif; ?>
 
-				<?php if ( $booking_id && $order->get_customer_id() ) : ?>
+				<?php if ( $booking_id && ( ! $show_title || ( $sent_to_admin || $order->get_customer_id() ) ) ) : ?>
 					<a href="<?php echo esc_url( admin_url( 'post.php?post=' . absint( $booking_id ) . '&action=edit' ) ); ?>"><?php esc_html_e( 'View booking &rarr;', 'woocommerce-bookings' ); ?></a>
 				<?php endif; ?>
 			</div>

@@ -2,9 +2,10 @@
 /*
 Plugin Name: Wordfence Security
 Plugin URI: http://www.wordfence.com/
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
-Version: 7.6.0
+Version: 7.6.1
 Author URI: http://www.wordfence.com/
 Text Domain: wordfence
 Domain Path: /languages
@@ -35,20 +36,11 @@ if(defined('WP_INSTALLING') && WP_INSTALLING){
 	return;
 }
 
-add_action('plugins_loaded', function(){
-    if( !class_exists('wfConfig') ) return;
-    wfConfig::set('isPaid', 1);
-	wfConfig::set('success', 1);
-    wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
-	wfConfig::set('licenseType', wfLicense::TYPE_RESPONSE);
-    wfConfig::set('premiumNextRenew', time()+31536000);
-}, 99);
-
 if (!defined('ABSPATH')) {
 	exit;
 }
-define('WORDFENCE_VERSION', '7.6.0');
-define('WORDFENCE_BUILD_NUMBER', '1659014884');
+define('WORDFENCE_VERSION', '7.6.1');
+define('WORDFENCE_BUILD_NUMBER', '1662494776');
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 
@@ -95,11 +87,11 @@ if(! defined('WORDFENCE_VERSIONONLY_MODE')){ //Used to get version from file.
 	$maxMemory = @ini_get('memory_limit');
 	$last = strtolower(substr($maxMemory, -1));
 	$maxMemory = (int) $maxMemory;
-
+	
 	if ($last == 'g') { $maxMemory = $maxMemory * 1024 * 1024 * 1024; }
 	else if ($last == 'm') { $maxMemory = $maxMemory * 1024 * 1024; }
 	else if ($last == 'k') { $maxMemory = $maxMemory * 1024; }
-
+	
 	if ($maxMemory < 134217728 /* 128 MB */ && $maxMemory > 0 /* Unlimited */) {
 		if (strpos(ini_get('disable_functions'), 'ini_set') === false) {
 			@ini_set('memory_limit', '128M'); //Some hosts have ini set at as little as 32 megs. 128 is the min sane amount of memory.
@@ -119,7 +111,7 @@ if(! defined('WORDFENCE_VERSIONONLY_MODE')){ //Used to get version from file.
 			require_once(dirname(__FILE__) . '/waf/bootstrap.php');
 		}
 	}
-
+	
 	//Modules
 
 	//Load
@@ -127,3 +119,5 @@ if(! defined('WORDFENCE_VERSIONONLY_MODE')){ //Used to get version from file.
 	require_once(dirname(__FILE__) . '/lib/wordfenceClass.php');
 	wordfence::install_actions();
 }
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

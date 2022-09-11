@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Util\Helpers;
-use MailPoet\WP\Functions as WPFunctions;
 
 /**
  * @property int $countProcessed
@@ -37,7 +36,7 @@ class SendingQueue extends Model {
     parent::__construct();
 
     $this->addValidations('newsletter_rendered_body', [
-      'validRenderedNewsletterBody' => WPFunctions::get()->__('Rendered newsletter body is invalid!', 'mailpoet'),
+      'validRenderedNewsletterBody' => __('Rendered newsletter body is invalid!', 'mailpoet'),
     ]);
   }
 

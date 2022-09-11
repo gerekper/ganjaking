@@ -19,11 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $email = sanitize_email( $email );
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p><?php echo _x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
+<p><?php echo esc_html_x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
 
 <p>
 	<?php
-	printf( __( 'You have been sent this email because your email address was registered on a waitlist for %1$s at %2$s. ', 'woocommerce-waitlist' ), '<a href="' . esc_attr( $product_link ) . '">' . esc_html( $product_title ) . '</a>', esc_html( get_bloginfo( 'name' ) ) );
+	printf( __( 'You have been sent this email because your email address was registered on a waitlist for %1$s at %2$s. ', 'woocommerce-waitlist' ), '<a href="' . esc_url( $product_link ) . '">' . esc_html( $product_title ) . '</a>', esc_html( get_bloginfo( 'name' ) ) );
 	?>
 </p>
 <p>
@@ -32,7 +32,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
     'product_id'       => absint( $product_id ),
 		'key'              => $key,
 	), $product_link ) ); ?>
-	<?php printf( __( 'If you would like to remove your email address from the waitlist you can do so by clicking %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . esc_attr( $product_link ) . '">', '</a>' ); ?>
+	<?php printf( __( 'If you would like to remove your email address from the waitlist you can do so by clicking %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . esc_url( $product_link ) . '">', '</a>' ); ?>
 </p>
 <?php
 do_action( 'woocommerce_email_footer', $email ); ?>

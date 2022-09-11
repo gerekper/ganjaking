@@ -16,25 +16,68 @@ function perfmatters_lazy_load_init() {
 				return;
 			}
 
+			//disable wp native lazy loading
+			add_filter('wp_lazy_loading_enabled', '__return_false');
+
 			//actions + filters
 			add_filter('template_redirect', 'perfmatters_lazy_load', -99999);
 			add_action('wp_enqueue_scripts', 'perfmatters_enqueue_lazy_load');
-			add_action('wp_footer', 'perfmatters_print_lazy_load_js', PHP_INT_MAX);
+			add_filter('script_loader_tag', 'perfmatters_async_lazy_load', 10, 2);
 			add_action('wp_head', 'perfmatters_print_lazy_load_css', PHP_INT_MAX);
-			add_filter('wp_lazy_loading_enabled', '__return_false');
-			add_filter('wp_get_attachment_image_attributes', function($attr) {
-				unset($attr['loading']);
-			  	return $attr;
-			});
+
+			if(!empty($perfmatters_options['lazyload']['lazy_loading'])) {
+				add_filter('wp_get_attachment_image_attributes', function($attr) {
+					unset($attr['loading']);
+				  	return $attr;
+				});
+			}
 		}
 	}
 }
 add_action('wp', 'perfmatters_lazy_load_init');
 
-//enqueue lazy load scripts
+//enqueue lazy load script
 function perfmatters_enqueue_lazy_load() {
-	wp_register_script('perfmatters-lazy-load-js', plugins_url('perfmatters/js/lazyload.min.js'), array(), PERFMATTERS_VERSION, true);
-	wp_enqueue_script('perfmatters-lazy-load-js');
+	wp_register_script('perfmatters-lazy-load', plugins_url('perfmatters/js/lazyload.min.js'), array(), PERFMATTERS_VERSION, true);
+	wp_enqueue_script('perfmatters-lazy-load');
+	wp_add_inline_script('perfmatters-lazy-load', perfmatters_lazy_load_inline_js(), 'before');
+}
+
+//inline lazy load js
+function perfmatters_lazy_load_inline_js() {
+	$options = get_option('perfmatters_options');
+
+	$threshold = apply_filters('perfmatters_lazyload_threshold', !empty($options['lazyload']['threshold']) ? $options['lazyload']['threshold'] : '0px');
+	if(ctype_digit($threshold)) {
+		$threshold.= 'px';
+	}
+
+	//declare lazy load options
+	$output = 'window.lazyLoadOptions={elements_selector:"img[data-src],.perfmatters-lazy,.perfmatters-lazy-css-bg",thresholds:"' . $threshold . ' 0px",class_loading:"pmloading",class_loaded:"pmloaded",callback_loaded:function(element){if(element.tagName==="IFRAME"){if(element.classList.contains("pmloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};';
+
+	//lazy loader initialized
+	$output.= 'window.addEventListener("LazyLoad::Initialized",function(e){var lazyLoadInstance=e.detail.instance;';
+
+		//dom monitoring
+		if(!empty($options['lazyload']['lazy_loading_dom_monitoring'])) { 
+			$output.= 'var target=document.querySelector("body");var observer=new MutationObserver(function(mutations){lazyLoadInstance.update()});var config={childList:!0,subtree:!0};observer.observe(target,config);';
+		}
+
+	$output.= '});';
+
+	//youtube thumbnails
+	if(!empty($options['lazyload']['lazy_loading_iframes']) && !empty($options['lazyload']['youtube_preview_thumbnails'])) {
+		$output.= 'function perfmattersLazyLoadYouTube(e){var t=document.createElement("iframe"),r="ID?";r+=0===e.dataset.query.length?"":e.dataset.query+"&",r+="autoplay=1",t.setAttribute("src",r.replace("ID",e.dataset.src)),t.setAttribute("frameborder","0"),t.setAttribute("allowfullscreen","1"),t.setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),e.replaceChild(t,e.firstChild)}';
+	}
+	return $output;
+}
+
+//add async tag to enqueued script
+function perfmatters_async_lazy_load($tag, $handle) {
+    if($handle !== 'perfmatters-lazy-load') {
+    	return $tag;
+    }
+    return str_replace(' src', ' async src', $tag);
 }
 
 //initialize lazy loading
@@ -233,7 +276,7 @@ function perfmatters_lazy_load_background_images($html, $buffer) {
 				$element_atts['style'] = str_replace($url[0], '', $element_atts['style']);
 
 				//migrate src
-				$element_atts['data-bg'] = 'url(' . esc_attr($url['url']) . ')';
+				$element_atts['data-bg'] = esc_url(trim(strip_tags(html_entity_decode($url['url'], ENT_QUOTES|ENT_HTML5)), '\'" '));
 
 				//build lazy element attributes string
 				$lazy_element_atts_string = perfmatters_lazyload_get_atts_string($element_atts);
@@ -630,38 +673,6 @@ function perfmatters_lazyload_excluded($string, $excluded) {
     return false;
 }
 
-//initialize lazy load instance
-function perfmatters_print_lazy_load_js() {
-	global $perfmatters_options;
-
-	$threshold = apply_filters('perfmatters_lazyload_threshold', (!empty($perfmatters_options['lazyload']['threshold']) ? $perfmatters_options['lazyload']['threshold'] : '0px'));
-	if(ctype_digit($threshold)) {
-		$threshold.= 'px';
-	}
-
-	$output = '<script>';
-
-		$output.= 'document.addEventListener("DOMContentLoaded",function(){';
-
-			//initialize lazy loader
-			$output.= 'var lazyLoadInstance=new LazyLoad({elements_selector:"img[data-src],.perfmatters-lazy,.perfmatters-lazy-css-bg",thresholds:"' . $threshold . ' 0px",callback_loaded:function(element){if(element.tagName==="IFRAME"){if(element.classList.contains("loaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}});';
-
-			//dom monitoring
-			if(!empty($perfmatters_options['lazyload']['lazy_loading_dom_monitoring'])) { 
-				$output.= 'var target=document.querySelector("body");var observer=new MutationObserver(function(mutations){lazyLoadInstance.update()});var config={childList:!0,subtree:!0};observer.observe(target,config);';
-			}
-
-		$output.= '});';
-
-		//youtube thumbnails
-		if(!empty($perfmatters_options['lazyload']['lazy_loading_iframes']) && !empty($perfmatters_options['lazyload']['youtube_preview_thumbnails'])) {
-			$output.= 'function perfmattersLazyLoadYouTube(e){var t=document.createElement("iframe"),r="ID?";r+=0===e.dataset.query.length?"":e.dataset.query+"&",r+="autoplay=1",t.setAttribute("src",r.replace("ID",e.dataset.src)),t.setAttribute("frameborder","0"),t.setAttribute("allowfullscreen","1"),t.setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),e.replaceChild(t,e.firstChild)}';
-		}
-	$output.= '</script>';
-
-	echo $output;
-}
-
 //print lazy load styles
 function perfmatters_print_lazy_load_css() {
 
@@ -682,12 +693,12 @@ function perfmatters_print_lazy_load_css() {
 
 	//fade in effect
 	if(!empty($options['lazyload']['fade_in'])) {
-		$styles.= '.perfmatters-lazy:not(picture),.perfmatters-lazy>img{opacity:0}.perfmatters-lazy.loaded,.perfmatters-lazy>img.loaded,.perfmatters-lazy[data-was-processed=true],.perfmatters-lazy.loaded>img{opacity:1;transition:opacity ' . apply_filters('perfmatters_fade_in_speed', 500) . 'ms}';
+		$styles.= '.perfmatters-lazy:not(picture),.perfmatters-lazy>img{opacity:0}.perfmatters-lazy.pmloaded,.perfmatters-lazy>img.pmloaded,.perfmatters-lazy[data-ll-status=entered],.perfmatters-lazy.pmloaded>img{opacity:1;transition:opacity ' . apply_filters('perfmatters_fade_in_speed', 500) . 'ms}';
 	}
 
 	//css background images
 	if(!empty($options['lazyload']['css_background_images'])) {
-		$styles.='body .perfmatters-lazy-css-bg:not([data-was-processed="true"]), body .perfmatters-lazy-css-bg:not([data-was-processed="true"]) *{background-image:none!important;will-change:transform;transition:opacity 0.025s ease-in,transform 0.025s ease-in!important;}';
+		$styles.='body .perfmatters-lazy-css-bg:not([data-ll-status=entered]),body .perfmatters-lazy-css-bg:not([data-ll-status=entered]) *,body .perfmatters-lazy-css-bg:not([data-ll-status=entered])::before{background-image:none!important;will-change:transform;transition:opacity 0.025s ease-in,transform 0.025s ease-in!important;}';
 	}
 	
 	//print styles

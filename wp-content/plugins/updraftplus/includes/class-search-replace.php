@@ -12,12 +12,14 @@ class UpdraftPlus_Search_Replace {
 	private $use_mysqli = false;
 	private $wpdb_obj = null;
 	private $mysql_dbh = null;
+	protected $max_recursion = 0;
 	
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		add_action('updraftplus_restore_db_pre', array($this, 'updraftplus_restore_db_pre'));
+		$this->max_recursion = apply_filters('updraftplus_search_replace_max_recursion', 10);
 	}
 
 	/**
@@ -361,14 +363,16 @@ class UpdraftPlus_Search_Replace {
 	 * unserialising any subordinate arrays and performing the replace on those too.
 	 * N.B. $from and $to can be arrays - they get passed only to str_replace(), which can take an array
 	 *
-	 * @param string $from       String we're looking to replace.
-	 * @param string $to         What we want it to be replaced with
-	 * @param array  $data       Used to pass any subordinate arrays back to in.
-	 * @param bool   $serialised Does the array passed via $data need serialising.
+	 * @param string $from            String we're looking to replace.
+	 * @param string $to              What we want it to be replaced with
+	 * @param array  $data            Used to pass any subordinate arrays back to in.
+	 * @param bool   $serialised      Does the array passed via $data need serialising.
+	 * @param int    $recursion_level Current recursion depth within the original data.
+	 * @param array  $visited_data    Data that has been seen in previous recursion iterations.
 	 *
 	 * @return array	The original array with all elements replaced as needed.
 	 */
-	private function recursive_unserialize_replace($from = '', $to = '', $data = '', $serialised = false) {
+	private function recursive_unserialize_replace($from = '', $to = '', $data = '', $serialised = false, $recursion_level = 0, $visited_data = array()) {
 
 		global $updraftplus;
 
@@ -378,6 +382,20 @@ class UpdraftPlus_Search_Replace {
 		try {
 			$case_insensitive = false;
 
+			// If we've reached the maximum recursion level, short circuit
+			if  (0 !== $this->max_recursion && $recursion_level >= $this->max_recursion) {
+				return $data;
+			}
+
+			if (is_array ($data) || is_object($data)) {
+				// If we've seen this exact object or array before, short circuit
+				if (in_array($data, $visited_data, true)) {
+					return $data; // Avoid infinite recursions when there's a circular reference
+				}
+				// Add this data to the list of
+				$visited_data[] = $data;
+			}
+
 			if (is_array($from) && is_array($to)) {
 				$case_insensitive = preg_match('#^https?:#i', implode($from)) && preg_match('#^https?:#i', implode($to)) ? true : false;
 			} else {
@@ -386,7 +404,7 @@ class UpdraftPlus_Search_Replace {
 
 			// O:8:"DateTime":0:{} : see https://bugs.php.net/bug.php?id=62852
 			if (is_serialized($data) && false === strpos($data, 'O:8:"DateTime":0:{}') && false !== ($unserialized = @unserialize($data))) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
-				$data = $this->recursive_unserialize_replace($from, $to, $unserialized, true);
+				$data = $this->recursive_unserialize_replace($from, $to, $unserialized, true, $recursion_level + 1);
 			} elseif (is_array($data)) {
 				$_tmp = array();
 				foreach ($data as $key => $value) {
@@ -399,7 +417,7 @@ class UpdraftPlus_Search_Replace {
 						// return original data
 						$_tmp[$key] = $value;
 					} else {
-						$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false);
+						$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 					}
 				}
 
@@ -415,7 +433,7 @@ class UpdraftPlus_Search_Replace {
 				} else {
 					$props = get_object_vars($data);
 					foreach ($props as $key => $value) {
-						$_tmp->$key = $this->recursive_unserialize_replace($from, $to, $value, false);
+						$_tmp->$key = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 					}
 				}
 				$data = $_tmp;
@@ -433,7 +451,7 @@ class UpdraftPlus_Search_Replace {
 							// return original data
 							$_tmp[$key] = $value;
 						} else {
-							$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false);
+							$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 						}
 					}
 

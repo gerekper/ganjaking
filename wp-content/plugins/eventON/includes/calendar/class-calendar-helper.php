@@ -357,6 +357,175 @@ class evo_cal_help {
 			return false;
 		}
 
+	// event top fields - @version 4.1
+		function get_eventtop_all_fields(){
+
+			$base = array(
+				'ft_img'=>__('Event Image'),
+				'day_block' =>__('Event date blcok'),
+				'tags'=>__('Tags'),
+				'title'=>__('Title'),
+				'subtitle'=>__('Subtitle'),
+				'time'=>__('Event Time'),
+				'location'=>__('Location'),
+				'organizer'=>__('Organizer'),
+				'eventtags'=>__('Event Tag Types'),
+				'progress_bar'=>__('Event Progress Bar')
+			);
+			for($x =1; $x< evo_retrieve_cmd_count() +1; $x++){
+				$base['cmd'.$x] = __('Custom Field'). " ".$x;
+			}
+
+			// add event types	
+				for($x =1; $x< evo_get_ett_count() +1; $x++){
+					$base['eventtype'.($x==1? '': $x)] = __('Event Type'). ($x==1? '': $x);
+				}
+
+			// add addon fields
+			$additions = apply_filters('evo_eventtop_adds' , array());
+			if( count($additions)>0){
+				foreach($additions as $key=>$ad_field){
+					if( $key == '0')  $key = $ad_field;
+					$base[$key] = $ad_field;
+				}
+			}
+
+			return $base;
+		}
+
+		function get_eventtop_fields_array(){
+
+			$all_fields = $this->get_eventtop_all_fields();
+			$all_fields_array = array();
+			$used_fields = array();
+			
+			foreach($all_fields as $f=>$v){
+				$all_fields_array[] = $f;
+			}
+
+			$this->opt1 = get_option('evcal_options_evcal_1');
+
+			$evo_etl = isset($this->opt1['evo_etl']) ? 
+				 json_decode( html_entity_decode($this->opt1['evo_etl'] ), true): 
+				 false;
+
+			$saved_eventtop_fields = isset($this->opt1['evcal_top_fields']) ? 
+				$this->opt1['evcal_top_fields']: array();
+
+			// if fields are not set, using for first times
+			// f - field v - visibility
+			if(!$evo_etl){
+
+				// build the ETL for first time
+				$evo_etl = array(
+					'c0'=> array(),
+					'c1'=> array(1 =>array('f'=>'ft_img', 'v'=>'y') ),
+					'c2'=> array(1=>array('f'=>'day_block') ),
+					'c3'=> array(
+						1=>array('f'=>'tags', 'v'=>'y'),
+						array('f'=>'title', 'v'=>'y'),
+						array('f'=>'subtitle', 'v'=>'y'),
+						array('f'=>'time', 'v'=>'y'),
+						array('f'=>'location', 'v'=>'y'),
+						array('f'=>'organizer', 'v'=>'y'),
+						array('f'=>'eventtags', 'v'=>'y'),
+						array('f'=>'progress_bar', 'v'=>'y')
+					),
+					'c4'=> array()
+				);
+
+				// add custom fields
+				for($x =1; $x< evo_retrieve_cmd_count() +1; $x++){
+					$evo_etl['c3'][] = array('f' => 'cmd'.$x, 'v'=> 'y' );
+				}	
+
+				// add event types	
+				for($x =1; $x< evo_get_ett_count() +1; $x++){
+					$evo_etl['c3'][] = array('f' => 'eventtype'.($x==1? '': $x), 'v'=> 'y' );
+				}		
+
+				// add addon fields
+				$additions = apply_filters('evo_eventtop_adds' , array());
+				if( count($additions)>0){
+					foreach($additions as $key=>$ad_field){
+						if( $key == '0')  $key = $ad_field;
+						$evo_etl['c3'][] = array('f' => $key, 'v'=> 'y' );
+						$saved_eventtop_fields[] = $key;
+					}
+				}
+
+				// add default fields of image and day block
+				$saved_eventtop_fields[] = 'day_block';
+				$saved_eventtop_fields[] = 'ft_img';
+				$saved_eventtop_fields[] = 'title';
+				$saved_eventtop_fields[] = 'subtitle';
+
+				// go through each field in design and check if they are in use
+				foreach($evo_etl as $col=>$coldata){
+					foreach($coldata as $ind=>$fields){
+						if(!isset( $fields['f'])) continue;
+						$field_key = $fields['f'];
+						
+						if(  in_array($field_key, $saved_eventtop_fields)  ){
+							$used_fields[] = $fields['f'];
+						}else{
+							unset($evo_etl[$col][$ind]);
+						}
+					}
+				}
+
+			}else{
+				// go through each field in design and check if they are in use				
+				foreach($evo_etl as $col=>$coldata){
+					foreach($coldata as $ind=>$fields){
+						if(!isset( $fields['f'])) continue;						
+						$used_fields[] = $fields['f'];						
+					}
+				}
+			}			
+
+			
+
+			// create day block values from legacy - what to show
+			$evotop_dayblock = isset($this->opt1['evotop_dayblock']) ? $this->opt1['evotop_dayblock'] :  false;
+			if( !$evotop_dayblock){
+				foreach( array(
+					'dayname','eventyear','eventendyear'
+				) as $ff){
+					if( in_array($ff, $saved_eventtop_fields)) $evotop_dayblock[] = $ff;
+				}
+			}
+			// create location data from legacy to show
+			$evotop_location = isset($this->opt1['evotop_location']) ? $this->opt1['evotop_location'] :  false;
+			if( !$evotop_location){
+				$location_on = false;
+				if( in_array('locationame', $saved_eventtop_fields)){
+					$location_on = true;
+					$evotop_location = 'locationame';
+				}
+				if( in_array('location', $saved_eventtop_fields)){
+					$evotop_location = ( !$evotop_location ? 'location':'both');
+					$location_on = true;
+				}
+				if($location_on){
+					$used_fields[] = 'location';
+					$evotop_location = 'location';
+				}
+			}
+
+			
+			
+
+
+			return array(
+				'all'=> $all_fields,
+				'alla'=> $all_fields_array,
+				'used'=> $used_fields,
+				'layout'=>$evo_etl,
+				'day_block'=> $evotop_dayblock,
+				'location'=> $evotop_location
+			);
+		}
 
 	// get repeating intervals for the event
 		function get_ri_for_event($event_){
@@ -412,9 +581,7 @@ class evo_cal_help {
 
 			// default event color
 				$defaults['color'] = (!empty($options['evcal_hexcode']))? '#'.$options['evcal_hexcode']:'#4bb5d8';
-			// event top fields
-				$defaults['eventtop_fields'] = (!empty($options['evcal_top_fields']))? $options['evcal_top_fields']:null;
-
+			
 			// check if single events addon active
 				$defaults['single_addon']  = true;		
 				$defaults['user_loggedin'] = is_user_logged_in();

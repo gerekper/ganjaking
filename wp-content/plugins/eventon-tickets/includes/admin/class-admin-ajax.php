@@ -1,7 +1,7 @@
 <?php
 /** 
  * AJAX for only backend of the tickets
- * @version 1.3.10
+ * @version 2.0
  */
 class evotx_admin_ajax{
 	public function __construct(){
@@ -14,10 +14,13 @@ class evotx_admin_ajax{
 			'evotx_assign_wc_products'=>'assign_wc_products',
 			'evotx_save_assign_wc_products'=>'save_assign_wc_products',
 			'evotx_sales_insight'=>'evotx_sales_insight',
+			'evotx_sync_with_order'=>'evotx_sync_with_order',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
-			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
+
+			$nopriv_class = method_exists($this, 'nopriv_'. $class )? 'nopriv_'. $class: $class;
+			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $nopriv_class ) );
 		}
 	}
 
@@ -94,6 +97,7 @@ class evotx_admin_ajax{
 			$nonce = $_POST['postnonce'];
 			$status = 0;
 			$message = $content = $json = '';
+			$filter_vals = array();
 
 			if(! wp_verify_nonce( $nonce, 'evotx_nonce' ) ){
 				$status = 1;	$message ='Invalid Nonce';
@@ -102,16 +106,39 @@ class evotx_admin_ajax{
 				ob_start();
 
 				$source = isset($_POST['source'])? $_POST['source']: false;
-				$ri = (!empty($_POST['ri']) || $_POST['ri']=='0')? $_POST['ri']:'all'; // repeat interval
+
+				$event_id = sanitize_text_field($_POST['eid']);
+				$ri = (!empty($_POST['ri']) || $_POST['ri']=='0')? sanitize_text_field($_POST['ri']):'all'; // repeat interval
 
 				$EA = new EVOTX_Attendees();
-				$json = $EA->get_tickets_for_event($_POST['eid'], $source);
+				$json = $EA->get_tickets_for_event( $event_id, $source);
 
 
 				if(!count($json)>0){
 					echo "<div class='evotx'>";
 					echo "<p class='header nada'>".__('Could not find attendees with completed orders.','evotx')."</p>";	
 					echo "</div>";
+				}else{
+
+					/// get sorted event time list
+					$event_start_time = array();
+					foreach($json as $tidx=>$td){
+						if(!isset($td['oD'])) continue;
+						if(!isset($td['oD']['event_time'])) continue;
+						
+
+						$ET = $td['oD']['event_time'];
+						if( strpos($ET, '-') !== false )$ET = explode(' - ', $ET);
+						if( strpos($ET[0], '(') !== false ) $ET = explode(' (', $ET[0]);
+
+						if( in_array($ET[0], $event_start_time)) continue;
+
+						$event_start_time[ $td['oD']['event_time'] ] = $ET[0];
+					}
+
+					uasort($event_start_time, array($this, "compareByTimeStamp") );
+
+					$filter_vals['event_time'] = $event_start_time;
 				}
 				
 				$content = ob_get_clean();
@@ -124,6 +151,7 @@ class evotx_admin_ajax{
 					'od_gc'=>$EA->_user_can_check(),
 					'source' =>$source, 
 				),
+				'filter_vals'=> $filter_vals,
 				'temp'=> EVO()->temp->get('evotx_view_attendees'),
 				'message'=> $message,
 				'status'=>$status,
@@ -134,13 +162,24 @@ class evotx_admin_ajax{
 			exit;
 		}
 
+		function compareByTimeStamp($time1, $time2){
+		    if (strtotime($time1) < strtotime($time2))
+		        return 1;
+		    else if (strtotime($time1) > strtotime($time2)) 
+		        return -1;
+		    else
+		        return 0;
+		}
+
 // Download csv list of attendees
+	function nopriv_generate_csv(){
+		echo "You do not have permission!";exit;
+	}
 	function generate_csv(){
 
 		$e_id = (int)$_REQUEST['e_id'];
 		$EVENT = new EVO_Event($e_id);
 		$EVENT->get_event_post();
-
 
 		header('Content-Encoding: UTF-8');
 		header("Content-type: text/csv");
@@ -207,10 +246,14 @@ class evotx_admin_ajax{
 
 		$eid = $_POST['eid'];
 		$wcid = $_POST['wcid'];
-		$type = $_POST['type'];
-		$RI = !empty($_POST['repeat_interval'])? $_POST['repeat_interval']:'all'; // repeat interval
+		$type = $_POST['type'];		
 		$EMAILED = $_message_addition = false;
 		$emails = array();
+
+		// repeat interval
+		$RI = !empty($_POST['repeat_interval'])? $_POST['repeat_interval']:'all'; 
+		if( isset($_POST['repeat_interval']) && $_POST['repeat_interval'] == 0) $RI = '0'; 
+
 		$TA = new EVOTX_Attendees();
 
 		// email attendees list to someone
@@ -220,7 +263,9 @@ class evotx_admin_ajax{
 			$emails = explode(',', str_replace(' ', '', htmlspecialchars_decode($_POST['emails'])));
 
 			$TH = $TA->_get_tickets_for_event($eid,'order_status');
+
 			
+			//order completed tickets
 			if(is_array($TH) && isset($TH['completed']) && count($TH['completed'])>0){
 				ob_start();
 				
@@ -228,6 +273,7 @@ class evotx_admin_ajax{
 					$datetime = new evo_datetime();
 					$epmv = get_post_custom($eid);
 					$eventdate = $datetime->get_correct_formatted_event_repeat_time($epmv, ($RI=='all'?'0':$RI));
+
 
 				echo "<p>Confirmed Guests for ".get_the_title($eid)." on ".$eventdate['start']."</p>";
 				echo "<table style='padding-top:15px; width:100%;text-align:left'><thead><tr>
@@ -237,7 +283,13 @@ class evotx_admin_ajax{
 					<th>Ticket Number</th>
 				</tr></thead>
 				<tbody>";
+
+				// create the attenee list
 				foreach($TH['completed'] as $tn=>$guest){
+
+					// repeat interval filter
+					if( $RI != 'all' && $guest['ri'] != $RI) continue;
+
 					echo "<tr><td>".$guest['n'] ."</td><td>".$guest['e']."</td><td>".$guest['phone']. "</td>
 					<td>".$tn. "</td></tr>";
 				}
@@ -256,6 +308,10 @@ class evotx_admin_ajax{
 			foreach(array('completed') as $order_status){
 				if(is_array($TH) && isset($TH[$order_status]) && count($TH[$order_status])>0){
 					foreach($TH[$order_status] as $guest){
+
+						// repeat interval filter
+						if( $RI != 'all' && $guest['ri'] != $RI) continue;
+
 						$emails[] = $guest['e'];
 					}
 				}
@@ -265,6 +321,10 @@ class evotx_admin_ajax{
 			foreach(array('pending','on-hold') as $order_status){
 				if(is_array($TH) && isset($TH[$order_status]) && count($TH[$order_status])>0){
 					foreach($TH[$order_status] as $guest){
+
+						// repeat interval filter
+						if( $RI != 'all' && $guest['ri'] != $RI) continue;
+
 						$emails[] = $guest['e'];
 					}
 				}
@@ -447,6 +507,23 @@ class evotx_admin_ajax{
 		$content =  $insight->get_insight();
 
 		echo json_encode(array('content'=> $content, 'status'=>'good')); exit;
+	}
+
+// SYNC with order
+	public function evotx_sync_with_order(){
+		$order_id = sanitize_text_field( $_POST['oid']);
+
+		$MM = '';
+
+		$order = new WC_Order( $order_id );	
+
+		$TIXS = new evotx_tix();
+
+		$MM = 'Sync Completed';
+
+		$TIXS->re_process_order_items( $order_id, $order);
+		echo json_encode(array('message'=> $MM, 'status'=>'good')); exit;
+
 	}
 
 	

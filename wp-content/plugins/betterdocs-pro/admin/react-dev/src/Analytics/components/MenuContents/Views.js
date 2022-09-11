@@ -1,0 +1,90 @@
+import React, { useState, forwardRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { __ } from "@wordpress/i18n";
+import NestedMenu from "../utilities/NestedMenu";
+import LeadingDocs from "../Views/LeadingDocs";
+import LeadingCategory from "../Views/LeadingCategory";
+import LeadingKnowledgeBase from "../Views/LeadingKnowledgeBase";
+import ChartWrapper from "../Views/ChartWrapper";
+import { getSettingOptions, Tooltip } from "../../function";
+import { ReactComponent as Info } from "../../images/info.svg";
+
+const Views = forwardRef((props, mainComponentRef) => {
+  const [postDetails, setPostDetails] = useState(undefined);
+
+  const setting = useQuery(["pluginSetting"], getSettingOptions);
+
+  return (
+    <div className="betterdocs-analytics-views">
+      <ChartWrapper postDetails={postDetails} setPostDetails={setPostDetails} />
+      {setting?.data ? (
+        <NestedMenu
+          tabWrapperClass="betterdocs-analytics-nested-tab-wrapper"
+          tabListClass="betterdocs-analytics-nested-tab-menu"
+          tabLinkClass="betterdocs-analytics-nested-tab-item"
+          tabLinkActiveClass="active"
+          tabContentClass="betterdocs-analytics-nested-tab-content"
+          options={[
+            {
+              link: (
+                <>
+                  <Tooltip
+                    className="btd-nested-tooltip"
+                    buttonClassName="btd-nested-tooltip-button"
+                    tooltipClassName="btd-nested-tooltip-content"
+                    buttonContent={<Info />}
+                    tooltipContent="This list shows the leading Docs based on most Views."
+                  />
+                  Leading Docs
+                </>
+              ),
+              content: (
+                <LeadingDocs
+                  setPostDetails={setPostDetails}
+                  ref={mainComponentRef}
+                />
+              ),
+              enable: true,
+            },
+            {
+              link: (
+                <>
+                  <Tooltip
+                    className="btd-nested-tooltip"
+                    buttonClassName="btd-nested-tooltip-button"
+                    tooltipClassName="btd-nested-tooltip-content"
+                    buttonContent={<Info />}
+                    tooltipContent="This list shows the leading Categories based on most Views."
+                  />
+                  Leading Category
+                </>
+              ),
+              content: <LeadingCategory />,
+              enable: true,
+            },
+            {
+              link: (
+                <>
+                  <Tooltip
+                    className="btd-nested-tooltip"
+                    buttonClassName="btd-nested-tooltip-button"
+                    tooltipClassName="btd-nested-tooltip-content"
+                    buttonContent={<Info />}
+                    tooltipContent="This list shows the leading Knowledge Base based on most Views."
+                  />
+                  Leading Knowledge Base
+                </>
+              ),
+              content: <LeadingKnowledgeBase />,
+              enable: setting?.data?.multiple_kb != "off" ? true : false,
+            },
+          ]}
+        />
+      ) : (
+        ""
+      )}
+    </div>
+  );
+});
+
+export default Views;

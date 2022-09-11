@@ -5,6 +5,9 @@ namespace MailPoet\WooCommerce;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\DI\ContainerWrapper;
+use MailPoet\WP\Functions as WPFunctions;
+
 class Helper {
   public function isWooCommerceActive() {
     return class_exists('WooCommerce');
@@ -80,5 +83,22 @@ class Helper {
 
   public function getAllowedCountries(): array {
     return (new \WC_Countries)->get_allowed_countries() ?? [];
+  }
+
+  public function wasMailPoetInstalledViaWooCommerceOnboardingWizard(): bool {
+    $wp = ContainerWrapper::getInstance()->get(WPFunctions::class);
+    $installedViaWooCommerce = false;
+    $wooCommerceOnboardingProfile = $wp->getOption('woocommerce_onboarding_profile');
+
+    if (
+      is_array($wooCommerceOnboardingProfile)
+      && isset($wooCommerceOnboardingProfile['business_extensions'])
+      && is_array($wooCommerceOnboardingProfile['business_extensions'])
+      && in_array('mailpoet', $wooCommerceOnboardingProfile['business_extensions'])
+    ) {
+      $installedViaWooCommerce = true;
+    }
+
+    return $installedViaWooCommerce;
   }
 }

@@ -19,7 +19,6 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Premium\Newsletter\StatisticsClicksRepository;
 use MailPoet\Premium\Newsletter\StatisticsOpensRepository;
 use MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository;
-use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -331,7 +330,7 @@ class SubscriberEngagement {
 
     $linkList = [];
     $linkList[] = [
-      'label' => WPFunctions::get()->__('Filter by link clicked', 'mailpoet-premium'),
+      'label' => __('Filter by link clicked', 'mailpoet-premium'),
       'value' => '',
     ];
 
@@ -363,22 +362,22 @@ class SubscriberEngagement {
     $groups = [
       [
         'name' => self::STATUS_CLICKED,
-        'label' => WPFunctions::get()->_x('Clicked', 'Subscriber engagement filter - filter those who clicked on a newsletter link', 'mailpoet-premium'),
+        'label' => _x('Clicked', 'Subscriber engagement filter - filter those who clicked on a newsletter link', 'mailpoet-premium'),
         'count' => $this->statisticsClicksRepository->countBy(['newsletter' => $newsletter]),
       ],
       [
         'name' => self::STATUS_OPENED,
-        'label' => WPFunctions::get()->_x('Opened', 'Subscriber engagement filter - filter those who opened a newsletter', 'mailpoet-premium'),
+        'label' => _x('Opened', 'Subscriber engagement filter - filter those who opened a newsletter', 'mailpoet-premium'),
         'count' => $this->statisticsOpensRepository->countBy(['newsletter' => $newsletter, 'userAgentType' => UserAgentEntity::USER_AGENT_TYPE_HUMAN]),
       ],
       [
         'name' => self::STATUS_MACHINE_OPENED,
-        'label' => WPFunctions::get()->_x('Machine-opened', 'Subscriber engagement filter - shows machine-opens for a given newsletter', 'mailpoet-premium'),
+        'label' => _x('Machine-opened', 'Subscriber engagement filter - shows machine-opens for a given newsletter', 'mailpoet-premium'),
         'count' => $this->statisticsOpensRepository->countBy(['newsletter' => $newsletter, 'userAgentType' => UserAgentEntity::USER_AGENT_TYPE_MACHINE]),
       ],
       [
         'name' => self::STATUS_UNSUBSCRIBED,
-        'label' => WPFunctions::get()->_x('Unsubscribed', 'Subscriber engagement filter - filter those who unsubscribed from a newsletter', 'mailpoet-premium'),
+        'label' => _x('Unsubscribed', 'Subscriber engagement filter - filter those who unsubscribed from a newsletter', 'mailpoet-premium'),
         'count' => $this->statisticsUnsubscribesRepository->countBy(['newsletter' => $newsletter]),
       ],
     ];
@@ -387,7 +386,7 @@ class SubscriberEngagement {
       $groups,
       [
         'name' => 'all',
-        'label' => WPFunctions::get()->_x('All engaged', 'Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)', 'mailpoet-premium'),
+        'label' => _x('All engaged', 'Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)', 'mailpoet-premium'),
         'count' => array_sum(array_column($groups, 'count')),
       ]
     );
@@ -398,7 +397,7 @@ class SubscriberEngagement {
 
     $groups[] = [
       'name' => self::STATUS_UNOPENED,
-      'label' => WPFunctions::get()->_x('Unopened', 'Subscriber engagement filter - filter those who did not open a newsletter', 'mailpoet-premium'),
+      'label' => _x('Unopened', 'Subscriber engagement filter - filter those who did not open a newsletter', 'mailpoet-premium'),
       'count' => $unopenedCount,
     ];
 

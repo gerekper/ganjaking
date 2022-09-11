@@ -29,6 +29,34 @@ class Segments {
     return $result;
   }
 
+  public function addList(array $data): array {
+    if (empty($data['name'])) {
+      throw new APIException(
+        __('List name is required.', 'mailpoet'),
+        APIException::LIST_NAME_REQUIRED
+      );
+    }
+
+    if (!$this->segmentsRepository->isNameUnique($data['name'], null)) {
+      throw new APIException(
+        __('This list already exists.', 'mailpoet'),
+        APIException::LIST_EXISTS
+      );
+    }
+
+    try {
+      $segment = $this->segmentsRepository->createOrUpdate($data['name'], $data['description'] ?? '');
+    } catch (\Exception $e) {
+      throw new APIException(
+        // translators: %s is the error message
+        sprintf(__('Failed to add subscriber: %s', 'mailpoet'), $e->getMessage()),
+        APIException::FAILED_TO_SAVE_LIST
+      );
+    }
+
+    return $this->buildItem($segment);
+  }
+
   /**
    * @param SegmentEntity $segment
    * @return array

@@ -1,0 +1,453 @@
+@font-face {
+    font-family: 'ywsbs-icon';
+    src:  url('../fonts/ywsbs-icon.eot?jqnhvq');
+    src:  url('../fonts/ywsbs-icon.eot?jqnhvq#iefix') format('embedded-opentype'),
+    url('../fonts/ywsbs-icon.ttf?jqnhvq') format('truetype'),
+    url('../fonts/ywsbs-icon.woff?jqnhvq') format('woff'),
+    url('../fonts/ywsbs-icon.svg?jqnhvq#ywsbs-icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="ywsbs-icon-"], [class*=" ywsbs-icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'ywsbs-icon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ywsbs-icon-save_alt:before {
+    content: "\e900";
+}
+
+.ywsbs-icon-dollar:before {
+    content: "\e904";
+    color: #4b4b4b;
+}
+
+
+table.shop_table_responsive tbody tr td.ywsbs-subscription-status{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .9em;
+}
+
+table.shop_table_responsive .ywsbs-item .empty-date{
+    text-align: center;
+}
+
+.ywsbs-back-url {
+    margin-bottom: 20px;
+    font-size: .9em;
+}
+
+.ywsbs-subscription-info-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ywsbs-box{
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.ywsbs-subscription-info-box {
+    flex-basis: 48%;
+    min-height: 100%;
+    flex-direction: row;
+}
+
+.ywsbs-subscription-info-item {
+    margin-bottom: 10px;
+}
+
+.ywsbs-change-status-buttons-wrapper {
+    margin-top: 10px;
+}
+
+.recurring-price-info {
+    font-size: 13px;
+}
+
+span.ywsbs-delivery-info,
+span.ywsbs-synch-info {
+    display: block;
+    font-size: 0.7em;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 20PX;
+    filter: brightness(0.5);
+}
+span.ywsbs-delivery-info{
+    font-weight: 400;
+}
+/**
+* My Account Dropdown
+*/
+.ywsbs-dropdown-wrapper {
+    position: relative;
+    display:inline-block;
+    /* margin-left: 10px; */
+}
+
+.ywsbs-dropdown-wrapper > a{
+    font-size: .8em;
+    outline: none;
+}
+
+.ywsbs-dropdown {
+    position: absolute;
+    z-index: 10;
+    width: 350px;
+    box-shadow: -2px 2px 20px rgba(161, 161, 161, 0.27);
+    left: -15px;
+    top: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease .3s;
+}
+
+.ywsbs-dropdown-wrapper:hover .ywsbs-dropdown{
+    visibility: visible;
+    opacity: 1;
+}
+
+.ywsbs-dropdown-item {
+    padding: 15px 15px 5px 15px;
+    font-size: .8em;
+    line-height: 1.2em;
+    background: #fff;
+}
+
+.ywsbs-dropdown-item:nth-child(odd) {
+    background: #F8F8F8;
+}
+
+.ywsbs-dropdown-item:hover{
+    cursor: pointer;
+}
+
+.ywsbs-dropdown-item p {
+    margin-block-end: 10px;
+}
+
+/**
+* My Account Subscription Total Box
+*/
+
+.ywsbs-subscription-info-box.subscription-totals {
+    background-color: #F6F8F7;
+}
+
+.ywsbs-subscription-info-box.subscription-totals table{
+    background: transparent;
+}
+
+.subscription-review-table{
+    padding: 0;
+    margin: 0;
+    font-size: .9em;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.subscription-review-table:last-child{
+    border-bottom:0;
+}
+
+.subscription-review-table tbody {
+    background: transparent;
+}
+
+table.subscription-review-table th{
+    width: 60%;
+}
+
+table.subscription-review-table tbody td,
+table.subscription-review-table th,
+table.subscription-review-table td{
+    background: transparent;
+    padding: 10px 0;
+}
+table.subscription-review-table tfoot tr:first-child th,
+table.subscription-review-table tfoot tr:first-child td{
+    border-top: 1px solid #d5d5d5a3;
+}
+
+table.subscription-review-table td:last-child{
+    text-align: right;
+}
+
+table.subscription-review-table  .ywsbs-subscription-total{
+    font-size: 12px;
+}
+
+table.subscription-review-table  .subscription-price {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.ywsbs-wrapper {
+    display: inline-block;
+}
+
+/** My Account - Shipping info **/
+.ywsbs-box.ywsbs-subscription-info-box.shipping-info {
+    position: relative;
+}
+
+a.edit-subscription-shipping {
+    position: absolute;
+    right: 20px;
+    top:30px;
+}
+
+a.edit-subscription-shipping img{
+    opacity:50%;
+    width: 20px;
+    transition: all linear 0.3s;
+}
+
+a.edit-subscription-shipping:hover img{
+    opacity:100%;
+}
+
+/** Delivery Schedules **/
+.ywsbs-subscription-info-wrapper{
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+}
+
+
+.delivery-schedules td, .delivery-schedules th {
+    padding: 10px 0;
+}
+
+span.delivery-status {
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+span.delivery-status.processing {
+    color: #d38a0b;
+}
+
+span.delivery-status.cancelled {
+    color: #c0392b;
+}
+
+span.delivery-status.waiting {
+    color: #e74c3c;
+}
+
+span.delivery-status.shipped {
+    color: #b2ac00;
+}
+/** Related orders **/
+.ywsbs-subscription-related-orders{
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 40px;
+}
+.ywsbs-subscription-related-orders .order-status{
+    text-transform: uppercase;
+}
+
+.ywsbs-subscription-related-orders .order-status .status-completed {
+    color: #2e4453;
+}
+
+.ywsbs-subscription-related-orders .order-status .status-on-hold {
+    color: #94660c;
+}
+
+.ywsbs-subscription-related-orders .order-status .status-failed {
+    color: #761919;
+}
+
+.ywsbs-subscription-related-orders .order-status .status-processing {
+    color: #5b841b;
+}
+
+.ywsbs-subscription-related-orders .order-status .status-trash {
+    color: #761919;
+}
+
+/** MODAL **/
+.ywsbs-modal{
+    display: none;
+}
+.ywsbs-modal-container,
+.ywsbs-modal-overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.ywsbs-modal-overlay{
+    background-color: rgba(0,0,0,0.4);
+    overflow: auto;
+}
+
+.ywsbs-modal .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.ywsbs-modal-wrapper{
+    width: 500px;
+    min-height: 300px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: -2px 2px 20px rgb(112, 112, 112);
+}
+
+.ywsbs-modal .ywsbs-modal-header {
+    height: 15px;
+    width: 100%;
+    padding: 10px;
+    clear:both;
+}
+
+.ywsbs-modal .ywsbs-modal-header .close{
+    float:right;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    font-size: 22px;
+    color: #ccc;
+    line-height: 22px;
+}
+
+.ywsbs-modal .ywsbs-modal-body{
+    padding: 20px 30px 30px 30px;
+    text-align: center;
+}
+
+.ywsbs-modal .ywsbs-modal-body p{
+    margin-block-end:15px;
+}
+
+.ywsbs-modal-icon {
+    margin-bottom:20px;
+}
+.ywsbs-modal-icon img {
+    margin: 0 auto;
+    width: 50px;
+}
+
+.ywsbs-action-button-wrap {
+    margin: 20px auto;
+}
+
+.close-modal-wrap .close{
+    font-size: 1em;
+    float: none;
+}
+.ywsbs-content-text .error {
+    color: red;
+    padding: 0 30px 0 30px;
+    display: block;
+}
+
+.ywsbs-recurring-totals-items .recurring-amount {
+    margin: 0 0 15px 0;
+}
+.ywsbs-box.ywsbs-thank-you-page-box{
+    background-color: #F6F8F7;
+}
+table.subscription-review-table th{
+    text-align:left;
+}
+table.subscription-review-table  .product-name{
+    font-weight:normal;
+}
+
+.ywsbs-box.ywsbs-thank-you-page-box span.status {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+/** Product Page **/
+.summary .ywsbs-resubscribe{
+    margin: 10px 0;
+}
+.ywsbs-trial-period{
+    display:block;
+}
+
+
+.ywsbs-thank-you-page-two-cols .ywsbs-box.ywsbs-thank-you-page-box {
+    width: calc(40% - 15px);
+    float: left;
+}
+
+.ywsbs-thank-you-page-two-cols .ywsbs-subscription-thank-you-page {
+    width: 60%;
+    float: left;
+    margin-right: 15px;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+span.recurring-price-wrapper {
+    font-weight: bold;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+
+@media screen and (max-width: 425px ) {
+    .ywsbs-box.ywsbs-subscription-info-box {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    .ywsbs-subscription-related-orders{
+        margin-top:40px;
+    }
+}
+
+
+/**
+yith-proteo
+ */
+
+.widget_shopping_cart .yith-proteo-mini-cart-content ul li > *.quantity{
+    bottom:15px;
+}
+.widget_shopping_cart .yith-proteo-mini-cart-content .ywsbs-wrapper {
+    text-align:left;
+    display:inline-block;
+    position:static;
+    left: 23px;
+    top: 0;
+}

@@ -19,8 +19,10 @@ use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
+use WPSEO_Admin_Asset_Manager;
 
 /**
  * Elementor integration class for Yoast SEO Premium.
@@ -142,15 +144,25 @@ class Elementor_Premium implements Integration_Interface {
 	 * @return void
 	 */
 	public function send_data_to_assets() {
-		$analysis_seo = new WPSEO_Metabox_Analysis_SEO();
+		$analysis_seo                = new WPSEO_Metabox_Analysis_SEO();
+		$analysis_inclusive_language = \YoastSEOPremium()->classes->get( Inclusive_Language_Analysis_Initializer::class );
+		$assets_manager              = new WPSEO_Admin_Asset_Manager();
 
 		$data = [
-			'restApi'            => $this->get_rest_api_config(),
-			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
-			'licensedURL'        => WPSEO_Utils::get_home_url(),
-			'settingsPageUrl'    => \admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
-			'integrationsTabURL' => \admin_url( 'admin.php?page=wpseo_dashboard#top#integrations' ),
-
+			'restApi'                         => $this->get_rest_api_config(),
+			'seoAnalysisEnabled'              => $analysis_seo->is_enabled(),
+			'licensedURL'                     => WPSEO_Utils::get_home_url(),
+			'settingsPageUrl'                 => \admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
+			'integrationsTabURL'              => \admin_url( 'admin.php?page=wpseo_integrations' ),
+			'commonsScriptUrl'                => \plugins_url(
+				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
+			'inclusiveLanguageScriptUrl'      => \plugins_url(
+				'assets/js/dist/register-inclusive-language-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
+			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
 		];
 		$data = \array_merge( $data, $this->get_post_metabox_config() );
 
@@ -176,14 +188,15 @@ class Elementor_Premium implements Integration_Interface {
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
+
 		return [
-			'currentObjectId'           => $this->get_metabox_post()->ID,
-			'currentObjectType'         => 'post',
-			'linkSuggestionsEnabled'    => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'  => $is_prominent_words_available,
-			'linkSuggestionsUnindexed'  => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'perIndexableLimit'         => $this->per_indexable_limit( $language ),
-			'isProminentWordsAvailable' => $is_prominent_words_available,
+			'currentObjectId'                 => $this->get_metabox_post()->ID,
+			'currentObjectType'               => 'post',
+			'linkSuggestionsEnabled'          => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable'        => $is_prominent_words_available,
+			'linkSuggestionsUnindexed'        => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'               => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable'       => $is_prominent_words_available,
 		];
 	}
 

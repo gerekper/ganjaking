@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Frontend;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Plugin;
@@ -567,7 +567,7 @@ class Frontend {
 	 */
 	public function add_cart_fees( $cart ) {
 
-		if ( ! $_POST || ( is_admin() && ! is_ajax() ) ) {
+		if ( ! $_POST || ( is_admin() && ! wp_doing_ajax() ) ) {
 			return;
 		}
 

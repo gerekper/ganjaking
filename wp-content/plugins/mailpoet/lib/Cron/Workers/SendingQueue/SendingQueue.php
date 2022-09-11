@@ -35,6 +35,8 @@ use MailPoetVendor\Carbon\Carbon;
 class SendingQueue {
   public $mailerTask;
   public $newsletterTask;
+
+  const TASK_TYPE = 'sending';
   const TASK_BATCH_SIZE = 5;
   const EMAIL_WITH_INVALID_SEGMENT_OPTION = 'mailpoet_email_with_invalid_segment';
 
@@ -113,7 +115,11 @@ class SendingQueue {
   public function process($timer = false) {
     $timer = $timer ?: microtime(true);
     $this->enforceSendingAndExecutionLimits($timer);
-    foreach (self::getRunningQueues() as $queue) {
+    foreach ($this->scheduledTasksRepository->findRunningSendingTasks(self::TASK_BATCH_SIZE) as $taskEntity) {
+      $task = ScheduledTask::findOne($taskEntity->getId());
+      if (!$task instanceof ScheduledTask) continue;
+
+      $queue = SendingTask::createFromScheduledTask($task);
       if (!$queue instanceof SendingTask) continue;
 
       $task = $queue->task();
@@ -131,7 +137,7 @@ class SendingQueue {
       $this->startProgress($task);
 
       try {
-        ScheduledTaskModel::touchAllByIds([$queue->taskId]);
+        ScheduledTaskModel::touchAllByIds([$taskEntity->getId()]);
         $this->processSending($queue, (int)$timer);
       } catch (\Exception $e) {
         $this->stopProgress($task);
@@ -431,10 +437,6 @@ class SendingQueue {
     $this->cronHelper->enforceExecutionLimit($timer);
     // abort if sending limit has been reached
     MailerLog::enforceExecutionRequirements();
-  }
-
-  public static function getRunningQueues() {
-    return SendingTask::getRunningQueues(self::TASK_BATCH_SIZE);
   }
 
   private function reScheduleBounceTask() {

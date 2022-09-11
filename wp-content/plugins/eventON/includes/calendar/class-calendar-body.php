@@ -72,10 +72,11 @@ class evo_cal_body{
 						$__cal_classes[] = 'bub';
 						$__cal_classes[] = 'color';
 					}
-					if($args['eventtop_style'] == 4){ 
+					if($args['eventtop_style'] == 4 || $args['eventtop_style'] == 5){ 
 						$__cal_classes[] = 'sev';
 						$__cal_classes[] = 'clean';
 					}
+					
 
 					$__cal_classes[] = 'esty_'. ( (int)$args['eventtop_style']); 
 				}

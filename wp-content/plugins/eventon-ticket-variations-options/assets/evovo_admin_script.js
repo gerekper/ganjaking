@@ -1,6 +1,6 @@
 /**
  * Admin Script
- * @version  0.1
+ * @version  1.0.2
  */
 jQuery(document).ready(function($){
 	
@@ -156,7 +156,6 @@ jQuery(document).ready(function($){
 		}
 
 
-
 	// delete an item
 		$('body').on('click','.evovo_vo_list li em.delete',function(){
 
@@ -170,10 +169,7 @@ jQuery(document).ready(function($){
 				ajaxdataa['json']= OBJ.data('json');
 				ajaxdataa['all_vo_data'] = $('body').find('.evovo_all_vo_data').data('all_vo_data');
 
-			// for temporary added vo items
-			if( ajaxdataa.json['type'] == 'temp'){
-				LI.remove();
-
+			// delete and update all vo data on dom
 				if( ajaxdataa.all_vo_data !== undefined){
 
 					var method = ajaxdataa.json.method;
@@ -182,6 +178,12 @@ jQuery(document).ready(function($){
 
 					$('body').find('.evovo_all_vo_data').data('all_vo_data', ajaxdataa.all_vo_data);
 				}
+
+			// for temporary added vo items
+			if( ajaxdataa.json['type'] == 'temp'){
+				LI.remove();
+
+				
 			// delete item from the event
 			}else{
 				$.ajax({

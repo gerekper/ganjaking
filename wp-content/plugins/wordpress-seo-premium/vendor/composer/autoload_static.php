@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2
+class ComposerStaticInit0fa196257369c641549a8d586fdd0fb9
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -150,6 +150,7 @@ class ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Subpages_Block' => __DIR__ . '/../..' . '/classes/blocks/subpages-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium' => __DIR__ . '/../..' . '/src/deprecated/integrations/third-party/renamed-classes.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress' => __DIR__ . '/../..' . '/src/integrations/third-party/translationspress.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher_Keyphrases' => __DIR__ . '/../..' . '/src/integrations/third-party/wincher-keyphrases.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier' => __DIR__ . '/../..' . '/src/deprecated/integrations/third-party/renamed-classes.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Classic_Editor' => __DIR__ . '/../..' . '/src/deprecated/integrations/third-party/renamed-classes.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Trigger' => __DIR__ . '/../..' . '/src/deprecated/integrations/third-party/renamed-classes.php',
@@ -172,12 +173,17 @@ class ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper' => __DIR__ . '/../..' . '/src/helpers/prominent-words-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper' => __DIR__ . '/../..' . '/src/helpers/zapier-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks' => __DIR__ . '/../..' . '/src/initializers/crawl-cleanup-permalinks.php',
+        'Yoast\\WP\\SEO\\Premium\\Initializers\\Inclusive_Language_Analysis_Initializer' => __DIR__ . '/../..' . '/src/initializers/inclusive-language-analysis-initializer.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => __DIR__ . '/../..' . '/src/initializers/index-now-key.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => __DIR__ . '/../..' . '/src/initializers/plugin.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => __DIR__ . '/../..' . '/src/initializers/redirect-handler.php',
+        'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => __DIR__ . '/../..' . '/src/initializers/wp-cli-initializer.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/crawl-settings-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Notification_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-notification-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Integrations_Page' => __DIR__ . '/../..' . '/src/integrations/admin/integrations-page.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Keyword_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/keyword-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Metabox_Formatter_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/metabox-formatter-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/plugin-links-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/indexing-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/metabox-integration.php',
@@ -235,9 +241,9 @@ class ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9dabb47d2d4e73ac1745f0ba5a7b9ac2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0fa196257369c641549a8d586fdd0fb9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0fa196257369c641549a8d586fdd0fb9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0fa196257369c641549a8d586fdd0fb9::$classMap;
 
         }, null, ClassLoader::class);
     }

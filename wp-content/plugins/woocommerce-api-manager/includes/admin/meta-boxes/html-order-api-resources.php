@@ -39,12 +39,12 @@ if ( ! empty( $resource ) ) {
                     <td>
                         <label for="poak<?php echo $i; ?>"><?php esc_html_e( 'Product Order API Key:', 'woocommerce-api-manager' ); ?></label>
                         <input type="text" class="short am_expand_text_box" id="poak<?php echo $i; ?>" name="product_order_api_key[<?php echo $i; ?>]"
-                               value="<?php echo esc_attr( $resource->product_order_api_key ); ?>" readonly/>
+                               value="<?php esc_attr_e( $resource->product_order_api_key ); ?>" readonly/>
                     </td>
                     <td>
                         <label><?php esc_html_e( 'Activation Limit', 'woocommerce-api-manager' ); ?>:</label>
                         <input type="number" class="short" name="activations_purchased_total[<?php echo $i; ?>]" step="1" min="1"
-                               value="<?php echo esc_attr( $resource->activations_purchased_total ) ?>"
+                               value="<?php esc_attr_e( $resource->activations_purchased_total ) ?>"
                                placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
                     </td>
                     <td>
@@ -58,21 +58,49 @@ if ( ! empty( $resource ) ) {
                     <td>
                         <label><?php esc_html_e( 'Resource Title', 'woocommerce-api-manager' ); ?>:</label>
                         <input type="text" class="am_tooltip short am_expand_text_box" name="product_title[<?php echo $i; ?>]"
-                               value="<?php echo esc_attr( $resource->product_title ) ?>"
+                               value="<?php esc_attr_e( $resource->product_title ) ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
                     </td>
                     <td>
                         <label><?php esc_html_e( 'Product ID', 'woocommerce-api-manager' ); ?>:</label><?php echo '<a href="' . esc_url( admin_url() . 'post.php?post=' . WC_AM_PRODUCT_DATA_STORE()->get_parent_id_from_product_id( $resource->product_id ) . '&action=edit' ) . '" target="_blank">'?><span style="text-decoration:none;" class="dashicons dashicons-admin-links"></span></a>
                         <input type="text" class="short" name="product_id[<?php echo $i; ?>]"
-                               value="<?php echo esc_attr( $resource->product_id ) ?>"
+                               value="<?php esc_attr_e( $resource->product_id ) ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
                     </td>
                     <td>
                         <label><?php esc_html_e( 'Access Expires', 'woocommerce-api-manager' ); ?>:</label>
-                        <input type="text" class="short" name="access_expires[<?php echo $i; ?>]"
+                        <input type="text" class="short" id="wc_am_access_expires_api_resources_<?php echo $i; ?>" name="access_expires[<?php echo $i; ?>]"
                                value="<?php echo $expires ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
                     </td>
+
+                    <?php
+                    if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
+                        ob_start();
+                        ?>
+
+                        /* Datepicker for Access Expires */
+                        jQuery( '#wc_am_access_expires_api_resources_<?php echo $i; ?>' ).datepicker({
+                        showOn: "button",
+                        buttonImage: '<?php echo WCAM()->plugin_url() . '/includes/assets/images/calendar.gif' ?>',
+                        buttonImageOnly: true,
+                        buttonText: "Add More Time",
+                        dateFormat: 'yy-mm-dd',
+                        numberOfMonths: 1,
+                        showButtonPanel: true,
+                        minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ) ?>',
+                        });
+
+                       <?php
+                        /*
+                         * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
+                         * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
+                         * */
+                       $javascript = ob_get_clean();
+                       WCAM()->wc_am_print_js( $javascript );
+                    }
+                   ?>
+
                 </tr>
                 </tbody>
             </table>

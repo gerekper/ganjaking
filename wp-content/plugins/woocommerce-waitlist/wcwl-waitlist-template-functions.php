@@ -525,3 +525,18 @@ function wcwl_add_log( $message, $product_id = 0, $email = '' ) {
 	$logger = wc_get_logger();
 	$logger->debug( $message . ' (Post ID: ' . $product_id . '; User email: ' . $email . ')', array( 'source' => 'woocommerce-waitlist' ) );
 }
+
+/**
+ * Switches the locale to utilise the globally set locale
+ * This is used for AJAX calls to prevent the frontend showing a user set locale that is different for returning HTML
+ */
+function wcwl_switch_locale() {
+	if ( ! apply_filters( 'wcwl_allow_locale_switch', false ) ) {
+		return;
+	}
+	$locale = get_locale();
+	switch_to_locale( $locale );
+	add_filter( 'plugin_locale', 'get_locale' );
+	unload_textdomain( 'woocommerce-waitlist' );
+	load_textdomain( 'woocommerce-waitlist', apply_filters( 'wcwl_language_path', WP_LANG_DIR . '/plugins/woocommerce-waitlist-' . $locale . '.mo' ) );
+}

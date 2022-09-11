@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Charts AddOn
 Plugin URI: http://www.themepunch.com/
 Description: Add charts to your website that make your data look awesome.
 Author: ThemePunch
-Version: 3.0.2
+Version: 3.0.5
 Author URI: http://themepunch.com
 */
 

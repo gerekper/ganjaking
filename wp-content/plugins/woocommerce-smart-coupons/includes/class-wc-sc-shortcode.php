@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -134,7 +134,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 		/**
 		 * Execute Smart Coupons shortcode
 		 *
-		 * @param array $atts Shortcode attributees.
+		 * @param array $atts Shortcode attributes.
 		 * @return HTML code for coupon to be displayed
 		 */
 		public function execute_smart_coupons_shortcode( $atts ) {
@@ -266,19 +266,19 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 						if ( empty( $coupon_id ) ) {
 							return;
 						}
-						$coupon_amount    = $coupon->get_amount();
 						$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
 						$discount_type    = $coupon->get_discount_type();
 						$expiry_date      = $coupon->get_date_expires();
 						$coupon_code      = $coupon->get_code();
 					} else {
 						$coupon_id        = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
-						$coupon_amount    = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 						$is_free_shipping = ( ! empty( $coupon->free_shipping ) ) ? $coupon->free_shipping : '';
 						$discount_type    = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 						$expiry_date      = ( ! empty( $coupon->expiry_date ) ) ? $coupon->expiry_date : '';
 						$coupon_code      = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 					}
+
+					$coupon_amount = $this->get_amount( $coupon, true );
 
 					if ( ! empty( $discount_type ) ) {
 
@@ -364,7 +364,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 						update_post_meta( $new_coupon_id, 'discount_type', $_discount_type );
 
 						if ( 'smart_coupon' === $_discount_type ) {
-							update_post_meta( $new_coupon_id, 'wc_sc_original_amount', $_coupon_amount );
+							$this->update_post_meta( $new_coupon_id, 'wc_sc_original_amount', $_coupon_amount, true );
 						}
 
 						update_post_meta( $new_coupon_id, 'coupon_amount', $_coupon_amount );
@@ -419,20 +419,20 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 					if ( empty( $coupon_id ) ) {
 						return;
 					}
-					$coupon_amount    = $coupon->get_amount();
 					$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
 					$discount_type    = $coupon->get_discount_type();
 					$expiry_date      = $coupon->get_date_expires();
 					$coupon_code      = $coupon->get_code();
 				} else {
 					$coupon_id        = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
-					$coupon_amount    = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 					$is_free_shipping = ( ! empty( $coupon->free_shipping ) ) ? $coupon->free_shipping : '';
 					$discount_type    = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 					$expiry_date      = ( ! empty( $coupon->expiry_date ) ) ? $coupon->expiry_date : '';
 					$coupon_code      = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 				}
 			}
+
+			$coupon_amount = $this->get_amount( $coupon, true );
 
 			$coupon_post = get_post( $coupon_id );
 
@@ -566,7 +566,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 		/**
 		 * Show available coupons
 		 *
-		 * @param array $atts Shortcode attributees.
+		 * @param array $atts Shortcode attributes.
 		 * @return HTML code for coupon to be displayed
 		 */
 		public function show_available_coupons_shortcode( $atts ) {

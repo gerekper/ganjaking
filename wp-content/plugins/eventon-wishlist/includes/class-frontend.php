@@ -1,11 +1,11 @@
 <?php
 /** 
  * front end 
- * @version 0.1
+ * @version 1.0
  */
 class evowi_frontend{
 
-	private $wishlist_manager = false;
+	public $wishlist_manager = false;
 	public function __construct(){
 
 		$this->fnc = new evowi_fnc();
@@ -23,8 +23,7 @@ class evowi_frontend{
 
 		// shortcode additions
 		add_filter('eventon_shortcode_defaults', array($this,'add_shortcode_defaults'), 10, 1);
-		add_filter('eventon_shortcode_popup',array($this,'shortcode_options'), 10, 1);
-		add_shortcode('add_eventon_wishlist_manager', array($this,'wishlist_manager'));
+		add_filter('eventon_shortcode_popup',array($this,'shortcode_options'), 10, 1);		
 		add_filter('eventon_calhead_shortcode_args', array($this,'cal_head_args'), 10, 2);
 
 		// event AJAX
@@ -131,35 +130,7 @@ class evowi_frontend{
 				return $array;
 			}
 
-	// wishlist manager
-		function wishlist_manager($atts){
-			global $eventon, $evowi;
-
-			if(empty($atts)) $atts = array();
-			
-			$this->lang = (!empty($atts['lang']))? $atts['lang']:'L1';	
-			$this->wishlist_manager = true;
-						
-			// loading child templates
-				$file_name = 'wishlist-manager.php';
-				$paths = array(
-					0=> TEMPLATEPATH.'/'.$eventon->template_url.'wishlist/',
-					1=> STYLESHEETPATH.'/'.$eventon->template_url.'wishlist/',
-					2=> $evowi->plugin_path.'/templates/',
-				);
-
-				foreach($paths as $path){	
-					if(file_exists($path.$file_name) ){	
-						$template = $path.$file_name;	
-						break;
-					}
-				}
-
-			ob_start();
-			include($template);
-			$O = ob_get_clean();
-			return $O;
-		}
+	
 
 	// AJAX
 		function wp_query_arg($wp_arguments, $filters, $ecv){
@@ -194,7 +165,6 @@ class evowi_frontend{
 			// Set number of months for the wish list manager if not passed
 			if( !isset($atts['number_of_months']) ) $atts['number_of_months']= 12;
 					
-			ob_start();
 			if($this->user_wishlist){
 				$this->only_wi_actions();
 
@@ -328,16 +298,16 @@ class evowi_frontend{
 
 
 			// wish list events only
-			global $evo_shortcode_box;
 			$new_shortcode_array = array(
 				array(
 					'id'=>'s_WI',
 					'name'=>'Wishlist Events Manager',
 					'code'=>'add_eventon_wishlist_manager',
 					'variables'=>array(
-						$evo_shortcode_box->shortcode_default_field('event_past_future'),
-						$evo_shortcode_box->shortcode_default_field('number_of_months'),
-						$evo_shortcode_box->shortcode_default_field('lang'),
+						EVO()->shortcode_gen->shortcode_default_field('event_past_future'),
+						EVO()->shortcode_gen->shortcode_default_field('number_of_months'),
+						EVO()->shortcode_gen->shortcode_default_field('lang'),
+						EVO()->shortcode_gen->shortcode_default_field('etc_override'),
 					)
 				)
 			);

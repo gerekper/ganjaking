@@ -173,6 +173,16 @@ class Licensing_Plugin_Admin {
 					'<input type="button" class="button-primary button-buy-plugin" data-nonce="' .
 						esc_url( wp_create_nonce( 'w3tc' ) ) . '" data-renew-key="' . esc_attr( $this->get_license_key() ) .
 						'" data-src="licensing_expired" value="' . __( 'Renew Now', 'w3-total-cache' ) . '" />'
+				),
+				array(
+					'input' => array(
+						'type'           => array(),
+						'class'          => array(),
+						'data-nonce'     => array(),
+						'data-renew-key' => array(),
+						'data-src'       => array(),
+						'value'          => array(),
+					),
 				)
 			);
 		} elseif ( $this->_status_is( $status, 'invalid' ) ) {
@@ -194,7 +204,14 @@ class Licensing_Plugin_Admin {
 							'page'                         => 'w3tc_general',
 							'w3tc_licensing_reset_rooturi' => 'y',
 						)
-					) . '"></a>'
+					) . '">',
+					'</a>'
+				),
+				array(
+					'a' => array(
+						'class' => array(),
+						'href'  => array(),
+					),
 				)
 			);
 		} elseif ( $this->_status_is( $status, 'inactive' ) ) {

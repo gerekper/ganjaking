@@ -82,7 +82,14 @@ class evost_admin{
 						'type'=>'yesno',
 						'name'=>'Hide seat expiration time in all cart pages',
 						'legend'=>'With this you can hide the seat expiration timers from showing on cart pages. Otherwise, it will show by default.',
-					),array(
+					),
+					array(
+						'id'=>'_evost_duplicate_all',
+						'type'=>'yesno',
+						'name'=>'Enable copying seat status to duplicate event',
+						'legend'=>'This will copy over the seat status when duplicating an event.',
+					)
+					,array(
 						'id'=>'evost_restock_note',
 						'type'=>'note',
 						'name'=>'<b>Restock Seats</b>: If you would like the cancelled and refunded orders to auto restock seats and make them available for customers, make sure to enable Auto restock for tickets in Tickets > General settings.',
@@ -129,6 +136,8 @@ class evost_admin{
 
 	// Duplication event
 		function after_duplicate_event($EVENT, $wc_id, $post){
+
+			if( EVO()->cal->check_yn('_evost_duplicate_all','evcal_tx')) return;
 
 			$SEATS = new EVOST_Seats_Json($EVENT, $wc_id);
 

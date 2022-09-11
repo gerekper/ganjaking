@@ -1162,35 +1162,12 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-
-		$classes = $this->get_css_classes(false);
-		$opts = empty($this->options) ? $this->get_options() : $this->options;
-		$use_master = $this->use_master($opts);
-		
 		?>
-		<tr class="<?php echo $classes . ' ' . 'googlecloud_pre_config_container';?>">
+		<tr class="{{get_template_css_classes false}} googlecloud_pre_config_container">
 			<td colspan="2">
-				<img alt="<?php echo esc_attr(sprintf(__('%s logo', 'updraftplus'), 'Google Cloud')); ?>" src="<?php echo esc_attr(UPDRAFTPLUS_URL.'/images/googlecloud.png'); ?>"><br>
-				<p><?php printf(__('Do not confuse %s with %s - they are separate things.', 'updraftplus'), '<a href="https://cloud.google.com/storage" target="_blank">Google Cloud</a>', '<a href="https://drive.google.com" target="_blank">Google Drive</a>'); ?></p>
-
-			<?php
-				$admin_page_url = UpdraftPlus_Options::admin_page_url();
-				// This is advisory - so the fact it doesn't match IPv6 addresses isn't important
-				if (preg_match('#^(https?://(\d+)\.(\d+)\.(\d+)\.(\d+))/#', $admin_page_url, $matches) && !$use_master) {
-				echo '<p><strong>'.htmlspecialchars(sprintf(__("%s does not allow authorization of sites hosted on direct IP addresses. You will need to change your site's address (%s) before you can use %s for storage.", 'updraftplus'), __('Google Cloud', 'updraftplus'), $matches[1], __('Google Cloud', 'updraftplus'))).'</strong></p>';
-				} else {
-					// If we are not using the master app then show them the instructions for manual setup
-					if (!$use_master) {
-				?>
-
-				<p><a href="https://updraftplus.com/support/configuring-google-cloud-api-access-updraftplus/" target="_blank"><strong><?php _e('For longer help, including screenshots, follow this link. The description below is sufficient for more expert users.', 'updraftplus');?></strong></a></p>
-
-				<p><a href="https://console.developers.google.com" target="_blank"><?php _e('Follow this link to your Google API Console, and there activate the Storage API and create a Client ID in the API Access section.', 'updraftplus');?></a> <?php _e("Select 'Web Application' as the application type.", 'updraftplus');?></p><p><?php echo htmlspecialchars(__('You must add the following as the authorized redirect URI (under "More Options") when asked', 'updraftplus'));?>: <kbd><?php echo UpdraftPlus_Options::admin_page_url().'?action=updraftmethod-googlecloud-auth'; ?></kbd>
-				</p>
-				<?php
-					}
-				}
-			?>
+				<img alt="{{storage_image_alt_text}}" src="{{storage_image_url}}"><br>
+				<p>{{{storage_google_services_label}}}</p>
+				{{{storage_google_instructions_label}}}
 			</td>
 		</tr>
 
@@ -1204,91 +1181,139 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 	 */
 	public function get_configuration_template() {
 		ob_start();
-		$classes = $this->get_css_classes();
-		$opts = empty($this->options) ? $this->get_options() : $this->options;
-		$use_master = $this->use_master($opts);
-
-		// If we are not using the master app then show them the Client ID and Secret
-		if (!$use_master) {
 		?>
-		
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('Google Cloud', 'updraftplus').' '.__('Client ID', 'updraftplus'); ?>:</th>
+		{{#unless storage_use_master}}
+		{{! If we are not using the master app then show them the Client ID and Secret}}
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_master_client_id_label}}:</th>
 			<td>
-				<input title="<?php esc_attr_e('If Google later shows you the message "invalid_client", then you did not enter a valid client ID here.', 'updraftplus');?>" type="text" data-updraft_settings_test="clientid" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('clientid');?> value="{{clientid}}" />
-				<br><em><?php _e('If Google later shows you the message "invalid_client", then you did not enter a valid client ID here.', 'updraftplus');?></em>
+				<input title="{{input_master_client_id_title}}" type="text" data-updraft_settings_test="clientid" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "clientid"}}" name="{{get_template_input_attribute_value "name" "clientid"}}" value="{{clientid}}" />
+				<br><em>{{input_master_client_id_title}}</em>
 			</td>
 		</tr>
 		
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('Google Cloud', 'updraftplus').' '.__('Client Secret', 'updraftplus'); ?>:</th>
-			<td><input data-updraft_settings_test="secret" type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('secret');?> value="{{secret}}" /></td>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_master_client_secret_label}}:</th>
+			<td><input data-updraft_settings_test="secret" type="{{input_master_client_secret_type}}" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "secret"}}" name="{{get_template_input_attribute_value "name" "secret"}}" value="{{secret}}" /></td>
 		</tr>
-		<?php
-		}
-		?>
-
-		<tr class="<?php echo $classes;?>">
-			<th><?php echo 'Google Cloud '.__('Project ID', 'updraftplus').':';?></th>
+		{{/unless}}
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_project_id_label}}:</th>
 			<td>
-				<input data-updraft_settings_test="project_id" title="<?php echo esc_attr(sprintf(__('Enter the ID of the %s project you wish to use here.', 'updraftplus'), 'Google Cloud')).' '.__('N.B. This is only needed if you have not already created the bucket, and you wish UpdraftPlus to create it for you.', 'updraftplus').' '.__('Otherwise, you can leave it blank.', 'updraftplus');?>" type="text" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('project_id');?> value="{{project_id}}"><br><em><?php echo __('N.B. This is only needed if you have not already created the bucket, and you wish UpdraftPlus to create it for you.', 'updraftplus').' '.__('Otherwise, you can leave it blank.', 'updraftplus');?> <a href="https://updraftplus.com/faqs/where-do-i-find-my-google-project-id/" target="_blank"><?php echo __('Go here for more information.', 'updraftplus');?></a></em>
+				<input data-updraft_settings_test="project_id" title="{{input_project_id_title1}} {{input_project_id_title2}}" type="text" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "project_id"}}" name="{{get_template_input_attribute_value "name" "project_id"}}" value="{{project_id}}"><br><em>{{input_project_id_title2}} <a href="https://updraftplus.com/faqs/where-do-i-find-my-google-project-id/" target="_blank">{{input_project_id_more_info_link_text}}</a></em>
 			</td>
 		</tr>
-		<tr class="<?php echo $classes;?>">
-			<th><?php echo 'Google Cloud '.__('Bucket', 'updraftplus').':';?></th>
-			<td><input data-updraft_settings_test="bucket_path" title="<?php echo esc_attr(sprintf(__('Enter the name of the %s bucket you wish to use here.', 'updraftplus'), 'Google Cloud').' '.__('Bucket names have to be globally unique. If the bucket does not already exist, then it will be created.').' '.sprintf(__('e.g. %s', 'updraftplus'), 'mybackups/workwebsite.'));?>" type="text" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('bucket_path');?> value="{{bucket_path}}"><br><a href="https://cloud.google.com/storage/docs/bucket-naming?hl=en" target="_blank"><em><?php echo __("See Google's guidelines on bucket naming by following this link.", 'updraftplus');?></a> <?php echo sprintf(__('You must use a bucket name that is unique, for all %s users.', 'updraftplus'), __('Google Cloud', 'updraftplus'));?></em></td>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_bucket_label}}:</th>
+			<td><input data-updraft_settings_test="bucket_path" title="{{input_bucket_title}}" type="text" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "bucket_path"}}" name="{{get_template_input_attribute_value "name" "bucket_path"}}" value="{{bucket_path}}"><br><a href="https://cloud.google.com/storage/docs/bucket-naming?hl=en" target="_blank"><em>{{input_bucket_guidelines_link_text}}</a> {{input_bucket_label2}}</em></td>
 		</tr>
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Storage class', 'updraftplus');?>:<br><a title="<?php _e('Read more about storage classes', 'updraftplus'); ?>" href="https://cloud.google.com/storage/docs/storage-classes" target="_blank"><em><?php _e('(Read more)', 'updraftplus');?></em></a></th>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_storage_class_label}}:<br><a title="{{input_storage_class_link_title}}" href="https://cloud.google.com/storage/docs/storage-classes" target="_blank"><em>{{read_more_label}}</em></a></th>
 			<td>
-				<select title="<?php echo __('This setting applies only when a new bucket is being created.', 'updraftplus').' '.__('Note that Google do not support every storage class in every location - you should read their documentation to learn about current availability.', 'updraftplus');?>" data-updraft_settings_test="storage_class" <?php $this->output_settings_field_name_and_id('storage_class');?>>
+				<select title="{{input_storage_class_title}}" class="updraft_input--wide udc-wd-600" data-updraft_settings_test="storage_class" id="{{get_template_input_attribute_value "id" "storage_class"}}" name="{{get_template_input_attribute_value "name" "storage_class"}}">
 					{{#each storage_classes as |description id|}}
 						<option value="{{id}}" {{#ifeq ../storage_class id}}selected="selected"{{/ifeq}}>{{description}}</option>
 					{{/each}}
 				</select>
 				<br>
-				<em><?php echo __('This setting applies only when a new bucket is being created.', 'updraftplus').' '.__('Note that Google do not support every storage class in every location - you should read their documentation to learn about current availability.', 'updraftplus');?></em>
+				<em>{{input_storage_class_title}}</em>
 			</td>
 		</tr>
 		
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Bucket location', 'updraftplus');?>:<br><a title="<?php _e('Read more about bucket locations', 'updraftplus'); ?>" href="https://cloud.google.com/storage/docs/bucket-locations" target="_blank"><em><?php _e('(Read more)', 'updraftplus');?></em></a></th>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_bucket_location_label}}:<br><a title="{{input_bucket_location_link_title}}" href="https://cloud.google.com/storage/docs/bucket-locations" target="_blank"><em>{{read_more_label}}</em></a></th>
 			<td>				
-				<select title="<?php echo __('This setting applies only when a new bucket is being created.', 'updraftplus');?>" data-updraft_settings_test="bucket_location" <?php $this->output_settings_field_name_and_id('bucket_location');?>>
+				<select title="{{input_bucket_location_title}}" class="updraft_input--wide udc-wd-600" data-updraft_settings_test="bucket_location" id="{{get_template_input_attribute_value "id" "bucket_location"}}" name="{{get_template_input_attribute_value "name" "bucket_location"}}">
 					{{#each bucket_locations as |description id|}}
 						<option value="{{id}}" {{#ifeq ../bucket_location id}}selected="selected"{{/ifeq}}>{{description}}</option>
-					{{/each}}					
+					{{/each}}
 				</select>
 				<br>
-				<em><?php echo __('This setting applies only when a new bucket is being created.', 'updraftplus');?></em>
+				<em>{{input_bucket_location_title}}</em>
 
 			</td>
 		</tr>
 		
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Authenticate with Google');?>:</th>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{authentication_label}}:</th>
 			<td>
 				<p>
 					{{#if is_already_authenticated}}
-						<?php
-							echo __("<strong>(You appear to be already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem).", 'updraftplus');
-							$this->get_deauthentication_link();
-						?>
+						{{{authentication_already_authenticated_label}}}
+						<a class="updraft_deauthlink" href="{{admin_page_url}}?action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=deauth&nonce={{deauthentication_nonce}}&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{deauthentication_link_text}}</a>
 					{{/if}}
 					{{#if ownername_sentence}}
 						<br>
 						{{ownername_sentence}}
 					{{/if}}
 				</p>
-				<?php
-					$this->get_authentication_link();
-				?>
+				<p>
+				{{{authentication_label2}}}
+				</p>
+				<br>
+				<a data-pretext="{{{authentication_label2}}}" class="button-ud-google updraft_authlink" href="{{admin_page_url}}?&action=updraftmethod-{{method_id}}-auth&page=updraftplus&updraftplus_{{method_id}}auth=doit&updraftplus_instance={{instance_id}}" data-instance_id="{{instance_id}}" data-remote_method="{{method_id}}">{{authentication_link_text}}</a>
 			</td>
-		</tr>		
+		</tr>
 		<?php
 		return ob_get_clean();
 	}
 	
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus;
+		$opts = empty($this->options) ? $this->get_options() : $this->options;
+		$use_master = (bool) apply_filters('updraftplus_gcloud_use_master', $this->use_master($opts));
+		$storage_google_instructions_label = '';
+		// This is advisory - so the fact it doesn't match IPv6 addresses isn't important
+		if (preg_match('#^(https?://(\d+)\.(\d+)\.(\d+)\.(\d+))/#', apply_filters('updraftplus_gcloud_admin_page_url', UpdraftPlus_Options::admin_page_url()), $matches) && !$use_master) {
+			$storage_google_instructions_label = '<p><strong>'.htmlspecialchars(sprintf(__("%s does not allow authorization of sites hosted on direct IP addresses. You will need to change your site's address (%s) before you can use %s for storage.", 'updraftplus'), __('Google Cloud', 'updraftplus'), $matches[1], __('Google Cloud', 'updraftplus'))).'</strong></p>';
+		} else {
+			// If we are not using the master app then show them the instructions for manual setup
+			if (!$use_master) {
+				$storage_google_instructions_label .= '<p><a href="https://updraftplus.com/support/configuring-google-cloud-api-access-updraftplus/" target="_blank"><strong>'.__('For longer help, including screenshots, follow this link. The description below is sufficient for more expert users.', 'updraftplus').'</strong></a></p>';
+				$storage_google_instructions_label .= '<p><a href="https://console.developers.google.com" target="_blank">'.__('Follow this link to your Google API Console, and there activate the Storage API and create a Client ID in the API Access section.', 'updraftplus').'</a> '.__("Select 'Web Application' as the application type.", 'updraftplus').'</p><p>'.htmlspecialchars(__('You must add the following as the authorized redirect URI (under "More Options") when asked', 'updraftplus')).': <kbd>'.UpdraftPlus_Options::admin_page_url().'?action=updraftmethod-googlecloud-auth'.'</kbd></p>';
+			}
+		}
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL.'/images/googlecloud.png',
+			'storage_image_alt_text' => sprintf(__('%s logo', 'updraftplus'), 'Google Cloud'),
+			'storage_google_services_label' => wp_kses(sprintf(__('Do not confuse %s with %s - they are separate things.', 'updraftplus'), '<a href="https://cloud.google.com/storage" target="_blank">Google Cloud</a>', '<a href="https://drive.google.com" target="_blank">Google Drive</a>'), $this->allowed_html_for_content_sanitisation()),
+			'storage_google_instructions_label' => wp_kses($storage_google_instructions_label, $this->allowed_html_for_content_sanitisation()),
+			'storage_use_master' => $use_master,
+			'input_master_client_id_label' => __('Google Cloud', 'updraftplus').' '.__('Client ID', 'updraftplus'),
+			'input_master_client_id_title' => __('If Google later shows you the message "invalid_client", then you did not enter a valid client ID here.', 'updraftplus'),
+			'input_master_client_secret_label' => __('Google Cloud', 'updraftplus').' '.__('Client Secret', 'updraftplus'),
+			'input_master_client_secret_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_project_id_label' => 'Google Cloud '.__('Project ID', 'updraftplus'),
+			'input_project_id_title1' => sprintf(__('Enter the ID of the %s project you wish to use here.', 'updraftplus'), 'Google Cloud'),
+			'input_project_id_title2' => __('N.B. This is only needed if you have not already created the bucket, and you wish UpdraftPlus to create it for you.', 'updraftplus').' '.__('Otherwise, you can leave it blank.', 'updraftplus'),
+			'input_project_id_more_info_link_text' => __('Go here for more information.', 'updraftplus'),
+			'input_bucket_label' => 'Google Cloud '.__('Bucket', 'updraftplus'),
+			'input_bucket_label2' => sprintf(__('You must use a bucket name that is unique, for all %s users.', 'updraftplus'), __('Google Cloud', 'updraftplus')),
+			'input_bucket_title' => sprintf(__('Enter the name of the %s bucket you wish to use here.', 'updraftplus'), 'Google Cloud').' '.__('Bucket names have to be globally unique. If the bucket does not already exist, then it will be created.').' '.sprintf(__('e.g. %s', 'updraftplus'), 'mybackups/workwebsite.'),
+			'input_bucket_guidelines_link_text' => __("See Google's guidelines on bucket naming by following this link.", 'updraftplus'),
+			'input_storage_class_label' => __('Storage class', 'updraftplus'),
+			'input_storage_class_link_title' => __('Read more about storage classes', 'updraftplus'),
+			'read_more_label' => __('(Read more)', 'updraftplus'),
+			'input_storage_class_title' => __('This setting applies only when a new bucket is being created.', 'updraftplus').' '.__('Note that Google do not support every storage class in every location - you should read their documentation to learn about current availability.', 'updraftplus'),
+			'input_bucket_location_label' => __('Bucket location', 'updraftplus'),
+			'input_bucket_location_link_title' => __('Read more about bucket locations', 'updraftplus'),
+			'input_bucket_location_title' => __('This setting applies only when a new bucket is being created.', 'updraftplus'),
+			'authentication_label' => __('Authenticate with Google'),
+			'authentication_label2' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'authentication_link_text' => sprintf(__('Sign in with %s', 'updraftplus'), 'Google'),
+			'authentication_already_authenticated_label' => wp_kses(__("<strong>(You appear to be already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem).", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
+	}
+
 	/**
 	 * Modifies handerbar template options
 	 *

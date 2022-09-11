@@ -280,6 +280,10 @@ class evo_mdt{
 			global $ajde;
 
 			ob_start();
+
+			$text_select = sprintf( __('Select %s from list','eventon'), $name);
+			$text_new = sprintf( __('Create a new %s','eventon'), $name);
+
 			?>
 			<div class='evcal_data_block_style1'>
 				<div class='evcal_db_data'>
@@ -289,8 +293,8 @@ class evo_mdt{
 					</p>
 					<div class="evomdt_actions">
 						<p>
-							<a class='evo_btn evomdt_get_list ajde_popup_trig' data-popc='evomdt_list' data-eventid='<?php echo $p_id;?>' data-tax='<?php echo $tax;?>'><?php _e('Select from list','eventon');?></a>
-							<a class='evo_btn evomdt_add_new_btn ajde_popup_trig' data-popc='evomdt_new' data-tax='<?php echo $tax;?>' data-eventid='<?php echo $p_id;?>'><?php echo sprintf( __('Create a new %s','eventon'), $name );?></a> 
+							<a class='evo_btn evomdt_get_list ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_mdt_lb' data-t="<?php echo $text_select;?>" data-eventid='<?php echo $p_id;?>' data-tax='<?php echo $tax;?>'><?php echo $text_select;?></a>
+							<a class='evo_btn evomdt_add_new_btn ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_mdt_lb' data-t="<?php echo $text_new;?>" data-tax='<?php echo $tax;?>' data-eventid='<?php echo $p_id;?>'><?php echo $text_new;?></a> 
 						</p>
 					</div>
 					<ul class="evomdt_selection <?php echo $tax;?>_display_list" data-tax='<?php echo $tax;?>' data-eventid='<?php echo $p_id;?>'>
@@ -302,18 +306,6 @@ class evo_mdt{
 			</div>
 			<?php 
 
-			EVO()->lightbox->admin_lightbox_content(array(
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'class'=>'evomdt_new',
-				'title'=>__('Create a New '.$name,'eventon'),
-				'outside_click'=>false
-			));
-			EVO()->lightbox->admin_lightbox_content(array(
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'class'=>'evomdt_list',
-				'title'=>__('Select '.$name .' from list','eventon'),
-				'outside_click'=>false
-			));
 			return ob_get_clean();
 		}
 		function save_event_post($fields, $post_id){
@@ -524,13 +516,13 @@ class evo_mdt{
 						switch($val[1]){
 						case 'text':
 							?>
-							<p><input type='text' class='field <?php echo $req;?>' name='<?php echo $key;?>' value="<?php echo $saved_val;?>" style='width:100%' /><label for='<?php echo $key;?>'><?php echo $label;?></label></p>
+							<p><label for='<?php echo $key;?>'><?php echo $label;?></label><input type='text' class='field <?php echo $req;?>' name='<?php echo $key;?>' value="<?php echo $saved_val;?>" style='width:100%' /></p>
 							<?php
 						break;
 						case 'textarea':
 							?>
-							<p><textarea class='field ' name="<?php echo $key;?>" rows="4" style='width:100%'><?php echo $saved_val;?></textarea>
-							<label for='<?php echo $key;?>'><?php echo $label;?></label></p>
+							<p><label for='<?php echo $key;?>'><?php echo $label;?></label><textarea class='field ' name="<?php echo $key;?>" rows="4" style='width:100%'><?php echo $saved_val;?></textarea>
+							</p>
 							<?php
 						break;
 						case 'image':
@@ -550,12 +542,12 @@ class evo_mdt{
 							?>
 							<div class='evo_metafield_image' style='padding-top:10px'>				
 								<p >
+									<label><?php _e('Image','eventon');?></label>
 									<input class='field evomdt_img custom_upload_image evo_meta_img' name="<?php echo $key;?>" type="hidden" value="<?php echo $saved_val;?>" /> 
 			                		<span class="custom_upload_image_button evo_btn <?php echo $btnclass;?>" data-txt='<?php echo $btntxt_attr;?>'><?php echo $btntxt;?></span>
 			                		<span class='evo_img_src image_src' style='clear:both;display:block'>
 			                			<img class='evomdt_image' src='<?php echo (!empty($img_src)?$img_src:'');?>' style='display:<?php echo (!empty($img_src)?'block':'none');?>'/>
-			                		</span>
-			                		<label><?php _e('Image','eventon');?></label>
+			                		</span>			                		
 			                	</p>
 			                </div>
 							<?php

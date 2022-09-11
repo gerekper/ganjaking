@@ -1,6 +1,7 @@
 <?php
 /** 
  * Attendees
+ * @version 2.0
  */
 
 class EVOTX_Attendees{
@@ -41,17 +42,13 @@ class EVOTX_Attendees{
 			$event_tickets = new WP_Query(array(
 				'posts_per_page'=>-1,
 				'post_type'=>'evo-tix',
-				'meta_query' => $meta_query
+				'meta_query' => $meta_query,
 			));
 
 			if($event_tickets->have_posts()):
 				while($event_tickets->have_posts()): $event_tickets->the_post();
-					$this->evotix_id = $event_tickets->post->ID;
 					
-					$thA = $this->__return_th_array($EVENT);
-					if(count($thA)>0){
-						$ticket_numbers = array_merge($ticket_numbers, $thA);
-					}			
+					$ticket_numbers = $this->_get_ticket_data_array($event_tickets->post, $ticket_numbers);	
 
 				endwhile;
 				wp_reset_postdata();
@@ -92,11 +89,6 @@ class EVOTX_Attendees{
 		function get_tickets_for_order($order_id){
 			$ticket_numbers = array();
 
-			//$TH = get_post_meta($order_id, '_tixholders', true);
-			//$TH = $this->_process_ticket_holders( $TH);
-
-			$purchaser = $this->get_ticket_purchaser($order_id);
-
 			global $post;
 			$_post = $post;
 
@@ -109,12 +101,8 @@ class EVOTX_Attendees{
 
 			if($event_tickets->have_posts()):
 				while($event_tickets->have_posts()): $event_tickets->the_post();
-					$this->evotix_id = $event_tickets->post->ID;
-					
-					$thA = $this->__return_th_array();
-					if(count($thA)>0){
-						$ticket_numbers = array_merge($ticket_numbers,$thA);
-					}
+
+					$ticket_numbers = $this->_get_ticket_data_array($event_tickets->post, $ticket_numbers);
 
 				endwhile;				
 			endif;
@@ -141,26 +129,189 @@ class EVOTX_Attendees{
 							}
 						break;
 					}
-
 					return $_t;
 				}
 
-	// return ticket holder array content for evo-tix post
+	// get tickets by order item ID -- added 2.0
+		function get_ticket_by_order_item_id($order_item_id, $order_id){
+			global $post;
+			$_post = $post;
+
+			$event_tickets = new WP_Query(array(
+				'posts_per_page'=>-1,
+				'post_type'=>'evo-tix',
+				'meta_query' => array(
+					'relation'=> 'AND',
+					array(
+						'key'=>'_orderid',
+						'value'=> $order_id
+					),
+					array(
+						'key'=>'_order_item_id',
+						'value'=> $order_item_id
+					)
+				)
+			));
+
+			$ticket_numbers = array();
+
+			if($event_tickets->have_posts()):
+				while($event_tickets->have_posts()): $event_tickets->the_post();
+					
+					$ticket_numbers = $this->_get_ticket_data_array($event_tickets->post, $ticket_numbers);
+
+				endwhile;				
+			endif;
+			wp_reset_postdata();
+
+			$GLOBALS['post'] = $_post;
+
+			return $ticket_numbers;
+		}
+
+	// get tickets by customer id
+		public function get_tickets_by_customer_id($customer_id){
+			global $post;
+			$_post = $post;
+
+			$event_tickets = new WP_Query(array(
+				'posts_per_page'=>-1,
+				'post_type'=>'evo-tix',
+				'meta_query' => array(
+					array(
+						'key'=>'_customerid','value'=> $customer_id
+					),					
+				)
+			));
+
+			$ticket_numbers = array();
+
+			if($event_tickets->have_posts()):
+				while($event_tickets->have_posts()): $event_tickets->the_post();
+					
+					$ticket_numbers = $this->_get_ticket_data_array($event_tickets->post, $ticket_numbers);
+					
+				endwhile;
+
+				wp_reset_postdata();
+				$GLOBALS['post'] = $_post;
+				
+				return $ticket_numbers;
+			else:
+				wp_reset_postdata();
+				$GLOBALS['post'] = $_post;
+				
+				return false;
+			endif;			
+		}
+
+	// return one ticket data
+	// @version 2.0
+		function get_one_ticket_data($evotix_id, $post = ''){
+			$TIX = new EVO_Evo_Tix_CPT( $evotix_id , true, false,$post);
+
+			if( $TIX->is_many_ticket_ids() ) return false;
+
+			$RI = $TIX->get_repeat_interval();
+			$EVENT = new EVO_Event($TIX->get_event_id(), '' ,$RI);
+
+			$EVENT->load_repeat($RI);
+
+			$order_id = $TIX->get_order_id();
+			$ticket_number = $TIX->get_ticket_number();
+
+			// order ticket holder data
+			$th_data = $this->get_order_ticketholder_data( $order_id );
+			$purchaser_data = $this->get_ticket_purchaser( $order_id );
+
+			$_this_ticketholder_data = $this->get_this_ticketholder_data( 
+				$th_data, $TIX->get_event_id(), $RI, 
+				$TIX->get_ticket_number_index() , 
+				$TIX->get_ticket_number_instance(), 
+				$purchaser_data
+			);
+
+			$name = $_this_ticketholder_data['name'];
+			$email = $_this_ticketholder_data['email'];
+
+			$date = $TIX->get_date();
+
+			$return = array(
+				$ticket_number => apply_filters('evotx_get_attendees_for_event', array(
+					'id'=> $evotix_id,
+					's'=> 			$TIX->get_status(),					
+					'n'=> 			$name,
+					'name'=> 		$name,
+					'e'=> 			$email,
+					'email'=> 		$email,
+					'event_id'=> 	$TIX->get_event_id(),
+					'ri'=> $RI,
+					'o'=> 			$order_id,
+					'd'=>			$date,					
+					'type'=> 		$TIX->get_prop('type'),
+					'oD'=> array( // other data that IS shown by default
+						'ordered_date'=>$date,
+						'email'=>			$email,
+						'event_time'=>		$EVENT->get_formatted_smart_time($RI),						
+						'event_title'=>		$EVENT->get_title(),						
+					),
+					'oDD'=>array( // other data that are not shown by default
+						'_order_item_id' => $TIX->get_prop('_order_item_id'),
+						'order_id' => 		$order_id,
+						'event_instance'=> 	$TIX->get_ticket_number_instance(),
+						'signin'=> 			$TIX->get_prop('signin'),
+						'event_end_unix'=> 	(int)$EVENT->end_unix
+					),
+					'eU'=> get_edit_post_link($order_id), // edit order post URL
+					'etixU'=> get_edit_post_link($evotix_id), // edit ticket post URL
+					'th'=> $_this_ticketholder_data
+				), $TIX->get_event_id(), $_this_ticketholder_data, $EVENT)
+			);
+
+			// other purchaser data
+				foreach(array('company','phone','oS','aD','payment_method') as $F){
+					if(!isset($purchaser_data[$F])) continue;
+					$return[$ticket_number][$F] = $purchaser_data[$F];
+				}
+
+			return $return;
+		}
+
+		// return ticket data added to array with legacy compatibility
+		public function _get_ticket_data_array($event_ticket_post, $array){
+
+			$ticket_data = $this->get_one_ticket_data( $event_ticket_post->ID, $event_ticket_post);
+			if( $ticket_data ){
+				$array = array_merge($array, $ticket_data);
+			}else{
+				$this->evotix_id = $event_ticket_post->ID;
+					
+				$thA = $this->__return_th_array();
+				if(count($thA)>0){
+					$array = array_merge($array,$thA);
+				}
+			}
+
+			return $array;
+		}
+
+	// deprecating
+	// return ticket holder array content for evo-tix post		
 		function __return_th_array($EVENT=''){
 			$event_id = $this->get_prop('_eventid');
 			$order_id = $this->get_prop( '_orderid');
-			
-			if(empty($EVENT)) $EVENT = new EVO_Event($event_id);
-
+				
 			$_ri = $this->_get_ri();
+
+			if(empty($EVENT) || is_int($EVENT)) $EVENT = new EVO_Event($event_id, '' ,$_ri);
+
+			$EVENT->load_repeat($_ri);
+			
 			$ET = $EVENT->get_formatted_smart_time($_ri);
 
 			// get ticket holders from order post
-			$TH = get_post_meta($order_id, '_tixholders', true);
-			//print_r($TH);
-			$TH = $this->_process_ticket_holders( $TH);
+			$TH = $this->get_order_ticketholder_data( $order_id );	
 
-			//print_r($TH);
 
 			// make sure order still exists
 			if(!get_post($order_id)){
@@ -191,6 +342,7 @@ class EVOTX_Attendees{
 
 
 				$ticket_numbers[$ticket_id] = apply_filters('evotx_get_attendees_for_event',array(
+					'id'=> $this->evotix_id,
 					's'=> $status,
 					'n'=> $N,
 					'name'=> $N,
@@ -199,24 +351,24 @@ class EVOTX_Attendees{
 					'event_id'=>$event_id,
 					'ri'=> $_ri,
 					'o'=> $order_id,
-					'd'=>get_the_date('Y-m-d'),
-					'id'=> $this->evotix_id,
+					'd'=>get_the_date('Y-m-d'),					
 					'type'=> $this->get_prop('type'),
-					'oD'=> array(
+					'oD'=> array( // other data that IS shown by default
 						'ordered_date'=>get_the_date('Y-m-d'),
 						'email'=>$E,
-						'event_time'=>$ET,
+						'event_time'=>$ET,						
+						'event_title'=>$EVENT->get_title(),						
 					),
 					'oDD'=>array( // other data that are not shown by default
 						'_order_item_id' => $this->get_prop('_order_item_id'),
 						'order_id' => $order_id,
 						'event_instance'=> ( empty($_ticket_number_instance)? 1:$_ticket_number_instance),
 						'signin'=> $this->get_prop('signin'),
+						'event_end_unix'=> (int)$EVENT->end_unix
 					),
 					'eU'=> get_edit_post_link($order_id), // edit order post link
 					'th'=> $_th,
-				),$event_id, $_th);
-
+				),$event_id, $_th, $EVENT);
 
 
 				// other purchaser data
@@ -254,8 +406,10 @@ class EVOTX_Attendees{
 				$payment_gateways = array();
 			}
 			$payment_method = $order->get_payment_method();
-			$payment_method = ($payment_method)? (($payment_gateways[ $payment_method ] ) ? $payment_gateways[ $payment_method ]->get_title() : $payment_method) 
+			if( isset($payment_gateways[ $payment_method ])){
+				$payment_method = ($payment_method)? (($payment_gateways[ $payment_method ] ) ? $payment_gateways[ $payment_method ]->get_title() : $payment_method) 
 				:'';
+			}
 
 			$aD = '"'.$order->get_billing_address_1().' '.
 					$order->get_billing_address_2().' '.
@@ -283,6 +437,21 @@ class EVOTX_Attendees{
 				'payment_method'=>$payment_method
 			);
 		}
+
+
+// SORT tickets
+	// sort ticket numbers by event id and ri
+	// @version 2.0
+		public function sort_tickets_by_event($ticket_numbers_array){
+			$new_tickets = array();
+
+			foreach($ticket_numbers_array as $ticket_number=>$TD){
+				$new_tickets[ $TD['event_id'] ][ $TD['ri'] ][ $ticket_number ] = $TD; 
+			}
+
+			return $new_tickets;
+		}
+
 
 // VERIFICATIONS
 	// if the current user can check in attendees
@@ -343,6 +512,7 @@ class EVOTX_Attendees{
 						<?php if($orderStatus == 'completed' && $showStatus || $status=='refunded'): ?>
 							<span class='etxva_tag evotx_status <?php echo $status;?> <?php echo $guestsCheckable?'checkable':'';?>' data-tiid='<?php echo $td['id'];?>' data-gc='<?php echo $guestsCheckable?'true':'false';?>' data-tid='<?php echo $ticket_number;?>' data-status='<?php echo $status;?>'><?php echo $this->ETX->get_checkin_status_text($status);?></span>
 						<?php endif;?>
+						
 						<?php if($showOrderStatus):?>
 							<span class='etxva_tag evotx_wcorderstatus <?php echo $orderStatus;?>' ><?php echo $orderStatus;?></span>
 						<?php endif;?>
@@ -382,6 +552,12 @@ class EVOTX_Attendees{
 	}
 
 // PROCESS
+	// get additional ticket holder data from order ID
+		public function get_order_ticketholder_data($order_id){
+			$TH = get_post_meta($order_id, '_tixholders', true);
+			return $this->_process_ticket_holders( $TH );
+			
+		}
 	// process order ticket holders for old and new methods for multidimensional array
 		function _process_ticket_holders($ticket_holders_array){
 			$data = $ticket_holders_array;
@@ -425,30 +601,58 @@ class EVOTX_Attendees{
 		}
 
 	// secondary function to get ticket holder name for event and ri
-		function __filter_ticket_holder($TH, $event_id, $ri, $index, $instance=''){
+		public function get_this_ticketholder_data($order_ticketholder_data, $event_id, $ri, $index, $instance='', $purchaser_data = ''){
+			
+			// get corrected order _tixholders data
+			$data =  $this->__filter_ticket_holder( $order_ticketholder_data, $event_id, $ri, $index, $instance);
+
+			$return_data = !empty($purchaser_data) && is_array($purchaser_data) ? $purchaser_data : array();
+
+			if( $data){
+				foreach($data as $df=>$dv ){
+					if( empty($dv)) continue;
+					$return_data[ $df ] = $dv;
+				}
+			}
+
+			// if not set set the basic data value fields
+			if(!isset($return_data['name'])) $return_data['name'] = '';
+			if(!isset($return_data['email'])) $return_data['email'] = '';
+
+			return $return_data;
+		}
+		function __filter_ticket_holder($order_ticketholder_data, $event_id, $ri, $index, $instance=''){
+			$TH = $order_ticketholder_data;
+			
 			if( !isset($TH[$event_id])) return false;
 
 			if(empty($instance)) $instance = 1;
 
-			$R = !isset($TH[$event_id][$ri])? (isset($TH[$event_id]['all'])? $TH[$event_id]['all']: false) : $TH[$event_id][$ri];
+			$R = !isset($TH[$event_id][$ri])? 
+				(isset($TH[$event_id]['all'])? $TH[$event_id]['all']: false) : 
+				$TH[$event_id][$ri];
+
 			if( !$R) return false;
+
 
 			if( !isset($R['names'])) return false;
 
 			if( !isset($R['names'][$index])) return false;
 			if( !isset($R['names'][$index][$instance])) return false;
 
+
+
 			return $R['names'][$index][$instance];
 		}
 
 
 	// update attendee information
-		function _update_ticket_holder($ticket_data_json, $THD){
-			$TD = $ticket_data_json;
+		function _update_ticket_holder($ticket_data_json, $post_ticket_holder_data){
+			$TD = (object)$ticket_data_json;
+
 			
 			if(!($TD)) return false;
-
-			//update_post_meta(640,'aa', $TD);
+			
 			if(!isset($TD->event_instance)) return false;
 
 			$OTH = get_post_meta($TD->order_id, '_tixholders', true);
@@ -462,19 +666,20 @@ class EVOTX_Attendees{
 				if(is_array($ris)){
 					
 					if( is_array($OTH[$TD->event_id][$TD->ri][$TD->Q][$TD->event_instance])){
-						foreach($THD as $F=>$V){
+						foreach($post_ticket_holder_data as $F=>$V){
 							$OTH[$TD->event_id][$TD->ri][$TD->Q][$TD->event_instance][$F] = $V;
 						}
 					}else{
 						//$OTH[$TD->event_id][$TD->ri][$TD->Q][$TD->event_instance] = $ticket_holder_name;
 						$OTH[$TD->event_id][$TD->ri][$TD->Q][$TD->event_instance] = 
-							array('name' => $THD['name'] );
+							array('name' => $post_ticket_holder_data['name'] );
 					}
 					
 				}			
 			}
 
 			update_post_meta( $TD->order_id, '_tixholders', $OTH);
+
 			return true;
 
 		}

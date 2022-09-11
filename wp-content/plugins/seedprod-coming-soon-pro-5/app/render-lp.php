@@ -32,11 +32,13 @@ function seedprod_pro_deregister_styles() {
 	//var_dump($wp_styles->registered);
 	foreach ( $wp_styles->queue as $handle ) {
 		//echo '<br> '.$handle;
-		if ( strpos( $wp_styles->registered[ $handle ]->src, 'wp-content/themes' ) !== false ) {
-			//var_dump($wp_styles->registered[$handle]->src);
-			wp_dequeue_style( $handle );
-			wp_deregister_style( $handle );
-		}
+        if (!empty($wp_styles->registered[ $handle ]->src)) {
+            if (strpos($wp_styles->registered[ $handle ]->src, 'wp-content/themes') !== false) {
+                //var_dump($wp_styles->registered[$handle]->src);
+                wp_dequeue_style($handle);
+                wp_deregister_style($handle);
+            }
+        }
 	}
 };
 

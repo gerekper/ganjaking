@@ -117,9 +117,10 @@ class EVOVO_Seats{
 					}
 
 					// price options
-					if(isset($values['evovo_data']['pot'])){
+					if(isset($values['evovo_data']['po'])){
 						$POs = new EVOVO_Var_opts($ST->event, $ST->wcid,'option');
-						foreach($values['evovo_data']['pot'] as $po_id=>$data){
+						
+						foreach($values['evovo_data']['po'] as $po_id=>$data){
 							$POs->set_item_data($po_id);
 
 							$qty = isset($data['qty'])? $data['qty']: 1;							

@@ -217,6 +217,11 @@ class UpdraftPlus_Addons_MoreFiles {
 			// Don't put this in the for loop, or the magic __get() method gets called every time the loop goes round
 			$numfiles = $zip->numFiles;
 
+			if (false === $numfiles) {
+				$warn[] = sprintf(__('Unable to read any files from the zip (%s) - could not pre-scan it to check its integrity. Zip error: (%s)', 'updraftplus'), basename($zipfile), $zip->last_error);
+				return;
+			}
+
 			for ($i=0; $i < $numfiles; $i++) {
 				$si = $zip->statIndex($i);
 				if ('wp-admin/index.php' == $si['name']) {
@@ -924,6 +929,8 @@ class UpdraftPlus_Addons_MoreFiles {
 	
 			// Don't put this in the for loop, or the magic __get() method gets called every time the loop goes round
 			$numfiles = $zip->numFiles;
+
+			if (false === $numfiles) $updraftplus->log("get_backup_contents_list(): could not read any files from the zip: (".basename($zipfile).") Zip error: (".$zip->last_error.")");
 	
 			for ($i=0; $i < $numfiles; $i++) {
 				$si = $zip->statIndex($i);

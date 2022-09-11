@@ -2,7 +2,7 @@
 /**
  * EventON Ticket corresponding to WC order
  * CPT evo-tix 
- * @version 0.1
+ * @version 2.0
  */
 
 class evotx_tix{
@@ -19,8 +19,9 @@ class evotx_tix{
 		$TA = new EVOTX_Attendees();
 		$EH = new evo_helper();
 
-		$TH = get_post_meta($order_id, '_tixholders', true);
-			$TH = $TA->_process_ticket_holders( $TH); // process old and new methods of saved ticket holders
+		// get ticket holder data from order
+			$order_ticketholder_data = $TA->get_order_ticketholder_data( $order_id );			
+			$ticket_purchaser_data = $TA->get_ticket_purchaser($order); // order purchaser information
 
 		if ( sizeof( $items ) <= 0 ) return false;
 
@@ -36,28 +37,22 @@ class evotx_tix{
 	    	$_event_instance = 1;
 		    $_cart_events = array();
 
-	    // EACH Order item 
+	    // EACH Order item = evo-tix post
 			foreach ($items as $item_id => $item) {	
 
 				// check order item is a event
-				$event_id = get_post_meta( $item['product_id'], '_eventid', true); 
-			    if(empty($event_id)) continue;	
+					$event_id = get_post_meta( $item['product_id'], '_eventid', true); 
+				    if(empty($event_id)) continue;	
 
 			    // order item has event tickets
-			    $order_has_event_tickets = true;	
+				    $order_has_event_tickets = true;	
 
-			    $ri = $this->get_ri_from_itemmeta($item);
-
-			    // order purchaser information
-			    $TP = $TA->get_ticket_purchaser($order);
-
-			    // add event to cart events array
+				    $ri = $this->get_ri_from_itemmeta($item);
+			    
+			    // Set event instance for this order item
 	        		if(!in_array($event_id, $_cart_events)){		        			
-	        			$_event_instance=1;
-	        			$_cart_events[] = $event_id;
-	        		}else{
-	        			$_event_instance++;		        			
-	        		}
+	        			$_event_instance=1;	$_cart_events[] = $event_id;
+	        		}else{	$_event_instance++;		}
 
 			    // Item type
 			    	$type = 'Normal';
@@ -72,40 +67,49 @@ class evotx_tix{
 			    	if($created_tix_id = $EH->create_posts(array(
 						'post_type'=>'evo-tix',
 						'post_status'=>'publish',
-						'post_title'=>'TICKET '.date('M d Y @ h:i:sa', time()),
+						'post_title'=> __('TICKET ','evotx') .date('M d Y @ h:i:sa', time()),
 						'post_content'=>''
 					))){
 
-			    		// set ticket number
-			    		$ticket_number = $created_tix_id.'-'.$order_id.'-'.( !empty($item['variation_id'])? $item['variation_id']: $item['product_id']) . 'T'. $Q;
-			    		$order_ticket_numbers[] = $ticket_number;
+			    		// get this order item quantity's tixholder data array
+			    		$_this_ticketholder_data = $TA->get_this_ticketholder_data( $order_ticketholder_data, $event_id, $ri, $Q , $_event_instance, $ticket_purchaser_data);
 
-			    		// if additional ticket holders saved get ticket holder for this ticket
-			    		$_this_TH = $TH? $TA->__filter_ticket_holder($TH, $event_id, $ri, $Q): $TP;
-
+			    		// construct ticket number
+			    			$__prod_key = !empty($item['variation_id'])? $item['variation_id']: $item['product_id'];
+			    			$ticket_number = $created_tix_id.'-'.$order_id.'-'.$__prod_key . 'T'. $Q;
+			    		
+		    		
 			    		// get order Item meta values and save to evo-tix post - for easy access	        	
 						// save ticket data	
 						foreach( apply_filters('evotx_tix_save_field_meta', array(
-							'name'			=> isset($_this_TH['name'])? $_this_TH['name']: $TP['name'],
-							'email'			=> isset($_this_TH['email'])? $_this_TH['email']: $TP['email'],
+							'name'			=> $_this_ticketholder_data['name'],
+							'email'			=> $_this_ticketholder_data['email'],
 							'qty'			=> 1,
 							'cost'			=>$order->get_line_subtotal($item),
-							'type'			=>$type,
-							'ticket_ids'	=> array($ticket_number=>'check-in'),							
-							'wcid'			=>$item['product_id'],
-							'tix_status'	=>'none',
-							'status'		=>'check-in',
+							'type'			=>$type,												
+							'wcid'			=>$item['product_id'],	
 							'_eventid'		=>$event_id,
+							'repeat_interval'=>$ri,
+							'status'		=>'check-in', // v2.0 using this as primary
 							'_orderid'		=>$order_id,
-							'_customerid'	=>$TP['customer_id'],
+							'_customerid'	=>$_this_ticketholder_data['customer_id'],
 							'_order_item_id'=>$item_id,
 							'_ticket_number'=> $ticket_number,
+
 							'_ticket_number_index' =>$Q, // save the index to fetch correct ticket holder
-							'_ticket_number_instance' => $_event_instance, // instance of event for same event in cart with different cart item meta values
-							'repeat_interval'=>$ri
+							'_ticket_number_instance' => $_event_instance, 
+								// instance of event for same event in cart with different cart item meta values
+							'_ticket_holder_data'	=> $_this_ticketholder_data, // added in @2.0
+
+							// deprecating
+							'ticket_ids'	=> array($ticket_number=>'check-in'),		
+							//'tix_status'	=>'none',
+							
 						), $item) as $field=>$value){
 							$EH->create_custom_meta($created_tix_id, $field, $value);
 						}
+
+						$order_ticket_numbers[] = $ticket_number;
 					}
 			    }			    
 			}
@@ -119,6 +123,53 @@ class evotx_tix{
 			if(count($order_ticket_numbers)>0){
 				update_post_meta($order_id, '_tixids', $order_ticket_numbers);
 			}
+	}
+
+// update order_item_id with evo-tix posts
+// added 2.0
+	public function re_process_order_items($order_id, $order){
+
+		if(sizeof( $order->get_items() ) <= 0) return false;
+
+		$ticket_ids = get_post_meta( $order_id, '_tixids', true);
+
+		if(!$ticket_ids || !is_array($ticket_ids)) return;
+
+		// EACH ORDER ITEM
+		foreach ( $order->get_items() as $item_id=>$item) {
+
+			if ( $item['product_id'] > 0 ) {    			
+		    		
+	    		$event_id = ( isset($item['_event_id']) )? 
+	    			$item['_event_id']:
+	    			get_post_meta( $item['product_id'], '_eventid', true);
+	    					    		
+	    		if(empty($event_id)) continue; // skip non ticket items
+
+	    		$item_qty   = (int)$item['qty'];
+	    		$__prod_key = !empty($item['variation_id'])? $item['variation_id']: $item['product_id'];
+
+	    		for($Q = 0; $Q< $item_qty; $Q++){
+
+	    			foreach($ticket_ids as $ticket_number){
+	    				$TNN = explode('-', $ticket_number);
+	    				$evotix_post_id = (int) $TNN[0];
+
+	    				//echo $ticket_number.'/';
+
+	    				if( $TNN[1]== $order_id && $TNN[2] == $__prod_key.'T'.$Q){
+	    					$TIX = new EVO_Evo_Tix_CPT( $evotix_post_id, false );
+
+	    					//echo '<'.$item_id.'>';
+
+	    					$TIX->set_prop('_order_item_id', $item_id);
+	    				}
+	    			}
+	    		}
+		    }
+
+		}
+
 	}
 
 // Tickets based on WC Order
@@ -140,7 +191,6 @@ class evotx_tix{
 
 		$product_id = wp_get_post_parent_id( (int)$tt[2]);
 		return ( !$product_id)? false: (int)$tt[2];
-
 	}
 
 	function get_ticket_numbers_for_order($order_id){
@@ -152,8 +202,6 @@ class evotx_tix{
 		$ticket_ids = get_post_meta($order_id, '_tixids', true); // returns Array ( [0] => 1837-1836-1831 [1] => 1838-1836-1830 )
 
 		if(empty($ticket_ids)) return false;
-
-		//print_r($ticket_ids);
 
 		foreach($ticket_ids as $ticket_number){
 			$tt = explode('-', $ticket_number);
@@ -213,15 +261,47 @@ class evotx_tix{
 		function get_data_from_ticket_number($TN){
 			$TN = explode('-', $TN);
 			$output = array();
-			$output['evotix_id'] = $TN[0];
-			$output['order_id'] = $TN[1];
-			$output['wcid'] = $TN[2];
+			$output['evotix_id'] = (int)$TN[0];
+			$output['order_id'] = (int)$TN[1];
+			$output['wcid'] = (int)$TN[2];
 			if(strpos($TN[2], 'T')!== false){
 				$T = explode('T', $TN[2]);
 				$output['wcid'] = $T[0];
 			}
 			return $output;
 		}
+
+// Validate ticket number exists
+// Added 1.9.4
+	public function validate_ticket_number($TN){
+		$tn_data = $this->get_data_from_ticket_number($TN);
+
+		$HELP = new evo_helper();
+
+		// check if event ticket post exists
+		$evotix_id = $HELP->post_exist( $tn_data['evotix_id'] );
+		if(!$evotix_id) return false;
+
+		// get saved ticket number on post meta
+		$TIX_CPT = new EVO_Evo_Tix_CPT( $evotix_id );
+		$saved_tn = $TIX_CPT->get_ticket_number();
+
+		if($saved_tn != $TN ) return false;
+
+		// check if order post exists with order ID
+		$or = $HELP->post_exist( $tn_data['order_id'] );
+		if(!$or) return false;
+
+		// check if WC product ID matches
+		$check_wcid = get_post_meta( $evotix_id, 'wcid',true);
+
+		if(!$check_wcid) return false;
+
+		if( $check_wcid != $tn_data['wcid']) return false;
+
+		return true;
+
+	}
 
 // Ticket status related
 	function get_ticket_numbers_by_evotix($evotix_id, $return_type = 'array'){
@@ -230,7 +310,8 @@ class evotx_tix{
 
 		if($ticket_ids){
 			$output = $ticket_ids;
-		}else{// if ticket IDs were saved on older method
+		}else{
+		// if ticket IDs were saved on older method
 			$tids = get_post_meta($evotix_id, 'tid',true);
 
 			if(empty($tid)) return false;
@@ -312,58 +393,53 @@ class evotx_tix{
 	}
 	// change ticket number status
 	// @updated 1.7.8
-	function change_ticket_number_status($new_status, $ticket_number, $evotix_id=''){
+	function change_ticket_number_status($new_status, $ticket_number, $evotix_id='', $order_item_id = ''){
 		// get the evo-tix post ID
 		if(empty($evotix_id)){
-			$evotix_id = explode('-', $ticket_number);
-			$evotix_id = $evotix_id[0];
+			$evotix_id = $this->get_evotix_id_by_ticketnumber( $ticket_number );
 		}
 
-		$ticket_ids = get_post_meta($evotix_id, 'ticket_ids',true);
-		if($ticket_ids){
-			//unset($ticket_ids[$ticket_number]);
-			
-			// make sure ticket id is in the saved data
-			if(array_key_exists($ticket_number, $ticket_ids)){
-				$ticket_ids[$ticket_number]= $new_status;
-			}else{
-				return false;
-			}		
-			update_post_meta($evotix_id, 'ticket_ids',$ticket_ids);					
-		}else{
-			update_post_meta($evotix_id, 'status',$new_status);						
-		}
+		$TIX_CPT = new EVO_Evo_Tix_CPT( $evotix_id );
+
+		$TIX_CPT->set_status( $new_status );
+
 	}
+
+
 	// return ticket numbers if there are other tickets in the same order
-	function get_other_tix_order($ticket_number){
-		$tixNum = explode('-', $ticket_number);
-		$evotix_id = $tixNum[0];
-		$ticket_ids = get_post_meta($evotix_id, 'ticket_ids',true);
+		function get_other_tix_order($ticket_number){
+			$tixNum = explode('-', $ticket_number);
+			
+			$TIX_CPT = new EVO_Evo_Tix_CPT( $tixNum[0] );
 
-		unset($ticket_ids[$ticket_number]);
+			$ticket_ids = $TIX_CPT->get_ticket_ids_array();
 
-		return $ticket_ids;
-	}
+			unset($ticket_ids[$ticket_number]);
+
+			return $ticket_ids;
+		}
 	
 
 // SUPPORTIVE
 	// get repeat interval of an order item from event time
-	    	function get_ri_from_itemmeta($item){
-	    		if( isset($item['_event_ri'])) return $item['_event_ri']; // since 1.6.9
+	function get_ri_from_itemmeta($item){
+		if( isset($item['_event_ri'])) return $item['_event_ri']; // since 1.6.9
 
-	    		$item_meta = (!empty($item['Event-Time'])? $item['Event-Time']: false);
-		    	$ri = 0;
-		    	
-		    	if($item_meta){
-		    		if(strpos($item_meta, '[RI')!== false){
-		    			$ri__ = explode('[RI', $item_meta);
-				    	$ri_ = explode(']', $ri__[1]);
-				    	$ri = $ri_[0];
-		    		}
-		    	}
+		$item_meta = (!empty($item['Event-Time'])? $item['Event-Time']: false);
+    	$ri = 0;
+    	
+    	if($item_meta){
+    		if(strpos($item_meta, '[RI')!== false){
+    			$ri__ = explode('[RI', $item_meta);
+		    	$ri_ = explode(']', $ri__[1]);
+		    	$ri = $ri_[0];
+    		}
+    	}
 
-		    	return $ri;
-	    	}
+    	return $ri;
+	}
+
+	// get evo-tix post values
 	public function get_prop($field){
 		return get_post_meta($this->evo_tix_id, $field, true);
 	}

@@ -1074,7 +1074,7 @@ class WC_Product_Vendors_Vendor_Admin {
 
 			// remove the count from each status
 			foreach ( $views as $k => $v ) {
-				$new_views[ $k ] = preg_replace( '/\(\d+\)/', '', $v );
+				$new_views[ $k ] = preg_replace( '/<span class="count">\([^>]*>/', '', $v );
 			}
 
 			$views = $new_views;

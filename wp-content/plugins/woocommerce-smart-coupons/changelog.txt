@@ -1,5 +1,21 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.09.02 - version 6.1.0
+* New: Compatibility with Aelia Currency Switcher for WooCommerce
+* Update: POT file
+
+2022.08.19 - version 6.0.1
+* Fix: Uncaught Error: Class 'WC_Subscriptions' not found [WooCommerce Payments]
+* Fix: PHP Warning: call_user_func_array() expects parameter 1 to be a valid callback, class 'SA_WC_Compatibility_4_4' does not have a method 'get_coupon_options'
+* Update: POT file
+
+2022.08.10 - version 6.0.0
+* Fix: Fatal error stalling subscription renewal in a few cases
+* Update: Minor change related to WooCommerce Subscriptions 4.0.0
+* Update: Translation for French language
+* Update: Spell checks & a few clean up
+* Update: POT file
+
 2022.08.03 - version 5.9.0
 * New: Tested up to WooCommerce 6.7.0
 * Fix: Incorrect discount calculation when using settings 'Max discount' & 'Limit Usage to X items' together in a percentage discount coupon

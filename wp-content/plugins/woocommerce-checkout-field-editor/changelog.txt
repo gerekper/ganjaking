@@ -1,5 +1,14 @@
 *** Checkout Field Editor Changelog ***
 
+2022-09-06 - version 1.7.4
+* Fix - Added backward compatible support for WooCommerce CRUD Operations and Custom Order Tables.
+* Tweak - WC 6.8 compatibility.
+* Tweak - WP 6.0 compatibility.
+
+2022-05-17 - version 1.7.3
+* Tweak - WC 6.4 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2022-03-08 - version 1.7.2
 * Fix - Ensure strings are sanitised before being output.
 * Fix - Fix composer.json excludes for composer v2.2.0 update.

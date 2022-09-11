@@ -228,7 +228,7 @@ class WC_AM_Smart_Cache {
 	 *
 	 * @param int $order_id
 	 */
-	public function refresh_cache_by_order_id( $order_id ) {
+	public function refresh_cache_by_order_id( $order_id, $refresh = true ) {
 		$order = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 
 		if ( is_object( $order ) ) {
@@ -240,7 +240,7 @@ class WC_AM_Smart_Cache {
 						                     'order_id' => $order_id,
 						                     'user_id'  => $user_id
 					                     )
-				                     ), true );
+				                     ), $refresh );
 			}
 		}
 	}
@@ -370,18 +370,23 @@ class WC_AM_Smart_Cache {
 						$mac           = WC_AM_USER()->get_master_api_key( $resource->user_id );
 						$sub_parent_id = ! empty( $resource->sub_parent_id ) ? $resource->sub_parent_id : $resource->order_id;
 
-						$this->queue_delete_transient( 'wc_am_get_ar_for_mac_' . $mac );
-						$this->queue_delete_transient( 'wc_am_get_ar_for_mac_ar_' . $mac );
-						$this->queue_delete_transient( 'wc_am_get_api_resources_for_user_id_' . $resource->user_id );
-						$this->queue_delete_transient( 'wc_am_get_api_resources_for_user_id_ar_' . $resource->user_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_resources_for_order_id_' . $resource->order_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_resources_for_order_id_ar_' . $resource->order_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_resources_for_sub_parent_id_' . $sub_parent_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_resources_for_sub_parent_id_ar_' . $sub_parent_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_non_wc_sub_resources_for_order_id_' . $resource->order_id );
-						$this->queue_delete_transient( 'wc_am_get_all_api_non_wc_sub_resources_for_order_id_ar_' . $resource->order_id );
-						$this->queue_delete_transient( 'wc_am_get_api_resources_for_user_id_sort_by_product_title_' . $resource->user_id );
-						$this->queue_delete_transient( 'wc_am_get_api_resources_for_user_id_sort_by_product_title_ar_' . $resource->user_id );
+						$transients_for_deletion = array(
+							'wc_am_get_ar_for_mac_' . $mac,
+							'wc_am_get_ar_for_mac_ar_' . $mac,
+							'wc_am_get_api_resources_for_user_id_' . $resource->user_id,
+							'wc_am_get_api_resources_for_user_id_ar_' . $resource->user_id,
+							'wc_am_get_all_api_resources_for_order_id_' . $resource->order_id,
+							'wc_am_get_all_api_resources_for_order_id_ar_' . $resource->order_id,
+							'wc_am_get_all_api_resources_for_sub_parent_id_' . $sub_parent_id,
+							'wc_am_get_all_api_resources_for_sub_parent_id_ar_' . $sub_parent_id,
+							'wc_am_get_all_api_non_wc_sub_resources_for_order_id_' . $resource->order_id,
+							'wc_am_get_all_api_non_wc_sub_resources_for_order_id_ar_' . $resource->order_id,
+							'wc_am_get_api_resources_for_user_id_sort_by_product_title_' . $resource->user_id,
+							'wc_am_get_api_resources_for_user_id_sort_by_product_title_ar_' . $resource->user_id,
+						);
+
+						$this->delete_transients( $transients_for_deletion );
+						$this->queue_delete_transient( $transients_for_deletion );
 					}
 				}
 
@@ -414,7 +419,7 @@ class WC_AM_Smart_Cache {
 			/**
 			 * Delete Order specific database API Resource cache for a specific Product.
 			 */
-			$trans_order_keys = array(
+			$transient_order_keys = array(
 				'wc_am_get_ar_for_mac_' . $mac,
 				'wc_am_get_ar_for_mac_ar_' . $mac,
 				'wc_am_get_api_resources_for_user_id_' . $data[ 'admin_resources' ][ 'user_id' ],
@@ -429,7 +434,8 @@ class WC_AM_Smart_Cache {
 				'wc_am_get_api_resources_for_user_id_sort_by_product_title_ar_' . $data[ 'admin_resources' ][ 'user_id' ]
 			);
 
-			$this->queue_delete_transient( $trans_order_keys );
+			$this->delete_transients( $transient_order_keys );
+			$this->queue_delete_transient( $transient_order_keys );
 
 			if ( $refresh ) {
 				try {
@@ -466,6 +472,7 @@ class WC_AM_Smart_Cache {
 				'wc_am_api_status_func_top_level_data_' . $trans_hash_status,
 			);
 
+			$this->delete_transients( $trans_keys_status );
 			$this->queue_delete_transient( $trans_keys_status );
 		}
 
@@ -479,6 +486,7 @@ class WC_AM_Smart_Cache {
 				'wc_am_api_update_func_top_level_data_active_' . $trans_hash_info_and_update
 			);
 
+			$this->delete_transients( $trans_keys_info_and_update );
 			$this->queue_delete_transient( $trans_keys_info_and_update );
 		}
 	}
@@ -500,6 +508,7 @@ class WC_AM_Smart_Cache {
 			'wc_am_doc_tab_api_changelog_' . $post_id
 		);
 
+		$this->delete_transients( $trans_keys );
 		$this->queue_delete_transient( $trans_keys );
 	}
 
@@ -509,12 +518,27 @@ class WC_AM_Smart_Cache {
 	 * @since 2.0.12
 	 */
 	public function delete_transients_on_shutdown() {
-		if ( $this->delete_transients ) {
+		if ( ! empty( $this->delete_transients ) ) {
 			foreach ( $this->delete_transients as $key ) {
 				delete_transient( $key );
 			}
 
 			$this->delete_transients = array();
+		}
+	}
+
+	/**
+	 * Delete transients immediately.
+	 *
+	 * @since 2.4.1
+	 *
+	 * @param array $array
+	 */
+	private function delete_transients( $array ) {
+		if ( ! empty( $array ) ) {
+			foreach ( $array as $key ) {
+				delete_transient( $key );
+			}
 		}
 	}
 

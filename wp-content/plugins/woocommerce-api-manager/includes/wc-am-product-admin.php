@@ -474,7 +474,7 @@ class WC_AM_Product_Admin {
 									                           'placeholder'       => esc_html__( 'Never', 'woocommerce-api-manager' ),
 									                           'value'             => ( ! empty( $access_expires ) && is_numeric( $access_expires ) ) ? absint( $access_expires ) : '',
 									                           'type'              => 'number',
-									                           'description'       => esc_html__( 'Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ),
+									                           'description'       => esc_html__( 'Caution: Changing this value will cause all existing API Resources/purchases to recalculate using this new value. Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ),
 									                           'desc_tip'          => true,
 									                           'custom_attributes' => array(
 										                           'step' => '1',
@@ -810,15 +810,6 @@ class WC_AM_Product_Admin {
                            readonly/>
                 </p>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
-                </p>
-
 	            <?php
 
 	            $is_wc_sub = false;
@@ -835,9 +826,9 @@ class WC_AM_Product_Admin {
 		            ) ) && ! $is_wc_sub ) :
 		            $expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
 		            ?>
-                    <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+                    <p class="form-row form-row-first">
                         <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ); ?>"
+                                                                                                              data-tip="<?php esc_html_e( 'Caution: Changing this value will cause all existing API Resources/purchases to recalculate using this new value. Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ); ?>"
                             </span></label>
                         <input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
                                value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
@@ -846,6 +837,15 @@ class WC_AM_Product_Admin {
 	            <?php
 	            endif;
 	            ?>
+
+                <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
+                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
                 <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
@@ -1224,8 +1224,32 @@ class WC_AM_Product_Admin {
 				}
 			}
 
-			WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, '_access_expires', ! empty( $_POST[ '_access_expires' ] ) ? absint( $_POST[ '_access_expires' ] ) : '' );
+			/**
+			 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+			 *
+			 * @since 2.4
+			 */
+			$update_access_expires = false;
+
+			$expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_access_expires' );
+			$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+			$expires_post_value = ! empty( $_POST[ '_access_expires' ] ) ? absint( $_POST[ '_access_expires' ] ) : 0;
+
+			if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {
+				$update_access_expires = true;
+			}
+
+			WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, '_access_expires', ! empty( $_POST[ '_access_expires' ] ) ? absint( $_POST[ '_access_expires' ] ) : 0 );
 			WC_AM_PRODUCT_DATA_STORE()->update_meta( $post_id, '_api_upgrade_notice', isset( $_POST[ '_api_upgrade_notice' ] ) ? sanitize_text_field( $_POST[ '_api_upgrade_notice' ] ) : '' );
+
+			/**
+			 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+			 *
+			 * @since 2.4
+			 */
+			if ( $update_access_expires ) {
+				WC_AM_ORDER()->update_api_resource_access_expires_for_product( $post_id );
+			}
 
 			// Create the product_fields variable array
 			$this->define_fields();
@@ -1384,9 +1408,24 @@ class WC_AM_Product_Admin {
 					$update_product_orders = true;
 				}
 
-				// Save variable product data directly. Ignore API Tab global settings.
+				/**
+				 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+				 *
+				 * @since 2.4
+				 */
+				$update_access_expires = false;
+
+				$expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
+				$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+				$expires_post_value = ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0;
+
+				if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {
+					$update_access_expires = true;
+				}
+
+				// Save variable product data for each variation individually. Ignore API Tab global settings.
 				if ( $global_override == 'yes' || isset( $post[ '_api_data_is_global_override' ][ $i ] ) ) {
-					$lean_fields = array(
+					$clean_fields = array(
 						'_api_new_version',
 						'_api_plugin_url',
 						'_api_author',
@@ -1397,7 +1436,7 @@ class WC_AM_Product_Admin {
 						'_api_upgrade_notice',
 					);
 
-					foreach ( $lean_fields as $key => $clean_field ) {
+					foreach ( $clean_fields as $key => $clean_field ) {
 						if ( isset( $post[ $clean_field . '_var' ][ $i ] ) ) {
 							WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field . '_var' ][ $i ] ) );
 						}
@@ -1406,7 +1445,6 @@ class WC_AM_Product_Admin {
 					// Value set per variation if override is checked.
 					$absint_fields = array(
 						'_api_activations',
-						'_access_expires',
 						'_api_description',
 						'_api_changelog',
 						'_api_installation',
@@ -1431,7 +1469,24 @@ class WC_AM_Product_Admin {
 					if ( $update_product_orders ) {
 						WC_AM_ORDER()->update_api_resource_activations_for_product( $variation_id );
 					}
-				} else { // Use API Tab global settings for variable products.
+
+					/**
+					 * Update the API Resource access_expires value. An empty value defaults to zero to maintain databases field consistencey.
+					 *
+					 * @since 2.4.1
+					 */
+					WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, '_access_expires', ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0 );
+
+					/**
+					 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+                     *
+                     * @since 2.4
+					 */
+					if ( $update_access_expires ) {
+						WC_AM_ORDER()->update_api_resource_access_expires_for_product( $variation_id );
+					}
+
+				} else { // Use API Tab global settings for variable products, and data that is not on the API Tab or displayed with the "Set API options for this variable product only." checkbox.
 					/**
 					 * If current activations are less than the new activations, then update all API resources with the increased activations.
 					 *
@@ -1459,8 +1514,39 @@ class WC_AM_Product_Admin {
 						WC_AM_ORDER()->update_api_resource_activations_for_product( $variation_id );
 					}
 
+					/**
+					 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+					 *
+					 * @since 2.4
+					 */
+					$update_access_expires = false;
+
+                    $expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
+					$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+					$expires_post_value = ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0;
+
+					if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {
+						$update_access_expires = true;
+					}
+
+					/**
+					 * Update the API Resource access_expires value. An empty value defaults to zero to maintain databases field consistencey.
+					 *
+					 * @since 2.4.1
+					 */
+					WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, '_access_expires', ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0 );
+
+					/**
+					 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+					 *
+					 * @since 2.4
+					 */
+					if ( $update_access_expires ) {
+						WC_AM_ORDER()->update_api_resource_access_expires_for_product( $variation_id );
+					}
+
 					// Values inherited from Parent API tab form fields.
-					$lean_fields = array(
+					$clean_fields = array(
 						'_api_new_version',
 						'_api_plugin_url',
 						'_api_author',
@@ -1471,7 +1557,7 @@ class WC_AM_Product_Admin {
 						'_api_upgrade_notice',
 					);
 
-					foreach ( $lean_fields as $key => $clean_field ) {
+					foreach ( $clean_fields as $key => $clean_field ) {
 						if ( isset( $post[ $clean_field ] ) ) {
 							WC_AM_PRODUCT_DATA_STORE()->update_meta( $variation_id, $clean_field, wc_clean( $post[ $clean_field ] ) );
 						}
@@ -1479,7 +1565,6 @@ class WC_AM_Product_Admin {
 
 					// Values inherited from Parent API tab form fields.
 					$absint_fields = array(
-						'_access_expires',
 						'_api_description',
 						'_api_changelog',
 						'_api_installation',

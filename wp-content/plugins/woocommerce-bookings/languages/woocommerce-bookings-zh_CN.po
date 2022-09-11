@@ -7,11 +7,19 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-28T23:49:01+00:00\n"
-"PO-Revision-Date: 2022-06-02 09:54:03+0000\n"
+"POT-Creation-Date: 2022-08-24T18:17:59+00:00\n"
+"PO-Revision-Date: 2022-08-03 09:54:04+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/admin/class-wc-bookings-admin.php:673
+msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "预订持续周期已设置为 24 小时，因为当“可用性”为“默认不可用”时，持续周期不允许超过 24 小时。"
+
+#: includes/admin/class-wc-bookings-admin.php:672
+msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
+msgstr "当“可用性”为“默认不可用”时，持续周期不允许超过 24 小时。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:933
 msgid "When enabled any changes to the event description must be done from the WooCommerce Bookings event. Any changes made directly to the event description in Google Calendar will be lost when data is synced."
@@ -41,11 +49,11 @@ msgstr "这部分显示了覆盖默认 WooCommerce Bookings 模板页面的任�
 msgid "WooCommerce Bookings template overrides"
 msgstr "WooCommerce Bookings 模板覆盖"
 
-#: includes/admin/class-wc-bookings-admin.php:692
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "最长持续时间必须大于或等于最短持续时间。"
 
-#: includes/admin/class-wc-bookings-admin.php:691
+#: includes/admin/class-wc-bookings-admin.php:699
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "最短持续时间必须小于或等于最长持续时间。"
 
@@ -53,7 +61,7 @@ msgstr "最短持续时间必须小于或等于最长持续时间。"
 msgid "Customer Information"
 msgstr "客户信息"
 
-#: includes/admin/class-wc-bookings-admin.php:665
+#: includes/admin/class-wc-bookings-admin.php:671
 msgid "This setting is being overridden at the resource level."
 msgstr "此设置在资源级别被覆盖。"
 
@@ -104,12 +112,12 @@ msgstr "删除首选项"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日期格式应为 yyyy-mm-dd，且不能为空。"
 
-#: includes/admin/class-wc-bookings-admin.php:685
+#: includes/admin/class-wc-bookings-admin.php:693
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "开始日期不得晚于结束日期。"
 
-#: includes/admin/class-wc-bookings-admin.php:684
+#: includes/admin/class-wc-bookings-admin.php:692
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "“开始和结束日期”的格式应为 yyyy-mm-dd，且不能为空。"
 
@@ -224,12 +232,12 @@ msgstr "所属时区： %s"
 msgid "View my bookings &rarr;"
 msgstr "查看我的预订 &rarr;"
 
-#: templates/order/admin/booking-display.php:82
+#: templates/order/admin/booking-display.php:83
 msgid "View booking &rarr;"
 msgstr "查看预订&rarr;"
 
 #. translators: 1: booking id
-#: templates/order/admin/booking-display.php:64
+#: templates/order/admin/booking-display.php:65
 #: templates/order/booking-display.php:66
 msgid "Booking #%s"
 msgstr "预订编号%s"
@@ -238,15 +246,15 @@ msgstr "预订编号%s"
 msgid "My Bookings"
 msgstr "我的预订"
 
-#: templates/myaccount/bookings.php:108
+#: templates/myaccount/bookings.php:110
 msgid "No bookings available yet."
 msgstr "尚无预订可用。"
 
-#: templates/myaccount/bookings.php:106
+#: templates/myaccount/bookings.php:108
 msgid "Go Shop"
 msgstr "前往购买"
 
-#: templates/myaccount/bookings.php:79
+#: templates/myaccount/bookings.php:81
 #: templates/myaccount/my-bookings.php:62
 msgid "Cancel"
 msgstr "取消"
@@ -257,7 +265,7 @@ msgid "Booked"
 msgstr "已预订"
 
 #. translators: 1: booking start date
-#: templates/emails/plain/customer-booking-reminder.php:31
+#: templates/emails/plain/customer-booking-reminder.php:36
 msgid "This is a reminder that your booking will take place on %1$s. The details of your booking are shown below."
 msgstr "请注意，您的预订将于 %1$s开始。 下方显示了您的预订的详细信息。"
 
@@ -282,7 +290,7 @@ msgstr "订单编号：%s"
 #: templates/emails/plain/customer-booking-confirmed.php:53
 #: templates/emails/plain/customer-booking-notification.php:50
 #: templates/emails/plain/customer-booking-pending-confirmation.php:55
-#: templates/emails/plain/customer-booking-reminder.php:54
+#: templates/emails/plain/customer-booking-reminder.php:59
 msgid "Time Zone: %s"
 msgstr "时区： %s"
 
@@ -293,7 +301,7 @@ msgstr "时区： %s"
 #: templates/emails/plain/customer-booking-confirmed.php:49
 #: templates/emails/plain/customer-booking-notification.php:46
 #: templates/emails/plain/customer-booking-pending-confirmation.php:51
-#: templates/emails/plain/customer-booking-reminder.php:50
+#: templates/emails/plain/customer-booking-reminder.php:55
 msgid "Booking End Date: %s"
 msgstr "预订结束日期： %s"
 
@@ -304,7 +312,7 @@ msgstr "预订结束日期： %s"
 #: templates/emails/plain/customer-booking-confirmed.php:47
 #: templates/emails/plain/customer-booking-notification.php:44
 #: templates/emails/plain/customer-booking-pending-confirmation.php:49
-#: templates/emails/plain/customer-booking-reminder.php:48
+#: templates/emails/plain/customer-booking-reminder.php:53
 msgid "Booking Start Date: %s"
 msgstr "预订开始日期: %s"
 
@@ -315,7 +323,7 @@ msgstr "预订开始日期: %s"
 #: templates/emails/plain/customer-booking-confirmed.php:43
 #: templates/emails/plain/customer-booking-notification.php:40
 #: templates/emails/plain/customer-booking-pending-confirmation.php:45
-#: templates/emails/plain/customer-booking-reminder.php:44
+#: templates/emails/plain/customer-booking-reminder.php:49
 msgid "Booking Type: %s"
 msgstr "预订类型：%s"
 
@@ -326,7 +334,7 @@ msgstr "预订类型：%s"
 #: templates/emails/plain/customer-booking-confirmed.php:37
 #: templates/emails/plain/customer-booking-notification.php:34
 #: templates/emails/plain/customer-booking-pending-confirmation.php:39
-#: templates/emails/plain/customer-booking-reminder.php:38
+#: templates/emails/plain/customer-booking-reminder.php:43
 msgid "Booking ID: %s"
 msgstr "预订 ID： %s"
 
@@ -335,7 +343,7 @@ msgstr "预订 ID： %s"
 #: templates/emails/plain/customer-booking-cancelled.php:35
 #: templates/emails/plain/customer-booking-confirmed.php:35
 #: templates/emails/plain/customer-booking-notification.php:32
-#: templates/emails/plain/customer-booking-reminder.php:36
+#: templates/emails/plain/customer-booking-reminder.php:41
 msgid "Booked: %s"
 msgstr "已预订： %s"
 
@@ -344,7 +352,7 @@ msgid "The following booking has been cancelled by the customer. The details of 
 msgstr "客户取消了以下预订。 您可在下方查看已取消预订的详细信息。"
 
 #. translators: 1: booking start date
-#: templates/emails/customer-booking-reminder.php:38
+#: templates/emails/customer-booking-reminder.php:49
 msgid "This is a reminder that your booking will take place on %1$s."
 msgstr "请注意，您的预订将于 %1$s开始。"
 
@@ -388,14 +396,17 @@ msgid "We are sorry to say that your booking could not be confirmed and has been
 msgstr "很抱歉您的预订未被确认并已被取消。被取消的预订详情如下。"
 
 #. translators: 1: billing first name
+#. translators: 1: customer first name
 #: templates/emails/customer-booking-cancelled.php:30
 #: templates/emails/customer-booking-confirmed.php:30
 #: templates/emails/customer-booking-pending-confirmation.php:30
 #: templates/emails/customer-booking-reminder.php:30
+#: templates/emails/customer-booking-reminder.php:39
 #: templates/emails/plain/customer-booking-cancelled.php:27
 #: templates/emails/plain/customer-booking-confirmed.php:27
 #: templates/emails/plain/customer-booking-pending-confirmation.php:27
 #: templates/emails/plain/customer-booking-reminder.php:27
+#: templates/emails/plain/customer-booking-reminder.php:31
 msgid "Hello %s"
 msgstr "您好 %s"
 
@@ -429,7 +440,7 @@ msgstr "您可在仪表盘查看和编辑此预订：%s"
 #: templates/emails/customer-booking-confirmed.php:63
 #: templates/emails/customer-booking-notification.php:54
 #: templates/emails/customer-booking-pending-confirmation.php:63
-#: templates/emails/customer-booking-reminder.php:68
+#: templates/emails/customer-booking-reminder.php:79
 msgid "Booking End Date"
 msgstr "预订结束日期"
 
@@ -439,7 +450,7 @@ msgstr "预订结束日期"
 #: templates/emails/customer-booking-confirmed.php:59
 #: templates/emails/customer-booking-notification.php:50
 #: templates/emails/customer-booking-pending-confirmation.php:59
-#: templates/emails/customer-booking-reminder.php:64
+#: templates/emails/customer-booking-reminder.php:75
 msgid "Booking Start Date"
 msgstr "预订开始日期"
 
@@ -594,7 +605,7 @@ msgstr "未付"
 #: templates/emails/customer-booking-confirmed.php:68
 #: templates/emails/customer-booking-notification.php:59
 #: templates/emails/customer-booking-pending-confirmation.php:68
-#: templates/emails/customer-booking-reminder.php:73
+#: templates/emails/customer-booking-reminder.php:84
 msgid "Time Zone"
 msgstr "时区"
 
@@ -692,7 +703,7 @@ msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {or
 msgstr "[{blogname}] 新预订 {product_title} (订单 {order_number}) - {order_date}"
 
 #: includes/emails/class-wc-email-new-booking.php:29
-#: templates/order/admin/booking-display.php:78
+#: templates/order/admin/booking-display.php:79
 msgid "Confirm booking"
 msgstr "确认预订"
 
@@ -1003,18 +1014,18 @@ msgid "Check Availability"
 msgstr "检查"
 
 #. translators: 1: guest name
-#: includes/data-objects/class-wc-booking.php:936
+#: includes/data-objects/class-wc-booking.php:982
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
 msgstr "%s （访客）"
 
 #. translators: 1: booking id 2: old status 3: new status
-#: includes/data-objects/class-wc-booking.php:284
+#: includes/data-objects/class-wc-booking.php:330
 msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
 msgstr "预订 #%1$d 的状态已从“%2$s”更改为“%3$s”"
 
-#: includes/data-objects/class-wc-booking.php:230
-#: includes/data-objects/class-wc-booking.php:1101
+#: includes/data-objects/class-wc-booking.php:233
+#: includes/data-objects/class-wc-booking.php:1147
 msgid "Was In Cart"
 msgstr "在购物车中"
 
@@ -1094,184 +1105,184 @@ msgid "Enable Bookings Timezone Calculation"
 msgstr "启用预订时区计算"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:189
+#: includes/class-wc-bookings-init.php:192
 msgid "In Cart <span class=\"count\">(%s)</span>"
 msgid_plural "In Cart <span class=\"count\">(%s)</span>"
 msgstr[0] "在购物车中<span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:183
+#: includes/class-wc-bookings-init.php:186
 msgctxt "woocommerce-bookings"
 msgid "In Cart"
 msgstr "在购物车中"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:180
+#: includes/class-wc-bookings-init.php:183
 msgid "Cancelled <span class=\"count\">(%s)</span>"
 msgid_plural "Cancelled <span class=\"count\">(%s)</span>"
 msgstr[0] "已取消<span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:174
+#: includes/class-wc-bookings-init.php:177
 msgctxt "woocommerce-bookings"
 msgid "Cancelled"
 msgstr "已取消"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:171
+#: includes/class-wc-bookings-init.php:174
 msgid "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Confirmation <span class=\"count\">(%s)</span>"
 msgstr[0] "待确认 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:165
+#: includes/class-wc-bookings-init.php:168
 msgctxt "woocommerce-bookings"
 msgid "Pending Confirmation"
 msgstr "待确认"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:162
+#: includes/class-wc-bookings-init.php:165
 msgid "Un-paid <span class=\"count\">(%s)</span>"
 msgid_plural "Un-paid <span class=\"count\">(%s)</span>"
 msgstr[0] "未支付 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:156
+#: includes/class-wc-bookings-init.php:159
 msgctxt "woocommerce-bookings"
 msgid "Un-paid"
 msgstr "未支付"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:153
+#: includes/class-wc-bookings-init.php:156
 msgid "Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "已确认<span class=\"count\">（%s）</span>"
 
-#: includes/class-wc-bookings-init.php:147
+#: includes/class-wc-bookings-init.php:150
 msgctxt "woocommerce-bookings"
 msgid "Confirmed"
 msgstr "已确认"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:144
+#: includes/class-wc-bookings-init.php:147
 msgid "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgid_plural "Paid &amp; Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "已支付 &amp; 已确认 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:138
+#: includes/class-wc-bookings-init.php:141
 msgctxt "woocommerce-bookings"
 msgid "Paid &amp; Confirmed"
 msgstr "已支付 &amp; 已确认"
 
 #. translators: 1: count, 2: count
-#: includes/class-wc-bookings-init.php:135
+#: includes/class-wc-bookings-init.php:138
 msgid "Complete <span class=\"count\">(%s)</span>"
 msgid_plural "Complete <span class=\"count\">(%s)</span>"
 msgstr[0] "已完成 <span class=\"count\">(%s)</span>"
 
-#: includes/class-wc-bookings-init.php:129
+#: includes/class-wc-bookings-init.php:132
 msgctxt "woocommerce-bookings"
 msgid "Complete"
 msgstr "已完成"
 
-#: includes/class-wc-bookings-init.php:106
+#: includes/class-wc-bookings-init.php:109
 msgid "This is where bookings are stored."
 msgstr "此处存储这预订。"
 
-#: includes/class-wc-bookings-init.php:104
+#: includes/class-wc-bookings-init.php:107
 msgid "All Bookings"
 msgstr "全部预订"
 
-#: includes/class-wc-bookings-init.php:103
+#: includes/class-wc-bookings-init.php:106
 msgctxt "Admin menu name"
 msgid "Bookings"
 msgstr "预订"
 
-#: includes/class-wc-bookings-init.php:102
+#: includes/class-wc-bookings-init.php:105
 msgid "Parent Bookings"
 msgstr "父级预订"
 
-#: includes/class-wc-bookings-init.php:101
+#: includes/class-wc-bookings-init.php:104
 msgid "No Bookings found in trash"
 msgstr "回收站中没有预订"
 
-#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:103
 msgid "No Bookings found"
 msgstr "暂无预订"
 
-#: includes/class-wc-bookings-init.php:99
+#: includes/class-wc-bookings-init.php:102
 msgid "Search Bookings"
 msgstr "搜索预订"
 
-#: includes/class-wc-bookings-init.php:97
-#: includes/class-wc-bookings-init.php:98
+#: includes/class-wc-bookings-init.php:100
+#: includes/class-wc-bookings-init.php:101
 msgid "View Booking"
 msgstr "查看预订"
 
-#: includes/class-wc-bookings-init.php:96
+#: includes/class-wc-bookings-init.php:99
 #: includes/emails/class-wc-email-new-booking.php:25
 msgid "New Booking"
 msgstr "新预订"
 
-#: includes/class-wc-bookings-init.php:95
+#: includes/class-wc-bookings-init.php:98
 msgid "Edit Booking"
 msgstr "编辑预订"
 
-#: includes/class-wc-bookings-init.php:93
+#: includes/class-wc-bookings-init.php:96
 msgid "Add New Booking"
 msgstr "添加新预订"
 
-#: includes/class-wc-bookings-init.php:66
+#: includes/class-wc-bookings-init.php:69
 msgid "Bookable resources are bookable within a bookings product."
 msgstr "预订资源是一个可预订的产品。"
 
-#: includes/class-wc-bookings-init.php:63
+#: includes/class-wc-bookings-init.php:66
 msgctxt "Admin menu name"
 msgid "Resources"
 msgstr "资源"
 
-#: includes/class-wc-bookings-init.php:62
+#: includes/class-wc-bookings-init.php:65
 msgid "Parent Resources"
 msgstr "父级资源"
 
-#: includes/class-wc-bookings-init.php:61
+#: includes/class-wc-bookings-init.php:64
 msgid "No Resource found in trash"
 msgstr "回收站中没有资源"
 
-#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:63
 msgid "No Resource found"
 msgstr "未找到资源"
 
-#: includes/class-wc-bookings-init.php:59
+#: includes/class-wc-bookings-init.php:62
 msgid "Search Resource"
 msgstr "搜索资源"
 
-#: includes/class-wc-bookings-init.php:57
-#: includes/class-wc-bookings-init.php:58
+#: includes/class-wc-bookings-init.php:60
+#: includes/class-wc-bookings-init.php:61
 msgid "View Resource"
 msgstr "查看资源"
 
-#: includes/class-wc-bookings-init.php:56
+#: includes/class-wc-bookings-init.php:59
 msgid "New Resource"
 msgstr "新资源"
 
-#: includes/class-wc-bookings-init.php:55
+#: includes/class-wc-bookings-init.php:58
 msgid "Edit Resource"
 msgstr "编辑资源"
 
-#: includes/class-wc-bookings-init.php:53
+#: includes/class-wc-bookings-init.php:56
 msgid "Add New Resource"
 msgstr "添加新资源"
 
-#: includes/class-wc-bookings-init.php:52
+#: includes/class-wc-bookings-init.php:55
 msgid "Add Resource"
 msgstr "添加资源"
 
-#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:54
 msgid "Bookable resource"
 msgstr "可预订资源"
 
-#: includes/class-wc-bookings-init.php:50
+#: includes/class-wc-bookings-init.php:53
 msgid "Bookable resources"
 msgstr "可预订资源"
 
-#: includes/class-wc-bookings-init.php:35
+#: includes/class-wc-bookings-init.php:38
 msgid "Person Type"
 msgstr "人员类型"
 
@@ -1285,8 +1296,8 @@ msgid "Bookings from %s"
 msgstr "预订自 %s"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1470
-#: includes/class-wc-bookings-init.php:88
 #: includes/class-wc-bookings-init.php:91
+#: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr "预订"
 
@@ -1303,7 +1314,7 @@ msgstr "注意：此事件无法在 Google 日历中进行编辑。 如果您需
 #: templates/emails/customer-booking-confirmed.php:54
 #: templates/emails/customer-booking-notification.php:45
 #: templates/emails/customer-booking-pending-confirmation.php:54
-#: templates/emails/customer-booking-reminder.php:59
+#: templates/emails/customer-booking-reminder.php:70
 msgid "Booking Type"
 msgstr "预订类型"
 
@@ -1314,7 +1325,7 @@ msgstr "预订类型"
 #: templates/emails/customer-booking-confirmed.php:44
 #: templates/emails/customer-booking-notification.php:35
 #: templates/emails/customer-booking-pending-confirmation.php:44
-#: templates/emails/customer-booking-reminder.php:49
+#: templates/emails/customer-booking-reminder.php:60
 msgid "Booking ID"
 msgstr "预订ID"
 
@@ -1465,7 +1476,7 @@ msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
-#: includes/class-wc-bookings-init.php:90
+#: includes/class-wc-bookings-init.php:93
 #: woocommerce-bookings.php:197
 msgid "Bookings"
 msgstr "预订"
@@ -1634,7 +1645,7 @@ msgid "This date is unavailable"
 msgstr "此日期不可用"
 
 #: includes/booking-form/class-wc-booking-form.php:36
-#: templates/myaccount/bookings.php:91
+#: templates/myaccount/bookings.php:93
 msgid "Previous"
 msgstr "先前"
 
@@ -1978,7 +1989,7 @@ msgstr "您可以向所有在%1$s将来%2$s预定了特定产品的客户发送�
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
-#: templates/myaccount/bookings.php:95
+#: templates/myaccount/bookings.php:97
 msgid "Next"
 msgstr "下一"
 
@@ -2978,7 +2989,7 @@ msgstr "日历"
 #: includes/admin/views/html-create-booking-page-2.php:7
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
-#: includes/class-wc-bookings-init.php:92
+#: includes/class-wc-bookings-init.php:95
 #: woocommerce-bookings.php:166
 msgid "Add Booking"
 msgstr "添加预订"
@@ -3230,17 +3241,17 @@ msgstr "人数"
 #: templates/emails/customer-booking-confirmed.php:40
 #: templates/emails/customer-booking-notification.php:31
 #: templates/emails/customer-booking-pending-confirmation.php:40
-#: templates/emails/customer-booking-reminder.php:45
+#: templates/emails/customer-booking-reminder.php:56
 msgid "Booked Product"
 msgstr "已预订的产品"
 
-#: includes/admin/class-wc-bookings-cpt.php:170
+#: includes/admin/class-wc-bookings-cpt.php:169
 #: templates/myaccount/bookings.php:39
 #: templates/myaccount/my-bookings.php:30
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-wc-bookings-cpt.php:169
+#: includes/admin/class-wc-bookings-cpt.php:170
 #: templates/myaccount/bookings.php:44
 #: templates/myaccount/my-bookings.php:35
 msgid "Status"
@@ -3299,7 +3310,7 @@ msgstr "预订者"
 #: templates/emails/plain/customer-booking-confirmed.php:64
 #: templates/emails/plain/customer-booking-notification.php:61
 #: templates/emails/plain/customer-booking-pending-confirmation.php:66
-#: templates/emails/plain/customer-booking-reminder.php:65
+#: templates/emails/plain/customer-booking-reminder.php:70
 msgid "%1$s: %2$d"
 msgstr "%1$s： %2$d"
 
@@ -3313,14 +3324,14 @@ msgstr "%1$s： %2$d"
 #: templates/emails/customer-booking-confirmed.php:79
 #: templates/emails/customer-booking-notification.php:70
 #: templates/emails/customer-booking-pending-confirmation.php:79
-#: templates/emails/customer-booking-reminder.php:84
+#: templates/emails/customer-booking-reminder.php:95
 #: templates/emails/plain/admin-booking-cancelled.php:60
 #: templates/emails/plain/admin-new-booking.php:82
 #: templates/emails/plain/customer-booking-cancelled.php:65
 #: templates/emails/plain/customer-booking-confirmed.php:62
 #: templates/emails/plain/customer-booking-notification.php:59
 #: templates/emails/plain/customer-booking-pending-confirmation.php:64
-#: templates/emails/plain/customer-booking-reminder.php:63
+#: templates/emails/plain/customer-booking-reminder.php:68
 msgid "Person(s)"
 msgstr "人员(数量)"
 
@@ -3385,88 +3396,88 @@ msgstr "未能添加资源"
 msgid "The resource has already been linked to this product"
 msgstr "此资源已连接至此产品"
 
-#: includes/admin/class-wc-bookings-admin.php:716
+#: includes/admin/class-wc-bookings-admin.php:724
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "启用此项如果可预订产品有多个预订资源，例如房间类型或者导师。"
 
-#: includes/admin/class-wc-bookings-admin.php:715
+#: includes/admin/class-wc-bookings-admin.php:723
 msgid "Has resources"
 msgstr "有资源"
 
-#: includes/admin/class-wc-bookings-admin.php:709
+#: includes/admin/class-wc-bookings-admin.php:717
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "如果此可预订产品允许预订用户定义一个人员数量的话。"
 
-#: includes/admin/class-wc-bookings-admin.php:708
+#: includes/admin/class-wc-bookings-admin.php:716
 msgid "Has persons"
 msgstr "有人员"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:669
 msgid "Resource"
 msgstr "资源"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:668
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "顾客"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "View details"
 msgstr "查看详情"
 
-#: includes/admin/class-wc-bookings-admin.php:656
+#: includes/admin/class-wc-bookings-admin.php:662
 msgid "Enter a name for the new resource"
 msgstr "为新资源输入一个名词"
 
-#: includes/admin/class-wc-bookings-admin.php:655
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "days"
 msgstr "天"
 
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:660
 msgid "hours"
 msgstr "小时"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:659
 msgid "minutes"
 msgstr "分钟"
 
-#: includes/admin/class-wc-bookings-admin.php:650
+#: includes/admin/class-wc-bookings-admin.php:656
 msgid "Are you sure you want to remove this resource?"
 msgstr "确定要移除此资源？"
 
-#: includes/admin/class-wc-bookings-admin.php:647
+#: includes/admin/class-wc-bookings-admin.php:653
 msgid "Are you sure you want to remove this person type?"
 msgstr "确定要移除此人员类型？"
 
-#: includes/admin/class-wc-bookings-admin.php:549
+#: includes/admin/class-wc-bookings-admin.php:555
 #: includes/class-wc-booking-privacy.php:78
 msgid "Bookable product"
 msgstr "可预订的产品"
 
-#: includes/admin/class-wc-bookings-admin.php:455
+#: includes/admin/class-wc-bookings-admin.php:461
 msgid "Booking submitted."
 msgstr "预订已提交。"
 
-#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:460
 msgid "Booking saved."
 msgstr "预订已保存。"
 
-#: includes/admin/class-wc-bookings-admin.php:450
+#: includes/admin/class-wc-bookings-admin.php:456
 msgid "Custom field deleted."
 msgstr "已删除自定义栏目。"
 
-#: includes/admin/class-wc-bookings-admin.php:449
+#: includes/admin/class-wc-bookings-admin.php:455
 msgid "Custom field updated."
 msgstr "已更新自定义栏目。"
 
-#: includes/admin/class-wc-bookings-admin.php:448
-#: includes/admin/class-wc-bookings-admin.php:451
-#: includes/admin/class-wc-bookings-admin.php:453
+#: includes/admin/class-wc-bookings-admin.php:454
+#: includes/admin/class-wc-bookings-admin.php:457
+#: includes/admin/class-wc-bookings-admin.php:459
 msgid "Booking updated."
 msgstr "预订已更新。"
 
-#: includes/admin/class-wc-bookings-admin.php:374
-#: includes/admin/class-wc-bookings-admin.php:664
+#: includes/admin/class-wc-bookings-admin.php:380
+#: includes/admin/class-wc-bookings-admin.php:670
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1423
@@ -3474,23 +3485,23 @@ msgstr "预订已更新。"
 msgid "Persons"
 msgstr "人"
 
-#: includes/admin/class-wc-bookings-admin.php:367
+#: includes/admin/class-wc-bookings-admin.php:373
 #: includes/admin/views/html-booking-tab.php:3
 msgid "Costs"
 msgstr "价格"
 
-#: includes/admin/class-wc-bookings-admin.php:360
+#: includes/admin/class-wc-bookings-admin.php:366
 #: includes/admin/class-wc-bookings-products-export.php:32
 #: includes/admin/class-wc-bookings-products-import.php:33
 #: includes/admin/views/html-booking-tab.php:2
 msgid "Availability"
 msgstr "可用性"
 
-#: includes/admin/class-wc-bookings-admin.php:353
+#: includes/admin/class-wc-bookings-admin.php:359
 #: includes/admin/views/html-booking-resources.php:36
 #: includes/admin/views/html-booking-tab.php:1
-#: includes/class-wc-bookings-init.php:48
-#: includes/class-wc-bookings-init.php:64
+#: includes/class-wc-bookings-init.php:51
+#: includes/class-wc-bookings-init.php:67
 msgid "Resources"
 msgstr "资源"
 
@@ -3578,8 +3589,8 @@ msgid "Resource details"
 msgstr "资源详情"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:98
-#: includes/class-wc-bookings-init.php:54
-#: includes/class-wc-bookings-init.php:94
+#: includes/class-wc-bookings-init.php:57
+#: includes/class-wc-bookings-init.php:97
 msgid "Edit"
 msgstr "编辑"
 

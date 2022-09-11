@@ -48,6 +48,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 			'ligthbox'=>'no',
 			'msub'=>'no',
 			'rlink'=>'',		
+			'rdir'=>'no',		
 			'calltype'=>'new',
 			'wordcount'=>0,
 			'formrtl'=>'no'
@@ -119,7 +120,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 			$pluggable_check = apply_filters('evoau_form_display_check',true, $event_id, $_EDITFORM, $atts);
 
 			if(!$pluggable_check && !$override_pluggable_check){
-				do_action('evoau_form_before');
+				do_action('evoau_form_before', $atts);
 				return ob_get_clean();
 			} 
 
@@ -127,9 +128,13 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 
 ?>
 <div class='eventon_au_form_section <?php echo ($_LIGTHBOX)?'overLay':'';?>' style='display:<?php echo $_LIGTHBOX?'none':'block';?>'>
+	
+
 <div id='eventon_form_<?php echo $rand;?>' class='evoau_submission_form <?php echo ($_USER_LOGIN_REQ?'loginneeded':'') . ' '. ($LIMITSUB?' limitSubmission':'').' '.($_LIGTHBOX?'lightbox':''). ( $atts['formrtl']=='yes'? ' evortl':''); ?>' data-fid='438932' data-mce='0'>
 	<a class='closeForm'>X</a>
 	<form method="POST" action="" enctype="multipart/form-data" id='evoau_form' class='' data-msub='<?php echo ($_msub)?'ow':'nehe';?>' data-redirect='<?php echo ($atts && !empty($atts['rlink']) && !empty($atts['rdir']) && $atts['rdir']=='yes')?$atts['rlink']:'nehe';?>' data-rdur='<?php echo $this->val_check($atts,'rdur');?>' data-limitsubmission='<?php echo (!empty($evoopt['evoau_limit_submissions']) && $evoopt['evoau_limit_submissions']=='yes')?'ow':'nehe';?>' data-enhance="false">
+		
+		<input type='hidden' class='evoau_form_atts' data-d='<?php echo json_encode($atts); ?>'/>
 
 	<?php 		
 		// hidden fields for the form
@@ -143,6 +148,8 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 				$hidden_fields['form_action'] = 'editform';
 				$hidden_fields['eventid'] = $event_id;
 				$hidden_fields['evoau_limit_submissions'] = (!empty($evoopt['evoau_limit_submissions'])? $evoopt['evoau_limit_submissions']:'no');
+			}else{
+				$hidden_fields['form_action'] = 'newform';
 			}
 
 			foreach(apply_filters('evoau_form_hidden_fields', $hidden_fields) as $key=>$val){
@@ -245,16 +252,18 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 			// date picker language values
 				$this->_print_date_picker_text();
 
+				//print_r($EACH_FIELD);
+
 			// EACH field array from EVOAU()->au_form_fields()
 				foreach(apply_filters('evoau_form_fields_array',$EACH_FIELD)  as $__index=>$ff):
 
 					if(in_array($ff, $FORM_SKIPS)) continue;
 
 					$INDEX = (!empty($FIELD_ORDER))? $ff:$__index;
-					
+
 					if( ($SELECTED_FIELDS && in_array($INDEX, $SELECTED_FIELDS) )
 						|| in_array($INDEX, EVOAU()->frontend->au_form_fields('defaults_ar')) 
-					){
+					){						
 
 						// get form array for the field parameter
 							if(empty($FORM_FIELDS[$INDEX])) continue;
@@ -289,8 +298,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 							 	$default_val = !empty($EPMV[$__field_id])? $EPMV[$__field_id][0]:$default_val;
 							}
 
-						
-							
+
 						// switch statement for dif fields
 						switch($__field_type){
 							// pluggable
@@ -475,7 +483,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 
 										$repeat_gap_text = evo_lang('Days');
 
-									echo "<div class='row' id='evoau_repeat_data' style='display:".($evcal_repeat?'':'none')."'>
+									echo "<div class='row row_2' id='evoau_repeat_data' style='display:".($evcal_repeat?'':'none')."'>
 
 										<p class='evoau_repeat_frequency'>
 											<label>".eventon_get_custom_language($opt_2, 'evoAUL_ere5', 'Event Repeat Type', $lang)."</label>
@@ -518,7 +526,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 											<p>". evo_lang('Custom Repeat Times') ."</p>
 
 											<ul class='evo_custom_repeat_list'>";
-											$count = 0;
+											$count = 1;
 
 											$repeat_times = false;
 											if($this->EVENT) $repeat_times = $this->EVENT->get_repeats();
@@ -546,7 +554,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 											echo "</ul>";
 
 											if($repeat_times) 
-												echo  "<p class='evo_custom_repeat_list_count' data-cnt='{$count}' style='padding-bottom:20px'>There are ".($count-1)." repeat intervals. ". ($count>3? "<span class='evo_repeat_interval_view_all' data-show='no'>".__('View All','eventon')."</span>":'') ."</p>";
+												echo  "<p class='evo_custom_repeat_list_count' data-cnt='{$count}' style='padding-bottom:20px'>".($count-1)." ". evo_lang('other repeat intervals exists'). " ". ($count>3? "<span class='evo_repeat_interval_view_all' data-show='no'>".__('View All','eventon')."</span>":'') ."</p>";
 
 
 											// ADD new custom repeat
@@ -794,25 +802,32 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 								$uis = array(
 									'1'=>eventon_get_custom_language($opt_2, 'evoAUL_ux1', 'Slide Down EventCard', $lang),
 									'2'=>eventon_get_custom_language($opt_2, 'evoAUL_ux2', 'External Link', $lang),
-									'3'=>eventon_get_custom_language($opt_2, 'evoAUL_ux3', 'Lightbox Popup Window', $lang)
+									'3'=>eventon_get_custom_language($opt_2, 'evoAUL_ux3', 'Lightbox Popup Window', $lang),
+									'4'=> eventon_get_custom_language($opt_2, 'evoAUL_ux4a', 'Open as Single Event Page', $lang)
 								);
 
-								// if single event addon is enabled
-								if(defined('EVO_SIN_EV') && EVO_SIN_EV)
-									$uis['4'] = eventon_get_custom_language($opt_2, 'evoAUL_ux4a', 'Open as Single Event Page', $lang);
+
+								$ux_val = '';
+
+								if($this->EVENT) 
+									$ux_val = $this->EVENT->get_prop('_evcal_exlink_option');
 
 								echo "<div class='row evoau_ui'>
 										<p class='label'><label for='".$__field_id."'>".$__field_name."</label></p><p class='dropdown_row'><select name='".$__field_id."'>";
 
 										foreach($uis as $ui=>$uiv){
-											?><option type='checkbox' value='<?php echo $ui;?>'> <?php echo $uiv;?></option>
+											$select = $ui == $ux_val ? 'selected="selected"':'';
+											?><option type='checkbox' <?php echo $select; ?> value='<?php echo $ui;?>'> <?php echo $uiv;?></option>
 											<?php 
 										}
 									echo "</select></p>
 									<div class='evoau_exter' style='display:none'>
 										<p class='label'><label for='evoau_ui'>".eventon_get_custom_language($opt_2, 'evoAUL_ux4', 'Type the External Url', $lang)."</label></p>
-										<p><input name='evcal_exlink' class='fullwidth' type='text' data-role='none'/><br/>
-										<i><input name='_evcal_exlink_target' value='yes' type='checkbox' data-role='none'/> ".eventon_get_custom_language($opt_2, 'evoAUL_lm1', 'Open in new window', $lang)."</i></p>
+										<p class='input_field'><input name='evcal_exlink' class='fullwidth' type='text' data-role='none'/></p>
+										<p class='checkbox_field'>
+											<input name='_evcal_exlink_target' value='yes' type='checkbox' data-role='none'/> 
+											<label>".eventon_get_custom_language($opt_2, 'evoAUL_lm1', 'Open in new window', $lang)."</label>
+										</p>
 									</div></div>";
 							break;
 							case 'learnmore':
@@ -871,7 +886,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 								echo "<div class='row organizerSelect'>
 									<p class='label'><label for='".$__field_id."'>".$__field_name.$__req."</label></p>";
 								
-								echo '<p class="selection"data-role="none">';
+								echo '<p class="selection" data-role="none">';
 								
 								// edit form
 								if($_EDITFORM && !empty($evo_organizer_tax_id) && $hide_list){
@@ -963,12 +978,18 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 								</div>";
 							break;
 
+						// External file fields
 							case 'virtual':
 								include_once 'form-type-virtual.php';
 							break;
 							case 'health':
 								include_once 'form-type-health.php';
 							break;
+
+							case 'timezone':
+								include_once 'form-type-timezone.php';
+							break;
+							
 						}
 
 					}
@@ -1162,6 +1183,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 	function get_edit_form_section($EPMV, $EVENT){		
 		ob_start();
 		?><div class='edit_special'><?php
+		
 		foreach(apply_filters('evoau_editform_options_array',EVOAU()->frontend->au_form_fields('editonly')) 
 			as $key=>$value
 		){
@@ -1224,10 +1246,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 			$text_register = eventon_get_custom_language($opt_2, 'evoAUL_00l2', 'Register', $lang);
 
 			// Login link
-				$login_link = wp_login_url(get_permalink());
-
-				// check if custom link passed
-				if(!empty( $evoopt_1['evo_login_link'])) $login_link = $evoopt_1['evo_login_link'];
+				$login_link = evo_login_url( get_permalink() );
 			
 			$log_msg = $__001. (sprintf(__(' <br/><a class="evcal_btn" title="%1$s" href="%2$s">%1$s</a>','eventon'), $text_login, $login_link ) );			
 
@@ -1297,6 +1316,7 @@ function get_content($event_id ='', $atts='', $form_field_permissions=array(), $
 	function get_form_html($field, $data){
 		global $eventon;
 		if(empty($data['type'])) return false;
+
 
 		ob_start();
 		$helper = new evo_helper();

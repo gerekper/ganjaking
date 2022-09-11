@@ -36,15 +36,23 @@ class evoaup_ajax{
 				// for regular submission types
 				$form_field_permissions = array();
 			}
-
-			$form = new evoau_form();
-			$form_html = $form->get_content('',array(
+		
+			$form_args = array(
 				'hidden_fields'=>array(
 					'submission_type'=>'paid_submission',
 					'submission_level'=>$level,
 					'submission_format'=>$submission_format,
 				)
-			), $form_field_permissions, true);
+			);
+
+			// append form parameters into arg
+			if(isset($_POST['d']) && isset($_POST['d']['lightbox'])){
+				unset($_POST['d']['lightbox']);
+				$form_args = array_merge($form_args,  $_POST['d']);
+			}
+
+			$form = new evoau_form();
+			$form_html = $form->get_content('',$form_args, $form_field_permissions, true);
 			$msg = 'Submission form retrieved!';
 
 			echo json_encode(array(
@@ -71,7 +79,8 @@ class evoaup_ajax{
 		if($_POST['sformat'] == 'regular'){
 			$cart_item_data = array();
 			$cart_item_data['evo_wcprod_type'] = 'paid event submissions';
-			if(isset($_POST['url'])) $cart_item_data['evoaup_url'] = $_POST['url'];
+			$cart_item_data['_producttype'] = 'evo_submission';
+			if(isset($_POST['url'])) 	$cart_item_data['evoaup_url'] = $_POST['url'];
 			
 			$quantity = (int)$_POST['qty'];
 			$cart_item_key = WC()->cart->add_to_cart(
@@ -84,6 +93,7 @@ class evoaup_ajax{
 				$level_data = $sub_levels[$level_index];
 				$cart_item_data = array();
 				$cart_item_data['evo_wcprod_type'] = 'paid event submissions';
+				$cart_item_data['_producttype'] = 'evo_submission';
 				$cart_item_data['evoaup_level'] = $level_index;
 				$cart_item_data['evoaup_name'] = $level_data['name'];
 				$cart_item_data['evoaup_price'] = $level_data['price'];
@@ -187,10 +197,15 @@ class evoaup_ajax{
 						'label'=>'Submission Level Name',
 						'req'=>true, 'type'=>'text'					
 					),
+					'color'=>array(
+						'label'=> __('Color for the level','evoaup'),
+						'type'=>'color'					
+					),
 					'price'=>array(
 						'label'=>'Cost to submit events in this level  ('.$curSYM.')',
 						'req'=>true, 'type'=>'text'					
-					),'submissions'=>array(
+					),
+					'submissions'=>array(
 						'label'=>'Event submission quantity included in this level (eg. 5)',
 						'req'=>true, 'type'=>'text'					
 					),
@@ -213,12 +228,8 @@ class evoaup_ajax{
 
 				foreach($form_fields as $key=>$data):
 
-					if($data['type'] != 'select'):
+					if($data['type'] == 'select'):
 				?>
-					<p><label><?php echo $data['label'];?> <?php echo ($data['req'])?'*':'';?></label>
-						<input class='input <?php echo ($data['req'])?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo $this->check_v($values,$key);?>'>
-					</p>
-				<?php else:?>
 					<p><label><?php echo $data['label'];?></label>
 						<select class='input' name="<?php echo $key;?>">
 						<?php 
@@ -229,15 +240,23 @@ class evoaup_ajax{
 						?>
 						</select>
 					</p> 
+
+				<?php elseif($data['type'] == 'color'): ?>
+					<p class='evoaup_color'><label><?php echo $data['label'];?> <?php echo ($data['req'])?'*':'';?></label>
+						<span style='background-color:#<?php echo isset($values[$key])? $values[$key]:'808080';?>' class='evoaup_color_i'></span> 
+						<input class='input' name='<?php echo $key;?>' type="hidden" value='<?php echo $this->check_v($values,$key);?>'>
+					</p>
+				<?php else:?>
+					<p><label><?php echo $data['label'];?> <?php echo ($data['req'])?'*':'';?></label>
+						<input class='input <?php echo ($data['req'])?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo $this->check_v($values,$key);?>'>
+					</p>					
 				<?php endif;?>
 			<?php endforeach;?>
 
 			<p>
-			<label>Select Supported Event Fields for this Level</label>
-			<i>(NOTE: Fields shown below are the fields enabled in ActionUser Settings > Form Fields, in the order they are saved.)</i><br/><br/>
+			<label><?php _e('Select Supported Event Fields for this Level','evoaup');?></label>
+			<i>(<?php _e('NOTE: Fields shown below are the fields enabled in ActionUser Settings > Form Fields, in the order they are saved.','evoaup');?></i><br/><br/>
 			<?php
-
-				
 
 				$FIELDS = EVOAU()->frontend->au_form_fields('additional');
 				unset($FIELDS['event_html']);
@@ -255,14 +274,13 @@ class evoaup_ajax{
 
 					$name = $FIELDS[ $fieldvar][0];
 
-					echo "<span class='checkbox_row'><input class='checkfields' ".( (!empty($values['fields']) &&  in_array($fieldvar, $values['fields']) )? 'checked':'') ." type='checkbox' name='eventfields[]' value='{$index}'/> {$name}</span>";
+					echo "<span class='checkbox_row'><input class='checkfields' ".( (!empty($values['fields']) &&  in_array($fieldvar, $values['fields']) )? 'checked':'') ." type='checkbox' name='eventfields[]' value='{$fieldvar}'/> {$name}</span>";
 				}
 			?>
 			</p>
 
 			<?php
 				$attrs = '';
-				
 
 				foreach(array(
 					'data-type'=>$_POST['type'],
@@ -272,7 +290,7 @@ class evoaup_ajax{
 				}
 
 			?>
-			<p><a class='evoaup_form_submission evo_btn' <?php echo $attrs;?>><?php echo $_POST['type']=='new'? 'Add New':'Save';?></a></p>
+			<p><a class='evoaup_form_submission evo_btn' <?php echo $attrs;?>><?php echo $_POST['type']=='new'? __('Add New','evoaup'): __('Save','evoaup');?></a></p>
 		</div>
 		<?php
 		

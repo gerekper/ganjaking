@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Product Reviews Pro Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.17.4';
+	const VERSION = '1.17.5';
 
 	/** @var WC_Product_Reviews_Pro single instance of this plugin */
 	protected static $instance;
@@ -104,7 +104,7 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Product_Reviews_Pro\Lifecycle( $this );
 	}
@@ -120,37 +120,37 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 	public function init_plugin() {
 
 		// these need to be included here rather than in includes() or calls to wc_product_reviews_pro() get stuck in a loop
-		require_once( $this->get_plugin_path() . '/includes/functions/wc-product-reviews-pro-functions.php' );
-		require_once( $this->get_plugin_path() . '/includes/class-wc-product-reviews-pro-products.php' );
+		require_once( $this->get_plugin_path() . '/src/functions/wc-product-reviews-pro-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-product-reviews-pro-products.php' );
 
 		// query handler
-		$this->query = $this->load_class( '/includes/class-wc-product-reviews-pro-query.php', 'WC_Product_Reviews_Pro_Query' );
+		$this->query = $this->load_class( '/src/class-wc-product-reviews-pro-query.php', 'WC_Product_Reviews_Pro_Query' );
 
 		// emails handler
-		$this->emails = $this->load_class( '/includes/class-wc-product-reviews-pro-emails.php', 'WC_Product_Reviews_Pro_Emails' );
+		$this->emails = $this->load_class( '/src/class-wc-product-reviews-pro-emails.php', 'WC_Product_Reviews_Pro_Emails' );
 
 		// main objects handlers
-		$this->review_qualifiers    = $this->load_class( '/includes/class-wc-product-reviews-pro-review-qualifiers.php', 'WC_Product_Reviews_Pro_Review_Qualifiers' );
-		$this->contribution_factory = $this->load_class( '/includes/class-wc-product-reviews-pro-contribution-factory.php', 'WC_Product_Reviews_Pro_Contribution_Factory' );
+		$this->review_qualifiers    = $this->load_class( '/src/class-wc-product-reviews-pro-review-qualifiers.php', 'WC_Product_Reviews_Pro_Review_Qualifiers' );
+		$this->contribution_factory = $this->load_class( '/src/class-wc-product-reviews-pro-contribution-factory.php', 'WC_Product_Reviews_Pro_Contribution_Factory' );
 
 		// frontend handler
-		if ( ! is_admin() || is_ajax() ) {
-			$this->frontend = $this->load_class( '/includes/frontend/class-wc-product-reviews-pro-frontend.php', 'WC_Product_Reviews_Pro_Frontend' );
+		if ( ! is_admin() || wp_doing_ajax() ) {
+			$this->frontend = $this->load_class( '/src/frontend/class-wc-product-reviews-pro-frontend.php', 'WC_Product_Reviews_Pro_Frontend' );
 		}
 
 		// admin includes
-		if ( is_admin() && ! is_ajax() ) {
-			$this->admin = $this->load_class( '/includes/admin/class-wc-product-reviews-pro-admin.php', 'WC_Product_Reviews_Pro_Admin' );
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			$this->admin = $this->load_class( '/src/admin/class-wc-product-reviews-pro-admin.php', 'WC_Product_Reviews_Pro_Admin' );
 		}
 
 		// ajax handler
-		$this->ajax = $this->load_class( '/includes/class-wc-product-reviews-pro-ajax.php', 'WC_Product_Reviews_Pro_AJAX' );
+		$this->ajax = $this->load_class( '/src/class-wc-product-reviews-pro-ajax.php', 'WC_Product_Reviews_Pro_AJAX' );
 
 		// widgets handler
-		$this->widgets = $this->load_class( '/includes/class-wc-product-reviews-pro-widgets.php', 'WC_Product_Reviews_Pro_Widgets' );
+		$this->widgets = $this->load_class( '/src/class-wc-product-reviews-pro-widgets.php', 'WC_Product_Reviews_Pro_Widgets' );
 
 		// integrations handler
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-product-reviews-pro-integrations.php', 'WC_Product_Reviews_Pro_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-product-reviews-pro-integrations.php', 'WC_Product_Reviews_Pro_Integrations' );
 	}
 
 

@@ -18,6 +18,7 @@ class WC_AM_Order {
 	private   $api_activation_table = '';
 	protected $api_product_updater;
 	protected $api_resource_activations_updater;
+	protected $api_resource_access_expires_updater;
 
 	/**
 	 * @var null
@@ -41,10 +42,12 @@ class WC_AM_Order {
 		// Background API Product updater.
 		require_once( dirname( __FILE__ ) . '/wcam-background-api-product-updater.php' );
 		require_once( dirname( __FILE__ ) . '/wcam-background-api-resource-activations-updater.php' );
-		$this->api_product_updater              = new WCAM_Background_API_Product_Updater();
-		$this->api_resource_activations_updater = new WCAM_Background_API_Resource_Activations_Updater();
-		$this->api_resource_table               = WC_AM_USER()->get_api_resource_table_name();
-		$this->api_activation_table             = WC_AM_USER()->get_api_activation_table_name();
+		require_once( dirname( __FILE__ ) . '/wcam-background-api-resource-access-expires-updater.php' );
+		$this->api_resource_table                  = WC_AM_USER()->get_api_resource_table_name();
+		$this->api_activation_table                = WC_AM_USER()->get_api_activation_table_name();
+		$this->api_product_updater                 = new WCAM_Background_API_Product_Updater();
+		$this->api_resource_activations_updater    = new WCAM_Background_API_Resource_Activations_Updater();
+		$this->api_resource_access_expires_updater = new WCAM_Background_API_Resource_Access_Expires_Updater();
 
 		/**
 		 * Use woocommerce_order_status_changed in lieu of woocommerce_order_status_completed,
@@ -543,7 +546,7 @@ class WC_AM_Order {
 	}
 
 	/**
-	 * Update the API Resource activations_purchased_total when product activation limit increases.
+	 * Update the API Resource activations_purchased_total when the product activation limit increases.
 	 *
 	 * @since 2.0.1
 	 *
@@ -554,6 +557,37 @@ class WC_AM_Order {
 
 		// Lets dispatch the queue to start processing.
 		$this->api_resource_activations_updater->save()->dispatch();
+	}
+
+	/**
+	 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
+	 *
+	 * @since 2.4
+	 *
+	 * @param int $product_id
+	 */
+	public function update_api_resource_access_expires_for_product( $product_id ) {
+		// Value set on Product edit for API Access Expires.
+		$product_access_expires = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_access_expires' );
+		$order_ids              = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
+		$queued                 = false;
+
+		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
+			foreach ( $order_ids as $order_id ) {
+				if ( ! empty( $order_id ) ) {
+					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+
+					$this->api_resource_access_expires_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id, 'product_access_expires' => $product_access_expires ) );
+
+					$queued = true;
+				}
+			}
+
+			if ( $queued ) {
+				// Lets dispatch the queue to start processing.
+				$this->api_resource_access_expires_updater->save()->dispatch();
+			}
+		}
 	}
 
 	/**
@@ -971,7 +1005,7 @@ class WC_AM_Order {
 				wc_get_template( 'emails/api-keys-order-complete.php', array(
 					'order'     => $order,
 					'resources' => $resources
-				), '', WCAM()->plugin_path() . '/templates/' );
+				),               '', WCAM()->plugin_path() . '/templates/' );
 			}
 		}
 	}

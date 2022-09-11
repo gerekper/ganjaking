@@ -1,5 +1,11 @@
 *** WooCommerce Cost of Goods Changelog ***
 
+2022.08.30 - version 2.11.3
+ * Fix - Ensure that when getting costs refunded for an order item there are no PHP errors in sites running PHP 8.0+
+
+2022.08.23 - version 2.11.2
+ * Fix - Improve Background Job Handler compatibility with newer WooCommerce versions while processing a job queue
+
 2022.02.07 - version 2.11.1
  * Fix - Include products with no costs when sorting products by costs in the products admin screen
  * Fix - Replace deprecated `is_ajax()` usages in favor of `wp_doing_ajax()`

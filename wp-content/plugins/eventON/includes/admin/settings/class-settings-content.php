@@ -1,7 +1,8 @@
 <?php
 /**
-*	 Settings Content
+* Settings Content
 * inside EVO_Settings()
+* @version 4.0.2
 */
 
 ?>
@@ -67,18 +68,20 @@ switch ($this->focus_tab):
 			<h3><?php _e('Import/Export General EventON Settings','eventon');?></h3>
 			<p><i><?php _e('NOTE: Make sure to save changes after importing. This will import/export the general settings saved for eventon.','eventon');?></i></p>
 
-			<div class='import_box' id="import_box" style='display:none'>
-				<span id="close">X</span>
-				<form id="evo_settings_import_form" action="" method="POST" data-link='<?php echo AJDE_EVCAL_PATH;?> '>
-					<input type="file" id="file-select" name="settings[]" multiple accept=".json" />
-					<button type="submit" id="upload_settings_button"><?php _e('Upload','eventon');?></button>
-				</form>
-				<p class="msg" style='display:none'><?php _e('File Uploading','eventon');?></p>
-			</div>
-			<p>
-				<a id='evo_settings_import' class='evo_admin_btn btn_triad'><?php _e('Import','eventon');?></a> 
+			
+			<div class='evo_data_upload_holder' style='position: relative;'>
+				<?php 
+				EVO()->elements->print_import_box_html(array(
+					'box_id'=>'evo_settings_upload',
+					'title'=>__('Upload JSON Settings File Form'),
+					'message'=>__('NOTE: You can only upload settings data as .json file'),
+					'file_type'=>'.json',
+				));
+				?>			
+
+				<a id='evo_settings_import' class='evo_admin_btn btn_triad evo_data_upload_trigger'><?php _e('Import','eventon');?></a> 
 				<a href='<?php echo $exportURL;?>' class='evo_admin_btn btn_triad'><?php _e('Export','eventon');?></a>
-			</p>
+			</div>
 		</div>
 	
 <?php  

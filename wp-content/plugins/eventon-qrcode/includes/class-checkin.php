@@ -15,6 +15,10 @@ class evoqr_checkin{
 	public $opt2;
 	private $checkin_page_url = false;
 
+	public $enable_custom_dir = false;
+
+	public $qr_code_size = 200;
+
 	function __construct(){
 		$this->optQR = get_option('evcal_options_evcal_1');
 		$this->opt2 = get_option('evcal_options_evcal_2');
@@ -35,11 +39,18 @@ class evoqr_checkin{
 			add_action('eventonrs_rsvp_post_table', array($this, 'show_qr_rsvp_post'), 10, 2);
 			add_action('eventonrs_confirmation_email', array($this, 'show_qr_rsvp_email'), 10, 2);
 			add_action('evors_confirmation_email_before', array($this, 'generate_qr_image_rsvp'), 10, 1);
-		// event ticekts addon
+		// event tickets addon
 			add_filter('evotx_tixPost_tixid', array($this, 'show_qr_code_TX'), 10, 2);
 			add_filter('evotx_email_tixid_list', array($this, 'show_qr_code_TX2'), 10, 3);
 			add_action('evotx_one_ticket_extra', array($this, 'show_qr_code_TX3'), 10, 2);
+
+		// modify uploads
+			add_filter('upload_dir', array($this, 'custom_upload_dir'));
+			add_filter( 'wp_unique_filename', array( $this, 'update_filename' ), 10, 3 );
+			add_filter('posts_where', array($this,'media_library_hide_qr_images'));
 	}
+
+	
 
 	// initiate things
 		public function init(){			
@@ -123,7 +134,7 @@ class evoqr_checkin{
 		}	
 
 	// QR Code 
-		public function get_qr_code($ticket_number, $repeat_interval='', $size=120, $post_id = ''){	
+		public function get_qr_code($ticket_number, $repeat_interval='', $size=150, $post_id = ''){	
 
 			// if there is a post set to assign 
 			$gen_qr = true;
@@ -167,6 +178,9 @@ class evoqr_checkin{
 			function get_uploaded_qr_code_image($qr_url, $ticket_number, $post_id=''){
 				if(empty($qr_url)) return false;
 
+				$_POST['type'] = 'eventon_qr_code';
+				$this->enable_custom_dir = true;
+
 				$file_array = array();
 				$desc = "QR Code Image for post ID:".$post_id." on ". date('Y-m-d', time());
 		    				
@@ -180,7 +194,7 @@ class evoqr_checkin{
 				$tmp = download_url( $qr_url );
 				
 				$file_array['name'] = "qr_code.png";
-		      	$file_array['tmp_name'] = $tmp;
+		      	$file_array['tmp_name'] = $tmp_name = $tmp;
 
 				if( is_wp_error( $tmp ) ){
 					@unlink($file_array['tmp_name']);
@@ -191,25 +205,105 @@ class evoqr_checkin{
 				if(empty($post_id)) $post_id = 1;
 
 		      	// do the validation and storage stuff	      
-		      	$id = media_handle_sideload( $file_array, $post_id, $desc );
+		      	$result = media_handle_sideload( $file_array, $post_id, $desc );
 
 
 		      	// If error storing permanently, unlink
-			    if ( is_wp_error($id) ) {
+			    if ( is_wp_error($result) ) {
 			         @unlink($file_array['tmp_name']);
 			         return false;
 			    }
 
-			    return  wp_get_attachment_url( $id );
+			    $_POST['type'] = '';
+			    $this->enable_custom_dir = false;
+
+			    return  wp_get_attachment_url( $result );
 
 			}
+
+			// alter upload folder only for qr code images
+			function custom_upload_dir($pathdata){
+
+				if( !$this->enable_custom_dir) return $pathdata;
+				if( !isset($_POST['type']) ) return $pathdata;
+				if( $_POST['type'] != 'eventon_qr_code') return $pathdata;
+
+				
+				$custom_dir = 'evo_qr_codes';
+				$pathdata['path'] = $pathdata['basedir'] . '/'. $custom_dir;
+				$pathdata['url'] = $pathdata['url'] . '/'. $custom_dir;
+				$pathdata['subdir'] = '/'. $custom_dir;
+				
+
+				return $pathdata;
+			}
+
+			// change file name for qr code and prepend uniqu chars
+			function update_filename($full_filename, $ext, $dir){
+				if ( ! isset( $_POST['type'] ) || ! 'eventon_qr_code' === $_POST['type'] ) {
+					return $full_filename;
+				}
+
+				if ( ! strpos( $dir, 'evo_qr_codes' ) ) return $full_filename;
+
+				return $this->unique_filename( $full_filename, $ext );
+			}
+
+			// change file name to append random chars
+			public function unique_filename( $full_filename, $ext ) {
+				$ideal_random_char_length = 6;   // Not going with a larger length because then downloaded filename will not be pretty.
+				$max_filename_length      = 255; // Max file name length for most file systems.
+				$length_to_prepend        = min( $ideal_random_char_length, $max_filename_length - strlen( $full_filename ) - 1 );
+
+				if ( 1 > $length_to_prepend ) {
+					return $full_filename;
+				}
+
+				$suffix   = strtolower( wp_generate_password( $length_to_prepend, false, false ) );
+				$filename = $full_filename;
+
+				if ( strlen( $ext ) > 0 ) {
+					$filename = substr( $filename, 0, strlen( $filename ) - strlen( $ext ) );
+				}
+
+				$full_filename = str_replace(
+					$filename,
+					"$filename-$suffix",
+					$full_filename
+				);
+
+				return $full_filename;
+			}
+
+			// hide qr code images from media library
+			public function media_library_hide_qr_images($where){
+
+				if ( ! is_admin() )    return $where;
+
+				if( EVO()->cal->check_yn('evoqr_show_in_media','evcal_1')) return $where;
+
+				global $wpdb, $pagenow;
+				
+				$execute = false;
+
+				if( !empty($pagenow) && $pagenow == 'upload.php') $execute = true;
+				if( isset($_REQUEST['action']) && $_REQUEST['action'] == 'query-attachments') $execute = true;
+
+
+				if($execute) 
+					$where .= ' AND ' . $wpdb->posts . '.post_title NOT LIKE \'QR Code Image%\'';
+			   
+			    return $where;
+			}
+			
 
 	// show QR code for addons
 		// RSVP addon
 			public function show_qr_rsvp_post($rsvpid, $rsvp_pmv){
 				$repeat_interval = (!empty($rsvp_pmv['repeat_interval']))? $rsvp_pmv['repeat_interval'][0]:0;
 				echo "<tr><td>QR Code: </td><td>
-					<em class='evoqr_qr' style='float:left; padding-right:10px'>".$this->get_qr_code($rsvpid, $repeat_interval,90, $rsvpid)."</em>
+					<em class='evoqr_qr' style='float:left; padding-right:10px'>".
+						$this->get_qr_code($rsvpid, $repeat_interval, $this->qr_code_size, $rsvpid)."</em>
 					<em class='evoqr_code' style='padding-top:25px; display:inline-block'># ".$rsvpid."</em>
 					</td></tr>";
 			}
@@ -223,7 +317,7 @@ class evoqr_checkin{
 				if(!empty($rsvp_pmv['rsvp']) && $rsvp_pmv['rsvp'][0] == 'n') return false;
 				
 				// Generate QR Code image for RSVP
-				$this->get_qr_code($rsvp_id, $repeat_interval, 120, $rsvp_id);
+				$this->get_qr_code($rsvp_id, $repeat_interval, $this->qr_code_size, $rsvp_id);
 			}
 
 			public function show_qr_rsvp_email($RSVP, $eRSVP){
@@ -235,7 +329,7 @@ class evoqr_checkin{
 				?>
 					<p style="color:#303030; text-transform:uppercase; font-size:18px; font-style:italic; padding-bottom:0px; margin-bottom:0px; line-height:110%;">QR Code</p>
 					<p style="color:#afafaf; font-style:italic;font-size:14px; margin:0 0 10px 0; padding-bottom:10px;"><?php echo eventon_get_custom_language($this->opt2, 'evoQR_008', 'You can use the below QRcode to checkin at the event');?></p>
-					<p><?php echo $this->get_qr_code($RSVP->ID, $repeat_interval, 120, $RSVP->ID);?></p>
+					<p><?php echo $this->get_qr_code($RSVP->ID, $repeat_interval, $this->qr_code_size, $RSVP->ID);?></p>
 					<?php
 				}
 			}
@@ -246,24 +340,30 @@ class evoqr_checkin{
 			// for emails and order details page
 			public function show_qr_code_TX2($encrypt_TN, $ticket_number, $this_ticket){
 
-				if( isset($this_ticket['s']) && $this_ticket['s'] == 'refunded') return $ticket_number;
+				if( isset($this_ticket['s']) && $this_ticket['s'] == 'refunded') 
+					return $this->encrypt_TN( $ticket_number );
 
 				$evo_tix_id = explode('-', $ticket_number);
 				$evo_tix_id = (int)$evo_tix_id[0];
 
-				$qr_code_size = apply_filters('evotx_qrcode_email_size', 120);
+				// get the qr code image size
+				$qr_code_size = apply_filters('evotx_qrcode_email_size', $this->qr_code_size);
+
 				return "<em style=''>".$this->get_qr_code($ticket_number,'',$qr_code_size, $evo_tix_id)."</em><em style='display:block; line-height:100%; padding-top:10px; padding-bottom:5px; font-style:normal;font-size:14px'>". $this->encrypt_TN($ticket_number) ."</em>";
 			}
 			// on one ticket
 			function show_qr_code_TX3($TN, $TD){
 
+				if( isset($TD['oS']) && $TD['oS'] != 'completed') return false;
 				if( isset($TD['s']) && $TD['s'] == 'refunded') return false;
 
 				$evo_tix_id = explode('-', $TN);
 				$evo_tix_id = (int)$evo_tix_id[0];
 
-				$qr_code_size = apply_filters('evotx_qrcode_size', 90);
-				echo "<em style='float:left; padding-right:10px'>".$this->get_qr_code($TN,'',$qr_code_size, $evo_tix_id)."</em>";
+				// get the qr code image size
+				$qr_code_size = apply_filters('evotx_qrcode_size', $this->qr_code_size);
+
+				echo "<em class='evotxVA_qrcode'>".$this->get_qr_code($TN,'',$qr_code_size, $evo_tix_id)."</em>";
 
 			}
 	// actual checking page data
@@ -295,13 +395,20 @@ class evoqr_checkin{
 				return false;
 			}
 
+			// validate ticket numbers
+			if( !$this->validate_tickets( $tixid )){
+				$this->_views('invalid_ticket_id');	
+				return false;
+			}
+
 
 			// if loggedin and have permission
 			$content = $this->get_page_data();
-			extract($content);
+			if($content) extract($content);
+
 
 			?>	
-			<div class='evo_checkin_page <?php echo $classes;?>'>
+			<div class='evo_checkin_page <?php echo !empty($classes) ? $classes :'';?>'>
 			
 				<?php if(!empty($tixid)):?>
 					<h2 class='tix_id'><span style='display:inline-block;opacity:0.5'><?php echo evo_lang('Ticket #');?></span><span><?php echo $tixid;?></span>
@@ -317,7 +424,7 @@ class evoqr_checkin{
 					<?php endif;?>
 				<?php endif;?>
 
-				<p class='sign'></p>
+				<p class='sign'><i></i></p>
 				<h4><?php echo !empty($msg)?$msg:'';?></h4>
 
 				<?php
@@ -355,9 +462,49 @@ class evoqr_checkin{
 			<?php
 		}
 
+	// validate the ticket number for both tix and rsvp @+ 1.1.7
+		public function validate_tickets( $tixid ){
+
+			if( empty($tixid) ) return false;
+
+			// differentiate ID type
+			if(strpos($tixid, '-')){
+				$tt = explode('-', $tixid);
+				$post_exists = (get_post_status($tt[0] ) !== FALSE)? true: false;
+				$id_type = get_post_type($tt[0]);
+			}else{
+				$post_exists = (get_post_status($tixid ) !== FALSE)? true: false;
+				$id_type = get_post_type($tixid	);
+			}
+
+			if( !$post_exists ) return false;			
+				
+			// for tickets
+			if($id_type=='evo-tix'){
+
+				$ET =  new evotx_tix();
+				$evotix_id = $ET->get_evotix_id_by_ticketnumber($tixid);
+				
+
+				$TIX_CPT = new EVO_Evo_Tix_CPT( $evotix_id );
+				$saved_tn = $TIX_CPT->get_ticket_number();
+
+
+				if($saved_tn != $tixid) return false;
+
+			// for rsvp
+			}else{					
+				// post exists value checks for this
+			}
+
+			return true;
+
+		}
+
+	// PAGE DATA
 		function get_page_data(){
 			// process ticket number
-			$tixid = $this->process_ticket_number();
+			$ticket_number = $tixid = $this->process_ticket_number();
 			
 			$post_exists = false;
 			$checking_page = $this->checkin_page_url;
@@ -369,47 +516,47 @@ class evoqr_checkin{
 				'otherdata'=>'',
 				'after'=>'',
 				'msg'=>'',
-				'tixid'=>$tixid
+				'tixid'=>$ticket_number
 			);
 
 			// differentiate ID type
-			if(strpos($tixid, '-')){
-				$tt = explode('-', $tixid);
-				$post_exists = (get_post_status($tt[0] ) !== FALSE)? true: false;
-				$id_type = get_post_type($tt[0]);
-			}else{
-				$post_exists = (get_post_status($tixid ) !== FALSE)? true: false;
-				$id_type = get_post_type($tixid	);
-			}
+				if(strpos($ticket_number, '-')){
+					$tt = explode('-', $ticket_number);
+					$post_exists = (get_post_status($tt[0] ) !== FALSE)? true: false;
+					$id_type = get_post_type($tt[0]);
+				}else{
+					$post_exists = (get_post_status($ticket_number ) !== FALSE)? true: false;
+					$id_type = get_post_type($ticket_number	);
+				}
 			
 
-			if(!empty($tixid) && $post_exists && ($id_type=='evo-rsvp' || $id_type=='evo-tix' )){
+			// if a valid ticket id
+			if(!empty($ticket_number) && $post_exists && ($id_type=='evo-rsvp' || $id_type=='evo-tix' )){
 
 				// Tickets
 				if($id_type=='evo-tix'){
 
+
 					// pre process
-					$ET = $evotx_tix = new evotx_tix();
-					$TN = $tixid;
-					$TND = $ET->get_data_from_ticket_number($TN);
+					$ET = new evotx_tix();
+					$ticket_post_id = $ET->evo_tix_id = $ET->get_evotix_id_by_ticketnumber( $ticket_number );
 
-					if(!isset($TND['order_id'])) return false;
+					$TIX = new EVO_Evo_Tix_CPT( $ticket_post_id );
 
-					$order_id = $TND['order_id'];							
-					$evotix_id = $ET->evo_tix_id = $TND['evotix_id'];
-					$event_id = $ET->get_prop('_eventid');
-					$OrderStatus = false;
+					if( !$TIX->get_order_id() ) return false;
+
 					
+					$OrderStatus = false;
 
-					$current_status = $evotx_tix->get_ticket_status_by_ticket_number($tixid);
-					$tixMETA = get_post_custom($tixid);
+					$current_status = $TIX->get_status();
+
 
 					// uncheck ticket
 					if(!empty($_GET['action']) && $_GET['action']=='unc'){
 						// change status to check-in
 						if(!empty($current_status) && $current_status =='checked'){
 							
-							$evotx_tix->change_ticket_number_status('check-in', $tixid, $evotix_id);
+							$TIX->set_status( 'check-in');
 
 							$classes[] = 'yes';
 							$output['msg'] = eventon_get_custom_language($this->opt2, 'evoQR_001', 'Successfully un-checked ticket!');
@@ -421,6 +568,10 @@ class evoqr_checkin{
 						}
 					}else{
 
+
+						$order_id = $TIX->get_order_id();				
+						$event_id = $TIX->get_event_id();
+
 						$order = new WC_Order($order_id);
 						$OrderStatus = $order->get_status();
 
@@ -429,9 +580,12 @@ class evoqr_checkin{
 							//check in a ticket 					
 							if(empty($current_status) || $current_status =='check-in'){
 								
-								$evotx_tix->change_ticket_number_status('checked', $tixid, $evotix_id);	
+								$TIX->set_status('checked');
+
 								$classes[] = 'yes';
-								$output['msg'] = eventon_get_custom_language($this->opt2, 'evoQR_003', 'Successfully Checked!');										
+								$output['msg'] = eventon_get_custom_language($this->opt2, 'evoQR_003', 'Successfully Checked!');	
+
+								$output['after'] = "<p class='mart20'><a class='btn' href='?id={$tixid}&action=unc'>".eventon_get_custom_language($this->opt2, 'evoQR_005', 'Un-check this ticket')."</a> <a class='btn' href='".$checking_page ."'>".evo_lang('Enter a New Ticket ID')."</a></p>";										
 
 							// refunded order
 							}elseif($current_status == 'refunded'){
@@ -444,7 +598,7 @@ class evoqr_checkin{
 								$classes[] = 'already_checked'; 
 								
 								$output['msg'] = eventon_get_custom_language($this->opt2, 'evoQR_004', 'Already checked!');
-								$output['after'] = "<p class='mart20'><a class='btn' href='?id={$tixid}&action=unc'>".eventon_get_custom_language($this->opt2, 'evoQR_005', 'Un-check this ticket')."</a> <a class='btn' href='{$checking_page}'>".evo_lang('Enter a New Ticket ID')."</a></p>";	
+								$output['after'] = "<p class='mart20'><a class='btn' href='?id={$tixid}&action=unc'>".eventon_get_custom_language($this->opt2, 'evoQR_005', 'Un-check this ticket')."</a> <a class='btn' href='".$checking_page ."'>".evo_lang('Enter a New Ticket ID')."</a></p>";	
 							}	
 						}else{// order is not complete
 							$classes[] = $OrderStatus; 
@@ -460,23 +614,32 @@ class evoqr_checkin{
 					}
 
 					// Show attendee and event information
-						$output['otherdata'] = $this->get_other_event_data($tixMETA, 'tx');
+						$tix_meta = $TIX->get_props();
+						$output['otherdata'] = $this->get_other_event_data($tix_meta, 'tx');
 						if($OrderStatus) $output['otherdata']['order-status'] = $OrderStatus;
 
 					// other tickets in the same order
 						$EA = new EVOTX_Attendees();
 						$TH = $EA->_get_tickets_for_order($order_id);
 
+
 						// if there are more than one other tickets
-						if($TH && isset($TH[$event_id]) && count($TH[$event_id])>1){
+						if($TH && isset($TH[$event_id])){
+
+							if( isset($TH[$event_id][$ticket_number])) 
+								$ticket_meta_data = $TH[$event_id][$ticket_number];
 							
-							$html = "<h5>".evo_lang('tickets in the same order')."</h5>";
-							foreach($TH[$event_id] as $_tn=>$td){
-								if($_tn == $TN) continue;
-								$html .= "<p>".$_tn." <a style='margin-left:8px;' class='evcal_btn evoqr_other_tickets {$td['s']}' href='{$checking_page}?id={$_tn}'>".$td['s'].'</a></p>';
+							if(  count($TH[$event_id])>1 ){
+								$html = "<h5>".evo_lang('tickets in the same order')."</h5>";
+								foreach($TH[$event_id] as $_ticket_number=>$td){
+									
+									if($_ticket_number != $ticket_number){
+										$html .= "<p>".$_ticket_number." <a style='margin-left:8px;' class='evcal_btn evoqr_other_tickets {$td['s']}' href='". $checking_page. "?id={$_ticket_number}'>".$td['s'].'</a></p>';
+									}
+								}
+								
+								$output['html'] = $html;
 							}
-							
-							$output['html'] = $html;
 						}
 
 				}else{ // RSVP 
@@ -517,7 +680,7 @@ class evoqr_checkin{
 							$classes[] = 'already_checked'; 
 
 							$output['msg'] = eventon_get_custom_language($this->opt2, 'evoQR_004', 'Already checked!');
-							$output['after'] = "<p class='mart20'><a class='btn' href='?id={$tixid}&action=unc'>".eventon_get_custom_language($this->opt2, 'evoQR_005', 'Un-check this ticket')."</a> <a class='btn' href='{$checking_page}'>".evo_lang('Enter a New Ticket ID')."</a></p>";					
+							$output['after'] = "<p class='mart20'><a class='btn' href='?id={$tixid}&action=unc'>".eventon_get_custom_language($this->opt2, 'evoQR_005', 'Un-check this ticket')."</a> <a class='btn' href='". $checking_page. "'>".evo_lang('Enter a New Ticket ID')."</a></p>";					
 						}							
 					}
 
@@ -536,12 +699,11 @@ class evoqr_checkin{
 			$classes_str = (sizeof($classes)>0)? implode(' ', $classes):'';
 			$output['classes'] = $classes_str;
 			
-			return apply_filters('evoqr_data_output', $output, $tixid, $id_type, $ticket_meta_data);
+			return apply_filters('evoqr_data_output', $output, $ticket_number, $id_type, $ticket_meta_data);
 		}
 
 	// Supporting functions
 		function _views($type){
-
 		
 			switch($type){
 				case 'notloggedin':
@@ -556,35 +718,42 @@ class evoqr_checkin{
 					$msg .= sprintf("<p><a href='%s' class='evcal_btn'>%s</a></p>", $login_url, evo_lang('Login Now') );
 					?>
 					<div class='evo_checkin_page no'>
-						<p class='sign'></p>
+						<p class='sign'><i></i></p>
 						<h4><?php echo $msg;?></h4>
 					</div>
 					<?php
 				break;
 				case 'nopermissions':
 					?><div class='evo_checkin_page no'>
-					<p class='sign'></p>
+					<p class='sign'><i></i></p>
 					<h4><?php echo evo_lang_get('evoQR_007', 'You do not have permission!','',$this->opt2);?></h4>
 					</div>
 					<?php
 				break;
 				case 'noticket_id':
+					
+					$checking_page = $this->get_checking_page_url();
+
 					?><div class='evo_checkin_page no'>
-					<p class='sign'></p>
+					<p class='sign'><i></i></p>
 					<h4><?php echo evo_lang('Type in Ticket ID');?></h4>
 					<div class='evpqr_content'>
 						<?php $this->_views('scanner_gun_js');?>
 						<form action='<?php echo $this->checkin_page_url;?>' method='GET'>
 						<p>
 						<input class='another_id' type='text' name='id'/>
-						<button class='evcal_btn' type='submit' data-url='".$checking_page."'><?php echo evo_lang('Submit');?></button>
+						<button class='evcal_btn' type='submit' data-url='<?php echo $checking_page;?>'><?php echo evo_lang('Submit');?></button>
 						</p></form>
 					</div>
 					</div>
 					<?php
 				break;
-				case 'invalid_ticekt_id':
-
+				case 'invalid_ticket_id':
+					?><div class='evo_checkin_page no'>
+					<p class='sign'><i></i></p>
+					<h4><?php echo evo_lang('This is an invalid ticket ID !');?></h4>
+					</div>
+					<?php
 				break;
 				case 'scanner_gun_js':
 					if($this->evocal->get_prop('evoqr_mode')=='gun'):?>
@@ -606,9 +775,10 @@ class evoqr_checkin{
 			
 		// process tn ecrypt or not
 		function encrypt_TN($TN){
-			$encrypt = !EVO()->cal->check_yn('evoqr_encrypt_dis')? true:false;
+			$dis_encrypt = EVO()->cal->check_yn('evoqr_encrypt_dis','evcal_1');
 
-			if(!$encrypt) return $TN;
+			// if said to disable encryption
+			if($dis_encrypt) return $TN;
 
 			return base64_encode($TN);
 		}
@@ -631,12 +801,21 @@ class evoqr_checkin{
 				return $tn;
 			}
 
-			if($this->_is_base64encoded($tn)){
-				$tn = base64_decode($tn);
-			}
-			return $tn;
 
-		}
+			return $this->decrypt_ticket_number( $tn );
+
+		}		
+			// decrypt a ticket number if encrypted 
+			// @version 2.0
+			public function decrypt_ticket_number( $ticket_number ){
+
+				if( $this->_is_base64encoded( $ticket_number)){
+					return base64_decode($ticket_number);
+				}
+
+				return $ticket_number;
+				
+			}
 			function _is_base64encoded($data){
 				if (preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $data)) {
 			       return TRUE;

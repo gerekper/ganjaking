@@ -53,6 +53,8 @@ class evotx_lang{
 				array('label'=>'You have purchased a ticket for this event','var'=>'1'),
 				array('label'=>'Purchase ticket now to join','var'=>'1'),
 				array('label'=>'Ticket sales are closed now','var'=>'1'),
+				array('label'=>'My Account','var'=>'1'),
+				array('label'=>'You have already purchased this ticket','var'=>'1'),
 
 				array('label'=>'Additional Ticket Information','type'=>'subheader'),
 					array('label'=>'Additional Ticket Information', 'var'=>'1'),
@@ -97,12 +99,12 @@ class evotx_lang{
 					array('label'=>'Ticket Number','name'=>'evotxem_003'),
 				array('type'=>'togend'),
 				array('label'=>'Other Strings','type'=>'subheader'),
-					array('label'=>'Event Time', 'name'=>'evoTX_005a'),
 					array('label'=>'Event Time', 'var'=>1),
 					array('label'=>'Email', 'var'=>1),
 					array('label'=>'Event Location', 'name'=>'evoTX_005c'),
 					array('label'=>'Virtual Event Access Information', 'var'=>1),
 					array('label'=>'Please purchase ticket to receive access information to virtual event', 'var'=>1),
+					array('label'=>'instock', 'var'=>1),
 				array('type'=>'togend'),
 			array('type'=>'togend'),
 		);

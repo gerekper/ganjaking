@@ -15,7 +15,7 @@ class RsBeforeAfterBase extends RsAddOnBeforeAfterBase {
 					 $_PluginUrl     = RS_BEFOREAFTER_PLUGIN_URL,
 					 $_PluginTitle   = 'beforeafter',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.5';
+				     $_Version       = '3.0.7';
 	
 	public function __construct() {
 		

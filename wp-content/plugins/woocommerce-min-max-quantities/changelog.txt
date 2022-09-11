@@ -1,5 +1,24 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2022-08-25 - version 3.0.0
+* Add - Added compatibility with the Cart and Checkout blocks.
+* Improvement - Add admin validation when filling in, changing and saving Minimum, Maximum and Group of quantity values.
+* Improvement - Add admin notices to products/variations that are already saved with invalid Minimum and Maximum quantity values.
+* Improvement - Automatically correct invalid values when configuring or saving the Minimum/Maximum quantity settings.
+* Fix - Cast product price and quantity to float to avoid type error.
+* Fix - Specific variation title not showing in quantity error notice.
+* Fix - Styling of checkbox labels and tooltips in add new product page.
+* Dev - Remove inline JavaScript scripts and create separate script files that are enqueued via the 'wp_enqueue_scripts' and 'admin_enqueue_scripts' hooks.
+
+2022-08-23 - version 2.4.26
+* Add - Implement support for automatic translation files delivery.
+* Add - PHP Compatibility GitHub Action.
+* Tweak - WC 6.8.0 compatibility.
+
+2022-05-26 - version 2.4.25
+* Fix - Tweak- Bump tested up to WordPress 6.0.
+* Fix - Update composer.json to include the /languages folder in the release.
+
 2021-07-02 - version 2.4.24
 * Add - Quantity attribute to add to cart link.
 * Fix - Wrong quantity calculation when both group of quantity setting and minimum setting are set.

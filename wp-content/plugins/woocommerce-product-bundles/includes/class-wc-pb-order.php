@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  6.15.4
+ * @version  6.16.1
  */
 class WC_PB_Order {
 
@@ -393,13 +393,9 @@ class WC_PB_Order {
 					wc_add_notice( $error, 'error' );
 				}
 
-				$error_data = array( 'notices' => array(
-					'notice' => $error
-				) );
-
 				/* translators: %1$s: Error message */
 				$message        = sprintf( __( 'The submitted bundle configuration could not be added to this order: %s', 'woocommerce-product-bundles' ), $error );
-				$added_to_order = new WP_Error( 'woocommerce_bundle_configuration_invalid', $message, $error_data );
+				$added_to_order = new WP_Error( 'woocommerce_bundle_configuration_invalid', $message, $error );
 			}
 
 		} else {

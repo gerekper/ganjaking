@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Box Office 1.1.38\n"
+"Project-Id-Version: WooCommerce Box Office 1.1.39\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-box-office\n"
-"POT-Creation-Date: 2022-07-06 19:58:09+00:00\n"
+"POT-Creation-Date: 2022-08-08 02:56:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,29 +18,38 @@ msgstr ""
 msgid "Product is not selected or email body is empty. Please fill it."
 msgstr ""
 
-#: includes/class-wc-box-office-cart.php:182
+#: includes/class-wc-box-office-cart.php:189
 #: includes/class-wc-box-office-settings.php:80
 msgid "Ticket Detail"
 msgstr ""
 
-#: includes/class-wc-box-office-cart.php:230
+#: includes/class-wc-box-office-cart.php:237
 #: includes/class-wc-box-office-settings.php:96
-#: includes/class-wc-box-office-ticket-form.php:203
+#: includes/class-wc-box-office-ticket-form.php:212
 msgid "Buy Ticket Now"
 msgstr ""
 
-#: includes/class-wc-box-office-cart.php:271
+#: includes/class-wc-box-office-cart.php:278
 msgid "%s\"%s\" has been added to your cart."
 msgid_plural "%s\"%s\" have been added to your cart."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-box-office-cart.php:279
+#: includes/class-wc-box-office-cart.php:286
 msgid "Continue Shopping"
 msgstr ""
 
-#: includes/class-wc-box-office-cart.php:281
+#: includes/class-wc-box-office-cart.php:288
 msgid "View Cart"
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:382
+#. translators: %s - Ticket field label.
+msgid "%s is a required field and can not be empty."
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:394
+msgid "Please enter all required fields."
 msgstr ""
 
 #: includes/class-wc-box-office-cron.php:28
@@ -51,7 +60,7 @@ msgstr ""
 msgid "Your link to view %s"
 msgstr ""
 
-#: includes/class-wc-box-office-order.php:144
+#: includes/class-wc-box-office-order.php:173
 #: includes/class-wc-box-office-ticket-create-admin.php:346
 msgid "Ticket #%d"
 msgstr ""
@@ -168,7 +177,7 @@ msgid "Ticket Title Prefix"
 msgstr ""
 
 #: includes/class-wc-box-office-settings.php:88
-#: includes/class-wc-box-office-ticket-form.php:198
+#: includes/class-wc-box-office-ticket-form.php:207
 msgid "Ticket #"
 msgstr ""
 
@@ -189,7 +198,7 @@ msgid "Buy Ticket Button Button Text Plural"
 msgstr ""
 
 #: includes/class-wc-box-office-settings.php:104
-#: includes/class-wc-box-office-ticket-form.php:208
+#: includes/class-wc-box-office-ticket-form.php:217
 msgid "Buy Tickets Now"
 msgstr ""
 
@@ -413,27 +422,31 @@ msgstr ""
 msgid "Number of ticket fields does not match with provided ticket quantity."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:216
+#: includes/class-wc-box-office-ticket-form.php:225
 msgid "Fields are required"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:348
+#: includes/class-wc-box-office-ticket-form.php:258
+msgid "Please check at least one box to proceed."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:386
 msgid "%s is required field and can not be empty."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:359
+#: includes/class-wc-box-office-ticket-form.php:397
 msgid "Invalid email is provided."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:368
+#: includes/class-wc-box-office-ticket-form.php:406
 msgid "Invalid URL is provided"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:383
+#: includes/class-wc-box-office-ticket-form.php:421
 msgid "Invalid value for field %s"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-form.php:453
+#: includes/class-wc-box-office-ticket-form.php:491
 msgid "Call %s::validate first"
 msgstr ""
 

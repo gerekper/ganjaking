@@ -108,72 +108,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 			'region' => ''
 		);
 	}
-
-	/**
-	 * Get the pre middlesection configuration template
-	 *
-	 * @return String - the template
-	 */
-	public function get_pre_configuration_middlesection_template() {
-		
-		?>
-		<p><?php _e('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.', 'updraftplus');?> <a href="<?php echo apply_filters("updraftplus_com_link", "https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/");?>" target="_blank"><?php _e('Also, you should read this important FAQ.', 'updraftplus'); ?></a></p>
-
-		<?php
-	}
 	
-	/**
-	 * This outputs the html to the settings page for the Openstack settings.
-	 *
-	 * @return String - the partial template, ready for substitutions to be carried out
-	 */
-	public function get_configuration_middlesection_template() {
-		ob_start();
-		$classes = $this->get_css_classes();
-		?>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo ucfirst(__('authentication URI', 'updraftplus'));?>:</th>
-			<td><input title="<?php echo _x('This needs to be a v2 (Keystone) authentication URI; v1 (Swauth) is not supported.', 'Keystone and swauth are technical terms which cannot be translated', 'updraftplus');?>" data-updraft_settings_test="authurl" type="text" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('authurl');?> value="{{authurl}}" />
-			<br>
-			<em><?php echo _x('This needs to be a v2 (Keystone) authentication URI; v1 (Swauth) is not supported.', 'Keystone and swauth are technical terms which cannot be translated', 'updraftplus');?></em>
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><a href="http://docs.openstack.org/openstack-ops/content/projects_users.html" title="<?php _e('Follow this link for more information', 'updraftplus');?>" target="_blank"><?php _e('Tenant', 'updraftplus');?></a>:</th>
-			<td><input data-updraft_settings_test="tenant" type="text" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('tenant');?> value="{{tenant}}" />
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Region', 'updraftplus');?>:</th>
-			<td><input title="<?php _e('Leave this blank, and a default will be chosen.', 'updraftplus');?>" data-updraft_settings_test="region" type="text" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('region');?> value="{{region}}" />
-			<br>
-			<em><?php _e('Leave this blank, and a default will be chosen.', 'updraftplus');?></em>
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Username', 'updraftplus');?>:</th>
-			<td><input data-updraft_settings_test="user" type="text" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('user');?> value="{{user}}" />
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><?php _e('Password', 'updraftplus');?>:</th>
-			<td><input data-updraft_settings_test="password" type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" autocomplete="off" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('password');?> value="{{password}}" />
-			</td>
-		</tr>
-
-		<tr class="<?php echo $classes; ?>">
-			<th><?php echo __('Container', 'updraftplus');?>:</th>
-			<td><input data-updraft_settings_test="path" type="text" class="updraft_input--wide" <?php $this->output_settings_field_name_and_id('path');?> value="{{path}}" /></td>
-		</tr>
-		<?php
-		return ob_get_clean();
-	}
-
 	public function credentials_test($posted_settings) {
 
 		if (empty($posted_settings['user'])) {
@@ -217,5 +152,111 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 	public function options_exist($opts) {
 		if (is_array($opts) && $opts['user'] && '' !== $opts['user'] && !empty($opts['authurl'])) return true;
 		return false;
+	}
+
+	/**
+	 * Get the pre configuration template
+	 *
+	 * @return String - the template
+	 */
+	public function get_pre_configuration_template() {
+		?>
+		<tr class="{{get_template_css_classes false}} {{method_id}}_pre_config_container">
+			<td colspan="2">
+				{{#if storage_image_url}}
+					<img alt="{{storage_long_description}}" src="{{storage_image_url}}">
+				{{/if}}
+				<br>
+				{{{mb_substr_existence_label}}}
+				{{{curl_existence_label}}}
+				<br>
+				<p>{{openstack_text_description}} <a href="{{faq_link_url}}" target="_blank">{{faq_link_text}}</a></p>
+			</td>
+		</tr>
+
+		<?php
+	}
+
+	/**
+	 * Get the configuration template
+	 *
+	 * @return String - the template, ready for substitutions to be carried out
+	 */
+	public function get_configuration_template() {
+		ob_start();
+		?>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_authentication_uri_label}}:</th>
+			<td><input title="{{input_authentication_uri_title}}" data-updraft_settings_test="authurl" type="text" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "authurl"}}" name="{{get_template_input_attribute_value "name" "authurl"}}" value="{{authurl}}" />
+			<br>
+			<em>{{input_authentication_uri_title}}</em>
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th><a href="{{input_tenant_link_url}}" title="{{input_tenant_link_title}}" target="_blank">{{input_tenant_label}}</a>:</th>
+			<td><input data-updraft_settings_test="tenant" type="text" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "tenant"}}" name="{{get_template_input_attribute_value "name" "tenant"}}" value="{{tenant}}" />
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_region_label}}:</th>
+			<td><input title="{{input_region_title}}" data-updraft_settings_test="region" type="text" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "region"}}" name="{{get_template_input_attribute_value "name" "region"}}" value="{{region}}" />
+			<br>
+			<em>{{input_region_title}}</em>
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_username_label}}:</th>
+			<td><input data-updraft_settings_test="user" type="text" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "user"}}" name="{{get_template_input_attribute_value "name" "user"}}" value="{{user}}" />
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_password_label}}:</th>
+			<td><input data-updraft_settings_test="password" type="{{input_password_type}}" autocomplete="off" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "password"}}" name="{{get_template_input_attribute_value "name" "password"}}" value="{{password}}" />
+			</td>
+		</tr>
+
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_container_label}}:</th>
+			<td><input data-updraft_settings_test="path" type="text" class="updraft_input--wide udc-wd-600" id="{{get_template_input_attribute_value "id" "path"}}" name="{{get_template_input_attribute_value "name" "path"}}" value="{{path}}" /></td>
+		</tr>
+		{{{get_template_test_button_html "OpenStack (Swift)"}}}
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin;
+		$properties = array(
+			'storage_image_url' => !empty($this->img_url) ? UPDRAFTPLUS_URL.$this->img_url : '',
+			'storage_long_description' => $this->long_desc,
+			'mb_substr_existence_label' => !apply_filters('updraftplus_openstack_mbsubstr_exists', function_exists('mb_substr')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your web server\'s PHP installation does not include a required module (%s). Please contact your web hosting provider\'s support.', 'updraftplus'), 'mbstring').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s. Please do not file any support requests; there is no alternative.", 'updraftplus'), $this->desc, 'mbstring'), $this->method, false), $this->allowed_html_for_content_sanitisation()) : '',
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($this->long_desc, false, $this->method.' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
+			'openstack_text_description' =>  __('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.', 'updraftplus'),
+			'faq_link_text' => __('Also, you should read this important FAQ.', 'updraftplus'),
+			'faq_link_url' => wp_kses(apply_filters("updraftplus_com_link", "https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"), array(), array('http', 'https')),
+			'input_authentication_uri_label' => __('Authentication URI', 'updraftplus'),
+			'input_authentication_uri_title' => _x('This needs to be a v2 (Keystone) authentication URI; v1 (Swauth) is not supported.', 'Keystone and swauth are technical terms which cannot be translated', 'updraftplus'),
+			'input_tenant_label' => __('Tenant', 'updraftplus'),
+			'input_tenant_link_url' => 'https://docs.openstack.org/openstack-ops/content/projects_users.html',
+			'input_tenant_link_title' => __('Follow this link for more information', 'updraftplus'),
+			'input_region_label' => __('Region', 'updraftplus'),
+			'input_region_title' => __('Leave this blank, and a default will be chosen.', 'updraftplus'),
+			'input_username_label' => __('Username', 'updraftplus'),
+			'input_password_label' => __('Password', 'updraftplus'),
+			'input_password_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_container_label' => __('Container', 'updraftplus'),
+			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+		);
+		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
 	}
 }

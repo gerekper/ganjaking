@@ -81,13 +81,15 @@ class evowi_fnc{
 		}
 	}	
 
-	function change_user_wishlist($type='add', $event_id, $repeat_interval=0, $userid=''){
+	function change_user_wishlist($type, $event_id, $repeat_interval=0, $userid=''){
 		$wishlist_events = array();
 		$wishlist_events = get_option('_evo_wishlist');
 
 		$userid = !empty($userid)? $userid: get_current_user_id();
 
 		if(!$userid && $userid!= 0) return false;
+
+		$type = empty($type)? 'add': $type;
 
 		if($type=='add'){
 			$wishlist_events[$userid][] = $event_id .'-'. $repeat_interval;

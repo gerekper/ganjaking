@@ -34,7 +34,7 @@ if ( ! $options ) {
 		</label>
 	</fieldset>
 	<fieldset>
-		<input type="number" data-default-stock="<?php echo $stock_level; ?>" value="<?php echo $options['minimum_stock']; ?>" name="minimum_stock" <?php if ( 'false' == $options['enable_stock_trigger'] ) {
+		<input type="number" data-default-stock="<?php echo esc_attr( $stock_level ); ?>" value="<?php echo esc_attr( $options['minimum_stock'] ); ?>" name="minimum_stock" <?php if ( 'false' == $options['enable_stock_trigger'] ) {
 			echo 'disabled';
 		} ?>/>
 		<label for="minimum_stock" <?php if ( 'false' == $options['enable_stock_trigger'] ) {
@@ -43,5 +43,5 @@ if ( ! $options ) {
 			<?php _e( 'Minimum stock amount before users are notified that item is back in stock', 'woocommerce-waitlist' ); ?>
 		</label>
 	</fieldset>
-	<button type="button" class="button primary" data-nonce="<?php echo wp_create_nonce( 'wcwl-update-nonce' ); ?>"><?php _e( 'Update Options', 'woocommerce-waitlist' ); ?></button>
+	<button type="button" class="button primary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wcwl-update-nonce' ) ); ?>"><?php _e( 'Update Options', 'woocommerce-waitlist' ); ?></button>
 </div>

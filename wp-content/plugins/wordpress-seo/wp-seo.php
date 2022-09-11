@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO
- * Version:     19.4
+ * Version:     19.6.1
  * Plugin URI:  https://yoa.st/1uj
  * Secret Key:  83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
@@ -17,7 +17,7 @@
  * Text Domain: wordpress-seo
  * Domain Path: /languages/
  * License:     GPL v3
- * Requires at least: 5.8
+ * Requires at least: 5.9
  * Requires PHP: 5.6.20
  *
  * WC requires at least: 3.0

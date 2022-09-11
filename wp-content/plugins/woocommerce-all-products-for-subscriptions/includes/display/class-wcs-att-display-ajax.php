@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles AJAX front-end requests.
  *
  * @class    WCS_ATT_Display_Ajax
- * @version  3.1.2
+ * @version  4.0.0
  */
 class WCS_ATT_Display_Ajax {
 
@@ -29,73 +29,23 @@ class WCS_ATT_Display_Ajax {
 	/**
 	 * Hook-in.
 	 */
-	private static function add_hooks() {
-
-		// Ajax handler for saving the subscription scheme chosen at cart-level.
-		add_action( 'wc_ajax_wcsatt_update_cart_option', array( __CLASS__, 'update_cart_subscription_scheme' ) );
-	}
+	private static function add_hooks() {}
 
 	/*
 	|--------------------------------------------------------------------------
-	| Hooks
+	| Deprecated
 	|--------------------------------------------------------------------------
 	*/
 
 	/**
 	 * Ajax handler for saving the subscription scheme chosen at cart-level.
 	 *
+	 * @deprecated 4.0.0
+	 *
 	 * @return void
 	 */
 	public static function update_cart_subscription_scheme() {
-
-		$current_scheme_key = WCS_ATT_Cart::get_cart_subscription_scheme();
-
-		$failure = array(
-			'result'          => 'failure',
-			'reset_to_scheme' => WCS_ATT_Product_Schemes::stringify_subscription_scheme_key( $current_scheme_key ),
-			'html'            => ''
-		);
-
-		if ( ! check_ajax_referer( 'wcsatt_update_cart_option', 'security', false ) ) {
-			wp_send_json( $failure );
-		}
-
-		if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
-			define( 'WOOCOMMERCE_CART', true );
-		}
-
-		$posted_subscription_scheme_key = WCS_ATT_Cart::get_posted_cart_subscription_scheme();
-
-		if ( is_null( $posted_subscription_scheme_key ) ) {
-			wp_send_json( $failure );
-		}
-
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			if ( ! empty( $cart_item[ 'wcsatt_data' ] ) ) {
-				// Save scheme key on cart item.
-				WC()->cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
-				// Apply scheme.
-				WCS_ATT_Cart::apply_subscription_scheme( WC()->cart->cart_contents[ $cart_item_key ] );
-			}
-		}
-
-		// Save chosen scheme.
-		WCS_ATT_Cart::set_cart_subscription_scheme( $posted_subscription_scheme_key );
-
-		// Recalculate totals.
-		WC()->cart->calculate_totals();
-
-		ob_start();
-
-		// Update the cart table apart from the totals in order to show modified price html strings with sub details.
-		wc_get_template( 'cart/cart.php' );
-
-		$html = ob_get_clean();
-
-		wp_send_json( array(
-			'result' => 'success',
-			'html'   => $html
-		) );
+		_deprecated_function( __METHOD__ . '()', '4.0.0' );
 	}
 }
 

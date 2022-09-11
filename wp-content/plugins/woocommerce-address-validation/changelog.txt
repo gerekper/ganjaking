@@ -1,5 +1,9 @@
 *** WooCommerce Address Validation Changelog ***
 
+2022.08.15 - version 2.8.2
+ * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.10.19 - version 2.8.1
  * Fix - Correct a problem with Loqate, where changing the country field would not change the country being searched until a page refresh
  * Misc - Remove support to legacy woo-include functions

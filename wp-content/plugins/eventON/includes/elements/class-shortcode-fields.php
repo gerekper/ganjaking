@@ -474,6 +474,7 @@ class Evo_Shortcode_Fields{
 					'3'=>'Colorful event date bubbles',
 					'0'=>'Clear with left border colors',
 					'4'=>'Clear with left border colors and gaps',
+					'5'=>'Crystal clear',
 					),
 				'guide'=>'This does not effect when tiles view is enabled',
 				'var'=>'eventtop_style','default'=>'2',							

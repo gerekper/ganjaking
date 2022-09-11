@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c
+class ComposerStaticInit5add07db3379a6a0b00f0c8631887855
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -68,7 +68,6 @@ class ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c
         'WP_Rocket\\Buffer\\Abstract_Buffer' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-abstract-buffer.php',
         'WP_Rocket\\Buffer\\Cache' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-cache.php',
         'WP_Rocket\\Buffer\\Config' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-config.php',
-        'WP_Rocket\\Buffer\\Optimization' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-optimization.php',
         'WP_Rocket\\Buffer\\Tests' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-tests.php',
         'WP_Rocket\\Busting\\Abstract_Busting' => __DIR__ . '/../..' . '/inc/deprecated/classes/busting/class-abstract-busting.php',
         'WP_Rocket\\Busting\\Facebook_Pickles' => __DIR__ . '/../..' . '/inc/deprecated/classes/busting/class-facebook-pickles.php',
@@ -86,7 +85,6 @@ class ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c
         'WP_Rocket\\ServiceProvider\\Options' => __DIR__ . '/../..' . '/inc/classes/ServiceProvider/class-options.php',
         'WP_Rocket\\Subscriber\\Admin\\Settings\\Beacon_Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/subscriber/admin/Settings/class-beacon-subscriber.php',
         'WP_Rocket\\Subscriber\\Media\\Webp_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Media/class-webp-subscriber.php',
-        'WP_Rocket\\Subscriber\\Optimization\\Buffer_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Optimization/class-buffer-subscriber.php',
         'WP_Rocket\\Subscriber\\Optimization\\Dequeue_JQuery_Migrate_Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/subscriber/Optimization/class-dequeue-jquery-migrate-subscriber.php',
         'WP_Rocket\\Subscriber\\Optimization\\Minify_HTML_Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/subscriber/admin/Optimization/class-minify-html-subscriber.php',
         'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\BigCommerce_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/plugins/ecommerce/class-bigcommerce-subscriber.php',
@@ -112,9 +110,9 @@ class ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit36e9a84f6758112dd7ebed4ddf40631c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5add07db3379a6a0b00f0c8631887855::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5add07db3379a6a0b00f0c8631887855::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5add07db3379a6a0b00f0c8631887855::$classMap;
 
         }, null, ClassLoader::class);
     }

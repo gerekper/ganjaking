@@ -59,9 +59,15 @@ class Replacement_Variables_Integration implements Integration_Interface {
 
 		\wp_enqueue_style( 'yoast-seo-premium-draft-js-plugins' );
 
-		\wp_register_script(
+		$draft_js_external_script_location = 'https://yoast.com/shared-assets/scripts/wp-seo-premium-draft-js-plugins-source-2.0.0.min.js';
+
+		if ( \file_exists( WPSEO_PREMIUM_PATH . 'assets/js/external/draft-js-emoji-picker.min.js' ) ) {
+			$draft_js_external_script_location = \plugins_url( 'wordpress-seo-premium/assets/js/external/draft-js-emoji-picker.min.js' );
+		}
+
+		\wp_enqueue_script(
 			'yoast-seo-premium-draft-js-plugins-external',
-			'https://yoast.com/shared-assets/scripts/wp-seo-premium-draft-js-plugins-source.min.js',
+			$draft_js_external_script_location,
 			[
 				'yoast-seo-premium-commons',
 				WPSEO_Admin_Asset_Manager::PREFIX . 'search-metadata-previews',
@@ -69,7 +75,6 @@ class Replacement_Variables_Integration implements Integration_Interface {
 			WPSEO_PREMIUM_VERSION,
 			false
 		);
-		\wp_enqueue_script( 'yoast-seo-premium-draft-js-plugins-external' );
 	}
 
 	/**

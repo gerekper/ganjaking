@@ -1,10 +1,10 @@
 <?php
 if(!class_exists('NinjaTableUpdateChecker')) {
-	require 'NinjaTableUpdateChecker.php';
+    require NINJAPROPLUGIN_PATH."src/libs/updater/NinjaTableUpdateChecker.php";
 }
 
 if(!class_exists('NinjaTableUpdater')) {
-	require 'NinjaTableUpdater.php';
+    require NINJAPROPLUGIN_PATH."src/libs/updater/NinjaTableUpdater.php";
 }
 
 // Kick off our EDD class
@@ -15,7 +15,8 @@ new NinjaTableUpdateChecker( array(
 	// Also need to change in readme.txt and plugin header.
 	'version' => NINJAPROPLUGIN_VERSION,
 	// The main URL of your store for license verification
-	'store_url' => 'https://wpmanageninja.com',
+    'store_url'       => 'https://apiv2.wpmanageninja.com/plugin',
+    'store_site'      => 'https://wpmanageninja.com',
 	// Your name
 	'author' => 'WP Manage Ninja',
 	// The URL to renew or purchase a license

@@ -15,8 +15,8 @@ class Pages {
   public function init() {
     WPFunctions::get()->registerPostType('mailpoet_page', [
       'labels' => [
-        'name' => WPFunctions::get()->__('MailPoet Page', 'mailpoet'),
-        'singular_name' => WPFunctions::get()->__('MailPoet Page', 'mailpoet'),
+        'name' => __('MailPoet Page', 'mailpoet'),
+        'singular_name' => __('MailPoet Page', 'mailpoet'),
       ],
       'public' => true,
       'has_archive' => false,
@@ -40,7 +40,7 @@ class Pages {
       'post_type' => 'mailpoet_page',
       'post_author' => 1,
       'post_content' => '[mailpoet_page]',
-      'post_title' => WPFunctions::get()->__('MailPoet Page', 'mailpoet'),
+      'post_title' => __('MailPoet Page', 'mailpoet'),
       'post_name' => 'subscriptions',
     ]);
 

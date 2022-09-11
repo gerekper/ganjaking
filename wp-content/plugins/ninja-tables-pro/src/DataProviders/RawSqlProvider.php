@@ -305,9 +305,6 @@ class RawSqlProvider
 
     private function parseTableSQL($sql, $tableID = false)
     {
-        $post = get_post($tableID);
-        $postID = $post->ID;
-        $postTitle = $post->post_title;
         $db = $this->getDb($tableID);
         $prefix = (property_exists($db, 'prefix')) ? $db->prefix : '';
         $sqlPlaceHolders = apply_filters('ninja_table_raw_sql_placeholders', array(
@@ -315,8 +312,6 @@ class RawSqlProvider
             '{current_date}'      => date('Y-m-d'),
             '{prefix}'            => $prefix,
             '{current_date_time}' => date('Y-m-d H:i:s'),
-            '{current_post_id}' => $postID,
-            '{current_post_title}' => $postTitle
         ), $tableID);
         $parsedSQL = str_replace(array_keys($sqlPlaceHolders), array_values($sqlPlaceHolders), $sql);
 

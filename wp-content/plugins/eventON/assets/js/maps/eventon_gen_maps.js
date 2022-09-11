@@ -4,11 +4,12 @@
  */
 (function($){
 	$.fn.evoGenmaps = function(opt){
-		
+
 		var defaults = {
 			delay:	0,
 			fnt:	1,
 			cal:	'',
+			SC: 	'',
 			map_canvas_id:	'',
 			location_type:'',
 			address:'',
@@ -19,6 +20,7 @@
 			iconURL:'',
 		};
 		var options = $.extend({}, defaults, opt); 
+
 		
 		var geocoder;
 
@@ -90,6 +92,7 @@
 			},
 			process_SC: function(){
 				CAL = options.cal;
+				if( options.SC !== '') return;
 				if(CAL == '') return false;
 				options.SC = CAL.evo_shortcode_data();
 			},
@@ -98,7 +101,7 @@
 			load_gmap: function(){
 				SC = options.SC;
 						
-				var ev_location = obj.find('.evcal_desc');
+				var ev_location = obj.find('.event_location_attrs');
 
 				var location_type = ev_location.attr('data-location_type');
 				if(location_type=='address'){

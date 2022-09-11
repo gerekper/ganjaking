@@ -27,6 +27,9 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-csp-mm.php';
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/nestednavmenu.php';
 
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-seedprod-gallery.php';
+
+
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-404.php';
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/render-loginp.php';
@@ -55,7 +58,7 @@ if ( is_admin() ) {
 	
 	require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/edit_with_seedprod.php';
 	require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/functions-addons.php';
-	if ( SEEDPROD_PRO_BUILD == 'lite' ) {
+	if ( 'lite' == SEEDPROD_PRO_BUILD ) {
 		require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/class-seedprod-review.php';
 	}
 }

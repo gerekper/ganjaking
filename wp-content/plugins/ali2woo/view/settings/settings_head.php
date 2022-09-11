@@ -2,8 +2,8 @@
 <div class="a2w-content">
     <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>
     
-    <ul class="nav nav-tabs">
+    <ul class="tabs">
       <?php foreach($modules as $module):?>
-      <li role="presentation" <?php echo $current_module == $module['id'] ? 'class="active"' : ""; ?>><a href="<?php echo admin_url('admin.php?page=a2w_setting&subpage='.$module['id']); ?>"><?php echo $module['name'] ?></a></li>
+      <li class="tabs__tab <?php echo $current_module == $module['id'] ? 'active' : ""; ?>" role="presentation" ><a class="tabs__link" href="<?php echo admin_url('admin.php?page=a2w_setting&subpage='.$module['id']); ?>"><?php echo $module['name'] ?></a></li>
       <?php endforeach; ?>
     </ul>

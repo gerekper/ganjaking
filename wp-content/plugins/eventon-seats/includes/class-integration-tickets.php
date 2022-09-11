@@ -90,11 +90,18 @@ class evost_tickets{
 
 			$seats = new EVOST_Expirations($event->ID, $event->wcid);
 			add_filter('evo_frontend_lightbox', array($this, 'lightbox'),10,1);
-			
+
+			//print_r($seats->seats_data);
+	
+			// if seats are good to go 			
 			if($seats->event->check_yn('_enable_seat_chart')  && $seats->event->get_prop('_evost_sections') && !$seats->event->is_repeating_event()){				
 				// /print_r(get_post_meta(1,'aaX'));
 				//print_r($seats->expirations);
 				//print_r(get_option('_evost_expiration'));
+
+				//echo 'yy';
+				//print_r($seats->event->get_prop('_evost_sections'));
+				
 				$output = $seats->frontend_init();
 				return $output;
 			}

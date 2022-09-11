@@ -4,7 +4,7 @@
  */
 jQuery(document).ready(function($){
 	
-	$('body').on('click', 'span.evowi_wi_area i', function(event){
+	$('body').on('click', 'span.evowi_wi_area', function(event){
 
 		event.preventDefault();
 		event.stopPropagation();

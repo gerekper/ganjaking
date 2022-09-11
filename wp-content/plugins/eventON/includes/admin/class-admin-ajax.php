@@ -23,8 +23,13 @@ class EVO_admin_ajax{
 			'admin_system_log'		=>'admin_system_log',
 			'admin_get_views'		=>'admin_get_views',
 			'rel_event_list'		=>'rel_event_list',
-			'svg_form'				=>'svg_form',
 			'get_latlng'				=>'get_latlng',
+
+			'config_virtual_event'	=>'config_virtual_event',
+			'select_virtual_moderator'	=>'select_virtual_moderator',
+			'get_virtual_users'	=>'get_virtual_users',
+			'save_virtual_mod_settings'	=>'save_virtual_mod_settings',
+			'save_virtual_event_settings'	=>'save_virtual_event_settings',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 
@@ -34,13 +39,146 @@ class EVO_admin_ajax{
 		}
 
 		add_action('wp_ajax_eventon-feature-event', array($this, 'eventon_feature_event'));
+
+		$this->helper = new evo_helper();
 	}
 
+	// virtual events
+		public function config_virtual_event(){
+			$post_data = $this->helper->sanitize_array( $_POST);
+
+			$EVENT = new EVO_Event( $post_data['eid'] );
+
+			ob_start();
+
+			include_once('views/virtual_event_settings.php');
+
+			echo json_encode(array(
+				'status'=>'good','content'=> ob_get_clean()
+			));exit;
+		}
+		public function select_virtual_moderator(){
+			
+			ob_start();
+
+			$eid = sanitize_text_field( $_POST['eid'] );
+
+			$EVENT = new EVO_Event( $eid);
+			
+			$set_user_role = $EVENT->get_prop('_evo_user_role');
+			$set_mod = $EVENT->get_prop('_mod');
+
+			global $wp_roles;
+			?>
+			<div style="padding:20px">
+				<form class='evo_vir_select_mod'>
+					<input type="hidden" name="action" value='eventon_save_virtual_mod_settings'>
+					<input type="hidden" name="eid" value='<?php echo $eid;?>'>
+					
+					<p class='row'>
+						<label><?php _e('Select a user role to find users');?></label>
+						<select class='evo_select_more_field evo_virtual_moderator_role' name='_user_role' data-eid='<?php echo $eid;?>'>
+							<option value=''> -- </option>
+							<?php 
+							
+							foreach($wp_roles->roles as $role_slug=>$rr){
+								$select = $set_user_role == $role_slug ? 'selected="selected"' :'';
+								echo "<option value='". $role_slug. "' {$select}>". $rr['name'] .'</option>';
+							}
+
+						?></select>
+					</p>
+					<p class='row evo_select_more_field_2'>
+						<label><?php _e('Select a user for above role');?></label>
+						<select name='_mod' class='evo_virtual_moderator_users'>
+							<?php
+							if( $set_user_role ):
+								echo $this->get_virtual_users_select_options($set_user_role, $set_mod );
+							else:
+							?>
+								<option value=''>--</option>
+							<?php endif;?>
+						</select>
+					</p>
+					<p class='evo_save_changes' ><span class='evo_btn save_virtual_event_mod_config ' data-eid='<?php echo $eid;?>' style='margin-right: 10px'><?php _e('Save Changes','eventon');?></span></p>
+				</form>
+			</div>
+
+			<?php
+
+			echo json_encode(array(
+				'status'=>'good','content'=> ob_get_clean()
+			));exit;
+		}
+		public function get_virtual_users_select_options($role_slug, $set_user_id=''){
+			
+			$users = get_users( array( 
+				'role' => $role_slug,
+				'fields'=> array('ID','user_email', 'display_name') 
+			) );
+			$output = false;
+			
+			if($users){
+				foreach($users as $user){
+					$select = ( !empty($set_user_id) && $set_user_id == $user->ID) ? "selected='selected'":'';
+					$output .= "<option value='{$user->ID}' {$select}>{$user->display_name} ({$user->user_email})</option>";
+				}
+			}
+			return $output;
+		}
+		public function get_virtual_users(){
+
+			$user_role = sanitize_text_field( $_POST['_user_role']);
+
+			echo json_encode(array(
+				'status'=>'good',
+				'content'=> empty($user_role) ? 
+					"<option value=''>--</option>" : 
+					$this->get_virtual_users_select_options($user_role)
+			));exit;
+
+			
+		}
+		public function save_virtual_event_settings(){
+			$post_data = $this->helper->sanitize_array( $_POST);
+
+			$EVENT = new EVO_Event( $post_data['event_id']);
+
+
+			foreach($post_data as $key=>$val){
+
+				if( in_array($key, array( '_vir_url','_vir_after_content','_vir_pre_content','_vir_embed'))){
+					$val = $post_data[$key] = $_POST[ $key ];
+				}
+
+				$EVENT->save_meta($key, $val);
+			}
+
+			echo json_encode(array(
+				'status'=>'good','msg'=> __('Virtual Event Data Saved Successfully','eventon')
+			));exit;
+		}
+		public function save_virtual_mod_settings(){
+			$post_data = $this->helper->sanitize_array( $_POST);
+
+			$EVENT = new EVO_Event( $post_data['eid']);
+
+			$EVENT->save_meta('_evo_user_role', $post_data['_user_role']);
+			$EVENT->save_meta('_mod', $post_data['_mod']);
+
+			echo json_encode(array(
+				'status'=>'good','msg'=> __('Moderator Data Saved Successfully','eventon')
+			));exit;
+			
+		}
 
 	// Related Events
 		function rel_event_list(){
-			$event_id = (int)$_POST['eventid'];
-			$EVs = json_decode( stripslashes($_POST['EVs']), true );
+			$post_data = $this->helper->sanitize_array( $_POST);
+
+
+			$event_id = (int)$post_data['eventid'];
+			$EVs = json_decode( stripslashes($post_data['EVs']), true );
 
 			$events = get_posts(
 				array(
@@ -50,6 +188,7 @@ class EVO_admin_ajax{
 					'post_status'=>'publish'
 				)
 			);
+
 
 			ob_start();
 
@@ -103,41 +242,6 @@ class EVO_admin_ajax{
 			)); exit;
 		}
 
-	// SVG icons
-		// form
-			function svg_form(){
-				$type = $_POST['type'];
-				$output = '';
-
-				$SVG = new EVO_Svgs();
-				switch($type){
-					case 'form':
-						$output = $SVG->get_form();
-					break;
-					case 'n':
-						$SVG->new($_POST['title'], $_POST['code']);
-						$output = $this->__return_svgs_views( $SVG->get_all() );
-					break;
-					case 'd':
-						$SVG->delete($_POST['slug']);
-						
-						$output = $this->__return_svgs_views( $SVG->get_all() );
-					break;
-				}
-
-				echo json_encode(array(
-					'h'=>$output, 'status'=>'good'
-				));exit;
-
-			}
-			private function __return_svgs_views($svgs){
-				$output = '';
-				foreach($svgs as $s=>$c){
-					$output .= "<span data-s='{$s}'>". $c . "</span>";
-				}
-				return $output;
-			}
-
 
 	// Get Location Cordinates
 		public function get_latlng(){
@@ -174,6 +278,9 @@ class EVO_admin_ajax{
 
 	// get HTML views
 		function admin_get_views(){
+
+			$post_data = $this->helper->sanitize_array( $_POST);
+
 			if(!isset($_POST['type'])){
 				echo 'failed'; exit;
 			} 
@@ -191,12 +298,13 @@ class EVO_admin_ajax{
 	// update event post meta
 		function evo_eventpost_update_meta(){
 			if(isset($_POST['eid']) && isset($_POST['values']) ){
-			
-				$post = array();
-				foreach($_POST['values'] as $key=>$val){
-					update_post_meta($_POST['eid'], $key, $val);
+				
+				$post_data = $this->helper->sanitize_array( $_POST);
 
-					do_action('eventon_saved_event_metadata', $_POST['eid'], $key, $val);
+				foreach($post_data['values'] as $key=>$val){
+					update_post_meta($post_data['eid'], $key, $val);
+
+					do_action('eventon_saved_event_metadata', $post_data['eid'], $key, $val);
 				}
 				echo json_encode(array(
 					'status'=>	'good',
@@ -217,8 +325,9 @@ class EVO_admin_ajax{
 
 		// tax term list
 		function event_tax_list(){
+			$post_data = $this->helper->sanitize_array( $_POST);
 			$terms = get_terms(
-				$_POST['tax'],
+				$post_data['tax'],
 				array(
 					'orderby'           => 'name', 
 				    'order'             => 'ASC',
@@ -227,18 +336,18 @@ class EVO_admin_ajax{
 			);
 
 			ob_start();
-			echo "<div class='evo_tax_entry' data-eventid='{$_POST['eventid']}' data-tax='{$_POST['tax']}' data-type='list'>";
+			echo "<div class='evo_tax_entry' data-eventid='{$post_data['eventid']}' data-tax='{$post_data['tax']}' data-type='list'>";
 
 			if(count($terms)>0){				
 				?><select class='field' name='event_tax_termid'><?php
-				if(empty($_POST['termid'])){
+				if(empty($post_data['termid'])){
 					?><option value=""><?php _e('Select from the list','eventon');?></option><?php
 				}
 				foreach ( $terms as $term ) {
 
 					if( empty($term->name)) continue;
 
-					$selected = (!empty($_POST['termid']) && $term->term_id == $_POST['termid'])? 'selected="selected"':'';
+					$selected = (!empty($post_data['termid']) && $term->term_id == $post_data['termid'])? 'selected="selected"':'';
 					?><option <?php echo $selected;?> value="<?php echo $term->term_id;?>"><?php echo $term->name;?></option><?php
 				}
 				?></select>
@@ -258,15 +367,16 @@ class EVO_admin_ajax{
 
 		// save changes
 		function event_tax_save_changes(){
+			$post_data = $this->helper->sanitize_array( $_POST);
 			$status = 'bad';
 			$content = '';
-			$tax = $_POST['tax'];
+			$tax = $post_data['tax'];
 
-			switch($_POST['type']){
+			switch($post_data['type']){
 			case 'list':
-				if(!empty($_POST['event_tax_termid'])){
-					$event_id = (int)$_POST['eventid'];
-					wp_set_object_terms( $event_id, (int)$_POST['event_tax_termid'], $tax , false);
+				if(!empty($post_data['event_tax_termid'])){
+					$event_id = (int)$post_data['eventid'];
+					wp_set_object_terms( $event_id, (int)$post_data['event_tax_termid'], $tax , false);
 					$status = 'good';
 					$content = __('Changes successfully saved!','eventon');	
 				}else{
@@ -276,14 +386,14 @@ class EVO_admin_ajax{
 			case 'new':
 			case 'edit':
 				
-				if(!isset($_POST[ 'term_name' ])) break;
+				if(!isset($post_data[ 'term_name' ])) break;
 
-				$term_name = esc_attr(stripslashes($_POST[ 'term_name' ]));
+				$term_name = esc_attr(stripslashes($post_data[ 'term_name' ]));
 				$term = term_exists( $term_name, $tax );
 				
 				if($term !== 0 && $term !== null){
 					$taxtermID = (int)$term['term_id'];
-					wp_set_object_terms( $_POST['eventid'], $taxtermID, $tax );
+					wp_set_object_terms( $post_data['eventid'], $taxtermID, $tax );
 				}else{
 					// create slug from term name
 						$trans = array(" "=>'-', ","=>'');
@@ -297,7 +407,7 @@ class EVO_admin_ajax{
 					}	
 				}
 
-				$fields = EVO()->taxonomies->get_event_tax_fields_array($_POST['tax'],'');
+				$fields = EVO()->taxonomies->get_event_tax_fields_array($post_data['tax'],'');
 
 				
 				// if a term ID is present
@@ -305,24 +415,24 @@ class EVO_admin_ajax{
 					$term_meta = array();
 
 					// save description
-					$term_description = isset($_POST['description'])? sanitize_text_field($_POST['description']):'';
+					$term_description = isset($post_data['description'])? sanitize_text_field($post_data['description']):'';
 					$tt = wp_update_term($taxtermID, $tax, array( 'description'=>$term_description ));
 					
 					// lat and lon values saved in the form
-						if(isset($_POST['location_lon'])) $term_meta['location_lon'] = str_replace('"', "'", $_POST['location_lon']); 
-						if(isset($_POST['location_lat'])) $term_meta['location_lat'] = str_replace('"', "'", $_POST['location_lat']); 
+						if(isset($post_data['location_lon'])) $term_meta['location_lon'] = str_replace('"', "'", $post_data['location_lon']); 
+						if(isset($post_data['location_lat'])) $term_meta['location_lat'] = str_replace('"', "'", $post_data['location_lat']); 
 
 					foreach($fields as $key=>$value){
 						if(in_array($key, array('description', 'submit','term_name','evcal_lat','evcal_lon'))) continue;
 
-						if(isset($_POST[$value['var']])){
+						if(isset($post_data[$value['var']])){
 
-							do_action('evo_tax_save_each_field',$value['var'], $_POST[$value['var']]);
+							do_action('evo_tax_save_each_field',$value['var'], $post_data[$value['var']]);
 
 							
 							if($value['var']=='location_address'){
-								if(isset($_POST['location_address']))
-									$latlon = eventon_get_latlon_from_address($_POST['location_address']);
+								if(isset($post_data['location_address']))
+									$latlon = eventon_get_latlon_from_address($post_data['location_address']);
 
 								// longitude
 								$term_meta['location_lon'] = isset($term_meta['location_lon']) ? $term_meta['location_lon']:
@@ -332,25 +442,23 @@ class EVO_admin_ajax{
 								$term_meta['location_lat'] = isset($term_meta['location_lat']) ? $term_meta['location_lat']:
 									(!empty($latlon['lat'])? floatval($latlon['lat']): null);
 
-								$term_meta['location_address' ] = (isset($_POST[ 'location_address' ]))? $_POST[ 'location_address' ]:null;
+								$term_meta['location_address' ] = (isset($post_data[ 'location_address' ]))? $post_data[ 'location_address' ]:null;
 
 								continue;
 							}
 
 
-							$term_meta[ $value['var'] ] = str_replace('"', "'", $_POST[$value['var']]); 
+							$term_meta[ $value['var'] ] = str_replace('"', "'", $post_data[$value['var']]); 
 
 						}else{
 							$term_meta[ $value['var'] ] = ''; 
 						}
 					}
 
-					//print_r($term_meta);
-
 					// save meta values
 						evo_save_term_metas($tax, $taxtermID, $term_meta);
 					// assign term to event & replace
-						wp_set_object_terms( $_POST['eventid'], $taxtermID, $tax , false);	
+						wp_set_object_terms( $post_data['eventid'], $taxtermID, $tax , false);	
 
 					$status = 'good';
 					$content = __('Changes successfully saved!','eventon');	
@@ -362,17 +470,18 @@ class EVO_admin_ajax{
 			echo json_encode(array(
 				'status'=>$status,
 				'content'=>$content,
-				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($tax , $_POST['eventid'] )
+				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($tax , $post_data['eventid'] )
 			)); exit;
 		}
 		// remove a taxonomy term
 		function event_tax_remove(){
+			$post_data = $this->helper->sanitize_array( $_POST);
 			$status = 'bad';
 			$content = '';
 			
-			if(!empty($_POST['termid'])){
-				$event_id = (int)$_POST['eventid'];
-				wp_remove_object_terms( $event_id, (int)$_POST['termid'], $_POST['tax'] , false);
+			if(!empty($post_data['termid'])){
+				$event_id = (int)$post_data['eventid'];
+				wp_remove_object_terms( $event_id, (int)$post_data['termid'], $post_data['tax'] , false);
 				$status = 'good';
 				$content = __('Changes successfully saved!','eventon');	
 			}else{
@@ -382,7 +491,7 @@ class EVO_admin_ajax{
 			echo json_encode(array(
 				'status'=>$status,
 				'content'=>$content,
-				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($_POST['tax'] , $_POST['eventid'] )
+				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($post_data['tax'] , $post_data['eventid'] )
 			)); exit;
 		}
 
@@ -418,7 +527,8 @@ class EVO_admin_ajax{
 			// check if admin and loggedin
 				if(!is_admin() && !is_user_logged_in()) $output['msg'] = __('User not loggedin!','eventon');
 
-			$JSON_data = $_POST['jsondata'];
+			$post_data = $this->helper->sanitize_array( $_POST);
+			$JSON_data = $post_data['jsondata'];
 
 			// check if json array present
 			if(!is_array($JSON_data))  $output['msg'] = __('Not correct json format!','eventon');
@@ -525,8 +635,9 @@ class EVO_admin_ajax{
 			));
 
 			if($events->have_posts()):
-				date_default_timezone_set('UTC');
 
+				$DD = new DateTime('now', EVO()->calendar->timezone0);
+				
 				// allow processing content for html readability
 				$process_html_content = true;
 
@@ -578,19 +689,19 @@ class EVO_admin_ajax{
 						// start time
 							$start = (!empty($pmv['evcal_srow'])?$pmv['evcal_srow'][0]:'');
 							if(!empty($start)){
+								$DD->setTimestamp( $start);
 								// date and time as separate columns
-								$csvRow.= '"'. date( apply_filters('evo_csv_export_dateformat','m/d/Y'), $start) .'",';
-								$csvRow.= '"'. date( apply_filters('evo_csv_export_timeformat','h:i:A'), $start) .'",';
-								//$csvRow.= '"'. date($date_time_format, $start) .'",';
+								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_dateformat','m/d/Y') ) .'",';
+								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_timeformat','h:i:A') ) .'",';
 							}else{ $csvRow.= "'','',";	}
 
 						// end time
 							$end = (!empty($pmv['evcal_erow'])?$pmv['evcal_erow'][0]:'');
 							if(!empty($end)){
+								$DD->setTimestamp( $end);
 								// date and time as separate columns
-								$csvRow.= '"'. date( apply_filters('evo_csv_export_dateformat','m/d/Y'), $end) .'",';
-								$csvRow.= '"'. date( apply_filters('evo_csv_export_timeformat','h:i:A'), $end) .'",';
-								//$csvRow.= '"'. date($date_time_format,$end) .'",';
+								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_dateformat','m/d/Y') ) .'",';
+								$csvRow.= '"'. $DD->format( apply_filters('evo_csv_export_timeformat','h:i:A') ) .'",';
 							}else{ $csvRow.= "'','',";	}
 
 						
@@ -792,22 +903,23 @@ class EVO_admin_ajax{
 
 	// Validation of eventon products
 		function validate_license(){
-			global $eventon;
+			
+			$post_data = $this->helper->sanitize_array( $_POST);
 
 			$status = 'bad'; 
 			$error_code = 11; 
 			$error_msg_add = $html = $email = $msg = '';
 			
 			// check for required information
-			if(empty($_POST['type']) && isset($_POST['key']) && isset($_POST['slug']) ){ 
+			if(empty($post_data['type']) && isset($post_data['key']) && isset($post_data['slug']) ){ 
 				echo json_encode(array('status'=>'bad','error_msg'=> EVO_Error()->error_code(14) ));		
 				exit;
 			}
 
 			// Initial values
-			$type = $_POST['type'];
-			$license_key = $_POST['key'];
-			$slug = $_POST['slug'];
+			$type = $post_data['type'];
+			$license_key = $post_data['key'];
+			$slug = $post_data['slug'];
 
 			$PROD = new EVO_Product_Lic($slug);
 			
@@ -816,13 +928,13 @@ class EVO_admin_ajax{
 			if(!$verifyformat) $error_code = '02';	
 
 			// check if email provided for eventon addons
-			if( $_POST['slug'] != 'eventon'){
-				if(empty($_POST['email'])){
+			if( $post_data['slug'] != 'eventon'){
+				if(empty($post_data['email'])){
 					$status = 'bad';
 					$msg = 'Email address not provided!';
 					$verifyformat = false;
 				}else{
-					$email = str_replace(' ','',$_POST['email']);
+					$email = str_replace(' ','',$post_data['email']);
 				}
 			}
 			
@@ -838,10 +950,10 @@ class EVO_admin_ajax{
 					'Excellent! License key verified and saved. Thank you for activating EventON addon!';
 
 				$data_args = array(
-					'type'		=>(!empty($_POST['type'])?$_POST['type']:'main'),
+					'type'		=>(!empty($post_data['type'])?$post_data['type']:'main'),
 					'key'		=> addslashes( str_replace(' ','',$license_key) ),
 					'email'		=> $email,
-					'product_id'=>(!empty($_POST['product_id'])?$_POST['product_id']:''),
+					'product_id'=>(!empty($post_data['product_id'])?$post_data['product_id']:''),
 				);
 				$validation = $PROD->remote_validation($data_args);
 
@@ -851,8 +963,8 @@ class EVO_admin_ajax{
 					foreach(array(
 						'email','product_id','instance','key'
 					) as $field){
-						if(!empty($_POST[$field])){
-							$PROD->set_prop( $field, $_POST[$field], false);
+						if(!empty($post_data[$field])){
+							$PROD->set_prop( $field, $post_data[$field], false);
 						}
 					}
 					$PROD->save();
@@ -891,7 +1003,8 @@ class EVO_admin_ajax{
 
 		// RE-VALIDATE
 			function revalidate_license(){
-				$slug = $_POST['slug'];
+				$post_data = $this->helper->sanitize_array( $_POST);
+				$slug = $post_data['slug'];
 
 				$PROD = new EVO_Product_Lic($slug);
 
@@ -909,15 +1022,15 @@ class EVO_admin_ajax{
 					$ERR->record_gen_log('Re-activating', $slug,'','',false);
 
 					$data_args = array(
-						'type'		=>(!empty($_POST['type'])?$_POST['type']:'main'),
+						'type'		=>(!empty($post_data['type'])?$post_data['type']:'main'),
 						'key'		=> $PROD->get_prop('key'),
 						'email'		=> $PROD->get_prop('email'),
-						'product_id'=>(!empty($_POST['product_id'])?$_POST['product_id']:''),						
+						'product_id'=>(!empty($post_data['product_id'])?$post_data['product_id']:''),						
 						'instance'	=> md5(get_site_url()),
 					);
 					$validation = $PROD->remote_validation($data_args);
 					
-					$results = $this->get_remote_validation_results( $validation, $PROD , $_POST['type']);
+					$results = $this->get_remote_validation_results( $validation, $PROD , $post_data['type']);
 					$output_error_code = isset($results['error_code'])? (int) $results['error_code']: false;
 
 					if($results['status'] == 'bad'){
@@ -983,10 +1096,11 @@ class EVO_admin_ajax{
 
 	// Deactivate EventON Products
 		function deactivate_product(){
+			$post_data = $this->helper->sanitize_array( $_POST);
 			$error_msg = $status = $html = '';
 			$error_code = '00';
 			
-			if($_POST['type'] == 'main'){
+			if($post_data['type'] == 'main'){
 				$PROD = new EVO_Product_Lic('eventon');
 				$status = $PROD->deactivate();
 
@@ -1003,20 +1117,20 @@ class EVO_admin_ajax{
 				
 			}else{// for addons
 
-				if(!isset($_POST['slug'])){
+				if(!isset($post_data['slug'])){
 					echo json_encode(array(
 						'status'=>'bad',
 						'error_msg'=> EVO_Error()->error_code(14)
 					)); exit;
 				}
 
-				$PROD = new EVO_Product_Lic($_POST['slug']);
+				$PROD = new EVO_Product_Lic($post_data['slug']);
 			
 				// passing data
 					$remote_data = array(
-						'key'		=> addslashes( str_replace(' ','',$_POST['key']) ),
-						'email'		=>(!empty($_POST['email'])? $_POST['email']: null),
-						'product_id'=>(!empty($_POST['product_id'])? $_POST['product_id']: null),
+						'key'		=> addslashes( str_replace(' ','',$post_data['key']) ),
+						'email'		=>(!empty($post_data['email'])? $post_data['email']: null),
+						'product_id'=>(!empty($post_data['product_id'])? $post_data['product_id']: null),
 					);
 
 				// deactivate addon from remote server
@@ -1027,7 +1141,7 @@ class EVO_admin_ajax{
 					if($returned_error_code && in_array( $returned_error_code, array(30,31) ) ){
 						
 						EVO_Error()->record_deactivation_fail($returned_error_code);
-						EVO_Error()->record_deactivation_loc($_POST['slug']);
+						EVO_Error()->record_deactivation_loc($post_data['slug']);
 						$PROD->deactivate();
 						$error_code = 32;
 					}else{
@@ -1037,7 +1151,7 @@ class EVO_admin_ajax{
 					}
 
 
-					$html = $this->get_html_view('addon',$_POST['slug']);
+					$html = $this->get_html_view('addon',$post_data['slug']);
 					$status = 'success';
 			}
 
@@ -1133,7 +1247,8 @@ class EVO_admin_ajax{
 	// Diagnose
 		// send test email
 		function admin_test_email(){
-			$email_address = $_POST['email'];
+			$post_data = $this->helper->sanitize_array( $_POST);
+			$email_address = $post_data['email'];
 
 			$result = wp_mail($email_address, 'This is a Test Email', 'Test Email Body', array('Content-Type: text/html; charset=UTF-8') );
 			

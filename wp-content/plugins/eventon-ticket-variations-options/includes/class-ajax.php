@@ -14,7 +14,7 @@ class evovo_ajax{
 		}
 	}
 
-
+// deprecated
 	function evovo_add_to_cart(){
 
 		$event_data = $_POST['event_data'];
@@ -28,7 +28,7 @@ class evovo_ajax{
 
 		$var_id = isset($evovo_data['var_id'])? $evovo_data['var_id']:'';
 		$qty = $_POST['qty'];
-		$pot = isset($evovo_data['pot'])? $evovo_data['pot']:false;
+		$price_options = isset($evovo_data['po'])? $evovo_data['po']:false;
 		$vart = isset($evovo_data['vart'])?$evovo_data['vart'] : false;
 
 		$EVENT = new EVO_Event( $event_id);
@@ -46,9 +46,9 @@ class evovo_ajax{
 			}
 
 			// foreach price options
-			if($pot && sizeof($pot)>0){
+			if($price_options && sizeof($price_options)>0){
 				$OPs = new EVOVO_Var_opts($EVENT, $wcid,'option');
-				foreach($pot as $po_id=>$po_val){
+				foreach($price_options as $po_id=>$po_val){
 					$OPs->set_item_data( $po_id);
 					$sin_price = $OPs->get_item_prop('regular_price');
 					$sin_stock = $OPs->get_item_prop('stock');
@@ -66,7 +66,7 @@ class evovo_ajax{
 					$item_price_additions += $po_price;
 				}
 				
-				$cart_item_data['evovo_data']['pot'] = $pot;
+				$cart_item_data['evovo_data']['po'] = $price_options;
 			}
 
 		// ticket variations

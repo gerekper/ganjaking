@@ -52,7 +52,7 @@ class EVORSI_Manager{
 			if($_POST['type'] == 'new'){
 				$Is = new EVORSI_Invitees($_POST['e_id']);
 				
-				if(  $RR_id = $Is->add_new($data)){
+				if(  $RR_id = $Is->add_new_rsvp_post($data)){
 
 					// intiate the rsvp object
 					$RR = new EVO_RSVP_CPT($RR_id);

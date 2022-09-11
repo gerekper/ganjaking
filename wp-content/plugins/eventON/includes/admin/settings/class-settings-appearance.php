@@ -160,8 +160,9 @@ class evoadmin_set_appearance{
 
 				// event top
 				array('id'=>'evcal_fcx','type'=>'hiddensection_open','name'=>__('EventTop Styles','eventon'), 'display'=>'none'),
-					array('id'=>'evcal__fc3','type'=>'color','name'=>__('Event Title font color','eventon'), 'default'=>'6B6B6B'),
-					array('id'=>'evcal__fc3box','type'=>'color','name'=>__('Event Title font color (Tile View)','eventon'), 'default'=>'ffffff'),
+
+					array('id'=>'evcal__fc3','type'=>'color','name'=>__('Event Title font color','eventon'), 'default'=>'6B6B6B'),					
+
 					array('id'=>'evcal__fc3st','type'=>'color','name'=>__('Event Sub Title font color','eventon'), 'default'=>'6B6B6B'),
 					array('id'=>'evcal__fc6','type'=>'color','name'=>__('Text under event title (on EventTop. Eg. Time, location etc.)','eventon'),'default'=>'8c8c8c'),
 					array('id'=>'evcal__fc7','type'=>'color','name'=>__('Category title color (eg. Event Type)','eventon'),'default'=>'c8c8c8'),					
@@ -227,6 +228,8 @@ class evoadmin_set_appearance{
 							array('id'=>'evoeventtop_live2', 'name'=>'Bar color - Completed', 'type'=>'color', 'default'=>'9a9a9a'),
 						)
 					),
+					array('id'=>'evcal__colorful_text','type'=>'color','name'=>__('Colorful EventTop General Text Color','eventon'), 'default'=>'ffffff'),
+					
 				array('id'=>'evcal_fcx','type'=>'hiddensection_close',),
 				
 

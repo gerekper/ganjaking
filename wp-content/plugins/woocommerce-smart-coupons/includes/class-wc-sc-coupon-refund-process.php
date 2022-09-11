@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -208,11 +208,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 							}
 							$i++;
 
-							if ( function_exists( 'wc_get_order_item_meta' ) ) {
-								$order_discount_amount     = wc_get_order_item_meta( $item_id, 'discount_amount', true );
-								$sc_refunded_discount      = wc_get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-								$sc_refunded_discount_tax  = wc_get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
-								$order_discount_tax_amount = wc_get_order_item_meta( $item_id, 'discount_amount_tax', true );
+							if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
+								$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true, true );
+								$sc_refunded_discount      = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true, true );
+								$sc_refunded_discount_tax  = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true, true );
+								$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true, true );
 							}
 
 							?>
@@ -312,19 +312,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 			if ( wp_verify_nonce( wp_unslash( $nonce_token ), 'sc_refund_nonce' ) ) {
 				$line_items = isset( $_POST['line_items'] ) ? json_decode( sanitize_text_field( wp_unslash( $_POST['line_items'] ) ), true ) : array();
 				if ( ! empty( $line_items ) ) {
+					$order = null;
 					foreach ( $line_items as $line_item ) {
-                        $total_refunded             = $total_refunded_tax = $order_discount_amount = $refunded_amount  = $refunded_tax_amount = $order_discount_tax_amount = 0; // phpcs:ignore
+                        $total_refunded             = $total_refunded_tax = $order_discount_amount = $refunded_amount = $refunded_tax_amount = $order_discount_tax_amount = 0;  // phpcs:ignore
 						$smart_coupon_id            = ( ! empty( $line_item['coupon_id'] ) ) ? $line_item['coupon_id'] : 0;
 						$refund_amount              = ( ! empty( $line_item['refund_amount'] ) ) ? $line_item['refund_amount'] : 0;
 						$item_id                    = ( ! empty( $line_item['order_sc_item_id'] ) ) ? $line_item['order_sc_item_id'] : 0;
 						$order_sc_refund_tax_amount = ( ! empty( $line_item['order_sc_refund_tax_amount'] ) ) ? $line_item['order_sc_refund_tax_amount'] : 0;
 						$order_id                   = ( ! empty( $line_item['sc_order_id'] ) ) ? $line_item['sc_order_id'] : 0;
+						$order                      = ( ! is_a( $order, 'WC_Order' ) ) ? wc_get_order( $order_id ) : $order;
 
-						if ( function_exists( 'wc_get_order_item_meta' ) ) {
-							$order_discount_amount     = wc_get_order_item_meta( $item_id, 'discount_amount', true );
-							$refunded_amount           = wc_get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-							$refunded_tax_amount       = wc_get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
-							$order_discount_tax_amount = wc_get_order_item_meta( $item_id, 'discount_amount_tax', true );
+						if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
+							$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true, true );
+							$refunded_amount           = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true, true );
+							$refunded_tax_amount       = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true, true );
+							$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true, true );
 						}
 
 						if ( $refunded_amount ) {
@@ -339,15 +341,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 
 							if ( is_a( $coupon, 'WC_Coupon' ) ) {
 								if ( $this->is_wc_gte_30() ) {
-									$coupon_amount = ( is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
 									$discount_type = ( is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 								} else {
-									$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 									$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 								}
+								$coupon_amount = $this->get_amount( $coupon, true, $order );
 								if ( 'smart_coupon' === $discount_type && is_numeric( $refund_amount ) && is_numeric( $order_sc_refund_tax_amount ) ) {
 									$amount = $coupon_amount + $refund_amount + $order_sc_refund_tax_amount;
-									update_post_meta( $smart_coupon_id, 'coupon_amount', $amount );
+									$this->update_post_meta( $smart_coupon_id, 'coupon_amount', $amount, true, $order );
 									$user               = ( function_exists( 'get_current_user_id' ) ) ? get_current_user_id() : 0;
 									$local_time         = ( function_exists( 'current_datetime' ) ) ? current_datetime() : '';
 									$get_timestamp      = ( is_object( $local_time ) && is_callable( array( $local_time, 'getTimestamp' ) ) ) ? $local_time->getTimestamp() : '';
@@ -362,12 +363,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 										$order_sc_refund_tax_amount = $total_refunded_tax;
 									}
 
-									if ( function_exists( 'wc_update_order_item_meta' ) ) {
-										wc_update_order_item_meta( $item_id, 'sc_refunded_discount_tax', $order_sc_refund_tax_amount );
-										wc_update_order_item_meta( $item_id, 'sc_refunded_discount', $refund_amount );
-										wc_update_order_item_meta( $item_id, 'sc_refunded_user_id', $user );
-										wc_update_order_item_meta( $item_id, 'sc_refunded_timestamp', $current_time_stamp );
-										wc_update_order_item_meta( $item_id, 'sc_refunded_coupon_id', $smart_coupon_id );
+									if ( is_callable( array( $this, 'update_order_item_meta' ) ) ) {
+										$this->update_order_item_meta( $item_id, 'sc_refunded_discount_tax', $order_sc_refund_tax_amount, true );
+										$this->update_order_item_meta( $item_id, 'sc_refunded_discount', $refund_amount, true );
+										$this->update_order_item_meta( $item_id, 'sc_refunded_user_id', $user );
+										$this->update_order_item_meta( $item_id, 'sc_refunded_timestamp', $current_time_stamp );
+										$this->update_order_item_meta( $item_id, 'sc_refunded_coupon_id', $smart_coupon_id );
 									} else {
 										$woocommerce_smart_coupon->log( 'notice', 'Refund values updates fails.' );
 									}
@@ -488,11 +489,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 					$coupon_id            = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
 					$coupon_title         = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
 					$coupon               = new WC_Coupon( $coupon_id );
-					if ( function_exists( 'wc_get_order_item_meta' ) ) {
-						$sc_refunded_discount     = wc_get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-						$sc_refunded_discount_tax = wc_get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
-						$sc_refunded_user         = wc_get_order_item_meta( $item_id, 'sc_refunded_user_id', true );
-						$sc_refunded_timestamp    = wc_get_order_item_meta( $item_id, 'sc_refunded_timestamp', true );
+					if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
+						$sc_refunded_discount     = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true, true );
+						$sc_refunded_discount_tax = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true, true );
+						$sc_refunded_user         = $this->get_order_item_meta( $item_id, 'sc_refunded_user_id', true );
+						$sc_refunded_timestamp    = $this->get_order_item_meta( $item_id, 'sc_refunded_timestamp', true );
 					}
 					$sc_refunded_discount     = empty( $sc_refunded_discount ) ? 0 : $sc_refunded_discount;
 					$sc_refunded_discount_tax = empty( $sc_refunded_discount_tax ) ? 0 : $sc_refunded_discount_tax;
@@ -597,19 +598,19 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 					$refunded_amount           = ! empty( $line_item['refund_amount'] ) ? $line_item['refund_amount'] : 0;
 					$refunded_amount_tax       = ! empty( $line_item['refund_amount_tax'] ) ? $line_item['refund_amount_tax'] : 0;
 					$wc_sc_refunded_id         = ! empty( $line_item['wc_sc_refunded_id'] ) ? $line_item['wc_sc_refunded_id'] : 0;
-					$order_discount_amount     = wc_get_order_item_meta( $wc_sc_refunded_id, 'discount_amount', true );
-					$order_discount_tax_amount = wc_get_order_item_meta( $wc_sc_refunded_id, 'discount_amount_tax', true );
+					$order_id                  = ! empty( $line_item['wc_sc_order_id'] ) ? $line_item['wc_sc_order_id'] : 0;
+					$order                     = ( ! is_a( $order, 'WC_Order' ) ) ? wc_get_order( $order_id ) : $order;
+					$order_discount_amount     = $this->get_order_item_meta( $wc_sc_refunded_id, 'discount_amount', true, true );
+					$order_discount_tax_amount = $this->get_order_item_meta( $wc_sc_refunded_id, 'discount_amount_tax', true, true );
 					if ( $order_discount_amount >= $refunded_amount && $order_discount_tax_amount >= $refunded_amount_tax && ! empty( $smart_coupon_id ) ) {
 						$coupon = new WC_Coupon( $smart_coupon_id );
 						if ( is_a( $coupon, 'WC_Coupon' ) ) {
 							if ( $this->is_wc_gte_30() ) {
-								$coupon_amount = ( is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
 								$discount_type = ( is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
 							} else {
-								$coupon_amount = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 								$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 							}
-
+							$coupon_amount = $this->get_amount( $coupon, true, $order );
 							if ( 'smart_coupon' === $discount_type ) {
 								if ( ! is_numeric( $refunded_amount ) ) {
 									$refunded_amount = 0;
@@ -619,22 +620,22 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 								}
 								$refund_amount = $refunded_amount + $refunded_amount_tax;
 								$amount        = $coupon_amount - $refund_amount;
-								update_post_meta( $smart_coupon_id, 'coupon_amount', $amount );
+								$this->update_post_meta( $smart_coupon_id, 'coupon_amount', $amount, true, $order );
 								$user               = ( function_exists( 'get_current_user_id' ) ) ? get_current_user_id() : 0;
 								$local_time         = ( function_exists( 'current_datetime' ) ) ? current_datetime() : '';
 								$get_timestamp      = ( is_object( $local_time ) && is_callable( array( $local_time, 'getTimestamp' ) ) ) ? $local_time->getTimestamp() : 0;
 								$get_offset         = ( is_object( $local_time ) && is_callable( array( $local_time, 'getOffset' ) ) ) ? $local_time->getOffset() : 0;
 								$current_time_stamp = $get_timestamp + $get_offset;
 
-								if ( function_exists( 'wc_update_order_item_meta' ) ) {
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_discount', $refunded_amount );
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_discount_tax', $refunded_amount_tax );
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_user_id', $user );
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_timestamp', $current_time_stamp );
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_coupon_id', $smart_coupon_id );
+								if ( is_callable( array( $this, 'update_order_item_meta' ) ) ) {
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_discount', $refunded_amount, true );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_discount_tax', $refunded_amount_tax, true );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_user_id', $user );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_timestamp', $current_time_stamp );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_revoke_refunded_coupon_id', $smart_coupon_id );
 
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_refunded_discount', 0 );
-									wc_update_order_item_meta( $wc_sc_refunded_id, 'sc_refunded_discount_tax', 0 );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_refunded_discount', 0, true );
+									$this->update_order_item_meta( $wc_sc_refunded_id, 'sc_refunded_discount_tax', 0, true );
 								}
 							}
 						}
@@ -663,11 +664,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 					$coupon_post_obj      = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' ) : get_page_by_title( $item->get_name(), OBJECT, 'shop_coupon' );// phpcs:ignore
 					$coupon_id            = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : '';
 					$coupon               = new WC_Coupon( $coupon_id );
-					if ( function_exists( 'wc_get_order_item_meta' ) ) {
-						$sc_refunded_discount      = wc_get_order_item_meta( $item_id, 'sc_refunded_discount', true );
-						$sc_refunded_discount_tax  = wc_get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
-						$order_discount_amount     = wc_get_order_item_meta( $item_id, 'discount_amount', true );
-						$order_discount_tax_amount = wc_get_order_item_meta( $item_id, 'discount_amount_tax', true );
+					if ( is_callable( array( $this, 'get_order_item_meta' ) ) ) {
+						$sc_refunded_discount      = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true, true );
+						$sc_refunded_discount_tax  = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true, true );
+						$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true, true );
+						$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true, true );
 					}
 
 					if ( is_a( $coupon, 'WC_Coupon' ) ) {

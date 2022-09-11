@@ -1,5 +1,9 @@
 *** WooCommerce Twilio SMS Notifications Changelog ***
 
+2022.08.16 - version 1.16.3
+ * Fix - Replace deprecated `is_ajax()` usages with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.12.27 - version 1.16.2
  * Dev - Add booking and order parameters to `wc_twilio_sms_bookings_token_map` filter hook
 

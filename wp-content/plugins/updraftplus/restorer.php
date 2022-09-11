@@ -18,14 +18,30 @@ class Updraft_Restorer {
 	// Public: it is manipulated by the caller after the caller gets the object
 	public $delete = false;
 
+	private $errors;
+
 	private $created_by_version = false;
 
 	// This one can be set externally, if the information is available
 	public $ud_backup_is_multisite = -1;
 
+	public $ud_multisite_selective_restore = false;
+
 	private $ud_backup_set;
 
+	private $ud_foreign_working_dir;
+
+	private $ud_foreign_package;
+
 	public $ud_foreign;
+
+	private $ud_extract_count;
+	
+	private $ud_working_dir;
+
+	private $ud_extract_dir;
+	
+	private $ud_made_dirs;
 
 	// store restored table names
 	public $restored_table_names = array();
@@ -35,13 +51,15 @@ class Updraft_Restorer {
 	// The default of false means "use the global $wpdb"
 	private $wpdb_obj = false;
 
+	private $mysql_dbh = false;
+	
+	private $use_mysqli = false;
+
 	private $line_last_logged = 0;
 
 	private $our_siteurl;
 
 	private $configuration_bundle;
-
-	private $ajax_restore_auth_code;
 	
 	private $restore_options;
 	
@@ -66,6 +84,14 @@ class Updraft_Restorer {
 	private $table_engine = '';
 
 	private $table_name = '';
+
+	private $new_table_name = '';
+
+	private $original_table_name = '';
+
+	private $tables_created = 0;
+
+	private $view_names = array();
 	
 	private $continuation_data;
 
@@ -117,10 +143,46 @@ class Updraft_Restorer {
 	private $generated_columns_exist_in_the_statement = array();
 
 	private $printed_new_table_prefix = false;
+
+	private $old_siteurl = '';
+
+	private $old_home = '';
+	
+	private $old_content = '';
+	
+	private $old_uploads = '';
 	
 	private $old_table_prefix = null;
 
 	private $old_abspath = '';
+
+	private $pre_restore_updatedir_writable;
+
+	private $abspath;
+
+	private $create_forbidden = false;
+	
+	private $drop_forbidden = false;
+	
+	private $lock_forbidden = false;
+	
+	private $rename_forbidden = false;
+
+	private $triggers_forbidden = false;
+	
+	private $prior_upload_path;
+	
+	private $insert_statements_run;
+	
+	private $start_time;
+	
+	private $last_error;
+	
+	private $last_error_no;
+	
+	private $max_allowed_packet;
+	
+	private $set_names;
 
 	/**
 	 * Constructor
@@ -2368,7 +2430,7 @@ class Updraft_Restorer {
 				}
 			}
 
-			if ($this->restoring_table != $this->new_table_name) {
+			if ('' !== $this->restoring_table && $this->restoring_table != $this->new_table_name) {
 				$final_table_name = $this->maybe_rename_restored_table();
 				$this->restored_table($final_table_name, $this->final_import_table_prefix, $this->old_table_prefix, $this->table_engine);
 			}
@@ -3098,7 +3160,11 @@ class Updraft_Restorer {
 			}
 
 			// The timed overhead of this is negligible
-			if (preg_match('/^\s*drop table (if exists )?\`?([^\`]*)\`?\s*'.$delimiter_regex.'/i', $sql_line, $matches)) {
+			if (preg_match('/^\s*drop view (if exists )?\`?([^\`]*)\`?\s*'.$delimiter_regex.'/i', $sql_line, $matches)) {
+				$sql_type = 16;
+				$this->view_names[] = $matches[2];
+				$this->view_names = array_unique($this->view_names);
+			} elseif (preg_match('/^\s*drop table (if exists )?\`?([^\`]*)\`?\s*'.$delimiter_regex.'/i', $sql_line, $matches)) {
 				$sql_type = 1;
 
 				if (!$this->printed_new_table_prefix) {
@@ -3375,19 +3441,29 @@ class Updraft_Restorer {
 				if (null !== $this->old_table_prefix) {
 					foreach (array_keys($this->restore_this_table) as $table_name) {
 						// Code for a view can contain pretty much anything. As such, we want to be minimise the risks of unwanted matches.
+						if (in_array($table_name, $this->view_names)) continue; // since DROP VIEW statement is preceded by DROP TABLE statement (@see UpdraftPlus_Backup::write_table_backup_beginning), it makes the view name to be recognised as a real table and to be added to the $this->restore_this_table variable when executing the DROP TABLE statement via UpdraftPlus_Restore::sql_exec method. This line prevents a view name from being replaced and suffixed with $import_table_prefix during an atomic restoration and/or when the view uses the same table prefix
 						if (false !== strpos($sql_line, $table_name)) {
-							$new_table_name = ('' == $this->old_table_prefix) ? $import_table_prefix.$table_name : UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $import_table_prefix, $table_name);
+							$new_table_name = ('' == $this->old_table_prefix) ? $import_table_prefix.$table_name : UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $this->rename_forbidden ? $import_table_prefix : $this->final_import_table_prefix, $table_name);
 							$sql_line = str_replace($table_name, $new_table_name, $sql_line);
 						}
 					}
+					// by default during an atomic restoration, the last created table is renamed at the end of the restoration process (@see the `if ($this->restoring_table)` code at the end of this method), tipically the DB server will throw an error when creating a view that requires a table that doesn't exist in the database
+					if ($this->restoring_table) {
+						$final_table_name = $this->maybe_rename_restored_table();
+						$this->restored_table($final_table_name, $this->final_import_table_prefix, $this->old_table_prefix, $this->table_engine);
+						$this->restoring_table = ''; // reset this variable so that the same table renaming procedure at the end of this method doesn't get executed
+					}
 				}
+			} elseif (preg_match('/^SET @@GLOBAL.GTID_PURGED/i', $sql_line)) {
+				// skip the SET @@GLOBAL.GTID_PURGED command
+				$sql_type = 17;
 			} else {
 				// Prevent the previous value of $sql_type being retained for an unknown type
 				$sql_type = 0;
 			}
 
-			// Do not execute "USE" or "CREATE|DROP DATABASE" commands
-			if (6 != $sql_type && 7 != $sql_type && (9 != $sql_type || false == $this->triggers_forbidden) && 10 != $sql_type) {
+			// Do not execute "USE" or "CREATE|DROP DATABASE" or "SET @@GLOBAL.GTID_PURGED" commands
+			if (6 != $sql_type && 7 != $sql_type && (9 != $sql_type || false == $this->triggers_forbidden) && 10 != $sql_type && 17 != $sql_type) {
 				$do_exec = $this->sql_exec($sql_line, $sql_type);
 				if (is_wp_error($do_exec)) return $do_exec;
 			} else {
@@ -3747,11 +3823,13 @@ class Updraft_Restorer {
 	 * 8 SET NAMES
 	 * 9 TRIGGER
 	 * 10 DELIMITER
-	 * 11 CREATE ALGORITHM
+	 * 11 CREATE VIEW
 	 * 12 ROUTINE
 	 * 13 DROP FUNCTION|PROCEDURE
 	 * 14 ALTER
 	 * 15 UNLOCK
+	 * 16 DROP VIEW
+	 * 17 SET GLOBAL.GTID_PURGED
 	 *
 	 * @param  String  $sql_line            sql line to execute
 	 * @param  Integer $sql_type            sql type

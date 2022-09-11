@@ -477,10 +477,7 @@ body.rtl .upb_row_bg {
 .js_active .site-inner {
     overflow: visible
 }
-/* iPad blotted image issue fix */
-html.ult-remove-fixed-background .upb_row_bg {
-    background-attachment: scroll !important;
-}
+
 /* vc4.9 compatible */
 .vc_row-flex .upb-background-text-wrapper.full-browser-size,
 .vc_row-flex .upb_video-text-wrapper.full-browser-size {

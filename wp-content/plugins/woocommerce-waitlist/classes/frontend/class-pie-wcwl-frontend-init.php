@@ -171,7 +171,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 * Use the WC shortcode to determine the current product waitlist to load
 		 *
 		 * @param string $content
-		 * @return WC_Product/false
+		 * @return WC_Product
 		 */
 		public function find_product_from_shortcode( $content ) {
 			$content_after_shortcode    = substr( $content, strpos( $content, '[product_page' ) + 13 );
@@ -239,10 +239,30 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 			if ( ! $product ) {
 				$error = 'Failed to load waitlist template: Product not found';
 				wcwl_add_log( $error, $product_id );
+			} elseif ( ! $this->product_supports_shortcode( $product ) ) {
+				$error = 'Failed to load waitlist template: Product type is not supported (only simple products or variations can be loaded with the shortcode)';
+				wcwl_add_log( $error, $product_id );
 			} else {
 				$this->load_class( $product );
 				return wcwl_get_waitlist_fields( $product_id );
 			}
+		}
+
+		/**
+		 * Does the shortcode support the given product type
+		 * By default, only simple/variations are supported
+		 *
+		 * @param WC_Product $product
+		 * @return bool
+		 */
+		public function product_supports_shortcode( $product ) {
+			$supported = false;
+			if ( WooCommerce_Waitlist_Plugin::is_simple( $product ) ) {
+				$supported = true;
+			} elseif ( WooCommerce_Waitlist_Plugin::is_variation( $product ) ) {
+				$supported = true;
+			}
+			return apply_filters( 'wcwl_shortcode_supports_product_type', $supported, $product );
 		}
 
 		/**
@@ -344,7 +364,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 */
 		public function login_redirect( $redirect, $user ) {
 			if ( isset( $_GET['wcwl_redirect'] ) ) {
-				$redirect = $_GET['wcwl_redirect'];
+				$redirect = esc_url( $_GET['wcwl_redirect'] );
 			}
 
 			return $redirect;
@@ -355,7 +375,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 */
 		public function registration_redirect( $redirect ) {
 			if ( isset( $_GET['wcwl_redirect'] ) ) {
-				$redirect = $_GET['wcwl_redirect'];
+				$redirect = esc_url( $_GET['wcwl_redirect'] );
 			}
 
 			return $redirect;

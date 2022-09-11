@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.1.0';
+	public $version = '2.2.1';
 
 	/**
 	 * Constructor.
@@ -101,10 +101,6 @@ final class WC_Order_Delivery {
 
 		if ( is_admin() ) {
 			include_once WC_OD_PATH . 'includes/admin/class-wc-od-admin.php';
-		}
-
-		if ( WC_OD_Utils::is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) ) {
-			include_once WC_OD_PATH . 'includes/subscriptions/class-wc-od-subscriptions.php';
 		}
 	}
 

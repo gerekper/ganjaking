@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2022.08.15 - version 8.5.2
+* Fix - Fixed an issue that prevented discounts with comma separated decimals from being saved.
+* Fix - Fixed an issue with 404 errors on frontend assets in some managed server configurations.
+
 2022.07.21 - version 8.5.1
 * Tweak - Introduced basic telemetry to collect data on extension usage when tracking is enabled.
 * Fix - Fixed a fatal error that was triggered when invalidating order cache.

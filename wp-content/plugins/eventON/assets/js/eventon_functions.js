@@ -1,7 +1,7 @@
 /*
-	Javascript: EventON functions for all calendars
-	version:	0.1
-*/
+ * Javascript: EventON functions for all calendars
+ * @version: 4.1.2
+ */
 (function($){
 
 	$.fn.evo_cal_functions = function(O){
@@ -178,6 +178,41 @@
 			
 		}
 
+	// GENERAL ACCESS + 4.1.2
+		$.fn.evo_admin_get_ajax = function(opt){
+  			var defs = {
+  				'lightbox_key':'',
+  				'ajaxdata':'',
+  			}
+
+  			var OO = $.extend({}, defs, opt);
+
+  			var ajaxdata = OO.ajaxdata;
+
+  			var returnvals = '';
+
+			$.ajax({
+				beforeSend: function(){
+					if( OO.lightbox_key){
+						$('.'+ OO.lightbox_key).find('.ajde_popup_text').addClass( 'loading');
+					}
+				},
+				type: 'POST',
+				url:evo_admin_ajax_handle.ajaxurl,
+				data: ajaxdata,
+				dataType:'json',
+				success:function(data){
+					returnvals = data;
+				},complete:function(){
+					if( OO.lightbox_key){
+						$('.'+ OO.lightbox_key).find('.ajde_popup_text').removeClass( 'loading');
+					}
+				}
+			});	
+
+			return returnvals;
+		}
+
 	// Handlebar process template data into html
 		$.fn.evo_HB_process_template = function(opt){
 			var defaults = { TD:'', part:''}
@@ -330,7 +365,7 @@
 		}
 
 	// get event data basics from html event on page 
-	// added 4.0
+	// ~@version 4.0.3
 		$.fn.evo_cal_get_basic_eventdata = function(){
 			var ELM = $(this);
 
@@ -339,7 +374,10 @@
 
 			const time = _time.split('-');
 			const ri = ELM.data('ri').replace('r','');
-			const eID = ELM.data('event_id')
+			const eID = ELM.data('event_id');
+
+			var _event_title = ELM.find('.evcal_event_title').text();
+			_event_title = _event_title.replace(/'/g, '&apos;');
 
 
 			var RR = {
@@ -350,8 +388,9 @@
 				'event_start_unix': parseInt(time[0]),
 				'event_end_unix': parseInt(time[1]),
 				'ux_val': ELM.find('.evcal_list_a').data('ux_val'),
-				'event_title': ELM.find('.evcal_event_title').html(),
+				'event_title': _event_title,
 				'hex_color': ELM.data('colr'),
+				'hide_et': ELM.hasClass('no_et') ? 'y':'n',
 				'evcal_event_color': ELM.data('colr'),
 			};
 
@@ -378,6 +417,7 @@
 
 	// page Lightbox functions @+2.8
 	// append to the lightbox main class name .evo_lightbox
+		
 		$.fn.evo_prepare_lb = function(){
 			$(this).find('.evo_lightbox_body').html('');
 		}
@@ -389,9 +429,16 @@
 			$('body').trigger('evolightbox_show');
 		}
 		$.fn.evo_append_lb = function(opt){
-			var defaults = { C:''}
+			var defaults = { C:'', CAL:''}
 			var OPT = $.extend({}, defaults, opt);
 			$(this).find('.evo_lightbox_body').html( OPT.C);
+
+			if(  OPT.CAL!= '' && OPT.CAL !== undefined && OPT.CAL.hasClass('color')){
+				const LIST = $(this).find('.eventon_events_list');
+				if( LIST.length>0){
+					LIST.find('.eventon_list_event').addClass('color');
+				}				
+			}
 		}
 
 	// Shortcodes

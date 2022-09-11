@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/addons/event-lists-items
  Description: Set up speakers for event with schedule within events
  Author: Ashan Jay
- Version: 1.0.3
+ Version: 1.0.5
  Author URI: http://www.ashanjay.com/
  Requires at least: 4.0
- Tested up to: 5.5.1
+ Tested up to: 5.9
  */
 
 class EVO_speak{
 	
-	public $version='1.0.3';
-	public $eventon_version = '3.0';
+	public $version='1.0.5';
+	public $eventon_version = '4.0.2';
 	public $name = 'Event Speakers & Schedule';
 	public $id = 'EVOSS';
 			
@@ -88,6 +88,9 @@ class EVO_speak{
 			include_once( 'includes/class-frontend.php' );
 			include_once( 'includes/class-functions.php' );
 			include_once( 'includes/class-integration_lists_items.php' );
+			include_once( 'includes/class-integration_evovo.php' );
+
+
 			$this->frontend = new evoss_front();
 			$this->functions = new evoss_functions();
 			

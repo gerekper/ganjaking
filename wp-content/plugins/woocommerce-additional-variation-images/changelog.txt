@@ -1,5 +1,16 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2022-09-06 - version 2.1.0
+* Add - Enable support for automatic translation files delivery.
+* Fix - Update dependencies.
+
+2022-05-25 - version 2.0.0
+* Fix - Add renovate bot configuration.
+* Fix - Update build scripts and tooling.
+* Fix - fix: composer 2.2+ excludes handling.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2021-02-22 - version 1.9.0
 * Fix - Added the missing `woocommerce_single_product_image_thumbnail_html` hook.
 * Fix - Fixed a conflict with "Default Variations" where multiple galleries could be loaded at once.

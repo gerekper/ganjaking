@@ -9,6 +9,8 @@ use MailPoet\Automation\Engine\Hooks;
 use MailPoet\Automation\Engine\Workflows\Trigger;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Validator\Builder;
+use MailPoet\Validator\Schema\ObjectSchema;
 use MailPoet\WP\Functions as WPFunctions;
 
 class UserRegistrationTrigger implements Trigger {
@@ -26,7 +28,11 @@ class UserRegistrationTrigger implements Trigger {
   }
 
   public function getName(): string {
-    return __('WP user registration');
+    return __('WP user registration', 'mailpoet-premium');
+  }
+
+  public function getArgsSchema(): ObjectSchema {
+    return Builder::object();
   }
 
   public function registerHooks(): void {

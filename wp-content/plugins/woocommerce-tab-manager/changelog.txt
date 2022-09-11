@@ -1,5 +1,9 @@
 *** WooCommerce Tab Manager Changelog ***
 
+2022.08.15 - version 1.14.2
+ * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2021.03.16 - version 1.14.1
  * Tweak - Simplify the paths in the Tab Manager admin screen to add a global tab by using a button only
  * Tweak - Add support for the WooCommerce Navigation admin feature

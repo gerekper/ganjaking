@@ -36,18 +36,24 @@
         loadDeferredStyles();
     }
     function stopListeningToUserInteraction(){
+        document.getElementsByTagName("BODY")[0].removeEventListener("touchmove", userInteracted);
         document.getElementsByTagName("BODY")[0].removeEventListener("mousemove", userInteracted);
+        document.getElementsByTagName("BODY")[0].removeEventListener("scroll", userInteracted);
         document.getElementsByTagName("BODY")[0].removeEventListener("onscroll", userInteracted);
         document.getElementsByTagName("BODY")[0].removeEventListener("onkeydown", userInteracted);
         document.getElementsByTagName("BODY")[0].removeEventListener("ontouchstart", userInteracted);
         document.getElementsByTagName("BODY")[0].removeEventListener("click", userInteracted);
+        document.getElementsByTagName("BODY")[0].removeEventListener("mousewheel", userInteracted);
     }
     function startListeningToUserInteraction(){
+        document.getElementsByTagName("BODY")[0].addEventListener("touchmove", userInteracted);
         document.getElementsByTagName("BODY")[0].addEventListener("mousemove", userInteracted);
+        document.getElementsByTagName("BODY")[0].addEventListener("scroll", userInteracted);
         document.getElementsByTagName("BODY")[0].addEventListener("onscroll", userInteracted);
         document.getElementsByTagName("BODY")[0].addEventListener("onkeydown", userInteracted);
         document.getElementsByTagName("BODY")[0].addEventListener("ontouchstart", userInteracted);
         document.getElementsByTagName("BODY")[0].addEventListener("click", userInteracted);
+        document.getElementsByTagName("BODY")[0].addEventListener("mousewheel", userInteracted);
     }
     document.addEventListener('DOMContentLoaded', function(){
         //   The purpose of the events below is to determine if the user has interacted with the page

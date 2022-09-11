@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getSearchChartData } from "../../function";
-import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import { getSearchChartData, formatDataForChart } from "../../function";
 import Checkbox from "../utilities/Checkbox";
 import DatePicker from "../utilities/DatePicker";
 import ReactApexChart from "react-apexcharts";
@@ -9,10 +9,8 @@ import ChartLoader from "../utilities/ChartLoader";
 import { ReactComponent as EmptyDataIcon } from "../../images/empty-data.svg";
 
 const ChartWrapper = () => {
-  const [search, setSearch] = useState([]);
   const [filteredOverview, setFilteredOverview] = useState({});
   const [dateRange, setDateRange] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   // this is for setting the filter up of the chart ["all search", "result found", "no result found"]
   const [filterState, setFilterState] = useState([
@@ -21,74 +19,34 @@ const ChartWrapper = () => {
       label: "Total Search",
       checked: true,
       color: "#FF8A1E",
+      enabled: true,
     },
     {
-      id: "search_found_count",
+      id: "search_found",
       label: "Result Found",
       checked: true,
       color: "#36D692",
+      enabled: true,
     },
     {
       id: "search_not_found_count",
       label: "No Result Found",
       checked: true,
       color: "#5A6BFF",
+      enabled: true,
     },
   ]);
 
   // this is for getting the chart data
-  useEffect(() => {
-    if (dateRange == -1) {
-      setIsLoading(true);
-      getSearchChartData()
-        .then((res) => {
-          setSearch(res);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
-    } else if (dateRange && Object.entries(dateRange).length) {
-      let start_date = moment(dateRange?.start).format("YYYY-MM-DD"),
-        end_date = moment(dateRange?.end).format("YYYY-MM-DD");
-      setIsLoading(true);
-      getSearchChartData(start_date, end_date)
-        .then((res) => {
-          setSearch(res);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
-    }
-  }, [dateRange]);
+  const searchData = useQuery(
+    ["keywordSearchChartData", dateRange],
+    getSearchChartData
+  );
 
   // this is for set the filtered search value
   useEffect(() => {
-    const overviewDataForChart = {};
-
-    if (search && search?.length) {
-      overviewDataForChart.labels = search
-        .map((obj) => moment(obj.search_date).format("MMM D YYYY"))
-        .reverse();
-      overviewDataForChart.colors = filterState
-        .filter((item) => item.checked)
-        .map((item) => item.color);
-      overviewDataForChart.count = filterState
-        .filter((item) => item.checked)
-        .map((item) => {
-          return {
-            name: item?.label,
-            data: search
-              .map((data) => {
-                return data.hasOwnProperty(item.id)
-                  ? data[item?.id]
-                  : item?.id == "search_found_count"
-                  ? data?.search_count - data?.search_not_found_count
-                  : 0.0;
-              })
-              .reverse(),
-          };
-        });
-    }
-    setFilteredOverview(overviewDataForChart);
-  }, [search, filterState, dateRange]);
+    setFilteredOverview(formatDataForChart(searchData?.data, filterState));
+  }, [searchData?.data, filterState]);
 
   // this function is for handle filter state
   const handleFilterState = (index, checked) => {
@@ -118,7 +76,7 @@ const ChartWrapper = () => {
       </div>
       <div className="btd-chart-wrapper">
         <div className="btd-chart">
-          {!isLoading ? (
+          {!searchData?.isLoading ? (
             <>
               {filteredOverview &&
               filteredOverview?.labels &&
@@ -133,6 +91,10 @@ const ChartWrapper = () => {
                       toolbar: {
                         // show: false,
                         offsetY: -5,
+                        tools: {
+                          download: `<img src="${betterdocs.dir_url}admin/assets/img/download.svg" width="14">`,
+                          reset: `<img src="${betterdocs.dir_url}admin/assets/img/house.svg" width="14">`,
+                        },
                       },
                     },
                     tooltip: {
@@ -206,7 +168,7 @@ const ChartWrapper = () => {
             </>
           )}
         </div>
-        <SearchPieChart data={search} isLoading={isLoading} />
+        <SearchPieChart dateRange={dateRange} />
       </div>
     </div>
   );

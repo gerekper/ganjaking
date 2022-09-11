@@ -12,14 +12,10 @@ use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Statistics\StatisticsUnsubscribesRepository;
 use MailPoet\Subscribers\SubscriberCustomFieldRepository;
-use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class SubscribersResponseBuilder {
   const DATE_FORMAT = 'Y-m-d H:i:s';
-
-  /** @var SubscriberSegmentRepository */
-  private $subscriberSegmentRepository;
 
   /** @var StatisticsUnsubscribesRepository */
   private $statisticsUnsubscribesRepository;
@@ -35,12 +31,10 @@ class SubscribersResponseBuilder {
 
   public function __construct(
     EntityManager $entityManager,
-    SubscriberSegmentRepository $subscriberSegmentRepository,
     CustomFieldsRepository $customFieldsRepository,
     SubscriberCustomFieldRepository $subscriberCustomFieldRepository,
     StatisticsUnsubscribesRepository $statisticsUnsubscribesRepository
   ) {
-    $this->subscriberSegmentRepository = $subscriberSegmentRepository;
     $this->statisticsUnsubscribesRepository = $statisticsUnsubscribesRepository;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->subscriberCustomFieldRepository = $subscriberCustomFieldRepository;
@@ -48,7 +42,7 @@ class SubscribersResponseBuilder {
   }
 
   public function buildForListing(array $subscribers): array {
-    $this->prefetchSegments($subscribers);
+    $this->prefetchRelations($subscribers);
     $data = [];
     foreach ($subscribers as $subscriber) {
       $data[] = $this->buildListingItem($subscriber);
@@ -104,17 +98,16 @@ class SubscribersResponseBuilder {
 
   private function buildSubscriptions(SubscriberEntity $subscriberEntity): array {
     $result = [];
-    $subscriptions = $this->subscriberSegmentRepository->findBy(['subscriber' => $subscriberEntity]);
-    foreach ($subscriptions as $subscription) {
-      $segment = $subscription->getSegment();
+    foreach ($subscriberEntity->getSubscriberSegments() as $subscriberSegment) {
+      $segment = $subscriberSegment->getSegment();
       if ($segment instanceof SegmentEntity) {
         $result[] = [
-          'id' => $subscription->getId(),
+          'id' => $subscriberSegment->getId(),
           'subscriber_id' => (string)$subscriberEntity->getId(),
-          'created_at' => ($createdAt = $subscription->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
+          'created_at' => ($createdAt = $subscriberSegment->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
           'segment_id' => (string)$segment->getId(),
-          'status' => $subscription->getStatus(),
-          'updated_at' => $subscription->getUpdatedAt()->format(self::DATE_FORMAT),
+          'status' => $subscriberSegment->getStatus(),
+          'updated_at' => $subscriberSegment->getUpdatedAt()->format(self::DATE_FORMAT),
         ];
       }
     }
@@ -180,12 +173,23 @@ class SubscribersResponseBuilder {
   /**
    * @param SubscriberEntity[] $subscribers
    */
-  private function prefetchSegments(array $subscribers) {
+  private function prefetchRelations(array $subscribers): void {
+    // Prefetch subscriptions
     $this->entityManager->createQueryBuilder()
       ->select('PARTIAL s.{id}, ssg, sg')
       ->from(SubscriberEntity::class, 's')
-      ->join('s.subscriberSegments', 'ssg')
-      ->join('ssg.segment', 'sg')
+      ->leftJoin('s.subscriberSegments', 'ssg')
+      ->leftJoin('ssg.segment', 'sg')
+      ->where('s.id IN (:subscribers)')
+      ->setParameter('subscribers', $subscribers)
+      ->getQuery()
+      ->getResult();
+    // Prefetch tags
+    $this->entityManager->createQueryBuilder()
+      ->select('PARTIAL s.{id}, st, t')
+      ->from(SubscriberEntity::class, 's')
+      ->leftJoin('s.subscriberTags', 'st')
+      ->leftJoin('st.tag', 't')
       ->where('s.id IN (:subscribers)')
       ->setParameter('subscribers', $subscribers)
       ->getQuery()

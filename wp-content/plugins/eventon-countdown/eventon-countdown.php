@@ -4,16 +4,16 @@
  Plugin URI: http://www.myeventon.com/
  Description: Count down till the event ends
  Author: Ashan Jay
- Version: 0.16
+ Version: 1.0
  Author URI: http://www.ashanjay.com/
  Requires at least: 5.0
- Tested up to: 5.7
+ Tested up to: 6.0
 
  */
 
  class eventon_cd{
- 	public $version='0.16';
-	public $eventon_version = '3.1.1';
+ 	public $version='1.0';
+	public $eventon_version = '4.1';
 	public $name = 'Countdown';
 	public $id = 'EVOCD';
 

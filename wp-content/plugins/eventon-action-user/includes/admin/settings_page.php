@@ -251,7 +251,10 @@ function content(){
 									'fields_array'=>$this->fields_array(),
 									'order_var'=> 'evoau_fieldorder',
 									'selected_var'=> 'evoau_fields',
-									'title'=>__('Fields for the Event Submission Form','eventon'),								
+									'title'=>__('Fields for the Event Submission Form','eventon'),
+								),
+								array('id'=>'evoau_fields', 'type'=>'customcode',
+									'code'=> $this->custom_code_001(),
 								),
 								
 								array('id'=>'evoau_notif','type'=>'note','name'=>'** Name and email fields will not be visible in the form if user is loggedin already, but those fields will be populated with registered information.<br/><br/>** Category selection fields will not show on form if they do not have category tags. 
@@ -388,11 +391,11 @@ function content(){
 									array('id'=>'evoau_assigned_emanager','type'=>'begin_afterstatement'),
 									array('id'=>'evoau_assigned_editing',
 										'type'=>'yesno',
-										'name'=>'Allow event assigned users to edit those events in event manager',
+										'name'=>'Allow event assigned users to edit those events in event manager. (Override above)',
 										'legend'=>'This will allow users assigned to the event to also edit those events from event manager'
 									),array('id'=>'evoau_assigned_deleting',
 										'type'=>'yesno',
-										'name'=>'Allow event assigned users to delete those events in event manager',
+										'name'=>'Allow event assigned users to delete those events in event manager. (Override above)',
 										'legend'=>'This will allow users assigned to the event to also delete those events from event manager'
 									),
 									array('id'=>'evoau_assigned_emanager','type'=>'end_afterstatement'),
@@ -444,8 +447,7 @@ function content(){
 			</div>				
 		</div>	
 		<div class='evo_diag'>
-			<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /><br/><br/>
-			<a target='_blank' href='http://www.myeventon.com/support/'><img src='<?php echo AJDE_EVCAL_URL;?>/assets/images/myeventon_resources.png'/></a>
+			<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" />
 		</div>		
 		</form>
 		
@@ -531,8 +533,8 @@ function content(){
 				<p><b><?php _e('edit others events','eventon');?></b> - <?php _e("Allows the user to edit everyone else's events but not publish.",'eventon');?></p>
 				<p><b><?php _e('edit published events','eventon');?></b> - <?php _e("Allows the user to edit his own events that are published.",'eventon');?></p>
 				
-				<p><b><?php _e('delete events','eventon');?></b> - <?php _e("Grants the ability to delete events written by that user but not other.",'eventon');?></p>
-				<p><b><?php _e('delete others events','eventon');?></b> - <?php _e("Capability to edit events written by other users.",'eventon');?></p>
+				<p><b><?php _e('delete events','eventon');?></b> - <?php _e("Grants the ability to delete events created by that user but not other.",'eventon');?></p>
+				<p><b><?php _e('delete others events','eventon');?></b> - <?php _e("Capability to delete events created by other users.",'eventon');?></p>
 				<p><b><?php _e('read private events','eventon');?></b> - <?php _e("Allow user to read private events.",'eventon');?></p>
 				<p><b><?php _e('assign event terms','eventon');?></b> - <?php _e("Allows the user to assign event terms to allowed events.",'eventon');?></p>
 				<p><b><?php _e('Submit New Events From Submission Form','eventon');?></b> - <?php _e("Permission to submit events from new event submission form.",'eventon');?></p>
@@ -548,7 +550,24 @@ function content(){
 	endswitch;
 	echo "</div>";
 	
-}// content
+}
+
+
+// content
+	public function custom_code_001(){
+		ob_start();
+
+		echo "<h4 class='acus_subheader'>". __('Fields that only appear in event manager edit event form','evoau') . "</h4><p>";
+		foreach(apply_filters('evoau_editform_options_array',EVOAU()->frontend->au_form_fields('editonly')) 
+			as $key=>$value
+		){
+			echo $value[0].', ';
+		}
+
+		echo "</p>";
+
+		return ob_get_clean();
+	}
 	function fields_array(){
 		$FIELDS = EVOAU()->frontend->au_form_fields('additional');
 

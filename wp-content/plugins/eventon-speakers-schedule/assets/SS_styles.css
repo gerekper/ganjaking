@@ -14,7 +14,7 @@
     }
     #evcal_list .eventon_list_event .evo_metarow_speaker ul.evospk_boxes li, 
     .evo_lightbox ul.evospk_boxes li{
-        margin-right: 9px;
+        margin: 0 9px 0 0;
         width: 130px;
         text-align: center;
         padding: 10px 0 5px;

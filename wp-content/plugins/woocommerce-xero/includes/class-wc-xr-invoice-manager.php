@@ -90,7 +90,7 @@ class WC_XR_Invoice_Manager {
 
 				$logger->write( 'INVOICE HAS NOT CHANGED, NOT SENDING ORDER WITH ID ' . $order_id );
 
-				$order->add_order_note( __( "Skipping sending Xero Invoice update since there are no changes. Invoice ID: " . $xero_invoice_id, 'wc-xero' ) );
+				$order->add_order_note( __( "Skipping sending Xero Invoice update since there are no changes. Invoice ID: " . $xero_invoice_id, 'woocommerce-xero' ) );
 
 				return false;
 			}
@@ -101,7 +101,7 @@ class WC_XR_Invoice_Manager {
 
 				$logger->write( 'INVOICE HAS TOTAL OF 0, NOT SENDING ORDER WITH ID ' . $order_id );
 
-				$order->add_order_note( __( "XERO: Didn't create invoice because total is 0 and send order with zero total is set to off.", 'wc-xero' ) );
+				$order->add_order_note( __( "XERO: Didn't create invoice because total is 0 and send order with zero total is set to off.", 'woocommerce-xero' ) );
 
 				return false;
 			}
@@ -136,9 +136,9 @@ class WC_XR_Invoice_Manager {
 
 				// Add Order Note
 				if( $xero_invoice_id ) {
-					$order->add_order_note( __( 'Xero Invoice updated.  ', 'wc-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
+					$order->add_order_note( __( 'Xero Invoice updated.  ', 'woocommerce-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
 				} else {
-					$order->add_order_note( __( 'Xero Invoice created.  ', 'wc-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
+					$order->add_order_note( __( 'Xero Invoice created.  ', 'woocommerce-xero' ) . ' Invoice ID: ' . (string) $xml_response->Invoices->Invoice[0]->InvoiceID );
 				}
 
 			} else { // XML reponse is not OK
@@ -147,14 +147,14 @@ class WC_XR_Invoice_Manager {
 				$logger->write( 'XERO ERROR RESPONSE:' . "\n" . $invoice_request->get_response_body() );
 
 				// Format error message
-				$error_message = $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message ? $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message : __( 'None', 'wc-xero' );
+				$error_message = $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message ? $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message : __( 'None', 'woocommerce-xero' );
 
 				// Add order note
-				$order->add_order_note( __( 'ERROR creating Xero invoice: ', 'wc-xero' ) .
-				                        __( ' ErrorNumber: ', 'wc-xero' ) . $xml_response->ErrorNumber .
-				                        __( ' ErrorType: ', 'wc-xero' ) . $xml_response->Type .
-				                        __( ' Message: ', 'wc-xero' ) . $xml_response->Message .
-				                        __( ' Detail: ', 'wc-xero' ) . $error_message );
+				$order->add_order_note( __( 'ERROR creating Xero invoice: ', 'woocommerce-xero' ) .
+				                        __( ' ErrorNumber: ', 'woocommerce-xero' ) . $xml_response->ErrorNumber .
+				                        __( ' ErrorType: ', 'woocommerce-xero' ) . $xml_response->Type .
+				                        __( ' Message: ', 'woocommerce-xero' ) . $xml_response->Message .
+				                        __( ' Detail: ', 'woocommerce-xero' ) . $error_message );
 			}
 
 		} catch ( Exception $e ) {
@@ -190,7 +190,7 @@ class WC_XR_Invoice_Manager {
 		// Get the order.
 		$order = wc_get_order( $order_id );
 
-		$invoice_id = ( version_compare( WC_VERSION, '3.0', '<' ) ) ? get_post_meta( $order_id, '_xero_invoice_id', true ) : $order->get_meta( '_xero_invoice_id', true );
+		$invoice_id = $order->get_meta( '_xero_invoice_id', true );
 
 		if ( ! $invoice_id ) {
 			return false;
@@ -231,7 +231,7 @@ class WC_XR_Invoice_Manager {
 				$logger->write( 'XERO ERROR RESPONSE:' . "\n" . $void_request->get_response_body() );
 
 				// Format error message.
-				$error_message = $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message ? $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message : __( 'None', 'wc-xero' );
+				$error_message = $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message ? $xml_response->Elements->DataContractBase->ValidationErrors->ValidationError->Message : __( 'None', 'woocommerce-xero' );
 
 			}
 		} catch ( Exception $e ) {
@@ -255,9 +255,7 @@ class WC_XR_Invoice_Manager {
 	 */
 	public function get_invoice_by_order( $order ) {
 
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-
-		$order_date = $old_wc ? $order->order_date : $order->get_date_created()->date( 'Y-m-d H:i:s' );
+		$order_date = $order->get_date_created()->date( 'Y-m-d H:i:s' );
 		$date_parts = explode( ' ', $order_date );
 		$order_ymd = $date_parts[0];
 
@@ -268,16 +266,16 @@ class WC_XR_Invoice_Manager {
 		$contact_manager = new WC_XR_Contact_Manager( $this->settings );
 
 		// Cart Tax
-		$cart_tax = floatval( $old_wc ? $order->order_tax : $order->get_cart_tax() );
+		$cart_tax = floatval( $order->get_cart_tax() );
 
 		// Shipping Tax
-		$shipping_tax = floatval( $old_wc ? $order->order_shipping_tax : $order->get_shipping_tax() );
+		$shipping_tax = floatval( $order->get_shipping_tax() );
 
 		// Order Total
-		$order_total = floatval( $old_wc ? $order->order_total : $order->get_total() );
+		$order_total = floatval( $order->get_total() );
 
 		// Order Currency
-		$order_currency = $old_wc ? $order->get_order_currency() : $order->get_currency();
+		$order_currency = $order->get_currency();
 
 		// Create invoice
 		$invoice = new WC_XR_Invoice(
@@ -298,26 +296,15 @@ class WC_XR_Invoice_Manager {
 		return $invoice;
 	}
 
-	private function get_order_meta( $order, $key, $single = false )
-	{
-		return version_compare( WC_VERSION, '3.0', '<' ) ?
-			get_post_meta( $order->get_id(), $key, $single ) :
-			$order->get_meta( $key, $single );
+	private function get_order_meta( $order, $key, $single = false ) {
+		return $order->get_meta( $key, $single );
 	}
 
-	private function update_order_meta( $order, $key, $value )
-	{
-		if( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			update_post_meta( $order->get_id(), $key, $value );
-		} else {
-			$order->update_meta_data( $key, $value );
-		}
+	private function update_order_meta( $order, $key, $value ) {
+		$order->update_meta_data( $key, $value );
 	}
 
-	private function save_order_meta( $order )
-	{
-		if( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			$order->save_meta_data();
-		}
+	private function save_order_meta( $order ) {
+		$order->save_meta_data();
 	}
 }

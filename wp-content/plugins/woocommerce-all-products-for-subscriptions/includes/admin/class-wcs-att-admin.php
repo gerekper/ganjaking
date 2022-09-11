@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  3.3.1
+ * @version  4.0.0
  */
 class WCS_ATT_Admin {
 
@@ -61,7 +61,7 @@ class WCS_ATT_Admin {
 		 */
 
 		// Append "Subscribe to Cart/Order" section in the Subscriptions settings tab.
-		add_filter( 'woocommerce_subscription_settings', array( __CLASS__, 'add_settings' ), 100 );
+		add_filter( 'woocommerce_subscription_settings', array( __CLASS__, 'add_settings' ), 1000 );
 
 		// Save posted cart subscription scheme settings.
 		add_action( 'woocommerce_update_options_subscriptions', array( __CLASS__, 'save_cart_level_settings' ) );
@@ -241,7 +241,7 @@ class WCS_ATT_Admin {
 			<th scope="row" class="titledesc"><?php echo esc_html( $values[ 'title' ] ) ?></th>
 			<td class="forminp forminp-subscription_schemes_metaboxes">
 				<p class="description"><?php echo esc_html( $values[ 'desc' ] ) ?></p>
-				<div id="wcsatt_data" class="wc-metaboxes-wrapper <?php echo empty( $subscription_schemes ) ? 'planless' : ''; ?>">
+				<div id="wcsatt_data" class="wc-metaboxes-wrapper <?php echo empty( $subscription_schemes ) ? 'planless onboarding' : ''; ?>">
 					<div class="subscription_schemes wc-metaboxes ui-sortable" data-count=""><?php
 
 						$i = 0;
@@ -270,29 +270,70 @@ class WCS_ATT_Admin {
 	 */
 	public static function add_settings( $settings ) {
 
-		$settings_to_add = array();
+		$category_terms   = get_terms( 'product_cat', array( 'hide_empty' => 0 ) );
+		$category_tree    = WCS_ATT_Helpers::build_taxonomy_tree( $category_terms );
+		$category_options = WCS_ATT_Helpers::get_taxonomy_tree_options(
+			$category_tree,
+			/**
+			 * Filter arguments used to construct option values.
+			 *
+			 * @since 4.0.0
+			 *
+			 * Set the 'prefix_html' field to 'null' to prevent hirerarchical option values.
+			 *
+			 * @param array $args
+			 */
+			apply_filters( 'wcsatt_plan_settings_category_limit_option_args', array( 'prefix_html' => '' ) )
+		);
 
-		if ( ! WCS_ATT_Integrations::is_block_based_cart() ) {
-
-			$settings_to_add = array_merge( $settings_to_add, array(
-				array(
-					'name' => __( 'Subscribe to Cart', 'woocommerce-all-products-for-subscriptions' ),
-					'type' => 'title',
-					'desc' => __( 'Allow customers to purchase the contents of their cart on subscription.', 'woocommerce-all-products-for-subscriptions' ),
-					'id'   => 'wcsatt_subscribe_to_cart_options'
+		$settings_to_add = array(
+			array(
+				'name' => __( '', 'woocommerce-all-products-for-subscriptions' ),
+				'type' => 'title',
+				'desc' => __( 'Add some global subscription plans to make your existing products available on subscription. Individual products may override these settings.', 'woocommerce-all-products-for-subscriptions' ),
+				'id'   => 'wcsatt_subscribe_to_cart_options_pre'
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'wcsatt_subscribe_to_cart_options_pre'
+			),
+			array(
+				'name' => __( 'Subscription Plans', 'woocommerce-all-products-for-subscriptions' ),
+				'type' => 'title',
+				'desc' => __( 'Add some global subscription plans to make your existing products available on subscription. Individual products may override these settings.', 'woocommerce-all-products-for-subscriptions' ),
+				'id'   => 'wcsatt_subscribe_to_cart_options'
+			),
+			array(
+				'name' => __( 'Global Subscription Plans', 'woocommerce-all-products-for-subscriptions' ),
+				'desc' => __( 'By default, global plans are applied to every supported product in your catalog. You can limit these plans to specific product categories below.', 'woocommerce-all-products-for-subscriptions' ),
+				'id'   => 'wcsatt_subscribe_to_cart_schemes',
+				'type' => 'subscription_schemes'
+			),
+			array(
+				'name'     => __( 'Limit to Categories', 'woocommerce-all-products-for-subscriptions' ),
+				'desc'     => __( 'Restrict global plans to the selected product categories. If empty, global plans will be applied to all supported products in your catalog.', 'woocommerce-all-products-for-subscriptions' ),
+				'desc_tip' => true,
+				'id'       => 'wcsatt_subscribe_to_cart_categories',
+				'type'     => 'multiselect',
+				'class'    => 'wc-enhanced-select',
+				'options'  => $category_options,
+				'custom_attributes' => array(
+					'data-placeholder' => __( 'Choose product categories&hellip;', 'woocommerce-all-products-for-subscriptions' ),
 				),
-				array(
-					'name' => __( 'Cart Subscription Plans', 'woocommerce-all-products-for-subscriptions' ),
-					'desc' => __( 'Subscription plans offered on the cart page.', 'woocommerce-all-products-for-subscriptions' ),
-					'id'   => 'wcsatt_subscribe_to_cart_schemes',
-					'type' => 'subscription_schemes'
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'wcsatt_subscribe_to_cart_options'
-				),
-			) );
-		}
+			),
+			array(
+				'name'        => __( 'Prompt text', 'woocommerce-all-products-for-subscriptions' ),
+				'desc'        => __( 'Optional text/html to display above the available purchase plan options in product pages. Supports html and shortcodes.', 'woocommerce-all-products-for-subscriptions' ),
+				'desc_tip'    => true,
+				'id'          => 'wcsatt_subscribe_to_cart_prompt',
+				'type'        => 'textarea',
+				'placeholder' => __( 'e.g. "Choose a purchase plan:"', 'woocommerce-all-products-for-subscriptions' ),
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'wcsatt_subscribe_to_cart_options'
+			),
+		);
 
 		if ( WCS_ATT()->is_module_registered( 'manage' ) ) {
 
@@ -341,15 +382,10 @@ class WCS_ATT_Admin {
 					'id'   => 'wcsatt_add_to_subscription_options'
 				)
 			) );
-
 		}
 
 		if ( ! empty( $settings_to_add ) ) {
-
-			// Insert before miscellaneous settings.
-			$misc_section_start = wp_list_filter( $settings, array( 'id' => 'woocommerce_subscriptions_miscellaneous', 'type' => 'title' ) );
-
-			array_splice( $settings, key( $misc_section_start ), 0, $settings_to_add );
+			$settings = array_merge( $settings_to_add, $settings );
 		}
 
 		return $settings;
@@ -371,23 +407,29 @@ class WCS_ATT_Admin {
 		$posted_schemes = stripslashes_deep( $posted_schemes );
 		$unique_schemes = array();
 
-		foreach ( $posted_schemes as $posted_scheme ) {
+		if ( ! empty( $posted_schemes ) && is_array( $posted_schemes ) ) {
 
-			/**
-			 * Allow third parties to add custom data to schemes.
-			 *
-			 * @since  3.1.0
-			 *
-			 * @param  array       $posted_scheme
-			 * @param  WC_Product  $product
-			 */
-			$posted_scheme = apply_filters( 'wcsatt_processed_cart_scheme_data', $posted_scheme );
+			// Clear onboarding "welcome" notice.
+		 	WCS_ATT_Admin_Notices::remove_maintenance_notice( 'welcome' );
 
-			// Construct scheme id.
-			$scheme_id = $posted_scheme[ 'subscription_period_interval' ] . '_' . $posted_scheme[ 'subscription_period' ] . '_' . $posted_scheme[ 'subscription_length' ];
+			foreach ( $posted_schemes as $posted_scheme ) {
 
-			$unique_schemes[ $scheme_id ]         = $posted_scheme;
-			$unique_schemes[ $scheme_id ][ 'id' ] = $scheme_id;
+				/**
+				 * Allow third parties to add custom data to schemes.
+				 *
+				 * @since  3.1.0
+				 *
+				 * @param  array       $posted_scheme
+				 * @param  WC_Product  $product
+				 */
+				$posted_scheme = apply_filters( 'wcsatt_processed_cart_scheme_data', $posted_scheme );
+
+				// Construct scheme id.
+				$scheme_id = $posted_scheme[ 'subscription_period_interval' ] . '_' . $posted_scheme[ 'subscription_period' ] . '_' . $posted_scheme[ 'subscription_length' ];
+
+				$unique_schemes[ $scheme_id ]         = $posted_scheme;
+				$unique_schemes[ $scheme_id ][ 'id' ] = $scheme_id;
+			}
 		}
 
 		update_option( 'wcsatt_subscribe_to_cart_schemes', $unique_schemes );

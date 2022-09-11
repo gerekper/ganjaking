@@ -3,7 +3,7 @@
  * Coupon Email Content
  *
  * @author      StoreApps
- * @version     1.4.0
+ * @version     1.5.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -90,6 +90,8 @@ if ( 'custom-design' !== $design ) {
 
 $coupon = new WC_Coupon( $coupon_code );
 
+$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null; // phpcs:ignore
+
 if ( $woocommerce_smart_coupon->is_wc_gte_30() ) {
 	if ( ! is_object( $coupon ) || ! is_callable( array( $coupon, 'get_id' ) ) ) {
 		return;
@@ -98,17 +100,17 @@ if ( $woocommerce_smart_coupon->is_wc_gte_30() ) {
 	if ( empty( $coupon_id ) ) {
 		return;
 	}
-	$coupon_amount    = $coupon->get_amount();
 	$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
 	$expiry_date      = $coupon->get_date_expires();
 	$coupon_code      = $coupon->get_code();
 } else {
 	$coupon_id        = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
-	$coupon_amount    = ( ! empty( $coupon->amount ) ) ? $coupon->amount : 0;
 	$is_free_shipping = ( ! empty( $coupon->free_shipping ) ) ? $coupon->free_shipping : '';
 	$expiry_date      = ( ! empty( $coupon->expiry_date ) ) ? $coupon->expiry_date : '';
 	$coupon_code      = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 }
+
+$coupon_amount = $woocommerce_smart_coupon->get_amount( $coupon, true, $order );
 
 $coupon_post = get_post( $coupon_id );
 

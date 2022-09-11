@@ -74,6 +74,29 @@ class EVO_RSVP_CPT{
 		return $st;
 	}
 
+	// attachments
+	function get_attachments($type = 'path'){
+		$attachments = array();
+
+		for($x=1; $x<= EVORS()->frontend->addFields; $x++){
+
+			if( !EVO()->cal->check_yn('evors_addf'.$x,'evcal_rs') ) continue;
+			if( !$this->get_prop('evors_addf'.$x.'_1') ) continue;
+
+			if( EVO()->cal->get_prop('evors_addf'.$x.'_2','evcal_rs') != 'file' ) continue;
+
+			$media_id = $this->get_prop('evors_addf'.$x.'_1');
+
+			$path = get_attached_file( $media_id);
+			if(!$path) continue;
+
+			$attachments[] = $path;
+
+		}
+
+		return $attachments;
+	}
+
 	// return the rsvp type , normal/invitee/waitlist
 	function get_rsvp_type(){
 		$T = $this->get_prop('rsvp_type');

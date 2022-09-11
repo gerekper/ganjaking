@@ -84,6 +84,13 @@ jQuery(document).ready(function($){
 			// hide the events list
 			events_list_display(calObj);			
 		});	
+
+	// Search
+		$(".eventmap .evo_search_bar_in input").evo_enterKey(function (){
+			var this_cal_id = $(this).closest('.eventmap').attr('id');					
+			run_redo_map_upon_AJAX(this_cal_id);
+		});
+
 		
 	// MONTH JUMPER
 		$('.ajde_evcal_calendar.eventmap').on('click','.evo_j_container a',function(){
@@ -244,7 +251,7 @@ jQuery(document).ready(function($){
 									}			
 
 
-								var infobox_content = "<div class='evoIW'><div class='evoIWl'><p>"+ V.events.length +"</p><span>"+ MAPDATA.txt  +"</span></div><div class='evoIWr'>"+location_nameX+ V.address+'</div><div class="clear"></div></div>';
+								var infobox_content = "<div class='evoIW'><div class='evoIWl'><p>"+ V.events.length +"</p><span>"+ MAPDATA.txt  +"</span></div><div class='evoIWr'>"+location_nameX+ ( V.address !== undefined? V.address:'') +'</div><div class="clear"></div></div>';
 														
 								// info window listener
 									google.maps.event.addListener(marker, 'click', function() {

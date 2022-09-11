@@ -38,6 +38,24 @@ class WC_Store_Credit_Product extends WC_Product_Simple {
 	}
 
 	/**
+	 * Gets whether the product can be purchased.
+	 *
+	 * @since 4.2.2
+	 *
+	 * @return bool
+	 */
+	public function is_in_stock() {
+		$in_stock = parent::is_in_stock();
+
+		// The credit amount is always zero in this case.
+		if ( $in_stock && 0 >= $this->get_credit_amount() && ! $this->allow_custom_amount() ) {
+			$in_stock = false;
+		}
+
+		return $in_stock;
+	}
+
+	/**
 	 * Gets the Store Credit amount.
 	 *
 	 * @since 4.0.0

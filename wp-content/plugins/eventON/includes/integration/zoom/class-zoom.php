@@ -381,8 +381,8 @@ class EVO_Zoom_Int{
 	// EventON Settings
 	function settings($A){
 		$B = array(
-			array('id'=>'evcal_s','type'=>'subheader','name'=>__('Zoom','eventon')),
-			array('id'=>'_evo_zoom','type'=>'yesno','name'=>__('Enable Zoom API','eventon'),'afterstatement'=>'_evo_zoom', 'legend'=>'This will allow you to add a paypal direct link to each event that will allow visitors to pay for event via paypal.'),
+			array('type'=>'sub_section_open','name'=>__('Zoom','eventon')),
+			array('id'=>'_evo_zoom','type'=>'yesno','name'=>__('Enable Zoom API','eventon'),'afterstatement'=>'_evo_zoom', 'legend'=>'This will allow you to integrate zoom direct into each event using the API information from zoom.'),
 			array('id'=>'_evo_zoom','type'=>'begin_afterstatement'),
 
 			array('id'=>'_evo_zoom_key','type'=>'text',
@@ -399,6 +399,7 @@ class EVO_Zoom_Int{
 			),			
 						
 			array('id'=>'_evo_zoom','type'=>'end_afterstatement'),
+			array('type'=>'sub_section_close'),
 		);
 
 		return array_merge($A, $B);

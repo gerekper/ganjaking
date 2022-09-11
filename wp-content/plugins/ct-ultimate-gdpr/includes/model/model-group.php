@@ -286,7 +286,7 @@ class CT_Ultimate_GDPR_Model_Group {
 	/**
 	 * @return string
 	 */
-	public function is_level_checked_active($level, $id) {
+	public static function is_level_checked_active($level, $id) {
 
 		$arr = [];
 		$level_id = self::$level_id;

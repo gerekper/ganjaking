@@ -1,0 +1,35 @@
+.column-language {
+	width: 48px;
+	text-align: center;
+}
+
+.wp-list-table .order_language::after {
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	top: -3px;
+	left: 0;
+	line-height: 1;
+}
+
+.wp-list-table .order_language {
+	display: block;
+	text-indent: -9999px;
+	position: relative;
+	height: 1em;
+	width: 1em;
+	margin: 0 auto;
+}
+
+.wp-list-table .order_language::after {
+	text-indent: 0;
+	position: absolute;
+	font-family: 'dashicons';
+	content: "\f326";
+	font-size: 1.25em;
+}
+
+@media only screen and (max-width:782px){
+	.post-type-shop_order .column-language {
+		text-align: inherit;
+	}
+}

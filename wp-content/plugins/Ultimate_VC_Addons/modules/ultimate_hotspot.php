@@ -6,13 +6,13 @@
  *  @package Ultimate Hotspot
  */
 
-if ( ! class_exists( 'ULT_HotSpot' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_HotSpot' ) ) {
 	/**
 	 * Function that initializes Ultimate Hotspot Module
 	 *
-	 * @class ULT_HotSpot
+	 * @class Ultimate_VC_Addons_HotSpot
 	 */
-	class ULT_HotSpot {
+	class Ultimate_VC_Addons_HotSpot {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Hotspot module.
 		 *
@@ -70,8 +70,8 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook || 'edit.php' == $hook ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_register_script( 'hotspt-admin-js', UAVC_URL . 'admin/vc_extend/js/admin_enqueue_js.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), ULTIMATE_VERSION, true );
-					wp_enqueue_script( 'hotspt-admin-js' );
+					wp_register_script( 'ultimate-vc-addons-hotspt-admin-js', UAVC_URL . 'admin/vc_extend/js/admin_enqueue_js.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), ULTIMATE_VERSION, true );
+					wp_enqueue_script( 'ultimate-vc-addons-hotspt-admin-js' );
 				}
 			}
 		}
@@ -84,7 +84,7 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 		 */
 		public function ult_hotspot_callback( $atts, $content = null ) {
 
-			global $tooltip_continuous_animation;
+			global $uavc_tooltip_continuous_animation;
 
 				$ult_hots_setting = shortcode_atts(
 					array(
@@ -116,7 +116,7 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 			$output  = "<div class='ult_hotspot_container " . esc_attr( $is_vc_49_plus ) . ' ult-hotspot-tooltip-wrapper ' . esc_attr( $ult_hots_setting['el_class'] ) . "' style=" . esc_attr( $cust_size ) . '>';
 			$output .= "  <img class='ult_hotspot_image' src=" . esc_url( apply_filters( 'ultimate_images', $mnimg ) ) . " alt='" . esc_attr( $alt ) . "'/>";
 			$output .= "     <div class='utl-hotspot-items ult-hotspot-item'>" . do_shortcode( $content ) . '</div>';
-			$output .= "     <div style='color:#000;' data-image='" . esc_attr( $GLOBALS['hotspot_icon'] ) . ' ' . esc_attr( $GLOBALS['hotspot_icon_bg_color'] ) . ' ' . esc_attr( $GLOBALS['hotspot_icon_color'] ) . ' ' . esc_attr( $GLOBALS['hotspot_icon_size'] ) . ' ' . esc_attr( $GLOBALS['tooltip_continuous_animation'] ) . "'></div>";
+			$output .= "     <div style='color:#000;' data-image='" . esc_attr( $GLOBALS['uavc_hotspot_icon'] ) . ' ' . esc_attr( $GLOBALS['uavc_hotspot_icon_bg_color'] ) . ' ' . esc_attr( $GLOBALS['uavc_hotspot_icon_color'] ) . ' ' . esc_attr( $GLOBALS['uavc_hotspot_icon_size'] ) . ' ' . esc_attr( $GLOBALS['uavc_tooltip_continuous_animation'] ) . "'></div>";
 			$output .= '</div>';
 			return $output;
 		}
@@ -128,7 +128,7 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 		 * @method ult_hotspot_items_callback
 		 */
 		public function ult_hotspot_items_callback( $atts, $content = null ) {
-			global $hotspot_icon, $hotspot_icon_bg_color, $hotspot_icon_color, $hotspot_icon_size;
+			global $uavc_hotspot_icon, $uavc_hotspot_icon_bg_color, $uavc_hotspot_icon_color, $uavc_hotspot_icon_size;
 
 				$ult_hots_settings = shortcode_atts(
 					array(
@@ -397,7 +397,6 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 					)
 				);
 
-				global $ultimate_hostspot_image;
 				vc_map(
 					array(
 						'name'            => __( 'Hotspot Item', 'ultimate_vc' ),
@@ -917,17 +916,17 @@ if ( ! class_exists( 'ULT_HotSpot' ) ) {
 			}
 			// css.
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult_hotspot_css', 'hotspot' );
-			Ultimate_VC_Addons::ultimate_register_style( 'ult_hotspot_tooltipster_css', 'hotspot-tooltipster' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_hotspot_css', 'hotspot' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_hotspot_tooltipster_css', 'hotspot-tooltipster' );
 
 			// js.
-			Ultimate_VC_Addons::ultimate_register_script( 'ult_hotspot_js', 'hotspot', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_hotspot_js', 'hotspot', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ult_hotspot_tooltipster_js', 'hotspot-tooltipster', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_hotspot_tooltipster_js', 'hotspot-tooltipster', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 	}
 
-	new ULT_HotSpot();
+	new Ultimate_VC_Addons_HotSpot();
 
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ult_Hotspot' ) ) {
 		/**

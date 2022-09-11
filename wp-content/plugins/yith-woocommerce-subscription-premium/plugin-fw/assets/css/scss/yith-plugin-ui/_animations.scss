@@ -1,0 +1,92 @@
+/**
+ * YITH Animations
+ */
+
+.yith-plugin-fw-animate__appear-from-bottom{
+  animation: yith-plugin-fw-appear-from-bottom .3s forwards;
+}
+
+.yith-plugin-fw-animate__appear-from-top{
+  animation: yith-plugin-fw-appear-from-top .3s forwards;
+}
+
+.yith-plugin-fw-animate__fade-in{
+  animation: yith-plugin-fw-fade-in .3s forwards;
+}
+
+
+@-webkit-keyframes yith-plugin-fw-appear-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-30%);
+    -webkit-transform: translateY(-30%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes yith-plugin-fw-appear-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-30%);
+    -webkit-transform: translateY(-30%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes yith-plugin-fw-appear-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(+30%);
+    -webkit-transform: translateY(+30%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes yith-plugin-fw-appear-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(+30%);
+    -webkit-transform: translateY(+30%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes yith-plugin-fw-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes yith-plugin-fw-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

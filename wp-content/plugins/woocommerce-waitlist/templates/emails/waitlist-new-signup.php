@@ -21,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $admin_email ); ?>
+do_action( 'woocommerce_email_header', $email_heading, $admin_email );
+?>
 
 <p><?php printf( __( '%1$s has just signed up to the waitlist for %2$s', 'woocommerce-waitlist' ), $user_email, $product_title ); ?></p>
 <p><?php printf( __( 'There are now %d customers on this waitlist.', 'woocommerce-waitlist' ), $count ); ?></p>

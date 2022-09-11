@@ -17,11 +17,14 @@ class EVOST_Seat_Map_Editor{
 			'evost_delete_item'=>'delete_item',
 			'evost_editor_save_changes'=>'editor_save_changes',
 			'evost_duplicate_section'=>'duplicate_section',
+			'evost_get_seat_map_data'=>'get_seat_map_data',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {				
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
+
+		$this->help = new evo_helper();
 	}
 
 // AJAX RETURNS
@@ -40,14 +43,38 @@ class EVOST_Seat_Map_Editor{
 			'template'=> EVO()->temp->get('evost_seat_map'),
 			'attendees'=> array('tickets'=>$json, 'od_gc'=>$EA->_user_can_check() ),
 			'temp_attendees'=> EVO()->temp->get('evotx_view_attendees'),
-			'status'=>'good'
+			'status'=>'good',
+			'd'=> $SEATS->seats_data
 		)); exit;
 	}
 
+	public function get_seat_map_data(){
+		$event_id = $_POST['j']['event_id'];
+		$wcid = $_POST['j']['wcid'];
+		
+		$SEATS = new EVOST_Seats_Json($event_id, $wcid, '', 
+			(isset($_POST['cid'])? $_POST['cid']:''), 
+			(isset($_POST['cid2'])? $_POST['cid2']:'')
+		);
+
+		$EA = new EVOTX_Attendees();
+		$json = $EA->get_tickets_for_event($event_id);
+
+		echo json_encode(array(
+			'j'=> $SEATS->__j_get_all_sections(),
+			'attendees'=> array('tickets'=>$json, 'od_gc'=>$EA->_user_can_check() ),
+			'temp_attendees'=> EVO()->temp->get('evotx_view_attendees'),
+		));exit;
+	}
+
+
 	// get lightbox forms
 	function editor_forms(){
-		$method = $_POST['method'];
-		$data = $_POST['data'];
+
+		$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
+
+		$method = $post_data['method'];
+		$data = $post_data['data'];
 		$type = $data['item_type'];
 		$event_id = $this->event_id = $data['event_id'];
 		$wcid = $this->wcid = $data['wcid'];
@@ -106,9 +133,11 @@ class EVOST_Seat_Map_Editor{
 
 	// duplicate
 		function duplicate_section(){
-			$section_id = $_POST['data']['section_id'];
+			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
 
-			$SEATS = new EVOST_Seats_Json($_POST['data']['event_id'], $_POST['data']['wcid']);
+			$section_id = $post_data['data']['section_id'];
+
+			$SEATS = new EVOST_Seats_Json($post_data['data']['event_id'], $post_data['data']['wcid']);
 			$SEATS->set_section( $section_id );
 
 			$item_data = $SEATS->item_data;
@@ -137,7 +166,8 @@ class EVOST_Seat_Map_Editor{
 						if(in_array($seat_id, array('row_id','row_index', 'row_price'))) continue;
 
 						// make all tuav and uva seats available in duplicated section
-						if($item_data['rows'][$row_id][$seat_id]['status'] == 'tuav' || $item_data['rows'][$row_id][$seat_id]['status'] == 'uav'){
+						if($item_data['rows'][$row_id][$seat_id]['status'] == 'tuav' 
+							|| $item_data['rows'][$row_id][$seat_id]['status'] == 'uav'){
 							$item_data['rows'][$row_id][$seat_id]['status'] = 'av';
 						}
 
@@ -146,6 +176,11 @@ class EVOST_Seat_Map_Editor{
 						$s++;				
 					}
 				}
+			}
+
+			// for una seating - unassigned seating
+			if( $item_data['type'] == 'una'){
+				$item_data['sold'] = 0;
 			}
 			
 
@@ -158,7 +193,8 @@ class EVOST_Seat_Map_Editor{
 			));exit;
 		}
 
-// SAVE
+// Save
+	// save section, seat, settings edit form
 	function save_editor_forms(){
 		$formdata = $_POST['formdata'];
 		
@@ -183,39 +219,48 @@ class EVOST_Seat_Map_Editor{
 			}
 
 		// saving seat map data
-		if( $formdata['item_type'] != 'settings'){
-			$SEATS = new EVOST_Seats($formdata['event_id']);
+			if( $formdata['item_type'] != 'settings'){
+				$SEATS = new EVOST_Seats($formdata['event_id'], isset($formdata['wcid'])? $formdata['wcid']:'');
 
-			$this->SEATS = $this->set_up_seats_obj($formdata);
-			switch($formdata['item_type']){
-				case 'section':
-					// adding new section
-					if($formdata['method'] == 'new'){
+				$this->SEATS = $this->set_up_seats_obj($formdata);
+
+				do_action('evost_save_editor_form_beforesave', $SEATS, $formdata);
+
+				switch($formdata['item_type']){
+					case 'section':
+						// adding new section
+						if($formdata['method'] == 'new'){
+							$this->save_item($formdata);
+						}else{
+							$this->SEATS->set_section( $formdata['section_id'] );
+							$this->save_item($formdata);
+						}				
+					break;
+					case 'row':
+						$this->SEATS->set_row( $formdata['row_id'], $formdata['section_id'] );
 						$this->save_item($formdata);
-					}else{
-						$this->SEATS->set_section( $formdata['section_id'] );
+					break;
+					case 'seat':
+						$this->SEATS->set_seat( $formdata['seat_id'], $formdata['row_id'], $formdata['section_id'] );
 						$this->save_item($formdata);
-					}				
-				break;
-				case 'row':
-					$this->SEATS->set_row( $formdata['row_id'], $formdata['section_id'] );
-					$this->save_item($formdata);
-				break;
-				case 'seat':
-					$this->SEATS->set_seat( $formdata['seat_id'], $formdata['row_id'], $formdata['section_id'] );
-					$this->save_item($formdata);
-				break;
+					break;
+				}
+
+				// update woocommerce product stock
+				$SEATS->update_wc_block_stock();
+
+				do_action('evost_save_editor_form_aftersave', $SEATS, $formdata);
+
+				echo json_encode(array(
+					'db'=>$formdata,
+					'status'=>'good',
+					'msg'=>'Successfully Updated!',
+					'j'=> $this->SEATS->__j_get_all_sections(),
+				));exit;
 			}
-			echo json_encode(array(
-				'db'=>$formdata,
-				'status'=>'good',
-				'msg'=>'Successfully Updated!',
-				'j'=> $this->SEATS->__j_get_all_sections(),
-			));exit;
-		}
 	}
 
-	// general save changes
+	// general save changes -- when full seat map is saved
 		function editor_save_changes(){
 			if(!isset($_POST['s'])){ echo json_encode(array(
 					'status'=>'bad',
@@ -227,7 +272,10 @@ class EVOST_Seat_Map_Editor{
 			$s = $_POST['s'];
 			//print_r($s);
 
-			$SEATS = new EVOST_Seats($_POST['data']['event_id']);
+			$wcid = isset($_POST['data']['wcid'])? (int)$_POST['data']['wcid']: '';
+			$event_id = isset($_POST['data']['event_id'])? (int)$_POST['data']['event_id']: '';
+
+			$SEATS = new EVOST_Seats($event_id, $wcid);
 
 			foreach($s as $section_id=>$section){
 				$SEATS->set_section( $section_id );
@@ -244,6 +292,12 @@ class EVOST_Seat_Map_Editor{
 				//print_r($item_data);
 				$SEATS->save_item_data($item_data);
 			}
+
+			// update the total seats to wc product
+			$SEATS->update_wc_block_stock();
+
+			do_action('evost_save_map_editor_aftersave', $SEATS);
+
 			echo json_encode(array(
 				'status'=>'good',
 				'msg'=>'Successfully Saved!',
@@ -289,6 +343,8 @@ class EVOST_Seat_Map_Editor{
 			'wcid'=>$wcid
 		));
 
+		do_action('evost_mapeditor_before', $EVO_Seats);
+
 		?>
 		<div class="evosteditor_header" data-j='<?php echo $j;?>' >
 			<a class='ajde_popup_trig evost_load_lightbox' data-popc='evost_lightbox_secondary' style='display:none'></a>
@@ -332,6 +388,7 @@ class EVOST_Seat_Map_Editor{
 		</div>
 		<div class="evosteditor_footer">
 			<a class='evo_admin_btn btn_prime evost_save_seating_changes' data-product_id='<?php echo $wcid;?>' data-eid='<?php echo $event_id;?>'><?php _e('Save Changes','eventon');?></a>
+			<span class='evosteditor_btn_msg' style='padding-left: 10px;'>Need Saved!</span>
 		</div>
 		<div id='evost_tip' style='display:none'>testing</div>
 	
@@ -345,6 +402,7 @@ class EVOST_Seat_Map_Editor{
 
 		$EVO_Seats = $this->SEATS = new EVOST_Seats($this->event_id, $this->wcid);
 		$EVO_Seats->load_seatmap_settings();
+		
 		if(!empty($data)) extract($data);
 		//$EVO_Seats->event->del_prop('_evost_sections');
 		
@@ -375,13 +433,13 @@ class EVOST_Seat_Map_Editor{
 							'type'	=>'text',
 							'label'=>__('Section Index','evost'),
 							'req'=> false,
-							'desc'=> __('Reabable number or letter unique to this section','evost'),
+							'desc'=> __('Readable number or letter unique to this section','evost'),
 							'val'=>	(!empty($data['section_index']))? $data['section_index']:''
 						),
 					'endif0'=>array(	'type'=>'endif'	),
 					'section_name'=>array(
 						'type'	=>'text',
-						'label'=>__('Title','evost'),
+						'label'=>__('Section Name','evost'),
 						'req'=> true,
 						'val'=>	(!empty($data['section_name']))? $data['section_name']:''
 					),'type'=>array(
@@ -618,6 +676,11 @@ class EVOST_Seat_Map_Editor{
 						'req'=> true,
 						'val'=>$EVO_Seats->get_seatmap_settings_prop('seat_size')
 					),
+					/*'custom_code_1'=>array(
+						'type'	=>'custom_code_1',
+						'label'=>__('Override all seat prices','evost'),
+						'req'=> false, 'val'=>	'',	
+					),*/
 					'tooltip'=>array(
 						'type'	=>'yesno',
 						'label'=>__('Show static seat details box above map, on seat hover','evost'),
@@ -652,21 +715,25 @@ class EVOST_Seat_Map_Editor{
 				$desc = isset($data['desc'])? "<span class='desc'>". $desc ."</span>":'';
 
 				switch($type){
+					case 'custom_code_1':
+						?>
+						<input name='evost_global_price' type="hidden" value=''>
+						<?php
+					break;
 					case 'if':
 						?><div class='evost_form_if_start' name='<?php echo $name;?>' data-val='<?php echo json_encode($val);?>'><?php
-					break;case 'endif':
-						?></div><?php
 					break;
+					case 'endif':	?></div><?php break;
 					case 'attendee':
 						if(!empty($data)):
 						?>
 						<div style='background-color: #f3f3f3; margin: 10px 0 40px;padding: 20px;'>
-							<p><b>Attendee for the seat</b></p>	
-							<p>Seat Check-in Status: <?php echo $data['s'];?></p>		
-							<p>Name: <?php echo $data['n'];?> (<?php echo $data['e'];?>)</p>		
-							<p>Order ID: <a href='<?php echo get_edit_post_link($data['o']);?>' class='evo_admin_btn' target='_blank'><?php echo $data['o'];?></a> on <?php echo $data['d'];?></p>		
-							<p>Order Status: <?php echo $data['oS'];?></p>		
-							<p>Payment Method: <?php echo $data['payment_method'];?></p>		
+							<p><b><?php _e('Attendee for the seat','evost');?></b></p>	
+							<p><?php _e('Seat Check-in Status','evost');?>: <?php echo $data['s'];?></p>		
+							<p><?php _e('Name','evost');?>: <?php echo $data['n'];?> (<?php echo $data['e'];?>)</p>		
+							<p><?php _e('Order ID','evost');?>: <a href='<?php echo get_edit_post_link($data['o']);?>' class='evo_admin_btn' target='_blank'><?php echo $data['o'];?></a> on <?php echo $data['d'];?></p>		
+							<p><?php _e('Order Status','evost');?>: <?php echo $data['oS'];?></p>		
+							<p><?php _e('Payment Method','evost');?>: <?php echo $data['payment_method'];?></p>		
 						</div>
 						<?php //print_r($data); ?>		
 						<?php
@@ -722,18 +789,19 @@ class EVOST_Seat_Map_Editor{
 						<?php
 					break;
 					case 'number':
-						?>
-						<p class='number_change'>
-							<label><?php echo $label;?> <?php echo $req?'*':'';?></label>
-							<input class='<?php echo $req?'req':'';?>' name='<?php echo $key;?>' type="hidden" value='<?php echo !empty($value)? $value:'1'?>'>
-							<?php echo $desc;?>
-							<span>
-								<em class='minus evost_form_number_change'>-</em>
-								<i><?php echo !empty($value)? $value:'1'?></i>
-								<em class='plus evost_form_number_change'>+</em>
-							</span>
-						</p>
-						<?php
+
+						echo EVO()->elements->get_element(
+							array(
+								'type'=>	'plusminus',
+								'name'=> 	$label. ($req?'*':''),
+								'id'=>		$key,
+								'class_2'=> ($req?'req':''),
+								'value'=> 	!empty($value)? $value:'1',								
+								'row_class'=>'number_change',	
+								'field_after_content'=> $desc	
+							)
+						);
+
 					break;
 					case 'icon':
 
@@ -788,9 +856,9 @@ class EVOST_Seat_Map_Editor{
 						$color = !empty($value)? str_replace('#', '', $value): '';
 						?>
 						<p class='color_select'>
-							<em class='evost_color_picker' style='background-color:#<?php echo $color;?>'></em>
+							<em class='evost_color_pickerx colorselector' style='background-color:#<?php echo $color;?>' hex='#<?php echo $color;?>'></em>
 							<label><?php echo $label;?> <?php echo $req?'*':'';?></label>						
-							<input type="hidden" name='<?php echo $key;?>' value='<?php echo $color?>'>
+							<input class='evocolorp_val' type="hidden" name='<?php echo $key;?>' value='<?php echo $color?>'>
 						</p>
 						<?php
 					break;

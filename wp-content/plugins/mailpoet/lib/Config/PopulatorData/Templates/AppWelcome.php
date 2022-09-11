@@ -19,7 +19,7 @@ class AppWelcome {
 
   public function get() {
     return [
-      'name' => WPFunctions::get()->__("App Welcome", 'mailpoet'),
+      'name' => __("App Welcome", 'mailpoet'),
       'categories' => json_encode(['welcome', 'all']),
       'readonly' => 1,
       'thumbnail' => $this->getThumbnail(),
@@ -319,7 +319,7 @@ class AppWelcome {
                                 <p style="text-align: center; font-size: 12px;"><span>Address Line 1</span></p>
                                 <p style="text-align: center; font-size: 12px;"><span>Address Line 2</span></p>
                                 <p style="text-align: center; font-size: 12px;"><span>City</span></p>
-                                <p style="text-align: center; font-size: 12px;"><a href="[link:subscription_unsubscribe_url]">'.WPFunctions::get()->__("Unsubscribe", 'mailpoet').'</a><span> | </span><a href="[link:subscription_manage_url]">'.WPFunctions::get()->__("Manage your subscription", 'mailpoet').'</a></p>',
+                                <p style="text-align: center; font-size: 12px;"><a href="[link:subscription_unsubscribe_url]">'.__("Unsubscribe", 'mailpoet').'</a><span> | </span><a href="[link:subscription_manage_url]">'.__("Manage your subscription", 'mailpoet').'</a></p>',
                   ],
                   [
                     'type' => 'social',

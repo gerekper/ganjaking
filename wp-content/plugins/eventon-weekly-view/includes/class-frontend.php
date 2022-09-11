@@ -23,11 +23,13 @@ class EVOWV_frontend{
 		add_action('evo_addon_styles', array($this, 'styles') );
 
 		add_action('evo_calendar_defaults', array($this, 'calendar_def'), 10, 3);
+		add_action('eventon_events_list_classnames', array($this, 'event_list_classnames'), 10, 2);
 
+		add_action('eventon_below_sorts', array($this, 'add_wv_loading'), 10, 2);
 		add_action('evo_ajax_cal_before', array($this, 'evo_init_ajax_before'), 10, 1);
 		add_filter('evo_global_data', array($this, 'global_data'), 10, 1);
 		add_filter('evo_init_ajax_data', array($this, 'init_ajax_data'), 10, 2);	
-		add_action('evo_cal_view_switcher_end', array($this, 'view_switcher'),10,1);
+		add_action('evo_view_switcher_items', array($this, 'view_switcher'),12,2);
 
 		$this->current_time = EVO()->calendar->current_time;
 		$this->time_format = get_option('time_format');
@@ -68,6 +70,16 @@ class EVOWV_frontend{
 			$this->remove_only_wv_actions('new');
 			remove_filter('eventon_shortcode_defaults', array(EVOWV()->shortcodes,'add_shortcode_defaults'));
 			return $O;	
+		}
+
+	// calendar class names
+		public function event_list_classnames($A, $args){
+			if($args['calendar_type'] != 'weekly') return $A;		
+			if(isset($args['week_style']) && $args['week_style'] == '1'){
+				$A[] = 'evo_hide';
+			}
+
+			return $A;		
 		}
 
 	// ALL Calendar Def additions
@@ -127,7 +139,7 @@ class EVOWV_frontend{
 			?>{{#each days}}
 					<div class='evo_wv_day {{today}}{{#ifNEQ newmo "no"}} newmo{{/ifNEQ}}' data-su='{{SU}}'>
 						<div class='evowv_daybox'>
-							{{#ifNEQ newmo "no"}}<span class='mo_name'>{{GetDMnames newmo "m3"}}</span>{{/ifNEQ}}
+							{{#ifNEQ newmo "no"}}<span class='mo_name'><em>{{GetDMnames newmo "m3"}}</em></span>{{/ifNEQ}}
 							<span class='day_name'>{{GetDMnames DN "d3"}}</span>
 							<span class='day_num'>{{D}}</span>
 							<span class='day_events'></span>
@@ -137,14 +149,26 @@ class EVOWV_frontend{
 						{{/ifEQ}}
 					</div>
 					
-				{{/each}}
-				<div class='clear'></div>						
+				{{/each}}						
 			<?php
 			$A['temp']['evowv_week'] = ob_get_clean();
 
 			$A['txt']['this_week'] = evo_lang('This Week');
 			}
 			return $A;
+		}
+
+	// loading weeks animation inclusion
+		function add_wv_loading($content, $args){
+
+			if($args['calendar_type'] != 'weekly') return;
+
+			?>
+			<div class='evo_ajax_load_events evowv_pre_loader'>
+				<span class='d'></span>
+				<span class='w'></span>
+			</div>
+			<?php
 		}
 
 	// SET week range unix values
@@ -189,8 +213,6 @@ class EVOWV_frontend{
 						$SC['week_incre'] = 0;
 					}					
 				}
-
-
 				
 				// general start of the week day num
 					$start_ow = $this->start_of_week; // sun = 0, mon = 1, sat = 6
@@ -222,11 +244,24 @@ class EVOWV_frontend{
 		}
 
 	// Other Additions
-		function view_switcher($A){
-			if($A['view_switcher'] == 'yes'){
+		function view_switcher($A, $args){
+			if($args['view_switcher'] == 'yes'){
 				EVOWV()->load_script = true;
-				echo "<span class='evo_vSW evowv ". ($A['calendar_type']=='weekly'?'focus':'')."'>Week</span>";
-			}
+				
+				$DATA = array();
+
+				$current_timestamp =  EVO()->calendar->current_time;
+				$DD = new DateTime( date('Y-n-d', $current_timestamp));
+				$DD->setTimezone( EVO()->calendar->timezone0 );	
+				
+				$DATA['sow'] = $this->start_of_week;	
+
+				$DATA['c'] = 'evoWV'; // calendar class to pass on
+
+				$A['evowv'] = array($DATA, 'weekly', evo_lang('Week'));
+			}			
+
+			return $A;
 		}
 	
 	// STYLES	

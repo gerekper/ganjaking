@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/evo-subscriber
- * @version     0.1
+ * @version     1.3.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -24,7 +24,7 @@ class evosb_subscriber_metaboxes{
 
 	// META BOX for subscriber cpt
 		function evosub_metabox_002(){
-			global $post, $eventon, $eventon_sb;
+			global $post;
 			$pmv = get_post_custom($post->ID);
 
 			// testing
@@ -37,7 +37,7 @@ class evosb_subscriber_metaboxes{
 				<div style='background-color:#fff; border-radius:8px;'>
 				<table width='100%' class='evo_metatable' cellspacing="" style='vertical-align:top' valign='top'>
 					<?php
-						foreach($eventon_sb->frontend->get_form_fields() as $field=>$value){
+						foreach(EVOSB()->frontend->get_form_fields() as $field=>$value){
 
 							if($field == 'subtitle'){
 								echo "<tr><td colspan='2' style='font-weight:bold'>{$value}</td></tr>";
@@ -54,10 +54,10 @@ class evosb_subscriber_metaboxes{
 							if($field == 'verified' || $field == 'status'){	
 
 								if($field=='verified')
-									$guide = $eventon->throw_guide(__('Whether email needed to be verified and if it was verified.','eventon'),'',false);
+									$guide = EVO()->throw_guide(__('Whether email needed to be verified and if it was verified.','eventon'),'',false);
 
 								if($field=='status')
-									$guide = $eventon->throw_guide(__('Subscription status, whether they are still subscribed or unsubscribed.','eventon'),'',false);
+									$guide = EVO()->throw_guide(__('Subscription status, whether they are still subscribed or unsubscribed.','eventon'),'',false);
 
 								echo "<tr><td>".$value.$guide."</td>
 									<td>". eventon_html_yesnobtn(array(
@@ -87,9 +87,7 @@ class evosb_subscriber_metaboxes{
 			if($post->post_type != 'evo-subscriber')
 				return;		
 
-			global $eventon_sb;
-
-			foreach($eventon_sb->frontend->get_form_fields() as $field=>$name){
+			foreach( EVOSB()->frontend->get_form_fields() as $field=>$name){
 
 				if($field=='subtitle') continue;
 

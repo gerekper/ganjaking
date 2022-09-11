@@ -442,23 +442,23 @@ msgstr ""
 "Utilizza %d nel Titolo per sostituire il numero delle recensioni del "
 "prodotto."
 
-#: includes/class-wc-tab-manager-search.php:286
+#: src/class-wc-tab-manager-search.php:286
 msgid "Include tab content in search results?"
 msgstr "Includere il contenuto della scheda nei risultati della ricerca?"
 
-#: includes/class-wc-tab-manager-search.php:315
+#: src/class-wc-tab-manager-search.php:315
 msgid "Any tab layout"
 msgstr "Qualsiasi modello di scheda"
 
-#: includes/class-wc-tab-manager-search.php:318
+#: src/class-wc-tab-manager-search.php:318
 msgid "Default layout"
 msgstr "Modello predefinito"
 
-#: includes/class-wc-tab-manager-search.php:321
+#: src/class-wc-tab-manager-search.php:321
 msgid "Custom layout"
 msgstr "Modello personalizzato"
 
-#: includes/class-wc-tab-manager-search.php:923
+#: src/class-wc-tab-manager-search.php:923
 msgid ""
 "Hey there, Tab Manager has a nifty new search feature. If you'd like to take "
 "advantage of this you'll need to update your products and tabs (you only "
@@ -468,7 +468,7 @@ msgstr ""
 "piacerebbe trarne vantaggio, è necessario aggiornare i prodotti e le schede "
 "(occorre fare questo solo una volta)."
 
-#: includes/class-wc-tab-manager-search.php:926
+#: src/class-wc-tab-manager-search.php:926
 msgid ""
 "It looks like you recently installed the Relevanssi plugin. If you'd like to "
 "use the new Tab Manager search feature with Relevanssi, you'll need to "
@@ -479,26 +479,26 @@ msgstr ""
 "Relevanssi, è necessario aggiornare i tuoi prodotti e le tue schede in modo "
 "tale che vengano indicizzate."
 
-#: includes/class-wc-tab-manager-search.php:933
+#: src/class-wc-tab-manager-search.php:933
 msgid "Go to the update page."
 msgstr "Vai alla pagina dell'aggiornamento."
 
-#: includes/class-wc-tab-manager-search.php:935
+#: src/class-wc-tab-manager-search.php:935
 msgid "OK, don't remind me again."
 msgstr "OK, non ricordarmelo di nuovo."
 
 #
 #
 #
-#: includes/class-wc-tab-manager-settings.php:88
+#: src/class-wc-tab-manager-settings.php:88
 msgid "Search Settings"
 msgstr "Impostazioni della ricerca"
 
-#: includes/class-wc-tab-manager-settings.php:96
+#: src/class-wc-tab-manager-settings.php:96
 msgid "Include product tab content in search"
 msgstr "Includi il contenuto della scheda del prodotto nella ricerca"
 
-#: includes/class-wc-tab-manager-settings.php:100
+#: src/class-wc-tab-manager-settings.php:100
 msgid ""
 "Enable to include custom tab content (and global tab content if enabled) in "
 "site search."
@@ -506,15 +506,15 @@ msgstr ""
 "Abilita per includere il contenuto delle schede personalizzate (e il "
 "contenuto delle schede globali, se abilitate) nella ricerca."
 
-#: includes/class-wc-tab-manager-settings.php:122
+#: src/class-wc-tab-manager-settings.php:122
 msgid "Update Products & Tabs"
 msgstr "Aggiorna prodotti e schede"
 
-#: includes/class-wc-tab-manager-settings.php:129
+#: src/class-wc-tab-manager-settings.php:129
 msgid "Update"
 msgstr "Aggiorna"
 
-#: includes/class-wc-tab-manager-settings.php:135
+#: src/class-wc-tab-manager-settings.php:135
 msgid ""
 "This update will allow your product tab content to show up in your site’s "
 "search results, making it easier for customers to find products whose tabs "
@@ -566,7 +566,7 @@ msgstr "Tab Manager"
 #
 #
 #
-#: includes/class-wc-tab-manager-settings.php:63
+#: src/class-wc-tab-manager-settings.php:63
 msgctxt "Custom WooCommerce settings section"
 msgid "Tab Manager"
 msgstr "Tab Manager"

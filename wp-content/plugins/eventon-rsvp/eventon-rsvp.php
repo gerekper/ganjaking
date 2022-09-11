@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/
  * Description: Allow visitors to RSVP to your event.
  *  Author: Ashan Jay
- * Version: 2.7.2
+ * Version: 2.7.6
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 5.0
- * Tested up to: 5.7
+ * Tested up to: 5.8.2
  *
  * Text Domain: evors
  * Domain Path: /lang/
@@ -15,8 +15,8 @@
 
 class EventON_rsvp{
 	
-	public $version='2.7.2';
-	public $eventon_version = '3.1.2';
+	public $version='2.7.6';
+	public $eventon_version = '4.0.2';
 	public $name = 'RSVP Events';
 			
 	public $addon_data = array();

@@ -145,11 +145,16 @@ if (!class_exists('A2W_AbstractAdminPage')) {
                 }
                 
                 /* bootstrap */
-                if (!wp_style_is('a2w-bootstrap-style', 'registered')) {
+                /*if (!wp_style_is('a2w-bootstrap-style', 'registered')) {
                     wp_register_style('a2w-bootstrap-style', A2W()->plugin_url() . '/assets/js/bootstrap/css/bootstrap.min.css', array(),  A2W()->version);
                 }
                 if (!wp_script_is('a2w-bootstrap-js', 'registered')) {
                     wp_register_script('a2w-bootstrap-js', A2W()->plugin_url() . '/assets/js/bootstrap/js/bootstrap.min.js', array('jquery'),  A2W()->version);
+                }*/
+
+                /* custom styles */
+                if (!wp_style_is('a2w-custom-style', 'registered')) {
+                    wp_register_style('a2w-custom-style', A2W()->plugin_url() . '/assets/css/custom.css', array(),  A2W()->version);
                 }
 
                 foreach($this->style_assets as $s){
@@ -216,6 +221,11 @@ if (!class_exists('A2W_AbstractAdminPage')) {
                 }
                 if (!wp_script_is('a2w-bootstrap-js', 'enqueued')) {
                     wp_enqueue_script('a2w-bootstrap-js');
+                }
+
+                /* custom */
+                if (!wp_style_is('a2w-custom-style', 'enqueued')) {
+                    wp_enqueue_style('a2w-custom-style');
                 }
 
                 foreach($this->style_assets as $style){

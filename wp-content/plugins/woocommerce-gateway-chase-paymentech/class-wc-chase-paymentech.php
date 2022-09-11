@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-chase-paymentech/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_3 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * Main plugin class.
@@ -36,7 +36,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '1.16.0';
+	const VERSION = '1.16.3';
 
 	/** @var WC_Chase_Paymentech single instance of this plugin */
 	protected static $instance;
@@ -110,21 +110,21 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 		parent::init_plugin();
 
 		// gateway class
-		require_once( $this->get_plugin_path() . '/includes/class-wc-gateway-chase-paymentech.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-gateway-chase-paymentech.php' );
 
 		// token handler
-		require_once( $this->get_plugin_path() . '/includes/class-wc-chase-paymentech-payment-tokens-handler.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-chase-paymentech-payment-tokens-handler.php' );
 
 		// certification handler
 		if ( $this->get_gateway()->is_certification_mode() ) {
 
-			require_once( $this->get_plugin_path() . '/includes/class-wc-chase-paymentech-certification-handler.php' );
+			require_once( $this->get_plugin_path() . '/src/class-wc-chase-paymentech-certification-handler.php' );
 
 			$this->certification_handler = new WC_Chase_Paymentech_Certification_Handler( $this->get_gateway() );
 		}
 
 		// response helper
-		require_once( $this->get_plugin_path() . '/includes/class-wc-chase-paymentech-response-message-helper.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-chase-paymentech-response-message-helper.php' );
 	}
 
 
@@ -194,7 +194,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	public function include_template_functions() {
 
-		require_once( $this->get_plugin_path() . '/includes/wc-gateway-chase-paymentech-template.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-gateway-chase-paymentech-template.php' );
 	}
 
 
@@ -270,7 +270,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 				$result = apply_filters( 'woocommerce_payment_successful_result', $result, $order_id );
 
-				if ( is_ajax() ) {
+				if ( wp_doing_ajax() ) {
 					echo '<!--WC_START-->' . json_encode( $result ) . '<!--WC_END-->';
 					exit;
 				} else {
@@ -365,7 +365,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Chase_Paymentech\Lifecycle( $this );
 	}
 

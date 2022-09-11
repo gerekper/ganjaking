@@ -7,7 +7,7 @@ class CDN
     public static function init() 
     {
         //add cdn rewrite to the buffer
-        if(!empty(apply_filters('perfmatters_cdn', !empty(Config::$options['cdn']['enable_cdn']))) && !empty(Config::$options['cdn']['cdn_url'])) {
+        if(!empty(Config::$options['cdn']['enable_cdn']) && !empty(Config::$options['cdn']['cdn_url'])) {
             add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CDN', 'rewrite'));
         }
     }
@@ -15,10 +15,15 @@ class CDN
     //rewrite urls in html
     public static function rewrite($html) 
     {
+        //filter check
+        if(!apply_filters('perfmatters_cdn', true)) {
+            return $html;
+        }
+
         //prep site url
         $siteURL  = '//' . ((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : parse_url(home_url(), PHP_URL_HOST));
         $escapedSiteURL = quotemeta($siteURL);
-        $regExURL = '(https?:|)' . substr($escapedSiteURL, strpos($escapedSiteURL, '//'));
+        $regExURL = 'https?:' . substr($escapedSiteURL, strpos($escapedSiteURL, '//'));
 
         //prep included directories
         $directories = 'wp\-content|wp\-includes';
@@ -29,8 +34,30 @@ class CDN
             }
         }
 
+        //prep included extensions
+        $extensions_array = apply_filters('perfmatters_cdn_extensions', array(
+            'avif',
+            'css',
+            'gif',
+            'jpeg',
+            'jpg',
+            'js',
+            'json',
+            'mp3',
+            'mp4',
+            'otf',
+            'pdf',
+            'png',
+            'svg',
+            'ttf',
+            'webp',
+            'woff',
+            'woff2'
+        ));
+        $extensions = implode('|', $extensions_array);
+
         //rewrite urls in html
-        $regEx = '#(?<=[(\"\']|&quot;)(?:' . $regExURL . ')?/(?:((?:' . $directories . ')[^\"\')]+)|([^/\"\']+\.[^/\"\')]+))(?=[\"\')]|&quot;)#';
+        $regEx = '#(?<=[(\"\']|&quot;)(?:' . $regExURL . ')?\/(?:(?:' . $directories . ')[^\"\')]+)\.(' . $extensions . ')[^\"\')]*(?=[\"\')]|&quot;)#';
 
         //base exclusions
         $exclusions = array('script-manager.js');

@@ -143,7 +143,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 			$children = array();
 			foreach ( $this->product->get_children() as $child_id ) {
 				if ( $this->has_wpml ) {
-					$child_id = $this->get_main_product_id( $child_id );
+					$child_id = Pie_WCWL_Frontend_Init::get_main_product_id( $child_id );
 				}
 				$child                 = wc_get_product( $child_id );
 				$child->waitlist       = $this->get_waitlist( $child );
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 			if ( email_exists( $email ) ) {
 				$this->user = get_user_by( 'email', $email );
 			} else {
-				$this->user = get_user_by( 'id', WooCommerce_Waitlist_Plugin::create_new_customer_from_email( $email ) );
+				$this->user = get_user_by( 'id', $this->product->waitlist->create_customer( $email ) );
 			}
 		}
 

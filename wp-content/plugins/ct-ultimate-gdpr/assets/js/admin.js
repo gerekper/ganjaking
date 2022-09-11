@@ -212,6 +212,23 @@ jQuery(document).ready(function ($) {
             }
         } );
     }
+
+     // COOKIE ACCORDION FUNCTION - INDIVIDUAL
+     if ( $( '.ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th' ).length ) {
+        var accHead = $( '.ct-ultimate-gdpr-wrap.ct-tab-3 .form-table.section-7 th' );
+        accHead.next().slideUp();
+        accHead.on( 'click', function() {
+            accHead.next().slideUp();
+            accHead.removeClass( 'ct-acc-active' );
+            $( this ).addClass( 'ct-acc-active' );
+            if ( $( this ).next().is( ':visible' ) ) {
+                $( this ).next().slideUp();
+            } else {
+                $( this ).next().slideDown();
+            }
+        } );
+    }
+
     //accordion services
     $( ".ultimate-gdpr_page_ct-ultimate-gdpr-services #accordion .card:nth-child(2) .card-header" ).addClass('active');
     $('.btn-link').on('click', function() {
@@ -409,5 +426,40 @@ jQuery(document).ready(function ($) {
          animateFill: false,
          animation: 'fade', // 'shift-toward', 'fade', 'scale', 'perspective'
       })
+
+
+    function toggleListOptions(enable = true){
+
+        var individualCookieSwitcher = $('#cookie_single_popup').siblings();
+        var switcher = $( individualCookieSwitcher[0] ).children();
+ 
+        if(switcher[2].innerHTML === 'Enabled') {
+            console.log("enabled");
+            $('.list-before-individual + div').css('display', 'none');
+            $('.list-before-group + div').css('display', 'block');
+        }
+        if(switcher[2].innerHTML === 'Disabled') {
+            console.log("disabled");
+            $('.list-before-individual + div').css('display', 'block');
+            $('.list-before-group + div').css('display', 'none');
+        }
+    }
+
+    function init(){
+        var $ = jQuery;
+        var enableSwitcher = $('#cookie_single_popup').parent();
+
+        toggleListOptions();
+        
+        enableSwitcher.on('click','.ct-ultimate-gdpr-checkbox-switch', function(){
+
+            if( enableSwitcher.find('input').attr('checked') === "checked") {
+                toggleListOptions()
+            }else{
+                toggleListOptions(false)
+            }
+        })
+    }
+    init()
 
 });

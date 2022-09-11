@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.2] - 2022-08-17
+### Fixed:
+- The check if `wp_mail` function is overwritten on Windows servers.
+
 ## [3.5.1] - 2022-07-14
 ### Changed:
 - Removed MailPoet from the list of conflicting plugins.

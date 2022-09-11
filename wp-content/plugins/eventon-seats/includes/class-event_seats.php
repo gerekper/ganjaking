@@ -14,7 +14,11 @@ class EVOST_Seats{
 	private $section_data = array();
 	public $item_type = '';
 
-	public function __construct($EVENT, $wcid='', $RI=0){
+	public $custom_id = false; // pass custom id to further separate data
+	public $custom_id2 = false; // pass custom id to further separate data
+	public $section_key = '_evost_sections';
+
+	public function __construct($EVENT, $wcid='', $RI=0, $cid='', $cid2=''){
 		if( is_numeric($EVENT)) $EVENT = new EVO_Event( $EVENT);
 
 		$this->event = $EVENT;
@@ -22,12 +26,32 @@ class EVOST_Seats{
 		if(!empty($wcid)) $this->wcid = $wcid;
 		$this->ri = $RI;
 
+		if(!empty($cid)) $this->custom_id = $cid;
+		if(!empty($cid2)) $this->custom_id2 = $cid2;
+
+		do_action('evost_construct', $this);
+
+		// set up section key
+		$this->load_section_key();
+
 		// set seats data
 		$this->set_seats_data();	
 	}
 
+	// load section key
+	public function load_section_key(){
+		$this->section_key = '_evost_sections'. 
+			( $this->custom_id ? '_'.$this->custom_id:''). 
+			( $this->custom_id2? '_'.$this->custom_id2:'');
+	}
+
+	// get seat section data
+	function _get_seat_data(){		
+		return apply_filters('evost_seat_data', $this->event->get_prop( $this->section_key ) , $this );
+	}
+
 	private function set_seats_data(){
-		$seats = $this->event->get_prop('_evost_sections');
+		$seats = $this->_get_seat_data();
 		if($seats && is_array($seats))	$this->seats_data = $seats;
 	}
 	function reload_seats_data(){
@@ -83,6 +107,55 @@ class EVOST_Seats{
 			$this->row = $row_id;
 			$this->seat = $id;
 		}
+
+	/// Seat STOCK
+		// return all the seats sold and unsold
+		public function get_total_seats_capacities($seat_status = 'all'){
+			$total = 0;
+
+			if( is_array($this->seats_data)){
+				foreach($this->seats_data as $section_id=>$section){
+
+					// skip aoi 
+					if( $section['type'] == 'aoi') continue;
+
+					// assign seating
+					if( isset($section['rows'])){
+						foreach( $section['rows'] as $rowid=>$row){
+							foreach($row as $seat_id=> $seat){
+								if( in_array( $seat_id, array('row_index', 'row_price'))) continue;
+
+								// skip other seat status types if status is speficied
+								if( $seat_status != 'all' && $seat_status != $seat['status']) continue;
+								$total ++;
+							}
+						}
+					// type una
+					}else{
+						if(isset($section['capacity'])){
+							$total += (int)$section['capacity'] - ( isset($section['sold']) ? $section['sold']:0);
+						} 
+					}
+					
+				}
+			}
+
+			return $total;
+		}
+
+	// Woocommerce update stock with available seats stock
+		function update_wc_block_stock($stock = false){
+			if( empty($this->wcid)) return false;
+			if( !$stock) $stock = $this->get_total_seats_capacities('av');
+
+			$WC_Product = wc_get_product( $this->wcid);
+
+			if($WC_Product){
+				$WC_Product->set_manage_stock(true);
+				$WC_Product->set_stock_quantity($stock);
+				$WC_Product->save();
+			}
+		}	
 
 	// Individual Seat functions
 		function adjust_stock($type){
@@ -443,6 +516,12 @@ class EVOST_Seats{
 
 					}
 				}
+
+				// for unassigned seating section
+				// reset sold count to 0 and make it available
+				if( $section['type'] == 'una' && $FF == 'status' && $VV == 'av'){
+					$sections[$section_id]['sold']=0;
+				}
 			}
 
 			$this->seats_data = $sections;
@@ -528,6 +607,7 @@ class EVOST_Seats{
 				</span>	
 			</div>
 			<div class='evost_view_control'>
+				<span class='fit'><?php evo_lang_e('Reset Map');?></span>
 				<span class='zoomin'>+</span>
 				<span class='zoomout'>-</span>
 				<?php /*<input type="range" class='zoom-range' step="0.05" min='0.3' max="6"/>

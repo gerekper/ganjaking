@@ -1,4 +1,10 @@
 *** WooCommerce PDF Invoice Changelog ***
+2022.08.16 - version 4.16.0
+ * Fix - Unsupported operand types: string + int
+ * Fix - Fix for defaults before settings saved
+ * New - Optionally send admin email when invoice is initially created.
+ * WC 6.8
+
 2022.05.31 - version 4.15.6
  * Add image for "paid in full"
  * Fix - Undefined variable $tax_display

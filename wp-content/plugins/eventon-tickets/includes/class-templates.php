@@ -1,7 +1,7 @@
 <?php
 /**
  * Handlebars templates
- * @version
+ * @version 2.0
  */
 
 class EVOTX_Temp{
@@ -17,7 +17,7 @@ class EVOTX_Temp{
 			<div class='eventedit_tix_attendee_list'>
 			{{#each tickets}}
 				<span class='evotxVA_ticket evotix_{{@key}} {{s}}' data-tn="{{@key}}">
-					<span class='evotxVA_tn'>{{@key}}</span>
+					<span class='evotxVA_tn'><a class='evo_admin_btn' href='{{{etixU}}}'>#{{@key}}</a></span>
 					<span class='evotxVA_data'>
 						<span class='etxva_main'>
 							<b>{{n}}</b>

@@ -21,7 +21,7 @@ if ($settings['show_icon']) {
 }
 
 if ($settings['show_title']) {
-    echo '<' . $settings['title_tag'] . ' class="el-betterdocs-cb-cat-title__layout-2"><span>' . $term->name . '</span></' . $settings['title_tag'] . '>';
+    echo '<' . BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) . ' class="el-betterdocs-cb-cat-title__layout-2"><span>' . $term->name . '</span></' . BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) . '>';
 }
 
 if ($settings['show_count']) {

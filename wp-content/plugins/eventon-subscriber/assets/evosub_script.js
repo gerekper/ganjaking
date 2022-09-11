@@ -14,7 +14,7 @@ jQuery(document).ready(function($){
 				'top':'0px',
 				'opacity':1
 			}).fadeIn();
-			$('html, body').animate({scrollTop:0}, 700);
+			//$('html, body').animate({scrollTop:0}, 700);
 		});
 	
 	// close subscriber popup

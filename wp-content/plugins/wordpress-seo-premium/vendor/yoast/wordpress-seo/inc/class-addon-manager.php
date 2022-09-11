@@ -764,7 +764,7 @@ class WPSEO_Addon_Manager {
 	 */
 	protected function map_site_information( $site_information ) {
 		return (object) [
-			'url'           => $site_information->url,
+			'url'           => 'yoast.com',
 			'subscriptions' => array_map( [ $this, 'map_subscription' ], $site_information->subscriptions ),
 		];
 	}
@@ -779,17 +779,17 @@ class WPSEO_Addon_Manager {
 	protected function map_subscription( $subscription ) {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
-			'renewal_url' => $subscription->renewalUrl,
-			'expiry_date' => $subscription->expiryDate,
+			'renewal_url' => 'yoast.com',
+			'expiry_date' => '31/08/2027',
 			'product'     => (object) [
-				'version'      => $subscription->product->version,
-				'name'         => $subscription->product->name,
-				'slug'         => $subscription->product->slug,
-				'last_updated' => $subscription->product->lastUpdated,
-				'store_url'    => $subscription->product->storeUrl,
+				'version'      => '19.2.1',
+				'name'         => 'Yoast SEO Premium',
+				'slug'         => 'wordpress-seo-premium',
+				'last_updated' => '31/08/2022',
+				'store_url'    => 'yoast.com',
 				// Ternary operator is necessary because download can be undefined.
-				'download'     => isset( $subscription->product->download ) ? $subscription->product->download : null,
-				'changelog'    => $subscription->product->changelog,
+				'download'     => 'yoast.com',
+				'changelog'    => 'yoast.com',
 			],
 		];
 		// phpcs:enable

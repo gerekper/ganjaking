@@ -7,6 +7,8 @@
 
 namespace Smush\Core\Modules;
 
+use Smush\Core\Api\Backoff;
+use Smush\Core\Api\Request_Multiple;
 use Smush\Core\Core;
 use Smush\Core\Helper;
 use WP_Error;
@@ -20,6 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Class Smush
  */
 class Smush extends Abstract_Module {
+	const ERROR_SSL_CERT = 'ssl_cert_error';
 
 	/**
 	 * Meta key to save smush result to db.
@@ -52,6 +55,15 @@ class Smush extends Abstract_Module {
 	private $prevent_infinite_loop;
 
 	/**
+	 * @var Request_Multiple
+	 */
+	private $request_multiple;
+	/**
+	 * @var Backoff
+	 */
+	private $backoff;
+
+	/**
 	 * WP_Smush constructor.
 	 */
 	public function init() {
@@ -73,6 +85,9 @@ class Smush extends Abstract_Module {
 
 		// Fix SSL CA certificates issue.
 		add_action( 'wp_smush_before_smush_file', array( $this, 'fix_ssl_ca_certificate_error' ) );
+
+		$this->request_multiple = new Request_Multiple();
+		$this->backoff = new Backoff();
 	}
 
 	/**
@@ -243,17 +258,7 @@ class Smush extends Abstract_Module {
 		return is_array( $image_sizes ) && ! in_array( $size, $image_sizes, true );
 	}
 
-	/**
-	 * Process an image with Smush.
-	 *
-	 * @since 3.8.0 Added new param $convert_to_webp.
-	 *
-	 * @param string $file_path        Absolute path to the image.
-	 * @param bool   $convert_to_webp  Convert the image to webp.
-	 *
-	 * @return array|bool|WP_Error
-	 */
-	public function do_smushit( $file_path = '', $convert_to_webp = false ) {
+	private function validate_file( $file_path ) {
 		$errors   = new WP_Error();
 		$dir_name = trailingslashit( dirname( $file_path ) );
 
@@ -285,6 +290,95 @@ class Smush extends Abstract_Module {
 			$errors->add( 'size_limit', sprintf( __( 'Skipped (%1$s), size limit exceeded', 'wp-smushit' ), size_format( $file_size, 1 ) ) );
 		}
 
+		return $errors;
+	}
+
+	private function smush_parallel( $file_paths, $convert_to_webp = false ) {
+		$file_errors = array();
+		$retry = array();
+		$requests = array();
+		foreach ( $file_paths as $file_key => $file_path ) {
+			$error = $this->validate_file( $file_path );
+			if ( $error->has_errors() ) {
+				$file_errors[ $file_key ] = $error;
+			} else {
+				$requests[ $file_key ] = $this->get_multi_api_request_args( $convert_to_webp, $file_path );
+			}
+		}
+
+		// Send off the valid paths to the API
+		$responses = array();
+		$this->request_multiple->do_requests( $requests, array(
+			'timeout'         => WP_SMUSH_TIMEOUT,
+			'connect_timeout' => 5,
+			'user-agent'      => WP_SMUSH_UA,
+			'complete'        => function ( $response, $response_key ) use ( &$requests, &$responses, &$retry, $file_paths, $convert_to_webp ) {
+				// Free up memory
+				$requests[ $response_key ] = null;
+
+				$file_path = $file_paths[ $response_key ];
+				if ( $this->should_retry_smush( $response ) ) {
+					$retry[ $response_key ] = $file_path;
+				} else {
+					$responses[ $response_key ] = $this->handle_response(
+						$response,
+						$file_path,
+						$convert_to_webp
+					);
+				}
+			},
+		) );
+
+		// Retry failures with exponential backoff
+		foreach ( $retry as $retry_key => $retry_file_path ) {
+			$responses[ $retry_key ] = $this->do_smushit(
+				$retry_file_path,
+				$convert_to_webp,
+				WP_SMUSH_RETRY_ATTEMPTS
+			);
+		}
+
+		// Merge the responses
+		return array_merge( $responses, $file_errors );
+	}
+
+	private function smush_sequential( $file_paths, $convert_to_webp = false ) {
+		$responses = array();
+		foreach ( $file_paths as $file_size => $file_path ) {
+			$responses[ $file_size ] = $this->do_smushit( $file_path, $convert_to_webp, WP_SMUSH_RETRY_ATTEMPTS );
+		}
+
+		return $responses;
+	}
+
+	/**
+	 * @param $convert_to_webp
+	 * @param $file_path
+	 *
+	 * @return array
+	 */
+	private function get_multi_api_request_args( $convert_to_webp, $file_path ) {
+		return array(
+			'url'     => $this->get_api_url(),
+			'headers' => $this->get_api_request_headers( $convert_to_webp ),
+			'data'    => file_get_contents( $file_path ),
+			'type'    => 'POST',
+		);
+	}
+
+	/**
+	 * Process an image with Smush.
+	 *
+	 * @since 3.8.0 Added new param $convert_to_webp.
+	 *
+	 * @param string $file_path        Absolute path to the image.
+	 * @param bool   $convert_to_webp  Convert the image to webp.
+	 * @param int    $retries  Number of times to retry the operation
+	 *
+	 * @return array|bool|WP_Error
+	 */
+	public function do_smushit( $file_path = '', $convert_to_webp = false, $retries = 0 ) {
+		$errors = $this->validate_file( $file_path );
 		if ( count( $errors->get_error_messages() ) ) {
 			Helper::logger()->error(
 				array(
@@ -295,71 +389,93 @@ class Smush extends Abstract_Module {
 			return $errors;
 		}
 
-		// Save original file permissions.
-		clearstatcache();
-		$perms = fileperms( $file_path ) & 0777;
-
 		// Optimize image, and fetch the response.
-		$response = $this->_post( $file_path, $convert_to_webp );
+		$response = $this->backoff->set_wait( WP_SMUSH_RETRY_WAIT )
+		                          ->set_max_attempts( $retries )
+		                          ->enable_jitter()
+		                          ->set_decider( array( $this, 'should_retry_smush' ) )
+		                          ->run( function () use ( $file_path, $convert_to_webp ) {
+			                          return $this->_post( $file_path, $convert_to_webp );
+		                          } );
 
-		if ( ! $response['success'] ) {
-			$errors->add( 'false_response', $response['message'] );
-		} elseif ( empty( $response['data'] ) ) {
-			// If there is no data.
-			$errors->add( 'no_data', __( 'Unknown API error', 'wp-smushit' ) );
-		}
+		return $this->handle_response( $response, $file_path, $convert_to_webp );
+	}
 
-		if ( count( $errors->get_error_messages() ) ) {
+	public function should_retry_smush( $response ) {
+		return WP_SMUSH_RETRY_ATTEMPTS > 0 && (
+				is_wp_error( $response )
+				|| 200 !== wp_remote_retrieve_response_code( $response )
+			);
+	}
+
+	/**
+	 * Takes the raw response from the API and performs all the necessary file operations etc.
+	 *
+	 * @param $response array|WP_Error
+	 * @param $file_path string
+	 * @param $convert_to_webp boolean
+	 *
+	 * @return array|WP_Error
+	 */
+	private function handle_response( $response, $file_path, $convert_to_webp ) {
+		$data = $this->parse_response( $response );
+
+		if ( is_wp_error( $data ) ) {
+			if ( $data->get_error_code() === self::ERROR_SSL_CERT ) {
+				// Switch to http protocol.
+				$this->settings->set_setting( 'wp-smush-use_http', 1 );
+			}
+
+			$error_format = $convert_to_webp
+				? 'Cannot convert to webp for image [%s].'
+				: 'Cannot smush image [%s].';
+
 			Helper::logger()->error(
 				array(
-					sprintf( $convert_to_webp ? 'Cannot convert to webp for image [%s].' : 'Cannot smush image [%s].', Helper::clean_file_path( $file_path ) ),
-					$errors->get_error_messages(),
+					sprintf( $error_format, Helper::clean_file_path( $file_path ) ),
+					$data->get_error_messages(),
 				)
 			);
-			return $errors;
+
+			return $data;
 		}
 
-		// If there are no savings, or image returned is bigger (size).
-		if ( ( ! empty( $response['data']->bytes_saved ) && (int) $response['data']->bytes_saved ) <= 0 || empty( $response['data']->image ) ) {
-			$bytes_saved = ! empty( $response['data']->bytes_saved ) ? $response['data']->bytes_saved : 0;
-			Helper::logger()->notice( sprintf( 'The smushed image is larger than the original image [%s] (bytes saved %d), keep original image.', Helper::clean_file_path( $file_path ), $bytes_saved ) );
-			return $response;
-		}
-
-		if ( $convert_to_webp ) {
-			$file_path = WP_Smush::get_instance()->core()->mod->webp->get_webp_file_path( $file_path, true );
-			file_put_contents( $file_path, $response['data']->image );
+		$bytes_saved = empty( $data->bytes_saved ) ? 0 : $data->bytes_saved;
+		if ( $bytes_saved > 0 ) {
+			$this->save_smushed_image_file(
+				$file_path,
+				$convert_to_webp,
+				$data->image
+			);
 		} else {
-			$temp_file = $file_path . '.tmp';
-
-			// Add the file as tmp.
-			file_put_contents( $temp_file, $response['data']->image );
-
-			// Replace the file.
-			$success = rename( $temp_file, $file_path );
-
-			// If temp file still exists, unlink it.
-			if ( file_exists( $temp_file ) ) {
-				unlink( $temp_file );
-			}
-
-			// If file renaming failed.
-			if ( ! $success ) {
-				copy( $temp_file, $file_path );
-				unlink( $temp_file );
-			}
+			// No savings, just add an entry to the log
+			Helper::logger()->notice(
+				sprintf(
+					'The smushed image is larger than the original image [%s] (bytes saved %d), keep original image.',
+					Helper::clean_file_path( $file_path ),
+					$bytes_saved
+				)
+			);
 		}
 
-		// Some servers are having issue with file permission, this should fix it.
-		if ( empty( $perms ) || ! $perms ) {
-			// Source: WordPress Core.
-			$stat  = stat( dirname( $file_path ) );
-			$perms = $stat['mode'] & 0000666; // Same permissions as parent folder, strip off the executable bits.
+		// No need to pass image data any further
+		$data->image = null;
+		$data->image_md5 = null;
+
+		// Check for API message and store in db.
+		if ( ! empty( $data->api_message ) ) {
+			$this->add_api_message( $data->api_message );
 		}
 
-		chmod( $file_path, $perms );
+		// If is_premium is set in response, send it over to check for member validity.
+		if ( ! empty( $data->is_premium ) ) {
+			$this->api_headers['is_premium'] = $data->is_premium;
+		}
 
-		return $response;
+		return array(
+			'success' => true,
+			'data'    => $data,
+		);
 	}
 
 	/**
@@ -373,103 +489,80 @@ class Smush extends Abstract_Module {
 	 * @return bool|array array containing success status, and stats
 	 */
 	private function _post( $file_path, $convert_to_webp = false ) {
-		$headers = array(
-			'accept'       => 'application/json',   // The API returns JSON.
-			'content-type' => 'application/binary', // Set content type to binary.
-			'lossy'        => $this->settings->get( 'lossy' ) ? 'true' : 'false',
-			'exif'         => $this->settings->get( 'strip_exif' ) ? 'false' : 'true',
-		);
-
-		if ( $convert_to_webp ) {
-			$headers['webp'] = 'true';
-		}
-
-		// Check if premium member, add API key.
-		$api_key = Helper::get_wpmudev_apikey();
-		if ( ! empty( $api_key ) && WP_Smush::is_pro() ) {
-			$headers['apikey'] = $api_key;
-		}
-
-		$api_url = defined( 'WP_SMUSH_API_HTTP' ) ? WP_SMUSH_API_HTTP : WP_SMUSH_API;
-		$args    = array(
-			'headers'    => $headers,
-			'body'       => file_get_contents( $file_path ),
-			'timeout'    => WP_SMUSH_TIMEOUT,
-			'user-agent' => WP_SMUSH_UA,
-		);
-
 		// Temporary increase the limit.
 		wp_raise_memory_limit( 'image' );
-		$result = wp_remote_post( $api_url, $args );
-		unset( $args ); // Free memory.
 
-		if ( is_wp_error( $result ) ) {
-			$er_msg = $result->get_error_message();
+		return wp_remote_post(
+			$this->get_api_url(),
+			$this->get_api_request_args( $file_path, $convert_to_webp )
+		);
+	}
 
-			// Hostgator issue.
-			if ( ! empty( $er_msg ) && strpos( $er_msg, 'SSL CA cert' ) !== false ) {
-				// Update DB for using http protocol.
-				$this->settings->set_setting( 'wp-smush-use_http', 1 );
-			}
+	/**
+	 * @param $response array|WP_Error
+	 *
+	 * @return object|WP_Error
+	 */
+	private function parse_response( $response ) {
+		if ( is_wp_error( $response ) ) {
+			$error = $response->get_error_message();
 
-			// Check for timeout error and suggest to filter timeout.
-			if ( strpos( $er_msg, 'timed out' ) ) {
-				$data['message'] = esc_html__( "Skipped due to a timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. define('WP_SMUSH_TIMEOUT', 150);", 'wp-smushit' );
+			if ( strpos( $error, 'SSL CA cert' ) !== false ) {
+				return new WP_Error(
+					self::ERROR_SSL_CERT,
+					$error
+				);
+			} else if ( strpos( $error, 'timed out' ) !== false ) {
+				return new WP_Error(
+					'time_out',
+					esc_html__( "Skipped due to a timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. define('WP_SMUSH_TIMEOUT', 150);", 'wp-smushit' )
+				);
 			} else {
-				// Handle error.
-				/* translators: %s error message */
-				$data['message'] = sprintf( __( 'Error posting to API: %s', 'wp-smushit' ), $result->get_error_message() );
+				return new WP_Error(
+					'error_posting_to_api',
+					sprintf( __( 'Error posting to API: %s', 'wp-smushit' ), $error )
+				);
 			}
-
-			$data['success'] = false;
-			unset( $result ); // Free memory.
-			return $data;
-		} elseif ( 200 !== wp_remote_retrieve_response_code( $result ) ) {
-			// Handle error.
-			/* translators: %1$s: response code, %2$s error message */
-			$data['message'] = sprintf( __( 'Error posting to API: %1$s %2$s', 'wp-smushit' ), wp_remote_retrieve_response_code( $result ), wp_remote_retrieve_response_message( $result ) );
-			$data['success'] = false;
-			unset( $result ); // Free memory.
-			return $data;
 		}
 
-		// If there is a response and image was successfully optimised.
-		$response = json_decode( $result['body'] );
-		if ( $response && true === $response->success ) {
-			// If there is any savings.
-			if ( $response->data->bytes_saved > 0 ) {
-				// base64_decode is necessary to send binary img over JSON, no security problems here!
-				$image     = base64_decode( $response->data->image );
-				$image_md5 = md5( $response->data->image );
-				if ( $response->data->image_md5 !== $image_md5 ) {
-					// Handle error.
-					$data['message'] = __( 'Smush data corrupted, try again.', 'wp-smushit' );
-					$data['success'] = false;
-				} else {
-					$data['success']     = true;
-					$data['data']        = $response->data;
-					$data['data']->image = $image;
-				}
-				unset( $image );// Free memory.
-			} else {
-				// Just return the data.
-				$data['success'] = true;
-				$data['data']    = $response->data;
-			}
+		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			$error = sprintf(
+				__( 'Error posting to API: %1$s %2$s', 'wp-smushit' ),
+				wp_remote_retrieve_response_code( $response ),
+				wp_remote_retrieve_response_message( $response )
+			);
 
-			// Check for API message and store in db.
-			if ( isset( $response->data->api_message ) && ! empty( $response->data->api_message ) ) {
-				$this->add_api_message( $response->data->api_message );
-			}
+			return new WP_Error( 'non_200_response', $error );
+		}
 
-			// If is_premium is set in response, send it over to check for member validity.
-			if ( ! empty( $response->data ) && isset( $response->data->is_premium ) ) {
-				$this->api_headers['is_premium'] = $response->data->is_premium;
-			}
-		} else {
-			// Server side error, get message from response.
-			$data['message'] = ! empty( $response->data ) ? $response->data : __( "Image couldn't be smushed", 'wp-smushit' );
-			$data['success'] = false;
+		$json = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( empty( $json->success ) ) {
+			$error = ! empty( $json->data )
+				? $json->data
+				: __( "Image couldn't be smushed", 'wp-smushit' );
+
+			return new WP_Error( 'unsuccessful_smush', $error );
+		}
+
+		if ( empty( $json->data ) ) {
+			return new WP_Error( 'no_data', __( 'Unknown API error', 'wp-smushit' ) );
+		}
+
+		$data = $json->data;
+		$bytes_saved = empty( $data->bytes_saved ) ? 0 : $data->bytes_saved;
+		$image = empty( $data->image ) ? '' : $data->image;
+
+		if (
+			$bytes_saved > 0
+			&& $data->image_md5 !== md5( $image )
+		) {
+			$error = __( 'Smush data corrupted, try again.', 'wp-smushit' );
+
+			return new WP_Error( 'data_corrupted', $error );
+		}
+
+		if ( $bytes_saved > 0 && ! empty( $image ) ) {
+			$data->image = base64_decode( $data->image );
 		}
 
 		return $data;
@@ -488,7 +581,6 @@ class Smush extends Abstract_Module {
 		if ( array_key_exists( $api_message['timestamp'], $o_api_message ) ) {
 			return;
 		}
-		$api_message['status'] = 'show';
 
 		$message                              = array();
 		$message[ $api_message['timestamp'] ] = array(
@@ -533,6 +625,29 @@ class Smush extends Abstract_Module {
 	}
 
 	/**
+	 * Calculate saving percentage from existing and current stats
+	 *
+	 * @param object|string $stats           Stats object.
+	 * @param object|string $existing_stats  Existing stats object.
+	 *
+	 * @return float
+	 */
+	public function calculate_percentage( $stats = '', $existing_stats = '' ) {
+		if ( empty( $stats ) || empty( $existing_stats ) ) {
+			return 0;
+		}
+		$size_before = ! empty( $stats->size_before ) ? $stats->size_before : $existing_stats->size_before;
+		$size_after  = ! empty( $stats->size_after ) ? $stats->size_after : $existing_stats->size_after;
+		$savings     = $size_before - $size_after;
+		if ( $savings > 0 ) {
+			$percentage = ( $savings / $size_before ) * 100;
+			return $percentage > 0 ? round( $percentage, 2 ) : $percentage;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Optimises the image sizes
 	 *
 	 * Note: Function name is a bit confusing, it is for optimisation, and calls the resizing function as well
@@ -571,6 +686,7 @@ class Smush extends Abstract_Module {
 
 		// File path and URL for original image.
 		$file_path = Helper::get_attached_file( $attachment_id );// S3+.
+		$file_paths = array();
 
 		// If images has other registered size, smush them first.
 		if ( ! empty( $meta['sizes'] ) && ! has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) {
@@ -594,7 +710,7 @@ class Smush extends Abstract_Module {
 				$file_path_size = path_join( dirname( $file_path ), $size_data['file'] );
 
 				$ext = Helper::get_mime_type( $file_path_size );
-				if ( $ext && false === array_search( $ext, Core::$mime_types, true ) ) {
+				if ( $ext && ! in_array( $ext, Core::$mime_types, true ) ) {
 					continue;
 				}
 
@@ -622,21 +738,7 @@ class Smush extends Abstract_Module {
 					continue;
 				}
 
-				// Store details for each size key.
-				$response = $this->do_smushit( $file_path_size );
-
-				if ( is_wp_error( $response ) ) {
-					// Logged the error inside do_smushit.
-					return $response;
-				}
-
-				// If there are no stats or resulting image is larger than original.
-				if ( empty( $response['data'] ) || $response['data']->after_size > $response['data']->before_size ) {
-					continue;
-				}
-
-				// All clear, store the stat.
-				$stats['sizes'][ $size_key ] = (object) $this->array_fill_placeholders( $this->get_size_signature(), (array) $response['data'] );
+				$file_paths[ $size_key ] = $file_path_size;
 			}
 		} elseif ( ! has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) {
 			$smush_uploaded = true;
@@ -652,15 +754,28 @@ class Smush extends Abstract_Module {
 
 		// If original size is supposed to be smushed.
 		if ( $smush_uploaded && $smush_full_image ) {
-			$response = $this->do_smushit( $file_path );
+			$file_paths['full'] = $file_path;
+		}
+
+		if ( WP_SMUSH_PARALLEL ) {
+			$responses = $this->smush_parallel( $file_paths );
+		} else {
+			$responses = $this->smush_sequential( $file_paths );
+		}
+		foreach ( $responses as $size_key => $response ) {
 
 			if ( is_wp_error( $response ) ) {
 				// Logged the error inside do_smushit.
 				return $response;
 			}
 
+			// If there are no stats or resulting image is larger than original.
+			if ( empty( $response['data'] ) || $response['data']->after_size > $response['data']->before_size ) {
+				continue;
+			}
+
 			// All clear, store the stat.
-			$stats['sizes']['full'] = (object) $this->array_fill_placeholders( $this->get_size_signature(), (array) $response['data'] );
+			$stats['sizes'][ $size_key ] = (object) $this->array_fill_placeholders( $this->get_size_signature(), (array) $response['data'] );
 		}
 
 		// Make sure we have the correct API details.
@@ -721,31 +836,6 @@ class Smush extends Abstract_Module {
 	}
 
 	/**
-	 * Calculate saving percentage from existing and current stats
-	 *
-	 * @param object|string $stats           Stats object.
-	 * @param object|string $existing_stats  Existing stats object.
-	 *
-	 * @return float
-	 */
-	public function calculate_percentage( $stats = '', $existing_stats = '' ) {
-		if ( empty( $stats ) || empty( $existing_stats ) ) {
-			return 0;
-		}
-		$size_before = ! empty( $stats->size_before ) ? $stats->size_before : $existing_stats->size_before;
-		$size_after  = ! empty( $stats->size_after ) ? $stats->size_after : $existing_stats->size_after;
-		$savings     = $size_before - $size_after;
-		if ( $savings > 0 ) {
-			$percentage = ( $savings / $size_before ) * 100;
-			$percentage = $percentage > 0 ? round( $percentage, 2 ) : $percentage;
-
-			return $percentage;
-		}
-
-		return 0;
-	}
-
-	/**
 	 * Fix SSL CA Certificate issue.
 	 *
 	 * @since 3.9.6
@@ -763,7 +853,7 @@ class Smush extends Abstract_Module {
 		 * Check for use of http url (Hostgator mostly).
 		 */
 		if ( is_null( $use_http ) ) {
-			$use_http = $this->settings->get_setting( 'wp-smush-use_http', false );
+			$use_http = $this->settings->get_setting( 'wp-smush-use_http' );
 		}
 
 		if ( $use_http ) {
@@ -788,20 +878,19 @@ class Smush extends Abstract_Module {
 	/**
 	 * Smush image
 	 *
+	 * We need to detect the response status by using $ref_errors->has_errors().
+	 *
 	 * @since 3.9.6
 	 *
 	 * @param int      $attachment_id  Attachment ID.
 	 * @param array    $ref_meta Original metadata (passed by reference).
 	 * @param WP_Error $ref_errors WP_Error (passed by reference).
 	 *
-	 * We need to detect the response status by using $ref_errors->has_errors().
-	 *
 	 * @return mixed Returns response data, TRUE if smushed the file, or FALSE with error(s).
 	 */
 	public function smushit( $attachment_id, &$ref_meta, &$ref_errors ) {
 		/**
-		 * Prevent infinite loop when someone call
-		 * wp_generate_attachment_metadata inside smushit.
+		 * Prevent infinite loop when someone calls `wp_generate_attachment_metadata` inside smushit.
 		 *
 		 * By default, we already avoid it via set in-progress,
 		 * but it's better to prevent it from another attachment file from third party and issue from object cache too.
@@ -814,18 +903,6 @@ class Smush extends Abstract_Module {
 		if ( ! $ref_errors || ! is_wp_error( $ref_errors ) ) {
 			$ref_errors = new WP_Error();
 		}
-
-		/**
-		 * Error code sample.
-		 *
-		 * $ref_errors->add(
-		 *      'error_code',
-		 *      'error_message',
-		 *      array(
-		 *          'file_name' => 'cleaned file path',
-		 *      )
-		 * );
-		 */
 
 		$attachment_id = (int) $attachment_id;
 		if ( $attachment_id < 1 ) {
@@ -896,7 +973,7 @@ class Smush extends Abstract_Module {
 		}
 
 		// Get the file path for backup.
-		$file_path = Helper::get_attached_file( $attachment_id );// S3+.
+		$file_path = Helper::get_attached_file( $attachment_id ); // S3+.
 
 		// If the file doesn't exist, return.
 		if ( ! file_exists( $file_path ) ) {
@@ -1053,7 +1130,7 @@ class Smush extends Abstract_Module {
 	 * @param int  $attachment_id  Attachment ID.
 	 * @param bool $return         Return/echo the stats.
 	 *
-	 * @return array|string
+	 * @return array|string|void
 	 */
 	public function smush_single( $attachment_id, $return = false ) {
 		/**
@@ -1111,7 +1188,7 @@ class Smush extends Abstract_Module {
 		$status = WP_Smush::get_instance()->library()->generate_markup( $attachment_id );
 
 		$this->update_resmush_list( $attachment_id );
-		\Smush\Core\Core::add_to_smushed_list( $attachment_id );
+		Core::add_to_smushed_list( $attachment_id );
 		if ( $return ) {
 			return $status;
 		}
@@ -1122,7 +1199,7 @@ class Smush extends Abstract_Module {
 	/**
 	 * If auto smush is set to true or not, default is true
 	 *
-	 * @return int|mixed
+	 * @return int|bool
 	 */
 	public function is_auto_smush_enabled() {
 		$auto_smush = $this->settings->get( 'auto' );
@@ -1159,7 +1236,7 @@ class Smush extends Abstract_Module {
 		// Check and Update resmush list.
 		$resmush_list = get_option( 'wp-smush-resmush-list' );
 		if ( $resmush_list ) {
-			$this->update_resmush_list( $image_id, 'wp-smush-resmush-list' );
+			$this->update_resmush_list( $image_id );
 		}
 
 		/** Delete Backups  */
@@ -1191,9 +1268,7 @@ class Smush extends Abstract_Module {
 		$savings = $stats->size_before - $stats->size_after;
 		if ( $savings > 0 ) {
 			$percentage = ( $savings / $stats->size_before ) * 100;
-			$percentage = $percentage > 0 ? round( $percentage, 2 ) : $percentage;
-
-			return $percentage;
+			return $percentage > 0 ? round( $percentage, 2 ) : $percentage;
 		}
 
 		return 0;
@@ -1272,7 +1347,7 @@ class Smush extends Abstract_Module {
 		}
 
 		// Update stats if it's the full size image. Return if it's not the full image size.
-		if ( $post_data['filepath'] != get_attached_file( $post_data['postid'] ) ) {
+		if ( get_attached_file( $post_data['postid'] ) !== $post_data['filepath'] ) {
 			return;
 		}
 
@@ -1324,4 +1399,138 @@ class Smush extends Abstract_Module {
 		return $meta;
 	}
 
+	/**
+	 * @param $file_path
+	 * @param $image
+	 *
+	 * @return string
+	 */
+	public function put_webp_image_file( $file_path, $image ) {
+		$file_path = WP_Smush::get_instance()->core()->mod->webp->get_webp_file_path( $file_path, true );
+		file_put_contents( $file_path, $image );
+
+		return $file_path;
+	}
+
+	/**
+	 * @param $file_path
+	 * @param $image
+	 *
+	 * @return void
+	 */
+	public function put_smushed_image_file( $file_path, $image ) {
+		$temp_file = $file_path . '.tmp';
+
+		// Add the file as tmp.
+		file_put_contents( $temp_file, $image );
+
+		// Replace the file.
+		$success = rename( $temp_file, $file_path );
+
+		// If temp file still exists, unlink it.
+		if ( file_exists( $temp_file ) ) {
+			unlink( $temp_file );
+		}
+
+		// If file renaming failed.
+		if ( ! $success ) {
+			copy( $temp_file, $file_path );
+			unlink( $temp_file );
+		}
+	}
+
+	/**
+	 * @param $file_path
+	 *
+	 * @return int
+	 */
+	public function get_file_permissions( $file_path ) {
+		clearstatcache();
+		$perms = fileperms( $file_path ) & 0777;
+		// Some servers are having issue with file permission, this should fix it.
+		if ( empty( $perms ) ) {
+			// Source: WordPress Core.
+			$stat = stat( dirname( $file_path ) );
+			$perms = $stat['mode'] & 0000666; // Same permissions as parent folder, strip off the executable bits.
+		}
+
+		return $perms;
+	}
+
+	private function save_smushed_image_file( $file_path, $convert_to_webp, $image ) {
+		// Backup the old permissions
+		$permissions = $this->get_file_permissions( $file_path );
+
+		// Save the new file
+		if ( $convert_to_webp ) {
+			$file_path = $this->put_webp_image_file( $file_path, $image );
+		} else {
+			$this->put_smushed_image_file( $file_path, $image );
+		}
+
+		// Restore the old permissions
+		chmod( $file_path, $permissions );
+	}
+
+	/**
+	 * @param $convert_to_webp
+	 *
+	 * @return string[]
+	 */
+	private function get_api_request_headers( $convert_to_webp ) {
+		$headers = array(
+			'accept'       => 'application/json',   // The API returns JSON.
+			'content-type' => 'application/binary', // Set content type to binary.
+			'lossy'        => $this->settings->get( 'lossy' ) ? 'true' : 'false',
+			'exif'         => $this->settings->get( 'strip_exif' ) ? 'false' : 'true',
+		);
+
+		if ( $convert_to_webp ) {
+			$headers['webp'] = 'true';
+		}
+
+		// Check if premium member, add API key.
+		$api_key = Helper::get_wpmudev_apikey();
+		if ( ! empty( $api_key ) && WP_Smush::is_pro() ) {
+			$headers['apikey'] = $api_key;
+		}
+
+		return $headers;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_api_url() {
+		return defined( 'WP_SMUSH_API_HTTP' ) ? WP_SMUSH_API_HTTP : WP_SMUSH_API;
+	}
+
+	/**
+	 * @param $file_path
+	 * @param $convert_to_webp
+	 *
+	 * @return array
+	 */
+	private function get_api_request_args( $file_path, $convert_to_webp ) {
+		return array(
+			'headers'    => $this->get_api_request_headers( $convert_to_webp ),
+			'body'       => file_get_contents( $file_path ),
+			'timeout'    => WP_SMUSH_TIMEOUT,
+			'user-agent' => WP_SMUSH_UA,
+		);
+	}
+
+	/**
+	 * @return Request_Multiple
+	 */
+	public function get_request_multiple() {
+		return $this->request_multiple;
+	}
+
+	/**
+	 * @param Request_Multiple $request_multiple
+	 */
+	public function set_request_multiple( $request_multiple ) {
+		$this->request_multiple = $request_multiple;
+	}
 }

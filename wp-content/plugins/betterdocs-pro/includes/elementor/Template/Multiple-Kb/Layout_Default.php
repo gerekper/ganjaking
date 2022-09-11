@@ -21,14 +21,14 @@ echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="el-b
     }
 
     if ($settings['show_title']) {
-        echo '<' . $settings['title_tag'] . ' class="el-betterdocs-cb-cat-title">' . $term->name . '</' . $settings['title_tag'] . '>';
+        echo '<' . BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) . ' class="el-betterdocs-cb-cat-title">' . $term->name . '</' . BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) . '>';
     }
 
     if ($settings['show_count']) {
         if($term->count == 1) {
-            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], $term->count, $settings['count_suffix_singular']);
+            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', esc_html($settings['count_prefix']), $term->count, esc_html($settings['count_suffix_singular']));
         } else {
-            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], $term->count, $settings['count_suffix']);
+            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', esc_html($settings['count_prefix']), $term->count, esc_html($settings['count_suffix']));
         }
     }
 
